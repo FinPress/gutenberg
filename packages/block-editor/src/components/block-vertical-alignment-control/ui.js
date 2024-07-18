@@ -43,6 +43,11 @@ function BlockVerticalAlignmentUI( {
 	controls = DEFAULT_CONTROLS,
 	isCollapsed = true,
 	isToolbar,
+	label = _x( 'Align vertically', 'Block vertical alignment setting label' ),
+	description = _x(
+		'Change vertical alignment',
+		'Block vertical alignment setting description'
+	),
 } ) {
 	function applyOrUnset( align ) {
 		return () => onChange( value === align ? undefined : align );
@@ -53,7 +58,9 @@ function BlockVerticalAlignmentUI( {
 		BLOCK_ALIGNMENTS_CONTROLS[ DEFAULT_CONTROL ];
 
 	const UIComponent = isToolbar ? ToolbarGroup : ToolbarDropdownMenu;
-	const extraProps = isToolbar ? { isCollapsed } : {};
+	const extraProps = isToolbar
+		? { isCollapsed }
+		: { toggleProps: { describedBy: description } };
 
 	return (
 		<UIComponent
@@ -62,10 +69,8 @@ function BlockVerticalAlignmentUI( {
 					? activeAlignment.icon
 					: defaultAlignmentControl.icon
 			}
-			label={ _x(
-				'Change vertical alignment',
-				'Block vertical alignment setting label'
-			) }
+			label={ label }
+			describedBy={ description }
 			controls={ controls.map( ( control ) => {
 				return {
 					...BLOCK_ALIGNMENTS_CONTROLS[ control ],
