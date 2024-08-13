@@ -111,6 +111,7 @@ export function FlatTermSelector( { slug, __nextHasNoMarginBottom } ) {
 			const query = {
 				...DEFAULT_QUERY,
 				include: _termIds?.join( ',' ),
+				orderby: 'include',
 				per_page: -1,
 			};
 
