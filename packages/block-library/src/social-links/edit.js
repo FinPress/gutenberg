@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * External dependencies
  */
@@ -21,9 +19,8 @@ import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import {
-	PanelBody,
 	ToggleControl,
-	ToolbarDropdownMenu,
+	SelectControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
@@ -36,10 +33,10 @@ import { useSelect } from '@wordpress/data';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 const sizeOptions = [
-	{ name: __( 'Small' ), value: 'has-small-icon-size' },
-	{ name: __( 'Normal' ), value: 'has-normal-icon-size' },
-	{ name: __( 'Large' ), value: 'has-large-icon-size' },
-	{ name: __( 'Huge' ), value: 'has-huge-icon-size' },
+	{ label: __( 'Small' ), value: 'has-small-icon-size' },
+	{ label: __( 'Normal' ), value: 'has-normal-icon-size' },
+	{ label: __( 'Large' ), value: 'has-large-icon-size' },
+	{ label: __( 'Huge' ), value: 'has-huge-icon-size' },
 ];
 
 export function SocialLinksEdit( props ) {
@@ -174,6 +171,31 @@ export function SocialLinksEdit( props ) {
 					dropdownMenuProps={ dropdownMenuProps }
 				>
 					<ToolsPanelItem
+						hasValue={ () => !! size }
+						label={ __( 'Icon Size' ) }
+						onDeselect={ () =>
+							setAttributes( { size: 'has-normal-icon-size' } )
+						}
+						resetAllFilter={ () => ( {
+							size: 'has-normal-icon-size',
+						} ) }
+						isShownByDefault
+						panelId={ clientId }
+					>
+						<SelectControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ __( 'Icon Size' ) }
+							onChange={ ( entry ) => {
+								setAttributes( {
+									size: entry,
+								} );
+							} }
+							value={ size ?? 'has-normal-icon-size' }
+							options={ sizeOptions }
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
 						isShownByDefault
 						label={ __( 'Open links in new tab' ) }
 						hasValue={ () => !! openInNewTab }
@@ -249,7 +271,7 @@ export function SocialLinksEdit( props ) {
 		</>
 	);
 }
-/* eslint-enable no-unused-vars */
+
 const iconColorAttributes = {
 	iconColor: 'icon-color',
 	iconBackgroundColor: 'icon-background-color',
