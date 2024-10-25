@@ -9,7 +9,7 @@
  */
 import fs from 'node:fs/promises';
 import $RefParser from '@apidevtools/json-schema-ref-parser';
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath } from 'node:url';
 
 /**
  * @typedef {import('@apidevtools/json-schema-ref-parser').JSONSchema} JSONSchema
@@ -20,20 +20,21 @@ import { fileURLToPath } from 'node:url'
  *
  * @type {URL}
  */
-const THEME_JSON_SCHEMA_PATH = fileURLToPath( new URL(
-	'../../schemas/json/theme.json',
-	import.meta.url
-) );
+const THEME_JSON_SCHEMA_PATH = fileURLToPath(
+	new URL( '../../schemas/json/theme.json', import.meta.url )
+);
 
 /**
  * Path to docs file.
  *
  * @type {URL}
  */
-const REFERENCE_DOC_PATH = fileURLToPath( new URL(
-	'../../docs/reference-guides/theme-json-reference/theme-json-living.md',
-	import.meta.url
-) );
+const REFERENCE_DOC_PATH = fileURLToPath(
+	new URL(
+		'../../docs/reference-guides/theme-json-reference/theme-json-living.md',
+		import.meta.url
+	)
+);
 
 /**
  * Start token for matching string in doc file.
@@ -266,13 +267,10 @@ function generateDocs( themeJson ) {
  * Main function.
  */
 async function main() {
-	const themeJson = await $RefParser.dereference(
-		THEME_JSON_SCHEMA_PATH,
-		{
-			parse: { binary: false, text: false, yaml: false },
-			resolve: { external: false },
-		}
-	);
+	const themeJson = await $RefParser.dereference( THEME_JSON_SCHEMA_PATH, {
+		parse: { binary: false, text: false, yaml: false },
+		resolve: { external: false },
+	} );
 
 	const themeJsonReference = await fs.readFile( REFERENCE_DOC_PATH, {
 		encoding: 'utf8',
