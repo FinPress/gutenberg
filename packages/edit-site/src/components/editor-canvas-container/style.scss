@@ -32,4 +32,12 @@
 	top: $grid-unit-10;
 	z-index: 2;
 	background: $white;
+
+	// Prevents Scrollbar overlapping the close button when viewing revisions.
+	&[aria-label="Close revisions"] {
+		position: relative;
+		top: 0;
+		margin: 8px 0;
+		left: calc(100% - #{$grid-unit-50});
+	}
 }
