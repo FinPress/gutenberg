@@ -14,7 +14,7 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 		$stylesheet       = get_stylesheet();
 		$global_styles_id = WP_Theme_JSON_Resolver_Gutenberg::get_user_global_styles_post_id();
 		$paths[]          = '/wp/v2/global-styles/themes/' . $stylesheet . '?context=view';
-		$paths[]          = '/wp/v2/global-styles/' . $global_styles_id . '?context=view';
+		$paths[]          = array( '/wp/v2/global-styles/' . $global_styles_id, 'OPTIONS' );
 		$excluded_paths[] = '/wp/v2/global-styles/themes/' . $stylesheet;
 		$excluded_paths[] = '/wp/v2/global-styles/' . $global_styles_id;
 	}
