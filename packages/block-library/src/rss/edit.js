@@ -122,7 +122,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 		style: {
 			...attributes?.style,
 			border: undefined,
-			spacing:undefined
+			spacing: undefined
 		},
 	};
 	return (
