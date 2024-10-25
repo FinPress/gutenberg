@@ -143,6 +143,12 @@ export default function save( { attributes } ) {
 				/>
 			) }
 
+			{ /* The `wp-block-cover__background` needs to be immediately before
+			the `wp-block-cover__inner-container`, so the exclusion CSS selector
+			`.wp-block-cover__background + .wp-block-cover__inner-container`
+			works properly. If it needs to be changed in the future, the
+			selector for the backward compatibility for v14 deprecation also
+			needs change. */ }
 			<span
 				aria-hidden="true"
 				className={ clsx(
