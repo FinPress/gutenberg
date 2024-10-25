@@ -130,6 +130,10 @@
 		}
 	}
 
+	.block-editor-block-toolbar {
+		overflow: visible;
+	}
+
 	.block-editor-block-toolbar .components-toolbar-group,
 	.block-editor-block-toolbar .components-toolbar {
 		border-right-color: $gray-900;
