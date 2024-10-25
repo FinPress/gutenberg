@@ -514,22 +514,18 @@ export const toggleDistractionFree =
 
 /**
  * Action that toggles the Fullscreen Mode view option.
- * Shows a notice when option is toggled.
  */
 export const toggleFullscreenMode =
 	() =>
 	( { registry } ) => {
-		// Determine the current state of the Fullscreen Mode option.
 		const isFullscreen = registry
 			.select( preferencesStore )
 			.get( 'core/edit-post', 'fullscreenMode' );
 
-		// Toggle the Fullscreen Mode option.
 		registry
 			.dispatch( preferencesStore )
 			.toggle( 'core/edit-post', 'fullscreenMode' );
 
-		// Show a notice when the Fullscreen Mode option is toggled for visual feedback.
 		registry
 			.dispatch( noticesStore )
 			.createInfoNotice(
@@ -540,6 +536,9 @@ export const toggleFullscreenMode =
 					actions: [
 						{
 							label: __( 'Undo' ),
+							speakMessage: isFullscreen
+								? __( 'Fullscreen mode activated.' )
+								: __( 'Fullscreen mode deactivated.' ),
 							onClick: () => {
 								registry
 									.dispatch( preferencesStore )

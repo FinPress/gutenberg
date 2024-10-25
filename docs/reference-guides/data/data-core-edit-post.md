@@ -530,7 +530,7 @@ _Parameters_
 
 ### toggleFullscreenMode
 
-Action that toggles the Fullscreen Mode view option. Shows a notice when option is toggled.
+Action that toggles the Fullscreen Mode view option.
 
 ### togglePinnedPluginItem
 

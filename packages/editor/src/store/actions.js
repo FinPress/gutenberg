@@ -846,6 +846,9 @@ export const toggleDistractionFree =
 					{
 						id: 'core/editor/distraction-free-mode/notice',
 						type: 'snackbar',
+						speakMessage: isDistractionFree
+							? __( 'Distraction free mode activated.' )
+							: __( 'Distraction free mode deactivated.' ),
 						actions: [
 							{
 								label: __( 'Undo' ),
@@ -875,20 +878,16 @@ export const toggleDistractionFree =
 
 /**
  * Action that toggles the Spotlight Mode view option.
- * Shows a notice when option is toggled.
  */
 export const toggleSpotlightMode =
 	() =>
 	( { registry } ) => {
-		// Determine the current state of the Spotlight Mode option.
 		const isFocusMode = registry
 			.select( preferencesStore )
 			.get( 'core', 'focusMode' );
 
-		// Toggle the Spotlight Mode option.
 		registry.dispatch( preferencesStore ).toggle( 'core', 'focusMode' );
 
-		// Show a notice when the Spotlight Mode option is toggled for visual feedback.
 		registry
 			.dispatch( noticesStore )
 			.createInfoNotice(
@@ -896,6 +895,9 @@ export const toggleSpotlightMode =
 				{
 					id: 'core/editor/toggle-spotlight-mode/notice',
 					type: 'snackbar',
+					speakMessage: isFocusMode
+						? __( 'Spotlight mode activated.' )
+						: __( 'Spotlight mode deactivated.' ),
 					actions: [
 						{
 							label: __( 'Undo' ),
@@ -912,20 +914,16 @@ export const toggleSpotlightMode =
 
 /**
  * Action that toggles the Top Toolbar view option.
- * Shows a notice when option is toggled.
  */
 export const toggleTopToolbar =
 	() =>
 	( { registry } ) => {
-		// Determine the current state of the Top Toolbar option.
 		const isTopToolbar = registry
 			.select( preferencesStore )
 			.get( 'core', 'fixedToolbar' );
 
-		// Toggle the Top Toolbar option.
 		registry.dispatch( preferencesStore ).toggle( 'core', 'fixedToolbar' );
 
-		// Show a notice when the Top Toolbar option is toggled for visual feedback.
 		registry
 			.dispatch( noticesStore )
 			.createInfoNotice(
@@ -935,9 +933,13 @@ export const toggleTopToolbar =
 				{
 					id: 'core/editor/toggle-top-toolbar/notice',
 					type: 'snackbar',
+					speakMessage: isTopToolbar
+						? __( 'Top toolbar activated.' )
+						: __( 'Top toolbar deactivated.' ),
 					actions: [
 						{
 							label: __( 'Undo' ),
+
 							onClick: () => {
 								registry
 									.dispatch( preferencesStore )

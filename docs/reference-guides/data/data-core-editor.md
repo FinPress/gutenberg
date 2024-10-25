@@ -1621,11 +1621,11 @@ _Related_
 
 ### toggleSpotlightMode
 
-Action that toggles the Spotlight Mode view option. Shows a notice when option is toggled.
+Action that toggles the Spotlight Mode view option.
 
 ### toggleTopToolbar
 
-Action that toggles the Top Toolbar view option. Shows a notice when option is toggled.
+Action that toggles the Top Toolbar view option.
 
 ### trashPost
 
