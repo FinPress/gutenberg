@@ -69,12 +69,7 @@ export default function MoreMenu() {
 								info={ __(
 									'Access all block and document tools in a single place'
 								) }
-								messageActivated={ __(
-									'Top toolbar activated'
-								) }
-								messageDeactivated={ __(
-									'Top toolbar deactivated'
-								) }
+								disableSpeech
 							/>
 							<PreferenceToggleMenuItem
 								scope="core"
@@ -83,12 +78,7 @@ export default function MoreMenu() {
 								info={ __( 'Write with calmness' ) }
 								handleToggling={ false }
 								onToggle={ toggleDistractionFree }
-								messageActivated={ __(
-									'Distraction free mode activated'
-								) }
-								messageDeactivated={ __(
-									'Distraction free mode deactivated'
-								) }
+								disableSpeech
 								shortcut={ displayShortcut.primaryShift(
 									'\\'
 								) }
@@ -100,12 +90,7 @@ export default function MoreMenu() {
 								info={ __( 'Focus on one block at a time' ) }
 								handleToggling={ false }
 								onToggle={ toggleSpotlightMode }
-								messageActivated={ __(
-									'Spotlight mode activated'
-								) }
-								messageDeactivated={ __(
-									'Spotlight mode deactivated'
-								) }
+								disableSpeech
 							/>
 							<ViewMoreMenuGroup.Slot fillProps={ { onClose } } />
 						</MenuGroup>
