@@ -6,7 +6,7 @@ import TextareaAutosize from 'react-autosize-textarea';
 /**
  * WordPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
 	getBlockAttributes,
@@ -21,7 +21,7 @@ import {
  */
 import { store as blockEditorStore } from '../../store';
 
-function BlockHTML( { clientId } ) {
+export default function BlockHTML( { clientId } ) {
 	const [ html, setHtml ] = useState( '' );
 	const block = useSelect(
 		( select ) => select( blockEditorStore ).getBlock( clientId ),
@@ -41,7 +41,7 @@ function BlockHTML( { clientId } ) {
 			block.attributes
 		);
 
-		// If html is empty  we reset the block to the default HTML and mark it as valid to avoid triggering an error
+		// If html is empty we reset the block to the default HTML and mark it as valid to avoid triggering an error
 		const content = html ? html : getSaveContent( blockType, attributes );
 		const [ isValid ] = html
 			? validateBlock( {
@@ -63,18 +63,12 @@ function BlockHTML( { clientId } ) {
 		}
 	};
 
-	useEffect( () => {
-		setHtml( getBlockContent( block ) );
-	}, [ block ] );
-
 	return (
 		<TextareaAutosize
 			className="block-editor-block-list__block-html-textarea"
-			value={ html }
+			value={ html || getBlockContent( block ) }
 			onBlur={ onChange }
 			onChange={ ( event ) => setHtml( event.target.value ) }
 		/>
 	);
 }
-
-export default BlockHTML;
