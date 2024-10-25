@@ -23,6 +23,7 @@ export default function PreferenceToggleMenuItem( {
 	handleToggling = true,
 	onToggle = () => null,
 	disabled = false,
+	disableSpeech = false,
 } ) {
 	const isActive = useSelect(
 		( select ) => !! select( preferencesStore ).get( scope, name ),
@@ -60,7 +61,9 @@ export default function PreferenceToggleMenuItem( {
 				if ( handleToggling ) {
 					toggle( scope, name );
 				}
-				speakMessage();
+				if ( ! disableSpeech ) {
+					speakMessage();
+				}
 			} }
 			role="menuitemcheckbox"
 			info={ info }
