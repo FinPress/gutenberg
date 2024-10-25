@@ -141,18 +141,26 @@
 
 	.is-dark-toolbar {
 		background-color: $gray-900;
-		color: $white;
+		color: $gray-100;
+
 		button {
-			color: $white;
+			color: $gray-200;
 			background-color: $gray-900 !important;
+
+			&:hover {
+				color: $white;
+			}
 		}
+
 		.block-editor-block-switcher__toggle {
-			color: $white;
+			color: $gray-100;
 		}
+
 		.components-toolbar-group,
 		.components-toolbar {
-			border-right-color: $gray-600 !important;
+			border-right-color: $gray-700 !important;
 		}
+
 		.is-pressed {
 			color: var(--wp-admin-theme-color);
 		}
