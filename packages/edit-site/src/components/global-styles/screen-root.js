@@ -29,6 +29,7 @@ import { unlock } from '../../lock-unlock';
 import HelpContentSlot from './help-content-slot/help-content-slot';
 
 const { useGlobalStyle } = unlock( blockEditorPrivateApis );
+const isGutenbergPlugin = globalThis.IS_GUTENBERG_PLUGIN ? true : false;
 
 function ScreenRoot() {
 	const [ customCSS ] = useGlobalStyle( 'css' );
@@ -66,9 +67,11 @@ function ScreenRoot() {
 							<PreviewStyles />
 						</CardMedia>
 					</Card>
-					<div className="global-styles-help-content">
-						<HelpContentSlot.Slot />
-					</div>
+					{isGutenbergPlugin && (
+						<div className="global-styles-help-content">
+							<HelpContentSlot.Slot />
+						</div>
+					)}
 					{ hasVariations && (
 						<ItemGroup>
 							<NavigationButtonAsItem
