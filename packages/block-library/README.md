@@ -105,7 +105,7 @@ To find out more about contributing to this package or Gutenberg as a whole, ple
     	"name": "@wordpress/block-library",
     	"wpScriptModuleExports": {
     		"./blinking-paragraph/view": "./build-module/blinking-paragraph/view.js",
-    		"./image/view": "./build-module/image/view.js",
+    		"./image/view": "./build-module/image/view.js"
     		// Add any new script modules here.
     	}
     }
