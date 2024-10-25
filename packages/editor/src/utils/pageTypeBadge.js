@@ -17,7 +17,7 @@ export default function usePageTypeBadge() {
 	const { isFrontPage, isPostsPage } = useSelect( ( select ) => {
 		const { getCurrentPostId } = select( editorStore );
 		const { canUser, getEditedEntityRecord } = select( coreStore );
-		const _postId = getCurrentPostId();
+		const postId = getCurrentPostId();
 		const siteSettings = canUser( 'read', {
 			kind: 'root',
 			name: 'site',
@@ -26,8 +26,8 @@ export default function usePageTypeBadge() {
 			: undefined;
 
 		return {
-			isFrontPage: siteSettings?.page_on_front === _postId,
-			isPostsPage: siteSettings?.page_for_posts === _postId,
+			isFrontPage: siteSettings?.page_on_front === postId,
+			isPostsPage: siteSettings?.page_for_posts === postId,
 		};
 	} );
 
