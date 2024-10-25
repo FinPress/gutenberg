@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useMemo, useRef, useLayoutEffect } from '@wordpress/element';
+import { useMemo, useRef, useInsertionEffect } from '@wordpress/element';
 import { useRefEffect } from '@wordpress/compose';
 
 /**
@@ -25,9 +25,9 @@ const allEventListeners = [
 
 export function useEventListeners( props ) {
 	const propsRef = useRef( props );
-	useLayoutEffect( () => {
+	useInsertionEffect( () => {
 		propsRef.current = props;
-	}, [ props ] );
+	} );
 	const refEffects = useMemo(
 		() => allEventListeners.map( ( refEffect ) => refEffect( propsRef ) ),
 		[ propsRef ]
