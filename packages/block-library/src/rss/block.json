@@ -52,6 +52,20 @@
 			"text": true,
 			"gradients": true,
 			"link": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true,
+				"textDecoration": true
+			}
 		}
 	},
 	"editorStyle": "wp-block-rss-editor",
