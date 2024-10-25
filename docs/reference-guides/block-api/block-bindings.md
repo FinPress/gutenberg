@@ -81,7 +81,7 @@ add_action(
 					}
 					return $visualization_date;
 				},
-				'uses_context'       => array( 'postId', 'postType' ),
+				'uses_context'       => array( 'postId' ),
 			)
 		);
 	}
@@ -98,10 +98,10 @@ add_action(
 			'post',
 			'wp_movies_visualization_date',
 			array(
-				'show_in_rest'      => true,
-				'single'            => true,
-				'type'              => 'string',
-				'label'				=> __( 'Movie visualization date' ),
+				'show_in_rest' => true,
+				'single'       => true,
+				'type'         => 'string',
+				'label'	       => __( 'Movie visualization date' ),
 			)
 		);
 	}
