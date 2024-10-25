@@ -55,7 +55,6 @@ export default function CollabSidebar() {
 	const { getEntityRecord } = resolveSelect( coreStore );
 	const { enableComplementaryArea } = useDispatch( interfaceStore );
 	const [ blockCommentID, setBlockCommentID ] = useState( null );
-	const [ showCommentBoard, setShowCommentBoard ] = useState( false );
 	const { postId } = useSelect( ( select ) => {
 		return {
 			postId: select( editorStore ).getCurrentPostId(),
@@ -126,7 +125,6 @@ export default function CollabSidebar() {
 	}, [ threads ] );
 
 	const openCollabBoard = () => {
-		setShowCommentBoard( true );
 		enableComplementaryArea( 'core', 'edit-post/collab-sidebar' );
 	};
 
@@ -282,8 +280,6 @@ export default function CollabSidebar() {
 					<AddComment
 						threads={ resultComments }
 						onSubmit={ addNewComment }
-						showCommentBoard={ showCommentBoard }
-						setShowCommentBoard={ setShowCommentBoard }
 					/>
 					<Comments
 						threads={ resultComments }
