@@ -17,9 +17,9 @@ An example could be connecting an Image block `url` attribute to a function that
 ```
 
 
-## Compatible blocks and its attributes
+## Compatible blocks and their attributes
 
-Right now, not all blocks attributes are compatible with block bindings. There is some effort going on increasing this compatibility, but for now, this is the list:
+Right now, not all block attributes are compatible with block bindings. There is some effort going on increasing this compatibility, but for now, this is the list:
 
 - Paragraph block:
     - content
@@ -41,7 +41,7 @@ Right now, not all blocks attributes are compatible with block bindings. There i
 
 ## Registering a custom source
 
-Registering a source consists of defining a **name** for that source and a callback function specifying how to get a value from that source and pass it to a block attribute.
+Registering a source requires defining at least `name` and a `callback` function that gets a value from the source and passes it back to a block attribute.
 
 Once a source is registered, any block that supports the Block Bindings API can use a value from that source by setting its `metadata.bindings` attribute to a value that refers to the source.
 
