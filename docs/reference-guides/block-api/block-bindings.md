@@ -141,7 +141,7 @@ The function to register a custom source is `registerBlockBindingsSource( args )
     - `getValues` is a `function` that retrieves the values from the source. (optional)
     - `setValues` is a `function` that allows updating the values connected to the source. (optional)
     - `canUserEditValue` is a `function` to determine if the user can edit the value. The user won't be able to edit by default. (optional)
-    - `getFieldsList` is a private `function`. It cannot be used yet by third-party developers. It creates a list for the block bindings UI with post meta.
+    - `getFieldsList` is an experimental `function` that should not be used yet by third-party developers in production, as it is subject to change and may be removed in upcoming releases. It creates a list for the block bindings UI with post meta.
 
 The `label` argument will override the one defined on the server if they are different.
 
