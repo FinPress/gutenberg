@@ -17,8 +17,8 @@ export function maybeWarnDeprecated36pxSize( {
 	}
 
 	deprecated( `36px default size for wp.components.${ componentName }`, {
-		since: '6.7',
-		version: '7.0',
+		since: '6.8',
+		version: '7.1',
 		hint: 'Set the `__next40pxDefaultSize` prop to true to start opting into the new default size, which will become the default in a future version.',
 	} );
 }
