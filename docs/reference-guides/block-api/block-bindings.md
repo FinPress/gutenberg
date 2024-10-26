@@ -171,18 +171,18 @@ registerBlockBindingsSource( {
 		);
 	},
 	getValues( { select, context } ) {
-		let wpModiesVisualizationDate;
+		let wpMoviesVisualizationDate;
 		const { getEditedEntityRecord } = select( coreDataStore );
 		if ( context?.postType && context?.postId ) {
-			wpModiesVisualizationDate = getEditedEntityRecord(
+			wpMoviesVisualizationDate = getEditedEntityRecord(
 				'postType',
 				context?.postType,
 				context?.postId
 			).meta?.wp_movies_visualization_date;
 		}
-		if ( wpModiesVisualizationDate ) {
+		if ( wpMoviesVisualizationDate ) {
 			return {
-				content: wpModiesVisualizationDate,
+				content: wpMoviesVisualizationDate,
 			};
 		}
 
