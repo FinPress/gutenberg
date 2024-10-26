@@ -16,6 +16,7 @@ const name = getPackageProp( 'name' );
 stdout.write( `Creating archive for \`${ name }\` plugin... 🎁\n\n` );
 const zip = new AdmZip();
 const zipRootFolderArg = getArgFromCLI( '--root-folder' );
+const noRootFolderArg = getArgFromCLI( '--no-root-folder' );
 let zipRootFolder = `${ name }/`;
 let files = [];
 
@@ -49,20 +50,22 @@ if ( hasPackageProp( 'files' ) ) {
 	);
 }
 
-if ( zipRootFolderArg !== undefined ) {
+if ( noRootFolderArg !== undefined ) {
+	zipRootFolder = '';
+	stdout.write( 'Plugin files will be zipped without a root folder.\n\n' );
+} else if ( zipRootFolderArg !== undefined ) {
 	const trimmedZipRootFolderArg =
 		typeof zipRootFolderArg === 'string' ? zipRootFolderArg.trim() : null;
-	if ( ! trimmedZipRootFolderArg ) {
+	if ( trimmedZipRootFolderArg === null ) {
 		stdout.write(
-			'Plugin files will be zipped without a root folder.\n\n'
+			'Please provide a `--root-folder` name or use `--no-root-folder.`\n\n'
 		);
-		zipRootFolder = '';
-	} else {
-		zipRootFolder = `${ trimmedZipRootFolderArg }/`;
-		stdout.write(
-			`Adding the provided folder \`${ zipRootFolder }\` to the root of the package.\n\n`
-		);
+		process.exit( 1 );
 	}
+	zipRootFolder = `${ trimmedZipRootFolderArg }/`;
+	stdout.write(
+		`Adding the provided folder \`${ zipRootFolder }\` to the root of the package.\n\n`
+	);
 }
 files.forEach( ( file ) => {
 	stdout.write( `  Adding \`${ file }\`.\n` );
