@@ -174,7 +174,7 @@ registerBlockBindingsSource( {
 		let wpModiesVisualizationDate;
 		const { getEditedEntityRecord } = select( coreDataStore );
 		if ( context?.postType && context?.postId ) {
-			return getEditedEntityRecord(
+			wpModiesVisualizationDate = getEditedEntityRecord(
 				'postType',
 				context?.postType,
 				context?.postId
