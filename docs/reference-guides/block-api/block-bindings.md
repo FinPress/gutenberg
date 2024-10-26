@@ -1,6 +1,6 @@
 # Bindings
 
-Block Bindings API lets you “bind” dynamic data to the block’s attributes, which are then reflected in the final HTML markup that is output to the browser on the front end.
+The Block Bindings API lets you “bind” dynamic data to the block’s attributes, which are then reflected in the final HTML markup that is output to the browser on the front end.
 
 An example could be connecting an Image block `url` attribute to a function that returns random images from an external API.
 
@@ -19,31 +19,20 @@ An example could be connecting an Image block `url` attribute to a function that
 
 ## Compatible blocks and their attributes
 
-Right now, not all block attributes are compatible with block bindings. There is some effort going on increasing this compatibility, but for now, this is the list:
+Right now, not all block attributes are compatible with block bindings. This is some ongoing effort to increase this compatibility, but for now, this is the list:
 
-- Paragraph block:
-    - content
-
-- Heading block:
-    - content
-
-- Image block:
-    - ID
-    - url
-    - title
-    - alt
-
-- Button block:
-    - text
-    - url
-    - linkTarget
-    - rel
+| Supported Blocks    | Supported Attributes |
+| -------- | ------- |
+| Paragraph  | content    |
+| Heading | content     |
+| Image    | ID, url, title, alt    |
+| Button    | text, url, linkTarget, rel    |
 
 ## Registering a custom source
 
 Registering a source requires defining at least `name` and a `callback` function that gets a value from the source and passes it back to a block attribute.
 
-Once a source is registered, any block that supports the Block Bindings API can use a value from that source by setting its `metadata.bindings` attribute to a value that refers to the source.
+Once a source is registered, any supporting block's `metadata.bindings` attribute can be configured to read a value from that source.
 
 Registration can be done on the server via PHP or in the editor via JavaScript, and both can coexist.
 
@@ -55,11 +44,11 @@ Server registration allows applying a callback that will be executed on the fron
 
 The function to register a custom source is `register_block_bindings_source($name, $args)`.
 
-- `name` is a `string` that sets the unique ID for the custom source.
-- `args` is an `array` that contains:
-    - `label` is a `string` with the human-readable name of the custom source.
-    - `uses_context` is an `array` with the block context that is passed to the callback (optional).
-    - `get_value_callback` is the `function` that will run on the bound block render function. It accepts three arguments: `source_args`, `block_instance` and `attribute_name`. This value can be overriden with the filter `block_bindings_source_value`.
+- `name`: `string` that sets the unique ID for the custom source.
+- `args`: `array` that contains:
+    - `label`: `string` with the human-readable name of the custom source.
+    - `uses_context`: `array` with the block context that is passed to the callback (optional).
+    - `get_value_callback`: `function` that will run on the bound block render function. It accepts three arguments: `source_args`, `block_instance` and `attribute_name`. This value can be overriden with the filter `block_bindings_source_value`.
 
 Note that `register_block_bindings_source()` should be called from a handler attached to the `init` hook.
 
@@ -157,7 +146,7 @@ import { __ } from '@wordpress/i18n';
 registerBlockBindingsSource( {
 	name: 'wpmovies/visualization-date',
 	label: __( 'Visualization Date' ),
-	useContext: [ 'postId', 'postType' ],
+	usesContext: [ 'postId', 'postType' ],
 	setValues( { select, dispatch, context, bindings } ) {
 		dispatch( coreDataStore ).editEntityRecord(
 			'postType',
@@ -201,7 +190,7 @@ registerBlockBindingsSource( {
 The `getValues` function retrieves the value from the source on block loading. It receives an `object` as an argument with the following properties:
 
 - `bindings` return the bindings object. It must have the attributes as a key, and the value can be a string or an object with arguments.
-- `cliendId` returns a `string` with the current block client ID.
+- `clientId` returns a `string` with the current block client ID.
 - `context` returns an `object` of the current block context, defined in the `usesContext` property. [More about block context.](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/).
 - `select` returns an `object` of a given store's selectors. [More info in their docs.](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#select).
 
@@ -213,7 +202,7 @@ The function must return an `object` with this structure:
 The `setValues` function updates all the values of the source of the block bound. It receives an `object` as an argument with the following properties:
 
 - `bindings` returns the bindings object. It must have the attributes as a key, and the value can be a string or an object with arguments. This object contains a `newValue` property with the user's input.
-- `cliendId` returns a `string` with the current block client ID.
+- `clientId` returns a `string` with the current block client ID.
 - `context` returns an `object` of the current block context, defined in the `usesContext` property. [More about block context.](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/).
 - `dispatch` returns an `object` of the store's action creators. [More about dispatch](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#dispatch).
 - `select` returns an `object` of a given store's selectors. [More info in their docs.](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#select).
