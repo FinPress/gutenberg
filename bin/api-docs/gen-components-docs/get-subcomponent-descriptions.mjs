@@ -37,7 +37,7 @@ export async function getDescriptionsForSubcomponents(
 	const properties = mainComponent?.init?.arguments[ 1 ]?.properties.map(
 		( node ) => [
 			node.key.name,
-			commentParser( `/*${ node.leadingComments[ 0 ].value }*/`, {
+			commentParser( `/*${ node.leadingComments?.[ 0 ].value }*/`, {
 				spacing: 'preserve',
 			} )?.[ 0 ]?.description,
 		]
