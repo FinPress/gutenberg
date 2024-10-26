@@ -99,7 +99,7 @@ await Promise.all(
 						getDescriptionsForSubcomponents(
 							path.resolve(
 								path.dirname( manifestPath ),
-								subcomponent.filePath
+								manifest.filePath
 							),
 							manifest.displayName
 						);
