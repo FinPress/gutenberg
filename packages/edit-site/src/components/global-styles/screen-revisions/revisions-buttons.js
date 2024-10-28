@@ -71,16 +71,16 @@ function getRevisionLabel(
 
 	return areStylesEqual
 		? sprintf(
-				// translators: %1$s: author display name, %2$s: revision creation date.
+				// translators: 1: revision creation date, 2: author display name.
 				__( '%1$s %2$s' ),
-				authorDisplayName,
-				formattedModifiedDate
+				formattedModifiedDate,
+				authorDisplayName
 		  )
 		: sprintf(
-				// translators: %1$s: author display name, %2$s: revision creation date.
+				// translators: 1: revision creation date, 2: author display name.
 				__( '%1$s %2$s' ),
-				authorDisplayName,
-				formattedModifiedDate
+				formattedModifiedDate,
+				authorDisplayName
 		  );
 }
 
