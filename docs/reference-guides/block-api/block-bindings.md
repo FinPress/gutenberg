@@ -156,6 +156,7 @@ import {
 	registerBlockBindingsSource,
 } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
+import { store as coreDataStore } from '@wordpress/core-data';
 
 registerBlockBindingsSource( {
 	name: 'wpmovies/visualization-date',
