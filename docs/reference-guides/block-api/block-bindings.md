@@ -21,12 +21,12 @@ An example could be connecting an Image block `url` attribute to a function that
 
 Right now, not all block attributes are compatible with block bindings. This is some ongoing effort to increase this compatibility, but for now, this is the list:
 
-| Supported Blocks    | Supported Attributes |
-| -------- | ------- |
-| Paragraph  | content    |
-| Heading | content     |
-| Image    | id, url, title, alt    |
-| Button    | text, url, linkTarget, rel    |
+| Supported Blocks    | Supported Attributes       |
+| ----------------    | --------------------       |
+| Paragraph           | content                    |
+| Heading             | content                    |
+| Image               | id, url, title, alt        |
+| Button              | text, url, linkTarget, rel |
 
 ## Registering a custom source
 
@@ -42,13 +42,13 @@ The label defined in server registration will be overridden by the label defined
 
 Server registration allows applying a callback that will be executed on the frontend for the defined bound attribute.
 
-The function to register a custom source is `register_block_bindings_source($name, $args)`.
+The function to register a custom source is `register_block_bindings_source($name, $args)`:
 
 - `name`: `string` that sets the unique ID for the custom source.
 - `args`: `array` that contains:
     - `label`: `string` with the human-readable name of the custom source.
     - `uses_context`: `array` with the block context that is passed to the callback (optional).
-    - `get_value_callback`: `function` that will run on the bound block render function. It accepts three arguments: `source_args`, `block_instance` and `attribute_name`. This value can be overriden with the filter `block_bindings_source_value`.
+    - `get_value_callback`: `function` that will run on the bound block's render function. It accepts three arguments: `source_args`, `block_instance` and `attribute_name`. This value can be overridden with the filter `block_bindings_source_value`.
 
 Note that `register_block_bindings_source()` should be called from a handler attached to the `init` hook.
 
@@ -128,14 +128,14 @@ There are a few examples in Core that can be used as a reference.
 
 - Post Meta. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/block-bindings/post-meta.php)
 - Pattern overrides. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/block-bindings/pattern-overrides.php)
-- Twenty Twentyfive theme. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-content/themes/twentytwentyfive/functions.php)
+- Twenty Twenty-Five theme. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-content/themes/twentytwentyfive/functions.php)
 
 
 ### Editor registration
 
 Editor registration on the client allows defining what the bound block will do when the value is retrieved or when the value is edited.
 
-The function to register a custom source is `registerBlockBindingsSource( args )`.
+The function to register a custom source is `registerBlockBindingsSource( args )`:
 
 - `args` is an `object` with the following structure:
     - `name` is a `string` with the unique and machine-readable name.
