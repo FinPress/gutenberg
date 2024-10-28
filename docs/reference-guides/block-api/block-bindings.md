@@ -137,14 +137,14 @@ Editor registration on the client allows defining what the bound block will do w
 
 The function to register a custom source is `registerBlockBindingsSource( args )`:
 
-- `args` is an `object` with the following structure:
-    - `name` is a `string` with the unique and machine-readable name.
-    - `label` is a `string` with the human readable name of the custom source. (optional)
-    - `usesContext` is an `array` with the block context that the custom source may need. (optional)
-    - `getValues` is a `function` that retrieves the values from the source. (optional)
-    - `setValues` is a `function` that allows updating the values connected to the source. (optional)
-    - `canUserEditValue` is a `function` to determine if the user can edit the value. The user won't be able to edit by default. (optional)
-    - `getFieldsList` is an experimental `function` that should not be used yet by third-party developers in production, as it is subject to change and may be removed in upcoming releases. It creates a list for the block bindings UI with post meta.
+- `args`: `object` with the following structure:
+    - `name`: `string` with the unique and machine-readable name.
+    - `label`: `string` with the human readable name of the custom source. (optional)
+    - `usesContext`: `array` with the block context that the custom source may need. (optional)
+    - `getValues`: `function` that retrieves the values from the source. (optional)
+    - `setValues`: `function` that allows updating the values connected to the source. (optional)
+    - `canUserEditValue`: `function` to determine if the user can edit the value. The user won't be able to edit by default. (optional)
+    - `getFieldsList`: Experimental `function` that should not be used yet by third-party developers in production, as it is subject to change and may be removed in upcoming releases. It creates a list for the block bindings UI with post meta.
 
 The `label` argument will override the one defined on the server if they are different.
 
