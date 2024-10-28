@@ -26,6 +26,7 @@ import { decodeEntities } from '@wordpress/html-entities';
 import { __, sprintf } from '@wordpress/i18n';
 import type { BasePost } from '../../types';
 import { getTitleWithFallbackName } from './utils';
+import { filterURLForDisplay } from '@wordpress/url';
 
 type TreeBase = {
 	id: string;
@@ -111,7 +112,7 @@ export function PageAttributesParent( {
 	onChangeControl,
 }: {
 	data: BasePost;
-	onChangeControl: ( newValue: string ) => void;
+	onChangeControl: ( newValue: number ) => void;
 } ) {
 	const [ fieldValue, setFieldValue ] = useState< null | string >( null );
 
@@ -256,10 +257,10 @@ export function PageAttributesParent( {
 	 */
 	const handleChange = ( selectedPostId: string | null | undefined ) => {
 		if ( selectedPostId ) {
-			return onChangeControl( selectedPostId );
+			return onChangeControl( parseInt( selectedPostId, 10 ) ?? 0 );
 		}
 
-		onChangeControl( '' );
+		onChangeControl( 0 );
 	};
 
 	return (
@@ -287,8 +288,15 @@ export const ParentEdit = ( {
 }: DataFormControlProps< BasePost > ) => {
 	const { id } = field;
 
+	const homeUrl = useSelect( ( select ) => {
+		// @ts-expect-error getEntityRecord is not typed with unstableBase as argument.
+		return select( coreStore ).getEntityRecord< {
+			home: string;
+		} >( 'root', '__unstableBase' )?.home as string;
+	}, [] );
+
 	const onChangeControl = useCallback(
-		( newValue?: string ) =>
+		( newValue?: number ) =>
 			onChange( {
 				[ id ]: newValue,
 			} ),
@@ -304,7 +312,10 @@ export const ParentEdit = ( {
 						__(
 							'Child pages inherit characteristics from their parent, such as URL structure. For instance, if "Pricing" is a child of "Services", its URL would be %1$s<wbr />/services<wbr />/pricing.'
 						),
-						'test'
+						filterURLForDisplay( homeUrl ).replace(
+							/([/.])/g,
+							'<wbr />$1'
+						)
 					),
 					{
 						wbr: <wbr />,
