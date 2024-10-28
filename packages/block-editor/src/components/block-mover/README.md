@@ -1,12 +1,10 @@
-# Block mover
+# BlockMover
 
-Block movers allow moving blocks inside the editor using up and down buttons.
+BlockMover allows moving blocks inside the editor using up and down buttons.
 
 ![Block mover screenshot](https://make.wordpress.org/core/files/2020/08/block-mover-screenshot.png)
 
-## Development guidelines
-
-### Usage
+## Usage
 
 Shows the block mover buttons in the block toolbar.
 
@@ -15,13 +13,20 @@ import { BlockMover } from '@wordpress/block-editor';
 const MyMover = () => <BlockMover clientIds={ [ clientId ] } />;
 ```
 
-### Props
+## Props
 
-#### clientIds
+### `clientIds`: `Array`
 
-Blocks IDs
+Blocks IDs.
 
--   Type: `Array`
+-   Required: Yes
+
+### `hideDragHandle`: `boolean`
+
+If this property is true, the drag handle is hidden.
+
+-   Required: No
+-   Default: `false`
 
 ## Related components
 
