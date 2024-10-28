@@ -52,19 +52,19 @@ if ( hasPackageProp( 'files' ) ) {
 
 if ( noRootFolderArg !== undefined ) {
 	zipRootFolder = '';
-	stdout.write( 'Plugin files will be zipped without a root folder.\n\n' );
+	stdout.write( '  Plugin files will be zipped without a root folder.\n\n' );
 } else if ( zipRootFolderArg !== undefined ) {
 	const trimmedZipRootFolderArg =
 		typeof zipRootFolderArg === 'string' ? zipRootFolderArg.trim() : null;
 	if ( trimmedZipRootFolderArg === null ) {
 		stdout.write(
-			'Please provide a `--root-folder` name or use `--no-root-folder.`\n\n'
+			'Unable to create zip package: please provide a `--root-folder` name or use `--no-root-folder.`\n\n'
 		);
 		process.exit( 1 );
 	}
 	zipRootFolder = `${ trimmedZipRootFolderArg }/`;
 	stdout.write(
-		`Adding the provided folder \`${ zipRootFolder }\` to the root of the package.\n\n`
+		`  Adding the provided folder \`${ zipRootFolder }\` to the root of the package.\n\n`
 	);
 }
 files.forEach( ( file ) => {
