@@ -358,17 +358,17 @@ function FieldItem( {
 								}
 							}, 50 );
 						} }
-						icon={ isVisible ? seen : unseen }
+						icon={ isVisible ? unseen : seen }
 						label={
 							isVisible
 								? sprintf(
 										/* translators: %s: field label */
-										__( 'Hide %s' ),
+										_x( 'Hide %s', 'field' ),
 										label
 								  )
 								: sprintf(
 										/* translators: %s: field label */
-										__( 'Show %s' ),
+										_x( 'Show %s', 'field' ),
 										label
 								  )
 						}
