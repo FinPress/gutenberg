@@ -29,7 +29,7 @@ import { getTitleWithFallbackName } from './utils';
 import { filterURLForDisplay } from '@wordpress/url';
 
 type TreeBase = {
-	id: string;
+	id: number;
 	name: string;
 	[ key: string ]: any;
 };
@@ -119,7 +119,7 @@ export function PageAttributesParent( {
 	const pageId = data.parent;
 	const postId = data.id;
 	const postTypeSlug = data.type;
-	const parentPostId = data.parent?.toString();
+	const parentPostId = data.parent;
 
 	const { parentPostTitle, pageItems, isHierarchical } = useSelect(
 		( select ) => {
@@ -142,8 +142,8 @@ export function PageAttributesParent( {
 
 			const query = {
 				per_page: 100,
-				exclude: postId?.toString(),
-				parent_exclude: postId?.toString(),
+				exclude: postId,
+				parent_exclude: postId,
 				orderby: 'menu_order',
 				order: 'asc',
 				_fields: 'id,title,parent',
@@ -177,7 +177,7 @@ export function PageAttributesParent( {
 			tree: Array< Tree >,
 			level = 0
 		): Array< {
-			value: string;
+			value: number;
 			label: string;
 			rawName: string;
 		} > => {
@@ -211,7 +211,7 @@ export function PageAttributesParent( {
 		}
 
 		let tree = pageItems.map( ( item ) => ( {
-			id: item.id.toString(),
+			id: item.id as number,
 			parent: item.parent ?? null,
 			name: getTitleWithFallbackName( item ),
 		} ) );
@@ -225,7 +225,7 @@ export function PageAttributesParent( {
 
 		// Ensure the current parent is in the options list.
 		const optsHasParent = opts.find(
-			( item ) => item.value === parentPostId?.toString()
+			( item ) => item.value === parentPostId
 		);
 		if ( parentPostId && parentPostTitle && ! optsHasParent ) {
 			opts.unshift( {
@@ -269,8 +269,11 @@ export function PageAttributesParent( {
 			__next40pxDefaultSize
 			label={ __( 'Parent' ) }
 			help={ __( 'Choose a parent page.' ) }
-			value={ parentPostId }
-			options={ parentOptions }
+			value={ parentPostId?.toString() }
+			options={ parentOptions.map( ( option ) => ( {
+				...option,
+				value: option.value.toString(),
+			} ) ) }
 			onFilterValueChange={ debounce(
 				( value: unknown ) => handleKeydown( value as string ),
 				300
