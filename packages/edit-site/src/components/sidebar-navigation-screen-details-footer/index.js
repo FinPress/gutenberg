@@ -46,7 +46,11 @@ export default function SidebarNavigationScreenDetailsFooter( {
 	return (
 		<ItemGroup className="edit-site-sidebar-navigation-screen-details-footer">
 			<SidebarNavigationItem
-				aria-label={ __( 'Revisions' ) }
+				aria-label={ sprintf(
+					/* translators: %s: human readable time difference */
+					__( 'Last modified %s' ),
+					humanTimeDiff( record.modified )
+				) }
 				{ ...hrefProps }
 				{ ...otherProps }
 			>
