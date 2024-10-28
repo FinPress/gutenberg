@@ -55,16 +55,12 @@ function useGlobalStylesUserConfig() {
 			const _globalStylesId =
 				select( coreStore ).__experimentalGetCurrentGlobalStylesId();
 
+			let record;
+
 			// We want the global styles ID request to finish before triggering
 			// the OPTIONS request for user capabilities, otherwise it will
 			// fetch `/wp/v2/global-styles` instead of
 			// `/wp/v2/global-styles/{id}`!
-			if ( ! _globalStylesId ) {
-				return { isReady: false };
-			}
-
-			let record;
-
 			// Please adjust the preloaded requests if this changes!
 			const userCanEditGlobalStyles = _globalStylesId
 				? canUser( 'update', {
