@@ -222,7 +222,7 @@ describe( 'ImageSizeControl', () => {
 	} );
 
 	describe( 'image size percentage presets', () => {
-		it( 'updates height and width attributes on selection', async () => {
+		it( 'updates height and width on selection', async () => {
 			const user = userEvent.setup();
 
 			render(
@@ -235,38 +235,23 @@ describe( 'ImageSizeControl', () => {
 
 			const button = screen.getByRole( 'radio', {
 				name: '50%',
+				checked: false,
 			} );
 
 			await user.click( button );
+
+			expect( button ).toBeChecked();
 
 			// Both attributes are set to the rounded scaled value.
 			expect( mockOnChange ).toHaveBeenLastCalledWith( {
 				height: 50,
 				width: 101,
 			} );
-		} );
 
-		it( 'updates height and width inputs on selection', async () => {
-			const user = userEvent.setup();
-
-			render(
-				<ImageSizeControl
-					imageHeight="100"
-					imageWidth="201"
-					onChange={ mockOnChange }
-				/>
-			);
-
-			const button = screen.getByRole( 'radio', {
-				name: '50%',
-			} );
-
-			await user.click( button );
-
-			// Both attributes are set to the rounded scaled value.
 			expect(
 				screen.getByRole( 'spinbutton', { name: 'Height' } )
 			).toHaveValue( 50 );
+
 			expect(
 				screen.getByRole( 'spinbutton', { name: 'Width' } )
 			).toHaveValue( 101 );
