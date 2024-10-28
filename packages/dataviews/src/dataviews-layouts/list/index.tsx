@@ -32,7 +32,7 @@ import { useRegistry } from '@wordpress/data';
  */
 import { unlock } from '../../lock-unlock';
 import {
-	ActionsDropdownMenuGroup,
+	ActionsMenuGroup,
 	ActionModal,
 } from '../../components/dataviews-item-actions';
 import type { Action, NormalizedField, ViewListProps } from '../../types';
@@ -215,7 +215,7 @@ function ListItem< Item >( {
 					}
 					placement="bottom-end"
 				>
-					<ActionsDropdownMenuGroup
+					<ActionsMenuGroup
 						actions={ eligibleActions }
 						item={ item }
 					/>

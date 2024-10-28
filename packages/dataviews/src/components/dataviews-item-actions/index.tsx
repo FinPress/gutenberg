@@ -43,7 +43,7 @@ interface ActionWithModalProps< Item > extends ActionModalProps< Item > {
 	isBusy?: boolean;
 }
 
-interface ActionsDropdownMenuGroupProps< Item > {
+interface ActionsMenuGroupProps< Item > {
 	actions: Action< Item >[];
 	item: Item;
 }
@@ -77,7 +77,7 @@ function ButtonTrigger< Item >( {
 	);
 }
 
-function DropdownMenuItemTrigger< Item >( {
+function MenuItemTrigger< Item >( {
 	action,
 	onClick,
 	items,
@@ -146,10 +146,10 @@ export function ActionWithModal< Item >( {
 	);
 }
 
-export function ActionsDropdownMenuGroup< Item >( {
+export function ActionsMenuGroup< Item >( {
 	actions,
 	item,
-}: ActionsDropdownMenuGroupProps< Item > ) {
+}: ActionsMenuGroupProps< Item > ) {
 	const registry = useRegistry();
 	return (
 		<Menu.Group>
@@ -160,12 +160,12 @@ export function ActionsDropdownMenuGroup< Item >( {
 							key={ action.id }
 							action={ action }
 							items={ [ item ] }
-							ActionTrigger={ DropdownMenuItemTrigger }
+							ActionTrigger={ MenuItemTrigger }
 						/>
 					);
 				}
 				return (
-					<DropdownMenuItemTrigger
+					<MenuItemTrigger
 						key={ action.id }
 						action={ action }
 						onClick={ () => {
@@ -258,7 +258,7 @@ function CompactItemActions< Item >( {
 			}
 			placement="bottom-end"
 		>
-			<ActionsDropdownMenuGroup actions={ actions } item={ item } />
+			<ActionsMenuGroup actions={ actions } item={ item } />
 		</Menu>
 	);
 }

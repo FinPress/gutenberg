@@ -28,7 +28,7 @@ interface AddFilterProps {
 	setOpenedFilter: ( filter: string | null ) => void;
 }
 
-export function AddFilterDropdownMenu( {
+export function AddFilterMenu( {
 	filters,
 	view,
 	onChangeView,
@@ -77,7 +77,7 @@ function AddFilter(
 	}
 	const inactiveFilters = filters.filter( ( filter ) => ! filter.isVisible );
 	return (
-		<AddFilterDropdownMenu
+		<AddFilterMenu
 			trigger={
 				<Button
 					accessibleWhenDisabled

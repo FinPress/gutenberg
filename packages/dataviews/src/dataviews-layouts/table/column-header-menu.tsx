@@ -40,7 +40,7 @@ interface HeaderMenuProps< Item > {
 	setOpenedFilter: ( fieldId: string ) => void;
 }
 
-function WithDropDownMenuSeparators( { children }: { children: ReactNode } ) {
+function WithMenuSeparators( { children }: { children: ReactNode } ) {
 	return Children.toArray( children )
 		.filter( Boolean )
 		.map( ( child, i ) => (
@@ -120,7 +120,7 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 			}
 			style={ { minWidth: '240px' } }
 		>
-			<WithDropDownMenuSeparators>
+			<WithMenuSeparators>
 				{ isSortable && (
 					<Menu.Group>
 						{ SORTING_DIRECTIONS.map(
@@ -246,7 +246,7 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 						</Menu.Item>
 					) }
 				</Menu.Group>
-			</WithDropDownMenuSeparators>
+			</WithMenuSeparators>
 		</Menu>
 	);
 } );
