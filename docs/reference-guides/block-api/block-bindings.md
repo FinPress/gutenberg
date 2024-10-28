@@ -112,9 +112,9 @@ The filter has the following parameters:
 
 There are a few examples in Core that can be used as a reference.
 
-- Post Meta. [Source code](https://github.com/WordPress/wordpress-develop/blob/68d2421d758498095449006a055ad8ce5b7a8a40/src/wp-includes/block-bindings/post-meta.php#L59)
-- Pattern overrides. [Source code](https://github.com/WordPress/wordpress-develop/blob/68d2421d758498095449006a055ad8ce5b7a8a40/src/wp-includes/block-bindings/pattern-overrides.php#L36)
-- Twenty Twentyfive theme. [Source code](https://github.com/WordPress/wordpress-develop/blob/68d2421d758498095449006a055ad8ce5b7a8a40/src/wp-content/themes/twentytwentyfive/functions.php#L130)
+- Post Meta. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/block-bindings/post-meta.php)
+- Pattern overrides. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/block-bindings/pattern-overrides.php)
+- Twenty Twentyfive theme. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-content/themes/twentytwentyfive/functions.php)
 
 
 ### Editor registration
