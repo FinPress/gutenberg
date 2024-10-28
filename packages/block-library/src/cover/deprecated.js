@@ -184,6 +184,10 @@ const v14BlockAttributes = {
 	sizeSlug: {
 		type: 'string',
 	},
+	alt: {
+		type: 'string',
+		default: '',
+	},
 };
 
 const v7toV11BlockSupports = {
