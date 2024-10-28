@@ -4,17 +4,14 @@
 import { __, _x } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { displayShortcut } from '@wordpress/keycodes';
-import { external, moreVertical } from '@wordpress/icons';
+import { external, moreVertical, check } from '@wordpress/icons';
 import {
 	MenuGroup,
 	MenuItem,
 	VisuallyHidden,
 	DropdownMenu,
 } from '@wordpress/components';
-import {
-	PreferenceToggleMenuItem,
-	store as preferencesStore,
-} from '@wordpress/preferences';
+import { store as preferencesStore } from '@wordpress/preferences';
 import { store as interfaceStore, ActionItem } from '@wordpress/interface';
 
 /**
@@ -29,13 +26,21 @@ import { store as editorStore } from '../../store';
 export default function MoreMenu() {
 	const { openModal } = useDispatch( interfaceStore );
 	const { set: setPreference } = useDispatch( preferencesStore );
+
 	const { toggleDistractionFree, toggleSpotlightMode, toggleTopToolbar } =
 		useDispatch( editorStore );
-	const showIconLabels = useSelect(
-		( select ) =>
-			select( preferencesStore ).get( 'core', 'showIconLabels' ),
-		[]
-	);
+
+	const { showIconLabels, isDistractionFree, isSpotlightMode, isTopToolbar } =
+		useSelect( ( select ) => {
+			const store = select( preferencesStore );
+			return {
+				showIconLabels: store.get( 'core', 'showIconLabels' ),
+				isDistractionFree: store.get( 'core', 'distractionFree' ),
+				isSpotlightMode: store.get( 'core', 'focusMode' ),
+				isTopToolbar: store.get( 'core', 'fixedToolbar' ),
+			};
+		} );
+
 	const turnOffDistractionFree = () => {
 		setPreference( 'core', 'distractionFree', false );
 		toggleTopToolbar();
@@ -60,38 +65,38 @@ export default function MoreMenu() {
 				{ ( { onClose } ) => (
 					<>
 						<MenuGroup label={ _x( 'View', 'noun' ) }>
-							<PreferenceToggleMenuItem
-								scope="core"
-								name="fixedToolbar"
-								handleToggling={ false }
-								onToggle={ turnOffDistractionFree }
-								label={ __( 'Top toolbar' ) }
+							<MenuItem
+								icon={ isTopToolbar && check }
+								isSelected={ isTopToolbar }
+								onClick={ turnOffDistractionFree }
 								info={ __(
 									'Access all block and document tools in a single place'
 								) }
-								disableSpeech
-							/>
-							<PreferenceToggleMenuItem
-								scope="core"
-								name="distractionFree"
-								label={ __( 'Distraction free' ) }
+								role="menuitemcheckbox"
+							>
+								{ __( 'Top toolbar' ) }
+							</MenuItem>
+							<MenuItem
+								icon={ isDistractionFree && check }
+								isSelected={ isDistractionFree }
+								onClick={ toggleDistractionFree }
 								info={ __( 'Write with calmness' ) }
-								handleToggling={ false }
-								onToggle={ toggleDistractionFree }
-								disableSpeech
+								role="menuitemcheckbox"
 								shortcut={ displayShortcut.primaryShift(
 									'\\'
 								) }
-							/>
-							<PreferenceToggleMenuItem
-								scope="core"
-								name="focusMode"
-								label={ __( 'Spotlight mode' ) }
+							>
+								{ __( 'Distraction free' ) }
+							</MenuItem>
+							<MenuItem
+								icon={ isSpotlightMode && check }
+								isSelected={ isSpotlightMode }
+								onClick={ toggleSpotlightMode }
+								role="menuitemcheckbox"
 								info={ __( 'Focus on one block at a time' ) }
-								handleToggling={ false }
-								onToggle={ toggleSpotlightMode }
-								disableSpeech
-							/>
+							>
+								{ __( 'Spotlight mode' ) }
+							</MenuItem>
 							<ViewMoreMenuGroup.Slot fillProps={ { onClose } } />
 						</MenuGroup>
 						<ModeSwitcher />
