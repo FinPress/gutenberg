@@ -16,7 +16,7 @@ import { store as editorStore } from '@wordpress/editor';
  */
 import { store as editSiteStore } from '../../store';
 
-const shortCutName = 'core/edit-site/save';
+const shortcutName = 'core/edit-site/save';
 
 /**
  * Register the save keyboard shortcut in view mode.
@@ -35,7 +35,7 @@ export default function SaveKeyboardShortcut() {
 	);
 	useEffect( () => {
 		registerShortcut( {
-			name: shortCutName,
+			name: shortcutName,
 			category: 'global',
 			description: __( 'Save your changes.' ),
 			keyCombination: {
@@ -44,7 +44,7 @@ export default function SaveKeyboardShortcut() {
 			},
 		} );
 		return () => {
-			unregisterShortcut( shortCutName );
+			unregisterShortcut( shortcutName );
 		};
 	}, [ registerShortcut, unregisterShortcut ] );
 
