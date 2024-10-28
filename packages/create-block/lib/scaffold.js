@@ -2,7 +2,7 @@
  * External dependencies
  */
 const { pascalCase, snakeCase } = require( 'change-case' );
-const { join, basename } = require( 'path' );
+const { join } = require( 'path' );
 
 /**
  * Internal dependencies
@@ -58,27 +58,7 @@ module.exports = async (
 ) => {
 	slug = slug.toLowerCase();
 	namespace = namespace.toLowerCase();
-	let pathToBlockFiles;
-	let rootDirectory;
-	// targetDir default is the current directory so we can rely on it.
-	if ( targetDir === './' ) {
-		rootDirectory = join( process.cwd(), targetDir, slug );
-	} else {
-		rootDirectory = plugin
-			? join( process.cwd(), targetDir, slug )
-			: join( process.cwd(), targetDir );
-	}
-
-	if ( targetDir === './' ) {
-		pathToBlockFiles = plugin
-			? join( rootDirectory, folderName )
-			: rootDirectory;
-	} else {
-		pathToBlockFiles = plugin
-			? join( rootDirectory, folderName )
-			: join( rootDirectory, folderName, slug );
-	}
-
+	const rootDirectory = join( process.cwd(), targetDir || slug );
 	const transformedValues = transformer( {
 		$schema,
 		apiVersion,
@@ -103,7 +83,6 @@ module.exports = async (
 		npmDependencies,
 		npmDevDependencies,
 		customScripts,
-		targetDir,
 		folderName,
 		editorScript,
 		editorStyle,
@@ -118,7 +97,6 @@ module.exports = async (
 		example,
 		textdomain: slug,
 		rootDirectory,
-		pathToBlockFiles,
 	} );
 
 	const view = {
@@ -142,11 +120,10 @@ module.exports = async (
 		return;
 	}
 
+	const projectType = plugin ? 'plugin' : 'block';
 	info( '' );
 	info(
-		plugin
-			? `Creating a new WordPress plugin in the ${ view.slug } directory.`
-			: `Creating a new block in the ${ view.slug } directory.`
+		`Creating a new WordPress ${ projectType } in the ${ rootDirectory } directory.`
 	);
 
 	if ( plugin ) {
@@ -156,8 +133,7 @@ module.exports = async (
 					await writeOutputTemplate(
 						pluginOutputTemplates[ outputFile ],
 						outputFile,
-						view,
-						rootDirectory
+						view
 					)
 			)
 		);
@@ -169,8 +145,7 @@ module.exports = async (
 				await writeOutputAsset(
 					outputAssets[ outputFile ],
 					outputFile,
-					view,
-					rootDirectory
+					view
 				)
 		)
 	);
@@ -191,13 +166,7 @@ module.exports = async (
 	info( '' );
 
 	success(
-		plugin
-			? `Done: WordPress plugin ${ title } bootstrapped in the ${ basename(
-					rootDirectory
-			  ) } directory.`
-			: `Done: Block "${ title }" bootstrapped in the ${ basename(
-					rootDirectory
-			  ) } directory.`
+		`Done: WordPress ${ projectType } ${ title } bootstrapped in the ${ rootDirectory } directory.`
 	);
 
 	if ( plugin && wpScripts ) {

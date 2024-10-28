@@ -14,6 +14,7 @@ const { writeOutputTemplate } = require( './output' );
 async function initBlockJSON( {
 	$schema,
 	apiVersion,
+	plugin,
 	slug,
 	namespace,
 	title,
@@ -24,6 +25,7 @@ async function initBlockJSON( {
 	supports,
 	dashicon,
 	textdomain,
+	folderName,
 	editorScript,
 	editorStyle,
 	style,
@@ -33,16 +35,18 @@ async function initBlockJSON( {
 	viewScript,
 	customBlockJSON,
 	example,
-	pathToBlockFiles,
+	rootDirectory,
 } ) {
 	info( '' );
 	info( 'Creating a "block.json" file.' );
 
-	const outputFile = join( pathToBlockFiles, 'block.json' );
+	const blockFolderName = plugin
+		? join( rootDirectory, folderName )
+		: rootDirectory;
+	await makeDir( blockFolderName );
 
-	await makeDir( pathToBlockFiles );
 	await writeFile(
-		outputFile,
+		join( blockFolderName, 'block.json' ),
 		JSON.stringify(
 			Object.fromEntries(
 				Object.entries( {
@@ -75,13 +79,18 @@ async function initBlockJSON( {
 }
 
 module.exports = async function ( outputTemplates, view ) {
+	const blockFolderName = view.plugin
+		? join( view.rootDirectory, view.folderName )
+		: view.rootDirectory;
 	await Promise.all(
 		Object.keys( outputTemplates ).map( async ( outputFile ) => {
 			await writeOutputTemplate(
 				outputTemplates[ outputFile ],
-				outputFile,
-				view,
-				view.pathToBlockFiles
+				join(
+					blockFolderName,
+					outputFile.replace( /\$slug/g, view.slug )
+				),
+				view
 			);
 		} )
 	);

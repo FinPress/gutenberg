@@ -12,15 +12,13 @@ const writeOutputAsset = async ( inputFile, outputFile, view ) => {
 	writeFile( outputFilePath, inputFile );
 };
 
-const writeOutputTemplate = async ( inputFile, outputFile, view, path ) => {
-	await makeDir( path );
+const writeOutputTemplate = async ( inputFile, outputFile, view ) => {
 	// If the rendered template is empty, don't write it. This is how we can conditionally add template files.
 	const renderedFile = render( inputFile, view );
 	if ( renderedFile.trim().length ) {
-		writeFile(
-			join( path, outputFile.replace( /\$slug/g, view.slug ) ),
-			renderedFile
-		);
+		const outputFilePath = join( view.rootDirectory, outputFile );
+		await makeDir( dirname( outputFilePath ) );
+		writeFile( outputFilePath, renderedFile );
 	}
 };
 
