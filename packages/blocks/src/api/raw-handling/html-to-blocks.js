@@ -55,6 +55,12 @@ export function htmlToBlocks( html, handler ) {
 			if ( node.hasAttribute( 'class' ) ) {
 				block.attributes.className = node.getAttribute( 'class' );
 			}
+
+			// Add the ids if present.
+			if ( node.hasAttribute( 'id' ) ) {
+				block.attributes.id = node.getAttribute( 'id' );
+			}
+
 			return block;
 		}
 
