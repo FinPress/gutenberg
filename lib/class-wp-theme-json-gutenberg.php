@@ -745,10 +745,10 @@ class WP_Theme_JSON_Gutenberg {
 		}
 
 		$this->theme_json    = WP_Theme_JSON_Schema_Gutenberg::migrate( $theme_json, $origin );
-		$registry            = WP_Block_Type_Registry::get_instance();
-		$valid_block_names   = array_keys( $registry->get_all_registered() );
+		$blocks_metadata     = static::get_blocks_metadata();
+		$valid_block_names   = array_keys( $blocks_metadata );
 		$valid_element_names = array_keys( static::ELEMENTS );
-		$valid_variations    = static::get_valid_block_style_variations();
+		$valid_variations    = static::get_valid_block_style_variations( $blocks_metadata );
 		$this->theme_json    = static::unwrap_shared_block_style_variations( $this->theme_json, $valid_variations );
 		$this->theme_json    = static::sanitize( $this->theme_json, $valid_block_names, $valid_element_names, $valid_variations );
 		$this->theme_json    = static::maybe_opt_in_into_settings( $this->theme_json );
