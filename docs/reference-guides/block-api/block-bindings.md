@@ -101,7 +101,7 @@ The filter has the following parameters:
 
 - `value`: The value to be filtered.
 - `name`: The name of the source.
-- `source_args`: Array containing source arguments.
+- `source_args`: `array` containing source arguments.
 - `block_instance`: The block instance object.
 - `attribute_name`: The name of the attribute.
 
