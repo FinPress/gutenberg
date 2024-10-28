@@ -20,7 +20,10 @@ function isFunction( maybeFunc ) {
 }
 
 /**
- * Fill component for HelpContentSlot.
+ * A component for displaying help content in the site editor.
+ *
+ * @param {Object}   root0               - The root configuration object.
+ * @param {Function} root0.renderContent - A function to render the content.
  */
 const HelpContentFill = ( { renderContent = null } ) => {
 	// Ensure renderContent is provided and is a function.

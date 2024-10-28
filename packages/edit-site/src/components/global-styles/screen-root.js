@@ -67,11 +67,11 @@ function ScreenRoot() {
 							<PreviewStyles />
 						</CardMedia>
 					</Card>
-					{isGutenbergPlugin && (
+					{ isGutenbergPlugin && (
 						<div className="global-styles-help-content">
 							<HelpContentSlot.Slot />
 						</div>
-					)}
+					) }
 					{ hasVariations && (
 						<ItemGroup>
 							<NavigationButtonAsItem
