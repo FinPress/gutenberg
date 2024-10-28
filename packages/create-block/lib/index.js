@@ -37,6 +37,12 @@ program
 		'project template type name; allowed values: "standard", "es5", the name of an external npm package, or the path to a local directory',
 		'standard'
 	)
+	.option( '--variant <variant>', 'the variant of the template to use' )
+	.option( '--no-plugin', 'scaffold only block files' )
+	.option(
+		'--target-dir <directory>',
+		'the directory where the files will be scaffolded, defaults to the slug'
+	)
 	.option( '--namespace <value>', 'internal namespace for the block name' )
 	.option(
 		'--title <value>',
@@ -48,11 +54,6 @@ program
 		'short description for the block and the WordPress plugin'
 	)
 	.option( '--category <name>', 'category name for the block' )
-	.option( '--variant <variant>', 'the variant of the template to use' )
-	.option(
-		'--target-dir <directory>',
-		'the directory where the files will be scaffolded, defaults to the slug'
-	)
 	.option(
 		'--wp-scripts',
 		'enable integration with `@wordpress/scripts` package'
@@ -62,7 +63,6 @@ program
 		'disable integration with `@wordpress/scripts` package'
 	)
 	.option( '--wp-env', 'enable integration with `@wordpress/env` package' )
-	.option( '--no-plugin', 'scaffold only block files' )
 	.action(
 		async (
 			slug,

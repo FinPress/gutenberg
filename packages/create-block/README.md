@@ -57,13 +57,13 @@ The rest of the configuration is set to all default values unless overridden wit
 ```bash
 -V, --version                output the version number
 -t, --template <name>        project template type name; allowed values: "static" (default), "es5", the name of an external npm package, or the path to a local directory
+--variant                    choose a block variant as defined by the template
 --no-plugin                  scaffold block files only
+--target-dir <directory>     the directory where the files will be scaffolded, defaults to the slug
 --namespace <value>          internal namespace for the block name
 --title <value>              display title for the block and the WordPress plugin
 --short-description <value>  short description for the block and the WordPress plugin
 --category <name>            category name for the block
---variant                    choose a block variant as defined by the template
---target-dir <directory>     the directory where the files will be scaffolded, defaults to the slug
 --wp-scripts                 enable integration with `@wordpress/scripts` package
 --no-wp-scripts              disable integration with `@wordpress/scripts` package
 --wp-env                     enable integration with `@wordpress/env` package
@@ -92,14 +92,6 @@ With this argument, `create-block` will generate a [dynamic block](https://devel
 $ npx @wordpress/create-block@latest --variant dynamic
 ```
 
-#### `--help`
-
-With this argument, the `create-block` package outputs usage information.
-
-```bash
-$ npx @wordpress/create-block@latest --help
-```
-
 #### `--no-plugin`
 
 With this argument, the `create-block` package runs in _No plugin mode_ which only scaffolds block files into the current directory.
@@ -114,6 +106,14 @@ With this argument, the `create-block` package will add to the generated plugin 
 
 ```bash
 $ npx @wordpress/create-block@latest --wp-env
+```
+
+#### `--help`
+
+With this argument, the `create-block` package outputs usage information.
+
+```bash
+$ npx @wordpress/create-block@latest --help
 ```
 
 ## Available commands in the scaffolded project
