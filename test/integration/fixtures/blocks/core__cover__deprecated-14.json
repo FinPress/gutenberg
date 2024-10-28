@@ -4,17 +4,17 @@
 		"isValid": true,
 		"attributes": {
 			"url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg==",
-			"useFeaturedImage": false,
 			"id": 36,
 			"alt": "",
 			"hasParallax": false,
 			"isRepeated": false,
 			"dimRatio": 50,
 			"overlayColor": "base",
-			"isUserOverlayColor": true,
 			"backgroundType": "image",
 			"isDark": false,
+			"useFeaturedImage": false,
 			"tagName": "div",
+			"isUserOverlayColor": true,
 			"layout": {
 				"type": "constrained"
 			}
