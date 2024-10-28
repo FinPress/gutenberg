@@ -32,9 +32,12 @@
 	top: $grid-unit-10;
 	z-index: 2;
 	background: $white;
+}
+
+.edit-site-revisions {
 
 	// Prevents Scrollbar overlapping the close button when viewing revisions.
-	&[aria-label="Close revisions"] {
+	.edit-site-editor-canvas-container__close-button {
 		position: relative;
 		top: 0;
 		margin: 8px 0;
