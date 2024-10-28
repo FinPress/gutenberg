@@ -7,7 +7,7 @@
 [![React Native E2E Tests (iOS)](<https://github.com/WordPress/gutenberg/workflows/React%20Native%20E2E%20Tests%20(iOS)/badge.svg>)](https://github.com/WordPress/gutenberg/actions?query=workflow%3A%22React+Native+E2E+Tests+%28iOS%29%22+branch%3Atrunk)
 [![React Native E2E Tests (Android)](<https://github.com/WordPress/gutenberg/workflows/React%20Native%20E2E%20Tests%20(Android)/badge.svg>)](https://github.com/WordPress/gutenberg/actions?query=workflow%3A%22React+Native+E2E+Tests+%28Android%29%22+branch%3Atrunk)
 
-<a href="https://wordpress.github.io/gutenberg/" target="_blank"><img src="https://raw.githubusercontent.com/storybooks/brand/master/badge/badge-storybook.svg"></a>
+<a href="https://wordpress.github.io/gutenberg/" target="_blank"><img src="https://raw.githubusercontent.com/storybooks/brand/master/badge/badge-storybook.svg" alt="Storybook Badge" /></a>
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org)
 
