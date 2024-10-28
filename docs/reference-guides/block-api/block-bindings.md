@@ -25,7 +25,7 @@ Right now, not all block attributes are compatible with block bindings. This is 
 | -------- | ------- |
 | Paragraph  | content    |
 | Heading | content     |
-| Image    | ID, url, title, alt    |
+| Image    | id, url, title, alt    |
 | Button    | text, url, linkTarget, rel    |
 
 ## Registering a custom source
@@ -57,17 +57,14 @@ Here is an example:
 ```php
 add_action(
 	'init',
-	function() {
+	function () {
 		register_block_bindings_source(
 			'wpmovies/visualization-date',
 			array(
 				'label'              => __( 'Visualization Date', 'custom-bindings' ),
-				'get_value_callback' => function( array $source_args, $block_instance ) {
+				'get_value_callback' => function ( array $source_args, $block_instance ) {
 					$post_id = $block_instance->context['postId'];
 					$visualization_date = get_post_meta( $post_id, 'wp_movies_visualization_date', true );
-					if ( ! $visualization_date ) {
-						$visualization_date = date("m/d/Y");
-					}
 					return $visualization_date;
 				},
 				'uses_context'       => array( 'postId' ),
@@ -77,12 +74,12 @@ add_action(
 );
 ```
 
-This example needs a `post_meta` registered:
+This example needs a `post_meta` registered, and, also, a filter can be used to return a default `$visualization_date` value, which will be shown in the next heading.
 
 ```php
 add_action(
 	'init',
-	function() {
+	function () {
 		register_meta(
 			'post',
 			'wp_movies_visualization_date',
@@ -90,7 +87,7 @@ add_action(
 				'show_in_rest' => true,
 				'single'       => true,
 				'type'         => 'string',
-				'label'	       => __( 'Movie visualization date' ),
+				'label'        => __( 'Movie visualization date', 'custom-bindings' ),
 			)
 		);
 	}
@@ -107,6 +104,23 @@ The filter has the following parameters:
 - `source_args`: Array containing source arguments.
 - `block_instance`: The block instance object.
 - `attribute_name`: The name of the attribute.
+
+Example:
+
+```php
+function wpmovies_format_visualization_date( $value, $source_args ) {
+	// Prevent the filter to be applied to other sources.
+	if ( $source_args !== 'wpmovies/visualization-date' ) {
+		return $value;
+	}
+	if ( ! $value ) {
+		return date( 'm/d/Y' );
+	}
+	return date( 'm/d/Y', strtotime( $value ) );
+}
+
+add_filter( 'block_bindings_source_value', 'wpmovies_format_visualization_date', 10, 2 );
+```
 
 #### Server registration Core examples
 
@@ -145,7 +159,7 @@ import { __ } from '@wordpress/i18n';
 
 registerBlockBindingsSource( {
 	name: 'wpmovies/visualization-date',
-	label: __( 'Visualization Date' ),
+	label: __( 'Visualization Date', 'custom-bindings' ),
 	usesContext: [ 'postId', 'postType' ],
 	setValues( { select, dispatch, context, bindings } ) {
 		dispatch( coreDataStore ).editEntityRecord(
@@ -264,6 +278,11 @@ function updateBlockBindingsURLSource( url ) {
 			source: 'myplugin/new-source',
 		}
 	})
+}
+
+// Remove binding from url attribute.
+function removeBlockBindingsURLSource() {
+	updateBlockBindings( { url: undefined } );
 }
 ```
 
