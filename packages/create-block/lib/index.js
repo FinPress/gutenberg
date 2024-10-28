@@ -48,6 +48,11 @@ program
 		'short description for the block and the WordPress plugin'
 	)
 	.option( '--category <name>', 'category name for the block' )
+	.option( '--variant <variant>', 'the variant of the template to use' )
+	.option(
+		'--target-dir <directory>',
+		'the directory where the files will be scaffolded, defaults to the slug'
+	)
 	.option(
 		'--wp-scripts',
 		'enable integration with `@wordpress/scripts` package'
@@ -58,11 +63,6 @@ program
 	)
 	.option( '--wp-env', 'enable integration with `@wordpress/env` package' )
 	.option( '--no-plugin', 'scaffold only block files' )
-	.option( '--variant <variant>', 'the variant of the template to use' )
-	.option(
-		'--target-dir <directory>',
-		'the directory where the files will be added'
-	)
 	.action(
 		async (
 			slug,

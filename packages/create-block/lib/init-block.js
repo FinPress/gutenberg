@@ -79,15 +79,12 @@ async function initBlockJSON( {
 }
 
 module.exports = async function ( outputTemplates, view ) {
-	const blockFolderName = view.plugin
-		? join( view.rootDirectory, view.folderName )
-		: view.rootDirectory;
 	await Promise.all(
 		Object.keys( outputTemplates ).map( async ( outputFile ) => {
 			await writeOutputTemplate(
 				outputTemplates[ outputFile ],
 				join(
-					blockFolderName,
+					view.plugin ? view.folderName : '',
 					outputFile.replace( /\$slug/g, view.slug )
 				),
 				view
