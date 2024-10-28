@@ -124,7 +124,7 @@ add_filter( 'block_bindings_source_value', 'wpmovies_format_visualization_date',
 
 #### Server registration Core examples
 
-There are a few examples in Core that can be used as a reference.
+There are a few examples in Core that can be used as reference.
 
 - Post Meta. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/block-bindings/post-meta.php)
 - Pattern overrides. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/block-bindings/pattern-overrides.php)
@@ -204,7 +204,7 @@ registerBlockBindingsSource( {
 
 The `getValues` function retrieves the value from the source on block loading. It receives an `object` as an argument with the following properties:
 
-- `bindings` return the bindings object. It must have the attributes as a key, and the value can be a `string` or an `object` with arguments.
+- `bindings` returns the bindings object. It must have the attributes as a key, and the value can be a `string` or an `object` with arguments.
 - `clientId` returns a `string` with the current block client ID.
 - `context` returns an `object` of the current block context, defined in the `usesContext` property. [More about block context.](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/).
 - `select` returns an `object` of a given store's selectors. [More info in their docs.](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#select).
@@ -225,7 +225,7 @@ The `setValues` function updates all the values of the source of the block bound
 
 #### Editor registration Core examples
 
-There are a few examples in Core that can be used as a reference.
+There are a few examples in Core that can be used as reference.
 
 - Post Meta. [Source code](https://github.com/WordPress/gutenberg/blob/5afd6c27bfba2be2e06b502257753fbfff1ae9f0/packages/editor/src/bindings/post-meta.js#L74-L146)
 - Pattern overrides. [Source code](https://github.com/WordPress/gutenberg/blob/5afd6c27bfba2be2e06b502257753fbfff1ae9f0/packages/editor/src/bindings/pattern-overrides.js#L8-L100)
