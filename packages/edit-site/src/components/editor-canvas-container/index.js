@@ -18,6 +18,11 @@ import {
 } from '@wordpress/editor';
 
 /**
+ * External dependencies
+ */
+import clsx from 'clsx';
+
+/**
  * Internal dependencies
  */
 import { unlock } from '../../lock-unlock';
@@ -46,6 +51,7 @@ function getEditorCanvasContainerTitle( view ) {
 
 function EditorCanvasContainer( {
 	children,
+	className,
 	closeButtonLabel,
 	onClose,
 	enableResizing = false,
@@ -114,7 +120,12 @@ function EditorCanvasContainer( {
 
 	return (
 		<EditorContentSlotFill.Fill>
-			<div className="edit-site-editor-canvas-container">
+			<div
+				className={ clsx(
+					'edit-site-editor-canvas-container',
+					className
+				) }
+			>
 				<ResizableEditor enableResizing={ enableResizing }>
 					{ /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */ }
 					<section
