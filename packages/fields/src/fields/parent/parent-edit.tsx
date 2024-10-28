@@ -168,6 +168,9 @@ export function PageAttributesParent( {
 		[ fieldValue, pageId, postId, postTypeSlug ]
 	);
 
+	/**
+	 * This logic has been copied from https://github.com/WordPress/gutenberg/blob/0249771b519d5646171fb9fae422006c8ab773f2/packages/editor/src/components/page-attributes/parent.js#L106.
+	 */
 	const parentOptions = useMemo( () => {
 		const getOptionsFromTree = (
 			tree: Array< Tree >,
