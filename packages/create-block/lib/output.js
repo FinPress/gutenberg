@@ -18,7 +18,10 @@ const writeOutputTemplate = async ( inputFile, outputFile, view ) => {
 	if ( renderedFile.trim().length ) {
 		const outputFilePath = join( view.rootDirectory, outputFile );
 		await makeDir( dirname( outputFilePath ) );
-		writeFile( outputFilePath, renderedFile );
+		writeFile(
+			outputFilePath.replace( /\$slug/g, view.slug ),
+			renderedFile
+		);
 	}
 };
 
