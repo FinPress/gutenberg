@@ -17,31 +17,31 @@ export interface MenuContext {
 
 export interface MenuProps {
 	/**
-	 * The trigger button.
+	 * The button triggering the menu popover.
 	 */
 	trigger: React.ReactElement;
 	/**
-	 * The contents of the dropdown.
+	 * The contents of the menu (ie. one or more menu items).
 	 */
 	children?: React.ReactNode;
 	/**
-	 * The open state of the dropdown menu when it is initially rendered. Use when
+	 * The open state of the menu popover when it is initially rendered. Use when
 	 * not wanting to control its open state.
 	 *
 	 * @default false
 	 */
 	defaultOpen?: boolean;
 	/**
-	 * The controlled open state of the dropdown menu. Must be used in conjunction
+	 * The controlled open state of the menu popover. Must be used in conjunction
 	 * with `onOpenChange`.
 	 */
 	open?: boolean;
 	/**
-	 * Event handler called when the open state of the dropdown menu changes.
+	 * Event handler called when the open state of the menu popover changes.
 	 */
 	onOpenChange?: ( open: boolean ) => void;
 	/**
-	 * The modality of the dropdown menu. When set to true, interaction with
+	 * The modality of the menu popover. When set to true, interaction with
 	 * outside elements will be disabled and only menu content will be visible to
 	 * screen readers.
 	 *
@@ -49,7 +49,7 @@ export interface MenuProps {
 	 */
 	modal?: boolean;
 	/**
-	 * The placement of the dropdown menu popover.
+	 * The placement of the menu popover.
 	 *
 	 * @default 'bottom-start' for root-level menus, 'right-start' for nested menus
 	 */
@@ -82,14 +82,15 @@ export interface MenuProps {
 
 export interface MenuGroupProps {
 	/**
-	 * The contents of the dropdown menu group.
+	 * The contents of the menu group (ie. an optional menu group label and one
+	 * or more menu items).
 	 */
 	children: React.ReactNode;
 }
 
 export interface MenuGroupLabelProps {
 	/**
-	 * The contents of the dropdown menu group.
+	 * The contents of the menu group label.
 	 */
 	children: React.ReactNode;
 }
@@ -108,7 +109,7 @@ export interface MenuItemProps {
 	 */
 	suffix?: React.ReactNode;
 	/**
-	 * Whether to hide the parent menu when the item is clicked.
+	 * Whether to hide the menu popover when the menu item is clicked.
 	 *
 	 * @default true
 	 */
@@ -122,7 +123,7 @@ export interface MenuItemProps {
 export interface MenuCheckboxItemProps
 	extends Omit< MenuItemProps, 'prefix' | 'hideOnClick' > {
 	/**
-	 * Whether to hide the dropdown menu when the item is clicked.
+	 * Whether to hide the menu popover when the menu item is clicked.
 	 *
 	 * @default false
 	 */
@@ -154,7 +155,7 @@ export interface MenuCheckboxItemProps
 export interface MenuRadioItemProps
 	extends Omit< MenuItemProps, 'prefix' | 'hideOnClick' > {
 	/**
-	 * Whether to hide the dropdown menu when the item is clicked.
+	 * Whether to hide the menu popover when the menu item is clicked.
 	 *
 	 * @default false
 	 */

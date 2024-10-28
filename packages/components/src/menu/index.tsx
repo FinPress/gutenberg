@@ -69,8 +69,8 @@ const UnconnectedMenu = (
 	const computedDirection = isRTL() ? 'rtl' : 'ltr';
 
 	// If an explicit value for the `placement` prop is not passed,
-	// apply a default placement of `bottom-start` for the root dropdown,
-	// and of `right-start` for nested dropdowns.
+	// apply a default placement of `bottom-start` for the root menu popover,
+	// and of `right-start` for nested menu popovers.
 	let computedPlacement =
 		props.placement ??
 		( parentContext?.store ? 'right-start' : 'bottom-start' );

@@ -315,7 +315,7 @@ WithRadios.args = {
 	...Default.args,
 };
 
-const modalOnTopOfDropdown = css`
+const modalOnTopOfMenuPopover = css`
 	&& {
 		z-index: 1000000;
 	}
@@ -327,7 +327,7 @@ export const WithModals: StoryFn< typeof Menu > = ( props ) => {
 	const [ isInnerModalOpen, setInnerModalOpen ] = useState( false );
 
 	const cx = useCx();
-	const modalOverlayClassName = cx( modalOnTopOfDropdown );
+	const modalOverlayClassName = cx( modalOnTopOfMenuPopover );
 
 	return (
 		<>

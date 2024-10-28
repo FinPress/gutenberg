@@ -4,7 +4,7 @@
 This feature is still experimental. “Experimental” means this is an early implementation subject to drastic and breaking changes.
 </div>
 
-`Menu` displays a menu to the user (such as a set of actions or functions) triggered by a button.
+`Menu` displays a menu to the user (such as a set of actions or functions). The menu is rendered in a popover (this pattern is also known as a "Dropdown menu"), which is triggered by a button.
 
 ## Design guidelines
 
@@ -55,45 +55,45 @@ The component accepts the following props:
 
 ##### `trigger`: `React.ReactNode`
 
-The trigger button
+The button triggering the menu popover.
 
 -   Required: yes
 
 ##### `children`: `React.ReactNode`
 
-The contents of the dropdown
+The contents of the menu (ie. one or more menu items).
 
 -   Required: yes
 
 ##### `defaultOpen`: `boolean`
 
-The open state of the dropdown menu when it is initially rendered. Use when not wanting to control its open state.
+The open state of the menu popover when it is initially rendered. Use when not wanting to control its open state.
 
 -   Required: no
 -   Default: `false`
 
 ##### `open`: `boolean`
 
-The controlled open state of the dropdown menu. Must be used in conjunction with `onOpenChange`.
+The controlled open state of the menu popover. Must be used in conjunction with `onOpenChange`.
 
 -   Required: no
 
 ##### `onOpenChange`: `(open: boolean) => void`
 
-Event handler called when the open state of the dropdown menu changes.
+Event handler called when the open state of the menu popover changes.
 
 -   Required: no
 
 ##### `modal`: `boolean`
 
-The modality of the dropdown menu. When set to true, interaction with outside elements will be disabled and only menu content will be visible to screen readers.
+The modality of the menu popover. When set to true, interaction with outside elements will be disabled and only menu content will be visible to screen readers.
 
 -   Required: no
 -   Default: `true`
 
 ##### `placement`: ``'top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end'`
 
-The placement of the dropdown menu popover.
+The placement of the menu popover.
 
 -   Required: no
 -   Default: `'bottom-start'` for root-level menus, `'right-start'` for nested menus
@@ -140,7 +140,7 @@ The contents of the item's suffix.
 
 ##### `hideOnClick`: `boolean`
 
-Whether to hide the dropdown menu when the menu item is clicked.
+Whether to hide the menu popover when the menu item is clicked.
 
 -   Required: no
 -   Default: `true`
@@ -174,7 +174,7 @@ The contents of the item's suffix.
 
 ##### `hideOnClick`: `boolean`
 
-Whether to hide the dropdown menu when the menu item is clicked.
+Whether to hide the menu popover when the menu item is clicked.
 
 -   Required: no
 -   Default: `false`
@@ -240,7 +240,7 @@ The contents of the item's suffix.
 
 ##### `hideOnClick`: `boolean`
 
-Whether to hide the dropdown menu when the menu item is clicked.
+Whether to hide the menu popover when the menu item is clicked.
 
 -   Required: no
 -   Default: `false`
@@ -321,7 +321,7 @@ The component accepts the following props:
 
 ##### `children`: `React.ReactNode`
 
-The contents of the group.
+The contents of the menu group (ie. an optional menu group label and one or more menu items).
 
 -   Required: yes
 
@@ -335,7 +335,7 @@ The component accepts the following props:
 
 ##### `children`: `React.ReactNode`
 
-The contents of the group label.
+The contents of the menu group label.
 
 -   Required: yes
 
