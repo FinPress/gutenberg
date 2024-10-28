@@ -48,7 +48,7 @@ Undocumented declaration.
 
 ### parentField
 
-Undocumented declaration.
+This field is used to display the post parent.
 
 ### permanentlyDeletePost
 

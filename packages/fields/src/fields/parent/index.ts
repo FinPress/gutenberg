@@ -21,4 +21,7 @@ const parentField: Field< BasePost > = {
 	enableSorting: false,
 };
 
+/**
+ * This field is used to display the post parent.
+ */
 export default parentField;
