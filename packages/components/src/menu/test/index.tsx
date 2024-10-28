@@ -23,11 +23,11 @@ describe( 'Menu', () => {
 	it( 'should follow the WAI-ARIA spec', async () => {
 		render(
 			<Menu trigger={ <button>Open dropdown</button> }>
-				<Menu.Item>Dropdown menu item</Menu.Item>
+				<Menu.Item>Menu item</Menu.Item>
 				<Menu.Separator />
-				<Menu trigger={ <Menu.Item>Dropdown submenu</Menu.Item> }>
-					<Menu.Item>Dropdown submenu item 1</Menu.Item>
-					<Menu.Item>Dropdown submenu item 2</Menu.Item>
+				<Menu trigger={ <Menu.Item>Submenu trigger item</Menu.Item> }>
+					<Menu.Item>Submenu item 1</Menu.Item>
+					<Menu.Item>Submenu item 2</Menu.Item>
 				</Menu>
 			</Menu>
 		);
@@ -58,7 +58,7 @@ describe( 'Menu', () => {
 		expect( screen.getAllByRole( 'menuitem' ) ).toHaveLength( 2 );
 
 		const submenuTrigger = screen.getByRole( 'menuitem', {
-			name: 'Dropdown submenu',
+			name: 'Submenu trigger item',
 		} );
 		expect( submenuTrigger ).toHaveAttribute( 'aria-haspopup', 'menu' );
 		expect( submenuTrigger ).toHaveAttribute( 'aria-expanded', 'false' );
@@ -85,7 +85,7 @@ describe( 'Menu', () => {
 		it( 'should open and focus the menu when clicking the trigger', async () => {
 			render(
 				<Menu trigger={ <button>Open dropdown</button> }>
-					<Menu.Item>Dropdown menu item</Menu.Item>
+					<Menu.Item>Menu item</Menu.Item>
 				</Menu>
 			);
 
@@ -166,7 +166,7 @@ describe( 'Menu', () => {
 		it( 'should close when pressing the escape key', async () => {
 			render(
 				<Menu trigger={ <button>Open dropdown</button> }>
-					<Menu.Item>Dropdown menu item</Menu.Item>
+					<Menu.Item>Menu item</Menu.Item>
 				</Menu>
 			);
 
@@ -195,7 +195,7 @@ describe( 'Menu', () => {
 		it( 'should close when clicking outside of the content', async () => {
 			render(
 				<Menu defaultOpen trigger={ <button>Open dropdown</button> }>
-					<Menu.Item>Dropdown menu item</Menu.Item>
+					<Menu.Item>Menu item</Menu.Item>
 				</Menu>
 			);
 
@@ -210,7 +210,7 @@ describe( 'Menu', () => {
 		it( 'should close when clicking on a menu item', async () => {
 			render(
 				<Menu defaultOpen trigger={ <button>Open dropdown</button> }>
-					<Menu.Item>Dropdown menu item</Menu.Item>
+					<Menu.Item>Menu item</Menu.Item>
 				</Menu>
 			);
 
@@ -225,9 +225,7 @@ describe( 'Menu', () => {
 		it( 'should not close when clicking on a menu item when the `hideOnClick` prop is set to `false`', async () => {
 			render(
 				<Menu defaultOpen trigger={ <button>Open dropdown</button> }>
-					<Menu.Item hideOnClick={ false }>
-						Dropdown menu item
-					</Menu.Item>
+					<Menu.Item hideOnClick={ false }>Menu item</Menu.Item>
 				</Menu>
 			);
 
@@ -242,7 +240,7 @@ describe( 'Menu', () => {
 		it( 'should not close when clicking on a disabled menu item', async () => {
 			render(
 				<Menu defaultOpen trigger={ <button>Open dropdown</button> }>
-					<Menu.Item disabled>Dropdown menu item</Menu.Item>
+					<Menu.Item disabled>Menu item</Menu.Item>
 				</Menu>
 			);
 
@@ -257,45 +255,49 @@ describe( 'Menu', () => {
 		it( 'should reveal submenu content when hovering over the submenu trigger', async () => {
 			render(
 				<Menu defaultOpen trigger={ <button>Open dropdown</button> }>
-					<Menu.Item>Dropdown menu item 1</Menu.Item>
-					<Menu.Item>Dropdown menu item 2</Menu.Item>
-					<Menu trigger={ <Menu.Item>Dropdown submenu</Menu.Item> }>
-						<Menu.Item>Dropdown submenu item 1</Menu.Item>
-						<Menu.Item>Dropdown submenu item 2</Menu.Item>
+					<Menu.Item>Menu item 1</Menu.Item>
+					<Menu.Item>Menu item 2</Menu.Item>
+					<Menu
+						trigger={ <Menu.Item>Submenu trigger item</Menu.Item> }
+					>
+						<Menu.Item>Submenu item 1</Menu.Item>
+						<Menu.Item>Submenu item 2</Menu.Item>
 					</Menu>
-					<Menu.Item>Dropdown menu item 3</Menu.Item>
+					<Menu.Item>Menu item 3</Menu.Item>
 				</Menu>
 			);
 
 			// Before hover, submenu items are not rendered
 			expect(
 				screen.queryByRole( 'menuitem', {
-					name: 'Dropdown submenu item 1',
+					name: 'Submenu item 1',
 				} )
 			).not.toBeInTheDocument();
 
 			await hover(
-				screen.getByRole( 'menuitem', { name: 'Dropdown submenu' } )
+				screen.getByRole( 'menuitem', { name: 'Submenu trigger item' } )
 			);
 
 			// After hover, submenu items are rendered
 			// Reason for `findByRole`: due to the animation, we've got to wait
 			// a short amount of time for the submenu to appear
 			await screen.findByRole( 'menuitem', {
-				name: 'Dropdown submenu item 1',
+				name: 'Submenu item 1',
 			} );
 		} );
 
 		it( 'should navigate menu items and subitems using the arrow, spacebar and enter keys', async () => {
 			render(
 				<Menu defaultOpen trigger={ <button>Open dropdown</button> }>
-					<Menu.Item>Dropdown menu item 1</Menu.Item>
-					<Menu.Item>Dropdown menu item 2</Menu.Item>
-					<Menu trigger={ <Menu.Item>Dropdown submenu</Menu.Item> }>
-						<Menu.Item>Dropdown submenu item 1</Menu.Item>
-						<Menu.Item>Dropdown submenu item 2</Menu.Item>
+					<Menu.Item>Menu item 1</Menu.Item>
+					<Menu.Item>Menu item 2</Menu.Item>
+					<Menu
+						trigger={ <Menu.Item>Submenu trigger item</Menu.Item> }
+					>
+						<Menu.Item>Submenu item 1</Menu.Item>
+						<Menu.Item>Submenu item 2</Menu.Item>
 					</Menu>
-					<Menu.Item>Dropdown menu item 3</Menu.Item>
+					<Menu.Item>Menu item 3</Menu.Item>
 				</Menu>
 			);
 
@@ -308,58 +310,58 @@ describe( 'Menu', () => {
 			// The selection wraps around from last to first and viceversa
 			await press.ArrowDown();
 			expect(
-				screen.getByRole( 'menuitem', { name: 'Dropdown menu item 1' } )
+				screen.getByRole( 'menuitem', { name: 'Menu item 1' } )
 			).toHaveFocus();
 
 			await press.ArrowDown();
 			expect(
-				screen.getByRole( 'menuitem', { name: 'Dropdown menu item 2' } )
+				screen.getByRole( 'menuitem', { name: 'Menu item 2' } )
 			).toHaveFocus();
 
 			await press.ArrowDown();
 			expect(
-				screen.getByRole( 'menuitem', { name: 'Dropdown submenu' } )
+				screen.getByRole( 'menuitem', { name: 'Submenu trigger item' } )
 			).toHaveFocus();
 
 			await press.ArrowDown();
 			expect(
-				screen.getByRole( 'menuitem', { name: 'Dropdown menu item 3' } )
+				screen.getByRole( 'menuitem', { name: 'Menu item 3' } )
 			).toHaveFocus();
 
 			await press.ArrowDown();
 			expect(
-				screen.getByRole( 'menuitem', { name: 'Dropdown menu item 1' } )
+				screen.getByRole( 'menuitem', { name: 'Menu item 1' } )
 			).toHaveFocus();
 
 			await press.ArrowUp();
 			expect(
-				screen.getByRole( 'menuitem', { name: 'Dropdown menu item 3' } )
+				screen.getByRole( 'menuitem', { name: 'Menu item 3' } )
 			).toHaveFocus();
 
 			await press.ArrowUp();
 			expect(
-				screen.getByRole( 'menuitem', { name: 'Dropdown submenu' } )
+				screen.getByRole( 'menuitem', { name: 'Submenu trigger item' } )
 			).toHaveFocus();
 
 			// Arrow right/left can be used to enter/leave submenus
 			await press.ArrowRight();
 			expect(
 				screen.getByRole( 'menuitem', {
-					name: 'Dropdown submenu item 1',
+					name: 'Submenu item 1',
 				} )
 			).toHaveFocus();
 
 			await press.ArrowDown();
 			expect(
 				screen.getByRole( 'menuitem', {
-					name: 'Dropdown submenu item 2',
+					name: 'Submenu item 2',
 				} )
 			).toHaveFocus();
 
 			await press.ArrowLeft();
 			expect(
 				screen.getByRole( 'menuitem', {
-					name: 'Dropdown submenu',
+					name: 'Submenu trigger item',
 				} )
 			).toHaveFocus();
 
@@ -367,28 +369,28 @@ describe( 'Menu', () => {
 			await press.Enter();
 			expect(
 				screen.getByRole( 'menuitem', {
-					name: 'Dropdown submenu item 1',
+					name: 'Submenu item 1',
 				} )
 			).toHaveFocus();
 
 			await press.ArrowLeft();
 			expect(
 				screen.getByRole( 'menuitem', {
-					name: 'Dropdown submenu',
+					name: 'Submenu trigger item',
 				} )
 			).toHaveFocus();
 
 			await press.Space();
 			expect(
 				screen.getByRole( 'menuitem', {
-					name: 'Dropdown submenu item 1',
+					name: 'Submenu item 1',
 				} )
 			).toHaveFocus();
 
 			await press.ArrowLeft();
 			expect(
 				screen.getByRole( 'menuitem', {
-					name: 'Dropdown submenu',
+					name: 'Submenu trigger item',
 				} )
 			).toHaveFocus();
 		} );
@@ -808,7 +810,7 @@ describe( 'Menu', () => {
 			render(
 				<>
 					<Menu trigger={ <button>Open dropdown</button> }>
-						<Menu.Item>Dropdown menu item</Menu.Item>
+						<Menu.Item>Menu item</Menu.Item>
 					</Menu>
 					<button>Button outside of dropdown</button>
 				</>
@@ -838,7 +840,7 @@ describe( 'Menu', () => {
 						trigger={ <button>Open dropdown</button> }
 						modal={ false }
 					>
-						<Menu.Item>Dropdown menu item</Menu.Item>
+						<Menu.Item>Menu item</Menu.Item>
 					</Menu>
 					<button>Button outside of dropdown</button>
 				</>
@@ -872,9 +874,7 @@ describe( 'Menu', () => {
 		it( 'should display a prefix on regular items', async () => {
 			render(
 				<Menu trigger={ <button>Open dropdown</button> }>
-					<Menu.Item prefix={ <>Item prefix</> }>
-						Dropdown menu item
-					</Menu.Item>
+					<Menu.Item prefix={ <>Item prefix</> }>Menu item</Menu.Item>
 				</Menu>
 			);
 
@@ -888,7 +888,7 @@ describe( 'Menu', () => {
 			// The contents of the prefix are rendered before the item's children
 			expect(
 				screen.getByRole( 'menuitem', {
-					name: 'Item prefix Dropdown menu item',
+					name: 'Item prefix Menu item',
 				} )
 			).toBeInTheDocument();
 		} );
@@ -896,9 +896,7 @@ describe( 'Menu', () => {
 		it( 'should display a suffix on regular items', async () => {
 			render(
 				<Menu trigger={ <button>Open dropdown</button> }>
-					<Menu.Item suffix={ <>Item suffix</> }>
-						Dropdown menu item
-					</Menu.Item>
+					<Menu.Item suffix={ <>Item suffix</> }>Menu item</Menu.Item>
 				</Menu>
 			);
 
@@ -912,7 +910,7 @@ describe( 'Menu', () => {
 			// The contents of the suffix are rendered after the item's children
 			expect(
 				screen.getByRole( 'menuitem', {
-					name: 'Dropdown menu item Item suffix',
+					name: 'Menu item Item suffix',
 				} )
 			).toBeInTheDocument();
 		} );
