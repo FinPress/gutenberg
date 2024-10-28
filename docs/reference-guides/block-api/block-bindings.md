@@ -40,7 +40,7 @@ The label defined in server registration will be overridden by the label defined
 
 ### Server registration
 
-Server registration allows applying a callback that will be executed on the frontend for the defined bound attribute.
+Server registration allows applying a callback that will be executed on the frontend for the bound attribute.
 
 The function to register a custom source is `register_block_bindings_source($name, $args)`:
 
@@ -149,7 +149,7 @@ The function to register a custom source is `registerBlockBindingsSource( args )
 The `label` argument will override the one defined on the server if they are different.
 
 
-This example will show a custom post meta date in the editor and, if it doesn't exist, it will show today's date. The user can edit the value of the date. (Caution: this example is not formatting the user input as a date, it's only for educational purposes.)
+This example will show a custom post meta date in the editor and, if it doesn't exist, it will show today's date. The user can edit the value of the date. (Caution: This example does not format the user input as a date—it's only for educational purposes.)
 
 ```js
 import {
@@ -204,7 +204,7 @@ registerBlockBindingsSource( {
 
 The `getValues` function retrieves the value from the source on block loading. It receives an `object` as an argument with the following properties:
 
-- `bindings` return the bindings object. It must have the attributes as a key, and the value can be a string or an object with arguments.
+- `bindings` return the bindings object. It must have the attributes as a key, and the value can be a `string` or an `object` with arguments.
 - `clientId` returns a `string` with the current block client ID.
 - `context` returns an `object` of the current block context, defined in the `usesContext` property. [More about block context.](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/).
 - `select` returns an `object` of a given store's selectors. [More info in their docs.](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#select).
@@ -216,7 +216,7 @@ The function must return an `object` with this structure:
 
 The `setValues` function updates all the values of the source of the block bound. It receives an `object` as an argument with the following properties:
 
-- `bindings` returns the bindings object. It must have the attributes as a key, and the value can be a string or an object with arguments. This object contains a `newValue` property with the user's input.
+- `bindings` returns the bindings object. It must have the attributes as a key, and the value can be a `string` or an `object` with arguments. This object contains a `newValue` property with the user's input.
 - `clientId` returns a `string` with the current block client ID.
 - `context` returns an `object` of the current block context, defined in the `usesContext` property. [More about block context.](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/).
 - `dispatch` returns an `object` of the store's action creators. [More about dispatch](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#dispatch).
@@ -289,7 +289,7 @@ function removeBlockBindingsURLSource() {
 
 ### removeAllBlockBindings
 
-`removeAllBlockBindings`, as its name suggests, will remove all existing connections in a block by removing the `metadata.bindings` attribute.
+`removeAllBlockBindings` will remove all existing connections in a block by removing the `metadata.bindings` attribute.
 
 ```js
 import { useBlockBindingsUtils } from '@wordpress/block-editor';
