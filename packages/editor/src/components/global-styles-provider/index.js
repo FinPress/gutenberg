@@ -66,11 +66,13 @@ function useGlobalStylesUserConfig() {
 			let record;
 
 			// Please adjust the preloaded requests if this changes!
-			const userCanEditGlobalStyles = canUser( 'update', {
-				kind: 'root',
-				name: 'globalStyles',
-				id: _globalStylesId,
-			} );
+			const userCanEditGlobalStyles = _globalStylesId
+				? canUser( 'update', {
+						kind: 'root',
+						name: 'globalStyles',
+						id: _globalStylesId,
+				  } )
+				: null;
 
 			if (
 				_globalStylesId &&
