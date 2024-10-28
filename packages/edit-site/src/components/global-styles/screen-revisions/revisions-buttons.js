@@ -72,15 +72,13 @@ function getRevisionLabel(
 	return areStylesEqual
 		? sprintf(
 				// translators: %1$s: author display name, %2$s: revision creation date.
-				__(
-					'Changes saved by %1$s on %2$s. This revision matches current editor styles.'
-				),
+				__( '%1$s %2$s' ),
 				authorDisplayName,
 				formattedModifiedDate
 		  )
 		: sprintf(
 				// translators: %1$s: author display name, %2$s: revision creation date.
-				__( 'Changes saved by %1$s on %2$s' ),
+				__( '%1$s %2$s' ),
 				authorDisplayName,
 				formattedModifiedDate
 		  );
@@ -144,7 +142,7 @@ function RevisionsButtons( {
 				const revisionLabel = getRevisionLabel(
 					id,
 					authorDisplayName,
-					dateI18n( datetimeAbbreviated, modifiedDate ),
+					displayDate,
 					areStylesEqual
 				);
 
