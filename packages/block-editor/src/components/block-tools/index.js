@@ -8,7 +8,7 @@ import { __unstableUseShortcutEventMatch as useShortcutEventMatch } from '@wordp
 import { useRef } from '@wordpress/element';
 import { switchToBlockType, store as blocksStore } from '@wordpress/blocks';
 import { speak } from '@wordpress/a11y';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf, _n } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -108,7 +108,15 @@ export default function BlockTools( {
 				} else {
 					moveBlocksDown( clientIds, rootClientId );
 				}
-				speak( __( 'Block moved' ) );
+				const blockLength = Array.isArray( clientIds )
+					? clientIds.length
+					: 1;
+				const message = sprintf(
+					// translators: %s: term "block" in either singular or plural form.
+					_n( '%s moved.', '%s moved.', blockLength ),
+					blockLength > 1 ? __( 'Blocks' ) : __( 'Block' )
+				);
+				speak( message );
 			}
 		} else if ( isMatch( 'core/block-editor/duplicate', event ) ) {
 			const clientIds = getSelectedBlockClientIds();
