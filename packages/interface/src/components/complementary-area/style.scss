@@ -24,16 +24,12 @@
 		top: 0;
 		z-index: z-index(".interface-complementary-area .components-panel__header");
 
-		&.edit-post-sidebar__panel-tabs {
-			top: $panel-header-height;
-
-			@include break-medium() {
-				top: 0;
-			}
+		&.editor-sidebar__panel-tabs {
+			top: 0;
 		}
 	}
 
-	p:not(.components-base-control__help) {
+	p:not(.components-base-control__help, .components-form-token-field__help) {
 		margin-top: 0;
 	}
 

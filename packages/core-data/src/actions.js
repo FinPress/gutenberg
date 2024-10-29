@@ -200,7 +200,7 @@ export function __experimentalReceiveThemeGlobalStyleVariations(
 /**
  * Returns an action object used in signalling that the index has been received.
  *
- * @deprecated since WP 5.9, this is not useful anymore, use the selector direclty.
+ * @deprecated since WP 5.9, this is not useful anymore, use the selector directly.
  *
  * @return {Object} Action object.
  */
@@ -265,17 +265,17 @@ export function receiveEmbedPreview( url, preview ) {
 /**
  * Action triggered to delete an entity record.
  *
- * @param {string}   kind                         Kind of the deleted entity.
- * @param {string}   name                         Name of the deleted entity.
- * @param {string}   recordId                     Record ID of the deleted entity.
- * @param {?Object}  query                        Special query parameters for the
- *                                                DELETE API call.
- * @param {Object}   [options]                    Delete options.
- * @param {Function} [options.__unstableFetch]    Internal use only. Function to
- *                                                call instead of `apiFetch()`.
- *                                                Must return a promise.
- * @param {boolean}  [options.throwOnError=false] If false, this action suppresses all
- *                                                the exceptions. Defaults to false.
+ * @param {string}        kind                         Kind of the deleted entity.
+ * @param {string}        name                         Name of the deleted entity.
+ * @param {number|string} recordId                     Record ID of the deleted entity.
+ * @param {?Object}       query                        Special query parameters for the
+ *                                                     DELETE API call.
+ * @param {Object}        [options]                    Delete options.
+ * @param {Function}      [options.__unstableFetch]    Internal use only. Function to
+ *                                                     call instead of `apiFetch()`.
+ *                                                     Must return a promise.
+ * @param {boolean}       [options.throwOnError=false] If false, this action suppresses all
+ *                                                     the exceptions. Defaults to false.
  */
 export const deleteEntityRecord =
 	(
@@ -292,7 +292,7 @@ export const deleteEntityRecord =
 		);
 		let error;
 		let deletedRecord = false;
-		if ( ! entityConfig || entityConfig?.__experimentalNoFetch ) {
+		if ( ! entityConfig ) {
 			return;
 		}
 
@@ -396,7 +396,7 @@ export const editEntityRecord =
 			}, {} ),
 		};
 		if ( window.__experimentalEnableSync && entityConfig.syncConfig ) {
-			if ( process.env.IS_GUTENBERG_PLUGIN ) {
+			if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 				const objectId = entityConfig.getSyncObjectId( recordId );
 				getSyncProvider().update(
 					entityConfig.syncObjectType + '--edit',
@@ -507,7 +507,7 @@ export const saveEntityRecord =
 		const entityConfig = configs.find(
 			( config ) => config.kind === kind && config.name === name
 		);
-		if ( ! entityConfig || entityConfig?.__experimentalNoFetch ) {
+		if ( ! entityConfig ) {
 			return;
 		}
 		const entityIdKey = entityConfig.key || DEFAULT_ENTITY_KEY;
@@ -598,10 +598,14 @@ export const saveEntityRecord =
 							return acc;
 						},
 						{
+							// Do not update the `status` if we have edited it when auto saving.
+							// It's very important to let the user explicitly save this change,
+							// because it can lead to unexpected results. An example would be to
+							// have a draft post and change the status to publish.
 							status:
 								data.status === 'auto-draft'
 									? 'draft'
-									: data.status,
+									: undefined,
 						}
 					);
 					updatedRecord = await __unstableFetch( {
@@ -769,10 +773,10 @@ export const __experimentalBatch =
 /**
  * Action triggered to save an entity record's edits.
  *
- * @param {string} kind     Kind of the entity.
- * @param {string} name     Name of the entity.
- * @param {Object} recordId ID of the record.
- * @param {Object} options  Saving options.
+ * @param {string}  kind     Kind of the entity.
+ * @param {string}  name     Name of the entity.
+ * @param {Object}  recordId ID of the record.
+ * @param {Object=} options  Saving options.
  */
 export const saveEditedEntityRecord =
 	( kind, name, recordId, options ) =>
@@ -801,11 +805,11 @@ export const saveEditedEntityRecord =
 /**
  * Action triggered to save only specified properties for the entity.
  *
- * @param {string} kind        Kind of the entity.
- * @param {string} name        Name of the entity.
- * @param {Object} recordId    ID of the record.
- * @param {Array}  itemsToSave List of entity properties or property paths to save.
- * @param {Object} options     Saving options.
+ * @param {string}        kind        Kind of the entity.
+ * @param {string}        name        Name of the entity.
+ * @param {number|string} recordId    ID of the record.
+ * @param {Array}         itemsToSave List of entity properties or property paths to save.
+ * @param {Object}        options     Saving options.
  */
 export const __experimentalSaveSpecifiedEntityEdits =
 	( kind, name, recordId, itemsToSave, options ) =>
@@ -881,6 +885,28 @@ export function receiveUserPermission( key, isAllowed ) {
 		type: 'RECEIVE_USER_PERMISSION',
 		key,
 		isAllowed,
+	};
+}
+
+/**
+ * Returns an action object used in signalling that the current user has
+ * permission to perform an action on a REST resource. Ignored from
+ * documentation as it's internal to the data store.
+ *
+ * @ignore
+ *
+ * @param {Object<string, boolean>} permissions An object where keys represent
+ *                                              actions and REST resources, and
+ *                                              values indicate whether the user
+ *                                              is allowed to perform the
+ *                                              action.
+ *
+ * @return {Object} Action object.
+ */
+export function receiveUserPermissions( permissions ) {
+	return {
+		type: 'RECEIVE_USER_PERMISSIONS',
+		permissions,
 	};
 }
 

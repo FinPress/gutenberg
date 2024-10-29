@@ -62,7 +62,7 @@ export default function SidebarNavigationScreen( {
 	);
 	const location = useLocation();
 	const history = useHistory();
-	const navigate = useContext( SidebarNavigationContext );
+	const { navigate } = useContext( SidebarNavigationContext );
 	const backPath = backPathProp ?? location.state?.backPath;
 	const icon = isRTL() ? chevronRight : chevronLeft;
 
@@ -76,7 +76,7 @@ export default function SidebarNavigationScreen( {
 				justify="flex-start"
 			>
 				<HStack
-					spacing={ 4 }
+					spacing={ 3 }
 					alignment="flex-start"
 					className="edit-site-sidebar-navigation-screen__title-icon"
 				>
@@ -109,7 +109,8 @@ export default function SidebarNavigationScreen( {
 						{ ! isPreviewingTheme()
 							? title
 							: sprintf(
-									'Previewing %1$s: %2$s',
+									/* translators: 1: theme name. 2: title */
+									__( 'Previewing %1$s: %2$s' ),
 									previewingThemeName,
 									title
 							  ) }

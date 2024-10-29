@@ -4,12 +4,12 @@
 	"compilerOptions": {
 		"rootDir": "src",
 		"declarationDir": "build-types",
-		"types": [ "gutenberg-env" ],
-		"skipLibCheck": true
+		"types": [ "gutenberg-env" ]
 	},
 	"references": [
 		{ "path": "../components" },
 		{ "path": "../compose" },
+		{ "path": "../deprecated" },
 		{ "path": "../element" },
 		{ "path": "../hooks" },
 		{ "path": "../icons" },

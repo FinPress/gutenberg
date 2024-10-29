@@ -63,7 +63,7 @@ function BlockContent( {
 	if ( pages === null ) {
 		return (
 			<div { ...blockProps }>
-				<Notice status={ 'warning' } isDismissible={ false }>
+				<Notice status="warning" isDismissible={ false }>
 					{ __( 'Page List: Cannot retrieve Pages.' ) }
 				</Notice>
 			</div>
@@ -73,7 +73,7 @@ function BlockContent( {
 	if ( pages.length === 0 ) {
 		return (
 			<div { ...blockProps }>
-				<Notice status={ 'info' } isDismissible={ false }>
+				<Notice status="info" isDismissible={ false }>
 					{ __( 'Page List: Cannot retrieve Pages.' ) }
 				</Notice>
 			</div>
@@ -101,7 +101,7 @@ function BlockContent( {
 
 		return (
 			<div { ...blockProps }>
-				<Notice status={ 'warning' } isDismissible={ false }>
+				<Notice status="warning" isDismissible={ false }>
 					{ __( 'Page List: Cannot retrieve Pages.' ) }
 				</Notice>
 			</div>
@@ -225,7 +225,11 @@ export default function PageListEdit( {
 						page.title?.rendered?.trim() !== ''
 							? page.title?.rendered
 							: __( '(no title)' ),
-					title: page.title?.rendered,
+					title:
+						// translators: displayed when a page has an empty title.
+						page.title?.rendered?.trim() !== ''
+							? page.title?.rendered
+							: __( '(no title)' ),
 					link: page.url,
 					hasChildren,
 				};
@@ -319,6 +323,7 @@ export default function PageListEdit( {
 				{ pagesTree.length > 0 && (
 					<PanelBody>
 						<ComboboxControl
+							__nextHasNoMarginBottom
 							__next40pxDefaultSize
 							className="editor-page-attributes__parent"
 							label={ __( 'Parent' ) }
@@ -337,7 +342,9 @@ export default function PageListEdit( {
 					<PanelBody title={ __( 'Edit this menu' ) }>
 						<p>{ convertDescription }</p>
 						<Button
+							__next40pxDefaultSize
 							variant="primary"
+							accessibleWhenDisabled
 							disabled={ ! hasResolvedPages }
 							onClick={ convertToNavigationLinks }
 						>

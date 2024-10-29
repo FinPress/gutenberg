@@ -3,25 +3,11 @@
  */
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __, sprintf, isRTL } from '@wordpress/i18n';
-import {
-	edit,
-	trash,
-	rotateLeft,
-	rotateRight,
-	layout,
-	page,
-	drawerLeft,
-	drawerRight,
-	blockDefault,
-	symbol,
-} from '@wordpress/icons';
+import { trash, rotateLeft, rotateRight, layout, page } from '@wordpress/icons';
 import { useCommandLoader } from '@wordpress/commands';
 import { decodeEntities } from '@wordpress/html-entities';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
-import {
-	store as editorStore,
-	privateApis as editorPrivateApis,
-} from '@wordpress/editor';
+import { store as editorStore } from '@wordpress/editor';
 
 /**
  * Internal dependencies
@@ -30,32 +16,26 @@ import { store as editSiteStore } from '../../store';
 import useEditedEntityRecord from '../../components/use-edited-entity-record';
 import isTemplateRemovable from '../../utils/is-template-removable';
 import isTemplateRevertable from '../../utils/is-template-revertable';
-import { PATTERN_MODALS } from '../../components/pattern-modal';
 import { unlock } from '../../lock-unlock';
 import { TEMPLATE_POST_TYPE } from '../../utils/constants';
 import { useLink } from '../../components/routes/link';
 
-const { interfaceStore } = unlock( editorPrivateApis );
-const { useHistory } = unlock( routerPrivateApis );
+const { useHistory, useLocation } = unlock( routerPrivateApis );
 
 function usePageContentFocusCommands() {
 	const { record: template } = useEditedEntityRecord();
-	const { isPage, canvasMode, templateId, currentPostType } = useSelect(
-		( select ) => {
-			const { isPage: _isPage, getCanvasMode } = unlock(
-				select( editSiteStore )
-			);
-			const { getCurrentPostType, getCurrentTemplateId } =
-				select( editorStore );
-			return {
-				isPage: _isPage(),
-				canvasMode: getCanvasMode(),
-				templateId: getCurrentTemplateId(),
-				currentPostType: getCurrentPostType(),
-			};
-		},
-		[]
-	);
+	const { params } = useLocation();
+	const { canvas = 'view' } = params;
+	const { isPage, templateId, currentPostType } = useSelect( ( select ) => {
+		const { isPage: _isPage } = unlock( select( editSiteStore ) );
+		const { getCurrentPostType, getCurrentTemplateId } =
+			select( editorStore );
+		return {
+			isPage: _isPage(),
+			templateId: getCurrentTemplateId(),
+			currentPostType: getCurrentPostType(),
+		};
+	}, [] );
 
 	const { onClick: editTemplate } = useLink( {
 		postType: 'wp_template',
@@ -64,7 +44,7 @@ function usePageContentFocusCommands() {
 
 	const { setRenderingMode } = useDispatch( editorStore );
 
-	if ( ! isPage || canvasMode !== 'edit' ) {
+	if ( ! isPage || canvas !== 'edit' ) {
 		return { isLoading: false, commands: [] };
 	}
 
@@ -153,8 +133,6 @@ function useManipulateDocumentCommands() {
 						__( 'Delete template part: %s' ),
 						decodeEntities( template.title )
 				  );
-		const path =
-			template.type === TEMPLATE_POST_TYPE ? '/wp_template' : '/patterns';
 		commands.push( {
 			name: 'core/remove-template',
 			label,
@@ -163,7 +141,7 @@ function useManipulateDocumentCommands() {
 				removeTemplate( template );
 				// Navigate to the template list
 				history.push( {
-					path,
+					postType: template.type,
 				} );
 				close();
 			},
@@ -176,111 +154,15 @@ function useManipulateDocumentCommands() {
 	};
 }
 
-function useEditUICommands() {
-	const { openGeneralSidebar, closeGeneralSidebar } =
-		useDispatch( editSiteStore );
-	const { canvasMode, activeSidebar } = useSelect( ( select ) => {
-		return {
-			canvasMode: unlock( select( editSiteStore ) ).getCanvasMode(),
-			activeSidebar:
-				select( interfaceStore ).getActiveComplementaryArea( 'core' ),
-		};
-	}, [] );
-
-	if ( canvasMode !== 'edit' ) {
-		return { isLoading: false, commands: [] };
-	}
-
-	const commands = [];
-
-	commands.push( {
-		name: 'core/open-settings-sidebar',
-		label: __( 'Toggle settings sidebar' ),
-		icon: isRTL() ? drawerLeft : drawerRight,
-		callback: ( { close } ) => {
-			close();
-			if ( activeSidebar === 'edit-post/document' ) {
-				closeGeneralSidebar();
-			} else {
-				openGeneralSidebar( 'edit-post/document' );
-			}
-		},
-	} );
-
-	commands.push( {
-		name: 'core/open-block-inspector',
-		label: __( 'Toggle block inspector' ),
-		icon: blockDefault,
-		callback: ( { close } ) => {
-			close();
-			if ( activeSidebar === 'edit-site/block' ) {
-				closeGeneralSidebar();
-			} else {
-				openGeneralSidebar( 'edit-site/block' );
-			}
-		},
-	} );
-
-	return {
-		isLoading: false,
-		commands,
-	};
-}
-
-function usePatternCommands() {
-	const { isLoaded, record: pattern } = useEditedEntityRecord();
-	const { openModal } = useDispatch( interfaceStore );
-
-	if ( ! isLoaded ) {
-		return { isLoading: true, commands: [] };
-	}
-
-	const commands = [];
-
-	if ( pattern?.type === 'wp_block' ) {
-		commands.push( {
-			name: 'core/rename-pattern',
-			label: __( 'Rename pattern' ),
-			icon: edit,
-			callback: ( { close } ) => {
-				openModal( PATTERN_MODALS.rename );
-				close();
-			},
-		} );
-		commands.push( {
-			name: 'core/duplicate-pattern',
-			label: __( 'Duplicate pattern' ),
-			icon: symbol,
-			callback: ( { close } ) => {
-				openModal( PATTERN_MODALS.duplicate );
-				close();
-			},
-		} );
-	}
-
-	return { isLoading: false, commands };
-}
-
 export function useEditModeCommands() {
 	useCommandLoader( {
 		name: 'core/edit-site/page-content-focus',
 		hook: usePageContentFocusCommands,
-		context: 'site-editor-edit',
+		context: 'entity-edit',
 	} );
 
 	useCommandLoader( {
 		name: 'core/edit-site/manipulate-document',
 		hook: useManipulateDocumentCommands,
-	} );
-
-	useCommandLoader( {
-		name: 'core/edit-site/patterns',
-		hook: usePatternCommands,
-		context: 'site-editor-edit',
-	} );
-
-	useCommandLoader( {
-		name: 'core/edit-site/edit-ui',
-		hook: useEditUICommands,
 	} );
 }

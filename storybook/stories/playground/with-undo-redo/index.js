@@ -49,14 +49,18 @@ export default function EditorWithUndoRedo() {
 					<Button
 						onClick={ undo }
 						disabled={ ! hasUndo }
+						accessibleWhenDisabled
 						icon={ undoIcon }
 						label="Undo"
+						size="compact"
 					/>
 					<Button
 						onClick={ redo }
 						disabled={ ! hasRedo }
+						accessibleWhenDisabled
 						icon={ redoIcon }
 						label="Redo"
+						size="compact"
 					/>
 					<BlockToolbar hideDragHandle />
 				</div>

@@ -123,7 +123,7 @@ function render_block_core_latest_posts( $attributes ) {
 		if ( isset( $attributes['displayAuthor'] ) && $attributes['displayAuthor'] ) {
 			$author_display_name = get_the_author_meta( 'display_name', $post->post_author );
 
-			/* translators: byline. %s: current author. */
+			/* translators: byline. %s: author. */
 			$byline = sprintf( __( 'by %s' ), $author_display_name );
 
 			if ( ! empty( $author_display_name ) ) {
@@ -152,6 +152,7 @@ function render_block_core_latest_posts( $attributes ) {
 			 * [&hellip;] is the default excerpt ending from wp_trim_excerpt() in Core.
 			 */
 			if ( str_ends_with( $trimmed_excerpt, ' [&hellip;]' ) ) {
+				/** This filter is documented in wp-includes/formatting.php */
 				$excerpt_length = (int) apply_filters( 'excerpt_length', $block_core_latest_posts_excerpt_length );
 				if ( $excerpt_length <= $block_core_latest_posts_excerpt_length ) {
 					$trimmed_excerpt  = substr( $trimmed_excerpt, 0, -11 );

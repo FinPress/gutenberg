@@ -19,6 +19,7 @@ import { decodeEntities } from '@wordpress/html-entities';
 import { useState, memo } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
+import { useViewportMatch } from '@wordpress/compose';
 import {
 	archive,
 	blockMeta,
@@ -106,6 +107,7 @@ function TemplateListItem( {
 } ) {
 	return (
 		<Button
+			__next40pxDefaultSize
 			className={ className }
 			onClick={ onClick }
 			label={ description }
@@ -128,6 +130,7 @@ function TemplateListItem( {
 					spacing={ 0 }
 				>
 					<Text
+						align="center"
 						weight={ 500 }
 						lineHeight={ 1.53846153846 } // 20px
 					>
@@ -160,14 +163,12 @@ function NewTemplateModal( { onClose } ) {
 	const { createErrorNotice, createSuccessNotice } =
 		useDispatch( noticesStore );
 
-	const { homeUrl } = useSelect( ( select ) => {
-		const {
-			getUnstableBase, // Site index.
-		} = select( coreStore );
+	const isMobile = useViewportMatch( 'medium', '<' );
 
-		return {
-			homeUrl: getUnstableBase()?.home,
-		};
+	const homeUrl = useSelect( ( select ) => {
+		// Site index.
+		return select( coreStore ).getEntityRecord( 'root', '__unstableBase' )
+			?.home;
 	}, [] );
 
 	const TEMPLATE_SHORT_DESCRIPTIONS = {
@@ -210,7 +211,7 @@ function NewTemplateModal( { onClose } ) {
 
 			createSuccessNotice(
 				sprintf(
-					// translators: %s: Title of the created template e.g: "Category".
+					// translators: %s: Title of the created post or template, e.g: "Hello world".
 					__( '"%s" successfully created.' ),
 					decodeEntities( newTemplate.title?.rendered || title )
 				),
@@ -265,7 +266,7 @@ function NewTemplateModal( { onClose } ) {
 		>
 			{ modalContent === modalContentMap.templatesList && (
 				<Grid
-					columns={ 3 }
+					columns={ isMobile ? 2 : 3 }
 					gap={ 4 }
 					align="flex-start"
 					justify="center"
@@ -354,6 +355,7 @@ function NewTemplate() {
 				variant="primary"
 				onClick={ () => setShowModal( true ) }
 				label={ postType.labels.add_new_item }
+				__next40pxDefaultSize
 			>
 				{ postType.labels.add_new_item }
 			</Button>

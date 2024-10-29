@@ -10,19 +10,18 @@ import { __ } from '@wordpress/i18n';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-	__experimentalBoxControl as BoxControl,
-	__experimentalHStack as HStack,
+	BoxControl,
 	__experimentalUnitControl as UnitControl,
 	__experimentalUseCustomUnits as useCustomUnits,
-	__experimentalView as View,
+	__experimentalInputControlPrefixWrapper as InputControlPrefixWrapper,
 } from '@wordpress/components';
-import { Icon, positionCenter, stretchWide } from '@wordpress/icons';
+import { Icon, alignNone, stretchWide } from '@wordpress/icons';
 import { useCallback, useState, Platform } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import { getValueFromVariable, TOOLSPANEL_DROPDOWNMENU_PROPS } from './utils';
+import { getValueFromVariable, useToolsPanelDropdownMenuProps } from './utils';
 import SpacingSizesControl from '../spacing-sizes-control';
 import HeightControl from '../height-control';
 import ChildLayoutControl from '../child-layout-control';
@@ -100,14 +99,13 @@ function useHasChildLayout( settings ) {
 }
 
 function useHasSpacingPresets( settings ) {
-	const {
-		custom,
-		theme,
-		default: defaultPresets,
-	} = settings?.spacing?.spacingSizes || {};
-	const presets = custom ?? theme ?? defaultPresets ?? [];
-
-	return presets.length > 0;
+	const { defaultSpacingSizes, spacingSizes } = settings?.spacing || {};
+	return (
+		( defaultSpacingSizes !== false &&
+			spacingSizes?.default?.length > 0 ) ||
+		spacingSizes?.theme?.length > 0 ||
+		spacingSizes?.custom?.length > 0
+	);
 }
 
 function filterValuesBySides( values, sides ) {
@@ -176,6 +174,7 @@ function DimensionsToolsPanel( {
 	panelId,
 	children,
 } ) {
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 	const resetAll = () => {
 		const updatedValue = resetAllFilter( value );
 		onChange( updatedValue );
@@ -186,7 +185,7 @@ function DimensionsToolsPanel( {
 			label={ __( 'Dimensions' ) }
 			resetAll={ resetAll }
 			panelId={ panelId }
-			dropdownMenuProps={ TOOLSPANEL_DROPDOWNMENU_PROPS }
+			dropdownMenuProps={ dropdownMenuProps }
 		>
 			{ children }
 		</ToolsPanel>
@@ -252,7 +251,7 @@ export default function DimensionsPanel( {
 	const minimumMargin = -Infinity;
 	const [ minMarginValue, setMinMarginValue ] = useState( minimumMargin );
 
-	// Content Size
+	// Content Width
 	const showContentSizeControl =
 		useHasContentSize( settings ) && includeLayoutControls;
 	const contentSizeValue = decodeValue( inheritedValue?.layout?.contentSize );
@@ -268,7 +267,7 @@ export default function DimensionsPanel( {
 	const hasUserSetContentSizeValue = () => !! value?.layout?.contentSize;
 	const resetContentSizeValue = () => setContentSizeValue( undefined );
 
-	// Wide Size
+	// Wide Width
 	const showWideSizeControl =
 		useHasWideSize( settings ) && includeLayoutControls;
 	const wideSizeValue = decodeValue( inheritedValue?.layout?.wideSize );
@@ -464,8 +463,7 @@ export default function DimensionsPanel( {
 			) }
 			{ showContentSizeControl && (
 				<ToolsPanelItem
-					className="single-column"
-					label={ __( 'Content size' ) }
+					label={ __( 'Content width' ) }
 					hasValue={ hasUserSetContentSizeValue }
 					onDeselect={ resetContentSizeValue }
 					isShownByDefault={
@@ -474,27 +472,26 @@ export default function DimensionsPanel( {
 					}
 					panelId={ panelId }
 				>
-					<HStack alignment="flex-end" justify="flex-start">
-						<UnitControl
-							label={ __( 'Content' ) }
-							labelPosition="top"
-							__unstableInputWidth="80px"
-							value={ contentSizeValue || '' }
-							onChange={ ( nextContentSize ) => {
-								setContentSizeValue( nextContentSize );
-							} }
-							units={ units }
-						/>
-						<View>
-							<Icon icon={ positionCenter } />
-						</View>
-					</HStack>
+					<UnitControl
+						__next40pxDefaultSize
+						label={ __( 'Content width' ) }
+						labelPosition="top"
+						value={ contentSizeValue || '' }
+						onChange={ ( nextContentSize ) => {
+							setContentSizeValue( nextContentSize );
+						} }
+						units={ units }
+						prefix={
+							<InputControlPrefixWrapper variant="icon">
+								<Icon icon={ alignNone } />
+							</InputControlPrefixWrapper>
+						}
+					/>
 				</ToolsPanelItem>
 			) }
 			{ showWideSizeControl && (
 				<ToolsPanelItem
-					className="single-column"
-					label={ __( 'Wide size' ) }
+					label={ __( 'Wide width' ) }
 					hasValue={ hasUserSetWideSizeValue }
 					onDeselect={ resetWideSizeValue }
 					isShownByDefault={
@@ -502,21 +499,21 @@ export default function DimensionsPanel( {
 					}
 					panelId={ panelId }
 				>
-					<HStack alignment="flex-end" justify="flex-start">
-						<UnitControl
-							label={ __( 'Wide' ) }
-							labelPosition="top"
-							__unstableInputWidth="80px"
-							value={ wideSizeValue || '' }
-							onChange={ ( nextWideSize ) => {
-								setWideSizeValue( nextWideSize );
-							} }
-							units={ units }
-						/>
-						<View>
-							<Icon icon={ stretchWide } />
-						</View>
-					</HStack>
+					<UnitControl
+						__next40pxDefaultSize
+						label={ __( 'Wide width' ) }
+						labelPosition="top"
+						value={ wideSizeValue || '' }
+						onChange={ ( nextWideSize ) => {
+							setWideSizeValue( nextWideSize );
+						} }
+						units={ units }
+						prefix={
+							<InputControlPrefixWrapper variant="icon">
+								<Icon icon={ stretchWide } />
+							</InputControlPrefixWrapper>
+						}
+					/>
 				</ToolsPanelItem>
 			) }
 			{ showPaddingControl && (
@@ -534,6 +531,7 @@ export default function DimensionsPanel( {
 				>
 					{ ! showSpacingPresetsControl && (
 						<BoxControl
+							__next40pxDefaultSize
 							values={ paddingValues }
 							onChange={ setPaddingValues }
 							label={ __( 'Padding' ) }
@@ -574,6 +572,7 @@ export default function DimensionsPanel( {
 				>
 					{ ! showSpacingPresetsControl && (
 						<BoxControl
+							__next40pxDefaultSize
 							values={ marginValues }
 							onChange={ setMarginValues }
 							inputProps={ inputProps }
@@ -611,12 +610,16 @@ export default function DimensionsPanel( {
 					}
 					className={ clsx( {
 						'tools-panel-item-spacing': showSpacingPresetsControl,
+						'single-column':
+							// If UnitControl is used, should be single-column.
+							! showSpacingPresetsControl && ! isAxialGap,
 					} ) }
 					panelId={ panelId }
 				>
 					{ ! showSpacingPresetsControl &&
 						( isAxialGap ? (
 							<BoxControl
+								__next40pxDefaultSize
 								label={ __( 'Block spacing' ) }
 								min={ 0 }
 								onChange={ setGapValues }
@@ -628,8 +631,8 @@ export default function DimensionsPanel( {
 							/>
 						) : (
 							<UnitControl
+								__next40pxDefaultSize
 								label={ __( 'Block spacing' ) }
-								__unstableInputWidth="80px"
 								min={ 0 }
 								onChange={ setGapValue }
 								units={ units }

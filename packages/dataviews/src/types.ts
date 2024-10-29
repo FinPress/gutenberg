@@ -1,23 +1,82 @@
 /**
  * External dependencies
  */
-import type { ReactNode } from 'react';
+import type { ReactElement, ComponentType } from 'react';
 
-interface Option {
-	value: any;
+/**
+ * Internal dependencies
+ */
+import type { SetSelection } from './private-types';
+
+export type SortDirection = 'asc' | 'desc';
+
+/**
+ * Generic option type.
+ */
+export interface Option< Value extends any = any > {
+	value: Value;
 	label: string;
+	description?: string;
 }
 
-interface filterByConfig {
+interface FilterByConfig {
+	/**
+	 * The list of operators supported by the field.
+	 */
 	operators?: Operator[];
+
+	/**
+	 * Whether it is a primary filter.
+	 *
+	 * A primary filter is always visible and is not listed in the "Add filter" component,
+	 * except for the list layout where it behaves like a secondary filter.
+	 */
 	isPrimary?: boolean;
 }
 
-type Operator = 'is' | 'isNot' | 'isAny' | 'isNone' | 'isAll' | 'isNotAll';
+export type Operator =
+	| 'is'
+	| 'isNot'
+	| 'isAny'
+	| 'isNone'
+	| 'isAll'
+	| 'isNotAll';
 
-export type Item = Record< string, any >;
+export type FieldType = 'text' | 'integer' | 'datetime';
 
-export interface Field {
+export type ValidationContext = {
+	elements?: Option[];
+};
+
+/**
+ * An abstract interface for Field based on the field type.
+ */
+export type FieldTypeDefinition< Item > = {
+	/**
+	 * Callback used to sort the field.
+	 */
+	sort: ( a: Item, b: Item, direction: SortDirection ) => number;
+
+	/**
+	 * Callback used to validate the field.
+	 */
+	isValid: ( item: Item, context?: ValidationContext ) => boolean;
+
+	/**
+	 * Callback used to render an edit control for the field or control name.
+	 */
+	Edit: ComponentType< DataFormControlProps< Item > > | string;
+};
+
+/**
+ * A dataview field for a specific property of a data type.
+ */
+export type Field< Item > = {
+	/**
+	 * Type of the fields.
+	 */
+	type?: FieldType;
+
 	/**
 	 * The unique identifier of the field.
 	 */
@@ -26,64 +85,109 @@ export interface Field {
 	/**
 	 * The label of the field. Defaults to the id.
 	 */
-	header?: string;
+	label?: string;
+
+	/**
+	 * The header of the field. Defaults to the label.
+	 * It allows the usage of a React Element to render the field labels.
+	 */
+	header?: string | ReactElement;
+
+	/**
+	 * A description of the field.
+	 */
+	description?: string;
+
+	/**
+	 * Placeholder for the field.
+	 */
+	placeholder?: string;
+
+	/**
+	 * Callback used to render the field. Defaults to `field.getValue`.
+	 */
+	render?: ComponentType< DataViewRenderFieldProps< Item > >;
+
+	/**
+	 * Callback used to render an edit control for the field.
+	 */
+	Edit?: ComponentType< DataFormControlProps< Item > > | string;
+
+	/**
+	 * Callback used to sort the field.
+	 */
+	sort?: ( a: Item, b: Item, direction: SortDirection ) => number;
+
+	/**
+	 * Callback used to validate the field.
+	 */
+	isValid?: ( item: Item, context?: ValidationContext ) => boolean;
+
+	/**
+	 * Whether the field is sortable.
+	 */
+	enableSorting?: boolean;
+
+	/**
+	 * Whether the field is searchable.
+	 */
+	enableGlobalSearch?: boolean;
+
+	/**
+	 * Whether the field is filterable.
+	 */
+	enableHiding?: boolean;
+
+	/**
+	 * The list of options to pick from when using the field as a filter.
+	 */
+	elements?: Option[];
+
+	/**
+	 * Filter config for the field.
+	 */
+	filterBy?: FilterByConfig | undefined;
 
 	/**
 	 * Callback used to retrieve the value of the field from the item.
 	 * Defaults to `item[ field.id ]`.
 	 */
-	getValue?: ( { item }: { item: Item } ) => any;
+	getValue?: ( args: { item: Item } ) => any;
+};
 
-	/**
-	 * Callback used to render the field. Defaults to `field.getValue`.
-	 */
-	render?: ( { item }: { item: Item } ) => ReactNode;
+export type NormalizedField< Item > = Field< Item > & {
+	label: string;
+	header: string | ReactElement;
+	getValue: ( args: { item: Item } ) => any;
+	render: ComponentType< DataViewRenderFieldProps< Item > >;
+	Edit: ComponentType< DataFormControlProps< Item > >;
+	sort: ( a: Item, b: Item, direction: SortDirection ) => number;
+	isValid: ( item: Item, context?: ValidationContext ) => boolean;
+	enableHiding: boolean;
+	enableSorting: boolean;
+};
 
-	/**
-	 * The width of the field column.
-	 */
-	width: string | number | undefined;
+/**
+ * A collection of dataview fields for a data type.
+ */
+export type Fields< Item > = Field< Item >[];
 
-	/**
-	 * The minimum width of the field column.
-	 */
-	maxWidth: string | number | undefined;
+export type Data< Item > = Item[];
 
-	/**
-	 * The maximum width of the field column.
-	 */
-	minWidth: string | number | undefined;
+export type DataFormControlProps< Item > = {
+	data: Item;
+	field: NormalizedField< Item >;
+	onChange: ( value: Record< string, any > ) => void;
+	hideLabelFromVision?: boolean;
+};
 
-	/**
-	 * Whether the field is sortable.
-	 */
-	enableSorting: boolean | undefined;
+export type DataViewRenderFieldProps< Item > = {
+	item: Item;
+};
 
-	/**
-	 * Whether the field is searchable.
-	 */
-	enableGlobalSearch: boolean | undefined;
-
-	/**
-	 * Whether the field is filterable.
-	 */
-	enableHiding: boolean | undefined;
-
-	/**
-	 * The list of options to pick from when using the field as a filter.
-	 */
-	elements: Option[] | undefined;
-
-	/**
-	 * Filter config for the field.
-	 */
-	filterBy: filterByConfig | undefined;
-}
-
-export type NormalizedField = Required< Field >;
-
-export type Data = Item[];
-
+/**
+ * The filters applied to the dataset.
+ */
 export interface Filter {
 	/**
 	 * The field to filter by.
@@ -101,6 +205,43 @@ export interface Filter {
 	value: any;
 }
 
+export interface NormalizedFilter {
+	/**
+	 * The field to filter by.
+	 */
+	field: string;
+
+	/**
+	 * The field name.
+	 */
+	name: string;
+
+	/**
+	 * The list of options to pick from when using the field as a filter.
+	 */
+	elements: Option[];
+
+	/**
+	 * Is a single selection filter.
+	 */
+	singleSelection: boolean;
+
+	/**
+	 * The list of operators supported by the field.
+	 */
+	operators: Operator[];
+
+	/**
+	 * Whether the filter is visible.
+	 */
+	isVisible: boolean;
+
+	/**
+	 * Whether it is a primary filter.
+	 */
+	isPrimary: boolean;
+}
+
 interface ViewBase {
 	/**
 	 * The layout of the view.
@@ -115,7 +256,7 @@ interface ViewBase {
 	/**
 	 * The filters to apply.
 	 */
-	filters: Filter[];
+	filters?: Filter[];
 
 	/**
 	 * The sorting configuration.
@@ -129,7 +270,7 @@ interface ViewBase {
 		/**
 		 * The direction to sort by.
 		 */
-		direction: string;
+		direction: SortDirection;
 	};
 
 	/**
@@ -143,24 +284,273 @@ interface ViewBase {
 	perPage?: number;
 
 	/**
-	 * The hidden fields.
+	 * The fields to render
 	 */
-	hiddenFields: string[];
+	fields?: string[];
 }
-export interface ViewList extends ViewBase {
-	type: 'list';
 
-	layout: {
+export interface CombinedField {
+	id: string;
+
+	label: string;
+
+	header?: string | ReactElement;
+
+	/**
+	 * The fields to use as columns.
+	 */
+	children: string[];
+
+	/**
+	 * The direction of the stack.
+	 */
+	direction: 'horizontal' | 'vertical';
+}
+
+export interface ColumnStyle {
+	/**
+	 * The width of the field column.
+	 */
+	width?: string | number;
+
+	/**
+	 * The minimum width of the field column.
+	 */
+	maxWidth?: string | number;
+
+	/**
+	 * The maximum width of the field column.
+	 */
+	minWidth?: string | number;
+}
+
+export interface ViewTable extends ViewBase {
+	type: 'table';
+
+	layout?: {
 		/**
 		 * The field to use as the primary field.
 		 */
-		primaryField: string;
+		primaryField?: string;
+
+		/**
+		 * The fields to use as columns.
+		 */
+		combinedFields?: CombinedField[];
+
+		/**
+		 * The styles for the columns.
+		 */
+		styles?: Record< string, ColumnStyle >;
+	};
+}
+
+export interface ViewList extends ViewBase {
+	type: 'list';
+
+	layout?: {
+		/**
+		 * The field to use as the primary field.
+		 */
+		primaryField?: string;
 
 		/**
 		 * The field to use as the media field.
 		 */
-		mediaField: string;
+		mediaField?: string;
 	};
 }
 
-export type View = ViewList | ViewBase;
+export interface ViewGrid extends ViewBase {
+	type: 'grid';
+
+	layout?: {
+		/**
+		 * The field to use as the primary field.
+		 */
+		primaryField?: string;
+
+		/**
+		 * The field to use as the media field.
+		 */
+		mediaField?: string;
+
+		/**
+		 * The fields to use as columns.
+		 */
+		columnFields?: string[];
+
+		/**
+		 * The fields to use as badge fields.
+		 */
+		badgeFields?: string[];
+	};
+}
+
+export type View = ViewList | ViewGrid | ViewTable;
+
+interface ActionBase< Item > {
+	/**
+	 * The unique identifier of the action.
+	 */
+	id: string;
+
+	/**
+	 * The label of the action.
+	 * In case we want to adjust the label based on the selected items,
+	 * a function can be provided.
+	 */
+	label: string | ( ( items: Item[] ) => string );
+
+	/**
+	 * The icon of the action. (Either a string or an SVG element)
+	 * This should be IconType from the components package
+	 * but that import is breaking typescript build for the moment.
+	 */
+	icon?: any;
+
+	/**
+	 * Whether the action is disabled.
+	 */
+	disabled?: boolean;
+
+	/**
+	 * Whether the action is destructive.
+	 */
+	isDestructive?: boolean;
+
+	/**
+	 * Whether the action is a primary action.
+	 */
+	isPrimary?: boolean;
+
+	/**
+	 * Whether the item passed as an argument supports the current action.
+	 */
+	isEligible?: ( item: Item ) => boolean;
+
+	/**
+	 * Whether the action can be used as a bulk action.
+	 */
+	supportsBulk?: boolean;
+
+	/**
+	 * The context in which the action is visible.
+	 * This is only a "meta" information for now.
+	 */
+	context?: 'list' | 'single';
+}
+
+export interface RenderModalProps< Item > {
+	items: Item[];
+	closeModal?: () => void;
+	onActionPerformed?: ( items: Item[] ) => void;
+}
+
+export interface ActionModal< Item > extends ActionBase< Item > {
+	/**
+	 * Modal to render when the action is triggered.
+	 */
+	RenderModal: ( {
+		items,
+		closeModal,
+		onActionPerformed,
+	}: RenderModalProps< Item > ) => ReactElement;
+
+	/**
+	 * Whether to hide the modal header.
+	 */
+	hideModalHeader?: boolean;
+
+	/**
+	 * The header of the modal.
+	 */
+	modalHeader?: string;
+}
+
+export interface ActionButton< Item > extends ActionBase< Item > {
+	/**
+	 * The callback to execute when the action is triggered.
+	 */
+	callback: (
+		items: Item[],
+		context: {
+			registry: any;
+			onActionPerformed?: ( items: Item[] ) => void;
+		}
+	) => void;
+}
+
+export type Action< Item > = ActionModal< Item > | ActionButton< Item >;
+
+export interface ViewBaseProps< Item > {
+	actions: Action< Item >[];
+	data: Item[];
+	fields: NormalizedField< Item >[];
+	getItemId: ( item: Item ) => string;
+	isLoading?: boolean;
+	onChangeView: ( view: View ) => void;
+	onChangeSelection: SetSelection;
+	selection: string[];
+	setOpenedFilter: ( fieldId: string ) => void;
+	view: View;
+	density: number;
+}
+
+export interface ViewTableProps< Item > extends ViewBaseProps< Item > {
+	view: ViewTable;
+}
+
+export interface ViewListProps< Item > extends ViewBaseProps< Item > {
+	view: ViewList;
+}
+
+export interface ViewGridProps< Item > extends ViewBaseProps< Item > {
+	view: ViewGrid;
+}
+
+export type ViewProps< Item > =
+	| ViewTableProps< Item >
+	| ViewGridProps< Item >
+	| ViewListProps< Item >;
+
+export interface SupportedLayouts {
+	list?: Omit< ViewList, 'type' >;
+	grid?: Omit< ViewGrid, 'type' >;
+	table?: Omit< ViewTable, 'type' >;
+}
+
+export interface CombinedFormField< Item > extends CombinedField {
+	render?: ComponentType< { item: Item } >;
+}
+
+export interface DataFormCombinedEditProps< Item > {
+	field: NormalizedCombinedFormField< Item >;
+	data: Item;
+	onChange: ( value: Record< string, any > ) => void;
+	hideLabelFromVision?: boolean;
+}
+
+export type NormalizedCombinedFormField< Item > = CombinedFormField< Item > & {
+	fields: NormalizedField< Item >[];
+	Edit?: ComponentType< DataFormCombinedEditProps< Item > >;
+};
+
+/**
+ * The form configuration.
+ */
+export type Form< Item > = {
+	type?: 'regular' | 'panel';
+	fields?: string[];
+	/**
+	 * The fields to combine.
+	 */
+	combinedFields?: CombinedFormField< Item >[];
+};
+
+export interface DataFormProps< Item > {
+	data: Item;
+	fields: Field< Item >[];
+	form: Form< Item >;
+	onChange: ( value: Record< string, any > ) => void;
+}

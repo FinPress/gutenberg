@@ -3,7 +3,7 @@
  */
 import { Modal } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useState, useMemo, useEffect } from '@wordpress/element';
+import { useState, useMemo } from '@wordpress/element';
 import {
 	store as blockEditorStore,
 	__experimentalBlockPatternsList as BlockPatternsList,
@@ -12,13 +12,16 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { useAsyncList } from '@wordpress/compose';
 import { store as coreStore } from '@wordpress/core-data';
 import { __unstableSerializeAndClean } from '@wordpress/blocks';
+import { store as preferencesStore } from '@wordpress/preferences';
+import { store as interfaceStore } from '@wordpress/interface';
 
 /**
  * Internal dependencies
  */
 import { store as editorStore } from '../../store';
+import { TEMPLATE_POST_TYPE } from '../../store/constants';
 
-function useStartPatterns() {
+export function useStartPatterns() {
 	// A pattern is a start pattern if it includes 'core/post-content' in its blockTypes,
 	// and it has no postTypes declared and the current post type is page or if
 	// the current post type is part of the postTypes declared.
@@ -44,8 +47,14 @@ function useStartPatterns() {
 	);
 
 	return useMemo( () => {
-		// filter patterns without postTypes declared if the current postType is page
-		// or patterns that declare the current postType in its post type array.
+		if ( ! blockPatternsWithPostContentBlockType?.length ) {
+			return [];
+		}
+
+		/*
+		 * Filter patterns without postTypes declared if the current postType is page
+		 * or patterns that declare the current postType in its post type array.
+		 */
 		return blockPatternsWithPostContentBlockType.filter( ( pattern ) => {
 			return (
 				( postType === 'page' && ! pattern.postTypes ) ||
@@ -109,28 +118,23 @@ function StartPageOptionsModal( { onClose } ) {
 
 export default function StartPageOptions() {
 	const [ isClosed, setIsClosed ] = useState( false );
-	const { shouldEnableModal, postType, postId } = useSelect( ( select ) => {
-		const {
-			isEditedPostDirty,
-			isEditedPostEmpty,
-			getCurrentPostType,
-			getCurrentPostId,
-			getEditorSettings,
-		} = select( editorStore );
-		const { __unstableIsPreviewMode: isPreviewMode } = getEditorSettings();
-
-		return {
-			shouldEnableModal:
-				! isPreviewMode && ! isEditedPostDirty() && isEditedPostEmpty(),
-			postType: getCurrentPostType(),
-			postId: getCurrentPostId(),
-		};
+	const shouldEnableModal = useSelect( ( select ) => {
+		const { isEditedPostDirty, isEditedPostEmpty, getCurrentPostType } =
+			select( editorStore );
+		const preferencesModalActive =
+			select( interfaceStore ).isModalActive( 'editor/preferences' );
+		const choosePatternModalEnabled = select( preferencesStore ).get(
+			'core',
+			'enableChoosePatternModal'
+		);
+		return (
+			choosePatternModalEnabled &&
+			! preferencesModalActive &&
+			! isEditedPostDirty() &&
+			isEditedPostEmpty() &&
+			TEMPLATE_POST_TYPE !== getCurrentPostType()
+		);
 	}, [] );
-
-	useEffect( () => {
-		// Should reset the modal state when navigating to a new page/post.
-		setIsClosed( false );
-	}, [ postType, postId ] );
 
 	if ( ! shouldEnableModal || isClosed ) {
 		return null;

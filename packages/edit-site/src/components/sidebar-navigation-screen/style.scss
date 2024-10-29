@@ -59,7 +59,7 @@
 	position: sticky;
 	top: 0;
 	background: $gray-900;
-	padding-top: $grid-unit-60 + $header-height;
+	padding-top: $grid-unit-60;
 	margin-bottom: $grid-unit-10;
 	padding-bottom: $grid-unit-10;
 	z-index: z-index(".edit-site-sidebar-navigation-screen__title-icon");
@@ -67,8 +67,12 @@
 
 .edit-site-sidebar-navigation-screen__title {
 	flex-grow: 1;
-	padding: $grid-unit-15 * 0.5 0 0 0;
 	overflow-wrap: break-word;
+
+	&#{&},
+	&#{&} .edit-site-sidebar-navigation-screen__title {
+		line-height: $font-line-height-x-large;
+	}
 }
 
 .edit-site-sidebar-navigation-screen__actions {
@@ -146,7 +150,6 @@
 	.components-input-control__input {
 		color: $gray-200 !important;
 		background: $gray-800 !important;
-		border-radius: $radius-block-ui;
 	}
 	.components-input-control__backdrop {
 		border: 4px !important;

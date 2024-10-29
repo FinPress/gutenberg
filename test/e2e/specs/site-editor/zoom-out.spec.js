@@ -5,60 +5,46 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test.describe( 'Zoom Out', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
-		await requestUtils.activateTheme( 'emptytheme' );
-	} );
-
-	test.beforeEach( async ( { admin, page, editor } ) => {
-		await admin.visitAdminPage( 'admin.php', 'page=gutenberg-experiments' );
-
-		const zoomedOutCheckbox = page.getByLabel(
-			'Test a new zoomed out view on'
-		);
-
-		await zoomedOutCheckbox.setChecked( true );
-		await expect( zoomedOutCheckbox ).toBeChecked();
-		await page.getByRole( 'button', { name: 'Save Changes' } ).click();
-
-		// Select a template part with a few blocks.
-		await admin.visitSiteEditor( {
-			postId: 'emptytheme//header',
-			postType: 'wp_template_part',
-		} );
-		await editor.canvas.locator( 'body' ).click();
-	} );
-
-	test.afterEach( async ( { admin, page } ) => {
-		await admin.visitAdminPage( 'admin.php', 'page=gutenberg-experiments' );
-		const zoomedOutCheckbox = page.getByLabel(
-			'Test a new zoomed out view on'
-		);
-		await zoomedOutCheckbox.setChecked( false );
-		await expect( zoomedOutCheckbox ).not.toBeChecked();
-		await page.getByRole( 'button', { name: 'Save Changes' } ).click();
+		await requestUtils.activateTheme( 'twentytwentyfour' );
 	} );
 
 	test.afterAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'twentytwentyone' );
 	} );
 
-	test( 'Zoom-out button should not steal focus when a block is focused', async ( {
+	test.beforeEach( async ( { admin } ) => {
+		await admin.visitSiteEditor( {
+			postId: 'twentytwentyfour//index',
+			postType: 'wp_template',
+			canvas: 'edit',
+		} );
+	} );
+
+	test( 'Entering zoomed out mode zooms the canvas', async ( {
 		page,
 		editor,
 	} ) => {
-		const zoomOutButton = page.getByRole( 'button', {
-			name: 'Zoom-out View',
-			exact: true,
+		await page.getByLabel( 'Zoom Out' ).click();
+		const iframe = page.locator( 'iframe[name="editor-canvas"]' );
+		const html = editor.canvas.locator( 'html' );
+
+		// Check that the html is scaled.
+		await expect( html ).toHaveCSS(
+			'scale',
+			new RegExp( /0\.[5-8][0-9]*/, 'i' )
+		);
+		const iframeRect = await iframe.boundingBox();
+		const htmlRect = await html.boundingBox();
+
+		// Check that the iframe is larger than the html.
+		expect( iframeRect.width ).toBeGreaterThan( htmlRect.width );
+
+		// Check that the zoomed out content has a frame around it.
+		const paddingTop = await html.evaluate( ( element ) => {
+			const paddingValue = window.getComputedStyle( element ).paddingTop;
+			return parseFloat( paddingValue );
 		} );
-
-		// Select a block for this test to surface the potential focus-stealing behavior
-		await editor.canvas.getByLabel( 'Site title text' ).click();
-
-		await zoomOutButton.click();
-
-		await expect( zoomOutButton ).toBeFocused();
-
-		await page.keyboard.press( 'Enter' );
-
-		await expect( zoomOutButton ).toBeFocused();
+		expect( htmlRect.y + paddingTop ).toBeGreaterThan( iframeRect.y );
+		expect( htmlRect.x ).toBeGreaterThan( iframeRect.x );
 	} );
 } );

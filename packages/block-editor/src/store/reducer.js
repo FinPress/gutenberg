@@ -8,6 +8,7 @@ import fastDeepEqual from 'fast-deep-equal/es6';
  */
 import { pipe } from '@wordpress/compose';
 import { combineReducers, select } from '@wordpress/data';
+import deprecated from '@wordpress/deprecated';
 import { store as blocksStore } from '@wordpress/blocks';
 /**
  * Internal dependencies
@@ -1601,7 +1602,7 @@ export function blocksMode( state = {}, action ) {
  *
  * @return {Object} Updated state.
  */
-export function insertionPoint( state = null, action ) {
+export function insertionCue( state = null, action ) {
 	switch ( action.type ) {
 		case 'SHOW_INSERTION_POINT': {
 			const {
@@ -1660,17 +1661,30 @@ export function template( state = { isValid: true }, action ) {
  */
 export function settings( state = SETTINGS_DEFAULTS, action ) {
 	switch ( action.type ) {
-		case 'UPDATE_SETTINGS':
-			if ( action.reset ) {
-				return {
-					...SETTINGS_DEFAULTS,
-					...action.settings,
-				};
-			}
-			return {
-				...state,
-				...action.settings,
-			};
+		case 'UPDATE_SETTINGS': {
+			const updatedSettings = action.reset
+				? {
+						...SETTINGS_DEFAULTS,
+						...action.settings,
+				  }
+				: {
+						...state,
+						...action.settings,
+				  };
+
+			Object.defineProperty( updatedSettings, '__unstableIsPreviewMode', {
+				get() {
+					deprecated( '__unstableIsPreviewMode', {
+						since: '6.8',
+						alternative: 'isPreviewMode',
+					} );
+
+					return this.isPreviewMode;
+				},
+			} );
+
+			return updatedSettings;
+		}
 	}
 
 	return state;
@@ -1750,69 +1764,41 @@ export const blockListSettings = ( state = {}, action ) => {
 			);
 		}
 		case 'UPDATE_BLOCK_LIST_SETTINGS': {
-			const { clientId } = action;
-			if ( ! action.settings ) {
-				if ( state.hasOwnProperty( clientId ) ) {
-					const { [ clientId ]: removedBlock, ...restBlocks } = state;
-					return restBlocks;
+			const updates =
+				typeof action.clientId === 'string'
+					? { [ action.clientId ]: action.settings }
+					: action.clientId;
+
+			// Remove settings that are the same as the current state.
+			for ( const clientId in updates ) {
+				if ( ! updates[ clientId ] ) {
+					if ( ! state[ clientId ] ) {
+						delete updates[ clientId ];
+					}
+				} else if (
+					fastDeepEqual( state[ clientId ], updates[ clientId ] )
+				) {
+					delete updates[ clientId ];
 				}
+			}
 
+			if ( Object.keys( updates ).length === 0 ) {
 				return state;
 			}
 
-			if ( fastDeepEqual( state[ clientId ], action.settings ) ) {
-				return state;
+			const merged = { ...state, ...updates };
+
+			for ( const clientId in updates ) {
+				if ( ! updates[ clientId ] ) {
+					delete merged[ clientId ];
+				}
 			}
 
-			return {
-				...state,
-				[ clientId ]: action.settings,
-			};
+			return merged;
 		}
 	}
 	return state;
 };
-
-/**
- * Reducer returning which mode is enabled.
- *
- * @param {string} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {string} Updated state.
- */
-export function editorMode( state = 'edit', action ) {
-	// Let inserting block in navigation mode always trigger Edit mode.
-	if ( action.type === 'INSERT_BLOCKS' && state === 'navigation' ) {
-		return 'edit';
-	}
-
-	if ( action.type === 'SET_EDITOR_MODE' ) {
-		return action.mode;
-	}
-
-	return state;
-}
-
-/**
- * Reducer returning whether the block moving mode is enabled or not.
- *
- * @param {string|null} state  Current state.
- * @param {Object}      action Dispatched action.
- *
- * @return {string|null} Updated state.
- */
-export function hasBlockMovingClientId( state = null, action ) {
-	if ( action.type === 'SET_BLOCK_MOVING_MODE' ) {
-		return action.hasBlockMovingClientId;
-	}
-
-	if ( action.type === 'SET_EDITOR_MODE' ) {
-		return null;
-	}
-
-	return state;
-}
 
 /**
  * Reducer return an updated state representing the most recent block attribute
@@ -2055,6 +2041,61 @@ export function lastFocus( state = false, action ) {
 	return state;
 }
 
+/**
+ * Reducer setting currently hovered block.
+ *
+ * @param {boolean} state  Current state.
+ * @param {Object}  action Dispatched action.
+ *
+ * @return {boolean} Updated state.
+ */
+export function hoveredBlockClientId( state = false, action ) {
+	switch ( action.type ) {
+		case 'HOVER_BLOCK':
+			return action.clientId;
+	}
+
+	return state;
+}
+
+/**
+ * Reducer setting zoom out state.
+ *
+ * @param {boolean} state  Current state.
+ * @param {Object}  action Dispatched action.
+ *
+ * @return {number} Updated state.
+ */
+export function zoomLevel( state = 100, action ) {
+	switch ( action.type ) {
+		case 'SET_ZOOM_LEVEL':
+			return action.zoom;
+		case 'RESET_ZOOM_LEVEL':
+			return 100;
+	}
+
+	return state;
+}
+
+/**
+ * Reducer setting the insertion point
+ *
+ * @param {boolean} state  Current state.
+ * @param {Object}  action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+export function insertionPoint( state = null, action ) {
+	switch ( action.type ) {
+		case 'SET_INSERTION_POINT':
+			return action.value;
+		case 'SELECT_BLOCK':
+			return null;
+	}
+
+	return state;
+}
+
 const combinedReducers = combineReducers( {
 	blocks,
 	isDragging,
@@ -2068,13 +2109,12 @@ const combinedReducers = combineReducers( {
 	blocksMode,
 	blockListSettings,
 	insertionPoint,
+	insertionCue,
 	template,
 	settings,
 	preferences,
 	lastBlockAttributesChange,
 	lastFocus,
-	editorMode,
-	hasBlockMovingClientId,
 	expandedBlock,
 	highlightedBlock,
 	lastBlockInserted,
@@ -2087,6 +2127,8 @@ const combinedReducers = combineReducers( {
 	blockRemovalRules,
 	openedBlockSettingsMenu,
 	registeredInserterMediaCategories,
+	hoveredBlockClientId,
+	zoomLevel,
 } );
 
 function withAutomaticChangeReset( reducer ) {

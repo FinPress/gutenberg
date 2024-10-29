@@ -8,7 +8,7 @@ import clsx from 'clsx';
  */
 import { memo, useMemo, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 import {
 	BlockControls,
 	BlockContextProvider,
@@ -90,6 +90,7 @@ export default function PostTemplateEdit( {
 			taxQuery,
 			parents,
 			pages,
+			format,
 			// We gather extra query args to pass to the REST API call.
 			// This way extenders of Query Loop can add their own query args,
 			// and have accurate previews in the editor.
@@ -163,6 +164,10 @@ export default function PostTemplateEdit( {
 			if ( parents?.length ) {
 				query.parent = parents;
 			}
+			if ( format?.length ) {
+				query.format = format;
+			}
+
 			// If sticky is not set, it will return all posts in the results.
 			// If sticky is set to `only`, it will limit the results to sticky posts only.
 			// If it is anything else, it will exclude sticky posts from results. For the record the value stored is `exclude`.
@@ -205,6 +210,7 @@ export default function PostTemplateEdit( {
 			templateSlug,
 			taxQuery,
 			parents,
+			format,
 			restQueryArgs,
 			previewPostType,
 		]
@@ -246,13 +252,13 @@ export default function PostTemplateEdit( {
 	const displayLayoutControls = [
 		{
 			icon: list,
-			title: __( 'List view' ),
+			title: _x( 'List view', 'Post template block display setting' ),
 			onClick: () => setDisplayLayout( { type: 'default' } ),
 			isActive: layoutType === 'default' || layoutType === 'constrained',
 		},
 		{
 			icon: grid,
-			title: __( 'Grid view' ),
+			title: _x( 'Grid view', 'Post template block display setting' ),
 			onClick: () =>
 				setDisplayLayout( {
 					type: 'grid',
