@@ -30,6 +30,7 @@
 ### Internal
 
 -   ESLint: Stop disabling `react-hooks/exhaustive-deps` rule ([#66324](https://github.com/WordPress/gutenberg/pull/66324)).
+-   `Snackbar`: Use link variant for action Button ([#66560](https://github.com/WordPress/gutenberg/pull/66560)).
 
 ## 28.10.0 (2024-10-16)
 
