@@ -368,7 +368,7 @@ function gutenberg_register_packages_styles( $styles ) {
 		array(),
 		$version
 	);
-	$styles->add_data( 'wp-edit-blocks', 'rtl', 'replace' );
+	$styles->add_data( 'wp-block-library-editor', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
