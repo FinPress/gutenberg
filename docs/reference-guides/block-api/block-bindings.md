@@ -19,7 +19,7 @@ An example could be connecting an Image block `url` attribute to a function that
 
 ## Compatible blocks and their attributes
 
-Right now, not all block attributes are compatible with block bindings. This is some ongoing effort to increase this compatibility, but for now, this is the list:
+Right now, not all block attributes are compatible with block bindings. There is some ongoing effort to increase this compatibility, but for now, this is the list:
 
 | Supported Blocks    | Supported Attributes       |
 | ----------------    | --------------------       |
