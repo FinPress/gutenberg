@@ -294,7 +294,7 @@ export function FlatTermSelector( { slug, __nextHasNoMarginBottom } ) {
 
 	const Wrapper = ( { children } ) =>
 		__nextHasNoMarginBottom ? (
-			<VStack spacing={ 3 }>{ children }</VStack>
+			<VStack spacing={ 4 }>{ children }</VStack>
 		) : (
 			<Fragment>{ children }</Fragment>
 		);
