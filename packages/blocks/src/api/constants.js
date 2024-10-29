@@ -183,7 +183,7 @@ export const __EXPERIMENTAL_STYLE_PROPERTY = {
 	},
 	fontFamily: {
 		value: [ 'typography', 'fontFamily' ],
-		support: [ 'typography', '__experimentalFontFamily' ],
+		support: [ 'typography', 'fontFamily' ],
 		useEngine: true,
 	},
 	fontSize: {
