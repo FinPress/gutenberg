@@ -684,6 +684,12 @@
 		"parent": "components"
 	},
 	{
+		"title": "Badge",
+		"slug": "badge",
+		"markdown_source": "../packages/components/src/badge/README.md",
+		"parent": "components"
+	},
+	{
 		"title": "BaseControl",
 		"slug": "base-control",
 		"markdown_source": "../packages/components/src/base-control/README.md",
