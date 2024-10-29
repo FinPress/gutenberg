@@ -58,12 +58,14 @@ function gutenberg_block_editor_preload_paths_6_7( $paths, $context ) {
 		$paths[]          = '/wp/v2/global-styles/themes/' . $active_theme . '?context=view';
 		$paths[]          = '/wp/v2/global-styles/themes/' . $active_theme . '/variations?context=view';
 		$paths[]          = array( '/wp/v2/global-styles/' . $global_styles_id, 'OPTIONS' );
+
+		// Remove duplicate or unnecessary global styles paths.
 		$excluded_paths[] = '/wp/v2/global-styles/themes/' . $active_theme;
 		$excluded_paths[] = '/wp/v2/global-styles/' . $global_styles_id;
-	}
-	foreach ( $paths as $key => $path ) {
-		if ( in_array( $path, $excluded_paths, true ) ) {
-			unset( $paths[ $key ] );
+		foreach ( $paths as $key => $path ) {
+			if ( in_array( $path, $excluded_paths, true ) ) {
+				unset( $paths[ $key ] );
+			}
 		}
 	}
 
