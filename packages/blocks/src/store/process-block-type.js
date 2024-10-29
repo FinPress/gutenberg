@@ -61,7 +61,7 @@ function mergeBlockVariations(
 
 	return result;
 }
-function handleExperimentalBorder( rawSupports ) {
+function stabilizeSupports( rawSupports ) {
 	if ( ! rawSupports ) {
 		return rawSupports;
 	}
@@ -116,7 +116,7 @@ export const processBlockType =
 					: []
 			),
 		};
-		blockType.supports = handleExperimentalBorder( blockType.supports );
+		blockType.supports = stabilizeSupports( blockType.supports );
 
 		const settings = applyFilters(
 			'blocks.registerBlockType',
@@ -124,7 +124,7 @@ export const processBlockType =
 			name,
 			null
 		);
-		blockType.supports = handleExperimentalBorder( blockType.supports );
+		blockType.supports = stabilizeSupports( blockType.supports );
 
 		if (
 			settings.description &&
@@ -137,7 +137,7 @@ export const processBlockType =
 
 		if ( settings.deprecated ) {
 			settings.deprecated = settings.deprecated.map( ( deprecation ) => {
-				deprecation.supports = handleExperimentalBorder(
+				deprecation.supports = stabilizeSupports(
 					deprecation.supports
 				);
 
@@ -150,7 +150,7 @@ export const processBlockType =
 					blockType.name,
 					deprecation
 				);
-				filteredDeprecation.supports = handleExperimentalBorder(
+				filteredDeprecation.supports = stabilizeSupports(
 					filteredDeprecation.supports
 				);
 
