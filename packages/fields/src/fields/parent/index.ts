@@ -18,7 +18,7 @@ const parentField: Field< BasePost > = {
 	getValue: ( { item } ) => item.parent,
 	Edit: ParentEdit,
 	render: ParentView,
-	enableSorting: false,
+	enableSorting: true,
 };
 
 /**
