@@ -414,8 +414,6 @@ function Layout( {
 			const { isZoomOut } = unlock( select( blockEditorStore ) );
 			const { getEditorMode, getRenderingMode } = select( editorStore );
 			const isRenderingPostOnly = getRenderingMode() === 'post-only';
-			const isRenderingTemplateLocked =
-				getRenderingMode() === 'template-locked';
 
 			return {
 				mode: getEditorMode(),
@@ -426,9 +424,7 @@ function Layout( {
 					!! select( blockEditorStore ).getBlockSelectionStart(),
 				showIconLabels: get( 'core', 'showIconLabels' ),
 				isDistractionFree: get( 'core', 'distractionFree' ),
-				showMetaBoxes:
-					! DESIGN_POST_TYPES.includes( currentPostType ) &&
-					( isRenderingPostOnly || isRenderingTemplateLocked ),
+				showMetaBoxes: ! DESIGN_POST_TYPES.includes( currentPostType ),
 				isWelcomeGuideVisible: isFeatureActive( 'welcomeGuide' ),
 				templateId:
 					supportsTemplateMode &&
