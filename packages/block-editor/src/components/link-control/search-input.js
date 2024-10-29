@@ -114,16 +114,20 @@ const LinkControlSearchInput = forwardRef(
 			}
 		};
 
+		const inputLabel = label ?? __( 'Search or type URL' );
+
 		return (
 			<div className="block-editor-link-control__search-input-container">
 				<URLInput
 					disableSuggestions={ currentLink?.url === value }
-					label={ label ?? __( 'Search or type URL' ) }
+					label={ inputLabel }
 					hideLabelFromVision={ hideLabelFromVision }
 					className={ className }
 					value={ value }
 					onChange={ onInputChange }
-					placeholder={ placeholder }
+					placeholder={
+						hideLabelFromVision ? inputLabel : placeholder
+					}
 					__experimentalRenderSuggestions={
 						showSuggestions ? handleRenderSuggestions : null
 					}
