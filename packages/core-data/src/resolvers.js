@@ -436,6 +436,23 @@ export const canUser =
 			throw new Error( `'${ requestedAction }' is not a valid action.` );
 		}
 
+		const { hasStartedResolution } = registry.select( STORE_NAME );
+
+		// Prevent resolving the same resource twice.
+		for ( const relatedAction of ALLOWED_RESOURCE_ACTIONS ) {
+			if ( relatedAction === requestedAction ) {
+				continue;
+			}
+			const isAlreadyResolving = hasStartedResolution( 'canUser', [
+				relatedAction,
+				resource,
+				id,
+			] );
+			if ( isAlreadyResolving ) {
+				return;
+			}
+		}
+
 		let resourcePath = null;
 		if ( typeof resource === 'object' ) {
 			if ( ! resource.kind || ! resource.name ) {
@@ -458,23 +475,6 @@ export const canUser =
 				entityConfig.baseURL + ( resource.id ? '/' + resource.id : '' );
 		} else {
 			resourcePath = `/wp/v2/${ resource }` + ( id ? '/' + id : '' );
-		}
-
-		const { hasStartedResolution } = registry.select( STORE_NAME );
-
-		// Prevent resolving the same resource twice.
-		for ( const relatedAction of ALLOWED_RESOURCE_ACTIONS ) {
-			if ( relatedAction === requestedAction ) {
-				continue;
-			}
-			const isAlreadyResolving = hasStartedResolution( 'canUser', [
-				relatedAction,
-				resource,
-				id,
-			] );
-			if ( isAlreadyResolving ) {
-				return;
-			}
 		}
 
 		let response;
