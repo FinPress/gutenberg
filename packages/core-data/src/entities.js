@@ -411,11 +411,7 @@ async function loadSiteEntity() {
 	};
 
 	const site = await apiFetch( {
-		// Append a pseudo context value to allow preloading twice. `canUser`
-		// uses the same path. Ideally the raw result is cached and used by both
-		// `canUser` and `loadSiteEntity`.
-		// Please check the preloaded paths whenever this is changed.
-		path: entity.baseURL + '?context=schema',
+		path: entity.baseURL,
 		method: 'OPTIONS',
 	} );
 

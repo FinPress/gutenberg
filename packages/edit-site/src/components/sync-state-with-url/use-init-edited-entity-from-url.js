@@ -39,7 +39,6 @@ function useResolveEditedEntityAndContext( { postId, postType } ) {
 		frontPageTemplateId,
 	} = useSelect( ( select ) => {
 		const { getEntityRecord, getEntityRecords } = select( coreDataStore );
-		// Please check the preloaded paths whenever this is changed.
 		const siteData = getEntityRecord( 'root', 'site' );
 		const base = getEntityRecord( 'root', '__unstableBase' );
 		const templates = getEntityRecords( 'postType', TEMPLATE_POST_TYPE, {

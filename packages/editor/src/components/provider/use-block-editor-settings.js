@@ -139,7 +139,6 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			const { getBlockTypes } = select( blocksStore );
 			const { getBlocksByName, getBlockAttributes } =
 				select( blockEditorStore );
-			// Please check the preloaded paths whenever this is changed.
 			const siteSettings = canUser( 'read', {
 				kind: 'root',
 				name: 'site',

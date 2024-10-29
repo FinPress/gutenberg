@@ -10,12 +10,9 @@
  */
 function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 	if ( 'core/edit-site' === $context->name ) {
+		// Core already preloads both of these for `core/edit-post`.
 		$paths[] = '/wp/v2/settings';
 		$paths[] = array( '/wp/v2/settings', 'OPTIONS' );
-		// Append a pseudo context value to allow preloading twice. `canUser`
-		// uses the same path. Ideally the raw result is cached and used by both
-		// `canUser` and `loadSiteEntity`.
-		$paths[] = array( '/wp/v2/settings?context=schema', 'OPTIONS' );
 	}
 	return $paths;
 }
