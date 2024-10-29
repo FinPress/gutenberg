@@ -106,9 +106,9 @@ add_filter( 'query_loop_block_query_vars', 'gutenberg_add_format_query_vars_to_q
 
 /**
  * Adds `ignore` option for sticky posts to the Query block.
- * 
+ *
  * @see 'query_loop_block_query_vars'
- * 
+ *
  * @param array    $query The query vars.
  * @param WP_Block $block Block instance.
  * @return array   The filtered query vars.
