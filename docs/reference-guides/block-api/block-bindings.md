@@ -30,7 +30,7 @@ Right now, not all block attributes are compatible with block bindings. This is 
 
 ## Registering a custom source
 
-Registering a source requires defining at least `name` and a `callback` function that gets a value from the source and passes it back to a block attribute.
+Registering a source requires defining at least `name`, a `label` and a `callback` function that gets a value from the source and passes it back to a block attribute.
 
 Once a source is registered, any supporting block's `metadata.bindings` attribute can be configured to read a value from that source.
 
@@ -64,8 +64,9 @@ add_action(
 				'label'              => __( 'Visualization Date', 'custom-bindings' ),
 				'get_value_callback' => function ( array $source_args, $block_instance ) {
 					$post_id = $block_instance->context['postId'];
-					$visualization_date = get_post_meta( $post_id, 'wp_movies_visualization_date', true );
-					return $visualization_date;
+					if ( isset( $source_args['key'] ) ) {
+						return get_post_meta( $post_id, $source_args['key'], true );
+					}
 				},
 				'uses_context'       => array( 'postId' ),
 			)
@@ -108,9 +109,9 @@ The filter has the following parameters:
 Example:
 
 ```php
-function wpmovies_format_visualization_date( $value, $source_args ) {
+function wpmovies_format_visualization_date( $value, $name ) {
 	// Prevent the filter to be applied to other sources.
-	if ( $source_args !== 'wpmovies/visualization-date' ) {
+	if ( $name !== 'wpmovies/visualization-date' ) {
 		return $value;
 	}
 	if ( ! $value ) {
@@ -139,8 +140,8 @@ The function to register a custom source is `registerBlockBindingsSource( args )
 
 - `args`: `object` with the following structure:
     - `name`: `string` with the unique and machine-readable name.
-    - `label`: `string` with the human readable name of the custom source. (optional)
-    - `usesContext`: `array` with the block context that the custom source may need. (optional)
+    - `label`: `string` with the human readable name of the custom source. In case it was defined already on the server, it should not be defined here. (optional)
+    - `usesContext`: `array` with the block context that the custom source may need. In case it was defined already on the server, it should not be defined here. (optional)
     - `getValues`: `function` that retrieves the values from the source. (optional)
     - `setValues`: `function` that allows updating the values connected to the source. (optional)
     - `canUserEditValue`: `function` to determine if the user can edit the value. The user won't be able to edit by default. (optional)
@@ -162,18 +163,6 @@ registerBlockBindingsSource( {
 	name: 'wpmovies/visualization-date',
 	label: __( 'Visualization Date', 'custom-bindings' ),
 	usesContext: [ 'postId', 'postType' ],
-	setValues( { select, dispatch, context, bindings } ) {
-		dispatch( coreDataStore ).editEntityRecord(
-			'postType',
-			context?.postType,
-			context?.postId,
-			{
-				meta: {
-					wp_movies_visualization_date: bindings?.content?.newValue,
-				},
-			}
-		);
-	},
 	getValues( { select, context } ) {
 		let wpMoviesVisualizationDate;
 		const { getEditedEntityRecord } = select( coreDataStore );
@@ -194,6 +183,18 @@ registerBlockBindingsSource( {
 			content: new Date().toLocaleDateString( 'en-US' ),
 		};
 	},
+	setValues( { select, dispatch, context, bindings } ) {
+		dispatch( coreDataStore ).editEntityRecord(
+			'postType',
+			context?.postType,
+			context?.postId,
+			{
+				meta: {
+					wp_movies_visualization_date: bindings?.content?.newValue,
+				},
+			}
+		);
+	},
 	canUserEditValue( { select, context } ) {
 		return true;
 	},
@@ -204,7 +205,7 @@ registerBlockBindingsSource( {
 
 The `getValues` function retrieves the value from the source on block loading. It receives an `object` as an argument with the following properties:
 
-- `bindings` returns the bindings object. It must have the attributes as a key, and the value can be a `string` or an `object` with arguments.
+- `bindings` returns the bindings object of the specific source. It must have the attributes as a key, and the value can be a `string` or an `object` with arguments.
 - `clientId` returns a `string` with the current block client ID.
 - `context` returns an `object` of the current block context, defined in the `usesContext` property. [More about block context.](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/).
 - `select` returns an `object` of a given store's selectors. [More info in their docs.](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#select).
@@ -216,7 +217,7 @@ The function must return an `object` with this structure:
 
 The `setValues` function updates all the values of the source of the block bound. It receives an `object` as an argument with the following properties:
 
-- `bindings` returns the bindings object. It must have the attributes as a key, and the value can be a `string` or an `object` with arguments. This object contains a `newValue` property with the user's input.
+- `bindings` returns the bindings object of the specific source. It must have the attributes as a key, and the value can be a `string` or an `object` with arguments. This object contains a `newValue` property with the user's input.
 - `clientId` returns a `string` with the current block client ID.
 - `context` returns an `object` of the current block context, defined in the `usesContext` property. [More about block context.](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/).
 - `dispatch` returns an `object` of the store's action creators. [More about dispatch](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#dispatch).
@@ -263,6 +264,17 @@ const blockBindingsSource = getBlockBindingsSource( 'plugin/my-custom-source' );
 ## Block Bindings Utils
 
 WordPress 6.7 includes a hook with two helpers that allows developers to edit the `metadata.bindings` attribute easily.
+
+UseBlockBindingUtils accepts a `clientId` string as a parameter, if it is not set, the function will use the current block client ID from the context.
+
+Example:
+
+```js
+import { useBlockBindingsUtils } from '@wordpress/block-editor';
+
+const { updateBlockBindings } = useBlockBindingsUtils('my-block-client-id-12345');
+...
+```
 
 ### updateBlockBindings
 
