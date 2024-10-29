@@ -18,6 +18,25 @@ import useDimensionHandler from './use-dimension-handler';
 const IMAGE_SIZE_PRESETS = [ 25, 50, 75, 100 ];
 const noop = () => {};
 
+/**
+ * Get scaled width and height for the given scale.
+ *
+ * @param {number} scale       The scale to get the scaled width and height for.
+ * @param {number} imageWidth  The image width.
+ * @param {number} imageHeight The image height.
+ *
+ * @return {Object} The scaled width and height.
+ */
+function getScaledWidthAndHeight( scale, imageWidth, imageHeight ) {
+	const scaledWidth = Math.round( imageWidth * ( scale / 100 ) );
+	const scaledHeight = Math.round( imageHeight * ( scale / 100 ) );
+
+	return {
+		scaledWidth,
+		scaledHeight,
+	};
+}
+
 export default function ImageSizeControl( {
 	imageSizeHelp,
 	imageWidth,
@@ -127,23 +146,4 @@ export default function ImageSizeControl( {
 			) }
 		</>
 	);
-}
-
-/**
- * Get scaled width and height for the given scale.
- *
- * @param {number} scale       The scale to get the scaled width and height for.
- * @param {number} imageWidth  The image width.
- * @param {number} imageHeight The image height.
- *
- * @return {Object} The scaled width and height.
- */
-function getScaledWidthAndHeight( scale, imageWidth, imageHeight ) {
-	const scaledWidth = Math.round( imageWidth * ( scale / 100 ) );
-	const scaledHeight = Math.round( imageHeight * ( scale / 100 ) );
-
-	return {
-		scaledWidth,
-		scaledHeight,
-	};
 }
