@@ -149,7 +149,6 @@ The function to register a custom source is `registerBlockBindingsSource( args )
 
 The `label` argument will override the one defined on the server if they are different.
 
-
 This example will show a custom post meta date in the editor and, if it doesn't exist, it will show today's date. The user can edit the value of the date. (Caution: This example does not format the user input as a date—it's only for educational purposes.)
 
 ```js
@@ -161,8 +160,8 @@ import { store as coreDataStore } from '@wordpress/core-data';
 
 registerBlockBindingsSource( {
 	name: 'wpmovies/visualization-date',
-	label: __( 'Visualization Date', 'custom-bindings' ),
-	usesContext: [ 'postId', 'postType' ],
+	label: __( 'Visualization Date', 'custom-bindings' ), // We can skip the label, as it was already defined in the server in the previous example.
+	usesContext: [ 'postType' ], // We can skip postId, as it was already defined in the server in the previous example.
 	getValues( { select, context } ) {
 		let wpMoviesVisualizationDate;
 		const { getEditedEntityRecord } = select( coreDataStore );
