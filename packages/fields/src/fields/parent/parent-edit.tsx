@@ -234,7 +234,10 @@ export function PageAttributesParent( {
 				rawName: '',
 			} );
 		}
-		return opts;
+		return opts.map( ( option ) => ( {
+			...option,
+			value: option.value.toString(),
+		} ) );
 	}, [ pageItems, fieldValue, parentPostTitle, parentPostId ] );
 
 	if ( ! isHierarchical ) {
@@ -270,10 +273,7 @@ export function PageAttributesParent( {
 			label={ __( 'Parent' ) }
 			help={ __( 'Choose a parent page.' ) }
 			value={ parentPostId?.toString() }
-			options={ parentOptions.map( ( option ) => ( {
-				...option,
-				value: option.value.toString(),
-			} ) ) }
+			options={ parentOptions }
 			onFilterValueChange={ debounce(
 				( value: unknown ) => handleKeydown( value as string ),
 				300
