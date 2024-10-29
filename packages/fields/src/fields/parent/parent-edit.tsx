@@ -119,7 +119,6 @@ export function PageAttributesParent( {
 	const pageId = data.parent;
 	const postId = data.id;
 	const postTypeSlug = data.type;
-	const parentPostId = data.parent;
 
 	const { parentPostTitle, pageItems, isHierarchical } = useSelect(
 		( select ) => {
@@ -224,12 +223,10 @@ export function PageAttributesParent( {
 		const opts = getOptionsFromTree( tree );
 
 		// Ensure the current parent is in the options list.
-		const optsHasParent = opts.find(
-			( item ) => item.value === parentPostId
-		);
-		if ( parentPostId && parentPostTitle && ! optsHasParent ) {
+		const optsHasParent = opts.find( ( item ) => item.value === pageId );
+		if ( pageId && parentPostTitle && ! optsHasParent ) {
 			opts.unshift( {
-				value: parentPostId,
+				value: pageId,
 				label: parentPostTitle,
 				rawName: '',
 			} );
@@ -238,7 +235,7 @@ export function PageAttributesParent( {
 			...option,
 			value: option.value.toString(),
 		} ) );
-	}, [ pageItems, fieldValue, parentPostTitle, parentPostId ] );
+	}, [ pageItems, fieldValue, parentPostTitle, pageId ] );
 
 	if ( ! isHierarchical ) {
 		return null;
@@ -272,7 +269,7 @@ export function PageAttributesParent( {
 			__next40pxDefaultSize
 			label={ __( 'Parent' ) }
 			help={ __( 'Choose a parent page.' ) }
-			value={ parentPostId?.toString() }
+			value={ pageId?.toString() }
 			options={ parentOptions }
 			onFilterValueChange={ debounce(
 				( value: unknown ) => handleKeydown( value as string ),
