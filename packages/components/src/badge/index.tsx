@@ -8,9 +8,17 @@ import clsx from 'clsx';
  */
 import type { BadgeProps } from './types';
 
-function Badge( { className, as: Component = 'div', children }: BadgeProps ) {
+function Badge( {
+	className,
+	as: Component = 'div',
+	children,
+	...props
+}: BadgeProps ) {
 	return (
-		<Component className={ clsx( 'components-badge', className ) }>
+		<Component
+			className={ clsx( 'components-badge', className ) }
+			{ ...props }
+		>
 			{ children }
 		</Component>
 	);
