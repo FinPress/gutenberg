@@ -1585,6 +1585,10 @@ _Related_
 
 Action that toggles Distraction free mode. Distraction free mode expects there are no sidebars, as due to the z-index values set, you can't close sidebars.
 
+_Parameters_
+
+-   _createNotice_ `boolean`: Whether to create a notice when this action is triggered.
+
 ### toggleEditorPanelEnabled
 
 Returns an action object used to enable or disable a panel in the editor.

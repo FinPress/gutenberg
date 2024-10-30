@@ -812,9 +812,11 @@ export function setIsListViewOpened( isOpen ) {
  * Action that toggles Distraction free mode.
  * Distraction free mode expects there are no sidebars, as due to the
  * z-index values set, you can't close sidebars.
+ *
+ * @param {boolean} createNotice Whether to create a notice when this action is triggered.
  */
 export const toggleDistractionFree =
-	() =>
+	( createNotice = true ) =>
 	( { dispatch, registry } ) => {
 		const isDistractionFree = registry
 			.select( preferencesStore )
@@ -837,42 +839,47 @@ export const toggleDistractionFree =
 			registry
 				.dispatch( preferencesStore )
 				.set( 'core', 'distractionFree', ! isDistractionFree );
-			registry
-				.dispatch( noticesStore )
-				.createInfoNotice(
-					isDistractionFree
-						? __( 'Distraction free off.' )
-						: __( 'Distraction free on.' ),
-					{
-						id: 'core/editor/distraction-free-mode/notice',
-						type: 'snackbar',
-						speakMessage: isDistractionFree
-							? __( 'Distraction free mode activated.' )
-							: __( 'Distraction free mode deactivated.' ),
-						actions: [
-							{
-								label: __( 'Undo' ),
-								onClick: () => {
-									registry.batch( () => {
-										registry
-											.dispatch( preferencesStore )
-											.set(
-												'core',
-												'fixedToolbar',
-												isDistractionFree ? true : false
-											);
-										registry
-											.dispatch( preferencesStore )
-											.toggle(
-												'core',
-												'distractionFree'
-											);
-									} );
+
+			if ( createNotice ) {
+				registry
+					.dispatch( noticesStore )
+					.createInfoNotice(
+						isDistractionFree
+							? __( 'Distraction free off.' )
+							: __( 'Distraction free on.' ),
+						{
+							id: 'core/editor/distraction-free-mode/notice',
+							type: 'snackbar',
+							speakMessage: isDistractionFree
+								? __( 'Distraction free mode activated.' )
+								: __( 'Distraction free mode deactivated.' ),
+							actions: [
+								{
+									label: __( 'Undo' ),
+									onClick: () => {
+										registry.batch( () => {
+											registry
+												.dispatch( preferencesStore )
+												.set(
+													'core',
+													'fixedToolbar',
+													isDistractionFree
+														? true
+														: false
+												);
+											registry
+												.dispatch( preferencesStore )
+												.toggle(
+													'core',
+													'distractionFree'
+												);
+										} );
+									},
 								},
-							},
-						],
-					}
-				);
+							],
+						}
+					);
+			}
 		} );
 	};
 
