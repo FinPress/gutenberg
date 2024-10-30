@@ -77,12 +77,13 @@ test.describe( 'Taxonomies', () => {
 		}
 
 		const tagName = 'tag-' + generateRandomNumber();
-		const tags = page.locator( '.components-form-token-field__token-text' );
 
 		await page
 			.getByRole( 'combobox', { name: 'Add New Tag' } )
 			.fill( tagName );
 		await page.keyboard.press( 'Enter' );
+
+		const tags = page.locator( '.components-form-token-field__token-text' );
 
 		await expect( tags ).toHaveCount( 1 );
 		await expect( tags ).toContainText( tagName );
@@ -114,12 +115,13 @@ test.describe( 'Taxonomies', () => {
 		}
 
 		const tagName = "tag'-" + generateRandomNumber();
-		const tags = page.locator( '.components-form-token-field__token-text' );
 
 		await page
 			.getByRole( 'combobox', { name: 'Add New Tag' } )
 			.fill( tagName );
 		await page.keyboard.press( 'Enter' );
+
+		const tags = page.locator( '.components-form-token-field__token-text' );
 
 		await expect( tags ).toHaveCount( 1 );
 		await expect( tags ).toContainText( tagName );
