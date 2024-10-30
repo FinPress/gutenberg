@@ -16,6 +16,7 @@
 ### Enhancements
 
 -   `PaletteEdit`: use `Item` internally instead of custom styles ([#66164](https://github.com/WordPress/gutenberg/pull/66164)).
+-   `Notice`: Add appropriate size props to Buttons ([#66593](https://github.com/WordPress/gutenberg/pull/66593)).
 
 ### Experimental
 
