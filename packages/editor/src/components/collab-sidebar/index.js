@@ -84,7 +84,7 @@ export default function CollabSidebar() {
 		return {
 			clientId: _clientId,
 			blockCommentId: _clientId
-				? getBlockAttributes( _clientId ).blockCommentId
+				? getBlockAttributes( _clientId )?.blockCommentId
 				: null,
 		};
 	}, [] );
