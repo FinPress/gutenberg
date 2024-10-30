@@ -24,11 +24,5 @@ module.exports = {
 	 * `@wordpress/components` outside of the package.
 	 */
 	importedFrom: '@wordpress/components',
-	// Merge experimental and unstable stats into the canonical component name
-	getComponentName: ( { imported, local } ) => {
-		return ( imported || local )
-			.replace( '__experimental', '' )
-			.replace( '__unstable', '' );
-	},
 	processors: [ [ 'raw-report', { outputTo: './results/gutenberg.json' } ] ],
 };
