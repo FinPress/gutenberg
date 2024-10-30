@@ -3,8 +3,8 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch, resolveSelect } from '@wordpress/data';
-import { useState, useEffect, useMemo } from '@wordpress/element';
-import { comment as commentIcon, post } from '@wordpress/icons';
+import { useState, useMemo } from '@wordpress/element';
+import { comment as commentIcon } from '@wordpress/icons';
 import { addFilter } from '@wordpress/hooks';
 import { store as noticesStore } from '@wordpress/notices';
 import { store as coreStore } from '@wordpress/core-data';
@@ -54,7 +54,6 @@ export default function CollabSidebar() {
 	const { saveEntityRecord, deleteEntityRecord } = useDispatch( coreStore );
 	const { getEntityRecord } = resolveSelect( coreStore );
 	const { enableComplementaryArea } = useDispatch( interfaceStore );
-	const [ blockCommentID, setBlockCommentID ] = useState( null );
 	const [ showCommentBoard, setShowCommentBoard ] = useState( false );
 
 	const { postId, postStatus, threads } = useSelect( ( select ) => {
@@ -77,14 +76,16 @@ export default function CollabSidebar() {
 		};
 	}, [] );
 
-	const { clientId, blockDetails } = useSelect( ( select ) => {
-		const { getBlock, getSelectedBlockClientId } =
+	const { clientId, blockCommentId } = useSelect( ( select ) => {
+		const { getBlockAttributes, getSelectedBlockClientId } =
 			select( blockEditorStore );
 		const _clientId = getSelectedBlockClientId();
 
 		return {
 			clientId: _clientId,
-			blockDetails: _clientId ? getBlock( _clientId ) : null,
+			blockCommentId: _clientId
+				? getBlockAttributes( _clientId ).blockCommentId
+				: null,
 		};
 	}, [] );
 
@@ -247,12 +248,6 @@ export default function CollabSidebar() {
 		);
 	};
 
-	useEffect( () => {
-		if ( blockDetails ) {
-			setBlockCommentID( blockDetails?.attributes.blockCommentId );
-		}
-	}, [ postId, clientId ] );
-
 	// Check if the experimental flag is enabled.
 	if ( ! isBlockCommentExperimentEnabled || postStatus === 'publish' ) {
 		return null; // or maybe return some message indicating no threads are available.
@@ -260,11 +255,11 @@ export default function CollabSidebar() {
 
 	return (
 		<>
-			{ ! blockCommentID && (
+			{ ! blockCommentId && (
 				<AddCommentButton onClick={ openCollabBoard } />
 			) }
 
-			{ blockCommentID > 0 && (
+			{ blockCommentId > 0 && (
 				<AddCommentToolbarButton onClick={ openCollabBoard } />
 			) }
 			<PluginSidebar
