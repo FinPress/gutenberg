@@ -749,22 +749,26 @@ export const getNavigationFallbackId =
 
 export const getDefaultTemplateId =
 	( query ) =>
-	async ( { dispatch } ) => {
-		const template = await apiFetch( {
+	async ( { dispatch, registry } ) => {
+		const response = await apiFetch( {
 			path: addQueryArgs( '/wp/v2/templates/lookup', query ),
+			parse: false,
 		} );
+		const template = await response.json();
 		// Endpoint may return an empty object if no template is found.
 		if ( template?.id ) {
-			dispatch.receiveDefaultTemplateId( query, template.id );
-			dispatch.receiveEntityRecords( 'postType', 'wp_template', [
-				template,
-			] );
-			// Avoid further network requests.
-			dispatch.finishResolution( 'getEntityRecord', [
-				'postType',
-				'wp_template',
-				template.id,
-			] );
+			registry.batch( () => {
+				dispatch.receiveDefaultTemplateId( query, template.id );
+				dispatch.receiveEntityRecords( 'postType', 'wp_template', [
+					template,
+				] );
+				// Avoid further network requests.
+				dispatch.finishResolution( 'getEntityRecord', [
+					'postType',
+					'wp_template',
+					template.id,
+				] );
+			} );
 		}
 	};
 
