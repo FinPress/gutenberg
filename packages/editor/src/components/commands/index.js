@@ -36,6 +36,7 @@ function useEditorCommandLoader() {
 		isListViewOpen,
 		showBlockBreadcrumbs,
 		isDistractionFree,
+		isFocusMode,
 		isPreviewMode,
 		isViewable,
 		isCodeEditingEnabled,
@@ -53,6 +54,7 @@ function useEditorCommandLoader() {
 			isListViewOpen: isListViewOpened(),
 			showBlockBreadcrumbs: get( 'core', 'showBlockBreadcrumbs' ),
 			isDistractionFree: get( 'core', 'distractionFree' ),
+			isFocusMode: get( 'core', 'focusMode' ),
 			isPreviewMode: getSettings().isPreviewMode,
 			isViewable: getPostType( getCurrentPostType() )?.viewable ?? false,
 			isCodeEditingEnabled: getEditorSettings().codeEditingEnabled,
@@ -96,8 +98,8 @@ function useEditorCommandLoader() {
 	commands.push( {
 		name: 'core/toggle-distraction-free',
 		label: isDistractionFree
-			? __( 'Exit Distraction Free' )
-			: __( 'Enter Distraction Free' ),
+			? __( 'Exit Distraction free' )
+			: __( 'Enter Distraction free' ),
 		callback: ( { close } ) => {
 			toggleDistractionFree();
 			close();
@@ -115,7 +117,9 @@ function useEditorCommandLoader() {
 
 	commands.push( {
 		name: 'core/toggle-spotlight-mode',
-		label: __( 'Toggle spotlight' ),
+		label: isFocusMode
+			? __( 'Exit Spotlight mode' )
+			: __( 'Enter Spotlight mode' ),
 		callback: ( { close } ) => {
 			toggleSpotlightMode();
 			close();
@@ -143,7 +147,7 @@ function useEditorCommandLoader() {
 
 	commands.push( {
 		name: 'core/toggle-top-toolbar',
-		label: __( 'Toggle top toolbar' ),
+		label: __( 'Top toolbar' ),
 		callback: ( { close } ) => {
 			toggleTopToolbar();
 			close();
@@ -187,7 +191,7 @@ function useEditorCommandLoader() {
 
 	commands.push( {
 		name: 'core/open-settings-sidebar',
-		label: __( 'Toggle settings sidebar' ),
+		label: __( 'Show or hide the Settings panel.' ),
 		icon: isRTL() ? drawerLeft : drawerRight,
 		callback: ( { close } ) => {
 			const activeSidebar = getActiveComplementaryArea( 'core' );
@@ -202,7 +206,7 @@ function useEditorCommandLoader() {
 
 	commands.push( {
 		name: 'core/open-block-inspector',
-		label: __( 'Toggle block inspector' ),
+		label: __( 'Show or hide the Block settings panel' ),
 		icon: blockDefault,
 		callback: ( { close } ) => {
 			const activeSidebar = getActiveComplementaryArea( 'core' );
