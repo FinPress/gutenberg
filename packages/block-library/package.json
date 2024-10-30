@@ -64,7 +64,6 @@
 		"@wordpress/keycodes": "*",
 		"@wordpress/notices": "*",
 		"@wordpress/patterns": "*",
-		"@wordpress/warning": "*",
 		"@wordpress/primitives": "*",
 		"@wordpress/private-apis": "*",
 		"@wordpress/reusable-blocks": "*",
