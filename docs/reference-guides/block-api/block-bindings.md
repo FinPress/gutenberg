@@ -1,5 +1,9 @@
 # Bindings
 
+<div class="callout callout-alert">
+Block Bindings API is only available for WordPress 6.5 and above.
+</div>
+
 The Block Bindings API lets you “bind” dynamic data to the block’s attributes, which are then reflected in the final HTML markup that is output to the browser on the front end.
 
 An example could be connecting an Image block `url` attribute to a function that returns random images from an external API.
@@ -97,6 +101,8 @@ add_action(
 
 #### Block bindings source value filter
 
+_**Note:** Since WordPress 6.7._
+
 The value returned by `get_value_callback` can be modified with the `block_bindings_source_value` filter.
 The filter has the following parameters:
 
@@ -134,20 +140,20 @@ There are a few examples in Core that can be used as reference.
 
 ### Editor registration
 
+_**Note:** Since WordPress 6.7._
+
 Editor registration on the client allows defining what the bound block will do when the value is retrieved or when the value is edited.
 
 The function to register a custom source is `registerBlockBindingsSource( args )`:
 
 - `args`: `object` with the following structure:
     - `name`: `string` with the unique and machine-readable name.
-    - `label`: `string` with the human readable name of the custom source. In case it was defined already on the server, it should not be defined here. (optional)
+    - `label`: `string` with the human readable name of the custom source. In case it was defined already on the server, the server label will be overriden by this one, in that case, it is not recommended to be defined here. (optional)
     - `usesContext`: `array` with the block context that the custom source may need. In case it was defined already on the server, it should not be defined here. (optional)
     - `getValues`: `function` that retrieves the values from the source. (optional)
     - `setValues`: `function` that allows updating the values connected to the source. (optional)
     - `canUserEditValue`: `function` to determine if the user can edit the value. The user won't be able to edit by default. (optional)
-    - `getFieldsList`: Experimental `function` that should not be used yet by third-party developers in production, as it is subject to change and may be removed in upcoming releases. It creates a list for the block bindings UI with post meta.
 
-The `label` argument will override the one defined on the server if they are different.
 
 This example will show a custom post meta date in the editor and, if it doesn't exist, it will show today's date. The user can edit the value of the date. (Caution: This example does not format the user input as a date—it's only for educational purposes.)
 
@@ -232,6 +238,8 @@ There are a few examples in Core that can be used as reference.
 
 ## Unregistering a source
 
+_**Note:** Since WordPress 6.7._
+
 `unregisterBlockBindingsSource` unregisters a block bindings source by providing its name.
 
 ```js
@@ -241,6 +249,8 @@ unregisterBlockBindingsSource( 'plugin/my-custom-source' );
 ```
 
 ## Getting all sources
+
+_**Note:** Since WordPress 6.7._
 
 `getBlockBindingsSources` returns all registered block bindings sources.
 
@@ -252,6 +262,8 @@ const registeredSources = getBlockBindingsSources();
 
 ## Getting one specific source
 
+_**Note:** Since WordPress 6.7._
+
 `getBlockBindingsSource` return a specific block bindings source by its name.
 
 ```js
@@ -262,9 +274,11 @@ const blockBindingsSource = getBlockBindingsSource( 'plugin/my-custom-source' );
 
 ## Block Bindings Utils
 
-WordPress 6.7 includes a hook with two helpers that allows developers to edit the `metadata.bindings` attribute easily.
+_**Note:** Since WordPress 6.7._
 
-UseBlockBindingUtils accepts a `clientId` string as a parameter, if it is not set, the function will use the current block client ID from the context.
+UseBlockBindingUtils is a hook with two helpers that allows developers to edit the `metadata.bindings` attribute easily.
+
+It accepts a `clientId` string as a parameter, if it is not set, the function will use the current block client ID from the context.
 
 Example:
 
