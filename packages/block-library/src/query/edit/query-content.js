@@ -103,12 +103,6 @@ export default function QueryContent( {
 		if ( isSingular && query.inherit ) {
 			newQuery.inherit = false;
 		}
-		// We need to update the query in the Editor if a specific post type is set.
-		// Unless the post type is `page`, as it usually doesn't make sense to loop
-		// through pages.
-		if ( postType && postType !== 'page' && query.postType !== postType ) {
-			newQuery.postType = postType;
-		}
 		if ( !! Object.keys( newQuery ).length ) {
 			__unstableMarkNextChangeAsNotPersistent();
 			updateQuery( newQuery );
@@ -116,11 +110,9 @@ export default function QueryContent( {
 	}, [
 		query.perPage,
 		query.inherit,
-		query.postType,
 		postsPerPage,
 		inherit,
 		isSingular,
-		postType,
 		__unstableMarkNextChangeAsNotPersistent,
 		updateQuery,
 	] );
@@ -167,6 +159,7 @@ export default function QueryContent( {
 					setDisplayLayout={ updateDisplayLayout }
 					setAttributes={ setAttributes }
 					clientId={ clientId }
+					postTypeFromContext={ postType }
 					isSingular={ isSingular }
 				/>
 			</InspectorControls>
