@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Internal
+
+-   `Snackbar`: Use link variant for action Button ([#66560](https://github.com/WordPress/gutenberg/pull/66560)).
+
 ## 28.11.0 (2024-10-30)
 
 ### Deprecations
