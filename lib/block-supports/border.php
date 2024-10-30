@@ -17,9 +17,9 @@ function gutenberg_register_border_support( $block_type ) {
 		$block_type->attributes = array();
 	}
 
-	if (  ( block_has_support( $block_type, 'border' ) || 
-      block_has_support( $block_type, '__experimentalBorder' ) ) && 
-    ! array_key_exists( 'style', $block_type->attributes ) ) {
+	if ( ( block_has_support( $block_type, 'border' ) ||
+	  block_has_support( $block_type, '__experimentalBorder' ) ) &&
+	! array_key_exists( 'style', $block_type->attributes ) ) {
 		$block_type->attributes['style'] = array(
 			'type' => 'object',
 		);
@@ -109,23 +109,23 @@ function gutenberg_apply_border_support( $block_type, $block_attributes ) {
 		foreach ( array( 'top', 'right', 'bottom', 'left' ) as $side ) {
 			$border                       = $block_attributes['style']['border'][ $side ] ?? null;
 			$border_side_values           = array(
-			'width' => isset( $border['width'] ) && 
-			! ( wp_should_skip_block_supports_serialization( $block_type, 'border', 'width' ) || 
-				wp_should_skip_block_supports_serialization( $block_type, '__experimentalBorder', 'width' ) ) 
-			? $border['width'] 
-			: null,
+				'width' => isset( $border['width'] ) &&
+				! ( wp_should_skip_block_supports_serialization( $block_type, 'border', 'width' ) ||
+					wp_should_skip_block_supports_serialization( $block_type, '__experimentalBorder', 'width' ) )
+				? $border['width']
+				: null,
 
-			'color' => isset( $border['color'] ) && 
-			! ( wp_should_skip_block_supports_serialization( $block_type, 'border', 'color' ) || 
-				wp_should_skip_block_supports_serialization( $block_type, '__experimentalBorder', 'color' ) ) 
-			? $border['color'] 
-			: null,
+				'color' => isset( $border['color'] ) &&
+				! ( wp_should_skip_block_supports_serialization( $block_type, 'border', 'color' ) ||
+					wp_should_skip_block_supports_serialization( $block_type, '__experimentalBorder', 'color' ) )
+				? $border['color']
+				: null,
 
-			'style' => isset( $border['style'] ) && 
-			! ( wp_should_skip_block_supports_serialization( $block_type, 'border', 'style' ) || 
-				wp_should_skip_block_supports_serialization( $block_type, '__experimentalBorder', 'style' ) ) 
-			? $border['style'] 
-			: null,
+				'style' => isset( $border['style'] ) &&
+				! ( wp_should_skip_block_supports_serialization( $block_type, 'border', 'style' ) ||
+					wp_should_skip_block_supports_serialization( $block_type, '__experimentalBorder', 'style' ) )
+				? $border['style']
+				: null,
 			);
 			$border_block_styles[ $side ] = $border_side_values;
 		}
