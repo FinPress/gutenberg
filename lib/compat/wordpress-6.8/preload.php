@@ -16,7 +16,7 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 		$paths[] = '/?_fields=' . implode(
 			',',
 			// @see packages/core-data/src/entities.js
-			[
+			array(
 				'description',
 				'gmt_offset',
 				'home',
@@ -26,7 +26,7 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 				'site_logo',
 				'timezone_string',
 				'url',
-			]
+			)
 		);
 	}
 	return $paths;
