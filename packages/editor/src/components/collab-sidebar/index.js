@@ -62,6 +62,11 @@ export default function CollabSidebar() {
 		};
 	}, [] );
 
+	const postStatus = useSelect( ( select ) => {
+		const post = select( editorStore ).getCurrentPost();
+		return { postStatus: post?.status };
+	}, [] );
+
 	const threads = useSelect(
 		( select ) => {
 			if ( ! postId ) {
@@ -259,7 +264,10 @@ export default function CollabSidebar() {
 	}, [ postId, clientId ] );
 
 	// Check if the experimental flag is enabled.
-	if ( ! isBlockCommentExperimentEnabled ) {
+	if (
+		! isBlockCommentExperimentEnabled ||
+		postStatus.postStatus === 'publish'
+	) {
 		return null; // or maybe return some message indicating no threads are available.
 	}
 
