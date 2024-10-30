@@ -24,6 +24,12 @@ Additional classes for the badge component.
 
 -   Required: No
 
+### `icon`: `IconType`
+
+Icon to be displayed within the badge component.
+
+-   Required: No
+
 ### `as`: `ElementType`
 
 Component type that will be used to render the badge component.
@@ -31,8 +37,23 @@ Component type that will be used to render the badge component.
 -   Required: No
 -   Default: `div`
 
+### `variant`: `'generic' | 'info' | 'success' | 'warning' | 'error'`
+
+Variant of the badge component.
+
+-   Required: No
+-   Default: `'generic'`
+-   
+
+### `showContext`: `boolean`
+
+Whether to display the badge with a contextual message when variant is set other than `'generic'`.
+
+-   Required: No
+-   Default: `true`
+
 ### `children`: `ReactNode`
 
-The content to be displayed within the `Badge`.
+The content to be displayed within the component.
 
 -   Required: Yes

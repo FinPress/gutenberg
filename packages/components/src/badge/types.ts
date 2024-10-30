@@ -3,6 +3,11 @@
  */
 import type { ElementType, ReactNode } from 'react';
 
+/**
+ * Internal dependencies
+ */
+import type { IconType } from '../icon';
+
 export type BadgeProps = {
 	/**
 	 * Element to display inside the badge.
@@ -13,7 +18,25 @@ export type BadgeProps = {
 	 */
 	className?: string;
 	/**
+	 * Optional Icon to display inside the badge.
+	 */
+	icon?: IconType;
+	/**
 	 * Component type that will be used to render the badge component.
+	 *
+	 * @default 'div'
 	 */
 	as?: ElementType;
+	/**
+	 * Badge variant.
+	 *
+	 * @default 'generic'
+	 */
+	variant?: 'generic' | 'info' | 'success' | 'warning' | 'error';
+	/**
+	 * Show context for the type of badge.
+	 *
+	 * @default true
+	 */
+	showContext?: boolean;
 };
