@@ -1,59 +1,60 @@
 # Badge
 
-`Badge` is a `reusable component` to display important information in (not limited to) `data-views`.
+<!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->
 
-## Usage
-
-```jsx
-import { Badge } from '@wordpress/components';
-
-const ExampleBadge = () => {
-	return (
-		<Badge className="my-badge" as="span">
-			Code is Poetry
-		</Badge>
-	);
-};
-```
+<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-badge--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>
 
 ## Props
 
-### `className`: `string`
-
-Additional classes for the badge component.
-
--   Required: No
-
-### `icon`: `IconType`
-
-Icon to be displayed within the badge component.
-
--   Required: No
-
-### `as`: `ElementType`
+### `as`
 
 Component type that will be used to render the badge component.
 
--   Required: No
--   Default: `div`
+ - Type: `ElementType`
+ - Required: No
+ - Default: `'div'`
 
-### `variant`: `'generic' | 'info' | 'success' | 'warning' | 'error'`
+### `children`
 
-Variant of the badge component.
+Element to display inside the badge.
 
--   Required: No
--   Default: `'generic'`
--   
+ - Type: `ReactNode`
+ - Required: Yes
 
-### `showContext`: `boolean`
+### `className`
 
-Whether to display the badge with a contextual message when variant is set other than `'generic'`.
+Additional classes for the badge component.
 
--   Required: No
--   Default: `true`
+ - Type: `string`
+ - Required: No
 
-### `children`: `ReactNode`
+### `icon`
 
-The content to be displayed within the component.
+Optional Icon to display inside the badge.
 
--   Required: Yes
+ - Type: `IconType`
+ - Required: No
+
+### `iconSize`
+
+Size of the icon in the badge.
+
+ - Type: `number`
+ - Required: No
+ - Default: `20`
+
+### `showContext`
+
+Show context for the type of badge.
+
+ - Type: `boolean`
+ - Required: No
+ - Default: `true`
+
+### `variant`
+
+Badge variant.
+
+ - Type: `"info" | "warning" | "generic" | "success" | "error"`
+ - Required: No
+ - Default: `generic`
