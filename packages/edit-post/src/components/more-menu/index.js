@@ -29,9 +29,9 @@ const MoreMenu = () => {
 						name="fullscreenMode"
 						label={ __( 'Fullscreen mode' ) }
 						info={ __( 'Show and hide the admin user interface' ) }
-						messageActivated={ __( 'Fullscreen mode activated' ) }
+						messageActivated={ __( 'Fullscreen mode activated.' ) }
 						messageDeactivated={ __(
-							'Fullscreen mode deactivated'
+							'Fullscreen mode deactivated.'
 						) }
 						shortcut={ displayShortcut.secondary( 'f' ) }
 					/>

@@ -30,12 +30,11 @@ export default function MoreMenu() {
 	const { openModal } = useDispatch( interfaceStore );
 	const { set: setPreference } = useDispatch( preferencesStore );
 	const { toggleDistractionFree } = useDispatch( editorStore );
-	const { showIconLabels } = useSelect( ( select ) => {
-		const store = select( preferencesStore );
-		return {
-			showIconLabels: store.get( 'core', 'showIconLabels' ),
-		};
-	} );
+	const showIconLabels = useSelect(
+		( select ) =>
+			select( preferencesStore ).get( 'core', 'showIconLabels' ),
+		[]
+	);
 
 	const turnOffDistractionFree = () => {
 		setPreference( 'core', 'distractionFree', false );
@@ -69,10 +68,10 @@ export default function MoreMenu() {
 									'Access all block and document tools in a single place'
 								) }
 								messageActivated={ __(
-									'Top toolbar activated'
+									'Top toolbar activated.'
 								) }
 								messageDeactivated={ __(
-									'Top toolbar deactivated'
+									'Top toolbar deactivated.'
 								) }
 							/>
 							<PreferenceToggleMenuItem
@@ -83,10 +82,10 @@ export default function MoreMenu() {
 								handleToggling={ false }
 								onToggle={ toggleDistractionFree }
 								messageActivated={ __(
-									'Distraction free mode activated'
+									'Distraction free mode activated.'
 								) }
 								messageDeactivated={ __(
-									'Distraction free mode deactivated'
+									'Distraction free mode deactivated.'
 								) }
 								shortcut={ displayShortcut.primaryShift(
 									'\\'
@@ -98,10 +97,10 @@ export default function MoreMenu() {
 								label={ __( 'Spotlight mode' ) }
 								info={ __( 'Focus on one block at a time' ) }
 								messageActivated={ __(
-									'Spotlight mode activated'
+									'Spotlight mode activated.'
 								) }
 								messageDeactivated={ __(
-									'Spotlight mode deactivated'
+									'Spotlight mode deactivated.'
 								) }
 							/>
 							<ViewMoreMenuGroup.Slot fillProps={ { onClose } } />

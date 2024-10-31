@@ -34,8 +34,6 @@ let uniqueId = 0;
  *                                                             content should be
  *                                                             announced to screen
  *                                                             readers.
- * @param {string}                [options.speakMessage]       Message to be spoken for
- *                                                             screen readers.
  * @param {Array<WPNoticeAction>} [options.actions]            User actions to be
  *                                                             presented with notice.
  * @param {string}                [options.icon]               An icon displayed with the notice.
@@ -71,7 +69,6 @@ let uniqueId = 0;
 export function createNotice( status = DEFAULT_STATUS, content, options = {} ) {
 	const {
 		speak = true,
-		speakMessage = null,
 		isDismissible = true,
 		context = DEFAULT_CONTEXT,
 		id = `${ context }${ ++uniqueId }`,
@@ -95,7 +92,7 @@ export function createNotice( status = DEFAULT_STATUS, content, options = {} ) {
 			id,
 			status,
 			content,
-			spokenMessage: speak ? speakMessage || content : null,
+			spokenMessage: speak ? content : null,
 			__unstableHTML,
 			isDismissible,
 			actions,

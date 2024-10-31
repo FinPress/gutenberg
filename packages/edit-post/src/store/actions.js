@@ -529,13 +529,12 @@ export const toggleFullscreenMode =
 		registry
 			.dispatch( noticesStore )
 			.createInfoNotice(
-				isFullscreen ? __( 'Fullscreen off.' ) : __( 'Fullscreen on.' ),
+				isFullscreen
+					? __( 'Fullscreen mode activated.' )
+					: __( 'Fullscreen mode deactivated.' ),
 				{
 					id: 'core/edit-post/toggle-fullscreen-mode/notice',
 					type: 'snackbar',
-					speakMessage: isFullscreen
-						? __( 'Fullscreen mode activated.' )
-						: __( 'Fullscreen mode deactivated.' ),
 					actions: [
 						{
 							label: __( 'Undo' ),

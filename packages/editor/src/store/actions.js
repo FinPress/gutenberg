@@ -816,7 +816,7 @@ export function setIsListViewOpened( isOpen ) {
  * @param {boolean} createNotice Whether to create a notice when this action is triggered.
  */
 export const toggleDistractionFree =
-	( createNotice = true ) =>
+	( { createNotice = true } = {} ) =>
 	( { dispatch, registry } ) => {
 		const isDistractionFree = registry
 			.select( preferencesStore )
@@ -861,8 +861,6 @@ export const toggleDistractionFree =
 													'core',
 													'fixedToolbar',
 													isDistractionFree
-														? true
-														: false
 												);
 											registry
 												.dispatch( preferencesStore )
@@ -895,13 +893,12 @@ export const toggleSpotlightMode =
 		registry
 			.dispatch( noticesStore )
 			.createInfoNotice(
-				isFocusMode ? __( 'Spotlight off.' ) : __( 'Spotlight on.' ),
+				isFocusMode
+					? __( 'Spotlight mode activated.' )
+					: __( 'Spotlight mode deactivated.' ),
 				{
 					id: 'core/editor/toggle-spotlight-mode/notice',
 					type: 'snackbar',
-					speakMessage: isFocusMode
-						? __( 'Spotlight mode activated.' )
-						: __( 'Spotlight mode deactivated.' ),
 					actions: [
 						{
 							label: __( 'Undo' ),
@@ -932,14 +929,11 @@ export const toggleTopToolbar =
 			.dispatch( noticesStore )
 			.createInfoNotice(
 				isTopToolbar
-					? __( 'Top toolbar off.' )
-					: __( 'Top toolbar on.' ),
+					? __( 'Top toolbar activated.' )
+					: __( 'Top toolbar deactivated.' ),
 				{
 					id: 'core/editor/toggle-top-toolbar/notice',
 					type: 'snackbar',
-					speakMessage: isTopToolbar
-						? __( 'Top toolbar activated.' )
-						: __( 'Top toolbar deactivated.' ),
 					actions: [
 						{
 							label: __( 'Undo' ),
