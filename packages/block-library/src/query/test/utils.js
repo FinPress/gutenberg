@@ -68,6 +68,9 @@ describe( 'Query block utils', () => {
 
 	describe( 'getQueryContextFromTemplate', () => {
 		it( 'should return the correct query context based on template slug', () => {
+			expect( getQueryContextFromTemplate() ).toStrictEqual( {
+				isSingular: true,
+			} );
 			expect( getQueryContextFromTemplate( '404' ) ).toStrictEqual( {
 				isSingular: true,
 				templateType: '404',
