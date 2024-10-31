@@ -103,7 +103,6 @@ const ImageWrapper = ( { href, children } ) => {
 function ContentOnlyControls( {
 	attributes,
 	setAttributes,
-	isContentOnlyMode,
 	lockAltControls,
 	lockAltControlsMessage,
 	lockTitleControls,
@@ -114,14 +113,8 @@ function ContentOnlyControls( {
 	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
 	const [ isAltDialogOpen, setIsAltDialogOpen ] = useState( false );
 	const [ isTitleDialogOpen, setIsTitleDialogOpen ] = useState( false );
-	if ( ! isContentOnlyMode ) {
-		return null;
-	}
 	return (
-		// Add some extra controls for content attributes when content only mode is active.
-		// With content only mode active, the inspector is hidden, so users need another way
-		// to edit these attributes.
-		<BlockControls group="block">
+		<>
 			<ToolbarItem ref={ setPopoverAnchor }>
 				{ ( toggleProps ) => (
 					<DropdownMenu
@@ -246,7 +239,7 @@ function ContentOnlyControls( {
 					</div>
 				</Popover>
 			) }
-		</BlockControls>
+		</>
 	);
 }
 
@@ -777,15 +770,21 @@ export default function Image( {
 					</ToolbarGroup>
 				</BlockControls>
 			) }
-			<ContentOnlyControls
-				isContentOnlyMode={ isContentOnlyMode }
-				attributes={ attributes }
-				setAttributes={ setAttributes }
-				lockAltControls={ lockAltControls }
-				lockAltControlsMessage={ lockAltControlsMessage }
-				lockTitleControls={ lockTitleControls }
-				lockTitleControlsMessage={ lockTitleControlsMessage }
-			/>
+			{ isContentOnlyMode && (
+				// Add some extra controls for content attributes when content only mode is active.
+				// With content only mode active, the inspector is hidden, so users need another way
+				// to edit these attributes.
+				<BlockControls group="block">
+					<ContentOnlyControls
+						attributes={ attributes }
+						setAttributes={ setAttributes }
+						lockAltControls={ lockAltControls }
+						lockAltControlsMessage={ lockAltControlsMessage }
+						lockTitleControls={ lockTitleControls }
+						lockTitleControlsMessage={ lockTitleControlsMessage }
+					/>
+				</BlockControls>
+			) }
 			<InspectorControls>
 				<ToolsPanel
 					label={ __( 'Settings' ) }
