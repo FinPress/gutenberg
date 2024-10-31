@@ -112,9 +112,13 @@ export default function BlockTools( {
 					? clientIds.length
 					: 1;
 				const message = sprintf(
-					// translators: %s: term "block" in either singular or plural form.
-					_n( '%s moved.', '%s moved.', blockLength ),
-					blockLength > 1 ? __( 'Blocks' ) : __( 'Block' )
+					// translators: %d: the name of the block that has been moved
+					_n(
+						'%d block moved.',
+						'%d blocks moved.',
+						clientIds.length
+					),
+					blockLength
 				);
 				speak( message );
 			}
