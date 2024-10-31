@@ -80,7 +80,11 @@ export default function MoreMenu() {
 								label={ __( 'Distraction free' ) }
 								info={ __( 'Write with calmness' ) }
 								handleToggling={ false }
-								onToggle={ toggleDistractionFree }
+								onToggle={ () =>
+									toggleDistractionFree( {
+										createNotice: false,
+									} )
+								}
 								messageActivated={ __(
 									'Distraction free mode activated.'
 								) }
