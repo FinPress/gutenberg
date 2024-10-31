@@ -25,6 +25,13 @@ import {
 import { getSyncProvider } from './sync';
 import { fetchBlockPatterns } from './fetch';
 
+async function getConfig( resolveSelect, kind, name ) {
+	const configs = await resolveSelect.getEntitiesConfig( kind );
+	return configs.find(
+		( config ) => config.name === name && config.kind === kind
+	);
+}
+
 /**
  * Requests authors from the REST API.
  *
@@ -65,10 +72,7 @@ export const getCurrentUser =
 export const getEntityRecord =
 	( kind, name, key = '', query ) =>
 	async ( { select, dispatch, registry, resolveSelect } ) => {
-		const configs = await resolveSelect.getEntitiesConfig( kind );
-		const entityConfig = configs.find(
-			( config ) => config.name === name && config.kind === kind
-		);
+		const entityConfig = await getConfig( resolveSelect, kind, name );
 		if ( ! entityConfig ) {
 			return;
 		}
@@ -231,10 +235,7 @@ export const getEditedEntityRecord = forwardResolver( 'getEntityRecord' );
 export const getEntityRecords =
 	( kind, name, query = {} ) =>
 	async ( { dispatch, registry, resolveSelect } ) => {
-		const configs = await resolveSelect.getEntitiesConfig( kind );
-		const entityConfig = configs.find(
-			( config ) => config.name === name && config.kind === kind
-		);
+		const entityConfig = await getConfig( resolveSelect, kind, name );
 		if ( ! entityConfig ) {
 			return;
 		}
@@ -459,13 +460,10 @@ export const canUser =
 				throw new Error( 'The entity resource object is not valid.' );
 			}
 
-			const configs = await resolveSelect.getEntitiesConfig(
-				resource.kind
-			);
-			const entityConfig = configs.find(
-				( config ) =>
-					config.name === resource.name &&
-					config.kind === resource.kind
+			const entityConfig = await getConfig(
+				resolveSelect,
+				resource.kind,
+				resource.name
 			);
 			if ( ! entityConfig ) {
 				return;
@@ -749,27 +747,28 @@ export const getNavigationFallbackId =
 
 export const getDefaultTemplateId =
 	( query ) =>
-	async ( { dispatch, registry } ) => {
+	async ( { dispatch, registry, resolveSelect } ) => {
+		const kind = 'postType';
+		const name = 'wp_template';
+		if ( ! ( await getConfig( resolveSelect, kind, name ) ) ) {
+			return;
+		}
 		const template = await apiFetch( {
 			path: addQueryArgs( '/wp/v2/templates/lookup', query ),
 		} );
-		setTimeout( () => {
-			// Endpoint may return an empty object if no template is found.
-			if ( template?.id ) {
-				registry.batch( () => {
-					dispatch.receiveDefaultTemplateId( query, template.id );
-					dispatch.receiveEntityRecords( 'postType', 'wp_template', [
-						template,
-					] );
-					// Avoid further network requests.
-					dispatch.finishResolution( 'getEntityRecord', [
-						'postType',
-						'wp_template',
-						template.id,
-					] );
-				} );
-			}
-		}, 100 );
+		// Endpoint may return an empty object if no template is found.
+		if ( template?.id ) {
+			registry.batch( () => {
+				dispatch.receiveDefaultTemplateId( query, template.id );
+				dispatch.receiveEntityRecords( kind, name, [ template ] );
+				// Avoid further network requests.
+				dispatch.finishResolution( 'getEntityRecord', [
+					kind,
+					name,
+					template.id,
+				] );
+			} );
+		}
 	};
 
 /**
@@ -785,11 +784,7 @@ export const getDefaultTemplateId =
 export const getRevisions =
 	( kind, name, recordKey, query = {} ) =>
 	async ( { dispatch, registry, resolveSelect } ) => {
-		const configs = await resolveSelect.getEntitiesConfig( kind );
-		const entityConfig = configs.find(
-			( config ) => config.name === name && config.kind === kind
-		);
-
+		const entityConfig = await getConfig( resolveSelect, kind, name );
 		if ( ! entityConfig ) {
 			return;
 		}
@@ -906,10 +901,7 @@ getRevisions.shouldInvalidate = ( action, kind, name, recordKey ) =>
 export const getRevision =
 	( kind, name, recordKey, revisionKey, query ) =>
 	async ( { dispatch, resolveSelect } ) => {
-		const configs = await resolveSelect.getEntitiesConfig( kind );
-		const entityConfig = configs.find(
-			( config ) => config.name === name && config.kind === kind
-		);
+		const entityConfig = await getConfig( resolveSelect, kind, name );
 
 		if ( ! entityConfig ) {
 			return;
