@@ -2,15 +2,74 @@
 
 ## Unreleased
 
+### Enhancements
+
+-   `MenuItem`: Add 40px size prop on Button ([#66596](https://github.com/WordPress/gutenberg/pull/66596)).
+-   `Guide`: Use small size button for page controls ([#66607](https://github.com/WordPress/gutenberg/pull/66607)).
+-   `PaletteEdit`: Add appropriate size props to Buttons ([#66590](https://github.com/WordPress/gutenberg/pull/66590)).
+-   `Notice`: Add appropriate size props to Buttons ([#66593](https://github.com/WordPress/gutenberg/pull/66593)).
+
+### Internal
+
+-   `Snackbar`: Use link variant for action Button ([#66560](https://github.com/WordPress/gutenberg/pull/66560)).
+
+## 28.11.0 (2024-10-30)
+
+### Deprecations
+
+-   `BorderBoxControl`: Deprecate 36px default size ([#65752](https://github.com/WordPress/gutenberg/pull/65752)).
+-   `BorderControl`: Deprecate 36px default size ([#65755](https://github.com/WordPress/gutenberg/pull/65755)).
+
 ### Bug Fixes
 
--   `PaletteEdit`: dedupe palette element slugs ([#65772](https://github.com/WordPress/gutenberg/pull/65772)).
--   `RangeControl`: do not tooltip contents to the DOM when not shown ([#65875](https://github.com/WordPress/gutenberg/pull/65875)).
--   `Tabs`: fix skipping indication animation glitch ([#65878](https://github.com/WordPress/gutenberg/pull/65878)).
+-   `ColorPalette`: prevent overflow of custom color button background ([#66152](https://github.com/WordPress/gutenberg/pull/66152)).
+-   `RadioGroup`: Fix arrow key navigation in RTL ([#66202](https://github.com/WordPress/gutenberg/pull/66202)).
+-   `Tabs` and `ToggleGroupControl`: round indicator size ([#66426](https://github.com/WordPress/gutenberg/pull/66426)).
 
 ### Enhancements
 
+-   `PaletteEdit`: use `Item` internally instead of custom styles ([#66164](https://github.com/WordPress/gutenberg/pull/66164)).
+-   `Popover`: Use small size variant for close button when `expandOnMobile` prop is enabled ([#66587](https://github.com/WordPress/gutenberg/pull/66587)).
+
+### Experimental
+
+-   `Tabs`: remove internal custom logic ([#66097](https://github.com/WordPress/gutenberg/pull/66097)).
+-   `Tabs`: add props to control active tab item ([#66223](https://github.com/WordPress/gutenberg/pull/66223)).
+-   `Tabs`: restore vertical alignent for tabs content ([#66215](https://github.com/WordPress/gutenberg/pull/66215)).
+-   `Tabs`: fix indicator animation ([#66198](https://github.com/WordPress/gutenberg/pull/66198)).
+-   `Tabs`: update indicator more reactively ([#66207](https://github.com/WordPress/gutenberg/pull/66207)).
+-   `Tabs` and `TabPanel`: Fix arrow key navigation in RTL ([#66201](https://github.com/WordPress/gutenberg/pull/66201)).
+-   `Tabs`: override tablist's tabindex only when necessary ([#66209](https://github.com/WordPress/gutenberg/pull/66209)).
+-   `DropdownMenuV2`: rename to `Menu` ([#66289](https://github.com/WordPress/gutenberg/pull/66289)).
+
+### Internal
+
+-   ESLint: Stop disabling `react-hooks/exhaustive-deps` rule ([#66324](https://github.com/WordPress/gutenberg/pull/66324)).
+-   `TabPanel`: Add 40px size prop to tab Button ([#66557](https://github.com/WordPress/gutenberg/pull/66557)).
+-   `Panel`: Add 40px size prop to Button ([#66589](https://github.com/WordPress/gutenberg/pull/66589)).
+
+## 28.10.0 (2024-10-16)
+
+### Bug Fixes
+
+-   `Tooltip`: add `aria-describedby` to the anchor only if not redundant ([#65989](https://github.com/WordPress/gutenberg/pull/65989)).
+-   `PaletteEdit`: dedupe palette element slugs ([#65772](https://github.com/WordPress/gutenberg/pull/65772)).
+-   `RangeControl`: do not tooltip contents to the DOM when not shown ([#65875](https://github.com/WordPress/gutenberg/pull/65875)).
+-   `Tabs`: fix skipping indication animation glitch ([#65878](https://github.com/WordPress/gutenberg/pull/65878)).
+-   `ToggleGroupControl`: Don't autoselect option on first group focus ([#65892](https://github.com/WordPress/gutenberg/pull/65892)).
+-   `Button`: fix `box-shadow` transition for secondary variation ([#66045](https://github.com/WordPress/gutenberg/pull/66045)).
+-   `ToggleGroupControl`: Don't set value on focus after a reset ([#66151](https://github.com/WordPress/gutenberg/pull/66151)).
+
+### Deprecations
+
+-   `SearchControl`: Soft deprecate `onClose` prop ([#65988](https://github.com/WordPress/gutenberg/pull/65988)).
+
+### Enhancements
+
+-   `Modal`: Modal dialog small improvement for elementShouldBeHidden ([#65941](https://github.com/WordPress/gutenberg/pull/65941)).
 -   `Tabs`: revamped vertical orientation styles ([#65387](https://github.com/WordPress/gutenberg/pull/65387)).
+-   `ComboboxControl`: display `No items found` when there are no matches found ([#66142](https://github.com/WordPress/gutenberg/pull/66142))
+-   `FormTokenField`: display `No items found` when there are no matches found. This occurs when the `__experimentalExpandOnFocus` prop is enabled ([#66142](https://github.com/WordPress/gutenberg/pull/66142))
 
 ## 28.9.0 (2024-10-03)
 

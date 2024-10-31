@@ -24,7 +24,7 @@ import Button from '../button';
 import { ColorPicker } from '../color-picker';
 import { FlexItem } from '../flex';
 import { HStack } from '../h-stack';
-import { ItemGroup } from '../item-group';
+import { Item, ItemGroup } from '../item-group';
 import { VStack } from '../v-stack';
 import GradientPicker from '../gradient-picker';
 import ColorPalette from '../color-palette';
@@ -35,7 +35,6 @@ import {
 	PaletteEditStyles,
 	PaletteHeading,
 	IndicatorStyled,
-	PaletteItem,
 	NameContainer,
 	NameInputControl,
 	DoneButton,
@@ -213,9 +212,10 @@ function Option< T extends PaletteElement >( {
 	);
 
 	return (
-		<PaletteItem ref={ setPopoverAnchor } as="div">
+		<Item ref={ setPopoverAnchor } size="small">
 			<HStack justify="flex-start">
 				<Button
+					size="small"
 					onClick={ () => {
 						setIsEditingColor( true );
 					} }
@@ -282,7 +282,7 @@ function Option< T extends PaletteElement >( {
 					onClose={ () => setIsEditingColor( false ) }
 				/>
 			) }
-		</PaletteItem>
+		</Item>
 	);
 }
 
@@ -309,7 +309,7 @@ function PaletteEditListView< T extends PaletteElement >( {
 
 	return (
 		<VStack spacing={ 3 }>
-			<ItemGroup isRounded>
+			<ItemGroup isRounded isBordered isSeparated>
 				{ elements.map( ( element, index ) => (
 					<Option
 						isGradient={ isGradient }
@@ -502,6 +502,7 @@ export function PaletteEdit( {
 										<NavigableMenu role="menu">
 											{ ! isEditing && (
 												<Button
+													__next40pxDefaultSize
 													variant="tertiary"
 													onClick={ () => {
 														setIsEditing( true );
@@ -514,6 +515,7 @@ export function PaletteEdit( {
 											) }
 											{ ! canOnlyChangeValues && (
 												<Button
+													__next40pxDefaultSize
 													variant="tertiary"
 													onClick={ () => {
 														setEditingElement(
@@ -536,6 +538,8 @@ export function PaletteEdit( {
 											) }
 											{ canReset && (
 												<Button
+													__next40pxDefaultSize
+													className="components-palette-edit__menu-button"
 													variant="tertiary"
 													onClick={ () => {
 														setEditingElement(
