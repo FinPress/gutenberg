@@ -22,6 +22,12 @@ export type BadgeProps = {
 	 */
 	icon?: IconType;
 	/**
+	 * Size of the icon in the badge.
+	 *
+	 * @default 20
+	 */
+	iconSize?: number;
+	/**
 	 * Component type that will be used to render the badge component.
 	 *
 	 * @default 'div'

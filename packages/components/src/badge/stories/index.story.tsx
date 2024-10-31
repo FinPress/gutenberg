@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import Badge from '..';
  */
 import { info, bug, help, published } from '@wordpress/icons';
 
-const meta: Meta< typeof Badge > = {
+const meta = {
 	component: Badge,
 	title: 'Components/Containers/Badge',
 	argTypes: {
@@ -31,6 +31,10 @@ const meta: Meta< typeof Badge > = {
 				published,
 			},
 		},
+		iconSize: {
+			control: { type: 'number' },
+			options: [ 20, 24, 32, 48 ],
+		},
 		as: {
 			control: { type: 'select' },
 			options: [ 'div', 'span' ],
@@ -39,36 +43,39 @@ const meta: Meta< typeof Badge > = {
 			control: { type: null },
 		},
 	},
-};
+	tags: [ 'status-private' ],
+} satisfies Meta< typeof Badge >;
 
 export default meta;
 
-const Template: StoryFn< typeof Badge > = ( args ) => {
-	return <Badge { ...args } />;
+type Story = StoryObj< typeof meta >;
+
+export const Default: Story = {
+	args: {
+		children: 'Code is Poetry',
+	},
 };
 
-export const Default = Template.bind( {} );
-Default.args = {
-	children: 'Code is Poetry',
+export const WithIcon: Story = {
+	args: {
+		children: 'Code is Poetry',
+		icon: bug,
+		variant: 'error',
+	},
 };
 
-export const WithIcon = Template.bind( {} );
-WithIcon.args = {
-	children: 'Code is Poetry',
-	icon: bug,
-	variant: 'error',
+export const WithVariant: Story = {
+	args: {
+		children: 'Code is Poetry',
+		variant: 'success',
+	},
 };
 
-export const WithVariant = Template.bind( {} );
-WithVariant.args = {
-	children: 'Code is Poetry',
-	variant: 'success',
-};
-
-export const WithoutContext = Template.bind( {} );
-WithoutContext.args = {
-	children: 'Code is Poetry',
-	icon: help,
-	variant: 'warning',
-	showContext: false,
+export const WithoutContext: Story = {
+	args: {
+		children: 'Code is Poetry',
+		icon: help,
+		variant: 'warning',
+		showContext: false,
+	},
 };
