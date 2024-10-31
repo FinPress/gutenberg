@@ -188,7 +188,7 @@ export default function PostTemplateEdit( {
 			// When we preview Query Loop blocks we should prefer the current
 			// block's postType, which is passed through block context.
 			const usedPostType =
-				postTypeFromContext !== 'page'
+				postTypeFromContext && postTypeFromContext !== 'page'
 					? postTypeFromContext
 					: previewPostType || postType;
 			return {
