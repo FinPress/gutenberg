@@ -169,6 +169,7 @@ function useResolveEditedEntityAndContext( { postId, postType } ) {
 				return resolveTemplateForPostTypeAndId( 'page', homepageId );
 			}
 
+			// If we're not rendering a specific page, use the front page template.
 			return getDefaultTemplateId( { slug: 'front-page' } );
 		},
 		[ homepageId, postsPageId, hasLoadedAllDependencies, postId, postType ]
