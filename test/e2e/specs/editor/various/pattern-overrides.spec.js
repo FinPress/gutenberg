@@ -1132,7 +1132,9 @@ test.describe( 'Pattern Overrides', () => {
 		);
 		await editor.showBlockToolbar();
 		await editor.clickBlockToolbarButton( 'More' );
-		await page.getByRole( 'button', { name: 'Alternative text' } ).click();
+		await page
+			.getByRole( 'menuitem', { name: 'Alternative text' } )
+			.click();
 		await page
 			.getByRole( 'textbox', { name: 'alternative text' } )
 			.fill( 'Test Image' );
