@@ -885,11 +885,11 @@ export const toggleDistractionFree =
 export const toggleSpotlightMode =
 	() =>
 	( { registry } ) => {
+		registry.dispatch( preferencesStore ).toggle( 'core', 'focusMode' );
+
 		const isFocusMode = registry
 			.select( preferencesStore )
 			.get( 'core', 'focusMode' );
-
-		registry.dispatch( preferencesStore ).toggle( 'core', 'focusMode' );
 
 		registry
 			.dispatch( noticesStore )
@@ -920,11 +920,11 @@ export const toggleSpotlightMode =
 export const toggleTopToolbar =
 	() =>
 	( { registry } ) => {
+		registry.dispatch( preferencesStore ).toggle( 'core', 'fixedToolbar' );
+
 		const isTopToolbar = registry
 			.select( preferencesStore )
 			.get( 'core', 'fixedToolbar' );
-
-		registry.dispatch( preferencesStore ).toggle( 'core', 'fixedToolbar' );
 
 		registry
 			.dispatch( noticesStore )
