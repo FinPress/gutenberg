@@ -12,6 +12,7 @@ import Icon from '../icon';
 function Badge( {
 	className,
 	icon,
+	iconSize = 20,
 	as: Component = 'div',
 	variant = 'generic',
 	showContext = true,
@@ -36,16 +37,16 @@ function Badge( {
 			className={ clsx(
 				'components-badge',
 				`components-badge--${ variant }`,
+				icon && 'components-badge--icon',
 				className
 			) }
+			aria-label={ `${ variant }-badge` }
 			{ ...props }
 		>
-			{ icon && <Icon icon={ icon } /> }
-			<span>
-				{ showContext &&
-					variant !== 'generic' &&
-					formatVariant( variant ) }
-			</span>
+			{ icon && <Icon icon={ icon } size={ iconSize } /> }
+			{ showContext && variant !== 'generic' && (
+				<span>{ formatVariant( variant ) }</span>
+			) }
 			{ children }
 		</Component>
 	);
