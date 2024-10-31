@@ -1587,7 +1587,8 @@ Action that toggles Distraction free mode. Distraction free mode expects there a
 
 _Parameters_
 
--   _createNotice_ `boolean`: Whether to create a notice when this action is triggered.
+-   _options_ `[Object]`: Optional configuration object
+-   _options.createNotice_ `[boolean]`: Whether to create a notice
 
 ### toggleEditorPanelEnabled
 

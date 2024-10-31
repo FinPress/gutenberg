@@ -813,7 +813,8 @@ export function setIsListViewOpened( isOpen ) {
  * Distraction free mode expects there are no sidebars, as due to the
  * z-index values set, you can't close sidebars.
  *
- * @param {boolean} createNotice Whether to create a notice when this action is triggered.
+ * @param {Object}  [options={}]                Optional configuration object
+ * @param {boolean} [options.createNotice=true] Whether to create a notice
  */
 export const toggleDistractionFree =
 	( { createNotice = true } = {} ) =>
