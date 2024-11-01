@@ -64,7 +64,7 @@ When creating a new package, you need to provide at least the following. Package
     }
     ```
 
-    Both `wpScript` and `wpScriptModuleExports` may be included if the package exposes both a script and a script module. These fields are also essential when performing a license check for all their dependencies, because they trigger strict validation against compatibility with GPL2. All remaining dependencies WordPress doesn't distribute but uses for development purposes can contain also a few other OSS compatible licenses.
+    Both `wpScript` and `wpScriptModuleExports` may be included if the package exposes both a script and a script module. These fields are also essential when performing a license check for all their dependencies, because they trigger strict validation against compatibility with GPL v2. All remaining dependencies WordPress doesn't distribute but uses for development purposes can contain also a few other OSS compatible licenses.
 
 1. `README.md` file containing at least:
     - Package name
