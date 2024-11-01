@@ -20,7 +20,7 @@ import Tooltip from '../../tooltip';
 import Icon from '../../icon';
 
 const meta: Meta< typeof Tabs > = {
-	title: 'Components/Containers/Tabs',
+	title: 'Components/Navigation/Tabs',
 	id: 'components-tabs',
 	component: Tabs,
 	subcomponents: {
