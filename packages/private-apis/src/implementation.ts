@@ -63,9 +63,9 @@ const allowReRegistration = globalThis.IS_WORDPRESS_CORE ? false : true;
  * Called by a @wordpress package wishing to opt-in to accessing or exposing
  * private private APIs.
  *
- * @param {string} consent    The consent string.
- * @param {string} moduleName The name of the module that is opting in.
- * @return {{lock: typeof lock, unlock: typeof unlock}} An object containing the lock and unlock functions.
+ * @param consent    The consent string.
+ * @param moduleName The name of the module that is opting in.
+ * @return An object containing the lock and unlock functions.
  */
 export const __dangerousOptInToUnstableAPIsOnlyForCoreModules = (
 	consent: string,
@@ -133,8 +133,8 @@ export const __dangerousOptInToUnstableAPIsOnlyForCoreModules = (
  * // { a: 1 }
  * ```
  *
- * @param {Record< symbol, WeakKey >} object      The object to bind the private data to.
- * @param {unknown}                   privateData The private data to bind to the object.
+ * @param object      The object to bind the private data to.
+ * @param privateData The private data to bind to the object.
  */
 function lock( object: Record< symbol, WeakKey >, privateData: unknown ) {
 	if ( ! object ) {
@@ -166,8 +166,8 @@ function lock( object: Record< symbol, WeakKey >, privateData: unknown ) {
  * // { a: 1 }
  * ```
  *
- * @param {Record< symbol, WeakKey >} object The object to unlock the private data from.
- * @return {unknown} The private data bound to the object.
+ * @param object The object to unlock the private data from.
+ * @return The private data bound to the object.
  */
 function unlock( object: Record< symbol, WeakKey > ) {
 	if ( ! object ) {
@@ -196,7 +196,7 @@ const __private = Symbol( 'Private API ID' );
  * Private function to allow the unit tests to allow
  * a mock module to access the private APIs.
  *
- * @param {string} name The name of the module.
+ * @param name The name of the module.
  */
 export function allowCoreModule( name: string ) {
 	CORE_MODULES_USING_PRIVATE_APIS.push( name );
