@@ -749,12 +749,13 @@ export const getNavigationFallbackId =
 
 export const getDefaultTemplateId =
 	( query ) =>
-	async ( { dispatch, registry } ) => {
-		const response = await apiFetch( {
+	async ( { dispatch, registry, resolveSelect } ) => {
+		const template = await apiFetch( {
 			path: addQueryArgs( '/wp/v2/templates/lookup', query ),
-			parse: false,
 		} );
-		const template = await response.json();
+		// Wait for the the entities config to be loaded, otherwise receiving
+		// the template as an entity will not work.
+		await resolveSelect.getEntitiesConfig( 'postType' );
 		// Endpoint may return an empty object if no template is found.
 		if ( template?.id ) {
 			registry.batch( () => {
