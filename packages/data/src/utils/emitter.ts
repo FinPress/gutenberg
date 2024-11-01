@@ -8,8 +8,6 @@ export interface DataEmitter {
 
 /**
  * Create an event emitter.
- *
- * @return {DataEmitter} Emitter.
  */
 export function createEmitter(): DataEmitter {
 	let isPaused = false;
