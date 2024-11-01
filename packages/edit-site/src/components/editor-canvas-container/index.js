@@ -134,15 +134,18 @@ function EditorCanvasContainer( {
 						onKeyDown={ closeOnEscape }
 						aria-label={ title }
 					>
-						{ shouldShowCloseButton && (
-							<Button
-								size="compact"
-								className="edit-site-editor-canvas-container__close-button"
-								icon={ closeSmall }
-								label={ closeButtonLabel || __( 'Close' ) }
-								onClick={ onCloseContainer }
-							/>
-						) }
+						<div className="edit-site-editor-canvas-container__header">
+							<span>{ title }</span>
+							{ shouldShowCloseButton && (
+								<Button
+									size="compact"
+									className="edit-site-editor-canvas-container__close-button"
+									icon={ closeSmall }
+									label={ closeButtonLabel || __( 'Close' ) }
+									onClick={ onCloseContainer }
+								/>
+							) }
+						</div>
 						{ childrenWithProps }
 					</section>
 				</ResizableEditor>
