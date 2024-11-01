@@ -134,7 +134,6 @@ function ContentOnlyControls( {
 										setIsAltDialogOpen( true );
 										onClose();
 									} }
-									aria-pressed={ !! attributes.alt }
 								>
 									{ _x(
 										'Alternative text',
@@ -144,8 +143,8 @@ function ContentOnlyControls( {
 								<MenuItem
 									onClick={ () => {
 										setIsTitleDialogOpen( true );
+										onClose();
 									} }
-									aria-pressed={ !! attributes.title }
 								>
 									{ __( 'Title text' ) }
 								</MenuItem>
