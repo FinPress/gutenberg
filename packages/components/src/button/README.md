@@ -253,6 +253,16 @@ If provided with `showTooltip`, appends the Shortcut label to the tooltip conten
 
 If provided, renders a [Tooltip](/packages/components/src/tooltip/README.md) component for the button.
 
+##### Usage Guidelines:
+
+1. Interaction with `showIconLabels`:
+   - When the 'Show button text labels' preference (`showIconLabels`) is enabled, icon buttons display visible text labels.
+   - In this case, showing a tooltip that merely repeats the visible text is unnecessary and can create visual clutter.
+
+2. Accessibility Considerations:
+   - Tooltips should provide additional, helpful information beyond what's visible.
+   - For users relying on screen readers, ensure that the tooltip content complements rather than duplicates the button's accessible name.
+
 -   Required: No
 
 #### `size`: `'default'` | `'compact'` | `'small'`

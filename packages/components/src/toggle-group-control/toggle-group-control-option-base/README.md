@@ -24,4 +24,14 @@ The value of the `ToggleGroupControlOptionBase`.
 
 Whether to show a tooltip when hovering over the option. The tooltip will only show if a label for it is provided using the `aria-label` prop.
 
+#### Usage Guidelines:
+
+1. Interaction with `showIconLabels`:
+   - When the 'Show button text labels' preference (`showIconLabels`) is enabled, components typically display visible text labels.
+   - In such cases, showing a tooltip that merely repeats the visible text is unnecessary and can create visual clutter.
+
+2. Accessibility Considerations:
+   - Tooltips should provide additional, helpful information beyond what's visible on the screen.
+   - For users relying on screen readers, ensure that the tooltip content complements rather than duplicates the component's accessible name or visible text.
+
 -   Required: No
