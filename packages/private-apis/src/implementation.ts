@@ -2,7 +2,7 @@
  * wordpress/private-apis – the utilities to enable private cross-package
  * exports of private APIs.
  *
- * This "implementation.js" file is needed for the sake of the unit tests. It
+ * This "implementation.ts" file is needed for the sake of the unit tests. It
  * exports more than the public API of the package to aid in testing.
  */
 
@@ -36,10 +36,8 @@ const CORE_MODULES_USING_PRIVATE_APIS = [
 /**
  * A list of core modules that already opted-in to
  * the privateApis package.
- *
- * @type {string[]}
  */
-const registeredPrivateApis = [];
+const registeredPrivateApis: Array< string > = [];
 
 /*
  * Warning for theme and plugin developers.
@@ -70,8 +68,8 @@ const allowReRegistration = globalThis.IS_WORDPRESS_CORE ? false : true;
  * @return {{lock: typeof lock, unlock: typeof unlock}} An object containing the lock and unlock functions.
  */
 export const __dangerousOptInToUnstableAPIsOnlyForCoreModules = (
-	consent,
-	moduleName
+	consent: string,
+	moduleName: string
 ) => {
 	if ( ! CORE_MODULES_USING_PRIVATE_APIS.includes( moduleName ) ) {
 		throw new Error(
@@ -135,10 +133,10 @@ export const __dangerousOptInToUnstableAPIsOnlyForCoreModules = (
  * // { a: 1 }
  * ```
  *
- * @param {any} object      The object to bind the private data to.
- * @param {any} privateData The private data to bind to the object.
+ * @param {Record< symbol, WeakKey >} object      The object to bind the private data to.
+ * @param {unknown}                   privateData The private data to bind to the object.
  */
-function lock( object, privateData ) {
+function lock( object: Record< symbol, WeakKey >, privateData: unknown ) {
 	if ( ! object ) {
 		throw new Error( 'Cannot lock an undefined object.' );
 	}
@@ -168,10 +166,10 @@ function lock( object, privateData ) {
  * // { a: 1 }
  * ```
  *
- * @param {any} object The object to unlock the private data from.
- * @return {any} The private data bound to the object.
+ * @param {Record< symbol, WeakKey >} object The object to unlock the private data from.
+ * @return {unknown} The private data bound to the object.
  */
-function unlock( object ) {
+function unlock( object: Record< symbol, WeakKey > ) {
 	if ( ! object ) {
 		throw new Error( 'Cannot unlock an undefined object.' );
 	}
@@ -200,7 +198,7 @@ const __private = Symbol( 'Private API ID' );
  *
  * @param {string} name The name of the module.
  */
-export function allowCoreModule( name ) {
+export function allowCoreModule( name: string ) {
 	CORE_MODULES_USING_PRIVATE_APIS.push( name );
 }
 
