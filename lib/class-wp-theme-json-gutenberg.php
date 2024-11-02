@@ -3393,6 +3393,8 @@ class WP_Theme_JSON_Gutenberg {
 
 			return true;
 		}
+
+		return false;
 	}
 
 	/**
