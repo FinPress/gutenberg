@@ -134,23 +134,23 @@ function isScrollable( element ) {
 	);
 }
 
+export const WITH_OVERFLOW_ELEMENT_BLOCKS = [ 'core/navigation' ];
 /**
- * Returns the rect of the element including all visible nested elements.
+ * Returns the rect of the element.
  *
- * Visible nested elements, including elements that overflow the parent, are
- * taken into account.
- *
- * This function is useful for calculating the visible area of a block that
- * contains nested elements that overflow the block, e.g. the Navigation block,
- * which can contain overflowing Submenu blocks.
- *
+ * Note: the function handles special cases for blocks that contain visible,
+ * nested elements that overflow the block, e.g. the Navigation block,
+ * which can have overflowing submenu blocks. Such blocks are defined in
+ * `WITH_OVERFLOW_ELEMENT_BLOCKS`. For such blocks,
+ * the bounds of the visible children are calculated to determine
+ * the full extent of the block including the visible children that overflow the parent.
  * The returned rect represents the full extent of the element and its visible
  * children, which may extend beyond the viewport.
  *
  * @param {Element} element Element.
  * @return {DOMRect} Bounding client rect of the element and its visible children.
  */
-export function getVisibleElementBounds( element ) {
+export function getElementBounds( element ) {
 	const viewport = element.ownerDocument.defaultView;
 
 	if ( ! viewport ) {
@@ -158,17 +158,26 @@ export function getVisibleElementBounds( element ) {
 	}
 
 	let bounds = element.getBoundingClientRect();
-	const stack = [ element ];
-	let currentElement;
+	const dataType = element.getAttribute( 'data-type' );
 
-	while ( ( currentElement = stack.pop() ) ) {
-		// Children won’t affect bounds unless the element is not scrollable.
-		if ( ! isScrollable( currentElement ) ) {
-			for ( const child of currentElement.children ) {
-				if ( isElementVisible( child ) ) {
-					const childBounds = child.getBoundingClientRect();
-					bounds = rectUnion( bounds, childBounds );
-					stack.push( child );
+	/*
+	 * Handle special cases for blocks that have overflow elements.
+	 * The bounds of the visible children are calculated to determine the full extent of the block
+	 * including the visible children that overflow the parent.
+	 */
+	if ( dataType && WITH_OVERFLOW_ELEMENT_BLOCKS.includes( dataType ) ) {
+		const stack = [ element ];
+		let currentElement;
+
+		while ( ( currentElement = stack.pop() ) ) {
+			// Children won’t affect bounds unless the element is not scrollable.
+			if ( ! isScrollable( currentElement ) ) {
+				for ( const child of currentElement.children ) {
+					if ( isElementVisible( child ) ) {
+						const childBounds = child.getBoundingClientRect();
+						bounds = rectUnion( bounds, childBounds );
+						stack.push( child );
+					}
 				}
 			}
 		}
