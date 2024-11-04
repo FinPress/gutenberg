@@ -136,14 +136,12 @@ function isScrollable( element ) {
 
 export const WITH_OVERFLOW_ELEMENT_BLOCKS = [ 'core/navigation' ];
 /**
- * Returns the rect of the element.
+ * Returns the bounding rectangle of an element, with special handling for blocks
+ * that have visible overflowing children (defined in WITH_OVERFLOW_ELEMENT_BLOCKS).
  *
- * Note: the function handles special cases for blocks that contain visible,
- * nested elements that overflow the block, e.g. the Navigation block,
- * which can have overflowing submenu blocks. Such blocks are defined in
- * `WITH_OVERFLOW_ELEMENT_BLOCKS`. For such blocks,
- * the bounds of the visible children are calculated to determine
- * the full extent of the block including the visible children that overflow the parent.
+ * For blocks like Navigation that can have overflowing elements (e.g. submenus),
+ * this function calculates the combined bounds of both the parent and its visible
+ * children. The returned rect may extend beyond the viewport.
  * The returned rect represents the full extent of the element and its visible
  * children, which may extend beyond the viewport.
  *
@@ -161,9 +159,8 @@ export function getElementBounds( element ) {
 	const dataType = element.getAttribute( 'data-type' );
 
 	/*
-	 * Handle special cases for blocks that have overflow elements.
-	 * The bounds of the visible children are calculated to determine the full extent of the block
-	 * including the visible children that overflow the parent.
+	 * For blocks with overflowing elements (like Navigation), include the bounds
+	 * of visible children that extend beyond the parent container.
 	 */
 	if ( dataType && WITH_OVERFLOW_ELEMENT_BLOCKS.includes( dataType ) ) {
 		const stack = [ element ];
