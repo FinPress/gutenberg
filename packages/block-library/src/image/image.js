@@ -1121,8 +1121,6 @@ export default function Image( {
 				selectedClientIds.length === 1 &&
 				! isDescendentOfQueryLoop &&
 				postId &&
-				undefined !== id &&
-				null !== id &&
 				id &&
 				clientId === selectedClientIds[ 0 ] && (
 					<MenuItem onClick={ setPostFeatureImage }>
