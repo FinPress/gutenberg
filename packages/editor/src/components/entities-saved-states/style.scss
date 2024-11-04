@@ -1,8 +1,8 @@
 .entities-saved-states__panel-header {
 	box-sizing: border-box;
 	background: $white;
-	padding-left: $grid-unit-10;
-	padding-right: $grid-unit-10;
+	padding-left: $grid-unit-20;
+	padding-right: $grid-unit-20;
 	height: $header-height;
 	border-bottom: $border-width solid $gray-300;
 }
@@ -29,17 +29,4 @@
 	li {
 		margin-bottom: $grid-unit-05;
 	}
-}
-
-.entities-saved-states__post-meta {
-	margin-left: $grid-unit-30;
-	align-items: center;
-}
-
-.entities-saved-states__connections-icon {
-	flex-grow: 0;
-}
-
-.entities-saved-states__bindings-text {
-	flex-grow: 1;
 }

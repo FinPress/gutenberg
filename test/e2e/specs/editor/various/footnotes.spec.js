@@ -363,14 +363,12 @@ test.describe( 'Footnotes', () => {
 
 		// Open revisions.
 		await editor.openDocumentSettingsSidebar();
-		const editorSettings = page.getByRole( 'region', {
-			name: 'Editor settings',
-		} );
-		await editorSettings.getByRole( 'tab', { name: 'Post' } ).click();
-		await editorSettings.getByRole( 'button', { name: 'Actions' } ).click();
 		await page
-			.getByRole( 'menu' )
-			.getByRole( 'menuitem', { name: 'View revisions' } )
+			.getByRole( 'region', { name: 'Editor settings' } )
+			.getByRole( 'tab', { name: 'Post' } )
+			.click();
+		await page
+			.locator( '.editor-private-post-last-revision__button' )
 			.click();
 		await page.locator( '.revisions-controls .ui-slider-handle' ).focus();
 		await page.keyboard.press( 'ArrowLeft' );
@@ -457,5 +455,37 @@ test.describe( 'Footnotes', () => {
 		await expect( page.locator( 'ol.wp-block-footnotes li' ) ).toHaveText(
 			'1 ↩︎'
 		);
+	} );
+
+	test( 'should leave alone other block attributes', async ( {
+		editor,
+		page,
+	} ) => {
+		await page.evaluate( () => {
+			window.wp.blocks.registerBlockType( 'core/test-block-string', {
+				apiVersion: 3,
+				title: 'Block with string attribute',
+				attributes: { string: { type: 'string' } },
+				edit: () => null,
+				save: () => null,
+			} );
+		} );
+		await editor.insertBlock( {
+			name: 'core/test-block-string',
+			attributes: { string: 'a\nb' },
+		} );
+
+		await editor.insertBlock( { name: 'core/paragraph' } );
+		await page.keyboard.type( 'a' );
+		await editor.showBlockToolbar();
+		await editor.clickBlockToolbarButton( 'More' );
+		await page.locator( 'button:text("Footnote")' ).click();
+		await page.keyboard.type( '1' );
+
+		expect( ( await editor.getBlocks() )[ 0 ] ).toMatchObject( {
+			name: 'core/test-block-string',
+			// This should NOT be 'a<br>b'!
+			attributes: { string: 'a\nb' },
+		} );
 	} );
 } );

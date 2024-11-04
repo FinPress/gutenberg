@@ -29,14 +29,11 @@ export default function BlockActions( {
 				getBlockRootClientId,
 				getBlocksByClientId,
 				getDirectInsertBlock,
-				canMoveBlocks,
 				canRemoveBlocks,
-				getBlockEditingMode,
 			} = select( blockEditorStore );
 
 			const blocks = getBlocksByClientId( clientIds );
 			const rootClientId = getBlockRootClientId( clientIds[ 0 ] );
-			const rootBlockEditingMode = getBlockEditingMode( rootClientId );
 			const canInsertDefaultBlock = canInsertBlockType(
 				getDefaultBlockName(),
 				rootClientId
@@ -46,11 +43,8 @@ export default function BlockActions( {
 				: null;
 
 			return {
-				canMove: canMoveBlocks( clientIds, rootClientId ),
-				canRemove: canRemoveBlocks( clientIds, rootClientId ),
-				canInsertBlock:
-					( canInsertDefaultBlock || !! directInsertBlock ) &&
-					rootBlockEditingMode === 'default',
+				canRemove: canRemoveBlocks( clientIds ),
+				canInsertBlock: canInsertDefaultBlock || !! directInsertBlock,
 				canCopyStyles: blocks.every( ( block ) => {
 					return (
 						!! block &&
@@ -71,8 +65,7 @@ export default function BlockActions( {
 	);
 	const { getBlocksByClientId, getBlocks } = useSelect( blockEditorStore );
 
-	const { canMove, canRemove, canInsertBlock, canCopyStyles, canDuplicate } =
-		selected;
+	const { canRemove, canInsertBlock, canCopyStyles, canDuplicate } = selected;
 
 	const {
 		removeBlocks,
@@ -81,9 +74,6 @@ export default function BlockActions( {
 		insertAfterBlock,
 		insertBeforeBlock,
 		flashBlock,
-		setBlockMovingClientId,
-		setNavigationMode,
-		selectBlock,
 	} = useDispatch( blockEditorStore );
 
 	const notifyCopy = useNotifyCopy();
@@ -93,7 +83,6 @@ export default function BlockActions( {
 		canCopyStyles,
 		canDuplicate,
 		canInsertBlock,
-		canMove,
 		canRemove,
 		onDuplicate() {
 			return duplicateBlocks( clientIds, updateSelection );
@@ -106,11 +95,6 @@ export default function BlockActions( {
 		},
 		onInsertAfter() {
 			insertAfterBlock( clientIds[ clientIds.length - 1 ] );
-		},
-		onMoveTo() {
-			setNavigationMode( true );
-			selectBlock( clientIds[ 0 ] );
-			setBlockMovingClientId( clientIds[ 0 ] );
 		},
 		onGroup() {
 			if ( ! clientIds.length ) {

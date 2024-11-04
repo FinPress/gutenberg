@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+## 11.11.0 (2024-10-30)
+
+## 11.10.0 (2024-10-16)
+
+## 11.9.0 (2024-10-03)
+
+## 11.8.0 (2024-09-19)
+
+## 11.7.0 (2024-09-05)
+
+## 11.6.0 (2024-08-21)
+
+## 11.5.0 (2024-08-07)
+
+## 11.4.0 (2024-07-24)
+
+## 11.3.0 (2024-07-10)
+
+## 11.2.0 (2024-06-26)
+
+## 11.1.0 (2024-06-15)
+
 ## 11.0.0 (2024-05-31)
 
 ### Breaking Changes
@@ -42,7 +64,7 @@
 
 ## 10.13.0 (2023-09-20)
 
-### Enhancement
+### Enhancements
 
 -   Update promise order in `loginUser` to avoid any flakiness in the tests.
 -   Update `activateTheme` to redirect to `themes.php` after theme activation, if theme redirects to some other page.
@@ -90,7 +112,7 @@
 
 ## 9.0.0 (2022-12-14)
 
-### Breaking changes
+### Breaking Changes
 
 -   Remove all the site editor navigation panel related utils: getSiteEditorMenuItem, isSiteEditorRoot, navigateSiteEditorBack, navigateSiteEditorBackToRoot, openSiteEditorNavigationPanel, siteEditorNavigateSequence, clickSiteEditorMenuItem, closeSiteEditorNavigationPanel.
 
@@ -110,13 +132,13 @@
 
 ## 8.0.0 (2022-08-24)
 
-### Breaking Change
+### Breaking Changes
 
 -   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
 
 ## 7.2.0 (2022-04-08)
 
-### Enhancement
+### Enhancements
 
 -   Changed `setOption` to use `options.php`, to allow setting any option (and to be more consistent with `getOption`). [#39502](https://github.com/WordPress/gutenberg/pull/39502)
 -   Changed `setOption` to return the changed setting's previous value (to make restoring it easier). [#39502](https://github.com/WordPress/gutenberg/pull/39502)
@@ -128,7 +150,7 @@
 
 -   Updated `clickMenuItem` method to use exact label matching instead of partial [#39274](https://github.com/WordPress/gutenberg/pull/39274).
 
-### Enhancement
+### Enhancements
 
 -   The `toggleMoreMenu` and `clickMoreMenuItem` utilities no longer require a second 'context' parameter.
 
@@ -193,7 +215,7 @@
 
 -   The disableNavigationMode utility was removed. By default, the editor is in edit mode now.
 
-### Improvements
+### Enhancements
 
 -   `setBrowserViewport` accepts an object of `width`, `height` values, to assign a viewport of arbitrary size.
 
@@ -205,7 +227,7 @@
 
 ## 2.0.0 (2019-05-21)
 
-### Requirements
+### Breaking Changes
 
 -   The minimum version of Gutenberg `5.6.0` or the minimum version of WordPress `5.2.0`.
 
@@ -222,7 +244,7 @@
 -   New Function: `openAllBlockInserterCategories` - Opens all block inserter categories.
 -   New Function: `getAllBlockInserterItemTitles` - Opens the global block inserter.
 
-### Requirements
+### Breaking Changes
 
 -   The minimum version of Gutenberg `5.3.0` or the minimum version of WordPress `5.2.0`.
 
@@ -230,8 +252,4 @@
 
 ### New Features
 
--   Initial release.
-
-### Requirements
-
--   The minimum version of Gutenberg `5.2.0` or the minimum version of WordPress `5.2.0`.
+-   Initial release. The minimum version of Gutenberg `5.2.0` or the minimum version of WordPress `5.2.0`.

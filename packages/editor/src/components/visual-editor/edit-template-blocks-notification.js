@@ -40,7 +40,11 @@ export default function EditTemplateBlocksNotification( { contentRef } ) {
 
 	const canEditTemplate = useSelect(
 		( select ) =>
-			select( coreStore ).canUser( 'create', 'templates' ) ?? false
+			!! select( coreStore ).canUser( 'create', {
+				kind: 'postType',
+				name: 'wp_template',
+			} ),
+		[]
 	);
 
 	const [ isDialogOpen, setIsDialogOpen ] = useState( false );
@@ -51,10 +55,17 @@ export default function EditTemplateBlocksNotification( { contentRef } ) {
 				return;
 			}
 
-			if ( ! event.target.classList.contains( 'is-root-container' ) ) {
+			if (
+				! event.target.classList.contains( 'is-root-container' ) ||
+				event.target.dataset?.type === 'core/template-part'
+			) {
 				return;
 			}
-			setIsDialogOpen( true );
+
+			if ( ! event.defaultPrevented ) {
+				event.preventDefault();
+				setIsDialogOpen( true );
+			}
 		};
 
 		const canvas = contentRef.current;
@@ -80,6 +91,7 @@ export default function EditTemplateBlocksNotification( { contentRef } ) {
 				} );
 			} }
 			onCancel={ () => setIsDialogOpen( false ) }
+			size="medium"
 		>
 			{ __(
 				'You’ve tried to select a block that is part of a template, which may be used on other posts and pages. Would you like to edit the template?'

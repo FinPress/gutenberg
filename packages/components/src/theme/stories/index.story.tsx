@@ -13,7 +13,8 @@ import { HStack } from '../../h-stack';
 
 const meta: Meta< typeof Theme > = {
 	component: Theme,
-	title: 'Components/Theme',
+	title: 'Components/Utilities/Theme',
+	id: 'components-theme',
 	argTypes: {
 		accent: { control: { type: 'color' } },
 		background: { control: { type: 'color' } },
@@ -59,9 +60,11 @@ export const ColorScheme: StoryFn< typeof Theme > = ( {
 } ) => {
 	const { colors } = generateThemeVariables( { accent, background } );
 	const { gray, ...otherColors } = colors;
+	/* eslint-disable @typescript-eslint/no-unused-vars */
 	const contrastIssues = Object.entries(
 		checkContrasts( { accent, background }, colors )
 	).filter( ( [ _, error ] ) => !! error );
+	/* eslint-enable @typescript-eslint/no-unused-vars */
 
 	const Chip = ( { color, name }: { color: string; name: string } ) => (
 		<HStack justify="flex-start">

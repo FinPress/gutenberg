@@ -53,6 +53,8 @@ export default function CreateTemplatePartModal( {
 			title={ modalTitle || defaultModalTitle }
 			onRequestClose={ restProps.closeModal }
 			overlayClassName="editor-create-template-part-modal"
+			focusOnMount="firstContentElement"
+			size="medium"
 		>
 			<CreateTemplatePartModalContents { ...restProps } />
 		</Modal>
@@ -141,6 +143,7 @@ export function CreateTemplatePartModalContents( {
 					required
 				/>
 				<BaseControl
+					__nextHasNoMarginBottom
 					label={ __( 'Area' ) }
 					id={ `editor-create-template-part-modal__area-selection-${ instanceId }` }
 					className="editor-create-template-part-modal__area-base-control"
@@ -155,6 +158,7 @@ export function CreateTemplatePartModalContents( {
 						{ templatePartAreas.map(
 							( { icon, label, area: value, description } ) => (
 								<Radio
+									__next40pxDefaultSize
 									key={ label }
 									value={ value }
 									className="editor-create-template-part-modal__area-radio"

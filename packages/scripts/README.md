@@ -97,7 +97,7 @@ This is how you execute the script with presented setup:
 
 -   `npm run build` - builds the code for production.
 -   `npm run build:custom` - builds the code for production with two entry points and a custom output directory. Paths for custom entry points are relative to the project root.
--   `npm run build:copy-php` - builds the code for production and opts into copying all PHP files from the `src` directory and its subfolders to the output directory. By default, only PHP files listed in the `render` field in the detected `block.json` files get copied.
+-   `npm run build:copy-php` - builds the code for production and opts into copying all PHP files from the `src` directory and its subfolders to the output directory. By default, only PHP files listed in the `render` and `variations` fields in the detected `block.json` files get copied.
 -   `npm run build:custom-directory` - builds the code for production using the `custom-directory` as the source code directory.
 
 This script automatically use the optimized config but sometimes you may want to specify some custom options:
@@ -116,6 +116,41 @@ and should be registered in WordPress using the Modules API.
 #### Advanced information
 
 This script uses [webpack](https://webpack.js.org/) behind the scenes. It’ll look for a webpack config in the top-level directory of your package and will use it if it finds one. If none is found, it’ll use the default config provided by `@wordpress/scripts` packages. Learn more in the [Advanced Usage](#advanced-usage) section.
+
+
+### `build-blocks-manifest`
+
+This script generates a PHP file containing block metadata from all
+`block.json` files in the project. This is useful for enhancing performance
+when registering multiple block types, as it allows you to use
+`wp_register_block_metadata_collection()` in WordPress.
+
+Usage: `wp-scripts build-blocks-manifest [options]`
+
+Options:
+- `--input`: Specify the input directory (default: 'build')
+- `--output`: Specify the output file path (default: 'build/blocks-manifest.php')
+
+Example:
+```bash
+wp-scripts build-blocks-manifest --input=src --output=dist/blocks-manifest.php
+```
+
+This command will scan the specified input directory for `block.json` files,
+compile their metadata into a single PHP file, and output it to the specified
+location. You can then use this file with
+`wp_register_block_metadata_collection()` in your plugin:
+
+```php
+wp_register_block_metadata_collection(
+    plugin_dir_path( __FILE__ ) . 'dist',
+    plugin_dir_path( __FILE__ ) . 'dist/blocks-manifest.php'
+);
+```
+
+Using this approach can improve performance when registering multiple block
+types, especially for plugins with several custom blocks. Note that this
+feature is only available in WordPress 6.7 and later versions.
 
 ### `check-engines`
 
@@ -343,6 +378,14 @@ In the case where the plugin author wants to customize the files included in the
 
 It reuses the same logic as `npm pack` command to create an npm package tarball.
 
+This is how you create a custom root folder inside the zip file.
+
+-   When updating a plugin, WordPress expects a folder in the root of the zip file which matches the plugin name. So be aware that this may affect the plugin update process.
+-   `--root-folder` - Add a custom root folder to the zip file.
+-   `npm run plugin-zip` - By default, unzipping your plugin's zip file will result in a folder with the same name as your plugin.
+-   `npm run plugin-zip --root-folder='custom-directory'` - Your plugin's zip file will be unzipped into a folder named `custom-directory`.
+-   `npm run plugin-zip --no-root-folder` - This will create a zip file that has no folder inside, your plugin files will be unzipped directly into the target directory.
+
 ### `start`
 
 Transforms your code according the configuration provided so it’s ready for development. The script will automatically rebuild if you make changes to the code, and you will see the build errors in the console.
@@ -382,7 +425,7 @@ This is how you execute the script with presented setup:
 -   `npm start` - starts the build for development.
 -   `npm run start:hot` - starts the build for development with "Fast Refresh". The page will automatically reload if you make changes to the files.
 -   `npm run start:custom` - starts the build for development which contains two entry points and a custom output directory. Paths for custom entry points are relative to the project root.
--   `npm run start:copy-php` - starts the build for development and opts into copying all PHP files from the `src` directory and its subfolders to the output directory. By default, only PHP files listed in the `render` field in the detected `block.json` files get copied.
+-   `npm run start:copy-php` - starts the build for development and opts into copying all PHP files from the `src` directory and its subfolders to the output directory. By default, only PHP files listed in the `render` and `variations` fields in the detected `block.json` files get copied.
 -   `npm run start:custom-directory` - builds the code for production using the `custom-directory` as the source code directory.
 
 This script automatically use the optimized config but sometimes you may want to specify some custom options:

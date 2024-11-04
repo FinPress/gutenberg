@@ -22,6 +22,7 @@ import {
 	PanelBody,
 	PanelRow,
 	TextControl,
+	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { keyboardReturn } from '@wordpress/icons';
@@ -42,18 +43,22 @@ const SocialLinkURLPopover = ( {
 	return (
 		<URLPopover
 			anchor={ popoverAnchor }
-			onClose={ () => setPopover( false ) }
+			aria-label={ __( 'Edit social link' ) }
+			onClose={ () => {
+				setPopover( false );
+				popoverAnchor?.focus();
+			} }
 		>
 			<form
 				className="block-editor-url-popover__link-editor"
 				onSubmit={ ( event ) => {
 					event.preventDefault();
 					setPopover( false );
+					popoverAnchor?.focus();
 				} }
 			>
 				<div className="block-editor-url-input">
 					<URLInput
-						__nextHasNoMarginBottom
 						value={ url }
 						onChange={ ( nextURL ) =>
 							setAttributes( { url: nextURL } )
@@ -74,13 +79,18 @@ const SocialLinkURLPopover = ( {
 							}
 							removeBlock( clientId );
 						} }
+						suffix={
+							<InputControlSuffixWrapper variant="control">
+								<Button
+									icon={ keyboardReturn }
+									label={ __( 'Apply' ) }
+									type="submit"
+									size="small"
+								/>
+							</InputControlSuffixWrapper>
+						}
 					/>
 				</div>
-				<Button
-					icon={ keyboardReturn }
-					label={ __( 'Apply' ) }
-					type="submit"
-				/>
 			</form>
 		</URLPopover>
 	);
@@ -135,10 +145,11 @@ const SocialLinkEdit = ( {
 				<PanelBody title={ __( 'Settings' ) }>
 					<PanelRow>
 						<TextControl
+							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-							label={ __( 'Link text' ) }
+							label={ __( 'Text' ) }
 							help={ __(
-								'The link text is visible when enabled from the parent Social Icons block.'
+								'The text is visible when enabled from the parent Social Icons block.'
 							) }
 							value={ label }
 							onChange={ ( value ) =>
@@ -151,6 +162,7 @@ const SocialLinkEdit = ( {
 			</InspectorControls>
 			<InspectorControls group="advanced">
 				<TextControl
+					__next40pxDefaultSize
 					__nextHasNoMarginBottom
 					label={ __( 'Link rel' ) }
 					value={ rel || '' }
@@ -162,6 +174,7 @@ const SocialLinkEdit = ( {
 					className="wp-block-social-link-anchor"
 					ref={ setPopoverAnchor }
 					onClick={ () => setPopover( true ) }
+					aria-haspopup="dialog"
 				>
 					<IconComponent />
 					<span

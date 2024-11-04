@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+## 6.11.0 (2024-10-30)
+
+## 6.10.0 (2024-10-16)
+
+## 6.9.0 (2024-10-03)
+
+## 6.8.0 (2024-09-19)
+
+## 6.7.0 (2024-09-05)
+
+## 6.6.0 (2024-08-21)
+
+## 6.5.0 (2024-08-07)
+
+## 6.4.0 (2024-07-24)
+
+## 6.3.0 (2024-07-10)
+
+## 6.2.0 (2024-06-26)
+
+## 6.1.0 (2024-06-15)
+
 ## 6.0.0 (2024-05-31)
 
 ### Breaking Changes
@@ -85,7 +107,7 @@
 
 ## 5.3.0 (2023-02-01)
 
-### Bug Fix
+### Bug Fixes
 
 -   Force visual editor in browse mode ([#47329](https://github.com/WordPress/gutenberg/pull/47329)).
 -   Style Book: Exclude blocks that are not allowed to insert ([#47461](https://github.com/WordPress/gutenberg/pull/47461)).
@@ -104,7 +126,7 @@
 
 -   Fluid typography: add configurable fluid typography settings for minimum font size to theme.json ([#42489](https://github.com/WordPress/gutenberg/pull/42489)).
 
-### Bug Fix
+### Bug Fixes
 
 -   Don't show block inserter when the canvas is view mode ([#46763](https://github.com/WordPress/gutenberg/pull/46763)).
 
@@ -148,11 +170,11 @@
 
 ## 4.0.0 (2022-02-10)
 
-### Breaking Change
+### Breaking Changes
 
 -   The `GUTENBERG_PHASE` environment variable has been renamed to `IS_GUTENBERG_PLUGIN` and is now a boolean ([#38202](https://github.com/WordPress/gutenberg/pull/38202)).
 
-### Bug Fix
+### Bug Fixes
 
 -   Removed unused `@wordpress/primitives`, `file-saver` and `jszip` dependencies ([#38388](https://github.com/WordPress/gutenberg/pull/38388)).
 
@@ -160,7 +182,7 @@
 
 ## 3.0.0 (2021-07-29)
 
-### Breaking Change
+### Breaking Changes
 
 -   Upgraded React components to work with v17.0 ([#29118](https://github.com/WordPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
 
@@ -179,6 +201,6 @@
 
 ## 1.0.0 (2020-01-13)
 
-### New Feature
+### New Features
 
 -   Initial version of the package.

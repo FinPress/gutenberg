@@ -3,6 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import {
+	__experimentalText as Text,
 	__experimentalItemGroup as ItemGroup,
 	__experimentalVStack as VStack,
 	__experimentalHStack as HStack,
@@ -26,20 +27,38 @@ import { unlock } from '../../lock-unlock';
 
 const { useGlobalSetting } = unlock( blockEditorPrivateApis );
 
+/**
+ * Maps the fonts with the source, if available.
+ *
+ * @param {Array}  fonts  The fonts to map.
+ * @param {string} source The source of the fonts.
+ * @return {Array} The mapped fonts.
+ */
+function mapFontsWithSource( fonts, source ) {
+	return fonts
+		? fonts.map( ( f ) => setUIValuesNeeded( f, { source } ) )
+		: [];
+}
+
 function FontFamilies() {
-	const { modalTabOpen, setModalTabOpen } = useContext( FontLibraryContext );
+	const { baseCustomFonts, modalTabOpen, setModalTabOpen } =
+		useContext( FontLibraryContext );
 	const [ fontFamilies ] = useGlobalSetting( 'typography.fontFamilies' );
-	const themeFonts = fontFamilies?.theme
-		? fontFamilies.theme
-				.map( ( f ) => setUIValuesNeeded( f, { source: 'theme' } ) )
-				.sort( ( a, b ) => a.name.localeCompare( b.name ) )
-		: [];
-	const customFonts = fontFamilies?.custom
-		? fontFamilies.custom
-				.map( ( f ) => setUIValuesNeeded( f, { source: 'custom' } ) )
-				.sort( ( a, b ) => a.name.localeCompare( b.name ) )
-		: [];
-	const hasFonts = 0 < customFonts.length || 0 < themeFonts.length;
+	const [ baseFontFamilies ] = useGlobalSetting(
+		'typography.fontFamilies',
+		undefined,
+		'base'
+	);
+	const themeFonts = mapFontsWithSource( fontFamilies?.theme, 'theme' );
+	const customFonts = mapFontsWithSource( fontFamilies?.custom, 'custom' );
+	const activeFonts = [ ...themeFonts, ...customFonts ].sort( ( a, b ) =>
+		a.name.localeCompare( b.name )
+	);
+	const hasFonts = 0 < activeFonts.length;
+	const hasInstalledFonts =
+		hasFonts ||
+		baseFontFamilies?.theme?.length > 0 ||
+		baseCustomFonts?.length > 0;
 
 	return (
 		<>
@@ -60,24 +79,40 @@ function FontFamilies() {
 						size="small"
 					/>
 				</HStack>
-				{ hasFonts ? (
-					<ItemGroup isBordered isSeparated>
-						{ customFonts.map( ( font ) => (
-							<FontFamilyItem key={ font.slug } font={ font } />
-						) ) }
-						{ themeFonts.map( ( font ) => (
-							<FontFamilyItem key={ font.slug } font={ font } />
-						) ) }
-					</ItemGroup>
-				) : (
+				{ activeFonts.length > 0 && (
 					<>
-						{ __( 'No fonts installed.' ) }
+						<ItemGroup size="large" isBordered isSeparated>
+							{ activeFonts.map( ( font ) => (
+								<FontFamilyItem
+									key={ font.slug }
+									font={ font }
+								/>
+							) ) }
+						</ItemGroup>
+					</>
+				) }
+				{ ! hasFonts && (
+					<>
+						<Text as="p">
+							{ hasInstalledFonts
+								? __( 'No fonts activated.' )
+								: __( 'No fonts installed.' ) }
+						</Text>
 						<Button
-							className="edit-site-global-styles-font-families__add-fonts"
+							className="edit-site-global-styles-font-families__manage-fonts"
 							variant="secondary"
-							onClick={ () => setModalTabOpen( 'upload-fonts' ) }
+							__next40pxDefaultSize
+							onClick={ () => {
+								setModalTabOpen(
+									hasInstalledFonts
+										? 'installed-fonts'
+										: 'upload-fonts'
+								);
+							} }
 						>
-							{ __( 'Add fonts' ) }
+							{ hasInstalledFonts
+								? __( 'Manage fonts' )
+								: __( 'Add fonts' ) }
 						</Button>
 					</>
 				) }

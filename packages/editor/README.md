@@ -262,6 +262,12 @@ _Usage_
 <DocumentBar />
 ```
 
+_Parameters_
+
+-   _props_ `Object`: The component props.
+-   _props.title_ `string`: A title for the document, defaulting to the document or template title currently being edited.
+-   _props.icon_ `IconType`: An icon for the document, no default. (A default icon indicating the document post type is no longer used.)
+
 _Returns_
 
 -   `JSX.Element`: The rendered DocumentBar component.
@@ -322,7 +328,7 @@ _Returns_
 
 ### EditorKeyboardShortcuts
 
-Component handles the keyboard shortcuts for the editor.
+Handles the keyboard shortcuts for the editor.
 
 It provides functionality for various keyboard shortcuts such as toggling editor mode, toggling distraction-free mode, undo/redo, saving the post, toggling list view, and toggling the sidebar.
 
@@ -526,7 +532,7 @@ _Returns_
 
 ### PageAttributesOrder
 
-Renders the Page Attributes Order component. A number input in an editor interface for setting the order of a given page.
+Renders the Page Attributes Order component. A number input in an editor interface for setting the order of a given page. The component is now not used in core but was kept for backward compatibility.
 
 _Returns_
 
@@ -855,6 +861,43 @@ _Parameters_
 _Returns_
 
 -   `Component`: The component to be rendered.
+
+### PluginPreviewMenuItem
+
+Renders a menu item in the Preview dropdown, which can be used as a button or link depending on the props provided. The text within the component appears as the menu item label.
+
+_Usage_
+
+```jsx
+import { __ } from '@wordpress/i18n';
+import { PluginPreviewMenuItem } from '@wordpress/editor';
+import { external } from '@wordpress/icons';
+
+function onPreviewClick() {
+	// Handle preview action
+}
+
+const ExternalPreviewMenuItem = () => (
+	<PluginPreviewMenuItem icon={ external } onClick={ onPreviewClick }>
+		{ __( 'Preview in new tab' ) }
+	</PluginPreviewMenuItem>
+);
+registerPlugin( 'external-preview-menu-item', {
+	render: ExternalPreviewMenuItem,
+} );
+```
+
+_Parameters_
+
+-   _props_ `Object`: Component properties.
+-   _props.href_ `[string]`: When `href` is provided, the menu item is rendered as an anchor instead of a button. It corresponds to the `href` attribute of the anchor.
+-   _props.icon_ `[WPBlockTypeIconRender]`: The icon to be rendered to the left of the menu item label. Can be a Dashicon slug or an SVG WP element.
+-   _props.onClick_ `[Function]`: The callback function to be executed when the user clicks the menu item.
+-   _props.other_ `[...*]`: Any additional props are passed through to the underlying MenuItem component.
+
+_Returns_
+
+-   `Component`: The rendered menu item component.
 
 ### PluginSidebar
 
@@ -1268,19 +1311,45 @@ _Returns_
 
 ### PostSlug
 
-Undocumented declaration.
+Renders the PostSlug component. It provide a control for editing the post slug.
+
+_Returns_
+
+-   `Component`: The component to be rendered.
 
 ### PostSlugCheck
 
-Undocumented declaration.
+Wrapper component that renders its children only if the post type supports the slug.
+
+_Parameters_
+
+-   _props_ `Object`: Props.
+-   _props.children_ `Element`: Children to be rendered.
+
+_Returns_
+
+-   `Component`: The component to be rendered.
 
 ### PostSticky
 
-Undocumented declaration.
+Renders the PostSticky component. It provides a checkbox control for the sticky post feature.
+
+_Returns_
+
+-   `Component`: The component to be rendered.
 
 ### PostStickyCheck
 
-Undocumented declaration.
+Wrapper component that renders its children only if post has a sticky action.
+
+_Parameters_
+
+-   _props_ `Object`: Props.
+-   _props.children_ `Element`: Children to be rendered.
+
+_Returns_
+
+-   `Component`: The component to be rendered or null if post type is not 'post' or hasStickyAction is false.
 
 ### PostSwitchToDraftButton
 
@@ -1332,6 +1401,7 @@ _Parameters_
 
 -   _props_ `Object`: The component props.
 -   _props.slug_ `string`: The slug of the taxonomy.
+-   _props.\_\_nextHasNoMarginBottom_ `boolean`: Start opting into the new margin-free styles that will become the default in a future version, currently scheduled to be WordPress 7.0. (The prop can be safely removed once this happens.)
 
 _Returns_
 
@@ -1399,11 +1469,28 @@ Undocumented declaration.
 
 ### PostTrash
 
-Undocumented declaration.
+Displays the Post Trash Button and Confirm Dialog in the Editor.
+
+_Parameters_
+
+-   _An_ `?{onActionPerformed: Object}`: object containing the onActionPerformed function.
+
+_Returns_
+
+-   `JSX.Element|null`: The rendered PostTrash component.
 
 ### PostTrashCheck
 
-Undocumented declaration.
+Wrapper component that renders its children only if the post can trashed.
+
+_Parameters_
+
+-   _props_ `Object`: - The component props.
+-   _props.children_ `Element`: - The child components to render.
+
+_Returns_
+
+-   `Component|null`: The rendered child components or null if the post can not trashed.
 
 ### PostTypeSupportCheck
 
@@ -1504,6 +1591,18 @@ _Returns_
 
 Undocumented declaration.
 
+### registerEntityAction
+
+Registers a new DataViews action.
+
+This is an experimental API and is subject to change. it's only available in the Gutenberg plugin for now.
+
+_Parameters_
+
+-   _kind_ `string`: Entity kind.
+-   _name_ `string`: Entity name.
+-   _config_ `Action`: Action configuration.
+
 ### RichText
 
 > **Deprecated** since 5.3, use `wp.blockEditor.RichText` instead.
@@ -1565,7 +1664,9 @@ _Returns_
 
 ### TextEditorGlobalKeyboardShortcuts
 
-Undocumented declaration.
+Handles the keyboard shortcuts for the editor.
+
+It provides functionality for various keyboard shortcuts such as toggling editor mode, toggling distraction-free mode, undo/redo, saving the post, toggling list view, and toggling the sidebar.
 
 ### ThemeSupportCheck
 
@@ -1583,11 +1684,27 @@ _Returns_
 
 ### TimeToRead
 
-Undocumented declaration.
+Component for showing Time To Read in Content.
+
+_Returns_
+
+-   `JSX.Element`: The rendered TimeToRead component.
 
 ### transformStyles
 
 Undocumented declaration.
+
+### unregisterEntityAction
+
+Unregisters a DataViews action.
+
+This is an experimental API and is subject to change. it's only available in the Gutenberg plugin for now.
+
+_Parameters_
+
+-   _kind_ `string`: Entity kind.
+-   _name_ `string`: Entity name.
+-   _actionId_ `string`: Action ID.
 
 ### UnsavedChangesWarning
 
@@ -1656,7 +1773,9 @@ _Type_
 
 ### VisualEditorGlobalKeyboardShortcuts
 
-Undocumented declaration.
+Handles the keyboard shortcuts for the editor.
+
+It provides functionality for various keyboard shortcuts such as toggling editor mode, toggling distraction-free mode, undo/redo, saving the post, toggling list view, and toggling the sidebar.
 
 ### Warning
 

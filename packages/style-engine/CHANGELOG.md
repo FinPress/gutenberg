@@ -2,6 +2,32 @@
 
 ## Unreleased
 
+## 2.11.0 (2024-10-30)
+
+## 2.10.0 (2024-10-16)
+
+## 2.9.0 (2024-10-03)
+
+## 2.8.0 (2024-09-19)
+
+## 2.7.0 (2024-09-05)
+
+## 2.6.0 (2024-08-21)
+
+### New Features
+
+-   Style engine: export util to compile CSS custom var from preset string. ([#64490](https://github.com/WordPress/gutenberg/pull/64490))
+
+## 2.5.0 (2024-08-07)
+
+## 2.4.0 (2024-07-24)
+
+## 2.3.0 (2024-07-10)
+
+## 2.2.0 (2024-06-26)
+
+## 2.1.0 (2024-06-15)
+
 ## 2.0.0 (2024-05-31)
 
 ### Breaking Changes
@@ -102,7 +128,7 @@
 
 ## 1.1.0 (2022-09-21)
 
-### Enhancement
+### Enhancements
 
 -   Allow for prettified output ([#42909](https://github.com/WordPress/gutenberg/pull/42909)).
 -   Enqueue block supports styles in Gutenberg ([#42880](https://github.com/WordPress/gutenberg/pull/42880)).

@@ -9,11 +9,7 @@ import clsx from 'clsx';
 import { useViewportMatch } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __, _x } from '@wordpress/i18n';
-import {
-	NavigableToolbar,
-	ToolSelector,
-	store as blockEditorStore,
-} from '@wordpress/block-editor';
+import { NavigableToolbar, ToolSelector } from '@wordpress/block-editor';
 import { Button, ToolbarItem } from '@wordpress/components';
 import { listView, plus } from '@wordpress/icons';
 import { useCallback } from '@wordpress/element';
@@ -28,10 +24,6 @@ import { store as editorStore } from '../../store';
 import EditorHistoryRedo from '../editor-history/redo';
 import EditorHistoryUndo from '../editor-history/undo';
 
-const preventDefault = ( event ) => {
-	event.preventDefault();
-};
-
 function DocumentTools( { className, disableBlockTools = false } ) {
 	const { setIsInserterOpened, setIsListViewOpened } =
 		useDispatch( editorStore );
@@ -42,10 +34,8 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 		listViewShortcut,
 		inserterSidebarToggleRef,
 		listViewToggleRef,
-		hasFixedToolbar,
 		showIconLabels,
 	} = useSelect( ( select ) => {
-		const { getSettings } = select( blockEditorStore );
 		const { get } = select( preferencesStore );
 		const {
 			isListViewOpened,
@@ -54,7 +44,6 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 			getListViewToggleRef,
 		} = unlock( select( editorStore ) );
 		const { getShortcutRepresentation } = select( keyboardShortcutsStore );
-		const { __unstableGetEditorMode } = select( blockEditorStore );
 
 		return {
 			isInserterOpened: select( editorStore ).isInserterOpened(),
@@ -64,13 +53,24 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 			),
 			inserterSidebarToggleRef: getInserterSidebarToggleRef(),
 			listViewToggleRef: getListViewToggleRef(),
-			hasFixedToolbar: getSettings().hasFixedToolbar,
 			showIconLabels: get( 'core', 'showIconLabels' ),
 			isDistractionFree: get( 'core', 'distractionFree' ),
 			isVisualMode: getEditorMode() === 'visual',
-			isZoomedOutView: __unstableGetEditorMode() === 'zoom-out',
 		};
 	}, [] );
+
+	const preventDefault = ( event ) => {
+		// Because the inserter behaves like a dialog,
+		// if the inserter is opened already then when we click on the toggle button
+		// then the initial click event will close the inserter and then be propagated
+		// to the inserter toggle and it will open it again.
+		// To prevent this we need to stop the propagation of the event.
+		// This won't be necessary when the inserter no longer behaves like a dialog.
+
+		if ( isInserterOpened ) {
+			event.preventDefault();
+		}
+	};
 
 	const isLargeViewport = useViewportMatch( 'medium' );
 	const isWideViewport = useViewportMatch( 'wide' );
@@ -90,7 +90,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 
 	/* translators: button label text should, if possible, be under 16 characters. */
 	const longLabel = _x(
-		'Toggle block inserter',
+		'Block Inserter',
 		'Generic label for block inserter button'
 	);
 	const shortLabel = ! isInserterOpened ? __( 'Add' ) : __( 'Close' );
@@ -128,7 +128,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 				) }
 				{ ( isWideViewport || ! showIconLabels ) && (
 					<>
-						{ isLargeViewport && ! hasFixedToolbar && (
+						{ isLargeViewport && (
 							<ToolbarItem
 								as={ ToolSelector }
 								showTooltip={ ! showIconLabels }

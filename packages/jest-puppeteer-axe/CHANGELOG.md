@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+## 7.11.0 (2024-10-30)
+
+## 7.10.0 (2024-10-16)
+
+## 7.9.0 (2024-10-03)
+
+## 7.8.0 (2024-09-19)
+
+## 7.7.0 (2024-09-05)
+
+## 7.6.0 (2024-08-21)
+
+## 7.5.0 (2024-08-07)
+
+## 7.4.0 (2024-07-24)
+
+## 7.3.0 (2024-07-10)
+
+## 7.2.0 (2024-06-26)
+
+## 7.1.0 (2024-06-15)
+
 ## 7.0.0 (2024-05-31)
 
 ### Breaking Changes
@@ -96,7 +118,7 @@
 
 ## 5.0.0 (2022-08-24)
 
-### Breaking Change
+### Breaking Changes
 
 -   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
 
@@ -125,7 +147,7 @@
 
 ## 1.1.0 (2019-05-21)
 
-### New Feature
+### New Features
 
 -   Added optional `disabledRules` option to use with `toPassAxeTests` matcher.
 

@@ -21,6 +21,7 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
 import { create, insert, remove, toHTMLString } from '@wordpress/rich-text';
 import deprecated from '@wordpress/deprecated';
+import { store as preferencesStore } from '@wordpress/preferences';
 
 /**
  * Internal dependencies
@@ -34,8 +35,6 @@ import {
 	__experimentalUpdateSettings,
 	privateRemoveBlocks,
 } from './private-actions';
-import { STORE_NAME } from './constants';
-import { unlock } from '../lock-unlock';
 
 /** @typedef {import('../components/use-on-block-drop/types').WPDropOperation} WPDropOperation */
 
@@ -209,6 +208,21 @@ export function selectBlock( clientId, initialPosition = 0 ) {
 	return {
 		type: 'SELECT_BLOCK',
 		initialPosition,
+		clientId,
+	};
+}
+
+/**
+ * Returns an action object used in signalling that the block with the
+ * specified client ID has been hovered.
+ *
+ * @param {string} clientId Block client ID.
+ *
+ * @return {Object} Action object.
+ */
+export function hoverBlock( clientId ) {
+	return {
+		type: 'HOVER_BLOCK',
 		clientId,
 	};
 }
@@ -409,7 +423,7 @@ const createOnMove =
 	( clientIds, rootClientId ) =>
 	( { select, dispatch } ) => {
 		// If one of the blocks is locked or the parent is locked, we cannot move any block.
-		const canMoveBlocks = select.canMoveBlocks( clientIds, rootClientId );
+		const canMoveBlocks = select.canMoveBlocks( clientIds );
 		if ( ! canMoveBlocks ) {
 			return;
 		}
@@ -431,10 +445,7 @@ export const moveBlocksUp = createOnMove( 'MOVE_BLOCKS_UP' );
 export const moveBlocksToPosition =
 	( clientIds, fromRootClientId = '', toRootClientId = '', index ) =>
 	( { select, dispatch } ) => {
-		const canMoveBlocks = select.canMoveBlocks(
-			clientIds,
-			fromRootClientId
-		);
+		const canMoveBlocks = select.canMoveBlocks( clientIds );
 
 		// If one of the blocks is locked or the parent is locked, we cannot move any block.
 		if ( ! canMoveBlocks ) {
@@ -443,10 +454,7 @@ export const moveBlocksToPosition =
 
 		// If moving inside the same root block the move is always possible.
 		if ( fromRootClientId !== toRootClientId ) {
-			const canRemoveBlocks = select.canRemoveBlocks(
-				clientIds,
-				fromRootClientId
-			);
+			const canRemoveBlocks = select.canRemoveBlocks( clientIds );
 
 			// If we're moving to another block, it means we're deleting blocks from
 			// the original block, so we need to check if removing is possible.
@@ -988,7 +996,7 @@ export const __unstableSplitSelection =
 			},
 		};
 
-		const tail = {
+		let tail = {
 			...blockB,
 			// Only preserve the original client ID if the end is different.
 			clientId:
@@ -1000,6 +1008,26 @@ export const __unstableSplitSelection =
 				[ attributeKeyB ]: toHTMLString( { value: valueB } ),
 			},
 		};
+
+		// When splitting a block, attempt to convert the tail block to the
+		// default block type. For example, when splitting a heading block, the
+		// tail block will be converted to a paragraph block. Note that for
+		// blocks such as a list item and button, this will be skipped because
+		// the default block type cannot be inserted.
+		const defaultBlockName = getDefaultBlockName();
+		if (
+			// A block is only split when the selection is within the same
+			// block.
+			blockA.clientId === blockB.clientId &&
+			defaultBlockName &&
+			tail.name !== defaultBlockName &&
+			select.canInsertBlockType( defaultBlockName, anchorRootClientId )
+		) {
+			const switched = switchToBlockType( tail, defaultBlockName );
+			if ( switched?.length === 1 ) {
+				tail = switched[ 0 ];
+			}
+		}
 
 		if ( ! blocks.length ) {
 			dispatch.replaceBlocks( select.getSelectedBlockClientIds(), [
@@ -1641,75 +1669,35 @@ export const setNavigationMode =
  */
 export const __unstableSetEditorMode =
 	( mode ) =>
-	( { dispatch, select, registry } ) => {
-		// When switching to zoom-out mode, we need to select the parent section
-		if ( mode === 'zoom-out' ) {
-			const firstSelectedClientId = select.getBlockSelectionStart();
-			const { sectionRootClientId } = unlock(
-				registry.select( STORE_NAME ).getSettings()
-			);
-			if ( firstSelectedClientId ) {
-				let sectionClientId;
-
-				if ( sectionRootClientId ) {
-					const sectionClientIds =
-						select.getBlockOrder( sectionRootClientId );
-					sectionClientId = select
-						.getBlockParents( firstSelectedClientId )
-						.find( ( parent ) =>
-							sectionClientIds.includes( parent )
-						);
-				} else {
-					sectionClientId = select.getBlockHierarchyRootClientId(
-						firstSelectedClientId
-					);
-				}
-
-				if ( sectionClientId ) {
-					dispatch.selectBlock( sectionClientId );
-				} else {
-					dispatch.clearSelectedBlock();
-				}
-			}
-		}
-
-		dispatch( { type: 'SET_EDITOR_MODE', mode } );
+	( { registry } ) => {
+		registry.dispatch( preferencesStore ).set( 'core', 'editorTool', mode );
 
 		if ( mode === 'navigation' ) {
-			speak(
-				__(
-					'You are currently in navigation mode. Navigate blocks using the Tab key and Arrow keys. Use Left and Right Arrow keys to move between nesting levels. To exit navigation mode and edit the selected block, press Enter.'
-				)
-			);
+			speak( __( 'You are currently in Write mode.' ) );
 		} else if ( mode === 'edit' ) {
-			speak(
-				__(
-					'You are currently in edit mode. To return to the navigation mode, press Escape.'
-				)
-			);
-		} else if ( mode === 'zoom-out' ) {
-			speak( __( 'You are currently in zoom-out mode.' ) );
+			speak( __( 'You are currently in Design mode.' ) );
 		}
 	};
 
 /**
- * Action that enables or disables the block moving mode.
+ * Set the block moving client ID.
  *
- * @param {string|null} hasBlockMovingClientId Enable/Disable block moving mode.
+ * @deprecated
+ *
+ * @return {Object} Action object.
  */
-export const setBlockMovingClientId =
-	( hasBlockMovingClientId = null ) =>
-	( { dispatch } ) => {
-		dispatch( { type: 'SET_BLOCK_MOVING_MODE', hasBlockMovingClientId } );
-
-		if ( hasBlockMovingClientId ) {
-			speak(
-				__(
-					'Use the Tab key and Arrow keys to choose new block location. Use Left and Right Arrow keys to move between nesting levels. Once location is selected press Enter or Space to move the block.'
-				)
-			);
+export function setBlockMovingClientId() {
+	deprecated(
+		'wp.data.dispatch( "core/block-editor" ).setBlockMovingClientId',
+		{
+			since: '6.7',
+			hint: 'Block moving mode feature has been removed',
 		}
+	);
+	return {
+		type: 'DO_NOTHING',
 	};
+}
 
 /**
  * Action that duplicates a list of blocks.

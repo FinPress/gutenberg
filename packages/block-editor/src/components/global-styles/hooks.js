@@ -85,14 +85,15 @@ const VALID_SETTINGS = [
 ];
 
 export const useGlobalStylesReset = () => {
-	const { user: config, setUserConfig } = useContext( GlobalStylesContext );
+	const { user, setUserConfig } = useContext( GlobalStylesContext );
+	const config = {
+		settings: user.settings,
+		styles: user.styles,
+	};
 	const canReset = !! config && ! fastDeepEqual( config, EMPTY_CONFIG );
 	return [
 		canReset,
-		useCallback(
-			() => setUserConfig( () => EMPTY_CONFIG ),
-			[ setUserConfig ]
-		),
+		useCallback( () => setUserConfig( EMPTY_CONFIG ), [ setUserConfig ] ),
 	];
 };
 
@@ -206,11 +207,6 @@ export function useGlobalStyle(
 	}
 
 	return [ result, setStyle ];
-}
-
-export function useGlobalStyleLinks() {
-	const { merged: mergedConfig } = useContext( GlobalStylesContext );
-	return mergedConfig?._links;
 }
 
 /**
@@ -371,6 +367,15 @@ export function useSettingsForBlockElement(
 			) {
 				updatedSettings.border = {
 					...updatedSettings.border,
+					[ key ]: false,
+				};
+			}
+		} );
+
+		[ 'backgroundImage', 'backgroundSize' ].forEach( ( key ) => {
+			if ( ! supportedStyles.includes( key ) ) {
+				updatedSettings.background = {
+					...updatedSettings.background,
 					[ key ]: false,
 				};
 			}

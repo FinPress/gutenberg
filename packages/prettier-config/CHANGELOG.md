@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+## 4.11.0 (2024-10-30)
+
+## 4.10.0 (2024-10-16)
+
+## 4.9.0 (2024-10-03)
+
+## 4.8.0 (2024-09-19)
+
+## 4.7.0 (2024-09-05)
+
+## 4.6.0 (2024-08-21)
+
+## 4.5.0 (2024-08-07)
+
+## 4.4.0 (2024-07-24)
+
+## 4.3.0 (2024-07-10)
+
+## 4.2.0 (2024-06-26)
+
+## 4.1.0 (2024-06-15)
+
 ## 4.0.0 (2024-05-31)
 
 ### Breaking Changes
@@ -40,7 +62,7 @@
 
 ## 3.0.0 (2023-10-05)
 
-### Breaking Change
+### Breaking Changes
 
 -   Change the required major version of Prettier from v2 to v3 ([#54775](https://github.com/WordPress/gutenberg/pull/54775)).
 
@@ -101,21 +123,21 @@
 
 ## 2.0.0 (2022-08-24)
 
-### Breaking Change
+### Breaking Changes
 
 -   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
 
-### Bug Fix
+### Bug Fixes
 
 -   Packages: Replace `is-plain-obj` with native functionality ([#43511](https://github.com/WordPress/gutenberg/pull/43511)).
 
 ## 1.2.0 (2022-04-21)
 
-### Enhancement
+### Enhancements
 
 -   Add additional configuration for CSS styles to better align with [CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/) ([#40479](https://github.com/WordPress/gutenberg/pull/40479)).
 
-### Bug Fix
+### Bug Fixes
 
 -   Ensure that the config can work with both `prettier` and `wp-prettier` without reporting warnings ([#40479](https://github.com/WordPress/gutenberg/pull/40479)).
 

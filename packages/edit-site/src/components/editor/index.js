@@ -7,8 +7,8 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { useDispatch, useSelect } from '@wordpress/data';
-import { Button } from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
+import { Button, __unstableMotion as motion } from '@wordpress/components';
+import { useInstanceId, useReducedMotion } from '@wordpress/compose';
 import {
 	EditorKeyboardShortcutsRegister,
 	privateApis as editorPrivateApis,
@@ -22,6 +22,8 @@ import { store as noticesStore } from '@wordpress/notices';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { store as preferencesStore } from '@wordpress/preferences';
 import { decodeEntities } from '@wordpress/html-entities';
+import { Icon, arrowUpLeft } from '@wordpress/icons';
+import { store as blockEditorStore } from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
@@ -40,38 +42,71 @@ import {
 	useHasEditorCanvasContainer,
 } from '../editor-canvas-container';
 import SaveButton from '../save-button';
+import SavePanel from '../save-panel';
 import SiteEditorMoreMenu from '../more-menu';
 import SiteIcon from '../site-icon';
 import useEditorIframeProps from '../block-editor/use-editor-iframe-props';
 import useEditorTitle from './use-editor-title';
+import { useIsSiteEditorLoading } from '../layout/hooks';
+import { useAdaptEditorToCanvas } from './use-adapt-editor-to-canvas';
 
 const { Editor, BackButton } = unlock( editorPrivateApis );
-const { useHistory } = unlock( routerPrivateApis );
+const { useHistory, useLocation } = unlock( routerPrivateApis );
 const { BlockKeyboardShortcuts } = unlock( blockLibraryPrivateApis );
 
-export default function EditSiteEditor( { isLoading } ) {
+const toggleHomeIconVariants = {
+	edit: {
+		opacity: 0,
+		scale: 0.2,
+	},
+	hover: {
+		opacity: 1,
+		scale: 1,
+		clipPath: 'inset( 22% round 2px )',
+	},
+};
+
+const siteIconVariants = {
+	edit: {
+		clipPath: 'inset(0% round 0px)',
+	},
+	hover: {
+		clipPath: 'inset( 22% round 2px )',
+	},
+	tap: {
+		clipPath: 'inset(0% round 0px)',
+	},
+};
+
+export default function EditSiteEditor( { isPostsList = false } ) {
+	const disableMotion = useReducedMotion();
+	const { params } = useLocation();
+	const { canvas = 'view' } = params;
+	const isLoading = useIsSiteEditorLoading();
+	useAdaptEditorToCanvas( canvas );
 	const {
 		editedPostType,
 		editedPostId,
 		contextPostType,
 		contextPostId,
-		canvasMode,
 		isEditingPage,
 		supportsGlobalStyles,
 		showIconLabels,
 		editorCanvasView,
 		currentPostIsTrashed,
+		hasSiteIcon,
 	} = useSelect( ( select ) => {
 		const {
+			getEditorCanvasContainerView,
 			getEditedPostContext,
-			getCanvasMode,
 			isPage,
 			getEditedPostType,
 			getEditedPostId,
 		} = unlock( select( editSiteStore ) );
 		const { get } = select( preferencesStore );
-		const { getCurrentTheme } = select( coreDataStore );
+		const { getCurrentTheme, getEntityRecord } = select( coreDataStore );
 		const _context = getEditedPostContext();
+		const siteData = getEntityRecord( 'root', '__unstableBase', undefined );
 
 		// The currently selected entity to display.
 		// Typically template or template part in the site editor.
@@ -80,23 +115,21 @@ export default function EditSiteEditor( { isLoading } ) {
 			editedPostId: getEditedPostId(),
 			contextPostType: _context?.postId ? _context.postType : undefined,
 			contextPostId: _context?.postId ? _context.postId : undefined,
-			canvasMode: getCanvasMode(),
 			isEditingPage: isPage(),
 			supportsGlobalStyles: getCurrentTheme()?.is_block_theme,
 			showIconLabels: get( 'core', 'showIconLabels' ),
-			editorCanvasView: unlock(
-				select( editSiteStore )
-			).getEditorCanvasContainerView(),
+			editorCanvasView: getEditorCanvasContainerView(),
 			currentPostIsTrashed:
 				select( editorStore ).getCurrentPostAttribute( 'status' ) ===
 				'trash',
+			hasSiteIcon: !! siteData?.site_icon_url,
 		};
 	}, [] );
 	useEditorTitle();
 	const _isPreviewingTheme = isPreviewingTheme();
 	const hasDefaultEditorCanvasView = ! useHasEditorCanvasContainer();
 	const iframeProps = useEditorIframeProps();
-	const isEditMode = canvasMode === 'edit';
+	const isEditMode = canvas === 'edit';
 	const postWithTemplate = !! contextPostId;
 	const loadingProgressId = useInstanceId(
 		CanvasLoader,
@@ -110,19 +143,17 @@ export default function EditSiteEditor( { isLoading } ) {
 			{
 				// Forming a "block formatting context" to prevent margin collapsing.
 				// @see https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context
-
-				css: `body{${
-					canvasMode === 'view'
-						? `min-height: 100vh; ${
+				css:
+					canvas === 'view'
+						? `body{min-height: 100vh; ${
 								currentPostIsTrashed ? '' : 'cursor: pointer;'
-						  }`
-						: ''
-				}}}`,
+						  }}`
+						: undefined,
 			},
 		],
-		[ settings.styles, canvasMode, currentPostIsTrashed ]
+		[ settings.styles, canvas, currentPostIsTrashed ]
 	);
-	const { setCanvasMode } = unlock( useDispatch( editSiteStore ) );
+	const { resetZoomLevel } = unlock( useDispatch( blockEditorStore ) );
 	const { createSuccessNotice } = useDispatch( noticesStore );
 	const history = useHistory();
 	const onActionPerformed = useCallback(
@@ -145,7 +176,7 @@ export default function EditSiteEditor( { isLoading } ) {
 								: newItem.title?.rendered;
 						createSuccessNotice(
 							sprintf(
-								// translators: %s: Title of the created post e.g: "Post 1".
+								// translators: %s: Title of the created post or template, e.g: "Hello world".
 								__( '"%s" successfully created.' ),
 								decodeEntities( _title )
 							),
@@ -173,7 +204,13 @@ export default function EditSiteEditor( { isLoading } ) {
 		[ history, createSuccessNotice ]
 	);
 
+	// Replace the title and icon displayed in the DocumentBar when there's an overlay visible.
+	const title = getEditorCanvasContainerTitle( editorCanvasView );
+
 	const isReady = ! isLoading;
+	const transition = {
+		duration: disableMotion ? 0 : 0.2,
+	};
 
 	return (
 		<>
@@ -194,16 +231,12 @@ export default function EditSiteEditor( { isLoading } ) {
 						'show-icon-labels': showIconLabels,
 					} ) }
 					styles={ styles }
-					enableRegionNavigation={ false }
 					customSaveButton={
 						_isPreviewingTheme && <SaveButton size="compact" />
 					}
+					customSavePanel={ _isPreviewingTheme && <SavePanel /> }
 					forceDisableBlockTools={ ! hasDefaultEditorCanvasView }
-					title={
-						! hasDefaultEditorCanvasView
-							? getEditorCanvasContainerTitle( editorCanvasView )
-							: undefined
-					}
+					title={ title }
 					iframeProps={ iframeProps }
 					onActionPerformed={ onActionPerformed }
 					extraSidebarPanels={
@@ -214,15 +247,73 @@ export default function EditSiteEditor( { isLoading } ) {
 						<BackButton>
 							{ ( { length } ) =>
 								length <= 1 && (
-									<Button
-										label={ __( 'Open Navigation' ) }
-										className="edit-site-layout__view-mode-toggle"
-										onClick={ () =>
-											setCanvasMode( 'view' )
-										}
+									<motion.div
+										className="edit-site-editor__view-mode-toggle"
+										transition={ transition }
+										animate="edit"
+										initial="edit"
+										whileHover="hover"
+										whileTap="tap"
 									>
-										<SiteIcon className="edit-site-layout__view-mode-toggle-icon" />
-									</Button>
+										<Button
+											__next40pxDefaultSize
+											label={ __( 'Open Navigation' ) }
+											showTooltip
+											tooltipPosition="middle right"
+											onClick={ () => {
+												resetZoomLevel();
+
+												// TODO: this is a temporary solution to navigate to the posts list if we are
+												// come here through `posts list` and are in focus mode editing a template, template part etc..
+												if (
+													isPostsList &&
+													params?.focusMode
+												) {
+													history.push(
+														{
+															page: 'gutenberg-posts-dashboard',
+															postType: 'post',
+														},
+														undefined,
+														{
+															transition:
+																'canvas-mode-view-transition',
+														}
+													);
+												} else {
+													history.push(
+														{
+															...params,
+															canvas: undefined,
+														},
+														undefined,
+														{
+															transition:
+																'canvas-mode-view-transition',
+														}
+													);
+												}
+											} }
+										>
+											<motion.div
+												variants={ siteIconVariants }
+											>
+												<SiteIcon className="edit-site-editor__view-mode-toggle-icon" />
+											</motion.div>
+										</Button>
+										<motion.div
+											className={ clsx(
+												'edit-site-editor__back-icon',
+												{
+													'has-site-icon':
+														hasSiteIcon,
+												}
+											) }
+											variants={ toggleHomeIconVariants }
+										>
+											<Icon icon={ arrowUpLeft } />
+										</motion.div>
+									</motion.div>
 								)
 							}
 						</BackButton>

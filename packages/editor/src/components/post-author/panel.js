@@ -4,6 +4,7 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { Button, Dropdown } from '@wordpress/components';
 import { useState, useMemo } from '@wordpress/element';
+import { decodeEntities } from '@wordpress/html-entities';
 import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@wordpress/block-editor';
 
 /**
@@ -16,15 +17,18 @@ import { useAuthorsQuery } from './hook';
 
 function PostAuthorToggle( { isOpen, onClick } ) {
 	const { postAuthor } = useAuthorsQuery();
-	const authorName = postAuthor?.name || '';
+	const authorName =
+		decodeEntities( postAuthor?.name ) || __( '(No author)' );
 	return (
 		<Button
 			size="compact"
 			className="editor-post-author__panel-toggle"
 			variant="tertiary"
 			aria-expanded={ isOpen }
-			// translators: %s: Current post link.
-			aria-label={ sprintf( __( 'Change author: %s' ), authorName ) }
+			aria-label={
+				// translators: %s: Author name.
+				sprintf( __( 'Change author: %s' ), authorName )
+			}
 			onClick={ onClick }
 		>
 			{ authorName }
