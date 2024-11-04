@@ -30,7 +30,9 @@ const Example = ( extraProps: Omit< BoxControlProps, 'onChange' > ) => {
 describe( 'BoxControl', () => {
 	describe( 'Basic rendering', () => {
 		it( 'should render a box control input', () => {
-			render( <BoxControl onChange={ () => {} } /> );
+			render(
+				<BoxControl __next40pxDefaultSize onChange={ () => {} } />
+			);
 
 			expect(
 				screen.getByRole( 'group', { name: 'Box Control' } )
