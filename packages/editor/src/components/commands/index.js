@@ -254,6 +254,16 @@ function useEditorCommandLoader() {
 		} );
 	}
 
+	commands.push( {
+		name: 'core/go-to-site-editor',
+		label: __( 'Go to Site Editor' ),
+		icon: edit,
+		callback: ( { close } ) => {
+			close();
+			window.location.href = '/wp-admin/site-editor.php';
+		},
+	} );
+
 	return {
 		commands,
 		isLoading: false,
