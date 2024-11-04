@@ -30,7 +30,7 @@ const GlobalStylesPageActions = ( {
 	return (
 		<Menu
 			trigger={
-				<Button __next40pxDefaultSize variant="secondary">
+				<Button __next40pxDefaultSize variant="tertiary" size="compact">
 					{ __( 'Preview' ) }
 				</Button>
 			}
@@ -38,7 +38,7 @@ const GlobalStylesPageActions = ( {
 			<Menu.RadioItem
 				value
 				checked={ isStyleBookOpened }
-				name="radio-controlled"
+				name="styles-preview-actions"
 				onChange={ () => setIsStyleBookOpened( true ) }
 				defaultChecked
 			>
@@ -50,7 +50,7 @@ const GlobalStylesPageActions = ( {
 			<Menu.RadioItem
 				value={ false }
 				checked={ ! isStyleBookOpened }
-				name="radio-controlled"
+				name="styles-preview-actions"
 				onChange={ () => setIsStyleBookOpened( false ) }
 			>
 				<Menu.ItemLabel>{ __( 'Site' ) }</Menu.ItemLabel>
