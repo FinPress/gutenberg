@@ -245,6 +245,14 @@ export const getEntityRecords =
 			{ exclusive: false }
 		);
 
+		const key = entityConfig.key || DEFAULT_ENTITY_KEY;
+
+		function getResolutionsArgs( records ) {
+			return records
+				.filter( ( record ) => record?.[ key ] )
+				.map( ( record ) => [ kind, name, record[ key ] ] );
+		}
+
 		try {
 			if ( query._fields ) {
 				// If requesting specific fields, items and query association to said
@@ -280,7 +288,44 @@ export const getEntityRecords =
 					),
 				};
 			} else {
-				records = Object.values( await apiFetch( { path } ) );
+				let allRecords = [];
+				let page = 1;
+				let hasMore = true;
+
+				while ( hasMore ) {
+					const pathWithPage = addQueryArgs( path, {
+						page,
+						per_page: 100,
+					} );
+					const response = await apiFetch( {
+						path: pathWithPage,
+						parse: false,
+					} );
+					const pageRecords = Object.values( await response.json() );
+
+					allRecords = [ ...allRecords, ...pageRecords ];
+
+					registry.batch( () => {
+						dispatch.receiveEntityRecords(
+							kind,
+							name,
+							allRecords,
+							query
+						);
+						dispatch.finishResolutions(
+							'getEntityRecord',
+							getResolutionsArgs( pageRecords )
+						);
+					} );
+
+					const totalPages = parseInt(
+						response.headers.get( 'X-WP-TotalPages' )
+					);
+					hasMore = page < totalPages;
+					page++;
+				}
+
+				records = allRecords;
 				meta = {
 					totalItems: records.length,
 					totalPages: 1,
@@ -318,11 +363,6 @@ export const getEntityRecords =
 				// See https://github.com/WordPress/gutenberg/pull/26575
 				// See https://github.com/WordPress/gutenberg/pull/64504
 				if ( ! query?._fields && ! query.context ) {
-					const key = entityConfig.key || DEFAULT_ENTITY_KEY;
-					const resolutionsArgs = records
-						.filter( ( record ) => record?.[ key ] )
-						.map( ( record ) => [ kind, name, record[ key ] ] );
-
 					const targetHints = records
 						.filter( ( record ) => record?.[ key ] )
 						.map( ( record ) => ( {
@@ -356,7 +396,7 @@ export const getEntityRecords =
 					);
 					dispatch.finishResolutions(
 						'getEntityRecord',
-						resolutionsArgs
+						getResolutionsArgs( records )
 					);
 					dispatch.finishResolutions(
 						'canUser',

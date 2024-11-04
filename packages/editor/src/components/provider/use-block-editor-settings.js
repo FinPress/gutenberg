@@ -29,17 +29,10 @@ import { useGlobalStylesContext } from '../global-styles-provider';
 const EMPTY_OBJECT = {};
 
 function __experimentalReusableBlocksSelect( select ) {
-	const { getEntityRecords, hasFinishedResolution } = select( coreStore );
-	const reusableBlocks = getEntityRecords( 'postType', 'wp_block', {
+	const { getEntityRecords } = select( coreStore );
+	return getEntityRecords( 'postType', 'wp_block', {
 		per_page: -1,
 	} );
-	return hasFinishedResolution( 'getEntityRecords', [
-		'postType',
-		'wp_block',
-		{ per_page: -1 },
-	] )
-		? reusableBlocks
-		: undefined;
 }
 
 const BLOCK_EDITOR_SETTINGS = [
