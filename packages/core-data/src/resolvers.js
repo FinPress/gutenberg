@@ -276,7 +276,43 @@ export const getEntityRecords =
 			} );
 
 			let records, meta;
-			if ( entityConfig.supportsPagination && query.per_page !== -1 ) {
+			if ( query.per_page === -1 ) {
+				let page = 1;
+				let totalPages;
+
+				do {
+					const response = await apiFetch( {
+						path: addQueryArgs( path, { page, per_page: 100 } ),
+						parse: false,
+					} );
+					const pageRecords = Object.values( await response.json() );
+
+					totalPages = parseInt(
+						response.headers.get( 'X-WP-TotalPages' )
+					);
+
+					records.push( ...pageRecords );
+					registry.batch( () => {
+						dispatch.receiveEntityRecords(
+							kind,
+							name,
+							records,
+							query
+						);
+						dispatch.finishResolutions(
+							'getEntityRecord',
+							getResolutionsArgs( pageRecords )
+						);
+					} );
+
+					page++;
+				} while ( page <= totalPages );
+
+				meta = {
+					totalItems: records.length,
+					totalPages: 1,
+				};
+			} else if ( entityConfig.supportsPagination ) {
 				const response = await apiFetch( { path, parse: false } );
 				records = Object.values( await response.json() );
 				meta = {
@@ -288,44 +324,7 @@ export const getEntityRecords =
 					),
 				};
 			} else {
-				let allRecords = [];
-				let page = 1;
-				let hasMore = true;
-
-				while ( hasMore ) {
-					const pathWithPage = addQueryArgs( path, {
-						page,
-						per_page: 100,
-					} );
-					const response = await apiFetch( {
-						path: pathWithPage,
-						parse: false,
-					} );
-					const pageRecords = Object.values( await response.json() );
-
-					allRecords = [ ...allRecords, ...pageRecords ];
-
-					registry.batch( () => {
-						dispatch.receiveEntityRecords(
-							kind,
-							name,
-							allRecords,
-							query
-						);
-						dispatch.finishResolutions(
-							'getEntityRecord',
-							getResolutionsArgs( pageRecords )
-						);
-					} );
-
-					const totalPages = parseInt(
-						response.headers.get( 'X-WP-TotalPages' )
-					);
-					hasMore = page < totalPages;
-					page++;
-				}
-
-				records = allRecords;
+				records = Object.values( await apiFetch( { path } ) );
 				meta = {
 					totalItems: records.length,
 					totalPages: 1,
