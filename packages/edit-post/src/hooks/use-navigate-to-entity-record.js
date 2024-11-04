@@ -2,7 +2,8 @@
  * WordPress dependencies
  */
 import { useCallback, useReducer } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { store as coreStore } from '@wordpress/core-data';
+import { resolveSelect, useSelect, useDispatch } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
 
 /**
@@ -52,7 +53,8 @@ export default function useNavigateToEntityRecord(
 	const { setRenderingMode } = useDispatch( editorStore );
 
 	const onNavigateToEntityRecord = useCallback(
-		( params ) => {
+		async ( params ) => {
+			await resolveSelect( coreStore ).getPostType( params.postType );
 			dispatch( {
 				type: 'push',
 				post: { postId: params.postId, postType: params.postType },
@@ -61,7 +63,12 @@ export default function useNavigateToEntityRecord(
 			} );
 			setRenderingMode( defaultRenderingMode );
 		},
-		[ getRenderingMode, setRenderingMode, defaultRenderingMode ]
+		[
+			resolveSelect,
+			getRenderingMode,
+			setRenderingMode,
+			defaultRenderingMode,
+		]
 	);
 
 	const onNavigateToPreviousEntityRecord = useCallback( () => {
