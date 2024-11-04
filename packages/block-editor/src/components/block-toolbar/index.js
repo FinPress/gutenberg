@@ -16,7 +16,7 @@ import {
 	isReusableBlock,
 	isTemplatePart,
 } from '@wordpress/blocks';
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+import { ToolbarGroup } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -35,7 +35,7 @@ import { store as blockEditorStore } from '../../store';
 import __unstableBlockNameContext from './block-name-context';
 import NavigableToolbar from '../navigable-toolbar';
 import { useHasBlockToolbar } from './use-has-block-toolbar';
-import Shuffle from './shuffle';
+import ChangeDesign from './change-design';
 import { unlock } from '../../lock-unlock';
 
 /**
@@ -69,6 +69,9 @@ export function PrivateBlockToolbar( {
 		hasParentPattern,
 		hasContentOnlyLocking,
 		showShuffleButton,
+		showSlots,
+		showGroupButtons,
+		showLockButtons,
 	} = useSelect( ( select ) => {
 		const {
 			getBlockName,
@@ -135,6 +138,9 @@ export function PrivateBlockToolbar( {
 			hasParentPattern: _hasParentPattern,
 			hasContentOnlyLocking: _hasTemplateLock,
 			showShuffleButton: isZoomOut(),
+			showSlots: ! isZoomOut(),
+			showGroupButtons: ! isZoomOut(),
+			showLockButtons: ! isZoomOut(),
 		};
 	}, [] );
 
@@ -195,11 +201,13 @@ export function PrivateBlockToolbar( {
 						>
 							<ToolbarGroup className="block-editor-block-toolbar__block-controls">
 								<BlockSwitcher clientIds={ blockClientIds } />
-								{ ! isMultiToolbar && isDefaultEditingMode && (
-									<BlockLockToolbar
-										clientId={ blockClientId }
-									/>
-								) }
+								{ ! isMultiToolbar &&
+									isDefaultEditingMode &&
+									showLockButtons && (
+										<BlockLockToolbar
+											clientId={ blockClientId }
+										/>
+									) }
 								<BlockMover
 									clientIds={ blockClientIds }
 									hideDragHandle={ hideDragHandle }
@@ -209,16 +217,12 @@ export function PrivateBlockToolbar( {
 					) }
 				{ ! hasContentOnlyLocking &&
 					shouldShowVisualToolbar &&
-					isMultiToolbar && <BlockGroupToolbar /> }
+					isMultiToolbar &&
+					showGroupButtons && <BlockGroupToolbar /> }
 				{ showShuffleButton && (
-					<ToolbarGroup>
-						<Shuffle
-							clientId={ blockClientIds[ 0 ] }
-							as={ ToolbarButton }
-						/>
-					</ToolbarGroup>
+					<ChangeDesign clientId={ blockClientIds[ 0 ] } />
 				) }
-				{ shouldShowVisualToolbar && (
+				{ shouldShowVisualToolbar && showSlots && (
 					<>
 						<BlockControls.Slot
 							group="parent"
