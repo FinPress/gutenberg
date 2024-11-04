@@ -29,9 +29,8 @@ import { useGlobalStylesContext } from '../global-styles-provider';
 
 const EMPTY_OBJECT = {};
 
-const { RECEIVE_INTERMEDIATE_RESULTS } = unlock( coreDataPrivateApis );
-
 function __experimentalReusableBlocksSelect( select ) {
+	const { RECEIVE_INTERMEDIATE_RESULTS } = unlock( coreDataPrivateApis );
 	const { getEntityRecords } = select( coreStore );
 	return getEntityRecords( 'postType', 'wp_block', {
 		per_page: -1,
