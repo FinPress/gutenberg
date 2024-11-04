@@ -3,7 +3,7 @@
  */
 import { useCallback, useReducer } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
-import { resolveSelect, useSelect, useDispatch } from '@wordpress/data';
+import { useRegistry, useSelect, useDispatch } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
 
 /**
@@ -51,10 +51,13 @@ export default function useNavigateToEntityRecord(
 
 	const { getRenderingMode } = useSelect( editorStore );
 	const { setRenderingMode } = useDispatch( editorStore );
+	const registry = useRegistry();
 
 	const onNavigateToEntityRecord = useCallback(
 		async ( params ) => {
-			await resolveSelect( coreStore ).getPostType( params.postType );
+			await registry
+				.resolveSelect( coreStore )
+				.getPostType( params.postType );
 			dispatch( {
 				type: 'push',
 				post: { postId: params.postId, postType: params.postType },
@@ -63,12 +66,7 @@ export default function useNavigateToEntityRecord(
 			} );
 			setRenderingMode( defaultRenderingMode );
 		},
-		[
-			resolveSelect,
-			getRenderingMode,
-			setRenderingMode,
-			defaultRenderingMode,
-		]
+		[ registry, getRenderingMode, setRenderingMode, defaultRenderingMode ]
 	);
 
 	const onNavigateToPreviousEntityRecord = useCallback( () => {
