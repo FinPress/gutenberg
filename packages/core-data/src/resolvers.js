@@ -21,6 +21,7 @@ import {
 	getUserPermissionCacheKey,
 	getUserPermissionsFromAllowHeader,
 	ALLOWED_RESOURCE_ACTIONS,
+	RECEIVE_INTERMEDIATE_RESULTS,
 } from './utils';
 import { getSyncProvider } from './sync';
 import { fetchBlockPatterns } from './fetch';
@@ -275,8 +276,23 @@ export const getEntityRecords =
 				...query,
 			} );
 
-			let records, meta;
-			if ( query.per_page === -1 ) {
+			let records = [],
+				meta;
+			if ( entityConfig.supportsPagination && query.per_page !== -1 ) {
+				const response = await apiFetch( { path, parse: false } );
+				records = Object.values( await response.json() );
+				meta = {
+					totalItems: parseInt(
+						response.headers.get( 'X-WP-Total' )
+					),
+					totalPages: parseInt(
+						response.headers.get( 'X-WP-TotalPages' )
+					),
+				};
+			} else if (
+				query.per_page === -1 &&
+				query[ RECEIVE_INTERMEDIATE_RESULTS ] === true
+			) {
 				let page = 1;
 				let totalPages;
 
@@ -304,24 +320,12 @@ export const getEntityRecords =
 							getResolutionsArgs( pageRecords )
 						);
 					} );
-
 					page++;
 				} while ( page <= totalPages );
 
 				meta = {
 					totalItems: records.length,
 					totalPages: 1,
-				};
-			} else if ( entityConfig.supportsPagination ) {
-				const response = await apiFetch( { path, parse: false } );
-				records = Object.values( await response.json() );
-				meta = {
-					totalItems: parseInt(
-						response.headers.get( 'X-WP-Total' )
-					),
-					totalPages: parseInt(
-						response.headers.get( 'X-WP-TotalPages' )
-					),
 				};
 			} else {
 				records = Object.values( await apiFetch( { path } ) );

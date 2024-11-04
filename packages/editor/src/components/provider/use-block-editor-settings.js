@@ -7,6 +7,7 @@ import {
 	store as coreStore,
 	__experimentalFetchLinkSuggestions as fetchLinkSuggestions,
 	__experimentalFetchUrlData as fetchUrlData,
+	privateApis as coreDataPrivateApis,
 } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { store as preferencesStore } from '@wordpress/preferences';
@@ -28,10 +29,13 @@ import { useGlobalStylesContext } from '../global-styles-provider';
 
 const EMPTY_OBJECT = {};
 
+const { RECEIVE_INTERMEDIATE_RESULTS } = unlock( coreDataPrivateApis );
+
 function __experimentalReusableBlocksSelect( select ) {
 	const { getEntityRecords } = select( coreStore );
 	return getEntityRecords( 'postType', 'wp_block', {
 		per_page: -1,
+		[ RECEIVE_INTERMEDIATE_RESULTS ]: true,
 	} );
 }
 
