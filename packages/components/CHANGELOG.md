@@ -5,6 +5,7 @@
 ### Deprecations
 
 -   `Radio`: Deprecate 36px default size ([#66572](https://github.com/WordPress/gutenberg/pull/66572)).
+-   `BoxControl`: Deprecate 36px default size ([#66704](https://github.com/WordPress/gutenberg/pull/66704)).
 
 ### Enhancements
 
