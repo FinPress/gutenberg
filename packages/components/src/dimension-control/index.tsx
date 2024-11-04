@@ -73,7 +73,7 @@ export function DimensionControl( props: DimensionControlProps ) {
 	maybeWarnDeprecated36pxSize( {
 		componentName: 'DimensionControl',
 		__next40pxDefaultSize,
-		size: value,
+		size: undefined,
 	} );
 
 	const onChangeSpacingSize: SelectControlSingleSelectionProps[ 'onChange' ] =
