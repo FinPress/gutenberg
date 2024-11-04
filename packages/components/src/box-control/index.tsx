@@ -33,6 +33,7 @@ import type {
 	BoxControlProps,
 	BoxControlValue,
 } from './types';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const defaultInputProps = {
 	min: 0,
@@ -155,6 +156,12 @@ function BoxControl( {
 		onMouseOut,
 		__next40pxDefaultSize,
 	};
+
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'BoxControl',
+		__next40pxDefaultSize,
+		size: undefined,
+	} );
 
 	return (
 		<Grid
