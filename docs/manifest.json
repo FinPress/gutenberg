@@ -198,7 +198,7 @@
 		"parent": "data-basics"
 	},
 	{
-		"title": "Part 4: Building a Create page form",
+		"title": "Building a Create page form",
 		"slug": "4-building-a-create-page-form",
 		"markdown_source": "../docs/how-to-guides/data-basics/4-building-a-create-page-form.md",
 		"parent": "data-basics"
@@ -369,6 +369,12 @@
 		"title": "Attributes",
 		"slug": "block-attributes",
 		"markdown_source": "../docs/reference-guides/block-api/block-attributes.md",
+		"parent": "block-api"
+	},
+	{
+		"title": "Bindings",
+		"slug": "block-bindings",
+		"markdown_source": "../docs/reference-guides/block-api/block-bindings.md",
 		"parent": "block-api"
 	},
 	{

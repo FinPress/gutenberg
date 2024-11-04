@@ -45,9 +45,15 @@ import { useToolsPanelDropdownMenuProps } from '../../../utils/hooks';
 const { BlockInfo } = unlock( blockEditorPrivateApis );
 
 export default function QueryInspectorControls( props ) {
-	const { attributes, setQuery, setDisplayLayout, isTemplate } = props;
-	const { query, displayLayout } = attributes;
 	const {
+		attributes,
+		setQuery,
+		setDisplayLayout,
+		postTypeFromContext,
+		isSingular,
+	} = props;
+	const { query, displayLayout } = attributes;
+	let {
 		order,
 		orderBy,
 		author: authorIds,
@@ -61,8 +67,18 @@ export default function QueryInspectorControls( props ) {
 		parents,
 		format,
 	} = query;
+	// If a post type is set in context, update `postType` to match it,
+	// unless the post type is `page`, as it usually doesn't make sense to loop
+	// through pages.
+	if (
+		postTypeFromContext &&
+		postTypeFromContext !== 'page' &&
+		postTypeFromContext !== postType
+	) {
+		postType = postTypeFromContext;
+	}
 	const allowedControls = useAllowedControls( attributes );
-	const [ showSticky, setShowSticky ] = useState( postType === 'post' );
+	const showSticky = postType === 'post';
 	const {
 		postTypesTaxonomiesMap,
 		postTypesSelectOptions,
@@ -70,9 +86,6 @@ export default function QueryInspectorControls( props ) {
 	} = usePostTypes();
 	const taxonomies = useTaxonomies( postType );
 	const isPostTypeHierarchical = useIsPostTypeHierarchical( postType );
-	useEffect( () => {
-		setShowSticky( postType === 'post' );
-	}, [ postType ] );
 	const onPostTypeChange = ( newValue ) => {
 		const updateQuery = { postType: newValue };
 		// We need to dynamically update the `taxQuery` property,
@@ -121,23 +134,20 @@ export default function QueryInspectorControls( props ) {
 	}, [ querySearch, onChangeDebounced ] );
 
 	const showInheritControl =
-		isTemplate && isControlAllowed( allowedControls, 'inherit' );
+		! isSingular && isControlAllowed( allowedControls, 'inherit' );
 	const showPostTypeControl =
-		( ! inherit && isControlAllowed( allowedControls, 'postType' ) ) ||
-		! isTemplate;
+		! inherit && isControlAllowed( allowedControls, 'postType' );
 	const postTypeControlLabel = __( 'Post type' );
 	const postTypeControlHelp = __(
 		'Select the type of content to display: posts, pages, or custom post types.'
 	);
 	const showColumnsControl = false;
 	const showOrderControl =
-		( ! inherit && isControlAllowed( allowedControls, 'order' ) ) ||
-		! isTemplate;
+		! inherit && isControlAllowed( allowedControls, 'order' );
 	const showStickyControl =
-		( ! inherit &&
-			showSticky &&
-			isControlAllowed( allowedControls, 'sticky' ) ) ||
-		( showSticky && ! isTemplate );
+		! inherit &&
+		showSticky &&
+		isControlAllowed( allowedControls, 'sticky' );
 	const showSettingsPanel =
 		showInheritControl ||
 		showPostTypeControl ||
