@@ -71,6 +71,7 @@ const Template: StoryFn< typeof RangeControl > = ( { onChange, ...args } ) => {
 export const Default: StoryFn< typeof RangeControl > = Template.bind( {} );
 Default.args = {
 	__nextHasNoMarginBottom: true,
+	__next40pxDefaultSize: true,
 	help: 'Please select how transparent you would like this.',
 	initialPosition: 50,
 	label: 'Opacity',
@@ -106,6 +107,7 @@ export const WithAnyStep: StoryFn< typeof RangeControl > = ( {
 };
 WithAnyStep.args = {
 	__nextHasNoMarginBottom: true,
+	__next40pxDefaultSize: true,
 	label: 'Brightness',
 	step: 'any',
 };
@@ -170,6 +172,7 @@ export const WithIntegerStepAndMarks: StoryFn< typeof RangeControl > =
 
 WithIntegerStepAndMarks.args = {
 	__nextHasNoMarginBottom: true,
+	__next40pxDefaultSize: true,
 	label: 'Integer Step',
 	marks: marksBase,
 	max: 10,
@@ -187,6 +190,7 @@ export const WithDecimalStepAndMarks: StoryFn< typeof RangeControl > =
 
 WithDecimalStepAndMarks.args = {
 	__nextHasNoMarginBottom: true,
+	__next40pxDefaultSize: true,
 	marks: [
 		...marksBase,
 		{ value: 3.5, label: '3.5' },
@@ -207,6 +211,7 @@ export const WithNegativeMinimumAndMarks: StoryFn< typeof RangeControl > =
 
 WithNegativeMinimumAndMarks.args = {
 	__nextHasNoMarginBottom: true,
+	__next40pxDefaultSize: true,
 	marks: marksWithNegatives,
 	max: 10,
 	min: -10,
@@ -223,6 +228,7 @@ export const WithNegativeRangeAndMarks: StoryFn< typeof RangeControl > =
 
 WithNegativeRangeAndMarks.args = {
 	__nextHasNoMarginBottom: true,
+	__next40pxDefaultSize: true,
 	marks: marksWithNegatives,
 	max: -1,
 	min: -10,
@@ -239,6 +245,7 @@ export const WithAnyStepAndMarks: StoryFn< typeof RangeControl > =
 
 WithAnyStepAndMarks.args = {
 	__nextHasNoMarginBottom: true,
+	__next40pxDefaultSize: true,
 	marks: marksBase,
 	max: 10,
 	min: 0,
