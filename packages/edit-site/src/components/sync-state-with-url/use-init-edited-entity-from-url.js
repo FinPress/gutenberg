@@ -116,8 +116,8 @@ function useResolveEditedEntityAndContext( { postId, postType } ) {
 							return id;
 						}
 
-						// If not front page template is found, continue with
-						// the logic below (fetching the page template).
+						// If no front page template is found, continue with the
+						// logic below (fetching the page template).
 					} else {
 						// Still resolving `templates`.
 						return undefined;
