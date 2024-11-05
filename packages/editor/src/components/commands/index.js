@@ -254,6 +254,18 @@ function useEditorCommandLoader() {
 		} );
 	}
 
+	commands.push( {
+		name: 'core/drafts',
+		label: __( 'Pages/Drafts' ),
+		keywords: [ 'drafts' ],
+		icon: edit,
+		callback: ( { close } ) => {
+			close();
+			window.location.href =
+				'/wp-admin/site-editor.php?postType=page&layout=list&activeView=drafts';
+		},
+	} );
+
 	return {
 		commands,
 		isLoading: false,
