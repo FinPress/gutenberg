@@ -5,6 +5,7 @@
 ### Deprecations
 
 -   `Radio`: Deprecate 36px default size ([#66572](https://github.com/WordPress/gutenberg/pull/66572)).
+-   `SelectControl`: Deprecate 36px default size ([#66732](https://github.com/WordPress/gutenberg/pull/66732)).
 
 ### Enhancements
 
