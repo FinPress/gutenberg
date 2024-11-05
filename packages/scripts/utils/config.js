@@ -246,6 +246,7 @@ function getWebpackEntryPoints( buildType ) {
 							''
 						) }" due to malformed JSON.`
 					);
+					continue;
 				}
 
 				const fields =
@@ -281,7 +282,7 @@ function getWebpackEntryPoints( buildType ) {
 								) }". File is located outside of the "${ getWordPressSrcDirectory() }" directory.`
 							)
 						);
-						return;
+						continue;
 					}
 					const entryName = filepath
 						.replace( extname( filepath ), '' )
@@ -309,7 +310,7 @@ function getWebpackEntryPoints( buildType ) {
 								) }". File does not exist in the "${ getWordPressSrcDirectory() }" directory.`
 							)
 						);
-						return;
+						continue;
 					}
 					entryPoints[ entryName ] = entryFilepath;
 				}
