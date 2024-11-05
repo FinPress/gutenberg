@@ -61,7 +61,6 @@
 		"@wordpress/plugins": "*",
 		"@wordpress/preferences": "*",
 		"@wordpress/primitives": "*",
-		"@wordpress/priority-queue": "*",
 		"@wordpress/private-apis": "*",
 		"@wordpress/reusable-blocks": "*",
 		"@wordpress/router": "*",
