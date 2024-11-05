@@ -497,6 +497,88 @@ Parameters:
 
 Returns a boolean indicating if the item is valid (true) or not (false).
 
+## Fields API
+
+### `id`
+
+The unique identifier of the field.
+
+- Type: `string`.
+- Required.
+
+Example:
+
+```js
+{ id: 'field_id' }
+```
+
+### `type`
+
+Field type. One of `text`, `integer`, `datetime`.
+
+- Type: `string`.
+- Optional.
+
+Example:
+
+```js
+{ type: 'text' }
+```
+
+If a field declares a `type`, it gets default implementations for the `sort`, `isValid`, and `Edit` functions. They will overriden if the field provides its own.
+
+### `label`
+
+The field's name. This will be used across the UI.
+
+- Type: `string`.
+- Optional.
+- Defaults to the `id` value.
+
+Example:
+
+```js
+{ label: 'Title' }
+```
+
+### `header`
+
+ that represents.
+
+- Type: `string` | React Element.
+- Optional.
+- Defaults to the `label` value.
+
+Example:
+
+```js
+{
+	header: () => { /**/ }
+}
+```
+
+### `getValue`
+
+### `render`
+
+### `Edit`
+
+### `sort`
+
+### `isValid`
+
+### `isVisible`
+
+### `enableSorting`
+
+### `enableHiding`
+
+### `enableGlobalSearch`
+
+### `elements`
+
+### `filterBy`
+
 ## Contributing to this package
 
 This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
