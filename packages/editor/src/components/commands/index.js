@@ -9,6 +9,7 @@ import {
 	drawerLeft,
 	drawerRight,
 	edit,
+	page,
 	formatListBullets,
 	listView,
 	external,
@@ -254,18 +255,6 @@ function useEditorCommandLoader() {
 		} );
 	}
 
-	commands.push( {
-		name: 'core/drafts',
-		label: __( 'Pages/Drafts' ),
-		keywords: [ 'drafts' ],
-		icon: edit,
-		callback: ( { close } ) => {
-			close();
-			window.location.href =
-				'/wp-admin/site-editor.php?postType=page&layout=list&activeView=drafts';
-		},
-	} );
-
 	return {
 		commands,
 		isLoading: false,
@@ -306,6 +295,26 @@ function useEditedEntityContextualCommands() {
 	return { isLoading: false, commands };
 }
 
+function useSiteEditorCommandLoader() {
+	const commands = [];
+	commands.push( {
+		name: 'core/drafts',
+		label: __( 'Pages/Drafts' ),
+		keywords: [ 'drafts' ],
+		icon: page,
+		callback: ( { close } ) => {
+			close();
+			window.location.href =
+				'/wp-admin/site-editor.php?postType=page&layout=list&activeView=drafts';
+		},
+	} );
+
+	return {
+		commands,
+		isLoading: false,
+	};
+}
+
 export default function useCommands() {
 	useCommandLoader( {
 		name: 'core/editor/edit-ui',
@@ -316,5 +325,11 @@ export default function useCommands() {
 		name: 'core/editor/contextual-commands',
 		hook: useEditedEntityContextualCommands,
 		context: 'entity-edit',
+	} );
+
+	useCommandLoader( {
+		name: 'core/editor/site-editor',
+		hook: useSiteEditorCommandLoader,
+		context: 'site-editor',
 	} );
 }
