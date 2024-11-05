@@ -239,10 +239,10 @@ function getWebpackEntryPoints( buildType ) {
 					parsedBlockJson = JSON.parse( fileContents );
 				} catch ( error ) {
 					warn(
-						`Skipping scanning "${ blockMetadataFile.replace(
+						`Not scanning "${ blockMetadataFile.replace(
 							fromProjectRoot( sep ),
 							''
-						) }" to collect entry points due to malformed JSON.`
+						) }" due to collect entry points due to malformed JSON.`
 					);
 					continue;
 				}
@@ -369,10 +369,10 @@ function getPhpFilePaths( context, props ) {
 			parsedBlockJson = JSON.parse( readFileSync( blockMetadataFile ) );
 		} catch ( error ) {
 			warn(
-				`Skipping scanning "${ blockMetadataFile.replace(
+				`Not scanning "${ blockMetadataFile.replace(
 					fromProjectRoot( sep ),
 					''
-				) }" to detect render files due to malformed JSON.`
+				) }" due to detect render files due to malformed JSON.`
 			);
 			return paths;
 		}
