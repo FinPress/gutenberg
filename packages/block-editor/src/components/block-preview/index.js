@@ -87,8 +87,9 @@ export function BlockPreview( {
 	);
 }
 
-BlockPreview = memo( BlockPreview );
-BlockPreview.Async = Async;
+const MemoizedBlockPreview = memo( BlockPreview );
+
+MemoizedBlockPreview.Async = Async;
 
 /**
  * BlockPreview renders a preview of a block or array of blocks.
@@ -101,7 +102,7 @@ BlockPreview.Async = Async;
  *
  * @return {Component} The component to be rendered.
  */
-export default BlockPreview;
+export default MemoizedBlockPreview;
 
 /**
  * This hook is used to lightly mark an element as a block preview wrapper
