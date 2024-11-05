@@ -84,6 +84,7 @@ const MySelectControl = () => {
 
 	return (
 		<SelectControl
+			__next40pxDefaultSize
 			label="Size"
 			value={ size }
 			options={ [
@@ -115,6 +116,7 @@ Render a user interface to select multiple users from a list.
 		{ value: 'c', label: 'User c' },
 	] }
 	__nextHasNoMarginBottom
+	__next40pxDefaultSize
 />
 ```
 
@@ -130,6 +132,7 @@ const [ item, setItem ] = useState( '' );
     value={ item } // e.g: value = 'a'
     onChange={ ( selection ) => { setItem( selection ) } }
     __nextHasNoMarginBottom
+    __next40pxDefaultSize
 >
 	<optgroup label="Theropods">
 		<option value="Tyrannosaurus">Tyrannosaurus</option>

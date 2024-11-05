@@ -18,6 +18,7 @@ import type { WordPressComponentProps } from '../context';
 import type { SelectControlProps } from './types';
 import SelectControlChevronDown from './chevron-down';
 import { useDeprecated36pxDefaultSizeProp } from '../utils/use-deprecated-props';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 function useUniqueId( idProp?: string ) {
 	const instanceId = useInstanceId( SelectControl );
@@ -69,6 +70,12 @@ function UnforwardedSelectControl< V extends string >(
 	} = useDeprecated36pxDefaultSizeProp( props );
 	const id = useUniqueId( idProp );
 	const helpId = help ? `${ id }__help` : undefined;
+
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'SelectControl',
+		size,
+		__next40pxDefaultSize,
+	} );
 
 	// Disable reason: A select with an onchange throws a warning.
 	if ( ! options?.length && ! children ) {
