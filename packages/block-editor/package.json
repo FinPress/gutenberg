@@ -60,6 +60,7 @@
 		"@wordpress/keycodes": "*",
 		"@wordpress/notices": "*",
 		"@wordpress/preferences": "*",
+		"@wordpress/priority-queue": "*",
 		"@wordpress/private-apis": "*",
 		"@wordpress/rich-text": "*",
 		"@wordpress/style-engine": "*",
