@@ -105,8 +105,9 @@
 
 .editor-document-bar__icon-layout.editor-document-bar__icon-layout {
 	position: absolute;
-	padding-left: $grid-unit-15;
+	margin-left: $grid-unit-15;
 	display: none;
+	pointer-events: none;
 	svg {
 		fill: $gray-600;
 	}
