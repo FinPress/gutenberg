@@ -20,8 +20,6 @@ jobs:
             matrix:
                 native-test-name: [gutenberg-editor-rendering]
                 api-level: [29]
-                target: [default, google_apis]
-                arch: [x86_64]
 
         steps:
             - name: checkout
@@ -58,18 +56,17 @@ jobs:
                   path: |
                       ~/.android/avd/*
                       ~/.android/adb*
-                  key: avd-${{ matrix.api-level }}-${{ matrix.target }}-${{ matrix.arch }}
+                  key: avd-${{ matrix.api-level }}
 
             - name: Create AVD and generate snapshot for caching
               if: steps.avd-cache.outputs.cache-hit != 'true'
               uses: reactivecircus/android-emulator-runner@62dbb605bba737720e10b196cb4220d374026a6d # v2.33.0
               with:
                   api-level: ${{ matrix.api-level }}
-                  target: ${{ matrix.target }}
                   force-avd-creation: false
                   emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
                   disable-animations: false
-                  arch: ${{ matrix.arch }}
+                  arch: x86_64
                   profile: Nexus 6
                   script: echo "Generated AVD snapshot for caching."
 
@@ -77,11 +74,10 @@ jobs:
               uses: reactivecircus/android-emulator-runner@62dbb605bba737720e10b196cb4220d374026a6d # v2.33.0
               with:
                   api-level: ${{ matrix.api-level }}
-                  target: ${{ matrix.target }}
                   force-avd-creation: false
                   emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
                   disable-animations: true
-                  arch: ${{ matrix.arch }}
+                  arch: x86_64
                   profile: Nexus 6
                   script: npm run native test:e2e:android:local ${{ matrix.native-test-name }}
 
