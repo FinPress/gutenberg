@@ -145,13 +145,13 @@ export default function DocumentBar( props ) {
 						{ __( 'Back' ) }
 					</MotionButton>
 				) }
-				{ ! isTemplate && isTemplatePreview && (
-					<BlockIcon
-						icon={ layout }
-						className="editor-document-bar__icon-layout"
-					/>
-				) }
 			</AnimatePresence>
+			{ ! isTemplate && isTemplatePreview && (
+				<BlockIcon
+					icon={ layout }
+					className="editor-document-bar__icon-layout"
+				/>
+			) }
 			{ isNotFound ? (
 				<Text>{ __( 'Document not found' ) }</Text>
 			) : (
