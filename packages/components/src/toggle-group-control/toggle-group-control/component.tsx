@@ -23,6 +23,7 @@ import { ToggleGroupControlAsButtonGroup } from './as-button-group';
 import { useTrackElementOffsetRect } from '../../utils/element-rect';
 import { useMergeRefs } from '@wordpress/compose';
 import { useAnimatedOffsetRect } from '../../utils/hooks/use-animated-offset-rect';
+import { maybeWarnDeprecated36pxSize } from '../../utils/deprecated-36px-size';
 
 function UnconnectedToggleGroupControl(
 	props: WordPressComponentProps< ToggleGroupControlProps, 'div', false >,
@@ -81,6 +82,13 @@ function UnconnectedToggleGroupControl(
 		? ToggleGroupControlAsButtonGroup
 		: ToggleGroupControlAsRadioGroup;
 
+	// Add Warning for deprecated 36px size.
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'ToggleGroupControl',
+		size,
+		__next40pxDefaultSize,
+	} );
+
 	return (
 		<BaseControl
 			help={ help }
@@ -135,6 +143,7 @@ function UnconnectedToggleGroupControl(
  *       value="vertical"
  *       isBlock
  *       __nextHasNoMarginBottom
+ *       __next40pxDefaultSize
  *     >
  *       <ToggleGroupControlOption value="horizontal" label="Horizontal" />
  *       <ToggleGroupControlOption value="vertical" label="Vertical" />
