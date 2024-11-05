@@ -26,6 +26,7 @@ import { HStack } from '../h-stack';
 import { Spacer } from '../spacer';
 import { useCx } from '../utils';
 import { useDeprecated36pxDefaultSizeProp } from '../utils/use-deprecated-props';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const noop = () => {};
 
@@ -34,6 +35,7 @@ function UnforwardedNumberControl(
 	forwardedRef: ForwardedRef< any >
 ) {
 	const {
+		__next40pxDefaultSize,
 		__unstableStateReducer: stateReducerProp,
 		className,
 		dragDirection = 'n',
@@ -55,6 +57,12 @@ function UnforwardedNumberControl(
 		onChange = noop,
 		...restProps
 	} = useDeprecated36pxDefaultSizeProp< NumberControlProps >( props );
+
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'NumberControl',
+		size,
+		__next40pxDefaultSize,
+	} );
 
 	if ( hideHTMLArrows ) {
 		deprecated( 'wp.components.NumberControl hideHTMLArrows prop ', {

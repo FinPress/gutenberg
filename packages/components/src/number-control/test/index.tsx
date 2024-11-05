@@ -31,7 +31,7 @@ function StatefulNumberControl( props: NumberControlProps ) {
 describe( 'NumberControl', () => {
 	describe( 'Basic rendering', () => {
 		it( 'should render', () => {
-			render( <NumberControl /> );
+			render( <NumberControl __next40pxDefaultSize /> );
 			expect( screen.getByRole( 'spinbutton' ) ).toBeVisible();
 		} );
 
