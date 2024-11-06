@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
+import { Button, Composite } from '@wordpress/components';
 import { dateI18n, getDate, humanTimeDiff, getSettings } from '@wordpress/date';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
@@ -112,7 +112,8 @@ function RevisionsButtons( {
 	const { datetimeAbbreviated } = getSettings().formats;
 
 	return (
-		<ol
+		<Composite
+			orientation="vertical"
 			className="edit-site-global-styles-screen-revisions__revisions-list"
 			aria-label={ __( 'Global styles revisions list' ) }
 			role="listbox"
@@ -144,11 +145,10 @@ function RevisionsButtons( {
 				);
 
 				return (
-					<li
-						className="edit-site-global-styles-screen-revisions__revision-item"
+					<Composite.Item
 						key={ id }
+						className="edit-site-global-styles-screen-revisions__revision-item"
 						aria-current={ isSelected }
-						tabIndex={ 0 }
 						role="option"
 						onKeyDown={ ( event ) => {
 							const { keyCode } = event;
@@ -156,11 +156,13 @@ function RevisionsButtons( {
 								onChange( revision );
 							}
 						} }
-						onClick={ () => {
+						onClick={ ( event ) => {
+							event.preventDefault();
 							onChange( revision );
 						} }
 						aria-selected={ isSelected }
 						aria-label={ revisionLabel }
+						render={ <div /> }
 					>
 						<span className="edit-site-global-styles-screen-revisions__revision-item-wrapper">
 							{ isReset ? (
@@ -226,10 +228,10 @@ function RevisionsButtons( {
 										: __( 'Apply' ) }
 								</Button>
 							) ) }
-					</li>
+					</Composite.Item>
 				);
 			} ) }
-		</ol>
+		</Composite>
 	);
 }
 
