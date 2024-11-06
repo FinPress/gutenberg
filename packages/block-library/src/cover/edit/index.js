@@ -211,7 +211,8 @@ function CoverEdit( {
 				mediaAttributes.url = newMedia?.sizes?.[ sizeSlug ]?.url;
 			} else if ( newMedia?.sizes?.[ imageDefaultSize ] ) {
 				mediaAttributes.sizeSlug = imageDefaultSize;
-				mediaAttributes.url = newMedia?.sizes?.[ sizeSlug ]?.url;
+				mediaAttributes.url =
+					newMedia?.sizes?.[ imageDefaultSize ]?.url;
 			} else {
 				mediaAttributes.sizeSlug = DEFAULT_MEDIA_SIZE_SLUG;
 			}
