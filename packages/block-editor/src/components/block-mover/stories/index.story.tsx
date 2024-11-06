@@ -50,7 +50,7 @@ function BlockMoverStoryHorizontal() {
 
 	useEffect( () => {
 		/**
-		 * This shouldn't be needed but unfortunatley
+		 * This shouldn't be needed but unfortunately
 		 * the layout orientation is not declarative, we need
 		 *  to render the blocks to update the block settings in the state.
 		 */
