@@ -253,16 +253,18 @@ function useEditorCommandLoader() {
 			},
 		} );
 	}
-
-	commands.push( {
-		name: 'core/go-to-site-editor',
-		label: __( 'Open Site Editor' ),
-		callback: ( { close } ) => {
-			close();
-			window.location.href = '/wp-admin/site-editor.php';
-		},
-	} );
-
+	const isInSiteEditor =
+		window.location.pathname.includes( 'site-editor.php' );
+	if ( ! isInSiteEditor ) {
+		commands.push( {
+			name: 'core/go-to-site-editor',
+			label: __( 'Open Site Editor' ),
+			callback: ( { close } ) => {
+				close();
+				window.location.href = '/wp-admin/site-editor.php';
+			},
+		} );
+	}
 	return {
 		commands,
 		isLoading: false,
