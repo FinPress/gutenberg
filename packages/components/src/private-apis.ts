@@ -10,7 +10,8 @@ import { Tabs } from './tabs';
 import { kebabCase } from './utils/strings';
 import { lock } from './lock-unlock';
 
-const privateData = {
+export const privateApis = {};
+lock( privateApis, {
 	__experimentalPopoverLegacyPositionToPlacement,
 	createPrivateSlotFill,
 	ComponentsContext,
@@ -18,8 +19,4 @@ const privateData = {
 	Theme,
 	Menu,
 	kebabCase,
-};
-
-export const privateApis = {} as typeof privateData;
-
-lock( privateApis, privateData );
+} );
