@@ -182,7 +182,6 @@ export function useEntityRecordsWithPermissions< RecordType >(
 
 	const permissions = useSelect(
 		( select ) => {
-			// @ts-expect-error getEntityRecordsPermissions doesn't exist in the core store types
 			const { getEntityRecordsPermissions } = unlock(
 				select( coreStore )
 			);

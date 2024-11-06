@@ -39,10 +39,7 @@ export function AddFilterMenu( {
 } ) {
 	const inactiveFilters = filters.filter( ( filter ) => ! filter.isVisible );
 	return (
-		<Menu
-			// @ts-expect-error trigger prop exists on Menu component
-			trigger={ trigger }
-		>
+		<Menu trigger={ trigger }>
 			{ inactiveFilters.map( ( filter ) => {
 				return (
 					<Menu.Item
