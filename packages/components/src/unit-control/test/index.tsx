@@ -86,7 +86,7 @@ const ControlledSyncUnits = () => {
 describe( 'UnitControl', () => {
 	describe( 'Basic rendering', () => {
 		it( 'should render', () => {
-			render( <UnitControl /> );
+			render( <UnitControl __next40pxDefaultSize /> );
 			const input = getInput();
 			const select = getSelect();
 

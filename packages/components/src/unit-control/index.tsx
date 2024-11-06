@@ -27,6 +27,7 @@ import { useControlledState } from '../utils/hooks';
 import { escapeRegExp } from '../utils/strings';
 import type { UnitControlProps, UnitControlOnChangeCallback } from './types';
 import { useDeprecated36pxDefaultSizeProp } from '../utils/use-deprecated-props';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 function UnforwardedUnitControl(
 	unitControlProps: WordPressComponentProps<
@@ -57,6 +58,12 @@ function UnforwardedUnitControl(
 		onFocus: onFocusProp,
 		...props
 	} = useDeprecated36pxDefaultSizeProp( unitControlProps );
+
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'UnitControl',
+		__next40pxDefaultSize: props.__next40pxDefaultSize,
+		size,
+	} );
 
 	if ( 'unit' in unitControlProps ) {
 		deprecated( 'UnitControl unit prop', {

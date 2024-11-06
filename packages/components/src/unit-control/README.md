@@ -15,7 +15,7 @@ import { __experimentalUnitControl as UnitControl } from '@wordpress/components'
 const Example = () => {
 	const [ value, setValue ] = useState( '10px' );
 
-	return <UnitControl onChange={ setValue } value={ value } />;
+	return <UnitControl __next40pxDefaultSize onChange={ setValue } value={ value } />;
 };
 ```
 
