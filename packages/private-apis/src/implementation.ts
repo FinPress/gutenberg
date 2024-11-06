@@ -137,7 +137,7 @@ export const __dangerousOptInToUnstableAPIsOnlyForCoreModules = (
  * @param object      The object to bind the private data to.
  * @param privateData The private data to bind to the object.
  */
-function lock< T >( object: T, privateData: unknown ) {
+function lock( object: unknown, privateData: unknown ) {
 	if ( ! object ) {
 		throw new Error( 'Cannot lock an undefined object.' );
 	}
@@ -172,7 +172,7 @@ function lock< T >( object: T, privateData: unknown ) {
  * @param object The object to unlock the private data from.
  * @return The private data bound to the object.
  */
-function unlock< T >( object: T ): T {
+function unlock< T = any >( object: unknown ): T {
 	if ( ! object ) {
 		throw new Error( 'Cannot unlock an undefined object.' );
 	}
