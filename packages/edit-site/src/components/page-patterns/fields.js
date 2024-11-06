@@ -10,7 +10,7 @@ import {
 	__experimentalHStack as HStack,
 	Button,
 	Tooltip,
-	Flex,
+	FlexBlock,
 } from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
 import { useState, useMemo, useId } from '@wordpress/element';
@@ -122,12 +122,7 @@ function TitleField( { item } ) {
 	const title = decodeEntities( defaultGetTitle( item ) );
 	return (
 		<HStack alignment="center" justify="flex-start" spacing={ 2 }>
-			<Flex
-				as="div"
-				gap={ 0 }
-				justify="flex-start"
-				className="edit-site-patterns__pattern-title"
-			>
+			<FlexBlock className="edit-site-patterns__pattern-title">
 				{ item.type === PATTERN_TYPES.theme ? (
 					title
 				) : (
@@ -142,7 +137,7 @@ function TitleField( { item } ) {
 						{ title }
 					</Button>
 				) }
-			</Flex>
+			</FlexBlock>
 			{ item.type === PATTERN_TYPES.theme && (
 				<Tooltip
 					placement="top"
