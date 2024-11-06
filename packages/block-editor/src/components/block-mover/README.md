@@ -1,6 +1,6 @@
 # BlockMover
 
-BlockMover allows moving blocks inside the editor using up and down buttons.
+BlockMover component allows moving blocks inside the editor using up and down buttons.
 
 ![Block mover screenshot](https://make.wordpress.org/core/files/2020/08/block-mover-screenshot.png)
 
