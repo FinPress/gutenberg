@@ -24,6 +24,9 @@ test.describe( 'Write/Design mode', () => {
 		editor,
 		page,
 	} ) => {
+		// Clear all content
+		await editor.setContent( '' );
+
 		// Insert a section with a nested block and an editable block.
 		await editor.insertBlock( {
 			name: 'core/group',
