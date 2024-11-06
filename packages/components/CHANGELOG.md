@@ -5,6 +5,7 @@
 ### Deprecations
 
 -   `Radio`: Deprecate 36px default size ([#66572](https://github.com/WordPress/gutenberg/pull/66572)).
+-   `UnitControl`: Deprecate 36px default size ([#66791](https://github.com/WordPress/gutenberg/pull/66791)).
 
 ### Enhancements
 
