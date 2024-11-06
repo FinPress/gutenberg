@@ -4,15 +4,20 @@
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test.describe( 'Write/Design mode', () => {
-	test.beforeEach( async ( { admin, editor } ) => {
-		await admin.createNewPost();
-		await expect(
-			editor.canvas.getByRole( 'textbox', { name: 'Add title' } )
-		).toBeFocused();
+	test.beforeAll( async ( { requestUtils } ) => {
+		await requestUtils.activateTheme( 'emptytheme' );
+	} );
+
+	test.beforeEach( async ( { admin } ) => {
+		await admin.visitSiteEditor( {
+			postId: 'emptytheme//index',
+			postType: 'wp_template',
+			canvas: 'edit',
+		} );
 	} );
 
 	test.afterAll( async ( { requestUtils } ) => {
-		await requestUtils.deleteAllPosts();
+		await requestUtils.activateTheme( 'twentytwentyone' );
 	} );
 
 	test( 'Should prevent selecting intermediary blocks', async ( {
