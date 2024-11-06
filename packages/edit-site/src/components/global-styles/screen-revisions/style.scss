@@ -16,8 +16,7 @@
 
 	&[role="option"]:active,
 	&[role="option"]:focus {
-		//@include block-toolbar-button-style__focus();
-		@include input-style__focus();
+		@include button-style__focus();
 	}
 
 	&:hover {
