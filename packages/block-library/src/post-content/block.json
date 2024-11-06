@@ -6,19 +6,12 @@
 	"category": "theme",
 	"description": "Displays the contents of a post or page.",
 	"textdomain": "default",
-	"usesContext": [
-		"postId",
-		"postType",
-		"queryId"
-	],
+	"usesContext": [ "postId", "postType", "queryId" ],
 	"example": {
 		"viewportWidth": 350
 	},
 	"supports": {
-		"align": [
-			"wide",
-			"full"
-		],
+		"align": [ "wide", "full" ],
 		"html": false,
 		"layout": true,
 		"background": {
