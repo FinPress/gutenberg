@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import type { Meta, StoryFn } from '@storybook/react';
-
-/**
  * WordPress dependencies
  */
 import { useEffect } from '@wordpress/element';
@@ -36,15 +31,6 @@ const blocks = [
 	] ),
 ];
 
-// Provider component to wrap the BlockEditorProvider
-function Provider( { children } ) {
-	return (
-		<ExperimentalBlockEditorProvider value={ blocks }>
-			{ children }
-		</ExperimentalBlockEditorProvider>
-	);
-}
-
 function BlockMoverStoryHorizontal() {
 	const { updateBlockListSettings } = useDispatch( blockEditorStore );
 
@@ -52,29 +38,27 @@ function BlockMoverStoryHorizontal() {
 		/**
 		 * This shouldn't be needed but unfortunately
 		 * the layout orientation is not declarative, we need
-		 *  to render the blocks to update the block settings in the state.
+		 * to render the blocks to update the block settings in the state.
 		 */
 		updateBlockListSettings( blocks[ 1 ].clientId, {
 			orientation: 'horizontal',
 		} );
-	}, [] );
+	} );
 
 	return (
-		<div>
-			<Toolbar label="Block Mover">
-				<BlockMover
-					clientIds={
-						blocks.length
-							? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ]
-							: []
-					}
-				/>
-			</Toolbar>
-		</div>
+		<Toolbar label="Block Mover">
+			<BlockMover
+				clientIds={
+					blocks.length
+						? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ]
+						: []
+				}
+			/>
+		</Toolbar>
 	);
 }
 
-const meta: Meta< typeof BlockMover > = {
+const meta = {
 	title: 'BlockEditor/BlockMover',
 	component: BlockMover,
 	parameters: {
@@ -84,26 +68,24 @@ const meta: Meta< typeof BlockMover > = {
 };
 export default meta;
 
-const Template: StoryFn< typeof BlockMover > = ( props ) => {
+const Template = ( props ) => {
 	return (
-		<Provider>
-			<div>
-				<Toolbar label="Block Mover">
-					<BlockMover
-						{ ...props }
-						clientIds={
-							blocks.length
-								? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ]
-								: []
-						}
-					/>
-				</Toolbar>
-			</div>
-		</Provider>
+		<ExperimentalBlockEditorProvider>
+			<Toolbar label="Block Mover">
+				<BlockMover
+					{ ...props }
+					clientIds={
+						blocks.length
+							? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ]
+							: []
+					}
+				/>
+			</Toolbar>
+		</ExperimentalBlockEditorProvider>
 	);
 };
 
-export const Default: StoryFn< typeof BlockMover > = Template.bind( {} );
+export const Default = Template.bind( {} );
 Default.args = {
 	clientIds: [
 		blocks.length ? [ blocks[ 0 ].innerBlocks[ 1 ].clientId ] : [],
@@ -114,11 +96,11 @@ Default.args = {
  * This story shows the block mover with horizontal orientation.
  * It is necessary to render the blocks to update the block settings in the state.
  */
-export const Horizontal: StoryFn< typeof BlockMover > = ( props ) => {
+export const Horizontal = ( props ) => {
 	return (
-		<Provider>
+		<ExperimentalBlockEditorProvider>
 			<BlockMoverStoryHorizontal { ...props } />
-		</Provider>
+		</ExperimentalBlockEditorProvider>
 	);
 };
 Horizontal.args = {
@@ -133,23 +115,21 @@ Horizontal.parameters = {
 /**
  * You can hide the drag handle by `hideDragHandle` attribute.
  */
-export const HideDragHandle: StoryFn< typeof BlockMover > = ( props ) => {
+export const HideDragHandle = ( props ) => {
 	return (
-		<Provider>
-			<div>
-				<Toolbar label="Block Mover">
-					<BlockMover
-						{ ...props }
-						clientIds={
-							blocks.length
-								? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ]
-								: []
-						}
-						hideDragHandle
-					/>
-				</Toolbar>
-			</div>
-		</Provider>
+		<ExperimentalBlockEditorProvider>
+			<Toolbar label="Block Mover">
+				<BlockMover
+					{ ...props }
+					clientIds={
+						blocks.length
+							? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ]
+							: []
+					}
+					hideDragHandle
+				/>
+			</Toolbar>
+		</ExperimentalBlockEditorProvider>
 	);
 };
 HideDragHandle.args = {
