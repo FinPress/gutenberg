@@ -106,7 +106,7 @@ function PlaceholderContainer( {
 					withIllustration={ ! isSelected || isSmallContainer }
 					label={ ! isSmallContainer && __( 'Media area' ) }
 					instructions={ __(
-						'Upload a media file or pick one from your media library.'
+						'Drag and drop an image or video here, upload, or choose from your library.'
 					) }
 				>
 					{ content }
