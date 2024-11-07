@@ -262,7 +262,7 @@ function useEditorCommandLoader() {
 			label: __( 'Open Site Editor' ),
 			callback: ( { close } ) => {
 				close();
-				window.location.href = '/wp-admin/site-editor.php';
+				document.location = 'site-editor.php';
 			},
 		} );
 	}
