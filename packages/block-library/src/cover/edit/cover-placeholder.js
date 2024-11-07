@@ -24,7 +24,7 @@ export default function CoverPlaceholder( {
 			labels={ {
 				title: __( 'Cover' ),
 				instructions: __(
-					'Drag and drop onto this block, upload, or select existing media from your library.'
+					'Drag and drop an image or video here, upload, or choose from your library.'
 				),
 			} }
 			onSelect={ onSelectMedia }
