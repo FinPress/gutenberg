@@ -253,8 +253,9 @@ function useEditorCommandLoader() {
 			},
 		} );
 	}
-	const isInSiteEditor =
-		window.location.pathname.includes( 'site-editor.php' );
+	const isSiteEditor = getPath( window.location.href )?.includes(
+		'site-editor.php'
+	);
 	if ( ! isInSiteEditor ) {
 		commands.push( {
 			name: 'core/go-to-site-editor',
