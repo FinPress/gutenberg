@@ -5,7 +5,6 @@ import { useObservableValue } from '@wordpress/compose';
 import {
 	useContext,
 	useRef,
-	useState,
 	useEffect,
 	createPortal,
 } from '@wordpress/element';
@@ -15,25 +14,8 @@ import {
  */
 import SlotFillContext from './slot-fill-context';
 import StyleProvider from '../../style-provider';
+import useForceUpdate from '../use-force-update';
 import type { FillComponentProps } from '../types';
-
-function useForceUpdate() {
-	const [ , setState ] = useState( {} );
-	const mountedRef = useRef( true );
-
-	useEffect( () => {
-		mountedRef.current = true;
-		return () => {
-			mountedRef.current = false;
-		};
-	}, [] );
-
-	return () => {
-		if ( mountedRef.current ) {
-			setState( {} );
-		}
-	};
-}
 
 export default function Fill( { name, children }: FillComponentProps ) {
 	const registry = useContext( SlotFillContext );
@@ -45,9 +27,10 @@ export default function Fill( { name, children }: FillComponentProps ) {
 		// We register fills so we can keep track of their existence.
 		// Some Slot implementations need to know if there're already fills
 		// registered so they can choose to render themselves or not.
-		registry.registerFill( name, ref );
+		const refValue = ref.current;
+		registry.registerFill( name, refValue );
 		return () => {
-			registry.unregisterFill( name, ref );
+			registry.unregisterFill( name, refValue );
 		};
 	}, [ registry, name ] );
 
