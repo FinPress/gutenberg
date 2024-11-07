@@ -15,7 +15,7 @@ import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { useViewportMatch, useResizeObserver } from '@wordpress/compose';
+import { useViewportMatch } from '@wordpress/compose';
 import { useDispatch } from '@wordpress/data';
 import { forwardRef } from '@wordpress/element';
 import { isBlobURL } from '@wordpress/blob';
@@ -76,7 +76,6 @@ function PlaceholderContainer( {
 	mediaUrl,
 	onSelectMedia,
 	toggleUseFeaturedImage,
-	isSelected,
 } ) {
 	const { createErrorNotice } = useDispatch( noticesStore );
 
@@ -84,14 +83,12 @@ function PlaceholderContainer( {
 		createErrorNotice( message, { type: 'snackbar' } );
 	};
 
-	const [ placeholderResizeListener, { width: placeholderWidth } ] =
-		useResizeObserver();
-
-	const isSmallContainer = placeholderWidth && placeholderWidth < 160;
-
 	return (
 		<MediaPlaceholder
 			icon={ <BlockIcon icon={ icon } /> }
+			labels={ {
+				title: __( 'Media area' ),
+			} }
 			className={ className }
 			onSelect={ onSelectMedia }
 			accept="image/*,video/*"
@@ -99,20 +96,6 @@ function PlaceholderContainer( {
 			allowedTypes={ ALLOWED_MEDIA_TYPES }
 			onError={ onUploadError }
 			disableMediaButtons={ mediaUrl }
-			placeholder={ ( content ) => (
-				<Placeholder
-					className="block-editor-media-placeholder"
-					icon={ icon }
-					withIllustration={ ! isSelected || isSmallContainer }
-					label={ ! isSmallContainer && __( 'Media area' ) }
-					instructions={ __(
-						'Upload a media file or pick one from your media library.'
-					) }
-				>
-					{ content }
-					{ placeholderResizeListener }
-				</Placeholder>
-			) }
 		/>
 	);
 }
