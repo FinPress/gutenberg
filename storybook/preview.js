@@ -132,7 +132,7 @@ export const parameters = {
 					'Contributing Guidelines',
 					'Actions',
 					'Containers',
-          'Feedback',
+					'Feedback',
 					'Navigation',
 					'Utilities',
 				],
