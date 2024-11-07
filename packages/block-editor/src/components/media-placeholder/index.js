@@ -317,7 +317,7 @@ export function MediaPlaceholder( {
 
 			if ( instructions === undefined && mediaUpload ) {
 				instructions = __(
-					'Upload a media file or pick one from your media library.'
+					'Drag and drop an image or video here, upload, or choose from your library.'
 				);
 
 				if ( isAudio ) {
