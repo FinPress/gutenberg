@@ -222,7 +222,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 							}
 							label={ ! isSmallContainer && __( 'File' ) }
 							instructions={ __(
-								'Upload a file or pick one from your media library.'
+								'Drag and drop a file here, upload, or choose from your library.'
 							) }
 						>
 							{ content }
