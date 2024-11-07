@@ -11,7 +11,7 @@ import { Heading } from '..';
 const meta: Meta< typeof Heading > = {
 	component: Heading,
 	title: 'Components (Experimental)/Typography/Heading',
-	id: 'components-heading',
+	id: 'components-experimental-heading',
 	argTypes: {
 		as: { control: { type: 'text' } },
 		color: { control: { type: 'color' } },
