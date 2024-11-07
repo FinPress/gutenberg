@@ -15,7 +15,7 @@ import NumberControl from '..';
 
 const meta: Meta< typeof NumberControl > = {
 	title: 'Components (Experimental)/Selection & Input/Common/NumberControl',
-	id: 'components-numbercontrol',
+	id: 'components-experimental-numbercontrol',
 	component: NumberControl,
 	argTypes: {
 		onChange: { action: 'onChange' },

@@ -17,7 +17,7 @@ import Button from '../../button';
 
 const meta: Meta< typeof InputControl > = {
 	title: 'Components (Experimental)/Selection & Input/Common/InputControl',
-	id: 'components-inputcontrol',
+	id: 'components-experimental-inputcontrol',
 	component: InputControl,
 	// @ts-expect-error - See https://github.com/storybookjs/storybook/issues/23170
 	subcomponents: { InputControlPrefixWrapper, InputControlSuffixWrapper },
