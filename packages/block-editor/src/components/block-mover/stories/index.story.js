@@ -43,45 +43,60 @@ function BlockMoverStoryHorizontal() {
 		updateBlockListSettings( blocks[ 1 ].clientId, {
 			orientation: 'horizontal',
 		} );
-	} );
+	}, [] );
 
 	return (
-		<Toolbar label="Block Mover">
-			<BlockMover
-				clientIds={
-					blocks.length
-						? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ]
-						: []
-				}
-			/>
-		</Toolbar>
+		<BlockMover
+			clientIds={
+				blocks.length ? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] : []
+			}
+		/>
 	);
 }
 
+/**
+ * BlockMover component allows moving blocks inside the editor using up and down buttons.
+ */
 const meta = {
 	title: 'BlockEditor/BlockMover',
 	component: BlockMover,
 	parameters: {
-		controls: { expanded: true },
 		docs: { canvas: { sourceState: 'shown' } },
+	},
+	decorators: [
+		( Story ) => (
+			<ExperimentalBlockEditorProvider value={ blocks }>
+				<Toolbar label="Block Mover">
+					<Story />
+				</Toolbar>
+			</ExperimentalBlockEditorProvider>
+		),
+	],
+	argTypes: {
+		clientIds: {
+			control: {
+				type: 'array',
+			},
+			description: 'The client IDs of the blocks to move.',
+		},
+		hideDragHandle: {
+			control: {
+				type: 'boolean',
+			},
+			description: 'If this property is true, the drag handle is hidden.',
+		},
 	},
 };
 export default meta;
 
 const Template = ( props ) => {
 	return (
-		<ExperimentalBlockEditorProvider>
-			<Toolbar label="Block Mover">
-				<BlockMover
-					{ ...props }
-					clientIds={
-						blocks.length
-							? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ]
-							: []
-					}
-				/>
-			</Toolbar>
-		</ExperimentalBlockEditorProvider>
+		<BlockMover
+			{ ...props }
+			clientIds={
+				blocks.length ? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] : []
+			}
+		/>
 	);
 };
 
@@ -97,11 +112,7 @@ Default.args = {
  * It is necessary to render the blocks to update the block settings in the state.
  */
 export const Horizontal = ( props ) => {
-	return (
-		<ExperimentalBlockEditorProvider>
-			<BlockMoverStoryHorizontal { ...props } />
-		</ExperimentalBlockEditorProvider>
-	);
+	return <BlockMoverStoryHorizontal { ...props } />;
 };
 Horizontal.args = {
 	clientIds: [
@@ -117,19 +128,13 @@ Horizontal.parameters = {
  */
 export const HideDragHandle = ( props ) => {
 	return (
-		<ExperimentalBlockEditorProvider>
-			<Toolbar label="Block Mover">
-				<BlockMover
-					{ ...props }
-					clientIds={
-						blocks.length
-							? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ]
-							: []
-					}
-					hideDragHandle
-				/>
-			</Toolbar>
-		</ExperimentalBlockEditorProvider>
+		<BlockMover
+			{ ...props }
+			clientIds={
+				blocks.length ? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] : []
+			}
+			hideDragHandle
+		/>
 	);
 };
 HideDragHandle.args = {
