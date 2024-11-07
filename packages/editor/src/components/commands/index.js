@@ -1,8 +1,8 @@
 /**
  * WordPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __, isRTL } from '@wordpress/i18n';
+import { useSelect, useDispatch, dispatch } from '@wordpress/data';
+import { __, isRTL, sprintf } from '@wordpress/i18n';
 import {
 	blockDefault,
 	code,
@@ -14,6 +14,9 @@ import {
 	external,
 	keyboard,
 	symbol,
+	trash,
+	page,
+	update,
 } from '@wordpress/icons';
 import { useCommandLoader } from '@wordpress/commands';
 import { store as preferencesStore } from '@wordpress/preferences';
@@ -269,12 +272,31 @@ const getEditorCommandLoader = () =>
 
 const getEditedEntityContextualCommands = () =>
 	function useEditedEntityContextualCommands() {
-		const { postType } = useSelect( ( select ) => {
-			const { getCurrentPostType } = select( editorStore );
-			return {
-				postType: getCurrentPostType(),
-			};
-		}, [] );
+		const { postType, isViewable, status, currentPost } = useSelect(
+			( select ) => {
+				const {
+					getCurrentPostType,
+					getEditedPostAttribute,
+					getCurrentPostId,
+				} = select( editorStore );
+				const { getPostType, getEntityRecord } = select( coreStore );
+				const postId = getCurrentPostId();
+
+				return {
+					postType: getCurrentPostType(),
+					isViewable:
+						getPostType( getCurrentPostType() )?.viewable ?? false,
+					status: getEditedPostAttribute( 'status' ),
+					currentPost: getEntityRecord(
+						'postType',
+						getCurrentPostType(),
+						postId
+					),
+				};
+			},
+			[]
+		);
+		const { getCurrentPostId } = useSelect( editorStore );
 		const { openModal } = useDispatch( interfaceStore );
 		const commands = [];
 
@@ -299,6 +321,71 @@ const getEditedEntityContextualCommands = () =>
 			} );
 		}
 
+		if ( postType !== 'page' && status !== 'publish' && isViewable ) {
+			commands.push( {
+				name: 'core/save-' + postType,
+				label: sprintf(
+					/* translators: %s: Post type name (e.g., "Page", "Product") */
+					__( 'Save %s' ),
+					postType.charAt( 0 ).toUpperCase() + postType.slice( 1 )
+				),
+				scope: 'core/edit-post',
+				icon: update, // Save icon
+				callback: async ( { close } ) => {
+					close();
+					await dispatch( editorStore ).savePost(); // Only save without changing status
+				},
+			} );
+			commands.push( {
+				name: 'core/delete-' + postType,
+				label: sprintf(
+					/* translators: %s: Post type name (e.g., "Page", "Product") */
+					__( 'Delete %s' ),
+					postType.charAt( 0 ).toUpperCase() + postType.slice( 1 )
+				),
+				scope: 'core/edit-post',
+				icon: trash, // Trash icon for delete
+				callback: async ( { close } ) => {
+					close();
+					const postId = getCurrentPostId();
+					await dispatch( coreStore ).deleteEntityRecord(
+						'postType',
+						postType,
+						postId
+					);
+				},
+			} );
+			commands.push( {
+				name: 'core/duplicate-' + postType,
+				label: sprintf(
+					/* translators: %s: Post type name (e.g., "Page", "Product") */
+					__( 'Duplicate %s' ),
+					postType.charAt( 0 ).toUpperCase() + postType.slice( 1 )
+				),
+				scope: 'core/edit-post',
+				icon: page,
+				callback: async ( { close } ) => {
+					close();
+
+					const { title, content, excerpt } = currentPost;
+					const newTitle =
+						typeof title === 'object' && title.rendered
+							? title.rendered
+							: title;
+					const newPost = await dispatch(
+						coreStore
+					).saveEntityRecord( 'postType', postType, {
+						title: newTitle + ' (Copy)',
+						content,
+						excerpt,
+						status: 'draft',
+					} );
+					if ( newPost ) {
+						window.open( newPost.link, '_blank' );
+					}
+				},
+			} );
+		}
 		return { isLoading: false, commands };
 	};
 
