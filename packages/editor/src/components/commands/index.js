@@ -21,6 +21,7 @@ import { store as noticesStore } from '@wordpress/notices';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
 import { store as interfaceStore } from '@wordpress/interface';
+import { getPath } from '@wordpress/url';
 
 /**
  * Internal dependencies
@@ -256,7 +257,7 @@ function useEditorCommandLoader() {
 	const isSiteEditor = getPath( window.location.href )?.includes(
 		'site-editor.php'
 	);
-	if ( ! isInSiteEditor ) {
+	if ( ! isSiteEditor ) {
 		commands.push( {
 			name: 'core/go-to-site-editor',
 			label: __( 'Open Site Editor' ),
