@@ -13,6 +13,7 @@ import {
 	SelectControl,
 	Spinner,
 	ToggleControl,
+	Placeholder,
 } from '@wordpress/components';
 import {
 	BlockControls,
@@ -27,6 +28,7 @@ import { useDispatch } from '@wordpress/data';
 import { audio as icon } from '@wordpress/icons';
 import { store as noticesStore } from '@wordpress/notices';
 import { useState } from '@wordpress/element';
+import { useResizeObserver } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -127,6 +129,11 @@ function AudioEdit( {
 		className: classes,
 	} );
 
+	const [ placeholderResizeListener, { width: placeholderWidth } ] =
+		useResizeObserver();
+
+	const isSmallContainer = placeholderWidth && placeholderWidth < 160;
+
 	if ( ! src && ! temporaryURL ) {
 		return (
 			<div { ...blockProps }>
@@ -138,6 +145,22 @@ function AudioEdit( {
 					allowedTypes={ ALLOWED_MEDIA_TYPES }
 					value={ attributes }
 					onError={ onUploadError }
+					placeholder={ ( content ) => (
+						<Placeholder
+							className="block-editor-media-placeholder"
+							icon={ icon }
+							withIllustration={
+								! isSingleSelected || isSmallContainer
+							}
+							label={ ! isSmallContainer && __( 'Audio' ) }
+							instructions={ __(
+								'Upload or drag an audio file here, or pick one from your library.'
+							) }
+						>
+							{ content }
+							{ placeholderResizeListener }
+						</Placeholder>
+					) }
 				/>
 			</div>
 		);
