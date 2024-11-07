@@ -322,7 +322,7 @@ export function MediaPlaceholder( {
 
 				if ( isAudio ) {
 					instructions = __(
-						'Upload or drag an audio file here, or pick one from your library.'
+						'Drag and drop an audio file here, upload, or choose from your library.'
 					);
 				} else if ( isImage ) {
 					instructions = __(
