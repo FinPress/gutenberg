@@ -15,14 +15,14 @@ const MyMover = () => <BlockMover clientIds={ [ clientId ] } />;
 
 ## Props
 
-### `clientIds`
+### clientIds
 
-The client IDs of the blocks to move.
+The IDs of the blocks to move.
 
 -   Type: `Array`
 -   Required: Yes
 
-### `hideDragHandle`
+### hideDragHandle
 
 If this property is true, the drag handle is hidden.
 
