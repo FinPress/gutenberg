@@ -27,8 +27,8 @@ export function useShouldIframe() {
 			getDeviceType() !== 'Desktop' ||
 			[ 'wp_template', 'wp_block' ].includes( getCurrentPostType() ) ||
 			unlock( select( blockEditorStore ) ).isZoomOut() ||
-			// Finally, still iframe the classic editor if all blocks are v3
-			// (which means they are marked as iframe-compatible).
+			// Finally, still iframe the editor for classic themes if all blocks
+			// are v3 (which means they are marked as iframe-compatible).
 			select( blocksStore )
 				.getBlockTypes()
 				.every( ( type ) => type.apiVersion >= 3 )
