@@ -137,7 +137,7 @@ export const parameters = {
 					'Utilities',
 				],
 				'Components (Experimental)',
-				[ 'Typography' ],
+				[ 'Navigation', 'Typography' ],
 				'Icons',
 			],
 		},
