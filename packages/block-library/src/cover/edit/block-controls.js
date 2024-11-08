@@ -9,10 +9,8 @@ import {
 	__experimentalBlockAlignmentMatrixControl as BlockAlignmentMatrixControl,
 	__experimentalBlockFullHeightAligmentControl as FullHeightAlignmentControl,
 	privateApis as blockEditorPrivateApis,
-	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -29,6 +27,7 @@ export default function CoverBlockControls( {
 	currentSettings,
 	toggleUseFeaturedImage,
 	onClearMedia,
+	blockEditingMode,
 } ) {
 	const { contentPosition, id, useFeaturedImage, minHeight, minHeightUnit } =
 		attributes;
@@ -75,14 +74,11 @@ export default function CoverBlockControls( {
 		} );
 	};
 
-	const mode = useSelect(
-		( select ) => select( blockEditorStore ).__unstableGetEditorMode(),
-		[]
-	);
+	const isContentOnlyMode = blockEditingMode === 'contentOnly';
 
 	return (
 		<>
-			{ 'navigation' !== mode && (
+			{ ! isContentOnlyMode && (
 				<BlockControls group="block">
 					<>
 						<BlockAlignmentMatrixControl
