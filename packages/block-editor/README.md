@@ -709,6 +709,41 @@ _Related_
 
 -   <https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/plain-text/README.md>
 
+### PluginMediaToolbar
+
+Renders provided option as a menu item in the block toolbar for image and cover blocks.
+
+_Usage_
+
+```jsx
+// Using ESNext syntax
+import { __ } from '@wordpress/i18n';
+import { share } from '@wordpress/icons';
+import { PluginMediaToolbar } from '@wordpress/block-editor';
+
+const MyPluginMediaToolbar = () => (
+	<PluginMediaToolbar
+		className="my-plugin-media-toolbar"
+		icon={ share }
+		onClick={ () => console.log( 'Extended Menu clicked!' ) }
+	>
+		{ __( 'Extended Menu' ) }
+	</PluginMediaToolbar>
+);
+```
+
+_Parameters_
+
+-   _props_ `Object`: Component props.
+-   _props.className_ `[string]`: Class name to be applied to the menu item.
+-   _props.icon_ `[WPBlockTypeIconRender]`: Optional icon to be rendered next to the menu item.
+-   _props.onClick_ `[Function]`: Optional click handler for the menu item.
+-   _props.children_ `Element`: The content of the menu item.
+
+_Returns_
+
+-   `Component`: The rendered menu item.
+
 ### privateApis
 
 Private @wordpress/block-editor APIs.
