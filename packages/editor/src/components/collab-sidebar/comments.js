@@ -52,6 +52,8 @@ export function Comments( {
 } ) {
 	const [ actionState, setActionState ] = useState( false );
 	const [ isConfirmDialogOpen, setIsConfirmDialogOpen ] = useState( false );
+	const [ activeClientId, setActiveClientId ] = useState( null );
+	const [ blocksList, setBlocksList ] = useState( null );
 
 	const handleConfirmDelete = () => {
 		onCommentDelete( actionState.id );
@@ -70,13 +72,53 @@ export function Comments( {
 		setIsConfirmDialogOpen( false );
 	};
 
-	const blockCommentId = useSelect( ( select ) => {
+	useSelect( ( select ) => {
 		const clientID = select( blockEditorStore ).getSelectedBlockClientId();
-		return (
+		const clientBlocks = select( blockEditorStore ).getBlocks();
+		setBlocksList( clientBlocks );
+
+		const getBlockCommentId =
 			select( blockEditorStore ).getBlock( clientID )?.attributes
-				?.blockCommentId ?? false
-		);
+				?.blockCommentId ?? false;
+
+		if ( getBlockCommentId ) {
+			setActiveClientId( getBlockCommentId );
+		}
 	}, [] );
+
+	const findBlockByCommentId = ( blocks, commentId ) => {
+		for ( const block of blocks ) {
+			if ( block.attributes.blockCommentId === commentId ) {
+				return block;
+			}
+			if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
+				const foundBlock = findBlockByCommentId(
+					block.innerBlocks,
+					commentId
+				);
+				if ( foundBlock ) {
+					return foundBlock;
+				}
+			}
+		}
+		return null;
+	};
+
+	const handleThreadClick = ( thread ) => {
+		const block = findBlockByCommentId( blocksList, thread.id );
+
+		if ( block ) {
+			const bclientId = block.clientId;
+			const blockElement = document.getElementById(
+				'block-' + bclientId
+			);
+
+			if ( blockElement ) {
+				blockElement.scrollIntoView( { behavior: 'smooth' } );
+				setActiveClientId( thread.id );
+			}
+		}
+	};
 
 	const CommentBoard = ( { thread, parentThread } ) => {
 		return (
@@ -201,12 +243,13 @@ export function Comments( {
 							'editor-collab-sidebar-panel__thread',
 							{
 								'editor-collab-sidebar-panel__active-thread':
-									blockCommentId &&
-									blockCommentId === thread.id,
+									activeClientId &&
+									activeClientId === thread.id,
 							}
 						) }
 						id={ thread.id }
 						spacing="3"
+						onClick={ () => handleThreadClick( thread ) }
 					>
 						<CommentBoard thread={ thread } />
 						{ 'reply' === actionState?.action &&
