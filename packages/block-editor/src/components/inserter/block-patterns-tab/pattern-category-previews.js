@@ -117,7 +117,6 @@ export function PatternCategoryPreviews( {
 	const { changePage } = pagingProps;
 
 	// Hide block pattern preview on unmount.
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect( () => () => onHover( null ), [] );
 
 	const onSetPatternSyncFilter = useCallback(
@@ -183,7 +182,6 @@ export function PatternCategoryPreviews( {
 					) }
 					<BlockPatternsList
 						ref={ scrollContainerRef }
-						shownPatterns={ pagingProps.categoryPatternsAsyncList }
 						blockPatterns={ pagingProps.categoryPatterns }
 						onClickPattern={ onClickPattern }
 						onHover={ onHover }
