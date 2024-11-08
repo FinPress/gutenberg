@@ -15,12 +15,11 @@ import {
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 import { decodeEntities } from '@wordpress/html-entities';
-import { memo, forwardRef, useContext } from '@wordpress/element';
+import { memo, forwardRef } from '@wordpress/element';
 import { search } from '@wordpress/icons';
 import { store as commandsStore } from '@wordpress/commands';
 import { displayShortcut } from '@wordpress/keycodes';
 import { filterURLForDisplay } from '@wordpress/url';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
 
 /**
  * Internal dependencies
@@ -28,8 +27,6 @@ import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { store as editSiteStore } from '../../store';
 import SiteIcon from '../site-icon';
 import { unlock } from '../../lock-unlock';
-const { useHistory } = unlock( routerPrivateApis );
-import { SidebarNavigationContext } from '../sidebar';
 
 const SiteHub = memo(
 	forwardRef( ( { isTransparent }, ref ) => {
@@ -118,13 +115,13 @@ export default SiteHub;
 
 export const SiteHubMobile = memo(
 	forwardRef( ( { isTransparent }, ref ) => {
-		const history = useHistory();
-		const { navigate } = useContext( SidebarNavigationContext );
-
-		const { homeUrl, siteTitle } = useSelect( ( select ) => {
+		const { dashboardLink, homeUrl, siteTitle } = useSelect( ( select ) => {
 			const { getEntityRecord } = select( coreStore );
+			const { getSettings } = unlock( select( editSiteStore ) );
 			const _site = getEntityRecord( 'root', 'site' );
 			return {
+				dashboardLink:
+					getSettings().__experimentalDashboardLink || 'index.php',
 				homeUrl: getEntityRecord( 'root', '__unstableBase' )?.home,
 				siteTitle:
 					! _site?.title && !! _site?.url
@@ -154,10 +151,7 @@ export const SiteHubMobile = memo(
 								transform: 'scale(0.5)',
 								borderRadius: 4,
 							} }
-							onClick={ () => {
-								history.push( {} );
-								navigate( 'back' );
-							} }
+							href={ dashboardLink }
 						>
 							<SiteIcon className="edit-site-layout__view-mode-toggle-icon" />
 						</Button>
