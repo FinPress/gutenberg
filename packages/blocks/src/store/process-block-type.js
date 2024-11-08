@@ -71,17 +71,32 @@ function stabilizeSupports( rawSupports ) {
 		return rawSupports;
 	}
 
-	const supports = { ...rawSupports };
-	if ( supports?.typography && typeof supports.typography === 'object' ) {
-		supports.typography = Object.fromEntries(
-			Object.entries( supports.typography ).map( ( [ key, value ] ) => [
-				TYPOGRAPHY_SUPPORTS_EXPERIMENTAL_TO_STABLE[ key ] || key,
-				value,
-			] )
-		);
+	// Create a new object to avoid mutating the original. This ensures that
+	// custom block plugins that rely on immutable supports are not affected.
+	// See: https://github.com/WordPress/gutenberg/pull/66849#issuecomment-2463614281
+	const newSupports = {};
+	for ( const [ key, value ] of Object.entries( rawSupports ) ) {
+		if (
+			key === 'typography' &&
+			typeof value === 'object' &&
+			value !== null
+		) {
+			newSupports.typography = Object.fromEntries(
+				Object.entries( value ).map(
+					( [ typographyKey, typographyValue ] ) => [
+						TYPOGRAPHY_SUPPORTS_EXPERIMENTAL_TO_STABLE[
+							typographyKey
+						] || typographyKey,
+						typographyValue,
+					]
+				)
+			);
+		} else {
+			newSupports[ key ] = value;
+		}
 	}
 
-	return supports;
+	return newSupports;
 }
 
 /**
