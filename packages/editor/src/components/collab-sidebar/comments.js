@@ -108,9 +108,9 @@ export function Comments( {
 		const block = findBlockByCommentId( blocksList, thread.id );
 
 		if ( block ) {
-			const bclientId = block.clientId;
+			const blockClientId = block.clientId;
 			const blockElement = document.getElementById(
-				'block-' + bclientId
+				'block-' + blockClientId
 			);
 
 			if ( blockElement ) {
