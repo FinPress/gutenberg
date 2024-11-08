@@ -9,8 +9,10 @@ import {
 	__experimentalBlockAlignmentMatrixControl as BlockAlignmentMatrixControl,
 	__experimentalBlockFullHeightAligmentControl as FullHeightAlignmentControl,
 	privateApis as blockEditorPrivateApis,
+	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -73,25 +75,34 @@ export default function CoverBlockControls( {
 		} );
 	};
 
+	const mode = useSelect(
+		( select ) => select( blockEditorStore ).__unstableGetEditorMode(),
+		[]
+	);
+
 	return (
 		<>
-			<BlockControls group="block">
-				<BlockAlignmentMatrixControl
-					label={ __( 'Change content position' ) }
-					value={ contentPosition }
-					onChange={ ( nextPosition ) =>
-						setAttributes( {
-							contentPosition: nextPosition,
-						} )
-					}
-					isDisabled={ ! hasInnerBlocks }
-				/>
-				<FullHeightAlignmentControl
-					isActive={ isMinFullHeight }
-					onToggle={ toggleMinFullHeight }
-					isDisabled={ ! hasInnerBlocks }
-				/>
-			</BlockControls>
+			{ 'navigation' !== mode && (
+				<BlockControls group="block">
+					<>
+						<BlockAlignmentMatrixControl
+							label={ __( 'Change content position' ) }
+							value={ contentPosition }
+							onChange={ ( nextPosition ) =>
+								setAttributes( {
+									contentPosition: nextPosition,
+								} )
+							}
+							isDisabled={ ! hasInnerBlocks }
+						/>
+						<FullHeightAlignmentControl
+							isActive={ isMinFullHeight }
+							onToggle={ toggleMinFullHeight }
+							isDisabled={ ! hasInnerBlocks }
+						/>
+					</>
+				</BlockControls>
+			) }
 			<BlockControls group="other">
 				<MediaReplaceFlow
 					mediaId={ id }
