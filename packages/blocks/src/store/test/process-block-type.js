@@ -215,6 +215,11 @@ describe( 'processBlockType', () => {
 			],
 		};
 
+		// Freeze the deprecated block object to ensure that the original object is not mutated.
+		// This ensures the test covers a regression where the original object was mutated.
+		// See: https://github.com/WordPress/gutenberg/pull/63401#discussion_r1832394335.
+		Object.freeze( blockSettings.deprecated[ 0 ] );
+
 		const processedBlockType = processBlockType(
 			'test/block',
 			blockSettings

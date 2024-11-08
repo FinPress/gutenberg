@@ -150,10 +150,12 @@ export const processBlockType =
 		if ( settings.deprecated ) {
 			settings.deprecated = settings.deprecated.map( ( deprecation ) => {
 				// Stabilize any experimental supports before applying filters.
-				deprecation.supports = stabilizeSupports(
-					deprecation.supports
-				);
-				const filteredDeprecation = // Only keep valid deprecation keys.
+				let filteredDeprecation = {
+					...deprecation,
+					supports: stabilizeSupports( deprecation.supports ),
+				};
+
+				filteredDeprecation = // Only keep valid deprecation keys.
 					applyFilters(
 						'blocks.registerBlockType',
 						// Merge deprecation keys with pre-filter settings
@@ -163,10 +165,10 @@ export const processBlockType =
 							// Omit deprecation keys here so that deprecations
 							// can opt out of specific keys like "supports".
 							...omit( blockType, DEPRECATED_ENTRY_KEYS ),
-							...deprecation,
+							...filteredDeprecation,
 						},
 						blockType.name,
-						deprecation
+						filteredDeprecation
 					);
 				// Re-stabilize any experimental supports after applying filters.
 				// This ensures that any supports updated by filters are also stabilized.
