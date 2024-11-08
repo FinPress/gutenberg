@@ -256,7 +256,7 @@ If provided, renders a [Tooltip](/packages/components/src/tooltip/README.md) com
 ##### Usage Guidelines:
 
 1. Tooltips must be used only to visually expose the label of controls that don't show visible text.
-2. Tooltips usage must take into account the showIconLabels preference: when enabled ant the control shows visible text, the tooltip must be disabled.
+2. Tooltips usage must take into account the showIconLabels preference: when enabled and the control shows visible text, the tooltip must be disabled.
 
 -   Required: No
 
