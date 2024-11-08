@@ -35,6 +35,7 @@ import MediaUpload from '../media-upload';
 import MediaUploadCheck from '../media-upload/check';
 import LinkControl from '../link-control';
 import { store as blockEditorStore } from '../../store';
+import PluginMediaToolbar from '../plugin-media-toolbar';
 
 const noop = () => {};
 let uniqueId = 0;
@@ -213,6 +214,7 @@ const MediaReplaceFlow = ( {
 								{ __( 'Reset' ) }
 							</MenuItem>
 						) }
+						<PluginMediaToolbar.Slot />
 						{ typeof children === 'function'
 							? children( { onClose } )
 							: children }
