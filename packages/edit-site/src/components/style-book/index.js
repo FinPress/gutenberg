@@ -330,7 +330,7 @@ function StyleBook( {
 	);
 }
 
-const StyleBookBody = ( {
+export const StyleBookBody = ( {
 	category,
 	examples,
 	isSelected,
