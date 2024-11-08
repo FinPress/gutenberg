@@ -144,7 +144,7 @@ export const parameters = {
 					'Utilities',
 				],
 				'Components (Experimental)',
-				[ 'Selection & Input', [ 'Common' ] ],
+				[ 'Navigation', 'Selection & Input', [ 'Common' ] ],
 				'Icons',
 			],
 		},
