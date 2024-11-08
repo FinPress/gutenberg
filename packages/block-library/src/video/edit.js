@@ -141,7 +141,7 @@ function VideoEdit( {
 				icon={ icon }
 				label={ __( 'Video' ) }
 				instructions={ __(
-					'Drag and drop a video here, upload, or choose from your library.'
+					'Drag and drop a video, upload, or choose from your library.'
 				) }
 			>
 				{ content }

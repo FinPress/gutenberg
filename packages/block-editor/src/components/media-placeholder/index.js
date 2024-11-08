@@ -317,20 +317,20 @@ export function MediaPlaceholder( {
 
 			if ( instructions === undefined && mediaUpload ) {
 				instructions = __(
-					'Drag and drop an image or video here, upload, or choose from your library.'
+					'Drag and drop an image or video, upload, or choose from your library.'
 				);
 
 				if ( isAudio ) {
 					instructions = __(
-						'Drag and drop an audio file here, upload, or choose from your library.'
+						'Drag and drop an audio file, upload, or choose from your library.'
 					);
 				} else if ( isImage ) {
 					instructions = __(
-						'Drag and drop an image here, upload, or choose from your library.'
+						'Drag and drop an image, upload, or choose from your library.'
 					);
 				} else if ( isVideo ) {
 					instructions = __(
-						'Drag and drop a video here, upload, or choose from your library.'
+						'Drag and drop a video, upload, or choose from your library.'
 					);
 				}
 			}
