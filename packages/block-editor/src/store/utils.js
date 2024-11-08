@@ -11,7 +11,6 @@ import { selectBlockPatternsKey } from './private-keys';
 import { unlock } from '../lock-unlock';
 import { STORE_NAME } from './constants';
 import { getSectionRootClientId } from './private-selectors';
-import { __unstableGetEditorMode } from './selectors';
 
 export const isFiltered = Symbol( 'isFiltered' );
 const parsedPatternCache = new WeakMap();
@@ -111,14 +110,15 @@ export const getAllPatternsDependants = ( select ) => ( state ) => {
 	];
 };
 
-export function getInsertBlockTypeDependants( state, rootClientId ) {
-	return [
-		state.blockListSettings[ rootClientId ],
-		state.blocks.byClientId.get( rootClientId ),
-		state.settings.allowedBlockTypes,
-		state.settings.templateLock,
-		state.blockEditingModes,
-		__unstableGetEditorMode( state ),
-		getSectionRootClientId( state ),
-	];
-}
+export const getInsertBlockTypeDependants =
+	( select ) => ( state, rootClientId ) => {
+		return [
+			state.blockListSettings[ rootClientId ],
+			state.blocks.byClientId.get( rootClientId ),
+			state.settings.allowedBlockTypes,
+			state.settings.templateLock,
+			state.blockEditingModes,
+			select( STORE_NAME ).__unstableGetEditorMode( state ),
+			getSectionRootClientId( state ),
+		];
+	};
