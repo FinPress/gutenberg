@@ -255,13 +255,8 @@ If provided, renders a [Tooltip](/packages/components/src/tooltip/README.md) com
 
 ##### Usage Guidelines:
 
-1. Interaction with `showIconLabels`:
-   - When the 'Show button text labels' preference (`showIconLabels`) is enabled, icon buttons display visible text labels.
-   - In this case, showing a tooltip that merely repeats the visible text is unnecessary and can create visual clutter.
-
-2. Accessibility Considerations:
-   - Tooltips should provide additional, helpful information beyond what's visible.
-   - For users relying on screen readers, ensure that the tooltip content complements rather than duplicates the button's accessible name.
+1. Tooltips must be used only to visually expose the label of controls that don't show visible text.
+2. Tooltips usage must take into account the showIconLabels preference: when enabled ant the control shows visible text, the tooltip must be disabled.
 
 -   Required: No
 
