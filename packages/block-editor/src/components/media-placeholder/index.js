@@ -326,11 +326,11 @@ export function MediaPlaceholder( {
 					);
 				} else if ( isImage ) {
 					instructions = __(
-						'Upload or drag an image file here, or pick one from your library.'
+						'Drag and drop an image here, upload, or choose from your library.'
 					);
 				} else if ( isVideo ) {
 					instructions = __(
-						'Upload or drag a video file here, or pick one from your library.'
+						'Drag and drop a video here, upload, or choose from your library.'
 					);
 				}
 			}
