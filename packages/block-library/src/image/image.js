@@ -727,7 +727,7 @@ export default function Image( {
 
 	const controls = (
 		<>
-			{ showBlockControls && (
+			{ showBlockControls && ! isContentOnlyMode && (
 				<BlockControls group="block">
 					{ showUrlInput && (
 						<ImageURLInputUI
