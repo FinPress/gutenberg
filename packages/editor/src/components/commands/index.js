@@ -88,15 +88,7 @@ const getEditorCommandLoader = () =>
 
 		const commands = [];
 
-		commands.push( {
-			name: 'core/open-shortcut-help',
-			label: __( 'Keyboard shortcuts' ),
-			icon: keyboard,
-			callback: ( { close } ) => {
-				close();
-				openModal( 'editor/keyboard-shortcut-help' );
-			},
-		} );
+		
 
 		commands.push( {
 			name: 'core/toggle-distraction-free',
@@ -109,14 +101,7 @@ const getEditorCommandLoader = () =>
 			},
 		} );
 
-		commands.push( {
-			name: 'core/open-preferences',
-			label: __( 'Editor preferences' ),
-			callback: ( { close } ) => {
-				close();
-				openModal( 'editor/preferences' );
-			},
-		} );
+		
 
 		commands.push( {
 			name: 'core/toggle-spotlight-mode',
@@ -299,6 +284,23 @@ const getEditedEntityContextualCommands = () =>
 			} );
 		}
 
+		commands.push( {
+			name: 'core/open-shortcut-help',
+			label: __( 'Keyboard shortcuts' ),
+			icon: keyboard,
+			callback: ( { close } ) => {
+				close();
+				openModal( 'editor/keyboard-shortcut-help' );
+			},
+		} );
+		commands.push( {
+			name: 'core/open-preferences',
+			label: __( 'Editor preferences' ),
+			callback: ( { close } ) => {
+				close();
+				openModal( 'editor/preferences' );
+			},
+		} );
 		return { isLoading: false, commands };
 	};
 
