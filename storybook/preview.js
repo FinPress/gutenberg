@@ -133,6 +133,7 @@ export const parameters = {
 					'Actions',
 					'Containers',
 					'Feedback',
+					'Navigation',
 					'Typography',
 					'Utilities',
 				],
