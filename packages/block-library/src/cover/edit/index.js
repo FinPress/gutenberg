@@ -497,6 +497,7 @@ function CoverEdit( {
 						onSelectMedia={ onSelectMedia }
 						onError={ onUploadError }
 						toggleUseFeaturedImage={ toggleUseFeaturedImage }
+						isSelected={ isSelected }
 					>
 						<div className="wp-block-cover__placeholder-background-options">
 							<ColorPalette

@@ -4,6 +4,8 @@
 import { BlockIcon, MediaPlaceholder } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { cover as icon } from '@wordpress/icons';
+import { Placeholder } from '@wordpress/components';
+import { useResizeObserver } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -17,16 +19,16 @@ export default function CoverPlaceholder( {
 	onError,
 	style,
 	toggleUseFeaturedImage,
+	isSelected,
 } ) {
+	const [ placeholderResizeListener, { width: placeholderWidth } ] =
+		useResizeObserver();
+
+	const isSmallContainer = placeholderWidth && placeholderWidth < 160;
+
 	return (
 		<MediaPlaceholder
 			icon={ <BlockIcon icon={ icon } /> }
-			labels={ {
-				title: __( 'Cover' ),
-				instructions: __(
-					'Drag and drop onto this block, upload, or select existing media from your library.'
-				),
-			} }
 			onSelect={ onSelectMedia }
 			accept="image/*,video/*"
 			allowedTypes={ ALLOWED_MEDIA_TYPES }
@@ -34,8 +36,21 @@ export default function CoverPlaceholder( {
 			onToggleFeaturedImage={ toggleUseFeaturedImage }
 			onError={ onError }
 			style={ style }
-		>
-			{ children }
-		</MediaPlaceholder>
+			placeholder={ ( content ) => (
+				<Placeholder
+					className="block-editor-media-placeholder"
+					icon={ icon }
+					withIllustration={ ! isSelected || isSmallContainer }
+					label={ ! isSmallContainer && __( 'Cover' ) }
+					instructions={ __(
+						'Drag and drop onto this block, upload, or select existing media from your library.'
+					) }
+				>
+					{ content }
+					{ isSelected && children }
+					{ placeholderResizeListener }
+				</Placeholder>
+			) }
+		/>
 	);
 }

@@ -2,6 +2,7 @@
 	// Override default cover styles
 	// because we're not ready yet to show the cover block.
 	&.is-placeholder {
+		color: var(--wp--preset--color--contrast);
 		padding: 0 !important;
 		display: flex;
 		align-items: stretch;
