@@ -121,17 +121,24 @@ export const SiteHubMobile = memo(
 		const history = useHistory();
 		const { navigate } = useContext( SidebarNavigationContext );
 
-		const { homeUrl, siteTitle } = useSelect( ( select ) => {
-			const { getEntityRecord } = select( coreStore );
-			const _site = getEntityRecord( 'root', 'site' );
-			return {
-				homeUrl: getEntityRecord( 'root', '__unstableBase' )?.home,
-				siteTitle:
-					! _site?.title && !! _site?.url
-						? filterURLForDisplay( _site?.url )
-						: _site?.title,
-			};
-		}, [] );
+		const { dashboardLink, homeUrl, siteTitle, isBlockBasedTheme } =
+			useSelect( ( select ) => {
+				const { getSettings } = unlock( select( editSiteStore ) );
+				const { getEntityRecord, getCurrentTheme } =
+					select( coreStore );
+				const _site = getEntityRecord( 'root', 'site' );
+				return {
+					dashboardLink:
+						getSettings().__experimentalDashboardLink ||
+						'index.php',
+					homeUrl: getEntityRecord( 'root', '__unstableBase' )?.home,
+					siteTitle:
+						! _site?.title && !! _site?.url
+							? filterURLForDisplay( _site?.url )
+							: _site?.title,
+					isBlockBasedTheme: getCurrentTheme()?.is_block_theme,
+				};
+			}, [] );
 		const { open: openCommandCenter } = useDispatch( commandsStore );
 
 		return (
@@ -147,16 +154,25 @@ export const SiteHubMobile = memo(
 					>
 						<Button
 							__next40pxDefaultSize
+							href={
+								! isBlockBasedTheme ? dashboardLink : undefined
+							}
 							ref={ ref }
-							label={ __( 'Go to Site Editor' ) }
+							label={
+								isBlockBasedTheme
+									? __( 'Go to Site Editor' )
+									: __( 'Go to the Dashboard' )
+							}
 							className="edit-site-layout__view-mode-toggle"
 							style={ {
 								transform: 'scale(0.5)',
 								borderRadius: 4,
 							} }
 							onClick={ () => {
-								history.push( {} );
-								navigate( 'back' );
+								if ( isBlockBasedTheme ) {
+									history.push( {} );
+									navigate( 'back' );
+								}
 							} }
 						>
 							<SiteIcon className="edit-site-layout__view-mode-toggle-icon" />
