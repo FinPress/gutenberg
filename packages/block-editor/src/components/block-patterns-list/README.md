@@ -63,7 +63,7 @@ The aria label for the block patterns list.
 
 #### showTitlesAsTooltip
 
-Whether to show the block pattern title as a tooltip. User-defined patterns always show their visual title regardless of this prop.
+Whether to render the title of each pattern as a tooltip. User-defined patterns always show their visual title regardless of this prop.
 
 -   Type: `boolean`
 -   Required: No
