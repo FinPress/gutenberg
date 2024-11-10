@@ -74,11 +74,12 @@ export default function CoverBlockControls( {
 		} );
 	};
 
+	const hasNonContentControls = blockEditingMode === 'default';
 	const isContentOnlyMode = blockEditingMode === 'contentOnly';
 
 	return (
 		<>
-			{ ! isContentOnlyMode && (
+			{ ! isContentOnlyMode && hasNonContentControls && (
 				<BlockControls group="block">
 					<>
 						<BlockAlignmentMatrixControl
