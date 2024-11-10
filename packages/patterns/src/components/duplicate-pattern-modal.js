@@ -15,11 +15,13 @@ import { PATTERN_SYNC_TYPES, PATTERN_TYPES } from '../constants';
 function getTermLabels( pattern, categories ) {
 	// Theme patterns rely on core pattern categories.
 	if ( pattern.type !== PATTERN_TYPES.user ) {
-		return categories.core
-			?.filter( ( category ) =>
-				pattern.categories.includes( category.name )
-			)
-			.map( ( category ) => category.label );
+		return (
+			categories.core
+				?.filter( ( category ) =>
+					pattern.categories?.includes( category.name )
+				)
+				.map( ( category ) => category.label ) || []
+		);
 	}
 
 	return categories.user
