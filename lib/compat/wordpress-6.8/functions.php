@@ -23,6 +23,6 @@ function gutenberg_get_mime_types_6_8( $mime_types ) {
 	if ( ! isset( $mime_types['x-wav'] ) && ! isset( $mime_types['wav|x-wav'] ) ) {
 		$mime_types['x-wav'] = 'audio/wav';
 	}
-    return $mime_types;
+	return $mime_types;
 }
 add_filter( 'mime_types', 'gutenberg_get_mime_types_6_8', 10, 1 );
