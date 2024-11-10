@@ -727,40 +727,44 @@ export default function Image( {
 
 	const controls = (
 		<>
-			{ showBlockControls && ! isContentOnlyMode && (
-				<BlockControls group="block">
-					{ showUrlInput && (
-						<ImageURLInputUI
-							url={ href || '' }
-							onChangeUrl={ onSetHref }
-							linkDestination={ linkDestination }
-							mediaUrl={ ( image && image.source_url ) || url }
-							mediaLink={ image && image.link }
-							linkTarget={ linkTarget }
-							linkClass={ linkClass }
-							rel={ rel }
-							showLightboxSetting={ showLightboxSetting }
-							lightboxEnabled={ lightboxChecked }
-							onSetLightbox={ onSetLightbox }
-							resetLightbox={ resetLightbox }
-						/>
-					) }
-					{ allowCrop && (
-						<ToolbarButton
-							onClick={ () => setIsEditingImage( true ) }
-							icon={ crop }
-							label={ __( 'Crop' ) }
-						/>
-					) }
-					{ showCoverControls && (
-						<ToolbarButton
-							icon={ overlayText }
-							label={ __( 'Add text over image' ) }
-							onClick={ switchToCover }
-						/>
-					) }
-				</BlockControls>
-			) }
+			{ showBlockControls &&
+				! isContentOnlyMode &&
+				hasNonContentControls && (
+					<BlockControls group="block">
+						{ showUrlInput && (
+							<ImageURLInputUI
+								url={ href || '' }
+								onChangeUrl={ onSetHref }
+								linkDestination={ linkDestination }
+								mediaUrl={
+									( image && image.source_url ) || url
+								}
+								mediaLink={ image && image.link }
+								linkTarget={ linkTarget }
+								linkClass={ linkClass }
+								rel={ rel }
+								showLightboxSetting={ showLightboxSetting }
+								lightboxEnabled={ lightboxChecked }
+								onSetLightbox={ onSetLightbox }
+								resetLightbox={ resetLightbox }
+							/>
+						) }
+						{ allowCrop && (
+							<ToolbarButton
+								onClick={ () => setIsEditingImage( true ) }
+								icon={ crop }
+								label={ __( 'Crop' ) }
+							/>
+						) }
+						{ showCoverControls && (
+							<ToolbarButton
+								icon={ overlayText }
+								label={ __( 'Add text over image' ) }
+								onClick={ switchToCover }
+							/>
+						) }
+					</BlockControls>
+				) }
 			{ isSingleSelected && externalBlob && (
 				<BlockControls>
 					<ToolbarGroup>
