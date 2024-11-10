@@ -34,7 +34,7 @@ describe( 'normalizeFields: default getValue', () => {
 			const item = { users: [ 'Feynmann' ] };
 			const fields: Field< {} >[] = [
 				{
-					id: 'user.name',
+					id: 'users[0]',
 				},
 			];
 			const normalizedFields = normalizeFields( fields );
@@ -46,7 +46,7 @@ describe( 'normalizeFields: default getValue', () => {
 			const item = { users: [ { name: 'Feynmann' } ] };
 			const fields: Field< {} >[] = [
 				{
-					id: 'user.name',
+					id: 'users[0].name',
 				},
 			];
 			const normalizedFields = normalizeFields( fields );

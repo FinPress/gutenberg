@@ -14,10 +14,11 @@ import DataFormCombinedEdit from './components/dataform-combined-edit';
 const getValueFromId =
 	( id: string ) =>
 	( { item }: { item: any } ) => {
-		const path = id.split( '.' );
+		const path = id.split( /[\.\[\]]+/ ).filter( Boolean );
+
 		let value = item;
 		for ( const segment of path ) {
-			if ( value.hasOwnProperty( segment ) ) {
+			if ( !! value && value.hasOwnProperty( segment ) ) {
 				value = value[ segment ];
 			} else {
 				value = undefined;
