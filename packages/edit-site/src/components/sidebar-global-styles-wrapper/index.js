@@ -131,7 +131,8 @@ export default function GlobalStylesUIWrapper() {
 							// Go to color palettes Global Styles.
 							onPathChange( '/colors/palette' );
 							return;
-						} else if ( blockName === 'typography' ) {
+						}
+						if ( blockName === 'typography' ) {
 							// Go to typography Global Styles.
 							onPathChange( '/typography' );
 							return;
