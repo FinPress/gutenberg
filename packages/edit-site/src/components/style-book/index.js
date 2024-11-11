@@ -204,16 +204,16 @@ function StyleBook( {
 	);
 
 	const examplesForSinglePageUse = [];
-	const landingCategoryExamples = getExamplesByCategory(
-		{ slug: 'landing' },
+	const overviewCategoryExamples = getExamplesByCategory(
+		{ slug: 'overview' },
 		examples
 	);
-	examplesForSinglePageUse.push( ...landingCategoryExamples.examples );
+	examplesForSinglePageUse.push( ...overviewCategoryExamples.examples );
 	const otherExamples = examples.filter( ( example ) => {
 		return (
-			example.category !== 'landing' &&
-			! landingCategoryExamples.examples.find(
-				( landingExample ) => landingExample.name === example.name
+			example.category !== 'overview' &&
+			! overviewCategoryExamples.examples.find(
+				( overviewExample ) => overviewExample.name === example.name
 			)
 		);
 	} );

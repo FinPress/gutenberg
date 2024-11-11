@@ -108,8 +108,8 @@ export const STYLE_BOOK_THEME_SUBCATEGORIES: Omit<
 
 export const STYLE_BOOK_CATEGORIES: StyleBookCategory[] = [
 	{
-		slug: 'landing',
-		title: __( 'Landing' ),
+		slug: 'overview',
+		title: __( 'Overview' ),
 		blocks: [],
 	},
 	{
