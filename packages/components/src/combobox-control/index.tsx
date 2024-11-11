@@ -34,6 +34,7 @@ import type { ComboboxControlOption, ComboboxControlProps } from './types';
 import type { TokenInputProps } from '../form-token-field/types';
 import { useDeprecated36pxDefaultSizeProp } from '../utils/use-deprecated-props';
 import { withIgnoreIMEEvents } from '../utils/with-ignore-ime-events';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const noop = () => {};
 
@@ -312,6 +313,12 @@ function ComboboxControl( props: ComboboxControlProps ) {
 			speak( message, 'polite' );
 		}
 	}, [ matchingSuggestions, isExpanded ] );
+
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'ComboboxControl',
+		__next40pxDefaultSize,
+		size: undefined,
+	} );
 
 	// Disable reason: There is no appropriate role which describes the
 	// input container intended accessible usability.
