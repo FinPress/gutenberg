@@ -4559,7 +4559,6 @@ class WP_Theme_JSON_Gutenberg_Test extends WP_UnitTestCase {
 		);
 	}
 
-
 	/**
 	 * Tests generating the spacing presets array based on the spacing scale provided.
 	 *
