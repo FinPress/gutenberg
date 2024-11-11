@@ -56,7 +56,7 @@
 			"radius": true,
 			"color": true,
 			"width": true,
-			"style": true,
+			"style": true
 		},
 		"spacing": {
 			"padding": true,
