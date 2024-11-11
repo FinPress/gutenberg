@@ -20,6 +20,7 @@ import { space } from '../utils/space';
 import { useDraft } from './utils';
 import BaseControl from '../base-control';
 import { useDeprecated36pxDefaultSizeProp } from '../utils/use-deprecated-props';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const noop = () => {};
 
@@ -67,6 +68,12 @@ export function UnforwardedInputControl(
 	} );
 
 	const helpProp = !! help ? { 'aria-describedby': `${ id }__help` } : {};
+
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'InputControl',
+		__next40pxDefaultSize,
+		size: undefined,
+	} );
 
 	return (
 		<BaseControl
@@ -125,6 +132,7 @@ export function UnforwardedInputControl(
  *
  *   return (
  *  	<InputControl
+ * 			__next40pxDefaultSize
  *  		value={ value }
  *  		onChange={ ( nextValue ) => setValue( nextValue ?? '' ) }
  *  	/>

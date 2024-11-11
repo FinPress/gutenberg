@@ -45,6 +45,7 @@ export const Default = Template.bind( {} );
 Default.args = {
 	label: 'Value',
 	placeholder: 'Placeholder',
+	__next40pxDefaultSize: true,
 };
 
 export const WithHelpText = Template.bind( {} );
