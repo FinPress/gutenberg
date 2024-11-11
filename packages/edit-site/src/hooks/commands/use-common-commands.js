@@ -332,6 +332,7 @@ export function useCommonCommands() {
 	useCommandLoader( {
 		name: 'core/edit-site/open-styles',
 		hook: getGlobalStylesOpenStylesCommands(),
+		context: 'entity-edit',
 	} );
 
 	useCommandLoader( {
