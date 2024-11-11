@@ -727,44 +727,44 @@ export default function Image( {
 
 	const controls = (
 		<>
-			{ showBlockControls &&
-				! isContentOnlyMode &&
-				hasNonContentControls && (
-					<BlockControls group="block">
-						{ showUrlInput && (
-							<ImageURLInputUI
-								url={ href || '' }
-								onChangeUrl={ onSetHref }
-								linkDestination={ linkDestination }
-								mediaUrl={
-									( image && image.source_url ) || url
-								}
-								mediaLink={ image && image.link }
-								linkTarget={ linkTarget }
-								linkClass={ linkClass }
-								rel={ rel }
-								showLightboxSetting={ showLightboxSetting }
-								lightboxEnabled={ lightboxChecked }
-								onSetLightbox={ onSetLightbox }
-								resetLightbox={ resetLightbox }
-							/>
-						) }
-						{ allowCrop && (
+			{ showBlockControls && (
+				<BlockControls group="block">
+					{ showUrlInput && (
+						<ImageURLInputUI
+							url={ href || '' }
+							onChangeUrl={ onSetHref }
+							linkDestination={ linkDestination }
+							mediaUrl={ ( image && image.source_url ) || url }
+							mediaLink={ image && image.link }
+							linkTarget={ linkTarget }
+							linkClass={ linkClass }
+							rel={ rel }
+							showLightboxSetting={ showLightboxSetting }
+							lightboxEnabled={ lightboxChecked }
+							onSetLightbox={ onSetLightbox }
+							resetLightbox={ resetLightbox }
+						/>
+					) }
+					{ allowCrop &&
+						! isContentOnlyMode &&
+						hasNonContentControls && (
 							<ToolbarButton
 								onClick={ () => setIsEditingImage( true ) }
 								icon={ crop }
 								label={ __( 'Crop' ) }
 							/>
 						) }
-						{ showCoverControls && (
+					{ showCoverControls &&
+						! isContentOnlyMode &&
+						hasNonContentControls && (
 							<ToolbarButton
 								icon={ overlayText }
 								label={ __( 'Add text over image' ) }
 								onClick={ switchToCover }
 							/>
 						) }
-					</BlockControls>
-				) }
+				</BlockControls>
+			) }
 			{ isSingleSelected && externalBlob && (
 				<BlockControls>
 					<ToolbarGroup>
