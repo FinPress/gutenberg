@@ -46,13 +46,13 @@ function TrackList( { tracks, onEditPress } ) {
 				key={ index }
 				className="block-library-video-tracks-editor__track-list-track"
 			>
-				<span>{ track.label } </span>
+				<span>{ track.label }</span>
 				<Button
 					__next40pxDefaultSize
 					variant="tertiary"
 					onClick={ () => onEditPress( index ) }
 					aria-label={ sprintf(
-						/* translators: %s: Label of the video text track e.g: "French subtitles" */
+						/* translators: %s: Label of the video text track e.g: "French subtitles". */
 						_x( 'Edit %s', 'text tracks' ),
 						track.label
 					) }
