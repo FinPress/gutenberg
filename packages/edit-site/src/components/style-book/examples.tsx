@@ -109,8 +109,8 @@ function getOverviewBlockExamples(
 	} );
 
 	const textExample = {
-		name: 'theme-text',
-		title: __( 'Text' ),
+		name: 'typography',
+		title: __( 'Typography' ),
 		category: 'overview',
 		blocks: [
 			headingBlock,
