@@ -30,7 +30,6 @@ function render_block_core_query_no_results( $attributes, $content, $block ) {
 	// Add check for instant search experiment and search query
 	$gutenberg_experiments  = get_option( 'gutenberg-experiments' );
 	$instant_search_enabled = isset( $gutenberg_experiments['gutenberg-search-query-block'] ) && $gutenberg_experiments['gutenberg-search-query-block'];
-	$search_query_global    = empty( $_GET['instant-search'] ) ? '' : sanitize_text_field( $_GET['instant-search'] );
 	$search_query_direct    = '';
 
 	// Get the search query parameter for the specific query if it exists
@@ -46,12 +45,6 @@ function render_block_core_query_no_results( $attributes, $content, $block ) {
 	if ( $use_global_query ) {
 		global $wp_query;
 		$query = $wp_query;
-
-		// If instant search is enabled and we have a search query, run a new query
-		if ( $enhanced_pagination && $instant_search_enabled && ! empty( $search_query_global ) ) {
-			$args  = array_merge( $wp_query->query_vars, array( 's' => $search_query_global ) );
-			$query = new WP_Query( $args );
-		}
 	} else {
 		$query_args = build_query_vars_from_query_block( $block, $page );
 

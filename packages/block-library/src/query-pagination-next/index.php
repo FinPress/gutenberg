@@ -27,7 +27,7 @@ function render_block_core_query_pagination_next( $attributes, $content, $block 
 	// Add check for instant search experiment and search query
 	$gutenberg_experiments  = get_option( 'gutenberg-experiments' );
 	$instant_search_enabled = isset( $gutenberg_experiments['gutenberg-search-query-block'] ) && $gutenberg_experiments['gutenberg-search-query-block'];
-	$search_query_global    = empty( $_GET['instant-search'] ) ? '' : sanitize_text_field( $_GET['instant-search'] );
+
 	$search_query_direct    = '';
 	if ( isset( $block->context['queryId'] ) ) {
 		$search_param        = 'instant-search-' . $block->context['queryId'];
@@ -61,27 +61,7 @@ function render_block_core_query_pagination_next( $attributes, $content, $block 
 		if ( $max_page > $wp_query->max_num_pages ) {
 			$max_page = $wp_query->max_num_pages;
 		}
-
-		// If instant search is enabled and we have a search query, run a new query
-		if ( $enhanced_pagination && $instant_search_enabled && ! empty( $search_query_global ) ) {
-			$args = array_merge(
-				$wp_query->query_vars,
-				array( 's' => $search_query_global )
-			);
-
-			// Store the original global $wp_query
-			$temp_query = $wp_query;
-
-			// Temporarily replace global $wp_query with a new query that includes the
-			// search query because get_next_posts_link() uses global $wp_query.
-			$wp_query = new WP_Query( $args );
-			$content  = get_next_posts_link( $label );
-
-			// Restore the original global $wp_query
-			$wp_query = $temp_query;
-		} else {
-			$content = get_next_posts_link( $label, $max_page );
-		}
+		$content = get_next_posts_link( $label, $max_page );
 		remove_filter( 'next_posts_link_attributes', $filter_link_attributes );
 	} elseif ( ! $max_page || $max_page > $page ) {
 		// Add check for instant search experiment and search query
