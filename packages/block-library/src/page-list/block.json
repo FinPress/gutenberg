@@ -53,7 +53,7 @@
 			"clientNavigation": true
 		},
 		"color": {
-			"text": false,
+			"text": true,
 			"background": true,
 			"link": true,
 			"gradients": true
