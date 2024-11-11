@@ -64,6 +64,7 @@ const SelectControlWithState: StoryFn< typeof SelectControl > = ( props ) => {
 
 export const Default = SelectControlWithState.bind( {} );
 Default.args = {
+	__next40pxDefaultSize: true,
 	__nextHasNoMarginBottom: true,
 	label: 'Label',
 	options: [

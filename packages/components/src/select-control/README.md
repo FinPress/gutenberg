@@ -84,6 +84,7 @@ const MySelectControl = () => {
 
 	return (
 		<SelectControl
+			__next40pxDefaultSize
 			label="Size"
 			value={ size }
 			options={ [
