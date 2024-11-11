@@ -42,9 +42,7 @@ import {
 	isSectionBlock,
 	getParentSectionBlock,
 	isZoomOut,
-	getParentPatternCount,
 } from './private-selectors';
-import { sectionRootClientIdKey } from './private-keys';
 
 /**
  * A block selection object.
@@ -3039,8 +3037,8 @@ function isWithinBlock( state, clientId, parentClientId ) {
  * @return {BlockEditingMode} The block editing mode. One of `'disabled'`,
  *                            `'contentOnly'`, or `'default'`.
  */
-export const getBlockEditingMode = createRegistrySelector( ( select ) =>
-	createSelector(
+export const getBlockEditingMode = createRegistrySelector(
+	( select ) =>
 		( state, clientId = '' ) => {
 			// Some selectors that call this provide `null` as the default
 			// rootClientId, but the default rootClientId is actually `''`.
@@ -3049,7 +3047,9 @@ export const getBlockEditingMode = createRegistrySelector( ( select ) =>
 			}
 
 			// Handle pattern blocks (core/block) and the content of those blocks.
-			const parentPatternCount = getParentPatternCount( state, clientId );
+			const parentPatternCount = unlock(
+				select( STORE_NAME )
+			).getParentPatternCount( state, clientId );
 
 			// Make the outer pattern block content only mode.
 			if (
@@ -3174,18 +3174,7 @@ export const getBlockEditingMode = createRegistrySelector( ( select ) =>
 			// Otherwise, check if there's an ancestor that is contentOnly
 			const parentMode = getBlockEditingMode( state, rootClientId );
 			return parentMode === 'contentOnly' ? 'default' : parentMode;
-		},
-		( state, clientId ) => {
-			const rootClientId = state.blocks.parents[ clientId ];
-			return [
-				state.blocks.parents,
-				state.blocks.byClientId,
-				state.editorMode,
-				state.settings?.[ sectionRootClientIdKey ],
-				state.blockListSettings?.[ rootClientId ]?.templateLock,
-			];
 		}
-	)
 );
 
 /**
