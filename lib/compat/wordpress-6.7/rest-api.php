@@ -160,14 +160,14 @@ add_filter( 'register_post_type_args', 'gutenberg_register_post_type_args_for_wp
 // Add the custom REST API endpoint to deactivate all plugins.
 add_action(
 	'rest_api_init',
-	function() {
+	function () {
 		register_rest_route(
 			'custom/v1',
 			'/deactivate-plugins',
 			array(
 				'methods'             => 'POST',
 				'callback'            => 'deactivate_all_plugins',
-				'permission_callback' => function() {
+				'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
 				},
 			)
@@ -175,28 +175,43 @@ add_action(
 	}
 );
 
-/**
- * Deactivates all plugins on the WordPress site.
- *
- * This function ensures that only users with the `manage_options` capability (typically administrators)
- * can deactivate all plugins. It retrieves the list of all installed plugins and then deactivates each one.
- * This action is irreversible and should be used with caution.
- *
- * @since 1.0.0
- *
- * @return WP_REST_Response|WP_Error Returns a success message if all plugins are deactivated or an error message
- *                                   if the current user does not have the required permissions.
- */
-function deactivate_all_plugins() {
-	if ( ! current_user_can( 'manage_options' ) ) {
-		return new WP_Error( 'rest_forbidden', __( 'You do not have permissions to perform this action', 'gutenberg' ), array( 'status' => 403 ) );
-	}
+if ( ! function_exists( 'deactivate_all_plugins' ) ) {
 
-	require_once ABSPATH . 'wp-admin/includes/plugin.php';
-	$all_plugins = get_plugins();
-	foreach ( array_keys( $all_plugins ) as $plugin ) {
-		deactivate_plugins( $plugin );
-	}
+	/**
+	 * Deactivates all plugins on the WordPress site.
+	 *
+	 * This function ensures that only users with the `manage_options` capability (typically administrators)
+	 * can deactivate all plugins. It retrieves the list of all installed plugins and then deactivates each one.
+	 * This action is irreversible and should be used with caution.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return WP_REST_Response|WP_Error Returns a success message if all plugins are deactivated or an error message
+	 *                                   if the current user does not have the required permissions.
+	 */
+	function deactivate_all_plugins() {
+		// Check if the current user has the necessary permissions.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return new WP_Error(
+				'rest_forbidden',
+				__( 'You do not have permissions to perform this action', 'gutenberg' ),
+				array( 'status' => 403 )
+			);
+		}
 
-	return new WP_REST_Response( array( 'message' => __( 'All plugins have been deactivated', 'gutenberg' ) ), 200 );
+		// Load the necessary WordPress plugin functions.
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		// Retrieve the list of all plugins and deactivate each one.
+		$all_plugins = get_plugins();
+		foreach ( array_keys( $all_plugins ) as $plugin ) {
+			deactivate_plugins( $plugin );
+		}
+
+		// Return a success response.
+		return new WP_REST_Response(
+			array( 'message' => __( 'All plugins have been deactivated', 'gutenberg' ) ),
+			200
+		);
+	}
 }
