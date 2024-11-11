@@ -109,7 +109,12 @@ export function Comments( {
 
 		if ( block ) {
 			const blockClientId = block.clientId;
-			const blockElement = document.getElementById(
+			const iframe = document.querySelector(
+				'iframe[name="editor-canvas"]'
+			);
+			const iframeDocument =
+				iframe.contentDocument || iframe.contentWindow.document;
+			const blockElement = iframeDocument.getElementById(
 				'block-' + blockClientId
 			);
 
