@@ -4,6 +4,11 @@
 import clsx from 'clsx';
 
 /**
+ * WordPress dependencies
+ */
+import { info, closeSmall, check, warning } from '@wordpress/icons';
+
+/**
  * Internal dependencies
  */
 import type { BadgeProps } from './types';
@@ -11,41 +16,48 @@ import Icon from '../icon';
 
 function Badge( {
 	className,
-	icon,
-	iconSize = 20,
 	as: Component = 'div',
-	variant = 'generic',
-	showContext = true,
+	context = 'neutral',
 	children,
 	...props
 }: BadgeProps ) {
 	/**
-	 * Formats the variant string to be displayed when showContext is true.
+	 * Returns an icon based on the badge context.
 	 *
-	 * @param {string} str
-	 *
-	 * @return {string} Formatted variant string.
+	 * @return {JSX.Element | null} The corresponding icon for the provided context.
 	 */
-	function formatVariant( str: string ): string {
-		return (
-			str.charAt( 0 ).toUpperCase() + str.slice( 1 ).toLowerCase() + ': '
-		);
+	function contextBasedIcon(): JSX.Element | null {
+		switch ( context ) {
+			case 'info':
+				return info;
+			case 'warning':
+				return warning;
+			case 'error':
+				return closeSmall;
+			case 'success':
+				return check;
+			default:
+				return null;
+		}
 	}
 
 	return (
 		<Component
 			className={ clsx(
 				'components-badge',
-				`components-badge--${ variant }`,
-				icon && 'components-badge--icon',
+				`components-badge--${ context }`,
+				context !== 'neutral' && 'components-badge--has-icon',
 				className
 			) }
-			aria-label={ `${ variant }-badge` }
+			aria-label={ `${ context }-badge` }
 			{ ...props }
 		>
-			{ icon && <Icon icon={ icon } size={ iconSize } /> }
-			{ showContext && variant !== 'generic' && (
-				<span>{ formatVariant( variant ) }</span>
+			{ context !== 'neutral' && (
+				<Icon
+					icon={ contextBasedIcon() }
+					size={ 20 }
+					fill="currentColor"
+				/>
 			) }
 			{ children }
 		</Component>

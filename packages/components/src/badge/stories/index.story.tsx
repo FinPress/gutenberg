@@ -8,11 +8,6 @@ import type { Meta, StoryObj } from '@storybook/react';
  */
 import Badge from '..';
 
-/**
- * WordPress dependencies
- */
-import { info, bug, help, published } from '@wordpress/icons';
-
 const meta = {
 	component: Badge,
 	title: 'Components/Containers/Badge',
@@ -20,24 +15,13 @@ const meta = {
 		className: {
 			control: { type: 'text' },
 		},
-		icon: {
-			control: { type: 'select' },
-			options: [ '-', 'info', 'bug', 'help', 'published' ],
-			mapping: {
-				'-': undefined,
-				info,
-				bug,
-				help,
-				published,
-			},
-		},
-		iconSize: {
-			control: { type: 'number' },
-			options: [ 20, 24, 32, 48 ],
-		},
 		as: {
 			control: { type: 'select' },
 			options: [ 'div', 'span' ],
+		},
+		context: {
+			control: { type: 'select' },
+			options: [ 'neutral', 'info', 'warning', 'error', 'success' ],
 		},
 		children: {
 			control: { type: null },
@@ -53,29 +37,13 @@ type Story = StoryObj< typeof meta >;
 export const Default: Story = {
 	args: {
 		children: 'Code is Poetry',
+		context: 'neutral',
 	},
 };
 
-export const WithIcon: Story = {
+export const WithContext: Story = {
 	args: {
 		children: 'Code is Poetry',
-		icon: bug,
-		variant: 'error',
-	},
-};
-
-export const WithVariant: Story = {
-	args: {
-		children: 'Code is Poetry',
-		variant: 'success',
-	},
-};
-
-export const WithoutContext: Story = {
-	args: {
-		children: 'Code is Poetry',
-		icon: help,
-		variant: 'warning',
-		showContext: false,
+		context: 'success',
 	},
 };

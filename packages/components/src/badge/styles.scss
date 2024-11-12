@@ -13,7 +13,7 @@ $badge-colors: (
 .components-badge {
 	background: $gray-100;
 	color: $gray-800;
-	padding: $grid-unit-05 $grid-unit-10;
+	padding: 0 $grid-unit-10;
 	min-height: $grid-unit-30;
 	border-radius: $radius-small;
 	font-size: $font-size-small;
@@ -24,6 +24,10 @@ $badge-colors: (
 	display: flex;
 	align-items: center;
 	gap: 2px;
+
+	&--has-icon {
+		padding-left: $grid-unit-05;
+	}
 
 	// Generate color variants
 	@each $type, $color in $badge-colors {
