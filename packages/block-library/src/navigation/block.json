@@ -85,7 +85,7 @@
 			"type": [ "string", "boolean" ],
 			"enum": [ "all", "insert", "contentOnly", false ]
 		},
-		"accessibleMenuName": {
+		"ariaLabel": {
 			"type": "string",
 			"default": ""
 		}

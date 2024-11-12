@@ -558,17 +558,17 @@ class WP_Navigation_Block_Renderer {
 	 * @return string Returns the navigation block markup.
 	 */
 	private static function get_nav_wrapper_attributes( $attributes, $inner_blocks ) {
-		$nav_menu_name        = static::get_unique_navigation_name( $attributes );
-		$accessible_menu_name = ( ! empty( $attributes['accessibleMenuName'] ) ) ? $attributes['accessibleMenuName'] : $nav_menu_name;
-		$is_interactive       = static::is_interactive( $attributes, $inner_blocks );
-		$is_responsive_menu   = static::is_responsive( $attributes );
-		$style                = static::get_styles( $attributes );
-		$class                = static::get_classes( $attributes );
-		$wrapper_attributes   = get_block_wrapper_attributes(
+		$nav_menu_name      = static::get_unique_navigation_name( $attributes );
+		$aria_label         = ( ! empty( $attributes['ariaLabel'] ) ) ? $attributes['ariaLabel'] : $nav_menu_name;
+		$is_interactive     = static::is_interactive( $attributes, $inner_blocks );
+		$is_responsive_menu = static::is_responsive( $attributes );
+		$style              = static::get_styles( $attributes );
+		$class              = static::get_classes( $attributes );
+		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
 				'class'      => $class,
 				'style'      => $style,
-				'aria-label' => $accessible_menu_name,
+				'aria-label' => $aria_label,
 			)
 		);
 

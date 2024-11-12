@@ -15,7 +15,7 @@ export default function NavigationMenuNameControl( {
 		'title'
 	);
 
-	const { accessibleMenuName } = attributes;
+	const { ariaLabel } = attributes;
 
 	return (
 		<>
@@ -29,11 +29,11 @@ export default function NavigationMenuNameControl( {
 			<TextControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ __( 'Accessible menu name' ) }
-				value={ accessibleMenuName }
-				onChange={ ( newAccessibleMenuName ) => {
+				label={ __( 'Aria label' ) }
+				value={ ariaLabel }
+				onChange={ ( newAriaLabel ) => {
 					setAttributes( {
-						accessibleMenuName: newAccessibleMenuName,
+						ariaLabel: newAriaLabel,
 					} );
 				} }
 			/>
