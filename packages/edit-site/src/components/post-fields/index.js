@@ -7,7 +7,6 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { decodeEntities } from '@wordpress/html-entities';
 import {
 	featuredImageField,
 	slugField,
@@ -15,6 +14,7 @@ import {
 	passwordField,
 	statusField,
 	commentStatusField,
+	titleField,
 } from '@wordpress/fields';
 import {
 	createInterpolateElement,
@@ -75,63 +75,10 @@ function usePostFields() {
 	const { records: authors, isResolving: isLoadingAuthors } =
 		useEntityRecords( 'root', 'user', { per_page: -1 } );
 
-	const { frontPageId, postsPageId } = useSelect( ( select ) => {
-		const { getEntityRecord } = select( coreStore );
-		const siteSettings = getEntityRecord( 'root', 'site' );
-		return {
-			frontPageId: siteSettings?.page_on_front,
-			postsPageId: siteSettings?.page_for_posts,
-		};
-	}, [] );
-
 	const fields = useMemo(
 		() => [
 			featuredImageField,
-			{
-				label: __( 'Title' ),
-				id: 'title',
-				type: 'text',
-				getValue: ( { item } ) =>
-					typeof item.title === 'string'
-						? item.title
-						: item.title?.raw,
-				render: ( { item } ) => {
-					const renderedTitle =
-						typeof item.title === 'string'
-							? item.title
-							: item.title?.rendered;
-
-					let suffix = '';
-					if ( item.id === frontPageId ) {
-						suffix = (
-							<span className="edit-site-post-list__title-badge">
-								{ __( 'Homepage' ) }
-							</span>
-						);
-					} else if ( item.id === postsPageId ) {
-						suffix = (
-							<span className="edit-site-post-list__title-badge">
-								{ __( 'Posts Page' ) }
-							</span>
-						);
-					}
-
-					return (
-						<HStack
-							className="edit-site-post-list__title"
-							alignment="center"
-							justify="flex-start"
-						>
-							<span>
-								{ decodeEntities( renderedTitle ) ||
-									__( '(no title)' ) }
-							</span>
-							{ suffix }
-						</HStack>
-					);
-				},
-				enableHiding: false,
-			},
+			titleField,
 			{
 				label: __( 'Author' ),
 				id: 'author',
@@ -234,7 +181,7 @@ function usePostFields() {
 			commentStatusField,
 			passwordField,
 		],
-		[ authors, frontPageId, postsPageId ]
+		[ authors ]
 	);
 
 	return {
