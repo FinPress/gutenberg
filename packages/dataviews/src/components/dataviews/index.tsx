@@ -52,6 +52,8 @@ type DataViewsProps< Item > = {
 	: { getItemId: ( item: Item ) => string } );
 
 const defaultGetItemId = ( item: ItemWithId ) => item.id;
+const defaultIsItemClickable = () => false;
+const defaultOnClickItem = () => {};
 
 export default function DataViews< Item >( {
 	view,
@@ -67,8 +69,8 @@ export default function DataViews< Item >( {
 	defaultLayouts,
 	selection: selectionProperty,
 	onChangeSelection,
-	onClickItem,
-	isItemClickable,
+	onClickItem = defaultOnClickItem,
+	isItemClickable = defaultIsItemClickable,
 	header,
 }: DataViewsProps< Item > ) {
 	const [ selectionState, setSelectionState ] = useState< string[] >( [] );
@@ -114,8 +116,8 @@ export default function DataViews< Item >( {
 				openedFilter,
 				setOpenedFilter,
 				getItemId,
-				isItemClickable: isItemClickable ?? ( () => false ),
-				onClickItem: onClickItem ?? ( () => {} ),
+				isItemClickable,
+				onClickItem,
 				density,
 			} }
 		>
