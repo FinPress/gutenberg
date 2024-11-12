@@ -29,29 +29,5 @@ describe( 'normalizeFields: default getValue', () => {
 			const result = normalizedFields[ 0 ].getValue( { item } );
 			expect( result ).toBe( 'Feynmann' );
 		} );
-
-		it( 'users[0]', () => {
-			const item = { users: [ 'Feynmann' ] };
-			const fields: Field< {} >[] = [
-				{
-					id: 'users[0]',
-				},
-			];
-			const normalizedFields = normalizeFields( fields );
-			const result = normalizedFields[ 0 ].getValue( { item } );
-			expect( result ).toBe( 'Feynmann' );
-		} );
-
-		it( 'users[0].name', () => {
-			const item = { users: [ { name: 'Feynmann' } ] };
-			const fields: Field< {} >[] = [
-				{
-					id: 'users[0].name',
-				},
-			];
-			const normalizedFields = normalizeFields( fields );
-			const result = normalizedFields[ 0 ].getValue( { item } );
-			expect( result ).toBe( 'Feynmann' );
-		} );
 	} );
 } );
