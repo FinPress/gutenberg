@@ -1,29 +1,22 @@
-/**
- * External dependencies
- */
-import clsx from 'clsx';
-
 export default function getClickableItemProps< Item >(
 	item: Item,
 	isItemClickable: ( item: Item ) => boolean,
 	onClickItem: ( item: Item ) => void,
 	className: string
 ) {
-	const isClickable = isItemClickable( item );
+	if ( ! isItemClickable( item ) ) {
+		return { className };
+	}
 
 	return {
-		className: clsx( className, {
-			[ className + '--clickable' ]: isClickable,
-		} ),
-		role: isClickable ? 'button' : undefined,
-		tabIndex: isClickable ? 0 : undefined,
-		onClick: ! isClickable ? undefined : () => onClickItem( item ),
-		onKeyDown: ! isClickable
-			? undefined
-			: ( event: React.KeyboardEvent ) => {
-					if ( event.key === 'Enter' || event.key === '' ) {
-						onClickItem( item );
-					}
-			  },
+		className: `${ className } ${ className }--clickable`,
+		role: 'button',
+		tabIndex: 0,
+		onClick: () => onClickItem( item ),
+		onKeyDown: ( event: React.KeyboardEvent ) => {
+			if ( event.key === 'Enter' || event.key === '' ) {
+				onClickItem( item );
+			}
+		},
 	};
 }
