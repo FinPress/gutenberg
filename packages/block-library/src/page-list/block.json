@@ -56,7 +56,12 @@
 			"text": true,
 			"background": true,
 			"link": true,
-			"gradients": true
+			"gradients": true,
+			"__experimentalDefaultControls": {
+				"background": true,
+				"text": true,
+				"link": true
+			}
 		}
 	},
 	"editorStyle": "wp-block-page-list-editor",
