@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import clsx from 'clsx';
+
+/**
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
@@ -150,6 +155,25 @@ function PostFeaturedImage( {
 		);
 	}
 
+	const { isRequestingFeaturedImageMedia } = useSelect(
+		( select ) => {
+			const _isRequestingFeaturedImageMedia =
+				!! featuredImageId &&
+				! select( coreStore ).hasFinishedResolution( 'getMedia', [
+					featuredImageId,
+					{ context: 'view' },
+				] );
+
+			return {
+				isRequestingFeaturedImageMedia: _isRequestingFeaturedImageMedia,
+			};
+		},
+		[ featuredImageId ]
+	);
+
+	const noImageData =
+		! isRequestingFeaturedImageMedia && !! featuredImageId && ! media;
+
 	return (
 		<PostFeaturedImageCheck>
 			{ noticeUI }
@@ -174,52 +198,80 @@ function PostFeaturedImage( {
 						modalClass="editor-post-featured-image__media-modal"
 						render={ ( { open } ) => (
 							<div className="editor-post-featured-image__container">
-								<Button
-									__next40pxDefaultSize
-									ref={ toggleRef }
-									className={
-										! featuredImageId
-											? 'editor-post-featured-image__toggle'
-											: 'editor-post-featured-image__preview'
-									}
-									onClick={ open }
-									aria-label={
-										! featuredImageId
-											? null
-											: __(
-													'Edit or replace the featured image'
-											  )
-									}
-									aria-describedby={
-										! featuredImageId
-											? null
-											: `editor-post-featured-image-${ featuredImageId }-describedby`
-									}
-									aria-haspopup="dialog"
-									disabled={ isLoading }
-									accessibleWhenDisabled
-								>
-									{ !! featuredImageId && media && (
-										<img
-											className="editor-post-featured-image__preview-image"
-											src={ mediaSourceUrl }
-											alt={ getImageDescription( media ) }
-										/>
-									) }
-									{ isLoading && <Spinner /> }
-									{ ! featuredImageId &&
-										! isLoading &&
-										( postType?.labels
-											?.set_featured_image ||
-											DEFAULT_SET_FEATURE_IMAGE_LABEL ) }
-								</Button>
+								{ noImageData ? (
+									<p>
+										{ __(
+											'Could not retrieve the featured image data.'
+										) }
+									</p>
+								) : (
+									<Button
+										__next40pxDefaultSize
+										ref={ toggleRef }
+										className={
+											! featuredImageId
+												? 'editor-post-featured-image__toggle'
+												: 'editor-post-featured-image__preview'
+										}
+										onClick={ open }
+										aria-label={
+											! featuredImageId
+												? null
+												: __(
+														'Edit or replace the featured image'
+												  )
+										}
+										aria-describedby={
+											! featuredImageId
+												? null
+												: `editor-post-featured-image-${ featuredImageId }-describedby`
+										}
+										aria-haspopup="dialog"
+										disabled={ isLoading }
+										accessibleWhenDisabled
+									>
+										{ !! featuredImageId && media && (
+											<img
+												className="editor-post-featured-image__preview-image"
+												src={ mediaSourceUrl }
+												alt={ getImageDescription(
+													media
+												) }
+											/>
+										) }
+										{ ( isLoading ||
+											isRequestingFeaturedImageMedia ) && (
+											<Spinner />
+										) }
+										{ ! featuredImageId &&
+											! isLoading &&
+											( postType?.labels
+												?.set_featured_image ||
+												DEFAULT_SET_FEATURE_IMAGE_LABEL ) }
+									</Button>
+								) }
 								{ !! featuredImageId && (
-									<HStack className="editor-post-featured-image__actions">
+									<HStack
+										className={ clsx(
+											'editor-post-featured-image__actions',
+											{
+												'editor-post-featured-image__actions-missing-image':
+													noImageData,
+												'editor-post-featured-image__actions-is-requesting-image':
+													isRequestingFeaturedImageMedia,
+											}
+										) }
+									>
 										<Button
 											__next40pxDefaultSize
 											className="editor-post-featured-image__action"
 											onClick={ open }
 											aria-haspopup="dialog"
+											variant={
+												noImageData
+													? 'secondary'
+													: undefined
+											}
 										>
 											{ __( 'Replace' ) }
 										</Button>
@@ -230,6 +282,12 @@ function PostFeaturedImage( {
 												onRemoveImage();
 												toggleRef.current.focus();
 											} }
+											variant={
+												noImageData
+													? 'secondary'
+													: undefined
+											}
+											isDestructive={ noImageData }
 										>
 											{ __( 'Remove' ) }
 										</Button>
