@@ -157,21 +157,23 @@ function gutenberg_register_post_type_args_for_wp_global_styles( $args, $post_ty
 
 add_filter( 'register_post_type_args', 'gutenberg_register_post_type_args_for_wp_global_styles', 10, 2 );
 
-/**
- * Registers the custom REST API route for deactivating all plugins.
- */
-function register_deactivate_plugins_endpoint() {
-	register_rest_route(
-		'custom/v1',
-		'/deactivate-plugins',
-		array(
-			'methods'             => 'POST',
-			'callback'            => 'deactivate_all_plugins',
-			'permission_callback' => function () {
-					return current_user_can( 'manage_options' );
-			},
-		)
-	);
+if ( ! function_exists( 'register_deactivate_plugins_endpoint' ) ) {
+	/**
+	 * Registers the custom REST API route for deactivating all plugins.
+	 */
+	function register_deactivate_plugins_endpoint() {
+		register_rest_route(
+			'custom/v1',
+			'/deactivate-plugins',
+			array(
+				'methods'             => 'POST',
+				'callback'            => 'deactivate_all_plugins',
+				'permission_callback' => function () {
+						return current_user_can( 'manage_options' );
+				},
+			)
+		);
+	}
 }
 
 // Hook to register the custom REST API endpoint.
