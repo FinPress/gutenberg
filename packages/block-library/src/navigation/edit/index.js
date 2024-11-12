@@ -870,7 +870,10 @@ function Navigation( {
 					<InspectorControls group="advanced">
 						{ hasResolvedCanUserUpdateNavigationMenu &&
 							canUserUpdateNavigationMenu && (
-								<NavigationMenuNameControl />
+								<NavigationMenuNameControl
+									attributes={ attributes }
+									setAttributes={ setAttributes }
+								/>
 							) }
 						{ hasResolvedCanUserDeleteNavigationMenu &&
 							canUserDeleteNavigationMenu && (
