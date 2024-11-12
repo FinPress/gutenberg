@@ -15,8 +15,15 @@
 */
 function gutenberg_get_mime_types_6_8( $mime_types ) {
 	/*
-	 * Given that other themes or plugins may have already
-	 * tried to add wav mime type support for Firefox, only
+	 * Only add support if there is existing support for 'wav'.
+	 * Some plugins may have deliberately disabled it.
+	*/
+	if ( ! $mime_types['wav'] && ! isset( $mime_types['wav|x-wav'] ) ) {
+		return $mime_types;
+	}
+	/*
+	 * Also, given that other themes or plugins may have already
+	 * tried to add x-wav type support, only
 	 * add the mime type if it doesn't already exist
 	 * to avoid overriding any customizations.
 	 */
@@ -25,4 +32,4 @@ function gutenberg_get_mime_types_6_8( $mime_types ) {
 	}
 	return $mime_types;
 }
-add_filter( 'mime_types', 'gutenberg_get_mime_types_6_8', 10, 1 );
+add_filter( 'mime_types', 'gutenberg_get_mime_types_6_8', 99 );
