@@ -80,6 +80,13 @@
 				"type": "object"
 			},
 			"default": []
+		},
+		"aspectRatio": {
+			"type": "string"
+		},
+		"scale": {
+			"type": "string",
+			"default": "cover"
 		}
 	},
 	"supports": {

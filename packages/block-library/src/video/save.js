@@ -24,6 +24,8 @@ export default function save( { attributes } ) {
 		src,
 		playsInline,
 		tracks,
+		aspectRatio,
+		scale,
 	} = attributes;
 	return (
 		<figure { ...useBlockProps.save() }>
@@ -37,6 +39,12 @@ export default function save( { attributes } ) {
 					preload={ preload !== 'metadata' ? preload : undefined }
 					src={ src }
 					playsInline={ playsInline }
+					style={ {
+						aspectRatio: aspectRatio || undefined,
+						height: '100%',
+						width: '100%',
+						objectFit: scale,
+					} }
 				>
 					<Tracks tracks={ tracks } />
 				</video>

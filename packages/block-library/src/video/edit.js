@@ -14,6 +14,7 @@ import {
 	PanelBody,
 	Spinner,
 	Placeholder,
+	__experimentalToolsPanel as ToolsPanel,
 } from '@wordpress/components';
 import {
 	BlockControls,
@@ -24,9 +25,10 @@ import {
 	MediaUploadCheck,
 	MediaReplaceFlow,
 	useBlockProps,
+	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import { useRef, useEffect, useState } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf, _x } from '@wordpress/i18n';
 import { useInstanceId } from '@wordpress/compose';
 import { useDispatch } from '@wordpress/data';
 import { video as icon } from '@wordpress/icons';
@@ -41,6 +43,9 @@ import VideoCommonSettings from './edit-common-settings';
 import TracksEditor from './tracks-editor';
 import Tracks from './tracks';
 import { Caption } from '../utils/caption';
+import { unlock } from '../lock-unlock';
+
+const { DimensionsTool } = unlock( blockEditorPrivateApis );
 
 const ALLOWED_MEDIA_TYPES = [ 'video' ];
 const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = [ 'image' ];
@@ -56,7 +61,8 @@ function VideoEdit( {
 	const instanceId = useInstanceId( VideoEdit );
 	const videoPlayer = useRef();
 	const posterImageButton = useRef();
-	const { id, controls, poster, src, tracks } = attributes;
+	const { id, controls, poster, src, tracks, aspectRatio, scale } =
+		attributes;
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
 
 	useUploadMediaFromBlobURL( {
@@ -185,6 +191,19 @@ function VideoEdit( {
 		posterImageButton.current.focus();
 	}
 
+	const scaleOptions = [
+		{
+			value: 'cover',
+			label: _x( 'Cover', 'Scale option for dimensions control' ),
+			help: __( 'Image covers the space evenly.' ),
+		},
+		{
+			value: 'contain',
+			label: _x( 'Contain', 'Scale option for dimensions control' ),
+			help: __( 'Image is contained without distortion.' ),
+		},
+	];
+
 	const videoPosterDescription = `video-block__poster-image-description-${ instanceId }`;
 
 	return (
@@ -271,6 +290,24 @@ function VideoEdit( {
 						</div>
 					</MediaUploadCheck>
 				</PanelBody>
+				<ToolsPanel>
+					<DimensionsTool
+						value={ { scale, aspectRatio } }
+						onChange={ ( {
+							scale: newScale,
+							aspectRatio: newAspectRatio,
+						} ) => {
+							setAttributes( {
+								scale: newScale,
+								aspectRatio: newAspectRatio,
+							} );
+						} }
+						defaultScale="cover"
+						defaultAspectRatio="auto"
+						scaleOptions={ scaleOptions }
+						tools={ [ 'aspectRatio', 'scale' ] }
+					/>
+				</ToolsPanel>
 			</InspectorControls>
 			<figure { ...blockProps }>
 				{ /*
@@ -284,6 +321,12 @@ function VideoEdit( {
 						poster={ poster }
 						src={ src || temporaryURL }
 						ref={ videoPlayer }
+						style={ {
+							aspectRatio: aspectRatio || undefined,
+							height: '100%',
+							width: '100%',
+							objectFit: scale,
+						} }
 					>
 						<Tracks tracks={ tracks } />
 					</video>
