@@ -157,31 +157,33 @@ function gutenberg_register_post_type_args_for_wp_global_styles( $args, $post_ty
 
 add_filter( 'register_post_type_args', 'gutenberg_register_post_type_args_for_wp_global_styles', 10, 2 );
 
-// Add the custom REST API endpoint to deactivate all plugins.
-add_action(
-	'rest_api_init',
-	function () {
-		register_rest_route(
-			'custom/v1',
-			'/deactivate-plugins',
-			array(
-				'methods'             => 'POST',
-				'callback'            => 'deactivate_all_plugins',
-				'permission_callback' => function () {
+/**
+ * Registers the custom REST API route for deactivating all plugins.
+ */
+function register_deactivate_plugins_endpoint() {
+	register_rest_route(
+		'custom/v1',
+		'/deactivate-plugins',
+		array(
+			'methods'             => 'POST',
+			'callback'            => 'deactivate_all_plugins',
+			'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
-				},
-			)
-		);
-	}
-);
+			},
+		)
+	);
+}
+
+// Hook to register the custom REST API endpoint.
+add_action( 'rest_api_init', 'register_deactivate_plugins_endpoint' );
 
 if ( ! function_exists( 'deactivate_all_plugins' ) ) {
 
 	/**
 	 * Deactivates all plugins on the WordPress site.
 	 *
-	 * This function ensures that only users with the `manage_options` capability (typically administrators)
-	 * can deactivate all plugins. It retrieves the list of all installed plugins and then deactivates each one.
+	 * This function ensures that only users with the `manage_options` capability can deactivate all plugins.
+	 * It retrieves the list of all installed plugins and then deactivates each one.
 	 * This action is irreversible and should be used with caution.
 	 *
 	 * @since 1.0.0
@@ -190,20 +192,13 @@ if ( ! function_exists( 'deactivate_all_plugins' ) ) {
 	 *                                   if the current user does not have the required permissions.
 	 */
 	function deactivate_all_plugins() {
-		// Check if the current user has the necessary permissions.
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return new WP_Error(
-				'rest_forbidden',
-				__( 'You do not have permissions to perform this action', 'gutenberg' ),
-				array( 'status' => 403 )
-			);
-		}
-
 		// Load the necessary WordPress plugin functions.
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-		// Retrieve the list of all plugins and deactivate each one.
+		// Retrieve the list of all plugins.
 		$all_plugins = get_plugins();
+
+		// Deactivate each plugin.
 		foreach ( array_keys( $all_plugins ) as $plugin ) {
 			deactivate_plugins( $plugin );
 		}
