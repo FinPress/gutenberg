@@ -540,7 +540,11 @@ export function gmdate( dateFormat, dateValue = new Date() ) {
  *
  * @return {string} Formatted date.
  */
-export function dateI18n( dateFormat, dateValue = new Date(), timezone ) {
+export function dateI18n(
+	dateFormat,
+	dateValue = new Date(),
+	timezone = undefined
+) {
 	if ( true === timezone ) {
 		return gmdateI18n( dateFormat, dateValue );
 	}
