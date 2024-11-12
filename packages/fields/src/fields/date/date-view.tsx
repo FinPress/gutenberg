@@ -13,8 +13,7 @@ import type { BasePost } from '../../types';
 const getFormattedDate = ( dateToDisplay: string | null ) =>
 	dateI18n(
 		getSettings().formats.datetimeAbbreviated,
-		getDate( dateToDisplay ),
-		undefined
+		getDate( dateToDisplay )
 	);
 
 const DateView = ( { item }: { item: BasePost } ) => {
