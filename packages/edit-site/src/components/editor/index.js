@@ -47,7 +47,6 @@ import SiteEditorMoreMenu from '../more-menu';
 import SiteIcon from '../site-icon';
 import useEditorIframeProps from '../block-editor/use-editor-iframe-props';
 import useEditorTitle from './use-editor-title';
-import { useIsSiteEditorLoading } from '../layout/hooks';
 import { useAdaptEditorToCanvas } from './use-adapt-editor-to-canvas';
 
 const { Editor, BackButton } = unlock( editorPrivateApis );
@@ -82,7 +81,6 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 	const disableMotion = useReducedMotion();
 	const { params } = useLocation();
 	const { canvas = 'view' } = params;
-	const isLoading = useIsSiteEditorLoading();
 	useAdaptEditorToCanvas( canvas );
 	const {
 		editedPostType,
@@ -206,8 +204,7 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 
 	// Replace the title and icon displayed in the DocumentBar when there's an overlay visible.
 	const title = getEditorCanvasContainerTitle( editorCanvasView );
-
-	const isReady = ! isLoading;
+	const isReady = postWithTemplate ? !! contextPostId : !! editedPostId;
 	const transition = {
 		duration: disableMotion ? 0 : 0.2,
 	};
