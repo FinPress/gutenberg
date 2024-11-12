@@ -14,6 +14,7 @@ import {
 	parentField,
 	passwordField,
 	statusField,
+	commentStatusField,
 } from '@wordpress/fields';
 import {
 	createInterpolateElement,
@@ -230,32 +231,7 @@ function usePostFields() {
 			},
 			slugField,
 			parentField,
-			{
-				id: 'comment_status',
-				label: __( 'Discussion' ),
-				type: 'text',
-				Edit: 'radio',
-				enableSorting: false,
-				filterBy: {
-					operators: [],
-				},
-				elements: [
-					{
-						value: 'open',
-						label: __( 'Open' ),
-						description: __(
-							'Visitors can add new comments and replies.'
-						),
-					},
-					{
-						value: 'closed',
-						label: __( 'Closed' ),
-						description: __(
-							'Visitors cannot add new comments or replies. Existing comments remain visible.'
-						),
-					},
-				],
-			},
+			commentStatusField,
 			passwordField,
 		],
 		[ authors, frontPageId, postsPageId ]
