@@ -274,14 +274,15 @@ const getEditorCommandLoader = () =>
 					} else {
 						createInfoNotice(
 							__( 'Failed to deactivate plugins:' ) +
+								' ' +
 								result.message,
-							{ type: 'error' }
+							{ type: 'snackbar' }
 						);
 					}
 				} catch ( error ) {
 					createInfoNotice(
 						__( 'Error: Unable to deactivate plugins.' ),
-						{ type: 'error' }
+						{ type: 'snackbar' }
 					);
 				}
 			},
