@@ -46,7 +46,11 @@ describe( 'FontSizePicker', () => {
 			const user = userEvent.setup();
 			const onChange = jest.fn();
 			await render(
-				<FontSizePicker value={ value } onChange={ onChange } />
+				<FontSizePicker
+					__next40pxDefaultSize
+					value={ value }
+					onChange={ onChange }
+				/>
 			);
 			const input = screen.getByLabelText( 'Custom' );
 			await user.clear( input );
