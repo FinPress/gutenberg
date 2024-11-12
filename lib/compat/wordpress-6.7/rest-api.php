@@ -194,6 +194,16 @@ if ( ! function_exists( 'deactivate_all_plugins' ) ) {
 	 *                                   if the current user does not have the required permissions.
 	 */
 	function deactivate_all_plugins() {
+
+		// Check if the current user has the necessary permissions.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return new WP_Error(
+				'rest_forbidden',
+				__( 'You do not have permissions to perform this action', 'gutenberg' ),
+				array( 'status' => 403 )
+			);
+		}
+
 		// Load the necessary WordPress plugin functions.
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
