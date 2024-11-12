@@ -468,7 +468,11 @@ const Examples = memo(
 							content={ example.content }
 							blocks={ example.blocks }
 							isSelected={ isSelected?.( example.name ) }
-							onClick={ () => onSelect?.( example.name ) }
+							onClick={
+								!! onSelect
+									? () => onSelect( example.name )
+									: null
+							}
 						/>
 					) ) }
 				{ !! filteredExamples?.subcategories?.length &&
@@ -505,9 +509,7 @@ const Subcategory = ( { examples, isSelected, onSelect } ) => {
 				content={ example.content }
 				blocks={ example.blocks }
 				isSelected={ isSelected?.( example.name ) }
-				onClick={ () => {
-					onSelect?.( example.name );
-				} }
+				onClick={ !! onSelect ? () => onSelect( example.name ) : null }
 			/>
 		) )
 	);
@@ -535,12 +537,13 @@ const Example = ( { id, title, blocks, isSelected, onClick, content } ) => {
 		[ blocks ]
 	);
 
-	const disabledProps = disabledExamples.includes( id )
-		? {
-				disabled: true,
-				accessibleWhenDisabled: true,
-		  }
-		: {};
+	const disabledProps =
+		disabledExamples.includes( id ) || ! onClick
+			? {
+					disabled: true,
+					accessibleWhenDisabled: !! onClick,
+			  }
+			: {};
 
 	return (
 		<div role="row">
@@ -557,7 +560,7 @@ const Example = ( { id, title, blocks, isSelected, onClick, content } ) => {
 						title
 					) }
 					render={ <div /> }
-					role="button"
+					role={ !! onClick ? 'button' : null }
 					onClick={ onClick }
 					{ ...disabledProps }
 				>
