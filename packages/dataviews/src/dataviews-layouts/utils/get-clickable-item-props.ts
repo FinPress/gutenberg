@@ -3,12 +3,12 @@
  */
 import clsx from 'clsx';
 
-export const useClickableItemProps = < Item >(
+export default function getClickableItemProps< Item >(
 	item: Item,
 	isItemClickable: ( item: Item ) => boolean,
 	onClickItem: ( item: Item ) => void,
 	className: string
-) => {
+) {
 	const isClickable = isItemClickable( item );
 
 	return {
@@ -26,4 +26,4 @@ export const useClickableItemProps = < Item >(
 					}
 			  },
 	};
-};
+}

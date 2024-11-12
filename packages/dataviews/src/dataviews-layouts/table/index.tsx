@@ -35,7 +35,7 @@ import type {
 import type { SetSelection } from '../../private-types';
 import ColumnHeaderMenu from './column-header-menu';
 import { getVisibleFieldIds } from '../index';
-import { useClickableItemProps } from '../hooks/use-clickable-item-props';
+import getClickableItemProps from '../utils/get-clickable-item-props';
 
 interface TableColumnFieldProps< Item > {
 	primaryField?: NormalizedField< Item >;
@@ -118,7 +118,7 @@ function TableColumnField< Item >( {
 	const isItemClickableField = ( i: Item ) =>
 		isItemClickable( i ) && isPrimaryField;
 
-	const clickableProps = useClickableItemProps(
+	const clickableProps = getClickableItemProps(
 		item,
 		isItemClickableField,
 		onClickItem,

@@ -24,7 +24,7 @@ import SingleSelectionCheckbox from '../../components/dataviews-selection-checkb
 import { useHasAPossibleBulkAction } from '../../components/dataviews-bulk-actions';
 import type { Action, NormalizedField, ViewGridProps } from '../../types';
 import type { SetSelection } from '../../private-types';
-import { useClickableItemProps } from '../hooks/use-clickable-item-props';
+import getClickableItemProps from '../utils/get-clickable-item-props';
 
 interface GridItemProps< Item > {
 	selection: string[];
@@ -65,14 +65,14 @@ function GridItem< Item >( {
 		<primaryField.render item={ item } />
 	) : null;
 
-	const clickableMediaItemProps = useClickableItemProps(
+	const clickableMediaItemProps = getClickableItemProps(
 		item,
 		isItemClickable,
 		onClickItem,
 		'dataviews-view-grid__media'
 	);
 
-	const clickablePrimaryItemProps = useClickableItemProps(
+	const clickablePrimaryItemProps = getClickableItemProps(
 		item,
 		isItemClickable,
 		onClickItem,
