@@ -82,6 +82,10 @@ Undocumented declaration.
 
 Undocumented declaration.
 
+### statusField
+
+Status field for BasePost.
+
 ### titleField
 
 Undocumented declaration.
