@@ -58,6 +58,6 @@
 }
 
 // remove top border from tools panel from video block inspector controls.
-.block-editor-block-inspector__tabs:has(.editor-video-poster-control) .components-tools-panel{
+.block-editor-block-inspector__tabs:has(.editor-video-poster-control) .components-tools-panel {
 	border-top: none;
 }
