@@ -55,7 +55,11 @@
 		},
 		"spacing": {
 			"margin": true,
-			"padding": true
+			"padding": true,
+			"__experimentalDefaultControls": {
+				"padding": false,
+				"margin": false
+			}
 		}
 	},
 	"editorStyle": "wp-block-rss-editor",

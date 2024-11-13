@@ -8,9 +8,7 @@
 // resetting all the various block support styles when skipping block supports in the server-side rendering
 // to prevent the double-up of block support styles within the editor when server-side rendering
 .wp-block-rss .wp-block-rss {
+	all: inherit;
 	margin: 0;
 	padding: 0;
-	border: 0;
-	border-radius: inherit;
-	background: inherit;
 }
