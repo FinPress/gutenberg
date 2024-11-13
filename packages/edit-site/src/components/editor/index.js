@@ -126,7 +126,10 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 			hasSiteIcon: !! siteData?.site_icon_url,
 		};
 	}, [] );
-	useEditorTitle();
+	useEditorTitle(
+		postWithTemplate ? contextPostType : editedPostType,
+		postWithTemplate ? contextPostId : editedPostId
+	);
 	const _isPreviewingTheme = isPreviewingTheme();
 	const hasDefaultEditorCanvasView = ! useHasEditorCanvasContainer();
 	const iframeProps = useEditorIframeProps();
