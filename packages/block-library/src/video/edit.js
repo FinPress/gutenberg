@@ -195,12 +195,12 @@ function VideoEdit( {
 		{
 			value: 'cover',
 			label: _x( 'Cover', 'Scale option for dimensions control' ),
-			help: __( 'Image covers the space evenly.' ),
+			help: __( 'Video covers the space evenly.' ),
 		},
 		{
 			value: 'contain',
 			label: _x( 'Contain', 'Scale option for dimensions control' ),
-			help: __( 'Image is contained without distortion.' ),
+			help: __( 'Video is contained without distortion.' ),
 		},
 	];
 
