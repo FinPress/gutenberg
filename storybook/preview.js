@@ -152,7 +152,6 @@ export const parameters = {
 					'Navigation',
 					'Overlays',
 					'Selection & Input',
-					[ 'Common' ],
 					'Typography',
 				],
 				'Icons',
