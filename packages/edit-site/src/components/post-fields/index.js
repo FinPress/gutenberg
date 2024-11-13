@@ -7,12 +7,14 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { decodeEntities } from '@wordpress/html-entities';
 import {
 	featuredImageField,
 	slugField,
 	parentField,
 	passwordField,
+	statusField,
+	commentStatusField,
+	titleField,
 } from '@wordpress/fields';
 import {
 	createInterpolateElement,
@@ -20,81 +22,16 @@ import {
 	useState,
 } from '@wordpress/element';
 import { dateI18n, getDate, getSettings } from '@wordpress/date';
-import {
-	trash,
-	drafts,
-	published,
-	scheduled,
-	pending,
-	notAllowed,
-	commentAuthorAvatar as authorIcon,
-} from '@wordpress/icons';
+import { commentAuthorAvatar as authorIcon } from '@wordpress/icons';
 import { __experimentalHStack as HStack, Icon } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEntityRecords, store as coreStore } from '@wordpress/core-data';
-
-/**
- * Internal dependencies
- */
-import { OPERATOR_IS_ANY } from '../../utils/constants';
-
-// See https://github.com/WordPress/gutenberg/issues/55886
-// We do not support custom statutes at the moment.
-const STATUSES = [
-	{
-		value: 'draft',
-		label: __( 'Draft' ),
-		icon: drafts,
-		description: __( 'Not ready to publish.' ),
-	},
-	{
-		value: 'future',
-		label: __( 'Scheduled' ),
-		icon: scheduled,
-		description: __( 'Publish automatically on a chosen date.' ),
-	},
-	{
-		value: 'pending',
-		label: __( 'Pending Review' ),
-		icon: pending,
-		description: __( 'Waiting for review before publishing.' ),
-	},
-	{
-		value: 'private',
-		label: __( 'Private' ),
-		icon: notAllowed,
-		description: __( 'Only visible to site admins and editors.' ),
-	},
-	{
-		value: 'publish',
-		label: __( 'Published' ),
-		icon: published,
-		description: __( 'Visible to everyone.' ),
-	},
-	{ value: 'trash', label: __( 'Trash' ), icon: trash },
-];
 
 const getFormattedDate = ( dateToDisplay ) =>
 	dateI18n(
 		getSettings().formats.datetimeAbbreviated,
 		getDate( dateToDisplay )
 	);
-
-function PostStatusField( { item } ) {
-	const status = STATUSES.find( ( { value } ) => value === item.status );
-	const label = status?.label || item.status;
-	const icon = status?.icon;
-	return (
-		<HStack alignment="left" spacing={ 0 }>
-			{ icon && (
-				<div className="edit-site-post-list__status-icon">
-					<Icon icon={ icon } />
-				</div>
-			) }
-			<span>{ label }</span>
-		</HStack>
-	);
-}
 
 function PostAuthorField( { item } ) {
 	const { text, imageUrl } = useSelect(
@@ -138,63 +75,10 @@ function usePostFields() {
 	const { records: authors, isResolving: isLoadingAuthors } =
 		useEntityRecords( 'root', 'user', { per_page: -1 } );
 
-	const { frontPageId, postsPageId } = useSelect( ( select ) => {
-		const { getEntityRecord } = select( coreStore );
-		const siteSettings = getEntityRecord( 'root', 'site' );
-		return {
-			frontPageId: siteSettings?.page_on_front,
-			postsPageId: siteSettings?.page_for_posts,
-		};
-	}, [] );
-
 	const fields = useMemo(
 		() => [
 			featuredImageField,
-			{
-				label: __( 'Title' ),
-				id: 'title',
-				type: 'text',
-				getValue: ( { item } ) =>
-					typeof item.title === 'string'
-						? item.title
-						: item.title?.raw,
-				render: ( { item } ) => {
-					const renderedTitle =
-						typeof item.title === 'string'
-							? item.title
-							: item.title?.rendered;
-
-					let suffix = '';
-					if ( item.id === frontPageId ) {
-						suffix = (
-							<span className="edit-site-post-list__title-badge">
-								{ __( 'Homepage' ) }
-							</span>
-						);
-					} else if ( item.id === postsPageId ) {
-						suffix = (
-							<span className="edit-site-post-list__title-badge">
-								{ __( 'Posts Page' ) }
-							</span>
-						);
-					}
-
-					return (
-						<HStack
-							className="edit-site-post-list__title"
-							alignment="center"
-							justify="flex-start"
-						>
-							<span>
-								{ decodeEntities( renderedTitle ) ||
-									__( '(no title)' ) }
-							</span>
-							{ suffix }
-						</HStack>
-					);
-				},
-				enableHiding: false,
-			},
+			titleField,
 			{
 				label: __( 'Author' ),
 				id: 'author',
@@ -214,18 +98,7 @@ function usePostFields() {
 						: nameB.localeCompare( nameA );
 				},
 			},
-			{
-				label: __( 'Status' ),
-				id: 'status',
-				type: 'text',
-				elements: STATUSES,
-				render: PostStatusField,
-				Edit: 'radio',
-				enableSorting: false,
-				filterBy: {
-					operators: [ OPERATOR_IS_ANY ],
-				},
-			},
+			statusField,
 			{
 				label: __( 'Date' ),
 				id: 'date',
@@ -305,35 +178,10 @@ function usePostFields() {
 			},
 			slugField,
 			parentField,
-			{
-				id: 'comment_status',
-				label: __( 'Discussion' ),
-				type: 'text',
-				Edit: 'radio',
-				enableSorting: false,
-				filterBy: {
-					operators: [],
-				},
-				elements: [
-					{
-						value: 'open',
-						label: __( 'Open' ),
-						description: __(
-							'Visitors can add new comments and replies.'
-						),
-					},
-					{
-						value: 'closed',
-						label: __( 'Closed' ),
-						description: __(
-							'Visitors cannot add new comments or replies. Existing comments remain visible.'
-						),
-					},
-				],
-			},
+			commentStatusField,
 			passwordField,
 		],
-		[ authors, frontPageId, postsPageId ]
+		[ authors ]
 	);
 
 	return {

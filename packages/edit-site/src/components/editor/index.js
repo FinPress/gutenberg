@@ -49,6 +49,7 @@ import useEditorIframeProps from '../block-editor/use-editor-iframe-props';
 import useEditorTitle from './use-editor-title';
 import { useIsSiteEditorLoading } from '../layout/hooks';
 import { useAdaptEditorToCanvas } from './use-adapt-editor-to-canvas';
+import { TEMPLATE_POST_TYPE } from '../../utils/constants';
 
 const { Editor, BackButton } = unlock( editorPrivateApis );
 const { useHistory, useLocation } = unlock( routerPrivateApis );
@@ -214,7 +215,9 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 
 	return (
 		<>
-			<GlobalStylesRenderer />
+			<GlobalStylesRenderer
+				disableRootPadding={ editedPostType !== TEMPLATE_POST_TYPE }
+			/>
 			<EditorKeyboardShortcutsRegister />
 			{ isEditMode && <BlockKeyboardShortcuts /> }
 			{ ! isReady ? <CanvasLoader id={ loadingProgressId } /> : null }
