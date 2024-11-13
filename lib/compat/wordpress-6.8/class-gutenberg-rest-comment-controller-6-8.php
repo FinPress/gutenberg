@@ -10,7 +10,7 @@
 class Gutenberg_REST_Comment_Controller_6_8 extends WP_REST_Comments_Controller {
 
 	public function create_item_permissions_check( $request ) {
-		if ( 'comment' === $request['type'] ) {
+		if ( empty( $request['comment_type'] ) || 'comment' === $request['comment_type'] ) {
 			return parent::create_item_permissions_check( $request );
 		}
 
