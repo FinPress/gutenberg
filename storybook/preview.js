@@ -148,6 +148,7 @@ export const parameters = {
 				],
 				'Components (Experimental)',
 				[
+					'Actions',
 					'Navigation',
 					'Overlays',
 					'Selection & Input',
