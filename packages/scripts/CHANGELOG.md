@@ -7,6 +7,7 @@
 ### Bug Fix
 
 -   Make `start` script more resilient for developer errors ([#66752](https://github.com/WordPress/gutenberg/pull/66752)).
+-   Revert changes from [#61121](https://github.com/WordPress/gutenberg/pull/61121) that inlined CSS files imported from other CSS files before optimization in the `build` command.
 
 ## 30.4.0 (2024-10-30)
 
