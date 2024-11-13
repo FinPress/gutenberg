@@ -17,15 +17,11 @@ import {
 	titleField,
 	dateField,
 } from '@wordpress/fields';
-import {
-	useMemo,
-	useState,
-} from '@wordpress/element';
+import { useMemo, useState } from '@wordpress/element';
 import { commentAuthorAvatar as authorIcon } from '@wordpress/icons';
 import { __experimentalHStack as HStack, Icon } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEntityRecords, store as coreStore } from '@wordpress/core-data';
-
 
 function PostAuthorField( { item } ) {
 	const { text, imageUrl } = useSelect(
