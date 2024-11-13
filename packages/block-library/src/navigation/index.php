@@ -344,6 +344,10 @@ class WP_Navigation_Block_Renderer {
 
 		$navigation_name = $attributes['ariaLabel'] ?? '';
 
+		if ( ! empty( $navigation_name ) ) {
+			return $navigation_name;
+		}
+
 		// Load the navigation post.
 		if ( array_key_exists( 'ref', $attributes ) ) {
 			$navigation_post = get_post( $attributes['ref'] );
@@ -559,7 +563,6 @@ class WP_Navigation_Block_Renderer {
 	 */
 	private static function get_nav_wrapper_attributes( $attributes, $inner_blocks ) {
 		$nav_menu_name      = static::get_unique_navigation_name( $attributes );
-		$aria_label         = ( ! empty( $attributes['ariaLabel'] ) ) ? $attributes['ariaLabel'] : $nav_menu_name;
 		$is_interactive     = static::is_interactive( $attributes, $inner_blocks );
 		$is_responsive_menu = static::is_responsive( $attributes );
 		$style              = static::get_styles( $attributes );
@@ -568,7 +571,7 @@ class WP_Navigation_Block_Renderer {
 			array(
 				'class'      => $class,
 				'style'      => $style,
-				'aria-label' => $aria_label,
+				'aria-label' => $nav_menu_name,
 			)
 		);
 

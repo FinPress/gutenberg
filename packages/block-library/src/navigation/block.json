@@ -84,10 +84,6 @@
 		"templateLock": {
 			"type": [ "string", "boolean" ],
 			"enum": [ "all", "insert", "contentOnly", false ]
-		},
-		"ariaLabel": {
-			"type": "string",
-			"default": ""
 		}
 	},
 	"providesContext": {

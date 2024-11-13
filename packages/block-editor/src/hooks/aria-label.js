@@ -22,6 +22,7 @@ const ARIA_LABEL_SCHEMA = {
 export function addAttribute( settings ) {
 	// Allow blocks to specify their own attribute definition with default values if needed.
 	if ( settings?.attributes?.ariaLabel?.type ) {
+		console.log( 'The ariaLabel', settings.attributes.ariaLabel );
 		return settings;
 	}
 	if ( hasBlockSupport( settings, 'ariaLabel' ) ) {

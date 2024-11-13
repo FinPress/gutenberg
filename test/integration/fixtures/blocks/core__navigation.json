@@ -8,8 +8,7 @@
 			"overlayMenu": "mobile",
 			"icon": "handle",
 			"hasIcon": true,
-			"maxNestingLevel": 5,
-			"ariaLabel": ""
+			"maxNestingLevel": 5
 		},
 		"innerBlocks": []
 	}
