@@ -101,6 +101,10 @@ function render_block_core_rss( $attributes ) {
 	if ( $attributes['displayExcerpt'] ) {
 		$classnames[] = 'has-excerpts';
 	}
+	// Manually add block support text decoration as CSS class.
+	$text_decoration       = $attributes['style']['typography']['textDecoration'] ?? null;
+	$text_decoration_class = sprintf( 'has-text-decoration-%s', $text_decoration );
+	$classnames[] = $text_decoration ? $text_decoration_class : '';
 
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
 

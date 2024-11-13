@@ -62,6 +62,7 @@
 			"textTransform": true,
 			"letterSpacing": true,
 			"textDecoration": true,
+			"__experimentalSkipSerialization": [ "textDecoration" ],
 			"__experimentalDefaultControls": {
 				"fontSize": true,
 				"textDecoration": true

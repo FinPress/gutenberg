@@ -58,6 +58,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 
 	const blockProps = useBlockProps();
 
+	const textDecoration = attributes.style?.typography?.textDecoration;
 	const label = __( 'RSS URL' );
 
 	if ( isEditing ) {
@@ -190,6 +191,11 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 					<ServerSideRender
 						block="core/rss"
 						attributes={ attributes }
+						className={
+							textDecoration
+								? 'has-text-decoration-' + textDecoration
+								: textDecoration
+						}
 					/>
 				</Disabled>
 			</div>
