@@ -126,6 +126,7 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 			hasSiteIcon: !! siteData?.site_icon_url,
 		};
 	}, [] );
+	const postWithTemplate = !! contextPostId;
 	useEditorTitle(
 		postWithTemplate ? contextPostType : editedPostType,
 		postWithTemplate ? contextPostId : editedPostId
@@ -134,7 +135,6 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 	const hasDefaultEditorCanvasView = ! useHasEditorCanvasContainer();
 	const iframeProps = useEditorIframeProps();
 	const isEditMode = canvas === 'edit';
-	const postWithTemplate = !! contextPostId;
 	const loadingProgressId = useInstanceId(
 		CanvasLoader,
 		'edit-site-editor__loading-progress'
