@@ -64,7 +64,7 @@ export const getCurrentUser =
  *                                 fields, fields must always include the ID.
  */
 export const getEntityRecord =
-	( kind, name, key = '', query = undefined ) =>
+	( kind, name, key = '', query ) =>
 	async ( { select, dispatch, registry, resolveSelect } ) => {
 		const configs = await resolveSelect.getEntitiesConfig( kind );
 		const entityConfig = configs.find(
