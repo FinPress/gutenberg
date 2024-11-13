@@ -133,6 +133,7 @@ export const parameters = {
 					'Actions',
 					'Containers',
 					'Feedback',
+					'Layout',
 					'Navigation',
 					'Overlays',
 					'Selection & Input',
@@ -143,6 +144,7 @@ export const parameters = {
 				'Components (Experimental)',
 				[
 					'Actions',
+					'Layout',
 					'Navigation',
 					'Overlays',
 					'Selection & Input',
