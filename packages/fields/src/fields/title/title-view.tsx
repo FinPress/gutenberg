@@ -20,8 +20,7 @@ const TitleView = ( { item }: { item: BasePost } ) => {
 		const siteSettings: Settings | undefined = getEntityRecord(
 			'root',
 			'site',
-			'',
-			undefined
+			''
 		);
 		return {
 			frontPageId: siteSettings?.page_on_front,
