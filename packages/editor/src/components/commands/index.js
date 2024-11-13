@@ -269,10 +269,10 @@ function useEditedEntityContextualCommands() {
 		} = select( editorStore );
 		const { getPostType } = select( coreStore );
 		const isPublished = getEditedPostAttribute( 'status' ) === 'publish';
-
+		const _postType = getCurrentPostType();
 		return {
-			postType: getCurrentPostType(),
-			isViewable: getPostType( getCurrentPostType() )?.viewable ?? false,
+			postType: _postType,
+			isViewable: getPostType( _postType )?.viewable ?? false,
 			status: getEditedPostAttribute( 'status' ),
 			link: isPublished
 				? getEditedPostAttribute( 'link' )
