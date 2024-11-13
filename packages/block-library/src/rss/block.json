@@ -51,13 +51,7 @@
 			"radius": true,
 			"color": true,
 			"width": true,
-			"style": true,
-			"__experimentalDefaultControls": {
-				"radius": true,
-				"color": true,
-				"width": true,
-				"style": true
-			}
+			"style": true
 		},
 		"spacing": {
 			"margin": true,

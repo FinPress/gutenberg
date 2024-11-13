@@ -41,10 +41,12 @@ ul.wp-block-rss { // The ul is needed for specificity to override the reset styl
 	display: block;
 	font-size: 0.8125em;
 }
+// The .wp-block-rss class is styled to use border-box for box-sizing to ensure padding and border
+// are included in the element's total width and height.
 .wp-block-rss {
 	box-sizing: border-box;
-	.wp-block-rss {
-		margin: 0;
-		border: 0;
-	}
+}
+// extract the padding to a new style with the reduced specificity
+:where(ul.wp-block-rss) {
+	padding: 0;
 }
