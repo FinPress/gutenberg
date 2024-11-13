@@ -17,9 +17,9 @@ import type { User } from '@wordpress/core-data';
 /**
  * Internal dependencies
  */
-import type { BasePost } from '../../types';
+import type { BasePostWithEmbeddedAuthor } from '../../types';
 
-function AuthorView( { item }: { item: BasePost } ) {
+function AuthorView( { item }: { item: BasePostWithEmbeddedAuthor } ) {
 	const { text, imageUrl } = useSelect(
 		( select ) => {
 			const { getEntityRecord } = select( coreStore );

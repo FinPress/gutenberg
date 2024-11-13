@@ -25,10 +25,11 @@ interface Links {
 
 interface Author {
 	name: string;
+	avatar_urls: Record< string, string >;
 }
 
-interface Embedded {
-	author?: Author[];
+interface EmbeddedAuthor {
+	author: Author[];
 }
 
 export interface BasePost extends CommonPost {
@@ -48,7 +49,10 @@ export interface BasePost extends CommonPost {
 	date?: string;
 	modified?: string;
 	author?: number;
-	_embedded?: Embedded;
+}
+
+export interface BasePostWithEmbeddedAuthor extends BasePost {
+	_embedded: EmbeddedAuthor;
 }
 
 export interface Template extends CommonPost {

@@ -7,10 +7,10 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import type { BasePost } from '../../types';
+import type { BasePostWithEmbeddedAuthor } from '../../types';
 import AuthorView from './author-view';
 
-const authorField: Field< BasePost > = {
+const authorField: Field< BasePostWithEmbeddedAuthor > = {
 	label: __( 'Author' ),
 	id: 'author',
 	type: 'integer',
