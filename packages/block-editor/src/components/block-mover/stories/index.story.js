@@ -80,7 +80,7 @@ export const Default = {
  */
 export const Horizontal = {
 	decorators: [
-		( Story ) => {
+		() => {
 			const { updateBlockListSettings } = useDispatch( blockEditorStore );
 			useEffect( () => {
 				/**
@@ -92,14 +92,13 @@ export const Horizontal = {
 					orientation: 'horizontal',
 				} );
 			}, [] );
-			return <Story />;
+			return (
+				<BlockMover
+					clientIds={ [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] }
+				/>
+			);
 		},
 	],
-	args: {
-		clientIds: [
-			blocks.length ? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] : [],
-		],
-	},
 	parameters: {
 		docs: { canvas: { sourceState: 'hidden' } },
 	},
