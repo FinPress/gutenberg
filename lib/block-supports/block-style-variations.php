@@ -102,6 +102,7 @@ function gutenberg_render_block_style_variation_support_styles( $parsed_block ) 
 	}
 
 	$tree       = WP_Theme_JSON_Resolver_Gutenberg::get_merged_data();
+	$tree       = WP_Theme_JSON_Resolver_Gutenberg::resolve_theme_file_uris( $tree );
 	$theme_json = $tree->get_raw_data();
 
 	// Only the first block style variation with data is supported.
@@ -172,6 +173,7 @@ function gutenberg_render_block_style_variation_support_styles( $parsed_block ) 
 	$styles_registry->register( $parsed_block['blockName'], array( 'name' => $variation_instance ) );
 
 	$variation_theme_json = new WP_Theme_JSON_Gutenberg( $config, 'blocks' );
+	$variation_theme_json = WP_Theme_JSON_Resolver_Gutenberg::resolve_theme_file_uris( $variation_theme_json );
 	$variation_styles     = $variation_theme_json->get_stylesheet(
 		array( 'styles' ),
 		array( 'custom' ),

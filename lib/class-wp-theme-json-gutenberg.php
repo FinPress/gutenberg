@@ -2602,6 +2602,7 @@ class WP_Theme_JSON_Gutenberg {
 	 * @param array $options    An array of options to facilitate filtering style node generation
 	 *                          The options currently supported are:
 	 *                            - `include_block_style_variations` which includes CSS for block style variations.
+	 *                            - `include_node_paths_only` which skips the selector generation.
 	 * @return array An array of style nodes metadata.
 	 */
 	protected static function get_style_nodes( $theme_json, $selectors = array(), $options = array() ) {
@@ -2610,11 +2611,16 @@ class WP_Theme_JSON_Gutenberg {
 			return $nodes;
 		}
 
+		$include_node_paths_only = $options['include_node_paths_only'] ?? false;
+
 		// Top-level.
-		$nodes[] = array(
-			'path'     => array( 'styles' ),
-			'selector' => static::ROOT_BLOCK_SELECTOR,
+		$node = array(
+			'path' => array( 'styles' ),
 		);
+		if ( ! $include_node_paths_only ) {
+			$node['selector'] = static::ROOT_BLOCK_SELECTOR;
+		}
+		$nodes[] = $node;
 
 		if ( isset( $theme_json['styles']['elements'] ) ) {
 			foreach ( self::ELEMENTS as $element => $selector ) {
@@ -2623,20 +2629,25 @@ class WP_Theme_JSON_Gutenberg {
 				}
 
 				// Handle element defaults.
-				$nodes[] = array(
-					'path'     => array( 'styles', 'elements', $element ),
-					'selector' => static::ELEMENTS[ $element ],
+				$node = array(
+					'path' => array( 'styles', 'elements', $element ),
 				);
+				if ( ! $include_node_paths_only ) {
+					$node['selector'] = static::ELEMENTS[ $element ];
+				}
+				$nodes[] = $node;
 
 				// Handle any pseudo selectors for the element.
 				if ( isset( static::VALID_ELEMENT_PSEUDO_SELECTORS[ $element ] ) ) {
 					foreach ( static::VALID_ELEMENT_PSEUDO_SELECTORS[ $element ] as $pseudo_selector ) {
-
 						if ( isset( $theme_json['styles']['elements'][ $element ][ $pseudo_selector ] ) ) {
-							$nodes[] = array(
-								'path'     => array( 'styles', 'elements', $element ),
-								'selector' => static::append_to_selector( static::ELEMENTS[ $element ], $pseudo_selector ),
+							$node = array(
+								'path' => array( 'styles', 'elements', $element ),
 							);
+							if ( ! $include_node_paths_only ) {
+								$node['selector'] = static::append_to_selector( static::ELEMENTS[ $element ], $pseudo_selector );
+							}
+							$nodes[] = $node;
 						}
 					}
 				}
@@ -2674,6 +2685,26 @@ class WP_Theme_JSON_Gutenberg {
 	 */
 	public function get_styles_block_nodes() {
 		return static::get_block_nodes( $this->theme_json );
+	}
+
+	/**
+	 * A public helper to get all style node paths in theme.json,
+	 * including elements and block styles variations. This is useful
+	 * when iterating over all style nodes to search for or replace any values.
+	 *
+	 * @since 6.8.0
+	 *
+	 * @return array An array of paths to style nodes in theme.json.
+	 */
+	public function get_styles_nodes_paths() {
+		return static::get_style_nodes(
+			$this->theme_json,
+			array(),
+			array(
+				'include_node_paths_only'        => true,
+				'include_block_style_variations' => true,
+			)
+		);
 	}
 
 	/**
@@ -2752,6 +2783,21 @@ class WP_Theme_JSON_Gutenberg {
 				$nodes[] = array(
 					'path' => $node_path,
 				);
+
+				if ( $include_variations && isset( $node['variations'] ) ) {
+					foreach ( $node['variations'] as $variation => $node ) {
+						$nodes[] = array(
+							'path' => array( 'styles', 'blocks', $name, 'variations', $variation ),
+						);
+						if ( isset( $node['blocks'] ) ) {
+							foreach ( $node['blocks'] as $variation_block_name => $node ) {
+								$nodes[] = array(
+									'path' => array( 'styles', 'blocks', $name, 'variations', $variation, 'blocks', $variation_block_name ),
+								);
+							}
+						}
+					}
+				}
 			} else {
 				$selector = null;
 				if ( isset( $selectors[ $name ]['selector'] ) ) {
