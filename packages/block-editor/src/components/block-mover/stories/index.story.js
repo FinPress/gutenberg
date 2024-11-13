@@ -31,29 +31,6 @@ const blocks = [
 	] ),
 ];
 
-function BlockMoverStoryHorizontal() {
-	const { updateBlockListSettings } = useDispatch( blockEditorStore );
-
-	useEffect( () => {
-		/**
-		 * This shouldn't be needed but unfortunately
-		 * the layout orientation is not declarative, we need
-		 * to render the blocks to update the block settings in the state.
-		 */
-		updateBlockListSettings( blocks[ 1 ].clientId, {
-			orientation: 'horizontal',
-		} );
-	}, [] );
-
-	return (
-		<BlockMover
-			clientIds={
-				blocks.length ? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] : []
-			}
-		/>
-	);
-}
-
 /**
  * BlockMover component allows moving blocks inside the editor using up and down buttons.
  */
@@ -75,7 +52,7 @@ const meta = {
 	argTypes: {
 		clientIds: {
 			control: {
-				type: 'array',
+				type: 'none',
 			},
 			description: 'The client IDs of the blocks to move.',
 		},
@@ -89,55 +66,51 @@ const meta = {
 };
 export default meta;
 
-const Template = ( props ) => {
-	return (
-		<BlockMover
-			{ ...props }
-			clientIds={
-				blocks.length ? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] : []
-			}
-		/>
-	);
-};
-
-export const Default = Template.bind( {} );
-Default.args = {
-	clientIds: [
-		blocks.length ? [ blocks[ 0 ].innerBlocks[ 1 ].clientId ] : [],
-	],
+export const Default = {
+	args: {
+		clientIds: [
+			blocks.length ? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] : [],
+		],
+	},
 };
 
 /**
  * This story shows the block mover with horizontal orientation.
  * It is necessary to render the blocks to update the block settings in the state.
  */
-export const Horizontal = ( props ) => {
-	return <BlockMoverStoryHorizontal { ...props } />;
-};
-Horizontal.args = {
-	clientIds: [
-		blocks.length ? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] : [],
+export const Horizontal = {
+	decorators: [
+		( Story ) => {
+			const { updateBlockListSettings } = useDispatch( blockEditorStore );
+			useEffect( () => {
+				/**
+				 * This shouldn't be needed but unfortunately
+				 * the layout orientation is not declarative, we need
+				 * to render the blocks to update the block settings in the state.
+				 */
+				updateBlockListSettings( blocks[ 1 ].clientId, {
+					orientation: 'horizontal',
+				} );
+			}, [] );
+			return <Story />;
+		},
 	],
-};
-Horizontal.parameters = {
-	docs: { canvas: { sourceState: 'hidden' } },
+	args: {
+		clientIds: [
+			blocks.length ? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] : [],
+		],
+	},
+	parameters: {
+		docs: { canvas: { sourceState: 'hidden' } },
+	},
 };
 
 /**
  * You can hide the drag handle by `hideDragHandle` attribute.
  */
-export const HideDragHandle = ( props ) => {
-	return (
-		<BlockMover
-			{ ...props }
-			clientIds={
-				blocks.length ? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] : []
-			}
-			hideDragHandle
-		/>
-	);
-};
-HideDragHandle.args = {
-	...Default.args,
-	hideDragHandle: true,
+export const HideDragHandle = {
+	args: {
+		...Default.args,
+		hideDragHandle: true,
+	},
 };
