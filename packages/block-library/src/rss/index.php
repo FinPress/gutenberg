@@ -69,9 +69,10 @@ function render_block_core_rss( $attributes ) {
 			}
 		}
 
-		$excerpt = '';
-		if ( $attributes['displayExcerpt'] ) {
-			$excerpt = html_entity_decode( $item->get_description(), ENT_QUOTES, get_option( 'blog_charset' ) );
+		$excerpt     = '';
+		$description = $item->get_description();
+		if ( $attributes['displayExcerpt'] && ! empty( $description ) ) {
+			$excerpt = html_entity_decode( $description, ENT_QUOTES, get_option( 'blog_charset' ) );
 			$excerpt = esc_attr( wp_trim_words( $excerpt, $attributes['excerptLength'], ' [&hellip;]' ) );
 
 			// Change existing [...] to [&hellip;].
