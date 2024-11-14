@@ -5,7 +5,7 @@ import { FlexItem, Flex, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { styles, seen, backup } from '@wordpress/icons';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { store as preferencesStore } from '@wordpress/preferences';
 import {
 	store as editorStore,
@@ -130,26 +130,17 @@ export default function GlobalStylesSidebar() {
 
 	const { getActiveComplementaryArea } = useSelect( interfaceStore );
 	const { enableComplementaryArea } = useDispatch( interfaceStore );
-
-	const [ previousActiveArea, setPreviousActiveArea ] = useState( null );
+	const previousActiveAreaRef = useRef( null );
 
 	useEffect( () => {
 		if ( path === '/wp_global_styles' && canvas === 'edit' ) {
-			const currentActiveArea = getActiveComplementaryArea( 'core' );
-			if ( currentActiveArea !== 'edit-site/global-styles' ) {
-				setPreviousActiveArea( currentActiveArea );
-				enableComplementaryArea( 'core', 'edit-site/global-styles' );
-			}
-		} else if ( previousActiveArea ) {
-			enableComplementaryArea( 'core', previousActiveArea );
+			previousActiveAreaRef.current =
+				getActiveComplementaryArea( 'core' );
+			enableComplementaryArea( 'core', 'edit-site/global-styles' );
+		} else if ( previousActiveAreaRef.current ) {
+			enableComplementaryArea( 'core', previousActiveAreaRef.current );
 		}
-	}, [
-		path,
-		enableComplementaryArea,
-		canvas,
-		getActiveComplementaryArea,
-		previousActiveArea,
-	] );
+	}, [ path, enableComplementaryArea, canvas, getActiveComplementaryArea ] );
 
 	return (
 		<DefaultSidebar
