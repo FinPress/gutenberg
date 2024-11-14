@@ -29,7 +29,7 @@ const { useLocation } = unlock( routerPrivateApis );
 
 export default function GlobalStylesSidebar() {
 	const { params } = useLocation();
-	const { canvas = 'view' } = params;
+	const { canvas = 'view', path } = params;
 	const {
 		shouldClearCanvasContainerView,
 		isStyleBookOpened,
@@ -135,6 +135,7 @@ export default function GlobalStylesSidebar() {
 			title={ __( 'Styles' ) }
 			icon={ styles }
 			closeLabel={ __( 'Close Styles' ) }
+			isActiveByDefault={ path === '/wp_global_styles' }
 			panelClassName="edit-site-global-styles-sidebar__panel"
 			header={
 				<Flex

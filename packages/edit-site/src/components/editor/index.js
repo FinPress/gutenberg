@@ -212,6 +212,8 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 		duration: disableMotion ? 0 : 0.2,
 	};
 
+	// console.log( settings );
+
 	return (
 		<>
 			<GlobalStylesRenderer />
