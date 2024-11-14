@@ -122,15 +122,19 @@ The `resolvers` option should be passed as an object where each key is the name 
 
 Resolvers, in combination with [thunks](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async), can be used to implement asynchronous data flows for your store.
 
-#### `controls`
+#### `controls` (deprecated)
 
-> To handle asynchronous data flows, it is recommended to use [thunks](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async) instead of `controls` now that they are supported.
+To handle asynchronous data flows, it is recommended to use [thunks](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async) instead of `controls`.
 
-A **control** defines the execution flow behavior associated with a specific action type. This can be particularly useful in implementing asynchronous data flows for your store. By defining your action creator or resolvers as a generator which yields specific controlled action types, the execution will proceed as defined by the control handler.
-
-The `controls` option should be passed as an object where each key is the name of the action type to act upon, the value a function which receives the original action object. It should returns either a promise which is to resolve when evaluation of the action should continue, or a value. The value or resolved promise value is assigned on the return value of the yield assignment. If the control handler returns undefined, the execution is not continued.
-
-Refer to the [documentation of `@wordpress/redux-routine`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/redux-routine/README.md) for more information.
+<details>
+  <summary>View <em>controls</em> explanation</summary>
+<br>
+A <em>control</em> defines the execution flow behavior associated with a specific action type. Before <a href="https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async">thunks</a>, controls were used to implement asynchronous data flows for your store. By defining your action creator or resolvers as a generator which yields specific controlled action types, the execution will proceed as defined by the control handler.
+<br><br>
+The <em>controls</em> option should be passed as an object where each key is the name of the action type to act upon, the value a function which receives the original action object. It should returns either a promise which is to resolve when evaluation of the action should continue, or a value. The value or resolved promise value is assigned on the return value of the yield assignment. If the control handler returns undefined, the execution is not continued.
+<br><br>
+Refer to the <a href="https://github.com/WordPress/gutenberg/tree/HEAD/packages/redux-routine/README.md">documentation of <em>@wordpress/redux-routine</em></a> for more information.
+</details>
 
 #### `initialState`
 
