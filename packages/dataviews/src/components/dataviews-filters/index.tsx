@@ -139,13 +139,11 @@ export function FiltersToggle( {
 					trigger={ buttonComponent }
 				/>
 			) : (
-				<FilterVisibilityToggle buttonRef={ buttonRef }>
+				<FilterVisibilityToggle
+					buttonRef={ buttonRef }
+					filtersCount={ view.filters?.length }
+				>
 					{ buttonComponent }
-					{ hasVisibleFilters && !! view.filters?.length && (
-						<span className="dataviews-filters-toggle__count">
-							{ view.filters?.length }
-						</span>
-					) }
 				</FilterVisibilityToggle>
 			) }
 		</div>
@@ -154,9 +152,11 @@ export function FiltersToggle( {
 
 function FilterVisibilityToggle( {
 	buttonRef,
+	filtersCount,
 	children,
 }: {
 	buttonRef: React.RefObject< HTMLButtonElement >;
+	filtersCount?: number;
 	children: React.ReactNode;
 } ) {
 	// Focus the `add filter` button when unmounts.
@@ -166,7 +166,16 @@ function FilterVisibilityToggle( {
 		},
 		[ buttonRef ]
 	);
-	return children;
+	return (
+		<>
+			{ children }
+			{ !! filtersCount && (
+				<span className="dataviews-filters-toggle__count">
+					{ filtersCount }
+				</span>
+			) }
+		</>
+	);
 }
 
 function Filters() {
