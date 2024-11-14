@@ -15,6 +15,7 @@ import {
 	withNotices,
 	withFilters,
 	__experimentalHStack as HStack,
+	Notice,
 } from '@wordpress/components';
 import { isBlobURL } from '@wordpress/blob';
 import { useState, useRef } from '@wordpress/element';
@@ -184,11 +185,14 @@ function PostFeaturedImage( {
 						render={ ( { open } ) => (
 							<div className="editor-post-featured-image__container">
 								{ isMissingMedia ? (
-									<p>
+									<Notice
+										status="warning"
+										isDismissible={ false }
+									>
 										{ __(
 											'Could not retrieve the featured image data.'
 										) }
-									</p>
+									</Notice>
 								) : (
 									<Button
 										__next40pxDefaultSize
