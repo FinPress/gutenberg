@@ -212,6 +212,7 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 		duration: disableMotion ? 0 : 0.2,
 	};
 
+	const isGlobalStylesPanelActiveByDefault = path === '/wp_global_styles';
 	return (
 		<>
 			<GlobalStylesRenderer />
@@ -243,7 +244,7 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 						! isEditingPage && <PluginTemplateSettingPanel.Slot />
 					}
 					__isDocumentSidebarActiveByDefault={
-						path !== '/wp_global_styles'
+						! isGlobalStylesPanelActiveByDefault
 					}
 				>
 					{ isEditMode && (
@@ -322,7 +323,13 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 						</BackButton>
 					) }
 					<SiteEditorMoreMenu />
-					{ supportsGlobalStyles && <GlobalStylesSidebar /> }
+					{ supportsGlobalStyles && (
+						<GlobalStylesSidebar
+							isActiveByDefault={
+								isGlobalStylesPanelActiveByDefault
+							}
+						/>
+					) }
 				</Editor>
 			) }
 		</>
