@@ -29,6 +29,7 @@ function Editor( {
 	// to account for site editor and post editor differences for now.
 	extraContent,
 	extraSidebarPanels,
+	__isDocumentSidebarActiveByDefault: isDocumentSidebarActiveByDefault,
 	...props
 } ) {
 	const { post, template, hasLoadedPost } = useSelect(
@@ -76,6 +77,9 @@ function Editor( {
 					</EditorInterface>
 					{ children }
 					<Sidebar
+						isDocumentSidebarActiveByDefault={
+							isDocumentSidebarActiveByDefault
+						}
 						onActionPerformed={ onActionPerformed }
 						extraPanels={ extraSidebarPanels }
 					/>

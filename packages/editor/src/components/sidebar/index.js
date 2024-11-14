@@ -49,6 +49,7 @@ const SIDEBAR_ACTIVE_BY_DEFAULT = Platform.select( {
 } );
 
 const SidebarContent = ( {
+	isDocumentSidebarActiveByDefault,
 	tabName,
 	keyboardShortcut,
 	onActionPerformed,
@@ -107,7 +108,9 @@ const SidebarContent = ( {
 			}
 			toggleShortcut={ keyboardShortcut }
 			icon={ isRTL() ? drawerLeft : drawerRight }
-			isActiveByDefault={ SIDEBAR_ACTIVE_BY_DEFAULT }
+			isActiveByDefault={
+				isDocumentSidebarActiveByDefault ?? SIDEBAR_ACTIVE_BY_DEFAULT
+			}
 		>
 			<Tabs.Context.Provider value={ tabsContextValue }>
 				<Tabs.TabPanel tabId={ sidebars.document } focusable={ false }>
@@ -128,7 +131,11 @@ const SidebarContent = ( {
 	);
 };
 
-const Sidebar = ( { extraPanels, onActionPerformed } ) => {
+const Sidebar = ( {
+	extraPanels,
+	onActionPerformed,
+	isDocumentSidebarActiveByDefault,
+} ) => {
 	useAutoSwitchEditorSidebars();
 	const { tabName, keyboardShortcut, showSummary } = useSelect(
 		( select ) => {
@@ -187,6 +194,9 @@ const Sidebar = ( { extraPanels, onActionPerformed } ) => {
 				showSummary={ showSummary }
 				onActionPerformed={ onActionPerformed }
 				extraPanels={ extraPanels }
+				isDocumentSidebarActiveByDefault={
+					isDocumentSidebarActiveByDefault
+				}
 			/>
 		</Tabs>
 	);

@@ -81,7 +81,7 @@ const siteIconVariants = {
 export default function EditSiteEditor( { isPostsList = false } ) {
 	const disableMotion = useReducedMotion();
 	const { params } = useLocation();
-	const { canvas = 'view' } = params;
+	const { canvas = 'view', path } = params;
 	const isLoading = useIsSiteEditorLoading();
 	useAdaptEditorToCanvas( canvas );
 	const {
@@ -241,6 +241,9 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 					onActionPerformed={ onActionPerformed }
 					extraSidebarPanels={
 						! isEditingPage && <PluginTemplateSettingPanel.Slot />
+					}
+					__isDocumentSidebarActiveByDefault={
+						path !== '/wp_global_styles'
 					}
 				>
 					{ isEditMode && (

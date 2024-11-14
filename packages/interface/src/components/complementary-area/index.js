@@ -233,7 +233,6 @@ function ComplementaryArea( {
 		isActive,
 		isSmall
 	);
-	const { getActiveComplementaryArea } = useSelect( interfaceStore );
 	const {
 		enableComplementaryArea,
 		disableComplementaryArea,
@@ -242,24 +241,22 @@ function ComplementaryArea( {
 	} = useDispatch( interfaceStore );
 
 	useEffect( () => {
-		// Make sure we have the latest active area.
-		const freshActiveArea = getActiveComplementaryArea( scope );
 		// Set initial visibility: For large screens, enable if it's active by
 		// default. For small screens, always initially disable.
-		if ( isActiveByDefault && freshActiveArea === undefined && ! isSmall ) {
+		if ( isActiveByDefault && activeArea === undefined && ! isSmall ) {
 			enableComplementaryArea( scope, identifier );
-		} else if ( freshActiveArea === undefined && isSmall ) {
+		} else if ( activeArea === undefined && isSmall ) {
 			disableComplementaryArea( scope, identifier );
 		}
 		setIsReady( true );
 	}, [
+		activeArea,
 		isActiveByDefault,
 		scope,
 		identifier,
 		isSmall,
 		enableComplementaryArea,
 		disableComplementaryArea,
-		getActiveComplementaryArea,
 	] );
 
 	if ( ! isReady ) {
