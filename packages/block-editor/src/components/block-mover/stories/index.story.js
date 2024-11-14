@@ -68,9 +68,7 @@ export default meta;
 
 export const Default = {
 	args: {
-		clientIds: [
-			blocks.length ? [ blocks[ 1 ].innerBlocks[ 1 ].clientId ] : [],
-		],
+		clientIds: [ blocks[ 0 ].innerBlocks[ 1 ].clientId ],
 	},
 };
 
