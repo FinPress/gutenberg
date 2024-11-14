@@ -17,7 +17,7 @@ import {
 import { __, sprintf } from '@wordpress/i18n';
 import { store as coreDataStore } from '@wordpress/core-data';
 import { privateApis as blockLibraryPrivateApis } from '@wordpress/block-library';
-import { useCallback, useMemo, useEffect } from '@wordpress/element';
+import { useCallback, useMemo } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { store as preferencesStore } from '@wordpress/preferences';
@@ -50,7 +50,7 @@ import useEditorTitle from './use-editor-title';
 import { useIsSiteEditorLoading } from '../layout/hooks';
 import { useAdaptEditorToCanvas } from './use-adapt-editor-to-canvas';
 
-const { Editor, BackButton, interfaceStore } = unlock( editorPrivateApis );
+const { Editor, BackButton } = unlock( editorPrivateApis );
 const { useHistory, useLocation } = unlock( routerPrivateApis );
 const { BlockKeyboardShortcuts } = unlock( blockLibraryPrivateApis );
 
@@ -81,7 +81,7 @@ const siteIconVariants = {
 export default function EditSiteEditor( { isPostsList = false } ) {
 	const disableMotion = useReducedMotion();
 	const { params } = useLocation();
-	const { canvas = 'view', path } = params;
+	const { canvas = 'view' } = params;
 	const isLoading = useIsSiteEditorLoading();
 	useAdaptEditorToCanvas( canvas );
 	const {
@@ -211,14 +211,6 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 	const transition = {
 		duration: disableMotion ? 0 : 0.2,
 	};
-
-	const { enableComplementaryArea } = useDispatch( interfaceStore );
-
-	useEffect( () => {
-		if ( path === '/wp_global_styles' && canvas === 'edit' ) {
-			enableComplementaryArea( 'core', 'edit-site/global-styles' );
-		}
-	}, [ path, enableComplementaryArea, canvas ] );
 
 	return (
 		<>

@@ -5,7 +5,7 @@ import { FlexItem, Flex, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { styles, seen, backup } from '@wordpress/icons';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { store as preferencesStore } from '@wordpress/preferences';
 import {
 	store as editorStore,
@@ -29,7 +29,7 @@ const { useLocation } = unlock( routerPrivateApis );
 
 export default function GlobalStylesSidebar() {
 	const { params } = useLocation();
-	const { canvas = 'view' } = params;
+	const { canvas = 'view', path } = params;
 	const {
 		shouldClearCanvasContainerView,
 		isStyleBookOpened,
@@ -127,6 +127,29 @@ export default function GlobalStylesSidebar() {
 			isStyleBookOpened ? undefined : 'style-book'
 		);
 	};
+
+	const { getActiveComplementaryArea } = useSelect( interfaceStore );
+	const { enableComplementaryArea } = useDispatch( interfaceStore );
+
+	const [ previousActiveArea, setPreviousActiveArea ] = useState( null );
+
+	useEffect( () => {
+		if ( path === '/wp_global_styles' && canvas === 'edit' ) {
+			const currentActiveArea = getActiveComplementaryArea( 'core' );
+			if ( currentActiveArea !== 'edit-site/global-styles' ) {
+				setPreviousActiveArea( currentActiveArea );
+				enableComplementaryArea( 'core', 'edit-site/global-styles' );
+			}
+		} else if ( previousActiveArea ) {
+			enableComplementaryArea( 'core', previousActiveArea );
+		}
+	}, [
+		path,
+		enableComplementaryArea,
+		canvas,
+		getActiveComplementaryArea,
+		previousActiveArea,
+	] );
 
 	return (
 		<DefaultSidebar
