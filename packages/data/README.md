@@ -42,13 +42,6 @@ const actions = {
 			discountPercent,
 		};
 	},
-
-	fetchFromAPI( path ) {
-		return {
-			type: 'FETCH_FROM_API',
-			path,
-		};
-	},
 };
 
 const store = createReduxStore( 'my-shop', {
@@ -84,17 +77,11 @@ const store = createReduxStore( 'my-shop', {
 		},
 	},
 
-	controls: {
-		FETCH_FROM_API( action ) {
-			return apiFetch( { path: action.path } );
-		},
-	},
-
 	resolvers: {
-		*getPrice( item ) {
+		getPrice: ( item ) => async ({ dispatch }) => { {
 			const path = '/wp/v2/prices/' + item;
-			const price = yield actions.fetchFromAPI( path );
-			return actions.setPrice( item, price );
+			const price = await apiFetch( { path } );
+			dispatch.setPrice( item, price );
 		},
 	},
 } );
@@ -133,7 +120,11 @@ A **resolver** is a side-effect for a selector. If your selector result may need
 
 The `resolvers` option should be passed as an object where each key is the name of the selector to act upon, the value a function which receives the same arguments passed to the selector, excluding the state argument. It can then dispatch as necessary to fulfill the requirements of the selector, taking advantage of the fact that most data consumers will subscribe to subsequent state changes (by `subscribe` or `withSelect`).
 
+Resolvers, in combination with [thunks](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async), can be used to implement asynchronous data flows for your store. 
+
 #### `controls`
+
+> To handle asynchronous data flows, it is recommended to use [thunks](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async) instead of `controls` now that they are supported.
 
 A **control** defines the execution flow behavior associated with a specific action type. This can be particularly useful in implementing asynchronous data flows for your store. By defining your action creator or resolvers as a generator which yields specific controlled action types, the execution will proceed as defined by the control handler.
 
@@ -262,7 +253,7 @@ The data module shares many of the same [core principles](https://redux.js.org/i
 
 The [higher-order components](#higher-order-components) were created to complement this distinction. The intention with splitting `withSelect` and `withDispatch` — where in React Redux they are combined under `connect` as `mapStateToProps` and `mapDispatchToProps` arguments — is to more accurately reflect that dispatch is not dependent upon a subscription to state changes, and to allow for state-derived values to be used in `withDispatch` (via [higher-order component composition](https://github.com/WordPress/gutenberg/tree/HEAD/packages/compose/README.md)).
 
-The data module also has built-in solutions for handling asynchronous side-effects, through [resolvers](#resolvers) and [controls](#controls). These differ slightly from [standard redux async solutions](https://redux.js.org/advanced/async-actions) like [`redux-thunk`](https://github.com/gaearon/redux-thunk) or [`redux-saga`](https://redux-saga.js.org/).
+The data module also has built-in solutions for handling asynchronous side-effects, through [resolvers](#resolvers) and [thunks](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async). These differ slightly from [standard redux async solutions](https://redux.js.org/advanced/async-actions) like [`redux-thunk`](https://github.com/gaearon/redux-thunk) or [`redux-saga`](https://redux-saga.js.org/).
 
 Specific implementation differences from Redux and React Redux:
 
