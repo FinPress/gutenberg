@@ -26,6 +26,7 @@ ul.wp-block-rss { // The ul is needed for specificity to override the reset styl
 			width: 100%;
 		}
 	}
+	
 	@include break-small {
 		@for $i from 2 through 6 {
 			&.columns-#{ $i } li {
