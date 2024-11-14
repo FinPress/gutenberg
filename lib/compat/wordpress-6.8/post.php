@@ -32,7 +32,7 @@ function gutenberg_post_type_rendering_modes() {
  * @return array Updated array of post type arguments.
  */
 function gutenberg_post_type_default_rendering_mode( $args, $post_type ) {
-	$rendering_mode  = 'page' === $post_type ? 'template-locked' : 'post-only';
+	$rendering_mode  = 'post-only';
 	$rendering_modes = gutenberg_post_type_rendering_modes();
 
 	// Make sure the post type supports the block editor.
