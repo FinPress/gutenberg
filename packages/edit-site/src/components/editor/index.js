@@ -119,8 +119,8 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 	}, [] );
 	const postWithTemplate = !! context?.postId;
 	useEditorTitle(
-		postWithTemplate ? context.postId : postId,
-		postWithTemplate ? context.postType : postType
+		postWithTemplate ? context.postType : postType,
+		postWithTemplate ? context.postId : postId
 	);
 	const _isPreviewingTheme = isPreviewingTheme();
 	const hasDefaultEditorCanvasView = ! useHasEditorCanvasContainer();
