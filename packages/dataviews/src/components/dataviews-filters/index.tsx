@@ -128,26 +128,27 @@ export function FiltersToggle( {
 				: addFilterButtonProps ) }
 		/>
 	);
-	if ( ! hasVisibleFilters ) {
-		return (
-			<AddFilterMenu
-				filters={ filters }
-				view={ view }
-				onChangeView={ onChangeViewWithFilterVisibility }
-				setOpenedFilter={ setOpenedFilter }
-				trigger={ buttonComponent }
-			/>
-		);
-	}
 	return (
-		<FilterVisibilityToggle buttonRef={ buttonRef }>
-			{ buttonComponent }
-			{ hasVisibleFilters && !! view.filters?.length && (
-				<span className="dataviews-filters-toggle__count">
-					{ view.filters?.length }
-				</span>
+		<div className="dataviews-filters__container-visibility-toggle">
+			{ ! hasVisibleFilters ? (
+				<AddFilterMenu
+					filters={ filters }
+					view={ view }
+					onChangeView={ onChangeViewWithFilterVisibility }
+					setOpenedFilter={ setOpenedFilter }
+					trigger={ buttonComponent }
+				/>
+			) : (
+				<FilterVisibilityToggle buttonRef={ buttonRef }>
+					{ buttonComponent }
+					{ hasVisibleFilters && !! view.filters?.length && (
+						<span className="dataviews-filters-toggle__count">
+							{ view.filters?.length }
+						</span>
+					) }
+				</FilterVisibilityToggle>
 			) }
-		</FilterVisibilityToggle>
+		</div>
 	);
 }
 
@@ -165,11 +166,7 @@ function FilterVisibilityToggle( {
 		},
 		[ buttonRef ]
 	);
-	return (
-		<div className="dataviews-filters__container-visibility-toggle">
-			{ children }
-		</div>
-	);
+	return children;
 }
 
 function Filters() {
