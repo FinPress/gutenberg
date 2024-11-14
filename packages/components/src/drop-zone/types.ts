@@ -1,4 +1,4 @@
-export type DropType = 'file' | 'html' | 'default';
+export type DropType = 'file' | 'html' | 'media' | 'default';
 
 export type DropZoneProps = {
 	/**
@@ -26,4 +26,9 @@ export type DropZoneProps = {
 	 * It receives the HTML being dropped as an argument.
 	 */
 	onHTMLDrop?: ( html: string ) => void;
+	/**
+	 * The function is called when dropping media into the `DropZone`.
+	 * It receives the media being dropped as an argument.
+	 */
+	onMediaDrop?: ( media: string ) => void;
 };

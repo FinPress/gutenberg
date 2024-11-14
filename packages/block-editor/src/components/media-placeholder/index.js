@@ -288,7 +288,7 @@ export function MediaPlaceholder( {
 		}
 	}
 
-	async function onHTMLDrop( HTML ) {
+	async function onMediaDrop( HTML ) {
 		const blocks = pasteHandler( { HTML } );
 		return await handleBlocksDrop( blocks );
 	}
@@ -380,7 +380,10 @@ export function MediaPlaceholder( {
 		}
 
 		return (
-			<DropZone onFilesDrop={ onFilesUpload } onHTMLDrop={ onHTMLDrop } />
+			<DropZone
+				onFilesDrop={ onFilesUpload }
+				onMediaDrop={ onMediaDrop }
+			/>
 		);
 	};
 
