@@ -27,7 +27,7 @@ import DefaultSidebar from './default-sidebar';
 const { interfaceStore } = unlock( editorPrivateApis );
 const { useLocation } = unlock( routerPrivateApis );
 
-export default function GlobalStylesSidebar( { isActiveByDefault } ) {
+export default function GlobalStylesSidebar() {
 	const { params } = useLocation();
 	const { canvas = 'view' } = params;
 	const {
@@ -135,7 +135,6 @@ export default function GlobalStylesSidebar( { isActiveByDefault } ) {
 			title={ __( 'Styles' ) }
 			icon={ styles }
 			closeLabel={ __( 'Close Styles' ) }
-			isActiveByDefault={ isActiveByDefault }
 			panelClassName="edit-site-global-styles-sidebar__panel"
 			header={
 				<Flex

@@ -17,7 +17,7 @@ import {
 import { __, sprintf } from '@wordpress/i18n';
 import { store as coreDataStore } from '@wordpress/core-data';
 import { privateApis as blockLibraryPrivateApis } from '@wordpress/block-library';
-import { useCallback, useMemo } from '@wordpress/element';
+import { useCallback, useMemo, useEffect } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { store as preferencesStore } from '@wordpress/preferences';
@@ -50,7 +50,7 @@ import useEditorTitle from './use-editor-title';
 import { useIsSiteEditorLoading } from '../layout/hooks';
 import { useAdaptEditorToCanvas } from './use-adapt-editor-to-canvas';
 
-const { Editor, BackButton } = unlock( editorPrivateApis );
+const { Editor, BackButton, interfaceStore } = unlock( editorPrivateApis );
 const { useHistory, useLocation } = unlock( routerPrivateApis );
 const { BlockKeyboardShortcuts } = unlock( blockLibraryPrivateApis );
 
@@ -212,7 +212,14 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 		duration: disableMotion ? 0 : 0.2,
 	};
 
-	const isGlobalStylesPanelActiveByDefault = path === '/wp_global_styles';
+	const { enableComplementaryArea } = useDispatch( interfaceStore );
+
+	useEffect( () => {
+		if ( path === '/wp_global_styles' && canvas === 'edit' ) {
+			enableComplementaryArea( 'core', 'edit-site/global-styles' );
+		}
+	}, [ path, enableComplementaryArea, canvas ] );
+
 	return (
 		<>
 			<GlobalStylesRenderer />
@@ -242,9 +249,6 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 					onActionPerformed={ onActionPerformed }
 					extraSidebarPanels={
 						! isEditingPage && <PluginTemplateSettingPanel.Slot />
-					}
-					__isDocumentSidebarActiveByDefault={
-						! isGlobalStylesPanelActiveByDefault
 					}
 				>
 					{ isEditMode && (
@@ -323,13 +327,7 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 						</BackButton>
 					) }
 					<SiteEditorMoreMenu />
-					{ supportsGlobalStyles && (
-						<GlobalStylesSidebar
-							isActiveByDefault={
-								isGlobalStylesPanelActiveByDefault
-							}
-						/>
-					) }
+					{ supportsGlobalStyles && <GlobalStylesSidebar /> }
 				</Editor>
 			) }
 		</>
