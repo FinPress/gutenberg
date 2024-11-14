@@ -26,42 +26,6 @@ ul.wp-block-rss { // The ul is needed for specificity to override the reset styl
 			width: 100%;
 		}
 	}
-
-	// The following rules provide class based application of user selected text
-	// decoration via block supports.
-	&.has-text-decoration-underline li.wp-block-rss__item a {
-		text-decoration: underline;
-
-		&:focus,
-		&:active {
-			text-decoration: underline;
-		}
-	}
-
-	&.has-text-decoration-line-through li.wp-block-rss__item a {
-		text-decoration: line-through;
-
-		&:focus,
-		&:active {
-			text-decoration: line-through;
-		}
-	}
-
-	&.has-text-decoration-none li.wp-block-rss__item a {
-		text-decoration: none;
-
-		&:focus,
-		&:active {
-			text-decoration: none;
-		}
-	}
-
-	& :where(a),
-	& :where(a:focus),
-	& :where(a:active) {
-		text-decoration: none;
-	}
-
 	@include break-small {
 		@for $i from 2 through 6 {
 			&.columns-#{ $i } li {

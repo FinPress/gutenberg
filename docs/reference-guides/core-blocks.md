@@ -801,7 +801,7 @@ Display entries from any RSS or Atom feed. ([Source](https://github.com/WordPres
 
 -	**Name:** core/rss
 -	**Category:** widgets
--	**Supports:** align, color (background, gradients, link, text), interactivity (clientNavigation), typography (fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textDecoration, textTransform), ~~html~~
+-	**Supports:** align, color (background, gradients, link, text), interactivity (clientNavigation), ~~html~~
 -	**Attributes:** blockLayout, columns, displayAuthor, displayDate, displayExcerpt, excerptLength, feedURL, itemsToShow
 
 ## Search
