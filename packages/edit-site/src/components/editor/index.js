@@ -132,7 +132,7 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 	);
 
 	const settings = useSpecificEditorSettings(
-		context?.postId && context?.postType !== 'post'
+		!! context?.postId && context?.postType !== 'post'
 	);
 	const styles = useMemo(
 		() => [
