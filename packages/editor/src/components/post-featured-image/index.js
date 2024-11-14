@@ -99,6 +99,7 @@ function PostFeaturedImage( {
 	postType,
 	noticeUI,
 	noticeOperations,
+	isRequestingFeaturedImageMedia,
 } ) {
 	const toggleRef = useRef();
 	const [ isLoading, setIsLoading ] = useState( false );
@@ -155,23 +156,7 @@ function PostFeaturedImage( {
 		);
 	}
 
-	const { isRequestingFeaturedImageMedia } = useSelect(
-		( select ) => {
-			const _isRequestingFeaturedImageMedia =
-				!! featuredImageId &&
-				! select( coreStore ).hasFinishedResolution( 'getMedia', [
-					featuredImageId,
-					{ context: 'view' },
-				] );
-
-			return {
-				isRequestingFeaturedImageMedia: _isRequestingFeaturedImageMedia,
-			};
-		},
-		[ featuredImageId ]
-	);
-
-	const noImageData =
+	const isMissingMedia =
 		! isRequestingFeaturedImageMedia && !! featuredImageId && ! media;
 
 	return (
@@ -198,7 +183,7 @@ function PostFeaturedImage( {
 						modalClass="editor-post-featured-image__media-modal"
 						render={ ( { open } ) => (
 							<div className="editor-post-featured-image__container">
-								{ noImageData ? (
+								{ isMissingMedia ? (
 									<p>
 										{ __(
 											'Could not retrieve the featured image data.'
@@ -256,7 +241,7 @@ function PostFeaturedImage( {
 											'editor-post-featured-image__actions',
 											{
 												'editor-post-featured-image__actions-missing-image':
-													noImageData,
+													isMissingMedia,
 												'editor-post-featured-image__actions-is-requesting-image':
 													isRequestingFeaturedImageMedia,
 											}
@@ -268,7 +253,7 @@ function PostFeaturedImage( {
 											onClick={ open }
 											aria-haspopup="dialog"
 											variant={
-												noImageData
+												isMissingMedia
 													? 'secondary'
 													: undefined
 											}
@@ -283,11 +268,11 @@ function PostFeaturedImage( {
 												toggleRef.current.focus();
 											} }
 											variant={
-												noImageData
+												isMissingMedia
 													? 'secondary'
 													: undefined
 											}
-											isDestructive={ noImageData }
+											isDestructive={ isMissingMedia }
 										>
 											{ __( 'Remove' ) }
 										</Button>
@@ -308,6 +293,12 @@ const applyWithSelect = withSelect( ( select ) => {
 	const { getMedia, getPostType } = select( coreStore );
 	const { getCurrentPostId, getEditedPostAttribute } = select( editorStore );
 	const featuredImageId = getEditedPostAttribute( 'featured_media' );
+	const isRequestingFeaturedImageMedia =
+		!! featuredImageId &&
+		! select( coreStore ).hasFinishedResolution( 'getMedia', [
+			featuredImageId,
+			{ context: 'view' },
+		] );
 
 	return {
 		media: featuredImageId
@@ -316,6 +307,7 @@ const applyWithSelect = withSelect( ( select ) => {
 		currentPostId: getCurrentPostId(),
 		postType: getPostType( getEditedPostAttribute( 'type' ) ),
 		featuredImageId,
+		isRequestingFeaturedImageMedia,
 	};
 } );
 
