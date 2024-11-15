@@ -512,7 +512,9 @@ export default function Image( {
 		isSingleSelected &&
 		canEditImage &&
 		! isEditingImage &&
-		! isContentOnlyMode;
+		! isContentOnlyMode &&
+		! isContentOnlyMode &&
+		hasNonContentControls;
 
 	function switchToCover() {
 		replaceBlocks(
@@ -702,7 +704,11 @@ export default function Image( {
 		! lockHrefControls &&
 		! lockUrlControls;
 
-	const showCoverControls = isSingleSelected && canInsertCover;
+	const showCoverControls =
+		isSingleSelected &&
+		canInsertCover &&
+		! isContentOnlyMode &&
+		hasNonContentControls;
 
 	const showBlockControls = showUrlInput || allowCrop || showCoverControls;
 
@@ -745,24 +751,20 @@ export default function Image( {
 							resetLightbox={ resetLightbox }
 						/>
 					) }
-					{ allowCrop &&
-						! isContentOnlyMode &&
-						hasNonContentControls && (
-							<ToolbarButton
-								onClick={ () => setIsEditingImage( true ) }
-								icon={ crop }
-								label={ __( 'Crop' ) }
-							/>
-						) }
-					{ showCoverControls &&
-						! isContentOnlyMode &&
-						hasNonContentControls && (
-							<ToolbarButton
-								icon={ overlayText }
-								label={ __( 'Add text over image' ) }
-								onClick={ switchToCover }
-							/>
-						) }
+					{ allowCrop && (
+						<ToolbarButton
+							onClick={ () => setIsEditingImage( true ) }
+							icon={ crop }
+							label={ __( 'Crop' ) }
+						/>
+					) }
+					{ showCoverControls && (
+						<ToolbarButton
+							icon={ overlayText }
+							label={ __( 'Add text over image' ) }
+							onClick={ switchToCover }
+						/>
+					) }
 				</BlockControls>
 			) }
 			{ isSingleSelected && externalBlob && (
