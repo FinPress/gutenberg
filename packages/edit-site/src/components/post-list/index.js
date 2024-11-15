@@ -13,7 +13,6 @@ import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';
 import { drawerRight } from '@wordpress/icons';
-import { usePostFields } from '@wordpress/fields';
 
 /**
  * Internal dependencies
@@ -34,7 +33,7 @@ import { unlock } from '../../lock-unlock';
 import { useEditPostAction } from '../dataviews-actions';
 import { usePrevious } from '@wordpress/compose';
 
-const { usePostActions } = unlock( editorPrivateApis );
+const { usePostActions, usePostFields } = unlock( editorPrivateApis );
 const { useLocation, useHistory } = unlock( routerPrivateApis );
 const { useEntityRecordsWithPermissions } = unlock( coreDataPrivateApis );
 const EMPTY_ARRAY = [];

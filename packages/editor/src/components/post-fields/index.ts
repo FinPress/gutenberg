@@ -4,20 +4,18 @@
 import { useMemo } from '@wordpress/element';
 import { useEntityRecords } from '@wordpress/core-data';
 import type { Field } from '@wordpress/dataviews';
-
-/**
- * Internal dependencies
- */
-import featuredImageField from '../featured-image';
-import slugField from '../slug';
-import parentField from '../parent';
-import passwordField from '../password';
-import statusField from '../status';
-import commentStatusField from '../comment-status';
-import titleField from '../title';
-import dateField from '../date';
-import authorField from '../author';
-import type { BasePostWithEmbeddedAuthor } from '../../types';
+import {
+	featuredImageField,
+	slugField,
+	parentField,
+	passwordField,
+	statusField,
+	commentStatusField,
+	titleField,
+	dateField,
+	authorField,
+} from '@wordpress/fields';
+import type { BasePostWithEmbeddedAuthor } from '@wordpress/fields';
 
 interface UsePostFieldsReturn {
 	isLoading: boolean;
