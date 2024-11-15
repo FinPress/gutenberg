@@ -513,7 +513,6 @@ export default function Image( {
 		canEditImage &&
 		! isEditingImage &&
 		! isContentOnlyMode &&
-		! isContentOnlyMode &&
 		hasNonContentControls;
 
 	function switchToCover() {
