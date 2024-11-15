@@ -126,25 +126,38 @@ interface SiteData {
 	page_for_posts?: string | number;
 }
 
-export const getHomePage = createRegistrySelector( ( select ) => () => {
-	const siteData = select( STORE_NAME ).getEntityRecord( 'root', 'site' ) as
-		| SiteData
-		| undefined;
-	if ( ! siteData ) {
-		return null;
-	}
-	const homepageId =
-		siteData?.show_on_front === 'page'
-			? normalizePageId( siteData.page_on_front )
-			: null;
-	if ( homepageId ) {
-		return { postType: 'page', postId: homepageId };
-	}
-	const frontPageTemplateId = select( STORE_NAME ).getDefaultTemplateId( {
-		slug: 'front-page',
-	} );
-	return { postType: 'wp_template', postId: frontPageTemplateId };
-} );
+export const getHomePage = createRegistrySelector( ( select ) =>
+	createSelector(
+		() => {
+			const siteData = select( STORE_NAME ).getEntityRecord(
+				'root',
+				'site'
+			) as SiteData | undefined;
+			if ( ! siteData ) {
+				return null;
+			}
+			const homepageId =
+				siteData?.show_on_front === 'page'
+					? normalizePageId( siteData.page_on_front )
+					: null;
+			if ( homepageId ) {
+				return { postType: 'page', postId: homepageId };
+			}
+			const frontPageTemplateId = select(
+				STORE_NAME
+			).getDefaultTemplateId( {
+				slug: 'front-page',
+			} );
+			return { postType: 'wp_template', postId: frontPageTemplateId };
+		},
+		() => [
+			select( STORE_NAME ).getEntityRecord( 'root', 'site' ),
+			select( STORE_NAME ).getDefaultTemplateId( {
+				slug: 'front-page',
+			} ),
+		]
+	)
+);
 
 export const getPostsPageId = createRegistrySelector( ( select ) => () => {
 	const siteData = select( STORE_NAME ).getEntityRecord( 'root', 'site' ) as

@@ -32,13 +32,9 @@ const authorizedPostTypes = [ 'page', 'post' ];
 export function useResolveEditedEntity() {
 	const { params = {} } = useLocation();
 	const { postId, postType } = params;
-	const { homepagePostType, homepagePostId } = useSelect( ( select ) => {
+	const homePage = useSelect( ( select ) => {
 		const { getHomePage } = unlock( select( coreDataStore ) );
-		const homePage = getHomePage();
-		return {
-			homepagePostType: homePage?.postType,
-			homepagePostId: homePage?.postId,
-		};
+		return getHomePage();
 	}, [] );
 
 	/**
@@ -76,18 +72,18 @@ export function useResolveEditedEntity() {
 			}
 
 			// If we're rendering the home page, and we have a static home page, resolve its template.
-			if ( homepagePostType === 'page' ) {
-				return getTemplateId( 'page', homepagePostId );
+			if ( homePage?.postType === 'page' ) {
+				return getTemplateId( 'page', homePage?.postId );
 			}
 
-			if ( homepagePostType === 'wp_template' ) {
-				return homepagePostId;
+			if ( homePage?.postType === 'wp_template' ) {
+				return homePage?.postId;
 			}
 
 			// This can only happen when homepage is being loaded.
 			return null;
 		},
-		[ homepagePostId, homepagePostType, postId, postType ]
+		[ homePage, postId, postType ]
 	);
 
 	const context = useMemo( () => {
@@ -100,18 +96,18 @@ export function useResolveEditedEntity() {
 		}
 		// TODO: for post types lists we should probably not render the front page, but maybe a placeholder
 		// with a message like "Select a page" or something similar.
-		if ( homepagePostType === 'page' ) {
-			return { postType: 'page', postId: homepagePostId };
+		if ( homePage?.postType === 'page' ) {
+			return { postType: 'page', postId: homePage?.postId };
 		}
 
 		return {};
-	}, [ homepagePostId, homepagePostType, postType, postId ] );
+	}, [ homePage, postType, postId ] );
 
 	if ( postTypesWithoutParentTemplate.includes( postType ) && postId ) {
 		return { isReady: true, postType, postId, context };
 	}
 
-	if ( !! homepagePostType ) {
+	if ( !! homePage ) {
 		return {
 			isReady: resolvedTemplateId !== undefined,
 			postType: TEMPLATE_POST_TYPE,
