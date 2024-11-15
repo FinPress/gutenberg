@@ -8,6 +8,7 @@ import { createSelector, createRegistrySelector } from '@wordpress/data';
  */
 import type { State } from './selectors';
 import { STORE_NAME } from './name';
+import { unlock } from './lock-unlock';
 
 type EntityRecordKey = string | number;
 
@@ -105,3 +106,129 @@ export function getEntityRecordPermissions(
 export function getRegisteredPostMeta( state: State, postType: string ) {
 	return state.registeredPostMeta?.[ postType ] ?? {};
 }
+
+interface SiteData {
+	show_on_front?: string;
+	page_on_front?: string | number;
+	page_for_posts?: string | number;
+}
+
+export const getHomePage = createRegistrySelector( ( select ) => () => {
+	const siteData = select( STORE_NAME ).getEntityRecord( 'root', 'site' ) as
+		| SiteData
+		| undefined;
+	const homepageId =
+		siteData?.show_on_front === 'page' &&
+		[ 'number', 'string' ].includes( typeof siteData.page_on_front ) &&
+		siteData.page_on_front &&
+		!! +siteData.page_on_front // We also need to check if it's not zero(`0`).
+			? siteData.page_on_front.toString()
+			: null;
+	const isSiteLoaded = !! siteData;
+	if ( isSiteLoaded && homepageId ) {
+		return { postType: 'page', postId: homepageId };
+	}
+	if ( isSiteLoaded && ! homepageId ) {
+		const frontPageTemplateId = select( STORE_NAME ).getDefaultTemplateId( {
+			slug: 'front-page',
+		} );
+		return { postType: 'wp_template', postId: frontPageTemplateId };
+	}
+	return null;
+} );
+
+export const getPostsPageId = createRegistrySelector( ( select ) => () => {
+	const siteData = select( STORE_NAME ).getEntityRecord( 'root', 'site' ) as
+		| SiteData
+		| undefined;
+	return siteData?.show_on_front === 'page' &&
+		siteData.page_for_posts &&
+		[ 'number', 'string' ].includes( typeof siteData.page_for_posts )
+		? siteData.page_for_posts.toString()
+		: null;
+} );
+
+export const getTemplateId = createRegistrySelector(
+	( select ) => ( state, postType, postId ) => {
+		const homepage = unlock( select( STORE_NAME ) ).getHomePage();
+
+		// For the front page, we always use the front page template if existing.
+		if (
+			postType === 'page' &&
+			postType === homepage?.postType &&
+			postId === homepage?.postId
+		) {
+			// The /lookup endpoint cannot currently handle a lookup
+			// when a page is set as the front page, so specifically in
+			// that case, we want to check if there is a front page
+			// template, and instead of falling back to the home
+			// template, we want to fall back to the page template.
+			const templates = select( STORE_NAME ).getEntityRecords(
+				'postType',
+				'wp_template',
+				{
+					per_page: -1,
+				}
+			);
+			if ( templates ) {
+				const id = templates?.find(
+					( { slug } ) => slug === 'front-page'
+				)?.id;
+				if ( id ) {
+					return id;
+				}
+
+				// If no front page template is found, continue with the
+				// logic below (fetching the page template).
+			} else {
+				// Still resolving `templates`.
+				return undefined;
+			}
+		}
+
+		const editedEntity = select( STORE_NAME ).getEditedEntityRecord(
+			'postType',
+			postType,
+			postId
+		);
+		if ( ! editedEntity ) {
+			return undefined;
+		}
+		const postsPageId = unlock( select( STORE_NAME ) ).getPostsPageId();
+		// Check if the current page is the posts page.
+		if ( postType === 'page' && postsPageId === postId ) {
+			return select( STORE_NAME ).getDefaultTemplateId( {
+				slug: 'home',
+			} );
+		}
+		// First see if the post/page has an assigned template and fetch it.
+		const currentTemplateSlug = editedEntity.template;
+		if ( currentTemplateSlug ) {
+			const currentTemplate = select( STORE_NAME )
+				.getEntityRecords( 'postType', 'wp_template', {
+					per_page: -1,
+				} )
+				?.find( ( { slug } ) => slug === currentTemplateSlug );
+			if ( currentTemplate ) {
+				return currentTemplate.id;
+			}
+		}
+		// If no template is assigned, use the default template.
+		let slugToCheck;
+		// In `draft` status we might not have a slug available, so we use the `single`
+		// post type templates slug(ex page, single-post, single-product etc..).
+		// Pages do not need the `single` prefix in the slug to be prioritized
+		// through template hierarchy.
+		if ( editedEntity.slug ) {
+			slugToCheck =
+				postType === 'page'
+					? `${ postType }-${ editedEntity.slug }`
+					: `single-${ postType }-${ editedEntity.slug }`;
+		} else {
+			slugToCheck = postType === 'page' ? 'page' : `single-${ postType }`;
+		}
+		return select( STORE_NAME ).getDefaultTemplateId( {
+			slug: slugToCheck,
+		} );
+	}
+);
