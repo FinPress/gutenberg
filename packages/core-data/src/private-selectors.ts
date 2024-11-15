@@ -159,6 +159,10 @@ export const getTemplateId = createRegistrySelector(
 	( select ) => ( state, postType, postId ) => {
 		const homepage = unlock( select( STORE_NAME ) ).getHomePage();
 
+		if ( ! homepage ) {
+			return;
+		}
+
 		// For the front page, we always use the front page template if existing.
 		if (
 			postType === 'page' &&
@@ -177,20 +181,16 @@ export const getTemplateId = createRegistrySelector(
 					per_page: -1,
 				}
 			);
-			if ( templates ) {
-				const id = templates?.find(
-					( { slug } ) => slug === 'front-page'
-				)?.id;
-				if ( id ) {
-					return id;
-				}
-
-				// If no front page template is found, continue with the
-				// logic below (fetching the page template).
-			} else {
-				// Still resolving `templates`.
-				return undefined;
+			if ( ! templates ) {
+				return;
 			}
+			const id = templates.find( ( { slug } ) => slug === 'front-page' )
+				?.id;
+			if ( id ) {
+				return id;
+			}
+			// If no front page template is found, continue with the
+			// logic below (fetching the page template).
 		}
 
 		const editedEntity = select( STORE_NAME ).getEditedEntityRecord(
@@ -199,7 +199,7 @@ export const getTemplateId = createRegistrySelector(
 			postId
 		);
 		if ( ! editedEntity ) {
-			return undefined;
+			return;
 		}
 		const postsPageId = unlock( select( STORE_NAME ) ).getPostsPageId();
 		// Check if the current page is the posts page.
