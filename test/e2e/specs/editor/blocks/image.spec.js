@@ -545,7 +545,7 @@ test.describe( 'Image', () => {
 			dummy.style.left = 0;
 			dummy.draggable = 'true';
 			dummy.addEventListener( 'dragstart', ( event ) => {
-				event.dataTransfer.setData( 'media', _html );
+				event.dataTransfer.setData( 'default', _html );
 				setTimeout( () => {
 					dummy.remove();
 				}, 0 );
