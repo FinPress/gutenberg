@@ -17,13 +17,11 @@ import commentStatusField from '../comment-status';
 import titleField from '../title';
 import dateField from '../date';
 import authorField from '../author';
-import type { BasePost, BasePostWithEmbeddedAuthor } from '../../types';
-
-type Post = BasePost | BasePostWithEmbeddedAuthor;
+import type { BasePostWithEmbeddedAuthor } from '../../types';
 
 interface UsePostFieldsReturn {
 	isLoading: boolean;
-	fields: Field< Post >[];
+	fields: Field< BasePostWithEmbeddedAuthor >[];
 }
 
 interface Author {
@@ -53,7 +51,7 @@ function usePostFields(): UsePostFieldsReturn {
 				parentField,
 				commentStatusField,
 				passwordField,
-			] as Field< Post >[],
+			] as Field< BasePostWithEmbeddedAuthor >[],
 		[ authors ]
 	);
 
