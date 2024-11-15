@@ -13,7 +13,10 @@ import clsx from 'clsx';
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { Placeholder, SandBox } from '@wordpress/components';
-import { BlockIcon } from '@wordpress/block-editor';
+import {
+	BlockIcon,
+	__experimentalUseBorderProps as useBorderProps,
+} from '@wordpress/block-editor';
 import { useState } from '@wordpress/element';
 import { getAuthority } from '@wordpress/url';
 
@@ -31,6 +34,7 @@ export default function EmbedPreview( {
 	className,
 	icon,
 	label,
+	attributes,
 } ) {
 	const [ interactive, setInteractive ] = useState( false );
 
@@ -64,6 +68,7 @@ export default function EmbedPreview( {
 		className,
 		'wp-block-embed__wrapper'
 	);
+	const borderProps = useBorderProps( attributes );
 
 	// Disabled because the overlay div doesn't actually have a role or functionality
 	// as far as the user is concerned. We're just catching the first click so that
@@ -73,7 +78,13 @@ export default function EmbedPreview( {
 		'wp-embed' === type ? (
 			<WpEmbedPreview html={ html } />
 		) : (
-			<div className="wp-block-embed__wrapper">
+			<div
+				className={ clsx(
+					'wp-block-embed__wrapper',
+					borderProps.className
+				) }
+				style={ borderProps.style }
+			>
 				<SandBox
 					html={ html }
 					scripts={ scripts }

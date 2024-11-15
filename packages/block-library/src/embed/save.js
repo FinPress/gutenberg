@@ -10,6 +10,7 @@ import {
 	RichText,
 	useBlockProps,
 	__experimentalGetElementClassName,
+	__experimentalGetBorderClassesAndStyles as getBorderClassesAndStyles,
 } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
@@ -18,6 +19,7 @@ export default function save( { attributes } ) {
 	if ( ! url ) {
 		return null;
 	}
+	const borderProps = getBorderClassesAndStyles( attributes );
 
 	const className = clsx( 'wp-block-embed', {
 		[ `is-type-${ type }` ]: type,
@@ -27,7 +29,13 @@ export default function save( { attributes } ) {
 
 	return (
 		<figure { ...useBlockProps.save( { className } ) }>
-			<div className="wp-block-embed__wrapper">
+			<div
+				className={ clsx(
+					'wp-block-embed__wrapper',
+					borderProps.className
+				) }
+				style={ borderProps.style }
+			>
 				{ `\n${ url }\n` /* URL needs to be on its own line. */ }
 			</div>
 			{ ! RichText.isEmpty( caption ) && (
