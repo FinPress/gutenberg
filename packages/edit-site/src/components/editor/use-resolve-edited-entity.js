@@ -51,12 +51,12 @@ export function useResolveEditedEntity() {
 				postTypesWithoutParentTemplate.includes( postType ) &&
 				postId
 			) {
-				return undefined;
+				return;
 			}
 
 			// Don't trigger resolution for multi-selected posts.
 			if ( postId && postId.includes( ',' ) ) {
-				return undefined;
+				return;
 			}
 
 			const { getTemplateId } = unlock( select( coreDataStore ) );
@@ -79,9 +79,6 @@ export function useResolveEditedEntity() {
 			if ( homePage?.postType === 'wp_template' ) {
 				return homePage?.postId;
 			}
-
-			// This can only happen when homepage is being loaded.
-			return null;
 		},
 		[ homePage, postId, postType ]
 	);
