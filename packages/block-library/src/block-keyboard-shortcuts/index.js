@@ -97,27 +97,27 @@ function BlockKeyboardShortcuts() {
 		( event ) => handleTransformHeadingAndParagraph( event, 0 )
 	);
 	useShortcut(
-		`core/block-editor/transform-paragraph-to-heading-1`,
+		'core/block-editor/transform-paragraph-to-heading-1',
 		( event ) => handleTransformHeadingAndParagraph( event, 1 )
 	);
 	useShortcut(
-		`core/block-editor/transform-paragraph-to-heading-2`,
+		'core/block-editor/transform-paragraph-to-heading-2',
 		( event ) => handleTransformHeadingAndParagraph( event, 2 )
 	);
 	useShortcut(
-		`core/block-editor/transform-paragraph-to-heading-3`,
+		'core/block-editor/transform-paragraph-to-heading-3',
 		( event ) => handleTransformHeadingAndParagraph( event, 3 )
 	);
 	useShortcut(
-		`core/block-editor/transform-paragraph-to-heading-4`,
+		'core/block-editor/transform-paragraph-to-heading-4',
 		( event ) => handleTransformHeadingAndParagraph( event, 4 )
 	);
 	useShortcut(
-		`core/block-editor/transform-paragraph-to-heading-5`,
+		'core/block-editor/transform-paragraph-to-heading-5',
 		( event ) => handleTransformHeadingAndParagraph( event, 5 )
 	);
 	useShortcut(
-		`core/block-editor/transform-paragraph-to-heading-6`,
+		'core/block-editor/transform-paragraph-to-heading-6',
 		( event ) => handleTransformHeadingAndParagraph( event, 6 )
 	);
 
