@@ -18,7 +18,7 @@ import {
 	Notice,
 } from '@wordpress/components';
 import { isBlobURL } from '@wordpress/blob';
-import { useState, useRef } from '@wordpress/element';
+import { useState, useRef, useEffect } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { useSelect, withDispatch, withSelect } from '@wordpress/data';
 import {
@@ -106,6 +106,13 @@ function PostFeaturedImage( {
 	const [ isLoading, setIsLoading ] = useState( false );
 	const { getSettings } = useSelect( blockEditorStore );
 	const { mediaSourceUrl } = getMediaDetails( media, currentPostId );
+	const toggleFocusTimerRef = useRef();
+
+	useEffect( () => {
+		return () => {
+			clearTimeout( toggleFocusTimerRef.current );
+		};
+	}, [] );
 
 	function onDropFiles( filesList ) {
 		getSettings().mediaUpload( {
@@ -269,7 +276,12 @@ function PostFeaturedImage( {
 											className="editor-post-featured-image__action"
 											onClick={ () => {
 												onRemoveImage();
-												toggleRef.current.focus();
+												// The toggle button is rendered conditionally, we need
+												// to wait it is rendered before moving focus to it.
+												toggleFocusTimerRef.current =
+													setTimeout( () => {
+														toggleRef.current?.focus();
+													} );
 											} }
 											variant={
 												isMissingMedia
@@ -294,15 +306,10 @@ function PostFeaturedImage( {
 }
 
 const applyWithSelect = withSelect( ( select ) => {
-	const { getMedia, getPostType } = select( coreStore );
+	const { getMedia, getPostType, hasFinishedResolution } =
+		select( coreStore );
 	const { getCurrentPostId, getEditedPostAttribute } = select( editorStore );
 	const featuredImageId = getEditedPostAttribute( 'featured_media' );
-	const isRequestingFeaturedImageMedia =
-		!! featuredImageId &&
-		! select( coreStore ).hasFinishedResolution( 'getMedia', [
-			featuredImageId,
-			{ context: 'view' },
-		] );
 
 	return {
 		media: featuredImageId
@@ -311,7 +318,12 @@ const applyWithSelect = withSelect( ( select ) => {
 		currentPostId: getCurrentPostId(),
 		postType: getPostType( getEditedPostAttribute( 'type' ) ),
 		featuredImageId,
-		isRequestingFeaturedImageMedia,
+		isRequestingFeaturedImageMedia:
+			!! featuredImageId &&
+			! hasFinishedResolution( 'getMedia', [
+				featuredImageId,
+				{ context: 'view' },
+			] ),
 	};
 } );
 
