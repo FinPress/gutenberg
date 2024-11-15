@@ -170,7 +170,7 @@ function ListItem< Item >( {
 			( action ) => action.isPrimary && !! action.icon
 		);
 		return {
-			primaryAction: _primaryActions?.[ 0 ],
+			primaryAction: _primaryActions[ 0 ],
 			eligibleActions: _eligibleActions,
 		};
 	}, [ actions, item ] );
