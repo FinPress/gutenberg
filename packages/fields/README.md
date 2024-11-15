@@ -106,6 +106,10 @@ Undocumented declaration.
 
 Undocumented declaration.
 
+### usePostFields
+
+Hook to get the fields for a post (BasePost or BasePostWithEmbeddedAuthor).
+
 ### viewPost
 
 Undocumented declaration.

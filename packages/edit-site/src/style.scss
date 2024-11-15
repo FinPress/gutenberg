@@ -30,7 +30,6 @@
 @import "./components/editor-canvas-container/style.scss";
 @import "./components/post-edit/style.scss";
 @import "./components/post-list/style.scss";
-@import "./components/post-fields/style.scss";
 @import "./components/resizable-frame/style.scss";
 @import "./hooks/push-changes-to-global-styles/style.scss";
 @import "./components/global-styles/font-library-modal/style.scss";
@@ -94,3 +93,7 @@ body.js.site-editor-php {
 }
 
 @include wordpress-admin-schemes();
+
+.components-popover.components-dropdown__content.dataforms-layouts-panel__field-dropdown {
+	z-index: z-index(".components-popover.components-dropdown__content.dataforms-layouts-panel__field-dropdown");
+}

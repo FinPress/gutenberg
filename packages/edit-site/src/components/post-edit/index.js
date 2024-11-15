@@ -13,12 +13,12 @@ import { store as coreDataStore } from '@wordpress/core-data';
 import { __experimentalVStack as VStack } from '@wordpress/components';
 import { useState, useMemo, useEffect } from '@wordpress/element';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
+import { usePostFields } from '@wordpress/fields';
 
 /**
  * Internal dependencies
  */
 import Page from '../page';
-import usePostFields from '../post-fields';
 import { unlock } from '../../lock-unlock';
 
 const { PostCardPanel } = unlock( editorPrivateApis );
