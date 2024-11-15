@@ -130,21 +130,20 @@ export const getHomePage = createRegistrySelector( ( select ) => () => {
 	const siteData = select( STORE_NAME ).getEntityRecord( 'root', 'site' ) as
 		| SiteData
 		| undefined;
+	if ( ! siteData ) {
+		return null;
+	}
 	const homepageId =
 		siteData?.show_on_front === 'page'
 			? normalizePageId( siteData.page_on_front )
 			: null;
-	const isSiteLoaded = !! siteData;
-	if ( isSiteLoaded && homepageId ) {
+	if ( homepageId ) {
 		return { postType: 'page', postId: homepageId };
 	}
-	if ( isSiteLoaded && ! homepageId ) {
-		const frontPageTemplateId = select( STORE_NAME ).getDefaultTemplateId( {
-			slug: 'front-page',
-		} );
-		return { postType: 'wp_template', postId: frontPageTemplateId };
-	}
-	return null;
+	const frontPageTemplateId = select( STORE_NAME ).getDefaultTemplateId( {
+		slug: 'front-page',
+	} );
+	return { postType: 'wp_template', postId: frontPageTemplateId };
 } );
 
 export const getPostsPageId = createRegistrySelector( ( select ) => () => {
