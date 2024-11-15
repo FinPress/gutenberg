@@ -133,7 +133,7 @@ export default function GlobalStylesSidebar() {
 	const previousActiveAreaRef = useRef( null );
 
 	useEffect( () => {
-		if ( path === '/wp_global_styles' && canvas === 'edit' ) {
+		if ( path?.startsWith( '/wp_global_styles' ) && canvas === 'edit' ) {
 			previousActiveAreaRef.current =
 				getActiveComplementaryArea( 'core' );
 			enableComplementaryArea( 'core', 'edit-site/global-styles' );
