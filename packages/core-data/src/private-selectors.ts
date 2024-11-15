@@ -107,6 +107,19 @@ export function getRegisteredPostMeta( state: State, postType: string ) {
 	return state.registeredPostMeta?.[ postType ] ?? {};
 }
 
+function normalizePageId( value: number | string | undefined ): string | null {
+	if ( ! value || ! [ 'number', 'string' ].includes( typeof value ) ) {
+		return null;
+	}
+
+	// We also need to check if it's not zero (`'0'`).
+	if ( Number( value ) === 0 ) {
+		return null;
+	}
+
+	return value.toString();
+}
+
 interface SiteData {
 	show_on_front?: string;
 	page_on_front?: string | number;
@@ -118,11 +131,8 @@ export const getHomePage = createRegistrySelector( ( select ) => () => {
 		| SiteData
 		| undefined;
 	const homepageId =
-		siteData?.show_on_front === 'page' &&
-		[ 'number', 'string' ].includes( typeof siteData.page_on_front ) &&
-		siteData.page_on_front &&
-		!! +siteData.page_on_front // We also need to check if it's not zero(`0`).
-			? siteData.page_on_front.toString()
+		siteData?.show_on_front === 'page'
+			? normalizePageId( siteData.page_on_front )
 			: null;
 	const isSiteLoaded = !! siteData;
 	if ( isSiteLoaded && homepageId ) {
@@ -141,10 +151,8 @@ export const getPostsPageId = createRegistrySelector( ( select ) => () => {
 	const siteData = select( STORE_NAME ).getEntityRecord( 'root', 'site' ) as
 		| SiteData
 		| undefined;
-	return siteData?.show_on_front === 'page' &&
-		siteData.page_for_posts &&
-		[ 'number', 'string' ].includes( typeof siteData.page_for_posts )
-		? siteData.page_for_posts.toString()
+	return siteData?.show_on_front === 'page'
+		? normalizePageId( siteData.page_for_posts )
 		: null;
 } );
 
