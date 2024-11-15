@@ -72,7 +72,7 @@ const InserterDraggableBlocks = ( {
 						? [ createBlock( 'core/block', { ref: pattern.id } ) ]
 						: blocks;
 				event.dataTransfer.setData(
-					blocksContainMedia ? 'media' : 'text/html',
+					blocksContainMedia ? 'default' : 'text/html',
 					serialize( parsedBlocks )
 				);
 			} }

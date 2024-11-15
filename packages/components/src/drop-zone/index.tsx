@@ -46,7 +46,6 @@ export function DropZoneComponent( {
 	label,
 	onFilesDrop,
 	onHTMLDrop,
-	onMediaDrop,
 	onDrop,
 	...restProps
 }: WordPressComponentProps< DropZoneProps, 'div', false > ) {
@@ -61,7 +60,6 @@ export function DropZoneComponent( {
 				? getFilesFromDataTransfer( event.dataTransfer )
 				: [];
 			const html = event.dataTransfer?.getData( 'text/html' );
-			const media = event.dataTransfer?.getData( 'media' );
 
 			/**
 			 * From Windows Chrome 96, the `event.dataTransfer` returns both file object and HTML.
@@ -69,8 +67,6 @@ export function DropZoneComponent( {
 			 */
 			if ( html && onHTMLDrop ) {
 				onHTMLDrop( html );
-			} else if ( media && onMediaDrop ) {
-				onMediaDrop( media );
 			} else if ( files.length && onFilesDrop ) {
 				onFilesDrop( files );
 			} else if ( onDrop ) {
@@ -88,8 +84,6 @@ export function DropZoneComponent( {
 			 */
 			if ( event.dataTransfer?.types.includes( 'text/html' ) ) {
 				_type = 'html';
-			} else if ( event.dataTransfer?.types.includes( 'media' ) ) {
-				_type = 'media';
 			} else if (
 				// Check for the types because sometimes the files themselves
 				// are only available on drop.
@@ -122,7 +116,6 @@ export function DropZoneComponent( {
 			( isDraggingOverDocument || isDraggingOverElement ) &&
 			( ( type === 'file' && onFilesDrop ) ||
 				( type === 'html' && onHTMLDrop ) ||
-				( type === 'media' && onMediaDrop ) ||
 				( type === 'default' && onDrop ) ),
 		'is-dragging-over-document': isDraggingOverDocument,
 		'is-dragging-over-element': isDraggingOverElement,
