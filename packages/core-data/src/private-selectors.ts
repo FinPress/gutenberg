@@ -180,7 +180,7 @@ export const getTemplateId = createRegistrySelector(
 		if (
 			postType === 'page' &&
 			postType === homepage?.postType &&
-			postId === homepage?.postId
+			postId.toString() === homepage?.postId
 		) {
 			// The /lookup endpoint cannot currently handle a lookup
 			// when a page is set as the front page, so specifically in
@@ -216,7 +216,7 @@ export const getTemplateId = createRegistrySelector(
 		}
 		const postsPageId = unlock( select( STORE_NAME ) ).getPostsPageId();
 		// Check if the current page is the posts page.
-		if ( postType === 'page' && postsPageId === postId ) {
+		if ( postType === 'page' && postsPageId === postId.toString() ) {
 			return select( STORE_NAME ).getDefaultTemplateId( {
 				slug: 'home',
 			} );
