@@ -54,7 +54,6 @@ function VideoEdit( {
 } ) {
 	const instanceId = useInstanceId( VideoEdit );
 	const videoPlayer = useRef();
-	const posterImageButton = useRef();
 	const { id, controls, poster, src, tracks } = attributes;
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
@@ -174,13 +173,6 @@ function VideoEdit( {
 		);
 	}
 
-	function onRemovePoster() {
-		setAttributes( { poster: undefined } );
-
-		// Move focus back to the Media Upload button.
-		posterImageButton.current.focus();
-	}
-
 	return (
 		<>
 			{ isSingleSelected && (
@@ -230,8 +222,6 @@ function VideoEdit( {
 					<PosterImage
 						poster={ poster }
 						setAttributes={ setAttributes }
-						posterImageButton={ posterImageButton }
-						onRemovePoster={ onRemovePoster }
 						instanceId={ instanceId }
 					/>
 				</ToolsPanel>

@@ -8,20 +8,23 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
+import { useRef } from '@wordpress/element';
 
-function PosterImage( {
-	poster,
-	setAttributes,
-	posterImageButton,
-	onRemovePoster,
-	instanceId,
-} ) {
+function PosterImage( { poster, setAttributes, instanceId } ) {
+	const posterImageButton = useRef();
 	const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = [ 'image' ];
 
 	const videoPosterDescription = `video-block__poster-image-description-${ instanceId }`;
 
 	function onSelectPoster( image ) {
 		setAttributes( { poster: image.url } );
+	}
+
+	function onRemovePoster() {
+		setAttributes( { poster: undefined } );
+
+		// Move focus back to the Media Upload button.
+		posterImageButton.current.focus();
 	}
 
 	return (
