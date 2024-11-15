@@ -18,6 +18,7 @@ import {
 	layout,
 	rotateRight,
 	rotateLeft,
+	category,
 } from '@wordpress/icons';
 import { useCommandLoader } from '@wordpress/commands';
 import { store as preferencesStore } from '@wordpress/preferences';
@@ -278,6 +279,54 @@ const getEditorCommandLoader = () =>
 		};
 	};
 
+const getSiteEditorTemplatePartCommands = () =>
+	function useSiteEditorCategoryCommands() {
+		if ( typeof window.goBack !== 'function' ) {
+			window.goBack = function () {
+				if ( window.history.length > 1 ) {
+					window.history.back();
+				} else {
+					// If no history is available, navigate to a default page
+					window.location.href = '/';
+				}
+			};
+		}
+
+		// Fetch the current template slug
+		const templateSlug = useSelect( ( select ) => {
+			const { getCurrentPost } = select( editorStore );
+			const currentTemplate = getCurrentPost();
+
+			// Check if we have the current post and it's of type 'wp_template_part'
+			return currentTemplate?.type === 'wp_template_part'
+				? currentTemplate.slug
+				: null;
+		}, [] );
+
+		const commands = [];
+
+		// Check if we are in the Site Editor and editing a category-related template
+		const isSiteEditor = window.location.href.includes( 'site-editor.php' );
+		if ( isSiteEditor && templateSlug ) {
+			commands.push( {
+				name: 'core/manage-categories',
+				label: __( 'Manage Template Parts' ),
+				icon: category,
+				callback: ( { close } ) => {
+					if ( typeof window.goBack === 'function' ) {
+						window.goBack();
+					} else {
+						window.history.back();
+					}
+					close();
+				},
+				isDefault: true,
+			} );
+		}
+
+		return { isLoading: false, commands };
+	};
+
 const getEditedEntityContextualCommands = () =>
 	function useEditedEntityContextualCommands() {
 		const { postType } = useSelect( ( select ) => {
@@ -442,6 +491,12 @@ export default function useCommands() {
 	useCommandLoader( {
 		name: 'core/editor/edit-ui',
 		hook: getEditorCommandLoader(),
+	} );
+
+	useCommandLoader( {
+		name: 'core/editor/category-commands',
+		hook: getSiteEditorTemplatePartCommands(),
+		context: 'entity-edit',
 	} );
 
 	useCommandLoader( {
