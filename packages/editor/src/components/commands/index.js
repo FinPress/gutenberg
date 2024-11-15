@@ -304,9 +304,14 @@ const getSiteEditorCategoryCommands = () =>
 				const taxonomy = templateSlug.includes( 'tag' )
 					? 'post_tag'
 					: 'category';
+				const label =
+					taxonomy === 'post_tag'
+						? __( 'Manage Tags' )
+						: __( 'Manage Categories' );
+
 				commands.push( {
 					name: 'core/manage-categories',
-					label: __( 'Manage Categories' ),
+					label,
 					icon: category,
 					callback: ( { close } ) => {
 						close();
