@@ -18,6 +18,7 @@ import {
 	layout,
 	rotateRight,
 	rotateLeft,
+	category,
 } from '@wordpress/icons';
 import { useCommandLoader } from '@wordpress/commands';
 import { store as preferencesStore } from '@wordpress/preferences';
@@ -278,6 +279,48 @@ const getEditorCommandLoader = () =>
 		};
 	};
 
+const getSiteEditorCategoryCommands = () =>
+	function useSiteEditorCategoryCommands() {
+		// Fetch the current template
+		const templateSlug = useSelect( ( select ) => {
+			const { getCurrentPost } = select( editorStore );
+			const currentTemplate = getCurrentPost();
+			return currentTemplate?.type === 'wp_template'
+				? currentTemplate.slug
+				: null;
+		}, [] );
+
+		const commands = [];
+
+		// Check if we are in the Site Editor and editing a category-related template
+		const isSiteEditor = window.location.href.includes( 'site-editor.php' );
+		if ( isSiteEditor && templateSlug ) {
+			const isCategoryTemplate =
+				templateSlug.includes( 'category' ) ||
+				templateSlug.includes( 'tag' ) ||
+				templateSlug.includes( 'archive' );
+
+			if ( isCategoryTemplate ) {
+				const taxonomy = templateSlug.includes( 'tag' )
+					? 'post_tag'
+					: 'category';
+				commands.push( {
+					name: 'core/manage-categories',
+					label: __( 'Manage Categories' ),
+					icon: category,
+					callback: ( { close } ) => {
+						close();
+						// Redirect to the categories management page
+						window.location.href = `${ window.location.origin }/wp-admin/edit-tags.php?taxonomy=${ taxonomy }`;
+					},
+					isDefault: true, // Ensure it shows up by default
+				} );
+			}
+		}
+
+		return { isLoading: false, commands };
+	};
+
 const getEditedEntityContextualCommands = () =>
 	function useEditedEntityContextualCommands() {
 		const { postType } = useSelect( ( select ) => {
@@ -442,6 +485,12 @@ export default function useCommands() {
 	useCommandLoader( {
 		name: 'core/editor/edit-ui',
 		hook: getEditorCommandLoader(),
+	} );
+
+	useCommandLoader( {
+		name: 'core/editor/category-commands',
+		hook: getSiteEditorCategoryCommands(),
+		context: 'entity-edit',
 	} );
 
 	useCommandLoader( {
