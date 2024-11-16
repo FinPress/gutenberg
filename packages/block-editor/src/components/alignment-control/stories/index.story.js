@@ -20,11 +20,7 @@ const meta = {
 	component: AlignmentControl,
 	argTypes: {
 		value: {
-			control: {
-				type: 'select',
-				options: [ 'undefined', 'left', 'center', 'right' ],
-				defaultValue: 'undefined',
-			},
+			control: { type: null },
 			defaultValue: 'undefined',
 			description: 'The current value of the alignment setting.',
 		},
