@@ -52,8 +52,4 @@ const Template = ( { onChange, ...args } ) => {
 	);
 };
 
-export const Default = Template.bind( {
-	args: {
-		value: 'undefined',
-	},
-} );
+export const Default = Template.bind();
