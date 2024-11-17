@@ -63,12 +63,6 @@ export function attributesFromMedia( media ) {
 			media.type === VIDEO_BACKGROUND_TYPE )
 	) {
 		mediaType = media.type;
-		// If  there's a url or src but no type, it's probably coming from the inserter so
-		// we still want to return what data we have.
-	} else if ( media.url ) {
-		mediaType = IMAGE_BACKGROUND_TYPE;
-	} else if ( media.src ) {
-		mediaType = VIDEO_BACKGROUND_TYPE;
 	} else {
 		return;
 	}
