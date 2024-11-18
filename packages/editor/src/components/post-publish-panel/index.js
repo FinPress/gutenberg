@@ -50,7 +50,7 @@ export class PostPublishPanel extends Component {
 			( prevProps.isPublished &&
 				! this.props.isSaving &&
 				this.props.isDirty ) ||
-			this.props.postId !== prevProps.postId
+			this.props.currentPostId !== prevProps.currentPostId
 		) {
 			this.props.onClose();
 		}
@@ -76,7 +76,7 @@ export class PostPublishPanel extends Component {
 			onTogglePublishSidebar,
 			PostPublishExtension,
 			PrePublishExtension,
-			postId,
+			currentPostId,
 			...additionalProps
 		} = this.props;
 		const {
@@ -156,6 +156,7 @@ export default compose( [
 		const { getPostType } = select( coreStore );
 		const {
 			getCurrentPost,
+			getCurrentPostId,
 			getEditedPostAttribute,
 			isCurrentPostPublished,
 			isCurrentPostScheduled,
@@ -179,7 +180,7 @@ export default compose( [
 			isSaving: isSavingPost() && ! isAutosavingPost(),
 			isSavingNonPostEntityChanges: isSavingNonPostEntityChanges(),
 			isScheduled: isCurrentPostScheduled(),
-			postId: getEditedPostAttribute( 'id' ),
+			currentPostId: getCurrentPostId(),
 		};
 	} ),
 	withDispatch( ( dispatch, { isPublishSidebarEnabled } ) => {
