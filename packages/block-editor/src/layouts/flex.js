@@ -79,14 +79,14 @@ export default {
 							/>
 						</FlexItem>
 					) }
-					<FlexItem>
-						{ allowOrientation && (
+					{ allowOrientation && (
+						<FlexItem>
 							<OrientationControl
 								layout={ layout }
 								onChange={ onChange }
 							/>
-						) }
-					</FlexItem>
+						</FlexItem>
+					) }
 				</Flex>
 				<FlexWrapControl layout={ layout } onChange={ onChange } />
 			</>
