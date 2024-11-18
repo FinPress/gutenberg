@@ -173,7 +173,7 @@ const selectPatterns = createSelector(
 						return (
 							userPatternCategories?.length &&
 							( ! item.wp_pattern_category?.length ||
-								! item.wp_pattern_category.some( ( catId ) =>
+								! item.wp_pattern_category?.some( ( catId ) =>
 									userPatternCategories.find(
 										( cat ) => cat.id === catId
 									)
