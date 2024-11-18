@@ -32,11 +32,23 @@ const authorizedPostTypes = [ 'page', 'post' ];
 
 export function useResolveEditedEntity() {
 	const { params = {} } = useLocation();
-	const { postId, postType } = params;
 	const homePage = useSelect( ( select ) => {
 		const { getHomePage } = unlock( select( coreDataStore ) );
 		return getHomePage();
 	}, [] );
+
+	const [ postType, postId ] = useSelect(
+		( select ) => {
+			if ( params.postType !== '_wp_static_template' ) {
+				return [ params.postType, params.postId ];
+			}
+			return [
+				TEMPLATE_POST_TYPE,
+				select( coreDataStore ).getTemplateAutoDraftId( params.postId ),
+			];
+		},
+		[ params.postType, params.postId ]
+	);
 
 	/**
 	 * This is a hook that recreates the logic to resolve a template for a given WordPress postID postTypeId
@@ -112,6 +124,10 @@ export function useResolveEditedEntity() {
 
 		return {};
 	}, [ homePage, postType, postId ] );
+
+	if ( postType && ! postId ) {
+		return { isReady: false };
+	}
 
 	if ( postTypesWithoutParentTemplate.includes( postType ) && postId ) {
 		return { isReady: true, postType, postId, context };
