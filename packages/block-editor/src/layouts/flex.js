@@ -66,15 +66,18 @@ export default {
 		onChange,
 		layoutBlockSupport = {},
 	} ) {
-		const { allowOrientation = true } = layoutBlockSupport;
+		const { allowOrientation = true, allowJustification = true } =
+			layoutBlockSupport;
 		return (
 			<>
 				<Flex>
 					<FlexItem>
-						<FlexLayoutJustifyContentControl
-							layout={ layout }
-							onChange={ onChange }
-						/>
+						{ allowJustification && (
+							<FlexLayoutJustifyContentControl
+								layout={ layout }
+								onChange={ onChange }
+							/>
+						) }
 					</FlexItem>
 					<FlexItem>
 						{ allowOrientation && (
@@ -94,14 +97,22 @@ export default {
 		onChange,
 		layoutBlockSupport,
 	} ) {
-		const { allowVerticalAlignment = true } = layoutBlockSupport;
+		const { allowVerticalAlignment = true, allowJustification = true } =
+			layoutBlockSupport;
+
+		if ( ! allowJustification && ! allowVerticalAlignment ) {
+			return null;
+		}
+
 		return (
 			<BlockControls group="block" __experimentalShareWithChildBlocks>
-				<FlexLayoutJustifyContentControl
-					layout={ layout }
-					onChange={ onChange }
-					isToolbar
-				/>
+				{ allowJustification && (
+					<FlexLayoutJustifyContentControl
+						layout={ layout }
+						onChange={ onChange }
+						isToolbar
+					/>
+				) }
 				{ allowVerticalAlignment && (
 					<FlexLayoutVerticalAlignmentControl
 						layout={ layout }
