@@ -127,10 +127,6 @@ export function useResolveEditedEntity() {
 		return {};
 	}, [ homePage, postType, postId ] );
 
-	if ( postType && ! postId ) {
-		return { isReady: false };
-	}
-
 	if ( postTypesWithoutParentTemplate.includes( postType ) && postId ) {
 		return { isReady: true, postType, postId, context };
 	}
