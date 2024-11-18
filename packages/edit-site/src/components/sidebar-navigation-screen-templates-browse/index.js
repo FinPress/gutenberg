@@ -15,7 +15,7 @@ const { useLocation } = unlock( routerPrivateApis );
 
 export default function SidebarNavigationScreenTemplatesBrowse( { backPath } ) {
 	const {
-		params: { activeView = 'user' },
+		params: { activeView = 'active' },
 	} = useLocation();
 
 	return (

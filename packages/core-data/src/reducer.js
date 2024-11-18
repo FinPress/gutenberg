@@ -648,14 +648,9 @@ export function registeredPostMeta( state = {}, action ) {
 }
 
 export function templateAutoDraftId( state = {}, action ) {
-	switch ( action.type ) {
-		case 'RECEIVE_TEMPLATE_AUTO_DRAFT_ID':
-			return {
-				...state,
-				[ action.target ]: action.id,
-			};
-	}
-	return state;
+	return action.type === 'RECEIVE_TEMPLATE_AUTO_DRAFT_ID'
+		? { ...state, [ action.target ]: action.id }
+		: state;
 }
 
 export default combineReducers( {

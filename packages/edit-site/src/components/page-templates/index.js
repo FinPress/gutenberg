@@ -33,6 +33,7 @@ import {
 	activeField,
 	slugField,
 } from './fields';
+import { useDefaultTemplateTypes } from '../add-new-template/utils';
 
 const { usePostActions } = unlock( editorPrivateApis );
 const { useHistory, useLocation } = unlock( routerPrivateApis );
@@ -100,7 +101,7 @@ const DEFAULT_VIEW = {
 
 export default function PageTemplates() {
 	const { params } = useLocation();
-	const { activeView = 'user', layout, postId } = params;
+	const { activeView = 'active', layout, postId } = params;
 	const [ selection, setSelection ] = useState( [ postId ] );
 	const defaultView = useMemo( () => {
 		const usedType = layout ?? DEFAULT_VIEW.type;
@@ -109,44 +110,82 @@ export default function PageTemplates() {
 			type: usedType,
 			layout: defaultLayouts[ usedType ].layout,
 			fields: defaultLayouts[ usedType ].fields,
-			filters:
-				activeView !== 'user'
-					? [
-							{
-								field: 'author',
-								operator: 'isAny',
-								value: [ activeView ],
-							},
-					  ]
-					: [],
+			filters: ! [ 'active', 'user' ].includes( activeView )
+				? [
+						{
+							field: 'author',
+							operator: 'isAny',
+							value: [ activeView ],
+						},
+				  ]
+				: [],
 		};
 	}, [ layout, activeView ] );
 	const [ view, setView ] = useState( defaultView );
 	useEffect( () => {
 		setView( ( currentView ) => ( {
 			...currentView,
-			filters:
-				activeView !== 'user'
-					? [
-							{
-								field: 'author',
-								operator: OPERATOR_IS_ANY,
-								value: [ activeView ],
-							},
-					  ]
-					: [],
+			filters: ! [ 'active', 'user' ].includes( activeView )
+				? [
+						{
+							field: 'author',
+							operator: OPERATOR_IS_ANY,
+							value: [ activeView ],
+						},
+				  ]
+				: [],
 		} ) );
 	}, [ activeView ] );
 
-	const kind =
-		activeView === 'user' ? TEMPLATE_POST_TYPE : '_wp_static_template';
-
-	const { records, isResolving: isLoadingData } =
-		useEntityRecordsWithPermissions( 'postType', kind, {
-			// To do: for user templates, we want server side pagination.
+	const defaultTemplateTypes = useDefaultTemplateTypes();
+	// Todo: this will have to be better so that we're not fetching all the
+	// records all the time. Active templates query will need to move server
+	// side.
+	const { records: userRecords, isResolving: isLoadingUserRecords } =
+		useEntityRecordsWithPermissions( 'postType', TEMPLATE_POST_TYPE, {
 			per_page: -1,
 			status: 'publish,draft',
 		} );
+	const { records: staticRecords, isResolving: isLoadingStaticData } =
+		useEntityRecordsWithPermissions( 'postType', '_wp_static_template', {
+			per_page: -1,
+		} );
+
+	const activeTemplates = useMemo( () => {
+		const _active = [ ...staticRecords ];
+		if ( userRecords ) {
+			for ( const template of userRecords ) {
+				if ( template.status === 'publish' ) {
+					// replace the static template with the user template in the array
+					const index = _active.findIndex(
+						( record ) => record.id === template.id
+					);
+					if ( index !== -1 ) {
+						_active[ index ] = template;
+					} else {
+						_active.push( template );
+					}
+				}
+			}
+		}
+		const defaultSlugs = defaultTemplateTypes.map( ( type ) => type.slug );
+		return _active.filter( ( template ) =>
+			defaultSlugs.includes( template.slug )
+		);
+	}, [ defaultTemplateTypes, userRecords, staticRecords ] );
+
+	let records;
+	let isLoadingData;
+	if ( activeView === 'active' ) {
+		records = activeTemplates;
+		isLoadingData = isLoadingUserRecords || isLoadingStaticData;
+	} else if ( activeView === 'user' ) {
+		records = userRecords;
+		isLoadingData = isLoadingUserRecords;
+	} else {
+		records = staticRecords;
+		isLoadingData = isLoadingStaticData;
+	}
 
 	const history = useHistory();
 	const onChangeSelection = useCallback(

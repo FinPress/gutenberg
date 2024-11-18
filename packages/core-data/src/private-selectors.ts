@@ -254,5 +254,6 @@ export const getTemplateId = createRegistrySelector(
 	}
 );
 
-export const getTemplateAutoDraftId = ( state: State, target: string ) =>
-	state.templateAutoDraftId[ target ];
+export function getTemplateAutoDraftId( state: State, target: string ) {
+	return state.templateAutoDraftId[ target ];
+}
