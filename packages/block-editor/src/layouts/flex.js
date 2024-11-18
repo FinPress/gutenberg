@@ -71,14 +71,14 @@ export default {
 		return (
 			<>
 				<Flex>
-					<FlexItem>
-						{ allowJustification && (
+					{ allowJustification && (
+						<FlexItem>
 							<FlexLayoutJustifyContentControl
 								layout={ layout }
 								onChange={ onChange }
 							/>
-						) }
-					</FlexItem>
+						</FlexItem>
+					) }
 					<FlexItem>
 						{ allowOrientation && (
 							<OrientationControl
