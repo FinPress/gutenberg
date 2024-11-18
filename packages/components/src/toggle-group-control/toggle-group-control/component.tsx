@@ -32,6 +32,7 @@ function UnconnectedToggleGroupControl(
 	const {
 		__nextHasNoMarginBottom = false,
 		__next40pxDefaultSize = false,
+		__shouldNotWarnDeprecated36pxSize,
 		className,
 		isAdaptiveWidth = false,
 		isBlock = false,
@@ -82,11 +83,11 @@ function UnconnectedToggleGroupControl(
 		? ToggleGroupControlAsButtonGroup
 		: ToggleGroupControlAsRadioGroup;
 
-	// Add Warning for deprecated 36px size.
 	maybeWarnDeprecated36pxSize( {
 		componentName: 'ToggleGroupControl',
 		size,
 		__next40pxDefaultSize,
+		__shouldNotWarnDeprecated36pxSize,
 	} );
 
 	return (
