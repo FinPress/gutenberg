@@ -186,11 +186,7 @@ export function setEditedPost( postType, postId ) {
 export const editPost =
 	( edits, options ) =>
 	( { select, registry } ) => {
-		let { id, type } = select.getCurrentPost();
-		// To do: investigate why this is still wp_template.
-		if ( typeof id === 'string' ) {
-			type = '_wp_static_template';
-		}
+		const { id, type } = select.getCurrentPost();
 		registry
 			.dispatch( coreStore )
 			.editEntityRecord( 'postType', type, id, edits, options );
