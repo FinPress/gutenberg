@@ -65,6 +65,11 @@ export const ColorCopyButton = ( props: ColorCopyButtonProps ) => {
 		>
 			<CopyButton
 				size="small"
+				aria-label={
+					copiedColor === color.toHex()
+						? __( 'Copied!' )
+						: __( 'Copy' )
+				}
 				ref={ copyRef }
 				icon={ copy }
 				showTooltip={ false }
