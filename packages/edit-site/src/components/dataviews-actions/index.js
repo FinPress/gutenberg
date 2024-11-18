@@ -22,60 +22,31 @@ export const useSetActiveTemplateAction = () => {
 	return useMemo(
 		() => ( {
 			id: 'set-active-template',
-			label: __( 'Activate' ),
+			label( items ) {
+				return items.some( ( item ) => item.status === 'publish' )
+					? __( 'Deactivate' )
+					: __( 'Activate' );
+			},
 			isPrimary: true,
 			icon: edit,
-			isEligible( post ) {
-				return post.status !== 'publish';
-			},
-			async callback( [ item ] ) {
-				await editEntityRecord(
-					'postType',
-					'wp_template',
-					item.id,
-					{
-						status: 'publish',
-					},
-					{ throwOnError: true }
+			async callback( items ) {
+				const isActive = items.some(
+					( item ) => item.status === 'publish'
 				);
-				await saveEditedEntityRecord(
-					'postType',
-					'wp_template',
-					item.id
-				);
-			},
-		} ),
-		[ editEntityRecord, saveEditedEntityRecord ]
-	);
-};
-
-export const useSetInactiveTemplateAction = () => {
-	const { editEntityRecord, saveEditedEntityRecord } =
-		useDispatch( coreStore );
-	return useMemo(
-		() => ( {
-			id: 'set-active-template',
-			label: __( 'Deactivate' ),
-			isPrimary: true,
-			icon: edit,
-			isEligible( post ) {
-				return post.status === 'publish';
-			},
-			async callback( [ item ] ) {
-				await editEntityRecord(
-					'postType',
-					'wp_template',
-					item.id,
-					{
-						status: 'draft',
-					},
-					{ throwOnError: true }
-				);
-				await saveEditedEntityRecord(
-					'postType',
-					'wp_template',
-					item.id
-				);
+				for ( const item of items ) {
+					await editEntityRecord(
+						'postType',
+						'wp_template',
+						item.id,
+						{ status: isActive ? 'draft' : 'publish' },
+						{ throwOnError: true }
+					);
+					await saveEditedEntityRecord(
+						'postType',
+						'wp_template',
+						item.id
+					);
+				}
 			},
 		} ),
 		[ editEntityRecord, saveEditedEntityRecord ]

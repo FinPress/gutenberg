@@ -37,8 +37,7 @@ function PreviewField( { item } ) {
 	}, [ item.content.raw ] );
 	const { onClick } = useLink( {
 		postId: item.id,
-		postType:
-			typeof item.id === 'string' ? '_wp_static_template' : 'wp_template',
+		postType: item.type,
 		canvas: 'edit',
 	} );
 
@@ -51,16 +50,7 @@ function PreviewField( { item } ) {
 	// the block editor settings are needed in context where we don't have the block editor.
 	// Explore how we can solve this in a better way.
 	return (
-		<EditorProvider
-			post={ {
-				...item,
-				type:
-					typeof item.id === 'string'
-						? '_wp_static_template'
-						: 'wp_template',
-			} }
-			settings={ settings }
-		>
+		<EditorProvider post={ item } settings={ settings }>
 			<div
 				className="page-templates-preview-field"
 				style={ { backgroundColor } }

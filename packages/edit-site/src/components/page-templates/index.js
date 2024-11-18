@@ -24,7 +24,6 @@ import { unlock } from '../../lock-unlock';
 import {
 	useEditPostAction,
 	useSetActiveTemplateAction,
-	useSetInactiveTemplateAction,
 } from '../dataviews-actions';
 import {
 	authorField,
@@ -204,24 +203,12 @@ export default function PageTemplates() {
 	} );
 	const editAction = useEditPostAction();
 	const setActiveTemplateAction = useSetActiveTemplateAction();
-	const setInactiveTemplateAction = useSetInactiveTemplateAction();
 	const actions = useMemo(
 		() =>
 			activeView === 'user'
-				? [
-						setActiveTemplateAction,
-						setInactiveTemplateAction,
-						editAction,
-						...postTypeActions,
-				  ]
+				? [ setActiveTemplateAction, editAction, ...postTypeActions ]
 				: [ setActiveTemplateAction, ...postTypeActions ],
-		[
-			postTypeActions,
-			setActiveTemplateAction,
-			setInactiveTemplateAction,
-			editAction,
-			activeView,
-		]
+		[ postTypeActions, setActiveTemplateAction, editAction, activeView ]
 	);
 
 	const onChangeView = useCallback(

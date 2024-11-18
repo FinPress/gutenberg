@@ -209,13 +209,6 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 		duration: disableMotion ? 0 : 0.2,
 	};
 
-	let _postType = postWithTemplate ? context.postType : postType;
-	const _postId = postWithTemplate ? context.postId : postId;
-
-	if ( typeof postId === 'string' && ! /^\d+$/.test( postId ) ) {
-		_postType = '_wp_static_template';
-	}
-
 	return (
 		<>
 			<GlobalStylesRenderer
@@ -224,12 +217,16 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 			<EditorKeyboardShortcutsRegister />
 			{ isEditMode && <BlockKeyboardShortcuts /> }
 			{ ! isReady ? <CanvasLoader id={ loadingProgressId } /> : null }
-			{ isEditMode && <WelcomeGuide postType={ _postType } /> }
+			{ isEditMode && (
+				<WelcomeGuide
+					postType={ postWithTemplate ? context.postType : postType }
+				/>
+			) }
 			{ isReady && (
 				<Editor
-					postType={ _postType }
-					postId={ _postId }
-					templateId={ postWithTemplate ? _postId : undefined }
+					postType={ postWithTemplate ? context.postType : postType }
+					postId={ postWithTemplate ? context.postId : postId }
+					templateId={ postWithTemplate ? postId : undefined }
 					settings={ settings }
 					className={ clsx( 'edit-site-editor__editor-interface', {
 						'show-icon-labels': showIconLabels,

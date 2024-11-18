@@ -117,7 +117,6 @@ export const registerPostTypeActions =
 				: undefined,
 			postTypeConfig.slug === 'wp_block' ? exportPattern : undefined,
 			restorePost,
-			// resetPost,
 			deletePost,
 			trashPost,
 			permanentlyDeletePost,
