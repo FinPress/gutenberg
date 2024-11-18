@@ -554,10 +554,6 @@ _Returns_
 
 -   `RevisionRecord[] | null`: Record.
 
-### getTemplateAutoDraftId
-
-Undocumented declaration.
-
 ### getThemeSupports
 
 Return theme supports data in the index.
@@ -855,10 +851,6 @@ _Parameters_
 -   _query_ `?Object`: Query Object.
 -   _invalidateCache_ `?boolean`: Should invalidate query caches.
 -   _meta_ `?Object`: Meta information about pagination.
-
-### receiveTemplateAutoDraftId
-
-Undocumented declaration.
 
 ### receiveThemeSupports
 

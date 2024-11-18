@@ -262,10 +262,6 @@ _Parameters_
 -   _invalidateCache_ `?boolean`: Should invalidate query caches.
 -   _meta_ `?Object`: Meta information about pagination.
 
-### receiveTemplateAutoDraftId
-
-Undocumented declaration.
-
 ### receiveThemeSupports
 
 > **Deprecated** since WP 5.9, this is not useful anymore, use the selector directly.
@@ -779,10 +775,6 @@ _Parameters_
 _Returns_
 
 -   `RevisionRecord[] | null`: Record.
-
-### getTemplateAutoDraftId
-
-Undocumented declaration.
 
 ### getThemeSupports
 

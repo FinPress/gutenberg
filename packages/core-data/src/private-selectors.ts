@@ -253,3 +253,6 @@ export const getTemplateId = createRegistrySelector(
 		} );
 	}
 );
+
+export const getTemplateAutoDraftId = ( state: State, target: string ) =>
+	state.templateAutoDraftId[ target ];

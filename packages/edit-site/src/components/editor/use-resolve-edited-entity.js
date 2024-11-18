@@ -44,7 +44,9 @@ export function useResolveEditedEntity() {
 			}
 			return [
 				TEMPLATE_POST_TYPE,
-				select( coreDataStore ).getTemplateAutoDraftId( params.postId ),
+				unlock( select( coreDataStore ) ).getTemplateAutoDraftId(
+					params.postId
+				),
 			];
 		},
 		[ params.postType, params.postId ]
@@ -101,7 +103,7 @@ export function useResolveEditedEntity() {
 			if ( typeof resolvedTemplateId !== 'string' ) {
 				return resolvedTemplateId;
 			}
-			return select( coreDataStore ).getTemplateAutoDraftId(
+			return unlock( select( coreDataStore ) ).getTemplateAutoDraftId(
 				resolvedTemplateId
 			);
 		},
