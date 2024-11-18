@@ -597,7 +597,7 @@ export const getChildBlockNames = createSelector(
  *
  * @param {Object}          state           Data state.
  * @param {(string|Object)} nameOrType      Block name or type object
- * @param {Array|string}    feature         Feature to retrieve
+ * @param {Array|string}    features        Feature to retrieve
  * @param {*}               defaultSupports Default value to return if not
  *                                          explicitly defined
  *
@@ -629,7 +629,7 @@ export const getChildBlockNames = createSelector(
 export const getBlockSupport = (
 	state,
 	nameOrType,
-	feature,
+	features,
 	defaultSupports
 ) => {
 	const blockType = getNormalizedBlockType( state, nameOrType );
@@ -637,11 +637,31 @@ export const getBlockSupport = (
 		return defaultSupports;
 	}
 
-	return getValueFromObjectPath(
-		blockType.supports,
-		feature,
-		defaultSupports
-	);
+	const featuresArray = Array.isArray( features ) ? features : [ features ];
+
+	let supportValue;
+	for ( const feature of featuresArray ) {
+		// Check for the feature directly
+		supportValue = getValueFromObjectPath( blockType.supports, feature );
+
+		// Check for `defaultControls` if the feature has it
+		if ( supportValue?.defaultControls ) {
+			return supportValue.defaultControls;
+		}
+
+		// Check for `__experimentalDefaultControls` if `defaultControls` is not found
+		if ( supportValue?.__experimentalDefaultControls ) {
+			return supportValue.__experimentalDefaultControls;
+		}
+
+		// If a value is found, return it
+		if ( supportValue !== undefined ) {
+			return supportValue;
+		}
+	}
+
+	// Return the default value if none of the features are found
+	return defaultSupports;
 };
 
 /**
