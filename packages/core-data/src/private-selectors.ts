@@ -6,7 +6,7 @@ import { createSelector, createRegistrySelector } from '@wordpress/data';
 /**
  * Internal dependencies
  */
-import type { State } from './selectors';
+import { getDefaultTemplateId, getEntityRecord, type State } from './selectors';
 import { STORE_NAME } from './name';
 import { unlock } from './lock-unlock';
 
@@ -150,9 +150,10 @@ export const getHomePage = createRegistrySelector( ( select ) =>
 			} );
 			return { postType: 'wp_template', postId: frontPageTemplateId };
 		},
-		() => [
-			select( STORE_NAME ).getEntityRecord( 'root', 'site' ),
-			select( STORE_NAME ).getDefaultTemplateId( {
+		( state ) => [
+			// @ts-expect-error
+			getEntityRecord( state, 'root', 'site' ),
+			getDefaultTemplateId( state, {
 				slug: 'front-page',
 			} ),
 		]
