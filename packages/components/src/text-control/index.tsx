@@ -39,7 +39,6 @@ function UnforwardedTextControl(
 	const onChangeValue = ( event: ChangeEvent< HTMLInputElement > ) =>
 		onChange( event.target.value );
 
-	// Add Warning for deprecated 36px size.
 	maybeWarnDeprecated36pxSize( {
 		componentName: 'TextControl',
 		size: undefined,
