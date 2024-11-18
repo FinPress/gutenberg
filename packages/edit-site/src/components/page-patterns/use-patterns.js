@@ -156,7 +156,7 @@ const selectPatterns = createSelector(
 				categoryId,
 				hasCategory: ( item, currentCategory ) => {
 					if ( item.type === PATTERN_TYPES.user ) {
-						return item.wp_pattern_category.some(
+						return item.wp_pattern_category?.some(
 							( catId ) =>
 								userPatternCategories.find(
 									( cat ) => cat.id === catId
