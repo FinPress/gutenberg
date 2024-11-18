@@ -182,7 +182,13 @@ const SocialLinkEdit = ( {
 					onChange={ ( value ) => setAttributes( { rel: value } ) }
 				/>
 			</InspectorControls>
+			{ /*
+			 * Because the `<ul>` element has a role=document, the `<li>` is
+			 * not semantically correct, so adding role=presentation is cleaner.
+			 * https://github.com/WordPress/gutenberg/pull/64883#issuecomment-2472874551
+			 */ }
 			<li
+				role="presentation"
 				className={ wrapperClasses }
 				style={ {
 					color: iconColorValue,
