@@ -28,7 +28,7 @@ function render_block_core_query_pagination_next( $attributes, $content, $block 
 	$gutenberg_experiments  = get_option( 'gutenberg-experiments' );
 	$instant_search_enabled = isset( $gutenberg_experiments['gutenberg-search-query-block'] ) && $gutenberg_experiments['gutenberg-search-query-block'];
 
-	$search_query_direct    = '';
+	$search_query_direct = '';
 	if ( isset( $block->context['queryId'] ) ) {
 		$search_param        = 'instant-search-' . $block->context['queryId'];
 		$search_query_direct = empty( $_GET[ $search_param ] ) ? '' : sanitize_text_field( $_GET[ $search_param ] );

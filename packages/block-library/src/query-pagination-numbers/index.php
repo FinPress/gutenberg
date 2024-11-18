@@ -29,7 +29,7 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 	$instant_search_enabled = isset( $gutenberg_experiments['gutenberg-search-query-block'] ) && $gutenberg_experiments['gutenberg-search-query-block'];
 
 	// Get the search query parameter for the specific query if it exists.
-	$search_query_direct    = '';
+	$search_query_direct = '';
 	if ( isset( $block->context['queryId'] ) ) {
 		$search_param = 'instant-search-' . $block->context['queryId'];
 		if ( ! empty( $_GET[ $search_param ] ) ) {
