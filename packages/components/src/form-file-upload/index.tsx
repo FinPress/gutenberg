@@ -26,7 +26,6 @@ import type { FormFileUploadProps } from './types';
  * );
  * ```
  */
-
 export function FormFileUpload( {
 	accept,
 	children,
@@ -48,7 +47,6 @@ export function FormFileUpload( {
 			{ children }
 		</Button>
 	);
-
 	// @todo: Temporary fix a bug that prevents Chromium browsers from selecting ".heic" files
 	// from the file upload. See https://core.trac.wordpress.org/ticket/62268#comment:4.
 	// This can be removed once the Chromium fix is in the stable channel.
