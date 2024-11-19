@@ -49,6 +49,8 @@ type SearchAPIResult = {
 	url: string;
 	type: string;
 	subtype: string;
+	is_front_page: boolean;
+	is_blog_home: boolean;
 };
 
 type MediaAPIResult = {
@@ -79,6 +81,8 @@ export type SearchResult = {
 	 * Link kind of post-type or taxonomy
 	 */
 	kind?: string;
+	isFrontPage?: boolean;
+	isBlogHome?: boolean;
 };
 
 /**
@@ -151,6 +155,8 @@ export default async function fetchLinkSuggestions(
 								__( '(no title)' ),
 							type: result.subtype || result.type,
 							kind: 'post-type',
+							isFrontPage: result.is_front_page === true,
+							isBlogHome: result.is_blog_home === true,
 						};
 					} );
 				} )
