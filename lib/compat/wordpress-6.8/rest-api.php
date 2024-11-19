@@ -26,7 +26,7 @@ add_action( 'rest_api_init', 'gutenberg_add_post_type_rendering_mode' );
  *
  * @return array The updated taxonomy registration arguments.
  */
-function gutenberg_override_terms_controller_6_8( $args, $taxonomy ) {
+function gutenberg_override_terms_controller_6_8( $args ) {
 	if ( empty( $args['show_in_rest'] ) ) {
 		return $args;
 	}
@@ -38,4 +38,4 @@ function gutenberg_override_terms_controller_6_8( $args, $taxonomy ) {
 	$args['rest_controller_class'] = Gutenberg_REST_Terms_Controller_6_8::class;
 	return $args;
 }
-add_filter( 'register_taxonomy_args', 'gutenberg_override_terms_controller_6_8', 10, 2 );
+add_filter( 'register_taxonomy_args', 'gutenberg_override_terms_controller_6_8', 10 );
