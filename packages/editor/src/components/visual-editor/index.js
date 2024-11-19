@@ -122,6 +122,7 @@ function VisualEditor( {
 		isDesignPostType,
 		postType,
 		isPreview,
+		isEditedPostEmpty,
 	} = useSelect( ( select ) => {
 		const {
 			getCurrentPostId,
@@ -130,6 +131,7 @@ function VisualEditor( {
 			getEditorSettings,
 			getRenderingMode,
 			getDeviceType,
+			isEditedPostEmpty: getIsEditedPostEmpty,
 		} = select( editorStore );
 		const { getPostType, getEditedEntityRecord } = select( coreStore );
 		const postTypeSlug = getCurrentPostType();
@@ -170,6 +172,7 @@ function VisualEditor( {
 			isFocusedEntity: !! editorSettings.onNavigateToPreviousEntityRecord,
 			postType: postTypeSlug,
 			isPreview: editorSettings.isPreviewMode,
+			isEditedPostEmpty: getIsEditedPostEmpty(),
 		};
 	}, [] );
 	const { isCleanNewPost } = useSelect( editorStore );
@@ -351,10 +354,15 @@ function VisualEditor( {
 					// Some themes will have `min-height: 100vh` for the root container,
 					// which isn't a requirement in auto resize mode.
 					enableResizing ? 'min-height:0!important;' : ''
-				}}`,
+				}}${
+					// Vertically expands the top-level post content block when zoomed out on an empty post.
+					isEditedPostEmpty && isZoomedOut
+						? '.entry-content {min-height: 33vh;}'
+						: ''
+				}`,
 			},
 		];
-	}, [ styles, enableResizing ] );
+	}, [ styles, enableResizing, isEditedPostEmpty, isZoomedOut ] );
 
 	const localRef = useRef();
 	const typewriterRef = useTypewriter();
