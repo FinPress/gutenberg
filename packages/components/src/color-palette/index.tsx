@@ -249,7 +249,10 @@ function UnforwardedColorPalette(
 	};
 
 	const actions = !! clearable && (
-		<CircularOptionPicker.ButtonAction onClick={ clearColor }>
+		<CircularOptionPicker.ButtonAction
+			onClick={ clearColor }
+			disabled={ ! value }
+		>
 			{ __( 'Clear' ) }
 		</CircularOptionPicker.ButtonAction>
 	);
