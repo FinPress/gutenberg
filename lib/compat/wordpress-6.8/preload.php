@@ -17,25 +17,26 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 			}
 		}
 
-		// $paths[] = '/wp/v2/settings';
-		// $paths[] = array( '/wp/v2/settings', 'OPTIONS' );
-		// $paths[] = '/?_fields=' . implode(
-		// 	',',
-		// 	// @see packages/core-data/src/entities.js
-		// 	array(
-		// 		'description',
-		// 		'gmt_offset',
-		// 		'home',
-		// 		'name',
-		// 		'site_icon',
-		// 		'site_icon_url',
-		// 		'site_logo',
-		// 		'timezone_string',
-		// 		'url',
-		// 	)
-		// );
-		$paths[] = '/wp/v2/templates/lookup?slug=front-page';
-		$paths[] = '/wp/v2/templates/lookup?slug=home';
+		$paths[] = '/wp/v2/settings';
+		$paths[] = array( '/wp/v2/settings', 'OPTIONS' );
+		$paths[] = '/?_fields=' . implode(
+			',',
+			// @see packages/core-data/src/entities.js
+			array(
+				'description',
+				'gmt_offset',
+				'home',
+				'name',
+				'site_icon',
+				'site_icon_url',
+				'site_logo',
+				'timezone_string',
+				'url',
+			)
+		);
+		// There's an issue where preloaded data does not invalidate.
+		// $paths[] = '/wp/v2/templates/lookup?slug=front-page';
+		// $paths[] = '/wp/v2/templates/lookup?slug=home';
 	}
 
 	// Preload theme and global styles paths.

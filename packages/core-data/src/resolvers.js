@@ -850,12 +850,11 @@ export const getDefaultTemplateId =
 		}
 	};
 
-// Whenever the active template is changed, we must lookup again.
 getDefaultTemplateId.shouldInvalidate = ( action ) => {
 	return (
-		action.type === 'RECEIVE_ITEMS' &&
-		action.kind === 'postType' &&
-		action.name === 'wp_template'
+		action.type === 'EDIT_ENTITY_RECORD' &&
+		action.kind === 'root' &&
+		action.name === 'site'
 	);
 };
 

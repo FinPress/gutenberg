@@ -680,7 +680,8 @@ export const saveEntityRecord =
 						! edits.status &&
 						persistedRecord?.status === 'auto-draft'
 					) {
-						edits.status = 'draft';
+						edits.status =
+							name === 'wp_template' ? 'publish' : 'draft';
 					}
 					updatedRecord = await __unstableFetch( {
 						path,

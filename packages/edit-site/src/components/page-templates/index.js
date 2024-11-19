@@ -3,10 +3,14 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useState, useMemo, useCallback, useEffect } from '@wordpress/element';
-import { privateApis as corePrivateApis } from '@wordpress/core-data';
+import {
+	privateApis as corePrivateApis,
+	store as coreStore,
+} from '@wordpress/core-data';
 import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -137,6 +141,11 @@ export default function PageTemplates() {
 		} ) );
 	}, [ activeView ] );
 
+	const activeTemplatesOption = useSelect(
+		( select ) =>
+			select( coreStore ).getEntityRecord( 'root', 'site' )
+				?.active_templates
+	);
 	const defaultTemplateTypes = useDefaultTemplateTypes();
 	// Todo: this will have to be better so that we're not fetching all the
 	// records all the time. Active templates query will need to move server
@@ -144,7 +153,6 @@ export default function PageTemplates() {
 	const { records: userRecords, isResolving: isLoadingUserRecords } =
 		useEntityRecordsWithPermissions( 'postType', TEMPLATE_POST_TYPE, {
 			per_page: -1,
-			status: 'publish,draft',
 		} );
 	const { records: staticRecords, isResolving: isLoadingStaticData } =
 		useEntityRecordsWithPermissions( 'postType', '_wp_static_template', {
@@ -153,39 +161,88 @@ export default function PageTemplates() {
 
 	const activeTemplates = useMemo( () => {
 		const _active = [ ...staticRecords ];
-		if ( userRecords ) {
-			for ( const template of userRecords ) {
-				if ( template.status === 'publish' ) {
-					// replace the static template with the user template in the array
+		if ( activeTemplatesOption ) {
+			for ( const activeSlug in activeTemplatesOption ) {
+				const activeId = activeTemplatesOption[ activeSlug ];
+				if ( activeId === false ) {
+					// Remove the template from the array.
 					const index = _active.findIndex(
-						( record ) => record.id === template.id
+						( template ) => template.slug === activeSlug
 					);
 					if ( index !== -1 ) {
-						_active[ index ] = template;
-					} else {
-						_active.push( template );
+						_active.splice( index, 1 );
+					}
+				} else {
+					// Replace the template in the array.
+					const template = userRecords.find(
+						( { id } ) => id === activeId
+					);
+					if ( template ) {
+						const index = _active.findIndex(
+							( { slug } ) => slug === template.slug
+						);
+						if ( index !== -1 ) {
+							_active[ index ] = template;
+						} else {
+							_active.push( template );
+						}
 					}
 				}
 			}
+
+			// for ( const template of userRecords ) {
+			// 	if ( activeTemplatesOption[ template.slug ] === template.id ) {
+			// 		// replace the static template with the user template in the array
+			// 		const index = _active.findIndex(
+			// 			( record ) => record.slug === template.slug
+			// 		);
+			// 		if ( index !== -1 ) {
+			// 			_active[ index ] = template;
+			// 		} else {
+			// 			_active.push( template );
+			// 		}
+			// 	}
+			// }
 		}
 		const defaultSlugs = defaultTemplateTypes.map( ( type ) => type.slug );
 		return _active.filter( ( template ) =>
 			defaultSlugs.includes( template.slug )
 		);
-	}, [ defaultTemplateTypes, userRecords, staticRecords ] );
+	}, [
+		defaultTemplateTypes,
+		userRecords,
+		staticRecords,
+		activeTemplatesOption,
+	] );
 
-	let records;
+	let _records;
 	let isLoadingData;
 	if ( activeView === 'active' ) {
-		records = activeTemplates;
+		_records = activeTemplates;
 		isLoadingData = isLoadingUserRecords || isLoadingStaticData;
 	} else if ( activeView === 'user' ) {
-		records = userRecords;
+		_records = userRecords;
 		isLoadingData = isLoadingUserRecords;
 	} else {
-		records = staticRecords;
+		_records = staticRecords;
 		isLoadingData = isLoadingStaticData;
 	}
+
+	const records = useMemo( () => {
+		return _records.map( ( record ) => ( {
+			...record,
+			_isActive:
+				typeof record.id === 'string'
+					? activeTemplatesOption[ record.slug ] === record.id ||
+					  ( activeTemplatesOption[ record.slug ] === undefined &&
+							defaultTemplateTypes.find(
+								( { slug } ) => slug === record.slug
+							) )
+					: Object.values( activeTemplatesOption ).includes(
+							record.id
+					  ),
+		} ) );
+	}, [ _records, activeTemplatesOption, defaultTemplateTypes ] );
 
 	const history = useHistory();
 	const onChangeSelection = useCallback(
@@ -224,13 +281,11 @@ export default function PageTemplates() {
 				...authorField,
 				elements: authors,
 			},
+			activeField,
+			slugField,
 		];
-		if ( activeView === 'user' ) {
-			_fields.push( activeField );
-			_fields.push( slugField );
-		}
 		return _fields;
-	}, [ authors, activeView ] );
+	}, [ authors ] );
 
 	const { data, paginationInfo } = useMemo( () => {
 		return filterSortAndPaginate( records, view, fields );

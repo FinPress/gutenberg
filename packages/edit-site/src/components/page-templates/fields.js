@@ -159,17 +159,12 @@ export const authorField = {
 export const activeField = {
 	label: __( 'Active' ),
 	id: 'active',
-	getValue: ( { item } ) => item.status === 'publish',
-	render: ( { item } ) => {
+	getValue: ( { item } ) => item._isActive,
+	render: function Render( { item } ) {
+		const isActive = item._isActive;
 		return (
-			<span
-				className={ `is-${
-					item.status === 'publish' ? 'active' : 'inactive'
-				}` }
-			>
-				{ item.status === 'publish'
-					? __( 'Active' )
-					: __( 'Inactive' ) }
+			<span className={ `is-${ isActive ? 'active' : 'inactive' }` }>
+				{ isActive ? __( 'Active' ) : __( 'Inactive' ) }
 			</span>
 		);
 	},

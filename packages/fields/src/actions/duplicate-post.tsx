@@ -55,14 +55,14 @@ const duplicatePost: Action< BasePost > = {
 				return;
 			}
 
+			const isTemplate =
+				item.type === 'wp_template' ||
+				item.type === '_wp_static_template';
+
 			const newItemOject = {
-				status: 'draft',
+				status: isTemplate ? 'publish' : 'draft',
 				title: item.title,
-				slug:
-					item.type === 'wp_template' ||
-					item.type === '_wp_static_template'
-						? item.slug
-						: item.title || __( 'No title' ),
+				slug: isTemplate ? item.slug : item.title || __( 'No title' ),
 				comment_status: item.comment_status,
 				content:
 					typeof item.content === 'string'

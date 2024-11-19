@@ -58,9 +58,14 @@ function gutenberg_setup_static_template() {
 	$wp_post_types['_wp_static_template']->rest_base =             '_wp_static_template';
 	$wp_post_types['_wp_static_template']->rest_controller_class = 'Gutenberg_REST_Static_Templates_Controller';
 
-	register_setting( 'gutenberg', 'active_templates', array(
+	register_setting( 'reading', 'active_templates', array(
 		'type' => 'object',
-		'show_in_rest' => true,
+		'show_in_rest' => array(
+			'schema' => array(
+				'type' => 'object',
+				'additionalProperties' => true,
+			),
+		),
 		'default' => array(),
 	) );
 }
@@ -192,19 +197,6 @@ class Gutenberg_REST_Static_Templates_Controller extends WP_REST_Templates_Contr
 	}
 }
 
-function gutenberg_set_active_template_theme( $post_id ) {
-	// Get the post object
-	$post = get_post( $post_id );
-
-	if ( $post->post_type === 'wp_template' ) {
-		$active_templates = get_option( 'active_templates', array() );
-		$active_templates[ $post->post_name ] = $post->ID;
-		update_option( 'active_templates', $active_templates );
-	}
-}
-
-add_action( 'save_post', 'gutenberg_set_active_template_theme' );
-
 function gutenberg_allow_template_slugs_to_be_duplicated( $override, $slug, $post_id, $post_status, $post_type ) {
 	return $post_type === 'wp_template' ? $slug : $override;
 }
@@ -217,10 +209,15 @@ function gutenberg_pre_get_block_templates( $output, $query, $template_type ) {
 		$slugs = $query['slug__in'];
 		$output = array();
 		foreach ( $slugs as $slug ) {
-			if ( ! empty( $active_templates[ $slug ] ) ) {
-				$post = get_post( $active_templates[ $slug ] );
-				if ( $post ) {
-					$output[] = _build_block_template_result_from_post( $post );
+			if ( isset( $active_templates[ $slug ] ) ) {
+				if ( $active_templates[ $slug ] !== false ) {	
+					$post = get_post( $active_templates[ $slug ] );
+					if ( $post ) {
+						$output[] = _build_block_template_result_from_post( $post );
+					}
+				} else {
+					// Deactivated template, fall back to next slug.
+					$output[] = array();
 				}
 			}
 		}
@@ -233,6 +230,7 @@ function gutenberg_pre_get_block_templates( $output, $query, $template_type ) {
 
 add_filter( 'pre_get_block_templates', 'gutenberg_pre_get_block_templates', 10, 3 );
 
+// Bypass the terms check in _build_block_template_result_from_post.
 function gutenberg_get_the_terms( $terms, $object_id, $taxonomy ) {
 	if ( $taxonomy === 'wp_theme' ) {
 		$stylesheet = get_stylesheet();
