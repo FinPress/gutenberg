@@ -534,7 +534,7 @@ export type SimpleFormField = {
 };
 
 export type CombinedFormField = {
-	id?: string;
+	id: string;
 	label?: string;
 	layout?: 'regular' | 'panel';
 	labelPosition?: 'side' | 'top' | 'none';
@@ -549,6 +549,7 @@ export type FormField = SimpleFormField | CombinedFormField;
 export type Form = {
 	type?: 'regular' | 'panel';
 	fields?: Array< FormField | string >;
+	labelPosition?: 'side' | 'top' | 'none';
 };
 
 export interface DataFormProps< Item > {

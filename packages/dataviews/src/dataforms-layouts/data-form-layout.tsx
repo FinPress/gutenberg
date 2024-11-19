@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { __experimentalVStack as VStack } from '@wordpress/components';
-import { useContext } from '@wordpress/element';
+import { useContext, useMemo } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -11,6 +11,7 @@ import type { Form, FormField, SimpleFormField } from '../types';
 import { getFormFieldLayout } from './index';
 import DataFormContext from '../components/dataform-context';
 import { isCombinedField } from './is-combined-field';
+import normalizeFormFields from '../normalize-form-fields';
 
 export function DataFormLayout< Item >( {
 	data,
@@ -41,21 +42,16 @@ export function DataFormLayout< Item >( {
 		);
 	}
 
+	const normalizedFormFields = useMemo(
+		() => normalizeFormFields( form ),
+		[ form ]
+	);
+
 	return (
 		<VStack spacing={ 2 }>
-			{ form?.fields?.map( ( field ) => {
-				const formField: FormField =
-					typeof field !== 'string'
-						? field
-						: {
-								id: field,
-						  };
-				const fieldLayoutId = formField.layout
-					? formField.layout
-					: form.type;
-				const FieldLayout = getFormFieldLayout(
-					fieldLayoutId ?? 'regular'
-				)?.component;
+			{ normalizedFormFields.map( ( formField ) => {
+				const FieldLayout = getFormFieldLayout( formField.layout )
+					?.component;
 
 				if ( ! FieldLayout ) {
 					return null;
