@@ -8,12 +8,16 @@ import { render } from '@ariakit/test/react';
 /**
  * Internal dependencies
  */
-import FontSizePicker from '../';
+import _FontSizePicker from '../';
 import type { FontSize } from '../types';
 /**
  * WordPress dependencies
  */
 import { useState } from '@wordpress/element';
+
+const FontSizePicker = (
+	props: React.ComponentProps< typeof _FontSizePicker >
+) => <_FontSizePicker __next40pxDefaultSize { ...props } />;
 
 const ControlledFontSizePicker = ( {
 	onChange,
@@ -46,11 +50,7 @@ describe( 'FontSizePicker', () => {
 			const user = userEvent.setup();
 			const onChange = jest.fn();
 			await render(
-				<FontSizePicker
-					__next40pxDefaultSize
-					value={ value }
-					onChange={ onChange }
-				/>
+				<FontSizePicker value={ value } onChange={ onChange } />
 			);
 			const input = screen.getByLabelText( 'Custom' );
 			await user.clear( input );

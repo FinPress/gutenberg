@@ -5,6 +5,7 @@
 ### Deprecations
 
 -   `Radio`: Deprecate 36px default size ([#66572](https://github.com/WordPress/gutenberg/pull/66572)).
+-   `FontSizePicker`: Deprecate 36px default size ([#66920](https://github.com/WordPress/gutenberg/pull/66920)).
 
 ### Enhancements
 
@@ -24,7 +25,6 @@
 
 -   `BorderBoxControl`: Deprecate 36px default size ([#65752](https://github.com/WordPress/gutenberg/pull/65752)).
 -   `BorderControl`: Deprecate 36px default size ([#65755](https://github.com/WordPress/gutenberg/pull/65755)).
--   `FontSizePicker`: Deprecate 36px default size ([#66920](https://github.com/WordPress/gutenberg/pull/66920)).
 
 ### Bug Fixes
 

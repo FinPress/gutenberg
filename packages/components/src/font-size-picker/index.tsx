@@ -127,7 +127,7 @@ const UnforwardedFontSizePicker = (
 	maybeWarnDeprecated36pxSize( {
 		componentName: 'FontSizePicker',
 		__next40pxDefaultSize,
-		size: undefined,
+		size,
 	} );
 
 	return (
