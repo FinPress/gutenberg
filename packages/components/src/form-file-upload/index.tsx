@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useRef } from '@wordpress/element';
+import { useRef, useState, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -26,6 +26,7 @@ import type { FormFileUploadProps } from './types';
  * );
  * ```
  */
+
 export function FormFileUpload( {
 	accept,
 	children,
@@ -48,6 +49,20 @@ export function FormFileUpload( {
 		</Button>
 	);
 
+	// @todo: Temporary fix a bug that prevents Chromium browsers from selecting ".heic" files
+	// from the file upload. See https://core.trac.wordpress.org/ticket/62268#comment:4.
+	// This can be removed once the Chromium fix is in the stable channel.
+	const [ isSafari, setIsSafari ] = useState( false );
+	useEffect( () => {
+		setIsSafari(
+			/^((?!chrome|android).)*safari/i.test( navigator.userAgent )
+		);
+	}, [] );
+	const compatAccept =
+		! isSafari && !! accept?.includes( 'image/*' )
+			? `${ accept }, image/heic, image/heif`
+			: accept;
+
 	return (
 		<div className="components-form-file-upload">
 			{ ui }
@@ -56,7 +71,7 @@ export function FormFileUpload( {
 				ref={ ref }
 				multiple={ multiple }
 				style={ { display: 'none' } }
-				accept={ accept }
+				accept={ compatAccept }
 				onChange={ onChange }
 				onClick={ onClick }
 				data-testid="form-file-upload-input"
