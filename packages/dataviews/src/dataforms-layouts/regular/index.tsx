@@ -105,13 +105,15 @@ export default function FormRegularField< Item >( {
 	}
 
 	return (
-		<fieldDefinition.Edit
-			data={ data }
-			field={ fieldDefinition }
-			onChange={ onChange }
-			hideLabelFromVision={
-				labelPosition === 'none' ? true : hideLabelFromVision
-			}
-		/>
+		<div className="dataforms-layouts-regular__field">
+			<fieldDefinition.Edit
+				data={ data }
+				field={ fieldDefinition }
+				onChange={ onChange }
+				hideLabelFromVision={
+					labelPosition === 'none' ? true : hideLabelFromVision
+				}
+			/>
+		</div>
 	);
 }
