@@ -24,7 +24,11 @@ import { store as editorStore } from '../../store';
 import EditorHistoryRedo from '../editor-history/redo';
 import EditorHistoryUndo from '../editor-history/undo';
 
-function DocumentTools( { className, disableBlockTools = false } ) {
+function DocumentTools( {
+	className,
+	disableBlockTools = false,
+	isPreviewMode,
+} ) {
 	const { setIsInserterOpened, setIsListViewOpened } =
 		useDispatch( editorStore );
 	const {
@@ -116,7 +120,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 			variant="unstyled"
 		>
 			<div className="editor-document-tools__left">
-				{ ! isDistractionFree && (
+				{ ! isDistractionFree && ! isPreviewMode && (
 					<ToolbarItem
 						ref={ inserterSidebarToggleRef }
 						as={ Button }
@@ -134,7 +138,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 				) }
 				{ ( isWideViewport || ! showIconLabels ) && (
 					<>
-						{ showTools && isLargeViewport && (
+						{ showTools && isLargeViewport && ! isPreviewMode && (
 							<ToolbarItem
 								as={ ToolSelector }
 								showTooltip={ ! showIconLabels }
@@ -157,7 +161,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 							variant={ showIconLabels ? 'tertiary' : undefined }
 							size="compact"
 						/>
-						{ ! isDistractionFree && (
+						{ ! isDistractionFree && ! isPreviewMode && (
 							<ToolbarItem
 								as={ Button }
 								className="editor-document-tools__document-overview-toggle"

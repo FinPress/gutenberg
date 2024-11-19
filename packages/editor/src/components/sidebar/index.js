@@ -53,6 +53,7 @@ const SidebarContent = ( {
 	keyboardShortcut,
 	onActionPerformed,
 	extraPanels,
+	isPreviewMode,
 } ) => {
 	const tabListRef = useRef( null );
 	// Because `PluginSidebar` renders a `ComplementaryArea`, we
@@ -92,7 +93,10 @@ const SidebarContent = ( {
 			identifier={ tabName }
 			header={
 				<Tabs.Context.Provider value={ tabsContextValue }>
-					<SidebarHeader ref={ tabListRef } />
+					<SidebarHeader
+						ref={ tabListRef }
+						isPreviewMode={ isPreviewMode }
+					/>
 				</Tabs.Context.Provider>
 			}
 			closeLabel={ __( 'Close Settings' ) }
@@ -120,9 +124,11 @@ const SidebarContent = ( {
 					<PatternOverridesPanel />
 					{ extraPanels }
 				</Tabs.TabPanel>
-				<Tabs.TabPanel tabId={ sidebars.block } focusable={ false }>
-					<BlockInspector />
-				</Tabs.TabPanel>
+				{ ! isPreviewMode && (
+					<Tabs.TabPanel tabId={ sidebars.block } focusable={ false }>
+						<BlockInspector />
+					</Tabs.TabPanel>
+				) }
 			</Tabs.Context.Provider>
 		</PluginSidebar>
 	);
@@ -130,7 +136,7 @@ const SidebarContent = ( {
 
 const Sidebar = ( { extraPanels, onActionPerformed } ) => {
 	useAutoSwitchEditorSidebars();
-	const { tabName, keyboardShortcut, showSummary } = useSelect(
+	const { tabName, keyboardShortcut, showSummary, isPreviewMode } = useSelect(
 		( select ) => {
 			const shortcut = select(
 				keyboardShortcutsStore
@@ -151,6 +157,8 @@ const Sidebar = ( { extraPanels, onActionPerformed } ) => {
 					: sidebars.document;
 			}
 
+			const { getEditorSettings, getCurrentPostType } =
+				select( editorStore );
 			return {
 				tabName: _tabName,
 				keyboardShortcut: shortcut,
@@ -158,7 +166,8 @@ const Sidebar = ( { extraPanels, onActionPerformed } ) => {
 					TEMPLATE_POST_TYPE,
 					TEMPLATE_PART_POST_TYPE,
 					NAVIGATION_POST_TYPE,
-				].includes( select( editorStore ).getCurrentPostType() ),
+				].includes( getCurrentPostType() ),
+				isPreviewMode: getEditorSettings().isPreviewMode,
 			};
 		},
 		[]
@@ -187,6 +196,7 @@ const Sidebar = ( { extraPanels, onActionPerformed } ) => {
 				showSummary={ showSummary }
 				onActionPerformed={ onActionPerformed }
 				extraPanels={ extraPanels }
+				isPreviewMode={ isPreviewMode }
 			/>
 		</Tabs>
 	);

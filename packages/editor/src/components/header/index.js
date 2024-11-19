@@ -53,6 +53,7 @@ function Header( {
 	forceDisableBlockTools,
 	setEntitiesSavedStatesCallback,
 	title,
+	isPreviewMode,
 } ) {
 	const isWideViewport = useViewportMatch( 'large' );
 	const isLargeViewport = useViewportMatch( 'medium' );
@@ -122,6 +123,7 @@ function Header( {
 			>
 				<DocumentTools
 					disableBlockTools={ forceDisableBlockTools || isTextEditor }
+					isPreviewMode={ isPreviewMode }
 				/>
 				{ hasFixedToolbar && isLargeViewport && (
 					<CollapsibleBlockToolbar
