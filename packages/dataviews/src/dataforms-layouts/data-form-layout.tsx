@@ -7,21 +7,19 @@ import { useContext } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import type { FormField, SimpleFormField } from '../types';
+import type { Form, FormField, SimpleFormField } from '../types';
 import { getFormFieldLayout } from './index';
 import DataFormContext from '../components/dataform-context';
 import { isCombinedField } from './is-combined-field';
 
 export function DataFormLayout< Item >( {
-	defaultLayout,
 	data,
-	fields,
+	form,
 	onChange,
 	children,
 }: {
-	defaultLayout?: string;
 	data: Item;
-	fields: Array< FormField | string >;
+	form: Form;
 	onChange: ( value: any ) => void;
 	children?: (
 		FieldLayout: ( props: {
@@ -45,7 +43,7 @@ export function DataFormLayout< Item >( {
 
 	return (
 		<VStack spacing={ 2 }>
-			{ fields.map( ( field ) => {
+			{ form?.fields?.map( ( field ) => {
 				const formField: FormField =
 					typeof field !== 'string'
 						? field
@@ -54,7 +52,7 @@ export function DataFormLayout< Item >( {
 						  };
 				const fieldLayoutId = formField.layout
 					? formField.layout
-					: defaultLayout;
+					: form.type;
 				const FieldLayout = getFormFieldLayout(
 					fieldLayoutId ?? 'regular'
 				)?.component;

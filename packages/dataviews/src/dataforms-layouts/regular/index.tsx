@@ -12,7 +12,7 @@ import {
 /**
  * Internal dependencies
  */
-import type { FormField } from '../../types';
+import type { Form, FormField } from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
@@ -47,19 +47,26 @@ export default function FormRegularField< Item >( {
 }: FormFieldProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 
-	const childrenFields = useMemo( () => {
+	const form = useMemo( () => {
 		if ( isCombinedField( field ) ) {
-			return field.children.map( ( child ) => {
-				if ( typeof child === 'string' ) {
-					return {
-						id: child,
-					};
-				}
-				return child;
-			} );
+			return {
+				fields: field.children.map( ( child ) => {
+					if ( typeof child === 'string' ) {
+						return {
+							id: child,
+						};
+					}
+					return child;
+				} ),
+				type: defaultLayout,
+			};
 		}
-		return [];
-	}, [ field ] );
+
+		return {
+			type: defaultLayout,
+			fields: [],
+		};
+	}, [ defaultLayout, field ] );
 
 	if ( isCombinedField( field ) ) {
 		return (
@@ -69,9 +76,8 @@ export default function FormRegularField< Item >( {
 				) }
 				<DataFormLayout
 					data={ data }
-					fields={ childrenFields }
+					form={ form as Form }
 					onChange={ onChange }
-					defaultLayout={ defaultLayout }
 				/>
 			</>
 		);

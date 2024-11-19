@@ -16,7 +16,12 @@ import { closeSmall } from '@wordpress/icons';
 /**
  * Internal dependencies
  */
-import type { FormField, NormalizedField, SimpleFormField } from '../../types';
+import type {
+	Form,
+	FormField,
+	NormalizedField,
+	SimpleFormField,
+} from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
@@ -75,19 +80,25 @@ function PanelDropdown< Item >( {
 	const fieldLabel = isCombinedField( field )
 		? field.label
 		: fieldDefinition?.label;
-	const childrenFields = useMemo( () => {
+	const form = useMemo( () => {
 		if ( isCombinedField( field ) ) {
-			return field.children.map( ( child ) => {
-				if ( typeof child === 'string' ) {
-					return {
-						id: child,
-					};
-				}
-				return child;
-			} );
+			return {
+				type: 'panel', // TODO: fix.
+				fields: field.children.map( ( child ) => {
+					if ( typeof child === 'string' ) {
+						return {
+							id: child,
+						};
+					}
+					return child;
+				} ),
+			};
 		}
 		// If not explicit children return the field id itself.
-		return [ { id: field.id } ];
+		return {
+			type: 'panel', // TODO: fix.
+			fields: [ { id: field.id } ],
+		};
 	}, [ field ] );
 
 	// Memoize popoverProps to avoid returning a new object every time.
@@ -138,7 +149,7 @@ function PanelDropdown< Item >( {
 					<DropdownHeader title={ fieldLabel } onClose={ onClose } />
 					<DataFormLayout
 						data={ data }
-						fields={ childrenFields }
+						form={ form as Form }
 						onChange={ onChange }
 					>
 						{ ( FieldLayout, nestedField ) => (
@@ -147,9 +158,7 @@ function PanelDropdown< Item >( {
 								data={ data }
 								field={ nestedField }
 								onChange={ onChange }
-								hideLabelFromVision={
-									childrenFields.length < 2
-								}
+								hideLabelFromVision={ form.fields.length < 2 }
 							/>
 						) }
 					</DataFormLayout>

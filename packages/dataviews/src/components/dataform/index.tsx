@@ -28,12 +28,7 @@ export default function DataForm< Item >( {
 
 	return (
 		<DataFormProvider fields={ normalizedFields }>
-			<DataFormLayout
-				data={ data }
-				fields={ form.fields }
-				defaultLayout={ form.type }
-				onChange={ onChange }
-			/>
+			<DataFormLayout data={ data } form={ form } onChange={ onChange } />
 		</DataFormProvider>
 	);
 }
