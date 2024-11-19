@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { CopyButton } from './styles';
+import { Button } from '../button';
 import Tooltip from '../tooltip';
 
 import type { ColorCopyButtonProps } from './types';
@@ -60,8 +60,8 @@ export const ColorCopyButton = ( props: ColorCopyButtonProps ) => {
 
 	return (
 		<Tooltip delay={ 0 } hideOnClick={ false } text={ label }>
-			<CopyButton
-				size="small"
+			<Button
+				size="compact"
 				aria-label={ label }
 				ref={ copyRef }
 				icon={ copy }
