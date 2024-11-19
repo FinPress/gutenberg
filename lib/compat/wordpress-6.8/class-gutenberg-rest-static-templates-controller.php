@@ -117,6 +117,23 @@ class Gutenberg_REST_Static_Templates_Controller extends WP_REST_Templates_Contr
 		);
 	}
 
+	public function get_item_schema() {
+		$schema = parent::get_item_schema();
+		$schema['properties']['is_custom'] = array(
+			'description' => __( 'Whether a template is a custom template.' ),
+			'type'        => 'bool',
+			'context'     => array( 'embed', 'view', 'edit' ),
+			'readonly'    => true,
+		);
+		$schema['properties']['plugin']    = array(
+			'type'        => 'string',
+			'description' => __( 'Plugin that registered the template.' ),
+			'readonly'    => true,
+			'context'     => array( 'view', 'edit', 'embed' ),
+		);
+		return $schema;
+	}
+
 	public function get_items( $request ) {
 		$query = array();
 		if ( isset( $request['area'] ) ) {
