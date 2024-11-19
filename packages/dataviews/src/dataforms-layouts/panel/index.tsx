@@ -8,7 +8,6 @@ import {
 	__experimentalSpacer as Spacer,
 	Dropdown,
 	Button,
-	BaseControl,
 } from '@wordpress/components';
 import { sprintf, __, _x } from '@wordpress/i18n';
 import { useState, useMemo, useContext } from '@wordpress/element';
@@ -200,9 +199,14 @@ export default function FormPanelField< Item >( {
 
 	if ( labelPosition === 'top' ) {
 		return (
-			<BaseControl __nextHasNoMarginBottom>
-				{ fieldLabel }
-				<div>
+			<VStack className="dataforms-layouts-panel__field" spacing={ 0 }>
+				<div
+					className="dataforms-layouts-panel__field-label"
+					style={ { paddingBottom: 0 } }
+				>
+					{ fieldLabel }
+				</div>
+				<div className="dataforms-layouts-panel__field-control">
 					<PanelDropdown
 						field={ field }
 						popoverAnchor={ popoverAnchor }
@@ -213,21 +217,23 @@ export default function FormPanelField< Item >( {
 						labelPosition={ labelPosition }
 					/>
 				</div>
-			</BaseControl>
+			</VStack>
 		);
 	}
 
 	if ( labelPosition === 'none' ) {
 		return (
-			<PanelDropdown
-				field={ field }
-				popoverAnchor={ popoverAnchor }
-				fieldDefinition={ fieldDefinition }
-				data={ data }
-				onChange={ onChange }
-				defaultLayout={ defaultLayout }
-				labelPosition={ labelPosition }
-			/>
+			<div className="dataforms-layouts-panel__field">
+				<PanelDropdown
+					field={ field }
+					popoverAnchor={ popoverAnchor }
+					fieldDefinition={ fieldDefinition }
+					data={ data }
+					onChange={ onChange }
+					defaultLayout={ defaultLayout }
+					labelPosition={ labelPosition }
+				/>
+			</div>
 		);
 	}
 
@@ -240,7 +246,7 @@ export default function FormPanelField< Item >( {
 			<div className="dataforms-layouts-panel__field-label">
 				{ fieldLabel }
 			</div>
-			<div>
+			<div className="dataforms-layouts-panel__field-control">
 				<PanelDropdown
 					field={ field }
 					popoverAnchor={ popoverAnchor }
