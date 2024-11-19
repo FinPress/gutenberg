@@ -27,16 +27,6 @@ export const settings = {
 				type: 'constrained',
 				justifyContent: 'center',
 			},
-			style: {
-				spacing: {
-					padding: {
-						top: '4em',
-						right: '3em',
-						bottom: '4em',
-						left: '3em',
-					},
-				},
-			},
 		},
 		innerBlocks: [
 			{
