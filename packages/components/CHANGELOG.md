@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+-  `FormFileUpload`: Revert "Ensure HEIC files selectable from “Upload” button" ([67139](https://github.com/WordPress/gutenberg/pull/67139)).
+
 ### Deprecations
 
 -   `Radio`: Deprecate 36px default size ([#66572](https://github.com/WordPress/gutenberg/pull/66572)).
