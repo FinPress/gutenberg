@@ -57,6 +57,12 @@ function gutenberg_setup_static_template() {
 	$wp_post_types['_wp_static_template']->name =                  '_wp_static_template';
 	$wp_post_types['_wp_static_template']->rest_base =             '_wp_static_template';
 	$wp_post_types['_wp_static_template']->rest_controller_class = 'Gutenberg_REST_Static_Templates_Controller';
+
+	register_setting( 'gutenberg', 'active_templates', array(
+		'type' => 'object',
+		'show_in_rest' => true,
+		'default' => array(),
+	) );
 }
 add_action( 'init', 'gutenberg_setup_static_template' );
 
@@ -190,32 +196,10 @@ function gutenberg_set_active_template_theme( $post_id ) {
 	// Get the post object
 	$post = get_post( $post_id );
 
-	// Until we refactor core, we must set the wp_theme to the active theme when
-	// activating a template.
 	if ( $post->post_type === 'wp_template' ) {
-		if ( $post->post_status === 'publish' ) {
-			wp_set_post_terms( $post_id, get_stylesheet(), 'wp_theme' );
-			// Unpublish all other templates for slug
-			$other_templates = get_posts( array(
-				'post_type' => 'wp_template',
-				'post_status' => 'publish',
-				'name' => $post->post_name,
-			) );
-			foreach ( $other_templates as $other_template ) {
-				if ( $other_template->ID !== $post_id ) {
-					wp_update_post( array(
-						'ID' => $other_template->ID,
-						'post_status' => 'draft',
-					) );
-				}
-			}
-		} else {
-			// remove all wp_theme terms
-			$terms = wp_get_post_terms( $post_id, 'wp_theme' );
-			foreach ( $terms as $term ) {
-				wp_remove_object_terms( $post_id, $term->term_id, 'wp_theme' );
-			}
-		}
+		$active_templates = get_option( 'active_templates', array() );
+		$active_templates[ $post->post_name ] = $post->ID;
+		update_option( 'active_templates', $active_templates );
 	}
 }
 
@@ -226,3 +210,43 @@ function gutenberg_allow_template_slugs_to_be_duplicated( $override, $slug, $pos
 }
 
 add_filter( 'pre_wp_unique_post_slug', 'gutenberg_allow_template_slugs_to_be_duplicated', 10, 5 );
+
+function gutenberg_pre_get_block_templates( $output, $query, $template_type ) {
+	if ( $template_type === 'wp_template' && ! empty( $query['slug__in'] ) ) {
+		$active_templates = get_option( 'active_templates', array() );
+		$slugs = $query['slug__in'];
+		$output = array();
+		foreach ( $slugs as $slug ) {
+			if ( ! empty( $active_templates[ $slug ] ) ) {
+				$post = get_post( $active_templates[ $slug ] );
+				if ( $post ) {
+					$output[] = _build_block_template_result_from_post( $post );
+				}
+			}
+		}
+		if ( empty( $output ) ) {
+			$output = null;
+		}
+	}
+	return $output;
+}
+
+add_filter( 'pre_get_block_templates', 'gutenberg_pre_get_block_templates', 10, 3 );
+
+function gutenberg_get_the_terms( $terms, $object_id, $taxonomy ) {
+	if ( $taxonomy === 'wp_theme' ) {
+		$stylesheet = get_stylesheet();
+		return array(
+			new WP_Term(
+				(object) array(
+					'term_id' => 0,
+					'name' => $stylesheet,
+					'slug' => $stylesheet,
+					'taxonomy' => 'wp_theme',
+				),
+			),
+		);
+	}
+	return $terms;
+}
+add_filter( 'get_the_terms', 'gutenberg_get_the_terms', 10, 3 );
