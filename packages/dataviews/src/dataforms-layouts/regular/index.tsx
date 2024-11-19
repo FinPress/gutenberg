@@ -12,18 +12,10 @@ import {
 /**
  * Internal dependencies
  */
-import type { Form, FormField } from '../../types';
+import type { Form, FieldLayoutProps } from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
-
-interface FormFieldProps< Item > {
-	data: Item;
-	field: FormField;
-	onChange: ( value: any ) => void;
-	hideLabelFromVision?: boolean;
-	defaultLayout?: string;
-}
 
 function Header( { title }: { title: string } ) {
 	return (
@@ -43,8 +35,7 @@ export default function FormRegularField< Item >( {
 	field,
 	onChange,
 	hideLabelFromVision,
-	defaultLayout,
-}: FormFieldProps< Item > ) {
+}: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 
 	const form = useMemo( () => {
@@ -58,15 +49,15 @@ export default function FormRegularField< Item >( {
 					}
 					return child;
 				} ),
-				type: defaultLayout,
+				type: 'regular' as const,
 			};
 		}
 
 		return {
-			type: defaultLayout,
+			type: 'regular' as const,
 			fields: [],
 		};
-	}, [ defaultLayout, field ] );
+	}, [ field ] );
 
 	if ( isCombinedField( field ) ) {
 		return (

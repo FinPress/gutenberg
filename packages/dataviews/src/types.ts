@@ -557,3 +557,10 @@ export interface DataFormProps< Item > {
 	form: Form;
 	onChange: ( value: Record< string, any > ) => void;
 }
+
+export interface FieldLayoutProps< Item > {
+	data: Item;
+	field: FormField;
+	onChange: ( value: any ) => void;
+	hideLabelFromVision?: boolean;
+}

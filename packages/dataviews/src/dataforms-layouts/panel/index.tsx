@@ -19,19 +19,13 @@ import { closeSmall } from '@wordpress/icons';
 import type {
 	Form,
 	FormField,
+	FieldLayoutProps,
 	NormalizedField,
 	SimpleFormField,
 } from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
-
-interface FormFieldProps< Item > {
-	data: Item;
-	field: FormField;
-	onChange: ( value: any ) => void;
-	defaultLayout?: string;
-}
 
 function DropdownHeader( {
 	title,
@@ -68,22 +62,25 @@ function DropdownHeader( {
 function PanelDropdown< Item >( {
 	fieldDefinition,
 	popoverAnchor,
+	labelPosition = 'side',
 	data,
 	onChange,
 	field,
-	labelPosition = 'side',
 }: {
 	fieldDefinition: NormalizedField< Item >;
 	popoverAnchor: HTMLElement | null;
 	labelPosition: 'side' | 'top' | 'none';
-} & FormFieldProps< Item > ) {
+	data: Item;
+	onChange: ( value: any ) => void;
+	field: FormField;
+} ) {
 	const fieldLabel = isCombinedField( field )
 		? field.label
 		: fieldDefinition?.label;
 	const form = useMemo( () => {
 		if ( isCombinedField( field ) ) {
 			return {
-				type: 'panel', // TODO: fix.
+				type: 'regular' as const,
 				fields: field.children.map( ( child ) => {
 					if ( typeof child === 'string' ) {
 						return {
@@ -96,7 +93,7 @@ function PanelDropdown< Item >( {
 		}
 		// If not explicit children return the field id itself.
 		return {
-			type: 'panel', // TODO: fix.
+			type: 'regular' as const,
 			fields: [ { id: field.id } ],
 		};
 	}, [ field ] );
@@ -158,7 +155,9 @@ function PanelDropdown< Item >( {
 								data={ data }
 								field={ nestedField }
 								onChange={ onChange }
-								hideLabelFromVision={ form.fields.length < 2 }
+								hideLabelFromVision={
+									( form?.fields ?? [] ).length < 2
+								}
 							/>
 						) }
 					</DataFormLayout>
@@ -172,8 +171,7 @@ export default function FormPanelField< Item >( {
 	data,
 	field,
 	onChange,
-	defaultLayout,
-}: FormFieldProps< Item > ) {
+}: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 	const fieldDefinition = fields.find( ( fieldDef ) => {
 		// Default to the first child if it is a combined field.
@@ -222,7 +220,6 @@ export default function FormPanelField< Item >( {
 						fieldDefinition={ fieldDefinition }
 						data={ data }
 						onChange={ onChange }
-						defaultLayout={ defaultLayout }
 						labelPosition={ labelPosition }
 					/>
 				</div>
@@ -239,7 +236,6 @@ export default function FormPanelField< Item >( {
 					fieldDefinition={ fieldDefinition }
 					data={ data }
 					onChange={ onChange }
-					defaultLayout={ defaultLayout }
 					labelPosition={ labelPosition }
 				/>
 			</div>
@@ -262,7 +258,6 @@ export default function FormPanelField< Item >( {
 					fieldDefinition={ fieldDefinition }
 					data={ data }
 					onChange={ onChange }
-					defaultLayout={ defaultLayout }
 					labelPosition={ labelPosition }
 				/>
 			</div>
