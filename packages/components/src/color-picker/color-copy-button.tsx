@@ -55,21 +55,14 @@ export const ColorCopyButton = ( props: ColorCopyButtonProps ) => {
 		};
 	}, [] );
 
+	const label =
+		copiedColor === color.toHex() ? __( 'Copied!' ) : __( 'Copy' );
+
 	return (
-		<Tooltip
-			delay={ 0 }
-			hideOnClick={ false }
-			text={
-				copiedColor === color.toHex() ? __( 'Copied!' ) : __( 'Copy' )
-			}
-		>
+		<Tooltip delay={ 0 } hideOnClick={ false } text={ label }>
 			<CopyButton
 				size="small"
-				aria-label={
-					copiedColor === color.toHex()
-						? __( 'Copied!' )
-						: __( 'Copy' )
-				}
+				aria-label={ label }
 				ref={ copyRef }
 				icon={ copy }
 				showTooltip={ false }
