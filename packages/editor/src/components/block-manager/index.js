@@ -23,10 +23,18 @@ import BlockManagerCategory from './category';
  * @param {Function} props.onChange           Function to be called when the selected blocks change.
  */
 export default function BlockManager( {
-	blockTypes,
-	selectedBlockTypes,
+	blockTypes: _blockTypes,
+	selectedBlockTypes: _selectedBlockTypes,
 	onChange,
 } ) {
+	const blockTypes = Array.isArray( _blockTypes )
+		? _blockTypes
+		: [ _blockTypes ];
+
+	const selectedBlockTypes = Array.isArray( _selectedBlockTypes )
+		? _selectedBlockTypes
+		: [ _selectedBlockTypes ];
+
 	const debouncedSpeak = useDebounce( speak, 500 );
 	const [ search, setSearch ] = useState( '' );
 	const { categories, isMatchingSearchTerm } = useSelect( ( select ) => {
