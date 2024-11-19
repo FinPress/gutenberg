@@ -23,6 +23,8 @@ import {
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
+import { store as noticesStore } from '@wordpress/notices';
+import { useEffect, useRef } from '@wordpress/element';
 
 const minimumUsersForCombobox = 25;
 
@@ -37,8 +39,10 @@ function PostAuthorEdit( {
 	attributes,
 	setAttributes,
 } ) {
+	const { createNotice } = useDispatch( noticesStore );
+	const noticeDisplayedRef = useRef( false );
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
-	const { authorId, authorDetails, authors } = useSelect(
+	const { authorId, authorDetails, authors, supportsAuthor } = useSelect(
 		( select ) => {
 			const { getEditedEntityRecord, getUser, getUsers } =
 				select( coreStore );
@@ -52,6 +56,9 @@ function PostAuthorEdit( {
 				authorId: _authorId,
 				authorDetails: _authorId ? getUser( _authorId ) : null,
 				authors: getUsers( AUTHORS_QUERY ),
+				supportsAuthor:
+					select( coreStore ).getPostType( postType )?.supports
+						?.author ?? false,
 			};
 		},
 		[ postType, postId ]
@@ -71,6 +78,22 @@ function PostAuthorEdit( {
 			} );
 		} );
 	}
+
+	useEffect( () => {
+		// The extra `! noticeDisplayedRef.current` check avoids duplicate notices in development mode (React.StrictMode).
+		if ( ! supportsAuthor && ! noticeDisplayedRef.current && isSelected ) {
+			createNotice(
+				'warning',
+				__(
+					'The current post type does not support authors. The Post Author block will not be displayed.'
+				),
+				{
+					isDismissible: true,
+				}
+			);
+			noticeDisplayedRef.current = true;
+		}
+	}, [ supportsAuthor, createNotice, isSelected ] );
 
 	const blockProps = useBlockProps( {
 		className: clsx( {

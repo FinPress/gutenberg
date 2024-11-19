@@ -12,17 +12,22 @@ import {
 	InspectorControls,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 import { PanelBody, ToggleControl } from '@wordpress/components';
+import { store as noticesStore } from '@wordpress/notices';
+import { useEffect, useRef } from '@wordpress/element';
 
 function PostAuthorNameEdit( {
+	isSelected,
 	context: { postType, postId },
 	attributes: { textAlign, isLink, linkTarget },
 	setAttributes,
 } ) {
-	const { authorName } = useSelect(
+	const { createNotice } = useDispatch( noticesStore );
+	const noticeDisplayedRef = useRef( false );
+	const { authorName, supportsAuthor } = useSelect(
 		( select ) => {
 			const { getEditedEntityRecord, getUser } = select( coreStore );
 			const _authorId = getEditedEntityRecord(
@@ -33,10 +38,29 @@ function PostAuthorNameEdit( {
 
 			return {
 				authorName: _authorId ? getUser( _authorId ) : null,
+				supportsAuthor:
+					select( coreStore ).getPostType( postType )?.supports
+						?.author ?? false,
 			};
 		},
 		[ postType, postId ]
 	);
+
+	useEffect( () => {
+		// The extra `! noticeDisplayedRef.current` check avoids duplicate notices in development mode (React.StrictMode).
+		if ( ! supportsAuthor && ! noticeDisplayedRef.current && isSelected ) {
+			createNotice(
+				'warning',
+				__(
+					'The current post type does not support authors. The Post Author Name block will not be displayed.'
+				),
+				{
+					isDismissible: true,
+				}
+			);
+			noticeDisplayedRef.current = true;
+		}
+	}, [ supportsAuthor, createNotice, isSelected ] );
 
 	const blockProps = useBlockProps( {
 		className: clsx( {
