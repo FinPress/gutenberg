@@ -11,6 +11,7 @@
 -   `DimensionControl`: Deprecate 36px default size ([#66705](https://github.com/WordPress/gutenberg/pull/66705)).
 -   `TextControl`: Deprecate 36px default size ([#66745](https://github.com/WordPress/gutenberg/pull/66745).
 -   `FontSizePicker`: Deprecate 36px default size ([#66920](https://github.com/WordPress/gutenberg/pull/66920)).
+-   `SelectControl`: Deprecate 36px default size ([#66898](https://github.com/WordPress/gutenberg/pull/66898)).
 -   `ComboboxControl`: Deprecate 36px default size ([#66900](https://github.com/WordPress/gutenberg/pull/66900)).
 
 ### Bug Fixes
@@ -64,7 +65,6 @@
 
 -   `BorderBoxControl`: Deprecate 36px default size ([#65752](https://github.com/WordPress/gutenberg/pull/65752)).
 -   `BorderControl`: Deprecate 36px default size ([#65755](https://github.com/WordPress/gutenberg/pull/65755)).
--   `SelectControl`: Deprecate 36px default size ([#66898](https://github.com/WordPress/gutenberg/pull/66898)).
 
 ### Bug Fixes
 
