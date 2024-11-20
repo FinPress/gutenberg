@@ -84,6 +84,12 @@ The new reference commit hash that is chosen needs to meet the following require
  - Be compatible with the new WP version used in the "Tested up to" flag.
  - Is already tracked on "codevitals.run" for all existing metrics.
 
+Before releasing a version of the plugin with changes to the WordPress minimum requirements, the end-to-end test GitHub Action workflow in Core SVN will need to be updated for any branch losing support. Otherwise the next run of that workflow on that branch will fail.
+
+The version of the plugin can be pinned by adding the `gutenberg-version` input to the test matrix. [Core-59221](https://core.trac.wordpress.org/changeset/59221) is an example of this change for the 6.4 branch.
+
+**Note:** Always use the final release including bug fixes (ie. `x.y.2` or `x.y.3`).
+
 **A simple way to choose commit is to pick a very recent commit on trunk with a passing performance job.**
 
 ## Going further
