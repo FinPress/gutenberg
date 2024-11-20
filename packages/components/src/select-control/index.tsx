@@ -66,6 +66,7 @@ function UnforwardedSelectControl< V extends string >(
 		variant = 'default',
 		__next40pxDefaultSize = false,
 		__nextHasNoMarginBottom = false,
+		__shouldNotWarnDeprecated36pxSize,
 		...restProps
 	} = useDeprecated36pxDefaultSizeProp( props );
 	const id = useUniqueId( idProp );
@@ -99,6 +100,7 @@ function UnforwardedSelectControl< V extends string >(
 		componentName: 'SelectControl',
 		__next40pxDefaultSize,
 		size: undefined,
+		__shouldNotWarnDeprecated36pxSize,
 	} );
 
 	return (
