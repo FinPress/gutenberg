@@ -45,7 +45,7 @@
 		"align": true,
 		"html": false,
 		"interactivity": {
-			"c,lientNavigation": true
+			"clientNavigation": true
 		},
 		"typography": {
 			"fontSize": true,

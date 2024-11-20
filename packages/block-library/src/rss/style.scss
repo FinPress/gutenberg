@@ -26,6 +26,7 @@ ul.wp-block-rss { // The ul is needed for specificity to override the reset styl
 			width: 100%;
 		}
 	}
+
 	// This is to prevent default a tag styling from being applied to the rss block.
 	& :where(a),
 	& :where(a:focus),
@@ -46,3 +47,4 @@ ul.wp-block-rss { // The ul is needed for specificity to override the reset styl
 	display: block;
 	font-size: 0.8125em;
 }
+
