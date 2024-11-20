@@ -6,6 +6,8 @@
 
 -   `DimensionControl`: Deprecate 36px default size ([#66705](https://github.com/WordPress/gutenberg/pull/66705)).
 -   `TextControl`: Deprecate 36px default size ([#66745](https://github.com/WordPress/gutenberg/pull/66745).
+-   `FontSizePicker`: Deprecate 36px default size ([#66920](https://github.com/WordPress/gutenberg/pull/66920)).
+-   `ComboboxControl`: Deprecate 36px default size ([#66900](https://github.com/WordPress/gutenberg/pull/66900)).
 
 ### Bug Fixes
 
@@ -14,6 +16,11 @@
 -   `ColorPalette`: Disable `Clear` button if there's no color value. ([#67108](https://github.com/WordPress/gutenberg/pull/67108)).
 -   `GradientPicker`: Disable `Clear` button if there's no value. ([#67108](https://github.com/WordPress/gutenberg/pull/67108)).
 -   `DuotonePicker`: Disable `Clear` button if there's no value. ([#67108](https://github.com/WordPress/gutenberg/pull/67108)).
+-   `ColorPicker`: Add accessible label for copy button ([#67094](https://github.com/WordPress/gutenberg/pull/67094)).
+
+### Enhancements
+
+-   `ColorPicker`: Update sizes of color format select and copy button ([#67093](https://github.com/WordPress/gutenberg/pull/67093)).
 
 ### Experimental
 
