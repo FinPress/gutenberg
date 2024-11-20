@@ -6,15 +6,10 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import {
-	RichText,
-	useBlockProps,
-	store as blockEditorStore,
-} from '@wordpress/block-editor';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { useEffect } from '@wordpress/element';
 
 const preventDefault = ( event ) => event.preventDefault();
 
@@ -24,8 +19,6 @@ export default function HomeEdit( { attributes, setAttributes, context } ) {
 		return select( coreStore ).getEntityRecord( 'root', '__unstableBase' )
 			?.home;
 	}, [] );
-	const { __unstableMarkNextChangeAsNotPersistent } =
-		useDispatch( blockEditorStore );
 
 	const { textColor, backgroundColor, style } = context;
 	const blockProps = useBlockProps( {
@@ -41,15 +34,6 @@ export default function HomeEdit( { attributes, setAttributes, context } ) {
 		},
 	} );
 
-	const { label } = attributes;
-
-	useEffect( () => {
-		if ( label === undefined ) {
-			__unstableMarkNextChangeAsNotPersistent();
-			setAttributes( { label: __( 'Home' ) } );
-		}
-	}, [ label ] );
-
 	return (
 		<>
 			<div { ...blockProps }>
@@ -61,7 +45,7 @@ export default function HomeEdit( { attributes, setAttributes, context } ) {
 					<RichText
 						identifier="label"
 						className="wp-block-home-link__label"
-						value={ label }
+						value={ attributes.label ?? __( 'Home' ) }
 						onChange={ ( labelValue ) => {
 							setAttributes( { label: labelValue } );
 						} }
