@@ -93,7 +93,16 @@ function stabilizeSupports( rawSupports ) {
 				continue;
 			}
 
-			// Determine the order of keys, so the last defined can be preferred.
+			/*
+			 * Determine the order of keys, so the last defined can be preferred.
+			 *
+			 * The reason for preferring the last defined key is that after filters
+			 * are applied, the last inserted key is likely the most up-to-date value.
+			 * We cannot determine with certainty which value was "last modified" so
+			 * the insertion order is the best guess. The extreme edge case of multiple
+			 * filters tweaking the same support property will become less over time as
+			 * extenders migrate existing blocks and plugins to stable keys.
+			 */
 			const entries = Object.entries( rawSupports );
 			const experimentalIndex = entries.findIndex(
 				( [ key ] ) => key === support
