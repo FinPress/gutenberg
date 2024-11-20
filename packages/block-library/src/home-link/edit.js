@@ -35,32 +35,30 @@ export default function HomeEdit( { attributes, setAttributes, context } ) {
 	} );
 
 	return (
-		<>
-			<div { ...blockProps }>
-				<a
-					className="wp-block-home-link__content wp-block-navigation-item__content"
-					href={ homeUrl }
-					onClick={ preventDefault }
-				>
-					<RichText
-						identifier="label"
-						className="wp-block-home-link__label"
-						value={ attributes.label ?? __( 'Home' ) }
-						onChange={ ( labelValue ) => {
-							setAttributes( { label: labelValue } );
-						} }
-						aria-label={ __( 'Home link text' ) }
-						placeholder={ __( 'Add home link' ) }
-						withoutInteractiveFormatting
-						allowedFormats={ [
-							'core/bold',
-							'core/italic',
-							'core/image',
-							'core/strikethrough',
-						] }
-					/>
-				</a>
-			</div>
-		</>
+		<div { ...blockProps }>
+			<a
+				className="wp-block-home-link__content wp-block-navigation-item__content"
+				href={ homeUrl }
+				onClick={ preventDefault }
+			>
+				<RichText
+					identifier="label"
+					className="wp-block-home-link__label"
+					value={ attributes.label ?? __( 'Home' ) }
+					onChange={ ( labelValue ) => {
+						setAttributes( { label: labelValue } );
+					} }
+					aria-label={ __( 'Home link text' ) }
+					placeholder={ __( 'Add home link' ) }
+					withoutInteractiveFormatting
+					allowedFormats={ [
+						'core/bold',
+						'core/italic',
+						'core/image',
+						'core/strikethrough',
+					] }
+				/>
+			</a>
+		</div>
 	);
 }
