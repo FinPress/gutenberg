@@ -52,9 +52,9 @@ export function FormFileUpload( {
 	// This can be removed once the Chromium fix is in the stable channel.
 	// Prevent Safari from adding "image/heic" and "image/heif" to the accept attribute.
 	const isSafari =
-		globalThis.navigator?.userAgent.includes( 'Safari' ) &&
-		! globalThis.navigator?.userAgent.includes( 'Chrome' ) &&
-		! globalThis.navigator?.userAgent.includes( 'Chromium' );
+		globalThis.window?.navigator.userAgent.includes( 'Safari' ) &&
+		! globalThis.window?.navigator.userAgent.includes( 'Chrome' ) &&
+		! globalThis.window?.navigator.userAgent.includes( 'Chromium' );
 	const compatAccept =
 		! isSafari && !! accept?.includes( 'image/*' )
 			? `${ accept }, image/heic, image/heif`
