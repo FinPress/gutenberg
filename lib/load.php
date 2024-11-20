@@ -65,6 +65,9 @@ require __DIR__ . '/experimental/editor-settings.php';
 require __DIR__ . '/compat/plugin/edit-site-routes-backwards-compat.php';
 require __DIR__ . '/compat/plugin/fonts.php';
 
+// The Token Map was created to support the HTML API. It must be loaded before it.
+require __DIR__ . '/compat/wordpress-6.7/class-gutenberg-token-map-6-7.php';
+
 // Type annotations were added in 6.7 so every file is updated.
 require __DIR__ . '/compat/wordpress-6.7/html-api/class-gutenberg-html-active-formatting-elements-6-7.php';
 require __DIR__ . '/compat/wordpress-6.7/html-api/class-gutenberg-html-attribute-token-6-7.php';
