@@ -9,6 +9,7 @@ import type { ReactElement, ReactNode, Key } from 'react';
 import {
 	useContext,
 	useEffect,
+	useReducer,
 	useRef,
 	Children,
 	cloneElement,
@@ -20,7 +21,6 @@ import {
  */
 import SlotFillContext from './context';
 import type { SlotComponentProps } from './types';
-import useForceUpdate from './use-force-update';
 
 /**
  * Whether the argument is a function.
@@ -34,7 +34,7 @@ function isFunction( maybeFunc: any ): maybeFunc is Function {
 
 function Slot( props: Omit< SlotComponentProps, 'bubblesVirtually' > ) {
 	const registry = useContext( SlotFillContext );
-	const rerender = useForceUpdate();
+	const [ , rerender ] = useReducer( () => [], [] );
 	const ref = useRef( { rerender } );
 
 	const { name, children, fillProps = {} } = props;

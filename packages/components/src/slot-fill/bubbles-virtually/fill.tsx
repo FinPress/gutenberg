@@ -4,6 +4,7 @@
 import { useObservableValue } from '@wordpress/compose';
 import {
 	useContext,
+	useReducer,
 	useRef,
 	useEffect,
 	createPortal,
@@ -14,13 +15,12 @@ import {
  */
 import SlotFillContext from './slot-fill-context';
 import StyleProvider from '../../style-provider';
-import useForceUpdate from '../use-force-update';
 import type { FillComponentProps } from '../types';
 
 export default function Fill( { name, children }: FillComponentProps ) {
 	const registry = useContext( SlotFillContext );
 	const slot = useObservableValue( registry.slots, name );
-	const rerender = useForceUpdate();
+	const [ , rerender ] = useReducer( () => [], [] );
 	const ref = useRef( { rerender } );
 
 	useEffect( () => {
