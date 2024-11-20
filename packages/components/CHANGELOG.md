@@ -4,7 +4,7 @@
 
 ### Bug Fixes
 
--  `FormFileUpload`: Prevent HEIC and HEIF files from being uploaded on Safari ([67139](https://github.com/WordPress/gutenberg/pull/67139)).
+-  `FormFileUpload`: Prevent HEIC and HEIF files from being uploaded on Safari ([#67139](https://github.com/WordPress/gutenberg/pull/67139)).
 
 ### Deprecations
 
