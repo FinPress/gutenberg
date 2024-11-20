@@ -64,7 +64,7 @@
 		}
 	},
 	"selectors": {
-		"typography": ".wp-block-rss li a"
+		"typography": ".wp-block-rss__item"
 	},
 	"editorStyle": "wp-block-rss-editor",
 	"style": "wp-block-rss"
