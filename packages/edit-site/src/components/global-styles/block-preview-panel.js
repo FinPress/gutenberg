@@ -25,7 +25,7 @@ const BlockPreviewPanel = ( { name, variation = '' } ) => {
 				style: undefined,
 				className: variation
 					? getVariationClassName( variation )
-					: blockExample.attributes.className,
+					: blockExample.attributes?.className,
 			},
 		};
 
