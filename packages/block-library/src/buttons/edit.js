@@ -6,9 +6,14 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
+import {
+	store as blockEditorStore,
+	useBlockProps,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
 import { store as blocksStore } from '@wordpress/blocks';
+import { useSelect } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
 
 const DEFAULT_BLOCK = {
 	name: 'core/button',
@@ -25,8 +30,8 @@ const DEFAULT_BLOCK = {
 	],
 };
 
-function ButtonsEdit( { attributes, className } ) {
-	const { fontSize, layout, style } = attributes;
+function ButtonsEdit( { clientId, attributes, className, setAttributes } ) {
+	const { fontSize, layout, style, isInnerBlockEmpty } = attributes;
 	const blockProps = useBlockProps( {
 		className: clsx( className, {
 			'has-custom-font-size': fontSize || style?.typography?.fontSize,
@@ -41,6 +46,42 @@ function ButtonsEdit( { attributes, className } ) {
 			hasButtonVariations: buttonVariations.length > 0,
 		};
 	}, [] );
+
+	const isEmptyButtons = useSelect(
+		( select ) => {
+			const innerBlocks =
+				select( blockEditorStore ).getBlocks( clientId );
+			const buttonBlocks = innerBlocks.filter(
+				( block ) => block.name === 'core/button'
+			);
+
+			if ( buttonBlocks.length === 0 ) {
+				return true;
+			}
+
+			if ( buttonBlocks.length === 1 ) {
+				const text = buttonBlocks[ 0 ]?.attributes?.text;
+
+				const isEmptyOrInvalid =
+					text === null ||
+					text === undefined ||
+					( typeof text === 'string' && text.trim() === '' ) ||
+					( typeof text === 'object' &&
+						Object.keys( text ).length === 0 );
+
+				return isEmptyOrInvalid;
+			}
+
+			return false;
+		},
+		[ clientId ]
+	);
+
+	useEffect( () => {
+		if ( isEmptyButtons !== isInnerBlockEmpty ) {
+			setAttributes( { isInnerBlockEmpty: isEmptyButtons } );
+		}
+	}, [ isEmptyButtons, isInnerBlockEmpty, setAttributes ] );
 
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		defaultBlock: DEFAULT_BLOCK,
