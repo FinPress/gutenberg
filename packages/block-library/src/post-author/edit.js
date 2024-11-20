@@ -23,8 +23,6 @@ import {
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
-import { store as noticesStore } from '@wordpress/notices';
-import { useEffect, useRef } from '@wordpress/element';
 
 const minimumUsersForCombobox = 25;
 
@@ -39,8 +37,6 @@ function PostAuthorEdit( {
 	attributes,
 	setAttributes,
 } ) {
-	const { createNotice } = useDispatch( noticesStore );
-	const noticeDisplayedRef = useRef( false );
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const { authorId, authorDetails, authors, supportsAuthor } = useSelect(
 		( select ) => {
@@ -78,22 +74,6 @@ function PostAuthorEdit( {
 			} );
 		} );
 	}
-
-	useEffect( () => {
-		// The extra `! noticeDisplayedRef.current` check avoids duplicate notices in development mode (React.StrictMode).
-		if ( ! supportsAuthor && ! noticeDisplayedRef.current && isSelected ) {
-			createNotice(
-				'warning',
-				__(
-					'The current post type does not support authors. The Post Author block will not be displayed.'
-				),
-				{
-					isDismissible: true,
-				}
-			);
-			noticeDisplayedRef.current = true;
-		}
-	}, [ supportsAuthor, createNotice, isSelected ] );
 
 	const blockProps = useBlockProps( {
 		className: clsx( {
@@ -212,55 +192,65 @@ function PostAuthorEdit( {
 				/>
 			</BlockControls>
 
-			<div { ...blockProps }>
-				{ showAvatar && authorDetails?.avatar_urls && (
-					<div className="wp-block-post-author__avatar">
-						<img
-							width={ attributes.avatarSize }
-							src={
-								authorDetails.avatar_urls[
-									attributes.avatarSize
-								]
-							}
-							alt={ authorDetails.name }
-						/>
-					</div>
-				) }
-				<div className="wp-block-post-author__content">
-					{ ( ! RichText.isEmpty( byline ) || isSelected ) && (
-						<RichText
-							identifier="byline"
-							className="wp-block-post-author__byline"
-							aria-label={ __( 'Post author byline text' ) }
-							placeholder={ __( 'Write byline…' ) }
-							value={ byline }
-							onChange={ ( value ) =>
-								setAttributes( { byline: value } )
-							}
-						/>
+			{ supportsAuthor ? (
+				<div { ...blockProps }>
+					{ showAvatar && authorDetails?.avatar_urls && (
+						<div className="wp-block-post-author__avatar">
+							<img
+								width={ attributes.avatarSize }
+								src={
+									authorDetails.avatar_urls[
+										attributes.avatarSize
+									]
+								}
+								alt={ authorDetails.name }
+							/>
+						</div>
 					) }
-					<p className="wp-block-post-author__name">
-						{ isLink ? (
-							<a
-								href="#post-author-pseudo-link"
-								onClick={ ( event ) => event.preventDefault() }
-							>
-								{ authorName }
-							</a>
-						) : (
-							authorName
+					<div className="wp-block-post-author__content">
+						{ ( ! RichText.isEmpty( byline ) || isSelected ) && (
+							<RichText
+								identifier="byline"
+								className="wp-block-post-author__byline"
+								aria-label={ __( 'Post author byline text' ) }
+								placeholder={ __( 'Write byline…' ) }
+								value={ byline }
+								onChange={ ( value ) =>
+									setAttributes( { byline: value } )
+								}
+							/>
 						) }
-					</p>
-					{ showBio && (
-						<p
-							className="wp-block-post-author__bio"
-							dangerouslySetInnerHTML={ {
-								__html: authorDetails?.description,
-							} }
-						/>
+						<p className="wp-block-post-author__name">
+							{ isLink ? (
+								<a
+									href="#post-author-pseudo-link"
+									onClick={ ( event ) =>
+										event.preventDefault()
+									}
+								>
+									{ authorName }
+								</a>
+							) : (
+								authorName
+							) }
+						</p>
+						{ showBio && (
+							<p
+								className="wp-block-post-author__bio"
+								dangerouslySetInnerHTML={ {
+									__html: authorDetails?.description,
+								} }
+							/>
+						) }
+					</div>
+				</div>
+			) : (
+				<div { ...blockProps }>
+					{ __(
+						'The current post type does not support authors. The Post Author block will not be displayed.'
 					) }
 				</div>
-			</div>
+			) }
 		</>
 	);
 }
