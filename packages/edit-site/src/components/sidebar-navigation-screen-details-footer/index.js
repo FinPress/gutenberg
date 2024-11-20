@@ -1,23 +1,14 @@
 /**
  * WordPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { humanTimeDiff } from '@wordpress/date';
-import { createInterpolateElement } from '@wordpress/element';
+import { _n, sprintf } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
-import {
-	__experimentalItemGroup as ItemGroup,
-	__experimentalItem as Item,
-} from '@wordpress/components';
+import { __experimentalItemGroup as ItemGroup } from '@wordpress/components';
 import { backup } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
-import {
-	SidebarNavigationScreenDetailsPanelRow,
-	SidebarNavigationScreenDetailsPanelLabel,
-} from '../sidebar-navigation-screen-details-panel';
 import SidebarNavigationItem from '../sidebar-navigation-item';
 
 export default function SidebarNavigationScreenDetailsFooter( {
@@ -59,28 +50,12 @@ export default function SidebarNavigationScreenDetailsFooter( {
 			size="large"
 			className="edit-site-sidebar-navigation-screen-details-footer"
 		>
-			<Item>
-				<SidebarNavigationScreenDetailsPanelRow>
-					<SidebarNavigationScreenDetailsPanelLabel>
-						{ createInterpolateElement(
-							sprintf(
-								/* translators: %s: is the relative time when the post was last modified. */
-								__( 'Last modified: <time>%s</time>' ),
-								humanTimeDiff( record.modified )
-							),
-							{
-								time: <time dateTime={ record.modified } />,
-							}
-						) }
-					</SidebarNavigationScreenDetailsPanelLabel>
-				</SidebarNavigationScreenDetailsPanelRow>
-			</Item>
-			<SidebarNavigationItem
-				icon={ backup }
-				{ ...hrefProps }
-				{ ...otherProps }
-			>
-				{ __( 'Revisions' ) }
+			<SidebarNavigationItem icon={ backup } { ...otherProps }>
+				{ sprintf(
+					/* translators: %d: Number of Styles revisions. */
+					_n( '%d Revision', '%d Revisions', revisionsCount ),
+					revisionsCount
+				) }
 			</SidebarNavigationItem>
 		</ItemGroup>
 	);
