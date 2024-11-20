@@ -76,10 +76,7 @@ function render_block_core_rss( $attributes ) {
 
 		// Manually add block support text decoration as CSS class.
 		$text_decoration = $attributes['style']['typography']['textDecoration'] ?? null;
-		$inline_style    = '';
-		if ( $text_decoration ) {
-			$inline_style = sprintf( 'text-decoration: %s;', $text_decoration );
-		}
+		$inline_style    = $text_decoration ? sprintf( 'text-decoration: %s;', $text_decoration ) : '';
 
 		if ( $attributes['displayExcerpt'] && ! empty( $description ) ) {
 			$excerpt = html_entity_decode( $description, ENT_QUOTES, get_option( 'blog_charset' ) );
