@@ -150,7 +150,13 @@ function getOverviewBlockExamples(
 				name: blockName,
 				title: blockType.title,
 				category: 'overview',
-				blocks: getBlockFromExample( blockName, blockType.example ),
+				blocks: getBlockFromExample( blockName, {
+					...blockType.example,
+					attributes: {
+						...blockType.example.attributes,
+						style: undefined,
+					},
+				} ),
 			};
 			examples.push( blockExample );
 		}
@@ -179,7 +185,13 @@ export function getExamples( colors: MultiOriginPalettes ): BlockExample[] {
 			name: blockType.name,
 			title: blockType.title,
 			category: blockType.category,
-			blocks: getBlockFromExample( blockType.name, blockType.example ),
+			blocks: getBlockFromExample( blockType.name, {
+				...blockType.example,
+				attributes: {
+					...blockType.example.attributes,
+					style: undefined,
+				},
+			} ),
 		} ) );
 	const isHeadingBlockRegistered = !! getBlockType( 'core/heading' );
 
