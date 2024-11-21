@@ -398,9 +398,9 @@ export interface ViewGrid extends ViewBase {
 		badgeFields?: string[];
 
 		/**
-		 * The number of grid columns.
+		 * The preview size of the grid.
 		 */
-		gridColumns?: number;
+		previewSize?: number;
 	};
 }
 

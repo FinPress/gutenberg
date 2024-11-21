@@ -45,29 +45,29 @@ function useViewPortBreakpoint() {
 	return null;
 }
 
-export function useChangeGridColumnsOnViewportChange() {
+export function useChangePreviewSizeOnViewportChange() {
 	const viewport = useViewPortBreakpoint();
 	const context = useContext( DataViewsContext );
 	const view = context.view as ViewGrid;
 	useEffect( () => {
-		const gridColumns = view.layout?.gridColumns;
-		let newGridColumns;
-		if ( ! viewport || ! gridColumns ) {
+		const previewSize = view.layout?.previewSize;
+		let newPreviewSize;
+		if ( ! viewport || ! previewSize ) {
 			return;
 		}
 		const breakValues = viewportBreaks[ viewport ];
-		if ( gridColumns < breakValues.min ) {
-			newGridColumns = breakValues.min;
+		if ( previewSize < breakValues.min ) {
+			newPreviewSize = breakValues.min;
 		}
-		if ( gridColumns > breakValues.max ) {
-			newGridColumns = breakValues.max;
+		if ( previewSize > breakValues.max ) {
+			newPreviewSize = breakValues.max;
 		}
-		if ( newGridColumns ) {
+		if ( newPreviewSize ) {
 			context.onChangeView( {
 				...view,
 				layout: {
 					...view.layout,
-					gridColumns: newGridColumns,
+					previewSize: newPreviewSize,
 				},
 			} );
 		}
@@ -79,7 +79,7 @@ export default function PreviewSizePicker() {
 	const context = useContext( DataViewsContext );
 	const view = context.view as ViewGrid;
 	const breakValues = viewportBreaks[ viewport || 'mobile' ];
-	const densityToUse = view.layout?.gridColumns || breakValues.default;
+	const previewSizeToUse = view.layout?.previewSize || breakValues.default;
 
 	const marks = useMemo(
 		() =>
@@ -104,7 +104,7 @@ export default function PreviewSizePicker() {
 			__next40pxDefaultSize
 			showTooltip={ false }
 			label={ __( 'Preview size' ) }
-			value={ breakValues.max + breakValues.min - densityToUse }
+			value={ breakValues.max + breakValues.min - previewSizeToUse }
 			marks={ marks }
 			min={ breakValues.min }
 			max={ breakValues.max }
@@ -114,7 +114,7 @@ export default function PreviewSizePicker() {
 					...view,
 					layout: {
 						...view.layout,
-						gridColumns: breakValues.max + breakValues.min - value,
+						previewSize: breakValues.max + breakValues.min - value,
 					},
 				} );
 			} }
