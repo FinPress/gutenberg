@@ -74,7 +74,7 @@ export function useChangeGridColumnsOnViewportChange() {
 	}, [ viewport, view, context ] );
 }
 
-export default function DensityPicker() {
+export default function PreviewSizePicker() {
 	const viewport = useViewPortBreakpoint();
 	const context = useContext( DataViewsContext );
 	const view = context.view as ViewGrid;
