@@ -43,3 +43,9 @@ add_action(
 		add_filter( "rest_{$taxonomy}_query", 'gutenberg_respect_taxonomy_default_args_in_rest_api' );
 	}
 );
+add_action(
+	'unregistered_taxonomy',
+	function ( $taxonomy ) {
+		remove_filter( "rest_{$taxonomy}_query", 'gutenberg_respect_taxonomy_default_args_in_rest_api' );
+	}
+);
