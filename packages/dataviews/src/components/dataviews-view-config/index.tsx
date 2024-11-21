@@ -516,7 +516,7 @@ function DataviewsViewConfigDropdown() {
 		_DataViewsViewConfig,
 		'dataviews-view-config-dropdown'
 	);
-	const usedLayout = VIEW_LAYOUTS.find(
+	const activeLayout = VIEW_LAYOUTS.find(
 		( layout ) => layout.type === view.type
 	);
 	return (
@@ -545,8 +545,8 @@ function DataviewsViewConfigDropdown() {
 								<SortFieldControl />
 								<SortDirectionControl />
 							</HStack>
-							{ !! usedLayout?.viewConfigOptions && (
-								<usedLayout.viewConfigOptions />
+							{ !! activeLayout?.viewConfigOptions && (
+								<activeLayout.viewConfigOptions />
 							) }
 							<ItemsPerPageControl />
 						</SettingsSection>
