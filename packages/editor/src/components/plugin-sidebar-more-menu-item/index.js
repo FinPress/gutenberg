@@ -48,7 +48,7 @@ import { ComplementaryAreaMoreMenuItem } from '@wordpress/interface';
  * );
  * ```
  *
- * @return {Component} The component to be rendered.
+ * @return {React.ReactNode} The rendered component.
  */
 
 export default function PluginSidebarMoreMenuItem( props ) {

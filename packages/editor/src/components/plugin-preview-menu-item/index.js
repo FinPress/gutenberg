@@ -38,7 +38,7 @@ import { ActionItem } from '@wordpress/interface';
  * } );
  * ```
  *
- * @return {Component} The rendered menu item component.
+ * @return {React.ReactNode} The rendered menu item component.
  */
 export default function PluginPreviewMenuItem( props ) {
 	const context = usePluginContext();

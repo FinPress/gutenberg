@@ -59,7 +59,7 @@ import { ActionItem } from '@wordpress/interface';
  * );
  * ```
  *
- * @return {Component} The component to be rendered.
+ * @return {React.ReactNode} The rendered component.
  */
 export default function PluginMoreMenuItem( props ) {
 	const context = usePluginContext();
