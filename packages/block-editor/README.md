@@ -139,6 +139,7 @@ _Parameters_
 -   _props_ `Object`: Component props.
 -   _props.height_ `string`: Canvas height, defaults to 300px.
 -   _props.styles_ `Array`: Content styles to inject into the iframe.
+-   _props.contentRef_ `Object`: Reference to the content element.
 -   _props.children_ `Element`: Content of the canvas, defaults to the BlockList component.
 
 _Returns_
