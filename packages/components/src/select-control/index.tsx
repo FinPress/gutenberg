@@ -99,7 +99,7 @@ function UnforwardedSelectControl< V extends string >(
 	maybeWarnDeprecated36pxSize( {
 		componentName: 'SelectControl',
 		__next40pxDefaultSize,
-		size: undefined,
+		size,
 		__shouldNotWarnDeprecated36pxSize,
 	} );
 
@@ -163,7 +163,7 @@ function UnforwardedSelectControl< V extends string >(
  *
  *   return (
  *     <SelectControl
- * 		 __next40pxDefaultSize
+ *       __next40pxDefaultSize
  *       __nextHasNoMarginBottom
  *       label="Size"
  *       value={ size }

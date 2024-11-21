@@ -88,6 +88,7 @@ WithLabelAndHelpText.args = {
  */
 export const WithCustomChildren = SelectControlWithState.bind( {} );
 WithCustomChildren.args = {
+	__next40pxDefaultSize: true,
 	__nextHasNoMarginBottom: true,
 	label: 'Label',
 	children: (
