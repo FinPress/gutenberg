@@ -738,6 +738,7 @@ const MyButtonMoreMenuItem = () => (
 _Parameters_
 
 -   _props_ `Object`: Component properties.
+-   _props.children_ `[React.ReactNode]`: Children to be rendered.
 -   _props.href_ `[string]`: When `href` is provided then the menu item is represented as an anchor rather than button. It corresponds to the `href` attribute of the anchor.
 -   _props.icon_ `[WPBlockTypeIconRender]`: The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered to the left of the menu item label.
 -   _props.onClick_ `[Function]`: The callback function to be executed when the user clicks the menu item.
@@ -889,6 +890,7 @@ registerPlugin( 'external-preview-menu-item', {
 _Parameters_
 
 -   _props_ `Object`: Component properties.
+-   _props.children_ `[React.ReactNode]`: Children to be rendered.
 -   _props.href_ `[string]`: When `href` is provided, the menu item is rendered as an anchor instead of a button. It corresponds to the `href` attribute of the anchor.
 -   _props.icon_ `[WPBlockTypeIconRender]`: The icon to be rendered to the left of the menu item label. Can be a Dashicon slug or an SVG WP element.
 -   _props.onClick_ `[Function]`: The callback function to be executed when the user clicks the menu item.
@@ -953,6 +955,7 @@ _Parameters_
 
 -   _props_ `Object`: Element props.
 -   _props.name_ `string`: A string identifying the sidebar. Must be unique for every sidebar registered within the scope of your plugin.
+-   _props.children_ `[React.ReactNode]`: Children to be rendered.
 -   _props.className_ `[string]`: An optional class name added to the sidebar body.
 -   _props.title_ `string`: Title displayed at the top of the sidebar.
 -   _props.isPinnable_ `[boolean]`: Whether to allow to pin sidebar to the toolbar. When set to `true` it also automatically renders a corresponding menu item.
@@ -999,6 +1002,7 @@ _Parameters_
 
 -   _props_ `Object`: Component props.
 -   _props.target_ `string`: A string identifying the target sidebar you wish to be activated by this menu item. Must be the same as the `name` prop you have given to that sidebar.
+-   _props.children_ `[React.ReactNode]`: Children to be rendered.
 -   _props.icon_ `[WPBlockTypeIconRender]`: The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered to the left of the menu item label.
 
 _Returns_

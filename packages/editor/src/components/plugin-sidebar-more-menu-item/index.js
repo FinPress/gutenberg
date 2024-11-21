@@ -10,6 +10,7 @@ import { ComplementaryAreaMoreMenuItem } from '@wordpress/interface';
  *
  * @param {Object}                props                                 Component props.
  * @param {string}                props.target                          A string identifying the target sidebar you wish to be activated by this menu item. Must be the same as the `name` prop you have given to that sidebar.
+ * @param {React.ReactNode}       [props.children]                      Children to be rendered.
  * @param {WPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered to the left of the menu item label.
  *
  * @example
@@ -50,7 +51,6 @@ import { ComplementaryAreaMoreMenuItem } from '@wordpress/interface';
  *
  * @return {React.ReactNode} The rendered component.
  */
-
 export default function PluginSidebarMoreMenuItem( props ) {
 	return (
 		<ComplementaryAreaMoreMenuItem
