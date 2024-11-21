@@ -58,7 +58,7 @@ export default function FontFamilyControl( {
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
 			label={ __( 'Font' ) }
 			value={ value }
-			onChange={ onChange }
+			onChange={ ( { selectedItem } ) => onChange( selectedItem.key ) }
 			labelPosition="top"
 			options={ options }
 			{ ...props }
