@@ -20,7 +20,7 @@ export default function PostsApp() {
 		return unlock( select( editSiteStore ) ).getRoutes();
 	}, [] );
 	return (
-		<RouterProvider routes={ routes } basePath="/wp-admin/posts">
+		<RouterProvider routes={ routes } pathArg="p">
 			<Layout />
 		</RouterProvider>
 	);

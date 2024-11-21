@@ -45,7 +45,7 @@ export default function App() {
 	}
 
 	return (
-		<RouterProvider routes={ routes } basePath="/wp-admin/design">
+		<RouterProvider routes={ routes } pathArg="p">
 			<AppLayout />
 			<PluginArea onError={ onPluginAreaError } />
 		</RouterProvider>
