@@ -159,7 +159,11 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 		$html .= '>';
 		// End appending HTML attributes to anchor tag.
 
+		$html .= '<span class="wp-block-navigation-item__label">';
+
 		$html .= $label;
+
+		$html .= '</span>';
 
 		$html .= '</a>';
 		// End anchor tag content.
