@@ -87,7 +87,7 @@ export default function SidebarNavigationScreenGlobalStyles() {
 
 	// If there are no revisions, do not render a footer.
 	const shouldShowGlobalStylesFooter =
-		revisionsCount > 0 && ! isLoadingRevisions;
+		!! revisionsCount && ! isLoadingRevisions;
 
 	return (
 		<>
