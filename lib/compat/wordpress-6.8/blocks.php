@@ -97,8 +97,9 @@ function gutenberg_stabilize_experimental_block_supports( $args ) {
 		$stable_config = is_array( $config ) ? $stabilize_config( $config, $stable_support_key ) : $config;
 
 		/*
-		 * When both experimental and stable configs are present, use the order they
-		 * are defined in to determine the final value.
+		 * If a plugin overrides the support config with the `register_block_type_args`
+		 * filter, both experimental and stable configs may be present. In that case,
+		 * use the order keys are defined in to determine the final value.
 		 *    - If config is an array, merge the arrays in their order of definition.
 		 *    - If config is not an array, use the value defined last.
 		 *

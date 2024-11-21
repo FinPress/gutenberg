@@ -162,8 +162,9 @@ function stabilizeSupports( rawSupports ) {
 			: config;
 
 		/*
-		 * When both experimental and stable configs are present, use the order they
-		 * are defined in to determine the final value.
+		 * If a plugin overrides the support config with the `blocks.registerBlockType`
+		 * filter, both experimental and stable configs may be present. In that case,
+		 * use the order keys are defined in to determine the final value.
 		 *    - If config is an array, merge the arrays in their order of definition.
 		 *    - If config is not an array, use the value defined last.
 		 *
