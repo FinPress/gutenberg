@@ -26,6 +26,7 @@
 ### Enhancements
 
 -   `ColorPicker`: Update sizes of color format select and copy button ([#67093](https://github.com/WordPress/gutenberg/pull/67093)).
+-   `Autocomplete`: Increase option height ([#67214](https://github.com/WordPress/gutenberg/pull/67214)).
 
 ### Experimental
 
