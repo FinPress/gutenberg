@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { store as noticesStore } from '@wordpress/notices';
-import { useDispatch } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
 import { __, sprintf } from '@wordpress/i18n';
 import { PluginArea } from '@wordpress/plugins';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
@@ -12,8 +12,8 @@ import { privateApis as routerPrivateApis } from '@wordpress/router';
  */
 import Layout from '../layout';
 import { unlock } from '../../lock-unlock';
+import { store as editSiteStore } from '../../store';
 import { useCommonCommands } from '../../hooks/commands/use-common-commands';
-import useActiveRoute from '../layout/router';
 import useSetCommandContext from '../../hooks/commands/use-set-command-context';
 import { useRegisterSiteEditorRoutes } from '../site-editor-routes';
 
@@ -22,15 +22,16 @@ const { RouterProvider } = unlock( routerPrivateApis );
 function AppLayout() {
 	useCommonCommands();
 	useSetCommandContext();
-	useRegisterSiteEditorRoutes();
-	const route = useActiveRoute();
 
-	return <Layout route={ route } />;
+	return <Layout />;
 }
 
 export default function App() {
+	useRegisterSiteEditorRoutes();
 	const { createErrorNotice } = useDispatch( noticesStore );
-
+	const routes = useSelect( ( select ) => {
+		return unlock( select( editSiteStore ) ).getRoutes();
+	}, [] );
 	function onPluginAreaError( name ) {
 		createErrorNotice(
 			sprintf(
@@ -44,7 +45,7 @@ export default function App() {
 	}
 
 	return (
-		<RouterProvider>
+		<RouterProvider routes={ routes } basePath="/wp-admin/design">
 			<AppLayout />
 			<PluginArea onError={ onPluginAreaError } />
 		</RouterProvider>
