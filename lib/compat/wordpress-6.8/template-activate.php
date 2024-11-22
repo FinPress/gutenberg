@@ -128,3 +128,28 @@ function gutenberg_set_active_template_theme( $changes, $request ) {
 	);
 	return $changes;
 }
+
+// Migrate data if the option is not set.
+add_action( 'init', 'gutenberg_migrate_active_templates' );
+function gutenberg_migrate_active_templates() {
+	if ( ! get_option( 'active_templates' ) ) {
+		$templates = get_posts( 
+			array(
+				'post_type'   => 'wp_template',
+				'post_status' => 'publish',
+				'tax_query'  => array(
+					array(
+						'taxonomy' => 'wp_theme',
+						'field'    => 'slug',
+						'terms'    => get_stylesheet(),
+					),
+				),
+			)
+		);
+		$slug_to_id = array();
+		foreach ( $templates as $template ) {
+			$slug_to_id[ $template->post_name ] = $template->ID;
+		}
+		update_option( 'active_templates', $slug_to_id );
+	}
+}
