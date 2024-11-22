@@ -88,22 +88,20 @@ export function unregisterEntityField(
 	};
 }
 
-export function setIsReady( kind: string, name: string, part: string ) {
+export function setIsReady( kind: string, name: string ) {
 	return {
 		type: 'SET_IS_READY' as const,
 		kind,
 		name,
-		part,
 	};
 }
 
-export const registerPostTypeActions =
+export const registerPostTypeSchema =
 	( postType: string ) =>
 	async ( { registry }: { registry: any } ) => {
 		const isReady = unlock( registry.select( editorStore ) ).isEntityReady(
 			'postType',
-			postType,
-			'actions'
+			postType
 		);
 		if ( isReady ) {
 			return;
@@ -111,8 +109,7 @@ export const registerPostTypeActions =
 
 		unlock( registry.dispatch( editorStore ) ).setIsReady(
 			'postType',
-			postType,
-			'actions'
+			postType
 		);
 
 		const postTypeConfig = ( await registry
@@ -162,40 +159,6 @@ export const registerPostTypeActions =
 			permanentlyDeletePost,
 		];
 
-		registry.batch( () => {
-			actions.forEach( ( action ) => {
-				if ( ! action ) {
-					return;
-				}
-				unlock( registry.dispatch( editorStore ) ).registerEntityAction(
-					'postType',
-					postType,
-					action
-				);
-			} );
-		} );
-
-		doAction( 'core.registerPostTypeActions', postType );
-	};
-
-export const registerPostTypeFields =
-	( postType: string ) =>
-	async ( { registry }: { registry: any } ) => {
-		const isReady = unlock( registry.select( editorStore ) ).isEntityReady(
-			'postType',
-			postType,
-			'fields'
-		);
-		if ( isReady ) {
-			return;
-		}
-
-		unlock( registry.dispatch( editorStore ) ).setIsReady(
-			'postType',
-			postType,
-			'fields'
-		);
-
 		const fields = [
 			featuredImageField,
 			titleField,
@@ -209,6 +172,16 @@ export const registerPostTypeFields =
 		];
 
 		registry.batch( () => {
+			actions.forEach( ( action ) => {
+				if ( ! action ) {
+					return;
+				}
+				unlock( registry.dispatch( editorStore ) ).registerEntityAction(
+					'postType',
+					postType,
+					action
+				);
+			} );
 			fields.forEach( ( field ) => {
 				unlock( registry.dispatch( editorStore ) ).registerEntityField(
 					'postType',
@@ -218,5 +191,5 @@ export const registerPostTypeFields =
 			} );
 		} );
 
-		doAction( 'core.registerPostTypeFields', postType );
+		doAction( 'core.registerPostTypeSchema', postType );
 	};

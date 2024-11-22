@@ -26,10 +26,10 @@ interface Author {
 function usePostFields(): UsePostFieldsReturn {
 	const postType = 'page'; // TODO: this could be page or post (experimental).
 
-	const { registerPostTypeFields } = unlock( useDispatch( editorStore ) );
+	const { registerPostTypeSchema } = unlock( useDispatch( editorStore ) );
 	useEffect( () => {
-		registerPostTypeFields( postType );
-	}, [ registerPostTypeFields, postType ] );
+		registerPostTypeSchema( postType );
+	}, [ registerPostTypeSchema, postType ] );
 
 	const { defaultFields } = useSelect(
 		( select ) => {

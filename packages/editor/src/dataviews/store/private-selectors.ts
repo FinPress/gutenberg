@@ -13,11 +13,6 @@ export function getEntityFields( state: State, kind: string, name: string ) {
 	return state.fields[ kind ]?.[ name ] ?? EMPTY_ARRAY;
 }
 
-export function isEntityReady(
-	state: State,
-	kind: string,
-	name: string,
-	part: string
-) {
-	return state.isReady[ kind ]?.[ name ]?.[ part ];
+export function isEntityReady( state: State, kind: string, name: string ) {
+	return state.isReady[ kind ]?.[ name ];
 }
