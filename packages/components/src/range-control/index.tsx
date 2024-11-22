@@ -97,6 +97,7 @@ function UnforwardedRangeControl(
 		trackColor,
 		value: valueProp,
 		withInputField = true,
+		__shouldNotWarnDeprecated36pxSize,
 		...otherProps
 	} = props;
 
@@ -235,6 +236,7 @@ function UnforwardedRangeControl(
 		componentName: 'RangeControl',
 		__next40pxDefaultSize,
 		size: undefined,
+		__shouldNotWarnDeprecated36pxSize,
 	} );
 
 	return (
