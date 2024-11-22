@@ -101,6 +101,11 @@ export function PatternsFilter( {
 		}
 	}
 
+	// Run only when the directory is disabled.
+	const menuOptions = PATTERN_SOURCE_MENU_OPTIONS.filter(
+		( { value } ) => value !== 'directory'
+	);
+
 	return (
 		<>
 			<DropdownMenu
@@ -133,7 +138,7 @@ export function PatternsFilter( {
 						{ ! shouldHideSourcesFilter && (
 							<MenuGroup label={ __( 'Source' ) }>
 								<MenuItemsChoice
-									choices={ PATTERN_SOURCE_MENU_OPTIONS }
+									choices={ menuOptions }
 									onSelect={ ( value ) => {
 										handleSetSourceFilterChange( value );
 										scrollContainerRef.current?.scrollTo(
