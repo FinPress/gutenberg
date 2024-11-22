@@ -137,20 +137,26 @@ export const FieldsNoSortableNoHidable = () => {
 export const CombinedFields = () => {
 	const defaultLayoutsThemes = {
 		table: {
-			fields: [ 'theme', 'requires', 'tested' ],
+			fields: [ 'theme_with_combined', 'theme_with_simple' ],
 			layout: {
 				primaryField: 'name',
 				combinedFields: [
 					{
 						id: 'name_tested',
-						label: 'Theme', // This is not used, but is required for TS.
+						label: 'Theme',
 						children: [ 'name', 'tested' ],
 						direction: 'vertical',
 					},
 					{
-						id: 'theme',
-						label: 'Theme',
+						id: 'theme_with_combined',
+						label: 'Combine combined fields',
 						children: [ 'icon', 'name_tested' ],
+						direction: 'horizontal',
+					},
+					{
+						id: 'theme_with_simple',
+						label: 'Combine simple fields',
+						children: [ 'icon', 'name' ],
 						direction: 'horizontal',
 					},
 				] as CombinedField[],
