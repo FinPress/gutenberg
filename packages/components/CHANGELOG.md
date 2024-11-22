@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 -  `FormFileUpload`: Prevent HEIC and HEIF files from being uploaded on Safari ([#67139](https://github.com/WordPress/gutenberg/pull/67139)).
+-  `Dashicons`: Remove non-existent icons from type ([#67235](https://github.com/WordPress/gutenberg/pull/67235)).
 
 ### Deprecations
 
