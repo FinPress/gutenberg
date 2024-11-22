@@ -240,32 +240,6 @@ const getNavigationCommandLoaderPerTemplate = ( templateType ) =>
 				} )
 			);
 
-			if (
-				orderedRecords?.length > 0 &&
-				templateType === 'wp_template_part'
-			) {
-				result.push( {
-					name: 'core/edit-site/open-template-parts',
-					label: __( 'Template parts' ),
-					icon: symbolFilled,
-					callback: ( { close } ) => {
-						const args = {
-							postType: 'wp_template_part',
-							categoryId: 'all-parts',
-						};
-						const targetUrl = addQueryArgs(
-							'site-editor.php',
-							args
-						);
-						if ( isSiteEditor ) {
-							history.push( args );
-						} else {
-							document.location = targetUrl;
-						}
-						close();
-					},
-				} );
-			}
 			return result;
 		}, [ canCreateTemplate, isBlockBasedTheme, orderedRecords, history ] );
 
@@ -274,7 +248,53 @@ const getNavigationCommandLoaderPerTemplate = ( templateType ) =>
 			isLoading,
 		};
 	};
-
+	const getTemplatePartsCommandLoader = () => {
+		function useTemplatePartsCommandLoader() {
+			const history = useHistory();
+			const isSiteEditor = getPath( window.location.href )?.includes( 'site-editor.php' );
+			const { canCreateTemplate } = useSelect(
+				( select ) => ({
+					canCreateTemplate: select( coreStore ).canUser( 'create', {
+						kind: 'postType',
+						name: 'wp_template_part',
+					} ),
+				}),
+				[]
+			);
+	
+			const commands = useMemo(() => {
+				if (!canCreateTemplate) return [];
+	
+				return [
+					{
+						name: 'core/edit-site/open-template-parts',
+						label: __( 'Template parts' ),
+						icon: symbolFilled,
+						callback: ({ close }) => {
+							const args = {
+								postType: 'wp_template_part',
+								categoryId: 'all-parts',
+							};
+							const targetUrl = addQueryArgs( 'site-editor.php', args );
+							if (isSiteEditor) {
+								history.push( args );
+							} else {
+								document.location = targetUrl;
+							}
+							close();
+						},
+					},
+				];
+			}, [ canCreateTemplate, history, isSiteEditor ]);
+	
+			return {
+				commands,
+				isLoading: false,
+			};
+		}
+	
+		return useTemplatePartsCommandLoader;
+	};
 const getSiteEditorBasicNavigationCommands = () =>
 	function useSiteEditorBasicNavigationCommands() {
 		const history = useHistory();
@@ -434,6 +454,11 @@ export function useSiteEditorNavigationCommands() {
 	useCommandLoader( {
 		name: 'core/edit-site/navigate-template-parts',
 		hook: getNavigationCommandLoaderPerTemplate( 'wp_template_part' ),
+	} );
+	useCommandLoader( {
+		name: 'core/edit-site/navigate-template-parts',
+		hook: getTemplatePartsCommandLoader(), 
+		context: 'entity-edit',
 	} );
 	useCommandLoader( {
 		name: 'core/edit-site/basic-navigation',
