@@ -84,17 +84,12 @@ export function createSlotFill( key: SlotKey ) {
 		props: DistributiveOmit< SlotComponentProps, 'name' >
 	) => <Slot name={ key } { ...props } />;
 	SlotComponent.displayName = `${ baseName }Slot`;
+	// deprecated legacy property, should use `slotFill.name` instead of `slotFill.Slot.__unstableName`
 	SlotComponent.__unstableName = key;
 
 	return {
+		name: key,
 		Fill: FillComponent,
 		Slot: SlotComponent,
 	};
 }
-
-export const createPrivateSlotFill = ( name: string ) => {
-	const privateKey = Symbol( name );
-	const privateSlotFill = createSlotFill( privateKey );
-
-	return { privateKey, ...privateSlotFill };
-};
