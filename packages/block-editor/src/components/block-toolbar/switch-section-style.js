@@ -31,9 +31,10 @@ const styleIcon = (
 		aria-hidden="true"
 		focusable="false"
 	>
+		<Path d="M17.2 10.9c-.5-1-1.2-2.1-2.1-3.2-.6-.9-1.3-1.7-2.1-2.6L12 4l-1 1.1c-.6.9-1.3 1.7-2 2.6-.8 1.2-1.5 2.3-2 3.2-.6 1.2-1 2.2-1 3 0 3.4 2.7 6.1 6.1 6.1s6.1-2.7 6.1-6.1c0-.8-.3-1.8-1-3z" />
 		<Path
 			stroke="currentColor"
-			strokeWidth="1"
+			strokeWidth="1.25"
 			d="M17.2 10.9c-.5-1-1.2-2.1-2.1-3.2-.6-.9-1.3-1.7-2.1-2.6L12 4l-1 1.1c-.6.9-1.3 1.7-2 2.6-.8 1.2-1.5 2.3-2 3.2-.6 1.2-1 2.2-1 3 0 3.4 2.7 6.1 6.1 6.1s6.1-2.7 6.1-6.1c0-.8-.3-1.8-1-3z"
 		/>
 	</SVG>
@@ -98,7 +99,7 @@ function SwitchSectionStyle( { clientId } ) {
 		<ToolbarGroup>
 			<ToolbarButton
 				onClick={ handleStyleSwitch }
-				label={ __( 'Switch style' ) }
+				label={ __( 'Shuffle styles' ) }
 			>
 				<Icon
 					icon={ styleIcon }
