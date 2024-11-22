@@ -142,10 +142,16 @@ export const CombinedFields = () => {
 				primaryField: 'name',
 				combinedFields: [
 					{
+						id: 'name_tested',
+						label: 'Theme', // This is not used, but is required for TS.
+						children: [ 'name', 'tested' ],
+						direction: 'vertical',
+					},
+					{
 						id: 'theme',
 						label: 'Theme',
-						children: [ 'name', 'description' ],
-						direction: 'vertical',
+						children: [ 'icon', 'name_tested' ],
+						direction: 'horizontal',
 					},
 				] as CombinedField[],
 				styles: {
