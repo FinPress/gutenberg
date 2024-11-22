@@ -88,7 +88,7 @@ export default function SidebarNavigationScreenGlobalStyles() {
 	// If there are no revisions, do not render a footer.
 	const modifiedDateTime = revisions?.[ 0 ]?.modified;
 	const shouldShowGlobalStylesFooter =
-		revisionsCount && ! isLoadingRevisions && modifiedDateTime;
+		revisionsCount > 0 && ! isLoadingRevisions && modifiedDateTime;
 
 	return (
 		<>
@@ -105,7 +105,7 @@ export default function SidebarNavigationScreenGlobalStyles() {
 					shouldShowGlobalStylesFooter && (
 						<SidebarNavigationScreenDetailsFooter
 							record={ revisions?.[ 0 ] }
-							recordCount={ revisionsCount }
+							revisionsCount={ revisionsCount }
 							onClick={ openRevisions }
 						/>
 					)

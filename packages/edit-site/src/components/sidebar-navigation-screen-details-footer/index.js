@@ -23,7 +23,7 @@ import SidebarNavigationItem from '../sidebar-navigation-item';
 
 export default function SidebarNavigationScreenDetailsFooter( {
 	record,
-	recordCount = 0,
+	revisionsCount,
 	...otherProps
 } ) {
 	/*
@@ -35,10 +35,21 @@ export default function SidebarNavigationScreenDetailsFooter( {
 	const hrefProps = {};
 	const lastRevisionId =
 		record?._links?.[ 'predecessor-version' ]?.[ 0 ]?.id ?? null;
-	const revisionsCount =
-		recordCount || record?._links?.[ 'version-history' ]?.[ 0 ]?.count;
-	// Enable the revisions link if there is a last revision and there is more than one revision.
-	if ( lastRevisionId && revisionsCount ) {
+
+	// Use incoming prop first, then the record's version history, if available.
+	revisionsCount =
+		revisionsCount ||
+		record?._links?.[ 'version-history' ]?.[ 0 ]?.count ||
+		0;
+
+	/*
+	 * Enable the revisions link if there is a last revision and there is more than one revision.
+	 * This link is used for theme assets, e.g., templates, which have no database record until they're edited.
+	 * For these files there's only a "revision" after they're edited twice,
+	 * which means the revision.php page won't display a proper diff.
+	 * See: https://github.com/WordPress/gutenberg/issues/49164.
+	 */
+	if ( lastRevisionId && revisionsCount > 1 ) {
 		hrefProps.href = addQueryArgs( 'revision.php', {
 			revision: record?._links[ 'predecessor-version' ][ 0 ].id,
 		} );
