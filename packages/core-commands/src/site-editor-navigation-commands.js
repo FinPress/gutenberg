@@ -361,26 +361,7 @@ const getSiteEditorBasicNavigationCommands = () =>
 					},
 				} );
 
-				result.push( {
-					name: 'core/edit-site/open-templates',
-					label: __( 'Templates' ),
-					icon: layout,
-					callback: ( { close } ) => {
-						const args = {
-							postType: 'wp_template',
-						};
-						const targetUrl = addQueryArgs(
-							'site-editor.php',
-							args
-						);
-						if ( isSiteEditor ) {
-							history.push( args );
-						} else {
-							document.location = targetUrl;
-						}
-						close();
-					},
-				} );
+				
 			}
 
 			result.push( {
@@ -418,6 +399,53 @@ const getSiteEditorBasicNavigationCommands = () =>
 		};
 	};
 
+const useOpenTemplatesCommandLoader = () => {
+	const history = useHistory();
+	const isSiteEditor = getPath(window.location.href)?.includes('site-editor.php');
+	const { isBlockBasedTheme, canCreateTemplate } = useSelect(
+		(select) => ({
+			isBlockBasedTheme: select(coreStore).getCurrentTheme()?.is_block_theme,
+			canCreateTemplate: select(coreStore).canUser('create', {
+				kind: 'postType',
+				name: 'wp_template',
+			}),
+		}),
+		[]
+	);
+
+	const commands = useMemo(() => {
+		if (!canCreateTemplate || !isBlockBasedTheme) {
+			return [];
+		}
+
+		return [
+			{
+				name: 'core/edit-site/open-templates',
+				label: __('Templates'),
+				icon: layout,
+				callback: ({ close }) => {
+					const args = {
+						postType: 'wp_template',
+					};
+					const targetUrl = addQueryArgs('site-editor.php', args);
+					if (isSiteEditor) {
+						history.push(args);
+					} else {
+						document.location = targetUrl;
+					}
+					close();
+				},
+			},
+		];
+	}, [canCreateTemplate, isBlockBasedTheme, history, isSiteEditor]);
+
+	return {
+		commands,
+		isLoading: false,
+	};
+};
+	
+	
 export function useSiteEditorNavigationCommands() {
 	useCommandLoader( {
 		name: 'core/edit-site/navigate-pages',
@@ -440,4 +468,9 @@ export function useSiteEditorNavigationCommands() {
 		hook: getSiteEditorBasicNavigationCommands(),
 		context: 'site-editor',
 	} );
+	useCommandLoader({
+		name: 'core/edit-site/open-templates',
+		hook: useOpenTemplatesCommandLoader,
+		context: 'entity-edit',
+	});
 }
