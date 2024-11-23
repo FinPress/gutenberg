@@ -8,10 +8,16 @@ import {
 	Button,
 	Flex,
 	FlexItem,
+	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { plus, shadow as shadowIcon } from '@wordpress/icons';
+import {
+	plus,
+	shadow as shadowIcon,
+	chevronRight,
+	moreVertical,
+} from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -21,6 +27,10 @@ import Subtitle from './subtitle';
 import { NavigationButtonAsItem } from './navigation-button';
 import ScreenHeader from './header';
 import { getNewIndexFromPresets } from './utils';
+import { IconWithCurrentColor } from './icon-with-current-color';
+const { Menu } = unlock( componentsPrivateApis );
+import { useState } from '@wordpress/element';
+import ConfirmResetShadowDialog from './confirm-reset-shadow-dialog';
 
 const { useGlobalSetting } = unlock( blockEditorPrivateApis );
 
@@ -40,8 +50,27 @@ export default function ShadowsPanel() {
 		setCustomShadows( [ ...( customShadows || [] ), shadow ] );
 	};
 
+	const handleResetShadows = () => {
+		setCustomShadows( [] );
+	};
+
+	const [ isResetDialogOpen, setIsResetDialogOpen ] = useState( false );
+
+	const toggleResetDialog = () => setIsResetDialogOpen( ! isResetDialogOpen );
+
 	return (
 		<>
+			{ isResetDialogOpen && (
+				<ConfirmResetShadowDialog
+					text={ __(
+						'Are you sure you want to remove all custom shadows?'
+					) }
+					confirmButtonText={ __( 'Remove' ) }
+					isOpen={ isResetDialogOpen }
+					toggleOpen={ toggleResetDialog }
+					onConfirm={ handleResetShadows }
+				/>
+			) }
 			<ScreenHeader
 				title={ __( 'Shadows' ) }
 				description={ __(
@@ -73,6 +102,7 @@ export default function ShadowsPanel() {
 						category="custom"
 						canCreate
 						onCreate={ onCreateShadow }
+						onReset={ toggleResetDialog }
 					/>
 				</VStack>
 			</div>
@@ -80,7 +110,14 @@ export default function ShadowsPanel() {
 	);
 }
 
-function ShadowList( { label, shadows, category, canCreate, onCreate } ) {
+function ShadowList( {
+	label,
+	shadows,
+	category,
+	canCreate,
+	onCreate,
+	onReset,
+} ) {
 	const handleAddShadow = () => {
 		const newIndex = getNewIndexFromPresets( shadows, 'shadow-' );
 		onCreate( {
@@ -115,6 +152,23 @@ function ShadowList( { label, shadows, category, canCreate, onCreate } ) {
 						/>
 					</FlexItem>
 				) }
+				{ !! shadows?.length && category === 'custom' && (
+					<Menu
+						trigger={
+							<Button
+								size="small"
+								icon={ moreVertical }
+								label={ __( 'shadow options' ) }
+							/>
+						}
+					>
+						<Menu.Item onClick={ onReset }>
+							<Menu.ItemLabel>
+								{ __( 'Remove all shadows' ) }
+							</Menu.ItemLabel>
+						</Menu.Item>
+					</Menu>
+				) }
 			</HStack>
 			{ shadows.length > 0 && (
 				<ItemGroup isBordered isSeparated>
@@ -135,9 +189,14 @@ function ShadowItem( { shadow, category } ) {
 	return (
 		<NavigationButtonAsItem
 			path={ `/shadows/edit/${ category }/${ shadow.slug }` }
-			icon={ shadowIcon }
 		>
-			{ shadow.name }
+			<HStack justify="space-between">
+				<HStack justify="flex-start">
+					<IconWithCurrentColor icon={ shadowIcon } />
+					<FlexItem> { shadow.name } </FlexItem>
+				</HStack>
+				<IconWithCurrentColor icon={ chevronRight } />
+			</HStack>
 		</NavigationButtonAsItem>
 	);
 }
