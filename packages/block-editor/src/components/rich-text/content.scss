@@ -39,7 +39,7 @@ figcaption.block-editor-rich-text__editable [data-rich-text-placeholder]::before
 
 [data-rich-text-comment],
 [data-rich-text-format-boundary] {
-	border-radius: 2px;
+	border-radius: $radius-small;
 }
 
 [data-rich-text-comment] {
