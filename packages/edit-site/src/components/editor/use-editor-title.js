@@ -28,13 +28,14 @@ function useEditorTitle( postType, postId ) {
 				postId
 			);
 
-			const templateAreas =
-				select( coreStore ).getEntityRecord( 'root', '__unstableBase' )
-					?.default_template_part_areas || [];
-
-			const templateTypes =
-				select( coreStore ).getEntityRecord( 'root', '__unstableBase' )
-					?.default_template_types || [];
+			const {
+				default_template_part_areas: templateAreas = [],
+				default_template_types: templateTypes = [],
+			} =
+				select( coreStore ).getEntityRecord(
+					'root',
+					'__unstableBase'
+				) ?? {};
 
 			const templateInfo = getTemplateInfo( {
 				template: _record,

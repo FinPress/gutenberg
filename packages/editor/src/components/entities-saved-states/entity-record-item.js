@@ -35,13 +35,14 @@ export default function EntityRecordItem( { record, checked, onChange } ) {
 				key
 			);
 
-			const templateAreas =
-				select( coreStore ).getEntityRecord( 'root', '__unstableBase' )
-					?.default_template_part_areas || [];
-
-			const templateTypes =
-				select( coreStore ).getEntityRecord( 'root', '__unstableBase' )
-					?.default_template_types || [];
+			const {
+				default_template_part_areas: templateAreas = [],
+				default_template_types: templateTypes = [],
+			} =
+				select( coreStore ).getEntityRecord(
+					'root',
+					'__unstableBase'
+				) ?? {};
 
 			return {
 				entityRecordTitle: getTemplateInfo( {
