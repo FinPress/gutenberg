@@ -4,7 +4,7 @@
 import { createSlotFill } from '@wordpress/components';
 
 const { Fill: __unstableCommentIconFill, Slot } = createSlotFill(
-	'__unstableCommentIconFill'
+	Symbol( 'CommentIconFill' )
 );
 
 __unstableCommentIconFill.Slot = Slot;
