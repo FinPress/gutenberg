@@ -16,6 +16,7 @@ import { Placeholder, SandBox } from '@wordpress/components';
 import {
 	BlockIcon,
 	__experimentalUseBorderProps as useBorderProps,
+	__experimentalGetSpacingClassesAndStyles as getSpacingClassesAndStyles,
 } from '@wordpress/block-editor';
 import { useState } from '@wordpress/element';
 import { getAuthority } from '@wordpress/url';
@@ -69,6 +70,7 @@ export default function EmbedPreview( {
 		'wp-block-embed__wrapper'
 	);
 	const borderProps = useBorderProps( attributes );
+	const spacingProps = getSpacingClassesAndStyles( attributes );
 
 	// Disabled because the overlay div doesn't actually have a role or functionality
 	// as far as the user is concerned. We're just catching the first click so that
@@ -81,9 +83,10 @@ export default function EmbedPreview( {
 			<div
 				className={ clsx(
 					'wp-block-embed__wrapper',
-					borderProps.className
+					borderProps.className,
+					spacingProps.className
 				) }
-				style={ borderProps.style }
+				style={ { ...borderProps.style, ...spacingProps.style } }
 			>
 				<SandBox
 					html={ html }

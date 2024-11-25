@@ -44,7 +44,8 @@
 		"align": true,
 		"spacing": {
 			"margin": true,
-			"padding": true
+			"padding": true,
+			"__experimentalSkipSerialization": [ "padding" ]
 		},
 		"interactivity": {
 			"clientNavigation": true
@@ -64,7 +65,7 @@
 		}
 	},
 	"selectors": {
-		"border": ".wp-block-embed__wrapper "
+		"border": ".wp-block-embed__wrapper"
 	},
 	"editorStyle": "wp-block-embed-editor",
 	"style": "wp-block-embed"

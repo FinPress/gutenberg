@@ -11,6 +11,7 @@ import {
 	useBlockProps,
 	__experimentalGetElementClassName,
 	__experimentalGetBorderClassesAndStyles as getBorderClassesAndStyles,
+	__experimentalGetSpacingClassesAndStyles as getSpacingClassesAndStyles,
 } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
@@ -20,6 +21,7 @@ export default function save( { attributes } ) {
 		return null;
 	}
 	const borderProps = getBorderClassesAndStyles( attributes );
+	const spacingProps = getSpacingClassesAndStyles( attributes );
 
 	const className = clsx( 'wp-block-embed', {
 		[ `is-type-${ type }` ]: type,
@@ -32,9 +34,10 @@ export default function save( { attributes } ) {
 			<div
 				className={ clsx(
 					'wp-block-embed__wrapper',
-					borderProps.className
+					borderProps.className,
+					spacingProps.className
 				) }
-				style={ borderProps.style }
+				style={ { ...borderProps.style, ...spacingProps.style } }
 			>
 				{ `\n${ url }\n` /* URL needs to be on its own line. */ }
 			</div>
