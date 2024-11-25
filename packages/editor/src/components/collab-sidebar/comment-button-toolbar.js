@@ -11,18 +11,18 @@ import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
  */
 import { unlock } from '../../lock-unlock';
 
-const { CommentIconToolbarFill } = unlock( blockEditorPrivateApis );
+const { CommentIconToolbarSlotFill } = unlock( blockEditorPrivateApis );
 
 const AddCommentToolbarButton = ( { onClick } ) => {
 	return (
-		<CommentIconToolbarFill>
+		<CommentIconToolbarSlotFill.Fill>
 			<ToolbarButton
 				accessibleWhenDisabled
 				icon={ commentIcon }
 				label={ _x( 'Comment', 'View comment' ) }
 				onClick={ onClick }
 			/>
-		</CommentIconToolbarFill>
+		</CommentIconToolbarSlotFill.Fill>
 	);
 };
 

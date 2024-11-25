@@ -48,8 +48,8 @@ import { PrivatePublishDateTimePicker } from './components/publish-date-time-pic
 import useSpacingSizes from './components/spacing-sizes-control/hooks/use-spacing-sizes';
 import useBlockDisplayTitle from './components/block-title/use-block-display-title';
 import TabbedSidebar from './components/tabbed-sidebar';
-import CommentIconFill from './components/collab/block-comment-icon-slot';
-import CommentIconToolbarFill from './components/collab/block-comment-icon-toolbar-slot';
+import CommentIconSlotFill from './components/collab/block-comment-icon-slot';
+import CommentIconToolbarSlotFill from './components/collab/block-comment-icon-toolbar-slot';
 /**
  * Private @wordpress/block-editor APIs.
  */
@@ -95,6 +95,6 @@ lock( privateApis, {
 	__unstableBlockStyleVariationOverridesWithConfig,
 	setBackgroundStyleDefaults,
 	sectionRootClientIdKey,
-	CommentIconFill,
-	CommentIconToolbarFill,
+	CommentIconSlotFill,
+	CommentIconToolbarSlotFill,
 } );

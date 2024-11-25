@@ -3,10 +3,6 @@
  */
 import { createSlotFill } from '@wordpress/components';
 
-const { Fill: CommentIconFill, Slot } = createSlotFill(
-	Symbol( 'CommentIconFill' )
-);
+const CommentIconSlotFill = createSlotFill( Symbol( 'CommentIconSlotFill' ) );
 
-CommentIconFill.Slot = Slot;
-
-export default CommentIconFill;
+export default CommentIconSlotFill;
