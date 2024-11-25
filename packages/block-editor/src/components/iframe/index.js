@@ -436,6 +436,9 @@ function Iframe( {
 			prevScaleRef.current = scaleValue;
 
 			// Set the final scroll position that was just animated to.
+			// Disable reason: Eslint isn't smart enough to know that this is a
+			// DOM element. https://github.com/facebook/react/issues/31483
+			// eslint-disable-next-line react-compiler/react-compiler
 			iframeDocument.documentElement.scrollTop = scrollTopNext;
 		}
 
