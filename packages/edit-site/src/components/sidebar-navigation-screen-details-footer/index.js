@@ -4,7 +4,6 @@
 import { _n, sprintf } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import { __experimentalItemGroup as ItemGroup } from '@wordpress/components';
-import { addQueryArgs } from '@wordpress/url';
 import { backup } from '@wordpress/icons';
 
 /**
