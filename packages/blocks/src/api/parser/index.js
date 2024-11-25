@@ -20,6 +20,12 @@ import { serializeRawBlock } from './serialize-raw-block';
 import { getBlockAttributes } from './get-block-attributes';
 import { applyBlockDeprecatedVersions } from './apply-block-deprecated-versions';
 import { applyBuiltInValidationFixes } from './apply-built-in-validation-fixes';
+import { getSyncProvider, Y } from '@wordpress/sync';
+
+/**
+ * External dependencies
+ */
+import * as buf from 'lib0/buffer';
 
 /**
  * The raw structure of a block includes its attributes, inner
@@ -308,11 +314,62 @@ export function parseRawBlock( rawBlock, options ) {
  * @return {Array} Block list.
  */
 export default function parse( content, options ) {
-	return grammarParse( content ).reduce( ( accumulator, rawBlock ) => {
-		const block = parseRawBlock( rawBlock, options );
-		if ( block ) {
-			accumulator.push( block );
-		}
-		return accumulator;
-	}, [] );
+	const parsedBlocks = grammarParse( content ).reduce(
+		( accumulator, rawBlock ) => {
+			const block = parseRawBlock( rawBlock, options );
+			if ( block ) {
+				accumulator.push( block );
+			}
+			return accumulator;
+		},
+		/** @type {Array<WPBlock>} */ ( [] )
+	);
+
+	return parsedBlocks;
+}
+
+const queryYdocComment =
+	/<!-- y:doc session="(.*)" state="([a-zA-Z0-9+/]*={0,3})" updates=\[(.*)\] new-content-clientid="(.*)" -->/;
+
+/**
+ * Similar to `parse`, but only reads the Yjs document if available.
+ *
+ * @todo there is a very similar implementation `parseContentYdoc` (global search for
+ * "queryYdocComment"). Remove duplication
+ *
+ * @param {string} postType
+ * @param {string} postId
+ * @param {string} content
+ */
+export function parseWithCollab( postType, postId, content ) {
+	const res = queryYdocComment.exec( content );
+	if ( res === null ) { return null };
+	const blockContent = content.slice(0, res.index) + content.slice(res.index + res[0].length)
+	const [ , /* @todo use sessionid */, ystate, /** updates */, _newclientid ] = res;
+	const newclientid = Number.parseInt(_newclientid)
+	const syncProvider = getSyncProvider( postType, postId );
+	// Replay actions in a consistent manner, so that every client performs the same actions to
+	// retrieve a certain document.
+	// It is important that this is a fresh document - don't use the document from the sync package!
+	const ydoc = new Y.Doc( { meta: new Map() } );
+	/**
+	 * @type {Set<string>}
+	 */
+	const knownUpdateGuids = new Set();
+	ydoc.meta.set( 'knownRemoteUpdates', knownUpdateGuids );
+	ystate.length > 0 && Y.applyUpdateV2( ydoc, buf.fromBase64( ystate ) );
+	const prevClientId = ydoc.clientID;
+	ydoc.clientID = newclientid;
+	const prevClock = ydoc.store.clients.get(newclientid)?.[0].id.clock || 0;
+	const blocks = parse(  blockContent );
+	syncProvider.postTypeConfigs[ postType ].applyChangesToDoc(
+		ydoc,
+		{ blocks }
+	);
+	ydoc.clientID = prevClientId;
+	const newClock = ydoc.store.clients.get(newclientid)?.[0].id.clock || 0; // eslint-disable no-unused-expressions
+	if (prevClock !== newClock) {
+		// eslint-disable-next-line no-console
+		console.info('backend added some change')
+	}
 }

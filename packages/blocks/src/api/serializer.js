@@ -11,6 +11,7 @@ import { hasFilter, applyFilters } from '@wordpress/hooks';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import { removep } from '@wordpress/autop';
 import deprecated from '@wordpress/deprecated';
+import { getSyncProvider } from '@wordpress/sync';
 
 /**
  * Internal dependencies
@@ -22,6 +23,12 @@ import {
 } from './registration';
 import { serializeRawBlock } from './parser/serialize-raw-block';
 import { isUnmodifiedDefaultBlock, normalizeBlockType } from './utils';
+
+/**
+ * External dependencies
+ */
+import * as buf from 'lib0/buffer';
+
 
 /** @typedef {import('./parser').WPBlock} WPBlock */
 
@@ -415,6 +422,24 @@ export function __unstableSerializeAndClean( blocks ) {
 	}
 
 	return content;
+}
+
+/**
+ * Encode blocks and Yjs document to a HTML document.
+ * @param {Array}  blocks
+ * @param {string} type
+ * @param {string} id
+ */
+export function __unstableSerializeAndCleanWithYdoc( blocks, type, id ) {
+	if ( type === null || id === null ) {
+		throw new Error( 'API changed. Expected post type and id.' );
+	}
+	const sp = getSyncProvider();
+	const ystate = sp.encodeState( type, id );
+	const ycontent = `<!-- y:doc session="guid" state="${ buf.toBase64( ystate) }" updates=[] new-content-clientid="0" -->\n`;
+	// parse regex = /<!-- y:doc state="([a-zA-Z0-9+/]*={0,3})" updates=\[(.*)\] -->/
+	const blockContent = __unstableSerializeAndClean( blocks );
+	return ycontent + blockContent;
 }
 
 /**

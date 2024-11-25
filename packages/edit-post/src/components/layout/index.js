@@ -592,7 +592,7 @@ function Layout( {
 						<FullscreenMode isActive={ isFullscreenActive } />
 						<BrowserURL />
 						<UnsavedChangesWarning />
-						<AutosaveMonitor />
+						<AutosaveMonitor interval={3} />
 						<LocalAutosaveMonitor />
 						<EditPostKeyboardShortcuts />
 						<EditorKeyboardShortcutsRegister />

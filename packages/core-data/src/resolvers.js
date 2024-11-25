@@ -73,13 +73,12 @@ export const getEntityRecord =
 		if ( ! entityConfig ) {
 			return;
 		}
-
+		// this is where locking happens
 		const lock = await dispatch.__unstableAcquireStoreLock(
 			STORE_NAME,
 			[ 'entities', 'records', kind, name, key ],
 			{ exclusive: false }
 		);
-
 		try {
 			// Entity supports configs,
 			// use the sync algorithm instead of the old fetch behavior.
@@ -90,41 +89,48 @@ export const getEntityRecord =
 			) {
 				if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 					const objectId = entityConfig.getSyncObjectId( key );
-
 					// Loads the persisted document.
-					await getSyncProvider().bootstrap(
+					const record = await getSyncProvider().bootstrap(
 						entityConfig.syncObjectType,
 						objectId,
-						( record ) => {
-							dispatch.receiveEntityRecords(
-								kind,
-								name,
-								record,
-								query
-							);
-						}
-					);
-
-					// Bootstraps the edited document as well (and load from peers).
-					await getSyncProvider().bootstrap(
-						entityConfig.syncObjectType + '--edit',
-						objectId,
-						( record ) => {
+						( edits ) => {
 							dispatch( {
 								type: 'EDIT_ENTITY_RECORD',
 								kind,
 								name,
 								recordId: key,
-								edits: record,
+								edits,
 								meta: {
 									undo: undefined,
 								},
 							} );
 						}
 					);
+					dispatch.receiveEntityRecords( kind, name, record, query );
+					//
+					// // this is where the yjs doc is initialized
+					// // Boostraps the edited document as well (and load from peers).
+					// await getSyncProvider().bootstrap(
+					// 	entityConfig.syncObjectType + '--edit', // what is the "--edit" flag??
+					// 	objectId,
+					// 	( record ) => {
+					// 		dispatch( {
+					// 			type: 'EDIT_ENTITY_RECORD',
+					// 			kind,
+					// 			name,
+					// 			recordId: key,
+					// 			edits: record,
+					// 			meta: {
+					// 				undo: undefined,
+					// 			},
+					// 		} );
+					// 	}
+					// );
 				}
 			} else {
+				// @todo this fetches the data from remote. exploit this!
 				if ( query !== undefined && query._fields ) {
+					// @todo how does this work? What is happening here?
 					// If requesting specific fields, items and query association to said
 					// records are stored by ID reference. Thus, fields must always include
 					// the ID.
@@ -195,6 +201,34 @@ export const getEntityRecord =
 					] );
 				}
 
+				if (
+					window.__experimentalEnableSync &&
+					entityConfig.syncConfig &&
+					! query
+				) {
+					if (globalThis.IS_GUTENBERG_PLUGIN) {
+						const objectId = entityConfig.getSyncObjectId( key );
+						// Loads the persisted document.
+						await getSyncProvider().bootstrap(
+							entityConfig.syncObjectType,
+							objectId,
+							( edits ) => {
+								dispatch( {
+									type: 'EDIT_ENTITY_RECORD',
+									kind,
+									name,
+									recordId: key,
+									edits,
+									meta: {
+										undo: undefined,
+									},
+								} );
+							}
+						);
+					}
+				}
+
+				// @todo should use this in collab case
 				registry.batch( () => {
 					dispatch.receiveEntityRecords( kind, name, record, query );
 					dispatch.receiveUserPermissions(

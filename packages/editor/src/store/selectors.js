@@ -4,7 +4,7 @@
 import {
 	getFreeformContentHandlerName,
 	getDefaultBlockName,
-	__unstableSerializeAndClean,
+	__unstableSerializeAndCleanWithYdoc,
 	parse,
 } from '@wordpress/blocks';
 import { isInTheFuture, getDate } from '@wordpress/date';
@@ -925,7 +925,16 @@ export const getEditedPostContent = createRegistrySelector(
 			if ( typeof record.content === 'function' ) {
 				return record.content( record );
 			} else if ( record.blocks ) {
-				return __unstableSerializeAndClean( record.blocks );
+				const entityConfig = select( coreStore ).getEntityConfig(
+					'postType',
+					postType
+				);
+				const objectId = entityConfig.getSyncObjectId( record.id );
+				return __unstableSerializeAndCleanWithYdoc(
+					record.blocks,
+					entityConfig.syncObjectType,
+					objectId
+				);
 			} else if ( record.content ) {
 				return record.content;
 			}

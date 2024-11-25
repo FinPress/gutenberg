@@ -71,6 +71,7 @@ export {
 	getBlockProps as __unstableGetBlockProps,
 	getInnerBlocksProps as __unstableGetInnerBlocksProps,
 	__unstableSerializeAndClean,
+	__unstableSerializeAndCleanWithYdoc,
 } from './serializer';
 
 // Validation is the process of comparing a block source with its output before

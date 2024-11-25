@@ -22,6 +22,8 @@ export type SyncProvider = {
 		id: ObjectID,
 		handleChanges: ( data: any ) => void
 	) => Promise< CRDTDoc >;
+	encodeState: ( type: ObjectType, id: ObjectID ) => Uint8Array;
 	update: ( type: ObjectType, id: ObjectID, data: any ) => void;
 	discard: ( type: ObjectType, id: ObjectID ) => Promise< CRDTDoc >;
+	postTypeConfigs: { [ postType: string ]: ObjectConfig };
 };

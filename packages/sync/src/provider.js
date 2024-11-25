@@ -14,15 +14,15 @@ import * as Y from 'yjs';
 /**
  * Create a sync provider.
  *
- * @param {ConnectDoc} connectLocal  Connect the document to a local database.
- * @param {ConnectDoc} connectRemote Connect the document to a remote sync connection.
+ * @param {ConnectDoc | null} connectLocal  Connect the document to a local database.
+ * @param {ConnectDoc | null} connectRemote Connect the document to a remote sync connection.
  * @return {SyncProvider} Sync provider.
  */
 export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	/**
 	 * @type {Record<string,ObjectConfig>}
 	 */
-	const config = {};
+	const postTypeConfigs = {};
 
 	/**
 	 * @type {Record<string,Record<string,()=>void>>}
@@ -41,7 +41,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {ObjectConfig} objectConfig Object config.
 	 */
 	function register( objectType, objectConfig ) {
-		config[ objectType ] = objectConfig;
+		postTypeConfigs[ objectType ] = objectConfig;
 	}
 
 	/**
@@ -52,42 +52,52 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {Function}   handleChanges Callback to call when data changes.
 	 */
 	async function bootstrap( objectType, objectId, handleChanges ) {
-		const doc = new Y.Doc();
+		const doc = new Y.Doc( { meta: new Map() } );
 		docs[ objectType ] = docs[ objectType ] || {};
 		docs[ objectType ][ objectId ] = doc;
 
 		const updateHandler = () => {
-			const data = config[ objectType ].fromCRDTDoc( doc );
+			// debugger // @todo This handles changes from the Yjs doc
+			const data = postTypeConfigs[ objectType ].fromCRDTDoc( doc );
 			handleChanges( data );
 		};
 		doc.on( 'update', updateHandler );
 
-		// connect to locally saved database.
-		const destroyLocalConnection = await connectLocal(
-			objectId,
-			objectType,
-			doc
-		);
+		let destroyLocalConnection = null;
+
+		if ( connectLocal ) {
+			// connect to locally saved database.
+			destroyLocalConnection = await connectLocal(
+				objectId,
+				objectType,
+				doc
+			);
+		}
 
 		// Once the database syncing is done, start the remote syncing
 		if ( connectRemote ) {
-			await connectRemote( objectId, objectType, doc );
-		}
-
-		const loadRemotely = config[ objectType ].fetch;
-		if ( loadRemotely ) {
-			loadRemotely( objectId ).then( ( data ) => {
-				doc.transact( () => {
-					config[ objectType ].applyChangesToDoc( doc, data );
-				} );
-			} );
+			connectRemote( objectId, objectType, doc );
 		}
 
 		listeners[ objectType ] = listeners[ objectType ] || {};
 		listeners[ objectType ][ objectId ] = () => {
-			destroyLocalConnection();
+			destroyLocalConnection?.();
 			doc.off( 'update', updateHandler );
 		};
+
+		// @todo do proper typings for fetch api
+		/**
+		 * @type {any}
+		 */
+		const loadRemotely = postTypeConfigs[ objectType ].fetch;
+		if ( loadRemotely ) {
+			const data = await loadRemotely( objectId, true );
+			doc.transact( () => {
+				postTypeConfigs[ objectType ].applyChangesToDoc( doc, data );
+			} );
+			return data;
+		}
+		return null;
 	}
 
 	/**
@@ -98,12 +108,12 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {any}        data       Updates to make.
 	 */
 	async function update( objectType, objectId, data ) {
-		const doc = docs[ objectType ][ objectId ];
+		const doc = docs[ objectType ]?.[ objectId ];
 		if ( ! doc ) {
 			throw 'Error doc ' + objectType + ' ' + objectId + ' not found';
 		}
 		doc.transact( () => {
-			config[ objectType ].applyChangesToDoc( doc, data );
+			postTypeConfigs[ objectType ].applyChangesToDoc( doc, data );
 		} );
 	}
 
@@ -119,10 +129,26 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 		}
 	}
 
+	/**
+	 * Encode Yjs document as update.
+	 *
+	 * @param {ObjectType} objectType Object type to load.
+	 * @param {ObjectID}   objectId   Object ID to load.
+	 */
+	function encodeState( objectType, objectId ) {
+		const doc = docs[ objectType ]?.[ objectId ];
+		if ( ! doc ) {
+			throw 'Error doc ' + objectType + ' ' + objectId + ' not found';
+		}
+		return Y.encodeStateAsUpdateV2( doc );
+	}
+
 	return {
 		register,
 		bootstrap,
 		update,
+		encodeState,
 		discard,
+		postTypeConfigs,
 	};
 };

@@ -376,7 +376,6 @@ export const editEntityRecord =
 			name,
 			recordId
 		);
-
 		const edit = {
 			kind,
 			name,
@@ -398,8 +397,10 @@ export const editEntityRecord =
 		if ( window.__experimentalEnableSync && entityConfig.syncConfig ) {
 			if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 				const objectId = entityConfig.getSyncObjectId( recordId );
+				// @todo this always updates the Yjs doc, which is undesirable, probably we can read the yjs
+				// content from the comment tag here
 				getSyncProvider().update(
-					entityConfig.syncObjectType + '--edit',
+					entityConfig.syncObjectType,
 					objectId,
 					edit.edits
 				);

@@ -21,6 +21,7 @@ import {
 import { STORE_NAME } from './name';
 import { unlock } from './lock-unlock';
 import { dynamicActions, dynamicSelectors } from './dynamic-entities';
+export * from './sync';
 
 // The entity selectors/resolvers and actions are shortcuts to their generic equivalents
 // (getEntityRecord, getEntityRecords, updateEntityRecord, updateEntityRecords)

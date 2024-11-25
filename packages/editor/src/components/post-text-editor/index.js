@@ -9,7 +9,7 @@ import Textarea from 'react-autosize-textarea';
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 import { useMemo } from '@wordpress/element';
-import { __unstableSerializeAndClean } from '@wordpress/blocks';
+import { __unstableSerializeAndCleanWithYdoc } from '@wordpress/blocks';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useInstanceId } from '@wordpress/compose';
 import { VisuallyHidden } from '@wordpress/components';
@@ -26,14 +26,15 @@ import { store as editorStore } from '../../store';
  */
 export default function PostTextEditor() {
 	const instanceId = useInstanceId( PostTextEditor );
-	const { content, blocks, type, id } = useSelect( ( select ) => {
-		const { getEditedEntityRecord } = select( coreStore );
+	const { content, blocks, type, id, entityConfig } = useSelect( ( select ) => {
+		const { getEditedEntityRecord, getEntityConfig } = select( coreStore );
 		const { getCurrentPostType, getCurrentPostId } = select( editorStore );
 		const _type = getCurrentPostType();
 		const _id = getCurrentPostId();
 		const editedRecord = getEditedEntityRecord( 'postType', _type, _id );
-
+		const _entityConfig = getEntityConfig('postType', _type)
 		return {
+			entityConfig: _entityConfig,
 			content: editedRecord?.content,
 			blocks: editedRecord?.blocks,
 			type: _type,
@@ -46,10 +47,15 @@ export default function PostTextEditor() {
 		if ( content instanceof Function ) {
 			return content( { blocks } );
 		} else if ( blocks ) {
+			const objectId = entityConfig.getSyncObjectId( id );
 			// If we have parsed blocks already, they should be our source of truth.
 			// Parsing applies block deprecations and legacy block conversions that
 			// unparsed content will not have.
-			return __unstableSerializeAndClean( blocks );
+			return __unstableSerializeAndCleanWithYdoc(
+				blocks,
+				entityConfig.syncObjectType,
+				objectId
+			);
 		}
 		return content;
 	}, [ content, blocks ] );

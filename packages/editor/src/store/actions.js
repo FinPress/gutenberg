@@ -30,6 +30,8 @@ import {
 	getNotificationArgumentsForTrashFail,
 } from './utils/notice-builder';
 import { unlock } from '../lock-unlock';
+import { getSyncProvider } from '@wordpress/sync';
+
 /**
  * Returns an action generator used in signalling that editor has initialized with
  * the specified post object and editor settings.
@@ -67,6 +69,7 @@ export const setupEditor =
 					edit !== ( post[ key ]?.raw ?? post[ key ] )
 			)
 		) {
+			// what is happening here?
 			dispatch.editPost( edits );
 		}
 	};
@@ -202,14 +205,37 @@ export const savePost =
 		if ( ! select.isEditedPostSaveable() ) {
 			return;
 		}
+		const previousRecord = select.getCurrentPost();
+		const entityConfig = registry
+			.select( coreStore )
+			.getEntityConfig( 'postType', previousRecord.type );
+		const syncConfig = entityConfig.syncConfig;
+		const objectId = entityConfig.getSyncObjectId( previousRecord.id );
+		const isAutosave = options.isAutosave === true
+		const remoteContent = await syncConfig.fetch( objectId, isAutosave );
+		// @todo there should be an additional parameter specifying that this is a remote update
+		await getSyncProvider().update(
+			entityConfig.syncObjectType,
+			objectId,
+			remoteContent
+		);
+		// Y.transact(ydoc, () => {
+		// 	// @todo only do this if sync is enabled and ydoc exists
+		// 	syncConfig.applyChangesToDoc(
+		// 		doc,
+		// 		remoteContent
+		// 	);
+		// }, 'save', true)
 
+		// @todo here, we could append the Yjs content, or make another request to store the yjs content
 		const content = select.getEditedPostContent();
 
 		if ( ! options.isAutosave ) {
+			// is editPost really updating the editor state?
+			// what is this doing anyway???
 			dispatch.editPost( { content }, { undoIgnore: true } );
 		}
 
-		const previousRecord = select.getCurrentPost();
 		let edits = {
 			id: previousRecord.id,
 			...registry
@@ -386,6 +412,7 @@ export const autosave =
 			return;
 		}
 
+		// @todo what is "local autosave" and can we remove it?
 		if ( local ) {
 			const isPostNew = select.isEditedPostNew();
 			const title = select.getEditedPostAttribute( 'title' );
