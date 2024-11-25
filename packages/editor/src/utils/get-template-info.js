@@ -12,7 +12,7 @@ const EMPTY_OBJECT = {};
  * Helper function to retrieve the corresponding template info for a given template.
  * @param {Object} params
  * @param {Array}  params.templateTypes
- * @param {Array}  params.templateAreas
+ * @param {Array}  [params.templateAreas]
  * @param {Object} params.template
  */
 export const getTemplateInfo = ( params ) => {
@@ -32,13 +32,13 @@ export const getTemplateInfo = ( params ) => {
 	const templateDescription =
 		typeof description === 'string' ? description : description?.raw;
 
-	const templateAreasWithIcon = templateAreas.map( ( item ) => ( {
+	const templateAreasWithIcon = templateAreas?.map( ( item ) => ( {
 		...item,
 		icon: getTemplatePartIcon( item.icon ),
 	} ) );
 
 	const templateIcon =
-		templateAreasWithIcon.find( ( item ) => area === item.area )?.icon ||
+		templateAreasWithIcon?.find( ( item ) => area === item.area )?.icon ||
 		layout;
 
 	return {

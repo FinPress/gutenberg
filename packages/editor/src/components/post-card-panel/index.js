@@ -38,10 +38,7 @@ export default function PostCardPanel( {
 				postId
 			);
 
-			const {
-				default_template_part_areas: templateAreas = [],
-				default_template_types: templateTypes = [],
-			} =
+			const { default_template_types: templateTypes = [] } =
 				select( coreStore ).getEntityRecord(
 					'root',
 					'__unstableBase'
@@ -53,7 +50,6 @@ export default function PostCardPanel( {
 			].includes( postType )
 				? getTemplateInfo( {
 						template: _record,
-						templateAreas,
 						templateTypes,
 				  } )
 				: {};

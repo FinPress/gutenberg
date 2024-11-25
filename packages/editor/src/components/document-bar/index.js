@@ -82,15 +82,11 @@ export default function DocumentBar( props ) {
 			_postId
 		);
 
-		const {
-			default_template_part_areas: templateAreas = [],
-			default_template_types: templateTypes = [],
-		} =
+		const { default_template_types: templateTypes = [] } =
 			select( coreStore ).getEntityRecord( 'root', '__unstableBase' ) ??
 			{};
 
 		const _templateInfo = getTemplateInfo( {
-			templateAreas,
 			templateTypes,
 			template: _document,
 		} );
