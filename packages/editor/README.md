@@ -279,8 +279,7 @@ Renders a document outline component.
 _Parameters_
 
 -   _props_ `Object`: Props.
--   _props.onSelect_ `Function`: Function to be called when an outline item is selected.
--   _props.isTitleSupported_ `boolean`: Indicates whether the title is supported.
+-   _props.onSelect_ `Function`: Function to be called when an outline item is selected
 -   _props.hasOutlineItemsDisabled_ `boolean`: Indicates whether the outline items are disabled.
 
 _Returns_
@@ -1603,6 +1602,18 @@ _Parameters_
 -   _name_ `string`: Entity name.
 -   _config_ `Action`: Action configuration.
 
+### registerEntityField
+
+Registers a new DataViews field.
+
+This is an experimental API and is subject to change. it's only available in the Gutenberg plugin for now.
+
+_Parameters_
+
+-   _kind_ `string`: Entity kind.
+-   _name_ `string`: Entity name.
+-   _config_ `Field`: Field configuration.
+
 ### RichText
 
 > **Deprecated** since 5.3, use `wp.blockEditor.RichText` instead.
@@ -1631,10 +1642,6 @@ _Related_
 
 -   <https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore>
 
-_Type_
-
--   `Object`
-
 ### storeConfig
 
 Post editor data store configuration.
@@ -1642,10 +1649,6 @@ Post editor data store configuration.
 _Related_
 
 -   <https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#registerStore>
-
-_Type_
-
--   `Object`
 
 ### TableOfContents
 
@@ -1705,6 +1708,18 @@ _Parameters_
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
 -   _actionId_ `string`: Action ID.
+
+### unregisterEntityField
+
+Unregisters a DataViews field.
+
+This is an experimental API and is subject to change. it's only available in the Gutenberg plugin for now.
+
+_Parameters_
+
+-   _kind_ `string`: Entity kind.
+-   _name_ `string`: Entity name.
+-   _fieldId_ `string`: Field ID.
 
 ### UnsavedChangesWarning
 
