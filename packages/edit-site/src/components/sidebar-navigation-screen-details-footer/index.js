@@ -4,6 +4,7 @@
 import { _n, sprintf } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import { __experimentalItemGroup as ItemGroup } from '@wordpress/components';
+import { addQueryArgs } from '@wordpress/url';
 import { backup } from '@wordpress/icons';
 
 /**
@@ -50,7 +51,11 @@ export default function SidebarNavigationScreenDetailsFooter( {
 			size="large"
 			className="edit-site-sidebar-navigation-screen-details-footer"
 		>
-			<SidebarNavigationItem icon={ backup } { ...otherProps }>
+			<SidebarNavigationItem
+				icon={ backup }
+				{ ...hrefProps }
+				{ ...otherProps }
+			>
 				{ sprintf(
 					/* translators: %d: Number of Styles revisions. */
 					_n( '%d Revision', '%d Revisions', revisionsCount ),
