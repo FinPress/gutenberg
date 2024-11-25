@@ -4,7 +4,7 @@
 import { RangeControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useViewportMatch } from '@wordpress/compose';
-import { useEffect, useMemo, useContext } from '@wordpress/element';
+import { useMemo, useContext } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -45,11 +45,10 @@ function useViewPortBreakpoint() {
 	return null;
 }
 
-export function useChangePreviewSizeOnViewportChange() {
+export function useUpdatedPreviewSizeOnViewportChange() {
 	const viewport = useViewPortBreakpoint();
-	const context = useContext( DataViewsContext );
-	const view = context.view as ViewGrid;
-	useEffect( () => {
+	const view = useContext( DataViewsContext ).view as ViewGrid;
+	return useMemo( () => {
 		const previewSize = view.layout?.previewSize;
 		let newPreviewSize;
 		if ( ! viewport || ! previewSize ) {
@@ -62,16 +61,8 @@ export function useChangePreviewSizeOnViewportChange() {
 		if ( previewSize > breakValues.max ) {
 			newPreviewSize = breakValues.max;
 		}
-		if ( newPreviewSize ) {
-			context.onChangeView( {
-				...view,
-				layout: {
-					...view.layout,
-					previewSize: newPreviewSize,
-				},
-			} );
-		}
-	}, [ viewport, view, context ] );
+		return newPreviewSize;
+	}, [ viewport, view ] );
 }
 
 export default function PreviewSizePicker() {
