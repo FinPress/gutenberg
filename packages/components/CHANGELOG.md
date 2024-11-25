@@ -38,6 +38,7 @@
 -   `SlotFill`: fix dependencies of `Fill` registration effects ([#67071](https://github.com/WordPress/gutenberg/pull/67071)).
 -   `SlotFill`: rewrite the `Slot` component from class component to functional ([#67153](https://github.com/WordPress/gutenberg/pull/67153)).
 -   `Menu.ItemHelpText`: Fix text wrapping to prevent unintended word breaks ([#67011](https://github.com/WordPress/gutenberg/pull/67011)).
+-   `BorderBoxControl`: Suppress redundant warnings for deprecated 36px size ([#67213](https://github.com/WordPress/gutenberg/pull/67213)).
 
 ## 28.12.0 (2024-11-16)
 
