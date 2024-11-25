@@ -10,7 +10,6 @@ import { useSelect } from '@wordpress/data';
  * Internal dependencies
  */
 import { TemplatePartImportControls } from './import-controls';
-import { getTemplatePartIcon } from './utils/get-template-part-icon';
 
 const htmlElementMessages = {
 	header: __(
@@ -62,15 +61,12 @@ export function TemplatePartAdvancedControls( {
 		[]
 	);
 
-	const definedAreas = defaultTemplatePartAreas.map( ( item ) => ( {
-		...item,
-		icon: getTemplatePartIcon( item.icon ),
-	} ) );
-
-	const areaOptions = definedAreas.map( ( { label, area: _area } ) => ( {
-		label,
-		value: _area,
-	} ) );
+	const areaOptions = defaultTemplatePartAreas.map(
+		( { label, area: _area } ) => ( {
+			label,
+			value: _area,
+		} )
+	);
 
 	return (
 		<>
