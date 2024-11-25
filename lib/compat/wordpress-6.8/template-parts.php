@@ -13,7 +13,7 @@ function gutenberg_add_default_template_part_areas_to_index( WP_REST_Response $r
 	return $response;
 }
 
-add_action( 'rest_index', 'gutenberg_add_default_template_part_areas_to_index' );
+add_filter( 'rest_index', 'gutenberg_add_default_template_part_areas_to_index' );
 
 /**
  * Adds the default template types to the REST API index.
@@ -35,4 +35,4 @@ function gutenberg_add_default_template_types_to_index( WP_REST_Response $respon
 	return $response;
 }
 
-add_action( 'rest_index', 'gutenberg_add_default_template_types_to_index' );
+add_filter( 'rest_index', 'gutenberg_add_default_template_types_to_index' );
