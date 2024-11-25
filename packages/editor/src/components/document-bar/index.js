@@ -29,7 +29,7 @@ import { decodeEntities } from '@wordpress/html-entities';
 import { TEMPLATE_POST_TYPES } from '../../store/constants';
 import { store as editorStore } from '../../store';
 import usePageTypeBadge from '../../utils/pageTypeBadge';
-import { getTemplateInfo } from '../../utils';
+import { getTemplateInfo } from '../../utils/get-template-info';
 
 /** @typedef {import("@wordpress/components").IconType} IconType */
 

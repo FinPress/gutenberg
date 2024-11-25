@@ -22,7 +22,7 @@ import {
 import { unlock } from '../../lock-unlock';
 import PostActions from '../post-actions';
 import usePageTypeBadge from '../../utils/pageTypeBadge';
-import { getTemplateInfo } from '../../utils';
+import { getTemplateInfo } from '../../utils/get-template-info';
 
 export default function PostCardPanel( {
 	postType,

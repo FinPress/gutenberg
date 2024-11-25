@@ -12,7 +12,7 @@ import { decodeEntities } from '@wordpress/html-entities';
  */
 import { store as editorStore } from '../../store';
 import { unlock } from '../../lock-unlock';
-import { getTemplateInfo } from '../../utils';
+import { getTemplateInfo } from '../../utils/get-template-info';
 
 export default function EntityRecordItem( { record, checked, onChange } ) {
 	const { name, kind, title, key } = record;

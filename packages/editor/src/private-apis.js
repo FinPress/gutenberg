@@ -25,7 +25,7 @@ import {
 	GlobalStylesProvider,
 } from './components/global-styles-provider';
 import { registerCoreBlockBindingsSources } from './bindings/api';
-import { getTemplateInfo } from './utils';
+import { getTemplateInfo } from './utils/get-template-info';
 
 const { store: interfaceStore, ...remainingInterfaceApis } = interfaceApis;
 
