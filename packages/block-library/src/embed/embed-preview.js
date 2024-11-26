@@ -76,7 +76,11 @@ export default function EmbedPreview( {
 	/* eslint-disable jsx-a11y/no-static-element-interactions */
 	const embedWrapper =
 		'wp-embed' === type ? (
-			<WpEmbedPreview html={ html } />
+			<WpEmbedPreview
+				html={ html }
+				className={ borderProps.className }
+				style={ { ...borderProps.style } }
+			/>
 		) : (
 			<div
 				className={ clsx(
