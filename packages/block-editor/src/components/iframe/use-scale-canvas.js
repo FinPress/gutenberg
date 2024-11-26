@@ -239,12 +239,12 @@ export function useScaleCanvas( {
 
 	/**
 	 * Callback when the zoom out animation is finished.
-	 * - Cleans up animations refs
-	 * - Adds final CSS vars for scale and frame size to preserve the state
-	 * - Removes the 'zoom-out-animation' class (which has the fixed positioning)
-	 * - Sets the final scroll position after the canvas is no longer in fixed position
-	 * - Removes CSS vars related to the animation
-	 * - Sets the transitionFrom to the transitionTo state to be ready for the next animation
+	 * - Cleans up animations refs.
+	 * - Adds final CSS vars for scale and frame size to preserve the state.
+	 * - Removes the 'zoom-out-animation' class (which has the fixed positioning).
+	 * - Sets the final scroll position after the canvas is no longer in fixed position.
+	 * - Removes CSS vars related to the animation.
+	 * - Sets the transitionFrom to the transitionTo state to be ready for the next animation.
 	 */
 	const finishZoomOutAnimation = useCallback( () => {
 		startAnimationRef.current = false;
@@ -363,13 +363,13 @@ export function useScaleCanvas( {
 		/**
 		 * Handle the zoom out animation:
 		 *
-		 * - Get the current scrollTop position
-		 * - Calculate where the same scroll position is after scaling
+		 * - Get the current scrollTop position.
+		 * - Calculate where the same scroll position is after scaling.
 		 * - Apply fixed positioning to the canvas with a transform offset
-		 *   to keep the canvas centered
-		 * - Animate the scale and padding to the new scale and frame size
+		 *   to keep the canvas centered.
+		 * - Animate the scale and padding to the new scale and frame size.
 		 * - After the animation is complete, remove the fixed positioning
-		 *   and set the scroll position that keeps everything centered
+		 *   and set the scroll position that keeps everything centered.
 		 */
 		if ( startAnimationRef.current ) {
 			// Don't allow a new transition to start again unless it was started by the zoom out mode changing.
