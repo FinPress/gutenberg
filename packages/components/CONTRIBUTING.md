@@ -36,7 +36,7 @@ To determine if a component should be added, ask yourself:
 
 Here’s a flowchart that can help determine if a new component is necessary:
 
-[![New component flowchart](https://wordpress.org/gutenberg/files/2019/07/New_component_flowchart.png)](https://coggle.it/diagram/WtUSrld3uAYZHsn-/t/new-ui-component/992b38cbe685d897b4aec6d0dd93cc4b47c06e0d4484eeb0d7d9a47fb2c48d94)
+![New component flowchart](https://wordpress.org/gutenberg/files/2019/07/New_component_flowchart.png)
 
 ### First steps
 
