@@ -33,6 +33,7 @@ import {
 /**
  * Internal dependencies
  */
+import { useEffect } from '@wordpress/element';
 import {
 	hasExplicitPercentColumnWidths,
 	getMappedColumnWidths,
@@ -296,12 +297,37 @@ function Placeholder( { clientId, name, setAttributes } ) {
 }
 
 const ColumnsEdit = ( props ) => {
-	const { clientId } = props;
+	const { clientId, setAttributes } = props;
 	const hasInnerBlocks = useSelect(
 		( select ) =>
 			select( blockEditorStore ).getBlocks( clientId ).length > 0,
 		[ clientId ]
 	);
+
+	const isEmpty = useSelect(
+		( select ) => {
+			const blocks = select( blockEditorStore ).getBlocks( clientId );
+			const length = blocks?.length ?? 0;
+
+			for ( let i = 0; i < length; i++ ) {
+				const eachInnerBlock = select( blockEditorStore ).getBlocks(
+					blocks[ i ].clientId
+				);
+
+				if ( eachInnerBlock.length > 0 ) {
+					return false;
+				}
+			}
+
+			return true;
+		},
+		[ clientId ]
+	);
+
+	useEffect( () => {
+		setAttributes( { isEmptyColumn: isEmpty } );
+	}, [ isEmpty, setAttributes ] );
+
 	const Component = hasInnerBlocks ? ColumnsEditContainer : Placeholder;
 
 	return <Component { ...props } />;

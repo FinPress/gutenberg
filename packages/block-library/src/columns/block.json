@@ -8,6 +8,10 @@
 	"description": "Display content in multiple columns, with blocks added to each column.",
 	"textdomain": "default",
 	"attributes": {
+		"isEmptyColumn": {
+			"type": "boolean",
+			"default": false
+		},
 		"verticalAlignment": {
 			"type": "string"
 		},
