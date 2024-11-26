@@ -422,7 +422,7 @@ test( 'remove specific filter callback', () => {
 	addFilter( 'test.filter', 'my_callback_filter_c', filterC, 8 );
 
 	expect( removeFilter( 'test.filter', 'my_callback_filter_b' ) ).toBe( 1 );
-	expect( applyFilters( 'test.filter', 'test' ) ).toBe( 'testcase' );
+	expect( applyFilters( 'test.filter', 'test' ) ).toBe( 'testca' );
 } );
 
 test( 'filter removes a callback that has already executed', () => {

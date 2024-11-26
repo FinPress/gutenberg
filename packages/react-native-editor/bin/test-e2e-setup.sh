@@ -71,7 +71,7 @@ function detect_or_create_simulator() {
 	local simulator_name=$1
 	local runtime_name_display=$(echo "iOS $IOS_PLATFORM_VERSION")
 	local runtime_name=$(echo "$runtime_name_display" | sed 's/ /-/g; s/\./-/g')
-	local simulators=$(xcrun simctl list devices -j | jq -r --arg runtime "$runtime_name" '.devices | to_entries[] | select(.key | contains($runtime)) | .value[] | .name + "," + .uuid')
+	local simulators=$(xcrun simctl list devices -j | jq -r --arg runtime "$runtime_name" '.devices | to_entries[] | select(.key | contains($runtime)) | .value[] | .name + "," + .udid')
 
 	if ! echo "$simulators" | grep -q "$simulator_name"; then
 		log_info "$simulator_name ($runtime_name_display) not found, creating..."
