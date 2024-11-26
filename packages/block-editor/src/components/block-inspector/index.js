@@ -28,8 +28,10 @@ import PositionControls from '../inspector-controls-tabs/position-controls-panel
 import useBlockInspectorAnimationSettings from './useBlockInspectorAnimationSettings';
 import BlockQuickNavigation from '../block-quick-navigation';
 import { useBorderPanelLabel } from '../../hooks/border';
+import { privateApis as blockEditorPrivateApis } from '../../private-apis';
 
 import { unlock } from '../../lock-unlock';
+const { PrivateListView } = unlock( blockEditorPrivateApis );
 
 function BlockStylesPanel( { clientId } ) {
 	return (
@@ -212,6 +214,7 @@ const BlockInspectorSingleBlock = ( {
 	isSectionBlock,
 } ) => {
 	const availableTabs = useInspectorControlsTabs( blockName );
+
 	const showTabs = ! isSectionBlock && availableTabs?.length > 1;
 
 	const hasBlockStyles = useSelect(
@@ -222,6 +225,7 @@ const BlockInspectorSingleBlock = ( {
 		},
 		[ blockName ]
 	);
+
 	const blockInformation = useBlockDisplayInformation( clientId );
 	const borderPanelLabel = useBorderPanelLabel( { blockName } );
 	const contentClientIds = useSelect(
@@ -245,6 +249,41 @@ const BlockInspectorSingleBlock = ( {
 		[ isSectionBlock, clientId ]
 	);
 
+	const {
+		selectedContentClientId,
+		isSelectedContentClientIdControlling,
+		isSelectedBlockInContentOnlyContainer,
+	} = useSelect( ( select ) => {
+		const {
+			getSelectedBlockClientId,
+			areInnerBlocksControlled,
+			getBlockRootClientId,
+			getTemplateLock,
+		} = select( blockEditorStore );
+
+		const _selectedBlockClientId = getSelectedBlockClientId();
+		const _isSelectedContentClientIdControlling = areInnerBlocksControlled(
+			_selectedBlockClientId
+		);
+
+		const rootClientId = getBlockRootClientId( _selectedBlockClientId );
+		const templateLock = getTemplateLock( rootClientId );
+
+		const _isSelectedBlockInContentOnlyContainer =
+			templateLock === 'contentOnly';
+
+		return {
+			selectedContentClientId: _selectedBlockClientId,
+			isSelectedContentClientIdControlling:
+				_isSelectedContentClientIdControlling,
+			isSelectedBlockInContentOnlyContainer:
+				_isSelectedBlockInContentOnlyContainer,
+			hasContentLockedParent: false,
+		};
+	} );
+	const { __unstableGetEditorMode } = useSelect( blockEditorStore );
+	const editorMode = __unstableGetEditorMode();
+
 	return (
 		<div className="block-editor-block-inspector">
 			<BlockCard
@@ -266,16 +305,48 @@ const BlockInspectorSingleBlock = ( {
 						<BlockStylesPanel clientId={ clientId } />
 					) }
 
-					{ contentClientIds && contentClientIds?.length > 0 && (
-						<PanelBody title={ __( 'Content' ) }>
-							<BlockQuickNavigation
-								clientIds={ contentClientIds }
-							/>
-						</PanelBody>
-					) }
+					{ ! isSelectedContentClientIdControlling &&
+						contentClientIds &&
+						contentClientIds?.length > 0 && (
+							<PanelBody title={ __( 'Content' ) }>
+								<BlockQuickNavigation
+									clientIds={ contentClientIds }
+								/>
+							</PanelBody>
+						) }
+
+					{ isSelectedContentClientIdControlling &&
+						isSelectedBlockInContentOnlyContainer &&
+						contentClientIds &&
+						contentClientIds?.length > 0 && (
+							<PanelBody title={ __( 'Content' ) }>
+								<PrivateListView
+									rootClientId={ selectedContentClientId }
+									ignoreRenderingMode
+									isExpanded
+									description={ __( 'Inner blocks' ) }
+									showAppender={ false }
+								/>
+							</PanelBody>
+						) }
 
 					{ ! isSectionBlock && (
 						<>
+							{ editorMode === 'navigation' &&
+								isSelectedBlockInContentOnlyContainer &&
+								isSelectedContentClientIdControlling && (
+									<PanelBody title={ __( 'Content' ) }>
+										<PrivateListView
+											rootClientId={
+												selectedContentClientId
+											}
+											ignoreRenderingMode
+											isExpanded
+											description={ __( 'Inner blocks' ) }
+											showAppender={ false }
+										/>
+									</PanelBody>
+								) }
 							<InspectorControls.Slot />
 							<InspectorControls.Slot group="list" />
 							<InspectorControls.Slot
