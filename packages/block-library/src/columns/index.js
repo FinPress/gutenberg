@@ -71,7 +71,7 @@ export const settings = {
 						attributes: {
 							/* translators: example text. */
 							content: __(
-								'Name risus massa, ullamcorper consectetur eros fermentum, porta aliquet ligula. Sed vel mauris nec enim.'
+								'Nam risus massa, ullamcorper consectetur eros fermentum, porta aliquet ligula. Sed vel mauris nec enim.'
 							),
 						},
 					},
