@@ -63,7 +63,7 @@ describe( 'PostTitle', () => {
 
 	it( 'does not add HTML to title when pasting span tag', async () => {
 		const pasteHTML = `<span style="border: 1px solid black">l</span>`;
-		await initializeEditor( { initialTitle: 'Hello' } );
+		await initializeEditor( { initialTitle: 'Helo' } );
 
 		const postTitle = within(
 			screen.getByTestId( 'post-title' )

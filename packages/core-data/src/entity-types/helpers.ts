@@ -87,7 +87,7 @@ export type ContextualField<
  */
 export type OmitNevers<
 	T,
-	Never = {
+	Nevers = {
 		[ K in keyof T ]: Exclude< T[ K ], undefined > extends never
 			? never
 			: T[ K ] extends Record< string, unknown >
@@ -95,10 +95,10 @@ export type OmitNevers<
 			: T[ K ];
 	},
 > = Pick<
-	Never,
+	Nevers,
 	{
-		[ K in keyof Never ]: Never[ K ] extends never ? never : K;
-	}[ keyof Never ]
+		[ K in keyof Nevers ]: Nevers[ K ] extends never ? never : K;
+	}[ keyof Nevers ]
 >;
 
 /**

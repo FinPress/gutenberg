@@ -468,7 +468,7 @@ class Woff2TableDirectoryEntry {
 		const transformVersion = ( this.transformVersion =
 			( this.flags & 192 ) >> 6 );
 		let hasTransforms = transformVersion !== 0;
-		if ( this.tag === `glyf` || this.tag === `local` ) {
+		if ( this.tag === `glyf` || this.tag === `loca` ) {
 			hasTransforms = this.transformVersion !== 3;
 		}
 		this.origLength = p.uint128;
@@ -513,7 +513,7 @@ function getWOFF2Tag( flag ) {
 		`cvt `,
 		`fpgm`,
 		`glyf`,
-		`local`,
+		`loca`,
 		`prep`,
 		`CFF `,
 		`VORG`,
@@ -558,7 +558,7 @@ function getWOFF2Tag( flag ) {
 		`morx`,
 		`opbd`,
 		`prop`,
-		`track`,
+		`trak`,
 		`Zapf`,
 		`Silf`,
 		`Glat`,
@@ -625,7 +625,7 @@ Promise.all( [
 		return glyf$1;
 	} ),
 	Promise.resolve().then( function () {
-		return local$1;
+		return loca$1;
 	} ),
 	Promise.resolve().then( function () {
 		return prep$1;
@@ -918,9 +918,9 @@ class Font extends EventManager {
 }
 globalThis.Font = Font;
 class Subtable extends ParsedData {
-	constructor( p, platformID, encodingID ) {
+	constructor( p, plaformID, encodingID ) {
 		super( p );
-		this.platformID = platformID;
+		this.plaformID = plaformID;
 		this.encodingID = encodingID;
 	}
 }
@@ -3284,7 +3284,7 @@ class glyf extends SimpleTable {
 	}
 }
 var glyf$1 = Object.freeze( { __proto__: null, glyf: glyf } );
-class local extends SimpleTable {
+class loca extends SimpleTable {
 	constructor( dict, dataview, tables ) {
 		const { p: p } = super( dict, dataview );
 		const n = tables.maxp.numGlyphs + 1;
@@ -3305,7 +3305,7 @@ class local extends SimpleTable {
 		return { offset: offset, length: nextOffset - offset };
 	}
 }
-var local$1 = Object.freeze( { __proto__: null, local: local } );
+var loca$1 = Object.freeze( { __proto__: null, loca: loca } );
 class prep extends SimpleTable {
 	constructor( dict, dataview ) {
 		const { p: p } = super( dict, dataview );

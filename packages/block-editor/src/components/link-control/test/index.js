@@ -2422,7 +2422,7 @@ describe( 'Controlling link title text', () => {
 
 	it.each( [
 		[ '', 'Testing' ],
-		[ '(with leading and traling whitespace)', '    Testing    ' ],
+		[ '(with leading and trailing whitespace)', '    Testing    ' ],
 		[
 			// Note: link control should always preserve the original value.
 			// The consumer is responsible for filtering or otherwise handling the value.

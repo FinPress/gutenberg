@@ -2520,7 +2520,7 @@ export const __experimentalGetAllowedPatterns = createRegistrySelector(
  * or blocks transformations.
  *
  * @param {Object}          state        Editor state.
- * @param {string|string[]} blockNames   Block's name or array of block names to find matching pattens.
+ * @param {string|string[]} blockNames   Block's name or array of block names to find matching patterns.
  * @param {?string}         rootClientId Optional target root client ID.
  *
  * @return {Array} The list of matched block patterns based on declared `blockTypes` and block name.
@@ -2939,7 +2939,7 @@ export const __unstableGetVisibleBlocks = createSelector(
 );
 
 export function __unstableHasActiveBlockOverlayActive( state, clientId ) {
-	// Prevent overlay on blocks with a non-default editing mode. If the mdoe is
+	// Prevent overlay on blocks with a non-default editing mode. If the mode is
 	// 'disabled' then the overlay is redundant since the block can't be
 	// selected. If the mode is 'contentOnly' then the overlay is redundant
 	// since there will be no controls to interact with once selected.

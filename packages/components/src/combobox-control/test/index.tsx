@@ -18,7 +18,7 @@ import type { ComboboxControlOption, ComboboxControlProps } from '../types';
 const timezones = [
 	{ label: 'Greenwich Mean Time', value: 'GMT' },
 	{ label: 'Universal Coordinated Time', value: 'UTC' },
-	{ label: 'European Central Time', value: 'ETC' },
+	{ label: 'European Central Time', value: 'ECT' },
 	{ label: '(Arabic) Egypt Standard Time', value: 'ART' },
 	{ label: 'Eastern African Time', value: 'EAT' },
 	{ label: 'Middle East Time', value: 'MET' },
@@ -348,7 +348,7 @@ describe.each( [
 			expect( option ).toHaveTextContent( matches[ optionIndex ].label );
 		} );
 
-		// Confirm that the corrent option is selected
+		// Confirm that the current option is selected
 		await user.keyboard( '{Enter}' );
 
 		expect( onChangeSpy ).toHaveBeenCalledTimes( 1 );

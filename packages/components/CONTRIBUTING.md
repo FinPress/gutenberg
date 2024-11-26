@@ -765,7 +765,7 @@ In any case, extra attention should be paid to legacy component families made of
 
 When it comes to naming the newly added component, there are two options.
 
-If there is a good reason for it, pick a new name for the component. For example, some legacy components have names that don't correspond to the corrent name of UI widget that they implement (for example, `TabPanel` should be called `Tabs`, and `Modal` should be called `Dialog`).
+If there is a good reason for it, pick a new name for the component. For example, some legacy components have names that don't correspond to the current name of UI widget that they implement (for example, `TabPanel` should be called `Tabs`, and `Modal` should be called `Dialog`).
 
 Alternatively, version the component name. For example, the new version of `Component` could be called `ComponentV2`. This also applies for namespaced subcomponents (ie. `ComponentV2.SubComponent`).
 

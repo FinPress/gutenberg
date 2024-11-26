@@ -144,10 +144,10 @@ export default function FiltersPanel( {
 		const duotonePreset = duotonePalette.find( ( { colors } ) => {
 			return colors === newValue;
 		} );
-		const setValue = duotonePreset
+		const duotoneValue = duotonePreset
 			? `var:preset|duotone|${ duotonePreset.slug }`
 			: newValue;
-		onChange( setImmutably( value, [ 'filter', 'duotone' ], setValue ) );
+		onChange( setImmutably( value, [ 'filter', 'duotone' ], duotoneValue ) );
 	};
 	const hasDuotone = () => !! value?.filter?.duotone;
 	const resetDuotone = () => setDuotone( undefined );

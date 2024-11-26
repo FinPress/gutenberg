@@ -180,7 +180,7 @@ module.exports = BrotliBitReader;
      CONTEXT_SIGNED: second-order context model tuned for signed integers.
 
    The context id for the UTF8 context model is calculated as follows. If p1
-   and p2 are the previous two bytes, we calculate the context as
+   and p2 are the previous two bytes, we calcualte the context as
 
      context = kContextLookup[p1] | kContextLookup[p2 + 256].
 
@@ -1265,7 +1265,7 @@ function BrotliDecompress(input, output) {
       }
 
       /* Convert the distance code to the actual distance by possibly looking */
-      /* up past distances from the ringbuffer. */
+      /* up past distnaces from the ringbuffer. */
       distance = TranslateShortCodes(distance_code, dist_rb, dist_rb_idx);
       if (distance < 0) {
         throw new Error('[BrotliDecompress] invalid distance');
@@ -1927,7 +1927,7 @@ var kTransforms = [
      new Transform(         "", kUppercaseAll,   "\""         ),
      new Transform(         "", kUppercaseFirst, ". "         ),
      new Transform(        " ", kIdentity,       "("          ),
-     new Transform(         "", kIdentity,       "full "       ),
+     new Transform(         "", kIdentity,       "ful "       ),
      new Transform(        " ", kUppercaseFirst, ". "         ),
      new Transform(         "", kIdentity,       "ive "       ),
      new Transform(         "", kIdentity,       "less "      ),

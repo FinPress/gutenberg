@@ -71,7 +71,7 @@ function getFunctionUnitValue( functionUnitValue, options ) {
  * Take a css function such as min, max, calc, clamp and returns parsedUnit
  *
  * How this works for the nested function is that it first replaces the inner function call.
- * Then it tackles the outer onces.
+ * Then it tackles the outer ones.
  * So for example: min( max(25px, 35px), 40px )
  * in the first pass we would replace max(25px, 35px) with 35px.
  * then we would try to evaluate min( 35px, 40px )
