@@ -88,7 +88,7 @@ export default function useSaveImage( {
 			.catch( ( error ) => {
 				createErrorNotice(
 					sprintf(
-						/* translators: 1. Error message */
+						/* translators: %s: Error message. */
 						__( 'Could not edit image. %s' ),
 						stripHTML( error.message )
 					),
