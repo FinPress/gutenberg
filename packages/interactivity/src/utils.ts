@@ -67,9 +67,9 @@ export const splitTask = () => {
  * @param notify  The function that notifies listeners when the value is flushed.
  * @return The Flusher object with `flush` and `dispose` properties.
  */
-function createFlusher( compute: () => void, notify: () => void ): Flusher {
+function createFlusher( compute: () => unknown, notify: () => void ): Flusher {
 	let flush: () => void = () => undefined;
-	const dispose = effect( function ( this: any ): void {
+	const dispose = effect( function ( this: any ) {
 		flush = this.c.bind( this );
 		this.x = compute;
 		this.c = notify;
