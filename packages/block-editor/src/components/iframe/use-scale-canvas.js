@@ -183,7 +183,7 @@ export function useScaleCanvas( {
 	 * The starting transition state for the zoom out animation.
 	 * @type {import('react').RefObject<TransitionState>}
 	 */
-	const transitionFrom = useRef( {
+	const transitionFromRef = useRef( {
 		scaleValue,
 		frameSize,
 		clientHeight: 0,
@@ -195,7 +195,7 @@ export function useScaleCanvas( {
 	 * The ending transition state for the zoom out animation.
 	 * @type {import('react').RefObject<TransitionState>}
 	 */
-	const transitionTo = useRef( {
+	const transitionToRef = useRef( {
 		scaleValue,
 		frameSize,
 		clientHeight: 0,
@@ -210,8 +210,8 @@ export function useScaleCanvas( {
 	 * @return {Animation} The animation object for the zoom out animation.
 	 */
 	const startZoomOutAnimation = useCallback( () => {
-		const { scrollTop } = transitionFrom.current;
-		const { scrollTop: scrollTopNext } = transitionTo.current;
+		const { scrollTop } = transitionFromRef.current;
+		const { scrollTop: scrollTopNext } = transitionToRef.current;
 
 		iframeDocument.documentElement.style.setProperty(
 			'--wp-block-editor-iframe-zoom-out-scroll-top',
@@ -227,8 +227,8 @@ export function useScaleCanvas( {
 
 		return iframeDocument.documentElement.animate(
 			getAnimationKeyframes(
-				transitionFrom.current,
-				transitionTo.current
+				transitionFromRef.current,
+				transitionToRef.current
 			),
 			{
 				easing: 'cubic-bezier(0.46, 0.03, 0.52, 0.96)',
@@ -253,11 +253,11 @@ export function useScaleCanvas( {
 		// Add our final scale and frame size now that the animation is done.
 		iframeDocument.documentElement.style.setProperty(
 			'--wp-block-editor-iframe-zoom-out-scale',
-			transitionTo.current.scaleValue
+			transitionToRef.current.scaleValue
 		);
 		iframeDocument.documentElement.style.setProperty(
 			'--wp-block-editor-iframe-zoom-out-frame-size',
-			`${ transitionTo.current.frameSize }px`
+			`${ transitionToRef.current.frameSize }px`
 		);
 
 		iframeDocument.documentElement.classList.remove( 'zoom-out-animation' );
@@ -267,7 +267,7 @@ export function useScaleCanvas( {
 		// DOM element. https://github.com/facebook/react/issues/31483
 		// eslint-disable-next-line react-compiler/react-compiler
 		iframeDocument.documentElement.scrollTop =
-			transitionTo.current.scrollTop;
+			transitionToRef.current.scrollTop;
 
 		iframeDocument.documentElement.style.removeProperty(
 			'--wp-block-editor-iframe-zoom-out-scroll-top'
@@ -277,7 +277,7 @@ export function useScaleCanvas( {
 		);
 
 		// Update previous values.
-		transitionFrom.current = transitionTo.current;
+		transitionFromRef.current = transitionToRef.current;
 	}, [ iframeDocument ] );
 
 	/**
@@ -314,11 +314,11 @@ export function useScaleCanvas( {
 
 		// We need to update the appropriate scale to exit from. If sidebars have been opened since setting the
 		// original scale, we will snap to a much smaller scale due to the scale container immediately changing sizes when exiting.
-		if ( isAutoScaled && transitionFrom.current.scaleValue !== 1 ) {
+		if ( isAutoScaled && transitionFromRef.current.scaleValue !== 1 ) {
 			// We use containerWidth as the divisor, as scaleContainerWidth will always match the containerWidth when
 			// exiting.
-			transitionFrom.current.scaleValue = calculateScale( {
-				frameSize: transitionFrom.current.frameSize,
+			transitionFromRef.current.scaleValue = calculateScale( {
+				frameSize: transitionFromRef.current.frameSize,
 				containerWidth,
 				maxContainerWidth,
 				scaleContainerWidth: containerWidth,
@@ -382,10 +382,10 @@ export function useScaleCanvas( {
 				animationRef.current.reverse();
 				// Swap the transition to/from refs so that we set the correct values when
 				// finishZoomOutAnimation runs.
-				const tempTransitionFrom = transitionFrom.current;
-				const tempTransitionTo = transitionTo.current;
-				transitionFrom.current = tempTransitionTo;
-				transitionTo.current = tempTransitionFrom;
+				const tempTransitionFrom = transitionFromRef.current;
+				const tempTransitionTo = transitionToRef.current;
+				transitionFromRef.current = tempTransitionTo;
+				transitionToRef.current = tempTransitionFrom;
 			} else {
 				/**
 				 * Start a new zoom animation.
@@ -397,21 +397,21 @@ export function useScaleCanvas( {
 				// the iframe at this point when we're about to animate the zoom out.
 				// The iframe scrollTop, scrollHeight, and clientHeight will all be
 				// the most accurate.
-				transitionFrom.current.clientHeight =
-					transitionFrom.current.clientHeight ?? clientHeight;
-				transitionFrom.current.scrollTop =
+				transitionFromRef.current.clientHeight =
+					transitionFromRef.current.clientHeight ?? clientHeight;
+				transitionFromRef.current.scrollTop =
 					iframeDocument.documentElement.scrollTop;
-				transitionFrom.current.scrollHeight =
+				transitionFromRef.current.scrollHeight =
 					iframeDocument.documentElement.scrollHeight;
 
-				transitionTo.current = {
+				transitionToRef.current = {
 					scaleValue,
 					frameSize,
 					clientHeight,
 				};
-				transitionTo.current.scrollTop = computeScrollTopNext(
-					transitionFrom.current,
-					transitionTo.current
+				transitionToRef.current.scrollTop = computeScrollTopNext(
+					transitionFromRef.current,
+					transitionToRef.current
 				);
 
 				animationRef.current = startZoomOutAnimation();
