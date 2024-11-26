@@ -10,6 +10,12 @@ import { __, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
 import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 
+const messages = {
+	crop: __( 'Image cropped.' ),
+	rotate: __( 'Image rotated.' ),
+	cropAndRotate: __( 'Image cropped and rotated.' ),
+};
+
 export default function useSaveImage( {
 	crop,
 	rotation,
@@ -18,7 +24,8 @@ export default function useSaveImage( {
 	onSaveImage,
 	onFinishEditing,
 } ) {
-	const { createErrorNotice } = useDispatch( noticesStore );
+	const { createErrorNotice, createSuccessNotice } =
+		useDispatch( noticesStore );
 	const [ isInProgress, setIsInProgress ] = useState( false );
 
 	const cancel = useCallback( () => {
@@ -61,6 +68,9 @@ export default function useSaveImage( {
 			return;
 		}
 
+		const modifierType =
+			modifiers.length === 1 ? modifiers[ 0 ].type : 'cropAndRotate';
+
 		apiFetch( {
 			path: `/wp/v2/media/${ id }/edit`,
 			method: 'POST',
@@ -70,6 +80,9 @@ export default function useSaveImage( {
 				onSaveImage( {
 					id: response.id,
 					url: response.source_url,
+				} );
+				createSuccessNotice( messages[ modifierType ], {
+					type: 'snackbar',
 				} );
 			} )
 			.catch( ( error ) => {
@@ -96,6 +109,7 @@ export default function useSaveImage( {
 		url,
 		onSaveImage,
 		createErrorNotice,
+		createSuccessNotice,
 		onFinishEditing,
 	] );
 
