@@ -23,7 +23,7 @@ import {
 } from '@wordpress/date';
 import { Icon, check, published, moreVertical } from '@wordpress/icons';
 import { __, _x } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { useSelect, dispatch } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
@@ -106,22 +106,10 @@ export function Comments( {
 
 	const handleThreadClick = ( thread ) => {
 		const block = findBlockByCommentId( blocksList, thread.id );
-
 		if ( block ) {
 			const blockClientId = block.clientId;
-			const iframe = document.querySelector(
-				'iframe[name="editor-canvas"]'
-			);
-			const iframeDocument =
-				iframe.contentDocument || iframe.contentWindow.document;
-			const blockElement = iframeDocument.getElementById(
-				'block-' + blockClientId
-			);
-
-			if ( blockElement ) {
-				blockElement.scrollIntoView( { behavior: 'smooth' } );
-				setActiveClientId( thread.id );
-			}
+			// Select the block in the editor
+			dispatch( blockEditorStore ).selectBlock( blockClientId );
 		}
 	};
 
