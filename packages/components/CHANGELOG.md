@@ -23,6 +23,7 @@
 -   `FormFileUpload`: Prevent HEIC and HEIF files from being uploaded on Safari ([#67139](https://github.com/WordPress/gutenberg/pull/67139)).
 -   `Composite.Hover`: Restore functionality ([#67212](https://github.com/WordPress/gutenberg/pull/67212)).
 -   `Composite.Typeahead`: Restore functionality ([#67212](https://github.com/WordPress/gutenberg/pull/67212)).
+-   `Dashicons`: Remove non-existent icons from type ([#67235](https://github.com/WordPress/gutenberg/pull/67235)).
 
 ### Enhancements
 
