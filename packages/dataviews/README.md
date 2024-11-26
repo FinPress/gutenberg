@@ -1,6 +1,6 @@
 # The `@wordpress/dataviews` package
 
-The DataViews package offers two React components and a few utilites to work with a list of data:
+The DataViews package offers two React components and a few utilities to work with a list of data:
 
 - `DataViews`: to render the dataset using different types of layouts (table, grid, list) and interaction capabilities (search, filters, sorting, etc.).
 - `DataForm`: to edit the items of the dataset.
@@ -66,7 +66,7 @@ const data = [
 ];
 ```
 
-The data can come from anywhere, from a static JSON file to a dynamic source like a HTTP Request. It's the consumer's responsiblity to query the data source appropiately and update the dataset based on the user's choices for sorting, filtering, etc.
+The data can come from anywhere, from a static JSON file to a dynamic source like a HTTP Request. It's the consumer's responsibility to query the data source appropriately and update the dataset based on the user's choices for sorting, filtering, etc.
 
 Each record should have an `id` that identifies them uniquely. If they don't, the consumer should provide the `getItemId` property to `DataViews`: a function that returns an unique identifier for the record.
 
@@ -710,7 +710,7 @@ Example:
 
 Field type. One of `text`, `integer`, `datetime`.
 
-If a field declares a `type`, it gets default implementations for the `sort`, `isValid`, and `Edit` functions. They will overriden if the field provides its own.
+If a field declares a `type`, it gets default implementations for the `sort`, `isValid`, and `Edit` functions. They will overridden if the field provides its own.
 
 - Type: `string`.
 - Optional.

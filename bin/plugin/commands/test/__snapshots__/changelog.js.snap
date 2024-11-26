@@ -195,7 +195,7 @@ exports[`getChangelog verify that the changelog is properly formatted 1`] = `
 - Tidying \`CircularOptionPicker.Option\`. ([54903](https://github.com/WordPress/gutenberg/pull/54903))
 
 #### Typography
-- Font Library: Syntax refactor repace strpos with str_contains. ([54832](https://github.com/WordPress/gutenberg/pull/54832))
+- Font Library: Syntax refactor replace strpos with str_contains. ([54832](https://github.com/WordPress/gutenberg/pull/54832))
 - Font Library: Use snake_case instead of camelCase on fontFamilies endpoint param. ([54977](https://github.com/WordPress/gutenberg/pull/54977))
 
 #### Block Editor
@@ -221,7 +221,7 @@ exports[`getChangelog verify that the changelog is properly formatted 1`] = `
 - Don’t use TypeScript files in scripts package. ([54856](https://github.com/WordPress/gutenberg/pull/54856))
 - ESLint: Update eslint-plugin-testing-library to v6. ([54910](https://github.com/WordPress/gutenberg/pull/54910))
 - Fix end-to-end test: ”WP Editor Meta Boxes > Should save the changes”. ([51884](https://github.com/WordPress/gutenberg/pull/51884))
-- Font Library: Avoid deprected error in test. ([54802](https://github.com/WordPress/gutenberg/pull/54802))
+- Font Library: Avoid deprecated error in test. ([54802](https://github.com/WordPress/gutenberg/pull/54802))
 - Make \`editor.getBlocks\` to return only testing-related properties. ([54901](https://github.com/WordPress/gutenberg/pull/54901))
 - Migrate 'Global styles sidebar' test to Playwright. ([55045](https://github.com/WordPress/gutenberg/pull/55045))
 - Migrate 'iframed block editor settings styles' tests to Playwright. ([55014](https://github.com/WordPress/gutenberg/pull/55014))
@@ -255,7 +255,7 @@ exports[`getChangelog verify that the changelog is properly formatted 1`] = `
 - Background support: Backport fix for undefined array key. ([54850](https://github.com/WordPress/gutenberg/pull/54850))
 
 #### Typography
-- Revert "Font Library: Avoid rendering font library ui outisde gutenberg plugin". ([54947](https://github.com/WordPress/gutenberg/pull/54947))
+- Revert "Font Library: Avoid rendering font library ui outside gutenberg plugin". ([54947](https://github.com/WordPress/gutenberg/pull/54947))
 
 #### Commands
 - Make the reset styles command consistent. ([54841](https://github.com/WordPress/gutenberg/pull/54841))

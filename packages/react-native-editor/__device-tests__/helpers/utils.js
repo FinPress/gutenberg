@@ -103,7 +103,7 @@ const setupDriver = async () => {
 		if ( isLocalEnvironment() ) {
 			const androidDeviceID = getAndroidEmulatorID();
 			desiredCaps.app = path.resolve( localAndroidAppPath );
-			desiredCaps.udid = androidDeviceID;
+			desiredCaps.uuid = androidDeviceID;
 			try {
 				const androidVersion = childProcess
 					.execSync(

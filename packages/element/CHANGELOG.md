@@ -243,7 +243,7 @@
 
 ### New Features
 
--   Added `lazy` feautre (see: https://reactjs.org/docs/react-api.html#reactlazy).
+-   Added `lazy` feature (see: https://reactjs.org/docs/react-api.html#reactlazy).
 -   Added `Suspense` component (see: https://reactjs.org/docs/react-api.html#reactsuspense).
 
 ## 2.3.0 (2019-03-06)

@@ -7,7 +7,7 @@ import {
 	BlockControls,
 	MediaReplaceFlow,
 	__experimentalBlockAlignmentMatrixControl as BlockAlignmentMatrixControl,
-	__experimentalBlockFullHeightAligmentControl as FullHeightAlignmentControl,
+	__experimentalBlockFullHeightAlignmentControl as FullHeightAlignmentControl,
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';

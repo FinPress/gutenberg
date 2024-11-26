@@ -30,7 +30,7 @@ plugins {
     id "com.android.library"
     id "org.jetbrains.kotlin.android"
     id "maven-publish"
-    id "com.automattic.android.publish-to-s3"
+    id "com.automatic.android.publish-to-s3"
 }
 
 // import the `readReactNativeVersion()` function

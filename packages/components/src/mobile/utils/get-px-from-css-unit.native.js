@@ -101,7 +101,7 @@ function parseUnitFunction( cssUnit ) {
 /**
  * Return true if we think this is a math expression.
  *
- * @param {string} cssUnit the cssUnit value being evaluted.
+ * @param {string} cssUnit the cssUnit value being evaluated.
  * @return {boolean} Whether the cssUnit is a math expression.
  */
 function isMathExpression( cssUnit ) {
@@ -115,7 +115,7 @@ function isMathExpression( cssUnit ) {
 /**
  * Evaluates the math expression and return a px value.
  *
- * @param {string} cssUnit the cssUnit value being evaluted.
+ * @param {string} cssUnit the cssUnit value being evaluated.
  * @return {string} return a converfted value to px.
  */
 function evalMathExpression( cssUnit ) {

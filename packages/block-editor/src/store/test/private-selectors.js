@@ -165,7 +165,7 @@ describe( 'private selectors', () => {
 			).toBe( true );
 		} );
 
-		it( 'should return true when top level block is disabled via inheritence and there are no editing modes within it', () => {
+		it( 'should return true when top level block is disabled via inheritance and there are no editing modes within it', () => {
 			const state = {
 				...baseState,
 				blockEditingModes: new Map( [ [ '', 'disabled' ] ] ),
@@ -210,7 +210,7 @@ describe( 'private selectors', () => {
 			).toBe( false );
 		} );
 
-		it( 'should return false when top level block is disabled via inheritence and there are non-disabled editing modes within it', () => {
+		it( 'should return false when top level block is disabled via inheritance and there are non-disabled editing modes within it', () => {
 			const state = {
 				...baseState,
 				blockEditingModes: new Map( [

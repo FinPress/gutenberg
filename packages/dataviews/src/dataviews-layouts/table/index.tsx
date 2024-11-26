@@ -235,7 +235,7 @@ function TableRow< Item >( {
 				</td>
 			) }
 			{ columns.map( ( column: string ) => {
-				// Explicits picks the supported styles.
+				// Explicit picks the supported styles.
 				const { width, maxWidth, minWidth } =
 					view.layout?.styles?.[ column ] ?? {};
 
@@ -362,7 +362,7 @@ function ViewTable< Item >( {
 							</th>
 						) }
 						{ columns.map( ( column, index ) => {
-							// Explicits picks the supported styles.
+							// Explicit picks the supported styles.
 							const { width, maxWidth, minWidth } =
 								view.layout?.styles?.[ column ] ?? {};
 							return (

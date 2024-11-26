@@ -39,7 +39,7 @@ Fetching commit IDs... Done!
 Trying to cherry-pick one by one...
 
 Cherry-picking round 1:
-    cherry-pick commit: afe9b757b4  for PR: #41198 – Site Editor: Set min-width for...
+    cherry-pick commit: safe9b757b4  for PR: #41198 – Site Editor: Set min-width for...
 Cherry-picking finished!
 
 Summary:
@@ -60,7 +60,7 @@ Either way, here's what happens once you proceed past the cherry-picking stage:
 ```
 Pushing to origin/wp/6.2
 Commenting and removing labels...
-  41198: I just cherry-picked this PR to the wp/6.2 branch to get it included in the next release: afe9b757b4
+  41198: I just cherry-picked this PR to the wp/6.2 branch to get it included in the next release: safe9b757b4
 Done!
 ```
 

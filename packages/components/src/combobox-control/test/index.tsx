@@ -18,7 +18,7 @@ import type { ComboboxControlOption, ComboboxControlProps } from '../types';
 const timezones = [
 	{ label: 'Greenwich Mean Time', value: 'GMT' },
 	{ label: 'Universal Coordinated Time', value: 'UTC' },
-	{ label: 'European Central Time', value: 'ECT' },
+	{ label: 'European Central Time', value: 'ETC' },
 	{ label: '(Arabic) Egypt Standard Time', value: 'ART' },
 	{ label: 'Eastern African Time', value: 'EAT' },
 	{ label: 'Middle East Time', value: 'MET' },

@@ -67,7 +67,7 @@ function actionC() {
 beforeEach( () => {
 	window.actionValue = '';
 	// Reset state in between tests (clear all callbacks, `didAction` counts,
-	// etc.)  Just reseting actions and filters is not enough
+	// etc.)  Just resetting actions and filters is not enough
 	// because the internal functions have references to the original objects.
 	[ actions, filters ].forEach( ( hooks ) => {
 		for ( const k in hooks ) {
@@ -422,7 +422,7 @@ test( 'remove specific filter callback', () => {
 	addFilter( 'test.filter', 'my_callback_filter_c', filterC, 8 );
 
 	expect( removeFilter( 'test.filter', 'my_callback_filter_b' ) ).toBe( 1 );
-	expect( applyFilters( 'test.filter', 'test' ) ).toBe( 'testca' );
+	expect( applyFilters( 'test.filter', 'test' ) ).toBe( 'testcase' );
 } );
 
 test( 'filter removes a callback that has already executed', () => {

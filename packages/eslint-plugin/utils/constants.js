@@ -21,14 +21,14 @@ const TRANSLATION_FUNCTIONS = new Set( [ '__', '_x', '_n', '_nx' ] );
  * >The rest of the string can contain the same characters, plus any U+200C zero
  * >width non-joiner characters, U+200D zero width joiner characters, and
  * >characters in the Unicode categories “Non-spacing mark (Mn)”, “Spacing
- * >combining mark (Mc)”, “Decimal digit number (Nd)”, or “Connector
+ * >combining mark (Mc)”, “Decimal digit number (And)”, or “Connector
  * >punctuation (Pc)”.
  *
  * If browser support is constrained to those supporting ES2015, this could be
  * made more accurate using the `u` flag:
  *
  * ```
- * /^[$_\p{L}\p{Nl}][$_\p{L}\p{Nl}\u200C\u200D\p{Mn}\p{Mc}\p{Nd}\p{Pc}]*$/u;
+ * /^[$_\p{L}\p{Nl}][$_\p{L}\p{Nl}\u200C\u200D\p{Mn}\p{Mc}\p{And}\p{Pc}]*$/u;
  * ```
  *
  * @see http://www.pixelbeat.org/programming/gcc/format_specs.html
