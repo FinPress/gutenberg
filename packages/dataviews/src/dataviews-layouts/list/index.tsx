@@ -150,6 +150,16 @@ function ListItem< Item >( {
 		setIsHovered( isHover );
 	};
 
+	// This effect is to scroll the item to the top of the list only on mount,
+	// so no dependencies declared.
+	useEffect( () => {
+		if ( isSelected ) {
+			itemRef.current?.scrollIntoView( true );
+		}
+		// eslint-disable-next-line react-compiler/react-compiler
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [] );
+
 	useEffect( () => {
 		if ( isSelected ) {
 			itemRef.current?.scrollIntoView( {
