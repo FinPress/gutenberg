@@ -11,6 +11,7 @@ import { isSelectionForward } from '@wordpress/dom';
  */
 import { store as blockEditorStore } from '../../store';
 import { getBlockClientId } from '../../utils/dom';
+import { isEntirelySelected } from '@wordpress/dom';
 
 /**
  * Extract the selection start node from the selection. When the anchor node is
@@ -101,6 +102,13 @@ function getRichTextElement( node ) {
 	return element?.closest( '[data-wp-block-attribute-key]' );
 }
 
+function removeFullySelectedAttribute( ownerDocument ) {
+	const node = ownerDocument.querySelector( '[data-fully-selected]' );
+	if ( node ) {
+		node.removeAttribute( 'data-fully-selected' );
+	}
+}
+
 /**
  * Sets a multi-selection based on the native selection across blocks.
  */
@@ -118,6 +126,7 @@ export default function useSelectionObserver() {
 				const selection = defaultView.getSelection();
 
 				if ( ! selection.rangeCount ) {
+					removeFullySelectedAttribute( ownerDocument );
 					return;
 				}
 
@@ -128,6 +137,7 @@ export default function useSelectionObserver() {
 					! node.contains( startNode ) ||
 					! node.contains( endNode )
 				) {
+					removeFullySelectedAttribute( ownerDocument );
 					return;
 				}
 
@@ -139,6 +149,7 @@ export default function useSelectionObserver() {
 				// For now we check if the event is a `mouse` event.
 				const isClickShift = event.shiftKey && event.type === 'mouseup';
 				if ( selection.isCollapsed && ! isClickShift ) {
+					removeFullySelectedAttribute( ownerDocument );
 					if (
 						node.contentEditable === 'true' &&
 						! isMultiSelecting()
@@ -187,6 +198,7 @@ export default function useSelectionObserver() {
 					startClientId === undefined &&
 					endClientId === undefined
 				) {
+					removeFullySelectedAttribute( ownerDocument );
 					setContentEditableWrapper( node, false );
 					return;
 				}
@@ -195,6 +207,23 @@ export default function useSelectionObserver() {
 				if ( isSingularSelection ) {
 					if ( ! isMultiSelecting() ) {
 						selectBlock( startClientId );
+						const blockNode = ownerDocument.querySelector(
+							'[data-block="' + startClientId + '"]'
+						);
+						if ( isEntirelySelected( blockNode ) ) {
+							if (
+								! blockNode.hasAttribute(
+									'data-fully-selected'
+								)
+							) {
+								blockNode.setAttribute(
+									'data-fully-selected',
+									'true'
+								);
+							}
+						} else {
+							removeFullySelectedAttribute( ownerDocument );
+						}
 					} else {
 						multiSelect( startClientId, startClientId );
 					}
