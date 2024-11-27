@@ -15,20 +15,6 @@ add_filter(
 	}
 );
 
-function gutenberg_get_posts_dataviews_url( $path = '', $query = array() ) {
-	$query_string = build_query(
-		array_merge(
-			$query,
-			$path ? array(
-				'page' => 'gutenberg-posts-dashboard',
-				'p'    => $path,
-			) : array( 'page' => 'gutenberg-posts-dashboard' )
-		)
-	);
-	$base_url     = admin_url( 'admin.php' );
-	return $query_string ? $base_url . '?' . $query_string : $base_url;
-}
-
 function gutenberg_get_site_editor_redirection() {
 	global $pagenow;
 	if ( 'site-editor.php' !== $pagenow || isset( $_REQUEST['p'] ) || ! $_SERVER['QUERY_STRING'] ) {
@@ -118,24 +104,6 @@ function gutenberg_redirect_site_editor_deprecated_urls() {
 	}
 }
 add_action( 'admin_init', 'gutenberg_redirect_site_editor_deprecated_urls' );
-
-function gutenberg_redirect_posts_dataviews_to_post() {
-	global $pagenow;
-	if (
-		'admin.php' !== $pagenow ||
-		! isset( $_REQUEST['page'] ) ||
-		'gutenberg-posts-dashboard' !== $_REQUEST['page'] ||
-		isset( $_REQUEST['p'] )
-	) {
-		return;
-	}
-
-	wp_redirect( gutenberg_get_posts_dataviews_url( '/' ), 301 );
-	exit;
-}
-
-add_action( 'admin_init', 'gutenberg_redirect_posts_dataviews_to_post' );
-
 
 /**
  * Filter the `wp_die_handler` to allow access to the Site Editor's new pages page
