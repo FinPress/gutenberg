@@ -21,42 +21,51 @@ import {
 } from '../../store/constants';
 import { unlock } from '../../lock-unlock';
 import PostActions from '../post-actions';
+import usePageTypeBadge from '../../utils/pageTypeBadge';
+import { getTemplateInfo } from '../../utils/get-template-info';
 
 export default function PostCardPanel( {
 	postType,
 	postId,
 	onActionPerformed,
 } ) {
-	const { isFrontPage, isPostsPage, title, icon } = useSelect(
+	const { title, icon } = useSelect(
 		( select ) => {
-			const { __experimentalGetTemplateInfo } = select( editorStore );
-			const { canUser, getEditedEntityRecord } = select( coreStore );
-			const siteSettings = canUser( 'read', {
-				kind: 'root',
-				name: 'site',
-			} )
-				? getEditedEntityRecord( 'root', 'site' )
-				: undefined;
+			const { getEditedEntityRecord } = select( coreStore );
 			const _record = getEditedEntityRecord(
 				'postType',
 				postType,
 				postId
 			);
-			const _templateInfo =
-				[ TEMPLATE_POST_TYPE, TEMPLATE_PART_POST_TYPE ].includes(
-					postType
-				) && __experimentalGetTemplateInfo( _record );
+
+			const { default_template_types: templateTypes = [] } =
+				select( coreStore ).getEntityRecord(
+					'root',
+					'__unstableBase'
+				) ?? {};
+
+			const _templateInfo = [
+				TEMPLATE_POST_TYPE,
+				TEMPLATE_PART_POST_TYPE,
+			].includes( postType )
+				? getTemplateInfo( {
+						template: _record,
+						templateTypes,
+				  } )
+				: {};
+
 			return {
 				title: _templateInfo?.title || _record?.title,
 				icon: unlock( select( editorStore ) ).getPostIcon( postType, {
 					area: _record?.area,
 				} ),
-				isFrontPage: siteSettings?.page_on_front === postId,
-				isPostsPage: siteSettings?.page_for_posts === postId,
 			};
 		},
 		[ postId, postType ]
 	);
+
+	const pageTypeBadge = usePageTypeBadge();
+
 	return (
 		<div className="editor-post-card-panel">
 			<HStack
@@ -74,14 +83,9 @@ export default function PostCardPanel( {
 					lineHeight="20px"
 				>
 					{ title ? decodeEntities( title ) : __( 'No title' ) }
-					{ isFrontPage && (
+					{ pageTypeBadge && (
 						<span className="editor-post-card-panel__title-badge">
-							{ __( 'Homepage' ) }
-						</span>
-					) }
-					{ isPostsPage && (
-						<span className="editor-post-card-panel__title-badge">
-							{ __( 'Posts Page' ) }
+							{ pageTypeBadge }
 						</span>
 					) }
 				</Text>

@@ -15,7 +15,7 @@ import {
 	__unstableAnimatePresence as AnimatePresence,
 } from '@wordpress/components';
 import { BlockIcon } from '@wordpress/block-editor';
-import { chevronLeftSmall, chevronRightSmall } from '@wordpress/icons';
+import { chevronLeftSmall, chevronRightSmall, layout } from '@wordpress/icons';
 import { displayShortcut } from '@wordpress/keycodes';
 import { store as coreStore } from '@wordpress/core-data';
 import { store as commandsStore } from '@wordpress/commands';
@@ -28,6 +28,8 @@ import { decodeEntities } from '@wordpress/html-entities';
  */
 import { TEMPLATE_POST_TYPES } from '../../store/constants';
 import { store as editorStore } from '../../store';
+import usePageTypeBadge from '../../utils/pageTypeBadge';
+import { getTemplateInfo } from '../../utils/get-template-info';
 
 /** @typedef {import("@wordpress/components").IconType} IconType */
 
@@ -48,7 +50,7 @@ const MotionButton = motion( Button );
  * @param {IconType} props.icon  An icon for the document, no default.
  *                               (A default icon indicating the document post type is no longer used.)
  *
- * @return {JSX.Element} The rendered DocumentBar component.
+ * @return {React.ReactNode} The rendered DocumentBar component.
  */
 export default function DocumentBar( props ) {
 	const {
@@ -58,13 +60,15 @@ export default function DocumentBar( props ) {
 		isNotFound,
 		templateTitle,
 		onNavigateToPreviousEntityRecord,
+		isTemplatePreview,
 	} = useSelect( ( select ) => {
 		const {
 			getCurrentPostType,
 			getCurrentPostId,
 			getEditorSettings,
-			__experimentalGetTemplateInfo: getTemplateInfo,
+			getRenderingMode,
 		} = select( editorStore );
+
 		const {
 			getEditedEntityRecord,
 			getPostType,
@@ -77,7 +81,15 @@ export default function DocumentBar( props ) {
 			_postType,
 			_postId
 		);
-		const _templateInfo = getTemplateInfo( _document );
+
+		const { default_template_types: templateTypes = [] } =
+			select( coreStore ).getEntityRecord( 'root', '__unstableBase' ) ??
+			{};
+
+		const _templateInfo = getTemplateInfo( {
+			templateTypes,
+			template: _document,
+		} );
 		const _postTypeLabel = getPostType( _postType )?.labels?.singular_name;
 
 		return {
@@ -95,6 +107,7 @@ export default function DocumentBar( props ) {
 			templateTitle: _templateInfo.title,
 			onNavigateToPreviousEntityRecord:
 				getEditorSettings().onNavigateToPreviousEntityRecord,
+			isTemplatePreview: getRenderingMode() === 'template-locked',
 		};
 	}, [] );
 
@@ -106,6 +119,8 @@ export default function DocumentBar( props ) {
 	const entityTitle = isTemplate ? templateTitle : documentTitle;
 	const title = props.title || entityTitle;
 	const icon = props.icon;
+
+	const pageTypeBadge = usePageTypeBadge();
 
 	const mountedRef = useRef( false );
 	useEffect( () => {
@@ -143,6 +158,12 @@ export default function DocumentBar( props ) {
 					</MotionButton>
 				) }
 			</AnimatePresence>
+			{ ! isTemplate && isTemplatePreview && (
+				<BlockIcon
+					icon={ layout }
+					className="editor-document-bar__icon-layout"
+				/>
+			) }
 			{ isNotFound ? (
 				<Text>{ __( 'Document not found' ) }</Text>
 			) : (
@@ -180,11 +201,20 @@ export default function DocumentBar( props ) {
 									? decodeEntities( title )
 									: __( 'No title' ) }
 							</span>
-							{ postTypeLabel && ! props.title && (
+							{ pageTypeBadge && (
 								<span className="editor-document-bar__post-type-label">
-									{ '· ' + decodeEntities( postTypeLabel ) }
+									{ `· ${ pageTypeBadge }` }
 								</span>
 							) }
+							{ postTypeLabel &&
+								! props.title &&
+								! pageTypeBadge && (
+									<span className="editor-document-bar__post-type-label">
+										{ `· ${ decodeEntities(
+											postTypeLabel
+										) }` }
+									</span>
+								) }
 						</Text>
 					</motion.div>
 					<span className="editor-document-bar__shortcut">
