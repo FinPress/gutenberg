@@ -34,6 +34,7 @@
 -   `Autocomplete`: Increase option height ([#67214](https://github.com/WordPress/gutenberg/pull/67214)).
 -   `DropZone`: Add `isEligible` prop to allow customizing whether the drop zone should activate ([#67317](https://github.com/WordPress/gutenberg/pull/67317)).
 -   `CircularOptionPicker`: Update `Button` sizes to be ready for 40px default size ([#67285](https://github.com/WordPress/gutenberg/pull/67285)).
+-   `ToggleGroupControl`: Use consistent label color for improved readability ([#67355](https://github.com/WordPress/gutenberg/pull/67355)).
 
 ### Experimental
 
