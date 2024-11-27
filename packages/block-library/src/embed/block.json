@@ -54,7 +54,6 @@
 			"width": true,
 			"style": true,
 			"__experimentalDefaultControls": {
-				"radius": false,
 				"color": true,
 				"width": true,
 				"style": true
