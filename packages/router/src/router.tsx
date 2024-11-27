@@ -152,18 +152,12 @@ export function useHistory() {
 
 export default function useMatch(
 	location: LocationWithQuery,
-	routes: Route[],
+	matcher: RouteRecognizer,
 	pathArg: string
 ): Match {
 	const { query: rawQuery = {} } = location;
 
 	return useMemo( () => {
-		const matcher = new RouteRecognizer();
-		routes.forEach( ( route ) => {
-			matcher.add( [ { path: route.path, handler: route } ], {
-				as: route.name,
-			} );
-		} );
 		const { [ pathArg ]: path = '/', ...query } = rawQuery;
 		const result = matcher.recognize( path )?.[ 0 ];
 		if ( ! result ) {
@@ -199,7 +193,7 @@ export default function useMatch(
 			query,
 			path: addQueryArgs( path, query ),
 		};
-	}, [ routes, rawQuery, pathArg ] );
+	}, [ matcher, rawQuery, pathArg ] );
 }
 
 export function RouterProvider( {
@@ -218,7 +212,16 @@ export function RouterProvider( {
 		getLocationWithQuery,
 		getLocationWithQuery
 	);
-	const match = useMatch( location, routes, pathArg );
+	const matcher = useMemo( () => {
+		const ret = new RouteRecognizer();
+		routes.forEach( ( route ) => {
+			ret.add( [ { path: route.path, handler: route } ], {
+				as: route.name,
+			} );
+		} );
+		return ret;
+	}, [ routes ] );
+	const match = useMatch( location, matcher, pathArg );
 	const config = useMemo(
 		() => ( { beforeNavigate, pathArg } ),
 		[ beforeNavigate, pathArg ]
