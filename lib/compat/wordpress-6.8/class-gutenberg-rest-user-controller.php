@@ -45,7 +45,7 @@ function gutenberg_modify_user_query_args( $prepared_args, $request ) {
 			'name'     => 'display_name',
 		);
 		$search_columns         = array_map(
-			function ( $column ) use ( $search_columns_mapping ) {
+			static function ( $column ) use ( $search_columns_mapping ) {
 				return $search_columns_mapping[ $column ];
 			},
 			$search_columns
