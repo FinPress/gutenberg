@@ -174,7 +174,7 @@ export function PrivateBlockToolbar( {
 	// Shifts the toolbar to make room for the parent block selector.
 	const classes = clsx( 'block-editor-block-contextual-toolbar', {
 		'has-parent': showParentSelector,
-		'is-dark-toolbar': ! isDefaultEditingMode && ! hasFixedToolbar,
+		'is-inverted-toolbar': ! isDefaultEditingMode && ! hasFixedToolbar,
 	} );
 
 	const innerClasses = clsx( 'block-editor-block-toolbar', {
