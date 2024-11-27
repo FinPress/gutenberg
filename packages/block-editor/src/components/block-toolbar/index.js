@@ -75,6 +75,7 @@ export function PrivateBlockToolbar( {
 		showLockButtons,
 		showSwitchSectionStyleButton,
 		hasFixedToolbar,
+		isNavigationMode,
 	} = useSelect( ( select ) => {
 		const {
 			getBlockName,
@@ -89,6 +90,7 @@ export function PrivateBlockToolbar( {
 			getSettings,
 			getParentSectionBlock,
 			isZoomOut,
+			isNavigationMode: _isNavigationMode,
 		} = unlock( select( blockEditorStore ) );
 		const selectedBlockClientIds = getSelectedBlockClientIds();
 		const selectedBlockClientId = selectedBlockClientIds[ 0 ];
@@ -148,6 +150,7 @@ export function PrivateBlockToolbar( {
 			showLockButtons: ! isZoomOut(),
 			showSwitchSectionStyleButton: isZoomOut(),
 			hasFixedToolbar: getSettings().hasFixedToolbar,
+			isNavigationMode: _isNavigationMode(),
 		};
 	}, [] );
 
@@ -174,13 +177,12 @@ export function PrivateBlockToolbar( {
 	// Shifts the toolbar to make room for the parent block selector.
 	const classes = clsx( 'block-editor-block-contextual-toolbar', {
 		'has-parent': showParentSelector,
-		'is-inverted-toolbar': ! isDefaultEditingMode && ! hasFixedToolbar,
+		'is-inverted-toolbar': isNavigationMode && ! hasFixedToolbar,
 	} );
 
 	const innerClasses = clsx( 'block-editor-block-toolbar', {
 		'is-synced': isSynced,
 		'is-connected': isUsingBindings,
-		'is-dark-toolbar': ! isDefaultEditingMode && ! hasFixedToolbar,
 	} );
 
 	return (
