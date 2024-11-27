@@ -203,8 +203,8 @@ function BlockPatternsList(
 		const firstCompositeItemId = blockPatterns[ 0 ]?.name;
 		setActiveCompositeId( firstCompositeItemId );
 	}, [ blockPatterns ] );
-    
-   const handleClickPattern = ( pattern, blocks ) => {
+
+	const handleClickPattern = ( pattern, blocks ) => {
 		setActivePattern( pattern.name );
 		onClickPattern( pattern, blocks );
 	};
