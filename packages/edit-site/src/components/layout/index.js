@@ -10,6 +10,7 @@ import {
 	__unstableMotion as motion,
 	__unstableAnimatePresence as AnimatePresence,
 	__unstableUseNavigateRegions as useNavigateRegions,
+	SlotFillProvider,
 } from '@wordpress/components';
 import {
 	useReducedMotion,
@@ -236,8 +237,10 @@ function Layout( { route } ) {
 
 export default function LayoutWithGlobalStylesProvider( props ) {
 	return (
-		<GlobalStylesProvider>
-			<Layout { ...props } />
-		</GlobalStylesProvider>
+		<SlotFillProvider>
+			<GlobalStylesProvider>
+				<Layout { ...props } />
+			</GlobalStylesProvider>
+		</SlotFillProvider>
 	);
 }
