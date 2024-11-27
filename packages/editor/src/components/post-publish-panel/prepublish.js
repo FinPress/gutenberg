@@ -75,7 +75,7 @@ function PostPublishPanelPrepublish( { children } ) {
 	if ( ! hasPublishAction ) {
 		prePublishTitle = __( 'Are you ready to submit for review?' );
 		prePublishBodyText = __(
-			'Since you are a Contributor, your work will be submitted for review, and a user with publishing permissions will be able to review and approve it for you.'
+			'A user with publishing permissions can review and approve it.'
 		);
 	} else if ( isBeingScheduled ) {
 		prePublishTitle = __( 'Are you ready to schedule?' );
