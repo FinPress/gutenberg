@@ -40,7 +40,7 @@ const InserterDraggableBlocks = ( {
 			pattern?.syncStatus !== 'unsynced'
 			? [ createBlock( 'core/block', { ref: pattern.id } ) ]
 			: undefined;
-	}, [ pattern ] );
+	}, [ pattern?.type, pattern?.syncStatus, pattern?.id ] );
 
 	if ( ! isEnabled ) {
 		return children( {

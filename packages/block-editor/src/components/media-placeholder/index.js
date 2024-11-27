@@ -232,7 +232,7 @@ export function MediaPlaceholder( {
 	async function handleBlocksDrop( event ) {
 		const { blocks } = parseDropEvent( event );
 
-		if ( ! blocks || ! blocks.length ) {
+		if ( ! blocks?.length ) {
 			return;
 		}
 
