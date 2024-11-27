@@ -94,7 +94,7 @@ export function useHistory() {
 	const { pathArg, beforeNavigate } = useContext( ConfigContext );
 
 	const navigate = useEvent(
-		( rawPath: string, options: NavigationOptions = {} ) => {
+		async ( rawPath: string, options: NavigationOptions = {} ) => {
 			const query = getQueryArgs( rawPath );
 			const path = getPath( 'http://domain.com/' + rawPath ) ?? '';
 			const performPush = () => {
@@ -124,17 +124,20 @@ export function useHistory() {
 				! document.startViewTransition ||
 				! options.transition
 			) {
-				return performPush();
+				performPush();
 			}
-			document.documentElement.classList.add( options.transition );
-			// @ts-expect-error
-			const transition = document.startViewTransition( () =>
-				performPush()
-			);
-			transition.finished.finally( () => {
-				document.documentElement.classList.remove(
-					options.transition ?? ''
+
+			await new Promise< void >( ( resolve ) => {
+				const classname = options.transition ?? '';
+				document.documentElement.classList.add( classname );
+				// @ts-expect-error
+				const transition = document.startViewTransition( () =>
+					performPush()
 				);
+				transition.finished.finally( () => {
+					document.documentElement.classList.remove( classname );
+					resolve();
+				} );
 			} );
 		}
 	);
