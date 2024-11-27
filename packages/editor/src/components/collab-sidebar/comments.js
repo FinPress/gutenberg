@@ -23,7 +23,7 @@ import {
 } from '@wordpress/date';
 import { Icon, check, published, moreVertical } from '@wordpress/icons';
 import { __, _x } from '@wordpress/i18n';
-import { useSelect, dispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
