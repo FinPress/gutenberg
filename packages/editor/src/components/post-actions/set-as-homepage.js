@@ -80,39 +80,23 @@ const SetAsHomepageModal = ( { items, closeModal } ) => {
 		}
 	}
 
-	const renderModalBody = () => {
-		if ( 'posts' === showOnFront ) {
-			return (
-				<>
-					<Text>
-						{ sprintf(
-							// translators: %s: title of the page to be set as the homepage.
-							__(
-								'Set "%s" as the site homepage? This will replace the current homepage which is set to display latest posts.'
-							),
-							pageTitle
-						) }
-					</Text>
-				</>
-			);
-		}
-
-		const modalTranslatedString =
-			// translators: %1$s: title of page to be set as the home page. %2$s: title of the current home page.
-			__(
-				'Set "%1$s" as the site homepage? This will replace the current homepage: "%2$s"'
-			);
-
-		return (
-			<Text>
-				{ sprintf(
-					modalTranslatedString,
-					pageTitle,
+	const modalWarning =
+		'posts' === showOnFront
+			? __(
+					'This will replace the current homepage which is set to display latest posts.'
+			  )
+			: sprintf(
+					// translators: %s: title of the current home page.
+					__( 'This will replace the current homepage: "%s"' ),
 					currentHomePageTitle
-				) }
-			</Text>
-		);
-	};
+			  );
+
+	const modalText = sprintf(
+		// translators: %1$s: title of the page to be set as the homepage, %2$s: homepage replacement warning message.
+		__( 'Set "%1$s" as the site homepage? %2$s' ),
+		pageTitle,
+		modalWarning
+	);
 
 	// translators: Button label to confirm setting the specified page as the homepage.
 	const modalButtonLabel = __( 'Set homepage' );
@@ -120,7 +104,7 @@ const SetAsHomepageModal = ( { items, closeModal } ) => {
 	return (
 		<form onSubmit={ onSetPageAsHomepage }>
 			<VStack spacing="5">
-				{ renderModalBody() }
+				<Text>{ modalText }</Text>
 				<HStack justify="right">
 					<Button
 						__next40pxDefaultSize
