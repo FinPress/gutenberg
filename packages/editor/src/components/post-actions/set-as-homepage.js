@@ -65,7 +65,6 @@ const SetAsHomepageModal = ( { items, closeModal } ) => {
 				show_on_front: 'page',
 			} );
 
-			closeModal?.();
 			createSuccessNotice( __( 'Homepage updated' ), {
 				type: 'snackbar',
 			} );
@@ -76,6 +75,8 @@ const SetAsHomepageModal = ( { items, closeModal } ) => {
 					? typedError.message
 					: __( 'An error occurred while setting the homepage' );
 			createErrorNotice( errorMessage, { type: 'snackbar' } );
+		} finally {
+			closeModal?.();
 		}
 	}
 
