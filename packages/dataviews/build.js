@@ -25,7 +25,7 @@ const wpExternals = {
 esbuild.build( {
 	entryPoints: [ 'src/index.ts' ],
 	bundle: true,
-	outdir: 'wp',
+	outdir: 'build-wp',
 	plugins: [ wpExternals ],
 	jsx: 'automatic',
 	logLevel: 'info',

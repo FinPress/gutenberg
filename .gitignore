@@ -3,12 +3,12 @@ build
 build-module
 build-style
 build-types
+build-wp
 node_modules
 gutenberg.zip
 coverage
 .phpunit.result.cache
 .reassure
-packages/*/wp
 
 
 # Directories/files that may appear in your environment

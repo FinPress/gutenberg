@@ -181,7 +181,7 @@
 		"postbuild:packages": " npm run --if-present --workspaces build:wp",
 		"build:plugin-zip": "bash ./bin/build-plugin-zip.sh",
 		"clean:package-types": "tsc --build --clean && rimraf \"./packages/*/build-types\"",
-		"clean:packages": "rimraf \"./packages/*/@(build|build-module|build-style)\"",
+		"clean:packages": "rimraf \"./packages/*/@(build|build-module|build-wp|build-style)\"",
 		"component-usage-stats": "node ./node_modules/react-scanner/bin/react-scanner -c ./react-scanner.config.js",
 		"dev": "cross-env NODE_ENV=development npm run build:packages && concurrently \"wp-scripts start\" \"npm run dev:packages\"",
 		"dev:packages": "cross-env NODE_ENV=development concurrently \"node ./bin/packages/watch.js\" \"tsc --build --watch\"",

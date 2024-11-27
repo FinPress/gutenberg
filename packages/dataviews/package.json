@@ -31,7 +31,7 @@
 		},
 		"./wp": {
 			"types": "./build-types/index.d.ts",
-			"default": "./wp/index.js"
+			"default": "./build-wp/index.js"
 		},
 		"./package.json": {
 			"default": "./package.json"
