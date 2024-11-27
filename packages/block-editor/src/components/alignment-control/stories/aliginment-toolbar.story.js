@@ -30,4 +30,18 @@ const meta = {
 };
 export default meta;
 
-export const Default = {};
+export const Default = {
+	render: function Template( { onChange, ...args } ) {
+		const [ value, setValue ] = useState();
+		return (
+			<AlignmentToolbar
+				{ ...args }
+				onChange={ ( ...changeArgs ) => {
+					onChange( ...changeArgs );
+					setValue( ...changeArgs );
+				} }
+				value={ value }
+			/>
+		);
+	},
+};
