@@ -49,7 +49,6 @@
 			"clientNavigation": true
 		},
 		"__experimentalBorder": {
-			"radius": false,
 			"color": true,
 			"width": true,
 			"style": true,

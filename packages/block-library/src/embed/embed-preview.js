@@ -69,6 +69,10 @@ export default function EmbedPreview( {
 		'wp-block-embed__wrapper'
 	);
 	const borderProps = useBorderProps( attributes );
+	const wrapperProps = {
+		className: borderProps.className,
+		style: { ...borderProps.style },
+	};
 
 	// Disabled because the overlay div doesn't actually have a role or functionality
 	// as far as the user is concerned. We're just catching the first click so that
@@ -76,11 +80,7 @@ export default function EmbedPreview( {
 	/* eslint-disable jsx-a11y/no-static-element-interactions */
 	const embedWrapper =
 		'wp-embed' === type ? (
-			<WpEmbedPreview
-				html={ html }
-				className={ borderProps.className }
-				style={ { ...borderProps.style } }
-			/>
+			<WpEmbedPreview html={ html } wrapperProps={ wrapperProps } />
 		) : (
 			<div
 				className={ clsx(
