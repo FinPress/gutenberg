@@ -24,6 +24,19 @@
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
+	"exports": {
+		".": {
+			"types": "./build-types/index.d.ts",
+			"import": "./build-module/index.js"
+		},
+		"./wp": {
+			"types": "./build-types/index.d.ts",
+			"default": "./wp/index.js"
+		},
+		"./package.json": {
+			"default": "./package.json"
+		}
+	},
 	"react-native": "src/index",
 	"wpScript": true,
 	"types": "build-types",
