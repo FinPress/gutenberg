@@ -141,6 +141,9 @@ add_action( 'admin_init', 'gutenberg_redirect_posts_dataviews_to_post' );
  * Filter the `wp_die_handler` to allow access to the Site Editor's new pages page
  * for Classic themes.
  *
+ * site-editor.php's access is forbidden for hybrid/classic themes and only allowed with some very special query args (some very special pages like template parts...).
+ * The only way to disable this protection since we're changing the urls in Gutenberg is to override the wp_die_handler.
+ *
  * @param callable $default_handler The default handler.
  * @return callable The default handler or a custom handler.
  */
