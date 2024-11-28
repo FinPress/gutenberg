@@ -3828,7 +3828,6 @@ describe( 'state', () => {
 				expect( initialState.derivedBlockEditingModes ).toEqual(
 					new Map(
 						Object.entries( {
-							'root-pattern': 'contentOnly',
 							'pattern-paragraph': 'disabled',
 							'pattern-group': 'disabled',
 							'pattern-paragraph-with-overrides': 'contentOnly',
@@ -3883,7 +3882,6 @@ describe( 'state', () => {
 				expect( derivedBlockEditingModes ).toEqual(
 					new Map(
 						Object.entries( {
-							'root-pattern': 'contentOnly', // Pattern and section.
 							'pattern-paragraph': 'disabled',
 							'pattern-group': 'disabled',
 							'pattern-paragraph-with-overrides': 'contentOnly', // Pattern child with bindings.
@@ -3903,7 +3901,7 @@ describe( 'state', () => {
 							'paragraph-1': 'contentOnly', // Content block in section.
 							'group-2': 'disabled',
 							'paragraph-2': 'contentOnly', // Content block in section.
-							'root-pattern': 'contentOnly', // Pattern and section.
+							'root-pattern': 'contentOnly', // Section.
 							'pattern-paragraph': 'disabled',
 							'pattern-group': 'disabled',
 							'pattern-paragraph-with-overrides': 'contentOnly', // Pattern child with bindings.
