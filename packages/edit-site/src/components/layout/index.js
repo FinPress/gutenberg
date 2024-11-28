@@ -10,7 +10,6 @@ import {
 	__unstableMotion as motion,
 	__unstableAnimatePresence as AnimatePresence,
 	__unstableUseNavigateRegions as useNavigateRegions,
-	SlotFillProvider,
 } from '@wordpress/components';
 import {
 	useReducedMotion,
@@ -24,7 +23,6 @@ import { CommandMenu } from '@wordpress/commands';
 import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 import {
 	EditorSnackbars,
-	UnsavedChangesWarning,
 	privateApis as editorPrivateApis,
 } from '@wordpress/editor';
 import { privateApis as coreCommandsPrivateApis } from '@wordpress/core-commands';
@@ -46,12 +44,12 @@ import SavePanel from '../save-panel';
 
 const { useCommands } = unlock( coreCommandsPrivateApis );
 const { useGlobalStyle } = unlock( blockEditorPrivateApis );
-const { NavigableRegion, GlobalStylesProvider } = unlock( editorPrivateApis );
+const { NavigableRegion } = unlock( editorPrivateApis );
 const { useLocation } = unlock( routerPrivateApis );
 
 const ANIMATION_DURATION = 0.3;
 
-function Layout( { route } ) {
+export default function Layout( { route } ) {
 	const { params } = useLocation();
 	const { canvas = 'view' } = params;
 	useCommands();
@@ -80,7 +78,6 @@ function Layout( { route } ) {
 
 	return (
 		<>
-			<UnsavedChangesWarning />
 			<CommandMenu />
 			{ canvas === 'view' && <SaveKeyboardShortcut /> }
 			<div
@@ -232,15 +229,5 @@ function Layout( { route } ) {
 				</div>
 			</div>
 		</>
-	);
-}
-
-export default function LayoutWithGlobalStylesProvider( props ) {
-	return (
-		<SlotFillProvider>
-			<GlobalStylesProvider>
-				<Layout { ...props } />
-			</GlobalStylesProvider>
-		</SlotFillProvider>
 	);
 }

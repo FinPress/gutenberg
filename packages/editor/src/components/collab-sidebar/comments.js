@@ -6,31 +6,25 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useState, RawHTML, useEffect } from '@wordpress/element';
+import { useState, RawHTML } from '@wordpress/element';
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	__experimentalConfirmDialog as ConfirmDialog,
 	Button,
 	DropdownMenu,
-	TextareaControl,
 	Tooltip,
 } from '@wordpress/components';
-import {
-	dateI18n,
-	format,
-	getSettings as getDateSettings,
-} from '@wordpress/date';
 import { Icon, check, published, moreVertical } from '@wordpress/icons';
 import { __, _x } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useEntityProp } from '@wordpress/core-data';
+import { useSelect } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
  */
-import { sanitizeCommentString } from './utils';
+import CommentAuthorInfo from './comment-author-info';
+import CommentForm from './comment-form';
 
 /**
  * Renders the Comments component.
@@ -52,8 +46,6 @@ export function Comments( {
 } ) {
 	const [ actionState, setActionState ] = useState( false );
 	const [ isConfirmDialogOpen, setIsConfirmDialogOpen ] = useState( false );
-	const [ activeClientId, setActiveClientId ] = useState( null );
-	const [ blocksList, setBlocksList ] = useState( null );
 
 	const handleConfirmDelete = () => {
 		onCommentDelete( actionState.id );
@@ -72,57 +64,13 @@ export function Comments( {
 		setIsConfirmDialogOpen( false );
 	};
 
-	const { selectedClientBlocks, selectedActiveClientId } = useSelect(
-		( select ) => {
-			const clientID =
-				select( blockEditorStore ).getSelectedBlockClientId();
-			const selClientBlocks = select( blockEditorStore ).getBlocks();
-
-			const getBlockCommentId =
-				select( blockEditorStore ).getBlock( clientID )?.attributes
-					?.blockCommentId ?? false;
-
-			return {
-				selectedClientBlocks: selClientBlocks,
-				selectedActiveClientId: getBlockCommentId || null,
-			};
-		},
-		[]
-	);
-
-	useEffect( () => {
-		setBlocksList( selectedClientBlocks );
-
-		if ( selectedActiveClientId ) {
-			setActiveClientId( selectedActiveClientId );
-		}
-	}, [ selectedClientBlocks, selectedActiveClientId ] );
-
-	const findBlockByCommentId = ( blocks, commentId ) => {
-		for ( const block of blocks ) {
-			if ( block.attributes.blockCommentId === commentId ) {
-				return block;
-			}
-			if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
-				const foundBlock = findBlockByCommentId(
-					block.innerBlocks,
-					commentId
-				);
-				if ( foundBlock ) {
-					return foundBlock;
-				}
-			}
-		}
-		return null;
-	};
-
-	const { selectBlock } = useDispatch( blockEditorStore );
-	const handleThreadClick = ( thread ) => {
-		const block = findBlockByCommentId( blocksList, thread.id );
-		if ( block ) {
-			selectBlock( block.clientId ); // Use the action to select the block
-		}
-	};
+	const blockCommentId = useSelect( ( select ) => {
+		const clientID = select( blockEditorStore ).getSelectedBlockClientId();
+		return (
+			select( blockEditorStore ).getBlock( clientID )?.attributes
+				?.blockCommentId ?? false
+		);
+	}, [] );
 
 	const CommentBoard = ( { thread, parentThread } ) => {
 		return (
@@ -173,6 +121,7 @@ export function Comments( {
 									} }
 									onCancel={ () => setActionState( false ) }
 									thread={ thread }
+									submitButtonText={ _x( 'Update', 'verb' ) }
 								/>
 							) }
 						{ ( ! actionState ||
@@ -247,23 +196,41 @@ export function Comments( {
 							'editor-collab-sidebar-panel__thread',
 							{
 								'editor-collab-sidebar-panel__active-thread':
-									activeClientId &&
-									activeClientId === thread.id,
+									blockCommentId &&
+									blockCommentId === thread.id,
 							}
 						) }
 						id={ thread.id }
 						spacing="3"
-						onClick={ () => handleThreadClick( thread ) }
 					>
 						<CommentBoard thread={ thread } />
+						{ 0 < thread?.reply?.length &&
+							thread.reply.map( ( reply ) => (
+								<VStack
+									key={ reply.id }
+									className="editor-collab-sidebar-panel__child-thread"
+									id={ reply.id }
+									spacing="2"
+								>
+									<CommentBoard
+										thread={ reply }
+										parentThread={ thread }
+									/>
+								</VStack>
+							) ) }
 						{ 'reply' === actionState?.action &&
 							thread.id === actionState?.id && (
-								<HStack
-									alignment="left"
-									spacing="3"
-									justify="flex-start"
-									className="editor-collab-sidebar-panel__user-comment"
+								<VStack
+									className="editor-collab-sidebar-panel__child-thread"
+									spacing="2"
 								>
+									<HStack
+										alignment="left"
+										spacing="3"
+										justify="flex-start"
+									>
+										<CommentAuthorInfo />
+									</HStack>
 									<VStack
 										spacing="3"
 										className="editor-collab-sidebar-panel__comment-field"
@@ -279,71 +246,16 @@ export function Comments( {
 											onCancel={ () =>
 												setActionState( false )
 											}
+											submitButtonText={ _x(
+												'Reply',
+												'Add reply comment'
+											) }
 										/>
 									</VStack>
-								</HStack>
-							) }
-						{ 0 < thread?.reply?.length &&
-							thread.reply.map( ( reply ) => (
-								<VStack
-									key={ reply.id }
-									className="editor-collab-sidebar-panel__child-thread"
-									id={ reply.id }
-									spacing="2"
-								>
-									<CommentBoard
-										thread={ reply }
-										parentThread={ thread }
-									/>
 								</VStack>
-							) ) }
+							) }
 					</VStack>
 				) ) }
-		</>
-	);
-}
-
-/**
- * EditComment component.
- *
- * @param {Object}   props          - The component props.
- * @param {Function} props.onSubmit - The function to call when updating the comment.
- * @param {Function} props.onCancel - The function to call when canceling the comment update.
- * @param {Object}   props.thread   - The comment thread object.
- * @return {JSX.Element} The CommentForm component.
- */
-function CommentForm( { onSubmit, onCancel, thread } ) {
-	const [ inputComment, setInputComment ] = useState(
-		thread?.content?.raw ?? ''
-	);
-
-	return (
-		<>
-			<TextareaControl
-				__nextHasNoMarginBottom
-				value={ inputComment ?? '' }
-				onChange={ setInputComment }
-			/>
-			<VStack alignment="left" spacing="3" justify="flex-start">
-				<HStack alignment="left" spacing="3" justify="flex-start">
-					<Button
-						__next40pxDefaultSize
-						accessibleWhenDisabled
-						variant="primary"
-						onClick={ () => onSubmit( inputComment ) }
-						disabled={
-							0 === sanitizeCommentString( inputComment ).length
-						}
-					>
-						{ thread
-							? _x( 'Update', 'verb' )
-							: _x( 'Reply', 'Add reply comment' ) }
-					</Button>
-					<Button __next40pxDefaultSize onClick={ onCancel }>
-						{ _x( 'Cancel', 'Cancel comment edit' ) }
-					</Button>
-				</HStack>
-			</VStack>
 		</>
 	);
 }
@@ -368,13 +280,6 @@ function CommentHeader( {
 	onReply,
 	status,
 } ) {
-	const dateSettings = getDateSettings();
-	const [ dateTimeFormat = dateSettings.formats.time ] = useEntityProp(
-		'root',
-		'site',
-		'time_format'
-	);
-
 	const actions = [
 		{
 			title: _x( 'Edit', 'Edit comment' ),
@@ -394,29 +299,15 @@ function CommentHeader( {
 
 	return (
 		<HStack alignment="left" spacing="3" justify="flex-start">
-			<img
-				src={ thread?.author_avatar_urls?.[ 48 ] }
-				className="editor-collab-sidebar-panel__user-avatar"
-				// translators: alt text for user avatar image
-				alt={ __( 'User avatar' ) }
-				width={ 32 }
-				height={ 32 }
+			<CommentAuthorInfo
+				avatar={ thread?.author_avatar_urls?.[ 48 ] }
+				name={ thread?.author_name }
+				date={ thread?.date }
 			/>
-			<VStack spacing="0">
-				<span className="editor-collab-sidebar-panel__user-name">
-					{ thread.author_name }
-				</span>
-				<time
-					dateTime={ format( 'h:i A', thread.date ) }
-					className="editor-collab-sidebar-panel__user-time"
-				>
-					{ dateI18n( dateTimeFormat, thread.date ) }
-				</time>
-			</VStack>
 			<span className="editor-collab-sidebar-panel__comment-status">
 				{ status !== 'approved' && (
 					<HStack alignment="right" justify="flex-end" spacing="0">
-						{ 0 === thread.parent && onResolve && (
+						{ 0 === thread?.parent && onResolve && (
 							<Button
 								label={ _x(
 									'Resolve',
