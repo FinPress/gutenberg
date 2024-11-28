@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useState, RawHTML } from '@wordpress/element';
+import { useState, RawHTML, useEffect } from '@wordpress/element';
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
@@ -17,7 +17,7 @@ import {
 } from '@wordpress/components';
 import { Icon, check, published, moreVertical } from '@wordpress/icons';
 import { __, _x } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
 /**
@@ -46,6 +46,8 @@ export function Comments( {
 } ) {
 	const [ actionState, setActionState ] = useState( false );
 	const [ isConfirmDialogOpen, setIsConfirmDialogOpen ] = useState( false );
+	const [ activeClientId, setActiveClientId ] = useState( null );
+	const [ blocksList, setBlocksList ] = useState( null );
 
 	const handleConfirmDelete = () => {
 		onCommentDelete( actionState.id );
@@ -71,6 +73,59 @@ export function Comments( {
 				?.blockCommentId ?? false
 		);
 	}, [] );
+
+	const { selectedClientBlocks, selectedActiveClientId } = useSelect(
+		( select ) => {
+			const clientID =
+				select( blockEditorStore ).getSelectedBlockClientId();
+			const selClientBlocks = select( blockEditorStore ).getBlocks();
+
+			const getBlockCommentId =
+				select( blockEditorStore ).getBlock( clientID )?.attributes
+					?.blockCommentId ?? false;
+
+			return {
+				selectedClientBlocks: selClientBlocks,
+				selectedActiveClientId: getBlockCommentId || null,
+			};
+		},
+		[]
+	);
+
+	useEffect( () => {
+		setBlocksList( selectedClientBlocks );
+
+		if ( selectedActiveClientId ) {
+			setActiveClientId( selectedActiveClientId );
+		}
+	}, [ selectedClientBlocks, selectedActiveClientId ] );
+
+	const findBlockByCommentId = ( blocks, commentId ) => {
+		for ( const block of blocks ) {
+			if ( block.attributes.blockCommentId === commentId ) {
+				return block;
+			}
+			if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
+				const foundBlock = findBlockByCommentId(
+					block.innerBlocks,
+					commentId
+				);
+				if ( foundBlock ) {
+					return foundBlock;
+				}
+			}
+		}
+		return null;
+	};
+
+	const { selectBlock } = useDispatch( blockEditorStore );
+	const handleThreadClick = ( thread ) => {
+		const block = findBlockByCommentId( blocksList, thread.id );
+		console.log( 'block', block );
+		if ( block ) {
+			selectBlock( block.clientId ); // Use the action to select the block
+		}
+	};
 
 	const CommentBoard = ( { thread, parentThread } ) => {
 		return (
@@ -202,6 +257,7 @@ export function Comments( {
 						) }
 						id={ thread.id }
 						spacing="3"
+						onClick={ () => handleThreadClick( thread ) }
 					>
 						<CommentBoard thread={ thread } />
 						{ 0 < thread?.reply?.length &&
