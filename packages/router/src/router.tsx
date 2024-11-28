@@ -129,13 +129,17 @@ export function useHistory() {
 
 			await new Promise< void >( ( resolve ) => {
 				const classname = options.transition ?? '';
-				document.documentElement.classList.add( classname );
+				if ( classname ) {
+					document.documentElement.classList.add( classname );
+				}
 				// @ts-expect-error
 				const transition = document.startViewTransition( () =>
 					performPush()
 				);
 				transition.finished.finally( () => {
-					document.documentElement.classList.remove( classname );
+					if ( classname ) {
+						document.documentElement.classList.remove( classname );
+					}
 					resolve();
 				} );
 			} );
