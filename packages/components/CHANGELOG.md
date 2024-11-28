@@ -10,6 +10,7 @@
 ### Internal
 
 -   Upgraded `@ariakit/react` (v0.4.13) and `@ariakit/test` (v0.4.5) ([#65907](https://github.com/WordPress/gutenberg/pull/65907)).
+-   Improve `Tabs` unit tests ([#66140](https://github.com/WordPress/gutenberg/pull/66140)).
 
 ## 28.13.0 (2024-11-27)
 
