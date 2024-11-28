@@ -86,6 +86,11 @@ function useMovingAnimation( { triggerAnimationOnChange, clientId } ) {
 			}
 		}
 
+		// Neither animate nor scroll.
+		if ( isDraggingBlocks() ) {
+			return;
+		}
+
 		// We disable the animation if the user has a preference for reduced
 		// motion, if the user is typing (insertion by Enter), or if the block
 		// count exceeds the threshold (insertion caused all the blocks that
@@ -95,10 +100,12 @@ function useMovingAnimation( { triggerAnimationOnChange, clientId } ) {
 		const disableAnimation =
 			window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ||
 			isTyping() ||
-			isDraggingBlocks() ||
 			getGlobalBlockCount() > BLOCK_ANIMATION_THRESHOLD;
 
 		if ( disableAnimation ) {
+			// If the animation is disabled and the scroll needs to be adjusted,
+			// just move directly to the final scroll position.
+			preserveScrollPosition();
 			return;
 		}
 
