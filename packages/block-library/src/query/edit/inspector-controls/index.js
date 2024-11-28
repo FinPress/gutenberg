@@ -15,7 +15,6 @@ import {
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 import { debounce } from '@wordpress/compose';
 import { useEffect, useState, useCallback } from '@wordpress/element';
 
@@ -28,11 +27,9 @@ import ParentControl from './parent-control';
 import { TaxonomyControls } from './taxonomy-controls';
 import FormatControls from './format-controls';
 import StickyControl from './sticky-control';
-import CreateNewPostLink from './create-new-post-link';
 import PerPageControl from './per-page-control';
 import OffsetControl from './offset-controls';
 import PagesControl from './pages-control';
-import { unlock } from '../../../lock-unlock';
 import {
 	usePostTypes,
 	useIsPostTypeHierarchical,
@@ -42,18 +39,10 @@ import {
 } from '../../utils';
 import { useToolsPanelDropdownMenuProps } from '../../../utils/hooks';
 
-const { BlockInfo } = unlock( blockEditorPrivateApis );
-
 export default function QueryInspectorControls( props ) {
-	const {
-		attributes,
-		setQuery,
-		setDisplayLayout,
-		postTypeFromContext,
-		isSingular,
-	} = props;
+	const { attributes, setQuery, setDisplayLayout, isSingular } = props;
 	const { query, displayLayout } = attributes;
-	let {
+	const {
 		order,
 		orderBy,
 		author: authorIds,
@@ -67,16 +56,6 @@ export default function QueryInspectorControls( props ) {
 		parents,
 		format,
 	} = query;
-	// If a post type is set in context, update `postType` to match it,
-	// unless the post type is `page`, as it usually doesn't make sense to loop
-	// through pages.
-	if (
-		postTypeFromContext &&
-		postTypeFromContext !== 'page' &&
-		postTypeFromContext !== postType
-	) {
-		postType = postTypeFromContext;
-	}
 	const allowedControls = useAllowedControls( attributes );
 	const showSticky = postType === 'post';
 	const {
@@ -207,11 +186,6 @@ export default function QueryInspectorControls( props ) {
 
 	return (
 		<>
-			{ !! postType && (
-				<BlockInfo>
-					<CreateNewPostLink postType={ postType } />
-				</BlockInfo>
-			) }
 			{ showSettingsPanel && (
 				<PanelBody title={ __( 'Settings' ) }>
 					{ showInheritControl && (
