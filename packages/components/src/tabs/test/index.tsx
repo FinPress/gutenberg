@@ -9,12 +9,23 @@ import { render } from '@ariakit/test/react';
  * WordPress dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
+import { isRTL } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import { Tabs } from '..';
 import type { TabsProps } from '../types';
+
+// Setup mocking the `isRTL` function to test arrow key navigation behavior.
+jest.mock( '@wordpress/i18n', () => {
+	const original = jest.requireActual( '@wordpress/i18n' );
+	return {
+		...original,
+		isRTL: jest.fn( () => false ),
+	};
+} );
+const mockedIsRTL = isRTL as jest.Mock;
 
 type Tab = {
 	tabId: string;
@@ -1263,7 +1274,10 @@ describe( 'Tabs', () => {
 			} );
 
 			// TODO: mock writing direction to RTL
-			it.skip( 'should swap the left and right arrow keys when selecting tabs if the writing direction is set to RTL', async () => {
+			it( 'should swap the left and right arrow keys when selecting tabs if the writing direction is set to RTL', async () => {
+				// For this test only, mock the writing direction to RTL.
+				mockedIsRTL.mockImplementation( () => true );
+
 				const mockOnSelect = jest.fn();
 
 				await render(
@@ -1340,6 +1354,9 @@ describe( 'Tabs', () => {
 
 				expect( mockOnSelect ).toHaveBeenCalledTimes( 4 );
 				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
+
+				// Restore the original implementation of the isRTL function.
+				mockedIsRTL.mockRestore();
 			} );
 
 			it( 'should focus tabs in the tablist even if disabled', async () => {
