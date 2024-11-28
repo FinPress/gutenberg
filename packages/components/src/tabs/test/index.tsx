@@ -1826,7 +1826,6 @@ describe( 'Tabs', () => {
 				}
 			);
 		} );
-		// TODO: re-enable tabs
 		describe( 'a tab becomes disabled', () => {
 			describe.each( [
 				[ 'defaultTabId', 'Uncontrolled', UncontrolledTabs ],
@@ -1863,6 +1862,24 @@ describe( 'Tabs', () => {
 						);
 
 						// Beta continues to be selected and focused, even if it is disabled.
+						expect(
+							screen.getByRole( 'tab', {
+								selected: true,
+								name: 'Beta',
+							} )
+						).toBeVisible();
+						expect(
+							screen.getByRole( 'tabpanel', {
+								name: 'Beta',
+							} )
+						).toBeVisible();
+
+						// Re-enable beta.
+						await rerender(
+							<Component { ...initialComponentProps } />
+						);
+
+						// Beta continues to be selected and focused.
 						expect(
 							screen.getByRole( 'tab', {
 								selected: true,
@@ -1935,6 +1952,27 @@ describe( 'Tabs', () => {
 								name: 'Beta',
 							} )
 						).toHaveFocus();
+						expect(
+							screen.getByRole( 'tabpanel', {
+								name: 'Beta',
+							} )
+						).toBeVisible();
+
+						// Re-enable beta.
+						await rerender(
+							<Component
+								tabs={ TABS }
+								onSelect={ mockOnSelect }
+							/>
+						);
+
+						// Beta continues to be selected and focused.
+						expect(
+							screen.getByRole( 'tab', {
+								selected: true,
+								name: 'Beta',
+							} )
+						).toBeVisible();
 						expect(
 							screen.getByRole( 'tabpanel', {
 								name: 'Beta',
