@@ -201,7 +201,7 @@ function CoverEdit( {
 			averageBackgroundColor
 		);
 
-		if ( backgroundType === IMAGE_BACKGROUND_TYPE && mediaAttributes.id ) {
+		if ( backgroundType === IMAGE_BACKGROUND_TYPE && mediaAttributes?.id ) {
 			const { imageDefaultSize } = getSettings();
 
 			// Try to use the previous selected image size if it's available
@@ -471,7 +471,7 @@ function CoverEdit( {
 			setAttributes( { minHeight: newMinHeight } );
 		},
 		// Hide the resize handle if an aspect ratio is set, as the aspect ratio takes precedence.
-		showHandle: ! attributes.style?.dimensions?.aspectRatio ? true : false,
+		showHandle: ! attributes.style?.dimensions?.aspectRatio,
 		size: resizableBoxDimensions,
 		width,
 	};

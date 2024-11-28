@@ -1,11 +1,6 @@
 /**
  * WordPress dependencies
  */
-import { SlotFillProvider } from '@wordpress/components';
-import {
-	UnsavedChangesWarning,
-	privateApis as editorPrivateApis,
-} from '@wordpress/editor';
 import { store as noticesStore } from '@wordpress/notices';
 import { useDispatch } from '@wordpress/data';
 import { __, sprintf } from '@wordpress/i18n';
@@ -18,19 +13,13 @@ import { privateApis as routerPrivateApis } from '@wordpress/router';
 import Layout from '../layout';
 import { unlock } from '../../lock-unlock';
 import { useCommonCommands } from '../../hooks/commands/use-common-commands';
-import { useEditModeCommands } from '../../hooks/commands/use-edit-mode-commands';
-import useInitEditedEntityFromURL from '../sync-state-with-url/use-init-edited-entity-from-url';
 import useActiveRoute from '../layout/router';
 import useSetCommandContext from '../../hooks/commands/use-set-command-context';
 import { useRegisterSiteEditorRoutes } from '../site-editor-routes';
 
 const { RouterProvider } = unlock( routerPrivateApis );
-const { GlobalStylesProvider } = unlock( editorPrivateApis );
 
 function AppLayout() {
-	// This ensures the edited entity id and type are initialized properly.
-	useInitEditedEntityFromURL();
-	useEditModeCommands();
 	useCommonCommands();
 	useSetCommandContext();
 	useRegisterSiteEditorRoutes();
@@ -55,14 +44,9 @@ export default function App() {
 	}
 
 	return (
-		<SlotFillProvider>
-			<GlobalStylesProvider>
-				<UnsavedChangesWarning />
-				<RouterProvider>
-					<AppLayout />
-					<PluginArea onError={ onPluginAreaError } />
-				</RouterProvider>
-			</GlobalStylesProvider>
-		</SlotFillProvider>
+		<RouterProvider>
+			<AppLayout />
+			<PluginArea onError={ onPluginAreaError } />
+		</RouterProvider>
 	);
 }

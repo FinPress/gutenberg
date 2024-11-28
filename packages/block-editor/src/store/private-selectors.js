@@ -113,12 +113,11 @@ export const getEnabledClientIdsTree = createSelector(
 	getEnabledClientIdsTreeUnmemoized,
 	( state ) => [
 		state.blocks.order,
+		state.derivedBlockEditingModes,
+		state.derivedNavModeBlockEditingModes,
 		state.blockEditingModes,
 		state.settings.templateLock,
 		state.blockListSettings,
-		state.editorMode,
-		state.zoomLevel,
-		getSectionRootClientId( state ),
 	]
 );
 
@@ -317,7 +316,7 @@ export const hasAllowedPatterns = createRegistrySelector( ( select ) =>
 		},
 		( state, rootClientId ) => [
 			...getAllPatternsDependants( select )( state ),
-			...getInsertBlockTypeDependants( state, rootClientId ),
+			...getInsertBlockTypeDependants( select )( state, rootClientId ),
 		]
 	)
 );
@@ -331,7 +330,7 @@ function mapUserPattern(
 		id: userPattern.id,
 		type: INSERTER_PATTERN_TYPES.user,
 		title: userPattern.title.raw,
-		categories: userPattern.wp_pattern_category.map( ( catId ) => {
+		categories: userPattern.wp_pattern_category?.map( ( catId ) => {
 			const category = __experimentalUserPatternCategories.find(
 				( { id } ) => id === catId
 			);
