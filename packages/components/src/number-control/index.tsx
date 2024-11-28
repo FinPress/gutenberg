@@ -55,6 +55,7 @@ function UnforwardedNumberControl(
 		size = 'default',
 		suffix,
 		onChange = noop,
+		__shouldNotWarnDeprecated36pxSize,
 		...restProps
 	} = useDeprecated36pxDefaultSizeProp< NumberControlProps >( props );
 
@@ -62,6 +63,7 @@ function UnforwardedNumberControl(
 		componentName: 'NumberControl',
 		size,
 		__next40pxDefaultSize,
+		__shouldNotWarnDeprecated36pxSize,
 	} );
 
 	if ( hideHTMLArrows ) {

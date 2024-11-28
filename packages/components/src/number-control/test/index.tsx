@@ -22,21 +22,26 @@ function StatefulNumberControl( props: NumberControlProps ) {
 	return (
 		<NumberControl
 			{ ...props }
+			__next40pxDefaultSize
 			value={ value }
 			onChange={ handleOnChange }
 		/>
 	);
 }
 
+const ControlledNumberControl = ( props: NumberControlProps ) => {
+	return <NumberControl __next40pxDefaultSize { ...props } />;
+};
+
 describe( 'NumberControl', () => {
 	describe( 'Basic rendering', () => {
 		it( 'should render', () => {
-			render( <NumberControl __next40pxDefaultSize /> );
+			render( <ControlledNumberControl /> );
 			expect( screen.getByRole( 'spinbutton' ) ).toBeVisible();
 		} );
 
 		it( 'should render custom className', () => {
-			render( <NumberControl className="hello" /> );
+			render( <ControlledNumberControl className="hello" /> );
 			expect( screen.getByRole( 'spinbutton' ) ).toBeVisible();
 		} );
 	} );
@@ -47,7 +52,10 @@ describe( 'NumberControl', () => {
 			const spy = jest.fn();
 
 			render(
-				<NumberControl value={ 5 } onChange={ ( v ) => spy( v ) } />
+				<ControlledNumberControl
+					value={ 5 }
+					onChange={ ( v ) => spy( v ) }
+				/>
 			);
 
 			const input = screen.getByRole( 'spinbutton' );
@@ -62,7 +70,7 @@ describe( 'NumberControl', () => {
 			const onChangeSpy = jest.fn();
 
 			render(
-				<NumberControl
+				<ControlledNumberControl
 					value={ 5 }
 					min={ 4 }
 					max={ 10 }
@@ -105,7 +113,7 @@ describe( 'NumberControl', () => {
 			const onChangeSpy = jest.fn();
 
 			render(
-				<NumberControl
+				<ControlledNumberControl
 					value={ 5 }
 					min={ 1 }
 					max={ 10 }
@@ -147,7 +155,9 @@ describe( 'NumberControl', () => {
 		it( 'should clamp value within range on ENTER keypress', async () => {
 			const user = userEvent.setup();
 
-			render( <NumberControl value={ 5 } min={ 0 } max={ 10 } /> );
+			render(
+				<ControlledNumberControl value={ 5 } min={ 0 } max={ 10 } />
+			);
 
 			const input = screen.getByRole( 'spinbutton' );
 
@@ -165,7 +175,9 @@ describe( 'NumberControl', () => {
 		it( 'should clamp value within range on blur', async () => {
 			const user = userEvent.setup();
 
-			render( <NumberControl value={ 5 } min={ 0 } max={ 10 } /> );
+			render(
+				<ControlledNumberControl value={ 5 } min={ 0 } max={ 10 } />
+			);
 
 			const input = screen.getByRole( 'spinbutton' );
 			await user.clear( input );
@@ -184,7 +196,7 @@ describe( 'NumberControl', () => {
 		it( 'should parse non-numeric values to a number on ENTER keypress when required', async () => {
 			const user = userEvent.setup();
 
-			render( <NumberControl value={ 5 } required /> );
+			render( <ControlledNumberControl value={ 5 } required /> );
 
 			const input = screen.getByRole( 'spinbutton' );
 			await user.clear( input );
@@ -197,7 +209,9 @@ describe( 'NumberControl', () => {
 		it( 'should parse non-numeric values to empty string on ENTER keypress when not required', async () => {
 			const user = userEvent.setup();
 
-			render( <NumberControl value={ 5 } required={ false } /> );
+			render(
+				<ControlledNumberControl value={ 5 } required={ false } />
+			);
 
 			const input = screen.getByRole( 'spinbutton' );
 			await user.clear( input );
@@ -216,7 +230,7 @@ describe( 'NumberControl', () => {
 		it( 'should not enforce numerical value for empty string when required is omitted', async () => {
 			const user = userEvent.setup();
 
-			render( <NumberControl value={ 5 } /> );
+			render( <ControlledNumberControl value={ 5 } /> );
 
 			const input = screen.getByRole( 'spinbutton' );
 			await user.clear( input );
@@ -231,7 +245,7 @@ describe( 'NumberControl', () => {
 		it( 'should enforce numerical value for empty string when required', async () => {
 			const user = userEvent.setup();
 
-			render( <NumberControl value={ 5 } required /> );
+			render( <ControlledNumberControl value={ 5 } required /> );
 
 			const input = screen.getByRole( 'spinbutton' );
 			await user.clear( input );
@@ -556,7 +570,9 @@ describe( 'NumberControl', () => {
 		] as NumberControlProps[ 'spinControls' ][] )(
 			'should not appear when spinControls = %s',
 			( spinControls ) => {
-				render( <NumberControl spinControls={ spinControls } /> );
+				render(
+					<ControlledNumberControl spinControls={ spinControls } />
+				);
 				expect(
 					screen.queryByLabelText( 'Increment' )
 				).not.toBeInTheDocument();
@@ -583,7 +599,7 @@ describe( 'NumberControl', () => {
 				const user = userEvent.setup();
 				const onChange = jest.fn();
 				render(
-					<NumberControl
+					<ControlledNumberControl
 						{ ...props }
 						spinControls="custom"
 						onChange={ onChange }

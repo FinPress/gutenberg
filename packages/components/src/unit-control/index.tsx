@@ -55,6 +55,7 @@ function UnforwardedUnitControl(
 		units: unitsProp = CSS_UNITS,
 		value: valueProp,
 		onFocus: onFocusProp,
+		__shouldNotWarnDeprecated36pxSize,
 		...props
 	} = useDeprecated36pxDefaultSizeProp( unitControlProps );
 
@@ -215,6 +216,7 @@ function UnforwardedUnitControl(
 	return (
 		<ValueInput
 			{ ...props }
+			__shouldNotWarnDeprecated36pxSize
 			autoComplete={ autoComplete }
 			className={ classes }
 			disabled={ disabled }

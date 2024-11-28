@@ -107,6 +107,7 @@ export default function AxialInputControls( {
 							<StyledUnitControl
 								{ ...props }
 								__next40pxDefaultSize={ __next40pxDefaultSize }
+								__shouldNotWarnDeprecated36pxSize
 								className="component-box-control__unit-control"
 								id={ inputId }
 								isPressEnterToChange
