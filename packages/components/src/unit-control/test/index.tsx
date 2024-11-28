@@ -14,6 +14,7 @@ import { useState } from '@wordpress/element';
  */
 import UnitControl from '..';
 import { CSS_UNITS, parseQuantityAndUnitFromRawValue } from '../utils';
+import type { UnitControlProps } from '../types';
 
 const getInput = ( {
 	isInputTypeText = false,
@@ -70,11 +71,13 @@ const ControlledSyncUnits = () => {
 	return (
 		<>
 			<UnitControl
+				__next40pxDefaultSize
 				label="Field A"
 				value={ state.valueA }
 				onChange={ ( v ) => onUnitControlChange( 'valueA', v ) }
 			/>
 			<UnitControl
+				__next40pxDefaultSize
 				label="Field B"
 				value={ state.valueB }
 				onChange={ ( v ) => onUnitControlChange( 'valueB', v ) }
@@ -83,10 +86,14 @@ const ControlledSyncUnits = () => {
 	);
 };
 
+const ControlledUnitControl = ( { ...props }: UnitControlProps ) => {
+	return <UnitControl __next40pxDefaultSize { ...props } />;
+};
+
 describe( 'UnitControl', () => {
 	describe( 'Basic rendering', () => {
 		it( 'should render', () => {
-			render( <UnitControl __next40pxDefaultSize /> );
+			render( <ControlledUnitControl /> );
 			const input = getInput();
 			const select = getSelect();
 
@@ -95,10 +102,12 @@ describe( 'UnitControl', () => {
 		} );
 
 		it( 'should render custom className', () => {
-			const { container: withoutClassName } = render( <UnitControl /> );
+			const { container: withoutClassName } = render(
+				<ControlledUnitControl />
+			);
 
 			const { container: withClassName } = render(
-				<UnitControl className="hello" />
+				<ControlledUnitControl className="hello" />
 			);
 
 			expect(
@@ -112,7 +121,7 @@ describe( 'UnitControl', () => {
 		} );
 
 		it( 'should not render select, if units are disabled', () => {
-			render( <UnitControl value="3em" units={ [] } /> );
+			render( <ControlledUnitControl value="3em" units={ [] } /> );
 			const input = getInput();
 			// Using `queryByRole` instead of `getSelect` because we need to test
 			// for this element NOT to be in the document.
@@ -123,7 +132,11 @@ describe( 'UnitControl', () => {
 		} );
 
 		it( 'should render label if single units', () => {
-			render( <UnitControl units={ [ { value: '%', label: '%' } ] } /> );
+			render(
+				<ControlledUnitControl
+					units={ [ { value: '%', label: '%' } ] }
+				/>
+			);
 
 			const select = screen.queryByRole( 'combobox' );
 			const label = screen.getByText( '%' );
@@ -138,7 +151,9 @@ describe( 'UnitControl', () => {
 			const user = userEvent.setup();
 			const onChangeSpy = jest.fn();
 
-			render( <UnitControl value="50px" onChange={ onChangeSpy } /> );
+			render(
+				<ControlledUnitControl value="50px" onChange={ onChangeSpy } />
+			);
 
 			const input = getInput();
 			await user.clear( input );
@@ -159,7 +174,9 @@ describe( 'UnitControl', () => {
 			const user = userEvent.setup();
 			const onChangeSpy = jest.fn();
 
-			render( <UnitControl value="50px" onChange={ onChangeSpy } /> );
+			render(
+				<ControlledUnitControl value="50px" onChange={ onChangeSpy } />
+			);
 
 			const input = getInput();
 			await user.type( input, '{ArrowUp}' );
@@ -175,7 +192,9 @@ describe( 'UnitControl', () => {
 			const user = userEvent.setup();
 			const onChangeSpy = jest.fn();
 
-			render( <UnitControl value="50px" onChange={ onChangeSpy } /> );
+			render(
+				<ControlledUnitControl value="50px" onChange={ onChangeSpy } />
+			);
 
 			const input = getInput();
 			await user.type( input, '{Shift>}{ArrowUp}{/Shift}' );
@@ -191,7 +210,9 @@ describe( 'UnitControl', () => {
 			const user = userEvent.setup();
 			const onChangeSpy = jest.fn();
 
-			render( <UnitControl value={ 50 } onChange={ onChangeSpy } /> );
+			render(
+				<ControlledUnitControl value={ 50 } onChange={ onChangeSpy } />
+			);
 
 			const input = getInput();
 			await user.type( input, '{ArrowDown}' );
@@ -207,7 +228,9 @@ describe( 'UnitControl', () => {
 			const user = userEvent.setup();
 			const onChangeSpy = jest.fn();
 
-			render( <UnitControl value={ 50 } onChange={ onChangeSpy } /> );
+			render(
+				<ControlledUnitControl value={ 50 } onChange={ onChangeSpy } />
+			);
 
 			const input = getInput();
 			await user.type( input, '{Shift>}{ArrowDown}{/Shift}' );
@@ -224,7 +247,7 @@ describe( 'UnitControl', () => {
 			const onChangeSpy = jest.fn();
 
 			render(
-				<UnitControl
+				<ControlledUnitControl
 					value={ 50 }
 					onChange={ onChangeSpy }
 					isPressEnterToChange
@@ -252,7 +275,7 @@ describe( 'UnitControl', () => {
 			const onBlurSpy = jest.fn();
 
 			render(
-				<UnitControl
+				<ControlledUnitControl
 					value="33%"
 					onChange={ onChangeSpy }
 					onBlur={ onBlurSpy }
@@ -281,7 +304,7 @@ describe( 'UnitControl', () => {
 			const onChangeSpy = jest.fn();
 
 			render(
-				<UnitControl
+				<ControlledUnitControl
 					value="15px"
 					onChange={ onChangeSpy }
 					isPressEnterToChange
@@ -314,7 +337,7 @@ describe( 'UnitControl', () => {
 			render(
 				<>
 					<button>Click me</button>
-					<UnitControl
+					<ControlledUnitControl
 						units={ [ { value: '%', label: '%' } ] }
 						onChange={ onChangeSpy }
 					/>
@@ -347,7 +370,7 @@ describe( 'UnitControl', () => {
 			const onUnitChangeSpy = jest.fn();
 
 			render(
-				<UnitControl
+				<ControlledUnitControl
 					value="14rem"
 					onChange={ onChangeSpy }
 					onUnitChange={ onUnitChangeSpy }
@@ -377,7 +400,7 @@ describe( 'UnitControl', () => {
 				{ value: '+', label: '+', default: 10 },
 			];
 
-			render( <UnitControl units={ units } /> );
+			render( <ControlledUnitControl units={ units } /> );
 
 			const options = getSelectOptions();
 
@@ -400,7 +423,7 @@ describe( 'UnitControl', () => {
 			];
 
 			render(
-				<UnitControl
+				<ControlledUnitControl
 					isResetValueOnUnitChange
 					units={ units }
 					onChange={ onChangeSpy }
@@ -436,7 +459,7 @@ describe( 'UnitControl', () => {
 			];
 
 			render(
-				<UnitControl
+				<ControlledUnitControl
 					isResetValueOnUnitChange={ false }
 					value={ 50 }
 					units={ units }
@@ -467,7 +490,7 @@ describe( 'UnitControl', () => {
 			const onChangeSpy = jest.fn();
 
 			render(
-				<UnitControl
+				<ControlledUnitControl
 					value="50%"
 					units={ [ { value: '%', label: '%' } ] }
 					onChange={ onChangeSpy }
@@ -527,7 +550,7 @@ describe( 'UnitControl', () => {
 				{ value: 'vmax', label: 'vmax' },
 			];
 
-			render( <UnitControl units={ units } value="5" /> );
+			render( <ControlledUnitControl units={ units } value="5" /> );
 
 			const select = getSelect();
 			await user.selectOptions( select, [ 'vmax' ] );
@@ -545,7 +568,7 @@ describe( 'UnitControl', () => {
 			const onBlurSpy = jest.fn();
 
 			render(
-				<UnitControl
+				<ControlledUnitControl
 					value="15px"
 					onUnitChange={ onUnitChangeSpy }
 					onBlur={ onBlurSpy }
@@ -570,26 +593,28 @@ describe( 'UnitControl', () => {
 
 	describe( 'Unit Parser', () => {
 		it( 'should update unit after initial render and with new unit prop', async () => {
-			const { rerender } = render( <UnitControl value="10%" /> );
+			const { rerender } = render(
+				<ControlledUnitControl value="10%" />
+			);
 
 			const select = getSelect();
 
 			expect( select.value ).toBe( '%' );
 
-			rerender( <UnitControl value="20vh" /> );
+			rerender( <ControlledUnitControl value="20vh" /> );
 
 			expect( select.value ).toBe( 'vh' );
 		} );
 
 		it( 'should fallback to default unit if parsed unit is invalid', () => {
-			render( <UnitControl value="10null" /> );
+			render( <ControlledUnitControl value="10null" /> );
 
 			expect( getSelect().value ).toBe( 'px' );
 		} );
 
 		it( 'should display valid CSS unit when not explicitly included in units list', () => {
 			render(
-				<UnitControl
+				<ControlledUnitControl
 					value="10%"
 					units={ [
 						{ value: 'px', label: 'px' },
@@ -615,7 +640,7 @@ describe( 'UnitControl', () => {
 				const onUnitChangeSpy = jest.fn();
 
 				render(
-					<UnitControl
+					<ControlledUnitControl
 						value="10%"
 						onChange={ onChangeSpy }
 						onUnitChange={ onUnitChangeSpy }
