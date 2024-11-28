@@ -56,6 +56,7 @@ function UnforwardedUnitControl(
 		units: unitsProp = CSS_UNITS,
 		value: valueProp,
 		onFocus: onFocusProp,
+		__shouldNotWarnDeprecated36pxSize,
 		...props
 	} = useDeprecated36pxDefaultSizeProp( unitControlProps );
 
@@ -63,6 +64,7 @@ function UnforwardedUnitControl(
 		componentName: 'UnitControl',
 		__next40pxDefaultSize: props.__next40pxDefaultSize,
 		size,
+		__shouldNotWarnDeprecated36pxSize,
 	} );
 
 	if ( 'unit' in unitControlProps ) {
