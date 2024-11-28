@@ -167,6 +167,45 @@ const ControlledTabs = ( {
 
 let originalGetClientRects: () => DOMRectList;
 
+async function waitForComponentToBeInitializedWithSelectedTab(
+	selectedTabName: string | undefined
+) {
+	if ( ! selectedTabName ) {
+		// Wait for the tablist to be tabbable as a mean to know
+		// that ariakit has finished initializing.
+		await waitFor( () =>
+			expect( screen.getByRole( 'tablist' ) ).toHaveAttribute(
+				'tabindex',
+				expect.stringMatching( /^(0|-1)$/ )
+			)
+		);
+		// No initially selected tabs or tabpanels.
+		await waitFor( () =>
+			expect(
+				screen.queryByRole( 'tab', { selected: true } )
+			).not.toBeInTheDocument()
+		);
+		await waitFor( () =>
+			expect( screen.queryByRole( 'tabpanel' ) ).not.toBeInTheDocument()
+		);
+	} else {
+		// Waiting for a tab to be selected is a sign that the component
+		// has fully initialized.
+		expect(
+			await screen.findByRole( 'tab', {
+				selected: true,
+				name: selectedTabName,
+			} )
+		).toBeVisible();
+		// The corresponding tabpanel is also shown.
+		expect(
+			screen.getByRole( 'tabpanel', {
+				name: selectedTabName,
+			} )
+		).toBeVisible();
+	}
+}
+
 describe( 'Tabs', () => {
 	beforeAll( () => {
 		originalGetClientRects = window.HTMLElement.prototype.getClientRects;
@@ -187,21 +226,8 @@ describe( 'Tabs', () => {
 		it( 'should apply the correct roles, semantics and attributes', async () => {
 			await render( <UncontrolledTabs tabs={ TABS } /> );
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			// The corresponding tabpanel is shown.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			const tabList = screen.getByRole( 'tablist' );
 			const allTabs = screen.getAllByRole( 'tab' );
@@ -260,22 +286,8 @@ describe( 'Tabs', () => {
 				</Tabs>
 			);
 
-			// Alpha is the initially selected tab,and should render the correct tabpanel
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			// The corresponding tabpanel is shown.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			// Select Beta, make sure the correct tabpanel is rendered
 			await click( screen.getByRole( 'tab', { name: 'Beta' } ) );
@@ -323,15 +335,8 @@ describe( 'Tabs', () => {
 		it( "should apply the tab's `className` to the tab button", async () => {
 			await render( <UncontrolledTabs tabs={ TABS } /> );
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			expect(
 				await screen.findByRole( 'tab', { name: 'Alpha' } )
@@ -353,21 +358,8 @@ describe( 'Tabs', () => {
 				<UncontrolledTabs tabs={ TABS } onSelect={ mockOnSelect } />
 			);
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			// The corresponding tabpanel is shown.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
 			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
@@ -419,21 +411,8 @@ describe( 'Tabs', () => {
 				/>
 			);
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			// The corresponding tabpanel is shown.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
 			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
@@ -464,21 +443,10 @@ describe( 'Tabs', () => {
 				it( 'should choose the first tab as selected', async () => {
 					await render( <UncontrolledTabs tabs={ TABS } /> );
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
 					// Alpha is automatically selected as the selected tab.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Alpha',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Alpha',
-						} )
-					).toBeVisible();
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Alpha'
+					);
 
 					// Press tab. The selected tab (alpha) received focus.
 					await press.Tab();
@@ -495,22 +463,11 @@ describe( 'Tabs', () => {
 						<UncontrolledTabs tabs={ TABS_WITH_ALPHA_DISABLED } />
 					);
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
 					// Beta is automatically selected as the selected tab, since alpha is
 					// disabled.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Beta'
+					);
 
 					// Press tab. The selected tab (beta) received focus. The corresponding
 					// tabpanel is shown.
@@ -529,24 +486,9 @@ describe( 'Tabs', () => {
 						<ControlledTabs tabs={ TABS } selectedTabId={ null } />
 					);
 
-					// Wait for the tablist to be tabbable as a mean to know
-					// that ariakit has finished initializing.
-					await waitFor( () =>
-						expect( screen.getByRole( 'tablist' ) ).toHaveAttribute(
-							'tabindex',
-							'0'
-						)
-					);
 					// No initially selected tabs or tabpanels.
-					await waitFor( () =>
-						expect(
-							screen.queryByRole( 'tab', { selected: true } )
-						).not.toBeInTheDocument()
-					);
-					await waitFor( () =>
-						expect(
-							screen.queryByRole( 'tabpanel' )
-						).not.toBeInTheDocument()
+					await waitForComponentToBeInitializedWithSelectedTab(
+						undefined
 					);
 
 					// Press tab. The tablist receives focus
@@ -580,21 +522,10 @@ describe( 'Tabs', () => {
 						<UncontrolledTabs tabs={ TABS } defaultTabId="beta" />
 					);
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
-					// Beta is automatically selected as the selected tab.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
+					// Beta is the initially selected tab
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Beta'
+					);
 
 					// Press tab. The selected tab (beta) received focus. The corresponding
 					// tabpanel is shown.
@@ -615,22 +546,11 @@ describe( 'Tabs', () => {
 						/>
 					);
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
 					// Beta is automatically selected as the selected tab despite being
 					// disabled, respecting the `defaultTabId` prop.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Beta'
+					);
 
 					// Press tab. The selected tab (beta) received focus, since it is
 					// accessible despite being disabled.
@@ -651,24 +571,10 @@ describe( 'Tabs', () => {
 						/>
 					);
 
-					// Wait for the tablist to be tabbable as a mean to know
-					// that ariakit has finished initializing.
-					await waitFor( () =>
-						expect( screen.getByRole( 'tablist' ) ).toHaveAttribute(
-							'tabindex',
-							'-1'
-						)
-					);
-					// No initially selected tabs or tabpanels.
-					await waitFor( () =>
-						expect(
-							screen.queryByRole( 'tab', { selected: true } )
-						).not.toBeInTheDocument()
-					);
-					await waitFor( () =>
-						expect(
-							screen.queryByRole( 'tabpanel' )
-						).not.toBeInTheDocument()
+					// No initially selected tabs or tabpanels, since the `defaultTabId`
+					// prop is mot matching any known tabs.
+					await waitForComponentToBeInitializedWithSelectedTab(
+						undefined
 					);
 
 					// Press tab. The first tab receives focus, but it's
@@ -712,24 +618,10 @@ describe( 'Tabs', () => {
 						/>
 					);
 
-					// Wait for the tablist to be tabbable as a mean to know
-					// that ariakit has finished initializing.
-					await waitFor( () =>
-						expect( screen.getByRole( 'tablist' ) ).toHaveAttribute(
-							'tabindex',
-							'-1'
-						)
-					);
-					// No initially selected tabs or tabpanels.
-					await waitFor( () =>
-						expect(
-							screen.queryByRole( 'tab', { selected: true } )
-						).not.toBeInTheDocument()
-					);
-					await waitFor( () =>
-						expect(
-							screen.queryByRole( 'tabpanel' )
-						).not.toBeInTheDocument()
+					// No initially selected tabs or tabpanels, since the `defaultTabId`
+					// prop is mot matching any known tabs.
+					await waitForComponentToBeInitializedWithSelectedTab(
+						undefined
 					);
 
 					// Press tab. The first tab receives focus, but it's
@@ -776,21 +668,10 @@ describe( 'Tabs', () => {
 						/>
 					);
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
-					// Beta is automatically selected as the selected tab.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
+					// Beta is the initially selected tab
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Beta'
+					);
 
 					// Changing the defaultTabId prop to gamma should not have any effect.
 					await rerender(
@@ -827,21 +708,10 @@ describe( 'Tabs', () => {
 							/>
 						);
 
-						// Waiting for a tab to be selected is a sign that the component
-						// has fully initialized.
-						// Beta is automatically selected as the selected tab.
-						// The corresponding tabpanel is shown.
-						expect(
-							await screen.findByRole( 'tab', {
-								selected: true,
-								name: 'Beta',
-							} )
-						).toBeVisible();
-						expect(
-							screen.getByRole( 'tabpanel', {
-								name: 'Beta',
-							} )
-						).toBeVisible();
+						// Beta is the initially selected tab
+						await waitForComponentToBeInitializedWithSelectedTab(
+							'Beta'
+						);
 
 						// Press tab. The selected tab (beta) received focus, since it is
 						// accessible despite being disabled.
@@ -863,21 +733,10 @@ describe( 'Tabs', () => {
 							/>
 						);
 
-						// Waiting for a tab to be selected is a sign that the component
-						// has fully initialized.
-						// Gamma is automatically selected as the selected tab.
-						// The corresponding tabpanel is shown.
-						expect(
-							await screen.findByRole( 'tab', {
-								selected: true,
-								name: 'Gamma',
-							} )
-						).toBeVisible();
-						expect(
-							screen.getByRole( 'tabpanel', {
-								name: 'Gamma',
-							} )
-						).toBeVisible();
+						// Gamma is the initially selected tab
+						await waitForComponentToBeInitializedWithSelectedTab(
+							'Gamma'
+						);
 
 						// Press tab. The selected tab (gamma) received focus, since it is
 						// accessible despite being disabled.
@@ -898,22 +757,10 @@ describe( 'Tabs', () => {
 							/>
 						);
 
-						// Waiting for a tab to be selected is a sign that the component
-						// has fully initialized.
-						// Beta is automatically selected as the selected tab despite being
-						// disabled, respecting the `defaultTabId` prop.
-						// The corresponding tabpanel is shown.
-						expect(
-							await screen.findByRole( 'tab', {
-								selected: true,
-								name: 'Beta',
-							} )
-						).toBeVisible();
-						expect(
-							screen.getByRole( 'tabpanel', {
-								name: 'Beta',
-							} )
-						).toBeVisible();
+						// Beta is the initially selected tab
+						await waitForComponentToBeInitializedWithSelectedTab(
+							'Beta'
+						);
 
 						// Press tab. The selected tab (beta) received focus, since it is
 						// accessible despite being disabled.
@@ -936,23 +783,10 @@ describe( 'Tabs', () => {
 							/>
 						);
 
-						// Wait for the tablist to be tabbable as a mean to know
-						// that ariakit has finished initializing.
-						await waitFor( () =>
-							expect(
-								screen.getByRole( 'tablist' )
-							).toHaveAttribute( 'tabindex', '-1' )
-						);
-						// No initially selected tabs or tabpanels.
-						await waitFor( () =>
-							expect(
-								screen.queryByRole( 'tab', { selected: true } )
-							).not.toBeInTheDocument()
-						);
-						await waitFor( () =>
-							expect(
-								screen.queryByRole( 'tabpanel' )
-							).not.toBeInTheDocument()
+						// No initially selected tabs or tabpanels, since the `selectedTabId`
+						// prop is mot matching any known tabs.
+						await waitForComponentToBeInitializedWithSelectedTab(
+							undefined
 						);
 
 						// Press tab. The first tab receives focus, but it's
@@ -996,23 +830,10 @@ describe( 'Tabs', () => {
 							/>
 						);
 
-						// Wait for the tablist to be tabbable as a mean to know
-						// that ariakit has finished initializing.
-						await waitFor( () =>
-							expect(
-								screen.getByRole( 'tablist' )
-							).toHaveAttribute( 'tabindex', '-1' )
-						);
-						// No initially selected tabs or tabpanels.
-						await waitFor( () =>
-							expect(
-								screen.queryByRole( 'tab', { selected: true } )
-							).not.toBeInTheDocument()
-						);
-						await waitFor( () =>
-							expect(
-								screen.queryByRole( 'tabpanel' )
-							).not.toBeInTheDocument()
+						// No initially selected tabs or tabpanels, since the `selectedTabId`
+						// prop is mot matching any known tabs.
+						await waitForComponentToBeInitializedWithSelectedTab(
+							undefined
 						);
 
 						// Press tab. The first tab receives focus, but it's
@@ -1057,15 +878,8 @@ describe( 'Tabs', () => {
 		it( 'should handle the tablist as one tab stop', async () => {
 			await render( <UncontrolledTabs tabs={ TABS } /> );
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			// Press tab. The selected tab (alpha) received focus.
 			await press.Tab();
@@ -1105,15 +919,8 @@ describe( 'Tabs', () => {
 				/>
 			);
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			// Tab should initially focus the first tab in the tablist, which
 			// is Alpha.
@@ -1142,21 +949,8 @@ describe( 'Tabs', () => {
 				<UncontrolledTabs tabs={ TABS } onSelect={ mockOnSelect } />
 			);
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			// The corresponding tabpanel is shown.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
 			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
@@ -1238,21 +1032,8 @@ describe( 'Tabs', () => {
 				/>
 			);
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			// The corresponding tabpanel is shown.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
 			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
@@ -1320,21 +1101,8 @@ describe( 'Tabs', () => {
 				<UncontrolledTabs tabs={ TABS } onSelect={ mockOnSelect } />
 			);
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			// The corresponding tabpanel is shown.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
 			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
@@ -1437,21 +1205,8 @@ describe( 'Tabs', () => {
 				<UncontrolledTabs tabs={ TABS } onSelect={ mockOnSelect } />
 			);
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			// The corresponding tabpanel is shown.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
 			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
@@ -1512,21 +1267,8 @@ describe( 'Tabs', () => {
 				<UncontrolledTabs tabs={ TABS } onSelect={ mockOnSelect } />
 			);
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			// The corresponding tabpanel is shown.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
 			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
@@ -1607,21 +1349,8 @@ describe( 'Tabs', () => {
 				/>
 			);
 
-			// Waiting for a tab to be selected is a sign that the component
-			// has fully initialized.
 			// Alpha is automatically selected as the selected tab.
-			// The corresponding tabpanel is shown.
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
+			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
 
 			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
 			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
@@ -1693,20 +1422,10 @@ describe( 'Tabs', () => {
 							/>
 						);
 
-						// Waiting for a tab to be selected is a sign that the component
-						// has fully initialized.
-						// The corresponding tabpanel is shown.
-						expect(
-							await screen.findByRole( 'tab', {
-								selected: true,
-								name: 'Beta',
-							} )
-						).toBeVisible();
-						expect(
-							screen.getByRole( 'tabpanel', {
-								name: 'Beta',
-							} )
-						).toBeVisible();
+						// Beta is the selected tab.
+						await waitForComponentToBeInitializedWithSelectedTab(
+							'Beta'
+						);
 
 						// Tab key should focus the currently selected tab, which is Beta.
 						await press.Tab();
@@ -1763,20 +1482,10 @@ describe( 'Tabs', () => {
 							</>
 						);
 
-						// Waiting for a tab to be selected is a sign that the component
-						// has fully initialized.
-						// The corresponding tabpanel is shown.
-						expect(
-							await screen.findByRole( 'tab', {
-								selected: true,
-								name: 'Beta',
-							} )
-						).toBeVisible();
-						expect(
-							screen.getByRole( 'tabpanel', {
-								name: 'Beta',
-							} )
-						).toBeVisible();
+						// Beta is the selected tab.
+						await waitForComponentToBeInitializedWithSelectedTab(
+							'Beta'
+						);
 
 						// Tab key should focus the currently selected tab, which is Beta.
 						await press.Tab();
@@ -1852,20 +1561,10 @@ describe( 'Tabs', () => {
 						/>
 					);
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Alpha',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Alpha',
-						} )
-					).toBeVisible();
+					// Alpha is automatically selected as the selected tab.
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Alpha'
+					);
 
 					expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
 					expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
@@ -1924,20 +1623,10 @@ describe( 'Tabs', () => {
 						/>
 					);
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Gamma',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Gamma',
-						} )
-					).toBeVisible();
+					// Gamma is the selected tab.
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Gamma'
+					);
 
 					// Remove gamma
 					await rerender(
@@ -1997,20 +1686,10 @@ describe( 'Tabs', () => {
 						/>
 					);
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Gamma',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Gamma',
-						} )
-					).toBeVisible();
+					// Gamma is the selected tab.
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Gamma'
+					);
 
 					// Select alpha
 					await click( screen.getByRole( 'tab', { name: 'Alpha' } ) );
@@ -2097,24 +1776,10 @@ describe( 'Tabs', () => {
 					/>
 				);
 
-				// Wait for the tablist to be tabbable as a mean to know
-				// that ariakit has finished initializing.
-				await waitFor( () =>
-					expect( screen.getByRole( 'tablist' ) ).toHaveAttribute(
-						'tabindex',
-						'-1'
-					)
-				);
-				// No initially selected tabs or tabpanels.
-				await waitFor( () =>
-					expect(
-						screen.queryByRole( 'tab', { selected: true } )
-					).not.toBeInTheDocument()
-				);
-				await waitFor( () =>
-					expect(
-						screen.queryByRole( 'tabpanel' )
-					).not.toBeInTheDocument()
+				// No initially selected tabs or tabpanels, since the `defaultTabId`
+				// prop is mot matching any known tabs.
+				await waitForComponentToBeInitializedWithSelectedTab(
+					undefined
 				);
 
 				expect( mockOnSelect ).not.toHaveBeenCalled();
@@ -2155,24 +1820,10 @@ describe( 'Tabs', () => {
 					/>
 				);
 
-				// Wait for the tablist to be tabbable as a mean to know
-				// that ariakit has finished initializing.
-				await waitFor( () =>
-					expect( screen.getByRole( 'tablist' ) ).toHaveAttribute(
-						'tabindex',
-						'-1'
-					)
-				);
-				// No initially selected tabs or tabpanels.
-				await waitFor( () =>
-					expect(
-						screen.queryByRole( 'tab', { selected: true } )
-					).not.toBeInTheDocument()
-				);
-				await waitFor( () =>
-					expect(
-						screen.queryByRole( 'tabpanel' )
-					).not.toBeInTheDocument()
+				// No initially selected tabs or tabpanels, since the `selectedTabId`
+				// prop is mot matching any known tabs.
+				await waitForComponentToBeInitializedWithSelectedTab(
+					undefined
 				);
 
 				expect( mockOnSelect ).not.toHaveBeenCalled();
@@ -2217,21 +1868,10 @@ describe( 'Tabs', () => {
 						/>
 					);
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
-					// Beta is automatically selected as the selected tab.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
+					// Beta is the selected tab.
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Beta'
+					);
 
 					expect( mockOnSelect ).not.toHaveBeenCalled();
 
@@ -2270,21 +1910,10 @@ describe( 'Tabs', () => {
 						/>
 					);
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
 					// Alpha is automatically selected as the selected tab.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Alpha',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Alpha',
-						} )
-					).toBeVisible();
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Alpha'
+					);
 
 					expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
 					expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
@@ -2345,21 +1974,10 @@ describe( 'Tabs', () => {
 						/>
 					);
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
-					// Beta is automatically selected as the selected tab.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
+					// Beta is the selected tab.
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Beta'
+					);
 
 					expect( mockOnSelect ).not.toHaveBeenCalled();
 
@@ -2398,21 +2016,10 @@ describe( 'Tabs', () => {
 						/>
 					);
 
-					// Waiting for a tab to be selected is a sign that the component
-					// has fully initialized.
 					// Alpha is automatically selected as the selected tab.
-					// The corresponding tabpanel is shown.
-					expect(
-						await screen.findByRole( 'tab', {
-							selected: true,
-							name: 'Alpha',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Alpha',
-						} )
-					).toBeVisible();
+					await waitForComponentToBeInitializedWithSelectedTab(
+						'Alpha'
+					);
 
 					expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
 					expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
