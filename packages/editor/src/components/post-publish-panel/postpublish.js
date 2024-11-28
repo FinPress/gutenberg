@@ -41,6 +41,34 @@ const getFuturePostUrl = ( post ) => {
 	return post.permalink_template;
 };
 
+function CopyButton( { text } ) {
+	const [ showCopyConfirmation, setShowCopyConfirmation ] = useState( false );
+	const timeoutIdRef = useRef();
+	const ref = useCopyToClipboard( text, () => {
+		setShowCopyConfirmation( true );
+		if ( timeoutIdRef.current ) {
+			clearTimeout( timeoutIdRef.current );
+		}
+		timeoutIdRef.current = setTimeout( () => {
+			setShowCopyConfirmation( false );
+		}, 4000 );
+	} );
+
+	useEffect( () => {
+		return () => {
+			if ( timeoutIdRef.current ) {
+				clearTimeout( timeoutIdRef.current );
+			}
+		};
+	}, [] );
+
+	return (
+		<Button __next40pxDefaultSize variant="secondary" ref={ ref }>
+			{ showCopyConfirmation ? __( 'Copied!' ) : __( 'Copy' ) }
+		</Button>
+	);
+}
+
 export default function PostPublishPanelPostpublish( {
 	focusOnMount,
 	children,
@@ -59,16 +87,6 @@ export default function PostPublishPanelPostpublish( {
 			isScheduled: isCurrentPostScheduled(),
 		};
 	}, [] );
-	const [ showCopyConfirmation, setShowCopyConfirmation ] = useState( false );
-	const timeoutIdRef = useRef();
-
-	useEffect( () => {
-		return () => {
-			if ( timeoutIdRef.current ) {
-				clearTimeout( timeoutIdRef.current );
-			}
-		};
-	}, [] );
 
 	const postLabel = postType?.labels?.singular_name;
 	const viewPostLabel = postType?.labels?.view_item;
@@ -79,15 +97,6 @@ export default function PostPublishPanelPostpublish( {
 		post_type: post.type,
 	} );
 
-	const copyRef = useCopyToClipboard( link, () => {
-		setShowCopyConfirmation( true );
-		if ( timeoutIdRef.current ) {
-			clearTimeout( timeoutIdRef.current );
-		}
-		timeoutIdRef.current = setTimeout( () => {
-			setShowCopyConfirmation( false );
-		}, 4000 );
-	} );
 	const postLinkRef = useCallback(
 		( node ) => {
 			if ( focusOnMount && node ) {
@@ -134,15 +143,7 @@ export default function PostPublishPanelPostpublish( {
 					/>
 
 					<div className="post-publish-panel__postpublish-post-address__copy-button-wrap">
-						<Button
-							__next40pxDefaultSize
-							variant="secondary"
-							ref={ copyRef }
-						>
-							{ showCopyConfirmation
-								? __( 'Copied!' )
-								: __( 'Copy' ) }
-						</Button>
+						<CopyButton text={ link } />
 					</div>
 				</div>
 
