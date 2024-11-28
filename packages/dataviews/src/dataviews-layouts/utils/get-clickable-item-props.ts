@@ -12,9 +12,15 @@ export default function getClickableItemProps< Item >(
 		className: `${ className } ${ className }--clickable`,
 		role: 'button',
 		tabIndex: 0,
-		onClick: () => onClickItem( item ),
+		onClick: ( event: React.MouseEvent ) => {
+			event.preventDefault();
+			event.stopPropagation();
+			onClickItem( item );
+		},
 		onKeyDown: ( event: React.KeyboardEvent ) => {
 			if ( event.key === 'Enter' || event.key === '' ) {
+				event.preventDefault();
+				event.stopPropagation();
 				onClickItem( item );
 			}
 		},
