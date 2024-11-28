@@ -49,7 +49,8 @@ function PostEditForm( { postType, postId } ) {
 	);
 	const [ multiEdits, setMultiEdits ] = useState( {} );
 	const { editEntityRecord } = useDispatch( coreDataStore );
-	const { fields: _fields } = usePostFields();
+	// TODO: This needs to be dynamic and will be handled in a follow up with the `format` field for posts.
+	const { fields: _fields } = usePostFields( { postType: 'page' } );
 	const fields = useMemo(
 		() =>
 			_fields?.map( ( field ) => {

@@ -78,6 +78,8 @@ export interface PostType {
 		'page-attributes'?: boolean;
 		title?: boolean;
 		revisions?: boolean;
+		thumbnail?: boolean;
+		comments?: boolean;
 	};
 }
 
