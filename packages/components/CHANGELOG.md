@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Deprecations
+
+-   `BoxControl`: Passive deprecate `onMouseOver`/`onMouseOut`. Pass to the `inputProps` prop instead ([#67332](https://github.com/WordPress/gutenberg/pull/67332)).
+
 ### Internal
 
 -   Upgraded `@ariakit/react` (v0.4.13) and `@ariakit/test` (v0.4.5) ([#65907](https://github.com/WordPress/gutenberg/pull/65907)).
@@ -16,7 +20,6 @@
 -   `ComboboxControl`: Deprecate 36px default size ([#66900](https://github.com/WordPress/gutenberg/pull/66900)).
 -   `ToggleGroupControl`: Deprecate 36px default size ([#66747](https://github.com/WordPress/gutenberg/pull/66747)).
 -   `RangeControl`: Deprecate 36px default size ([#66721](https://github.com/WordPress/gutenberg/pull/66721)). 
--   `BoxControl`: Passive deprecate `onMouseOver`/`onMouseOut`. Pass to the `inputProps` prop instead ([#67332](https://github.com/WordPress/gutenberg/pull/67332)).
 
 ### Bug Fixes
 
