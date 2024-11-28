@@ -44,6 +44,8 @@ export default function BlockParentSelector() {
 			isVisible:
 				_parentClientId &&
 				getBlockEditingMode( _parentClientId ) !== 'disabled' &&
+				getBlockEditingMode( selectedBlockClientId ) !==
+					'contentOnly' &&
 				hasBlockSupport(
 					_parentBlockType,
 					'__experimentalParentSelector',
