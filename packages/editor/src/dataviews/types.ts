@@ -80,6 +80,7 @@ export interface PostType {
 		revisions?: boolean;
 		thumbnail?: boolean;
 		comments?: boolean;
+		author?: boolean;
 	};
 }
 
