@@ -46,6 +46,7 @@ export function Comments( {
 } ) {
 	const [ actionState, setActionState ] = useState( false );
 	const [ isConfirmDialogOpen, setIsConfirmDialogOpen ] = useState( false );
+	// eslint-disable-next-line no-unused-vars
 	const [ activeClientId, setActiveClientId ] = useState( null );
 	const [ blocksList, setBlocksList ] = useState( null );
 
@@ -121,7 +122,6 @@ export function Comments( {
 	const { selectBlock } = useDispatch( blockEditorStore );
 	const handleThreadClick = ( thread ) => {
 		const block = findBlockByCommentId( blocksList, thread.id );
-		console.log( 'block', block );
 		if ( block ) {
 			selectBlock( block.clientId ); // Use the action to select the block
 		}
