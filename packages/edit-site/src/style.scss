@@ -28,6 +28,7 @@
 @import "./components/style-book/style.scss";
 @import "./components/editor-canvas-container/style.scss";
 @import "./components/post-edit/style.scss";
+@import "./components/post-edit-header/style.scss";
 @import "./components/post-list/style.scss";
 @import "./components/resizable-frame/style.scss";
 @import "./hooks/push-changes-to-global-styles/style.scss";
@@ -47,6 +48,7 @@
 	mix-blend-mode: normal;
 	display: block;
 }
+
 /* stylelint-enable */
 
 body.js #wpadminbar {
