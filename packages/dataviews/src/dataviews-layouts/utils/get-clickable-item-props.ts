@@ -13,13 +13,13 @@ export default function getClickableItemProps< Item >(
 		role: 'button',
 		tabIndex: 0,
 		onClick: ( event: React.MouseEvent ) => {
-			event.preventDefault();
+			// Prevents onChangeSelection from triggering.
 			event.stopPropagation();
 			onClickItem( item );
 		},
 		onKeyDown: ( event: React.KeyboardEvent ) => {
 			if ( event.key === 'Enter' || event.key === '' ) {
-				event.preventDefault();
+				// Prevents onChangeSelection from triggering.
 				event.stopPropagation();
 				onClickItem( item );
 			}
