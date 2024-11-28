@@ -873,540 +873,544 @@ describe( 'Tabs', () => {
 		} );
 	} );
 
-	// TODO: loop on both uncontrolled and controlled
 	describe( 'keyboard interactions', () => {
-		it( 'should handle the tablist as one tab stop', async () => {
-			await render( <UncontrolledTabs tabs={ TABS } /> );
-
-			// Alpha is automatically selected as the selected tab.
-			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
-
-			// Press tab. The selected tab (alpha) received focus.
-			await press.Tab();
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-
-			// By default the tabpanel should receive focus
-			await press.Tab();
-			expect(
-				await screen.findByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-		} );
-
-		it( 'should not focus the tabpanel container when its `focusable` property is set to `false`', async () => {
-			await render(
-				<UncontrolledTabs
-					tabs={ TABS.map( ( tabObj ) =>
-						tabObj.tabId === 'alpha'
-							? {
-									...tabObj,
-									content: (
-										<>
-											Selected Tab: Alpha
-											<button>Alpha Button</button>
-										</>
-									),
-									tabpanel: { focusable: false },
-							  }
-							: tabObj
-					) }
-				/>
-			);
-
-			// Alpha is automatically selected as the selected tab.
-			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
-
-			// Tab should initially focus the first tab in the tablist, which
-			// is Alpha.
-			await press.Tab();
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-
-			// In this case, the tabpanel container is skipped and focus is
-			// moved directly to its contents
-			await press.Tab();
-			expect(
-				await screen.findByRole( 'button', {
-					name: 'Alpha Button',
-				} )
-			).toHaveFocus();
-		} );
-
-		it( 'should select tabs in the tablist when using the left and right arrow keys by default (automatic tab activation)', async () => {
-			const mockOnSelect = jest.fn();
-
-			await render(
-				<UncontrolledTabs tabs={ TABS } onSelect={ mockOnSelect } />
-			);
-
-			// Alpha is automatically selected as the selected tab.
-			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
-
-			// Focus the tablist (and the selected tab, alpha)
-			// Tab should initially focus the first tab in the tablist, which
-			// is Alpha.
-			await press.Tab();
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-
-			// Press the right arrow key to select the beta tab
-			await press.ArrowRight();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Beta',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Beta',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
-
-			// Press the right arrow key to select the gamma tab
-			await press.ArrowRight();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Gamma',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Gamma',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 3 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'gamma' );
-
-			// Press the left arrow key to select the beta tab
-			await press.ArrowLeft();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Beta',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Beta',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 4 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
-		} );
-
-		it( 'should not automatically select tabs in the tablist when pressing the left and right arrow keys if the `selectOnMove` prop is set to `false` (manual tab activation)', async () => {
-			const mockOnSelect = jest.fn();
-
-			await render(
-				<UncontrolledTabs
-					tabs={ TABS }
-					onSelect={ mockOnSelect }
-					selectOnMove={ false }
-				/>
-			);
-
-			// Alpha is automatically selected as the selected tab.
-			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
-
-			// Focus the tablist (and the selected tab, alpha)
-			// Tab should initially focus the first tab in the tablist, which
-			// is Alpha.
-			await press.Tab();
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-
-			// Press the right arrow key to move focus to the beta tab,
-			// but without selecting it
-			await press.ArrowRight();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: false,
-					name: 'Beta',
-				} )
-			).toHaveFocus();
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-
-			// Press the space key to click the beta tab, and select it.
-			// The same should be true with any other mean of clicking the tab button
-			// (ie. mouse click, enter key).
-			await press.Space();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Beta',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Beta',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
-		} );
-
-		it( 'should not select tabs in the tablist when using the up and down arrow keys, unless the `orientation` prop is set to `vertical`', async () => {
-			const mockOnSelect = jest.fn();
-
-			const { rerender } = await render(
-				<UncontrolledTabs tabs={ TABS } onSelect={ mockOnSelect } />
-			);
-
-			// Alpha is automatically selected as the selected tab.
-			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
-
-			// Focus the tablist (and the selected tab, alpha)
-			// Tab should initially focus the first tab in the tablist, which
-			// is Alpha.
-			await press.Tab();
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-
-			// Press the up arrow key, but the focused/selected tab does not change.
-			await press.ArrowUp();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-
-			// Press the down arrow key, but the focused/selected tab does not change.
-			await press.ArrowDown();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-
-			// Change the orientation to "vertical" and rerender the component.
-			await rerender(
-				<UncontrolledTabs
-					tabs={ TABS }
-					onSelect={ mockOnSelect }
-					orientation="vertical"
-				/>
-			);
-
-			// Pressing the down arrow key now selects the next tab (beta).
-			await press.ArrowDown();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Beta',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Beta',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
-
-			// Pressing the up arrow key now selects the previous tab (alpha).
-			await press.ArrowUp();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 3 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
-		} );
-
-		it( 'should loop tab focus at the end of the tablist when using arrow keys', async () => {
-			const mockOnSelect = jest.fn();
-
-			await render(
-				<UncontrolledTabs tabs={ TABS } onSelect={ mockOnSelect } />
-			);
-
-			// Alpha is automatically selected as the selected tab.
-			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
-
-			// Focus the tablist (and the selected tab, alpha)
-			// Tab should initially focus the first tab in the tablist, which
-			// is Alpha.
-			await press.Tab();
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-
-			// Press the left arrow key to loop around and select the gamma tab
-			await press.ArrowLeft();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Gamma',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Gamma',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'gamma' );
-
-			// Press the right arrow key to loop around and select the alpha tab
-			await press.ArrowRight();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 3 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
-		} );
-
-		// TODO: mock writing direction to RTL
-		it.skip( 'should swap the left and right arrow keys when selecting tabs if the writing direction is set to RTL', async () => {
-			const mockOnSelect = jest.fn();
-
-			await render(
-				<UncontrolledTabs tabs={ TABS } onSelect={ mockOnSelect } />
-			);
-
-			// Alpha is automatically selected as the selected tab.
-			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
-
-			// Focus the tablist (and the selected tab, alpha)
-			// Tab should initially focus the first tab in the tablist, which
-			// is Alpha.
-			await press.Tab();
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-
-			// Press the left arrow key to select the beta tab
-			await press.ArrowLeft();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Beta',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Beta',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
-
-			// Press the left arrow key to select the gamma tab
-			await press.ArrowLeft();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Gamma',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Gamma',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 3 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'gamma' );
-
-			// Press the right arrow key to select the beta tab
-			await press.ArrowRight();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Beta',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Beta',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 4 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
-		} );
-
-		it( 'should focus tabs in the tablist even if disabled', async () => {
-			const mockOnSelect = jest.fn();
-
-			await render(
-				<UncontrolledTabs
-					tabs={ TABS_WITH_BETA_DISABLED }
-					onSelect={ mockOnSelect }
-				/>
-			);
-
-			// Alpha is automatically selected as the selected tab.
-			await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
-
-			// Focus the tablist (and the selected tab, alpha)
-			// Tab should initially focus the first tab in the tablist, which
-			// is Alpha.
-			await press.Tab();
-			expect(
-				await screen.findByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toHaveFocus();
-
-			// Pressing the right arrow key moves focus to the beta tab, but alpha
-			// remains the selected tab because beta is disabled.
-			await press.ArrowRight();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: false,
-					name: 'Beta',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Alpha',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-
-			// Press the right arrow key to select the gamma tab
-			await press.ArrowRight();
-
-			expect(
-				screen.getByRole( 'tab', {
-					selected: true,
-					name: 'Gamma',
-				} )
-			).toHaveFocus();
-			expect(
-				screen.getByRole( 'tabpanel', {
-					name: 'Gamma',
-				} )
-			).toBeVisible();
-
-			expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
-			expect( mockOnSelect ).toHaveBeenLastCalledWith( 'gamma' );
+		describe.each( [
+			[ 'Uncontrolled', UncontrolledTabs ],
+			[ 'Controlled', ControlledTabs ],
+		] )( '[`%s`]', ( _mode, Component ) => {
+			it( 'should handle the tablist as one tab stop', async () => {
+				await render( <Component tabs={ TABS } /> );
+
+				// Alpha is automatically selected as the selected tab.
+				await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
+
+				// Press tab. The selected tab (alpha) received focus.
+				await press.Tab();
+				expect(
+					await screen.findByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+
+				// By default the tabpanel should receive focus
+				await press.Tab();
+				expect(
+					await screen.findByRole( 'tabpanel', {
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+			} );
+
+			it( 'should not focus the tabpanel container when its `focusable` property is set to `false`', async () => {
+				await render(
+					<Component
+						tabs={ TABS.map( ( tabObj ) =>
+							tabObj.tabId === 'alpha'
+								? {
+										...tabObj,
+										content: (
+											<>
+												Selected Tab: Alpha
+												<button>Alpha Button</button>
+											</>
+										),
+										tabpanel: { focusable: false },
+								  }
+								: tabObj
+						) }
+					/>
+				);
+
+				// Alpha is automatically selected as the selected tab.
+				await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
+
+				// Tab should initially focus the first tab in the tablist, which
+				// is Alpha.
+				await press.Tab();
+				expect(
+					await screen.findByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+
+				// In this case, the tabpanel container is skipped and focus is
+				// moved directly to its contents
+				await press.Tab();
+				expect(
+					await screen.findByRole( 'button', {
+						name: 'Alpha Button',
+					} )
+				).toHaveFocus();
+			} );
+
+			it( 'should select tabs in the tablist when using the left and right arrow keys by default (automatic tab activation)', async () => {
+				const mockOnSelect = jest.fn();
+
+				await render(
+					<Component tabs={ TABS } onSelect={ mockOnSelect } />
+				);
+
+				// Alpha is automatically selected as the selected tab.
+				await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
+
+				// Focus the tablist (and the selected tab, alpha)
+				// Tab should initially focus the first tab in the tablist, which
+				// is Alpha.
+				await press.Tab();
+				expect(
+					await screen.findByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+
+				// Press the right arrow key to select the beta tab
+				await press.ArrowRight();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Beta',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Beta',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
+
+				// Press the right arrow key to select the gamma tab
+				await press.ArrowRight();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Gamma',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Gamma',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 3 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'gamma' );
+
+				// Press the left arrow key to select the beta tab
+				await press.ArrowLeft();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Beta',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Beta',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 4 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
+			} );
+
+			it( 'should not automatically select tabs in the tablist when pressing the left and right arrow keys if the `selectOnMove` prop is set to `false` (manual tab activation)', async () => {
+				const mockOnSelect = jest.fn();
+
+				await render(
+					<Component
+						tabs={ TABS }
+						onSelect={ mockOnSelect }
+						selectOnMove={ false }
+					/>
+				);
+
+				// Alpha is automatically selected as the selected tab.
+				await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
+
+				// Focus the tablist (and the selected tab, alpha)
+				// Tab should initially focus the first tab in the tablist, which
+				// is Alpha.
+				await press.Tab();
+				expect(
+					await screen.findByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+
+				// Press the right arrow key to move focus to the beta tab,
+				// but without selecting it
+				await press.ArrowRight();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: false,
+						name: 'Beta',
+					} )
+				).toHaveFocus();
+				expect(
+					await screen.findByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toBeVisible();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Alpha',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+
+				// Press the space key to click the beta tab, and select it.
+				// The same should be true with any other mean of clicking the tab button
+				// (ie. mouse click, enter key).
+				await press.Space();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Beta',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Beta',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
+			} );
+
+			it( 'should not select tabs in the tablist when using the up and down arrow keys, unless the `orientation` prop is set to `vertical`', async () => {
+				const mockOnSelect = jest.fn();
+
+				const { rerender } = await render(
+					<Component tabs={ TABS } onSelect={ mockOnSelect } />
+				);
+
+				// Alpha is automatically selected as the selected tab.
+				await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
+
+				// Focus the tablist (and the selected tab, alpha)
+				// Tab should initially focus the first tab in the tablist, which
+				// is Alpha.
+				await press.Tab();
+				expect(
+					await screen.findByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+
+				// Press the up arrow key, but the focused/selected tab does not change.
+				await press.ArrowUp();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Alpha',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+
+				// Press the down arrow key, but the focused/selected tab does not change.
+				await press.ArrowDown();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Alpha',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+
+				// Change the orientation to "vertical" and rerender the component.
+				await rerender(
+					<Component
+						tabs={ TABS }
+						onSelect={ mockOnSelect }
+						orientation="vertical"
+					/>
+				);
+
+				// Pressing the down arrow key now selects the next tab (beta).
+				await press.ArrowDown();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Beta',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Beta',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
+
+				// Pressing the up arrow key now selects the previous tab (alpha).
+				await press.ArrowUp();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Alpha',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 3 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
+			} );
+
+			it( 'should loop tab focus at the end of the tablist when using arrow keys', async () => {
+				const mockOnSelect = jest.fn();
+
+				await render(
+					<Component tabs={ TABS } onSelect={ mockOnSelect } />
+				);
+
+				// Alpha is automatically selected as the selected tab.
+				await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
+
+				// Focus the tablist (and the selected tab, alpha)
+				// Tab should initially focus the first tab in the tablist, which
+				// is Alpha.
+				await press.Tab();
+				expect(
+					await screen.findByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+
+				// Press the left arrow key to loop around and select the gamma tab
+				await press.ArrowLeft();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Gamma',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Gamma',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'gamma' );
+
+				// Press the right arrow key to loop around and select the alpha tab
+				await press.ArrowRight();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Alpha',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 3 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
+			} );
+
+			// TODO: mock writing direction to RTL
+			it.skip( 'should swap the left and right arrow keys when selecting tabs if the writing direction is set to RTL', async () => {
+				const mockOnSelect = jest.fn();
+
+				await render(
+					<Component tabs={ TABS } onSelect={ mockOnSelect } />
+				);
+
+				// Alpha is automatically selected as the selected tab.
+				await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
+
+				// Focus the tablist (and the selected tab, alpha)
+				// Tab should initially focus the first tab in the tablist, which
+				// is Alpha.
+				await press.Tab();
+				expect(
+					await screen.findByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+
+				// Press the left arrow key to select the beta tab
+				await press.ArrowLeft();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Beta',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Beta',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
+
+				// Press the left arrow key to select the gamma tab
+				await press.ArrowLeft();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Gamma',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Gamma',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 3 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'gamma' );
+
+				// Press the right arrow key to select the beta tab
+				await press.ArrowRight();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Beta',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Beta',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 4 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
+			} );
+
+			it( 'should focus tabs in the tablist even if disabled', async () => {
+				const mockOnSelect = jest.fn();
+
+				await render(
+					<Component
+						tabs={ TABS_WITH_BETA_DISABLED }
+						onSelect={ mockOnSelect }
+					/>
+				);
+
+				// Alpha is automatically selected as the selected tab.
+				await waitForComponentToBeInitializedWithSelectedTab( 'Alpha' );
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
+
+				// Focus the tablist (and the selected tab, alpha)
+				// Tab should initially focus the first tab in the tablist, which
+				// is Alpha.
+				await press.Tab();
+				expect(
+					await screen.findByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toHaveFocus();
+
+				// Pressing the right arrow key moves focus to the beta tab, but alpha
+				// remains the selected tab because beta is disabled.
+				await press.ArrowRight();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: false,
+						name: 'Beta',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Alpha',
+					} )
+				).toBeVisible();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Alpha',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+
+				// Press the right arrow key to select the gamma tab
+				await press.ArrowRight();
+
+				expect(
+					screen.getByRole( 'tab', {
+						selected: true,
+						name: 'Gamma',
+					} )
+				).toHaveFocus();
+				expect(
+					screen.getByRole( 'tabpanel', {
+						name: 'Gamma',
+					} )
+				).toBeVisible();
+
+				expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
+				expect( mockOnSelect ).toHaveBeenLastCalledWith( 'gamma' );
+			} );
 		} );
 
 		describe( 'When `selectedId` is changed by the controlling component [Controlled]', () => {
@@ -1611,462 +1615,336 @@ describe( 'Tabs', () => {
 				} );
 			} );
 
-			describe( 'through the `defaultTabId` prop [Uncontrolled]', () => {
-				it( 'should not select a new tab when the selected tab is removed', async () => {
-					const mockOnSelect = jest.fn();
+			describe.each( [
+				[ 'defaultTabId', 'Uncontrolled', UncontrolledTabs ],
+				[ 'selectedTabId', 'Controlled', ControlledTabs ],
+			] )(
+				'when using the `%s` prop [%s]',
+				( propName, _mode, Component ) => {
+					it( 'should not select a new tab when the selected tab is removed', async () => {
+						const mockOnSelect = jest.fn();
 
-					const { rerender } = await render(
-						<UncontrolledTabs
-							tabs={ TABS }
-							defaultTabId="gamma"
-							onSelect={ mockOnSelect }
-						/>
-					);
+						const initialComponentProps = {
+							tabs: TABS,
+							[ propName ]: 'gamma',
+							onSelect: mockOnSelect,
+						};
 
-					// Gamma is the selected tab.
-					await waitForComponentToBeInitializedWithSelectedTab(
-						'Gamma'
-					);
+						const { rerender } = await render(
+							<Component { ...initialComponentProps } />
+						);
 
-					// Remove gamma
-					await rerender(
-						<UncontrolledTabs
-							tabs={ TABS.slice( 0, 2 ) }
-							defaultTabId="gamma"
-							onSelect={ mockOnSelect }
-						/>
-					);
+						// Gamma is the selected tab.
+						await waitForComponentToBeInitializedWithSelectedTab(
+							'Gamma'
+						);
 
-					expect( screen.getAllByRole( 'tab' ) ).toHaveLength( 2 );
-					// No tab should be selected i.e. it doesn't fall back to first tab.
-					expect(
-						screen.queryByRole( 'tab', { selected: true } )
-					).not.toBeInTheDocument();
-					// No tabpanel should be rendered either
-					expect(
-						screen.queryByRole( 'tabpanel' )
-					).not.toBeInTheDocument();
+						// Remove gamma
+						await rerender(
+							<Component
+								{ ...initialComponentProps }
+								tabs={ TABS.slice( 0, 2 ) }
+							/>
+						);
 
-					// Re-add gamma. Gamma becomes selected again.
-					await rerender(
-						<UncontrolledTabs
-							tabs={ TABS }
-							defaultTabId="gamma"
-							onSelect={ mockOnSelect }
-						/>
-					);
+						expect( screen.getAllByRole( 'tab' ) ).toHaveLength(
+							2
+						);
+						// No tab should be selected i.e. it doesn't fall back to first tab.
+						expect(
+							screen.queryByRole( 'tab', { selected: true } )
+						).not.toBeInTheDocument();
+						// No tabpanel should be rendered either
+						expect(
+							screen.queryByRole( 'tabpanel' )
+						).not.toBeInTheDocument();
 
-					expect( screen.getAllByRole( 'tab' ) ).toHaveLength(
-						TABS.length
-					);
+						// Re-add gamma. Gamma becomes selected again.
+						await rerender(
+							<Component { ...initialComponentProps } />
+						);
 
-					expect(
-						screen.getByRole( 'tab', {
-							selected: true,
-							name: 'Gamma',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Gamma',
-						} )
-					).toBeVisible();
+						expect( screen.getAllByRole( 'tab' ) ).toHaveLength(
+							TABS.length
+						);
 
-					expect( mockOnSelect ).not.toHaveBeenCalled();
-				} );
+						expect(
+							screen.getByRole( 'tab', {
+								selected: true,
+								name: 'Gamma',
+							} )
+						).toBeVisible();
+						expect(
+							screen.getByRole( 'tabpanel', {
+								name: 'Gamma',
+							} )
+						).toBeVisible();
 
-				it( 'should not select the tab matching the `defaultTabId` prop as a fallback when the selected tab is removed', async () => {
-					const mockOnSelect = jest.fn();
+						expect( mockOnSelect ).not.toHaveBeenCalled();
+					} );
 
-					const { rerender } = await render(
-						<UncontrolledTabs
-							tabs={ TABS }
-							defaultTabId="gamma"
-							onSelect={ mockOnSelect }
-						/>
-					);
+					it( `should not select the tab matching the \`${ propName }\` prop as a fallback when the selected tab is removed`, async () => {
+						const mockOnSelect = jest.fn();
 
-					// Gamma is the selected tab.
-					await waitForComponentToBeInitializedWithSelectedTab(
-						'Gamma'
-					);
+						const initialComponentProps = {
+							tabs: TABS,
+							[ propName ]: 'gamma',
+							onSelect: mockOnSelect,
+						};
 
-					// Select alpha
-					await click( screen.getByRole( 'tab', { name: 'Alpha' } ) );
+						const { rerender } = await render(
+							<Component { ...initialComponentProps } />
+						);
 
-					expect(
-						screen.getByRole( 'tab', {
-							selected: true,
-							name: 'Alpha',
-						} )
-					).toHaveFocus();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Alpha',
-						} )
-					).toBeVisible();
+						// Gamma is the selected tab.
+						await waitForComponentToBeInitializedWithSelectedTab(
+							'Gamma'
+						);
 
-					expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-					expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
+						// Select alpha
+						await click(
+							screen.getByRole( 'tab', { name: 'Alpha' } )
+						);
 
-					// Remove alpha
-					await rerender(
-						<UncontrolledTabs
-							tabs={ TABS.slice( 1 ) }
-							defaultTabId="gamma"
-							onSelect={ mockOnSelect }
-						/>
-					);
+						expect(
+							screen.getByRole( 'tab', {
+								selected: true,
+								name: 'Alpha',
+							} )
+						).toHaveFocus();
+						expect(
+							screen.getByRole( 'tabpanel', {
+								name: 'Alpha',
+							} )
+						).toBeVisible();
 
-					expect( screen.getAllByRole( 'tab' ) ).toHaveLength( 2 );
+						expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+						expect( mockOnSelect ).toHaveBeenLastCalledWith(
+							'alpha'
+						);
 
-					// No tab should be selected i.e. it doesn't fall back to gamma,
-					// even if it matches the `defaultTabId` prop.
-					expect(
-						screen.queryByRole( 'tab', { selected: true } )
-					).not.toBeInTheDocument();
-					// No tabpanel should be rendered either
-					expect(
-						screen.queryByRole( 'tabpanel' )
-					).not.toBeInTheDocument();
+						// Remove alpha
+						await rerender(
+							<Component
+								{ ...initialComponentProps }
+								tabs={ TABS.slice( 1 ) }
+							/>
+						);
 
-					// Re-add alpha. Alpha becomes selected again.
-					await rerender(
-						<UncontrolledTabs
-							tabs={ TABS }
-							defaultTabId="gamma"
-							onSelect={ mockOnSelect }
-						/>
-					);
+						expect( screen.getAllByRole( 'tab' ) ).toHaveLength(
+							2
+						);
 
-					expect( screen.getAllByRole( 'tab' ) ).toHaveLength(
-						TABS.length
-					);
+						// No tab should be selected i.e. it doesn't fall back to gamma,
+						// even if it matches the `defaultTabId` prop.
+						expect(
+							screen.queryByRole( 'tab', { selected: true } )
+						).not.toBeInTheDocument();
+						// No tabpanel should be rendered either
+						expect(
+							screen.queryByRole( 'tabpanel' )
+						).not.toBeInTheDocument();
 
-					expect(
-						screen.getByRole( 'tab', {
-							selected: true,
-							name: 'Alpha',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Alpha',
-						} )
-					).toBeVisible();
+						// Re-add alpha. Alpha becomes selected again.
+						await rerender(
+							<Component { ...initialComponentProps } />
+						);
 
-					expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-				} );
-			} );
-			describe( 'through the `selectedTabId` prop [Controlled]', () => {
-				// TODO: same tests as above
-			} );
+						expect( screen.getAllByRole( 'tab' ) ).toHaveLength(
+							TABS.length
+						);
+
+						expect(
+							screen.getByRole( 'tab', {
+								selected: true,
+								name: 'Alpha',
+							} )
+						).toBeVisible();
+						expect(
+							screen.getByRole( 'tabpanel', {
+								name: 'Alpha',
+							} )
+						).toBeVisible();
+
+						expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+					} );
+				}
+			);
 		} );
 
 		describe( 'adding a tab', () => {
-			// TODO: describe each for controlled / uncontrolled
-			it( 'should select a newly added tab if it matches the `defaultTabId` prop [Uncontrolled]', async () => {
-				const mockOnSelect = jest.fn();
+			describe.each( [
+				[ 'defaultTabId', 'Uncontrolled', UncontrolledTabs ],
+				[ 'selectedTabId', 'Controlled', ControlledTabs ],
+			] )(
+				'when using the `%s` prop [%s]',
+				( propName, _mode, Component ) => {
+					it( `should select a newly added tab if it matches the \`${ propName }\` prop`, async () => {
+						const mockOnSelect = jest.fn();
 
-				const { rerender } = await render(
-					<UncontrolledTabs
-						tabs={ TABS }
-						defaultTabId="delta"
-						onSelect={ mockOnSelect }
-					/>
-				);
+						const initialComponentProps = {
+							tabs: TABS,
+							[ propName ]: 'delta',
+							onSelect: mockOnSelect,
+						};
 
-				// No initially selected tabs or tabpanels, since the `defaultTabId`
-				// prop is mot matching any known tabs.
-				await waitForComponentToBeInitializedWithSelectedTab(
-					undefined
-				);
+						const { rerender } = await render(
+							<Component { ...initialComponentProps } />
+						);
 
-				expect( mockOnSelect ).not.toHaveBeenCalled();
+						// No initially selected tabs or tabpanels, since the `defaultTabId`
+						// prop is mot matching any known tabs.
+						await waitForComponentToBeInitializedWithSelectedTab(
+							undefined
+						);
 
-				// Re-render with beta disabled.
-				await rerender(
-					<UncontrolledTabs
-						tabs={ TABS_WITH_DELTA }
-						defaultTabId="delta"
-						onSelect={ mockOnSelect }
-					/>
-				);
+						expect( mockOnSelect ).not.toHaveBeenCalled();
 
-				// Delta becomes selected
-				expect(
-					screen.getByRole( 'tab', {
-						selected: true,
-						name: 'Delta',
-					} )
-				).toBeVisible();
-				expect(
-					screen.getByRole( 'tabpanel', {
-						name: 'Delta',
-					} )
-				).toBeVisible();
+						// Re-render with beta disabled.
+						await rerender(
+							<Component
+								{ ...initialComponentProps }
+								tabs={ TABS_WITH_DELTA }
+							/>
+						);
 
-				expect( mockOnSelect ).not.toHaveBeenCalled();
-			} );
+						// Delta becomes selected
+						expect(
+							screen.getByRole( 'tab', {
+								selected: true,
+								name: 'Delta',
+							} )
+						).toBeVisible();
+						expect(
+							screen.getByRole( 'tabpanel', {
+								name: 'Delta',
+							} )
+						).toBeVisible();
 
-			it( 'should select a newly added tab if it matches the `selectedTabId` prop [Controlled]', async () => {
-				const mockOnSelect = jest.fn();
-
-				const { rerender } = await render(
-					<ControlledTabs
-						tabs={ TABS }
-						selectedTabId="delta"
-						onSelect={ mockOnSelect }
-					/>
-				);
-
-				// No initially selected tabs or tabpanels, since the `selectedTabId`
-				// prop is mot matching any known tabs.
-				await waitForComponentToBeInitializedWithSelectedTab(
-					undefined
-				);
-
-				expect( mockOnSelect ).not.toHaveBeenCalled();
-
-				// Re-render with beta disabled.
-				await rerender(
-					<ControlledTabs
-						tabs={ TABS_WITH_DELTA }
-						selectedTabId="delta"
-						onSelect={ mockOnSelect }
-					/>
-				);
-
-				// Delta becomes selected
-				expect(
-					screen.getByRole( 'tab', {
-						selected: true,
-						name: 'Delta',
-					} )
-				).toBeVisible();
-				expect(
-					screen.getByRole( 'tabpanel', {
-						name: 'Delta',
-					} )
-				).toBeVisible();
-
-				expect( mockOnSelect ).not.toHaveBeenCalled();
-			} );
+						expect( mockOnSelect ).not.toHaveBeenCalled();
+					} );
+				}
+			);
 		} );
+		// TODO: re-enable tabs
 		describe( 'a tab becomes disabled', () => {
-			// TODO: re-enable tabs
-			describe( 'when using the `defaultTabId` prop [Uncontrolled]', () => {
-				// TODO: use describe.each?
-				it( 'should keep the initial tab matching the `defaultTabId` prop as selected even if it becomes disabled', async () => {
-					const mockOnSelect = jest.fn();
+			describe.each( [
+				[ 'defaultTabId', 'Uncontrolled', UncontrolledTabs ],
+				[ 'selectedTabId', 'Controlled', ControlledTabs ],
+			] )(
+				'when using the `%s` prop [%s]',
+				( propName, _mode, Component ) => {
+					it( `should keep the initial tab matching the \`${ propName }\` prop as selected even if it becomes disabled`, async () => {
+						const mockOnSelect = jest.fn();
 
-					const { rerender } = await render(
-						<UncontrolledTabs
-							tabs={ TABS }
-							defaultTabId="beta"
-							onSelect={ mockOnSelect }
-						/>
-					);
+						const initialComponentProps = {
+							tabs: TABS,
+							[ propName ]: 'beta',
+							onSelect: mockOnSelect,
+						};
 
-					// Beta is the selected tab.
-					await waitForComponentToBeInitializedWithSelectedTab(
-						'Beta'
-					);
+						const { rerender } = await render(
+							<Component { ...initialComponentProps } />
+						);
 
-					expect( mockOnSelect ).not.toHaveBeenCalled();
+						// Beta is the selected tab.
+						await waitForComponentToBeInitializedWithSelectedTab(
+							'Beta'
+						);
 
-					// Re-render with beta disabled.
-					await rerender(
-						<UncontrolledTabs
-							tabs={ TABS_WITH_BETA_DISABLED }
-							defaultTabId="beta"
-							onSelect={ mockOnSelect }
-						/>
-					);
+						expect( mockOnSelect ).not.toHaveBeenCalled();
 
-					// Beta continues to be selected and focused, even if it is disabled.
-					expect(
-						screen.getByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
+						// Re-render with beta disabled.
+						await rerender(
+							<Component
+								{ ...initialComponentProps }
+								tabs={ TABS_WITH_BETA_DISABLED }
+							/>
+						);
 
-					expect( mockOnSelect ).not.toHaveBeenCalled();
-				} );
+						// Beta continues to be selected and focused, even if it is disabled.
+						expect(
+							screen.getByRole( 'tab', {
+								selected: true,
+								name: 'Beta',
+							} )
+						).toBeVisible();
+						expect(
+							screen.getByRole( 'tabpanel', {
+								name: 'Beta',
+							} )
+						).toBeVisible();
 
-				it( 'should keep the current tab selected by the user as selected even if it becomes disabled', async () => {
-					const mockOnSelect = jest.fn();
+						expect( mockOnSelect ).not.toHaveBeenCalled();
+					} );
 
-					const { rerender } = await render(
-						<UncontrolledTabs
-							tabs={ TABS }
-							onSelect={ mockOnSelect }
-						/>
-					);
+					it( 'should keep the current tab selected by the user as selected even if it becomes disabled', async () => {
+						const mockOnSelect = jest.fn();
 
-					// Alpha is automatically selected as the selected tab.
-					await waitForComponentToBeInitializedWithSelectedTab(
-						'Alpha'
-					);
+						const { rerender } = await render(
+							<Component
+								tabs={ TABS }
+								onSelect={ mockOnSelect }
+							/>
+						);
 
-					expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-					expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
+						// Alpha is automatically selected as the selected tab.
+						await waitForComponentToBeInitializedWithSelectedTab(
+							'Alpha'
+						);
 
-					// Click on beta tab, beta becomes selected.
-					await click( screen.getByRole( 'tab', { name: 'Beta' } ) );
+						expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
+						expect( mockOnSelect ).toHaveBeenLastCalledWith(
+							'alpha'
+						);
 
-					expect(
-						screen.getByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
+						// Click on beta tab, beta becomes selected.
+						await click(
+							screen.getByRole( 'tab', { name: 'Beta' } )
+						);
 
-					expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
-					expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
+						expect(
+							screen.getByRole( 'tab', {
+								selected: true,
+								name: 'Beta',
+							} )
+						).toBeVisible();
+						expect(
+							screen.getByRole( 'tabpanel', {
+								name: 'Beta',
+							} )
+						).toBeVisible();
 
-					// Re-render with beta disabled.
-					await rerender(
-						<UncontrolledTabs
-							tabs={ TABS_WITH_BETA_DISABLED }
-							defaultTabId="beta"
-							onSelect={ mockOnSelect }
-						/>
-					);
+						expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
+						expect( mockOnSelect ).toHaveBeenLastCalledWith(
+							'beta'
+						);
 
-					// Beta continues to be selected, even if it is disabled.
-					expect(
-						screen.getByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toHaveFocus();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
+						// Re-render with beta disabled.
+						await rerender(
+							<Component
+								tabs={ TABS_WITH_BETA_DISABLED }
+								onSelect={ mockOnSelect }
+							/>
+						);
 
-					expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
-				} );
-			} );
+						// Beta continues to be selected, even if it is disabled.
+						expect(
+							screen.getByRole( 'tab', {
+								selected: true,
+								name: 'Beta',
+							} )
+						).toHaveFocus();
+						expect(
+							screen.getByRole( 'tabpanel', {
+								name: 'Beta',
+							} )
+						).toBeVisible();
 
-			describe( 'when using the `selectedTabId` prop [Controlled]', () => {
-				it( 'should keep the initial tab matching the `selectedTabId` prop as selected even if it becomes disabled [Controlled]', async () => {
-					const mockOnSelect = jest.fn();
-
-					const { rerender } = await render(
-						<ControlledTabs
-							tabs={ TABS }
-							selectedTabId="beta"
-							onSelect={ mockOnSelect }
-						/>
-					);
-
-					// Beta is the selected tab.
-					await waitForComponentToBeInitializedWithSelectedTab(
-						'Beta'
-					);
-
-					expect( mockOnSelect ).not.toHaveBeenCalled();
-
-					// Re-render with beta disabled.
-					await rerender(
-						<ControlledTabs
-							tabs={ TABS_WITH_BETA_DISABLED }
-							selectedTabId="beta"
-							onSelect={ mockOnSelect }
-						/>
-					);
-
-					// Beta continues to be selected, even if it is disabled.
-					expect(
-						screen.getByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
-
-					expect( mockOnSelect ).not.toHaveBeenCalled();
-				} );
-
-				it( 'should keep the current tab selected by the user as selected even if it becomes disabled', async () => {
-					const mockOnSelect = jest.fn();
-
-					const { rerender } = await render(
-						<ControlledTabs
-							tabs={ TABS }
-							onSelect={ mockOnSelect }
-						/>
-					);
-
-					// Alpha is automatically selected as the selected tab.
-					await waitForComponentToBeInitializedWithSelectedTab(
-						'Alpha'
-					);
-
-					expect( mockOnSelect ).toHaveBeenCalledTimes( 1 );
-					expect( mockOnSelect ).toHaveBeenLastCalledWith( 'alpha' );
-
-					// Click on beta tab, beta becomes selected.
-					await click( screen.getByRole( 'tab', { name: 'Beta' } ) );
-
-					expect(
-						screen.getByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toBeVisible();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
-
-					expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
-					expect( mockOnSelect ).toHaveBeenLastCalledWith( 'beta' );
-
-					// Re-render with beta disabled.
-					await rerender(
-						<ControlledTabs
-							tabs={ TABS_WITH_BETA_DISABLED }
-							defaultTabId="beta"
-							onSelect={ mockOnSelect }
-						/>
-					);
-
-					// Beta continues to be selected and focused, even if it is disabled.
-					expect(
-						screen.getByRole( 'tab', {
-							selected: true,
-							name: 'Beta',
-						} )
-					).toHaveFocus();
-					expect(
-						screen.getByRole( 'tabpanel', {
-							name: 'Beta',
-						} )
-					).toBeVisible();
-
-					expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
-				} );
-			} );
+						expect( mockOnSelect ).toHaveBeenCalledTimes( 2 );
+					} );
+				}
+			);
 		} );
 	} );
 } );
