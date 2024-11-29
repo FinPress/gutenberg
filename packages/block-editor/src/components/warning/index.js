@@ -14,14 +14,22 @@ import { moreVertical } from '@wordpress/icons';
 function Warning( { className, actions, children, secondaryActions } ) {
 	return (
 		<div style={ { display: 'contents', all: 'initial' } }>
-			<div className={ clsx( className, 'block-editor-warning' ) }>
+			<div
+				className={ clsx( className, 'block-editor-warning' ) }
+				role="alert"
+				aria-live="assertive"
+				tabIndex="0"
+			>
 				<div className="block-editor-warning__contents">
 					<p className="block-editor-warning__message">
 						{ children }
 					</p>
 
 					{ ( Children.count( actions ) > 0 || secondaryActions ) && (
-						<div className="block-editor-warning__actions">
+						<div
+							className="block-editor-warning__actions"
+							aria-describedby="block-editor-warning-message"
+						>
 							{ Children.count( actions ) > 0 &&
 								Children.map( actions, ( action, i ) => (
 									<span
