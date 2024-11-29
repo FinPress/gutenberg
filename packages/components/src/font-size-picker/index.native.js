@@ -163,8 +163,6 @@ function FontSizePicker( {
 					} ) }
 					{ ! disableCustomFontSizes && (
 						<UnitControl
-							__next40pxDefaultSize
-							__shouldNotWarnDeprecated36pxSize
 							label={ __( 'Custom' ) }
 							min={ 0 }
 							max={ 200 }
