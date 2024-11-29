@@ -33,6 +33,12 @@ export const MenuRadioItem = forwardRef<
 ) {
 	const menuContext = useContext( MenuContext );
 
+	if ( ! menuContext?.store ) {
+		throw new Error(
+			'Menu.RadioItem can only be rendered inside a Menu component'
+		);
+	}
+
 	return (
 		<Styled.MenuRadioItem
 			ref={ ref }

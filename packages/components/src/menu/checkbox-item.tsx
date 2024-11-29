@@ -26,6 +26,12 @@ export const MenuCheckboxItem = forwardRef<
 ) {
 	const menuContext = useContext( MenuContext );
 
+	if ( ! menuContext?.store ) {
+		throw new Error(
+			'Menu.CheckboxItem can only be rendered inside a Menu component'
+		);
+	}
+
 	return (
 		<Styled.MenuCheckboxItem
 			ref={ ref }

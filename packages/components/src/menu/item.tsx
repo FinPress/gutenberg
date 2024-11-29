@@ -20,6 +20,12 @@ export const MenuItem = forwardRef<
 ) {
 	const menuContext = useContext( MenuContext );
 
+	if ( ! menuContext?.store ) {
+		throw new Error(
+			'Menu.Item can only be rendered inside a Menu component'
+		);
+	}
+
 	return (
 		<Styled.MenuItem
 			ref={ ref }
