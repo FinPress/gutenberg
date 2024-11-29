@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { info, closeSmall, check, warning } from '@wordpress/icons';
+import { info, caution, error, published } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -31,11 +31,11 @@ function Badge( {
 			case 'info':
 				return info;
 			case 'warning':
-				return warning;
+				return caution;
 			case 'error':
-				return closeSmall;
+				return error;
 			case 'success':
-				return check;
+				return published;
 			default:
 				return null;
 		}
