@@ -300,13 +300,11 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 						/>
 					) }
 				</ItemGroup>
-				<ItemGroup>
-					<Text variant="muted">
-						{ __(
-							'Attributes connected to custom fields or other dynamic data.'
-						) }
-					</Text>
-				</ItemGroup>
+				<Text as="p" variant="muted">
+					{ __(
+						'Attributes connected to custom fields or other dynamic data.'
+					) }
+				</Text>
 			</ToolsPanel>
 		</InspectorControls>
 	);
