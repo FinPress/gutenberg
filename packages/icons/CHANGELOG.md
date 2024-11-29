@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+-   Add new `caution` icon.
+-   Add new `error` icon.
+
 ## 10.11.0 (2024-10-30)
 
 ## 10.10.0 (2024-10-16)
