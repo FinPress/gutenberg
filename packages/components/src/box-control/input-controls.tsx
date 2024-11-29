@@ -108,8 +108,8 @@ export default function BoxInputControls( {
 						<Tooltip placement="top-end" text={ LABELS[ side ] }>
 							<StyledUnitControl
 								{ ...props }
-								__next40pxDefaultSize={ __next40pxDefaultSize }
 								__shouldNotWarnDeprecated36pxSize
+								__next40pxDefaultSize={ __next40pxDefaultSize }
 								className="component-box-control__unit-control"
 								id={ inputId }
 								isPressEnterToChange
