@@ -38,7 +38,7 @@ export const MenuGroupLabel = forwardRef<
 				/>
 			}
 			{ ...props }
-			store={ menuContext?.store }
+			store={ menuContext.store }
 		/>
 	);
 } );

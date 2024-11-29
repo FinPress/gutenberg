@@ -32,7 +32,7 @@ export const MenuItem = forwardRef<
 			{ ...props }
 			accessibleWhenDisabled
 			hideOnClick={ hideOnClick }
-			store={ menuContext?.store }
+			store={ menuContext.store }
 		>
 			<Styled.ItemPrefixWrapper>{ prefix }</Styled.ItemPrefixWrapper>
 

@@ -27,8 +27,8 @@ export const MenuSeparator = forwardRef<
 		<Styled.MenuSeparator
 			ref={ ref }
 			{ ...props }
-			store={ menuContext?.store }
-			variant={ menuContext?.variant }
+			store={ menuContext.store }
+			variant={ menuContext.variant }
 		/>
 	);
 } );

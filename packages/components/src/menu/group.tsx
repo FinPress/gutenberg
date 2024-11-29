@@ -27,7 +27,7 @@ export const MenuGroup = forwardRef<
 		<Styled.MenuGroup
 			ref={ ref }
 			{ ...props }
-			store={ menuContext?.store }
+			store={ menuContext.store }
 		/>
 	);
 } );

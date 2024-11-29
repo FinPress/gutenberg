@@ -38,10 +38,10 @@ export const MenuCheckboxItem = forwardRef<
 			{ ...props }
 			accessibleWhenDisabled
 			hideOnClick={ hideOnClick }
-			store={ menuContext?.store }
+			store={ menuContext.store }
 		>
 			<Ariakit.MenuItemCheck
-				store={ menuContext?.store }
+				store={ menuContext.store }
 				render={ <Styled.ItemPrefixWrapper /> }
 				// Override some ariakit inline styles
 				style={ { width: 'auto', height: 'auto' } }
