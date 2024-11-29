@@ -15,7 +15,7 @@ import { store as editPostStore } from '../../store';
  *
  * @param { boolean } enabled
  */
-export default ( enabled ) => {
+export const useMetaBoxInitialization = ( enabled ) => {
 	const isEnabledAndEditorReady = useSelect(
 		( select ) =>
 			enabled && select( editorStore ).__unstableIsEditorReady(),
