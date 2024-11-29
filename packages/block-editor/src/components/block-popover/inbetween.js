@@ -131,22 +131,21 @@ function BlockPopoverInbetween( {
 						? previousRect.height
 						: nextRect.height;
 
+					if ( previousRect && nextRect ) {
+						width = nextRect.left - previousRect.right;
+						// Avoid a negative width when the next rect is on
+						// the next line.
+						width = Math.max( width, 0 );
+					}
+
 					if ( isRTL() ) {
 						// non vertical, rtl
 						left = nextRect ? nextRect.right : previousRect.left;
-						width =
-							previousRect && nextRect
-								? previousRect.left - nextRect.right
-								: 0;
 					} else {
 						// non vertical, ltr
 						left = previousRect
 							? previousRect.right
 							: nextRect.left;
-						width =
-							previousRect && nextRect
-								? nextRect.left - previousRect.right
-								: 0;
 					}
 				}
 
