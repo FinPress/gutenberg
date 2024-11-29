@@ -128,7 +128,11 @@ test.describe( 'Pattern Overrides', () => {
 				page.getByRole( 'button', { name: 'Dismiss this notice' } )
 			).toBeVisible();
 
-			patternId = new URL( page.url() ).searchParams.get( 'postId' );
+			patternId = await page.evaluate( () => {
+				return window.wp.data
+					.select( 'core/editor' )
+					.getCurrentPostId();
+			} );
 		} );
 
 		await test.step( 'Create a post and insert the pattern with overrides', async () => {
@@ -1207,7 +1211,11 @@ test.describe( 'Pattern Overrides', () => {
 				page.getByRole( 'button', { name: 'Dismiss this notice' } )
 			).toBeVisible();
 
-			patternId = new URL( page.url() ).searchParams.get( 'postId' );
+			patternId = await page.evaluate( () => {
+				return window.wp.data
+					.select( 'core/editor' )
+					.getCurrentPostId();
+			} );
 		} );
 
 		await test.step( 'create a post and insert the pattern with synced values', async () => {
