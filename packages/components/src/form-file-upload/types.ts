@@ -27,7 +27,9 @@ export type FormFileUploadProps = {
 	 */
 	children?: ReactNode;
 	/**
-	 * The icon to render in the `Button`.
+	 * The icon to render in the default button.
+	 *
+	 * See the `Icon` component docs for more information.
 	 */
 	icon?: ComponentProps< typeof Icon >[ 'icon' ];
 	/**

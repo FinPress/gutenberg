@@ -4,7 +4,7 @@
 
 <p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-formfileupload--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>
 
-FormFileUpload is a component that allows users to select files from their local device.
+FormFileUpload allows users to select files from their local device.
 
 ```jsx
 import { FormFileUpload } from '@wordpress/components';
@@ -47,7 +47,9 @@ Children are passed as children of `Button`.
 
 ### `icon`
 
-The icon to render in the `Button`.
+The icon to render in the default button.
+
+See the `Icon` component docs for more information.
 
  - Type: `IconType`
  - Required: No
