@@ -2,7 +2,6 @@
  * Internal dependencies
  */
 import { positionToPlacement as __experimentalPopoverLegacyPositionToPlacement } from './popover/utils';
-import { createPrivateSlotFill } from './slot-fill';
 import { Menu } from './menu';
 import { ComponentsContext } from './context/context-system-provider';
 import Theme from './theme';
@@ -14,7 +13,6 @@ import Badge from './badge';
 export const privateApis = {};
 lock( privateApis, {
 	__experimentalPopoverLegacyPositionToPlacement,
-	createPrivateSlotFill,
 	ComponentsContext,
 	Tabs,
 	Theme,
