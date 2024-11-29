@@ -2355,7 +2355,7 @@ function getDerivedBlockEditingModesForTree(
 					return;
 				}
 
-				derivedBlockEditingModes.set( clientId, 'contentOnly' );
+				// Else do nothing, use the default block editing mode.
 				return;
 			}
 
