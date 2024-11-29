@@ -583,7 +583,7 @@ describe( 'Tabs', () => {
 					);
 
 					// No initially selected tabs or tabpanels, since the `defaultTabId`
-					// prop is mot matching any known tabs.
+					// prop is not matching any known tabs.
 					await waitForComponentToBeInitializedWithSelectedTab(
 						undefined
 					);
@@ -630,7 +630,7 @@ describe( 'Tabs', () => {
 					);
 
 					// No initially selected tabs or tabpanels, since the `defaultTabId`
-					// prop is mot matching any known tabs.
+					// prop is not matching any known tabs.
 					await waitForComponentToBeInitializedWithSelectedTab(
 						undefined
 					);
@@ -795,7 +795,7 @@ describe( 'Tabs', () => {
 						);
 
 						// No initially selected tabs or tabpanels, since the `selectedTabId`
-						// prop is mot matching any known tabs.
+						// prop is not matching any known tabs.
 						await waitForComponentToBeInitializedWithSelectedTab(
 							undefined
 						);
@@ -842,7 +842,7 @@ describe( 'Tabs', () => {
 						);
 
 						// No initially selected tabs or tabpanels, since the `selectedTabId`
-						// prop is mot matching any known tabs.
+						// prop is not matching any known tabs.
 						await waitForComponentToBeInitializedWithSelectedTab(
 							undefined
 						);
@@ -1810,7 +1810,7 @@ describe( 'Tabs', () => {
 						);
 
 						// No initially selected tabs or tabpanels, since the `defaultTabId`
-						// prop is mot matching any known tabs.
+						// prop is not matching any known tabs.
 						await waitForComponentToBeInitializedWithSelectedTab(
 							undefined
 						);
