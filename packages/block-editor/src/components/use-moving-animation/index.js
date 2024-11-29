@@ -74,8 +74,14 @@ function useMovingAnimation( { triggerAnimationOnChange, clientId } ) {
 		const isSelected = isBlockSelected( clientId );
 		const adjustScrolling =
 			isSelected || isFirstMultiSelectedBlock( clientId );
+		const isDragging = isDraggingBlocks();
 
 		function preserveScrollPosition() {
+			// The user already scrolled when dragging blocks.
+			if ( isDragging ) {
+				return;
+			}
+
 			if ( adjustScrolling && prevRect ) {
 				const blockRect = ref.current.getBoundingClientRect();
 				const diff = blockRect.top - prevRect.top;
@@ -84,11 +90,6 @@ function useMovingAnimation( { triggerAnimationOnChange, clientId } ) {
 					scrollContainer.scrollTop += diff;
 				}
 			}
-		}
-
-		// Neither animate nor scroll.
-		if ( isDraggingBlocks() ) {
-			return;
 		}
 
 		// We disable the animation if the user has a preference for reduced
@@ -113,6 +114,13 @@ function useMovingAnimation( { triggerAnimationOnChange, clientId } ) {
 			isSelected ||
 			isBlockMultiSelected( clientId ) ||
 			isAncestorMultiSelected( clientId );
+
+		// The user already dragged the blocks to the new position, so don't
+		// animate the dragged blocks.
+		if ( isPartOfSelection && isDragging ) {
+			return;
+		}
+
 		// Make sure the other blocks move under the selected block(s).
 		const zIndex = isPartOfSelection ? '1' : '';
 
