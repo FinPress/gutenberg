@@ -11,6 +11,9 @@
 ### Enhancements
 
 -   `BorderBoxControl`: Reduce gap value when unlinked ([#67049](https://github.com/WordPress/gutenberg/pull/67049)).
+-   `DropdownMenu`: Increase option height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
+-   `MenuItem`: Increase height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
+-   `MenuItemsChoice`: Increase option height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
 
 ### Experimental
 
