@@ -74,7 +74,7 @@ export type ReplaceCallback = ( shortcode: Shortcode ) => string;
 /**
  * WordPress Shortcode instance.
  */
-export interface WPShortcode {
+export interface shortcode {
 	new ( options: Partial< ShortcodeOptions > ): Shortcode & {
 		/**
 		 * Transform the shortcode into a string.
@@ -104,12 +104,12 @@ export interface WPShortcode {
 		 * @param {(number|string)} attr  Attribute key.
 		 * @param {string}          value Attribute value.
 		 *
-		 * @return {InstanceType< WPShortcode >} Shortcode instance.
+		 * @return {InstanceType< shortcode >} Shortcode instance.
 		 */
 		set: (
 			attr: string | number,
 			value: string
-		) => InstanceType< WPShortcode >;
+		) => InstanceType< shortcode >;
 	};
 
 	/**
@@ -142,7 +142,7 @@ export interface WPShortcode {
 	 *
 	 * @return  Shortcode instance.
 	 */
-	fromMatch: ( match: Match ) => InstanceType< WPShortcode >;
+	fromMatch: ( match: Match ) => InstanceType< shortcode >;
 
 	/**
 	 * Find the next matching shortcode.

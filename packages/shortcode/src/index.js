@@ -199,7 +199,7 @@ export const attrs = memize( ( text ) => {
  *
  * @param {import('./types').Match} match Match array.
  *
- * @return {InstanceType<import('./types').WPShortcode>} Shortcode instance.
+ * @return {InstanceType<import('./types').shortcode>} Shortcode instance.
  */
 export function fromMatch( match ) {
 	let type;
@@ -228,7 +228,7 @@ export function fromMatch( match ) {
  * the `type` of the shortcode ('single', 'self-closing', or 'closed'), and a
  * `content` string.
  *
- * @type {import('./types').WPShortcode} Shortcode instance.
+ * @type {import('./types').shortcode} Shortcode instance.
  */
 const shortcode = Object.assign(
 	function ( options ) {
@@ -299,7 +299,7 @@ Object.assign( shortcode.prototype, {
 	 * @param {(number|string)} attr  Attribute key.
 	 * @param {string}          value Attribute value.
 	 *
-	 * @return {InstanceType< import('./types').WPShortcode >} Shortcode instance.
+	 * @return {InstanceType< import('./types').shortcode >} Shortcode instance.
 	 */
 	set( attr, value ) {
 		this.attrs[ typeof attr === 'number' ? 'numeric' : 'named' ][ attr ] =

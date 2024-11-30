@@ -42,7 +42,7 @@ To access a raw representation of a shortcode, pass an `options` object, contain
 
 _Type_
 
--   `import('./types').WPShortcode`Shortcode instance.
+-   `import('./types').shortcode`Shortcode instance.
 
 ### fromMatch
 
@@ -56,7 +56,7 @@ _Parameters_
 
 _Returns_
 
--   `InstanceType<import('./types').WPShortcode>`: Shortcode instance.
+-   `InstanceType<import('./types').shortcode>`: Shortcode instance.
 
 ### next
 
