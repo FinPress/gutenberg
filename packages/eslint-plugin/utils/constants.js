@@ -28,7 +28,7 @@ const TRANSLATION_FUNCTIONS = new Set( [ '__', '_x', '_n', '_nx' ] );
  * made more accurate using the `u` flag:
  *
  * ```
- * /^[$_\p{L}\p{Nl}][$_\p{L}\p{Nl}\u200C\u200D\p{Mn}\p{Mc}\p{And}\p{Pc}]*$/u;
+ * /^[$_\p{L}\p{Nl}][$_\p{L}\p{Nl}\u200C\u200D\p{Mn}\p{Mc}\p{Nd}\p{Pc}]*$/u;
  * ```
  *
  * @see http://www.pixelbeat.org/programming/gcc/format_specs.html
