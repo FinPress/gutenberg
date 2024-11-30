@@ -23,4 +23,4 @@ https://github.com/WordPress/gutenberg/blob/trunk/CONTRIBUTING.md -->
 
 |Before|After|
 |-|-|
-||| 
+|<!-- Before screenshot here -->|<!-- After screenshot here -->|
