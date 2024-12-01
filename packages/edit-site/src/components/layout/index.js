@@ -136,7 +136,9 @@ function Layout() {
 											}
 											routeKey={ routeKey }
 										>
-											{ areas.sidebar }
+											<ErrorBoundary>
+												{ areas.sidebar }
+											</ErrorBoundary>
 										</SidebarContent>
 										<SaveHub />
 										<SavePanel />
@@ -160,7 +162,7 @@ function Layout() {
 									/>
 								</SidebarContent>
 							) }
-							{ areas.mobile }
+							<ErrorBoundary>{ areas.mobile }</ErrorBoundary>
 						</div>
 					) }
 
@@ -173,7 +175,7 @@ function Layout() {
 									maxWidth: widths?.content,
 								} }
 							>
-								{ areas.content }
+								<ErrorBoundary>{ areas.content }</ErrorBoundary>
 							</div>
 						) }
 
@@ -184,7 +186,7 @@ function Layout() {
 								maxWidth: widths?.edit,
 							} }
 						>
-							{ areas.edit }
+							<ErrorBoundary>{ areas.edit }</ErrorBoundary>
 						</div>
 					) }
 
