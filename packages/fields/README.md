@@ -111,6 +111,10 @@ Status field for BasePost.
 
 Template field for BasePost.
 
+### templateTitleField
+
+Undocumented declaration.
+
 ### titleField
 
 Title field for BasePost.

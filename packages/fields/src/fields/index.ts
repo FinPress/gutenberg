@@ -1,5 +1,6 @@
 export { default as slugField } from './slug';
 export { default as titleField } from './title';
+export { default as templateTitleField } from './template-title';
 export { default as orderField } from './order';
 export { default as featuredImageField } from './featured-image';
 export { default as templateField } from './template';

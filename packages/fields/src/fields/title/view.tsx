@@ -1,8 +1,12 @@
 /**
+ * External dependencies
+ */
+import type { ReactNode } from 'react';
+
+/**
  * WordPress dependencies
  */
 import { __experimentalHStack as HStack } from '@wordpress/components';
-import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
@@ -11,10 +15,10 @@ import type { Settings } from '@wordpress/core-data';
 /**
  * Internal dependencies
  */
-import type { BasePost } from '../../types';
+import type { CommonPost } from '../../types';
 import { getItemTitle } from '../../actions/utils';
 
-const TitleView = ( { item }: { item: BasePost } ) => {
+export function PostTitleView( { item }: { item: CommonPost } ) {
 	const { frontPageId, postsPageId } = useSelect( ( select ) => {
 		const { getEntityRecord } = select( coreStore );
 		const siteSettings = getEntityRecord(
@@ -26,9 +30,6 @@ const TitleView = ( { item }: { item: BasePost } ) => {
 			postsPageId: siteSettings?.page_for_posts,
 		};
 	}, [] );
-
-	const renderedTitle = getItemTitle( item );
-
 	let suffix;
 	if ( item.id === frontPageId ) {
 		suffix = (
@@ -43,19 +44,29 @@ const TitleView = ( { item }: { item: BasePost } ) => {
 			</span>
 		);
 	}
+	return <BaseTitleView item={ item }>{ suffix }</BaseTitleView>;
+}
 
+export function BaseTitleView( {
+	item,
+	children,
+}: {
+	item: CommonPost;
+	children?: ReactNode;
+} ) {
+	const renderedTitle = getItemTitle( item );
 	return (
 		<HStack
 			className="edit-site-post-list__title"
 			alignment="center"
 			justify="flex-start"
 		>
-			<span>
-				{ decodeEntities( renderedTitle ) || __( '(no title)' ) }
-			</span>
-			{ suffix }
+			<span>{ renderedTitle || __( '(no title)' ) }</span>
+			{ children }
 		</HStack>
 	);
-};
+}
 
-export default TitleView;
+export default function TitleView( { item }: { item: CommonPost } ) {
+	return <BaseTitleView item={ item } />;
+}
