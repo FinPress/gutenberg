@@ -4,6 +4,6 @@
 	}
 
 	.edit-site-post-edit-header__title {
-		padding: 2px 0;
+		@include heading-medium();
 	}
 }

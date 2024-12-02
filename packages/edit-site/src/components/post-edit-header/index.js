@@ -28,6 +28,7 @@ export default function PostEditHeader( { postType, postId } ) {
 	const { icon, labels } = useSelect(
 		( select ) => {
 			const { getEditedEntityRecord, getPostType } = select( coreStore );
+			const { getPostIcon } = unlock( select( editorStore ) );
 			const _record = getEditedEntityRecord(
 				'postType',
 				postType,
@@ -35,7 +36,7 @@ export default function PostEditHeader( { postType, postId } ) {
 			);
 
 			return {
-				icon: unlock( select( editorStore ) ).getPostIcon( postType, {
+				icon: getPostIcon( postType, {
 					area: _record?.area,
 				} ),
 				labels: getPostType( postType )?.labels,
@@ -50,7 +51,7 @@ export default function PostEditHeader( { postType, postId } ) {
 
 	return (
 		<VStack spacing={ 1 } className="edit-site-post-edit-header">
-			<HStack spacing={ 2 } align="flex-start" justify="normal">
+			<HStack spacing={ 2 } align="center" justify="normal">
 				<Icon
 					className="edit-site-post-edit-header__icon"
 					icon={ icon }
@@ -59,9 +60,7 @@ export default function PostEditHeader( { postType, postId } ) {
 					numberOfLines={ 2 }
 					truncate
 					className="edit-site-post-edit-header__title"
-					weight={ 500 }
 					as="h2"
-					lineHeight="20px"
 				>
 					{ labels?.name &&
 						sprintf(
