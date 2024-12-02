@@ -58,11 +58,11 @@ function InserterMenu(
 		( select ) => unlock( select( blockEditorStore ) ).isZoomOut(),
 		[]
 	);
-	const hasSectionRootClientId = useSelect( ( select ) => {
-		const { getSectionRootClientId } = unlock( select( blockEditorStore ) );
-		const theRoot = getSectionRootClientId();
-		return theRoot?.length > 0;
-	}, [] );
+	const hasSectionRootClientId = useSelect(
+		( select ) =>
+			!! unlock( select( blockEditorStore ) ).getSectionRootClientId(),
+		[]
+	);
 	const [ filterValue, setFilterValue, delayedFilterValue ] =
 		useDebouncedInput( __experimentalFilterValue );
 	const [ hoveredItem, setHoveredItem ] = useState( null );

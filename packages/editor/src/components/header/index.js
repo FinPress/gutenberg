@@ -104,11 +104,11 @@ function Header( {
 				( ! hasBlockSelection || isBlockToolsCollapsed ) ) );
 	const hasBackButton = useHasBackButton();
 
-	const hasSectionRootClientId = useSelect( ( select ) => {
-		const { getSectionRootClientId } = unlock( select( blockEditorStore ) );
-		const theRoot = getSectionRootClientId();
-		return theRoot?.length > 0;
-	}, [] );
+	const hasSectionRootClientId = useSelect(
+		( select ) =>
+			!! unlock( select( blockEditorStore ) ).getSectionRootClientId(),
+		[]
+	);
 
 	/*
 	 * The edit-post-header classname is only kept for backward compatability
