@@ -21,6 +21,11 @@
 
 -   Upgraded `@ariakit/react` (v0.4.13) and `@ariakit/test` (v0.4.5) ([#65907](https://github.com/WordPress/gutenberg/pull/65907)).
 -   Upgraded `@ariakit/react` (v0.4.15) and `@ariakit/test` (v0.4.7) ([#67404](https://github.com/WordPress/gutenberg/pull/67404)).
+-   Exported the `WPCompleter` type as it was being used in block-editor/autocompleters ([#67410](https://github.com/WordPress/gutenberg/pull/67410)).
+
+### Bug Fixes
+
+-   `ResizableBox`: Make drag handles focusable ([#67305](https://github.com/WordPress/gutenberg/pull/67305)).
 
 ## 28.13.0 (2024-11-27)
 
