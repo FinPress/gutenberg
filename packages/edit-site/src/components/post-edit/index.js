@@ -18,7 +18,7 @@ import { privateApis as editorPrivateApis } from '@wordpress/editor';
  * Internal dependencies
  */
 import Page from '../page';
-import PostEditHeader from '../post-edit-header';
+import PostEditHeader from '../post-edit/header';
 import { unlock } from '../../lock-unlock';
 import usePatternSettings from '../page-patterns/use-pattern-settings';
 import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
