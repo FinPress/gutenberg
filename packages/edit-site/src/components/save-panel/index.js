@@ -31,7 +31,7 @@ const { EntitiesSavedStatesExtensible, NavigableRegion } =
 	unlock( privateApis );
 const { useLocation } = unlock( routerPrivateApis );
 
-const EntitiesSavedStatesForPreview = ( { onClose, renderDialog = false } ) => {
+const EntitiesSavedStatesForPreview = ( { onClose, renderDialog } ) => {
 	const isDirtyProps = useEntitiesSavedStatesIsDirty();
 	let activateSaveLabel;
 	if ( isDirtyProps.isDirty ) {
@@ -81,7 +81,7 @@ const EntitiesSavedStatesForPreview = ( { onClose, renderDialog = false } ) => {
 	);
 };
 
-const _EntitiesSavedStates = ( { onClose, renderDialog = false } ) => {
+const _EntitiesSavedStates = ( { onClose, renderDialog } ) => {
 	if ( isPreviewingTheme() ) {
 		return (
 			<EntitiesSavedStatesForPreview

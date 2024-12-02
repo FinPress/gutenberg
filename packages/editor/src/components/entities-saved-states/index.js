@@ -35,7 +35,7 @@ function identity( values ) {
  *
  * @return {React.ReactNode} The rendered component.
  */
-export default function EntitiesSavedStates( { close, renderDialog = false } ) {
+export default function EntitiesSavedStates( { close, renderDialog } ) {
 	const isDirtyProps = useIsDirty();
 	return (
 		<EntitiesSavedStatesExtensible
@@ -69,7 +69,7 @@ export function EntitiesSavedStatesExtensible( {
 	onSave = identity,
 	saveEnabled: saveEnabledProp = undefined,
 	saveLabel = __( 'Save' ),
-	renderDialog = false,
+	renderDialog,
 	dirtyEntityRecords,
 	isDirty,
 	setUnselectedEntities,
