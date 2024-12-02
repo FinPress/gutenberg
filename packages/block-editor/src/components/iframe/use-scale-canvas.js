@@ -336,39 +336,41 @@ export function useScaleCanvas( {
 			} );
 		}
 
-		// If we are not going to animate the transition, set the scale and frame size directly.
-		// If we are animating, these values will be set when the animation is finished.
-		// Example: Opening sidebars that reduce the scale of the canvas, but we don't want to
-		// animate the transition.
-		if ( ! startAnimationRef.current ) {
+		if ( scaleValue < 1 ) {
+			// If we are not going to animate the transition, set the scale and frame size directly.
+			// If we are animating, these values will be set when the animation is finished.
+			// Example: Opening sidebars that reduce the scale of the canvas, but we don't want to
+			// animate the transition.
+			if ( ! startAnimationRef.current ) {
+				iframeDocument.documentElement.style.setProperty(
+					'--wp-block-editor-iframe-zoom-out-scale',
+					scaleValue
+				);
+				iframeDocument.documentElement.style.setProperty(
+					'--wp-block-editor-iframe-zoom-out-frame-size',
+					`${ frameSize }px`
+				);
+			}
+
 			iframeDocument.documentElement.style.setProperty(
-				'--wp-block-editor-iframe-zoom-out-scale',
-				scaleValue
+				'--wp-block-editor-iframe-zoom-out-content-height',
+				`${ contentHeight }px`
+			);
+
+			iframeDocument.documentElement.style.setProperty(
+				'--wp-block-editor-iframe-zoom-out-inner-height',
+				`${ containerHeight }px`
+			);
+
+			iframeDocument.documentElement.style.setProperty(
+				'--wp-block-editor-iframe-zoom-out-container-width',
+				`${ containerWidth }px`
 			);
 			iframeDocument.documentElement.style.setProperty(
-				'--wp-block-editor-iframe-zoom-out-frame-size',
-				`${ frameSize }px`
+				'--wp-block-editor-iframe-zoom-out-scale-container-width',
+				`${ scaleContainerWidth }px`
 			);
 		}
-
-		iframeDocument.documentElement.style.setProperty(
-			'--wp-block-editor-iframe-zoom-out-content-height',
-			`${ contentHeight }px`
-		);
-
-		iframeDocument.documentElement.style.setProperty(
-			'--wp-block-editor-iframe-zoom-out-inner-height',
-			`${ containerHeight }px`
-		);
-
-		iframeDocument.documentElement.style.setProperty(
-			'--wp-block-editor-iframe-zoom-out-container-width',
-			`${ containerWidth }px`
-		);
-		iframeDocument.documentElement.style.setProperty(
-			'--wp-block-editor-iframe-zoom-out-scale-container-width',
-			`${ scaleContainerWidth }px`
-		);
 
 		/**
 		 * Handle the zoom out animation:
