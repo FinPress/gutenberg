@@ -18,7 +18,7 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 			$post = get_post( (int) $matches[1] );
 		}
 
-		if (  $post ) {
+		if ( $post ) {
 			$route_for_post = rest_get_route_for_post( $post );
 			if ( $route_for_post ) {
 				$paths[] = add_query_arg( 'context', 'edit', $route_for_post );
