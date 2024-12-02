@@ -26,21 +26,7 @@ import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
 import { getItemTitle } from '../../actions/utils';
 import type { BasePost } from '../../types';
-
-function useTemplates( postType: string ) {
-	return useSelect(
-		( select ) =>
-			select( coreStore ).getEntityRecords< WpTemplate >(
-				'postType',
-				'wp_template',
-				{
-					per_page: -1,
-					post_type: postType,
-				}
-			) ?? [],
-		[ postType ]
-	);
-}
+import { unlock } from '../../lock-unlock';
 
 export function useAllowSwitchingTemplates( {
 	postType,
@@ -51,32 +37,14 @@ export function useAllowSwitchingTemplates( {
 } ): boolean {
 	return useSelect(
 		( select ) => {
-			const { canUser, getEntityRecord, getEntityRecords } =
-				select( coreStore );
-			const siteSettings = canUser( 'read', {
-				kind: 'root',
-				name: 'site',
-			} )
-				? // @ts-expect-error getEntityRecord is not typed correctly.
-				  getEntityRecord< {
-						page_for_posts: number;
-						page_on_front: number;
-				  } >( 'root', 'site' )
-				: undefined;
-			const templates = getEntityRecords< WpTemplate >(
-				'postType',
-				'wp_template',
-				{
-					per_page: -1,
-				}
+			const { getHomePage, getPostsPageId } = unlock(
+				select( coreStore )
 			);
-			const isPostsPage = +postId === siteSettings?.page_for_posts;
-			// If current page is set front page or posts page, we also need
-			// to check if the current theme has a template for it. If not
+
+			const isPostsPage = getPostsPageId() === +postId;
 			const isFrontPage =
-				postType === 'page' &&
-				+postId === siteSettings?.page_on_front &&
-				templates?.some( ( { slug } ) => slug === 'front-page' );
+				postType === 'page' && getHomePage()?.postId === +postId;
+
 			return ! isPostsPage && ! isFrontPage;
 		},
 		[ postId, postType ]
@@ -90,25 +58,50 @@ export const TemplateEdit = ( {
 }: DataFormControlProps< BasePost > ) => {
 	const { id } = field;
 	const postType = data.type;
+	const postId =
+		typeof data.id === 'number' ? data.id : parseInt( data.id, 10 );
 	const slug = data.slug;
 
-	const allowSwitchingTemplate = useAllowSwitchingTemplates( {
-		postType: data.type,
-		postId: typeof data.id === 'number' ? data.id : parseInt( data.id, 10 ),
-	} );
-	const templates = useTemplates( data.type );
+	const allowSwitchingTemplate = useSelect(
+		( select ) => {
+			const { getHomePage, getPostsPageId } = unlock(
+				select( coreStore )
+			);
 
-	const availableTemplates = useMemo(
-		() =>
-			allowSwitchingTemplate
-				? templates.filter(
-						( template ) =>
-							template.is_custom &&
-							template.slug !== data.template &&
-							!! template.content.raw // Skip empty templates.
-				  )
-				: [],
-		[ allowSwitchingTemplate, templates, data.template ]
+			const isPostsPage = getPostsPageId() === +postId;
+			const isFrontPage =
+				postType === 'page' && getHomePage()?.postId === +postId;
+
+			return ! isPostsPage && ! isFrontPage;
+		},
+		[ postId, postType ]
+	);
+
+	const { availableTemplates, templates } = useSelect(
+		( select ) => {
+			const allTemplates =
+				select( coreStore ).getEntityRecords< WpTemplate >(
+					'postType',
+					'wp_template',
+					{
+						per_page: -1,
+						post_type: postType,
+					}
+				) ?? [];
+
+			return {
+				templates: allTemplates,
+				availableTemplates: allowSwitchingTemplate
+					? allTemplates.filter(
+							( template ) =>
+								template.is_custom &&
+								template.slug !== data.template &&
+								!! template.content.raw // Skip empty templates.
+					  )
+					: [],
+			};
+		},
+		[ allowSwitchingTemplate, data.template, postType ]
 	);
 
 	const templatesAsPatterns = useMemo(
