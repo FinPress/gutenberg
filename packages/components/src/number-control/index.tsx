@@ -35,7 +35,6 @@ function UnforwardedNumberControl(
 	forwardedRef: ForwardedRef< any >
 ) {
 	const {
-		__next40pxDefaultSize,
 		__unstableStateReducer: stateReducerProp,
 		className,
 		dragDirection = 'n',
@@ -62,7 +61,7 @@ function UnforwardedNumberControl(
 	maybeWarnDeprecated36pxSize( {
 		componentName: 'NumberControl',
 		size,
-		__next40pxDefaultSize,
+		__next40pxDefaultSize: restProps.__next40pxDefaultSize,
 		__shouldNotWarnDeprecated36pxSize,
 	} );
 

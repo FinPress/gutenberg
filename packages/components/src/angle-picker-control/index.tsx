@@ -63,7 +63,6 @@ function UnforwardedAnglePickerControl(
 					max={ 360 }
 					min={ 0 }
 					onChange={ handleOnNumberChange }
-					size="__unstable-large"
 					step="1"
 					value={ value }
 					spinControls="none"

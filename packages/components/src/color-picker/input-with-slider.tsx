@@ -46,7 +46,6 @@ export const InputWithSlider = ( {
 					</InputControlPrefixWrapper>
 				}
 				spinControls="none"
-				size="__unstable-large"
 			/>
 			<RangeControl
 				__nextHasNoMarginBottom
