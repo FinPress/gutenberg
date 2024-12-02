@@ -337,7 +337,7 @@ class DependencyExtractionWebpackPlugin {
 			// `RealContentHashPlugin` after minification, but it only modifies
 			// already-produced asset filenames and the updated hash is not
 			// available to plugins.
-			const { hashFunction, hashDigest, hashDigestLength, uniqueName } =
+			const { hashFunction, hashDigest, hashDigestLength } =
 				compilation.outputOptions;
 
 			const hashBuilder = createHash( hashFunction );
@@ -389,7 +389,7 @@ class DependencyExtractionWebpackPlugin {
 
 			if ( compilation.options?.optimization?.runtimeChunk !== false ) {
 				assetData.handle =
-					uniqueName +
+					compilation.name +
 					'-' +
 					chunkJSFile
 						.replace( /\\/g, '/' )
