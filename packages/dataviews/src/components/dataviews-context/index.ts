@@ -44,7 +44,7 @@ const DataViewsContext = createContext< DataViewsContextType< any > >( {
 	setOpenedFilter: () => {},
 	openedFilter: null,
 	getItemId: ( item ) => item.id,
-	isItemClickable: () => false,
+	isItemClickable: () => true,
 } );
 
 export default DataViewsContext;
