@@ -131,42 +131,40 @@ function PostEditForm( { postType, postId } ) {
 		setMultiEdits( {} );
 	}, [ ids ] );
 
-	return (
-		<VStack spacing={ 4 }>
-			{ ids.length === 1 && (
-				<PostCardPanel postType={ postType } postId={ ids[ 0 ] } />
-			) }
-			<DataForm
-				data={ ids.length === 1 ? record : multiEdits }
-				fields={ fields }
-				form={ form }
-				onChange={ onChange }
-			/>
-		</VStack>
-	);
-}
-
-export function PostEdit( { postType, postId } ) {
 	const { ExperimentalBlockEditorProvider } = unlock(
 		blockEditorPrivateApis
 	);
 	const settings = usePatternSettings();
-	// Wrap everything in a block editor provider.
-	// This ensures 'styles' that are needed for the previews are synced
-	// from the site editor store to the block editor store.
+
 	return (
 		<ExperimentalBlockEditorProvider settings={ settings }>
-			<Page
-				className={ clsx( 'edit-site-post-edit', {
-					'is-empty': ! postId,
-				} ) }
-				label={ __( 'Post Edit' ) }
-			>
-				{ postId && (
-					<PostEditForm postType={ postType } postId={ postId } />
+			<VStack spacing={ 4 }>
+				{ ids.length === 1 && (
+					<PostCardPanel postType={ postType } postId={ ids[ 0 ] } />
 				) }
-				{ ! postId && <p>{ __( 'Select a page to edit' ) }</p> }
-			</Page>
+				<DataForm
+					data={ ids.length === 1 ? record : multiEdits }
+					fields={ fields }
+					form={ form }
+					onChange={ onChange }
+				/>
+			</VStack>
 		</ExperimentalBlockEditorProvider>
+	);
+}
+
+export function PostEdit( { postType, postId } ) {
+	return (
+		<Page
+			className={ clsx( 'edit-site-post-edit', {
+				'is-empty': ! postId,
+			} ) }
+			label={ __( 'Post Edit' ) }
+		>
+			{ postId && (
+				<PostEditForm postType={ postType } postId={ postId } />
+			) }
+			{ ! postId && <p>{ __( 'Select a page to edit' ) }</p> }
+		</Page>
 	);
 }
