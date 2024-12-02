@@ -31,14 +31,11 @@ function identity( values ) {
  *
  * @param {Object}   props              The component props.
  * @param {Function} props.close        The function to close the dialog.
- * @param {Function} props.renderDialog The function to render the dialog.
+ * @param {boolean}  props.renderDialog Whether to render the component with modal dialog behavior.
  *
  * @return {React.ReactNode} The rendered component.
  */
-export default function EntitiesSavedStates( {
-	close,
-	renderDialog = undefined,
-} ) {
+export default function EntitiesSavedStates( { close, renderDialog = false } ) {
 	const isDirtyProps = useIsDirty();
 	return (
 		<EntitiesSavedStatesExtensible
@@ -58,7 +55,7 @@ export default function EntitiesSavedStates( {
  * @param {Function} props.onSave                Function to call when saving entities.
  * @param {boolean}  props.saveEnabled           Flag indicating if save is enabled.
  * @param {string}   props.saveLabel             Label for the save button.
- * @param {Function} props.renderDialog          Function to render a custom dialog.
+ * @param {boolean}  props.renderDialog          Whether to render the component with modal dialog behavior.
  * @param {Array}    props.dirtyEntityRecords    Array of dirty entity records.
  * @param {boolean}  props.isDirty               Flag indicating if there are dirty entities.
  * @param {Function} props.setUnselectedEntities Function to set unselected entities.
@@ -72,7 +69,7 @@ export function EntitiesSavedStatesExtensible( {
 	onSave = identity,
 	saveEnabled: saveEnabledProp = undefined,
 	saveLabel = __( 'Save' ),
-	renderDialog = undefined,
+	renderDialog = false,
 	dirtyEntityRecords,
 	isDirty,
 	setUnselectedEntities,
@@ -120,8 +117,8 @@ export function EntitiesSavedStatesExtensible( {
 
 	return (
 		<div
-			ref={ saveDialogRef }
-			{ ...saveDialogProps }
+			ref={ renderDialog ? saveDialogRef : undefined }
+			{ ...( renderDialog && saveDialogProps ) }
 			className="entities-saved-states__panel"
 			role={ renderDialog ? 'dialog' : undefined }
 			aria-labelledby={ renderDialog ? dialogLabel : undefined }
@@ -167,24 +164,26 @@ export function EntitiesSavedStatesExtensible( {
 					<strong className="entities-saved-states__text-prompt--header">
 						{ __( 'Are you ready to save?' ) }
 					</strong>
-					{ additionalPrompt }
 				</div>
-				<p id={ renderDialog ? dialogDescription : undefined }>
-					{ isDirty
-						? createInterpolateElement(
-								sprintf(
-									/* translators: %d: number of site changes waiting to be saved. */
-									_n(
-										'There is <strong>%d site change</strong> waiting to be saved.',
-										'There are <strong>%d site changes</strong> waiting to be saved.',
+				<div id={ renderDialog ? dialogDescription : undefined }>
+					{ additionalPrompt }
+					<p>
+						{ isDirty
+							? createInterpolateElement(
+									sprintf(
+										/* translators: %d: number of site changes waiting to be saved. */
+										_n(
+											'There is <strong>%d site change</strong> waiting to be saved.',
+											'There are <strong>%d site changes</strong> waiting to be saved.',
+											dirtyEntityRecords.length
+										),
 										dirtyEntityRecords.length
 									),
-									dirtyEntityRecords.length
-								),
-								{ strong: <strong /> }
-						  )
-						: __( 'Select the items you want to save.' ) }
-				</p>
+									{ strong: <strong /> }
+							  )
+							: __( 'Select the items you want to save.' ) }
+					</p>
+				</div>
 			</div>
 
 			{ sortedPartitionedSavables.map( ( list ) => {
