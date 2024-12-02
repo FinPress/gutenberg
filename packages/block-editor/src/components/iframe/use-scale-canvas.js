@@ -406,11 +406,10 @@ export function useScaleCanvas( {
 				// appenders may appear or disappear, so we need to get the height from
 				// the iframe at this point when we're about to animate the zoom out.
 				// The iframe scrollTop, scrollHeight, and clientHeight will all be
-				// the most accurate. clientHeight has a performance hit though, so we
-				// rely on containerHeight from the resize listener.
+				// the most accurate.
 				transitionFromRef.current.containerHeight =
 					transitionFromRef.current.containerHeight ??
-					containerHeight;
+					containerHeight; // Use containerHeight, as it's the previous container height value if none was set.
 				transitionFromRef.current.scrollTop =
 					iframeDocument.documentElement.scrollTop;
 				transitionFromRef.current.scrollHeight =
@@ -419,7 +418,8 @@ export function useScaleCanvas( {
 				transitionToRef.current = {
 					scaleValue,
 					frameSize,
-					containerHeight,
+					containerHeight:
+						iframeDocument.documentElement.clientHeight, // use clientHeight to get the actual height of the new container, as it will be the most up-to-date.
 				};
 				transitionToRef.current.scrollTop = computeScrollTopNext(
 					transitionFromRef.current,
