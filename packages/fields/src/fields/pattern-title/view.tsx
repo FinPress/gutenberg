@@ -18,7 +18,7 @@ export const { PATTERN_TYPES } = unlock( patternPrivateApis );
 
 export default function PatternTitleView( { item }: { item: CommonPost } ) {
 	return (
-		<BaseTitleView item={ item }>
+		<BaseTitleView item={ item } className="fields-pattern-title-field">
 			{ item.type === PATTERN_TYPES.theme && (
 				<Tooltip
 					placement="top"

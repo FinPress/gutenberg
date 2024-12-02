@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import clsx from 'clsx';
 import type { ReactNode } from 'react';
 
 /**
@@ -17,15 +18,17 @@ import { getItemTitle } from '../../actions/utils';
 
 export function BaseTitleView( {
 	item,
+	className,
 	children,
 }: {
 	item: CommonPost;
+	className?: string;
 	children?: ReactNode;
 } ) {
 	const renderedTitle = getItemTitle( item );
 	return (
 		<HStack
-			className="fields-title-field"
+			className={ clsx( 'fields-title-field', className ) }
 			alignment="center"
 			justify="flex-start"
 		>
