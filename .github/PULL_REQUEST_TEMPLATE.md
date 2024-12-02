@@ -21,6 +21,8 @@ https://github.com/WordPress/gutenberg/blob/trunk/CONTRIBUTING.md -->
 
 ## Screenshots or screencast <!-- if applicable -->
 
+<!-- If you would like to upload screenshots, feel free to use the table below when it is useful to show the difference between before and after the change. -->
+
 |Before|After|
 |-|-|
 |<!-- Before screenshot here -->|<!-- After screenshot here -->|
