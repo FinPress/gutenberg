@@ -67,6 +67,10 @@ Featured Image field for BasePost.
 
 Order field for BasePost.
 
+### pageTitleField
+
+Undocumented declaration.
+
 ### parentField
 
 Parent field for BasePost.
@@ -74,6 +78,10 @@ Parent field for BasePost.
 ### passwordField
 
 Password field for BasePost.
+
+### patternTitleField
+
+Undocumented declaration.
 
 ### permanentlyDeletePost
 

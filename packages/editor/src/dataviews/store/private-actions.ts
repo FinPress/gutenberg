@@ -4,12 +4,6 @@
 import { store as coreStore } from '@wordpress/core-data';
 import type { Action, Field } from '@wordpress/dataviews';
 import { doAction } from '@wordpress/hooks';
-
-/**
- * Internal dependencies
- */
-import { store as editorStore } from '../../store';
-import { unlock } from '../../lock-unlock';
 import type { PostType } from '@wordpress/fields';
 import {
 	viewPost,
@@ -35,7 +29,28 @@ import {
 	authorField,
 	titleField,
 	templateField,
+	templateTitleField,
+	pageTitleField,
 } from '@wordpress/fields';
+
+/**
+ * Internal dependencies
+ */
+import { store as editorStore } from '../../store';
+import { unlock } from '../../lock-unlock';
+import {
+	NAVIGATION_POST_TYPE,
+	PATTERN_POST_TYPE,
+	TEMPLATE_PART_POST_TYPE,
+	TEMPLATE_POST_TYPE,
+} from '../../store/constants';
+
+const DESIGN_POST_TYPES = [
+	PATTERN_POST_TYPE,
+	TEMPLATE_POST_TYPE,
+	NAVIGATION_POST_TYPE,
+	TEMPLATE_PART_POST_TYPE,
+];
 
 export function registerEntityAction< Item >(
 	kind: string,
@@ -127,6 +142,7 @@ export const registerPostTypeSchema =
 			.resolveSelect( coreStore )
 			.getCurrentTheme();
 
+		const isDeisgnPostType = DESIGN_POST_TYPES.includes( postType );
 		const actions = [
 			postTypeConfig.viewable ? viewPost : undefined,
 			!! postTypeConfig.supports?.revisions
@@ -134,25 +150,19 @@ export const registerPostTypeSchema =
 				: undefined,
 			// @ts-ignore
 			globalThis.IS_GUTENBERG_PLUGIN
-				? ! [ 'wp_template', 'wp_block', 'wp_template_part' ].includes(
-						postTypeConfig.slug
-				  ) &&
-				  canCreate &&
-				  duplicatePost
+				? ! isDeisgnPostType && canCreate && duplicatePost
 				: undefined,
 			postTypeConfig.slug === 'wp_template_part' &&
 			canCreate &&
 			currentTheme?.is_block_theme
 				? duplicateTemplatePart
 				: undefined,
-			canCreate && postTypeConfig.slug === 'wp_block'
-				? duplicatePattern
-				: undefined,
+			canCreate && postType === 'wp_block' ? duplicatePattern : undefined,
 			postTypeConfig.supports?.title ? renamePost : undefined,
 			postTypeConfig.supports?.[ 'page-attributes' ]
 				? reorderPage
 				: undefined,
-			postTypeConfig.slug === 'wp_block' ? exportPattern : undefined,
+			postType === 'wp_block' ? exportPattern : undefined,
 			restorePost,
 			resetPost,
 			deletePost,
@@ -164,15 +174,18 @@ export const registerPostTypeSchema =
 			postTypeConfig.supports?.thumbnail &&
 				currentTheme?.theme_supports?.[ 'post-thumbnails' ] &&
 				featuredImageField,
-			titleField,
+			! isDeisgnPostType &&
+				postTypeConfig.supports?.title &&
+				( postType === 'page' ? pageTitleField : titleField ),
+			postType === TEMPLATE_POST_TYPE && templateTitleField,
 			postTypeConfig.supports?.author && authorField,
 			statusField,
 			dateField,
 			slugField,
 			postTypeConfig.supports?.[ 'page-attributes' ] && parentField,
 			postTypeConfig.supports?.comments && commentStatusField,
-			passwordField,
 			templateField,
+			! isDeisgnPostType && passwordField,
 		].filter( Boolean );
 
 		registry.batch( () => {

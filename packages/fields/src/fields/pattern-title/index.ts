@@ -7,18 +7,19 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import type { Template } from '../../types';
+import type { Pattern } from '../../types';
 import { getItemTitle } from '../../actions/utils';
-import TitleView from '../title/view';
+import PatternTitleView from './view';
 
-const templateTitleField: Field< Template > = {
+const patternTitleField: Field< Pattern > = {
 	type: 'text',
-	label: __( 'Template' ),
 	id: 'title',
+	label: __( 'Title' ),
+	placeholder: __( 'No title' ),
 	getValue: ( { item } ) => getItemTitle( item ),
-	render: TitleView,
+	render: PatternTitleView,
 	enableHiding: false,
 	enableGlobalSearch: true,
 };
 
-export default templateTitleField;
+export default patternTitleField;

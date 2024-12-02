@@ -7,18 +7,19 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import type { BasePost } from '../../types';
+import type { CommonPost } from '../../types';
 import { getItemTitle } from '../../actions/utils';
-import { PostTitleView } from './view';
+import TitleView from './view';
 
-const titleField: Field< BasePost > = {
+const titleField: Field< CommonPost > = {
 	type: 'text',
 	id: 'title',
 	label: __( 'Title' ),
 	placeholder: __( 'No title' ),
 	getValue: ( { item } ) => getItemTitle( item ),
-	render: PostTitleView,
+	render: TitleView,
 	enableHiding: false,
+	enableGlobalSearch: true,
 };
 
 /**
