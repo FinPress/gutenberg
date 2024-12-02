@@ -38,7 +38,7 @@ export const buttonView = ( {
 	background: transparent;
 	border: none;
 	border-radius: ${ CONFIG.radiusXSmall };
-	color: ${ COLORS.gray[ 700 ] };
+	color: ${ COLORS.gray[ 900 ] };
 	fill: currentColor;
 	cursor: pointer;
 	display: flex;
