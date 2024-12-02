@@ -41,11 +41,7 @@ const EMPTY_ARRAY = [];
 const defaultLayouts = {
 	[ LAYOUT_TABLE ]: {
 		layout: {
-			primaryField: 'title',
 			styles: {
-				preview: {
-					width: '1%',
-				},
 				author: {
 					width: '1%',
 				},
@@ -54,8 +50,6 @@ const defaultLayouts = {
 	},
 	[ LAYOUT_GRID ]: {
 		layout: {
-			mediaField: 'preview',
-			primaryField: 'title',
 			badgeFields: [ 'sync-status' ],
 		},
 	},
@@ -65,8 +59,10 @@ const DEFAULT_VIEW = {
 	search: '',
 	page: 1,
 	perPage: 20,
+	titleField: 'title',
+	mediaField: 'preview',
 	layout: defaultLayouts[ LAYOUT_GRID ].layout,
-	fields: [ 'title', 'sync-status' ],
+	fields: [ 'sync-status' ],
 	filters: [],
 };
 

@@ -29,25 +29,18 @@ import {
 export const defaultLayouts = {
 	[ LAYOUT_TABLE ]: {
 		layout: {
-			primaryField: 'title',
 			styles: {
-				title: {
+				__primary: {
 					maxWidth: 300,
 				},
 			},
 		},
 	},
 	[ LAYOUT_GRID ]: {
-		layout: {
-			mediaField: 'featured_media',
-			primaryField: 'title',
-		},
+		layout: {},
 	},
 	[ LAYOUT_LIST ]: {
-		layout: {
-			primaryField: 'title',
-			mediaField: 'featured_media',
-		},
+		layout: {},
 	},
 };
 
@@ -61,8 +54,10 @@ const DEFAULT_POST_BASE = {
 		field: 'date',
 		direction: 'desc',
 	},
-	fields: [ 'title', 'author', 'status' ],
-	layout: defaultLayouts[ LAYOUT_LIST ].layout,
+	titleField: 'title',
+	mediaField: 'featured_media',
+	fields: [ 'author', 'status' ],
+	...defaultLayouts[ LAYOUT_LIST ],
 };
 
 export function useDefaultViews( { postType } ) {

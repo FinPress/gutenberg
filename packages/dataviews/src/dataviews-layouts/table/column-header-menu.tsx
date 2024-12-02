@@ -27,7 +27,6 @@ import type {
 	ViewTable as ViewTableType,
 	Operator,
 } from '../../types';
-import { getVisibleFieldIds } from '../index';
 
 const { Menu } = unlock( componentsPrivateApis );
 
@@ -62,43 +61,34 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 	}: HeaderMenuProps< Item >,
 	ref: Ref< HTMLButtonElement >
 ) {
-	const visibleFieldIds = getVisibleFieldIds( view, fields );
+	const visibleFieldIds = view.fields ?? [];
 	const index = visibleFieldIds?.indexOf( fieldId ) as number;
 	const isSorted = view.sort?.field === fieldId;
 	let isHidable = false;
 	let isSortable = false;
 	let canAddFilter = false;
-	let header;
 	let operators: Operator[] = [];
-
-	const combinedField = view.layout?.combinedFields?.find(
-		( f ) => f.id === fieldId
-	);
 	const field = fields.find( ( f ) => f.id === fieldId );
 
-	if ( ! combinedField ) {
-		if ( ! field ) {
-			// No combined or regular field found.
-			return null;
-		}
-
-		isHidable = field.enableHiding !== false;
-		isSortable = field.enableSorting !== false;
-		header = field.header;
-
-		operators = sanitizeOperators( field );
-		// Filter can be added:
-		// 1. If the field is not already part of a view's filters.
-		// 2. If the field meets the type and operator requirements.
-		// 3. If it's not primary. If it is, it should be already visible.
-		canAddFilter =
-			! view.filters?.some( ( _filter ) => fieldId === _filter.field ) &&
-			!! field.elements?.length &&
-			!! operators.length &&
-			! field.filterBy?.isPrimary;
-	} else {
-		header = combinedField.header || combinedField.label;
+	if ( ! field ) {
+		// No combined or regular field found.
+		return null;
 	}
+
+	isHidable = field.enableHiding !== false;
+	isSortable = field.enableSorting !== false;
+	const header = field.header;
+
+	operators = sanitizeOperators( field );
+	// Filter can be added:
+	// 1. If the field is not already part of a view's filters.
+	// 2. If the field meets the type and operator requirements.
+	// 3. If it's not primary. If it is, it should be already visible.
+	canAddFilter =
+		! view.filters?.some( ( _filter ) => fieldId === _filter.field ) &&
+		!! field.elements?.length &&
+		!! operators.length &&
+		! field.filterBy?.isPrimary;
 
 	return (
 		<Menu

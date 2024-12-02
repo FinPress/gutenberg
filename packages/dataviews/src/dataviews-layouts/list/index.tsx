@@ -42,10 +42,11 @@ interface ListViewItemProps< Item > {
 	idPrefix: string;
 	isSelected: boolean;
 	item: Item;
+	titleField?: NormalizedField< Item >;
 	mediaField?: NormalizedField< Item >;
+	descriptionField?: NormalizedField< Item >;
 	onSelect: ( item: Item ) => void;
-	primaryField?: NormalizedField< Item >;
-	visibleFields: NormalizedField< Item >[];
+	otherFields: NormalizedField< Item >[];
 	onDropdownTriggerKeyDown: React.KeyboardEventHandler< HTMLButtonElement >;
 }
 
@@ -134,10 +135,11 @@ function ListItem< Item >( {
 	idPrefix,
 	isSelected,
 	item,
+	titleField,
 	mediaField,
+	descriptionField,
 	onSelect,
-	primaryField,
-	visibleFields,
+	otherFields,
 	onDropdownTriggerKeyDown,
 }: ListViewItemProps< Item > ) {
 	const itemRef = useRef< HTMLDivElement >( null );
@@ -183,8 +185,8 @@ function ListItem< Item >( {
 		</div>
 	) : null;
 
-	const renderedPrimaryField = primaryField?.render ? (
-		<primaryField.render item={ item } />
+	const renderedTitleField = titleField?.render ? (
+		<titleField.render item={ item } />
 	) : null;
 
 	const usedActions = eligibleActions?.length > 0 && (
@@ -259,18 +261,23 @@ function ListItem< Item >( {
 					>
 						<HStack spacing={ 0 }>
 							<div
-								className="dataviews-view-list__primary-field"
+								className="dataviews-primary-field"
 								id={ labelId }
 							>
-								{ renderedPrimaryField }
+								{ renderedTitleField }
 							</div>
 							{ usedActions }
 						</HStack>
+						{ descriptionField?.render && (
+							<div className="dataviews-view-list__field">
+								<descriptionField.render item={ item } />
+							</div>
+						) }
 						<div
 							className="dataviews-view-list__fields"
 							id={ descriptionId }
 						>
-							{ visibleFields.map( ( field ) => (
+							{ otherFields.map( ( field ) => (
 								<div
 									key={ field.id }
 									className="dataviews-view-list__field"
@@ -310,20 +317,19 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 	const selectedItem = data?.findLast( ( item ) =>
 		selection.includes( getItemId( item ) )
 	);
-
-	const mediaField = fields.find(
-		( field ) => field.id === view.layout?.mediaField
+	const titleField = fields.find( ( field ) => field.id === view.titleField );
+	const mediaField = fields.find( ( field ) => field.id === view.mediaField );
+	const descriptionField = fields.find(
+		( field ) => field.id === view.descriptionField
 	);
-	const primaryField = fields.find(
-		( field ) => field.id === view.layout?.primaryField
-	);
-	const viewFields = view.fields || fields.map( ( field ) => field.id );
-	const visibleFields = fields.filter(
+	const otherFields = fields.filter(
 		( field ) =>
-			viewFields.includes( field.id ) &&
-			! [ view.layout?.primaryField, view.layout?.mediaField ].includes(
-				field.id
-			)
+			( view.fields ?? [] ).includes( field.id ) &&
+			! [
+				view.titleField,
+				view.mediaField,
+				view.descriptionField,
+			].includes( field.id )
 	);
 
 	const onSelect = ( item: Item ) =>
@@ -471,8 +477,9 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 						isSelected={ item === selectedItem }
 						onSelect={ onSelect }
 						mediaField={ mediaField }
-						primaryField={ primaryField }
-						visibleFields={ visibleFields }
+						titleField={ titleField }
+						descriptionField={ descriptionField }
+						otherFields={ otherFields }
 						onDropdownTriggerKeyDown={ onDropdownTriggerKeyDown }
 					/>
 				);
