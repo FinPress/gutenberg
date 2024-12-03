@@ -22,12 +22,18 @@ import { __ } from '@wordpress/i18n';
 import ItemActions from '../../components/dataviews-item-actions';
 import DataViewsSelectionCheckbox from '../../components/dataviews-selection-checkbox';
 import { useHasAPossibleBulkAction } from '../../components/dataviews-bulk-actions';
-import type { Action, NormalizedField, ViewGridProps } from '../../types';
+import type {
+	Action,
+	NormalizedField,
+	ViewGrid as ViewGridType,
+	ViewGridProps,
+} from '../../types';
 import type { SetSelection } from '../../private-types';
 import getClickableItemProps from '../utils/get-clickable-item-props';
 import { useUpdatedPreviewSizeOnViewportChange } from './preview-size-picker';
 
 interface GridItemProps< Item > {
+	view: ViewGridType;
 	selection: string[];
 	onChangeSelection: SetSelection;
 	getItemId: ( item: Item ) => string;
@@ -43,6 +49,7 @@ interface GridItemProps< Item > {
 }
 
 function GridItem< Item >( {
+	view,
 	selection,
 	onChangeSelection,
 	onClickItem,
@@ -56,15 +63,17 @@ function GridItem< Item >( {
 	regularFields,
 	badgeFields,
 }: GridItemProps< Item > ) {
+	const { showTitle = true, showMedia = true, showDescription = true } = view;
 	const hasBulkAction = useHasAPossibleBulkAction( actions, item );
 	const id = getItemId( item );
 	const isSelected = selection.includes( id );
 	const renderedMediaField = mediaField?.render ? (
 		<mediaField.render item={ item } />
 	) : null;
-	const renderedTitleField = titleField?.render ? (
-		<titleField.render item={ item } />
-	) : null;
+	const renderedTitleField =
+		showTitle && titleField?.render ? (
+			<titleField.render item={ item } />
+		) : null;
 
 	const clickableMediaItemProps = getClickableItemProps( {
 		item,
@@ -102,15 +111,19 @@ function GridItem< Item >( {
 				}
 			} }
 		>
-			<div { ...clickableMediaItemProps }>{ renderedMediaField }</div>
-			<DataViewsSelectionCheckbox
-				item={ item }
-				selection={ selection }
-				onChangeSelection={ onChangeSelection }
-				getItemId={ getItemId }
-				titleField={ titleField }
-				disabled={ ! hasBulkAction }
-			/>
+			{ showMedia && (
+				<div { ...clickableMediaItemProps }>{ renderedMediaField }</div>
+			) }
+			{ showMedia && (
+				<DataViewsSelectionCheckbox
+					item={ item }
+					selection={ selection }
+					onChangeSelection={ onChangeSelection }
+					getItemId={ getItemId }
+					titleField={ titleField }
+					disabled={ ! hasBulkAction }
+				/>
+			) }
 			<HStack
 				justify="space-between"
 				className="dataviews-view-grid__title-actions"
@@ -121,7 +134,7 @@ function GridItem< Item >( {
 				<ItemActions item={ item } actions={ actions } isCompact />
 			</HStack>
 			<VStack spacing={ 1 }>
-				{ descriptionField?.render && (
+				{ showDescription && descriptionField?.render && (
 					<descriptionField.render item={ item } />
 				) }
 				{ !! badgeFields?.length && (
@@ -248,6 +261,7 @@ export default function ViewGrid< Item >( {
 						return (
 							<GridItem
 								key={ getItemId( item ) }
+								view={ view }
 								selection={ selection }
 								onChangeSelection={ onChangeSelection }
 								onClickItem={ onClickItem }

@@ -91,7 +91,7 @@ function TableRow< Item >( {
 	const hasPossibleBulkAction = useHasAPossibleBulkAction( actions, item );
 	const isSelected = hasPossibleBulkAction && selection.includes( id );
 	const [ isHovered, setIsHovered ] = useState( false );
-
+	const { showTitle = true, showMedia = true, showDescription = true } = view;
 	const handleMouseEnter = () => {
 		setIsHovered( true );
 	};
@@ -104,7 +104,10 @@ function TableRow< Item >( {
 	// behaviours.
 	const isTouchDeviceRef = useRef( false );
 	const columns = view.fields ?? [];
-	const hasPrimaryColumn = titleField || mediaField || descriptionField;
+	const hasPrimaryColumn =
+		( titleField && showTitle ) ||
+		( mediaField && showMedia ) ||
+		( descriptionField && showDescription );
 
 	return (
 		<tr
@@ -157,9 +160,11 @@ function TableRow< Item >( {
 				<td>
 					<ColumnPrimary
 						item={ item }
-						titleField={ titleField }
-						mediaField={ mediaField }
-						descriptionField={ descriptionField }
+						titleField={ showTitle ? titleField : undefined }
+						mediaField={ showMedia ? mediaField : undefined }
+						descriptionField={
+							showDescription ? descriptionField : undefined
+						}
 						isItemClickable={ isItemClickable }
 						onClickItem={ onClickItem }
 					/>
@@ -256,7 +261,11 @@ function ViewTable< Item >( {
 	const descriptionField = fields.find(
 		( field ) => field.id === view.descriptionField
 	);
-	const hasPrimaryColumn = titleField || mediaField || descriptionField;
+	const { showTitle = true, showMedia = true, showDescription = true } = view;
+	const hasPrimaryColumn =
+		( titleField && showTitle ) ||
+		( mediaField && showMedia ) ||
+		( descriptionField && showDescription );
 	const columns = view.fields ?? [];
 
 	return (

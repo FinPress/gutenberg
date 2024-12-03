@@ -33,12 +33,7 @@ import { useInstanceId } from '@wordpress/compose';
 /**
  * Internal dependencies
  */
-import {
-	SORTING_DIRECTIONS,
-	LAYOUT_TABLE,
-	sortIcons,
-	sortLabels,
-} from '../../constants';
+import { SORTING_DIRECTIONS, sortIcons, sortLabels } from '../../constants';
 import { VIEW_LAYOUTS } from '../../dataviews-layouts';
 import type { NormalizedField, SupportedLayouts, View } from '../../types';
 import DataViewsContext from '../dataviews-context';
@@ -234,6 +229,92 @@ function ItemsPerPageControl() {
 }
 
 function FieldItem( {
+	field,
+	isVisible,
+	isFirst,
+	isLast,
+	onToggleVisibility,
+	onMoveUp,
+	onMoveDown,
+}: {
+	field: NormalizedField< any >;
+	isVisible: boolean;
+	isFirst?: boolean;
+	isLast?: boolean;
+	onToggleVisibility?: () => void;
+	onMoveUp?: () => void;
+	onMoveDown?: () => void;
+} ) {
+	return (
+		<Item>
+			<HStack
+				expanded
+				className={ `dataviews-field-control__field dataviews-field-control__field-${ field.id }` }
+			>
+				<span>{ field.label }</span>
+				<HStack
+					justify="flex-end"
+					expanded={ false }
+					className="dataviews-field-control__actions"
+				>
+					{ onMoveUp && onMoveDown && isVisible && (
+						<>
+							<Button
+								disabled={ isFirst }
+								accessibleWhenDisabled
+								size="compact"
+								onClick={ onMoveUp }
+								icon={ chevronUp }
+								label={ sprintf(
+									/* translators: %s: field label */
+									__( 'Move %s up' ),
+									field.label
+								) }
+							/>
+							<Button
+								disabled={ isLast }
+								accessibleWhenDisabled
+								size="compact"
+								onClick={ onMoveDown }
+								icon={ chevronDown }
+								label={ sprintf(
+									/* translators: %s: field label */
+									__( 'Move %s down' ),
+									field.label
+								) }
+							/>
+						</>
+					) }
+					{ onToggleVisibility && (
+						<Button
+							className="dataviews-field-control__field-visibility-button"
+							disabled={ ! field.enableHiding }
+							accessibleWhenDisabled
+							size="compact"
+							onClick={ onToggleVisibility }
+							icon={ isVisible ? unseen : seen }
+							label={
+								isVisible
+									? sprintf(
+											/* translators: %s: field label */
+											_x( 'Hide %s', 'field' ),
+											field.label
+									  )
+									: sprintf(
+											/* translators: %s: field label */
+											_x( 'Show %s', 'field' ),
+											field.label
+									  )
+							}
+						/>
+					) }
+				</HStack>
+			</HStack>
+		</Item>
+	);
+}
+
+function RegularFieldItem( {
 	index,
 	field,
 	view,
@@ -249,119 +330,67 @@ function FieldItem( {
 		index !== undefined && visibleFieldIds.includes( field.id );
 
 	return (
-		<Item key={ field.id }>
-			<HStack
-				expanded
-				className={ `dataviews-field-control__field dataviews-field-control__field-${ field.id }` }
-			>
-				<span>{ field.label }</span>
-				<HStack
-					justify="flex-end"
-					expanded={ false }
-					className="dataviews-field-control__actions"
-				>
-					{ view.type === LAYOUT_TABLE && isVisible && (
-						<>
-							<Button
-								disabled={ index < 1 }
-								accessibleWhenDisabled
-								size="compact"
-								onClick={ () => {
-									onChangeView( {
-										...view,
-										fields: [
-											...( visibleFieldIds.slice(
-												0,
-												index - 1
-											) ?? [] ),
-											field.id,
-											visibleFieldIds[ index - 1 ],
-											...visibleFieldIds.slice(
-												index + 1
-											),
-										],
-									} );
-								} }
-								icon={ chevronUp }
-								label={ sprintf(
-									/* translators: %s: field label */
-									__( 'Move %s up' ),
-									field.label
-								) }
-							/>
-							<Button
-								disabled={ index >= visibleFieldIds.length - 1 }
-								accessibleWhenDisabled
-								size="compact"
-								onClick={ () => {
-									onChangeView( {
-										...view,
-										fields: [
-											...( visibleFieldIds.slice(
-												0,
-												index
-											) ?? [] ),
-											visibleFieldIds[ index + 1 ],
-											field.id,
-											...visibleFieldIds.slice(
-												index + 2
-											),
-										],
-									} );
-								} }
-								icon={ chevronDown }
-								label={ sprintf(
-									/* translators: %s: field label */
-									__( 'Move %s down' ),
-									field.label
-								) }
-							/>{ ' ' }
-						</>
-					) }
-					<Button
-						className="dataviews-field-control__field-visibility-button"
-						disabled={ ! field.enableHiding }
-						accessibleWhenDisabled
-						size="compact"
-						onClick={ () => {
+		<FieldItem
+			field={ field }
+			isVisible={ isVisible }
+			isFirst={ !! index && index < 1 }
+			isLast={ !! index && index === visibleFieldIds.length - 1 }
+			onToggleVisibility={ () => {
+				onChangeView( {
+					...view,
+					fields: isVisible
+						? visibleFieldIds.filter(
+								( fieldId ) => fieldId !== field.id
+						  )
+						: [ ...visibleFieldIds, field.id ],
+				} );
+				// Focus the visibility button to avoid focus loss.
+				// Our code is safe against the component being unmounted, so we don't need to worry about cleaning the timeout.
+				// eslint-disable-next-line @wordpress/react-no-unsafe-timeout
+				setTimeout( () => {
+					const element = document.querySelector(
+						`.dataviews-field-control__field-${ field.id } .dataviews-field-control__field-visibility-button`
+					);
+					if ( element instanceof HTMLElement ) {
+						element.focus();
+					}
+				}, 50 );
+			} }
+			onMoveUp={
+				index
+					? () => {
 							onChangeView( {
 								...view,
-								fields: isVisible
-									? visibleFieldIds.filter(
-											( fieldId ) => fieldId !== field.id
-									  )
-									: [ ...visibleFieldIds, field.id ],
+								fields: [
+									...( visibleFieldIds.slice(
+										0,
+										index - 1
+									) ?? [] ),
+									field.id,
+									visibleFieldIds[ index - 1 ],
+									...visibleFieldIds.slice( index + 1 ),
+								],
 							} );
-							// Focus the visibility button to avoid focus loss.
-							// Our code is safe against the component being unmounted, so we don't need to worry about cleaning the timeout.
-							// eslint-disable-next-line @wordpress/react-no-unsafe-timeout
-							setTimeout( () => {
-								const element = document.querySelector(
-									`.dataviews-field-control__field-${ field.id } .dataviews-field-control__field-visibility-button`
-								);
-								if ( element instanceof HTMLElement ) {
-									element.focus();
-								}
-							}, 50 );
-						} }
-						icon={ isVisible ? unseen : seen }
-						label={
-							isVisible
-								? sprintf(
-										/* translators: %s: field label */
-										_x( 'Hide %s', 'field' ),
-										field.label
-								  )
-								: sprintf(
-										/* translators: %s: field label */
-										_x( 'Show %s', 'field' ),
-										field.label
-								  )
-						}
-					/>
-				</HStack>
-			</HStack>
-		</Item>
+					  }
+					: undefined
+			}
+			onMoveDown={
+				index
+					? () => {
+							onChangeView( {
+								...view,
+								fields: [
+									...( visibleFieldIds.slice( 0, index ) ??
+										[] ),
+									visibleFieldIds[ index + 1 ],
+									field.id,
+									...visibleFieldIds.slice( index + 2 ),
+								],
+							} );
+					  }
+					: undefined
+			}
+		/>
 	);
 }
 
@@ -390,13 +419,59 @@ function FieldControl() {
 	if ( ! visibleFields?.length && ! hiddenFields?.length ) {
 		return null;
 	}
+	const titleField = fields.find( ( f ) => f.id === view.titleField );
+	const mediaField = fields.find( ( f ) => f.id === view.mediaField );
+	const descriptionField = fields.find(
+		( f ) => f.id === view.descriptionField
+	);
+	const { showTitle = true, showMedia = true, showDescription = true } = view;
 
 	return (
 		<VStack spacing={ 6 } className="dataviews-field-control">
+			{ togglableFields.length > 0 && (
+				<ItemGroup isBordered isSeparated>
+					{ titleField && (
+						<FieldItem
+							field={ titleField }
+							isVisible={ showTitle }
+							onToggleVisibility={ () => {
+								onChangeView( {
+									...view,
+									showTitle: ! showTitle,
+								} );
+							} }
+						/>
+					) }
+					{ mediaField && (
+						<FieldItem
+							field={ mediaField }
+							isVisible={ showMedia }
+							onToggleVisibility={ () => {
+								onChangeView( {
+									...view,
+									showMedia: ! showMedia,
+								} );
+							} }
+						/>
+					) }
+					{ descriptionField && (
+						<FieldItem
+							field={ descriptionField }
+							isVisible={ showDescription }
+							onToggleVisibility={ () => {
+								onChangeView( {
+									...view,
+									showDescription: ! showDescription,
+								} );
+							} }
+						/>
+					) }
+				</ItemGroup>
+			) }
 			{ !! visibleFields?.length && (
 				<ItemGroup isBordered isSeparated>
 					{ visibleFields.map( ( field, index ) => (
-						<FieldItem
+						<RegularFieldItem
 							key={ field.id }
 							field={ field }
 							view={ view }
@@ -414,7 +489,7 @@ function FieldControl() {
 						</BaseControl.VisualLabel>
 						<ItemGroup isBordered isSeparated>
 							{ hiddenFields.map( ( field ) => (
-								<FieldItem
+								<RegularFieldItem
 									key={ field.id }
 									field={ field }
 									view={ view }

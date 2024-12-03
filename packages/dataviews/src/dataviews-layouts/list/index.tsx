@@ -35,9 +35,15 @@ import {
 	ActionsMenuGroup,
 	ActionModal,
 } from '../../components/dataviews-item-actions';
-import type { Action, NormalizedField, ViewListProps } from '../../types';
+import type {
+	Action,
+	NormalizedField,
+	ViewList as ViewListType,
+	ViewListProps,
+} from '../../types';
 
 interface ListViewItemProps< Item > {
+	view: ViewListType;
 	actions: Action< Item >[];
 	idPrefix: string;
 	isSelected: boolean;
@@ -131,6 +137,7 @@ function PrimaryActionGridCell< Item >( {
 }
 
 function ListItem< Item >( {
+	view,
 	actions,
 	idPrefix,
 	isSelected,
@@ -142,6 +149,7 @@ function ListItem< Item >( {
 	otherFields,
 	onDropdownTriggerKeyDown,
 }: ListViewItemProps< Item > ) {
+	const { showTitle = true, showMedia = true, showDescription = true } = view;
 	const itemRef = useRef< HTMLDivElement >( null );
 	const labelId = `${ idPrefix }-label`;
 	const descriptionId = `${ idPrefix }-description`;
@@ -179,15 +187,17 @@ function ListItem< Item >( {
 
 	const hasOnlyOnePrimaryAction = primaryAction && actions.length === 1;
 
-	const renderedMediaField = mediaField?.render ? (
-		<div className="dataviews-view-list__media-wrapper">
-			<mediaField.render item={ item } />
-		</div>
-	) : null;
+	const renderedMediaField =
+		showMedia && mediaField?.render ? (
+			<div className="dataviews-view-list__media-wrapper">
+				<mediaField.render item={ item } />
+			</div>
+		) : null;
 
-	const renderedTitleField = titleField?.render ? (
-		<titleField.render item={ item } />
-	) : null;
+	const renderedTitleField =
+		showTitle && titleField?.render ? (
+			<titleField.render item={ item } />
+		) : null;
 
 	const usedActions = eligibleActions?.length > 0 && (
 		<HStack spacing={ 3 } className="dataviews-view-list__item-actions">
@@ -268,7 +278,7 @@ function ListItem< Item >( {
 							</div>
 							{ usedActions }
 						</HStack>
-						{ descriptionField?.render && (
+						{ showDescription && descriptionField?.render && (
 							<div className="dataviews-view-list__field">
 								<descriptionField.render item={ item } />
 							</div>
@@ -471,6 +481,7 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 				return (
 					<ListItem
 						key={ id }
+						view={ view }
 						idPrefix={ id }
 						actions={ actions }
 						item={ item }

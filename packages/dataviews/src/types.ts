@@ -307,6 +307,21 @@ interface ViewBase {
 	 * Description field
 	 */
 	descriptionField?: string;
+
+	/**
+	 * Whether to show the title
+	 */
+	showTitle?: boolean;
+
+	/**
+	 * Whether to show the media
+	 */
+	showMedia?: boolean;
+
+	/**
+	 * Whether to show the description
+	 */
+	showDescription?: boolean;
 }
 
 export interface ColumnStyle {
