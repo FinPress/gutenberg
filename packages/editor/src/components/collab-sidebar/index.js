@@ -221,13 +221,24 @@ export default function CollabSidebar() {
 	const { enableComplementaryArea } = useDispatch( interfaceStore );
 	const { getActiveComplementaryArea } = useSelect( interfaceStore );
 
-	const { postId, postType, postStatus } = useSelect( ( select ) => {
+	const { postId, postType, postStatus, threads } = useSelect( ( select ) => {
 		const { getCurrentPostId, getCurrentPostType } = select( editorStore );
+		const _postId = getCurrentPostId();
+		const data =
+			!! _postId && typeof _postId === 'number'
+				? select( coreStore ).getEntityRecords( 'root', 'comment', {
+						post: _postId,
+						type: 'block_comment',
+						status: 'any',
+						per_page: 100,
+				  } )
+				: null;
 		return {
-			postId: getCurrentPostId(),
+			postId: _postId,
 			postType: getCurrentPostType(),
 			postStatus:
 				select( editorStore ).getEditedPostAttribute( 'status' ),
+			threads: data,
 		};
 	}, [] );
 
@@ -247,24 +258,6 @@ export default function CollabSidebar() {
 		setShowCommentBoard( true );
 		enableComplementaryArea( 'core', 'edit-post/collab-sidebar' );
 	};
-
-	const { threads } = useSelect( ( select ) => {
-		const { getCurrentPostId } = select( editorStore );
-		const _postId = getCurrentPostId();
-		const data = !! _postId
-			? select( coreStore ).getEntityRecords( 'root', 'comment', {
-					post: _postId,
-					type: 'block_comment',
-					status: 'any',
-					per_page: 100,
-			  } )
-			: null;
-
-		return {
-			postId: _postId,
-			threads: data,
-		};
-	}, [] );
 
 	const [ blocks ] = useEntityBlockEditor( 'postType', postType, {
 		id: postId,
@@ -303,7 +296,7 @@ export default function CollabSidebar() {
 		const blockCommentIds = getCommentIdsFromBlocks( blocks );
 
 		const threadIdMap = new Map(
-			result?.map( ( thread ) => [ thread.id, thread ] )
+			result.map( ( thread ) => [ thread.id, thread ] )
 		);
 
 		const sortedComments = blockCommentIds
