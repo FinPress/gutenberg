@@ -1,11 +1,8 @@
 /**
  * WordPress dependencies
  */
-import {
-	__experimentalUseSlotFills as useSlotFills,
-	__unstableMotionContext as MotionContext,
-} from '@wordpress/components';
-import { useContext, useMemo } from '@wordpress/element';
+import { __experimentalUseSlotFills as useSlotFills } from '@wordpress/components';
+import { useMemo } from '@wordpress/element';
 import warning from '@wordpress/warning';
 import deprecated from '@wordpress/deprecated';
 
@@ -37,17 +34,12 @@ export default function InspectorControlsSlot( {
 	const slotFill = groups[ group ];
 	const fills = useSlotFills( slotFill?.name );
 
-	const motionContextValue = useContext( MotionContext );
-
 	const computedFillProps = useMemo(
 		() => ( {
 			...fillProps,
-			forwardedContext: [
-				...( fillProps?.forwardedContext ?? [] ),
-				[ MotionContext.Provider, { value: motionContextValue } ],
-			],
+			forwardedContext: [ ...( fillProps?.forwardedContext ?? [] ) ],
 		} ),
-		[ motionContextValue, fillProps ]
+		[ fillProps ]
 	);
 
 	if ( ! slotFill ) {
