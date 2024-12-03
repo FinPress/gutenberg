@@ -50,10 +50,7 @@ addFilter(
 	modifyBlockCommentAttributes
 );
 
-function CollabSidebarContent( {
-	styles,
-	comments,
-} ) {
+function CollabSidebarContent( { styles, comments } ) {
 	const { createNotice } = useDispatch( noticesStore );
 	const { saveEntityRecord, deleteEntityRecord } = useDispatch( coreStore );
 	const { getEntityRecord } = resolveSelect( coreStore );
@@ -194,9 +191,7 @@ function CollabSidebarContent( {
 
 	return (
 		<div className="editor-collab-sidebar-panel" style={ styles }>
-			<AddComment
-				onSubmit={ addNewComment }
-			/>
+			<AddComment onSubmit={ addNewComment } />
 			<Comments
 				threads={ comments }
 				onEditComment={ onEditComment }
@@ -318,9 +313,7 @@ export default function CollabSidebar() {
 				title={ __( 'Comments' ) }
 				icon={ commentIcon }
 			>
-				<CollabSidebarContent
-					comments={ resultComments }
-				/>
+				<CollabSidebarContent comments={ resultComments } />
 			</PluginSidebar>
 			<PluginSidebar
 				isPinnable={ false }
