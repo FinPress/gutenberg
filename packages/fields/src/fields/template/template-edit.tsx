@@ -28,29 +28,6 @@ import { getItemTitle } from '../../actions/utils';
 import type { BasePost } from '../../types';
 import { unlock } from '../../lock-unlock';
 
-export function useAllowSwitchingTemplates( {
-	postType,
-	postId,
-}: {
-	postType: string;
-	postId: number;
-} ): boolean {
-	return useSelect(
-		( select ) => {
-			const { getHomePage, getPostsPageId } = unlock(
-				select( coreStore )
-			);
-
-			const isPostsPage = getPostsPageId() === +postId;
-			const isFrontPage =
-				postType === 'page' && getHomePage()?.postId === +postId;
-
-			return ! isPostsPage && ! isFrontPage;
-		},
-		[ postId, postType ]
-	);
-}
-
 export const TemplateEdit = ( {
 	data,
 	field,
@@ -61,21 +38,6 @@ export const TemplateEdit = ( {
 	const postId =
 		typeof data.id === 'number' ? data.id : parseInt( data.id, 10 );
 	const slug = data.slug;
-
-	const allowSwitchingTemplate = useSelect(
-		( select ) => {
-			const { getHomePage, getPostsPageId } = unlock(
-				select( coreStore )
-			);
-
-			const isPostsPage = getPostsPageId() === +postId;
-			const isFrontPage =
-				postType === 'page' && getHomePage()?.postId === +postId;
-
-			return ! isPostsPage && ! isFrontPage;
-		},
-		[ postId, postType ]
-	);
 
 	const { availableTemplates, templates } = useSelect(
 		( select ) => {
@@ -89,6 +51,16 @@ export const TemplateEdit = ( {
 					}
 				) ?? [];
 
+			const { getHomePage, getPostsPageId } = unlock(
+				select( coreStore )
+			);
+
+			const isPostsPage = getPostsPageId() === +postId;
+			const isFrontPage =
+				postType === 'page' && getHomePage()?.postId === +postId;
+
+			const allowSwitchingTemplate = ! isPostsPage && ! isFrontPage;
+
 			return {
 				templates: allTemplates,
 				availableTemplates: allowSwitchingTemplate
@@ -101,7 +73,7 @@ export const TemplateEdit = ( {
 					: [],
 			};
 		},
-		[ allowSwitchingTemplate, data.template, postType ]
+		[ data.template, postId, postType ]
 	);
 
 	const templatesAsPatterns = useMemo(
