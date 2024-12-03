@@ -226,6 +226,15 @@ export function useScaleCanvas( {
 			`${ scrollTopNext }px`
 		);
 
+		// If the container has a scrolllbar, force a scrollbar to prevent the content from shifting while animating.
+		iframeDocument.documentElement.style.setProperty(
+			'--wp-block-editor-iframe-zoom-out-overflow-behavior',
+			transitionFromRef.current.scrollHeight ===
+				transitionFromRef.current.containerHeight
+				? 'auto'
+				: 'scroll'
+		);
+
 		iframeDocument.documentElement.classList.add( 'zoom-out-animation' );
 
 		return iframeDocument.documentElement.animate(
@@ -277,6 +286,9 @@ export function useScaleCanvas( {
 		);
 		iframeDocument.documentElement.style.removeProperty(
 			'--wp-block-editor-iframe-zoom-out-scroll-top-next'
+		);
+		iframeDocument.documentElement.style.removeProperty(
+			'--wp-block-editor-iframe-zoom-out-overflow-behavior'
 		);
 
 		// Update previous values.
