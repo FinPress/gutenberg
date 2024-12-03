@@ -103,6 +103,7 @@ Async.args = {
 	label: 'Type a continent',
 	suggestions: continents,
 	__nextHasNoMarginBottom: true,
+	__next40pxDefaultSize: true,
 };
 
 export const DropdownSelector: StoryFn< typeof FormTokenField > =
