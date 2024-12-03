@@ -333,8 +333,10 @@ function RegularFieldItem( {
 		<FieldItem
 			field={ field }
 			isVisible={ isVisible }
-			isFirst={ !! index && index < 1 }
-			isLast={ !! index && index === visibleFieldIds.length - 1 }
+			isFirst={ index !== undefined && index < 1 }
+			isLast={
+				index !== undefined && index === visibleFieldIds.length - 1
+			}
 			onToggleVisibility={ () => {
 				onChangeView( {
 					...view,
@@ -357,7 +359,7 @@ function RegularFieldItem( {
 				}, 50 );
 			} }
 			onMoveUp={
-				index
+				index !== undefined
 					? () => {
 							onChangeView( {
 								...view,
@@ -375,7 +377,7 @@ function RegularFieldItem( {
 					: undefined
 			}
 			onMoveDown={
-				index
+				index !== undefined
 					? () => {
 							onChangeView( {
 								...view,
