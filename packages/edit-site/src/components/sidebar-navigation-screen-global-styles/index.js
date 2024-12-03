@@ -2,8 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { useDispatch } from '@wordpress/data';
 import { useCallback } from '@wordpress/element';
 import { store as preferencesStore } from '@wordpress/preferences';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
@@ -24,27 +23,9 @@ const { useLocation, useHistory } = unlock( routerPrivateApis );
 
 export function SidebarNavigationItemGlobalStyles( props ) {
 	const { name } = useLocation();
-	const hasGlobalStyleVariations = useSelect(
-		( select ) =>
-			!! select(
-				coreStore
-			).__experimentalGetCurrentThemeGlobalStylesVariations()?.length,
-		[]
-	);
-	if ( hasGlobalStyleVariations ) {
-		return (
-			<SidebarNavigationItem
-				{ ...props }
-				to="/styles"
-				uid="global-styles-navigation-item"
-				aria-current={ name === 'styles' }
-			/>
-		);
-	}
 	return (
 		<SidebarNavigationItem
 			{ ...props }
-			to="/styles"
 			aria-current={ name === 'styles' }
 		/>
 	);
