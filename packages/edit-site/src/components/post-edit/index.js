@@ -139,6 +139,7 @@ function PostEditForm( { postType, postId } ) {
 	/**
 	 * The template field depends on the block editor settings.
 	 * This is a workaround to ensure that the block editor settings are available.
+	 * For more information, see: https://github.com/WordPress/gutenberg/issues/67521
 	 */
 	const fieldsWithDependency = useMemo( () => {
 		return fields.map( ( field ) => {
