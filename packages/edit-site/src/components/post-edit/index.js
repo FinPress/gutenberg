@@ -136,20 +136,38 @@ function PostEditForm( { postType, postId } ) {
 	);
 	const settings = usePatternSettings();
 
+	/**
+	 * The template field depends on the block editor settings.
+	 * This is a workaround to ensure that the block editor settings are available.
+	 */
+	const fieldsWithDependency = useMemo( () => {
+		return fields.map( ( field ) => {
+			if ( field.id === 'template' ) {
+				return {
+					...field,
+					Edit: ( data ) => (
+						<ExperimentalBlockEditorProvider settings={ settings }>
+							<field.Edit { ...data } />
+						</ExperimentalBlockEditorProvider>
+					),
+				};
+			}
+			return field;
+		} );
+	}, [ fields, settings ] );
+
 	return (
-		<ExperimentalBlockEditorProvider settings={ settings }>
-			<VStack spacing={ 4 }>
-				{ ids.length === 1 && (
-					<PostCardPanel postType={ postType } postId={ ids[ 0 ] } />
-				) }
-				<DataForm
-					data={ ids.length === 1 ? record : multiEdits }
-					fields={ fields }
-					form={ form }
-					onChange={ onChange }
-				/>
-			</VStack>
-		</ExperimentalBlockEditorProvider>
+		<VStack spacing={ 4 }>
+			{ ids.length === 1 && (
+				<PostCardPanel postType={ postType } postId={ ids[ 0 ] } />
+			) }
+			<DataForm
+				data={ ids.length === 1 ? record : multiEdits }
+				fields={ fieldsWithDependency }
+				form={ form }
+				onChange={ onChange }
+			/>
+		</VStack>
 	);
 }
 
