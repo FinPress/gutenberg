@@ -59,13 +59,14 @@ function DropdownHeader( {
 	);
 }
 
-function PanelDropdown< Item >( {
+function PanelDropdown< Item extends object >( {
 	fieldDefinition,
 	popoverAnchor,
 	labelPosition = 'side',
 	data,
 	onChange,
 	field,
+	isBulkEditing,
 }: {
 	fieldDefinition: NormalizedField< Item >;
 	popoverAnchor: HTMLElement | null;
@@ -73,6 +74,7 @@ function PanelDropdown< Item >( {
 	data: Item;
 	onChange: ( value: any ) => void;
 	field: FormField;
+	isBulkEditing?: boolean;
 } ) {
 	const fieldLabel = isCombinedField( field )
 		? field.label
@@ -111,6 +113,10 @@ function PanelDropdown< Item >( {
 		[ popoverAnchor ]
 	);
 
+	const fieldValue = fieldDefinition.getValue( { item: data } );
+	const showMixedValue =
+		isBulkEditing && ( fieldValue === undefined || fieldValue === '' );
+
 	return (
 		<Dropdown
 			contentClassName="dataforms-layouts-panel__field-dropdown"
@@ -138,7 +144,11 @@ function PanelDropdown< Item >( {
 					) }
 					onClick={ onToggle }
 				>
-					<fieldDefinition.render item={ data } />
+					{ showMixedValue ? (
+						__( 'Mixed' )
+					) : (
+						<fieldDefinition.render item={ data } />
+					) }
 				</Button>
 			) }
 			renderContent={ ( { onClose } ) => (
@@ -148,6 +158,7 @@ function PanelDropdown< Item >( {
 						data={ data }
 						form={ form as Form }
 						onChange={ onChange }
+						isBulkEditing={ isBulkEditing }
 					>
 						{ ( FieldLayout, nestedField ) => (
 							<FieldLayout
@@ -171,6 +182,7 @@ export default function FormPanelField< Item >( {
 	data,
 	field,
 	onChange,
+	isBulkEditing,
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 	const fieldDefinition = fields.find( ( fieldDef ) => {
@@ -221,6 +233,7 @@ export default function FormPanelField< Item >( {
 						data={ data }
 						onChange={ onChange }
 						labelPosition={ labelPosition }
+						isBulkEditing={ isBulkEditing }
 					/>
 				</div>
 			</VStack>
@@ -237,6 +250,7 @@ export default function FormPanelField< Item >( {
 					data={ data }
 					onChange={ onChange }
 					labelPosition={ labelPosition }
+					isBulkEditing={ isBulkEditing }
 				/>
 			</div>
 		);
@@ -259,6 +273,7 @@ export default function FormPanelField< Item >( {
 					data={ data }
 					onChange={ onChange }
 					labelPosition={ labelPosition }
+					isBulkEditing={ isBulkEditing }
 				/>
 			</div>
 		</HStack>

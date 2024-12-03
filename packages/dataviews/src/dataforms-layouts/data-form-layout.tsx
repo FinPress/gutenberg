@@ -7,17 +7,37 @@ import { useContext, useMemo } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import type { Form, FormField, SimpleFormField } from '../types';
+import type {
+	CombinedFormField,
+	Form,
+	FormField,
+	NormalizedField,
+	SimpleFormField,
+} from '../types';
 import { getFormFieldLayout } from './index';
 import DataFormContext from '../components/dataform-context';
 import { isCombinedField } from './is-combined-field';
 import normalizeFormFields from '../normalize-form-fields';
 
-export function DataFormLayout< Item >( {
+function doesCombinedFieldSupportBulkEdits< Item >(
+	combinedField: CombinedFormField,
+	fieldDefinitions: NormalizedField< Item >[]
+): boolean {
+	return combinedField.children.some( ( child ) => {
+		const fieldId = typeof child === 'string' ? child : child.id;
+
+		return fieldDefinitions.find(
+			( fieldDefinition ) => fieldDefinition.id === fieldId
+		)?.supportsBulkEditing;
+	} );
+}
+
+export function DataFormLayout< Item extends object >( {
 	data,
 	form,
 	onChange,
 	children,
+	isBulkEditing,
 }: {
 	data: Item;
 	form: Form;
@@ -31,6 +51,7 @@ export function DataFormLayout< Item >( {
 		} ) => React.JSX.Element | null,
 		field: FormField
 	) => React.JSX.Element;
+	isBulkEditing?: boolean;
 } ) {
 	const { fields: fieldDefinitions } = useContext( DataFormContext );
 
@@ -69,6 +90,19 @@ export function DataFormLayout< Item >( {
 					return null;
 				}
 
+				if (
+					isBulkEditing &&
+					( ( isCombinedField( formField ) &&
+						! doesCombinedFieldSupportBulkEdits(
+							formField,
+							fieldDefinitions
+						) ) ||
+						( fieldDefinition &&
+							! fieldDefinition.supportsBulkEditing ) )
+				) {
+					return null;
+				}
+
 				if ( children ) {
 					return children( FieldLayout, formField );
 				}
@@ -79,6 +113,7 @@ export function DataFormLayout< Item >( {
 						data={ data }
 						field={ formField }
 						onChange={ onChange }
+						isBulkEditing={ isBulkEditing }
 					/>
 				);
 			} ) }
