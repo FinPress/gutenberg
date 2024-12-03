@@ -18,6 +18,10 @@ npm install @wordpress/fields --save
 
 Author field for BasePost.
 
+### BasePostWithEmbeddedAuthor
+
+Undocumented declaration.
+
 ### commentStatusField
 
 Comment status field for BasePost.
@@ -84,6 +88,10 @@ This field is used to display the post parent.
 This field is used to display the post password.
 
 ### permanentlyDeletePost
+
+Undocumented declaration.
+
+### PostType
 
 Undocumented declaration.
 
