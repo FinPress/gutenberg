@@ -342,6 +342,7 @@ const scriptConfig = {
 							} );
 
 							if ( hasReactFastRefresh ) {
+								// Prepends the file reference to the shared runtime chunk to every script type defined for the block.
 								const runtimePath = relative(
 									dirname( absoluteFrom ),
 									fromProjectRoot(

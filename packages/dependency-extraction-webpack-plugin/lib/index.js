@@ -388,6 +388,7 @@ class DependencyExtractionWebpackPlugin {
 			}
 
 			if ( compilation.options?.optimization?.runtimeChunk !== false ) {
+				// Sets the script handle for the shared runtime file so WordPress registers it only once when using the asset file.
 				assetData.handle =
 					compilation.name +
 					'-' +
