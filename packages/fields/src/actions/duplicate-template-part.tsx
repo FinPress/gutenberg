@@ -63,7 +63,7 @@ const duplicateTemplatePart: Action< TemplatePart > = {
 				onCreate={ onTemplatePartSuccess }
 				onError={ closeModal }
 				confirmLabel={ _x( 'Duplicate', 'action label' ) }
-				closeModal={ closeModal ?? ( () => void 0 ) }
+				closeModal={ closeModal ?? ( () => {} ) }
 			/>
 		);
 	},
