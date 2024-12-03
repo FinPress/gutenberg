@@ -13,7 +13,7 @@ import { useEffect, useId, useRef, useState } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import SingleSelectionCheckbox from '../../components/dataviews-selection-checkbox';
+import DataViewsSelectionCheckbox from '../../components/dataviews-selection-checkbox';
 import ItemActions from '../../components/dataviews-item-actions';
 import { sortValues } from '../../constants';
 import {
@@ -142,12 +142,12 @@ function TableRow< Item >( {
 					} }
 				>
 					<div className="dataviews-view-table__cell-content-wrapper">
-						<SingleSelectionCheckbox
+						<DataViewsSelectionCheckbox
 							item={ item }
 							selection={ selection }
 							onChangeSelection={ onChangeSelection }
 							getItemId={ getItemId }
-							primaryField={ titleField }
+							titleField={ titleField }
 							disabled={ ! hasPossibleBulkAction }
 						/>
 					</div>

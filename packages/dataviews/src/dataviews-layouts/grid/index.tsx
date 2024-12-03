@@ -20,7 +20,7 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import ItemActions from '../../components/dataviews-item-actions';
-import SingleSelectionCheckbox from '../../components/dataviews-selection-checkbox';
+import DataViewsSelectionCheckbox from '../../components/dataviews-selection-checkbox';
 import { useHasAPossibleBulkAction } from '../../components/dataviews-bulk-actions';
 import type { Action, NormalizedField, ViewGridProps } from '../../types';
 import type { SetSelection } from '../../private-types';
@@ -103,12 +103,12 @@ function GridItem< Item >( {
 			} }
 		>
 			<div { ...clickableMediaItemProps }>{ renderedMediaField }</div>
-			<SingleSelectionCheckbox
+			<DataViewsSelectionCheckbox
 				item={ item }
 				selection={ selection }
 				onChangeSelection={ onChangeSelection }
 				getItemId={ getItemId }
-				primaryField={ titleField }
+				titleField={ titleField }
 				disabled={ ! hasBulkAction }
 			/>
 			<HStack
