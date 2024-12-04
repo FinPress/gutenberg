@@ -44,9 +44,8 @@ export function useZoomOut( enabled = true ) {
 
 	useEffect( () => {
 		isEnabledRef.current = enabled;
-		const isAlreadyZoomedOut = isZoomOut();
 
-		if ( enabled !== isAlreadyZoomedOut ) {
+		if ( enabled !== isZoomOut() ) {
 			controlZoomLevelRef.current = true;
 
 			if ( enabled ) {
@@ -57,10 +56,10 @@ export function useZoomOut( enabled = true ) {
 		}
 
 		return () => {
-			return (
-				// If we are controlling zoom level and are zoomed out, reset the zoom level.
-				controlZoomLevelRef.current && isZoomOut() && resetZoomLevel()
-			);
+			// If we are controlling zoom level and are zoomed out, reset the zoom level.
+			if ( controlZoomLevelRef.current && isZoomOut() ) {
+				resetZoomLevel();
+			}
 		};
 	}, [ enabled, isZoomOut, resetZoomLevel, setZoomLevel ] );
 }
