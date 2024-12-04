@@ -123,6 +123,10 @@ Undocumented declaration.
 
 Status field for BasePost.
 
+### templateField
+
+Undocumented declaration.
+
 ### titleField
 
 Undocumented declaration.
