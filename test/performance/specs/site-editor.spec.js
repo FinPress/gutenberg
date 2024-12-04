@@ -238,10 +238,8 @@ test.describe( 'Site Editor Performance', () => {
 
 				await metrics.startTracing();
 				await page
-					.locator( '.fields-title-field', {
-						hasText: 'Single Posts',
-					} )
-					.click();
+					.getByText( 'Single Posts', { exact: true } )
+					.click( { force: true } );
 				await metrics.stopTracing();
 
 				// Get the durations.
