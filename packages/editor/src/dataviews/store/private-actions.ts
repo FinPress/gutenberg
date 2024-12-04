@@ -31,6 +31,7 @@ import {
 	templateField,
 	templateTitleField,
 	pageTitleField,
+	patternTitleField,
 } from '@wordpress/fields';
 
 /**
@@ -38,19 +39,6 @@ import {
  */
 import { store as editorStore } from '../../store';
 import { unlock } from '../../lock-unlock';
-import {
-	NAVIGATION_POST_TYPE,
-	PATTERN_POST_TYPE,
-	TEMPLATE_PART_POST_TYPE,
-	TEMPLATE_POST_TYPE,
-} from '../../store/constants';
-
-const DESIGN_POST_TYPES = [
-	PATTERN_POST_TYPE,
-	TEMPLATE_POST_TYPE,
-	NAVIGATION_POST_TYPE,
-	TEMPLATE_PART_POST_TYPE,
-];
 
 export function registerEntityAction< Item >(
 	kind: string,
@@ -142,7 +130,6 @@ export const registerPostTypeSchema =
 			.resolveSelect( coreStore )
 			.getCurrentTheme();
 
-		const isDeisgnPostType = DESIGN_POST_TYPES.includes( postType );
 		const actions = [
 			postTypeConfig.viewable ? viewPost : undefined,
 			!! postTypeConfig.supports?.revisions
@@ -150,19 +137,25 @@ export const registerPostTypeSchema =
 				: undefined,
 			// @ts-ignore
 			globalThis.IS_GUTENBERG_PLUGIN
-				? ! isDeisgnPostType && canCreate && duplicatePost
+				? ! [ 'wp_template', 'wp_block', 'wp_template_part' ].includes(
+						postTypeConfig.slug
+				  ) &&
+				  canCreate &&
+				  duplicatePost
 				: undefined,
 			postTypeConfig.slug === 'wp_template_part' &&
 			canCreate &&
 			currentTheme?.is_block_theme
 				? duplicateTemplatePart
 				: undefined,
-			canCreate && postType === 'wp_block' ? duplicatePattern : undefined,
+			canCreate && postTypeConfig.slug === 'wp_block'
+				? duplicatePattern
+				: undefined,
 			postTypeConfig.supports?.title ? renamePost : undefined,
 			postTypeConfig.supports?.[ 'page-attributes' ]
 				? reorderPage
 				: undefined,
-			postType === 'wp_block' ? exportPattern : undefined,
+			postTypeConfig.slug === 'wp_block' ? exportPattern : undefined,
 			restorePost,
 			resetPost,
 			deletePost,
@@ -174,10 +167,6 @@ export const registerPostTypeSchema =
 			postTypeConfig.supports?.thumbnail &&
 				currentTheme?.theme_supports?.[ 'post-thumbnails' ] &&
 				featuredImageField,
-			! isDeisgnPostType &&
-				postTypeConfig.supports?.title &&
-				( postType === 'page' ? pageTitleField : titleField ),
-			postType === TEMPLATE_POST_TYPE && templateTitleField,
 			postTypeConfig.supports?.author && authorField,
 			statusField,
 			dateField,
@@ -185,8 +174,21 @@ export const registerPostTypeSchema =
 			postTypeConfig.supports?.[ 'page-attributes' ] && parentField,
 			postTypeConfig.supports?.comments && commentStatusField,
 			templateField,
-			! isDeisgnPostType && passwordField,
+			passwordField,
 		].filter( Boolean );
+		if ( postTypeConfig.supports?.title ) {
+			let _titleField;
+			if ( postType === 'page' ) {
+				_titleField = pageTitleField;
+			} else if ( postType === 'wp_template' ) {
+				_titleField = templateTitleField;
+			} else if ( postType === 'wp_block' ) {
+				_titleField = patternTitleField;
+			} else {
+				_titleField = titleField;
+			}
+			fields.push( _titleField );
+		}
 
 		registry.batch( () => {
 			actions.forEach( ( action ) => {
