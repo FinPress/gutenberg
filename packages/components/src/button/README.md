@@ -253,6 +253,11 @@ If provided with `showTooltip`, appends the Shortcut label to the tooltip conten
 
 If provided, renders a [Tooltip](/packages/components/src/tooltip/README.md) component for the button.
 
+##### Usage Guidelines:
+
+1. Tooltips must be used only to visually expose the label of controls that don't show visible text.
+2. Tooltips usage must take into account the showIconLabels preference: when enabled and the control shows visible text, the tooltip must be disabled.
+
 -   Required: No
 
 #### `size`: `'default'` | `'compact'` | `'small'`
