@@ -370,7 +370,6 @@ test.describe( 'Site Editor Inserter', () => {
 
 		// Go to patterns tab which should enter zoom out
 		const patternsTab = InserterUtils.getBlockLibraryTab( 'Patterns' );
-		await patternsTab.click();
 		await expect( patternsTab ).toHaveAttribute(
 			'data-active-item',
 			'true'
