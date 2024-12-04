@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useState, RawHTML, useEffect } from '@wordpress/element';
+import { useState, RawHTML } from '@wordpress/element';
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
@@ -17,7 +17,7 @@ import {
 } from '@wordpress/components';
 import { Icon, check, published, moreVertical } from '@wordpress/icons';
 import { __, _x } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch, select } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
 /**
@@ -48,7 +48,6 @@ export function Comments( {
 	const [ isConfirmDialogOpen, setIsConfirmDialogOpen ] = useState( false );
 	// eslint-disable-next-line no-unused-vars
 	const [ activeClientId, setActiveClientId ] = useState( null );
-	const [ blocksList, setBlocksList ] = useState( null );
 
 	const handleConfirmDelete = () => {
 		onCommentDelete( actionState.id );
@@ -67,39 +66,13 @@ export function Comments( {
 		setIsConfirmDialogOpen( false );
 	};
 
-	const blockCommentId = useSelect( ( select ) => {
+	const blockCommentId = useSelect( () => {
 		const clientID = select( blockEditorStore ).getSelectedBlockClientId();
 		return (
 			select( blockEditorStore ).getBlock( clientID )?.attributes
 				?.blockCommentId ?? false
 		);
 	}, [] );
-
-	const { selectedClientBlocks, selectedActiveClientId } = useSelect(
-		( select ) => {
-			const clientID =
-				select( blockEditorStore ).getSelectedBlockClientId();
-			const selClientBlocks = select( blockEditorStore ).getBlocks();
-
-			const getBlockCommentId =
-				select( blockEditorStore ).getBlock( clientID )?.attributes
-					?.blockCommentId ?? false;
-
-			return {
-				selectedClientBlocks: selClientBlocks,
-				selectedActiveClientId: getBlockCommentId || null,
-			};
-		},
-		[]
-	);
-
-	useEffect( () => {
-		setBlocksList( selectedClientBlocks );
-
-		if ( selectedActiveClientId ) {
-			setActiveClientId( selectedActiveClientId );
-		}
-	}, [ selectedClientBlocks, selectedActiveClientId ] );
 
 	const findBlockByCommentId = ( blocks, commentId ) => {
 		for ( const block of blocks ) {
@@ -121,7 +94,8 @@ export function Comments( {
 
 	const { selectBlock } = useDispatch( blockEditorStore );
 	const handleThreadClick = ( thread ) => {
-		const block = findBlockByCommentId( blocksList, thread.id );
+		const selClientBlocks = select( blockEditorStore ).getBlocks();
+		const block = findBlockByCommentId( selClientBlocks, thread.id );
 		if ( block ) {
 			selectBlock( block.clientId ); // Use the action to select the block
 		}
