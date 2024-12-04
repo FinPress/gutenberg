@@ -320,7 +320,7 @@ test.describe( 'Block template registration', () => {
 			.getByText( `"Author: Admin" reset.` );
 		await page.getByPlaceholder( 'Search' ).fill( 'Author: admin' );
 		await page
-			.locator( '.fields-field-title', { hasText: 'Author: Admin' } )
+			.locator( '.fields-field__title', { hasText: 'Author: Admin' } )
 			.click();
 		const actions = page.getByLabel( 'Actions' );
 		await actions.first().click();

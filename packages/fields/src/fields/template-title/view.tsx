@@ -6,6 +6,6 @@ import { BaseTitleView } from '../title/view';
 
 export default function PageTitleView( { item }: { item: Template } ) {
 	return (
-		<BaseTitleView item={ item } className="fields-field-template-title" />
+		<BaseTitleView item={ item } className="fields-field__template-title" />
 	);
 }
