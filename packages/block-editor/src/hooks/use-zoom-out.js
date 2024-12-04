@@ -22,9 +22,19 @@ export function useZoomOut( enabled = true ) {
 	const { setZoomLevel, resetZoomLevel } = unlock(
 		useDispatch( blockEditorStore )
 	);
-	const { isZoomOut } = unlock( useSelect( blockEditorStore ) );
 
-	const isZoomedOut = isZoomOut();
+	/**
+	 * We need access to both the value and the function. The value is to trigger a useEffect hook
+	 * and the function is to check zoom out within another hook without triggering a re-render.
+	 */
+	const { isZoomedOut, isZoomOut } = useSelect( ( select ) => {
+		const { isZoomOut: _isZoomOut } = unlock( select( blockEditorStore ) );
+		return {
+			isZoomedOut: _isZoomOut(),
+			isZoomOut: _isZoomOut,
+		};
+	}, [] );
+
 	const controlZoomLevelRef = useRef( false );
 	const isEnabledRef = useRef( enabled );
 
