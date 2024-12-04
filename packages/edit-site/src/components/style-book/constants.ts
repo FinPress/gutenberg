@@ -216,12 +216,12 @@ export const STYLE_BOOK_IFRAME_STYLES = `
 	}
 	.edit-site-style-book__duotone-example > div:not(:first-child) {
 		height: 20px;
-		border: 1px solid #ddd;
+		border: 1px solid color-mix( in srgb, currentColor 10%, transparent );
 	}
 
 	.edit-site-style-book__color-example {
-		height: 52px;
-		border: 1px solid #ddd;
+		height: 32px;
+		border: 1px solid color-mix( in srgb, currentColor 10%, transparent );
 	}
 
 	.edit-site-style-book__subcategory-title,
