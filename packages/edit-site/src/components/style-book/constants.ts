@@ -232,8 +232,9 @@ export const STYLE_BOOK_IFRAME_STYLES = `
 		line-height: normal;
 		margin: 0;
 		text-align: left;
-		padding-top: 4px;
-		border-top: 1px solid currentColor;
+		padding-top: 8px;
+		border-top: 1px solid color-mix( in srgb, currentColor 10%, transparent );
+		color: color-mix( in srgb, currentColor 60%, transparent );
 	}
 
 	.edit-site-style-book__subcategory-title {
