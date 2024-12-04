@@ -22,6 +22,7 @@ import {
 	__experimentalHeading as Heading,
 	__experimentalText as Text,
 	privateApis as componentsPrivateApis,
+	BaseControl,
 } from '@wordpress/components';
 import { __, _x, sprintf } from '@wordpress/i18n';
 import { memo, useContext, useMemo } from '@wordpress/element';
@@ -428,74 +429,79 @@ function FieldControl() {
 	const { showTitle = true, showMedia = true, showDescription = true } = view;
 
 	return (
-		<VStack
-			spacing={ 0 }
-			className="dataviews-field-control dataviews-view-config__properties"
-		>
-			{ togglableFields.length > 0 && (
-				<ItemGroup isBordered isSeparated>
-					{ titleField && (
-						<FieldItem
-							field={ titleField }
-							isVisible={ showTitle }
-							onToggleVisibility={ () => {
-								onChangeView( {
-									...view,
-									showTitle: ! showTitle,
-								} );
-							} }
-						/>
-					) }
-					{ mediaField && (
-						<FieldItem
-							field={ mediaField }
-							isVisible={ showMedia }
-							onToggleVisibility={ () => {
-								onChangeView( {
-									...view,
-									showMedia: ! showMedia,
-								} );
-							} }
-						/>
-					) }
-					{ descriptionField && (
-						<FieldItem
-							field={ descriptionField }
-							isVisible={ showDescription }
-							onToggleVisibility={ () => {
-								onChangeView( {
-									...view,
-									showDescription: ! showDescription,
-								} );
-							} }
-						/>
-					) }
-				</ItemGroup>
-			) }
-			{ !! visibleFields?.length && (
-				<ItemGroup isBordered isSeparated>
-					{ visibleFields.map( ( field, index ) => (
-						<RegularFieldItem
-							key={ field.id }
-							field={ field }
-							view={ view }
-							onChangeView={ onChangeView }
-							index={ index }
-						/>
-					) ) }
-				</ItemGroup>
-			) }
+		<VStack className="dataviews-field-control" spacing={ 6 }>
+			<VStack className="dataviews-view-config__properties" spacing={ 0 }>
+				{ togglableFields.length > 0 && (
+					<ItemGroup isBordered isSeparated>
+						{ titleField && (
+							<FieldItem
+								field={ titleField }
+								isVisible={ showTitle }
+								onToggleVisibility={ () => {
+									onChangeView( {
+										...view,
+										showTitle: ! showTitle,
+									} );
+								} }
+							/>
+						) }
+						{ mediaField && (
+							<FieldItem
+								field={ mediaField }
+								isVisible={ showMedia }
+								onToggleVisibility={ () => {
+									onChangeView( {
+										...view,
+										showMedia: ! showMedia,
+									} );
+								} }
+							/>
+						) }
+						{ descriptionField && (
+							<FieldItem
+								field={ descriptionField }
+								isVisible={ showDescription }
+								onToggleVisibility={ () => {
+									onChangeView( {
+										...view,
+										showDescription: ! showDescription,
+									} );
+								} }
+							/>
+						) }
+					</ItemGroup>
+				) }
+				{ !! visibleFields?.length && (
+					<ItemGroup isBordered isSeparated>
+						{ visibleFields.map( ( field, index ) => (
+							<RegularFieldItem
+								key={ field.id }
+								field={ field }
+								view={ view }
+								onChangeView={ onChangeView }
+								index={ index }
+							/>
+						) ) }
+					</ItemGroup>
+				) }
+			</VStack>
+
 			{ !! hiddenFields?.length && (
-				<ItemGroup isBordered isSeparated>
-					{ hiddenFields.map( ( field ) => (
-						<RegularFieldItem
-							key={ field.id }
-							field={ field }
-							view={ view }
-							onChangeView={ onChangeView }
-						/>
-					) ) }
-				</ItemGroup>
+				<VStack spacing={ 4 }>
+					<BaseControl.VisualLabel style={ { margin: 0 } }>
+						{ __( 'Hidden' ) }
+					</BaseControl.VisualLabel>
+					<ItemGroup isBordered isSeparated>
+						{ hiddenFields.map( ( field ) => (
+							<RegularFieldItem
+								key={ field.id }
+								field={ field }
+								view={ view }
+								onChangeView={ onChangeView }
+							/>
+						) ) }
+					</ItemGroup>
+				</VStack>
 			) }
 		</VStack>
 	);
