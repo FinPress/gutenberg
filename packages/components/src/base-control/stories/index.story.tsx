@@ -18,7 +18,7 @@ const meta: Meta< typeof BaseControl > = {
 		'BaseControl.VisualLabel': BaseControl.VisualLabel,
 	},
 	argTypes: {
-		children: { control: { type: null } },
+		children: { control: { type: undefined } },
 		help: { control: { type: 'text' } },
 		label: { control: { type: 'text' } },
 	},

@@ -13,8 +13,8 @@ const meta: Meta< typeof ColorPicker > = {
 	title: 'Components/Selection & Input/Color/ColorPicker',
 	id: 'components-colorpicker',
 	argTypes: {
-		as: { control: { type: null } },
-		color: { control: { type: null } },
+		as: { control: { type: undefined } },
+		color: { control: { type: undefined } },
 	},
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },
