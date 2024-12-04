@@ -55,7 +55,7 @@ function Badge( {
 			{ context !== 'neutral' && (
 				<Icon
 					icon={ contextBasedIcon() }
-					size={ 20 }
+					size={ 16 }
 					fill="currentColor"
 				/>
 			) }
