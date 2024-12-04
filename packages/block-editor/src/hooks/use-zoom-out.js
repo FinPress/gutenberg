@@ -12,6 +12,9 @@ import { unlock } from '../lock-unlock';
 
 /**
  * A hook used to set the editor mode to zoomed out mode, invoking the hook sets the mode.
+ * Concepts:
+ * - If we most recently changed the zoom level for them (in or out), we always resetZoomLevel() level when unmounting.
+ * - If the user most recently changed the zoom level (manually toggling), we do nothing when unmounting.
  *
  * @param {boolean} enabled If we should enter into zoomOut mode or not
  */
@@ -22,42 +25,40 @@ export function useZoomOut( enabled = true ) {
 	const { isZoomOut } = unlock( useSelect( blockEditorStore ) );
 
 	const isZoomedOut = isZoomOut();
-	// If starting from zoom out engaged, do not control zoom level for the user.
-	const controlZoomLevel = useRef( ! isZoomedOut );
+	const controlZoomLevelRef = useRef( false );
+	const isEnabledRef = useRef( enabled );
 
 	useEffect( () => {
-		if ( ! enabled || ! controlZoomLevel.current ) {
-			return;
-		}
-		const isAlreadyInZoomOut = isZoomOut();
-		if ( ! isAlreadyInZoomOut ) {
+		isEnabledRef.current = enabled;
+		const isAlreadyZoomedOut = isZoomOut();
+
+		if ( enabled && ! isAlreadyZoomedOut ) {
 			setZoomLevel( 'auto-scaled' );
+			controlZoomLevelRef.current = true;
+		} else if ( ! enabled && isAlreadyZoomedOut ) {
+			resetZoomLevel();
+			controlZoomLevelRef.current = true;
 		}
 
 		return () => {
 			return (
-				controlZoomLevel.current &&
-				! isAlreadyInZoomOut &&
-				resetZoomLevel()
+				// If we are controlling zoom level and are zoomed out, reset the zoom level.
+				controlZoomLevelRef.current && isZoomOut() && resetZoomLevel()
 			);
 		};
 	}, [ enabled, isZoomOut, resetZoomLevel, setZoomLevel ] );
 
 	/**
 	 * This hook tracks if the zoom state was changed manually by the user via clicking
-	 * the zoom out button.
+	 * the zoom out button. We only want this to run when isZoomedOut changes, so we use
+	 * a ref to track the enabled state.
 	 */
 	useEffect( () => {
 		// If the zoom state changed (isZoomOut) and it does not match the requested zoom
 		// state (zoomOut), then it means the user manually changed the zoom state while
 		// this hook was mounted, and we should no longer control the zoom state.
-		if ( isZoomedOut !== enabled ) {
-			// Turn off all automatic zooming control.
-			controlZoomLevel.current = false;
+		if ( isZoomedOut !== isEnabledRef.current ) {
+			controlZoomLevelRef.current = false;
 		}
-
-		// Intentionally excluding `enabled` from the dependency array. We want to catch instances where
-		// the zoom out state changes due to user interaction and not due to the hook.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ isZoomedOut ] );
 }

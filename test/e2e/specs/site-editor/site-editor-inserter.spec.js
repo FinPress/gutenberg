@@ -158,8 +158,12 @@ test.describe( 'Site Editor Inserter', () => {
 	test( 'should always exit zoom out from blocks tab and does not change mode when closing the inserter (even if starting from zoom out)', async ( {
 		InserterUtils,
 	} ) => {
+		const zoomOutButton = InserterUtils.getZoomOutButton();
 		const inserterButton = InserterUtils.getInserterButton();
 		const blockLibrary = InserterUtils.getBlockLibrary();
+
+		await zoomOutButton.click();
+		await expect( await InserterUtils.getZoomCanvas() ).toBeVisible();
 
 		// Open inserter
 		await inserterButton.click();
@@ -305,6 +309,49 @@ test.describe( 'Site Editor Inserter', () => {
 		await expect( await InserterUtils.getZoomCanvas() ).toBeHidden();
 	} );
 
+	// Similar test to the above but toggle zoom level twice
+	test( 'should not toggle zoom state from pattern tab when closing the inserter if the user manually changed zoom state', async ( {
+		InserterUtils,
+	} ) => {
+		const zoomOutButton = InserterUtils.getZoomOutButton();
+		const inserterButton = InserterUtils.getInserterButton();
+		const blockLibrary = InserterUtils.getBlockLibrary();
+
+		// Open inserter
+		await inserterButton.click();
+		await expect( blockLibrary ).toBeVisible();
+
+		// Start from blocks stab
+		const blocksTab = InserterUtils.getBlockLibraryTab( 'Blocks' );
+		await expect( blocksTab ).toHaveAttribute( 'data-active-item', 'true' );
+		await expect( await InserterUtils.getZoomCanvas() ).toBeHidden();
+
+		// Go to patterns tab which should enter zoom out
+		const patternsTab = InserterUtils.getBlockLibraryTab( 'Patterns' );
+		await patternsTab.click();
+		await expect( patternsTab ).toHaveAttribute(
+			'data-active-item',
+			'true'
+		);
+		await expect( await InserterUtils.getZoomCanvas() ).toBeVisible();
+
+		// Manually toggle zoom out off
+		await zoomOutButton.click();
+		await expect( await InserterUtils.getZoomCanvas() ).toBeHidden();
+
+		// Manually toggle zoom out again to return to zoomed-in state set by the patterns tab.
+		await zoomOutButton.click();
+		await expect( await InserterUtils.getZoomCanvas() ).toBeVisible();
+
+		// Close the inserter
+		await inserterButton.click();
+
+		await expect( blockLibrary ).toBeHidden();
+
+		// We should stay in zoomed out state since it was manually engaged
+		await expect( await InserterUtils.getZoomCanvas() ).toBeVisible();
+	} );
+
 	// Similar test to the above but starting from not zoomed in and toggle zoom level twice
 	test( 'starting from zoomed in, should not toggle zoom state when closing the inserter if the user manually changed zoom state', async ( {
 		InserterUtils,
@@ -313,7 +360,13 @@ test.describe( 'Site Editor Inserter', () => {
 		const inserterButton = InserterUtils.getInserterButton();
 		const blockLibrary = InserterUtils.getBlockLibrary();
 
+		// Enter zoom out
+		await zoomOutButton.click();
+		await expect( await InserterUtils.getZoomCanvas() ).toBeVisible();
+
+		// Open inserter
 		await inserterButton.click();
+		await expect( blockLibrary ).toBeVisible();
 
 		// Go to patterns tab which should enter zoom out
 		const patternsTab = InserterUtils.getBlockLibraryTab( 'Patterns' );
