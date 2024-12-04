@@ -22,7 +22,6 @@ import {
 	__experimentalHeading as Heading,
 	__experimentalText as Text,
 	privateApis as componentsPrivateApis,
-	BaseControl,
 } from '@wordpress/components';
 import { __, _x, sprintf } from '@wordpress/i18n';
 import { memo, useContext, useMemo } from '@wordpress/element';
@@ -429,7 +428,10 @@ function FieldControl() {
 	const { showTitle = true, showMedia = true, showDescription = true } = view;
 
 	return (
-		<VStack spacing={ 6 } className="dataviews-field-control">
+		<VStack
+			spacing={ 0 }
+			className="dataviews-field-control dataviews-view-config__properties"
+		>
 			{ togglableFields.length > 0 && (
 				<ItemGroup isBordered isSeparated>
 					{ titleField && (
@@ -484,23 +486,16 @@ function FieldControl() {
 				</ItemGroup>
 			) }
 			{ !! hiddenFields?.length && (
-				<>
-					<VStack spacing={ 4 }>
-						<BaseControl.VisualLabel style={ { margin: 0 } }>
-							{ __( 'Hidden' ) }
-						</BaseControl.VisualLabel>
-						<ItemGroup isBordered isSeparated>
-							{ hiddenFields.map( ( field ) => (
-								<RegularFieldItem
-									key={ field.id }
-									field={ field }
-									view={ view }
-									onChangeView={ onChangeView }
-								/>
-							) ) }
-						</ItemGroup>
-					</VStack>
-				</>
+				<ItemGroup isBordered isSeparated>
+					{ hiddenFields.map( ( field ) => (
+						<RegularFieldItem
+							key={ field.id }
+							field={ field }
+							view={ view }
+							onChangeView={ onChangeView }
+						/>
+					) ) }
+				</ItemGroup>
 			) }
 		</VStack>
 	);
