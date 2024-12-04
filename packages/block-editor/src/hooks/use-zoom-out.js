@@ -28,6 +28,20 @@ export function useZoomOut( enabled = true ) {
 	const controlZoomLevelRef = useRef( false );
 	const isEnabledRef = useRef( enabled );
 
+	/**
+	 * This hook tracks if the zoom state was changed manually by the user via clicking
+	 * the zoom out button. We only want this to run when isZoomedOut changes, so we use
+	 * a ref to track the enabled state.
+	 */
+	useEffect( () => {
+		// If the zoom state changed (isZoomOut) and it does not match the requested zoom
+		// state (zoomOut), then it means the user manually changed the zoom state while
+		// this hook was mounted, and we should no longer control the zoom state.
+		if ( isZoomedOut !== isEnabledRef.current ) {
+			controlZoomLevelRef.current = false;
+		}
+	}, [ isZoomedOut ] );
+
 	useEffect( () => {
 		isEnabledRef.current = enabled;
 		const isAlreadyZoomedOut = isZoomOut();
@@ -47,18 +61,4 @@ export function useZoomOut( enabled = true ) {
 			);
 		};
 	}, [ enabled, isZoomOut, resetZoomLevel, setZoomLevel ] );
-
-	/**
-	 * This hook tracks if the zoom state was changed manually by the user via clicking
-	 * the zoom out button. We only want this to run when isZoomedOut changes, so we use
-	 * a ref to track the enabled state.
-	 */
-	useEffect( () => {
-		// If the zoom state changed (isZoomOut) and it does not match the requested zoom
-		// state (zoomOut), then it means the user manually changed the zoom state while
-		// this hook was mounted, and we should no longer control the zoom state.
-		if ( isZoomedOut !== isEnabledRef.current ) {
-			controlZoomLevelRef.current = false;
-		}
-	}, [ isZoomedOut ] );
 }
