@@ -46,12 +46,14 @@ export function useZoomOut( enabled = true ) {
 		isEnabledRef.current = enabled;
 		const isAlreadyZoomedOut = isZoomOut();
 
-		if ( enabled && ! isAlreadyZoomedOut ) {
-			setZoomLevel( 'auto-scaled' );
+		if ( enabled !== isAlreadyZoomedOut ) {
 			controlZoomLevelRef.current = true;
-		} else if ( ! enabled && isAlreadyZoomedOut ) {
-			resetZoomLevel();
-			controlZoomLevelRef.current = true;
+
+			if ( enabled ) {
+				setZoomLevel( 'auto-scaled' );
+			} else {
+				resetZoomLevel();
+			}
 		}
 
 		return () => {
