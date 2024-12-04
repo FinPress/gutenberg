@@ -37,6 +37,7 @@ interface HeaderMenuProps< Item > {
 	onChangeView: ( view: ViewTableType ) => void;
 	onHide: ( field: NormalizedField< Item > ) => void;
 	setOpenedFilter: ( fieldId: string ) => void;
+	canMove?: boolean;
 }
 
 function WithMenuSeparators( { children }: { children: ReactNode } ) {
@@ -58,6 +59,7 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 		onChangeView,
 		onHide,
 		setOpenedFilter,
+		canMove = true,
 	}: HeaderMenuProps< Item >,
 	ref: Ref< HTMLButtonElement >
 ) {
@@ -178,64 +180,80 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 						</Menu.Item>
 					</Menu.Group>
 				) }
-				<Menu.Group>
-					<Menu.Item
-						prefix={ <Icon icon={ arrowLeft } /> }
-						disabled={ index < 1 }
-						onClick={ () => {
-							onChangeView( {
-								...view,
-								fields: [
-									...( visibleFieldIds.slice(
-										0,
-										index - 1
-									) ?? [] ),
-									fieldId,
-									visibleFieldIds[ index - 1 ],
-									...visibleFieldIds.slice( index + 1 ),
-								],
-							} );
-						} }
-					>
-						<Menu.ItemLabel>{ __( 'Move left' ) }</Menu.ItemLabel>
-					</Menu.Item>
-					<Menu.Item
-						prefix={ <Icon icon={ arrowRight } /> }
-						disabled={ index >= visibleFieldIds.length - 1 }
-						onClick={ () => {
-							onChangeView( {
-								...view,
-								fields: [
-									...( visibleFieldIds.slice( 0, index ) ??
-										[] ),
-									visibleFieldIds[ index + 1 ],
-									fieldId,
-									...visibleFieldIds.slice( index + 2 ),
-								],
-							} );
-						} }
-					>
-						<Menu.ItemLabel>{ __( 'Move right' ) }</Menu.ItemLabel>
-					</Menu.Item>
-					{ isHidable && field && (
-						<Menu.Item
-							prefix={ <Icon icon={ unseen } /> }
-							onClick={ () => {
-								onHide( field );
-								onChangeView( {
-									...view,
-									fields: visibleFieldIds.filter(
-										( id ) => id !== fieldId
-									),
-								} );
-							} }
-						>
-							<Menu.ItemLabel>
-								{ __( 'Hide column' ) }
-							</Menu.ItemLabel>
-						</Menu.Item>
-					) }
-				</Menu.Group>
+				{ ( canMove || isHidable ) && field && (
+					<Menu.Group>
+						{ canMove && (
+							<Menu.Item
+								prefix={ <Icon icon={ arrowLeft } /> }
+								disabled={ index < 1 }
+								onClick={ () => {
+									onChangeView( {
+										...view,
+										fields: [
+											...( visibleFieldIds.slice(
+												0,
+												index - 1
+											) ?? [] ),
+											fieldId,
+											visibleFieldIds[ index - 1 ],
+											...visibleFieldIds.slice(
+												index + 1
+											),
+										],
+									} );
+								} }
+							>
+								<Menu.ItemLabel>
+									{ __( 'Move left' ) }
+								</Menu.ItemLabel>
+							</Menu.Item>
+						) }
+						{ canMove && (
+							<Menu.Item
+								prefix={ <Icon icon={ arrowRight } /> }
+								disabled={ index >= visibleFieldIds.length - 1 }
+								onClick={ () => {
+									onChangeView( {
+										...view,
+										fields: [
+											...( visibleFieldIds.slice(
+												0,
+												index
+											) ?? [] ),
+											visibleFieldIds[ index + 1 ],
+											fieldId,
+											...visibleFieldIds.slice(
+												index + 2
+											),
+										],
+									} );
+								} }
+							>
+								<Menu.ItemLabel>
+									{ __( 'Move right' ) }
+								</Menu.ItemLabel>
+							</Menu.Item>
+						) }
+						{ isHidable && field && (
+							<Menu.Item
+								prefix={ <Icon icon={ unseen } /> }
+								onClick={ () => {
+									onHide( field );
+									onChangeView( {
+										...view,
+										fields: visibleFieldIds.filter(
+											( id ) => id !== fieldId
+										),
+									} );
+								} }
+							>
+								<Menu.ItemLabel>
+									{ __( 'Hide column' ) }
+								</Menu.ItemLabel>
+							</Menu.Item>
+						) }
+					</Menu.Group>
+				) }
 			</WithMenuSeparators>
 		</Menu>
 	);

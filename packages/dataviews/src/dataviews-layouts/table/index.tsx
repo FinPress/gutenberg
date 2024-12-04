@@ -267,6 +267,17 @@ function ViewTable< Item >( {
 		( mediaField && showMedia ) ||
 		( descriptionField && showDescription );
 	const columns = view.fields ?? [];
+	const headerMenuRef =
+		( column: string, index: number ) => ( node: HTMLButtonElement ) => {
+			if ( node ) {
+				headerMenuRefs.current.set( column, {
+					node,
+					fallback: columns[ index > 0 ? index - 1 : 1 ],
+				} );
+			} else {
+				headerMenuRefs.current.delete( column );
+			}
+		};
 
 	return (
 		<>
@@ -303,7 +314,21 @@ function ViewTable< Item >( {
 						{ hasPrimaryColumn && (
 							<th scope="col">
 								<span className="dataviews-view-table-header">
-									{ __( 'Primary' ) }
+									{ titleField && (
+										<ColumnHeaderMenu
+											ref={ headerMenuRef(
+												titleField.id,
+												0
+											) }
+											fieldId={ titleField.id }
+											view={ view }
+											fields={ fields }
+											onChangeView={ onChangeView }
+											onHide={ onHide }
+											setOpenedFilter={ setOpenedFilter }
+											canMove={ false }
+										/>
+									) }
 								</span>
 							</th>
 						) }
@@ -324,26 +349,7 @@ function ViewTable< Item >( {
 									scope="col"
 								>
 									<ColumnHeaderMenu
-										ref={ ( node ) => {
-											if ( node ) {
-												headerMenuRefs.current.set(
-													column,
-													{
-														node,
-														fallback:
-															columns[
-																index > 0
-																	? index - 1
-																	: 1
-															],
-													}
-												);
-											} else {
-												headerMenuRefs.current.delete(
-													column
-												);
-											}
-										} }
+										ref={ headerMenuRef( column, index ) }
 										fieldId={ column }
 										view={ view }
 										fields={ fields }
