@@ -64,7 +64,7 @@ export default function PostCardPanel( {
 		[ postId, postType ]
 	);
 
-	const pageTypeBadge = usePageTypeBadge();
+	const pageTypeBadge = usePageTypeBadge( parseInt( postId, 10 ) );
 
 	return (
 		<div className="editor-post-card-panel">
