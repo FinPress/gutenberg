@@ -69,7 +69,7 @@ Order field for BasePost.
 
 ### pageTitleField
 
-Undocumented declaration.
+Title for the page entity.
 
 ### parentField
 
@@ -81,7 +81,7 @@ Password field for BasePost.
 
 ### patternTitleField
 
-Undocumented declaration.
+Title for the pattern entity.
 
 ### permanentlyDeletePost
 
@@ -121,11 +121,11 @@ Template field for BasePost.
 
 ### templateTitleField
 
-Undocumented declaration.
+Title for the template entity.
 
 ### titleField
 
-Title field for BasePost.
+Title for the any entity with a `title` property. For patterns, pages or templates you should use the respective field because there are some differences in the rendering, labels, etc.
 
 ### trashPost
 

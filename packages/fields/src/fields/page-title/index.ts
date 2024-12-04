@@ -22,4 +22,7 @@ const pageTitleField: Field< BasePost > = {
 	enableGlobalSearch: true,
 };
 
+/**
+ * Title for the page entity.
+ */
 export default pageTitleField;

@@ -18,17 +18,13 @@ export const { PATTERN_TYPES } = unlock( patternPrivateApis );
 
 export default function PatternTitleView( { item }: { item: CommonPost } ) {
 	return (
-		<BaseTitleView item={ item } className="fields-pattern-title-field">
+		<BaseTitleView item={ item } className="fields-field-pattern-title">
 			{ item.type === PATTERN_TYPES.theme && (
 				<Tooltip
 					placement="top"
 					text={ __( 'This pattern cannot be edited.' ) }
 				>
-					<Icon
-						className="fields-title-field__pattern-lock-icon"
-						icon={ lockSmall }
-						size={ 24 }
-					/>
+					<Icon icon={ lockSmall } size={ 24 } />
 				</Tooltip>
 			) }
 		</BaseTitleView>

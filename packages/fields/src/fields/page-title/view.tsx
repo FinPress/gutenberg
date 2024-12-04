@@ -25,9 +25,9 @@ export default function PageTitleView( { item }: { item: CommonPost } ) {
 		};
 	}, [] );
 	return (
-		<BaseTitleView item={ item }>
+		<BaseTitleView item={ item } className="fields-field-page-title">
 			{ [ frontPageId, postsPageId ].includes( item.id as number ) && (
-				<span className="fields-title-field__badge">
+				<span className="fields-field-page-title__badge">
 					{ item.id === frontPageId
 						? __( 'Homepage' )
 						: __( 'Posts Page' ) }

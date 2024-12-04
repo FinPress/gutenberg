@@ -23,6 +23,8 @@ const titleField: Field< CommonPost > = {
 };
 
 /**
- * Title field for BasePost.
+ * Title for the any entity with a `title` property.
+ * For patterns, pages or templates you should use the respective field
+ * because there are some differences in the rendering, labels, etc.
  */
 export default titleField;

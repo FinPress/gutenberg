@@ -28,7 +28,7 @@ export function BaseTitleView( {
 	const renderedTitle = getItemTitle( item );
 	return (
 		<HStack
-			className={ clsx( 'fields-title-field', className ) }
+			className={ clsx( 'fields-field-title', className ) }
 			alignment="center"
 			justify="flex-start"
 		>

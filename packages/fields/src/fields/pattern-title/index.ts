@@ -22,4 +22,7 @@ const patternTitleField: Field< Pattern > = {
 	enableGlobalSearch: true,
 };
 
+/**
+ * Title for the pattern entity.
+ */
 export default patternTitleField;

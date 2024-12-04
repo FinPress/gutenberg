@@ -9,16 +9,20 @@ import { __ } from '@wordpress/i18n';
  */
 import type { Template } from '../../types';
 import { getItemTitle } from '../../actions/utils';
-import TitleView from '../title/view';
+import PageTitleView from './view';
 
 const templateTitleField: Field< Template > = {
 	type: 'text',
 	label: __( 'Template' ),
+	placeholder: __( 'No title' ),
 	id: 'title',
 	getValue: ( { item } ) => getItemTitle( item ),
-	render: TitleView,
+	render: PageTitleView,
 	enableHiding: false,
 	enableGlobalSearch: true,
 };
 
+/**
+ * Title for the template entity.
+ */
 export default templateTitleField;

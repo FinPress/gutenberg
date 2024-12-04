@@ -27,7 +27,7 @@ test.describe( 'Templates', () => {
 			page.locator( '[aria-label="Templates"]' )
 		).toBeVisible();
 
-		const firstTitle = page.locator( '.fields-title-field' ).first();
+		const firstTitle = page.locator( '.fields-field-title' ).first();
 
 		// Descending by title.
 		await page.getByRole( 'button', { name: 'View options' } ).click();
@@ -48,7 +48,7 @@ test.describe( 'Templates', () => {
 		await admin.visitSiteEditor( { postType: 'wp_template' } );
 		// Global search.
 		await page.getByRole( 'searchbox', { name: 'Search' } ).fill( 'tag' );
-		const titles = page.locator( '.fields-title-field' );
+		const titles = page.locator( '.fields-field-title' );
 		await expect( titles ).toHaveCount( 1 );
 		await expect( titles.first() ).toHaveText( 'Tag Archives' );
 		await page
