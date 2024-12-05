@@ -221,11 +221,6 @@ function CollabSidebarContent( { showCommentBoard, setShowCommentBoard } ) {
 		);
 	};
 
-	const postType = useSelect(
-		( select ) => select( editorStore ).getCurrentPostType(),
-		[]
-	);
-
 	return (
 		<div className="editor-collab-sidebar-panel">
 			<AddComment
@@ -239,8 +234,6 @@ function CollabSidebarContent( { showCommentBoard, setShowCommentBoard } ) {
 				onAddReply={ addNewComment }
 				onCommentDelete={ onCommentDelete }
 				onCommentResolve={ onCommentResolve }
-				postId={ postId }
-				postType={ postType }
 			/>
 		</div>
 	);

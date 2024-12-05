@@ -8,20 +8,59 @@ export function sanitizeCommentString( str ) {
 	return str.trim();
 }
 
+/**
+ * Extracts comment IDs from an array of blocks.
+ *
+ * This function recursively traverses the blocks and their inner blocks to
+ * collect all comment IDs found in the block attributes.
+ *
+ * @param {Array} blocks - The array of blocks to extract comment IDs from.
+ * @return {Array} An array of comment IDs extracted from the blocks.
+ */
+export function getCommentIdsFromBlocks( blocks ) {
+	// Recursive function to extract comment IDs from blocks
+	const extractCommentIds = ( items ) => {
+		return items.reduce( ( commentIds, block ) => {
+			// Check for comment IDs in the current block's attributes
+			if (
+				block.attributes &&
+				block.attributes.blockCommentId &&
+				! commentIds.includes( block.attributes.blockCommentId )
+			) {
+				commentIds.push( block.attributes.blockCommentId );
+			}
+
+			// Recursively check inner blocks
+			if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
+				const innerCommentIds = extractCommentIds( block.innerBlocks );
+				commentIds.push( ...innerCommentIds );
+			}
+
+			return commentIds;
+		}, [] );
+	};
+
+	// Extract all comment IDs recursively
+	return extractCommentIds( blocks );
+}
+
 export const getBlockByCommentId = ( blocks, commentId ) => {
-	for ( const block of blocks ) {
-		if ( block.attributes.blockCommentId === commentId ) {
-			return block;
-		}
-		if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
-			const foundBlock = getBlockByCommentId(
-				block.innerBlocks,
-				commentId
-			);
-			if ( foundBlock ) {
-				return foundBlock;
+	const extractClientId = ( blocksArray, commentID ) => {
+		for ( const block of blocksArray ) {
+			if ( block.attributes.blockCommentId === commentID ) {
+				return block;
+			}
+			if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
+				const foundBlock = extractClientId(
+					block.innerBlocks,
+					commentID
+				);
+				if ( foundBlock ) {
+					return foundBlock;
+				}
 			}
 		}
-	}
-	return blocks ? getBlockByCommentId( blocks, commentId ) : null;
+	};
+
+	return blocks ? extractClientId( blocks, commentId ) : null;
 };

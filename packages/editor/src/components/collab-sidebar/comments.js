@@ -27,6 +27,7 @@ import { useEntityBlockEditor } from '@wordpress/core-data';
 import CommentAuthorInfo from './comment-author-info';
 import CommentForm from './comment-form';
 import { getBlockByCommentId } from './utils';
+import { store as editorStore } from '../../store';
 
 /**
  * Renders the Comments component.
@@ -37,8 +38,6 @@ import { getBlockByCommentId } from './utils';
  * @param {Function} props.onAddReply       - The function to add a reply to a comment.
  * @param {Function} props.onCommentDelete  - The function to delete a comment.
  * @param {Function} props.onCommentResolve - The function to mark a comment as resolved.
- * @param {string}   props.postType         - The post type.
- * @param {number}   props.postId           - The post ID.
  * @return {React.ReactNode} The rendered Comments component.
  */
 export function Comments( {
@@ -47,8 +46,6 @@ export function Comments( {
 	onAddReply,
 	onCommentDelete,
 	onCommentResolve,
-	postType, // Ensure postType is passed as a prop
-	postId, // Ensure postId is passed as a prop
 } ) {
 	const [ actionState, setActionState ] = useState( false );
 	const [ isConfirmDialogOpen, setIsConfirmDialogOpen ] = useState( false );
@@ -76,6 +73,14 @@ export function Comments( {
 			select( blockEditorStore ).getBlock( clientID )?.attributes
 				?.blockCommentId ?? false
 		);
+	}, [] );
+
+	const { postId, postType } = useSelect( ( select ) => {
+		const { getCurrentPostId, getCurrentPostType } = select( editorStore );
+		return {
+			postId: getCurrentPostId(),
+			postType: getCurrentPostType(),
+		};
 	}, [] );
 
 	const [ blocks ] = useEntityBlockEditor( 'postType', postType, {
