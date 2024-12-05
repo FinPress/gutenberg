@@ -12,47 +12,46 @@ import { info, caution, error, published } from '@wordpress/icons';
  * Internal dependencies
  */
 import type { BadgeProps } from './types';
+import type { WordPressComponentProps } from '../context';
 import Icon from '../icon';
 
 function Badge( {
 	className,
-	as: Component = 'div',
-	context = 'neutral',
+	intent = 'default',
 	children,
 	...props
-}: BadgeProps ) {
+}: WordPressComponentProps< BadgeProps, 'span', false > ) {
 	/**
 	 * Returns an icon based on the badge context.
 	 *
-	 * @return {JSX.Element | null} The corresponding icon for the provided context.
+	 * @return The corresponding icon for the provided context.
 	 */
-	function contextBasedIcon(): JSX.Element | null {
-		switch ( context ) {
+	function contextBasedIcon() {
+		switch ( intent ) {
 			case 'info':
 				return info;
+			case 'success':
+				return published;
 			case 'warning':
 				return caution;
 			case 'error':
 				return error;
-			case 'success':
-				return published;
 			default:
 				return null;
 		}
 	}
 
 	return (
-		<Component
+		<span
 			className={ clsx(
 				'components-badge',
-				`components-badge--${ context }`,
-				context !== 'neutral' && 'components-badge--has-icon',
+				`is-${ intent }`,
+				intent !== 'default' && 'has-icon',
 				className
 			) }
-			aria-label={ `${ context }-badge` }
 			{ ...props }
 		>
-			{ context !== 'neutral' && (
+			{ intent !== 'default' && (
 				<Icon
 					icon={ contextBasedIcon() }
 					size={ 16 }
@@ -60,7 +59,7 @@ function Badge( {
 				/>
 			) }
 			{ children }
-		</Component>
+		</span>
 	);
 }
 

@@ -17,18 +17,11 @@ describe( 'Badge', () => {
 		expect( badge ).toHaveClass( 'components-badge' );
 	} );
 
-	it( 'should render as a span when specified', () => {
-		render( <Badge as="span">Code is Poetry</Badge> );
+	it( 'should render as per its intent and contain an icon', () => {
+		render( <Badge intent="error">Code is Poetry</Badge> );
 		const badge = screen.getByText( 'Code is Poetry' );
-		expect( badge.tagName ).toBe( 'SPAN' );
-		expect( badge ).toHaveClass( 'components-badge' );
-	} );
-
-	it( 'should render as a custom element when specified', () => {
-		render( <Badge as="article">Code is Poetry</Badge> );
-		const badge = screen.getByText( 'Code is Poetry' );
-		expect( badge.tagName ).toBe( 'ARTICLE' );
-		expect( badge ).toHaveClass( 'components-badge' );
+		expect( badge ).toHaveClass( 'components-badge', 'is-error' );
+		expect( badge ).toHaveClass( 'has-icon' );
 	} );
 
 	it( 'should combine custom className with default class', () => {
@@ -36,25 +29,6 @@ describe( 'Badge', () => {
 		const badge = screen.getByText( 'Code is Poetry' );
 		expect( badge ).toHaveClass( 'components-badge' );
 		expect( badge ).toHaveClass( 'custom-class' );
-	} );
-
-	it( 'should render children correctly', () => {
-		render(
-			<Badge>
-				<span>Nested</span> Content
-			</Badge>
-		);
-
-		const badge = screen.getByText( ( content, element ) => {
-			return element?.classList?.contains( 'components-badge' ) ?? false;
-		} );
-
-		expect( badge ).toBeInTheDocument();
-		expect( badge ).toHaveClass( 'components-badge' );
-		expect( badge ).toHaveTextContent( 'Nested Content' );
-
-		const nestedSpan = screen.getByText( 'Nested' );
-		expect( nestedSpan.tagName ).toBe( 'SPAN' );
 	} );
 
 	it( 'should pass through additional props', () => {
