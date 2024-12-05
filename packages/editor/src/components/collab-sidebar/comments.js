@@ -294,7 +294,7 @@ export function Comments( {
  * @param {Function} props.onDelete  - The function to delete the comment.
  * @param {Function} props.onReply   - The function to reply to the comment.
  * @param {string}   props.status    - The status of the comment.
- * @return {JSX.Element} The rendered comment header.
+ * @return {React.ReactNode} The rendered comment header.
  */
 function CommentHeader( {
 	thread,
