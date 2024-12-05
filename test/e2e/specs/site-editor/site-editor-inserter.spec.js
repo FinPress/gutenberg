@@ -263,9 +263,6 @@ class InserterUtils {
 			name: 'Block Inserter',
 			exact: true,
 		} );
-		this.blocksTab = this.getBlockLibraryTab( 'Blocks' );
-		this.patternsTab = this.getBlockLibraryTab( 'Patterns' );
-		this.mediaTab = this.getBlockLibraryTab( 'Media' );
 	}
 
 	// Manually naming as open and close these makes it clearer when reading
