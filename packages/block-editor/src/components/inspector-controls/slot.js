@@ -2,7 +2,6 @@
  * WordPress dependencies
  */
 import { __experimentalUseSlotFills as useSlotFills } from '@wordpress/components';
-import { useMemo } from '@wordpress/element';
 import warning from '@wordpress/warning';
 import deprecated from '@wordpress/deprecated';
 
@@ -34,14 +33,6 @@ export default function InspectorControlsSlot( {
 	const slotFill = groups[ group ];
 	const fills = useSlotFills( slotFill?.name );
 
-	const computedFillProps = useMemo(
-		() => ( {
-			...fillProps,
-			forwardedContext: [ ...( fillProps?.forwardedContext ?? [] ) ],
-		} ),
-		[ fillProps ]
-	);
-
 	if ( ! slotFill ) {
 		warning( `Unknown InspectorControls group "${ group }" provided.` );
 		return null;
@@ -58,14 +49,12 @@ export default function InspectorControlsSlot( {
 			<BlockSupportToolsPanel group={ group } label={ label }>
 				<BlockSupportSlotContainer
 					{ ...props }
-					fillProps={ computedFillProps }
+					fillProps={ fillProps }
 					Slot={ Slot }
 				/>
 			</BlockSupportToolsPanel>
 		);
 	}
 
-	return (
-		<Slot { ...props } fillProps={ computedFillProps } bubblesVirtually />
-	);
+	return <Slot { ...props } fillProps={ fillProps } bubblesVirtually />;
 }
