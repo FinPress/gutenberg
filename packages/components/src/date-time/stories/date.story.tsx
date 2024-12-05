@@ -20,7 +20,7 @@ const meta: Meta< typeof DatePicker > = {
 	component: DatePicker,
 	argTypes: {
 		currentDate: { control: 'date' },
-		onChange: { action: 'onChange', control: { type: undefined } },
+		onChange: { action: 'onChange', control: { type: false } },
 	},
 	parameters: {
 		controls: { expanded: true },

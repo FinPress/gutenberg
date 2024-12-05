@@ -32,7 +32,7 @@ const meta: Meta< typeof ToggleGroupControl > = {
 	argTypes: {
 		help: { control: { type: 'text' } },
 		onChange: { action: 'onChange' },
-		value: { control: { type: undefined } },
+		value: { control: { type: false } },
 	},
 	parameters: {
 		controls: { expanded: true },

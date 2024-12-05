@@ -16,7 +16,7 @@ export default {
 	title: 'BlockEditor (Private APIs)/DimensionsTool/ScaleTool',
 	component: ScaleTool,
 	argTypes: {
-		panelId: { control: { type: undefined } },
+		panelId: { control: { type: false } },
 		onChange: { action: 'changed' },
 	},
 };

@@ -26,10 +26,10 @@ const meta: Meta< typeof Card > = {
 	id: 'components-card',
 	argTypes: {
 		as: {
-			control: { type: undefined },
+			control: { type: false },
 		},
 		children: {
-			control: { type: undefined },
+			control: { type: false },
 		},
 	},
 	parameters: {

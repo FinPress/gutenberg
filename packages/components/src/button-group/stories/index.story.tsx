@@ -13,7 +13,7 @@ const meta: Meta< typeof ButtonGroup > = {
 	title: 'Components/ButtonGroup',
 	component: ButtonGroup,
 	argTypes: {
-		children: { control: { type: undefined } },
+		children: { control: { type: false } },
 	},
 	parameters: {
 		controls: { expanded: true },

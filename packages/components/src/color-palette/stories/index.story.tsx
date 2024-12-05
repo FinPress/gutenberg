@@ -18,9 +18,9 @@ const meta: Meta< typeof ColorPalette > = {
 	id: 'components-colorpalette',
 	component: ColorPalette,
 	argTypes: {
-		as: { control: { type: undefined } },
-		onChange: { action: 'onChange', control: { type: undefined } },
-		value: { control: { type: undefined } },
+		as: { control: { type: false } },
+		onChange: { action: 'onChange', control: { type: false } },
+		value: { control: { type: false } },
 	},
 	parameters: {
 		controls: { expanded: true },

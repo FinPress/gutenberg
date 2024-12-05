@@ -19,7 +19,7 @@ const meta: Meta< typeof SearchControl > = {
 	component: SearchControl,
 	argTypes: {
 		onChange: { action: 'onChange' },
-		value: { control: { type: undefined } },
+		value: { control: { type: false } },
 	},
 	parameters: {
 		controls: { expanded: true },

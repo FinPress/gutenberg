@@ -46,8 +46,8 @@ const meta: Meta< typeof Menu > = {
 		ItemHelpText: Menu.ItemHelpText,
 	},
 	argTypes: {
-		children: { control: { type: undefined } },
-		trigger: { control: { type: undefined } },
+		children: { control: { type: false } },
+		trigger: { control: { type: false } },
 	},
 	tags: [ 'status-private' ],
 	parameters: {

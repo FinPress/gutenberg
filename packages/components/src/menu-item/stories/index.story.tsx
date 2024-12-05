@@ -20,7 +20,7 @@ const meta: Meta< typeof MenuItem > = {
 	title: 'Components/Actions/MenuItem',
 	id: 'components-menuitem',
 	argTypes: {
-		children: { control: { type: undefined } },
+		children: { control: { type: false } },
 		icon: {
 			control: { type: 'select' },
 			options: [ 'check', 'link', 'more' ],

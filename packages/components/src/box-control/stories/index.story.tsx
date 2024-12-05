@@ -17,7 +17,7 @@ const meta: Meta< typeof BoxControl > = {
 	title: 'Components/BoxControl',
 	component: BoxControl,
 	argTypes: {
-		values: { control: { type: undefined } },
+		values: { control: { type: false } },
 	},
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },
