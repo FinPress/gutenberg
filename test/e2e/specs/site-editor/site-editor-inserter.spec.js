@@ -286,7 +286,7 @@ class InserterUtils {
 
 	async expectActiveTab( name ) {
 		await expect( this.getBlockLibraryTab( name ) ).toHaveAttribute(
-			'data-active-item',
+			'aria-selected',
 			'true'
 		);
 	}
