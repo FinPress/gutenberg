@@ -46,7 +46,12 @@ export default function PostEditHeader( { postType, postId } ) {
 	);
 
 	if ( ids.length === 1 ) {
-		return <PostCardPanel postType={ postType } postId={ ids[ 0 ] } />;
+		return (
+			<PostCardPanel
+				postType={ postType }
+				postId={ parseInt( ids[ 0 ], 10 ) }
+			/>
+		);
 	}
 
 	return (
