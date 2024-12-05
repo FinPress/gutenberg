@@ -21,8 +21,8 @@ const meta: Meta< typeof Draggable > = {
 	title: 'Components/Utilities/Draggable',
 	id: 'components-draggable',
 	argTypes: {
-		elementId: { control: { type: false } },
-		__experimentalDragComponent: { control: { type: false } },
+		elementId: { control: { type: undefined } },
+		__experimentalDragComponent: { control: { type: undefined } },
 	},
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },

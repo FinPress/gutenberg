@@ -22,7 +22,7 @@ const meta: Meta< typeof RadioControl > = {
 			action: 'onChange',
 		},
 		selected: {
-			control: { type: false },
+			control: { type: undefined },
 		},
 		label: {
 			control: { type: 'text' },

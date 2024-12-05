@@ -16,7 +16,7 @@ export default {
 	title: 'BlockEditor (Private APIs)/DimensionsTool/WidthHeightTool',
 	component: WidthHeightTool,
 	argTypes: {
-		panelId: { control: { type: false } },
+		panelId: { control: { type: undefined } },
 		onChange: { action: 'changed' },
 	},
 };

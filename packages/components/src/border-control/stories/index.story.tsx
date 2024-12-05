@@ -23,7 +23,7 @@ const meta: Meta< typeof BorderControl > = {
 			action: 'onChange',
 		},
 		width: { control: { type: 'text' } },
-		value: { control: { type: false } },
+		value: { control: { type: undefined } },
 	},
 	parameters: {
 		controls: { expanded: true },

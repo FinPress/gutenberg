@@ -23,10 +23,10 @@ const meta: Meta< typeof Modal > = {
 	id: 'components-modal',
 	argTypes: {
 		children: {
-			control: { type: false },
+			control: { type: undefined },
 		},
 		onKeyDown: {
-			control: { type: false },
+			control: { type: undefined },
 		},
 		focusOnMount: {
 			options: [ true, false, 'firstElement', 'firstContentElement' ],

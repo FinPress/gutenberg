@@ -13,7 +13,7 @@ const meta: Meta< typeof SandBox > = {
 	title: 'Components/Utilities/SandBox',
 	id: 'components-sandbox',
 	argTypes: {
-		onFocus: { control: { type: false } },
+		onFocus: { control: { type: undefined } },
 	},
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },

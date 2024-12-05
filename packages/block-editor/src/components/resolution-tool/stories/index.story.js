@@ -16,7 +16,7 @@ export default {
 	title: 'BlockEditor (Private APIs)/ResolutionControl',
 	component: ResolutionTool,
 	argTypes: {
-		panelId: { control: { type: false } },
+		panelId: { control: { type: undefined } },
 		onChange: { action: 'changed' },
 	},
 };

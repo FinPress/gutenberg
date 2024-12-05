@@ -21,7 +21,7 @@ const meta: Meta< typeof TimePicker > = {
 	subcomponents: { 'TimePicker.TimeInput': TimePicker.TimeInput },
 	argTypes: {
 		currentTime: { control: 'date' },
-		onChange: { action: 'onChange', control: { type: false } },
+		onChange: { action: 'onChange', control: { type: undefined } },
 	},
 	parameters: {
 		controls: { expanded: true },

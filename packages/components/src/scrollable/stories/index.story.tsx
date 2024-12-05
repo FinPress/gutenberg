@@ -22,7 +22,7 @@ const meta: Meta< typeof Scrollable > = {
 			control: { type: 'text' },
 		},
 		children: {
-			control: { type: false },
+			control: { type: undefined },
 		},
 	},
 	parameters: {

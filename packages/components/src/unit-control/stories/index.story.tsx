@@ -20,11 +20,11 @@ const meta: Meta< typeof UnitControl > = {
 	id: 'components-experimental-unitcontrol',
 	argTypes: {
 		__unstableInputWidth: { control: { type: 'text' } },
-		__unstableStateReducer: { control: { type: false } },
-		onChange: { control: { type: false } },
-		onUnitChange: { control: { type: false } },
+		__unstableStateReducer: { control: { type: undefined } },
+		onChange: { control: { type: undefined } },
+		onUnitChange: { control: { type: undefined } },
 		prefix: { control: { type: 'text' } },
-		value: { control: { type: false } },
+		value: { control: { type: undefined } },
 	},
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },

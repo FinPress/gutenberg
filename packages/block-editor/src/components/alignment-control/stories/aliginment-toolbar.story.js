@@ -16,13 +16,13 @@ const meta = {
 	component: AlignmentToolbar,
 	argTypes: {
 		value: {
-			control: { type: false },
+			control: { type: undefined },
 			defaultValue: 'undefined',
 			description: 'The current value of the alignment setting.',
 		},
 		onChange: {
 			action: 'onChange',
-			control: { type: false },
+			control: { type: undefined },
 			description:
 				"A callback function invoked when the toolbar's alignment value is changed via an interaction with any of the toolbar's buttons. Called with the new alignment value (ie: `left`, `center`, `right`, `undefined`) as the only argument.",
 		},
