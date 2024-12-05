@@ -23,10 +23,18 @@ import {
 	__experimentalText as Text,
 	privateApis as componentsPrivateApis,
 	BaseControl,
+	Icon,
 } from '@wordpress/components';
 import { __, _x, sprintf } from '@wordpress/i18n';
 import { memo, useContext, useMemo } from '@wordpress/element';
-import { chevronDown, chevronUp, cog, seen, unseen } from '@wordpress/icons';
+import {
+	chevronDown,
+	chevronUp,
+	cog,
+	seen,
+	unseen,
+	lock,
+} from '@wordpress/icons';
 import warning from '@wordpress/warning';
 import { useInstanceId } from '@wordpress/compose';
 
@@ -237,6 +245,7 @@ function FieldItem( {
 	isVisible,
 	isFirst,
 	isLast,
+	canMove = true,
 	onToggleVisibility,
 	onMoveUp,
 	onMoveDown,
@@ -245,6 +254,7 @@ function FieldItem( {
 	isVisible: boolean;
 	isFirst?: boolean;
 	isLast?: boolean;
+	canMove?: boolean;
 	onToggleVisibility?: () => void;
 	onMoveUp?: () => void;
 	onMoveDown?: () => void;
@@ -268,38 +278,54 @@ function FieldItem( {
 			<HStack
 				expanded
 				className={ `dataviews-field-control__field dataviews-field-control__field-${ field.id }` }
+				justify="flex-start"
 			>
-				<span>{ field.label }</span>
+				<span className="dataviews-field-control__icon">
+					{ ! canMove && ! field.enableHiding && (
+						<Icon icon={ lock } />
+					) }
+				</span>
+				<span className="dataviews-field-control__label">
+					{ field.label }
+				</span>
 				<HStack
 					justify="flex-end"
 					expanded={ false }
 					className="dataviews-field-control__actions"
 				>
-					{ onMoveUp && onMoveDown && isVisible && (
+					{ isVisible && (
 						<>
 							<Button
-								disabled={ isFirst }
+								disabled={ isFirst || ! canMove }
 								accessibleWhenDisabled
 								size="compact"
 								onClick={ onMoveUp }
 								icon={ chevronUp }
-								label={ sprintf(
-									/* translators: %s: field label */
-									__( 'Move %s up' ),
-									field.label
-								) }
+								label={
+									isFirst || ! canMove
+										? __( "This field can't be moved up" )
+										: sprintf(
+												/* translators: %s: field label */
+												__( 'Move %s up' ),
+												field.label
+										  )
+								}
 							/>
 							<Button
-								disabled={ isLast }
+								disabled={ isLast || ! canMove }
 								accessibleWhenDisabled
 								size="compact"
 								onClick={ onMoveDown }
 								icon={ chevronDown }
-								label={ sprintf(
-									/* translators: %s: field label */
-									__( 'Move %s down' ),
-									field.label
-								) }
+								label={
+									isLast || ! canMove
+										? __( "This field can't be moved down" )
+										: sprintf(
+												/* translators: %s: field label */
+												__( 'Move %s down' ),
+												field.label
+										  )
+								}
 							/>
 						</>
 					) }
@@ -464,7 +490,8 @@ function FieldControl() {
 	return (
 		<VStack className="dataviews-field-control" spacing={ 6 }>
 			<VStack className="dataviews-view-config__properties" spacing={ 0 }>
-				{ visibleLockedFields.length > 0 && (
+				{ ( visibleLockedFields.length > 0 ||
+					!! visibleFields?.length ) && (
 					<ItemGroup isBordered isSeparated>
 						{ visibleLockedFields.map(
 							( { field, isVisibleFlag } ) => {
@@ -479,14 +506,12 @@ function FieldControl() {
 												[ isVisibleFlag ]: false,
 											} );
 										} }
+										canMove={ false }
 									/>
 								);
 							}
 						) }
-					</ItemGroup>
-				) }
-				{ !! visibleFields?.length && (
-					<ItemGroup isBordered isSeparated>
+
 						{ visibleFields.map( ( field, index ) => (
 							<RegularFieldItem
 								key={ field.id }
@@ -509,9 +534,9 @@ function FieldControl() {
 						className="dataviews-view-config__properties"
 						spacing={ 0 }
 					>
-						{ hiddenLockedFields.length > 0 && (
-							<ItemGroup isBordered isSeparated>
-								{ hiddenLockedFields.map(
+						<ItemGroup isBordered isSeparated>
+							{ hiddenLockedFields.length > 0 &&
+								hiddenLockedFields.map(
 									( { field, isVisibleFlag } ) => {
 										return (
 											<FieldItem
@@ -524,13 +549,11 @@ function FieldControl() {
 														[ isVisibleFlag ]: true,
 													} );
 												} }
+												canMove={ false }
 											/>
 										);
 									}
 								) }
-							</ItemGroup>
-						) }
-						<ItemGroup isBordered isSeparated>
 							{ hiddenFields.map( ( field ) => (
 								<RegularFieldItem
 									key={ field.id }

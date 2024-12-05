@@ -68,13 +68,10 @@
 	}
 }
 
-.dataviews-view-config__properties > div {
-	&:not(:last-child) {
-		border-bottom-left-radius: 0;
-		border-bottom-right-radius: 0;
-	}
-	&:not(:first-child) {
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-	}
+.dataviews-field-control__icon {
+	width: 24px;
+}
+
+.dataviews-field-control__label {
+	flex-grow: 1;
 }
