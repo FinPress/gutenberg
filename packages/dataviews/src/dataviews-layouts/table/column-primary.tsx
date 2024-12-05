@@ -32,7 +32,7 @@ function ColumnPrimary< Item >( {
 		isItemClickable,
 		onClickItem,
 		className:
-			'dataviews-view-table__cell-content-wrapper dataviews-primary-field',
+			'dataviews-view-table__cell-content-wrapper dataviews-title-field',
 	} );
 	return (
 		<HStack spacing={ 3 } justify="flex-start">

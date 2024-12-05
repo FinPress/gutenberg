@@ -86,7 +86,7 @@ function GridItem< Item >( {
 		item,
 		isItemClickable,
 		onClickItem,
-		className: 'dataviews-view-grid__primary-field dataviews-primary-field',
+		className: 'dataviews-view-grid__primary-field dataviews-title-field',
 	} );
 
 	return (

@@ -271,7 +271,7 @@ function ListItem< Item >( {
 					>
 						<HStack spacing={ 0 }>
 							<div
-								className="dataviews-primary-field"
+								className="dataviews-title-field"
 								id={ labelId }
 							>
 								{ renderedTitleField }

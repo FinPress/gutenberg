@@ -47,7 +47,7 @@
 	}
 }
 
-.dataviews-primary-field {
+.dataviews-title-field {
 	font-size: $default-font-size;
 	font-weight: 500;
 	color: $gray-800;
@@ -85,7 +85,7 @@
 	}
 }
 
-.dataviews-primary-field--clickable {
+.dataviews-title-field--clickable {
 	cursor: pointer;
 	color: $gray-800;
 	&:hover {
