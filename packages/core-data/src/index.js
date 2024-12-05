@@ -20,6 +20,8 @@ import {
 } from './entities';
 import { STORE_NAME } from './name';
 import { unlock } from './lock-unlock';
+import { DynamicSelectors } from './dynamic-selectors';
+import { DynamicActions } from './dynamic-actions';
 
 // The entity selectors/resolvers and actions are shortcuts to their generic equivalents
 // (getEntityRecord, getEntityRecords, updateEntityRecord, updateEntityRecords)
@@ -68,8 +70,17 @@ const entityActions = entitiesConfig.reduce( ( result, entity ) => {
 
 const storeConfig = () => ( {
 	reducer,
-	actions: { ...actions, ...entityActions, ...createLocksActions() },
-	selectors: { ...selectors, ...entitySelectors },
+	actions: {
+		...DynamicActions,
+		...actions,
+		...entityActions,
+		...createLocksActions(),
+	},
+	selectors: {
+		...DynamicSelectors,
+		...selectors,
+		...entitySelectors,
+	},
 	resolvers: { ...resolvers, ...entityResolvers },
 } );
 
