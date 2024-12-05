@@ -111,10 +111,10 @@ function GridItem< Item >( {
 				}
 			} }
 		>
-			{ showMedia && (
+			{ showMedia && renderedMediaField && (
 				<div { ...clickableMediaItemProps }>{ renderedMediaField }</div>
 			) }
-			{ showMedia && (
+			{ showMedia && renderedMediaField && (
 				<DataViewsSelectionCheckbox
 					item={ item }
 					selection={ selection }
