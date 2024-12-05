@@ -63,12 +63,15 @@ add_action(
  *
  * @return array IDs of the pages in the format: array( 'privacyPolicyPageId' => int, ... )
  */
-function get_page_options() {
-	return array(
-		'privacyPolicyPageId' => get_option( 'wp_page_for_privacy_policy' ),
-		'cartPageId'          => get_option( 'woocommerce_cart_page_id' ),
-		'checkoutPageId'      => get_option( 'woocommerce_checkout_page_id' ),
-		'accountPageId'       => get_option( 'woocommerce_myaccount_page_id' ),
-		'shopPageId'          => get_option( 'woocommerce_shop_page_id' ),
-	);
+if (!function_exists('get_page_options')) {
+	function get_page_options()
+	{
+		return array(
+			'privacyPolicyPageId' => get_option('wp_page_for_privacy_policy'),
+			'cartPageId' => get_option('woocommerce_cart_page_id'),
+			'checkoutPageId' => get_option('woocommerce_checkout_page_id'),
+			'accountPageId' => get_option('woocommerce_myaccount_page_id'),
+			'shopPageId' => get_option('woocommerce_shop_page_id'),
+		);
+	}
 }
