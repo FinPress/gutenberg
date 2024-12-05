@@ -21,8 +21,8 @@ const meta: Meta< typeof RadioGroup > = {
 	// @ts-expect-error - See https://github.com/storybookjs/storybook/issues/23170
 	subcomponents: { Radio },
 	argTypes: {
-		onChange: { control: { type: undefined } },
-		children: { control: { type: undefined } },
+		onChange: { control: false },
+		children: { control: false },
 		checked: { control: { type: 'text' } },
 	},
 	parameters: {
@@ -99,5 +99,5 @@ Controlled.args = {
 	id: 'controlled-radiogroup',
 };
 Controlled.argTypes = {
-	checked: { control: { type: undefined } },
+	checked: { control: false },
 };

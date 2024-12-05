@@ -22,12 +22,12 @@ const meta: Meta< typeof QueryControls > = {
 	title: 'Components/QueryControls',
 	component: QueryControls,
 	argTypes: {
-		numberOfItems: { control: { type: undefined } },
-		order: { control: { type: undefined } },
-		orderBy: { control: { type: undefined } },
-		selectedAuthorId: { control: { type: undefined } },
-		selectedCategories: { control: { type: undefined } },
-		selectedCategoryId: { control: { type: undefined } },
+		numberOfItems: { control: false },
+		order: { control: false },
+		orderBy: { control: false },
+		selectedAuthorId: { control: false },
+		selectedCategories: { control: false },
+		selectedCategoryId: { control: false },
 	},
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },

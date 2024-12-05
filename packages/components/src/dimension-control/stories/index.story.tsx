@@ -24,7 +24,7 @@ const meta: Meta< typeof DimensionControl > = {
 	id: 'components-dimensioncontrol',
 	argTypes: {
 		onChange: { action: 'onChange' },
-		value: { control: { type: undefined } },
+		value: { control: false },
 		icon: {
 			control: { type: 'select' },
 			options: [ '-', 'desktop', 'tablet', 'mobile' ],

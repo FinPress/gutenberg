@@ -20,7 +20,7 @@ const meta: Meta< typeof MenuGroup > = {
 	component: MenuGroup,
 	id: 'components-menugroup',
 	argTypes: {
-		children: { control: { type: undefined } },
+		children: { control: false },
 	},
 	parameters: {
 		controls: { expanded: true },

@@ -15,7 +15,7 @@ const meta: Meta< typeof Grid > = {
 	argTypes: {
 		as: { control: { type: 'text' } },
 		align: { control: { type: 'text' } },
-		children: { control: { type: undefined } },
+		children: { control: false },
 		columnGap: { control: { type: 'text' } },
 		columns: {
 			table: { type: { summary: 'number' } },

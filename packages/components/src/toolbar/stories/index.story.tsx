@@ -51,7 +51,7 @@ const meta: Meta< typeof Toolbar > = {
 		ToolbarDropdownMenu,
 	},
 	argTypes: {
-		children: { control: { type: undefined } },
+		children: { control: false },
 		variant: {
 			options: [ undefined, 'unstyled' ],
 			control: { type: 'radio' },

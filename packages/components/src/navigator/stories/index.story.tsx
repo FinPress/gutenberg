@@ -24,9 +24,9 @@ const meta: Meta< typeof Navigator > = {
 	title: 'Components/Navigation/Navigator',
 	id: 'components-navigator',
 	argTypes: {
-		as: { control: { type: undefined } },
-		children: { control: { type: undefined } },
-		initialPath: { control: { type: undefined } },
+		as: { control: false },
+		children: { control: false },
+		initialPath: { control: false },
 	},
 	parameters: {
 		controls: { expanded: true },

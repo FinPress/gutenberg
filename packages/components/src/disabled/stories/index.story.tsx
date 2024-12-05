@@ -22,8 +22,8 @@ const meta: Meta< typeof Disabled > = {
 	id: 'components-disabled',
 	component: Disabled,
 	argTypes: {
-		as: { control: { type: undefined } },
-		children: { control: { type: undefined } },
+		as: { control: false },
+		children: { control: false },
 	},
 	parameters: {
 		controls: {

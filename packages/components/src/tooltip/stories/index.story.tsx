@@ -19,7 +19,7 @@ const meta: Meta< typeof Tooltip > = {
 	id: 'components-tooltip',
 	component: Tooltip,
 	argTypes: {
-		children: { control: { type: undefined } },
+		children: { control: false },
 		position: {
 			control: { type: 'select' },
 			options: [

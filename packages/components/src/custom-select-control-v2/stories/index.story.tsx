@@ -22,8 +22,8 @@ const meta: Meta< typeof CustomSelectControlV2 > = {
 		'CustomSelectControlV2.Item': CustomSelectControlV2.Item,
 	},
 	argTypes: {
-		children: { control: { type: undefined } },
-		value: { control: { type: undefined } },
+		children: { control: false },
+		value: { control: false },
 	},
 	tags: [ 'status-wip' ],
 	parameters: {
