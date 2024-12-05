@@ -136,9 +136,8 @@ export function PrivateBlockToolbar( {
 			showParentSelector:
 				! _isZoomOut &&
 				parentBlockType &&
+				editingMode !== 'contentOnly' &&
 				getBlockEditingMode( parentClientId ) !== 'disabled' &&
-				getBlockEditingMode( selectedBlockClientId ) !==
-					'contentOnly' &&
 				hasBlockSupport(
 					parentBlockType,
 					'__experimentalParentSelector',
