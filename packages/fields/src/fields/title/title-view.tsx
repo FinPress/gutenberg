@@ -7,6 +7,7 @@ import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import type { Settings } from '@wordpress/core-data';
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -26,6 +27,39 @@ const TitleView = ( { item }: { item: BasePost } ) => {
 			postsPageId: siteSettings?.page_for_posts,
 		};
 	}, [] );
+	const [ options, setOptions ] = useState< {
+		privacyPolicyPageId: number | null;
+		cartPageId: number | null;
+		shopPageId: number | null;
+		accountPageId: number | null;
+		checkoutPageId: number | null;
+	} | null >( null );
+
+	useEffect( () => {
+		const fetchOptions = async () => {
+			try {
+				const response = await fetch(
+					'/wp-json/page-options/v1/options'
+				);
+				const data = await response.json();
+				setOptions( data );
+			} catch ( error ) {}
+		};
+
+		fetchOptions();
+	}, [] );
+
+	if ( ! options ) {
+		return null; // Or a loader while options are being fetched
+	}
+
+	const {
+		privacyPolicyPageId,
+		cartPageId,
+		shopPageId,
+		accountPageId,
+		checkoutPageId,
+	} = options;
 
 	const renderedTitle = getItemTitle( item );
 
@@ -42,6 +76,38 @@ const TitleView = ( { item }: { item: BasePost } ) => {
 				{ __( 'Posts Page' ) }
 			</span>
 		);
+	} else if ( item.id === Number( privacyPolicyPageId ) ) {
+		suffix = (
+			<span className="edit-site-post-list__title-badge">
+				{ __( 'Privacy Policy' ) }
+			</span>
+		);
+	} else if ( item.id === Number( cartPageId ) ) {
+		suffix = (
+			<span className="edit-site-post-list__title-badge">
+				{ __( 'Cart' ) }
+			</span>
+		);
+	} else if ( item.id === Number( shopPageId ) ) {
+		suffix = (
+			<span className="edit-site-post-list__title-badge">
+				{ __( 'Shop' ) }
+			</span>
+		);
+	} else if ( item.id === Number( accountPageId ) ) {
+		suffix = (
+			<span className="edit-site-post-list__title-badge">
+				{ __( 'Account' ) }
+			</span>
+		);
+	} else if ( item.id === Number( checkoutPageId ) ) {
+		suffix = (
+			<span className="edit-site-post-list__title-badge">
+				{ __( 'Checkout' ) }
+			</span>
+		);
+	} else {
+		suffix = null;
 	}
 
 	return (

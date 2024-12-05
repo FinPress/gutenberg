@@ -36,3 +36,24 @@ function gutenberg_register_edit_site_export_controller_endpoints() {
 	$edit_site_export_controller->register_routes();
 }
 add_action( 'rest_api_init', 'gutenberg_register_edit_site_export_controller_endpoints' );
+add_action( 'rest_api_init', function () {
+    register_rest_route(
+        'page-options/v1',
+        '/options',
+        [
+            'methods'  => 'GET',
+            'callback' => 'get_page_options',
+            'permission_callback' => '__return_true', // Adjust permissions as necessary
+        ]
+    );
+} );
+
+function get_page_options() {
+    return [
+        'privacyPolicyPageId' => get_option( 'wp_page_for_privacy_policy' ),
+		'cartPageId'           => get_option( 'woocommerce_cart_page_id' ),
+		'checkoutPageId'       => get_option( 'woocommerce_checkout_page_id' ),
+		'accountPageId'        => get_option( 'woocommerce_myaccount_page_id' ),
+		'shopPageId'           => get_option( 'woocommerce_shop_page_id' ),
+    ];
+}
