@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
  */
 import type { Template } from '../../types';
 import { getItemTitle } from '../../actions/utils';
-import PageTitleView from './view';
+import TitleView from '../title/view';
 
 const templateTitleField: Field< Template > = {
 	type: 'text',
@@ -17,7 +17,7 @@ const templateTitleField: Field< Template > = {
 	placeholder: __( 'No title' ),
 	id: 'title',
 	getValue: ( { item } ) => getItemTitle( item ),
-	render: PageTitleView,
+	render: TitleView,
 	enableHiding: false,
 	enableGlobalSearch: true,
 };
