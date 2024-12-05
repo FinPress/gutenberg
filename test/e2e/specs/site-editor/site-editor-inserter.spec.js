@@ -24,16 +24,12 @@ test.describe( 'Site Editor Inserter', () => {
 		},
 	} );
 
+	// eslint-disable-next-line playwright/expect-expect
 	test( 'inserter toggle button should toggle global inserter', async ( {
 		InserterUtils,
 	} ) => {
-		await InserterUtils.toggleBlockLibrary();
-
-		// Visibility check
-		await expect( InserterUtils.blockLibrary ).toBeVisible();
-		await InserterUtils.toggleBlockLibrary();
-		//Hidden State check
-		await expect( InserterUtils.blockLibrary ).toBeHidden();
+		await InserterUtils.openBlockLibrary();
+		await InserterUtils.closeBlockLibrary();
 	} );
 
 	// A test for https://github.com/WordPress/gutenberg/issues/43090.
@@ -43,8 +39,8 @@ test.describe( 'Site Editor Inserter', () => {
 	} ) => {
 		const beforeBlocks = await editor.getBlocks();
 
-		await InserterUtils.toggleBlockLibrary();
-		await InserterUtils.activateTab( 'Blocks' );
+		await InserterUtils.openBlockLibrary();
+		await InserterUtils.expectActiveTab( 'Blocks' );
 		await InserterUtils.blockLibrary
 			.getByRole( 'option', { name: 'Buttons' } )
 			.click();
@@ -53,9 +49,7 @@ test.describe( 'Site Editor Inserter', () => {
 			.poll( editor.getBlocks )
 			.toMatchObject( [ ...beforeBlocks, { name: 'core/buttons' } ] );
 
-		await InserterUtils.toggleBlockLibrary();
-
-		await expect( InserterUtils.blockLibrary ).toBeHidden();
+		await InserterUtils.closeBlockLibrary();
 	} );
 
 	test.describe( 'Inserter Zoom Level UX', () => {
@@ -70,36 +64,27 @@ test.describe( 'Site Editor Inserter', () => {
 			ZoomUtils,
 		} ) => {
 			await test.step( 'should open the inserter to blocks tab from default zoom level', async () => {
-				// Open inserter
-				await InserterUtils.toggleBlockLibrary();
+				await InserterUtils.openBlockLibrary();
 				await InserterUtils.expectActiveTab( 'Blocks' );
 
 				// Zoom canvas should not be active
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
-				// Close Block Library
-				await InserterUtils.toggleBlockLibrary();
-				await expect( InserterUtils.blockLibrary ).toBeHidden();
+				await InserterUtils.closeBlockLibrary();
 
 				// Zoom canvas should not be active
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 			} );
 
 			await test.step( 'should open the inserter to patterns tab if zoomed out', async () => {
-				// Toggle Zoom Level
-				await ZoomUtils.toggleZoomLevel();
-				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
-
-				// Open inserter
-				await InserterUtils.toggleBlockLibrary();
+				await ZoomUtils.enterZoomOut();
+				await InserterUtils.openBlockLibrary();
 				await InserterUtils.expectActiveTab( 'Patterns' );
 
 				// Zoom canvas should still be active
 				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
 
-				// Close Block Library
-				await InserterUtils.toggleBlockLibrary();
-				await expect( InserterUtils.blockLibrary ).toBeHidden();
+				await InserterUtils.closeBlockLibrary();
 
 				// We should still be in Zoom Out
 				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
@@ -110,8 +95,7 @@ test.describe( 'Site Editor Inserter', () => {
 			InserterUtils,
 			ZoomUtils,
 		} ) => {
-			// Open inserter
-			await InserterUtils.toggleBlockLibrary();
+			await InserterUtils.openBlockLibrary();
 			await InserterUtils.expectActiveTab( 'Blocks' );
 			await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
@@ -136,25 +120,21 @@ test.describe( 'Site Editor Inserter', () => {
 			ZoomUtils,
 		} ) => {
 			await test.step( 'should reset zoom when closing from patterns tab', async () => {
-				// Open inserter
-				await InserterUtils.toggleBlockLibrary();
+				await InserterUtils.openBlockLibrary();
 				await InserterUtils.expectActiveTab( 'Blocks' );
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
 				await InserterUtils.activateTab( 'Patterns' );
 				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
 
-				// Close inserter
-				await InserterUtils.toggleBlockLibrary();
-				await expect( InserterUtils.blockLibrary ).toBeHidden();
+				await InserterUtils.closeBlockLibrary();
 
 				// Zoom Level should be reset
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 			} );
 
 			await test.step( 'should preserve default zoom level when closing from blocks tab', async () => {
-				// Open inserter
-				await InserterUtils.toggleBlockLibrary();
+				await InserterUtils.openBlockLibrary();
 				await InserterUtils.expectActiveTab( 'Blocks' );
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
@@ -164,17 +144,14 @@ test.describe( 'Site Editor Inserter', () => {
 				await InserterUtils.activateTab( 'Blocks' );
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
-				// Close inserter
-				await InserterUtils.toggleBlockLibrary();
-				await expect( InserterUtils.blockLibrary ).toBeHidden();
+				await InserterUtils.closeBlockLibrary();
 
 				// Zoom Level should stay at default level
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 			} );
 
 			await test.step( 'should preserve default zoom level when closing from blocks tab even if user manually toggled zoom level on previous tab', async () => {
-				// Open inserter
-				await InserterUtils.toggleBlockLibrary();
+				await InserterUtils.openBlockLibrary();
 				await InserterUtils.expectActiveTab( 'Blocks' );
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
@@ -182,15 +159,12 @@ test.describe( 'Site Editor Inserter', () => {
 				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
 
 				// Toggle zoom level manually
-				await ZoomUtils.toggleZoomLevel();
-				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
+				await ZoomUtils.exitZoomOut();
 
 				await InserterUtils.activateTab( 'Blocks' );
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
-				// Close inserter
-				await InserterUtils.toggleBlockLibrary();
-				await expect( InserterUtils.blockLibrary ).toBeHidden();
+				await InserterUtils.closeBlockLibrary();
 
 				// Zoom Level should stay at default level
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
@@ -198,7 +172,7 @@ test.describe( 'Site Editor Inserter', () => {
 
 			await test.step( 'should preserve default zoom level when closing from blocks tab even if user manually toggled zoom level on previous tab twice', async () => {
 				// Open inserter
-				await InserterUtils.toggleBlockLibrary();
+				await InserterUtils.openBlockLibrary();
 				await InserterUtils.expectActiveTab( 'Blocks' );
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
@@ -206,17 +180,13 @@ test.describe( 'Site Editor Inserter', () => {
 				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
 
 				// Toggle zoom level manually twice
-				await ZoomUtils.toggleZoomLevel();
-				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
-				await ZoomUtils.toggleZoomLevel();
-				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
+				await ZoomUtils.exitZoomOut();
+				await ZoomUtils.enterZoomOut();
 
 				await InserterUtils.activateTab( 'Blocks' );
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
-				// Close inserter
-				await InserterUtils.toggleBlockLibrary();
-				await expect( InserterUtils.blockLibrary ).toBeHidden();
+				await InserterUtils.closeBlockLibrary();
 
 				// Zoom Level should stay at default level
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
@@ -228,65 +198,52 @@ test.describe( 'Site Editor Inserter', () => {
 			ZoomUtils,
 		} ) => {
 			await test.step( 'should respect manual zoom level set when closing from patterns tab', async () => {
-				// Open inserter
-				await InserterUtils.toggleBlockLibrary();
+				await InserterUtils.openBlockLibrary();
 				await InserterUtils.expectActiveTab( 'Blocks' );
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
 				await InserterUtils.activateTab( 'Patterns' );
 				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
 
-				await ZoomUtils.toggleZoomLevel();
-				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
+				await ZoomUtils.exitZoomOut();
 
-				// Close inserter
-				await InserterUtils.toggleBlockLibrary();
-				await expect( InserterUtils.blockLibrary ).toBeHidden();
+				await InserterUtils.closeBlockLibrary();
 
 				// Zoom Level should stay reset
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 			} );
 
 			await test.step( 'should respect manual zoom level set when closing from patterns tab when toggled twice', async () => {
-				// Open inserter
-				await InserterUtils.toggleBlockLibrary();
+				await InserterUtils.openBlockLibrary();
 				await InserterUtils.expectActiveTab( 'Blocks' );
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
 				await InserterUtils.activateTab( 'Patterns' );
 				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
 
-				await ZoomUtils.toggleZoomLevel();
-				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
+				await ZoomUtils.exitZoomOut();
 
-				await ZoomUtils.toggleZoomLevel();
-				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
+				await ZoomUtils.enterZoomOut();
 
-				// Close inserter
-				await InserterUtils.toggleBlockLibrary();
-				await expect( InserterUtils.blockLibrary ).toBeHidden();
+				await InserterUtils.closeBlockLibrary();
 
 				// Should stay zoomed out since it was manually engaged
 				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
 
-				// Toggle to reset test
-				await ZoomUtils.toggleZoomLevel();
-				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
+				// Reset test
+				await ZoomUtils.exitZoomOut();
 			} );
 
-			await test.step( 'should not reset zoom level if zoom level manually toggled from blocks tab', async () => {
-				await InserterUtils.toggleBlockLibrary();
+			await test.step( 'should not reset zoom level if zoom level manually changed from blocks tab', async () => {
+				await InserterUtils.openBlockLibrary();
 				await expect( InserterUtils.blockLibrary ).toBeVisible();
 
 				await InserterUtils.expectActiveTab( 'Blocks' );
 				await expect( ZoomUtils.zoomCanvas ).toBeHidden();
 
-				await ZoomUtils.toggleZoomLevel();
-				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
+				await ZoomUtils.enterZoomOut();
 
-				// Close the inserter
-				await InserterUtils.toggleBlockLibrary();
-				await expect( InserterUtils.blockLibrary ).toBeHidden();
+				await InserterUtils.closeBlockLibrary();
 
 				// Should stay zoomed out since it was manually engaged
 				await expect( ZoomUtils.zoomCanvas ).toBeVisible();
@@ -311,8 +268,16 @@ class InserterUtils {
 		this.mediaTab = this.getBlockLibraryTab( 'Media' );
 	}
 
-	async toggleBlockLibrary() {
+	// Manually naming as open and close these makes it clearer when reading
+	// through the test instead of using a toggle method with a boolean
+	async openBlockLibrary() {
 		await this.inserterButton.click();
+		await expect( this.blockLibrary ).toBeVisible();
+	}
+
+	async closeBlockLibrary() {
+		await this.inserterButton.click();
+		await expect( this.blockLibrary ).toBeHidden();
 	}
 
 	getBlockLibraryTab( name ) {
@@ -344,7 +309,15 @@ class ZoomUtils {
 		} );
 	}
 
-	async toggleZoomLevel() {
+	// Manually naming as enter and exit these makes it clearer when reading
+	// through the test instead of using a toggle method with a boolean
+	async enterZoomOut() {
 		await this.zoomButton.click();
+		await expect( this.zoomCanvas ).toBeVisible();
+	}
+
+	async exitZoomOut() {
+		await this.zoomButton.click();
+		await expect( this.zoomCanvas ).toBeHidden();
 	}
 }
