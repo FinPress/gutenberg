@@ -35,7 +35,7 @@ import CommentForm from './comment-form';
  * @param {Function} props.onAddReply       - The function to add a reply to a comment.
  * @param {Function} props.onCommentDelete  - The function to delete a comment.
  * @param {Function} props.onCommentResolve - The function to mark a comment as resolved.
- * @return {JSX.Element} The rendered Comments component.
+ * @return {React.ReactNode} The rendered Comments component.
  */
 export function Comments( {
 	threads,
@@ -46,8 +46,6 @@ export function Comments( {
 } ) {
 	const [ actionState, setActionState ] = useState( false );
 	const [ isConfirmDialogOpen, setIsConfirmDialogOpen ] = useState( false );
-	// eslint-disable-next-line no-unused-vars
-	const [ activeClientId, setActiveClientId ] = useState( null );
 
 	const handleConfirmDelete = () => {
 		onCommentDelete( actionState.id );
