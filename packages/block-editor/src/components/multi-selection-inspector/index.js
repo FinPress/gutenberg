@@ -13,12 +13,10 @@ import BlockIcon from '../block-icon';
 import { store as blockEditorStore } from '../../store';
 
 export default function MultiSelectionInspector() {
-	const { blocks } = useSelect( ( select ) => {
-		const { getMultiSelectedBlocks } = select( blockEditorStore );
-		return {
-			blocks: getMultiSelectedBlocks(),
-		};
-	}, [] );
+	const selectedBlockCount = useSelect(
+		( select ) => select( blockEditorStore ).getSelectedBlockCount(),
+		[]
+	);
 	return (
 		<HStack
 			justify="flex-start"
@@ -29,8 +27,8 @@ export default function MultiSelectionInspector() {
 			<div className="block-editor-multi-selection-inspector__card-title">
 				{ sprintf(
 					/* translators: %d: number of blocks */
-					_n( '%d Block', '%d Blocks', blocks.length ),
-					blocks.length
+					_n( '%d Block', '%d Blocks', selectedBlockCount ),
+					selectedBlockCount
 				) }
 			</div>
 		</HStack>
