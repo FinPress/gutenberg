@@ -17,7 +17,7 @@ import {
 } from '@wordpress/components';
 import { Icon, check, published, moreVertical } from '@wordpress/icons';
 import { __, _x } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch, select } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
 /**
@@ -64,13 +64,13 @@ export function Comments( {
 		setIsConfirmDialogOpen( false );
 	};
 
-	const { getSelectedBlockClientId, getBlock, getBlocks } =
-		useSelect( blockEditorStore );
-
 	const blockCommentId = useSelect( () => {
-		const clientID = getSelectedBlockClientId();
-		return getBlock( clientID )?.attributes?.blockCommentId ?? false;
-	} );
+		const clientID = select( blockEditorStore ).getSelectedBlockClientId();
+		return (
+			select( blockEditorStore ).getBlock( clientID )?.attributes
+				?.blockCommentId ?? false
+		);
+	}, [] );
 
 	const findBlockByCommentId = ( blocks, commentId ) => {
 		for ( const block of blocks ) {
@@ -90,6 +90,7 @@ export function Comments( {
 		return null;
 	};
 
+	const { getBlocks } = useSelect( blockEditorStore );
 	const { selectBlock } = useDispatch( blockEditorStore );
 	const handleThreadClick = ( thread ) => {
 		const selClientBlocks = getBlocks();
