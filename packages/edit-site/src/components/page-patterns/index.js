@@ -61,9 +61,9 @@ const DEFAULT_VIEW = {
 	perPage: 20,
 	titleField: 'title',
 	mediaField: 'preview',
-	layout: defaultLayouts[ LAYOUT_GRID ].layout,
 	fields: [ 'sync-status' ],
 	filters: [],
+	...defaultLayouts[ LAYOUT_GRID ],
 };
 
 export default function DataviewsPatterns() {

@@ -27,21 +27,9 @@ import {
 } from '../../utils/constants';
 
 export const defaultLayouts = {
-	[ LAYOUT_TABLE ]: {
-		layout: {
-			styles: {
-				__primary: {
-					maxWidth: 300,
-				},
-			},
-		},
-	},
-	[ LAYOUT_GRID ]: {
-		layout: {},
-	},
-	[ LAYOUT_LIST ]: {
-		layout: {},
-	},
+	[ LAYOUT_TABLE ]: {},
+	[ LAYOUT_GRID ]: {},
+	[ LAYOUT_LIST ]: {},
 };
 
 const DEFAULT_POST_BASE = {

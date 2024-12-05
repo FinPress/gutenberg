@@ -37,10 +37,6 @@ const defaultLayouts = {
 		showMedia: false,
 		layout: {
 			styles: {
-				__primary: {
-					maxWidth: 400,
-					minWidth: 320,
-				},
 				author: {
 					width: '1%',
 				},
@@ -49,11 +45,9 @@ const defaultLayouts = {
 	},
 	[ LAYOUT_GRID ]: {
 		showMedia: true,
-		layout: {},
 	},
 	[ LAYOUT_LIST ]: {
 		showMedia: false,
-		layout: {},
 	},
 };
 

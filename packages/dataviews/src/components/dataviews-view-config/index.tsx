@@ -83,9 +83,13 @@ function ViewTypeMenu( {
 								case 'list':
 								case 'grid':
 								case 'table':
+									const viewWithoutLayout = { ...view };
+									if ( 'layout' in viewWithoutLayout ) {
+										delete viewWithoutLayout.layout;
+									}
 									// @ts-expect-error
 									return onChangeView( {
-										...view,
+										...viewWithoutLayout,
 										type: e.target.value,
 										...defaultLayouts[ e.target.value ],
 									} );
