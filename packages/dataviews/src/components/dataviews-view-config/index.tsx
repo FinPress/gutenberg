@@ -426,48 +426,52 @@ function FieldControl() {
 	const descriptionField = fields.find(
 		( f ) => f.id === view.descriptionField
 	);
-	const { showTitle = true, showMedia = true, showDescription = true } = view;
+	const lockedFields = [
+		{
+			field: titleField,
+			isVisibleFlag: 'showTitle',
+		},
+		{
+			field: mediaField,
+			isVisibleFlag: 'showMedia',
+		},
+		{
+			field: descriptionField,
+			isVisibleFlag: 'showDescription',
+		},
+	].filter( ( { field } ) => isDefined( field ) );
+	const visibleLockedFields = lockedFields.filter(
+		( { field, isVisibleFlag } ) =>
+			// @ts-expect-error
+			isDefined( field ) && ( view[ isVisibleFlag ] ?? true )
+	) as Array< { field: NormalizedField< any >; isVisibleFlag: string } >;
+	const hiddenLockedFields = lockedFields.filter(
+		( { field, isVisibleFlag } ) =>
+			// @ts-expect-error
+			isDefined( field ) && ! ( view[ isVisibleFlag ] ?? true )
+	) as Array< { field: NormalizedField< any >; isVisibleFlag: string } >;
 
 	return (
 		<VStack className="dataviews-field-control" spacing={ 6 }>
 			<VStack className="dataviews-view-config__properties" spacing={ 0 }>
-				{ togglableFields.length > 0 && (
+				{ visibleLockedFields.length > 0 && (
 					<ItemGroup isBordered isSeparated>
-						{ titleField && (
-							<FieldItem
-								field={ titleField }
-								isVisible={ showTitle }
-								onToggleVisibility={ () => {
-									onChangeView( {
-										...view,
-										showTitle: ! showTitle,
-									} );
-								} }
-							/>
-						) }
-						{ mediaField && (
-							<FieldItem
-								field={ mediaField }
-								isVisible={ showMedia }
-								onToggleVisibility={ () => {
-									onChangeView( {
-										...view,
-										showMedia: ! showMedia,
-									} );
-								} }
-							/>
-						) }
-						{ descriptionField && (
-							<FieldItem
-								field={ descriptionField }
-								isVisible={ showDescription }
-								onToggleVisibility={ () => {
-									onChangeView( {
-										...view,
-										showDescription: ! showDescription,
-									} );
-								} }
-							/>
+						{ visibleLockedFields.map(
+							( { field, isVisibleFlag } ) => {
+								return (
+									<FieldItem
+										key={ field.id }
+										field={ field }
+										isVisible
+										onToggleVisibility={ () => {
+											onChangeView( {
+												...view,
+												[ isVisibleFlag ]: false,
+											} );
+										} }
+									/>
+								);
+							}
 						) }
 					</ItemGroup>
 				) }
@@ -486,21 +490,47 @@ function FieldControl() {
 				) }
 			</VStack>
 
-			{ !! hiddenFields?.length && (
+			{ ( !! hiddenFields?.length || !! hiddenLockedFields.length ) && (
 				<VStack spacing={ 4 }>
 					<BaseControl.VisualLabel style={ { margin: 0 } }>
 						{ __( 'Hidden' ) }
 					</BaseControl.VisualLabel>
-					<ItemGroup isBordered isSeparated>
-						{ hiddenFields.map( ( field ) => (
-							<RegularFieldItem
-								key={ field.id }
-								field={ field }
-								view={ view }
-								onChangeView={ onChangeView }
-							/>
-						) ) }
-					</ItemGroup>
+					<VStack
+						className="dataviews-view-config__properties"
+						spacing={ 0 }
+					>
+						{ hiddenLockedFields.length > 0 && (
+							<ItemGroup isBordered isSeparated>
+								{ hiddenLockedFields.map(
+									( { field, isVisibleFlag } ) => {
+										return (
+											<FieldItem
+												key={ field.id }
+												field={ field }
+												isVisible={ false }
+												onToggleVisibility={ () => {
+													onChangeView( {
+														...view,
+														[ isVisibleFlag ]: true,
+													} );
+												} }
+											/>
+										);
+									}
+								) }
+							</ItemGroup>
+						) }
+						<ItemGroup isBordered isSeparated>
+							{ hiddenFields.map( ( field ) => (
+								<RegularFieldItem
+									key={ field.id }
+									field={ field }
+									view={ view }
+									onChangeView={ onChangeView }
+								/>
+							) ) }
+						</ItemGroup>
+					</VStack>
 				</VStack>
 			) }
 		</VStack>
