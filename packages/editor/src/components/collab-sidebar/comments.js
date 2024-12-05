@@ -17,14 +17,16 @@ import {
 } from '@wordpress/components';
 import { Icon, check, published, moreVertical } from '@wordpress/icons';
 import { __, _x } from '@wordpress/i18n';
-import { useSelect, useDispatch, select } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
+import { useEntityBlockEditor } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
  */
 import CommentAuthorInfo from './comment-author-info';
 import CommentForm from './comment-form';
+import { getBlockByCommentId } from './utils';
 
 /**
  * Renders the Comments component.
@@ -35,6 +37,8 @@ import CommentForm from './comment-form';
  * @param {Function} props.onAddReply       - The function to add a reply to a comment.
  * @param {Function} props.onCommentDelete  - The function to delete a comment.
  * @param {Function} props.onCommentResolve - The function to mark a comment as resolved.
+ * @param {string}   props.postType         - The post type.
+ * @param {number}   props.postId           - The post ID.
  * @return {React.ReactNode} The rendered Comments component.
  */
 export function Comments( {
@@ -43,6 +47,8 @@ export function Comments( {
 	onAddReply,
 	onCommentDelete,
 	onCommentResolve,
+	postType, // Ensure postType is passed as a prop
+	postId, // Ensure postId is passed as a prop
 } ) {
 	const [ actionState, setActionState ] = useState( false );
 	const [ isConfirmDialogOpen, setIsConfirmDialogOpen ] = useState( false );
@@ -64,7 +70,7 @@ export function Comments( {
 		setIsConfirmDialogOpen( false );
 	};
 
-	const blockCommentId = useSelect( () => {
+	const blockCommentId = useSelect( ( select ) => {
 		const clientID = select( blockEditorStore ).getSelectedBlockClientId();
 		return (
 			select( blockEditorStore ).getBlock( clientID )?.attributes
@@ -72,29 +78,13 @@ export function Comments( {
 		);
 	}, [] );
 
-	const findBlockByCommentId = ( blocks, commentId ) => {
-		for ( const block of blocks ) {
-			if ( block.attributes.blockCommentId === commentId ) {
-				return block;
-			}
-			if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
-				const foundBlock = findBlockByCommentId(
-					block.innerBlocks,
-					commentId
-				);
-				if ( foundBlock ) {
-					return foundBlock;
-				}
-			}
-		}
-		return null;
-	};
+	const [ blocks ] = useEntityBlockEditor( 'postType', postType, {
+		id: postId,
+	} );
 
-	const { getBlocks } = useSelect( blockEditorStore );
 	const { selectBlock } = useDispatch( blockEditorStore );
 	const handleThreadClick = ( thread ) => {
-		const selClientBlocks = getBlocks();
-		const block = findBlockByCommentId( selClientBlocks, thread.id );
+		const block = getBlockByCommentId( blocks, thread.id );
 		if ( block ) {
 			selectBlock( block.clientId ); // Use the action to select the block
 		}
