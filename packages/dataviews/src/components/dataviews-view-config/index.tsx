@@ -245,6 +245,20 @@ function FieldItem( {
 	onMoveUp?: () => void;
 	onMoveDown?: () => void;
 } ) {
+	const focusVisibilityField = () => {
+		// Focus the visibility button to avoid focus loss.
+		// Our code is safe against the component being unmounted, so we don't need to worry about cleaning the timeout.
+		// eslint-disable-next-line @wordpress/react-no-unsafe-timeout
+		setTimeout( () => {
+			const element = document.querySelector(
+				`.dataviews-field-control__field-${ field.id } .dataviews-field-control__field-visibility-button`
+			);
+			if ( element instanceof HTMLElement ) {
+				element.focus();
+			}
+		}, 50 );
+	};
+
 	return (
 		<Item>
 			<HStack
@@ -291,7 +305,10 @@ function FieldItem( {
 							disabled={ ! field.enableHiding }
 							accessibleWhenDisabled
 							size="compact"
-							onClick={ onToggleVisibility }
+							onClick={ () => {
+								onToggleVisibility();
+								focusVisibilityField();
+							} }
 							icon={ isVisible ? unseen : seen }
 							label={
 								isVisible
@@ -346,17 +363,6 @@ function RegularFieldItem( {
 						  )
 						: [ ...visibleFieldIds, field.id ],
 				} );
-				// Focus the visibility button to avoid focus loss.
-				// Our code is safe against the component being unmounted, so we don't need to worry about cleaning the timeout.
-				// eslint-disable-next-line @wordpress/react-no-unsafe-timeout
-				setTimeout( () => {
-					const element = document.querySelector(
-						`.dataviews-field-control__field-${ field.id } .dataviews-field-control__field-visibility-button`
-					);
-					if ( element instanceof HTMLElement ) {
-						element.focus();
-					}
-				}, 50 );
 			} }
 			onMoveUp={
 				index !== undefined
