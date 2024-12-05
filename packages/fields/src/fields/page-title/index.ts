@@ -7,24 +7,22 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import type { CommonPost } from '../../types';
+import type { BasePost } from '../../types';
 import { getItemTitle } from '../../actions/utils';
-import TitleView from './view';
+import PageTitleView from './view';
 
-const titleField: Field< CommonPost > = {
+const pageTitleField: Field< BasePost > = {
 	type: 'text',
 	id: 'title',
 	label: __( 'Title' ),
 	placeholder: __( 'No title' ),
 	getValue: ( { item } ) => getItemTitle( item ),
-	render: TitleView,
+	render: PageTitleView,
 	enableHiding: false,
 	enableGlobalSearch: true,
 };
 
 /**
- * Title for the any entity with a `title` property.
- * For patterns, pages or templates you should use the respective field
- * because there are some differences in the rendering, labels, etc.
+ * Title for the page entity.
  */
-export default titleField;
+export default pageTitleField;
