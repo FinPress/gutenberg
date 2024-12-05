@@ -77,7 +77,6 @@ function PostEditForm( { postType, postId } ) {
 					id: 'featured_media',
 					layout: 'regular',
 				},
-				'title',
 				{
 					id: 'status',
 					label: __( 'Status & Visibility' ),
