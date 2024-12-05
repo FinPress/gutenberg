@@ -153,7 +153,7 @@ export const Mark = styled.span`
 	height: 4px;
 	width: 2px;
 	transform: translateX( -50% );
-	background-color: ${ COLORS.white };
+	background-color: ${ COLORS.ui.background };
 	z-index: 1;
 `;
 
@@ -167,7 +167,7 @@ export const MarkLabel = styled.span`
 	color: ${ COLORS.gray[ 300 ] };
 	font-size: 11px;
 	position: absolute;
-	top: 22px;
+	top: 8px;
 	white-space: nowrap;
 
 	${ rtl( { left: 0 } ) };
