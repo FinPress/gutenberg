@@ -419,7 +419,7 @@ function gutenberg_register_packages_styles( $styles ) {
 		$styles,
 		'wp-edit-site',
 		gutenberg_url( 'build/edit-site/style.css' ),
-		array( 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-edit-blocks', 'wp-block-library-editor', 'common', 'forms', 'wp-commands', 'wp-preferences' ),
+		array( 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-block-library-editor', 'common', 'forms', 'wp-commands', 'wp-preferences' ),
 		$version
 	);
 	$styles->add_data( 'wp-edit-site', 'rtl', 'replace' );
