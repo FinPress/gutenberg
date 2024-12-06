@@ -212,7 +212,7 @@ export default function SpacingInputControl( {
 				<Icon
 					className="spacing-sizes-control__icon"
 					icon={ icon }
-					size={ 24 }
+					size={ 32 }
 				/>
 			) }
 			{ showCustomValueControl && (
