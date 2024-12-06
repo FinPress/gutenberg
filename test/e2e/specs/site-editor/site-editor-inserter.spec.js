@@ -6,7 +6,11 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 test.describe( 'Site Editor Inserter', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		// We need the theme to have a section root so zoom out is enabled
-		await requestUtils.activateTheme( 'twentytwentyfour' );
+		await Promise.all( [
+			requestUtils.activateTheme( 'twentytwentyfour' ),
+			requestUtils.deleteAllTemplates( 'wp_template' ),
+			requestUtils.deleteAllTemplates( 'wp_template_part' ),
+		] );
 	} );
 
 	test.afterAll( async ( { requestUtils } ) => {
