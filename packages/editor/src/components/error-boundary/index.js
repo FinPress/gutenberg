@@ -3,9 +3,12 @@
  */
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
+import {
+	Button,
+	__experimentalHStack as HStack,
+	__experimentalText as Text,
+} from '@wordpress/components';
 import { select } from '@wordpress/data';
-import { Warning } from '@wordpress/block-editor';
 import { useCopyToClipboard } from '@wordpress/compose';
 import { doAction } from '@wordpress/hooks';
 
@@ -58,19 +61,27 @@ class ErrorBoundary extends Component {
 			return this.props.children;
 		}
 
-		const actions = [
-			<CopyButton key="copy-post" text={ getContent }>
-				{ __( 'Copy Post Text' ) }
-			</CopyButton>,
-			<CopyButton key="copy-error" text={ error?.stack }>
-				{ __( 'Copy Error' ) }
-			</CopyButton>,
-		];
-
 		return (
-			<Warning className="editor-error-boundary" actions={ actions }>
-				{ __( 'The editor has encountered an unexpected error.' ) }
-			</Warning>
+			<HStack
+				className="editor-error-boundary"
+				alignment="baseline"
+				spacing={ 4 }
+				justify="space-between"
+				expanded={ false }
+				wrap
+			>
+				<Text as="p">
+					{ __( 'The editor has encountered an unexpected error.' ) }
+				</Text>
+				<HStack expanded={ false }>
+					<CopyButton key="copy-post" text={ getContent }>
+						{ __( 'Copy Post Text' ) }
+					</CopyButton>
+					<CopyButton key="copy-error" text={ error?.stack }>
+						{ __( 'Copy Error' ) }
+					</CopyButton>
+				</HStack>
+			</HStack>
 		);
 	}
 }
