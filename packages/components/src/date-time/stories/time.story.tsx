@@ -52,6 +52,9 @@ const Template: StoryFn< typeof TimePicker > = ( {
 };
 
 export const Default: StoryFn< typeof TimePicker > = Template.bind( {} );
+Default.args = {
+	currentTime: new Date(),
+};
 
 const TimeInputTemplate: StoryFn< typeof TimePicker.TimeInput > = ( args ) => {
 	return <TimePicker.TimeInput { ...args } />;
