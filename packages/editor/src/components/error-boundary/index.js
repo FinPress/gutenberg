@@ -74,11 +74,11 @@ class ErrorBoundary extends Component {
 					{ __( 'The editor has encountered an unexpected error.' ) }
 				</Text>
 				<HStack expanded={ false }>
-					<CopyButton key="copy-post" text={ getContent }>
-						{ __( 'Copy Post Text' ) }
+					<CopyButton text={ getContent }>
+						{ __( 'Copy post text' ) }
 					</CopyButton>
-					<CopyButton key="copy-error" text={ error?.stack }>
-						{ __( 'Copy Error' ) }
+					<CopyButton text={ error?.stack }>
+						{ __( 'Copy error' ) }
 					</CopyButton>
 				</HStack>
 			</HStack>
