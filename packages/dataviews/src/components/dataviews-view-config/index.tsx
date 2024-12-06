@@ -23,6 +23,7 @@ import {
 	__experimentalText as Text,
 	privateApis as componentsPrivateApis,
 	BaseControl,
+	Icon,
 } from '@wordpress/components';
 import { __, _x, sprintf } from '@wordpress/i18n';
 import { memo, useContext, useMemo } from '@wordpress/element';
@@ -68,6 +69,7 @@ function ViewTypeMenu( {
 	const activeView = VIEW_LAYOUTS.find( ( v ) => view.type === v.type );
 	return (
 		<Menu
+			className="view-actions-available-menu"
 			trigger={
 				<Button
 					size="compact"
@@ -83,10 +85,18 @@ function ViewTypeMenu( {
 				}
 				return (
 					<Menu.RadioItem
+						suffix={
+							<Icon
+								size={ 24 }
+								icon={ config?.icon }
+								aria-label={ __( 'Layout' ) }
+							/>
+						}
 						key={ layout }
 						value={ layout }
 						name="view-actions-available-view"
 						checked={ layout === view.type }
+						className="view-actions-available-view-item"
 						hideOnClick
 						onChange={ ( e: ChangeEvent< HTMLInputElement > ) => {
 							switch ( e.target.value ) {
