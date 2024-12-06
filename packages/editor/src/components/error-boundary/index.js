@@ -62,7 +62,7 @@ class ErrorBoundary extends Component {
 			<CopyButton key="copy-post" text={ getContent }>
 				{ __( 'Copy Post Text' ) }
 			</CopyButton>,
-			<CopyButton key="copy-error" text={ error.stack }>
+			<CopyButton key="copy-error" text={ error?.stack }>
 				{ __( 'Copy Error' ) }
 			</CopyButton>,
 		];

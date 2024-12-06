@@ -25,6 +25,7 @@ import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 import {
 	EditorSnackbars,
 	UnsavedChangesWarning,
+	ErrorBoundary,
 	privateApis as editorPrivateApis,
 } from '@wordpress/editor';
 import { privateApis as coreCommandsPrivateApis } from '@wordpress/core-commands';
@@ -36,7 +37,6 @@ import { useDispatch } from '@wordpress/data';
 /**
  * Internal dependencies
  */
-import ErrorBoundary from '../error-boundary';
 import { default as SiteHub, SiteHubMobile } from '../site-hub';
 import ResizableFrame from '../resizable-frame';
 import { unlock } from '../../lock-unlock';
