@@ -1,6 +1,7 @@
 /**
  * WordPress dependencies
  */
+import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 
 /**
@@ -15,10 +16,10 @@ export default {
 
 export const Default = {
 	render: function Template( props ) {
-		const [ value, setValue ] = useState( 'New Name' );
+		const [ value, setValue ] = useState( __( 'New Name' ) );
 		return (
 			<BlockRenameControl
-				label="Rename"
+				label={ __( 'Rename' ) }
 				value={ value }
 				onChange={ setValue }
 				{ ...props }
