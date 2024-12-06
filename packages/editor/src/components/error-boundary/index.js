@@ -29,10 +29,10 @@ function getContent() {
 	} catch ( error ) {}
 }
 
-function CopyButton( { text, children } ) {
+function CopyButton( { text, children, variant = 'secondary' } ) {
 	const ref = useCopyToClipboard( text );
 	return (
-		<Button __next40pxDefaultSize variant="secondary" ref={ ref }>
+		<Button __next40pxDefaultSize variant={ variant } ref={ ref }>
 			{ children }
 		</Button>
 	);
@@ -57,6 +57,7 @@ class ErrorBoundary extends Component {
 
 	render() {
 		const { error } = this.state;
+		const { canCopyContent = false } = this.props;
 		if ( ! error ) {
 			return this.props.children;
 		}
@@ -74,10 +75,12 @@ class ErrorBoundary extends Component {
 					{ __( 'The editor has encountered an unexpected error.' ) }
 				</Text>
 				<HStack expanded={ false }>
-					<CopyButton text={ getContent }>
-						{ __( 'Copy post text' ) }
-					</CopyButton>
-					<CopyButton text={ error?.stack }>
+					{ canCopyContent && (
+						<CopyButton text={ getContent }>
+							{ __( 'Copy contents' ) }
+						</CopyButton>
+					) }
+					<CopyButton variant="primary" text={ error?.stack }>
 						{ __( 'Copy error' ) }
 					</CopyButton>
 				</HStack>
