@@ -82,7 +82,7 @@ Default.args = {
 export const ContentEditable: StoryFn< typeof Disabled > = ( args ) => {
 	return (
 		<Disabled { ...args }>
-			<div contentEditable tabIndex={ 0 }>
+			<div contentEditable tabIndex={ 0 } suppressContentEditableWarning>
 				contentEditable
 			</div>
 		</Disabled>
