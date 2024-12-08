@@ -9,7 +9,7 @@
  * Returns the stylesheet resulting of merging core, theme, and user data.
  *
  * @param array $types Types of styles to load. Optional.
- *                     It accepts as values: 'variables', 'presets', 'styles', 'base-layout-styles.
+ *                     It accepts as values: 'variables', 'presets', 'styles', 'base-layout-styles, 'custom-css'.
  *                     If empty, it'll load the following:
  *                     - for themes without theme.json: 'variables', 'presets', 'base-layout-styles'.
  *                     - for themes with theme.json: 'variables', 'presets', 'styles'.
