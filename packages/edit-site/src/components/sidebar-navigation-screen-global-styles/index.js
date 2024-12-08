@@ -5,12 +5,14 @@ import { __ } from '@wordpress/i18n';
 import { useCallback } from '@wordpress/element';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { addQueryArgs } from '@wordpress/url';
+import { useDispatch, useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
 import SidebarNavigationScreen from '../sidebar-navigation-screen';
 import { unlock } from '../../lock-unlock';
+import { store as editSiteStore } from '../../store';
 import SidebarNavigationItem from '../sidebar-navigation-item';
 import useGlobalStylesRevisions from '../global-styles/screen-revisions/use-global-styles-revisions';
 import SidebarNavigationScreenDetailsFooter from '../sidebar-navigation-screen-details-footer';
@@ -36,15 +38,26 @@ export default function SidebarNavigationScreenGlobalStyles() {
 		isLoading: isLoadingRevisions,
 		revisionsCount,
 	} = useGlobalStylesRevisions();
-	const openRevisions = useCallback(
-		() =>
-			history.navigate(
-				addQueryArgs( path, {
-					section: '/revisions',
-				} )
-			),
-		[ path, history ]
+	const editorCanvasContainerView = useSelect(
+		( select ) =>
+			unlock( select( editSiteStore ) ).getEditorCanvasContainerView(),
+		[]
 	);
+	const { setEditorCanvasContainerView } = unlock(
+		useDispatch( editSiteStore )
+	);
+	const openRevisions = useCallback( () => {
+		// if ( 'style-book' === editorCanvasContainerView ) {
+		// 	setEditorCanvasContainerView(
+		// 		'global-styles-revisions:style-book'
+		// 	);
+		// }
+		history.navigate(
+			addQueryArgs( path, {
+				section: '/revisions',
+			} )
+		);
+	}, [ path, history ] );
 
 	// If there are no revisions, do not render a footer.
 	const shouldShowGlobalStylesFooter =

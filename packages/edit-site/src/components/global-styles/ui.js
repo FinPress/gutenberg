@@ -42,12 +42,11 @@ import ScreenBackground from './screen-background';
 import { ScreenShadows, ScreenShadowsEdit } from './screen-shadows';
 import ScreenLayout from './screen-layout';
 import ScreenStyleVariations from './screen-style-variations';
-import StyleBook from '../style-book';
 import ScreenCSS from './screen-css';
 import ScreenRevisions from './screen-revisions';
 import { unlock } from '../../lock-unlock';
 import { store as editSiteStore } from '../../store';
-import { STYLE_BOOK_COLOR_GROUPS } from '../style-book/constants';
+import GlobalStylesStyleBook from './style-book';
 
 const SLOT_FILL_NAME = 'GlobalStylesMenu';
 const { useGlobalStylesReset } = unlock( blockEditorPrivateApis );
@@ -180,42 +179,64 @@ function ContextScreens( { name, parentMenu = '' } ) {
 	);
 }
 
-function GlobalStylesStyleBook() {
-	const navigator = useNavigator();
-	const { path } = navigator.location;
-	return (
-		<StyleBook
-			isSelected={ ( blockName ) =>
-				// Match '/blocks/core%2Fbutton' and
-				// '/blocks/core%2Fbutton/typography', but not
-				// '/blocks/core%2Fbuttons'.
-				path === `/blocks/${ encodeURIComponent( blockName ) }` ||
-				path.startsWith(
-					`/blocks/${ encodeURIComponent( blockName ) }/`
-				)
-			}
-			onSelect={ ( blockName ) => {
-				if (
-					STYLE_BOOK_COLOR_GROUPS.find(
-						( group ) => group.slug === blockName
-					)
-				) {
-					// Go to color palettes Global Styles.
-					navigator.goTo( '/colors/palette' );
-					return;
-				}
-				if ( blockName === 'typography' ) {
-					// Go to typography Global Styles.
-					navigator.goTo( '/typography' );
-					return;
-				}
+/*
+ * @TODO we can get revisions etc to work but view and edit modes
+have to send different props. E.g., 
+					enableResizing={ false }
+					showCloseButton={ false }
+					showTabs={ false }
+					path={ section }
 
-				// Now go to the selected block.
-				navigator.goTo( '/blocks/' + encodeURIComponent( blockName ) );
-			} }
-		/>
-	);
-}
+			The second thing would be to use this in REvisions 
+			so it can send the selected global config to the style book.
+
+			Also the way routes work: in view mode, we change the browser history 
+			using history.navigate. Here, in the editor, we use internal global styles router.
+
+			So what we need probably is a component that handles that for us. 
+			That knows the context. It should be in the style book.
+ *
+ */
+
+// function GlobalStylesStyleBook() {
+// 	const navigator = useNavigator();
+// 	const { path } = navigator.location;
+// 	return (
+// 		<StyleBook
+// 			enableResizing={ false }
+// 			showCloseButton={ false }
+// 			showTabs={ false }
+// 			isSelected={ ( blockName ) =>
+// 				// Match '/blocks/core%2Fbutton' and
+// 				// '/blocks/core%2Fbutton/typography', but not
+// 				// '/blocks/core%2Fbuttons'.
+// 				path === `/blocks/${ encodeURIComponent( blockName ) }` ||
+// 				path.startsWith(
+// 					`/blocks/${ encodeURIComponent( blockName ) }/`
+// 				)
+// 			}
+// 			onSelect={ ( blockName ) => {
+// 				if (
+// 					STYLE_BOOK_COLOR_GROUPS.find(
+// 						( group ) => group.slug === blockName
+// 					)
+// 				) {
+// 					// Go to color palettes Global Styles.
+// 					navigator.goTo( '/colors/palette' );
+// 					return;
+// 				}
+// 				if ( blockName === 'typography' ) {
+// 					// Go to typography Global Styles.
+// 					navigator.goTo( '/typography' );
+// 					return;
+// 				}
+
+// 				// Now go to the selected block.
+// 				navigator.goTo( '/blocks/' + encodeURIComponent( blockName ) );
+// 			} }
+// 		/>
+// 	);
+// }
 
 function GlobalStylesBlockLink() {
 	const navigator = useNavigator();

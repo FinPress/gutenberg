@@ -54,7 +54,7 @@ const GlobalStylesPageActions = ( {
 				value={ false }
 				checked={ ! isStyleBookOpened }
 				name="styles-preview-actions"
-				onChange={ () => setIsStyleBookOpened( false ) }
+				onChange={ () => setIsStyleBookClosed( false ) }
 			>
 				<Menu.ItemLabel>{ __( 'Site' ) }</Menu.ItemLabel>
 				<Menu.ItemHelpText>
@@ -86,14 +86,13 @@ export default function GlobalStylesUIWrapper() {
 			},
 		];
 	}, [ path, query.section, history ] );
-console.log( { isStyleBookOpened, section, canvas } );
 
 /*
   @TODO This needs refactoring. Or at least ScreenRevision needs to be refactored/abstracted
   so that it doesn't know about the editorCanvasContainerView.
 
  */
-/*	const turnOn = () => {
+	const turnOn = () => {
 		setEditorCanvasContainerView(
 			section === '/revisions'
 				? 'global-styles-revisions:style-book'
@@ -103,9 +102,9 @@ console.log( { isStyleBookOpened, section, canvas } );
 	};
 
 	const turnOff = () => {
-		setEditorCanvasContainerView( 'style-book' );
+		setEditorCanvasContainerView( undefined );
 		setIsStyleBookOpened( false );
-	};*/
+	};
 
 	return (
 		<>
@@ -114,7 +113,8 @@ console.log( { isStyleBookOpened, section, canvas } );
 					! isMobileViewport ? (
 						<GlobalStylesPageActions
 							isStyleBookOpened={ isStyleBookOpened }
-							setIsStyleBookOpened={ setIsStyleBookOpened }
+							setIsStyleBookOpened={ turnOn }
+							setIsStyleBookClosed={ turnOff }
 						/>
 					) : null
 				}
@@ -126,11 +126,12 @@ console.log( { isStyleBookOpened, section, canvas } );
 					onPathChange={ onChangeSection }
 				/>
 			</Page>
-			{ canvas === 'view' && isStyleBookOpened && (
+			{/* { canvas === 'view' && isStyleBookOpened && (
 				<StyleBook
 					enableResizing={ false }
 					showCloseButton={ false }
 					showTabs={ false }
+					path={ section }
 					isSelected={ ( blockName ) =>
 						// Match '/blocks/core%2Fbutton' and
 						// '/blocks/core%2Fbutton/typography', but not
@@ -141,7 +142,6 @@ console.log( { isStyleBookOpened, section, canvas } );
 							`/blocks/${ encodeURIComponent( blockName ) }/`
 						)
 					}
-					path={ section }
 					onSelect={ ( blockName ) => {
 						if (
 							STYLE_BOOK_COLOR_GROUPS.find(
@@ -164,7 +164,7 @@ console.log( { isStyleBookOpened, section, canvas } );
 						);
 					} }
 				/>
-			) }
+			) } */}
 		</>
 	);
 }

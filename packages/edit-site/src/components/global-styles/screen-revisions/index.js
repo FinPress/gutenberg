@@ -22,7 +22,7 @@ import Revisions from '../../revisions';
 import { store as editSiteStore } from '../../../store';
 import useGlobalStylesRevisions from './use-global-styles-revisions';
 import RevisionsButtons from './revisions-buttons';
-import StyleBook from '../../style-book';
+import GlobalStylesStyleBook from '../style-book';
 import Pagination from '../../pagination';
 
 const { GlobalStylesContext, areGlobalStyleConfigsEqual } = unlock(
@@ -138,7 +138,7 @@ function ScreenRevisions() {
 			{ hasRevisions &&
 				( editorCanvasContainerView ===
 				'global-styles-revisions:style-book' ? (
-					<StyleBook
+					<GlobalStylesStyleBook
 						userConfig={ currentlySelectedRevision }
 						isSelected={ () => {} }
 						onClose={ () => {
