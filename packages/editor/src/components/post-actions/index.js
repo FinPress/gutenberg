@@ -94,7 +94,7 @@ export default function PostActions( {
 			>
 				<ActionsDropdownMenuGroup
 					actions={ actions }
-					item={ itemsWithPermissions }
+					items={ itemsWithPermissions }
 					setActiveModalAction={ setActiveModalAction }
 				/>
 			</Menu>
