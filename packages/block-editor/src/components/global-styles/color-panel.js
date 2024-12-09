@@ -245,8 +245,8 @@ function ColorPanelDropdown( {
 								<Button
 									__next40pxDefaultSize
 									label={ __( 'Reset' ) }
-									aria-label={ __( 'Reset' ) }
 									className="block-editor-panel-color-gradient-settings__reset"
+									size="small"
 									icon={ resetIcon }
 									onClick={ () => {
 										resetValue();
