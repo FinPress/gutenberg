@@ -51,6 +51,9 @@ const Template: StoryFn< typeof DatePicker > = ( {
 };
 
 export const Default: StoryFn< typeof DatePicker > = Template.bind( {} );
+Default.args = {
+	currentDate: new Date(),
+};
 
 export const WithEvents: StoryFn< typeof DatePicker > = Template.bind( {} );
 WithEvents.args = {

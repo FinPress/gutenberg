@@ -70,6 +70,7 @@ const Template: StoryFn< typeof Scrollable > = ( { ...args } ) => {
 					} }
 					type="text"
 					value="Focus me"
+					readOnly
 				/>
 			</View>
 		</Scrollable>
