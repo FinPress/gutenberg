@@ -9,6 +9,7 @@ import {
 } from '@wordpress/components';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
+import { useMemo } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
 
@@ -25,14 +26,24 @@ import PostActions from '../post-actions';
 import usePageTypeBadge from '../../utils/pageTypeBadge';
 import { getTemplateInfo } from '../../utils/get-template-info';
 
-const EMPTY_ARRAY = [];
-
+/**
+ * Renders a title of the post type and the available quick actions available within a 3-dot dropdown.
+ *
+ * @param {Object}          props                     - Component props.
+ * @param {string}          [props.postType]          - The post type string.
+ * @param {string|string[]} [props.postId]            - The post id or list of post ids.
+ * @param {Function}        [props.onActionPerformed] - A callback function for when a quick action is performed.
+ * @return {React.ReactNode} The rendered component.
+ */
 export default function PostCardPanel( {
 	postType,
 	postId,
-	postIds = EMPTY_ARRAY,
 	onActionPerformed,
 } ) {
+	const postIds = useMemo(
+		() => ( Array.isArray( postId ) ? postId : [ postId ] ),
+		[ postId ]
+	);
 	const { postTitle, icon, labels } = useSelect(
 		( select ) => {
 			const { getEditedEntityRecord, getEntityRecord, getPostType } =
@@ -42,10 +53,9 @@ export default function PostCardPanel( {
 			const _record = getEditedEntityRecord(
 				'postType',
 				postType,
-				// Use first post if multiple postIds, as we only use it for the icon.
-				postIds.length ? postIds[ 0 ] : postId
+				postIds[ 0 ]
 			);
-			if ( postId || postIds.length === 1 ) {
+			if ( postIds.length === 1 ) {
 				const { default_template_types: templateTypes = [] } =
 					getEntityRecord( 'root', '__unstableBase' ) ?? {};
 
@@ -69,7 +79,7 @@ export default function PostCardPanel( {
 				labels: getPostType( postType )?.labels,
 			};
 		},
-		[ postId, postType, postIds ]
+		[ postIds, postType ]
 	);
 
 	const pageTypeBadge = usePageTypeBadge( postId );
@@ -78,7 +88,7 @@ export default function PostCardPanel( {
 		title = sprintf(
 			// translators: %i number of selected items %s: Name of the plural post type e.g: "Posts".
 			__( '%i %s' ),
-			postIds.length,
+			postId.length,
 			labels?.name
 		);
 	} else if ( postTitle ) {
@@ -100,7 +110,7 @@ export default function PostCardPanel( {
 					as="h2"
 				>
 					{ title }
-					{ pageTypeBadge && (
+					{ pageTypeBadge && postIds.length === 1 && (
 						<span className="editor-post-card-panel__title-badge">
 							{ pageTypeBadge }
 						</span>
@@ -109,7 +119,6 @@ export default function PostCardPanel( {
 				<PostActions
 					postType={ postType }
 					postId={ postId }
-					postIds={ postIds }
 					onActionPerformed={ onActionPerformed }
 				/>
 			</HStack>

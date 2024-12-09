@@ -158,13 +158,7 @@ function PostEditForm( { postType, postId } ) {
 
 	return (
 		<VStack spacing={ 4 }>
-			<PostCardPanel
-				postType={ postType }
-				postId={
-					ids.length === 1 ? parseInt( ids[ 0 ], 10 ) : undefined
-				}
-				postIds={ ids.length > 1 ? ids : undefined }
-			/>
+			<PostCardPanel postType={ postType } postId={ ids } />
 			<DataForm
 				data={ ids.length === 1 ? record : multiEdits }
 				fields={ fieldsWithDependency }

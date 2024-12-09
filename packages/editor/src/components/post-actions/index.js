@@ -45,19 +45,14 @@ function useEditedEntityRecordsWithPermissions( postType, postIds ) {
 	}, [ items, permissions ] );
 }
 
-export default function PostActions( {
-	postType,
-	postId,
-	postIds,
-	onActionPerformed,
-} ) {
+export default function PostActions( { postType, postId, onActionPerformed } ) {
 	const [ activeModalAction, setActiveModalAction ] = useState( null );
 	const _postIds = useMemo( () => {
-		if ( postIds && postIds.length ) {
-			return postIds;
+		if ( Array.isArray( postId ) ) {
+			return postId;
 		}
 		return postId ? [ postId ] : [];
-	}, [ postId, postIds ] );
+	}, [ postId ] );
 
 	const itemsWithPermissions = useEditedEntityRecordsWithPermissions(
 		postType,
