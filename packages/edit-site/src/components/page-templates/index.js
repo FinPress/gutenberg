@@ -25,6 +25,7 @@ import {
 import { unlock } from '../../lock-unlock';
 import { useEditPostAction } from '../dataviews-actions';
 import { authorField, descriptionField, previewField } from './fields';
+import { useEvent } from '@wordpress/compose';
 
 const { usePostActions } = unlock( editorPrivateApis );
 const { useHistory, useLocation } = unlock( routerPrivateApis );
@@ -92,11 +93,22 @@ export default function PageTemplates() {
 		};
 	}, [ layout, activeView ] );
 	const [ view, setView ] = useState( defaultView );
-	useEffect( () => {
-		const usedType = layout ?? DEFAULT_VIEW.type;
+
+	// Sync the layout from the URL to the view state.
+	const onChangeUrlLayout = useEvent( () => {
 		setView( ( currentView ) => ( {
 			...currentView,
-			type: usedType,
+			type: layout ?? DEFAULT_VIEW.type,
+		} ) );
+	} );
+	useEffect( () => {
+		onChangeUrlLayout();
+	}, [ onChangeUrlLayout, layout ] );
+
+	// Sync the active view from the URL to the view state.
+	const onChangeActiveView = useEvent( () => {
+		setView( ( currentView ) => ( {
+			...currentView,
 			filters:
 				activeView !== 'all'
 					? [
@@ -108,7 +120,10 @@ export default function PageTemplates() {
 					  ]
 					: [],
 		} ) );
-	}, [ activeView, layout ] );
+	} );
+	useEffect( () => {
+		onChangeActiveView();
+	}, [ onChangeActiveView, activeView ] );
 
 	const { records, isResolving: isLoadingData } =
 		useEntityRecordsWithPermissions( 'postType', TEMPLATE_POST_TYPE, {
@@ -170,20 +185,16 @@ export default function PageTemplates() {
 		[ postTypeActions, editAction ]
 	);
 
-	const onChangeView = useCallback(
-		( newView ) => {
-			if ( newView.type !== view.type ) {
-				history.navigate(
-					addQueryArgs( path, {
-						layout: newView.type,
-					} )
-				);
-			}
-
-			setView( newView );
-		},
-		[ view.type, setView, history, path ]
-	);
+	const onChangeView = useEvent( ( newView ) => {
+		setView( newView );
+		if ( newView.type !== layout ) {
+			history.navigate(
+				addQueryArgs( path, {
+					layout: newView.type,
+				} )
+			);
+		}
+	} );
 
 	return (
 		<Page
