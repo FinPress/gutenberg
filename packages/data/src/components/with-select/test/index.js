@@ -18,7 +18,19 @@ import withDispatch from '../../with-dispatch';
 import { createRegistry } from '../../../registry';
 import { RegistryProvider } from '../../registry-provider';
 
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @wordpress/wp-global-usage */
 describe( 'withSelect', () => {
+	const initialScriptDebug = globalThis.SCRIPT_DEBUG;
+
+	beforeAll( () => {
+		globalThis.SCRIPT_DEBUG = false;
+	} );
+
+	afterAll( () => {
+		globalThis.SCRIPT_DEBUG = initialScriptDebug;
+	} );
+
 	it( 'passes the relevant data to the component', () => {
 		const registry = createRegistry();
 		registry.registerStore( 'reactReducer', {

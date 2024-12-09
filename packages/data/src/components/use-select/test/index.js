@@ -32,10 +32,22 @@ function counterStore( initialCount = 0, step = 1 ) {
 	};
 }
 
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @wordpress/wp-global-usage */
 describe( 'useSelect', () => {
+	const initialScriptDebug = globalThis.SCRIPT_DEBUG;
 	let registry;
+
+	beforeAll( () => {
+		globalThis.SCRIPT_DEBUG = false;
+	} );
+
 	beforeEach( () => {
 		registry = createRegistry();
+	} );
+
+	afterAll( () => {
+		globalThis.SCRIPT_DEBUG = initialScriptDebug;
 	} );
 
 	it( 'passes the relevant data to the component', () => {
