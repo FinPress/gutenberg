@@ -475,7 +475,9 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 				} ) }
 			>
 				{ ! hasData && (
-					<p>{ isLoading ? <Spinner /> : __( 'No results' ) }</p>
+					<p>
+						{ isLoading ? <Spinner /> : __( 'No results found.' ) }
+					</p>
 				) }
 			</div>
 		);

@@ -309,7 +309,7 @@ function ComboboxControl( props: ComboboxControlProps ) {
 						),
 						matchingSuggestions.length
 				  )
-				: __( 'No results.' );
+				: __( 'No results found.' );
 
 			speak( message, 'polite' );
 		}
