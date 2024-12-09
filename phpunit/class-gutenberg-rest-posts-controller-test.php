@@ -44,14 +44,14 @@ class Gutenberg_Test_REST_Posts_Controller extends WP_Test_REST_Controller_Testc
 	 */
 	public function test_register_routes() {
 		$routes = rest_get_server()->get_routes();
-		$this->assertArrayHasKey( '/wp/v2/posts/count', $routes );
+		$this->assertArrayHasKey( '/wp/v2/pages/count', $routes );
 	}
 
 	/**
 	 * @covers Gutenberg_Test_REST_Posts_Controller::get_count_schema
 	 */
 	public function test_get_count_schema() {
-		$request    = new WP_REST_Request( 'OPTIONS', '/wp/v2/posts/count' );
+		$request    = new WP_REST_Request( 'OPTIONS', '/wp/v2/pages/count' );
 		$response   = rest_get_server()->dispatch( $request );
 		$data       = $response->get_data();
 		$properties = $data['schema']['patternProperties'];
@@ -65,7 +65,7 @@ class Gutenberg_Test_REST_Posts_Controller extends WP_Test_REST_Controller_Testc
 	 */
 	public function test_get_count_response() {
 		wp_set_current_user( self::$admin_id );
-		$request  = new WP_REST_Request( 'GET', '/wp/v2/posts/count' );
+		$request  = new WP_REST_Request( 'GET', '/wp/v2/pages/count' );
 		$response = rest_get_server()->dispatch( $request );
 		$data     = $response->get_data();
 
@@ -83,22 +83,53 @@ class Gutenberg_Test_REST_Posts_Controller extends WP_Test_REST_Controller_Testc
 	 */
 	public function test_get_count() {
 		wp_set_current_user( self::$admin_id );
-		register_post_status( 'post_counts_status', array( 'public' => true ) );
+		register_post_status( 'page_counts_status', array( 'public' => true ) );
 
-		$published = self::factory()->post->create( array( 'post_status' => 'publish' ) );
+		$published = self::factory()->post->create(
+			array(
+				'post_type'   => 'page',
+				'post_status' => 'publish',
+			)
+		);
 		$future    = self::factory()->post->create(
 			array(
+				'post_type'   => 'page',
 				'post_status' => 'future',
 				'post_date'   => gmdate( 'Y-m-d H:i:s', strtotime( '+1 day' ) ),
 			)
 		);
-		$draft     = self::factory()->post->create( array( 'post_status' => 'draft' ) );
-		$pending   = self::factory()->post->create( array( 'post_status' => 'pending' ) );
-		$private   = self::factory()->post->create( array( 'post_status' => 'private' ) );
-		$trashed   = self::factory()->post->create( array( 'post_status' => 'trash' ) );
-		$custom    = self::factory()->post->create( array( 'post_status' => 'post_counts_status' ) );
+		$draft     = self::factory()->post->create(
+			array(
+				'post_type'   => 'page',
+				'post_status' => 'draft',
+			)
+		);
+		$pending   = self::factory()->post->create(
+			array(
+				'post_type'   => 'page',
+				'post_status' => 'pending',
+			)
+		);
+		$private   = self::factory()->post->create(
+			array(
+				'post_type'   => 'page',
+				'post_status' => 'private',
+			)
+		);
+		$trashed   = self::factory()->post->create(
+			array(
+				'post_type'   => 'page',
+				'post_status' => 'trash',
+			)
+		);
+		$custom    = self::factory()->post->create(
+			array(
+				'post_type'   => 'page',
+				'post_status' => 'page_counts_status',
+			)
+		);
 
-		$request  = new WP_REST_Request( 'GET', '/wp/v2/posts/count' );
+		$request  = new WP_REST_Request( 'GET', '/wp/v2/pages/count' );
 		$response = rest_get_server()->dispatch( $request );
 		$data     = $response->get_data();
 
@@ -108,7 +139,7 @@ class Gutenberg_Test_REST_Posts_Controller extends WP_Test_REST_Controller_Testc
 		$this->assertSame( 1, $data['pending'], 'Pending post count mismatch.' );
 		$this->assertSame( 1, $data['private'], 'Private post count mismatch.' );
 		$this->assertSame( 1, $data['trash'], 'Trashed post count mismatch.' );
-		$this->assertSame( 1, $data['post_counts_status'], 'Custom post count mismatch.' );
+		$this->assertSame( 1, $data['page_counts_status'], 'Custom post count mismatch.' );
 
 		wp_delete_post( $published, true );
 		wp_delete_post( $future, true );
@@ -117,7 +148,7 @@ class Gutenberg_Test_REST_Posts_Controller extends WP_Test_REST_Controller_Testc
 		wp_delete_post( $private, true );
 		wp_delete_post( $trashed, true );
 		wp_delete_post( $custom, true );
-		unset( $GLOBALS['wp_post_statuses']['post_counts_status'] );
+		unset( $GLOBALS['wp_post_statuses']['page_counts_status'] );
 	}
 
 	/**
@@ -127,8 +158,13 @@ class Gutenberg_Test_REST_Posts_Controller extends WP_Test_REST_Controller_Testc
 		wp_set_current_user( self::$admin_id );
 		register_post_status( '#<>post-me_AND9!', array( 'public' => true ) );
 
-		$custom   = self::factory()->post->create( array( 'post_status' => 'post-me_and9' ) );
-		$request  = new WP_REST_Request( 'GET', '/wp/v2/posts/count' );
+		$custom   = self::factory()->post->create(
+			array(
+				'post_type'   => 'page',
+				'post_status' => 'post-me_and9',
+			)
+		);
+		$request  = new WP_REST_Request( 'GET', '/wp/v2/pages/count' );
 		$response = rest_get_server()->dispatch( $request );
 		$data     = $response->get_data();
 
@@ -143,7 +179,7 @@ class Gutenberg_Test_REST_Posts_Controller extends WP_Test_REST_Controller_Testc
 	 */
 	public function test_get_item_invalid_permission() {
 		wp_set_current_user( 0 );
-		$request  = new WP_REST_Request( 'GET', '/wp/v2/posts/count' );
+		$request  = new WP_REST_Request( 'GET', '/wp/v2/pages/count' );
 		$response = rest_get_server()->dispatch( $request );
 
 		$this->assertErrorResponse( 'rest_cannot_read', $response, 401 );
