@@ -6,7 +6,11 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { hasBlockSupport, getBlockSupport } from '@wordpress/blocks';
+import {
+	hasBlockSupport,
+	getBlockSupport,
+	getBlockDefaultControls,
+} from '@wordpress/blocks';
 import { __experimentalHasSplitBorders as hasSplitBorders } from '@wordpress/components';
 import { Platform, useCallback, useMemo } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
@@ -161,8 +165,8 @@ export function BorderPanel( { clientId, name, setAttributes, settings } ) {
 	}
 
 	const defaultControls = {
-		...getBlockSupport( name, [ BORDER_SUPPORT_KEY, 'defaultControls' ] ),
-		...getBlockSupport( name, [ SHADOW_SUPPORT_KEY, 'defaultControls' ] ),
+		...getBlockDefaultControls( name, [ BORDER_SUPPORT_KEY ] ),
+		...getBlockDefaultControls( name, [ SHADOW_SUPPORT_KEY ] ),
 	};
 
 	return (

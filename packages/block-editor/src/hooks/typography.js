@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
+import { hasBlockSupport, getBlockDefaultControls } from '@wordpress/blocks';
 import { useMemo, useCallback } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
@@ -131,9 +131,8 @@ export function TypographyPanel( { clientId, name, setAttributes, settings } ) {
 		return null;
 	}
 
-	const defaultControls = getBlockSupport( name, [
+	const defaultControls = getBlockDefaultControls( name, [
 		TYPOGRAPHY_SUPPORT_KEY,
-		'defaultControls',
 	] );
 
 	return (

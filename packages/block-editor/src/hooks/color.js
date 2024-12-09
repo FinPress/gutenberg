@@ -7,7 +7,7 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { addFilter } from '@wordpress/hooks';
-import { getBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, getBlockDefaultControls } from '@wordpress/blocks';
 import { useMemo, Platform, useCallback } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
@@ -288,9 +288,8 @@ export function ColorEdit( { clientId, name, setAttributes, settings } ) {
 		return null;
 	}
 
-	const defaultControls = getBlockSupport( name, [
+	const defaultControls = getBlockDefaultControls( name, [
 		COLOR_SUPPORT_KEY,
-		'defaultControls',
 	] );
 
 	const enableContrastChecking =

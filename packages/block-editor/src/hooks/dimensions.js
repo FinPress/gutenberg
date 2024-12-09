@@ -8,7 +8,7 @@ import clsx from 'clsx';
  */
 import { Platform, useState, useEffect, useCallback } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { getBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, getBlockDefaultControls } from '@wordpress/blocks';
 import deprecated from '@wordpress/deprecated';
 
 /**
@@ -86,13 +86,11 @@ export function DimensionsPanel( { clientId, name, setAttributes, settings } ) {
 		return null;
 	}
 
-	const defaultDimensionsControls = getBlockSupport( name, [
+	const defaultDimensionsControls = getBlockDefaultControls( name, [
 		DIMENSIONS_SUPPORT_KEY,
-		'defaultControls',
 	] );
-	const defaultSpacingControls = getBlockSupport( name, [
+	const defaultSpacingControls = getBlockDefaultControls( name, [
 		SPACING_SUPPORT_KEY,
-		'defaultControls',
 	] );
 	const defaultControls = {
 		...defaultDimensionsControls,
