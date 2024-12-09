@@ -139,6 +139,8 @@ export default function BoxInputControl( {
 		: selectedUnits[ defaultValuesToModify[ 0 ] ];
 	const generatedId = useInstanceId( BoxInputControl, 'box-control-input' );
 	const inputId = [ generatedId, side ].join( '-' );
+	const usedValue =
+		mergedValue === undefined && computedUnit ? computedUnit : mergedValue;
 
 	return (
 		<InputWrapper key={ `box-control-${ side }` } expanded>
@@ -151,7 +153,7 @@ export default function BoxInputControl( {
 					className="component-box-control__unit-control"
 					id={ inputId }
 					isPressEnterToChange
-					value={ mergedValue }
+					value={ usedValue }
 					onChange={ handleOnValueChange }
 					onUnitChange={ handleOnUnitChange }
 					onFocus={ handleOnFocus }
