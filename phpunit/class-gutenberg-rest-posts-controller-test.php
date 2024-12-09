@@ -177,7 +177,7 @@ class Gutenberg_Test_REST_Posts_Controller extends WP_Test_REST_Controller_Testc
 	/**
 	 * @covers Gutenberg_Test_REST_Posts_Controller::get_count_permissions_check
 	 */
-	public function test_get_item_invalid_permission() {
+	public function test_get_count_invalid_permission() {
 		wp_set_current_user( 0 );
 		$request  = new WP_REST_Request( 'GET', '/wp/v2/pages/count' );
 		$response = rest_get_server()->dispatch( $request );
