@@ -10,6 +10,7 @@ import warning from '@wordpress/warning';
  */
 import i18nBlockSchema from './i18n-block.json';
 import { store as blocksStore } from '../store';
+import { getValueFromObjectPath } from '../store/utils';
 import { unlock } from '../lock-unlock';
 
 /**
@@ -550,6 +551,21 @@ export function hasBlockSupport( nameOrType, feature, defaultSupports ) {
 		nameOrType,
 		feature,
 		defaultSupports
+	);
+}
+
+/**
+ * Returns a block type's default controls config for a feature, if defined.
+ *
+ * @param {(string|Object)} name            Block name or type object
+ * @param {string}          feature         Feature to retrieve
+ * @param {*}               defaultControls Default config to use if not explicitly defined.
+ */
+export function getBlockDefaultControls( name, feature, defaultControls ) {
+	return getValueFromObjectPath(
+		select( blocksStore )?.getBlockType( name )?.defaultControls,
+		feature,
+		defaultControls
 	);
 }
 

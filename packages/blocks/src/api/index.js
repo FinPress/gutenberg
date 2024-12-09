@@ -130,6 +130,7 @@ export {
 	getBlockTypes,
 	getBlockSupport,
 	hasBlockSupport,
+	getBlockDefaultControls,
 	getBlockVariations,
 	isReusableBlock,
 	isTemplatePart,

@@ -167,6 +167,16 @@ _Returns_
 
 -   `string`: The block's default class.
 
+### getBlockDefaultControls
+
+Returns a block type's default controls config for a feature, if defined.
+
+_Parameters_
+
+-   _name_ `(string|Object)`: Block name or type object
+-   _feature_ `string`: Feature to retrieve
+-   _defaultControls_ `*`: Default config to use if not explicitly defined.
+
 ### getBlockFromExample
 
 Create a block object from the example API.
