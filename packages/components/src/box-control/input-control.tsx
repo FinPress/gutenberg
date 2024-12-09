@@ -131,7 +131,6 @@ export default function BoxInputControl( {
 		hasValues &&
 		defaultValuesToModify.length > 1 &&
 		isValueMixed( values, defaultValuesToModify );
-	const mixedPlaceholder = isMixed ? __( 'Mixed' ) : undefined;
 	const [ parsedQuantity, parsedUnit ] =
 		parseQuantityAndUnitFromRawValue( mergedValue );
 	const computedUnit = hasValues
@@ -139,8 +138,15 @@ export default function BoxInputControl( {
 		: selectedUnits[ defaultValuesToModify[ 0 ] ];
 	const generatedId = useInstanceId( BoxInputControl, 'box-control-input' );
 	const inputId = [ generatedId, side ].join( '-' );
+	const isMixedUnit =
+		defaultValuesToModify.length > 1 &&
+		mergedValue === undefined &&
+		defaultValuesToModify.some(
+			( s ) => selectedUnits[ s ] !== computedUnit
+		);
 	const usedValue =
 		mergedValue === undefined && computedUnit ? computedUnit : mergedValue;
+	const mixedPlaceholder = isMixed || isMixedUnit ? __( 'Mixed' ) : undefined;
 
 	return (
 		<InputWrapper key={ `box-control-${ side }` } expanded>
@@ -153,6 +159,7 @@ export default function BoxInputControl( {
 					className="component-box-control__unit-control"
 					id={ inputId }
 					isPressEnterToChange
+					disableUnits={ isMixed || isMixedUnit }
 					value={ usedValue }
 					onChange={ handleOnValueChange }
 					onUnitChange={ handleOnUnitChange }
