@@ -6,7 +6,7 @@
 	cursor: pointer;
 }
 
-.edit-site-global-styles-preview__iframe {
+.edit-site-global-styles-preview__wrapper {
 	max-width: 100%;
 	display: block;
 	width: 100%;
@@ -209,6 +209,10 @@
 .edit-site-global-styles-sidebar__navigator-screen {
 	display: flex;
 	flex-direction: column;
+}
+
+.edit-site-global-styles-sidebar__navigator-screen .single-column {
+	grid-column: span 1;
 }
 
 .edit-site-global-styles-screen-root.edit-site-global-styles-screen-root,

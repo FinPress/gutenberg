@@ -18,7 +18,7 @@ import { store as editSiteStore } from '../../store';
 
 export function MainSidebarNavigationContent() {
 	return (
-		<ItemGroup>
+		<ItemGroup className="edit-site-sidebar-navigation-screen-main">
 			<SidebarNavigationItem
 				uid="navigation-navigation-item"
 				to="/navigation"
@@ -28,7 +28,8 @@ export function MainSidebarNavigationContent() {
 				{ __( 'Navigation' ) }
 			</SidebarNavigationItem>
 			<SidebarNavigationItemGlobalStyles
-				uid="styles-navigation-item"
+				to="/styles"
+				uid="global-styles-navigation-item"
 				icon={ styles }
 			>
 				{ __( 'Styles' ) }

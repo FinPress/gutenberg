@@ -660,7 +660,7 @@ Contains the block elements used to render a post, like the title, date, feature
 
 -	**Name:** core/post-template
 -	**Category:** theme
--	**Parent:** core/query
+-	**Ancestor:** core/query
 -	**Supports:** align (full, wide), color (background, gradients, link, text), interactivity (clientNavigation), layout, spacing (blockGap), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 
 ## Post Terms
@@ -820,7 +820,7 @@ Create a break between ideas or sections with a horizontal separator. ([Source](
 -	**Name:** core/separator
 -	**Category:** design
 -	**Supports:** align (center, full, wide), anchor, color (background, gradients, ~~enableContrastChecker~~, ~~text~~), interactivity (clientNavigation), spacing (margin)
--	**Attributes:** opacity
+-	**Attributes:** opacity, tagName
 
 ## Shortcode
 
