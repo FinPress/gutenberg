@@ -77,23 +77,25 @@ describe( 'processBlockType', () => {
 				textTransform: true,
 				textDecoration: true,
 				__experimentalWritingMode: true,
-				defaultControls: {
-					fontSize: true,
-					fontAppearance: true,
-					textTransform: true,
-				},
 			},
 			border: {
 				color: true,
 				radius: true,
 				style: true,
 				width: true,
-				defaultControls: {
-					color: true,
-					radius: true,
-					style: true,
-					width: true,
-				},
+			},
+		} );
+		expect( processedBlockType.defaultControls ).toMatchObject( {
+			typography: {
+				fontSize: true,
+				fontAppearance: true,
+				textTransform: true,
+			},
+			border: {
+				color: true,
+				radius: true,
+				style: true,
+				width: true,
 			},
 		} );
 	} );
@@ -145,6 +147,11 @@ describe( 'processBlockType', () => {
 						settings.supports.__experimentalBorder = {};
 					}
 					settings.supports.__experimentalBorder.radius = false;
+					// This default controls config will be ignored due to initial
+					// stabilization pass before filters stabilizing the original
+					// experimental default control values.
+					settings.supports.__experimentalBorder.__experimentalDefaultControls =
+						{ radius: false };
 				}
 				return settings;
 			}
@@ -166,23 +173,25 @@ describe( 'processBlockType', () => {
 				textTransform: true,
 				textDecoration: true,
 				__experimentalWritingMode: true,
-				defaultControls: {
-					fontSize: true,
-					fontAppearance: true,
-					textTransform: true,
-				},
 			},
 			border: {
 				color: true,
 				radius: false,
 				style: true,
 				width: true,
-				defaultControls: {
-					color: true,
-					radius: true,
-					style: true,
-					width: true,
-				},
+			},
+		} );
+		expect( processedBlockType.defaultControls ).toMatchObject( {
+			typography: {
+				fontSize: true,
+				fontAppearance: true,
+				textTransform: true,
+			},
+			border: {
+				color: true,
+				radius: true, // Matches the original stabilized value before filters.
+				style: true,
+				width: true,
 			},
 		} );
 	} );
@@ -261,6 +270,8 @@ describe( 'processBlockType', () => {
 				deprecatedBlockSettings
 			)( { select } );
 
+			// Note: defaultControls are stripped for stabilized deprecation supports as
+			// they aren't needed.
 			expect( processedBlockType.deprecated[ 0 ].supports ).toMatchObject(
 				{
 					typography: {
@@ -271,18 +282,6 @@ describe( 'processBlockType', () => {
 						textTransform: true,
 						textDecoration: true,
 						__experimentalWritingMode: true,
-					},
-					border: {
-						color: true,
-						radius: true,
-						style: true,
-						width: true,
-						defaultControls: {
-							color: true,
-							radius: true,
-							style: true,
-							width: true,
-						},
 					},
 				}
 			);
@@ -313,6 +312,8 @@ describe( 'processBlockType', () => {
 				deprecatedBlockSettings
 			)( { select } );
 
+			// Note: defaultControls are stripped for stabilized deprecation supports as
+			// they aren't needed.
 			expect( processedBlockType.deprecated[ 0 ].supports ).toMatchObject(
 				{
 					typography: {
@@ -323,18 +324,6 @@ describe( 'processBlockType', () => {
 						textTransform: true,
 						textDecoration: true,
 						__experimentalWritingMode: true,
-					},
-					border: {
-						color: true,
-						radius: false,
-						style: true,
-						width: true,
-						defaultControls: {
-							color: true,
-							radius: true,
-							style: true,
-							width: true,
-						},
 					},
 				}
 			);
@@ -370,19 +359,21 @@ describe( 'processBlockType', () => {
 		expect( processedBlockType.supports ).toMatchObject( {
 			typography: {
 				fontSize: true,
-				defaultControls: {
-					fontSize: true,
-				},
 				skipSerialization: true,
 				__experimentalSkipSerialization: true,
 			},
 			spacing: {
 				padding: true,
-				defaultControls: {
-					padding: true,
-				},
 				skipSerialization: true,
 				__experimentalSkipSerialization: true,
+			},
+		} );
+		expect( processedBlockType.defaultControls ).toMatchObject( {
+			typography: {
+				fontSize: true,
+			},
+			spacing: {
+				padding: true,
 			},
 		} );
 	} );

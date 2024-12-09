@@ -79,6 +79,11 @@ function mergeBlockVariations(
 function stabilizeSupportConfig( unstableConfig, stableSupportKey ) {
 	const stableConfig = {};
 	for ( const [ key, value ] of Object.entries( unstableConfig ) ) {
+		// Skip `__experimentalDefaultControls` as they are handled separately.
+		if ( key === '__experimentalDefaultControls' ) {
+			continue;
+		}
+
 		// Get stable key from support-specific map, common properties map, or keep original.
 		const stableKey =
 			EXPERIMENTAL_SUPPORT_PROPERTIES[ stableSupportKey ]?.[ key ] ??
@@ -105,15 +110,21 @@ function stabilizeSupportConfig( unstableConfig, stableSupportKey ) {
 
 /**
  * Stabilizes experimental block supports by converting experimental keys and properties
- * to their stable equivalents.
+ * to their stable equivalents. This includes moving `__experimentalDefaultControls` config
+ * to a top-level `defaultControls` property if it isn't already present on the block type.
  *
- * @param {Object|undefined} rawSupports The block supports configuration to stabilize.
- * @return {Object|undefined} The stabilized block supports configuration.
+ * @param {WPBlockType|undefined} blockType The block supports configuration to stabilize.
+ * @return {Object|undefined} The stabilized block supports and default controls configuration.
  */
-function stabilizeSupports( rawSupports ) {
-	if ( ! rawSupports ) {
-		return rawSupports;
+function stabilizeSupports( blockType ) {
+	if ( ! blockType.supports ) {
+		return {
+			supports: blockType.supports,
+			defaultControls: blockType.defaultControls,
+		};
 	}
+
+	const { supports: rawSupports, defaultControls } = blockType ?? {};
 
 	/*
 	 * Create a new object to avoid mutating the original. This ensures that
@@ -121,6 +132,7 @@ function stabilizeSupports( rawSupports ) {
 	 * See: https://github.com/WordPress/gutenberg/pull/66849#issuecomment-2463614281
 	 */
 	const newSupports = {};
+	const newDefaultControls = {};
 	const done = {};
 
 	for ( const [ support, config ] of Object.entries( rawSupports ) ) {
@@ -135,6 +147,15 @@ function stabilizeSupports( rawSupports ) {
 
 		const stableSupportKey =
 			EXPERIMENTAL_SUPPORTS_MAP[ support ] ?? support;
+
+		// Extract default controls config as it is being moved to top-level property.
+		if (
+			typeof config === 'object' &&
+			config?.__experimentalDefaultControls
+		) {
+			newDefaultControls[ stableSupportKey ] =
+				config.__experimentalDefaultControls;
+		}
 
 		/*
 		 * Use the support's config as is when it's not in need of stabilization.
@@ -190,6 +211,18 @@ function stabilizeSupports( rawSupports ) {
 				( keyPositions[ support ] ?? Number.MAX_VALUE ) <
 				( keyPositions[ stableSupportKey ] ?? Number.MAX_VALUE );
 
+			// Extract default controls as they are relocated to top-level property.
+			const controls =
+				rawSupports[ stableSupportKey ]?.__experimentalDefaultControls;
+			if ( controls ) {
+				newDefaultControls[ stableSupportKey ] = experimentalFirst
+					? { ...newDefaultControls[ stableSupportKey ], ...controls }
+					: {
+							...controls,
+							...newDefaultControls[ stableSupportKey ],
+					  };
+			}
+
 			if ( isPlainObject( rawSupports[ stableSupportKey ] ) ) {
 				/*
 				 * To merge the alternative support config effectively, it also needs to be
@@ -214,7 +247,13 @@ function stabilizeSupports( rawSupports ) {
 		}
 	}
 
-	return newSupports;
+	return {
+		supports: newSupports,
+		defaultControls: {
+			...newDefaultControls,
+			...defaultControls,
+		},
+	};
 }
 
 /**
@@ -258,7 +297,9 @@ export const processBlockType =
 		};
 
 		// Stabilize any experimental supports before applying filters.
-		blockType.supports = stabilizeSupports( blockType.supports );
+		let stabilizedConfig = stabilizeSupports( blockType );
+		blockType.supports = stabilizedConfig.supports;
+		blockType.defaultControls = stabilizedConfig.defaultControls;
 
 		const settings = applyFilters(
 			'blocks.registerBlockType',
@@ -269,7 +310,9 @@ export const processBlockType =
 
 		// Re-stabilize any experimental supports after applying filters.
 		// This ensures that any supports updated by filters are also stabilized.
-		blockType.supports = stabilizeSupports( blockType.supports );
+		stabilizedConfig = stabilizeSupports( blockType );
+		blockType.supports = stabilizedConfig.supports;
+		blockType.defaultControls = stabilizedConfig.defaultControls;
 
 		if (
 			settings.description &&
@@ -285,7 +328,7 @@ export const processBlockType =
 				// Stabilize any experimental supports before applying filters.
 				let filteredDeprecation = {
 					...deprecation,
-					supports: stabilizeSupports( deprecation.supports ),
+					supports: stabilizeSupports( deprecation ).supports,
 				};
 
 				filteredDeprecation = // Only keep valid deprecation keys.
@@ -305,9 +348,8 @@ export const processBlockType =
 					);
 				// Re-stabilize any experimental supports after applying filters.
 				// This ensures that any supports updated by filters are also stabilized.
-				filteredDeprecation.supports = stabilizeSupports(
-					filteredDeprecation.supports
-				);
+				filteredDeprecation.supports =
+					stabilizeSupports( filteredDeprecation ).supports;
 
 				return Object.fromEntries(
 					Object.entries( filteredDeprecation ).filter( ( [ key ] ) =>

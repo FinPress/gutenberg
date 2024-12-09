@@ -303,7 +303,6 @@ export const EXPERIMENTAL_SUPPORTS_MAP = {
 };
 
 export const COMMON_EXPERIMENTAL_PROPERTIES = {
-	__experimentalDefaultControls: 'defaultControls',
 	__experimentalSkipSerialization: 'skipSerialization',
 };
 
