@@ -35,7 +35,7 @@ export interface ActionTriggerProps< Item > {
 export interface ActionModalProps< Item > {
 	action: ActionModalType< Item >;
 	items: Item[];
-	closeModal?: () => void;
+	closeModal: () => void;
 }
 
 interface ActionsMenuGroupProps< Item > {
@@ -107,7 +107,7 @@ export function ActionModal< Item >( {
 		<Modal
 			title={ action.modalHeader || label }
 			__experimentalHideHeader={ !! action.hideModalHeader }
-			onRequestClose={ closeModal ?? ( () => {} ) }
+			onRequestClose={ closeModal }
 			focusOnMount="firstContentElement"
 			size="medium"
 			overlayClassName={ `dataviews-action-modal dataviews-action-modal__${ kebabCase(

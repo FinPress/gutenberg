@@ -21,14 +21,13 @@ import { closeSmall } from '@wordpress/icons';
  */
 import DataViewsContext from '../dataviews-context';
 import { ActionModal } from '../dataviews-item-actions';
-import type { Action } from '../../types';
+import type { Action, ActionModal as ActionModalType } from '../../types';
 import type { SetSelection } from '../../private-types';
-import type {
-	ActionTriggerProps,
-	ActionModalProps,
-} from '../dataviews-item-actions';
+import type { ActionTriggerProps } from '../dataviews-item-actions';
 
-interface ActionWithModalProps< Item > extends ActionModalProps< Item > {
+interface ActionWithModalProps< Item > {
+	action: ActionModalType< Item >;
+	items: Item[];
 	ActionTriggerComponent: (
 		props: ActionTriggerProps< Item >
 	) => ReactElement;
