@@ -173,6 +173,7 @@ function getBlockSettingsFromMetadata( { textdomain, ...metadata } ) {
 		'variations',
 		'blockHooks',
 		'allowedBlocks',
+		'defaultControls',
 	];
 
 	const settings = Object.fromEntries(

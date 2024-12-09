@@ -592,7 +592,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 
 		$actual   = gutenberg_stabilize_experimental_block_supports( $block_type_args );
 		$expected = array(
-			'supports'        => array(
+			'supports'         => array(
 				'border' => array(
 					'color'                           => true,
 					'radius'                          => true,
@@ -603,7 +603,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 					'__experimentalSkipSerialization' => true,
 				),
 			),
-			'defaultControls' => array(
+			'default_controls' => array(
 				'border' => array(
 					'color'  => true,
 					'radius' => true,
@@ -672,7 +672,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 
 		$actual   = gutenberg_stabilize_experimental_block_supports( $experimental_first_args );
 		$expected = array(
-			'supports'        => array(
+			'supports'         => array(
 				'border' => array(
 					'color'                           => true,
 					'radius'                          => true,
@@ -682,7 +682,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 					'__experimentalSkipSerialization' => true,
 				),
 			),
-			'defaultControls' => array(
+			'default_controls' => array(
 				'border' => array(
 					'color'  => false,
 					'radius' => false,
@@ -702,7 +702,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 
 		$actual   = gutenberg_stabilize_experimental_block_supports( $stable_first_args );
 		$expected = array(
-			'supports'        => array(
+			'supports'         => array(
 				'border' => array(
 					'color'                           => true,
 					'radius'                          => true,
@@ -712,7 +712,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 					'__experimentalSkipSerialization' => false,
 				),
 			),
-			'defaultControls' => array(
+			'default_controls' => array(
 				'border' => array(
 					'color'  => true,
 					'radius' => true,
@@ -746,7 +746,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 		return array(
 			'top-level defaultControls override experimental defaults' => array(
 				'input'    => array(
-					'supports'        => array(
+					'supports'         => array(
 						'__experimentalBorder' => array(
 							'color'  => true,
 							'radius' => true,
@@ -761,7 +761,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 							),
 						),
 					),
-					'defaultControls' => array(
+					'default_controls' => array(
 						'border' => array(
 							'color'  => true,
 							'radius' => true,
@@ -771,7 +771,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 					),
 				),
 				'expected' => array(
-					'supports'        => array(
+					'supports'         => array(
 						'border' => array(
 							'color'             => true,
 							'radius'            => true,
@@ -781,7 +781,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 							'__experimentalSkipSerialization' => true,
 						),
 					),
-					'defaultControls' => array(
+					'default_controls' => array(
 						'border' => array(
 							'color'  => true,
 							'radius' => true,
@@ -793,7 +793,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 			),
 			'fall back to experimental defaults when top-level lacks border config' => array(
 				'input'    => array(
-					'supports'        => array(
+					'supports'         => array(
 						'__experimentalBorder' => array(
 							'color'  => true,
 							'radius' => true,
@@ -808,14 +808,14 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 							),
 						),
 					),
-					'defaultControls' => array(
+					'default_controls' => array(
 						'typography' => array(
 							'fontSize' => true,
 						),
 					),
 				),
 				'expected' => array(
-					'supports'        => array(
+					'supports'         => array(
 						'border' => array(
 							'color'             => true,
 							'radius'            => true,
@@ -825,7 +825,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 							'__experimentalSkipSerialization' => true,
 						),
 					),
-					'defaultControls' => array(
+					'default_controls' => array(
 						'typography' => array(
 							'fontSize' => true,
 						),
@@ -857,7 +857,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 					),
 				),
 				'expected' => array(
-					'supports'        => array(
+					'supports'         => array(
 						'border' => array(
 							'color'             => true,
 							'radius'            => true,
@@ -867,7 +867,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 							'__experimentalSkipSerialization' => true,
 						),
 					),
-					'defaultControls' => array(
+					'default_controls' => array(
 						'border' => array(
 							'color'  => false,
 							'radius' => false,

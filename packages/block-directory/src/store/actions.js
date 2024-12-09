@@ -101,6 +101,7 @@ export const installBlockType =
 				'styles',
 				'example',
 				'variations',
+				'default_controls',
 			];
 			await apiFetch( {
 				path: addQueryArgs( `/wp/v2/block-types/${ name }`, {

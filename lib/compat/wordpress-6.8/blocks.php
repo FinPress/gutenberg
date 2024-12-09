@@ -161,7 +161,7 @@ function gutenberg_stabilize_experimental_block_supports( $args ) {
 		$updated_supports[ $stable_support_key ] = $stable_config;
 	}
 
-	$final_default_controls = $args['defaultControls'] ?? array();
+	$final_default_controls = $args['default_controls'] ?? array();
 	foreach ( $default_controls as $support_key => $stabilized_default_controls ) {
 		// Only add experimental controls if no top-level controls exist for this support key.
 		if ( ! isset( $final_default_controls[ $support_key ] ) && ! empty( $stabilized_default_controls ) ) {
@@ -171,7 +171,7 @@ function gutenberg_stabilize_experimental_block_supports( $args ) {
 
 	$args['supports'] = $updated_supports;
 	if ( ! empty( $final_default_controls ) ) {
-		$args['defaultControls'] = $final_default_controls;
+		$args['default_controls'] = $final_default_controls;
 	}
 
 	return $args;
