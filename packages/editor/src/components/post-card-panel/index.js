@@ -42,6 +42,7 @@ export default function PostCardPanel( {
 			const _record = getEditedEntityRecord(
 				'postType',
 				postType,
+				// Use first post if multiple postIds, as we only use it for the icon.
 				postIds.length ? postIds[ 0 ] : postId
 			);
 			if ( postId || postIds.length === 1 ) {
