@@ -22,13 +22,28 @@ if ( ! function_exists( 'gutenberg_add_post_type_rendering_mode' ) ) {
 add_action( 'rest_api_init', 'gutenberg_add_post_type_rendering_mode' );
 
 if ( ! function_exists( 'gutenberg_rest_posts_controller_6_8' ) ) {
-	function gutenberg_rest_posts_controller_6_8( $args ) {
-		$args['rest_controller_class'] = 'Gutenberg_REST_Posts_Controller_6_8';
+	function gutenberg_rest_posts_controller_6_8( $args, $post_type ) {
+		/*
+		 * This was carried over from the Gutenberg_REST_Posts_Controller_6_7 compatibility class,
+		 * so when that is deleted, this condition block can be removed.
+		 */
+		if ( ! empty( $args['supports'] ) && in_array( 'post-formats', $args['supports'], true ) ) {
+			$args['rest_controller_class'] = 'Gutenberg_REST_Posts_Controller_6_8';
+		}
+
+		/*
+		 * Gutenberg only supports page counts for now.
+		 * In the Core sync, WP_REST_Posts_Controller will be extended
+		 * to support this for all post types that use/inherit from it.
+		 */
+		if ( 'page' === $post_type ) {
+			$args['rest_controller_class'] = 'Gutenberg_REST_Posts_Controller_6_8';
+		}
 		return $args;
 	}
 }
 
-add_filter( 'register_post_type_args', 'gutenberg_rest_posts_controller_6_8', 10 );
+add_filter( 'register_post_type_args', 'gutenberg_rest_posts_controller_6_8', 10, 2 );
 
 // When querying terms for a given taxonomy in the REST API, respect the default
 // query arguments set for that taxonomy upon registration.
