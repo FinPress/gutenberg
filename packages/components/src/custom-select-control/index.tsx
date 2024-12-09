@@ -149,6 +149,8 @@ function CustomSelectControl< T extends CustomSelectOption >(
 			);
 		} );
 
+	const { value: currentValue } = store.getState();
+
 	const renderSelectedValueHint = () => {
 		const selectedOptionHint = options
 			?.map( applyOptionDeprecations )
@@ -201,13 +203,11 @@ function CustomSelectControl< T extends CustomSelectOption >(
 			>
 				{ children }
 			</_CustomSelect>
-			{ value && (
-				<VisuallyHidden>
-					<span id={ descriptionId }>
-						{ getDescribedBy( value.name, describedBy ) }
-					</span>
-				</VisuallyHidden>
-			) }
+			<VisuallyHidden>
+				<span id={ descriptionId }>
+					{ getDescribedBy( currentValue, describedBy ) }
+				</span>
+			</VisuallyHidden>
 		</>
 	);
 }
