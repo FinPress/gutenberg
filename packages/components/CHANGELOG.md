@@ -29,6 +29,7 @@
 -   `DropdownMenu`: Increase option height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
 -   `MenuItem`: Increase height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
 -   `MenuItemsChoice`: Increase option height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
+-   `Button`: Adjust `secondary` variant hover style. ([#67325](https://github.com/WordPress/gutenberg/pull/67325)).
 
 ### Experimental
 
@@ -78,7 +79,6 @@
 -   `DropZone`: Add `isEligible` prop to allow customizing whether the drop zone should activate ([#67317](https://github.com/WordPress/gutenberg/pull/67317)).
 -   `CircularOptionPicker`: Update `Button` sizes to be ready for 40px default size ([#67285](https://github.com/WordPress/gutenberg/pull/67285)).
 -   `DuotonePicker`: Simplify Button styles ([#66641](https://github.com/WordPress/gutenberg/pull/66641)).
--   `Button`: Increase font weight of `primary`, `secondary`, and `tertiary` variants. Adjust `secondary` variant hover style. ([#67325](https://github.com/WordPress/gutenberg/pull/67325)).
 
 ### Experimental
 
