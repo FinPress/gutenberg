@@ -32,13 +32,13 @@ function counterStore( initialCount = 0, step = 1 ) {
 	};
 }
 
-// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @wordpress/wp-global-usage */
 describe( 'useSelect', () => {
 	const initialScriptDebug = globalThis.SCRIPT_DEBUG;
 	let registry;
 
 	beforeAll( () => {
+		// Do not run hook in development mode; it will call `mapSelect` an extra time.
 		globalThis.SCRIPT_DEBUG = false;
 	} );
 
@@ -1269,3 +1269,4 @@ describe( 'useSelect', () => {
 		} );
 	} );
 } );
+/* eslint-enable @wordpress/wp-global-usage */

@@ -17,13 +17,13 @@ import { render, screen, waitFor } from '@testing-library/react';
  */
 import useQuerySelect from '../use-query-select';
 
-// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @wordpress/wp-global-usage */
 describe( 'useQuerySelect', () => {
 	const initialScriptDebug = globalThis.SCRIPT_DEBUG;
 	let registry;
 
 	beforeAll( () => {
+		// Do not run hook in development mode; it will call `mapSelect` an extra time.
 		globalThis.SCRIPT_DEBUG = false;
 	} );
 
@@ -199,3 +199,4 @@ describe( 'useQuerySelect', () => {
 		);
 	} );
 } );
+/* eslint-enable @wordpress/wp-global-usage */
