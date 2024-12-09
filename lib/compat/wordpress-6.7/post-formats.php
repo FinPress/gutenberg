@@ -16,7 +16,12 @@ function gutenberg_post_format_rest_posts_controller( $args ) {
 	 * Check registration arguments for REST API controller override.
 	 */
 	if ( ! empty( $args['supports'] ) && in_array( 'post-formats', $args['supports'], true ) ) {
-		$args['rest_controller_class'] = 'Gutenberg_REST_Posts_Controller_6_7';
+		/*
+		 * The 6.8 controller extends the 6.7 controller.
+		 * See: lib/compat/wordpress-6.8/class-gutenberg-rest-post-types-controller-6-8.php
+		 * When 6.7 is no longer supported, this entire file can be removed.
+		 */
+		$args['rest_controller_class'] = 'Gutenberg_REST_Posts_Controller_6_8';
 	}
 
 	return $args;

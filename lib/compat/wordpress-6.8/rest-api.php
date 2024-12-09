@@ -21,6 +21,15 @@ if ( ! function_exists( 'gutenberg_add_post_type_rendering_mode' ) ) {
 }
 add_action( 'rest_api_init', 'gutenberg_add_post_type_rendering_mode' );
 
+if ( ! function_exists( 'gutenberg_rest_posts_controller_6_8' ) ) {
+	function gutenberg_rest_posts_controller_6_8( $args ) {
+		$args['rest_controller_class'] = 'Gutenberg_REST_Posts_Controller_6_8';
+		return $args;
+	}
+}
+
+add_filter( 'register_post_type_args', 'gutenberg_rest_posts_controller_6_8', 10 );
+
 // When querying terms for a given taxonomy in the REST API, respect the default
 // query arguments set for that taxonomy upon registration.
 function gutenberg_respect_taxonomy_default_args_in_rest_api( $args ) {

@@ -45,6 +45,7 @@ if ( class_exists( 'WP_REST_Controller' ) ) {
 	require __DIR__ . '/compat/wordpress-6.8/block-comments.php';
 	require __DIR__ . '/compat/wordpress-6.8/class-gutenberg-rest-comment-controller-6-8.php';
 	require __DIR__ . '/compat/wordpress-6.8/class-gutenberg-rest-post-types-controller-6-8.php';
+	require __DIR__ . '/compat/wordpress-6.8/class-gutenberg-rest-posts-controller-6-8.php';
 	require __DIR__ . '/compat/wordpress-6.8/rest-api.php';
 
 	// Plugin specific code.
@@ -91,7 +92,6 @@ require __DIR__ . '/compat/wordpress-6.7/block-bindings.php';
 require __DIR__ . '/compat/wordpress-6.7/script-modules.php';
 require __DIR__ . '/compat/wordpress-6.7/class-wp-block-templates-registry.php';
 require __DIR__ . '/compat/wordpress-6.7/compat.php';
-require __DIR__ . '/compat/wordpress-6.7/post-formats.php';
 
 // WordPress 6.8 compat.
 require __DIR__ . '/compat/wordpress-6.8/preload.php';
