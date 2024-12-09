@@ -20,7 +20,7 @@ import useAsyncMode from '../async-mode-provider/use-async-mode';
 const renderQueue = createQueue();
 
 function warnOnUnstableReference( a, b ) {
-	if ( ! a && ! b ) {
+	if ( ! a || ! b ) {
 		return;
 	}
 
