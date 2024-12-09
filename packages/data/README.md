@@ -475,7 +475,7 @@ _Parameters_
 
 _Returns_
 
--   `Selector`: Registry selector that can be registered with a store.
+-   `RegistrySelector< Selector >`: Registry selector that can be registered with a store.
 
 ### createSelector
 
