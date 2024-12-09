@@ -39,12 +39,6 @@ export interface ItemProps {
 	 */
 	size?: ItemSize;
 	/**
-	 * Start opting into the larger default height that will become the default size in a future version.
-	 *
-	 * @default false
-	 */
-	__next40pxDefaultSize?: boolean;
-	/**
 	 * The children elements.
 	 */
 	children: React.ReactNode;

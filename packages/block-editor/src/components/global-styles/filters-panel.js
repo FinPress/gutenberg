@@ -189,11 +189,7 @@ export default function FiltersPanel( {
 
 							return (
 								<ItemGroup isBordered isSeparated>
-									<Item
-										as="button"
-										__next40pxDefaultSize
-										{ ...toggleProps }
-									>
+									<Item as="button" { ...toggleProps }>
 										<LabeledColorIndicator
 											indicator={ duotone }
 											label={ __( 'Duotone' ) }
