@@ -9,7 +9,6 @@
 	display: inline-flex;
 	text-decoration: none;
 	font-family: inherit;
-	font-weight: $font-weight-medium;
 	font-size: $default-font-size;
 	margin: 0;
 	border: 0;
@@ -255,7 +254,6 @@
 		transition-timing-function: ease-in-out;
 		@include reduce-motion("transition");
 		height: auto;
-		font-weight: $font-weight-regular;
 
 		&:focus {
 			border-radius: $radius-small;
