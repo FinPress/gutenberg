@@ -1624,7 +1624,7 @@ const isBlockVisibleInTheInserter = (
 	// If parent blocks are not visible, child blocks should be hidden too.
 	const parents = (
 		Array.isArray( blockType.parent ) ? blockType.parent : []
-	).concat( blockType.ancestor ? blockType.ancestor : [] );
+	).concat( Array.isArray( blockType.ancestor ) ? blockType.ancestor : [] );
 	if ( parents.length > 0 ) {
 		const rootBlockName = getBlockName( state, rootClientId );
 		// This is an exception to the rule that says that all blocks are visible in the inserter.
