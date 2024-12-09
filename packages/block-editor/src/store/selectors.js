@@ -1637,9 +1637,6 @@ const isBlockVisibleInTheInserter = (
 		);
 	}
 
-	if ( parents.length > 0 ) {
-	}
-
 	return true;
 };
 
