@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
 
 import Editor from '../editor';
 
-export function HomeViewPreview() {
+export function MaybeEditor( { showEditor = true } ) {
 	const { isBlockBasedTheme, siteUrl } = useSelect( ( select ) => {
 		const { getEntityRecord, getCurrentTheme } = select( coreStore );
 		const siteData = getEntityRecord( 'root', '__unstableBase' );
@@ -24,7 +24,7 @@ export function HomeViewPreview() {
 	}, [] );
 
 	// If theme is block based, return the Editor, otherwise return the site preview.
-	return isBlockBasedTheme ? (
+	return isBlockBasedTheme || showEditor ? (
 		<Editor />
 	) : (
 		<iframe
