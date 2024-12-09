@@ -149,16 +149,14 @@ function CustomSelectControl< T extends CustomSelectOption >(
 			);
 		} );
 
-	const { value: currentValue } = store.getState();
-
 	const renderSelectedValueHint = () => {
 		const selectedOptionHint = options
 			?.map( applyOptionDeprecations )
-			?.find( ( { name } ) => currentValue === name )?.hint;
+			?.find( ( { name } ) => value?.name === name )?.hint;
 
 		return (
 			<Styled.SelectedExperimentalHintWrapper>
-				{ currentValue }
+				{ value?.name }
 				{ selectedOptionHint && (
 					<Styled.SelectedExperimentalHintItem
 						// Keeping the classname for legacy reasons
@@ -203,11 +201,13 @@ function CustomSelectControl< T extends CustomSelectOption >(
 			>
 				{ children }
 			</_CustomSelect>
-			<VisuallyHidden>
-				<span id={ descriptionId }>
-					{ getDescribedBy( currentValue, describedBy ) }
-				</span>
-			</VisuallyHidden>
+			{ value && (
+				<VisuallyHidden>
+					<span id={ descriptionId }>
+						{ getDescribedBy( value.name, describedBy ) }
+					</span>
+				</VisuallyHidden>
+			) }
 		</>
 	);
 }
