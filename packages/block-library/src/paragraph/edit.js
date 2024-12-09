@@ -146,9 +146,14 @@ function ParagraphBlock( {
 				tagName="p"
 				{ ...blockProps }
 				value={ content }
-				onChange={ ( newContent ) =>
-					setAttributes( { content: newContent } )
-				}
+				onChange={ ( newContent ) => {
+					// Capitalize the first letter only if the content is empty
+					const updatedContent = RichText.isEmpty( content )
+						? newContent.charAt( 0 ).toUpperCase() +
+						  newContent.slice( 1 )
+						: newContent;
+					setAttributes( { content: updatedContent } );
+				} }
 				onMerge={ mergeBlocks }
 				onReplace={ onReplace }
 				onRemove={ onRemove }
