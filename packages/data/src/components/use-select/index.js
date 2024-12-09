@@ -20,12 +20,14 @@ import useAsyncMode from '../async-mode-provider/use-async-mode';
 const renderQueue = createQueue();
 
 function warnOnUnstableReference( a, b ) {
-	let keys = [];
-	if ( a.constructor === Object && b.constructor === Object ) {
-		keys = Object.keys( a ).filter( ( k ) => a[ k ] !== b[ k ] );
-	} else if ( Array.isArray( a ) && Array.isArray( b ) ) {
-		keys = [ ...a.keys() ].filter( ( i ) => a[ i ] !== b[ i ] );
+	if ( ! a && ! b ) {
+		return;
 	}
+
+	const keys =
+		typeof a === 'object' && typeof b === 'object'
+			? Object.keys( a ).filter( ( k ) => a[ k ] !== b[ k ] )
+			: [];
 
 	// eslint-disable-next-line no-console
 	console.warn(
