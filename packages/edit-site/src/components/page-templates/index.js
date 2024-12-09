@@ -95,18 +95,15 @@ export default function PageTemplates() {
 	const [ view, setView ] = useState( defaultView );
 
 	// Sync the layout from the URL to the view state.
-	const onChangeUrlLayout = useEvent( () => {
+	useEffect( () => {
 		setView( ( currentView ) => ( {
 			...currentView,
 			type: layout ?? DEFAULT_VIEW.type,
 		} ) );
-	} );
-	useEffect( () => {
-		onChangeUrlLayout();
-	}, [ onChangeUrlLayout, layout ] );
+	}, [ setView, layout ] );
 
 	// Sync the active view from the URL to the view state.
-	const onChangeActiveView = useEvent( () => {
+	useEffect( () => {
 		setView( ( currentView ) => ( {
 			...currentView,
 			filters:
@@ -120,10 +117,7 @@ export default function PageTemplates() {
 					  ]
 					: [],
 		} ) );
-	} );
-	useEffect( () => {
-		onChangeActiveView();
-	}, [ onChangeActiveView, activeView ] );
+	}, [ setView, activeView ] );
 
 	const { records, isResolving: isLoadingData } =
 		useEntityRecordsWithPermissions( 'postType', TEMPLATE_POST_TYPE, {
