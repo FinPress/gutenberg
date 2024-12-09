@@ -4,11 +4,12 @@
 import {
 	Icon,
 	__experimentalHStack as HStack,
+	__experimentalVStack as VStack,
 	__experimentalText as Text,
 } from '@wordpress/components';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
 
 /**
@@ -24,50 +25,67 @@ import PostActions from '../post-actions';
 import usePageTypeBadge from '../../utils/pageTypeBadge';
 import { getTemplateInfo } from '../../utils/get-template-info';
 
+const EMPTY_ARRAY = [];
+
 export default function PostCardPanel( {
 	postType,
 	postId,
+	postIds = EMPTY_ARRAY,
 	onActionPerformed,
 } ) {
-	const { title, icon } = useSelect(
+	const { postTitle, icon, labels } = useSelect(
 		( select ) => {
-			const { getEditedEntityRecord } = select( coreStore );
+			const { getEditedEntityRecord, getEntityRecord, getPostType } =
+				select( coreStore );
+			const { getPostIcon } = unlock( select( editorStore ) );
+			let _title = '';
 			const _record = getEditedEntityRecord(
 				'postType',
 				postType,
-				postId
+				postIds.length ? postIds[ 0 ] : postId
 			);
+			if ( postId || postIds.length === 1 ) {
+				const { default_template_types: templateTypes = [] } =
+					getEntityRecord( 'root', '__unstableBase' ) ?? {};
 
-			const { default_template_types: templateTypes = [] } =
-				select( coreStore ).getEntityRecord(
-					'root',
-					'__unstableBase'
-				) ?? {};
-
-			const _templateInfo = [
-				TEMPLATE_POST_TYPE,
-				TEMPLATE_PART_POST_TYPE,
-			].includes( postType )
-				? getTemplateInfo( {
-						template: _record,
-						templateTypes,
-				  } )
-				: {};
+				const _templateInfo = [
+					TEMPLATE_POST_TYPE,
+					TEMPLATE_PART_POST_TYPE,
+				].includes( postType )
+					? getTemplateInfo( {
+							template: _record,
+							templateTypes,
+					  } )
+					: {};
+				_title = _templateInfo?.title || _record?.title;
+			}
 
 			return {
-				title: _templateInfo?.title || _record?.title,
-				icon: unlock( select( editorStore ) ).getPostIcon( postType, {
+				postTitle: _title,
+				icon: getPostIcon( postType, {
 					area: _record?.area,
 				} ),
+				labels: getPostType( postType )?.labels,
 			};
 		},
-		[ postId, postType ]
+		[ postId, postType, postIds ]
 	);
 
 	const pageTypeBadge = usePageTypeBadge( postId );
+	let title = __( 'No title' );
+	if ( labels?.name && postIds.length > 1 ) {
+		title = sprintf(
+			// translators: %i number of selected items %s: Name of the plural post type e.g: "Posts".
+			__( '%i %s' ),
+			postIds.length,
+			labels?.name
+		);
+	} else if ( postTitle ) {
+		title = decodeEntities( postTitle );
+	}
 
 	return (
-		<div className="editor-post-card-panel">
+		<VStack spacing={ 1 } className="editor-post-card-panel">
 			<HStack
 				spacing={ 2 }
 				className="editor-post-card-panel__header"
@@ -80,7 +98,7 @@ export default function PostCardPanel( {
 					className="editor-post-card-panel__title"
 					as="h2"
 				>
-					{ title ? decodeEntities( title ) : __( 'No title' ) }
+					{ title }
 					{ pageTypeBadge && (
 						<span className="editor-post-card-panel__title-badge">
 							{ pageTypeBadge }
@@ -90,9 +108,19 @@ export default function PostCardPanel( {
 				<PostActions
 					postType={ postType }
 					postId={ postId }
+					postIds={ postIds }
 					onActionPerformed={ onActionPerformed }
 				/>
 			</HStack>
-		</div>
+			{ postIds.length > 1 && (
+				<Text className="editor-post-card-panel__description">
+					{ sprintf(
+						// translators: %s: Name of the plural post type e.g: "Posts".
+						__( 'Changes will be applied to all selected %s.' ),
+						labels?.name.toLowerCase()
+					) }
+				</Text>
+			) }
+		</VStack>
 	);
 }
