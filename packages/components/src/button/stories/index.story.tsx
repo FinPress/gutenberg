@@ -76,24 +76,37 @@ Primary.args = {
 	variant: 'primary',
 };
 
+/**
+ * Secondary buttons complement primary buttons. Use them for standard actions that may appear alongside a primary action.
+ */
 export const Secondary = Template.bind( {} );
 Secondary.args = {
 	...Default.args,
 	variant: 'secondary',
 };
 
+/**
+ * Tertiary buttons have minimal emphasis. Use them sparingly to subtly highlight an action.
+ */
 export const Tertiary = Template.bind( {} );
 Tertiary.args = {
 	...Default.args,
 	variant: 'tertiary',
 };
 
+/**
+ * Link buttons have low emphasis and blend into the page, making them suitable for supplementary actions,
+ * especially those involving navigation away from the current view.
+ */
 export const Link = Template.bind( {} );
 Link.args = {
 	...Default.args,
 	variant: 'link',
 };
 
+/**
+ * Use this variant for irreversible actions. Apply sparingly and only for actions with significant impact.
+ */
 export const IsDestructive = Template.bind( {} );
 IsDestructive.args = {
 	...Default.args,
