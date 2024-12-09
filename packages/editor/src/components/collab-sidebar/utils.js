@@ -43,3 +43,24 @@ export function getCommentIdsFromBlocks( blocks ) {
 	// Extract all comment IDs recursively
 	return extractCommentIds( blocks );
 }
+
+export const getBlockByCommentId = ( blocks, commentId ) => {
+	const extractClientId = ( blocksArray, commentID ) => {
+		for ( const block of blocksArray ) {
+			if ( block.attributes.blockCommentId === commentID ) {
+				return block;
+			}
+			if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
+				const foundBlock = extractClientId(
+					block.innerBlocks,
+					commentID
+				);
+				if ( foundBlock ) {
+					return foundBlock;
+				}
+			}
+		}
+	};
+
+	return blocks ? extractClientId( blocks, commentId ) : null;
+};

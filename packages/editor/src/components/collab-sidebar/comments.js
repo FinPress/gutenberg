@@ -17,14 +17,17 @@ import {
 } from '@wordpress/components';
 import { Icon, check, published, moreVertical } from '@wordpress/icons';
 import { __, _x } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
+import { useEntityBlockEditor } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
  */
 import CommentAuthorInfo from './comment-author-info';
 import CommentForm from './comment-form';
+import { getBlockByCommentId } from './utils';
+import { store as editorStore } from '../../store';
 
 /**
  * Renders the Comments component.
@@ -71,6 +74,26 @@ export function Comments( {
 				?.blockCommentId ?? false
 		);
 	}, [] );
+
+	const { postId, postType } = useSelect( ( select ) => {
+		const { getCurrentPostId, getCurrentPostType } = select( editorStore );
+		return {
+			postId: getCurrentPostId(),
+			postType: getCurrentPostType(),
+		};
+	}, [] );
+
+	const [ blocks ] = useEntityBlockEditor( 'postType', postType, {
+		id: postId,
+	} );
+
+	const { selectBlock } = useDispatch( blockEditorStore );
+	const handleThreadClick = ( thread ) => {
+		const block = getBlockByCommentId( blocks, thread.id );
+		if ( block ) {
+			selectBlock( block.clientId ); // Use the action to select the block
+		}
+	};
 
 	const CommentBoard = ( { thread, parentThread } ) => {
 		return (
@@ -202,6 +225,7 @@ export function Comments( {
 						) }
 						id={ thread.id }
 						spacing="3"
+						onClick={ () => handleThreadClick( thread ) }
 					>
 						<CommentBoard thread={ thread } />
 						{ 0 < thread?.reply?.length &&
