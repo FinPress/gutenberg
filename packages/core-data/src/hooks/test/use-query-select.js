@@ -17,8 +17,15 @@ import { render, screen, waitFor } from '@testing-library/react';
  */
 import useQuerySelect from '../use-query-select';
 
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @wordpress/wp-global-usage */
 describe( 'useQuerySelect', () => {
+	const initialScriptDebug = globalThis.SCRIPT_DEBUG;
 	let registry;
+
+	beforeAll( () => {
+		globalThis.SCRIPT_DEBUG = false;
+	} );
 
 	beforeEach( () => {
 		registry = createRegistry();
@@ -29,6 +36,10 @@ describe( 'useQuerySelect', () => {
 				testSelector: ( state, key ) => state[ key ],
 			},
 		} );
+	} );
+
+	afterAll( () => {
+		globalThis.SCRIPT_DEBUG = initialScriptDebug;
 	} );
 
 	const getTestComponent = ( mapSelectSpy, dependencyKey ) => ( props ) => {
