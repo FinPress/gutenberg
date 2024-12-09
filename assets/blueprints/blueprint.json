@@ -1,0 +1,21 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/wp-admin/site-editor.php",
+	"plugins": [ "gutenberg" ],
+	"login": true,
+	"features": {
+		"networking": true
+	},
+	"preferredVersions": {
+		"php": "8.0",
+		"wp": "latest"
+	},
+	"steps": [
+		{
+			"step": "setSiteOptions",
+			"options": {
+				"blogname": "Testing Gutenberg"
+			}
+		}
+	]
+}
