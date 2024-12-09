@@ -21,10 +21,7 @@ function gutenberg_stabilize_experimental_block_supports( $args ) {
 	}
 
 	$experimental_supports_map       = array( '__experimentalBorder' => 'border' );
-	$common_experimental_properties  = array(
-		'__experimentalDefaultControls'   => 'defaultControls',
-		'__experimentalSkipSerialization' => 'skipSerialization',
-	);
+	$common_experimental_properties  = array( '__experimentalSkipSerialization' => 'skipSerialization' );
 	$experimental_support_properties = array(
 		'typography' => array(
 			'__experimentalFontFamily'     => 'fontFamily',
@@ -35,9 +32,11 @@ function gutenberg_stabilize_experimental_block_supports( $args ) {
 			'__experimentalTextTransform'  => 'textTransform',
 		),
 	);
-	$done                            = array();
 
+	$done             = array();
+	$default_controls = array();
 	$updated_supports = array();
+
 	foreach ( $args['supports'] as $support => $config ) {
 		/*
 		 * If this support config has already been stabilized, skip it.
@@ -49,6 +48,12 @@ function gutenberg_stabilize_experimental_block_supports( $args ) {
 		}
 
 		$stable_support_key = $experimental_supports_map[ $support ] ?? $support;
+
+		// Extract default controls config as it is being moved to top-level property.
+		if ( is_array( $config ) && ! empty( $config['__experimentalDefaultControls'] ) ) {
+			$default_controls[ $stable_support_key ] = $config['__experimentalDefaultControls'];
+			unset( $config['__experimentalDefaultControls'] );
+		}
 
 		/*
 		 * Use the support's config as is when it's not in need of stabilization.
@@ -77,6 +82,11 @@ function gutenberg_stabilize_experimental_block_supports( $args ) {
 
 			$stable_config = array();
 			foreach ( $unstable_config as $key => $value ) {
+				// Skip `__experimentalDefaultControls` as they are handled separately.
+				if ( '__experimentalDefaultControls' === $key ) {
+					continue;
+				}
+
 				// Get stable key from support-specific map, common properties map, or keep original.
 				$stable_key = $experimental_support_properties[ $stable_support_key ][ $key ] ??
 							$common_experimental_properties[ $key ] ??
@@ -120,6 +130,14 @@ function gutenberg_stabilize_experimental_block_supports( $args ) {
 				( $key_positions[ $support ] ?? PHP_INT_MAX ) <
 				( $key_positions[ $stable_support_key ] ?? PHP_INT_MAX );
 
+			// Extract default controls as they are relocated to top-level property.
+			if ( is_array( $args['supports'][ $stable_support_key ] ) && ! empty( $args['supports'][ $stable_support_key ]['__experimentalDefaultControls'] ) ) {
+				$controls                                = $args['supports'][ $stable_support_key ]['__experimentalDefaultControls'];
+				$default_controls[ $stable_support_key ] = $experimental_first ?
+					array_merge( $default_controls[ $stable_support_key ] ?? array(), $controls ) :
+					array_merge( $controls, $default_controls[ $stable_support_key ] ?? array() );
+			}
+
 			/*
 			 * To merge the alternative support config effectively, it also needs to be
 			 * stabilized before merging to keep stabilized and experimental flags in
@@ -143,7 +161,18 @@ function gutenberg_stabilize_experimental_block_supports( $args ) {
 		$updated_supports[ $stable_support_key ] = $stable_config;
 	}
 
+	$final_default_controls = $args['defaultControls'] ?? array();
+	foreach ( $default_controls as $support_key => $stabilized_default_controls ) {
+		// Only add experimental controls if no top-level controls exist for this support key.
+		if ( ! isset( $final_default_controls[ $support_key ] ) && ! empty( $stabilized_default_controls ) ) {
+			$final_default_controls[ $support_key ] = $stabilized_default_controls;
+		}
+	}
+
 	$args['supports'] = $updated_supports;
+	if ( ! empty( $final_default_controls ) ) {
+		$args['defaultControls'] = $final_default_controls;
+	}
 
 	return $args;
 }

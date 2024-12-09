@@ -592,7 +592,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 
 		$actual   = gutenberg_stabilize_experimental_block_supports( $block_type_args );
 		$expected = array(
-			'supports' => array(
+			'supports'        => array(
 				'border' => array(
 					'color'                           => true,
 					'radius'                          => true,
@@ -601,12 +601,14 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 					'skipSerialization'               => true,
 					// Has to be kept due to core's `wp_should_skip_block_supports_serialization` only checking the experimental flag until 6.8.
 					'__experimentalSkipSerialization' => true,
-					'defaultControls'                 => array(
-						'color'  => true,
-						'radius' => true,
-						'style'  => true,
-						'width'  => true,
-					),
+				),
+			),
+			'defaultControls' => array(
+				'border' => array(
+					'color'  => true,
+					'radius' => true,
+					'style'  => true,
+					'width'  => true,
 				),
 			),
 		);
@@ -640,12 +642,6 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 			 * key but stable serialization and default control keys.
 			 */
 			'skipSerialization'               => false,
-			'defaultControls'                 => array(
-				'color'  => true,
-				'radius' => false,
-				'style'  => true,
-				'width'  => true,
-			),
 		);
 		$stable_border_config = array(
 			'color'                           => true,
@@ -653,12 +649,6 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 			'style'                           => false,
 			'width'                           => true,
 			'skipSerialization'               => false,
-			'defaultControls'                 => array(
-				'color'  => true,
-				'radius' => false,
-				'style'  => false,
-				'width'  => true,
-			),
 
 			/*
 			 * The following simulates theme/plugin filtering using stable `border` key
@@ -682,7 +672,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 
 		$actual   = gutenberg_stabilize_experimental_block_supports( $experimental_first_args );
 		$expected = array(
-			'supports' => array(
+			'supports'        => array(
 				'border' => array(
 					'color'                           => true,
 					'radius'                          => true,
@@ -690,13 +680,14 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 					'width'                           => true,
 					'skipSerialization'               => true,
 					'__experimentalSkipSerialization' => true,
-					'defaultControls'                 => array(
-						'color'  => false,
-						'radius' => false,
-						'style'  => false,
-						'width'  => false,
-					),
-
+				),
+			),
+			'defaultControls' => array(
+				'border' => array(
+					'color'  => false,
+					'radius' => false,
+					'style'  => false,
+					'width'  => false,
 				),
 			),
 		);
@@ -711,7 +702,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 
 		$actual   = gutenberg_stabilize_experimental_block_supports( $stable_first_args );
 		$expected = array(
-			'supports' => array(
+			'supports'        => array(
 				'border' => array(
 					'color'                           => true,
 					'radius'                          => true,
@@ -719,16 +710,174 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 					'width'                           => true,
 					'skipSerialization'               => false,
 					'__experimentalSkipSerialization' => false,
-					'defaultControls'                 => array(
-						'color'  => true,
-						'radius' => false,
-						'style'  => true,
-						'width'  => true,
-					),
+				),
+			),
+			'defaultControls' => array(
+				'border' => array(
+					'color'  => true,
+					'radius' => true,
+					'style'  => true,
+					'width'  => true,
 				),
 			),
 		);
 		$this->assertSame( $expected, $actual, 'Merged stabilized border block support config does not match when stable keys are first.' );
+	}
+
+	/**
+	 * Tests that default controls are handled correctly when stabilizing border block supports.
+	 *
+	 * @dataProvider data_border_default_controls
+	 *
+	 * @param array $input    Input block type arguments.
+	 * @param array $expected Expected stabilized configuration.
+	 */
+	public function test_should_stabilize_border_default_controls( array $input, array $expected ) {
+		$actual = gutenberg_stabilize_experimental_block_supports( $input );
+		$this->assertSame( $expected, $actual );
+	}
+
+	/**
+	 * Data provider for border default controls stabilization scenarios.
+	 *
+	 * @return array[] Test scenarios with input arguments and expected results.
+	 */
+	public function data_border_default_controls() {
+		return array(
+			'top-level defaultControls override experimental defaults' => array(
+				'input'    => array(
+					'supports'        => array(
+						'__experimentalBorder' => array(
+							'color'  => true,
+							'radius' => true,
+							'style'  => true,
+							'width'  => true,
+							'__experimentalSkipSerialization' => true,
+							'__experimentalDefaultControls' => array(
+								'color'  => false,
+								'radius' => false,
+								'style'  => false,
+								'width'  => false,
+							),
+						),
+					),
+					'defaultControls' => array(
+						'border' => array(
+							'color'  => true,
+							'radius' => true,
+							'style'  => true,
+							'width'  => true,
+						),
+					),
+				),
+				'expected' => array(
+					'supports'        => array(
+						'border' => array(
+							'color'             => true,
+							'radius'            => true,
+							'style'             => true,
+							'width'             => true,
+							'skipSerialization' => true,
+							'__experimentalSkipSerialization' => true,
+						),
+					),
+					'defaultControls' => array(
+						'border' => array(
+							'color'  => true,
+							'radius' => true,
+							'style'  => true,
+							'width'  => true,
+						),
+					),
+				),
+			),
+			'fall back to experimental defaults when top-level lacks border config' => array(
+				'input'    => array(
+					'supports'        => array(
+						'__experimentalBorder' => array(
+							'color'  => true,
+							'radius' => true,
+							'style'  => true,
+							'width'  => true,
+							'__experimentalSkipSerialization' => true,
+							'__experimentalDefaultControls' => array(
+								'color'  => true,
+								'radius' => true,
+								'style'  => true,
+								'width'  => true,
+							),
+						),
+					),
+					'defaultControls' => array(
+						'typography' => array(
+							'fontSize' => true,
+						),
+					),
+				),
+				'expected' => array(
+					'supports'        => array(
+						'border' => array(
+							'color'             => true,
+							'radius'            => true,
+							'style'             => true,
+							'width'             => true,
+							'skipSerialization' => true,
+							'__experimentalSkipSerialization' => true,
+						),
+					),
+					'defaultControls' => array(
+						'typography' => array(
+							'fontSize' => true,
+						),
+						'border'     => array(
+							'color'  => true,
+							'radius' => true,
+							'style'  => true,
+							'width'  => true,
+						),
+					),
+				),
+			),
+			'use experimental defaults when no top-level defaultControls' => array(
+				'input'    => array(
+					'supports' => array(
+						'__experimentalBorder' => array(
+							'color'  => true,
+							'radius' => true,
+							'style'  => true,
+							'width'  => true,
+							'__experimentalSkipSerialization' => true,
+							'__experimentalDefaultControls' => array(
+								'color'  => false,
+								'radius' => false,
+								'style'  => false,
+								'width'  => false,
+							),
+						),
+					),
+				),
+				'expected' => array(
+					'supports'        => array(
+						'border' => array(
+							'color'             => true,
+							'radius'            => true,
+							'style'             => true,
+							'width'             => true,
+							'skipSerialization' => true,
+							'__experimentalSkipSerialization' => true,
+						),
+					),
+					'defaultControls' => array(
+						'border' => array(
+							'color'  => false,
+							'radius' => false,
+							'style'  => false,
+							'width'  => false,
+						),
+					),
+				),
+			),
+		);
 	}
 
 	/**
