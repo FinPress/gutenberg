@@ -33,7 +33,12 @@ function isObjectEmpty( object ) {
 	return ! object || Object.keys( object ).length === 0;
 }
 
-function Revisions( { userConfig, blocks } ) {
+function Revisions( {
+	userConfig,
+	blocks,
+	showCloseButton = true,
+	enableResizing = true,
+} ) {
 	const { base: baseConfig } = useContext( GlobalStylesContext );
 
 	const mergedConfig = useMemo( () => {
@@ -70,8 +75,10 @@ function Revisions( { userConfig, blocks } ) {
 	return (
 		<EditorCanvasContainer
 			title={ __( 'Revisions' ) }
-			closeButtonLabel={ __( 'Close revisions' ) }
-			enableResizing
+			closeButtonLabel={
+				showCloseButton ? __( 'Close revisions' ) : null
+			}
+			enableResizing={ enableResizing }
 		>
 			<Iframe
 				className="edit-site-revisions__iframe"

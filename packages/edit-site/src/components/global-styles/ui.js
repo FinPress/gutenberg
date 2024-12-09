@@ -181,19 +181,19 @@ function ContextScreens( { name, parentMenu = '' } ) {
 
 /*
  * @TODO we can get revisions etc to work but view and edit modes
-have to send different props. E.g., 
+have to send different props. E.g.,
 					enableResizing={ false }
 					showCloseButton={ false }
 					showTabs={ false }
 					path={ section }
 
-			The second thing would be to use this in REvisions 
+			The second thing would be to use this in REvisions
 			so it can send the selected global config to the style book.
 
-			Also the way routes work: in view mode, we change the browser history 
+			Also the way routes work: in view mode, we change the browser history
 			using history.navigate. Here, in the editor, we use internal global styles router.
 
-			So what we need probably is a component that handles that for us. 
+			So what we need probably is a component that handles that for us.
 			That knows the context. It should be in the style book.
  *
  */
@@ -433,7 +433,7 @@ function GlobalStylesUI( { path, onPathChange } ) {
 			</GlobalStylesNavigationScreen>
 
 			<GlobalStylesNavigationScreen path="/revisions">
-				<ScreenRevisions />
+				<ScreenRevisions query={ query } />
 			</GlobalStylesNavigationScreen>
 
 			<GlobalStylesNavigationScreen path="/background">

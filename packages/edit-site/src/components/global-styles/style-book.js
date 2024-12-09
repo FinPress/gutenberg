@@ -44,6 +44,7 @@ function useGetCanvasContext() {
 				enableResizing: false,
 				showCloseButton: false,
 				showTabs: false,
+				onClose: undefined,
 			},
 		];
 	}, [
@@ -61,8 +62,8 @@ export default function GlobalStylesStyleBook( props ) {
 
 	return (
 		<StyleBook
-			{ ...contextProps }
 			{ ...props }
+			{ ...contextProps }
 			isSelected={ ( blockName ) =>
 				// Match '/blocks/core%2Fbutton' and
 				// '/blocks/core%2Fbutton/typography', but not

@@ -47,17 +47,17 @@ export default function SidebarNavigationScreenGlobalStyles() {
 		useDispatch( editSiteStore )
 	);
 	const openRevisions = useCallback( () => {
-		// if ( 'style-book' === editorCanvasContainerView ) {
-		// 	setEditorCanvasContainerView(
-		// 		'global-styles-revisions:style-book'
-		// 	);
-		// }
+		if ( 'style-book' === editorCanvasContainerView ) {
+			setEditorCanvasContainerView(
+				'global-styles-revisions:style-book'
+			);
+		}
 		history.navigate(
 			addQueryArgs( path, {
 				section: '/revisions',
 			} )
 		);
-	}, [ path, history ] );
+	}, [ path, history, editorCanvasContainerView ] );
 
 	// If there are no revisions, do not render a footer.
 	const shouldShowGlobalStylesFooter =

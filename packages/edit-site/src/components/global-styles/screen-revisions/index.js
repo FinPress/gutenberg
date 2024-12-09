@@ -31,7 +31,7 @@ const { GlobalStylesContext, areGlobalStyleConfigsEqual } = unlock(
 
 const PAGE_SIZE = 10;
 
-function ScreenRevisions() {
+function ScreenRevisions( { query } ) {
 	const { user: currentEditorGlobalStyles, setUserConfig } =
 		useContext( GlobalStylesContext );
 	const { blocks, editorCanvasContainerView } = useSelect(
@@ -70,7 +70,7 @@ function ScreenRevisions() {
 	);
 
 	// The actual code that triggers the revisions screen to navigate back
-	// to the home screen in in `packages/edit-site/src/components/global-styles/ui.js`.
+	// to the home screen in `packages/edit-site/src/components/global-styles/ui.js`.
 	const onCloseRevisions = () => {
 		const canvasContainerView =
 			editorCanvasContainerView === 'global-styles-revisions:style-book'
@@ -141,16 +141,18 @@ function ScreenRevisions() {
 					<GlobalStylesStyleBook
 						userConfig={ currentlySelectedRevision }
 						isSelected={ () => {} }
-						onClose={ () => {
+						onClose={ () =>
 							setEditorCanvasContainerView(
 								'global-styles-revisions'
-							);
-						} }
+							)
+						}
 					/>
 				) : (
 					<Revisions
 						blocks={ blocks }
 						userConfig={ currentlySelectedRevision }
+						enableResizing={ 'edit' === query?.canvas }
+						showCloseButton={ 'edit' === query?.canvas }
 						closeButtonLabel={ __( 'Close revisions' ) }
 					/>
 				) ) }
