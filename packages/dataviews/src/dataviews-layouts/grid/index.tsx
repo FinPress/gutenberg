@@ -82,11 +82,11 @@ function GridItem< Item >( {
 		className: 'dataviews-view-grid__media',
 	} );
 
-	const clickablePrimaryItemProps = getClickableItemProps( {
+	const clickableTitleItemProps = getClickableItemProps( {
 		item,
 		isItemClickable,
 		onClickItem,
-		className: 'dataviews-view-grid__primary-field dataviews-title-field',
+		className: 'dataviews-view-grid__title-field dataviews-title-field',
 	} );
 
 	return (
@@ -128,9 +128,7 @@ function GridItem< Item >( {
 				justify="space-between"
 				className="dataviews-view-grid__title-actions"
 			>
-				<div { ...clickablePrimaryItemProps }>
-					{ renderedTitleField }
-				</div>
+				<div { ...clickableTitleItemProps }>{ renderedTitleField }</div>
 				<ItemActions item={ item } actions={ actions } isCompact />
 			</HStack>
 			<VStack spacing={ 1 }>
@@ -216,21 +214,18 @@ export default function ViewGrid< Item >( {
 		( field ) => field.id === view?.descriptionField
 	);
 	const otherFields = view.fields ?? [];
-	const { regularFields, badgeFields } = fields.reduce(
-		( accumulator: Record< string, NormalizedField< Item >[] >, field ) => {
-			if (
-				! otherFields.includes( field.id ) ||
-				[
-					view?.mediaField,
-					view?.titleField,
-					view?.descriptionField,
-				].includes( field.id )
-			) {
+	const { regularFields, badgeFields } = otherFields.reduce(
+		(
+			accumulator: Record< string, NormalizedField< Item >[] >,
+			fieldId
+		) => {
+			const field = fields.find( ( f ) => f.id === fieldId );
+			if ( ! field ) {
 				return accumulator;
 			}
 			// If the field is a badge field, add it to the badgeFields array
 			// otherwise add it to the rest visibleFields array.
-			const key = view.layout?.badgeFields?.includes( field.id )
+			const key = view.layout?.badgeFields?.includes( fieldId )
 				? 'badgeFields'
 				: 'regularFields';
 			accumulator[ key ].push( field );

@@ -724,7 +724,7 @@ Contains the block elements used to render content when no query results are fou
 
 -	**Name:** core/query-no-results
 -	**Category:** theme
--	**Parent:** core/query
+-	**Ancestor:** core/query
 -	**Supports:** align, color (background, gradients, link, text), interactivity (clientNavigation), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 
 ## Pagination
@@ -776,6 +776,16 @@ Display the query title. ([Source](https://github.com/WordPress/gutenberg/tree/t
 -	**Category:** theme
 -	**Supports:** align (full, wide), color (background, gradients, text), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** level, levelOptions, showPrefix, showSearchTerm, textAlign, type
+
+## Query Total
+
+Display the total number of results in a query. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/query-total))
+
+-	**Name:** core/query-total
+-	**Category:** theme
+-	**Ancestor:** core/query
+-	**Supports:** align (full, wide), color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** displayType
 
 ## Quote
 
