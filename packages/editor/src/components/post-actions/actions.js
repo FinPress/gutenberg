@@ -69,12 +69,9 @@ export function usePostActions( { postType, onActionPerformed, context } ) {
 		}
 
 		// Ensure "Move to trash" is always the last action.
-		actions = actions.sort( ( a, b ) => {
-			if ( b.id === 'move-to-trash' ) {
-				return -1;
-			}
-			return 0;
-		} );
+		actions = actions.sort( ( a, b ) =>
+			b.id === 'move-to-trash' ? -1 : 0
+		);
 
 		// Filter actions based on provided context. If not provided
 		// all actions are returned. We'll have a single entry for getting the actions
