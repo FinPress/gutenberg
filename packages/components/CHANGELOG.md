@@ -19,7 +19,6 @@
 -   `MenuItem`: Increase height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
 -   `MenuItemsChoice`: Increase option height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
 -   `Navigation`: Fix active item hover color ([#67732](https://github.com/WordPress/gutenberg/pull/67732)).
--   `BoxControl`: Refactor internals to unify the different combinations of sides. ([#67626](https://github.com/WordPress/gutenberg/pull/67626))
 
 ### Deprecations
 
@@ -41,6 +40,7 @@
 -   Upgraded `@ariakit/react` (v0.4.15) and `@ariakit/test` (v0.4.7) ([#67404](https://github.com/WordPress/gutenberg/pull/67404)).
 -   `ToolbarButton`: Set size to "compact" ([#67440](https://github.com/WordPress/gutenberg/pull/67440)).
 -   `SlotFill`: remove manual rerenders from the portal `Fill` component ([#67471](https://github.com/WordPress/gutenberg/pull/67471)).
+-   `BoxControl`: Refactor internals to unify the different combinations of sides ([#67626](https://github.com/WordPress/gutenberg/pull/67626)).
 
 ### Bug Fixes
 
