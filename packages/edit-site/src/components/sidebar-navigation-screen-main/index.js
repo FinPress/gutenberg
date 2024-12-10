@@ -17,7 +17,7 @@ import { SidebarNavigationItemGlobalStyles } from '../sidebar-navigation-screen-
 import { unlock } from '../../lock-unlock';
 import { store as editSiteStore } from '../../store';
 
-export function MainSidebarNavigationContent( { isBlockBasedTheme } ) {
+export function MainSidebarNavigationContent( { isBlockBasedTheme = true } ) {
 	return (
 		<ItemGroup>
 			{ isBlockBasedTheme && (
