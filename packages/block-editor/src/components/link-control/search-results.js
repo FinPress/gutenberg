@@ -15,8 +15,9 @@ import clsx from 'clsx';
 import LinkControlSearchCreate from './search-create-button';
 import LinkControlSearchItem from './search-item';
 import { CREATE_TYPE, LINK_ENTRY_TYPES } from './constants';
+import deprecated from '@wordpress/deprecated';
 
-export default function LinkControlSearchResults( {
+function LinkControlSearchResults( {
 	withCreateSuggestion,
 	currentInputValue,
 	handleSuggestionClick,
@@ -121,3 +122,11 @@ export default function LinkControlSearchResults( {
 		</div>
 	);
 }
+
+export default ( props ) => {
+	deprecated( 'wp.blockEditor.__experimentalLinkControlSearchResults', {
+		since: '6.8',
+	} );
+
+	return <LinkControlSearchResults { ...props } />;
+};

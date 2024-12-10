@@ -17,6 +17,7 @@ import {
 import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 import { safeDecodeURI, filterURLForDisplay, getPath } from '@wordpress/url';
 import { pipe } from '@wordpress/compose';
+import deprecated from '@wordpress/deprecated';
 
 const ICONS_MAP = {
 	post: postList,
@@ -159,4 +160,10 @@ function getVisualTypeName( suggestion ) {
 	return suggestion.type === 'post_tag' ? 'tag' : suggestion.type;
 }
 
-export default LinkControlSearchItem;
+export default ( props ) => {
+	deprecated( 'wp.blockEditor.__experimentalLinkControlSearchItem', {
+		since: '6.8',
+	} );
+
+	return <LinkControlSearchItem { ...props } />;
+};
