@@ -667,18 +667,6 @@ _Parameters_
 
 -   _props_ `WPLinkControlProps`: Component props.
 
-### LinkControlSearchInput
-
-Undocumented declaration.
-
-### LinkControlSearchItem
-
-Undocumented declaration.
-
-### LinkControlSearchResults
-
-Undocumented declaration.
-
 ### MediaPlaceholder
 
 _Related_
