@@ -44,6 +44,7 @@
 ### Bug Fixes
 
 -   `ResizableBox`: Make drag handles focusable ([#67305](https://github.com/WordPress/gutenberg/pull/67305)).
+-   `CustomSelectControl`: Fix select control immediate update on reset. ([#67733](https://github.com/WordPress/gutenberg/pull/67733))
 
 ## 28.13.0 (2024-11-27)
 
