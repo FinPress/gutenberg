@@ -224,6 +224,7 @@ export function applyValueToSides(
 ): BoxControlValue {
 	deprecated( 'applyValueToSides', {
 		since: '6.8',
+		version: '7.0',
 	} );
 	const newValues = { ...currentValues };
 
