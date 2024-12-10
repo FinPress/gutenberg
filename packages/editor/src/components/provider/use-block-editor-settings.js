@@ -293,11 +293,9 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			isDistractionFree,
 			keepCaretInsideBlock,
 			mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
-			__experimentalMediaSideload: hasUploadPermissions
-				? mediaSideload
-				: undefined,
-			__experimentalValidateFileSize: validateFileSize,
-			__experimentalValidateMimeType: validateMimeType,
+			mediaSideload: hasUploadPermissions ? mediaSideload : undefined,
+			validateFileSize,
+			validateMimeType,
 			__experimentalBlockPatterns: blockPatterns,
 			[ selectBlockPatternsKey ]: ( select ) => {
 				const { hasFinishedResolution, getBlockPatternsForPostType } =

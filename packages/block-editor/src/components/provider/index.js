@@ -115,7 +115,7 @@ export const ExperimentalBlockEditorProvider = withRegistryProvider(
 					mediaUpload: mediaUpload.bind(
 						null,
 						registry,
-						_settings.experimentalValidateMimeType || noop,
+						_settings.validateMimeType || noop,
 						_settings.validateFileSize || noop
 					),
 				} ),
