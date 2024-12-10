@@ -203,11 +203,14 @@ function CollabSidebarContent( {
 				setShowCommentBoard={ setShowCommentBoard }
 			/>
 			<Comments
+				key={ getSelectedBlockClientId() }
 				threads={ comments }
 				onEditComment={ onEditComment }
 				onAddReply={ addNewComment }
 				onCommentDelete={ onCommentDelete }
 				onCommentResolve={ onCommentResolve }
+				showCommentBoard={ showCommentBoard }
+				setShowCommentBoard={ setShowCommentBoard }
 			/>
 		</div>
 	);
@@ -292,6 +295,11 @@ export default function CollabSidebar() {
 		if ( 0 === result?.length ) {
 			return { resultComments: [], sortedThreads: [] };
 		}
+
+		const updatedResult = result.map( ( item ) => ( {
+			...item,
+			reply: [ ...item.reply ].reverse(),
+		} ) );
 
 		const blockCommentIds = getCommentIdsFromBlocks( blocks );
 		const blockCommentIdMap = new Map(
