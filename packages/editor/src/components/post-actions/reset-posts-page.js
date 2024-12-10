@@ -16,7 +16,7 @@ import { store as noticesStore } from '@wordpress/notices';
 /**
  * Internal dependencies
  */
-import { getItemTitle } from '../../utils';
+import { getItemTitle } from '../../utils/get-item-title';
 
 const ResetPostsPageModal = ( { items, closeModal } ) => {
 	const [ item ] = items;
