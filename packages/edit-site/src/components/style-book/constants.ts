@@ -223,6 +223,7 @@ export const STYLE_BOOK_IFRAME_STYLES = `
 		border: 1px solid color-mix( in srgb, currentColor 10%, transparent );
 	}
 
+	.edit-site-style-book__subcategory-title,
 	.edit-site-style-book__example-title {
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 		font-size: 13px;
@@ -236,15 +237,10 @@ export const STYLE_BOOK_IFRAME_STYLES = `
 	}
 
 	.edit-site-style-book__subcategory-title {
-		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 		font-size: 16px;
 		margin-bottom: 40px;
-    	border-bottom: 1px solid color-mix( in srgb, currentColor 10%, transparent );
+    	border-bottom: 1px solid #ddd;
     	padding-bottom: 8px;
-		color: color-mix( in srgb, currentColor 60%, transparent );
-		font-weight: normal;
-		line-height: normal;
-		text-align: left;
 	}
 
 	.edit-site-style-book__example-preview {
