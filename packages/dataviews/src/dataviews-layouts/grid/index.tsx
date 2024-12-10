@@ -94,16 +94,18 @@ function GridItem< Item >( {
 	let mediaA11yProps;
 	let titleA11yProps;
 	if ( isItemClickable( item ) && onClickItem ) {
-		mediaA11yProps = renderedTitleField
-			? {
-					'aria-labelledby': `dataviews-view-grid__title-field-${ instanceId }`,
-			  }
-			: {
-					'aria-label': __( 'Navigate to item' ),
-			  };
-		titleA11yProps = {
-			id: `dataviews-view-grid__title-field-${ instanceId }`,
-		};
+		if ( renderedTitleField ) {
+			mediaA11yProps = {
+				'aria-labelledby': `dataviews-view-grid__title-field-${ instanceId }`,
+			};
+			titleA11yProps = {
+				id: `dataviews-view-grid__title-field-${ instanceId }`,
+			};
+		} else {
+			mediaA11yProps = {
+				'aria-label': __( 'Navigate to item' ),
+			};
+		}
 	}
 
 	return (
