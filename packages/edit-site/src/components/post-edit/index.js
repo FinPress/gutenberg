@@ -165,13 +165,15 @@ function PostEditForm( { postType, postId } ) {
 	return (
 		<VStack spacing={ 4 }>
 			<PostEditHeader postType={ postType } postId={ postId } />
-			<DataForm
-				data={ ids.length === 1 ? record : multiEdits }
-				isLoading={ ! hasFinishedResolution }
-				fields={ fieldsWithDependency }
-				form={ form }
-				onChange={ onChange }
-			/>
+			{ hasFinishedResolution && (
+				<DataForm
+					data={ ids.length === 1 ? record : multiEdits }
+					isLoading={ ! hasFinishedResolution }
+					fields={ fieldsWithDependency }
+					form={ form }
+					onChange={ onChange }
+				/>
+			) }
 		</VStack>
 	);
 }

@@ -543,7 +543,6 @@ export interface DataFormProps< Item > {
 	fields: Field< Item >[];
 	form: Form;
 	onChange: ( value: Record< string, any > ) => void;
-	isLoading?: boolean;
 }
 
 export interface FieldLayoutProps< Item > {
