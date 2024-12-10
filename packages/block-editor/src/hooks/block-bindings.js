@@ -5,7 +5,6 @@ import { __ } from '@wordpress/i18n';
 import {
 	getBlockBindingsSource,
 	getBlockBindingsSources,
-	getBlockType,
 } from '@wordpress/blocks';
 import {
 	__experimentalItemGroup as ItemGroup,
@@ -14,11 +13,14 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalVStack as VStack,
+	Modal,
 	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { useContext, Fragment } from '@wordpress/element';
+import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
+import { useContext, Fragment, useState } from '@wordpress/element';
 import { useViewportMatch } from '@wordpress/compose';
+import { connection } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -27,15 +29,13 @@ import {
 	canBindAttribute,
 	getBindableAttributes,
 } from '../hooks/use-bindings-attributes';
-import { unlock } from '../lock-unlock';
 import InspectorControls from '../components/inspector-controls';
 import BlockContext from '../components/block-context';
-import { useBlockEditContext } from '../components/block-edit';
 import { useBlockBindingsUtils } from '../utils/block-bindings';
 import { store as blockEditorStore } from '../store';
+import { unlock } from '../lock-unlock';
 
 const { Menu } = unlock( componentsPrivateApis );
-
 const EMPTY_OBJECT = {};
 
 const useToolsPanelDropdownMenuProps = () => {
@@ -51,74 +51,16 @@ const useToolsPanelDropdownMenuProps = () => {
 		: {};
 };
 
-function BlockBindingsPanelDropdown( { fieldsList, attribute, binding } ) {
-	const { clientId } = useBlockEditContext();
-	const registeredSources = getBlockBindingsSources();
-	const { updateBlockBindings } = useBlockBindingsUtils();
-	const currentKey = binding?.args?.key;
-	const attributeType = useSelect(
-		( select ) => {
-			const { name: blockName } =
-				select( blockEditorStore ).getBlock( clientId );
-			const _attributeType =
-				getBlockType( blockName ).attributes?.[ attribute ]?.type;
-			return _attributeType === 'rich-text' ? 'string' : _attributeType;
-		},
-		[ clientId, attribute ]
-	);
-	return (
-		<>
-			{ Object.entries( fieldsList ).map( ( [ name, fields ], i ) => (
-				<Fragment key={ name }>
-					<Menu.Group>
-						{ Object.keys( fieldsList ).length > 1 && (
-							<Menu.GroupLabel>
-								{ registeredSources[ name ].label }
-							</Menu.GroupLabel>
-						) }
-						{ Object.entries( fields )
-							.filter(
-								( [ , args ] ) => args?.type === attributeType
-							)
-							.map( ( [ key, args ] ) => (
-								<Menu.RadioItem
-									key={ key }
-									onChange={ () =>
-										updateBlockBindings( {
-											[ attribute ]: {
-												source: name,
-												args: { key },
-											},
-										} )
-									}
-									name={ attribute + '-binding' }
-									value={ key }
-									checked={ key === currentKey }
-								>
-									<Menu.ItemLabel>
-										{ args?.label }
-									</Menu.ItemLabel>
-									<Menu.ItemHelpText>
-										{ args?.value }
-									</Menu.ItemHelpText>
-								</Menu.RadioItem>
-							) ) }
-					</Menu.Group>
-					{ i !== Object.keys( fieldsList ).length - 1 && (
-						<Menu.Separator />
-					) }
-				</Fragment>
-			) ) }
-		</>
-	);
-}
-
-function BlockBindingsAttribute( { attribute, binding, fieldsList } ) {
+function BlockBindingsAttribute( { attribute, binding, fieldsList, onClick } ) {
 	const { source: sourceName, args } = binding || {};
 	const sourceProps = getBlockBindingsSource( sourceName );
 	const isSourceInvalid = ! sourceProps;
 	return (
-		<VStack className="block-editor-bindings__item" spacing={ 0 }>
+		<VStack
+			className="block-editor-bindings__item"
+			spacing={ 0 }
+			onClick={ onClick }
+		>
 			<Text truncate>{ attribute }</Text>
 			{ !! binding && (
 				<Text
@@ -137,11 +79,11 @@ function BlockBindingsAttribute( { attribute, binding, fieldsList } ) {
 	);
 }
 
-function ReadOnlyBlockBindingsPanelItems( { bindings, fieldsList } ) {
+function ReadOnlyBlockBindingsPanelItems( { bindings, fieldsList, onClick } ) {
 	return (
 		<>
 			{ Object.entries( bindings ).map( ( [ attribute, binding ] ) => (
-				<Item key={ attribute }>
+				<Item key={ attribute } onClick={ onClick }>
 					<BlockBindingsAttribute
 						attribute={ attribute }
 						binding={ binding }
@@ -153,12 +95,100 @@ function ReadOnlyBlockBindingsPanelItems( { bindings, fieldsList } ) {
 	);
 }
 
+function BlockBindingsPanelDropdown( { fieldsList, onClick } ) {
+	const registeredSources = getBlockBindingsSources();
+	return (
+		<>
+			{ Object.entries( fieldsList ).map( ( [ name ] ) => (
+				<Fragment key={ name }>
+					<Menu.Group>
+						{ Object.keys( fieldsList ).length > 1 && (
+							<Menu.Item onClick={ () => onClick( name ) }>
+								{ registeredSources[ name ].label }
+							</Menu.Item>
+						) }
+					</Menu.Group>
+				</Fragment>
+			) ) }
+		</>
+	);
+}
+
 function EditableBlockBindingsPanelItems( {
 	attributes,
 	bindings,
 	fieldsList,
 } ) {
 	const { updateBlockBindings } = useBlockBindingsUtils();
+	const [ isOuterModalOpen, setOuterModalOpen ] = useState( false );
+	const defaultLayouts = {
+		table: {
+			layout: {
+				primaryField: 'label',
+				styles: {
+					label: {
+						minWidth: 320,
+					},
+					value: {
+						width: '50%',
+						minWidth: 320,
+					},
+				},
+			},
+		},
+	};
+	const [ view, setView ] = useState( {
+		type: 'table',
+		search: '',
+		filters: [],
+		page: 1,
+		perPage: 10,
+		sort: {},
+		fields: [ 'label', 'value' ],
+		layout: defaultLayouts.table.layout,
+	} );
+
+	const [ data, setData ] = useState( null );
+	const [ paginationInfo, setPaginationInfo ] = useState( null );
+
+	const actions = [
+		{
+			id: 'select',
+			label: __( 'Connect attribute' ),
+			isPrimary: true,
+			icon: connection,
+			callback: ( field ) => {
+				updateBlockBindings( {
+					content: {
+						source: 'core/post-meta',
+						args: { key: field[ 0 ]?.id },
+					},
+				} );
+				setOuterModalOpen( false );
+			},
+		},
+	];
+	const fields = [
+		{
+			id: 'label',
+			label: __( 'Label' ),
+			type: 'text',
+			enableGlobalSearch: true,
+		},
+		{
+			id: 'value',
+			label: __( 'Value' ),
+			type: 'text',
+			enableGlobalSearch: true,
+		},
+	];
+	const onChangeView = ( newView ) => {
+		const { data: newData, paginationInfo: newPaginationInfo } =
+			filterSortAndPaginate( data, newView, fields );
+		setView( newView );
+		setData( newData );
+		setPaginationInfo( newPaginationInfo );
+	};
 	const isMobile = useViewportMatch( 'medium', '<' );
 	return (
 		<>
@@ -192,13 +222,68 @@ function EditableBlockBindingsPanelItems( {
 						>
 							<BlockBindingsPanelDropdown
 								fieldsList={ fieldsList }
-								attribute={ attribute }
-								binding={ binding }
+								onClick={ ( sourceName ) => {
+									if (
+										Object.keys( fieldsList[ sourceName ] )
+											.length !== 0
+									) {
+										const {
+											data: newData,
+											paginationInfo: newPaginationInfo,
+										} = filterSortAndPaginate(
+											Object.entries(
+												fieldsList[ sourceName ]
+											).map( ( [ key, field ] ) => {
+												const value =
+													field.value === undefined
+														? `${ field.label } value`
+														: field.value;
+
+												return {
+													id: key,
+													label: field.label || key,
+													value:
+														value !== ''
+															? value
+															: `Add a new ${ field.label }`,
+												};
+											} ),
+											view,
+											fields
+										);
+										setData( newData );
+										setPaginationInfo( newPaginationInfo );
+										setOuterModalOpen( true );
+									} else {
+										updateBlockBindings( {
+											[ attribute ]: {
+												source: sourceName,
+											},
+										} );
+									}
+								} }
 							/>
 						</Menu>
 					</ToolsPanelItem>
 				);
 			} ) }
+			{ isOuterModalOpen && (
+				<Modal
+					onRequestClose={ () => setOuterModalOpen( false ) }
+					__experimentalHideHeader
+					className="block-editor-bindings__modal"
+				>
+					<DataViews
+						data={ data }
+						fields={ fields }
+						view={ view }
+						defaultLayouts={ defaultLayouts }
+						paginationInfo={ paginationInfo }
+						actions={ actions }
+						onChangeView={ onChangeView }
+					/>
+				</Modal>
+			) }
 		</>
 	);
 }
@@ -221,6 +306,9 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 			const registeredSources = getBlockBindingsSources();
 			Object.entries( registeredSources ).forEach(
 				( [ sourceName, { getFieldsList, usesContext } ] ) => {
+					if ( sourceName === 'core/pattern-overrides' ) {
+						return;
+					}
 					if ( getFieldsList ) {
 						// Populate context.
 						const context = {};
@@ -233,10 +321,9 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 							select,
 							context,
 						} );
-						// Only add source if the list is not empty.
-						if ( Object.keys( sourceList || {} ).length ) {
-							_fieldsList[ sourceName ] = { ...sourceList };
-						}
+						_fieldsList[ sourceName ] = { ...sourceList };
+					} else {
+						_fieldsList[ sourceName ] = {};
 					}
 				}
 			);
