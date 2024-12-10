@@ -34,9 +34,8 @@
 		color: $components-color-accent;
 	}
 
-	// Focus.
-	// See https://github.com/WordPress/gutenberg/issues/13267 for more context on these selectors.
-	&:focus:not(:disabled) {
+	// Styles for the active menu item in dropdown menus.
+	&.components-dropdown-menu__menu-item.is-active {
 		box-shadow: 0 0 0 var(--wp-admin-border-width-focus) $components-color-accent;
 
 		// Windows High Contrast mode will show this outline, but not the box-shadow.
