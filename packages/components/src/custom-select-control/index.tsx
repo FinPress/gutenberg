@@ -154,11 +154,11 @@ function CustomSelectControl< T extends CustomSelectOption >(
 	const renderSelectedValueHint = () => {
 		const selectedOptionHint = options
 			?.map( applyOptionDeprecations )
-			?.find( ( { name } ) => value?.name === name )?.hint;
+			?.find( ( { name } ) => store.getState().value === name )?.hint;
 
 		return (
 			<Styled.SelectedExperimentalHintWrapper>
-				{ value?.name }
+				{ store.getState().value }
 				{ selectedOptionHint && (
 					<Styled.SelectedExperimentalHintItem
 						// Keeping the classname for legacy reasons
