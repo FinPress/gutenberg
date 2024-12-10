@@ -2065,6 +2065,7 @@ const buildBlockTypeItem =
 			category: blockType.category,
 			keywords: blockType.keywords,
 			parent: blockType.parent,
+			ancestor: blockType.ancestor,
 			variations: inserterVariations,
 			example: blockType.example,
 			utility: 1, // Deprecated.
