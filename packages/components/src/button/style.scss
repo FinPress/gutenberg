@@ -170,8 +170,6 @@
 		}
 
 		&:active:not(:disabled, [aria-disabled="true"]) {
-			// TODO: Prepare for theming (https://github.com/WordPress/gutenberg/pull/45466/files#r1030872724)
-			/* stylelint-disable-next-line declaration-property-value-disallowed-list -- Allow tertiary buttons to use colors from the user admin color scheme. */
 			background: color-mix(in srgb, $components-color-accent 8%, transparent);
 		}
 
