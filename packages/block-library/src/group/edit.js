@@ -10,6 +10,7 @@ import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { SelectControl } from '@wordpress/components';
+import { useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { View } from '@wordpress/primitives';
 
@@ -33,7 +34,7 @@ function GroupEditControls( { tagName, onSelectTagName } ) {
 			'The <header> element should represent introductory content, typically a group of introductory or navigational aids.'
 		),
 		main: __(
-			'The <main> element should be used for the primary content of your document only. '
+			'The <main> element should be used for the primary content of your document only.'
 		),
 		section: __(
 			"The <section> element should represent a standalone portion of the document that can't be better represented by another element."
@@ -97,7 +98,8 @@ function GroupEdit( { attributes, name, setAttributes, clientId } ) {
 		themeSupportsLayout || type === 'flex' || type === 'grid';
 
 	// Hooks.
-	const blockProps = useBlockProps();
+	const ref = useRef();
+	const blockProps = useBlockProps( { ref } );
 
 	const [ showPlaceholder, setShowPlaceholder ] = useShouldShowPlaceHolder( {
 		attributes,
@@ -124,6 +126,7 @@ function GroupEdit( { attributes, name, setAttributes, clientId } ) {
 			? blockProps
 			: { className: 'wp-block-group__inner-container' },
 		{
+			dropZoneElement: ref.current,
 			templateLock,
 			allowedBlocks,
 			renderAppender,

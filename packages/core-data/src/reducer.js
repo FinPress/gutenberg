@@ -238,8 +238,8 @@ function entity( entityConfig ) {
 		// Inject the entity config into the action.
 		replaceAction( ( action ) => {
 			return {
-				...action,
 				key: entityConfig.key || DEFAULT_ENTITY_KEY,
+				...action,
 			};
 		} ),
 	] )(
@@ -256,7 +256,7 @@ function entity( entityConfig ) {
 						const nextState = { ...state };
 
 						for ( const record of action.items ) {
-							const recordId = record[ action.key ];
+							const recordId = record?.[ action.key ];
 							const edits = nextState[ recordId ];
 							if ( ! edits ) {
 								continue;
@@ -355,51 +355,37 @@ function entity( entityConfig ) {
 				return state;
 			},
 
-			// Add revisions to the state tree if the post type supports it.
-			...( entityConfig?.supports?.revisions
-				? {
-						revisions: ( state = {}, action ) => {
-							// Use the same queriedDataReducer shape for revisions.
-							if ( action.type === 'RECEIVE_ITEM_REVISIONS' ) {
-								const recordKey = action.recordKey;
-								delete action.recordKey;
-								const newState = queriedDataReducer(
-									state[ recordKey ],
-									{
-										...action,
-										type: 'RECEIVE_ITEMS',
+			revisions: ( state = {}, action ) => {
+				// Use the same queriedDataReducer shape for revisions.
+				if ( action.type === 'RECEIVE_ITEM_REVISIONS' ) {
+					const recordKey = action.recordKey;
+					delete action.recordKey;
+					const newState = queriedDataReducer( state[ recordKey ], {
+						...action,
+						type: 'RECEIVE_ITEMS',
+					} );
+					return {
+						...state,
+						[ recordKey ]: newState,
+					};
+				}
+
+				if ( action.type === 'REMOVE_ITEMS' ) {
+					return Object.fromEntries(
+						Object.entries( state ).filter(
+							( [ id ] ) =>
+								! action.itemIds.some( ( itemId ) => {
+									if ( Number.isInteger( itemId ) ) {
+										return itemId === +id;
 									}
-								);
-								return {
-									...state,
-									[ recordKey ]: newState,
-								};
-							}
+									return itemId === id;
+								} )
+						)
+					);
+				}
 
-							if ( action.type === 'REMOVE_ITEMS' ) {
-								return Object.fromEntries(
-									Object.entries( state ).filter(
-										( [ id ] ) =>
-											! action.itemIds.some(
-												( itemId ) => {
-													if (
-														Number.isInteger(
-															itemId
-														)
-													) {
-														return itemId === +id;
-													}
-													return itemId === id;
-												}
-											)
-									)
-								);
-							}
-
-							return state;
-						},
-				  }
-				: {} ),
+				return state;
+			},
 		} )
 	);
 }
@@ -535,6 +521,11 @@ export function userPermissions( state = {}, action ) {
 				...state,
 				[ action.key ]: action.isAllowed,
 			};
+		case 'RECEIVE_USER_PERMISSIONS':
+			return {
+				...state,
+				...action.permissions,
+			};
 	}
 
 	return state;
@@ -637,6 +628,25 @@ export function defaultTemplates( state = {}, action ) {
 	return state;
 }
 
+/**
+ * Reducer returning an object of registered post meta.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+export function registeredPostMeta( state = {}, action ) {
+	switch ( action.type ) {
+		case 'RECEIVE_REGISTERED_POST_META':
+			return {
+				...state,
+				[ action.postType ]: action.registeredPostMeta,
+			};
+	}
+	return state;
+}
+
 export default combineReducers( {
 	terms,
 	users,
@@ -658,4 +668,5 @@ export default combineReducers( {
 	userPatternCategories,
 	navigationFallbackId,
 	defaultTemplates,
+	registeredPostMeta,
 } );

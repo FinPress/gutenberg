@@ -1,8 +1,7 @@
 /**
  * WordPress dependencies
  */
-import type { Component } from '@wordpress/element';
-import { useMemo } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -11,20 +10,17 @@ import SlotFillContext from './context';
 import type {
 	FillComponentProps,
 	BaseSlotFillContext,
-	BaseSlotComponentProps,
 	SlotFillProviderProps,
 	SlotKey,
+	Rerenderable,
 } from './types';
 
 function createSlotRegistry(): BaseSlotFillContext {
-	const slots: Record< SlotKey, Component< BaseSlotComponentProps > > = {};
+	const slots: Record< SlotKey, Rerenderable > = {};
 	const fills: Record< SlotKey, FillComponentProps[] > = {};
 	let listeners: Array< () => void > = [];
 
-	function registerSlot(
-		name: SlotKey,
-		slot: Component< BaseSlotComponentProps >
-	) {
+	function registerSlot( name: SlotKey, slot: Rerenderable ) {
 		const previousSlot = slots[ name ];
 		slots[ name ] = slot;
 		triggerListeners();
@@ -38,7 +34,7 @@ function createSlotRegistry(): BaseSlotFillContext {
 		// assigned into the instance, such that its own rendering of children
 		// will be empty (the new Slot will subsume all fills for this name).
 		if ( previousSlot ) {
-			previousSlot.forceUpdate();
+			previousSlot.rerender();
 		}
 	}
 
@@ -47,10 +43,7 @@ function createSlotRegistry(): BaseSlotFillContext {
 		forceUpdateSlot( name );
 	}
 
-	function unregisterSlot(
-		name: SlotKey,
-		instance: Component< BaseSlotComponentProps >
-	) {
+	function unregisterSlot( name: SlotKey, instance: Rerenderable ) {
 		// If a previous instance of a Slot by this name unmounts, do nothing,
 		// as the slot and its fills should only be removed for the current
 		// known instance.
@@ -68,15 +61,13 @@ function createSlotRegistry(): BaseSlotFillContext {
 		forceUpdateSlot( name );
 	}
 
-	function getSlot(
-		name: SlotKey
-	): Component< BaseSlotComponentProps > | undefined {
+	function getSlot( name: SlotKey ): Rerenderable | undefined {
 		return slots[ name ];
 	}
 
 	function getFills(
 		name: SlotKey,
-		slotInstance: Component< BaseSlotComponentProps >
+		slotInstance: Rerenderable
 	): FillComponentProps[] {
 		// Fills should only be returned for the current instance of the slot
 		// in which they occupy.
@@ -90,7 +81,7 @@ function createSlotRegistry(): BaseSlotFillContext {
 		const slot = getSlot( name );
 
 		if ( slot ) {
-			slot.forceUpdate();
+			slot.rerender();
 		}
 	}
 
@@ -118,7 +109,7 @@ function createSlotRegistry(): BaseSlotFillContext {
 }
 
 export function SlotFillProvider( { children }: SlotFillProviderProps ) {
-	const contextValue = useMemo( createSlotRegistry, [] );
+	const [ contextValue ] = useState( createSlotRegistry );
 	return (
 		<SlotFillContext.Provider value={ contextValue }>
 			{ children }

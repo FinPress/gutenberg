@@ -1,18 +1,14 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
  */
-import { Popover, ToolbarButton } from '@wordpress/components';
-import { useViewportMatch } from '@wordpress/compose';
-import {
-	NavigableToolbar,
-	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { createPortal, useEffect, useRef, useState } from '@wordpress/element';
+import { ToolbarButton } from '@wordpress/components';
+import { NavigableToolbar } from '@wordpress/block-editor';
+import { createPortal, useEffect, useState } from '@wordpress/element';
 import { displayShortcut, isAppleOS } from '@wordpress/keycodes';
 import { __, _x, isRTL } from '@wordpress/i18n';
 import { plus, undo as undoIcon, redo as redoIcon } from '@wordpress/icons';
@@ -22,9 +18,6 @@ import { plus, undo as undoIcon, redo as redoIcon } from '@wordpress/icons';
  */
 import Inserter from '../inserter';
 import MoreMenu from '../more-menu';
-import { unlock } from '../../lock-unlock';
-
-const { BlockContextualToolbar } = unlock( blockEditorPrivateApis );
 
 function Header( {
 	sidebar,
@@ -33,8 +26,6 @@ function Header( {
 	setIsInserterOpened,
 	isFixedToolbarActive,
 } ) {
-	const isLargeViewport = useViewportMatch( 'medium' );
-	const blockToolbarRef = useRef();
 	const [ [ hasUndo, hasRedo ], setUndoRedo ] = useState( [
 		sidebar.hasUndo(),
 		sidebar.hasRedo(),
@@ -53,7 +44,7 @@ function Header( {
 	return (
 		<>
 			<div
-				className={ classnames( 'customize-widgets-header', {
+				className={ clsx( 'customize-widgets-header', {
 					'is-fixed-toolbar-active': isFixedToolbarActive,
 				} ) }
 			>
@@ -66,10 +57,7 @@ function Header( {
 						/* translators: button label text should, if possible, be under 16 characters. */
 						label={ __( 'Undo' ) }
 						shortcut={ displayShortcut.primary( 'z' ) }
-						// If there are no undo levels we don't want to actually disable this
-						// button, because it will remove focus for keyboard users.
-						// See: https://github.com/WordPress/gutenberg/issues/3486
-						aria-disabled={ ! hasUndo }
+						disabled={ ! hasUndo }
 						onClick={ sidebar.undo }
 						className="customize-widgets-editor-history-button undo-button"
 					/>
@@ -78,10 +66,7 @@ function Header( {
 						/* translators: button label text should, if possible, be under 16 characters. */
 						label={ __( 'Redo' ) }
 						shortcut={ shortcut }
-						// If there are no undo levels we don't want to actually disable this
-						// button, because it will remove focus for keyboard users.
-						// See: https://github.com/WordPress/gutenberg/issues/3486
-						aria-disabled={ ! hasRedo }
+						disabled={ ! hasRedo }
 						onClick={ sidebar.redo }
 						className="customize-widgets-editor-history-button redo-button"
 					/>
@@ -106,18 +91,6 @@ function Header( {
 			{ createPortal(
 				<Inserter setIsOpened={ setIsInserterOpened } />,
 				inserter.contentContainer[ 0 ]
-			) }
-
-			{ isFixedToolbarActive && isLargeViewport && (
-				<>
-					<div className="selected-block-tools-wrapper">
-						<BlockContextualToolbar isFixed />
-					</div>
-					<Popover.Slot
-						ref={ blockToolbarRef }
-						name="block-toolbar"
-					/>
-				</>
 			) }
 		</>
 	);

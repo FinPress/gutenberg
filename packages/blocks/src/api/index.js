@@ -1,3 +1,9 @@
+/**
+ * Internal dependencies
+ */
+import { lock } from '../lock-unlock';
+import { isContentBlock } from './utils';
+
 // The blocktype is the most important concept within the block API. It defines
 // all aspects of the block configuration and its interfaces, including `edit`
 // and `save`. The transforms specification allows converting one blocktype to
@@ -135,6 +141,10 @@ export {
 	unregisterBlockStyle,
 	registerBlockVariation,
 	unregisterBlockVariation,
+	registerBlockBindingsSource,
+	unregisterBlockBindingsSource,
+	getBlockBindingsSource,
+	getBlockBindingsSources,
 } from './registration';
 export {
 	isUnmodifiedBlock,
@@ -144,6 +154,7 @@ export {
 	getBlockLabel as __experimentalGetBlockLabel,
 	getAccessibleBlockLabel as __experimentalGetAccessibleBlockLabel,
 	__experimentalSanitizeBlockAttributes,
+	getBlockAttributesNamesByRole,
 	__experimentalGetBlockAttributesNamesByRole,
 } from './utils';
 
@@ -162,5 +173,8 @@ export { default as node } from './node';
 export {
 	__EXPERIMENTAL_STYLE_PROPERTY,
 	__EXPERIMENTAL_ELEMENTS,
-	__EXPERIMENTAL_PATHS_WITH_MERGE,
+	__EXPERIMENTAL_PATHS_WITH_OVERRIDE,
 } from './constants';
+
+export const privateApis = {};
+lock( privateApis, { isContentBlock } );

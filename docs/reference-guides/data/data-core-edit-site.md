@@ -24,6 +24,8 @@ _Returns_
 
 ### getCurrentTemplateTemplateParts
 
+> **Deprecated**
+
 Returns the template parts and their blocks for the current edited template.
 
 _Parameters_
@@ -50,6 +52,8 @@ _Returns_
 
 ### getEditedPostId
 
+> **Deprecated**
+
 Returns the ID of the currently edited template or template part.
 
 _Parameters_
@@ -58,9 +62,11 @@ _Parameters_
 
 _Returns_
 
--   `string?`: Post ID.
+-   `?string`: Post ID.
 
 ### getEditedPostType
+
+> **Deprecated**
 
 Returns the current edited post type (wp_template or wp_template_part).
 
@@ -70,7 +76,7 @@ _Parameters_
 
 _Returns_
 
--   `TemplateType?`: Template type.
+-   `?TemplateType`: Template type.
 
 ### getEditorMode
 
@@ -132,11 +138,9 @@ _Returns_
 
 ### hasPageContentFocus
 
+> **Deprecated**
+
 Whether or not the editor allows only page content to be edited.
-
-_Parameters_
-
--   _state_ `Object`: Global application state.
 
 _Returns_
 
@@ -159,7 +163,9 @@ _Returns_
 
 ### isInserterOpened
 
-Returns the current opened/closed state of the inserter panel.
+> **Deprecated**
+
+Returns true if the inserter is opened.
 
 _Parameters_
 
@@ -167,11 +173,11 @@ _Parameters_
 
 _Returns_
 
--   `boolean`: True if the inserter panel should be open; false if closed.
+-   `boolean`: Whether the inserter is opened.
 
 ### isListViewOpened
 
-Returns the current opened/closed state of the list view panel.
+Returns true if the list view is opened.
 
 _Parameters_
 
@@ -179,13 +185,15 @@ _Parameters_
 
 _Returns_
 
--   `boolean`: True if the list view panel should be open; false if closed.
+-   `boolean`: Whether the list view is opened.
 
 ### isNavigationOpened
 
 > **Deprecated**
 
 ### isPage
+
+> **Deprecated**
 
 Whether or not the editor has a page loaded into it.
 
@@ -271,6 +279,8 @@ _Parameters_
 
 ### setEditedEntity
 
+> **Deprecated**
+
 Action that sets an edited entity.
 
 _Parameters_
@@ -284,6 +294,8 @@ _Returns_
 -   `Object`: Action object.
 
 ### setEditedPostContext
+
+> **Deprecated**
 
 Set's the current block editor context.
 
@@ -309,25 +321,23 @@ _Parameters_
 
 ### setIsInserterOpened
 
-Opens or closes the inserter.
+> **Deprecated**
+
+Returns an action object used to open/close the inserter.
 
 _Parameters_
 
--   _value_ `boolean|Object`: Whether the inserter should be opened (true) or closed (false). To specify an insertion point, use an object.
--   _value.rootClientId_ `string`: The root client ID to insert at.
--   _value.insertionIndex_ `number`: The index to insert at.
-
-_Returns_
-
--   `Object`: Action object.
+-   _value_ `boolean|Object`: Whether the inserter should be opened (true) or closed (false).
 
 ### setIsListViewOpened
 
-Sets whether the list view panel should be open.
+> **Deprecated**
+
+Returns an action object used to open/close the list view.
 
 _Parameters_
 
--   _isOpen_ `boolean`: If true, opens the list view. If false, closes it. It does not toggle the state, but sets it directly.
+-   _isOpen_ `boolean`: A boolean representing whether the list view should be opened or closed.
 
 ### setIsNavigationPanelOpened
 
@@ -344,6 +354,8 @@ _Parameters_
 -   _isOpen_ `boolean`: If true, opens the save view. If false, closes it. It does not toggle the state, but sets it directly.
 
 ### setNavigationMenu
+
+> **Deprecated**
 
 Action that sets a navigation menu.
 
@@ -373,7 +385,7 @@ Resolves the template for a page and displays both. If no path is given, attempt
 
 _Returns_
 
--   `number`: The resolved template ID for the page route.
+-   `Object`: Action object.
 
 ### setTemplate
 
@@ -384,6 +396,8 @@ _Returns_
 -   `Object`: Action object.
 
 ### setTemplatePart
+
+> **Deprecated**
 
 Action that sets a template part.
 
@@ -397,9 +411,17 @@ _Returns_
 
 ### switchEditorMode
 
-Undocumented declaration.
+> **Deprecated**
+
+Triggers an action used to switch editor mode.
+
+_Parameters_
+
+-   _mode_ `string`: The editor mode.
 
 ### toggleDistractionFree
+
+> **Deprecated**
 
 Action that toggles Distraction free mode. Distraction free mode expects there are no sidebars, as due to the z-index values set, you can't close sidebars.
 

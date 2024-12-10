@@ -18,6 +18,7 @@ import { WithMarginChecker } from './decorators/with-margin-checker';
 import { WithMaxWidthWrapper } from './decorators/with-max-width-wrapper';
 import { WithRTL } from './decorators/with-rtl';
 import { WithTheme } from './decorators/with-theme';
+import badgesConfig from './badges';
 
 export const globalTypes = {
 	direction: {
@@ -99,6 +100,8 @@ export const decorators = [
 ];
 
 export const parameters = {
+	// For @geometricpanda/storybook-addon-badges
+	badgesConfig,
 	controls: {
 		sort: 'requiredFirst',
 	},
@@ -124,7 +127,29 @@ export const parameters = {
 				'Playground',
 				'BlockEditor',
 				'Components',
+				[
+					'Introduction',
+					'Contributing Guidelines',
+					'Actions',
+					'Containers',
+					'Feedback',
+					'Layout',
+					'Navigation',
+					'Overlays',
+					'Selection & Input',
+					[ 'Color', 'Common', 'File Upload', 'Time & Date' ],
+					'Typography',
+					'Utilities',
+				],
 				'Components (Experimental)',
+				[
+					'Actions',
+					'Layout',
+					'Navigation',
+					'Overlays',
+					'Selection & Input',
+					'Typography',
+				],
 				'Icons',
 			],
 		},

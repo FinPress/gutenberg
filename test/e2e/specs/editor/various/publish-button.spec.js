@@ -42,18 +42,20 @@ test.describe( 'Post publish button', () => {
 			topBar.getByRole( 'button', { name: 'Publish' } )
 		).toBeEnabled();
 
-		const postId = new URL( page.url() ).searchParams.get( 'post' );
 		const deferred = defer();
 
 		await page.route(
 			( url ) =>
-				url.searchParams.has(
-					'rest_route',
-					encodeURIComponent( `/wp/v2/posts/${ postId }` )
+				url.href.includes(
+					`rest_route=${ encodeURIComponent( '/wp/v2/posts/' ) }`
 				),
-			async ( route ) => {
-				await deferred;
-				await route.continue();
+			async ( route, request ) => {
+				if ( request.method() === 'POST' ) {
+					await deferred;
+					await route.continue();
+				} else {
+					await route.continue();
+				}
 			}
 		);
 
@@ -68,13 +70,12 @@ test.describe( 'Post publish button', () => {
 		admin,
 		page,
 		requestUtils,
+		editor,
 	} ) => {
 		await requestUtils.activatePlugin( 'gutenberg-test-plugin-meta-box' );
 		await admin.createNewPost();
-		await page
-			.getByRole( 'textbox', {
-				name: 'Add title',
-			} )
+		await editor.canvas
+			.getByRole( 'textbox', { name: 'Add title' } )
 			.fill( 'Test post' );
 
 		const topBar = page.getByRole( 'region', { name: 'Editor top bar' } );

@@ -28,8 +28,19 @@
 		"arrow": {
 			"type": "string",
 			"default": "none"
+		},
+		"taxonomy": {
+			"type": "string",
+			"default": ""
 		}
 	},
+	"example": {
+		"attributes": {
+			"label": "Next post",
+			"arrow": "arrow"
+		}
+	},
+	"usesContext": [ "postType" ],
 	"supports": {
 		"reusable": false,
 		"html": false,
@@ -49,6 +60,9 @@
 			"__experimentalDefaultControls": {
 				"fontSize": true
 			}
+		},
+		"interactivity": {
+			"clientNavigation": true
 		}
 	},
 	"style": "wp-block-post-navigation-link"

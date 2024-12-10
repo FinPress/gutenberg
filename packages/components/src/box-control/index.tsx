@@ -9,17 +9,16 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { BaseControl } from '../base-control';
-import Button from '../button';
-import { FlexItem, FlexBlock } from '../flex';
 import AllInputControl from './all-input-control';
 import InputControls from './input-controls';
 import AxialInputControls from './axial-input-controls';
-import BoxControlIcon from './icon';
 import LinkedButton from './linked-button';
+import { Grid } from '../grid';
 import {
-	Root,
-	Header,
-	HeaderControlWrapper,
+	FlexedBoxControlIcon,
+	InputWrapper,
+	ResetButton,
+	LinkedButtonWrapper,
 } from './styles/box-control-styles';
 import { parseQuantityAndUnitFromRawValue } from '../unit-control/utils';
 import {
@@ -34,6 +33,7 @@ import type {
 	BoxControlProps,
 	BoxControlValue,
 } from './types';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const defaultInputProps = {
 	min: 0,
@@ -48,31 +48,33 @@ function useUniqueId( idProp?: string ) {
 }
 
 /**
- * BoxControl components let users set values for Top, Right, Bottom, and Left.
- * This can be used as an input control for values like `padding` or `margin`.
+ * A control that lets users set values for top, right, bottom, and left. Can be
+ * used as an input control for values like `padding` or `margin`.
  *
  * ```jsx
- * import { __experimentalBoxControl as BoxControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { useState } from 'react';
+ * import { BoxControl } from '@wordpress/components';
  *
- * const Example = () => {
- * 	const [ values, setValues ] = useState( {
- * 		top: '50px',
- * 		left: '10%',
- * 		right: '10%',
- * 		bottom: '50px',
- * 	} );
+ * function Example() {
+ *   const [ values, setValues ] = useState( {
+ *     top: '50px',
+ *     left: '10%',
+ *     right: '10%',
+ *     bottom: '50px',
+ *   } );
  *
- * 	return (
- * 		<BoxControl
- * 			values={ values }
- * 			onChange={ ( nextValues ) => setValues( nextValues ) }
- * 		/>
- * 	);
+ *   return (
+ *     <BoxControl
+ *       __next40pxDefaultSize
+ *       values={ values }
+ *       onChange={ setValues }
+ *     />
+ *   );
  * };
  * ```
  */
 function BoxControl( {
+	__next40pxDefaultSize = false,
 	id: idProp,
 	inputProps = defaultInputProps,
 	onChange = noop,
@@ -141,6 +143,8 @@ function BoxControl( {
 	};
 
 	const inputControlProps = {
+		onMouseOver,
+		onMouseOut,
 		...inputProps,
 		onChange: handleOnChange,
 		onFocus: handleOnFocus,
@@ -150,62 +154,59 @@ function BoxControl( {
 		setSelectedUnits,
 		sides,
 		values: inputValues,
-		onMouseOver,
-		onMouseOut,
+		__next40pxDefaultSize,
 	};
 
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'BoxControl',
+		__next40pxDefaultSize,
+		size: undefined,
+	} );
+
 	return (
-		<Root id={ id } role="group" aria-labelledby={ headingId }>
-			<Header className="component-box-control__header">
-				<FlexItem>
-					<BaseControl.VisualLabel id={ headingId }>
-						{ label }
-					</BaseControl.VisualLabel>
-				</FlexItem>
-				{ allowReset && (
-					<FlexItem>
-						<Button
-							className="component-box-control__reset-button"
-							variant="secondary"
-							isSmall
-							onClick={ handleOnReset }
-							disabled={ ! isDirty }
-						>
-							{ __( 'Reset' ) }
-						</Button>
-					</FlexItem>
-				) }
-			</Header>
-			<HeaderControlWrapper className="component-box-control__header-control-wrapper">
-				<FlexItem>
-					<BoxControlIcon side={ side } sides={ sides } />
-				</FlexItem>
-				{ isLinked && (
-					<FlexBlock>
-						<AllInputControl
-							aria-label={ label }
-							{ ...inputControlProps }
-						/>
-					</FlexBlock>
-				) }
-				{ ! isLinked && splitOnAxis && (
-					<FlexBlock>
-						<AxialInputControls { ...inputControlProps } />
-					</FlexBlock>
-				) }
-				{ ! hasOneSide && (
-					<FlexItem>
-						<LinkedButton
-							onClick={ toggleLinked }
-							isLinked={ isLinked }
-						/>
-					</FlexItem>
-				) }
-			</HeaderControlWrapper>
+		<Grid
+			id={ id }
+			columns={ 3 }
+			templateColumns="1fr min-content min-content"
+			role="group"
+			aria-labelledby={ headingId }
+		>
+			<BaseControl.VisualLabel id={ headingId }>
+				{ label }
+			</BaseControl.VisualLabel>
+			{ isLinked && (
+				<InputWrapper>
+					<FlexedBoxControlIcon side={ side } sides={ sides } />
+					<AllInputControl { ...inputControlProps } />
+				</InputWrapper>
+			) }
+			{ ! hasOneSide && (
+				<LinkedButtonWrapper>
+					<LinkedButton
+						onClick={ toggleLinked }
+						isLinked={ isLinked }
+					/>
+				</LinkedButtonWrapper>
+			) }
+
+			{ ! isLinked && splitOnAxis && (
+				<AxialInputControls { ...inputControlProps } />
+			) }
 			{ ! isLinked && ! splitOnAxis && (
 				<InputControls { ...inputControlProps } />
 			) }
-		</Root>
+			{ allowReset && (
+				<ResetButton
+					className="component-box-control__reset-button"
+					variant="secondary"
+					size="small"
+					onClick={ handleOnReset }
+					disabled={ ! isDirty }
+				>
+					{ __( 'Reset' ) }
+				</ResetButton>
+			) }
+		</Grid>
 	);
 }
 

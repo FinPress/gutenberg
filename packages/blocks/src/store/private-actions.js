@@ -40,3 +40,33 @@ export function addUnprocessedBlockType( name, blockType ) {
 		dispatch.addBlockTypes( processedBlockType );
 	};
 }
+
+/**
+ * Adds new block bindings source.
+ *
+ * @param {string} source Name of the source to register.
+ */
+export function addBlockBindingsSource( source ) {
+	return {
+		type: 'ADD_BLOCK_BINDINGS_SOURCE',
+		name: source.name,
+		label: source.label,
+		usesContext: source.usesContext,
+		getValues: source.getValues,
+		setValues: source.setValues,
+		canUserEditValue: source.canUserEditValue,
+		getFieldsList: source.getFieldsList,
+	};
+}
+
+/**
+ * Removes existing block bindings source.
+ *
+ * @param {string} name Name of the source to remove.
+ */
+export function removeBlockBindingsSource( name ) {
+	return {
+		type: 'REMOVE_BLOCK_BINDINGS_SOURCE',
+		name,
+	};
+}

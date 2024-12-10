@@ -33,10 +33,7 @@ import { deepFilterHTML, isPlain, getBlockContentSchema } from './utils';
 import emptyParagraphRemover from './empty-paragraph-remover';
 import slackParagraphCorrector from './slack-paragraph-corrector';
 
-/**
- * Browser dependencies
- */
-const { console } = window;
+const log = ( ...args ) => window?.console?.log?.( ...args );
 
 /**
  * Filters HTML to only contain phrasing content.
@@ -60,7 +57,7 @@ function filterInlineHTML( HTML ) {
 	HTML = deepFilterHTML( HTML, [ htmlFormattingRemover, brRemover ] );
 
 	// Allows us to ask for this information when we get a report.
-	console.log( 'Processed inline HTML:\n\n', HTML );
+	log( 'Processed inline HTML:\n\n', HTML );
 
 	return HTML;
 }
@@ -103,12 +100,17 @@ export function pasteHandler( {
 		const content = HTML ? HTML : plainText;
 
 		if ( content.indexOf( '<!-- wp:' ) !== -1 ) {
-			return parse( content );
+			const parseResult = parse( content );
+			const isSingleFreeFormBlock =
+				parseResult.length === 1 &&
+				parseResult[ 0 ].name === 'core/freeform';
+			if ( ! isSingleFreeFormBlock ) {
+				return parseResult;
+			}
 		}
 	}
 
 	// Normalize unicode to use composed characters.
-	// This is unsupported in IE 11 but it's a nice-to-have feature, not mandatory.
 	// Not normalizing the content will only affect older browsers and won't
 	// entirely break the app.
 	// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
@@ -194,7 +196,7 @@ export function pasteHandler( {
 				commentRemover,
 				iframeRemover,
 				figureContentReducer,
-				blockquoteNormaliser,
+				blockquoteNormaliser(),
 				divNormaliser,
 			];
 
@@ -214,7 +216,7 @@ export function pasteHandler( {
 			);
 
 			// Allows us to ask for this information when we get a report.
-			console.log( 'Processed HTML piece:\n\n', piece );
+			log( 'Processed HTML piece:\n\n', piece );
 
 			return htmlToBlocks( piece, pasteHandler );
 		} )
