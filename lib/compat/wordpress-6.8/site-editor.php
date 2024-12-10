@@ -130,7 +130,7 @@ add_filter( 'wp_die_handler', 'gutenberg_styles_wp_die_handler' );
  * @global array $submenu
  */
 function gutenberg_add_styles_submenu_item() {
-	if ( ! wp_is_block_theme() && ( current_theme_supports( 'editor-styles' ) || wp_theme_has_theme_json() ) ) {
+	if ( ! wp_is_block_theme() ) {
 		global $submenu;
 
 		$styles_menu_item = array(
