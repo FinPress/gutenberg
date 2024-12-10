@@ -160,7 +160,9 @@ function getVisualTypeName( suggestion ) {
 	return suggestion.type === 'post_tag' ? 'tag' : suggestion.type;
 }
 
-export default ( props ) => {
+export default LinkControlSearchItem;
+
+export const __experimentalLinkControlSearchItem = ( props ) => {
 	deprecated( 'wp.blockEditor.__experimentalLinkControlSearchItem', {
 		since: '6.8',
 	} );
