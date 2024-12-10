@@ -98,7 +98,7 @@ function gutenberg_initialize_experiments_settings() {
 		'gutenberg-experiments',
 		'gutenberg_experiments_section',
 		array(
-			'label' => __( 'Enables client-side media processing to leverage the browser's capabilities to handle tasks like image resizing and compression.', 'gutenberg' ),
+			'label' => __( 'Enables client-side media processing to leverage the browser\'s capabilities to handle tasks like image resizing and compression.', 'gutenberg' ),
 			'id'    => 'gutenberg-media-processing',
 		)
 	);
