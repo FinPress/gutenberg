@@ -130,11 +130,7 @@ export const useResetHomepageAction = () => {
 			id: 'reset-homepage',
 			label: __( 'Reset homepage' ),
 			isEligible( post ) {
-				if ( pageOnFront !== post.id ) {
-					return false;
-				}
-
-				return true;
+				return pageOnFront === post.id;
 			},
 			RenderModal: ResetHomepageModal,
 		} ),
