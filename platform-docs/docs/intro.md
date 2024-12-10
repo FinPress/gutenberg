@@ -27,22 +27,6 @@ To build a block editor, you need to install the following dependencies:
  - `@wordpress/block-library`
  - `@wordpress/components`
 
-## Appease package expectations
-
-The package `@wordpress/block-library` expects an env variable `IS_GUTENBERG_PLUGIN` to be defined. The quickest way to meet this requirement is to add it with `define` to the Vite config in `vite.config.js`. If using another bundler/build tool refer to its documentation for how to do this.
-
-```js
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  // highlight-next-line
-  define: { 'process.env.IS_GUTENBERG_PLUGIN': false },
-  plugins: [react()],
-})
-```
-
 ## JSX
 
 We're going to be using JSX to write our UI and components as the block editor is built with React. Using the Vite bootstrap described above there’s no need to configure anything as it outputs the result as a React pragma. If you're using a different bundler/build tool, you may need to configure the JSX transpilation to do the same.
