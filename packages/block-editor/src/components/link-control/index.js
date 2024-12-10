@@ -503,7 +503,7 @@ LinkControl.DEFAULT_LINK_SETTINGS = DEFAULT_LINK_SETTINGS;
 
 export const DeprecatedExperimentalLinkControl = ( props ) => {
 	deprecated( 'wp.blockEditor.__experimentalLinkControl', {
-		since: '6.5',
+		since: '6.8',
 		alternative: 'wp.blockEditor.LinkControl',
 	} );
 
