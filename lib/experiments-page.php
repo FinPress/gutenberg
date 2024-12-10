@@ -42,7 +42,7 @@ function gutenberg_initialize_experiments_settings() {
 		'gutenberg_display_experiment_section',
 		'gutenberg-experiments'
 	);
-	
+
 	add_settings_field(
 		'gutenberg-block-experiments',
 		__( 'Blocks: add experimental blocks', 'gutenberg' ),
@@ -103,7 +103,7 @@ function gutenberg_initialize_experiments_settings() {
 		)
 	);
 
- 	add_settings_field(
+	add_settings_field(
 		'gutenberg-block-comment',
 		__( 'Collaboration: add block level comments', 'gutenberg' ),
 		'gutenberg_display_experiment_field',
@@ -151,7 +151,7 @@ function gutenberg_initialize_experiments_settings() {
 		)
 	);
 
- 	add_settings_field(
+	add_settings_field(
 		'gutenberg-new-posts-dashboard',
 		__( 'Data Views: enable for Posts', 'gutenberg' ),
 		'gutenberg_display_experiment_field',
