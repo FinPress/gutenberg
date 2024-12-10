@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { trash } from '@wordpress/icons';
-import { useDispatch } from '@wordpress/data';
+import { useDispatch, select } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { __, _n, sprintf, _x } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
@@ -27,7 +27,25 @@ const trashPost: Action< PostWithPermissions > = {
 	isPrimary: true,
 	icon: trash,
 	isEligible( item ) {
-		if ( isTemplateOrTemplatePart( item ) || item.type === 'wp_block' ) {
+		const frontPageId = (
+			select( coreStore ).getEntityRecord( 'root', 'site' ) as {
+				page_on_front?: number;
+			}
+		 )?.page_on_front;
+		const postsPageId = (
+			select( coreStore ).getEntityRecord( 'root', 'site' ) as {
+				page_for_posts?: number;
+			}
+		 )?.page_for_posts;
+		// Check if the item is either the front page or posts page.
+		const isSpecialPage =
+			item.id === frontPageId || item.id === postsPageId;
+
+		if (
+			isSpecialPage ||
+			isTemplateOrTemplatePart( item ) ||
+			item.type === 'wp_block'
+		) {
 			return false;
 		}
 
