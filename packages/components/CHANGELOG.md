@@ -22,7 +22,6 @@
 -   `FormFileUpload`: Deprecate 36px default size ([#67438](https://github.com/WordPress/gutenberg/pull/67438)).
 -   `FormTokenField`: Deprecate 36px default size ([#67454](https://github.com/WordPress/gutenberg/pull/67454)).
 
-
 ### Enhancements
 
 -   `BorderBoxControl`: Reduce gap value when unlinked ([#67049](https://github.com/WordPress/gutenberg/pull/67049)).
@@ -44,7 +43,7 @@
 ### Bug Fixes
 
 -   `ResizableBox`: Make drag handles focusable ([#67305](https://github.com/WordPress/gutenberg/pull/67305)).
--   `CustomSelectControl`: Fix select control immediate update on reset. ([#67733](https://github.com/WordPress/gutenberg/pull/67733))
+-   `CustomSelectControl`: Update correctly when `showSelectedHint` is enabled ([#67733](https://github.com/WordPress/gutenberg/pull/67733)).
 
 ## 28.13.0 (2024-11-27)
 
