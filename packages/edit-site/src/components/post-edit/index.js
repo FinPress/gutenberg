@@ -18,12 +18,11 @@ import { privateApis as editorPrivateApis } from '@wordpress/editor';
  * Internal dependencies
  */
 import Page from '../page';
-import PostEditHeader from '../post-edit/header';
 import { unlock } from '../../lock-unlock';
 import usePatternSettings from '../page-patterns/use-pattern-settings';
 import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 
-const { usePostFields } = unlock( editorPrivateApis );
+const { usePostFields, PostCardPanel } = unlock( editorPrivateApis );
 
 const fieldsWithBulkEditSupport = [
 	'title',
@@ -164,11 +163,10 @@ function PostEditForm( { postType, postId } ) {
 
 	return (
 		<VStack spacing={ 4 }>
-			<PostEditHeader postType={ postType } postId={ postId } />
+			<PostCardPanel postType={ postType } postId={ ids } />
 			{ hasFinishedResolution && (
 				<DataForm
 					data={ ids.length === 1 ? record : multiEdits }
-					isLoading={ ! hasFinishedResolution }
 					fields={ fieldsWithDependency }
 					form={ form }
 					onChange={ onChange }
