@@ -18,12 +18,11 @@ import { privateApis as editorPrivateApis } from '@wordpress/editor';
  * Internal dependencies
  */
 import Page from '../page';
-import PostEditHeader from '../post-edit/header';
 import { unlock } from '../../lock-unlock';
 import usePatternSettings from '../page-patterns/use-pattern-settings';
 import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 
-const { usePostFields } = unlock( editorPrivateApis );
+const { usePostFields, PostCardPanel } = unlock( editorPrivateApis );
 
 const fieldsWithBulkEditSupport = [
 	'title',
@@ -35,17 +34,22 @@ const fieldsWithBulkEditSupport = [
 
 function PostEditForm( { postType, postId } ) {
 	const ids = useMemo( () => postId.split( ',' ), [ postId ] );
-	const { record } = useSelect(
+	const { record, hasFinishedResolution } = useSelect(
 		( select ) => {
+			const args = [ 'postType', postType, ids[ 0 ] ];
+
+			const {
+				getEditedEntityRecord,
+				hasFinishedResolution: hasFinished,
+			} = select( coreDataStore );
+
 			return {
 				record:
-					ids.length === 1
-						? select( coreDataStore ).getEditedEntityRecord(
-								'postType',
-								postType,
-								ids[ 0 ]
-						  )
-						: null,
+					ids.length === 1 ? getEditedEntityRecord( ...args ) : null,
+				hasFinishedResolution: hasFinished(
+					'getEditedEntityRecord',
+					args
+				),
 			};
 		},
 		[ postType, ids ]
@@ -159,13 +163,15 @@ function PostEditForm( { postType, postId } ) {
 
 	return (
 		<VStack spacing={ 4 }>
-			<PostEditHeader postType={ postType } postId={ postId } />
-			<DataForm
-				data={ ids.length === 1 ? record : multiEdits }
-				fields={ fieldsWithDependency }
-				form={ form }
-				onChange={ onChange }
-			/>
+			<PostCardPanel postType={ postType } postId={ ids } />
+			{ hasFinishedResolution && (
+				<DataForm
+					data={ ids.length === 1 ? record : multiEdits }
+					fields={ fieldsWithDependency }
+					form={ form }
+					onChange={ onChange }
+				/>
+			) }
 		</VStack>
 	);
 }
