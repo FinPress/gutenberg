@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { store as blocksStore } from '@wordpress/blocks';
+import { store as blocksStore, getBlockType } from '@wordpress/blocks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useRegistry, useSelect } from '@wordpress/data';
 import { useCallback, useMemo, useContext } from '@wordpress/element';
@@ -93,7 +93,14 @@ export function canBindAttribute( blockName, attributeName ) {
 }
 
 export function getBindableAttributes( blockName ) {
-	return BLOCK_BINDINGS_ALLOWED_BLOCKS[ blockName ];
+	const blockType = getBlockType( blockName );
+	const allowedAttributes = BLOCK_BINDINGS_ALLOWED_BLOCKS[ blockName ] || [];
+	// Still comparing with the allowed blocks constant until we can automate the bindings server process.
+	return Object.keys( blockType.attributes ).filter(
+		( key ) =>
+			blockType.attributes[ key ].role === 'content' &&
+			allowedAttributes.includes( key )
+	);
 }
 
 export const withBlockBindingSupport = createHigherOrderComponent(
