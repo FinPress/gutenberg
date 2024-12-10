@@ -178,3 +178,23 @@ function gutenberg_stabilize_experimental_block_supports( $args ) {
 }
 
 add_filter( 'register_block_type_args', 'gutenberg_stabilize_experimental_block_supports', PHP_INT_MAX, 1 );
+
+/**
+ * Ensure the `defaultControls` property, set via block.json metadata, or
+ * stabilized block supports filter, is included within the block type's settings.
+ *
+ * Note: This should be removed when the minimum required WP version is >= 6.8.
+ *
+ * @param array $settings Current block type settings.
+ * @param array $metadata Block metadata as read in via block.json.
+ *
+ * @return array Filtered block type settings.
+ */
+function gutenberg_add_default_controls_property_to_block_type_settings( $settings, $metadata ) {
+	if ( ! isset( $settings['default_controls'] ) && isset( $metadata['defaultControls'] ) ) {
+		$settings['default_controls'] = $metadata['defaultControls'];
+	}
+	return $settings;
+}
+
+add_filter( 'block_type_metadata_settings', 'gutenberg_add_default_controls_property_to_block_type_settings', PHP_INT_MAX, 2 );
