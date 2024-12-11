@@ -118,7 +118,6 @@ export const ShowPassword: StoryFn< typeof InputControl > = ( args ) => {
 	return (
 		<InputControl
 			type={ visible ? 'text' : 'password' }
-			label="Password"
 			suffix={
 				<InputControlSuffixWrapper variant="control">
 					<Button
@@ -132,4 +131,9 @@ export const ShowPassword: StoryFn< typeof InputControl > = ( args ) => {
 			{ ...args }
 		/>
 	);
+};
+ShowPassword.args = {
+	...Default.args,
+	label: 'Password',
+	placeholder: undefined,
 };
