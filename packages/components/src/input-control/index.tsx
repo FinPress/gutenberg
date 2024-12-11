@@ -37,6 +37,7 @@ export function UnforwardedInputControl(
 ) {
 	const {
 		__next40pxDefaultSize,
+		__shouldNotWarnDeprecated36pxSize,
 		__unstableStateReducer: stateReducer = ( state ) => state,
 		__unstableInputWidth,
 		className,
@@ -72,7 +73,8 @@ export function UnforwardedInputControl(
 	maybeWarnDeprecated36pxSize( {
 		componentName: 'InputControl',
 		__next40pxDefaultSize,
-		size: undefined,
+		size,
+		__shouldNotWarnDeprecated36pxSize,
 	} );
 
 	return (
