@@ -39,8 +39,7 @@ const SetAsHomepageModal = ( { items, closeModal } ) => {
 		}
 	);
 
-	const { saveEditedEntityRecord, saveEntityRecord } =
-		useDispatch( coreStore );
+	const { saveEntityRecord } = useDispatch( coreStore );
 	const { createSuccessNotice, createErrorNotice } =
 		useDispatch( noticesStore );
 
@@ -48,15 +47,6 @@ const SetAsHomepageModal = ( { items, closeModal } ) => {
 		event.preventDefault();
 
 		try {
-			// Save new home page settings.
-			await saveEditedEntityRecord( 'root', 'site', undefined, {
-				page_on_front: item.id,
-				show_on_front: 'page',
-			} );
-
-			// This second call to a save function is a workaround for a bug in
-			// `saveEditedEntityRecord`. This forces the root site settings to be updated.
-			// See https://github.com/WordPress/gutenberg/issues/67161.
 			await saveEntityRecord( 'root', 'site', {
 				page_on_front: item.id,
 				show_on_front: 'page',
@@ -66,11 +56,10 @@ const SetAsHomepageModal = ( { items, closeModal } ) => {
 				type: 'snackbar',
 			} );
 		} catch ( error ) {
-			const typedError = error;
 			const errorMessage =
-				typedError.message && typedError.code !== 'unknown_error'
-					? typedError.message
-					: __( 'An error occurred while setting the homepage' );
+				error.message && error.code !== 'unknown_error'
+					? error.message
+					: __( 'An error occurred while setting the homepage.' );
 			createErrorNotice( errorMessage, { type: 'snackbar' } );
 		} finally {
 			closeModal?.();
