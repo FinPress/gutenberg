@@ -38,9 +38,6 @@ const SetAsPostsPageModal = ( { items, closeModal } ) => {
 			};
 		}
 	);
-	const currentPostsPageTitle = currentPostsPage
-		? getItemTitle( currentPostsPage )
-		: '';
 
 	const { saveEditedEntityRecord, saveEntityRecord } =
 		useDispatch( coreStore );
@@ -84,7 +81,7 @@ const SetAsPostsPageModal = ( { items, closeModal } ) => {
 		? sprintf(
 				// translators: %s: title of the current home page.
 				__( 'This will replace the current posts page: "%s"' ),
-				currentPostsPageTitle
+				getItemTitle( currentPostsPage )
 		  )
 		: __( 'This page will show the latest posts.' );
 
