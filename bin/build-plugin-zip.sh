@@ -88,6 +88,7 @@ zip --recurse-paths --no-dir-entries \
 	post-content.php \
 	build \
 	build-module \
+	assets \
 	readme.txt \
 	changelog.txt \
 	README.md
