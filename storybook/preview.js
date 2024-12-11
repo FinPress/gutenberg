@@ -2,7 +2,7 @@
  * External dependencies
  */
 import {
-	ArgsTable,
+	Controls,
 	Description,
 	Primary,
 	Stories,
@@ -114,8 +114,7 @@ export const parameters = {
 				<Subtitle />
 				<Primary />
 				<Description />
-				{ /* `story="^"` enables Controls for the primary props table */ }
-				<ArgsTable story="^" />
+				<Controls />
 				<Stories includePrimary={ false } />
 			</>
 		),
@@ -132,9 +131,24 @@ export const parameters = {
 					'Contributing Guidelines',
 					'Actions',
 					'Containers',
+					'Feedback',
+					'Layout',
+					'Navigation',
+					'Overlays',
+					'Selection & Input',
+					[ 'Color', 'Common', 'File Upload', 'Time & Date' ],
+					'Typography',
 					'Utilities',
 				],
 				'Components (Experimental)',
+				[
+					'Actions',
+					'Layout',
+					'Navigation',
+					'Overlays',
+					'Selection & Input',
+					'Typography',
+				],
 				'Icons',
 			],
 		},
