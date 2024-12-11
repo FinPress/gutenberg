@@ -99,7 +99,7 @@ export default function BoxInputControl( {
 		onChange( nextValues );
 	};
 
-	const handleRewOnValueChange = ( next?: string ) => {
+	const handleRawOnValueChange = ( next?: string ) => {
 		const nextValues = { ...values };
 		defaultValuesToModify.forEach( ( modifiedSide ) => {
 			nextValues[ modifiedSide ] = next;
@@ -255,7 +255,7 @@ export default function BoxInputControl( {
 										presetKey,
 										presets
 								  );
-						handleRewOnValueChange( newValue );
+						handleRawOnValueChange( newValue );
 					} }
 					withInputField={ false }
 					aria-valuenow={
