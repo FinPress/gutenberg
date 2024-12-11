@@ -17,6 +17,7 @@ import {
 	isUnmodifiedBlock,
 	isReusableBlock,
 	getBlockDefaultClassName,
+	getBlockVariationClassName,
 	hasBlockSupport,
 	createBlock,
 	store as blocksStore,
@@ -38,6 +39,7 @@ import { useBlockProps } from './use-block-props';
 import { store as blockEditorStore } from '../../store';
 import { useLayout } from './layout';
 import { PrivateBlockContext } from './private-block-context';
+import { hasVariationClassNameSupport } from '../../hooks/supports';
 
 import { unlock } from '../../lock-unlock';
 
@@ -599,11 +601,26 @@ function BlockListBlockProvider( props ) {
 				hasBlockSupport: _hasBlockSupport,
 				getActiveBlockVariation,
 			} = select( blocksStore );
+
 			const attributes = getBlockAttributes( clientId );
 			const { name: blockName, isValid } = blockWithoutAttributes;
 			const blockType = getBlockType( blockName );
 			const { supportsLayout, isPreviewMode } = getSettings();
 			const hasLightBlockWrapper = blockType?.apiVersion > 1;
+			const defaultClassNames = [];
+			if ( hasLightBlockWrapper ) {
+				defaultClassNames.push( getBlockDefaultClassName( blockName ) );
+
+				if ( hasVariationClassNameSupport( blockType ) ) {
+					const variationClassName = getBlockVariationClassName(
+						blockType.name,
+						attributes
+					);
+					if ( variationClassName ) {
+						defaultClassNames.push( variationClassName );
+					}
+				}
+			}
 			const previewContext = {
 				isPreviewMode,
 				blockWithoutAttributes,
@@ -616,9 +633,10 @@ function BlockListBlockProvider( props ) {
 				className: hasLightBlockWrapper
 					? attributes.className
 					: undefined,
-				defaultClassName: hasLightBlockWrapper
-					? getBlockDefaultClassName( blockName )
-					: undefined,
+				defaultClassName:
+					defaultClassNames.length > 0
+						? clsx( defaultClassNames )
+						: undefined,
 				blockTitle: blockType?.title,
 			};
 
@@ -631,7 +649,6 @@ function BlockListBlockProvider( props ) {
 			const _isSelected = isBlockSelected( clientId );
 			const canRemove = canRemoveBlock( clientId );
 			const canMove = canMoveBlock( clientId );
-			const match = getActiveBlockVariation( blockName, attributes );
 			const isMultiSelected = isBlockMultiSelected( clientId );
 			const checkDeep = true;
 			const isAncestorOfSelectedBlock = hasSelectedInnerBlock(
@@ -639,6 +656,8 @@ function BlockListBlockProvider( props ) {
 				checkDeep
 			);
 			const blockEditingMode = getBlockEditingMode( clientId );
+
+			const match = getActiveBlockVariation( blockName, attributes );
 
 			const multiple = hasBlockSupport( blockName, 'multiple', true );
 
