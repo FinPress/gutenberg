@@ -4,6 +4,7 @@
 
 ### Deprecations
 
+-   `TreeSelect`: Deprecate 36px default size ([#67855](https://github.com/WordPress/gutenberg/pull/67855)).
 -   `SelectControl`: Deprecate 36px default size ([#66898](https://github.com/WordPress/gutenberg/pull/66898)).
 
 ## 29.0.0 (2024-12-11)
