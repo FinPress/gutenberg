@@ -401,7 +401,7 @@ _Parameters_
 
 -   _props_ `Object`: The component props.
 -   _props.close_ `Function`: The function to close the dialog.
--   _props.renderDialog_ `Function`: The function to render the dialog.
+-   _props.renderDialog_ `boolean`: Whether to render the component with modal dialog behavior.
 
 _Returns_
 
@@ -1457,16 +1457,16 @@ _Returns_
 
 ### PostTrashCheck
 
-Wrapper component that renders its children only if the post can trashed.
+Wrapper component that renders its children only if the post can be trashed.
 
 _Parameters_
 
--   _props_ `Object`: - The component props.
--   _props.children_ `React.ReactEl`: - The child components to render.
+-   _props_ `Object`: The component props.
+-   _props.children_ `React.ReactElement`: The child components.
 
 _Returns_
 
--   `React.ReactElement`: The rendered child components or null if the post can not trashed.
+-   `React.ReactElement | null`: The rendered child components or null if the post can't be trashed.
 
 ### PostTypeSupportCheck
 
@@ -1494,7 +1494,8 @@ _Usage_
 
 _Parameters_
 
--   _onClose_ `Function`: Callback function to be executed when the popover is closed.
+-   _props_ `{ onClose: () => void }`: The props for the component.
+-   _props.onClose_ `() => void`: Callback function to be executed when the popover is closed.
 
 _Returns_
 
@@ -1761,7 +1762,7 @@ A user mentions completer.
 
 _Type_
 
--   `WPCompleter`
+-   `Object`
 
 ### VisualEditorGlobalKeyboardShortcuts
 

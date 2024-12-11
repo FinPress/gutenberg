@@ -12,11 +12,20 @@ import {
 import { useDispatch, useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { store as noticesStore } from '@wordpress/notices';
+import { decodeEntities } from '@wordpress/html-entities';
 
-/**
- * Internal dependencies
- */
-import { getItemTitle } from '../../dataviews/actions/utils';
+const getItemTitle = ( item ) => {
+	if ( typeof item.title === 'string' ) {
+		return decodeEntities( item.title );
+	}
+	if ( item.title && 'rendered' in item.title ) {
+		return decodeEntities( item.title.rendered );
+	}
+	if ( item.title && 'raw' in item.title ) {
+		return decodeEntities( item.title.raw );
+	}
+	return '';
+};
 
 const SetAsHomepageModal = ( { items, closeModal } ) => {
 	const [ item ] = items;
@@ -38,9 +47,6 @@ const SetAsHomepageModal = ( { items, closeModal } ) => {
 			};
 		}
 	);
-	const currentHomePageTitle = currentHomePage
-		? getItemTitle( currentHomePage )
-		: '';
 
 	const { saveEditedEntityRecord, saveEntityRecord } =
 		useDispatch( coreStore );
@@ -80,23 +86,25 @@ const SetAsHomepageModal = ( { items, closeModal } ) => {
 		}
 	}
 
-	const modalWarning =
-		'posts' === showOnFront
-			? __(
-					'This will replace the current homepage which is set to display latest posts.'
-			  )
-			: sprintf(
-					// translators: %s: title of the current home page.
-					__( 'This will replace the current homepage: "%s"' ),
-					currentHomePageTitle
-			  );
+	let modalWarning = '';
+	if ( 'posts' === showOnFront ) {
+		modalWarning = __(
+			'This will replace the current homepage which is set to display latest posts.'
+		);
+	} else if ( currentHomePage ) {
+		modalWarning = sprintf(
+			// translators: %s: title of the current home page.
+			__( 'This will replace the current homepage: "%s"' ),
+			getItemTitle( currentHomePage )
+		);
+	}
 
 	const modalText = sprintf(
 		// translators: %1$s: title of the page to be set as the homepage, %2$s: homepage replacement warning message.
 		__( 'Set "%1$s" as the site homepage? %2$s' ),
 		pageTitle,
 		modalWarning
-	);
+	).trim();
 
 	// translators: Button label to confirm setting the specified page as the homepage.
 	const modalButtonLabel = __( 'Set homepage' );

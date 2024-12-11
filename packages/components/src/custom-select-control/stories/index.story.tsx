@@ -18,8 +18,8 @@ const meta: Meta< typeof CustomSelectControl > = {
 	component: CustomSelectControl,
 	id: 'components-customselectcontrol',
 	argTypes: {
-		onChange: { control: { type: null } },
-		value: { control: { type: null } },
+		onChange: { control: false },
+		value: { control: false },
 	},
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },
@@ -63,6 +63,7 @@ const Template: StoryFn< typeof CustomSelectControl > = ( props ) => {
 
 export const Default = Template.bind( {} );
 Default.args = {
+	__next40pxDefaultSize: true,
 	label: 'Label',
 	options: [
 		{
