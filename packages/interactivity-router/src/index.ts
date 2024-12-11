@@ -372,7 +372,6 @@ export const { state, actions } = store< Store >( 'core/router', {
 		 * @param [options]       Options object.
 		 * @param [options.force] Force fetching the URL again.
 		 * @param [options.html]  HTML string to be used instead of fetching the requested URL.
-		 * @param [options.vdom]  vDOM map to be used instead of fetching the requested URL.
 		 */
 		prefetch( url: string, options: PrefetchOptions = {} ) {
 			const { clientNavigationDisabled } = getConfig();
