@@ -9,7 +9,7 @@ import { useState } from '@wordpress/element';
 import PublicPublishDateTimePicker from '../';
 
 export default {
-	title: 'BlockEditor/PublicPublishDateTimePicker',
+	title: 'Components/PublicPublishDateTimePicker',
 	component: PublicPublishDateTimePicker,
 	argTypes: {
 		onChange: { action: 'onChange' },
@@ -17,25 +17,25 @@ export default {
 	},
 };
 
-const Template = ( args ) => {
-	const [ currentDate, setCurrentDate ] = useState(
-		args.currentDate || null
-	);
+export const Default = {
+	render: function Template( { onChange, ...args } ) {
+		const [ currentDate, setCurrentDate ] = useState(
+			args.currentDate || null
+		);
 
-	return (
-		<PublicPublishDateTimePicker
-			{ ...args }
-			currentDate={ currentDate }
-			onChange={ ( date ) => {
-				setCurrentDate( date );
-				args.onChange( date );
-			} }
-		/>
-	);
-};
-
-export const Default = Template.bind( {} );
-Default.args = {
-	currentDate: new Date().toISOString(),
-	showPopoverHeaderActions: true,
+		return (
+			<PublicPublishDateTimePicker
+				{ ...args }
+				currentDate={ currentDate }
+				onChange={ ( date ) => {
+					setCurrentDate( date );
+					onChange( date );
+				} }
+			/>
+		);
+	},
+	args: {
+		currentDate: new Date().toISOString(),
+		showPopoverHeaderActions: true,
+	},
 };
