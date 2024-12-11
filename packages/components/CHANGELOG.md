@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 29.0.0 (2024-12-11)
+
 ### Breaking Changes
 
 -   Removed the unused `__unstableMotionContext` export ([#67623](https://github.com/WordPress/gutenberg/pull/67623)).
@@ -19,6 +21,7 @@
 -   `MenuItem`: Increase height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
 -   `MenuItemsChoice`: Increase option height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
 -   `Navigation`: Fix active item hover color ([#67732](https://github.com/WordPress/gutenberg/pull/67732)).
+-   `Button`: Adjust `secondary` variant hover style. ([#67325](https://github.com/WordPress/gutenberg/pull/67325)).
 
 ### Deprecations
 
@@ -45,6 +48,7 @@
 ### Bug Fixes
 
 -   `ResizableBox`: Make drag handles focusable ([#67305](https://github.com/WordPress/gutenberg/pull/67305)).
+-   `CustomSelectControl`: Update correctly when `showSelectedHint` is enabled ([#67733](https://github.com/WordPress/gutenberg/pull/67733)).
 
 ## 28.13.0 (2024-11-27)
 
