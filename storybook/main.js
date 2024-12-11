@@ -31,7 +31,8 @@ const stories = [
 	process.env.NODE_ENV !== 'test' && './stories/**/*.story.@(js|tsx)',
 	process.env.NODE_ENV !== 'test' && './stories/**/*.mdx',
 	'../packages/block-editor/src/**/stories/*.story.@(js|tsx|mdx)',
-	'../packages/components/src/**/stories/*.story.@(js|tsx|mdx)',
+	'../packages/components/src/**/stories/*.story.@(js|tsx)',
+	'../packages/components/src/**/stories/*.mdx',
 	'../packages/icons/src/**/stories/*.story.@(js|tsx|mdx)',
 	'../packages/edit-site/src/**/stories/*.story.@(js|tsx|mdx)',
 	'../packages/dataviews/src/**/stories/*.story.@(js|tsx|mdx)',
@@ -59,11 +60,6 @@ module.exports = {
 	framework: {
 		name: '@storybook/react-webpack5',
 		options: {},
-	},
-	features: {
-		babelModeV7: true,
-		emotionAlias: false,
-		storyStoreV7: true,
 	},
 	docs: {
 		autodocs: true,
