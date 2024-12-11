@@ -288,7 +288,6 @@ export const ParentEdit = ( {
 	const { id } = field;
 
 	const homeUrl = useSelect( ( select ) => {
-		// @ts-expect-error getEntityRecord is not typed with unstableBase as argument.
 		return select( coreStore ).getEntityRecord< {
 			home: string;
 		} >( 'root', '__unstableBase' )?.home as string;
