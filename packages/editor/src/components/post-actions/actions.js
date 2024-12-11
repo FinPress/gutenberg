@@ -11,9 +11,7 @@ import { store as coreStore } from '@wordpress/core-data';
 import { store as editorStore } from '../../store';
 import { unlock } from '../../lock-unlock';
 import { useSetAsHomepageAction } from './set-as-homepage';
-import { useResetHomepageAction } from './reset-homepage';
 import { useSetAsPostsPageAction } from './set-as-posts-page';
-import { useResetPostsPageAction } from './reset-posts-page';
 
 export function usePostActions( { postType, onActionPerformed, context } ) {
 	const { defaultActions } = useSelect(
@@ -46,9 +44,7 @@ export function usePostActions( { postType, onActionPerformed, context } ) {
 	);
 
 	const setAsHomepageAction = useSetAsHomepageAction();
-	const resetHomepageAction = useResetHomepageAction();
 	const setAsPostsPageAction = useSetAsPostsPageAction();
-	const resetPostsPageAction = useResetPostsPageAction();
 	const shouldShowHomepageActions =
 		canManageOptions && ! hasFrontPageTemplate;
 
@@ -60,12 +56,7 @@ export function usePostActions( { postType, onActionPerformed, context } ) {
 	return useMemo( () => {
 		let actions = [ ...defaultActions ];
 		if ( shouldShowHomepageActions ) {
-			actions.push(
-				setAsHomepageAction,
-				resetHomepageAction,
-				setAsPostsPageAction,
-				resetPostsPageAction
-			);
+			actions.push( setAsHomepageAction, setAsPostsPageAction );
 		}
 
 		// Ensure "Move to trash" is always the last action.
@@ -138,8 +129,6 @@ export function usePostActions( { postType, onActionPerformed, context } ) {
 		context,
 		defaultActions,
 		onActionPerformed,
-		resetHomepageAction,
-		resetPostsPageAction,
 		setAsHomepageAction,
 		setAsPostsPageAction,
 		shouldShowHomepageActions,

@@ -82,9 +82,6 @@ test.describe( 'Homepage Settings via Editor', () => {
 		await expect(
 			page.getByRole( 'menuitem', { name: 'Set as posts page' } )
 		).toBeHidden();
-		await expect(
-			page.getByRole( 'menuitem', { name: 'Reset homepage' } )
-		).toBeVisible();
 
 		const samplePageTwo = page
 			.getByRole( 'gridcell' )
@@ -109,8 +106,5 @@ test.describe( 'Homepage Settings via Editor', () => {
 		await expect(
 			page.getByRole( 'menuitem', { name: 'Set as posts page' } )
 		).toBeHidden();
-		await expect(
-			page.getByRole( 'menuitem', { name: 'Reset posts page' } )
-		).toBeVisible();
 	} );
 } );
