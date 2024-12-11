@@ -32,7 +32,6 @@ const GlobalStylesPageActions = ( {
 			<Menu.TriggerButton
 				render={
 					<Button
-						__next40pxDefaultSize
 						variant="tertiary"
 						size="compact"
 					/>
