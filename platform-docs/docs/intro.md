@@ -65,6 +65,13 @@ import blockEditorContentStyles from "@wordpress/block-editor/build-style/conten
 import blocksStyles from "@wordpress/block-library/build-style/style.css?raw";
 import blocksEditorStyles from "@wordpress/block-library/build-style/editor.css?raw";
 
+const contentStyles = [
+  { css: componentsStyles },
+  { css: blockEditorContentStyles },
+  { css: blocksStyles },
+  { css: blocksEditorStyles },
+];
+
 export default function Editor() {
   const [ blocks, setBlocks ] = useState( [] );
   return (
@@ -81,15 +88,7 @@ export default function Editor() {
         The BlockCanvas component renders the block list within an iframe
         and wires up all the necessary events to make the block editor work.
       */ }
-      <BlockCanvas
-        height="500px"
-        styles={ [
-          { css: componentsStyles },
-          { css: blockEditorContentStyles },
-          { css: blocksStyles },
-          { css: blocksEditorStyles },
-        ] }
-      />
+      <BlockCanvas height="500px" styles={ contentStyles } />
     </BlockEditorProvider>
   );
 }
