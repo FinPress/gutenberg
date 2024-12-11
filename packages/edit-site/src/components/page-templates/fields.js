@@ -16,7 +16,6 @@ import {
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import { EditorProvider } from '@wordpress/editor';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
 
 /**
  * Internal dependencies
