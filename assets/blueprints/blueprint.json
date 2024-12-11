@@ -16,6 +16,13 @@
 			"options": {
 				"blogname": "Testing Gutenberg"
 			}
+		},
+		{
+			"step": "updateUserMeta",
+			"meta": {
+				"admin_color": "modern"
+			},
+			"userId": 1
 		}
 	]
 }
