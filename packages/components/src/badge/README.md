@@ -6,32 +6,17 @@
 
 ## Props
 
-### `as`
+### `children`
 
-Component type that will be used to render the badge component.
-
- - Type: `ElementType`
- - Required: No
- - Default: `'div'`
-
-### `className`
-
-Additional classes for the badge component.
+Text to display inside the badge.
 
  - Type: `string`
- - Required: No
+ - Required: Yes
 
-### `context`
+### `intent`
 
 Badge variant.
 
- - Type: `"neutral" | "info" | "success" | "warning" | "error"`
+ - Type: `"default" | "info" | "success" | "warning" | "error"`
  - Required: No
- - Default: `neutral`
-
-### `children`
-
-Element to display inside the badge.
-
- - Type: `ReactNode`
- - Required: Yes
+ - Default: `default`
