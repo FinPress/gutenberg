@@ -116,6 +116,10 @@ export function ZoomOutSeparator( {
 	const isCurrentBlockPreviousSiblingOfBlockBeingDragged =
 		blockBeingDraggedPreviousSiblingClientId === clientId;
 
+	// The separators are visually top/bottom of the block, but in actual fact
+	// the "top" separator is the "bottom" separator of the previous block.
+	// Therefore, this logic hides the separator if the current block is being dragged
+	// or if the current block is the previous sibling of the block being dragged.
 	if (
 		isCurrentBlockBeingDragged ||
 		isCurrentBlockPreviousSiblingOfBlockBeingDragged
