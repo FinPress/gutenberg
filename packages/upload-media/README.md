@@ -23,6 +23,7 @@ _Parameters_
 -   _$0.onBatchSuccess_ `[AddItemsArgs[ 'onBatchSuccess' ]]`: Function called after a batch of files is uploaded.
 -   _$0.onError_ `[AddItemsArgs[ 'onError' ]]`: Function called when an error happens.
 -   _$0.additionalData_ `[AddItemsArgs[ 'additionalData' ]]`: Additional data to include in the request.
+-   _$0.allowedTypes_ `[AddItemsArgs[ 'allowedTypes' ]]`: Array with the types of media that can be uploaded, if unset all types are allowed.
 
 #### cancelItem
 
