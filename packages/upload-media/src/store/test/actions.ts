@@ -27,12 +27,12 @@ function createRegistryWithStores() {
 	return registry;
 }
 
-const jpegFile = new File( [], 'example.jpg', {
+const jpegFile = new File( [ 'foo' ], 'example.jpg', {
 	lastModified: 1234567891,
 	type: 'image/jpeg',
 } );
 
-const mp4File = new File( [], 'amazing-video.mp4', {
+const mp4File = new File( [ 'foo' ], 'amazing-video.mp4', {
 	lastModified: 1234567891,
 	type: 'video/mp4',
 } );
@@ -71,10 +71,13 @@ describe( 'actions', () => {
 
 	describe( 'addItems', () => {
 		it( 'adds multiple items to the queue', () => {
+			const onError = jest.fn();
 			registry.dispatch( uploadStore ).addItems( {
 				files: [ jpegFile, mp4File ],
+				onError,
 			} );
 
+			expect( onError ).not.toHaveBeenCalled();
 			expect( registry.select( uploadStore ).getItems() ).toHaveLength(
 				2
 			);
