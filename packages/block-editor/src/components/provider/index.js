@@ -29,14 +29,7 @@ const noop = () => {};
  * Upload a media file when the file upload button is activated
  * or when adding a file to the editor via drag & drop.
  *
- * This function is intended to eventually live
- * in the `@wordpress/block-editor` package, allowing
- * to perform the client-side file processing before eventually
- * uploading the media to WordPress.
- *
  * @param {WPDataRegistry} registry
- * @param {Function}       validateMimeType
- * @param {Function}       validateFileSize
  * @param {Object}         $3                Parameters object passed to the function.
  * @param {Array}          $3.allowedTypes   Array with the types of media that can be uploaded, if unset all types are allowed.
  * @param {Object}         $3.additionalData Additional data to include in the request.
@@ -48,8 +41,6 @@ const noop = () => {};
  */
 function mediaUpload(
 	registry,
-	validateMimeType,
-	validateFileSize,
 	{
 		allowedTypes,
 		additionalData = {},
@@ -60,38 +51,14 @@ function mediaUpload(
 		onBatchSuccess,
 	}
 ) {
-	const validFiles = [];
-
-	for ( const mediaFile of filesList ) {
-		/*
-		 Check if the caller (e.g. a block) supports this mime type.
-		 Special case for file types such as HEIC which will be converted before upload anyway.
-		 Another check will be done before upload.
-		*/
-		try {
-			validateMimeType( mediaFile, allowedTypes );
-		} catch ( error ) {
-			onError( error );
-			continue;
-		}
-
-		try {
-			validateFileSize( mediaFile );
-		} catch ( error ) {
-			onError( error );
-			continue;
-		}
-
-		validFiles.push( mediaFile );
-	}
-
 	void registry.dispatch( uploadStore ).addItems( {
-		files: validFiles,
+		files: filesList,
 		onChange: onFileChange,
 		onSuccess,
 		onBatchSuccess,
 		onError: ( { message } ) => onError( message ),
 		additionalData,
+		allowedTypes,
 	} );
 }
 
@@ -112,12 +79,7 @@ export const ExperimentalBlockEditorProvider = withRegistryProvider(
 			settings = useMemo(
 				() => ( {
 					..._settings,
-					mediaUpload: mediaUpload.bind(
-						null,
-						registry,
-						_settings.validateMimeType || noop,
-						_settings.validateFileSize || noop
-					),
+					mediaUpload: mediaUpload.bind( null, registry ),
 				} ),
 				[ _settings, registry ]
 			);

@@ -30,6 +30,9 @@ import type {
 	removeItem,
 	revokeBlobUrls,
 } from './private-actions';
+import { validateMimeType } from '../validate-mime-type';
+import { validateMimeTypeForUser } from '../validate-mime-type-for-user';
+import { validateFileSize } from '../validate-file-size';
 
 type ActionCreators = {
 	addItem: typeof addItem;
@@ -63,6 +66,7 @@ interface AddItemsArgs {
 	onBatchSuccess?: OnBatchSuccessHandler;
 	onError?: OnErrorHandler;
 	additionalData?: AdditionalData;
+	allowedTypes?: string[];
 }
 
 /**
@@ -75,6 +79,7 @@ interface AddItemsArgs {
  * @param [$0.onBatchSuccess] Function called after a batch of files is uploaded.
  * @param [$0.onError]        Function called when an error happens.
  * @param [$0.additionalData] Additional data to include in the request.
+ * @param [$0.allowedTypes]   Array with the types of media that can be uploaded, if unset all types are allowed.
  */
 export function addItems( {
 	files,
@@ -83,10 +88,37 @@ export function addItems( {
 	onError,
 	onBatchSuccess,
 	additionalData,
+	allowedTypes,
 }: AddItemsArgs ) {
-	return async ( { dispatch }: { dispatch: ActionCreators } ) => {
+	return async ( { select, dispatch }: ThunkArgs ) => {
 		const batchId = uuidv4();
 		for ( const file of files ) {
+			/*
+			 Check if the caller (e.g. a block) supports this mime type.
+			 Special case for file types such as HEIC which will be converted before upload anyway.
+			 Another check will be done before upload.
+			*/
+			try {
+				validateMimeType( file, allowedTypes );
+				validateMimeTypeForUser(
+					file,
+					select.getSettings().allowedMimeTypes
+				);
+			} catch ( error: unknown ) {
+				onError?.( error as Error );
+				continue;
+			}
+
+			try {
+				validateFileSize(
+					file,
+					select.getSettings().maxUploadFileSize
+				);
+			} catch ( error: unknown ) {
+				onError?.( error as Error );
+				continue;
+			}
+
 			dispatch.addItem( {
 				file,
 				batchId,

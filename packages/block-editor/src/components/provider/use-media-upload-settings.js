@@ -14,7 +14,9 @@ function useMediaUploadSettings( settings ) {
 	return useMemo(
 		() => ( {
 			mediaUpload: settings.mediaUpload,
-			mediaSideload: settings.__experimentalMediaSideload,
+			mediaSideload: settings.mediaSideload,
+			maxUploadFileSize: settings.maxUploadFileSize,
+			allowedMimeTypes: settings.allowedMimeTypes,
 		} ),
 		[ settings ]
 	);

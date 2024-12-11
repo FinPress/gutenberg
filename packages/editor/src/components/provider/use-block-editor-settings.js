@@ -24,8 +24,6 @@ import {
 import inserterMediaCategories from '../media-categories';
 import { mediaUpload } from '../../utils';
 import { default as mediaSideload } from '../../utils/media-sideload';
-import { validateFileSize } from '../../utils/validate-file-size';
-import { validateMimeType } from '../../utils/validate-mime-type';
 import { store as editorStore } from '../../store';
 import { unlock } from '../../lock-unlock';
 import { useGlobalStylesContext } from '../global-styles-provider';
@@ -48,6 +46,7 @@ const BLOCK_EDITOR_SETTINGS = [
 	'__experimentalGlobalStylesBaseStyles',
 	'alignWide',
 	'blockInspectorTabs',
+	'maxUploadFileSize',
 	'allowedMimeTypes',
 	'bodyPlaceholder',
 	'canLockBlocks',
@@ -294,8 +293,6 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			keepCaretInsideBlock,
 			mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
 			mediaSideload: hasUploadPermissions ? mediaSideload : undefined,
-			validateFileSize,
-			validateMimeType,
 			__experimentalBlockPatterns: blockPatterns,
 			[ selectBlockPatternsKey ]: ( select ) => {
 				const { hasFinishedResolution, getBlockPatternsForPostType } =

@@ -121,7 +121,12 @@ interface UploadMediaArgs {
 }
 
 export interface Settings {
+	// Function for uploading files to the server.
 	mediaUpload: ( args: UploadMediaArgs ) => void;
+	// List of allowed mime types and file extensions.
+	allowedMimeTypes?: Record< string, string > | null;
+	// Maximum upload file size
+	maxUploadFileSize?: number;
 }
 
 // Must match the Attachment type from the media-utils package.
