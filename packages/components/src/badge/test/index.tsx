@@ -13,7 +13,7 @@ describe( 'Badge', () => {
 		render( <Badge>Code is Poetry</Badge> );
 		const badge = screen.getByText( 'Code is Poetry' );
 		expect( badge ).toBeInTheDocument();
-		expect( badge.tagName ).toBe( 'DIV' ); // Default element should be a div
+		expect( badge.tagName ).toBe( 'SPAN' );
 		expect( badge ).toHaveClass( 'components-badge' );
 	} );
 
