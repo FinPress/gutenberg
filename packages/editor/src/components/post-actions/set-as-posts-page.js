@@ -66,13 +66,14 @@ const SetAsPostsPageModal = ( { items, closeModal } ) => {
 		}
 	}
 
-	const modalWarning = isPageForPostsSet
-		? sprintf(
-				// translators: %s: title of the current home page.
-				__( 'This will replace the current posts page: "%s"' ),
-				getItemTitle( currentPostsPage )
-		  )
-		: __( 'This page will show the latest posts.' );
+	const modalWarning =
+		isPageForPostsSet && currentPostsPage
+			? sprintf(
+					// translators: %s: title of the current posts page.
+					__( 'This will replace the current posts page: "%s"' ),
+					getItemTitle( currentPostsPage )
+			  )
+			: __( 'This page will show the latest posts.' );
 
 	const modalText = sprintf(
 		// translators: %1$s: title of the page to be set as the posts page, %2$s: posts page replacement warning message.
