@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { useMemo, useState } from '@wordpress/element';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { useViewportMatch } from '@wordpress/compose';
-import { ToggleControl } from '@wordpress/components';
+import { Button } from '@wordpress/components';
 import { addQueryArgs } from '@wordpress/url';
 
 /**
@@ -24,14 +24,15 @@ const GlobalStylesPageActions = ( {
 	setIsStyleBookOpened,
 } ) => {
 	return (
-		<ToggleControl
-			__nextHasNoMarginBottom
-			label={ __( 'Show Style Book' ) }
-			checked={ isStyleBookOpened }
-			onChange={ ( newValue ) => {
-				setIsStyleBookOpened( newValue );
+		<Button
+			isPressed={ isStyleBookOpened }
+			onClick={ () => {
+				setIsStyleBookOpened( ! isStyleBookOpened );
 			} }
-		/>
+			size="compact"
+		>
+			{ __( 'Style Book' ) }
+		</Button>
 	);
 };
 
