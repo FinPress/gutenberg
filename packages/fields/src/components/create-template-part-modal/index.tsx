@@ -28,7 +28,7 @@ import {
 	symbolFilled as symbolFilledIcon,
 } from '@wordpress/icons';
 import { store as noticesStore } from '@wordpress/notices';
-// @ts-ignore
+// @ts-expect-error serialize is not typed
 import { serialize } from '@wordpress/blocks';
 
 /**
@@ -50,6 +50,13 @@ type CreateTemplatePartModalContentsProps = {
 	defaultTitle?: string;
 };
 
+type TemplatePartArea = {
+	area: string;
+	label: string;
+	icon: string;
+	description: string;
+};
+
 /**
  * A React component that renders a modal for creating a template part. The modal displays a title and the contents for creating the template part.
  * This component should not live in this package, it should be moved to a dedicated package responsible for managing template.
@@ -64,7 +71,7 @@ export default function CreateTemplatePartModal( {
 } & CreateTemplatePartModalContentsProps ) {
 	const defaultModalTitle = useSelect(
 		( select ) =>
-			// @ts-ignore
+			// @ts-expect-error getPostType is not typed with 'wp_template_part' as argument.
 			select( coreStore ).getPostType( 'wp_template_part' )?.labels
 				?.add_new_item,
 		[]
@@ -77,7 +84,6 @@ export default function CreateTemplatePartModal( {
 			focusOnMount="firstContentElement"
 			size="medium"
 		>
-			{ /* @ts-ignore */ }
 			<CreateTemplatePartModalContents { ...restProps } />
 		</Modal>
 	);
@@ -125,22 +131,14 @@ export function CreateTemplatePartModalContents( {
 	const [ isSubmitting, setIsSubmitting ] = useState( false );
 	const instanceId = useInstanceId( CreateTemplatePartModal );
 
-	const defaultTemplatePartAreas = useSelect( ( select ) => {
-		const areas =
+	const defaultTemplatePartAreas = useSelect(
+		( select ) =>
 			// @ts-expect-error getEntityRecord is not typed with unstableBase as argument.
 			select( coreStore ).getEntityRecord< {
-				default_template_part_areas: Array< {
-					area: string;
-					label: string;
-					icon: string;
-					description: string;
-				} >;
-			} >( 'root', '__unstableBase' )?.default_template_part_areas || [];
-
-		return areas.map( ( item ) => {
-			return { ...item, icon: getTemplatePartIcon( item.icon ) };
-		} );
-	}, [] );
+				default_template_part_areas: Array< TemplatePartArea >;
+			} >( 'root', '__unstableBase' )?.default_template_part_areas,
+		[]
+	);
 
 	async function createTemplatePart() {
 		if ( ! title || isSubmitting ) {
@@ -220,12 +218,13 @@ export function CreateTemplatePartModalContents( {
 						}
 						checked={ area }
 					>
-						{ defaultTemplatePartAreas.map(
-							( { icon, label, area: value, description } ) => (
+						{ ( defaultTemplatePartAreas ?? [] ).map( ( item ) => {
+							const icon = getTemplatePartIcon( item.icon );
+							return (
 								<Radio
 									__next40pxDefaultSize
-									key={ label }
-									value={ value }
+									key={ item.label }
+									value={ item.area }
 									className="fields-create-template-part-modal__area-radio"
 								>
 									<Flex align="start" justify="start">
@@ -233,19 +232,19 @@ export function CreateTemplatePartModalContents( {
 											<Icon icon={ icon } />
 										</FlexItem>
 										<FlexBlock className="fields-create-template-part-modal__option-label">
-											{ label }
-											<div>{ description }</div>
+											{ item.label }
+											<div>{ item.description }</div>
 										</FlexBlock>
 
 										<FlexItem className="fields-create-template-part-modal__checkbox">
-											{ area === value && (
+											{ area === item.area && (
 												<Icon icon={ check } />
 											) }
 										</FlexItem>
 									</Flex>
 								</Radio>
-							)
-						) }
+							);
+						} ) }
 					</RadioGroup>
 				</BaseControl>
 				<HStack justify="right">

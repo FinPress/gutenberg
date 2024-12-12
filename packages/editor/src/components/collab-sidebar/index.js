@@ -194,11 +194,14 @@ function CollabSidebarContent( { styles, comments } ) {
 		<div className="editor-collab-sidebar-panel" style={ styles }>
 			<AddComment onSubmit={ addNewComment } />
 			<Comments
+				key={ getSelectedBlockClientId() }
 				threads={ comments }
 				onEditComment={ onEditComment }
 				onAddReply={ addNewComment }
 				onCommentDelete={ onCommentDelete }
 				onCommentResolve={ onCommentResolve }
+				showCommentBoard={ showCommentBoard }
+				setShowCommentBoard={ setShowCommentBoard }
 			/>
 		</div>
 	);
@@ -282,17 +285,22 @@ export default function CollabSidebar() {
 			return { resultComments: [], sortedThreads: [] };
 		}
 
+		const updatedResult = result.map( ( item ) => ( {
+			...item,
+			reply: [ ...item.reply ].reverse(),
+		} ) );
+
 		const blockCommentIds = getCommentIdsFromBlocks( blocks );
 
 		const threadIdMap = new Map(
-			result.map( ( thread ) => [ thread.id, thread ] )
+			updatedResult.map( ( thread ) => [ thread.id, thread ] )
 		);
 
 		const sortedComments = blockCommentIds
 			.map( ( id ) => threadIdMap.get( id ) )
 			.filter( ( thread ) => thread !== undefined );
 
-		return { resultComments: result, sortedThreads: sortedComments };
+		return { resultComments: updatedResult, sortedThreads: sortedComments };
 	}, [ threads, blocks ] );
 
 	// Get the global styles to set the background color of the sidebar.

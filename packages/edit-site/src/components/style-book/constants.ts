@@ -220,7 +220,6 @@ export const STYLE_BOOK_IFRAME_STYLES = `
 	}
 
 	.edit-site-style-book__color-example {
-		height: 32px;
 		border: 1px solid color-mix( in srgb, currentColor 10%, transparent );
 	}
 
@@ -240,7 +239,6 @@ export const STYLE_BOOK_IFRAME_STYLES = `
 	.edit-site-style-book__subcategory-title {
 		font-size: 16px;
 		margin-bottom: 40px;
-    	border-bottom: 1px solid #ddd;
     	padding-bottom: 8px;
 	}
 

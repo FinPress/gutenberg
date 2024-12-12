@@ -39,7 +39,7 @@ export function AddComment( { onSubmit } ) {
 	return (
 		<VStack
 			spacing="3"
-			className="editor-collab-sidebar-panel__thread editor-collab-sidebar-panel__active-thread"
+			className="editor-collab-sidebar-panel__thread editor-collab-sidebar-panel__active-thread editor-collab-sidebar-panel__focus-thread"
 		>
 			<HStack alignment="left" spacing="3">
 				<CommentAuthorInfo />
