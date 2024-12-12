@@ -2,7 +2,7 @@
  * External dependencies
  */
 // @ts-ignore
-const inquirer = require( 'inquirer' );
+const { prompt } = require( 'inquirer' );
 const fs = require( 'fs' );
 const childProcess = require( 'child_process' );
 const { v4: uuid } = require( 'uuid' );
@@ -97,7 +97,7 @@ async function askForConfirmation(
 	isDefault = true,
 	abortMessage = 'Aborting.'
 ) {
-	const { isReady } = await inquirer.prompt( [
+	const { isReady } = await prompt( [
 		{
 			type: 'confirm',
 			name: 'isReady',
