@@ -18,7 +18,7 @@ export type CustomValueUnits = {
 export interface Preset {
 	name: string;
 	slug: string;
-	value: string;
+	value?: string;
 }
 
 type UnitControlPassthroughProps = Omit<

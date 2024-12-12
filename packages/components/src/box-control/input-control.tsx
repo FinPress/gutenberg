@@ -179,10 +179,11 @@ export default function BoxInputControl( {
 		? getPresetIndexFromValue( mergedValue, presetKey, presets )
 		: undefined;
 	const marks = hasPresets
-		? [ { value: 0, label: __( 'None' ) } ].concat(
+		? [ { value: 0, label: '', tooltip: __( 'None' ) } ].concat(
 				presets.map( ( preset, index ) => ( {
 					value: index + 1,
-					label: preset.name,
+					label: '',
+					tooltip: preset.name ?? preset.slug,
 				} ) )
 		  )
 		: [];
@@ -266,7 +267,7 @@ export default function BoxInputControl( {
 							.label
 					}
 					renderTooltipContent={ ( index ) =>
-						marks[ ! index ? 0 : index ].label
+						marks[ ! index ? 0 : index ].tooltip
 					}
 					min={ 0 }
 					max={ marks.length - 1 }
