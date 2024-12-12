@@ -225,7 +225,7 @@ add_filter( 'rest_prepare_post', 'gutenberg_insert_hooked_blocks_into_rest_respo
  * where the inner blocks are stored as post content.
  *
  * @since 6.6.0
- * @since 6.8.0 Support non-`wp_navigation` post types.
+ * @since 6.8.0 Support other post types. (Previously, it was limited to `wp_navigation` only.)
  * @access private
  *
  * @param stdClass $post Post object.
