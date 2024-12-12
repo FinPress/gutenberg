@@ -65,7 +65,6 @@ export function BlockSettingsDropdown( {
 		selectedBlockClientIds,
 		openedBlockSettingsMenu,
 		isContentOnly,
-		isZoomOut,
 	} = useSelect(
 		( select ) => {
 			const {
@@ -76,7 +75,6 @@ export function BlockSettingsDropdown( {
 				getBlockAttributes,
 				getOpenedBlockSettingsMenu,
 				getBlockEditingMode,
-				isZoomOut: _isZoomOut,
 			} = unlock( select( blockEditorStore ) );
 
 			const { getActiveBlockVariation } = select( blocksStore );
@@ -101,7 +99,6 @@ export function BlockSettingsDropdown( {
 				openedBlockSettingsMenu: getOpenedBlockSettingsMenu(),
 				isContentOnly:
 					getBlockEditingMode( firstBlockClientId ) === 'contentOnly',
-				isZoomOut: _isZoomOut(),
 			};
 		},
 		[ firstBlockClientId ]
@@ -314,7 +311,7 @@ export function BlockSettingsDropdown( {
 										</MenuItem>
 									</MenuGroup>
 								) }
-								{ ! isContentOnly && ! isZoomOut && (
+								{ ! isContentOnly && (
 									<BlockSettingsMenuControls.Slot
 										fillProps={ {
 											onClose,
