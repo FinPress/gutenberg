@@ -11,7 +11,6 @@ import {
 	__experimentalVStack as VStack,
 	__experimentalHStack as HStack,
 	FlexItem,
-	FlexBlock,
 	Button,
 } from '@wordpress/components';
 import {
@@ -27,7 +26,7 @@ import { useState } from '@wordpress/element';
  * Internal dependencies
  */
 import { unlock } from '../../../lock-unlock';
-const { DropdownMenuV2 } = unlock( componentsPrivateApis );
+const { Menu } = unlock( componentsPrivateApis );
 const { useGlobalSetting } = unlock( blockEditorPrivateApis );
 import Subtitle from '../subtitle';
 import { NavigationButtonAsItem } from '../navigation-button';
@@ -81,7 +80,7 @@ function FontSizeGroup( {
 							/>
 						) }
 						{ !! handleResetFontSizes && (
-							<DropdownMenuV2
+							<Menu
 								trigger={
 									<Button
 										size="small"
@@ -92,16 +91,14 @@ function FontSizeGroup( {
 									/>
 								}
 							>
-								<DropdownMenuV2.Item
-									onClick={ toggleResetDialog }
-								>
-									<DropdownMenuV2.ItemLabel>
+								<Menu.Item onClick={ toggleResetDialog }>
+									<Menu.ItemLabel>
 										{ origin === 'custom'
 											? __( 'Remove font size presets' )
 											: __( 'Reset font size presets' ) }
-									</DropdownMenuV2.ItemLabel>
-								</DropdownMenuV2.Item>
-							</DropdownMenuV2>
+									</Menu.ItemLabel>
+								</Menu.Item>
+							</Menu>
 						) }
 					</FlexItem>
 				</HStack>
@@ -113,23 +110,18 @@ function FontSizeGroup( {
 								key={ size.slug }
 								path={ `/typography/font-sizes/${ origin }/${ size.slug }` }
 							>
-								<HStack direction="row">
+								<HStack>
 									<FlexItem className="edit-site-font-size__item">
 										{ size.name }
 									</FlexItem>
-									<FlexItem>
-										<HStack justify="flex-end">
-											<FlexBlock className="edit-site-font-size__item edit-site-font-size__item-value">
-												{ size.size }
-											</FlexBlock>
-											<Icon
-												icon={
-													isRTL()
-														? chevronLeft
-														: chevronRight
-												}
-											/>
-										</HStack>
+									<FlexItem display="flex">
+										<Icon
+											icon={
+												isRTL()
+													? chevronLeft
+													: chevronRight
+											}
+										/>
 									</FlexItem>
 								</HStack>
 							</NavigationButtonAsItem>

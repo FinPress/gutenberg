@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { MouseEventHandler, ReactElement } from 'react';
+import type { MouseEventHandler } from 'react';
 
 /**
  * WordPress dependencies
@@ -23,7 +23,7 @@ import { useRegistry } from '@wordpress/data';
 import { unlock } from '../../lock-unlock';
 import type { Action, ActionModal as ActionModalType } from '../../types';
 
-const { DropdownMenuV2, kebabCase } = unlock( componentsPrivateApis );
+const { Menu, kebabCase } = unlock( componentsPrivateApis );
 
 export interface ActionTriggerProps< Item > {
 	action: Action< Item >;
@@ -32,20 +32,17 @@ export interface ActionTriggerProps< Item > {
 	items: Item[];
 }
 
-interface ActionModalProps< Item > {
+export interface ActionModalProps< Item > {
 	action: ActionModalType< Item >;
 	items: Item[];
-	closeModal?: () => void;
+	closeModal: () => void;
 }
 
-interface ActionWithModalProps< Item > extends ActionModalProps< Item > {
-	ActionTrigger: ( props: ActionTriggerProps< Item > ) => ReactElement;
-	isBusy?: boolean;
-}
-
-interface ActionsDropdownMenuGroupProps< Item > {
+interface ActionsMenuGroupProps< Item > {
 	actions: Action< Item >[];
 	item: Item;
+	registry: ReturnType< typeof useRegistry >;
+	setActiveModalAction: ( action: ActionModalType< Item > | null ) => void;
 }
 
 interface ItemActionsProps< Item > {
@@ -57,6 +54,14 @@ interface ItemActionsProps< Item > {
 interface CompactItemActionsProps< Item > {
 	item: Item;
 	actions: Action< Item >[];
+	isSmall?: boolean;
+	registry: ReturnType< typeof useRegistry >;
+}
+
+interface PrimaryActionsProps< Item > {
+	item: Item;
+	actions: Action< Item >[];
+	registry: ReturnType< typeof useRegistry >;
 }
 
 function ButtonTrigger< Item >( {
@@ -77,7 +82,7 @@ function ButtonTrigger< Item >( {
 	);
 }
 
-function DropdownMenuItemTrigger< Item >( {
+function MenuItemTrigger< Item >( {
 	action,
 	onClick,
 	items,
@@ -85,12 +90,9 @@ function DropdownMenuItemTrigger< Item >( {
 	const label =
 		typeof action.label === 'string' ? action.label : action.label( items );
 	return (
-		<DropdownMenuV2.Item
-			onClick={ onClick }
-			hideOnClick={ ! ( 'RenderModal' in action ) }
-		>
-			<DropdownMenuV2.ItemLabel>{ label }</DropdownMenuV2.ItemLabel>
-		</DropdownMenuV2.Item>
+		<Menu.Item onClick={ onClick }>
+			<Menu.ItemLabel>{ label }</Menu.ItemLabel>
+		</Menu.Item>
 	);
 }
 
@@ -105,9 +107,9 @@ export function ActionModal< Item >( {
 		<Modal
 			title={ action.modalHeader || label }
 			__experimentalHideHeader={ !! action.hideModalHeader }
-			onRequestClose={ closeModal ?? ( () => {} ) }
+			onRequestClose={ closeModal }
 			focusOnMount="firstContentElement"
-			size="small"
+			size="medium"
 			overlayClassName={ `dataviews-action-modal dataviews-action-modal__${ kebabCase(
 				action.id
 			) }` }
@@ -117,66 +119,37 @@ export function ActionModal< Item >( {
 	);
 }
 
-export function ActionWithModal< Item >( {
-	action,
-	items,
-	ActionTrigger,
-	isBusy,
-}: ActionWithModalProps< Item > ) {
-	const [ isModalOpen, setIsModalOpen ] = useState( false );
-	const actionTriggerProps = {
-		action,
-		onClick: () => {
-			setIsModalOpen( true );
-		},
-		items,
-		isBusy,
-	};
+export function ActionsMenuGroup< Item >( {
+	actions,
+	item,
+	registry,
+	setActiveModalAction,
+}: ActionsMenuGroupProps< Item > ) {
 	return (
-		<>
-			<ActionTrigger { ...actionTriggerProps } />
-			{ isModalOpen && (
-				<ActionModal
+		<Menu.Group>
+			{ actions.map( ( action ) => (
+				<MenuItemTrigger
+					key={ action.id }
 					action={ action }
-					items={ items }
-					closeModal={ () => setIsModalOpen( false ) }
+					onClick={ () => {
+						if ( 'RenderModal' in action ) {
+							setActiveModalAction( action );
+							return;
+						}
+						action.callback( [ item ], { registry } );
+					} }
+					items={ [ item ] }
 				/>
-			) }
-		</>
+			) ) }
+		</Menu.Group>
 	);
 }
 
-export function ActionsDropdownMenuGroup< Item >( {
-	actions,
-	item,
-}: ActionsDropdownMenuGroupProps< Item > ) {
-	const registry = useRegistry();
-	return (
-		<DropdownMenuV2.Group>
-			{ actions.map( ( action ) => {
-				if ( 'RenderModal' in action ) {
-					return (
-						<ActionWithModal
-							key={ action.id }
-							action={ action }
-							items={ [ item ] }
-							ActionTrigger={ DropdownMenuItemTrigger }
-						/>
-					);
-				}
-				return (
-					<DropdownMenuItemTrigger
-						key={ action.id }
-						action={ action }
-						onClick={ () => {
-							action.callback( [ item ], { registry } );
-						} }
-						items={ [ item ] }
-					/>
-				);
-			} ) }
-		</DropdownMenuV2.Group>
-	);
+function hasOnlyOneActionAndIsPrimary< Item >(
+	primaryActions: Action< Item >[],
+	actions: Action< Item >[]
+) {
+	return primaryActions.length === 1 && actions.length === 1;
 }
 
 export default function ItemActions< Item >( {
@@ -199,9 +172,28 @@ export default function ItemActions< Item >( {
 			eligibleActions: _eligibleActions,
 		};
 	}, [ actions, item ] );
+
 	if ( isCompact ) {
-		return <CompactItemActions item={ item } actions={ eligibleActions } />;
+		return (
+			<CompactItemActions
+				item={ item }
+				actions={ eligibleActions }
+				isSmall
+				registry={ registry }
+			/>
+		);
 	}
+
+	if ( hasOnlyOneActionAndIsPrimary( primaryActions, actions ) ) {
+		return (
+			<PrimaryActions
+				item={ item }
+				actions={ primaryActions }
+				registry={ registry }
+			/>
+		);
+	}
+
 	return (
 		<HStack
 			spacing={ 1 }
@@ -212,30 +204,16 @@ export default function ItemActions< Item >( {
 				width: 'auto',
 			} }
 		>
-			{ !! primaryActions.length &&
-				primaryActions.map( ( action ) => {
-					if ( 'RenderModal' in action ) {
-						return (
-							<ActionWithModal
-								key={ action.id }
-								action={ action }
-								items={ [ item ] }
-								ActionTrigger={ ButtonTrigger }
-							/>
-						);
-					}
-					return (
-						<ButtonTrigger
-							key={ action.id }
-							action={ action }
-							onClick={ () => {
-								action.callback( [ item ], { registry } );
-							} }
-							items={ [ item ] }
-						/>
-					);
-				} ) }
-			<CompactItemActions item={ item } actions={ eligibleActions } />
+			<PrimaryActions
+				item={ item }
+				actions={ primaryActions }
+				registry={ registry }
+			/>
+			<CompactItemActions
+				item={ item }
+				actions={ eligibleActions }
+				registry={ registry }
+			/>
 		</HStack>
 	);
 }
@@ -243,22 +221,77 @@ export default function ItemActions< Item >( {
 function CompactItemActions< Item >( {
 	item,
 	actions,
+	isSmall,
+	registry,
 }: CompactItemActionsProps< Item > ) {
+	const [ activeModalAction, setActiveModalAction ] = useState(
+		null as ActionModalType< Item > | null
+	);
 	return (
-		<DropdownMenuV2
-			trigger={
-				<Button
-					size="compact"
-					icon={ moreVertical }
-					label={ __( 'Actions' ) }
-					accessibleWhenDisabled
-					disabled={ ! actions.length }
-					className="dataviews-all-actions-button"
+		<>
+			<Menu
+				trigger={
+					<Button
+						size={ isSmall ? 'small' : 'compact' }
+						icon={ moreVertical }
+						label={ __( 'Actions' ) }
+						accessibleWhenDisabled
+						disabled={ ! actions.length }
+						className="dataviews-all-actions-button"
+					/>
+				}
+				placement="bottom-end"
+			>
+				<ActionsMenuGroup
+					actions={ actions }
+					item={ item }
+					registry={ registry }
+					setActiveModalAction={ setActiveModalAction }
 				/>
-			}
-			placement="bottom-end"
-		>
-			<ActionsDropdownMenuGroup actions={ actions } item={ item } />
-		</DropdownMenuV2>
+			</Menu>
+			{ !! activeModalAction && (
+				<ActionModal
+					action={ activeModalAction }
+					items={ [ item ] }
+					closeModal={ () => setActiveModalAction( null ) }
+				/>
+			) }
+		</>
+	);
+}
+
+function PrimaryActions< Item >( {
+	item,
+	actions,
+	registry,
+}: PrimaryActionsProps< Item > ) {
+	const [ activeModalAction, setActiveModalAction ] = useState( null as any );
+	if ( ! Array.isArray( actions ) || actions.length === 0 ) {
+		return null;
+	}
+	return (
+		<>
+			{ actions.map( ( action ) => (
+				<ButtonTrigger
+					key={ action.id }
+					action={ action }
+					onClick={ () => {
+						if ( 'RenderModal' in action ) {
+							setActiveModalAction( action );
+							return;
+						}
+						action.callback( [ item ], { registry } );
+					} }
+					items={ [ item ] }
+				/>
+			) ) }
+			{ !! activeModalAction && (
+				<ActionModal
+					action={ activeModalAction }
+					items={ [ item ] }
+					closeModal={ () => setActiveModalAction( null ) }
+				/>
+			) }
+		</>
 	);
 }

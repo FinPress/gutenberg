@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import { NEW_TAB_TARGET, NOFOLLOW_REL } from './constants';
 import { getUpdatedLinkAttributes } from './get-updated-link-attributes';
 import removeAnchorTag from '../utils/remove-anchor-tag';
-import { unlock } from '../lock-unlock';
 
 /**
  * WordPress dependencies
@@ -30,11 +29,11 @@ import {
 	InspectorControls,
 	RichText,
 	useBlockProps,
+	LinkControl,
 	__experimentalUseBorderProps as useBorderProps,
 	__experimentalUseColorProps as useColorProps,
 	__experimentalGetSpacingClassesAndStyles as useSpacingProps,
 	__experimentalGetShadowClassesAndStyles as useShadowProps,
-	__experimentalLinkControl as LinkControl,
 	__experimentalGetElementClassName,
 	store as blockEditorStore,
 	useBlockEditingMode,
@@ -45,7 +44,7 @@ import {
 	createBlock,
 	cloneBlock,
 	getDefaultBlockName,
-	store as blocksStore,
+	getBlockBindingsSource,
 } from '@wordpress/blocks';
 import { useMergeRefs, useRefEffect } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -240,9 +239,9 @@ function ButtonEdit( props ) {
 				return {};
 			}
 
-			const blockBindingsSource = unlock(
-				select( blocksStore )
-			).getBlockBindingsSource( metadata?.bindings?.url?.source );
+			const blockBindingsSource = getBlockBindingsSource(
+				metadata?.bindings?.url?.source
+			);
 
 			return {
 				lockUrlControls:
