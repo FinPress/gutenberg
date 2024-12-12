@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+const { select } = require( '@inquirer/prompts' );
 const inquirer = require( 'inquirer' );
 const { capitalCase } = require( 'change-case' );
 const program = require( 'commander' );
@@ -133,14 +134,13 @@ program
 					);
 
 					if ( ! variant && availableVariants.length > 1 ) {
-						const result = await inquirer.prompt( {
-							type: 'list',
-							name: 'variant',
+						variant = await select( {
 							message:
 								'The template variant to use for this block:',
-							choices: availableVariants,
+							choices: availableVariants.map( ( value ) => ( {
+								value,
+							} ) ),
 						} );
-						variant = result.variant;
 					}
 
 					const defaultValues = getDefaultValues(
