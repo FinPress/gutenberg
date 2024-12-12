@@ -105,7 +105,7 @@ function TableRow< Item >( {
 	// `onClick` and can be used to exclude touchscreen devices from certain
 	// behaviours.
 	const isTouchDeviceRef = useRef( false );
-	const columns = view.fields ?? [];
+	const columns = getFieldsToDisplay( view );
 	const hasPrimaryColumn =
 		( titleField && showTitle ) ||
 		( mediaField && showMedia ) ||
@@ -208,6 +208,20 @@ function TableRow< Item >( {
 	);
 }
 
+const getFieldsToDisplay = ( view: ViewTableType ) => {
+	if (
+		! view.layout?.hierarchicalSort ||
+		typeof view.layout?.hierarchicalSort === 'boolean'
+	) {
+		return view.fields || [];
+	}
+
+	// Make parent field the first field after the primary column.
+	return Array.from(
+		new Set( [ view.layout?.hierarchicalSort, ...( view.fields || [] ) ] )
+	);
+};
+
 function ViewTable< Item >( {
 	actions,
 	data,
@@ -270,7 +284,7 @@ function ViewTable< Item >( {
 		( titleField && showTitle ) ||
 		( mediaField && showMedia ) ||
 		( descriptionField && showDescription );
-	const columns = view.fields ?? [];
+	const columns = getFieldsToDisplay( view );
 	const headerMenuRef =
 		( column: string, index: number ) => ( node: HTMLButtonElement ) => {
 			if ( node ) {

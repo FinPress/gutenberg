@@ -360,7 +360,7 @@ export interface ViewTable extends ViewBase {
 		/**
 		 * Switch on/off hierarchical sorting.
 		 */
-		hierarchicalSort?: boolean;
+		hierarchicalSort?: boolean | string;
 	};
 }
 
