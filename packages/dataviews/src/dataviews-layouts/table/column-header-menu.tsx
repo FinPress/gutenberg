@@ -101,9 +101,7 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 	}
 
 	return (
-		<Menu
-		// align="start" TODO: align prop doesn't exist on Menu — is it ok to just remove
-		>
+		<Menu>
 			<Menu.TriggerButton
 				render={
 					<Button
