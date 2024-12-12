@@ -7,6 +7,7 @@ import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { useViewportMatch } from '@wordpress/compose';
 import { Button } from '@wordpress/components';
 import { addQueryArgs } from '@wordpress/url';
+import { seen } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -26,13 +27,13 @@ const GlobalStylesPageActions = ( {
 	return (
 		<Button
 			isPressed={ isStyleBookOpened }
+			icon={ seen }
+			label={ __( 'Style Book' ) }
 			onClick={ () => {
 				setIsStyleBookOpened( ! isStyleBookOpened );
 			} }
 			size="compact"
-		>
-			{ __( 'Style Book' ) }
-		</Button>
+		/>
 	);
 };
 
