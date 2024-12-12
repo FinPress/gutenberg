@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### Deprecations
+
+-   `SelectControl`: Deprecate 36px default size ([#66898](https://github.com/WordPress/gutenberg/pull/66898)).
+-   `InputControl`: Deprecate 36px default size ([#66897](https://github.com/WordPress/gutenberg/pull/66897)).
+
+### Bug Fixes
+
+-   `BoxControl`: Better respect for the `min` prop in the Range Slider ([#67819](https://github.com/WordPress/gutenberg/pull/67819)).
+
 ## 29.0.0 (2024-12-11)
 
 ### Breaking Changes
@@ -49,6 +58,7 @@
 
 -   `ResizableBox`: Make drag handles focusable ([#67305](https://github.com/WordPress/gutenberg/pull/67305)).
 -   `CustomSelectControl`: Update correctly when `showSelectedHint` is enabled ([#67733](https://github.com/WordPress/gutenberg/pull/67733)).
+-   `CustomSelectControl`: Use `useStoreState` to get `currentValue` and avoid stale values ([#67815](https://github.com/WordPress/gutenberg/pull/67815)).
 
 ## 28.13.0 (2024-11-27)
 
