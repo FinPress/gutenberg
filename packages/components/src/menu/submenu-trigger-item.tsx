@@ -13,14 +13,14 @@ import { chevronRightSmall } from '@wordpress/icons';
  * Internal dependencies
  */
 import type { WordPressComponentProps } from '../context';
-import type { MenuSubmenuTriggerItemProps } from './types';
+import type { MenuItemProps } from './types';
 import { MenuContext } from './context';
 import { MenuItem } from './item';
 import * as Styled from './styles';
 
 export const MenuSubmenuTriggerItem = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< MenuSubmenuTriggerItemProps, 'div', false >
+	WordPressComponentProps< MenuItemProps, 'div', false >
 >( function MenuSubmenuTriggerItem( { suffix, ...otherProps }, ref ) {
 	const menuContext = useContext( MenuContext );
 

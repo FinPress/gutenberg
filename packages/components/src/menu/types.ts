@@ -127,8 +127,6 @@ export interface MenuTriggerButtonProps {
 	accessibleWhenDisabled?: Ariakit.MenuButtonProps[ 'accessibleWhenDisabled' ];
 }
 
-export interface MenuSubmenuTriggerItemProps extends MenuItemProps {}
-
 export interface MenuGroupProps {
 	/**
 	 * The contents of the menu group (ie. an optional menu group label and one
