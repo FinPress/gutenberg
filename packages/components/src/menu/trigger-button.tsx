@@ -29,7 +29,7 @@ export const MenuTriggerButton = forwardRef<
 
 	if ( menuContext.store.parent ) {
 		throw new Error(
-			'Menu.TriggerButton should not be renderer inside a nested Menu component. Use Menu.SubmenuTriggerItem instead.'
+			'Menu.TriggerButton should not be rendered inside a nested Menu component. Use Menu.SubmenuTriggerItem instead.'
 		);
 	}
 
