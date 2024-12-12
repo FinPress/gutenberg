@@ -179,15 +179,17 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					getRenderingMode,
 					__unstableIsEditorReady,
 				} = select( editorStore );
-				const { getEntitiesConfig } = select( coreStore );
+				const {
+					getEntitiesConfig,
+					getPostType,
+					hasFinishedResolution,
+				} = select( coreStore );
 
-				const postTypeObject = select( coreStore ).getPostType(
-					post.type
+				const postTypeObject = getPostType( post.type );
+				const _hasLoadedPostObject = hasFinishedResolution(
+					'getPostType',
+					[ post.type ]
 				);
-
-				const _hasLoadedPostObject = select(
-					coreStore
-				).hasFinishedResolution( 'getPostType', [ post.type ] );
 
 				return {
 					hasLoadedPostObject: _hasLoadedPostObject,
@@ -195,7 +197,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					isReady: __unstableIsEditorReady(),
 					mode: getRenderingMode(),
 					defaultMode:
-						postTypeObject?.default_rendering_mode ?? 'post-only',
+						postTypeObject?.default_rendering_mode || 'post-only',
 					selection: getEditorSelection(),
 					postTypeEntities:
 						post.type === 'wp_template'
