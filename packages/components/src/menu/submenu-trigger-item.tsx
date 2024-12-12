@@ -38,7 +38,10 @@ export const MenuSubmenuTriggerItem = forwardRef<
 			render={
 				<MenuItem
 					{ ...otherProps }
-					// The menu item needs to register and be part of the parent menu
+					// The menu item needs to register and be part of the parent menu.
+					// Without specifying the store explicitly, the `MenuItem` component
+					// would otherwise read the store via context and pick up the one from
+					// the sub-menu `Menu` component.
 					store={ menuContext.store.parent }
 					suffix={
 						<>

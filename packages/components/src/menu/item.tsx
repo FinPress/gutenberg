@@ -26,6 +26,10 @@ export const MenuItem = forwardRef<
 		);
 	}
 
+	// In most cases, the menu store will be retrieved from context (ie. the store
+	// created by the top-level menu component). But in rare cases (ie.
+	// `Menu.SubmenuTriggerItem`), the context store wouldn't be correct. This is
+	// why the component accepts a `store` prop to override the context store.
 	const computedStore = store ?? menuContext.store;
 
 	return (
