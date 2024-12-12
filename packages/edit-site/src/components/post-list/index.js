@@ -109,6 +109,7 @@ function useView( postType ) {
 		return {
 			...initialView,
 			type,
+			...defaultLayouts[ type ],
 		};
 	} );
 
