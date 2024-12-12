@@ -29,7 +29,7 @@ import {
 export const defaultLayouts = {
 	[ LAYOUT_TABLE ]: {
 		layout: {
-			hierarchicalSort: 'parent',
+			hierarchicalSort: true,
 		},
 	},
 	[ LAYOUT_GRID ]: {},
@@ -48,7 +48,7 @@ const DEFAULT_POST_BASE = {
 	},
 	titleField: 'title',
 	mediaField: 'featured_media',
-	fields: [ 'author', 'status' ],
+	fields: [ 'parent', 'author', 'status' ],
 	...defaultLayouts[ LAYOUT_LIST ],
 };
 
