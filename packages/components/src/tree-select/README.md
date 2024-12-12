@@ -7,8 +7,8 @@
 Generates a hierarchical select input.
 
 ```jsx
+import { useState } from 'react';
 import { TreeSelect } from '@wordpress/components';
-import { useState } from '@wordpress/element';
 
 const MyTreeSelect = () => {
 	const [ page, setPage ] = useState( 'p21' );
@@ -147,7 +147,9 @@ Renders an element on the left side of the input.
 By default, the prefix is aligned with the edge of the input border, with no padding.
 If you want to apply standard padding in accordance with the size variant, wrap the element in
 the provided `<InputControlPrefixWrapper>` component.
-@example import {
+
+```jsx
+import {
   __experimentalInputControl as InputControl,
   __experimentalInputControlPrefixWrapper as InputControlPrefixWrapper,
 } from '@wordpress/components';
@@ -155,6 +157,7 @@ the provided `<InputControlPrefixWrapper>` component.
 <InputControl
   prefix={<InputControlPrefixWrapper>@</InputControlPrefixWrapper>}
 />
+```
 
  - Type: `ReactNode`
  - Required: No
@@ -181,7 +184,9 @@ Renders an element on the right side of the input.
 By default, the suffix is aligned with the edge of the input border, with no padding.
 If you want to apply standard padding in accordance with the size variant, wrap the element in
 the provided `<InputControlSuffixWrapper>` component.
-@example import {
+
+```jsx
+import {
   __experimentalInputControl as InputControl,
   __experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
 } from '@wordpress/components';
@@ -189,6 +194,7 @@ the provided `<InputControlSuffixWrapper>` component.
 <InputControl
   suffix={<InputControlSuffixWrapper>%</InputControlSuffixWrapper>}
 />
+```
 
  - Type: `ReactNode`
  - Required: No
