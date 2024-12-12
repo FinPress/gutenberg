@@ -52,7 +52,7 @@ const SetAsPostsPageModal = ( { items, closeModal } ) => {
 				show_on_front: 'page',
 			} );
 
-			createSuccessNotice( __( 'Post page updated' ), {
+			createSuccessNotice( __( 'Posts page updated.' ), {
 				type: 'snackbar',
 			} );
 		} catch ( error ) {

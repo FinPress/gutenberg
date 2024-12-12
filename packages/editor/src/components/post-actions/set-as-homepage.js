@@ -52,7 +52,7 @@ const SetAsHomepageModal = ( { items, closeModal } ) => {
 				show_on_front: 'page',
 			} );
 
-			createSuccessNotice( __( 'Homepage updated' ), {
+			createSuccessNotice( __( 'Homepage updated.' ), {
 				type: 'snackbar',
 			} );
 		} catch ( error ) {
