@@ -30,19 +30,13 @@ export const MenuPopover = forwardRef<
 ) {
 	const menuContext = useContext( MenuContext );
 
-	if ( ! menuContext?.store ) {
-		throw new Error(
-			'Menu.Popover can only be rendered inside a Menu component'
-		);
-	}
-
 	// Extract the side from the applied placement — useful for animations.
 	// Using `currentPlacement` instead of `placement` to make sure that we
 	// use the final computed placement (including "flips" etc).
 	const appliedPlacementSide = Ariakit.useStoreState(
-		menuContext.store,
+		menuContext?.store,
 		'currentPlacement'
-	).split( '-' )[ 0 ];
+	)?.split( '-' )[ 0 ];
 
 	const hideOnEscape = useCallback(
 		( event: React.KeyboardEvent< Element > ) => {
@@ -55,7 +49,7 @@ export const MenuPopover = forwardRef<
 		[]
 	);
 
-	const computedDirection = Ariakit.useStoreState( menuContext.store, 'rtl' )
+	const computedDirection = Ariakit.useStoreState( menuContext?.store, 'rtl' )
 		? 'rtl'
 		: 'ltr';
 
@@ -69,6 +63,12 @@ export const MenuPopover = forwardRef<
 		} ),
 		[ computedDirection ]
 	);
+
+	if ( ! menuContext?.store ) {
+		throw new Error(
+			'Menu.Popover can only be rendered inside a Menu component'
+		);
+	}
 
 	return (
 		<Ariakit.Menu
