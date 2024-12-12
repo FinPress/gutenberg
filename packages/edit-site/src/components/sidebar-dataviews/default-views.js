@@ -27,7 +27,11 @@ import {
 } from '../../utils/constants';
 
 export const defaultLayouts = {
-	[ LAYOUT_TABLE ]: {},
+	[ LAYOUT_TABLE ]: {
+		layout: {
+			hierarchicalSort: true,
+		},
+	},
 	[ LAYOUT_GRID ]: {},
 	[ LAYOUT_LIST ]: {},
 };

@@ -196,6 +196,7 @@ function getItemId( item ) {
 
 export default function PostList( { postType } ) {
 	const [ view, setView ] = useView( postType );
+	const [ isDirty, setIsDirty ] = useState( false );
 	const defaultViews = useDefaultViews( { postType } );
 	const history = useHistory();
 	const location = useLocation();
@@ -219,11 +220,27 @@ export default function PostList( { postType } ) {
 		},
 		[ location.path, location.query.isCustom, history ]
 	);
-
 	const getActiveViewFilters = ( views, match ) => {
 		const found = views.find( ( { slug } ) => slug === match );
 		return found?.filters ?? [];
 	};
+	useEffect( () => {
+		if ( isDirty ) {
+			return;
+		}
+
+		// The sort defaults are set in DEFAULT_POST_BASE.
+		if ( view.sort.field !== 'title' || view.sort.direction !== 'asc' ) {
+			setIsDirty( true );
+			setView( {
+				...view,
+				layout: {
+					...( view?.layout || {} ),
+					hierarchicalSort: false,
+				},
+			} );
+		}
+	}, [ isDirty, view ] );
 
 	const { isLoading: isLoadingFields, fields: _fields } = usePostFields( {
 		postType,
@@ -300,8 +317,7 @@ export default function PostList( { postType } ) {
 			_embed: 'author',
 			order: view.sort?.direction,
 			orderby: view.sort?.field,
-			orderby_hierarchy:
-				view.type === 'table' && !! view.layout?.hierarchicalSort,
+			orderby_hierarchy: !! view.layout?.hierarchicalSort,
 			search: view.search,
 			...filters,
 		};
