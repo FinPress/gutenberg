@@ -48,7 +48,7 @@ const DEFAULT_POST_BASE = {
 	},
 	titleField: 'title',
 	mediaField: 'featured_media',
-	fields: [ 'parent', 'author', 'status' ],
+	fields: [ 'author', 'status' ],
 	...defaultLayouts[ LAYOUT_LIST ],
 };
 
