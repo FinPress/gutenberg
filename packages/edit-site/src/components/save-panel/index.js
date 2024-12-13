@@ -145,6 +145,7 @@ export default function SavePanel() {
 				className="edit-site-save-panel__modal"
 				onRequestClose={ onClose }
 				title={ __( 'Review changes' ) }
+				size="small"
 			>
 				<_EntitiesSavedStates onClose={ onClose } isWithinModalDialog />
 			</Modal>
