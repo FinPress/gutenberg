@@ -115,7 +115,7 @@ export function EntitiesSavedStatesExtensible( {
 		'description'
 	);
 
-	const selectItemsToSaveDescription = dirtyEntityRecords.length
+	const selectItemsToSaveDescription = !! dirtyEntityRecords.length
 		? __( 'Select the items you want to save.' )
 		: undefined;
 
