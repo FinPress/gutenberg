@@ -25,12 +25,12 @@ import {
 	ToolbarGroup,
 	ToolbarButton,
 	ResizableBox,
-	PanelBody,
-	__experimentalVStack as VStack,
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalUnitControl as UnitControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
 import { Icon, search } from '@wordpress/icons';
@@ -408,15 +408,28 @@ export default function SearchEdit( {
 			</BlockControls>
 
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings' ) }>
-					<VStack
-						className="wp-block-search__inspector-controls"
-						spacing={ 4 }
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ () => {
+						setAttributes( {
+							width: undefined,
+							widthUnit: undefined,
+						} );
+					} }
+				>
+					<ToolsPanelItem
+						hasValue={ () => !! width }
+						label={ __( 'Width' ) }
+						resetAll={ () =>
+							setAttributes( {
+								width: undefined,
+							} )
+						}
 					>
 						<UnitControl
 							__next40pxDefaultSize
 							label={ __( 'Width' ) }
-							id={ unitControlInputId } // unused, kept for backwards compatibility
+							id={ unitControlInputId }
 							min={
 								isPercentageUnit( widthUnit ) ? 0 : MIN_WIDTH
 							}
@@ -446,6 +459,21 @@ export default function SearchEdit( {
 							value={ `${ width }${ widthUnit }` }
 							units={ units }
 						/>
+					</ToolsPanelItem>
+
+					<ToolsPanelItem
+						hasValue={ () =>
+							PERCENTAGE_WIDTHS.includes( width ) &&
+							widthUnit === '%'
+						}
+						label={ __( 'Percentage Width' ) }
+						resetAll={ () =>
+							setAttributes( {
+								width: undefined,
+								widthUnit: undefined,
+							} )
+						}
+					>
 						<ToggleGroupControl
 							label={ __( 'Percentage Width' ) }
 							value={
@@ -475,8 +503,8 @@ export default function SearchEdit( {
 								);
 							} ) }
 						</ToggleGroupControl>
-					</VStack>
-				</PanelBody>
+					</ToolsPanelItem>
+				</ToolsPanel>
 			</InspectorControls>
 		</>
 	);
