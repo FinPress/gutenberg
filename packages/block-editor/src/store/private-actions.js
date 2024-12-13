@@ -27,8 +27,6 @@ const privateSettings = [
 	'inserterMediaCategories',
 	'blockInspectorAnimation',
 	'mediaSideload',
-	'validateFileSize',
-	'validateMimeType',
 ];
 
 /**
