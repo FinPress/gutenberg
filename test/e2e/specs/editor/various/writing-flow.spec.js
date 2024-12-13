@@ -314,9 +314,8 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.type( 'a' );
 		await page.keyboard.press( 'Backspace' );
 		await expect.poll( editor.getEditedPostContent ).toBe( `<!-- wp:list -->
-<ul class="wp-block-list"><!-- wp:list-item -->
-<li></li>
-<!-- /wp:list-item --></ul>
+<ul class="wp-block-list"><!-- wp:list-item /-->
+</ul>
 <!-- /wp:list -->` );
 	} );
 
