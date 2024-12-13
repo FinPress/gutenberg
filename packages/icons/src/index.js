@@ -38,6 +38,11 @@ export { default as capturePhoto } from './library/capture-photo';
 export { default as captureVideo } from './library/capture-video';
 export { default as category } from './library/category';
 export { default as caution } from './library/caution';
+export {
+	/** @deprecated Import `cautionFilled` instead. */
+	default as warning,
+	default as cautionFilled,
+} from './library/caution-filled';
 export { default as chartBar } from './library/chart-bar';
 export { default as check } from './library/check';
 export { default as chevronDown } from './library/chevron-down';
@@ -303,6 +308,5 @@ export { default as update } from './library/update';
 export { default as upload } from './library/upload';
 export { default as verse } from './library/verse';
 export { default as video } from './library/video';
-export { default as warning } from './library/warning';
 export { default as widget } from './library/widget';
 export { default as wordpress } from './library/wordpress';
