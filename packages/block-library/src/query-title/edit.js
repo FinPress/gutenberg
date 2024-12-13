@@ -14,7 +14,11 @@ import {
 	Warning,
 	HeadingLevelDropdown,
 } from '@wordpress/block-editor';
-import { ToggleControl, PanelBody } from '@wordpress/components';
+import {
+	ToggleControl,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+} from '@wordpress/components';
 import { __, _x, sprintf } from '@wordpress/i18n';
 
 /**
@@ -89,16 +93,34 @@ export default function QueryTitleEdit( {
 		titleElement = (
 			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Settings' ) }>
-						<ToggleControl
-							__nextHasNoMarginBottom
+					<ToolsPanel
+						label={ __( 'Settings' ) }
+						resetAll={ () =>
+							setAttributes( {
+								showPrefix: false,
+							} )
+						}
+					>
+						<ToolsPanelItem
+							hasValue={ () => showPrefix !== undefined }
 							label={ __( 'Show archive type in title' ) }
-							onChange={ () =>
-								setAttributes( { showPrefix: ! showPrefix } )
+							onDeselect={ () =>
+								setAttributes( { showPrefix: false } )
 							}
-							checked={ showPrefix }
-						/>
-					</PanelBody>
+							resetAllFilter="core/filter-reset-all-settings"
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ __( 'Show archive type in title' ) }
+								onChange={ () =>
+									setAttributes( {
+										showPrefix: ! showPrefix,
+									} )
+								}
+								checked={ showPrefix }
+							/>
+						</ToolsPanelItem>
+					</ToolsPanel>
 				</InspectorControls>
 				<TagName { ...blockProps }>{ title }</TagName>
 			</>
@@ -109,18 +131,33 @@ export default function QueryTitleEdit( {
 		titleElement = (
 			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Settings' ) }>
-						<ToggleControl
-							__nextHasNoMarginBottom
+					<ToolsPanel
+						label={ __( 'Settings' ) }
+						resetAll={ () =>
+							setAttributes( {
+								showSearchTerm: false,
+							} )
+						}
+					>
+						<ToolsPanelItem
+							hasValue={ () => showSearchTerm !== undefined }
 							label={ __( 'Show search term in title' ) }
-							onChange={ () =>
-								setAttributes( {
-									showSearchTerm: ! showSearchTerm,
-								} )
+							onDeselect={ () =>
+								setAttributes( { showSearchTerm: false } )
 							}
-							checked={ showSearchTerm }
-						/>
-					</PanelBody>
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ __( 'Show search term in title' ) }
+								onChange={ () =>
+									setAttributes( {
+										showSearchTerm: ! showSearchTerm,
+									} )
+								}
+								checked={ showSearchTerm }
+							/>
+						</ToolsPanelItem>
+					</ToolsPanel>
 				</InspectorControls>
 
 				<TagName { ...blockProps }>
