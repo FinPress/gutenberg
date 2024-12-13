@@ -60,8 +60,8 @@ describe( 'List block', () => {
 
 	it( 'adds one item to the list', async () => {
 		const initialHtml = `<!-- wp:list -->
-		<ul class="wp-block-list"><!-- wp:list-item -->
-		<li></li><!-- /wp:list-item --></ul>
+		<ul class="wp-block-list"><!-- wp:list-item /-->
+		</ul>
 		<!-- /wp:list -->`;
 
 		const screen = await initializeEditor( {
