@@ -1398,9 +1398,8 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.type( '1' );
 
 		expect( await editor.getEditedPostContent() ).toBe( `<!-- wp:list -->
-<ul class="wp-block-list"><!-- wp:list-item -->
-<li></li>
-<!-- /wp:list-item --></ul>
+<ul class="wp-block-list"><!-- wp:list-item /-->
+</ul>
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
