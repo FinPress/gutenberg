@@ -40,14 +40,14 @@ export function ExperimentalBlockCanvas( {
 	const clearerRef = useBlockSelectionClearer();
 	const localRef = useRef();
 	const contentRef = useMergeRefs( [ contentRefProp, clearerRef, localRef ] );
-	const isZoomedOut = useSelect(
-		( select ) => unlock( select( blockEditorStore ) ).isZoomOut(),
+	const zoomLevel = useSelect(
+		( select ) => unlock( select( blockEditorStore ) ).getZoomLevel(),
 		[]
 	);
 	const zoomOutIframeProps =
-		isZoomedOut && ! isTabletViewport
+		zoomLevel !== 100 && ! isTabletViewport
 			? {
-					scale: 'default',
+					scale: zoomLevel,
 					frameSize: '40px',
 			  }
 			: {};
@@ -56,7 +56,8 @@ export function ExperimentalBlockCanvas( {
 		return (
 			<BlockTools
 				__unstableContentRef={ localRef }
-				style={ { height, display: 'flex' } }
+				className="block-editor-block-canvas"
+				style={ { height } }
 			>
 				<EditorStyles
 					styles={ styles }
@@ -67,10 +68,6 @@ export function ExperimentalBlockCanvas( {
 					ref={ contentRef }
 					className="editor-styles-wrapper"
 					tabIndex={ -1 }
-					style={ {
-						height: '100%',
-						width: '100%',
-					} }
 				>
 					{ children }
 				</WritingFlow>
@@ -81,6 +78,7 @@ export function ExperimentalBlockCanvas( {
 	return (
 		<BlockTools
 			__unstableContentRef={ localRef }
+			className="block-editor-block-canvas"
 			style={ { height, display: 'flex' } }
 		>
 			<Iframe

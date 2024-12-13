@@ -659,6 +659,14 @@ _Related_
 
 -   <https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/line-height-control/README.md>
 
+### LinkControl
+
+Renders a link control. A link control is a controlled input which maintains a value associated with a link (HTML anchor element) and relevant settings for how that link is expected to behave.
+
+_Parameters_
+
+-   _props_ `WPLinkControlProps`: Component props.
+
 ### MediaPlaceholder
 
 _Related_
@@ -1074,14 +1082,6 @@ _Parameters_
 -   _override_ `Object`: Override object.
 -   _override.id_ `?string`: Id of the style override, leave blank to create a new style.
 -   _override.css_ `string`: CSS to apply.
-
-### useZoomOut
-
-A hook used to set the editor mode to zoomed out mode, invoking the hook sets the mode.
-
-_Parameters_
-
--   _zoomOut_ `boolean`: If we should enter into zoomOut mode or not
 
 ### Warning
 

@@ -27,31 +27,9 @@ import {
 } from '../../utils/constants';
 
 export const defaultLayouts = {
-	[ LAYOUT_TABLE ]: {
-		layout: {
-			primaryField: 'title',
-			styles: {
-				'featured-image': {
-					width: '1%',
-				},
-				title: {
-					maxWidth: 300,
-				},
-			},
-		},
-	},
-	[ LAYOUT_GRID ]: {
-		layout: {
-			mediaField: 'featured-image',
-			primaryField: 'title',
-		},
-	},
-	[ LAYOUT_LIST ]: {
-		layout: {
-			primaryField: 'title',
-			mediaField: 'featured-image',
-		},
-	},
+	[ LAYOUT_TABLE ]: {},
+	[ LAYOUT_GRID ]: {},
+	[ LAYOUT_LIST ]: {},
 };
 
 const DEFAULT_POST_BASE = {
@@ -64,8 +42,10 @@ const DEFAULT_POST_BASE = {
 		field: 'date',
 		direction: 'desc',
 	},
-	fields: [ 'title', 'author', 'status' ],
-	layout: defaultLayouts[ LAYOUT_LIST ].layout,
+	titleField: 'title',
+	mediaField: 'featured_media',
+	fields: [ 'author', 'status' ],
+	...defaultLayouts[ LAYOUT_LIST ],
 };
 
 export function useDefaultViews( { postType } ) {

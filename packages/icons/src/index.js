@@ -37,6 +37,12 @@ export { default as caption } from './library/caption';
 export { default as capturePhoto } from './library/capture-photo';
 export { default as captureVideo } from './library/capture-video';
 export { default as category } from './library/category';
+export { default as caution } from './library/caution';
+export {
+	/** @deprecated Import `cautionFilled` instead. */
+	default as warning,
+	default as cautionFilled,
+} from './library/caution-filled';
 export { default as chartBar } from './library/chart-bar';
 export { default as check } from './library/check';
 export { default as chevronDown } from './library/chevron-down';
@@ -84,6 +90,7 @@ export { default as download } from './library/download';
 export { default as edit } from './library/edit';
 export { default as envelope } from './library/envelope';
 export { default as external } from './library/external';
+export { default as error } from './library/error';
 export { default as file } from './library/file';
 export { default as filter } from './library/filter';
 export { default as flipHorizontal } from './library/flip-horizontal';
@@ -130,11 +137,16 @@ export { default as image } from './library/image';
 export { default as info } from './library/info';
 export { default as insertAfter } from './library/insert-after';
 export { default as insertBefore } from './library/insert-before';
+export { default as justifyBottom } from './library/justify-bottom';
 export { default as justifyLeft } from './library/justify-left';
 export { default as justifyCenter } from './library/justify-center';
+export { default as justifyCenterVertical } from './library/justify-center-vertical';
 export { default as justifyRight } from './library/justify-right';
 export { default as justifySpaceBetween } from './library/justify-space-between';
+export { default as justifySpaceBetweenVertical } from './library/justify-space-between-vertical';
 export { default as justifyStretch } from './library/justify-stretch';
+export { default as justifyStretchVertical } from './library/justify-stretch-vertical';
+export { default as justifyTop } from './library/justify-top';
 export { default as key } from './library/key';
 export { default as keyboard } from './library/keyboard';
 export { default as keyboardClose } from './library/keyboard-close';
@@ -296,6 +308,5 @@ export { default as update } from './library/update';
 export { default as upload } from './library/upload';
 export { default as verse } from './library/verse';
 export { default as video } from './library/video';
-export { default as warning } from './library/warning';
 export { default as widget } from './library/widget';
 export { default as wordpress } from './library/wordpress';

@@ -31,7 +31,7 @@ const { EntitiesSavedStatesExtensible, NavigableRegion } =
 	unlock( privateApis );
 const { useLocation } = unlock( routerPrivateApis );
 
-const EntitiesSavedStatesForPreview = ( { onClose } ) => {
+const EntitiesSavedStatesForPreview = ( { onClose, renderDialog } ) => {
 	const isDirtyProps = useEntitiesSavedStatesIsDirty();
 	let activateSaveLabel;
 	if ( isDirtyProps.isDirty ) {
@@ -50,7 +50,7 @@ const EntitiesSavedStatesForPreview = ( { onClose } ) => {
 	const additionalPrompt = (
 		<p>
 			{ sprintf(
-				/* translators: %1$s: The name of active theme, %2$s: The name of theme to be activated. */
+				/* translators: 1: The name of active theme, 2: The name of theme to be activated. */
 				__(
 					'Saving your changes will change your active theme from %1$s to %2$s.'
 				),
@@ -75,14 +75,20 @@ const EntitiesSavedStatesForPreview = ( { onClose } ) => {
 				onSave,
 				saveEnabled: true,
 				saveLabel: activateSaveLabel,
+				renderDialog,
 			} }
 		/>
 	);
 };
 
-const _EntitiesSavedStates = ( { onClose, renderDialog = undefined } ) => {
+const _EntitiesSavedStates = ( { onClose, renderDialog } ) => {
 	if ( isPreviewingTheme() ) {
-		return <EntitiesSavedStatesForPreview onClose={ onClose } />;
+		return (
+			<EntitiesSavedStatesForPreview
+				onClose={ onClose }
+				renderDialog={ renderDialog }
+			/>
+		);
 	}
 	return (
 		<EntitiesSavedStates close={ onClose } renderDialog={ renderDialog } />
@@ -90,8 +96,8 @@ const _EntitiesSavedStates = ( { onClose, renderDialog = undefined } ) => {
 };
 
 export default function SavePanel() {
-	const { params } = useLocation();
-	const { canvas = 'view' } = params;
+	const { query } = useLocation();
+	const { canvas = 'view' } = query;
 	const { isSaveViewOpen, isDirty, isSaving } = useSelect( ( select ) => {
 		const {
 			__experimentalGetDirtyEntityRecords,

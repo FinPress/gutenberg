@@ -60,6 +60,7 @@ const DEFAULT_COLOR = '#000';
 function NameInput( { value, onChange, label }: NameInputProps ) {
 	return (
 		<NameInputControl
+			size="compact"
 			label={ label }
 			hideLabelFromVision
 			value={ value }
@@ -215,6 +216,7 @@ function Option< T extends PaletteElement >( {
 		<Item ref={ setPopoverAnchor } size="small">
 			<HStack justify="flex-start">
 				<Button
+					size="small"
 					onClick={ () => {
 						setIsEditingColor( true );
 					} }
@@ -501,6 +503,7 @@ export function PaletteEdit( {
 										<NavigableMenu role="menu">
 											{ ! isEditing && (
 												<Button
+													__next40pxDefaultSize
 													variant="tertiary"
 													onClick={ () => {
 														setIsEditing( true );
@@ -513,6 +516,7 @@ export function PaletteEdit( {
 											) }
 											{ ! canOnlyChangeValues && (
 												<Button
+													__next40pxDefaultSize
 													variant="tertiary"
 													onClick={ () => {
 														setEditingElement(
@@ -535,6 +539,8 @@ export function PaletteEdit( {
 											) }
 											{ canReset && (
 												<Button
+													__next40pxDefaultSize
+													className="components-palette-edit__menu-button"
 													variant="tertiary"
 													onClick={ () => {
 														setEditingElement(
