@@ -54,8 +54,7 @@ exports[`List block changes to reverse ordered list 1`] = `
 
 exports[`List block inserts block 1`] = `
 "<!-- wp:list -->
-<ul class="wp-block-list"><!-- wp:list-item /-->
-</ul>
+<ul class="wp-block-list"><!-- wp:list-item /--></ul>
 <!-- /wp:list -->"
 `;
 
