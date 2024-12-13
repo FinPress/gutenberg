@@ -10,20 +10,19 @@ export default function addContainer( ariaLive = 'polite' ) {
 	container.id = `a11y-speak-${ ariaLive }`;
 	container.className = 'a11y-speak-region';
 
-	container.setAttribute(
-		'style',
-		'position: absolute;' +
-			'margin: -1px;' +
-			'padding: 0;' +
-			'height: 1px;' +
-			'width: 1px;' +
-			'overflow: hidden;' +
-			'clip: rect(1px, 1px, 1px, 1px);' +
-			'-webkit-clip-path: inset(50%);' +
-			'clip-path: inset(50%);' +
-			'border: 0;' +
-			'word-wrap: normal !important;'
-	);
+	Object.assign( container.style, {
+		position: 'absolute',
+		margin: '-1px',
+		padding: '0',
+		height: '1px',
+		width: '1px',
+		overflow: 'hidden',
+		clip: 'rect(1px, 1px, 1px, 1px)',
+		webkitClipPath: 'inset(50%)',
+		clipPath: 'inset(50%)',
+		border: '0',
+		wordWrap: 'normal',
+	} );
 	container.setAttribute( 'aria-live', ariaLive );
 	container.setAttribute( 'aria-relevant', 'additions text' );
 	container.setAttribute( 'aria-atomic', 'true' );
