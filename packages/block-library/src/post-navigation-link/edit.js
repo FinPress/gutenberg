@@ -11,7 +11,8 @@ import {
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	ToggleControl,
 	SelectControl,
-	PanelBody,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import {
 	InspectorControls,
@@ -94,20 +95,26 @@ export default function PostNavigationLinkEdit( {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody>
-					<ToggleControl
-						__nextHasNoMarginBottom
-						label={ __( 'Display the title as a link' ) }
-						help={ __(
-							'If you have entered a custom label, it will be prepended before the title.'
-						) }
-						checked={ !! showTitle }
-						onChange={ () =>
-							setAttributes( {
-								showTitle: ! showTitle,
-							} )
-						}
-					/>
+				<ToolsPanel label={__('Settings')}>
+					<ToolsPanelItem
+						hasValue={() => !!showTitle}
+						label={__('Display the title as a link')}
+						onDeselect={() => setAttributes({ showTitle: false })}
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={__('Display the title as a link')}
+							help={__(
+								'If you have entered a custom label, it will be prepended before the title.'
+							)}
+							checked={!!showTitle}
+							onChange={() =>
+								setAttributes({
+									showTitle: !showTitle,
+								})
+							}
+						/>
+					</ToolsPanelItem>
 					{ showTitle && (
 						<ToggleControl
 							__nextHasNoMarginBottom
@@ -122,42 +129,50 @@ export default function PostNavigationLinkEdit( {
 							}
 						/>
 					) }
-					<ToggleGroupControl
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-						label={ __( 'Arrow' ) }
-						value={ arrow }
-						onChange={ ( value ) => {
-							setAttributes( { arrow: value } );
-						} }
-						help={ __(
-							'A decorative arrow for the next and previous link.'
-						) }
-						isBlock
+					<ToolsPanelItem
+						hasValue={() => !!arrow}
+						label={__('Arrow')}
+						onDeselect={() => setAttributes({ arrow: 'none' })}
 					>
-						<ToggleGroupControlOption
-							value="none"
-							label={ _x(
-								'None',
-								'Arrow option for Next/Previous link'
-							) }
-						/>
-						<ToggleGroupControlOption
-							value="arrow"
-							label={ _x(
-								'Arrow',
-								'Arrow option for Next/Previous link'
-							) }
-						/>
-						<ToggleGroupControlOption
-							value="chevron"
-							label={ _x(
-								'Chevron',
-								'Arrow option for Next/Previous link'
-							) }
-						/>
-					</ToggleGroupControl>
-				</PanelBody>
+						<ToggleGroupControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={__('Arrow')}
+							value={arrow}
+							onChange={(value) => {
+								setAttributes({ arrow: value });
+							}}
+							help={__(
+								'A decorative arrow for the next and previous link.'
+							)}
+							isBlock
+						>
+							<ToggleGroupControlOption
+								value="none"
+								label={_x(
+									'None',
+									'Arrow option for Next/Previous link'
+								)}
+							/>
+							<ToggleGroupControlOption
+								value="arrow"
+								label={_x(
+									'Arrow',
+									'Arrow option for Next/Previous link'
+								)}
+							/>
+							<ToggleGroupControlOption
+								value="chevron"
+								label={_x(
+									'Chevron',
+									'Arrow option for Next/Previous link'
+								)}
+							/>
+						</ToggleGroupControl>
+					</ToolsPanelItem>
+				</ToolsPanel>
+				
+				
 			</InspectorControls>
 			<InspectorControls group="advanced">
 				<SelectControl
