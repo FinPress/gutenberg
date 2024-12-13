@@ -20,6 +20,7 @@ import Button from '../../button';
 import Modal from '../../modal';
 import { createSlotFill, Provider as SlotFillProvider } from '../../slot-fill';
 import { ContextSystemProvider } from '../../context';
+import type { MenuProps } from '../types';
 
 const meta: Meta< typeof Menu > = {
 	id: 'components-experimental-menu',
@@ -66,7 +67,7 @@ const meta: Meta< typeof Menu > = {
 };
 export default meta;
 
-export const Default: StoryFn< typeof Menu > = ( props ) => (
+export const Default: StoryFn< typeof Menu > = ( props: MenuProps ) => (
 	<Menu { ...props }>
 		<Menu.TriggerButton
 			render={ <Button __next40pxDefaultSize variant="secondary" /> }
@@ -118,7 +119,7 @@ export const Default: StoryFn< typeof Menu > = ( props ) => (
 );
 Default.args = {};
 
-export const WithSubmenu: StoryFn< typeof Menu > = ( props ) => (
+export const WithSubmenu: StoryFn< typeof Menu > = ( props: MenuProps ) => (
 	<Menu { ...props }>
 		<Menu.TriggerButton
 			render={ <Button __next40pxDefaultSize variant="secondary" /> }
@@ -162,7 +163,7 @@ WithSubmenu.args = {
 	...Default.args,
 };
 
-export const WithCheckboxes: StoryFn< typeof Menu > = ( props ) => {
+export const WithCheckboxes: StoryFn< typeof Menu > = ( props: MenuProps ) => {
 	const [ isAChecked, setAChecked ] = useState( false );
 	const [ isBChecked, setBChecked ] = useState( true );
 	const [ multipleCheckboxesValue, setMultipleCheckboxesValue ] = useState<
@@ -296,7 +297,7 @@ WithCheckboxes.args = {
 	...Default.args,
 };
 
-export const WithRadios: StoryFn< typeof Menu > = ( props ) => {
+export const WithRadios: StoryFn< typeof Menu > = ( props: MenuProps ) => {
 	const [ radioValue, setRadioValue ] = useState( 'two' );
 	const onRadioChange: React.ComponentProps<
 		typeof Menu.RadioItem
@@ -366,7 +367,7 @@ const modalOnTopOfMenuPopover = css`
 `;
 
 // For more examples with `Modal`, check https://ariakit.org/examples/menu-wordpress-modal
-export const WithModals: StoryFn< typeof Menu > = ( props ) => {
+export const WithModals: StoryFn< typeof Menu > = ( props: MenuProps ) => {
 	const [ isOuterModalOpen, setOuterModalOpen ] = useState( false );
 	const [ isInnerModalOpen, setInnerModalOpen ] = useState( false );
 
@@ -477,7 +478,7 @@ const Fill = ( { children }: { children: React.ReactNode } ) => {
 	);
 };
 
-export const WithSlotFill: StoryFn< typeof Menu > = ( props ) => {
+export const WithSlotFill: StoryFn< typeof Menu > = ( props: MenuProps ) => {
 	return (
 		<SlotFillProvider>
 			<Menu { ...props }>
@@ -525,7 +526,7 @@ const toolbarVariantContextValue = {
 		variant: 'toolbar',
 	},
 };
-export const ToolbarVariant: StoryFn< typeof Menu > = ( props ) => (
+export const ToolbarVariant: StoryFn< typeof Menu > = ( props: MenuProps ) => (
 	// TODO: add toolbar
 	<ContextSystemProvider value={ toolbarVariantContextValue }>
 		<Menu { ...props }>
@@ -560,7 +561,7 @@ ToolbarVariant.args = {
 	...Default.args,
 };
 
-export const InsideModal: StoryFn< typeof Menu > = ( props ) => {
+export const InsideModal: StoryFn< typeof Menu > = ( props: MenuProps ) => {
 	const [ isModalOpen, setModalOpen ] = useState( false );
 	return (
 		<>
