@@ -252,6 +252,11 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 						onChange={ ( value ) =>
 							setAttributes( { displayPostContent: value } )
 						}
+						className={
+							displayPostContent
+								? 'latest-posts-toggle-control-margin-bottom'
+								: ''
+						}
 					/>
 					{ displayPostContent && (
 						<RadioControl
@@ -311,8 +316,8 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 						onChange={ ( value ) =>
 							setAttributes( { displayAuthor: value } )
 						}
+						className="latest-posts-toggle-control-margin-bottom"
 					/>
-					<div className="components-base-control__field"></div>
 					<ToggleControl
 						__nextHasNoMarginBottom
 						label={ __( 'Display post date' ) }
@@ -351,6 +356,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 						onChange={ ( value ) =>
 							setAttributes( { displayFeaturedImage: value } )
 						}
+						className="latest-posts-toggle-control-margin-bottom"
 					/>
 					{ displayFeaturedImage && (
 						<>
@@ -421,6 +427,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 										addLinkToFeaturedImage: value,
 									} )
 								}
+								className="latest-posts-toggle-control-margin-top"
 							/>
 						</>
 					) }
