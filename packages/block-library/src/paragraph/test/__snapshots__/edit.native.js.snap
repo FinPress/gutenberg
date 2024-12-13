@@ -8,8 +8,7 @@ exports[`Paragraph block should be able to use a prefix to create a Heading bloc
 
 exports[`Paragraph block should be able to use a prefix to create a List block 1`] = `
 "<!-- wp:list -->
-<ul class="wp-block-list"><!-- wp:list-item /-->
-</ul>
+<ul class="wp-block-list"><!-- wp:list-item /--></ul>
 <!-- /wp:list -->"
 `;
 
@@ -23,8 +22,7 @@ exports[`Paragraph block should be able to use a prefix to create a Quote block 
 
 exports[`Paragraph block should be able to use a prefix to create a numbered List block 1`] = `
 "<!-- wp:list {"ordered":true} -->
-<ol class="wp-block-list"><!-- wp:list-item /-->
-</ol>
+<ol class="wp-block-list"><!-- wp:list-item /--></ol>
 <!-- /wp:list -->"
 `;
 
