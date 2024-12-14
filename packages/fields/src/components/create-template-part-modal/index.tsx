@@ -10,6 +10,7 @@ import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
+import { useInstanceId } from '@wordpress/compose';
 import { store as coreStore } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
@@ -34,11 +35,11 @@ import {
 	useExistingTemplateParts,
 } from './utils';
 
-function getAreaRadioId( value: string ) {
-	return `fields-create-template-part-modal__area-option-${ value }`;
+function getAreaRadioId( value: string, instanceId: number ) {
+	return `fields-create-template-part-modal__area-option-${ value }-${ instanceId }`;
 }
-function getAreaRadioDescriptionId( value: string ) {
-	return `fields-create-template-part-modal__area-option-description-${ value }`;
+function getAreaRadioDescriptionId( value: string, instanceId: number ) {
+	return `fields-create-template-part-modal__area-option-description-${ value }-${ instanceId }`;
 }
 
 type CreateTemplatePartModalContentsProps = {
@@ -130,6 +131,7 @@ export function CreateTemplatePartModalContents( {
 	const [ title, setTitle ] = useState( defaultTitle );
 	const [ area, setArea ] = useState( defaultArea );
 	const [ isSubmitting, setIsSubmitting ] = useState( false );
+	const instanceId = useInstanceId( CreateTemplatePartModal );
 
 	const defaultTemplatePartAreas = useSelect(
 		( select ) =>
@@ -215,15 +217,19 @@ export function CreateTemplatePartModalContents( {
 								>
 									<input
 										type="radio"
-										id={ getAreaRadioId( item.area ) }
-										name="fields-create-template-part-modal__area"
+										id={ getAreaRadioId(
+											item.area,
+											instanceId
+										) }
+										name={ `fields-create-template-part-modal__area-${ instanceId }` }
 										value={ item.area }
 										checked={ area === item.area }
 										onChange={ () => {
 											setArea( item.area );
 										} }
 										aria-describedby={ getAreaRadioDescriptionId(
-											item.area
+											item.area,
+											instanceId
 										) }
 									/>
 									<Icon
@@ -231,7 +237,10 @@ export function CreateTemplatePartModalContents( {
 										className="fields-create-template-part-modal__area-radio-icon"
 									/>
 									<label
-										htmlFor={ getAreaRadioId( item.area ) }
+										htmlFor={ getAreaRadioId(
+											item.area,
+											instanceId
+										) }
 										className="fields-create-template-part-modal__area-radio-label"
 									>
 										{ item.label }
@@ -243,7 +252,8 @@ export function CreateTemplatePartModalContents( {
 									<p
 										className="fields-create-template-part-modal__area-radio-description"
 										id={ getAreaRadioDescriptionId(
-											item.area
+											item.area,
+											instanceId
 										) }
 									>
 										{ item.description }
