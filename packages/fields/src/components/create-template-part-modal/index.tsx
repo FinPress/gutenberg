@@ -202,10 +202,7 @@ export function CreateTemplatePartModalContents( {
 					required
 				/>
 				<fieldset>
-					<BaseControl.VisualLabel
-						as="legend"
-						className="fields-create-template-part-modal__area-radio-group-label"
-					>
+					<BaseControl.VisualLabel as="legend">
 						{ __( 'Area' ) }
 					</BaseControl.VisualLabel>
 					<div className="fields-create-template-part-modal__area-radio-group">
