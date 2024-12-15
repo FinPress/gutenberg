@@ -7,25 +7,28 @@
  * @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
  */
 
-$wrapper_attributes = get_block_wrapper_attributes(
-	array(
-		'data-wp-interactive'   => 'test/router-styles',
-		'data-wp-router-region' => 'router-styles',
-	)
-);
+$wrapper_attributes = get_block_wrapper_attributes();
 ?>
 <div <?php echo $wrapper_attributes; ?>>
-	<nav data-wp-interactive="test/router-styles">
-		<?php foreach ( $attributes['links'] as $label => $link ) : ?>
-			<a
-				data-testid="link <?php echo $label; ?>"
-				data-wp-on--click="actions.navigate"
-				href="<?php echo $link; ?>"
-			>
-				<?php echo $label; ?>
-			</a>
-		<?php endforeach; ?>
-	</nav>
+	<!-- Interactive HTML NOT updated on navigation -->
+	<div data-wp-interactive="test/router-styles">
+		<div
+			data-testid="counter"
+			data-wp-text="state.navigationCount"
+		></div>
+		<nav>
+			<?php foreach ( $attributes['links'] as $label => $link ) : ?>
+				<a
+					data-testid="link <?php echo $label; ?>"
+					data-wp-on--click="actions.navigate"
+					href="<?php echo $link; ?>"
+				>
+					<?php echo $label; ?>
+				</a>
+			<?php endforeach; ?>
+		</nav>
+	</div>
+	<!-- HTML updated on navigation. -->
 	<div
 		data-wp-interactive="test/router-styles"
 		data-wp-router-region="router-styles"
