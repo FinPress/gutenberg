@@ -1,3 +1,4 @@
-.wp-block-test-router-styles-block-b {
+.wp-block-test-router-styles-block-b,
+[data-testid="counter"]  {
     color: blue;
 }
