@@ -17,6 +17,20 @@ import { getSaveContent } from '@wordpress/blocks';
  */
 import BlockView from './block-view';
 
+/**
+ * A comparison component that shows two blocks side-by-side along with differences in HTML highlighted.
+ * This is typically used to show the current block and the results of converting the block.
+ *
+ * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-compare/README.md
+ *
+ * @param {Object}   props                   Component props.
+ * @param {Object}   props.block             The original object to compare against.
+ * @param {Function} props.onKeep            Callback when the original block is required.
+ * @param {Function} props.onConvert         Callback when the converted block is required.
+ * @param {Function} props.convertor         A function that returns a new, converted, block when supplied an existing block. The conversion may fix or alter the block in a way that helps with an invalid block.
+ * @param {string}   props.convertButtonText Text to show in the convert button.
+ * @return {Element} The block compare component.
+ */
 function BlockCompare( {
 	block,
 	onKeep,
