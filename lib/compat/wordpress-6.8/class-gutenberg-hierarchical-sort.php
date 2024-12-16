@@ -101,17 +101,13 @@ class Gutenberg_Hierarchical_Sort {
 		// Process remaining children.
 		if ( ! empty( $children ) ) {
 			foreach ( $children as $parent_id => $child_ids ) {
-				$root_not_found = true;
-				$ancestors = 0;
-				$ancestor  = $parent_id;
-				while( $root_not_found ) {
-					$ancestors++;
+				$level    = 0;
+				$ancestor = $parent_id;
+				while ( 0 !== $ancestor ) {
+					++$level;
 					$ancestor = self::get_ancestor( $ancestor );
-					if ( 0 === $ancestor ) {
-						$root_not_found = false;
-					}
 				}
-				self::add_hierarchical_ids( $ids, $levels, $ancestors, $child_ids, $children );
+				self::add_hierarchical_ids( $ids, $levels, $level, $child_ids, $children );
 			}
 		}
 
