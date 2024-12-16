@@ -457,7 +457,6 @@ export default function useBlockDropZone( {
 					dropTargetPosition;
 
 				const isTargetIndexEmptyDefaultBlock =
-					operation === 'replace' &&
 					blocksData[ targetIndex ]?.isUnmodifiedDefaultBlock;
 
 				if (
