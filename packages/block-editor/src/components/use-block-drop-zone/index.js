@@ -456,7 +456,15 @@ export default function useBlockDropZone( {
 				const [ targetIndex, operation, nearestSide ] =
 					dropTargetPosition;
 
-				if ( isZoomOut() && operation !== 'insert' ) {
+				const isTargetIndexEmptyDefaultBlock =
+					operation === 'replace' &&
+					blocksData[ targetIndex ]?.isUnmodifiedDefaultBlock;
+
+				if (
+					isZoomOut() &&
+					! isTargetIndexEmptyDefaultBlock &&
+					operation !== 'insert'
+				) {
 					return;
 				}
 
