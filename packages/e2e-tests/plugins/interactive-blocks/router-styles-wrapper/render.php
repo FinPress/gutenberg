@@ -12,10 +12,10 @@ $wrapper_attributes = get_block_wrapper_attributes();
 <div <?php echo $wrapper_attributes; ?>>
 	<!-- These get colored when the corresponding block is present. -->
 	<div>
-		<p class="red">Red</p>
-		<p class="green">Green</p>
-		<p class="blue">Blue</p>
-		<p class="red green blue">All</p>
+		<p data-testid="red" class="red">Red</p>
+		<p data-testid="green" class="green">Green</p>
+		<p data-testid="blue" class="blue">Blue</p>
+		<p data-testid="all" class="red green blue">All</p>
 	</div>
 
 	<!-- Links to pages with different blocks combination. -->

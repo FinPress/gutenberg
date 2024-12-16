@@ -3,38 +3,51 @@
  */
 import { test, expect } from './fixtures';
 
+const COLOR_RED = 'rgb(255, 0, 0)';
+const COLOR_GREEN = 'rgb(0, 255, 0)';
+const COLOR_BLUE = 'rgb(0, 0, 255)';
+const COLOR_WRAPPER = 'rgb(160, 12, 60)';
+
 test.describe( 'Router styles', () => {
 	test.beforeAll( async ( { interactivityUtils: utils } ) => {
 		await utils.activatePlugins();
-		const blockA = await utils.addPostWithBlock(
+		const red = await utils.addPostWithBlock(
 			'test/router-styles-wrapper',
 			{
-				alias: 'block A',
-				innerBlocks: [ [ 'test/router-styles-block-a' ] ],
+				alias: 'red',
+				innerBlocks: [ [ 'test/router-styles-red' ] ],
 			}
 		);
-		const blockB = await utils.addPostWithBlock(
+		const green = await utils.addPostWithBlock(
 			'test/router-styles-wrapper',
 			{
-				alias: 'block B',
-				innerBlocks: [ [ 'test/router-styles-block-b' ] ],
+				alias: 'green',
+				innerBlocks: [ [ 'test/router-styles-green' ] ],
+			}
+		);
+		const blue = await utils.addPostWithBlock(
+			'test/router-styles-wrapper',
+			{
+				alias: 'blue',
+				innerBlocks: [ [ 'test/router-styles-blue' ] ],
 			}
 		);
 
-		const both = await utils.addPostWithBlock(
+		const all = await utils.addPostWithBlock(
 			'test/router-styles-wrapper',
 			{
-				alias: 'both',
+				alias: 'all',
 				innerBlocks: [
-					[ 'test/router-styles-block-a' ],
-					[ 'test/router-styles-block-b' ],
+					[ 'test/router-styles-red' ],
+					[ 'test/router-styles-green' ],
+					[ 'test/router-styles-blue' ],
 				],
 			}
 		);
 
 		await utils.addPostWithBlock( 'test/router-styles-wrapper', {
 			alias: 'none',
-			attributes: { links: { blockA, blockB, both } },
+			attributes: { links: { red, green, blue, all } },
 		} );
 	} );
 
@@ -47,60 +60,51 @@ test.describe( 'Router styles', () => {
 		await utils.deleteAllPosts();
 	} );
 
-	test( 'should add new styles from style tags', async ( { page } ) => {
-		const csn = page.getByTestId( 'client-side navigation' );
-		const blockA = page.getByTestId( 'block-a' );
-		const blockB = page.getByTestId( 'block-b' );
-
-		// await expect( counter ).toHaveCSS( 'color', 'rgb(255, 0, 0)' );
-		await expect( blockA ).toBeHidden();
-		await expect( blockB ).toBeHidden();
-
-		await page.getByTestId( 'link blockA' ).click();
-		await expect( csn ).toBeVisible();
-
-		// await expect( counter ).toHaveText( '1' );
-		// await expect( counter ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
-		await expect( blockA ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
-		await expect( blockB ).toBeHidden();
-
-		await page.getByTestId( 'link blockB' ).click();
-		await expect( csn ).toBeVisible();
-
-		// await expect( counter ).toHaveText( '2' );
-		// await expect( counter ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
-		await expect( blockA ).toBeHidden();
-		await expect( blockB ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
-
-		await page.getByTestId( 'link both' ).click();
-		await expect( csn ).toBeVisible();
-
-		// await expect( counter ).toHaveText( '2' );
-		// await expect( counter ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
-		await expect( blockA ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
-		await expect( blockB ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
-	} );
-
-	test( 'should remove styles from style tags missing in the new page', async ( {
+	test( 'should add and remove styles from style tags', async ( {
 		page,
 	} ) => {
-		const counter = page.getByTestId( 'counter' );
+		const csn = page.getByTestId( 'client-side navigation' );
+		const red = page.getByTestId( 'red' );
+		const green = page.getByTestId( 'green' );
+		const blue = page.getByTestId( 'blue' );
+		const all = page.getByTestId( 'all' );
 
-		await page.getByTestId( 'link both' ).click();
+		await expect( red ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( green ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( blue ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( all ).toHaveCSS( 'color', COLOR_WRAPPER );
 
-		await expect( counter ).toHaveText( '1' );
-		await expect( counter ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
+		await page.getByTestId( 'link red' ).click();
 
-		await page.getByTestId( 'link blockA' ).click();
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_RED );
+		await expect( green ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( blue ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( all ).toHaveCSS( 'color', COLOR_RED );
 
-		await expect( counter ).toHaveText( '2' );
-		await expect( counter ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
+		await page.getByTestId( 'link green' ).click();
 
-		await page.goBack();
-		await page.goBack();
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( green ).toHaveCSS( 'color', COLOR_GREEN );
+		await expect( blue ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( all ).toHaveCSS( 'color', COLOR_GREEN );
 
-		await expect( counter ).toHaveText( '2' );
-		await expect( counter ).toHaveCSS( 'color', 'rgb(255, 0, 0)' );
+		await page.getByTestId( 'link blue' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( green ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( blue ).toHaveCSS( 'color', COLOR_BLUE );
+		await expect( all ).toHaveCSS( 'color', COLOR_BLUE );
+
+		await page.getByTestId( 'link all' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_RED );
+		await expect( green ).toHaveCSS( 'color', COLOR_GREEN );
+		await expect( blue ).toHaveCSS( 'color', COLOR_BLUE );
+		await expect( all ).toHaveCSS( 'color', COLOR_BLUE );
 	} );
 
 	test( 'should update style tags with modified content', async () => {} );
