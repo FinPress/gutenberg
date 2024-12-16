@@ -76,13 +76,16 @@ function BlockCard( { title, icon, description, blockType, className, name } ) {
 								sprintf(
 									// translators:  1: Custom block name. 2: Block title.
 									_x(
-										'%1$s <badge>%2$s</badge>',
+										'<span>%1$s</span> <badge>%2$s</badge>',
 										'block label'
 									),
 									name,
 									title
 								),
 								{
+									span: (
+										<span className="block-editor-block-card__name" />
+									),
 									badge: <Badge />,
 								}
 						  )
