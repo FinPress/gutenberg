@@ -127,6 +127,7 @@ export default function PostNavigationLinkEdit( {
 									linkLabel: ! linkLabel,
 								} )
 							}
+							isShownByDefault
 						/>
 					) }
 					<ToolsPanelItem
