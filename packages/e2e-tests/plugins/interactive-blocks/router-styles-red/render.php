@@ -15,6 +15,16 @@ add_action(
 			plugin_dir_url( __FILE__ ) . 'style-from-link.css',
 			array()
 		);
+
+		$custom_css = '
+			.red-from-inline {
+				color: rgb(255, 0, 0);
+			}
+		';
+
+		wp_register_style( 'test-router-styles', false );
+		wp_enqueue_style( 'test-router-styles' );
+		wp_add_inline_style( 'test-router-styles', $custom_css );
 	}
 );
 

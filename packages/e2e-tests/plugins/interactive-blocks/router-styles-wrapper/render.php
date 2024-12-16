@@ -18,6 +18,7 @@ $wrapper_attributes = get_block_wrapper_attributes();
 		<p data-testid="blue" class="blue">Blue</p>
 		<p data-testid="all" class="red green blue">All</p>
 	</fieldset>
+
 	<!-- These get colored when the corresponding block enqueues a referenced stylesheet. -->
 	<fieldset>
 		<legend>Styles from referenced style sheets</legend>
@@ -26,6 +27,15 @@ $wrapper_attributes = get_block_wrapper_attributes();
 		<p data-testid="blue-from-link" class="blue-from-link">Blue from link</p>
 		<p data-testid="all-from-link" class="red-from-link green-from-link blue-from-link">All from link</p>
 		<div data-testid="background-from-link"class="background-from-link" style="width: 10px; height: 10px"></div>
+	</fieldset>
+
+	<!-- These get colored when the corresponding block adds inline style. -->
+	<fieldset>
+		<legend>Styles from inline styles</legend>
+		<p data-testid="red-from-inline" class="red-from-inline">Red</p>
+		<p data-testid="green-from-inline" class="green-from-inline">Green</p>
+		<p data-testid="blue-from-inline" class="blue-from-inline">Blue</p>
+		<p data-testid="all-from-inline" class="red-from-inline green-from-inline blue-from-inline">All</p>
 	</fieldset>
 
 	<!-- Links to pages with different blocks combination. -->

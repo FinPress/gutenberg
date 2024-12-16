@@ -183,5 +183,50 @@ test.describe( 'Router styles', () => {
 		await expect( background ).toHaveScreenshot();
 	} );
 
-	test( 'should update style tags with modified content', async () => {} );
+	test( 'should update style tags with modified content', async ( {
+		page,
+	} ) => {
+		const csn = page.getByTestId( 'client-side navigation' );
+		const red = page.getByTestId( 'red-from-inline' );
+		const green = page.getByTestId( 'green-from-inline' );
+		const blue = page.getByTestId( 'blue-from-inline' );
+		const all = page.getByTestId( 'all-from-inline' );
+
+		await expect( red ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( green ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( blue ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( all ).toHaveCSS( 'color', COLOR_WRAPPER );
+
+		await page.getByTestId( 'link red' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_RED );
+		await expect( green ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( blue ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( all ).toHaveCSS( 'color', COLOR_RED );
+
+		await page.getByTestId( 'link green' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( green ).toHaveCSS( 'color', COLOR_GREEN );
+		await expect( blue ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( all ).toHaveCSS( 'color', COLOR_GREEN );
+
+		await page.getByTestId( 'link blue' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( green ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( blue ).toHaveCSS( 'color', COLOR_BLUE );
+		await expect( all ).toHaveCSS( 'color', COLOR_BLUE );
+
+		await page.getByTestId( 'link all' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_RED );
+		await expect( green ).toHaveCSS( 'color', COLOR_GREEN );
+		await expect( blue ).toHaveCSS( 'color', COLOR_BLUE );
+		await expect( all ).toHaveCSS( 'color', COLOR_BLUE );
+	} );
 } );
