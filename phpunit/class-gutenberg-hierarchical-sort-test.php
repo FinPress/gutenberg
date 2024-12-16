@@ -117,9 +117,9 @@ class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
 		$this->assertEquals( array( 3, 4, 7 ), $result['post_ids'] );
 		$this->assertEquals(
 			array(
-				3  => 1,
-				4  => 1,
-				7  => 2,
+				3 => 1,
+				4 => 1,
+				7 => 2,
 			),
 			$result['levels']
 		);
