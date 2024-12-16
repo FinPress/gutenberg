@@ -13,11 +13,7 @@ import { useMemo, useState } from '@wordpress/element';
  * Internal dependencies
  */
 import DataViewsContext from '../dataviews-context';
-import {
-	default as DataViewsFilters,
-	useFilters,
-	FiltersToggle,
-} from '../dataviews-filters';
+import { default as useDataViewsFilters } from '../dataviews-filters';
 import DataViewsLayout from '../dataviews-layout';
 import DataViewsFooter from '../dataviews-footer';
 import DataViewsSearch from '../dataviews-search';
@@ -95,10 +91,13 @@ export default function DataViews< Item >( {
 		);
 	}, [ selection, data, getItemId ] );
 
-	const filters = useFilters( _fields, view );
-	const [ isShowingFilter, setIsShowingFilter ] = useState< boolean >( () =>
-		( filters || [] ).some( ( filter ) => filter.isPrimary )
-	);
+	const { toggle, area } = useDataViewsFilters( {
+		view,
+		fields: _fields,
+		onChangeView,
+		openedFilter,
+		setOpenedFilter,
+	} );
 
 	return (
 		<DataViewsContext.Provider
@@ -132,14 +131,7 @@ export default function DataViews< Item >( {
 						className="dataviews__search"
 					>
 						{ search && <DataViewsSearch label={ searchLabel } /> }
-						<FiltersToggle
-							filters={ filters }
-							view={ view }
-							onChangeView={ onChangeView }
-							setOpenedFilter={ setOpenedFilter }
-							setIsShowingFilter={ setIsShowingFilter }
-							isShowingFilter={ isShowingFilter }
-						/>
+						{ toggle }
 					</HStack>
 					<HStack
 						spacing={ 1 }
@@ -152,7 +144,7 @@ export default function DataViews< Item >( {
 						{ header }
 					</HStack>
 				</HStack>
-				{ isShowingFilter && <DataViewsFilters /> }
+				{ area }
 				<DataViewsLayout />
 				<DataViewsFooter />
 			</div>
