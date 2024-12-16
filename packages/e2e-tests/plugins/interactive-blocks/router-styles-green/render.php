@@ -8,7 +8,7 @@
  */
 
 $wrapper_attributes = get_block_wrapper_attributes(
-	array( 'data-testid' => 'block-a' )
+	array( 'data-testid' => 'green-block' )
 );
 ?>
-<p <?php echo $wrapper_attributes; ?>>Block A</p>
+<p <?php echo $wrapper_attributes; ?>>Green</p>

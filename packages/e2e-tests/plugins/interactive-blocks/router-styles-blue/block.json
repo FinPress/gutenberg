@@ -1,8 +1,8 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "test/router-styles-block-b",
-	"title": "E2E Interactivity tests - router styles - Block B",
+	"name": "test/router-styles-blue",
+	"title": "E2E Interactivity tests - router styles - Blue",
 	"category": "text",
 	"icon": "heart",
 	"description": "",

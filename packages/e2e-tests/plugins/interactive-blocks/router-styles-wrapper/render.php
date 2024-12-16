@@ -10,13 +10,12 @@
 $wrapper_attributes = get_block_wrapper_attributes();
 ?>
 <div <?php echo $wrapper_attributes; ?>>
-	<!-- Text to check whether a navigation was client-side. -->
-	<div
-		data-testid="client-side navigation"
-		data-wp-interactive="test/router-styles"
-		data-wp-bind--hidden="!state.clientSideNavigation"
-	>
-		Client-side navigation
+	<!-- These get colored when the corresponding block is present. -->
+	<div>
+		<p class="red">Red</p>
+		<p class="green">Green</p>
+		<p class="blue">Blue</p>
+		<p class="red green blue">All</p>
 	</div>
 
 	<!-- Links to pages with different blocks combination. -->
@@ -38,5 +37,14 @@ $wrapper_attributes = get_block_wrapper_attributes();
 		data-wp-router-region="router-styles"
 	>
 		<?php echo $content; ?>
+	</div>
+
+	<!-- Text to check whether a navigation was client-side. -->
+	<div
+		data-testid="client-side navigation"
+		data-wp-interactive="test/router-styles"
+		data-wp-bind--hidden="!state.clientSideNavigation"
+	>
+		Client-side navigation
 	</div>
 </div>
