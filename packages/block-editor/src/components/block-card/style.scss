@@ -10,7 +10,7 @@
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: #{$grid-unit-10 / 2} $grid-unit-10;
+	gap: calc($grid-unit-10 / 2) $grid-unit-10;
 
 	&.block-editor-block-card__title {
 		font-size: $default-font-size;
