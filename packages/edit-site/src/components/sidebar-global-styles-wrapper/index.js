@@ -23,7 +23,7 @@ const GlobalStylesPageActions = ( {
 	setIsStyleBookOpened,
 	path,
 } ) => {
-	const stylebookPath = 'styles-stylebook';
+	const stylebookPath = addQueryArgs( path, { preview: 'stylebook' } );
 	const history = useHistory();
 	return (
 		<Button
@@ -33,8 +33,8 @@ const GlobalStylesPageActions = ( {
 			onClick={ () => {
 				setIsStyleBookOpened( ! isStyleBookOpened );
 				const updatedPath = ! isStyleBookOpened
-					? path.replace( 'styles', stylebookPath )
-					: path.replace( stylebookPath, 'styles' );
+					? path.replace( '/styles', stylebookPath )
+					: path.replace( stylebookPath, '/styles' );
 				// Navigate to the updated path.
 				history.navigate( updatedPath );
 			} }
@@ -69,7 +69,7 @@ export default function GlobalStylesUIWrapper() {
 	const { path } = useLocation();
 
 	const [ isStyleBookOpened, setIsStyleBookOpened ] = useState(
-		path.includes( 'styles-stylebook' )
+		path.includes( 'preview=stylebook' )
 	);
 	const isMobileViewport = useViewportMatch( 'medium', '<' );
 	const [ section, onChangeSection ] = useSection();
