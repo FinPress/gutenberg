@@ -109,7 +109,53 @@ test.describe( 'Router styles', () => {
 
 	test( 'should update style tags with modified content', async () => {} );
 
-	test( 'should add new styles from referenced style sheets', async () => {} );
+	test( 'should add and remove styles from referenced style sheets', async ( {
+		page,
+	} ) => {
+		const csn = page.getByTestId( 'client-side navigation' );
+		const red = page.getByTestId( 'red-from-link' );
+		const green = page.getByTestId( 'green-from-link' );
+		const blue = page.getByTestId( 'blue-from-link' );
+		const all = page.getByTestId( 'all-from-link' );
+
+		await expect( red ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( green ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( blue ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( all ).toHaveCSS( 'color', COLOR_WRAPPER );
+
+		await page.getByTestId( 'link red' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_RED );
+		await expect( green ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( blue ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( all ).toHaveCSS( 'color', COLOR_RED );
+
+		await page.getByTestId( 'link green' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( green ).toHaveCSS( 'color', COLOR_GREEN );
+		await expect( blue ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( all ).toHaveCSS( 'color', COLOR_GREEN );
+
+		await page.getByTestId( 'link blue' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( green ).toHaveCSS( 'color', COLOR_WRAPPER );
+		await expect( blue ).toHaveCSS( 'color', COLOR_BLUE );
+		await expect( all ).toHaveCSS( 'color', COLOR_BLUE );
+
+		await page.getByTestId( 'link all' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( red ).toHaveCSS( 'color', COLOR_RED );
+		await expect( green ).toHaveCSS( 'color', COLOR_GREEN );
+		await expect( blue ).toHaveCSS( 'color', COLOR_BLUE );
+		await expect( all ).toHaveCSS( 'color', COLOR_BLUE );
+	} );
+
 	test( 'should remove styles from referenced style sheets missing in the new page', async () => {} );
 	test( 'should support relative URLs in referenced style sheets', async () => {} );
 } );

@@ -17,6 +17,13 @@ $wrapper_attributes = get_block_wrapper_attributes();
 		<p data-testid="blue" class="blue">Blue</p>
 		<p data-testid="all" class="red green blue">All</p>
 	</div>
+	<!-- These get colored when the corresponding block enqueues a referenced stylesheet. -->
+	<div>
+		<p data-testid="red-from-link" class="red-from-link">Red from link</p>
+		<p data-testid="green-from-link" class="green-from-link">Green from link</p>
+		<p data-testid="blue-from-link" class="blue-from-link">Blue from link</p>
+		<p data-testid="all-from-link" class="red-from-link green-from-link blue-from-link">All from link</p>
+	</div>
 
 	<!-- Links to pages with different blocks combination. -->
 	<nav data-wp-interactive="test/router-styles">
