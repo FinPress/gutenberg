@@ -52,12 +52,7 @@ class Gutenberg_Hierarchical_Sort {
 	}
 
 	public static function get_ancestor( $post_id ) {
-		$ancestor = get_post( $post_id );
-		if ( null === $ancestor ) {
-			return 0;
-		}
-
-		return $ancestor->post_parent;
+		return get_post( $post_id )->post_parent ?? 0;
 	}
 
 	/**
