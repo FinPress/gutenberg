@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import { NEW_TAB_TARGET, NOFOLLOW_REL } from './constants';
 import { getUpdatedLinkAttributes } from './get-updated-link-attributes';
 import removeAnchorTag from '../utils/remove-anchor-tag';
-import { unlock } from '../lock-unlock';
 
 /**
  * WordPress dependencies
@@ -17,12 +16,13 @@ import { unlock } from '../lock-unlock';
 import { __ } from '@wordpress/i18n';
 import { useEffect, useState, useRef, useMemo } from '@wordpress/element';
 import {
-	Button,
-	ButtonGroup,
-	PanelBody,
 	TextControl,
 	ToolbarButton,
 	Popover,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import {
 	AlignmentControl,
@@ -30,11 +30,11 @@ import {
 	InspectorControls,
 	RichText,
 	useBlockProps,
+	LinkControl,
 	__experimentalUseBorderProps as useBorderProps,
 	__experimentalUseColorProps as useColorProps,
 	__experimentalGetSpacingClassesAndStyles as useSpacingProps,
 	__experimentalGetShadowClassesAndStyles as useShadowProps,
-	__experimentalLinkControl as LinkControl,
 	__experimentalGetElementClassName,
 	store as blockEditorStore,
 	useBlockEditingMode,
@@ -45,7 +45,7 @@ import {
 	createBlock,
 	cloneBlock,
 	getDefaultBlockName,
-	store as blocksStore,
+	getBlockBindingsSource,
 } from '@wordpress/blocks';
 import { useMergeRefs, useRefEffect } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -115,35 +115,40 @@ function useEnter( props ) {
 }
 
 function WidthPanel( { selectedWidth, setAttributes } ) {
-	function handleChange( newWidth ) {
-		// Check if we are toggling the width off
-		const width = selectedWidth === newWidth ? undefined : newWidth;
-
-		// Update attributes.
-		setAttributes( { width } );
-	}
-
 	return (
-		<PanelBody title={ __( 'Settings' ) }>
-			<ButtonGroup aria-label={ __( 'Button width' ) }>
-				{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
-					return (
-						<Button
-							key={ widthValue }
-							size="small"
-							variant={
-								widthValue === selectedWidth
-									? 'primary'
-									: undefined
-							}
-							onClick={ () => handleChange( widthValue ) }
-						>
-							{ widthValue }%
-						</Button>
-					);
-				} ) }
-			</ButtonGroup>
-		</PanelBody>
+		<ToolsPanel
+			label={ __( 'Settings' ) }
+			resetAll={ () => setAttributes( { width: undefined } ) }
+		>
+			<ToolsPanelItem
+				label={ __( 'Button width' ) }
+				isShownByDefault
+				hasValue={ () => !! selectedWidth }
+				onDeselect={ () => setAttributes( { width: undefined } ) }
+				__nextHasNoMarginBottom
+			>
+				<ToggleGroupControl
+					label={ __( 'Button width' ) }
+					value={ selectedWidth }
+					onChange={ ( newWidth ) =>
+						setAttributes( { width: newWidth } )
+					}
+					isBlock
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+				>
+					{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
+						return (
+							<ToggleGroupControlOption
+								key={ widthValue }
+								value={ widthValue }
+								label={ `${ widthValue }%` }
+							/>
+						);
+					} ) }
+				</ToggleGroupControl>
+			</ToolsPanelItem>
+		</ToolsPanel>
 	);
 }
 
@@ -240,9 +245,9 @@ function ButtonEdit( props ) {
 				return {};
 			}
 
-			const blockBindingsSource = unlock(
-				select( blocksStore )
-			).getBlockBindingsSource( metadata?.bindings?.url?.source );
+			const blockBindingsSource = getBlockBindingsSource(
+				metadata?.bindings?.url?.source
+			);
 
 			return {
 				lockUrlControls:

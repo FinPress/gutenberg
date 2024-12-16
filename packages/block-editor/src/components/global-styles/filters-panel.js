@@ -10,10 +10,10 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalItemGroup as ItemGroup,
+	__experimentalItem as Item,
 	__experimentalHStack as HStack,
 	__experimentalZStack as ZStack,
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
-	Button,
 	MenuGroup,
 	ColorIndicator,
 	DuotonePicker,
@@ -189,16 +189,12 @@ export default function FiltersPanel( {
 
 							return (
 								<ItemGroup isBordered isSeparated>
-									<Button
-										// TODO: Switch to `true` (40px size) if possible
-										__next40pxDefaultSize={ false }
-										{ ...toggleProps }
-									>
+									<Item as="button" { ...toggleProps }>
 										<LabeledColorIndicator
 											indicator={ duotone }
 											label={ __( 'Duotone' ) }
 										/>
-									</Button>
+									</Item>
 								</ItemGroup>
 							);
 						} }

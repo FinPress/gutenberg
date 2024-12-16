@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import type { ReactElement } from 'react';
+
+/**
  * WordPress dependencies
  */
 import {
@@ -15,10 +20,45 @@ import { closeSmall } from '@wordpress/icons';
  * Internal dependencies
  */
 import DataViewsContext from '../dataviews-context';
-import { ActionWithModal } from '../dataviews-item-actions';
-import type { Action } from '../../types';
+import { ActionModal } from '../dataviews-item-actions';
+import type { Action, ActionModal as ActionModalType } from '../../types';
 import type { SetSelection } from '../../private-types';
 import type { ActionTriggerProps } from '../dataviews-item-actions';
+
+interface ActionWithModalProps< Item > {
+	action: ActionModalType< Item >;
+	items: Item[];
+	ActionTriggerComponent: (
+		props: ActionTriggerProps< Item >
+	) => ReactElement;
+}
+
+function ActionWithModal< Item >( {
+	action,
+	items,
+	ActionTriggerComponent,
+}: ActionWithModalProps< Item > ) {
+	const [ isModalOpen, setIsModalOpen ] = useState( false );
+	const actionTriggerProps = {
+		action,
+		onClick: () => {
+			setIsModalOpen( true );
+		},
+		items,
+	};
+	return (
+		<>
+			<ActionTriggerComponent { ...actionTriggerProps } />
+			{ isModalOpen && (
+				<ActionModal
+					action={ action }
+					items={ items }
+					closeModal={ () => setIsModalOpen( false ) }
+				/>
+			) }
+		</>
+	);
+}
 
 export function useHasAPossibleBulkAction< Item >(
 	actions: Action< Item >[],
@@ -160,7 +200,7 @@ function ActionButton< Item >( {
 				key={ action.id }
 				action={ action }
 				items={ selectedEligibleItems }
-				ActionTrigger={ ActionTrigger }
+				ActionTriggerComponent={ ActionTrigger }
 			/>
 		);
 	}
@@ -269,7 +309,7 @@ function FooterContent< Item >( {
 	const [ actionInProgress, setActionInProgress ] = useState< string | null >(
 		null
 	);
-	const footerContent = useRef< JSX.Element | null >( null );
+	const footerContentRef = useRef< JSX.Element | null >( null );
 
 	const bulkActions = useMemo(
 		() => actions.filter( ( action ) => action.supportsBulk ),
@@ -306,8 +346,8 @@ function FooterContent< Item >( {
 		[ actions, selectedItems ]
 	);
 	if ( ! actionInProgress ) {
-		if ( footerContent.current ) {
-			footerContent.current = null;
+		if ( footerContentRef.current ) {
+			footerContentRef.current = null;
 		}
 		return renderFooterContent(
 			data,
@@ -320,8 +360,8 @@ function FooterContent< Item >( {
 			setActionInProgress,
 			onChangeSelection
 		);
-	} else if ( ! footerContent.current ) {
-		footerContent.current = renderFooterContent(
+	} else if ( ! footerContentRef.current ) {
+		footerContentRef.current = renderFooterContent(
 			data,
 			actions,
 			getItemId,
@@ -333,7 +373,7 @@ function FooterContent< Item >( {
 			onChangeSelection
 		);
 	}
-	return footerContent.current;
+	return footerContentRef.current;
 }
 
 export function BulkActionsFooter() {

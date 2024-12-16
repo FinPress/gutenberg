@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+## 7.14.0 (2024-12-11)
+
+## 7.13.0 (2024-11-27)
+
+## 7.12.0 (2024-11-16)
+
+## 7.11.0 (2024-10-30)
+
+## 7.10.0 (2024-10-16)
+
+## 7.9.0 (2024-10-03)
+
+### Bug Fixes
+
+-   `useResizeObserver`: export legacy API at top-level for React Native ([#65588](https://github.com/WordPress/gutenberg/pull/65588)).
+
+## 7.8.0 (2024-09-19)
+
 ### New Features
 
 -   `useEvent`: a new utility that creates a stable callback function that has access to the latest state and can be used within event handlers and effect callbacks ([#64943](https://github.com/WordPress/gutenberg/pull/64943)).
