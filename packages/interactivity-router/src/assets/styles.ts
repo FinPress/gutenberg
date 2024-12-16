@@ -56,8 +56,8 @@ const sheetFromLink = async (
 	} );
 };
 
-const sheetFromStyle = async ( { id, textContent }: HTMLStyleElement ) => {
-	const sheetId = id || textContent;
+const sheetFromStyle = async ( { textContent }: HTMLStyleElement ) => {
+	const sheetId = textContent;
 	return getCachedSheet( sheetId, async () => {
 		const sheet = new CSSStyleSheet();
 		await sheet.replace( textContent );
