@@ -397,7 +397,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
  *                                             This is optional and can only be used when the post type supports templates (like posts and pages).
  * @param {Object}  [props.settings]           The settings object to use for the editor.
  *                                             This is optional and can be used to override the default settings.
- * @param {Element} [props.children]           Children elements for which the BlockEditorProvider context should apply.
+ * @param {React.ReactNode} [props.children]           Children elements for which the BlockEditorProvider context should apply.
  *                                             This is optional.
  *
  * @example

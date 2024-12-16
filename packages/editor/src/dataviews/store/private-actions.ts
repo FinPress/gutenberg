@@ -38,6 +38,7 @@ import {
  * Internal dependencies
  */
 import { store as editorStore } from '../../store';
+import contentPreviewField from '../fields/content-preview';
 import { unlock } from '../../lock-unlock';
 
 export function registerEntityAction< Item >(
@@ -175,6 +176,7 @@ export const registerPostTypeSchema =
 			postTypeConfig.supports?.comments && commentStatusField,
 			templateField,
 			passwordField,
+			contentPreviewField,
 		].filter( Boolean );
 		if ( postTypeConfig.supports?.title ) {
 			let _titleField;
