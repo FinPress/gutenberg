@@ -7,6 +7,8 @@
  * @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
  */
 
-$wrapper_attributes = get_block_wrapper_attributes();
+$wrapper_attributes = get_block_wrapper_attributes(
+	array( 'data-testid' => 'block-b' )
+);
 ?>
 <p <?php echo $wrapper_attributes; ?>>Block B</p>

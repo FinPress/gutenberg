@@ -49,7 +49,60 @@ test.describe( 'Router styles', () => {
 
 	test( 'should add new styles from style tags', async ( { page } ) => {
 		const counter = page.getByTestId( 'counter' );
+		const blockA = page.getByTestId( 'block-a' );
+		const blockB = page.getByTestId( 'block-b' );
 		await expect( counter ).toHaveText( '0' );
 		await expect( counter ).toHaveCSS( 'color', 'rgb(255, 0, 0)' );
+		await expect( blockA ).toBeHidden();
+		await expect( blockB ).toBeHidden();
+
+		await page.getByTestId( 'link blockA' ).click();
+
+		await expect( counter ).toHaveText( '1' );
+		await expect( counter ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
+		await expect( blockA ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
+		await expect( blockB ).toBeHidden();
+
+		await page.getByTestId( 'link blockB' ).click();
+
+		await expect( counter ).toHaveText( '2' );
+		await expect( counter ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
+		await expect( blockA ).toBeHidden();
+		await expect( blockB ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
+
+		await page.getByTestId( 'link both' ).click();
+
+		await expect( counter ).toHaveText( '2' );
+		await expect( counter ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
+		await expect( blockA ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
+		await expect( blockB ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
 	} );
+
+	test( 'should remove styles from style tags missing in the new page', async ( {
+		page,
+	} ) => {
+		const counter = page.getByTestId( 'counter' );
+
+		await page.getByTestId( 'link both' ).click();
+
+		await expect( counter ).toHaveText( '1' );
+		await expect( counter ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
+
+		await page.getByTestId( 'link blockA' ).click();
+
+		await expect( counter ).toHaveText( '2' );
+		await expect( counter ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
+
+		await page.goBack();
+		await page.goBack();
+
+		await expect( counter ).toHaveText( '2' );
+		await expect( counter ).toHaveCSS( 'color', 'rgb(255, 0, 0)' );
+	} );
+
+	test( 'should update style tags with modified content', async () => {} );
+
+	test( 'should add new styles from referenced style sheets', async () => {} );
+	test( 'should remove styles from referenced style sheets missing in the new page', async () => {} );
+	test( 'should support relative URLs in referenced style sheets', async () => {} );
 } );

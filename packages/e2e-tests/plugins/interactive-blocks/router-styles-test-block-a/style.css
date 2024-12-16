@@ -1,4 +1,4 @@
 .wp-block-test-router-styles-block-a,
 [data-testid="counter"] {
-    color: green;
+    color: rgb(0, 255, 0);
 }
