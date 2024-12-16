@@ -107,8 +107,6 @@ test.describe( 'Router styles', () => {
 		await expect( all ).toHaveCSS( 'color', COLOR_BLUE );
 	} );
 
-	test( 'should update style tags with modified content', async () => {} );
-
 	test( 'should add and remove styles from referenced style sheets', async ( {
 		page,
 	} ) => {
@@ -156,6 +154,34 @@ test.describe( 'Router styles', () => {
 		await expect( all ).toHaveCSS( 'color', COLOR_BLUE );
 	} );
 
-	test( 'should remove styles from referenced style sheets missing in the new page', async () => {} );
-	test( 'should support relative URLs in referenced style sheets', async () => {} );
+	test( 'should support relative URLs in referenced style sheets', async ( {
+		page,
+	} ) => {
+		const csn = page.getByTestId( 'client-side navigation' );
+		const background = page.getByTestId( 'background-from-link' );
+
+		await expect( background ).toHaveScreenshot();
+
+		await page.getByTestId( 'link red' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( background ).toHaveScreenshot();
+
+		await page.getByTestId( 'link green' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( background ).toHaveScreenshot();
+
+		await page.getByTestId( 'link blue' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( background ).toHaveScreenshot();
+
+		await page.getByTestId( 'link all' ).click();
+
+		await expect( csn ).toBeVisible();
+		await expect( background ).toHaveScreenshot();
+	} );
+
+	test( 'should update style tags with modified content', async () => {} );
 } );

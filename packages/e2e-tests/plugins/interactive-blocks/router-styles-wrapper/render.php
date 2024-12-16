@@ -25,6 +25,7 @@ $wrapper_attributes = get_block_wrapper_attributes();
 		<p data-testid="green-from-link" class="green-from-link">Green from link</p>
 		<p data-testid="blue-from-link" class="blue-from-link">Blue from link</p>
 		<p data-testid="all-from-link" class="red-from-link green-from-link blue-from-link">All from link</p>
+		<div data-testid="background-from-link"class="background-from-link" style="width: 10px; height: 10px"></div>
 	</fieldset>
 
 	<!-- Links to pages with different blocks combination. -->
