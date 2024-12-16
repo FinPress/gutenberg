@@ -108,6 +108,7 @@ export default function QueryTitleEdit( {
 								setAttributes( { showPrefix: false } )
 							}
 							resetAllFilter="core/filter-reset-all-settings"
+							isShownByDefault
 						>
 							<ToggleControl
 								__nextHasNoMarginBottom
