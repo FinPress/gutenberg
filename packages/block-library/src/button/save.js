@@ -14,6 +14,7 @@ import {
 	__experimentalGetSpacingClassesAndStyles as getSpacingClassesAndStyles,
 	__experimentalGetShadowClassesAndStyles as getShadowClassesAndStyles,
 	__experimentalGetElementClassName,
+	getTypographyClassesAndStyles,
 } from '@wordpress/block-editor';
 
 export default function save( { attributes, className } ) {
@@ -38,10 +39,12 @@ export default function save( { attributes, className } ) {
 	const colorProps = getColorClassesAndStyles( attributes );
 	const spacingProps = getSpacingClassesAndStyles( attributes );
 	const shadowProps = getShadowClassesAndStyles( attributes );
+	const typographyProps = getTypographyClassesAndStyles( attributes );
 	const buttonClasses = clsx(
 		'wp-block-button__link',
 		colorProps.className,
 		borderProps.className,
+		typographyProps.className,
 		{
 			[ `has-text-align-${ textAlign }` ]: textAlign,
 			// For backwards compatibility add style that isn't provided via
@@ -55,6 +58,7 @@ export default function save( { attributes, className } ) {
 		...colorProps.style,
 		...spacingProps.style,
 		...shadowProps.style,
+		...typographyProps.style,
 	};
 
 	// The use of a `title` attribute here is soft-deprecated, but still applied
