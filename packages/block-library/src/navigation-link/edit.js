@@ -167,6 +167,7 @@ function Controls({ attributes, setAttributes, setIsLabelFieldFocused }) {
 				hasValue={() => !!label}
 				label={__('Text')}
 				onDeselect={() => setAttributes({ label: '' })}
+				isShownByDefault
 			>
 				<TextControl
 					__nextHasNoMarginBottom
@@ -186,6 +187,7 @@ function Controls({ attributes, setAttributes, setIsLabelFieldFocused }) {
 				hasValue={() => !!url}
 				label={__('Link')}
 				onDeselect={() => setAttributes({ url: '' })}
+				isShownByDefault
 			>
 				<TextControl
 					__nextHasNoMarginBottom
@@ -203,6 +205,7 @@ function Controls({ attributes, setAttributes, setIsLabelFieldFocused }) {
 				hasValue={() => !!description}
 				label={__('Description')}
 				onDeselect={() => setAttributes({ description: '' })}
+				isShownByDefault
 			>
 				<TextareaControl
 					__nextHasNoMarginBottom
@@ -221,6 +224,7 @@ function Controls({ attributes, setAttributes, setIsLabelFieldFocused }) {
 				hasValue={() => !!title}
 				label={__('Title attribute')}
 				onDeselect={() => setAttributes({ title: '' })}
+				isShownByDefault
 			>
 				<TextControl
 					__nextHasNoMarginBottom
@@ -241,6 +245,7 @@ function Controls({ attributes, setAttributes, setIsLabelFieldFocused }) {
 				hasValue={() => !!rel}
 				label={__('Rel attribute')}
 				onDeselect={() => setAttributes({ rel: '' })}
+				isShownByDefault
 			>
 				<TextControl
 					__nextHasNoMarginBottom
