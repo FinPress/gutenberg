@@ -67,7 +67,7 @@ class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
 			),
 		);
 
-		$hs     = Gutenberg_Hierarchical_Sort::init();
+		$hs     = Gutenberg_Hierarchical_Sort::get_instance();
 		$result = $hs->sort( $input );
 		$this->assertEquals( array( 2, 3, 5, 6, 4, 7, 8, 9, 11, 10 ), $result['post_ids'] );
 		$this->assertEquals(
@@ -112,7 +112,7 @@ class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
 			),
 		);
 
-		$hs     = Gutenberg_Hierarchical_Sort::init();
+		$hs     = Gutenberg_Hierarchical_Sort::get_instance();
 		$result = $hs->sort( $input );
 		$this->assertEquals( array( 3, 4, 7 ), $result['post_ids'] );
 		$this->assertEquals(

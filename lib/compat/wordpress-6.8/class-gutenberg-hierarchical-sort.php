@@ -8,13 +8,11 @@
  */
 
 class Gutenberg_Hierarchical_Sort {
-
-
 	private static $post_ids = array();
 	private static $levels   = array();
 	private static $instance;
 
-	public static function init() {
+	public static function get_instance() {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
@@ -171,7 +169,7 @@ add_filter(
 			return $args;
 		}
 
-		$hs = Gutenberg_Hierarchical_Sort::init();
+		$hs = Gutenberg_Hierarchical_Sort::get_instance();
 		$hs->run( $args );
 
 		// Reconfigure the args to display only the ids in the list.
@@ -191,7 +189,7 @@ add_filter(
 			return $response;
 		}
 
-		$hs                      = Gutenberg_Hierarchical_Sort::init();
+		$hs                      = Gutenberg_Hierarchical_Sort::get_instance();
 		$response->data['level'] = $hs->get_levels()[ $post->ID ];
 
 		return $response;
