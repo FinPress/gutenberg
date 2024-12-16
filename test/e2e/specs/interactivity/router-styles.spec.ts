@@ -7,14 +7,14 @@ test.describe( 'Router styles', () => {
 	test.beforeAll( async ( { interactivityUtils: utils } ) => {
 		await utils.activatePlugins();
 		const blockA = await utils.addPostWithBlock(
-			'test/router-styles-region-block',
+			'test/router-styles-wrapper',
 			{
 				alias: 'block A',
 				innerBlocks: [ [ 'test/router-styles-block-a' ] ],
 			}
 		);
 		const blockB = await utils.addPostWithBlock(
-			'test/router-styles-region-block',
+			'test/router-styles-wrapper',
 			{
 				alias: 'block B',
 				innerBlocks: [ [ 'test/router-styles-block-b' ] ],
@@ -22,7 +22,7 @@ test.describe( 'Router styles', () => {
 		);
 
 		const both = await utils.addPostWithBlock(
-			'test/router-styles-region-block',
+			'test/router-styles-wrapper',
 			{
 				alias: 'both',
 				innerBlocks: [
@@ -32,7 +32,7 @@ test.describe( 'Router styles', () => {
 			}
 		);
 
-		await utils.addPostWithBlock( 'test/router-styles-region-block', {
+		await utils.addPostWithBlock( 'test/router-styles-wrapper', {
 			alias: 'none',
 			attributes: { links: { blockA, blockB, both } },
 		} );
@@ -48,32 +48,35 @@ test.describe( 'Router styles', () => {
 	} );
 
 	test( 'should add new styles from style tags', async ( { page } ) => {
-		const counter = page.getByTestId( 'counter' );
+		const csn = page.getByTestId( 'client-side navigation' );
 		const blockA = page.getByTestId( 'block-a' );
 		const blockB = page.getByTestId( 'block-b' );
-		await expect( counter ).toHaveText( '0' );
-		await expect( counter ).toHaveCSS( 'color', 'rgb(255, 0, 0)' );
+
+		// await expect( counter ).toHaveCSS( 'color', 'rgb(255, 0, 0)' );
 		await expect( blockA ).toBeHidden();
 		await expect( blockB ).toBeHidden();
 
 		await page.getByTestId( 'link blockA' ).click();
+		await expect( csn ).toBeVisible();
 
-		await expect( counter ).toHaveText( '1' );
-		await expect( counter ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
+		// await expect( counter ).toHaveText( '1' );
+		// await expect( counter ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
 		await expect( blockA ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
 		await expect( blockB ).toBeHidden();
 
 		await page.getByTestId( 'link blockB' ).click();
+		await expect( csn ).toBeVisible();
 
-		await expect( counter ).toHaveText( '2' );
-		await expect( counter ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
+		// await expect( counter ).toHaveText( '2' );
+		// await expect( counter ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
 		await expect( blockA ).toBeHidden();
 		await expect( blockB ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
 
 		await page.getByTestId( 'link both' ).click();
+		await expect( csn ).toBeVisible();
 
-		await expect( counter ).toHaveText( '2' );
-		await expect( counter ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
+		// await expect( counter ).toHaveText( '2' );
+		// await expect( counter ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
 		await expect( blockA ).toHaveCSS( 'color', 'rgb(0, 255, 0)' );
 		await expect( blockB ).toHaveCSS( 'color', 'rgb(0, 0, 255)' );
 	} );

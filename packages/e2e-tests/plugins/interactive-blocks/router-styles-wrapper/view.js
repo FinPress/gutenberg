@@ -5,7 +5,7 @@ import { store } from '@wordpress/interactivity';
 
 const { state } = store( 'test/router-styles', {
 	state: {
-		navigationCount: 0,
+		clientSideNavigation: false,
 	},
 	actions: {
 		*navigate( e ) {
@@ -14,7 +14,7 @@ const { state } = store( 'test/router-styles', {
 				'@wordpress/interactivity-router'
 			);
 			yield actions.navigate( e.target.href );
-			state.navigationCount += 1;
+			state.clientSideNavigation = true;
 		},
 	},
 } );
