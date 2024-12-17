@@ -87,6 +87,7 @@ function render_block_core_block( $attributes ) {
 		add_filter( 'render_block_context', $filter_block_context, 1 );
 	}
 
+	$content = apply_block_hooks_to_content( $content, $reusable_block );
 	$content = do_blocks( $content );
 	unset( $seen_refs[ $attributes['ref'] ] );
 
