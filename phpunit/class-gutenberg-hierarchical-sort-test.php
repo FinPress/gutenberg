@@ -12,10 +12,10 @@ class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
 		 * Keep this updated as the input array changes.
 		 * The sorted hierarchy would be as follows:
 		 *
-		 * 2
+		 * 12
 		 * - 3
-		 * -- 5
 		 * -- 6
+		 * -- 5
 		 * - 4
 		 * -- 7
 		 * 8
@@ -30,7 +30,7 @@ class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
 				'post_parent' => 9,
 			),
 			(object) array(
-				'ID'          => 2,
+				'ID'          => 12,
 				'post_parent' => 0,
 			),
 			(object) array(
@@ -39,10 +39,10 @@ class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
 			),
 			(object) array(
 				'ID'          => 3,
-				'post_parent' => 2,
+				'post_parent' => 12,
 			),
 			(object) array(
-				'ID'          => 5,
+				'ID'          => 6,
 				'post_parent' => 3,
 			),
 			(object) array(
@@ -55,10 +55,10 @@ class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
 			),
 			(object) array(
 				'ID'          => 4,
-				'post_parent' => 2,
+				'post_parent' => 12,
 			),
 			(object) array(
-				'ID'          => 6,
+				'ID'          => 5,
 				'post_parent' => 3,
 			),
 			(object) array(
@@ -69,13 +69,13 @@ class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
 
 		$hs     = Gutenberg_Hierarchical_Sort::get_instance();
 		$result = $hs->sort( $input );
-		$this->assertEquals( array( 2, 3, 5, 6, 4, 7, 8, 9, 11, 10 ), $result['post_ids'] );
+		$this->assertEquals( array( 12, 3, 6, 5, 4, 7, 8, 9, 11, 10 ), $result['post_ids'] );
 		$this->assertEquals(
 			array(
-				2  => 0,
+				12 => 0,
 				3  => 1,
-				5  => 2,
 				6  => 2,
+				5  => 2,
 				4  => 1,
 				7  => 2,
 				8  => 0,
@@ -92,14 +92,14 @@ class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
 		 * Keep this updated as the input array changes.
 		 * The sorted hierarchy would be as follows:
 		 *
-		 * - 3 (orphan)
+		 * - 11 (orphan)
 		 * - 4 (orphan)
 		 * -- 7
 		 *
 		 */
 		$input = array(
 			(object) array(
-				'ID'          => 3,
+				'ID'          => 11,
 				'post_parent' => 2,
 			),
 			(object) array(
@@ -114,12 +114,12 @@ class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
 
 		$hs     = Gutenberg_Hierarchical_Sort::get_instance();
 		$result = $hs->sort( $input );
-		$this->assertEquals( array( 3, 4, 7 ), $result['post_ids'] );
+		$this->assertEquals( array( 11, 4, 7 ), $result['post_ids'] );
 		$this->assertEquals(
 			array(
-				3 => 1,
-				4 => 1,
-				7 => 2,
+				11 => 1,
+				4  => 1,
+				7  => 2,
 			),
 			$result['levels']
 		);

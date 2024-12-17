@@ -56,21 +56,36 @@ class Gutenberg_Hierarchical_Sort {
 	}
 
 	/**
-	 * Sort the post ids by hierarchy.
+	 * Sort posts by hierarchy.
 	 *
-	 * Example: $posts is
+	 * Takes an array of posts and sorts them based on their parent-child relationships.
+	 * It also tracks the level depth of each post in the hierarchy.
+	 *
+	 * Example input:
+	 * ```
 	 * [
 	 *   ['ID' => 4, 'post_parent' => 2],
 	 *   ['ID' => 2, 'post_parent' => 0],
 	 *   ['ID' => 3, 'post_parent' => 2],
 	 * ]
+	 * ```
 	 *
-	 * and we want to return: [2, 3, 4]
+	 * Example output:
+	 * ```
+	 * [
+	 *   'post_ids' => [2, 4, 3],
+	 *   'levels'   => [0, 1, 1]
+	 * ]
+	 * ```
 	 *
-	 * @param array $posts The posts to sort.
-	 * @param array $args  The arguments to sort the posts by.
+	 * @param array $posts Array of post objects containing ID and post_parent properties.
 	 *
-	 * @return array Return the sorted post_ids and the corresponding levels.
+	 * @return array {
+	 *     Sorted post IDs and their hierarchical levels
+	 *
+	 *     @type array $post_ids Array of post IDs
+	 *     @type array $levels   Array of levels for the corresponding post ID in the same index
+	 * }
 	 */
 	public static function sort( $posts ) {
 		/*
