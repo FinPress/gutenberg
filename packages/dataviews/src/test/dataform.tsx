@@ -41,10 +41,43 @@ const data = {
 	order: 1,
 };
 
+const fieldsSelector = {
+	title: {
+		view: () =>
+			screen.getByRole( 'button', {
+				name: /edit title/i,
+			} ),
+		edit: () =>
+			screen.getByRole( 'textbox', {
+				name: /title/i,
+			} ),
+	},
+	author: {
+		view: () =>
+			screen.getByRole( 'button', {
+				name: /edit author/i,
+			} ),
+		edit: () =>
+			screen.queryByRole( 'combobox', {
+				name: /author/i,
+			} ),
+	},
+	order: {
+		view: () =>
+			screen.getByRole( 'button', {
+				name: /edit order/i,
+			} ),
+		edit: () =>
+			screen.getByRole( 'spinbutton', {
+				name: /order/i,
+			} ),
+	},
+};
+
 describe( 'DataForm component', () => {
 	describe( 'in regular mode', () => {
 		it( 'should display fields', () => {
-			const { container } = render(
+			render(
 				<Dataform
 					onChange={ () => void 0 }
 					fields={ fields }
@@ -53,13 +86,9 @@ describe( 'DataForm component', () => {
 				/>
 			);
 
-			expect(
-				// It is used here to test the number of fields.
-				// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-				container.getElementsByClassName(
-					'dataforms-layouts-regular__field'
-				)
-			).toHaveLength( 3 );
+			expect( fieldsSelector.title.edit() ).toBeInTheDocument();
+			expect( fieldsSelector.order.edit() ).toBeInTheDocument();
+			expect( fieldsSelector.author.edit() ).toBeInTheDocument();
 		} );
 
 		it( 'should render custom Edit component', () => {
@@ -99,9 +128,7 @@ describe( 'DataForm component', () => {
 				/>
 			);
 
-			const titleInput = screen.getByRole( 'textbox', {
-				name: /title/i,
-			} );
+			const titleInput = fieldsSelector.title.edit();
 			const user = userEvent.setup();
 			await user.clear( titleInput );
 			expect( titleInput ).toHaveValue( '' );
@@ -132,7 +159,7 @@ describe( 'DataForm component', () => {
 			).toHaveLength( 3 );
 		} );
 
-		it( 'should render combinedFields correctly', async () => {
+		it( 'should render combined fields correctly', async () => {
 			const formWithCombinedFields = {
 				fields: [
 					'order',
@@ -164,8 +191,8 @@ describe( 'DataForm component', () => {
 			...form,
 			type: 'panel' as const,
 		};
-		it( 'should display fields', () => {
-			const { container } = render(
+		it( 'should display fields', async () => {
+			render(
 				<Dataform
 					onChange={ () => void 0 }
 					fields={ fields }
@@ -174,13 +201,13 @@ describe( 'DataForm component', () => {
 				/>
 			);
 
-			expect(
-				// It is used here to test the number of fields.
-				// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-				container.getElementsByClassName(
-					'dataforms-layouts-panel__field'
-				)
-			).toHaveLength( 3 );
+			const user = await userEvent.setup();
+
+			for ( const field of Object.values( fieldsSelector ) ) {
+				const button = field.view();
+				await user.click( button );
+				expect( field.edit() ).toBeInTheDocument();
+			}
 		} );
 
 		it( 'should call onChange with the correct value for each typed character', async () => {
@@ -194,12 +221,10 @@ describe( 'DataForm component', () => {
 				/>
 			);
 
-			const titleValue = screen.getByRole( 'button', {
-				name: /edit title/i,
-			} );
-			const user = userEvent.setup();
-			await user.click( titleValue );
-			const input = screen.getByRole( 'textbox' );
+			const titleButton = fieldsSelector.title.view();
+			const user = await userEvent.setup();
+			await user.click( titleButton );
+			const input = fieldsSelector.title.edit();
 			expect( input ).toHaveValue( '' );
 			const newValue = 'Hello folks!';
 			await user.type( input, newValue );
@@ -227,7 +252,7 @@ describe( 'DataForm component', () => {
 			).toHaveLength( 3 );
 		} );
 
-		it( 'should render combineField correctly', async () => {
+		it( 'should render combined fields correctly', async () => {
 			const formWithCombinedFields = {
 				...formPanelMode,
 				fields: [
@@ -254,14 +279,8 @@ describe( 'DataForm component', () => {
 			} );
 			const user = await userEvent.setup();
 			await user.click( button );
-			const title = screen.getByRole( 'textbox', {
-				name: /title/i,
-			} );
-			const author = screen.getByRole( 'combobox', {
-				name: /author/i,
-			} );
-			expect( title ).toBeInTheDocument();
-			expect( author ).toBeInTheDocument();
+			expect( fieldsSelector.title.edit() ).toBeInTheDocument();
+			expect( fieldsSelector.author.edit() ).toBeInTheDocument();
 		} );
 
 		it( 'should render custom render component', async () => {
@@ -322,34 +341,6 @@ describe( 'DataForm component', () => {
 				'This is the Title Field'
 			);
 			expect( titleEditField ).toBeInTheDocument();
-		} );
-
-		it( 'should edit component when click on render component', async () => {
-			const fieldsWithCustomRenderFunction = fields.map( ( field ) => {
-				return {
-					...field,
-					render: () => {
-						return <span>This is the { field.id } field</span>;
-					},
-				};
-			} );
-
-			render(
-				<Dataform
-					onChange={ () => void 0 }
-					fields={ fieldsWithCustomRenderFunction }
-					form={ formPanelMode }
-					data={ data }
-				/>
-			);
-
-			const titleField = screen.getByText( 'This is the title field' );
-			const noInputElement = screen.queryByRole( 'textbox' );
-			await expect( noInputElement ).not.toBeInTheDocument();
-			const user = await userEvent.setup();
-			await user.click( titleField );
-			const inputElement = screen.getByRole( 'textbox' );
-			expect( inputElement ).toBeVisible();
 		} );
 	} );
 } );
