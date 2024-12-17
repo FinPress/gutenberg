@@ -100,6 +100,7 @@ export interface PostType {
 		author?: string;
 		thumbnail?: string;
 		comments?: string;
+		editor?: boolean;
 	};
 }
 

@@ -268,7 +268,7 @@ function BaseFieldItem( {
 	onToggleVisibility,
 	onMoveUp,
 	onMoveDown,
-	additionalActions,
+	children,
 }: {
 	identifier: string;
 	label: string;
@@ -282,7 +282,7 @@ function BaseFieldItem( {
 	onToggleVisibility?: () => void;
 	onMoveUp?: () => void;
 	onMoveDown?: () => void;
-	additionalActions?: ReactNode;
+	children?: ReactNode;
 } ) {
 	const focusVisibilityField = () => {
 		// Focus the visibility button to avoid focus loss.
@@ -395,7 +395,7 @@ function BaseFieldItem( {
 							}
 						/>
 					) }
-					{ additionalActions }
+					{ children }
 				</HStack>
 			</HStack>
 		</Item>
@@ -541,8 +541,8 @@ function PreviewFieldItem( {
 			canMove={ false }
 			canHide
 			isInteracting={ isChangingPreview }
-			additionalActions={
-				isVisible && (
+		>
+			{ isVisible && (
 					<Menu onOpenChange={ setIsChangingPreview }>
 						<Menu.TriggerButton
 							render={
@@ -575,9 +575,8 @@ function PreviewFieldItem( {
 						} ) }
 						</Menu.Popover>
 					</Menu>
-				)
-			}
-		/>
+			) }
+		</BaseFieldItem>
 	);
 }
 

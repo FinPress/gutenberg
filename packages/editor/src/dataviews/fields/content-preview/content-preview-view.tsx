@@ -21,7 +21,7 @@ import { store as editorStore } from '../../../store';
 
 const { useGlobalStyle } = unlock( blockEditorPrivateApis );
 
-function ContentPreviewContainer( {
+function PostPreviewContainer( {
 	template,
 	post,
 }: {
@@ -62,7 +62,7 @@ function ContentPreviewContainer( {
 	);
 }
 
-export default function ContentPreviewView( { item }: { item: BasePost } ) {
+export default function PostPreviewView( { item }: { item: BasePost } ) {
 	const { settings, template } = useSelect(
 		( select ) => {
 			const { canUser, getPostType, getTemplateId, getEntityRecord } =
@@ -102,7 +102,7 @@ export default function ContentPreviewView( { item }: { item: BasePost } ) {
 			settings={ settings }
 			__unstableTemplate={ template }
 		>
-			<ContentPreviewContainer template={ template } post={ item } />
+			<PostPreviewContainer template={ template } post={ item } />
 		</EditorProvider>
 	);
 }

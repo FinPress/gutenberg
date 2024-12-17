@@ -8,15 +8,15 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import ContentPreviewView from './content-preview-view';
+import PostPreviewView from './content-preview-view';
 
-const contentPreviewField: Field< BasePost > = {
+const postPreviewField: Field< BasePost > = {
 	type: 'text',
 	id: 'content-preview',
 	label: __( 'Content preview' ),
-	render: ContentPreviewView,
+	render: PostPreviewView,
 	enableSorting: false,
 	isPreviewField: true,
 };
 
-export default contentPreviewField;
+export default postPreviewField;
