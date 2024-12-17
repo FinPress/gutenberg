@@ -322,6 +322,11 @@ interface ViewBase {
 	 * Whether to show the description
 	 */
 	showDescription?: boolean;
+
+	/**
+	 * Whether to show the hierarchical levels.
+	 */
+	showLevels?: boolean;
 }
 
 export interface ColumnStyle {
@@ -356,11 +361,6 @@ export interface ViewTable extends ViewBase {
 		 * The density of the view.
 		 */
 		density?: Density;
-
-		/**
-		 * Switch on/off hierarchical sorting.
-		 */
-		hierarchicalSort?: boolean;
 	};
 }
 

@@ -234,10 +234,7 @@ export default function PostList( { postType } ) {
 			setIsDirty( true );
 			setView( {
 				...view,
-				layout: {
-					...( view?.layout || {} ),
-					hierarchicalSort: false,
-				},
+				showLevels: false,
 			} );
 		}
 	}, [ isDirty, view ] );
@@ -317,7 +314,7 @@ export default function PostList( { postType } ) {
 			_embed: 'author',
 			order: view.sort?.direction,
 			orderby: view.sort?.field,
-			orderby_hierarchy: !! view.layout?.hierarchicalSort,
+			orderby_hierarchy: !! view.showLevels,
 			search: view.search,
 			...filters,
 		};

@@ -380,7 +380,7 @@ function ViewTable< Item >( {
 								key={ getItemId( item ) }
 								item={ item }
 								level={
-									view.layout?.hierarchicalSort
+									view.showLevels
 										? getItemLevel( item )
 										: undefined
 								}

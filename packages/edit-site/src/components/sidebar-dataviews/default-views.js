@@ -27,11 +27,7 @@ import {
 } from '../../utils/constants';
 
 export const defaultLayouts = {
-	[ LAYOUT_TABLE ]: {
-		layout: {
-			hierarchicalSort: true,
-		},
-	},
+	[ LAYOUT_TABLE ]: {},
 	[ LAYOUT_GRID ]: {},
 	[ LAYOUT_LIST ]: {},
 };
@@ -46,6 +42,7 @@ const DEFAULT_POST_BASE = {
 		field: 'title',
 		direction: 'asc',
 	},
+	showLevels: true,
 	titleField: 'title',
 	mediaField: 'featured_media',
 	fields: [ 'author', 'status' ],
