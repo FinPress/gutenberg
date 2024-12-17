@@ -87,7 +87,7 @@ class Gutenberg_Hierarchical_Sort {
 		$top_level = array();
 		$children  = array();
 		foreach ( $posts as $post ) {
-			if ( 0 === $post->post_parent ) {
+			if ( empty( $post->post_parent ) ) {
 				$top_level[] = $post->ID;
 			} else {
 				$children[ $post->post_parent ][] = $post->ID;
