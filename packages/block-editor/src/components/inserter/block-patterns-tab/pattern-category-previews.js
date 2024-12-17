@@ -69,19 +69,19 @@ export function PatternCategoryPreviews( {
 					return false;
 				}
 
-				if ( category === allPatternsCategory.name ) {
+				if ( category === allPatternsCategory?.name ) {
 					return true;
 				}
 
 				if (
-					category === myPatternsCategory.name &&
+					category === myPatternsCategory?.name &&
 					pattern.type === INSERTER_PATTERN_TYPES.user
 				) {
 					return true;
 				}
 
 				if (
-					category === starterPatternsCategory.name &&
+					category === starterPatternsCategory?.name &&
 					pattern.blockTypes?.includes( 'core/post-content' )
 				) {
 					return true;
@@ -111,7 +111,7 @@ export function PatternCategoryPreviews( {
 	);
 
 	const categoryObject = availableCategories.find(
-		( { name } ) => name === category
+		( { name } ) => name === category.name
 	);
 
 	const pagingProps = usePatternsPaging(
@@ -153,7 +153,7 @@ export function PatternCategoryPreviews( {
 							level={ 4 }
 							as="div"
 						>
-							{ categoryObject.label }
+							{ categoryObject?.label }
 						</Heading>
 					</FlexBlock>
 					<PatternsFilter
