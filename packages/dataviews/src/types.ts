@@ -162,7 +162,7 @@ export type Field< Item > = {
 	/**
 	 * True if the field is supposed to be used as a media field.
 	 */
-	isMediaField?: boolean;
+	isPreviewField?: boolean;
 };
 
 export type NormalizedField< Item > = Field< Item > & {

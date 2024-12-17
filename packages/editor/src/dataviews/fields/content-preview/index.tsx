@@ -16,7 +16,7 @@ const contentPreviewField: Field< BasePost > = {
 	label: __( 'Content preview' ),
 	render: ContentPreviewView,
 	enableSorting: false,
-	isMediaField: true,
+	isPreviewField: true,
 };
 
 export default contentPreviewField;
