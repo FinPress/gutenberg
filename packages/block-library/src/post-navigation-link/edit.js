@@ -95,23 +95,25 @@ export default function PostNavigationLinkEdit( {
 	return (
 		<>
 			<InspectorControls>
-				<ToolsPanel label={__('Settings')}>
+				<ToolsPanel label={ __( 'Settings' ) }>
 					<ToolsPanelItem
-						hasValue={() => !!showTitle}
-						label={__('Display the title as a link')}
-						onDeselect={() => setAttributes({ showTitle: false })}
+						hasValue={ () => !! showTitle }
+						label={ __( 'Display the title as a link' ) }
+						onDeselect={ () =>
+							setAttributes( { showTitle: false } )
+						}
 					>
 						<ToggleControl
 							__nextHasNoMarginBottom
-							label={__('Display the title as a link')}
-							help={__(
+							label={ __( 'Display the title as a link' ) }
+							help={ __(
 								'If you have entered a custom label, it will be prepended before the title.'
-							)}
-							checked={!!showTitle}
-							onChange={() =>
-								setAttributes({
-									showTitle: !showTitle,
-								})
+							) }
+							checked={ !! showTitle }
+							onChange={ () =>
+								setAttributes( {
+									showTitle: ! showTitle,
+								} )
 							}
 						/>
 					</ToolsPanelItem>
@@ -131,49 +133,47 @@ export default function PostNavigationLinkEdit( {
 						/>
 					) }
 					<ToolsPanelItem
-						hasValue={() => !!arrow}
-						label={__('Arrow')}
-						onDeselect={() => setAttributes({ arrow: 'none' })}
+						hasValue={ () => !! arrow }
+						label={ __( 'Arrow' ) }
+						onDeselect={ () => setAttributes( { arrow: 'none' } ) }
 					>
 						<ToggleGroupControl
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-							label={__('Arrow')}
-							value={arrow}
-							onChange={(value) => {
-								setAttributes({ arrow: value });
-							}}
-							help={__(
+							label={ __( 'Arrow' ) }
+							value={ arrow }
+							onChange={ ( value ) => {
+								setAttributes( { arrow: value } );
+							} }
+							help={ __(
 								'A decorative arrow for the next and previous link.'
-							)}
+							) }
 							isBlock
 						>
 							<ToggleGroupControlOption
 								value="none"
-								label={_x(
+								label={ _x(
 									'None',
 									'Arrow option for Next/Previous link'
-								)}
+								) }
 							/>
 							<ToggleGroupControlOption
 								value="arrow"
-								label={_x(
+								label={ _x(
 									'Arrow',
 									'Arrow option for Next/Previous link'
-								)}
+								) }
 							/>
 							<ToggleGroupControlOption
 								value="chevron"
-								label={_x(
+								label={ _x(
 									'Chevron',
 									'Arrow option for Next/Previous link'
-								)}
+								) }
 							/>
 						</ToggleGroupControl>
 					</ToolsPanelItem>
 				</ToolsPanel>
-				
-				
 			</InspectorControls>
 			<InspectorControls group="advanced">
 				<SelectControl
