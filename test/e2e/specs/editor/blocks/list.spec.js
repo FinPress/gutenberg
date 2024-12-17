@@ -998,8 +998,7 @@ test.describe( 'List (@firefox)', () => {
 <li>a</li>
 <!-- /wp:list-item -->
 
-<!-- wp:list-item /-->
-</ul>
+<!-- wp:list-item /--></ul>
 <!-- /wp:list --></li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->`
