@@ -6,7 +6,7 @@ import { useMemo, useState } from '@wordpress/element';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { useViewportMatch } from '@wordpress/compose';
 import { Button } from '@wordpress/components';
-import { addQueryArgs } from '@wordpress/url';
+import { addQueryArgs, removeQueryArgs } from '@wordpress/url';
 import { seen } from '@wordpress/icons';
 
 /**
@@ -23,7 +23,6 @@ const GlobalStylesPageActions = ( {
 	setIsStyleBookOpened,
 	path,
 } ) => {
-	const stylebookPath = addQueryArgs( path, { preview: 'stylebook' } );
 	const history = useHistory();
 	return (
 		<Button
@@ -33,8 +32,8 @@ const GlobalStylesPageActions = ( {
 			onClick={ () => {
 				setIsStyleBookOpened( ! isStyleBookOpened );
 				const updatedPath = ! isStyleBookOpened
-					? path.replace( '/styles', stylebookPath )
-					: path.replace( stylebookPath, '/styles' );
+					? addQueryArgs( path, { preview: 'stylebook' } )
+					: removeQueryArgs( path, 'preview' );
 				// Navigate to the updated path.
 				history.navigate( updatedPath );
 			} }
