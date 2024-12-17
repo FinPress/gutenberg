@@ -73,7 +73,7 @@ function ZoomOutModeInserters() {
 
 	const nextClientId = blockOrder[ insertionIndex ];
 
-	// if the block insertion point is visible, and the insertion
+	// If the block insertion point is visible, and the insertion
 	// indicies match then we don't need to render the inserter.
 	if (
 		insertionPointVisible &&
