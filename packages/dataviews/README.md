@@ -443,7 +443,7 @@ const fields = [
 
 -   `type`: either `regular` or `panel`.
 -   `labelPosition`: either `side`, `top`, or `none`.
--   `fields`: a list of fields ids that should be rendered. Field ids can also be defined as an object and allow you to define a `layout`, `labelPosition` or `children` if displaying combined fields.
+-   `fields`: a list of fields ids that should be rendered. Field ids can also be defined as an object and allow you to define a `layout`, `labelPosition` or `children` if displaying combined fields. See "Form Field API" for a description of every property.
 
 Example:
 
