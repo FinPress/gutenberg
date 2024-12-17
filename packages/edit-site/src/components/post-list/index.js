@@ -194,6 +194,10 @@ function getItemId( item ) {
 	return item.id.toString();
 }
 
+function getItemLevel( item ) {
+	return item.level;
+}
+
 export default function PostList( { postType } ) {
 	const [ view, setView ] = useView( postType );
 	const defaultViews = useDefaultViews( { postType } );
@@ -421,6 +425,7 @@ export default function PostList( { postType } ) {
 					history.navigate( `/${ postType }/${ id }?canvas=edit` );
 				} }
 				getItemId={ getItemId }
+				getItemLevel={ getItemLevel }
 				defaultLayouts={ defaultLayouts }
 				header={
 					window.__experimentalQuickEditDataViews &&

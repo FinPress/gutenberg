@@ -380,7 +380,8 @@ function ViewTable< Item >( {
 								key={ getItemId( item ) }
 								item={ item }
 								level={
-									view.showLevels
+									view.showLevels &&
+									typeof getItemLevel === 'function'
 										? getItemLevel( item )
 										: undefined
 								}

@@ -8,7 +8,7 @@
 
 ### Features
 
-- Add support for hierarchical visualization of data. `DataViews` gets a new prop `getItemLevel` that should return the hierarchical level of the item. By default, it uses `item.level`.
+- Add support for hierarchical visualization of data. `DataViews` gets a new prop `getItemLevel` that should return the hierarchical level of the item. The view can use `view.showLevels` to display the levels. It's up to the consumer data source to prepare this information.
 
 ## 4.10.0 (2024-12-11)
 
