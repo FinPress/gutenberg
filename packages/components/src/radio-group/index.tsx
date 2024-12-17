@@ -57,7 +57,11 @@ function UnforwardedRadioGroup(
 		<RadioGroupContext.Provider value={ contextValue }>
 			<Ariakit.RadioGroup
 				store={ radioStore }
-				render={ <ButtonGroup>{ children }</ButtonGroup> }
+				render={
+					<ButtonGroup __shouldNotWarnDeprecated>
+						{ children }
+					</ButtonGroup>
+				}
 				aria-label={ label }
 				ref={ ref }
 				{ ...props }
