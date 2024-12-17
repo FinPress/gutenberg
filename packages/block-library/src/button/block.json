@@ -85,7 +85,16 @@
 			}
 		},
 		"typography": {
-			"__experimentalSkipSerialization": true,
+			"__experimentalSkipSerialization": [
+				"fontSize",
+				"lineHeight",
+				"__experimentalFontFamily",
+				"__experimentalFontWeight",
+				"__experimentalFontStyle",
+				"__experimentalTextTransform",
+				"__experimentalTextDecoration",
+				"__experimentalLetterSpacing"
+			],
 			"fontSize": true,
 			"lineHeight": true,
 			"__experimentalFontFamily": true,

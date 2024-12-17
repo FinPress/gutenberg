@@ -59,6 +59,7 @@ export default function save( { attributes, className } ) {
 		...spacingProps.style,
 		...shadowProps.style,
 		...typographyProps.style,
+		writingMode: undefined,
 	};
 
 	// The use of a `title` attribute here is soft-deprecated, but still applied

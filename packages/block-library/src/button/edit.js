@@ -318,6 +318,7 @@ function ButtonEdit( props ) {
 						...spacingProps.style,
 						...shadowProps.style,
 						...typographyProps.style,
+						writingMode: undefined,
 					} }
 					onReplace={ onReplace }
 					onMerge={ mergeBlocks }
