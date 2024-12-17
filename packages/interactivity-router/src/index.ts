@@ -115,7 +115,7 @@ const regionsToVdom: RegionsToVdom = ( dom, { vdom, baseUrl } = {} ) => {
 
 // Render all interactive regions contained in the given page.
 const renderRegions = async ( page: Page ) => {
-	// Whait for styles and modules to be ready.
+	// Wait for styles and modules to be ready.
 	await Promise.all( [
 		...page.styles,
 		...page.scriptModules.map(
