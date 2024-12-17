@@ -1,7 +1,7 @@
 <?php
 
 /**
- * A custom REST server for Gutenberg.
+ * Modifies the Post controller endpoint to support orderby_hierarchy.
  *
  * @package gutenberg
  * @since   6.8.0
