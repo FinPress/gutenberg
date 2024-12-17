@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
+const inquirer = require( '@inquirer/prompts' );
 const { command } = require( 'execa' );
 const glob = require( 'fast-glob' );
 const { resolve } = require( 'path' );
 const { existsSync } = require( 'fs' );
 const { mkdtemp, readFile } = require( 'fs' ).promises;
-const inquirer = require( 'inquirer' );
 const npmPackageArg = require( 'npm-package-arg' );
 const { tmpdir } = require( 'os' );
 const { join } = require( 'path' );
@@ -250,21 +250,27 @@ const getDefaultValues = ( pluginTemplate, variant ) => {
 	};
 };
 
-const runPrompts = async ( pluginTemplate, keys, variant, optionsValues ) => {
+const runPrompts = async (
+	pluginTemplate,
+	promptNames,
+	variant,
+	optionsValues
+) => {
 	const defaultValues = getDefaultValues( pluginTemplate, variant );
-	await inquirer.prompt(
-		keys
-			.filter(
-				( promptName ) =>
-					! Object.keys( optionsValues ).includes( promptName )
-			)
-			.map( ( promptName ) => {
-				return {
-					...prompts[ promptName ],
-					default: defaultValues[ promptName ],
-				};
-			} )
-	);
+	const result = {};
+	for ( const promptName of promptNames ) {
+		if ( Object.keys( optionsValues ).includes( promptName ) ) {
+			continue;
+		}
+
+		const { type, ...config } = prompts[ promptName ];
+		result[ promptName ] = await inquirer[ type ]( {
+			...config,
+			default: defaultValues[ promptName ],
+		} );
+	}
+
+	return result;
 };
 
 const getVariantVars = ( variants, variant ) => {
