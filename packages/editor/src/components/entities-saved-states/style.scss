@@ -52,6 +52,10 @@
 	}
 }
 
+.entities-saved-states__change-control {
+	flex: 1;
+}
+
 .entities-saved-states__changes {
 	font-size: $default-font-size;
 	margin: $grid-unit-05 $grid-unit-20 0 $grid-unit-30;
