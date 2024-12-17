@@ -196,7 +196,6 @@ function getItemId( item ) {
 
 export default function PostList( { postType } ) {
 	const [ view, setView ] = useView( postType );
-	const [ isDirty, setIsDirty ] = useState( false );
 	const defaultViews = useDefaultViews( { postType } );
 	const history = useHistory();
 	const location = useLocation();
@@ -224,20 +223,6 @@ export default function PostList( { postType } ) {
 		const found = views.find( ( { slug } ) => slug === match );
 		return found?.filters ?? [];
 	};
-	useEffect( () => {
-		if ( isDirty ) {
-			return;
-		}
-
-		// The sort defaults are set in DEFAULT_POST_BASE.
-		if ( view.sort.field !== 'title' || view.sort.direction !== 'asc' ) {
-			setIsDirty( true );
-			setView( {
-				...view,
-				showLevels: false,
-			} );
-		}
-	}, [ isDirty, view ] );
 
 	const { isLoading: isLoadingFields, fields: _fields } = usePostFields( {
 		postType,
