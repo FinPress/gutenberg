@@ -280,6 +280,8 @@ function gutenberg_update_ignored_hooked_blocks_postmeta( $post ) {
 
 	if ( 'wp_navigation' === $post->post_type ) {
 		$wrapper_block_type = 'core/navigation';
+	} elseif ( 'wp_block' === $post->post_type ) {
+		$wrapper_block_type = 'core/block';
 	} else {
 		$wrapper_block_type = 'core/post-content';
 	}
@@ -319,3 +321,4 @@ function gutenberg_update_ignored_hooked_blocks_postmeta( $post ) {
 }
 add_filter( 'rest_pre_insert_page', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
 add_filter( 'rest_pre_insert_post', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
+add_filter( 'rest_pre_insert_wp_block', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
