@@ -157,25 +157,29 @@ const v12 = {
 		title: {
 			type: 'string',
 			source: 'attribute',
-			selector: 'a',
+			selector: 'a,button',
 			attribute: 'title',
+			role: 'content',
 		},
 		text: {
-			type: 'string',
-			source: 'html',
-			selector: 'a',
+			type: 'rich-text',
+			source: 'rich-text',
+			selector: 'a,button',
+			role: 'content',
 		},
 		linkTarget: {
 			type: 'string',
 			source: 'attribute',
 			selector: 'a',
 			attribute: 'target',
+			role: 'content',
 		},
 		rel: {
 			type: 'string',
 			source: 'attribute',
 			selector: 'a',
 			attribute: 'rel',
+			role: 'content',
 		},
 		placeholder: {
 			type: 'string',
