@@ -32,6 +32,7 @@ import {
 	useContext,
 	useRef,
 	useLayoutEffect,
+	useEffect,
 } from '@wordpress/element';
 import { ENTER, SPACE } from '@wordpress/keycodes';
 
@@ -358,8 +359,11 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 		( select ) => select( siteEditorStore ).getSettings(),
 		[]
 	);
+
 	// Update block editor settings because useMultipleOriginColorsAndGradients fetch colours from there.
-	dispatch( blockEditorStore ).updateSettings( siteEditorSettings );
+	useEffect( () => {
+		dispatch( blockEditorStore ).updateSettings( siteEditorSettings );
+	}, [ siteEditorSettings ] );
 
 	const [ section, onChangeSection ] = useSection();
 
