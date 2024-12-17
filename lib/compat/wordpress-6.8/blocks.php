@@ -170,7 +170,7 @@ add_filter( 'the_content', 'gutenberg_apply_block_hooks_to_post_content', 8 );
  * @return WP_REST_Response The response object.
  */
 function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
-	if ( empty( $response->data['content']['raw'] ) || empty( $response->data['content']['rendered'] ) ) {
+	if ( empty( $response->data['content']['raw'] ) ) {
 		return $response;
 	}
 
@@ -207,6 +207,11 @@ function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 	$content = remove_serialized_parent_block( $content );
 
 	$response->data['content']['raw'] = $content;
+
+	// If the rendered content was previously empty, we leave it like that.
+	if ( empty( $response->data['content']['rendered'] ) ) {
+		return $response;
+	}
 
 	// No need to inject hooked blocks twice.
 	$priority = has_filter( 'the_content', 'apply_block_hooks_to_content' );
