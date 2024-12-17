@@ -304,7 +304,13 @@ function BaseFieldItem( {
 				expanded
 				className={ clsx(
 					'dataviews-field-control__field',
-					`dataviews-field-control__field-${ fieldId }`,
+					`dataviews-field-control__field-${ identifier }`,
+					// The actions are hidden when the mouse is not hovering the item, or focus
+					// is outside the item.
+					// For actions that require a popover, a menu etc, that would mean that when the interactive element
+					// opens and the focus goes there the actions would be hidden.
+					// To avoid that we add a class to the item, that makes sure actions are visible while there is some
+					// interaction with the item.
 					{ 'is-interacting': isInteracting }
 				) }
 				justify="flex-start"
