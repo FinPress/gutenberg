@@ -57,6 +57,7 @@ export function BlockSettingsDropdown( {
 	const currentClientId = block?.clientId;
 	const count = clientIds.length;
 	const firstBlockClientId = clientIds[ 0 ];
+
 	const {
 		firstParentClientId,
 		parentBlockType,
@@ -102,6 +103,7 @@ export function BlockSettingsDropdown( {
 		},
 		[ firstBlockClientId ]
 	);
+
 	const { getBlockOrder, getSelectedBlockClientIds } =
 		useSelect( blockEditorStore );
 
@@ -248,15 +250,13 @@ export function BlockSettingsDropdown( {
 											clientId={ firstBlockClientId }
 										/>
 									) }
-									{ ! isContentOnly && (
-										<CopyMenuItem
-											clientIds={ clientIds }
-											onCopy={ onCopy }
-											shortcut={ displayShortcut.primary(
-												'c'
-											) }
-										/>
-									) }
+									<CopyMenuItem
+										clientIds={ clientIds }
+										onCopy={ onCopy }
+										shortcut={ displayShortcut.primary(
+											'c'
+										) }
+									/>
 									{ canDuplicate && (
 										<MenuItem
 											onClick={ pipe(
@@ -311,14 +311,16 @@ export function BlockSettingsDropdown( {
 										</MenuItem>
 									</MenuGroup>
 								) }
-								<BlockSettingsMenuControls.Slot
-									fillProps={ {
-										onClose,
-										count,
-										firstBlockClientId,
-									} }
-									clientIds={ clientIds }
-								/>
+								{ ! isContentOnly && (
+									<BlockSettingsMenuControls.Slot
+										fillProps={ {
+											onClose,
+											count,
+											firstBlockClientId,
+										} }
+										clientIds={ clientIds }
+									/>
+								) }
 								{ typeof children === 'function'
 									? children( { onClose } )
 									: Children.map( ( child ) =>

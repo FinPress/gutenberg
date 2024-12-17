@@ -6,32 +6,38 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { Children } from '@wordpress/element';
 import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { moreVertical } from '@wordpress/icons';
+import { useEffect, useRef } from '@wordpress/element';
 
 function Warning( { className, actions, children, secondaryActions } ) {
+	const alertRef = useRef( null );
+
+	useEffect( () => {
+		if ( null !== alertRef.current ) {
+			alertRef.current.focus();
+		}
+	}, [] );
 	return (
 		<div style={ { display: 'contents', all: 'initial' } }>
 			<div
 				className={ clsx( className, 'block-editor-warning' ) }
-				role="alert"
-				aria-live="assertive"
 				tabIndex="0"
 			>
 				<div className="block-editor-warning__contents">
-					<p className="block-editor-warning__message">
+					<p
+						className="block-editor-warning__message"
+						ref={ alertRef }
+						role="alert"
+					>
 						{ children }
 					</p>
 
-					{ ( Children.count( actions ) > 0 || secondaryActions ) && (
-						<div
-							className="block-editor-warning__actions"
-							aria-describedby="block-editor-warning-message"
-						>
-							{ Children.count( actions ) > 0 &&
-								Children.map( actions, ( action, i ) => (
+					{ ( actions?.length > 0 || secondaryActions ) && (
+						<div className="block-editor-warning__actions">
+							{ actions?.length > 0 &&
+								actions.map( ( action, i ) => (
 									<span
 										key={ i }
 										className="block-editor-warning__action"
