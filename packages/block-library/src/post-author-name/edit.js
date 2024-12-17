@@ -13,7 +13,7 @@ import {
 	useBlockProps,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 import { PanelBody, ToggleControl } from '@wordpress/components';
 
@@ -24,7 +24,8 @@ function PostAuthorNameEdit( {
 } ) {
 	const { authorName, supportsAuthor } = useSelect(
 		( select ) => {
-			const { getEditedEntityRecord, getUser } = select( coreStore );
+			const { getEditedEntityRecord, getUser, getPostType } =
+				select( coreStore );
 			const _authorId = getEditedEntityRecord(
 				'postType',
 				postType,
@@ -34,8 +35,7 @@ function PostAuthorNameEdit( {
 			return {
 				authorName: _authorId ? getUser( _authorId ) : null,
 				supportsAuthor:
-					select( coreStore ).getPostType( postType )?.supports
-						?.author ?? false,
+					getPostType( postType )?.supports?.author ?? false,
 			};
 		},
 		[ postType, postId ]
@@ -93,15 +93,17 @@ function PostAuthorNameEdit( {
 					) }
 				</PanelBody>
 			</InspectorControls>
-			{ supportsAuthor ? (
-				<div { ...blockProps }> { displayAuthor } </div>
-			) : (
-				<div { ...blockProps }>
-					{ __(
-						'The current post type does not support authors. The Post Author Name block will not be displayed.'
-					) }
-				</div>
-			) }
+			<div { ...blockProps }>
+				{ supportsAuthor
+					? displayAuthor
+					: sprintf(
+							// Translators: %s is replaced with the name of the post type.
+							__(
+								'This post type (%s) does not support Authors.'
+							),
+							postType
+					  ) }
+			</div>
 		</>
 	);
 }
