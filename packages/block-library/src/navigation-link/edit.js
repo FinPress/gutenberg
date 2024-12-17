@@ -162,103 +162,107 @@ function getMissingText( type ) {
 function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 	const { label, url, description, title, rel } = attributes;
 	return (
-		<ToolsPanel label={__('Settings')}>
+		<ToolsPanel label={ __( 'Settings' ) }>
 			<ToolsPanelItem
-				hasValue={() => !!label}
-				label={__('Text')}
-				onDeselect={() => setAttributes({ label: '' })}
+				hasValue={ () => !! label }
+				label={ __( 'Text' ) }
+				onDeselect={ () => setAttributes( { label: '' } ) }
 				isShownByDefault
 			>
 				<TextControl
 					__nextHasNoMarginBottom
 					__next40pxDefaultSize
-					label={__('Text')}
-					value={label ? stripHTML(label) : ''}
-					onChange={(labelValue) => {
-						setAttributes({ label: labelValue });
-					}}
+					label={ __( 'Text' ) }
+					value={ label ? stripHTML( label ) : '' }
+					onChange={ ( labelValue ) => {
+						setAttributes( { label: labelValue } );
+					} }
 					autoComplete="off"
-					onFocus={() => setIsLabelFieldFocused(true)}
-					onBlur={() => setIsLabelFieldFocused(false)}
+					onFocus={ () => setIsLabelFieldFocused( true ) }
+					onBlur={ () => setIsLabelFieldFocused( false ) }
 				/>
 			</ToolsPanelItem>
 
 			<ToolsPanelItem
-				hasValue={() => !!url}
-				label={__('Link')}
-				onDeselect={() => setAttributes({ url: '' })}
+				hasValue={ () => !! url }
+				label={ __( 'Link' ) }
+				onDeselect={ () => setAttributes( { url: '' } ) }
 				isShownByDefault
 			>
 				<TextControl
 					__nextHasNoMarginBottom
 					__next40pxDefaultSize
-					label={__('Link')}
-					value={url ? safeDecodeURI(url) : ''}
-					onChange={(urlValue) => {
-						updateAttributes({ url: urlValue }, setAttributes, attributes);
-					}}
+					label={ __( 'Link' ) }
+					value={ url ? safeDecodeURI( url ) : '' }
+					onChange={ ( urlValue ) => {
+						updateAttributes(
+							{ url: urlValue },
+							setAttributes,
+							attributes
+						);
+					} }
 					autoComplete="off"
 				/>
 			</ToolsPanelItem>
 
 			<ToolsPanelItem
-				hasValue={() => !!description}
-				label={__('Description')}
-				onDeselect={() => setAttributes({ description: '' })}
+				hasValue={ () => !! description }
+				label={ __( 'Description' ) }
+				onDeselect={ () => setAttributes( { description: '' } ) }
 				isShownByDefault
 			>
 				<TextareaControl
 					__nextHasNoMarginBottom
-					label={__('Description')}
-					value={description || ''}
-					onChange={(descriptionValue) => {
-						setAttributes({ description: descriptionValue });
-					}}
-					help={__(
+					label={ __( 'Description' ) }
+					value={ description || '' }
+					onChange={ ( descriptionValue ) => {
+						setAttributes( { description: descriptionValue } );
+					} }
+					help={ __(
 						'The description will be displayed in the menu if the current theme supports it.'
-					)}
+					) }
 				/>
 			</ToolsPanelItem>
 
 			<ToolsPanelItem
-				hasValue={() => !!title}
-				label={__('Title attribute')}
-				onDeselect={() => setAttributes({ title: '' })}
+				hasValue={ () => !! title }
+				label={ __( 'Title attribute' ) }
+				onDeselect={ () => setAttributes( { title: '' } ) }
 				isShownByDefault
 			>
 				<TextControl
 					__nextHasNoMarginBottom
 					__next40pxDefaultSize
-					label={__('Title attribute')}
-					value={title || ''}
-					onChange={(titleValue) => {
-						setAttributes({ title: titleValue });
-					}}
+					label={ __( 'Title attribute' ) }
+					value={ title || '' }
+					onChange={ ( titleValue ) => {
+						setAttributes( { title: titleValue } );
+					} }
 					autoComplete="off"
-					help={__(
+					help={ __(
 						'Additional information to help clarify the purpose of the link.'
-					)}
+					) }
 				/>
 			</ToolsPanelItem>
 
 			<ToolsPanelItem
-				hasValue={() => !!rel}
-				label={__('Rel attribute')}
-				onDeselect={() => setAttributes({ rel: '' })}
+				hasValue={ () => !! rel }
+				label={ __( 'Rel attribute' ) }
+				onDeselect={ () => setAttributes( { rel: '' } ) }
 				isShownByDefault
 			>
 				<TextControl
 					__nextHasNoMarginBottom
 					__next40pxDefaultSize
-					label={__('Rel attribute')}
-					value={rel || ''}
-					onChange={(relValue) => {
-						setAttributes({ rel: relValue });
-					}}
+					label={ __( 'Rel attribute' ) }
+					value={ rel || '' }
+					onChange={ ( relValue ) => {
+						setAttributes( { rel: relValue } );
+					} }
 					autoComplete="off"
-					help={__(
+					help={ __(
 						'The relationship of the linked URL as space-separated link types.'
-					)}
+					) }
 				/>
 			</ToolsPanelItem>
 		</ToolsPanel>
