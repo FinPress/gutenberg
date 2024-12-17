@@ -204,5 +204,4 @@ class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
 			$result['levels']
 		);
 	}
-
 }
