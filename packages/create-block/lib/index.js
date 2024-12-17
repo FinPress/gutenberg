@@ -1,8 +1,7 @@
 /**
  * External dependencies
  */
-const { select } = require( '@inquirer/prompts' );
-const inquirer = require( 'inquirer' );
+const { confirm, select } = require( '@inquirer/prompts' );
 const { capitalCase } = require( 'change-case' );
 const program = require( 'commander' );
 
@@ -17,7 +16,7 @@ const scaffold = require( './scaffold' );
 const {
 	getPluginTemplate,
 	getDefaultValues,
-	getPrompts,
+	runPrompts,
 } = require( './templates' );
 
 const commandName = `wp-create-block`;
@@ -148,9 +147,7 @@ program
 						variant
 					);
 
-					const filterOptionsProvided = ( { name } ) =>
-						! Object.keys( optionsValues ).includes( name );
-					const blockPrompts = getPrompts(
+					const blockAnswers = await runPrompts(
 						pluginTemplate,
 						[
 							'slug',
@@ -161,42 +158,32 @@ program
 							'category',
 							'textdomain',
 						],
-						variant
-					).filter( filterOptionsProvided );
-					const blockAnswers = await inquirer.prompt( blockPrompts );
+						variant,
+						optionsValues
+					);
 
-					const pluginAnswers = plugin
-						? await inquirer
-								.prompt( {
-									type: 'confirm',
-									name: 'configurePlugin',
-									message:
-										'Do you want to customize the WordPress plugin?',
-									default: false,
-								} )
-								.then( async ( { configurePlugin } ) => {
-									if ( ! configurePlugin ) {
-										return {};
-									}
-
-									const pluginPrompts = getPrompts(
-										pluginTemplate,
-										[
-											'pluginURI',
-											'version',
-											'author',
-											'license',
-											'licenseURI',
-											'domainPath',
-											'updateURI',
-										],
-										variant
-									).filter( filterOptionsProvided );
-									const result =
-										await inquirer.prompt( pluginPrompts );
-									return result;
-								} )
-						: {};
+					const pluginAnswers =
+						plugin &&
+						( await confirm( {
+							message:
+								'Do you want to customize the WordPress plugin?',
+							default: false,
+						} ) )
+							? await runPrompts(
+									pluginTemplate,
+									[
+										'pluginURI',
+										'version',
+										'author',
+										'license',
+										'licenseURI',
+										'domainPath',
+										'updateURI',
+									],
+									variant,
+									optionsValues
+							  )
+							: {};
 
 					await scaffold( pluginTemplate, {
 						...defaultValues,

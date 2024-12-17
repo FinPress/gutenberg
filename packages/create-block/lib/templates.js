@@ -6,6 +6,7 @@ const glob = require( 'fast-glob' );
 const { resolve } = require( 'path' );
 const { existsSync } = require( 'fs' );
 const { mkdtemp, readFile } = require( 'fs' ).promises;
+const inquirer = require( 'inquirer' );
 const npmPackageArg = require( 'npm-package-arg' );
 const { tmpdir } = require( 'os' );
 const { join } = require( 'path' );
@@ -249,14 +250,21 @@ const getDefaultValues = ( pluginTemplate, variant ) => {
 	};
 };
 
-const getPrompts = ( pluginTemplate, keys, variant ) => {
+const runPrompts = async ( pluginTemplate, keys, variant, optionsValues ) => {
 	const defaultValues = getDefaultValues( pluginTemplate, variant );
-	return keys.map( ( promptName ) => {
-		return {
-			...prompts[ promptName ],
-			default: defaultValues[ promptName ],
-		};
-	} );
+	await inquirer.prompt(
+		keys
+			.filter(
+				( promptName ) =>
+					! Object.keys( optionsValues ).includes( promptName )
+			)
+			.map( ( promptName ) => {
+				return {
+					...prompts[ promptName ],
+					default: defaultValues[ promptName ],
+				};
+			} )
+	);
 };
 
 const getVariantVars = ( variants, variant ) => {
@@ -279,5 +287,5 @@ const getVariantVars = ( variants, variant ) => {
 module.exports = {
 	getPluginTemplate,
 	getDefaultValues,
-	getPrompts,
+	runPrompts,
 };
