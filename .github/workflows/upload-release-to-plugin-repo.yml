@@ -280,8 +280,8 @@ jobs:
 
             - name: Commit the updated assets
               run: |
-                  svn st | grep '^?' | awk '{print $2}' | xargs -r svn add
-                  svn st | grep '^!' | awk '{print $2}' | xargs -r svn rm
+                  svn st | awk '/^?/ {print $2}' | xargs -r svn add
+                  svn st | awk '/^!/ {print $2}' | xargs -r svn rm
                   svn commit "assets" \
                     -m "Sync assets for version $VERSION" \
                     --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" \
