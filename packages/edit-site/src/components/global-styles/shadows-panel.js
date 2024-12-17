@@ -10,13 +10,15 @@ import {
 	FlexItem,
 	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf, isRTL } from '@wordpress/i18n';
 import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 import {
 	plus,
-	shadow as shadowIcon,
+	Icon,
+	chevronLeft,
 	chevronRight,
 	moreVertical,
+	shadow as shadowIcon,
 } from '@wordpress/icons';
 
 /**
@@ -28,11 +30,11 @@ import { NavigationButtonAsItem } from './navigation-button';
 import ScreenHeader from './header';
 import { getNewIndexFromPresets } from './utils';
 import { IconWithCurrentColor } from './icon-with-current-color';
-const { Menu } = unlock( componentsPrivateApis );
 import { useState } from '@wordpress/element';
 import ConfirmResetShadowDialog from './confirm-reset-shadow-dialog';
 
 const { useGlobalSetting } = unlock( blockEditorPrivateApis );
+const { Menu } = unlock( componentsPrivateApis );
 
 export const defaultShadow = '6px 6px 9px rgba(0, 0, 0, 0.2)';
 
@@ -63,7 +65,7 @@ export default function ShadowsPanel() {
 			{ isResetDialogOpen && (
 				<ConfirmResetShadowDialog
 					text={ __(
-						'Are you sure you want to remove all custom shadows?'
+						'Are you sure you want to remove all custom Shadows?'
 					) }
 					confirmButtonText={ __( 'Remove' ) }
 					isOpen={ isResetDialogOpen }
@@ -153,20 +155,23 @@ function ShadowList( {
 					</FlexItem>
 				) }
 				{ !! shadows?.length && category === 'custom' && (
-					<Menu
-						trigger={
-							<Button
-								size="small"
-								icon={ moreVertical }
-								label={ __( 'shadow options' ) }
-							/>
-						}
-					>
-						<Menu.Item onClick={ onReset }>
-							<Menu.ItemLabel>
-								{ __( 'Remove all shadows' ) }
-							</Menu.ItemLabel>
-						</Menu.Item>
+					<Menu>
+						<Menu.TriggerButton
+							render={
+								<Button
+									size="small"
+									icon={ moreVertical }
+									label={ __( 'Shadow options' ) }
+								/>
+							}
+						/>
+						<Menu.Popover>
+							<Menu.Item onClick={ onReset }>
+								<Menu.ItemLabel>
+									{ __( 'Remove all custom shadows' ) }
+								</Menu.ItemLabel>
+							</Menu.Item>
+						</Menu.Popover>
 					</Menu>
 				) }
 			</HStack>
@@ -193,9 +198,9 @@ function ShadowItem( { shadow, category } ) {
 			<HStack justify="space-between">
 				<HStack justify="flex-start">
 					<IconWithCurrentColor icon={ shadowIcon } />
-					<FlexItem> { shadow.name } </FlexItem>
+					<FlexItem>{ shadow.name }</FlexItem>
 				</HStack>
-				<IconWithCurrentColor icon={ chevronRight } />
+				<Icon icon={ isRTL() ? chevronLeft : chevronRight } />
 			</HStack>
 		</NavigationButtonAsItem>
 	);

@@ -1,6 +1,6 @@
 # The `@wordpress/dataviews` package
 
-The DataViews package offers two React components and a few utilites to work with a list of data:
+The DataViews package offers two React components and a few utilities to work with a list of data:
 
 - `DataViews`: to render the dataset using different types of layouts (table, grid, list) and interaction capabilities (search, filters, sorting, etc.).
 - `DataForm`: to edit the items of the dataset.
@@ -15,7 +15,9 @@ npm install @wordpress/dataviews --save
 
 ## `DataViews`
 
-<div class="callout callout-info">At <a href="https://wordpress.github.io/gutenberg/">WordPress Gutenberg's Storybook</a> there's and <a href="https://wordpress.github.io/gutenberg/?path=/docs/dataviews-dataviews--docs">example implementation of the Dataviews component</a>.</div>
+<div class="callout callout-info">At <a href="https://wordpress.github.io/gutenberg/">WordPress Gutenberg's Storybook</a> there's an <a href="https://wordpress.github.io/gutenberg/?path=/docs/dataviews-dataviews--docs">example implementation of the Dataviews component</a>.</div>
+
+**Important note** If you're trying to use the `DataViews` component in a WordPress plugin or theme and you're building your scripts using the `@wordpress/scripts` package, you need to import the components from `@wordpress/dataviews/wp` instead of `@wordpress/dataviews`.
 
 ### Usage
 
@@ -66,13 +68,13 @@ const data = [
 ];
 ```
 
-The data can come from anywhere, from a static JSON file to a dynamic source like a HTTP Request. It's the consumer's responsiblity to query the data source appropiately and update the dataset based on the user's choices for sorting, filtering, etc.
+The data can come from anywhere, from a static JSON file to a dynamic source like an HTTP Request. It's the consumer's responsibility to query the data source appropriately and update the dataset based on the user's choices for sorting, filtering, etc.
 
 Each record should have an `id` that identifies them uniquely. If they don't, the consumer should provide the `getItemId` property to `DataViews`: a function that returns an unique identifier for the record.
 
 #### `getItemId`: `function`
 
-Function that receives an item and returns an unique identifier for it.
+A function that receives an item and returns a unique identifier for it.
 
 It's optional. The field will get a default implementation by `DataViews` that returns the value of the `item[ id ]`.
 
@@ -163,6 +165,7 @@ const view = {
 		field: 'date',
 		direction: 'desc',
 	},
+	titleField: 'title',
 	fields: [ 'author', 'status' ],
 	layout: {},
 };
@@ -182,55 +185,27 @@ Properties:
 
     -   `field`: the field used for sorting the dataset.
     -   `direction`: the direction to use for sorting, one of `asc` or `desc`.
-
--   `fields`: a list of field `id` that are visible in the UI and the specific order in which they are displayed.
+-   `titleField`: The id of the field representing the title of the record.
+-   `mediaField`: The id of the field representing the media of the record.
+-   `descriptionField`: The id of the field representing the description of the record.
+-   `showTitle`: Whether the title should be shown in the UI. `true` by default.
+-   `showMedia`: Whether the media should be shown in the UI. `true` by default.
+-   `showDescription`: Whether the description should be shown in the UI. `true` by default.
+-   `fields`: a list of remaining field `id` that are visible in the UI and the specific order in which they are displayed.
 -   `layout`: config that is specific to a particular layout type.
 
 ##### Properties of `layout`
 
 | Properties of `layout`                                                                                          | Table | Grid | List |
 | --------------------------------------------------------------------------------------------------------------- | ----- | ---- | ---- |
-| `primaryField`: the field's `id` to be highlighted in each layout. It's not hidable.                            | ✓     | ✓    | ✓    |
-| `mediaField`: the field's `id` to be used for rendering each card's media. It's not hiddable.                   |       | ✓    | ✓    |
-| `columnFields`: a list of field's `id` to render vertically stacked instead of horizontally (the default).      |       | ✓    |      |
 | `badgeFields`: a list of field's `id` to render without label and styled as badges.                             |       | ✓    |      |
-| `combinedFields`: a list of "virtual" fields that are made by combining others. See "Combining fields" section. | ✓     |      |      |
 | `styles`: additional `width`, `maxWidth`, `minWidth` styles for each field column.                              | ✓     |      |      |
-
-##### Combining fields
-
-The `table` layout has the ability to create "virtual" fields that are made out by combining existing ones.
-
-Each "virtual field", has to provide an `id` and `label` (optionally a `header` instead), which have the same meaning as any other field.
-
-Additionally, they need to provide:
-
--   `children`: a list of field's `id` to combine
--   `direction`: how should they be stacked, `vertical` or `horizontal`
-
-For example, this is how you'd define a `site` field which is a combination of a `title` and `description` fields, which are not displayed:
-
-```js
-{
-	fields: [ 'site', 'status' ],
-	layout: {
-		combinedFields: [
-			{
-				id: 'site',
-				label: 'Site',
-				children: [ 'title', 'description' ],
-				direction: 'vertical',
-			}
-		]
-	}
-}
-```
 
 #### `onChangeView`: `function`
 
 Callback executed when the view has changed. It receives the new view object as a parameter.
 
-The view is a representation of the visible state of the dataset: what type of layout is used to display it (table, grid, etc.), how the dataset is filtered, how it is sorted or paginated. It's the consumer's responsibility to use the view config to query the data provider and make sure the user decisions (sort, pagination, filters, etc.) are respected.
+The view is a representation of the visible state of the dataset: what type of layout is used to display it (table, grid, etc.), how the dataset is filtered, and how it is sorted or paginated. The consumer is responsible for using the view config to query the data provider and ensure the user decisions (sort, pagination, filters, etc.) are respected.
 
 The following example shows how a view object is used to query the WordPress REST API via the entities abstraction. The same can be done with any other data provider.
 
@@ -253,6 +228,7 @@ function MyCustomPageTable() {
 				value: [ 'publish', 'draft' ],
 			},
 		],
+		titleField: 'title',
 		fields: [ 'author', 'status' ],
 		layout: {},
 	} );
@@ -361,37 +337,38 @@ Whether the data is loading. `false` by default.
 
 #### `defaultLayouts`: `Record< string, view >`
 
-This property provides layout information about the view types that are active. If empty, enables all layout types (see "Layout Types") with empty layout data.
+This property provides layout information about active view types. If empty, this enables all layout types (see "Layout Types") with empty layout data.
 
 For example, this is how you'd enable only the table view type:
 
 ```js
 const defaultLayouts = {
 	table: {
-		layout: {
-			primaryField: 'my-key',
-		},
+		showMedia: false,
 	},
+	grid: {
+		showMedia: true,
+	}
 };
 ```
 
-The `defaultLayouts` property should be an object that includes properties named `table`, `grid`, or `list`. Each of these properties should contain a `layout` property, which holds the configuration for each specific layout type. Check "Properties of layout" for the full list of properties available for each layout's configuration
+The `defaultLayouts` property should be an object that includes properties named `table`, `grid`, or `list`. These properties are applied to the view object each time the user switches to the corresponding layout.
 
 #### `selection`: `string[]`
 
 The list of selected items' ids.
 
-If `selection` and `onChangeSelection` are provided, the `DataViews` component behaves as a controlled component, otherwise, it behaves like an uncontrolled component.
+If `selection` and `onChangeSelection` are provided, the `DataViews` component behaves like a controlled component. Otherwise, it behaves like an uncontrolled component.
 
 #### `onChangeSelection`: `function`
 
-Callback that signals the user selected one of more items. It receives the list of selected items' ids as a parameter.
+Callback that signals the user selected one of more items. It receives the list of selected items' IDs as a parameter.
 
-If `selection` and `onChangeSelection` are provided, the `DataViews` component behaves as a controlled component, otherwise, it behaves like an uncontrolled component.
+If `selection` and `onChangeSelection` are provided, the `DataViews` component behaves like a controlled component. Otherwise, it behaves like an uncontrolled component.
 
 ### `isItemClickable`: `function`
 
-A function that determines if a media field or a primary field are clickable. It receives an item as an argument and returns a boolean value indicating whether the item can be clicked.
+A function that determines if a media field or a primary field is clickable. It receives an item as an argument and returns a boolean value indicating whether the item can be clicked.
 
 ### `onClickItem`: `function`
 
@@ -428,7 +405,7 @@ const Example = () => {
 
 A single item to be edited.
 
-It can be think of as a single record coming from the `data` property of `DataViews` — though it doesn't need to be. It can be totally separated or a mix of records if your app supports bulk editing.
+It can be thought of as a single record coming from the `data` property of `DataViews` — though it doesn't need to be. It can be totally separated or a mix of records if your app supports bulk editing.
 
 #### `fields`: `Object[]`
 
@@ -523,7 +500,7 @@ Returns an object containing:
 
 ### `isItemValid`
 
-Utility to determine whether or not the given item's value is valid according to the current fields and form config.
+Utility is used to determine whether or not the given item's value is valid according to the current fields and form configuration.
 
 Parameters:
 
@@ -710,7 +687,7 @@ Example:
 
 Field type. One of `text`, `integer`, `datetime`.
 
-If a field declares a `type`, it gets default implementations for the `sort`, `isValid`, and `Edit` functions. They will overriden if the field provides its own.
+If a field declares a `type`, it gets default implementations for the `sort`, `isValid`, and `Edit` functions if no other values are specified.
 
 - Type: `string`.
 - Optional.
@@ -755,7 +732,7 @@ Example:
 
 ### `getValue`
 
-React component that returns the value of a field. This value is used in sorting the fields, or when filtering.
+React component that returns the value of a field. This value is used to sort or filter the fields.
 
 - Type: React component.
 - Optional.
@@ -1000,13 +977,13 @@ Example:
 
 ### `elements`
 
-List of valid values for a field. If provided, it creates a DataViews' filter for the field. DataForm's edit control will use these values as well (see `Edit` field property).
+List of valid values for a field. If provided, it creates a DataViews' filter for the field. DataForm's edit control will also use these values. (See `Edit` field property.)
 
 - Type: `array` of objects.
 - Optional.
 - Each object can have the following properties:
-  - `value`: required, the value to match against the field's value.
-  - `label`: required, the name to display to users.
+  - `value`: the value to match against the field's value. (Required)
+  - `label`: the name to display to users. (Required)
   - `description`: optional, a longer description of the item.
 
 Example:
@@ -1029,7 +1006,7 @@ Configuration of the filters.
 - Type: `object`.
 - Optional.
 - Properties:
-  - `operators`: the list of operators supported by the field. See "operators" below. By default, a filter will support the `isAny` and `isNone` multi-selection operators.
+  - `operators`: the list of operators supported by the field. See "operators" below. A filter will support the `isAny` and `isNone` multi-selection operators by default.
   - `isPrimary`: boolean, optional. Indicates if the filter is primary. A primary filter is always visible and is not listed in the "Add filter" component, except for the list layout where it behaves like a secondary filter.
 
 Operators:
@@ -1043,7 +1020,7 @@ Operators:
 | `isAll`    | Multiple items | `AND`. The item's field has all of the values in the list.              | Category is all: Book, Review, Science Fiction     |
 | `isNotAll` | Multiple items | `NOT AND`. The item's field doesn't have all of the values in the list. | Category is not all: Book, Review, Science Fiction |
 
-`is` and `isNot` are single-selection operators, while `isAny`, `isNone`, `isAll`, and `isNotALl` are multi-selection. By default, a filter with no operators declared will support the `isAny` and `isNone` multi-selection operators. A filter cannot mix single-selection & multi-selection operators; if a single-selection operator is present in the list of valid operators, the multi-selection ones will be discarded and the filter won't allow selecting more than one item.
+`is` and `isNot` are single-selection operators, while `isAny`, `isNone`, `isAll`, and `isNotALl` are multi-selection. A filter with no operators declared will support the `isAny` and `isNone` multi-selection operators by default. A filter cannot mix single-selection & multi-selection operators; if a single-selection operator is present in the list of valid operators, the multi-selection ones will be discarded, and the filter won't allow selecting more than one item.
 
 Example:
 
