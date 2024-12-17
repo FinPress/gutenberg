@@ -48,7 +48,21 @@ function useFocusReturn( onFocusReturn ) {
 				return;
 			}
 
-			focusedBeforeMount.current = node.ownerDocument.activeElement;
+			/** @type {any} */
+			const activeElement = node.ownerDocument.activeElement;
+
+			// If the activeElement is an iframe, we need to get the active element within the iframe.
+			// Otherwise, focus from items within the iframed canvas will get sent to the iframe itself,
+			// not the active element within the iframe.
+			if (
+				activeElement?.tagName === 'IFRAME' &&
+				activeElement.contentDocument?.activeElement
+			) {
+				focusedBeforeMount.current =
+					activeElement.contentDocument.activeElement;
+			} else {
+				focusedBeforeMount.current = activeElement;
+			}
 		} else if ( focusedBeforeMount.current ) {
 			const isFocused = ref.current?.contains(
 				ref.current?.ownerDocument.activeElement
