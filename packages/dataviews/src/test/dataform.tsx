@@ -62,7 +62,33 @@ describe( 'DataForm component', () => {
 			).toHaveLength( 3 );
 		} );
 
-		it( 'should trigger onChange', async () => {
+		it( 'should render custom Edit component', () => {
+			const fieldsWithCustomEditComponent = fields.map( ( field ) => {
+				if ( field.id === 'title' ) {
+					return {
+						...field,
+						Edit: () => {
+							return <span>This is the Title Field</span>;
+						},
+					};
+				}
+				return field;
+			} );
+
+			render(
+				<Dataform
+					onChange={ () => void 0 }
+					fields={ fieldsWithCustomEditComponent }
+					form={ form }
+					data={ data }
+				/>
+			);
+
+			const titleField = screen.getByText( 'This is the Title Field' );
+			expect( titleField ).toBeInTheDocument();
+		} );
+
+		it( 'should call onChange with the correct value for each typed character', async () => {
 			const onChange = jest.fn();
 			render(
 				<Dataform
@@ -74,7 +100,7 @@ describe( 'DataForm component', () => {
 			);
 
 			const titleInput = screen.getByRole( 'textbox', {
-				name: 'Title',
+				name: /title/i,
 			} );
 			const user = userEvent.setup();
 			await user.clear( titleInput );
@@ -106,7 +132,7 @@ describe( 'DataForm component', () => {
 			).toHaveLength( 3 );
 		} );
 
-		it( 'should render combineField correctly', async () => {
+		it( 'should render combinedFields correctly', async () => {
 			const formWithCombinedFields = {
 				fields: [
 					'order',
@@ -134,12 +160,16 @@ describe( 'DataForm component', () => {
 	} );
 
 	describe( 'in panel mode', () => {
+		const formPanelMode = {
+			...form,
+			type: 'panel' as const,
+		};
 		it( 'should display fields', () => {
 			const { container } = render(
 				<Dataform
 					onChange={ () => void 0 }
 					fields={ fields }
-					form={ { ...form, type: 'panel' } }
+					form={ formPanelMode }
 					data={ data }
 				/>
 			);
@@ -153,25 +183,26 @@ describe( 'DataForm component', () => {
 			).toHaveLength( 3 );
 		} );
 
-		it( 'should trigger onChange', async () => {
+		it( 'should call onChange with the correct value for each typed character', async () => {
 			const onChange = jest.fn();
 			render(
 				<Dataform
 					onChange={ onChange }
 					fields={ fields }
-					form={ form }
+					form={ formPanelMode }
 					data={ { ...data, title: '' } }
 				/>
 			);
 
-			const titleInput = screen.getByRole( 'textbox', {
-				name: 'Title',
+			const titleValue = screen.getByRole( 'button', {
+				name: /edit title/i,
 			} );
 			const user = userEvent.setup();
-			await user.clear( titleInput );
-			expect( titleInput ).toHaveValue( '' );
+			await user.click( titleValue );
+			const input = screen.getByRole( 'textbox' );
+			expect( input ).toHaveValue( '' );
 			const newValue = 'Hello folks!';
-			await user.type( titleInput, newValue );
+			await user.type( input, newValue );
 			expect( onChange ).toHaveBeenCalledTimes( newValue.length );
 			for ( let i = 0; i < newValue.length; i++ ) {
 				expect( onChange ).toHaveBeenNthCalledWith( i + 1, {
@@ -185,7 +216,7 @@ describe( 'DataForm component', () => {
 				<Dataform
 					onChange={ () => void 0 }
 					fields={ fields }
-					form={ { ...form, labelPosition: 'side' } }
+					form={ { ...formPanelMode, labelPosition: 'side' } }
 					data={ data }
 				/>
 			);
@@ -198,6 +229,7 @@ describe( 'DataForm component', () => {
 
 		it( 'should render combineField correctly', async () => {
 			const formWithCombinedFields = {
+				...formPanelMode,
 				fields: [
 					'order',
 					{
@@ -217,12 +249,22 @@ describe( 'DataForm component', () => {
 				/>
 			);
 
-			expect(
-				screen.getByText( "Title and author's name" )
-			).toBeInTheDocument();
+			const button = screen.getByRole( 'button', {
+				name: /edit title and author's name/i,
+			} );
+			const user = await userEvent.setup();
+			await user.click( button );
+			const title = screen.getByRole( 'textbox', {
+				name: /title/i,
+			} );
+			const author = screen.getByRole( 'combobox', {
+				name: /author/i,
+			} );
+			expect( title ).toBeInTheDocument();
+			expect( author ).toBeInTheDocument();
 		} );
 
-		it( 'should render view components', async () => {
+		it( 'should render custom render component', async () => {
 			const fieldsWithCustomRenderFunction = fields.map( ( field ) => {
 				return {
 					...field,
@@ -236,7 +278,7 @@ describe( 'DataForm component', () => {
 				<Dataform
 					onChange={ () => void 0 }
 					fields={ fieldsWithCustomRenderFunction }
-					form={ { ...form, type: 'panel' } }
+					form={ formPanelMode }
 					data={ data }
 				/>
 			);
@@ -247,6 +289,39 @@ describe( 'DataForm component', () => {
 			expect( titleField ).toBeInTheDocument();
 			expect( orderField ).toBeInTheDocument();
 			expect( authorField ).toBeInTheDocument();
+		} );
+
+		it( 'should render custom Edit component', async () => {
+			const fieldsWithTitleCustomEditComponent = fields.map(
+				( field ) => {
+					if ( field.id === 'title' ) {
+						return {
+							...field,
+							Edit: () => {
+								return <span>This is the Title Field</span>;
+							},
+						};
+					}
+					return field;
+				}
+			);
+
+			render(
+				<Dataform
+					onChange={ () => void 0 }
+					fields={ fieldsWithTitleCustomEditComponent }
+					form={ formPanelMode }
+					data={ data }
+				/>
+			);
+
+			const titleField = screen.getByText( data.title );
+			const user = await userEvent.setup();
+			await user.click( titleField );
+			const titleEditField = screen.getByText(
+				'This is the Title Field'
+			);
+			expect( titleEditField ).toBeInTheDocument();
 		} );
 
 		it( 'should edit component when click on render component', async () => {
@@ -263,7 +338,7 @@ describe( 'DataForm component', () => {
 				<Dataform
 					onChange={ () => void 0 }
 					fields={ fieldsWithCustomRenderFunction }
-					form={ { ...form, type: 'panel' } }
+					form={ formPanelMode }
 					data={ data }
 				/>
 			);
