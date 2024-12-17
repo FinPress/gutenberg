@@ -128,7 +128,7 @@ export function isBlockValid( state, clientId ) {
  * @param {Object} state    Editor state.
  * @param {string} clientId Block client ID.
  *
- * @return {Object?} Block attributes.
+ * @return {?Object} Block attributes.
  */
 export function getBlockAttributes( state, clientId ) {
 	const block = state.blocks.byClientId.get( clientId );

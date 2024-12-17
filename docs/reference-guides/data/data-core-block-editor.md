@@ -190,7 +190,7 @@ _Parameters_
 
 _Returns_
 
--   `Object?`: Block attributes.
+-   `?Object`: Block attributes.
 
 ### getBlockCount
 
