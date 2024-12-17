@@ -425,11 +425,12 @@ export default function SearchEdit( {
 								width: undefined,
 							} )
 						}
+						isShownByDefault
 					>
 						<UnitControl
 							__next40pxDefaultSize
 							label={ __( 'Width' ) }
-							id={ unitControlInputId }
+							id={ unitControlInputId } // unused, kept for backwards compatibility
 							min={
 								isPercentageUnit( widthUnit ) ? 0 : MIN_WIDTH
 							}
@@ -473,6 +474,7 @@ export default function SearchEdit( {
 								widthUnit: undefined,
 							} )
 						}
+						isShownByDefault
 					>
 						<ToggleGroupControl
 							label={ __( 'Percentage Width' ) }
