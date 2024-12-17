@@ -32,22 +32,30 @@ function CategoryTabs( {
 
 	const previousSelectedCategory = usePrevious( selectedCategory );
 
+	const selectedTabId = selectedCategory ? selectedCategory.name : null;
 	const [ activeTabId, setActiveId ] = useState();
 	const firstTabId = categories?.[ 0 ]?.name;
 
 	// If there is no active tab, make the first tab the active tab, so that
 	// when focus is moved to the tablist, the first tab will be focused
 	// despite not being selected
-	if ( selectedCategory === null && ! activeTabId && firstTabId ) {
+	if ( selectedTabId === null && ! activeTabId && firstTabId ) {
 		setActiveId( firstTabId );
 	}
 
 	return (
 		<Tabs
 			selectOnMove={ false }
-			selectedTabId={ selectedCategory }
+			selectedTabId={ selectedTabId }
 			orientation="vertical"
-			onSelect={ onSelectCategory }
+			onSelect={ ( categoryId ) => {
+				// Pass the full category object
+				onSelectCategory(
+					categories.find(
+						( category ) => category.name === categoryId
+					)
+				);
+			} }
 			activeTabId={ activeTabId }
 			onActiveTabIdChange={ setActiveId }
 		>
