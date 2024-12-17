@@ -448,21 +448,6 @@ const fields = [
 Example:
 
 ```js
-const data = {
-	id: 1,
-	title: 'Title',
-	author: 'Admin',
-	date: '2012-04-23T18:25:43.511Z',
-};
-```
-
-#### `onChange`: `function`
-
-Callback function that receives an object with the edits done by the user.
-
-Example:
-
-```js
 const form = {
 	type: 'panel',
 	fields: [
@@ -478,6 +463,21 @@ const form = {
 			layout: 'regular',
 		},
 	],
+};
+```
+
+#### `onChange`: `function`
+
+Callback function that receives an object with the edits done by the user.
+
+Example:
+
+```js
+const data = {
+	id: 1,
+	title: 'Title',
+	author: 'Admin',
+	date: '2012-04-23T18:25:43.511Z',
 };
 
 const onChange = ( edits ) => {
