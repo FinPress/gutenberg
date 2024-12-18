@@ -16,6 +16,7 @@ import {
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
+import type { UnstableBase } from '@wordpress/core-data';
 import { store as coreStore } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
@@ -48,13 +49,6 @@ type CreateTemplatePartModalContentsProps = {
 	onCreate: ( templatePart: any ) => void;
 	onError?: () => void;
 	defaultTitle?: string;
-};
-
-type TemplatePartArea = {
-	area: string;
-	label: string;
-	icon: string;
-	description: string;
 };
 
 /**
@@ -132,9 +126,8 @@ export function CreateTemplatePartModalContents( {
 
 	const defaultTemplatePartAreas = useSelect(
 		( select ) =>
-			// @ts-expect-error getEntityRecord is not typed with unstableBase as argument.
 			select( coreStore ).getEntityRecord< {
-				default_template_part_areas: Array< TemplatePartArea >;
+				default_template_part_areas: UnstableBase[ 'default_template_part_areas' ];
 			} >( 'root', '__unstableBase' )?.default_template_part_areas,
 		[]
 	);
