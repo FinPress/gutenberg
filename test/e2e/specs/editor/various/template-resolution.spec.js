@@ -63,6 +63,7 @@ test.describe( 'Template resolution', () => {
 			await updateSiteSettings( { requestUtils, pageId: newPage.id } );
 			await page.reload();
 			await page.locator( 'role=button[name="Block Inserter"i]' ).click();
+			await editor.openDocumentSettingsSidebar();
 			await expect(
 				page.getByRole( 'button', { name: 'Template options' } )
 			).toHaveText( 'Index' );
