@@ -6,8 +6,8 @@ import styled from '@emotion/styled';
 const maxWidthWrapperMap = {
 	none: 0,
 	'wordpress-sidebar': 248,
-	'large-container': 960,
 	'small-container': 600,
+	'large-container': 960,
 };
 
 const Indicator = styled.div`
