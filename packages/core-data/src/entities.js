@@ -215,12 +215,6 @@ export const rootEntitiesConfig = [
 		plural: 'statuses',
 		key: 'slug',
 	},
-	/**
-	 * Adding a new entity?
-	 *
-	 * Don't forget to update the relevant dynamic actions and selectors
-	 * in dynamic-actions.ts and dynamic-selectors.ts.
-	 */
 ];
 
 export const additionalEntityConfigLoaders = [
@@ -232,12 +226,6 @@ export const additionalEntityConfigLoaders = [
 		plural: 'sites',
 		loadEntities: loadSiteEntity,
 	},
-	/**
-	 * Adding a new entity?
-	 *
-	 * Don't forget to update the relevant dynamic actions and selectors
-	 * in dynamic-actions.ts and dynamic-selectors.ts.
-	 */
 ];
 
 /**
