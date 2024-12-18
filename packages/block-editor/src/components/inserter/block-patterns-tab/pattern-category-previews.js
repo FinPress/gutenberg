@@ -110,13 +110,9 @@ export function PatternCategoryPreviews( {
 		]
 	);
 
-	const categoryObject = availableCategories.find(
-		( { name } ) => name === category.name
-	);
-
 	const pagingProps = usePatternsPaging(
 		currentCategoryPatterns,
-		categoryObject,
+		category,
 		scrollContainerRef
 	);
 	const { changePage } = pagingProps;
@@ -153,7 +149,7 @@ export function PatternCategoryPreviews( {
 							level={ 4 }
 							as="div"
 						>
-							{ categoryObject?.label }
+							{ category?.label }
 						</Heading>
 					</FlexBlock>
 					<PatternsFilter
@@ -162,7 +158,7 @@ export function PatternCategoryPreviews( {
 						setPatternSyncFilter={ onSetPatternSyncFilter }
 						setPatternSourceFilter={ onSetPatternSourceFilter }
 						scrollContainerRef={ scrollContainerRef }
-						category={ categoryObject }
+						category={ category }
 					/>
 				</HStack>
 				{ ! currentCategoryPatterns.length && (
@@ -188,9 +184,9 @@ export function PatternCategoryPreviews( {
 						blockPatterns={ pagingProps.categoryPatterns }
 						onClickPattern={ onClickPattern }
 						onHover={ onHover }
-						label={ categoryObject.label }
+						label={ category.label }
 						orientation="vertical"
-						category={ categoryObject.name }
+						category={ category.name }
 						isDraggable
 						showTitlesAsTooltip={ showTitlesAsTooltip }
 						patternFilter={ patternSourceFilter }
