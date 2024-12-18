@@ -97,9 +97,9 @@ function PostAuthorNameEdit( {
 				{ supportsAuthor
 					? displayAuthor
 					: sprintf(
-							// Translators: %s is replaced with the name of the post type.
+							// translators: %s: Name of the post type e.g: "post".
 							__(
-								'This post type (%s) does not support Authors.'
+								'This post type (%s) does not support the author'
 							),
 							postType
 					  ) }

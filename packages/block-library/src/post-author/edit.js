@@ -103,8 +103,8 @@ function PostAuthorEdit( {
 		return (
 			<div { ...blockProps }>
 				{ sprintf(
-					// Translators: %s is replaced with the name of the post type.
-					__( 'This post type (%s) does not support Authors.' ),
+					// translators: %s: Name of the post type e.g: "post".
+					__( 'This post type (%s) does not support the author.' ),
 					postType
 				) }
 			</div>
