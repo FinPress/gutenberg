@@ -46,7 +46,7 @@ export function PatternCategoryPreviews( {
 	const [ allPatterns, , onClickPattern ] = usePatternsState(
 		onInsert,
 		rootClientId,
-		category
+		category?.name
 	);
 	const [ patternSyncFilter, setPatternSyncFilter ] = useState( 'all' );
 	const [ patternSourceFilter, setPatternSourceFilter ] = useState( 'all' );
@@ -69,25 +69,25 @@ export function PatternCategoryPreviews( {
 					return false;
 				}
 
-				if ( category === allPatternsCategory?.name ) {
+				if ( category.name === allPatternsCategory?.name ) {
 					return true;
 				}
 
 				if (
-					category === myPatternsCategory?.name &&
+					category.name === myPatternsCategory?.name &&
 					pattern.type === INSERTER_PATTERN_TYPES.user
 				) {
 					return true;
 				}
 
 				if (
-					category === starterPatternsCategory?.name &&
+					category.name === starterPatternsCategory?.name &&
 					pattern.blockTypes?.includes( 'core/post-content' )
 				) {
 					return true;
 				}
 
-				if ( category === 'uncategorized' ) {
+				if ( category.name === 'uncategorized' ) {
 					// The uncategorized category should show all the patterns without any category...
 					if ( ! pattern.categories ) {
 						return true;
@@ -99,12 +99,12 @@ export function PatternCategoryPreviews( {
 					);
 				}
 
-				return pattern.categories?.includes( category );
+				return pattern.categories?.includes( category.name );
 			} ),
 		[
 			allPatterns,
 			availableCategories,
-			category,
+			category.name,
 			patternSourceFilter,
 			patternSyncFilter,
 		]
