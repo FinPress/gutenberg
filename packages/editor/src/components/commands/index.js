@@ -303,26 +303,28 @@ function useEditedEntityContextualCommands() {
 		} );
 	}
 	if ( isViewable ) {
-		const isPage = postType === 'page';
-		let label;
+		if ( postType === 'post' || postType === 'page' ) {
+			const isPage = postType === 'page';
+			let label;
 
-		if ( status === 'publish' ) {
-			label = isPage ? __( 'View page' ) : __( 'View post' );
-		} else {
-			label = isPage ? __( 'Preview page' ) : __( 'Preview post' );
+			if ( status === 'publish' ) {
+				label = isPage ? __( 'View page' ) : __( 'View post' );
+			} else {
+				label = isPage ? __( 'Preview page' ) : __( 'Preview post' );
+			}
+
+			commands.push( {
+				name: 'core/view-link',
+				label,
+				icon: external,
+				callback: ( { close } ) => {
+					close();
+					if ( link ) {
+						window.open( link, '_blank' );
+					}
+				},
+			} );
 		}
-
-		commands.push( {
-			name: 'core/view-link',
-			label,
-			icon: external,
-			callback: ( { close } ) => {
-				close();
-				if ( link ) {
-					window.open( link, '_blank' );
-				}
-			},
-		} );
 	}
 
 	return { isLoading: false, commands };
