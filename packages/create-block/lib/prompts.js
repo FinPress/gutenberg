@@ -77,9 +77,8 @@ const category = {
 
 const textdomain = {
 	type: 'input',
-	name: 'textdomain',
 	message:
-		'The text domain used to internationalize text in the block (by default it will be same as slug):',
+		'The text domain used to make strings translatable in the block (optional):',
 	validate( input ) {
 		if ( input.length && ! /^[a-z][a-z0-9\-]*$/.test( input ) ) {
 			return 'Invalid text domain specified. Text domain can contain only lowercase alphanumeric characters or dashes, and start with a letter.';

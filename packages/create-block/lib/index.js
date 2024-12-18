@@ -14,8 +14,8 @@ const log = require( './log' );
 const { engines, version } = require( '../package.json' );
 const scaffold = require( './scaffold' );
 const {
-	getPluginTemplate,
 	getDefaultValues,
+	getProjectTemplate,
 	runPrompts,
 } = require( './templates' );
 
@@ -81,9 +81,10 @@ program
 		) => {
 			await checkSystemRequirements( engines );
 			try {
-				const pluginTemplate = await getPluginTemplate( templateName );
+				const projectTemplate =
+					await getProjectTemplate( templateName );
 				const availableVariants = Object.keys(
-					pluginTemplate.variants
+					projectTemplate.variants
 				);
 				if ( variant && ! availableVariants.includes( variant ) ) {
 					if ( ! availableVariants.length ) {
@@ -113,7 +114,7 @@ program
 
 				if ( slug ) {
 					const defaultValues = getDefaultValues(
-						pluginTemplate,
+						projectTemplate,
 						variant
 					);
 					const answers = {
@@ -123,7 +124,7 @@ program
 						title: capitalCase( slug ),
 						...optionsValues,
 					};
-					await scaffold( pluginTemplate, answers );
+					await scaffold( projectTemplate, answers );
 				} else {
 					log.info( '' );
 					log.info(
@@ -143,12 +144,12 @@ program
 					}
 
 					const defaultValues = getDefaultValues(
-						pluginTemplate,
+						projectTemplate,
 						variant
 					);
 
 					const blockAnswers = await runPrompts(
-						pluginTemplate,
+						projectTemplate,
 						[
 							'slug',
 							'namespace',
@@ -156,8 +157,8 @@ program
 							'description',
 							'dashicon',
 							'category',
-							'textdomain',
-						],
+							! plugin && 'textdomain',
+						].filter( Boolean ),
 						variant,
 						optionsValues
 					);
@@ -170,7 +171,7 @@ program
 							default: false,
 						} ) )
 							? await runPrompts(
-									pluginTemplate,
+									projectTemplate,
 									[
 										'pluginURI',
 										'version',
@@ -185,7 +186,7 @@ program
 							  )
 							: {};
 
-					await scaffold( pluginTemplate, {
+					await scaffold( projectTemplate, {
 						...defaultValues,
 						...optionsValues,
 						variant,
