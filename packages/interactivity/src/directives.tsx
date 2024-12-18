@@ -96,13 +96,19 @@ const cssStringToObject = (
 const getGlobalEventDirective = (
 	type: 'window' | 'document'
 ): DirectiveCallback => {
-	return ( { directives, evaluate } ) => {
+	return ( { directives, resolveEntry, evaluateResolved } ) => {
 		directives[ `on-${ type }` ]
 			.filter( isNonDefaultDirectiveSuffix )
 			.forEach( ( entry ) => {
 				const eventName = entry.suffix.split( '--', 1 )[ 0 ];
 				useInit( () => {
-					const cb = ( event: Event ) => evaluate( entry, event );
+					const cb = ( event: Event ) => {
+						const resolved = resolveEntry( entry );
+						if ( ! resolved.value?.sync ) {
+							// TODO: Wrap event in proxy.
+						}
+						evaluateResolved( resolved, event );
+					};
 					const globalVar = type === 'window' ? window : document;
 					globalVar.addEventListener( eventName, cb );
 					return () => globalVar.removeEventListener( eventName, cb );
@@ -263,51 +269,58 @@ export default () => {
 	} );
 
 	// data-wp-on--[event]
-	directive( 'on', ( { directives: { on }, element, evaluate } ) => {
-		const events = new Map< string, Set< DirectiveEntry > >();
-		on.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
-			const event = entry.suffix.split( '--' )[ 0 ];
-			if ( ! events.has( event ) ) {
-				events.set( event, new Set< DirectiveEntry >() );
-			}
-			events.get( event )!.add( entry );
-		} );
+	directive(
+		'on',
+		( { directives: { on }, element, resolveEntry, evaluateResolved } ) => {
+			const events = new Map< string, Set< DirectiveEntry > >();
+			on.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
+				const event = entry.suffix.split( '--' )[ 0 ];
+				if ( ! events.has( event ) ) {
+					events.set( event, new Set< DirectiveEntry >() );
+				}
+				events.get( event )!.add( entry );
+			} );
 
-		events.forEach( ( entries, eventType ) => {
-			const existingHandler = element.props[ `on${ eventType }` ];
-			element.props[ `on${ eventType }` ] = ( event: Event ) => {
-				entries.forEach( ( entry ) => {
-					if ( existingHandler ) {
-						existingHandler( event );
-					}
-					let start;
-					if ( globalThis.IS_GUTENBERG_PLUGIN ) {
-						if ( globalThis.SCRIPT_DEBUG ) {
-							start = performance.now();
+			events.forEach( ( entries, eventType ) => {
+				const existingHandler = element.props[ `on${ eventType }` ];
+				element.props[ `on${ eventType }` ] = ( event: Event ) => {
+					entries.forEach( ( entry ) => {
+						if ( existingHandler ) {
+							existingHandler( event );
 						}
-					}
-					evaluate( entry, event );
-					if ( globalThis.IS_GUTENBERG_PLUGIN ) {
-						if ( globalThis.SCRIPT_DEBUG ) {
-							performance.measure(
-								`interactivity api on ${ entry.namespace }`,
-								{
-									// eslint-disable-next-line no-undef
-									start,
-									end: performance.now(),
-									detail: {
-										devtools: {
-											track: `IA: on ${ entry.namespace }`,
+						let start;
+						if ( globalThis.IS_GUTENBERG_PLUGIN ) {
+							if ( globalThis.SCRIPT_DEBUG ) {
+								start = performance.now();
+							}
+						}
+						const resolved = resolveEntry( entry );
+						if ( ! resolved.value?.sync ) {
+							// TODO: Wrap event in proxy.
+						}
+						evaluateResolved( resolved, event );
+						if ( globalThis.IS_GUTENBERG_PLUGIN ) {
+							if ( globalThis.SCRIPT_DEBUG ) {
+								performance.measure(
+									`interactivity api on ${ entry.namespace }`,
+									{
+										// eslint-disable-next-line no-undef
+										start,
+										end: performance.now(),
+										detail: {
+											devtools: {
+												track: `IA: on ${ entry.namespace }`,
+											},
 										},
-									},
-								}
-							);
+									}
+								);
+							}
 						}
-					}
-				} );
-			};
-		} );
-	} );
+					} );
+				};
+			} );
+		}
+	);
 
 	// data-wp-on-async--[event]
 	directive(
