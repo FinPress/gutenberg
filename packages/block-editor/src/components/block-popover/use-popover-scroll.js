@@ -16,12 +16,6 @@ const scrollContainerCache = new WeakMap();
 function usePopoverScroll( contentRef ) {
 	return useRefEffect(
 		( node ) => {
-			// Do not guard for an undefined scrollableRef because it
-			// scrollableRef is required and it would be a bug.
-			if ( ! contentRef.current ) {
-				return;
-			}
-
 			function onWheel( event ) {
 				const { deltaX, deltaY } = event;
 				const contentEl = contentRef.current;
