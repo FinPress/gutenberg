@@ -35,8 +35,7 @@ jobs:
                   path: git
 
             - name: Copy files from git checkout to svn working copy
-              run: |
-                  cp -R git/assets/* assets
+              run: cp -R git/assets/* assets
 
             - name: Commit the updated assets
               working-directory: ./assets
