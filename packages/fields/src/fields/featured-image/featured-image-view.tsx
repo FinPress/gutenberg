@@ -32,6 +32,10 @@ export const FeaturedImageView = ( {
 				alt=""
 			/>
 		);
+	}else{
+		return(
+			<span className="fields-controls__featured-image-no-image"></span>
+		)
 	}
 
 	return <span className="fields-controls__featured-image-placeholder" />;
