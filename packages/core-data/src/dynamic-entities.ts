@@ -11,11 +11,10 @@ export type WPEntityTypes< C extends ET.Context = 'edit' > = {
 	MenuItem: ET.NavMenuItem< C >;
 	MenuLocation: ET.MenuLocation< C >;
 	Plugin: ET.Plugin< C >;
-	Post: ET.Post< C >;
-	PostRevision: ET.PostRevision< C >;
 	PostType: ET.Type< C >;
-	Settings: ET.Settings< C >;
+	Revision: ET.PostRevision< C >;
 	Sidebar: ET.Sidebar< C >;
+	Site: ET.Settings< C >;
 	Status: ET.PostStatusObject< C >;
 	Taxonomy: ET.Taxonomy< C >;
 	Theme: ET.Theme< C >;
@@ -31,9 +30,12 @@ export type WPEntityTypes< C extends ET.Context = 'edit' > = {
  * - "post" to "posts"
  * - "taxonomy" to "taxonomies"
  * - "media" to "mediaItems"
+ * - "status" to "statuses"
  */
 type PluralizeEntity< T extends string > = T extends 'Media'
 	? 'MediaItems'
+	: T extends 'Status'
+	? 'Statuses'
 	: T extends `${ infer U }y`
 	? `${ U }ies`
 	: `${ T }s`;
@@ -45,9 +47,12 @@ type PluralizeEntity< T extends string > = T extends 'Media'
  * - "posts" to "post"
  * - "taxonomies" to "taxonomy"
  * - "mediaItems" to "media"
+ * - "statuses" to "status"
  */
 type SingularizeEntity< T extends string > = T extends 'MediaItems'
 	? 'Media'
+	: T extends 'Statuses'
+	? 'Status'
 	: T extends `${ infer U }ies`
 	? `${ U }y`
 	: T extends `${ infer U }s`
