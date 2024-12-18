@@ -21,6 +21,7 @@ import { PREFERENCES_DEFAULTS, SETTINGS_DEFAULTS } from './defaults';
 import { insertAt, moveTo } from './array';
 import { sectionRootClientIdKey } from './private-keys';
 import { unlock } from '../lock-unlock';
+import { getBlockName } from './selectors';
 
 const { isContentBlock } = unlock( blocksPrivateApis );
 
@@ -2268,6 +2269,16 @@ function getDerivedBlockEditingModesForTree(
 	traverseBlockTree( state, treeClientId, ( block ) => {
 		const { clientId, name: blockName } = block;
 		if ( isZoomedOut || isNavMode ) {
+			if (
+				isZoomedOut &&
+				state.blocks.order.length === 1 &&
+				getBlockName( state.blocks.order[ 0 ] ) === 'core/paragraph' &&
+				state.blocks.order[ 0 ] === clientId
+			) {
+				derivedBlockEditingModes.set( clientId, 'disabled' );
+				return;
+			}
+
 			// If the root block is the section root set its editing mode to contentOnly.
 			if ( clientId === sectionRootClientId ) {
 				derivedBlockEditingModes.set( clientId, 'contentOnly' );
