@@ -3,6 +3,13 @@
  */
 import styled from '@emotion/styled';
 
+const maxWidthWrapperMap = {
+	none: 0,
+	'wordpress-sidebar': 248,
+	'large-container': 960,
+	'small-container': 600,
+};
+
 const Indicator = styled.div`
 	display: flex;
 	justify-content: center;
@@ -22,7 +29,7 @@ export const WithMaxWidthWrapper = ( Story, context ) => {
 	 * This can be used to simulate real world constraints on components
 	 * such as being located within the WordPress editor sidebars.
 	 */
-	const maxWidth = context.globals.maxWidthWrapper;
+	const maxWidth = maxWidthWrapperMap[ context.globals.maxWidthWrapper ];
 	if ( ! maxWidth ) {
 		return <Story { ...context } />;
 	}
