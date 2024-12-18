@@ -9,6 +9,8 @@ import userEvent from '@testing-library/user-event';
  */
 import Dataform from '../components/dataform/index';
 
+const noop = () => {};
+
 const fields = [
 	{
 		id: 'title',
@@ -79,7 +81,7 @@ describe( 'DataForm component', () => {
 		it( 'should display fields', () => {
 			render(
 				<Dataform
-					onChange={ () => void 0 }
+					onChange={ noop }
 					fields={ fields }
 					form={ form }
 					data={ data }
@@ -106,7 +108,7 @@ describe( 'DataForm component', () => {
 
 			render(
 				<Dataform
-					onChange={ () => void 0 }
+					onChange={ noop }
 					fields={ fieldsWithCustomEditComponent }
 					form={ form }
 					data={ data }
@@ -145,7 +147,7 @@ describe( 'DataForm component', () => {
 		it( 'should wrap fields in HStack when labelPosition is set to side', async () => {
 			const { container } = render(
 				<Dataform
-					onChange={ () => void 0 }
+					onChange={ noop }
 					fields={ fields }
 					form={ { ...form, labelPosition: 'side' } }
 					data={ data }
@@ -173,7 +175,7 @@ describe( 'DataForm component', () => {
 
 			render(
 				<Dataform
-					onChange={ () => void 0 }
+					onChange={ noop }
 					fields={ fields }
 					form={ formWithCombinedFields }
 					data={ data }
@@ -194,7 +196,7 @@ describe( 'DataForm component', () => {
 		it( 'should display fields', async () => {
 			render(
 				<Dataform
-					onChange={ () => void 0 }
+					onChange={ noop }
 					fields={ fields }
 					form={ formPanelMode }
 					data={ data }
@@ -239,7 +241,7 @@ describe( 'DataForm component', () => {
 		it( 'should wrap fields in HStack when labelPosition is set to side', async () => {
 			const { container } = render(
 				<Dataform
-					onChange={ () => void 0 }
+					onChange={ noop }
 					fields={ fields }
 					form={ { ...formPanelMode, labelPosition: 'side' } }
 					data={ data }
@@ -267,7 +269,7 @@ describe( 'DataForm component', () => {
 
 			render(
 				<Dataform
-					onChange={ () => void 0 }
+					onChange={ noop }
 					fields={ fields }
 					form={ formWithCombinedFields }
 					data={ data }
@@ -295,7 +297,7 @@ describe( 'DataForm component', () => {
 
 			render(
 				<Dataform
-					onChange={ () => void 0 }
+					onChange={ noop }
 					fields={ fieldsWithCustomRenderFunction }
 					form={ formPanelMode }
 					data={ data }
@@ -327,7 +329,7 @@ describe( 'DataForm component', () => {
 
 			render(
 				<Dataform
-					onChange={ () => void 0 }
+					onChange={ noop }
 					fields={ fieldsWithTitleCustomEditComponent }
 					form={ formPanelMode }
 					data={ data }
