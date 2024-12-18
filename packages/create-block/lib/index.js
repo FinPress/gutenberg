@@ -79,8 +79,9 @@ program
 				targetDir,
 			}
 		) => {
-			await checkSystemRequirements( engines );
 			try {
+				await checkSystemRequirements( engines );
+
 				const projectTemplate =
 					await getProjectTemplate( templateName );
 				const availableVariants = Object.keys(
@@ -197,6 +198,9 @@ program
 			} catch ( error ) {
 				if ( error instanceof CLIError ) {
 					log.error( error.message );
+					process.exit( 1 );
+				} else if ( error.name === 'ExitPromptError' ) {
+					log.info( 'Please try again later!' );
 					process.exit( 1 );
 				} else {
 					throw error;
