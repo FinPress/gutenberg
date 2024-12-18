@@ -28,10 +28,10 @@ export default function DataViewsSelectionCheckbox< Item >( {
 }: DataViewsSelectionCheckboxProps< Item > ) {
 	const id = getItemId( item );
 	const checked = ! disabled && selection.includes( id );
-	let selectionLabel;
-	if ( titleField?.getValue && item ) {
-		selectionLabel = titleField.getValue( { item } );
-	}
+
+	// Fallback label to ensure accessibility
+	const selectionLabel = titleField?.getValue?.( { item } ) || 'Select item';
+
 	return (
 		<CheckboxControl
 			className="dataviews-selection-checkbox"
