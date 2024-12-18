@@ -66,15 +66,19 @@ export default class InteractivityUtils {
 		name: string,
 		{ attributes, alias, innerBlocks }: AddPostWithBlockOptions = {}
 	) {
+		const block = attributes
+			? `${ name } ${ JSON.stringify( attributes ) }`
+			: name;
+
+		if ( ! alias ) {
+			alias = block;
+		}
+
 		const content = generateBlockMarkup( [
 			name,
 			attributes,
 			innerBlocks,
 		] );
-
-		if ( ! alias ) {
-			alias = content;
-		}
 
 		const payload = {
 			content,
