@@ -49,8 +49,11 @@ import {
 import { getExamples } from './examples';
 import { store as siteEditorStore } from '../../store';
 import { useSection } from '../sidebar-global-styles-wrapper';
-import { STYLE_BOOK_COLOR_GROUPS } from '../style-book/constants';
 import { GlobalStylesRenderer } from '../global-styles-renderer';
+import {
+	STYLE_BOOK_COLOR_GROUPS,
+	STYLE_BOOK_PREVIEW_CATEGORIES,
+} from '../style-book/constants';
 
 const {
 	ExperimentalBlockEditorProvider,
@@ -311,29 +314,43 @@ function StyleBook( {
 								) ) }
 							</Tabs.TabList>
 						</div>
-						{ tabs.map( ( tab ) => (
-							<Tabs.TabPanel
-								key={ tab.slug }
-								tabId={ tab.slug }
-								focusable={ false }
-								className="edit-site-style-book__tabpanel"
-							>
-								<StyleBookBody
-									category={ tab.slug }
-									examples={ examples }
-									isSelected={ isSelected }
-									onSelect={ onSelect }
-									settings={ settings }
-									sizes={ sizes }
-									title={ tab.title }
-									goTo={ goTo }
-								/>
-							</Tabs.TabPanel>
-						) ) }
+						{ tabs.map( ( tab ) => {
+							const categoryDefinition = tab.slug
+								? getTopLevelStyleBookCategories().find(
+										( _category ) =>
+											_category.slug === tab.slug
+								  )
+								: null;
+							const filteredExamples = categoryDefinition
+								? getExamplesByCategory(
+										categoryDefinition,
+										examples
+								  )
+								: { examples };
+							return (
+								<Tabs.TabPanel
+									key={ tab.slug }
+									tabId={ tab.slug }
+									focusable={ false }
+									className="edit-site-style-book__tabpanel"
+								>
+									<StyleBookBody
+										category={ tab.slug }
+										examples={ filteredExamples }
+										isSelected={ isSelected }
+										onSelect={ onSelect }
+										settings={ settings }
+										sizes={ sizes }
+										title={ tab.title }
+										goTo={ goTo }
+									/>
+								</Tabs.TabPanel>
+							);
+						} ) }
 					</Tabs>
 				) : (
 					<StyleBookBody
-						examples={ examplesForSinglePageUse }
+						examples={ { examples: examplesForSinglePageUse } }
 						isSelected={ isSelected }
 						onClick={ onClick }
 						onSelect={ onSelect }
@@ -405,6 +422,22 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 	const examples = getExamples( colors );
 	const examplesForSinglePageUse = getExamplesForSinglePageUse( examples );
 
+	let previewCategory = null;
+	if ( section.includes( '/colors' ) ) {
+		previewCategory = 'colors';
+	} else if ( section.includes( '/typography' ) ) {
+		previewCategory = 'text';
+	} else if ( section.includes( '/blocks' ) ) {
+		previewCategory = 'blocks';
+	} else if ( ! isStatic ) {
+		previewCategory = 'overview';
+	}
+	const categoryDefinition = STYLE_BOOK_PREVIEW_CATEGORIES.find(
+		( category ) => category.slug === previewCategory
+	);
+	const filteredExamples = categoryDefinition
+		? getExamplesByCategory( categoryDefinition, examples )
+		: { examples: examplesForSinglePageUse };
 	const { base: baseConfig } = useContext( GlobalStylesContext );
 	const goTo = getStyleBookNavigationFromPath( section );
 
@@ -435,7 +468,7 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 			<BlockEditorProvider settings={ settings }>
 				<GlobalStylesRenderer disableRootPadding />
 				<StyleBookBody
-					examples={ examplesForSinglePageUse }
+					examples={ filteredExamples }
 					settings={ settings }
 					goTo={ goTo }
 					sizes={ sizes }
@@ -448,7 +481,6 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 };
 
 export const StyleBookBody = ( {
-	category,
 	examples,
 	isSelected,
 	onClick,
@@ -527,8 +559,7 @@ export const StyleBookBody = ( {
 				className={ clsx( 'edit-site-style-book__examples', {
 					'is-wide': sizes.width > 600,
 				} ) }
-				examples={ examples }
-				category={ category }
+				filteredExamples={ examples }
 				label={
 					title
 						? sprintf(
@@ -540,24 +571,14 @@ export const StyleBookBody = ( {
 				}
 				isSelected={ isSelected }
 				onSelect={ onSelect }
-				key={ category }
+				key={ title }
 			/>
 		</Iframe>
 	);
 };
 
 const Examples = memo(
-	( { className, examples, category, label, isSelected, onSelect } ) => {
-		const categoryDefinition = category
-			? getTopLevelStyleBookCategories().find(
-					( _category ) => _category.slug === category
-			  )
-			: null;
-
-		const filteredExamples = categoryDefinition
-			? getExamplesByCategory( categoryDefinition, examples )
-			: { examples };
-
+	( { className, filteredExamples, label, isSelected, onSelect } ) => {
 		return (
 			<Composite
 				orientation="vertical"
