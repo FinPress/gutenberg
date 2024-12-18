@@ -15,7 +15,6 @@ import {
 	external,
 	keyboard,
 	symbol,
-	page,
 	layout,
 	rotateRight,
 	rotateLeft,
@@ -468,25 +467,26 @@ const getManipulateDocumentCommands = () =>
 		};
 	};
 
-function useSiteEditorCommandLoader() {
-	const commands = [];
-	commands.push( {
-		name: 'core/drafts',
-		label: __( 'Pages/Drafts' ),
-		keywords: [ 'drafts' ],
-		icon: page,
-		callback: ( { close } ) => {
-			close();
-			window.location.href =
-				'/wp-admin/site-editor.php?postType=page&layout=list&activeView=drafts';
-		},
-	} );
+const getuseSiteEditorCommandLoader = () =>
+	function useSiteEditorCommandLoader() {
+		const commands = [];
+		commands.push( {
+			name: 'core/drafts',
+			label: __( 'Pages/Drafts' ),
+			keywords: [ 'drafts' ],
+			icon: page,
+			callback: ( { close } ) => {
+				close();
+				window.location.href =
+					'/wp-admin/site-editor.php?postType=page&layout=list&activeView=drafts';
+			},
+		} );
 
-	return {
-		commands,
-		isLoading: false,
+		return {
+			commands,
+			isLoading: false,
+		};
 	};
-}
 
 export default function useCommands() {
 	useCommandLoader( {
@@ -502,11 +502,11 @@ export default function useCommands() {
 
 	useCommandLoader( {
 		name: 'core/editor/site-editor',
-		hook: useSiteEditorCommandLoader,
+		hook: getuseSiteEditorCommandLoader(),
 		context: 'site-editor',
 	} );
-  
-  useCommandLoader( {
+
+	useCommandLoader( {
 		name: 'core/editor/page-content-focus',
 		hook: getPageContentFocusCommands(),
 		context: 'entity-edit',
