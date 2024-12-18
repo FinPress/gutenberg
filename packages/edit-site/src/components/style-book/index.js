@@ -17,12 +17,13 @@ import {
 	privateApis as blockEditorPrivateApis,
 	store as blockEditorStore,
 	useSettings,
+	BlockEditorProvider,
 	__unstableEditorStyles as EditorStyles,
 	__unstableIframe as Iframe,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
-import { useSelect } from '@wordpress/data';
+import { useSelect, dispatch } from '@wordpress/data';
 import { useResizeObserver } from '@wordpress/compose';
 import {
 	useMemo,
@@ -31,6 +32,7 @@ import {
 	useContext,
 	useRef,
 	useLayoutEffect,
+	useEffect,
 } from '@wordpress/element';
 import { ENTER, SPACE } from '@wordpress/keycodes';
 
@@ -45,6 +47,9 @@ import {
 	getTopLevelStyleBookCategories,
 } from './categories';
 import { getExamples } from './examples';
+import { store as siteEditorStore } from '../../store';
+import { useSection } from '../sidebar-global-styles-wrapper';
+import { STYLE_BOOK_COLOR_GROUPS } from '../style-book/constants';
 
 const {
 	ExperimentalBlockEditorProvider,
@@ -67,11 +72,14 @@ function isObjectEmpty( object ) {
  * @param {HTMLIFrameElement} iframe   The target iframe.
  */
 const scrollToSection = ( anchorId, iframe ) => {
-	if ( ! iframe || ! iframe?.contentDocument ) {
+	if ( ! anchorId || ! iframe || ! iframe?.contentDocument ) {
 		return;
 	}
 
-	const element = iframe.contentDocument.getElementById( anchorId );
+	const element =
+		anchorId === 'top'
+			? iframe.contentDocument.body
+			: iframe.contentDocument.getElementById( anchorId );
 	if ( element ) {
 		element.scrollIntoView( {
 			behavior: 'smooth',
@@ -89,6 +97,17 @@ const scrollToSection = ( anchorId, iframe ) => {
  */
 const getStyleBookNavigationFromPath = ( path ) => {
 	if ( path && typeof path === 'string' ) {
+		if ( path === '/' ) {
+			return {
+				top: true,
+			};
+		}
+
+		if ( path.startsWith( '/typography' ) ) {
+			return {
+				block: 'typography',
+			};
+		}
 		let block = path.includes( '/blocks/' )
 			? decodeURIComponent( path.split( '/blocks/' )[ 1 ] )
 			: null;
@@ -177,6 +196,31 @@ function useMultiOriginPalettes() {
 	return palettes;
 }
 
+/**
+ * Get deduped examples for single page stylebook.
+ * @param {Array} examples Array of examples.
+ * @return {Array} Deduped examples.
+ */
+export function getExamplesForSinglePageUse( examples ) {
+	const examplesForSinglePageUse = [];
+	const overviewCategoryExamples = getExamplesByCategory(
+		{ slug: 'overview' },
+		examples
+	);
+	examplesForSinglePageUse.push( ...overviewCategoryExamples.examples );
+	const otherExamples = examples.filter( ( example ) => {
+		return (
+			example.category !== 'overview' &&
+			! overviewCategoryExamples.examples.find(
+				( overviewExample ) => overviewExample.name === example.name
+			)
+		);
+	} );
+	examplesForSinglePageUse.push( ...otherExamples );
+
+	return examplesForSinglePageUse;
+}
+
 function StyleBook( {
 	enableResizing = true,
 	isSelected,
@@ -202,6 +246,8 @@ function StyleBook( {
 			),
 		[ examples ]
 	);
+
+	const examplesForSinglePageUse = getExamplesForSinglePageUse( examples );
 
 	const { base: baseConfig } = useContext( GlobalStylesContext );
 	const goTo = getStyleBookNavigationFromPath( path );
@@ -286,7 +332,7 @@ function StyleBook( {
 					</Tabs>
 				) : (
 					<StyleBookBody
-						examples={ examples }
+						examples={ examplesForSinglePageUse }
 						isSelected={ isSelected }
 						onClick={ onClick }
 						onSelect={ onSelect }
@@ -300,7 +346,106 @@ function StyleBook( {
 	);
 }
 
-const StyleBookBody = ( {
+/**
+ * Style Book Preview component renders the stylebook without the Editor dependency.
+ *
+ * @param {Object}  props            Component props.
+ * @param {Object}  props.userConfig User configuration.
+ * @param {boolean} props.isStatic   Whether the stylebook is static or clickable.
+ * @return {Object} Style Book Preview component.
+ */
+export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
+	const siteEditorSettings = useSelect(
+		( select ) => select( siteEditorStore ).getSettings(),
+		[]
+	);
+
+	// Update block editor settings because useMultipleOriginColorsAndGradients fetch colours from there.
+	useEffect( () => {
+		dispatch( blockEditorStore ).updateSettings( siteEditorSettings );
+	}, [ siteEditorSettings ] );
+
+	const [ section, onChangeSection ] = useSection();
+
+	const isSelected = ( blockName ) => {
+		// Match '/blocks/core%2Fbutton' and
+		// '/blocks/core%2Fbutton/typography', but not
+		// '/blocks/core%2Fbuttons'.
+		return (
+			section === `/blocks/${ encodeURIComponent( blockName ) }` ||
+			section.startsWith(
+				`/blocks/${ encodeURIComponent( blockName ) }/`
+			)
+		);
+	};
+
+	const onSelect = ( blockName ) => {
+		if (
+			STYLE_BOOK_COLOR_GROUPS.find(
+				( group ) => group.slug === blockName
+			)
+		) {
+			// Go to color palettes Global Styles.
+			onChangeSection( '/colors/palette' );
+			return;
+		}
+		if ( blockName === 'typography' ) {
+			// Go to typography Global Styles.
+			onChangeSection( '/typography' );
+			return;
+		}
+
+		// Now go to the selected block.
+		onChangeSection( `/blocks/${ encodeURIComponent( blockName ) }` );
+	};
+
+	const [ resizeObserver, sizes ] = useResizeObserver();
+	const colors = useMultiOriginPalettes();
+	const examples = getExamples( colors );
+	const examplesForSinglePageUse = getExamplesForSinglePageUse( examples );
+
+	const { base: baseConfig } = useContext( GlobalStylesContext );
+	const goTo = getStyleBookNavigationFromPath( section );
+
+	const mergedConfig = useMemo( () => {
+		if ( ! isObjectEmpty( userConfig ) && ! isObjectEmpty( baseConfig ) ) {
+			return mergeBaseAndUserConfigs( baseConfig, userConfig );
+		}
+		return {};
+	}, [ baseConfig, userConfig ] );
+
+	const [ globalStyles ] = useGlobalStylesOutputWithConfig( mergedConfig );
+
+	const settings = useMemo(
+		() => ( {
+			...siteEditorSettings,
+			styles:
+				! isObjectEmpty( globalStyles ) && ! isObjectEmpty( userConfig )
+					? globalStyles
+					: siteEditorSettings.styles,
+			isPreviewMode: true,
+		} ),
+		[ globalStyles, siteEditorSettings, userConfig ]
+	);
+
+	return (
+		<div className="edit-site-style-book">
+			{ resizeObserver }
+			<BlockEditorProvider settings={ settings }>
+				<StyleBookBody
+					examples={ examplesForSinglePageUse }
+					settings={ settings }
+					goTo={ goTo }
+					sizes={ sizes }
+					isSelected={ ! isStatic ? isSelected : null }
+					onSelect={ ! isStatic ? onSelect : null }
+				/>
+			</BlockEditorProvider>
+		</div>
+	);
+};
+
+export const StyleBookBody = ( {
 	category,
 	examples,
 	isSelected,
@@ -344,10 +489,19 @@ const StyleBookBody = ( {
 
 	const handleLoad = () => setHasIframeLoaded( true );
 	useLayoutEffect( () => {
-		if ( goTo?.block && hasIframeLoaded && iframeRef?.current ) {
-			scrollToSection( `example-${ goTo?.block }`, iframeRef?.current );
+		if ( hasIframeLoaded && iframeRef?.current ) {
+			if ( goTo?.top ) {
+				scrollToSection( 'top', iframeRef?.current );
+				return;
+			}
+			if ( goTo?.block ) {
+				scrollToSection(
+					`example-${ goTo?.block }`,
+					iframeRef?.current
+				);
+			}
 		}
-	}, [ iframeRef?.current, goTo?.block, scrollToSection, hasIframeLoaded ] );
+	}, [ iframeRef?.current, goTo, scrollToSection, hasIframeLoaded ] );
 
 	return (
 		<Iframe
@@ -418,7 +572,11 @@ const Examples = memo(
 							content={ example.content }
 							blocks={ example.blocks }
 							isSelected={ isSelected?.( example.name ) }
-							onClick={ () => onSelect?.( example.name ) }
+							onClick={
+								!! onSelect
+									? () => onSelect( example.name )
+									: null
+							}
 						/>
 					) ) }
 				{ !! filteredExamples?.subcategories?.length &&
@@ -455,9 +613,7 @@ const Subcategory = ( { examples, isSelected, onSelect } ) => {
 				content={ example.content }
 				blocks={ example.blocks }
 				isSelected={ isSelected?.( example.name ) }
-				onClick={ () => {
-					onSelect?.( example.name );
-				} }
+				onClick={ !! onSelect ? () => onSelect( example.name ) : null }
 			/>
 		) )
 	);
@@ -485,12 +641,13 @@ const Example = ( { id, title, blocks, isSelected, onClick, content } ) => {
 		[ blocks ]
 	);
 
-	const disabledProps = disabledExamples.includes( id )
-		? {
-				disabled: true,
-				accessibleWhenDisabled: true,
-		  }
-		: {};
+	const disabledProps =
+		disabledExamples.includes( id ) || ! onClick
+			? {
+					disabled: true,
+					accessibleWhenDisabled: !! onClick,
+			  }
+			: {};
 
 	return (
 		<div role="row">
@@ -501,13 +658,17 @@ const Example = ( { id, title, blocks, isSelected, onClick, content } ) => {
 						'is-disabled-example': !! disabledProps?.disabled,
 					} ) }
 					id={ id }
-					aria-label={ sprintf(
-						// translators: %s: Title of a block, e.g. Heading.
-						__( 'Open %s styles in Styles panel' ),
-						title
-					) }
+					aria-label={
+						!! onClick
+							? sprintf(
+									// translators: %s: Title of a block, e.g. Heading.
+									__( 'Open %s styles in Styles panel' ),
+									title
+							  )
+							: undefined
+					}
 					render={ <div /> }
-					role="button"
+					role={ !! onClick ? 'button' : null }
 					onClick={ onClick }
 					{ ...disabledProps }
 				>
