@@ -29,7 +29,7 @@ export type { BaseEntityRecords } from './base-entity-records';
 
 export type {
 	Attachment,
-	Base,
+	Base as UnstableBase,
 	Comment,
 	Context,
 	GlobalStylesRevision,

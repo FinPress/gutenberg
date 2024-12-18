@@ -19,7 +19,7 @@ export type WPEntityTypes< C extends ET.Context = 'edit' > = {
 	Status: ET.PostStatusObject< C >;
 	Taxonomy: ET.Taxonomy< C >;
 	Theme: ET.Theme< C >;
-	UnstableBase: ET.Base< C >;
+	UnstableBase: ET.UnstableBase< C >;
 	User: ET.User< C >;
 	Widget: ET.Widget< C >;
 	WidgetType: ET.WidgetType< C >;
