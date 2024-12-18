@@ -12,7 +12,6 @@ import type { Page } from './page';
 import type { Plugin } from './plugin';
 import type { Post } from './post';
 import type { PostStatusObject } from './post-status';
-import type { PostType } from './post-type';
 import type { Base } from './base';
 import type { PostRevision } from './post-revision';
 import type { Settings } from './settings';
@@ -41,7 +40,6 @@ export type {
 	Plugin,
 	Post,
 	PostStatusObject,
-	PostType,
 	PostRevision,
 	Settings,
 	Sidebar,
@@ -101,7 +99,6 @@ export interface PerPackageEntityRecords< C extends Context > {
 		| Plugin< C >
 		| Post< C >
 		| PostStatusObject< C >
-		| PostType< C >
 		| PostRevision< C >
 		| Settings< C >
 		| Sidebar< C >

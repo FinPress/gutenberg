@@ -18,7 +18,7 @@ export namespace DynamicSelectors {
 		state: State,
 		name: string,
 		query?: GetRecordsHttpQuery
-	): ET.PostType | undefined;
+	): ET.Type | undefined;
 
 	/**
 	 * Get the list of post type objects.
@@ -29,7 +29,7 @@ export namespace DynamicSelectors {
 	export declare function getPostTypes(
 		state: State,
 		query?: GetRecordsHttpQuery
-	): Nullable< Array< ET.PostType > >;
+	): Nullable< Array< ET.Type > >;
 
 	/**
 	 * Get media item by ID.
