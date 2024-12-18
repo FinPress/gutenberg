@@ -23,7 +23,7 @@ export const WithMaxWidthWrapper = ( Story, context ) => {
 	 * such as being located within the WordPress editor sidebars.
 	 */
 	const maxWidth = context.globals.maxWidthWrapper;
-	if ( ! context.globals.maxWidthWrapper ) {
+	if ( ! maxWidth ) {
 		return <Story { ...context } />;
 	}
 	return (
