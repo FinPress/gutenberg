@@ -15,7 +15,7 @@ function Warning( { className, actions, children, secondaryActions } ) {
 	const alertRef = useRef();
 
 	useEffect( () => {
-		alertRef.current.focus();
+		alertRef.current?.focus();
 	}, [] );
 
 	return (
