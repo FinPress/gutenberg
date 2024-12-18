@@ -13,10 +13,8 @@ $badge-colors: (
 	border-radius: $radius-small;
 	font-size: $font-size-small;
 	font-weight: 400;
-	flex-shrink: 0;
 	line-height: $font-line-height-small;
-	width: fit-content;
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 	gap: 2px;
 
@@ -35,4 +33,14 @@ $badge-colors: (
 			--base-color: #{$color};
 		}
 	}
+}
+
+.components-badge__icon {
+	flex-shrink: 0;
+}
+
+.components-badge__content {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
