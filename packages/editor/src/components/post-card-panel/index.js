@@ -6,6 +6,7 @@ import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	__experimentalText as Text,
+	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
@@ -25,6 +26,7 @@ import { unlock } from '../../lock-unlock';
 import PostActions from '../post-actions';
 import usePageTypeBadge from '../../utils/pageTypeBadge';
 import { getTemplateInfo } from '../../utils/get-template-info';
+const { Badge } = unlock( componentsPrivateApis );
 
 /**
  * Renders a title of the post type and the available quick actions available within a 3-dot dropdown.
@@ -111,9 +113,7 @@ export default function PostCardPanel( {
 				>
 					{ title }
 					{ pageTypeBadge && postIds.length === 1 && (
-						<span className="editor-post-card-panel__title-badge">
-							{ pageTypeBadge }
-						</span>
+						<Badge as="span">{ pageTypeBadge }</Badge>
 					) }
 				</Text>
 				<PostActions
