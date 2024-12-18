@@ -79,17 +79,22 @@ async function initBlockJSON( {
 }
 
 module.exports = async function ( outputTemplates, view ) {
-	await Promise.all(
-		Object.keys( outputTemplates ).map( async ( outputFile ) => {
-			await writeOutputTemplate(
-				outputTemplates[ outputFile ],
-				join(
-					view.plugin ? view.folderName : '',
-					outputFile.replace( /\$slug/g, view.slug )
-				),
-				view
-			);
-		} )
+	const results = await Promise.all(
+		Object.keys( outputTemplates ).map(
+			async ( outputFile ) =>
+				await writeOutputTemplate(
+					outputTemplates[ outputFile ],
+					join(
+						view.plugin ? view.folderName : '',
+						outputFile.replace( /\$slug/g, view.slug )
+					),
+					view
+				)
+		)
 	);
+	if ( ! results.includes( true ) ) {
+		return;
+	}
+
 	await initBlockJSON( view );
 };
