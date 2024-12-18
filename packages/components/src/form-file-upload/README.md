@@ -10,24 +10,25 @@ FormFileUpload allows users to select files from their local device.
 import { FormFileUpload } from '@wordpress/components';
 
 const MyFormFileUpload = () => (
-  <FormFileUpload
-    __next40pxDefaultSize
-    accept="image/*"
-    onChange={ ( event ) => console.log( event.currentTarget.files ) }
-  >
-    Upload
-  </FormFileUpload>
+	<FormFileUpload
+		__next40pxDefaultSize
+		accept="image/*"
+		onChange={ ( event ) => console.log( event.currentTarget.files ) }
+	>
+		Upload
+	</FormFileUpload>
 );
 ```
+
 ## Props
 
 ### `__next40pxDefaultSize`
 
 Start opting into the larger default height that will become the default size in a future version.
 
- - Type: `boolean`
- - Required: No
- - Default: `false`
+-   Type: `boolean`
+-   Required: No
+-   Default: `false`
 
 ### `accept`
 
@@ -35,15 +36,15 @@ A string passed to the `input` element that tells the browser which
 [file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers)
 can be uploaded by the user. e.g: `image/*,video/*`.
 
- - Type: `string`
- - Required: No
+-   Type: `string`
+-   Required: No
 
 ### `children`
 
 Children are passed as children of `Button`.
 
- - Type: `ReactNode`
- - Required: No
+-   Type: `ReactNode`
+-   Required: No
 
 ### `icon`
 
@@ -51,16 +52,16 @@ The icon to render in the default button.
 
 See the `Icon` component docs for more information.
 
- - Type: `IconType`
- - Required: No
+-   Type: `IconType`
+-   Required: No
 
 ### `multiple`
 
 Whether to allow multiple selection of files or not.
 
- - Type: `boolean`
- - Required: No
- - Default: `false`
+-   Type: `boolean`
+-   Required: No
+-   Default: `false`
 
 ### `onChange`
 
@@ -68,8 +69,8 @@ Callback function passed directly to the `input` file element.
 
 Select files will be available in `event.currentTarget.files`.
 
- - Type: `ChangeEventHandler<HTMLInputElement>`
- - Required: Yes
+-   Type: `ChangeEventHandler<HTMLInputElement>`
+-   Required: Yes
 
 ### `onClick`
 
@@ -81,16 +82,16 @@ an empty string in the `onClick` function.
 
 ```jsx
 <FormFileUpload
-  __next40pxDefaultSize
-  onClick={ ( event ) => ( event.target.value = '' ) }
-  onChange={ onChange }
+	__next40pxDefaultSize
+	onClick={ ( event ) => ( event.target.value = '' ) }
+	onChange={ onChange }
 >
-  Upload
+	Upload
 </FormFileUpload>
 ```
 
- - Type: `MouseEventHandler<HTMLInputElement>`
- - Required: No
+-   Type: `MouseEventHandler<HTMLInputElement>`
+-   Required: No
 
 ### `render`
 
@@ -101,5 +102,5 @@ calls this function to render it. The function receives an object with
 property `openFileDialog`, a function that, when called, opens the browser
 native file upload modal window.
 
- - Type: `(arg: { openFileDialog: () => void; }) => ReactNode`
- - Required: No
+-   Type: `(arg: { openFileDialog: () => void; }) => ReactNode`
+-   Required: No

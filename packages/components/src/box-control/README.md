@@ -12,79 +12,80 @@ import { useState } from 'react';
 import { BoxControl } from '@wordpress/components';
 
 function Example() {
-  const [ values, setValues ] = useState( {
-    top: '50px',
-    left: '10%',
-    right: '10%',
-    bottom: '50px',
-  } );
+	const [ values, setValues ] = useState( {
+		top: '50px',
+		left: '10%',
+		right: '10%',
+		bottom: '50px',
+	} );
 
-  return (
-    <BoxControl
-      __next40pxDefaultSize
-      values={ values }
-      onChange={ setValues }
-    />
-  );
-};
+	return (
+		<BoxControl
+			__next40pxDefaultSize
+			values={ values }
+			onChange={ setValues }
+		/>
+	);
+}
 ```
+
 ## Props
 
 ### `__next40pxDefaultSize`
 
 Start opting into the larger default height that will become the default size in a future version.
 
- - Type: `boolean`
- - Required: No
- - Default: `false`
+-   Type: `boolean`
+-   Required: No
+-   Default: `false`
 
 ### `allowReset`
 
 If this property is true, a button to reset the box control is rendered.
 
- - Type: `boolean`
- - Required: No
- - Default: `true`
+-   Type: `boolean`
+-   Required: No
+-   Default: `true`
 
 ### `id`
 
 The id to use as a base for the unique HTML id attribute of the control.
 
- - Type: `string`
- - Required: No
+-   Type: `string`
+-   Required: No
 
 ### `inputProps`
 
 Props for the internal `UnitControl` components.
 
- - Type: `UnitControlPassthroughProps`
- - Required: No
- - Default: `{
-    	min: 0,
-    }`
+-   Type: `UnitControlPassthroughProps`
+-   Required: No
+-   Default: `{
+	min: 0,
+}`
 
 ### `label`
 
 Heading label for the control.
 
- - Type: `string`
- - Required: No
- - Default: `__( 'Box Control' )`
+-   Type: `string`
+-   Required: No
+-   Default: `__( 'Box Control' )`
 
 ### `onChange`
 
 A callback function when an input value changes.
 
- - Type: `(next: BoxControlValue) => void`
- - Required: No
- - Default: `() => {}`
+-   Type: `(next: BoxControlValue) => void`
+-   Required: No
+-   Default: `() => {}`
 
 ### `presets`
 
 Available presets to pick from.
 
- - Type: `Preset[]`
- - Required: No
+-   Type: `Preset[]`
+-   Required: No
 
 ### `presetKey`
 
@@ -92,21 +93,21 @@ The key of the preset to apply.
 If you provide a list of presets, you must provide a preset key to use.
 The format of preset selected values is going to be `var:preset|${ presetKey }|${ presetSlug }`
 
- - Type: `string`
- - Required: No
+-   Type: `string`
+-   Required: No
 
 ### `resetValues`
 
 The `top`, `right`, `bottom`, and `left` box dimension values to use when the control is reset.
 
- - Type: `BoxControlValue`
- - Required: No
- - Default: `{
-    	top: undefined,
-    	right: undefined,
-    	bottom: undefined,
-    	left: undefined,
-    }`
+-   Type: `BoxControlValue`
+-   Required: No
+-   Default: `{
+	top: undefined,
+	right: undefined,
+	bottom: undefined,
+	left: undefined,
+}`
 
 ### `sides`
 
@@ -114,29 +115,29 @@ Collection of sides to allow control of. If omitted or empty, all sides will be 
 
 Allowed values are "top", "right", "bottom", "left", "vertical", and "horizontal".
 
- - Type: `readonly (keyof BoxControlValue | "horizontal" | "vertical")[]`
- - Required: No
+-   Type: `readonly (keyof BoxControlValue | "horizontal" | "vertical")[]`
+-   Required: No
 
 ### `splitOnAxis`
 
 If this property is true, when the box control is unlinked, vertical and horizontal controls
 can be used instead of updating individual sides.
 
- - Type: `boolean`
- - Required: No
- - Default: `false`
+-   Type: `boolean`
+-   Required: No
+-   Default: `false`
 
 ### `units`
 
 Available units to select from.
 
- - Type: `WPUnitControlUnit[]`
- - Required: No
- - Default: `CSS_UNITS`
+-   Type: `WPUnitControlUnit[]`
+-   Required: No
+-   Default: `CSS_UNITS`
 
 ### `values`
 
 The current values of the control, expressed as an object of `top`, `right`, `bottom`, and `left` values.
 
- - Type: `BoxControlValue`
- - Required: No
+-   Type: `BoxControlValue`
+-   Required: No

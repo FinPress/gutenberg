@@ -192,7 +192,9 @@
 		"docs:api-ref": "node ./bin/api-docs/update-api-docs.js",
 		"docs:blocks": "node ./bin/api-docs/gen-block-lib-list.js",
 		"docs:build": "npm-run-all docs:components docs:gen docs:blocks docs:api-ref docs:theme-ref",
+		"postdocs:build": "npm run format:docs",
 		"docs:components": "node ./bin/api-docs/gen-components-docs/index.mjs",
+		"postdocs:components": "wp-scripts format \"./packages/components/src/**/README.md\"",
 		"docs:gen": "node ./docs/tool/index.js",
 		"docs:theme-ref": "node ./bin/api-docs/gen-theme-reference.mjs",
 		"env": "wp-env",
@@ -200,6 +202,7 @@
 		"fixtures:generate": "cross-env GENERATE_MISSING_FIXTURES=y npm run test:unit test/integration/full-content/ && npm run format test/integration/fixtures/blocks/*.json",
 		"fixtures:regenerate": "npm-run-all fixtures:clean fixtures:generate",
 		"format": "wp-scripts format",
+		"format:docs": "wp-scripts format \"./docs/**/*.md\"",
 		"preformat:php": "npm run other:update-packages:php",
 		"format:php": "wp-env run --env-cwd='wp-content/plugins/gutenberg' cli composer run-script format",
 		"lint": "concurrently \"npm run lint:lockfile\" \"npm run lint:tsconfig\" \"npm run lint:js\" \"npm run lint:pkg-json\" \"npm run lint:css\"",
@@ -266,7 +269,7 @@
 		"wp-env": "wp-env"
 	},
 	"lint-staged": {
-		"*.{js,json,ts,tsx,yml,yaml}": [
+		"*.{js,json,ts,tsx,yml,yaml,md}": [
 			"wp-scripts format"
 		],
 		"*.{js,ts,tsx}": [
@@ -288,6 +291,7 @@
 			"npm run docs:api-ref",
 			"npm run docs:blocks",
 			"npm run docs:theme-ref",
+			"npm run format:docs",
 			"node ./bin/api-docs/are-api-docs-unstaged.js",
 			"node ./bin/packages/lint-staged-typecheck.js"
 		],

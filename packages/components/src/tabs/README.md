@@ -24,29 +24,29 @@ const onSelect = ( tabName ) => {
 };
 
 const MyUncontrolledTabs = () => (
-		<Tabs onSelect={ onSelect } defaultTabId="tab2">
-			<Tabs.TabList>
-				<Tabs.Tab tabId="tab1" title="Tab 1">
-					Tab 1
-				</Tabs.Tab>
-				<Tabs.Tab tabId="tab2" title="Tab 2">
-					Tab 2
-				</Tabs.Tab>
-				<Tabs.Tab tabId="tab3" title="Tab 3">
-					Tab 3
-				</Tabs.Tab>
-			</Tabs.TabList>
-			<Tabs.TabPanel tabId="tab1">
-				<p>Selected tab: Tab 1</p>
-			</Tabs.TabPanel>
-			<Tabs.TabPanel tabId="tab2">
-				<p>Selected tab: Tab 2</p>
-			</Tabs.TabPanel>
-			<Tabs.TabPanel tabId="tab3">
-				<p>Selected tab: Tab 3</p>
-			</Tabs.TabPanel>
-		</Tabs>
-	);
+	<Tabs onSelect={ onSelect } defaultTabId="tab2">
+		<Tabs.TabList>
+			<Tabs.Tab tabId="tab1" title="Tab 1">
+				Tab 1
+			</Tabs.Tab>
+			<Tabs.Tab tabId="tab2" title="Tab 2">
+				Tab 2
+			</Tabs.Tab>
+			<Tabs.Tab tabId="tab3" title="Tab 3">
+				Tab 3
+			</Tabs.Tab>
+		</Tabs.TabList>
+		<Tabs.TabPanel tabId="tab1">
+			<p>Selected tab: Tab 1</p>
+		</Tabs.TabPanel>
+		<Tabs.TabPanel tabId="tab2">
+			<p>Selected tab: Tab 2</p>
+		</Tabs.TabPanel>
+		<Tabs.TabPanel tabId="tab3">
+			<p>Selected tab: Tab 3</p>
+		</Tabs.TabPanel>
+	</Tabs>
+);
 ```
 
 #### Controlled Mode
@@ -98,10 +98,11 @@ const MyControlledTabs = () => (
 ### Components and Sub-components
 
 Tabs is comprised of four individual components:
-- `Tabs`: a wrapper component and context provider. It is responsible for managing the state of the tabs and rendering the `TabList` and `TabPanels`.
-- `TabList`: a wrapper component for the `Tab` components. It is responsible for rendering the list of tabs.
-- `Tab`: renders a single tab. The currently active tab receives default styling that can be overridden with CSS targeting [aria-selected="true"].
-- `TabPanel`: renders the content to display for a single tab once that tab is selected.
+
+-   `Tabs`: a wrapper component and context provider. It is responsible for managing the state of the tabs and rendering the `TabList` and `TabPanels`.
+-   `TabList`: a wrapper component for the `Tab` components. It is responsible for rendering the list of tabs.
+-   `Tab`: renders a single tab. The currently active tab receives default styling that can be overridden with CSS targeting [aria-selected="true"].
+-   `TabPanel`: renders the content to display for a single tab once that tab is selected.
 
 #### Tabs
 
@@ -128,7 +129,7 @@ If left `undefined`, it will be automatically set to the first enabled tab, and 
 
 Consequently, any value different than `undefined` will set the component in "controlled" mode. When in "controlled" mode, the `null` value will result in no tabs being selected, and the tablist becoming tabbable.
 
-- Required: No
+-   Required: No
 
 ###### `defaultTabId`: `string | null`
 
@@ -151,13 +152,13 @@ The function called when the `selectedTabId` changes.
 
 The current active tab `id`. The active tab is the tab element within the tablist widget that has DOM focus.
 
-- `null` represents the tablist (ie. the base composite element). Users
-  will be able to navigate out of it using arrow keys;
-- If `activeTabId` is initially set to `null`, the base composite element
-  itself will have focus and users will be able to navigate to it using
-  arrow keys.
+-   `null` represents the tablist (ie. the base composite element). Users
+    will be able to navigate out of it using arrow keys;
+-   If `activeTabId` is initially set to `null`, the base composite element
+    itself will have focus and users will be able to navigate to it using
+    arrow keys.
 
-- Required: No
+-   Required: No
 
 ###### `defaultActiveTabId`: `string | null`
 
@@ -178,9 +179,9 @@ The function called when the `selectedTabId` changes.
 
 Defines the orientation of the tablist and determines which arrow keys can be used to move focus:
 
-- `both`: all arrow keys work;
-- `horizontal`: only left and right arrow keys work;
-- `vertical`: only up and down arrow keys work.
+-   `both`: all arrow keys work;
+-   `horizontal`: only left and right arrow keys work;
+-   `vertical`: only up and down arrow keys work.
 
 -   Required: No
 -   Default: `horizontal`
@@ -203,20 +204,20 @@ The children elements, which should include one or more instances of the `Tabs.T
 
 The unique ID of the tab. It will be used to register the tab and match it to a corresponding `Tabs.TabPanel` component. If not provided, a unique ID will be automatically generated.
 
-- Required: Yes
+-   Required: Yes
 
 ###### `children`: `React.ReactNode`
 
 The contents of the tab.
 
-- Required: No
+-   Required: No
 
 ###### `disabled`: `boolean`
 
 Determines if the tab should be disabled. Note that disabled tabs can still be accessed via the keyboard when navigating through the tablist.
 
-- Required: No
-- Default: `false`
+-   Required: No
+-   Default: `false`
 
 ###### `render`: `React.ReactNode`
 
@@ -224,7 +225,7 @@ Allows the component to be rendered as a different HTML element or React compone
 
 By default, the tab will be rendered as a `button` element.
 
-- Required: No
+-   Required: No
 
 #### TabPanel
 
@@ -234,7 +235,7 @@ By default, the tab will be rendered as a `button` element.
 
 The contents of the tab panel.
 
-- Required: No
+-   Required: No
 
 ###### `tabId`: `string`
 
@@ -242,7 +243,7 @@ The unique `id` of the `Tabs.Tab` component controlling this panel. This connect
 
 If not provided, this link is automatically established by matching the order of `Tabs.Tab` and `Tabs.TabPanel` elements in the DOM.
 
-- Required: Yes
+-   Required: Yes
 
 ###### `focusable`: `boolean`
 
@@ -250,5 +251,5 @@ Determines whether or not the tabpanel element should be focusable.
 
 If `false`, pressing the tab key will skip over the tabpanel, and instead focus on the first focusable element in the panel (if there is one).
 
-- Required: No
-- Default: `true`
+-   Required: No
+-   Default: `true`

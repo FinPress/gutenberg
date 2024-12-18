@@ -9,8 +9,9 @@ Renders a raw icon without any initial styling or wrappers.
 ```jsx
 import { wordpress } from '@wordpress/icons';
 
-<Icon icon={ wordpress } />
+<Icon icon={ wordpress } />;
 ```
+
 ## Props
 
 ### `icon`
@@ -24,9 +25,9 @@ Other supported values are: component instances, functions,
 
 The `size` value, as well as any other additional props, will be passed through.
 
- - Type: `IconType`
- - Required: No
- - Default: `null`
+-   Type: `IconType`
+-   Required: No
+-   Default: `null`
 
 ### `size`
 
@@ -34,6 +35,6 @@ The size (width and height) of the icon.
 
 Defaults to `20` when `icon` is a string (i.e. a Dashicon id), otherwise `24`.
 
- - Type: `number`
- - Required: No
- - Default: `'string' === typeof icon ? 20 : 24`
+-   Type: `number`
+-   Required: No
+-   Default: `'string' === typeof icon ? 20 : 24`

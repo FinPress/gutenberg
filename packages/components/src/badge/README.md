@@ -10,13 +10,13 @@
 
 Text to display inside the badge.
 
- - Type: `string`
- - Required: Yes
+-   Type: `string`
+-   Required: Yes
 
 ### `intent`
 
 Badge variant.
 
- - Type: `"default" | "info" | "success" | "warning" | "error"`
- - Required: No
- - Default: `default`
+-   Type: `"default" | "info" | "success" | "warning" | "error"`
+-   Required: No
+-   Default: `default`
