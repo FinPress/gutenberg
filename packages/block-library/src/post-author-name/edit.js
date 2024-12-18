@@ -99,7 +99,7 @@ function PostAuthorNameEdit( {
 					: sprintf(
 							// translators: %s: Name of the post type e.g: "post".
 							__(
-								'This post type (%s) does not support the author'
+								'This post type (%s) does not support the author.'
 							),
 							postType
 					  ) }
