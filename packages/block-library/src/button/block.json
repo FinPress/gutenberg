@@ -88,12 +88,12 @@
 			"__experimentalSkipSerialization": [
 				"fontSize",
 				"lineHeight",
-				"__experimentalFontFamily",
-				"__experimentalFontWeight",
-				"__experimentalFontStyle",
-				"__experimentalTextTransform",
-				"__experimentalTextDecoration",
-				"__experimentalLetterSpacing"
+				"fontFamily",
+				"fontWeight",
+				"fontStyle",
+				"textTransform",
+				"textDecoration",
+				"letterSpacing"
 			],
 			"fontSize": true,
 			"lineHeight": true,
