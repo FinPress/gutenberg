@@ -127,7 +127,7 @@ test.describe( 'Block template registration', () => {
 		blockTemplateRegistrationUtils,
 	} ) => {
 		// Create a post.
-		await admin.visitAdminPage( '/post-new.php' );
+		await admin.createNewPost();
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 			attributes: { content: 'User-created post.' },
