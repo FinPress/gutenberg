@@ -26,7 +26,7 @@ export function getGapBoxControlValueFromStyle( blockGapValue ) {
 /**
  * Returns a CSS value for the `gap` property from a given blockGap style.
  *
- * @param {string? | Object?} blockGapValue A block gap string or axial object value, e.g., '10px' or { top: '10px', left: '10px'}.
+ * @param {?string | ?Object} blockGapValue A block gap string or axial object value, e.g., '10px' or { top: '10px', left: '10px'}.
  * @param {?string}           defaultValue  A default gap value.
  * @return {string|null}                    The concatenated gap value (row and column).
  */
