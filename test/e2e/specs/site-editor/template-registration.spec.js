@@ -100,15 +100,7 @@ test.describe( 'Block template registration', () => {
 		page,
 	} ) => {
 		// Create a post.
-		await admin.visitAdminPage( '/post-new.php' );
-
-		// Get the dialog with aria-label "Welcome to the editor"
-		const welcomeDialog = page.getByLabel( 'Welcome to the editor' );
-
-		// if the dialog is visible within 2 seconds, click the Close button, otherwise continue
-		if ( await welcomeDialog.isVisible( { timeout: 2000 } ) ) {
-			await welcomeDialog.getByLabel( 'Close' ).click();
-		}
+		await admin.createNewPost();
 
 		await editor.insertBlock( {
 			name: 'core/paragraph',
@@ -291,14 +283,6 @@ test.describe( 'Block template registration', () => {
 			.click();
 		await page.getByRole( 'option', { name: 'admin' } ).click();
 		await expect( page.getByText( 'Choose a pattern' ) ).toBeVisible();
-
-		// Get the dialog with aria-label "Welcome to the editor"
-		const welcomeDialog = page.getByLabel( 'Welcome to the editor' );
-
-		// if the dialog is visible within 2 seconds, click the Close button, otherwise continue
-		if ( await welcomeDialog.isVisible( { timeout: 2000 } ) ) {
-			await welcomeDialog.getByLabel( 'Close' ).click();
-		}
 
 		await page.getByLabel( 'Close', { exact: true } ).click();
 		await editor.insertBlock( {
