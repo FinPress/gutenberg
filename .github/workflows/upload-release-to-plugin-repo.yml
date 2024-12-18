@@ -256,7 +256,6 @@ jobs:
         if: ${{ github.event.release.assets[0] }}
         env:
             PLUGIN_REPO_URL: 'https://plugins.svn.wordpress.org/gutenberg'
-            STABLE_VERSION_REGEX: '[0-9]\+\.[0-9]\+\.[0-9]\+\s*'
             SVN_USERNAME: ${{ secrets.svn_username }}
             SVN_PASSWORD: ${{ secrets.svn_password }}
             VERSION: ${{ github.event.release.name }}
