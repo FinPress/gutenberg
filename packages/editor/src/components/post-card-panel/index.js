@@ -113,7 +113,7 @@ export default function PostCardPanel( {
 				>
 					{ title }
 					{ pageTypeBadge && postIds.length === 1 && (
-						<Badge as="span">{ pageTypeBadge }</Badge>
+						<Badge>{ pageTypeBadge }</Badge>
 					) }
 				</Text>
 				<PostActions
