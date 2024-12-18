@@ -374,3 +374,15 @@ export const isPlainObject = (
 			typeof candidate === 'object' &&
 			candidate.constructor === Object
 	);
+
+/**
+ * Indicates that the passed `callback` requires synchronous access to the event object.
+ *
+ * @param callback The event callback.
+ * @return Wrapped event callback.
+ */
+export const withSyncEvent = ( callback: Function ): Function => {
+	const wrapped = ( ...args: any[] ) => callback( ...args );
+	wrapped.sync = true;
+	return wrapped;
+};
