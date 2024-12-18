@@ -41,6 +41,7 @@ import { Content, valueToHTMLString } from './content';
 import { withDeprecations } from './with-deprecations';
 import { canBindBlock } from '../../utils/block-bindings';
 import BlockContext from '../block-context';
+import { PrivateBlockContext } from '../block-list/private-block-context';
 
 export const keyboardShortcutContext = createContext();
 export const inputEventContext = createContext();
@@ -77,7 +78,7 @@ function removeNativeProps( props ) {
 	return restProps;
 }
 
-export function RichTextWrapper(
+function _RichTextWrapper(
 	{
 		children,
 		tagName = 'div',
@@ -118,6 +119,7 @@ export function RichTextWrapper(
 		} );
 	}
 
+	const { supportsSplitting } = useContext( PrivateBlockContext );
 	const instanceId = useInstanceId( RichTextWrapper );
 	const anchorRef = useRef();
 	const context = useBlockEditContext();
@@ -471,6 +473,7 @@ export function RichTextWrapper(
 						onSplitAtDoubleLineEnd,
 						keyboardShortcuts,
 						inputEvents,
+						supportsSplitting,
 					} ),
 					anchorRef,
 				] ) }
@@ -498,11 +501,11 @@ export function RichTextWrapper(
 	);
 }
 
+export const RichTextWrapper = forwardRef( _RichTextWrapper );
+
 // This is the private API for the RichText component.
 // It allows access to all props, not just the public ones.
-export const PrivateRichText = withDeprecations(
-	forwardRef( RichTextWrapper )
-);
+export const PrivateRichText = withDeprecations( RichTextWrapper );
 
 PrivateRichText.Content = Content;
 PrivateRichText.isEmpty = ( value ) => {

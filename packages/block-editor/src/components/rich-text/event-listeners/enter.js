@@ -5,19 +5,63 @@ import { ENTER } from '@wordpress/keycodes';
 import { insert, remove } from '@wordpress/rich-text';
 
 export default ( props ) => ( element ) => {
-	function onKeyDownDeprecated( event ) {
+	function onKeyDown( event ) {
 		if ( event.keyCode !== ENTER ) {
 			return;
 		}
 
-		const { onReplace, onSplit } = props.current;
+		const {
+			onReplace,
+			onSplit,
+			supportsSplitting,
+			disableLineBreaks,
+			onChange,
+			value,
+			onSplitAtDoubleLineEnd,
+			registry,
+			onSplitAtEnd,
+		} = props.current;
+		const { text, start, end } = value;
 
-		if ( onReplace && onSplit ) {
+		if ( event.shiftKey ) {
+			if ( ! disableLineBreaks ) {
+				event.preventDefault();
+				onChange( insert( value, '\n' ) );
+			}
+		} else if ( onSplitAtEnd && start === end && end === text.length ) {
+			// This is no longer used anywhere. Deprecate?
+			event.preventDefault();
+			onSplitAtEnd();
+		} else if ( onReplace && onSplit ) {
 			event.__deprecatedOnSplit = true;
+		} else if (
+			! supportsSplitting &&
+			! disableLineBreaks &&
+			! event.defaultPrevented
+		) {
+			event.preventDefault();
+			if (
+				// For some blocks it's desirable to split at the end of the
+				// block when there are two line breaks at the end of the
+				// block, so triple Enter exits the block.
+				onSplitAtDoubleLineEnd &&
+				start === end &&
+				end === text.length &&
+				text.slice( -2 ) === '\n\n'
+			) {
+				registry.batch( () => {
+					const _value = { ...value };
+					_value.start = _value.end - 2;
+					onChange( remove( _value ) );
+					onSplitAtDoubleLineEnd();
+				} );
+			} else {
+				onChange( insert( value, '\n' ) );
+			}
 		}
 	}
 
-	function onKeyDown( event ) {
+	function onDefaultKeyDown( event ) {
 		if ( event.defaultPrevented ) {
 			return;
 		}
@@ -32,53 +76,19 @@ export default ( props ) => ( element ) => {
 			return;
 		}
 
-		const {
-			value,
-			onChange,
-			disableLineBreaks,
-			onSplitAtEnd,
-			onSplitAtDoubleLineEnd,
-			registry,
-		} = props.current;
-
+		// On ENTER, we ALWAYS want to prevent the default browser behaviour
+		// at this last interception point.
 		event.preventDefault();
-
-		const { text, start, end } = value;
-
-		if ( event.shiftKey ) {
-			if ( ! disableLineBreaks ) {
-				onChange( insert( value, '\n' ) );
-			}
-		} else if ( onSplitAtEnd && start === end && end === text.length ) {
-			onSplitAtEnd();
-		} else if (
-			// For some blocks it's desirable to split at the end of the
-			// block when there are two line breaks at the end of the
-			// block, so triple Enter exits the block.
-			onSplitAtDoubleLineEnd &&
-			start === end &&
-			end === text.length &&
-			text.slice( -2 ) === '\n\n'
-		) {
-			registry.batch( () => {
-				const _value = { ...value };
-				_value.start = _value.end - 2;
-				onChange( remove( _value ) );
-				onSplitAtDoubleLineEnd();
-			} );
-		} else if ( ! disableLineBreaks ) {
-			onChange( insert( value, '\n' ) );
-		}
 	}
 
 	const { defaultView } = element.ownerDocument;
 
 	// Attach the listener to the window so parent elements have the chance to
 	// prevent the default behavior.
-	defaultView.addEventListener( 'keydown', onKeyDown );
-	element.addEventListener( 'keydown', onKeyDownDeprecated );
+	defaultView.addEventListener( 'keydown', onDefaultKeyDown );
+	element.addEventListener( 'keydown', onKeyDown );
 	return () => {
-		defaultView.removeEventListener( 'keydown', onKeyDown );
-		element.removeEventListener( 'keydown', onKeyDownDeprecated );
+		defaultView.removeEventListener( 'keydown', onDefaultKeyDown );
+		element.removeEventListener( 'keydown', onKeyDown );
 	};
 };
