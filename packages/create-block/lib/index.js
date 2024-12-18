@@ -159,6 +159,7 @@ program
 							'description',
 							'dashicon',
 							'category',
+							'textdomain',
 						],
 						variant
 					).filter( filterOptionsProvided );
