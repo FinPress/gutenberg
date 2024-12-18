@@ -150,6 +150,8 @@ program
 
 					const filterOptionsProvided = ( { name } ) =>
 						! Object.keys( optionsValues ).includes( name );
+
+					// Get all prompts in one call
 					const blockPrompts = getPrompts(
 						pluginTemplate,
 						[
@@ -159,9 +161,11 @@ program
 							'description',
 							'dashicon',
 							'category',
+							...(pluginTemplate.customPrompts ? Object.keys(pluginTemplate.customPrompts) : [])
 						],
 						variant
 					).filter( filterOptionsProvided );
+
 					const blockAnswers = await inquirer.prompt( blockPrompts );
 
 					const pluginAnswers = plugin
@@ -189,6 +193,7 @@ program
 											'domainPath',
 											'updateURI',
 										],
+										...(pluginTemplate.customPrompts ? Object.keys(pluginTemplate.customPrompts) : []),
 										variant
 									).filter( filterOptionsProvided );
 									const result =
