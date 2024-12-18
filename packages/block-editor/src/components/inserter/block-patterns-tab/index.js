@@ -71,7 +71,7 @@ function BlockPatternsTab( {
 			{ showPatternsExplorer && (
 				<PatternsExplorerModal
 					initialCategory={
-						selectedCategory || categories[ 0 ]?.name
+						selectedCategory?.name || categories[ 0 ]?.name
 					}
 					patternCategories={ categories }
 					onModalClose={ () => setShowPatternsExplorer( false ) }
