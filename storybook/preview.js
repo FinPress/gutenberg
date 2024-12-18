@@ -86,6 +86,8 @@ export const globalTypes = {
 			items: [
 				{ value: 'none', title: 'None' },
 				{ value: 'wordpress-sidebar', title: 'WP Sidebar' },
+				{ value: 'small-container', title: 'Small container' },
+				{ value: 'large-container', title: 'Large container' },
 			],
 		},
 	},
@@ -155,3 +157,5 @@ export const parameters = {
 	},
 	sourceLinkPrefix: 'https://github.com/WordPress/gutenberg/blob/trunk/',
 };
+
+export const tags = [ 'autodocs' ];
