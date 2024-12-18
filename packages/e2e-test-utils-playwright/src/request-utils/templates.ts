@@ -8,6 +8,8 @@ type TemplateType = 'wp_template' | 'wp_template_part';
 interface Template {
 	wp_id: number;
 	id: string;
+	title: string;
+	slug: string;
 }
 
 interface CreateTemplatePayload {
@@ -80,4 +82,40 @@ async function createTemplate(
 	return template;
 }
 
-export { deleteAllTemplates, createTemplate };
+/**
+ * Updates a template using the REST API.
+ *
+ * @param this
+ * @param type    Template type.
+ * @param payload Template attributes.
+ */
+async function updateOrCreateTemplate(
+	this: RequestUtils,
+	type: TemplateType,
+	payload: CreateTemplatePayload
+) {
+	const path = PATH_MAPPING[ type ];
+
+	if ( ! path ) {
+		throw new Error( `Unsupported template type: ${ type }.` );
+	}
+
+	const templates = await this.rest< Template[] >( { path } );
+
+	const template = templates.find( ( t ) => t.slug === payload.slug );
+
+	// If the template is not found, create it.
+	if ( ! template ) {
+		return createTemplate.bind( this )( type, payload );
+	}
+
+	const updatedTemplate = await this.rest< Template >( {
+		method: 'POST',
+		path: `${ PATH_MAPPING[ type ] }/${ template.id }`,
+		params: { ...payload, type, status: 'publish', is_wp_suggestion: true },
+	} );
+
+	return updatedTemplate;
+}
+
+export { deleteAllTemplates, createTemplate, updateOrCreateTemplate };

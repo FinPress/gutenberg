@@ -112,7 +112,7 @@ function render_block_core_search( $attributes, $content, $block ) {
 			wp_enqueue_script_module( '@wordpress/block-library/search/view' );
 
 			if ( $instant_search_enabled ) {
-				$input->set_attribute( 'data-wp-bind--value', 'context.search' );
+				$input->set_attribute( 'data-wp-bind--value', 'state.searchGetter' );
 				$input->set_attribute( 'data-wp-on-async--input', 'actions.updateSearch' );
 			}
 		}
@@ -214,21 +214,45 @@ function render_block_core_search( $attributes, $content, $block ) {
 
 	if ( $enhanced_pagination && $instant_search_enabled && isset( $block->context['queryId'] ) ) {
 
-		$search = '';
+		$form_directives .= ' data-wp-on--submit="actions.handleSearchSubmit"';
+
+		// Get the canonical URL without pagination
+		$canonical_url_no_pagination = get_pagenum_link( 1 );
+
+		// If we're on a singular post/page, use its permalink instead
+		if ( is_singular() ) {
+			$canonical_url_no_pagination = get_permalink();
+		}
+
+		wp_interactivity_config( 'core/search', array( 'canonicalURL' => $canonical_url_no_pagination ) );
+
+		$query_id = $block->context['queryId'];
+		$search   = '';
 
 		// If the query is defined in the block context, use it
 		if ( isset( $block->context['query']['search'] ) && '' !== $block->context['query']['search'] ) {
 			$search = $block->context['query']['search'];
 		}
 
-		// If the query is defined in the URL, it overrides the block context value if defined
-		$search = empty( $_GET[ 'instant-search-' . $block->context['queryId'] ] ) ? $search : sanitize_text_field( $_GET[ 'instant-search-' . $block->context['queryId'] ] );
+		$is_inherited = isset( $block->context['query']['inherit'] ) && $block->context['query']['inherit'] && ! empty( $query_id );
+
+		// Inherited query: `instant-search=`
+		//    Custom query: `instant-search-<query_id>=`
+		$search_key = $is_inherited ? 'instant-search' : 'instant-search-' . $query_id;
+
+		// If the query is defined in the URL, it overrides the block context value.
+		$search = empty( $_GET[ $search_key ] ) ? $search : sanitize_text_field( $_GET[ $search_key ] );
+
+		if ( $is_inherited ) {
+			wp_interactivity_state( 'core/search', array( 'search' => $search ) );
+		}
 
 		$form_context = array_merge(
 			$form_context,
 			array(
-				'search'  => $search,
-				'queryId' => $block->context['queryId'],
+				'search'      => $search,
+				'queryId'     => $query_id,
+				'isInherited' => $is_inherited,
 			)
 		);
 	}
