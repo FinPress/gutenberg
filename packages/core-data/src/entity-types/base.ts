@@ -4,6 +4,19 @@
 import type { Context, OmitNevers } from './helpers';
 import type { BaseEntityRecords as _BaseEntityRecords } from './base-entity-records';
 
+type TemplatePartArea = {
+	area: string;
+	label: string;
+	icon: string;
+	description: string;
+};
+
+type TemplateType = {
+	title: string;
+	description: string;
+	slug: string;
+};
+
 declare module './base-entity-records' {
 	export namespace BaseEntityRecords {
 		/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
@@ -52,6 +65,16 @@ declare module './base-entity-records' {
 			 * Site URL.
 			 */
 			url: string;
+
+			/**
+			 * Default template part areas.
+			 */
+			default_template_part_areas?: Array< TemplatePartArea >;
+
+			/**
+			 * Default template types
+			 */
+			default_template_types?: Array< TemplateType >;
 		}
 	}
 }
