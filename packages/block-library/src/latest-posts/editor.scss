@@ -26,3 +26,19 @@
 .latest-posts-toggle-control-margin-top {
 	margin-top: 15px !important;
 }
+
+.latest-posts-image-size-control-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 10px; /* Adjust spacing between lines */
+}
+
+.latest-posts-image-size-control-wrapper > * {
+	margin-bottom: 20px; /* Optional: Ensures consistent spacing */
+	margin-top: 8px;
+}
+
+.latest-posts-image-size-control-wrapper .block-editor-image-size-control {
+	display: grid;
+	gap: 15px;
+}

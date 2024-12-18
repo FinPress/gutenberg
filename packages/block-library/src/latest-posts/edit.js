@@ -360,36 +360,40 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					/>
 					{ displayFeaturedImage && (
 						<>
-							<ImageSizeControl
-								onChange={ ( value ) => {
-									const newAttrs = {};
-									if ( value.hasOwnProperty( 'width' ) ) {
-										newAttrs.featuredImageSizeWidth =
-											value.width;
+							<div className="latest-posts-image-size-control-wrapper">
+								<ImageSizeControl
+									onChange={ ( value ) => {
+										const newAttrs = {};
+										if ( value.hasOwnProperty( 'width' ) ) {
+											newAttrs.featuredImageSizeWidth =
+												value.width;
+										}
+										if (
+											value.hasOwnProperty( 'height' )
+										) {
+											newAttrs.featuredImageSizeHeight =
+												value.height;
+										}
+										setAttributes( newAttrs );
+									} }
+									slug={ featuredImageSizeSlug }
+									width={ featuredImageSizeWidth }
+									height={ featuredImageSizeHeight }
+									imageWidth={ defaultImageWidth }
+									imageHeight={ defaultImageHeight }
+									imageSizeOptions={ imageSizeOptions }
+									imageSizeHelp={ __(
+										'Select the size of the source image.'
+									) }
+									onChangeImage={ ( value ) =>
+										setAttributes( {
+											featuredImageSizeSlug: value,
+											featuredImageSizeWidth: undefined,
+											featuredImageSizeHeight: undefined,
+										} )
 									}
-									if ( value.hasOwnProperty( 'height' ) ) {
-										newAttrs.featuredImageSizeHeight =
-											value.height;
-									}
-									setAttributes( newAttrs );
-								} }
-								slug={ featuredImageSizeSlug }
-								width={ featuredImageSizeWidth }
-								height={ featuredImageSizeHeight }
-								imageWidth={ defaultImageWidth }
-								imageHeight={ defaultImageHeight }
-								imageSizeOptions={ imageSizeOptions }
-								imageSizeHelp={ __(
-									'Select the size of the source image.'
-								) }
-								onChangeImage={ ( value ) =>
-									setAttributes( {
-										featuredImageSizeSlug: value,
-										featuredImageSizeWidth: undefined,
-										featuredImageSizeHeight: undefined,
-									} )
-								}
-							/>
+								/>
+							</div>
 							<ToggleGroupControl
 								className="editor-latest-posts-image-alignment-control"
 								__nextHasNoMarginBottom
