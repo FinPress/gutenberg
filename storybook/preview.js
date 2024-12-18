@@ -84,8 +84,10 @@ export const globalTypes = {
 		toolbar: {
 			icon: 'outline',
 			items: [
-				{ value: 'none', title: 'None' },
-				{ value: 'wordpress-sidebar', title: 'WP Sidebar' },
+				{ value: 0, title: 'None' },
+				{ value: 248, title: 'WP Sidebar' },
+				{ value: 960, title: 'Large container' },
+				{ value: 600, title: 'Small container' },
 			],
 		},
 	},
