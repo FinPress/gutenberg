@@ -5,7 +5,7 @@ on:
         branches:
             - trunk
         paths:
-            - assets
+            - assets/**
 
 jobs:
     sync-assets:
@@ -24,7 +24,6 @@ jobs:
                   --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 
             - name: Delete everything
-              working-directory: ./assets
               run: find assets -type f -not -path 'assets/.svn/*' -delete
 
             - name: Checkout assets from current release
@@ -33,12 +32,18 @@ jobs:
                   sparse-checkout: |
                       assets
                   show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
+                  path: git
+
+            - name: Copy files from git checkout to svn working copy
+              run: |
+                  cp -R git/assets/* assets
 
             - name: Commit the updated assets
+              working-directory: ./assets
               run: |
                   svn st | awk '/^?/ {print $2}' | xargs -r svn add
                   svn st | awk '/^!/ {print $2}' | xargs -r svn rm
-                  svn commit assets \
+                  svn commit . \
                     -m "Sync assets for commit $GITHUB_SHA" \
                     --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" \
                     --config-option=servers:global:http-timeout=600
