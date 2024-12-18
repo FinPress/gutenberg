@@ -12,25 +12,22 @@ import { moreVertical } from '@wordpress/icons';
 import { useEffect, useRef } from '@wordpress/element';
 
 function Warning( { className, actions, children, secondaryActions } ) {
-	const alertRef = useRef( null );
+	const alertRef = useRef();
 
 	useEffect( () => {
-		if ( null !== alertRef.current ) {
-			alertRef.current.focus();
-		}
+		alertRef.current.focus();
 	}, [] );
+
 	return (
 		<div style={ { display: 'contents', all: 'initial' } }>
 			<div
 				className={ clsx( className, 'block-editor-warning' ) }
 				tabIndex="0"
+				ref={ alertRef }
+				role="alert"
 			>
 				<div className="block-editor-warning__contents">
-					<p
-						className="block-editor-warning__message"
-						ref={ alertRef }
-						role="alert"
-					>
+					<p className="block-editor-warning__message">
 						{ children }
 					</p>
 
