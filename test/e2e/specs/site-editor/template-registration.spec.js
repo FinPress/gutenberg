@@ -101,7 +101,6 @@ test.describe( 'Block template registration', () => {
 	} ) => {
 		// Create a post.
 		await admin.createNewPost();
-
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 			attributes: { content: 'User-created post.' },
@@ -283,7 +282,6 @@ test.describe( 'Block template registration', () => {
 			.click();
 		await page.getByRole( 'option', { name: 'admin' } ).click();
 		await expect( page.getByText( 'Choose a pattern' ) ).toBeVisible();
-
 		await page.getByLabel( 'Close', { exact: true } ).click();
 		await editor.insertBlock( {
 			name: 'core/paragraph',
