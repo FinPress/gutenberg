@@ -39,6 +39,6 @@ jobs:
                   svn st | awk '/^?/ {print $2}' | xargs -r svn add
                   svn st | awk '/^!/ {print $2}' | xargs -r svn rm
                   svn commit assets \
-                    -m "Sync assets for version $VERSION" \
+                    -m "Sync assets for commit $GITHUB_SHA" \
                     --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" \
                     --config-option=servers:global:http-timeout=600
