@@ -20,3 +20,7 @@ Badge variant.
  - Type: `"default" | "info" | "success" | "warning" | "error"`
  - Required: No
  - Default: `default`
+
+### `Additional Props`
+ 
+ - Any other props will be passed down to the underlying `span` element
