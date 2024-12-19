@@ -16,7 +16,7 @@ import {
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { check, starEmpty, starFilled } from '@wordpress/icons';
+import { starEmpty, starFilled } from '@wordpress/icons';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { store as viewportStore } from '@wordpress/viewport';
 import { store as preferencesStore } from '@wordpress/preferences';
@@ -277,12 +277,14 @@ function ComplementaryArea( {
 							aria-expanded={ isActive }
 							aria-disabled={ isLoading }
 							label={ title }
-							icon={ showIconLabels ? check : icon }
+							icon={ showIconLabels ? undefined : icon }
 							showTooltip={ ! showIconLabels }
 							variant={ showIconLabels ? 'tertiary' : undefined }
 							size="compact"
 							shortcut={ toggleShortcut }
-						/>
+						>
+							{ showIconLabels && title }
+						</ComplementaryAreaToggle>
 					) }
 				</PinnedItems>
 			) }
