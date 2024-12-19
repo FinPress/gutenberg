@@ -50,6 +50,7 @@ import { getExamples } from './examples';
 import { store as siteEditorStore } from '../../store';
 import { useSection } from '../sidebar-global-styles-wrapper';
 import { STYLE_BOOK_COLOR_GROUPS } from '../style-book/constants';
+import { GlobalStylesRenderer } from '../global-styles-renderer';
 
 const {
 	ExperimentalBlockEditorProvider,
@@ -432,6 +433,7 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 		<div className="edit-site-style-book">
 			{ resizeObserver }
 			<BlockEditorProvider settings={ settings }>
+				<GlobalStylesRenderer disableRootPadding />
 				<StyleBookBody
 					examples={ examplesForSinglePageUse }
 					settings={ settings }
