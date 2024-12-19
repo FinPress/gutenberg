@@ -158,8 +158,14 @@ function getMissingText( type ) {
  * packages/block-library/src/navigation-submenu/edit.js
  * Consider reuseing this components for both blocks.
  */
-function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
+function Controls( { attributes, setAttributes, setIsFocused } ) {
 	const { label, url, description, title, rel } = attributes;
+
+	const focusProps = {
+		onFocus: () => setIsFocused( true ),
+		onBlur: () => setIsFocused( false ),
+	};
+
 	return (
 		<PanelBody title={ __( 'Settings' ) }>
 			<TextControl
@@ -171,8 +177,7 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 				} }
 				label={ __( 'Text' ) }
 				autoComplete="off"
-				onFocus={ () => setIsLabelFieldFocused( true ) }
-				onBlur={ () => setIsLabelFieldFocused( false ) }
+				{ ...focusProps }
 			/>
 			<TextControl
 				__nextHasNoMarginBottom
@@ -187,6 +192,7 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 				} }
 				label={ __( 'Link' ) }
 				autoComplete="off"
+				{ ...focusProps }
 			/>
 			<TextareaControl
 				__nextHasNoMarginBottom
@@ -198,6 +204,7 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 				help={ __(
 					'The description will be displayed in the menu if the current theme supports it.'
 				) }
+				{ ...focusProps }
 			/>
 			<TextControl
 				__nextHasNoMarginBottom
@@ -211,6 +218,7 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 				help={ __(
 					'Additional information to help clarify the purpose of the link.'
 				) }
+				{ ...focusProps }
 			/>
 			<TextControl
 				__nextHasNoMarginBottom
@@ -224,6 +232,7 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 				help={ __(
 					'The relationship of the linked URL as space-separated link types.'
 				) }
+				{ ...focusProps }
 			/>
 		</PanelBody>
 	);
@@ -266,7 +275,8 @@ export default function NavigationLinkEdit( {
 
 	// Change the label using inspector causes rich text to change focus on firefox.
 	// This is a workaround to keep the focus on the label field when label filed is focused we don't render the rich text.
-	const [ isLabelFieldFocused, setIsLabelFieldFocused ] = useState( false );
+	const [ isControlFieldFocused, setIsControlFieldFocused ] =
+		useState( false );
 
 	const {
 		isAtMaxNesting,
@@ -484,7 +494,7 @@ export default function NavigationLinkEdit( {
 				<Controls
 					attributes={ attributes }
 					setAttributes={ setAttributes }
-					setIsLabelFieldFocused={ setIsLabelFieldFocused }
+					setIsFocused={ setIsControlFieldFocused }
 				/>
 			</InspectorControls>
 			<div { ...blockProps }>
@@ -501,7 +511,7 @@ export default function NavigationLinkEdit( {
 						<>
 							{ ! isInvalid &&
 								! isDraft &&
-								! isLabelFieldFocused && (
+								! isControlFieldFocused && (
 									<>
 										<RichText
 											ref={ ref }
@@ -537,7 +547,7 @@ export default function NavigationLinkEdit( {
 								) }
 							{ ( isInvalid ||
 								isDraft ||
-								isLabelFieldFocused ) && (
+								isControlFieldFocused ) && (
 								<div className="wp-block-navigation-link__placeholder-text wp-block-navigation-link__label">
 									<Tooltip text={ tooltipText }>
 										<span
@@ -592,6 +602,12 @@ export default function NavigationLinkEdit( {
 								}
 
 								setIsLinkOpen( false );
+
+								// If a control is focused allow it to retain focus.
+								if ( isControlFieldFocused ) {
+									return;
+								}
+
 								if ( openedBy ) {
 									openedBy.focus();
 									setOpenedBy( null );
