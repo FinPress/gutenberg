@@ -13,11 +13,7 @@ import { moreVertical } from '@wordpress/icons';
 function Warning( { className, actions, children, secondaryActions } ) {
 	return (
 		<div style={ { display: 'contents', all: 'initial' } }>
-			<div
-				className={ clsx( className, 'block-editor-warning' ) }
-				tabIndex="0"
-				role="alert"
-			>
+			<div className={ clsx( className, 'block-editor-warning' ) }>
 				<div className="block-editor-warning__contents">
 					<p className="block-editor-warning__message">
 						{ children }
