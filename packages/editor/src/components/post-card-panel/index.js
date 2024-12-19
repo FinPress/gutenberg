@@ -111,7 +111,9 @@ export default function PostCardPanel( {
 					className="editor-post-card-panel__title"
 					as="h2"
 				>
-					{ title }
+					<span className="editor-post-card-panel__title-name">
+						{ title }
+					</span>
 					{ pageTypeBadge && postIds.length === 1 && (
 						<Badge>{ pageTypeBadge }</Badge>
 					) }
