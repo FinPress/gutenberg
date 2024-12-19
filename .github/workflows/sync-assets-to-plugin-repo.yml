@@ -6,7 +6,6 @@ on:
             - trunk
         paths:
             - 'assets/**'
-            - '!assets/README.md'
 
 jobs:
     sync-assets:
