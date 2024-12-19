@@ -467,18 +467,41 @@ const getManipulateDocumentCommands = () =>
 		};
 	};
 
-const getuseSiteEditorCommandLoader = () =>
-	function useSiteEditorCommandLoader() {
+const getDataViewCommands = () =>
+	function useDataViewCommands() {
 		const commands = [];
+
 		commands.push( {
-			name: 'core/drafts',
-			label: __( 'Pages/Drafts' ),
-			keywords: [ 'drafts' ],
-			icon: page,
+			name: 'core/data-view/all-templates',
+			label: __( 'Manage templates' ),
+			keywords: [ 'templates', 'all templates' ],
+			icon: layout,
 			callback: ( { close } ) => {
 				close();
 				window.location.href =
-					'/wp-admin/site-editor.php?postType=page&layout=list&activeView=drafts';
+					'/wp-admin/site-editor.php?p=%2Ftemplate';
+			},
+		} );
+
+		commands.push( {
+			name: 'core/data-view/all-pages',
+			label: __( 'Manage pages' ),
+			keywords: [ 'pages', 'all pages' ],
+			icon: page,
+			callback: ( { close } ) => {
+				close();
+				window.location.href = '/wp-admin/site-editor.php?p=%2Fpage';
+			},
+		} );
+
+		commands.push( {
+			name: 'core/data-view/all-pages',
+			label: __( 'Manage Patterns' ),
+			keywords: [ 'patterns', 'template parts' ],
+			icon: page,
+			callback: ( { close } ) => {
+				close();
+				window.location.href = '/wp-admin/site-editor.php?p=%2Fpattern';
 			},
 		} );
 
@@ -501,12 +524,6 @@ export default function useCommands() {
 	} );
 
 	useCommandLoader( {
-		name: 'core/editor/site-editor',
-		hook: getuseSiteEditorCommandLoader(),
-		context: 'site-editor',
-	} );
-
-	useCommandLoader( {
 		name: 'core/editor/page-content-focus',
 		hook: getPageContentFocusCommands(),
 		context: 'entity-edit',
@@ -515,5 +532,11 @@ export default function useCommands() {
 	useCommandLoader( {
 		name: 'core/edit-site/manipulate-document',
 		hook: getManipulateDocumentCommands(),
+	} );
+
+	useCommandLoader( {
+		name: 'core/editor/data-views',
+		hook: getDataViewCommands(),
+		context: 'data-views',
 	} );
 }
