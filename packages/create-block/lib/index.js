@@ -200,7 +200,7 @@ program
 					log.error( error.message );
 					process.exit( 1 );
 				} else if ( error.name === 'ExitPromptError' ) {
-					log.info( 'Please try again later!' );
+					log.info( 'Cancelled.' );
 					process.exit( 1 );
 				} else {
 					throw error;
