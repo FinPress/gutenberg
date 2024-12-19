@@ -63,10 +63,9 @@ function render_block_core_query_total( $attributes, $content, $block ) {
 		default:
 			// translators: %d: Total number of posts.
 			$total_text = sprintf( _n( '%d result found', '%d results found', $max_rows ), $max_rows );
-			$output = sprintf(
+			$output     = sprintf(
 				'<p>%s</p>',
-				$total_text,
-				
+				$total_text
 			);
 			break;
 	}
