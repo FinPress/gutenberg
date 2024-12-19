@@ -38,7 +38,6 @@ jobs:
             - name: Copy files from git checkout to svn working copy
               run: |
                   cp -R git/assets/* assets
-                  rm assets/README.md
 
             - name: Commit the updated assets
               working-directory: ./assets
