@@ -3,7 +3,11 @@
 }
 
 .wp-social-link-applemusic {
-	color: #0a7aff;
+	// The Apple Music icon actually uses a linear-gradient which is an image type.
+	// The linear-gradient function can't be used on the properties color and
+	// background-color, which expect a color type;
+	// https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient#description
+	color: #fa233b;
 }
 
 .wp-social-link-bandcamp {
