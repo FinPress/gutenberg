@@ -1,4 +1,5 @@
 export * from './amazon';
+export * from './applemusic';
 export * from './bandcamp';
 export * from './behance';
 export * from './bluesky';

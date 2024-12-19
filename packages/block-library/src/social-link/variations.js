@@ -3,6 +3,7 @@
  */
 import {
 	AmazonIcon,
+	ApplemusicIcon,
 	BandcampIcon,
 	BehanceIcon,
 	BlueskyIcon,
@@ -71,6 +72,12 @@ const variations = [
 		attributes: { service: 'amazon' },
 		title: 'Amazon',
 		icon: AmazonIcon,
+	},
+	{
+		name: 'applemusic',
+		attributes: { service: 'applemusic' },
+		title: 'Apple Music',
+		icon: ApplemusicIcon,
 	},
 	{
 		name: 'bandcamp',
