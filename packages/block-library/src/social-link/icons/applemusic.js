@@ -4,7 +4,16 @@
 import { Path, SVG, G, Stop, LinearGradient } from '@wordpress/primitives';
 
 export const ApplemusicIcon = () => (
-	<SVG width="24" height="24" viewBox="0 0 24 24" version="1.1">
+	<SVG
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		version="1.1"
+		xmlns="http://www.w3.org/2000/svg"
+		xmlnsXlink="http://www.w3.org/1999/xlink"
+		enableBackground="new 0 0 73 73"
+		xmlSpace="preserve"
+	>
 		<G />
 		<G>
 			<LinearGradient
