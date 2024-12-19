@@ -9,7 +9,7 @@ export function QueryPaginationLabelControl( { value, onChange } ) {
 		<ToggleControl
 			__nextHasNoMarginBottom
 			label={ __( 'Show label text' ) }
-			help={ __( 'Make label text visible to the users.' ) }
+			help={ __( 'Make label text visible, e.g. "Next Page".' ) }
 			onChange={ onChange }
 			checked={ value === true }
 		/>
