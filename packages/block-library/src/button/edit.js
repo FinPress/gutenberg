@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import { NEW_TAB_TARGET, NOFOLLOW_REL } from './constants';
 import { getUpdatedLinkAttributes } from './get-updated-link-attributes';
 import removeAnchorTag from '../utils/remove-anchor-tag';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 /**
  * WordPress dependencies
@@ -16,12 +17,13 @@ import removeAnchorTag from '../utils/remove-anchor-tag';
 import { __ } from '@wordpress/i18n';
 import { useEffect, useState, useRef, useMemo } from '@wordpress/element';
 import {
-	Button,
-	ButtonGroup,
-	PanelBody,
 	TextControl,
 	ToolbarButton,
 	Popover,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import {
 	AlignmentControl,
@@ -114,35 +116,43 @@ function useEnter( props ) {
 }
 
 function WidthPanel( { selectedWidth, setAttributes } ) {
-	function handleChange( newWidth ) {
-		// Check if we are toggling the width off
-		const width = selectedWidth === newWidth ? undefined : newWidth;
-
-		// Update attributes.
-		setAttributes( { width } );
-	}
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	return (
-		<PanelBody title={ __( 'Settings' ) }>
-			<ButtonGroup aria-label={ __( 'Button width' ) }>
-				{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
-					return (
-						<Button
-							key={ widthValue }
-							size="small"
-							variant={
-								widthValue === selectedWidth
-									? 'primary'
-									: undefined
-							}
-							onClick={ () => handleChange( widthValue ) }
-						>
-							{ widthValue }%
-						</Button>
-					);
-				} ) }
-			</ButtonGroup>
-		</PanelBody>
+		<ToolsPanel
+			label={ __( 'Settings' ) }
+			resetAll={ () => setAttributes( { width: undefined } ) }
+			dropdownMenuProps={ dropdownMenuProps }
+		>
+			<ToolsPanelItem
+				label={ __( 'Button width' ) }
+				isShownByDefault
+				hasValue={ () => !! selectedWidth }
+				onDeselect={ () => setAttributes( { width: undefined } ) }
+				__nextHasNoMarginBottom
+			>
+				<ToggleGroupControl
+					label={ __( 'Button width' ) }
+					value={ selectedWidth }
+					onChange={ ( newWidth ) =>
+						setAttributes( { width: newWidth } )
+					}
+					isBlock
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+				>
+					{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
+						return (
+							<ToggleGroupControlOption
+								key={ widthValue }
+								value={ widthValue }
+								label={ `${ widthValue }%` }
+							/>
+						);
+					} ) }
+				</ToggleGroupControl>
+			</ToolsPanelItem>
+		</ToolsPanel>
 	);
 }
 

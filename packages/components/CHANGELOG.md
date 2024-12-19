@@ -2,6 +2,33 @@
 
 ## Unreleased
 
+### Enhancements
+
+-   `BoxControl`: Add presets support ([#67688](https://github.com/WordPress/gutenberg/pull/67688)).
+
+### Deprecations
+
+-   `TreeSelect`: Deprecate 36px default size ([#67855](https://github.com/WordPress/gutenberg/pull/67855)).
+-   `SelectControl`: Deprecate 36px default size ([#66898](https://github.com/WordPress/gutenberg/pull/66898)).
+-   `InputControl`: Deprecate 36px default size ([#66897](https://github.com/WordPress/gutenberg/pull/66897)).
+-   `RadioGroup`: Log deprecation warning ([#68067](https://github.com/WordPress/gutenberg/pull/68067)).
+-   Soft deprecate `ButtonGroup` component. Use `ToggleGroupControl` instead ([#65429](https://github.com/WordPress/gutenberg/pull/65429)).
+
+### Bug Fixes
+
+-   `BoxControl`: Better respect for the `min` prop in the Range Slider ([#67819](https://github.com/WordPress/gutenberg/pull/67819)).
+
+### Experimental
+
+-   Add new `Badge` component ([#66555](https://github.com/WordPress/gutenberg/pull/66555)).
+-   `Menu`: refactor to more granular sub-components ([#67422](https://github.com/WordPress/gutenberg/pull/67422)).
+
+### Internal
+
+-   `SlotFill`: rewrite the non-portal version to use `observableMap` ([#67400](https://github.com/WordPress/gutenberg/pull/67400)).
+
+## 29.0.0 (2024-12-11)
+
 ### Breaking Changes
 
 -   Removed the unused `__unstableMotionContext` export ([#67623](https://github.com/WordPress/gutenberg/pull/67623)).
@@ -13,12 +40,13 @@
 -   `Menu`: Replace hardcoded white color with theme-ready variable ([#67649](https://github.com/WordPress/gutenberg/pull/67649)).
 -   `Navigation` (deprecated): Replace hardcoded white color with theme-ready variable ([#67649](https://github.com/WordPress/gutenberg/pull/67649)).
 -   `ToggleGroupControl`: Replace hardcoded white color with theme-ready variable ([#67649](https://github.com/WordPress/gutenberg/pull/67649)).
--   `RangeControl`: Update the design of the range control marks ([#67611](https://github.com/WordPress/gutenberg/pull/67611))
+-   `RangeControl`: Update the design of the range control marks ([#67611](https://github.com/WordPress/gutenberg/pull/67611)).
 -   `BorderBoxControl`: Reduce gap value when unlinked ([#67049](https://github.com/WordPress/gutenberg/pull/67049)).
 -   `DropdownMenu`: Increase option height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
 -   `MenuItem`: Increase height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
 -   `MenuItemsChoice`: Increase option height to 40px ([#67435](https://github.com/WordPress/gutenberg/pull/67435)).
 -   `Navigation`: Fix active item hover color ([#67732](https://github.com/WordPress/gutenberg/pull/67732)).
+-   `Button`: Adjust `secondary` variant hover style. ([#67325](https://github.com/WordPress/gutenberg/pull/67325)).
 
 ### Deprecations
 
@@ -45,6 +73,8 @@
 ### Bug Fixes
 
 -   `ResizableBox`: Make drag handles focusable ([#67305](https://github.com/WordPress/gutenberg/pull/67305)).
+-   `CustomSelectControl`: Update correctly when `showSelectedHint` is enabled ([#67733](https://github.com/WordPress/gutenberg/pull/67733)).
+-   `CustomSelectControl`: Use `useStoreState` to get `currentValue` and avoid stale values ([#67815](https://github.com/WordPress/gutenberg/pull/67815)).
 
 ## 28.13.0 (2024-11-27)
 
