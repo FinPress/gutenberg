@@ -44,7 +44,7 @@ export const updateAttributes = (
 		title: newLabel = '', // the title of any provided Post.
 		url: newUrl = '',
 		opensInNewTab,
-		id,
+		id: newID,
 		kind: newKind = originalKind,
 		type: newType = originalType,
 	} = updatedValue;
@@ -86,13 +86,23 @@ export const updateAttributes = (
 		( ! newKind && ! isBuiltInType ) || newKind === 'custom';
 	const kind = isCustomLink ? 'custom' : newKind;
 
-	setAttributes( {
+	const attributes = {
 		// Passed `url` may already be encoded. To prevent double encoding, decodeURI is executed to revert to the original string.
 		...( newUrl && { url: encodeURI( safeDecodeURI( newUrl ) ) } ),
 		...( label && { label } ),
 		...( undefined !== opensInNewTab && { opensInNewTab } ),
-		...( id && Number.isInteger( id ) && { id } ),
 		...( kind && { kind } ),
 		...( type && type !== 'URL' && { type } ),
-	} );
+	};
+
+	// If the block's id is set then the menu item is linking to an entity.
+	// Therefore, if the URL is set but a new ID is not provided, the ID
+	// should be removed because the URL was manually changed by the User.
+	if ( newUrl && ! newID && blockAttributes.id ) {
+		attributes.id = undefined; // explicity "unset" the ID.
+	} else if ( newID && Number.isInteger( newID ) ) {
+		attributes.id = newID;
+	}
+
+	setAttributes( attributes );
 };
