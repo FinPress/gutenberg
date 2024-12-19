@@ -12,28 +12,22 @@ import { store as interfaceStore } from '@wordpress/interface';
 import { store as editorStore } from '../../store';
 
 export default function StartPageOptions() {
-	const { postId, shouldEnable } = useSelect( ( select ) => {
-		const {
-			isEditedPostDirty,
-			isEditedPostEmpty,
-			getCurrentPostId,
-			getCurrentPostType,
-		} = select( editorStore );
+	const shouldEnable = useSelect( ( select ) => {
+		const { isEditedPostDirty, isEditedPostEmpty, getCurrentPostType } =
+			select( editorStore );
 		const preferencesModalActive =
 			select( interfaceStore ).isModalActive( 'editor/preferences' );
 		const choosePatternModalEnabled = select( preferencesStore ).get(
 			'core',
 			'enableChoosePatternModal'
 		);
-		return {
-			shouldEnable:
-				choosePatternModalEnabled &&
-				! preferencesModalActive &&
-				! isEditedPostDirty() &&
-				isEditedPostEmpty() &&
-				'page' === getCurrentPostType(),
-			postId: getCurrentPostId(),
-		};
+		return (
+			choosePatternModalEnabled &&
+			! preferencesModalActive &&
+			! isEditedPostDirty() &&
+			isEditedPostEmpty() &&
+			'page' === getCurrentPostType()
+		);
 	}, [] );
 	const { setIsInserterOpened } = useDispatch( editorStore );
 
@@ -44,7 +38,7 @@ export default function StartPageOptions() {
 				category: 'core/starter-content',
 			} );
 		}
-	}, [ postId, shouldEnable, setIsInserterOpened ] );
+	}, [ shouldEnable, setIsInserterOpened ] );
 
 	return null;
 }
