@@ -128,6 +128,12 @@ Port: {MYSQL_PORT_NUMBER}
 
 **Tip**: [Sequel Ace](https://sequel-ace.com/) is a useful GUI tool for accessing a MySQL database. Other tools are available and documented in this [article on accessing the WordPress database](https://developer.wordpress.org/advanced-administration/before-install/creating-database/).
 
+Alternatively, you can use phpMyAdmin to access the mySQL database. To enable access to phpMyAdmin, add the `WP_ENV_PHPMYADMIN_PORT` environment variable to the command:
+
+```bash
+WP_ENV_PHPMYADMIN_PORT=9000 npm run wp-env start
+```
+
 #### Troubleshooting
 
 If you run into an issue, check the [troubleshooting section in `wp-env` documentation](/packages/env/README.md#troubleshooting-common-problems).
