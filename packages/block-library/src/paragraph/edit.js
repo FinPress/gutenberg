@@ -183,7 +183,9 @@ function ParagraphBlock( {
 				}
 				data-empty={ RichText.isEmpty( content ) }
 				placeholder={ placeholder }
-				data-custom-placeholder={ placeholder ? true : undefined }
+				data-custom-placeholder={
+					placeholder && ! isZoomOut ? true : undefined
+				}
 				__unstableEmbedURLOnPaste
 				__unstableAllowPrefixTransformations
 			/>
