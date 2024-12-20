@@ -312,7 +312,7 @@ test.describe( 'Page List', () => {
 			}
 		);
 
-		test( 'should update the page according to the changes ', async ( {
+		test( 'should save multiple field changes and update Data Views UI', async ( {
 			page,
 			requestUtils,
 		} ) => {
