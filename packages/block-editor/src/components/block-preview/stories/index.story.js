@@ -7,7 +7,8 @@ import { registerCoreBlocks } from '@wordpress/block-library';
 /**
  * Internal dependencies
  */
-import BlockPreview from '../index';
+import BlockPreview from '..';
+import { BlockEditorProvider } from '../../provider';
 
 // Register core blocks to be used in the preview.
 registerCoreBlocks();
@@ -63,7 +64,7 @@ const meta = {
 		},
 		additionalStyles: {
 			description:
-				'Additional styles to apply to the preview iframe as an array of CSS rules.',
+				'Additional styles to apply to the preview iframe as an array of CSS rules. Each object should contain a `css` attribute.',
 			control: 'object',
 			table: {
 				type: {
@@ -78,7 +79,11 @@ export default meta;
 
 export const Default = {
 	render: function Template( args ) {
-		return <BlockPreview { ...args } />;
+		return (
+			<BlockEditorProvider settings={ { styles: [] } }>
+				<BlockPreview { ...args } />
+			</BlockEditorProvider>
+		);
 	},
 	args: {
 		blocks: sampleBlocks,
@@ -90,12 +95,16 @@ export const Default = {
 
 export const CustomStyles = {
 	render: function Template( args ) {
-		return <BlockPreview { ...args } />;
+		return (
+			<BlockEditorProvider settings={ { styles: [] } }>
+				<BlockPreview { ...args } />
+			</BlockEditorProvider>
+		);
 	},
 	args: {
 		blocks: sampleBlocks,
 		viewportWidth: 1200,
 		minHeight: 100,
-		additionalStyles: [ { css: `body { color: #ff0000; }` } ],
+		additionalStyles: [ { css: `p { color: #ff0000; }` } ],
 	},
 };
