@@ -26,6 +26,7 @@
 ### Internal
 
 -   `SlotFill`: rewrite the non-portal version to use `observableMap` ([#67400](https://github.com/WordPress/gutenberg/pull/67400)).
+-   `DatePicker`: Prepare day buttons for 40px default size ([#68156](https://github.com/WordPress/gutenberg/pull/68156)).
 
 ## 29.0.0 (2024-12-11)
 
