@@ -48,15 +48,17 @@ const permanentlyDeletePost: Action< PostWithPermissions > = {
 						? sprintf(
 								// translators: %d: number of items to delete.
 								_n(
-									'Permanently delete %d item?',
-									'Permanently delete %d items?',
+									'Are you sure you want to permanently delete %d item?',
+									'Are you sure you want to permanently delete %d items?',
 									items.length
 								),
 								items.length
 						  )
 						: sprintf(
 								// translators: %s: The post's title
-								__( 'Permanently delete "%s"?' ),
+								__(
+									'Are you sure you want to permanently delete "%s"?'
+								),
 								decodeEntities( getItemTitle( items[ 0 ] ) )
 						  ) }
 				</Text>
