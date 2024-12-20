@@ -452,11 +452,10 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 				],
 		  };
 
-	// If the filtered examples are empty, show all examples.
-	const displayedExamples =
-		filteredExamples.examples || filteredExamples.subcategories
-			? filteredExamples
-			: { examples: examplesForSinglePageUse };
+	// If there's no preview category, show all examples.
+	const displayedExamples = previewCategory
+		? filteredExamples
+		: { examples: examplesForSinglePageUse };
 
 	const { base: baseConfig } = useContext( GlobalStylesContext );
 	const goTo = getStyleBookNavigationFromPath( section );
