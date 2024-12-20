@@ -8,6 +8,10 @@ import json2md from 'json2md';
  */
 import { generateMarkdownPropsJson } from './props.mjs';
 
+function normalizeTrailingNewline( str ) {
+	return str?.length ? str.replace( /\n*$/, '\n' ) : undefined;
+}
+
 export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
 	const mainDocsJson = [
 		{ h1: typeDocs.displayName },
@@ -15,7 +19,7 @@ export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
 		{
 			p: `<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-${ typeDocs.displayName.toLowerCase() }--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>`,
 		},
-		typeDocs.description,
+		normalizeTrailingNewline( typeDocs.description ),
 		...generateMarkdownPropsJson( typeDocs.props ),
 	];
 
@@ -26,7 +30,7 @@ export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
 					{
 						h3: subcomponentTypeDoc.displayName,
 					},
-					subcomponentTypeDoc.description,
+					normalizeTrailingNewline( subcomponentTypeDoc.description ),
 					...generateMarkdownPropsJson( subcomponentTypeDoc.props, {
 						headingLevel: 4,
 					} ),
