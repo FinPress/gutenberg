@@ -50,6 +50,7 @@ export default function save( { attributes, className } ) {
 			// For backwards compatibility add style that isn't provided via
 			// block support.
 			'no-border-radius': style?.border?.radius === 0,
+			[ `has-custom-font-size` ]: fontSize || style?.typography?.fontSize,
 		},
 		__experimentalGetElementClassName( 'button' )
 	);
@@ -68,7 +69,6 @@ export default function save( { attributes, className } ) {
 
 	const wrapperClasses = clsx( className, {
 		[ `has-custom-width wp-block-button__width-${ width }` ]: width,
-		[ `has-custom-font-size` ]: fontSize || style?.typography?.fontSize,
 	} );
 
 	return (

@@ -284,7 +284,6 @@ function ButtonEdit( props ) {
 				className={ clsx( blockProps.className, {
 					[ `has-custom-width wp-block-button__width-${ width }` ]:
 						width,
-					[ `has-custom-font-size` ]: blockProps.style.fontSize,
 				} ) }
 			>
 				<RichText
@@ -309,6 +308,8 @@ function ButtonEdit( props ) {
 							// For backwards compatibility add style that isn't
 							// provided via block support.
 							'no-border-radius': style?.border?.radius === 0,
+							[ `has-custom-font-size` ]:
+								blockProps.style.fontSize,
 						},
 						__experimentalGetElementClassName( 'button' )
 					) }
