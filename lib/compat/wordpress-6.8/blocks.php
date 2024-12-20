@@ -118,10 +118,10 @@ function gutenberg_stabilize_experimental_block_supports( $args ) {
 
 			if ( is_array( $args['supports'][ $stable_support_key ] ) ) {
 				/*
-					* To merge the alternative support config effectively, it also needs to be
-					* stabilized before merging to keep stabilized and experimental flags in
-					* sync.
-					*/
+				* To merge the alternative support config effectively, it also needs to be
+				* stabilized before merging to keep stabilized and experimental flags in
+				* sync.
+				*/
 				$args['supports'][ $stable_support_key ] = $stabilize_config( $args['supports'][ $stable_support_key ], $stable_support_key );
 				$stable_config                           = $experimental_first
 					? array_merge( $stable_config, $args['supports'][ $stable_support_key ] )
