@@ -36,11 +36,14 @@ function internalToExternalTabId(
 }
 
 /**
- * Display one panel of content at a time with a tabbed interface, based on the
- * WAI-ARIA Tabs Pattern⁠.
+ * Tabs is a collection of React components that combine to render
+ * an [ARIA-compliant tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/).
  *
- * @see https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
- * ```
+ * Tabs organizes content across different screens, data sets, and interactions.
+ * It has two sections: a list of tabs, and the view to show when tabs are chosen.
+ *
+ * `Tabs` itself is a wrapper component and context provider.
+ * It is responsible for managing the state of the tabs, and rendering the `TabList` and `TabPanels`.
  */
 export const Tabs = Object.assign(
 	function Tabs( {
@@ -121,12 +124,26 @@ export const Tabs = Object.assign(
 		);
 	},
 	{
+		/**
+		 * Renders a single tab.
+		 *
+		 * The currently active tab receives default styling that can be
+		 * overridden with CSS targeting `[aria-selected="true"]`.
+		 */
 		Tab: Object.assign( Tab, {
 			displayName: 'Tabs.Tab',
 		} ),
+		/**
+		 * A wrapper component for the `Tab` components.
+		 *
+		 * It is responsible for rendering the list of tabs.
+		 */
 		TabList: Object.assign( TabList, {
 			displayName: 'Tabs.TabList',
 		} ),
+		/**
+		 * Renders the content to display for a single tab once that tab is selected.
+		 */
 		TabPanel: Object.assign( TabPanel, {
 			displayName: 'Tabs.TabPanel',
 		} ),

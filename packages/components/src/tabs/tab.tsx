@@ -18,6 +18,12 @@ import {
 import type { WordPressComponentProps } from '../context';
 import { chevronRight } from '@wordpress/icons';
 
+/**
+ * Renders a single tab.
+ *
+ * The currently active tab receives default styling that can be
+ * overridden with CSS targeting `[aria-selected="true"]`.
+ */
 export const Tab = forwardRef<
 	HTMLButtonElement,
 	Omit< WordPressComponentProps< TabProps, 'button', false >, 'id' >

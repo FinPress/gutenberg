@@ -26,12 +26,10 @@ export type TabsProps = {
 	/**
 	 * Determines if the tab should be selected when it receives focus. If set to
 	 * `false`, the tab will only be selected upon clicking, not when using arrow
-	 * keys to shift focus (manual tab activation). See the official W3C docs
+	 * keys to shift focus (manual tab activation). See the [official W3C docs](https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/)
 	 * for more info.
 	 *
 	 * @default true
-	 *
-	 * @see https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/
 	 */
 	selectOnMove?: Ariakit.TabStoreProps[ 'selectOnMove' ];
 	/**
@@ -63,6 +61,7 @@ export type TabsProps = {
 	/**
 	 * The current active tab `id`. The active tab is the tab element within the
 	 * tablist widget that has DOM focus.
+	 *
 	 * - `null` represents the tablist (ie. the base composite element). Users
 	 *   will be able to navigate out of it using arrow keys.
 	 * - If `activeTabId` is initially set to `null`, the base composite element
@@ -87,6 +86,7 @@ export type TabsProps = {
 	/**
 	 * Defines the orientation of the tablist and determines which arrow keys
 	 * can be used to move focus:
+	 *
 	 * - `both`: all arrow keys work.
 	 * - `horizontal`: only left and right arrow keys work.
 	 * - `vertical`: only up and down arrow keys work.

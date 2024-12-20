@@ -67,6 +67,11 @@ function useScrollRectIntoView(
 	}, [ margin, parent, rect ] );
 }
 
+/**
+ * A wrapper component for the `Tab` components.
+ *
+ * It is responsible for rendering the list of tabs.
+ */
 export const TabList = forwardRef<
 	HTMLDivElement,
 	WordPressComponentProps< TabListProps, 'div', false >
