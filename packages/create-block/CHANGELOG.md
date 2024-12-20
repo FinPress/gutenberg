@@ -5,7 +5,7 @@
 ### Enhancement
 
 -   Add support for custom `textdomain` property for the scaffolded block ([#57197](https://github.com/WordPress/gutenberg/pull/57197)).
--   Allow external templates to customize additional plugin header and readme fields: "Requires at least", "Requires PHP", and "Tested up to".
+-   Allow external templates to customize additional plugin header and readme fields: "Requires at least", "Requires PHP", and "Tested up to" ([#68193](https://github.com/WordPress/gutenberg/pull/68193))
 
 ### Internal
 
