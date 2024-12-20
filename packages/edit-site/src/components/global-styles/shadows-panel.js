@@ -18,7 +18,6 @@ import {
 	chevronLeft,
 	chevronRight,
 	moreVertical,
-	shadow as shadowIcon,
 } from '@wordpress/icons';
 
 /**
@@ -29,7 +28,6 @@ import Subtitle from './subtitle';
 import { NavigationButtonAsItem } from './navigation-button';
 import ScreenHeader from './header';
 import { getNewIndexFromPresets } from './utils';
-import { IconWithCurrentColor } from './icon-with-current-color';
 import { useState } from '@wordpress/element';
 import ConfirmResetShadowDialog from './confirm-reset-shadow-dialog';
 
@@ -196,10 +194,7 @@ function ShadowItem( { shadow, category } ) {
 			path={ `/shadows/edit/${ category }/${ shadow.slug }` }
 		>
 			<HStack justify="space-between">
-				<HStack justify="flex-start">
-					<IconWithCurrentColor icon={ shadowIcon } />
-					<FlexItem>{ shadow.name }</FlexItem>
-				</HStack>
+				<FlexItem>{ shadow.name }</FlexItem>
 				<Icon icon={ isRTL() ? chevronLeft : chevronRight } />
 			</HStack>
 		</NavigationButtonAsItem>
