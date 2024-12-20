@@ -5,6 +5,7 @@
 ### Enhancements
 
 -   `BoxControl`: Add presets support ([#67688](https://github.com/WordPress/gutenberg/pull/67688)).
+-   `Navigation`: Upsize back buttons ([#68157](https://github.com/WordPress/gutenberg/pull/68157)).
 
 ### Deprecations
 
