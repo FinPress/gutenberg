@@ -18,9 +18,6 @@ import warning from '@wordpress/warning';
 import { useTabsContext } from './context';
 import type { WordPressComponentProps } from '../context';
 
-/**
- * Renders the content to display for a single tab once that tab is selected.
- */
 export const TabPanel = forwardRef<
 	HTMLDivElement,
 	Omit< WordPressComponentProps< TabPanelProps, 'div', false >, 'id' >
