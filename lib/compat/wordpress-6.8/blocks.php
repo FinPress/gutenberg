@@ -161,7 +161,7 @@ add_filter( 'the_content', 'gutenberg_apply_block_hooks_to_post_content', 8 );
  * @return WP_REST_Response The response object.
  */
 function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
-	if ( empty( $response->data['content']['raw'] ) || empty( $response->data['content']['rendered'] ) ) {
+	if ( empty( $response->data['content']['raw'] ) ) {
 		return $response;
 	}
 
@@ -176,6 +176,8 @@ function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 
 	if ( 'wp_navigation' === $post->post_type ) {
 		$wrapper_block_type = 'core/navigation';
+	} elseif ( 'wp_block' === $post->post_type ) {
+		$wrapper_block_type = 'core/block';
 	} else {
 		$wrapper_block_type = 'core/post-content';
 	}
@@ -197,6 +199,11 @@ function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 
 	$response->data['content']['raw'] = $content;
 
+	// If the rendered content was previously empty, we leave it like that.
+	if ( empty( $response->data['content']['rendered'] ) ) {
+		return $response;
+	}
+
 	// No need to inject hooked blocks twice.
 	$priority = has_filter( 'the_content', 'apply_block_hooks_to_content' );
 	if ( false !== $priority ) {
@@ -215,6 +222,7 @@ function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 }
 add_filter( 'rest_prepare_page', 'gutenberg_insert_hooked_blocks_into_rest_response', 10, 2 );
 add_filter( 'rest_prepare_post', 'gutenberg_insert_hooked_blocks_into_rest_response', 10, 2 );
+add_filter( 'rest_prepare_wp_block', 'gutenberg_insert_hooked_blocks_into_rest_response', 10, 2 );
 
 /**
  * Updates the wp_postmeta with the list of ignored hooked blocks
@@ -263,6 +271,8 @@ function gutenberg_update_ignored_hooked_blocks_postmeta( $post ) {
 
 	if ( 'wp_navigation' === $post->post_type ) {
 		$wrapper_block_type = 'core/navigation';
+	} elseif ( 'wp_block' === $post->post_type ) {
+		$wrapper_block_type = 'core/block';
 	} else {
 		$wrapper_block_type = 'core/post-content';
 	}
@@ -302,3 +312,4 @@ function gutenberg_update_ignored_hooked_blocks_postmeta( $post ) {
 }
 add_filter( 'rest_pre_insert_page', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
 add_filter( 'rest_pre_insert_post', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
+add_filter( 'rest_pre_insert_wp_block', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
