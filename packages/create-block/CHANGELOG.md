@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+### Enhancement
+
+-   Add support for custom `textdomain` property for the scaffolded block ([#57197](https://github.com/WordPress/gutenberg/pull/57197)).
+
+### Internal
+
+-   Refactored the code to use new API introduced together with `@inquirer/prompts` instead of legacy `inquirer` package ([#67877](https://github.com/WordPress/gutenberg/pull/67877)).
+
+## 4.57.0 (2024-12-11)
+
 ### Internal
 
 -   The bundled `rimraf` dependency has been updated from `^3.0.2` to `^5.0.10` ([#67708](https://github.com/WordPress/gutenberg/pull/67708)).
