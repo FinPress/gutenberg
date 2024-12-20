@@ -2,7 +2,6 @@
  * External dependencies
  */
 import type * as Ariakit from '@ariakit/react';
-import type { Placement } from '@floating-ui/react-dom';
 
 export interface MenuContext {
 	/**
@@ -19,36 +18,36 @@ export interface MenuProps {
 	/**
 	 * The contents of the menu (ie. one or more menu items).
 	 */
-	children?: React.ReactNode;
+	children?: Ariakit.MenuProviderProps[ 'children' ];
 	/**
 	 * The open state of the menu popover when it is initially rendered. Use when
 	 * not wanting to control its open state.
 	 *
 	 * @default false
 	 */
-	defaultOpen?: boolean;
+	defaultOpen?: Ariakit.MenuProviderProps[ 'defaultOpen' ];
 	/**
 	 * The controlled open state of the menu popover. Must be used in conjunction
 	 * with `onOpenChange`.
 	 */
-	open?: boolean;
+	open?: Ariakit.MenuProviderProps[ 'open' ];
 	/**
 	 * Event handler called when the open state of the menu popover changes.
 	 */
-	onOpenChange?: ( open: boolean ) => void;
+	onOpenChange?: Ariakit.MenuProviderProps[ 'setOpen' ];
 	/**
 	 * The placement of the menu popover.
 	 *
 	 * @default 'bottom-start' for root-level menus, 'right-start' for nested menus
 	 */
-	placement?: Placement;
+	placement?: Ariakit.MenuProviderProps[ 'placement' ];
 }
 
 export interface MenuPopoverProps {
 	/**
 	 * The contents of the dropdown.
 	 */
-	children?: React.ReactNode;
+	children?: Ariakit.MenuProps[ 'children' ];
 	/**
 	 * The modality of the menu popover. When set to true, interaction with
 	 * outside elements will be disabled and only menu content will be visible to
@@ -56,38 +55,34 @@ export interface MenuPopoverProps {
 	 *
 	 * @default true
 	 */
-	modal?: boolean;
+	modal?: Ariakit.MenuProps[ 'modal' ];
 	/**
 	 * The distance between the popover and the anchor element.
 	 *
 	 * @default 8 for root-level menus, 16 for nested menus
 	 */
-	gutter?: number;
+	gutter?: Ariakit.MenuProps[ 'gutter' ];
 	/**
 	 * The skidding of the popover along the anchor element. Can be set to
 	 * negative values to make the popover shift to the opposite side.
 	 *
 	 * @default 0 for root-level menus, -8 for nested menus
 	 */
-	shift?: number;
+	shift?: Ariakit.MenuProps[ 'shift' ];
 	/**
 	 * Determines whether the menu popover will be hidden when the user presses
 	 * the Escape key.
 	 *
 	 * @default `( event ) => { event.preventDefault(); return true; }`
 	 */
-	hideOnEscape?:
-		| boolean
-		| ( (
-				event: KeyboardEvent | React.KeyboardEvent< Element >
-		  ) => boolean );
+	hideOnEscape?: Ariakit.MenuProps[ 'hideOnEscape' ];
 }
 
 export interface MenuTriggerButtonProps {
 	/**
 	 * The contents of the menu trigger button.
 	 */
-	children?: React.ReactNode;
+	children?: Ariakit.MenuButtonProps[ 'children' ];
 	/**
 	 * Allows the component to be rendered as a different HTML element or React
 	 * component. The value can be a React element or a function that takes in the
@@ -132,21 +127,21 @@ export interface MenuGroupProps {
 	 * The contents of the menu group (ie. an optional menu group label and one
 	 * or more menu items).
 	 */
-	children: React.ReactNode;
+	children: Ariakit.MenuGroupProps[ 'children' ];
 }
 
 export interface MenuGroupLabelProps {
 	/**
 	 * The contents of the menu group label.
 	 */
-	children: React.ReactNode;
+	children: Ariakit.MenuGroupLabelProps[ 'children' ];
 }
 
 export interface MenuItemProps {
 	/**
 	 * The contents of the menu item.
 	 */
-	children: React.ReactNode;
+	children: Ariakit.MenuItemProps[ 'children' ];
 	/**
 	 * The contents of the menu item's prefix.
 	 */
@@ -160,11 +155,11 @@ export interface MenuItemProps {
 	 *
 	 * @default true
 	 */
-	hideOnClick?: boolean;
+	hideOnClick?: Ariakit.MenuItemProps[ 'hideOnClick' ];
 	/**
 	 * Determines if the element is disabled.
 	 */
-	disabled?: boolean;
+	disabled?: Ariakit.MenuItemProps[ 'disabled' ];
 	/**
 	 * Allows the component to be rendered as a different HTML element or React
 	 * component. The value can be a React element or a function that takes in the
@@ -179,67 +174,103 @@ export interface MenuItemProps {
 	store?: Ariakit.MenuItemProps[ 'store' ];
 }
 
-export interface MenuCheckboxItemProps
-	extends Omit< MenuItemProps, 'prefix' | 'hideOnClick' > {
+export interface MenuCheckboxItemProps {
+	/**
+	 * The contents of the menu item.
+	 */
+	children: Ariakit.MenuItemCheckboxProps[ 'children' ];
+	/**
+	 * The contents of the menu item's suffix.
+	 */
+	suffix?: React.ReactNode;
 	/**
 	 * Whether to hide the menu popover when the menu item is clicked.
 	 *
 	 * @default false
 	 */
-	hideOnClick?: boolean;
+	hideOnClick?: Ariakit.MenuItemCheckboxProps[ 'hideOnClick' ];
+	/**
+	 * Determines if the element is disabled.
+	 */
+	disabled?: Ariakit.MenuItemCheckboxProps[ 'disabled' ];
+	/**
+	 * Allows the component to be rendered as a different HTML element or React
+	 * component. The value can be a React element or a function that takes in the
+	 * original component props and gives back a React element with the props
+	 * merged.
+	 */
+	render?: Ariakit.MenuItemCheckboxProps[ 'render' ];
 	/**
 	 * The checkbox menu item's name.
 	 */
-	name: string;
+	name: Ariakit.MenuItemCheckboxProps[ 'name' ];
 	/**
 	 * The checkbox item's value, useful when using multiple checkbox menu items
 	 * associated to the same `name`.
 	 */
-	value?: string;
+	value?: Ariakit.MenuItemCheckboxProps[ 'value' ];
 	/**
 	 * The controlled checked state of the checkbox menu item.
 	 */
-	checked?: boolean;
+	checked?: Ariakit.MenuItemCheckboxProps[ 'checked' ];
 	/**
 	 * The checked state of the checkbox menu item when it is initially rendered.
 	 * Use when not wanting to control its checked state.
 	 */
-	defaultChecked?: boolean;
+	defaultChecked?: Ariakit.MenuItemCheckboxProps[ 'defaultChecked' ];
 	/**
 	 * Event handler called when the checked state of the checkbox menu item changes.
 	 */
-	onChange?: ( event: React.ChangeEvent< HTMLInputElement > ) => void;
+	onChange?: Ariakit.MenuItemCheckboxProps[ 'onChange' ];
 }
 
-export interface MenuRadioItemProps
-	extends Omit< MenuItemProps, 'prefix' | 'hideOnClick' > {
+export interface MenuRadioItemProps {
+	/**
+	 * The contents of the menu item.
+	 */
+	children: Ariakit.MenuItemRadioProps[ 'children' ];
+	/**
+	 * The contents of the menu item's suffix.
+	 */
+	suffix?: React.ReactNode;
 	/**
 	 * Whether to hide the menu popover when the menu item is clicked.
 	 *
 	 * @default false
 	 */
-	hideOnClick?: boolean;
+	hideOnClick?: Ariakit.MenuItemRadioProps[ 'hideOnClick' ];
+	/**
+	 * Determines if the element is disabled.
+	 */
+	disabled?: Ariakit.MenuItemRadioProps[ 'disabled' ];
+	/**
+	 * Allows the component to be rendered as a different HTML element or React
+	 * component. The value can be a React element or a function that takes in the
+	 * original component props and gives back a React element with the props
+	 * merged.
+	 */
+	render?: Ariakit.MenuItemRadioProps[ 'render' ];
 	/**
 	 * The radio item's name.
 	 */
-	name: string;
+	name: Ariakit.MenuItemRadioProps[ 'name' ];
 	/**
 	 * The radio item's value.
 	 */
-	value: string | number;
+	value: Ariakit.MenuItemRadioProps[ 'value' ];
 	/**
 	 * The controlled checked state of the radio menu item.
 	 */
-	checked?: boolean;
+	checked?: Ariakit.MenuItemRadioProps[ 'checked' ];
 	/**
 	 * The checked state of the radio menu item when it is initially rendered.
 	 * Use when not wanting to control its checked state.
 	 */
-	defaultChecked?: boolean;
+	defaultChecked?: Ariakit.MenuItemRadioProps[ 'defaultChecked' ];
 	/**
 	 * Event handler called when the checked radio menu item changes.
 	 */
-	onChange?: ( event: React.ChangeEvent< HTMLInputElement > ) => void;
+	onChange?: Ariakit.MenuItemRadioProps[ 'onChange' ];
 }
 
 export interface MenuSeparatorProps {}
