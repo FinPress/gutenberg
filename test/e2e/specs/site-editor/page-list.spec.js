@@ -65,7 +65,7 @@ test.describe( 'Page List', () => {
 	test.describe( 'Quick Edit Mode', () => {
 		const fields = {
 			featuredImage: {
-				edit: async ( page ) => {
+				performEdit: async ( page ) => {
 					const placeholder = page.getByRole( 'button', {
 						name: 'Choose an image…',
 					} );
@@ -91,7 +91,7 @@ test.describe( 'Page List', () => {
 						.getByRole( 'button', { name: 'Select', exact: true } )
 						.click();
 				},
-				initialView: async ( page ) => {
+				assertInitialState: async ( page ) => {
 					const el = page.getByText( 'Choose an image…' );
 					const placeholder = page.getByRole( 'button', {
 						name: 'Choose an image…',
@@ -99,7 +99,7 @@ test.describe( 'Page List', () => {
 					await expect( el ).toBeVisible();
 					await expect( placeholder ).toBeVisible();
 				},
-				viewAfterEdit: async ( page ) => {
+				assertEditedState: async ( page ) => {
 					const placeholder = page.getByRole( 'button', {
 						name: 'Choose an image…',
 					} );
@@ -111,7 +111,7 @@ test.describe( 'Page List', () => {
 				},
 			},
 			statusVisibility: {
-				edit: async ( page ) => {
+				performEdit: async ( page ) => {
 					const statusAndVisibility = page.getByLabel(
 						'Status & Visibility'
 					);
@@ -140,7 +140,7 @@ test.describe( 'Page List', () => {
 						}
 					}
 				},
-				initialView: async ( page ) => {
+				assertInitialState: async ( page ) => {
 					const statusAndVisibility = page.getByLabel(
 						'Status & Visibility'
 					);
@@ -148,7 +148,7 @@ test.describe( 'Page List', () => {
 						'Published'
 					);
 				},
-				viewAfterEdit: async ( page ) => {
+				assertEditedState: async ( page ) => {
 					const statusAndVisibility = page.getByLabel(
 						'Status & Visibility'
 					);
@@ -158,11 +158,11 @@ test.describe( 'Page List', () => {
 				},
 			},
 			author: {
-				initialView: async ( page ) => {
+				assertInitialState: async ( page ) => {
 					const author = page.getByLabel( 'Author' );
 					await expect( author ).toContainText( 'admin' );
 				},
-				edit: async ( page ) => {
+				performEdit: async ( page ) => {
 					const author = page.getByLabel( 'Author' );
 					await author.click();
 					const selectElement = page.locator(
@@ -170,17 +170,17 @@ test.describe( 'Page List', () => {
 					);
 					await selectElement.selectOption( { value: '1' } );
 				},
-				viewAfterEdit: async () => {},
+				assertEditedState: async () => {},
 			},
 			date: {
-				initialView: async ( page ) => {
+				assertInitialState: async ( page ) => {
 					const dateEl = page.getByLabel( 'Edit Date' );
 					const date = new Date();
 					const yy = String( date.getFullYear() );
 
 					await expect( dateEl ).toContainText( yy );
 				},
-				edit: async ( page ) => {
+				performEdit: async ( page ) => {
 					const dateEl = page.getByLabel( 'Edit Date' );
 					await dateEl.click();
 					const date = new Date();
@@ -192,7 +192,7 @@ test.describe( 'Page List', () => {
 					await yyEl.focus();
 					await page.keyboard.press( 'ArrowUp' );
 				},
-				viewAfterEdit: async ( page ) => {
+				assertEditedState: async ( page ) => {
 					const date = new Date();
 					const yy = Number( date.getFullYear() );
 					const dateEl = page.getByLabel( 'Edit Date' );
@@ -200,11 +200,11 @@ test.describe( 'Page List', () => {
 				},
 			},
 			slug: {
-				initialView: async ( page ) => {
+				assertInitialState: async ( page ) => {
 					const slug = page.getByLabel( 'Edit Slug' );
 					await expect( slug ).toContainText( 'privacy-policy' );
 				},
-				edit: async ( page ) => {
+				performEdit: async ( page ) => {
 					const slug = page.getByLabel( 'Edit Slug' );
 					await slug.click();
 					await expect(
@@ -213,14 +213,14 @@ test.describe( 'Page List', () => {
 						} )
 					).toBeVisible();
 				},
-				viewAfterEdit: async () => {},
+				assertEditedState: async () => {},
 			},
 			parent: {
-				initialView: async ( page ) => {
+				assertInitialState: async ( page ) => {
 					const parent = page.getByLabel( 'Edit Parent' );
 					await expect( parent ).toContainText( 'None' );
 				},
-				edit: async ( page ) => {
+				performEdit: async ( page ) => {
 					const parent = page.getByLabel( 'Edit Parent' );
 					await parent.click();
 					await page
@@ -231,14 +231,14 @@ test.describe( 'Page List', () => {
 						.getByRole( 'option', { name: 'Sample Page' } )
 						.click();
 				},
-				viewAfterEdit: async ( page ) => {
+				assertEditedState: async ( page ) => {
 					const parent = page.getByLabel( 'Edit Parent' );
 					await expect( parent ).toContainText( 'Sample Page' );
 				},
 			},
-			// TODO: Re-enable this test once https://github.com/WordPress/gutenberg/issues/68173 is fixed
+			// TODO: Wrap up this test once https://github.com/WordPress/gutenberg/issues/68173 is fixed
 			// template: {
-			// 	initialView: async ( page ) => {
+			// 	assertInitialState: async ( page ) => {
 			// 		const template = page.getByRole( 'button', {
 			// 			name: 'Single Entries',
 			// 		} );
@@ -253,16 +253,16 @@ test.describe( 'Page List', () => {
 			// 			.getByRole( 'menuitem', { name: 'Swap template' } )
 			// 			.click();
 			// 	},
-			// 	viewAfterEdit: async ( page ) => {
+			// 	assertEditedState: async ( page ) => {
 			//
 			// 	},
 			// },
 			discussion: {
-				initialView: async ( page ) => {
+				assertInitialState: async ( page ) => {
 					const discussion = page.getByLabel( 'Edit Discussion' );
 					await expect( discussion ).toContainText( 'Closed' );
 				},
-				edit: async ( page ) => {
+				performEdit: async ( page ) => {
 					const discussion = page.getByLabel( 'Edit Discussion' );
 					await discussion.click();
 					await page
@@ -271,7 +271,7 @@ test.describe( 'Page List', () => {
 						} )
 						.check();
 				},
-				viewAfterEdit: async ( page ) => {
+				assertEditedState: async ( page ) => {
 					const discussion = page.getByLabel( 'Edit Discussion' );
 					await expect( discussion ).toContainText( 'Open' );
 				},
@@ -299,15 +299,18 @@ test.describe( 'Page List', () => {
 		} );
 
 		Object.entries( fields ).forEach(
-			( [ key, { edit, initialView, viewAfterEdit } ] ) => {
+			( [
+				key,
+				{ performEdit, assertInitialState, assertEditedState },
+			] ) => {
 				// Asserts are done in the individual functions
 				// eslint-disable-next-line playwright/expect-expect
 				test( `should initialize, edit, and update ${ key } field correctly`, async ( {
 					page,
 				} ) => {
-					await initialView( page );
-					await edit( page );
-					await viewAfterEdit( page );
+					await assertInitialState( page );
+					await performEdit( page );
+					await assertEditedState( page );
 				} );
 			}
 		);
@@ -326,8 +329,8 @@ test.describe( 'Page List', () => {
 			await expect( status ).toBeVisible();
 
 			const { featuredImage, statusVisibility } = fields;
-			await statusVisibility.edit( page );
-			await featuredImage.edit( page );
+			await statusVisibility.performEdit( page );
+			await featuredImage.performEdit( page );
 			// Ensure that no dropdown is open
 			await page.getByRole( 'button', { name: 'Close' } ).click();
 			const saveButton = page.getByLabel( 'Review 1 change…' );
