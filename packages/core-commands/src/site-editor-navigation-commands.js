@@ -337,7 +337,7 @@ const getSiteEditorBasicNavigationCommands = () =>
 
 				result.push( {
 					name: 'core/edit-site/open-pages',
-					label: __( 'Pages' ),
+					label: __( 'Manage Pages' ),
 					icon: page,
 					callback: ( { close } ) => {
 						if ( isSiteEditor ) {
@@ -356,7 +356,7 @@ const getSiteEditorBasicNavigationCommands = () =>
 
 				result.push( {
 					name: 'core/edit-site/open-templates',
-					label: __( 'Templates' ),
+					label: __( 'Manage Templates' ),
 					icon: layout,
 					callback: ( { close } ) => {
 						if ( isSiteEditor ) {
@@ -376,7 +376,7 @@ const getSiteEditorBasicNavigationCommands = () =>
 
 			result.push( {
 				name: 'core/edit-site/open-patterns',
-				label: __( 'Patterns' ),
+				label: __( 'Manage Patterns' ),
 				icon: symbol,
 				callback: ( { close } ) => {
 					if ( canCreateTemplate ) {
