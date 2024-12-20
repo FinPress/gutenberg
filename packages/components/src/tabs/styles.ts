@@ -240,7 +240,7 @@ export const TabChildren = styled.span`
 		justify-content: center;
 	}
 	[aria-orientation='vertical'] & {
-		justify-content: start;
+		justify-content: flex-start;
 	}
 `;
 
