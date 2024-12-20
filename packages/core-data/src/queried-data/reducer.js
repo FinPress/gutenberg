@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import { mapValues } from 'lodash';
-
-/**
  * WordPress dependencies
  */
 import { combineReducers } from '@wordpress/data';
@@ -61,10 +56,10 @@ export function getMergedItemIds( itemIds, nextItemIds, page, perPage ) {
 
 	for ( let i = 0; i < size; i++ ) {
 		// Preserve existing item ID except for subset of range of next items.
+		// We need to check against the possible maximum upper boundary because
+		// a page could receive fewer than what was previously stored.
 		const isInNextItemsRange =
-			i >= nextItemIdsStartIndex &&
-			i < nextItemIdsStartIndex + nextItemIds.length;
-
+			i >= nextItemIdsStartIndex && i < nextItemIdsStartIndex + perPage;
 		mergedItemIds[ i ] = isInNextItemsRange
 			? nextItemIds[ i - nextItemIdsStartIndex ]
 			: itemIds?.[ i ];
@@ -115,7 +110,8 @@ export function items( state = {}, action ) {
 				[ context ]: {
 					...state[ context ],
 					...action.items.reduce( ( accumulator, value ) => {
-						const itemId = value[ key ];
+						const itemId = value?.[ key ];
+
 						accumulator[ itemId ] = conservativeMapItem(
 							state?.[ context ]?.[ itemId ],
 							value
@@ -126,8 +122,11 @@ export function items( state = {}, action ) {
 			};
 		}
 		case 'REMOVE_ITEMS':
-			return mapValues( state, ( contextState ) =>
-				removeEntitiesById( contextState, action.itemIds )
+			return Object.fromEntries(
+				Object.entries( state ).map( ( [ itemId, contextState ] ) => [
+					itemId,
+					removeEntitiesById( contextState, action.itemIds ),
+				] )
 			);
 	}
 	return state;
@@ -166,7 +165,7 @@ export function itemIsComplete( state = {}, action ) {
 				[ context ]: {
 					...state[ context ],
 					...action.items.reduce( ( result, item ) => {
-						const itemId = item[ key ];
+						const itemId = item?.[ key ];
 
 						// Defer to completeness if already assigned. Technically the
 						// data may be outdated if receiving items for a field subset.
@@ -179,8 +178,11 @@ export function itemIsComplete( state = {}, action ) {
 			};
 		}
 		case 'REMOVE_ITEMS':
-			return mapValues( state, ( contextState ) =>
-				removeEntitiesById( contextState, action.itemIds )
+			return Object.fromEntries(
+				Object.entries( state ).map( ( [ itemId, contextState ] ) => [
+					itemId,
+					removeEntitiesById( contextState, action.itemIds ),
+				] )
 			);
 	}
 
@@ -221,19 +223,22 @@ const receiveQueries = compose( [
 	// Queries shape is shared, but keyed by query `stableKey` part. Original
 	// reducer tracks only a single query object.
 	onSubKey( 'stableKey' ),
-] )( ( state = null, action ) => {
+] )( ( state = {}, action ) => {
 	const { type, page, perPage, key = DEFAULT_ENTITY_KEY } = action;
 
 	if ( type !== 'RECEIVE_ITEMS' ) {
 		return state;
 	}
 
-	return getMergedItemIds(
-		state || [],
-		action.items.map( ( item ) => item[ key ] ),
-		page,
-		perPage
-	);
+	return {
+		itemIds: getMergedItemIds(
+			state?.itemIds || [],
+			action.items.map( ( item ) => item?.[ key ] ).filter( Boolean ),
+			page,
+			perPage
+		),
+		meta: action.meta,
+	};
 } );
 
 /**
@@ -254,13 +259,27 @@ const queries = ( state = {}, action ) => {
 				return result;
 			}, {} );
 
-			return mapValues( state, ( contextQueries ) => {
-				return mapValues( contextQueries, ( queryItems ) => {
-					return queryItems.filter( ( queryId ) => {
-						return ! removedItems[ queryId ];
-					} );
-				} );
-			} );
+			return Object.fromEntries(
+				Object.entries( state ).map(
+					( [ queryGroup, contextQueries ] ) => [
+						queryGroup,
+						Object.fromEntries(
+							Object.entries( contextQueries ).map(
+								( [ query, queryItems ] ) => [
+									query,
+									{
+										...queryItems,
+										itemIds: queryItems.itemIds.filter(
+											( queryId ) =>
+												! removedItems[ queryId ]
+										),
+									},
+								]
+							)
+						),
+					]
+				)
+			);
 		default:
 			return state;
 	}

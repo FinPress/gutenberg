@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -26,25 +26,30 @@ import TokenInput from '../form-token-field/token-input';
 import SuggestionsList from '../form-token-field/suggestions-list';
 import BaseControl from '../base-control';
 import Button from '../button';
-import { FlexBlock, FlexItem } from '../flex';
+import { FlexBlock } from '../flex';
 import withFocusOutside from '../higher-order/with-focus-outside';
 import { useControlledValue } from '../utils/hooks';
 import { normalizeTextString } from '../utils/strings';
 import type { ComboboxControlOption, ComboboxControlProps } from './types';
 import type { TokenInputProps } from '../form-token-field/types';
+import { useDeprecated36pxDefaultSizeProp } from '../utils/use-deprecated-props';
+import { withIgnoreIMEEvents } from '../utils/with-ignore-ime-events';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const noop = () => {};
 
+interface DetectOutsideComponentProps {
+	onFocusOutside: ( event: React.FocusEvent ) => void;
+	children?: React.ReactNode;
+}
+
 const DetectOutside = withFocusOutside(
-	class extends Component {
-		// @ts-expect-error - TODO: Should be resolved when `withFocusOutside` is refactored to TypeScript
-		handleFocusOutside( event ) {
-			// @ts-expect-error - TODO: Should be resolved when `withFocusOutside` is refactored to TypeScript
+	class extends Component< DetectOutsideComponentProps > {
+		handleFocusOutside( event: React.FocusEvent ) {
 			this.props.onFocusOutside( event );
 		}
 
 		render() {
-			// @ts-expect-error - TODO: Should be resolved when `withFocusOutside` is refactored to TypeScript
 			return this.props.children;
 		}
 	}
@@ -74,10 +79,12 @@ const getIndexOfMatchingSuggestion = (
  * 	{
  * 		value: 'normal',
  * 		label: 'Normal',
+ * 		disabled: true,
  * 	},
  * 	{
  * 		value: 'large',
  * 		label: 'Large',
+ * 		disabled: false,
  * 	},
  * ];
  *
@@ -86,6 +93,8 @@ const getIndexOfMatchingSuggestion = (
  * 	const [ filteredOptions, setFilteredOptions ] = useState( options );
  * 	return (
  * 		<ComboboxControl
+ * 			__next40pxDefaultSize
+ * 			__nextHasNoMarginBottom
  * 			label="Font Size"
  * 			value={ fontSize }
  * 			onChange={ setFontSize }
@@ -104,23 +113,27 @@ const getIndexOfMatchingSuggestion = (
  * }
  * ```
  */
-function ComboboxControl( {
-	__nextHasNoMarginBottom = false,
-	__next36pxDefaultSize = false,
-	value: valueProp,
-	label,
-	options,
-	onChange: onChangeProp,
-	onFilterValueChange = noop,
-	hideLabelFromVision,
-	help,
-	allowReset = true,
-	className,
-	messages = {
-		selected: __( 'Item selected.' ),
-	},
-	__experimentalRenderItem,
-}: ComboboxControlProps ) {
+function ComboboxControl( props: ComboboxControlProps ) {
+	const {
+		__nextHasNoMarginBottom = false,
+		__next40pxDefaultSize = false,
+		value: valueProp,
+		label,
+		options,
+		onChange: onChangeProp,
+		onFilterValueChange = noop,
+		hideLabelFromVision,
+		help,
+		allowReset = true,
+		className,
+		messages = {
+			selected: __( 'Item selected.' ),
+		},
+		__experimentalRenderItem,
+		expandOnFocus = true,
+		placeholder,
+	} = useDeprecated36pxDefaultSizeProp( props );
+
 	const [ value, setValue ] = useControlledValue( {
 		value: valueProp,
 		onChange: onChangeProp,
@@ -159,6 +172,10 @@ function ComboboxControl( {
 	const onSuggestionSelected = (
 		newSelectedSuggestion: ComboboxControlOption
 	) => {
+		if ( newSelectedSuggestion.disabled ) {
+			return;
+		}
+
 		setValue( newSelectedSuggestion.value );
 		speak( messages.selected, 'assertive' );
 		setSelectedSuggestion( newSelectedSuggestion );
@@ -181,51 +198,42 @@ function ComboboxControl( {
 		setIsExpanded( true );
 	};
 
-	const onKeyDown: React.KeyboardEventHandler< HTMLDivElement > = (
-		event
-	) => {
-		let preventDefault = false;
+	const onKeyDown: React.KeyboardEventHandler< HTMLDivElement > =
+		withIgnoreIMEEvents( ( event ) => {
+			let preventDefault = false;
 
-		if (
-			event.defaultPrevented ||
-			// Ignore keydowns from IMEs
-			event.nativeEvent.isComposing ||
-			// Workaround for Mac Safari where the final Enter/Backspace of an IME composition
-			// is `isComposing=false`, even though it's technically still part of the composition.
-			// These can only be detected by keyCode.
-			event.keyCode === 229
-		) {
-			return;
-		}
+			if ( event.defaultPrevented ) {
+				return;
+			}
 
-		switch ( event.code ) {
-			case 'Enter':
-				if ( selectedSuggestion ) {
-					onSuggestionSelected( selectedSuggestion );
+			switch ( event.code ) {
+				case 'Enter':
+					if ( selectedSuggestion ) {
+						onSuggestionSelected( selectedSuggestion );
+						preventDefault = true;
+					}
+					break;
+				case 'ArrowUp':
+					handleArrowNavigation( -1 );
 					preventDefault = true;
-				}
-				break;
-			case 'ArrowUp':
-				handleArrowNavigation( -1 );
-				preventDefault = true;
-				break;
-			case 'ArrowDown':
-				handleArrowNavigation( 1 );
-				preventDefault = true;
-				break;
-			case 'Escape':
-				setIsExpanded( false );
-				setSelectedSuggestion( null );
-				preventDefault = true;
-				break;
-			default:
-				break;
-		}
+					break;
+				case 'ArrowDown':
+					handleArrowNavigation( 1 );
+					preventDefault = true;
+					break;
+				case 'Escape':
+					setIsExpanded( false );
+					setSelectedSuggestion( null );
+					preventDefault = true;
+					break;
+				default:
+					break;
+			}
 
-		if ( preventDefault ) {
-			event.preventDefault();
-		}
-	};
+			if ( preventDefault ) {
+				event.preventDefault();
+			}
+		} );
 
 	const onBlur = () => {
 		setInputHasFocus( false );
@@ -233,9 +241,16 @@ function ComboboxControl( {
 
 	const onFocus = () => {
 		setInputHasFocus( true );
-		setIsExpanded( true );
+		if ( expandOnFocus ) {
+			setIsExpanded( true );
+		}
+
 		onFilterValueChange( '' );
 		setInputValue( '' );
+	};
+
+	const onClick = () => {
+		setIsExpanded( true );
 	};
 
 	const onFocusOutside = () => {
@@ -254,6 +269,15 @@ function ComboboxControl( {
 	const handleOnReset = () => {
 		setValue( null );
 		inputContainer.current?.focus();
+	};
+
+	// Stop propagation of the keydown event when pressing Enter on the Reset
+	// button to prevent calling the onKeydown callback on the container div
+	// element which actually sets the selected suggestion.
+	const handleResetStopPropagation: React.KeyboardEventHandler<
+		HTMLButtonElement
+	> = ( event ) => {
+		event.stopPropagation();
 	};
 
 	// Update current selections when the filter input changes.
@@ -291,6 +315,12 @@ function ComboboxControl( {
 		}
 	}, [ matchingSuggestions, isExpanded ] );
 
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'ComboboxControl',
+		__next40pxDefaultSize,
+		size: undefined,
+	} );
+
 	// Disable reason: There is no appropriate role which describes the
 	// input container intended accessible usability.
 	// TODO: Refactor click detection to use blur to stop propagation.
@@ -299,10 +329,8 @@ function ComboboxControl( {
 		<DetectOutside onFocusOutside={ onFocusOutside }>
 			<BaseControl
 				__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
-				className={ classnames(
-					className,
-					'components-combobox-control'
-				) }
+				__associatedWPComponentName="ComboboxControl"
+				className={ clsx( className, 'components-combobox-control' ) }
 				label={ label }
 				id={ `components-form-token-input-${ instanceId }` }
 				hideLabelFromVision={ hideLabelFromVision }
@@ -314,16 +342,18 @@ function ComboboxControl( {
 					onKeyDown={ onKeyDown }
 				>
 					<InputWrapperFlex
-						__next36pxDefaultSize={ __next36pxDefaultSize }
+						__next40pxDefaultSize={ __next40pxDefaultSize }
 					>
 						<FlexBlock>
 							<TokenInput
 								className="components-combobox-control__input"
 								instanceId={ instanceId }
 								ref={ inputContainer }
+								placeholder={ placeholder }
 								value={ isExpanded ? inputValue : currentLabel }
 								onFocus={ onFocus }
 								onBlur={ onBlur }
+								onClick={ onClick }
 								isExpanded={ isExpanded }
 								selectedSuggestionIndex={ getIndexOfMatchingSuggestion(
 									selectedSuggestion,
@@ -333,15 +363,16 @@ function ComboboxControl( {
 							/>
 						</FlexBlock>
 						{ allowReset && (
-							<FlexItem>
-								<Button
-									className="components-combobox-control__reset"
-									icon={ closeSmall }
-									disabled={ ! value }
-									onClick={ handleOnReset }
-									label={ __( 'Reset' ) }
-								/>
-							</FlexItem>
+							<Button
+								size="small"
+								icon={ closeSmall }
+								// Disable reason: Focus returns to input field when reset is clicked.
+								// eslint-disable-next-line no-restricted-syntax
+								disabled={ ! value }
+								onClick={ handleOnReset }
+								onKeyDown={ handleResetStopPropagation }
+								label={ __( 'Reset' ) }
+							/>
 						) }
 					</InputWrapperFlex>
 					{ isExpanded && (

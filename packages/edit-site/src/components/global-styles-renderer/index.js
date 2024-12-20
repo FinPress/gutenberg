@@ -9,12 +9,12 @@ import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
  * Internal dependencies
  */
 import { store as editSiteStore } from '../../store';
-import { unlock } from '../../private-apis';
+import { unlock } from '../../lock-unlock';
 
 const { useGlobalStylesOutput } = unlock( blockEditorPrivateApis );
 
-function useGlobalStylesRenderer() {
-	const [ styles, settings, svgFilters ] = useGlobalStylesOutput();
+function useGlobalStylesRenderer( disableRootPadding ) {
+	const [ styles, settings ] = useGlobalStylesOutput( disableRootPadding );
 	const { getSettings } = useSelect( editSiteStore );
 	const { updateSettings } = useDispatch( editSiteStore );
 
@@ -30,14 +30,13 @@ function useGlobalStylesRenderer() {
 		updateSettings( {
 			...currentStoreSettings,
 			styles: [ ...nonGlobalStyles, ...styles ],
-			svgFilters,
 			__experimentalFeatures: settings,
 		} );
-	}, [ styles, settings ] );
+	}, [ styles, settings, updateSettings, getSettings ] );
 }
 
-export function GlobalStylesRenderer() {
-	useGlobalStylesRenderer();
+export function GlobalStylesRenderer( { disableRootPadding } ) {
+	useGlobalStylesRenderer( disableRootPadding );
 
 	return null;
 }

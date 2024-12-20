@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -17,17 +17,18 @@ import {
 	Warning,
 } from '@wordpress/block-editor';
 import {
-	PanelBody,
 	ToolbarButton,
 	Spinner,
 	Notice,
 	ComboboxControl,
 	Button,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
-import { useMemo, useState, useEffect } from '@wordpress/element';
+import { useMemo, useState, useEffect, useCallback } from '@wordpress/element';
 import { useEntityRecords } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -37,6 +38,7 @@ import {
 	convertDescription,
 	ConvertToLinksModal,
 } from './convert-to-links-modal';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 // We only show the edit option when page count is <= MAX_PAGE_COUNT
 // Performance of Navigation Links is not good past this value.
@@ -53,7 +55,9 @@ function BlockContent( {
 	if ( ! hasResolvedPages ) {
 		return (
 			<div { ...blockProps }>
-				<Spinner />
+				<div className="wp-block-page-list__loading-indicator-container">
+					<Spinner className="wp-block-page-list__loading-indicator" />
+				</div>
 			</div>
 		);
 	}
@@ -61,7 +65,7 @@ function BlockContent( {
 	if ( pages === null ) {
 		return (
 			<div { ...blockProps }>
-				<Notice status={ 'warning' } isDismissible={ false }>
+				<Notice status="warning" isDismissible={ false }>
 					{ __( 'Page List: Cannot retrieve Pages.' ) }
 				</Notice>
 			</div>
@@ -71,7 +75,7 @@ function BlockContent( {
 	if ( pages.length === 0 ) {
 		return (
 			<div { ...blockProps }>
-				<Notice status={ 'info' } isDismissible={ false }>
+				<Notice status="info" isDismissible={ false }>
 					{ __( 'Page List: Cannot retrieve Pages.' ) }
 				</Notice>
 			</div>
@@ -99,7 +103,7 @@ function BlockContent( {
 
 		return (
 			<div { ...blockProps }>
-				<Notice status={ 'warning' } isDismissible={ false }>
+				<Notice status="warning" isDismissible={ false }>
 					{ __( 'Page List: Cannot retrieve Pages.' ) }
 				</Notice>
 			</div>
@@ -111,29 +115,6 @@ function BlockContent( {
 	}
 }
 
-function ConvertToLinks( { onClick, disabled } ) {
-	const [ isOpen, setOpen ] = useState( false );
-	const openModal = () => setOpen( true );
-	const closeModal = () => setOpen( false );
-
-	return (
-		<>
-			<BlockControls group="other">
-				<ToolbarButton title={ __( 'Edit' ) } onClick={ openModal }>
-					{ __( 'Edit' ) }
-				</ToolbarButton>
-			</BlockControls>
-			{ isOpen && (
-				<ConvertToLinksModal
-					onClick={ onClick }
-					onClose={ closeModal }
-					disabled={ disabled }
-				/>
-			) }
-		</>
-	);
-}
-
 export default function PageListEdit( {
 	context,
 	clientId,
@@ -141,6 +122,10 @@ export default function PageListEdit( {
 	setAttributes,
 } ) {
 	const { parentPageID } = attributes;
+	const [ isOpen, setOpen ] = useState( false );
+	const openModal = useCallback( () => setOpen( true ), [] );
+	const closeModal = () => setOpen( false );
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	const { records: pages, hasResolved: hasResolvedPages } = useEntityRecords(
 		'postType',
@@ -187,14 +172,8 @@ export default function PageListEdit( {
 		}, new Map() );
 	}, [ pages ] );
 
-	const convertToNavigationLinks = useConvertToNavigationLinks( {
-		clientId,
-		pages,
-		parentPageID,
-	} );
-
 	const blockProps = useBlockProps( {
-		className: classnames( 'wp-block-page-list', {
+		className: clsx( 'wp-block-page-list', {
 			'has-text-color': !! context.textColor,
 			[ getColorClassName( 'color', context.textColor ) ]:
 				!! context.textColor,
@@ -207,126 +186,218 @@ export default function PageListEdit( {
 		style: { ...context.style?.color },
 	} );
 
-	const getBlockList = ( parentId = parentPageID ) => {
-		const childPages = pagesByParentId.get( parentId );
+	const pagesTree = useMemo(
+		function makePagesTree( parentId = 0, level = 0 ) {
+			const childPages = pagesByParentId.get( parentId );
 
-		if ( ! childPages?.length ) {
-			return [];
-		}
-
-		return childPages.reduce( ( template, page ) => {
-			const hasChildren = pagesByParentId.has( page.id );
-			const pageProps = {
-				id: page.id,
-				label: page.title?.rendered,
-				title: page.title?.rendered,
-				link: page.url,
-				hasChildren,
-			};
-			let item = null;
-			const children = getBlockList( page.id );
-			item = createBlock( 'core/page-list-item', pageProps, children );
-			template.push( item );
-
-			return template;
-		}, [] );
-	};
-
-	const makePagesTree = ( parentId = 0, level = 0 ) => {
-		const childPages = pagesByParentId.get( parentId );
-
-		if ( ! childPages?.length ) {
-			return [];
-		}
-
-		return childPages.reduce( ( tree, page ) => {
-			const hasChildren = pagesByParentId.has( page.id );
-			const item = {
-				value: page.id,
-				label: '— '.repeat( level ) + page.title.rendered,
-				rawName: page.title.rendered,
-			};
-			tree.push( item );
-			if ( hasChildren ) {
-				tree.push( ...makePagesTree( page.id, level + 1 ) );
+			if ( ! childPages?.length ) {
+				return [];
 			}
-			return tree;
-		}, [] );
-	};
 
-	const pagesTree = useMemo( makePagesTree, [ pagesByParentId ] );
+			return childPages.reduce( ( tree, page ) => {
+				const hasChildren = pagesByParentId.has( page.id );
+				const item = {
+					value: page.id,
+					label: '— '.repeat( level ) + page.title.rendered,
+					rawName: page.title.rendered,
+				};
+				tree.push( item );
+				if ( hasChildren ) {
+					tree.push( ...makePagesTree( page.id, level + 1 ) );
+				}
+				return tree;
+			}, [] );
+		},
+		[ pagesByParentId ]
+	);
 
-	const blockList = useMemo( getBlockList, [
-		pagesByParentId,
-		parentPageID,
-	] );
+	const blockList = useMemo(
+		function getBlockList( parentId = parentPageID ) {
+			const childPages = pagesByParentId.get( parentId );
 
-	const innerBlocksProps = useInnerBlocksProps( blockProps, {
-		allowedBlocks: [ 'core/page-list-item' ],
-		renderAppender: false,
-		__unstableDisableDropZone: true,
-		templateLock: 'all',
-		onInput: NOOP,
-		onChange: NOOP,
-		value: blockList,
-	} );
+			if ( ! childPages?.length ) {
+				return [];
+			}
 
-	const { isNested } = useSelect(
+			return childPages.reduce( ( template, page ) => {
+				const hasChildren = pagesByParentId.has( page.id );
+				const pageProps = {
+					id: page.id,
+					label:
+						// translators: displayed when a page has an empty title.
+						page.title?.rendered?.trim() !== ''
+							? page.title?.rendered
+							: __( '(no title)' ),
+					title:
+						// translators: displayed when a page has an empty title.
+						page.title?.rendered?.trim() !== ''
+							? page.title?.rendered
+							: __( '(no title)' ),
+					link: page.url,
+					hasChildren,
+				};
+				let item = null;
+				const children = getBlockList( page.id );
+				item = createBlock(
+					'core/page-list-item',
+					pageProps,
+					children
+				);
+				template.push( item );
+
+				return template;
+			}, [] );
+		},
+		[ pagesByParentId, parentPageID ]
+	);
+
+	const {
+		isNested,
+		hasSelectedChild,
+		parentClientId,
+		hasDraggedChild,
+		isChildOfNavigation,
+	} = useSelect(
 		( select ) => {
-			const { getBlockParentsByBlockName } = select( blockEditorStore );
+			const {
+				getBlockParentsByBlockName,
+				hasSelectedInnerBlock,
+				hasDraggedInnerBlock,
+			} = select( blockEditorStore );
 			const blockParents = getBlockParentsByBlockName(
 				clientId,
 				'core/navigation-submenu',
 				true
 			);
+			const navigationBlockParents = getBlockParentsByBlockName(
+				clientId,
+				'core/navigation',
+				true
+			);
 			return {
 				isNested: blockParents.length > 0,
+				isChildOfNavigation: navigationBlockParents.length > 0,
+				hasSelectedChild: hasSelectedInnerBlock( clientId, true ),
+				hasDraggedChild: hasDraggedInnerBlock( clientId, true ),
+				parentClientId: navigationBlockParents[ 0 ],
 			};
 		},
 		[ clientId ]
 	);
 
+	const convertToNavigationLinks = useConvertToNavigationLinks( {
+		clientId,
+		pages,
+		parentClientId,
+		parentPageID,
+	} );
+
+	const innerBlocksProps = useInnerBlocksProps( blockProps, {
+		renderAppender: false,
+		__unstableDisableDropZone: true,
+		templateLock: isChildOfNavigation ? false : 'all',
+		onInput: NOOP,
+		onChange: NOOP,
+		value: blockList,
+	} );
+
+	const { selectBlock } = useDispatch( blockEditorStore );
+
+	useEffect( () => {
+		if ( hasSelectedChild || hasDraggedChild ) {
+			openModal();
+			selectBlock( parentClientId );
+		}
+	}, [
+		hasSelectedChild,
+		hasDraggedChild,
+		parentClientId,
+		selectBlock,
+		openModal,
+	] );
+
 	useEffect( () => {
 		setAttributes( { isNested } );
-	}, [ isNested ] );
+	}, [ isNested, setAttributes ] );
 
 	return (
 		<>
 			<InspectorControls>
-				{ pagesTree.length > 0 && (
-					<PanelBody>
-						<ComboboxControl
-							className="editor-page-attributes__parent"
-							label={ __( 'Parent page' ) }
-							value={ parentPageID }
-							options={ pagesTree }
-							onChange={ ( value ) =>
-								setAttributes( { parentPageID: value ?? 0 } )
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ () => {
+						setAttributes( { parentPageID: 0 } );
+					} }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
+					{ pagesTree.length > 0 && (
+						<ToolsPanelItem
+							label={ __( 'Parent Page' ) }
+							hasValue={ () => parentPageID !== 0 }
+							onDeselect={ () =>
+								setAttributes( { parentPageID: 0 } )
 							}
-							help={ __(
-								'Choose a page to show only its subpages.'
-							) }
-						/>
-					</PanelBody>
-				) }
-				{ allowConvertToLinks && (
-					<PanelBody title={ __( 'Edit this menu' ) }>
-						<p>{ convertDescription }</p>
-						<Button
-							variant="primary"
-							disabled={ ! hasResolvedPages }
-							onClick={ convertToNavigationLinks }
+							isShownByDefault
 						>
-							{ __( 'Edit' ) }
-						</Button>
-					</PanelBody>
-				) }
+							<ComboboxControl
+								__nextHasNoMarginBottom
+								__next40pxDefaultSize
+								className="editor-page-attributes__parent"
+								label={ __( 'Parent' ) }
+								value={ parentPageID }
+								options={ pagesTree }
+								onChange={ ( value ) =>
+									setAttributes( {
+										parentPageID: value ?? 0,
+									} )
+								}
+								help={ __(
+									'Choose a page to show only its subpages.'
+								) }
+							/>
+						</ToolsPanelItem>
+					) }
+
+					{ allowConvertToLinks && (
+						<ToolsPanelItem
+							label={ __( 'Edit Menu' ) }
+							isShownByDefault
+							hasValue={ () => false }
+						>
+							<div>
+								<p>{ convertDescription }</p>
+								<Button
+									__next40pxDefaultSize
+									variant="primary"
+									accessibleWhenDisabled
+									disabled={ ! hasResolvedPages }
+									onClick={ convertToNavigationLinks }
+								>
+									{ __( 'Edit' ) }
+								</Button>
+							</div>
+						</ToolsPanelItem>
+					) }
+				</ToolsPanel>
 			</InspectorControls>
 			{ allowConvertToLinks && (
-				<ConvertToLinks
-					disabled={ ! hasResolvedPages }
-					onClick={ convertToNavigationLinks }
-				/>
+				<>
+					<BlockControls group="other">
+						<ToolbarButton
+							title={ __( 'Edit' ) }
+							onClick={ openModal }
+						>
+							{ __( 'Edit' ) }
+						</ToolbarButton>
+					</BlockControls>
+					{ isOpen && (
+						<ConvertToLinksModal
+							onClick={ convertToNavigationLinks }
+							onClose={ closeModal }
+							disabled={ ! hasResolvedPages }
+						/>
+					) }
+				</>
 			) }
 			<BlockContent
 				blockProps={ blockProps }

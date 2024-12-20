@@ -1,12 +1,11 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
  */
-import { compose, usePrevious } from '@wordpress/compose';
 import {
 	BaseControl,
 	PanelBody,
@@ -14,7 +13,9 @@ import {
 	ToggleControl,
 	RangeControl,
 	Spinner,
-	ToolbarButton,
+	MenuGroup,
+	MenuItem,
+	ToolbarDropdownMenu,
 } from '@wordpress/components';
 import {
 	store as blockEditorStore,
@@ -24,22 +25,22 @@ import {
 	useInnerBlocksProps,
 	BlockControls,
 	MediaReplaceFlow,
+	useSettings,
 } from '@wordpress/block-editor';
-import {
-	Platform,
-	useCallback,
-	useEffect,
-	useState,
-	useMemo,
-} from '@wordpress/element';
+import { Platform, useEffect, useMemo } from '@wordpress/element';
 import { __, _x, sprintf } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { withViewportMatch } from '@wordpress/viewport';
 import { View } from '@wordpress/primitives';
 import { createBlock } from '@wordpress/blocks';
 import { createBlobURL } from '@wordpress/blob';
 import { store as noticesStore } from '@wordpress/notices';
-import { caption as captionIcon } from '@wordpress/icons';
+import {
+	link as linkIcon,
+	customLink,
+	image as imageIcon,
+	linkOff,
+	fullscreen,
+} from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -56,6 +57,7 @@ import {
 	LINK_DESTINATION_ATTACHMENT,
 	LINK_DESTINATION_MEDIA,
 	LINK_DESTINATION_NONE,
+	LINK_DESTINATION_LIGHTBOX,
 } from './constants';
 import useImageSizes from './use-image-sizes';
 import useGetNewImages from './use-get-new-images';
@@ -63,26 +65,47 @@ import useGetMedia from './use-get-media';
 import GapStyles from './gap-styles';
 
 const MAX_COLUMNS = 8;
-const linkOptions = [
-	{ value: LINK_DESTINATION_ATTACHMENT, label: __( 'Attachment Page' ) },
-	{ value: LINK_DESTINATION_MEDIA, label: __( 'Media File' ) },
+const LINK_OPTIONS = [
 	{
-		value: LINK_DESTINATION_NONE,
+		icon: customLink,
+		label: __( 'Link images to attachment pages' ),
+		value: LINK_DESTINATION_ATTACHMENT,
+		noticeText: __( 'Attachment Pages' ),
+	},
+	{
+		icon: imageIcon,
+		label: __( 'Link images to media files' ),
+		value: LINK_DESTINATION_MEDIA,
+		noticeText: __( 'Media Files' ),
+	},
+	{
+		icon: fullscreen,
+		label: __( 'Expand on click' ),
+		value: LINK_DESTINATION_LIGHTBOX,
+		noticeText: __( 'Lightbox effect' ),
+		infoText: __( 'Scale images with a lightbox effect' ),
+	},
+	{
+		icon: linkOff,
 		label: _x( 'None', 'Media item link option' ),
+		value: LINK_DESTINATION_NONE,
+		noticeText: __( 'None' ),
 	},
 ];
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
-const allowedBlocks = [ 'core/image' ];
 
 const PLACEHOLDER_TEXT = Platform.isNative
-	? __( 'ADD MEDIA' )
-	: __( 'Drag images, upload new ones or select files from your library.' );
+	? __( 'Add media' )
+	: __( 'Drag and drop images, upload, or choose from your library.' );
 
 const MOBILE_CONTROL_PROPS_RANGE_CONTROL = Platform.isNative
 	? { type: 'stepper' }
 	: {};
 
-function GalleryEdit( props ) {
+const DEFAULT_BLOCK = { name: 'core/image' };
+const EMPTY_ARRAY = [];
+
+export default function GalleryEdit( props ) {
 	const {
 		setAttributes,
 		attributes,
@@ -91,71 +114,62 @@ function GalleryEdit( props ) {
 		isSelected,
 		insertBlocksAfter,
 		isContentLocked,
+		onFocus,
 	} = props;
 
-	const { columns, imageCrop, linkTarget, linkTo, sizeSlug, caption } =
+	const [ lightboxSetting ] = useSettings( 'blocks.core/image.lightbox' );
+
+	const linkOptions = ! lightboxSetting?.allowEditing
+		? LINK_OPTIONS.filter(
+				( option ) => option.value !== LINK_DESTINATION_LIGHTBOX
+		  )
+		: LINK_OPTIONS;
+
+	const { columns, imageCrop, randomOrder, linkTarget, linkTo, sizeSlug } =
 		attributes;
-	const [ showCaption, setShowCaption ] = useState( !! caption );
-	const prevCaption = usePrevious( caption );
-
-	// We need to show the caption when changes come from
-	// history navigation(undo/redo).
-	useEffect( () => {
-		if ( caption && ! prevCaption ) {
-			setShowCaption( true );
-		}
-	}, [ caption, prevCaption ] );
-
-	useEffect( () => {
-		if ( ! isSelected && ! caption ) {
-			setShowCaption( false );
-		}
-	}, [ isSelected, caption ] );
-
-	// Focus the caption when we click to add one.
-	const captionRef = useCallback(
-		( node ) => {
-			if ( node && ! caption ) {
-				node.focus();
-			}
-		},
-		[ caption ]
-	);
 
 	const {
 		__unstableMarkNextChangeAsNotPersistent,
 		replaceInnerBlocks,
 		updateBlockAttributes,
 		selectBlock,
-		clearSelectedBlock,
 	} = useDispatch( blockEditorStore );
 	const { createSuccessNotice, createErrorNotice } =
 		useDispatch( noticesStore );
 
-	const { getBlock, getSettings, preferredStyle } = useSelect( ( select ) => {
-		const settings = select( blockEditorStore ).getSettings();
-		const preferredStyleVariations =
-			settings.__experimentalPreferredStyleVariations;
-		return {
-			getBlock: select( blockEditorStore ).getBlock,
-			getSettings: select( blockEditorStore ).getSettings,
-			preferredStyle: preferredStyleVariations?.value?.[ 'core/image' ],
-		};
-	}, [] );
-
-	const innerBlockImages = useSelect(
+	const {
+		getBlock,
+		getSettings,
+		innerBlockImages,
+		blockWasJustInserted,
+		multiGallerySelection,
+	} = useSelect(
 		( select ) => {
-			return select( blockEditorStore ).getBlock( clientId )?.innerBlocks;
-		},
-		[ clientId ]
-	);
+			const {
+				getBlockName,
+				getMultiSelectedBlockClientIds,
+				getSettings: _getSettings,
+				getBlock: _getBlock,
+				wasBlockJustInserted,
+			} = select( blockEditorStore );
+			const multiSelectedClientIds = getMultiSelectedBlockClientIds();
 
-	const wasBlockJustInserted = useSelect(
-		( select ) => {
-			return select( blockEditorStore ).wasBlockJustInserted(
-				clientId,
-				'inserter_menu'
-			);
+			return {
+				getBlock: _getBlock,
+				getSettings: _getSettings,
+				innerBlockImages:
+					_getBlock( clientId )?.innerBlocks ?? EMPTY_ARRAY,
+				blockWasJustInserted: wasBlockJustInserted(
+					clientId,
+					'inserter_menu'
+				),
+				multiGallerySelection:
+					multiSelectedClientIds.length &&
+					multiSelectedClientIds.every(
+						( _clientId ) =>
+							getBlockName( _clientId ) === 'core/gallery'
+					),
+			};
 		},
 		[ clientId ]
 	);
@@ -186,9 +200,6 @@ function GalleryEdit( props ) {
 				align: undefined,
 			} );
 		} );
-		if ( newImages?.length > 0 ) {
-			clearSelectedBlock();
-		}
 	}, [ newImages ] );
 
 	const imageSizeOptions = useImageSizes(
@@ -217,10 +228,6 @@ function GalleryEdit( props ) {
 		let newClassName;
 		if ( imageAttributes.className && imageAttributes.className !== '' ) {
 			newClassName = imageAttributes.className;
-		} else {
-			newClassName = preferredStyle
-				? `is-style-${ preferredStyle }`
-				: undefined;
 		}
 
 		let newLinkTarget;
@@ -267,7 +274,7 @@ function GalleryEdit( props ) {
 		return (
 			ALLOWED_MEDIA_TYPES.some(
 				( mediaType ) => mediaTypeSelector?.indexOf( mediaType ) === 0
-			) || file.url?.indexOf( 'blob:' ) === 0
+			) || file.blob
 		);
 	}
 
@@ -279,9 +286,9 @@ function GalleryEdit( props ) {
 		const imageArray = newFileUploads
 			? Array.from( selectedImages ).map( ( file ) => {
 					if ( ! file.url ) {
-						return pickRelevantMediaFiles( {
-							url: createBlobURL( file ),
-						} );
+						return {
+							blob: createBlobURL( file ),
+						};
 					}
 
 					return file;
@@ -301,9 +308,9 @@ function GalleryEdit( props ) {
 			.filter( ( file ) => file.url || isValidFileType( file ) )
 			.map( ( file ) => {
 				if ( ! file.url ) {
-					return pickRelevantMediaFiles( {
-						url: createBlobURL( file ),
-					} );
+					return {
+						blob: file.blob || createBlobURL( file ),
+					};
 				}
 
 				return file;
@@ -337,15 +344,12 @@ function GalleryEdit( props ) {
 		const newBlocks = newImageList.map( ( image ) => {
 			return createBlock( 'core/image', {
 				id: image.id,
+				blob: image.blob,
 				url: image.url,
 				caption: image.caption,
 				alt: image.alt,
 			} );
 		} );
-
-		if ( newBlocks?.length > 0 ) {
-			selectBlock( newBlocks[ 0 ].clientId );
-		}
 
 		replaceInnerBlocks(
 			clientId,
@@ -357,6 +361,11 @@ function GalleryEdit( props ) {
 						newOrderMap[ b.attributes.id ]
 				)
 		);
+
+		// Select the first block to scroll into view when new blocks are added.
+		if ( newBlocks?.length > 0 ) {
+			selectBlock( newBlocks[ 0 ].clientId );
+		}
 	}
 
 	function onUploadError( message ) {
@@ -372,9 +381,13 @@ function GalleryEdit( props ) {
 			const image = block.attributes.id
 				? imageData.find( ( { id } ) => id === block.attributes.id )
 				: null;
+
 			changedAttributes[ block.clientId ] = getHrefAndDestination(
 				image,
-				value
+				value,
+				false,
+				block.attributes,
+				lightboxSetting
 			);
 		} );
 		updateBlockAttributes( blocks, changedAttributes, true );
@@ -386,7 +399,7 @@ function GalleryEdit( props ) {
 			sprintf(
 				/* translators: %s: image size settings */
 				__( 'All gallery image links updated to: %s' ),
-				linkToText.label
+				linkToText.noticeText
 			),
 			{
 				id: 'gallery-attributes-linkTo',
@@ -403,10 +416,8 @@ function GalleryEdit( props ) {
 		setAttributes( { imageCrop: ! imageCrop } );
 	}
 
-	function getImageCropHelp( checked ) {
-		return checked
-			? __( 'Thumbnails are cropped to align.' )
-			: __( 'Thumbnails are not cropped.' );
+	function toggleRandomOrder() {
+		setAttributes( { randomOrder: ! randomOrder } );
 	}
 
 	function toggleOpenInNewTab( openInNewTab ) {
@@ -497,7 +508,8 @@ function GalleryEdit( props ) {
 				( hasImages && ! isSelected ) || imagesUploading,
 			value: hasImageIds ? images : {},
 			autoOpenMediaUpload:
-				! hasImages && isSelected && wasBlockJustInserted,
+				! hasImages && isSelected && blockWasJustInserted,
+			onFocus,
 		},
 	} );
 	const mediaPlaceholder = (
@@ -518,7 +530,7 @@ function GalleryEdit( props ) {
 	);
 
 	const blockProps = useBlockProps( {
-		className: classnames( className, 'has-nested-images' ),
+		className: clsx( className, 'has-nested-images' ),
 	} );
 
 	const nativeInnerBlockProps = Platform.isNative && {
@@ -527,7 +539,8 @@ function GalleryEdit( props ) {
 	};
 
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
-		allowedBlocks,
+		defaultBlock: DEFAULT_BLOCK,
+		directInsert: true,
 		orientation: 'horizontal',
 		renderAppender: false,
 		...nativeInnerBlockProps,
@@ -562,45 +575,63 @@ function GalleryEdit( props ) {
 							max={ Math.min( MAX_COLUMNS, images.length ) }
 							{ ...MOBILE_CONTROL_PROPS_RANGE_CONTROL }
 							required
-						/>
-					) }
-					<ToggleControl
-						label={ __( 'Crop images' ) }
-						checked={ !! imageCrop }
-						onChange={ toggleImageCrop }
-						help={ getImageCropHelp }
-					/>
-					<SelectControl
-						__nextHasNoMarginBottom
-						label={ __( 'Link to' ) }
-						value={ linkTo }
-						onChange={ setLinkTo }
-						options={ linkOptions }
-						hideCancelButton={ true }
-					/>
-					{ hasLinkTo && (
-						<ToggleControl
-							label={ __( 'Open in new tab' ) }
-							checked={ linkTarget === '_blank' }
-							onChange={ toggleOpenInNewTab }
+							__next40pxDefaultSize
 						/>
 					) }
 					{ imageSizeOptions?.length > 0 && (
 						<SelectControl
 							__nextHasNoMarginBottom
-							label={ __( 'Image size' ) }
+							label={ __( 'Resolution' ) }
+							help={ __(
+								'Select the size of the source images.'
+							) }
 							value={ sizeSlug }
 							options={ imageSizeOptions }
 							onChange={ updateImagesSize }
-							hideCancelButton={ true }
+							hideCancelButton
+							size="__unstable-large"
+						/>
+					) }
+					{ Platform.isNative ? (
+						<SelectControl
+							__nextHasNoMarginBottom
+							label={ __( 'Link' ) }
+							value={ linkTo }
+							onChange={ setLinkTo }
+							options={ linkOptions }
+							hideCancelButton
+							size="__unstable-large"
+						/>
+					) : null }
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Crop images to fit' ) }
+						checked={ !! imageCrop }
+						onChange={ toggleImageCrop }
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Randomize order' ) }
+						checked={ !! randomOrder }
+						onChange={ toggleRandomOrder }
+					/>
+					{ hasLinkTo && (
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={ __( 'Open images in new tab' ) }
+							checked={ linkTarget === '_blank' }
+							onChange={ toggleOpenInNewTab }
 						/>
 					) }
 					{ Platform.isWeb && ! imageSizeOptions && hasImageIds && (
-						<BaseControl className={ 'gallery-image-sizes' }>
+						<BaseControl
+							className="gallery-image-sizes"
+							__nextHasNoMarginBottom
+						>
 							<BaseControl.VisualLabel>
-								{ __( 'Image size' ) }
+								{ __( 'Resolution' ) }
 							</BaseControl.VisualLabel>
-							<View className={ 'gallery-image-sizes__loading' }>
+							<View className="gallery-image-sizes__loading">
 								<Spinner />
 								{ __( 'Loading options…' ) }
 							</View>
@@ -608,49 +639,73 @@ function GalleryEdit( props ) {
 					) }
 				</PanelBody>
 			</InspectorControls>
-			<BlockControls group="block">
-				{ ! isContentLocked && (
-					<ToolbarButton
-						onClick={ () => {
-							setShowCaption( ! showCaption );
-							if ( showCaption && caption ) {
-								setAttributes( { caption: undefined } );
-							}
-						} }
-						icon={ captionIcon }
-						isPressed={ showCaption }
-						label={
-							showCaption
-								? __( 'Remove caption' )
-								: __( 'Add caption' )
-						}
-					/>
-				) }
-			</BlockControls>
-			<BlockControls group="other">
-				<MediaReplaceFlow
-					allowedTypes={ ALLOWED_MEDIA_TYPES }
-					accept="image/*"
-					handleUpload={ false }
-					onSelect={ updateImages }
-					name={ __( 'Add' ) }
-					multiple={ true }
-					mediaIds={ images
-						.filter( ( image ) => image.id )
-						.map( ( image ) => image.id ) }
-					addToGallery={ hasImageIds }
-				/>
-			</BlockControls>
+			{ Platform.isWeb ? (
+				<BlockControls group="block">
+					<ToolbarDropdownMenu
+						icon={ linkIcon }
+						label={ __( 'Link' ) }
+					>
+						{ ( { onClose } ) => (
+							<MenuGroup>
+								{ linkOptions.map( ( linkItem ) => {
+									const isOptionSelected =
+										linkTo === linkItem.value;
+									return (
+										<MenuItem
+											key={ linkItem.value }
+											isSelected={ isOptionSelected }
+											className={ clsx(
+												'components-dropdown-menu__menu-item',
+												{
+													'is-active':
+														isOptionSelected,
+												}
+											) }
+											iconPosition="left"
+											icon={ linkItem.icon }
+											onClick={ () => {
+												setLinkTo( linkItem.value );
+												onClose();
+											} }
+											role="menuitemradio"
+											info={ linkItem.infoText }
+										>
+											{ linkItem.label }
+										</MenuItem>
+									);
+								} ) }
+							</MenuGroup>
+						) }
+					</ToolbarDropdownMenu>
+				</BlockControls>
+			) : null }
 			{ Platform.isWeb && (
-				<GapStyles
-					blockGap={ attributes.style?.spacing?.blockGap }
-					clientId={ clientId }
-				/>
+				<>
+					{ ! multiGallerySelection && (
+						<BlockControls group="other">
+							<MediaReplaceFlow
+								allowedTypes={ ALLOWED_MEDIA_TYPES }
+								accept="image/*"
+								handleUpload={ false }
+								onSelect={ updateImages }
+								name={ __( 'Add' ) }
+								multiple
+								mediaIds={ images
+									.filter( ( image ) => image.id )
+									.map( ( image ) => image.id ) }
+								addToGallery={ hasImageIds }
+							/>
+						</BlockControls>
+					) }
+					<GapStyles
+						blockGap={ attributes.style?.spacing?.blockGap }
+						clientId={ clientId }
+					/>
+				</>
 			) }
 			<Gallery
 				{ ...props }
-				showCaption={ showCaption }
-				ref={ Platform.isWeb ? captionRef : undefined }
+				isContentLocked={ isContentLocked }
 				images={ images }
 				mediaPlaceholder={
 					! hasImages || Platform.isNative
@@ -659,10 +714,8 @@ function GalleryEdit( props ) {
 				}
 				blockProps={ innerBlocksProps }
 				insertBlocksAfter={ insertBlocksAfter }
+				multiGallerySelection={ multiGallerySelection }
 			/>
 		</>
 	);
 }
-export default compose( [ withViewportMatch( { isNarrow: '< small' } ) ] )(
-	GalleryEdit
-);

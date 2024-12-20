@@ -23,15 +23,16 @@ import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
  */
 import { IconWithCurrentColor } from './icon-with-current-color';
 import { NavigationButtonAsItem } from './navigation-button';
-import ContextMenu from './context-menu';
-import StylesPreview from './preview';
-import { unlock } from '../../private-apis';
+import RootMenu from './root-menu';
+import PreviewStyles from './preview-styles';
+import { unlock } from '../../lock-unlock';
+
+const { useGlobalStyle } = unlock( blockEditorPrivateApis );
 
 function ScreenRoot() {
-	const { useGlobalStyle } = unlock( blockEditorPrivateApis );
 	const [ customCSS ] = useGlobalStyle( 'css' );
 
-	const { variations, canEditCSS } = useSelect( ( select ) => {
+	const { hasVariations, canEditCSS } = useSelect( ( select ) => {
 		const {
 			getEntityRecord,
 			__experimentalGetCurrentGlobalStylesId,
@@ -44,27 +45,29 @@ function ScreenRoot() {
 			: undefined;
 
 		return {
-			variations: __experimentalGetCurrentThemeGlobalStylesVariations(),
-			canEditCSS:
-				!! globalStyles?._links?.[ 'wp:action-edit-css' ] ?? false,
+			hasVariations:
+				!! __experimentalGetCurrentThemeGlobalStylesVariations()
+					?.length,
+			canEditCSS: !! globalStyles?._links?.[ 'wp:action-edit-css' ],
 		};
 	}, [] );
 
 	return (
-		<Card size="small">
+		<Card
+			size="small"
+			className="edit-site-global-styles-screen-root"
+			isRounded={ false }
+		>
 			<CardBody>
 				<VStack spacing={ 4 }>
-					<Card>
-						<CardMedia>
-							<StylesPreview />
+					<Card className="edit-site-global-styles-screen-root__active-style-tile">
+						<CardMedia className="edit-site-global-styles-screen-root__active-style-tile-preview">
+							<PreviewStyles />
 						</CardMedia>
 					</Card>
-					{ !! variations?.length && (
+					{ hasVariations && (
 						<ItemGroup>
-							<NavigationButtonAsItem
-								path="/variations"
-								aria-label={ __( 'Browse styles' ) }
-							>
+							<NavigationButtonAsItem path="/variations">
 								<HStack justify="space-between">
 									<FlexItem>
 										{ __( 'Browse styles' ) }
@@ -78,7 +81,7 @@ function ScreenRoot() {
 							</NavigationButtonAsItem>
 						</ItemGroup>
 					) }
-					<ContextMenu />
+					<RootMenu />
 				</VStack>
 			</CardBody>
 
@@ -101,10 +104,7 @@ function ScreenRoot() {
 					) }
 				</Spacer>
 				<ItemGroup>
-					<NavigationButtonAsItem
-						path="/blocks"
-						aria-label={ __( 'Blocks styles' ) }
-					>
+					<NavigationButtonAsItem path="/blocks">
 						<HStack justify="space-between">
 							<FlexItem>{ __( 'Blocks' ) }</FlexItem>
 							<IconWithCurrentColor
@@ -130,10 +130,7 @@ function ScreenRoot() {
 							) }
 						</Spacer>
 						<ItemGroup>
-							<NavigationButtonAsItem
-								path="/css"
-								aria-label={ __( 'Additional CSS' ) }
-							>
+							<NavigationButtonAsItem path="/css">
 								<HStack justify="space-between">
 									<FlexItem>
 										{ __( 'Additional CSS' ) }

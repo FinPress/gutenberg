@@ -1,66 +1,109 @@
 /**
- * WordPress dependencies
+ * External dependencies
  */
-import { memo } from '@wordpress/element';
-import {
-	__experimentalNavigatorProvider as NavigatorProvider,
-	__experimentalNavigatorScreen as NavigatorScreen,
-} from '@wordpress/components';
+import clsx from 'clsx';
 
 /**
- * Internal dependencies
+ * WordPress dependencies
  */
-import SidebarNavigationScreenMain from '../sidebar-navigation-screen-main';
-import SidebarNavigationScreenTemplates from '../sidebar-navigation-screen-templates';
-import SidebarNavigationScreenTemplate from '../sidebar-navigation-screen-template';
-import useSyncPathWithURL from '../sync-state-with-url/use-sync-path-with-url';
-import SidebarNavigationScreenNavigationMenus from '../sidebar-navigation-screen-navigation-menus';
-import SidebarNavigationScreenTemplatesBrowse from '../sidebar-navigation-screen-templates-browse';
-import SaveButton from '../save-button';
-import SidebarNavigationScreenNavigationItem from '../sidebar-navigation-screen-navigation-item';
+import {
+	createContext,
+	useContext,
+	useState,
+	useRef,
+	useLayoutEffect,
+} from '@wordpress/element';
+import { focus } from '@wordpress/dom';
 
-function SidebarScreens() {
-	useSyncPathWithURL();
+export const SidebarNavigationContext = createContext( () => {} );
+// Focus a sidebar element after a navigation. The element to focus is either
+// specified by `focusSelector` (when navigating back) or it is the first
+// tabbable element (usually the "Back" button).
+function focusSidebarElement( el, direction, focusSelector ) {
+	let elementToFocus;
+	if ( direction === 'back' && focusSelector ) {
+		elementToFocus = el.querySelector( focusSelector );
+	}
+	if ( direction !== null && ! elementToFocus ) {
+		const [ firstTabbable ] = focus.tabbable.find( el );
+		elementToFocus = firstTabbable ?? el;
+	}
+	elementToFocus?.focus();
+}
+
+// Navigation state that is updated when navigating back or forward. Helps us
+// manage the animations and also focus.
+function createNavState() {
+	let state = {
+		direction: null,
+		focusSelector: null,
+	};
+
+	return {
+		get() {
+			return state;
+		},
+		navigate( direction, focusSelector = null ) {
+			state = {
+				direction,
+				focusSelector:
+					direction === 'forward' && focusSelector
+						? focusSelector
+						: state.focusSelector,
+			};
+		},
+	};
+}
+
+function SidebarContentWrapper( { children, shouldAnimate } ) {
+	const navState = useContext( SidebarNavigationContext );
+	const wrapperRef = useRef();
+	const [ navAnimation, setNavAnimation ] = useState( null );
+
+	useLayoutEffect( () => {
+		const { direction, focusSelector } = navState.get();
+		focusSidebarElement( wrapperRef.current, direction, focusSelector );
+		setNavAnimation( direction );
+	}, [ navState ] );
+
+	const wrapperCls = clsx(
+		'edit-site-sidebar__screen-wrapper',
+		/*
+		 * Some panes do not have sub-panes and therefore
+		 * should not animate when clicked on.
+		 */
+		shouldAnimate
+			? {
+					'slide-from-left': navAnimation === 'back',
+					'slide-from-right': navAnimation === 'forward',
+			  }
+			: {}
+	);
 
 	return (
-		<>
-			<NavigatorScreen path="/">
-				<SidebarNavigationScreenMain />
-			</NavigatorScreen>
-			<NavigatorScreen path="/navigation">
-				<SidebarNavigationScreenNavigationMenus />
-			</NavigatorScreen>
-			<NavigatorScreen path="/navigation/:postType/:postId">
-				<SidebarNavigationScreenNavigationItem />
-			</NavigatorScreen>
-			<NavigatorScreen path="/:postType(wp_template|wp_template_part)">
-				<SidebarNavigationScreenTemplates />
-			</NavigatorScreen>
-			<NavigatorScreen path="/:postType(wp_template|wp_template_part)/all">
-				<SidebarNavigationScreenTemplatesBrowse />
-			</NavigatorScreen>
-			<NavigatorScreen path="/:postType(wp_template|wp_template_part)/:postId">
-				<SidebarNavigationScreenTemplate />
-			</NavigatorScreen>
-		</>
+		<div ref={ wrapperRef } className={ wrapperCls }>
+			{ children }
+		</div>
 	);
 }
 
-function Sidebar() {
-	return (
-		<>
-			<NavigatorProvider
-				className="edit-site-sidebar__content"
-				initialPath="/"
-			>
-				<SidebarScreens />
-			</NavigatorProvider>
+export default function SidebarContent( {
+	routeKey,
+	shouldAnimate,
+	children,
+} ) {
+	const [ navState ] = useState( createNavState );
 
-			<div className="edit-site-sidebar__footer">
-				<SaveButton />
+	return (
+		<SidebarNavigationContext.Provider value={ navState }>
+			<div className="edit-site-sidebar__content">
+				<SidebarContentWrapper
+					shouldAnimate={ shouldAnimate }
+					key={ routeKey }
+				>
+					{ children }
+				</SidebarContentWrapper>
 			</div>
-		</>
+		</SidebarNavigationContext.Provider>
 	);
 }
-
-export default memo( Sidebar );

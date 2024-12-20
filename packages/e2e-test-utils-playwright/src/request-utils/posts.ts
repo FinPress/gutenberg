@@ -7,18 +7,21 @@ export interface Post {
 	id: number;
 	content: string;
 	status: 'publish' | 'future' | 'draft' | 'pending' | 'private';
+	link: string;
 }
 
 export interface CreatePostPayload {
 	title?: string;
-	content: string;
+	content?: string;
 	status: 'publish' | 'future' | 'draft' | 'pending' | 'private';
+	date?: string;
+	date_gmt: string;
 }
 
 /**
  * Delete all posts using REST API.
  *
- * @param {RequestUtils} this
+ * @param this
  */
 export async function deleteAllPosts( this: RequestUtils ) {
 	// List all posts.
@@ -51,8 +54,8 @@ export async function deleteAllPosts( this: RequestUtils ) {
 /**
  * Creates a new post using the REST API.
  *
- * @param {RequestUtils}      this
- * @param {CreatePostPayload} payload Post attributes.
+ * @param this
+ * @param payload Post attributes.
  */
 export async function createPost(
 	this: RequestUtils,
@@ -61,7 +64,7 @@ export async function createPost(
 	const post = await this.rest< Post >( {
 		method: 'POST',
 		path: `/wp/v2/posts`,
-		params: { ...payload },
+		data: { ...payload },
 	} );
 
 	return post;

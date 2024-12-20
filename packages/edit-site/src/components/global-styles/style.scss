@@ -6,9 +6,10 @@
 	cursor: pointer;
 }
 
-.edit-site-global-styles-preview__iframe {
+.edit-site-global-styles-preview__wrapper {
 	max-width: 100%;
 	display: block;
+	width: 100%;
 }
 
 .edit-site-typography-preview {
@@ -18,19 +19,23 @@
 	min-height: 100px;
 	margin-bottom: $grid-unit-20;
 	background: $gray-100;
-	border-radius: $radius-block-ui;
+	border-radius: $radius-small;
 	overflow: hidden;
 }
 
-.edit-site-typography-panel__full-width-control {
-	grid-column: 1 / -1;
-	max-width: 100%;
+.edit-site-font-size__item {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	line-break: anywhere;
 }
 
-.edit-site-global-styles-screen-heading-color,
-.edit-site-global-styles-screen-typography,
-.edit-site-global-styles-screen-css {
-	margin: $grid-unit-20;
+.edit-site-font-size__item-value {
+	color: $gray-700;
+}
+
+.edit-site-global-styles-screen {
+	margin: $grid-unit-15 $grid-unit-20 $grid-unit-20;
 }
 
 .edit-site-global-styles-screen-typography__indicator {
@@ -40,17 +45,23 @@
 	display: flex !important;
 	align-items: center;
 	justify-content: center;
-	border-radius: $radius-block-ui;
+	border-radius: $radius-x-small;
 }
 
-.edit-site-global-styles-screen-colors {
-	margin: $grid-unit-20;
+.edit-site-global-styles-screen-typography__font-variants-count {
+	color: $gray-700;
+}
 
-	.component-color-indicator {
-		// Show a diagonal line (crossed out) for empty swatches.
-		background: $white linear-gradient(-45deg, transparent 48%, $gray-300 48%, $gray-300 52%, transparent 52%);
-		flex-shrink: 0;
-	}
+.edit-site-global-styles-font-families__manage-fonts {
+	justify-content: center;
+}
+
+.edit-site-global-styles-screen .color-block-support-panel {
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	border-top: none;
+	row-gap: calc(#{$grid-unit-05} * 3);
 }
 
 .edit-site-global-styles-header__description {
@@ -79,38 +90,8 @@
 	color: $gray-800;
 	font-weight: 600;
 	line-height: 1.2;
-	padding: $grid-unit-20;
-	padding-bottom: 0;
+	padding: $grid-unit-20 $grid-unit-20 0;
 	margin: 0;
-}
-
-.edit-site-screen-text-color__control,
-.edit-site-screen-link-color__control,
-.edit-site-screen-button-color__control,
-.edit-site-screen-background-color__control.has-no-tabs {
-	padding: $grid-unit-20;
-}
-
-.edit-site-global-styles-variations_item {
-	box-sizing: border-box;
-
-	.edit-site-global-styles-variations_item-preview {
-		padding: $border-width * 2;
-		border-radius: $radius-block-ui;
-		border: $gray-200 $border-width solid;
-	}
-
-	&.is-active .edit-site-global-styles-variations_item-preview {
-		border: $gray-900 $border-width solid;
-	}
-
-	&:hover .edit-site-global-styles-variations_item-preview {
-		border: var(--wp-admin-theme-color) $border-width solid;
-	}
-
-	&:focus .edit-site-global-styles-variations_item-preview {
-		border: var(--wp-admin-theme-color) var(--wp-admin-border-width-focus) solid;
-	}
 }
 
 .edit-site-global-styles-icon-with-current-color {
@@ -123,29 +104,97 @@
 	flex-shrink: 0;
 }
 
-.edit-site-global-styles__color-label {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+.edit-site-global-styles__shadows-panel__title,
+.edit-site-global-styles__shadows-panel__options-container {
+	height: $grid-unit * 3;
 }
 
 .edit-site-global-styles__block-preview-panel {
 	position: relative;
 	width: 100%;
-	overflow: auto;
 	border: $gray-200 $border-width solid;
-	border-radius: $radius-block-ui;
+	border-radius: $radius-medium;
+	overflow: hidden;
+}
+
+.edit-site-global-styles__shadow-preview-panel {
+	height: $grid-unit-60 * 3;
+	border: $gray-200 $border-width solid;
+	border-radius: $radius-medium;
+	overflow: auto;
+	background-image: repeating-linear-gradient(45deg, #f5f5f5 25%, #0000 0, #0000 75%, #f5f5f5 0, #f5f5f5), repeating-linear-gradient(45deg, #f5f5f5 25%, #0000 0, #0000 75%, #f5f5f5 0, #f5f5f5);
+	background-position: 0 0, 8px 8px;
+	background-size: 16px 16px;
+
+	.edit-site-global-styles__shadow-preview-block {
+		border: $gray-200 $border-width solid;
+		border-radius: $radius-small;
+		background-color: $white;
+		width: 60%;
+		height: 60px;
+	}
+}
+
+.edit-site-global-styles__shadow-editor__dropdown-content {
+	width: 280px;
+}
+
+.edit-site-global-styles__shadow-editor-panel {
+	// because tooltip of the range control is too close to the edge and creates overflow
+	margin-bottom: $grid-unit-05;
+}
+
+.edit-site-global-styles__shadow-editor__dropdown {
+	width: 100%;
+	position: relative;
+}
+
+.edit-site-global-styles__shadow-editor__dropdown-toggle {
+	width: 100%;
+	height: auto;
+	padding-top: $grid-unit;
+	padding-bottom: $grid-unit;
+	text-align: left;
+	border-radius: inherit;
+
+	&.is-open {
+		background: $gray-100;
+		color: var(--wp-admin-theme-color);
+	}
+}
+
+.edit-site-global-styles__shadow-editor__remove-button {
+	position: absolute;
+	right: $grid-unit;
+	top: $grid-unit;
+	opacity: 0;
+
+	&.edit-site-global-styles__shadow-editor__remove-button {
+		border: none;
+	}
+
+	.edit-site-global-styles__shadow-editor__dropdown-toggle:hover + &,
+	&:focus,
+	&:hover {
+		opacity: 1;
+	}
+
+	@media (hover: none) {
+		// Show reset button on devices that do not support hover.
+		opacity: 1;
+	}
 }
 
 .edit-site-global-styles-screen-css {
 	flex: 1 1 auto;
 	display: flex;
 	flex-direction: column;
+	margin: $grid-unit-20;
 
 	.components-v-stack {
 		flex: 1 1 auto;
 
-		.edit-site-global-styles__custom-css-input {
+		.block-editor-global-styles-advanced-panel__custom-css-input {
 			flex: 1 1 auto;
 			display: flex;
 			flex-direction: column;
@@ -157,36 +206,17 @@
 
 				.components-textarea-control__input {
 					flex: 1 1 auto;
+					// CSS input is always LTR regardless of language.
+					/*rtl:ignore*/
+					direction: ltr;
 				}
 			}
 		}
 	}
 }
 
-.edit-site-global-styles__custom-css-input textarea {
-	font-family: $editor_html_font;
-}
-
-.edit-site-global-styles__custom-css-validation-wrapper {
-	position: absolute;
-	bottom: $grid-unit-20;
-	right: $grid-unit * 3;
-}
-
-.edit-site-global-styles__custom-css-validation-icon {
-	fill: $alert-red;
-}
-
-.edit-site-global-styles__custom-css-theme-css {
-	width: 100%;
-	line-break: anywhere;
-	white-space: break-spaces;
-	max-height: 200px;
-	overflow-y: scroll;
-}
-
 .edit-site-global-styles-screen-css-help-link {
-	display: block;
+	display: inline-block;
 	margin-top: $grid-unit-10;
 }
 .edit-site-global-styles-screen-variations {
@@ -203,41 +233,25 @@
 	flex-direction: column;
 }
 
-.edit-site-global-styles__shadow-panel {
-	width: 230px;
+.edit-site-global-styles-sidebar__navigator-screen .single-column {
+	grid-column: span 1;
 }
 
-.edit-site-global-styles__shadow-dropdown {
-	display: block;
-	padding: 0;
+.edit-site-global-styles-screen-root.edit-site-global-styles-screen-root,
+.edit-site-global-styles-screen-style-variations.edit-site-global-styles-screen-style-variations {
+	background: unset;
+	color: inherit;
+}
 
-	> button {
-		width: 100%;
-		padding: $grid-unit-10;
+.edit-site-global-styles-sidebar__panel .block-editor-block-icon svg {
+	fill: currentColor;
+}
 
-		&.is-open {
-			background-color: $gray-100;
-		}
+.edit-site-global-styles-screen-root__active-style-tile {
+	// Todo: revisit use of Card component and/or remove override
+	// The &#{&} is a workaround for the specificity of the Card component.
+	&#{&},
+	&#{&} .edit-site-global-styles-screen-root__active-style-tile-preview {
+		border-radius: $radius-small;
 	}
-}
-
-// wrapper to clip the shadow beyond 6px
-.edit-site-global-styles__shadow-indicator-wrapper {
-	padding: 6px;
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-// These styles are similar to the color palette.
-.edit-site-global-styles__shadow-indicator {
-	color: $gray-800;
-	border: $gray-200 $border-width solid;
-	border-radius: $radius-block-ui;
-	cursor: pointer;
-	padding: 0;
-
-	height: 24px;
-	width: 24px;
 }

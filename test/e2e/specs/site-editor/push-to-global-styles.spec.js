@@ -5,20 +5,19 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test.describe( 'Push to Global Styles button', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
-		await Promise.all( [
-			requestUtils.activateTheme( 'emptytheme' ),
-			requestUtils.deleteAllTemplates( 'wp_template' ),
-			requestUtils.deleteAllTemplates( 'wp_template_part' ),
-		] );
+		await requestUtils.activateTheme( 'emptytheme' );
 	} );
 
 	test.afterAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'twentytwentyone' );
 	} );
 
-	test.beforeEach( async ( { admin, editor } ) => {
-		await admin.visitSiteEditor();
-		await editor.canvas.click( 'body' );
+	test.beforeEach( async ( { admin } ) => {
+		await admin.visitSiteEditor( {
+			postId: 'emptytheme//index',
+			postType: 'wp_template',
+			canvas: 'edit',
+		} );
 	} );
 
 	test( 'should apply Heading block styles to all Heading blocks', async ( {
@@ -29,13 +28,15 @@ test.describe( 'Push to Global Styles button', () => {
 		await editor.insertBlock( { name: 'core/heading' } );
 		await page.keyboard.type( 'A heading' );
 
+		const topBar = page.getByRole( 'region', { name: 'Editor top bar' } );
+		const settingsPanel = page.getByRole( 'region', {
+			name: 'Editor settings',
+		} );
+
 		// Navigate to Styles -> Blocks -> Heading -> Typography
-		await page.getByRole( 'button', { name: 'Styles' } ).click();
-		await page.getByRole( 'button', { name: 'Blocks styles' } ).click();
-		await page
-			.getByRole( 'button', { name: 'Heading block styles' } )
-			.click();
-		await page.getByRole( 'button', { name: 'Typography styles' } ).click();
+		await topBar.getByRole( 'button', { name: 'Styles' } ).click();
+		await settingsPanel.getByRole( 'button', { name: 'Blocks' } ).click();
+		await settingsPanel.getByRole( 'button', { name: 'Heading' } ).click();
 
 		// Headings should not have uppercase
 		await expect(
@@ -43,7 +44,7 @@ test.describe( 'Push to Global Styles button', () => {
 		).toHaveAttribute( 'aria-pressed', 'false' );
 
 		// Go to block settings and open the Advanced panel
-		await page.getByRole( 'button', { name: 'Settings' } ).click();
+		await topBar.getByRole( 'button', { name: 'Settings' } ).click();
 		await page.getByRole( 'button', { name: 'Advanced' } ).click();
 
 		// Push button should be disabled
@@ -52,6 +53,16 @@ test.describe( 'Push to Global Styles button', () => {
 				name: 'Apply globally',
 			} )
 		).toBeDisabled();
+
+		// Enable letter case.
+		const typographyOptions = page.getByRole( 'button', {
+			name: 'Typography options',
+		} );
+		await typographyOptions.click();
+		await page
+			.getByRole( 'menuitemcheckbox', { name: 'Letter case' } )
+			.click();
+		await typographyOptions.click();
 
 		// Make the Heading block uppercase
 		await page.getByRole( 'button', { name: 'Uppercase' } ).click();
@@ -82,12 +93,13 @@ test.describe( 'Push to Global Styles button', () => {
 		).toBeDisabled();
 
 		// Navigate again to Styles -> Blocks -> Heading -> Typography
-		await page.getByRole( 'button', { name: 'Styles' } ).click();
-		await page.getByRole( 'button', { name: 'Blocks styles' } ).click();
 		await page
-			.getByRole( 'button', { name: 'Heading block styles' } )
+			.getByRole( 'button', { name: 'Styles', exact: true } )
 			.click();
-		await page.getByRole( 'button', { name: 'Typography styles' } ).click();
+		await page.getByRole( 'button', { name: 'Blocks' } ).click();
+		await settingsPanel
+			.getByRole( 'button', { name: 'Heading', exact: true } )
+			.click();
 
 		// Headings should now have uppercase
 		await expect(

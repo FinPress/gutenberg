@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { kebabCase } from 'lodash';
+import { paramCase as kebabCase } from 'change-case';
 
 /**
  * WordPress dependencies
@@ -37,7 +37,7 @@ export function useAlternativeTemplateParts( area, excludedId ) {
 				'wp_template_part',
 				query
 			),
-			isLoading: _isResolving( 'getEntityRecords', [
+			isResolving: _isResolving( 'getEntityRecords', [
 				'postType',
 				'wp_template_part',
 				query,
@@ -61,7 +61,7 @@ export function useAlternativeTemplateParts( area, excludedId ) {
 						templatePart.area === area )
 			) || []
 		);
-	}, [ templateParts, area ] );
+	}, [ templateParts, area, excludedId ] );
 
 	return {
 		templateParts: filteredTemplateParts,
@@ -136,14 +136,9 @@ export function useCreateTemplatePartFromBlocks( area, setAttributes ) {
 export function useTemplatePartArea( area ) {
 	return useSelect(
 		( select ) => {
-			// FIXME: @wordpress/block-library should not depend on @wordpress/editor.
-			// Blocks can be loaded into a *non-post* block editor.
-			/* eslint-disable @wordpress/data-no-store-string-literals */
 			const definedAreas =
-				select(
-					'core/editor'
-				).__experimentalGetDefaultTemplatePartAreas();
-			/* eslint-enable @wordpress/data-no-store-string-literals */
+				select( coreStore ).getEntityRecord( 'root', '__unstableBase' )
+					?.default_template_part_areas || [];
 
 			const selectedArea = definedAreas.find(
 				( definedArea ) => definedArea.area === area

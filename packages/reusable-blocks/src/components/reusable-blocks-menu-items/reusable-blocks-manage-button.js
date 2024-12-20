@@ -5,10 +5,7 @@ import { MenuItem } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { isReusableBlock } from '@wordpress/blocks';
 import { useSelect, useDispatch } from '@wordpress/data';
-import {
-	BlockSettingsMenuControls,
-	store as blockEditorStore,
-} from '@wordpress/block-editor';
+import { store as blockEditorStore } from '@wordpress/block-editor';
 import { addQueryArgs } from '@wordpress/url';
 import { store as coreStore } from '@wordpress/core-data';
 
@@ -18,7 +15,7 @@ import { store as coreStore } from '@wordpress/core-data';
 import { store as reusableBlocksStore } from '../../store';
 
 function ReusableBlocksManageButton( { clientId } ) {
-	const { canRemove, isVisible, innerBlockCount } = useSelect(
+	const { canRemove, isVisible, managePatternsUrl } = useSelect(
 		( select ) => {
 			const { getBlock, canRemoveBlock, getBlockCount } =
 				select( blockEditorStore );
@@ -30,12 +27,25 @@ function ReusableBlocksManageButton( { clientId } ) {
 				isVisible:
 					!! reusableBlock &&
 					isReusableBlock( reusableBlock ) &&
-					!! canUser(
-						'update',
-						'blocks',
-						reusableBlock.attributes.ref
-					),
+					!! canUser( 'update', {
+						kind: 'postType',
+						name: 'wp_block',
+						id: reusableBlock.attributes.ref,
+					} ),
 				innerBlockCount: getBlockCount( clientId ),
+				// The site editor and templates both check whether the user
+				// has edit_theme_options capabilities. We can leverage that here
+				// and omit the manage patterns link if the user can't access it.
+				managePatternsUrl: canUser( 'create', {
+					kind: 'postType',
+					name: 'wp_template',
+				} )
+					? addQueryArgs( 'site-editor.php', {
+							path: '/patterns',
+					  } )
+					: addQueryArgs( 'edit.php', {
+							post_type: 'wp_block',
+					  } ),
 			};
 		},
 		[ clientId ]
@@ -49,20 +59,16 @@ function ReusableBlocksManageButton( { clientId } ) {
 	}
 
 	return (
-		<BlockSettingsMenuControls>
-			<MenuItem
-				href={ addQueryArgs( 'edit.php', { post_type: 'wp_block' } ) }
-			>
-				{ __( 'Manage Reusable blocks' ) }
+		<>
+			<MenuItem href={ managePatternsUrl }>
+				{ __( 'Manage patterns' ) }
 			</MenuItem>
 			{ canRemove && (
 				<MenuItem onClick={ () => convertBlockToStatic( clientId ) }>
-					{ innerBlockCount > 1
-						? __( 'Convert to regular blocks' )
-						: __( 'Convert to regular block' ) }
+					{ __( 'Detach' ) }
 				</MenuItem>
 			) }
-		</BlockSettingsMenuControls>
+		</>
 	);
 }
 

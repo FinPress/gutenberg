@@ -64,11 +64,15 @@ const plugins = [
 	process.env.WP_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
 	new DefinePlugin( {
 		// Inject the `IS_GUTENBERG_PLUGIN` global, used for feature flagging.
-		'process.env.IS_GUTENBERG_PLUGIN':
-			process.env.npm_package_config_IS_GUTENBERG_PLUGIN,
-		// Inject the `ALLOW_EXPERIMENT_REREGISTRATION` global, used by @wordpress/private-apis.
-		'process.env.ALLOW_EXPERIMENT_REREGISTRATION':
-			process.env.npm_package_config_ALLOW_EXPERIMENT_REREGISTRATION,
+		'globalThis.IS_GUTENBERG_PLUGIN': JSON.stringify(
+			Boolean( process.env.npm_package_config_IS_GUTENBERG_PLUGIN )
+		),
+		// Inject the `IS_WORDPRESS_CORE` global, used for feature flagging.
+		'globalThis.IS_WORDPRESS_CORE': JSON.stringify(
+			Boolean( process.env.npm_package_config_IS_WORDPRESS_CORE )
+		),
+		// Inject the `SCRIPT_DEBUG` global, used for dev versions of JavaScript.
+		'globalThis.SCRIPT_DEBUG': JSON.stringify( mode === 'development' ),
 	} ),
 	mode === 'production' && new ReadableJsAssetsWebpackPlugin(),
 ];

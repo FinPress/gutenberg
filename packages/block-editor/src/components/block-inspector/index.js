@@ -5,19 +5,10 @@ import { __ } from '@wordpress/i18n';
 import {
 	getBlockType,
 	getUnregisteredTypeHandlerName,
-	hasBlockSupport,
 	store as blocksStore,
 } from '@wordpress/blocks';
-import {
-	FlexItem,
-	PanelBody,
-	__experimentalHStack as HStack,
-	__experimentalVStack as VStack,
-	Button,
-	__unstableMotion as motion,
-} from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useMemo, useCallback } from '@wordpress/element';
+import { PanelBody, __unstableMotion as motion } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -28,110 +19,23 @@ import MultiSelectionInspector from '../multi-selection-inspector';
 import BlockVariationTransforms from '../block-variation-transforms';
 import useBlockDisplayInformation from '../use-block-display-information';
 import { store as blockEditorStore } from '../../store';
-import BlockIcon from '../block-icon';
 import BlockStyles from '../block-styles';
-import DefaultStylePicker from '../default-style-picker';
 import { default as InspectorControls } from '../inspector-controls';
 import { default as InspectorControlsTabs } from '../inspector-controls-tabs';
 import useInspectorControlsTabs from '../inspector-controls-tabs/use-inspector-controls-tabs';
 import AdvancedControls from '../inspector-controls-tabs/advanced-controls-panel';
 import PositionControls from '../inspector-controls-tabs/position-controls-panel';
+import useBlockInspectorAnimationSettings from './useBlockInspectorAnimationSettings';
+import BlockQuickNavigation from '../block-quick-navigation';
+import { useBorderPanelLabel } from '../../hooks/border';
 
-function useContentBlocks( blockTypes, block ) {
-	const contentBlocksObjectAux = useMemo( () => {
-		return blockTypes.reduce( ( result, blockType ) => {
-			if (
-				blockType.name !== 'core/list-item' &&
-				Object.entries( blockType.attributes ).some(
-					( [ , { __experimentalRole } ] ) =>
-						__experimentalRole === 'content'
-				)
-			) {
-				result[ blockType.name ] = true;
-			}
-			return result;
-		}, {} );
-	}, [ blockTypes ] );
-	const isContentBlock = useCallback(
-		( blockName ) => {
-			return !! contentBlocksObjectAux[ blockName ];
-		},
-		[ blockTypes ]
-	);
-	return useMemo( () => {
-		return getContentBlocks( [ block ], isContentBlock );
-	}, [ block, isContentBlock ] );
-}
+import { unlock } from '../../lock-unlock';
 
-function getContentBlocks( blocks, isContentBlock ) {
-	const result = [];
-	for ( const block of blocks ) {
-		if ( isContentBlock( block.name ) ) {
-			result.push( block );
-		}
-		result.push( ...getContentBlocks( block.innerBlocks, isContentBlock ) );
-	}
-	return result;
-}
-
-function BlockNavigationButton( { blockTypes, block, selectedBlock } ) {
-	const { selectBlock } = useDispatch( blockEditorStore );
-	const blockType = blockTypes.find( ( { name } ) => name === block.name );
-	const isSelected =
-		selectedBlock && selectedBlock.clientId === block.clientId;
+function BlockStylesPanel( { clientId } ) {
 	return (
-		<Button
-			isPressed={ isSelected }
-			onClick={ () => selectBlock( block.clientId ) }
-		>
-			<HStack justify="flex-start">
-				<BlockIcon icon={ blockType.icon } />
-				<FlexItem>{ blockType.title }</FlexItem>
-			</HStack>
-		</Button>
-	);
-}
-
-function BlockInspectorLockedBlocks( { topLevelLockedBlock } ) {
-	const { blockTypes, block, selectedBlock } = useSelect(
-		( select ) => {
-			return {
-				blockTypes: select( blocksStore ).getBlockTypes(),
-				block: select( blockEditorStore ).getBlock(
-					topLevelLockedBlock
-				),
-				selectedBlock: select( blockEditorStore ).getSelectedBlock(),
-			};
-		},
-		[ topLevelLockedBlock ]
-	);
-	const blockInformation = useBlockDisplayInformation( topLevelLockedBlock );
-	const contentBlocks = useContentBlocks( blockTypes, block );
-	return (
-		<div className="block-editor-block-inspector">
-			<BlockCard
-				{ ...blockInformation }
-				className={ blockInformation.isSynced && 'is-synced' }
-			/>
-			<BlockVariationTransforms blockClientId={ topLevelLockedBlock } />
-			<VStack
-				spacing={ 1 }
-				padding={ 4 }
-				className="block-editor-block-inspector__block-buttons-container"
-			>
-				<h2 className="block-editor-block-card__title">
-					{ __( 'Content' ) }
-				</h2>
-				{ contentBlocks.map( ( contentBlock ) => (
-					<BlockNavigationButton
-						selectedBlock={ selectedBlock }
-						key={ contentBlock.clientId }
-						block={ contentBlock }
-						blockTypes={ blockTypes }
-					/>
-				) ) }
-			</VStack>
-		</div>
+		<PanelBody title={ __( 'Styles' ) }>
+			<BlockStyles clientId={ clientId } />
+		</PanelBody>
 	);
 }
 
@@ -141,54 +45,50 @@ const BlockInspector = ( { showNoBlockSelectedMessage = true } ) => {
 		selectedBlockName,
 		selectedBlockClientId,
 		blockType,
-		topLevelLockedBlock,
+		isSectionBlock,
 	} = useSelect( ( select ) => {
 		const {
 			getSelectedBlockClientId,
 			getSelectedBlockCount,
 			getBlockName,
-			__unstableGetContentLockingParent,
-			getTemplateLock,
-		} = select( blockEditorStore );
-
+			getParentSectionBlock,
+			isSectionBlock: _isSectionBlock,
+		} = unlock( select( blockEditorStore ) );
 		const _selectedBlockClientId = getSelectedBlockClientId();
+		const renderedBlockClientId =
+			getParentSectionBlock( _selectedBlockClientId ) ||
+			getSelectedBlockClientId();
 		const _selectedBlockName =
-			_selectedBlockClientId && getBlockName( _selectedBlockClientId );
+			renderedBlockClientId && getBlockName( renderedBlockClientId );
 		const _blockType =
 			_selectedBlockName && getBlockType( _selectedBlockName );
 
 		return {
 			count: getSelectedBlockCount(),
-			selectedBlockClientId: _selectedBlockClientId,
+			selectedBlockClientId: renderedBlockClientId,
 			selectedBlockName: _selectedBlockName,
 			blockType: _blockType,
-			topLevelLockedBlock:
-				__unstableGetContentLockingParent( _selectedBlockClientId ) ||
-				( getTemplateLock( _selectedBlockClientId ) === 'contentOnly'
-					? _selectedBlockClientId
-					: undefined ),
+			isSectionBlock: _isSectionBlock( renderedBlockClientId ),
 		};
 	}, [] );
 
 	const availableTabs = useInspectorControlsTabs( blockType?.name );
 	const showTabs = availableTabs?.length > 1;
 
-	const blockInspectorAnimationSettings = useSelect(
-		( select ) => {
-			if ( blockType ) {
-				const globalBlockInspectorAnimationSettings =
-					select( blockEditorStore ).getSettings()
-						.blockInspectorAnimation;
-				return globalBlockInspectorAnimationSettings?.[
-					blockType.name
-				];
-			}
-			return null;
-		},
-		[ selectedBlockClientId, blockType ]
-	);
+	// The block inspector animation settings will be completely
+	// removed in the future to create an API which allows the block
+	// inspector to transition between what it
+	// displays based on the relationship between the selected block
+	// and its parent, and only enable it if the parent is controlling
+	// its children blocks.
+	const blockInspectorAnimationSettings =
+		useBlockInspectorAnimationSettings( blockType );
 
-	if ( count > 1 ) {
+	const borderPanelLabel = useBorderPanelLabel( {
+		blockName: selectedBlockName,
+	} );
+
+	if ( count > 1 && ! isSectionBlock ) {
 		return (
 			<div className="block-editor-block-inspector">
 				<MultiSelectionInspector />
@@ -203,6 +103,10 @@ const BlockInspector = ( { showNoBlockSelectedMessage = true } ) => {
 							className="color-block-support-panel__inner-wrapper"
 						/>
 						<InspectorControls.Slot
+							group="background"
+							label={ __( 'Background image' ) }
+						/>
+						<InspectorControls.Slot
 							group="typography"
 							label={ __( 'Typography' ) }
 						/>
@@ -212,7 +116,7 @@ const BlockInspector = ( { showNoBlockSelectedMessage = true } ) => {
 						/>
 						<InspectorControls.Slot
 							group="border"
-							label={ __( 'Border' ) }
+							label={ borderPanelLabel }
 						/>
 						<InspectorControls.Slot group="styles" />
 					</>
@@ -242,13 +146,6 @@ const BlockInspector = ( { showNoBlockSelectedMessage = true } ) => {
 		}
 		return null;
 	}
-	if ( topLevelLockedBlock ) {
-		return (
-			<BlockInspectorLockedBlocks
-				topLevelLockedBlock={ topLevelLockedBlock }
-			/>
-		);
-	}
 
 	return (
 		<BlockInspectorSingleBlockWrapper
@@ -267,6 +164,7 @@ const BlockInspector = ( { showNoBlockSelectedMessage = true } ) => {
 			<BlockInspectorSingleBlock
 				clientId={ selectedBlockClientId }
 				blockName={ blockType.name }
+				isSectionBlock={ isSectionBlock }
 			/>
 		</BlockInspectorSingleBlockWrapper>
 	);
@@ -308,9 +206,13 @@ const AnimatedContainer = ( {
 	);
 };
 
-const BlockInspectorSingleBlock = ( { clientId, blockName } ) => {
+const BlockInspectorSingleBlock = ( {
+	clientId,
+	blockName,
+	isSectionBlock,
+} ) => {
 	const availableTabs = useInspectorControlsTabs( blockName );
-	const showTabs = availableTabs?.length > 1;
+	const showTabs = ! isSectionBlock && availableTabs?.length > 1;
 
 	const hasBlockStyles = useSelect(
 		( select ) => {
@@ -321,6 +223,27 @@ const BlockInspectorSingleBlock = ( { clientId, blockName } ) => {
 		[ blockName ]
 	);
 	const blockInformation = useBlockDisplayInformation( clientId );
+	const borderPanelLabel = useBorderPanelLabel( { blockName } );
+	const contentClientIds = useSelect(
+		( select ) => {
+			// Avoid unnecessary subscription.
+			if ( ! isSectionBlock ) {
+				return;
+			}
+
+			const {
+				getClientIdsOfDescendants,
+				getBlockName,
+				getBlockEditingMode,
+			} = select( blockEditorStore );
+			return getClientIdsOfDescendants( clientId ).filter(
+				( current ) =>
+					getBlockName( current ) !== 'core/list-item' &&
+					getBlockEditingMode( current ) === 'contentOnly'
+			);
+		},
+		[ isSectionBlock, clientId ]
+	);
 
 	return (
 		<div className="block-editor-block-inspector">
@@ -340,44 +263,50 @@ const BlockInspectorSingleBlock = ( { clientId, blockName } ) => {
 			{ ! showTabs && (
 				<>
 					{ hasBlockStyles && (
-						<div>
-							<PanelBody title={ __( 'Styles' ) }>
-								<BlockStyles clientId={ clientId } />
-								{ hasBlockSupport(
-									blockName,
-									'defaultStylePicker',
-									true
-								) && (
-									<DefaultStylePicker
-										blockName={ blockName }
-									/>
-								) }
-							</PanelBody>
-						</div>
+						<BlockStylesPanel clientId={ clientId } />
 					) }
-					<InspectorControls.Slot />
-					<InspectorControls.Slot
-						group="color"
-						label={ __( 'Color' ) }
-						className="color-block-support-panel__inner-wrapper"
-					/>
-					<InspectorControls.Slot
-						group="typography"
-						label={ __( 'Typography' ) }
-					/>
-					<InspectorControls.Slot
-						group="dimensions"
-						label={ __( 'Dimensions' ) }
-					/>
-					<InspectorControls.Slot
-						group="border"
-						label={ __( 'Border' ) }
-					/>
-					<InspectorControls.Slot group="styles" />
-					<PositionControls />
-					<div>
-						<AdvancedControls />
-					</div>
+
+					{ contentClientIds && contentClientIds?.length > 0 && (
+						<PanelBody title={ __( 'Content' ) }>
+							<BlockQuickNavigation
+								clientIds={ contentClientIds }
+							/>
+						</PanelBody>
+					) }
+
+					{ ! isSectionBlock && (
+						<>
+							<InspectorControls.Slot />
+							<InspectorControls.Slot group="list" />
+							<InspectorControls.Slot
+								group="color"
+								label={ __( 'Color' ) }
+								className="color-block-support-panel__inner-wrapper"
+							/>
+							<InspectorControls.Slot
+								group="background"
+								label={ __( 'Background image' ) }
+							/>
+							<InspectorControls.Slot
+								group="typography"
+								label={ __( 'Typography' ) }
+							/>
+							<InspectorControls.Slot
+								group="dimensions"
+								label={ __( 'Dimensions' ) }
+							/>
+							<InspectorControls.Slot
+								group="border"
+								label={ borderPanelLabel }
+							/>
+							<InspectorControls.Slot group="styles" />
+							<PositionControls />
+							<InspectorControls.Slot group="bindings" />
+							<div>
+								<AdvancedControls />
+							</div>
+						</>
+					) }
 				</>
 			) }
 			<SkipToSelectedBlock key="back" />

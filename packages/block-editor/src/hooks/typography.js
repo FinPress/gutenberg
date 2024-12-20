@@ -2,7 +2,8 @@
  * WordPress dependencies
  */
 import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
-import { useMemo } from '@wordpress/element';
+import { useMemo, useCallback } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -16,12 +17,9 @@ import {
 import { LINE_HEIGHT_SUPPORT_KEY } from './line-height';
 import { FONT_FAMILY_SUPPORT_KEY } from './font-family';
 import { FONT_SIZE_SUPPORT_KEY } from './font-size';
-import { useSetting } from '../components';
+import { TEXT_ALIGN_SUPPORT_KEY } from './text-align';
 import { cleanEmptyObject } from './utils';
-import {
-	overrideSettingsWithSupports,
-	useSupportedStyles,
-} from '../components/global-styles/hooks';
+import { store as blockEditorStore } from '../store';
 
 function omit( object, keys ) {
 	return Object.fromEntries(
@@ -29,11 +27,13 @@ function omit( object, keys ) {
 	);
 }
 
-const LETTER_SPACING_SUPPORT_KEY = 'typography.__experimentalLetterSpacing';
-const TEXT_TRANSFORM_SUPPORT_KEY = 'typography.__experimentalTextTransform';
-const TEXT_DECORATION_SUPPORT_KEY = 'typography.__experimentalTextDecoration';
-const FONT_STYLE_SUPPORT_KEY = 'typography.__experimentalFontStyle';
-const FONT_WEIGHT_SUPPORT_KEY = 'typography.__experimentalFontWeight';
+const LETTER_SPACING_SUPPORT_KEY = 'typography.letterSpacing';
+const TEXT_TRANSFORM_SUPPORT_KEY = 'typography.textTransform';
+const TEXT_DECORATION_SUPPORT_KEY = 'typography.textDecoration';
+const TEXT_COLUMNS_SUPPORT_KEY = 'typography.textColumns';
+const FONT_STYLE_SUPPORT_KEY = 'typography.fontStyle';
+const FONT_WEIGHT_SUPPORT_KEY = 'typography.fontWeight';
+const WRITING_MODE_SUPPORT_KEY = 'typography.__experimentalWritingMode';
 export const TYPOGRAPHY_SUPPORT_KEY = 'typography';
 export const TYPOGRAPHY_SUPPORT_KEYS = [
 	LINE_HEIGHT_SUPPORT_KEY,
@@ -41,108 +41,90 @@ export const TYPOGRAPHY_SUPPORT_KEYS = [
 	FONT_STYLE_SUPPORT_KEY,
 	FONT_WEIGHT_SUPPORT_KEY,
 	FONT_FAMILY_SUPPORT_KEY,
+	TEXT_ALIGN_SUPPORT_KEY,
+	TEXT_COLUMNS_SUPPORT_KEY,
 	TEXT_DECORATION_SUPPORT_KEY,
+	WRITING_MODE_SUPPORT_KEY,
 	TEXT_TRANSFORM_SUPPORT_KEY,
 	LETTER_SPACING_SUPPORT_KEY,
 ];
 
-function TypographyInspectorControl( { children } ) {
+function styleToAttributes( style ) {
+	const updatedStyle = { ...omit( style, [ 'fontFamily' ] ) };
+	const fontSizeValue = style?.typography?.fontSize;
+	const fontFamilyValue = style?.typography?.fontFamily;
+	const fontSizeSlug = fontSizeValue?.startsWith( 'var:preset|font-size|' )
+		? fontSizeValue.substring( 'var:preset|font-size|'.length )
+		: undefined;
+	const fontFamilySlug = fontFamilyValue?.startsWith(
+		'var:preset|font-family|'
+	)
+		? fontFamilyValue.substring( 'var:preset|font-family|'.length )
+		: undefined;
+	updatedStyle.typography = {
+		...omit( updatedStyle.typography, [ 'fontFamily' ] ),
+		fontSize: fontSizeSlug ? undefined : fontSizeValue,
+	};
+	return {
+		style: cleanEmptyObject( updatedStyle ),
+		fontFamily: fontFamilySlug,
+		fontSize: fontSizeSlug,
+	};
+}
+
+function attributesToStyle( attributes ) {
+	return {
+		...attributes.style,
+		typography: {
+			...attributes.style?.typography,
+			fontFamily: attributes.fontFamily
+				? 'var:preset|font-family|' + attributes.fontFamily
+				: undefined,
+			fontSize: attributes.fontSize
+				? 'var:preset|font-size|' + attributes.fontSize
+				: attributes.style?.typography?.fontSize,
+		},
+	};
+}
+
+function TypographyInspectorControl( { children, resetAllFilter } ) {
+	const attributesResetAllFilter = useCallback(
+		( attributes ) => {
+			const existingStyle = attributesToStyle( attributes );
+			const updatedStyle = resetAllFilter( existingStyle );
+			return {
+				...attributes,
+				...styleToAttributes( updatedStyle ),
+			};
+		},
+		[ resetAllFilter ]
+	);
+
 	return (
-		<InspectorControls group="typography">{ children }</InspectorControls>
+		<InspectorControls
+			group="typography"
+			resetAllFilter={ attributesResetAllFilter }
+		>
+			{ children }
+		</InspectorControls>
 	);
 }
 
-function useBlockSettings( name ) {
-	const fontFamilies = useSetting( 'typography.fontFamilies' );
-	const fontSizes = useSetting( 'typography.fontSizes' );
-	const customFontSize = useSetting( 'typography.customFontSize' );
-	const fontStyle = useSetting( 'typography.fontStyle' );
-	const fontWeight = useSetting( 'typography.fontWeight' );
-	const lineHeight = useSetting( 'typography.lineHeight' );
-	const textDecoration = useSetting( 'typography.textDecoration' );
-	const textTransform = useSetting( 'typography.textTransform' );
-	const letterSpacing = useSetting( 'typography.letterSpacing' );
-	const supports = useSupportedStyles( name, null );
-
-	return useMemo( () => {
-		const rawSettings = {
-			typography: {
-				fontFamilies: {
-					custom: fontFamilies,
-				},
-				fontSizes: {
-					custom: fontSizes,
-				},
-				customFontSize,
-				fontStyle,
-				fontWeight,
-				lineHeight,
-				textDecoration,
-				textTransform,
-				letterSpacing,
-			},
-		};
-		return overrideSettingsWithSupports( rawSettings, supports );
-	}, [
-		fontFamilies,
-		fontSizes,
-		customFontSize,
-		fontStyle,
-		fontWeight,
-		lineHeight,
-		textDecoration,
-		textTransform,
-		letterSpacing,
-		supports,
-	] );
-}
-
-export function TypographyPanel( {
-	clientId,
-	name,
-	attributes,
-	setAttributes,
-} ) {
-	const settings = useBlockSettings( name );
+export function TypographyPanel( { clientId, name, setAttributes, settings } ) {
+	function selector( select ) {
+		const { style, fontFamily, fontSize } =
+			select( blockEditorStore ).getBlockAttributes( clientId ) || {};
+		return { style, fontFamily, fontSize };
+	}
+	const { style, fontFamily, fontSize } = useSelect( selector, [ clientId ] );
 	const isEnabled = useHasTypographyPanel( settings );
-	const value = useMemo( () => {
-		return {
-			...attributes.style,
-			typography: {
-				...attributes.style?.typography,
-				fontFamily: attributes.fontFamily
-					? 'var:preset|font-family|' + attributes.fontFamily
-					: undefined,
-				fontSize: attributes.fontSize
-					? 'var:preset|font-size|' + attributes.fontSize
-					: attributes.style?.typography?.fontSize,
-			},
-		};
-	}, [ attributes.style, attributes.fontSize, attributes.fontFamily ] );
+	const value = useMemo(
+		() => attributesToStyle( { style, fontFamily, fontSize } ),
+		[ style, fontSize, fontFamily ]
+	);
 
 	const onChange = ( newStyle ) => {
-		const updatedStyle = { ...omit( newStyle, [ 'fontFamily' ] ) };
-		const fontSizeValue = newStyle?.typography?.fontSize;
-		const fontFamilyValue = newStyle?.typography?.fontFamily;
-		const fontSizeSlug = fontSizeValue?.startsWith(
-			'var:preset|font-size|'
-		)
-			? fontSizeValue.substring( 'var:preset|font-size|'.length )
-			: undefined;
-		const fontFamilySlug = fontFamilyValue?.startsWith(
-			'var:preset|font-family|'
-		)
-			? fontFamilyValue.substring( 'var:preset|font-family|'.length )
-			: undefined;
-		updatedStyle.typography = {
-			...omit( updatedStyle.typography, [ 'fontFamily' ] ),
-			fontSize: fontSizeSlug ? undefined : fontSizeValue,
-		};
-		setAttributes( {
-			style: cleanEmptyObject( updatedStyle ),
-			fontFamily: fontFamilySlug,
-			fontSize: fontSizeSlug,
-		} );
+		setAttributes( styleToAttributes( newStyle ) );
 	};
 
 	if ( ! isEnabled ) {
@@ -151,14 +133,13 @@ export function TypographyPanel( {
 
 	const defaultControls = getBlockSupport( name, [
 		TYPOGRAPHY_SUPPORT_KEY,
-		'__experimentalDefaultControls',
+		'defaultControls',
 	] );
 
 	return (
 		<StylesTypographyPanel
 			as={ TypographyInspectorControl }
 			panelId={ clientId }
-			name={ name }
 			settings={ settings }
 			value={ value }
 			onChange={ onChange }

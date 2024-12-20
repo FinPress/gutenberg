@@ -1,8 +1,14 @@
+/**
+ * For easier testing of potential regressions, you can use a Button variant matrix
+ * available in a special Storybook instance by running `npm run storybook:e2e:dev`.
+ *
+ * @see https://github.com/WordPress/gutenberg/blob/trunk/test/storybook-playwright/README.md
+ */
+
 .components-button {
 	display: inline-flex;
 	text-decoration: none;
 	font-family: inherit;
-	font-weight: normal;
 	font-size: $default-font-size;
 	margin: 0;
 	border: 0;
@@ -15,17 +21,16 @@
 	align-items: center;
 	box-sizing: border-box;
 	padding: 6px 12px;
-	border-radius: $radius-block-ui;
+	border-radius: $radius-small;
 	color: $components-color-foreground;
 
-	&[aria-expanded="true"],
-	&:hover {
-		color: $components-color-accent;
+	&.is-next-40px-default-size {
+		height: $button-size-next-default-40px;
 	}
 
-	// Unset some hovers, instead of adding :not specificity.
-	&[aria-disabled="true"]:hover {
-		color: initial;
+	&[aria-expanded="true"],
+	&:hover:not(:disabled, [aria-disabled="true"]) {
+		color: $components-color-accent;
 	}
 
 	// Focus.
@@ -75,13 +80,10 @@
 			color: rgba($white, 0.4);
 			background: $components-color-accent;
 			border-color: $components-color-accent;
-			opacity: 1;
 			outline: none;
 
 			&:focus:enabled {
-				box-shadow:
-					0 0 0 $border-width $components-color-background,
-					0 0 0 3px $components-color-accent;
+				box-shadow: inset 0 0 0 1px $components-color-background, 0 0 0 var(--wp-admin-border-width-focus) $components-color-accent;
 			}
 		}
 
@@ -90,8 +92,7 @@
 		&.is-busy[aria-disabled="true"] {
 			color: $components-color-accent-inverted;
 			background-size: 100px 100%;
-			// Disable reason: This function call looks nicer when each argument is on its own line.
-			/* stylelint-disable */
+			/* stylelint-disable -- Disable reason: This function call looks nicer when each argument is on its own line. */
 			background-image: linear-gradient(
 				-45deg,
 				$components-color-accent 33%,
@@ -114,26 +115,15 @@
 		outline: 1px solid transparent;
 
 		&:active:not(:disabled) {
-			background: $components-color-gray-300;
-			color: $components-color-accent-darker-10;
 			box-shadow: none;
-		}
-
-		&:hover:not(:disabled) {
-			color: $components-color-accent-darker-10;
-			box-shadow: inset 0 0 0 $border-width $components-color-accent-darker-10;
 		}
 
 		&:disabled,
 		&[aria-disabled="true"],
 		&[aria-disabled="true"]:hover {
-			// TODO: Prepare for theming (https://github.com/WordPress/gutenberg/pull/45466/files#r1030872724)
-			color: lighten($gray-700, 5%);
-			background: lighten($gray-300, 5%);
+			color: $gray-600;
+			background: transparent;
 			transform: none;
-			opacity: 1;
-			box-shadow: none;
-			outline: none;
 		}
 	}
 
@@ -142,11 +132,27 @@
 	 */
 
 	&.is-secondary {
-		box-shadow: inset 0 0 0 $border-width $components-color-accent;
+		box-shadow: inset 0 0 0 $border-width $components-color-accent, 0 0 0 currentColor;
 		outline: 1px solid transparent; // Shown in high contrast mode.
 		white-space: nowrap;
 		color: $components-color-accent;
 		background: transparent;
+
+		&:hover:not(:disabled, [aria-disabled="true"], .is-pressed) {
+			box-shadow: inset 0 0 0 $border-width $components-color-accent-darker-20;
+			color: $components-color-accent-darker-20;
+			background: color-mix(in srgb, $components-color-accent 4%, transparent);
+		}
+
+		&:disabled:not(:focus),
+		&[aria-disabled="true"]:not(:focus),
+		&[aria-disabled="true"]:hover:not(:focus) {
+			box-shadow: inset 0 0 0 $border-width $gray-300;
+		}
+
+		&:focus:not(:disabled) {
+			box-shadow: 0 0 0 currentColor inset, 0 0 0 var(--wp-admin-border-width-focus) $components-color-accent;
+		}
 	}
 
 	/**
@@ -157,16 +163,28 @@
 		white-space: nowrap;
 		color: $components-color-accent;
 		background: transparent;
-		padding: $grid-unit-15 * 0.5; // This reduces the horizontal padding on tertiary/text buttons, so as to space them optically.
 
-		.dashicon {
-			display: inline-block;
-			flex: 0 0 auto;
+		&:hover:not(:disabled, [aria-disabled="true"]) {
+			background: color-mix(in srgb, $components-color-accent 4%, transparent);
+			color: $components-color-accent-darker-20;
+		}
+
+		&:active:not(:disabled, [aria-disabled="true"]) {
+			background: color-mix(in srgb, $components-color-accent 8%, transparent);
 		}
 
 		// Pull left if the tertiary button stands alone after a description, so as to vertically align with items above.
 		p + & {
 			margin-left: -($grid-unit-15 * 0.5);
+		}
+
+		&:disabled,
+		&[aria-disabled="true"],
+		&[aria-disabled="true"]:hover {
+			&:not(:focus) {
+				box-shadow: none;
+				outline: none;
+			}
 		}
 	}
 
@@ -181,18 +199,33 @@
 		// Only the default variant is styled differently from the non-destructive counterparts.
 		&:not(.is-primary):not(.is-secondary):not(.is-tertiary):not(.is-link) {
 			color: $alert-red;
-			box-shadow: inset 0 0 0 $border-width $alert-red;
 
-			&:hover:not(:disabled) {
+			&:hover:not(:disabled, [aria-disabled="true"]) {
 				color: darken($alert-red, 20%);
 			}
 
-			&:focus:not(:disabled) {
+			&:focus {
 				box-shadow: 0 0 0 var(--wp-admin-border-width-focus) $alert-red;
 			}
 
-			&:active:not(:disabled) {
+			&:active:not(:disabled, [aria-disabled="true"]) {
 				background: $gray-400;
+			}
+
+			&:disabled,
+			&[aria-disabled="true"] {
+				color: $gray-600;
+			}
+		}
+
+		&.is-tertiary,
+		&.is-secondary {
+			&:hover:not(:disabled, [aria-disabled="true"]) {
+				background: rgba($alert-red, 0.04);
+			}
+
+			&:active:not(:disabled, [aria-disabled="true"]) {
+				background: rgba($alert-red, 0.08);
 			}
 		}
 	}
@@ -219,18 +252,23 @@
 		height: auto;
 
 		&:focus {
-			border-radius: $radius-block-ui;
+			border-radius: $radius-small;
+		}
+
+		&:disabled,
+		&[aria-disabled="true"] {
+			color: $gray-600;
 		}
 	}
 
-	&:not([aria-disabled="true"]):active {
+	&:not(:disabled, [aria-disabled="true"]):active {
 		color: $components-color-foreground;
 	}
 
 	&:disabled,
 	&[aria-disabled="true"] {
 		cursor: default;
-		opacity: 0.3;
+		color: $gray-600;
 	}
 
 	&.is-busy,
@@ -238,10 +276,13 @@
 	&.is-secondary.is-busy:disabled,
 	&.is-secondary.is-busy[aria-disabled="true"] {
 		animation: components-button__busy-animation 2500ms infinite linear;
-		opacity: 1;
+		// This should be refactored to use the reduce-motion("animation") mixin
+		// as soon as https://github.com/WordPress/gutenberg/issues/55566 is closed.
+		@media (prefers-reduced-motion: reduce) {
+			animation-duration: 0s;
+		}
 		background-size: 100px 100%;
-		// Disable reason: This function call looks nicer when each argument is on its own line.
-		/* stylelint-disable */
+		/* stylelint-disable -- Disable reason: This function call looks nicer when each argument is on its own line. */
 		background-image: linear-gradient(
 			-45deg,
 			// TODO: Prepare for theming (https://github.com/WordPress/gutenberg/pull/45466/files#r1030872724)
@@ -253,16 +294,26 @@
 		/* stylelint-enable */
 	}
 
+	&.is-compact {
+		height: $button-size-compact;
+
+		&.has-icon:not(.has-text) {
+			padding: 0;
+			width: $button-size-compact;
+			min-width: $button-size-compact;
+		}
+	}
+
 	&.is-small {
-		height: $icon-size;
+		height: $button-size-small;
 		line-height: 22px;
 		padding: 0 8px;
 		font-size: 11px;
 
 		&.has-icon:not(.has-text) {
 			padding: 0;
-			width: $icon-size;
-			min-width: $icon-size;
+			width: $button-size-small;
+			min-width: $button-size-small;
 		}
 	}
 
@@ -273,42 +324,51 @@
 		min-width: $button-size;
 		justify-content: center;
 
+		&.is-next-40px-default-size {
+			min-width: $button-size-next-default-40px;
+		}
+
 		.dashicon {
-			display: inline-block;
-			flex: 0 0 auto;
-			margin-left: 2px;
-			margin-right: 2px;
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			padding: 2px;
+			box-sizing: content-box;
 		}
 
 		&.has-text {
 			justify-content: start;
-			padding-right: 12px;
-		}
-
-		&.has-text svg {
-			margin-right: $grid-unit-10;
-		}
-
-		&.has-text .dashicon {
-			margin-right: $grid-unit-10 + 2px;
+			padding-right: $grid-unit-15;
+			padding-left: $grid-unit-10;
+			gap: $grid-unit-05;
 		}
 	}
 
 	// Toggled style.
 	&.is-pressed {
-		color: $components-color-foreground-inverted;
-		background: $components-color-foreground;
+		&,
+		&:hover {
+			color: $components-color-foreground-inverted;
+			&:not(:disabled, [aria-disabled="true"]) {
+				background: $components-color-foreground;
+			}
+		}
+
+		&:disabled,
+		&[aria-disabled="true"] {
+			color: $gray-600;
+
+			&:not(.is-primary):not(.is-secondary):not(.is-tertiary) {
+				color: $components-color-foreground-inverted;
+				background: $gray-600;
+			}
+		}
 
 		&:focus:not(:disabled) {
 			box-shadow: inset 0 0 0 1px $components-color-background, 0 0 0 var(--wp-admin-border-width-focus) $components-color-accent;
 
 			// Windows High Contrast mode will show this outline, but not the box-shadow.
 			outline: 2px solid transparent;
-		}
-
-		&:hover:not(:disabled) {
-			color: $components-color-foreground-inverted;
-			background: $components-color-foreground;
 		}
 	}
 

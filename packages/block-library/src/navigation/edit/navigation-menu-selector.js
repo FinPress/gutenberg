@@ -11,12 +11,31 @@ import { moreVertical } from '@wordpress/icons';
 import { __, sprintf } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
 import { useEffect, useMemo, useState } from '@wordpress/element';
+import { useEntityProp } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
  */
 import useNavigationMenu from '../use-navigation-menu';
 import useNavigationEntities from '../use-navigation-entities';
+
+function buildMenuLabel( title, id, status ) {
+	if ( ! title ) {
+		/* translators: %s: the index of the menu in the list of menus. */
+		return sprintf( __( '(no title %s)' ), id );
+	}
+
+	if ( status === 'publish' ) {
+		return decodeEntities( title );
+	}
+
+	return sprintf(
+		// translators: 1: title of the menu. 2: status of the menu (draft, pending, etc.).
+		__( '%1$s (%2$s)' ),
+		decodeEntities( title ),
+		status
+	);
+}
 
 function NavigationMenuSelector( {
 	currentMenuId,
@@ -30,8 +49,7 @@ function NavigationMenuSelector( {
 	/* translators: %s: The name of a menu. */
 	const createActionLabel = __( "Create from '%s'" );
 
-	const [ selectorLabel, setSelectorLabel ] = useState( '' );
-	const [ isCreatingMenu, setIsCreatingMenu ] = useState( false );
+	const [ isUpdatingMenuRef, setIsUpdatingMenuRef ] = useState( false );
 
 	actionLabel = actionLabel || createActionLabel;
 
@@ -39,64 +57,98 @@ function NavigationMenuSelector( {
 
 	const {
 		navigationMenus,
+		isResolvingNavigationMenus,
 		hasResolvedNavigationMenus,
-		canUserCreateNavigationMenu,
+		canUserCreateNavigationMenus,
 		canSwitchNavigationMenu,
-	} = useNavigationMenu();
+		isNavigationMenuMissing,
+	} = useNavigationMenu( currentMenuId );
+
+	const [ currentTitle ] = useEntityProp(
+		'postType',
+		'wp_navigation',
+		'title'
+	);
 
 	const menuChoices = useMemo( () => {
 		return (
-			navigationMenus?.map( ( { id, title }, index ) => {
-				const label =
-					decodeEntities( title?.rendered ) ||
-					/* translators: %s is the index of the menu in the list of menus. */
-					sprintf( __( '(no title %s)' ), index + 1 );
+			navigationMenus?.map( ( { id, title, status }, index ) => {
+				const label = buildMenuLabel(
+					title?.rendered,
+					index + 1,
+					status
+				);
 
-				if ( id === currentMenuId && ! isCreatingMenu ) {
-					setSelectorLabel(
-						/* translators: %s is the name of a navigation menu. */
-						sprintf( __( 'You are currently editing %s' ), label )
-					);
-				}
 				return {
 					value: id,
 					label,
 					ariaLabel: sprintf( actionLabel, label ),
+					disabled:
+						isUpdatingMenuRef ||
+						isResolvingNavigationMenus ||
+						! hasResolvedNavigationMenus,
 				};
 			} ) || []
 		);
-	}, [ currentMenuId, navigationMenus, actionLabel, isCreatingMenu ] );
+	}, [
+		navigationMenus,
+		actionLabel,
+		isResolvingNavigationMenus,
+		hasResolvedNavigationMenus,
+		isUpdatingMenuRef,
+	] );
 
 	const hasNavigationMenus = !! navigationMenus?.length;
 	const hasClassicMenus = !! classicMenus?.length;
 	const showNavigationMenus = !! canSwitchNavigationMenu;
-	const showClassicMenus = !! canUserCreateNavigationMenu;
+	const showClassicMenus = !! canUserCreateNavigationMenus;
 
 	const noMenuSelected = hasNavigationMenus && ! currentMenuId;
 	const noBlockMenus = ! hasNavigationMenus && hasResolvedNavigationMenus;
 	const menuUnavailable =
 		hasResolvedNavigationMenus && currentMenuId === null;
+	const navMenuHasBeenDeleted = currentMenuId && isNavigationMenuMissing;
+
+	let selectorLabel = '';
+
+	if ( isResolvingNavigationMenus ) {
+		selectorLabel = __( 'Loading…' );
+	} else if (
+		noMenuSelected ||
+		noBlockMenus ||
+		menuUnavailable ||
+		navMenuHasBeenDeleted
+	) {
+		// Note: classic Menus may be available.
+		selectorLabel = __( 'Choose or create a Navigation Menu' );
+	} else {
+		// Current Menu's title.
+		selectorLabel = currentTitle;
+	}
 
 	useEffect( () => {
-		if ( ! hasResolvedNavigationMenus && ! canUserCreateNavigationMenu ) {
-			setSelectorLabel( __( 'Loading …' ) );
-		} else if ( noMenuSelected || noBlockMenus || menuUnavailable ) {
-			setSelectorLabel( __( 'Choose or create a Navigation menu' ) );
-		}
-
 		if (
-			isCreatingMenu &&
+			isUpdatingMenuRef &&
 			( createNavigationMenuIsSuccess || createNavigationMenuIsError )
 		) {
-			setIsCreatingMenu( false );
+			setIsUpdatingMenuRef( false );
 		}
-	}, [ hasResolvedNavigationMenus, createNavigationMenuIsSuccess ] );
+	}, [
+		hasResolvedNavigationMenus,
+		createNavigationMenuIsSuccess,
+		canUserCreateNavigationMenus,
+		createNavigationMenuIsError,
+		isUpdatingMenuRef,
+		menuUnavailable,
+		noBlockMenus,
+		noMenuSelected,
+	] );
 
 	const NavigationMenuSelectorDropdown = (
 		<DropdownMenu
 			label={ selectorLabel }
 			icon={ moreVertical }
-			toggleProps={ { isSmall: true } }
+			toggleProps={ { size: 'small' } }
 		>
 			{ ( { onClose } ) => (
 				<>
@@ -105,13 +157,10 @@ function NavigationMenuSelector( {
 							<MenuItemsChoice
 								value={ currentMenuId }
 								onSelect={ ( menuId ) => {
-									setSelectorLabel( __( 'Loading …' ) );
-									setIsCreatingMenu( true );
 									onSelectNavigationMenu( menuId );
 									onClose();
 								} }
 								choices={ menuChoices }
-								disabled={ isCreatingMenu }
 							/>
 						</MenuGroup>
 					) }
@@ -121,12 +170,10 @@ function NavigationMenuSelector( {
 								const label = decodeEntities( menu.name );
 								return (
 									<MenuItem
-										onClick={ () => {
-											setSelectorLabel(
-												__( 'Loading …' )
-											);
-											setIsCreatingMenu( true );
-											onSelectClassicMenu( menu );
+										onClick={ async () => {
+											setIsUpdatingMenuRef( true );
+											await onSelectClassicMenu( menu );
+											setIsUpdatingMenuRef( false );
 											onClose();
 										} }
 										key={ menu.id }
@@ -134,7 +181,11 @@ function NavigationMenuSelector( {
 											createActionLabel,
 											label
 										) }
-										disabled={ isCreatingMenu }
+										disabled={
+											isUpdatingMenuRef ||
+											isResolvingNavigationMenus ||
+											! hasResolvedNavigationMenus
+										}
 									>
 										{ label }
 									</MenuItem>
@@ -143,18 +194,22 @@ function NavigationMenuSelector( {
 						</MenuGroup>
 					) }
 
-					{ canUserCreateNavigationMenu && (
+					{ canUserCreateNavigationMenus && (
 						<MenuGroup label={ __( 'Tools' ) }>
 							<MenuItem
-								disabled={ isCreatingMenu }
-								onClick={ () => {
+								onClick={ async () => {
+									setIsUpdatingMenuRef( true );
+									await onCreateNew();
+									setIsUpdatingMenuRef( false );
 									onClose();
-									onCreateNew();
-									setIsCreatingMenu( true );
-									setSelectorLabel( __( 'Loading …' ) );
 								} }
+								disabled={
+									isUpdatingMenuRef ||
+									isResolvingNavigationMenus ||
+									! hasResolvedNavigationMenus
+								}
 							>
-								{ __( 'Create new menu' ) }
+								{ __( 'Create new Menu' ) }
 							</MenuItem>
 						</MenuGroup>
 					) }

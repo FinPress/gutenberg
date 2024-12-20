@@ -1,13 +1,18 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
  */
 import deprecated from '@wordpress/deprecated';
-import { Button } from '@wordpress/components';
+import {
+	Button,
+	__experimentalText as Text,
+	__experimentalVStack as VStack,
+	privateApis as componentsPrivateApis,
+} from '@wordpress/components';
 import { chevronLeft, chevronRight } from '@wordpress/icons';
 import { __, isRTL } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -17,8 +22,11 @@ import { useSelect, useDispatch } from '@wordpress/data';
  */
 import BlockIcon from '../block-icon';
 import { store as blockEditorStore } from '../../store';
+import { unlock } from '../../lock-unlock';
 
-function BlockCard( { title, icon, description, blockType, className } ) {
+const { Badge } = unlock( componentsPrivateApis );
+
+function BlockCard( { title, icon, description, blockType, className, name } ) {
 	if ( blockType ) {
 		deprecated( '`blockType` property in `BlockCard component`', {
 			since: '5.7',
@@ -45,7 +53,7 @@ function BlockCard( { title, icon, description, blockType, className } ) {
 	const { selectBlock } = useDispatch( blockEditorStore );
 
 	return (
-		<div className={ classnames( 'block-editor-block-card', className ) }>
+		<div className={ clsx( 'block-editor-block-card', className ) }>
 			{ parentNavBlockClientId && ( // This is only used by the Navigation block for now. It's not ideal having Navigation block specific code here.
 				<Button
 					onClick={ () => selectBlock( parentNavBlockClientId ) }
@@ -56,16 +64,23 @@ function BlockCard( { title, icon, description, blockType, className } ) {
 						{ minWidth: 24, padding: 0 }
 					}
 					icon={ isRTL() ? chevronRight : chevronLeft }
-					isSmall
+					size="small"
 				/>
 			) }
 			<BlockIcon icon={ icon } showColors />
-			<div className="block-editor-block-card__content">
-				<h2 className="block-editor-block-card__title">{ title }</h2>
-				<span className="block-editor-block-card__description">
-					{ description }
-				</span>
-			</div>
+			<VStack spacing={ 1 }>
+				<h2 className="block-editor-block-card__title">
+					<span className="block-editor-block-card__name">
+						{ !! name?.length ? name : title }
+					</span>
+					{ !! name?.length && <Badge>{ title }</Badge> }
+				</h2>
+				{ description && (
+					<Text className="block-editor-block-card__description">
+						{ description }
+					</Text>
+				) }
+			</VStack>
 		</div>
 	);
 }

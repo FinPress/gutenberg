@@ -16,8 +16,6 @@ import withDispatch from '../';
 import { createRegistry } from '../../../registry';
 import { RegistryProvider } from '../../registry-provider';
 
-jest.useRealTimers();
-
 describe( 'withDispatch', () => {
 	const storeOptions = {
 		reducer: ( state = 0, action ) => {
@@ -60,7 +58,9 @@ describe( 'withDispatch', () => {
 					} );
 				},
 			};
-		} )( ( props ) => <Button onClick={ props.increment } /> );
+		} )( ( props ) => (
+			<Button __next40pxDefaultSize onClick={ props.increment } />
+		) );
 
 		const { rerender } = render(
 			<RegistryProvider value={ registry }>

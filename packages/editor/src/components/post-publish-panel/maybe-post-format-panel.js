@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import { get } from 'lodash';
-
-/**
  * WordPress dependencies
  */
 import { Button, PanelBody } from '@wordpress/components';
@@ -30,6 +25,7 @@ const PostFormatSuggestion = ( {
 	onUpdatePostFormat,
 } ) => (
 	<Button
+		__next40pxDefaultSize
 		variant="link"
 		onClick={ () => onUpdatePostFormat( suggestedPostFormat ) }
 	>
@@ -41,11 +37,8 @@ export default function PostFormatPanel() {
 	const { currentPostFormat, suggestion } = useSelect( ( select ) => {
 		const { getEditedPostAttribute, getSuggestedPostFormat } =
 			select( editorStore );
-		const supportedFormats = get(
-			select( coreStore ).getThemeSupports(),
-			[ 'formats' ],
-			[]
-		);
+		const supportedFormats =
+			select( coreStore ).getThemeSupports().formats ?? [];
 		return {
 			currentPostFormat: getEditedPostAttribute( 'format' ),
 			suggestion: getSuggestion(

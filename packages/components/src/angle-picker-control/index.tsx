@@ -2,28 +2,24 @@
  * External dependencies
  */
 import type { ForwardedRef } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
 import { forwardRef } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { isRTL, __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
-import { FlexBlock, FlexItem } from '../flex';
+import { Flex, FlexBlock } from '../flex';
+import { Spacer } from '../spacer';
 import NumberControl from '../number-control';
 import AngleCircle from './angle-circle';
-import { Root } from './styles/angle-picker-control-styles';
-import { space } from '../ui/utils/space';
-import { Text } from '../text';
-import { Spacer } from '../spacer';
-import { COLORS } from '../utils/colors-values';
+import { UnitText } from './styles/angle-picker-control-styles';
 
-import type { WordPressComponentProps } from '../ui/context';
+import type { WordPressComponentProps } from '../context';
 import type { AnglePickerControlProps } from './types';
 
 function UnforwardedAnglePickerControl(
@@ -31,24 +27,12 @@ function UnforwardedAnglePickerControl(
 	ref: ForwardedRef< any >
 ) {
 	const {
-		__nextHasNoMarginBottom = false,
 		className,
 		label = __( 'Angle' ),
 		onChange,
 		value,
 		...restProps
 	} = props;
-
-	if ( ! __nextHasNoMarginBottom ) {
-		deprecated(
-			'Bottom margin styles for wp.components.AnglePickerControl',
-			{
-				since: '6.1',
-				version: '6.4',
-				hint: 'Set the `__nextHasNoMarginBottom` prop to true to start opting into the new styles, which will become the default in a future version.',
-			}
-		);
-	}
 
 	const handleOnNumberChange = ( unprocessedValue: string | undefined ) => {
 		if ( onChange === undefined ) {
@@ -62,54 +46,38 @@ function UnforwardedAnglePickerControl(
 		onChange( inputValue );
 	};
 
-	const classes = classnames( 'components-angle-picker-control', className );
+	const classes = clsx( 'components-angle-picker-control', className );
+
+	const unitText = <UnitText>°</UnitText>;
+	const [ prefixedUnitText, suffixedUnitText ] = isRTL()
+		? [ unitText, null ]
+		: [ null, unitText ];
 
 	return (
-		<Root
-			{ ...restProps }
-			ref={ ref }
-			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
-			className={ classes }
-			gap={ 4 }
-		>
+		<Flex { ...restProps } ref={ ref } className={ classes } gap={ 2 }>
 			<FlexBlock>
 				<NumberControl
+					__next40pxDefaultSize
 					label={ label }
 					className="components-angle-picker-control__input-field"
 					max={ 360 }
 					min={ 0 }
 					onChange={ handleOnNumberChange }
-					size="__unstable-large"
 					step="1"
 					value={ value }
 					spinControls="none"
-					suffix={
-						<Spacer
-							as={ Text }
-							marginBottom={ 0 }
-							marginRight={ space( 3 ) }
-							style={ {
-								color: COLORS.ui.theme,
-							} }
-						>
-							°
-						</Spacer>
-					}
+					prefix={ prefixedUnitText }
+					suffix={ suffixedUnitText }
 				/>
 			</FlexBlock>
-			<FlexItem
-				style={ {
-					marginBottom: space( 1 ),
-					marginTop: 'auto',
-				} }
-			>
+			<Spacer marginBottom="1" marginTop="auto">
 				<AngleCircle
 					aria-hidden="true"
 					value={ value }
 					onChange={ onChange }
 				/>
-			</FlexItem>
-		</Root>
+			</Spacer>
+		</Flex>
 	);
 }
 
@@ -129,7 +97,6 @@ function UnforwardedAnglePickerControl(
  *     <AnglePickerControl
  *       value={ angle }
  *       onChange={ setAngle }
- *       __nextHasNoMarginBottom
  *     </>
  *   );
  * }

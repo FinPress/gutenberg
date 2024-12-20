@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
  */
-import { useEntityProp } from '@wordpress/core-data';
+import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { useMemo } from '@wordpress/element';
 import {
 	AlignmentToolbar,
@@ -16,13 +16,24 @@ import {
 	Warning,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl, RangeControl } from '@wordpress/components';
+import {
+	ToggleControl,
+	RangeControl,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+} from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
-import { useCanEditEntity } from '../utils/hooks';
+import {
+	useCanEditEntity,
+	useToolsPanelDropdownMenuProps,
+} from '../utils/hooks';
+
+const ELLIPSIS = '…';
 
 export default function PostExcerptEditor( {
 	attributes: { textAlign, moreText, showMoreOnNewLine, excerptLength },
@@ -32,15 +43,45 @@ export default function PostExcerptEditor( {
 } ) {
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const userCanEdit = useCanEditEntity( 'postType', postType, postId );
-	const isEditable = userCanEdit && ! isDescendentOfQueryLoop;
-
 	const [
 		rawExcerpt,
 		setExcerpt,
 		{ rendered: renderedExcerpt, protected: isProtected } = {},
 	] = useEntityProp( 'postType', postType, 'excerpt', postId );
+
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+
+	/**
+	 * Check if the post type supports excerpts.
+	 * Add an exception and return early for the "page" post type,
+	 * which is registered without support for the excerpt UI,
+	 * but supports saving the excerpt to the database.
+	 * See: https://core.trac.wordpress.org/browser/branches/6.1/src/wp-includes/post.php#L65
+	 * Without this exception, users that have excerpts saved to the database will
+	 * not be able to edit the excerpts.
+	 */
+	const postTypeSupportsExcerpts = useSelect(
+		( select ) => {
+			if ( postType === 'page' ) {
+				return true;
+			}
+			return !! select( coreStore ).getPostType( postType )?.supports
+				?.excerpt;
+		},
+		[ postType ]
+	);
+
+	/**
+	 * The excerpt is editable if:
+	 * - The user can edit the post
+	 * - It is not a descendent of a Query Loop block
+	 * - The post type supports excerpts
+	 */
+	const isEditable =
+		userCanEdit && ! isDescendentOfQueryLoop && postTypeSupportsExcerpts;
+
 	const blockProps = useBlockProps( {
-		className: classnames( {
+		className: clsx( {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
 		} ),
 	} );
@@ -58,13 +99,16 @@ export default function PostExcerptEditor( {
 	 * excerpt has been produced from the content.
 	 */
 	const strippedRenderedExcerpt = useMemo( () => {
-		if ( ! renderedExcerpt ) return '';
+		if ( ! renderedExcerpt ) {
+			return '';
+		}
 		const document = new window.DOMParser().parseFromString(
 			renderedExcerpt,
 			'text/html'
 		);
 		return document.body.textContent || document.body.innerText || '';
 	}, [ renderedExcerpt ] );
+
 	if ( ! postType || ! postId ) {
 		return (
 			<>
@@ -77,16 +121,7 @@ export default function PostExcerptEditor( {
 					/>
 				</BlockControls>
 				<div { ...blockProps }>
-					<p>
-						{ __(
-							'This is the Post Excerpt block, it will display the excerpt from single posts.'
-						) }
-					</p>
-					<p>
-						{ __(
-							'If there are any Custom Post Types with support for excerpts, the Post Excerpt block can display the excerpts of those entries as well.'
-						) }
-					</p>
+					<p>{ __( 'This block will display the excerpt.' ) }</p>
 				</div>
 			</>
 		);
@@ -96,7 +131,7 @@ export default function PostExcerptEditor( {
 			<div { ...blockProps }>
 				<Warning>
 					{ __(
-						'There is no excerpt because this is a protected post.'
+						'The content is currently protected and does not have the available excerpt.'
 					) }
 				</Warning>
 			</div>
@@ -104,6 +139,7 @@ export default function PostExcerptEditor( {
 	}
 	const readMoreLink = (
 		<RichText
+			identifier="moreText"
 			className="wp-block-post-excerpt__more-link"
 			tagName="a"
 			aria-label={ __( '“Read more” link text' ) }
@@ -112,10 +148,10 @@ export default function PostExcerptEditor( {
 			onChange={ ( newMoreText ) =>
 				setAttributes( { moreText: newMoreText } )
 			}
-			withoutInteractiveFormatting={ true }
+			withoutInteractiveFormatting
 		/>
 	);
-	const excerptClassName = classnames( 'wp-block-post-excerpt__excerpt', {
+	const excerptClassName = clsx( 'wp-block-post-excerpt__excerpt', {
 		'is-inline': ! showMoreOnNewLine,
 	} );
 
@@ -123,14 +159,13 @@ export default function PostExcerptEditor( {
 	 * The excerpt length setting needs to be applied to both
 	 * the raw and the rendered excerpt depending on which is being used.
 	 */
-	const rawOrRenderedExcerpt = !! renderedExcerpt
-		? strippedRenderedExcerpt
-		: rawExcerpt;
+	const rawOrRenderedExcerpt = (
+		rawExcerpt || strippedRenderedExcerpt
+	).trim();
 
 	let trimmedExcerpt = '';
 	if ( wordCountType === 'words' ) {
 		trimmedExcerpt = rawOrRenderedExcerpt
-			.trim()
 			.split( ' ', excerptLength )
 			.join( ' ' );
 	} else if ( wordCountType === 'characters_excluding_spaces' ) {
@@ -143,7 +178,6 @@ export default function PostExcerptEditor( {
 		 * so that the spaces are excluded from the word count.
 		 */
 		const excerptWithSpaces = rawOrRenderedExcerpt
-			.trim()
 			.split( '', excerptLength )
 			.join( '' );
 
@@ -152,33 +186,36 @@ export default function PostExcerptEditor( {
 			excerptWithSpaces.replaceAll( ' ', '' ).length;
 
 		trimmedExcerpt = rawOrRenderedExcerpt
-			.trim()
 			.split( '', excerptLength + numberOfSpaces )
 			.join( '' );
 	} else if ( wordCountType === 'characters_including_spaces' ) {
-		trimmedExcerpt = rawOrRenderedExcerpt.trim().split( '', excerptLength );
+		trimmedExcerpt = rawOrRenderedExcerpt
+			.split( '', excerptLength )
+			.join( '' );
 	}
 
-	trimmedExcerpt = trimmedExcerpt + '...';
+	const isTrimmed = trimmedExcerpt !== rawOrRenderedExcerpt;
 
 	const excerptContent = isEditable ? (
 		<RichText
 			className={ excerptClassName }
-			aria-label={ __( 'Post excerpt text' ) }
+			aria-label={ __( 'Excerpt text' ) }
 			value={
 				isSelected
 					? rawOrRenderedExcerpt
-					: ( trimmedExcerpt !== '...' ? trimmedExcerpt : '' ) ||
-					  __( 'No post excerpt found' )
+					: ( ! isTrimmed
+							? rawOrRenderedExcerpt
+							: trimmedExcerpt + ELLIPSIS ) ||
+					  __( 'No excerpt found' )
 			}
 			onChange={ setExcerpt }
 			tagName="p"
 		/>
 	) : (
 		<p className={ excerptClassName }>
-			{ trimmedExcerpt !== '...'
-				? trimmedExcerpt
-				: __( 'No post excerpt found' ) }
+			{ ! isTrimmed
+				? rawOrRenderedExcerpt || __( 'No excerpt found' )
+				: trimmedExcerpt + ELLIPSIS }
 		</p>
 	);
 	return (
@@ -192,27 +229,56 @@ export default function PostExcerptEditor( {
 				/>
 			</BlockControls>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings' ) }>
-					<ToggleControl
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ () => {
+						setAttributes( {
+							showMoreOnNewLine: true,
+							excerptLength: 55,
+						} );
+					} }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
+					<ToolsPanelItem
+						hasValue={ () => showMoreOnNewLine !== true }
 						label={ __( 'Show link on new line' ) }
-						checked={ showMoreOnNewLine }
-						onChange={ ( newShowMoreOnNewLine ) =>
-							setAttributes( {
-								showMoreOnNewLine: newShowMoreOnNewLine,
-							} )
+						onDeselect={ () =>
+							setAttributes( { showMoreOnNewLine: true } )
 						}
-					/>
-					<RangeControl
+						isShownByDefault
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={ __( 'Show link on new line' ) }
+							checked={ showMoreOnNewLine }
+							onChange={ ( newShowMoreOnNewLine ) =>
+								setAttributes( {
+									showMoreOnNewLine: newShowMoreOnNewLine,
+								} )
+							}
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						hasValue={ () => excerptLength !== 55 }
 						label={ __( 'Max number of words' ) }
-						value={ excerptLength }
-						onChange={ ( value ) => {
-							setAttributes( { excerptLength: value } );
-							setExcerpt();
-						} }
-						min="10"
-						max="100"
-					/>
-				</PanelBody>
+						onDeselect={ () =>
+							setAttributes( { excerptLength: 55 } )
+						}
+						isShownByDefault
+					>
+						<RangeControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ __( 'Max number of words' ) }
+							value={ excerptLength }
+							onChange={ ( value ) => {
+								setAttributes( { excerptLength: value } );
+							} }
+							min="10"
+							max="100"
+						/>
+					</ToolsPanelItem>
+				</ToolsPanel>
 			</InspectorControls>
 			<div { ...blockProps }>
 				{ excerptContent }

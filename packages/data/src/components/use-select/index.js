@@ -19,14 +19,34 @@ import useAsyncMode from '../async-mode-provider/use-async-mode';
 
 const renderQueue = createQueue();
 
+function warnOnUnstableReference( a, b ) {
+	if ( ! a || ! b ) {
+		return;
+	}
+
+	const keys =
+		typeof a === 'object' && typeof b === 'object'
+			? Object.keys( a ).filter( ( k ) => a[ k ] !== b[ k ] )
+			: [];
+
+	// eslint-disable-next-line no-console
+	console.warn(
+		'The `useSelect` hook returns different values when called with the same state and parameters.\n' +
+			'This can lead to unnecessary re-renders and performance issues if not fixed.\n\n' +
+			'Non-equal value keys: %s\n\n',
+		keys.join( ', ' )
+	);
+}
+
 /**
  * @typedef {import('../../types').StoreDescriptor<C>} StoreDescriptor
  * @template {import('../../types').AnyConfig} C
  */
 /**
  * @typedef {import('../../types').ReduxStoreConfig<State,Actions,Selectors>} ReduxStoreConfig
- * @template State,Selectors
+ * @template State
  * @template {Record<string,import('../../types').ActionCreator>} Actions
+ * @template Selectors
  */
 /** @typedef {import('../../types').MapSelect} MapSelect */
 /**
@@ -41,48 +61,106 @@ function Store( registry, suspense ) {
 	let lastMapResult;
 	let lastMapResultValid = false;
 	let lastIsAsync;
-	let subscribe;
+	let subscriber;
+	let didWarnUnstableReference;
+	const storeStatesOnMount = new Map();
 
-	const createSubscriber = ( stores ) => ( listener ) => {
-		// Invalidate the value right after subscription was created. React will
-		// call `getValue` after subscribing, to detect store updates that happened
-		// in the interval between the `getValue` call during render and creating
-		// the subscription, which is slightly delayed. We need to ensure that this
-		// second `getValue` call will compute a fresh value.
-		lastMapResultValid = false;
+	function getStoreState( name ) {
+		// If there's no store property (custom generic store), return an empty
+		// object. When comparing the state, the empty objects will cause the
+		// equality check to fail, setting `lastMapResultValid` to false.
+		return registry.stores[ name ]?.store?.getState?.() ?? {};
+	}
 
-		const onStoreChange = () => {
-			// Invalidate the value on store update, so that a fresh value is computed.
-			lastMapResultValid = false;
-			listener();
-		};
+	const createSubscriber = ( stores ) => {
+		// The set of stores the `subscribe` function is supposed to subscribe to. Here it is
+		// initialized, and then the `updateStores` function can add new stores to it.
+		const activeStores = [ ...stores ];
 
-		const onChange = () => {
-			if ( lastIsAsync ) {
-				renderQueue.add( queueContext, onStoreChange );
-			} else {
-				onStoreChange();
+		// The `subscribe` function, which is passed to the `useSyncExternalStore` hook, could
+		// be called multiple times to establish multiple subscriptions. That's why we need to
+		// keep a set of active subscriptions;
+		const activeSubscriptions = new Set();
+
+		function subscribe( listener ) {
+			// Maybe invalidate the value right after subscription was created.
+			// React will call `getValue` after subscribing, to detect store
+			// updates that happened in the interval between the `getValue` call
+			// during render and creating the subscription, which is slightly
+			// delayed. We need to ensure that this second `getValue` call will
+			// compute a fresh value only if any of the store states have
+			// changed in the meantime.
+			if ( lastMapResultValid ) {
+				for ( const name of activeStores ) {
+					if (
+						storeStatesOnMount.get( name ) !== getStoreState( name )
+					) {
+						lastMapResultValid = false;
+					}
+				}
 			}
-		};
 
-		const unsubs = stores.map( ( storeName ) => {
-			return registry.subscribe( onChange, storeName );
-		} );
+			storeStatesOnMount.clear();
 
-		return () => {
-			// The return value of the subscribe function could be undefined if the store is a custom generic store.
-			for ( const unsub of unsubs ) {
-				unsub?.();
+			const onStoreChange = () => {
+				// Invalidate the value on store update, so that a fresh value is computed.
+				lastMapResultValid = false;
+				listener();
+			};
+
+			const onChange = () => {
+				if ( lastIsAsync ) {
+					renderQueue.add( queueContext, onStoreChange );
+				} else {
+					onStoreChange();
+				}
+			};
+
+			const unsubs = [];
+			function subscribeStore( storeName ) {
+				unsubs.push( registry.subscribe( onChange, storeName ) );
 			}
-			// Cancel existing store updates that were already scheduled.
-			renderQueue.cancel( queueContext );
-		};
+
+			for ( const storeName of activeStores ) {
+				subscribeStore( storeName );
+			}
+
+			activeSubscriptions.add( subscribeStore );
+
+			return () => {
+				activeSubscriptions.delete( subscribeStore );
+
+				for ( const unsub of unsubs.values() ) {
+					// The return value of the subscribe function could be undefined if the store is a custom generic store.
+					unsub?.();
+				}
+				// Cancel existing store updates that were already scheduled.
+				renderQueue.cancel( queueContext );
+			};
+		}
+
+		// Check if `newStores` contains some stores we're not subscribed to yet, and add them.
+		function updateStores( newStores ) {
+			for ( const newStore of newStores ) {
+				if ( activeStores.includes( newStore ) ) {
+					continue;
+				}
+
+				// New `subscribe` calls will subscribe to `newStore`, too.
+				activeStores.push( newStore );
+
+				// Add `newStore` to existing subscriptions.
+				for ( const subscription of activeSubscriptions ) {
+					subscription( newStore );
+				}
+			}
+		}
+
+		return { subscribe, updateStores };
 	};
 
-	return ( mapSelect, resubscribe, isAsync ) => {
-		const selectValue = () => mapSelect( select, registry );
-
-		function updateValue( selectFromStore ) {
+	return ( mapSelect, isAsync ) => {
+		function updateValue() {
 			// If the last value is valid, and the `mapSelect` callback hasn't changed,
 			// then we can safely return the cached value. The value can change only on
 			// store update, and in that case value will be invalidated by the listener.
@@ -90,19 +168,43 @@ function Store( registry, suspense ) {
 				return lastMapResult;
 			}
 
-			const mapResult = selectFromStore();
+			const listeningStores = { current: null };
+			const mapResult = registry.__unstableMarkListeningStores(
+				() => mapSelect( select, registry ),
+				listeningStores
+			);
+
+			if ( globalThis.SCRIPT_DEBUG ) {
+				if ( ! didWarnUnstableReference ) {
+					const secondMapResult = mapSelect( select, registry );
+					if ( ! isShallowEqual( mapResult, secondMapResult ) ) {
+						warnOnUnstableReference( mapResult, secondMapResult );
+						didWarnUnstableReference = true;
+					}
+				}
+			}
+
+			if ( ! subscriber ) {
+				for ( const name of listeningStores.current ) {
+					storeStatesOnMount.set( name, getStoreState( name ) );
+				}
+				subscriber = createSubscriber( listeningStores.current );
+			} else {
+				subscriber.updateStores( listeningStores.current );
+			}
 
 			// If the new value is shallow-equal to the old one, keep the old one so
 			// that we don't trigger unwanted updates that do a `===` check.
 			if ( ! isShallowEqual( lastMapResult, mapResult ) ) {
 				lastMapResult = mapResult;
 			}
+			lastMapSelect = mapSelect;
 			lastMapResultValid = true;
 		}
 
 		function getValue() {
 			// Update the value in case it's been invalidated or `mapSelect` has changed.
-			updateValue( selectValue );
+			updateValue();
 			return lastMapResult;
 		}
 
@@ -114,43 +216,31 @@ function Store( registry, suspense ) {
 			renderQueue.cancel( queueContext );
 		}
 
-		// Either initialize the `subscribe` function, or create a new one if `mapSelect`
-		// changed and has dependencies.
-		// Usage without dependencies, `useSelect( ( s ) => { ... } )`, will subscribe
-		// only once, at mount, and won't resubscibe even if `mapSelect` changes.
-		if ( ! subscribe || ( resubscribe && mapSelect !== lastMapSelect ) ) {
-			// Find out what stores the `mapSelect` callback is selecting from and
-			// use that list to create subscriptions to specific stores.
-			const listeningStores = { current: null };
-			updateValue( () =>
-				registry.__unstableMarkListeningStores(
-					selectValue,
-					listeningStores
-				)
-			);
-			subscribe = createSubscriber( listeningStores.current );
-		} else {
-			updateValue( selectValue );
-		}
+		updateValue();
 
 		lastIsAsync = isAsync;
-		lastMapSelect = mapSelect;
 
 		// Return a pair of functions that can be passed to `useSyncExternalStore`.
-		return { subscribe, getValue };
+		return { subscribe: subscriber.subscribe, getValue };
 	};
 }
 
-function useStaticSelect( storeName ) {
+function _useStaticSelect( storeName ) {
 	return useRegistry().select( storeName );
 }
 
-function useMappingSelect( suspense, mapSelect, deps ) {
+function _useMappingSelect( suspense, mapSelect, deps ) {
 	const registry = useRegistry();
 	const isAsync = useAsyncMode();
-	const store = useMemo( () => Store( registry, suspense ), [ registry ] );
+	const store = useMemo(
+		() => Store( registry, suspense ),
+		[ registry, suspense ]
+	);
+
+	// These are "pass-through" dependencies from the parent hook,
+	// and the parent should catch any hook rule violations.
 	const selector = useCallback( mapSelect, deps );
-	const { subscribe, getValue } = store( selector, !! deps, isAsync );
+	const { subscribe, getValue } = store( selector, isAsync );
 	const result = useSyncExternalStore( subscribe, getValue, getValue );
 	useDebugValue( result );
 	return result;
@@ -160,7 +250,7 @@ function useMappingSelect( suspense, mapSelect, deps ) {
  * Custom react hook for retrieving props from registered selectors.
  *
  * In general, this custom React hook follows the
- * [rules of hooks](https://reactjs.org/docs/hooks-rules.html).
+ * [rules of hooks](https://react.dev/reference/rules/rules-of-hooks).
  *
  * @template {MapSelect | StoreDescriptor<any>} T
  * @param {T}         mapSelect Function called on every state change. The returned value is
@@ -234,30 +324,32 @@ export default function useSelect( mapSelect, deps ) {
 		);
 	}
 
-	/* eslint-disable react-hooks/rules-of-hooks */
 	// `staticSelectMode` is not allowed to change during the hook instance's,
 	// lifetime, so the rules of hooks are not really violated.
 	return staticSelectMode
-		? useStaticSelect( mapSelect )
-		: useMappingSelect( false, mapSelect, deps );
-	/* eslint-enable react-hooks/rules-of-hooks */
+		? _useStaticSelect( mapSelect )
+		: _useMappingSelect( false, mapSelect, deps );
 }
 
 /**
- * A variant of the `useSelect` hook that has the same API, but will throw a
- * suspense Promise if any of the called selectors is in an unresolved state.
+ * A variant of the `useSelect` hook that has the same API, but is a compatible
+ * Suspense-enabled data source.
  *
- * @param {Function} mapSelect Function called on every state change. The
- *                             returned value is exposed to the component
- *                             using this hook. The function receives the
- *                             `registry.suspendSelect` method as the first
- *                             argument and the `registry` as the second one.
- * @param {Array}    deps      A dependency array used to memoize the `mapSelect`
- *                             so that the same `mapSelect` is invoked on every
- *                             state change unless the dependencies change.
+ * @template {MapSelect} T
+ * @param {T}     mapSelect Function called on every state change. The
+ *                          returned value is exposed to the component
+ *                          using this hook. The function receives the
+ *                          `registry.suspendSelect` method as the first
+ *                          argument and the `registry` as the second one.
+ * @param {Array} deps      A dependency array used to memoize the `mapSelect`
+ *                          so that the same `mapSelect` is invoked on every
+ *                          state change unless the dependencies change.
  *
- * @return {Object} Data object returned by the `mapSelect` function.
+ * @throws {Promise} A suspense Promise that is thrown if any of the called
+ * selectors is in an unresolved state.
+ *
+ * @return {ReturnType<T>} Data object returned by the `mapSelect` function.
  */
 export function useSuspenseSelect( mapSelect, deps ) {
-	return useMappingSelect( true, mapSelect, deps );
+	return _useMappingSelect( true, mapSelect, deps );
 }

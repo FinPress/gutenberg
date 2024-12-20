@@ -7,8 +7,9 @@ import type { ReactNode } from 'react';
  * Internal dependencies
  */
 import type { HeadingSize } from '../heading/types';
+import type { DropdownMenu } from '../dropdown-menu';
 
-type ResetAllFilter = ( attributes?: any ) => any;
+export type ResetAllFilter = ( attributes?: any ) => any;
 type ResetAll = ( filters?: ResetAllFilter[] ) => void;
 
 export type ToolsPanelProps = {
@@ -16,6 +17,10 @@ export type ToolsPanelProps = {
 	 * The child elements.
 	 */
 	children: ReactNode;
+	/**
+	 * The dropdown menu props to configure the panel's `DropdownMenu`.
+	 */
+	dropdownMenuProps?: React.ComponentProps< typeof DropdownMenu >;
 	/**
 	 * Flags that the items in this ToolsPanel will be contained within an inner
 	 * wrapper element allowing the panel to lay them out accordingly.
@@ -50,6 +55,8 @@ export type ToolsPanelProps = {
 	/**
 	 * Advises the `ToolsPanel` that its child `ToolsPanelItem`s should render
 	 * placeholder content instead of null when they are toggled off and hidden.
+	 * Note that placeholder items won't apply the `className` that would be
+	 * normally applied to a visible `ToolsPanelItem` via the `className` prop.
 	 *
 	 * @default false
 	 */
@@ -67,6 +74,10 @@ export type ToolsPanelProps = {
 };
 
 export type ToolsPanelHeaderProps = {
+	/**
+	 * The dropdown menu props to configure the panel's `DropdownMenu`.
+	 */
+	dropdownMenuProps?: React.ComponentProps< typeof DropdownMenu >;
 	/**
 	 * The heading level of the panel's header.
 	 *
@@ -122,14 +133,6 @@ export type ToolsPanelItem = {
 	 * from a shared source.
 	 */
 	panelId?: string | null;
-	/**
-	 * A `ToolsPanel` will collect each item's `resetAllFilter` and pass an
-	 * array of these functions through to the panel's `resetAll` callback. They
-	 * can then be iterated over to perform additional tasks.
-	 *
-	 * @default noop
-	 */
-	resetAllFilter?: ResetAllFilter;
 };
 
 export type ToolsPanelItemProps = ToolsPanelItem & {
@@ -147,6 +150,15 @@ export type ToolsPanelItemProps = ToolsPanelItem & {
 	 * menu.
 	 */
 	onSelect?: () => void;
+
+	/**
+	 * A `ToolsPanel` will collect each item's `resetAllFilter` and pass an
+	 * array of these functions through to the panel's `resetAll` callback. They
+	 * can then be iterated over to perform additional tasks.
+	 *
+	 * @default noop
+	 */
+	resetAllFilter?: ResetAllFilter;
 };
 
 export type ToolsPanelMenuItemKey = 'default' | 'optional';
@@ -161,7 +173,10 @@ export type ToolsPanelContext = {
 	hasMenuItems: boolean;
 	registerPanelItem: ( item: ToolsPanelItem ) => void;
 	deregisterPanelItem: ( label: string ) => void;
+	registerResetAllFilter: ( filter: ResetAllFilter ) => void;
+	deregisterResetAllFilter: ( filter: ResetAllFilter ) => void;
 	flagItemCustomization: (
+		value: boolean,
 		label: string,
 		group?: ToolsPanelMenuItemKey
 	) => void;
@@ -184,4 +199,5 @@ export type ToolsPanelMenuItemsConfig = {
 	panelItems: ToolsPanelItem[];
 	shouldReset: boolean;
 	currentMenuItems?: ToolsPanelMenuItems;
+	menuItemOrder: string[];
 };

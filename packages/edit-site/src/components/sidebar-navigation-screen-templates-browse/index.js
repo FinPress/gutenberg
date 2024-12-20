@@ -2,25 +2,22 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { __experimentalUseNavigator as useNavigator } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import SidebarNavigationScreen from '../sidebar-navigation-screen';
+import DataviewsTemplatesSidebarContent from './content';
 
-const config = {
-	wp_template: {
-		title: __( 'All templates' ),
-	},
-	wp_template_part: {
-		title: __( 'All template parts' ),
-	},
-};
-
-export default function SidebarNavigationScreenTemplatesBrowse() {
-	const {
-		params: { postType },
-	} = useNavigator();
-	return <SidebarNavigationScreen title={ config[ postType ].title } />;
+export default function SidebarNavigationScreenTemplatesBrowse( { backPath } ) {
+	return (
+		<SidebarNavigationScreen
+			title={ __( 'Templates' ) }
+			description={ __(
+				'Create new templates, or reset any customizations made to the templates supplied by your theme.'
+			) }
+			backPath={ backPath }
+			content={ <DataviewsTemplatesSidebarContent /> }
+		/>
+	);
 }

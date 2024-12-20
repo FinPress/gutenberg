@@ -18,6 +18,7 @@ export const PREFERENCES_DEFAULTS = {
  * @property {number}        maxWidth                               Max width to constraint resizing
  * @property {boolean|Array} allowedBlockTypes                      Allowed block types
  * @property {boolean}       hasFixedToolbar                        Whether or not the editor toolbar is fixed
+ * @property {boolean}       distractionFree                        Whether or not the editor UI is distraction free
  * @property {boolean}       focusMode                              Whether the focus mode is enabled or not
  * @property {Array}         styles                                 Editor Styles
  * @property {boolean}       keepCaretInsideBlock                   Whether caret should move between blocks in edit mode
@@ -32,7 +33,6 @@ export const PREFERENCES_DEFAULTS = {
  * @property {boolean}       __experimentalBlockDirectory           Whether the user has enabled the Block Directory
  * @property {Array}         __experimentalBlockPatterns            Array of objects representing the block patterns
  * @property {Array}         __experimentalBlockPatternCategories   Array of objects representing the block pattern categories
- * @property {boolean}       __unstableGalleryWithImageBlocks       Whether the user has enabled the refactored gallery block which uses InnerBlocks
  */
 export const SETTINGS_DEFAULTS = {
 	alignWide: false,
@@ -167,14 +167,27 @@ export const SETTINGS_DEFAULTS = {
 	__mobileEnablePageTemplates: false,
 	__experimentalBlockPatterns: [],
 	__experimentalBlockPatternCategories: [],
-	__unstableGalleryWithImageBlocks: false,
-	__unstableIsPreviewMode: false,
 
-	// This setting is `private` now with `lock` API.
+	isPreviewMode: false,
+
+	// These settings will be completely revamped in the future.
+	// The goal is to evolve this into an API which will instruct
+	// the block inspector to animate transitions between what it
+	// displays based on the relationship between the selected block
+	// and its parent, and only enable it if the parent is controlling
+	// its children blocks.
 	blockInspectorAnimation: {
+		animationParent: 'core/navigation',
 		'core/navigation': { enterDirection: 'leftToRight' },
 		'core/navigation-submenu': { enterDirection: 'rightToLeft' },
 		'core/navigation-link': { enterDirection: 'rightToLeft' },
+		'core/search': { enterDirection: 'rightToLeft' },
+		'core/social-links': { enterDirection: 'rightToLeft' },
+		'core/page-list': { enterDirection: 'rightToLeft' },
+		'core/spacer': { enterDirection: 'rightToLeft' },
+		'core/home-link': { enterDirection: 'rightToLeft' },
+		'core/site-title': { enterDirection: 'rightToLeft' },
+		'core/site-logo': { enterDirection: 'rightToLeft' },
 	},
 
 	generateAnchors: false,

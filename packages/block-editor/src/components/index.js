@@ -5,7 +5,6 @@
 export * from './colors';
 export * from './gradients';
 export * from './font-sizes';
-export * from './duotone';
 export { AlignmentControl, AlignmentToolbar } from './alignment-control';
 export { default as Autocomplete } from './autocomplete';
 export {
@@ -17,6 +16,7 @@ export { default as __experimentalBlockAlignmentMatrixControl } from './block-al
 export { default as BlockBreadcrumb } from './block-breadcrumb';
 export { default as __experimentalUseBlockOverlayActive } from './block-content-overlay';
 export { BlockContextProvider } from './block-context';
+export { default as BlockCanvas } from './block-canvas';
 export {
 	default as BlockControls,
 	BlockFormatControls,
@@ -26,6 +26,7 @@ export { default as BlockEdit, useBlockEditContext } from './block-edit';
 export { default as BlockIcon } from './block-icon';
 export { default as BlockNavigationDropdown } from './block-navigation/dropdown';
 export { default as BlockStyles } from './block-styles';
+export { default as HeadingLevelDropdown } from './block-heading-level-dropdown';
 export { default as __experimentalBlockVariationPicker } from './block-variation-picker';
 export { default as __experimentalBlockPatternSetup } from './block-pattern-setup';
 export { default as __experimentalBlockVariationTransforms } from './block-variation-transforms';
@@ -49,6 +50,7 @@ export { default as __experimentalFontFamilyControl } from './font-family';
 export { default as __experimentalLetterSpacingControl } from './letter-spacing-control';
 export { default as __experimentalTextDecorationControl } from './text-decoration-control';
 export { default as __experimentalTextTransformControl } from './text-transform-control';
+export { default as __experimentalWritingModeControl } from './writing-mode-control';
 export { default as __experimentalColorGradientControl } from './colors-gradients/control';
 export { default as __experimentalColorGradientSettingsDropdown } from './colors-gradients/dropdown';
 export { default as __experimentalPanelColorGradientSettings } from './colors-gradients/panel-color-gradient-settings';
@@ -65,10 +67,13 @@ export {
 	JustifyToolbar,
 	JustifyContentControl,
 } from './justify-content-control';
-export { default as __experimentalLinkControl } from './link-control';
-export { default as __experimentalLinkControlSearchInput } from './link-control/search-input';
-export { default as __experimentalLinkControlSearchResults } from './link-control/search-results';
-export { default as __experimentalLinkControlSearchItem } from './link-control/search-item';
+export {
+	default as LinkControl,
+	DeprecatedExperimentalLinkControl as __experimentalLinkControl,
+} from './link-control';
+export { __experimentalLinkControlSearchInput } from './link-control/search-input';
+export { __experimentalLinkControlSearchResults } from './link-control/search-results';
+export { __experimentalLinkControlSearchItem } from './link-control/search-item';
 export { default as LineHeightControl } from './line-height-control';
 export { default as __experimentalListView } from './list-view';
 export { default as MediaReplaceFlow } from './media-replace-flow';
@@ -92,7 +97,11 @@ export { default as URLPopover } from './url-popover';
 export { __experimentalImageURLInputUI } from './url-popover/image-url-input-ui';
 export { default as withColorContext } from './color-palette/with-color-context';
 export { default as __experimentalSpacingSizesControl } from './spacing-sizes-control';
-
+export {
+	getSpacingPresetCssVar,
+	isValueSpacingPreset,
+	getCustomValueFromPreset,
+} from './spacing-sizes-control/utils';
 /*
  * Content Related Components
  */
@@ -106,7 +115,6 @@ export { default as __experimentalUseResizeCanvas } from './use-resize-canvas';
 export { default as BlockInspector } from './block-inspector';
 export { default as BlockList } from './block-list';
 export { useBlockProps } from './block-list/use-block-props';
-export { LayoutStyle as __experimentalLayoutStyle } from './block-list/layout';
 export { default as BlockMover } from './block-mover';
 export {
 	default as BlockPreview,
@@ -123,7 +131,7 @@ export { default as BlockToolbar } from './block-toolbar';
 export { default as BlockTools } from './block-tools';
 export {
 	default as CopyHandler,
-	useClipboardHandler as __unstableUseClipboardHandler,
+	__unstableUseClipboardHandler,
 } from './copy-handler';
 export { default as DefaultBlockAppender } from './default-block-appender';
 export { default as __unstableEditorStyles } from './editor-styles';
@@ -147,16 +155,21 @@ export { default as WritingFlow } from './writing-flow';
 export { default as useBlockDisplayInformation } from './use-block-display-information';
 export { default as __unstableIframe } from './iframe';
 export {
-	RecursionProvider as __experimentalRecursionProvider,
-	useHasRecursion as __experimentalUseHasRecursion,
+	RecursionProvider,
+	DeprecatedExperimentalRecursionProvider as __experimentalRecursionProvider,
+	useHasRecursion,
+	DeprecatedExperimentalUseHasRecursion as __experimentalUseHasRecursion,
 } from './recursion-provider';
 export { default as __experimentalBlockPatternsList } from './block-patterns-list';
 export { default as __experimentalPublishDateTimePicker } from './publish-date-time-picker';
 export { default as __experimentalInspectorPopoverHeader } from './inspector-popover-header';
+export { default as BlockPopover } from './block-popover';
+export { useBlockEditingMode } from './block-editing-mode';
 
 /*
  * State Related Components
  */
 
 export { default as BlockEditorProvider } from './provider';
-export { default as useSetting } from './use-setting';
+export { useSettings, useSetting } from './use-settings';
+export { useBlockCommands } from './use-block-commands';
