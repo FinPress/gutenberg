@@ -71,32 +71,17 @@ function stabilizeSupports( rawSupports ) {
 		return rawSupports;
 	}
 
-	// Create a new object to avoid mutating the original. This ensures that
-	// custom block plugins that rely on immutable supports are not affected.
-	// See: https://github.com/WordPress/gutenberg/pull/66849#issuecomment-2463614281
-	const newSupports = {};
-	for ( const [ key, value ] of Object.entries( rawSupports ) ) {
-		if (
-			key === 'typography' &&
-			typeof value === 'object' &&
-			value !== null
-		) {
-			newSupports.typography = Object.fromEntries(
-				Object.entries( value ).map(
-					( [ typographyKey, typographyValue ] ) => [
-						TYPOGRAPHY_SUPPORTS_EXPERIMENTAL_TO_STABLE[
-							typographyKey
-						] || typographyKey,
-						typographyValue,
-					]
-				)
-			);
-		} else {
-			newSupports[ key ] = value;
-		}
+	const supports = { ...rawSupports };
+	if ( supports?.typography && typeof supports.typography === 'object' ) {
+		supports.typography = Object.fromEntries(
+			Object.entries( supports.typography ).map( ( [ key, value ] ) => [
+				TYPOGRAPHY_SUPPORTS_EXPERIMENTAL_TO_STABLE[ key ] || key,
+				value,
+			] )
+		);
 	}
 
-	return newSupports;
+	return supports;
 }
 
 /**
@@ -165,12 +150,10 @@ export const processBlockType =
 		if ( settings.deprecated ) {
 			settings.deprecated = settings.deprecated.map( ( deprecation ) => {
 				// Stabilize any experimental supports before applying filters.
-				let filteredDeprecation = {
-					...deprecation,
-					supports: stabilizeSupports( deprecation.supports ),
-				};
-
-				filteredDeprecation = // Only keep valid deprecation keys.
+				deprecation.supports = stabilizeSupports(
+					deprecation.supports
+				);
+				const filteredDeprecation = // Only keep valid deprecation keys.
 					applyFilters(
 						'blocks.registerBlockType',
 						// Merge deprecation keys with pre-filter settings
@@ -180,10 +163,10 @@ export const processBlockType =
 							// Omit deprecation keys here so that deprecations
 							// can opt out of specific keys like "supports".
 							...omit( blockType, DEPRECATED_ENTRY_KEYS ),
-							...filteredDeprecation,
+							...deprecation,
 						},
 						blockType.name,
-						filteredDeprecation
+						deprecation
 					);
 				// Re-stabilize any experimental supports after applying filters.
 				// This ensures that any supports updated by filters are also stabilized.
