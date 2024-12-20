@@ -7,18 +7,22 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
  */
 const path = require( 'path' );
 
+const createPages = async ( requestUtils ) => {
+	await requestUtils.createPage( {
+		title: 'Privacy Policy',
+		status: 'publish',
+	} );
+	await requestUtils.createPage( {
+		title: 'Sample Page',
+		status: 'publish',
+	} );
+};
+
 test.describe( 'Page List', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		// Activate a theme with permissions to access the site editor.
 		await requestUtils.activateTheme( 'emptytheme' );
-		await requestUtils.createPage( {
-			title: 'Privacy Policy',
-			status: 'publish',
-		} );
-		await requestUtils.createPage( {
-			title: 'Sample Page',
-			status: 'publish',
-		} );
+		await createPages( requestUtils );
 	} );
 
 	test.afterAll( async ( { requestUtils } ) => {
@@ -60,7 +64,7 @@ test.describe( 'Page List', () => {
 
 	test.describe( 'Quick Edit Mode', () => {
 		const fields = {
-			'featured-image': {
+			featuredImage: {
 				edit: async ( page ) => {
 					const placeholder = page.getByRole( 'button', {
 						name: 'Choose an image…',
@@ -106,7 +110,7 @@ test.describe( 'Page List', () => {
 					await expect( img ).toBeVisible();
 				},
 			},
-			'status-visibility': {
+			statusVisibility: {
 				edit: async ( page ) => {
 					const statusAndVisibility = page.getByLabel(
 						'Status & Visibility'
@@ -232,6 +236,7 @@ test.describe( 'Page List', () => {
 					await expect( parent ).toContainText( 'Sample Page' );
 				},
 			},
+			// TODO: Re-enable this test once https://github.com/WordPress/gutenberg/issues/68173 is fixed
 			// template: {
 			// 	initialView: async ( page ) => {
 			// 		const template = page.getByRole( 'button', {
@@ -249,7 +254,7 @@ test.describe( 'Page List', () => {
 			// 			.click();
 			// 	},
 			// 	viewAfterEdit: async ( page ) => {
-			// 		await page.waitForTimeout( 15000 );
+			//
 			// 	},
 			// },
 			discussion: {
@@ -297,13 +302,109 @@ test.describe( 'Page List', () => {
 			( [ key, { edit, initialView, viewAfterEdit } ] ) => {
 				// Asserts are done in the individual functions
 				// eslint-disable-next-line playwright/expect-expect
-				test( key, async ( { page } ) => {
+				test( `should initialize, edit, and update ${ key } field correctly`, async ( {
+					page,
+				} ) => {
 					await initialView( page );
 					await edit( page );
 					await viewAfterEdit( page );
 				} );
 			}
 		);
+
+		test( 'should update the page according to the changes ', async ( {
+			page,
+			requestUtils,
+		} ) => {
+			const selectedItem = page.locator( '.is-selected' );
+			const imagePlaceholder = selectedItem.locator(
+				'.fields-controls__featured-image-placeholder'
+			);
+			const status = selectedItem.getByRole( 'cell', {
+				name: 'Published',
+			} );
+			await expect( status ).toBeVisible();
+
+			const { featuredImage, statusVisibility } = fields;
+			await statusVisibility.edit( page );
+			await featuredImage.edit( page );
+			// Ensure that no dropdown is open
+			await page.getByRole( 'button', { name: 'Close' } ).click();
+			const saveButton = page.getByLabel( 'Review 1 change…' );
+			await saveButton.click();
+			await page.getByRole( 'button', { name: 'Save' } ).click();
+			const updatedStatus = selectedItem.getByRole( 'cell', {
+				name: 'Private',
+			} );
+			await expect( imagePlaceholder ).toBeHidden();
+			await expect( updatedStatus ).toBeVisible();
+
+			// Reset the page to its original state
+			await requestUtils.deleteAllPages();
+			await createPages( requestUtils );
+		} );
+
+		// TODO: Wrap up this test once https://github.com/WordPress/gutenberg/pull/67584 is merged
+		// test( 'should update pages according to the changes', async ( {
+		// 	page,
+		// } ) => {
+		// 	const samplePage = page.getByRole( 'checkbox', {
+		// 		name: 'Select Item: Sample Page',
+		// 	} );
+
+		// 	await samplePage.check();
+
+		// 	const table = page.getByRole( 'table' );
+
+		// 	const selectedItems = table.locator( '.is-selected', {
+		// 		strict: false,
+		// 	} );
+
+		// 	expect( await selectedItems.all() ).toHaveLength( 2 );
+
+		// 	const imagePlaceholders = selectedItems.locator(
+		// 		'.fields-controls__featured-image-placeholder',
+		// 		{ strict: false }
+		// 	);
+
+		// 	for ( const imagePlaceholder of await imagePlaceholders.all() ) {
+		// 		await expect( imagePlaceholder ).toBeVisible();
+		// 	}
+
+		// 	const statuses = selectedItems.getByRole( 'cell', {
+		// 		name: 'Public',
+		// 	} );
+
+		// 	for ( const status of await statuses.all() ) {
+		// 		await expect( status ).toBeVisible();
+		// 	}
+
+		// 	const { featuredImage, statusVisibility } = fields;
+		// 	await statusVisibility.edit( page );
+		// 	await featuredImage.edit( page );
+		// 	// Ensure that no dropdown is open
+		// 	await page.getByRole( 'button', { name: 'Close' } ).click();
+		// 	const saveButton = page.getByLabel( 'Review 1 change…' );
+		// 	await saveButton.click();
+		// 	await page.getByRole( 'button', { name: 'Save' } ).click();
+		// 	const updatedStatus = selectedItems.getByRole(
+		// 		'cell',
+		// 		{
+		// 			name: 'Private',
+		// 		},
+		// 		{
+		// 			strict: false,
+		// 		}
+		// 	);
+
+		// 	for ( const imagePlaceholder of await imagePlaceholders.all() ) {
+		// 		await expect( imagePlaceholder ).toBeHidden();
+		// 	}
+
+		// 	for ( const status of await updatedStatus.all() ) {
+		// 		await expect( status ).toBeVisible();
+		// 	}
+		// } );
 
 		test.afterAll( async ( { requestUtils } ) => {
 			await requestUtils.setGutenbergExperiments( [] );
