@@ -193,7 +193,7 @@ function ShadowItem( { shadow, category } ) {
 		<NavigationButtonAsItem
 			path={ `/shadows/edit/${ category }/${ shadow.slug }` }
 		>
-			<HStack justify="space-between">
+			<HStack>
 				<FlexItem>{ shadow.name }</FlexItem>
 				<Icon icon={ isRTL() ? chevronLeft : chevronRight } />
 			</HStack>
