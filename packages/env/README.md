@@ -692,6 +692,7 @@ You can tell `wp-env` to use a custom port number so that your instance does not
 ```
 
 These can also be set via environment variables:
+
 - `WP_ENV_PORT` to override the development environment's web server's port.
 - `WP_ENV_TESTS_PORT` to override the testing environment's web server's port.
 - phpMyAdmin is not enabled by default, but its port can also be overridden for the development and testing environments via `WP_ENV_PHPMYADMIN_PORT` and `WP_ENV_TESTS_PHPMYADMIN_PORT`, respectively.
