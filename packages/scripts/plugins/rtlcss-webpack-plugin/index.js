@@ -2,7 +2,7 @@
  * Parts of this source were derived and modified from the package
  * rtlcss-webpack-plugin, released under the MIT license.
  *
- * https://github.com/wix-incubator/rtlcss-webpack-plugin/blob/master/LICENSE
+ * https://github.com/wix-incubator/rtlcss-webpack-plugin
  *
  * Copyright (c) 2018 Wix.com
  *
