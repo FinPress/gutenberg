@@ -63,7 +63,7 @@ export default function ShadowsPanel() {
 			{ isResetDialogOpen && (
 				<ConfirmResetShadowDialog
 					text={ __(
-						'Are you sure you want to remove all custom Shadows?'
+						'Are you sure you want to remove all custom shadows?'
 					) }
 					confirmButtonText={ __( 'Remove' ) }
 					isOpen={ isResetDialogOpen }
