@@ -149,7 +149,7 @@ export const STYLE_BOOK_CATEGORIES: StyleBookCategory[] = [
 ];
 
 // Style book preview subcategories for all blocks section.
-export const STYPE_BOOK_ALL_BLOCKS_SUBCATEGORIES: StyleBookCategory[] = [
+export const STYLE_BOOK_ALL_BLOCKS_SUBCATEGORIES: StyleBookCategory[] = [
 	...STYLE_BOOK_THEME_SUBCATEGORIES,
 	{
 		slug: 'media',
@@ -193,7 +193,7 @@ export const STYLE_BOOK_PREVIEW_CATEGORIES: StyleBookCategory[] = [
 		slug: 'blocks',
 		title: __( 'All Blocks' ),
 		blocks: [],
-		subcategories: STYPE_BOOK_ALL_BLOCKS_SUBCATEGORIES,
+		subcategories: STYLE_BOOK_ALL_BLOCKS_SUBCATEGORIES,
 	},
 ];
 

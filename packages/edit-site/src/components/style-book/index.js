@@ -429,15 +429,35 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 		previewCategory = 'text';
 	} else if ( section.includes( '/blocks' ) ) {
 		previewCategory = 'blocks';
+		const blockName =
+			decodeURIComponent( section ).split( '/blocks/' )[ 1 ];
+		if ( blockName ) {
+			previewCategory = blockName;
+		}
 	} else if ( ! isStatic ) {
 		previewCategory = 'overview';
 	}
 	const categoryDefinition = STYLE_BOOK_PREVIEW_CATEGORIES.find(
 		( category ) => category.slug === previewCategory
 	);
+
+	// If there's no category definition there may be a single block.
 	const filteredExamples = categoryDefinition
 		? getExamplesByCategory( categoryDefinition, examples )
-		: { examples: examplesForSinglePageUse };
+		: {
+				examples: [
+					examples.find(
+						( example ) => example.name === previewCategory
+					),
+				],
+		  };
+
+	// If the filtered examples are empty, show all examples.
+	const displayedExamples =
+		filteredExamples.examples || filteredExamples.subcategories
+			? filteredExamples
+			: { examples: examplesForSinglePageUse };
+
 	const { base: baseConfig } = useContext( GlobalStylesContext );
 	const goTo = getStyleBookNavigationFromPath( section );
 
@@ -468,7 +488,7 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 			<BlockEditorProvider settings={ settings }>
 				<GlobalStylesRenderer disableRootPadding />
 				<StyleBookBody
-					examples={ filteredExamples }
+					examples={ displayedExamples }
 					settings={ settings }
 					goTo={ goTo }
 					sizes={ sizes }
