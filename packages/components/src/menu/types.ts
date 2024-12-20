@@ -27,6 +27,7 @@ export interface MenuProps {
 	 *
 	 * Note: this prop will be overridden by the `open` prop if it is
 	 * provided (meaning the component will be used in "controlled" mode).
+	 *
 	 * @default false
 	 */
 	defaultOpen?: Ariakit.MenuProviderProps[ 'defaultOpen' ];
@@ -186,6 +187,8 @@ export interface MenuItemProps {
 	 * Determines if the element is disabled. This sets the `aria-disabled`
 	 * attribute accordingly, enabling support for all elements, including those
 	 * that don't support the native `disabled` attribute.
+	 *
+	 * @default false
 	 */
 	disabled?: Ariakit.MenuItemProps[ 'disabled' ];
 	/**
@@ -227,6 +230,8 @@ export interface MenuCheckboxItemProps {
 	 * Determines if the element is disabled. This sets the `aria-disabled`
 	 * attribute accordingly, enabling support for all elements, including those
 	 * that don't support the native `disabled` attribute.
+	 *
+	 * @default false
 	 */
 	disabled?: Ariakit.MenuItemCheckboxProps[ 'disabled' ];
 	/**
@@ -289,6 +294,8 @@ export interface MenuRadioItemProps {
 	 * Determines if the element is disabled. This sets the `aria-disabled`
 	 * attribute accordingly, enabling support for all elements, including those
 	 * that don't support the native `disabled` attribute.
+	 *
+	 * @default false
 	 */
 	disabled?: Ariakit.MenuItemRadioProps[ 'disabled' ];
 	/**
