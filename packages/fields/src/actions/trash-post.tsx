@@ -27,25 +27,7 @@ const trashPost: Action< PostWithPermissions > = {
 	isPrimary: true,
 	icon: trash,
 	isEligible( item ) {
-		const frontPageId = (
-			select( coreStore ).getEntityRecord( 'root', 'site' ) as {
-				page_on_front?: number;
-			}
-		 )?.page_on_front;
-		const postsPageId = (
-			select( coreStore ).getEntityRecord( 'root', 'site' ) as {
-				page_for_posts?: number;
-			}
-		 )?.page_for_posts;
-		// Check if the item is either the front page or posts page.
-		const isSpecialPage =
-			item.id === frontPageId || item.id === postsPageId;
-
-		if (
-			isSpecialPage ||
-			isTemplateOrTemplatePart( item ) ||
-			item.type === 'wp_block'
-		) {
+		if ( isTemplateOrTemplatePart( item ) || item.type === 'wp_block' ) {
 			return false;
 		}
 
@@ -62,6 +44,22 @@ const trashPost: Action< PostWithPermissions > = {
 		const { createSuccessNotice, createErrorNotice } =
 			useDispatch( noticesStore );
 		const { deleteEntityRecord } = useDispatch( coreStore );
+
+		const frontPageId = (
+			select( coreStore ).getEntityRecord( 'root', 'site' ) as {
+				page_on_front?: number;
+			}
+		 )?.page_on_front;
+		const postsPageId = (
+			select( coreStore ).getEntityRecord( 'root', 'site' ) as {
+				page_for_posts?: number;
+			}
+		 )?.page_for_posts;
+
+		const isSpecialPage = items.some(
+			( item ) => item.id === frontPageId || item.id === postsPageId
+		);
+
 		return (
 			<VStack spacing="5">
 				<Text>
@@ -83,6 +81,18 @@ const trashPost: Action< PostWithPermissions > = {
 								items.length
 						  ) }
 				</Text>
+				{ isSpecialPage && (
+					<Text style={ { color: 'red' } }>
+						{ items.some( ( item ) => item.id === frontPageId ) &&
+							__(
+								'This page is currently set as the Home Page. Please select another page as the Front Page before deleting this one.'
+							) }
+						{ items.some( ( item ) => item.id === postsPageId ) &&
+							__(
+								'This page is currently set as the Posts Page. Please select another page as the Posts Page before deleting this one.'
+							) }
+					</Text>
+				) }
 				<HStack justify="right">
 					<Button
 						__next40pxDefaultSize
@@ -202,7 +212,7 @@ const trashPost: Action< PostWithPermissions > = {
 							closeModal?.();
 						} }
 						isBusy={ isBusy }
-						disabled={ isBusy }
+						disabled={ isBusy || isSpecialPage }
 						accessibleWhenDisabled
 					>
 						{ _x( 'Trash', 'verb' ) }
