@@ -6,45 +6,52 @@ import { useState } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import TextDecorationControl from '../';
+import PlainText from '..';
 
 const meta = {
-	title: 'BlockEditor/TextDecorationControl',
-	component: TextDecorationControl,
+	title: 'BlockEditor/PlainText',
+	component: PlainText,
 	parameters: {
 		docs: {
 			canvas: { sourceState: 'shown' },
 			description: {
-				component: 'Control to facilitate text decoration selections.',
+				component:
+					'PlainText renders an auto-growing textarea that allows users to enter any textual content.',
 			},
 		},
 	},
 	argTypes: {
 		value: {
-			control: { type: null },
-			description: 'Currently selected text decoration.',
+			control: {
+				type: null,
+			},
 			table: {
 				type: {
 					summary: 'string',
 				},
 			},
+			description: 'String value of the textarea.',
 		},
 		onChange: {
 			action: 'onChange',
-			control: { type: null },
-			description: 'Handles change in text decoration selection.',
+			control: {
+				type: null,
+			},
 			table: {
 				type: {
 					summary: 'function',
 				},
 			},
+			description: 'Function called when the text value changes.',
 		},
 		className: {
 			control: 'text',
-			description: 'Additional class name to apply.',
 			table: {
-				type: { summary: 'string' },
+				type: {
+					summary: 'string',
+				},
 			},
+			description: 'Additional class name for the PlainText.',
 		},
 	},
 };
@@ -55,7 +62,7 @@ export const Default = {
 	render: function Template( { onChange, ...args } ) {
 		const [ value, setValue ] = useState();
 		return (
-			<TextDecorationControl
+			<PlainText
 				{ ...args }
 				onChange={ ( ...changeArgs ) => {
 					onChange( ...changeArgs );
