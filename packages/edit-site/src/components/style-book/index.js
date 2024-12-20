@@ -431,7 +431,10 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 		previewCategory = 'blocks';
 		const blockName =
 			decodeURIComponent( section ).split( '/blocks/' )[ 1 ];
-		if ( blockName ) {
+		if (
+			blockName &&
+			examples.find( ( example ) => example.name === blockName )
+		) {
 			previewCategory = blockName;
 		}
 	} else if ( ! isStatic ) {
