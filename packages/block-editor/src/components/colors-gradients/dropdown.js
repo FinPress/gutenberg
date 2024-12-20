@@ -84,6 +84,7 @@ const renderToggle =
 	( settings ) =>
 	( { onToggle, isOpen } ) => {
 		const {
+			clearable,
 			colorValue,
 			gradientValue,
 			onColorChange,
@@ -120,7 +121,7 @@ const renderToggle =
 						label={ label }
 					/>
 				</Button>
-				{ value && (
+				{ clearable && value && (
 					<Button
 						__next40pxDefaultSize
 						label={ __( 'Reset' ) }
@@ -187,6 +188,7 @@ export default function ColorGradientSettingsDropdown( {
 					...setting,
 				};
 				const toggleSettings = {
+					clearable: controlProps.clearable,
 					label: setting.label,
 					colorValue: setting.colorValue,
 					gradientValue: setting.gradientValue,
