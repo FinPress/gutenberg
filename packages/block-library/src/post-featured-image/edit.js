@@ -27,6 +27,8 @@ import {
 	__experimentalUseBorderProps as useBorderProps,
 	__experimentalGetShadowClassesAndStyles as getShadowClassesAndStyles,
 	useBlockEditingMode,
+	privateApis as blockEditorPrivateApis,
+	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { useMemo, useEffect, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
@@ -40,14 +42,11 @@ import DimensionControls from './dimension-controls';
 import OverlayControls from './overlay-controls';
 import Overlay from './overlay';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+import { unlock } from '../lock-unlock';
+import { DEFAULT_MEDIA_SIZE_SLUG } from './constants';
 
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
-
-function getMediaSourceUrlBySizeSlug( media, slug ) {
-	return (
-		media?.media_details?.sizes?.[ slug ]?.source_url || media?.source_url
-	);
-}
+const { ResolutionTool } = unlock( blockEditorPrivateApis );
 
 const disabledClickProps = {
 	onClick: ( event ) => event.preventDefault(),
@@ -130,7 +129,23 @@ export default function PostFeaturedImageEdit( {
 		[ featuredImage, postTypeSlug, postId ]
 	);
 
-	const mediaUrl = getMediaSourceUrlBySizeSlug( media, sizeSlug );
+	const imageSizes = useSelect(
+		( select ) => select( blockEditorStore ).getSettings().imageSizes,
+		[]
+	);
+
+	const imageSizeOptions = imageSizes
+		.filter( ( { slug } ) => {
+			return media?.media_details?.sizes?.[ slug ]?.source_url;
+		} )
+		.map( ( { name, slug } ) => ( {
+			value: slug,
+			label: name,
+		} ) );
+
+	const mediaUrl =
+		media?.media_details?.sizes?.[ sizeSlug ]?.source_url ||
+		media?.source_url;
 
 	const blockProps = useBlockProps( {
 		style: { width, height, aspectRatio },
@@ -295,6 +310,16 @@ export default function PostFeaturedImageEdit( {
 								}
 							/>
 						</ToolsPanelItem>
+					) }
+					{ !! imageSizeOptions?.length && (
+						<ResolutionTool
+							value={ sizeSlug }
+							options={ imageSizeOptions }
+							onChange={ ( nextSizeSlug ) =>
+								setAttributes( { sizeSlug: nextSizeSlug } )
+							}
+							defaultValue={ DEFAULT_MEDIA_SIZE_SLUG }
+						/>
 					) }
 				</ToolsPanel>
 			</InspectorControls>
