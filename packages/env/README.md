@@ -490,7 +490,7 @@ You can customize the WordPress installation, plugins and themes that the develo
 | `"config"`         | `Object`       | See below.                             | Mapping of wp-config.php constants to their desired values.                                                                      |
 | `"mappings"`       | `Object`       | `"{}"`                                 | Mapping of WordPress directories to local directories to be mounted in the WordPress instance.                                   |
 | `"mysqlPort"`      | `integer`      | `null` (randomly assigned)             | The MySQL port number to expose. The setting is only available in the `env.development` and `env.tests` objects.                 |
-| `"phpmyadminPort"` | `integer`      | `null`                                 | The phpMyAdmin port number to expose. If a non-null number is defined, phpMyAdmin will be exposed.                               |
+| `"phpmyadminPort"` | `integer`      | `null`                                 | The port number for phpMyAdmin. If provided, you'll access phpMyAdmin through: http://localhost:<port>                           |
 | `"multisite"`      | `boolean`      | `false`                                | Whether to set up a multisite installation.                                                                                      |
 
 _Note: the port number environment variables (`WP_ENV_PORT` and `WP_ENV_TESTS_PORT`) take precedent over the .wp-env.json values._
