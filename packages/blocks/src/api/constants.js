@@ -298,16 +298,7 @@ export const __EXPERIMENTAL_PATHS_WITH_OVERRIDE = {
 	'spacing.spacingSizes': true,
 };
 
-export const EXPERIMENTAL_SUPPORTS_MAP = {
-	__experimentalBorder: 'border',
-};
-
-export const COMMON_EXPERIMENTAL_PROPERTIES = {
-	__experimentalDefaultControls: 'defaultControls',
-	__experimentalSkipSerialization: 'skipSerialization',
-};
-
-export const EXPERIMENTAL_SUPPORT_PROPERTIES = {
+export const EXPERIMENTAL_TO_STABLE_KEYS = {
 	typography: {
 		__experimentalFontFamily: 'fontFamily',
 		__experimentalFontStyle: 'fontStyle',
@@ -316,4 +307,5 @@ export const EXPERIMENTAL_SUPPORT_PROPERTIES = {
 		__experimentalTextDecoration: 'textDecoration',
 		__experimentalTextTransform: 'textTransform',
 	},
+	__experimentalBorder: 'border',
 };

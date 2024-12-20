@@ -26,7 +26,7 @@ describe( 'processBlockType', () => {
 		removeFilter( 'blocks.registerBlockType', 'test/filterSupports' );
 	} );
 
-	it( 'should stabilize experimental block supports', () => {
+	it( 'should return the block type with stabilized supports', () => {
 		const blockSettings = {
 			...baseBlockSettings,
 			supports: {
@@ -66,7 +66,7 @@ describe( 'processBlockType', () => {
 			blockSettings
 		)( { select } );
 
-		expect( processedBlockType.supports ).toMatchObject( {
+		expect( processedBlockType.supports ).toEqual( {
 			typography: {
 				fontSize: true,
 				lineHeight: true,
@@ -77,7 +77,7 @@ describe( 'processBlockType', () => {
 				textTransform: true,
 				textDecoration: true,
 				__experimentalWritingMode: true,
-				defaultControls: {
+				__experimentalDefaultControls: {
 					fontSize: true,
 					fontAppearance: true,
 					textTransform: true,
@@ -88,7 +88,79 @@ describe( 'processBlockType', () => {
 				radius: true,
 				style: true,
 				width: true,
-				defaultControls: {
+				__experimentalDefaultControls: {
+					color: true,
+					radius: true,
+					style: true,
+					width: true,
+				},
+			},
+		} );
+	} );
+
+	it( 'should return the block type with stable supports', () => {
+		const blockSettings = {
+			...baseBlockSettings,
+			supports: {
+				typography: {
+					fontSize: true,
+					lineHeight: true,
+					fontFamily: true,
+					fontStyle: true,
+					fontWeight: true,
+					letterSpacing: true,
+					textTransform: true,
+					textDecoration: true,
+					__experimentalWritingMode: true,
+					__experimentalDefaultControls: {
+						fontSize: true,
+						fontAppearance: true,
+						textTransform: true,
+					},
+				},
+				__experimentalBorder: {
+					color: true,
+					radius: true,
+					style: true,
+					width: true,
+					__experimentalDefaultControls: {
+						color: true,
+						radius: true,
+						style: true,
+						width: true,
+					},
+				},
+			},
+		};
+
+		const processedBlockType = processBlockType(
+			'test/block',
+			blockSettings
+		)( { select } );
+
+		expect( processedBlockType.supports ).toEqual( {
+			typography: {
+				fontSize: true,
+				lineHeight: true,
+				fontFamily: true,
+				fontStyle: true,
+				fontWeight: true,
+				letterSpacing: true,
+				textTransform: true,
+				textDecoration: true,
+				__experimentalWritingMode: true,
+				__experimentalDefaultControls: {
+					fontSize: true,
+					fontAppearance: true,
+					textTransform: true,
+				},
+			},
+			border: {
+				color: true,
+				radius: true,
+				style: true,
+				width: true,
+				__experimentalDefaultControls: {
 					color: true,
 					radius: true,
 					style: true,
@@ -155,7 +227,7 @@ describe( 'processBlockType', () => {
 			blockSettings
 		)( { select } );
 
-		expect( processedBlockType.supports ).toMatchObject( {
+		expect( processedBlockType.supports ).toEqual( {
 			typography: {
 				fontSize: true,
 				lineHeight: true,
@@ -166,7 +238,7 @@ describe( 'processBlockType', () => {
 				textTransform: true,
 				textDecoration: true,
 				__experimentalWritingMode: true,
-				defaultControls: {
+				__experimentalDefaultControls: {
 					fontSize: true,
 					fontAppearance: true,
 					textTransform: true,
@@ -177,7 +249,7 @@ describe( 'processBlockType', () => {
 				radius: false,
 				style: true,
 				width: true,
-				defaultControls: {
+				__experimentalDefaultControls: {
 					color: true,
 					radius: true,
 					style: true,
@@ -187,8 +259,8 @@ describe( 'processBlockType', () => {
 		} );
 	} );
 
-	describe( 'block deprecations', () => {
-		const deprecatedBlockSettings = {
+	it( 'should stabilize experimental supports within block deprecations', () => {
+		const blockSettings = {
 			...baseBlockSettings,
 			supports: {
 				typography: {
@@ -249,241 +321,144 @@ describe( 'processBlockType', () => {
 			],
 		};
 
-		beforeEach( () => {
-			// Freeze the deprecated block object and its supports so that the original is not mutated.
-			Object.freeze( deprecatedBlockSettings.deprecated[ 0 ] );
-			Object.freeze( deprecatedBlockSettings.deprecated[ 0 ].supports );
-		} );
+		// Freeze the deprecated block object and its supports so that the original is not mutated.
+		// This ensures the test covers a regression where the original object was mutated.
+		// See: https://github.com/WordPress/gutenberg/pull/63401#discussion_r1832394335.
+		Object.freeze( blockSettings.deprecated[ 0 ] );
+		Object.freeze( blockSettings.deprecated[ 0 ].supports );
 
-		it( 'should stabilize experimental supports', () => {
-			const processedBlockType = processBlockType(
-				'test/block',
-				deprecatedBlockSettings
-			)( { select } );
+		const processedBlockType = processBlockType(
+			'test/block',
+			blockSettings
+		)( { select } );
 
-			expect( processedBlockType.deprecated[ 0 ].supports ).toMatchObject(
-				{
-					typography: {
-						fontFamily: true,
-						fontStyle: true,
-						fontWeight: true,
-						letterSpacing: true,
-						textTransform: true,
-						textDecoration: true,
-						__experimentalWritingMode: true,
-					},
-					border: {
-						color: true,
-						radius: true,
-						style: true,
-						width: true,
-						defaultControls: {
-							color: true,
-							radius: true,
-							style: true,
-							width: true,
-						},
-					},
-				}
-			);
-		} );
-
-		it( 'should reapply transformations after supports are filtered', () => {
-			addFilter(
-				'blocks.registerBlockType',
-				'test/filterSupports',
-				( settings, name ) => {
-					if (
-						name === 'test/block' &&
-						settings.supports.typography
-					) {
-						settings.supports.typography.__experimentalFontFamily = false;
-						settings.supports.typography.__experimentalFontStyle = false;
-						settings.supports.typography.__experimentalFontWeight = false;
-						settings.supports.__experimentalBorder = {
-							radius: false,
-						};
-					}
-					return settings;
-				}
-			);
-
-			const processedBlockType = processBlockType(
-				'test/block',
-				deprecatedBlockSettings
-			)( { select } );
-
-			expect( processedBlockType.deprecated[ 0 ].supports ).toMatchObject(
-				{
-					typography: {
-						fontFamily: false,
-						fontStyle: false,
-						fontWeight: false,
-						letterSpacing: true,
-						textTransform: true,
-						textDecoration: true,
-						__experimentalWritingMode: true,
-					},
-					border: {
-						color: true,
-						radius: false,
-						style: true,
-						width: true,
-						defaultControls: {
-							color: true,
-							radius: true,
-							style: true,
-							width: true,
-						},
-					},
-				}
-			);
+		expect( processedBlockType.deprecated[ 0 ].supports ).toEqual( {
+			typography: {
+				fontFamily: true,
+				fontStyle: true,
+				fontWeight: true,
+				letterSpacing: true,
+				textTransform: true,
+				textDecoration: true,
+				__experimentalWritingMode: true,
+			},
+			border: {
+				color: true,
+				radius: true,
+				style: true,
+				width: true,
+				__experimentalDefaultControls: {
+					color: true,
+					radius: true,
+					style: true,
+					width: true,
+				},
+			},
 		} );
 	} );
 
-	it( 'should stabilize common experimental properties across all supports', () => {
+	it( 'should reapply transformations after supports are filtered within block deprecations', () => {
 		const blockSettings = {
 			...baseBlockSettings,
 			supports: {
 				typography: {
 					fontSize: true,
+					lineHeight: true,
+					fontFamily: true,
+					fontStyle: true,
+					fontWeight: true,
+					letterSpacing: true,
+					textTransform: true,
+					textDecoration: true,
+					__experimentalWritingMode: true,
 					__experimentalDefaultControls: {
 						fontSize: true,
+						fontAppearance: true,
+						textTransform: true,
 					},
-					__experimentalSkipSerialization: true,
 				},
-				spacing: {
-					padding: true,
+				border: {
+					color: true,
+					radius: true,
+					style: true,
+					width: true,
 					__experimentalDefaultControls: {
-						padding: true,
+						color: true,
+						radius: true,
+						style: true,
+						width: true,
 					},
-					__experimentalSkipSerialization: true,
 				},
 			},
+			deprecated: [
+				{
+					supports: {
+						typography: {
+							__experimentalFontFamily: true,
+							__experimentalFontStyle: true,
+							__experimentalFontWeight: true,
+							__experimentalLetterSpacing: true,
+							__experimentalTextTransform: true,
+							__experimentalTextDecoration: true,
+							__experimentalWritingMode: true,
+						},
+						__experimentalBorder: {
+							color: true,
+							radius: true,
+							style: true,
+							width: true,
+							__experimentalDefaultControls: {
+								color: true,
+								radius: true,
+								style: true,
+								width: true,
+							},
+						},
+					},
+				},
+			],
 		};
+
+		addFilter(
+			'blocks.registerBlockType',
+			'test/filterSupports',
+			( settings, name ) => {
+				if ( name === 'test/block' && settings.supports.typography ) {
+					settings.supports.typography.__experimentalFontFamily = false;
+					settings.supports.typography.__experimentalFontStyle = false;
+					settings.supports.typography.__experimentalFontWeight = false;
+					settings.supports.__experimentalBorder = { radius: false };
+				}
+				return settings;
+			}
+		);
 
 		const processedBlockType = processBlockType(
 			'test/block',
 			blockSettings
 		)( { select } );
 
-		expect( processedBlockType.supports ).toMatchObject( {
+		expect( processedBlockType.deprecated[ 0 ].supports ).toEqual( {
 			typography: {
-				fontSize: true,
-				defaultControls: {
-					fontSize: true,
-				},
-				skipSerialization: true,
-				__experimentalSkipSerialization: true,
+				fontFamily: false,
+				fontStyle: false,
+				fontWeight: false,
+				letterSpacing: true,
+				textTransform: true,
+				textDecoration: true,
+				__experimentalWritingMode: true,
 			},
-			spacing: {
-				padding: true,
-				defaultControls: {
-					padding: true,
-				},
-				skipSerialization: true,
-				__experimentalSkipSerialization: true,
-			},
-		} );
-	} );
-
-	it( 'should merge experimental and stable keys in order of definition', () => {
-		const blockSettings = {
-			...baseBlockSettings,
-			supports: {
-				__experimentalBorder: {
-					color: true,
-					radius: false,
-				},
-				border: {
-					color: false,
-					style: true,
-				},
-			},
-		};
-
-		const processedBlockType = processBlockType(
-			'test/block',
-			blockSettings
-		)( { select } );
-
-		expect( processedBlockType.supports ).toMatchObject( {
-			border: {
-				color: false,
-				radius: false,
-				style: true,
-			},
-		} );
-
-		const reversedSettings = {
-			...baseBlockSettings,
-			supports: {
-				border: {
-					color: false,
-					style: true,
-				},
-				__experimentalBorder: {
-					color: true,
-					radius: false,
-				},
-			},
-		};
-
-		const reversedProcessedType = processBlockType(
-			'test/block',
-			reversedSettings
-		)( { select } );
-
-		expect( reversedProcessedType.supports ).toMatchObject( {
 			border: {
 				color: true,
 				radius: false,
 				style: true,
-			},
-		} );
-	} );
-
-	it( 'should handle non-object config values', () => {
-		const blockSettings = {
-			...baseBlockSettings,
-			supports: {
-				__experimentalBorder: true,
-				border: false,
-			},
-		};
-
-		const processedBlockType = processBlockType(
-			'test/block',
-			blockSettings
-		)( { select } );
-
-		expect( processedBlockType.supports ).toMatchObject( {
-			border: false,
-		} );
-	} );
-
-	it( 'should not modify supports that do not need stabilization', () => {
-		const blockSettings = {
-			...baseBlockSettings,
-			supports: {
-				align: true,
-				spacing: {
-					padding: true,
-					margin: true,
+				width: true,
+				__experimentalDefaultControls: {
+					color: true,
+					radius: true,
+					style: true,
+					width: true,
 				},
-			},
-		};
-
-		const processedBlockType = processBlockType(
-			'test/block',
-			blockSettings
-		)( { select } );
-
-		expect( processedBlockType.supports ).toMatchObject( {
-			align: true,
-			spacing: {
-				padding: true,
-				margin: true,
 			},
 		} );
 	} );

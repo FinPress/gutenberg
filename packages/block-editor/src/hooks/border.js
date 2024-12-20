@@ -161,8 +161,14 @@ export function BorderPanel( { clientId, name, setAttributes, settings } ) {
 	}
 
 	const defaultControls = {
-		...getBlockSupport( name, [ BORDER_SUPPORT_KEY, 'defaultControls' ] ),
-		...getBlockSupport( name, [ SHADOW_SUPPORT_KEY, 'defaultControls' ] ),
+		...getBlockSupport( name, [
+			BORDER_SUPPORT_KEY,
+			'__experimentalDefaultControls',
+		] ),
+		...getBlockSupport( name, [
+			SHADOW_SUPPORT_KEY,
+			'__experimentalDefaultControls',
+		] ),
 	};
 
 	return (
