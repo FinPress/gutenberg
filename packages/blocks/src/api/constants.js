@@ -58,12 +58,12 @@ export const __EXPERIMENTAL_STYLE_PROPERTY = {
 	},
 	borderColor: {
 		value: [ 'border', 'color' ],
-		support: [ 'border', 'color' ],
+		support: [ '__experimentalBorder', 'color' ],
 		useEngine: true,
 	},
 	borderRadius: {
 		value: [ 'border', 'radius' ],
-		support: [ 'border', 'radius' ],
+		support: [ '__experimentalBorder', 'radius' ],
 		properties: {
 			borderTopLeftRadius: 'topLeft',
 			borderTopRightRadius: 'topRight',
@@ -74,72 +74,72 @@ export const __EXPERIMENTAL_STYLE_PROPERTY = {
 	},
 	borderStyle: {
 		value: [ 'border', 'style' ],
-		support: [ 'border', 'style' ],
+		support: [ '__experimentalBorder', 'style' ],
 		useEngine: true,
 	},
 	borderWidth: {
 		value: [ 'border', 'width' ],
-		support: [ 'border', 'width' ],
+		support: [ '__experimentalBorder', 'width' ],
 		useEngine: true,
 	},
 	borderTopColor: {
 		value: [ 'border', 'top', 'color' ],
-		support: [ 'border', 'color' ],
+		support: [ '__experimentalBorder', 'color' ],
 		useEngine: true,
 	},
 	borderTopStyle: {
 		value: [ 'border', 'top', 'style' ],
-		support: [ 'border', 'style' ],
+		support: [ '__experimentalBorder', 'style' ],
 		useEngine: true,
 	},
 	borderTopWidth: {
 		value: [ 'border', 'top', 'width' ],
-		support: [ 'border', 'width' ],
+		support: [ '__experimentalBorder', 'width' ],
 		useEngine: true,
 	},
 	borderRightColor: {
 		value: [ 'border', 'right', 'color' ],
-		support: [ 'border', 'color' ],
+		support: [ '__experimentalBorder', 'color' ],
 		useEngine: true,
 	},
 	borderRightStyle: {
 		value: [ 'border', 'right', 'style' ],
-		support: [ 'border', 'style' ],
+		support: [ '__experimentalBorder', 'style' ],
 		useEngine: true,
 	},
 	borderRightWidth: {
 		value: [ 'border', 'right', 'width' ],
-		support: [ 'border', 'width' ],
+		support: [ '__experimentalBorder', 'width' ],
 		useEngine: true,
 	},
 	borderBottomColor: {
 		value: [ 'border', 'bottom', 'color' ],
-		support: [ 'border', 'color' ],
+		support: [ '__experimentalBorder', 'color' ],
 		useEngine: true,
 	},
 	borderBottomStyle: {
 		value: [ 'border', 'bottom', 'style' ],
-		support: [ 'border', 'style' ],
+		support: [ '__experimentalBorder', 'style' ],
 		useEngine: true,
 	},
 	borderBottomWidth: {
 		value: [ 'border', 'bottom', 'width' ],
-		support: [ 'border', 'width' ],
+		support: [ '__experimentalBorder', 'width' ],
 		useEngine: true,
 	},
 	borderLeftColor: {
 		value: [ 'border', 'left', 'color' ],
-		support: [ 'border', 'color' ],
+		support: [ '__experimentalBorder', 'color' ],
 		useEngine: true,
 	},
 	borderLeftStyle: {
 		value: [ 'border', 'left', 'style' ],
-		support: [ 'border', 'style' ],
+		support: [ '__experimentalBorder', 'style' ],
 		useEngine: true,
 	},
 	borderLeftWidth: {
 		value: [ 'border', 'left', 'width' ],
-		support: [ 'border', 'width' ],
+		support: [ '__experimentalBorder', 'width' ],
 		useEngine: true,
 	},
 	color: {
@@ -298,14 +298,11 @@ export const __EXPERIMENTAL_PATHS_WITH_OVERRIDE = {
 	'spacing.spacingSizes': true,
 };
 
-export const EXPERIMENTAL_TO_STABLE_KEYS = {
-	typography: {
-		__experimentalFontFamily: 'fontFamily',
-		__experimentalFontStyle: 'fontStyle',
-		__experimentalFontWeight: 'fontWeight',
-		__experimentalLetterSpacing: 'letterSpacing',
-		__experimentalTextDecoration: 'textDecoration',
-		__experimentalTextTransform: 'textTransform',
-	},
-	__experimentalBorder: 'border',
+export const TYPOGRAPHY_SUPPORTS_EXPERIMENTAL_TO_STABLE = {
+	__experimentalFontFamily: 'fontFamily',
+	__experimentalFontStyle: 'fontStyle',
+	__experimentalFontWeight: 'fontWeight',
+	__experimentalLetterSpacing: 'letterSpacing',
+	__experimentalTextDecoration: 'textDecoration',
+	__experimentalTextTransform: 'textTransform',
 };
