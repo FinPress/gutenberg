@@ -67,7 +67,7 @@ const meta = {
 } satisfies Meta< typeof Menu >;
 export default meta;
 
-type Story = StoryObj< typeof meta >;
+type Story = StoryObj< MenuProps >;
 
 export const Default: Story = {
 	args: {
