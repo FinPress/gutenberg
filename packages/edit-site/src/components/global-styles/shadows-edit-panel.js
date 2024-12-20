@@ -392,7 +392,13 @@ function ShadowItem( { shadow, onChange, canRemove, onRemove } ) {
 					'aria-expanded': isOpen,
 				};
 				const removeButtonProps = {
-					onClick: onRemove,
+					onClick: ( e ) => {
+						e.stopPropagation();
+						if ( isOpen ) {
+							onToggle();
+						}
+						onRemove();
+					},
 					className: clsx(
 						'edit-site-global-styles__shadow-editor__remove-button',
 						{ 'is-open': isOpen }
