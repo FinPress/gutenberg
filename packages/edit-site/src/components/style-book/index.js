@@ -92,35 +92,23 @@ const scrollToSection = ( anchorId, iframe ) => {
 };
 
 /**
- * Parses a Block Editor navigation path to extract the block name and
- * build a style book navigation path. The object can be extended to include a category,
- * representing a style book tab/section.
+ * Parses a Block Editor navigation path to build a style book navigation path.
+ * The object can be extended to include a category, representing a style book tab/section.
  *
  * @param {string} path An internal Block Editor navigation path.
  * @return {null|{block: string}} An object containing the example to navigate to.
  */
 const getStyleBookNavigationFromPath = ( path ) => {
 	if ( path && typeof path === 'string' ) {
-		if ( path === '/' ) {
+		if (
+			path === '/' ||
+			path.startsWith( '/typography' ) ||
+			path.startsWith( '/blocks' )
+		) {
 			return {
 				top: true,
 			};
 		}
-
-		if ( path.startsWith( '/typography' ) ) {
-			return {
-				block: 'typography',
-			};
-		}
-		let block = path.includes( '/blocks/' )
-			? decodeURIComponent( path.split( '/blocks/' )[ 1 ] )
-			: null;
-		// Default to theme-colors if the path ends with /colors.
-		block = path.endsWith( '/colors' ) ? 'theme-colors' : block;
-
-		return {
-			block,
-		};
 	}
 	return null;
 };
@@ -548,13 +536,6 @@ export const StyleBookBody = ( {
 		if ( hasIframeLoaded && iframeRef?.current ) {
 			if ( goTo?.top ) {
 				scrollToSection( 'top', iframeRef?.current );
-				return;
-			}
-			if ( goTo?.block ) {
-				scrollToSection(
-					`example-${ goTo?.block }`,
-					iframeRef?.current
-				);
 			}
 		}
 	}, [ iframeRef?.current, goTo, scrollToSection, hasIframeLoaded ] );
