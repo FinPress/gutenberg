@@ -68,112 +68,117 @@ const meta: Meta< typeof Menu > = {
 export default meta;
 
 export const Default: StoryObj< typeof Menu > = {
-	render: ( props: MenuProps ) => (
-		<Menu { ...props }>
-			<Menu.TriggerButton
-				render={ <Button __next40pxDefaultSize variant="secondary" /> }
-			>
-				Open menu
-			</Menu.TriggerButton>
-			<Menu.Popover>
-				<Menu.Item>
-					<Menu.ItemLabel>Label</Menu.ItemLabel>
-				</Menu.Item>
-				<Menu.Item>
-					<Menu.ItemLabel>Label</Menu.ItemLabel>
-					<Menu.ItemHelpText>Help text</Menu.ItemHelpText>
-				</Menu.Item>
-				<Menu.Item>
-					<Menu.ItemLabel>Label</Menu.ItemLabel>
-					<Menu.ItemHelpText>
-						The menu item help text is automatically truncated when
-						there are more than two lines of text
-					</Menu.ItemHelpText>
-				</Menu.Item>
-				<Menu.Item hideOnClick={ false }>
-					<Menu.ItemLabel>Label</Menu.ItemLabel>
-					<Menu.ItemHelpText>
-						This item doesn&apos;t close the menu on click
-					</Menu.ItemHelpText>
-				</Menu.Item>
-				<Menu.Item disabled>Disabled item</Menu.Item>
-				<Menu.Separator />
-				<Menu.Group>
-					<Menu.GroupLabel>Group label</Menu.GroupLabel>
-					<Menu.Item
-						prefix={ <Icon icon={ customLink } size={ 24 } /> }
-					>
-						<Menu.ItemLabel>With prefix</Menu.ItemLabel>
+	args: {
+		children: (
+			<>
+				<Menu.TriggerButton
+					render={
+						<Button __next40pxDefaultSize variant="secondary" />
+					}
+				>
+					Open menu
+				</Menu.TriggerButton>
+				<Menu.Popover>
+					<Menu.Item>
+						<Menu.ItemLabel>Label</Menu.ItemLabel>
 					</Menu.Item>
-					<Menu.Item suffix="⌘S">With suffix</Menu.Item>
-					<Menu.Item
-						disabled
-						prefix={
-							<Icon icon={ formatCapitalize } size={ 24 } />
-						}
-						suffix="⌥⌘T"
-					>
-						<Menu.ItemLabel>
-							Disabled with prefix and suffix
-						</Menu.ItemLabel>
-						<Menu.ItemHelpText>And help text</Menu.ItemHelpText>
+					<Menu.Item>
+						<Menu.ItemLabel>Label</Menu.ItemLabel>
+						<Menu.ItemHelpText>Help text</Menu.ItemHelpText>
 					</Menu.Item>
-				</Menu.Group>
-			</Menu.Popover>
-		</Menu>
-	),
-
-	args: {},
+					<Menu.Item>
+						<Menu.ItemLabel>Label</Menu.ItemLabel>
+						<Menu.ItemHelpText>
+							The menu item help text is automatically truncated
+							when there are more than two lines of text
+						</Menu.ItemHelpText>
+					</Menu.Item>
+					<Menu.Item hideOnClick={ false }>
+						<Menu.ItemLabel>Label</Menu.ItemLabel>
+						<Menu.ItemHelpText>
+							This item doesn&apos;t close the menu on click
+						</Menu.ItemHelpText>
+					</Menu.Item>
+					<Menu.Item disabled>Disabled item</Menu.Item>
+					<Menu.Separator />
+					<Menu.Group>
+						<Menu.GroupLabel>Group label</Menu.GroupLabel>
+						<Menu.Item
+							prefix={ <Icon icon={ customLink } size={ 24 } /> }
+						>
+							<Menu.ItemLabel>With prefix</Menu.ItemLabel>
+						</Menu.Item>
+						<Menu.Item suffix="⌘S">With suffix</Menu.Item>
+						<Menu.Item
+							disabled
+							prefix={
+								<Icon icon={ formatCapitalize } size={ 24 } />
+							}
+							suffix="⌥⌘T"
+						>
+							<Menu.ItemLabel>
+								Disabled with prefix and suffix
+							</Menu.ItemLabel>
+							<Menu.ItemHelpText>And help text</Menu.ItemHelpText>
+						</Menu.Item>
+					</Menu.Group>
+				</Menu.Popover>
+			</>
+		),
+	},
 };
 
 export const WithSubmenu: StoryObj< typeof Menu > = {
-	render: ( props: MenuProps ) => (
-		<Menu { ...props }>
-			<Menu.TriggerButton
-				render={ <Button __next40pxDefaultSize variant="secondary" /> }
-			>
-				Open menu
-			</Menu.TriggerButton>
-			<Menu.Popover>
-				<Menu.Item>Level 1 item</Menu.Item>
-				<Menu>
-					<Menu.SubmenuTriggerItem suffix="Suffix">
-						<Menu.ItemLabel>
-							Submenu trigger item with a long label
-						</Menu.ItemLabel>
-					</Menu.SubmenuTriggerItem>
-					<Menu.Popover>
-						<Menu.Item>
-							<Menu.ItemLabel>Level 2 item</Menu.ItemLabel>
-						</Menu.Item>
-						<Menu.Item>
-							<Menu.ItemLabel>Level 2 item</Menu.ItemLabel>
-						</Menu.Item>
-						<Menu>
-							<Menu.SubmenuTriggerItem>
-								<Menu.ItemLabel>Submenu trigger</Menu.ItemLabel>
-							</Menu.SubmenuTriggerItem>
-							<Menu.Popover>
-								<Menu.Item>
-									<Menu.ItemLabel>
-										Level 3 item
-									</Menu.ItemLabel>
-								</Menu.Item>
-								<Menu.Item>
-									<Menu.ItemLabel>
-										Level 3 item
-									</Menu.ItemLabel>
-								</Menu.Item>
-							</Menu.Popover>
-						</Menu>
-					</Menu.Popover>
-				</Menu>
-			</Menu.Popover>
-		</Menu>
-	),
-
 	args: {
 		...Default.args,
+		children: (
+			<>
+				<Menu.TriggerButton
+					render={
+						<Button __next40pxDefaultSize variant="secondary" />
+					}
+				>
+					Open menu
+				</Menu.TriggerButton>
+				<Menu.Popover>
+					<Menu.Item>Level 1 item</Menu.Item>
+					<Menu>
+						<Menu.SubmenuTriggerItem suffix="Suffix">
+							<Menu.ItemLabel>
+								Submenu trigger item with a long label
+							</Menu.ItemLabel>
+						</Menu.SubmenuTriggerItem>
+						<Menu.Popover>
+							<Menu.Item>
+								<Menu.ItemLabel>Level 2 item</Menu.ItemLabel>
+							</Menu.Item>
+							<Menu.Item>
+								<Menu.ItemLabel>Level 2 item</Menu.ItemLabel>
+							</Menu.Item>
+							<Menu>
+								<Menu.SubmenuTriggerItem>
+									<Menu.ItemLabel>
+										Submenu trigger
+									</Menu.ItemLabel>
+								</Menu.SubmenuTriggerItem>
+								<Menu.Popover>
+									<Menu.Item>
+										<Menu.ItemLabel>
+											Level 3 item
+										</Menu.ItemLabel>
+									</Menu.Item>
+									<Menu.Item>
+										<Menu.ItemLabel>
+											Level 3 item
+										</Menu.ItemLabel>
+									</Menu.Item>
+								</Menu.Popover>
+							</Menu>
+						</Menu.Popover>
+					</Menu>
+				</Menu.Popover>
+			</>
+		),
 	},
 };
 
