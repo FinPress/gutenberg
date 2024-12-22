@@ -260,7 +260,7 @@ export default function MaybeUploadMediaPanel() {
 						variant="primary"
 						onClick={ uploadImages }
 					>
-						{ __( 'Upload' ) }
+						{ _x( 'Upload', 'verb' ) }
 					</Button>
 				) }
 			</div>
