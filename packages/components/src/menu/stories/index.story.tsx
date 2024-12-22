@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { Meta, StoryObj } from '@storybook/react';
+import type { StoryObj, Meta } from '@storybook/react';
 import { css } from '@emotion/react';
 
 /**
@@ -22,7 +22,7 @@ import { createSlotFill, Provider as SlotFillProvider } from '../../slot-fill';
 import { ContextSystemProvider } from '../../context';
 import type { MenuProps } from '../types';
 
-const meta = {
+const meta: Meta< typeof Menu > = {
 	id: 'components-experimental-menu',
 	title: 'Components (Experimental)/Actions/Menu',
 	component: Menu,
@@ -64,126 +64,120 @@ const meta = {
 			source: { excludeDecorators: true },
 		},
 	},
-} satisfies Meta< typeof Menu >;
+};
 export default meta;
 
-type Story = StoryObj< MenuProps >;
+export const Default: StoryObj< typeof Menu > = {
+	render: ( props: MenuProps ) => (
+		<Menu { ...props }>
+			<Menu.TriggerButton
+				render={ <Button __next40pxDefaultSize variant="secondary" /> }
+			>
+				Open menu
+			</Menu.TriggerButton>
+			<Menu.Popover>
+				<Menu.Item>
+					<Menu.ItemLabel>Label</Menu.ItemLabel>
+				</Menu.Item>
+				<Menu.Item>
+					<Menu.ItemLabel>Label</Menu.ItemLabel>
+					<Menu.ItemHelpText>Help text</Menu.ItemHelpText>
+				</Menu.Item>
+				<Menu.Item>
+					<Menu.ItemLabel>Label</Menu.ItemLabel>
+					<Menu.ItemHelpText>
+						The menu item help text is automatically truncated when
+						there are more than two lines of text
+					</Menu.ItemHelpText>
+				</Menu.Item>
+				<Menu.Item hideOnClick={ false }>
+					<Menu.ItemLabel>Label</Menu.ItemLabel>
+					<Menu.ItemHelpText>
+						This item doesn&apos;t close the menu on click
+					</Menu.ItemHelpText>
+				</Menu.Item>
+				<Menu.Item disabled>Disabled item</Menu.Item>
+				<Menu.Separator />
+				<Menu.Group>
+					<Menu.GroupLabel>Group label</Menu.GroupLabel>
+					<Menu.Item
+						prefix={ <Icon icon={ customLink } size={ 24 } /> }
+					>
+						<Menu.ItemLabel>With prefix</Menu.ItemLabel>
+					</Menu.Item>
+					<Menu.Item suffix="⌘S">With suffix</Menu.Item>
+					<Menu.Item
+						disabled
+						prefix={
+							<Icon icon={ formatCapitalize } size={ 24 } />
+						}
+						suffix="⌥⌘T"
+					>
+						<Menu.ItemLabel>
+							Disabled with prefix and suffix
+						</Menu.ItemLabel>
+						<Menu.ItemHelpText>And help text</Menu.ItemHelpText>
+					</Menu.Item>
+				</Menu.Group>
+			</Menu.Popover>
+		</Menu>
+	),
 
-export const Default: Story = {
-	args: {
-		children: (
-			<>
-				<Menu.TriggerButton
-					render={
-						<Button __next40pxDefaultSize variant="secondary" />
-					}
-				>
-					Open menu
-				</Menu.TriggerButton>
-				<Menu.Popover>
-					<Menu.Item>
-						<Menu.ItemLabel>Label</Menu.ItemLabel>
-					</Menu.Item>
-					<Menu.Item>
-						<Menu.ItemLabel>Label</Menu.ItemLabel>
-						<Menu.ItemHelpText>Help text</Menu.ItemHelpText>
-					</Menu.Item>
-					<Menu.Item>
-						<Menu.ItemLabel>Label</Menu.ItemLabel>
-						<Menu.ItemHelpText>
-							The menu item help text is automatically truncated
-							when there are more than two lines of text
-						</Menu.ItemHelpText>
-					</Menu.Item>
-					<Menu.Item hideOnClick={ false }>
-						<Menu.ItemLabel>Label</Menu.ItemLabel>
-						<Menu.ItemHelpText>
-							This item doesn&apos;t close the menu on click
-						</Menu.ItemHelpText>
-					</Menu.Item>
-					<Menu.Item disabled>Disabled item</Menu.Item>
-					<Menu.Separator />
-					<Menu.Group>
-						<Menu.GroupLabel>Group label</Menu.GroupLabel>
-						<Menu.Item
-							prefix={ <Icon icon={ customLink } size={ 24 } /> }
-						>
-							<Menu.ItemLabel>With prefix</Menu.ItemLabel>
-						</Menu.Item>
-						<Menu.Item suffix="⌘S">With suffix</Menu.Item>
-						<Menu.Item
-							disabled
-							prefix={
-								<Icon icon={ formatCapitalize } size={ 24 } />
-							}
-							suffix="⌥⌘T"
-						>
-							<Menu.ItemLabel>
-								Disabled with prefix and suffix
-							</Menu.ItemLabel>
-							<Menu.ItemHelpText>And help text</Menu.ItemHelpText>
-						</Menu.Item>
-					</Menu.Group>
-				</Menu.Popover>
-			</>
-		),
-	},
+	args: {},
 };
 
-export const WithSubmenu: Story = {
-	args: {
-		children: (
-			<>
-				<Menu.TriggerButton
-					render={
-						<Button __next40pxDefaultSize variant="secondary" />
-					}
-				>
-					Open menu
-				</Menu.TriggerButton>
-				<Menu.Popover>
-					<Menu.Item>Level 1 item</Menu.Item>
-					<Menu>
-						<Menu.SubmenuTriggerItem suffix="Suffix">
-							<Menu.ItemLabel>
-								Submenu trigger item with a long label
-							</Menu.ItemLabel>
-						</Menu.SubmenuTriggerItem>
-						<Menu.Popover>
-							<Menu.Item>
-								<Menu.ItemLabel>Level 2 item</Menu.ItemLabel>
-							</Menu.Item>
-							<Menu.Item>
-								<Menu.ItemLabel>Level 2 item</Menu.ItemLabel>
-							</Menu.Item>
-							<Menu>
-								<Menu.SubmenuTriggerItem>
+export const WithSubmenu: StoryObj< typeof Menu > = {
+	render: ( props: MenuProps ) => (
+		<Menu { ...props }>
+			<Menu.TriggerButton
+				render={ <Button __next40pxDefaultSize variant="secondary" /> }
+			>
+				Open menu
+			</Menu.TriggerButton>
+			<Menu.Popover>
+				<Menu.Item>Level 1 item</Menu.Item>
+				<Menu>
+					<Menu.SubmenuTriggerItem suffix="Suffix">
+						<Menu.ItemLabel>
+							Submenu trigger item with a long label
+						</Menu.ItemLabel>
+					</Menu.SubmenuTriggerItem>
+					<Menu.Popover>
+						<Menu.Item>
+							<Menu.ItemLabel>Level 2 item</Menu.ItemLabel>
+						</Menu.Item>
+						<Menu.Item>
+							<Menu.ItemLabel>Level 2 item</Menu.ItemLabel>
+						</Menu.Item>
+						<Menu>
+							<Menu.SubmenuTriggerItem>
+								<Menu.ItemLabel>Submenu trigger</Menu.ItemLabel>
+							</Menu.SubmenuTriggerItem>
+							<Menu.Popover>
+								<Menu.Item>
 									<Menu.ItemLabel>
-										Submenu trigger
+										Level 3 item
 									</Menu.ItemLabel>
-								</Menu.SubmenuTriggerItem>
-								<Menu.Popover>
-									<Menu.Item>
-										<Menu.ItemLabel>
-											Level 3 item
-										</Menu.ItemLabel>
-									</Menu.Item>
-									<Menu.Item>
-										<Menu.ItemLabel>
-											Level 3 item
-										</Menu.ItemLabel>
-									</Menu.Item>
-								</Menu.Popover>
-							</Menu>
-						</Menu.Popover>
-					</Menu>
-				</Menu.Popover>
-			</>
-		),
+								</Menu.Item>
+								<Menu.Item>
+									<Menu.ItemLabel>
+										Level 3 item
+									</Menu.ItemLabel>
+								</Menu.Item>
+							</Menu.Popover>
+						</Menu>
+					</Menu.Popover>
+				</Menu>
+			</Menu.Popover>
+		</Menu>
+	),
+
+	args: {
+		...Default.args,
 	},
 };
 
-export const WithCheckboxes: Story = {
+export const WithCheckboxes: StoryObj< typeof Menu > = {
 	render: function WithCheckboxes( props: MenuProps ) {
 		const [ isAChecked, setAChecked ] = useState( false );
 		const [ isBChecked, setBChecked ] = useState( true );
@@ -327,9 +321,13 @@ export const WithCheckboxes: Story = {
 			</Menu>
 		);
 	},
+
+	args: {
+		...Default.args,
+	},
 };
 
-export const WithRadios: Story = {
+export const WithRadios: StoryObj< typeof Menu > = {
 	render: function WithRadios( props: MenuProps ) {
 		const [ radioValue, setRadioValue ] = useState( 'two' );
 		const onRadioChange: React.ComponentProps<
@@ -395,6 +393,10 @@ export const WithRadios: Story = {
 			</Menu>
 		);
 	},
+
+	args: {
+		...Default.args,
+	},
 };
 
 const modalOnTopOfMenuPopover = css`
@@ -403,8 +405,7 @@ const modalOnTopOfMenuPopover = css`
 	}
 `;
 
-// For more examples with `Modal`, check https://ariakit.org/examples/menu-wordpress-modal
-export const WithModals: Story = {
+export const WithModals: StoryObj< typeof Menu > = {
 	render: function WithModals( props: MenuProps ) {
 		const [ isOuterModalOpen, setOuterModalOpen ] = useState( false );
 		const [ isInnerModalOpen, setInnerModalOpen ] = useState( false );
@@ -466,6 +467,10 @@ export const WithModals: Story = {
 			</>
 		);
 	},
+
+	args: {
+		...Default.args,
+	},
 };
 
 const ExampleSlotFill = createSlotFill( 'Example' );
@@ -516,8 +521,8 @@ const Fill = ( { children }: { children: React.ReactNode } ) => {
 	);
 };
 
-export const WithSlotFill: Story = {
-	render: ( props ) => {
+export const WithSlotFill: StoryObj< typeof Menu > = {
+	render: ( props: MenuProps ) => {
 		return (
 			<SlotFillProvider>
 				<Menu { ...props }>
@@ -556,6 +561,10 @@ export const WithSlotFill: Story = {
 			</SlotFillProvider>
 		);
 	},
+
+	args: {
+		...Default.args,
+	},
 };
 
 const toolbarVariantContextValue = {
@@ -563,8 +572,9 @@ const toolbarVariantContextValue = {
 		variant: 'toolbar',
 	},
 };
-export const ToolbarVariant: Story = {
-	render: ( props ) => (
+
+export const ToolbarVariant: StoryObj< typeof Menu > = {
+	render: ( props: MenuProps ) => (
 		// TODO: add toolbar
 		<ContextSystemProvider value={ toolbarVariantContextValue }>
 			<Menu { ...props }>
@@ -597,10 +607,14 @@ export const ToolbarVariant: Story = {
 			</Menu>
 		</ContextSystemProvider>
 	),
+
+	args: {
+		...Default.args,
+	},
 };
 
-export const InsideModal: Story = {
-	render: function InsideModal( props ) {
+export const InsideModal: StoryObj< typeof Menu > = {
+	render: function InsideModal( props: MenuProps ) {
 		const [ isModalOpen, setModalOpen ] = useState( false );
 		return (
 			<>
@@ -663,6 +677,11 @@ export const InsideModal: Story = {
 			</>
 		);
 	},
+
+	args: {
+		...Default.args,
+	},
+
 	parameters: {
 		docs: {
 			source: { type: 'code' },
