@@ -482,7 +482,7 @@ export function MediaPlaceholder( {
 										) }
 										onClick={ openFileDialog }
 									>
-										{ __( 'Upload' ) }
+										{ _x( 'Upload', 'verb' ) }
 									</Button>
 									{ uploadMediaLibraryButton }
 									{ renderUrlSelectionUI() }
@@ -512,7 +512,7 @@ export function MediaPlaceholder( {
 									'block-editor-media-placeholder__upload-button'
 								) }
 							>
-								{ __( 'Upload' ) }
+								{ _x( 'Upload', 'verb' ) }
 							</Button>
 						) }
 						onChange={ onUpload }
