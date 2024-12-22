@@ -188,7 +188,7 @@ const MediaReplaceFlow = ( {
 												openFileDialog();
 											} }
 										>
-											{ __( 'Upload' ) }
+											{ _x( 'Upload', 'verb' ) }
 										</MenuItem>
 									);
 								} }
