@@ -14,8 +14,6 @@ export interface MenuContext {
 	variant?: 'toolbar';
 }
 
-// TODO: add portal and preventBodyScroll to MenuPopoverProps, change default modality, move open props to popover?
-
 export interface MenuProps {
 	/**
 	 * The elements, which should include one instance of the `Menu.TriggerButton`
