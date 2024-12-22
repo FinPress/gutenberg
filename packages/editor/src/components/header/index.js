@@ -24,6 +24,7 @@ import PostViewLink from '../post-view-link';
 import PreviewDropdown from '../preview-dropdown';
 import ZoomOutToggle from '../zoom-out-toggle';
 import { store as editorStore } from '../../store';
+import { unlock } from '../../lock-unlock';
 
 const toolbarVariations = {
 	distractionFreeDisabled: { y: '-50px' },
@@ -91,6 +92,16 @@ function Header( {
 
 	// The edit-post-header classname is only kept for backward compatibilty
 	// as some plugins might be relying on its presence.
+	const hasSectionRootClientId = useSelect(
+		( select ) =>
+			!! unlock( select( blockEditorStore ) ).getSectionRootClientId(),
+		[]
+	);
+
+	/*
+	 * The edit-post-header classname is only kept for backward compatability
+	 * as some plugins might be relying on its presence.
+	 */
 	return (
 		<div className="editor-header edit-post-header">
 			{ hasBackButton && (
@@ -150,9 +161,11 @@ function Header( {
 				/>
 				<PostViewLink />
 
-				{ isEditorIframed && isWideViewport && (
-					<ZoomOutToggle disabled={ forceDisableBlockTools } />
-				) }
+				{ isEditorIframed &&
+					isWideViewport &&
+					hasSectionRootClientId && (
+						<ZoomOutToggle disabled={ forceDisableBlockTools } />
+					) }
 
 				{ ( isWideViewport || ! showIconLabels ) && (
 					<PinnedItems.Slot scope="core" />

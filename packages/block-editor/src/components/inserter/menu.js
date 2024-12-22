@@ -33,6 +33,7 @@ import useInsertionPoint from './hooks/use-insertion-point';
 import { store as blockEditorStore } from '../../store';
 import TabbedSidebar from '../tabbed-sidebar';
 import { useZoomOut } from '../../hooks/use-zoom-out';
+import { unlock } from '../../lock-unlock';
 
 const NOOP = () => {};
 function InserterMenu(
@@ -56,6 +57,11 @@ function InserterMenu(
 	const isZoomOutMode = useSelect(
 		( select ) =>
 			select( blockEditorStore ).__unstableGetEditorMode() === 'zoom-out',
+		[]
+	);
+	const hasSectionRootClientId = useSelect(
+		( select ) =>
+			!! unlock( select( blockEditorStore ) ).getSectionRootClientId(),
 		[]
 	);
 	const [ filterValue, setFilterValue, delayedFilterValue ] =
@@ -82,7 +88,9 @@ function InserterMenu(
 	const [ selectedTab, setSelectedTab ] = useState( getInitialTab() );
 
 	const shouldUseZoomOut =
-		selectedTab === 'patterns' || selectedTab === 'media';
+		hasSectionRootClientId &&
+		( selectedTab === 'patterns' || selectedTab === 'media' );
+
 	useZoomOut( shouldUseZoomOut && isLargeViewport );
 
 	const [ destinationRootClientId, onInsertBlocks, onToggleInsertionPoint ] =
