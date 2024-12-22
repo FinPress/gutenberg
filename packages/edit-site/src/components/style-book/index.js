@@ -103,6 +103,7 @@ const getStyleBookNavigationFromPath = ( path ) => {
 		if (
 			path === '/' ||
 			path.startsWith( '/typography' ) ||
+			path.startsWith( '/colors' ) ||
 			path.startsWith( '/blocks' )
 		) {
 			return {
