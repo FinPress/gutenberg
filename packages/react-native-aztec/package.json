@@ -23,8 +23,8 @@
 		"npm": ">=8.19.2"
 	},
 	"dependencies": {
-		"@wordpress/element": "*",
-		"@wordpress/keycodes": "*"
+		"@wordpress/element": "0.0.0",
+		"@wordpress/keycodes": "0.0.0"
 	},
 	"peerDependencies": {
 		"react": "*",
