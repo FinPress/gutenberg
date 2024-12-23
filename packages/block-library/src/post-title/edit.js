@@ -19,8 +19,9 @@ import { ToggleControl, TextControl, PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-
+import { useSelect, select } from '@wordpress/data';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { store as editorStore } from '@wordpress/editor';
 export default function PostTitleEdit( {
 	attributes: { level, levelOptions, textAlign, isLink, rel, linkTarget },
 	setAttributes,
@@ -30,6 +31,7 @@ export default function PostTitleEdit( {
 	const TagName = level === 0 ? 'p' : `h${ level }`;
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const userCanEdit = useSelect(
+		// eslint-disable-next-line no-shadow
 		( select ) => {
 			/**
 			 * useCanEditEntity may trigger an OPTIONS request to the REST API
@@ -180,3 +182,43 @@ export default function PostTitleEdit( {
 		</>
 	);
 }
+export const transforms = {
+	from: [
+		{
+			type: 'block',
+			blocks: [ 'core/heading', 'core/paragraph' ],
+			transform: ( attributes ) =>
+				createBlock( 'core/post-title', {
+					textAlign: attributes.align || undefined, // Map alignment if available
+				} ),
+		},
+	],
+	to: [
+		{
+			type: 'block',
+			blocks: [ 'core/heading' ],
+			transform: ( { textAlign } ) => {
+				const postTitle =
+					select( editorStore ).getEditedPostAttribute( 'title' ) ||
+					__( 'Add a title…' );
+				return createBlock( 'core/heading', {
+					content: postTitle,
+					align: textAlign,
+				} );
+			},
+		},
+		{
+			type: 'block',
+			blocks: [ 'core/paragraph' ],
+			transform: ( { textAlign } ) => {
+				const postTitle =
+					select( editorStore ).getEditedPostAttribute( 'title' ) ||
+					__( 'Add a title…' );
+				return createBlock( 'core/paragraph', {
+					content: postTitle,
+					align: textAlign,
+				} );
+			},
+		},
+	],
+};
