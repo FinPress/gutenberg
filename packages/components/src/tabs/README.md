@@ -8,10 +8,10 @@ Tabs is a collection of React components that combine to render
 an [ARIA-compliant tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/).
 
 Tabs organizes content across different screens, data sets, and interactions.
-It has two sections: a list of tabs, and the view to show when tabs are chosen.
+It has two sections: a list of tabs, and the view to show when a tab is chosen.
 
 `Tabs` itself is a wrapper component and context provider.
-It is responsible for managing the state of the tabs, and rendering the `TabList` and `TabPanels`.
+It is responsible for managing the state of the tabs, and rendering one instance of the `Tabs.TabList` component and one or more instances of the `Tab.TabPanel` component.
 
 ## Props
 
@@ -24,7 +24,7 @@ tablist widget that has DOM focus.
   will be able to navigate out of it using arrow keys.
 - If `activeTabId` is initially set to `null`, the base composite element
   itself will have focus and users will be able to navigate to it using
-  arrow keys.activeTabId
+  arrow keys.
 
  - Type: `string`
  - Required: No
