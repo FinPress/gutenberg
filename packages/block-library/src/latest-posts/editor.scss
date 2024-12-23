@@ -1,7 +1,7 @@
 .wp-block-latest-posts {
 	// Apply overflow for post items, so any floated featured images won't crop the focus style.
 	> li {
-		overflow: hidden;
+		// overflow: hidden; // Commented out to allow for list-style-type to be displayed in the list item.
 	}
 }
 
