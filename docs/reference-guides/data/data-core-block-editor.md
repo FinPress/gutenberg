@@ -190,7 +190,7 @@ _Parameters_
 
 _Returns_
 
--   `Object?`: Block attributes.
+-   `?Object`: Block attributes.
 
 ### getBlockCount
 
@@ -448,7 +448,7 @@ Determines the items that appear in the available block transforms list.
 
 Each item object contains what's necessary to display a menu item in the transform list and handle its selection.
 
-The 'frecency' property is a heuristic (<https://en.wikipedia.org/wiki/Frecency>) that combines block usage frequenty and recency.
+The 'frecency' property is a heuristic (<https://en.wikipedia.org/wiki/Frecency>) that combines block usage frequency and recency.
 
 Items are returned ordered descendingly by their 'frecency'.
 
@@ -580,7 +580,7 @@ Determines the items that appear in the inserter. Includes both static items (e.
 
 Each item object contains what's necessary to display a button in the inserter and handle its selection.
 
-The 'frecency' property is a heuristic (<https://en.wikipedia.org/wiki/Frecency>) that combines block usage frequenty and recency.
+The 'frecency' property is a heuristic (<https://en.wikipedia.org/wiki/Frecency>) that combines block usage frequency and recency.
 
 Items are returned ordered descendingly by their 'utility' and 'frecency'.
 

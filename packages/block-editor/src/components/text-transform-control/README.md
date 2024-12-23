@@ -28,7 +28,6 @@ const MyTextTransformControlComponent = () => (
 ### `value`
 
 -   **Type:** `String`
--   **Default:** `none`
 -   **Options:** `none`, `uppercase`, `lowercase`, `capitalize`
 
 The current value of the Text Transform setting. You may only choose from the `Options` listed above.

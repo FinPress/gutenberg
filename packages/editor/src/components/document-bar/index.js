@@ -29,6 +29,7 @@ import { decodeEntities } from '@wordpress/html-entities';
 import { TEMPLATE_POST_TYPES } from '../../store/constants';
 import { store as editorStore } from '../../store';
 import usePageTypeBadge from '../../utils/pageTypeBadge';
+import { getTemplateInfo } from '../../utils/get-template-info';
 
 /** @typedef {import("@wordpress/components").IconType} IconType */
 
@@ -53,6 +54,7 @@ const MotionButton = motion( Button );
  */
 export default function DocumentBar( props ) {
 	const {
+		postId,
 		postType,
 		postTypeLabel,
 		documentTitle,
@@ -65,9 +67,9 @@ export default function DocumentBar( props ) {
 			getCurrentPostType,
 			getCurrentPostId,
 			getEditorSettings,
-			__experimentalGetTemplateInfo: getTemplateInfo,
 			getRenderingMode,
 		} = select( editorStore );
+
 		const {
 			getEditedEntityRecord,
 			getPostType,
@@ -80,10 +82,19 @@ export default function DocumentBar( props ) {
 			_postType,
 			_postId
 		);
-		const _templateInfo = getTemplateInfo( _document );
+
+		const { default_template_types: templateTypes = [] } =
+			select( coreStore ).getEntityRecord( 'root', '__unstableBase' ) ??
+			{};
+
+		const _templateInfo = getTemplateInfo( {
+			templateTypes,
+			template: _document,
+		} );
 		const _postTypeLabel = getPostType( _postType )?.labels?.singular_name;
 
 		return {
+			postId: _postId,
 			postType: _postType,
 			postTypeLabel: _postTypeLabel,
 			documentTitle: _document.title,
@@ -111,7 +122,7 @@ export default function DocumentBar( props ) {
 	const title = props.title || entityTitle;
 	const icon = props.icon;
 
-	const pageTypeBadge = usePageTypeBadge();
+	const pageTypeBadge = usePageTypeBadge( postId );
 
 	const mountedRef = useRef( false );
 	useEffect( () => {

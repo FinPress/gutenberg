@@ -43,6 +43,7 @@ const MyGradientPicker = () => {
   );
 };
 ```
+
 ## Props
 
 ### `__experimentalIsRenderedInSidebar`
@@ -99,6 +100,14 @@ gradients from `gradients` will be shown.
  - Type: `boolean`
  - Required: No
  - Default: `false`
+
+### `enableAlpha`
+
+Whether to enable alpha transparency options in the picker.
+
+ - Type: `boolean`
+ - Required: No
+ - Default: `true`
 
 ### `gradients`
 
