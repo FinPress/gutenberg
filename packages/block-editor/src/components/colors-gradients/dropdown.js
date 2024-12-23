@@ -188,7 +188,7 @@ export default function ColorGradientSettingsDropdown( {
 					...setting,
 				};
 				const toggleSettings = {
-					clearable: controlProps.clearable,
+					clearable: setting.clearable,
 					label: setting.label,
 					colorValue: setting.colorValue,
 					gradientValue: setting.gradientValue,

@@ -392,8 +392,7 @@ function ShadowItem( { shadow, onChange, canRemove, onRemove } ) {
 					'aria-expanded': isOpen,
 				};
 				const removeButtonProps = {
-					onClick: ( e ) => {
-						e.stopPropagation();
+					onClick: () => {
 						if ( isOpen ) {
 							onToggle();
 						}
