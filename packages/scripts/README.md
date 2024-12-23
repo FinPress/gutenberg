@@ -618,7 +618,7 @@ For more e2e debugging tips check out the [Puppeteer debugging docs](https://dev
 
 ## Using build scripts
 
-The `build` and `start` commands use [webpack](https://webpack.js.org/) behind the scenes. webpack is a tool that helps you transform your code into something else. For example: it can take code written in ESNext and output ES5 compatible code that is minified for production.
+The `build` and `start` commands use [webpack](https://webpack.js.org/) behind the scenes. webpack is used to bundle and optimize code for web applications, enabling developers to manage dependencies efficiently, enhance performance, and simplify the development workflow.
 
 ### Listing entry points
 

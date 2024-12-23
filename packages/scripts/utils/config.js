@@ -216,9 +216,9 @@ function getProjectSourcePath() {
 
 /**
  * Detects the list of entry points to use with webpack. There are three alternative ways to do this:
- *  1. Use the recommended command's format that lists path to JavaScript files.
- *  2. Scan `block.json` files to automatically detect referenced JavaScript and PHP files.
- *  3. Fallback to `src/index.*` file.
+ *  1. Use the recommended command format that lists the paths to JavaScript files.
+ *  2. Scan `block.json` files to detect referenced JavaScript and PHP files automatically.
+ *  3. Fallback to the `src/index.*` file.
  *
  * @see https://webpack.js.org/concepts/entry-points/
  *
@@ -229,7 +229,7 @@ function getWebpackEntryPoints( buildType ) {
 	 * @return {Object<string,string>} The list of entry points.
 	 */
 	return () => {
-		// 1. Uses the recommended command's format that lists entry points as paths to JavaScript files.
+		// 1. Uses the recommended command format that lists entry points as paths to JavaScript files.
 		//    Example: `wp-scripts build one.js two.js`.
 		if ( process.env.WP_ENTRY ) {
 			return buildType === 'script'
@@ -237,7 +237,7 @@ function getWebpackEntryPoints( buildType ) {
 				: {};
 		}
 
-		// Continues only if the source directory exists. Defaults to "src" if not set.
+		// Continues only if the source directory exists. Defaults to "src" if not explicitly set in the command.
 		if ( ! hasProjectFile( getProjectSourcePath() ) ) {
 			warn(
 				`Source directory "${ getProjectSourcePath() }" was not found. Please confirm there is a "src" directory in the root or the value passed with "--output-path" is correct.`
@@ -246,7 +246,7 @@ function getWebpackEntryPoints( buildType ) {
 		}
 
 		// 2. Checks whether any block metadata files can be detected in the defined source directory.
-		//    It scans all discovered files looking for JavaScript assets and converts them to entry points.
+		//    It scans all discovered files, looks for JavaScript assets, and converts them to entry points.
 		const blockMetadataFiles = glob( '**/block.json', {
 			absolute: true,
 			cwd: fromProjectRoot( getProjectSourcePath() ),
