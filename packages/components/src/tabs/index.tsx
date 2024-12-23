@@ -40,7 +40,7 @@ function internalToExternalTabId(
  * an [ARIA-compliant tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/).
  *
  * Tabs organizes content across different screens, data sets, and interactions.
- * It has two sections: a list of tabs, and the view to show when tabs are chosen.
+ * It has two sections: a list of tabs, and the view to show when a tab is chosen.
  *
  * `Tabs` itself is a wrapper component and context provider.
  * It is responsible for managing the state of the tabs, and rendering the `TabList` and `TabPanels`.
