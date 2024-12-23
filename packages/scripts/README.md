@@ -622,7 +622,9 @@ The `build` and `start` commands use [webpack](https://webpack.js.org/) behind t
 
 ### Listing entry points
 
-The simplest way to list JavaScript entry points is to pass them as arguments for the command:
+The simplest way to list JavaScript entry points is to pass them as arguments for the command.
+
+_Example:_
 
 ```bash
 wp-scripts build entry-one.js entry-two.js
@@ -630,7 +632,7 @@ wp-scripts build entry-one.js entry-two.js
 
 ### Automatic block.json detection and the source code directory
 
-A convenient alternative for blocks is using automatic entry points detection. In that case, the source code directory (the default is `./src`) and its subdirectories are scanned for the existence of `block.json` files. If one or more are found, the JavaScript files listed in metadata are treated as entry points and will be output into corresponding folders in the `build` directory. The script fields in `block.json` should pass relative paths to `block.json` in the same folder.
+A convenient alternative for blocks is using automatic entry point detection. In that case, the source code directory (the default is `./src`) and its subdirectories are scanned for the existence of `block.json` files. If one or more are found, the JavaScript files listed in metadata are treated as entry points and will be output into corresponding folders in the `build` directory. The script fields in `block.json` should pass relative paths to `block.json` in the same folder.
 
 _Example:_
 

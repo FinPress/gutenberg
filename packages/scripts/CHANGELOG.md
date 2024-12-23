@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Enhancements
+
+-   Recommend listing JavaScript entry points as paths passed to the `start` and `build` commands ([#68251](https://github.com/WordPress/gutenberg/pull/68251)).
+-   Introduce a new option `--source-path` to customize the source directory used with the `start` and `build` commands ([#68251](https://github.com/WordPress/gutenberg/pull/68251)).
+
 ## 30.7.0 (2024-12-11)
 
 ### Internal
