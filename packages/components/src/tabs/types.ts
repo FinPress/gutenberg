@@ -66,7 +66,7 @@ export type TabsProps = {
 	 *   will be able to navigate out of it using arrow keys.
 	 * - If `activeTabId` is initially set to `null`, the base composite element
 	 *   itself will have focus and users will be able to navigate to it using
-	 *   arrow keys.activeTabId
+	 *   arrow keys.
 	 */
 	activeTabId?: Ariakit.TabStoreProps[ 'activeId' ];
 	/**
