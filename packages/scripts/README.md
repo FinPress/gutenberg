@@ -62,7 +62,7 @@ Transforms your code according the configuration provided so it’s ready for pr
 
 _This script exits after producing a single build. For incremental builds, better suited for development, see the [start](#start) script._
 
-#### How to use `build` script?
+#### Usage
 
 _Example:_
 
@@ -88,7 +88,7 @@ This script automatically use the optimized config but sometimes you may want to
 
 -   `--webpack-bundle-analyzer` – enables visualization for the size of webpack output files with an interactive zoomable treemap.
 -   `--webpack-copy-php` – enables copying all PHP files from the source directory ( default is `src` ) and its subfolders to the output directory.
--   `--webpack-no-externals` – disables scripts' assets generation, and omits the list of default externals.
+-   `--webpack-no-externals` – disables scripts’ assets generation, and omits the list of default externals.
 -   `--source-path` – Allows customization of the source directory. Default is `.`. In the automatic detection mode the default changes to `src`.
 -   `--output-path` – Allows customization of the output directory. Default is `build`.
 
@@ -369,8 +369,8 @@ This is how you create a custom root folder inside the zip file.
 
 -   When updating a plugin, WordPress expects a folder in the root of the zip file which matches the plugin name. So be aware that this may affect the plugin update process.
 -   `--root-folder` - Add a custom root folder to the zip file.
--   `npm run plugin-zip` - By default, unzipping your plugin's zip file will result in a folder with the same name as your plugin.
--   `npm run plugin-zip --root-folder='custom-directory'` - Your plugin's zip file will be unzipped into a folder named `custom-directory`.
+-   `npm run plugin-zip` - By default, unzipping your plugin’s zip file will result in a folder with the same name as your plugin.
+-   `npm run plugin-zip --root-folder='custom-directory'` - Your plugin’s zip file will be unzipped into a folder named `custom-directory`.
 -   `npm run plugin-zip --no-root-folder` - This will create a zip file that has no folder inside, your plugin files will be unzipped directly into the target directory.
 
 ### `start`
@@ -379,7 +379,7 @@ Transforms your code according the configuration provided so it’s ready for de
 
 _For single builds, better suited for production, see the [build](#build) script._
 
-#### How to use `start` script?
+#### Usage
 
 _Example:_
 
@@ -410,7 +410,7 @@ This script automatically use the optimized config but sometimes you may want to
 -   `--webpack-bundle-analyzer` – enables visualization for the size of webpack output files with an interactive zoomable treemap.
 -   `--webpack-copy-php` – enables copying all PHP files from the source directory ( default is `src` ) and its subfolders to the output directory.
 -   `--webpack-devtool` – controls how source maps are generated. See options at https://webpack.js.org/configuration/devtool/#devtool.
--   `--webpack-no-externals` – disables scripts' assets generation, and omits the list of default externals.
+-   `--webpack-no-externals` – disables scripts’ assets generation, and omits the list of default externals.
 -   `--source-path` – Allows customization of the source directory. Default is `.`. In the automatic detection mode the default changes to `src`.
 -   `--output-path` – Allows customization of the output directory. Default is `build`.
 
@@ -469,7 +469,7 @@ We enforce that all tests run serially in the current process using [--runInBand
 
 When tests fail, both a screenshot and an HTML snapshot will be taken of the page and stored in the `artifacts/` directory at the root of your project. These snapshots may help debug failed tests during development or when running tests in a CI environment.
 
-The `artifacts/` directory can be customized by setting the `WP_ARTIFACTS_PATH` environment variable to the relative path of the desired directory within your project's root. For example: to change the default directory from `artifacts/` to `my/custom/artifacts`, you could use `WP_ARTIFACTS_PATH=my/custom/artifacts npm run test:e2e`.
+The `artifacts/` directory can be customized by setting the `WP_ARTIFACTS_PATH` environment variable to the relative path of the desired directory within your project’s root. For example: to change the default directory from `artifacts/` to `my/custom/artifacts`, you could use `WP_ARTIFACTS_PATH=my/custom/artifacts npm run test:e2e`.
 
 #### Advanced information
 
@@ -558,11 +558,11 @@ To do so, you can add a file called `playwright.config.ts` or `playwright.config
 
 When tests fail, snapshots will be taken of the page and stored in the `artifacts/` directory at the root of your project. These snapshots may help debug failed tests during development or when running tests in a CI environment.
 
-The `artifacts/` directory can be customized by setting the `WP_ARTIFACTS_PATH` environment variable to the relative path of the desired directory within your project's root. For example: to change the default directory from `artifacts/` to `my/custom/artifacts`, you could use `WP_ARTIFACTS_PATH=my/custom/artifacts npm run test:playwright`.
+The `artifacts/` directory can be customized by setting the `WP_ARTIFACTS_PATH` environment variable to the relative path of the desired directory within your project’s root. For example: to change the default directory from `artifacts/` to `my/custom/artifacts`, you could use `WP_ARTIFACTS_PATH=my/custom/artifacts npm run test:playwright`.
 
 #### Advanced information
 
-You are able to use all of Playwright's [CLI options](https://playwright.dev/docs/test-cli#reference). You can also run `./node_modules/.bin/wp-scripts test-playwright --help` or `npm run test:playwright:help` (as mentioned above) to view all the available options. Learn more in the [Advanced Usage](#advanced-usage) section.
+You are able to use all of Playwright’s [CLI options](https://playwright.dev/docs/test-cli#reference). You can also run `./node_modules/.bin/wp-scripts test-playwright --help` or `npm run test:playwright:help` (as mentioned above) to view all the available options. Learn more in the [Advanced Usage](#advanced-usage) section.
 
 ## Passing Node.js options
 
@@ -656,7 +656,7 @@ The source directory can be customized using the `--source-path` flag and the ou
 
 The fallback entry point is `src/index.js` (other supported extensions: `.jsx`, `.ts`, and `.tsx`) in case there is no `block.json` file found. In that scenario, the output generated will be written to `build/index.js`.
 
-### Using CSS
+### Importing styles in JavaScript
 
 _Example:_
 
@@ -688,7 +688,7 @@ When you run the build using the default command `wp-scripts build` (also applie
 1. `index.css` – all imported CSS files are bundled into one chunk named after the entry point, which defaults to `index.js`, and thus the file created becomes `index.css`. This is for styles used only in the editor.
 2. `style-index.css` – imported `style.css` file(s) (applies to PCSS, SASS and SCSS extensions) get bundled into one `style-index.css` file that is meant to be used both on the front-end and in the editor.
 
-For example, if the project has two entry points:
+For example, when the project has two entry points:
 
 ```bash
 wp-scripts build entry-one.js entry-two.js
@@ -735,7 +735,7 @@ const App = () => (
 
 ## Advanced Usage
 
-In general, this package should be used with the set of recommended config files. While it’s possible to override every single config file provided, if you have to do it, it means that your use case is far more complicated than anticipated. If that happens, it would be better to avoid using the whole abstraction layer and set up your project with full control over tooling used.
+This package should generally be used with the set of recommended config files. While it’s possible to override every config file provided, if you have to do it, your use case is far more complicated than anticipated. If that happens, it would be better to avoid using the whole abstraction layer and set up your project with full control over the tooling used.
 
 ### Default webpack config
 
@@ -763,7 +763,7 @@ Should there be any situation where you want to provide your own webpack config,
 
 To extend the provided webpack config, or replace subsections within the provided webpack config, you can provide your own `webpack.config.js` file, `require` the provided `webpack.config.js` file, and use the [`spread` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) to import all of or part of the provided configuration.
 
-In the example below, a `webpack.config.js` file is added to the root folder extending the provided webpack config to include custom logic to parse module's source and convert it to a JavaScript object using [`toml`](https://www.npmjs.com/package/toml). It may be useful to import toml or other non-JSON files as JSON, without specific loaders:
+In the example below, a `webpack.config.js` file is added to the root folder extending the provided webpack config to include custom logic to parse module’s source and convert it to a JavaScript object using [`toml`](https://www.npmjs.com/package/toml). It may be useful to import toml or other non-JSON files as JSON, without specific loaders:
 
 ```javascript
 const toml = require( 'toml' );
@@ -794,8 +794,8 @@ If you follow this approach, please, be aware that:
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that’s part of the Gutenberg project. The project is organized as a monorepo. It’s made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project’s main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
