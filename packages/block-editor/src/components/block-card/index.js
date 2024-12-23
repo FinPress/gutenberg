@@ -14,7 +14,7 @@ import {
 	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { chevronLeft, chevronRight } from '@wordpress/icons';
-import { __, isRTL } from '@wordpress/i18n';
+import { __, _x, isRTL } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
@@ -35,22 +35,35 @@ function BlockCard( { title, icon, description, blockType, className, name } ) {
 		( { title, icon, description } = blockType );
 	}
 
-	const { parentNavBlockClientId } = useSelect( ( select ) => {
-		const { getSelectedBlockClientId, getBlockParentsByBlockName } =
-			select( blockEditorStore );
+	const { parentNavBlockClientId, isUsingBindings } = useSelect(
+		( select ) => {
+			const {
+				getSelectedBlockClientId,
+				getSelectedBlockClientIds,
+				getBlockParentsByBlockName,
+				getBlockAttributes,
+			} = select( blockEditorStore );
 
-		const _selectedBlockClientId = getSelectedBlockClientId();
+			const _selectedBlockClientId = getSelectedBlockClientId();
+			const _selectedBlockClientIds = getSelectedBlockClientIds();
 
-		return {
-			parentNavBlockClientId: getBlockParentsByBlockName(
-				_selectedBlockClientId,
-				'core/navigation',
-				true
-			)[ 0 ],
-		};
-	}, [] );
+			return {
+				parentNavBlockClientId: getBlockParentsByBlockName(
+					_selectedBlockClientId,
+					'core/navigation',
+					true
+				)[ 0 ],
+				isUsingBindings: _selectedBlockClientIds.every(
+					( clientId ) =>
+						!! getBlockAttributes( clientId )?.metadata?.bindings
+				),
+			};
+		},
+		[]
+	);
 
 	const { selectBlock } = useDispatch( blockEditorStore );
+	const hasCustomName = !! name?.length;
 
 	return (
 		<div className={ clsx( 'block-editor-block-card', className ) }>
@@ -68,15 +81,26 @@ function BlockCard( { title, icon, description, blockType, className, name } ) {
 				/>
 			) }
 			<BlockIcon icon={ icon } showColors />
-			<VStack spacing={ 1 }>
+			<VStack spacing={ hasCustomName || isUsingBindings ? 2 : 1 }>
 				<h2 className="block-editor-block-card__title">
 					<span className="block-editor-block-card__name">
-						{ !! name?.length ? name : title }
+						{ hasCustomName ? name : title }
 					</span>
-					{ !! name?.length && <Badge>{ title }</Badge> }
+					{ hasCustomName && <Badge>{ title }</Badge> }
+					{ isUsingBindings && (
+						<Badge>
+							{ _x(
+								'Connected',
+								'block connected to a bound source'
+							) }
+						</Badge>
+					) }
 				</h2>
 				{ description && (
-					<Text className="block-editor-block-card__description">
+					<Text
+						as="p"
+						className="block-editor-block-card__description"
+					>
 						{ description }
 					</Text>
 				) }
