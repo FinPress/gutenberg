@@ -23,7 +23,7 @@ import { ContextSystemProvider } from '../../context';
 import type { MenuProps } from '../types';
 
 const meta: Meta< typeof Menu > = {
-	id: 'components-experimental-menu',
+	id: 'components-menu',
 	title: 'Components (Experimental)/Actions/Menu',
 	component: Menu,
 	subcomponents: {
