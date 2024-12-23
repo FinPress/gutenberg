@@ -8,8 +8,17 @@ import json2md from 'json2md';
  */
 import { generateMarkdownPropsJson } from './props.mjs';
 
+/**
+ * If the string is contentful, ensure that it ends with a single newline.
+ * Otherwise normalize to `undefined`.
+ *
+ * @param {string} [str]
+ */
 function normalizeTrailingNewline( str ) {
-	return str?.length ? str.replace( /\n*$/, '\n' ) : undefined;
+	if ( ! str?.trim() ) {
+		return undefined;
+	}
+	return str.replace( /\n*$/, '\n' );
 }
 
 export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
