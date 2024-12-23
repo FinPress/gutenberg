@@ -28,9 +28,9 @@
 	"wpScript": true,
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/compose": "0.0.0",
-		"@wordpress/data": "0.0.0",
-		"@wordpress/element": "0.0.0"
+		"@wordpress/compose": "^0.0.0",
+		"@wordpress/data": "^0.0.0",
+		"@wordpress/element": "^0.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0"

@@ -33,14 +33,14 @@
 	],
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/a11y": "0.0.0",
-		"@wordpress/compose": "0.0.0",
-		"@wordpress/data": "0.0.0",
-		"@wordpress/deprecated": "0.0.0",
-		"@wordpress/element": "0.0.0",
-		"@wordpress/escape-html": "0.0.0",
-		"@wordpress/i18n": "0.0.0",
-		"@wordpress/keycodes": "0.0.0",
+		"@wordpress/a11y": "^0.0.0",
+		"@wordpress/compose": "^0.0.0",
+		"@wordpress/data": "^0.0.0",
+		"@wordpress/deprecated": "^0.0.0",
+		"@wordpress/element": "^0.0.0",
+		"@wordpress/escape-html": "^0.0.0",
+		"@wordpress/i18n": "^0.0.0",
+		"@wordpress/keycodes": "^0.0.0",
 		"memize": "^2.1.0"
 	},
 	"peerDependencies": {

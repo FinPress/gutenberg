@@ -30,7 +30,7 @@
 	],
 	"main": "lib/index.js",
 	"dependencies": {
-		"@wordpress/base-styles": "0.0.0",
+		"@wordpress/base-styles": "^0.0.0",
 		"autoprefixer": "^10.4.20"
 	},
 	"peerDependencies": {
