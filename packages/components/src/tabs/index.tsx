@@ -43,7 +43,7 @@ function internalToExternalTabId(
  * It has two sections: a list of tabs, and the view to show when a tab is chosen.
  *
  * `Tabs` itself is a wrapper component and context provider.
- * It is responsible for managing the state of the tabs, and rendering the `TabList` and `TabPanels`.
+ * It is responsible for managing the state of the tabs, and rendering one instance of the `Tabs.TabList` component and one or more instances of the `Tab.TabPanel` component.
  */
 export const Tabs = Object.assign(
 	function Tabs( {
