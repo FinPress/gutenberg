@@ -37,7 +37,7 @@ export default function SwapTemplateButton( { onClick } ) {
 	return (
 		<>
 			<MenuItem onClick={ () => setShowModal( true ) }>
-				{ __( 'Swap template' ) }
+				{ __( 'Replace template' ) }
 			</MenuItem>
 			{ showModal && (
 				<Modal
