@@ -561,7 +561,7 @@ svg {
 
 	// TODO: Consider passing size="small" to the Inserter toggle instead.
 	// Special dimensions for this button.
-	&.block-editor-inserter__toggle {
+	&.has-icon.is-next-40px-default-size {
 		min-width: $button-size-small;
 	}
 
