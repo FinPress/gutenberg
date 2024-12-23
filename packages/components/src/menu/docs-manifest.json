@@ -1,0 +1,62 @@
+{
+	"$schema": "../../schemas/docs-manifest.json",
+	"displayName": "Menu",
+	"filePath": "./index.tsx",
+	"subcomponents": [
+		{
+			"displayName": "MenuTriggerButton",
+			"preferredDisplayName": "Menu.TriggerButton",
+			"filePath": "./trigger-button.tsx"
+		},
+		{
+			"displayName": "MenuPopover",
+			"preferredDisplayName": "Menu.Popover",
+			"filePath": "./popover.tsx"
+		},
+		{
+			"displayName": "MenuItem",
+			"preferredDisplayName": "Menu.Item",
+			"filePath": "./item.tsx"
+		},
+		{
+			"displayName": "MenuRadioItem",
+			"preferredDisplayName": "Menu.RadioItem",
+			"filePath": "./radio-item.tsx"
+		},
+		{
+			"displayName": "MenuCheckboxItem",
+			"preferredDisplayName": "Menu.CheckboxItem",
+			"filePath": "./checkbox-item.tsx"
+		},
+		{
+			"displayName": "MenuItemLabel",
+			"preferredDisplayName": "Menu.ItemLabel",
+			"filePath": "./item-label.tsx"
+		},
+		{
+			"displayName": "MenuItemHelpText",
+			"preferredDisplayName": "Menu.ItemHelpText",
+			"filePath": "./item-help-text.tsx"
+		},
+		{
+			"displayName": "MenuGroup",
+			"preferredDisplayName": "Menu.Group",
+			"filePath": "./group.tsx"
+		},
+		{
+			"displayName": "MenuGroupLabel",
+			"preferredDisplayName": "Menu.GroupLabel",
+			"filePath": "./group-label.tsx"
+		},
+		{
+			"displayName": "MenuSeparator",
+			"preferredDisplayName": "Menu.Separator",
+			"filePath": "./separator.tsx"
+		},
+		{
+			"displayName": "MenuSubmenuTriggerItem",
+			"preferredDisplayName": "Menu.SubmenuTriggerItem",
+			"filePath": "./submenu-trigger-item.tsx"
+		}
+	]
+}
