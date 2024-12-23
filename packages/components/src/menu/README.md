@@ -72,6 +72,9 @@ The placement of the menu popover.
 
 ### Menu.TriggerButton
 
+Renders a menu button that toggles the visibility of a sibling
+`Menu.Popover` component when clicked or when using arrow keys.
+
 #### Props
 
 ##### `accessibleWhenDisabled`
@@ -124,6 +127,14 @@ merged.
  - Required: No
 
 ### Menu.Popover
+
+Renders a dropdown menu element that's controlled by a sibling
+`Menu.TriggerButton` component. It renders a popover and automatically
+focuses on items when the menu is shown.
+
+The only valid children of `Menu.Popover` are `Menu.Item`,
+`Menu.RadioItem`, `Menu.CheckboxItem`, `Menu.Group`, `Menu.Separator`,
+and `Menu` (for nested dropdown menus).
 
 #### Props
 
@@ -185,6 +196,11 @@ negative values to make the popover shift to the opposite side.
 
 ### Menu.Item
 
+Renders a menu item inside the `Menu.Popover` or `Menu.Group` components.
+
+It can optionally contain one instance of the `Menu.ItemLabel` component
+and one instance of the `Menu.ItemHelpText` component.
+
 #### Props
 
 ##### `children`
@@ -243,6 +259,12 @@ The contents of the menu item's suffix, such as a keyboard shortcut.
  - Required: No
 
 ### Menu.RadioItem
+
+Renders a radio menu item inside the `Menu.Popover` or `Menu.Group`
+components.
+
+It can optionally contain one instance of the `Menu.ItemLabel` component
+and one instance of the `Menu.ItemHelpText` component.
 
 #### Props
 
@@ -335,6 +357,12 @@ The radio item's value.
  - Required: Yes
 
 ### Menu.CheckboxItem
+
+Renders a checkbox menu item inside the `Menu.Popover` or `Menu.Group`
+components.
+
+It can optionally contain one instance of the `Menu.ItemLabel` component
+and one instance of the `Menu.ItemHelpText` component.
 
 #### Props
 
@@ -429,6 +457,9 @@ associated to the same `name`.
 
 ### Menu.ItemLabel
 
+Renders a menu item's label text. It should be wrapped with `Menu.Item`,
+`Menu.RadioItem`, or `Menu.CheckboxItem`.
+
 #### Props
 
 ##### `as`
@@ -440,6 +471,9 @@ The HTML element or React component to render the component as.
 
 ### Menu.ItemHelpText
 
+Renders a menu item's help text. It should be wrapped with `Menu.Item`,
+`Menu.RadioItem`, or `Menu.CheckboxItem`.
+
 #### Props
 
 ##### `as`
@@ -450,6 +484,11 @@ The HTML element or React component to render the component as.
  - Required: No
 
 ### Menu.Group
+
+Renders a group for menu items.
+
+It should contain one instance of `Menu.GroupLabel` and one or more
+instances of `Menu.Item`, `Menu.RadioItem`, or `Menu.CheckboxItem`.
 
 #### Props
 
@@ -464,6 +503,11 @@ The contents of the menu group, which should include one instance of the
 
 ### Menu.GroupLabel
 
+Renders a label in a menu group.
+
+This component should be wrapped with `Menu.Group` so the
+`aria-labelledby` is correctly set on the group element.
+
 #### Props
 
 ##### `children`
@@ -476,9 +520,16 @@ label for the menu group.
 
 ### Menu.Separator
 
+Renders a divider between menu items or menu groups.
+
 #### Props
 
 ### Menu.SubmenuTriggerItem
+
+Renders a menu item that toggles the visibility of a sibling
+`Menu.Popover` component when clicked or when using arrow keys.
+
+This component is used to create a nested dropdown menu.
 
 #### Props
 

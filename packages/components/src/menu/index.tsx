@@ -13,19 +13,19 @@ import { isRTL as isRTLFn } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { useContextSystem, contextConnectWithoutRef } from '../context';
-import type { MenuContext as MenuContextType, MenuProps } from './types';
-import { MenuContext } from './context';
-import { MenuItem } from './item';
-import { MenuCheckboxItem } from './checkbox-item';
-import { MenuRadioItem } from './radio-item';
-import { MenuGroup } from './group';
-import { MenuGroupLabel } from './group-label';
-import { MenuSeparator } from './separator';
-import { MenuItemLabel } from './item-label';
-import { MenuItemHelpText } from './item-help-text';
-import { MenuTriggerButton } from './trigger-button';
-import { MenuSubmenuTriggerItem } from './submenu-trigger-item';
-import { MenuPopover } from './popover';
+import type { ContextProps, Props } from './types';
+import { Context } from './context';
+import { Item } from './item';
+import { CheckboxItem } from './checkbox-item';
+import { RadioItem } from './radio-item';
+import { Group } from './group';
+import { GroupLabel } from './group-label';
+import { Separator } from './separator';
+import { ItemLabel } from './item-label';
+import { ItemHelpText } from './item-help-text';
+import { TriggerButton } from './trigger-button';
+import { SubmenuTriggerItem } from './submenu-trigger-item';
+import { Popover } from './popover';
 
 /**
  * Menu is a collection of React components that combine to render
@@ -37,7 +37,7 @@ import { MenuPopover } from './popover';
  * rendering the `Menu.TriggerButton` (or the `Menu.SubmenuTriggerItem`)
  * component, and the `Menu.Popover` component.
  */
-const UnconnectedMenu = ( props: MenuProps ) => {
+const UnconnectedMenu = ( props: Props ) => {
 	const {
 		children,
 		defaultOpen = false,
@@ -49,10 +49,10 @@ const UnconnectedMenu = ( props: MenuProps ) => {
 		variant,
 	} = useContextSystem<
 		// @ts-expect-error TODO: missing 'className' in MenuProps
-		typeof props & Pick< MenuContextType, 'variant' >
+		typeof props & Pick< ContextProps, 'variant' >
 	>( props, 'Menu' );
 
-	const parentContext = useContext( MenuContext );
+	const parentContext = useContext( Context );
 
 	const rtl = isRTLFn();
 
@@ -94,9 +94,7 @@ const UnconnectedMenu = ( props: MenuProps ) => {
 	);
 
 	return (
-		<MenuContext.Provider value={ contextValue }>
-			{ children }
-		</MenuContext.Provider>
+		<Context.Provider value={ contextValue }>{ children }</Context.Provider>
 	);
 };
 
@@ -113,7 +111,7 @@ const UnconnectedMenu = ( props: MenuProps ) => {
 export const Menu = Object.assign(
 	contextConnectWithoutRef( UnconnectedMenu, 'Menu' ),
 	{
-		Context: Object.assign( MenuContext, {
+		Context: Object.assign( Context, {
 			displayName: 'Menu.Context',
 		} ),
 		/**
@@ -122,7 +120,7 @@ export const Menu = Object.assign(
 		 * It can optionally contain one instance of the `Menu.ItemLabel` component
 		 * and one instance of the `Menu.ItemHelpText` component.
 		 */
-		Item: Object.assign( MenuItem, {
+		Item: Object.assign( Item, {
 			displayName: 'Menu.Item',
 		} ),
 		/**
@@ -132,7 +130,7 @@ export const Menu = Object.assign(
 		 * It can optionally contain one instance of the `Menu.ItemLabel` component
 		 * and one instance of the `Menu.ItemHelpText` component.
 		 */
-		RadioItem: Object.assign( MenuRadioItem, {
+		RadioItem: Object.assign( RadioItem, {
 			displayName: 'Menu.RadioItem',
 		} ),
 		/**
@@ -142,7 +140,7 @@ export const Menu = Object.assign(
 		 * It can optionally contain one instance of the `Menu.ItemLabel` component
 		 * and one instance of the `Menu.ItemHelpText` component.
 		 */
-		CheckboxItem: Object.assign( MenuCheckboxItem, {
+		CheckboxItem: Object.assign( CheckboxItem, {
 			displayName: 'Menu.CheckboxItem',
 		} ),
 		/**
@@ -151,7 +149,7 @@ export const Menu = Object.assign(
 		 * It should contain one instance of `Menu.GroupLabel` and one or more
 		 * instances of `Menu.Item`, `Menu.RadioItem`, or `Menu.CheckboxItem`.
 		 */
-		Group: Object.assign( MenuGroup, {
+		Group: Object.assign( Group, {
 			displayName: 'Menu.Group',
 		} ),
 		/**
@@ -160,27 +158,27 @@ export const Menu = Object.assign(
 		 * This component should be wrapped with `Menu.Group` so the
 		 * `aria-labelledby` is correctly set on the group element.
 		 */
-		GroupLabel: Object.assign( MenuGroupLabel, {
+		GroupLabel: Object.assign( GroupLabel, {
 			displayName: 'Menu.GroupLabel',
 		} ),
 		/**
 		 * Renders a divider between menu items or menu groups.
 		 */
-		Separator: Object.assign( MenuSeparator, {
+		Separator: Object.assign( Separator, {
 			displayName: 'Menu.Separator',
 		} ),
 		/**
 		 * Renders a menu item's label text. It should be wrapped with `Menu.Item`,
 		 * `Menu.RadioItem`, or `Menu.CheckboxItem`.
 		 */
-		ItemLabel: Object.assign( MenuItemLabel, {
+		ItemLabel: Object.assign( ItemLabel, {
 			displayName: 'Menu.ItemLabel',
 		} ),
 		/**
 		 * Renders a menu item's help text. It should be wrapped with `Menu.Item`,
 		 * `Menu.RadioItem`, or `Menu.CheckboxItem`.
 		 */
-		ItemHelpText: Object.assign( MenuItemHelpText, {
+		ItemHelpText: Object.assign( ItemHelpText, {
 			displayName: 'Menu.ItemHelpText',
 		} ),
 		/**
@@ -192,14 +190,14 @@ export const Menu = Object.assign(
 		 * `Menu.RadioItem`, `Menu.CheckboxItem`, `Menu.Group`, `Menu.Separator`,
 		 * and `Menu` (for nested dropdown menus).
 		 */
-		Popover: Object.assign( MenuPopover, {
+		Popover: Object.assign( Popover, {
 			displayName: 'Menu.Popover',
 		} ),
 		/**
 		 * Renders a menu button that toggles the visibility of a sibling
 		 * `Menu.Popover` component when clicked or when using arrow keys.
 		 */
-		TriggerButton: Object.assign( MenuTriggerButton, {
+		TriggerButton: Object.assign( TriggerButton, {
 			displayName: 'Menu.TriggerButton',
 		} ),
 		/**
@@ -208,7 +206,7 @@ export const Menu = Object.assign(
 		 *
 		 * This component is used to create a nested dropdown menu.
 		 */
-		SubmenuTriggerItem: Object.assign( MenuSubmenuTriggerItem, {
+		SubmenuTriggerItem: Object.assign( SubmenuTriggerItem, {
 			displayName: 'Menu.SubmenuTriggerItem',
 		} ),
 	}
