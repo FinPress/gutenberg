@@ -171,8 +171,7 @@ export const getHomePage = createRegistrySelector( ( select ) =>
 			canUser( state, 'read', {
 				kind: 'root',
 				name: 'site',
-			} ),
-			getEntityRecord( state, 'root', 'site' ),
+			} ) && getEntityRecord( state, 'root', 'site' ),
 			getDefaultTemplateId( state, {
 				slug: 'front-page',
 			} ),
