@@ -67,7 +67,7 @@ const GridVisualizerGrid = forwardRef(
 				setGridInfo( getGridInfo( gridElement ) );
 			} );
 			mutationObserver.observe( gridElement, {
-				attributeFilter: [ 'style' ],
+				attributeFilter: [ 'style', 'class' ],
 				childList: true,
 				subtree: true,
 			} );
