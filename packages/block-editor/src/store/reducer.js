@@ -2260,9 +2260,10 @@ function getDerivedBlockEditingModesForTree(
 	const sectionClientIds = state.blocks.order.get( sectionRootClientId );
 	const syncedPatternClientIds = Object.keys(
 		state.blocks.controlledInnerBlocks
-	).filter(
-		( clientId ) =>
-			state.blocks.byClientId?.get( clientId )?.name === 'core/block'
+	).filter( ( clientId ) =>
+		[ 'core/block', 'core/template-part' ].includes(
+			state.blocks.byClientId?.get( clientId )?.name
+		)
 	);
 
 	traverseBlockTree( state, treeClientId, ( block ) => {

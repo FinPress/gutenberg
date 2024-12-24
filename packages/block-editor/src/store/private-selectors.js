@@ -505,7 +505,9 @@ export function isSectionBlock( state, clientId ) {
 	const sectionRootClientId = getSectionRootClientId( state );
 	const sectionClientIds = getBlockOrder( state, sectionRootClientId );
 	return (
-		getBlockName( state, clientId ) === 'core/block' ||
+		[ 'core/block', 'core/template-part' ].includes(
+			getBlockName( state, clientId )
+		) ||
 		getTemplateLock( state, clientId ) === 'contentOnly' ||
 		( isNavigationMode( state ) && sectionClientIds.includes( clientId ) )
 	);
