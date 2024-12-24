@@ -18,6 +18,10 @@
 		},
 		"allowedBlocks": {
 			"type": "array"
+		},
+		"textAlign": {
+			"type": "string",
+			"enum": [ "left", "center", "right", "justify" ]
 		}
 	},
 	"supports": {

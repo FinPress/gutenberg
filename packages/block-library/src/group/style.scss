@@ -7,3 +7,18 @@
 :where(.wp-block-group.wp-block-group-is-layout-constrained) {
 	position: relative;
 }
+.wp-block-group.has-text-align-left {
+	text-align: left;
+}
+
+.wp-block-group.has-text-align-center {
+	text-align: center;
+}
+
+.wp-block-group.has-text-align-right {
+	text-align: right;
+}
+
+.wp-block-group.has-text-align-justify {
+	text-align: justify;
+}
