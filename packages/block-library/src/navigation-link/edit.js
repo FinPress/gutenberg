@@ -34,7 +34,7 @@ import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 import { decodeEntities } from '@wordpress/html-entities';
 import { link as linkIcon, addSubmenu } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
-import { useMergeRefs, usePrevious } from '@wordpress/compose';
+import { useMergeRefs } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -42,8 +42,6 @@ import { useMergeRefs, usePrevious } from '@wordpress/compose';
 import { LinkUI } from './link-ui';
 import { updateAttributes } from './update-attributes';
 import { getColors } from '../navigation/edit/utils';
-
-const DEFAULT_BLOCK = { name: 'core/navigation-link' };
 
 /**
  * A React hook to determine if it's dragging within the target element.
@@ -290,10 +288,20 @@ export default function NavigationLinkEdit( {
 		selectBlock,
 		selectPreviousBlock,
 	} = useDispatch( blockEditorStore );
-	// Have the link editing ui open on mount when lacking a url and selected.
-	const [ isLinkOpen, setIsLinkOpen ] = useState( isSelected && ! url );
+
+	// If the link isSelected when mounted, it was just added via an appender
+	const isNewLink = isSelected;
+	const isLabelURLLike =
+		url && isURL( prependHTTP( label ) ) && /^.+\.[a-z]+/.test( label );
+
+	const [ isLinkOpen, setIsLinkOpen ] = useState(
+		isNewLink && ! isLabelURLLike
+	);
+
+	// If the link ui was opened because it was just added, we need to return focus to the block instead of
+	// the appender when it is closed.
+	const focusBlockOnLinkCloseRef = useRef( isLinkOpen );
 	// Store what element opened the popover, so we know where to return focus to (toolbar button vs navigation link text)
-	const [ openedBy, setOpenedBy ] = useState( null );
 	// Use internal state instead of a ref to make sure that the component
 	// re-renders when the popover's anchor updates.
 	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
@@ -302,7 +310,14 @@ export default function NavigationLinkEdit( {
 	const itemLabelPlaceholder = __( 'Add label…' );
 	const ref = useRef();
 	const linkUIref = useRef();
-	const prevUrl = usePrevious( url );
+
+	useEffect( () => {
+		// If the link was just added and label is url-like, focus and select the label text.
+		if ( isNewLink && isLabelURLLike ) {
+			// Focus and select the label text.
+			selectLabelText();
+		}
+	}, [] );
 
 	// Change the label using inspector causes rich text to change focus on firefox.
 	// This is a workaround to keep the focus on the label field when label filed is focused we don't render the rich text.
@@ -341,6 +356,7 @@ export default function NavigationLinkEdit( {
 		},
 		[ clientId, maxNestingLevel ]
 	);
+
 	const { getBlocks } = useSelect( blockEditorStore );
 
 	/**
@@ -369,21 +385,6 @@ export default function NavigationLinkEdit( {
 			transformToSubmenu();
 		}
 	}, [ hasChildren ] );
-
-	// If the LinkControl popover is open and the URL has changed, close the LinkControl and focus the label text.
-	useEffect( () => {
-		// We only want to do this when the URL has gone from nothing to a new URL AND the label looks like a URL
-		if (
-			! prevUrl &&
-			url &&
-			isLinkOpen &&
-			isURL( prependHTTP( label ) ) &&
-			/^.+\.[a-z]+/.test( label )
-		) {
-			// Focus and select the label text.
-			selectLabelText();
-		}
-	}, [ prevUrl, url, isLinkOpen, label ] );
 
 	/**
 	 * Focus the Link label text and select it.
@@ -438,7 +439,6 @@ export default function NavigationLinkEdit( {
 			// If this link is a child of a parent submenu item, the parent submenu item event will also open, closing this popover
 			event.stopPropagation();
 			setIsLinkOpen( true );
-			setOpenedBy( ref.current );
 		}
 	}
 
@@ -468,7 +468,6 @@ export default function NavigationLinkEdit( {
 			className: 'remove-outline', // Remove the outline from the inner blocks container.
 		},
 		{
-			defaultBlock: DEFAULT_BLOCK,
 			directInsert: true,
 			renderAppender: false,
 		}
@@ -477,7 +476,6 @@ export default function NavigationLinkEdit( {
 	if ( ! url || isInvalid || isDraft ) {
 		blockProps.onClick = () => {
 			setIsLinkOpen( true );
-			setOpenedBy( ref.current );
 		};
 	}
 
@@ -504,9 +502,8 @@ export default function NavigationLinkEdit( {
 						icon={ linkIcon }
 						title={ __( 'Link' ) }
 						shortcut={ displayShortcut.primary( 'k' ) }
-						onClick={ ( event ) => {
+						onClick={ () => {
 							setIsLinkOpen( true );
-							setOpenedBy( event.currentTarget );
 						} }
 					/>
 					{ ! isAtMaxNesting && (
@@ -609,8 +606,12 @@ export default function NavigationLinkEdit( {
 							clientId={ clientId }
 							link={ attributes }
 							onClose={ () => {
-								// If there is no link then remove the auto-inserted block.
+								// If there is no link then remove the block.
 								// This avoids empty blocks which can provided a poor UX.
+								// This should not happen often. The main route is through adding a custom link block.
+								// An alternative to this would be to open the custom link block
+								// directly to the edit link popover with text and url fields, rather than the LinkUI
+								// where you can select a block as well.
 								if ( ! url ) {
 									// Fixes https://github.com/WordPress/gutenberg/issues/61361
 									// There's a chance we're closing due to the user selecting the browse all button.
@@ -631,17 +632,19 @@ export default function NavigationLinkEdit( {
 									return;
 								}
 
-								setIsLinkOpen( false );
-								if ( openedBy ) {
-									openedBy.focus();
-									setOpenedBy( null );
-								} else if ( ref.current ) {
-									// select the ref when adding a new link
-									ref.current.focus();
-								} else {
-									// Fallback
-									selectPreviousBlock( clientId, true );
+								// If the link ui was opened due to the block being added,
+								// we need to return focus to the block instead of the appender.
+								if (
+									focusBlockOnLinkCloseRef.current &&
+									linkUIref.current.contains(
+										window.document.activeElement
+									)
+								) {
+									ref.current?.focus();
 								}
+
+								setIsLinkOpen( false );
+								focusBlockOnLinkCloseRef.current = false;
 							} }
 							anchor={ popoverAnchor }
 							onRemove={ removeLink }

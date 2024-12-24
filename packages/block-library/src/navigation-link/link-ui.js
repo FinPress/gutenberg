@@ -11,7 +11,6 @@ import {
 import { __, sprintf, isRTL } from '@wordpress/i18n';
 import {
 	LinkControl,
-	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import {
@@ -27,7 +26,7 @@ import {
 	useResourcePermissions,
 } from '@wordpress/core-data';
 import { decodeEntities } from '@wordpress/html-entities';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useDispatch } from '@wordpress/data';
 import { chevronLeftSmall, chevronRightSmall, plus } from '@wordpress/icons';
 import { useInstanceId, useFocusOnMount } from '@wordpress/compose';
 
@@ -79,17 +78,6 @@ export function getSuggestionsQuery( type, kind ) {
 }
 
 function LinkUIBlockInserter( { clientId, onBack, onSelectBlock } ) {
-	const { rootBlockClientId } = useSelect(
-		( select ) => {
-			const { getBlockRootClientId } = select( blockEditorStore );
-
-			return {
-				rootBlockClientId: getBlockRootClientId( clientId ),
-			};
-		},
-		[ clientId ]
-	);
-
 	const focusOnMountRef = useFocusOnMount( 'firstElement' );
 
 	const dialogTitleId = useInstanceId(
@@ -134,9 +122,8 @@ function LinkUIBlockInserter( { clientId, onBack, onSelectBlock } ) {
 			</Button>
 
 			<QuickInserter
-				rootClientId={ rootBlockClientId }
-				clientId={ clientId }
-				isAppender={ false }
+				rootClientId={ clientId }
+				isAppender
 				prioritizePatterns={ false }
 				selectBlockOnInsert
 				hasSearch={ false }

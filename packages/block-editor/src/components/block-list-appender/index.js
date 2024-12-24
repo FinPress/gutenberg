@@ -94,7 +94,7 @@ export default function BlockListAppender( {
 			data-block
 		>
 			{ CustomAppender ? (
-				<CustomAppender />
+				<CustomAppender rootClientId={ rootClientId } />
 			) : (
 				<DefaultAppender rootClientId={ rootClientId } />
 			) }

@@ -4,7 +4,6 @@
 import { useEntityBlockEditor } from '@wordpress/core-data';
 import {
 	useInnerBlocksProps,
-	InnerBlocks,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
@@ -14,7 +13,8 @@ import { useMemo } from '@wordpress/element';
  * Internal dependencies
  */
 import PlaceholderPreview from './placeholder/placeholder-preview';
-import { DEFAULT_BLOCK, PRIORITIZED_INSERTER_BLOCKS } from '../constants';
+import { PRIORITIZED_INSERTER_BLOCKS } from '../constants';
+import NavigationLinkAppender from '../../navigation-link/appender';
 
 export default function NavigationInnerBlocks( {
 	clientId,
@@ -82,7 +82,6 @@ export default function NavigationInnerBlocks( {
 			onInput,
 			onChange,
 			prioritizedInserterBlocks: PRIORITIZED_INSERTER_BLOCKS,
-			defaultBlock: DEFAULT_BLOCK,
 			directInsert: true,
 			orientation,
 			templateLock,
@@ -98,7 +97,7 @@ export default function NavigationInnerBlocks( {
 					! selectedBlockHasChildren ) ||
 				// Show the appender while dragging to allow inserting element between item and the appender.
 				parentOrChildHasSelection
-					? InnerBlocks.ButtonBlockAppender
+					? NavigationLinkAppender
 					: false,
 			placeholder: showPlaceholder ? placeholder : undefined,
 			__experimentalCaptureToolbars: true,
@@ -106,5 +105,9 @@ export default function NavigationInnerBlocks( {
 		}
 	);
 
-	return <div { ...innerBlocksProps } />;
+	return (
+		<>
+			<div { ...innerBlocksProps } />
+		</>
+	);
 }

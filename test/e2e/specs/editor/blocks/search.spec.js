@@ -44,7 +44,10 @@ test.describe( 'Search', () => {
 		} );
 		await navBlockInserter.click();
 
-		await page.getByRole( 'button', { name: 'Add block' } ).click();
+		// Move to and activate the "Add Block" button.
+		await page.keyboard.press( 'Tab' );
+		await page.keyboard.press( 'Tab' );
+		await page.keyboard.press( 'Enter' );
 
 		// Click on the Search block option.
 		await page.getByRole( 'option', { name: 'Search' } ).click();
