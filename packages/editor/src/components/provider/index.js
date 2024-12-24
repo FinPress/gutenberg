@@ -300,15 +300,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					}
 				);
 			}
-		}, [
-			createWarningNotice,
-			initialEdits,
-			settings,
-			post,
-			recovery,
-			setupEditor,
-			updatePostLock,
-		] );
+		}, [] );
 
 		// Synchronizes the active post with the state
 		useEffect( () => {
