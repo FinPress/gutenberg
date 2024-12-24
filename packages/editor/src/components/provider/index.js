@@ -300,6 +300,10 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					}
 				);
 			}
+
+			// The dependencies of the hook are omitted deliberately
+			// We only want to run setupEditor (with initialEdits) only once per post.
+			// A better solution in the future would be to split this effect into multiple ones.
 		}, [] );
 
 		// Synchronizes the active post with the state
