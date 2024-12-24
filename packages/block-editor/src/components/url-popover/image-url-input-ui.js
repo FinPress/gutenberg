@@ -265,14 +265,14 @@ const ImageURLInputUI = ( {
 				<div className="block-editor-url-popover__expand-on-click">
 					<Icon icon={ fullscreen } />
 					<div className="text">
-						<p>{ __( 'Expand on click' ) }</p>
+						<p>{ __( 'Enlarge Image' ) }</p>
 						<p className="description">
 							{ __( 'Scales the image with a lightbox effect' ) }
 						</p>
 					</div>
 					<Button
 						icon={ linkOff }
-						label={ __( 'Disable expand on click' ) }
+						label={ __( 'Disable Enlarge Image' ) }
 						onClick={ () => {
 							onSetLightbox?.( false );
 						} }
@@ -372,7 +372,7 @@ const ImageURLInputUI = ( {
 											stopEditLink();
 										} }
 									>
-										{ __( 'Expand on click' ) }
+										{ __( 'Enlarge Image' ) }
 									</MenuItem>
 								) }
 							</NavigableMenu>
