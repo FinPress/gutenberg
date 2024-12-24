@@ -80,7 +80,7 @@ const LINK_OPTIONS = [
 	},
 	{
 		icon: fullscreen,
-		label: __( 'Enlarge Image' ),
+		label: __( 'Enlarge image' ),
 		value: LINK_DESTINATION_LIGHTBOX,
 		noticeText: __( 'Lightbox effect' ),
 		infoText: __( 'Scale images with a lightbox effect' ),
