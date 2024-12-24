@@ -13,20 +13,12 @@ const meta = {
 	title: 'Components/Containers/Badge',
 	id: 'components-badge',
 	tags: [ 'status-private' ],
-	args: {
-		children: 'Code is Poetry',
-		intent: 'default',
-		// @ts-ignore
-		'...props': null,
-	},
 	argTypes: {
-		// @ts-ignore
-		'...props': {
-			control: {
-				type: null,
-			},
-			description:
-				'Any other props will be passed down to the underlying `span` element',
+		// @ts-expect-error
+		'': {
+			control: false,
+			table: { category: 'Other' },
+			description: 'This component also accepts props of `span`',
 		},
 	},
 } satisfies Meta< typeof Badge >;
