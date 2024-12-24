@@ -15,7 +15,10 @@
 		"core/site-logo",
 		"core/navigation-submenu",
 		"core/loginout",
-		"core/buttons"
+		"core/buttons",
+		"core/paragraph",
+		"core/heading",
+		"core/image"
 	],
 	"description": "A collection of blocks that allow visitors to get around your site.",
 	"keywords": [ "menu", "navigation", "links" ],
