@@ -39,6 +39,7 @@ import {
 	__experimentalGetElementClassName,
 	store as blockEditorStore,
 	useBlockEditingMode,
+	useSettings,
 } from '@wordpress/block-editor';
 import { displayShortcut, isKeyboardEvent, ENTER } from '@wordpress/keycodes';
 import { link, linkOff } from '@wordpress/icons';
@@ -266,6 +267,9 @@ function ButtonEdit( props ) {
 		[ context, isSelected, metadata?.bindings?.url ]
 	);
 
+	const [ buttonWidth ] = useSettings( 'blocks.core/button' );
+	const isWidthPanelEnabled = false !== buttonWidth?.[ 0 ]?.width;
+
 	return (
 		<>
 			<div
@@ -380,12 +384,14 @@ function ButtonEdit( props ) {
 						/>
 					</Popover>
 				) }
-			<InspectorControls>
-				<WidthPanel
-					selectedWidth={ width }
-					setAttributes={ setAttributes }
-				/>
-			</InspectorControls>
+			{ isWidthPanelEnabled && (
+				<InspectorControls>
+					<WidthPanel
+						selectedWidth={ width }
+						setAttributes={ setAttributes }
+					/>
+				</InspectorControls>
+			) }
 			<InspectorControls group="advanced">
 				{ isLinkTag && (
 					<TextControl
