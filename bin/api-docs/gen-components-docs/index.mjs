@@ -12,7 +12,7 @@ import path from 'path';
 import { generateMarkdownDocs } from './markdown/index.mjs';
 import { getDescriptionsForSubcomponents } from './get-subcomponent-descriptions.mjs';
 
-const MANIFEST_GLOB = 'packages/components/src/**/docs-manifest.json';
+const MANIFEST_GLOB = 'packages/components/src/badge/docs-manifest.json';
 
 // For consistency, options should generally match the options used in Storybook.
 const OPTIONS = {
@@ -116,6 +116,7 @@ await Promise.all(
 		const docs = generateMarkdownDocs( {
 			typeDocs,
 			subcomponentTypeDocs,
+			additionalProps: manifest.additionalProps,
 		} );
 		const outputFile = path.resolve(
 			path.dirname( manifestPath ),
