@@ -405,6 +405,9 @@ function Layout( {
 			const isRenderingPostOnly = getRenderingMode() === 'post-only';
 			const isNotDesignPostType =
 				! DESIGN_POST_TYPES.includes( currentPostType );
+			const isDirectlyEditingPattern =
+				currentPostType === 'wp_block' &&
+				! onNavigateToPreviousEntityRecord;
 
 			return {
 				mode: getEditorMode(),
@@ -415,7 +418,9 @@ function Layout( {
 					!! select( blockEditorStore ).getBlockSelectionStart(),
 				showIconLabels: get( 'core', 'showIconLabels' ),
 				isDistractionFree: get( 'core', 'distractionFree' ),
-				showMetaBoxes: isNotDesignPostType && ! isZoomOut(),
+				showMetaBoxes:
+					( isNotDesignPostType && ! isZoomOut() ) ||
+					isDirectlyEditingPattern,
 				isWelcomeGuideVisible: isFeatureActive( 'welcomeGuide' ),
 				templateId:
 					supportsTemplateMode &&
@@ -433,6 +438,7 @@ function Layout( {
 			currentPostId,
 			isEditingTemplate,
 			settings.supportsTemplateMode,
+			onNavigateToPreviousEntityRecord,
 		]
 	);
 	useMetaBoxInitialization( hasActiveMetaboxes );
