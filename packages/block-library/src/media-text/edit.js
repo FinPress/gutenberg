@@ -153,6 +153,7 @@ function MediaTextResolutionTool( { image, value, onChange } ) {
 	return (
 		<ResolutionTool
 			value={ value }
+			defaultValue={ DEFAULT_MEDIA_SIZE_SLUG }
 			options={ imageSizeOptions }
 			onChange={ onChange }
 		/>
@@ -179,12 +180,12 @@ function MediaTextEdit( {
 		mediaType,
 		mediaUrl,
 		mediaWidth,
+		mediaSizeSlug,
 		rel,
 		verticalAlignment,
 		allowedBlocks,
 		useFeaturedImage,
 	} = attributes;
-	const mediaSizeSlug = attributes.mediaSizeSlug || DEFAULT_MEDIA_SIZE_SLUG;
 
 	const [ featuredImage ] = useEntityProp(
 		'postType',
