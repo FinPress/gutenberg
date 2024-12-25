@@ -8,18 +8,9 @@ import json2md from 'json2md';
  */
 import { generateMarkdownPropsJson } from './props.mjs';
 
-/**
- * If the string is contentful, ensure that it ends with a single newline.
- * Otherwise normalize to `undefined`.
- *
- * @param {string} [str]
- */
-function normalizeTrailingNewline( str ) {
-	if ( ! str?.trim() ) {
-		return undefined;
-	}
-	return str.replace( /\n*$/, '\n' );
-}
+json2md.converters.md = ( input ) => {
+	return input?.trim() ? input : '';
+};
 
 export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
 	const mainDocsJson = [
@@ -28,7 +19,7 @@ export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
 		{
 			p: `<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-${ typeDocs.displayName.toLowerCase() }--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>`,
 		},
-		normalizeTrailingNewline( typeDocs.description ),
+		{ md: typeDocs.description },
 		...generateMarkdownPropsJson( typeDocs.props ),
 	];
 
@@ -39,7 +30,7 @@ export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
 					{
 						h3: subcomponentTypeDoc.displayName,
 					},
-					normalizeTrailingNewline( subcomponentTypeDoc.description ),
+					{ md: subcomponentTypeDoc.description },
 					...generateMarkdownPropsJson( subcomponentTypeDoc.props, {
 						headingLevel: 4,
 					} ),
@@ -49,5 +40,5 @@ export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
 
 	return json2md(
 		[ ...mainDocsJson, ...subcomponentDocsJson ].filter( Boolean )
-	);
+	).replace( /\n+$/gm, '\n' ); // clean unnecessary consecutive newlines
 }
