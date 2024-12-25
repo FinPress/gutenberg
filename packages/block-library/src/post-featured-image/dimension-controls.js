@@ -240,6 +240,9 @@ const DimensionControls = ( {
 						setAttributes( { sizeSlug: nextSizeSlug } )
 					}
 					isShownByDefault={ false }
+					resetAllFilter={ () => ( {
+						sizeSlug: DEFAULT_SIZE,
+					} ) }
 				/>
 			) }
 		</>
