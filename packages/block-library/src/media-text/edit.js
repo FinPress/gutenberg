@@ -200,6 +200,20 @@ function MediaTextEdit( {
 		[ featuredImage ]
 	);
 
+	const { image } = useSelect(
+		( select ) => {
+			return {
+				image:
+					mediaId && isSelected
+						? select( coreStore ).getMedia( mediaId, {
+								context: 'view',
+						  } )
+						: null,
+			};
+		},
+		[ isSelected, mediaId ]
+	);
+
 	const featuredImageURL = useFeaturedImage
 		? featuredImageMedia?.source_url
 		: '';
@@ -223,20 +237,6 @@ function MediaTextEdit( {
 			useFeaturedImage: ! useFeaturedImage,
 		} );
 	};
-
-	const { image } = useSelect(
-		( select ) => {
-			return {
-				image:
-					mediaId && isSelected
-						? select( coreStore ).getMedia( mediaId, {
-								context: 'view',
-						  } )
-						: null,
-			};
-		},
-		[ isSelected, mediaId ]
-	);
 
 	const refMedia = useRef();
 	const imperativeFocalPointPreview = ( value ) => {
