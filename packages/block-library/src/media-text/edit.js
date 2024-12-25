@@ -134,6 +134,31 @@ function attributesFromMedia( {
 	};
 }
 
+function MediaTextResolutionTool( { image, value, onChange } ) {
+	const { imageSizes } = useSelect( ( select ) => {
+		const { getSettings } = select( blockEditorStore );
+		return {
+			imageSizes: getSettings().imageSizes,
+		};
+	}, [] );
+
+	if ( ! imageSizes?.length ) {
+		return null;
+	}
+
+	const imageSizeOptions = imageSizes
+		.filter( ( { slug } ) => getImageSourceUrlBySizeSlug( image, slug ) )
+		.map( ( { name, slug } ) => ( { value: slug, label: name } ) );
+
+	return (
+		<ResolutionTool
+			value={ value }
+			options={ imageSizeOptions }
+			onChange={ onChange }
+		/>
+	);
+}
+
 function MediaTextEdit( {
 	attributes,
 	isSelected,
@@ -199,9 +224,8 @@ function MediaTextEdit( {
 		} );
 	};
 
-	const { imageSizes, image } = useSelect(
+	const { image } = useSelect(
 		( select ) => {
-			const { getSettings } = select( blockEditorStore );
 			return {
 				image:
 					mediaId && isSelected
@@ -209,7 +233,6 @@ function MediaTextEdit( {
 								context: 'view',
 						  } )
 						: null,
-				imageSizes: getSettings()?.imageSizes,
 			};
 		},
 		[ isSelected, mediaId ]
@@ -262,10 +285,6 @@ function MediaTextEdit( {
 	const onVerticalAlignmentChange = ( alignment ) => {
 		setAttributes( { verticalAlignment: alignment } );
 	};
-
-	const imageSizeOptions = imageSizes
-		.filter( ( { slug } ) => getImageSourceUrlBySizeSlug( image, slug ) )
-		.map( ( { name, slug } ) => ( { value: slug, label: name } ) );
 	const updateImage = ( newMediaSizeSlug ) => {
 		const newUrl = getImageSourceUrlBySizeSlug( image, newMediaSizeSlug );
 
@@ -411,9 +430,9 @@ function MediaTextEdit( {
 				</ToolsPanelItem>
 			) }
 			{ mediaType === 'image' && ! useFeaturedImage && (
-				<ResolutionTool
+				<MediaTextResolutionTool
+					image={ image }
 					value={ mediaSizeSlug }
-					options={ imageSizeOptions }
 					onChange={ updateImage }
 				/>
 			) }
