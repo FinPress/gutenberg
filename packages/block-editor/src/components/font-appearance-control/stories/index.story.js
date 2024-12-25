@@ -13,13 +13,29 @@ const meta = {
 	component: FontAppearanceControl,
 	parameters: {
 		docs: {
+			canvas: {
+				sourceState: 'shown',
+			},
 			description: {
-				component:
-					'`FontAppearanceControl` is used to display and select font style and weight options for a font family.',
+				component: `
+\`FontAppearanceControl\` is a component designed to display and select font style and weight options for a given font family.
+
+Note: The margin below the select control is not included within the component itself. It has been added here to enhance visibility of the options in the storybook.`,
+			},
+			story: {
+				height: '150px',
 			},
 		},
 	},
 	argTypes: {
+		__next40pxDefaultSize: {
+			control: 'boolean',
+			description: 'Opt into the larger default height.',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
+			},
+		},
 		hasFontStyles: {
 			control: 'boolean',
 			description: 'Enable or disable font styles.',
@@ -89,12 +105,12 @@ export const Default = {
 		hasFontWeights: true,
 		fontFamilyFaces: [
 			{
-				fontFamily: 'ExampleFont',
+				fontFamily: 'roboto',
 				fontStyle: 'italic',
 				fontWeight: '400',
 			},
 			{
-				fontFamily: 'ExampleFont',
+				fontFamily: 'roboto',
 				fontStyle: 'normal',
 				fontWeight: '700',
 			},
