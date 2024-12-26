@@ -8,8 +8,14 @@ import json2md from 'json2md';
  */
 import { generateMarkdownPropsJson } from './props.mjs';
 
+/**
+ * Converter for strings that are already formatted as Markdown.
+ *
+ * @param {string} [input]
+ * @return {string} The trimmed input if it is contentful, otherwise an empty string.
+ */
 json2md.converters.md = ( input ) => {
-	return input?.trim() ? input : '';
+	return input?.trim() || '';
 };
 
 export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
