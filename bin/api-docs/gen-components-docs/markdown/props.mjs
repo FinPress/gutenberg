@@ -18,7 +18,11 @@ function renderPropType( type ) {
 	}
 }
 
-export function generateMarkdownPropsJson( props, { headingLevel = 2 } = {} ) {
+export function generateMarkdownPropsJson(
+	props,
+	{ headingLevel = 2 } = {},
+	additionalProps = false
+) {
 	const sortedKeys = Object.keys( props ).sort( ( [ a ], [ b ] ) =>
 		a.localeCompare( b )
 	);
@@ -45,6 +49,13 @@ export function generateMarkdownPropsJson( props, { headingLevel = 2 } = {} ) {
 			];
 		} )
 		.filter( Boolean );
+
+	if ( additionalProps ) {
+		propsJson.push( [
+			{ [ `h${ headingLevel + 1 }` ]: `\`Additional props\`` },
+			`All other props will be passed directly to the underlying \`${ additionalProps }\` element.`,
+		] );
+	}
 
 	return [ { [ `h${ headingLevel }` ]: 'Props' }, ...propsJson ];
 }

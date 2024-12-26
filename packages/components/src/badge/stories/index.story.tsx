@@ -13,6 +13,14 @@ const meta = {
 	title: 'Components/Containers/Badge',
 	id: 'components-badge',
 	tags: [ 'status-private' ],
+	argTypes: {
+		// @ts-expect-error
+		'': {
+			control: false,
+			table: { category: 'Other' },
+			description: 'This component also accepts props of `span`',
+		},
+	},
 } satisfies Meta< typeof Badge >;
 
 export default meta;

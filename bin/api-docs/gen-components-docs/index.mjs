@@ -116,6 +116,7 @@ await Promise.all(
 		const docs = generateMarkdownDocs( {
 			typeDocs,
 			subcomponentTypeDocs,
+			additionalProps: manifest.additionalProps,
 		} );
 		const outputFile = path.resolve(
 			path.dirname( manifestPath ),

@@ -21,7 +21,11 @@ function normalizeTrailingNewline( str ) {
 	return str.replace( /\n*$/, '\n' );
 }
 
-export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
+export function generateMarkdownDocs( {
+	typeDocs,
+	subcomponentTypeDocs,
+	additionalProps,
+} ) {
 	const mainDocsJson = [
 		{ h1: typeDocs.displayName },
 		'<!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->',
@@ -29,7 +33,7 @@ export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
 			p: `<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-${ typeDocs.displayName.toLowerCase() }--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>`,
 		},
 		normalizeTrailingNewline( typeDocs.description ),
-		...generateMarkdownPropsJson( typeDocs.props ),
+		...generateMarkdownPropsJson( typeDocs.props, {}, additionalProps ),
 	];
 
 	const subcomponentDocsJson = subcomponentTypeDocs?.length

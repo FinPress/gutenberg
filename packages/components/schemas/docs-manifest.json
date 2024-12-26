@@ -32,6 +32,11 @@
 				},
 				"required": [ "displayName", "filePath" ]
 			}
+		},
+		"additionalProps": {
+			"type": "string",
+			"default": false,
+			"description": "The wrapper associated with the component which accepts additional props."
 		}
 	},
 	"required": [ "displayName", "filePath" ]
