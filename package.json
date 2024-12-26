@@ -152,7 +152,7 @@
 		"redux": "5.0.1",
 		"resize-observer-polyfill": "1.5.1",
 		"rimraf": "5.0.10",
-		"rtlcss": "4.0.0",
+		"rtlcss": "4.3.0",
 		"sass": "1.50.1",
 		"sass-loader": "16.0.3",
 		"semver": "7.5.4",
