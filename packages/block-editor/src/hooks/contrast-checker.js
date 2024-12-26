@@ -49,7 +49,7 @@ function detectColors( blockEl ) {
 
 function createStyleObserver( node, callback ) {
 	// Watch for changes to style-related attributes
-	const observer = new MutationObserver( ( mutations ) => {
+	const observer = new window.MutationObserver( ( mutations ) => {
 		const hasStyleChanges = mutations.some(
 			( mutation ) => mutation.attributeName === 'style'
 		);
