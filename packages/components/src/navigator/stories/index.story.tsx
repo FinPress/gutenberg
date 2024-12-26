@@ -65,15 +65,27 @@ export const Default: StoryObj< typeof Navigator > = {
 					<h2>This is the home screen.</h2>
 
 					<VStack alignment="left">
-						<Navigator.Button variant="primary" path="/child">
+						<Navigator.Button
+							variant="primary"
+							path="/child"
+							__next40pxDefaultSize
+						>
 							Go to child screen.
 						</Navigator.Button>
 
-						<Navigator.Button variant="primary" path="/product/1">
+						<Navigator.Button
+							variant="primary"
+							path="/product/1"
+							__next40pxDefaultSize
+						>
 							Go to dynamic path screen with id 1.
 						</Navigator.Button>
 
-						<Navigator.Button variant="primary" path="/product/2">
+						<Navigator.Button
+							variant="primary"
+							path="/product/2"
+							__next40pxDefaultSize
+						>
 							Go to dynamic path screen with id 2.
 						</Navigator.Button>
 					</VStack>
@@ -82,13 +94,17 @@ export const Default: StoryObj< typeof Navigator > = {
 				<Navigator.Screen path="/child">
 					<h2>This is the child screen.</h2>
 					<HStack spacing={ 2 } alignment="left">
-						<Navigator.BackButton variant="secondary">
+						<Navigator.BackButton
+							variant="secondary"
+							__next40pxDefaultSize
+						>
 							Go back
 						</Navigator.BackButton>
 
 						<Navigator.Button
 							variant="primary"
 							path="/child/grandchild"
+							__next40pxDefaultSize
 						>
 							Go to grand child screen.
 						</Navigator.Button>
@@ -97,7 +113,10 @@ export const Default: StoryObj< typeof Navigator > = {
 
 				<Navigator.Screen path="/child/grandchild">
 					<h2>This is the grand child screen.</h2>
-					<Navigator.BackButton variant="secondary">
+					<Navigator.BackButton
+						variant="secondary"
+						__next40pxDefaultSize
+					>
 						Go back
 					</Navigator.BackButton>
 				</Navigator.Screen>
@@ -120,7 +139,7 @@ function DynamicScreen() {
 				This screen can parse params dynamically. The current id is:{ ' ' }
 				{ params.id }
 			</p>
-			<Navigator.BackButton variant="secondary">
+			<Navigator.BackButton variant="secondary" __next40pxDefaultSize>
 				Go back
 			</Navigator.BackButton>
 		</>
@@ -174,14 +193,21 @@ export const SkipFocus: StoryObj< typeof Navigator > = {
 				>
 					<Navigator.Screen path="/">
 						<h2>Home screen</h2>
-						<Navigator.Button variant="primary" path="/child">
+						<Navigator.Button
+							variant="primary"
+							path="/child"
+							__next40pxDefaultSize
+						>
 							Go to child screen.
 						</Navigator.Button>
 					</Navigator.Screen>
 
 					<Navigator.Screen path="/child">
 						<h2>Child screen</h2>
-						<Navigator.BackButton variant="secondary">
+						<Navigator.BackButton
+							variant="secondary"
+							__next40pxDefaultSize
+						>
 							Go back to home screen
 						</Navigator.BackButton>
 					</Navigator.Screen>

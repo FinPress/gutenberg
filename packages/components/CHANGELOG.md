@@ -16,6 +16,7 @@
 -   Soft deprecate `ButtonGroup` component. Use `ToggleGroupControl` instead ([#65429](https://github.com/WordPress/gutenberg/pull/65429)).
 -   `Navigation`: Log deprecation warning for removal in WP 7.1. Use `Navigator` instead ([#68158](https://github.com/WordPress/gutenberg/pull/68158)).
 -   `DropdownMenu`: Deprecate 36px default size for default toggle button ([#68329](https://github.com/WordPress/gutenberg/pull/68329)).
+-   `Navigator.Button`, `Navigator.BackButton`: Deprecate 36px default size ([#68330](https://github.com/WordPress/gutenberg/pull/68330)).
 
 ### Bug Fixes
 

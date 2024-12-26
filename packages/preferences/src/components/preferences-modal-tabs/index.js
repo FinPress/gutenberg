@@ -146,6 +146,7 @@ export default function PreferencesModalTabs( { sections } ) {
 										gap="6"
 									>
 										<Navigator.BackButton
+											size="compact"
 											icon={
 												isRTL()
 													? chevronRight

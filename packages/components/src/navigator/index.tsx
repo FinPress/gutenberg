@@ -19,14 +19,14 @@ export { useNavigator } from './use-navigator';
  *   <Navigator initialPath="/">
  *     <Navigator.Screen path="/">
  *       <p>This is the home screen.</p>
- *        <Navigator.Button path="/child">
+ *        <Navigator.Button path="/child" __next40pxDefaultSize>
  *          Navigate to child screen.
  *       </Navigator.Button>
  *     </Navigator.Screen>
  *
  *     <Navigator.Screen path="/child">
  *       <p>This is the child screen.</p>
- *       <Navigator.BackButton>
+ *       <Navigator.BackButton __next40pxDefaultSize>
  *         Go back
  *       </Navigator.BackButton>
  *     </Navigator.Screen>
@@ -48,14 +48,14 @@ export const Navigator = Object.assign( TopLevelNavigator, {
 	 *   <Navigator initialPath="/">
 	 *     <Navigator.Screen path="/">
 	 *       <p>This is the home screen.</p>
-	 *        <Navigator.Button path="/child">
+	 *        <Navigator.Button path="/child" __next40pxDefaultSize>
 	 *          Navigate to child screen.
 	 *       </Navigator.Button>
 	 *     </Navigator.Screen>
 	 *
 	 *     <Navigator.Screen path="/child">
 	 *       <p>This is the child screen.</p>
-	 *       <Navigator.BackButton>
+	 *       <Navigator.BackButton __next40pxDefaultSize>
 	 *         Go back
 	 *       </Navigator.BackButton>
 	 *     </Navigator.Screen>
@@ -79,14 +79,14 @@ export const Navigator = Object.assign( TopLevelNavigator, {
 	 *   <Navigator initialPath="/">
 	 *     <Navigator.Screen path="/">
 	 *       <p>This is the home screen.</p>
-	 *        <Navigator.Button path="/child">
+	 *        <Navigator.Button path="/child" __next40pxDefaultSize>
 	 *          Navigate to child screen.
 	 *       </Navigator.Button>
 	 *     </Navigator.Screen>
 	 *
 	 *     <Navigator.Screen path="/child">
 	 *       <p>This is the child screen.</p>
-	 *       <Navigator.BackButton>
+	 *       <Navigator.BackButton __next40pxDefaultSize>
 	 *         Go back
 	 *       </Navigator.BackButton>
 	 *     </Navigator.Screen>
@@ -110,14 +110,14 @@ export const Navigator = Object.assign( TopLevelNavigator, {
 	 *   <Navigator initialPath="/">
 	 *     <Navigator.Screen path="/">
 	 *       <p>This is the home screen.</p>
-	 *        <Navigator.Button path="/child">
+	 *        <Navigator.Button path="/child" __next40pxDefaultSize>
 	 *          Navigate to child screen.
 	 *       </Navigator.Button>
 	 *     </Navigator.Screen>
 	 *
 	 *     <Navigator.Screen path="/child">
 	 *       <p>This is the child screen.</p>
-	 *       <Navigator.BackButton>
+	 *       <Navigator.BackButton __next40pxDefaultSize>
 	 *         Go back
 	 *       </Navigator.BackButton>
 	 *     </Navigator.Screen>

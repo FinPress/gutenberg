@@ -12,6 +12,7 @@ import { useContextSystem } from '../../context';
 import Button from '../../button';
 import { useNavigator } from '../use-navigator';
 import type { NavigatorButtonProps } from '../types';
+import { maybeWarnDeprecated36pxSize } from '../../utils/deprecated-36px-size';
 
 const cssSelectorForAttribute = ( attrName: string, attrValue: string ) =>
 	`[${ attrName }="${ attrValue }"]`;
@@ -22,7 +23,7 @@ export function useNavigatorButton(
 	const {
 		path,
 		onClick,
-		as = Button,
+		as,
 		attributeName = 'id',
 		...otherProps
 	} = useContextSystem( props, 'Navigator.Button' );
@@ -45,8 +46,18 @@ export function useNavigatorButton(
 			[ goTo, onClick, attributeName, escapedPath ]
 		);
 
+	if ( as === undefined ) {
+		maybeWarnDeprecated36pxSize( {
+			componentName: 'Navigator.Button',
+			__next40pxDefaultSize: otherProps.__next40pxDefaultSize,
+			size: otherProps.size,
+			hint: 'Set the `__next40pxDefaultSize` prop to true to start opting into the new default size, which will become the default in a future version. For icon buttons, consider setting a non-default size like `size: "compact"`.',
+		} );
+	}
+
 	return {
-		as,
+		as: as ?? Button,
+		__shouldNotWarnDeprecated36pxSize: as === undefined,
 		onClick: handleClick,
 		...otherProps,
 		[ attributeName ]: escapedPath,

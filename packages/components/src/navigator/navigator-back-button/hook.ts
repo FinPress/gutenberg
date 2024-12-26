@@ -11,13 +11,14 @@ import { useContextSystem } from '../../context';
 import Button from '../../button';
 import { useNavigator } from '../use-navigator';
 import type { NavigatorBackButtonProps } from '../types';
+import { maybeWarnDeprecated36pxSize } from '../../utils/deprecated-36px-size';
 
 export function useNavigatorBackButton(
 	props: WordPressComponentProps< NavigatorBackButtonProps, 'button' >
 ) {
 	const {
 		onClick,
-		as = Button,
+		as,
 
 		...otherProps
 	} = useContextSystem( props, 'Navigator.BackButton' );
@@ -33,8 +34,18 @@ export function useNavigatorBackButton(
 			[ goBack, onClick ]
 		);
 
+	if ( as === undefined ) {
+		maybeWarnDeprecated36pxSize( {
+			componentName: 'Navigator.BackButton',
+			__next40pxDefaultSize: otherProps.__next40pxDefaultSize,
+			size: otherProps.size,
+			hint: 'Set the `__next40pxDefaultSize` prop to true to start opting into the new default size, which will become the default in a future version. For icon buttons, consider setting a non-default size like `size: "compact"`.',
+		} );
+	}
+
 	return {
-		as,
+		as: as ?? Button,
+		__shouldNotWarnDeprecated36pxSize: as === undefined,
 		onClick: handleClick,
 		...otherProps,
 	};
