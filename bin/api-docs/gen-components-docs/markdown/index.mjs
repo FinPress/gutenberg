@@ -21,10 +21,19 @@ function normalizeTrailingNewline( str ) {
 	return str.replace( /\n*$/, '\n' );
 }
 
-export function generateMarkdownDocs( { typeDocs, subcomponentTypeDocs } ) {
+export function generateMarkdownDocs( {
+	typeDocs,
+	subcomponentTypeDocs,
+	tags,
+} ) {
 	const mainDocsJson = [
 		{ h1: typeDocs.displayName },
 		'<!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->',
+		tags.includes( 'status-private' ) && [
+			{
+				p: '🔒 This component is locked as a [private API](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-private-apis/). We do not yet recommend using this outside of the Gutenberg project.',
+			},
+		],
 		{
 			p: `<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-${ typeDocs.displayName.toLowerCase() }--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>`,
 		},
