@@ -69,6 +69,10 @@ jobs:
               with:
                   name: build-assets
 
+            - name: Build packages
+              run: |
+                  node ./bin/packages/build.js
+
             - name: Install Playwright dependencies
               run: |
                   npx playwright install chromium firefox webkit --with-deps
