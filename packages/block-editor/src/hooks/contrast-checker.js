@@ -13,7 +13,7 @@ function getComputedStyle( node ) {
 	return node.ownerDocument.defaultView.getComputedStyle( node );
 }
 
-function detectColors( blockEl ) {
+function getBlockColors( blockEl ) {
 	if ( ! blockEl ) {
 		return;
 	}
@@ -48,22 +48,21 @@ function detectColors( blockEl ) {
 }
 
 function createStyleObserver( node, callback ) {
-	// Watch for changes to style-related attributes
+	// Watch for changes to style-related attributes.
 	const observer = new window.MutationObserver( ( mutations ) => {
 		const hasStyleChanges = mutations.some(
-			( mutation ) => mutation.attributeName === 'style'
+			( mutation ) =>
+				mutation.attributeName === 'style' ||
+				mutation.attributeName === 'class'
 		);
 
 		if ( hasStyleChanges ) {
-			const computedStyle =
-				node.ownerDocument.defaultView.getComputedStyle( node );
-			callback( computedStyle );
+			callback();
 		}
 	} );
 
-	// Observe style-related changes
 	observer.observe( node, {
-		attributeFilter: [ 'style' ],
+		attributeFilter: [ 'style', 'class' ],
 	} );
 
 	return observer;
@@ -80,22 +79,20 @@ export default function BlockColorContrastChecker( { clientId } ) {
 			return;
 		}
 
-		let colors = detectColors( blockEl );
-		setDetectedColor( colors.textColor );
-		setDetectedBackgroundColor( colors.backgroundColor );
-		if ( colors.linkColor ) {
-			setDetectedLinkColor( colors.linkColor );
-		}
-
-		const observer = createStyleObserver( blockEl, () => {
-			colors = detectColors( blockEl );
+		function updateContrastChecker() {
+			const colors = getBlockColors( blockEl );
 			setDetectedColor( colors.textColor );
 			setDetectedBackgroundColor( colors.backgroundColor );
 			if ( colors.linkColor ) {
 				setDetectedLinkColor( colors.linkColor );
 			}
-		} );
-		// Cleanup
+		}
+
+		// Check colors on mount.
+		updateContrastChecker();
+
+		const observer = createStyleObserver( blockEl, updateContrastChecker );
+
 		return () => observer.disconnect();
 	}, [ blockEl ] );
 
