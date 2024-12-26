@@ -17,6 +17,9 @@ It is responsible for managing the state of the tabs, and rendering one instance
 
 ### `activeTabId`
 
+ - Type: `string`
+ - Required: No
+
 The current active tab `id`. The active tab is the tab element within the
 tablist widget that has DOM focus.
 
@@ -26,19 +29,19 @@ tablist widget that has DOM focus.
   itself will have focus and users will be able to navigate to it using
   arrow keys.
 
- - Type: `string`
- - Required: No
-
 ### `children`
+
+ - Type: `ReactNode`
+ - Required: Yes
 
 The children elements, which should include one instance of the
 `Tabs.Tablist` component and as many instances of the `Tabs.TabPanel`
 components as there are `Tabs.Tab` components.
 
- - Type: `ReactNode`
- - Required: Yes
-
 ### `defaultTabId`
+
+ - Type: `string`
+ - Required: No
 
 The id of the tab whose panel is currently visible.
 
@@ -49,10 +52,10 @@ tabbable.
 Note: this prop will be overridden by the `selectedTabId` prop if it is
 provided (meaning the component will be used in "controlled" mode).
 
+### `defaultActiveTabId`
+
  - Type: `string`
  - Required: No
-
-### `defaultActiveTabId`
 
 The tab id that should be active by default when the composite widget is
 rendered. If `null`, the tablist element itself will have focus
@@ -62,24 +65,25 @@ the first enabled item will be focused.
 Note: this prop will be overridden by the `activeTabId` prop if it is
 provided.
 
- - Type: `string`
- - Required: No
-
 ### `onSelect`
-
-The function called when the `selectedTabId` changes.
 
  - Type: `(selectedId: string) => void`
  - Required: No
 
-### `onActiveTabIdChange`
+The function called when the `selectedTabId` changes.
 
-A callback that gets called when the `activeTabId` state changes.
+### `onActiveTabIdChange`
 
  - Type: `(activeId: string) => void`
  - Required: No
 
+A callback that gets called when the `activeTabId` state changes.
+
 ### `orientation`
+
+ - Type: `"horizontal" | "vertical" | "both"`
+ - Required: No
+ - Default: `"horizontal"`
 
 Defines the orientation of the tablist and determines which arrow keys
 can be used to move focus:
@@ -88,22 +92,21 @@ can be used to move focus:
 - `horizontal`: only left and right arrow keys work.
 - `vertical`: only up and down arrow keys work.
 
- - Type: `"horizontal" | "vertical" | "both"`
- - Required: No
- - Default: `"horizontal"`
-
 ### `selectOnMove`
+
+ - Type: `boolean`
+ - Required: No
+ - Default: `true`
 
 Determines if the tab should be selected when it receives focus. If set to
 `false`, the tab will only be selected upon clicking, not when using arrow
 keys to shift focus (manual tab activation). See the [official W3C docs](https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/)
 for more info.
 
- - Type: `boolean`
- - Required: No
- - Default: `true`
-
 ### `selectedTabId`
+
+ - Type: `string`
+ - Required: No
 
 The id of the tab whose panel is currently visible.
 
@@ -113,9 +116,6 @@ tab, and the component assumes it is being used in "uncontrolled" mode.
 Consequently, any value different than `undefined` will set the component
 in "controlled" mode. When in "controlled" mode, the `null` value will
 result in no tabs being selected, and the tablist becoming tabbable.
-
- - Type: `string`
- - Required: No
 
 ## Subcomponents
 
@@ -129,11 +129,11 @@ It is responsible for rendering the list of tabs.
 
 ##### `children`
 
-The children elements, which should include one or more instances of the
-`Tabs.Tab` component.
-
  - Type: `ReactNode`
  - Required: Yes
+
+The children elements, which should include one or more instances of the
+`Tabs.Tab` component.
 
 ### Tabs.Tab
 
@@ -146,21 +146,24 @@ overridden with CSS targeting `[aria-selected="true"]`.
 
 ##### `children`
 
-The contents of the tab.
-
  - Type: `ReactNode`
  - Required: No
 
-##### `disabled`
+The contents of the tab.
 
-Determines if the tab should be disabled. Note that disabled tabs can
-still be accessed via the keyboard when navigating through the tablist.
+##### `disabled`
 
  - Type: `boolean`
  - Required: No
  - Default: `false`
 
+Determines if the tab should be disabled. Note that disabled tabs can
+still be accessed via the keyboard when navigating through the tablist.
+
 ##### `render`
+
+ - Type: `RenderProp<HTMLAttributes<any> & { ref?: Ref<any>; }> | ReactElement<any, string | JSXElementConstructor<any>>`
+ - Required: No
 
 Allows the component to be rendered as a different HTML element or React
 component. The value can be a React element or a function that takes in the
@@ -169,16 +172,13 @@ merged.
 
 By default, the tab will be rendered as a `button` element.
 
- - Type: `RenderProp<HTMLAttributes<any> & { ref?: Ref<any>; }> | ReactElement<any, string | JSXElementConstructor<any>>`
- - Required: No
-
 ##### `tabId`
-
-The unique ID of the tab. It will be used to register the tab and match
-it to a corresponding `Tabs.TabPanel` component.
 
  - Type: `string`
  - Required: Yes
+
+The unique ID of the tab. It will be used to register the tab and match
+it to a corresponding `Tabs.TabPanel` component.
 
 ### Tabs.TabPanel
 
@@ -188,22 +188,25 @@ Renders the content to display for a single tab once that tab is selected.
 
 ##### `children`
 
-The contents of the tab panel.
-
  - Type: `ReactNode`
  - Required: No
 
-##### `focusable`
+The contents of the tab panel.
 
-Determines whether or not the tabpanel element should be focusable.
-If `false`, pressing the tab key will skip over the tabpanel, and instead
-focus on the first focusable element in the panel (if there is one).
+##### `focusable`
 
  - Type: `boolean`
  - Required: No
  - Default: `true`
 
+Determines whether or not the tabpanel element should be focusable.
+If `false`, pressing the tab key will skip over the tabpanel, and instead
+focus on the first focusable element in the panel (if there is one).
+
 ##### `tabId`
+
+ - Type: `string`
+ - Required: Yes
 
 The unique `id` of the `Tabs.Tab` component controlling this panel. This
 connection is used to assign the `aria-labelledby` attribute to the tab
@@ -211,6 +214,3 @@ panel and to determine if the tab panel should be visible.
 
 If not provided, this link is automatically established by matching the
 order of `Tabs.Tab` and `Tabs.TabPanel` elements in the DOM.
-
- - Type: `string`
- - Required: Yes
