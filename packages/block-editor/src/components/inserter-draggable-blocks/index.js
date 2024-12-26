@@ -14,6 +14,19 @@ import { INSERTER_PATTERN_TYPES } from '../inserter/block-patterns-tab/utils';
 import { store as blockEditorStore } from '../../store';
 import { unlock } from '../../lock-unlock';
 
+/**
+ * InserterDraggableBlocks Component
+ *
+ * A component that wraps blocks or patterns with draggable functionality for use in the editor.
+ *
+ * @param {Object}   props           Component properties.
+ * @param {boolean}  props.isEnabled Whether dragging is enabled.
+ * @param {Array}    props.blocks    Array of blocks to make draggable.
+ * @param {Element}  props.icon      Icon for the draggable chip.
+ * @param {Function} props.children  Render function for child elements.
+ * @param {Object}   [props.pattern] Optional block pattern for drag-and-drop.
+ * @return {Element} Draggable block wrapper.
+ */
 const InserterDraggableBlocks = ( {
 	isEnabled,
 	blocks,
