@@ -319,7 +319,7 @@ function BaseFieldItem( {
 					{ ! canMove && ! canHide && <Icon icon={ lock } /> }
 				</span>
 				<span className="dataviews-field-control__label-sub-label-container">
-				<span className="dataviews-field-control__label">
+					<span className="dataviews-field-control__label">
 						{ label }
 					</span>
 					{ description && (
@@ -543,18 +543,18 @@ function PreviewFieldItem( {
 			isInteracting={ isChangingPreview }
 		>
 			{ isVisible && (
-					<Menu onOpenChange={ setIsChangingPreview }>
-						<Menu.TriggerButton
-							render={
+				<Menu onOpenChange={ setIsChangingPreview }>
+					<Menu.TriggerButton
+						render={
 							<Button
 								size="compact"
 								icon={ moreVertical }
 								label={ __( 'Preview' ) }
 							/>
 						}
-						/>
-						<Menu.Popover>
-							{ previewFields.map( ( field ) => {
+					/>
+					<Menu.Popover>
+						{ previewFields.map( ( field ) => {
 							return (
 								<Menu.RadioItem
 									key={ field.id }
@@ -573,8 +573,8 @@ function PreviewFieldItem( {
 								</Menu.RadioItem>
 							);
 						} ) }
-						</Menu.Popover>
-					</Menu>
+					</Menu.Popover>
+				</Menu>
 			) }
 		</BaseFieldItem>
 	);
@@ -597,7 +597,7 @@ function FieldControl() {
 		( f ) =>
 			! visibleFieldIds.includes( f.id ) &&
 			! togglableFields.includes( f.id ) &&
-			! f.isPreviewField
+			f.type !== 'media'
 	);
 	const visibleFields = visibleFieldIds
 		.map( ( fieldId ) => fields.find( ( f ) => f.id === fieldId ) )
@@ -612,7 +612,7 @@ function FieldControl() {
 		( f ) => f.id === view.descriptionField
 	);
 
-	const previewFields = fields.filter( ( f ) => f.isPreviewField );
+	const previewFields = fields.filter( ( f ) => f.type === 'media' );
 
 	let previewFieldUI;
 	if ( previewFields.length > 1 ) {
@@ -672,18 +672,18 @@ function FieldControl() {
 							( { field, isVisibleFlag, ui } ) => {
 								return (
 									ui ?? (
-									<FieldItem
-										key={ field.id }
-										field={ field }
-										isVisible
-										onToggleVisibility={ () => {
-											onChangeView( {
-												...view,
-												[ isVisibleFlag ]: false,
-											} );
-										} }
-										canMove={ false }
-									/>
+										<FieldItem
+											key={ field.id }
+											field={ field }
+											isVisible
+											onToggleVisibility={ () => {
+												onChangeView( {
+													...view,
+													[ isVisibleFlag ]: false,
+												} );
+											} }
+											canMove={ false }
+										/>
 									)
 								);
 							}
@@ -717,19 +717,19 @@ function FieldControl() {
 									( { field, isVisibleFlag, ui } ) => {
 										return (
 											ui ?? (
-											<FieldItem
-												key={ field.id }
-												field={ field }
-												isVisible={ false }
-												onToggleVisibility={ () => {
-													onChangeView( {
-														...view,
+												<FieldItem
+													key={ field.id }
+													field={ field }
+													isVisible={ false }
+													onToggleVisibility={ () => {
+														onChangeView( {
+															...view,
 															[ isVisibleFlag ]:
 																true,
-													} );
-												} }
-												canMove={ false }
-											/>
+														} );
+													} }
+													canMove={ false }
+												/>
 											)
 										);
 									}

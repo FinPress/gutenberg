@@ -11,12 +11,11 @@ import { __ } from '@wordpress/i18n';
 import PostPreviewView from './content-preview-view';
 
 const postPreviewField: Field< BasePost > = {
-	type: 'text',
+	type: 'media',
 	id: 'content-preview',
 	label: __( 'Content preview' ),
 	render: PostPreviewView,
 	enableSorting: false,
-	isPreviewField: true,
 };
 
 export default postPreviewField;

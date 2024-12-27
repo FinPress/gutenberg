@@ -42,7 +42,7 @@ export type Operator =
 	| 'isAll'
 	| 'isNotAll';
 
-export type FieldType = 'text' | 'integer' | 'datetime';
+export type FieldType = 'text' | 'integer' | 'datetime' | 'media';
 
 export type ValidationContext = {
 	elements?: Option[];
@@ -158,11 +158,6 @@ export type Field< Item > = {
 	 * Defaults to `item[ field.id ]`.
 	 */
 	getValue?: ( args: { item: Item } ) => any;
-
-	/**
-	 * True if the field is supposed to be used as a media field.
-	 */
-	isPreviewField?: boolean;
 };
 
 export type NormalizedField< Item > = Field< Item > & {
