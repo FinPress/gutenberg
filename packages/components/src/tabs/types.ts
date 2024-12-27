@@ -105,7 +105,6 @@ export type TabListProps = {
 };
 
 // TODO: consider prop name changes (tabId, selectedTabId)
-// switch to auto-generated README
 // compound technique
 
 export type TabProps = {
