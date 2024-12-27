@@ -109,6 +109,7 @@ function useView( postType ) {
 		return {
 			...initialView,
 			type,
+			...defaultLayouts[ type ],
 		};
 	} );
 
@@ -140,13 +141,15 @@ function useView( postType ) {
 	// without affecting any other config.
 	const onUrlLayoutChange = useEvent( () => {
 		setView( ( prevView ) => {
-			const layoutToApply = layout ?? LAYOUT_LIST;
-			if ( layoutToApply === prevView.type ) {
+			const newType = layout ?? LAYOUT_LIST;
+			if ( newType === prevView.type ) {
 				return prevView;
 			}
+
 			return {
 				...prevView,
-				type: layout ?? LAYOUT_LIST,
+				type: newType,
+				...defaultLayouts[ newType ],
 			};
 		} );
 	} );
@@ -168,6 +171,7 @@ function useView( postType ) {
 			setView( {
 				...newView,
 				type,
+				...defaultLayouts[ type ],
 			} );
 		}
 	} );
@@ -188,6 +192,10 @@ const DEFAULT_STATUSES = 'draft,future,pending,private,publish'; // All but 'tra
 
 function getItemId( item ) {
 	return item.id.toString();
+}
+
+function getItemLevel( item ) {
+	return item.level;
 }
 
 export default function PostList( { postType } ) {
@@ -215,7 +223,6 @@ export default function PostList( { postType } ) {
 		},
 		[ location.path, location.query.isCustom, history ]
 	);
-
 	const getActiveViewFilters = ( views, match ) => {
 		const found = views.find( ( { slug } ) => slug === match );
 		return found?.filters ?? [];
@@ -296,6 +303,7 @@ export default function PostList( { postType } ) {
 			_embed: 'author',
 			order: view.sort?.direction,
 			orderby: view.sort?.field,
+			orderby_hierarchy: !! view.showLevels,
 			search: view.search,
 			...filters,
 		};
@@ -417,6 +425,7 @@ export default function PostList( { postType } ) {
 					history.navigate( `/${ postType }/${ id }?canvas=edit` );
 				} }
 				getItemId={ getItemId }
+				getItemLevel={ getItemLevel }
 				defaultLayouts={ defaultLayouts }
 				header={
 					window.__experimentalQuickEditDataViews &&
