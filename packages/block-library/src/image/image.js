@@ -703,9 +703,7 @@ export default function Image( {
 		! lockUrlControls;
 
 	const showCoverControls =
-		isSingleSelected &&
-		canInsertCover &&
-		hasNonContentControls;
+		isSingleSelected && canInsertCover && hasNonContentControls;
 
 	const showBlockControls = showUrlInput || allowCrop || showCoverControls;
 
