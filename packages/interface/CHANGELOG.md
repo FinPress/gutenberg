@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Breaking Changes
+
+-   `ActionItem.Slot`: Render as `MenuGroup` by default ([#67985](https://github.com/WordPress/gutenberg/pull/67985)).
+
+## 8.3.0 (2024-12-11)
+
 ## 8.2.0 (2024-11-27)
 
 ## 8.1.0 (2024-11-16)

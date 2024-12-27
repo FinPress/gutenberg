@@ -53,7 +53,11 @@ interface ViewTypeMenuProps {
 	defaultLayouts?: SupportedLayouts;
 }
 
-const DATAVIEWS_CONFIG_POPOVER_PROPS = { placement: 'bottom-end', offset: 9 };
+const DATAVIEWS_CONFIG_POPOVER_PROPS = {
+	className: 'dataviews-config__popover',
+	placement: 'bottom-end',
+	offset: 9,
+};
 
 function ViewTypeMenu( {
 	defaultLayouts = { list: {}, grid: {}, table: {} },
@@ -65,50 +69,57 @@ function ViewTypeMenu( {
 	}
 	const activeView = VIEW_LAYOUTS.find( ( v ) => view.type === v.type );
 	return (
-		<Menu
-			trigger={
-				<Button
-					size="compact"
-					icon={ activeView?.icon }
-					label={ __( 'Layout' ) }
-				/>
-			}
-		>
-			{ availableLayouts.map( ( layout ) => {
-				const config = VIEW_LAYOUTS.find( ( v ) => v.type === layout );
-				if ( ! config ) {
-					return null;
+		<Menu>
+			<Menu.TriggerButton
+				render={
+					<Button
+						size="compact"
+						icon={ activeView?.icon }
+						label={ __( 'Layout' ) }
+					/>
 				}
-				return (
-					<Menu.RadioItem
-						key={ layout }
-						value={ layout }
-						name="view-actions-available-view"
-						checked={ layout === view.type }
-						hideOnClick
-						onChange={ ( e: ChangeEvent< HTMLInputElement > ) => {
-							switch ( e.target.value ) {
-								case 'list':
-								case 'grid':
-								case 'table':
-									const viewWithoutLayout = { ...view };
-									if ( 'layout' in viewWithoutLayout ) {
-										delete viewWithoutLayout.layout;
-									}
-									// @ts-expect-error
-									return onChangeView( {
-										...viewWithoutLayout,
-										type: e.target.value,
-										...defaultLayouts[ e.target.value ],
-									} );
-							}
-							warning( 'Invalid dataview' );
-						} }
-					>
-						<Menu.ItemLabel>{ config.label }</Menu.ItemLabel>
-					</Menu.RadioItem>
-				);
-			} ) }
+			/>
+			<Menu.Popover>
+				{ availableLayouts.map( ( layout ) => {
+					const config = VIEW_LAYOUTS.find(
+						( v ) => v.type === layout
+					);
+					if ( ! config ) {
+						return null;
+					}
+					return (
+						<Menu.RadioItem
+							key={ layout }
+							value={ layout }
+							name="view-actions-available-view"
+							checked={ layout === view.type }
+							hideOnClick
+							onChange={ (
+								e: ChangeEvent< HTMLInputElement >
+							) => {
+								switch ( e.target.value ) {
+									case 'list':
+									case 'grid':
+									case 'table':
+										const viewWithoutLayout = { ...view };
+										if ( 'layout' in viewWithoutLayout ) {
+											delete viewWithoutLayout.layout;
+										}
+										// @ts-expect-error
+										return onChangeView( {
+											...viewWithoutLayout,
+											type: e.target.value,
+											...defaultLayouts[ e.target.value ],
+										} );
+								}
+								warning( 'Invalid dataview' );
+							} }
+						>
+							<Menu.ItemLabel>{ config.label }</Menu.ItemLabel>
+						</Menu.RadioItem>
+					);
+				} ) }
+			</Menu.Popover>
 		</Menu>
 	);
 }
@@ -141,6 +152,7 @@ function SortFieldControl() {
 						direction: view?.sort?.direction || 'desc',
 						field: value,
 					},
+					showLevels: false,
 				} );
 			} }
 		/>
@@ -183,6 +195,7 @@ function SortDirectionControl() {
 								)?.id ||
 								'',
 						},
+						showLevels: false,
 					} );
 					return;
 				}
@@ -619,6 +632,7 @@ function DataviewsViewConfigDropdown() {
 	);
 	return (
 		<Dropdown
+			expandOnMobile
 			popoverProps={ {
 				...DATAVIEWS_CONFIG_POPOVER_PROPS,
 				id: popoverId,
@@ -636,7 +650,10 @@ function DataviewsViewConfigDropdown() {
 				);
 			} }
 			renderContent={ () => (
-				<DropdownContentWrapper paddingSize="medium">
+				<DropdownContentWrapper
+					paddingSize="medium"
+					className="dataviews-config__popover-content-wrapper"
+				>
 					<VStack className="dataviews-view-config" spacing={ 6 }>
 						<SettingsSection title={ __( 'Appearance' ) }>
 							<HStack expanded className="is-divided-in-two">

@@ -20,13 +20,16 @@ import {
 	useBlockProps,
 	useSettings,
 	useBlockEditingMode,
+	store as blockEditorStore,
 } from '@wordpress/block-editor';
+import { useSelect } from '@wordpress/data';
+import { getBlockSupport } from '@wordpress/blocks';
 import { formatLtr } from '@wordpress/icons';
-
 /**
  * Internal dependencies
  */
 import { useOnEnter } from './use-enter';
+import { unlock } from '../lock-unlock';
 
 function ParagraphRTLControl( { direction, setDirection } ) {
 	return (
@@ -47,7 +50,7 @@ function hasDropCapDisabled( align ) {
 	return align === ( isRTL() ? 'left' : 'right' ) || align === 'center';
 }
 
-function DropCapControl( { clientId, attributes, setAttributes } ) {
+function DropCapControl( { clientId, attributes, setAttributes, name } ) {
 	// Please do not add a useSelect call to the paragraph block unconditionally.
 	// Every useSelect added to a (frequently used) block will degrade load
 	// and type performance. By moving it within InspectorControls, the subscription is
@@ -69,11 +72,18 @@ function DropCapControl( { clientId, attributes, setAttributes } ) {
 		helpText = __( 'Show a large initial letter.' );
 	}
 
+	const isDropCapControlEnabledByDefault = getBlockSupport(
+		name,
+		'typography.defaultControls.dropCap',
+		false
+	);
+
 	return (
 		<InspectorControls group="typography">
 			<ToolsPanelItem
 				hasValue={ () => !! dropCap }
 				label={ __( 'Drop cap' ) }
+				isShownByDefault={ isDropCapControlEnabledByDefault }
 				onDeselect={ () => setAttributes( { dropCap: undefined } ) }
 				resetAllFilter={ () => ( { dropCap: undefined } ) }
 				panelId={ clientId }
@@ -99,8 +109,13 @@ function ParagraphBlock( {
 	setAttributes,
 	clientId,
 	isSelected: isSingleSelected,
+	name,
 } ) {
-	const { align, content, direction, dropCap, placeholder } = attributes;
+	const isZoomOut = useSelect( ( select ) =>
+		unlock( select( blockEditorStore ) ).isZoomOut()
+	);
+
+	const { align, content, direction, dropCap } = attributes;
 	const blockProps = useBlockProps( {
 		ref: useOnEnter( { clientId, content } ),
 		className: clsx( {
@@ -110,6 +125,12 @@ function ParagraphBlock( {
 		style: { direction },
 	} );
 	const blockEditingMode = useBlockEditingMode();
+	let { placeholder } = attributes;
+	if ( isZoomOut ) {
+		placeholder = '';
+	} else if ( ! placeholder ) {
+		placeholder = __( 'Type / to choose a block' );
+	}
 
 	return (
 		<>
@@ -136,6 +157,7 @@ function ParagraphBlock( {
 			) }
 			{ isSingleSelected && (
 				<DropCapControl
+					name={ name }
 					clientId={ clientId }
 					attributes={ attributes }
 					setAttributes={ setAttributes }
@@ -160,8 +182,10 @@ function ParagraphBlock( {
 						: __( 'Block: Paragraph' )
 				}
 				data-empty={ RichText.isEmpty( content ) }
-				placeholder={ placeholder || __( 'Type / to choose a block' ) }
-				data-custom-placeholder={ placeholder ? true : undefined }
+				placeholder={ placeholder }
+				data-custom-placeholder={
+					placeholder && ! isZoomOut ? true : undefined
+				}
 				__unstableEmbedURLOnPaste
 				__unstableAllowPrefixTransformations
 			/>

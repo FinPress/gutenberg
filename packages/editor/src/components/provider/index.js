@@ -13,7 +13,6 @@ import {
 	BlockEditorProvider,
 	BlockContextProvider,
 	privateApis as blockEditorPrivateApis,
-	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { store as noticesStore } from '@wordpress/notices';
 import { privateApis as editPatternsPrivateApis } from '@wordpress/patterns';
@@ -207,14 +206,6 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 			[ post.type ]
 		);
 
-		const isZoomOut = useSelect( ( select ) => {
-			const { isZoomOut: _isZoomOut } = unlock(
-				select( blockEditorStore )
-			);
-
-			return _isZoomOut();
-		} );
-
 		const shouldRenderTemplate = !! template && mode !== 'post-only';
 		const rootLevelPost = shouldRenderTemplate ? template : post;
 		const defaultBlockContext = useMemo( () => {
@@ -309,15 +300,11 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					}
 				);
 			}
-		}, [
-			createWarningNotice,
-			initialEdits,
-			settings,
-			post,
-			recovery,
-			setupEditor,
-			updatePostLock,
-		] );
+
+			// The dependencies of the hook are omitted deliberately
+			// We only want to run setupEditor (with initialEdits) only once per post.
+			// A better solution in the future would be to split this effect into multiple ones.
+		}, [] );
 
 		// Synchronizes the active post with the state
 		useEffect( () => {
@@ -367,13 +354,9 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 							{ children }
 							{ ! settings.isPreviewMode && (
 								<>
-									{ ! isZoomOut && (
-										<>
-											<PatternsMenuItems />
-											<TemplatePartMenuItems />
-											<ContentOnlySettingsMenu />
-										</>
-									) }
+									<PatternsMenuItems />
+									<TemplatePartMenuItems />
+									<ContentOnlySettingsMenu />
 									{ mode === 'template-locked' && (
 										<DisableNonPageContentBlocks />
 									) }

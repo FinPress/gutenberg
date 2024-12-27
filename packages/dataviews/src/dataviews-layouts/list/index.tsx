@@ -40,6 +40,7 @@ import type {
 	NormalizedField,
 	ViewList as ViewListType,
 	ViewListProps,
+	ActionModal as ActionModalType,
 } from '../../types';
 
 interface ListViewItemProps< Item > {
@@ -100,6 +101,8 @@ function PrimaryActionGridCell< Item >( {
 				render={
 					<Button
 						label={ label }
+						disabled={ !! primaryAction.disabled }
+						accessibleWhenDisabled
 						icon={ primaryAction.icon }
 						isDestructive={ primaryAction.isDestructive }
 						size="small"
@@ -123,6 +126,8 @@ function PrimaryActionGridCell< Item >( {
 				render={
 					<Button
 						label={ label }
+						disabled={ !! primaryAction.disabled }
+						accessibleWhenDisabled
 						icon={ primaryAction.icon }
 						isDestructive={ primaryAction.isDestructive }
 						size="small"
@@ -154,7 +159,11 @@ function ListItem< Item >( {
 	const labelId = `${ idPrefix }-label`;
 	const descriptionId = `${ idPrefix }-description`;
 
+	const registry = useRegistry();
 	const [ isHovered, setIsHovered ] = useState( false );
+	const [ activeModalAction, setActiveModalAction ] = useState(
+		null as ActionModalType< Item > | null
+	);
 	const handleHover: React.MouseEventHandler = ( { type } ) => {
 		const isHover = type === 'mouseenter';
 		setIsHovered( isHover );
@@ -210,31 +219,44 @@ function ListItem< Item >( {
 			) }
 			{ ! hasOnlyOnePrimaryAction && (
 				<div role="gridcell">
-					<Menu
-						trigger={
-							<Composite.Item
-								id={ generateDropdownTriggerCompositeId(
-									idPrefix
-								) }
-								render={
-									<Button
-										size="small"
-										icon={ moreVertical }
-										label={ __( 'Actions' ) }
-										accessibleWhenDisabled
-										disabled={ ! actions.length }
-										onKeyDown={ onDropdownTriggerKeyDown }
-									/>
-								}
-							/>
-						}
-						placement="bottom-end"
-					>
-						<ActionsMenuGroup
-							actions={ eligibleActions }
-							item={ item }
+					<Menu placement="bottom-end">
+						<Menu.TriggerButton
+							render={
+								<Composite.Item
+									id={ generateDropdownTriggerCompositeId(
+										idPrefix
+									) }
+									render={
+										<Button
+											size="small"
+											icon={ moreVertical }
+											label={ __( 'Actions' ) }
+											accessibleWhenDisabled
+											disabled={ ! actions.length }
+											onKeyDown={
+												onDropdownTriggerKeyDown
+											}
+										/>
+									}
+								/>
+							}
 						/>
+						<Menu.Popover>
+							<ActionsMenuGroup
+								actions={ eligibleActions }
+								item={ item }
+								registry={ registry }
+								setActiveModalAction={ setActiveModalAction }
+							/>
+						</Menu.Popover>
 					</Menu>
+					{ !! activeModalAction && (
+						<ActionModal
+							action={ activeModalAction }
+							items={ [ item ] }
+							closeModal={ () => setActiveModalAction( null ) }
+						/>
+					) }
 				</div>
 			) }
 		</HStack>
@@ -243,7 +265,7 @@ function ListItem< Item >( {
 	return (
 		<Composite.Row
 			ref={ itemRef }
-			render={ <li /> }
+			render={ <div /> }
 			role="row"
 			className={ clsx( {
 				'is-selected': isSelected,
@@ -311,6 +333,10 @@ function ListItem< Item >( {
 	);
 }
 
+function isDefined< T >( item: T | undefined ): item is T {
+	return !! item;
+}
+
 export default function ViewList< Item >( props: ViewListProps< Item > ) {
 	const {
 		actions,
@@ -332,15 +358,9 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 	const descriptionField = fields.find(
 		( field ) => field.id === view.descriptionField
 	);
-	const otherFields = fields.filter(
-		( field ) =>
-			( view.fields ?? [] ).includes( field.id ) &&
-			! [
-				view.titleField,
-				view.mediaField,
-				view.descriptionField,
-			].includes( field.id )
-	);
+	const otherFields = ( view?.fields ?? [] )
+		.map( ( fieldId ) => fields.find( ( f ) => fieldId === f.id ) )
+		.filter( isDefined );
 
 	const onSelect = ( item: Item ) =>
 		onChangeSelection( [ getItemId( item ) ] );
@@ -470,7 +490,7 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 	return (
 		<Composite
 			id={ baseId }
-			render={ <ul /> }
+			render={ <div /> }
 			className="dataviews-view-list"
 			role="grid"
 			activeId={ activeCompositeId }

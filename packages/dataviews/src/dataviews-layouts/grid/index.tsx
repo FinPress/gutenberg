@@ -13,15 +13,21 @@ import {
 	Spinner,
 	Flex,
 	FlexItem,
+	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useInstanceId } from '@wordpress/compose';
 
 /**
  * Internal dependencies
  */
+import { unlock } from '../../lock-unlock';
 import ItemActions from '../../components/dataviews-item-actions';
 import DataViewsSelectionCheckbox from '../../components/dataviews-selection-checkbox';
-import { useHasAPossibleBulkAction } from '../../components/dataviews-bulk-actions';
+import {
+	useHasAPossibleBulkAction,
+	useSomeItemHasAPossibleBulkAction,
+} from '../../components/dataviews-bulk-actions';
 import type {
 	Action,
 	NormalizedField,
@@ -31,6 +37,7 @@ import type {
 import type { SetSelection } from '../../private-types';
 import getClickableItemProps from '../utils/get-clickable-item-props';
 import { useUpdatedPreviewSizeOnViewportChange } from './preview-size-picker';
+const { Badge } = unlock( componentsPrivateApis );
 
 interface GridItemProps< Item > {
 	view: ViewGridType;
@@ -46,6 +53,7 @@ interface GridItemProps< Item > {
 	descriptionField?: NormalizedField< Item >;
 	regularFields: NormalizedField< Item >[];
 	badgeFields: NormalizedField< Item >[];
+	hasBulkActions: boolean;
 }
 
 function GridItem< Item >( {
@@ -62,10 +70,12 @@ function GridItem< Item >( {
 	descriptionField,
 	regularFields,
 	badgeFields,
+	hasBulkActions,
 }: GridItemProps< Item > ) {
 	const { showTitle = true, showMedia = true, showDescription = true } = view;
 	const hasBulkAction = useHasAPossibleBulkAction( actions, item );
 	const id = getItemId( item );
+	const instanceId = useInstanceId( GridItem );
 	const isSelected = selection.includes( id );
 	const renderedMediaField = mediaField?.render ? (
 		<mediaField.render item={ item } />
@@ -82,12 +92,29 @@ function GridItem< Item >( {
 		className: 'dataviews-view-grid__media',
 	} );
 
-	const clickablePrimaryItemProps = getClickableItemProps( {
+	const clickableTitleItemProps = getClickableItemProps( {
 		item,
 		isItemClickable,
 		onClickItem,
-		className: 'dataviews-view-grid__primary-field dataviews-title-field',
+		className: 'dataviews-view-grid__title-field dataviews-title-field',
 	} );
+
+	let mediaA11yProps;
+	let titleA11yProps;
+	if ( isItemClickable( item ) && onClickItem ) {
+		if ( renderedTitleField ) {
+			mediaA11yProps = {
+				'aria-labelledby': `dataviews-view-grid__title-field-${ instanceId }`,
+			};
+			titleA11yProps = {
+				id: `dataviews-view-grid__title-field-${ instanceId }`,
+			};
+		} else {
+			mediaA11yProps = {
+				'aria-label': __( 'Navigate to item' ),
+			};
+		}
+	}
 
 	return (
 		<VStack
@@ -112,9 +139,11 @@ function GridItem< Item >( {
 			} }
 		>
 			{ showMedia && renderedMediaField && (
-				<div { ...clickableMediaItemProps }>{ renderedMediaField }</div>
+				<div { ...clickableMediaItemProps } { ...mediaA11yProps }>
+					{ renderedMediaField }
+				</div>
 			) }
-			{ showMedia && renderedMediaField && (
+			{ hasBulkActions && showMedia && renderedMediaField && (
 				<DataViewsSelectionCheckbox
 					item={ item }
 					selection={ selection }
@@ -128,10 +157,12 @@ function GridItem< Item >( {
 				justify="space-between"
 				className="dataviews-view-grid__title-actions"
 			>
-				<div { ...clickablePrimaryItemProps }>
+				<div { ...clickableTitleItemProps } { ...titleA11yProps }>
 					{ renderedTitleField }
 				</div>
-				<ItemActions item={ item } actions={ actions } isCompact />
+				{ !! actions?.length && (
+					<ItemActions item={ item } actions={ actions } isCompact />
+				) }
 			</HStack>
 			<VStack spacing={ 1 }>
 				{ showDescription && descriptionField?.render && (
@@ -147,12 +178,12 @@ function GridItem< Item >( {
 					>
 						{ badgeFields.map( ( field ) => {
 							return (
-								<FlexItem
+								<Badge
 									key={ field.id }
 									className="dataviews-view-grid__field-value"
 								>
 									<field.render item={ item } />
-								</FlexItem>
+								</Badge>
 							);
 						} ) }
 					</HStack>
@@ -216,21 +247,18 @@ export default function ViewGrid< Item >( {
 		( field ) => field.id === view?.descriptionField
 	);
 	const otherFields = view.fields ?? [];
-	const { regularFields, badgeFields } = fields.reduce(
-		( accumulator: Record< string, NormalizedField< Item >[] >, field ) => {
-			if (
-				! otherFields.includes( field.id ) ||
-				[
-					view?.mediaField,
-					view?.titleField,
-					view?.descriptionField,
-				].includes( field.id )
-			) {
+	const { regularFields, badgeFields } = otherFields.reduce(
+		(
+			accumulator: Record< string, NormalizedField< Item >[] >,
+			fieldId
+		) => {
+			const field = fields.find( ( f ) => f.id === fieldId );
+			if ( ! field ) {
 				return accumulator;
 			}
 			// If the field is a badge field, add it to the badgeFields array
 			// otherwise add it to the rest visibleFields array.
-			const key = view.layout?.badgeFields?.includes( field.id )
+			const key = view.layout?.badgeFields?.includes( fieldId )
 				? 'badgeFields'
 				: 'regularFields';
 			accumulator[ key ].push( field );
@@ -240,6 +268,7 @@ export default function ViewGrid< Item >( {
 	);
 	const hasData = !! data?.length;
 	const updatedPreviewSize = useUpdatedPreviewSizeOnViewportChange();
+	const hasBulkActions = useSomeItemHasAPossibleBulkAction( actions, data );
 	const usedPreviewSize = updatedPreviewSize || view.layout?.previewSize;
 	const gridStyle = usedPreviewSize
 		? {
@@ -274,6 +303,7 @@ export default function ViewGrid< Item >( {
 								descriptionField={ descriptionField }
 								regularFields={ regularFields }
 								badgeFields={ badgeFields }
+								hasBulkActions={ hasBulkActions }
 							/>
 						);
 					} ) }

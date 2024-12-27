@@ -615,10 +615,10 @@ class WP_Theme_JSON_Gutenberg {
 	 * @var string[]
 	 */
 	const BLOCK_SUPPORT_FEATURE_LEVEL_SELECTORS = array(
-		'border'     => 'border',
-		'color'      => 'color',
-		'spacing'    => 'spacing',
-		'typography' => 'typography',
+		'__experimentalBorder' => 'border',
+		'color'                => 'color',
+		'spacing'              => 'spacing',
+		'typography'           => 'typography',
 	);
 
 	/**
@@ -1319,6 +1319,8 @@ class WP_Theme_JSON_Gutenberg {
 	 *                       - `variables`: only the CSS Custom Properties for presets & custom ones.
 	 *                       - `styles`: only the styles section in theme.json.
 	 *                       - `presets`: only the classes for the presets.
+	 *                       - `base-layout-styles`: only the base layout styles.
+	 *                       - `custom-css`: only the custom CSS.
 	 * @param array $origins A list of origins to include. By default it includes VALID_ORIGINS.
 	 * @param array $options An array of options for now used for internal purposes only (may change without notice).
 	 *                       The options currently supported are:
@@ -3411,6 +3413,8 @@ class WP_Theme_JSON_Gutenberg {
 
 			return true;
 		}
+
+		return false;
 	}
 
 	/**
