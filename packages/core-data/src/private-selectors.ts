@@ -180,6 +180,13 @@ export const getHomePage = createRegistrySelector( ( select ) =>
 );
 
 export const getPostsPageId = createRegistrySelector( ( select ) => () => {
+	const canReadSiteData = select( STORE_NAME ).canUser( 'read', {
+		kind: 'root',
+		name: 'site',
+	} );
+	if ( ! canReadSiteData ) {
+		return null;
+	}
 	const siteData = select( STORE_NAME ).getEntityRecord( 'root', 'site' ) as
 		| SiteData
 		| undefined;
