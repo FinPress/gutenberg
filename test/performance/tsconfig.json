@@ -7,6 +7,6 @@
 		"rootDir": ".",
 		"types": [ "node" ]
 	},
-	"include": [ "**/*" ],
+	"include": [ "." ],
 	"exclude": []
 }
