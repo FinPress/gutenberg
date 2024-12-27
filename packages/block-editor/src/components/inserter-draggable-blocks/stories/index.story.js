@@ -30,12 +30,18 @@ const meta = {
 		isEnabled: {
 			description: 'Whether dragging is enabled for the component.',
 			control: 'boolean',
-			defaultValue: true,
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: false },
+			},
 		},
 		blocks: {
 			description: 'Array of blocks to make draggable.',
 			control: 'object',
-			defaultValue: undefined,
+			table: {
+				type: { summary: 'object' },
+				defaultValue: { summary: 'undefined' },
+			},
 		},
 
 		icon: {
@@ -45,18 +51,29 @@ const meta = {
 				Heading: heading,
 				Image: image,
 			},
-			default: 'undefined',
 			description: 'Optional icon for the draggable component.',
+			table: {
+				type: { summary: 'React.Element' },
+				defaultValue: { summary: 'undefined' },
+			},
 		},
 
 		children: {
 			description: 'Render function for child elements.',
 			control: false,
+			table: {
+				type: { summary: 'function' },
+				defaultValue: { summary: 'undefined' },
+			},
 		},
 		pattern: {
 			description:
 				'Optional block pattern for the drag-and-drop functionality.',
 			control: 'object',
+			table: {
+				type: { summary: 'object' },
+				defaultValue: { summary: 'undefined' },
+			},
 		},
 	},
 };
