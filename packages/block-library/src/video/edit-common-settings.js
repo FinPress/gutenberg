@@ -100,9 +100,9 @@ const VideoSettings = ( { setAttributes, attributes } ) => {
 			<ToolsPanelItem
 				label={ __( 'Playback controls' ) }
 				isShownByDefault
-				hasValue={ () => !! controls }
+				hasValue={ () => ! controls }
 				onDeselect={ () => {
-					setAttributes( { controls: false } );
+					setAttributes( { controls: true } );
 				} }
 			>
 				<ToggleControl

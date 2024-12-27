@@ -205,7 +205,7 @@ function VideoEdit( {
 					resetAll={ () => {
 						setAttributes( {
 							autoplay: false,
-							controls: false,
+							controls: true,
 							loop: false,
 							muted: false,
 							playsInline: false,
