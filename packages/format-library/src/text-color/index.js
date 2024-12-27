@@ -68,10 +68,12 @@ function TextColorEdit( {
 	const [ isAddingColor, setIsAddingColor ] = useState( false );
 	const colorIndicatorStyle = useMemo(
 		() =>
-			fillComputedColors(
-				contentRef.current,
-				getActiveColors( value, name, colors )
-			),
+			contentRef.current
+				? fillComputedColors(
+						contentRef.current,
+						getActiveColors( value, name, colors )
+				  )
+				: {},
 		[ contentRef, value, colors ]
 	);
 
