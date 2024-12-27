@@ -154,17 +154,3 @@ export const Default = {
 		isResponsive: false,
 	},
 };
-
-export const Responsive = {
-	render: Template,
-	args: {
-		title: 'Margin',
-		property: 'margin',
-		toggleLabel: __( 'Use the same margin on all screen sizes' ),
-		defaultLabel: {
-			id: 'all',
-			label: __( 'All' ),
-		},
-		isResponsive: true,
-	},
-};
