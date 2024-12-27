@@ -68,10 +68,15 @@ class Gutenberg_Test_REST_Post_Counts_Controller extends WP_Test_REST_Controller
 		$request    = new WP_REST_Request( 'OPTIONS', '/wp/v2/counts/post' );
 		$response   = rest_get_server()->dispatch( $request );
 		$data       = $response->get_data();
-		$properties = $data['schema']['patternProperties'];
+		$properties = $data['schema']['properties'];
 
-		$this->assertCount( 1, $properties );
-		$this->assertArrayHasKey( '^\w+$', $properties );
+		$this->assertCount( 6, $properties );
+		$this->assertArrayHasKey( 'publish', $properties );
+		$this->assertArrayHasKey( 'future', $properties );
+		$this->assertArrayHasKey( 'draft', $properties );
+		$this->assertArrayHasKey( 'trash', $properties );
+		$this->assertArrayHasKey( 'private', $properties );
+		$this->assertArrayHasKey( 'pending', $properties );
 	}
 
 	/**
