@@ -255,42 +255,84 @@ function ItemsPerPageControl() {
 	);
 }
 
-function BaseFieldItem( {
-	identifier,
+function PreviewOptions( {
+	previewOptions,
+	onChangePreviewOption,
+	onMenuOpenChange,
+	activeOption,
+}: {
+	previewOptions?: Array< { label: string; id: string } >;
+	onChangePreviewOption?: ( newPreviewOption: string ) => void;
+	onMenuOpenChange: ( isOpen: boolean ) => void;
+	activeOption?: string;
+} ) {
+	return (
+		<Menu onOpenChange={ onMenuOpenChange }>
+			<Menu.TriggerButton
+				render={
+					<Button
+						size="compact"
+						icon={ moreVertical }
+						label={ __( 'Preview' ) }
+					/>
+				}
+			/>
+			<Menu.Popover>
+				{ previewOptions?.map( ( { id, label } ) => {
+					return (
+						<Menu.RadioItem
+							key={ id }
+							value={ id }
+							checked={ id === activeOption }
+							onChange={ () => {
+								onChangePreviewOption?.( id );
+							} }
+						>
+							<Menu.ItemLabel>{ label }</Menu.ItemLabel>
+						</Menu.RadioItem>
+					);
+				} ) }
+			</Menu.Popover>
+		</Menu>
+	);
+}
+function FieldItem( {
+	field,
 	label,
 	description,
 	isVisible,
 	isFirst,
 	isLast,
 	canMove = true,
-	canHide = true,
-	isInteracting = false,
 	onToggleVisibility,
 	onMoveUp,
 	onMoveDown,
-	children,
+	previewOptions,
+	onChangePreviewOption,
 }: {
-	identifier: string;
-	label: string;
+	field: NormalizedField< any >;
+	label?: string;
 	description?: string;
 	isVisible: boolean;
 	isFirst?: boolean;
 	isLast?: boolean;
 	canMove?: boolean;
-	canHide?: boolean;
-	isInteracting?: boolean;
 	onToggleVisibility?: () => void;
 	onMoveUp?: () => void;
 	onMoveDown?: () => void;
-	children?: ReactNode;
+	previewOptions?: Array< { label: string; id: string } >;
+	onChangePreviewOption?: ( newPreviewOption: string ) => void;
 } ) {
+	const [ isChangingPreviewOption, setIsChangingPreviewOption ] =
+		useState< boolean >( false );
+
 	const focusVisibilityField = () => {
 		// Focus the visibility button to avoid focus loss.
 		// Our code is safe against the component being unmounted, so we don't need to worry about cleaning the timeout.
 		// eslint-disable-next-line @wordpress/react-no-unsafe-timeout
 		setTimeout( () => {
 			const element = document.querySelector(
-				`.dataviews-field-control__field-${ identifier } .dataviews-field-control__field-visibility-button`
+				`.dataviews-field-control__field-${ field.id } .dataviews-field-control__field-visibility-button`
 			);
 			if ( element instanceof HTMLElement ) {
 				element.focus();
@@ -304,23 +346,25 @@ function BaseFieldItem( {
 				expanded
 				className={ clsx(
 					'dataviews-field-control__field',
-					`dataviews-field-control__field-${ identifier }`,
+					`dataviews-field-control__field-${ field.id }`,
 					// The actions are hidden when the mouse is not hovering the item, or focus
 					// is outside the item.
 					// For actions that require a popover, a menu etc, that would mean that when the interactive element
 					// opens and the focus goes there the actions would be hidden.
 					// To avoid that we add a class to the item, that makes sure actions are visible while there is some
 					// interaction with the item.
-					{ 'is-interacting': isInteracting }
+					{ 'is-interacting': isChangingPreviewOption }
 				) }
 				justify="flex-start"
 			>
 				<span className="dataviews-field-control__icon">
-					{ ! canMove && ! canHide && <Icon icon={ lock } /> }
+					{ ! canMove && ! field.enableHiding && (
+						<Icon icon={ lock } />
+					) }
 				</span>
 				<span className="dataviews-field-control__label-sub-label-container">
 					<span className="dataviews-field-control__label">
-						{ label }
+						{ label || field.label }
 					</span>
 					{ description && (
 						<span className="dataviews-field-control__sub-label">
@@ -347,7 +391,7 @@ function BaseFieldItem( {
 										: sprintf(
 												/* translators: %s: field label */
 												__( 'Move %s up' ),
-												label
+												field.label
 										  )
 								}
 							/>
@@ -363,7 +407,7 @@ function BaseFieldItem( {
 										: sprintf(
 												/* translators: %s: field label */
 												__( 'Move %s down' ),
-												label
+												field.label
 										  )
 								}
 							/>
@@ -372,7 +416,7 @@ function BaseFieldItem( {
 					{ onToggleVisibility && (
 						<Button
 							className="dataviews-field-control__field-visibility-button"
-							disabled={ ! canHide }
+							disabled={ ! field.enableHiding }
 							accessibleWhenDisabled
 							size="compact"
 							onClick={ () => {
@@ -385,55 +429,27 @@ function BaseFieldItem( {
 									? sprintf(
 											/* translators: %s: field label */
 											_x( 'Hide %s', 'field' ),
-											label
+											field.label
 									  )
 									: sprintf(
 											/* translators: %s: field label */
 											_x( 'Show %s', 'field' ),
-											label
+											field.label
 									  )
 							}
 						/>
 					) }
-					{ children }
+					{ previewOptions && (
+						<PreviewOptions
+							previewOptions={ previewOptions }
+							onChangePreviewOption={ onChangePreviewOption }
+							onMenuOpenChange={ setIsChangingPreviewOption }
+							activeOption={ field.id }
+						/>
+					) }
 				</HStack>
 			</HStack>
 		</Item>
-	);
-}
-
-function FieldItem( {
-	field,
-	isVisible,
-	isFirst,
-	isLast,
-	canMove = true,
-	onToggleVisibility,
-	onMoveUp,
-	onMoveDown,
-}: {
-	field: NormalizedField< any >;
-	isVisible: boolean;
-	isFirst?: boolean;
-	isLast?: boolean;
-	canMove?: boolean;
-	onToggleVisibility?: () => void;
-	onMoveUp?: () => void;
-	onMoveDown?: () => void;
-} ) {
-	return (
-		<BaseFieldItem
-			identifier={ field.id }
-			label={ field.label }
-			isVisible={ isVisible }
-			isFirst={ isFirst }
-			isLast={ isLast }
-			canMove={ canMove }
-			canHide={ field.enableHiding }
-			onToggleVisibility={ onToggleVisibility }
-			onMoveUp={ onMoveUp }
-			onMoveDown={ onMoveDown }
-		/>
 	);
 }
 
@@ -508,78 +524,6 @@ function RegularFieldItem( {
 	);
 }
 
-function PreviewFieldItem( {
-	view,
-	onChangeView,
-	isVisible = true,
-	previewFields,
-	activeField,
-}: {
-	view: View;
-	onChangeView: ( view: View ) => void;
-	isVisible?: boolean;
-	previewFields: NormalizedField< any >[];
-	activeField: NormalizedField< any > | undefined;
-} ) {
-	const [ isChangingPreview, setIsChangingPreview ] =
-		useState< boolean >( false );
-	if ( ! activeField ) {
-		return null;
-	}
-	return (
-		<BaseFieldItem
-			identifier="preview"
-			label={ __( 'Preview' ) }
-			description={ activeField.label }
-			isVisible={ isVisible }
-			onToggleVisibility={ () => {
-				onChangeView( {
-					...view,
-					showMedia: ! isVisible,
-				} );
-			} }
-			canMove={ false }
-			canHide
-			isInteracting={ isChangingPreview }
-		>
-			{ isVisible && (
-				<Menu onOpenChange={ setIsChangingPreview }>
-					<Menu.TriggerButton
-						render={
-							<Button
-								size="compact"
-								icon={ moreVertical }
-								label={ __( 'Preview' ) }
-							/>
-						}
-					/>
-					<Menu.Popover>
-						{ previewFields.map( ( field ) => {
-							return (
-								<Menu.RadioItem
-									key={ field.id }
-									value={ field.id }
-									checked={ field.id === view.mediaField }
-									onChange={ () => {
-										onChangeView( {
-											...view,
-											mediaField: field.id,
-										} );
-									} }
-								>
-									<Menu.ItemLabel>
-										{ field.label }
-									</Menu.ItemLabel>
-								</Menu.RadioItem>
-							);
-						} ) }
-					</Menu.Popover>
-				</Menu>
-			) }
-		</BaseFieldItem>
-	);
-}
-
 function isDefined< T >( item: T | undefined ): item is T {
 	return !! item;
 }
@@ -618,13 +562,27 @@ function FieldControl() {
 	if ( previewFields.length > 1 ) {
 		const isPreviewFieldVisible =
 			isDefined( previewField ) && ( view.showMedia ?? true );
-		previewFieldUI = (
-			<PreviewFieldItem
-				view={ view }
-				onChangeView={ onChangeView }
+		previewFieldUI = isDefined( previewField ) && (
+			<FieldItem
+				key={ previewField.id }
+				field={ previewField }
+				label={ __( 'Preview' ) }
+				description={ previewField.label }
 				isVisible={ isPreviewFieldVisible }
-				previewFields={ previewFields }
-				activeField={ previewField }
+				onToggleVisibility={ () => {
+					onChangeView( {
+						...view,
+						showMedia: ! isPreviewFieldVisible,
+					} );
+				} }
+				canMove={ false }
+				previewOptions={ previewFields.map( ( field ) => ( {
+					label: field.label,
+					id: field.id,
+				} ) ) }
+				onChangePreviewOption={ ( newPreviewId ) =>
+					onChangeView( { ...view, mediaField: newPreviewId } )
+				}
 			/>
 		);
 	}
