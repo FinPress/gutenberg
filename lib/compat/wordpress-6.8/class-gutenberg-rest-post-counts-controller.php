@@ -67,7 +67,7 @@ class Gutenberg_REST_Post_Counts_Controller extends WP_REST_Controller {
 	public function get_item_permissions_check( $request ) {
 		$post_type = get_post_type_object( $request['post_type'] );
 
-		if ( ! $post_type ) {
+		if ( empty( $post_type ) ) {
 			return new WP_Error(
 				'rest_invalid_post_type',
 				__( 'Invalid post type.' ),
@@ -152,24 +152,35 @@ class Gutenberg_REST_Post_Counts_Controller extends WP_REST_Controller {
 			return $this->add_additional_fields_schema( $this->schema );
 		}
 
+		/*
+		 * The fields comprise all non-internal post stati,
+		 * including any custom statuses that may be registered.
+		 * 'trash' is an exception, so if it exists, it is added separately.
+		 * The caveat is that all custom post statuses
+		 * must be registered at the highest priority, otherwise
+		 * the endpoint will not return them.
+		 */
+		$post_statuses = get_post_stati( array( 'internal' => false ) );
+
+		if ( get_post_status_object( 'trash' ) ) {
+			$post_statuses[] = 'trash';
+		}
+		$schema_properties = array();
+		foreach ( $post_statuses as $post_status ) {
+			$schema_properties[ $post_status ] = array(
+				// translators: %s: Post status.
+				'description' => sprintf( __( 'The number of posts with the status %s.' ), $post_status ),
+				'type'        => 'integer',
+				'context'     => array( 'view', 'edit' ),
+				'readonly'    => true,
+			);
+		}
+
 		$schema = array(
-			'$schema'              => 'http://json-schema.org/draft-04/schema#',
-			'title'                => 'post-counts',
-			'type'                 => 'object',
-			/*
-			 * Use a pattern matcher for post status keys.
-			 * This allows for custom post statuses to be included,
-			 * which can be registered after the schema is generated.
-			 */
-			'patternProperties'    => array(
-				'^\w+$' => array(
-					'description' => __( 'The number of posts for a given status.' ),
-					'type'        => 'integer',
-					'context'     => array( 'view', 'edit', 'embed' ),
-					'readonly'    => true,
-				),
-			),
-			'additionalProperties' => false,
+			'$schema'    => 'http://json-schema.org/draft-04/schema#',
+			'title'      => 'post-counts',
+			'type'       => 'object',
+			'properties' => $schema_properties,
 		);
 
 		$this->schema = $schema;
