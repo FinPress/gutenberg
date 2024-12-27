@@ -30,6 +30,7 @@
 		{ "path": "../icons" },
 		{ "path": "../interactivity" },
 		{ "path": "../interactivity-router" },
+		{ "path": "../media-utils" },
 		{ "path": "../notices" },
 		{ "path": "../keycodes" },
 		{ "path": "../plugins" },
