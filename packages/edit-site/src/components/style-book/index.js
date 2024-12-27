@@ -279,6 +279,7 @@ function StyleBook( {
 			onClose={ onClose }
 			enableResizing={ enableResizing }
 			closeButtonLabel={ showCloseButton ? __( 'Close' ) : null }
+			className="edit-site-style-book"
 		>
 			<div
 				className={ clsx( 'edit-site-style-book', {
