@@ -100,10 +100,16 @@ export function getNotificationArgumentsForSaveFail( data ) {
 			? messages[ edits.status ]
 			: __( 'Updating failed.' );
 
-	// Check if message string contains HTML. Notice text is currently only
-	// supported as plaintext, and stripping the tags may muddle the meaning.
-	if ( error.message && ! /<\/?[^>]*>/.test( error.message ) ) {
-		noticeMessage = [ noticeMessage, error.message ].join( ' ' );
+	const errorMessages = [ error.message ]
+		.concat( error.additional_data )
+		.filter( ( message ) => {
+			// Check if message string contains HTML. Notice text is currently only
+			// supported as plaintext, and stripping the tags may muddle the meaning.
+			return message && ! /<\/?[^>]*>/.test( message );
+		} );
+
+	if ( errorMessages.length > 0 ) {
+		noticeMessage = [ noticeMessage, ...errorMessages ].join( ' ' );
 	}
 	return [
 		noticeMessage,
