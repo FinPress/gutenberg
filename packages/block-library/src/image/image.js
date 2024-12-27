@@ -512,7 +512,6 @@ export default function Image( {
 		isSingleSelected &&
 		canEditImage &&
 		! isEditingImage &&
-		! isContentOnlyMode &&
 		hasNonContentControls;
 
 	function switchToCover() {
@@ -706,7 +705,6 @@ export default function Image( {
 	const showCoverControls =
 		isSingleSelected &&
 		canInsertCover &&
-		! isContentOnlyMode &&
 		hasNonContentControls;
 
 	const showBlockControls = showUrlInput || allowCrop || showCoverControls;
