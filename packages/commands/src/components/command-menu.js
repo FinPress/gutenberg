@@ -26,6 +26,7 @@ import {
 	useShortcut,
 } from '@wordpress/keyboard-shortcuts';
 import { Icon, search as inputIcon } from '@wordpress/icons';
+import { doAction } from '@wordpress/hooks';
 
 /**
  * Internal dependencies
@@ -50,7 +51,11 @@ function CommandMenuLoader( { name, search, hook, setLoader, close } ) {
 				<Command.Item
 					key={ command.name }
 					value={ command.searchLabel ?? command.label }
-					onSelect={ () => command.callback( { close } ) }
+					onSelect={ () => {
+						doAction( 'commands.beforeCommandExecution', command );
+						command.callback( { close } );
+						doAction( 'commands.afterCommandExecution', command );
+					} }
 					id={ command.name }
 				>
 					<HStack
@@ -121,7 +126,11 @@ export function CommandMenuGroup( { isContextual, search, setLoader, close } ) {
 				<Command.Item
 					key={ command.name }
 					value={ command.searchLabel ?? command.label }
-					onSelect={ () => command.callback( { close } ) }
+					onSelect={ () => {
+						doAction( 'commands.beforeCommandExecution', command );
+						command.callback( { close } );
+						doAction( 'commands.afterCommandExecution', command );
+					} }
 					id={ command.name }
 				>
 					<HStack
