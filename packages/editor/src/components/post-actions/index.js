@@ -21,27 +21,48 @@ import { usePostActions } from './actions';
 const { Menu, kebabCase } = unlock( componentsPrivateApis );
 
 function useEditedEntityRecordsWithPermissions( postType, postIds ) {
-	const { items, permissions } = useSelect(
+	const { items, entityConfig } = useSelect(
 		( select ) => {
-			const { getEditedEntityRecord, getEntityRecordPermissions } =
-				unlock( select( coreStore ) );
+			const { getEntityConfig } = select( coreStore );
+			const { getEditedEntityRecords } = unlock( select( coreStore ) );
+			const entityRecords = getEditedEntityRecords(
+				'postType',
+				postType,
+				postIds
+			);
+
 			return {
-				items: postIds.map( ( postId ) =>
-					getEditedEntityRecord( 'postType', postType, postId )
-				),
-				permissions: postIds.map( ( postId ) =>
-					getEntityRecordPermissions( 'postType', postType, postId )
-				),
+				items: entityRecords,
+				entityConfig: getEntityConfig( 'postType', postType ),
 			};
 		},
 		[ postIds, postType ]
 	);
 
+	const ids = useMemo(
+		() =>
+			items?.map( ( record ) => record[ entityConfig?.key ?? 'id' ] ) ??
+			[],
+		[ items, entityConfig?.key ]
+	);
+
+	const permissions = useSelect(
+		( select ) => {
+			const { getEntityRecordsPermissions } = unlock(
+				select( coreStore )
+			);
+			return getEntityRecordsPermissions( 'postType', postType, ids );
+		},
+		[ ids, postType ]
+	);
+
 	return useMemo( () => {
-		return items.map( ( item, index ) => ( {
-			...item,
-			permissions: permissions[ index ],
-		} ) );
+		return (
+			items?.map( ( item, index ) => ( {
+				...item,
+				permissions: permissions ? permissions[ index ] : undefined,
+			} ) ) ?? []
+		);
 	}, [ items, permissions ] );
 }
 

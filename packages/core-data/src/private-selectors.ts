@@ -6,9 +6,16 @@ import { createSelector, createRegistrySelector } from '@wordpress/data';
 /**
  * Internal dependencies
  */
-import { getDefaultTemplateId, getEntityRecord, type State } from './selectors';
+import {
+	getDefaultTemplateId,
+	getEditedEntityRecord,
+	getEntityRecord,
+	type State,
+	type GetRecordsHttpQuery,
+} from './selectors';
 import { STORE_NAME } from './name';
 import { unlock } from './lock-unlock';
+import type * as ET from './entity-types';
 
 type EntityRecordKey = string | number;
 
@@ -112,7 +119,7 @@ export function getRegisteredPostMeta( state: State, postType: string ) {
 	return state.registeredPostMeta?.[ postType ] ?? {};
 }
 
-function normalizePageId( value: number | string | undefined ): string | null {
+function normalizePageId( value: number | string | undefined ): number | null {
 	if ( ! value || ! [ 'number', 'string' ].includes( typeof value ) ) {
 		return null;
 	}
@@ -122,7 +129,11 @@ function normalizePageId( value: number | string | undefined ): string | null {
 		return null;
 	}
 
-	return value.toString();
+	if ( typeof value === 'string' ) {
+		return parseInt( value, 10 );
+	}
+
+	return value;
 }
 
 interface SiteData {
@@ -255,5 +266,56 @@ export const getTemplateId = createRegistrySelector(
 		return select( STORE_NAME ).getDefaultTemplateId( {
 			slug: slugToCheck,
 		} );
+	}
+);
+
+/**
+ * Returns a list of entity records, merged with their edits.
+ *
+ * @param state     State tree.
+ * @param kind      Entity kind.
+ * @param name      Entity name.
+ * @param recordIds Record IDs.
+ *
+ * @return The list of entity records, merged with their edits.
+ */
+export const getEditedEntityRecords = createSelector(
+	< EntityRecord extends ET.EntityRecord< any > >(
+		state: State,
+		kind: string,
+		name: string,
+		recordIds: EntityRecordKey[]
+	): Array< ET.Updatable< EntityRecord > | false > => {
+		return recordIds.map( ( recordId ) =>
+			getEditedEntityRecord( state, kind, name, recordId )
+		);
+	},
+	(
+		state: State,
+		kind: string,
+		name: string,
+		recordIds: EntityRecordKey[],
+		query?: GetRecordsHttpQuery
+	) => {
+		const context = query?.context ?? 'default';
+		return [
+			state.entities.config,
+			...recordIds.map(
+				( recordId ) =>
+					state.entities.records?.[ kind ]?.[ name ]?.queriedData
+						.items[ context ]?.[ recordId ]
+			),
+			...recordIds.map(
+				( recordId ) =>
+					state.entities.records?.[ kind ]?.[ name ]?.queriedData
+						.itemIsComplete[ context ]?.[ recordId ]
+			),
+			...recordIds.map(
+				( recordId ) =>
+					state.entities.records?.[ kind ]?.[ name ]?.edits?.[
+						recordId
+					]
+			),
+		];
 	}
 );

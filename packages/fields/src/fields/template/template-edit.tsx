@@ -39,52 +39,49 @@ export const TemplateEdit = ( {
 		typeof data.id === 'number' ? data.id : parseInt( data.id, 10 );
 	const slug = data.slug;
 
-	const { availableTemplates, templates } = useSelect(
+	const { templates, allowSwitchingTemplate } = useSelect(
 		( select ) => {
-			const allTemplates =
-				select( coreStore ).getEntityRecords< WpTemplate >(
-					'postType',
-					'wp_template',
-					{
-						per_page: -1,
-						post_type: postType,
-					}
-				) ?? [];
+			const allTemplates = select(
+				coreStore
+			).getEntityRecords< WpTemplate >( 'postType', 'wp_template', {
+				per_page: -1,
+				post_type: postType,
+			} );
 
 			const { getHomePage, getPostsPageId } = unlock(
 				select( coreStore )
 			);
 
-			const isPostsPage = getPostsPageId() === +postId;
+			const isPostsPage = getPostsPageId() === postId;
 			const isFrontPage =
-				postType === 'page' && getHomePage()?.postId === +postId;
-
-			const allowSwitchingTemplate = ! isPostsPage && ! isFrontPage;
+				postType === 'page' && getHomePage()?.postId === postId;
 
 			return {
 				templates: allTemplates,
-				availableTemplates: allowSwitchingTemplate
-					? allTemplates.filter(
-							( template ) =>
-								template.is_custom &&
-								template.slug !== data.template &&
-								!! template.content.raw // Skip empty templates.
-					  )
-					: [],
+				allowSwitchingTemplate: ! isPostsPage && ! isFrontPage,
 			};
 		},
-		[ data.template, postId, postType ]
+		[ postId, postType ]
 	);
 
 	const templatesAsPatterns = useMemo(
 		() =>
-			availableTemplates.map( ( template ) => ( {
-				name: template.slug,
-				blocks: parse( template.content.raw ),
-				title: decodeEntities( template.title.rendered ),
-				id: template.id,
-			} ) ),
-		[ availableTemplates ]
+			allowSwitchingTemplate
+				? ( templates ?? [] )
+						.filter(
+							( template ) =>
+								template.is_custom &&
+								template.slug !== data.template &&
+								!! template.content.raw // Skip empty templates.
+						)
+						.map( ( template ) => ( {
+							name: template.slug,
+							blocks: parse( template.content.raw ),
+							title: decodeEntities( template.title.rendered ),
+							id: template.id,
+						} ) )
+				: [],
+		[ templates, allowSwitchingTemplate, data.template ]
 	);
 
 	const shownTemplates = useAsyncList( templatesAsPatterns );
@@ -151,6 +148,10 @@ export const TemplateEdit = ( {
 						variant="tertiary"
 						size="compact"
 						onClick={ onToggle }
+						accessibleWhenDisabled
+						disabled={
+							value === '' && ! templatesAsPatterns.length
+						}
 					>
 						{ currentTemplate
 							? getItemTitle( currentTemplate )
@@ -159,14 +160,16 @@ export const TemplateEdit = ( {
 				) }
 				renderContent={ ( { onToggle } ) => (
 					<MenuGroup>
-						<MenuItem
-							onClick={ () => {
-								setShowModal( true );
-								onToggle();
-							} }
-						>
-							{ __( 'Swap template' ) }
-						</MenuItem>
+						{ templatesAsPatterns.length > 0 && (
+							<MenuItem
+								onClick={ () => {
+									setShowModal( true );
+									onToggle();
+								} }
+							>
+								{ __( 'Swap template' ) }
+							</MenuItem>
+						) }
 						{
 							// The default template in a post is indicated by an empty string
 							value !== '' && (

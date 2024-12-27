@@ -33,7 +33,14 @@ const fieldsWithBulkEditSupport = [
 ];
 
 function PostEditForm( { postType, postId } ) {
-	const ids = useMemo( () => postId.split( ',' ), [ postId ] );
+	const ids = useMemo(
+		() =>
+			postId
+				.split( ',' )
+				.map( ( id ) => parseInt( id, 10 ) )
+				.filter( Number ),
+		[ postId ]
+	);
 	const { record, hasFinishedResolution } = useSelect(
 		( select ) => {
 			const args = [ 'postType', postType, ids[ 0 ] ];
