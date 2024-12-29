@@ -259,7 +259,9 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 						minHeight={ MIN_PREVIEW_HEIGHT }
 						maxHeight={ MAX_PREVIEW_HEIGHT }
 						minWidth="100%"
-						grid={ [ 10, 10 ] }
+						// The horizontal grid value must be 1 or else the width may snap during a
+						// resize even though only vertical resizing is enabled.
+						grid={ [ 1, 10 ] }
 						enable={ {
 							top: false,
 							right: false,
