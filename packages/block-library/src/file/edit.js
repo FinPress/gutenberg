@@ -255,10 +255,9 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 			<div { ...blockProps }>
 				{ displayPreviewInEditor && (
 					<ResizableBox
-						size={ { height: previewHeight } }
+						size={ { height: previewHeight, width: '100%' } }
 						minHeight={ MIN_PREVIEW_HEIGHT }
 						maxHeight={ MAX_PREVIEW_HEIGHT }
-						minWidth="100%"
 						// The horizontal grid value must be 1 or else the width may snap during a
 						// resize even though only vertical resizing is enabled.
 						grid={ [ 1, 10 ] }
