@@ -19,7 +19,7 @@ export const Container = styled.fieldset`
 `;
 
 export const Header = styled( HStack )`
-	height: ${ space( 4 ) };
+	height: auto !important;
 `;
 
 export const HeaderToggle = styled( Button )`
