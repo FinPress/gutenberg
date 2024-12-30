@@ -100,7 +100,7 @@ function ScreenRoot() {
 					marginBottom={ 4 }
 				>
 					{ __(
-						'Customize the appearance of specific blocks for the whole site.'
+						'Customize the appearance of block types for the whole site.'
 					) }
 				</Spacer>
 				<ItemGroup>
