@@ -161,6 +161,7 @@ export {
 	DeprecatedExperimentalUseHasRecursion as __experimentalUseHasRecursion,
 } from './recursion-provider';
 export { default as __experimentalBlockPatternsList } from './block-patterns-list';
+export { default as BlockPatternsListV2 } from './block-patterns-list/block-patterns-list';
 export { default as __experimentalPublishDateTimePicker } from './publish-date-time-picker';
 export { default as __experimentalInspectorPopoverHeader } from './inspector-popover-header';
 export { default as BlockPopover } from './block-popover';

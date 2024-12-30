@@ -121,6 +121,11 @@ export function filterSortAndPaginate< Item >(
 					} );
 				} else if ( filter.operator === OPERATOR_IS ) {
 					filteredData = filteredData.filter( ( item ) => {
+						// TODO: check if we should do this for every operator or
+						// we shouldn't do it at all. Probably the former..
+						if ( filter.value === undefined ) {
+							return true;
+						}
 						return filter.value === field.getValue( { item } );
 					} );
 				} else if ( filter.operator === OPERATOR_IS_NOT ) {

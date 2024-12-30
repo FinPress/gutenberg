@@ -394,6 +394,10 @@ A callback function that is triggered when a user clicks on a media field or pri
 
 React component to be rendered next to the view config button.
 
+#### `className`: `string`
+
+Optional class name to add in the main DataViews wrapper container.
+
 ## `DataForm`
 
 <div class="callout callout-info">At <a href="https://wordpress.github.io/gutenberg/">WordPress Gutenberg's Storybook</a> there's and <a href="https://wordpress.github.io/gutenberg/?path=/docs/dataviews-dataform--docs">example implementation of the DataForm component</a>.</div>

@@ -501,85 +501,92 @@ function FieldControl() {
 	) as Array< { field: NormalizedField< any >; isVisibleFlag: string } >;
 
 	return (
-		<VStack className="dataviews-field-control" spacing={ 6 }>
-			<VStack className="dataviews-view-config__properties" spacing={ 0 }>
-				{ ( visibleLockedFields.length > 0 ||
-					!! visibleFields?.length ) && (
-					<ItemGroup isBordered isSeparated>
-						{ visibleLockedFields.map(
-							( { field, isVisibleFlag } ) => {
-								return (
-									<FieldItem
-										key={ field.id }
-										field={ field }
-										isVisible
-										onToggleVisibility={ () => {
-											onChangeView( {
-												...view,
-												[ isVisibleFlag ]: false,
-											} );
-										} }
-										canMove={ false }
-									/>
-								);
-							}
-						) }
-
-						{ visibleFields.map( ( field, index ) => (
-							<RegularFieldItem
-								key={ field.id }
-								field={ field }
-								view={ view }
-								onChangeView={ onChangeView }
-								index={ index }
-							/>
-						) ) }
-					</ItemGroup>
-				) }
-			</VStack>
-
-			{ ( !! hiddenFields?.length || !! hiddenLockedFields.length ) && (
-				<VStack spacing={ 4 }>
-					<BaseControl.VisualLabel style={ { margin: 0 } }>
-						{ __( 'Hidden' ) }
-					</BaseControl.VisualLabel>
-					<VStack
-						className="dataviews-view-config__properties"
-						spacing={ 0 }
-					>
+		<SettingsSection title={ __( 'Properties' ) }>
+			<VStack className="dataviews-field-control" spacing={ 6 }>
+				<VStack
+					className="dataviews-view-config__properties"
+					spacing={ 0 }
+				>
+					{ ( visibleLockedFields.length > 0 ||
+						!! visibleFields?.length ) && (
 						<ItemGroup isBordered isSeparated>
-							{ hiddenLockedFields.length > 0 &&
-								hiddenLockedFields.map(
-									( { field, isVisibleFlag } ) => {
-										return (
-											<FieldItem
-												key={ field.id }
-												field={ field }
-												isVisible={ false }
-												onToggleVisibility={ () => {
-													onChangeView( {
-														...view,
-														[ isVisibleFlag ]: true,
-													} );
-												} }
-												canMove={ false }
-											/>
-										);
-									}
-								) }
-							{ hiddenFields.map( ( field ) => (
+							{ visibleLockedFields.map(
+								( { field, isVisibleFlag } ) => {
+									return (
+										<FieldItem
+											key={ field.id }
+											field={ field }
+											isVisible
+											onToggleVisibility={ () => {
+												onChangeView( {
+													...view,
+													[ isVisibleFlag ]: false,
+												} );
+											} }
+											canMove={ false }
+										/>
+									);
+								}
+							) }
+
+							{ visibleFields.map( ( field, index ) => (
 								<RegularFieldItem
 									key={ field.id }
 									field={ field }
 									view={ view }
 									onChangeView={ onChangeView }
+									index={ index }
 								/>
 							) ) }
 						</ItemGroup>
-					</VStack>
+					) }
 				</VStack>
-			) }
-		</VStack>
+
+				{ ( !! hiddenFields?.length ||
+					!! hiddenLockedFields.length ) && (
+					<VStack spacing={ 4 }>
+						<BaseControl.VisualLabel style={ { margin: 0 } }>
+							{ __( 'Hidden' ) }
+						</BaseControl.VisualLabel>
+						<VStack
+							className="dataviews-view-config__properties"
+							spacing={ 0 }
+						>
+							<ItemGroup isBordered isSeparated>
+								{ hiddenLockedFields.length > 0 &&
+									hiddenLockedFields.map(
+										( { field, isVisibleFlag } ) => {
+											return (
+												<FieldItem
+													key={ field.id }
+													field={ field }
+													isVisible={ false }
+													onToggleVisibility={ () => {
+														onChangeView( {
+															...view,
+															[ isVisibleFlag ]:
+																true,
+														} );
+													} }
+													canMove={ false }
+												/>
+											);
+										}
+									) }
+								{ hiddenFields.map( ( field ) => (
+									<RegularFieldItem
+										key={ field.id }
+										field={ field }
+										view={ view }
+										onChangeView={ onChangeView }
+									/>
+								) ) }
+							</ItemGroup>
+						</VStack>
+					</VStack>
+				) }
+			</VStack>
+		</SettingsSection>
 	);
 }
 
@@ -665,9 +672,7 @@ function DataviewsViewConfigDropdown() {
 							) }
 							<ItemsPerPageControl />
 						</SettingsSection>
-						<SettingsSection title={ __( 'Properties' ) }>
-							<FieldControl />
-						</SettingsSection>
+						<FieldControl />
 					</VStack>
 				</DropdownContentWrapper>
 			) }

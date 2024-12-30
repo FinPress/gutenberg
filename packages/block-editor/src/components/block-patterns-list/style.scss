@@ -84,3 +84,49 @@
 		}
 	}
 }
+
+/**
+ * Below are the added style for v2 with DataViews.
+ * They should be polished and/or moved to a differrent file, depending on
+ * how we'll export this component..
+ */
+
+ .block-editor-block-patterns-list-v2 {
+	.dataviews-view-grid {
+		gap: calc($grid-unit-05);
+	}
+
+	.page-patterns-preview-field {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		border-radius: $radius-medium;
+
+		.page-patterns-preview-field__button {
+			box-shadow: none;
+			border: none;
+			padding: 0;
+			background-color: unset;
+			box-sizing: border-box;
+			cursor: pointer;
+			overflow: hidden;
+			height: 100%;
+			border-radius: $grid-unit-05;
+
+			&:focus-visible {
+				box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+				// Windows High Contrast mode will show this outline, but not the box-shadow.
+				outline: 2px solid transparent;
+			}
+
+			&[aria-disabled="true"] {
+				cursor: default;
+			}
+		}
+	}
+
+	.edit-site-patterns__pattern-icon {
+		fill: var(--wp-block-synced-color);
+		flex-shrink: 0;
+	}
+ }

@@ -163,7 +163,7 @@ function InserterMenu(
 	const showMediaPanel = selectedTab === 'media' && !! selectedMediaCategory;
 
 	const inserterSearch = useMemo( () => {
-		if ( selectedTab === 'media' ) {
+		if ( [ 'media', 'patterns' ].includes( selectedTab ) ) {
 			return null;
 		}
 

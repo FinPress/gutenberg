@@ -1,13 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	useMemo,
-	useState,
-	useCallback,
-	useRef,
-	useEffect,
-} from '@wordpress/element';
+import { useMemo, useState, useCallback, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import {
@@ -22,7 +16,7 @@ import {
  * Internal dependencies
  */
 import usePatternsState from '../hooks/use-patterns-state';
-import BlockPatternsList from '../../block-patterns-list';
+import BlockPatternsListV2 from '../../block-patterns-list/block-patterns-list';
 import usePatternsPaging from '../hooks/use-patterns-paging';
 import { PatternsFilter } from './patterns-filter';
 import { usePatternCategories } from './use-pattern-categories';
@@ -34,12 +28,9 @@ import {
 	INSERTER_PATTERN_TYPES,
 } from './utils';
 
-const noop = () => {};
-
 export function PatternCategoryPreviews( {
 	rootClientId,
 	onInsert,
-	onHover = noop,
 	category,
 	showTitlesAsTooltip,
 } ) {
@@ -110,30 +101,27 @@ export function PatternCategoryPreviews( {
 		]
 	);
 
-	const pagingProps = usePatternsPaging(
-		currentCategoryPatterns,
-		category,
-		scrollContainerRef
-	);
-	const { changePage } = pagingProps;
+	// const pagingProps = usePatternsPaging(
+	// 	currentCategoryPatterns,
+	// 	category,
+	// 	scrollContainerRef
+	// );
+	// const { changePage } = pagingProps;
 
-	// Hide block pattern preview on unmount.
-	useEffect( () => () => onHover( null ), [] );
-
-	const onSetPatternSyncFilter = useCallback(
-		( value ) => {
-			setPatternSyncFilter( value );
-			changePage( 1 );
-		},
-		[ setPatternSyncFilter, changePage ]
-	);
-	const onSetPatternSourceFilter = useCallback(
-		( value ) => {
-			setPatternSourceFilter( value );
-			changePage( 1 );
-		},
-		[ setPatternSourceFilter, changePage ]
-	);
+	// const onSetPatternSyncFilter = useCallback(
+	// 	( value ) => {
+	// 		setPatternSyncFilter( value );
+	// 		changePage( 1 );
+	// 	},
+	// 	[ setPatternSyncFilter, changePage ]
+	// );
+	// const onSetPatternSourceFilter = useCallback(
+	// 	( value ) => {
+	// 		setPatternSourceFilter( value );
+	// 		changePage( 1 );
+	// 	},
+	// 	[ setPatternSourceFilter, changePage ]
+	// );
 
 	return (
 		<>
@@ -152,14 +140,6 @@ export function PatternCategoryPreviews( {
 							{ category?.label }
 						</Heading>
 					</FlexBlock>
-					<PatternsFilter
-						patternSyncFilter={ patternSyncFilter }
-						patternSourceFilter={ patternSourceFilter }
-						setPatternSyncFilter={ onSetPatternSyncFilter }
-						setPatternSourceFilter={ onSetPatternSourceFilter }
-						scrollContainerRef={ scrollContainerRef }
-						category={ category }
-					/>
 				</HStack>
 				{ ! currentCategoryPatterns.length && (
 					<Text
@@ -179,18 +159,15 @@ export function PatternCategoryPreviews( {
 					>
 						{ __( 'Drag and drop patterns into the canvas.' ) }
 					</Text>
-					<BlockPatternsList
+					<BlockPatternsListV2
 						ref={ scrollContainerRef }
-						blockPatterns={ pagingProps.categoryPatterns }
+						blockPatterns={ currentCategoryPatterns }
 						onClickPattern={ onClickPattern }
-						onHover={ onHover }
 						label={ category.label }
 						orientation="vertical"
 						category={ category.name }
 						isDraggable
-						showTitlesAsTooltip={ showTitlesAsTooltip }
-						patternFilter={ patternSourceFilter }
-						pagingProps={ pagingProps }
+						showTitle={ ! showTitlesAsTooltip }
 					/>
 				</>
 			) }

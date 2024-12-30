@@ -2,6 +2,7 @@
  * External dependencies
  */
 import type { ReactNode } from 'react';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -49,6 +50,7 @@ type DataViewsProps< Item > = {
 	isItemClickable?: ( item: Item ) => boolean;
 	header?: ReactNode;
 	getItemLevel?: ( item: Item ) => number;
+	className?: string;
 } & ( Item extends ItemWithId
 	? { getItemId?: ( item: Item ) => string }
 	: { getItemId: ( item: Item ) => string } );
@@ -75,6 +77,7 @@ export default function DataViews< Item >( {
 	onClickItem,
 	isItemClickable = defaultIsItemClickable,
 	header,
+	className,
 }: DataViewsProps< Item > ) {
 	const [ containerWidth, setContainerWidth ] = useState( 0 );
 	const containerRef = useResizeObserver(
@@ -133,7 +136,10 @@ export default function DataViews< Item >( {
 				containerWidth,
 			} }
 		>
-			<div className="dataviews-wrapper" ref={ containerRef }>
+			<div
+				className={ clsx( 'dataviews-wrapper', className ) }
+				ref={ containerRef }
+			>
 				<HStack
 					alignment="top"
 					justify="space-between"
