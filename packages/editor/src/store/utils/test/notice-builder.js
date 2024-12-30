@@ -26,7 +26,7 @@ describe( 'getNotificationArgumentsForSaveSuccess()', () => {
 	};
 	const post = { ...previousPost };
 	const defaultExpectedAction = {
-		id: 'editor-save-success',
+		id: 'editor-save',
 		actions: [],
 		type: 'snackbar',
 	};
@@ -105,7 +105,7 @@ describe( 'getNotificationArgumentsForSaveFail()', () => {
 	const error = { code: '42', message: 'Something went wrong.' };
 	const post = { status: 'publish' };
 	const edits = { status: 'publish' };
-	const defaultExpectedAction = { id: 'editor-save-fail' };
+	const defaultExpectedAction = { id: 'editor-save' };
 	[
 		[
 			'when error code is `rest_autosave_no_changes`',

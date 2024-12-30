@@ -63,7 +63,7 @@ export function getNotificationArgumentsForSaveSuccess( data ) {
 	return [
 		noticeMessage,
 		{
-			id: 'editor-save-success',
+			id: 'editor-save',
 			type: 'snackbar',
 			actions,
 		},
@@ -108,7 +108,7 @@ export function getNotificationArgumentsForSaveFail( data ) {
 	return [
 		noticeMessage,
 		{
-			id: 'editor-save-fail',
+			id: 'editor-save',
 		},
 	];
 }
