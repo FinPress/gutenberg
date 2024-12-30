@@ -607,7 +607,7 @@ class Gutenberg_Token_Map_6_7 {
 
 				if (
 					$search_text[ $adjust ] !== $this->small_words[ $at + $adjust ] &&
-					( ! $ignore_case || strtoupper( $this->small_words[ $at + $adjust ] !== $search_text[ $adjust ] ) )
+					( ! $ignore_case || strtoupper( $this->small_words[ $at + $adjust ] ) !== $search_text[ $adjust ] )
 				) {
 					$at += $this->key_length + 1;
 					continue 2;
