@@ -16,6 +16,7 @@ import { createUndoManager } from '@wordpress/undo-manager';
 import { ifMatchingAction, replaceAction } from './utils';
 import { reducer as queriedDataReducer } from './queried-data';
 import { rootEntitiesConfig, DEFAULT_ENTITY_KEY } from './entities';
+import { getSyncProvider } from './sync';
 
 /** @typedef {import('./types').AnyFunction} AnyFunction */
 
@@ -401,9 +402,23 @@ function entity( entityConfig ) {
 export function entitiesConfig( state = rootEntitiesConfig, action ) {
 	switch ( action.type ) {
 		case 'ADD_ENTITIES':
+			// @todo this should be done in the sync package.
+			if ( window.__experimentalEnableSync ) {
+				if ( globalThis.IS_GUTENBERG_PLUGIN ) {
+					action.entities.forEach(
+						( { syncObjectType, syncConfig } ) => {
+							if ( syncObjectType ) {
+								getSyncProvider().register(
+									syncObjectType,
+									syncConfig
+								);
+							}
+						}
+					);
+				}
+			}
 			return [ ...state, ...action.entities ];
 	}
-
 	return state;
 }
 

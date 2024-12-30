@@ -81,7 +81,73 @@ export const getEntityRecord =
 		);
 		try {
 			// Entity supports configs,
-			// use the sync algorithm instead of the old fetch behavior.
+			if ( query !== undefined && query._fields ) {
+				// @todo how does this work? What is happening here?
+				// If requesting specific fields, items and query association to said
+				// records are stored by ID reference. Thus, fields must always include
+				// the ID.
+				query = {
+					...query,
+					_fields: [
+						...new Set( [
+							...( getNormalizedCommaSeparable( query._fields ) ||
+								[] ),
+							entityConfig.key || DEFAULT_ENTITY_KEY,
+						] ),
+					].join(),
+				};
+			}
+
+			// Disable reason: While true that an early return could leave `path`
+			// unused, it's important that path is derived using the query prior to
+			// additional query modifications in the condition below, since those
+			// modifications are relevant to how the data is tracked in state, and not
+			// for how the request is made to the REST API.
+
+			// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+			const path = addQueryArgs(
+				entityConfig.baseURL + ( key ? '/' + key : '' ),
+				{
+					...entityConfig.baseURLParams,
+					...query,
+				}
+			);
+
+			if ( query !== undefined && query._fields ) {
+				query = { ...query, include: [ key ] };
+
+				// The resolution cache won't consider query as reusable based on the
+				// fields, so it's tested here, prior to initiating the REST request,
+				// and without causing `getEntityRecords` resolution to occur.
+				const hasRecords = select.hasEntityRecords( kind, name, query );
+				if ( hasRecords ) {
+					return;
+				}
+			}
+
+			const response = await apiFetch( { path, parse: false } );
+			const record = await response.json();
+			const permissions = getUserPermissionsFromAllowHeader(
+				response.headers?.get( 'allow' )
+			);
+
+			const canUserResolutionsArgs = [];
+			const receiveUserPermissionArgs = {};
+			for ( const action of ALLOWED_RESOURCE_ACTIONS ) {
+				receiveUserPermissionArgs[
+					getUserPermissionCacheKey( action, {
+						kind,
+						name,
+						id: key,
+					} )
+				] = permissions[ action ];
+
+				canUserResolutionsArgs.push( [
+					action,
+					{ kind, name, id: key },
+				] );
+			}
+
 			if (
 				window.__experimentalEnableSync &&
 				entityConfig.syncConfig &&
@@ -89,8 +155,13 @@ export const getEntityRecord =
 			) {
 				if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 					const objectId = entityConfig.getSyncObjectId( key );
+					// ensure that config is registered
+					getSyncProvider().register(
+						entityConfig.syncObjectType,
+						entityConfig.syncConfig
+					);
 					// Loads the persisted document.
-					const record = await getSyncProvider().bootstrap(
+					await getSyncProvider().bootstrap(
 						entityConfig.syncObjectType,
 						objectId,
 						( edits ) => {
@@ -106,140 +177,17 @@ export const getEntityRecord =
 							} );
 						}
 					);
-					dispatch.receiveEntityRecords( kind, name, record, query );
-					//
-					// // this is where the yjs doc is initialized
-					// // Boostraps the edited document as well (and load from peers).
-					// await getSyncProvider().bootstrap(
-					// 	entityConfig.syncObjectType + '--edit', // what is the "--edit" flag??
-					// 	objectId,
-					// 	( record ) => {
-					// 		dispatch( {
-					// 			type: 'EDIT_ENTITY_RECORD',
-					// 			kind,
-					// 			name,
-					// 			recordId: key,
-					// 			edits: record,
-					// 			meta: {
-					// 				undo: undefined,
-					// 			},
-					// 		} );
-					// 	}
-					// );
 				}
-			} else {
-				// @todo this fetches the data from remote. exploit this!
-				if ( query !== undefined && query._fields ) {
-					// @todo how does this work? What is happening here?
-					// If requesting specific fields, items and query association to said
-					// records are stored by ID reference. Thus, fields must always include
-					// the ID.
-					query = {
-						...query,
-						_fields: [
-							...new Set( [
-								...( getNormalizedCommaSeparable(
-									query._fields
-								) || [] ),
-								entityConfig.key || DEFAULT_ENTITY_KEY,
-							] ),
-						].join(),
-					};
-				}
-
-				// Disable reason: While true that an early return could leave `path`
-				// unused, it's important that path is derived using the query prior to
-				// additional query modifications in the condition below, since those
-				// modifications are relevant to how the data is tracked in state, and not
-				// for how the request is made to the REST API.
-
-				// eslint-disable-next-line @wordpress/no-unused-vars-before-return
-				const path = addQueryArgs(
-					entityConfig.baseURL + ( key ? '/' + key : '' ),
-					{
-						...entityConfig.baseURLParams,
-						...query,
-					}
-				);
-
-				if ( query !== undefined && query._fields ) {
-					query = { ...query, include: [ key ] };
-
-					// The resolution cache won't consider query as reusable based on the
-					// fields, so it's tested here, prior to initiating the REST request,
-					// and without causing `getEntityRecords` resolution to occur.
-					const hasRecords = select.hasEntityRecords(
-						kind,
-						name,
-						query
-					);
-					if ( hasRecords ) {
-						return;
-					}
-				}
-
-				const response = await apiFetch( { path, parse: false } );
-				const record = await response.json();
-				const permissions = getUserPermissionsFromAllowHeader(
-					response.headers?.get( 'allow' )
-				);
-
-				const canUserResolutionsArgs = [];
-				const receiveUserPermissionArgs = {};
-				for ( const action of ALLOWED_RESOURCE_ACTIONS ) {
-					receiveUserPermissionArgs[
-						getUserPermissionCacheKey( action, {
-							kind,
-							name,
-							id: key,
-						} )
-					] = permissions[ action ];
-
-					canUserResolutionsArgs.push( [
-						action,
-						{ kind, name, id: key },
-					] );
-				}
-
-				if (
-					window.__experimentalEnableSync &&
-					entityConfig.syncConfig &&
-					! query
-				) {
-					if (globalThis.IS_GUTENBERG_PLUGIN) {
-						const objectId = entityConfig.getSyncObjectId( key );
-						// Loads the persisted document.
-						await getSyncProvider().bootstrap(
-							entityConfig.syncObjectType,
-							objectId,
-							( edits ) => {
-								dispatch( {
-									type: 'EDIT_ENTITY_RECORD',
-									kind,
-									name,
-									recordId: key,
-									edits,
-									meta: {
-										undo: undefined,
-									},
-								} );
-							}
-						);
-					}
-				}
-
-				// @todo should use this in collab case
-				registry.batch( () => {
-					dispatch.receiveEntityRecords( kind, name, record, query );
-					dispatch.receiveUserPermissions(
-						receiveUserPermissionArgs
-					);
-					dispatch.finishResolutions(
-						'canUser',
-						canUserResolutionsArgs
-					);
-				} );
 			}
+
+			// @todo should use this in collab case
+			registry.batch( () => {
+				dispatch.receiveEntityRecords( kind, name, record, query );
+				dispatch.receiveUserPermissions( receiveUserPermissionArgs );
+				dispatch.finishResolutions( 'canUser', canUserResolutionsArgs );
+			} );
+		} catch ( err ) {
+			throw err;
 		} finally {
 			dispatch.__unstableReleaseStoreLock( lock );
 		}
@@ -1078,7 +1026,6 @@ export const getEntitiesConfig =
 			if ( ! configs.length ) {
 				return;
 			}
-
 			dispatch.addEntities( configs );
 		} catch {
 			// Do nothing if the request comes back with an API error.

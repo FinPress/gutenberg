@@ -17,7 +17,6 @@ import * as fun from 'lib0/function';
 /**
  * Internal dependencies
  */
-import { addEntities } from './actions';
 import { getSyncProvider, Y } from './sync';
 
 export const DEFAULT_ENTITY_KEY = 'id';
@@ -36,10 +35,20 @@ const queryYdocComment =
  */
 export function parseContentYdoc( postType, content ) {
 	const res = queryYdocComment.exec( content );
-	if ( res === null ) { return null; }
-	const [ , /** @todo use sessionid */, ystate, /* updates */, _newclientid ] = res;
-	const newclientid = Number.parseInt(_newclientid)
-	const blockContent = content.slice(0, res.index) + content.slice(res.index + res[0].length)
+	if ( res === null ) {
+		return null;
+	}
+	const [
+		,
+		,
+		/** @todo use sessionid */ ystate /* updates */,
+		,
+		_newclientid,
+	] = res;
+	const newclientid = Number.parseInt( _newclientid );
+	const blockContent =
+		content.slice( 0, res.index ) +
+		content.slice( res.index + res[ 0 ].length );
 	const syncProvider = getSyncProvider();
 	// Replay actions in a consistent manner, so that every client performs the same actions to
 	// retrieve a certain document.
@@ -50,20 +59,25 @@ export function parseContentYdoc( postType, content ) {
 	 */
 	const knownUpdateGuids = new Set();
 	ydoc.meta.set( 'knownRemoteUpdates', knownUpdateGuids );
-	ystate.length > 0 && Y.applyUpdateV2( ydoc, buf.fromBase64( ystate ) );
+	if ( ystate.length > 0 ) {
+		Y.applyUpdateV2( ydoc, buf.fromBase64( ystate ) );
+	}
 	const prevClientId = ydoc.clientID;
 	ydoc.clientID = newclientid;
-	const prevClock = (ydoc.store.clients.get(newclientid) || [{ id: { clock: 0 } }])[0].id.clock;
-	const blocks = parse(  blockContent );
-	syncProvider.postTypeConfigs[ postType ].applyChangesToDoc(
-		ydoc,
-		{ blocks }
-	);
+	const prevClock = ( ydoc.store.clients.get( newclientid ) || [
+		{ id: { clock: 0 } },
+	] )[ 0 ].id.clock;
+	const blocks = parse( blockContent );
+	syncProvider.postTypeConfigs[ postType ].applyChangesToDoc( ydoc, {
+		blocks,
+	} );
 	ydoc.clientID = prevClientId;
-	const newClock = (ydoc.store.clients.get(newclientid) || [{ id: { clock: 0 } }])[0].id.clock;
-	if (prevClock !== newClock) {
+	const newClock = ( ydoc.store.clients.get( newclientid ) ?? [
+		{ id: { clock: 0 } },
+	] )[ 0 ].id.clock;
+	if ( prevClock !== newClock ) {
 		// eslint-disable-next-line no-console
-		console.info('backend added some change')
+		console.info( 'backend added some change' );
 	}
 	return ydoc;
 }
@@ -388,8 +402,8 @@ function makeBlockAttributesSerializable( attributes ) {
 function makeBlocksSerializable( blocks ) {
 	return blocks.map( ( block ) => {
 		const { innerBlocks, attributes, ...rest } = block;
-		delete rest.validationIssues
-		delete rest.originalContent
+		delete rest.validationIssues;
+		delete rest.originalContent;
 		// delete rest.isValid
 		return {
 			...rest,
@@ -440,33 +454,37 @@ async function loadPostTypeEntities() {
 				 * @return {Promise<string>} the post content
 				 */
 				fetch: async ( id, autosave ) => {
-					if (autosave === undefined) {
+					if ( autosave === undefined ) {
 						// eslint-disable-next-line no-console
-						console.error('autosave should not be undefined')
+						console.error( 'autosave should not be undefined' );
 					} // @todo add proper typings
-					if (autosave) {
+					if ( autosave ) {
 						// Currently just exploiting autosave functionality.
 						// @todo there should a a special WP API for this
-						const [post, autosaves] = await Promise.all([
+						const [ post, autosaves ] = await Promise.all( [
 							apiFetch( {
 								path: `/${ namespace }/${ postType.rest_base }/${ id }?context=edit`,
-							}),
+							} ),
 							apiFetch( {
-								path: `/${ namespace }/${ postType.rest_base }/${ id }${ '/autosaves?context=edit' }`,
-							} )
-						])
-						if (autosaves?.length > 0) {
-							if (autosaves.length > 1) {
+								path: `/${ namespace }/${
+									postType.rest_base
+								}/${ id }${ '/autosaves?context=edit' }`,
+							} ),
+						] );
+						if ( autosaves?.length > 0 ) {
+							if ( autosaves.length > 1 ) {
 								// eslint-disable-next-line no-console
-								console.warn('there were multiple autosaves, @todo should merge them.')
+								console.warn(
+									'there were multiple autosaves, @todo should merge them.'
+								);
 							}
-							post.content = autosaves[0].content
-							return post
+							post.content = autosaves[ 0 ].content;
+							return post;
 						}
 					}
 					return apiFetch( {
 						path: `/${ namespace }/${ postType.rest_base }/${ id }?context=edit`,
-					})
+					} );
 				},
 				/**
 				 * @param {Y.Doc} doc
@@ -544,8 +562,14 @@ async function loadPostTypeEntities() {
 										const blocksEqual = ( block, yblock ) =>
 											// @todo improve this
 											fun.equalityDeep(
-												Object.assign({}, block, { clientId: 'x' }),
-												Object.assign({}, yblock.toJSON(), { clientId: 'x' })
+												Object.assign( {}, block, {
+													clientId: 'x',
+												} ),
+												Object.assign(
+													{},
+													yblock.toJSON(),
+													{ clientId: 'x' }
+												)
 											);
 
 										// skip equal blocks from left
@@ -598,7 +622,12 @@ async function loadPostTypeEntities() {
 													yblocks.get( left );
 												Object.entries( block ).forEach(
 													( [ k, v ] ) => {
-														if (!fun.equalityDeep(block[k], yblock.get(k))) {
+														if (
+															! fun.equalityDeep(
+																block[ k ],
+																yblock.get( k )
+															)
+														) {
 															yblock.set( k, v );
 														}
 													}
@@ -779,60 +808,3 @@ export const getMethodName = ( kind, name, prefix = 'get' ) => {
 	const suffix = pascalCase( name );
 	return `${ prefix }${ kindPrefix }${ suffix }`;
 };
-
-function registerSyncConfigs( configs ) {
-	configs.forEach( ( { syncObjectType, syncConfig } ) => {
-		getSyncProvider().register( syncObjectType, syncConfig );
-		// const editSyncConfig = { ...syncConfig };
-		// delete editSyncConfig.fetch;
-		// getSyncProvider().register( syncObjectType + '--edit', editSyncConfig );
-	} );
-}
-
-/**
- * Loads the entities into the store.
- *
- * Note: The `name` argument is used for `root` entities requiring additional server data.
- *
- * @param {string} kind Kind
- * @param {string} name Name
- * @return {(thunkArgs: object) => Promise<Array>} Entities
- */
-export const getOrLoadEntitiesConfig =
-	( kind, name ) =>
-	async ( { select, dispatch } ) => {
-		let configs = select.getEntitiesConfig( kind );
-		const hasConfig = !! select.getEntityConfig( kind, name );
-
-		if ( configs?.length > 0 && hasConfig ) {
-			if ( window.__experimentalEnableSync ) {
-				if ( globalThis.IS_GUTENBERG_PLUGIN ) {
-					registerSyncConfigs( configs );
-				}
-			}
-
-			return configs;
-		}
-
-		const loader = additionalEntityConfigLoaders.find( ( l ) => {
-			if ( ! name || ! l.name ) {
-				return l.kind === kind;
-			}
-
-			return l.kind === kind && l.name === name;
-		} );
-		if ( ! loader ) {
-			return [];
-		}
-
-		configs = await loader.loadEntities();
-		if ( window.__experimentalEnableSync ) {
-			if ( globalThis.IS_GUTENBERG_PLUGIN ) {
-				registerSyncConfigs( configs );
-			}
-		}
-
-		dispatch( addEntities( configs ) );
-
-		return configs;
-	};
