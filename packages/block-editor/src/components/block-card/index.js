@@ -16,6 +16,7 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import deprecated from '@wordpress/deprecated';
 import { __, isRTL } from '@wordpress/i18n';
 import { chevronLeft, chevronRight } from '@wordpress/icons';
+import { store as preferencesStore } from '@wordpress/preferences';
 
 /**
  * Internal dependencies
@@ -78,7 +79,9 @@ function BlockCard( { title, icon, description, blockType, className, name } ) {
 			)[ 0 ],
 		};
 	}, [] );
-
+	const showBlockDescription = useSelect( ( select ) => {
+		return select( preferencesStore ).get( 'core', 'showBlockDescription' );
+	}, [] );
 	const { selectBlock } = useDispatch( blockEditorStore );
 
 	return (
@@ -104,7 +107,7 @@ function BlockCard( { title, icon, description, blockType, className, name } ) {
 					</span>
 					{ !! name?.length && <Badge>{ title }</Badge> }
 				</h2>
-				{ description && (
+				{ description && showBlockDescription && (
 					<Text className="block-editor-block-card__description">
 						{ description }
 					</Text>

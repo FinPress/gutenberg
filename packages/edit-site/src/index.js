@@ -74,6 +74,7 @@ export function initializeEditor( id, settings ) {
 		showBlockBreadcrumbs: true,
 		showListViewByDefault: false,
 		enableChoosePatternModal: true,
+		showBlockDescription: true,
 	} );
 
 	if ( window.__experimentalMediaProcessing ) {

@@ -232,6 +232,12 @@ function PreferencesModalContents( { extraSections = {} } ) {
 								label={ __( 'Spotlight mode' ) }
 							/>
 							{ extraSections?.appearance }
+							<PreferenceToggleControl
+								scope="core"
+								featureName="showBlockDescription"
+								help={ __( 'Show block description' ) }
+								label={ __( 'Show block description' ) }
+							/>
 						</PreferencesModalSection>
 					),
 				},
