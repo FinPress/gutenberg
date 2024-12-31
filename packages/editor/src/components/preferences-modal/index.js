@@ -235,8 +235,10 @@ function PreferencesModalContents( { extraSections = {} } ) {
 							<PreferenceToggleControl
 								scope="core"
 								featureName="showBlockDescription"
-								help={ __( 'Show block description' ) }
-								label={ __( 'Show block description' ) }
+								help={ __(
+									'Show block descriptions in the editor sidebar.'
+								) }
+								label={ __( 'Show block descriptions' ) }
 							/>
 						</PreferencesModalSection>
 					),
