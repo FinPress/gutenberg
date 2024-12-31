@@ -41,15 +41,4 @@ const meta = {
 
 export default meta;
 
-export const Default = {
-	render: function Template( { onChange, ...args } ) {
-		return (
-			<URLInputButton
-				{ ...args }
-				onChange={ ( ...changeArgs ) => {
-					onChange( ...changeArgs );
-				} }
-			/>
-		);
-	},
-};
+export const Default = {};
