@@ -1,7 +1,16 @@
 /**
  * WordPress dependencies
  */
-import { lineDashed, lineDotted, lineSolid } from '@wordpress/icons';
+import {
+	lineDashed,
+	lineDotted,
+	lineSolid,
+	lineDouble,
+	lineGroove,
+	lineRidge,
+	lineInset,
+	lineOutset,
+} from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -18,11 +27,11 @@ const BORDER_STYLES = [
 	{ label: __( 'Solid' ), icon: lineSolid, value: 'solid' },
 	{ label: __( 'Dashed' ), icon: lineDashed, value: 'dashed' },
 	{ label: __( 'Dotted' ), icon: lineDotted, value: 'dotted' },
-	{ label: __( 'Double' ), icon: lineSolid, value: 'double' },
-	{ label: __( 'Groove' ), icon: lineSolid, value: 'groove' },
-	{ label: __( 'Ridge' ), icon: lineSolid, value: 'ridge' },
-	{ label: __( 'Inset' ), icon: lineSolid, value: 'inset' },
-	{ label: __( 'Outset' ), icon: lineSolid, value: 'outset' },
+	{ label: __( 'Double' ), icon: lineDouble, value: 'double' },
+	{ label: __( 'Groove' ), icon: lineGroove, value: 'groove' },
+	{ label: __( 'Ridge' ), icon: lineRidge, value: 'ridge' },
+	{ label: __( 'Inset' ), icon: lineInset, value: 'inset' },
+	{ label: __( 'Outset' ), icon: lineOutset, value: 'outset' },
 ];
 
 function UnconnectedBorderControlStylePicker(
