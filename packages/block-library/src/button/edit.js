@@ -148,7 +148,11 @@ function WidthPanel( { selectedWidth, setAttributes } ) {
 							<ToggleGroupControlOption
 								key={ widthValue }
 								value={ widthValue }
-								label={ `${ widthValue }%` }
+								label={ sprintf(
+									/* translators: Percentage value. */
+									__( '%1$s%%' ),
+									widthValue
+								) }
 							/>
 						);
 					} ) }
