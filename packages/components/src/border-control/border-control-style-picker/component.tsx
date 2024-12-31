@@ -18,6 +18,11 @@ const BORDER_STYLES = [
 	{ label: __( 'Solid' ), icon: lineSolid, value: 'solid' },
 	{ label: __( 'Dashed' ), icon: lineDashed, value: 'dashed' },
 	{ label: __( 'Dotted' ), icon: lineDotted, value: 'dotted' },
+	{ label: __( 'Double' ), icon: lineSolid, value: 'double' },
+	{ label: __( 'Groove' ), icon: lineSolid, value: 'groove' },
+	{ label: __( 'Ridge' ), icon: lineSolid, value: 'ridge' },
+	{ label: __( 'Inset' ), icon: lineSolid, value: 'inset' },
+	{ label: __( 'Outset' ), icon: lineSolid, value: 'outset' },
 ];
 
 function UnconnectedBorderControlStylePicker(
@@ -34,6 +39,7 @@ function UnconnectedBorderControlStylePicker(
 				onChange?.( value as string | undefined );
 			} }
 			{ ...restProps }
+			style={ { display: 'flex' } }
 		>
 			{ BORDER_STYLES.map( ( borderStyle ) => (
 				<ToggleGroupControlOptionIcon
