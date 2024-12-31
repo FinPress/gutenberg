@@ -3,11 +3,6 @@
  */
 import URLInputButton from '../button';
 
-/**
- * WordPress dependencies
- */
-import { useState } from '@wordpress/element';
-
 const meta = {
 	title: 'BlockEditor/URLInputButton',
 	component: URLInputButton,
@@ -48,15 +43,12 @@ export default meta;
 
 export const Default = {
 	render: function Template( { onChange, ...args } ) {
-		const [ value, setValue ] = useState();
 		return (
 			<URLInputButton
 				{ ...args }
 				onChange={ ( ...changeArgs ) => {
 					onChange( ...changeArgs );
-					setValue( ...changeArgs );
 				} }
-				value={ value }
 			/>
 		);
 	},
