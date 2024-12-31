@@ -33,7 +33,7 @@ export function PublishDateTimePicker(
 	return (
 		<div ref={ ref } className="block-editor-publish-date-time-picker">
 			<InspectorPopoverHeader
-				title={ __( 'Publish Date & Time' ) }
+				title={ __( 'Publish Date' ) }
 				actions={
 					showPopoverHeaderActions
 						? [
