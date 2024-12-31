@@ -16,7 +16,7 @@ const meta = {
 			canvas: { sourceState: 'shown' },
 			description: {
 				component:
-					'Renders the URL input field used by the `URLInputButton` component. It can be used directly to display the input field in different ways such as in a `Popover` or inline.',
+					'Render a URL input button that pops up an input to search for and select a post or enter any arbitrary URL.',
 			},
 		},
 	},
@@ -24,19 +24,22 @@ const meta = {
 		url: {
 			control: 'text',
 			description:
-				'The current URL value. Should be tied to the component state or an attribute.',
-			type: { name: 'string', required: true },
+				'This should be set to the attribute (or component state) property used to store the URL.',
+			type: {
+				required: true,
+				name: 'string',
+			},
 		},
 		onChange: {
-			action: 'onChange',
-			description: `Callback function triggered when the URL value changes.
-		  The first parameter is the new URL (String).
-		  The second parameter is the selected post object (Object) if a post is selected, or \`null\` if the input is arbitrary.`,
-			table: {
-				type: {
-					summary: '(url: string, post?: object) => void',
-				},
+			control: {
+				type: null,
 			},
+			description: `Called when the value changes. The second parameter is null unless the user selects a post from the suggestions dropdown.`,
+			type: {
+				required: true,
+				name: 'function',
+			},
+			action: 'onChange',
 		},
 	},
 };
