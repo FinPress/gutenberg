@@ -11,49 +11,111 @@ import { keyboardReturn } from '@wordpress/icons';
  */
 import URLPopover from '../';
 
-export default { title: 'BlockEditor/URLPopover' };
-
-const TestURLPopover = () => {
-	const [ isVisible, setVisiblility ] = useState( false );
-	const [ url, setUrl ] = useState( '' );
-
-	const close = () => setVisiblility( false );
-	const setTarget = () => {};
-
-	return (
-		<>
-			<Button
-				__next40pxDefaultSize
-				onClick={ () => setVisiblility( true ) }
-			>
-				Edit URL
-			</Button>
-			{ isVisible && (
-				<URLPopover
-					onClose={ close }
-					renderSettings={ () => (
-						<ToggleControl
-							__nextHasNoMarginBottom
-							label={ __( 'Open in new tab' ) }
-							onChange={ setTarget }
-						/>
-					) }
-				>
-					<form onSubmit={ close }>
-						<input type="url" value={ url } onChange={ setUrl } />
-						<Button
-							__next40pxDefaultSize
-							icon={ keyboardReturn }
-							label={ __( 'Apply' ) }
-							type="submit"
-						/>
-					</form>
-				</URLPopover>
-			) }
-		</>
-	);
+const meta = {
+	title: 'BlockEditor/URLPopover',
+	component: URLPopover,
+	parameters: {
+		docs: {
+			canvas: { sourceState: 'shown' },
+			description: {
+				component:
+					'Popover component used for editing and viewing URLs.',
+			},
+		},
+	},
+	argTypes: {
+		onClose: {
+			action: 'onClose',
+			description: 'Callback when the popover is closed.',
+			table: {
+				type: { summary: 'function' },
+			},
+		},
+		renderSettings: {
+			description: 'Callback to render settings inside the popover.',
+			table: {
+				type: { summary: 'function' },
+			},
+			control: false,
+		},
+		placement: {
+			control: { type: 'text' },
+			description: 'Placement of the popover relative to its parent.',
+			defaultValue: 'bottom',
+			table: {
+				type: { summary: 'string' },
+			},
+		},
+		focusOnMount: {
+			control: { type: 'boolean' },
+			description:
+				'Controls which element is focused when the popover mounts.',
+			defaultValue: true,
+			table: {
+				type: { summary: 'boolean' },
+			},
+		},
+	},
+	args: {
+		placement: 'bottom',
+		focusOnMount: true,
+	},
 };
 
-export const _default = () => {
-	return <TestURLPopover />;
+export default meta;
+
+export const Default = {
+	render: function Template( { onChange, ...args } ) {
+		const [ isVisible, setIsVisible ] = useState( false );
+		const [ url, setUrl ] = useState( '' );
+		const [ isOpenInNewTab, setIsOpenInNewTab ] = useState( false );
+
+		// Close the popover.
+		const closePopover = () => setIsVisible( false );
+
+		return (
+			<>
+				<Button onClick={ () => setIsVisible( true ) }>
+					{ __( 'Edit URL' ) }
+				</Button>
+				{ isVisible && (
+					<URLPopover
+						{ ...args }
+						onClose={ closePopover }
+						renderSettings={ () => (
+							<ToggleControl
+								label={ __( 'Open in new tab' ) }
+								checked={ isOpenInNewTab }
+								onChange={ setIsOpenInNewTab }
+							/>
+						) }
+					>
+						<form
+							onSubmit={ ( e ) => {
+								e.preventDefault();
+								closePopover();
+							} }
+						>
+							<input
+								type="url"
+								placeholder={ __( 'Enter URL' ) }
+								value={ url }
+								onChange={ ( e ) => setUrl( e.target.value ) }
+							/>
+							<Button
+								icon={ keyboardReturn }
+								label={ __( 'Apply' ) }
+								type="submit"
+							/>
+						</form>
+					</URLPopover>
+				) }
+			</>
+		);
+	},
+	args: {
+		placement: 'bottom',
+		focusOnMount: true,
+		onClose: () => {},
+	},
 };
