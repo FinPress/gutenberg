@@ -39,6 +39,19 @@ function BlockStylesPanel( { clientId } ) {
 	);
 }
 
+/**
+ * The Block inspector is one of the panels that is displayed in the editor; it is mainly used to view and modify the settings of the selected block.
+ *
+ * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-inspector/README.md
+ *
+ * @example
+ * ```jsx
+ * import { BlockInspector } from '@wordpress/block-editor';
+ * const MyBlockInspector = () => <BlockInspector />;
+ * ```
+ *
+ * @return {Element} BlockInspector component.
+ */
 function BlockInspector() {
 	const {
 		count,

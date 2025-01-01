@@ -45,7 +45,7 @@ const meta = {
 		showNoBlockSelectedMessage: {
 			control: 'boolean',
 			description:
-				'Determines whether the Block Inspector displays a "No block selected" message or not when no block is selected.',
+				'Whether to display a "No block selected" message when no block is selected.',
 			table: {
 				type: { summary: 'boolean' },
 			},
