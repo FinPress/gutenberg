@@ -274,6 +274,18 @@ function Navigation( {
 		innerBlocks,
 	} = useInnerBlocks( clientId );
 
+	useEffect( () => {
+		// Check if there are any navigation-submenu blocks.
+		const hasSubmenuBlocks = innerBlocks.some(
+			( block ) => block.name === 'core/navigation-submenu'
+		);
+
+		// If no submenu blocks are present, reset openSubmenusOnClick to false.
+		if ( ! hasSubmenuBlocks && openSubmenusOnClick ) {
+			setAttributes( { openSubmenusOnClick: false } );
+		}
+	}, [ innerBlocks, openSubmenusOnClick, setAttributes ] );
+
 	const hasSubmenus = !! innerBlocks.find(
 		( block ) => block.name === 'core/navigation-submenu'
 	);
