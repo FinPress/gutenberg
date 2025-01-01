@@ -55,6 +55,12 @@ _Returns_
 
 -   `import('./types').ConnectDoc`: Promise that resolves when the connection is established.
 
+### extractFromYGutenbergComment
+
+_Parameters_
+
+-   _content_ `string`:
+
 ### getSyncProvider
 
 Undocumented declaration.

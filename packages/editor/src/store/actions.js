@@ -218,23 +218,7 @@ export const savePost =
 			objectId,
 			remoteContent
 		);
-		// Y.transact(ydoc, () => {
-		// 	// @todo only do this if sync is enabled and ydoc exists
-		// 	syncConfig.applyChangesToDoc(
-		// 		doc,
-		// 		remoteContent
-		// 	);
-		// }, 'save', true)
-
-		// @todo here, we could append the Yjs content, or make another request to store the yjs content
 		const content = select.getEditedPostContent();
-
-		if ( ! options.isAutosave ) {
-			// is editPost really updating the editor state?
-			// what is this doing anyway???
-			dispatch.editPost( { content }, { undoIgnore: true } );
-		}
-
 		let edits = {
 			id: previousRecord.id,
 			...registry
@@ -411,7 +395,6 @@ export const autosave =
 			return;
 		}
 
-		// @todo what is "local autosave" and can we remove it?
 		if ( local ) {
 			const isPostNew = select.isEditedPostNew();
 			const title = select.getEditedPostAttribute( 'title' );

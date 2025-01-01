@@ -10,16 +10,16 @@ import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
 import { RichTextData } from '@wordpress/rich-text';
 import { parse } from '@wordpress/blocks';
-import * as buf from 'lib0/buffer';
 import * as math from 'lib0/math';
 import * as fun from 'lib0/function';
-import { getSyncProvider, Y } from '@wordpress/sync';
+import {
+	getSyncProvider,
+	Y,
+	extractFromYGutenbergComment,
+} from '@wordpress/sync';
 
 export const DEFAULT_ENTITY_KEY = 'id';
 const POST_RAW_ATTRIBUTES = [ 'title', 'excerpt', 'content' ];
-
-const queryYdocComment =
-	/<!-- y:gutenberg version="(.*)" state="([a-zA-Z0-9+/]*={0,3})" new-content-clientid="(.*)" -->/;
 
 // @todo refactor `applyChangesToDoc` implementations this to have less repetition (there are
 // multiple similar implementations)
@@ -30,18 +30,10 @@ const queryYdocComment =
  * @param {string} content
  */
 export function parseContentYdoc( postType, content ) {
-	const res = queryYdocComment.exec( content );
-	if ( res === null ) {
-		return null;
-	}
-	const [ , yversion, ystate, _newclientid ] = res;
-	if ( yversion !== '1' ) {
-		throw new Error( 'Unexpected y:gutenberg version.' );
-	}
-	const newclientid = Number.parseInt( _newclientid );
+	const { state, newClientId, startRange, endRange } =
+		extractFromYGutenbergComment( content );
 	const blockContent =
-		content.slice( 0, res.index ) +
-		content.slice( res.index + res[ 0 ].length );
+		content.slice( 0, startRange ) + content.slice( endRange );
 	const syncProvider = getSyncProvider();
 	// Replay actions in a consistent manner, so that every client performs the same actions to
 	// retrieve a certain document.
@@ -52,14 +44,14 @@ export function parseContentYdoc( postType, content ) {
 	 */
 	const knownUpdateGuids = new Set();
 	ydoc.meta.set( 'knownRemoteUpdates', knownUpdateGuids );
-	if ( ystate.length > 0 ) {
-		Y.applyUpdateV2( ydoc, buf.fromBase64( ystate ) );
+	if ( state.length > 0 ) {
+		Y.applyUpdateV2( ydoc, state );
 	}
 	// Changing the Yjs clientid may lead to very weird bugs if done incorrectly.
 	// Please handle the following code-portion with great care!
 	const prevClientId = ydoc.clientID;
-	ydoc.clientID = newclientid;
-	const prevClock = ( ydoc.store.clients.get( newclientid ) || [
+	ydoc.clientID = newClientId;
+	const prevClock = ( ydoc.store.clients.get( newClientId ) || [
 		{ id: { clock: 0 } },
 	] )[ 0 ].id.clock;
 	const blocks = parse( blockContent );
@@ -67,7 +59,7 @@ export function parseContentYdoc( postType, content ) {
 		blocks,
 	} );
 	ydoc.clientID = prevClientId;
-	const newClock = ( ydoc.store.clients.get( newclientid ) ?? [
+	const newClock = ( ydoc.store.clients.get( newClientId ) ?? [
 		{ id: { clock: 0 } },
 	] )[ 0 ].id.clock;
 	if ( prevClock !== newClock ) {
@@ -79,8 +71,29 @@ export function parseContentYdoc( postType, content ) {
 	return ydoc;
 }
 
-// @todo only sync what is necessary!
-const filteredAttributes = new Set( [ 'content' ] );
+// only sync what is necessary!
+const filteredAttributes = new Set( [
+	'content',
+	'selection',
+	'excerpt',
+	'date',
+	'date_gmt',
+	'format',
+	'generated_slug',
+	'link',
+	'meta',
+	'modified',
+	'modified_gmt',
+	'slug',
+	'status',
+	'sticky',
+	'tags',
+	'template',
+	'_links',
+	'id',
+	'password',
+	'featured_media',
+] );
 
 /**
  * @param {Y.Doc} ydoc
@@ -145,13 +158,13 @@ export const rootEntitiesConfig = [
 					);
 				} else {
 					// local changes happened. Apply the differences to the ydoc
-					const document = doc.getMap( 'document' );
+					const ycontent = doc.getMap( 'document' );
 					Object.entries( changes ).forEach( ( [ key, value ] ) => {
 						if (
 							! filteredAttributes.has( key ) &&
-							document.get( key ) !== value
+							! fun.equalityDeep( ycontent.get( key ), value )
 						) {
-							document.set( key, value );
+							ycontent.set( key, value );
 						}
 					} );
 				}
@@ -197,13 +210,13 @@ export const rootEntitiesConfig = [
 					);
 				} else {
 					// local changes happened. Apply the differences to the ydoc
-					const document = doc.getMap( 'document' );
+					const ycontent = doc.getMap( 'document' );
 					Object.entries( changes ).forEach( ( [ key, value ] ) => {
 						if (
 							! filteredAttributes.has( key ) &&
-							document.get( key ) !== value
+							! fun.equalityDeep( ycontent.get( key ), value )
 						) {
-							document.set( key, value );
+							ycontent.set( key, value );
 						}
 					} );
 				}
@@ -512,12 +525,11 @@ async function loadPostTypeEntities() {
 						);
 					} else {
 						// local changes happened. Apply the differences to the ydoc
-						const document = doc.getMap( 'document' );
+						const ycontent = doc.getMap( 'document' );
 						Object.entries( changes ).forEach(
 							( [ key, value ] ) => {
 								if ( typeof value !== 'function' ) {
 									if ( key === 'blocks' ) {
-										// @todo actually diff the blocks instead of doing this
 										if (
 											! serialisableBlocksCache.has(
 												value
@@ -532,43 +544,78 @@ async function loadPostTypeEntities() {
 											serialisableBlocksCache.get(
 												value
 											);
-										// this is a rudimentary diff implementation similar to the y-prosemirror diffing
+										// This is a rudimentary diff implementation similar to the y-prosemirror diffing
 										// approach.
+										// A better implementation would also diff the textual content and represent it
+										// using a Y.Text type.
+										// However, at this time it makes more sense to keep this algorithm generic to
+										// support all kinds of block types.
+										// Ideally, we ensure that block data structure have a consistent data format.
+										// E.g.:
+										//   - textual content (using rich-text formatting?) may always be stored under `block.text`
+										//   - local information that shouldn't be shared (e.g. clientId or isDragging) is stored under `block.private`
 										if (
-											! document.has( key ) ||
-											document.get( key ) instanceof Array
+											! ycontent.has( key ) ||
+											ycontent.get( key ) instanceof Array
 										) {
 											// @todo remove the array check
-											document.set( key, new Y.Array() );
+											ycontent.set( key, new Y.Array() );
 										}
 										/**
 										 * @type {Y.Array<Y.Map<any>>}
 										 */
-										const yblocks = document.get( key );
+										const yblocks = ycontent.get( key );
 										const numOfCommonEntries = math.min(
 											blocks.length,
 											yblocks.length
 										);
 										let left = 0;
 										let right = 0;
-
 										/**
-										 * @param {any}   block
+										 * @param {any}   gblock
 										 * @param {Y.Map} yblock
 										 */
-										const blocksEqual = ( block, yblock ) =>
-											// @todo improve this
-											fun.equalityDeep(
-												Object.assign( {}, block, {
-													clientId: 'x',
-												} ),
+										const blocksEqual = (
+											gblock,
+											yblock
+										) => {
+											if ( yblock.toJSON ) {
+												yblock = yblock.toJSON();
+											}
+											// we must not sync clientId, as this can't be generated consistenctly and
+											// hence will lead to merge conflicts.
+											const overwrites = {
+												/* clientId: null, */ innerBlocks:
+													null,
+											};
+											const res = fun.equalityDeep(
 												Object.assign(
 													{},
-													yblock.toJSON(),
-													{ clientId: 'x' }
+													gblock,
+													overwrites
+												),
+												Object.assign(
+													{},
+													yblock,
+													overwrites
 												)
 											);
-
+											const inners =
+												gblock.innerBlocks || [];
+											const yinners =
+												yblock.innerBlocks || [];
+											return (
+												res &&
+												inners.length ===
+													yinners.length &&
+												inners.every( ( block, i ) =>
+													blocksEqual(
+														block,
+														yinners[ i ]
+													)
+												)
+											);
+										};
 										// skip equal blocks from left
 										for (
 											;
@@ -620,6 +667,7 @@ async function loadPostTypeEntities() {
 												Object.entries( block ).forEach(
 													( [ k, v ] ) => {
 														if (
+															// k !== 'clientId' &&
 															! fun.equalityDeep(
 																block[ k ],
 																yblock.get( k )
@@ -629,18 +677,21 @@ async function loadPostTypeEntities() {
 														}
 													}
 												);
-												yblocks
-													.toArray()
-													.forEach( ( k ) => {
-														if (
-															! block.hasOwnProperty(
-																k
-															)
-														) {
-															yblock.delete( k );
-														}
-													} );
+												yblock.forEach( ( _v, k ) => {
+													if (
+														! block.hasOwnProperty(
+															k
+														)
+													) {
+														yblock.delete( k );
+													}
+												} );
 											}
+											// deletes
+											yblocks.delete(
+												left,
+												numOfDeletionsNeeded
+											);
 											// inserts
 											for (
 												let i = 0;
@@ -655,16 +706,15 @@ async function loadPostTypeEntities() {
 													),
 												] );
 											}
-											// deletes
-											yblocks.delete(
-												left,
-												numOfDeletionsNeeded
-											);
 										} );
 									} else if (
-										document.get( key ) !== value
+										! filteredAttributes.has( key ) &&
+										! fun.equalityDeep(
+											ycontent.get( key ),
+											value
+										)
 									) {
-										document.set( key, value );
+										ycontent.set( key, value );
 									}
 								}
 							}
@@ -745,13 +795,13 @@ async function loadSiteEntity() {
 					);
 				} else {
 					// local changes happened. Apply the differences to the ydoc
-					const document = doc.getMap( 'document' );
+					const ycontent = doc.getMap( 'document' );
 					Object.entries( changes ).forEach( ( [ key, value ] ) => {
 						if (
 							! filteredAttributes.has( key ) &&
-							document.get( key ) !== value
+							! fun.equalityDeep( ycontent.get( key ), value )
 						) {
-							document.set( key, value );
+							ycontent.set( key, value );
 						}
 					} );
 				}
