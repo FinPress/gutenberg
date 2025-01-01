@@ -41,13 +41,6 @@ const meta = {
 			},
 		},
 	},
-	decorators: [
-		( Story ) => (
-			<ExperimentalBlockEditorProvider value={ blocks }>
-				<Story />
-			</ExperimentalBlockEditorProvider>
-		),
-	],
 	argTypes: {
 		showNoBlockSelectedMessage: {
 			control: 'boolean',
@@ -55,7 +48,6 @@ const meta = {
 				'Determines whether the Block Inspector displays a "No block selected" message or not when no block is selected.',
 			table: {
 				type: { summary: 'boolean' },
-				defaultValue: { summary: 'true' },
 			},
 		},
 	},
