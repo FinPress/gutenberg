@@ -438,9 +438,8 @@ export function __unstableSerializeAndCleanWithYdoc( blocks, type, id ) {
 	const ycontent = `<!-- y:gutenberg version="1" state="${ buf.toBase64(
 		ystate
 	) }" new-content-clientid="0" -->\n`;
-	// parse regex = /<!-- y:gutenberg state="([a-zA-Z0-9+/]*={0,3})" updates=\[(.*)\] -->/
 	const blockContent = __unstableSerializeAndClean( blocks );
-	return ycontent + blockContent;
+	return blockContent + ycontent;
 }
 
 /**

@@ -13,11 +13,7 @@ import { parse } from '@wordpress/blocks';
 import * as buf from 'lib0/buffer';
 import * as math from 'lib0/math';
 import * as fun from 'lib0/function';
-
-/**
- * Internal dependencies
- */
-import { getSyncProvider, Y } from './sync';
+import { getSyncProvider, Y } from '@wordpress/sync';
 
 export const DEFAULT_ENTITY_KEY = 'id';
 const POST_RAW_ATTRIBUTES = [ 'title', 'excerpt', 'content' ];

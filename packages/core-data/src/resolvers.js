@@ -9,6 +9,7 @@ import { camelCase } from 'change-case';
 import { addQueryArgs } from '@wordpress/url';
 import { decodeEntities } from '@wordpress/html-entities';
 import apiFetch from '@wordpress/api-fetch';
+import { getSyncProvider } from '@wordpress/sync';
 
 /**
  * Internal dependencies
@@ -23,7 +24,6 @@ import {
 	ALLOWED_RESOURCE_ACTIONS,
 	RECEIVE_INTERMEDIATE_RESULTS,
 } from './utils';
-import { getSyncProvider } from './sync';
 import { fetchBlockPatterns } from './fetch';
 
 /**
@@ -73,7 +73,6 @@ export const getEntityRecord =
 		if ( ! entityConfig ) {
 			return;
 		}
-		// this is where locking happens
 		const lock = await dispatch.__unstableAcquireStoreLock(
 			STORE_NAME,
 			[ 'entities', 'records', kind, name, key ],

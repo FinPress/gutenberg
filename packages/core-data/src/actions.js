@@ -19,7 +19,7 @@ import { receiveItems, removeItems, receiveQueriedItems } from './queried-data';
 import { DEFAULT_ENTITY_KEY } from './entities';
 import { createBatch } from './batch';
 import { STORE_NAME } from './name';
-import { getSyncProvider } from './sync';
+import { getSyncProvider } from '@wordpress/sync';
 
 /**
  * Returns an action object used in signalling that authors have been received.

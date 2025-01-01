@@ -181,9 +181,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {ObjectID}   objectId   Object ID to load.
 	 */
 	async function discard( objectType, objectId ) {
-		if ( docs?.[ objectType ]?.[ objectId ] ) {
-			docs[ objectType ][ objectId ].destroy();
-		}
+		docs[ objectType ]?.[ objectId ]?.destroy();
 	}
 
 	/**

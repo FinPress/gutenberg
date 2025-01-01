@@ -39,7 +39,6 @@ const BUNDLED_PACKAGES = [
 	'@wordpress/dataviews/wp',
 	'@wordpress/icons',
 	'@wordpress/interface',
-	// '@wordpress/sync', // @todo should this be disabled?
 	'@wordpress/undo-manager',
 	'@wordpress/upload-media',
 	'@wordpress/fields',

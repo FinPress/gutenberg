@@ -69,7 +69,6 @@ export const setupEditor =
 					edit !== ( post[ key ]?.raw ?? post[ key ] )
 			)
 		) {
-			// what is happening here?
 			dispatch.editPost( edits );
 		}
 	};
@@ -211,7 +210,7 @@ export const savePost =
 			.getEntityConfig( 'postType', previousRecord.type );
 		const syncConfig = entityConfig.syncConfig;
 		const objectId = entityConfig.getSyncObjectId( previousRecord.id );
-		const isAutosave = options.isAutosave === true
+		const isAutosave = options.isAutosave === true;
 		const remoteContent = await syncConfig.fetch( objectId, isAutosave );
 		// @todo there should be an additional parameter specifying that this is a remote update
 		await getSyncProvider().update(
