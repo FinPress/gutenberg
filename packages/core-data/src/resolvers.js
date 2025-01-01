@@ -179,9 +179,14 @@ export const getEntityRecord =
 					);
 				}
 			}
-
-			// @todo should use this in collab case
 			registry.batch( () => {
+				// @todo put this somewhere else.
+				// The document is collaborative.
+				// Update autosave interval.
+				registry.dispatch( 'core/editor' ).updateEditorSettings( {
+					autosaveInterval: 5,
+					localAutosaveInterval: 4,
+				} );
 				dispatch.receiveEntityRecords( kind, name, record, query );
 				dispatch.receiveUserPermissions( receiveUserPermissionArgs );
 				dispatch.finishResolutions( 'canUser', canUserResolutionsArgs );

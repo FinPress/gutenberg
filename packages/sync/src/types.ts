@@ -1,18 +1,21 @@
+/**
+ * External dependencies
+ */
+import type * as Y from 'yjs';
 export type ObjectID = string;
 export type ObjectType = string;
 export type ObjectData = any;
-export type CRDTDoc = any;
 
 export type ObjectConfig = {
 	fetch: ( id: ObjectID ) => Promise< ObjectData >;
-	applyChangesToDoc: ( doc: CRDTDoc, data: any ) => void;
-	fromCRDTDoc: ( doc: CRDTDoc ) => any;
+	applyChangesToDoc: ( ydoc: Y.Doc, data: any ) => void;
+	fromCRDTDoc: ( ydoc: Y.Doc ) => any;
 };
 
 export type ConnectDoc = (
 	id: ObjectID,
 	type: ObjectType,
-	doc: CRDTDoc
+	ydoc: Y.Doc
 ) => Promise< () => void >;
 
 export type SyncProvider = {
@@ -21,9 +24,9 @@ export type SyncProvider = {
 		type: ObjectType,
 		id: ObjectID,
 		handleChanges: ( data: any ) => void
-	) => Promise< CRDTDoc >;
+	) => Promise< Y.Doc >;
 	encodeState: ( type: ObjectType, id: ObjectID ) => Uint8Array;
 	update: ( type: ObjectType, id: ObjectID, data: any ) => void;
-	discard: ( type: ObjectType, id: ObjectID ) => Promise< CRDTDoc >;
+	discard: ( type: ObjectType, id: ObjectID ) => Promise< void >;
 	postTypeConfigs: { [ postType: string ]: ObjectConfig };
 };

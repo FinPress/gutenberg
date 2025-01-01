@@ -1,13 +1,18 @@
 /**
+ * WordPress dependencies
+ */
+import { addAction } from '@wordpress/hooks';
+
+/**
  * External dependencies
  */
 // @ts-ignore
 import * as Y from 'yjs';
+import * as buffer from 'lib0/buffer';
 
 /** @typedef {import('./types').ObjectType} ObjectType */
 /** @typedef {import('./types').ObjectID} ObjectID */
 /** @typedef {import('./types').ObjectConfig} ObjectConfig */
-/** @typedef {import('./types').CRDTDoc} CRDTDoc */
 /** @typedef {import('./types').ConnectDoc} ConnectDoc */
 /** @typedef {import('./types').SyncProvider} SyncProvider */
 
@@ -25,14 +30,60 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	const postTypeConfigs = {};
 
 	/**
-	 * @type {Record<string,Record<string,()=>void>>}
-	 */
-	const listeners = {};
-
-	/**
-	 * @type {Record<string,Record<string,CRDTDoc>>}
+	 * @todo make sure that this used everwhere correctly and that we remove crdtdoc
+	 * @type {Record<string,Record<string,{ ydoc: Y.Doc, prevContentClientId: number, destroy: ()=>void }>>}
 	 */
 	const docs = {};
+
+	addAction( 'heartbeat.tick', 'y-sync', ( data ) => {
+		if ( ! data[ 'y-sync' ] ) {
+			return;
+		}
+		Object.entries( data[ 'y-sync' ] ).forEach(
+			( [ objectType, objectDocs ] ) => {
+				Object.entries( objectDocs ).forEach(
+					( [ objectId, remoteDocDef ] ) => {
+						const localDocDef =
+							( docs[ objectType ] || {} )[ objectId ] || null;
+						if ( localDocDef ) {
+							Y.applyUpdateV2(
+								localDocDef.ydoc,
+								buffer.fromBase64( remoteDocDef.state )
+							);
+							localDocDef.prevContentClientId =
+								remoteDocDef.contentClientId;
+						}
+					}
+				);
+			}
+		);
+	} );
+
+	addAction( 'heartbeat.send', 'y-sync', ( data ) => {
+		/**
+		 * Maps from postType/postId => contentClientId
+		 *
+		 * The server checks whether the respective post contains a y:gutenberg comment that uses the
+		 * contentClientId. If not, it should return the full yjs state of the updated document.
+		 *
+		 * @type {Record<string,Record<string, number>>}
+		 */
+		const docRequests = {};
+		Object.entries( docs ).forEach( ( [ objectType, objectDocs ] ) => {
+			/**
+			 * @type {Record<string, number>}
+			 */
+			const objectTypeRequests = {};
+			docRequests[ objectType ] = objectTypeRequests;
+			Object.entries( objectDocs ).forEach(
+				( [ objectId, localDocDef ] ) => {
+					objectTypeRequests[ objectId ] =
+						localDocDef.prevContentClientId;
+				}
+			);
+		} );
+		data[ 'y-sync' ] = docRequests;
+	} );
 
 	/**
 	 * Registers an object type.
@@ -53,11 +104,8 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 */
 	async function bootstrap( objectType, objectId, handleChanges ) {
 		const doc = new Y.Doc( { meta: new Map() } );
-		docs[ objectType ] = docs[ objectType ] || {};
-		docs[ objectType ][ objectId ] = doc;
 
 		const updateHandler = () => {
-			// debugger // @todo This handles changes from the Yjs doc
 			const data = postTypeConfigs[ objectType ].fromCRDTDoc( doc );
 			handleChanges( data );
 		};
@@ -79,10 +127,16 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 			connectRemote( objectId, objectType, doc );
 		}
 
-		listeners[ objectType ] = listeners[ objectType ] || {};
-		listeners[ objectType ][ objectId ] = () => {
-			destroyLocalConnection?.();
-			doc.off( 'update', updateHandler );
+		docs[ objectType ] = docs[ objectType ] || {};
+		docs[ objectType ][ objectId ] = {
+			ydoc: doc,
+			prevContentClientId: 0,
+			destroy: () => {
+				destroyLocalConnection?.();
+				doc.off( 'update', updateHandler );
+				doc.destroy();
+				delete docs[ objectType ][ objectId ];
+			},
 		};
 
 		// @todo do proper typings for fetch api
@@ -108,12 +162,15 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {any}        data       Updates to make.
 	 */
 	async function update( objectType, objectId, data ) {
-		const doc = docs[ objectType ]?.[ objectId ];
-		if ( ! doc ) {
+		const docDef = docs[ objectType ]?.[ objectId ];
+		if ( ! docDef ) {
 			throw 'Error doc ' + objectType + ' ' + objectId + ' not found';
 		}
-		doc.transact( () => {
-			postTypeConfigs[ objectType ].applyChangesToDoc( doc, data );
+		docDef.ydoc.transact( () => {
+			postTypeConfigs[ objectType ].applyChangesToDoc(
+				docDef.ydoc,
+				data
+			);
 		} );
 	}
 
@@ -124,8 +181,8 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {ObjectID}   objectId   Object ID to load.
 	 */
 	async function discard( objectType, objectId ) {
-		if ( listeners?.[ objectType ]?.[ objectId ] ) {
-			listeners[ objectType ][ objectId ]();
+		if ( docs?.[ objectType ]?.[ objectId ] ) {
+			docs[ objectType ][ objectId ].destroy();
 		}
 	}
 
@@ -136,11 +193,11 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {ObjectID}   objectId   Object ID to load.
 	 */
 	function encodeState( objectType, objectId ) {
-		const doc = docs[ objectType ]?.[ objectId ];
-		if ( ! doc ) {
+		const docDef = docs[ objectType ]?.[ objectId ];
+		if ( ! docDef ) {
 			throw 'Error doc ' + objectType + ' ' + objectId + ' not found';
 		}
-		return Y.encodeStateAsUpdateV2( doc );
+		return Y.encodeStateAsUpdateV2( docDef.ydoc );
 	}
 
 	return {

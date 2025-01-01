@@ -29,7 +29,6 @@ import { isUnmodifiedDefaultBlock, normalizeBlockType } from './utils';
  */
 import * as buf from 'lib0/buffer';
 
-
 /** @typedef {import('./parser').WPBlock} WPBlock */
 
 /**
@@ -436,8 +435,10 @@ export function __unstableSerializeAndCleanWithYdoc( blocks, type, id ) {
 	}
 	const sp = getSyncProvider();
 	const ystate = sp.encodeState( type, id );
-	const ycontent = `<!-- y:doc session="guid" state="${ buf.toBase64( ystate) }" updates=[] new-content-clientid="0" -->\n`;
-	// parse regex = /<!-- y:doc state="([a-zA-Z0-9+/]*={0,3})" updates=\[(.*)\] -->/
+	const ycontent = `<!-- y:gutenberg version="1" state="${ buf.toBase64(
+		ystate
+	) }" new-content-clientid="0" -->\n`;
+	// parse regex = /<!-- y:gutenberg state="([a-zA-Z0-9+/]*={0,3})" updates=\[(.*)\] -->/
 	const blockContent = __unstableSerializeAndClean( blocks );
 	return ycontent + blockContent;
 }

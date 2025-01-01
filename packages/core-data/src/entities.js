@@ -23,7 +23,7 @@ export const DEFAULT_ENTITY_KEY = 'id';
 const POST_RAW_ATTRIBUTES = [ 'title', 'excerpt', 'content' ];
 
 const queryYdocComment =
-	/<!-- y:doc session="(.*)" state="([a-zA-Z0-9+/]*={0,3})" updates=\[(.*)\] new-content-clientid="(.*)" -->/;
+	/<!-- y:gutenberg version="(.*)" state="([a-zA-Z0-9+/]*={0,3})" new-content-clientid="(.*)" -->/;
 
 // @todo refactor `applyChangesToDoc` implementations this to have less repetition (there are
 // multiple similar implementations)
@@ -38,13 +38,10 @@ export function parseContentYdoc( postType, content ) {
 	if ( res === null ) {
 		return null;
 	}
-	const [
-		,
-		,
-		/** @todo use sessionid */ ystate /* updates */,
-		,
-		_newclientid,
-	] = res;
+	const [ , yversion, ystate, _newclientid ] = res;
+	if ( yversion !== '1' ) {
+		throw new Error( 'Unexpected y:gutenberg version.' );
+	}
 	const newclientid = Number.parseInt( _newclientid );
 	const blockContent =
 		content.slice( 0, res.index ) +
@@ -62,6 +59,8 @@ export function parseContentYdoc( postType, content ) {
 	if ( ystate.length > 0 ) {
 		Y.applyUpdateV2( ydoc, buf.fromBase64( ystate ) );
 	}
+	// Changing the Yjs clientid may lead to very weird bugs if done incorrectly.
+	// Please handle the following code-portion with great care!
 	const prevClientId = ydoc.clientID;
 	ydoc.clientID = newclientid;
 	const prevClock = ( ydoc.store.clients.get( newclientid ) || [
@@ -77,7 +76,9 @@ export function parseContentYdoc( postType, content ) {
 	] )[ 0 ].id.clock;
 	if ( prevClock !== newClock ) {
 		// eslint-disable-next-line no-console
-		console.info( 'backend added some change' );
+		console.info(
+			'[Yjs Collab] Yjs document was updated to reflect changes to the HTML document.'
+		);
 	}
 	return ydoc;
 }

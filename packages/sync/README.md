@@ -22,7 +22,7 @@ _Parameters_
 
 -   _objectId_ `ObjectID`: The object ID.
 -   _objectType_ `ObjectType`: The object type.
--   _doc_ `CRDTDoc`: The CRDT document.
+-   _doc_ `import('yjs').Doc`: The CRDT document.
 
 _Returns_
 
