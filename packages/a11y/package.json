@@ -32,8 +32,8 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/dom-ready": "^0.0.0",
-		"@wordpress/i18n": "^0.0.0"
+		"@wordpress/dom-ready": "0.0.0",
+		"@wordpress/i18n": "0.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

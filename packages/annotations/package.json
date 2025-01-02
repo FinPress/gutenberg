@@ -28,10 +28,10 @@
 	"wpScript": true,
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/data": "^0.0.0",
-		"@wordpress/hooks": "^0.0.0",
-		"@wordpress/i18n": "^0.0.0",
-		"@wordpress/rich-text": "^0.0.0",
+		"@wordpress/data": "0.0.0",
+		"@wordpress/hooks": "0.0.0",
+		"@wordpress/i18n": "0.0.0",
+		"@wordpress/rich-text": "0.0.0",
 		"uuid": "^9.0.1"
 	},
 	"peerDependencies": {

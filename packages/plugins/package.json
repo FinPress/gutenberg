@@ -29,13 +29,13 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/components": "^0.0.0",
-		"@wordpress/compose": "^0.0.0",
-		"@wordpress/deprecated": "^0.0.0",
-		"@wordpress/element": "^0.0.0",
-		"@wordpress/hooks": "^0.0.0",
-		"@wordpress/icons": "^0.0.0",
-		"@wordpress/is-shallow-equal": "^0.0.0",
+		"@wordpress/components": "0.0.0",
+		"@wordpress/compose": "0.0.0",
+		"@wordpress/deprecated": "0.0.0",
+		"@wordpress/element": "0.0.0",
+		"@wordpress/hooks": "0.0.0",
+		"@wordpress/icons": "0.0.0",
+		"@wordpress/is-shallow-equal": "0.0.0",
 		"memize": "^2.0.1"
 	},
 	"peerDependencies": {
