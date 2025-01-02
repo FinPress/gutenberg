@@ -1,11 +1,13 @@
 /**
  * External dependencies
  */
-const chalk = require( 'chalk' );
+const pc = require( 'picocolors' );
 const { existsSync, readFileSync } = require( 'node:fs' );
 
-const ERROR_TEXT = chalk.reset.inverse.bold.red( ' ERROR ' );
-const WARNING_TEXT = chalk.reset.inverse.bold.yellow( ' WARNING ' );
+const ERROR_TEXT = pc.reset( pc.inverse( pc.bold( pc.red( ' ERROR ' ) ) ) );
+const WARNING_TEXT = pc.reset(
+	pc.inverse( pc.bold( pc.yellow( ' WARNING ' ) ) )
+);
 
 /**
  * @typedef {ReadonlyArray<string>} Licenses

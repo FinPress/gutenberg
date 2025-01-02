@@ -5,7 +5,7 @@ const fs = require( 'fs' );
 const path = require( 'path' );
 const { sync: glob } = require( 'fast-glob' );
 const json2php = require( 'json2php' );
-const chalk = require( 'chalk' );
+const pc = require( 'picocolors' );
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ const outputFile = getArgFromCLI( '--output' ) || defaultOutputFile;
 
 const resolvedInputDir = path.resolve( process.cwd(), inputDir );
 if ( ! fs.existsSync( resolvedInputDir ) ) {
-	const ERROR = chalk.reset.inverse.bold.red( ' ERROR ' );
+	const ERROR = pc.reset( pc.inverse( pc.bold( pc.red( ' ERROR ' ) ) ) );
 	process.stdout.write(
 		`${ ERROR } Input directory "${ inputDir }" does not exist.\n`
 	);
@@ -44,7 +44,7 @@ blockJsonFiles.forEach( ( file ) => {
 } );
 
 if ( Object.keys( blocks ).length === 0 ) {
-	const ERROR = chalk.reset.inverse.bold.red( ' ERROR ' );
+	const ERROR = pc.reset( pc.inverse( pc.bold( pc.red( ' ERROR ' ) ) ) );
 	process.stdout.write(
 		`${ ERROR } No block.json files were found in path: ${ inputDir }.\n`
 	);

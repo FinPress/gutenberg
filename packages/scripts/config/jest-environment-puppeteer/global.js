@@ -22,7 +22,7 @@ const {
 	ERROR_TIMEOUT,
 	ERROR_NO_COMMAND,
 } = require( 'jest-dev-server' );
-const chalk = require( 'chalk' );
+const pc = require( 'picocolors' );
 
 /**
  * Internal dependencies
@@ -36,6 +36,7 @@ let servers = [];
 async function setup( jestConfig = {} ) {
 	const config = await readConfig();
 	const puppeteer = getPuppeteer( config );
+
 	if ( config.connect ) {
 		browser = await puppeteer.connect( config.connect );
 	} else {
@@ -58,9 +59,9 @@ async function setup( jestConfig = {} ) {
 			const { error: printError } = console;
 			if ( error.code === ERROR_TIMEOUT ) {
 				printError( '' );
-				printError( chalk.red( error.message ) );
+				printError( pc.red( error.message ) );
 				printError(
-					chalk.blue(
+					pc.blue(
 						`\n☝️ You can set "server.launchTimeout" in jest-puppeteer.config.js`
 					)
 				);
@@ -68,9 +69,9 @@ async function setup( jestConfig = {} ) {
 			}
 			if ( error.code === ERROR_NO_COMMAND ) {
 				printError( '' );
-				printError( chalk.red( error.message ) );
+				printError( pc.red( error.message ) );
 				printError(
-					chalk.blue(
+					pc.blue(
 						`\n☝️ You must set "server.command" in jest-puppeteer.config.js`
 					)
 				);

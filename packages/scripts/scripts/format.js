@@ -6,11 +6,11 @@ const { exit, stdout } = require( 'process' );
 /**
  * External dependencies
  */
-const chalk = require( 'chalk' );
+const pc = require( 'picocolors' );
 const { sync: spawn } = require( 'cross-spawn' );
 const { sync: resolveBin } = require( 'resolve-bin' );
 const { sync: dirGlob } = require( 'dir-glob' );
-const { sync: readPkgUp } = require( 'read-pkg-up' );
+const { readPackageUpSync } = require( 'read-package-up' );
 
 /**
  * Internal dependencies
@@ -29,7 +29,9 @@ const {
 function checkPrettier() {
 	try {
 		const prettierResolvePath = require.resolve( 'prettier' );
-		const prettierPackageJson = readPkgUp( { cwd: prettierResolvePath } );
+		const prettierPackageJson = readPackageUpSync( {
+			cwd: prettierResolvePath,
+		} );
 		const prettierPackageName = prettierPackageJson.packageJson.name;
 
 		if (
@@ -40,7 +42,7 @@ function checkPrettier() {
 			return {
 				success: false,
 				message:
-					chalk.red(
+					pc.red(
 						'Incompatible version of Prettier was found in your project\n'
 					) +
 					"You need to install the 'wp-prettier' package to get " +
@@ -51,7 +53,7 @@ function checkPrettier() {
 		return {
 			success: false,
 			message:
-				chalk.red(
+				pc.red(
 					"The 'prettier' package was not found in your project\n"
 				) +
 				"You need to install the 'wp-prettier' package under an alias to get " +

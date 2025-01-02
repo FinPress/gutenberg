@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-const chalk = require( 'chalk' );
+const pc = require( 'picocolors' );
 
 process.stdout.write(
-	chalk.yellow(
+	pc.yellow(
 		'The `env` family of scripts has been deprecated. Please use `wp-env` instead.'
 	)
 );
 process.stdout.write(
-	chalk.blue( '\nSee: https://www.npmjs.com/package/@wordpress/env\n' )
+	pc.blue( '\nSee: https://www.npmjs.com/package/@wordpress/env\n' )
 );
 process.exit( 1 );

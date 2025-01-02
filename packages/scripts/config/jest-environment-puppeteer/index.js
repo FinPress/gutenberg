@@ -20,7 +20,7 @@ const path = require( 'path' );
 const { writeFile, mkdir } = require( 'fs' ).promises;
 const filenamify = require( 'filenamify' );
 const NodeEnvironment = require( 'jest-environment-node' ).default;
-const chalk = require( 'chalk' );
+const pc = require( 'picocolors' );
 
 /**
  * Internal dependencies
@@ -72,9 +72,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
 				} );
 				// eslint-disable-next-line no-console
 				console.log(
-					chalk.blue(
-						'\n\n🕵️‍  Code is paused, press enter to resume'
-					)
+					pc.blue( '\n\n🕵️‍  Code is paused, press enter to resume' )
 				);
 				// Run an infinite promise.
 				return new Promise( ( resolve ) => {
