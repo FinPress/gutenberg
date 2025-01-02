@@ -132,20 +132,24 @@ const baseConfig = {
 				},
 				extractComments: false,
 			} ),
-			new CssMinimizerPlugin( {
-				minimizerOptions: {
-					preset: hasCssnanoConfig()
-						? undefined
-						: [
-								'default',
-								{
-									discardComments: {
-										removeAll: true,
-									},
-								},
-						  ],
-				},
-			} ),
+			...( isProduction
+				? [
+						new CssMinimizerPlugin( {
+							minimizerOptions: {
+								preset: hasCssnanoConfig()
+									? undefined
+									: [
+											'default',
+											{
+												discardComments: {
+													removeAll: true,
+												},
+											},
+									  ],
+							},
+						} ),
+				  ]
+				: [] ),
 		],
 	},
 	module: {
