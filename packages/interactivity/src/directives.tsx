@@ -50,6 +50,39 @@ function deepClone< T >( source: T ): T {
 	return source;
 }
 
+function wrapEventAsync( event: Event ) {
+	const handler = {
+		get( target: any, prop: any, receiver: any ) {
+			const value = target[ prop ];
+			switch ( prop ) {
+				case 'currentTarget':
+					warn(
+						`Accessing the synchronous event.${ prop } property in a store action without wrapping it in withSyncEvent() is deprecated and will stop working in WordPress 6.9. Please wrap the store action in withSyncEvent().`
+					);
+					break;
+				case 'preventDefault':
+				case 'stopImmediatePropagation':
+				case 'stopPropagation':
+					warn(
+						`Using the synchronous event.${ prop }() function in a store action without wrapping it in withSyncEvent() is deprecated and will stop working in WordPress 6.9. Please wrap the store action in withSyncEvent().`
+					);
+					break;
+			}
+			if ( value instanceof Function ) {
+				return function ( this: any, ...args: any[] ) {
+					return value.apply(
+						this === receiver ? target : this,
+						args
+					);
+				};
+			}
+			return value;
+		},
+	};
+
+	return new Proxy( event, handler );
+}
+
 const newRule =
 	/(?:([\u0080-\uFFFF\w-%@]+) *:? *([^{;]+?);|([^;}{]*?) *{)|(}\s*)/g;
 const ruleClean = /\/\*[^]*?\*\/|  +/g;
@@ -105,7 +138,7 @@ const getGlobalEventDirective = (
 					const cb = ( event: Event ) => {
 						const resolved = resolveEntry( entry );
 						if ( ! resolved.value?.sync ) {
-							// TODO: Wrap event in proxy.
+							event = wrapEventAsync( event );
 						}
 						evaluateResolved( resolved, event );
 					};
@@ -296,7 +329,7 @@ export default () => {
 						}
 						const resolved = resolveEntry( entry );
 						if ( ! resolved.value?.sync ) {
-							// TODO: Wrap event in proxy.
+							event = wrapEventAsync( event );
 						}
 						evaluateResolved( resolved, event );
 						if ( globalThis.IS_GUTENBERG_PLUGIN ) {
