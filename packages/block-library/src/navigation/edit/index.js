@@ -275,6 +275,10 @@ function Navigation( {
 	} = useInnerBlocks( clientId );
 
 	useEffect( () => {
+		if ( 0 === innerBlocks.length ) {
+			return;
+		}
+
 		// Check if there are any navigation-submenu blocks.
 		const hasSubmenuBlocks = innerBlocks.some(
 			( block ) => block.name === 'core/navigation-submenu'
