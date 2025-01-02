@@ -79,8 +79,8 @@
 			"padding": true,
 			"margin": true,
 			"__experimentalDefaultControls": {
-				"margin": false,
-				"padding": false
+				"margin": true,
+				"padding": true
 			}
 		},
 		"__experimentalBorder": {
