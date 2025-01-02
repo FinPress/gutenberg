@@ -20,7 +20,11 @@ import {
 	removeFormat,
 } from '@wordpress/rich-text';
 import { Popover } from '@wordpress/components';
-import { getBlockBindingsSource } from '@wordpress/blocks';
+import {
+	getBlockBindingsSource,
+	RichTextContent,
+	valueToHTMLString,
+} from '@wordpress/blocks';
 import deprecated from '@wordpress/deprecated';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -37,7 +41,6 @@ import { useFormatTypes } from './use-format-types';
 import { useEventListeners } from './event-listeners';
 import FormatEdit from './format-edit';
 import { getAllowedFormats } from './utils';
-import { Content, valueToHTMLString } from './content';
 import { withDeprecations } from './with-deprecations';
 import { canBindBlock } from '../../utils/block-bindings';
 import BlockContext from '../block-context';
@@ -504,7 +507,7 @@ export const PrivateRichText = withDeprecations(
 	forwardRef( RichTextWrapper )
 );
 
-PrivateRichText.Content = Content;
+PrivateRichText.Content = RichTextContent;
 PrivateRichText.isEmpty = ( value ) => {
 	return ! value || value.length === 0;
 };
@@ -562,7 +565,7 @@ const PublicForwardedRichTextContainer = forwardRef( ( props, ref ) => {
 	return <PrivateRichText ref={ ref } { ...props } readOnly={ false } />;
 } );
 
-PublicForwardedRichTextContainer.Content = Content;
+PublicForwardedRichTextContainer.Content = RichTextContent;
 PublicForwardedRichTextContainer.isEmpty = ( value ) => {
 	return ! value || value.length === 0;
 };

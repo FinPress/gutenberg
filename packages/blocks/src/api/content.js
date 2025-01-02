@@ -2,27 +2,38 @@
  * WordPress dependencies
  */
 import { RawHTML } from '@wordpress/element';
-import { children as childrenSource } from '@wordpress/blocks';
 import deprecated from '@wordpress/deprecated';
 
 /**
  * Internal dependencies
  */
-import RichText from './';
+import childrenSource from './children';
+import { getInnerBlocksProps } from './serializer';
 
-/**
- * Internal dependencies
- */
-import { getMultilineTag } from './utils';
+export function InnerBlocksContent() {
+	return getInnerBlocksProps().children;
+}
+
+function isEmpty( value ) {
+	return ! value || value.length === 0;
+}
+
+function getMultilineTag( multiline ) {
+	if ( multiline !== true && multiline !== 'p' && multiline !== 'li' ) {
+		return undefined;
+	}
+
+	return multiline === true ? 'p' : multiline;
+}
 
 export function valueToHTMLString( value, multiline ) {
-	if ( RichText.isEmpty( value ) ) {
+	if ( isEmpty( value ) ) {
 		const multilineTag = getMultilineTag( multiline );
 		return multilineTag ? `<${ multilineTag }></${ multilineTag }>` : '';
 	}
 
 	if ( Array.isArray( value ) ) {
-		deprecated( 'wp.blockEditor.RichText value prop as children type', {
+		deprecated( 'wp.blocks.RichTextContent value prop as children type', {
 			since: '6.1',
 			version: '6.3',
 			alternative: 'value prop as string',
@@ -42,7 +53,7 @@ export function valueToHTMLString( value, multiline ) {
 	return value.toHTMLString();
 }
 
-export function Content( {
+export function RichTextContent( {
 	value,
 	tagName: Tag,
 	multiline,

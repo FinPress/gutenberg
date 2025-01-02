@@ -4,7 +4,6 @@
 import * as globalStyles from './components/global-styles';
 import { ExperimentalBlockEditorProvider } from './components/provider';
 import { lock } from './lock-unlock';
-import { getRichTextValues } from './components/rich-text/get-rich-text-values';
 import ResizableBoxPopover from './components/resizable-box-popover';
 import { default as PrivateQuickInserter } from './components/inserter/quick-inserter';
 import {
@@ -59,7 +58,6 @@ lock( privateApis, {
 	ExperimentalBlockCanvas,
 	ExperimentalBlockEditorProvider,
 	getDuotoneFilter,
-	getRichTextValues,
 	PrivateQuickInserter,
 	extractWords,
 	getNormalizedSearchTerms,

@@ -13,6 +13,7 @@ import {
 	getBlockSupport,
 	store as blocksStore,
 	__unstableGetInnerBlocksProps as getInnerBlocksProps,
+	InnerBlocksContent,
 } from '@wordpress/blocks';
 
 /**
@@ -309,7 +310,7 @@ useInnerBlocksProps.save = getInnerBlocksProps;
 ForwardedInnerBlocks.DefaultBlockAppender = DefaultBlockAppender;
 ForwardedInnerBlocks.ButtonBlockAppender = ButtonBlockAppender;
 
-ForwardedInnerBlocks.Content = () => useInnerBlocksProps.save().children;
+ForwardedInnerBlocks.Content = InnerBlocksContent;
 
 /**
  * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md

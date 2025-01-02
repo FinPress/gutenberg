@@ -175,6 +175,12 @@ export {
 	__EXPERIMENTAL_ELEMENTS,
 	__EXPERIMENTAL_PATHS_WITH_OVERRIDE,
 } from './constants';
+export {
+	RichTextContent,
+	InnerBlocksContent,
+	valueToHTMLString,
+} from './content';
+export { getRichTextValues } from './get-rich-text-values';
 
 export const privateApis = {};
 lock( privateApis, { isContentBlock } );

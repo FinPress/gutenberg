@@ -291,6 +291,10 @@ _Returns_
 
 -   `Array`: Block types that the blocks argument can be transformed to.
 
+### getRichTextValues
+
+Undocumented declaration.
+
 ### getSaveContent
 
 Given a block type containing a save render implementation and attributes, returns the static markup to be saved.
@@ -364,6 +368,10 @@ _Parameters_
 _Returns_
 
 -   `boolean`: True if a block contains at least one child blocks with inserter support and false otherwise.
+
+### InnerBlocksContent
+
+Undocumented declaration.
 
 ### isReusableBlock
 
@@ -680,6 +688,10 @@ _Parameters_
 
 -   _blockName_ `string`: Name of the block (example: “core/columns”).
 -   _variation_ `WPBlockVariation`: Object describing a block variation.
+
+### RichTextContent
+
+Undocumented declaration.
 
 ### serialize
 
@@ -1003,6 +1015,10 @@ _Parameters_
 _Returns_
 
 -   `[boolean,Array<LoggerItem>]`: validation results.
+
+### valueToHTMLString
+
+Undocumented declaration.
 
 ### withBlockContentContext
 

@@ -2,17 +2,13 @@
  * WordPress dependencies
  */
 import { RawHTML, StrictMode, Fragment } from '@wordpress/element';
-import {
-	getSaveElement,
-	__unstableGetBlockProps as getBlockProps,
-} from '@wordpress/blocks';
 import { RichTextData } from '@wordpress/rich-text';
 
 /**
  * Internal dependencies
  */
-import InnerBlocks from '../inner-blocks';
-import { Content } from './content';
+import { getSaveElement, getBlockProps } from './serializer';
+import { InnerBlocksContent, RichTextContent } from './content';
 
 /*
  * This function is similar to `@wordpress/element`'s `renderToString` function,
@@ -42,9 +38,9 @@ function addValuesForElement( element, values, innerBlocks ) {
 			return addValuesForElements( props.children, values, innerBlocks );
 		case RawHTML:
 			return;
-		case InnerBlocks.Content:
+		case InnerBlocksContent:
 			return addValuesForBlocks( values, innerBlocks );
-		case Content:
+		case RichTextContent:
 			values.push( props.value );
 			return;
 	}
@@ -85,7 +81,7 @@ function addValuesForBlocks( values, blocks ) {
 			// Instead of letting save elements use `useInnerBlocksProps.save`,
 			// force them to use InnerBlocks.Content instead so we can intercept
 			// a single component.
-			<InnerBlocks.Content />
+			<InnerBlocksContent />
 		);
 		addValuesForElement( saveElement, values, innerBlocks );
 	}

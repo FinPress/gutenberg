@@ -14,6 +14,7 @@ import {
 	getBlockTransforms,
 	findTransform,
 	isUnmodifiedDefaultBlock,
+	RichTextContent,
 } from '@wordpress/blocks';
 import { useInstanceId, useMergeRefs } from '@wordpress/compose';
 import {
@@ -42,7 +43,6 @@ import {
 	createLinkInParagraph,
 } from './utils';
 import EmbedHandlerPicker from './embed-handler-picker';
-import { Content } from './content';
 import RichText from './native';
 import { withDeprecations } from './with-deprecations';
 import { findSelection } from './event-listeners/input-rules';
@@ -679,7 +679,7 @@ export const PrivateRichText = withDeprecations(
 	forwardRef( RichTextWrapper )
 );
 
-PrivateRichText.Content = Content;
+PrivateRichText.Content = RichTextContent;
 
 PrivateRichText.isEmpty = ( value ) => {
 	return ! value || value.length === 0;
