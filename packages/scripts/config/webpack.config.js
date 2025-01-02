@@ -83,8 +83,11 @@ const cssLoaders = [
 											'default',
 											{
 												discardComments: {
-													removeAll: true,
+													remove(comment) {
+														return !/(\!rtl)/.test(comment);
+													},
 												},
+												cssDeclarationSorter: false
 											},
 										],
 									} ),
