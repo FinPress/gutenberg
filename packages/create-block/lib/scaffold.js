@@ -61,13 +61,12 @@ module.exports = async (
 	}
 ) => {
 	slug = slug.toLowerCase();
-	namespace = namespace.toLowerCase();
 	const rootDirectory = join( process.cwd(), targetDir || slug );
 	const transformedValues = transformer( {
 		$schema,
 		apiVersion,
 		plugin,
-		namespace,
+		namespace: namespace.toLowerCase(),
 		slug,
 		title,
 		description,
@@ -90,7 +89,7 @@ module.exports = async (
 		npmDependencies,
 		npmDevDependencies,
 		customScripts,
-		folderName,
+		folderName: folderName.replace( /\$slug/g, slug ),
 		editorScript,
 		editorStyle,
 		style,
