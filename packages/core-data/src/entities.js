@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { capitalCase, pascalCase } from 'change-case';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * WordPress dependencies
@@ -585,8 +586,8 @@ async function loadPostTypeEntities() {
 											// we must not sync clientId, as this can't be generated consistenctly and
 											// hence will lead to merge conflicts.
 											const overwrites = {
-												/* clientId: null, */ innerBlocks:
-													null,
+												innerBlocks: null,
+												clientId: null,
 											};
 											const res = fun.equalityDeep(
 												Object.assign(
@@ -667,7 +668,6 @@ async function loadPostTypeEntities() {
 												Object.entries( block ).forEach(
 													( [ k, v ] ) => {
 														if (
-															// k !== 'clientId' &&
 															! fun.equalityDeep(
 																block[ k ],
 																yblock.get( k )
@@ -705,6 +705,28 @@ async function loadPostTypeEntities() {
 														)
 													),
 												] );
+											}
+											const knownClientIds = new Set();
+											// remove duplicate clientids
+											for (
+												let j = 0;
+												j < yblocks.length;
+												j++
+											) {
+												const yblock = yblocks.get( j );
+												if (
+													knownClientIds.has(
+														yblock.get( 'clientId' )
+													)
+												) {
+													yblock.set(
+														'clientId',
+														uuidv4()
+													);
+												}
+												knownClientIds.add(
+													yblock.get( 'clientId' )
+												);
 											}
 										} );
 									} else if (
