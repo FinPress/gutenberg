@@ -9,37 +9,41 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { escape } from './utils';
 
 export default function save( { attributes } ) {
-	// Calculate the number of lines dynamically
+	const { content, showLineNumbers } = attributes;
+
+	// eslint-disable-next-line no-shadow
 	const calculateLineNumbers = ( content ) => {
 		return content.split( '\n' ).map( ( _, index ) => index + 1 );
 	};
 
-	const content =
-		typeof attributes.content === 'string'
-			? attributes.content
-			: attributes.content.toHTMLString( {
+	const contentString =
+		typeof content === 'string'
+			? content
+			: content.toHTMLString( {
 					preserveWhiteSpace: true,
 			  } );
 
-	const lineNumbers = calculateLineNumbers( content );
+	const lineNumbers = calculateLineNumbers( contentString );
 
 	return (
 		<div
 			{ ...useBlockProps.save() }
 			className="wp-block-code-with-line-numbers"
 		>
-			<div className="line-numbers">
-				{ lineNumbers.map( ( num ) => (
-					<div key={ num }>{ num }</div>
-				) ) }
-			</div>
+			{ /* Conditionally render line numbers */ }
+			{ showLineNumbers && (
+				<div className="line-numbers">
+					{ lineNumbers.map( ( num ) => (
+						<div key={ num }>{ num }</div>
+					) ) }
+				</div>
+			) }
+
+			{ /* Render code content */ }
 			<pre className="code-content">
 				<RichText.Content
 					tagName="code"
-					// To do: `escape` encodes characters in shortcodes and URLs to
-					// prevent embedding in PHP. Ideally checks for the code block,
-					// or pre/code tags, should be made on the PHP side?
-					value={ escape( content ) }
+					value={ escape( contentString ) }
 				/>
 			</pre>
 		</div>

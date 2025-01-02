@@ -12,6 +12,10 @@
 			"source": "rich-text",
 			"selector": "code",
 			"__unstablePreserveWhiteSpace": true
+		},
+		"showLineNumbers": {
+			"type": "boolean",
+			"default": true
 		}
 	},
 	"supports": {
