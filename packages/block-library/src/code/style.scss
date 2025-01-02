@@ -16,3 +16,21 @@
 		/*!rtl:end:ignore*/
 	}
 }
+.wp-block-code-with-line-numbers {
+	display: flex;
+}
+
+.line-numbers {
+	padding-right: 8px;
+	text-align: right;
+	border-right: 1px solid #ddd;
+	color: #6a737d;
+	user-select: none;
+	margin: 1em 0;
+}
+
+.code-content {
+	flex-grow: 1;
+	padding-left: 8px;
+	overflow: auto;
+}
