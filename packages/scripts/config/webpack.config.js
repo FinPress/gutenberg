@@ -84,7 +84,7 @@ const cssLoaders = [
 											{
 												discardComments: {
 													remove(comment) {
-														return !/(\!rtl)/.test(comment);
+														return !/^\s*!?\s*rtl:/.test(comment);
 													},
 												},
 												cssDeclarationSorter: false
