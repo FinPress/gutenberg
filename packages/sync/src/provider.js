@@ -105,9 +105,14 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	async function bootstrap( objectType, objectId, handleChanges ) {
 		const doc = new Y.Doc( { meta: new Map() } );
 
-		const updateHandler = () => {
-			const data = postTypeConfigs[ objectType ].fromCRDTDoc( doc );
-			handleChanges( data );
+		/**
+		 * @type {(_update: Uint8Array, origin: any)=>void}
+		 */
+		const updateHandler = ( _update, origin ) => {
+			if ( origin !== 'gutenberg' ) {
+				const data = postTypeConfigs[ objectType ].fromCRDTDoc( doc );
+				handleChanges( data );
+			}
 		};
 		doc.on( 'update', updateHandler );
 

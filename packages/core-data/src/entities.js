@@ -498,10 +498,10 @@ async function loadPostTypeEntities() {
 					} );
 				},
 				/**
-				 * @param {Y.Doc} doc
+				 * @param {Y.Doc} ydoc
 				 * @param {any}   changes
 				 */
-				applyChangesToDoc: ( doc, changes ) => {
+				applyChangesToDoc: ( ydoc, changes ) => {
 					const content = changes.content?.raw || changes.content;
 					const parsedYdoc =
 						typeof content === 'string'
@@ -513,11 +513,11 @@ async function loadPostTypeEntities() {
 					if ( parsedYdoc !== null ) {
 						// parse content which contains a ydoc, and apply it to the current ydoc. The rest of the attributes can be ignored.
 						Y.transact(
-							doc,
+							ydoc,
 							() => {
 								// apply remote changes
 								Y.applyUpdate(
-									doc,
+									ydoc,
 									Y.encodeStateAsUpdate( parsedYdoc )
 								);
 							},
@@ -526,136 +526,154 @@ async function loadPostTypeEntities() {
 						);
 					} else {
 						// local changes happened. Apply the differences to the ydoc
-						const ycontent = doc.getMap( 'document' );
-						Object.entries( changes ).forEach(
-							( [ key, value ] ) => {
-								if ( typeof value !== 'function' ) {
-									if ( key === 'blocks' ) {
-										if (
-											! serialisableBlocksCache.has(
-												value
-											)
-										) {
-											serialisableBlocksCache.set(
-												value,
-												makeBlocksSerializable( value )
-											);
-										}
-										const blocks =
-											serialisableBlocksCache.get(
-												value
-											);
-										// This is a rudimentary diff implementation similar to the y-prosemirror diffing
-										// approach.
-										// A better implementation would also diff the textual content and represent it
-										// using a Y.Text type.
-										// However, at this time it makes more sense to keep this algorithm generic to
-										// support all kinds of block types.
-										// Ideally, we ensure that block data structure have a consistent data format.
-										// E.g.:
-										//   - textual content (using rich-text formatting?) may always be stored under `block.text`
-										//   - local information that shouldn't be shared (e.g. clientId or isDragging) is stored under `block.private`
-										if (
-											! ycontent.has( key ) ||
-											ycontent.get( key ) instanceof Array
-										) {
-											// @todo remove the array check
-											ycontent.set( key, new Y.Array() );
-										}
-										/**
-										 * @type {Y.Array<Y.Map<any>>}
-										 */
-										const yblocks = ycontent.get( key );
-										const numOfCommonEntries = math.min(
-											blocks.length,
-											yblocks.length
-										);
-										let left = 0;
-										let right = 0;
-										/**
-										 * @param {any}   gblock
-										 * @param {Y.Map} yblock
-										 */
-										const blocksEqual = (
-											gblock,
-											yblock
-										) => {
-											if ( yblock.toJSON ) {
-												yblock = yblock.toJSON();
-											}
-											// we must not sync clientId, as this can't be generated consistenctly and
-											// hence will lead to merge conflicts.
-											const overwrites = {
-												innerBlocks: null,
-												clientId: null,
-											};
-											const res = fun.equalityDeep(
-												Object.assign(
-													{},
-													gblock,
-													overwrites
-												),
-												Object.assign(
-													{},
-													yblock,
-													overwrites
+						const ycontent = ydoc.getMap( 'document' );
+						ydoc.transact( () => {
+							Object.entries( changes ).forEach(
+								( [ key, value ] ) => {
+									if ( typeof value !== 'function' ) {
+										if ( key === 'blocks' ) {
+											if (
+												! serialisableBlocksCache.has(
+													value
 												)
-											);
-											const inners =
-												gblock.innerBlocks || [];
-											const yinners =
-												yblock.innerBlocks || [];
-											return (
-												res &&
-												inners.length ===
-													yinners.length &&
-												inners.every( ( block, i ) =>
-													blocksEqual(
-														block,
-														yinners[ i ]
+											) {
+												serialisableBlocksCache.set(
+													value,
+													makeBlocksSerializable(
+														value
 													)
-												)
+												);
+											}
+											const blocks =
+												serialisableBlocksCache.get(
+													value
+												);
+											// This is a rudimentary diff implementation similar to the y-prosemirror diffing
+											// approach.
+											// A better implementation would also diff the textual content and represent it
+											// using a Y.Text type.
+											// However, at this time it makes more sense to keep this algorithm generic to
+											// support all kinds of block types.
+											// Ideally, we ensure that block data structure have a consistent data format.
+											// E.g.:
+											//   - textual content (using rich-text formatting?) may always be stored under `block.text`
+											//   - local information that shouldn't be shared (e.g. clientId or isDragging) is stored under `block.private`
+											if (
+												! ycontent.has( key ) ||
+												ycontent.get( key ) instanceof
+													Array
+											) {
+												// @todo remove the array check
+												ycontent.set(
+													key,
+													new Y.Array()
+												);
+											}
+											/**
+											 * @type {Y.Array<Y.Map<any>>}
+											 */
+											const yblocks = ycontent.get( key );
+											const numOfCommonEntries = math.min(
+												blocks.length,
+												yblocks.length
 											);
-										};
-										// skip equal blocks from left
-										for (
-											;
-											left < numOfCommonEntries &&
-											blocksEqual(
-												blocks[ left ],
-												yblocks.get( left )
-											);
-											left++
-										) {
-											/* nop */
-										}
-										// skip equal blocks from right
-										for (
-											;
-											right < numOfCommonEntries - left &&
-											blocksEqual(
-												blocks[
-													blocks.length - right - 1
-												],
-												yblocks.get(
-													yblocks.length - right - 1
-												)
-											);
-											right++
-										) {
-											/* nop */
-										}
-										const numOfUpdatesNeeded =
-											numOfCommonEntries - left - right;
-										const numOfInsertionsNeeded = math.max(
-											0,
-											blocks.length - yblocks.length
-										);
-										const numOfDeletionsNeeded = math.max(
-											0,
-											yblocks.length - blocks.length
-										);
-										doc.transact( () => {
+											let left = 0;
+											let right = 0;
+											/**
+											 * @param {any}   gblock
+											 * @param {Y.Map} yblock
+											 */
+											const blocksEqual = (
+												gblock,
+												yblock
+											) => {
+												if ( yblock.toJSON ) {
+													yblock = yblock.toJSON();
+												}
+												// we must not sync clientId, as this can't be generated consistenctly and
+												// hence will lead to merge conflicts.
+												const overwrites = {
+													innerBlocks: null,
+													clientId: null,
+												};
+												const res = fun.equalityDeep(
+													Object.assign(
+														{},
+														gblock,
+														overwrites
+													),
+													Object.assign(
+														{},
+														yblock,
+														overwrites
+													)
+												);
+												const inners =
+													gblock.innerBlocks || [];
+												const yinners =
+													yblock.innerBlocks || [];
+												return (
+													res &&
+													inners.length ===
+														yinners.length &&
+													inners.every(
+														( block, i ) =>
+															blocksEqual(
+																block,
+																yinners[ i ]
+															)
+													)
+												);
+											};
+											// skip equal blocks from left
+											for (
+												;
+												left < numOfCommonEntries &&
+												blocksEqual(
+													blocks[ left ],
+													yblocks.get( left )
+												);
+												left++
+											) {
+												/* nop */
+											}
+											// skip equal blocks from right
+											for (
+												;
+												right <
+													numOfCommonEntries - left &&
+												blocksEqual(
+													blocks[
+														blocks.length -
+															right -
+															1
+													],
+													yblocks.get(
+														yblocks.length -
+															right -
+															1
+													)
+												);
+												right++
+											) {
+												/* nop */
+											}
+											const numOfUpdatesNeeded =
+												numOfCommonEntries -
+												left -
+												right;
+											const numOfInsertionsNeeded =
+												math.max(
+													0,
+													blocks.length -
+														yblocks.length
+												);
+											const numOfDeletionsNeeded =
+												math.max(
+													0,
+													yblocks.length -
+														blocks.length
+												);
 											// updates
 											for (
 												let i = 0;
@@ -728,19 +746,19 @@ async function loadPostTypeEntities() {
 													yblock.get( 'clientId' )
 												);
 											}
-										} );
-									} else if (
-										! filteredAttributes.has( key ) &&
-										! fun.equalityDeep(
-											ycontent.get( key ),
-											value
-										)
-									) {
-										ycontent.set( key, value );
+										} else if (
+											! filteredAttributes.has( key ) &&
+											! fun.equalityDeep(
+												ycontent.get( key ),
+												value
+											)
+										) {
+											ycontent.set( key, value );
+										}
 									}
 								}
-							}
-						);
+							);
+						}, 'gutenberg' );
 					}
 				},
 				fromCRDTDoc: defaultYdocTransformer,

@@ -287,7 +287,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 
 			updatePostLock( settings.postLock );
 			setupEditor( post, initialEdits, settings.template );
-			if ( settings.autosave ) {
+			if ( settings.autosave && ! window.__experimentalEnableSync ) {
 				createWarningNotice(
 					__(
 						'There is an autosave of this post that is more recent than the version below.'
