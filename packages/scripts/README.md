@@ -89,8 +89,8 @@ This script automatically use the optimized config but sometimes you may want to
 -   `--webpack-bundle-analyzer` – enables visualization for the size of webpack output files with an interactive zoomable treemap.
 -   `--webpack-copy-php` – enables copying all PHP files from the source directory ( default is `src` ) and its subfolders to the output directory.
 -   `--webpack-no-externals` – disables scripts’ assets generation, and omits the list of default externals.
--   `--source-path` – Allows customization of the source directory. Default is `.`. In the automatic detection mode the default changes to `src`.
--   `--output-path` – Allows customization of the output directory. Default is `build`.
+-   `--source-path` – allows customization of the source directory. The default is the project root `.` when [entry points are listed](#listing-entry-points) in the command, or `src` otherwise.
+-   `--output-path` – allows customization of the output directory. The default is the `build` folder.
 
 Experimental support for the block.json `viewScriptModule` field is available via the
 `--experimental-modules` option. With this option enabled, script and module fields will all be
@@ -411,8 +411,8 @@ This script automatically use the optimized config but sometimes you may want to
 -   `--webpack-copy-php` – enables copying all PHP files from the source directory ( default is `src` ) and its subfolders to the output directory.
 -   `--webpack-devtool` – controls how source maps are generated. See options at https://webpack.js.org/configuration/devtool/#devtool.
 -   `--webpack-no-externals` – disables scripts’ assets generation, and omits the list of default externals.
--   `--source-path` – Allows customization of the source directory. Default is `.`. In the automatic detection mode the default changes to `src`.
--   `--output-path` – Allows customization of the output directory. Default is `build`.
+-   `--source-path` – allows customization of the source directory. The default is the project root `.` when [entry points are listed](#listing-entry-points) in the command, or `src` otherwise.
+-   `--output-path` – allows customization of the output directory. The default is the `build` folder.
 
 Experimental support for the block.json `viewScriptModule` field is available via the
 `--experimental-modules` option. With this option enabled, script and module fields will all be
@@ -629,6 +629,8 @@ _Example:_
 ```bash
 wp-scripts build entry-one.js entry-two.js
 ```
+
+The default location for the source files is the project’s root. In effect, the command above will look for `entry-one.js` and `entry-two.js` in the project’s root and output the generated files into the `build` directory.
 
 ### Automatic block.json detection and the source code directory
 
