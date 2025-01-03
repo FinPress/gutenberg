@@ -425,6 +425,9 @@ export function __unstableSerializeAndClean( blocks ) {
 
 /**
  * Encode blocks and Yjs document to a HTML document.
+ *
+ * Consult @gutenberg/sync/CODE.md for more information.
+ *
  * @param {Array}  blocks
  * @param {string} type
  * @param {string} id

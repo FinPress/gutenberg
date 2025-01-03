@@ -29,11 +29,11 @@ add_action( 'admin_init', 'gutenberg_rest_api_init_collaborative_editing' );
  *
  *   <!-- y:gutenberg version="1" state="(base64-encoded Yjs doc)" new-content-clientid="(u53)" -->
  *
- * The comment tag will be maintained as part of the HTML content and enables
- * collaborative clients to exchange editing history.
- * It is meant to keep a Yjs document in-sync with the HTML content. For future
- * compatibility, we also maintain a version flag that can be used in the
- * future by clients to properly handle legacy y:gutenberg comments.
+ * The comment tag will be part of the HTML content and enables collaborative
+ * clients to exchange editing history. It is used to keep a Yjs document
+ * in-sync with the HTML content. For forwards-compatibility, we also maintain a
+ * version property that can be used in the future by clients to properly handle
+ * legacy y:gutenberg comments.
  *
  * The Yjs document state contains information that is needed for automatic
  * conflict resolution to enable collaborative editing on the HTML content.
@@ -46,13 +46,18 @@ add_action( 'admin_init', 'gutenberg_rest_api_init_collaborative_editing' );
  * not in-sync with the Yjs state, it will update the Yjs document.
  *
  * To ensure that all clients update the Yjs state in "the same way" and
- * produce the same Yjs update, all client must use the same clientid. This
+ * produce the same Yjs update, all client must use the same Yjs-clientid. This
  * clientid must change whenever the HTML content updates, to prevent the
  * creation of conflicting Yjs updates.
  *
- * Note: It is usually not recommended to change the clientid, as this can
- * corrup the Yjs document and make it unusable. Please consult an expert on
- * Yjs CRDTs before changing this approach.
+ * Note: Yjs has a concept of clientId that is very different from the
+ * clientIds used in the block editor. Yjs' clientIds should be unique per
+ * client (i.e. each browser tab has a different clientId) and are used for
+ * conflict-resolution.
+ *
+ * It is usually not recommended to change the clientid, as this can corrup the
+ * Yjs document and make it unusable. Please consult an expert on Yjs CRDTs
+ * before changing this approach.
  *
  * This approach is not ideal and may - under very specific circumstances -
  * lead to content duplication.
@@ -63,17 +68,19 @@ add_action( 'admin_init', 'gutenberg_rest_api_init_collaborative_editing' );
  *
  * Example:
  *
- *   - change 1: paragraph 1 is added to the HTML content
- *   - change 2: paragraph 2 is added to the HTML content. This change happens
- *     immediately after change 1. So this changes also incorporates the
- *     changeset of change 1.
+ *   - Change 1: Paragraph 1 is added to the HTML content without updating the
+ *               Yjs document.
+ *   - Change 2: Paragraph 2 is added to the HTML content without updating the
+ *               Yjs document. This change happens immediately after change 1.
+ *               So this changes also incorporates the changeset of change 1.
  *
  * Result:
  *
- *   - Clients that see change 1 will add paragraph 1.
- *   - Clients that see change 2 will add paragraph 1 and paragraph 2.
+ *   - Clients that see change 1 will add paragraph 1 to the Yjs document.
+ *   - Clients that see change 2 will add paragraph 1 and paragraph 2 to the
+ *     Yjs document, using a different clientid.
  *   - In total, three paragraphs are added. The clients have no way of knowing
- *   that change 2 incorporates changes from change 2.
+ *     that change 2 incorporates changes from change 2.
  *
  * If content duplication happens a lot, it may be necessary to increase the
  * debounce interval between fetching document states.
@@ -88,6 +95,10 @@ add_action( 'admin_init', 'gutenberg_rest_api_init_collaborative_editing' );
  */
 function filter_post_content_ydoc( $data, $postarr, $unsanitized_postarr ) {
 	if ($data['post_type'] !== 'post' and $data['post_type'] !== 'revision') {
+		return $data;
+	}
+	$gutenberg_experiments = get_option( 'gutenberg-experiments' );
+	if ( ! $gutenberg_experiments || ! array_key_exists( 'gutenberg-sync-collaboration', $gutenberg_experiments ) ) {
 		return $data;
 	}
 	$content = stripslashes($data['post_content']);

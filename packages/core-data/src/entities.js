@@ -189,7 +189,7 @@ export const rootEntitiesConfig = [
 					path: `/wp/v2/types/${ id }?context=edit`,
 				} );
 			},
-			applyChangesToDoc: ( doc, changes ) => {
+			applyChangesToDoc: ( ydoc, changes ) => {
 				const content = changes.content?.raw || changes.content;
 				const parsedYdoc =
 					typeof content === 'string'
@@ -198,11 +198,11 @@ export const rootEntitiesConfig = [
 				if ( parsedYdoc !== null ) {
 					// parse content which contains a ydoc, and apply it to the current ydoc. The rest of the attributes can be ignored.
 					Y.transact(
-						doc,
+						ydoc,
 						() => {
 							// apply remote changes
 							Y.applyUpdate(
-								doc,
+								ydoc,
 								Y.encodeStateAsUpdate( parsedYdoc )
 							);
 						},
@@ -211,7 +211,7 @@ export const rootEntitiesConfig = [
 					);
 				} else {
 					// local changes happened. Apply the differences to the ydoc
-					const ycontent = doc.getMap( 'document' );
+					const ycontent = ydoc.getMap( 'document' );
 					Object.entries( changes ).forEach( ( [ key, value ] ) => {
 						if (
 							! filteredAttributes.has( key ) &&
@@ -465,10 +465,6 @@ async function loadPostTypeEntities() {
 				 * @return {Promise<string>} the post content
 				 */
 				fetch: async ( id, autosave ) => {
-					if ( autosave === undefined ) {
-						// eslint-disable-next-line no-console
-						console.error( 'autosave should not be undefined' );
-					} // @todo add proper typings
 					if ( autosave ) {
 						// Currently just exploiting autosave functionality.
 						// @todo there should a a special WP API for this
