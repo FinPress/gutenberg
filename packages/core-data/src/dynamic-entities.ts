@@ -32,6 +32,8 @@ export type WPEntityTypes< C extends ET.Context = 'edit' > = {
  * - "taxonomy" to "taxonomies"
  * - "media" to "mediaItems"
  * - "status" to "statuses"
+ *
+ * It does not pluralize "GlobalStyles" due to lack of clarity about it at time of writing.
  */
 type PluralizeEntity< T extends string > = T extends 'GlobalStyles'
 	? never
