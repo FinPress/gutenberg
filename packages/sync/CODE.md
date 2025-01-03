@@ -1,6 +1,6 @@
 # Status of the sync experiment in Gutenberg
 
-The sync package is part of an ongoing research effort to lay the groundwork of Real-Time Collaboration in Gutenberg.
+The sync package is part of an ongoing effort to lay the groundwork of Real-Time Collaboration in Gutenberg.
 
 Relevant docs:
 
@@ -26,25 +26,28 @@ Gutenberg, we need to keep track of edit history. If needed, we need to resolve
 conflicts from concurrent actions. Example:
 
 - User 1 inserts character "X" at position 0
-- User 2 unserts character "Y" at position 0
+- User 2 inserts character "Y" at position 0
 
 If we applied these changes as we receive them, User 1 might end up with
 document "YX", and User 2 might end up with document "XY". We need an algorithm
-to resolve these conflicts so they everyone is guaranteed to always end up with
-the same document content.
+to resolve these conflicts so everyone always end up with the same document content.
 
 We use the Yjs CRDT to resolve these kinds of conflicts automatically for us.
-Yjs enables us to represent our data using "shared types". They work just like
-other data types, but they automatically sync with other peers. Practically,
-they enable us to map our JSON document structure to Yjs types. Post type
-entities may specify how they sync their document model with a Yjs document. If
-collaborative editing is enabled, they will automatically sync with other peers.
-See [# Make a post type collaborative](#Make-a-post-type-collaborative).
+Yjs enables us to represent our data using "shared types". Shared types work
+just like other data types, but they automatically sync with other peers.
+Practically, they enable us to map our JSON document structure that is
+maintained with redux to Yjs types.
 
-**The initialization problem**
+Post type entities may specify how they sync their document model with a Yjs
+document. If collaborative editing is enabled, they will automatically sync with
+other peers. See [# Make a post type
+collaborative](#Make-a-post-type-collaborative).
+
+### The initialization problem
 
 We must not re-initialize the Yjs document with every session. Ultimately, this
-will lead to content duplication or loss of content.
+will lead to content duplication or loss of content. To get reliable syncs
+without losing content, we may only populate a Yjs document once.
 
 Yjs works similarly to a git repository. A git repository is empty at the
 beginning. We can populate it with content by making an initial commit. When
@@ -66,11 +69,12 @@ in a compressed form, in a comment tag of the serialized Gutenberg content.
 You can find more information about the `<!-- y:gutenberg -->` comment in
 `./synchronization.php`.
 
-It is important to note that Yjs only contains metadata of our edit history.
-Ultimately the Yjs document will roughly be in the size of the serialized form
-of the Gutenberg document.
+It is important to note that Yjs only contains metadata of the edit history. It
+does not track all changes forever (unless Yjs' "gabrage-collection" is
+disabled). Ultimately, the Yjs document will roughly be in the size of the
+serialized form of the Gutenberg document.
 
-**Updated protocol for saving posts**
+### Updated protocol for saving posts
 
 When collaborative editing is enabled, we first must ensure that we don't
 overwrite content from other clients that has been written to the backend.
@@ -88,7 +92,7 @@ before we save a post, while keeping full compatibility with the current
 implementation of the revision history that allows us to go back to previous
 versions.
 
-**Compatiblity with other editors / APIs**
+### Compatibility with other editors / APIs
 
 WordPress has a rich ecosystem of plugins that directly manipulate the HTML
 content through an API request. These plugins don't know about the Yjs edit
@@ -96,20 +100,23 @@ history. They might add a paragraph without telling users that currently work on
 a document. Once the users save a post, these changes would be lost. The
 collaborative editing feature is compatible with legacy API requests.
 
-When a user saves a post, it will first pull the current post content from
-WordPress and merge the changes. If autosave is enabled, this will happen in
-regular intervals. If the client notices that the Yjs document is not in-sync
-with the HTML content, it will first reconcile the changes. To ensure that all
-users that pull changes from a backend reconcile in the same way, we generate a
-unique "Yjs-clientid" on the backend that is used to generate the Yjs update.
-This process documented in greater detail in `./synchronization.php`.
+When a user saves a post (through autosave, or through the "save" button), it
+will first pull the current post content from WordPress and merge the changes.
+If the client notices that the Yjs document is not in-sync with the HTML
+content, it will first reconcile the changes to the HTML document. To ensure that all users that pull
+changes from a backend reconcile in the same way, we simulate a "system user"
+that generates the content for us. All clients simulate the same "system user"
+changes. This is implemented by generating a unique "Yjs-clientid" on the
+backend that is used to make changes to the Yjs document. This process
+documented in greater detail in `./synchronization.php`.
 
-The result is that legacy plugins now may update the HTML content directly. The
-changes will be incorporated into the live collaborative document.
+The result is that legacy plugins now may update the HTML content directly. Once
+collaborative-enabled clients notice the changes, they will be reconciled and
+incorporated into the live collaborative document.
 
-**Almost realtime for everyone**
+### Almost realtime for everyone
 
-Most collaborative applications use WebSockets to send/receive changes in
+Most collaborative applications use WebSockets to send & receive changes in
 real-time. Yjs supports a variety of "providers" that sync using different
 network protocols. See [Yjs Docs |
 Providers](https://github.com/yjs/yjs?tab=readme-ov-file#providers).
@@ -118,12 +125,17 @@ However, we currently can't build a WebSocket backend in WordPress, as this is
 generally not supported by all PHP runtimes.
 
 WebRTC is an extremely interesting technology. However, we can't rely on WebRTC
-as the sole communication channel as peers from different networks often have trouble communicating with
-each other. A reliable WebRTC setup requires several kinds of servers (TURN,
-STUN, and a signalling server) that we can't ship with WordPress.
+as the sole communication channel, as peers from different networks often have
+trouble communicating with each other. A reliable WebRTC setup requires several
+kinds of servers (TURN, STUN, and a signalling server) that we can't ship with
+WordPress.
 
 Yet, we wanted that collaborative editing is supported for all users without
-needing to set up a separate server.
+needing to set up a separate server. We need a base-layer sync approach that
+works for everyone.
+
+We use the existing autosave and heartbeat APIs to create a relatively good
+collaborative editing experience. Changes will only be synced every few seconds.
 
 When collaborative editing is enabled, we regularly pull changes from the
 backend using the heartbeat API. The client may ask the backend for updates on a
@@ -131,25 +143,33 @@ list of documents by sending a `y-sync` heartbeat. It will supply the last known
 `new-content-clientid`, which changes whenever the document is updated. If the
 clientid changed, the server will forward the Yjs update.
 
-In order to get an improved real-time experience, reduce the autosave and
-heartbeat interval.
+In order to get an improved real-time experience, users may reduce the autosave
+and heartbeat interval.
 
-**Realtime**
+### Realtime for almost everyone
 
-We may use any Yjs provider (or write a custom provider) to make the
-experience more real-time. Depending on the approach we use, we might need to
-set up a separate server.
+The "base-layer" only needs to pull changes from WordPress through
+REST APIs. Pulling changes, however, does not deliver the fastest real-time
+experience.
 
-y-webrtc can be used to improve the realtime-experience for almost all users. If
-they can find each other, it will create a peer-to-peer connection between peers.
-If peers can't find each other, they will sync through the usual autosave
-approach, which is set to 5 seconds when realtime editing is enabled.
+In addition to our base-layer, Yjs enables us to mesh up different communication
+channels to sync our documents.
 
+We use y-webrtc to improve the realtime-experience for almost all users. If
+users can connect to each other, y-webrtc will create a peer-to-peer connection
+to exchange updates in real-time. If peers can't find each other, they will sync
+through the usual base-layer approach.
+
+### Realtime for some
+
+Users who want a more reliable set-up, may choose to set up a y-websocket
+backend (or use one of the cloud providers). This could be enabled through a
+separate plugin.
 
 ## Make a post type collaborative
 
-In the post type entity specification, add a `syncConfig` that syncs the custom
-data model with a Yjs document.
+In the post type entity specification, add a `syncConfig` that specifies how to
+sync a post type entity data model with a Yjs document.
 
 For reference see the current syncable post types in
 `@gutenberg/core-data/src/entities.js`.
@@ -227,15 +247,15 @@ This is the data flow when the peer A makes a local change:
 
 ## Future work
 
-##### Use Yjs as the undo manager
+### Use Yjs as the undo manager
 
 Yjs efficiently tracks history. It ships with a selective Undo/Redo Manager
 - you can choose which changes to track, and which changes not to track. It is
-quite reliable and used by many collaborative editors. Even if Gutenberg chooses
+quite reliable and used by many collaborative editors. Even if Gutenberg decides
 to stay non-collaborative, it might make sense to use the Yjs undo-manager
 instead of building a custom one.
 
-When performing changes on a Yjs document, we can choose a source / origin of
+When performing changes on a Yjs document, we can specify a source / origin of
 the change. Changes that originate from the Gutenberg editor are currently
 tracked as changes originating from the string `"gutenberg"`.
 
@@ -269,16 +289,17 @@ information.
 
 ## What works and what doesn't
 
-**Works**
+### Works
+
 - Concurrent changes (even from non-collaborative clients) are reconciled and
-  merged. Thereis a low chance of contend duplication. But the case of loss of content
+  merged. There is a low chance of contend duplication. But the case of loss of content
   through concurrent changes is greatly reduced.
 - We can use existing Yjs sync providers to enable realtime-sync through a
   faster protocol like y-webrtc or y-websockets.
 - The y-webrtc extension may be used as progressive enhancement to enable
   realtime collaboration.
 
-**Does not work**
+### Does not work
 
 - Some more complex blog types seem to have buggy behavior (e.g. gallery block
   type when deleting images). This can be fixed with more user feedback.
@@ -288,5 +309,5 @@ information.
 	  the `base` entity config for an example (it declares `syncConfig` and
 	  `syncObjectType` properties).
 - Users of y-webrtc may protect sessions by using a shared password to prevent
-  access from other clients. At the time of writing this approach hasn't been
+  access from other clients. At the time of writing, this approach hasn't been
   fully implemented and may pose a security risk.
