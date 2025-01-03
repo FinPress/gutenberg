@@ -147,7 +147,9 @@ export default function FiltersPanel( {
 		const duotoneValue = duotonePreset
 			? `var:preset|duotone|${ duotonePreset.slug }`
 			: newValue;
-		onChange( setImmutably( value, [ 'filter', 'duotone' ], duotoneValue ) );
+		onChange(
+			setImmutably( value, [ 'filter', 'duotone' ], duotoneValue )
+		);
 	};
 	const hasDuotone = () => !! value?.filter?.duotone;
 	const resetDuotone = () => setDuotone( undefined );

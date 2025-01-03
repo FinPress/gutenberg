@@ -16,7 +16,8 @@ TIMEZONES.forEach( ( timezone ) => {
 	test.describe( `Datepicker: ${ timezone }`, () => {
 		let originalTimezone;
 		test.beforeAll( async ( { requestUtils } ) => {
-			originalTimezone = ( await requestUtils.getSiteSettings() ).timezone;
+			originalTimezone = ( await requestUtils.getSiteSettings() )
+				.timezone;
 			await requestUtils.updateSiteSettings( { timezone } );
 		} );
 

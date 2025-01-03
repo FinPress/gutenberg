@@ -398,7 +398,8 @@ describe( 'Modal', () => {
 			const [ isAShown, setIsAShown ] = useState( false );
 			const [ isA1Shown, setIsA1Shown ] = useState( false );
 			const [ isBShown, setIsBShown ] = useState( false );
-			const [ isClassOverridden, setIsClassOverridden ] = useState( false );
+			const [ isClassOverridden, setIsClassOverridden ] =
+				useState( false );
 			useEffect( () => {
 				const toggles: ( e: KeyboardEvent ) => void = ( {
 					key,

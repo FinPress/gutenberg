@@ -52,7 +52,9 @@ describe( `${ block } block transformations`, () => {
 					{
 						isMediaBlock: true,
 						hasInnerBlocks:
-							transformsWithInnerBlocks.includes( blockTransform ),
+							transformsWithInnerBlocks.includes(
+								blockTransform
+							),
 					}
 				);
 				expect( newBlock ).toBeVisible();
@@ -88,7 +90,9 @@ describe( `${ block } block transformations`, () => {
 					{
 						isMediaBlock: true,
 						hasInnerBlocks:
-							transformsWithInnerBlocks.includes( blockTransform ),
+							transformsWithInnerBlocks.includes(
+								blockTransform
+							),
 					}
 				);
 				expect( newBlock ).toBeVisible();

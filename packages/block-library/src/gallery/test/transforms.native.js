@@ -35,7 +35,8 @@ describe( `${ block } block transformations`, () => {
 		const screen = await initializeEditor( { initialHtml } );
 		const newBlock = await transformBlock( screen, block, blockTransform, {
 			isMediaBlock: true,
-			hasInnerBlocks: transformsWithInnerBlocks.includes( blockTransform ),
+			hasInnerBlocks:
+				transformsWithInnerBlocks.includes( blockTransform ),
 		} );
 		expect( newBlock ).toBeVisible();
 		expect( getEditorHtml() ).toMatchSnapshot();
