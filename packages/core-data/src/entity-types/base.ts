@@ -29,7 +29,7 @@ declare module './base-entity-records' {
 			/**
 			 * GMT offset for the site.
 			 */
-			gmt_offset: string | number;
+			gmt_offset: string;
 
 			/**
 			 * Home URL.
