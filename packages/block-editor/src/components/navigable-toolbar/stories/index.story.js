@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { Button } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -15,15 +16,18 @@ const meta = {
 		docs: {
 			canvas: { sourceState: 'shown' },
 			description: {
-				component: 'A toolbar that can be navigated with a keyboard.',
+				component: __(
+					'A toolbar that can be navigated with a keyboard.'
+				),
 			},
 		},
 	},
 	argTypes: {
 		focusOnMount: {
 			control: { type: 'boolean' },
-			description:
-				'Whether to immediately focus when the component mounts (Deprecated).',
+			description: __(
+				'Whether to immediately focus when the component mounts (Deprecated).'
+			),
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: false },
@@ -32,8 +36,9 @@ const meta = {
 		},
 		focusEditorOnEscape: {
 			control: { type: 'boolean' },
-			description:
-				'Whether to focus back to editor when pressing escape.',
+			description: __(
+				'Whether to focus back to editor when pressing escape.'
+			),
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: false },
@@ -41,8 +46,9 @@ const meta = {
 		},
 		shouldUseKeyboardFocusShortcut: {
 			control: { type: 'boolean' },
-			description:
-				'Whether the toolbar should respond to keyboard focus shortcut (Alt+F10).',
+			description: __(
+				'Whether the toolbar should respond to keyboard focus shortcut (Alt+F10).'
+			),
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: true },
@@ -51,7 +57,7 @@ const meta = {
 		orientation: {
 			control: { type: 'select' },
 			options: [ 'horizontal', 'vertical' ],
-			description: 'The orientation of the toolbar.',
+			description: __( 'The orientation of the toolbar.' ),
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'horizontal' },
@@ -59,7 +65,7 @@ const meta = {
 		},
 		'aria-label': {
 			control: { type: 'text' },
-			description: 'Accessibility label for the toolbar.',
+			description: __( 'Accessibility label for the toolbar.' ),
 			table: {
 				type: { summary: 'string' },
 			},
@@ -70,7 +76,7 @@ const meta = {
 		focusEditorOnEscape: false,
 		shouldUseKeyboardFocusShortcut: true,
 		orientation: 'horizontal',
-		'aria-label': 'Toolbar',
+		'aria-label': __( 'Toolbar' ),
 	},
 };
 
@@ -80,9 +86,9 @@ export const Default = {
 	render: function Template( args ) {
 		return (
 			<NavigableToolbar { ...args }>
-				<Button variant="primary">Button 1</Button>
-				<Button>Button 2</Button>
-				<Button>Button 3</Button>
+				<Button variant="primary">{ __( 'Button 1' ) }</Button>
+				<Button>{ __( 'Button 2' ) }</Button>
+				<Button>{ __( 'Button 3' ) }</Button>
 			</NavigableToolbar>
 		);
 	},
@@ -92,10 +98,48 @@ export const VerticalOrientation = {
 	render: function Template( args ) {
 		return (
 			<NavigableToolbar { ...args } orientation="vertical">
-				<Button variant="primary">Button 1</Button>
-				<Button>Button 2</Button>
-				<Button>Button 3</Button>
+				<Button variant="primary">{ __( 'Button 1' ) }</Button>
+				<Button>{ __( 'Button 2' ) }</Button>
+				<Button>{ __( 'Button 3' ) }</Button>
 			</NavigableToolbar>
+		);
+	},
+};
+
+export const WithKeyboardNavigation = {
+	render: function Template( args ) {
+		return (
+			<div>
+				<p>
+					{ __(
+						'Press Alt+F10 to focus the toolbar. Use arrow keys to navigate between buttons.'
+					) }
+				</p>
+				<NavigableToolbar { ...args } shouldUseKeyboardFocusShortcut>
+					<Button variant="primary">{ __( 'Button 1' ) }</Button>
+					<Button>{ __( 'Button 2' ) }</Button>
+					<Button>{ __( 'Button 3' ) }</Button>
+				</NavigableToolbar>
+			</div>
+		);
+	},
+};
+
+export const WithEscapeBehavior = {
+	render: function Template( args ) {
+		return (
+			<div>
+				<p>
+					{ __(
+						'Focus the toolbar and press Escape to return focus to the editor.'
+					) }
+				</p>
+				<NavigableToolbar { ...args } focusEditorOnEscape>
+					<Button variant="primary">{ __( 'Button 1' ) }</Button>
+					<Button>{ __( 'Button 2' ) }</Button>
+					<Button>{ __( 'Button 3' ) }</Button>
+				</NavigableToolbar>
+			</div>
 		);
 	},
 };
