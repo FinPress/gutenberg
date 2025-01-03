@@ -6,6 +6,7 @@ import type * as ET from './entity-types';
 
 export type WPEntityTypes< C extends ET.Context = 'edit' > = {
 	Comment: ET.Comment< C >;
+	GlobalStyles: ET.GlobalStylesRevision< C >;
 	Media: ET.Attachment< C >;
 	Menu: ET.NavMenu< C >;
 	MenuItem: ET.NavMenuItem< C >;
@@ -32,7 +33,9 @@ export type WPEntityTypes< C extends ET.Context = 'edit' > = {
  * - "media" to "mediaItems"
  * - "status" to "statuses"
  */
-type PluralizeEntity< T extends string > = T extends 'Media'
+type PluralizeEntity< T extends string > = T extends 'GlobalStyles'
+	? 'GlobalStylesVariations'
+	: T extends 'Media'
 	? 'MediaItems'
 	: T extends 'Status'
 	? 'Statuses'
@@ -49,7 +52,9 @@ type PluralizeEntity< T extends string > = T extends 'Media'
  * - "mediaItems" to "media"
  * - "statuses" to "status"
  */
-type SingularizeEntity< T extends string > = T extends 'MediaItems'
+type SingularizeEntity< T extends string > = T extends 'GlobalStylesVariations'
+	? 'GlobalStyles'
+	: T extends 'MediaItems'
 	? 'Media'
 	: T extends 'Statuses'
 	? 'Status'
