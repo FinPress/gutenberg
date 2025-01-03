@@ -34,7 +34,7 @@ export type WPEntityTypes< C extends ET.Context = 'edit' > = {
  * - "status" to "statuses"
  */
 type PluralizeEntity< T extends string > = T extends 'GlobalStyles'
-	? 'GlobalStylesVariations'
+	? never
 	: T extends 'Media'
 	? 'MediaItems'
 	: T extends 'Status'
@@ -52,9 +52,7 @@ type PluralizeEntity< T extends string > = T extends 'GlobalStyles'
  * - "mediaItems" to "media"
  * - "statuses" to "status"
  */
-type SingularizeEntity< T extends string > = T extends 'GlobalStylesVariations'
-	? 'GlobalStyles'
-	: T extends 'MediaItems'
+type SingularizeEntity< T extends string > = T extends 'MediaItems'
 	? 'Media'
 	: T extends 'Statuses'
 	? 'Status'
