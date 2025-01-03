@@ -3,6 +3,7 @@
  */
 import type { Context, Updatable } from './helpers';
 import type { Attachment } from './attachment';
+import type { Base, TemplatePartArea, TemplateType } from './base';
 import type { Comment } from './comment';
 import type { GlobalStylesRevision } from './global-styles-revision';
 import type { MenuLocation } from './menu-location';
@@ -12,7 +13,6 @@ import type { Page } from './page';
 import type { Plugin } from './plugin';
 import type { Post } from './post';
 import type { PostStatusObject } from './post-status';
-import type { Base } from './base';
 import type { PostRevision } from './post-revision';
 import type { Settings } from './settings';
 import type { Sidebar } from './sidebar';
@@ -39,15 +39,17 @@ export type {
 	Page,
 	Plugin,
 	Post,
-	PostStatusObject,
 	PostRevision,
+	PostStatusObject,
 	Settings,
 	Sidebar,
 	Taxonomy,
+	TemplatePartArea,
+	TemplateType,
 	Theme,
+	Type,
 	Updatable,
 	User,
-	Type,
 	Widget,
 	WidgetType,
 	WpTemplate,

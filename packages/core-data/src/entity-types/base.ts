@@ -4,14 +4,14 @@
 import type { Context, OmitNevers } from './helpers';
 import type { BaseEntityRecords as _BaseEntityRecords } from './base-entity-records';
 
-type TemplatePartArea = {
+export type TemplatePartArea = {
 	area: string;
 	label: string;
 	icon: string;
 	description: string;
 };
 
-type TemplateType = {
+export type TemplateType = {
 	title: string;
 	description: string;
 	slug: string;

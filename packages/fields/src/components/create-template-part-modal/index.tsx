@@ -11,7 +11,7 @@ import {
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
-import type { UnstableBase } from '@wordpress/core-data';
+import type { TemplatePartArea } from '@wordpress/core-data';
 import { store as coreStore } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
@@ -129,7 +129,7 @@ export function CreateTemplatePartModalContents( {
 	const defaultTemplatePartAreas = useSelect(
 		( select ) =>
 			select( coreStore ).getEntityRecord< {
-				default_template_part_areas: UnstableBase[ 'default_template_part_areas' ];
+				default_template_part_areas: Array< TemplatePartArea >;
 			} >( 'root', '__unstableBase' )?.default_template_part_areas,
 		[]
 	);
