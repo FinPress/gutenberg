@@ -16,13 +16,10 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs' );
+const fs = require( 'fs/promises' );
 const path = require( 'path' );
-const { promisify } = require( 'util' );
-const cwd = require( 'cwd' );
-const merge = require( 'merge-deep' );
-
-const exists = promisify( fs.exists );
+const { deepmerge } = require( 'ts-deepmerge' );
+const { packageUp } = require( 'package-up' );
 
 const DEFAULT_CONFIG = {
 	launch: {},
@@ -30,7 +27,7 @@ const DEFAULT_CONFIG = {
 	browserContext: 'default',
 	exitOnPageError: true,
 };
-const DEFAULT_CONFIG_CI = merge( DEFAULT_CONFIG, {
+const DEFAULT_CONFIG_CI = deepmerge( DEFAULT_CONFIG, {
 	launch: {
 		args: [
 			'--no-sandbox',
@@ -49,22 +46,27 @@ async function readConfig() {
 	const hasCustomConfigPath = !! process.env.JEST_PUPPETEER_CONFIG;
 	const configPath =
 		process.env.JEST_PUPPETEER_CONFIG || 'jest-puppeteer.config.js';
-	const absConfigPath = path.resolve( cwd(), configPath );
-	const configExists = await exists( absConfigPath );
+	const packageJsonPath = await packageUp( { cwd: process.cwd() } );
+	const absConfigPath = path.resolve(
+		packageJsonPath ? path.dirname( packageJsonPath ) : process.cwd(),
+		configPath
+	);
 
-	if ( hasCustomConfigPath && ! configExists ) {
-		throw new Error(
-			`Error: Can't find a root directory while resolving a config file path.\nProvided path to resolve: ${ configPath }`
-		);
-	}
-
-	if ( ! hasCustomConfigPath && ! configExists ) {
+	try {
+		await fs.access( absConfigPath );
+	} catch {
+		if ( hasCustomConfigPath ) {
+			throw new Error(
+				`Error: Can't find a root directory while resolving a config file path.\nProvided path to resolve: ${ configPath }`
+			);
+		}
 		return defaultConfig;
 	}
 
-	const localConfig = await require( absConfigPath );
-	return merge( {}, defaultConfig, localConfig );
+	const localConfig = require( absConfigPath );
+	return deepmerge( {}, defaultConfig, localConfig );
 }
+
 // TODO: puppeteer now supports FireFox, this needs updating: https://hacks.mozilla.org/2024/08/puppeteer-support-for-firefox/
 function getPuppeteer( { browser } ) {
 	switch ( browser.toLowerCase() ) {

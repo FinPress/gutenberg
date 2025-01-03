@@ -211,7 +211,12 @@ const baseConfig = {
 			{
 				test: /\.svg$/,
 				issuer: /\.([jt])sx?$/,
-				use: [ '@svgr/webpack', 'url-loader' ],
+				use: [
+					'@svgr/webpack',
+					{
+						loader: 'asset/inline',
+					},
+				],
 				type: 'javascript/auto',
 			},
 			{
