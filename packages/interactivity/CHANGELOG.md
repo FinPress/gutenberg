@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+## 6.15.0 (2025-01-02)
+
+### Enhancements
+
+-   Allow more iterables to be used in each directives ([#67798](https://github.com/WordPress/gutenberg/pull/67798)).
+
+### Bug Fixes
+
+-   Fix an error when the value used in an each directive is not iterable ([#67798](https://github.com/WordPress/gutenberg/pull/67798)).
+
+## 6.14.0 (2024-12-11)
+
+## 6.13.0 (2024-11-27)
+
+## 6.12.0 (2024-11-16)
+
+### Bug Fixes
+
+-   Fix property modification from inherited context two or more levels above ([#66872](https://github.com/WordPress/gutenberg/pull/66872)).
+
+## 6.11.0 (2024-10-30)
+
 ### Bug Fixes
 
 -   Fix reactivity of undefined objects and arrays added with `deepMerge()` ([#66183](https://github.com/WordPress/gutenberg/pull/66183)).

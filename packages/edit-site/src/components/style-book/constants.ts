@@ -108,6 +108,11 @@ export const STYLE_BOOK_THEME_SUBCATEGORIES: Omit<
 
 export const STYLE_BOOK_CATEGORIES: StyleBookCategory[] = [
 	{
+		slug: 'overview',
+		title: __( 'Overview' ),
+		blocks: [],
+	},
+	{
 		slug: 'text',
 		title: __( 'Text' ),
 		blocks: [
@@ -143,6 +148,62 @@ export const STYLE_BOOK_CATEGORIES: StyleBookCategory[] = [
 	},
 ];
 
+// Style book preview subcategories for all blocks section.
+export const STYLE_BOOK_ALL_BLOCKS_SUBCATEGORIES: StyleBookCategory[] = [
+	...STYLE_BOOK_THEME_SUBCATEGORIES,
+	{
+		slug: 'media',
+		title: __( 'Media' ),
+		blocks: [ 'core/post-featured-image' ],
+	},
+	{
+		slug: 'widgets',
+		title: __( 'Widgets' ),
+		blocks: [],
+	},
+	{
+		slug: 'embed',
+		title: __( 'Embeds' ),
+		include: [],
+	},
+];
+
+// Style book preview categories are organised slightly differently to the editor ones.
+export const STYLE_BOOK_PREVIEW_CATEGORIES: StyleBookCategory[] = [
+	{
+		slug: 'overview',
+		title: __( 'Overview' ),
+		blocks: [],
+	},
+	{
+		slug: 'text',
+		title: __( 'Text' ),
+		blocks: [
+			'core/post-content',
+			'core/home-link',
+			'core/navigation-link',
+		],
+	},
+	{
+		slug: 'colors',
+		title: __( 'Colors' ),
+		blocks: [],
+	},
+	{
+		slug: 'blocks',
+		title: __( 'All Blocks' ),
+		blocks: [],
+		subcategories: STYLE_BOOK_ALL_BLOCKS_SUBCATEGORIES,
+	},
+];
+
+// Forming a "block formatting context" to prevent margin collapsing.
+// @see https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context
+const ROOT_CONTAINER = `
+	.is-root-container {
+		display: flow-root;
+	}
+`;
 // The content area of the Style Book is rendered within an iframe so that global styles
 // are applied to elements within the entire content area. To support elements that are
 // not part of the block previews, such as headings and layout for the block previews,
@@ -151,16 +212,12 @@ export const STYLE_BOOK_CATEGORIES: StyleBookCategory[] = [
 // applied to the `button` element, targeted via `.edit-site-style-book__example`.
 // This is to ensure that browser default styles for buttons are not applied to the previews.
 export const STYLE_BOOK_IFRAME_STYLES = `
-	// Forming a "block formatting context" to prevent margin collapsing.
-	// @see https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context
-	.is-root-container {
-		display: flow-root;
-	}
-
 	body {
 		position: relative;
 		padding: 32px !important;
 	}
+
+	${ ROOT_CONTAINER }
 
 	.edit-site-style-book__examples {
 		max-width: 1200px;
@@ -208,39 +265,30 @@ export const STYLE_BOOK_IFRAME_STYLES = `
 	}
 	.edit-site-style-book__duotone-example > div:not(:first-child) {
 		height: 20px;
-		border: 1px solid #ddd;
+		border: 1px solid color-mix( in srgb, currentColor 10%, transparent );
 	}
 
 	.edit-site-style-book__color-example {
-		height: 52px;
-		border: 1px solid #ddd;
-	}
-
-	.edit-site-style-book__examples.is-wide .edit-site-style-book__example {
-		flex-direction: row;
+		border: 1px solid color-mix( in srgb, currentColor 10%, transparent );
 	}
 
 	.edit-site-style-book__subcategory-title,
 	.edit-site-style-book__example-title {
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-		font-size: 11px;
-		font-weight: 500;
+		font-size: 13px;
+		font-weight: normal;
 		line-height: normal;
 		margin: 0;
 		text-align: left;
-		text-transform: uppercase;
+		padding-top: 8px;
+		border-top: 1px solid color-mix( in srgb, currentColor 10%, transparent );
+		color: color-mix( in srgb, currentColor 60%, transparent );
 	}
 
 	.edit-site-style-book__subcategory-title {
 		font-size: 16px;
 		margin-bottom: 40px;
-    	border-bottom: 1px solid #ddd;
     	padding-bottom: 8px;
-	}
-
-	.edit-site-style-book__examples.is-wide .edit-site-style-book__example-title {
-		text-align: right;
-		width: 120px;
 	}
 
 	.edit-site-style-book__example-preview {
@@ -251,11 +299,10 @@ export const STYLE_BOOK_IFRAME_STYLES = `
 	.edit-site-style-book__example-preview .block-list-appender {
 		display: none;
 	}
-
-	.edit-site-style-book__example-preview .is-root-container > .wp-block:first-child {
+	:where(.is-root-container > .wp-block:first-child) {
 		margin-top: 0;
 	}
-	.edit-site-style-book__example-preview .is-root-container > .wp-block:last-child {
+	:where(.is-root-container > .wp-block:last-child) {
 		margin-bottom: 0;
 	}
 `;

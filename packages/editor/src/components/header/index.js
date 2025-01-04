@@ -25,6 +25,12 @@ import PostViewLink from '../post-view-link';
 import PreviewDropdown from '../preview-dropdown';
 import ZoomOutToggle from '../zoom-out-toggle';
 import { store as editorStore } from '../../store';
+import {
+	TEMPLATE_PART_POST_TYPE,
+	PATTERN_POST_TYPE,
+	NAVIGATION_POST_TYPE,
+} from '../../store/constants';
+import { unlock } from '../../lock-unlock';
 
 const toolbarVariations = {
 	distractionFreeDisabled: { y: '-50px' },
@@ -48,7 +54,6 @@ function Header( {
 	forceDisableBlockTools,
 	setEntitiesSavedStatesCallback,
 	title,
-	isEditorIframed,
 } ) {
 	const isWideViewport = useViewportMatch( 'large' );
 	const isLargeViewport = useViewportMatch( 'medium' );
@@ -60,12 +65,10 @@ function Header( {
 		showIconLabels,
 		hasFixedToolbar,
 		hasBlockSelection,
-		isNestedEntity,
 	} = useSelect( ( select ) => {
 		const { get: getPreference } = select( preferencesStore );
 		const {
 			getEditorMode,
-			getEditorSettings,
 			getCurrentPostType,
 			isPublishSidebarOpened: _isPublishSidebarOpened,
 		} = select( editorStore );
@@ -78,8 +81,6 @@ function Header( {
 			hasFixedToolbar: getPreference( 'core', 'fixedToolbar' ),
 			hasBlockSelection:
 				!! select( blockEditorStore ).getBlockSelectionStart(),
-			isNestedEntity:
-				!! getEditorSettings().onNavigateToPreviousEntityRecord,
 		};
 	}, [] );
 
@@ -87,13 +88,28 @@ function Header( {
 		postType
 	);
 
+	const disablePreviewOption = [
+		NAVIGATION_POST_TYPE,
+		TEMPLATE_PART_POST_TYPE,
+		PATTERN_POST_TYPE,
+	].includes( postType );
+
 	const [ isBlockToolsCollapsed, setIsBlockToolsCollapsed ] =
 		useState( true );
 
 	const hasCenter =
-		( ! hasBlockSelection || isBlockToolsCollapsed ) &&
-		! isTooNarrowForDocumentBar;
+		! isTooNarrowForDocumentBar &&
+		( ! hasFixedToolbar ||
+			( hasFixedToolbar &&
+				( ! hasBlockSelection || isBlockToolsCollapsed ) ) );
 	const hasBackButton = useHasBackButton();
+
+	const hasSectionRootClientId = useSelect(
+		( select ) =>
+			!! unlock( select( blockEditorStore ) ).getSectionRootClientId(),
+		[]
+	);
+
 	/*
 	 * The edit-post-header classname is only kept for backward compatability
 	 * as some plugins might be relying on its presence.
@@ -149,19 +165,23 @@ function Header( {
 					<PostSavedState forceIsDirty={ forceIsDirty } />
 				) }
 
-				{ canBeZoomedOut && isEditorIframed && isWideViewport && (
-					<ZoomOutToggle disabled={ forceDisableBlockTools } />
-				) }
+				<PostViewLink />
 
 				<PreviewDropdown
 					forceIsAutosaveable={ forceIsDirty }
-					disabled={ isNestedEntity }
+					disabled={ disablePreviewOption }
 				/>
+
 				<PostPreviewButton
 					className="editor-header__post-preview-button"
 					forceIsAutosaveable={ forceIsDirty }
 				/>
-				<PostViewLink />
+
+				{ canBeZoomedOut &&
+					isWideViewport &&
+					hasSectionRootClientId && (
+						<ZoomOutToggle disabled={ forceDisableBlockTools } />
+					) }
 
 				{ ( isWideViewport || ! showIconLabels ) && (
 					<PinnedItems.Slot scope="core" />
