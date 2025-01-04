@@ -5,7 +5,7 @@ const AdmZip = require( 'adm-zip' );
 const { sync: glob } = require( 'fast-glob' );
 const { sync: packlist } = require( 'npm-packlist' );
 const { dirname } = require( 'path' );
-const { stdout } = require( 'process' );
+const { stdout } = require( 'node:process' );
 
 /**
  * Internal dependencies

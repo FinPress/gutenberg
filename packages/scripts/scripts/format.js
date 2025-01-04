@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-const { exit, stdout } = require( 'process' );
+const { exit, stdout } = require( 'node:process' );
 
 /**
  * External dependencies
