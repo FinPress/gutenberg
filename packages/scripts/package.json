@@ -78,7 +78,7 @@
 		"prettier": "npm:wp-prettier@3.0.3",
 		"puppeteer-core": "^23.11.1",
 		"react-refresh": "^0.16.0",
-		"read-package-up": "npm:@smushytaco/read-package-up@^1.0.1",
+		"read-package-up": "npm:@smushytaco/read-package-up@^1.0.2",
 		"resolve-bin": "^1.0.1",
 		"rtlcss-webpack-plugin": "npm:@smushytaco/rtlcss-webpack-plugin@^1.0.7",
 		"sass": "^1.83.1",
