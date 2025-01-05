@@ -1,7 +1,12 @@
 /**
+ * External dependencies
+ */
+const importSync = require( 'import-sync' );
+
+/**
  * Internal dependencies
  */
-const { hasBabelConfig } = require( '../utils' );
+const { hasBabelConfig } = importSync( '../utils/config.js' );
 
 const eslintConfig = {
 	root: true,
