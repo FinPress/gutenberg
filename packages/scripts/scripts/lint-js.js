@@ -32,7 +32,7 @@ const hasLintConfig =
 // provided with the scripts module. Instruct ESLint to avoid discovering via
 // the `--no-eslintrc` flag, as otherwise it will still merge with inherited.
 const defaultConfigArgs = ! hasLintConfig
-	? [ '--no-eslintrc', '--config', fromConfigRoot( '.eslintrc.js' ) ]
+	? [ '--no-eslintrc', '--config', fromConfigRoot( '.eslintrc.cjs' ) ]
 	: [];
 
 // See: https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories.
