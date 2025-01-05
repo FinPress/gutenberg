@@ -2,13 +2,13 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs' );
-const spawn = require( 'cross-spawn' );
+import fs from 'fs';
+import spawn from 'cross-spawn';
 
 /**
  * Internal dependencies
  */
-const { getArgFromCLI } = require( '../utils' );
+import { getArgFromCLI } from '../utils/cli.js';
 
 /**
  * Constants

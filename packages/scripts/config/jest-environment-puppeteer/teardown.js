@@ -1,1 +1,2 @@
-module.exports = require( './global' ).teardown;
+import { teardown } from './global.js';
+export default teardown;

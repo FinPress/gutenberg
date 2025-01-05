@@ -1,16 +1,18 @@
 /**
  * External dependencies
  */
-const AdmZip = require( 'adm-zip' );
-const { sync: glob } = require( 'fast-glob' );
-const { sync: packlist } = require( 'npm-packlist' );
-const { dirname } = require( 'path' );
-const { stdout } = require( 'node:process' );
+import Arborist from '@npmcli/arborist';
+import AdmZip from 'adm-zip';
+import glob from 'fast-glob';
+import packlist from 'npm-packlist';
+import { dirname } from 'path';
+import { stdout } from 'node:process';
 
 /**
  * Internal dependencies
  */
-const { hasPackageProp, getPackageProp, getArgFromCLI } = require( '../utils' );
+import { hasPackageProp, getPackageProp } from '../utils/package.js';
+import { getArgFromCLI } from '../utils/cli.js';
 
 const name = getPackageProp( 'name' );
 stdout.write( `Creating archive for \`${ name }\` plugin... 🎁\n\n` );
@@ -24,13 +26,15 @@ if ( hasPackageProp( 'files' ) ) {
 	stdout.write(
 		'Using the `files` field from `package.json` to detect files:\n\n'
 	);
-	files = packlist();
+	const arborist = new Arborist( { path: process.cwd() } );
+	const tree = await arborist.loadActual();
+	files = await packlist( tree, { path: process.cwd() } );
 } else {
 	stdout.write(
 		'Using Plugin Handbook best practices to discover files:\n\n'
 	);
 	// See https://developer.wordpress.org/plugins/plugin-basics/best-practices/#file-organization.
-	files = glob(
+	files = glob.sync(
 		[
 			'admin/**',
 			'build/**',

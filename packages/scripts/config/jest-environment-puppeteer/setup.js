@@ -1,1 +1,2 @@
-module.exports = require( './global' ).setup;
+import { setup } from './global.js';
+export default setup;

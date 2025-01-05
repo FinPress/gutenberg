@@ -16,16 +16,16 @@
 /**
  * External dependencies
  */
-const path = require( 'path' );
-const { writeFile, mkdir } = require( 'fs' ).promises;
-const filenamify = require( 'filenamify' );
-const NodeEnvironment = require( 'jest-environment-node' ).default;
-const pc = require( 'picocolors' );
+import path from 'path';
+import { writeFile, mkdir } from 'fs/promises';
+import filenamify from 'filenamify';
+import NodeEnvironment from 'jest-environment-node';
+import pc from 'picocolors';
 
 /**
  * Internal dependencies
  */
-const { readConfig, getPuppeteer } = require( './config' );
+import { readConfig, getPuppeteer } from './config.js';
 
 const handleError = ( error ) => {
 	// To match the same behavior in jest-jasmine2:
@@ -216,4 +216,4 @@ class PuppeteerEnvironment extends NodeEnvironment {
 	}
 }
 
-module.exports = PuppeteerEnvironment;
+export default PuppeteerEnvironment;

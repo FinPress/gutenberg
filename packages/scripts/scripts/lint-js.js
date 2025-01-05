@@ -1,20 +1,16 @@
 /**
  * External dependencies
  */
-const { sync: spawn } = require( 'cross-spawn' );
-const { sync: resolveBin } = require( 'resolve-bin' );
+import spawn from 'cross-spawn';
+import { resolveBinSync } from 'resolve-bin';
 
 /**
  * Internal dependencies
  */
-const {
-	fromConfigRoot,
-	getArgsFromCLI,
-	hasArgInCLI,
-	hasFileArgInCLI,
-	hasPackageProp,
-	hasProjectFile,
-} = require( '../utils' );
+import { fromConfigRoot, hasProjectFile } from '../utils/file.js';
+import { getArgsFromCLI } from '../utils/process.js';
+import { hasArgInCLI, hasFileArgInCLI } from '../utils/cli.js';
+import { hasPackageProp } from '../utils/package.js';
 
 const args = getArgsFromCLI();
 
@@ -51,8 +47,8 @@ const defaultExtArgs = hasArgInCLI( '--ext' )
 	? []
 	: [ '--ext', 'js,jsx,ts,tsx' ];
 
-const result = spawn(
-	resolveBin( 'eslint' ),
+const result = spawn.sync(
+	resolveBinSync( 'eslint' ),
 	[
 		...defaultConfigArgs,
 		...defaultIgnoreArgs,

@@ -1,13 +1,14 @@
 /**
  * External dependencies
  */
-const { sync: spawn } = require( 'cross-spawn' );
-const { sync: resolveBin } = require( 'resolve-bin' );
+import spawn from 'cross-spawn';
+import { resolveBinSync } from 'resolve-bin';
 
 /**
  * Internal dependencies
  */
-const { getWebpackArgs, hasArgInCLI } = require( '../utils' );
+import { getWebpackArgs } from '../utils/config.js';
+import { hasArgInCLI } from '../utils/cli.js';
 const EXIT_ERROR_CODE = 1;
 
 const webpackArgs = getWebpackArgs();
@@ -17,7 +18,7 @@ if ( hasArgInCLI( '--hot' ) ) {
 	webpackArgs.unshift( 'watch' );
 }
 
-const { status } = spawn( resolveBin( 'webpack' ), webpackArgs, {
+const { status } = spawn.sync( resolveBinSync( 'webpack' ), webpackArgs, {
 	stdio: 'inherit',
 } );
 process.exit( status === null ? EXIT_ERROR_CODE : status );

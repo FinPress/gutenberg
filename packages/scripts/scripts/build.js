@@ -1,18 +1,18 @@
 /**
  * External dependencies
  */
-const { sync: spawn } = require( 'cross-spawn' );
-const { sync: resolveBin } = require( 'resolve-bin' );
+import spawn from 'cross-spawn';
+import { resolveBinSync } from 'resolve-bin';
 
 /**
  * Internal dependencies
  */
-const { getWebpackArgs } = require( '../utils' );
+import { getWebpackArgs } from '../utils/config.js';
 const EXIT_ERROR_CODE = 1;
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
-const { status } = spawn( resolveBin( 'webpack' ), getWebpackArgs(), {
+const { status } = spawn.sync( resolveBinSync( 'webpack' ), getWebpackArgs(), {
 	stdio: 'inherit',
 } );
 process.exit( status === null ? EXIT_ERROR_CODE : status );

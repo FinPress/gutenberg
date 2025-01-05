@@ -1,8 +1,11 @@
 /**
  * External dependencies
  */
-const pc = require( 'picocolors' );
-const { existsSync, readFileSync } = require( 'node:fs' );
+import pc from 'picocolors';
+import { existsSync, readFileSync } from 'node:fs';
+// TODO: Remove this once https://nodejs.org/api/esm.html#importmetaresolvespecifier is stable.
+import { createRequire } from 'module';
+const require = createRequire( import.meta.url );
 
 const ERROR_TEXT = pc.reset( pc.inverse( pc.bold( pc.red( ' ERROR ' ) ) ) );
 const WARNING_TEXT = pc.reset(
@@ -372,8 +375,4 @@ function detectTypeFromLicenseFiles( path ) {
 	}, false );
 }
 
-module.exports = {
-	detectTypeFromLicenseText,
-	checkAllCompatible,
-	checkDepsInTree,
-};
+export { detectTypeFromLicenseText, checkAllCompatible, checkDepsInTree };

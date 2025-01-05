@@ -35,7 +35,4 @@ function getBlockJsonScriptFields( blockJson ) {
 	return result;
 }
 
-module.exports = {
-	getBlockJsonModuleFields,
-	getBlockJsonScriptFields,
-};
+export { getBlockJsonModuleFields, getBlockJsonScriptFields };

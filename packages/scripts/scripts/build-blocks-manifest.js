@@ -1,16 +1,16 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs' );
-const path = require( 'path' );
-const { sync: glob } = require( 'fast-glob' );
-const json2php = require( 'json2php' );
-const pc = require( 'picocolors' );
+import fs from 'fs';
+import path from 'path';
+import glob from 'fast-glob';
+import json2php from 'json2php';
+import pc from 'picocolors';
 
 /**
  * Internal dependencies
  */
-const { getArgFromCLI } = require( '../utils' );
+import { getArgFromCLI } from '../utils/cli.js';
 
 // Set default paths
 const defaultInputDir = 'build';
@@ -30,7 +30,7 @@ if ( ! fs.existsSync( resolvedInputDir ) ) {
 }
 
 // Find all block.json files
-const blockJsonFiles = glob( './**/block.json', {
+const blockJsonFiles = glob.sync( './**/block.json', {
 	cwd: resolvedInputDir,
 	absolute: true,
 } );

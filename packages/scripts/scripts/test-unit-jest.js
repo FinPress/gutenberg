@@ -12,12 +12,16 @@ process.on( 'unhandledRejection', ( err ) => {
 /**
  * External dependencies
  */
-const jest = require( 'jest' );
+import jest from 'jest';
+// TODO: Remove this once https://nodejs.org/api/esm.html#importmetaresolvespecifier is stable.
+import { createRequire } from 'module';
+const require = createRequire( import.meta.url );
 
 /**
  * Internal dependencies
  */
-const { getJestOverrideConfigFile, getArgsFromCLI } = require( '../utils' );
+import { getJestOverrideConfigFile } from '../utils/config.js';
+import { getArgsFromCLI } from '../utils/process.js';
 
 const configFile = getJestOverrideConfigFile( 'unit' );
 

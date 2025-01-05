@@ -1,13 +1,15 @@
 /**
  * External dependencies
  */
-const { sync: spawn } = require( 'cross-spawn' );
-const { sync: resolveBin } = require( 'resolve-bin' );
+import spawn from 'cross-spawn';
+import { resolveBinSync } from 'resolve-bin';
 
 /**
  * Internal dependencies
  */
-const { getArgsFromCLI, hasArgInCLI, getPackageProp } = require( '../utils' );
+import { getArgsFromCLI } from '../utils/process.js';
+import { hasArgInCLI } from '../utils/cli.js';
+import { getPackageProp } from '../utils/package.js';
 
 const getConfig = () => {
 	const hasConfig =
@@ -25,8 +27,8 @@ const getConfig = () => {
 	return [ '--node', node, '--npm', npm ];
 };
 
-const result = spawn(
-	resolveBin( 'check-node-version' ),
+const result = spawn.sync(
+	resolveBinSync( 'check-node-version' ),
 	[ ...getConfig(), ...getArgsFromCLI() ],
 	{
 		stdio: 'inherit',

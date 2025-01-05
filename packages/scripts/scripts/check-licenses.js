@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-const spawn = require( 'cross-spawn' );
+import spawn from 'cross-spawn';
 
 /**
  * Internal dependencies
  */
-const { getArgFromCLI, hasArgInCLI } = require( '../utils' );
-const { checkDepsInTree } = require( '../utils/license' );
+import { getArgFromCLI, hasArgInCLI } from '../utils/cli.js';
+import { checkDepsInTree } from '../utils/license.js';
 
 /*
  * WARNING: Changes to this file may inadvertently cause us to distribute code that

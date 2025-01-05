@@ -23,5 +23,5 @@ if ( ! hasBabelConfig() ) {
 		},
 	};
 }
-
+// TODO: Update this ESLint 9 so ESM modules can be used with a eslint.config.mjs
 module.exports = eslintConfig;

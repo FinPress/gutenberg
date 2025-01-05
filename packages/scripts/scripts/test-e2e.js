@@ -12,25 +12,28 @@ process.on( 'unhandledRejection', ( err ) => {
 /**
  * External dependencies
  */
-const path = require( 'path' );
-const jest = require( 'jest' );
-const { sync: spawn } = require( 'cross-spawn' );
+import path from 'path';
+import jest from 'jest';
+import spawn from 'cross-spawn';
+// TODO: Remove this once https://nodejs.org/api/esm.html#importmetaresolvespecifier is stable.
+import { createRequire } from 'module';
+const require = createRequire( import.meta.url );
 
 /**
  * Internal dependencies
  */
-const {
-	getJestOverrideConfigFile,
-	fromConfigRoot,
-	getArgFromCLI,
-	getArgsFromCLI,
-	hasArgInCLI,
-	hasProjectFile,
-} = require( '../utils' );
+import { getJestOverrideConfigFile } from '../utils/config.js';
+import { fromConfigRoot, hasProjectFile } from '../utils/file.js';
+import { getArgFromCLI, hasArgInCLI } from '../utils/cli.js';
+import { getArgsFromCLI } from '../utils/process.js';
 
-const result = spawn( 'node', [ require.resolve( 'puppeteer-core/install' ) ], {
-	stdio: 'inherit',
-} );
+const result = spawn.sync(
+	'node',
+	[ require.resolve( 'puppeteer-core/install' ) ],
+	{
+		stdio: 'inherit',
+	}
+);
 
 if ( result.status > 0 ) {
 	process.exit( result.status );

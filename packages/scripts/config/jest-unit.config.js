@@ -1,12 +1,14 @@
 /**
  * External dependencies
  */
-const path = require( 'path' );
-
+import { fileURLToPath } from 'url';
+import path from 'path';
 /**
  * Internal dependencies
  */
-const { hasBabelConfig } = require( '../utils' );
+import { hasBabelConfig } from '../utils/config.js';
+
+const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
 
 const jestUnitConfig = {
 	preset: '@wordpress/jest-preset-default',
@@ -22,4 +24,4 @@ if ( ! hasBabelConfig() ) {
 	};
 }
 
-module.exports = jestUnitConfig;
+export default jestUnitConfig;

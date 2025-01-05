@@ -1,1 +1,4 @@
-require( './test-unit-jest' );
+/**
+ * Internal dependencies
+ */
+import './test-unit-jest';

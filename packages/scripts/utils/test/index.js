@@ -2,29 +2,30 @@
  * External dependencies
  */
 import crossSpawn from 'cross-spawn';
+import { fileURLToPath } from 'url';
+import thePath from 'path';
+
+const __dirname = thePath.dirname( fileURLToPath( import.meta.url ) );
 
 /**
  * Internal dependencies
  */
-import {
-	hasArgInCLI,
-	hasProjectFile,
-	getJestOverrideConfigFile,
-	spawnScript,
-} from '../';
+import { hasArgInCLI, spawnScript } from '../cli.js';
+import { getJestOverrideConfigFile } from '../config.js';
 import {
 	getPackagePath as getPackagePathMock,
 	hasPackageProp as hasPackagePropMock,
-} from '../package';
+} from '../package.js';
 import {
 	exit as exitMock,
 	getArgsFromCLI as getArgsFromCLIMock,
-} from '../process';
+} from '../process.js';
 import {
+	hasProjectFile,
 	hasProjectFile as hasProjectFileMock,
 	fromProjectRoot as fromProjectRootMock,
 	fromConfigRoot as fromConfigRootMock,
-} from '../file';
+} from '../file.js';
 
 jest.mock( '../package', () => {
 	const module = jest.requireActual( '../package' );

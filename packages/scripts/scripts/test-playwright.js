@@ -12,22 +12,21 @@ process.on( 'unhandledRejection', ( err ) => {
 /**
  * External dependencies
  */
-const { resolve } = require( 'node:path' );
-const { sync: spawn } = require( 'cross-spawn' );
+import { resolve } from 'node:path';
+import spawn from 'cross-spawn';
+// TODO: Remove this once https://nodejs.org/api/esm.html#importmetaresolvespecifier is stable.
+import { createRequire } from 'module';
+const require = createRequire( import.meta.url );
 
 /**
  * Internal dependencies
  */
-const {
-	fromConfigRoot,
-	hasProjectFile,
-	hasArgInCLI,
-	getArgsFromCLI,
-	getAsBooleanFromENV,
-} = require( '../utils' );
+import { fromConfigRoot, hasProjectFile } from '../utils/file.js';
+import { hasArgInCLI } from '../utils/cli.js';
+import { getArgsFromCLI, getAsBooleanFromENV } from '../utils/process.js';
 
 if ( ! getAsBooleanFromENV( 'PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD' ) ) {
-	const result = spawn( 'npx', [ 'playwright', 'install' ], {
+	const result = spawn.sync( 'npx', [ 'playwright', 'install' ], {
 		stdio: 'inherit',
 	} );
 
@@ -51,7 +50,7 @@ if ( ! process.env.WP_ARTIFACTS_PATH ) {
 	);
 }
 
-const testResult = spawn(
+const testResult = spawn.sync(
 	'node',
 	[
 		require.resolve( '@playwright/test/cli' ),

@@ -16,10 +16,13 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs/promises' );
-const path = require( 'path' );
-const { deepmerge } = require( 'ts-deepmerge' );
-const { packageUp } = require( 'package-up' );
+import fs from 'fs/promises';
+import path from 'path';
+import { merge } from 'ts-deepmerge';
+import { packageUp } from 'package-up';
+
+import { createRequire } from 'module';
+const require = createRequire( import.meta.url );
 
 const DEFAULT_CONFIG = {
 	launch: {},
@@ -27,7 +30,7 @@ const DEFAULT_CONFIG = {
 	browserContext: 'default',
 	exitOnPageError: true,
 };
-const DEFAULT_CONFIG_CI = deepmerge( DEFAULT_CONFIG, {
+const DEFAULT_CONFIG_CI = merge( DEFAULT_CONFIG, {
 	launch: {
 		args: [
 			'--no-sandbox',
@@ -64,7 +67,7 @@ async function readConfig() {
 	}
 
 	const localConfig = require( absConfigPath );
-	return deepmerge( {}, defaultConfig, localConfig );
+	return merge( {}, defaultConfig, localConfig );
 }
 
 // TODO: puppeteer now supports FireFox, this needs updating: https://hacks.mozilla.org/2024/08/puppeteer-support-for-firefox/
@@ -81,7 +84,4 @@ function getPuppeteer( { browser } ) {
 	}
 }
 
-module.exports = {
-	readConfig,
-	getPuppeteer,
-};
+export { readConfig, getPuppeteer };

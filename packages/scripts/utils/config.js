@@ -1,26 +1,26 @@
 /**
  * External dependencies
  */
-const { readFileSync } = require( 'fs' );
-const { basename, dirname, extname, join, sep } = require( 'path' );
-const { sync: glob } = require( 'fast-glob' );
+import { readFileSync } from 'fs';
+import { basename, dirname, extname, join, sep } from 'path';
+import glob from 'fast-glob';
 
 /**
  * Internal dependencies
  */
-const {
+import {
 	getArgFromCLI,
 	getArgsFromCLI,
 	getFileArgsFromCLI,
 	hasArgInCLI,
 	hasFileArgInCLI,
-} = require( './cli' );
-const { fromConfigRoot, fromProjectRoot, hasProjectFile } = require( './file' );
-const { hasPackageProp } = require( './package' );
-const {
+} from './cli.js';
+import { fromConfigRoot, fromProjectRoot, hasProjectFile } from './file.js';
+import { hasPackageProp } from './package.js';
+import {
 	getBlockJsonModuleFields,
 	getBlockJsonScriptFields,
-} = require( './block-json' );
+} from './block-json.js';
 
 const { warn } = console;
 
@@ -198,7 +198,7 @@ const getWebpackArgs = () => {
 	}
 
 	if ( ! hasWebpackConfig() ) {
-		webpackArgs.push( '--config', fromConfigRoot( 'webpack.config.js' ) );
+		webpackArgs.push( '--config', fromConfigRoot( 'webpack.config.mjs' ) );
 	}
 
 	return webpackArgs;
@@ -247,7 +247,7 @@ function getWebpackEntryPoints( buildType ) {
 
 		// 2. Checks whether any block metadata files can be detected in the defined source directory.
 		//    It scans all discovered files, looks for JavaScript assets, and converts them to entry points.
-		const blockMetadataFiles = glob( '**/block.json', {
+		const blockMetadataFiles = glob.sync( '**/block.json', {
 			absolute: true,
 			cwd: fromProjectRoot( getProjectSourcePath() ),
 		} );
@@ -316,7 +316,7 @@ function getWebpackEntryPoints( buildType ) {
 						.replace( /\\/g, '/' );
 
 					// Detects the proper file extension used in the defined source directory.
-					const [ entryFilepath ] = glob(
+					const [ entryFilepath ] = glob.sync(
 						`${ entryName }.?(m)[jt]s?(x)`,
 						{
 							absolute: true,
@@ -353,7 +353,7 @@ function getWebpackEntryPoints( buildType ) {
 
 		// 3. Checks whether a standard file name can be detected in the defined source directory,
 		//    and converts the discovered file to entry point.
-		const [ entryFile ] = glob( 'index.[jt]s?(x)', {
+		const [ entryFile ] = glob.sync( 'index.[jt]s?(x)', {
 			absolute: true,
 			cwd: fromProjectRoot( getProjectSourcePath() ),
 		} );
@@ -385,7 +385,7 @@ function getPhpFilePaths( context, props ) {
 	}
 
 	// Checks whether any block metadata files can be detected in the defined source directory.
-	const blockMetadataFiles = glob( '**/block.json', {
+	const blockMetadataFiles = glob.sync( '**/block.json', {
 		absolute: true,
 		cwd: fromProjectRoot( context ),
 	} );
@@ -440,7 +440,7 @@ function getPhpFilePaths( context, props ) {
 	} );
 }
 
-module.exports = {
+export {
 	getJestOverrideConfigFile,
 	getPhpFilePaths,
 	getProjectSourcePath,

@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-const { request } = require( '@playwright/test' );
+import { request } from '@playwright/test';
 
 /**
  * WordPress dependencies
  */
-const { RequestUtils } = require( '@wordpress/e2e-test-utils-playwright' );
+import { RequestUtils } from '@wordpress/e2e-test-utils-playwright';
 
 /**
  *

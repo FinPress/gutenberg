@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-const pc = require( 'picocolors' );
+import pc from 'picocolors';
 
 process.stdout.write(
 	pc.yellow(

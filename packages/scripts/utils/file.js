@@ -1,13 +1,15 @@
 /**
  * External dependencies
  */
-const { existsSync, readdirSync } = require( 'fs' );
-const path = require( 'path' );
+import { existsSync, readdirSync } from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
+const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
 /**
  * Internal dependencies
  */
-const { getPackagePath } = require( './package' );
+import { getPackagePath } from './package.js';
 
 const fromProjectRoot = ( fileName ) =>
 	path.join( path.dirname( getPackagePath() ), fileName );
@@ -29,7 +31,7 @@ const getScripts = () =>
 		.filter( ( f ) => path.extname( f ) === '.js' )
 		.map( ( f ) => path.basename( f, '.js' ) );
 
-module.exports = {
+export {
 	fromProjectRoot,
 	fromConfigRoot,
 	fromScriptsRoot,

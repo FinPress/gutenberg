@@ -1,20 +1,16 @@
 /**
  * External dependencies
  */
-const { sync: spawn } = require( 'cross-spawn' );
-const { sync: resolveBin } = require( 'resolve-bin' );
+import spawn from 'cross-spawn';
+import { resolveBinSync } from 'resolve-bin';
 
 /**
  * Internal dependencies
  */
-const {
-	fromConfigRoot,
-	getArgsFromCLI,
-	hasArgInCLI,
-	hasFileArgInCLI,
-	hasProjectFile,
-	hasPackageProp,
-} = require( '../utils' );
+import { fromConfigRoot, hasProjectFile } from '../utils/file.js';
+import { getArgsFromCLI } from '../utils/process.js';
+import { hasArgInCLI, hasFileArgInCLI } from '../utils/cli.js';
+import { hasPackageProp } from '../utils/package.js';
 
 const args = getArgsFromCLI();
 
@@ -43,8 +39,8 @@ const defaultIgnoreArgs = ! hasIgnoredFiles
 	? [ '--ignore-path', fromConfigRoot( '.stylelintignore' ) ]
 	: [];
 
-const result = spawn(
-	resolveBin( 'stylelint' ),
+const result = spawn.sync(
+	resolveBinSync( 'stylelint' ),
 	[
 		...defaultConfigArgs,
 		...defaultIgnoreArgs,

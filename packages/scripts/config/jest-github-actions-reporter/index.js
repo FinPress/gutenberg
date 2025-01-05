@@ -63,4 +63,4 @@ function flatMap( fn ) {
 	return ( out, entry ) => out.concat( ...fn( entry ) );
 }
 
-module.exports = GithubActionsReporter;
+export default GithubActionsReporter;

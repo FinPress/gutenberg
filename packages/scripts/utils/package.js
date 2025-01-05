@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-const { realpathSync } = require( 'fs' );
-const { readPackageUpSync } = require( 'read-package-up' );
+import { realpathSync } from 'fs';
+import { readPackageUpSync } from 'read-package-up';
 
 /**
  * Internal dependencies
  */
-const { getCurrentWorkingDirectory } = require( './process' );
+import { getCurrentWorkingDirectory } from './process.js';
 
 const { packageJson, path: pkgPath } = readPackageUpSync( {
 	cwd: realpathSync( getCurrentWorkingDirectory() ),
@@ -20,8 +20,4 @@ const getPackageProp = ( prop ) => packageJson && packageJson[ prop ];
 const hasPackageProp = ( prop ) =>
 	packageJson && packageJson.hasOwnProperty( prop );
 
-module.exports = {
-	getPackagePath,
-	getPackageProp,
-	hasPackageProp,
-};
+export { getPackagePath, getPackageProp, hasPackageProp };

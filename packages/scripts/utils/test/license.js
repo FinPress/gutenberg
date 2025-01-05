@@ -1,13 +1,16 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs' );
-const path = require( 'path' );
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
 
 /**
  * Internal dependencies
  */
-import { detectTypeFromLicenseText, checkAllCompatible } from '../license';
+import { detectTypeFromLicenseText, checkAllCompatible } from '../license.js';
 
 describe( 'detectTypeFromLicenseText', () => {
 	let licenseText;

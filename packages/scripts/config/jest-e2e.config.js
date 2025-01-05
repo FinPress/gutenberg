@@ -1,12 +1,15 @@
 /**
  * External dependencies
  */
-const path = require( 'path' );
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 /**
  * Internal dependencies
  */
-const { hasBabelConfig } = require( '../utils' );
+import { hasBabelConfig } from '../utils/config.js';
+
+const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
 
 const jestE2EConfig = {
 	globalSetup: path.join( __dirname, 'jest-environment-puppeteer', 'setup' ),
@@ -33,4 +36,4 @@ if ( ! hasBabelConfig() ) {
 	};
 }
 
-module.exports = jestE2EConfig;
+export default jestE2EConfig;

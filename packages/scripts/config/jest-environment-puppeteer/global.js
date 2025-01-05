@@ -16,18 +16,18 @@
 /**
  * External dependencies
  */
-const {
-	setup: setupServer,
-	teardown: teardownServer,
+import {
+	setup as setupServer,
+	teardown as teardownServer,
 	ERROR_TIMEOUT,
 	ERROR_NO_COMMAND,
-} = require( 'jest-dev-server' );
-const pc = require( 'picocolors' );
+} from 'jest-dev-server';
+import pc from 'picocolors';
 
 /**
  * Internal dependencies
  */
-const { readConfig, getPuppeteer } = require( './config' );
+import { readConfig, getPuppeteer } from './config.js';
 
 let browser;
 let didAlreadyRunInWatchMode = false;
@@ -96,7 +96,4 @@ async function teardown( jestConfig = {} ) {
 	}
 }
 
-module.exports = {
-	setup,
-	teardown,
-};
+export { setup, teardown };

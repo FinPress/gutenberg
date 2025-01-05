@@ -1,10 +1,13 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs' );
-const path = require( 'path' );
-const { execSync } = require( 'child_process' );
-const rimraf = require( 'rimraf' ).sync;
+import { fileURLToPath } from 'url';
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import { rimrafSync } from 'rimraf';
+
+const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
 
 const fixturesPath = path.join(
 	__dirname,
@@ -18,11 +21,11 @@ describe( 'build-blocks-manifest script', () => {
 		if ( ! fs.existsSync( outputPath ) ) {
 			fs.mkdirSync( outputPath, { recursive: true } );
 		}
-		rimraf( outputPath );
+		rimrafSync( outputPath );
 	} );
 
 	afterAll( () => {
-		rimraf( outputPath );
+		rimrafSync( outputPath );
 	} );
 
 	it( 'should generate expected blocks manifest', () => {

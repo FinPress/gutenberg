@@ -1,8 +1,8 @@
 /**
  * Internal dependencies
  */
-const { getAsBooleanFromENV } = require( './process' );
-const {
+import { getAsBooleanFromENV } from './process.js';
+import {
 	getArgFromCLI,
 	getArgsFromCLI,
 	getFileArgsFromCLI,
@@ -10,8 +10,8 @@ const {
 	hasArgInCLI,
 	hasFileArgInCLI,
 	spawnScript,
-} = require( './cli' );
-const {
+} from './cli.js';
+import {
 	getJestOverrideConfigFile,
 	getPhpFilePaths,
 	getProjectSourcePath,
@@ -22,15 +22,15 @@ const {
 	hasJestConfig,
 	hasPostCSSConfig,
 	hasPrettierConfig,
-} = require( './config' );
-const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require( './file' );
-const { getPackageProp, hasPackageProp } = require( './package' );
-const {
+} from './config.js';
+import { fromProjectRoot, fromConfigRoot, hasProjectFile } from './file.js';
+import { getPackageProp, hasPackageProp } from './package.js';
+import {
 	getBlockJsonModuleFields,
 	getBlockJsonScriptFields,
-} = require( './block-json' );
+} from './block-json.js';
 
-module.exports = {
+export {
 	fromProjectRoot,
 	fromConfigRoot,
 	getAsBooleanFromENV,

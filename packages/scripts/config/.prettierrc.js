@@ -1,1 +1,2 @@
-module.exports = require( '@wordpress/prettier-config' );
+import prettierConfig from '@wordpress/prettier-config';
+export default prettierConfig;

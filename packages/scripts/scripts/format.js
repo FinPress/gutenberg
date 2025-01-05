@@ -1,29 +1,34 @@
 /**
  * External dependencies
  */
-const { exit, stdout } = require( 'node:process' );
+import { exit, stdout } from 'node:process';
 
 /**
  * External dependencies
  */
-const pc = require( 'picocolors' );
-const { sync: spawn } = require( 'cross-spawn' );
-const { sync: resolveBin } = require( 'resolve-bin' );
-const { sync: dirGlob } = require( 'dir-glob' );
-const { readPackageUpSync } = require( 'read-package-up' );
+import pc from 'picocolors';
+import spawn from 'cross-spawn';
+import { resolveBinSync } from 'resolve-bin';
+import dirGlob from 'dir-glob';
+import { readPackageUpSync } from 'read-package-up';
+// TODO: Remove this once https://nodejs.org/api/esm.html#importmetaresolvespecifier is stable.
+import { createRequire } from 'module';
+const require = createRequire( import.meta.url );
 
 /**
  * Internal dependencies
  */
-const {
+import {
 	fromConfigRoot,
 	fromProjectRoot,
+	hasProjectFile,
+} from '../utils/file.js';
+import {
 	getArgFromCLI,
 	getFileArgsFromCLI,
 	hasArgInCLI,
-	hasPrettierConfig,
-	hasProjectFile,
-} = require( '../utils' );
+} from '../utils/cli.js';
+import { hasPrettierConfig } from '../utils/config.js';
 
 // Check if the project has wp-prettier installed and if the project has a Prettier config.
 function checkPrettier() {
@@ -105,12 +110,12 @@ if ( fileArgs.length === 0 ) {
 }
 
 // Converts `foo/bar` directory to `foo/bar/**/*.js`
-const globArgs = dirGlob( fileArgs, {
+const globArgs = dirGlob.sync( fileArgs, {
 	extensions: [ 'js', 'jsx', 'json', 'ts', 'tsx', 'yml', 'yaml' ],
 } );
 
-const result = spawn(
-	resolveBin( 'prettier' ),
+const result = spawn.sync(
+	resolveBinSync( 'prettier' ),
 	[ '--write', ...configArgs, ...ignoreArgs, ...pragmaArgs, ...globArgs ],
 	{ stdio: 'inherit' }
 );

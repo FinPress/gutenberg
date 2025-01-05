@@ -3,7 +3,7 @@
 /**
  * Internal dependencies
  */
-const { getNodeArgsFromCLI, spawnScript } = require( '../utils' );
+import { getNodeArgsFromCLI, spawnScript } from '../utils/cli.js';
 
 const { scriptName, scriptArgs, nodeArgs } = getNodeArgsFromCLI();
 

@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-const { validate } = require( 'schema-utils' );
+import { validate } from 'schema-utils';
 
 /**
  * Internal dependencies
  */
-const { getPhpFilePaths } = require( '../../utils' );
+import { getPhpFilePaths } from '../../utils/config.js';
 
 const phpFilePathsPluginSchema = {
 	type: 'object',
@@ -57,4 +57,4 @@ class PhpFilePathsPlugin {
 	}
 }
 
-module.exports = PhpFilePathsPlugin;
+export default PhpFilePathsPlugin;

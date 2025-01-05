@@ -1,43 +1,46 @@
 /**
  * External dependencies
  */
-const { BundleAnalyzerPlugin } = require( 'webpack-bundle-analyzer' );
-const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
+// TODO: Remove this once https://nodejs.org/api/esm.html#importmetaresolvespecifier is stable.
+import { createRequire } from 'module';
+const require = createRequire( import.meta.url );
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
-const webpack = require( 'webpack' );
-const browserslist = require( 'browserslist' );
-const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
-const { basename, dirname, relative, resolve, sep } = require( 'path' );
-const ReactRefreshWebpackPlugin = require( '@pmmmwh/react-refresh-webpack-plugin' );
-const RtlCssPlugin = require( 'rtlcss-webpack-plugin' );
-const CssMinimizerPlugin = require( 'css-minimizer-webpack-plugin' );
-const TerserPlugin = require( 'terser-webpack-plugin' );
-const { realpathSync } = require( 'fs' );
-const { sync: glob } = require( 'fast-glob' );
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import webpack from 'webpack';
+import browserslist from 'browserslist';
+import MiniCSSExtractPlugin from 'mini-css-extract-plugin';
+import { basename, dirname, relative, resolve, sep } from 'path';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import RtlCssPlugin from 'rtlcss-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import { realpathSync } from 'fs';
+import glob from 'fast-glob';
 
 /**
  * WordPress dependencies
  */
-const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
-const postcssPlugins = require( '@wordpress/postcss-plugins-preset' );
+import DependencyExtractionWebpackPlugin from '@wordpress/dependency-extraction-webpack-plugin';
+import postcssPlugins from '@wordpress/postcss-plugins-preset';
 
 /**
  * Internal dependencies
  */
-const PhpFilePathsPlugin = require( '../plugins/php-file-paths-plugin' );
-const {
+import PhpFilePathsPlugin from '../plugins/php-file-paths-plugin/index.js';
+import {
 	fromConfigRoot,
+	fromProjectRoot,
 	hasBabelConfig,
-	hasArgInCLI,
 	hasCssnanoConfig,
 	hasPostCSSConfig,
 	getProjectSourcePath,
 	getWebpackEntryPoints,
+	hasArgInCLI,
 	getAsBooleanFromENV,
 	getBlockJsonModuleFields,
 	getBlockJsonScriptFields,
-	fromProjectRoot,
-} = require( '../utils' );
+} from '../utils/index.js';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const mode = isProduction ? 'production' : 'development';
@@ -412,14 +415,15 @@ const scriptConfig = {
 	].filter( Boolean ),
 };
 
+let config;
+
 if ( hasExperimentalModulesFlag ) {
 	/**
 	 * Add block.json files to compilation to ensure changes trigger rebuilds when watching
 	 */
 	class BlockJsonDependenciesPlugin {
 		constructor() {
-			/** @type {ReadonlyArray<string>} */
-			this.blockJsonFiles = glob( '**/block.json', {
+			this.blockJsonFiles = glob.sync( '**/block.json', {
 				absolute: true,
 				cwd: fromProjectRoot( getProjectSourcePath() ),
 			} );
@@ -488,7 +492,9 @@ if ( hasExperimentalModulesFlag ) {
 		].filter( Boolean ),
 	};
 
-	module.exports = [ scriptConfig, moduleConfig ];
+	config = [ scriptConfig, moduleConfig ];
 } else {
-	module.exports = scriptConfig;
+	config = scriptConfig;
 }
+
+export default config;

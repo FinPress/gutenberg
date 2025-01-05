@@ -1,8 +1,11 @@
 /**
  * External dependencies
  */
-const path = require( 'path' );
-const { defineConfig, devices } = require( '@playwright/test' );
+import path from 'path';
+import { defineConfig, devices } from '@playwright/test';
+// TODO: Remove this once https://nodejs.org/api/esm.html#importmetaresolvespecifier is stable.
+import { createRequire } from 'module';
+const require = createRequire( import.meta.url );
 
 process.env.WP_ARTIFACTS_PATH ??= path.join( process.cwd(), 'artifacts' );
 process.env.STORAGE_STATE_PATH ??= path.join(
@@ -57,4 +60,4 @@ const config = defineConfig( {
 	],
 } );
 
-module.exports = config;
+export default config;

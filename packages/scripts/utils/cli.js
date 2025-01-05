@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-const minimist = require( 'minimist' );
-const spawn = require( 'cross-spawn' );
+import minimist from 'minimist';
+import spawn from 'cross-spawn';
 
 /**
  * Internal dependencies
  */
-const { fromScriptsRoot, hasScriptFile, getScripts } = require( './file' );
-const { exit, getArgsFromCLI } = require( './process' );
+import { fromScriptsRoot, hasScriptFile, getScripts } from './file.js';
+import { exit, getArgsFromCLI } from './process.js';
 
 const getArgFromCLI = ( arg ) => {
 	for ( const cliArg of getArgsFromCLI() ) {
@@ -88,7 +88,7 @@ const spawnScript = ( scriptName, args = [], nodeArgs = [] ) => {
 	exit( status );
 };
 
-module.exports = {
+export {
 	getArgFromCLI,
 	getArgsFromCLI,
 	getFileArgsFromCLI,
