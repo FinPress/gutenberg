@@ -10,6 +10,8 @@
 const path = require( 'path' );
 const glob = require( 'fast-glob' );
 const fs = require( 'fs' );
+const { parse: commentParser } = require( 'comment-parser' );
+
 /**
  * Path to root project directory.
  *
@@ -74,6 +76,49 @@ function getTruthyKeys( obj ) {
 	return Object.keys( obj )
 		.filter( ( key ) => ! key.startsWith( '__exp' ) )
 		.map( ( key ) => ( obj[ key ] ? key : `~~${ key }~~` ) );
+}
+
+/**
+ * Extracts JSDoc comments from edit.js file.
+ *
+ * @param {string} filePath - Path to edit.js file
+ * @return {Object} - Object with attribute docs
+ */
+function extractEditJSDoc( filePath ) {
+	try {
+		const content = fs.readFileSync( filePath, 'utf8' );
+		const docRegex = /\/\*\*\s*((?:[^*]|\*(?!\/))*)\*\/\s*export\s+default/;
+		const match = content.match( docRegex );
+
+		if ( ! match ) {
+			return null;
+		}
+
+		const [ parsedComment ] = commentParser( `/**${ match[ 0 ] }*/` );
+		if ( ! parsedComment ) {
+			return null;
+		}
+
+		// Extract params that are attributes
+		const attributeDocs = {};
+		parsedComment.tags.forEach( ( tag ) => {
+			if ( tag.tag === 'param' && tag.name.includes( 'attributes.' ) ) {
+				const attrName = tag.name.split( 'attributes.' )[ 1 ];
+				attributeDocs[ attrName ] = {
+					description: tag.description,
+					type: tag.type,
+				};
+			}
+		} );
+
+		return attributeDocs;
+	} catch ( error ) {
+		console.warn(
+			`Warning: Could not process edit.js for ${ filePath }:`,
+			error.message
+		);
+		return null;
+	}
 }
 
 /**
@@ -158,6 +203,11 @@ function readBlockJSON( filename ) {
 		__experimental,
 		allowedBlocks,
 	} = blockjson;
+
+	const editJsPath = path.join( path.dirname( filename ), 'edit.js' );
+	const attributeDocs = fs.existsSync( editJsPath )
+		? extractEditJSDoc( editJsPath )
+		: null;
 	const sourcefile = getSourceFromFile( filename );
 	const blockInfoList = [ `-	**Name:** ${ name }` ];
 
@@ -187,11 +237,25 @@ function readBlockJSON( filename ) {
 				.join( ', ' ) }`
 		);
 	}
-	const truthyAttributes = getTruthyKeys( attributes );
-	if ( truthyAttributes.length ) {
-		blockInfoList.push(
-			`-	**Attributes:** ${ truthyAttributes.sort().join( ', ' ) }`
-		);
+
+	// Combine truthy keys with documentation
+	if ( attributes ) {
+		const truthyAttributes = getTruthyKeys( attributes );
+		const attributesList = truthyAttributes.map( ( attr ) => {
+			const cleanAttr = attr.replace( /~~/g, '' );
+			const doc = attributeDocs?.[ cleanAttr ];
+			if ( doc ) {
+				return `${ attr } (${ doc.type }): ${ doc.description }`;
+			}
+			return attr;
+		} );
+
+		if ( attributesList.length ) {
+			blockInfoList.push( `-	**Attributes:**` );
+			attributesList.sort().forEach( ( attr ) => {
+				blockInfoList.push( `    - ${ attr }` );
+			} );
+		}
 	}
 
 	return `
