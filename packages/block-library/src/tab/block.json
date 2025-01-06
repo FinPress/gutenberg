@@ -16,6 +16,10 @@
 		},
 		"tabIndex": {
 			"type": "number"
+		},
+		"isActive": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"parent": [ "core/tabs" ],

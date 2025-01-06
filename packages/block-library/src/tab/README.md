@@ -1,6 +1,6 @@
 # Tab
 
-Contributors:      Pew Research Center, creativecoder
+Contributors:      Seth Rubenstein on behalf of Pew Research Center, creativecoder
 Tags:              block
 Tested up to:      6.7
 Stable tag:        1.0.0
@@ -10,6 +10,8 @@ License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 ## Description
 
 This is an exploration at a [`core/` level block](https://github.com/WordPress/gutenberg/pull/63689/) that allows for the creation of tabbed content. Bootstrapped from work that @creativecoder was close to finishing but had to abandon due to other commitments.
+
+## TODO
 
 ## Instructions
 
