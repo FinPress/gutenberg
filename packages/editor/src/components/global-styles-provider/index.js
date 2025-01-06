@@ -216,9 +216,31 @@ export function useGlobalStylesContext() {
 	}, [ userConfig, baseConfig ] );
 
 	const context = useMemo( () => {
+		/*
+		 * The Separator block uses different CSS properties for its color depending
+		 * on how it is being rendered e.g. as "content" for the Dots style, or
+		 * as a border etc.
+		 *
+		 * Uses are only presented with a single color control for background. Any
+		 * selection of a background color should be applied to the other paths
+		 * so it can be honored.
+		 */
+		const updatedUserConfig = { ...userConfig };
+		const separatorColor =
+			userConfig?.styles?.blocks?.[ 'core/separator' ]?.color?.background;
+
+		if ( separatorColor ) {
+			updatedUserConfig.styles.blocks[ 'core/separator' ].color.text =
+				separatorColor;
+			updatedUserConfig.styles.blocks[ 'core/separator' ].border = {
+				...userConfig.styles.blocks[ 'core/separator' ].border,
+				color: separatorColor,
+			};
+		}
+
 		return {
 			isReady: isUserConfigReady && isBaseConfigReady,
-			user: userConfig,
+			user: updatedUserConfig,
 			base: baseConfig,
 			merged: mergedConfig,
 			setUserConfig,
