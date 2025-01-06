@@ -461,10 +461,7 @@ function TableEdit( {
 				<>
 					<BlockControls group="block">
 						<AlignmentControl
-							label={ __( 'Change column alignment' ) }
-							description={ __(
-								'Adjust the alignment of content within table columns'
-							) }
+							label={ __( 'Align columns content' ) }
 							alignmentControls={ ALIGNMENT_CONTROLS }
 							value={ getCellAlignment() }
 							onChange={ ( nextAlign ) =>

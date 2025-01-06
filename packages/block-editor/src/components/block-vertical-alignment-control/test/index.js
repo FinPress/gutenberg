@@ -75,7 +75,7 @@ describe( 'BlockVerticalAlignmentUI', () => {
 
 		await user.click(
 			screen.getByRole( 'button', {
-				name: 'Align vertically',
+				name: 'Align content vertically',
 			} )
 		);
 

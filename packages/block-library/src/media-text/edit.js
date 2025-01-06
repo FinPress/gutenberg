@@ -478,9 +478,7 @@ function MediaTextEdit( {
 						<BlockVerticalAlignmentControl
 							onChange={ onVerticalAlignmentChange }
 							value={ verticalAlignment }
-							description={ __(
-								'Adjust the vertical alignment of content within the block'
-							) }
+							label={ __( 'Align media and text vertically' ) }
 						/>
 						<ToolbarButton
 							icon={ pullLeft }

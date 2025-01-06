@@ -43,11 +43,11 @@ function BlockVerticalAlignmentUI( {
 	controls = DEFAULT_CONTROLS,
 	isCollapsed = true,
 	isToolbar,
-	label = _x( 'Align vertically', 'Block vertical alignment setting label' ),
-	description = _x(
-		'Change vertical alignment',
-		'Block vertical alignment setting description'
+	label = _x(
+		'Align content vertically',
+		'Block vertical alignment setting label'
 	),
+	description,
 } ) {
 	function applyOrUnset( align ) {
 		return () => onChange( value === align ? undefined : align );
@@ -62,9 +62,11 @@ function BlockVerticalAlignmentUI( {
 		? { isCollapsed }
 		: {
 				popoverProps: { focusOnMount: 'firstElement' },
-				toggleProps: {
-					describedBy: description,
-				},
+				toggleProps: description
+					? {
+							describedBy: description,
+					  }
+					: {},
 		  };
 
 	const commonProps = {

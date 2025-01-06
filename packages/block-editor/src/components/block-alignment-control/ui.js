@@ -27,7 +27,7 @@ function BlockAlignmentUI( {
 	isToolbar,
 	isCollapsed = true,
 	label = __( 'Align block' ),
-	description = __( 'Change block alignment' ),
+	description,
 } ) {
 	const enabledControls = useAvailableAlignments( controls );
 	const hasEnabledControls = !! enabledControls.length;
@@ -66,7 +66,9 @@ function BlockAlignmentUI( {
 				} ),
 		  }
 		: {
-				toggleProps: { 'aria-description': description },
+				toggleProps: description
+					? { 'aria-description': description }
+					: {},
 				children: ( { onClose } ) => {
 					return (
 						<>

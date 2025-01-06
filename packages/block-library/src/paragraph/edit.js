@@ -133,9 +133,7 @@ function ParagraphBlock( {
 									: dropCap,
 							} )
 						}
-						description={ __(
-							'Adjust the alignment of text within the paragraph'
-						) }
+						label={ __( 'Align text' ) }
 					/>
 					<ParagraphRTLControl
 						direction={ direction }
