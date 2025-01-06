@@ -302,11 +302,11 @@ function Day( {
 		}
 		// isFocusAllowed is not a dep as there is no point calling focus() on
 		// an already focused element.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ isFocusable ] );
 
 	return (
 		<DayButton
+			__next40pxDefaultSize
 			ref={ ref }
 			className="components-datetime__date__day" // Unused, for backwards compatibility.
 			disabled={ isInvalid }

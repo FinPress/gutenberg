@@ -16,7 +16,7 @@ import {
 } from '@wordpress/element';
 import { VisuallyHidden, SearchControl, Popover } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useDebouncedInput } from '@wordpress/compose';
+import { useDebouncedInput, useViewportMatch } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -58,6 +58,11 @@ function InserterMenu(
 		( select ) => unlock( select( blockEditorStore ) ).isZoomOut(),
 		[]
 	);
+	const hasSectionRootClientId = useSelect(
+		( select ) =>
+			!! unlock( select( blockEditorStore ) ).getSectionRootClientId(),
+		[]
+	);
 	const [ filterValue, setFilterValue, delayedFilterValue ] =
 		useDebouncedInput( __experimentalFilterValue );
 	const [ hoveredItem, setHoveredItem ] = useState( null );
@@ -67,6 +72,8 @@ function InserterMenu(
 	const [ patternFilter, setPatternFilter ] = useState( 'all' );
 	const [ selectedMediaCategory, setSelectedMediaCategory ] =
 		useState( null );
+	const isLargeViewport = useViewportMatch( 'large' );
+
 	function getInitialTab() {
 		if ( __experimentalInitialTab ) {
 			return __experimentalInitialTab;
@@ -75,12 +82,16 @@ function InserterMenu(
 		if ( isZoomOutMode ) {
 			return 'patterns';
 		}
+
+		return 'blocks';
 	}
 	const [ selectedTab, setSelectedTab ] = useState( getInitialTab() );
 
 	const shouldUseZoomOut =
-		selectedTab === 'patterns' || selectedTab === 'media';
-	useZoomOut( shouldUseZoomOut );
+		hasSectionRootClientId &&
+		( selectedTab === 'patterns' || selectedTab === 'media' );
+
+	useZoomOut( shouldUseZoomOut && isLargeViewport );
 
 	const [ destinationRootClientId, onInsertBlocks, onToggleInsertionPoint ] =
 		useInsertionPoint( {

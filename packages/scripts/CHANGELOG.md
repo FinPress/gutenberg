@@ -2,9 +2,54 @@
 
 ## Unreleased
 
+## 30.8.0 (2025-01-02)
+
 ### Enhancements
 
--   Add BlueOak-1.0.0 the GPLv2-comatible licenses recognized by check-licenses ([#66139](https://github.com/WordPress/gutenberg/pull/66139)).
+-   Recommend listing JavaScript entry points as paths passed to the `start` and `build` commands ([#68251](https://github.com/WordPress/gutenberg/pull/68251)).
+-   Introduce a new option `--source-path` to customize the source directory used with the `start` and `build` commands ([#68251](https://github.com/WordPress/gutenberg/pull/68251)).
+
+### Internal
+
+-   The bundled `rtlcss-webpack-plugin` dependency has been replaced with a modified fork of the plugin to fix issues with the original package ([#68201](https://github.com/WordPress/gutenberg/pull/68201)).
+-   The bundled `sass` dependency has been updated from `^1.50.0` to `^1.54.0` ([#68380](https://github.com/WordPress/gutenberg/pull/68380)).
+
+## 30.7.0 (2024-12-11)
+
+### Internal
+
+-   The bundled `sass` dependency has been updated from `^1.35.2` to `^1.50.1` ([#67572](https://github.com/WordPress/gutenberg/pull/67572)).
+-   The bundled `sass-loader` dependency has been updated from `^12.1.0` to `^16.0.3` ([#67572](https://github.com/WordPress/gutenberg/pull/67572)).
+-   The bundled `mini-css-extract-plugin` dependency has been updated from `^2.5.1` to `^2.9.2` ([#67572](https://github.com/WordPress/gutenberg/pull/67572)).
+-   The bundled `webpack` dependency has been updated from `^5.95.0` to `^5.97.0` ([#67572](https://github.com/WordPress/gutenberg/pull/67572)).
+-   The bundled `cross-spawn` dependency has been updated from `^5.1.0` to `^7.0.6` ([#67708](https://github.com/WordPress/gutenberg/pull/67708)).
+-   The bundled `jest-dev-server` dependency has been updated from `^9.0.1` to `^10.1.4` ([#67708](https://github.com/WordPress/gutenberg/pull/67708)).
+-   The bundled `puppeteer-core` dependency has been updated from `^23.1.0` to `^23.10.1` ([#67708](https://github.com/WordPress/gutenberg/pull/67708)).
+
+### Bug Fix
+
+-   Make React Fast Refresh in the `start` command work with multiple blocks ([64924](https://github.com/WordPress/gutenberg/pull/64924)).
+
+## 30.6.0 (2024-11-27)
+
+## 30.5.1 (2024-11-18)
+
+### Bug Fix
+
+-   Revert changes from [#61121](https://github.com/WordPress/gutenberg/pull/61121) that inlined CSS files imported from other CSS files before optimization in the `build` command.
+
+## 30.5.0 (2024-11-16)
+
+### Bug Fix
+
+-   Make `start` script more resilient for developer errors ([#66752](https://github.com/WordPress/gutenberg/pull/66752)).
+
+## 30.4.0 (2024-10-30)
+
+### Enhancements
+
+-   Add BlueOak-1.0.0 the GPLv2-compatible licenses recognized by check-licenses ([#66139](https://github.com/WordPress/gutenberg/pull/66139)).
+-   Add an optional `--root-folder` argument to the `plugin-zip` command ([#61375](https://github.com/WordPress/gutenberg/pull/61375)). By default, the command will use the plugin's name as the root folder of the zip. If the change in the behavior impacted your workflow, you could pass `--no-root-folder` to remove the root folder.
 
 ### Internal
 
