@@ -1,21 +1,24 @@
 /**
- * External Dependencies
- */
-
-/**
  * WordPress dependencies
  */
+import { __ } from '@wordpress/i18n';
 import {
 	InnerBlocks,
 	useBlockProps,
 	useInnerBlocksProps,
 	store as blockEditorStore,
 	InspectorControls,
+	RichText,
 } from '@wordpress/block-editor';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { Fragment, useEffect, useMemo } from '@wordpress/element';
 import { PanelBody, TextControl } from '@wordpress/components';
 import { cleanForSlug } from '@wordpress/url';
+
+/**
+ * Internal dependencies
+ */
+import { TabFill, TabsListSlot } from './slotfill';
 
 /**
  * Generates a slug from a tab's text label.
@@ -39,24 +42,76 @@ function slugFromLabel( label, tabIndex ) {
 	return `tab-panel-${ tabIndex }`;
 }
 
-function EditComponent( { attributes, clientId, setAttributes } ) {
-	const { anchor, label, slug } = attributes;
+export default function Edit( {
+	attributes,
+	clientId,
+	isSelected,
+	setAttributes,
+} ) {
+	const { anchor, label, slug, tabIndex } = attributes;
+	const { __unstableMarkNextChangeAsNotPersistent } =
+		useDispatch( blockEditorStore );
+
+	const { blockIndex, hasChildBlocks, hasInnerBlocksSelected, tabsClientId } =
+		useSelect(
+			( select ) => {
+				const rootClientId =
+					select( blockEditorStore ).getBlockRootClientId( clientId );
+				return {
+					blockIndex:
+						select( blockEditorStore ).getBlockIndex( clientId ),
+					hasChildBlocks:
+						select( blockEditorStore ).getBlockOrder( clientId )
+							.length > 0,
+					hasInnerBlocksSelected: select(
+						blockEditorStore
+					).hasSelectedInnerBlock( clientId, true ),
+					tabsClientId: rootClientId,
+				};
+			},
+			[ clientId ]
+		);
+
+	/**
+	 * This hook ensures the tabIndex attribute is kept in sync.
+	 */
+	useEffect( () => {
+		if ( blockIndex !== tabIndex ) {
+			__unstableMarkNextChangeAsNotPersistent();
+			setAttributes( { tabIndex: blockIndex } );
+		}
+	}, [
+		__unstableMarkNextChangeAsNotPersistent,
+		blockIndex,
+		setAttributes,
+		tabIndex,
+	] );
+
+	/**
+	 * This hook determines if the current tab is selected. This is true if it is the active tab, or if it is selected directly.
+	 */
+	const isSelectedTab = useMemo( () => {
+		return isSelected || hasInnerBlocksSelected;
+	}, [ isSelected, hasInnerBlocksSelected ] );
+
 	// Use a custom anchor, if set. Otherwise fall back to the slug generated from the label text.
-	const tabPanelId = anchor || slug;
-	const tabLabelId = `${ tabPanelId }--tab`;
-	const hasChildBlocks = useSelect(
-		( select ) =>
-			select( blockEditorStore ).getBlockOrder( clientId ).length > 0,
-		[ clientId ]
-	);
+	const tabPanelId = useMemo( () => anchor || slug, [ anchor, slug ] );
+	const tabLabelId = useMemo( () => `${ tabPanelId }--tab`, [ tabPanelId ] );
 
 	const blockProps = useBlockProps();
 
-	const innerBlocksProps = useInnerBlocksProps( blockProps, {
-		renderAppender: hasChildBlocks
-			? undefined
-			: InnerBlocks.ButtonBlockAppender,
-	} );
+	const innerBlocksProps = useInnerBlocksProps(
+		{
+			'aria-labelledby': tabLabelId,
+			id: tabPanelId,
+			role: 'tabpanel',
+		},
+		{
+			renderAppender: hasChildBlocks
+				? undefined
+				: InnerBlocks.ButtonBlockAppender,
+		}
+	);
 
 	return (
 		<Fragment>
@@ -73,85 +128,51 @@ function EditComponent( { attributes, clientId, setAttributes } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<section
-				{ ...innerBlocksProps }
-				aria-labelledby={ tabLabelId }
-				id={ tabPanelId }
-				role="tabpanel"
-			/>
+
+			<div { ...blockProps }>
+				<TabFill tabsClientId={ tabsClientId }>
+					<li role="presentation" className="tabs__list-item">
+						<a // eslint-disable-line jsx-a11y/anchor-is-valid -- remove href attribute in editor so inner text can be selected for editing
+							aria-controls={ tabPanelId }
+							aria-selected={ isSelectedTab }
+							className="tabs__tab-label"
+							id={ tabLabelId }
+							// onClick={ () => console.log( 'onClick', clientId ) }
+							// onFocus={ () => console.log( 'onFocus', clientId ) }
+							// onKeyDown={ ( event ) => {
+							// 	if ( event.key === 'Enter' ) {
+							// 		console.log( 'onEnter', clientId );
+							// 	}
+							// } }
+							role="tab"
+							tabIndex={ isSelectedTab ? 0 : -1 }
+						>
+							<RichText
+								tagName="span"
+								withoutInteractiveFormatting
+								value={ label }
+								placeholder={ __( 'Add label…' ) }
+								onChange={ ( value ) =>
+									setAttributes( {
+										label: value,
+										slug: slugFromLabel(
+											label,
+											blockIndex
+										),
+									} )
+								}
+							/>
+						</a>
+					</li>
+				</TabFill>
+
+				{ isSelectedTab && (
+					<Fragment>
+						<TabsListSlot tabsClientId={ tabsClientId } />
+						<section { ...innerBlocksProps } />
+					</Fragment>
+				) }
+			</div>
 		</Fragment>
 	);
-}
-
-export default function Edit( {
-	attributes,
-	clientId,
-	isSelected,
-	setAttributes,
-} ) {
-	const { isActive, label, tabIndex } = attributes;
-	const { __unstableMarkNextChangeAsNotPersistent } =
-		useDispatch( blockEditorStore );
-
-	const { hasInnerBlockSelected, blockIndex } = useSelect(
-		( select ) => {
-			return {
-				hasInnerBlockSelected:
-					select( blockEditorStore ).hasSelectedInnerBlock(
-						clientId
-					),
-				blockIndex:
-					select( blockEditorStore ).getBlockIndex( clientId ),
-			};
-		},
-		[ clientId ]
-	);
-
-	/**
-	 * These two hooks ensure the tab block's slug and tabIndex attributes are kept in sync with the parent tabs block.
-	 */
-	// Construct or update the slug when the label changes:
-	useEffect( () => {
-		if ( label ) {
-			__unstableMarkNextChangeAsNotPersistent();
-			setAttributes( { slug: slugFromLabel( label, tabIndex ) } );
-		}
-	}, [
-		__unstableMarkNextChangeAsNotPersistent,
-		label,
-		setAttributes,
-		tabIndex,
-	] );
-
-	// Ensure tabIndex attributes are in sync with the order relative to the root
-	useEffect( () => {
-		if ( blockIndex !== tabIndex ) {
-			__unstableMarkNextChangeAsNotPersistent();
-			setAttributes( { tabIndex: blockIndex } );
-		}
-	}, [
-		__unstableMarkNextChangeAsNotPersistent,
-		blockIndex,
-		setAttributes,
-		tabIndex,
-	] );
-
-	const displayEditComponent = useMemo( () => {
-		return isActive || isSelected || hasInnerBlockSelected;
-	}, [ isActive, hasInnerBlockSelected, isSelected ] );
-
-	// If the block is not selected, and or not active then
-	// there is no reason to render the edit component. This saves on
-	// memory and performance.
-	if ( displayEditComponent ) {
-		return (
-			<EditComponent
-				attributes={ attributes }
-				clientId={ clientId }
-				setAttributes={ setAttributes }
-			/>
-		);
-	}
-
-	return <div hidden />;
 }

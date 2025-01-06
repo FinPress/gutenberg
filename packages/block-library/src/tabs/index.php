@@ -49,7 +49,19 @@ function block_core_tabs_generate_color_variables( $attributes ) {
  * @return string
  */
 function render_block_core_tabs( $attributes, $content, $block ) {
-	wp_enqueue_script_module( '@wordpress/block-library/tabs' );
+	// $suffix = wp_scripts_get_suffix();
+	// if ( defined( 'IS_GUTENBERG_PLUGIN' ) && IS_GUTENBERG_PLUGIN ) {
+	// 	$module_url = gutenberg_url( '/build/interactivity/tabs.min.js' );
+	// }
+
+	// wp_register_script_module(
+	// 	'@wordpress/block-library/tabs',
+	// 	isset( $module_url ) ? $module_url : includes_url( "blocks/tabs/view{$suffix}.js" ),
+	// 	array( '@wordpress/interactivity' ),
+	// 	defined( 'GUTENBERG_VERSION' ) ? GUTENBERG_VERSION : get_bloginfo( 'version' )
+	// );
+
+	// wp_enqueue_script_module( '@wordpress/block-library/tabs' );
 
 	$styles = block_core_tabs_generate_color_variables( $attributes );
 
