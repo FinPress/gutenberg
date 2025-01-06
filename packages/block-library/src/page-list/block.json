@@ -61,8 +61,8 @@
 				"background": true,
 				"text": true,
 				"link": true
-      }
-    },
+			}
+		},
 		"__experimentalBorder": {
 			"radius": true,
 			"color": true,
