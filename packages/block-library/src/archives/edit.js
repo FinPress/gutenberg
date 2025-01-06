@@ -17,6 +17,22 @@ import ServerSideRender from '@wordpress/server-side-render';
  */
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
+// TODO: Fix the following ESLint error:
+/* eslint-disable jsdoc/check-param-names */
+/**
+ * The edit function for the Archives block.
+ *
+ * Display a date archive of your posts.
+ *
+ * @param {Object}   props                              Component props.
+ * @param {Object}   props.attributes                   Block attributes.
+ * @param {boolean}  props.attributes.displayAsDropdown Whether to display the archive as a dropdown menu.
+ * @param {boolean}  props.attributes.showLabel         Whether to show the archive label.
+ * @param {boolean}  props.attributes.showPostCounts    Whether to show post counts next to archive links.
+ * @param {string}   props.attributes.type              Archive type (e.g., "monthly").
+ * @param {Function} props.setAttributes                Function to update block attributes.
+ * @return {Element} The edit interface for the Archives block.
+ */
 export default function ArchivesEdit( { attributes, setAttributes } ) {
 	const { showLabel, showPostCounts, displayAsDropdown, type } = attributes;
 
@@ -137,3 +153,4 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 		</>
 	);
 }
+/* eslint-enable jsdoc/check-param-names */
