@@ -299,5 +299,8 @@
 	},
 	"workspaces": [
 		"packages/*"
-	]
+	],
+	"dependencies": {
+		"comment-parser": "1.4.0"
+	}
 }
