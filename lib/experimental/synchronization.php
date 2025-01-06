@@ -103,21 +103,22 @@ function filter_post_content_ydoc( $data, $postarr, $unsanitized_postarr ) {
 	}
 	$content = stripslashes($data['post_content']);
 	// generate a new clientid for updated content that can be represented as a 53bit unsigned integer (max clientid in Yjs)
-	$ynewclientid = rand(0, 9007199254740991); // $yinfo[4];
-	$updated_yinfo = '<!-- y:gutenberg version="1" state="" new-content-clientid="' . $ynewclientid . '" -->';
+	$ynewclientid = rand(0, 9007199254740991); // $match[4];
+	$updated_yinfo = ''; // '<!-- y:gutenberg version="1" state="" new-content-clientid="' . $ynewclientid . '" -->';
 	// transform $content if it contains ydoc comment tag
-	preg_match('/<!-- y:gutenberg (.*) -->/', $content, $match, PREG_OFFSET_CAPTURE);
+	// @todo the following regex doesn't catch the y:gutenberg comment
+	// preg_match('/<!-- y:gutenberg version="([a-zA-Z0-9]*)" state="([a-zA-Z0-9+\/\\]*={0,3})" new-content-clientid="([0-9]*)" -->/', $content, $match, PREG_OFFSET_CAPTURE);
+	preg_match('/<!-- y:gutenberg version=\"(.*)\" state=\"(.*)\" new-content-clientid=\"(.*)\" -->/', $content, $match, PREG_OFFSET_CAPTURE);
 	if ($match) {
-		// match found
 		$content = substr($content, 0, $match[0][1]) . substr($content, $match[0][1] + strlen($match[0][0]));
-		preg_match('/version="(.*)" state="(.*)" new-content-clientid="(.*)"/', $match[1][0], $yinfo);
-		if ($yinfo) {
-				$yversion = $yinfo[1];
-				$ystate = $yinfo[2];
-				// always supply a new client id
-				$updated_yinfo = '<!-- y:gutenberg version="' . $yversion . '" state="' . $ystate . '" new-content-clientid="' . $ynewclientid . '" -->';
-		}
+		// match found
+		$yversion = $match[1][0];
+		$ystate = $match[2][0];
+		// always supply a new client id
+		$updated_yinfo = '<!-- y:gutenberg version="' . $yversion . '" state="' . $ystate . '" new-content-clientid="' . $ynewclientid . '" -->';
+
 	}
+
 	$data['post_content'] = addslashes($content . $updated_yinfo);
 	return $data;
 }
@@ -144,7 +145,9 @@ function ygutenberg_heartbeat (array $response, array $data) {
 				$post = wp_get_post_autosave($postid);
 				if ($post) {
 					$postcontent = stripslashes($post->post_content);
-					preg_match('/<!-- y:gutenberg version="(.*)" state="(.*)" new-content-clientid="(.*)" -->/', $postcontent, $yinfo);
+					// @todo the following regex doesn't catch the ygutenberg comment
+					// preg_match('/<!-- y:gutenberg version="([a-zA-Z0-9]*)" state="([a-zA-Z0-9+\/]*={0,3})" new-content-clientid="([0-9]*)" -->/', $postcontent, $yinfo);
+					preg_match('/<!-- y:gutenberg version=\"(.*)\" state=\"(.*)\" new-content-clientid=\"(.*)\" -->/', $postcontent, $yinfo);
 					if ($yinfo and $yinfo[3] !== $expectedClientId) {
 						$docs[$postid] = array(
 							"contentClientId" => $yinfo[3],

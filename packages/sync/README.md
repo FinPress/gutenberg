@@ -55,6 +55,10 @@ _Returns_
 
 -   `import('./types').ConnectDoc`: Promise that resolves when the connection is established.
 
+### currentEncodingVersion
+
+Undocumented declaration.
+
 ### extractFromYGutenbergComment
 
 _Parameters_

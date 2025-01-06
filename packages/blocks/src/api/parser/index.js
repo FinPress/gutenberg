@@ -308,6 +308,15 @@ export function parseRawBlock( rawBlock, options ) {
  * @return {Array} Block list.
  */
 export default function parse( content, options ) {
+	if ( window.__experimentalEnableSync ) {
+		// strip y:gutenberg comment so no additional block is created
+		const res = /<!-- y:gutenberg .* -->/.exec( content );
+		if ( res ) {
+			content =
+				content.slice( 0, res.index ) +
+				content.slice( res.index + res[ 0 ].length );
+		}
+	}
 	const parsedBlocks = grammarParse( content ).reduce(
 		( accumulator, rawBlock ) => {
 			const block = parseRawBlock( rawBlock, options );

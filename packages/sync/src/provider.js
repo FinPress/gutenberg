@@ -153,7 +153,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 			const data = await loadRemotely( objectId, true );
 			doc.transact( () => {
 				postTypeConfigs[ objectType ].applyChangesToDoc( doc, data );
-			} );
+			}, 'gutenberg' );
 			return data;
 		}
 		return null;
@@ -165,8 +165,9 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {ObjectType} objectType Object type to load.
 	 * @param {ObjectID}   objectId   Object ID to load.
 	 * @param {any}        data       Updates to make.
+	 * @param {any}        origin     The source of change.
 	 */
-	async function update( objectType, objectId, data ) {
+	function update( objectType, objectId, data, origin ) {
 		const docDef = docs[ objectType ]?.[ objectId ];
 		if ( ! docDef ) {
 			throw 'Error doc ' + objectType + ' ' + objectId + ' not found';
@@ -176,7 +177,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 				docDef.ydoc,
 				data
 			);
-		} );
+		}, origin );
 	}
 
 	/**
@@ -198,7 +199,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	function encodeState( objectType, objectId ) {
 		const docDef = docs[ objectType ]?.[ objectId ];
 		if ( ! docDef ) {
-			throw 'Error doc ' + objectType + ' ' + objectId + ' not found';
+			return null;
 		}
 		return Y.encodeStateAsUpdateV2( docDef.ydoc );
 	}

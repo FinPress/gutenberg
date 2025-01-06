@@ -25,8 +25,8 @@ export type SyncProvider = {
 		id: ObjectID,
 		handleChanges: ( data: any ) => void
 	) => Promise< Y.Doc >;
-	encodeState: ( type: ObjectType, id: ObjectID ) => Uint8Array;
-	update: ( type: ObjectType, id: ObjectID, data: any ) => void;
+	encodeState: ( type: ObjectType, id: ObjectID ) => Uint8Array | null;
+	update: ( type: ObjectType, id: ObjectID, data: any, origin: any ) => void;
 	discard: ( type: ObjectType, id: ObjectID ) => Promise< void >;
 	postTypeConfigs: { [ postType: string ]: ObjectConfig };
 };

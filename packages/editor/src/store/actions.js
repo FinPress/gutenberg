@@ -208,17 +208,26 @@ export const savePost =
 		const entityConfig = registry
 			.select( coreStore )
 			.getEntityConfig( 'postType', previousRecord.type );
-		const syncConfig = entityConfig.syncConfig;
-		const objectId = entityConfig.getSyncObjectId( previousRecord.id );
 		const isAutosave = options.isAutosave === true;
-		const remoteContent = await syncConfig.fetch( objectId, isAutosave );
-		// @todo there should be an additional parameter specifying that this is a remote update
-		await getSyncProvider().update(
-			entityConfig.syncObjectType,
-			objectId,
-			remoteContent
-		);
+		const syncConfig = entityConfig.syncConfig;
+		if ( window.__experimentalEnableSync && syncConfig ) {
+			const objectId = entityConfig.getSyncObjectId( previousRecord.id );
+			const remoteContent = await syncConfig.fetch(
+				objectId,
+				isAutosave
+			);
+			// @todo there should be an additional parameter specifying that this is a remote update
+			await getSyncProvider().update(
+				entityConfig.syncObjectType,
+				objectId,
+				remoteContent,
+				'remote'
+			);
+		}
 		const content = select.getEditedPostContent();
+		if ( ! options.isAutosave ) {
+			dispatch.editPost( { content }, { undoIgnore: true } );
+		}
 		let edits = {
 			id: previousRecord.id,
 			...registry

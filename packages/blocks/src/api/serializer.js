@@ -438,9 +438,12 @@ export function __unstableSerializeAndCleanWithYdoc( blocks, type, id ) {
 	}
 	const sp = getSyncProvider();
 	const ystate = sp.encodeState( type, id );
-	const ycontent = `<!-- y:gutenberg version="1" state="${ buf.toBase64(
-		ystate
-	) }" new-content-clientid="0" -->\n`;
+	const ycontent =
+		ystate === null
+			? ''
+			: `<!-- y:gutenberg version="1" state="${ buf.toBase64(
+					ystate
+			  ) }" new-content-clientid="0" -->\n`;
 	const blockContent = __unstableSerializeAndClean( blocks );
 	return blockContent + ycontent;
 }
