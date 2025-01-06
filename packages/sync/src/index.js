@@ -5,7 +5,7 @@ import { createSyncProvider } from './provider';
 export { connectIndexDb } from './connect-indexdb';
 export { createWebRTCConnection } from './create-webrtc-connection';
 export { createSyncProvider } from './provider';
-// import { createWebRTCConnection } from './create-webrtc-connection';
+import { createWebRTCConnection } from './create-webrtc-connection';
 // import { connectIndexDb } from './connect-indexdb';
 
 /**
@@ -65,16 +65,16 @@ export function getSyncProvider() {
 		syncProvider = createSyncProvider(
 			// connectIndexDb,
 			null,
-			// createWebRTCConnection( {
-			// 	signaling: [
-			// 		// @ts-ignore
-			// 		//'ws://localhost:4444',
-			// 		window?.wp?.ajax?.settings?.url,
-			// 	],
-			// 	// @ts-ignore
-			// 	password: window?.__experimentalCollaborativeEditingSecret,
-			// } )
-			null
+			// @ts-ignore
+			window?.__experimentalEnableWebrtcSync ? createWebRTCConnection( {
+				signaling: [
+					// @ts-ignore
+					window?.wp?.ajax?.settings?.url,
+					//'ws://localhost:4444',
+				],
+				// @ts-ignore
+				password: window?.__experimentalCollaborativeEditingSecret,
+			} ) : null
 		);
 	}
 	return syncProvider;

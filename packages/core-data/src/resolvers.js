@@ -179,13 +179,14 @@ export const getEntityRecord =
 				}
 			}
 			registry.batch( () => {
-				// @todo put this somewhere else.
-				// The document is collaborative.
-				// Update autosave interval.
-				registry.dispatch( 'core/editor' ).updateEditorSettings( {
-					autosaveInterval: 5,
-					localAutosaveInterval: 4,
-				} );
+				if (window.__experimentalEnableHeartbeatSync = true) {
+					// @todo put this somewhere else.
+					// The document is collaborative. decrease autosave interval.
+					registry.dispatch( 'core/editor' ).updateEditorSettings( {
+						autosaveInterval: 5,
+						localAutosaveInterval: 4,
+					} );
+				}
 				dispatch.receiveEntityRecords( kind, name, record, query );
 				dispatch.receiveUserPermissions( receiveUserPermissionArgs );
 				dispatch.finishResolutions( 'canUser', canUserResolutionsArgs );

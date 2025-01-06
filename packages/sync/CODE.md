@@ -10,9 +10,10 @@ Relevant docs:
 
 ## Enable the experiment
 
-The experiment can be enabled in the "Guteberg > Experiments" page. When it is enabled (search for `gutenberg-sync-collaboration` in the codebase), the client receives two new pieces of data:
+The experiment can be enabled in the "Guteberg > Experiments" page. When it is enabled (search for `gutenberg-sync-collaboration` in the codebase), the client receives three new pieces of data:
 
 - `window.__experimentalEnableSync`: boolean. Used by the `core-data` package to determine whether to bootstrap and use the sync provider offered by the `sync` package.
+- `window.__experimentalEnableWebrtcSync`: boolean. Used to enable WebRTC collaboration.
 - `window.__experimentalCollaborativeEditingSecret`: string. A secret used by the `sync` package to create a secure connection among peers.
 
 If collaborative editing is enabled, the autosave interval is set to 5 seconds.

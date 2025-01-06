@@ -27,12 +27,15 @@ export function createWebRTCConnection( { signaling, password } ) {
 		/** @type {import("yjs").Doc} */ doc
 	) {
 		const roomName = `${ objectType }-${ objectId }`;
-		new WebrtcProviderWithHttpSignaling( roomName, doc, {
-			signaling,
-			// @ts-ignore
-			password,
-		} );
-
+		try {
+			new WebrtcProviderWithHttpSignaling( roomName, doc, {
+				signaling,
+				// @ts-ignore
+				password,
+			} );
+		} catch (err) {
+			// nop
+		}
 		return Promise.resolve( () => true );
 	};
 }

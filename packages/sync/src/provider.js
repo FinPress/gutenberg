@@ -35,55 +35,58 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 */
 	const docs = {};
 
-	addAction( 'heartbeat.tick', 'y-sync', ( data ) => {
-		if ( ! data[ 'y-sync' ] ) {
-			return;
-		}
-		Object.entries( data[ 'y-sync' ] ).forEach(
-			( [ objectType, objectDocs ] ) => {
-				Object.entries( objectDocs ).forEach(
-					( [ objectId, remoteDocDef ] ) => {
-						const localDocDef =
-							( docs[ objectType ] || {} )[ objectId ] || null;
-						if ( localDocDef ) {
-							Y.applyUpdateV2(
-								localDocDef.ydoc,
-								buffer.fromBase64( remoteDocDef.state )
-							);
-							localDocDef.prevContentClientId =
-								remoteDocDef.contentClientId;
-						}
-					}
-				);
+	// @ts-ignore
+	if (window.__experimentalEnableHeartbeatSync) {
+		addAction( 'heartbeat.tick', 'y-sync', ( data ) => {
+			if ( ! data[ 'y-sync' ] ) {
+				return;
 			}
-		);
-	} );
-
-	addAction( 'heartbeat.send', 'y-sync', ( data ) => {
-		/**
-		 * Maps from postType/postId => contentClientId
-		 *
-		 * The server checks whether the respective post contains a y:gutenberg comment that uses the
-		 * contentClientId. If not, it should return the full yjs state of the updated document.
-		 *
-		 * @type {Record<string,Record<string, number>>}
-		 */
-		const docRequests = {};
-		Object.entries( docs ).forEach( ( [ objectType, objectDocs ] ) => {
-			/**
-			 * @type {Record<string, number>}
-			 */
-			const objectTypeRequests = {};
-			docRequests[ objectType ] = objectTypeRequests;
-			Object.entries( objectDocs ).forEach(
-				( [ objectId, localDocDef ] ) => {
-					objectTypeRequests[ objectId ] =
-						localDocDef.prevContentClientId;
+			Object.entries( data[ 'y-sync' ] ).forEach(
+				( [ objectType, objectDocs ] ) => {
+					Object.entries( objectDocs ).forEach(
+						( [ objectId, remoteDocDef ] ) => {
+							const localDocDef =
+								( docs[ objectType ] || {} )[ objectId ] || null;
+							if ( localDocDef ) {
+								Y.applyUpdateV2(
+									localDocDef.ydoc,
+									buffer.fromBase64( remoteDocDef.state )
+								);
+								localDocDef.prevContentClientId =
+									remoteDocDef.contentClientId;
+							}
+						}
+					);
 				}
 			);
 		} );
-		data[ 'y-sync' ] = docRequests;
-	} );
+
+		addAction( 'heartbeat.send', 'y-sync', ( data ) => {
+			/**
+			 * Maps from postType/postId => contentClientId
+			 *
+			 * The server checks whether the respective post contains a y:gutenberg comment that uses the
+			 * contentClientId. If not, it should return the full yjs state of the updated document.
+			 *
+			 * @type {Record<string,Record<string, number>>}
+			 */
+			const docRequests = {};
+			Object.entries( docs ).forEach( ( [ objectType, objectDocs ] ) => {
+				/**
+				 * @type {Record<string, number>}
+				 */
+				const objectTypeRequests = {};
+				docRequests[ objectType ] = objectTypeRequests;
+				Object.entries( objectDocs ).forEach(
+					( [ objectId, localDocDef ] ) => {
+						objectTypeRequests[ objectId ] =
+							localDocDef.prevContentClientId;
+					}
+				);
+			} );
+			data[ 'y-sync' ] = docRequests;
+		} );
+	}
 
 	/**
 	 * Registers an object type.
