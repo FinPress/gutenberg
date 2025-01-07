@@ -12,7 +12,7 @@ concurrency:
 jobs:
     check:
         runs-on: ubuntu-latest
-        if: ${{ github.repository == 'WordPress/gutenberg' }}
+        if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
 
         steps:
             - name: Checkout
