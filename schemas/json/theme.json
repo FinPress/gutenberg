@@ -1704,6 +1704,7 @@
 		"stylesElementsPseudoSelectorsProperties": {
 			"type": "object",
 			"properties": {
+			"properties": {
 				":active": {
 					"$ref": "#/definitions/stylesPropertiesComplete"
 				},
@@ -1711,6 +1712,9 @@
 					"$ref": "#/definitions/stylesPropertiesComplete"
 				},
 				":focus": {
+					"$ref": "#/definitions/stylesPropertiesComplete"
+				},
+				":focus-visible": {
 					"$ref": "#/definitions/stylesPropertiesComplete"
 				},
 				":hover": {
@@ -1729,6 +1733,7 @@
 				":active",
 				":any-link",
 				":focus",
+				":focus-visible",
 				":hover",
 				":link",
 				":visited"
