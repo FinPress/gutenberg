@@ -347,6 +347,7 @@ Hide and show additional content. ([Source](https://github.com/WordPress/gutenbe
 -	**Category:** text
 -	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), interactivity (clientNavigation), layout (~~allowEditing~~), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:**
+    - allowedBlocks
     - showContent
     - summary
 
@@ -772,7 +773,7 @@ Display a list of all pages. ([Source](https://github.com/WordPress/gutenberg/tr
 -	**Name:** core/page-list
 -	**Category:** widgets
 -	**Allowed Blocks:** core/page-list-item
--	**Supports:** interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** color (background, gradients, link, text), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:**
     - isNested
     - parentPageID
@@ -1166,7 +1167,7 @@ Display entries from any RSS or Atom feed. ([Source](https://github.com/WordPres
 
 -	**Name:** core/rss
 -	**Category:** widgets
--	**Supports:** align, interactivity (clientNavigation), ~~html~~
+-	**Supports:** align, color (background, gradients, link, text), interactivity (clientNavigation), ~~html~~
 -	**Attributes:**
     - blockLayout
     - columns
