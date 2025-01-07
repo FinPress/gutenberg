@@ -272,7 +272,7 @@ const ImageURLInputUI = ( {
 					</div>
 					<Button
 						icon={ linkOff }
-						label={ __( 'Disable Enlarge on click' ) }
+						label={ __( 'Disable enlarge on click' ) }
 						onClick={ () => {
 							onSetLightbox?.( false );
 						} }
