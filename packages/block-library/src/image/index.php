@@ -229,7 +229,6 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 			type="button"
 			aria-haspopup="dialog"
 			aria-label="' . esc_attr( $aria_label ) . '"
-			aria-describedby="' . esc_attr( $alt ) . '"
 			data-wp-init="callbacks.initTriggerButton"
 			data-wp-on-async--click="actions.showLightbox"
 			data-wp-style--right="state.imageButtonRight"
