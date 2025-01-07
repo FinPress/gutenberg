@@ -266,11 +266,25 @@ function PreviewOptions( {
 	onMenuOpenChange: ( isOpen: boolean ) => void;
 	activeOption?: string;
 } ) {
+	const focusPreviewOptionsField = ( id: string ) => {
+		// Focus the visibility button to avoid focus loss.
+		// Our code is safe against the component being unmounted, so we don't need to worry about cleaning the timeout.
+		// eslint-disable-next-line @wordpress/react-no-unsafe-timeout
+		setTimeout( () => {
+			const element = document.querySelector(
+				`.dataviews-field-control__field-${ id } .dataviews-field-control__field-preview-options-button`
+			);
+			if ( element instanceof HTMLElement ) {
+				element.focus();
+			}
+		}, 50 );
+	};
 	return (
 		<Menu onOpenChange={ onMenuOpenChange }>
 			<Menu.TriggerButton
 				render={
 					<Button
+						className="dataviews-field-control__field-preview-options-button"
 						size="compact"
 						icon={ moreVertical }
 						label={ __( 'Preview' ) }
@@ -286,6 +300,7 @@ function PreviewOptions( {
 							checked={ id === activeOption }
 							onChange={ () => {
 								onChangePreviewOption?.( id );
+								focusPreviewOptionsField( id );
 							} }
 						>
 							<Menu.ItemLabel>{ label }</Menu.ItemLabel>
