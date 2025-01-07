@@ -1,4 +1,4 @@
-# API Reference
+# Directives and Store API Reference
 
 <div class="callout callout-alert">
 Interactivity API is only available for WordPress 6.5 and above.
@@ -712,8 +712,8 @@ For server-side rendered lists, another directive called `data-wp-each-child` en
 
 ```html
 <ul data-wp-context='{ "list": [ "hello", "hola", "olá" ] }'>
-	<template data-wp-each--greeting="context.list">
-		<li data-wp-text="context.greeting"></li>
+	<template data-wp-each="context.list">
+		<li data-wp-text="context.item"></li>
 	</template>
 	<li data-wp-each-child>hello</li>
 	<li data-wp-each-child>hola</li>
