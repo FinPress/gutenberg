@@ -13,7 +13,6 @@ import {
 	BlockEditorProvider,
 	BlockContextProvider,
 	privateApis as blockEditorPrivateApis,
-	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { store as noticesStore } from '@wordpress/notices';
 import { privateApis as editPatternsPrivateApis } from '@wordpress/patterns';
@@ -164,6 +163,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 		BlockEditorProviderComponent = ExperimentalBlockEditorProvider,
 		__unstableTemplate: template,
 	} ) => {
+		const hasTemplate = !! template;
 		const {
 			editorSettings,
 			selection,
@@ -196,7 +196,9 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					isReady: __unstableIsEditorReady(),
 					mode: getRenderingMode(),
 					defaultMode:
-						postTypeObject?.default_rendering_mode ?? 'post-only',
+						hasTemplate && postTypeObject?.default_rendering_mode
+							? postTypeObject?.default_rendering_mode
+							: 'post-only',
 					selection: getEditorSelection(),
 					postTypeEntities:
 						post.type === 'wp_template'
@@ -204,16 +206,8 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 							: null,
 				};
 			},
-			[ post.type ]
+			[ post.type, hasTemplate ]
 		);
-
-		const isZoomOut = useSelect( ( select ) => {
-			const { isZoomOut: _isZoomOut } = unlock(
-				select( blockEditorStore )
-			);
-
-			return _isZoomOut();
-		} );
 
 		const shouldRenderTemplate = !! template && mode !== 'post-only';
 		const rootLevelPost = shouldRenderTemplate ? template : post;
@@ -309,15 +303,11 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					}
 				);
 			}
-		}, [
-			createWarningNotice,
-			initialEdits,
-			settings,
-			post,
-			recovery,
-			setupEditor,
-			updatePostLock,
-		] );
+
+			// The dependencies of the hook are omitted deliberately
+			// We only want to run setupEditor (with initialEdits) only once per post.
+			// A better solution in the future would be to split this effect into multiple ones.
+		}, [] );
 
 		// Synchronizes the active post with the state
 		useEffect( () => {
@@ -367,13 +357,9 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 							{ children }
 							{ ! settings.isPreviewMode && (
 								<>
-									{ ! isZoomOut && (
-										<>
-											<PatternsMenuItems />
-											<TemplatePartMenuItems />
-											<ContentOnlySettingsMenu />
-										</>
-									) }
+									<PatternsMenuItems />
+									<TemplatePartMenuItems />
+									<ContentOnlySettingsMenu />
 									{ mode === 'template-locked' && (
 										<DisableNonPageContentBlocks />
 									) }
