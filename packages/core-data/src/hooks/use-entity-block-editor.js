@@ -37,7 +37,8 @@ export default function useEntityBlockEditor( kind, name, { id: _id } = {} ) {
 	// @todo is this where the content is set / updated?
 	const providerId = useEntityId( kind, name );
 	const id = _id ?? providerId;
-	const { getEntityRecord, getEntityRecordEdits, getEntityConfig } = useSelect( STORE_NAME );
+	const { getEntityRecord, getEntityRecordEdits, getEntityConfig } =
+		useSelect( STORE_NAME );
 	const { content, editedBlocks, meta } = useSelect(
 		( select ) => {
 			if ( ! id ) {
@@ -106,10 +107,7 @@ export default function useEntityBlockEditor( kind, name, { id: _id } = {} ) {
 			const edits = {
 				selection,
 				content: ( { blocks: blocksForSerialization = [] } ) => {
-					const entityConfig = getEntityConfig(
-						kind,
-						name
-					);
+					const entityConfig = getEntityConfig( kind, name );
 					const objectId = entityConfig.getSyncObjectId( id );
 					return __unstableSerializeAndCleanWithYdoc(
 						blocksForSerialization,
@@ -133,7 +131,7 @@ export default function useEntityBlockEditor( kind, name, { id: _id } = {} ) {
 			meta,
 			__unstableCreateUndoLevel,
 			editEntityRecord,
-			getEntityConfig
+			getEntityConfig,
 		]
 	);
 

@@ -33,7 +33,7 @@ export function createWebRTCConnection( { signaling, password } ) {
 				// @ts-ignore
 				password,
 			} );
-		} catch (err) {
+		} catch ( err ) {
 			// nop
 		}
 		return Promise.resolve( () => true );

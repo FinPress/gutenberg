@@ -36,7 +36,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	const docs = {};
 
 	// @ts-ignore
-	if (window.__experimentalEnableHeartbeatSync) {
+	if ( window.__experimentalEnableHeartbeatSync ) {
 		addAction( 'heartbeat.tick', 'y-sync', ( data ) => {
 			if ( ! data[ 'y-sync' ] ) {
 				return;
@@ -46,7 +46,8 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 					Object.entries( objectDocs ).forEach(
 						( [ objectId, remoteDocDef ] ) => {
 							const localDocDef =
-								( docs[ objectType ] || {} )[ objectId ] || null;
+								( docs[ objectType ] || {} )[ objectId ] ||
+								null;
 							if ( localDocDef ) {
 								Y.applyUpdateV2(
 									localDocDef.ydoc,

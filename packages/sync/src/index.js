@@ -62,19 +62,22 @@ let syncProvider;
 
 export function getSyncProvider() {
 	if ( ! syncProvider ) {
+		// @ts-ignore
+		const connectionProvider = window?.__experimentalEnableWebrtcSync
+			? createWebRTCConnection( {
+					signaling: [
+						// @ts-ignore
+						window?.wp?.ajax?.settings?.url,
+						//'ws://localhost:4444',
+					],
+					// @ts-ignore
+					password: window?.__experimentalCollaborativeEditingSecret,
+			  } )
+			: null;
 		syncProvider = createSyncProvider(
 			// connectIndexDb,
 			null,
-			// @ts-ignore
-			window?.__experimentalEnableWebrtcSync ? createWebRTCConnection( {
-				signaling: [
-					// @ts-ignore
-					window?.wp?.ajax?.settings?.url,
-					//'ws://localhost:4444',
-				],
-				// @ts-ignore
-				password: window?.__experimentalCollaborativeEditingSecret,
-			} ) : null
+			connectionProvider
 		);
 	}
 	return syncProvider;

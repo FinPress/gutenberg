@@ -5,6 +5,7 @@ import {
 	getFreeformContentHandlerName,
 	getDefaultBlockName,
 	__unstableSerializeAndCleanWithYdoc,
+	__unstableSerializeAndClean,
 	parse,
 } from '@wordpress/blocks';
 import { isInTheFuture, getDate } from '@wordpress/date';
@@ -916,6 +917,7 @@ export const getEditedPostContent = createRegistrySelector(
 	( select ) => ( state ) => {
 		const postId = getCurrentPostId( state );
 		const postType = getCurrentPostType( state );
+
 		const record = select( coreStore ).getEditedEntityRecord(
 			'postType',
 			postType,
@@ -929,7 +931,10 @@ export const getEditedPostContent = createRegistrySelector(
 					'postType',
 					postType
 				);
-				const objectId = entityConfig.getSyncObjectId( record.id );
+				const objectId = entityConfig.getSyncObjectId?.( record.id );
+				if ( objectId === null ) {
+					return __unstableSerializeAndClean( record.blocks );
+				}
 				return __unstableSerializeAndCleanWithYdoc(
 					record.blocks,
 					entityConfig.syncObjectType,
