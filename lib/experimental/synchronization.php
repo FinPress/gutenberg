@@ -103,7 +103,7 @@ function filter_post_content_ydoc( $data, $postarr, $unsanitized_postarr ) {
 	}
 	$content = stripslashes($data['post_content']);
 	// generate a new clientid for updated content that can be represented as a 53bit unsigned integer (max clientid in Yjs)
-	$ynewclientid = rand(0, 9007199254740991); // $match[4];
+	$ynewclientid = wp_rand(0, 9007199254740991); // This is 2^53 – 1 which is `Number.MAX_SAFE_INTEGER` from JavaScript
 	$updated_yinfo = ''; // '<!-- y:gutenberg version="1" state="" new-content-clientid="' . $ynewclientid . '" -->';
 	// transform $content if it contains ydoc comment tag
 	// @todo the following regex doesn't catch the y:gutenberg comment
