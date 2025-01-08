@@ -10,6 +10,7 @@ import {
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import {
+	TextControl,
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
@@ -31,7 +32,7 @@ const TEMPLATE = [
 ];
 
 function DetailsEdit( { attributes, setAttributes, clientId } ) {
-	const { showContent, summary, allowedBlocks } = attributes;
+	const { name, showContent, summary, allowedBlocks } = attributes;
 	const blockProps = useBlockProps();
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		template: TEMPLATE,
@@ -88,6 +89,20 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 						/>
 					</ToolsPanelItem>
 				</ToolsPanel>
+			</InspectorControls>
+			<InspectorControls group="advanced">
+				<TextControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					label={ __( 'Name attribute' ) }
+					value={ name }
+					onChange={ ( newName ) =>
+						setAttributes( { name: newName } )
+					}
+					help={ __(
+						'When using the name attribute to assign the same name to a group of detail elements, only one element in the set is opened at a time.'
+					) }
+				/>
 			</InspectorControls>
 			<details
 				{ ...innerBlocksProps }
