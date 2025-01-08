@@ -100,7 +100,7 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 						setAttributes( { name: newName } )
 					}
 					help={ __(
-						'When using the name attribute to assign the same name to a group of detail elements, only one element in the set is opened at a time.'
+						'Enables multiple Details blocks with the same name attribute to be connected, with only one open at a time.'
 					) }
 				/>
 			</InspectorControls>

@@ -9,7 +9,11 @@ export default function save( { attributes } ) {
 	const blockProps = useBlockProps.save();
 
 	return (
-		<details { ...blockProps } name={ name || null } open={ showContent }>
+		<details
+			{ ...blockProps }
+			name={ name || undefined }
+			open={ showContent }
+		>
 			<summary>
 				<RichText.Content value={ summary } />
 			</summary>
