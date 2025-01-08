@@ -171,7 +171,6 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 			mode,
 			defaultMode,
 			postTypeEntities,
-			hasLoadedPostObject,
 		} = useSelect(
 			( select ) => {
 				const {
@@ -187,7 +186,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 				} = select( coreStore );
 
 				const postTypeSupports = getPostType( post.type )?.supports;
-				const _hasLoadedPostObject = hasFinishedResolution(
+				const hasLoadedPostObject = hasFinishedResolution(
 					'getPostType',
 					[ post.type ]
 				);
@@ -199,9 +198,8 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					: undefined;
 
 				return {
-					hasLoadedPostObject: _hasLoadedPostObject,
 					editorSettings: getEditorSettings(),
-					isReady: __unstableIsEditorReady(),
+					isReady: __unstableIsEditorReady() && hasLoadedPostObject,
 					mode: getRenderingMode(),
 					defaultMode:
 						hasTemplate && _defaultMode
@@ -342,7 +340,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 		// Register the editor commands.
 		useCommands();
 
-		if ( ! isReady || ! mode || ! hasLoadedPostObject ) {
+		if ( ! isReady || ! mode ) {
 			return null;
 		}
 
