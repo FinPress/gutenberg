@@ -180,15 +180,23 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					getRenderingMode,
 					__unstableIsEditorReady,
 				} = select( editorStore );
-				const { getEntitiesConfig } = select( coreStore );
+				const {
+					getEntitiesConfig,
+					getPostType,
+					hasFinishedResolution,
+				} = select( coreStore );
 
-				const postTypeObject = select( coreStore ).getPostType(
-					post.type
+				const postTypeSupports = getPostType( post.type )?.supports;
+				const _hasLoadedPostObject = hasFinishedResolution(
+					'getPostType',
+					[ post.type ]
 				);
 
-				const _hasLoadedPostObject = select(
-					coreStore
-				).hasFinishedResolution( 'getPostType', [ post.type ] );
+				const _defaultMode = Array.isArray( postTypeSupports?.editor )
+					? postTypeSupports.editor.find(
+							( features ) => 'default_mode' in features
+					  )?.default_mode
+					: undefined;
 
 				return {
 					hasLoadedPostObject: _hasLoadedPostObject,
@@ -196,8 +204,8 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					isReady: __unstableIsEditorReady(),
 					mode: getRenderingMode(),
 					defaultMode:
-						hasTemplate && postTypeObject?.default_rendering_mode
-							? postTypeObject?.default_rendering_mode
+						hasTemplate && _defaultMode
+							? _defaultMode
 							: 'post-only',
 					selection: getEditorSelection(),
 					postTypeEntities:
