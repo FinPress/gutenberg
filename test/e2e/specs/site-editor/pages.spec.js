@@ -281,7 +281,7 @@ test.describe( 'Pages', () => {
 		await templateOptionsButton.click();
 		await page
 			.getByRole( 'menu', { name: 'Template options' } )
-			.getByText( 'Swap template' )
+			.getByText( 'Replace template' )
 			.click();
 		const templateItem = page.locator(
 			'.block-editor-block-patterns-list__item-title'
@@ -305,7 +305,7 @@ test.describe( 'Pages', () => {
 		await expect( templateOptionsButton ).toHaveText( 'Single Entries' );
 	} );
 
-	test( 'swap template options should respect the declared `postTypes`', async ( {
+	test( 'replace template options should respect the declared `postTypes`', async ( {
 		page,
 		editor,
 	} ) => {
@@ -321,7 +321,7 @@ test.describe( 'Pages', () => {
 		await expect(
 			page
 				.getByRole( 'menu', { name: 'Template options' } )
-				.getByText( 'Swap template' )
+				.getByText( 'Replace template' )
 		).toHaveCount( 0 );
 	} );
 } );
