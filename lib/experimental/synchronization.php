@@ -41,7 +41,7 @@ add_action( 'admin_init', 'gutenberg_rest_api_init_collaborative_editing' );
  * the HTML content.
  *
  * Legacy clients may manipulate the HTML state without updating the Yjs
- * document. Ideally, they leave the y:gutenberg comment alone. Onca e
+ * document. Ideally, they leave the y:gutenberg comment alone. Once a
  * collaboration-enabled client recognizes that the HTML content changed and is
  * not in-sync with the Yjs state, it will update the Yjs document.
  *
