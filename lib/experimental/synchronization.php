@@ -18,7 +18,6 @@ function gutenberg_rest_api_init_collaborative_editing() {
 		$collaborative_editing_secret = wp_generate_password( 64, false );
 	}
 	add_site_option( 'collaborative_editing_secret', $collaborative_editing_secret );
-
 	wp_add_inline_script( 'wp-sync', 'window.__experimentalCollaborativeEditingSecret = "' . $collaborative_editing_secret . '";', 'before' );
 }
 add_action( 'admin_init', 'gutenberg_rest_api_init_collaborative_editing' );
@@ -102,29 +101,24 @@ function filter_post_content_ydoc( $data, $postarr, $unsanitized_postarr ) {
 		return $data;
 	}
 	$content = stripslashes($data['post_content']);
-	// generate a new clientid for updated content that can be represented as a 53bit unsigned integer (max clientid in Yjs)
-	$ynewclientid = wp_rand(0, 9007199254740991); // This is 2^53 – 1 which is `Number.MAX_SAFE_INTEGER` from JavaScript
-	$updated_yinfo = ''; // '<!-- y:gutenberg version="1" state="" new-content-clientid="' . $ynewclientid . '" -->';
 	// transform $content if it contains ydoc comment tag
-	// @todo the following regex doesn't catch the y:gutenberg comment
-	// preg_match('/<!-- y:gutenberg version="([a-zA-Z0-9]*)" state="([a-zA-Z0-9+\/\\]*={0,3})" new-content-clientid="([0-9]*)" -->/', $content, $match, PREG_OFFSET_CAPTURE);
-	preg_match('/<!-- y:gutenberg version=\"(.*)\" state=\"(.*)\" new-content-clientid=\"(.*)\" -->/', $content, $match, PREG_OFFSET_CAPTURE);
+	preg_match('/<!-- y:gutenberg version=\"([a-zA-Z0-9]*)\" state=\"([a-zA-Z0-9+\/]*={0,3})\" new-content-clientid=\"([0-9]*)\" -->/', $content, $match, PREG_OFFSET_CAPTURE);
+	// preg_match('/<!-- y:gutenberg version=\"(.*)\" state=\"(.*)\" new-content-clientid=\"(.*)\" -->/', $content, $match, PREG_OFFSET_CAPTURE); -- this works
 	if ($match) {
 		$content = substr($content, 0, $match[0][1]) . substr($content, $match[0][1] + strlen($match[0][0]));
 		// match found
 		$yversion = $match[1][0];
 		$ystate = $match[2][0];
-		// always supply a new client id
+		// Always supply a new client id after any change. Generate a new clientid
+		// for updated content that can be represented as a 53bit unsigned integer
+		// (max clientid in Yjs).
+		$ynewclientid = wp_rand(0, 9007199254740991); // This is 2^53 – 1 which is `Number.MAX_SAFE_INTEGER` from JavaScript
 		$updated_yinfo = '<!-- y:gutenberg version="' . $yversion . '" state="' . $ystate . '" new-content-clientid="' . $ynewclientid . '" -->';
-
+		$data['post_content'] = addslashes($content . $updated_yinfo);
 	}
-
-	$data['post_content'] = addslashes($content . $updated_yinfo);
 	return $data;
 }
-
-// This filter must be run after all other filters! Use the highest priority number systemwide.
-add_filter( 'wp_insert_post_data', 'filter_post_content_ydoc', 20130220, 3);
+add_filter( 'wp_insert_post_data', 'filter_post_content_ydoc', 10, 3);
 
 /**
  * The client may request Yjs updates via the heartbeat api. It requests by
@@ -145,9 +139,7 @@ function ygutenberg_heartbeat (array $response, array $data) {
 				$post = wp_get_post_autosave($postid);
 				if ($post) {
 					$postcontent = stripslashes($post->post_content);
-					// @todo the following regex doesn't catch the ygutenberg comment
-					// preg_match('/<!-- y:gutenberg version="([a-zA-Z0-9]*)" state="([a-zA-Z0-9+\/]*={0,3})" new-content-clientid="([0-9]*)" -->/', $postcontent, $yinfo);
-					preg_match('/<!-- y:gutenberg version=\"(.*)\" state=\"(.*)\" new-content-clientid=\"(.*)\" -->/', $postcontent, $yinfo);
+					preg_match('/<!-- y:gutenberg version=\"([a-zA-Z0-9]*)\" state=\"([a-zA-Z0-9+\/]*={0,3})\" new-content-clientid=\"([0-9]*)\" -->/', $postcontent, $yinfo);
 					if ($yinfo and $yinfo[3] !== $expectedClientId) {
 						$docs[$postid] = array(
 							"contentClientId" => $yinfo[3],
@@ -163,4 +155,4 @@ function ygutenberg_heartbeat (array $response, array $data) {
 	return $response;
 }
 
-add_filter('heartbeat_received', 'ygutenberg_heartbeat', 20, 2);
+add_filter('heartbeat_received', 'ygutenberg_heartbeat', 10, 2);
