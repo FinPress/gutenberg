@@ -102,23 +102,37 @@ function filter_post_content_ydoc( $data, $postarr, $unsanitized_postarr ) {
 	}
 	$content = stripslashes($data['post_content']);
 	// transform $content if it contains ydoc comment tag
-	preg_match('/<!-- y:gutenberg version=\"([a-zA-Z0-9]*)\" state=\"([a-zA-Z0-9+\/]*={0,3})\" new-content-clientid=\"([0-9]*)\" -->/', $content, $match, PREG_OFFSET_CAPTURE);
-	// preg_match('/<!-- y:gutenberg version=\"(.*)\" state=\"(.*)\" new-content-clientid=\"(.*)\" -->/', $content, $match, PREG_OFFSET_CAPTURE); -- this works
-	if ($match) {
-		$content = substr($content, 0, $match[0][1]) . substr($content, $match[0][1] + strlen($match[0][0]));
-		// match found
-		$yversion = $match[1][0];
-		$ystate = $match[2][0];
+	$yinfo = get_yinfo($content);
+	if ($yinfo) {
+		$content = substr($content, 0, $yinfo['commentStart']) . substr($content, $yinfo['commentEnd']);
 		// Always supply a new client id after any change. Generate a new clientid
 		// for updated content that can be represented as a 53bit unsigned integer
 		// (max clientid in Yjs).
 		$ynewclientid = wp_rand(0, 9007199254740991); // This is 2^53 – 1 which is `Number.MAX_SAFE_INTEGER` from JavaScript
-		$updated_yinfo = '<!-- y:gutenberg version="' . $yversion . '" state="' . $ystate . '" new-content-clientid="' . $ynewclientid . '" -->';
+		$updated_yinfo = '<!-- y:gutenberg version="' . $yinfo['version'] . '" state="' . $yinfo['state'] . '" new-content-clientid="' . $ynewclientid . '" -->';
 		$data['post_content'] = addslashes($content . $updated_yinfo);
 	}
 	return $data;
 }
 add_filter( 'wp_insert_post_data', 'filter_post_content_ydoc', 10, 3);
+
+/**
+ * Extracts the <!-- y:gutenberg .. --> comment from HTML $content and returns the encoded data.
+ */
+function get_yinfo ($content) {
+	preg_match('/<!-- y:gutenberg version=\"([a-zA-Z0-9]*)\" state=\"([a-zA-Z0-9+\/]*={0,3})\" new-content-clientid=\"([0-9]*)\" -->/', $content, $match, PREG_OFFSET_CAPTURE);
+	if ($match) {
+		return array(
+			"comment" => $match[0][0],
+			"version" => $match[1][0],
+			"state" => $match[2][0],
+			"new-content-clientid" => $match[3][0],
+			"commentStart" => $match[0][1],
+			"commentEnd" => $match[0][1] + strlen($match[0][0]),
+		);
+	}
+	return null;
+}
 
 /**
  * The client may request Yjs updates via the heartbeat api. It requests by
@@ -139,11 +153,11 @@ function ygutenberg_heartbeat (array $response, array $data) {
 				$post = wp_get_post_autosave($postid);
 				if ($post) {
 					$postcontent = stripslashes($post->post_content);
-					preg_match('/<!-- y:gutenberg version=\"([a-zA-Z0-9]*)\" state=\"([a-zA-Z0-9+\/]*={0,3})\" new-content-clientid=\"([0-9]*)\" -->/', $postcontent, $yinfo);
-					if ($yinfo and $yinfo[3] !== $expectedClientId) {
+					$yinfo = get_yinfo($postcontent);
+					if ($yinfo and strcmp($yinfo['new-content-clientid'], strval($expectedClientId)) !== 0) {
 						$docs[$postid] = array(
-							"contentClientId" => $yinfo[3],
-							"state" => $yinfo[2]
+							"contentClientId" => $yinfo['new-content-clientid'],
+							"state" => $yinfo['state']
 						);
 					}
 				}
