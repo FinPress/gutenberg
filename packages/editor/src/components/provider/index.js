@@ -57,6 +57,11 @@ const NON_CONTEXTUAL_POST_TYPES = [
 ];
 
 /**
+ * These are rendering modes that the editor supports.
+ */
+const RENDERING_MODES = [ 'post-only', 'template-locked' ];
+
+/**
  * Depending on the post, template and template mode,
  * returns the appropriate blocks and change handlers for the block editor provider.
  *
@@ -196,13 +201,14 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 							( features ) => 'default_mode' in features
 					  )?.default_mode
 					: undefined;
+				const hasDefaultMode = RENDERING_MODES.includes( _defaultMode );
 
 				return {
 					editorSettings: getEditorSettings(),
 					isReady: __unstableIsEditorReady() && hasLoadedPostObject,
 					mode: getRenderingMode(),
 					defaultMode:
-						hasTemplate && _defaultMode
+						hasTemplate && hasDefaultMode
 							? _defaultMode
 							: 'post-only',
 					selection: getEditorSelection(),
