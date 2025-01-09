@@ -117,29 +117,42 @@ export function CommandMenuGroup( { isContextual, search, setLoader, close } ) {
 
 	return (
 		<Command.Group>
-			{ commands.map( ( command ) => (
-				<Command.Item
-					key={ command.name }
-					value={ command.searchLabel ?? command.label }
-					onSelect={ () => command.callback( { close } ) }
-					id={ command.name }
-				>
-					<HStack
-						alignment="left"
-						className={ clsx( 'commands-command-menu__item', {
-							'has-icon': command.icon,
-						} ) }
+			{ commands.map( ( command ) => {
+				let pluginName = command.name.split( '/' )[ 0 ];
+
+				if ( pluginName?.length > 10 ) {
+					pluginName = pluginName.slice( 0, 12 ) + '...';
+				}
+
+				return (
+					<Command.Item
+						key={ command.name }
+						value={ command.searchLabel ?? command.label }
+						onSelect={ () => command.callback( { close } ) }
+						id={ command.name }
 					>
-						{ command.icon && <Icon icon={ command.icon } /> }
-						<span>
-							<TextHighlight
-								text={ command.label }
-								highlight={ search }
-							/>
-						</span>
-					</HStack>
-				</Command.Item>
-			) ) }
+						<HStack
+							alignment="left"
+							className={ clsx( 'commands-command-menu__item', {
+								'has-icon': command.icon,
+							} ) }
+						>
+							{ command.icon && <Icon icon={ command.icon } /> }
+							<span>
+								<TextHighlight
+									text={ command.label }
+									highlight={ search }
+								/>
+							</span>
+							<span className="commands-command-menu__item__plugin">
+								{ pluginName !== 'core' &&
+									pluginName.charAt( 0 ).toUpperCase() +
+										pluginName.slice( 1 ) }
+							</span>
+						</HStack>
+					</Command.Item>
+				);
+			} ) }
 			{ loaders.map( ( loader ) => (
 				<CommandMenuLoaderWrapper
 					key={ loader.name }
