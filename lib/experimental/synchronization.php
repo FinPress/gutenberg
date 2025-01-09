@@ -92,43 +92,43 @@ add_action( 'admin_init', 'gutenberg_rest_api_init_collaborative_editing' );
  * is better that the status quo, which overwrites existing content and can
  * lead to data loss.
  */
-function filter_post_content_ydoc( $data, $postarr, $unsanitized_postarr ) {
-	if ($data['post_type'] !== 'post' and $data['post_type'] !== 'revision') {
+function gutenberg_filter_post_content_ydoc( $data ) {
+	if ( 'post' !== $data['post_type'] and 'revision' !== $data['post_type'] ) {
 		return $data;
 	}
 	$gutenberg_experiments = get_option( 'gutenberg-experiments' );
 	if ( ! $gutenberg_experiments || ! array_key_exists( 'gutenberg-sync-collaboration', $gutenberg_experiments ) ) {
 		return $data;
 	}
-	$content = stripslashes($data['post_content']);
+	$content = stripslashes( $data['post_content'] );
 	// transform $content if it contains ydoc comment tag
-	$yinfo = get_yinfo($content);
-	if ($yinfo) {
-		$content = substr($content, 0, $yinfo['commentStart']) . substr($content, $yinfo['commentEnd']);
+	$yinfo = gutenberg_get_yinfo( $content );
+	if ( $yinfo ) {
+		$content = substr( $content, 0, $yinfo['commentStart'] ) . substr( $content, $yinfo['commentEnd'] );
 		// Always supply a new client id after any change. Generate a new clientid
 		// for updated content that can be represented as a 53bit unsigned integer
 		// (max clientid in Yjs).
-		$ynewclientid = wp_rand(0, 9007199254740991); // This is 2^53 – 1 which is `Number.MAX_SAFE_INTEGER` from JavaScript
-		$updated_yinfo = '<!-- y:gutenberg version="' . $yinfo['version'] . '" state="' . $yinfo['state'] . '" new-content-clientid="' . $ynewclientid . '" -->';
-		$data['post_content'] = addslashes($content . $updated_yinfo);
+		$ynewclientid         = wp_rand( 0, 9007199254740991 ); // This is 2^53 – 1 which is `Number.MAX_SAFE_INTEGER` from JavaScript
+		$updated_yinfo        = '<!-- y:gutenberg version="' . $yinfo['version'] . '" state="' . $yinfo['state'] . '" new-content-clientid="' . $ynewclientid . '" -->';
+		$data['post_content'] = addslashes( $content . $updated_yinfo );
 	}
 	return $data;
 }
-add_filter( 'wp_insert_post_data', 'filter_post_content_ydoc', 10, 3);
+add_filter( 'wp_insert_post_data', 'gutenberg_filter_post_content_ydoc', 10, 1 );
 
 /**
  * Extracts the <!-- y:gutenberg .. --> comment from HTML $content and returns the encoded data.
  */
-function get_yinfo ($content) {
-	preg_match('/<!-- y:gutenberg version=\"([a-zA-Z0-9]*)\" state=\"([a-zA-Z0-9+\/]*={0,3})\" new-content-clientid=\"([0-9]*)\" -->/', $content, $match, PREG_OFFSET_CAPTURE);
-	if ($match) {
+function gutenberg_get_yinfo( $content ) {
+	preg_match( '/<!-- y:gutenberg version=\"([a-zA-Z0-9]*)\" state=\"([a-zA-Z0-9+\/]*={0,3})\" new-content-clientid=\"([0-9]*)\" -->/', $content, $match, PREG_OFFSET_CAPTURE );
+	if ( $match ) {
 		return array(
-			"comment" => $match[0][0],
-			"version" => $match[1][0],
-			"state" => $match[2][0],
-			"new-content-clientid" => $match[3][0],
-			"commentStart" => $match[0][1],
-			"commentEnd" => $match[0][1] + strlen($match[0][0]),
+			'comment'              => $match[0][0],
+			'version'              => $match[1][0],
+			'state'                => $match[2][0],
+			'new-content-clientid' => $match[3][0],
+			'commentStart'         => $match[0][1],
+			'commentEnd'           => $match[0][1] + strlen( $match[0][0] ),
 		);
 	}
 	return null;
@@ -140,33 +140,33 @@ function get_yinfo ($content) {
  * document is written to the database. If the requested document has the same
  * "new-content-clientid", then no update will be returned.
  */
-function ygutenberg_heartbeat (array $response, array $data) {
-  if (empty( $data['y-sync'])) {
+function gutenberg_sync_heartbeat( array $response, array $data ) {
+	if ( empty( $data['y-sync'] ) ) {
 		return $response;
 	}
-	$updatedDocuments = [];
+	$updated_documents = array();
 
-	foreach ($data['y-sync'] as $posttype => $requestedDocs) {
-		if (strcmp($posttype, 'postType/Posts') === 0) {
-			$docs = [];
-			foreach ($requestedDocs as $postid => $expectedClientId) {
-				$post = wp_get_post_autosave($postid);
-				if ($post) {
-					$postcontent = stripslashes($post->post_content);
-					$yinfo = get_yinfo($postcontent);
-					if ($yinfo and strcmp($yinfo['new-content-clientid'], strval($expectedClientId)) !== 0) {
-						$docs[$postid] = array(
-							"contentClientId" => $yinfo['new-content-clientid'],
-							"state" => $yinfo['state']
+	foreach ( $data['y-sync'] as $posttype => $requested_docs ) {
+		if ( strcmp( $posttype, 'postType/Posts' ) === 0 ) {
+			$docs = array();
+			foreach ( $requested_docs as $postid => $expected_client_id ) {
+				$post = wp_get_post_autosave( $postid );
+				if ( $post ) {
+					$postcontent = stripslashes( $post->post_content );
+					$yinfo       = gutenberg_get_yinfo( $postcontent );
+					if ( $yinfo and strcmp( $yinfo['new-content-clientid'], strval( $expected_client_id ) ) !== 0 ) {
+						$docs[ $postid ] = array(
+							'contentClientId' => $yinfo['new-content-clientid'],
+							'state'           => $yinfo['state'],
 						);
 					}
 				}
 			}
-			$updatedDocuments[$posttype] = $docs;
+			$updated_documents[ $posttype ] = $docs;
 		}
 	}
-	$response['y-sync'] = $updatedDocuments;
+	$response['y-sync'] = $updated_documents;
 	return $response;
 }
 
-add_filter('heartbeat_received', 'ygutenberg_heartbeat', 10, 2);
+add_filter( 'heartbeat_received', 'gutenberg_sync_heartbeat', 10, 2 );
