@@ -21,7 +21,7 @@ import { useBlockDisplayInformation } from '..';
 import isEmptyString from './is-empty-string';
 
 export default function BlockRenameModal( { clientId, onClose } ) {
-	const [ editedBlockName, setEditedBlockName ] = useState( '' );
+	const [ editedBlockName, setEditedBlockName ] = useState();
 
 	const blockInformation = useBlockDisplayInformation( clientId );
 	const { metadata } = useSelect(
@@ -47,7 +47,8 @@ export default function BlockRenameModal( { clientId, onClose } ) {
 			( binding ) => binding.source === 'core/pattern-overrides'
 		);
 
-	const nameHasChanged = editedBlockName !== blockName;
+	const nameHasChanged =
+		editedBlockName !== undefined && editedBlockName !== blockName;
 	const nameIsOriginal = editedBlockName === originalBlockName;
 	const nameIsEmpty = isEmptyString( editedBlockName );
 
@@ -107,7 +108,7 @@ export default function BlockRenameModal( { clientId, onClose } ) {
 					<TextControl
 						__nextHasNoMarginBottom
 						__next40pxDefaultSize
-						value={ editedBlockName || blockName }
+						value={ editedBlockName ?? blockName }
 						label={ __( 'Name' ) }
 						help={
 							hasOverridesWarning
