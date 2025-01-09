@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 5.15.0 (2025-01-02)
+
+## 5.14.0 (2024-12-11)
+
+## 5.13.0 (2024-11-27)
+
+## 5.12.0 (2024-11-16)
+
 ### Enhancement
 
 -   Include `exports`, `wpScript`, `wpScriptModuleExports` and `sideEffects` in the `prefer-property-order` rule ([#66239](https://github.com/WordPress/gutenberg/pull/66239)).
