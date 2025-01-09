@@ -27,16 +27,6 @@ import { TriggerButton } from './trigger-button';
 import { SubmenuTriggerItem } from './submenu-trigger-item';
 import { Popover } from './popover';
 
-/**
- * Menu is a collection of React components that combine to render
- * ARIA-compliant [menu](https://www.w3.org/WAI/ARIA/apg/patterns/menu/) and
- * [menu button](https://www.w3.org/WAI/ARIA/apg/patterns/menubutton/) patterns.
- *
- * `Menu` itself is a wrapper component and context provider.
- * It is responsible for managing the state of the menu and its items, and for
- * rendering the `Menu.TriggerButton` (or the `Menu.SubmenuTriggerItem`)
- * component, and the `Menu.Popover` component.
- */
 const UnconnectedMenu = ( props: Props ) => {
 	const {
 		children,
