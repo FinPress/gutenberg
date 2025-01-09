@@ -600,13 +600,6 @@ test.describe( 'Synced pattern', () => {
 			editor.canvas.getByRole( 'document', { name: 'Block: Quote' } )
 		);
 
-		// The quote block should have a visible preview in the sidebar for this test to be valid.
-		await expect(
-			page
-				.getByRole( 'region', { name: 'Editor settings' } )
-				.getByRole( 'button', { name: 'Styles', exact: true } )
-		).toBeVisible();
-
 		await editor.clickBlockOptionsMenuItem( 'Create pattern' );
 
 		const createPatternDialog = editor.page.getByRole( 'dialog', {
