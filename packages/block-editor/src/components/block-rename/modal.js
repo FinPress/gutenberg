@@ -131,7 +131,8 @@ export default function BlockRenameModal( { clientId, onClose } ) {
 
 						<Button
 							__next40pxDefaultSize
-							aria-disabled={ ! isNameValid }
+							accessibleWhenDisabled
+							disabled={ ! isNameValid }
 							variant="primary"
 							type="submit"
 						>
