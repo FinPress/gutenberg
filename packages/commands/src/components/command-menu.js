@@ -120,7 +120,7 @@ export function CommandMenuGroup( { isContextual, search, setLoader, close } ) {
 			{ commands.map( ( command ) => {
 				let pluginName = command.name.split( '/' )[ 0 ];
 
-				if ( pluginName?.length > 10 ) {
+				if ( pluginName?.length > 12 ) {
 					pluginName = pluginName.slice( 0, 12 ) + '...';
 				}
 
