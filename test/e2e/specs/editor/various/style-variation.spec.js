@@ -7,6 +7,7 @@ test.describe( 'adding blocks', () => {
 	test( 'Should switch to the plain style of the quote block', async ( {
 		admin,
 		editor,
+		page,
 	} ) => {
 		await admin.createNewPost();
 
@@ -17,6 +18,8 @@ test.describe( 'adding blocks', () => {
 		} );
 
 		await editor.clickBlockToolbarButton( 'Quote' );
+
+		await page.click( 'role=menuitem[name="Plain"i]' );
 
 		// Check the content
 		const content = await editor.getEditedPostContent();
