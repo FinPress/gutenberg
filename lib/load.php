@@ -97,6 +97,7 @@ require __DIR__ . '/compat/wordpress-6.7/post-formats.php';
 require __DIR__ . '/compat/wordpress-6.8/preload.php';
 require __DIR__ . '/compat/wordpress-6.8/blocks.php';
 require __DIR__ . '/compat/wordpress-6.8/functions.php';
+require __DIR__ . '/compat/wordpress-6.8/post.php';
 require __DIR__ . '/compat/wordpress-6.8/site-editor.php';
 require __DIR__ . '/compat/wordpress-6.8/class-gutenberg-rest-user-controller.php';
 
