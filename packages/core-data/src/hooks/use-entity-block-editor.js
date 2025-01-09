@@ -3,7 +3,11 @@
  */
 import { useCallback, useMemo } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { parse, __unstableSerializeAndCleanWithYdoc } from '@wordpress/blocks';
+import {
+	parse,
+	__unstableSerializeAndCleanWithYdoc,
+	__unstableSerializeAndClean,
+} from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -108,7 +112,12 @@ export default function useEntityBlockEditor( kind, name, { id: _id } = {} ) {
 				selection,
 				content: ( { blocks: blocksForSerialization = [] } ) => {
 					const entityConfig = getEntityConfig( kind, name );
-					const objectId = entityConfig.getSyncObjectId( id );
+					const objectId =
+						entityConfig?.getSyncObjectId?.( id ) ?? null;
+					if ( objectId === null ) {
+						// no sync feature available for this entity type
+						return __unstableSerializeAndClean( blocks );
+					}
 					return __unstableSerializeAndCleanWithYdoc(
 						blocksForSerialization,
 						entityConfig.syncObjectType,
