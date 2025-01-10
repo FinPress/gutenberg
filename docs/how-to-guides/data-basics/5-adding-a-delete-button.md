@@ -307,6 +307,8 @@ All the pieces are in place, great! Here’s all the changes we've made in this 
 import { useState } from 'react';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { Button, Modal, TextControl } from '@wordpress/components';
+import { SnackbarList } from '@wordpress/components';
+import { store as noticesStore } from '@wordpress/notices';
 
 function MyFirstApp() {
 	const [searchTerm, setSearchTerm] = useState( '' );
