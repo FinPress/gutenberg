@@ -123,6 +123,11 @@
 	object-fit: cover;
 }
 
+// We need to set the width explicitly to 100% to make sure the image is responsive and works with stack/crop.
+.wp-block-media-text.is-image-fill-element {
+	width: 100%;
+}
+
 /*
 * Here we here not able to use a mobile first CSS approach.
 * Custom widths are set using inline styles, and on mobile,
