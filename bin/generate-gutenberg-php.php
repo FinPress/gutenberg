@@ -15,8 +15,8 @@ $inside_defines = false;
 /**
  * Prints `define` statements for the production version of `gutenberg.php`
  * (the plugin entry point).
- * 
- * @global string $plugin_version The version number of the plugin, parsed from the `gutenberg.php` file.
+ *
+ * @global string $plugin_version The version number of the plugin.
  */
 function print_production_defines() {
 	global $plugin_version;
