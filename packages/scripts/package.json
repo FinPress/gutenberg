@@ -81,7 +81,7 @@
 		"react-refresh": "^0.14.0",
 		"read-pkg-up": "^7.0.1",
 		"resolve-bin": "^0.4.0",
-		"rtlcss-webpack-plugin": "npm:@smushytaco/rtlcss-webpack-plugin@^1.0.8",
+		"rtlcss-webpack-plugin": "npm:@smushytaco/rtlcss-webpack-plugin@^1.0.9",
 		"sass": "^1.54.0",
 		"sass-loader": "^16.0.3",
 		"schema-utils": "^4.2.0",
