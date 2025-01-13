@@ -32,12 +32,11 @@ export const TemplateEdit = ( {
 	data,
 	field,
 	onChange,
-}: DataFormControlProps< BasePost > ) => {
+	value,
+}: DataFormControlProps< BasePost, string > ) => {
 	const { id } = field;
-	const postType = data.type;
-	const postId =
-		typeof data.id === 'number' ? data.id : parseInt( data.id, 10 );
-	const slug = data.slug;
+	const postType = Array.isArray( data ) ? data[ 0 ].type : data.type;
+	const slug = Array.isArray( data ) ? '' : data.slug;
 
 	const { availableTemplates, templates } = useSelect(
 		( select ) => {
@@ -55,11 +54,18 @@ export const TemplateEdit = ( {
 				select( coreStore )
 			);
 
-			const isPostsPage = getPostsPageId() === +postId;
-			const isFrontPage =
-				postType === 'page' && getHomePage()?.postId === +postId;
+			const posts = Array.isArray( data ) ? data : [ data ];
 
-			const allowSwitchingTemplate = ! isPostsPage && ! isFrontPage;
+			const allowSwitchingTemplate = posts.every( ( post ) => {
+				const postId =
+					typeof post.id === 'number'
+						? post.id
+						: parseInt( post.id, 10 );
+				const isPostsPage = +getPostsPageId() === postId;
+				const isFrontPage =
+					postType === 'page' && +getHomePage()?.postId === postId;
+				return ! isPostsPage && ! isFrontPage;
+			} );
 
 			return {
 				templates: allTemplates,
@@ -67,13 +73,13 @@ export const TemplateEdit = ( {
 					? allTemplates.filter(
 							( template ) =>
 								template.is_custom &&
-								template.slug !== data.template &&
+								template.slug !== value &&
 								!! template.content.raw // Skip empty templates.
 					  )
 					: [],
 			};
 		},
-		[ data.template, postId, postType ]
+		[ value, postType, data ]
 	);
 
 	const templatesAsPatterns = useMemo(
@@ -88,8 +94,6 @@ export const TemplateEdit = ( {
 	);
 
 	const shownTemplates = useAsyncList( templatesAsPatterns );
-
-	const value = field.getValue( { item: data } );
 
 	const currentTemplate = useSelect(
 		( select ) => {
@@ -141,6 +145,13 @@ export const TemplateEdit = ( {
 		[ id, onChange ]
 	);
 
+	let buttonLabel = '';
+	if ( typeof value === 'symbol' ) {
+		buttonLabel = __( 'Mixed' );
+	} else if ( currentTemplate ) {
+		buttonLabel = getItemTitle( currentTemplate );
+	}
+
 	return (
 		<fieldset className="fields-controls__template">
 			<Dropdown
@@ -151,25 +162,30 @@ export const TemplateEdit = ( {
 						variant="tertiary"
 						size="compact"
 						onClick={ onToggle }
+						accessibleWhenDisabled
+						disabled={
+							availableTemplates.length === 0 &&
+							( value === '' || typeof value === 'symbol' )
+						}
 					>
-						{ currentTemplate
-							? getItemTitle( currentTemplate )
-							: '' }
+						{ buttonLabel }
 					</Button>
 				) }
 				renderContent={ ( { onToggle } ) => (
 					<MenuGroup>
-						<MenuItem
-							onClick={ () => {
-								setShowModal( true );
-								onToggle();
-							} }
-						>
-							{ __( 'Swap template' ) }
-						</MenuItem>
+						{ availableTemplates.length > 0 && (
+							<MenuItem
+								onClick={ () => {
+									setShowModal( true );
+									onToggle();
+								} }
+							>
+								{ __( 'Swap template' ) }
+							</MenuItem>
+						) }
 						{
 							// The default template in a post is indicated by an empty string
-							value !== '' && (
+							value !== '' && typeof value !== 'symbol' && (
 								<MenuItem
 									onClick={ () => {
 										onChangeControl( '' );

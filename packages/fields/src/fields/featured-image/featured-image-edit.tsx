@@ -17,18 +17,18 @@ import { __ } from '@wordpress/i18n';
 import type { BasePost } from '../../types';
 
 export const FeaturedImageEdit = ( {
-	data,
 	field,
 	onChange,
-}: DataFormControlProps< BasePost > ) => {
+	value,
+}: DataFormControlProps< BasePost, number > ) => {
 	const { id } = field;
-
-	const value = field.getValue( { item: data } );
 
 	const media = useSelect(
 		( select ) => {
 			const { getEntityRecord } = select( coreStore );
-			return getEntityRecord( 'root', 'media', value );
+			return typeof value !== 'symbol'
+				? getEntityRecord( 'root', 'media', value )
+				: undefined;
 		},
 		[ value ]
 	);

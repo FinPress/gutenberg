@@ -10,13 +10,12 @@ import { useCallback } from '@wordpress/element';
 import type { DataFormControlProps } from '../types';
 
 export default function Text< Item >( {
-	data,
 	field,
 	onChange,
 	hideLabelFromVision,
-}: DataFormControlProps< Item > ) {
+	value,
+}: DataFormControlProps< Item, string > ) {
 	const { id, label, placeholder } = field;
-	const value = field.getValue( { item: data } );
 
 	const onChangeControl = useCallback(
 		( newValue: string ) =>
@@ -30,7 +29,7 @@ export default function Text< Item >( {
 		<TextControl
 			label={ label }
 			placeholder={ placeholder }
-			value={ value ?? '' }
+			value={ typeof value === 'symbol' ? '' : value ?? '' }
 			onChange={ onChangeControl }
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom

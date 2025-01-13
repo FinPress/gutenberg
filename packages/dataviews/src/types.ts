@@ -111,7 +111,10 @@ export type Field< Item > = {
 	/**
 	 * Callback used to render an edit control for the field.
 	 */
-	Edit?: ComponentType< DataFormControlProps< Item > > | string;
+	Edit?:
+		| ComponentType< DataFormControlProps< Item > >
+		| ComponentType< DataFormUniqueControlProps< Item > >
+		| string;
 
 	/**
 	 * Callback used to sort the field.
@@ -158,6 +161,11 @@ export type Field< Item > = {
 	 * Defaults to `item[ field.id ]`.
 	 */
 	getValue?: ( args: { item: Item } ) => any;
+
+	/**
+	 * Whether the field supports editing multiple items.
+	 */
+	unique?: boolean;
 };
 
 export type NormalizedField< Item > = Field< Item > & {
@@ -165,11 +173,14 @@ export type NormalizedField< Item > = Field< Item > & {
 	header: string | ReactElement;
 	getValue: ( args: { item: Item } ) => any;
 	render: ComponentType< DataViewRenderFieldProps< Item > >;
-	Edit: ComponentType< DataFormControlProps< Item > >;
+	Edit:
+		| ComponentType< DataFormControlProps< Item > >
+		| ComponentType< DataFormUniqueControlProps< Item > >;
 	sort: ( a: Item, b: Item, direction: SortDirection ) => number;
 	isValid: ( item: Item, context?: ValidationContext ) => boolean;
 	enableHiding: boolean;
 	enableSorting: boolean;
+	unique: boolean;
 };
 
 /**
@@ -179,11 +190,20 @@ export type Fields< Item > = Field< Item >[];
 
 export type Data< Item > = Item[];
 
-export type DataFormControlProps< Item > = {
-	data: Item;
+export type DataFormControlProps< Item, ValueType = any > = {
+	data: Item | Item[];
 	field: NormalizedField< Item >;
 	onChange: ( value: Record< string, any > ) => void;
 	hideLabelFromVision?: boolean;
+	value?: ValueType | symbol;
+};
+
+export type DataFormUniqueControlProps< Item, ValueType = any > = Omit<
+	DataFormControlProps< Item, ValueType >,
+	'data' | 'value'
+> & {
+	data: Item;
+	value?: ValueType;
 };
 
 export type DataViewRenderFieldProps< Item > = {
@@ -545,14 +565,14 @@ export type Form = {
 };
 
 export interface DataFormProps< Item > {
-	data: Item;
+	data: Item | Item[];
 	fields: Field< Item >[];
 	form: Form;
 	onChange: ( value: Record< string, any > ) => void;
 }
 
 export interface FieldLayoutProps< Item > {
-	data: Item;
+	data: Item | Item[];
 	field: FormField;
 	onChange: ( value: any ) => void;
 	hideLabelFromVision?: boolean;

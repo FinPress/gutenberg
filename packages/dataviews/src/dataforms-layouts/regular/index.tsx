@@ -16,6 +16,7 @@ import type { Form, FieldLayoutProps } from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
+import useFieldValue from '../use-field-value';
 
 function Header( { title }: { title: string } ) {
 	return (
@@ -59,6 +60,8 @@ export default function FormRegularField< Item >( {
 		};
 	}, [ field ] );
 
+	const fieldValue = useFieldValue( data, field.id );
+
 	if ( isCombinedField( field ) ) {
 		return (
 			<>
@@ -95,6 +98,7 @@ export default function FormRegularField< Item >( {
 						field={ fieldDefinition }
 						onChange={ onChange }
 						hideLabelFromVision
+						value={ fieldValue }
 					/>
 				</div>
 			</HStack>
@@ -105,6 +109,7 @@ export default function FormRegularField< Item >( {
 		<div className="dataforms-layouts-regular__field">
 			<fieldDefinition.Edit
 				data={ data }
+				value={ fieldValue }
 				field={ fieldDefinition }
 				onChange={ onChange }
 				hideLabelFromVision={

@@ -10,13 +10,12 @@ import { useCallback } from '@wordpress/element';
 import type { DataFormControlProps } from '../types';
 
 export default function Radio< Item >( {
-	data,
 	field,
 	onChange,
 	hideLabelFromVision,
-}: DataFormControlProps< Item > ) {
+	value,
+}: DataFormControlProps< Item, string > ) {
 	const { id, label } = field;
-	const value = field.getValue( { item: data } );
 
 	const onChangeControl = useCallback(
 		( newValue: string ) =>
@@ -32,7 +31,7 @@ export default function Radio< Item >( {
 				label={ label }
 				onChange={ onChangeControl }
 				options={ field.elements }
-				selected={ value }
+				selected={ typeof value === 'symbol' ? '' : value }
 				hideLabelFromVision={ hideLabelFromVision }
 			/>
 		);

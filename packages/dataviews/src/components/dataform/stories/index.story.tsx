@@ -8,7 +8,7 @@ import { ToggleControl } from '@wordpress/components';
  * Internal dependencies
  */
 import DataForm from '../index';
-import type { Field, Form } from '../../../types';
+import type { DataFormControlProps, Field, Form } from '../../../types';
 
 type SamplePost = {
 	title: string;
@@ -19,6 +19,7 @@ type SamplePost = {
 	date: string;
 	birthdate: string;
 	password?: string;
+	sticky?: boolean;
 };
 
 const meta = {
@@ -107,16 +108,19 @@ const fields = [
 		id: 'sticky',
 		label: 'Sticky',
 		type: 'integer',
-		Edit: ( { field, onChange, data, hideLabelFromVision } ) => {
-			const { id, getValue } = field;
+		Edit: ( {
+			field,
+			onChange,
+			value,
+			hideLabelFromVision,
+		}: DataFormControlProps< SamplePost > ) => {
+			const { id } = field;
 			return (
 				<ToggleControl
 					__nextHasNoMarginBottom
 					label={ hideLabelFromVision ? '' : field.label }
-					checked={ getValue( { item: data } ) }
-					onChange={ () =>
-						onChange( { [ id ]: ! getValue( { item: data } ) } )
-					}
+					checked={ value }
+					onChange={ () => onChange( { [ id ]: ! value } ) }
 				/>
 			);
 		},
