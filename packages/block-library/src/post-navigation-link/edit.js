@@ -25,6 +25,11 @@ import { __, _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 
+/**
+ * Internal dependencies
+ */
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+
 export default function PostNavigationLinkEdit( {
 	context: { postType },
 	attributes: {
@@ -48,6 +53,7 @@ export default function PostNavigationLinkEdit( {
 	};
 
 	const displayArrow = arrowMap[ arrow ];
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	if ( showTitle ) {
 		placeholder = isNext
@@ -95,13 +101,17 @@ export default function PostNavigationLinkEdit( {
 	return (
 		<>
 			<InspectorControls>
-				<ToolsPanel label={ __( 'Settings' ) }>
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
 					<ToolsPanelItem
 						hasValue={ () => !! showTitle }
 						label={ __( 'Display the title as a link' ) }
 						onDeselect={ () =>
 							setAttributes( { showTitle: false } )
 						}
+						isShownByDefault
 					>
 						<ToggleControl
 							__nextHasNoMarginBottom
@@ -136,6 +146,7 @@ export default function PostNavigationLinkEdit( {
 						hasValue={ () => !! arrow }
 						label={ __( 'Arrow' ) }
 						onDeselect={ () => setAttributes( { arrow: 'none' } ) }
+						isShownByDefault
 					>
 						<ToggleGroupControl
 							__next40pxDefaultSize
