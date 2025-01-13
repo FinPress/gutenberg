@@ -514,6 +514,7 @@ function CoverEdit( {
 								value={ overlayColor.color }
 								onChange={ onSetOverlayColor }
 								clearable={ false }
+								asButtons
 							/>
 						</div>
 					</CoverPlaceholder>
