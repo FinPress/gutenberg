@@ -54,6 +54,7 @@ import {
 	MIN_WIDTH,
 	isPercentageUnit,
 } from './utils.js';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 // Used to calculate border radius adjustment to avoid "fat" corners when
 // button is placed inside wrapper.
@@ -370,6 +371,7 @@ export default function SearchEdit( {
 			</>
 		);
 	};
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	const controls = (
 		<>
@@ -416,21 +418,26 @@ export default function SearchEdit( {
 							widthUnit: undefined,
 						} );
 					} }
+					dropdownMenuProps={ dropdownMenuProps }
 				>
 					<ToolsPanelItem
-						hasValue={ () => !! width }
-						label={ __( 'Width' ) }
-						resetAll={ () =>
-							setAttributes( {
-								width: undefined,
-							} )
+						hasValue={ () =>
+							PERCENTAGE_WIDTHS.includes( width ) &&
+							widthUnit === '%'
 						}
+						label={ __( 'Width' ) }
+						resetAll={ () => {
+							setAttributes( {
+								width: PC_WIDTH_DEFAULT, // Reset to default value
+								widthUnit: undefined,
+							} );
+						} }
 						isShownByDefault
 					>
 						<UnitControl
 							__next40pxDefaultSize
 							label={ __( 'Width' ) }
-							id={ unitControlInputId } // unused, kept for backwards compatibility
+							id={ unitControlInputId } // Unused, kept for backwards compatibility
 							min={
 								isPercentageUnit( widthUnit ) ? 0 : MIN_WIDTH
 							}
@@ -450,32 +457,20 @@ export default function SearchEdit( {
 							onUnitChange={ ( newUnit ) => {
 								setAttributes( {
 									width:
-										'%' === newUnit
+										newUnit === '%'
 											? PC_WIDTH_DEFAULT
 											: PX_WIDTH_DEFAULT,
 									widthUnit: newUnit,
 								} );
 							} }
 							__unstableInputWidth="80px"
-							value={ `${ width }${ widthUnit }` }
+							value={
+								width ? `${ width }${ widthUnit || '' }` : ''
+							}
 							units={ units }
+							style={ { marginBottom: '16px' } }
 						/>
-					</ToolsPanelItem>
 
-					<ToolsPanelItem
-						hasValue={ () =>
-							PERCENTAGE_WIDTHS.includes( width ) &&
-							widthUnit === '%'
-						}
-						label={ __( 'Percentage Width' ) }
-						resetAll={ () =>
-							setAttributes( {
-								width: undefined,
-								widthUnit: undefined,
-							} )
-						}
-						isShownByDefault
-					>
 						<ToggleGroupControl
 							label={ __( 'Percentage Width' ) }
 							value={
