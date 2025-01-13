@@ -298,7 +298,7 @@ export default function BorderPanel( {
 						</BaseControl.VisualLabel>
 					) : null }
 
-					<ItemGroup isBordered isSeparated>
+					<ItemGroup isBordered isSeparated role="none">
 						<ShadowPopover
 							shadow={ shadow }
 							onShadowChange={ setShadow }
