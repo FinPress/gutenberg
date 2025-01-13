@@ -310,3 +310,4 @@ export { default as verse } from './library/verse';
 export { default as video } from './library/video';
 export { default as widget } from './library/widget';
 export { default as wordpress } from './library/wordpress';
+export { default as siteTitleIcon } from './library/site-title';

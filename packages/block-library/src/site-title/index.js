@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { mapMarker as icon } from '@wordpress/icons';
+import { siteTitleIcon as icon } from '@wordpress/icons';
 
 /**
  * Internal dependencies
