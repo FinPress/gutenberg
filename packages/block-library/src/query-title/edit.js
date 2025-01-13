@@ -25,6 +25,7 @@ import { __, _x, sprintf } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { useArchiveLabel } from './use-archive-label';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 const SUPPORTED_TYPES = [ 'archive', 'search' ];
 
@@ -40,6 +41,7 @@ export default function QueryTitleEdit( {
 	setAttributes,
 } ) {
 	const { archiveTypeLabel, archiveNameLabel } = useArchiveLabel();
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	const TagName = `h${ level }`;
 	const blockProps = useBlockProps( {
@@ -100,6 +102,7 @@ export default function QueryTitleEdit( {
 								showPrefix: true,
 							} )
 						}
+						dropdownMenuProps={ dropdownMenuProps }
 					>
 						<ToolsPanelItem
 							hasValue={ () => showPrefix === false }
