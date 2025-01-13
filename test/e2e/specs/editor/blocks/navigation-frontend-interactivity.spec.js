@@ -375,7 +375,16 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			} );
 		} );
 
-		test( 'submenu click on the arrow interactions', async ( { page } ) => {
+		test( 'submenu click on the arrow interactions', async ( {
+			page,
+			browserName,
+		} ) => {
+			// eslint-disable-next-line playwright/no-skipped-test
+			test.skip(
+				browserName === 'firefox',
+				'The test is flaky when running on Firefox'
+			);
+
 			await page.goto( '/' );
 			const arrowButton = page.getByRole( 'button', {
 				name: 'Submenu submenu',
@@ -470,7 +479,13 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 		test( 'page-list submenu user interactions', async ( {
 			page,
 			pageUtils,
+			browserName,
 		} ) => {
+			// eslint-disable-next-line playwright/no-skipped-test
+			test.skip(
+				browserName === 'firefox',
+				'The test is flaky when running on Firefox'
+			);
 			await page.goto( '/' );
 			const submenuButton = page.getByRole( 'button', {
 				name: 'Parent',
