@@ -125,7 +125,12 @@ function InspectorImagePreviewItem( {
 		}
 	}, [ toggleProps?.isOpen, onToggleCallback ] );
 	return (
-		<ItemGroup as={ as } className={ className } { ...toggleProps }>
+		<ItemGroup
+			role="none"
+			as={ as }
+			className={ className }
+			{ ...toggleProps }
+		>
 			<HStack
 				justify="flex-start"
 				as="span"
