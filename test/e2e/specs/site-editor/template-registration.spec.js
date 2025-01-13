@@ -94,7 +94,7 @@ test.describe( 'Block template registration', () => {
 		).toBeHidden();
 	} );
 
-	test( 'registered templates are available in the Replace template screen', async ( {
+	test( 'registered templates are available in the Change template screen', async ( {
 		admin,
 		editor,
 		page,
@@ -106,12 +106,10 @@ test.describe( 'Block template registration', () => {
 			attributes: { content: 'User-created post.' },
 		} );
 
-		// Replace template.
+		// Change template.
 		await page.getByRole( 'button', { name: 'Post', exact: true } ).click();
 		await page.getByRole( 'button', { name: 'Template options' } ).click();
-		await page
-			.getByRole( 'menuitem', { name: 'Replace template' } )
-			.click();
+		await page.getByRole( 'menuitem', { name: 'Change template' } ).click();
 		await page.getByText( 'Plugin Template' ).click();
 
 		// Verify the template is applied.
@@ -135,12 +133,10 @@ test.describe( 'Block template registration', () => {
 			attributes: { content: 'User-created post.' },
 		} );
 
-		// Replace template.
+		// Change template.
 		await page.getByRole( 'button', { name: 'Post', exact: true } ).click();
 		await page.getByRole( 'button', { name: 'Template options' } ).click();
-		await page
-			.getByRole( 'menuitem', { name: 'Replace template' } )
-			.click();
+		await page.getByRole( 'menuitem', { name: 'Change template' } ).click();
 		await page.getByText( 'Custom', { exact: true } ).click();
 
 		// Verify the theme template is applied.

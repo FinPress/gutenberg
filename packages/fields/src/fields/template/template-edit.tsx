@@ -165,7 +165,7 @@ export const TemplateEdit = ( {
 								onToggle();
 							} }
 						>
-							{ __( 'Replace template' ) }
+							{ __( 'Change template' ) }
 						</MenuItem>
 						{
 							// The default template in a post is indicated by an empty string
