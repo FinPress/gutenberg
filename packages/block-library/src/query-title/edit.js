@@ -97,17 +97,16 @@ export default function QueryTitleEdit( {
 						label={ __( 'Settings' ) }
 						resetAll={ () =>
 							setAttributes( {
-								showPrefix: false,
+								showPrefix: true,
 							} )
 						}
 					>
 						<ToolsPanelItem
-							hasValue={ () => showPrefix !== undefined }
+							hasValue={ () => showPrefix === false }
 							label={ __( 'Show archive type in title' ) }
 							onDeselect={ () =>
-								setAttributes( { showPrefix: false } )
+								setAttributes( { showPrefix: true } )
 							}
-							resetAllFilter="core/filter-reset-all-settings"
 							isShownByDefault
 						>
 							<ToggleControl
@@ -136,16 +135,17 @@ export default function QueryTitleEdit( {
 						label={ __( 'Settings' ) }
 						resetAll={ () =>
 							setAttributes( {
-								showSearchTerm: false,
+								showSearchTerm: true,
 							} )
 						}
 					>
 						<ToolsPanelItem
-							hasValue={ () => showSearchTerm !== undefined }
+							hasValue={ () => showSearchTerm === false }
 							label={ __( 'Show search term in title' ) }
 							onDeselect={ () =>
-								setAttributes( { showSearchTerm: false } )
+								setAttributes( { showSearchTerm: true } )
 							}
+							isShownByDefault
 						>
 							<ToggleControl
 								__nextHasNoMarginBottom
