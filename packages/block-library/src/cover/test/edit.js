@@ -119,9 +119,7 @@ describe( 'Cover block', () => {
 				'min-height: 100vh;'
 			);
 
-			await userEvent.click(
-				screen.getByLabelText( 'Toggle full height' )
-			);
+			await userEvent.click( screen.getByLabelText( 'Full height' ) );
 
 			expect( screen.getByLabelText( 'Block: Cover' ) ).toHaveStyle(
 				'min-height: 100vh;'
@@ -202,9 +200,7 @@ describe( 'Cover block', () => {
 
 				await selectBlock( 'Block: Cover' );
 				expect(
-					screen.getByRole( 'heading', {
-						name: 'Settings',
-					} )
+					await screen.findByRole( 'heading', { name: 'Settings' } )
 				).toBeInTheDocument();
 			} );
 		} );
@@ -218,7 +214,7 @@ describe( 'Cover block', () => {
 			);
 			await selectBlock( 'Block: Cover' );
 			await userEvent.click(
-				screen.getByLabelText( 'Fixed background' )
+				await screen.findByLabelText( 'Fixed background' )
 			);
 			expect( screen.getByLabelText( 'Block: Cover' ) ).toHaveClass(
 				'has-parallax'
@@ -234,7 +230,7 @@ describe( 'Cover block', () => {
 			);
 			await selectBlock( 'Block: Cover' );
 			await userEvent.click(
-				screen.getByLabelText( 'Repeated background' )
+				await screen.findByLabelText( 'Repeated background' )
 			);
 			expect( screen.getByLabelText( 'Block: Cover' ) ).toHaveClass(
 				'is-repeated'
@@ -247,7 +243,7 @@ describe( 'Cover block', () => {
 			} );
 
 			await selectBlock( 'Block: Cover' );
-			await userEvent.clear( screen.getByLabelText( 'Left' ) );
+			await userEvent.clear( await screen.findByLabelText( 'Left' ) );
 			await userEvent.type( screen.getByLabelText( 'Left' ), '100' );
 
 			expect(
@@ -264,7 +260,7 @@ describe( 'Cover block', () => {
 
 			await selectBlock( 'Block: Cover' );
 			await userEvent.type(
-				screen.getByLabelText( 'Alternative text' ),
+				await screen.findByLabelText( 'Alternative text' ),
 				'Me'
 			);
 			expect( screen.getByAltText( 'Me' ) ).toBeInTheDocument();
@@ -339,7 +335,7 @@ describe( 'Cover block', () => {
 			describe( 'when colors are disabled', () => {
 				test( 'does not render overlay control', async () => {
 					await setup( undefined, true, disabledColorSettings );
-					await createAndSelectBlock();
+					await selectBlock( 'Block: Cover' );
 					await userEvent.click(
 						screen.getByRole( 'tab', { name: 'Styles' } )
 					);
@@ -352,7 +348,7 @@ describe( 'Cover block', () => {
 				} );
 				test( 'does not render opacity control', async () => {
 					await setup( undefined, true, disabledColorSettings );
-					await createAndSelectBlock();
+					await selectBlock( 'Block: Cover' );
 					await userEvent.click(
 						screen.getByRole( 'tab', { name: 'Styles' } )
 					);

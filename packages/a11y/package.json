@@ -1,6 +1,6 @@
 {
 	"name": "@wordpress/a11y",
-	"version": "4.10.0",
+	"version": "4.15.1",
 	"description": "Accessibility (a11y) utilities for WordPress.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
@@ -27,15 +27,15 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"react-native": "src/index",
-	"types": "build-types",
+	"wpScript": true,
 	"wpScriptModuleExports": "./build-module/module/index.js",
+	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/dom-ready": "*",
-		"@wordpress/i18n": "*"
+		"@wordpress/dom-ready": "file:../dom-ready",
+		"@wordpress/i18n": "file:../i18n"
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"wpScript": true
+	}
 }

@@ -21,13 +21,15 @@ export default function DataViewsLayout() {
 		data,
 		fields,
 		getItemId,
+		getItemLevel,
 		isLoading,
 		view,
 		onChangeView,
 		selection,
 		onChangeSelection,
 		setOpenedFilter,
-		density,
+		onClickItem,
+		isItemClickable,
 	} = useContext( DataViewsContext );
 
 	const ViewComponent = VIEW_LAYOUTS.find( ( v ) => v.type === view.type )
@@ -39,13 +41,15 @@ export default function DataViewsLayout() {
 			data={ data }
 			fields={ fields }
 			getItemId={ getItemId }
+			getItemLevel={ getItemLevel }
 			isLoading={ isLoading }
 			onChangeView={ onChangeView }
 			onChangeSelection={ onChangeSelection }
 			selection={ selection }
 			setOpenedFilter={ setOpenedFilter }
+			onClickItem={ onClickItem }
+			isItemClickable={ isItemClickable }
 			view={ view }
-			density={ density }
 		/>
 	);
 }

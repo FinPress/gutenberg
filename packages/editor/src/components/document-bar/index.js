@@ -15,19 +15,22 @@ import {
 	__unstableAnimatePresence as AnimatePresence,
 } from '@wordpress/components';
 import { BlockIcon } from '@wordpress/block-editor';
-import { chevronLeftSmall, chevronRightSmall } from '@wordpress/icons';
+import { chevronLeftSmall, chevronRightSmall, layout } from '@wordpress/icons';
 import { displayShortcut } from '@wordpress/keycodes';
 import { store as coreStore } from '@wordpress/core-data';
 import { store as commandsStore } from '@wordpress/commands';
 import { useRef, useEffect } from '@wordpress/element';
 import { useReducedMotion } from '@wordpress/compose';
 import { decodeEntities } from '@wordpress/html-entities';
+import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 
 /**
  * Internal dependencies
  */
-import { TEMPLATE_POST_TYPES, GLOBAL_POST_TYPES } from '../../store/constants';
+import { TEMPLATE_POST_TYPES } from '../../store/constants';
 import { store as editorStore } from '../../store';
+import usePageTypeBadge from '../../utils/pageTypeBadge';
+import { getTemplateInfo } from '../../utils/get-template-info';
 
 /** @typedef {import("@wordpress/components").IconType} IconType */
 
@@ -48,24 +51,26 @@ const MotionButton = motion( Button );
  * @param {IconType} props.icon  An icon for the document, no default.
  *                               (A default icon indicating the document post type is no longer used.)
  *
- * @return {JSX.Element} The rendered DocumentBar component.
+ * @return {React.ReactNode} The rendered DocumentBar component.
  */
 export default function DocumentBar( props ) {
 	const {
+		postId,
 		postType,
 		postTypeLabel,
 		documentTitle,
 		isNotFound,
-		isUnsyncedPattern,
 		templateTitle,
 		onNavigateToPreviousEntityRecord,
+		isTemplatePreview,
 	} = useSelect( ( select ) => {
 		const {
 			getCurrentPostType,
 			getCurrentPostId,
 			getEditorSettings,
-			__experimentalGetTemplateInfo: getTemplateInfo,
+			getRenderingMode,
 		} = select( editorStore );
+
 		const {
 			getEditedEntityRecord,
 			getPostType,
@@ -78,10 +83,19 @@ export default function DocumentBar( props ) {
 			_postType,
 			_postId
 		);
-		const _templateInfo = getTemplateInfo( _document );
+
+		const { default_template_types: templateTypes = [] } =
+			select( coreStore ).getEntityRecord( 'root', '__unstableBase' ) ??
+			{};
+
+		const _templateInfo = getTemplateInfo( {
+			templateTypes,
+			template: _document,
+		} );
 		const _postTypeLabel = getPostType( _postType )?.labels?.singular_name;
 
 		return {
+			postId: _postId,
 			postType: _postType,
 			postTypeLabel: _postTypeLabel,
 			documentTitle: _document.title,
@@ -93,10 +107,10 @@ export default function DocumentBar( props ) {
 					_postType,
 					_postId
 				),
-			isUnsyncedPattern: _document?.wp_pattern_sync_status === 'unsynced',
 			templateTitle: _templateInfo.title,
 			onNavigateToPreviousEntityRecord:
 				getEditorSettings().onNavigateToPreviousEntityRecord,
+			isTemplatePreview: getRenderingMode() === 'template-locked',
 		};
 	}, [] );
 
@@ -104,11 +118,12 @@ export default function DocumentBar( props ) {
 	const isReducedMotion = useReducedMotion();
 
 	const isTemplate = TEMPLATE_POST_TYPES.includes( postType );
-	const isGlobalEntity = GLOBAL_POST_TYPES.includes( postType );
 	const hasBackButton = !! onNavigateToPreviousEntityRecord;
 	const entityTitle = isTemplate ? templateTitle : documentTitle;
 	const title = props.title || entityTitle;
 	const icon = props.icon;
+
+	const pageTypeBadge = usePageTypeBadge( postId );
 
 	const mountedRef = useRef( false );
 	useEffect( () => {
@@ -119,7 +134,6 @@ export default function DocumentBar( props ) {
 		<div
 			className={ clsx( 'editor-document-bar', {
 				'has-back-button': hasBackButton,
-				'is-global': isGlobalEntity && ! isUnsyncedPattern,
 			} ) }
 		>
 			<AnimatePresence>
@@ -147,6 +161,12 @@ export default function DocumentBar( props ) {
 					</MotionButton>
 				) }
 			</AnimatePresence>
+			{ ! isTemplate && isTemplatePreview && (
+				<BlockIcon
+					icon={ layout }
+					className="editor-document-bar__icon-layout"
+				/>
+			) }
 			{ isNotFound ? (
 				<Text>{ __( 'Document not found' ) }</Text>
 			) : (
@@ -181,14 +201,23 @@ export default function DocumentBar( props ) {
 						<Text size="body" as="h1">
 							<span className="editor-document-bar__post-title">
 								{ title
-									? decodeEntities( title )
+									? stripHTML( title )
 									: __( 'No title' ) }
 							</span>
-							{ postTypeLabel && ! props.title && (
+							{ pageTypeBadge && (
 								<span className="editor-document-bar__post-type-label">
-									{ '· ' + decodeEntities( postTypeLabel ) }
+									{ `· ${ pageTypeBadge }` }
 								</span>
 							) }
+							{ postTypeLabel &&
+								! props.title &&
+								! pageTypeBadge && (
+									<span className="editor-document-bar__post-type-label">
+										{ `· ${ decodeEntities(
+											postTypeLabel
+										) }` }
+									</span>
+								) }
 						</Text>
 					</motion.div>
 					<span className="editor-document-bar__shortcut">
