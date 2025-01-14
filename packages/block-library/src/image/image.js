@@ -38,7 +38,7 @@ import {
 	privateApis as blockEditorPrivateApis,
 	BlockSettingsMenuControls,
 } from '@wordpress/block-editor';
-import { useEffect, useMemo, useState } from '@wordpress/element';
+import { useCallback, useEffect, useMemo, useState } from '@wordpress/element';
 import { __, _x, sprintf, isRTL } from '@wordpress/i18n';
 import { getFilename } from '@wordpress/url';
 import { getBlockBindingsSource, switchToBlockType } from '@wordpress/blocks';
@@ -285,11 +285,20 @@ export default function Image( {
 		metadata,
 	} = attributes;
 	const [ imageElement, setImageElement ] = useState();
+	const [ resizeDelta, setResizeDelta ] = useState( null );
 	const [ pixelSize, setPixelSize ] = useState( {} );
+	const [ offsetTop, setOffsetTop ] = useState( 0 );
 	const setResizeObserved = useResizeObserver( ( [ entry ] ) => {
-		const [ rect ] = entry.borderBoxSize;
-		setPixelSize( { width: rect.inlineSize, height: rect.blockSize } );
+		if ( ! resizeDelta ) {
+			const [ box ] = entry.borderBoxSize;
+			setPixelSize( { width: box.inlineSize, height: box.blockSize } );
+		}
+		// This is usually 0 unless the image height is less than the line-height.
+		setOffsetTop( entry.target.offsetTop );
 	} );
+	const effectResizeableBoxPlacement = useCallback( () => {
+		setOffsetTop( imageElement?.offsetTop ?? 0 );
+	}, [ imageElement ] );
 	const setRefs = useMergeRefs( [ setImageElement, setResizeObserved ] );
 	const { allowResize = true } = context;
 	const { getBlock, getSettings } = useSelect( blockEditorStore );
@@ -915,8 +924,13 @@ export default function Image( {
 					height={ naturalHeight }
 					style={ {
 						aspectRatio,
-						width,
-						height,
+						...( resizeDelta
+							? {
+									width: pixelSize.width + resizeDelta.width,
+									height:
+										pixelSize.height + resizeDelta.height,
+							  }
+							: { width, height } ),
 						objectFit: scale,
 						...borderProps.style,
 						...shadowProps.style,
@@ -1008,12 +1022,13 @@ export default function Image( {
 		/* eslint-enable no-lonely-if */
 		resizableBox = (
 			<ResizableBox
+				ref={ effectResizeableBoxPlacement }
 				style={ {
 					position: 'absolute',
 					// To match the vertical-align: bottom of the img (from style.scss)
-					// top is auto and bottom 0. This matters when the img height is less
-					// than the line-height.
-					inset: 'auto 0 0 0',
+					// syncs the top with the img. This matters when the img height is
+					// less than the line-height.
+					inset: `${ offsetTop }px 0 0 0`,
 				} }
 				size={ pixelSize }
 				minWidth={ minWidth }
@@ -1029,21 +1044,13 @@ export default function Image( {
 				} }
 				onResizeStart={ () => {
 					toggleSelection( false );
-					setResizeObserved( null );
 				} }
 				onResize={ ( event, direction, elt, delta ) => {
-					Object.assign( imageElement.style, {
-						width: `${ pixelSize.width + delta.width }px`,
-						height: `${ pixelSize.height + delta.height }px`,
-					} );
+					setResizeDelta( delta );
 				} }
 				onResizeStop={ ( event, direction, elt, delta ) => {
 					toggleSelection( true );
-					setResizeObserved( imageElement );
-					Object.assign( imageElement.style, {
-						width: '',
-						height: '',
-					} );
+					setResizeDelta( null );
 					setPixelSize( ( current ) => ( {
 						width: current.width + delta.width,
 						height: current.height + delta.height,
