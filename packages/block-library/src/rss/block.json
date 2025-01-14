@@ -60,7 +60,7 @@
 				"padding": false,
 				"margin": false
 			}
-    },
+		},
 		"color": {
 			"background": true,
 			"text": true,
