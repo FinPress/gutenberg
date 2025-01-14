@@ -26,6 +26,7 @@ import SavePublishPanels from '../save-publish-panels';
 import TextEditor from '../text-editor';
 import VisualEditor from '../visual-editor';
 import EditorContentSlotFill from './content-slot-fill';
+import MainElementWarnings from '../main-element-warnings';
 
 const interfaceLabels = {
 	/* translators: accessibility text for the editor top bar landmark region. */
@@ -139,7 +140,10 @@ export default function EditorInterface( {
 			content={
 				<>
 					{ ! isDistractionFree && ! isPreviewMode && (
-						<EditorNotices />
+						<>
+							<EditorNotices />
+							<MainElementWarnings />
+						</>
 					) }
 
 					<EditorContentSlotFill.Slot>

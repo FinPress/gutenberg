@@ -478,6 +478,10 @@ Monitors local autosaves of a post in the editor. It uses several hooks and func
 
 The module also checks for sessionStorage support and conditionally exports the `LocalAutosaveMonitor` component based on that.
 
+### MainElementWarnings
+
+Undocumented declaration.
+
 ### MediaPlaceholder
 
 > **Deprecated** since 5.3, use `wp.blockEditor.MediaPlaceholder` instead.
