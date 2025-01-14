@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 10.15.0 (2025-01-02)
+
 ### Enhancements
 
 -   Add support for WordPress multisite installations. Enabled via the new `multisite` environment config ([#67845](https://github.com/WordPress/gutenberg/pull/67845)).
@@ -320,7 +322,7 @@
 
 ### Breaking Changes
 
--   `wp-env start` is now the only command which writes to the docker configuration files. Previously, running any command would also parse the config and then write it to the correct location. Now, other commands still parse the config, but they will not overwrite the confugiration which was set by wp-env start. This allows parameters to be passed to wp-env start which can affect the configuration.
+-   `wp-env start` is now the only command which writes to the docker configuration files. Previously, running any command would also parse the config and then write it to the correct location. Now, other commands still parse the config, but they will not overwrite the configuration which was set by wp-env start. This allows parameters to be passed to wp-env start which can affect the configuration.
 
 ### Enhancements
 
