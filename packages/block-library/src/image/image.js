@@ -530,49 +530,49 @@ export default function Image( {
 
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
-	const dimensionsControl = (
-		<DimensionsTool
-			value={ { width, height, scale, aspectRatio } }
-			onChange={ ( {
-				width: newWidth,
-				height: newHeight,
-				scale: newScale,
-				aspectRatio: newAspectRatio,
-			} ) => {
-				// Rebuilding the object forces setting `undefined`
-				// for values that are removed since setAttributes
-				// doesn't do anything with keys that aren't set.
-				setAttributes( {
-					// CSS includes `height: auto`, but we need
-					// `width: auto` to fix the aspect ratio when
-					// only height is set due to the width and
-					// height attributes set via the server.
-					width: ! newWidth && newHeight ? 'auto' : newWidth,
+	const dimensionsControl =
+		isResizable &&
+		( SIZED_LAYOUTS.includes( parentLayoutType ) ? (
+			<DimensionsTool
+				value={ { aspectRatio } }
+				onChange={ ( { aspectRatio: newAspectRatio } ) => {
+					setAttributes( {
+						aspectRatio: newAspectRatio,
+						scale: 'cover',
+					} );
+				} }
+				defaultAspectRatio="auto"
+				tools={ [ 'aspectRatio' ] }
+			/>
+		) : (
+			<DimensionsTool
+				value={ { width, height, scale, aspectRatio } }
+				onChange={ ( {
+					width: newWidth,
 					height: newHeight,
 					scale: newScale,
 					aspectRatio: newAspectRatio,
-				} );
-			} }
-			defaultScale="cover"
-			defaultAspectRatio="auto"
-			scaleOptions={ scaleOptions }
-			unitsOptions={ dimensionsUnitsOptions }
-		/>
-	);
-
-	const aspectRatioControl = (
-		<DimensionsTool
-			value={ { aspectRatio } }
-			onChange={ ( { aspectRatio: newAspectRatio } ) => {
-				setAttributes( {
-					aspectRatio: newAspectRatio,
-					scale: 'cover',
-				} );
-			} }
-			defaultAspectRatio="auto"
-			tools={ [ 'aspectRatio' ] }
-		/>
-	);
+				} ) => {
+					// Rebuilding the object forces setting `undefined`
+					// for values that are removed since setAttributes
+					// doesn't do anything with keys that aren't set.
+					setAttributes( {
+						// CSS includes `height: auto`, but we need
+						// `width: auto` to fix the aspect ratio when
+						// only height is set due to the width and
+						// height attributes set via the server.
+						width: ! newWidth && newHeight ? 'auto' : newWidth,
+						height: newHeight,
+						scale: newScale,
+						aspectRatio: newAspectRatio,
+					} );
+				} }
+				defaultScale="cover"
+				defaultAspectRatio="auto"
+				scaleOptions={ scaleOptions }
+				unitsOptions={ dimensionsUnitsOptions }
+			/>
+		) );
 
 	const resetAll = () => {
 		setAttributes( {
@@ -592,10 +592,7 @@ export default function Image( {
 				resetAll={ resetAll }
 				dropdownMenuProps={ dropdownMenuProps }
 			>
-				{ isResizable &&
-					( SIZED_LAYOUTS.includes( parentLayoutType )
-						? aspectRatioControl
-						: dimensionsControl ) }
+				{ dimensionsControl }
 			</ToolsPanel>
 		</InspectorControls>
 	);
@@ -824,10 +821,7 @@ export default function Image( {
 							/>
 						</ToolsPanelItem>
 					) }
-					{ isResizable &&
-						( SIZED_LAYOUTS.includes( parentLayoutType )
-							? aspectRatioControl
-							: dimensionsControl ) }
+					{ dimensionsControl }
 					{ !! imageSizeOptions.length && (
 						<ResolutionTool
 							value={ sizeSlug }
