@@ -8,10 +8,11 @@ import {
 } from '@wordpress/block-editor';
 import { SlotFillProvider } from '@wordpress/components';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
-import { store as blocksStore } from '@wordpress/blocks';
+import { store as blocksStore, registerBlockType } from '@wordpress/blocks';
 import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
 import { store as preferencesStore } from '@wordpress/preferences';
 import { store as interfaceStore } from '@wordpress/interface';
+import { store as noticesStore } from '@wordpress/notices';
 
 /**
  * Internal dependencies
@@ -27,12 +28,51 @@ const registry = createRegistry();
 	keyboardShortcutsStore,
 	interfaceStore,
 	preferencesStore,
+	noticesStore,
 ].forEach( ( store ) => registry.register( store ) );
 
+// Register default blocks
+registerBlockType( 'core/paragraph', {
+	apiVersion: 2,
+	title: 'Paragraph',
+	category: 'text',
+	icon: 'editor-paragraph',
+	supports: {
+		html: false,
+	},
+	attributes: {
+		content: {
+			type: 'string',
+			source: 'html',
+			selector: 'p',
+		},
+	},
+} );
+
+registerBlockType( 'core/image', {
+	apiVersion: 2,
+	title: 'Image',
+	category: 'media',
+	icon: 'format-image',
+	supports: {
+		html: false,
+	},
+	attributes: {
+		url: {
+			type: 'string',
+		},
+	},
+} );
+
+// Update block editor settings
 registry.dispatch( blockEditorStore ).updateSettings( {
 	hasFixedToolbar: true,
 	focusMode: false,
-	hasInlineToolbar: false,
+	hasInlineToolbar: true,
+	__experimentalFeatures: {
+		inserter: true,
+		toolbar: true,
+	},
 } );
 
 const meta = {
@@ -99,18 +139,25 @@ const meta = {
 				<SlotFillProvider>
 					<BlockEditorProvider
 						value={ [] }
+						onInput={ () => {} }
+						onChange={ () => {} }
 						settings={ {
 							hasFixedToolbar: true,
 							templateLock: false,
+							inserterIsOpened: true,
+							showInserterHelpPanel: true,
+							isWide: true,
+							__experimentalFeatures: {
+								inserter: true,
+								toolbar: true,
+							},
 						} }
-						onInput={ () => {} }
-						onChange={ () => {} }
 					>
 						<div
 							style={ {
-								maxWidth: '720px',
-								margin: '20px auto',
-								minHeight: '150px',
+								maxWidth: '300px',
+								border: '1px dashed #ccc',
+								position: 'relative',
 							} }
 						>
 							<Story />
@@ -125,8 +172,16 @@ const meta = {
 export default meta;
 
 const InnerBlocksWrapper = ( { ...props } ) => {
-	const blockProps = useBlockProps();
-	const innerBlocksProps = useInnerBlocksProps( blockProps, props );
+	const blockProps = useBlockProps( {
+		className: 'block-editor-inner-blocks-wrapper',
+	} );
+	const innerBlocksProps = useInnerBlocksProps( blockProps, {
+		...props,
+		renderAppender:
+			props.renderAppender === false
+				? false
+				: props.renderAppender || InnerBlocks.ButtonBlockAppender,
+	} );
 	return <div { ...innerBlocksProps } />;
 };
 
