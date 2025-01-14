@@ -41,16 +41,13 @@ const meta = {
 			},
 		},
 	},
-	argTypes: {
-		showNoBlockSelectedMessage: {
-			control: 'boolean',
-			description:
-				'Whether to display a "No block selected" message when no block is selected.',
-			table: {
-				type: { summary: 'boolean' },
-			},
-		},
-	},
+	decorators: [
+		( Story ) => (
+			<ExperimentalBlockEditorProvider value={ blocks }>
+				<Story />
+			</ExperimentalBlockEditorProvider>
+		),
+	],
 };
 
 export default meta;
@@ -60,11 +57,9 @@ export const Default = {};
 export const WithSelectedBlock = {
 	decorators: [
 		( Story ) => (
-			<ExperimentalBlockEditorProvider value={ blocks }>
-				<BlockSelector clientId={ blocks[ 0 ].clientId }>
-					<Story />
-				</BlockSelector>
-			</ExperimentalBlockEditorProvider>
+			<BlockSelector clientId={ blocks[ 0 ].clientId }>
+				<Story />
+			</BlockSelector>
 		),
 	],
 };
