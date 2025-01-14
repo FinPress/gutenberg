@@ -457,7 +457,7 @@ export default function SearchEdit( {
 							onUnitChange={ ( newUnit ) => {
 								setAttributes( {
 									width:
-										newUnit === '%'
+										'%' === newUnit
 											? PC_WIDTH_DEFAULT
 											: PX_WIDTH_DEFAULT,
 									widthUnit: newUnit,
