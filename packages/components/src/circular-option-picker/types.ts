@@ -40,7 +40,16 @@ type CommonCircularOptionPickerProps = {
 	 * The child elements.
 	 */
 	children?: ReactNode;
-};
+} & (
+	| {
+			'aria-label': string;
+			'aria-labelledby'?: never;
+	  }
+	| {
+			'aria-label'?: never;
+			'aria-labelledby': string;
+	  }
+);
 
 type WithBaseId = {
 	baseId: string;
@@ -59,16 +68,7 @@ type FullListboxCircularOptionPickerProps = CommonCircularOptionPickerProps & {
 	 * @default true
 	 */
 	loop?: boolean;
-} & (
-		| {
-				'aria-label': string;
-				'aria-labelledby'?: never;
-		  }
-		| {
-				'aria-label'?: never;
-				'aria-labelledby': string;
-		  }
-	);
+};
 
 export type ListboxCircularOptionPickerProps = WithBaseId &
 	Omit< FullListboxCircularOptionPickerProps, 'asButtons' >;

@@ -131,10 +131,27 @@ function Component( props: PickerProps< any > ) {
 	let metaProps:
 		| { asButtons: false; loop?: boolean; 'aria-label': string }
 		| { asButtons: false; loop?: boolean; 'aria-labelledby': string }
-		| { asButtons: true };
+		| { asButtons: true; 'aria-label': string }
+		| { asButtons: true; 'aria-labelledby': string };
 
 	if ( asButtons ) {
-		metaProps = { asButtons: true };
+		const _metaProps: { asButtons: true } = {
+			asButtons: true,
+		};
+
+		if ( ariaLabel ) {
+			metaProps = { ..._metaProps, 'aria-label': ariaLabel };
+		} else if ( ariaLabelledby ) {
+			metaProps = {
+				..._metaProps,
+				'aria-labelledby': ariaLabelledby,
+			};
+		} else {
+			metaProps = {
+				..._metaProps,
+				'aria-label': __( 'Custom color picker.' ),
+			};
+		}
 	} else {
 		const _metaProps: { asButtons: false; loop?: boolean } = {
 			asButtons: false,

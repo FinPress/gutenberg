@@ -515,6 +515,7 @@ function CoverEdit( {
 								onChange={ onSetOverlayColor }
 								clearable={ false }
 								asButtons
+								aria-label={ __( 'Background color' ) }
 							/>
 						</div>
 					</CoverPlaceholder>
