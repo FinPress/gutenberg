@@ -105,7 +105,7 @@ export default function QueryTitleEdit( {
 						dropdownMenuProps={ dropdownMenuProps }
 					>
 						<ToolsPanelItem
-							hasValue={ () => showPrefix === false }
+							hasValue={ () => ! showPrefix }
 							label={ __( 'Show archive type in title' ) }
 							onDeselect={ () =>
 								setAttributes( { showPrefix: true } )
@@ -143,7 +143,7 @@ export default function QueryTitleEdit( {
 						}
 					>
 						<ToolsPanelItem
-							hasValue={ () => showSearchTerm === false }
+							hasValue={ () => ! showSearchTerm }
 							label={ __( 'Show search term in title' ) }
 							onDeselect={ () =>
 								setAttributes( { showSearchTerm: true } )
