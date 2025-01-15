@@ -397,7 +397,12 @@ const scriptConfig = {
 			filename: '[name].css',
 		} ),
 		// RtlCssPlugin to generate RTL CSS files.
-		new RtlCssPlugin( '[name]-rtl.css' ),
+		new RtlCssPlugin( {
+			fileNameMap: {
+				'.css': '[name]-rtl.css',
+			},
+			sourceMap: ! isProduction,
+		} ),
 		// React Fast Refresh.
 		hasReactFastRefresh && new ReactRefreshWebpackPlugin(),
 		// WP_NO_EXTERNALS global variable controls whether scripts' assets get
