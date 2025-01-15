@@ -6,6 +6,10 @@
 		align-items: center;
 		justify-content: center;
 	}
+
+	.editor-post-card-panel__heading {
+		margin-bottom: $grid-unit-20;
+	}
 }
 
 .dataforms-layouts-panel__field-dropdown {

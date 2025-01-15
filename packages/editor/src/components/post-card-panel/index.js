@@ -7,7 +7,6 @@ import {
 	__experimentalVStack as VStack,
 	__experimentalText as Text,
 	privateApis as componentsPrivateApis,
-	__experimentalHeading as Heading,
 } from '@wordpress/components';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
@@ -100,13 +99,6 @@ export default function PostCardPanel( {
 
 	return (
 		<VStack spacing={ 1 } className="editor-post-card-panel">
-			<Heading
-				level={ 2 }
-				size={ 16 }
-				className="editor-post-card-panel__heading"
-			>
-				{ __( 'Quick Edit' ) }
-			</Heading>
 			<HStack
 				spacing={ 2 }
 				className="editor-post-card-panel__header"
