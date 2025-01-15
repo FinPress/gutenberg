@@ -32,6 +32,9 @@ import {
 } from '../../store/constants';
 import { unlock } from '../../lock-unlock';
 
+const isBlockCommentExperimentEnabled =
+	window?.__experimentalEnableBlockComment;
+
 const toolbarVariations = {
 	distractionFreeDisabled: { y: '-50px' },
 	distractionFreeHover: { y: 0 },
@@ -111,7 +114,7 @@ function Header( {
 	);
 
 	/*
-	 * The edit-post-header classname is only kept for backward compatability
+	 * The edit-post-header classname is only kept for backward compatibility
 	 * as some plugins might be relying on its presence.
 	 */
 	return (
@@ -195,7 +198,10 @@ function Header( {
 						}
 					/>
 				) }
-				<CollabSidebar />
+
+				{ isBlockCommentExperimentEnabled ? (
+					<CollabSidebar />
+				) : undefined }
 
 				{ customSaveButton }
 				<MoreMenu />
