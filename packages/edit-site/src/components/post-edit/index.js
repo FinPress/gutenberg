@@ -184,7 +184,6 @@ export function PostEdit( { postType, postId } ) {
 			} ) }
 			label={ __( 'Post Edit' ) }
 		>
-			<h2>{ __( 'Quick Edit' ) }</h2>
 			{ postId && (
 				<PostEditForm postType={ postType } postId={ postId } />
 			) }
