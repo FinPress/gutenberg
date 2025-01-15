@@ -421,10 +421,7 @@ export default function SearchEdit( {
 					dropdownMenuProps={ dropdownMenuProps }
 				>
 					<ToolsPanelItem
-						hasValue={ () =>
-							PERCENTAGE_WIDTHS.includes( width ) &&
-							widthUnit === '%'
-						}
+						hasValue={ () => !! width }
 						label={ __( 'Width' ) }
 						onDeselect={ () => {
 							setAttributes( {
