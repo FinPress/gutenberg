@@ -426,9 +426,9 @@ export default function SearchEdit( {
 							widthUnit === '%'
 						}
 						label={ __( 'Width' ) }
-						resetAll={ () => {
+						onDeselect={ () => {
 							setAttributes( {
-								width: PC_WIDTH_DEFAULT, // Reset to default value
+								width: undefined,
 								widthUnit: undefined,
 							} );
 						} }
