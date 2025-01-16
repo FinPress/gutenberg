@@ -61,6 +61,12 @@
 				"fontSize": true,
 				"textDecoration": true
 			}
+    },
+    "color": {
+			"background": true,
+			"text": true,
+			"gradients": true,
+			"link": true
 		}
 	},
 	"selectors": {
