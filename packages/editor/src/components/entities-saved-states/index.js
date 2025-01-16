@@ -34,24 +34,24 @@ function identity( values ) {
 /**
  * Renders the component for managing saved states of entities.
  *
- * @param {Object}   props                     The component props.
- * @param {Function} props.close               The function to close the dialog.
- * @param {boolean}  props.renderDialog        Whether to render the component with modal dialog behavior.
- * @param {boolean}  props.isWithinModalDialog Whether this component is rendered within a Modal component.
+ * @param {Object}   props              The component props.
+ * @param {Function} props.close        The function to close the dialog.
+ * @param {boolean}  props.renderDialog Whether to render the component with modal dialog behavior.
+ * @param {boolean}  props.variant      Changes the layout of the component. When an `inline` value is provided, the action buttons are rendered at the end of the component instead of at the start.
  *
  * @return {React.ReactNode} The rendered component.
  */
 export default function EntitiesSavedStates( {
 	close,
 	renderDialog,
-	isWithinModalDialog,
+	variant,
 } ) {
 	const isDirtyProps = useIsDirty();
 	return (
 		<EntitiesSavedStatesExtensible
 			close={ close }
 			renderDialog={ renderDialog }
-			isWithinModalDialog={ isWithinModalDialog }
+			variant={ variant }
 			{ ...isDirtyProps }
 		/>
 	);
@@ -71,7 +71,7 @@ export default function EntitiesSavedStates( {
  * @param {boolean}  props.isDirty               Flag indicating if there are dirty entities.
  * @param {Function} props.setUnselectedEntities Function to set unselected entities.
  * @param {Array}    props.unselectedEntities    Array of unselected entities.
- * @param {boolean}  props.isWithinModalDialog   Whether this component is rendered within a Modal component.
+ * @param {boolean}  props.variant               Changes the layout of the component. When an `inline` value is provided, the action buttons are rendered at the end of the component instead of at the start.
  *
  * @return {React.ReactNode} The rendered component.
  */
@@ -86,7 +86,7 @@ export function EntitiesSavedStatesExtensible( {
 	isDirty,
 	setUnselectedEntities,
 	unselectedEntities,
-	isWithinModalDialog,
+	variant = 'default',
 } ) {
 	const saveButtonRef = useRef();
 	const { saveDirtyEntities } = unlock( useDispatch( editorStore ) );
@@ -138,20 +138,20 @@ export function EntitiesSavedStatesExtensible( {
 	const actionButtons = (
 		<>
 			<FlexItem
-				isBlock={ isWithinModalDialog ? false : true }
+				isBlock={ variant === 'inline' ? false : true }
 				as={ Button }
-				variant={ isWithinModalDialog ? 'tertiary' : 'secondary' }
-				size={ isWithinModalDialog ? undefined : 'compact' }
+				variant={ variant === 'inline' ? 'tertiary' : 'secondary' }
+				size={ variant === 'inline' ? undefined : 'compact' }
 				onClick={ dismissPanel }
 			>
 				{ __( 'Cancel' ) }
 			</FlexItem>
 			<FlexItem
-				isBlock={ isWithinModalDialog ? false : true }
+				isBlock={ variant === 'inline' ? false : true }
 				as={ Button }
 				ref={ saveButtonRef }
 				variant="primary"
-				size={ isWithinModalDialog ? undefined : 'compact' }
+				size={ variant === 'inline' ? undefined : 'compact' }
 				disabled={ ! saveEnabled }
 				accessibleWhenDisabled
 				onClick={ () =>
@@ -174,13 +174,13 @@ export function EntitiesSavedStatesExtensible( {
 			ref={ renderDialog ? saveDialogRef : undefined }
 			{ ...( renderDialog && saveDialogProps ) }
 			className={ clsx( 'entities-saved-states__panel', {
-				'is-within-modal-dialog': isWithinModalDialog,
+				'is-within-modal-dialog': variant === 'inline',
 			} ) }
 			role={ renderDialog ? 'dialog' : undefined }
 			aria-labelledby={ renderDialog ? dialogLabelId : undefined }
 			aria-describedby={ renderDialog ? dialogDescriptionId : undefined }
 		>
-			{ ! isWithinModalDialog && (
+			{ variant === 'default' && (
 				<Flex className="entities-saved-states__panel-header" gap={ 2 }>
 					{ actionButtons }
 				</Flex>
@@ -227,7 +227,7 @@ export function EntitiesSavedStatesExtensible( {
 				);
 			} ) }
 
-			{ isWithinModalDialog && (
+			{ variant === 'inline' && (
 				<Flex
 					direction="row"
 					justify="flex-end"

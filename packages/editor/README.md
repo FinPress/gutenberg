@@ -402,7 +402,7 @@ _Parameters_
 -   _props_ `Object`: The component props.
 -   _props.close_ `Function`: The function to close the dialog.
 -   _props.renderDialog_ `boolean`: Whether to render the component with modal dialog behavior.
--   _props.isWithinModalDialog_ `boolean`: Whether this component is rendered within a Modal component.
+-   _props.variant_ `boolean`: Changes the layout of the component. When an `inline` value is provided, the action buttons are rendered at the end of the component instead of at the start.
 
 _Returns_
 

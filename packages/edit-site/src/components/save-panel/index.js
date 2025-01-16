@@ -34,7 +34,7 @@ const { useLocation } = unlock( routerPrivateApis );
 const EntitiesSavedStatesForPreview = ( {
 	onClose,
 	renderDialog,
-	isWithinModalDialog,
+	variant,
 } ) => {
 	const isDirtyProps = useEntitiesSavedStatesIsDirty();
 	let activateSaveLabel;
@@ -80,23 +80,19 @@ const EntitiesSavedStatesForPreview = ( {
 				saveEnabled: true,
 				saveLabel: activateSaveLabel,
 				renderDialog,
-				isWithinModalDialog,
+				variant,
 			} }
 		/>
 	);
 };
 
-const _EntitiesSavedStates = ( {
-	onClose,
-	renderDialog,
-	isWithinModalDialog,
-} ) => {
+const _EntitiesSavedStates = ( { onClose, renderDialog, variant } ) => {
 	if ( isPreviewingTheme() ) {
 		return (
 			<EntitiesSavedStatesForPreview
 				onClose={ onClose }
 				renderDialog={ renderDialog }
-				isWithinModalDialog={ isWithinModalDialog }
+				variant={ variant }
 			/>
 		);
 	}
@@ -104,7 +100,7 @@ const _EntitiesSavedStates = ( {
 		<EntitiesSavedStates
 			close={ onClose }
 			renderDialog={ renderDialog }
-			isWithinModalDialog={ isWithinModalDialog }
+			variant={ variant }
 		/>
 	);
 };
@@ -147,7 +143,7 @@ export default function SavePanel() {
 				title={ __( 'Review changes' ) }
 				size="small"
 			>
-				<_EntitiesSavedStates onClose={ onClose } isWithinModalDialog />
+				<_EntitiesSavedStates onClose={ onClose } variant="inline" />
 			</Modal>
 		) : null;
 	}
