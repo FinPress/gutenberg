@@ -70,6 +70,25 @@
 				"multisite": {
 					"description": "Whether to set up a multisite installation.",
 					"type": "boolean"
+				},
+				"lifecycleScripts": {
+					"description": "Mapping of commands that should be executed at certain points in the lifecycle.",
+					"type": "object",
+					"default": {},
+					"properties": {
+						"afterStart": {
+							"description": "Runs after wp-env start has finished setting up the environment.",
+							"type": "string"
+						},
+						"afterClean": {
+							"description": "Runs after wp-env clean has finished cleaning the environment.",
+							"type": "string"
+						},
+						"afterDestroy": {
+							"description": "Runs after wp-env destroy has destroyed the environment.",
+							"type": "string"
+						}
+					}
 				}
 			}
 		},
@@ -83,7 +102,8 @@
 				"config",
 				"mappings",
 				"phpmyadminPort",
-				"multisite"
+				"multisite",
+				"lifecycleScripts"
 			]
 		}
 	},
