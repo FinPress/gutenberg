@@ -11,7 +11,7 @@ export const htmlElementMessages = {
 		"The <aside> element should represent a portion of a document whose content is only indirectly related to the document's main content."
 	),
 	div: __(
-		'The <div> element should only be used if the separator is a design element with no semantic meaning.'
+		'The <div> element should only be used if the block is a design element with no semantic meaning.'
 	),
 	footer: __(
 		'The <footer> element should represent a footer for its nearest sectioning element (e.g.: <section>, <article>, <main> etc.).'
