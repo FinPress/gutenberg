@@ -332,7 +332,10 @@ const deepMergeRecursive = (
 				}
 			}
 		} else if ( isPlainObject( source[ key ] ) ) {
-			if ( isNew || ( override && ! isPlainObject( target[ key ] ) ) ) {
+			const targetValue = Object.getOwnPropertyDescriptor( target, key )
+				?.value;
+			if ( isNew || ( override && ! isPlainObject( targetValue ) ) ) {
+				// Create a new object if the property is new or needs to be overridden
 				target[ key ] = {};
 				if ( propSignal ) {
 					const ns = getNamespaceFromProxy( proxy );
@@ -340,8 +343,10 @@ const deepMergeRecursive = (
 						proxifyState( ns, target[ key ] as Object )
 					);
 				}
+				deepMergeRecursive( target[ key ], source[ key ], override );
 			}
-			if ( isPlainObject( target[ key ] ) ) {
+			// Both target and source are plain objects, merge them recursively
+			else if ( isPlainObject( targetValue ) ) {
 				deepMergeRecursive( target[ key ], source[ key ], override );
 			}
 		} else if ( override || isNew ) {
