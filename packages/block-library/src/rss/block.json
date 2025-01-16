@@ -61,8 +61,8 @@
 				"fontSize": true,
 				"textDecoration": true
 			}
-    },
-    "color": {
+		},
+		"color": {
 			"background": true,
 			"text": true,
 			"gradients": true,
