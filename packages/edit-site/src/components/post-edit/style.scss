@@ -1,14 +1,9 @@
 .edit-site-post-edit {
 	padding: $grid-unit-30;
 
-	&.is-empty .edit-site-page-content {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.editor-post-card-panel__heading {
-		margin-bottom: $grid-unit-20;
+	.edit-site-page-header {
+		padding: 10px 0;
+		border-bottom: none;
 	}
 }
 

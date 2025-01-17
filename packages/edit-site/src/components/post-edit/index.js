@@ -10,10 +10,7 @@ import { __ } from '@wordpress/i18n';
 import { DataForm } from '@wordpress/dataviews';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { store as coreDataStore } from '@wordpress/core-data';
-import {
-	__experimentalVStack as VStack,
-	__experimentalHeading as Heading,
-} from '@wordpress/components';
+import { __experimentalVStack as VStack } from '@wordpress/components';
 import { useState, useMemo, useEffect } from '@wordpress/element';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
 
@@ -185,19 +182,10 @@ export function PostEdit( { postType, postId } ) {
 			className={ clsx( 'edit-site-post-edit', {
 				'is-empty': ! postId,
 			} ) }
-			label={ __( 'Post Edit' ) }
+			title={ __( 'Quick Edit' ) }
 		>
 			{ postId && (
-				<>
-					<Heading
-						level={ 2 }
-						size={ 16 }
-						className="editor-post-card-panel__heading"
-					>
-						{ __( 'Quick Edit' ) }
-					</Heading>
-					<PostEditForm postType={ postType } postId={ postId } />
-				</>
+				<PostEditForm postType={ postType } postId={ postId } />
 			) }
 			{ ! postId && <p>{ __( 'Select a page to edit' ) }</p> }
 		</Page>
