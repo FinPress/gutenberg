@@ -35,6 +35,8 @@ export default function CategoriesEdit( {
 		label,
 		showLabel,
 		taxonomy: taxonomySlug,
+		order,
+		orderBy,
 	},
 	setAttributes,
 	className,
@@ -53,7 +55,13 @@ export default function CategoriesEdit( {
 	const isHierarchicalTaxonomy =
 		! isResolvingTaxonomies && taxonomy?.hierarchical;
 
-	const query = { per_page: -1, hide_empty: ! showEmpty, context: 'view' };
+	const query = {
+		per_page: -1,
+		hide_empty: ! showEmpty,
+		context: 'view',
+		order,
+		orderby: orderBy,
+	};
 	if ( isHierarchicalTaxonomy && showOnlyTopLevel ) {
 		query.parent = 0;
 	}
@@ -181,6 +189,29 @@ export default function CategoriesEdit( {
 		className: classes,
 	} );
 
+	const orderOptions = [
+		{
+			/* translators: label for ordering taxonomies by number of posts in descending order */
+			label: __( 'Highest #' ),
+			value: 'count/desc',
+		},
+		{
+			/* translators: label for ordering taxonomies by number of posts in ascending order */
+			label: __( 'Lowest #' ),
+			value: 'count/asc',
+		},
+		{
+			/* translators: label for ordering taxonomies by name in ascending order */
+			label: __( 'A → Z' ),
+			value: 'name/asc',
+		},
+		{
+			/* translators: label for ordering taxonomies by name in descending order */
+			label: __( 'Z → A' ),
+			value: 'name/desc',
+		},
+	];
+
 	return (
 		<TagName { ...blockProps }>
 			<InspectorControls>
@@ -202,6 +233,20 @@ export default function CategoriesEdit( {
 							}
 						/>
 					) }
+					<SelectControl
+						__nextHasNoMarginBottom
+						__next40pxDefaultSize
+						label={ __( 'Order by' ) }
+						options={ orderOptions }
+						value={ `${ orderBy }/${ order }` }
+						onChange={ ( value ) => {
+							const [ newOrderBy, newOrder ] = value.split( '/' );
+							setAttributes( {
+								orderBy: newOrderBy,
+								order: newOrder,
+							} );
+						} }
+					/>
 					<ToggleControl
 						__nextHasNoMarginBottom
 						label={ __( 'Display as dropdown' ) }
