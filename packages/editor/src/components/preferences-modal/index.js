@@ -254,7 +254,7 @@ function PreferencesModalContents( { extraSections = {} } ) {
 									scope="core"
 									featureName="keepCaretInsideBlock"
 									help={ __(
-										'Restricts the text cursor within the block while navigating, preventing it from accidentally moving to other blocks, enhancing navigation control for keyboard users.'
+										'Keeps the text cursor within blocks while navigating with arrow keys, preventing it from moving to other blocks, enhancing accessibility for keyboard users.'
 									) }
 									label={ __(
 										'Contain text cursor inside block'
