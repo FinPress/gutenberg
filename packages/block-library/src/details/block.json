@@ -8,10 +8,6 @@
 	"keywords": [ "accordion", "summary", "toggle", "disclosure" ],
 	"textdomain": "default",
 	"attributes": {
-		"name": {
-			"type": "string",
-			"default": ""
-		},
 		"showContent": {
 			"type": "boolean",
 			"default": false
@@ -20,6 +16,12 @@
 			"type": "rich-text",
 			"source": "rich-text",
 			"selector": "summary"
+		},
+		"name": {
+			"type": "string",
+			"source": "attribute",
+			"attribute": "name",
+			"selector": ".wp-block-details"
 		},
 		"allowedBlocks": {
 			"type": "array"
