@@ -5,10 +5,8 @@ import {
 	RichText,
 	useBlockProps,
 	useInnerBlocksProps,
-	store as blockEditorStore,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
 import {
 	TextControl,
 	ToggleControl,
@@ -16,6 +14,7 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -31,7 +30,7 @@ const TEMPLATE = [
 	],
 ];
 
-function DetailsEdit( { attributes, setAttributes, clientId } ) {
+function DetailsEdit( { attributes, setAttributes } ) {
 	const { name, showContent, summary, allowedBlocks } = attributes;
 	const blockProps = useBlockProps();
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
@@ -39,21 +38,8 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 		__experimentalCaptureToolbars: true,
 		allowedBlocks,
 	} );
+	const [ isOpen, setIsOpen ] = useState( showContent );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
-
-	// Check if either the block or the inner blocks are selected.
-	const hasSelection = useSelect(
-		( select ) => {
-			const { isBlockSelected, hasSelectedInnerBlock } =
-				select( blockEditorStore );
-			/* Sets deep to true to also find blocks inside the details content block. */
-			return (
-				hasSelectedInnerBlock( clientId, true ) ||
-				isBlockSelected( clientId )
-			);
-		},
-		[ clientId ]
-	);
 
 	return (
 		<>
@@ -95,7 +81,7 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
 					label={ __( 'Name attribute' ) }
-					value={ name }
+					value={ name || '' }
 					onChange={ ( newName ) =>
 						setAttributes( { name: newName } )
 					}
@@ -104,11 +90,13 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 					) }
 				/>
 			</InspectorControls>
-			<details
-				{ ...innerBlocksProps }
-				open={ hasSelection || showContent }
-			>
-				<summary onClick={ ( event ) => event.preventDefault() }>
+			<details { ...innerBlocksProps } open={ isOpen }>
+				<summary
+					onClick={ ( event ) => {
+						event.preventDefault();
+						setIsOpen( ! isOpen );
+					} }
+				>
 					<RichText
 						identifier="summary"
 						aria-label={ __( 'Write summary' ) }
