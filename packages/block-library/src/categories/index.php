@@ -37,15 +37,25 @@ function render_block_core_categories( $attributes, $content, $block ) {
 	}
 
 	if ( ! empty( $attributes['displayAsDropdown'] ) ) {
-		$id                       = 'wp-block-categories-' . $block_id;
-		$args['id']               = $id;
-		$args['name']             = $taxonomy->query_var;
-		$args['value_field']      = 'slug';
-		$args['show_option_none'] = sprintf(
-			/* translators: %s: taxonomy's singular name */
-			__( 'Select %s' ),
-			$taxonomy->labels->singular_name
-		);
+		$id                  = 'wp-block-categories-' . $block_id;
+		$args['id']          = $id;
+		$args['name']        = $taxonomy->query_var;
+		$args['value_field'] = 'slug';
+
+		if (
+			! empty( $attributes['showCurrentTaxonomy'] ) &&
+			$attributes['showCurrentTaxonomy'] &&
+			isset( $taxonomy->query_var ) &&
+			! empty( $taxonomy->query_var )
+		) {
+			$args['selected'] = get_query_var( $taxonomy->query_var );
+		} else {
+			$args['show_option_none'] = sprintf(
+				/* translators: %s: taxonomy's singular name */
+				__( 'Select %s' ),
+				$taxonomy->labels->singular_name
+			);
+		}
 
 		$show_label     = empty( $attributes['showLabel'] ) ? ' screen-reader-text' : '';
 		$default_label  = $taxonomy->label;

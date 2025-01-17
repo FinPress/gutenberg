@@ -39,6 +39,10 @@
 		"showLabel": {
 			"type": "boolean",
 			"default": true
+		},
+		"showCurrentTaxonomy": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"usesContext": [ "enhancedPagination" ],

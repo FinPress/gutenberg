@@ -9,7 +9,8 @@
 			"showPostCounts": false,
 			"showOnlyTopLevel": false,
 			"showEmpty": false,
-			"showLabel": true
+			"showLabel": true,
+			"showCurrentTaxonomy": false
 		},
 		"innerBlocks": []
 	}

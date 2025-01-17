@@ -35,6 +35,7 @@ export default function CategoriesEdit( {
 		label,
 		showLabel,
 		taxonomy: taxonomySlug,
+		showCurrentTaxonomy,
 	},
 	setAttributes,
 	className,
@@ -132,13 +133,15 @@ export default function CategoriesEdit( {
 					</VisuallyHidden>
 				) }
 				<select id={ selectId }>
-					<option>
-						{ sprintf(
-							/* translators: %s: taxonomy's singular name */
-							__( 'Select %s' ),
-							taxonomy.labels.singular_name
-						) }
-					</option>
+					{ ! showCurrentTaxonomy && (
+						<option>
+							{ sprintf(
+								/* translators: %s: taxonomy's singular name */
+								__( 'Select %s' ),
+								taxonomy.labels.singular_name
+							) }
+						</option>
+					) }
 					{ categoriesList.map( ( category ) =>
 						renderCategoryDropdownItem( category, 0 )
 					) }
@@ -209,13 +212,27 @@ export default function CategoriesEdit( {
 						onChange={ toggleAttribute( 'displayAsDropdown' ) }
 					/>
 					{ displayAsDropdown && (
-						<ToggleControl
-							__nextHasNoMarginBottom
-							className="wp-block-categories__indentation"
-							label={ __( 'Show label' ) }
-							checked={ showLabel }
-							onChange={ toggleAttribute( 'showLabel' ) }
-						/>
+						<>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								className="wp-block-categories__indentation"
+								label={ __( 'Show label' ) }
+								checked={ showLabel }
+								onChange={ toggleAttribute( 'showLabel' ) }
+							/>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								className="wp-block-categories__indentation"
+								label={ __( 'Show Current Taxonomy' ) }
+								checked={ showCurrentTaxonomy }
+								onChange={ toggleAttribute(
+									'showCurrentTaxonomy'
+								) }
+								help={ __(
+									'Select the current taxonomy by default in the archive pages.'
+								) }
+							/>
+						</>
 					) }
 					<ToggleControl
 						__nextHasNoMarginBottom
