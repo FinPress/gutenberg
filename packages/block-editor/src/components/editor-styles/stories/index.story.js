@@ -43,10 +43,8 @@ const meta = {
 	},
 };
 
-// This is the proper way to export the default metadata
 export default meta;
 
-// Story definition
 const Template = ( { styles, scope, transformOptions } ) => (
 	<EditorStyles
 		styles={ styles }
@@ -55,7 +53,6 @@ const Template = ( { styles, scope, transformOptions } ) => (
 	/>
 );
 
-// Default story export
 export const Default = Template.bind( {} );
 Default.args = {
 	styles: {
