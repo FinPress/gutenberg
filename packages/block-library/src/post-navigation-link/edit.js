@@ -130,28 +130,30 @@ export default function PostNavigationLinkEdit( {
 					{ showTitle && (
 						<ToolsPanelItem
 							hasValue={ () => !! linkLabel }
-							label={ __( 'Include the label as part of the link' ) }
-							onDeselect={ () => setAttributes( { linkLabel: false } ) }
+							label={ __(
+								'Include the label as part of the link'
+							) }
+							onDeselect={ () =>
+								setAttributes( { linkLabel: false } )
+							}
+							isShownByDefault
 						>
-							
-								<ToggleControl
-									__nextHasNoMarginBottom
-									label={ __(
-										'Include the label as part of the link'
-									) }
-									checked={ !! linkLabel }
-									onChange={ () =>
-										setAttributes( {
-											linkLabel: ! linkLabel,
-										} )
-									}
-									isShownByDefault
-								/>
-							
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ __(
+									'Include the label as part of the link'
+								) }
+								checked={ !! linkLabel }
+								onChange={ () =>
+									setAttributes( {
+										linkLabel: ! linkLabel,
+									} )
+								}
+							/>
 						</ToolsPanelItem>
 					) }
 					<ToolsPanelItem
-						hasValue={ () => !! arrow }
+						hasValue={ () => arrow !== 'none' }
 						label={ __( 'Arrow' ) }
 						onDeselect={ () => setAttributes( { arrow: 'none' } ) }
 						isShownByDefault
