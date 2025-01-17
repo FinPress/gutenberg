@@ -2,18 +2,15 @@
 	"$schema": "../../schemas/json/theme.json",
 	"version": 3,
 	"settings": {
-		"appearanceTools": true,
 		"layout": {
 			"contentSize": "840px",
 			"wideSize": "1100px"
+		},
+		"color": {
+			"defaultPalette": false
+		},
+		"typography": {
+			"defaultFontSizes": false
 		}
-	},
-	"customTemplates": [
-		{
-			"name": "custom-template",
-			"title": "Custom",
-			"postTypes": [ "post" ]
-		}
-	],
-	"patterns": [ "short-text-surrounded-by-round-images", "partner-logos" ]
+	}
 }
