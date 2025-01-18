@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useState, useLayoutEffect } from '@wordpress/element';
+import { useLayoutEffect, useReducer } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -23,7 +23,7 @@ function getBlockElementColors( blockEl ) {
 	const firstLinkElement = blockEl.querySelector( 'a' );
 	const linkColor = !! firstLinkElement?.innerText
 		? getComputedValue( firstLinkElement, 'color' )
-		: null;
+		: undefined;
 
 	const textColor = getComputedValue( blockEl, 'color' );
 
@@ -52,11 +52,18 @@ function getBlockElementColors( blockEl ) {
 	};
 }
 
+function reducer( prevColors, newColors ) {
+	const hasChanged = Object.keys( newColors ).some(
+		( key ) => prevColors[ key ] !== newColors[ key ]
+	);
+
+	// Do not re-render if the colors have not changed.
+	return hasChanged ? newColors : prevColors;
+}
+
 export default function BlockColorContrastChecker( { clientId } ) {
-	const [ detectedBackgroundColor, setDetectedBackgroundColor ] = useState();
-	const [ detectedColor, setDetectedColor ] = useState();
-	const [ detectedLinkColor, setDetectedLinkColor ] = useState();
 	const blockEl = useBlockElement( clientId );
+	const [ colors, setColors ] = useReducer( reducer, {} );
 
 	// There are so many things that can change the color of a block
 	// So we perform this check on every render.
@@ -66,12 +73,7 @@ export default function BlockColorContrastChecker( { clientId } ) {
 		}
 
 		function updateColors() {
-			const colors = getBlockElementColors( blockEl );
-			setDetectedColor( colors.textColor );
-			setDetectedBackgroundColor( colors.backgroundColor );
-			if ( colors.linkColor ) {
-				setDetectedLinkColor( colors.linkColor );
-			}
+			setColors( getBlockElementColors( blockEl ) );
 		}
 
 		window.requestAnimationFrame( () =>
@@ -81,9 +83,9 @@ export default function BlockColorContrastChecker( { clientId } ) {
 
 	return (
 		<ContrastChecker
-			backgroundColor={ detectedBackgroundColor }
-			textColor={ detectedColor }
-			linkColor={ detectedLinkColor }
+			backgroundColor={ colors.backgroundColor }
+			textColor={ colors.textColor }
+			linkColor={ colors.linkColor }
 			enableAlphaChecker
 		/>
 	);
