@@ -76,6 +76,8 @@ export default function BlockColorContrastChecker( { clientId } ) {
 			setColors( getBlockElementColors( blockEl ) );
 		}
 
+		// Combine `useLayoutEffect` and two rAF calls to ensure that values are read
+		// after the current paint but before the next paint.
 		window.requestAnimationFrame( () =>
 			window.requestAnimationFrame( updateColors )
 		);
