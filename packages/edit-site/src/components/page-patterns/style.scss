@@ -4,9 +4,12 @@
 
 .page-patterns-preview-field {
 	display: flex;
+	justify-content: center;
+  	align-items: center;
 	flex-direction: column;
 	height: 100%;
 	border-radius: $radius-medium;
+
 
 	.dataviews-view-table & {
 		width: 96px;
