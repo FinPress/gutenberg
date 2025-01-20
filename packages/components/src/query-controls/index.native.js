@@ -33,6 +33,16 @@ const options = [
 		label: __( 'Z → A' ),
 		value: 'title/desc',
 	},
+	{
+		/* translators: Label for ordering posts by menu order in descending order. */
+		label: __( 'Menu order descending' ),
+		value: 'menu_order/desc',
+	},
+	{
+		/* translators: Label for ordering posts by menu order in descending order. */
+		label: __( 'Menu order ascending' ),
+		value: 'menu_order/asc',
+	},
 ];
 
 const QueryControls = memo(
