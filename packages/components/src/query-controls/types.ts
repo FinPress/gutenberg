@@ -45,7 +45,7 @@ export type AuthorSelectProps = Pick<
 };
 
 type Order = 'asc' | 'desc';
-type OrderBy = 'date' | 'title';
+type OrderBy = 'date' | 'title' | 'menu_order';
 
 type BaseQueryControlsProps = {
 	/**
