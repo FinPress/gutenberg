@@ -29,6 +29,7 @@ function InserterListItem( {
 	item,
 	onSelect,
 	onHover,
+	onClose,
 	isDraggable,
 	...props
 } ) {
@@ -73,6 +74,7 @@ function InserterListItem( {
 						isDraggingRef.current = true;
 						if ( onDragStart ) {
 							onHover( null );
+							onClose();
 							onDragStart( event );
 						}
 					} }

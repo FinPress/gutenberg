@@ -33,6 +33,7 @@ export function BlockTypesTabPanel( {
 	categories,
 	onSelectItem,
 	onHover,
+	onClose,
 	showMostUsedBlocks,
 	className,
 } ) {
@@ -95,6 +96,7 @@ export function BlockTypesTabPanel( {
 							items={ suggestedItems }
 							onSelect={ onSelectItem }
 							onHover={ onHover }
+							onClose={ onClose }
 							label={ _x( 'Most used', 'blocks' ) }
 						/>
 					</InserterPanel>
@@ -117,6 +119,7 @@ export function BlockTypesTabPanel( {
 							items={ categoryItems }
 							onSelect={ onSelectItem }
 							onHover={ onHover }
+							onClose={ onClose }
 							label={ category.title }
 						/>
 					</InserterPanel>
@@ -132,6 +135,7 @@ export function BlockTypesTabPanel( {
 						items={ uncategorizedItems }
 						onSelect={ onSelectItem }
 						onHover={ onHover }
+						onClose={ onClose }
 						label={ __( 'Uncategorized' ) }
 					/>
 				</InserterPanel>
@@ -154,6 +158,7 @@ export function BlockTypesTabPanel( {
 								items={ collectionItems }
 								onSelect={ onSelectItem }
 								onHover={ onHover }
+								onClose={ onClose }
 								label={ collection.title }
 							/>
 						</InserterPanel>
@@ -165,7 +170,7 @@ export function BlockTypesTabPanel( {
 }
 
 export function BlockTypesTab(
-	{ rootClientId, onInsert, onHover, showMostUsedBlocks },
+	{ rootClientId, onInsert, onHover, onClose, showMostUsedBlocks },
 	ref
 ) {
 	const [ items, categories, collections, onSelectItem ] = useBlockTypesState(
@@ -204,6 +209,7 @@ export function BlockTypesTab(
 							collections={ collections }
 							onSelectItem={ onSelectItem }
 							onHover={ onHover }
+							onClose={ onClose }
 							showMostUsedBlocks={ showMostUsedBlocks }
 							className="block-editor-inserter__insertable-blocks-at-selection"
 						/>

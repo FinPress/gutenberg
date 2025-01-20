@@ -114,6 +114,7 @@ function InserterMenu(
 				_rootClientId
 			);
 			onSelect( blocks );
+			onClose();
 
 			// Check for focus loss due to filtering blocks by selected block type
 			window.requestAnimationFrame( () => {
@@ -226,6 +227,7 @@ function InserterMenu(
 						ref={ blockTypesTabRef }
 						rootClientId={ destinationRootClientId }
 						onInsert={ onInsert }
+						onClose={ onClose }
 						onHover={ onHover }
 						showMostUsedBlocks={ showMostUsedBlocks }
 					/>
