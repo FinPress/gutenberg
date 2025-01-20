@@ -707,7 +707,7 @@ You can tell `wp-env`  if the site should be multisite enabled. This can also be
 
 ```json
 {
-	"multsite": true,
+	"multisite": true,
 	"plugins": [ "." ]
 }
 ```
