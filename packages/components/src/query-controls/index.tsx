@@ -102,7 +102,7 @@ export function QueryControls( {
 		{
 			/* translators: Label for ordering posts by menu order in descending order. */
 			label: __( 'Menu order ascending' ),
-			value: 'menu_order/desc',
+			value: 'menu_order/asc',
 		},
 	];
 
