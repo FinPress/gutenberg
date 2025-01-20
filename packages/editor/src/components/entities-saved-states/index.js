@@ -135,23 +135,25 @@ export function EntitiesSavedStatesExtensible( {
 		? __( 'Select the items you want to save.' )
 		: undefined;
 
+	const isInline = variant === 'inline';
+
 	const actionButtons = (
 		<>
 			<FlexItem
-				isBlock={ variant === 'inline' ? false : true }
+				isBlock={ isInline ? false : true }
 				as={ Button }
-				variant={ variant === 'inline' ? 'tertiary' : 'secondary' }
-				size={ variant === 'inline' ? undefined : 'compact' }
+				variant={ isInline ? 'tertiary' : 'secondary' }
+				size={ isInline ? undefined : 'compact' }
 				onClick={ dismissPanel }
 			>
 				{ __( 'Cancel' ) }
 			</FlexItem>
 			<FlexItem
-				isBlock={ variant === 'inline' ? false : true }
+				isBlock={ isInline ? false : true }
 				as={ Button }
 				ref={ saveButtonRef }
 				variant="primary"
-				size={ variant === 'inline' ? undefined : 'compact' }
+				size={ isInline ? undefined : 'compact' }
 				disabled={ ! saveEnabled }
 				accessibleWhenDisabled
 				onClick={ () =>
@@ -174,13 +176,13 @@ export function EntitiesSavedStatesExtensible( {
 			ref={ renderDialog ? saveDialogRef : undefined }
 			{ ...( renderDialog && saveDialogProps ) }
 			className={ clsx( 'entities-saved-states__panel', {
-				'is-within-modal-dialog': variant === 'inline',
+				'is-inline': isInline,
 			} ) }
 			role={ renderDialog ? 'dialog' : undefined }
 			aria-labelledby={ renderDialog ? dialogLabelId : undefined }
 			aria-describedby={ renderDialog ? dialogDescriptionId : undefined }
 		>
-			{ variant === 'default' && (
+			{ ! isInline && (
 				<Flex className="entities-saved-states__panel-header" gap={ 2 }>
 					{ actionButtons }
 				</Flex>
@@ -227,7 +229,7 @@ export function EntitiesSavedStatesExtensible( {
 				);
 			} ) }
 
-			{ variant === 'inline' && (
+			{ isInline && (
 				<Flex
 					direction="row"
 					justify="flex-end"
