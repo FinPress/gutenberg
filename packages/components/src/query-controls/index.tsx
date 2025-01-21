@@ -95,14 +95,14 @@ export function QueryControls( {
 			value: 'title/desc',
 		},
 		{
-			/* translators: Label for ordering posts by menu order in descending order. */
-			label: __( 'Menu order descending' ),
-			value: 'menu_order/desc',
+			/* translators: Label for ordering posts by ascending menu order. */
+			label: __( 'Ascending by order' ),
+			value: 'menu_order/asc',
 		},
 		{
-			/* translators: Label for ordering posts by menu order in descending order. */
-			label: __( 'Menu order ascending' ),
-			value: 'menu_order/asc',
+			/* translators: Label for ordering posts by descending menu order. */
+			label: __( 'Descending by order' ),
+			value: 'menu_order/desc',
 		},
 	];
 
