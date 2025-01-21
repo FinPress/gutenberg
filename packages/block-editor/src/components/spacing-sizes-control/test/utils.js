@@ -12,7 +12,6 @@ import {
 	getSupportedMenuItems,
 	hasAxisSupport,
 	hasBalancedSidesSupport,
-	isValuesDefined,
 	isValueSpacingPreset,
 	LABELS,
 	VIEWS,
@@ -109,30 +108,6 @@ describe( 'getSliderValueFromPreset', () => {
 		expect(
 			getSliderValueFromPreset( 'var:preset|spacing|30', spacingSizes )
 		).toBe( 1 );
-	} );
-} );
-
-describe( 'isValuesDefined', () => {
-	const undefinedValues = {
-		top: undefined,
-		bottom: undefined,
-		left: undefined,
-		right: undefined,
-	};
-	it( 'should return false if values are not defined', () => {
-		expect( isValuesDefined( undefinedValues ) ).toBe( false );
-	} );
-	it( 'should return false if values is passed in as null', () => {
-		expect( isValuesDefined( null ) ).toBe( false );
-	} );
-	const definedValues = {
-		top: 'var:preset|spacing|30',
-		bottom: 'var:preset|spacing|20',
-		left: 'var:preset|spacing|10',
-		right: 'var:preset|spacing|30',
-	};
-	it( 'should return true if all the values are not the same', () => {
-		expect( isValuesDefined( definedValues ) ).toBe( true );
 	} );
 } );
 

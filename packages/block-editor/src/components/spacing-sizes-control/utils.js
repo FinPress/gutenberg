@@ -185,20 +185,6 @@ export function getSliderValueFromPreset( presetValue, spacingSizes ) {
 }
 
 /**
- * Checks to determine if values are defined.
- *
- * @param {Object} values Box values.
- *
- * @return {boolean} Whether values are defined.
- */
-export function isValuesDefined( values ) {
-	if ( values === undefined || values === null ) {
-		return false;
-	}
-	return Object.values( values ).filter( ( value ) => !! value ).length > 0;
-}
-
-/**
  * Determines whether a particular axis has support. If no axis is
  * specified, this function checks if either axis is supported.
  *
