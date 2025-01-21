@@ -382,6 +382,14 @@ export const isPlainObject = (
  * @return Wrapped event callback.
  */
 export const withSyncEvent = ( callback: Function ): Function => {
+	if ( callback?.constructor?.name === 'GeneratorFunction' ) {
+		const wrapped = function* ( ...args: any[] ) {
+			yield* callback( ...args );
+		};
+		wrapped.sync = true;
+		return wrapped;
+	}
+
 	const wrapped = ( ...args: any[] ) => callback( ...args );
 	wrapped.sync = true;
 	return wrapped;
