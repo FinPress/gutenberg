@@ -9,11 +9,9 @@ import {
 	getSliderValueFromPreset,
 	getSpacingPresetCssVar,
 	getSpacingPresetSlug,
-	getSupportedMenuItems,
 	hasAxisSupport,
 	hasBalancedSidesSupport,
 	isValueSpacingPreset,
-	LABELS,
 	VIEWS,
 } from '../utils';
 
@@ -140,70 +138,6 @@ describe( 'hasAxisSupport', () => {
 		expect( hasAxisSupport( [ 'left', 'right' ] ) ).toBe( true );
 		expect( hasAxisSupport( [ 'top', 'bottom' ] ) ).toBe( true );
 		expect( hasAxisSupport( [ 'top', 'left' ] ) ).toBe( false );
-	} );
-} );
-
-describe( 'getSupportedMenuItems', () => {
-	it( 'returns no items when sides are not configured', () => {
-		expect( getSupportedMenuItems( [] ) ).toEqual( {} );
-		expect( getSupportedMenuItems() ).toEqual( {} );
-	} );
-
-	const sideConfigs = [
-		[ LABELS.axial, [ 'horizontal', 'vertical' ] ],
-		[ LABELS.axial, [ 'top', 'right', 'bottom', 'left' ] ],
-		[ LABELS.horizontal, [ 'horizontal' ] ],
-		[ LABELS.horizontal, [ 'left', 'right' ] ],
-		[ LABELS.vertical, [ 'vertical' ] ],
-		[ LABELS.vertical, [ 'top', 'bottom' ] ],
-		[ LABELS.horizontal, [ 'horizontal' ] ],
-	];
-
-	test.each( sideConfigs )(
-		'should include %s axial menu with %s sides',
-		( label, sides ) => {
-			expect( getSupportedMenuItems( sides ) ).toHaveProperty(
-				'axial.label',
-				label
-			);
-		}
-	);
-
-	it( 'returns no axial item when not not supported', () => {
-		expect( getSupportedMenuItems( [ 'left', 'top' ] ) ).not.toHaveProperty(
-			'axial'
-		);
-	} );
-
-	it( 'should include the correct individual side options', () => {
-		expect( getSupportedMenuItems( [ 'top' ] ) ).toHaveProperty(
-			'top.label',
-			LABELS.top
-		);
-		expect( getSupportedMenuItems( [ 'right' ] ) ).toHaveProperty(
-			'right.label',
-			LABELS.right
-		);
-		expect( getSupportedMenuItems( [ 'bottom' ] ) ).toHaveProperty(
-			'bottom.label',
-			LABELS.bottom
-		);
-		expect( getSupportedMenuItems( [ 'left' ] ) ).toHaveProperty(
-			'left.label',
-			LABELS.left
-		);
-	} );
-	it( 'should include the custom option only when applicable', () => {
-		expect( getSupportedMenuItems( [ 'top', 'left' ] ) ).toHaveProperty(
-			'custom.label',
-			LABELS.custom
-		);
-		expect( getSupportedMenuItems( [ 'top' ] ) ).not.toHaveProperty(
-			'custom'
-		);
-		expect(
-			getSupportedMenuItems( [ 'horizontal', 'vertical' ] )
-		).not.toHaveProperty( 'custom.label' );
 	} );
 } );
 

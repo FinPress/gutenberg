@@ -218,54 +218,6 @@ export function hasAxisSupport( sides, axis ) {
 }
 
 /**
- * Determines which menu options should be included in the SidePicker.
- *
- * @param {Array} sides Supported sides.
- *
- * @return {Object} Menu options with each option containing label & icon.
- */
-export function getSupportedMenuItems( sides ) {
-	if ( ! sides || ! sides.length ) {
-		return {};
-	}
-
-	const menuItems = {};
-
-	// Determine the primary "side" menu options.
-	const hasHorizontalSupport = hasAxisSupport( sides, 'horizontal' );
-	const hasVerticalSupport = hasAxisSupport( sides, 'vertical' );
-
-	if ( hasHorizontalSupport && hasVerticalSupport ) {
-		menuItems.axial = { label: LABELS.axial, icon: ICONS.axial };
-	} else if ( hasHorizontalSupport ) {
-		menuItems.axial = { label: LABELS.horizontal, icon: ICONS.horizontal };
-	} else if ( hasVerticalSupport ) {
-		menuItems.axial = { label: LABELS.vertical, icon: ICONS.vertical };
-	}
-
-	// Track whether we have any individual sides so we can omit the custom
-	// option if required.
-	let numberOfIndividualSides = 0;
-
-	ALL_SIDES.forEach( ( side ) => {
-		if ( sides.includes( side ) ) {
-			numberOfIndividualSides += 1;
-			menuItems[ side ] = {
-				label: LABELS[ side ],
-				icon: ICONS[ side ],
-			};
-		}
-	} );
-
-	// Add custom item if there are enough sides to warrant a separated view.
-	if ( numberOfIndividualSides > 1 ) {
-		menuItems.custom = { label: LABELS.custom, icon: ICONS.custom };
-	}
-
-	return menuItems;
-}
-
-/**
  * Checks if the supported sides are balanced for each axis.
  * - Horizontal - both left and right sides are supported.
  * - Vertical - both top and bottom are supported.
