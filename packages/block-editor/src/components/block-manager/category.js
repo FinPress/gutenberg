@@ -10,12 +10,12 @@ import { CheckboxControl } from '@wordpress/components';
  */
 import BlockTypesChecklist from './checklist';
 
-const BlockManagerCategory = ( {
+function BlockManagerCategory( {
 	title,
 	blockTypes,
 	selectedBlockTypes,
 	onChange,
-} ) => {
+} ) {
 	const instanceId = useInstanceId( BlockManagerCategory );
 
 	const toggleVisible = useCallback(
@@ -97,6 +97,6 @@ const BlockManagerCategory = ( {
 			/>
 		</div>
 	);
-};
+}
 
 export default BlockManagerCategory;
