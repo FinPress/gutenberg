@@ -51,6 +51,7 @@ import {
 	MIN_EXCERPT_LENGTH,
 	MAX_EXCERPT_LENGTH,
 	MAX_POSTS_COLUMNS,
+	DEFAULT_EXCERPT_LENGTH,
 } from './constants';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
@@ -80,7 +81,7 @@ function getFeaturedImageDetails( post, size ) {
 
 export default function LatestPostsEdit( { attributes, setAttributes } ) {
 	const instanceId = useInstanceId( LatestPostsEdit );
-	const dropdownMenuProps = useToolsPanelDropdownMenuProps(); // Moved inside the component
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	const {
 		postsToShow,
@@ -237,8 +238,8 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 				resetAll={ () =>
 					setAttributes( {
 						displayPostContent: false,
-						displayPostContentRadio: 'excerpt', // Set default value for the radio button
-						excerptLength: MIN_EXCERPT_LENGTH, // Default length for the excerpt
+						displayPostContentRadio: 'excerpt',
+						excerptLength: DEFAULT_EXCERPT_LENGTH,
 					} )
 				}
 				dropdownMenuProps={ dropdownMenuProps }
@@ -249,6 +250,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					onDeselect={ () =>
 						setAttributes( { displayPostContent: false } )
 					}
+					isShownByDefault
 				>
 					<ToggleControl
 						__nextHasNoMarginBottom
@@ -261,13 +263,14 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 				</ToolsPanelItem>
 				{ displayPostContent && (
 					<ToolsPanelItem
-						hasValue={ () => displayPostContentRadio !== undefined }
+						hasValue={ () => !! displayPostContentRadio }
 						label={ __( 'Show' ) }
 						onDeselect={ () =>
 							setAttributes( {
 								displayPostContentRadio: 'excerpt',
 							} )
 						}
+						isShownByDefault
 					>
 						<RadioControl
 							label={ __( 'Show' ) }
@@ -294,9 +297,10 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 							label={ __( 'Max number of words' ) }
 							onDeselect={ () =>
 								setAttributes( {
-									excerptLength: MIN_EXCERPT_LENGTH,
+									excerptLength: DEFAULT_EXCERPT_LENGTH,
 								} )
 							}
+							isShownByDefault
 						>
 							<RangeControl
 								__nextHasNoMarginBottom
@@ -329,6 +333,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					onDeselect={ () =>
 						setAttributes( { displayAuthor: false } )
 					}
+					isShownByDefault
 				>
 					<ToggleControl
 						__nextHasNoMarginBottom
@@ -345,6 +350,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					onDeselect={ () =>
 						setAttributes( { displayPostDate: false } )
 					}
+					isShownByDefault
 				>
 					<ToggleControl
 						__nextHasNoMarginBottom
