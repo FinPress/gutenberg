@@ -123,14 +123,14 @@ export default function TableOfContentsEdit( {
 			>
 				<ToolsPanelItem
 					hasValue={ () => !! title }
-					label={ __( 'Title' ) }
+					label={ __( 'HEADING TEXT' ) }
 					onDeselect={ () => setAttributes( { title: '' } ) }
 					isShownByDefault
 				>
 					<TextControl
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-						label={ __( 'Title' ) }
+						label={ __( 'HEADING TEXT' ) }
 						value={ title }
 						help={ __(
 							'Set the heading text of the block. Default value: Table of Contents'
@@ -193,7 +193,11 @@ export default function TableOfContentsEdit( {
 	return (
 		<>
 			<nav { ...blockProps }>
-				{ title && <h2>{ title }</h2> }
+				{ title && (
+					<h2 className="wp-block-table-of-contents__title">
+						{ title }
+					</h2>
+				) }
 				<ol>
 					<TableOfContentsList
 						nestedHeadingList={ headingTree }

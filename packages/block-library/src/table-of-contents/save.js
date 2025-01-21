@@ -15,7 +15,9 @@ export default function save( { attributes: { headings = [], title } } ) {
 	}
 	return (
 		<nav { ...useBlockProps.save() }>
-			{ title && <h2>{ title }</h2> }
+			{ title && (
+				<h2 className="wp-block-table-of-contents__title">{ title }</h2>
+			) }
 			<ol>
 				<TableOfContentsList
 					nestedHeadingList={ linearToNestedHeadingList( headings ) }
