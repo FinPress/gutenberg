@@ -16,6 +16,7 @@ import InspectorControlsGroups from '../inspector-controls/groups';
 import { default as InspectorControls } from '../inspector-controls';
 import { store as blockEditorStore } from '../../store';
 import { useToolsPanelDropdownMenuProps } from '../global-styles/utils';
+import { cleanEmptyObject } from '../../hooks/utils';
 
 const PositionControlsPanel = () => {
 	const { selectedClientIds, selectedBlocks, hasPositionAttribute } =
@@ -49,10 +50,17 @@ const PositionControlsPanel = () => {
 			selectedBlocks?.map( ( { clientId, attributes } ) => [
 				clientId,
 				{
-					style: {
+					style: cleanEmptyObject( {
 						...attributes?.style,
-						position: undefined,
-					},
+						position: {
+							...attributes?.style?.position,
+							type: undefined,
+							top: undefined,
+							right: undefined,
+							bottom: undefined,
+							left: undefined,
+						},
+					} ),
 				},
 			] )
 		);
