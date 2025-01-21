@@ -211,6 +211,9 @@ function render_block_core_latest_posts( $attributes ) {
 	if ( isset( $attributes['style']['elements']['link']['color']['text'] ) ) {
 		$classes[] = 'has-link-color';
 	}
+	if ( isset( $attributes['enableBulletList'] ) && $attributes['enableBulletList'] ) {
+		$classes[] = 'is-bulleted';
+	}
 
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classes ) ) );
 

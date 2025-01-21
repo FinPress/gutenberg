@@ -80,6 +80,10 @@
 		"addLinkToFeaturedImage": {
 			"type": "boolean",
 			"default": false
+		},
+		"enableBulletList": {
+			"type": "boolean",
+			"default": true
 		}
 	},
 	"supports": {
@@ -109,18 +113,6 @@
 			"__experimentalLetterSpacing": true,
 			"__experimentalDefaultControls": {
 				"fontSize": true
-			}
-		},
-		"__experimentalBorder": {
-			"radius": true,
-			"color": true,
-			"width": true,
-			"style": true,
-			"__experimentalDefaultControls": {
-				"radius": true,
-				"color": true,
-				"width": true,
-				"style": true
 			}
 		},
 		"interactivity": {

@@ -13,6 +13,12 @@
 	&.wp-block-latest-posts__list {
 		list-style: none;
 
+		&.is-bulleted {
+			li {
+				list-style-type: disc;
+			}
+		}
+
 		li {
 			clear: both;
 			overflow-wrap: break-word;

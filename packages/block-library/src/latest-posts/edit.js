@@ -96,6 +96,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 		featuredImageSizeWidth,
 		featuredImageSizeHeight,
 		addLinkToFeaturedImage,
+		enableBulletList,
 	} = attributes;
 	const {
 		imageSizes,
@@ -227,6 +228,19 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 	const hasPosts = !! latestPosts?.length;
 	const inspectorControls = (
 		<InspectorControls>
+			{ postLayout === 'list' && (
+				<PanelBody title={ __( 'List Settings' ) }>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Enable Bullet List' ) }
+						checked={ enableBulletList }
+						onChange={ ( value ) =>
+							setAttributes( { enableBulletList: value } )
+						}
+					/>
+				</PanelBody>
+			) }
+
 			<PanelBody title={ __( 'Post content' ) }>
 				<ToggleControl
 					__nextHasNoMarginBottom
@@ -428,6 +442,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 			'has-dates': displayPostDate,
 			'has-author': displayAuthor,
 			[ `columns-${ columns }` ]: postLayout === 'grid',
+			'is-bulleted': enableBulletList,
 		} ),
 	} );
 
