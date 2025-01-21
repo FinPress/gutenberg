@@ -185,22 +185,6 @@ export function getSliderValueFromPreset( presetValue, spacingSizes ) {
 }
 
 /**
- * Checks to determine if values are mixed.
- *
- * @param {Object} values Box values.
- * @param {Array}  sides  Sides that values relate to.
- *
- * @return {boolean} Whether values are mixed.
- */
-export function isValuesMixed( values = {}, sides = ALL_SIDES ) {
-	return (
-		( Object.values( values ).length >= 1 &&
-			Object.values( values ).length < sides.length ) ||
-		new Set( Object.values( values ) ).size > 1
-	);
-}
-
-/**
  * Checks to determine if values are defined.
  *
  * @param {Object} values Box values.

@@ -13,7 +13,6 @@ import {
 	hasAxisSupport,
 	hasBalancedSidesSupport,
 	isValuesDefined,
-	isValuesMixed,
 	isValueSpacingPreset,
 	LABELS,
 	VIEWS,
@@ -110,41 +109,6 @@ describe( 'getSliderValueFromPreset', () => {
 		expect(
 			getSliderValueFromPreset( 'var:preset|spacing|30', spacingSizes )
 		).toBe( 1 );
-	} );
-} );
-
-describe( 'isValuesMixed', () => {
-	const unmixedValues = {
-		top: '5px',
-		bottom: '5px',
-		left: '5px',
-		right: '5px',
-	};
-	it( 'should return false if all values are the same', () => {
-		expect( isValuesMixed( unmixedValues ) ).toBe( false );
-	} );
-	const mixedValues = {
-		top: 'var:preset|spacing|30',
-		bottom: 'var:preset|spacing|20',
-		left: 'var:preset|spacing|10',
-		right: 'var:preset|spacing|30',
-	};
-	it( 'should return true if all the values are not the same', () => {
-		expect( isValuesMixed( mixedValues ) ).toBe( true );
-	} );
-	const singleValue = {
-		top: 'var:preset|spacing|30',
-	};
-	it( 'should return true if only one side set', () => {
-		expect( isValuesMixed( singleValue ) ).toBe( true );
-	} );
-	const incompleteValues = {
-		top: 'var:preset|spacing|30',
-		bottom: 'var:preset|spacing|30',
-		left: 'var:preset|spacing|30',
-	};
-	it( 'should return true if all sides not set', () => {
-		expect( isValuesMixed( incompleteValues ) ).toBe( true );
 	} );
 } );
 
