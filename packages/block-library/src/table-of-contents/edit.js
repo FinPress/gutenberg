@@ -16,6 +16,7 @@ import {
 	ToolbarGroup,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	TextControl,
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { renderToString } from '@wordpress/element';
@@ -44,10 +45,11 @@ import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
  * @param {string}                       props.clientId
  * @param {(attributes: Object) => void} props.setAttributes
  *
+ * @param {string}                       props.attributes.title
  * @return {Component} The component.
  */
 export default function TableOfContentsEdit( {
-	attributes: { headings = [], onlyIncludeCurrentPage },
+	attributes: { headings = [], onlyIncludeCurrentPage, title },
 	clientId,
 	setAttributes,
 } ) {
@@ -120,6 +122,25 @@ export default function TableOfContentsEdit( {
 				dropdownMenuProps={ dropdownMenuProps }
 			>
 				<ToolsPanelItem
+					hasValue={ () => !! title }
+					label={ __( 'Title' ) }
+					onDeselect={ () => setAttributes( { title: '' } ) }
+					isShownByDefault
+				>
+					<TextControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						label={ __( 'Title' ) }
+						value={ title }
+						help={ __(
+							'Set the heading text of the block. Default value: Table of Contents'
+						) }
+						onChange={ ( value ) =>
+							setAttributes( { title: value } )
+						}
+					/>
+				</ToolsPanelItem>
+				<ToolsPanelItem
 					hasValue={ () => !! onlyIncludeCurrentPage }
 					label={ __( 'Only include current page' ) }
 					onDeselect={ () =>
@@ -172,6 +193,7 @@ export default function TableOfContentsEdit( {
 	return (
 		<>
 			<nav { ...blockProps }>
+				{ title && <h2>{ title }</h2> }
 				<ol>
 					<TableOfContentsList
 						nestedHeadingList={ headingTree }

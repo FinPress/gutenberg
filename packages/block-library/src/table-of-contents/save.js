@@ -9,12 +9,13 @@ import { useBlockProps } from '@wordpress/block-editor';
 import TableOfContentsList from './list';
 import { linearToNestedHeadingList } from './utils';
 
-export default function save( { attributes: { headings = [] } } ) {
+export default function save( { attributes: { headings = [], title } } ) {
 	if ( headings.length === 0 ) {
 		return null;
 	}
 	return (
 		<nav { ...useBlockProps.save() }>
+			{ title && <h2>{ title }</h2> }
 			<ol>
 				<TableOfContentsList
 					nestedHeadingList={ linearToNestedHeadingList( headings ) }
