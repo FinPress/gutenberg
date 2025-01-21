@@ -52,6 +52,7 @@ import {
 	MAX_EXCERPT_LENGTH,
 	MAX_POSTS_COLUMNS,
 } from './constants';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 /**
  * Module Constants
@@ -79,6 +80,8 @@ function getFeaturedImageDetails( post, size ) {
 
 export default function LatestPostsEdit( { attributes, setAttributes } ) {
 	const instanceId = useInstanceId( LatestPostsEdit );
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps(); // Moved inside the component
+
 	const {
 		postsToShow,
 		order,
@@ -238,9 +241,10 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 						excerptLength: MIN_EXCERPT_LENGTH, // Default length for the excerpt
 					} )
 				}
+				dropdownMenuProps={ dropdownMenuProps }
 			>
 				<ToolsPanelItem
-					hasValue={ () => displayPostContent !== undefined }
+					hasValue={ () => !! displayPostContent }
 					label={ __( 'Post content' ) }
 					onDeselect={ () =>
 						setAttributes( { displayPostContent: false } )
@@ -253,13 +257,18 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 						onChange={ ( value ) =>
 							setAttributes( { displayPostContent: value } )
 						}
-						className={
-							displayPostContent
-								? 'latest-posts-toggle-control-margin-bottom'
-								: ''
-						}
 					/>
-					{ displayPostContent && (
+				</ToolsPanelItem>
+				{ displayPostContent && (
+					<ToolsPanelItem
+						hasValue={ () => displayPostContentRadio !== undefined }
+						label={ __( 'Show' ) }
+						onDeselect={ () =>
+							setAttributes( {
+								displayPostContentRadio: 'excerpt',
+							} )
+						}
+					>
 						<RadioControl
 							label={ __( 'Show' ) }
 							selected={ displayPostContentRadio }
@@ -276,9 +285,19 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 								} )
 							}
 						/>
-					) }
-					{ displayPostContent &&
-						displayPostContentRadio === 'excerpt' && (
+					</ToolsPanelItem>
+				) }
+				{ displayPostContent &&
+					displayPostContentRadio === 'excerpt' && (
+						<ToolsPanelItem
+							hasValue={ () => excerptLength !== undefined }
+							label={ __( 'Max number of words' ) }
+							onDeselect={ () =>
+								setAttributes( {
+									excerptLength: MIN_EXCERPT_LENGTH,
+								} )
+							}
+						>
 							<RangeControl
 								__nextHasNoMarginBottom
 								__next40pxDefaultSize
@@ -290,8 +309,8 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 								min={ MIN_EXCERPT_LENGTH }
 								max={ MAX_EXCERPT_LENGTH }
 							/>
-						) }
-				</ToolsPanelItem>
+						</ToolsPanelItem>
+					) }
 			</ToolsPanel>
 
 			<ToolsPanel
@@ -302,9 +321,10 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 						displayPostDate: false,
 					} )
 				}
+				dropdownMenuProps={ dropdownMenuProps }
 			>
 				<ToolsPanelItem
-					hasValue={ () => displayAuthor !== undefined }
+					hasValue={ () => !! displayAuthor }
 					label={ __( 'Display author name' ) }
 					onDeselect={ () =>
 						setAttributes( { displayAuthor: false } )
@@ -317,11 +337,10 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 						onChange={ ( value ) =>
 							setAttributes( { displayAuthor: value } )
 						}
-						className="latest-posts-toggle-control-margin-bottom"
 					/>
 				</ToolsPanelItem>
 				<ToolsPanelItem
-					hasValue={ () => displayPostDate !== undefined }
+					hasValue={ () => !! displayPostDate }
 					label={ __( 'Display post date' ) }
 					onDeselect={ () =>
 						setAttributes( { displayPostDate: false } )
