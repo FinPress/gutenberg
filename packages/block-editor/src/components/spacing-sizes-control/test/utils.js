@@ -3,7 +3,6 @@
  */
 import {
 	ALL_SIDES,
-	getAllRawValue,
 	getCustomValueFromPreset,
 	getInitialView,
 	getPresetValueFromCustomValue,
@@ -111,29 +110,6 @@ describe( 'getSliderValueFromPreset', () => {
 		expect(
 			getSliderValueFromPreset( 'var:preset|spacing|30', spacingSizes )
 		).toBe( 1 );
-	} );
-} );
-
-describe( 'getAllRawValue', () => {
-	const customValues = {
-		top: '5px',
-		bottom: '5px',
-		left: '6px',
-		right: '2px',
-	};
-	it( 'should return the most common custom value from the values object', () => {
-		expect( getAllRawValue( customValues ) ).toBe( '5px' );
-	} );
-	const presetValues = {
-		top: 'var:preset|spacing|30',
-		bottom: 'var:preset|spacing|20',
-		left: 'var:preset|spacing|10',
-		right: 'var:preset|spacing|30',
-	};
-	it( 'should return the most common preset value from the values object', () => {
-		expect( getAllRawValue( presetValues ) ).toBe(
-			'var:preset|spacing|30'
-		);
 	} );
 } );
 

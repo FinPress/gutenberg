@@ -185,34 +185,6 @@ export function getSliderValueFromPreset( presetValue, spacingSizes ) {
 }
 
 /**
- * Gets an items with the most occurrence within an array
- * https://stackoverflow.com/a/20762713
- *
- * @param {Array<any>} arr Array of items to check.
- * @return {any} The item with the most occurrences.
- */
-function mode( arr ) {
-	return arr
-		.sort(
-			( a, b ) =>
-				arr.filter( ( v ) => v === a ).length -
-				arr.filter( ( v ) => v === b ).length
-		)
-		.pop();
-}
-
-/**
- * Gets the 'all' input value from values data.
- *
- * @param {Object} values Box spacing values
- *
- * @return {string} The most common value from all sides of box.
- */
-export function getAllRawValue( values = {} ) {
-	return mode( Object.values( values ) );
-}
-
-/**
  * Checks to determine if values are mixed.
  *
  * @param {Object} values Box values.
