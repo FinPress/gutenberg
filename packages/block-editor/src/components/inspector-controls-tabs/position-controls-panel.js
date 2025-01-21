@@ -15,38 +15,49 @@ import { __ } from '@wordpress/i18n';
 import InspectorControlsGroups from '../inspector-controls/groups';
 import { default as InspectorControls } from '../inspector-controls';
 import { store as blockEditorStore } from '../../store';
+import { useToolsPanelDropdownMenuProps } from '../global-styles/utils';
 
 const PositionControlsPanel = () => {
-	const { selectedClientIDs, hasPositionAttribute } = useSelect(
-		( select ) => {
+	const { selectedClientIds, selectedBlocks, hasPositionAttribute } =
+		useSelect( ( select ) => {
 			const { getBlocksByClientId, getSelectedBlockClientIds } =
 				select( blockEditorStore );
 
 			const selectedBlockClientIds = getSelectedBlockClientIds();
-			const selectedBlocks = getBlocksByClientId(
+			const _selectedBlocks = getBlocksByClientId(
 				selectedBlockClientIds
 			);
 
 			return {
-				selectedClientIDs: selectedBlockClientIds,
-				hasPositionAttribute: selectedBlocks?.some(
+				selectedClientIds: selectedBlockClientIds,
+				selectedBlocks: _selectedBlocks,
+				hasPositionAttribute: _selectedBlocks?.some(
 					( { attributes } ) => !! attributes?.style?.position?.type
 				),
 			};
-		},
-		[]
-	);
+		}, [] );
 
 	const { updateBlockAttributes } = useDispatch( blockEditorStore );
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	function resetPosition() {
-		updateBlockAttributes( selectedClientIDs, {
-			style: {
-				position: {
-					type: undefined,
+		if ( ! selectedClientIds?.length || ! selectedBlocks?.length ) {
+			return;
+		}
+
+		const attributesByClientId = Object.fromEntries(
+			selectedBlocks?.map( ( { clientId, attributes } ) => [
+				clientId,
+				{
+					style: {
+						...attributes?.style,
+						position: undefined,
+					},
 				},
-			},
-		} );
+			] )
+		);
+
+		updateBlockAttributes( selectedClientIds, attributesByClientId, true );
 	}
 
 	return (
@@ -54,11 +65,12 @@ const PositionControlsPanel = () => {
 			className="block-editor-block-inspector__position"
 			label={ __( 'Position' ) }
 			resetAll={ resetPosition }
+			dropdownMenuProps={ dropdownMenuProps }
 		>
 			<ToolsPanelItem
 				isShownByDefault={ hasPositionAttribute }
 				label={ __( 'Position' ) }
-				hasValue={ () => !! hasPositionAttribute }
+				hasValue={ () => hasPositionAttribute }
 				onDeselect={ resetPosition }
 			>
 				<InspectorControls.Slot group="position" />
