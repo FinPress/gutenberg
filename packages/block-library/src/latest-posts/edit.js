@@ -263,7 +263,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 				</ToolsPanelItem>
 				{ displayPostContent && (
 					<ToolsPanelItem
-						hasValue={ () => !! displayPostContentRadio }
+						hasValue={ () => displayPostContentRadio !== 'excerpt' }
 						label={ __( 'Show' ) }
 						onDeselect={ () =>
 							setAttributes( {
@@ -293,7 +293,9 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 				{ displayPostContent &&
 					displayPostContentRadio === 'excerpt' && (
 						<ToolsPanelItem
-							hasValue={ () => excerptLength !== undefined }
+							hasValue={ () =>
+								excerptLength !== DEFAULT_EXCERPT_LENGTH
+							}
 							label={ __( 'Max number of words' ) }
 							onDeselect={ () =>
 								setAttributes( {
