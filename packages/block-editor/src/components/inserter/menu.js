@@ -69,7 +69,10 @@ function InserterMenu(
 		useDebouncedInput( __experimentalFilterValue );
 	const [ hoveredItem, setHoveredItem ] = useState( null );
 	const [ selectedPatternCategory, setSelectedPatternCategory ] = useState(
-		__experimentalInitialCategory
+		{
+			"name": "core/starter-content",
+			"label": "Starter content"
+		}
 	);
 	const [ patternFilter, setPatternFilter ] = useState( 'all' );
 	const [ selectedMediaCategory, setSelectedMediaCategory ] =
