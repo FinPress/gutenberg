@@ -36,7 +36,10 @@ const meta = {
 			control: 'object',
 			description: 'The styles to apply to the canvas.',
 			table: {
-				type: { summary: 'object' },
+				type: {
+					summary:
+						'{ css?: string; assets?: string; isGlobalStyles?: boolean; __unstableType: string; }[]',
+				},
 			},
 		},
 	},
@@ -46,12 +49,9 @@ export default meta;
 
 export const Default = {
 	args: {
-		height: '300px',
-		styles: {
-			border: '1px solid #ccc',
-			backgroundColor: '#f9f9f9',
-		},
-		children: <BlockList />, // Default `children` is `BlockList`
+		height: '100px',
+		styles: [ { css: `body{font-size: 16px;}` } ],
+		children: <BlockList />,
 	},
 	render: function Template( args ) {
 		return <BlockCanvas { ...args } />;
