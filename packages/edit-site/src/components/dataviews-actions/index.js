@@ -2,7 +2,6 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { edit } from '@wordpress/icons';
 import { useMemo } from '@wordpress/element';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 
@@ -21,7 +20,6 @@ export const useEditPostAction = () => {
 			id: 'edit-post',
 			label: __( 'Edit' ),
 			isPrimary: true,
-			icon: edit,
 			isEligible( post ) {
 				if ( post.status === 'trash' ) {
 					return false;
