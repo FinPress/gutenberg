@@ -57,9 +57,7 @@ function PreviewField( { item } ) {
 			) }
 
 			{ isEmpty && ! isTemplatePart && (
-				<div className="empty-pattern">
-				{ __( 'Empty pattern' ) }
-				</div>
+				<div className="empty-pattern">{ __( 'Empty pattern' ) }</div>
 			) }
 
 			{ ! isEmpty && (
