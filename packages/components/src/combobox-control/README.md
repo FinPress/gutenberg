@@ -40,10 +40,13 @@ function MyComboboxControl() {
 			value={ fontSize }
 			onChange={ setFontSize }
 			options={ filteredOptions }
+			filterProperties={ ['value', 'label'] }
 			onFilterValueChange={ ( inputValue ) =>
 				setFilteredOptions(
 					options.filter( ( option ) =>
-						option.value === inputValue
+						['value', 'label'].some((key) =>
+							option[key]?.toLowerCase().includes(inputValue.toLowerCase())
+						)
 					)
 				)
 			}
@@ -89,9 +92,17 @@ Function called when the control's search input value changes. The argument cont
 -   Type: `( value: string ) => void`
 -   Required: No
 
+#### filterProperties
+
+The list of option properties that should be used for filtering the options.
+
+-   Type: `Array<string>`
+-   Required: No
+-   Default: `['value']`
+
 #### onChange
 
-Function called with the selected value changes.
+Function called when the selected value changes.
 
 -   Type: `( value: string | null | undefined ) => void`
 -   Required: No
