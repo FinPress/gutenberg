@@ -49,9 +49,19 @@ function PreviewField( { item } ) {
 			className="page-patterns-preview-field"
 			style={ { backgroundColor } }
 			aria-describedby={ !! description ? descriptionId : undefined }
-		>
-			{ isEmpty && isTemplatePart && __( 'Empty template part' ) }
-			{ isEmpty && ! isTemplatePart && __( 'Empty pattern' ) }
+		>	
+			{ isEmpty && isTemplatePart && ( 
+			  <div className="empty-template-part">
+			    { __('Empty template part') }
+			  </div> 
+			) }
+
+			{ isEmpty && !isTemplatePart && ( 
+			  <div className="empty-pattern">
+			    { __('Empty pattern') }
+			  </div>
+			) }
+
 			{ ! isEmpty && (
 				<BlockPreview.Async>
 					<BlockPreview

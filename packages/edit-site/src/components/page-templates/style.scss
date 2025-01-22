@@ -37,6 +37,13 @@
 	}
 }
 
+.empty-template {
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	height: 100%;
+}
+
 .page-templates-description {
 	max-width: 50em;
 	text-wrap: balance; // Fallback for Safari
