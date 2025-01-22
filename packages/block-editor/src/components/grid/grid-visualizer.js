@@ -56,16 +56,13 @@ const GridVisualizerGrid = forwardRef(
 		useEffect( () => {
 			const resizeCallback = () =>
 				setGridInfo( getGridInfo( gridElement ) );
-			// Both the container’s border-box and content-box are observed as they may
-			// change independently. This requires two observers because a single one
+			// Both border-box and content-box are observed as they may change
+			// independently. This requires two observers because a single one
 			// can’t be made to monitor both on the same element.
 			const borderBoxSpy = new window.ResizeObserver( resizeCallback );
 			borderBoxSpy.observe( gridElement, { box: 'border-box' } );
 			const contentBoxSpy = new window.ResizeObserver( resizeCallback );
 			contentBoxSpy.observe( gridElement );
-			for ( const element of gridElement.children ) {
-				contentBoxSpy.observe( element );
-			}
 			return () => {
 				borderBoxSpy.disconnect();
 				contentBoxSpy.disconnect();
