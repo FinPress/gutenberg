@@ -86,4 +86,11 @@ export type ComboboxControlProps = Pick<
 	 * If passed, the combobox input will show a placeholder string if no values are present.
 	 */
 	placeholder?: string;
+
+	/**
+	 * Specify which option field(s) to use for filtering suggestions.
+	 * Can be a single field name or an array of field names.
+	 * @default 'label'
+	 */
+	filterFields?: string | string[];
 };
