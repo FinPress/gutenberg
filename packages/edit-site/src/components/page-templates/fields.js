@@ -48,9 +48,9 @@ function PreviewField( { item } ) {
 				style={ { backgroundColor } }
 			>
 				{ isEmpty && ( 
-				  <div className="empty-template">
-				    { __('Empty template') }
-				  </div>
+					<div className="empty-template">
+				    	{ __('Empty template') }
+					</div>
 				) }
 
 				{ ! isEmpty && (

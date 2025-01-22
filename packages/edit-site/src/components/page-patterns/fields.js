@@ -51,15 +51,15 @@ function PreviewField( { item } ) {
 			aria-describedby={ !! description ? descriptionId : undefined }
 		>	
 			{ isEmpty && isTemplatePart && ( 
-			  <div className="empty-template-part">
-			    { __('Empty template part') }
-			  </div> 
+				<div className="empty-template-part">
+					{ __('Empty template part') }
+				</div> 
 			) }
 
 			{ isEmpty && !isTemplatePart && ( 
-			  <div className="empty-pattern">
-			    { __('Empty pattern') }
-			  </div>
+				<div className="empty-pattern">
+					{ __('Empty pattern') }
+				</div>
 			) }
 
 			{ ! isEmpty && (
