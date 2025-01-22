@@ -1258,7 +1258,7 @@ store( 'mySliderPlugin', {
 
 ### withSyncEvent()
 
-Actions that require synchronous event access need to use the `withSyncEvent()` function to wrap their handler callback. This is necessary due to an ongoing effort to handle store actions asynchronously by default, unless they require synchronous event access. Therefore, as of Gutenberg `TODO: Add release number here!` / WordPress 6.8 all actions that require synchronous event access should use the `withSyncEvent()` utility wrapper function. Otherwise a deprecation warning will be triggered, and in a future release the behavior will change accordingly.
+Actions that require synchronous access to the `event` object need to use the `withSyncEvent()` function to wrap their handler callback. This is necessary due to an ongoing effort to handle store actions asynchronously by default, unless they require synchronous event access. Therefore, as of Gutenberg `TODO: Add release number here!` / WordPress 6.8 all actions that require synchronous event access need to use the `withSyncEvent()` utility wrapper function. Otherwise a deprecation warning will be triggered, and in a future release the behavior will change accordingly.
 
 Only very specific event methods and properties require synchronous access, so it is advised to only use `withSyncEvent()` when necessary. The following event methods and properties require synchronous access:
 
@@ -1267,7 +1267,7 @@ Only very specific event methods and properties require synchronous access, so i
 * `event.stopImmediatePropagation()`
 * `event.stopPropagation()`
 
-Here is an example, where one action requires synchronous event access while the other one does not:
+Here is an example, where one action requires synchronous event access while the other actions do not:
 
 ```js
 // store
