@@ -49,7 +49,7 @@ function PreviewField( { item } ) {
 			>
 				{ isEmpty && (
 					<div className="empty-template">
-				    	{ __('Empty template') }
+						{ __( 'Empty template' ) }
 					</div>
 				) }
 
