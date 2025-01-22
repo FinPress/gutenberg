@@ -47,7 +47,7 @@ function PreviewField( { item } ) {
 				className="page-templates-preview-field"
 				style={ { backgroundColor } }
 			>
-				{ isEmpty && ( 
+				{ isEmpty && (
 					<div className="empty-template">
 				    	{ __('Empty template') }
 					</div>

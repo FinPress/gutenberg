@@ -50,13 +50,13 @@ function PreviewField( { item } ) {
 			style={ { backgroundColor } }
 			aria-describedby={ !! description ? descriptionId : undefined }
 		>	
-			{ isEmpty && isTemplatePart && ( 
+			{ isEmpty && isTemplatePart && (
 				<div className="empty-template-part">
 					{ __('Empty template part') }
 				</div> 
 			) }
 
-			{ isEmpty && !isTemplatePart && ( 
+			{ isEmpty && !isTemplatePart && (
 				<div className="empty-pattern">
 					{ __('Empty pattern') }
 				</div>
