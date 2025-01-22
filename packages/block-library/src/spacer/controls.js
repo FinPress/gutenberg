@@ -137,7 +137,7 @@ export default function SpacerControls( {
 							label={ __( 'Height' ) }
 							value={ height }
 							onChange={ ( nextHeight ) =>
-								setAttributes( { height: nextHeight } )
+								setAttributes( { height: nextHeight ?? '0px' } )
 							}
 							isResizing={ isResizing }
 						/>
