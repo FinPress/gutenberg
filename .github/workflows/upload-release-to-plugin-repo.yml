@@ -167,6 +167,9 @@ jobs:
             VERSION: ${{ github.event.release.name }}
 
         steps:
+            - name: Install Subversion
+              run: |
+                  apt-get update -y && apt-get install -y subversion
             - name: Check out Gutenberg trunk from WP.org plugin repo
               run: |
                   svn checkout "$PLUGIN_REPO_URL/trunk" --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
