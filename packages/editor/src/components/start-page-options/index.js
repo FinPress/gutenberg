@@ -12,13 +12,8 @@ import { store as interfaceStore } from '@wordpress/interface';
 import { store as editorStore } from '../../store';
 
 export default function StartPageOptions() {
-	const { postId, shouldEnable } = useSelect( ( select ) => {
-		const {
-			isEditedPostDirty,
-			isEditedPostEmpty,
-			getCurrentPostId,
-			getCurrentPostType,
-		} = select( editorStore );
+	const { postId, enabled } = useSelect( ( select ) => {
+		const { getCurrentPostId, getCurrentPostType } = select( editorStore );
 		const preferencesModalActive =
 			select( interfaceStore ).isModalActive( 'editor/preferences' );
 		const choosePatternModalEnabled = select( preferencesStore ).get(
@@ -27,24 +22,34 @@ export default function StartPageOptions() {
 		);
 		return {
 			postId: getCurrentPostId(),
-			shouldEnable:
+			enabled:
 				choosePatternModalEnabled &&
 				! preferencesModalActive &&
-				! isEditedPostDirty() &&
-				isEditedPostEmpty() &&
 				'page' === getCurrentPostType(),
 		};
 	}, [] );
+	const { isEditedPostDirty, isEditedPostEmpty } = useSelect( editorStore );
 	const { setIsInserterOpened } = useDispatch( editorStore );
 
 	useEffect( () => {
-		if ( shouldEnable ) {
+		if ( ! enabled ) {
+			return;
+		}
+
+		const isFreshPage = ! isEditedPostDirty() && isEditedPostEmpty();
+		if ( isFreshPage ) {
 			setIsInserterOpened( {
 				tab: 'patterns',
 				category: 'core/starter-content',
 			} );
 		}
-	}, [ postId, shouldEnable, setIsInserterOpened ] );
+	}, [
+		postId,
+		enabled,
+		setIsInserterOpened,
+		isEditedPostDirty,
+		isEditedPostEmpty,
+	] );
 
 	return null;
 }
