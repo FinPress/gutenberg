@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Pressable, View } from 'react-native';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -14,13 +14,7 @@ import {
 	useRef,
 	memo,
 } from '@wordpress/element';
-import {
-	GlobalStylesContext,
-	getMergedGlobalStyles,
-	useMobileGlobalStylesColors,
-	useGlobalStyles,
-	withFilters,
-} from '@wordpress/components';
+import { withFilters } from '@wordpress/components';
 import {
 	__experimentalGetAccessibleBlockLabel as getAccessibleBlockLabel,
 	getBlockType,
@@ -51,6 +45,12 @@ import { useSettings } from '../use-settings';
 import { unlock } from '../../lock-unlock';
 import BlockCrashBoundary from './block-crash-boundary';
 import BlockCrashWarning from './block-crash-warning';
+import {
+	getMergedGlobalStyles,
+	GlobalStylesContext,
+	useGlobalStyles,
+	useMobileGlobalStylesColors,
+} from '../global-styles/use-global-styles-context';
 
 const EMPTY_ARRAY = [];
 
@@ -73,7 +73,7 @@ function mergeWrapperProps( propsA, propsB ) {
 		propsA?.hasOwnProperty( 'className' ) &&
 		propsB?.hasOwnProperty( 'className' )
 	) {
-		newProps.className = classnames( propsA.className, propsB.className );
+		newProps.className = clsx( propsA.className, propsB.className );
 	}
 
 	if (
@@ -320,7 +320,6 @@ function BlockListBlock( {
 			name,
 			fontSizes || EMPTY_ARRAY
 		);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [
 		// It is crucial to keep the dependencies array minimal to prevent unnecessary calls that could negatively impact performance.
 		// JSON.stringify is used for the following purposes:
@@ -329,11 +328,8 @@ function BlockListBlock( {
 		// 2. To filter the attributes object, ensuring that only the relevant attributes (included in
 		//    GlobalStylesContext.BLOCK_STYLE_ATTRIBUTES) are considered as dependencies. This reduces the likelihood of
 		//    unnecessary useMemo calls when other, unrelated attributes change.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 		JSON.stringify( globalStyle ),
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 		JSON.stringify( wrapperProps?.style ),
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 		JSON.stringify(
 			Object.fromEntries(
 				Object.entries( attributes ?? {} ).filter( ( [ key ] ) =>
@@ -432,8 +428,8 @@ const applyWithSelect = withSelect( ( select, { clientId, rootClientId } ) => {
 	const attributes = getBlockAttributes( clientId );
 	const isSelected = isBlockSelected( clientId );
 	const templateLock = getTemplateLock( rootClientId );
-	const canRemove = canRemoveBlock( clientId, rootClientId );
-	const canMove = canMoveBlock( clientId, rootClientId );
+	const canRemove = canRemoveBlock( clientId );
+	const canMove = canMoveBlock( clientId );
 
 	// The fallback to `{}` is a temporary fix.
 	// This function should never be called when a block is not present in
@@ -669,12 +665,20 @@ const applyWithDispatch = withDispatch( ( dispatch, ownProps, registry ) => {
 					}
 
 					moveFirstItemUp( rootClientId );
-				} else {
-					removeBlock( clientId );
+				} else if (
+					getBlockName( clientId ) !== getDefaultBlockName()
+				) {
+					const replacement = switchToBlockType(
+						getBlock( clientId ),
+						getDefaultBlockName()
+					);
+					if ( replacement && replacement.length ) {
+						replaceBlocks( clientId, replacement );
+					}
 				}
 			}
 		},
-		onReplace( blocks, indexToSelect, initialPosition ) {
+		onReplace( blocks, indexToSelect, initialPosition, meta ) {
 			if (
 				blocks.length &&
 				! isUnmodifiedDefaultBlock( blocks[ blocks.length - 1 ] )
@@ -685,7 +689,8 @@ const applyWithDispatch = withDispatch( ( dispatch, ownProps, registry ) => {
 				[ ownProps.clientId ],
 				blocks,
 				indexToSelect,
-				initialPosition
+				initialPosition,
+				meta
 			);
 		},
 		toggleSelection( selectionEnabled ) {

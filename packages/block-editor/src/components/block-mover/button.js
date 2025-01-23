@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -129,8 +129,9 @@ const BlockMoverButton = forwardRef(
 		return (
 			<>
 				<Button
+					__next40pxDefaultSize
 					ref={ ref }
-					className={ classnames(
+					className={ clsx(
 						'block-editor-block-mover-button',
 						`is-${ direction }-button`
 					) }
@@ -143,7 +144,7 @@ const BlockMoverButton = forwardRef(
 					{ ...props }
 					onClick={ isDisabled ? null : onClick }
 					disabled={ isDisabled }
-					__experimentalIsFocusable
+					accessibleWhenDisabled
 				/>
 				<VisuallyHidden id={ descriptionId }>
 					{ getBlockMoverDescription(

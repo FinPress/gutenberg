@@ -18,7 +18,9 @@ import { store as blockEditorStore } from '../../store';
 function setContentEditableWrapper( node, value ) {
 	node.contentEditable = value;
 	// Firefox doesn't automatically move focus.
-	if ( value ) node.focus();
+	if ( value ) {
+		node.focus();
+	}
 }
 
 /**
@@ -78,7 +80,17 @@ export default function useDragSelection() {
 				} );
 			}
 
+			let lastMouseDownTarget;
+
+			function onMouseDown( { target } ) {
+				lastMouseDownTarget = target;
+			}
+
 			function onMouseLeave( { buttons, target, relatedTarget } ) {
+				if ( ! target.contains( lastMouseDownTarget ) ) {
+					return;
+				}
+
 				// If we're moving into a child element, ignore. We're tracking
 				// the mouse leaving the element to a parent, no a child.
 				if ( target.contains( relatedTarget ) ) {
@@ -139,6 +151,7 @@ export default function useDragSelection() {
 			}
 
 			node.addEventListener( 'mouseout', onMouseLeave );
+			node.addEventListener( 'mousedown', onMouseDown );
 
 			return () => {
 				node.removeEventListener( 'mouseout', onMouseLeave );

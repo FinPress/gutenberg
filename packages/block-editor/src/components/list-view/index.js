@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -64,7 +64,7 @@ const expanded = ( state, action ) => {
 	return state;
 };
 
-export const BLOCK_LIST_ITEM_HEIGHT = 36;
+export const BLOCK_LIST_ITEM_HEIGHT = 32;
 
 /** @typedef {import('react').ComponentType} ComponentType */
 /** @typedef {import('react').Ref<HTMLElement>} Ref */
@@ -119,20 +119,16 @@ function ListViewComponent(
 	const blockIndexes = useListViewBlockIndexes( clientIdsTree );
 
 	const { getBlock } = useSelect( blockEditorStore );
-	const { visibleBlockCount, shouldShowInnerBlocks } = useSelect(
+	const { visibleBlockCount } = useSelect(
 		( select ) => {
-			const {
-				getGlobalBlockCount,
-				getClientIdsOfDescendants,
-				__unstableGetEditorMode,
-			} = select( blockEditorStore );
+			const { getGlobalBlockCount, getClientIdsOfDescendants } =
+				select( blockEditorStore );
 			const draggedBlockCount =
 				draggedClientIds?.length > 0
 					? getClientIdsOfDescendants( draggedClientIds ).length + 1
 					: 0;
 			return {
 				visibleBlockCount: getGlobalBlockCount() - draggedBlockCount,
-				shouldShowInnerBlocks: __unstableGetEditorMode() !== 'zoom-out',
 			};
 		},
 		[ draggedClientIds ]
@@ -189,8 +185,7 @@ function ListViewComponent(
 		if ( selectedClientIds?.length ) {
 			focusListItem( selectedClientIds[ 0 ], elementRef?.current );
 		}
-		// Disable reason: Only focus on the selected item when the list view is mounted.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		// Only focus on the selected item when the list view is mounted.
 	}, [] );
 
 	const expand = useCallback(
@@ -366,7 +361,7 @@ function ListViewComponent(
 			) }
 			<TreeGrid
 				id={ id }
-				className={ classnames( 'block-editor-list-view-tree', {
+				className={ clsx( 'block-editor-list-view-tree', {
 					'is-dragging':
 						draggedClientIds?.length > 0 &&
 						blockDropTargetIndex !== undefined,
@@ -397,7 +392,6 @@ function ListViewComponent(
 						fixedListWindow={ fixedListWindow }
 						selectedClientIds={ selectedClientIds }
 						isExpanded={ isExpanded }
-						shouldShowInnerBlocks={ shouldShowInnerBlocks }
 						showAppender={ showAppender }
 					/>
 				</ListViewContext.Provider>

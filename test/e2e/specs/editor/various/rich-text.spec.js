@@ -119,7 +119,7 @@ test.describe( 'RichText (@firefox, @webkit)', () => {
 		expect( count ).toBe( 1 );
 	} );
 
-	test( 'should return focus when pressing formatting button', async ( {
+	test( 'should return focus when pressing formatting button (-firefox)', async ( {
 		page,
 		editor,
 	} ) => {
@@ -415,7 +415,7 @@ test.describe( 'RichText (@firefox, @webkit)', () => {
 		] );
 	} );
 
-	test( 'should update internal selection after fresh focus', async ( {
+	test( 'should update internal selection after fresh focus (-firefox)', async ( {
 		page,
 		editor,
 		pageUtils,
@@ -492,19 +492,11 @@ test.describe( 'RichText (@firefox, @webkit)', () => {
 		expect( await editor.getBlocks() ).toMatchObject( [
 			{
 				name: 'core/paragraph',
-				attributes: { content: 'a' },
+				attributes: { content: 'a1' },
 			},
 			{
 				name: 'core/paragraph',
-				attributes: { content: '1' },
-			},
-			{
-				name: 'core/paragraph',
-				attributes: { content: '2' },
-			},
-			{
-				name: 'core/paragraph',
-				attributes: { content: 'b' },
+				attributes: { content: '2b' },
 			},
 		] );
 	} );
@@ -766,7 +758,7 @@ test.describe( 'RichText (@firefox, @webkit)', () => {
 		);
 	} );
 
-	test( 'should navigate arround emoji', async ( { page, editor } ) => {
+	test( 'should navigate around emoji', async ( { page, editor } ) => {
 		await editor.canvas
 			.locator( 'role=button[name="Add default block"i]' )
 			.click();

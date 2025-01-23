@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type gradientParser from 'gradient-parser';
+import { type LinearGradientNode } from 'gradient-parser';
 
 /**
  * WordPress dependencies
@@ -79,7 +79,7 @@ const GradientTypePicker = ( {
 					? undefined
 					: HORIZONTAL_GRADIENT_ORIENTATION,
 				type: 'linear-gradient',
-			} as gradientParser.LinearGradientNode )
+			} satisfies LinearGradientNode )
 		);
 	};
 
@@ -140,6 +140,7 @@ const GradientTypePicker = ( {
 export function CustomGradientPicker( {
 	value,
 	onChange,
+	enableAlpha = true,
 	__experimentalIsRenderedInSidebar = false,
 }: CustomGradientPickerProps ) {
 	const { gradientAST, hasGradient } = getGradientAstWithDefault( value );
@@ -167,6 +168,7 @@ export function CustomGradientPicker( {
 				__experimentalIsRenderedInSidebar={
 					__experimentalIsRenderedInSidebar
 				}
+				disableAlpha={ ! enableAlpha }
 				background={ background }
 				hasGradient={ hasGradient }
 				value={ controlPoints }

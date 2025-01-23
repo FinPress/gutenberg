@@ -87,6 +87,13 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 	$kind        = empty( $attributes['kind'] ) ? 'post_type' : str_replace( '-', '_', $attributes['kind'] );
 	$is_active   = ! empty( $attributes['id'] ) && get_queried_object_id() === (int) $attributes['id'] && ! empty( get_queried_object()->$kind );
 
+	if ( is_post_type_archive() ) {
+		$queried_archive_link = get_post_type_archive_link( get_queried_object()->name );
+		if ( $attributes['url'] === $queried_archive_link ) {
+			$is_active = true;
+		}
+	}
+
 	$show_submenu_indicators = isset( $block->context['showSubmenuIcon'] ) && $block->context['showSubmenuIcon'];
 	$open_on_click           = isset( $block->context['openSubmenusOnClick'] ) && $block->context['openSubmenusOnClick'];
 	$open_on_hover_and_click = isset( $block->context['openSubmenusOnClick'] ) && ! $block->context['openSubmenusOnClick'] &&
@@ -152,7 +159,16 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 		$html .= '>';
 		// End appending HTML attributes to anchor tag.
 
+		$html .= '<span class="wp-block-navigation-item__label">';
 		$html .= $label;
+		$html .= '</span>';
+
+		// Add description if available.
+		if ( ! empty( $attributes['description'] ) ) {
+			$html .= '<span class="wp-block-navigation-item__description">';
+			$html .= wp_kses_post( $attributes['description'] );
+			$html .= '</span>';
+		}
 
 		$html .= '</a>';
 		// End anchor tag content.
@@ -172,6 +188,13 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 		$html .= $label;
 
 		$html .= '</span>';
+
+		// Add description if available.
+		if ( ! empty( $attributes['description'] ) ) {
+			$html .= '<span class="wp-block-navigation-item__description">';
+			$html .= wp_kses_post( $attributes['description'] );
+			$html .= '</span>';
+		}
 
 		$html .= '</button>';
 
@@ -215,7 +238,7 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 
 		if ( strpos( $inner_blocks_html, 'current-menu-item' ) ) {
 			$tag_processor = new WP_HTML_Tag_Processor( $html );
-			while ( $tag_processor->next_tag( array( 'class_name' => 'wp-block-navigation-item__content' ) ) ) {
+			while ( $tag_processor->next_tag( array( 'class_name' => 'wp-block-navigation-item' ) ) ) {
 				$tag_processor->add_class( 'current-menu-ancestor' );
 			}
 			$html = $tag_processor->get_updated_html();

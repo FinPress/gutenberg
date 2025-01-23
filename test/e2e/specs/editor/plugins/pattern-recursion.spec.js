@@ -59,14 +59,14 @@ test.describe( 'Preventing Pattern Recursion (server)', () => {
 		page,
 		editor,
 	} ) => {
-		// Click the Toggle block inserter button
+		// Click the Block Inserter button
 		await page
-			.getByRole( 'button', { name: 'Toggle block inserter' } )
+			.getByRole( 'button', { name: 'Block Inserter', exact: true } )
 			.click();
 		// Click the Patterns tab
 		await page.getByRole( 'tab', { name: 'Patterns' } ).click();
 		// Click the Uncategorized tab
-		await page.getByRole( 'button', { name: 'Uncategorized' } ).click();
+		await page.getByRole( 'tab', { name: 'Uncategorized' } ).click();
 		// Click the Evil recursive pattern
 		await page.getByRole( 'option', { name: 'Evil recursive' } ).click();
 		// By simply checking the editor content, we know that the pattern

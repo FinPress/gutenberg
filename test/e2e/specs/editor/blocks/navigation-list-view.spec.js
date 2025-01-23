@@ -174,7 +174,7 @@ test.describe( 'Navigation block - List view editing', () => {
 		// Expect to see the block inserter.
 		await expect(
 			page.getByRole( 'searchbox', {
-				name: 'Search for blocks and patterns',
+				name: 'Search',
 			} )
 		).toBeFocused();
 
@@ -555,18 +555,21 @@ test.describe( 'Navigation block - List view editing', () => {
 
 		await editor.openDocumentSettingsSidebar();
 
-		await page.getByLabel( 'Test Menu' ).click();
+		await page
+			.getByRole( 'tabpanel' )
+			.getByRole( 'button', { name: 'Test Menu' } )
+			.click();
 
 		await page.keyboard.press( 'ArrowUp' );
 
 		await expect(
-			page.getByRole( 'menuitem', { name: 'Create new menu' } )
+			page.getByRole( 'menuitem', { name: 'Create new Menu' } )
 		).toBeFocused();
 
 		await page.keyboard.press( 'Enter' );
 
 		await expect(
-			page.getByText( 'This navigation menu is empty.' )
+			page.getByText( 'This Navigation Menu is empty.' )
 		).toBeVisible();
 
 		// Move focus to the appender
@@ -588,7 +591,7 @@ class LinkControl {
 
 	getSearchInput() {
 		return this.page.getByRole( 'combobox', {
-			name: 'Link',
+			name: 'Search or type URL',
 		} );
 	}
 

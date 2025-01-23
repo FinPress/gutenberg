@@ -5,7 +5,7 @@ import type { ForwardedRef } from 'react';
 import { colord, extend } from 'colord';
 import namesPlugin from 'colord/plugins/names';
 import a11yPlugin from 'colord/plugins/a11y';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -78,13 +78,6 @@ function SinglePalette( {
 					style={ { backgroundColor: color, color } }
 					onClick={
 						isSelected ? clearColor : () => onChange( color, index )
-					}
-					aria-label={
-						name
-							? // translators: %s: The name of the color e.g: "vivid red".
-							  sprintf( __( 'Color: %s' ), name )
-							: // translators: %s: color hex code e.g: "#f00".
-							  sprintf( __( 'Color code: %s' ), color )
 					}
 				/>
 			);
@@ -233,7 +226,7 @@ function UnforwardedColorPalette(
 	const displayValue = value?.replace( /^var\((.+)\)$/, '$1' );
 	const customColorAccessibleLabel = !! displayValue
 		? sprintf(
-				// translators: %1$s: The name of the color e.g: "vivid red". %2$s: The color's hex code e.g: "#f00".
+				// translators: 1: The name of the color e.g: "vivid red". 2: The color's hex code e.g: "#f00".
 				__(
 					'Custom color picker. The currently selected color is called "%1$s" and has a value of "%2$s".'
 				),
@@ -249,7 +242,11 @@ function UnforwardedColorPalette(
 	};
 
 	const actions = !! clearable && (
-		<CircularOptionPicker.ButtonAction onClick={ clearColor }>
+		<CircularOptionPicker.ButtonAction
+			onClick={ clearColor }
+			accessibleWhenDisabled
+			disabled={ ! value }
+		>
 			{ __( 'Clear' ) }
 		</CircularOptionPicker.ButtonAction>
 	);
@@ -320,7 +317,7 @@ function UnforwardedColorPalette(
 								does not shift
 								*/ }
 								<Truncate
-									className={ classnames(
+									className={ clsx(
 										'components-color-palette__custom-color-value',
 										{
 											'components-color-palette__custom-color-value--is-hex':
@@ -335,26 +332,28 @@ function UnforwardedColorPalette(
 					) }
 				/>
 			) }
-			<CircularOptionPicker
-				{ ...metaProps }
-				actions={ actions }
-				options={
-					hasMultipleColorOrigins ? (
-						<MultiplePalettes
-							{ ...paletteCommonProps }
-							headingLevel={ headingLevel }
-							colors={ colors as PaletteObject[] }
-							value={ value }
-						/>
-					) : (
-						<SinglePalette
-							{ ...paletteCommonProps }
-							colors={ colors as ColorObject[] }
-							value={ value }
-						/>
-					)
-				}
-			/>
+			{ ( colors.length > 0 || actions ) && (
+				<CircularOptionPicker
+					{ ...metaProps }
+					actions={ actions }
+					options={
+						hasMultipleColorOrigins ? (
+							<MultiplePalettes
+								{ ...paletteCommonProps }
+								headingLevel={ headingLevel }
+								colors={ colors as PaletteObject[] }
+								value={ value }
+							/>
+						) : (
+							<SinglePalette
+								{ ...paletteCommonProps }
+								colors={ colors as ColorObject[] }
+								value={ value }
+							/>
+						)
+					}
+				/>
+			) }
 		</VStack>
 	);
 }

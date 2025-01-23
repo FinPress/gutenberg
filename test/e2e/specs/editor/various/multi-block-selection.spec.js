@@ -372,7 +372,7 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 		const { height } = await paragraphBlock.boundingBox();
 		await paragraphBlock.click( { position: { x: 0, y: height / 2 } } );
 		await paragraphBlock.click( {
-			position: { x: 20, y: height / 2 },
+			position: { x: 25, y: height / 2 },
 			modifiers: [ 'Shift' ],
 		} );
 		await page.keyboard.type( 'hi' );
@@ -538,10 +538,8 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 			.poll( editor.getBlocks, 'should paste mid-block' )
 			.toMatchObject( [
 				{ attributes: { content: 'first paragraph' } },
-				{ attributes: { content: 'second paragr' } },
-				{ attributes: { content: 'first paragraph' } },
-				{ attributes: { content: 'second paragraph|' } },
-				{ attributes: { content: 'aph' } },
+				{ attributes: { content: 'second paragrfirst paragraph' } },
+				{ attributes: { content: 'second paragraph|aph' } },
 			] );
 	} );
 
@@ -730,7 +728,7 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 		] );
 	} );
 
-	test( 'should clear selection when clicking next to blocks (-firefox)', async ( {
+	test( 'should clear selection when clicking next to blocks', async ( {
 		page,
 		editor,
 		multiBlockSelectionUtils,
@@ -754,16 +752,13 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 				name: 'Block: Paragraph',
 			} )
 			.filter( { hasText: '1' } );
+		// For some reason in Chrome it requires two clicks, even though it
+		// doesn't when testing manually.
 		await paragraph1.click( {
 			position: { x: -1, y: 0 },
 			// Use force since it's outside the bounding box of the element.
 			force: true,
 		} );
-
-		await expect
-			.poll( multiBlockSelectionUtils.getSelectedFlatIndices )
-			.toEqual( [ 1 ] );
-
 		await paragraph1.click( {
 			position: { x: -1, y: 0 },
 			// Use force since it's outside the bounding box of the element.

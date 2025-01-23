@@ -12,11 +12,17 @@ import {
 	getBlockEditingMode,
 	getSettings,
 	canInsertBlockType,
+	getBlockName,
+	getTemplateLock,
+	getClientIdsWithDescendants,
+	isNavigationMode,
+	getBlockRootClientId,
 } from './selectors';
 import {
 	checkAllowListRecursive,
 	getAllPatternsDependants,
 	getInsertBlockTypeDependants,
+	getGrammar,
 } from './utils';
 import { INSERTER_PATTERN_TYPES } from '../components/inserter/block-patterns-tab/utils';
 import { STORE_NAME } from './constants';
@@ -24,6 +30,7 @@ import { unlock } from '../lock-unlock';
 import {
 	selectBlockPatternsKey,
 	reusableBlocksSelectKey,
+	sectionRootClientIdKey,
 } from './private-keys';
 
 export { getBlockSettings } from './get-block-settings';
@@ -102,14 +109,16 @@ function getEnabledClientIdsTreeUnmemoized( state, rootClientId ) {
  *
  * @return {Object[]} Tree of block objects with only clientID and innerBlocks set.
  */
-export const getEnabledClientIdsTree = createSelector(
-	getEnabledClientIdsTreeUnmemoized,
-	( state ) => [
+export const getEnabledClientIdsTree = createRegistrySelector( ( select ) =>
+	createSelector( getEnabledClientIdsTreeUnmemoized, ( state ) => [
 		state.blocks.order,
+		state.derivedBlockEditingModes,
+		state.derivedNavModeBlockEditingModes,
 		state.blockEditingModes,
 		state.settings.templateLock,
 		state.blockListSettings,
-	]
+		select( STORE_NAME ).__unstableGetEditorMode( state ),
+	] )
 );
 
 /**
@@ -173,13 +182,36 @@ export function getOpenedBlockSettingsMenu( state ) {
 /**
  * Returns all style overrides, intended to be merged with global editor styles.
  *
+ * Overrides are sorted to match the order of the blocks they relate to. This
+ * is useful to maintain correct CSS cascade order.
+ *
  * @param {Object} state Global application state.
  *
- * @return {Map} A map of style IDs to style overrides.
+ * @return {Array} An array of style ID to style override pairs.
  */
-export function getStyleOverrides( state ) {
-	return state.styleOverrides;
-}
+export const getStyleOverrides = createSelector(
+	( state ) => {
+		const clientIds = getClientIdsWithDescendants( state );
+		const clientIdMap = clientIds.reduce( ( acc, clientId, index ) => {
+			acc[ clientId ] = index;
+			return acc;
+		}, {} );
+
+		return [ ...state.styleOverrides ].sort( ( overrideA, overrideB ) => {
+			// Once the overrides Map is spread to an array, the first element
+			// is the key, while the second is the override itself including
+			// the clientId to sort by.
+			const [ , { clientId: clientIdA } ] = overrideA;
+			const [ , { clientId: clientIdB } ] = overrideB;
+
+			const aIndex = clientIdMap[ clientIdA ] ?? -1;
+			const bIndex = clientIdMap[ clientIdB ] ?? -1;
+
+			return aIndex - bIndex;
+		} );
+	},
+	( state ) => [ state.blocks.order, state.styleOverrides ]
+);
 
 /** @typedef {import('./actions').InserterMediaCategory} InserterMediaCategory */
 /**
@@ -265,19 +297,18 @@ export const getInserterMediaCategories = createSelector(
 export const hasAllowedPatterns = createRegistrySelector( ( select ) =>
 	createSelector(
 		( state, rootClientId = null ) => {
-			const { getAllPatterns, __experimentalGetParsedPattern } = unlock(
-				select( STORE_NAME )
-			);
+			const { getAllPatterns } = unlock( select( STORE_NAME ) );
 			const patterns = getAllPatterns();
 			const { allowedBlockTypes } = getSettings( state );
-			return patterns.some( ( { name, inserter = true } ) => {
+			return patterns.some( ( pattern ) => {
+				const { inserter = true } = pattern;
 				if ( ! inserter ) {
 					return false;
 				}
-				const { blocks } = __experimentalGetParsedPattern( name );
+				const grammar = getGrammar( pattern );
 				return (
-					checkAllowListRecursive( blocks, allowedBlockTypes ) &&
-					blocks.every( ( { name: blockName } ) =>
+					checkAllowListRecursive( grammar, allowedBlockTypes ) &&
+					grammar.every( ( { name: blockName } ) =>
 						canInsertBlockType( state, blockName, rootClientId )
 					)
 				);
@@ -285,43 +316,88 @@ export const hasAllowedPatterns = createRegistrySelector( ( select ) =>
 		},
 		( state, rootClientId ) => [
 			...getAllPatternsDependants( select )( state ),
-			...getInsertBlockTypeDependants( state, rootClientId ),
+			...getInsertBlockTypeDependants( select )( state, rootClientId ),
 		]
+	)
+);
+
+function mapUserPattern(
+	userPattern,
+	__experimentalUserPatternCategories = []
+) {
+	return {
+		name: `core/block/${ userPattern.id }`,
+		id: userPattern.id,
+		type: INSERTER_PATTERN_TYPES.user,
+		title: userPattern.title.raw,
+		categories: userPattern.wp_pattern_category?.map( ( catId ) => {
+			const category = __experimentalUserPatternCategories.find(
+				( { id } ) => id === catId
+			);
+			return category ? category.slug : catId;
+		} ),
+		content: userPattern.content.raw,
+		syncStatus: userPattern.wp_pattern_sync_status,
+	};
+}
+
+export const getPatternBySlug = createRegistrySelector( ( select ) =>
+	createSelector(
+		( state, patternName ) => {
+			// Only fetch reusable blocks if we know we need them. To do: maybe
+			// use the entity record API to retrieve the block by slug.
+			if ( patternName?.startsWith( 'core/block/' ) ) {
+				const _id = parseInt(
+					patternName.slice( 'core/block/'.length ),
+					10
+				);
+				const block = unlock( select( STORE_NAME ) )
+					.getReusableBlocks()
+					.find( ( { id } ) => id === _id );
+
+				if ( ! block ) {
+					return null;
+				}
+
+				return mapUserPattern(
+					block,
+					state.settings.__experimentalUserPatternCategories
+				);
+			}
+
+			return [
+				// This setting is left for back compat.
+				...( state.settings.__experimentalBlockPatterns ?? [] ),
+				...( state.settings[ selectBlockPatternsKey ]?.( select ) ??
+					[] ),
+			].find( ( { name } ) => name === patternName );
+		},
+		( state, patternName ) =>
+			patternName?.startsWith( 'core/block/' )
+				? [
+						unlock( select( STORE_NAME ) ).getReusableBlocks(),
+						state.settings.__experimentalReusableBlocks,
+				  ]
+				: [
+						state.settings.__experimentalBlockPatterns,
+						state.settings[ selectBlockPatternsKey ]?.( select ),
+				  ]
 	)
 );
 
 export const getAllPatterns = createRegistrySelector( ( select ) =>
 	createSelector( ( state ) => {
-		// This setting is left for back compat.
-		const {
-			__experimentalBlockPatterns = [],
-			__experimentalUserPatternCategories = [],
-			__experimentalReusableBlocks = [],
-		} = state.settings;
-		const reusableBlocksSelect = state.settings[ reusableBlocksSelectKey ];
-		const userPatterns = (
-			reusableBlocksSelect
-				? reusableBlocksSelect( select )
-				: __experimentalReusableBlocks ?? []
-		).map( ( userPattern ) => {
-			return {
-				name: `core/block/${ userPattern.id }`,
-				id: userPattern.id,
-				type: INSERTER_PATTERN_TYPES.user,
-				title: userPattern.title.raw,
-				categories: userPattern.wp_pattern_category.map( ( catId ) => {
-					const category = (
-						__experimentalUserPatternCategories ?? []
-					).find( ( { id } ) => id === catId );
-					return category ? category.slug : catId;
-				} ),
-				content: userPattern.content.raw,
-				syncStatus: userPattern.wp_pattern_sync_status,
-			};
-		} );
 		return [
-			...userPatterns,
-			...__experimentalBlockPatterns,
+			...unlock( select( STORE_NAME ) )
+				.getReusableBlocks()
+				.map( ( userPattern ) =>
+					mapUserPattern(
+						userPattern,
+						state.settings.__experimentalUserPatternCategories
+					)
+				),
+			// This setting is left for back compat.
+			...( state.settings.__experimentalBlockPatterns ?? [] ),
 			...( state.settings[ selectBlockPatternsKey ]?.( select ) ?? [] ),
 		].filter(
 			( x, index, arr ) =>
@@ -335,9 +411,11 @@ const EMPTY_ARRAY = [];
 export const getReusableBlocks = createRegistrySelector(
 	( select ) => ( state ) => {
 		const reusableBlocksSelect = state.settings[ reusableBlocksSelectKey ];
-		return reusableBlocksSelect
-			? reusableBlocksSelect( select )
-			: state.settings.__experimentalReusableBlocks ?? EMPTY_ARRAY;
+		return (
+			( reusableBlocksSelect
+				? reusableBlocksSelect( select )
+				: state.settings.__experimentalReusableBlocks ) ?? EMPTY_ARRAY
+		);
 	}
 );
 
@@ -374,4 +452,219 @@ export function isDragging( state ) {
  */
 export function getExpandedBlock( state ) {
 	return state.expandedBlock;
+}
+
+/**
+ * Retrieves the client ID of the ancestor block that is content locking the block
+ * with the provided client ID.
+ *
+ * @param {Object} state    Global application state.
+ * @param {string} clientId Client Id of the block.
+ *
+ * @return {?string} Client ID of the ancestor block that is content locking the block.
+ */
+export const getContentLockingParent = ( state, clientId ) => {
+	let current = clientId;
+	let result;
+	while ( ! result && ( current = state.blocks.parents.get( current ) ) ) {
+		if ( getTemplateLock( state, current ) === 'contentOnly' ) {
+			result = current;
+		}
+	}
+	return result;
+};
+
+/**
+ * Retrieves the client ID of the parent section block.
+ *
+ * @param {Object} state    Global application state.
+ * @param {string} clientId Client Id of the block.
+ *
+ * @return {?string} Client ID of the ancestor block that is content locking the block.
+ */
+export const getParentSectionBlock = ( state, clientId ) => {
+	let current = clientId;
+	let result;
+	while ( ! result && ( current = state.blocks.parents.get( current ) ) ) {
+		if ( isSectionBlock( state, current ) ) {
+			result = current;
+		}
+	}
+	return result;
+};
+
+/**
+ * Retrieves the client ID is a content locking parent
+ *
+ * @param {Object} state    Global application state.
+ * @param {string} clientId Client Id of the block.
+ *
+ * @return {boolean} Whether the block is a content locking parent.
+ */
+export function isSectionBlock( state, clientId ) {
+	const blockName = getBlockName( state, clientId );
+	if (
+		blockName === 'core/block' ||
+		getTemplateLock( state, clientId ) === 'contentOnly'
+	) {
+		return true;
+	}
+
+	// Template parts become sections in navigation mode.
+	const _isNavigationMode = isNavigationMode( state );
+	if ( _isNavigationMode && blockName === 'core/template-part' ) {
+		return true;
+	}
+
+	const sectionRootClientId = getSectionRootClientId( state );
+	const sectionClientIds = getBlockOrder( state, sectionRootClientId );
+	return _isNavigationMode && sectionClientIds.includes( clientId );
+}
+
+/**
+ * Retrieves the client ID of the block that is content locked but is
+ * currently being temporarily edited as a non-locked block.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {?string} The client ID of the block being temporarily edited as a non-locked block.
+ */
+export function getTemporarilyEditingAsBlocks( state ) {
+	return state.temporarilyEditingAsBlocks;
+}
+
+/**
+ * Returns the focus mode that should be reapplied when the user stops editing
+ * a content locked blocks as a block without locking.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {?string} The focus mode that should be re-set when temporarily editing as blocks stops.
+ */
+export function getTemporarilyEditingFocusModeToRevert( state ) {
+	return state.temporarilyEditingFocusModeRevert;
+}
+
+/**
+ * Returns the style attributes of multiple blocks.
+ *
+ * @param {Object}   state     Global application state.
+ * @param {string[]} clientIds An array of block client IDs.
+ *
+ * @return {Object} An object where keys are client IDs and values are the corresponding block styles or undefined.
+ */
+export const getBlockStyles = createSelector(
+	( state, clientIds ) =>
+		clientIds.reduce( ( styles, clientId ) => {
+			styles[ clientId ] = state.blocks.attributes.get( clientId )?.style;
+			return styles;
+		}, {} ),
+	( state, clientIds ) => [
+		...clientIds.map(
+			( clientId ) => state.blocks.attributes.get( clientId )?.style
+		),
+	]
+);
+
+/**
+ * Retrieves the client ID of the block which contains the blocks
+ * acting as "sections" in the editor. This is typically the "main content"
+ * of the template/post.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {string|undefined} The section root client ID or undefined if not set.
+ */
+export function getSectionRootClientId( state ) {
+	return state.settings?.[ sectionRootClientIdKey ];
+}
+
+/**
+ * Returns whether the editor is considered zoomed out.
+ *
+ * @param {Object} state Global application state.
+ * @return {boolean} Whether the editor is zoomed.
+ */
+export function isZoomOut( state ) {
+	return state.zoomLevel === 'auto-scaled' || state.zoomLevel < 100;
+}
+
+/**
+ * Returns whether the zoom level.
+ *
+ * @param {Object} state Global application state.
+ * @return {number|"auto-scaled"} Zoom level.
+ */
+export function getZoomLevel( state ) {
+	return state.zoomLevel;
+}
+
+/**
+ * Finds the closest block where the block is allowed to be inserted.
+ *
+ * @param {Object}            state    Editor state.
+ * @param {string[] | string} name     Block name or names.
+ * @param {string}            clientId Default insertion point.
+ *
+ * @return {string} clientID of the closest container when the block name can be inserted.
+ */
+export function getClosestAllowedInsertionPoint( state, name, clientId = '' ) {
+	const blockNames = Array.isArray( name ) ? name : [ name ];
+	const areBlockNamesAllowedInClientId = ( id ) =>
+		blockNames.every( ( currentName ) =>
+			canInsertBlockType( state, currentName, id )
+		);
+
+	// If we're trying to insert at the root level and it's not allowed
+	// Try the section root instead.
+	if ( ! clientId ) {
+		if ( areBlockNamesAllowedInClientId( clientId ) ) {
+			return clientId;
+		}
+
+		const sectionRootClientId = getSectionRootClientId( state );
+		if (
+			sectionRootClientId &&
+			areBlockNamesAllowedInClientId( sectionRootClientId )
+		) {
+			return sectionRootClientId;
+		}
+		return null;
+	}
+
+	// Traverse the block tree up until we find a place where we can insert.
+	let current = clientId;
+	while ( current !== null && ! areBlockNamesAllowedInClientId( current ) ) {
+		const parentClientId = getBlockRootClientId( state, current );
+		current = parentClientId;
+	}
+
+	return current;
+}
+
+export function getClosestAllowedInsertionPointForPattern(
+	state,
+	pattern,
+	clientId
+) {
+	const { allowedBlockTypes } = getSettings( state );
+	const isAllowed = checkAllowListRecursive(
+		getGrammar( pattern ),
+		allowedBlockTypes
+	);
+	if ( ! isAllowed ) {
+		return null;
+	}
+	const names = getGrammar( pattern ).map( ( { blockName: name } ) => name );
+	return getClosestAllowedInsertionPoint( state, names, clientId );
+}
+
+/**
+ * Where the point where the next block will be inserted into.
+ *
+ * @param {Object} state
+ * @return {Object} where the insertion point in the block editor is or null if none is set.
+ */
+export function getInsertionPoint( state ) {
+	return state.insertionPoint;
 }

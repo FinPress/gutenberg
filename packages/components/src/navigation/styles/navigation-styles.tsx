@@ -15,7 +15,7 @@ import { COLORS } from '../../utils/colors-values';
 import Button from '../../button';
 import { Text } from '../../text';
 import { Heading } from '../../heading';
-import { reduceMotion, rtl } from '../../utils';
+import { rtl, CONFIG } from '../../utils';
 import { space } from '../../utils/space';
 
 export const NavigationUI = styled.div`
@@ -111,7 +111,7 @@ export const GroupTitleUI = styled( Heading )`
 `;
 
 export const ItemBaseUI = styled.li`
-	border-radius: 2px;
+	border-radius: ${ CONFIG.radiusSmall };
 	color: inherit;
 	margin-bottom: 0;
 
@@ -134,11 +134,12 @@ export const ItemBaseUI = styled.li`
 
 	&.is-active {
 		background-color: ${ COLORS.theme.accent };
-		color: ${ COLORS.white };
+		color: ${ COLORS.theme.accentInverted };
 
 		> button,
+		.components-button:hover,
 		> a {
-			color: ${ COLORS.white };
+			color: ${ COLORS.theme.accentInverted };
 			opacity: 1;
 		}
 	}
@@ -172,8 +173,7 @@ export const ItemBadgeUI = styled.span`
 	margin-right: ${ () => ( isRTL() ? space( 2 ) : '0' ) };
 	display: inline-flex;
 	padding: ${ space( 1 ) } ${ space( 3 ) };
-	border-radius: 2px;
-	animation: fade-in 250ms ease-out;
+	border-radius: ${ CONFIG.radiusSmall };
 
 	@keyframes fade-in {
 		from {
@@ -184,7 +184,9 @@ export const ItemBadgeUI = styled.span`
 		}
 	}
 
-	${ reduceMotion( 'animation' ) };
+	@media not ( prefers-reduced-motion ) {
+		animation: fade-in 250ms ease-out;
+	}
 `;
 
 export const ItemTitleUI = styled( Text )`

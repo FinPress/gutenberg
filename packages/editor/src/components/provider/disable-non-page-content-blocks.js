@@ -1,73 +1,120 @@
 /**
  * WordPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useRegistry } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { useEffect } from '@wordpress/element';
-import { applyFilters } from '@wordpress/hooks';
 
-const CONTENT_ONLY_BLOCKS = applyFilters( 'editor.postContentBlockTypes', [
-	'core/post-title',
-	'core/post-featured-image',
-	'core/post-content',
-	'core/template-part',
-] );
+/**
+ * Internal dependencies
+ */
+import usePostContentBlocks from './use-post-content-blocks';
 
 /**
  * Component that when rendered, makes it so that the site editor allows only
  * page content to be edited.
  */
 export default function DisableNonPageContentBlocks() {
-	const contentOnlyIds = useSelect( ( select ) => {
-		const { getBlocksByName, getBlockParents, getBlockName } =
+	const contentOnlyIds = usePostContentBlocks();
+	const { templateParts, isNavigationMode } = useSelect( ( select ) => {
+		const { getBlocksByName, isNavigationMode: _isNavigationMode } =
 			select( blockEditorStore );
-		return getBlocksByName( CONTENT_ONLY_BLOCKS ).filter( ( clientId ) =>
-			getBlockParents( clientId ).every( ( parentClientId ) => {
-				const parentBlockName = getBlockName( parentClientId );
-				return (
-					// Ignore descendents of the query block.
-					parentBlockName !== 'core/query' &&
-					// Enable only the top-most block.
-					! CONTENT_ONLY_BLOCKS.includes( parentBlockName )
-				);
-			} )
-		);
+		return {
+			templateParts: getBlocksByName( 'core/template-part' ),
+			isNavigationMode: _isNavigationMode(),
+		};
 	}, [] );
+	const disabledIds = useSelect(
+		( select ) => {
+			const { getBlockOrder } = select( blockEditorStore );
+			return templateParts.flatMap( ( clientId ) =>
+				getBlockOrder( clientId )
+			);
+		},
+		[ templateParts ]
+	);
 
-	const disabledIds = useSelect( ( select ) => {
-		const { getBlocksByName, getBlockOrder } = select( blockEditorStore );
-		return getBlocksByName( [ 'core/template-part' ] ).flatMap(
-			( clientId ) => getBlockOrder( clientId )
-		);
-	}, [] );
+	const registry = useRegistry();
 
-	const { setBlockEditingMode, unsetBlockEditingMode } =
-		useDispatch( blockEditorStore );
-
+	// The code here is split into multiple `useEffects` calls.
+	// This is done to avoid setting/unsetting block editing modes multiple times unnecessarily.
+	//
+	// For example, the block editing mode of the root block (clientId: '') only
+	// needs to be set once, not when `contentOnlyIds` or `disabledIds` change.
+	//
+	// It's also unlikely that these different types of blocks are being inserted
+	// or removed at the same time, so using different effects reflects that.
 	useEffect( () => {
+		const { setBlockEditingMode, unsetBlockEditingMode } =
+			registry.dispatch( blockEditorStore );
+
 		setBlockEditingMode( '', 'disabled' );
-		for ( const clientId of contentOnlyIds ) {
-			setBlockEditingMode( clientId, 'contentOnly' );
-		}
-		for ( const clientId of disabledIds ) {
-			setBlockEditingMode( clientId, 'disabled' );
-		}
 
 		return () => {
 			unsetBlockEditingMode( '' );
-			for ( const clientId of contentOnlyIds ) {
-				unsetBlockEditingMode( clientId );
-			}
-			for ( const clientId of disabledIds ) {
-				unsetBlockEditingMode( clientId );
-			}
 		};
-	}, [
-		contentOnlyIds,
-		disabledIds,
-		setBlockEditingMode,
-		unsetBlockEditingMode,
-	] );
+	}, [ registry ] );
+
+	useEffect( () => {
+		const { setBlockEditingMode, unsetBlockEditingMode } =
+			registry.dispatch( blockEditorStore );
+
+		registry.batch( () => {
+			for ( const clientId of contentOnlyIds ) {
+				setBlockEditingMode( clientId, 'contentOnly' );
+			}
+		} );
+
+		return () => {
+			registry.batch( () => {
+				for ( const clientId of contentOnlyIds ) {
+					unsetBlockEditingMode( clientId );
+				}
+			} );
+		};
+	}, [ contentOnlyIds, registry ] );
+
+	useEffect( () => {
+		const { setBlockEditingMode, unsetBlockEditingMode } =
+			registry.dispatch( blockEditorStore );
+
+		registry.batch( () => {
+			if ( ! isNavigationMode ) {
+				for ( const clientId of templateParts ) {
+					setBlockEditingMode( clientId, 'contentOnly' );
+				}
+			}
+		} );
+
+		return () => {
+			registry.batch( () => {
+				if ( ! isNavigationMode ) {
+					for ( const clientId of templateParts ) {
+						unsetBlockEditingMode( clientId );
+					}
+				}
+			} );
+		};
+	}, [ templateParts, isNavigationMode, registry ] );
+
+	useEffect( () => {
+		const { setBlockEditingMode, unsetBlockEditingMode } =
+			registry.dispatch( blockEditorStore );
+
+		registry.batch( () => {
+			for ( const clientId of disabledIds ) {
+				setBlockEditingMode( clientId, 'disabled' );
+			}
+		} );
+
+		return () => {
+			registry.batch( () => {
+				for ( const clientId of disabledIds ) {
+					unsetBlockEditingMode( clientId );
+				}
+			} );
+		};
+	}, [ disabledIds, registry ] );
 
 	return null;
 }

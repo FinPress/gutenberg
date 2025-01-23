@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -57,7 +57,7 @@ function ResponsiveBlockControl( props ) {
 		);
 
 	const toggleHelpText = __(
-		'Toggle between using the same value for all screen sizes or using a unique value per screen size.'
+		'Choose whether to use the same value for all screen sizes or a unique value for each screen size.'
 	);
 
 	const defaultControl = renderDefaultControl(
@@ -98,7 +98,7 @@ function ResponsiveBlockControl( props ) {
 					help={ toggleHelpText }
 				/>
 				<div
-					className={ classnames(
+					className={ clsx(
 						'block-editor-responsive-block-control__group',
 						{
 							'is-responsive': isResponsive,

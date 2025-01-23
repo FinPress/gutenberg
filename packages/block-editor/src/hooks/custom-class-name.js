@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -88,7 +88,7 @@ export function addSaveProps( extraProps, blockType, attributes ) {
 		hasBlockSupport( blockType, 'customClassName', true ) &&
 		attributes.className
 	) {
-		extraProps.className = classnames(
+		extraProps.className = clsx(
 			extraProps.className,
 			attributes.className
 		);
@@ -123,7 +123,8 @@ export function addTransforms( result, source, index, results ) {
 	// if source N does not exists we do nothing.
 	if ( source[ index ] ) {
 		const originClassName = source[ index ]?.attributes.className;
-		if ( originClassName ) {
+		// Avoid overriding classes if the transformed block already includes them.
+		if ( originClassName && result.attributes.className === undefined ) {
 			return {
 				...result,
 				attributes: {

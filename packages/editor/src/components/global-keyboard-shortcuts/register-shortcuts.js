@@ -8,6 +8,11 @@ import { BlockEditorKeyboardShortcuts } from '@wordpress/block-editor';
 import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
 import { isAppleOS } from '@wordpress/keycodes';
 
+/**
+ * Component for registering editor keyboard shortcuts.
+ *
+ * @return {Element} The component to be rendered.
+ */
 function EditorKeyboardShortcutsRegister() {
 	// Registering the shortcuts.
 	const { registerShortcut } = useDispatch( keyboardShortcutsStore );
@@ -67,7 +72,7 @@ function EditorKeyboardShortcutsRegister() {
 		registerShortcut( {
 			name: 'core/editor/toggle-list-view',
 			category: 'global',
-			description: __( 'Open the block list view.' ),
+			description: __( 'Show or hide the List View.' ),
 			keyCombination: {
 				modifier: 'access',
 				character: 'o',
@@ -77,11 +82,67 @@ function EditorKeyboardShortcutsRegister() {
 		registerShortcut( {
 			name: 'core/editor/toggle-distraction-free',
 			category: 'global',
-			description: __( 'Toggle distraction free mode.' ),
+			description: __( 'Enter or exit distraction free mode.' ),
 			keyCombination: {
 				modifier: 'primaryShift',
 				character: '\\',
 			},
+		} );
+
+		registerShortcut( {
+			name: 'core/editor/toggle-sidebar',
+			category: 'global',
+			description: __( 'Show or hide the Settings panel.' ),
+			keyCombination: {
+				modifier: 'primaryShift',
+				character: ',',
+			},
+		} );
+
+		registerShortcut( {
+			name: 'core/editor/keyboard-shortcuts',
+			category: 'main',
+			description: __( 'Display these keyboard shortcuts.' ),
+			keyCombination: {
+				modifier: 'access',
+				character: 'h',
+			},
+		} );
+
+		registerShortcut( {
+			name: 'core/editor/next-region',
+			category: 'global',
+			description: __( 'Navigate to the next part of the editor.' ),
+			keyCombination: {
+				modifier: 'ctrl',
+				character: '`',
+			},
+			aliases: [
+				{
+					modifier: 'access',
+					character: 'n',
+				},
+			],
+		} );
+
+		registerShortcut( {
+			name: 'core/editor/previous-region',
+			category: 'global',
+			description: __( 'Navigate to the previous part of the editor.' ),
+			keyCombination: {
+				modifier: 'ctrlShift',
+				character: '`',
+			},
+			aliases: [
+				{
+					modifier: 'access',
+					character: 'p',
+				},
+				{
+					modifier: 'ctrlShift',
+					character: '~',
+				},
+			],
 		} );
 	}, [ registerShortcut ] );
 

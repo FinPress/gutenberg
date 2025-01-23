@@ -9,8 +9,8 @@ import {
 /**
  * Internal dependencies
  */
-import HighlightedColors from './highlighted-colors';
-import PreviewIframe from './preview-iframe';
+import PresetColors from './preset-colors';
+import PreviewWrapper from './preview-wrapper';
 
 const firstFrameVariants = {
 	start: {
@@ -25,12 +25,12 @@ const firstFrameVariants = {
 
 const StylesPreviewColors = ( { label, isFocused, withHoverView } ) => {
 	return (
-		<PreviewIframe
+		<PreviewWrapper
 			label={ label }
 			isFocused={ isFocused }
 			withHoverView={ withHoverView }
 		>
-			{ ( { ratio, key } ) => (
+			{ ( { key } ) => (
 				<motion.div
 					key={ key }
 					variants={ firstFrameVariants }
@@ -40,21 +40,18 @@ const StylesPreviewColors = ( { label, isFocused, withHoverView } ) => {
 					} }
 				>
 					<HStack
-						spacing={ 5 * ratio }
+						spacing={ 0 }
 						justify="center"
 						style={ {
 							height: '100%',
 							overflow: 'hidden',
 						} }
 					>
-						<HighlightedColors
-							normalizedColorSwatchSize={ 56 }
-							ratio={ ratio }
-						/>
+						<PresetColors />
 					</HStack>
 				</motion.div>
 			) }
-		</PreviewIframe>
+		</PreviewWrapper>
 	);
 };
 

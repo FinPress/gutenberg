@@ -65,23 +65,17 @@
 .editor-document-tools__left {
 	display: inline-flex;
 	align-items: center;
-	padding-left: $grid-unit-20;
 	gap: $grid-unit-10;
 
-	// Some plugins add buttons here despite best practices.
-	// Push them a bit rightwards to fit the top toolbar.
-	margin-right: $grid-unit-10;
+	// Some plugins add buttons here despite best practices — accommodate them with a gap.
+	&:not(:last-child) {
+		margin-inline-end: $grid-unit-10;
+	}
 }
 
 .editor-document-tools .editor-document-tools__left > .editor-document-tools__inserter-toggle.has-icon {
-	min-width: $button-size-compact;
-	width: $button-size-compact;
-	height: $button-size-compact;
-	padding: 0;
-
 	.show-icon-labels & {
 		width: auto;
-		height: $button-size-compact;
 		padding: 0 $grid-unit-10;
 	}
 }
