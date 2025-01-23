@@ -10,7 +10,7 @@ import { __, _x, sprintf } from '@wordpress/i18n';
 import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 import { BaseControl, CustomSelectControl } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { useMemo, Platform } from '@wordpress/element';
 
 /**
@@ -192,15 +192,22 @@ export function useIsPositionDisabled( { name: blockName } = {} ) {
  *
  * @return {Element} Position panel.
  */
-export function PositionPanelPure( {
-	style = {},
-	clientId,
-	name: blockName,
-	setAttributes,
-} ) {
+export function PositionPanelPure( { style = {}, clientId, name: blockName } ) {
 	const allowFixed = hasFixedPositionSupport( blockName );
 	const allowSticky = hasStickyPositionSupport( blockName );
 	const value = style?.position?.type;
+	const { updateBlockAttributes } = useDispatch( blockEditorStore );
+
+	const { selectedClientIds, selectedBlocks } = useSelect( ( select ) => {
+		const { getBlocksByClientId, getSelectedBlockClientIds } =
+			select( blockEditorStore );
+		const selectedBlockClientIds = getSelectedBlockClientIds();
+
+		return {
+			selectedClientIds: selectedBlockClientIds,
+			selectedBlocks: getBlocksByClientId( selectedBlockClientIds ),
+		};
+	}, [] );
 
 	const { firstParentClientId } = useSelect(
 		( select ) => {
@@ -242,21 +249,32 @@ export function PositionPanelPure( {
 		// In the future, it could be useful to allow for an offset value.
 		const placementValue = '0px';
 
-		const newStyle = {
-			...style,
-			position: {
-				...style?.position,
-				type: next,
-				top:
-					next === 'sticky' || next === 'fixed'
-						? placementValue
-						: undefined,
-			},
-		};
+		if ( ! selectedClientIds?.length || ! selectedBlocks?.length ) {
+			return;
+		}
 
-		setAttributes( {
-			style: cleanEmptyObject( newStyle ),
-		} );
+		const attributesByClientId = Object.fromEntries(
+			selectedBlocks?.map(
+				( { clientId: blockClientId, attributes } ) => [
+					blockClientId,
+					{
+						style: cleanEmptyObject( {
+							...attributes?.style,
+							position: {
+								...attributes?.style?.position,
+								type: next,
+								top:
+									next === 'sticky' || next === 'fixed'
+										? placementValue
+										: undefined,
+							},
+						} ),
+					},
+				]
+			)
+		);
+
+		updateBlockAttributes( selectedClientIds, attributesByClientId, true );
 	};
 
 	const selectedOption = value
