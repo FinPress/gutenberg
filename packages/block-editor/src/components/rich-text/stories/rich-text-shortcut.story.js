@@ -1,11 +1,9 @@
 /**
  * Internal dependencies
  */
+import { keyboardShortcutContext } from '../index.js';
 import { RichTextShortcut } from '../shortcut.js';
 
-/**
- * WordPress dependencies
- */
 const meta = {
 	title: 'BlockEditor/RichTextShortcut',
 	component: RichTextShortcut,
@@ -53,6 +51,19 @@ const meta = {
 			},
 		},
 	},
+	decorators: [
+		( Story ) => {
+			const keyboardShortcuts = {
+				current: new Set(),
+			};
+
+			return (
+				<keyboardShortcutContext.Provider value={ keyboardShortcuts }>
+					{ Story() }
+				</keyboardShortcutContext.Provider>
+			);
+		},
+	],
 };
 
 export default meta;
