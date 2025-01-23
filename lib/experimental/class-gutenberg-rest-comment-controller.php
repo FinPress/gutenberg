@@ -7,7 +7,7 @@
  */
 
 // Create a new class that extends WP_REST_Comments_Controller
-class Gutenberg_REST_Comment_Controller_6_8 extends WP_REST_Comments_Controller {
+class Gutenberg_REST_Comment_Controller extends WP_REST_Comments_Controller {
 
 	public function create_item_permissions_check( $request ) {
 		if ( empty( $request['comment_type'] ) || 'comment' === $request['comment_type'] ) {
@@ -117,7 +117,7 @@ class Gutenberg_REST_Comment_Controller_6_8 extends WP_REST_Comments_Controller 
 add_action(
 	'rest_api_init',
 	function () {
-		$controller = new Gutenberg_REST_Comment_Controller_6_8();
+		$controller = new Gutenberg_REST_Comment_Controller();
 		$controller->register_routes();
 	}
 );
