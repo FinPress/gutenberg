@@ -25,7 +25,7 @@ import {
 const getShouldDisableSyncFilter = ( sourceFilter ) =>
 	sourceFilter !== 'all' && sourceFilter !== 'user';
 const getShouldHideSourcesFilter = ( category ) => {
-	return category.name === myPatternsCategory.name;
+	return category?.name === myPatternsCategory.name;
 };
 
 const PATTERN_SOURCE_MENU_OPTIONS = [
@@ -57,10 +57,10 @@ export function PatternsFilter( {
 } ) {
 	// If the category is `myPatterns` then we need to set the source filter to `user`, but
 	// we do this by deriving from props rather than calling setPatternSourceFilter otherwise
-	// the user may be confused when switching to another category if the haven't explicity set
+	// the user may be confused when switching to another category if the haven't explicitly set
 	// this filter themselves.
 	const currentPatternSourceFilter =
-		category.name === myPatternsCategory.name
+		category?.name === myPatternsCategory.name
 			? INSERTER_PATTERN_TYPES.user
 			: patternSourceFilter;
 
@@ -158,7 +158,7 @@ export function PatternsFilter( {
 								value={ patternSyncFilter }
 							/>
 						</MenuGroup>
-						<div className="block-editor-tool-selector__help">
+						<div className="block-editor-inserter__patterns-filter-help">
 							{ createInterpolateElement(
 								__(
 									'Patterns are available from the <Link>WordPress.org Pattern Directory</Link>, bundled in the active theme, or created by users on this site. Only patterns created on this site can be synced.'

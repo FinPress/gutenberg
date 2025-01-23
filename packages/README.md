@@ -25,27 +25,33 @@ When creating a new package, you need to provide at least the following. Package
     	"bugs": {
     		"url": "https://github.com/WordPress/gutenberg/issues"
     	},
+    	"engines": {
+    		"node": ">=18.12.0",
+    		"npm": ">=8.19.2"
+    	},
     	"main": "build/index.js",
     	"module": "build-module/index.js",
     	"react-native": "src/index",
+    	// Include this line to include the package as a WordPress script.
+    	"wpScript": true,
+    	// Include this line to include the package as a WordPress script module.
+    	"wpScriptModuleExports": "./build-module/index.js",
+    	"types": "build-types",
+    	"sideEffects": false,
     	"dependencies": {
     		"@babel/runtime": "7.25.7"
     	},
     	"publishConfig": {
     		"access": "public"
-    	},
-    	// Include this line to include the package as a WordPress script.
-    	"wpScript": true,
-    	// Include this line to include the package as a WordPress script module.
-    	"wpScriptModuleExports": "./build-module/index.js"
+    	}
     }
     ```
 
     This assumes that your code is located in the `src` folder and will be transpiled with `Babel`.
 
-    For packages that should ship as a WordPress script, include `wpScript: true` in the `package.json` file. This tells the build system to bundle the package for use as a WordPress script.
+    For production packages that will ship as a WordPress script, include `wpScript: true` in the `package.json` file. This tells the build system to bundle the package for use as a WordPress script.
 
-    For packages that should ship as a WordPress script module, include a `wpScriptModuleExports` field the `package.json` file. The value of this field can be a string to expose a single script module, or an object with a [shape like the standard `exports` object](https://nodejs.org/docs/latest-v20.x/api/packages.html#subpath-exports) to expose multiple script modules from a single package:
+    For production packages that will ship as a WordPress script module, include a `wpScriptModuleExports` field in the `package.json` file. The value of this field can be a string to expose a single script module, or an object with a [shape like the standard `exports` object](https://nodejs.org/docs/latest-v20.x/api/packages.html#subpath-exports) to expose multiple script modules from a single package:
 
     ```jsonc
     {
@@ -64,7 +70,7 @@ When creating a new package, you need to provide at least the following. Package
     }
     ```
 
-    Both `wpScript` and `wpScriptModuleExports` may be included if the package exposes both a script and a script module.
+    Both `wpScript` and `wpScriptModuleExports` may be included if the package exposes both a script and a script module. These fields are also essential when performing a license check for all their dependencies, because they trigger strict validation against compatibility with GPL v2. All remaining dependencies WordPress doesn't distribute but uses for development purposes can contain also a few other OSS compatible licenses.
 
 1. `README.md` file containing at least:
     - Package name
@@ -84,7 +90,7 @@ When creating a new package, you need to provide at least the following. Package
     Initial release.
     ```
 
-To ensure your package is recognized, you should also _manually_ add your new package to the root `package.json` file and then run `npm install` to update the dependencies.
+To ensure your package is recognized in npm workspaces, you should run `npm install` to update the package lock file.
 
 ## Managing Dependencies
 
@@ -255,12 +261,16 @@ For consumers to use the published type declarations, we'll set the `types` fiel
 ```json
 {
 	"main": "build/index.js",
-	"main-module": "build-module/index.js",
+	"module": "build-module/index.js",
 	"types": "build-types"
 }
 ```
 
 Ensure that the `build-types` directory will be included in the published package, for example if a `files` field is declared.
+
+## Supported Node.js and npm versions
+
+WordPress packages adhere the [Node.js Release Schedule](https://nodejs.org/en/about/previous-releases/). Consequently, the minimum required versions of Node.js and npm are specified using the `engines` field in `package.json` for all packages. This ensures that production applications run only on Active LTS or Maintenance LTS releases on Node.js. LTS release status is "long-term support", which typically guarantees that critical bugs will be fixed for a total of 30 months.
 
 ## Optimizing for bundlers
 

@@ -12,6 +12,7 @@ import {
 	useShortcut,
 	store as keyboardShortcutsStore,
 } from '@wordpress/keyboard-shortcuts';
+import { isAppleOS } from '@wordpress/keycodes';
 
 /**
  * Internal dependencies
@@ -19,13 +20,19 @@ import {
 import { unlock } from '../../lock-unlock';
 
 const ZoomOutToggle = ( { disabled } ) => {
-	const { isZoomOut, showIconLabels } = useSelect( ( select ) => ( {
-		isZoomOut: unlock( select( blockEditorStore ) ).isZoomOut(),
-		showIconLabels: select( preferencesStore ).get(
-			'core',
-			'showIconLabels'
-		),
-	} ) );
+	const { isZoomOut, showIconLabels, isDistractionFree } = useSelect(
+		( select ) => ( {
+			isZoomOut: unlock( select( blockEditorStore ) ).isZoomOut(),
+			showIconLabels: select( preferencesStore ).get(
+				'core',
+				'showIconLabels'
+			),
+			isDistractionFree: select( preferencesStore ).get(
+				'core',
+				'distractionFree'
+			),
+		} )
+	);
 
 	const { resetZoomLevel, setZoomLevel } = unlock(
 		useDispatch( blockEditorStore )
@@ -40,7 +47,9 @@ const ZoomOutToggle = ( { disabled } ) => {
 			category: 'global',
 			description: __( 'Enter or exit zoom out.' ),
 			keyCombination: {
-				modifier: 'primaryShift',
+				// `primaryShift+0` (`ctrl+shift+0`) is the shortcut for switching
+				// to input mode in Windows, so apply a different key combination.
+				modifier: isAppleOS() ? 'primaryShift' : 'secondary',
 				character: '0',
 			},
 		} );
@@ -49,13 +58,19 @@ const ZoomOutToggle = ( { disabled } ) => {
 		};
 	}, [ registerShortcut, unregisterShortcut ] );
 
-	useShortcut( 'core/editor/zoom', () => {
-		if ( isZoomOut ) {
-			resetZoomLevel();
-		} else {
-			setZoomLevel( 'auto-scaled' );
+	useShortcut(
+		'core/editor/zoom',
+		() => {
+			if ( isZoomOut ) {
+				resetZoomLevel();
+			} else {
+				setZoomLevel( 'auto-scaled' );
+			}
+		},
+		{
+			isDisabled: isDistractionFree,
 		}
-	} );
+	);
 
 	const handleZoomOut = () => {
 		if ( isZoomOut ) {
@@ -75,6 +90,7 @@ const ZoomOutToggle = ( { disabled } ) => {
 			isPressed={ isZoomOut }
 			size="compact"
 			showTooltip={ ! showIconLabels }
+			className="editor-zoom-out-toggle"
 		/>
 	);
 };
