@@ -27,6 +27,9 @@ export function MainSidebarNavigationContent( { isBlockBasedTheme = true } ) {
 						to="/navigation"
 						withChevron
 						icon={ navigation }
+						description={ __(
+							'Manage your Navigation menus. (Navigation, Footer navigation\u2026)'
+						) }
 					>
 						{ __( 'Navigation' ) }
 					</SidebarNavigationItem>
@@ -34,6 +37,9 @@ export function MainSidebarNavigationContent( { isBlockBasedTheme = true } ) {
 						to="/styles"
 						uid="global-styles-navigation-item"
 						icon={ styles }
+						description={ __(
+							'Choose a different style combination for the theme styles. (Blue, Green, Orange\u2026)'
+						) }
 					>
 						{ __( 'Styles' ) }
 					</SidebarNavigationItemGlobalStyles>
@@ -42,6 +48,9 @@ export function MainSidebarNavigationContent( { isBlockBasedTheme = true } ) {
 						to="/page"
 						withChevron
 						icon={ page }
+						description={ __(
+							'Browse and edit pages on your site. (Home page, index, Sample page\u2026)'
+						) }
 					>
 						{ __( 'Pages' ) }
 					</SidebarNavigationItem>
@@ -50,6 +59,9 @@ export function MainSidebarNavigationContent( { isBlockBasedTheme = true } ) {
 						to="/template"
 						withChevron
 						icon={ layout }
+						description={ __(
+							'Express the layout of your site with templates. (Page, single posts, 404\u2026)'
+						) }
 					>
 						{ __( 'Templates' ) }
 					</SidebarNavigationItem>
@@ -70,6 +82,9 @@ export function MainSidebarNavigationContent( { isBlockBasedTheme = true } ) {
 				to="/pattern"
 				withChevron
 				icon={ symbol }
+				description={ __(
+					'Manage what patterns are available when editing the site. (Call to action, headers, footers\u2026)'
+				) }
 			>
 				{ __( 'Patterns' ) }
 			</SidebarNavigationItem>
