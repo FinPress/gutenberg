@@ -54,8 +54,10 @@ if ( class_exists( 'WP_REST_Controller' ) ) {
 	require_once __DIR__ . '/experimental/kses-allowed-html.php';
 
 	// Block Comments.
-	require __DIR__ . '/experimental/block-comments.php';
-	require __DIR__ . '/experimental/class-gutenberg-rest-comment-controller.php';
+	if ( gutenberg_is_experiment_enabled( 'gutenberg-block-comment' ) ) {
+		require __DIR__ . '/experimental/block-comments.php';
+		require __DIR__ . '/experimental/class-gutenberg-rest-comment-controller.php';
+	}
 }
 
 // Experimental signaling server.
