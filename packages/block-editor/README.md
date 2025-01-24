@@ -824,6 +824,7 @@ _Properties_
 -   _\_\_experimentalBlockDirectory_ `boolean`: Whether the user has enabled the Block Directory
 -   _\_\_experimentalBlockPatterns_ `Array`: Array of objects representing the block patterns
 -   _\_\_experimentalBlockPatternCategories_ `Array`: Array of objects representing the block pattern categories
+-   _zoomOutEnabled_ `boolean`: Whether the zoom out feature is enabled or not.
 
 ### SkipToSelectedBlock
 

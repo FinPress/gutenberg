@@ -91,7 +91,13 @@ function Header( {
 		};
 	}, [] );
 
+	const zoomOutEditorSettingEnabled = useSelect(
+		( select ) => select( editorStore ).getEditorSettings().zoomOutEnabled,
+		[]
+	);
+
 	const canBeZoomedOut =
+		zoomOutEditorSettingEnabled &&
 		[ 'post', 'page', 'wp_template' ].includes( postType ) &&
 		hasSectionRootClientId;
 

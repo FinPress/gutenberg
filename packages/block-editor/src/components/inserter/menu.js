@@ -54,14 +54,18 @@ function InserterMenu(
 	},
 	ref
 ) {
-	const { isZoomOutMode, hasSectionRootClientId } = useSelect( ( select ) => {
-		const { isZoomOut, getSectionRootClientId } = unlock(
+	const {
+		isZoomOutMode,
+		zoomOutEditorSettingEnabled,
+		hasSectionRootClientId,
+	} = useSelect( ( select ) => {
+		const { isZoomOut, getSectionRootClientId, getSettings } = unlock(
 			select( blockEditorStore )
 		);
-
 		return {
 			isZoomOutMode: isZoomOut(),
 			hasSectionRootClientId: !! getSectionRootClientId(),
+			zoomOutEditorSettingEnabled: getSettings().zoomOutEnabled,
 		};
 	}, [] );
 
@@ -90,6 +94,7 @@ function InserterMenu(
 	const [ selectedTab, setSelectedTab ] = useState( getInitialTab() );
 
 	const shouldUseZoomOut =
+		zoomOutEditorSettingEnabled &&
 		hasSectionRootClientId &&
 		( selectedTab === 'patterns' || selectedTab === 'media' );
 

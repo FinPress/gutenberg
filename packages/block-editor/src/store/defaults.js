@@ -33,6 +33,7 @@ export const PREFERENCES_DEFAULTS = {
  * @property {boolean}       __experimentalBlockDirectory           Whether the user has enabled the Block Directory
  * @property {Array}         __experimentalBlockPatterns            Array of objects representing the block patterns
  * @property {Array}         __experimentalBlockPatternCategories   Array of objects representing the block pattern categories
+ * @property {boolean}       zoomOutEnabled                         Whether the zoom out feature is enabled or not.
  */
 export const SETTINGS_DEFAULTS = {
 	alignWide: false,
