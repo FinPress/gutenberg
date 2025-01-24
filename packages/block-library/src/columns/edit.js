@@ -326,6 +326,15 @@ function Placeholder( { clientId, name, setAttributes } ) {
 	);
 }
 
+/*
+ * Edit component for the Columns block.
+ *
+ * @param {Object}   props             Component props.
+ * @param {string}   props.clientId    Unique client ID for the block.
+ * @param {Object}   props.attributes  Block attributes.
+ * @param {Function} props.setAttributes Function to update block attributes.
+ * @return {JSX.Element}               Rendered Columns block edit component.
+ */
 const ColumnsEdit = ( props ) => {
 	const { clientId } = props;
 	const hasInnerBlocks = useSelect(
