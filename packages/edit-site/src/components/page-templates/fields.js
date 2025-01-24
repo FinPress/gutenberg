@@ -47,11 +47,7 @@ function PreviewField( { item } ) {
 				className="page-templates-preview-field"
 				style={ { backgroundColor } }
 			>
-				{ isEmpty && (
-					<div className="empty-template">
-						{ __( 'Empty template' ) }
-					</div>
-				) }
+				{ isEmpty && __( 'Empty template' ) }
 
 				{ ! isEmpty && (
 					<BlockPreview.Async>
