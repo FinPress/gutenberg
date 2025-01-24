@@ -26,6 +26,16 @@ import { addQueryArgs, removeQueryArgs } from '@wordpress/url';
 import { useUserAvatar, useCommentAvatar } from './hooks';
 import UserControl from './user-control';
 
+/*
+ * Avatar block inspector controls.
+ *
+ * @param {Object}   props             Component props.
+ * @param {Function} props.setAttributes Function to set attributes.
+ * @param {Object}   props.avatar         Avatar data.
+ * @param {Object}   props.attributes     Block attributes.
+ * @param {boolean}  props.selectUser     Whether to show user selection control.
+ * @return {JSX.Element} InspectorControls component.
+ */
 const AvatarInspectorControls = ( {
 	setAttributes,
 	avatar,
@@ -82,6 +92,17 @@ const AvatarInspectorControls = ( {
 	</InspectorControls>
 );
 
+/*
+ * Resizable avatar component.
+ *
+ * @param {Object}   props             Component props.
+ * @param {Function} props.setAttributes Function to set attributes.
+ * @param {Object}   props.attributes     Block attributes.
+ * @param {Object}   props.avatar         Avatar data.
+ * @param {Object}   props.blockProps     Block properties.
+ * @param {boolean}  props.isSelected     Whether the block is selected.
+ * @return {JSX.Element} Resizable avatar component.
+ */
 const ResizableAvatar = ( {
 	setAttributes,
 	attributes,
@@ -220,6 +241,16 @@ const UserEdit = ( { attributes, context, setAttributes, isSelected } ) => {
 	);
 };
 
+/*
+ * Edit component for the Avatar block.
+ *
+ * @param {Object}   props             Component props.
+ * @param {Object}   props.attributes  Block attributes.
+ * @param {Object}   props.context     Block context.
+ * @param {Function} props.setAttributes Function to update block attributes.
+ * @param {boolean}  props.isSelected  Whether the block is currently selected.
+ * @return {JSX.Element}               Rendered Avatar block edit component.
+ */
 export default function Edit( props ) {
 	// Don't show the Comment Edit controls if we have a comment ID set, or if we're in the Site Editor (where it is `null`).
 	if ( props?.context?.commentId || props?.context?.commentId === null ) {
