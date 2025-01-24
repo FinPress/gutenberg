@@ -273,7 +273,6 @@ const SpacerEdit = ( {
 					getCustomValueFromPreset( width, spacingSizes ) ||
 					getCustomValueFromPreset( height, spacingSizes ) ||
 					'100px';
-
 				setAttributes( {
 					width: '0px',
 					style: {
@@ -290,7 +289,6 @@ const SpacerEdit = ( {
 					getCustomValueFromPreset( height, spacingSizes ) ||
 					getCustomValueFromPreset( width, spacingSizes ) ||
 					'100px';
-
 				setAttributes( {
 					height: '0px',
 					style: {
@@ -329,7 +327,6 @@ const SpacerEdit = ( {
 					height: flexSize,
 				} );
 			}
-
 			setAttributes( {
 				style: {
 					...blockStyle,
