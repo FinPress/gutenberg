@@ -37,6 +37,18 @@ import { Caption } from '../utils/caption';
 
 const ALLOWED_MEDIA_TYPES = [ 'audio' ];
 
+/*
+ * Edit component for the Audio block.
+ *
+ * @param {Object}   props                    - The component props.
+ * @param {Object}   props.attributes         - Block attributes for the Audio block.
+ * @param {string}   [props.className]        - Additional CSS class names for the block.
+ * @param {Function} props.setAttributes      - Function to update block attributes.
+ * @param {Function} [props.onReplace]        - Optional function to replace the current block.
+ * @param {boolean}  props.isSelected         - Whether the block is currently selected.
+ * @param {Function} [props.insertBlocksAfter] - Optional function to insert blocks after this block.
+ * @return {JSX.Element} Rendered Audio block edit component.
+ */
 function AudioEdit( {
 	attributes,
 	className,
