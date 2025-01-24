@@ -47,6 +47,7 @@ function AudioEdit( {
 } ) {
 	const { id, autoplay, loop, preload, src } = attributes;
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
+	const { createErrorNotice } = useDispatch( noticesStore );
 
 	useUploadMediaFromBlobURL( {
 		url: temporaryURL,
@@ -61,9 +62,29 @@ function AudioEdit( {
 		};
 	}
 
-	function onSelectURL( newSrc ) {
+	function checkAudioType( url ) {
+		return new Promise( ( resolve ) => {
+			const audio = new window.Audio( url );
+
+			audio.oncanplaythrough = () => resolve( true );
+			audio.onerror = () => resolve( false );
+		} );
+	}
+
+	async function onSelectURL( newSrc ) {
 		// Set the block's src from the edit component's state, and switch off
 		// the editing UI.
+
+		const isAudio = await checkAudioType( newSrc );
+
+		if ( ! isAudio ) {
+			createErrorNotice( 'The selected URL is not a valid audio file.', {
+				type: 'snackbar',
+			} );
+
+			return;
+		}
+
 		if ( newSrc !== src ) {
 			// Check if there's an embed block that handles this URL.
 			const embedBlock = createUpgradedEmbedBlock( {
@@ -78,7 +99,6 @@ function AudioEdit( {
 		}
 	}
 
-	const { createErrorNotice } = useDispatch( noticesStore );
 	function onUploadError( message ) {
 		createErrorNotice( message, { type: 'snackbar' } );
 	}
