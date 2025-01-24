@@ -259,6 +259,8 @@ const SpacerEdit = ( {
 	};
 
 	useEffect( () => {
+		// This ensures the next change is not marked as persistent
+		// which lets the user undo the change.
 		__unstableMarkNextChangeAsNotPersistent();
 
 		if (
