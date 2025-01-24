@@ -48,7 +48,6 @@ function PreviewField( { item } ) {
 				style={ { backgroundColor } }
 			>
 				{ isEmpty && __( 'Empty template' ) }
-
 				{ ! isEmpty && (
 					<BlockPreview.Async>
 						<BlockPreview blocks={ blocks } />

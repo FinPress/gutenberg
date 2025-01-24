@@ -52,7 +52,6 @@ function PreviewField( { item } ) {
 		>
 			{ isEmpty && isTemplatePart && __( 'Empty template part' ) }
 			{ isEmpty && ! isTemplatePart && __( 'Empty pattern' ) }
-
 			{ ! isEmpty && (
 				<BlockPreview.Async>
 					<BlockPreview
