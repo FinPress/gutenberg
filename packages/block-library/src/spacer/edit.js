@@ -16,7 +16,7 @@ import {
 import { ResizableBox } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { View } from '@wordpress/primitives';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -123,6 +123,9 @@ const SpacerEdit = ( {
 
 	const onResizeStart = () => toggleSelection( false );
 	const onResizeStop = () => toggleSelection( true );
+
+	const { __unstableMarkNextChangeAsNotPersistent } =
+		useDispatch( blockEditorStore );
 
 	const handleOnVerticalResizeStop = ( newHeight ) => {
 		onResizeStop();
@@ -262,6 +265,7 @@ const SpacerEdit = ( {
 			selfStretch !== 'fit' &&
 			flexSize === undefined
 		) {
+			__unstableMarkNextChangeAsNotPersistent();
 			if ( inheritedOrientation === 'horizontal' ) {
 				// If spacer is moving from a vertical container to a horizontal container,
 				// it might not have width but have height instead.
@@ -269,6 +273,7 @@ const SpacerEdit = ( {
 					getCustomValueFromPreset( width, spacingSizes ) ||
 					getCustomValueFromPreset( height, spacingSizes ) ||
 					'100px';
+
 				setAttributes( {
 					width: '0px',
 					style: {
@@ -285,6 +290,7 @@ const SpacerEdit = ( {
 					getCustomValueFromPreset( height, spacingSizes ) ||
 					getCustomValueFromPreset( width, spacingSizes ) ||
 					'100px';
+
 				setAttributes( {
 					height: '0px',
 					style: {
@@ -301,6 +307,7 @@ const SpacerEdit = ( {
 			isFlexLayout &&
 			( selfStretch === 'fill' || selfStretch === 'fit' )
 		) {
+			__unstableMarkNextChangeAsNotPersistent();
 			if ( inheritedOrientation === 'horizontal' ) {
 				setAttributes( {
 					width: undefined,
@@ -312,14 +319,17 @@ const SpacerEdit = ( {
 			}
 		} else if ( ! isFlexLayout && ( selfStretch || flexSize ) ) {
 			if ( inheritedOrientation === 'horizontal' ) {
+				__unstableMarkNextChangeAsNotPersistent();
 				setAttributes( {
 					width: flexSize,
 				} );
 			} else {
+				__unstableMarkNextChangeAsNotPersistent();
 				setAttributes( {
 					height: flexSize,
 				} );
 			}
+
 			setAttributes( {
 				style: {
 					...blockStyle,
@@ -342,6 +352,7 @@ const SpacerEdit = ( {
 		setAttributes,
 		spacingSizes,
 		width,
+		__unstableMarkNextChangeAsNotPersistent,
 	] );
 
 	return (
