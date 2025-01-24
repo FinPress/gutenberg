@@ -259,16 +259,13 @@ const SpacerEdit = ( {
 	};
 
 	useEffect( () => {
-		// This ensures the next change is not marked as persistent
-		// which lets the user undo the change.
-		__unstableMarkNextChangeAsNotPersistent();
-
 		if (
 			isFlexLayout &&
 			selfStretch !== 'fill' &&
 			selfStretch !== 'fit' &&
 			flexSize === undefined
 		) {
+			__unstableMarkNextChangeAsNotPersistent();
 			if ( inheritedOrientation === 'horizontal' ) {
 				// If spacer is moving from a vertical container to a horizontal container,
 				// it might not have width but have height instead.
@@ -308,6 +305,7 @@ const SpacerEdit = ( {
 			isFlexLayout &&
 			( selfStretch === 'fill' || selfStretch === 'fit' )
 		) {
+			__unstableMarkNextChangeAsNotPersistent();
 			if ( inheritedOrientation === 'horizontal' ) {
 				setAttributes( {
 					width: undefined,
@@ -318,6 +316,7 @@ const SpacerEdit = ( {
 				} );
 			}
 		} else if ( ! isFlexLayout && ( selfStretch || flexSize ) ) {
+			__unstableMarkNextChangeAsNotPersistent();
 			if ( inheritedOrientation === 'horizontal' ) {
 				setAttributes( {
 					width: flexSize,
