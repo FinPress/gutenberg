@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 30.9.0 (2025-01-15)
+
+## 30.8.0 (2025-01-02)
+
+### Enhancements
+
+-   Recommend listing JavaScript entry points as paths passed to the `start` and `build` commands ([#68251](https://github.com/WordPress/gutenberg/pull/68251)).
+-   Introduce a new option `--source-path` to customize the source directory used with the `start` and `build` commands ([#68251](https://github.com/WordPress/gutenberg/pull/68251)).
+
 ### Internal
 
 -   The bundled `rtlcss-webpack-plugin` dependency has been replaced with a modified fork of the plugin to fix issues with the original package ([#68201](https://github.com/WordPress/gutenberg/pull/68201)).
@@ -348,7 +357,7 @@
 
 ### Breaking Changes
 
--   Remove `lint-md-js` script that was broken for some time and it's extemely hard to make it work correctly with the recommended ESLint config in Markdown files ([#40511](https://github.com/WordPress/gutenberg/pull/40511)).
+-   Remove `lint-md-js` script that was broken for some time and it's extremely hard to make it work correctly with the recommended ESLint config in Markdown files ([#40511](https://github.com/WordPress/gutenberg/pull/40511)).
 -   Remove the previously deprecated and undocumented `format-js` command ([#40512](https://github.com/WordPress/gutenberg/pull/40512)). You should use the `format` command instead.
 
 ### New Features
