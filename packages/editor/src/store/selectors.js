@@ -1220,10 +1220,10 @@ export const isEditorPanelOpened = createRegistrySelector(
 /**
  * Returns the current selection start.
  *
+ * @deprecated since Gutenberg 10.0.0.
+ *
  * @param {Object} state
  * @return {WPBlockSelection} The selection start.
- *
- * @deprecated since Gutenberg 10.0.0.
  */
 export function getEditorSelectionStart( state ) {
 	deprecated( "select('core/editor').getEditorSelectionStart", {
