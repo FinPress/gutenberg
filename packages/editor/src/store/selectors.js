@@ -1236,10 +1236,10 @@ export function getEditorSelectionStart( state ) {
 /**
  * Returns the current selection end.
  *
+ * @deprecated since Gutenberg 10.0.0.
+ *
  * @param {Object} state
  * @return {WPBlockSelection} The selection end.
- *
- * @deprecated since Gutenberg 10.0.0.
  */
 export function getEditorSelectionEnd( state ) {
 	deprecated( "select('core/editor').getEditorSelectionStart", {
