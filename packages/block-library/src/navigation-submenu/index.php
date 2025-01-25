@@ -99,11 +99,11 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 		$show_submenu_indicators;
 
 	$classes = array(
-		'wp-block-navigation-item'
+		'wp-block-navigation-item',
 	);
 	$classes = array_merge(
 		$classes,
-		$font_sizes['css_classes'],
+		$font_sizes['css_classes']
 	);
 	if ( $has_submenu ) {
 		$classes[] = 'has-child';
