@@ -49,7 +49,7 @@
 		height: 100% !important;
 	}
 
-	// Allows the resizable container to occupy all remaining vertical space.
+	// Ensures the resizable container fills the remaining vertical space.
 	&:not(.resize-horizontal) {
 		flex-grow: inherit;
 	}
