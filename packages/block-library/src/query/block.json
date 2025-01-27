@@ -27,7 +27,8 @@
 				"inherit": true,
 				"taxQuery": null,
 				"parents": [],
-				"format": []
+				"format": [],
+				"excludeCurrent": null
 			}
 		},
 		"tagName": {

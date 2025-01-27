@@ -10,6 +10,7 @@ import {
 	Notice,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	ToggleControl,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
@@ -54,6 +55,7 @@ export default function QueryInspectorControls( props ) {
 		taxQuery,
 		parents,
 		format,
+		excludeCurrent,
 	} = query;
 	const allowedControls = useAllowedControls( attributes );
 	const showSticky = postType === 'post';
@@ -165,12 +167,16 @@ export default function QueryInspectorControls( props ) {
 		[ allowedControls, postTypeHasFormatSupport ]
 	);
 
+	const showExcludeCurrentControl =
+		! inherit && isControlAllowed( allowedControls, 'excludeCurrent' );
+
 	const showFiltersPanel =
 		showTaxControl ||
 		showAuthorControl ||
 		showSearchControl ||
 		showParentControl ||
-		showFormatControl;
+		showFormatControl ||
+		showExcludeCurrentControl;
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	const showPostCountControl = isControlAllowed(
@@ -404,6 +410,7 @@ export default function QueryInspectorControls( props ) {
 							search: '',
 							taxQuery: null,
 							format: [],
+							excludeCurrent: null,
 						} );
 						setQuerySearch( '' );
 					} }
@@ -474,6 +481,29 @@ export default function QueryInspectorControls( props ) {
 							<FormatControls
 								onChange={ setQuery }
 								query={ query }
+							/>
+						</ToolsPanelItem>
+					) }
+					{ showExcludeCurrentControl && (
+						<ToolsPanelItem
+							label={ __( 'Exclude' ) }
+							hasValue={ () => excludeCurrent !== null }
+							onDeselect={ () =>
+								setQuery( { excludeCurrent: null } )
+							}
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ __( 'Exclude current post' ) }
+								help={ __(
+									'Exclude the current post from the query.'
+								) }
+								checked={ !! excludeCurrent }
+								onChange={ ( value ) => {
+									setQuery( {
+										excludeCurrent: !! value,
+									} );
+								} }
 							/>
 						</ToolsPanelItem>
 					) }
