@@ -624,33 +624,6 @@ export const getBlockParents = createSelector(
 
 /**
  * Given a block client ID and a block name, returns the list of all its parents
- * from top to bottom, filtered by the given name(s).
- *
- * The function is not exported and not memoized because
- * it's not efficient to call memoized selectors inside other selectors.
- *
- * @param {Object}          state     Editor state.
- * @param {string}          clientId  Block from which to find root client ID.
- * @param {string|string[]} blockName Block name(s) to filter.
- * @param {boolean}         ascending Order results from bottom to top (true) or top to bottom (false).
- *
- * @return {Array} ClientIDs of the parent blocks.
- */
-function getBlockParentsByBlockNameUnmemoized(
-	state,
-	clientId,
-	blockName,
-	ascending = false
-) {
-	const parents = getBlockParents( state, clientId, ascending );
-	const hasName = Array.isArray( blockName )
-		? ( name ) => blockName.includes( name )
-		: ( name ) => blockName === name;
-	return parents.filter( ( id ) => hasName( getBlockName( state, id ) ) );
-}
-
-/**
- * Given a block client ID and a block name, returns the list of all its parents
  * from top to bottom, filtered by the given name(s). For example, if passed
  * 'core/group' as the blockName, it will only return parents which are group
  * blocks. If passed `[ 'core/group', 'core/cover']`, as the blockName, it will
@@ -664,7 +637,13 @@ function getBlockParentsByBlockNameUnmemoized(
  * @return {Array} ClientIDs of the parent blocks.
  */
 export const getBlockParentsByBlockName = createSelector(
-	getBlockParentsByBlockNameUnmemoized,
+	( state, clientId, blockName, ascending = false ) => {
+		const parents = getBlockParents( state, clientId, ascending );
+		const hasName = Array.isArray( blockName )
+			? ( name ) => blockName.includes( name )
+			: ( name ) => blockName === name;
+		return parents.filter( ( id ) => hasName( getBlockName( state, id ) ) );
+	},
 	( state ) => [ state.blocks.parents ]
 );
 /**
@@ -1647,20 +1626,23 @@ const isBlockVisibleInTheInserter = (
 		Array.isArray( blockType.parent ) ? blockType.parent : []
 	).concat( Array.isArray( blockType.ancestor ) ? blockType.ancestor : [] );
 	if ( parents.length > 0 ) {
-		const rootBlockName = getBlockName( state, rootClientId );
 		// This is an exception to the rule that says that all blocks are visible in the inserter.
 		// Blocks that require a given parent or ancestor are only visible if we're within that parent.
-		if (
-			parents.includes( 'core/post-content' ) ||
-			parents.includes( rootBlockName )
-		) {
+		if ( parents.includes( 'core/post-content' ) ) {
 			return true;
 		}
 
-		return (
-			getBlockParentsByBlockNameUnmemoized( state, rootClientId, parents )
-				.length > 0
-		);
+		let current = rootClientId;
+		let hasParent = false;
+		do {
+			if ( parents.includes( getBlockName( state, current ) ) ) {
+				hasParent = true;
+				break;
+			}
+			current = state.blocks.parents.get( current );
+		} while ( current );
+
+		return hasParent;
 	}
 
 	return true;
