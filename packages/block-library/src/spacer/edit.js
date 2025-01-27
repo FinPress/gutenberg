@@ -259,13 +259,20 @@ const SpacerEdit = ( {
 	};
 
 	useEffect( () => {
+		// To avoid interfering with undo/redo operations any changes in this
+		// effect must not make history and should be preceded by
+		// `__unstableMarkNextChangeAsNotPersistent()`.
+		const setAttributesCovertly = ( nextAttributes ) => {
+			__unstableMarkNextChangeAsNotPersistent();
+			setAttributes( nextAttributes );
+		};
+
 		if (
 			isFlexLayout &&
 			selfStretch !== 'fill' &&
 			selfStretch !== 'fit' &&
 			flexSize === undefined
 		) {
-			__unstableMarkNextChangeAsNotPersistent();
 			if ( inheritedOrientation === 'horizontal' ) {
 				// If spacer is moving from a vertical container to a horizontal container,
 				// it might not have width but have height instead.
@@ -273,7 +280,7 @@ const SpacerEdit = ( {
 					getCustomValueFromPreset( width, spacingSizes ) ||
 					getCustomValueFromPreset( height, spacingSizes ) ||
 					'100px';
-				setAttributes( {
+				setAttributesCovertly( {
 					width: '0px',
 					style: {
 						...blockStyle,
@@ -289,7 +296,7 @@ const SpacerEdit = ( {
 					getCustomValueFromPreset( height, spacingSizes ) ||
 					getCustomValueFromPreset( width, spacingSizes ) ||
 					'100px';
-				setAttributes( {
+				setAttributesCovertly( {
 					height: '0px',
 					style: {
 						...blockStyle,
@@ -305,32 +312,16 @@ const SpacerEdit = ( {
 			isFlexLayout &&
 			( selfStretch === 'fill' || selfStretch === 'fit' )
 		) {
-			__unstableMarkNextChangeAsNotPersistent();
-			if ( inheritedOrientation === 'horizontal' ) {
-				setAttributes( {
-					width: undefined,
-				} );
-			} else {
-				setAttributes( {
-					height: undefined,
-				} );
-			}
+			setAttributesCovertly(
+				inheritedOrientation === 'horizontal'
+					? { width: undefined }
+					: { height: undefined }
+			);
 		} else if ( ! isFlexLayout && ( selfStretch || flexSize ) ) {
-			__unstableMarkNextChangeAsNotPersistent();
-			if ( inheritedOrientation === 'horizontal' ) {
-				setAttributes( {
-					width: flexSize,
-				} );
-			} else {
-				setAttributes( {
-					height: flexSize,
-				} );
-			}
-
-			// This ensures that the next change is not marked as persistent
-			// when the user changes the container layout.
-			__unstableMarkNextChangeAsNotPersistent();
-			setAttributes( {
+			setAttributesCovertly( {
+				...( inheritedOrientation === 'horizontal'
+					? { width: flexSize }
+					: { height: flexSize } ),
 				style: {
 					...blockStyle,
 					layout: {
