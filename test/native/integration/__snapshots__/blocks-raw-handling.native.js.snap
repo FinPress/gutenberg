@@ -141,7 +141,11 @@ exports[`rawHandler should convert a list with attributes 1`] = `
 <!-- /wp:list -->"
 `;
 
-exports[`rawHandler should convert to unsupported HTML block when no transformation is available 1`] = `""`;
+exports[`rawHandler should convert to unsupported HTML block when no transformation is available 1`] = `
+"<!-- wp:html -->
+<div><p>Hello world!</p></div>
+<!-- /wp:html -->"
+`;
 
 exports[`rawHandler should not strip any text-level elements 1`] = `
 "<!-- wp:paragraph -->
