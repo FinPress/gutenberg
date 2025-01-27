@@ -8,7 +8,7 @@ import type { ForwardedRef } from 'react';
  */
 import { __ } from '@wordpress/i18n';
 import { settings } from '@wordpress/icons';
-import { useState, useMemo, forwardRef } from '@wordpress/element';
+import { useState, forwardRef } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -22,19 +22,11 @@ import {
 	useCustomUnits,
 } from '../unit-control';
 import { VisuallyHidden } from '../visually-hidden';
-import { getCommonSizeUnit } from './utils';
 import type { FontSizePickerProps } from './types';
-import {
-	Container,
-	Header,
-	HeaderHint,
-	HeaderLabel,
-	HeaderToggle,
-} from './styles';
+import { Container, Header, HeaderLabel, HeaderToggle } from './styles';
 import { Spacer } from '../spacer';
 import FontSizePickerSelect from './font-size-picker-select';
 import FontSizePickerToggleGroup from './font-size-picker-toggle-group';
-import { T_SHIRT_NAMES } from './constants';
 import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const DEFAULT_UNITS = [ 'px', 'em', 'rem', 'vw', 'vh' ];
@@ -83,29 +75,6 @@ const UnforwardedFontSizePicker = (
 				: ( 'togglegroup' as const );
 	}
 
-	const headerHint = useMemo( () => {
-		switch ( currentPickerType ) {
-			case 'custom':
-				return __( 'Custom' );
-			case 'togglegroup':
-				if ( selectedFontSize ) {
-					return (
-						selectedFontSize.name ||
-						T_SHIRT_NAMES[ fontSizes.indexOf( selectedFontSize ) ]
-					);
-				}
-				break;
-			case 'select':
-				const commonUnit = getCommonSizeUnit( fontSizes );
-				if ( commonUnit ) {
-					return `(${ commonUnit })`;
-				}
-				break;
-		}
-
-		return '';
-	}, [ currentPickerType, selectedFontSize, fontSizes ] );
-
 	if ( fontSizes.length === 0 && disableCustomFontSizes ) {
 		return null;
 	}
@@ -135,16 +104,7 @@ const UnforwardedFontSizePicker = (
 			<VisuallyHidden as="legend">{ __( 'Font size' ) }</VisuallyHidden>
 			<Spacer>
 				<Header className="components-font-size-picker__header">
-					<HeaderLabel
-						aria-label={ `${ __( 'Size' ) } ${ headerHint || '' }` }
-					>
-						{ __( 'Size' ) }
-						{ headerHint && (
-							<HeaderHint className="components-font-size-picker__header__hint">
-								{ headerHint }
-							</HeaderHint>
-						) }
-					</HeaderLabel>
+					<HeaderLabel>{ __( 'Font size' ) }</HeaderLabel>
 					{ ! disableCustomFontSizes && (
 						<HeaderToggle
 							label={
@@ -213,7 +173,7 @@ const UnforwardedFontSizePicker = (
 							<UnitControl
 								__next40pxDefaultSize={ __next40pxDefaultSize }
 								__shouldNotWarnDeprecated36pxSize
-								label={ __( 'Custom' ) }
+								label={ __( 'Font size' ) }
 								labelPosition="top"
 								hideLabelFromVision
 								value={ value }
@@ -245,7 +205,7 @@ const UnforwardedFontSizePicker = (
 										}
 										__shouldNotWarnDeprecated36pxSize
 										className="components-font-size-picker__custom-input"
-										label={ __( 'Custom Size' ) }
+										label={ __( 'Font size' ) }
 										hideLabelFromVision
 										value={ valueQuantity }
 										initialPosition={ fallbackFontSize }
