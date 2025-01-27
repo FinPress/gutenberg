@@ -43,6 +43,9 @@ export default function StartPageOptions() {
 				category: 'core/starter-content',
 			} );
 		}
+
+		// Note: The `postId` ensures the effect re-runs when pages are switched without remounting the component.
+		// Examples: changing pages in the List View, creating a new page via Command Palette.
 	}, [
 		postId,
 		enabled,
