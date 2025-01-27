@@ -49,6 +49,7 @@ import {
 	XIcon,
 	YelpIcon,
 	YouTubeIcon,
+	KofiIcon,
 } from './icons';
 
 const variations = [
@@ -337,6 +338,12 @@ const variations = [
 		attributes: { service: 'youtube' },
 		title: 'YouTube',
 		icon: YouTubeIcon,
+	},
+	{
+		name: 'kofi',
+		attributes: { service: 'kofi' },
+		title: 'Ko-fi',
+		icon: KofiIcon,
 	},
 ];
 
