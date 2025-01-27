@@ -1,4 +1,7 @@
 .block-editor-block-list__block[data-type="core/spacer"] {
+	display: inherit;
+	flex-direction: inherit;
+
 	// This generates an invisible field above the spacer, which makes its minimum clickable-to-select height larger.
 	&::before {
 		content: "";
@@ -44,5 +47,10 @@
 		margin-bottom: 0;
 		// Important is used to have higher specificity than the inline style set by re-resizable library.
 		height: 100% !important;
+	}
+
+	// Allows the resizable container to occupy all remaining vertical space.
+	&:not(.resize-horizontal) {
+		flex-grow: inherit;
 	}
 }
