@@ -74,6 +74,7 @@ import useEditPostCommands from '../../commands/use-commands';
 import { usePaddingAppender } from './use-padding-appender';
 import { useShouldIframe } from './use-should-iframe';
 import useNavigateToEntityRecord from '../../hooks/use-navigate-to-entity-record';
+import { useMetaBoxInitialization } from '../meta-boxes/use-meta-box-initialization';
 
 const { getLayoutStyles } = unlock( blockEditorPrivateApis );
 const { useCommands } = unlock( coreCommandsPrivateApis );
@@ -427,6 +428,9 @@ function Layout( {
 			const { canUser, getPostType } = select( coreStore );
 			const { getDeviceType, getEditorMode, getRenderingMode } =
 				select( editorStore );
+			const { __unstableGetEditorMode } = unlock(
+				select( blockEditorStore )
+			);
 
 			const supportsTemplateMode = settings.supportsTemplateMode;
 			const isViewable =
@@ -435,6 +439,8 @@ function Layout( {
 				kind: 'postType',
 				name: 'wp_template',
 			} );
+
+			const isZoomOut = __unstableGetEditorMode() === 'zoom-out';
 
 			return {
 				mode: getEditorMode(),
@@ -448,6 +454,7 @@ function Layout( {
 				showMetaBoxes:
 					! DESIGN_POST_TYPES.includes( currentPostType ) &&
 					getRenderingMode() === 'post-only',
+					! isZoomOut,
 				isWelcomeGuideVisible: isFeatureActive( 'welcomeGuide' ),
 				templateId:
 					supportsTemplateMode &&
@@ -461,6 +468,7 @@ function Layout( {
 		},
 		[ currentPostType, isEditingTemplate, settings.supportsTemplateMode ]
 	);
+	useMetaBoxInitialization( hasActiveMetaboxes );
 
 	// Set the right context for the command palette
 	const commandContext = hasBlockSelected
