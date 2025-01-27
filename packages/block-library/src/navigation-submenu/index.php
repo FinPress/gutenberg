@@ -99,6 +99,16 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 	$open_on_hover_and_click = isset( $block->context['openSubmenusOnClick'] ) && ! $block->context['openSubmenusOnClick'] &&
 		$show_submenu_indicators;
 
+	$block->block_type->supports['color'] = true;
+	$colors_supports                      = wp_apply_colors_support( $block->block_type, $attributes );
+	if ( array_key_exists( 'class', $colors_supports ) ) {
+		$css_classes .= ' ' . $colors_supports['class'];
+	}
+
+	if ( array_key_exists( 'style', $colors_supports ) ) {
+		$style_attribute .= $colors_supports['style'];
+	}
+
 	$wrapper_attributes = get_block_wrapper_attributes(
 		array(
 			'class' => $css_classes . ' wp-block-navigation-item' . ( $has_submenu ? ' has-child' : '' ) .
@@ -203,6 +213,16 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 	}
 
 	if ( $has_submenu ) {
+		// These properties for submenus should only be applied from context.
+		// Values directly stored inside attributes should be applied to the parent block only.
+		unset(
+			$attributes['textColor'],
+			$attributes['backgroundColor'],
+			$attributes['customTextColor'],
+			$attributes['customBackgroundColor'],
+			$attributes['style']
+		);
+
 		// Copy some attributes from the parent block to this one.
 		// Ideally this would happen in the client when the block is created.
 		if ( array_key_exists( 'overlayTextColor', $block->context ) ) {
@@ -218,10 +238,25 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 			$attributes['style']['color']['background'] = $block->context['customOverlayBackgroundColor'];
 		}
 
+		// If there are no overlay colors provided, then inherit the colors from the parent block.
+		if ( ! isset( $attributes['textColor'] ) && ! isset( $attributes['style']['color']['text'] ) ) {
+			if ( array_key_exists( 'textColor', $block->context ) ) {
+				$attributes['textColor'] = $block->context['textColor'];
+			} elseif ( array_key_exists( 'customTextColor', $block->context ) ) {
+				$attributes['style']['color']['text'] = $block->context['customTextColor'];
+			}
+		}
+		if ( ! isset( $attributes['backgroundColor'] ) && ! isset( $attributes['style']['color']['background'] ) ) {
+			if ( array_key_exists( 'backgroundColor', $block->context ) ) {
+				$attributes['backgroundColor'] = $block->context['backgroundColor'];
+			} elseif ( array_key_exists( 'customBackgroundColor', $block->context ) ) {
+				$attributes['style']['color']['background'] = $block->context['customBackgroundColor'];
+			}
+		}
+
 		// This allows us to be able to get a response from wp_apply_colors_support.
-		$block->block_type->supports['color'] = true;
-		$colors_supports                      = wp_apply_colors_support( $block->block_type, $attributes );
-		$css_classes                          = 'wp-block-navigation__submenu-container';
+		$colors_supports = wp_apply_colors_support( $block->block_type, $attributes );
+		$css_classes     = 'wp-block-navigation__submenu-container';
 		if ( array_key_exists( 'class', $colors_supports ) ) {
 			$css_classes .= ' ' . $colors_supports['class'];
 		}
@@ -244,12 +279,14 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 			$html = $tag_processor->get_updated_html();
 		}
 
-		$wrapper_attributes = get_block_wrapper_attributes(
-			array(
-				'class' => $css_classes,
-				'style' => $style_attribute,
-			)
-		);
+		$wrapper_attributes = array();
+		if ( ! empty( $style_attribute ) ) {
+			$wrapper_attributes[] = sprintf( 'style="%s"', $style_attribute );
+		}
+		if ( ! empty( $css_classes ) ) {
+			$wrapper_attributes[] = sprintf( 'class="%s"', $css_classes );
+		}
+		$wrapper_attributes = implode( ' ', $wrapper_attributes );
 
 		$html .= sprintf(
 			'<ul %s>%s</ul>',
