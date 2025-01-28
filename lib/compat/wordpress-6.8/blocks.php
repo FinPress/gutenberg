@@ -70,13 +70,11 @@ function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 		return $response;
 	}
 
-	$content = gutenberg_apply_block_hooks_to_post_content(
+	$response->data['content']['raw'] = gutenberg_apply_block_hooks_to_post_content(
 		$response->data['content']['raw'],
 		$post,
 		'insert_hooked_blocks_and_set_ignored_hooked_blocks_metadata'
 	);
-
-	$response->data['content']['raw'] = $content;
 
 	// If the rendered content was previously empty, we leave it like that.
 	if ( empty( $response->data['content']['rendered'] ) ) {
@@ -90,7 +88,10 @@ function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 	}
 
 	/** This filter is documented in wp-includes/post-template.php */
-	$response->data['content']['rendered'] = apply_filters( 'the_content', $content );
+	$response->data['content']['rendered'] = apply_filters(
+		'the_content',
+		$response->data['content']['raw']
+	);
 
 	// Add back the filter.
 	if ( false !== $priority ) {
