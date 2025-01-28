@@ -8,6 +8,7 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
 /**
  * Internal dependencies
  */
@@ -15,6 +16,7 @@ import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 export default function LoginOutEdit( { attributes, setAttributes } ) {
 	const { displayLoginAsForm, redirectToCurrent } = attributes;
+	const [ isEditingForm, setIsEditingForm ] = useState( false );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	return (
@@ -49,6 +51,23 @@ export default function LoginOutEdit( { attributes, setAttributes } ) {
 							}
 						/>
 					</ToolsPanelItem>
+					{ displayLoginAsForm && (
+						<ToolsPanelItem
+							label={ __( 'Show Login Form' ) }
+							isShownByDefault
+							hasValue={ () => ! isEditingForm }
+							onDeselect={ () => setIsEditingForm( true ) }
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ __( 'Show Login Form' ) }
+								checked={ isEditingForm }
+								onChange={ () =>
+									setIsEditingForm( ! isEditingForm )
+								}
+							/>
+						</ToolsPanelItem>
+					) }
 					<ToolsPanelItem
 						label={ __( 'Redirect to current URL' ) }
 						isShownByDefault
@@ -75,7 +94,11 @@ export default function LoginOutEdit( { attributes, setAttributes } ) {
 					className: 'logged-in',
 				} ) }
 			>
-				<a href="#login-pseudo-link">{ __( 'Log out' ) }</a>
+				{ isEditingForm ? (
+					<>show Form</>
+				) : (
+					<a href="#login-pseudo-link">{ __( 'Log out' ) }</a>
+				) }
 			</div>
 		</>
 	);
