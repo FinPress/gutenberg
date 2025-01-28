@@ -22,6 +22,9 @@ const v2 = {
 		height: {
 			type: 'string',
 		},
+		width: {
+			type: 'string',
+		},
 	},
 	isEligible( { height, width } ) {
 		return height === undefined && width === undefined;
