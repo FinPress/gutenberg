@@ -2,7 +2,8 @@
 https://github.com/WordPress/gutenberg/blob/trunk/CONTRIBUTING.md -->
 
 ## What?
-Closes: <!-- Replace with Gutenberg issue link -->
+<!-- Link this PR with the issue it addresses -->
+Closes <!-- #ISSUE-NUMBER or URL -->
 
 <!-- In a few words, what is the PR actually doing? -->
 
