@@ -1,7 +1,14 @@
 /**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+import { registerCoreBlocks } from '@wordpress/block-library';
+/**
  * Internal dependencies
  */
-import { BlockCanvas, BlockList } from '../..';
+import { BlockCanvas, BlockEditorProvider } from '../..';
+
+registerCoreBlocks();
 
 const meta = {
 	title: 'BlockEditor/BlockCanvas',
@@ -17,7 +24,7 @@ const meta = {
 	},
 	argTypes: {
 		children: {
-			control: false, // Disable direct control for `children` as it defaults to `BlockList`
+			control: false,
 			description: 'The children to render in the canvas.',
 			table: {
 				type: { summary: 'node' },
@@ -48,12 +55,17 @@ const meta = {
 export default meta;
 
 export const Default = {
-	args: {
-		height: '100px',
-		styles: [ { css: `body{font-size: 16px;}` } ],
-		children: <BlockList />,
-	},
 	render: function Template( args ) {
-		return <BlockCanvas { ...args } />;
+		const [ blocks, updateBlocks ] = useState( [] );
+
+		return (
+			<BlockEditorProvider
+				value={ blocks }
+				onInput={ ( newBlocks ) => updateBlocks( newBlocks ) }
+				onChange={ ( newBlocks ) => updateBlocks( newBlocks ) }
+			>
+				<BlockCanvas { ...args } />
+			</BlockEditorProvider>
+		);
 	},
 };
