@@ -56,6 +56,4 @@ const v1 = {
 	save: deprecatedSave,
 };
 
-const deprecated = [ v2, v1 ];
-
-export default deprecated;
+export default [ v2, v1 ];
