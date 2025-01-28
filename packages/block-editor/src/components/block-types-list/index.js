@@ -22,7 +22,6 @@ function BlockTypesList( {
 	items = [],
 	onSelect,
 	onHover = () => {},
-	onClose,
 	children,
 	label,
 	isDraggable = true,
@@ -42,7 +41,6 @@ function BlockTypesList( {
 							) }
 							onSelect={ onSelect }
 							onHover={ onHover }
-							onClose={ onClose }
 							isDraggable={ isDraggable && ! item.isDisabled }
 							isFirst={ i === 0 && j === 0 }
 							rowId={ `${ listId }-${ i }` }

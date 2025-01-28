@@ -15,6 +15,8 @@ import {
 } from '@wordpress/blocks';
 import { __experimentalTruncate as Truncate } from '@wordpress/components';
 import { ENTER, isAppleOS } from '@wordpress/keycodes';
+import { useSelect } from '@wordpress/data';
+import { useViewportMatch } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -22,6 +24,8 @@ import { ENTER, isAppleOS } from '@wordpress/keycodes';
 import BlockIcon from '../block-icon';
 import { InserterListboxItem } from '../inserter-listbox';
 import InserterDraggableBlocks from '../inserter-draggable-blocks';
+import { store as blockEditorStore } from '../../store';
+import { unlock } from '../../lock-unlock';
 
 function InserterListItem( {
 	className,
@@ -29,7 +33,6 @@ function InserterListItem( {
 	item,
 	onSelect,
 	onHover,
-	onClose,
 	isDraggable,
 	...props
 } ) {
@@ -55,6 +58,17 @@ function InserterListItem( {
 		( isReusableBlock( item ) && item.syncStatus !== 'unsynced' ) ||
 		isTemplatePart( item );
 
+	const { setInserterIsOpened } = useSelect( ( select ) => {
+		const { getSettings } = unlock( select( blockEditorStore ) );
+
+		return {
+			setInserterIsOpened:
+				getSettings().__experimentalSetIsInserterOpened,
+		};
+	}, [] );
+
+	const isMobileViewport = useViewportMatch( 'medium', '<' );
+
 	return (
 		<InserterDraggableBlocks
 			isEnabled={ isDraggable && ! item.isDisabled }
@@ -74,8 +88,10 @@ function InserterListItem( {
 						isDraggingRef.current = true;
 						if ( onDragStart ) {
 							onHover( null );
-							onClose();
 							onDragStart( event );
+						}
+						if ( isMobileViewport ) {
+							setInserterIsOpened( false );
 						}
 					} }
 					onDragEnd={ ( event ) => {
