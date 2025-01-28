@@ -70,37 +70,11 @@ function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 		return $response;
 	}
 
-	$attributes            = array();
-	$ignored_hooked_blocks = get_post_meta( $post->ID, '_wp_ignored_hooked_blocks', true );
-	if ( ! empty( $ignored_hooked_blocks ) ) {
-		$ignored_hooked_blocks  = json_decode( $ignored_hooked_blocks, true );
-		$attributes['metadata'] = array(
-			'ignoredHookedBlocks' => $ignored_hooked_blocks,
-		);
-	}
-
-	if ( 'wp_navigation' === $post->post_type ) {
-		$wrapper_block_type = 'core/navigation';
-	} elseif ( 'wp_block' === $post->post_type ) {
-		$wrapper_block_type = 'core/block';
-	} else {
-		$wrapper_block_type = 'core/post-content';
-	}
-
-	$content = get_comment_delimited_block_content(
-		$wrapper_block_type,
-		$attributes,
-		$response->data['content']['raw']
-	);
-
-	$content = apply_block_hooks_to_content(
-		$content,
+	$content = gutenberg_apply_block_hooks_to_post_content(
+		$response->data['content']['raw'],
 		$post,
 		'insert_hooked_blocks_and_set_ignored_hooked_blocks_metadata'
 	);
-
-	// Remove mock block wrapper.
-	$content = remove_serialized_parent_block( $content );
 
 	$response->data['content']['raw'] = $content;
 
