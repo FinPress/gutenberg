@@ -11,7 +11,47 @@ function gutenberg_apply_block_hooks_to_post_content( $content, $context = null,
 		$context = get_post();
 	}
 
-	return apply_block_hooks_to_content( $content, $context, $callback );
+	if ( ! $context instanceof WP_Post ) {
+		return apply_block_hooks_to_content( $content, $context, $callback );
+	}
+
+	$attributes = array();
+
+	// If context is a post object, `ignoredHookedBlocks` information is stored in its post meta.
+	$ignored_hooked_blocks = get_post_meta( $context->ID, '_wp_ignored_hooked_blocks', true );
+	if ( ! empty( $ignored_hooked_blocks ) ) {
+		$ignored_hooked_blocks  = json_decode( $ignored_hooked_blocks, true );
+		$attributes['metadata'] = array(
+			'ignoredHookedBlocks' => $ignored_hooked_blocks,
+		);
+	}
+
+	// We need to wrap the content in a temporary wrapper block with that metadata
+	// so the Block Hooks algorithm can insert blocks that are hooked as first or last child
+	// of the wrapper block.
+	// To that end, we need to determine the wrapper block type based on the post type.
+
+	if ( 'wp_navigation' === $context->post_type ) {
+		$wrapper_block_type = 'core/navigation';
+	} elseif ( 'wp_block' === $context->post_type ) {
+		$wrapper_block_type = 'core/block';
+	} else {
+		$wrapper_block_type = 'core/post-content';
+	}
+
+	$content = get_comment_delimited_block_content(
+		$wrapper_block_type,
+		$attributes,
+		$content
+	);
+
+	// Apply Block Hooks.
+	$content = apply_block_hooks_to_content( $content, $context, $callback );
+
+	// Finally, we need to remove the temporary wrapper block.
+	$content = remove_serialized_parent_block( $content );
+
+	return $content;
 }
 // We need to apply this filter before `do_blocks` (which is hooked to `the_content` at priority 9).
 add_filter( 'the_content', 'gutenberg_apply_block_hooks_to_post_content', 8 );
