@@ -43,8 +43,9 @@ export default function QueryContent( {
 		tagName: TagName = 'div',
 		query: { inherit } = {},
 	} = attributes;
-	const { templateSlug } = context;
-	const { isSingular } = getQueryContextFromTemplate( templateSlug );
+	const { templateSlug, postType } = context;
+	const { isSingular, templateType } =
+		getQueryContextFromTemplate( templateSlug );
 	const { __unstableMarkNextChangeAsNotPersistent } =
 		useDispatch( blockEditorStore );
 	const instanceId = useInstanceId( QueryContent );
@@ -76,6 +77,13 @@ export default function QueryContent( {
 				DEFAULTS_POSTS_PER_PAGE,
 		};
 	}, [] );
+
+	// Exclude the current post by default, if we're in a singular template and the post type matches the query.
+	const shouldExcludeCurrentPost =
+		isSingular &&
+		! inherit &&
+		( query.postType === postType || query.postType === templateType );
+
 	// There are some effects running where some initialization logic is
 	// happening and setting some values to some attributes (ex. queryId).
 	// These updates can cause an `undo trap` where undoing will result in
@@ -103,6 +111,15 @@ export default function QueryContent( {
 		if ( isSingular && query.inherit ) {
 			newQuery.inherit = false;
 		}
+		// Exclude the current post if needed, otherwise remove the exclusion.
+		if ( shouldExcludeCurrentPost && query.excludeCurrent === null ) {
+			newQuery.excludeCurrent = true;
+		} else if (
+			! shouldExcludeCurrentPost &&
+			query.excludeCurrent !== null
+		) {
+			newQuery.excludeCurrent = null;
+		}
 		if ( !! Object.keys( newQuery ).length ) {
 			__unstableMarkNextChangeAsNotPersistent();
 			updateQuery( newQuery );
@@ -110,9 +127,11 @@ export default function QueryContent( {
 	}, [
 		query.perPage,
 		query.inherit,
+		query.excludeCurrent,
 		postsPerPage,
 		inherit,
 		isSingular,
+		shouldExcludeCurrentPost,
 		__unstableMarkNextChangeAsNotPersistent,
 		updateQuery,
 	] );
@@ -150,6 +169,7 @@ export default function QueryContent( {
 					setAttributes={ setAttributes }
 					clientId={ clientId }
 					isSingular={ isSingular }
+					shouldExcludeCurrentPost={ shouldExcludeCurrentPost }
 				/>
 			</InspectorControls>
 			<BlockControls>

@@ -43,7 +43,7 @@
 			"default": false
 		}
 	},
-	"usesContext": [ "templateSlug" ],
+	"usesContext": [ "templateSlug", "postType" ],
 	"providesContext": {
 		"queryId": "queryId",
 		"query": "query",

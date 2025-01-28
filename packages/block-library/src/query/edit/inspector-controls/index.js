@@ -14,7 +14,7 @@ import {
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { debounce } from '@wordpress/compose';
 import { useEffect, useState, useCallback } from '@wordpress/element';
 
@@ -40,7 +40,13 @@ import {
 import { useToolsPanelDropdownMenuProps } from '../../../utils/hooks';
 
 export default function QueryInspectorControls( props ) {
-	const { attributes, setQuery, setDisplayLayout, isSingular } = props;
+	const {
+		attributes,
+		setQuery,
+		setDisplayLayout,
+		isSingular,
+		shouldExcludeCurrentPost,
+	} = props;
 	const { query, displayLayout } = attributes;
 	const {
 		order,
@@ -168,7 +174,13 @@ export default function QueryInspectorControls( props ) {
 	);
 
 	const showExcludeCurrentControl =
-		! inherit && isControlAllowed( allowedControls, 'excludeCurrent' );
+		shouldExcludeCurrentPost &&
+		isControlAllowed( allowedControls, 'excludeCurrent' );
+	const postTypeSingularName = useSelect(
+		( select ) =>
+			select( coreStore ).getPostType( postType )?.labels.singular_name,
+		[ postType ]
+	);
 
 	const showFiltersPanel =
 		showTaxControl ||
@@ -494,9 +506,13 @@ export default function QueryInspectorControls( props ) {
 						>
 							<ToggleControl
 								__nextHasNoMarginBottom
-								label={ __( 'Exclude current post' ) }
-								help={ __(
-									'Exclude the current post from the query.'
+								label={ __( 'Exclude current' ) }
+								help={ sprintf(
+									/* translators: %s: the post type singular name */
+									__(
+										'Exclude the current %s from the query.'
+									),
+									postTypeSingularName
 								) }
 								checked={ !! excludeCurrent }
 								onChange={ ( value ) => {
