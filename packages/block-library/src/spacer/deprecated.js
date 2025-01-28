@@ -3,39 +3,59 @@
  */
 import { useBlockProps } from '@wordpress/block-editor';
 
-const deprecated = [
-	{
-		attributes: {
-			height: {
-				type: 'number',
-				default: 100,
-			},
-			width: {
-				type: 'number',
-			},
-		},
-		migrate( attributes ) {
-			const { height, width } = attributes;
-			return {
-				...attributes,
-				width: width !== undefined ? `${ width }px` : undefined,
-				height: height !== undefined ? `${ height }px` : undefined,
-			};
-		},
-		save( { attributes } ) {
-			return (
-				<div
-					{ ...useBlockProps.save( {
-						style: {
-							height: attributes.height,
-							width: attributes.width,
-						},
-						'aria-hidden': true,
-					} ) }
-				/>
-			);
+const deprecatedSave = ( { attributes } ) => {
+	return (
+		<div
+			{ ...useBlockProps.save( {
+				style: {
+					height: attributes.height,
+					width: attributes.width,
+				},
+				'aria-hidden': true,
+			} ) }
+		/>
+	);
+};
+
+const v2 = {
+	attributes: {
+		height: {
+			type: 'string',
 		},
 	},
-];
+	isEligible( { height, width } ) {
+		return height === undefined && width === undefined;
+	},
+	migrate( attributes ) {
+		return {
+			...attributes,
+			height: '',
+		};
+	},
+	save: deprecatedSave,
+};
+
+const v1 = {
+	attributes: {
+		height: {
+			type: 'number',
+			default: 100,
+		},
+		width: {
+			type: 'number',
+		},
+	},
+	migrate( attributes ) {
+		const { height, width } = attributes;
+		return {
+			...attributes,
+			width: width !== undefined ? `${ width }px` : undefined,
+			height: `${ height }px`,
+		};
+	},
+	save: deprecatedSave,
+};
+
+const deprecated = [ v2, v1 ];
 
 export default deprecated;
