@@ -30,7 +30,6 @@ function gutenberg_apply_block_hooks_to_post_content( $content, $context = null,
 	// so the Block Hooks algorithm can insert blocks that are hooked as first or last child
 	// of the wrapper block.
 	// To that end, we need to determine the wrapper block type based on the post type.
-
 	if ( 'wp_navigation' === $context->post_type ) {
 		$wrapper_block_type = 'core/navigation';
 	} elseif ( 'wp_block' === $context->post_type ) {
