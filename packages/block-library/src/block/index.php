@@ -88,7 +88,7 @@ function render_block_core_block( $attributes ) {
 	}
 
 	// Apply Block Hooks.
-	$content = gutenberg_apply_block_hooks_to_post_content( $content, $reusable_block );
+	$content = apply_block_hooks_to_content_from_post_object( $content, $reusable_block );
 
 	$content = do_blocks( $content );
 	unset( $seen_refs[ $attributes['ref'] ] );

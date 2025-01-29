@@ -242,10 +242,10 @@ class WP_Navigation_Block_Renderer {
 			$blocks = block_core_navigation_filter_out_empty_blocks( $parsed_blocks );
 
 			// Re-serialize, and run Block Hooks algorithm to inject hooked blocks.
-			// TODO: See if we can move the gutenberg_apply_block_hooks_to_post_content() call
+			// TODO: See if we can move the apply_block_hooks_to_content_from_post_object() call
 			// before the parse_blocks() call further above, to avoid the extra serialization/parsing.
 			$markup = serialize_blocks( $blocks );
-			$markup = gutenberg_apply_block_hooks_to_post_content( $markup, $navigation_post );
+			$markup = apply_block_hooks_to_content_from_post_object( $markup, $navigation_post );
 			$blocks = parse_blocks( $markup );
 
 			// TODO - this uses the full navigation block attributes for the
@@ -1078,10 +1078,10 @@ function block_core_navigation_get_fallback_blocks() {
 
 		// Run Block Hooks algorithm to inject hooked blocks.
 		// We have to run it here because we need the post ID of the Navigation block to track ignored hooked blocks.
-		// TODO: See if we can move the gutenberg_apply_block_hooks_to_post_content() call
+		// TODO: See if we can move the apply_block_hooks_to_content_from_post_object() call
 		// before the parse_blocks() call further above, to avoid the extra serialization/parsing.
 		$markup          = serialize_blocks( $fallback_blocks );
-		$markup          = gutenberg_apply_block_hooks_to_post_content( $markup, $navigation_post );
+		$markup          = apply_block_hooks_to_content_from_post_object( $markup, $navigation_post );
 		$fallback_blocks = parse_blocks( $markup );
 	}
 

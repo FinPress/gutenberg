@@ -5,55 +5,57 @@
  * @package gutenberg
  */
 
-function gutenberg_apply_block_hooks_to_post_content( $content, $context = null, $callback = 'insert_hooked_blocks' ) {
-	// Default to the current post if no context is provided.
-	if ( null === $context ) {
-		$context = get_post();
-	}
+if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
+	function apply_block_hooks_to_content_from_post_object( $content, $context = null, $callback = 'insert_hooked_blocks' ) {
+		// Default to the current post if no context is provided.
+		if ( null === $context ) {
+			$context = get_post();
+		}
 
-	if ( ! $context instanceof WP_Post ) {
-		return apply_block_hooks_to_content( $content, $context, $callback );
-	}
+		if ( ! $context instanceof WP_Post ) {
+			return apply_block_hooks_to_content( $content, $context, $callback );
+		}
 
-	$attributes = array();
+		$attributes = array();
 
-	// If context is a post object, `ignoredHookedBlocks` information is stored in its post meta.
-	$ignored_hooked_blocks = get_post_meta( $context->ID, '_wp_ignored_hooked_blocks', true );
-	if ( ! empty( $ignored_hooked_blocks ) ) {
-		$ignored_hooked_blocks  = json_decode( $ignored_hooked_blocks, true );
-		$attributes['metadata'] = array(
-			'ignoredHookedBlocks' => $ignored_hooked_blocks,
+		// If context is a post object, `ignoredHookedBlocks` information is stored in its post meta.
+		$ignored_hooked_blocks = get_post_meta( $context->ID, '_wp_ignored_hooked_blocks', true );
+		if ( ! empty( $ignored_hooked_blocks ) ) {
+			$ignored_hooked_blocks  = json_decode( $ignored_hooked_blocks, true );
+			$attributes['metadata'] = array(
+				'ignoredHookedBlocks' => $ignored_hooked_blocks,
+			);
+		}
+
+		// We need to wrap the content in a temporary wrapper block with that metadata
+		// so the Block Hooks algorithm can insert blocks that are hooked as first or last child
+		// of the wrapper block.
+		// To that end, we need to determine the wrapper block type based on the post type.
+		if ( 'wp_navigation' === $context->post_type ) {
+			$wrapper_block_type = 'core/navigation';
+		} elseif ( 'wp_block' === $context->post_type ) {
+			$wrapper_block_type = 'core/block';
+		} else {
+			$wrapper_block_type = 'core/post-content';
+		}
+
+		$content = get_comment_delimited_block_content(
+			$wrapper_block_type,
+			$attributes,
+			$content
 		);
+
+		// Apply Block Hooks.
+		$content = apply_block_hooks_to_content( $content, $context, $callback );
+
+		// Finally, we need to remove the temporary wrapper block.
+		$content = remove_serialized_parent_block( $content );
+
+		return $content;
 	}
-
-	// We need to wrap the content in a temporary wrapper block with that metadata
-	// so the Block Hooks algorithm can insert blocks that are hooked as first or last child
-	// of the wrapper block.
-	// To that end, we need to determine the wrapper block type based on the post type.
-	if ( 'wp_navigation' === $context->post_type ) {
-		$wrapper_block_type = 'core/navigation';
-	} elseif ( 'wp_block' === $context->post_type ) {
-		$wrapper_block_type = 'core/block';
-	} else {
-		$wrapper_block_type = 'core/post-content';
-	}
-
-	$content = get_comment_delimited_block_content(
-		$wrapper_block_type,
-		$attributes,
-		$content
-	);
-
-	// Apply Block Hooks.
-	$content = apply_block_hooks_to_content( $content, $context, $callback );
-
-	// Finally, we need to remove the temporary wrapper block.
-	$content = remove_serialized_parent_block( $content );
-
-	return $content;
+	// We need to apply this filter before `do_blocks` (which is hooked to `the_content` at priority 9).
+	add_filter( 'the_content', 'apply_block_hooks_to_content_from_post_object', 8 );
 }
-// We need to apply this filter before `do_blocks` (which is hooked to `the_content` at priority 9).
-add_filter( 'the_content', 'gutenberg_apply_block_hooks_to_post_content', 8 );
 
 /**
  * Hooks into the REST API response for the Posts endpoint and adds the first and last inner blocks.
@@ -70,7 +72,7 @@ function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 		return $response;
 	}
 
-	$response->data['content']['raw'] = gutenberg_apply_block_hooks_to_post_content(
+	$response->data['content']['raw'] = apply_block_hooks_to_content_from_post_object(
 		$response->data['content']['raw'],
 		$post,
 		'insert_hooked_blocks_and_set_ignored_hooked_blocks_metadata'
