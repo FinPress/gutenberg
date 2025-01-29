@@ -6,20 +6,20 @@
  */
 
 if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
-	function apply_block_hooks_to_content_from_post_object( $content, $context = null, $callback = 'insert_hooked_blocks' ) {
+	function apply_block_hooks_to_content_from_post_object( $content, $post = null, $callback = 'insert_hooked_blocks' ) {
 		// Default to the current post if no context is provided.
-		if ( null === $context ) {
-			$context = get_post();
+		if ( null === $post ) {
+			$post = get_post();
 		}
 
-		if ( ! $context instanceof WP_Post ) {
-			return apply_block_hooks_to_content( $content, $context, $callback );
+		if ( ! $post instanceof WP_Post ) {
+			return apply_block_hooks_to_content( $content, $post, $callback );
 		}
 
 		$attributes = array();
 
 		// If context is a post object, `ignoredHookedBlocks` information is stored in its post meta.
-		$ignored_hooked_blocks = get_post_meta( $context->ID, '_wp_ignored_hooked_blocks', true );
+		$ignored_hooked_blocks = get_post_meta( $post->ID, '_wp_ignored_hooked_blocks', true );
 		if ( ! empty( $ignored_hooked_blocks ) ) {
 			$ignored_hooked_blocks  = json_decode( $ignored_hooked_blocks, true );
 			$attributes['metadata'] = array(
@@ -31,9 +31,9 @@ if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
 		// so the Block Hooks algorithm can insert blocks that are hooked as first or last child
 		// of the wrapper block.
 		// To that end, we need to determine the wrapper block type based on the post type.
-		if ( 'wp_navigation' === $context->post_type ) {
+		if ( 'wp_navigation' === $post->post_type ) {
 			$wrapper_block_type = 'core/navigation';
-		} elseif ( 'wp_block' === $context->post_type ) {
+		} elseif ( 'wp_block' === $post->post_type ) {
 			$wrapper_block_type = 'core/block';
 		} else {
 			$wrapper_block_type = 'core/post-content';
@@ -46,7 +46,7 @@ if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
 		);
 
 		// Apply Block Hooks.
-		$content = apply_block_hooks_to_content( $content, $context, $callback );
+		$content = apply_block_hooks_to_content( $content, $post, $callback );
 
 		// Finally, we need to remove the temporary wrapper block.
 		$content = remove_serialized_parent_block( $content );
