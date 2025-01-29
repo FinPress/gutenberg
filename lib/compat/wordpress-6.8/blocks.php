@@ -55,6 +55,8 @@ if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
 	}
 	// We need to apply this filter before `do_blocks` (which is hooked to `the_content` at priority 9).
 	add_filter( 'the_content', 'apply_block_hooks_to_content_from_post_object', 8 );
+	// Remove apply_block_hooks_to_content filter (previously added in Core).
+	remove_filter( 'the_content', 'apply_block_hooks_to_content', 8 );
 }
 
 /**
@@ -84,9 +86,9 @@ function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 	}
 
 	// No need to inject hooked blocks twice.
-	$priority = has_filter( 'the_content', 'apply_block_hooks_to_content' );
+	$priority = has_filter( 'the_content', 'apply_block_hooks_to_content_from_post_object' );
 	if ( false !== $priority ) {
-		remove_filter( 'the_content', 'apply_block_hooks_to_content', $priority );
+		remove_filter( 'the_content', 'apply_block_hooks_to_content_from_post_object', $priority );
 	}
 
 	/** This filter is documented in wp-includes/post-template.php */
@@ -97,7 +99,7 @@ function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 
 	// Add back the filter.
 	if ( false !== $priority ) {
-		add_filter( 'the_content', 'apply_block_hooks_to_content', $priority );
+		add_filter( 'the_content', 'apply_block_hooks_to_content_from_post_object', $priority );
 	}
 
 	return $response;
