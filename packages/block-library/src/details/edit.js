@@ -102,7 +102,6 @@ function DetailsEdit( { attributes, setAttributes } ) {
 						identifier="summary"
 						aria-label={ __( 'Write summary' ) }
 						placeholder={ placeholder || __( 'Write summary…' ) }
-						allowedFormats={ [] }
 						withoutInteractiveFormatting
 						value={ summary }
 						onChange={ ( newSummary ) =>
