@@ -896,7 +896,7 @@ store( 'myPlugin', {
 } );
 ```
 
-You may notice the use of the [`withSyncEvent()`](#withsyncevent) utility function in this example. This is necessary due to an ongoing effort to handle store actions asynchronously by default, unless they require synchronous event access. Otherwise a deprecation warning will be triggered, and in a future release the behavior will change accordingly.
+You may notice the use of the [`withSyncEvent()`](#withsyncevent) utility function in this example. This is necessary due to an ongoing effort to handle store actions asynchronously by default, unless they require synchronous event access (which this example does due to the call to `event.preventDefault()`). Otherwise a deprecation warning will be triggered, and in a future release the behavior will change accordingly.
 
 
 #### Side Effects
