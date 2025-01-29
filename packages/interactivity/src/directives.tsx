@@ -67,7 +67,7 @@ function deepClone< T >( source: T ): T {
  */
 function wrapEventAsync( event: Event ) {
 	const handler = {
-		get( target: any, prop: any, receiver: any ) {
+		get( target: Event, prop: string | symbol, receiver: any ) {
 			const value = target[ prop ];
 			switch ( prop ) {
 				case 'currentTarget':
