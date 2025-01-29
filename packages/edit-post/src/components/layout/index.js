@@ -399,6 +399,7 @@ function Layout( {
 		isWelcomeGuideVisible,
 		templateId,
 		enablePaddingAppender,
+		isDevicePreview,
 	} = useSelect(
 		( select ) => {
 			const { get } = select( preferencesStore );
@@ -417,8 +418,12 @@ function Layout( {
 			const { getBlockSelectionStart, isZoomOut } = unlock(
 				select( blockEditorStore )
 			);
-			const { getEditorMode, getRenderingMode, getDefaultRenderingMode } =
-				unlock( select( editorStore ) );
+			const {
+				getEditorMode,
+				getRenderingMode,
+				getDefaultRenderingMode,
+				getDeviceType,
+			} = unlock( select( editorStore ) );
 			const isRenderingPostOnly = getRenderingMode() === 'post-only';
 			const isNotDesignPostType =
 				! DESIGN_POST_TYPES.includes( currentPostType );
@@ -452,6 +457,7 @@ function Layout( {
 						: null,
 				enablePaddingAppender:
 					! isZoomOut() && isRenderingPostOnly && isNotDesignPostType,
+				isDevicePreview: getDeviceType() !== 'Desktop',
 			};
 		},
 		[
@@ -605,7 +611,11 @@ function Layout( {
 						extraContent={
 							! isDistractionFree &&
 							showMetaBoxes && (
-								<MetaBoxesMain isLegacy={ ! shouldIframe } />
+								<MetaBoxesMain
+									isLegacy={
+										! shouldIframe || isDevicePreview
+									}
+								/>
 							)
 						}
 					>
