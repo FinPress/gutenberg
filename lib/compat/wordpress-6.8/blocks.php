@@ -6,7 +6,7 @@
  */
 
 if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
-	function apply_block_hooks_to_content_from_post_object( $content, $post = null, $callback = 'insert_hooked_blocks' ) {
+	function apply_block_hooks_to_content_from_post_object( $content, WP_Post $post = null, $callback = 'insert_hooked_blocks' ) {
 		// Default to the current post if no context is provided.
 		if ( null === $post ) {
 			$post = get_post();
