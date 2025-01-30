@@ -56,6 +56,7 @@ const { Slot: GlobalStylesMenuSlot, Fill: GlobalStylesMenuFill } =
 function GlobalStylesActionMenu() {
 	const [ canReset, onReset ] = useGlobalStylesReset();
 	const { toggle } = useDispatch( preferencesStore );
+	const { goTo } = useNavigator();
 	const { canEditCSS } = useSelect( ( select ) => {
 		const { getEntityRecord, __experimentalGetCurrentGlobalStylesId } =
 			select( coreStore );
@@ -73,6 +74,7 @@ function GlobalStylesActionMenu() {
 		useDispatch( editSiteStore )
 	);
 	const loadCustomCSS = () => {
+		goTo( '/css' );
 		setEditorCanvasContainerView( 'global-styles-css' );
 	};
 
@@ -271,9 +273,6 @@ function GlobalStylesEditorCanvasContainerLink() {
 				if ( ! isRevisionsOpen ) {
 					goTo( '/revisions' );
 				}
-				break;
-			case 'global-styles-css':
-				goTo( '/css' );
 				break;
 			// The stand-alone style book is open
 			// and the revisions panel is open,
