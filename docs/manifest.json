@@ -108,6 +108,12 @@
 		"parent": "fundamentals"
 	},
 	{
+		"title": "Lifecycle of a block",
+		"slug": "lifecycle-of-block",
+		"markdown_source": "../docs/getting-started/fundamentals/lifecycle-of-block.md",
+		"parent": "fundamentals"
+	},
+	{
 		"title": "Glossary",
 		"slug": "glossary",
 		"markdown_source": "../docs/getting-started/glossary.md",
