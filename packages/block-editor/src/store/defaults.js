@@ -129,7 +129,7 @@ export const SETTINGS_DEFAULTS = {
 	],
 
 	// Image default size slug.
-	imageDefaultSize: 'large',
+	imageDefaultSize: 'full',
 
 	imageSizes: [
 		{ slug: 'thumbnail', name: __( 'Thumbnail' ) },
