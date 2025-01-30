@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useState, useMemo, useCallback, useEffect } from '@wordpress/element';
 import { privateApis as corePrivateApis } from '@wordpress/core-data';
 import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
@@ -27,7 +27,10 @@ import { useEditPostAction } from '../dataviews-actions';
 import { authorField, descriptionField, previewField } from './fields';
 import { useEvent } from '@wordpress/compose';
 
-const { usePostActions } = unlock( editorPrivateApis );
+import { useTemplatePartTitle } from './hooks';
+
+const { usePostActions, useTemplatesFilteredByTemplatePart } =
+	unlock( editorPrivateApis );
 const { useHistory, useLocation } = unlock( routerPrivateApis );
 const { useEntityRecordsWithPermissions } = unlock( corePrivateApis );
 
@@ -71,7 +74,7 @@ const DEFAULT_VIEW = {
 
 export default function PageTemplates() {
 	const { path, query } = useLocation();
-	const { activeView = 'all', layout, postId } = query;
+	const { activeView = 'all', layout, postId, usingTemplatePart } = query;
 	const [ selection, setSelection ] = useState( [ postId ] );
 
 	const defaultView = useMemo( () => {
@@ -119,10 +122,17 @@ export default function PageTemplates() {
 		} ) );
 	}, [ setView, activeView ] );
 
-	const { records, isResolving: isLoadingData } =
+	const { records: unfilteredRecords, isResolving: isLoadingData } =
 		useEntityRecordsWithPermissions( 'postType', TEMPLATE_POST_TYPE, {
 			per_page: -1,
 		} );
+	const records = useTemplatesFilteredByTemplatePart(
+		usingTemplatePart,
+		unfilteredRecords
+	);
+
+	const templatePartTitle = useTemplatePartTitle( usingTemplatePart );
+
 	const history = useHistory();
 	const onChangeSelection = useCallback(
 		( items ) => {
@@ -189,12 +199,19 @@ export default function PageTemplates() {
 			);
 		}
 	} );
-
+	let title = __( 'Templates' );
+	if ( usingTemplatePart && templatePartTitle ) {
+		/* translators: %s: template part title */
+		title = sprintf(
+			'Templates using %s template part.',
+			templatePartTitle
+		);
+	}
 	return (
 		<Page
 			className="edit-site-page-templates"
-			title={ __( 'Templates' ) }
-			actions={ <AddNewTemplate /> }
+			title={ title }
+			actions={ usingTemplatePart ? undefined : <AddNewTemplate /> }
 		>
 			<DataViews
 				key={ activeView }

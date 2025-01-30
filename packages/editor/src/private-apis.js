@@ -26,6 +26,7 @@ import {
 import { CreateTemplatePartModal } from '@wordpress/fields';
 import { registerCoreBlockBindingsSources } from './bindings/api';
 import { getTemplateInfo } from './utils/get-template-info';
+import useTemplatesFilteredByTemplatePart from './utils/use-templates-filtered-by-template-part';
 
 const { store: interfaceStore, ...remainingInterfaceApis } = interfaceApis;
 
@@ -51,4 +52,5 @@ lock( privateApis, {
 	// This is a temporary private API while we're updating the site editor to use EditorProvider.
 	interfaceStore,
 	...remainingInterfaceApis,
+	useTemplatesFilteredByTemplatePart,
 } );

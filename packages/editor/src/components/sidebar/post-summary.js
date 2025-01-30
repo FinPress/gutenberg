@@ -29,6 +29,7 @@ import SiteDiscussion from '../site-discussion';
 import { store as editorStore } from '../../store';
 import { PrivatePostLastRevision } from '../post-last-revision';
 import PostTrash from '../post-trash';
+import PostUsedByPanel from '../post-used-by-panel';
 
 /**
  * Module Constants
@@ -70,6 +71,7 @@ export default function PostSummary( { onActionPerformed } ) {
 							<VStack spacing={ 1 }>
 								<PostContentInformation />
 								<PostLastEditedPanel />
+								<PostUsedByPanel />
 							</VStack>
 							{ ! isRemovedPostStatusPanel && (
 								<VStack spacing={ 4 }>
