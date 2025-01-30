@@ -239,7 +239,7 @@ export default function useBlockSync( {
 
 			const newIsPersistent = isLastBlockChangePersistent();
 			const newBlocks = getBlocks( clientId );
-			const areBlocksDifferent = newBlocks !== blocks;
+			const areBlocksDifferent = newBlocks !== blocks; // @todo FYI this is always true..
 			blocks = newBlocks;
 			if (
 				areBlocksDifferent &&

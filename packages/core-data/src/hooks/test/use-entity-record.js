@@ -64,6 +64,7 @@ describe( 'useEntityRecord', () => {
 				parse: false,
 			} )
 		);
+		await waitFor( () => expect( data.status ).not.toEqual( 'RESOLVING' ) );
 
 		expect( data ).toEqual( {
 			edit: expect.any( Function ),

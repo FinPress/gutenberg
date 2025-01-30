@@ -4,6 +4,7 @@
 import {
 	getFreeformContentHandlerName,
 	getDefaultBlockName,
+	__unstableSerializeAndCleanWithYdoc,
 	__unstableSerializeAndClean,
 	parse,
 } from '@wordpress/blocks';
@@ -916,6 +917,7 @@ export const getEditedPostContent = createRegistrySelector(
 	( select ) => ( state ) => {
 		const postId = getCurrentPostId( state );
 		const postType = getCurrentPostType( state );
+
 		const record = select( coreStore ).getEditedEntityRecord(
 			'postType',
 			postType,
@@ -925,7 +927,19 @@ export const getEditedPostContent = createRegistrySelector(
 			if ( typeof record.content === 'function' ) {
 				return record.content( record );
 			} else if ( record.blocks ) {
-				return __unstableSerializeAndClean( record.blocks );
+				const entityConfig = select( coreStore ).getEntityConfig(
+					'postType',
+					postType
+				);
+				const objectId = entityConfig.getSyncObjectId?.( record.id );
+				if ( objectId === null ) {
+					return __unstableSerializeAndClean( record.blocks );
+				}
+				return __unstableSerializeAndCleanWithYdoc(
+					record.blocks,
+					entityConfig.syncObjectType,
+					objectId
+				);
 			} else if ( record.content ) {
 				return record.content;
 			}

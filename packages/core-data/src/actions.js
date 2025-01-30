@@ -19,7 +19,7 @@ import { receiveItems, removeItems, receiveQueriedItems } from './queried-data';
 import { DEFAULT_ENTITY_KEY } from './entities';
 import { createBatch } from './batch';
 import { STORE_NAME } from './name';
-import { getSyncProvider } from './sync';
+import { getSyncProvider } from '@wordpress/sync';
 
 /**
  * Returns an action object used in signalling that authors have been received.
@@ -376,7 +376,6 @@ export const editEntityRecord =
 			name,
 			recordId
 		);
-
 		const edit = {
 			kind,
 			name,
@@ -398,38 +397,37 @@ export const editEntityRecord =
 		if ( window.__experimentalEnableSync && entityConfig.syncConfig ) {
 			if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 				const objectId = entityConfig.getSyncObjectId( recordId );
+				// @todo this always updates the Yjs doc, which is undesirable, probably we can read the yjs
+				// content from the comment tag here
 				getSyncProvider().update(
-					entityConfig.syncObjectType + '--edit',
+					entityConfig.syncObjectType,
 					objectId,
-					edit.edits
+					edit.edits,
+					'gutenberg'
 				);
 			}
-		} else {
-			if ( ! options.undoIgnore ) {
-				select.getUndoManager().addRecord(
-					[
-						{
-							id: { kind, name, recordId },
-							changes: Object.keys( edits ).reduce(
-								( acc, key ) => {
-									acc[ key ] = {
-										from: editedRecord[ key ],
-										to: edits[ key ],
-									};
-									return acc;
-								},
-								{}
-							),
-						},
-					],
-					options.isCached
-				);
-			}
-			dispatch( {
-				type: 'EDIT_ENTITY_RECORD',
-				...edit,
-			} );
 		}
+		if ( ! options.undoIgnore ) {
+			select.getUndoManager().addRecord(
+				[
+					{
+						id: { kind, name, recordId },
+						changes: Object.keys( edits ).reduce( ( acc, key ) => {
+							acc[ key ] = {
+								from: editedRecord[ key ],
+								to: edits[ key ],
+							};
+							return acc;
+						}, {} ),
+					},
+				],
+				options.isCached
+			);
+		}
+		dispatch( {
+			type: 'EDIT_ENTITY_RECORD',
+			...edit,
+		} );
 	};
 
 /**

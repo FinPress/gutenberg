@@ -30,6 +30,8 @@ import {
 	getNotificationArgumentsForTrashFail,
 } from './utils/notice-builder';
 import { unlock } from '../lock-unlock';
+import { getSyncProvider } from '@wordpress/sync';
+
 /**
  * Returns an action generator used in signalling that editor has initialized with
  * the specified post object and editor settings.
@@ -202,14 +204,30 @@ export const savePost =
 		if ( ! select.isEditedPostSaveable() ) {
 			return;
 		}
-
+		const previousRecord = select.getCurrentPost();
+		const entityConfig = registry
+			.select( coreStore )
+			.getEntityConfig( 'postType', previousRecord.type );
+		const isAutosave = options.isAutosave === true;
+		const syncConfig = entityConfig.syncConfig;
+		if ( window.__experimentalEnableSync && syncConfig ) {
+			const objectId = entityConfig.getSyncObjectId( previousRecord.id );
+			const remoteContent = await syncConfig.fetch(
+				objectId,
+				isAutosave
+			);
+			// @todo there should be an additional parameter specifying that this is a remote update
+			await getSyncProvider().update(
+				entityConfig.syncObjectType,
+				objectId,
+				remoteContent,
+				'remote'
+			);
+		}
 		const content = select.getEditedPostContent();
-
 		if ( ! options.isAutosave ) {
 			dispatch.editPost( { content }, { undoIgnore: true } );
 		}
-
-		const previousRecord = select.getCurrentPost();
 		let edits = {
 			id: previousRecord.id,
 			...registry
