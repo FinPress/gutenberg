@@ -106,8 +106,7 @@ function gutenberg_redirect_site_editor_deprecated_urls() {
 add_action( 'admin_init', 'gutenberg_redirect_site_editor_deprecated_urls' );
 
 /**
- * Filter the `wp_die_handler` to allow access to the Site Editor's new pages page
- * for Classic themes.
+ * Filter the `wp_die_handler` to allow access to some Site Editor pages for Classic themes.
  *
  * site-editor.php's access is forbidden for hybrid/classic themes and only allowed with some very special query args (some very special pages like template parts...).
  * The only way to disable this protection since we're changing the urls in Gutenberg is to override the wp_die_handler.
@@ -116,9 +115,22 @@ add_action( 'admin_init', 'gutenberg_redirect_site_editor_deprecated_urls' );
  * @return callable The default handler or a custom handler.
  */
 function gutenberg_styles_wp_die_handler( $default_handler ) {
-	if ( ! wp_is_block_theme() && str_contains( $_SERVER['REQUEST_URI'], 'site-editor.php' ) && current_user_can( 'edit_theme_options' ) ) {
-		return '__return_false';
+	if ( ! wp_is_block_theme() ) {
+		// Trim the / that may be added when navigating through the Site Editor.
+		$p = isset( $_REQUEST['p'] ) ? ltrim( urldecode( $_REQUEST['p'] ), '/' ) : '';
+
+		if ( 'pattern' === $p ) {
+			return '__return_false';
+		}
+
+		if ( current_theme_supports( 'editor-styles' ) || wp_theme_has_theme_json() ) {
+			// Allow access to the first page of the Site Editor and the stylebook.
+			if ( '' === $p || 'stylebook' === $p ) {
+				return '__return_false';
+			}
+		}
 	}
+
 	return $default_handler;
 }
 add_filter( 'wp_die_handler', 'gutenberg_styles_wp_die_handler' );
