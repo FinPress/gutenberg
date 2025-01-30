@@ -106,10 +106,13 @@ function gutenberg_get_site_editor_redirection() {
 	return add_query_arg( array( 'p' => '/' ) );
 }
 
+/**
+ * Redirect old site editor urls to the new updated ones.
+ */
 function gutenberg_redirect_site_editor_deprecated_urls() {
 	$redirection = gutenberg_get_site_editor_redirection();
 	if ( false !== $redirection ) {
-		wp_redirect( $redirection, 301 );
+		wp_safe_redirect( $redirection );
 		exit;
 	}
 }
