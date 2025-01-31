@@ -6,7 +6,6 @@ import { cloneBlock, createBlock } from '@wordpress/blocks';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
-import { store as interfaceStore } from '@wordpress/interface';
 
 /**
  * Internal dependencies
@@ -23,7 +22,6 @@ import { isFiltered } from '../../../store/utils';
  * @param {string=}  rootClientId     Insertion's root client ID.
  * @param {string}   selectedCategory The selected pattern category.
  * @param {boolean}  isQuick          For the quick inserter render only allowed patterns.
- * @param {boolean}  shouldCloseModal Should close the modal after inserting a pattern.
  *
  * @return {Array} Returns the patterns state. (patterns, categories, onSelect handler)
  */
@@ -31,8 +29,7 @@ const usePatternsState = (
 	onInsert,
 	rootClientId,
 	selectedCategory,
-	isQuick,
-	shouldCloseModal = false
+	isQuick
 ) => {
 	const options = useMemo(
 		() => ( { [ isFiltered ]: !! isQuick } ),
@@ -78,7 +75,6 @@ const usePatternsState = (
 	}, [ patternCategories, userPatternCategories ] );
 
 	const { createSuccessNotice } = useDispatch( noticesStore );
-	const { closeModal } = useDispatch( interfaceStore );
 	const onClickPattern = useCallback(
 		( pattern, blocks ) => {
 			const destinationRootClientId = isQuick
@@ -113,9 +109,6 @@ const usePatternsState = (
 				false,
 				destinationRootClientId
 			);
-			if ( shouldCloseModal ) {
-				closeModal?.();
-			}
 			createSuccessNotice(
 				sprintf(
 					/* translators: %s: block pattern title. */

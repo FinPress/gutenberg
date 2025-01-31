@@ -1,11 +1,10 @@
 /**
  * WordPress dependencies
  */
+import { useState } from '@wordpress/element';
 import { useViewportMatch } from '@wordpress/compose';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as interfaceStore } from '@wordpress/interface';
 
 /**
  * Internal dependencies
@@ -17,8 +16,6 @@ import { usePatternCategories } from './use-pattern-categories';
 import CategoryTabs from '../category-tabs';
 import InserterNoResults from '../no-results';
 
-export const PATTERNS_MODAL_NAME = 'block-editor/block-patterns-explorer';
-
 function BlockPatternsTab( {
 	onSelectCategory,
 	selectedCategory,
@@ -26,10 +23,7 @@ function BlockPatternsTab( {
 	rootClientId,
 	children,
 } ) {
-	const isModalActive = useSelect( ( select ) =>
-		select( interfaceStore ).isModalActive( PATTERNS_MODAL_NAME )
-	);
-	const { openModal, closeModal } = useDispatch( interfaceStore );
+	const [ showPatternsExplorer, setShowPatternsExplorer ] = useState( false );
 
 	const categories = usePatternCategories( rootClientId );
 
@@ -53,7 +47,7 @@ function BlockPatternsTab( {
 					<Button
 						__next40pxDefaultSize
 						className="block-editor-inserter__patterns-explore-button"
-						onClick={ () => openModal( PATTERNS_MODAL_NAME ) }
+						onClick={ () => setShowPatternsExplorer( true ) }
 						variant="secondary"
 					>
 						{ __( 'Explore all patterns' ) }
@@ -74,11 +68,11 @@ function BlockPatternsTab( {
 					) }
 				</MobileTabNavigation>
 			) }
-			{ isModalActive && (
+			{ showPatternsExplorer && (
 				<PatternsExplorerModal
 					initialCategory={ selectedCategory || categories[ 0 ] }
 					patternCategories={ categories }
-					onModalClose={ closeModal }
+					onModalClose={ () => setShowPatternsExplorer( false ) }
 					rootClientId={ rootClientId }
 				/>
 			) }
