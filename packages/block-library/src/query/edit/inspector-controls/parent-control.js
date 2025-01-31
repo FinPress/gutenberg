@@ -2,7 +2,11 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { FormTokenField } from '@wordpress/components';
+import {
+	FormTokenField,
+	__experimentalVStack as VStack,
+	ToggleControl,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { useState, useEffect, useMemo } from '@wordpress/element';
@@ -20,7 +24,7 @@ const BASE_QUERY = {
 	context: 'view',
 };
 
-function ParentControl( { parents, postType, onChange } ) {
+function ParentControl( { context, parents, postType, onChange } ) {
 	const [ search, setSearch ] = useState( '' );
 	const [ value, setValue ] = useState( EMPTY_ARRAY );
 	const [ suggestions, setSuggestions ] = useState( EMPTY_ARRAY );
@@ -67,6 +71,8 @@ function ParentControl( { parents, postType, onChange } ) {
 		},
 		[ parents ]
 	);
+	const { postId } = context;
+	const parentIsCurrentPage = value.length === 1 && value[ 0 ]?.id === postId;
 	// Update the `value` state only after the selectors are resolved
 	// to avoid emptying the input when we're changing parents.
 	useEffect( () => {
@@ -131,16 +137,32 @@ function ParentControl( { parents, postType, onChange } ) {
 		onChange( { parents: ids } );
 	};
 	return (
-		<FormTokenField
-			__next40pxDefaultSize
-			label={ __( 'Parents' ) }
-			value={ value }
-			onInputChange={ debouncedSearch }
-			suggestions={ suggestions }
-			onChange={ onParentChange }
-			__experimentalShowHowTo={ false }
-			__nextHasNoMarginBottom
-		/>
+		<>
+			<VStack>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Set parent as current page' ) }
+					checked={ parentIsCurrentPage }
+					onChange={ ( toggleValue ) => {
+						if ( toggleValue ) {
+							onChange( { parents: [ postId ] } );
+							return;
+						}
+						onChange( { parents: EMPTY_ARRAY } );
+					} }
+				/>
+				<FormTokenField
+					__next40pxDefaultSize
+					label={ __( 'Parents' ) }
+					value={ value }
+					onInputChange={ debouncedSearch }
+					suggestions={ suggestions }
+					onChange={ onParentChange }
+					__experimentalShowHowTo={ false }
+					__nextHasNoMarginBottom
+				/>
+			</VStack>
+		</>
 	);
 }
 

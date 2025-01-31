@@ -39,7 +39,8 @@ import {
 import { useToolsPanelDropdownMenuProps } from '../../../utils/hooks';
 
 export default function QueryInspectorControls( props ) {
-	const { attributes, setQuery, setDisplayLayout, isSingular } = props;
+	const { attributes, context, setQuery, setDisplayLayout, isSingular } =
+		props;
 	const { query, displayLayout } = attributes;
 	const {
 		order,
@@ -459,6 +460,7 @@ export default function QueryInspectorControls( props ) {
 							onDeselect={ () => setQuery( { parents: [] } ) }
 						>
 							<ParentControl
+								context={ context }
 								parents={ parents }
 								postType={ postType }
 								onChange={ setQuery }

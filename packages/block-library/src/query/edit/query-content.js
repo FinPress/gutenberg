@@ -145,6 +145,7 @@ export default function QueryContent( {
 				<QueryInspectorControls
 					name={ name }
 					attributes={ attributes }
+					context={ context }
 					setQuery={ updateQuery }
 					setDisplayLayout={ updateDisplayLayout }
 					setAttributes={ setAttributes }
