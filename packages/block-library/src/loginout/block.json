@@ -15,6 +15,18 @@
 		"redirectToCurrent": {
 			"type": "boolean",
 			"default": true
+		},
+		"formData": {
+			"type": "object",
+			"default": {}
+		},
+		"showRememberMe": {
+			"type": "boolean",
+			"default": true
+		},
+		"showLostLink": {
+			"type": "boolean",
+			"default": true
 		}
 	},
 	"example": {

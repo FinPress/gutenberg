@@ -2,3 +2,18 @@
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 }
+
+.wp-block-loginout .wp-block-loginout-form {
+	// This block has customizable padding, border-box makes that more predictable.
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 20px;
+}
+
+.wp-block-loginout-form__fields {
+	// This block has customizable padding, border-box makes that more predictable.
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+}

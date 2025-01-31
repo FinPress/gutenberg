@@ -30,8 +30,28 @@ function render_block_core_loginout( $attributes ) {
 		// Add a class.
 		$classes .= ' has-login-form';
 
+		$args = array(
+			'echo'     => false,
+			'remember' => $attributes['showRememberMe'],
+		);
+
+		if ( ! empty( $attributes['formData'] ) ) {
+			if ( ! empty( $attributes['formData']['rememberMeLabel'] ) ) {
+				$args['label_remember'] = $attributes['formData']['rememberMeLabel'];
+			}
+			if ( ! empty( $attributes['formData']['passwordLabel'] ) ) {
+				$args['label_password'] = $attributes['formData']['passwordLabel'];
+			}
+			if ( ! empty( $attributes['formData']['usernameLabel'] ) ) {
+				$args['label_username'] = $attributes['formData']['usernameLabel'];
+			}
+			if ( ! empty( $attributes['formData']['submitLabel'] ) ) {
+				$args['label_log_in'] = $attributes['formData']['submitLabel'];
+			}
+		}
+
 		// Get the form.
-		$contents = wp_login_form( array( 'echo' => false ) );
+		$contents = wp_login_form( $args );
 	}
 
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $classes ) );
