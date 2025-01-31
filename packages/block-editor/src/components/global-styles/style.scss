@@ -24,6 +24,7 @@
 .block-editor-global-styles__shadow-dropdown {
 	display: block;
 	padding: 0;
+	position: relative;
 
 	button {
 		width: 100%;
@@ -76,4 +77,25 @@
 	// CSS input is always LTR regardless of language.
 	/*rtl:ignore*/
 	direction: ltr;
+}
+
+.block-editor-global-styles__shadow-editor__remove-button {
+	position: absolute;
+	right: 0;
+	top: $grid-unit;
+	margin: auto $grid-unit auto;
+	opacity: 0;
+	transition: opacity 0.1s ease-in-out;
+	@include reduce-motion("transition");
+
+	.block-editor-global-styles__shadow-dropdown:hover &,
+	&:focus,
+	&:hover {
+		opacity: 1;
+	}
+
+	@media (hover: none) {
+		// Show reset button on devices that do not support hover.
+		opacity: 1;
+	}
 }

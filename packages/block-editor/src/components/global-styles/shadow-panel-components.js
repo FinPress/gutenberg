@@ -14,7 +14,7 @@ import {
 	Tooltip,
 } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
-import { shadow as shadowIcon, Icon, check } from '@wordpress/icons';
+import { shadow as shadowIcon, Icon, check, reset } from '@wordpress/icons';
 
 /**
  * External dependencies
@@ -119,7 +119,7 @@ export function ShadowPopover( { shadow, onShadowChange, settings } ) {
 		<Dropdown
 			popoverProps={ popoverProps }
 			className="block-editor-global-styles__shadow-dropdown"
-			renderToggle={ renderShadowToggle() }
+			renderToggle={ renderShadowToggle( shadow, onShadowChange ) }
 			renderContent={ () => (
 				<DropdownContentWrapper paddingSize="medium">
 					<ShadowPopoverContainer
@@ -133,7 +133,7 @@ export function ShadowPopover( { shadow, onShadowChange, settings } ) {
 	);
 }
 
-function renderShadowToggle() {
+function renderShadowToggle( shadow, onShadowChange ) {
 	return ( { onToggle, isOpen } ) => {
 		const toggleProps = {
 			onClick: onToggle,
@@ -141,17 +141,38 @@ function renderShadowToggle() {
 			'aria-expanded': isOpen,
 		};
 
+		const removeButtonProps = {
+			onClick: () => {
+				onShadowChange( undefined );
+			},
+			className: clsx(
+				'block-editor-global-styles__shadow-editor__remove-button',
+				{ 'is-open': isOpen }
+			),
+			label: __( 'Remove shadow' ),
+		};
+
 		return (
-			<Button __next40pxDefaultSize { ...toggleProps }>
-				<HStack justify="flex-start">
-					<Icon
-						className="block-editor-global-styles__toggle-icon"
-						icon={ shadowIcon }
-						size={ 24 }
+			<>
+				<Button __next40pxDefaultSize { ...toggleProps }>
+					<HStack justify="flex-start">
+						<Icon
+							className="block-editor-global-styles__toggle-icon"
+							icon={ shadowIcon }
+							size={ 24 }
+						/>
+						<FlexItem>{ __( 'Drop shadow' ) }</FlexItem>
+					</HStack>
+				</Button>
+				{ !! shadow && (
+					<Button
+						__next40pxDefaultSize
+						size="small"
+						icon={ reset }
+						{ ...removeButtonProps }
 					/>
-					<FlexItem>{ __( 'Drop shadow' ) }</FlexItem>
-				</HStack>
-			</Button>
+				) }
+			</>
 		);
 	};
 }
