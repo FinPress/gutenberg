@@ -40,14 +40,14 @@ function PatternsExplorer( { initialCategory, rootClientId, onModalClose } ) {
 	);
 }
 
-function PatternsExplorerModal( { ...props } ) {
+function PatternsExplorerModal( { onModalClose, ...restProps } ) {
 	return (
 		<Modal
 			title={ __( 'Patterns' ) }
-			onRequestClose={ props.onModalClose }
+			onRequestClose={ onModalClose }
 			isFullScreen
 		>
-			<PatternsExplorer { ...props } />
+			<PatternsExplorer onModalClose={ onModalClose } { ...restProps } />
 		</Modal>
 	);
 }
