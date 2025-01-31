@@ -103,7 +103,11 @@ add_filter( 'rest_post_collection_params', 'gutenberg_modify_post_collection_par
  * @return array Modified arguments
  */
 function gutenberg_modify_post_collection_query( $args, WP_REST_Request $request ) {
-	if ( isset( $request['ignore_sticky'] ) ) {
+	/*
+	 * Honor the original REST API `post__in` behavior. Don't prepend sticky posts
+	 * when `post__in` has been specified.
+	 */
+	if ( isset( $request['ignore_sticky'] ) && empty( $args['post__in'] ) ) {
 		$args['ignore_sticky_posts'] = $request['ignore_sticky'];
 	}
 
