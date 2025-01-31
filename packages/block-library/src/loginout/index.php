@@ -36,8 +36,8 @@ function render_block_core_loginout( $attributes ) {
 		);
 
 		if ( ! empty( $attributes['formData'] ) ) {
-			if ( ! empty( $attributes['formData']['rememberMeLabel'] ) ) {
-				$args['label_remember'] = $attributes['formData']['rememberMeLabel'];
+			if ( ! empty( $attributes['formData']['rememberLabel'] ) ) {
+				$args['label_remember'] = $attributes['formData']['rememberLabel'];
 			}
 			if ( ! empty( $attributes['formData']['passwordLabel'] ) ) {
 				$args['label_password'] = $attributes['formData']['passwordLabel'];
