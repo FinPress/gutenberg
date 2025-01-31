@@ -172,7 +172,6 @@ function Items( {
 			const {
 				getSettings,
 				getBlockOrder,
-				getSelectedBlockClientId,
 				getSelectedBlockClientIds,
 				__unstableGetVisibleBlocks,
 				getTemplateLock,
@@ -192,19 +191,20 @@ function Items( {
 				};
 			}
 
-			const selectedBlockClientId = getSelectedBlockClientId();
-			const canInsertDefaultBlock = canInsertBlockType(
-				getDefaultBlockName(),
-				rootClientId
-			);
+			const selectedBlockClientIds = getSelectedBlockClientIds();
+			const selectedBlockClientId = selectedBlockClientIds[ 0 ];
 			const showRootAppender =
 				! rootClientId &&
 				! selectedBlockClientId &&
-				( ! _order.length || ! canInsertDefaultBlock );
+				( ! _order.length ||
+					! canInsertBlockType(
+						getDefaultBlockName(),
+						rootClientId
+					) );
 
 			return {
 				order: _order,
-				selectedBlocks: getSelectedBlockClientIds(),
+				selectedBlocks: selectedBlockClientIds,
 				visibleBlocks: __unstableGetVisibleBlocks(),
 				isZoomOut: _isZoomOut(),
 				shouldRenderAppender:
