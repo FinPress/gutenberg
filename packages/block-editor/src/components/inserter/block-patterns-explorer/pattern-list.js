@@ -62,7 +62,9 @@ function PatternList( {
 	const [ patterns, , onClickPattern ] = usePatternsState(
 		onInsertBlocks,
 		destinationRootClientId,
-		selectedCategory
+		selectedCategory,
+		false,
+		true
 	);
 
 	const registeredPatternCategories = useMemo(
