@@ -39,7 +39,7 @@ import { MAX_NESTING_DEPTH } from './constants';
  *
  * @param {Object} props   Optional. Props to pass to the element. Must contain
  *                         the ref if one is defined.
- * @param {Object} options Optional. Inner blocks options. 
+ * @param {Object} options Optional. Inner blocks options.
  */
 export function useInnerBlocksProps( props = {}, options = {} ) {
 	const fallbackRef = useRef();
