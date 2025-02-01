@@ -177,7 +177,7 @@ const ForwardedInnerBlocks = forwardRef( ( props, ref ) => {
  * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md
  *
  * @param {Object} props   Optional. Props to pass to the element. Must contain
- *                        the ref if one is defined.
+ *                         the ref if one is defined.
  * @param {Object} options Optional. Inner blocks options.
  */
 export function useInnerBlocksProps( props = {}, options = {} ) {
