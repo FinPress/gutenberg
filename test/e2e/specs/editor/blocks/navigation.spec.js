@@ -657,6 +657,25 @@ test.describe( 'Navigation block', () => {
 
 			// We should be at the first position on the label
 			await navigation.checkLabelFocus( 'Dog' );
+
+			/**
+			 * Test: We don't lose focus when closing the submenu appender
+			 */
+
+			// Move focus to the submenu navigation appender
+			await page.keyboard.press( 'End' );
+			await pageUtils.pressKeys( 'ArrowRight', { times: 2 } );
+			await navigation.useBlockInserter();
+			await navigation.addLinkClose();
+			/**
+			 * TODO: This is not desired behavior. Ideally the
+			 * Appender should be focused again since it opened
+			 * the link control.
+			 * IMPORTANT: This check is not to enforce this behavior,
+			 * but to make sure focus is kept nearby until we are able
+			 * to send focus to the appender. It is falling back to the previous sibling.
+			 */
+			await navigation.checkLabelFocus( 'Dog' );
 		} );
 	} );
 
