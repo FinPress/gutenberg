@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-	__experimentalItemGroup as ItemGroup,
 	__experimentalHStack as HStack,
 	__experimentalZStack as ZStack,
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
@@ -225,36 +224,31 @@ export default function FiltersPanel( {
 					isShownByDefault={ defaultControls.duotone }
 					panelId={ panelId }
 				>
-					<ItemGroup isBordered isSeparated>
-						<Dropdown
-							popoverProps={ popoverProps }
-							className="block-editor-global-styles-filters-panel__dropdown"
-							renderToggle={ renderToggle(
-								duotone,
-								resetDuotone
-							) }
-							renderContent={ () => (
-								<DropdownContentWrapper paddingSize="small">
-									<MenuGroup label={ __( 'Duotone' ) }>
-										<p>
-											{ __(
-												'Create a two-tone color effect without losing your original image.'
-											) }
-										</p>
-										<DuotonePicker
-											colorPalette={ colorPalette }
-											duotonePalette={ duotonePalette }
-											// TODO: Re-enable both when custom colors are supported for block-level styles.
-											disableCustomColors
-											disableCustomDuotone
-											value={ duotone }
-											onChange={ setDuotone }
-										/>
-									</MenuGroup>
-								</DropdownContentWrapper>
-							) }
-						/>
-					</ItemGroup>
+					<Dropdown
+						popoverProps={ popoverProps }
+						className="block-editor-global-styles-filters-panel__dropdown"
+						renderToggle={ renderToggle( duotone, resetDuotone ) }
+						renderContent={ () => (
+							<DropdownContentWrapper paddingSize="small">
+								<MenuGroup label={ __( 'Duotone' ) }>
+									<p>
+										{ __(
+											'Create a two-tone color effect without losing your original image.'
+										) }
+									</p>
+									<DuotonePicker
+										colorPalette={ colorPalette }
+										duotonePalette={ duotonePalette }
+										// TODO: Re-enable both when custom colors are supported for block-level styles.
+										disableCustomColors
+										disableCustomDuotone
+										value={ duotone }
+										onChange={ setDuotone }
+									/>
+								</MenuGroup>
+							</DropdownContentWrapper>
+						) }
+					/>
 				</ToolsPanelItem>
 			) }
 		</Wrapper>
