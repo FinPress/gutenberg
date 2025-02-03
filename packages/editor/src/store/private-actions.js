@@ -526,3 +526,12 @@ export const setDefaultRenderingMode =
 			.dispatch( preferencesStore )
 			.set( 'core', 'renderingModes', newModes );
 	};
+
+/**
+ * Action that sets the list view tab.
+ * @param {string} tab The tab to set.
+ */
+export const setListViewTab = ( tab ) => ( {
+	type: 'SET_LIST_VIEW_TAB',
+	tab,
+} );

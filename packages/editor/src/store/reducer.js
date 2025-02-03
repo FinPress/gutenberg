@@ -384,6 +384,21 @@ export function publishSidebarActive( state = false, action ) {
 	return state;
 }
 
+/**
+ * Reducer to set the tab in the list view.
+ * @param {string} state  Current state.
+ * @param {Object} action Dispatched action.
+ * @return {string} Updated state.
+ */
+export function listViewTab( state = 'list-view', action ) {
+	switch ( action.type ) {
+		case 'SET_LIST_VIEW_TAB':
+			return action.tab;
+		default:
+			return state;
+	}
+}
+
 export default combineReducers( {
 	postId,
 	postType,
@@ -404,4 +419,5 @@ export default combineReducers( {
 	listViewToggleRef,
 	publishSidebarActive,
 	dataviews: dataviewsReducer,
+	listViewTab,
 } );
