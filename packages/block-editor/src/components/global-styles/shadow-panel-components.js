@@ -5,8 +5,10 @@ import { __ } from '@wordpress/i18n';
 import {
 	__experimentalVStack as VStack,
 	__experimentalHeading as Heading,
+	__experimentalHStack as HStack,
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
 	Button,
+	FlexItem,
 	Dropdown,
 	Composite,
 	Tooltip,
@@ -150,17 +152,20 @@ function renderShadowToggle( shadow, onShadowChange ) {
 				'block-editor-global-styles__shadow-editor__remove-button',
 				{ 'is-open': isOpen }
 			),
-			label: __( 'Remove shadow' ),
+			label: __( 'Remove' ),
 		};
 
 		return (
 			<>
-				<Button
-					__next40pxDefaultSize
-					icon={ shadowIcon }
-					{ ...toggleProps }
-				>
-					{ __( 'Drop shadow' ) }
+				<Button __next40pxDefaultSize { ...toggleProps }>
+					<HStack justify="flex-start">
+						<Icon
+							className="block-editor-global-styles__toggle-icon"
+							icon={ shadowIcon }
+							size={ 24 }
+						/>
+						<FlexItem>{ __( 'Drop shadow' ) }</FlexItem>
+					</HStack>
 				</Button>
 				{ !! shadow && (
 					<Button

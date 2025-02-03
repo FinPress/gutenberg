@@ -1,3 +1,7 @@
+.block-editor-global-styles__toggle-icon {
+	fill: currentColor;
+}
+
 // @todo Ideally, popover, swatch size, and gap values should be CSS variables
 // to apply precise grid layouts.
 // https://github.com/WordPress/gutenberg/blob/954ecae571abbddc113d3a4bd8e1a72230180554/packages/block-editor/src/components/duotone-control/style.scss#L3-L9
@@ -32,20 +36,15 @@
 	}
 }
 
-.block-editor-global-styles__shadow-dropdown {
-	> .components-button.has-icon.has-text:first-child {
-		gap: $grid-unit-10;
-	}
-}
-
 .block-editor-global-styles__shadow-editor__remove-button {
 	position: absolute;
 	right: 0;
 	top: $grid-unit;
 	margin: auto $grid-unit auto;
 	opacity: 0;
-	transition: opacity 0.1s ease-in-out;
-	@include reduce-motion("transition");
+	@media not (prefers-reduced-motion) {
+		transition: opacity 0.1s ease-in-out;
+	}
 
 	.block-editor-global-styles__shadow-dropdown:hover &,
 	&:focus,
