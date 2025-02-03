@@ -524,6 +524,49 @@ test.describe( 'Navigation block', () => {
 		await expect( navBlockInserter ).toBeFocused();
 	} );
 
+	test.describe( 'Navigation block focus management', () => {
+		test.beforeEach(
+			async ( { admin, editor, requestUtils, navigation } ) => {
+				await admin.createNewPost();
+
+				await requestUtils.createNavigationMenu( {
+					title: 'Animals',
+					content: '',
+				} );
+
+				await editor.insertBlock( { name: 'core/navigation' } );
+
+				const navBlockInserter = navigation.getNavBlockInserter();
+				// Wait until the nav block inserter is visible before we continue. Otherwise the navigation block may not have finished being created.
+				await expect( navBlockInserter ).toBeVisible();
+			}
+		);
+
+		test( 'Focus management when using the navigation link appender', async ( {
+			pageUtils,
+			navigation,
+		} ) => {
+			const navBlock = navigation.getNavBlock();
+
+			/**
+			 * Test: We don't lose focus when using the navigation link appender
+			 */
+			await pageUtils.pressKeys( 'ArrowDown' );
+			await navigation.useBlockInserter();
+			await navigation.addLinkClose();
+
+			/**
+			 * TODO: This is not desired behavior. Ideally the
+			 * Appender should be focused again since it opened
+			 * the link control.
+			 * IMPORTANT: This check is not to enforce this behavior,
+			 * but to make sure focus is kept nearby until we are able
+			 * to send focus to the appender.
+			 */
+			await expect( navBlock ).toBeFocused();
+		} );
+	} );
+
 	test( 'Adding new links to a navigation block with existing inner blocks triggers creation of a single Navigation Menu', async ( {
 		admin,
 		page,
