@@ -677,6 +677,78 @@ test.describe( 'Navigation block', () => {
 			 */
 			await navigation.checkLabelFocus( 'Dog' );
 		} );
+
+		/**
+		 * New test: Use the submenu nav item appender to add a custom link
+		 */
+		// eslint-disable-next-line playwright/expect-expect
+		test( 'Can add submenu item(custom-link) using the keyboard', async ( {
+			page,
+			pageUtils,
+			navigation,
+			editor,
+		} ) => {
+			await pageUtils.pressKeys( 'ArrowDown' );
+			await navigation.useBlockInserter();
+			await navigation.addPage( 'Cat' );
+
+			/**
+			 * Test: Can add submenu item using the keyboard
+			 */
+			navigation.useToolbarButton( 'Add submenu' );
+
+			// Expect the submenu Add link to be present
+			await expect(
+				editor.canvas.locator( 'a' ).filter( { hasText: 'Add link' } )
+			).toBeVisible();
+
+			await pageUtils.pressKeys( 'ArrowDown' );
+			// There is a bug that won't allow us to press Enter to add the link: https://github.com/WordPress/gutenberg/issues/60051
+			// TODO: Use Enter after that bug is resolved
+			await navigation.useLinkShortcut();
+
+			/**
+			 * Test: Use the submenu nav item appender to add a custom link
+			 */
+			await page.keyboard.press( 'End' );
+			await pageUtils.pressKeys( 'ArrowRight', { times: 2 } );
+			await navigation.useBlockInserter();
+			await navigation.addCustomURL( 'https://wordpress.org' );
+			await navigation.expectToHaveTextSelected( 'wordpress.org' );
+
+			/**
+			 * Test: We can open and close the preview with the keyboard and escape
+			 *       both the shortcut and toolbar
+			 */
+			await pageUtils.pressKeys( 'ArrowLeft' );
+			await navigation.useLinkShortcut();
+			await navigation.previewIsOpenAndCloses();
+			await navigation.checkLabelFocus( 'wordpress.org' );
+			await navigation.canUseToolbarLink();
+
+			/**
+			 * Test: We can open and close the preview from a submenu navigation block (the top-level parent of a submenu)
+			 * using both the shortcut and toolbar
+			 */
+			// Exit the toolbar
+			await page.keyboard.press( 'Escape' );
+			// Move to the submenu item
+			await pageUtils.pressKeys( 'ArrowUp', { times: 4 } );
+			await page.keyboard.press( 'Home' );
+
+			// Check we're on our submenu link
+			await navigation.checkLabelFocus( 'wordpress.org' );
+			// Test the shortcut
+			await navigation.useLinkShortcut();
+			await navigation.previewIsOpenAndCloses();
+
+			await navigation.checkLabelFocus( 'wordpress.org' );
+
+			// Test the toolbar
+			await navigation.canUseToolbarLink();
+			await page.keyboard.press( 'Escape' );
+			await navigation.checkLabelFocus( 'wordpress.org' );
+		} );
 	} );
 
 	test( 'Adding new links to a navigation block with existing inner blocks triggers creation of a single Navigation Menu', async ( {
