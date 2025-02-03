@@ -614,6 +614,50 @@ test.describe( 'Navigation block', () => {
 
 			await navigation.canUseToolbarLink();
 		} );
+
+		test( 'Can add submenu item using the keyboard', async ( {
+			editor,
+			pageUtils,
+			navigation,
+			page,
+		} ) => {
+			await pageUtils.pressKeys( 'ArrowDown' );
+			await navigation.useBlockInserter();
+			await navigation.addPage( 'Cat' );
+
+			/**
+			 * Test: Can add submenu item using the keyboard
+			 */
+			navigation.useToolbarButton( 'Add submenu' );
+
+			// Expect the submenu Add link to be present
+			await expect(
+				editor.canvas.locator( 'a' ).filter( { hasText: 'Add link' } )
+			).toBeVisible();
+
+			await pageUtils.pressKeys( 'ArrowDown' );
+			// There is a bug that won't allow us to press Enter to add the link: https://github.com/WordPress/gutenberg/issues/60051
+			// TODO: Use Enter after that bug is resolved
+			await navigation.useLinkShortcut();
+
+			await navigation.addPage( 'Dog' );
+
+			/**
+			 * Test: We can open and close the preview with the keyboard and escape
+			 *       buttons from a submenu nav item using both the shortcut and toolbar
+			 */
+			await navigation.useLinkShortcut();
+			await navigation.previewIsOpenAndCloses();
+			await navigation.checkLabelFocus( 'Dog' );
+
+			await navigation.canUseToolbarLink();
+
+			// Return to nav label from toolbar
+			await page.keyboard.press( 'Escape' );
+
+			// We should be at the first position on the label
+			await navigation.checkLabelFocus( 'Dog' );
+		} );
 	} );
 
 	test( 'Adding new links to a navigation block with existing inner blocks triggers creation of a single Navigation Menu', async ( {
