@@ -133,7 +133,7 @@ test.describe( 'Global styles variations', () => {
 		await page.click( 'role=button[name="Text"i]' );
 
 		await expect(
-			page.locator( 'role=spinbutton[name="Custom font size"i]' )
+			page.locator( 'role=spinbutton[name="Font size"i]' )
 		).toHaveValue( '15' );
 	} );
 

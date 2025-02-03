@@ -184,7 +184,7 @@ const UnforwardedFontSizePicker = (
 							<UnitControl
 								__next40pxDefaultSize={ __next40pxDefaultSize }
 								__shouldNotWarnDeprecated36pxSize
-								label={ __( 'Custom font size' ) }
+								label={ __( 'Font size' ) }
 								labelPosition="top"
 								hideLabelFromVision
 								value={ value }
@@ -216,7 +216,7 @@ const UnforwardedFontSizePicker = (
 										}
 										__shouldNotWarnDeprecated36pxSize
 										className="components-font-size-picker__custom-input"
-										label={ __( 'Custom font size' ) }
+										label={ __( 'Font size' ) }
 										hideLabelFromVision
 										value={ valueQuantity }
 										initialPosition={ fallbackFontSize }
