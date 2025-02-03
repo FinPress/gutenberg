@@ -10,7 +10,6 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalItemGroup as ItemGroup,
-	__experimentalItem as Item,
 	__experimentalHStack as HStack,
 	__experimentalZStack as ZStack,
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
@@ -24,7 +23,7 @@ import {
 	Button,
 } from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
-import { useCallback, useMemo } from '@wordpress/element';
+import { useCallback, useMemo, useRef } from '@wordpress/element';
 import { reset as resetIcon } from '@wordpress/icons';
 
 /**
@@ -122,35 +121,45 @@ const LabeledColorIndicator = ( { indicator, label } ) => (
 const renderToggle =
 	( duotone, resetDuotone ) =>
 	( { onToggle, isOpen } ) => {
+		const duotoneButtonRef = useRef( undefined );
+
 		const toggleProps = {
 			onClick: onToggle,
 			className: clsx( { 'is-open': isOpen } ),
 			'aria-expanded': isOpen,
+			ref: duotoneButtonRef,
+		};
+
+		const removeButtonProps = {
+			onClick: () => {
+				if ( isOpen ) {
+					onToggle();
+				}
+				resetDuotone();
+				// Return focus to parent button.
+				duotoneButtonRef.current?.focus();
+			},
+			className: 'block-editor-panel-duotone-settings__reset',
+			label: __( 'Remove' ),
 		};
 
 		return (
-			<ItemGroup
-				className="block-editor-panel-duotone-settings__dropdown"
-				isBordered
-				isSeparated
-			>
-				<Item as="button" { ...toggleProps }>
+			<>
+				<Button __next40pxDefaultSize { ...toggleProps }>
 					<LabeledColorIndicator
 						indicator={ duotone }
 						label={ __( 'Duotone' ) }
 					/>
-				</Item>
+				</Button>
 				{ duotone && (
 					<Button
 						__next40pxDefaultSize
-						label={ __( 'Reset' ) }
-						className="block-editor-panel-duotone-settings__reset"
 						size="small"
 						icon={ resetIcon }
-						onClick={ resetDuotone }
+						{ ...removeButtonProps }
 					/>
 				) }
-			</ItemGroup>
+			</>
 		);
 	};
 
@@ -216,31 +225,36 @@ export default function FiltersPanel( {
 					isShownByDefault={ defaultControls.duotone }
 					panelId={ panelId }
 				>
-					<Dropdown
-						popoverProps={ popoverProps }
-						className="block-editor-global-styles-filters-panel__dropdown"
-						renderToggle={ renderToggle( duotone, resetDuotone ) }
-						renderContent={ () => (
-							<DropdownContentWrapper paddingSize="small">
-								<MenuGroup label={ __( 'Duotone' ) }>
-									<p>
-										{ __(
-											'Create a two-tone color effect without losing your original image.'
-										) }
-									</p>
-									<DuotonePicker
-										colorPalette={ colorPalette }
-										duotonePalette={ duotonePalette }
-										// TODO: Re-enable both when custom colors are supported for block-level styles.
-										disableCustomColors
-										disableCustomDuotone
-										value={ duotone }
-										onChange={ setDuotone }
-									/>
-								</MenuGroup>
-							</DropdownContentWrapper>
-						) }
-					/>
+					<ItemGroup isBordered isSeparated>
+						<Dropdown
+							popoverProps={ popoverProps }
+							className="block-editor-global-styles-filters-panel__dropdown"
+							renderToggle={ renderToggle(
+								duotone,
+								resetDuotone
+							) }
+							renderContent={ () => (
+								<DropdownContentWrapper paddingSize="small">
+									<MenuGroup label={ __( 'Duotone' ) }>
+										<p>
+											{ __(
+												'Create a two-tone color effect without losing your original image.'
+											) }
+										</p>
+										<DuotonePicker
+											colorPalette={ colorPalette }
+											duotonePalette={ duotonePalette }
+											// TODO: Re-enable both when custom colors are supported for block-level styles.
+											disableCustomColors
+											disableCustomDuotone
+											value={ duotone }
+											onChange={ setDuotone }
+										/>
+									</MenuGroup>
+								</DropdownContentWrapper>
+							) }
+						/>
+					</ItemGroup>
 				</ToolsPanelItem>
 			) }
 		</Wrapper>
