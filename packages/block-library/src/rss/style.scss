@@ -1,13 +1,16 @@
-ul.wp-block-rss { // The ul is needed for specificity to override the reset styles in the editor.
+ul.wp-block-rss {
+	// The ul is needed for specificity to override the reset styles in the editor.
 
 	&.alignleft {
 		/*rtl:ignore*/
 		margin-right: 2em;
 	}
+
 	&.alignright {
 		/*rtl:ignore*/
 		margin-left: 2em;
 	}
+
 	&.is-grid {
 		display: flex;
 		flex-wrap: wrap;
@@ -25,10 +28,11 @@ ul.wp-block-rss { // The ul is needed for specificity to override the reset styl
 	& :where(a:active) {
 		text-decoration: none;
 	}
+
 	@include break-small {
 		@for $i from 2 through 6 {
 			&.columns-#{ $i } li {
-				width: calc(( 100% / #{ $i } ) - 1em);
+				width: calc((100% / #{ $i }) - 1em);
 			}
 		}
 	}
@@ -39,6 +43,7 @@ ul.wp-block-rss { // The ul is needed for specificity to override the reset styl
 	display: block;
 	font-size: 0.8125em;
 }
+
 .wp-block-rss {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;

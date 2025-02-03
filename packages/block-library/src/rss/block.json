@@ -60,9 +60,9 @@
 			"__experimentalDefaultControls": {
 				"fontSize": true,
 				"textDecoration": true
-      }
+			}
 		},
-   "__experimentalBorder": {
+		"__experimentalBorder": {
 			"radius": true,
 			"color": true,
 			"width": true,
