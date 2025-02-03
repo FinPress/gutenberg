@@ -13,7 +13,7 @@ import {
 	Composite,
 	Tooltip,
 } from '@wordpress/components';
-import { useMemo } from '@wordpress/element';
+import { useMemo, useRef } from '@wordpress/element';
 import { shadow as shadowIcon, Icon, check, reset } from '@wordpress/icons';
 
 /**
@@ -135,10 +135,13 @@ export function ShadowPopover( { shadow, onShadowChange, settings } ) {
 
 function renderShadowToggle( shadow, onShadowChange ) {
 	return ( { onToggle, isOpen } ) => {
+		const shadowButtonRef = useRef( undefined );
+
 		const toggleProps = {
 			onClick: onToggle,
 			className: clsx( { 'is-open': isOpen } ),
 			'aria-expanded': isOpen,
+			ref: shadowButtonRef,
 		};
 
 		const removeButtonProps = {
@@ -147,6 +150,8 @@ function renderShadowToggle( shadow, onShadowChange ) {
 					onToggle();
 				}
 				onShadowChange( undefined );
+				// Return focus to parent button.
+				shadowButtonRef.current?.focus();
 			},
 			className: clsx(
 				'block-editor-global-styles__shadow-editor__remove-button',
