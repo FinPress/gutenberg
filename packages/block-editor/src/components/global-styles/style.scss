@@ -36,6 +36,28 @@
 	}
 }
 
+.block-editor-global-styles__shadow-editor__remove-button {
+	position: absolute;
+	right: 0;
+	top: $grid-unit;
+	margin: auto $grid-unit auto;
+	opacity: 0;
+	@media not (prefers-reduced-motion) {
+		transition: opacity 0.1s ease-in-out;
+	}
+
+	.block-editor-global-styles__shadow-dropdown:hover &,
+	&:focus,
+	&:hover {
+		opacity: 1;
+	}
+
+	@media (hover: none) {
+		// Show reset button on devices that do not support hover.
+		opacity: 1;
+	}
+}
+
 .block-editor-global-styles-filters-panel__dropdown {
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	border-radius: $radius-small;
