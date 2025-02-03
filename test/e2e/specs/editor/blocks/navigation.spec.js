@@ -565,6 +565,55 @@ test.describe( 'Navigation block', () => {
 			 */
 			await expect( navBlock ).toBeFocused();
 		} );
+
+		// eslint-disable-next-line playwright/expect-expect
+		test( 'Focus management when creating navigation links', async ( {
+			page,
+			pageUtils,
+			navigation,
+		} ) => {
+			/**
+			 * Test: Creating a link sends focus to the newly created navigation link item
+			 */
+			await pageUtils.pressKeys( 'ArrowDown' );
+			await navigation.useBlockInserter();
+			await navigation.addPage( 'Cat' );
+			await navigation.checkLabelFocus( 'Cat' );
+
+			/**
+			 * Test: We can open and close the preview with the keyboard and escape
+			 *       buttons from a top-level nav item using both the shortcut and toolbar
+			 */
+			await navigation.useLinkShortcut();
+			await navigation.previewIsOpenAndCloses();
+			await navigation.checkLabelFocus( 'Cat' );
+
+			await navigation.canUseToolbarLink();
+
+			/**
+			 * Test: Creating a link from a url-string (https://www.example.com) returns
+			 *       focus to the newly created link with the text selected
+			 */
+			await page.keyboard.press( 'Escape' );
+			await pageUtils.pressKeys( 'ArrowDown' );
+			await pageUtils.pressKeys( 'ArrowRight', { times: 2 } );
+
+			await navigation.useBlockInserter();
+			await navigation.addCustomURL( 'https://example.com' );
+			await navigation.expectToHaveTextSelected( 'example.com' );
+
+			/**
+			 * Test: We can open and close the preview with the keyboard and escape
+			 *       buttons from a top-level nav link with a url-like label using
+			 *       both the shortcut and toolbar
+			 */
+			await pageUtils.pressKeys( 'ArrowLeft' );
+			await navigation.useLinkShortcut();
+			await navigation.previewIsOpenAndCloses();
+			await navigation.checkLabelFocus( 'example.com' );
+
+			await navigation.canUseToolbarLink();
+		} );
 	} );
 
 	test( 'Adding new links to a navigation block with existing inner blocks triggers creation of a single Navigation Menu', async ( {
