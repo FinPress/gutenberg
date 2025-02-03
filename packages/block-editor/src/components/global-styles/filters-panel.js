@@ -120,7 +120,7 @@ const LabeledColorIndicator = ( { indicator, label } ) => (
 );
 
 const renderToggle =
-	( duotone, resetDuotone, clearable ) =>
+	( duotone, resetDuotone ) =>
 	( { onToggle, isOpen } ) => {
 		const toggleProps = {
 			onClick: onToggle,
@@ -140,7 +140,7 @@ const renderToggle =
 						label={ __( 'Duotone' ) }
 					/>
 				</Item>
-				{ clearable && duotone && (
+				{ duotone && (
 					<Button
 						__next40pxDefaultSize
 						label={ __( 'Reset' ) }
@@ -162,7 +162,6 @@ export default function FiltersPanel( {
 	settings,
 	panelId,
 	defaultControls = DEFAULT_CONTROLS,
-	clearable = false,
 } ) {
 	const decodeValue = ( rawValue ) =>
 		getValueFromVariable( { settings }, '', rawValue );
@@ -220,11 +219,7 @@ export default function FiltersPanel( {
 					<Dropdown
 						popoverProps={ popoverProps }
 						className="block-editor-global-styles-filters-panel__dropdown"
-						renderToggle={ renderToggle(
-							duotone,
-							resetDuotone,
-							clearable
-						) }
+						renderToggle={ renderToggle( duotone, resetDuotone ) }
 						renderContent={ () => (
 							<DropdownContentWrapper paddingSize="small">
 								<MenuGroup label={ __( 'Duotone' ) }>
