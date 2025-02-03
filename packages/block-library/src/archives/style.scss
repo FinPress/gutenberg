@@ -3,6 +3,10 @@
 	box-sizing: border-box;
 }
 
+ul.wp-block-archives {
+	padding-left: $grid-unit-20;
+}
+
 .wp-block-archives-dropdown {
 	label {
 		display: block;
