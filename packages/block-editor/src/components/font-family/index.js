@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import clsx from 'clsx';
+
+/**
  * WordPress dependencies
  */
 import { CustomSelectControl } from '@wordpress/components';
@@ -18,6 +23,7 @@ export default function FontFamilyControl( {
 	value = '',
 	onChange,
 	fontFamilies,
+	className,
 	...props
 } ) {
 	const [ blockLevelFontFamilies ] = useSettings( 'typography.fontFamilies' );
@@ -52,13 +58,33 @@ export default function FontFamilyControl( {
 		);
 	}
 
+	if (
+		! __next40pxDefaultSize &&
+		( props.size === undefined || props.size === 'default' )
+	) {
+		deprecated(
+			`36px default size for wp.blockEditor.__experimentalFontFamilyControl`,
+			{
+				since: '6.8',
+				version: '7.1',
+				hint: 'Set the `__next40pxDefaultSize` prop to true to start opting into the new default size, which will become the default in a future version.',
+			}
+		);
+	}
+
+	const selectedValue =
+		options.find( ( option ) => option.key === value ) ?? '';
 	return (
 		<CustomSelectControl
 			__next40pxDefaultSize={ __next40pxDefaultSize }
+			__shouldNotWarnDeprecated36pxSize
 			label={ __( 'Font' ) }
-			value={ value }
+			value={ selectedValue }
 			onChange={ ( { selectedItem } ) => onChange( selectedItem.key ) }
 			options={ options }
+			className={ clsx( 'block-editor-font-family-control', className, {
+				'is-next-has-no-margin-bottom': __nextHasNoMarginBottom,
+			} ) }
 			{ ...props }
 		/>
 	);

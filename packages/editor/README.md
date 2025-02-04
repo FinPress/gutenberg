@@ -293,11 +293,11 @@ Component check if there are any headings (core/heading blocks) present in the d
 _Parameters_
 
 -   _props_ `Object`: Props.
--   _props.children_ `React.ReactElement`: Children to be rendered.
+-   _props.children_ `React.ReactNode`: Children to be rendered.
 
 _Returns_
 
--   `React.ReactElement`: The component to be rendered or null if there are headings.
+-   `React.ReactNode`: The component to be rendered or null if there are headings.
 
 ### EditorHistoryRedo
 
@@ -379,7 +379,7 @@ _Parameters_
 -   _props.post_ `[Object]`: The post object to edit. This is required.
 -   _props.\_\_unstableTemplate_ `[Object]`: The template object wrapper the edited post. This is optional and can only be used when the post type supports templates (like posts and pages).
 -   _props.settings_ `[Object]`: The settings object to use for the editor. This is optional and can be used to override the default settings.
--   _props.children_ `[Element]`: Children elements for which the BlockEditorProvider context should apply. This is optional.
+-   _props.children_ `[React.ReactNode]`: Children elements for which the BlockEditorProvider context should apply. This is optional.
 
 _Returns_
 
@@ -401,7 +401,7 @@ _Parameters_
 
 -   _props_ `Object`: The component props.
 -   _props.close_ `Function`: The function to close the dialog.
--   _props.renderDialog_ `Function`: The function to render the dialog.
+-   _props.renderDialog_ `boolean`: Whether to render the component with modal dialog behavior.
 
 _Returns_
 
@@ -499,6 +499,7 @@ _Parameters_
 -   _$0.maxUploadFileSize_ `?number`: Maximum upload size in bytes allowed for the site.
 -   _$0.onError_ `Function`: Function called when an error happens.
 -   _$0.onFileChange_ `Function`: Function called each time a file or a temporary representation of the file is available.
+-   _$0.onSuccess_ `Function`: Function called after the final representation of the file is available.
 
 ### MediaUploadCheck
 
@@ -523,11 +524,11 @@ Wrapper component that renders its children only if the post type supports page 
 _Parameters_
 
 -   _props_ `Object`: - The component props.
--   _props.children_ `React.ReactElement`: - The child components to render.
+-   _props.children_ `React.ReactNode`: - The child components to render.
 
 _Returns_
 
--   `React.ReactElement`: The rendered child components or null if page attributes are not supported.
+-   `React.ReactNode`: The rendered child components or null if page attributes are not supported.
 
 ### PageAttributesOrder
 
@@ -1210,11 +1211,11 @@ This component checks the publishing status of the current post. If the post is 
 _Parameters_
 
 -   _props_ `Object`: Component properties.
--   _props.children_ `React.ReactElement`: Children to be rendered.
+-   _props.children_ `React.ReactNode`: Children to be rendered.
 
 _Returns_
 
--   `React.ReactElement`: The rendered child elements or null if the post is already published or the user doesn't have the capability to publish.
+-   `React.ReactNode`: The rendered child elements or null if the post is already published or the user doesn't have the capability to publish.
 
 ### PostPingbacks
 
@@ -1286,11 +1287,11 @@ Wrapper component that renders its children only if post has a publish action.
 _Parameters_
 
 -   _props_ `Object`: Props.
--   _props.children_ `React.ReactElement`: Children to be rendered.
+-   _props.children_ `React.ReactNode`: Children to be rendered.
 
 _Returns_
 
--   `React.ReactElement`: - The component to be rendered or null if there is no publish action.
+-   `React.ReactNode`: - The component to be rendered or null if there is no publish action.
 
 ### PostScheduleLabel
 
@@ -1312,27 +1313,6 @@ _Returns_
 
 -   `React.ReactNode`: The rendered component.
 
-### PostSlug
-
-Renders the PostSlug component. It provide a control for editing the post slug.
-
-_Returns_
-
--   `React.ReactNode`: The rendered component.
-
-### PostSlugCheck
-
-Wrapper component that renders its children only if the post type supports the slug.
-
-_Parameters_
-
--   _props_ `Object`: Props.
--   _props.children_ `React.ReactNode`: Children to be rendered.
-
-_Returns_
-
--   `React.ReactNode`: The rendered component.
-
 ### PostSticky
 
 Renders the PostSticky component. It provides a checkbox control for the sticky post feature.
@@ -1348,11 +1328,11 @@ Wrapper component that renders its children only if post has a sticky action.
 _Parameters_
 
 -   _props_ `Object`: Props.
--   _props.children_ `React.ReactElement`: Children to be rendered.
+-   _props.children_ `React.ReactNode`: Children to be rendered.
 
 _Returns_
 
--   `React.ReactElement`: The component to be rendered or null if post type is not 'post' or hasStickyAction is false.
+-   `React.ReactNode`: The component to be rendered or null if post type is not 'post' or hasStickyAction is false.
 
 ### PostSwitchToDraftButton
 
@@ -1394,7 +1374,7 @@ _Parameters_
 
 _Returns_
 
--   `React.ReactElement`: The rendered children components or null if the current post type has no taxonomies.
+-   `React.ReactNode`: The rendered children components or null if the current post type has no taxonomies.
 
 ### PostTaxonomiesFlatTermSelector
 
@@ -1478,16 +1458,16 @@ _Returns_
 
 ### PostTrashCheck
 
-Wrapper component that renders its children only if the post can trashed.
+Wrapper component that renders its children only if the post can be trashed.
 
 _Parameters_
 
--   _props_ `Object`: - The component props.
--   _props.children_ `React.ReactEl`: - The child components to render.
+-   _props_ `Object`: The component props.
+-   _props.children_ `React.ReactNode`: The child components.
 
 _Returns_
 
--   `React.ReactElement`: The rendered child components or null if the post can not trashed.
+-   `React.ReactNode`: The rendered child components or null if the post can't be trashed.
 
 ### PostTypeSupportCheck
 
@@ -1496,12 +1476,12 @@ A component which renders its own children only if the current editor post type 
 _Parameters_
 
 -   _props_ `Object`: Props.
--   _props.children_ `React.ReactElement`: Children to be rendered if post type supports.
+-   _props.children_ `React.ReactNode`: Children to be rendered if post type supports.
 -   _props.supportKeys_ `(string|string[])`: String or string array of keys to test.
 
 _Returns_
 
--   `React.ReactElement`: The component to be rendered.
+-   `React.ReactNode`: The component to be rendered.
 
 ### PostURL
 
@@ -1515,7 +1495,8 @@ _Usage_
 
 _Parameters_
 
--   _onClose_ `Function`: Callback function to be executed when the popover is closed.
+-   _props_ `{ onClose: () => void }`: The props for the component.
+-   _props.onClose_ `() => void`: Callback function to be executed when the popover is closed.
 
 _Returns_
 
@@ -1528,11 +1509,11 @@ Check if the post URL is valid and visible.
 _Parameters_
 
 -   _props_ `Object`: The component props.
--   _props.children_ `React.ReactElement`: The child components.
+-   _props.children_ `React.ReactNode`: The child components.
 
 _Returns_
 
--   `React.ReactElement`: The child components if the post URL is valid and visible, otherwise null.
+-   `React.ReactNode`: The child components if the post URL is valid and visible, otherwise null.
 
 ### PostURLLabel
 
@@ -1676,12 +1657,12 @@ Checks if the current theme supports specific features and renders the children 
 _Parameters_
 
 -   _props_ `Object`: The component props.
--   _props.children_ `React.ReactElement`: The children to render if the theme supports the specified features.
+-   _props.children_ `React.ReactNode`: The children to render if the theme supports the specified features.
 -   _props.supportKeys_ `string|string[]`: The key(s) of the theme support(s) to check.
 
 _Returns_
 
--   `React.ReactElement`: The rendered children if the theme supports the specified features, otherwise null.
+-   `React.ReactNode`: The rendered children if the theme supports the specified features, otherwise null.
 
 ### TimeToRead
 
@@ -1782,7 +1763,7 @@ A user mentions completer.
 
 _Type_
 
--   `WPCompleter`
+-   `Object`
 
 ### VisualEditorGlobalKeyboardShortcuts
 

@@ -25,7 +25,6 @@ $z-layers: (
 	".components-popover__close": 5,
 	".block-editor-block-list__insertion-point": 6,
 	".block-editor-warning": 5,
-	".block-library-gallery-item__inline-menu": 20,
 	".block-editor-url-input__suggestions": 30,
 	".edit-post-layout__footer": 30,
 	".interface-interface-skeleton__header": 30,
@@ -123,7 +122,7 @@ $z-layers: (
 	// Should be above the popover (dropdown)
 	".reusable-blocks-menu-items__convert-modal": 1000001,
 	".patterns-menu-items__convert-modal": 1000001,
-	".editor-create-template-part-modal": 1000001,
+	".fields-create-template-part-modal": 1000001,
 	".block-editor-block-lock-modal": 1000001,
 	".block-editor-template-part__selection-modal": 1000001,
 	".block-editor-block-rename-modal": 1000001,
@@ -132,6 +131,7 @@ $z-layers: (
 	".editor-action-modal": 1000001,
 	".editor-post-template__swap-template-modal": 1000001,
 	".edit-site-template-panel__replace-template-modal": 1000001,
+	".fields-controls__template-modal": 1000001,
 
 	// Note: The ConfirmDialog component's z-index is being set to 1000001 in packages/components/src/confirm-dialog/styles.ts
 	// because it uses emotion and not sass. We need it to render on top its parent popover.

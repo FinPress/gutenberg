@@ -36,7 +36,6 @@ export default function SidebarNavigationScreen( {
 	isRoot,
 	title,
 	actions,
-	meta,
 	content,
 	footer,
 	description,
@@ -83,7 +82,7 @@ export default function SidebarNavigationScreen( {
 					{ ! isRoot && (
 						<SidebarButton
 							onClick={ () => {
-								history.push( backPath );
+								history.navigate( backPath );
 								navigate( 'back' );
 							} }
 							icon={ icon }
@@ -97,7 +96,7 @@ export default function SidebarNavigationScreen( {
 							label={
 								dashboardLinkText || __( 'Go to the Dashboard' )
 							}
-							href={ dashboardLink || 'index.php' }
+							href={ dashboardLink }
 						/>
 					) }
 					<Heading
@@ -121,14 +120,6 @@ export default function SidebarNavigationScreen( {
 						</div>
 					) }
 				</HStack>
-				{ meta && (
-					<>
-						<div className="edit-site-sidebar-navigation-screen__meta">
-							{ meta }
-						</div>
-					</>
-				) }
-
 				<div className="edit-site-sidebar-navigation-screen__content">
 					{ description && (
 						<p className="edit-site-sidebar-navigation-screen__description">
