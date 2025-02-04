@@ -43,10 +43,10 @@ import OverlayControls from './overlay-controls';
 import Overlay from './overlay';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 import { unlock } from '../lock-unlock';
-import { DEFAULT_MEDIA_SIZE_SLUG } from './constants';
 
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
 const { ResolutionTool } = unlock( blockEditorPrivateApis );
+const DEFAULT_MEDIA_SIZE_SLUG = 'full';
 
 export default function PostFeaturedImageEdit( {
 	clientId,
