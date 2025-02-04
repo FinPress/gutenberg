@@ -26,7 +26,10 @@ function render_block_core_post_featured_image( $attributes, $content, $block ) 
 	$attr           = get_block_core_post_featured_image_border_attributes( $attributes );
 	$overlay_markup = get_block_core_post_featured_image_overlay_element_markup( $attributes );
 
-	if ( $is_link ) {
+	if ( ! $is_link && isset( $attributes['useEmptyAlt'] ) && $attributes['useEmptyAlt'] ) {
+		// Only allow empty alt for non-linked images.
+		$attr['alt'] = '';
+	} elseif ( $is_link ) {
 		if ( get_the_title( $post_ID ) ) {
 			$attr['alt'] = trim( strip_tags( get_the_title( $post_ID ) ) );
 		} else {

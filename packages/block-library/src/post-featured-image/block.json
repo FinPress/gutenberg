@@ -12,6 +12,10 @@
 			"default": false,
 			"role": "content"
 		},
+		"useEmptyAlt": {
+			"type": "boolean",
+			"default": false
+		},
 		"aspectRatio": {
 			"type": "string"
 		},

@@ -58,6 +58,7 @@ export default function PostFeaturedImageEdit( {
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const {
 		isLink,
+		useEmptyAlt,
 		aspectRatio,
 		height,
 		width,
@@ -241,7 +242,10 @@ export default function PostFeaturedImageEdit( {
 									: __( 'Link to post' )
 							}
 							onChange={ () =>
-								setAttributes( { isLink: ! isLink } )
+								setAttributes( {
+									isLink: ! isLink,
+									useEmptyAlt: isLink ? useEmptyAlt : false,
+								} )
 							}
 							checked={ isLink }
 						/>
@@ -287,6 +291,30 @@ export default function PostFeaturedImageEdit( {
 								value={ rel }
 								onChange={ ( newRel ) =>
 									setAttributes( { rel: newRel } )
+								}
+							/>
+						</ToolsPanelItem>
+					) }
+					{ ! isLink && (
+						<ToolsPanelItem
+							label={ __( 'Alt Text Settings' ) }
+							isShownByDefault
+							hasValue={ () => useEmptyAlt }
+							onDeselect={ () =>
+								setAttributes( {
+									useEmptyAlt: false,
+								} )
+							}
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ __( 'Use empty alt text' ) }
+								help={ __(
+									'Enable this if the image is purely decorative and should be ignored by screen readers.'
+								) }
+								checked={ useEmptyAlt }
+								onChange={ ( value ) =>
+									setAttributes( { useEmptyAlt: value } )
 								}
 							/>
 						</ToolsPanelItem>
@@ -339,6 +367,27 @@ export default function PostFeaturedImageEdit( {
 	};
 
 	/**
+	 * Get the alt text for the image.
+	 *
+	 * @return {string} The alt text for the image.
+	 */
+	const getAltText = () => {
+		if ( useEmptyAlt ) {
+			return '';
+		}
+
+		if ( media?.alt_text ) {
+			return sprintf(
+				// translators: %s: The image's alt text.
+				__( 'Featured image: %s' ),
+				media.alt_text
+			);
+		}
+
+		return __( 'Featured image' );
+	};
+
+	/**
 	 * When the post featured image block is placed in a context where:
 	 * - It has a postId (for example in a single post)
 	 * - It is not inside a query loop
@@ -380,15 +429,7 @@ export default function PostFeaturedImageEdit( {
 					<img
 						className={ borderProps.className }
 						src={ temporaryURL || mediaUrl }
-						alt={
-							media && media?.alt_text
-								? sprintf(
-										// translators: %s: The image's alt text.
-										__( 'Featured image: %s' ),
-										media.alt_text
-								  )
-								: __( 'Featured image' )
-						}
+						alt={ getAltText() }
 						style={ imageStyles }
 					/>
 					{ temporaryURL && <Spinner /> }
