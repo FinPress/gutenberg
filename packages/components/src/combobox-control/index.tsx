@@ -132,6 +132,7 @@ function ComboboxControl( props: ComboboxControlProps ) {
 		__experimentalRenderItem,
 		expandOnFocus = true,
 		placeholder,
+		filterFields = 'label',
 	} = useDeprecated36pxDefaultSizeProp( props );
 
 	const [ value, setValue ] = useControlledValue( {
@@ -157,17 +158,33 @@ function ComboboxControl( props: ComboboxControlProps ) {
 		const startsWithMatch: ComboboxControlOption[] = [];
 		const containsMatch: ComboboxControlOption[] = [];
 		const match = normalizeTextString( inputValue );
+		const searchFields = Array.isArray( filterFields )
+			? filterFields
+			: [ filterFields ];
+
 		options.forEach( ( option ) => {
-			const index = normalizeTextString( option.label ).indexOf( match );
-			if ( index === 0 ) {
-				startsWithMatch.push( option );
-			} else if ( index > 0 ) {
-				containsMatch.push( option );
+			for ( const field of searchFields ) {
+				if ( ! option[ field ] ) {
+					continue;
+				}
+
+				const fieldValue = normalizeTextString(
+					String( option[ field ] )
+				);
+				const index = fieldValue.indexOf( match );
+
+				if ( index === 0 ) {
+					startsWithMatch.push( option );
+					break;
+				} else if ( index > 0 ) {
+					containsMatch.push( option );
+					break;
+				}
 			}
 		} );
 
 		return startsWithMatch.concat( containsMatch );
-	}, [ inputValue, options ] );
+	}, [ inputValue, options, filterFields ] );
 
 	const onSuggestionSelected = (
 		newSelectedSuggestion: ComboboxControlOption
