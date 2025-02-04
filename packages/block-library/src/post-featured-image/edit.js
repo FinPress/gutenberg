@@ -48,11 +48,6 @@ import { DEFAULT_MEDIA_SIZE_SLUG } from './constants';
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
 const { ResolutionTool } = unlock( blockEditorPrivateApis );
 
-const disabledClickProps = {
-	onClick: ( event ) => event.preventDefault(),
-	'aria-disabled': true,
-};
-
 export default function PostFeaturedImageEdit( {
 	clientId,
 	attributes,
@@ -343,11 +338,7 @@ export default function PostFeaturedImageEdit( {
 				{ controls }
 				<div { ...blockProps }>
 					{ !! isLink ? (
-						<a
-							href={ postPermalink }
-							target={ linkTarget }
-							{ ...disabledClickProps }
-						>
+						<a href={ postPermalink } target={ linkTarget }>
 							{ placeholder() }
 						</a>
 					) : (
@@ -455,11 +446,7 @@ export default function PostFeaturedImageEdit( {
 			<figure { ...blockProps }>
 				{ /* If the featured image is linked, wrap in an <a /> tag to trigger any inherited link element styles */ }
 				{ !! isLink ? (
-					<a
-						href={ postPermalink }
-						target={ linkTarget }
-						{ ...disabledClickProps }
-					>
+					<a href={ postPermalink } target={ linkTarget }>
 						{ image }
 					</a>
 				) : (
