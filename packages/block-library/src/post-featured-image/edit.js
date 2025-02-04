@@ -48,6 +48,34 @@ const ALLOWED_MEDIA_TYPES = [ 'image' ];
 const { ResolutionTool } = unlock( blockEditorPrivateApis );
 const DEFAULT_MEDIA_SIZE_SLUG = 'full';
 
+function FeaturedImageResolutionTool( { image, value, onChange } ) {
+	const { imageSizes } = useSelect( ( select ) => {
+		const { getSettings } = select( blockEditorStore );
+		return {
+			imageSizes: getSettings().imageSizes,
+		};
+	}, [] );
+
+	if ( ! imageSizes?.length ) {
+		return null;
+	}
+
+	const imageSizeOptions = imageSizes
+		.filter(
+			( { slug } ) => image?.media_details?.sizes?.[ slug ]?.source_url
+		)
+		.map( ( { name, slug } ) => ( { value: slug, label: name } ) );
+
+	return (
+		<ResolutionTool
+			value={ value }
+			defaultValue={ DEFAULT_MEDIA_SIZE_SLUG }
+			options={ imageSizeOptions }
+			onChange={ onChange }
+		/>
+	);
+}
+
 export default function PostFeaturedImageEdit( {
 	clientId,
 	attributes,
@@ -123,20 +151,6 @@ export default function PostFeaturedImageEdit( {
 		},
 		[ featuredImage, postTypeSlug, postId ]
 	);
-
-	const imageSizes = useSelect(
-		( select ) => select( blockEditorStore ).getSettings().imageSizes,
-		[]
-	);
-
-	const imageSizeOptions = imageSizes
-		.filter( ( { slug } ) => {
-			return media?.media_details?.sizes?.[ slug ]?.source_url;
-		} )
-		.map( ( { name, slug } ) => ( {
-			value: slug,
-			label: name,
-		} ) );
 
 	const mediaUrl =
 		media?.media_details?.sizes?.[ sizeSlug ]?.source_url ||
@@ -306,16 +320,13 @@ export default function PostFeaturedImageEdit( {
 							/>
 						</ToolsPanelItem>
 					) }
-					{ !! imageSizeOptions?.length && (
-						<ResolutionTool
-							value={ sizeSlug }
-							options={ imageSizeOptions }
-							onChange={ ( nextSizeSlug ) =>
-								setAttributes( { sizeSlug: nextSizeSlug } )
-							}
-							defaultValue={ DEFAULT_MEDIA_SIZE_SLUG }
-						/>
-					) }
+					<FeaturedImageResolutionTool
+						image={ media }
+						value={ sizeSlug }
+						onChange={ ( nextSizeSlug ) =>
+							setAttributes( { sizeSlug: nextSizeSlug } )
+						}
+					/>
 				</ToolsPanel>
 			</InspectorControls>
 		</>
