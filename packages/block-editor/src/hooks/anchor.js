@@ -142,9 +142,10 @@ export function getBlockAttributes( blockAttributes, blockType, innerHTML ) {
 		hasBlockSupport( blockType, 'anchor' ) &&
 		blockAttributes.anchor === undefined
 	) {
-		const idMatch = innerHTML?.match( /id="([^"]*)"/ )?.[ 1 ];
-		if ( idMatch ) {
-			blockAttributes.anchor = idMatch;
+		const idMatch = innerHTML?.match( /<[^>]+id="([^"]+)"/ );
+		const id = idMatch ? idMatch[ 1 ] : null;
+		if ( id ) {
+			blockAttributes.anchor = id;
 		}
 	}
 	return blockAttributes;
