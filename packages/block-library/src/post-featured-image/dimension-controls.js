@@ -81,7 +81,7 @@ const DimensionControls = ( {
 	);
 	const imageSizeOptions = imageSizes
 		.filter( ( { slug } ) => {
-			return media?.media_details?.sizes?.[ slug ]?.source_url;
+			return media?.media_details?.sizes?.[ slug ]?.source_url || true;
 		} )
 		.map( ( { name, slug } ) => ( {
 			value: slug,
