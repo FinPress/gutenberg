@@ -19,6 +19,14 @@
 		"onlyIncludeCurrentPage": {
 			"type": "boolean",
 			"default": false
+		},
+		"includeAllHeadings": {
+			"type": "boolean",
+			"default": true
+		},
+		"maxLevel": {
+			"type": "number",
+			"default": 6
 		}
 	},
 	"supports": {

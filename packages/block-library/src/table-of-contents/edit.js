@@ -12,6 +12,7 @@ import { createBlock } from '@wordpress/blocks';
 import {
 	Placeholder,
 	ToggleControl,
+	SelectControl,
 	ToolbarButton,
 	ToolbarGroup,
 	__experimentalToolsPanel as ToolsPanel,
@@ -39,15 +40,22 @@ import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
  *
  * @param {Object}                       props                                   The props.
  * @param {Object}                       props.attributes                        The block attributes.
- * @param {HeadingData[]}                props.attributes.headings               A list of data for each heading in the post.
+ * @param {HeadingData[]}                props.attributes.headings               The list of data for each heading in the post.
  * @param {boolean}                      props.attributes.onlyIncludeCurrentPage Whether to only include headings from the current page (if the post is paginated).
- * @param {string}                       props.clientId
- * @param {(attributes: Object) => void} props.setAttributes
+ * @param {boolean}                      props.attributes.includeAllHeadings     Whether to include all headings.
+ * @param {number}                       props.attributes.maxLevel               The maximum heading level to include.
+ * @param {string}                       props.clientId                          The client id.
+ * @param {(attributes: Object) => void} props.setAttributes                     The set attributes function.
  *
  * @return {Component} The component.
  */
 export default function TableOfContentsEdit( {
-	attributes: { headings = [], onlyIncludeCurrentPage },
+	attributes: {
+		headings = [],
+		onlyIncludeCurrentPage,
+		includeAllHeadings,
+		maxLevel,
+	},
 	clientId,
 	setAttributes,
 } ) {
@@ -115,6 +123,8 @@ export default function TableOfContentsEdit( {
 				resetAll={ () => {
 					setAttributes( {
 						onlyIncludeCurrentPage: false,
+						includeAllHeadings: true,
+						maxLevel: 6,
 					} );
 				} }
 				dropdownMenuProps={ dropdownMenuProps }
@@ -144,6 +154,56 @@ export default function TableOfContentsEdit( {
 								  )
 						}
 					/>
+				</ToolsPanelItem>
+				<ToolsPanelItem
+					hasValue={ () => ! includeAllHeadings }
+					label={ __( 'Include all headings' ) }
+					onDeselect={ () =>
+						setAttributes( { includeAllHeadings: true } )
+					}
+					isShownByDefault
+				>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Include all headings' ) }
+						checked={ includeAllHeadings }
+						onChange={ ( value ) =>
+							setAttributes( { includeAllHeadings: value } )
+						}
+						help={
+							includeAllHeadings
+								? __(
+										'Including all heading levels in the table of contents.'
+								  )
+								: __(
+										'Filter headings by their level in the table of contents.'
+								  )
+						}
+					/>
+					{ ! includeAllHeadings && (
+						<SelectControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+							label={ __( 'Include headings down to level' ) }
+							value={ maxLevel }
+							options={ [
+								{ value: 1, label: __( 'Heading 1' ) },
+								{ value: 2, label: __( 'Heading 2' ) },
+								{ value: 3, label: __( 'Heading 3' ) },
+								{ value: 4, label: __( 'Heading 4' ) },
+								{ value: 5, label: __( 'Heading 5' ) },
+								{ value: 6, label: __( 'Heading 6' ) },
+							] }
+							onChange={ ( value ) =>
+								setAttributes( {
+									maxLevel: parseInt( value, 10 ),
+								} )
+							}
+							help={ __(
+								'Only include headings up to and including this level.'
+							) }
+						/>
+					) }
 				</ToolsPanelItem>
 			</ToolsPanel>
 		</InspectorControls>
