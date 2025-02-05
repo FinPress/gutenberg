@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Gutenberg Test Block Hooks API
+ * Plugin Name: Gutenberg Test Block Hooks
  * Plugin URI: https://github.com/WordPress/gutenberg
  * Author: Gutenberg Team
  *
