@@ -49,6 +49,7 @@ import {
 	XIcon,
 	YelpIcon,
 	YouTubeIcon,
+	ImdbIcon,
 } from './icons';
 
 const variations = [
@@ -337,6 +338,12 @@ const variations = [
 		attributes: { service: 'youtube' },
 		title: 'YouTube',
 		icon: YouTubeIcon,
+	},
+	{
+		name: 'imdb',
+		attributes: { service: 'imdb' },
+		title: 'IMDB',
+		icon: ImdbIcon,
 	},
 ];
 
