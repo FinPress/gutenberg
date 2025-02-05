@@ -53,6 +53,7 @@ export default function QueryInspectorControls( props ) {
 		sticky,
 		inherit,
 		taxQuery,
+		ancestor,
 		parents,
 		format,
 	} = query;
@@ -461,6 +462,7 @@ export default function QueryInspectorControls( props ) {
 						>
 							<ParentControl
 								context={ context }
+								ancestor={ ancestor }
 								parents={ parents }
 								postType={ postType }
 								onChange={ setQuery }

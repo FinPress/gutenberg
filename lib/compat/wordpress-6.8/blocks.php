@@ -217,3 +217,48 @@ function gutenberg_update_ignored_hooked_blocks_postmeta( $post ) {
 add_filter( 'rest_pre_insert_page', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
 add_filter( 'rest_pre_insert_post', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
 add_filter( 'rest_pre_insert_wp_block', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
+
+/**
+ * Adds 'post_ancestor' attribute to the query for the query block.
+ * 'post_ancestor' is a page_id used to get all descendents of the corresponding
+ * page.  Unlike `post_parent` which only gets the direct children.
+ *
+ * @param array    $query The query vars.
+ * @param WP_Block $block Block instance.
+ * @return array   The filtered query vars.
+ */
+function gutenberg_show_descendents_query_vars_from_query_block( $query, $block ) {
+	if ( ! empty( $block->context['query']['ancestor'] ) && is_post_type_hierarchical( $query['post_type'] ) ) {
+		$query['post_ancestor'] = intval( $block->context['query']['ancestor'] );
+
+		/**
+		 * To get all descendents of a particular page, we need the
+		 * query to return all pages so we can later filter them
+		 * using get_child_pages.
+		 */
+		if ( $query['post_ancestor'] ) {
+			$query['post_parent__in'] = array();
+		}
+	}
+
+	return $query;
+}
+add_filter( 'query_loop_block_query_vars', 'gutenberg_show_descendents_query_vars_from_query_block', 10, 2 );
+
+/**
+ * Filters the results from a post query to get all descendents of a page
+ * with a particular page id.
+ *
+ * @param array    $pages The array of pages returned from the query.
+ * @param WP_Query $query The query object.
+ * @return array   The filtered array of pages.
+ */
+function gutenberg_get_all_descendents( $pages, $query ) {
+	$query_vars = $query->query_vars;
+	if ( empty( $query_vars['post_ancestor'] ) || ! is_int( $query_vars['post_ancestor'] ) || $query_vars['post_ancestor'] <= 0 ) {
+		return $pages;
+	}
+
+	return get_page_children( $query_vars['post_ancestor'], $pages );
+}
+add_filter( 'posts_results', 'gutenberg_get_all_descendents', 10, 2 );

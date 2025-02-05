@@ -24,7 +24,7 @@ const BASE_QUERY = {
 	context: 'view',
 };
 
-function ParentControl( { context, parents, postType, onChange } ) {
+function ParentControl( { context, ancestor, parents, postType, onChange } ) {
 	const [ search, setSearch ] = useState( '' );
 	const [ value, setValue ] = useState( EMPTY_ARRAY );
 	const [ suggestions, setSuggestions ] = useState( EMPTY_ARRAY );
@@ -73,6 +73,7 @@ function ParentControl( { context, parents, postType, onChange } ) {
 	);
 	const { postId } = context;
 	const parentIsCurrentPage = value.length === 1 && value[ 0 ]?.id === postId;
+
 	// Update the `value` state only after the selectors are resolved
 	// to avoid emptying the input when we're changing parents.
 	useEffect( () => {
@@ -149,6 +150,14 @@ function ParentControl( { context, parents, postType, onChange } ) {
 							return;
 						}
 						onChange( { parents: EMPTY_ARRAY } );
+					} }
+				/>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Show all descendants' ) }
+					checked={ typeof ancestor === 'number' && ancestor > 0 }
+					onChange={ ( toggleValue ) => {
+						onChange( { ancestor: toggleValue ? postId : 0 } );
 					} }
 				/>
 				<FormTokenField
