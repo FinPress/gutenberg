@@ -13,6 +13,7 @@ import InstalledBlocksPrePublishPanel from './installed-blocks-pre-publish-panel
 import getInstallMissing from './get-install-missing';
 
 registerPlugin( 'block-directory', {
+	icon: undefined,
 	render() {
 		return (
 			<>
