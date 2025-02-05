@@ -73,6 +73,8 @@ function ParentControl( { context, ancestor, parents, postType, onChange } ) {
 	);
 	const { postId } = context;
 	const parentIsCurrentPage = value.length === 1 && value[ 0 ]?.id === postId;
+	const [ showDescendantsToggle, setShowDescendantsToggle ] =
+		useState( false );
 
 	// Update the `value` state only after the selectors are resolved
 	// to avoid emptying the input when we're changing parents.
@@ -145,31 +147,40 @@ function ParentControl( { context, ancestor, parents, postType, onChange } ) {
 					label={ __( 'Set parent as current page' ) }
 					checked={ parentIsCurrentPage }
 					onChange={ ( toggleValue ) => {
+						setShowDescendantsToggle( toggleValue );
+
 						if ( toggleValue ) {
 							onChange( { parents: [ postId ] } );
 							return;
 						}
-						onChange( { parents: EMPTY_ARRAY } );
+						onChange( {
+							ancestor: 0,
+							parents: EMPTY_ARRAY,
+						} );
 					} }
 				/>
-				<ToggleControl
-					__nextHasNoMarginBottom
-					label={ __( 'Show all descendants' ) }
-					checked={ typeof ancestor === 'number' && ancestor > 0 }
-					onChange={ ( toggleValue ) => {
-						onChange( { ancestor: toggleValue ? postId : 0 } );
-					} }
-				/>
-				<FormTokenField
-					__next40pxDefaultSize
-					label={ __( 'Parents' ) }
-					value={ value }
-					onInputChange={ debouncedSearch }
-					suggestions={ suggestions }
-					onChange={ onParentChange }
-					__experimentalShowHowTo={ false }
-					__nextHasNoMarginBottom
-				/>
+				{ showDescendantsToggle && (
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Show all descendants' ) }
+						checked={ typeof ancestor === 'number' && ancestor > 0 }
+						onChange={ ( toggleValue ) => {
+							onChange( { ancestor: toggleValue ? postId : 0 } );
+						} }
+					/>
+				) }
+				{ ! showDescendantsToggle && (
+					<FormTokenField
+						__next40pxDefaultSize
+						label={ __( 'Parents' ) }
+						value={ value }
+						onInputChange={ debouncedSearch }
+						suggestions={ suggestions }
+						onChange={ onParentChange }
+						__experimentalShowHowTo={ false }
+						__nextHasNoMarginBottom
+					/>
+				) }
 			</VStack>
 		</>
 	);
