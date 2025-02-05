@@ -50,6 +50,7 @@ import {
 	YelpIcon,
 	YouTubeIcon,
 	ImdbIcon,
+	LetterboxdIcon,
 } from './icons';
 
 const variations = [
@@ -344,6 +345,12 @@ const variations = [
 		attributes: { service: 'imdb' },
 		title: 'IMDB',
 		icon: ImdbIcon,
+	},
+	{
+		name: 'letterboxd',
+		attributes: { service: 'letterboxd' },
+		title: 'Letterboxd',
+		icon: LetterboxdIcon,
 	},
 ];
 

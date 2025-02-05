@@ -46,3 +46,4 @@ export * from './x';
 export * from './yelp';
 export * from './youtube';
 export * from './imdb';
+export * from './letterboxd';
