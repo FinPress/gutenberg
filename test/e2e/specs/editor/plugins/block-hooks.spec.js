@@ -34,7 +34,7 @@ This block was inserted by the Block Hooks API in the <code>${ relativePosition 
 		await requestUtils.deleteAllPosts();
 	} );
 
-	test( 'should convert to a preformatted block', async ( {
+	test( 'should insert hooked block as last child of Post Content block in editor', async ( {
 		admin,
 		editor,
 	} ) => {
