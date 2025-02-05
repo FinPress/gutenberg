@@ -7,6 +7,7 @@ import {
 	FlexItem,
 	SearchControl,
 	__experimentalHStack as HStack,
+	__experimentalText as Text,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import {
@@ -139,9 +140,9 @@ function BlockList( { filterValue } ) {
 			className="edit-site-block-types-item-list"
 		>
 			{ filteredBlockTypes.length === 0 ? (
-				<div className="block-editor-inserter__no-results">
-					<p>{ __( 'No blocks found.' ) }</p>
-				</div>
+				<Text align="center" as="p">
+					{ __( 'No blocks found.' ) }
+				</Text>
 			) : (
 				filteredBlockTypes.map( ( block ) => (
 					<BlockMenuItem
