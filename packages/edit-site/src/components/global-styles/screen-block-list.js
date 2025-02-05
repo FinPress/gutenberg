@@ -138,12 +138,18 @@ function BlockList( { filterValue } ) {
 			ref={ blockTypesListRef }
 			className="edit-site-block-types-item-list"
 		>
-			{ filteredBlockTypes.map( ( block ) => (
-				<BlockMenuItem
-					block={ block }
-					key={ 'menu-itemblock-' + block.name }
-				/>
-			) ) }
+			{ filteredBlockTypes.length === 0 ? (
+				<div className="block-editor-inserter__no-results">
+					<p>{ __( 'No blocks found.' ) }</p>
+				</div>
+			) : (
+				filteredBlockTypes.map( ( block ) => (
+					<BlockMenuItem
+						block={ block }
+						key={ 'menu-itemblock-' + block.name }
+					/>
+				) )
+			) }
 		</div>
 	);
 }
