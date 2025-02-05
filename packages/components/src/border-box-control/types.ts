@@ -22,7 +22,7 @@ export type BorderSide = keyof Borders;
 
 export type BorderBoxControlProps = ColorProps &
 	LabelProps &
-	Pick< BorderControlProps, 'enableStyle' | 'size' > & {
+	Pick< BorderControlProps, 'showClearButton' | 'enableStyle' | 'size' > & {
 		/**
 		 * A callback function invoked when any border value is changed. The value
 		 * received may be a "flat" border object, one that has properties defining

@@ -256,6 +256,7 @@ export default function BorderPanel( {
 					<BorderBoxControl
 						colors={ colors }
 						enableAlpha
+						showClearButton
 						enableStyle={ showBorderStyle }
 						onChange={ onBorderChange }
 						popoverOffset={ 40 }

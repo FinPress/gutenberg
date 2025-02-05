@@ -147,6 +147,12 @@ export const borderControlPopoverControls = css`
 export const borderControlPopoverContent = css``;
 export const borderColorIndicator = css``;
 
+export const clearButton = css`
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 12px;
+`;
+
 export const resetButton = css`
 	justify-content: center;
 	width: 100%;

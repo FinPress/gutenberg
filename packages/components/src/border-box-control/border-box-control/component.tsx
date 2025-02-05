@@ -48,6 +48,7 @@ const UnconnectedBorderBoxControl = (
 		disableCustomColors,
 		disableUnits,
 		enableAlpha,
+		showClearButton,
 		enableStyle,
 		hasMixedBorders,
 		hideLabelFromVision,
@@ -103,6 +104,7 @@ const UnconnectedBorderBoxControl = (
 						disableUnits={ disableUnits }
 						disableCustomColors={ disableCustomColors }
 						enableAlpha={ enableAlpha }
+						showClearButton={ showClearButton }
 						enableStyle={ enableStyle }
 						onChange={ onLinkedChange }
 						placeholder={
@@ -177,6 +179,7 @@ const UnconnectedBorderBoxControl = (
  * 	return (
  * 		<BorderBoxControl
  * 			__next40pxDefaultSize
+ * 			showClearButton
  * 			colors={ colors }
  * 			label={ __( 'Borders' ) }
  * 			onChange={ onChange }
