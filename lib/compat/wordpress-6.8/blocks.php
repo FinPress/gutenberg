@@ -246,6 +246,26 @@ function gutenberg_show_descendents_query_vars_from_query_block( $query, $block 
 add_filter( 'query_loop_block_query_vars', 'gutenberg_show_descendents_query_vars_from_query_block', 10, 2 );
 
 /**
+ * If the query vars post_ancestor attribute has been set, then the LIMIT part
+ * of the SQL query is removed.  This is because we need all the pages from
+ * the database so we can pass them through get_page_children.
+ *
+ * @param [type] $limits The LIMIT clause of the query.
+ * @param [type] $query The WP_Query instance
+ * @return void The filtered LIMIT clause of the query.
+ */
+function gutenberg_remove_limit_from_query_if_ancestor( $limits, $query ) {
+	$query_vars = $query->query_vars;
+	if ( empty( $query_vars['post_ancestor'] ) || ! is_int( $query_vars['post_ancestor'] ) || $query_vars['post_ancestor'] <= 0 ) {
+		return $limits;
+	}
+
+	return '';
+}
+
+add_filter( 'post_limits_request', 'gutenberg_remove_limit_from_query_if_ancestor', 10, 2 );
+
+/**
  * Filters the results from a post query to get all descendents of a page
  * with a particular page id.
  *
