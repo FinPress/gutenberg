@@ -4,6 +4,8 @@
  * @group script-dependencies
  */
 class Test_Script_Dependencies extends WP_UnitTestCase {
+	public $bundled_scripts = array( 'wp-upload-media' );
+
 	/**
 	 * Tests for accidental `wp-polyfill` script dependents.
 	 */
@@ -15,6 +17,11 @@ class Test_Script_Dependencies extends WP_UnitTestCase {
 		// Iterate over all registered scripts, finding dependents of the `wp-polyfill` script.
 		// Based on private `WP_Scripts::get_dependents` method.
 		foreach ( $registered_scripts as $registered_handle => $args ) {
+			// Ignore bundled packages, they don't load separate polyfills.
+			if ( in_array( $registered_handle, $this->bundled_scripts, true ) ) {
+				continue;
+			}
+
 			if ( in_array( 'wp-polyfill', $args->deps, true ) ) {
 				$dependents[] = $registered_handle;
 			}
@@ -34,7 +41,6 @@ class Test_Script_Dependencies extends WP_UnitTestCase {
 			'wp-router',
 			'wp-url',
 			'wp-widgets',
-			'wp-upload-media',
 		);
 
 		$this->assertEqualSets( $expected, $dependents );
