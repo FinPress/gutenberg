@@ -3,7 +3,7 @@
  */
 import { Flex, FlexItem, Modal, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useState, useMemo } from '@wordpress/element';
+import { useState, useMemo, useEffect } from '@wordpress/element';
 import {
 	store as blockEditorStore,
 	__experimentalBlockPatternsList as BlockPatternsList,
@@ -140,28 +140,42 @@ function StartPageOptionsModal( { onClose } ) {
 }
 
 export default function StartPageOptions() {
-	const [ isClosed, setIsClosed ] = useState( false );
-	const shouldEnableModal = useSelect( ( select ) => {
-		const { isEditedPostDirty, isEditedPostEmpty, getCurrentPostType } =
-			select( editorStore );
+	const [ isOpen, setIsOpen ] = useState( false );
+	const { isEditedPostDirty, isEditedPostEmpty } = useSelect( editorStore );
+	const { enabled, postId } = useSelect( ( select ) => {
+		const { getCurrentPostId, getCurrentPostType } = select( editorStore );
 		const preferencesModalActive =
 			select( interfaceStore ).isModalActive( 'editor/preferences' );
 		const choosePatternModalEnabled = select( preferencesStore ).get(
 			'core',
 			'enableChoosePatternModal'
 		);
-		return (
-			choosePatternModalEnabled &&
-			! preferencesModalActive &&
-			! isEditedPostDirty() &&
-			isEditedPostEmpty() &&
-			'page' === getCurrentPostType()
-		);
+		return {
+			postId: getCurrentPostId(),
+			enabled:
+				choosePatternModalEnabled &&
+				! preferencesModalActive &&
+				'page' === getCurrentPostType(),
+		};
 	}, [] );
 
-	if ( ! shouldEnableModal || isClosed ) {
+	// Note: The `postId` ensures the effect re-runs when pages are switched without remounting the component.
+	// Examples: changing pages in the List View, creating a new page via Command Palette.
+	useEffect( () => {
+		const isFreshPage = ! isEditedPostDirty() && isEditedPostEmpty();
+		if ( ! enabled || ! isFreshPage ) {
+			return;
+		}
+
+		// Open the modal after the initial render for a new page.
+		setIsOpen( true );
+
+		return () => setIsOpen( false );
+	}, [ enabled, postId, isEditedPostDirty, isEditedPostEmpty ] );
+
+	if ( ! isOpen ) {
 		return null;
 	}
 
-	return <StartPageOptionsModal onClose={ () => setIsClosed( true ) } />;
+	return <StartPageOptionsModal onClose={ () => setIsOpen( false ) } />;
 }
