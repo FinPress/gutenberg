@@ -297,6 +297,41 @@ test.describe( 'Cover', () => {
 
 		expect( isClickable ).toBe( false );
 	} );
+
+	test( 'can use focal point picker to set the focal point of the cover image', async ( {
+		editor,
+		coverBlockUtils,
+		page,
+	} ) => {
+		await editor.insertBlock( { name: 'core/cover' } );
+		const coverBlock = editor.canvas.getByRole( 'document', {
+			name: 'Block: Cover',
+		} );
+
+		await coverBlockUtils.upload(
+			coverBlock.getByTestId( 'form-file-upload-input' )
+		);
+
+		await editor.page.keyboard.press( 'ArrowUp' );
+
+		const focalPointLeft = page.getByLabel( 'Focal point left position' );
+
+		const focalPointTop = page.getByLabel( 'Focal point top position' );
+
+		await focalPointLeft.fill( '20' );
+		await focalPointTop.fill( '20' );
+
+		await expect( focalPointLeft ).toHaveValue( '20' );
+		await expect( focalPointTop ).toHaveValue( '20' );
+
+		await focalPointLeft.fill( '120' );
+		await focalPointTop.fill( '120' );
+
+		await page.keyboard.press( 'Tab' );
+
+		await expect( focalPointLeft ).toHaveValue( '100' );
+		await expect( focalPointTop ).toHaveValue( '100' );
+	} );
 } );
 
 class CoverBlockUtils {
