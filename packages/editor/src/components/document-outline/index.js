@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { useRef } from '@wordpress/element';
+import { useRef, useMemo } from '@wordpress/element';
 import { create, getTextContent } from '@wordpress/rich-text';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
@@ -113,51 +113,65 @@ export default function DocumentOutline( {
 	hasOutlineItemsDisabled,
 } ) {
 	const { selectBlock } = useDispatch( blockEditorStore );
-	const { blocks, title, isTitleSupported } = useSelect( ( select ) => {
-		const { getBlocks } = select( blockEditorStore );
-		const { getEditedPostAttribute, getEditorBlocks, getRenderingMode } =
-			select( editorStore );
-		const { getPostType } = select( coreStore );
-		const postType = getPostType( getEditedPostAttribute( 'type' ) );
-		const isTemplate = getRenderingMode() === 'template-locked';
+	const { blocks, editorBlocks, title, isTitleSupported, isShowingTemplate } =
+		useSelect( ( select ) => {
+			const { getBlocks } = select( blockEditorStore );
+			const {
+				getEditedPostAttribute,
+				getEditorBlocks,
+				getRenderingMode,
+			} = select( editorStore );
+			const { getPostType } = select( coreStore );
+			const postType = getPostType( getEditedPostAttribute( 'type' ) );
+			return {
+				title: getEditedPostAttribute( 'title' ),
+				blocks: getBlocks(),
+				editorBlocks: getEditorBlocks(),
+				isTitleSupported: postType?.supports?.title ?? false,
+				isShowingTemplate: getRenderingMode() === 'template-locked',
+			};
+		} );
 
-		// When template lock is enabled, getBlocks() returns the template blocks with an empty post content block.
-		// If a post content block is present in the template, mergeEditorBlocks()
-		// inserts the blocks from getEditorBlocks() into the post content block.
-		const mergeEditorBlocks = ( filteredBlocks ) =>
-			filteredBlocks.map( ( block ) => {
+	const combineBlocks = useMemo( () => {
+		const insertBlocks = ( currentBlocks, currentEditorBlocks ) => {
+			return currentBlocks.map( ( block ) => {
+				// Locate the post content block and insert the editor blocks.
 				if ( block.name === 'core/post-content' ) {
 					return {
 						...block,
-						innerBlocks: [
-							...block.innerBlocks,
-							...getEditorBlocks(),
-						],
+						innerBlocks: currentEditorBlocks,
 					};
 				}
-				if ( block.innerBlocks?.length ) {
+				// Also locate post content inside the inner blocks, and insert the editor blocks.
+				if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
 					return {
 						...block,
-						innerBlocks: mergeEditorBlocks( block.innerBlocks ),
+						innerBlocks: insertBlocks(
+							block.innerBlocks,
+							currentEditorBlocks
+						),
 					};
 				}
 				return block;
 			} );
-
-		const processedBlocks = isTemplate
-			? mergeEditorBlocks( getBlocks() )
-			: getBlocks();
-
-		return {
-			title: getEditedPostAttribute( 'title' ),
-			blocks: processedBlocks,
-			isTitleSupported: postType?.supports?.title ?? false,
 		};
-	} );
+
+		return ( currentBlocks, currentEditorBlocks, showingTemplate ) => {
+			if ( showingTemplate ) {
+				return insertBlocks( currentBlocks, currentEditorBlocks );
+			}
+			return currentBlocks;
+		};
+	}, [] );
+
+	// Combine the blocks if the template is showing
+	const updatedBlocks = isShowingTemplate
+		? combineBlocks( blocks, editorBlocks, isShowingTemplate )
+		: blocks;
 
 	const prevHeadingLevelRef = useRef( 1 );
 
-	const headings = computeOutlineHeadings( blocks );
+	const headings = computeOutlineHeadings( updatedBlocks );
 	if ( headings.length < 1 ) {
 		return (
 			<div className="editor-document-outline has-no-headings">
