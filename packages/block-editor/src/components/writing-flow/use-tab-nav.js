@@ -111,7 +111,10 @@ export default function useTabNav() {
 
 	const ref = useRefEffect( ( node ) => {
 		function onKeyDown( event ) {
-			if ( event.defaultPrevented ) {
+			if (
+				event.defaultPrevented ||
+				( ! hasMultiSelection() && ! getSelectedBlockClientId() )
+			) {
 				return;
 			}
 
