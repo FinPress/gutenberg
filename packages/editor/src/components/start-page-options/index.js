@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { Modal } from '@wordpress/components';
+import { Flex, FlexItem, Modal, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState, useMemo } from '@wordpress/element';
 import {
@@ -89,6 +89,8 @@ function PatternSelection( { blockPatterns, onChoosePattern } ) {
 }
 
 function StartPageOptionsModal( { onClose } ) {
+	const [ showStartPatterns, setShowStartPatterns ] = useState( true );
+	const { set: setPreference } = useDispatch( preferencesStore );
 	const startPatterns = useStartPatterns();
 	const hasStartPattern = startPatterns.length > 0;
 
@@ -96,18 +98,43 @@ function StartPageOptionsModal( { onClose } ) {
 		return null;
 	}
 
+	function handleClose() {
+		onClose();
+		setPreference( 'core', 'enableChoosePatternModal', showStartPatterns );
+	}
+
 	return (
 		<Modal
+			className="editor-start-page-options__modal"
 			title={ __( 'Choose a pattern' ) }
 			isFullScreen
-			onRequestClose={ onClose }
+			onRequestClose={ handleClose }
 		>
 			<div className="editor-start-page-options__modal-content">
 				<PatternSelection
 					blockPatterns={ startPatterns }
-					onChoosePattern={ onClose }
+					onChoosePattern={ handleClose }
 				/>
 			</div>
+			<Flex
+				className="editor-start-page-options__modal__actions"
+				justify="flex-end"
+				expanded={ false }
+			>
+				<FlexItem>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						checked={ showStartPatterns }
+						label={ __( 'Show starter patterns' ) }
+						help={ __(
+							'Shows starter patterns when creating a new page.'
+						) }
+						onChange={ ( newValue ) => {
+							setShowStartPatterns( newValue );
+						} }
+					/>
+				</FlexItem>
+			</Flex>
 		</Modal>
 	);
 }
