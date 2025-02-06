@@ -26,6 +26,7 @@ import PageAttributesCheck from '../page-attributes/check';
 import PostTypeSupportCheck from '../post-type-support-check';
 import { store as editorStore } from '../../store';
 import { unlock } from '../../lock-unlock';
+import { useStartPatterns } from '../start-page-options';
 
 const {
 	PreferencesModal,
@@ -72,6 +73,7 @@ function PreferencesModalContents( { extraSections = {} } ) {
 	const { setIsListViewOpened, setIsInserterOpened } =
 		useDispatch( editorStore );
 	const { set: setPreference } = useDispatch( preferencesStore );
+	const hasStarterPatterns = !! useStartPatterns().length;
 
 	const sections = useMemo(
 		() =>
@@ -112,14 +114,16 @@ function PreferencesModalContents( { extraSections = {} } ) {
 										'Allow right-click contextual menus'
 									) }
 								/>
-								<PreferenceToggleControl
-									scope="core"
-									featureName="enableChoosePatternModal"
-									help={ __(
-										'Shows starter patterns when creating a new page.'
-									) }
-									label={ __( 'Show starter patterns' ) }
-								/>
+								{ hasStarterPatterns && (
+									<PreferenceToggleControl
+										scope="core"
+										featureName="enableChoosePatternModal"
+										help={ __(
+											'Shows starter patterns when creating a new page.'
+										) }
+										label={ __( 'Show starter patterns' ) }
+									/>
+								) }
 							</PreferencesModalSection>
 							<PreferencesModalSection
 								title={ __( 'Document settings' ) }
@@ -337,6 +341,7 @@ function PreferencesModalContents( { extraSections = {} } ) {
 			setIsListViewOpened,
 			setPreference,
 			isLargeViewport,
+			hasStarterPatterns,
 		]
 	);
 
