@@ -37,9 +37,6 @@ class Test_Script_Dependencies extends WP_UnitTestCase {
 			'wp-upload-media',
 		);
 
-		sort( $expected, SORT_STRING );
-		sort( $dependents, SORT_STRING );
-
-		$this->assertSame( $expected, $dependents );
+		$this->assertEqualSets( $expected, $dependents );
 	}
 }
