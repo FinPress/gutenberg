@@ -13,7 +13,11 @@ export const notFoundRoute = {
 	path: '*',
 	areas: {
 		sidebar: <SidebarNavigationScreenMain />,
-		mobile: <SidebarNavigationScreenMain />,
+		mobile: (
+			<SidebarNavigationScreenMain
+				customDescription={ __( '404 (Not Found)' ) }
+			/>
+		),
 		content: __( '404 (Not Found)' ),
 	},
 };
