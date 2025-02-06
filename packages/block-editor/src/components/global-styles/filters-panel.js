@@ -139,7 +139,7 @@ const renderToggle =
 				duotoneButtonRef.current?.focus();
 			},
 			className: 'block-editor-panel-duotone-settings__reset',
-			label: __( 'Remove' ),
+			label: __( 'Reset' ),
 		};
 
 		return (
@@ -152,7 +152,6 @@ const renderToggle =
 				</Button>
 				{ duotone && (
 					<Button
-						__next40pxDefaultSize
 						size="small"
 						icon={ resetIcon }
 						{ ...removeButtonProps }
