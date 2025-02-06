@@ -22,6 +22,14 @@ import type { Action } from '@wordpress/dataviews';
 import { isTemplateOrTemplatePart } from './utils';
 import type { PostWithPermissions } from '../types';
 
+declare global {
+	interface Window {
+		wpApiSettings: {
+			nonce: string;
+		};
+	}
+}
+
 const trashPost: Action< PostWithPermissions > = {
 	id: 'move-to-trash',
 	label: __( 'Move to trash' ),
@@ -51,6 +59,9 @@ const trashPost: Action< PostWithPermissions > = {
 		const [ selectedPostsPage, setSelectedPostsPage ] = useState<
 			string | undefined
 		>( '' );
+		const [ selectedPrivacyPolicyPage, setSelectedPrivacyPolicyPage ] =
+			useState< string | undefined >( '' );
+
 		const { createSuccessNotice, createErrorNotice } =
 			useDispatch( noticesStore );
 		const { saveEntityRecord, deleteEntityRecord } =
@@ -69,6 +80,12 @@ const trashPost: Action< PostWithPermissions > = {
 			}
 		 )?.page_for_posts;
 
+		const [ options, setOptions ] = useState< {
+			privacyPolicyPageId: number | null;
+		} | null >( null );
+
+		const privacyPolicyPageId = options?.privacyPolicyPageId;
+
 		const isTrashingHomePage = items.some(
 			( item ) => item.id === frontPageId
 		);
@@ -76,6 +93,9 @@ const trashPost: Action< PostWithPermissions > = {
 			( item ) => item.id === postsPageId
 		);
 
+		const isTrashingPrivacyPolicyPage = items.some(
+			( item ) => Number( item.id ) === Number( privacyPolicyPageId )
+		);
 		// Fetch available pages excluding the trashed one and posts page for homepage dropdown
 		useEffect( () => {
 			const fetchPages = async () => {
@@ -90,13 +110,77 @@ const trashPost: Action< PostWithPermissions > = {
 						);
 						const isExcludedForHomepage =
 							( isTrashingHomePage && page.id === postsPageId ) ||
-							page.id === frontPageId;
+							page.id === frontPageId ||
+							page.id === privacyPolicyPageId;
 						return ! isTrashedPage && ! isExcludedForHomepage;
 					} ) || []
 				);
 			};
+			const fetchOptions = async () => {
+				try {
+					const response = await fetch(
+						'/wp-json/page-options/v1/options'
+					);
+					const data = await response.json();
+					setOptions( data );
+				} catch ( error ) {}
+			};
+
+			fetchOptions();
 			fetchPages();
-		}, [ items, isTrashingHomePage, postsPageId, frontPageId ] );
+		}, [
+			items,
+			isTrashingHomePage,
+			postsPageId,
+			frontPageId,
+			privacyPolicyPageId,
+		] );
+
+		interface UpdatePrivacyPolicyPageResponse {
+			newPageId: number;
+			error?: string;
+		}
+
+		const updatePrivacyPolicyPage = async (
+			newSelectedPrivacyPolicyPage: string
+		): Promise< void > => {
+			try {
+				const response: Response = await fetch(
+					'/wp-json/page-options/v1/update-privacy-page',
+					{
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'X-WP-Nonce': (
+								window.wpApiSettings as { nonce: string }
+							 ).nonce, // Ensure nonce is available and passed
+						},
+						body: JSON.stringify( {
+							page_id: parseInt(
+								newSelectedPrivacyPolicyPage,
+								10
+							),
+						} ),
+					}
+				);
+
+				const result: UpdatePrivacyPolicyPageResponse =
+					await response.json();
+
+				if ( ! response.ok ) {
+					throw new Error(
+						result.error || 'Failed to update Privacy Policy page'
+					);
+				}
+			} catch ( error ) {
+				createErrorNotice(
+					__(
+						'An error occurred while updating the privacy policy page.'
+					),
+					{ type: 'snackbar' }
+				);
+			}
+		};
 
 		const handleDelete = async () => {
 			setIsBusy( true );
@@ -111,6 +195,13 @@ const trashPost: Action< PostWithPermissions > = {
 					await saveEntityRecord( 'root', 'site', {
 						page_for_posts: parseInt( selectedPostsPage, 10 ),
 					} );
+				}
+
+				if (
+					isTrashingPrivacyPolicyPage &&
+					selectedPrivacyPolicyPage
+				) {
+					await updatePrivacyPolicyPage( selectedPrivacyPolicyPage );
 				}
 
 				// Perform delete actions
@@ -201,7 +292,9 @@ const trashPost: Action< PostWithPermissions > = {
 								items.length
 						  ) }
 				</Text>
-				{ ( isTrashingHomePage || isTrashingPostsPage ) &&
+				{ ( isTrashingHomePage ||
+					isTrashingPostsPage ||
+					isTrashingPrivacyPolicyPage ) &&
 					availablePages.length > 0 && (
 						<>
 							{ isTrashingHomePage && (
@@ -217,7 +310,9 @@ const trashPost: Action< PostWithPermissions > = {
 										},
 										...availablePages.map( ( page ) => ( {
 											value: page.id.toString(),
-											label: page.title.rendered,
+											label:
+												page.title.rendered ||
+												__( '(no title)' ),
 										} ) ),
 									] }
 									onChange={ ( value ) =>
@@ -238,11 +333,38 @@ const trashPost: Action< PostWithPermissions > = {
 										},
 										...availablePages.map( ( page ) => ( {
 											value: page.id.toString(),
-											label: page.title.rendered,
+											label:
+												page.title.rendered ||
+												__( '(no title)' ),
 										} ) ),
 									] }
 									onChange={ ( value ) =>
 										setSelectedPostsPage( value )
+									}
+								/>
+							) }
+							{ isTrashingPrivacyPolicyPage && (
+								<SelectControl
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
+									label={ __(
+										'Choose a new privacy policy page'
+									) }
+									value={ selectedPrivacyPolicyPage }
+									options={ [
+										{
+											value: '',
+											label: __( 'Select a page' ),
+										},
+										...availablePages.map( ( page ) => ( {
+											value: page.id.toString(),
+											label:
+												page.title.rendered ||
+												__( '(no title)' ),
+										} ) ),
+									] }
+									onChange={ ( value ) =>
+										setSelectedPrivacyPolicyPage( value )
 									}
 								/>
 							) }
@@ -266,7 +388,9 @@ const trashPost: Action< PostWithPermissions > = {
 						disabled={
 							isBusy ||
 							( isTrashingHomePage && ! selectedHomepage ) ||
-							( isTrashingPostsPage && ! selectedPostsPage )
+							( isTrashingPostsPage && ! selectedPostsPage ) ||
+							( isTrashingPrivacyPolicyPage &&
+								! selectedPrivacyPolicyPage )
 						}
 						onClick={ handleDelete }
 					>
