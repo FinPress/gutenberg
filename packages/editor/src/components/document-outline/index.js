@@ -115,13 +115,42 @@ export default function DocumentOutline( {
 	const { selectBlock } = useDispatch( blockEditorStore );
 	const { blocks, title, isTitleSupported } = useSelect( ( select ) => {
 		const { getBlocks } = select( blockEditorStore );
-		const { getEditedPostAttribute } = select( editorStore );
+		const { getEditedPostAttribute, getEditorBlocks, getRenderingMode } =
+			select( editorStore );
 		const { getPostType } = select( coreStore );
 		const postType = getPostType( getEditedPostAttribute( 'type' ) );
+		const isTemplate = getRenderingMode() === 'template-locked';
+
+		// When template lock is enabled, getBlocks() returns the template blocks with an empty post content block.
+		// If a post content block is present in the template, mergeEditorBlocks()
+		// inserts the blocks from getEditorBlocks() into the post content block.
+		const mergeEditorBlocks = ( filteredBlocks ) =>
+			filteredBlocks.map( ( block ) => {
+				if ( block.name === 'core/post-content' ) {
+					return {
+						...block,
+						innerBlocks: [
+							...block.innerBlocks,
+							...getEditorBlocks(),
+						],
+					};
+				}
+				if ( block.innerBlocks?.length ) {
+					return {
+						...block,
+						innerBlocks: mergeEditorBlocks( block.innerBlocks ),
+					};
+				}
+				return block;
+			} );
+
+		const processedBlocks = isTemplate
+			? mergeEditorBlocks( getBlocks() )
+			: getBlocks();
 
 		return {
 			title: getEditedPostAttribute( 'title' ),
-			blocks: getBlocks(),
+			blocks: processedBlocks,
 			isTitleSupported: postType?.supports?.title ?? false,
 		};
 	} );
