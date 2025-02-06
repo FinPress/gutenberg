@@ -18,6 +18,10 @@ export const notFoundRoute = {
 				customDescription={ __( '404 (Not Found)' ) }
 			/>
 		),
-		content: __( '404 (Not Found)' ),
+		content: (
+			<p className="edit-site-layout__area__404">
+				{ __( '404 (Not Found)' ) }
+			</p>
+		),
 	},
 };
