@@ -235,7 +235,7 @@ function UnforwardedColorPalette(
 				buttonLabelName,
 				displayValue
 		  )
-		: __( 'Custom color picker.' );
+		: __( 'Custom color picker' );
 
 	const paletteCommonProps = {
 		clearColor,
