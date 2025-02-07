@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+-   `Components`: Updated to use the new `@wordpress/ts-config` package ([#69030](https://github.com/WordPress/gutenberg/pull/69030)).
+
 ## 29.3.0 (2025-01-29)
 
 ### Enhancements
