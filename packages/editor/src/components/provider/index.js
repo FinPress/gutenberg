@@ -207,10 +207,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					editorSettings: getEditorSettings(),
 					isReady: __unstableIsEditorReady() && hasLoadedPostObject,
 					mode: getRenderingMode(),
-					defaultMode:
-						hasTemplate && hasDefaultMode
-							? _defaultMode
-							: 'post-only',
+					defaultMode: hasDefaultMode ? _defaultMode : 'post-only',
 					selection: getEditorSelection(),
 					postTypeEntities:
 						post.type === 'wp_template'
