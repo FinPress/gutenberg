@@ -9,7 +9,7 @@ import { useCallback, useMemo } from '@wordpress/element';
  * Internal dependencies
  */
 import CircularOptionPicker, {
-	useComputeCircularOptionPickerCommonProps,
+	getComputeCircularOptionPickerCommonProps,
 } from '../circular-option-picker';
 import CustomGradientPicker from '../custom-gradient-picker';
 import { VStack } from '../v-stack';
@@ -130,7 +130,7 @@ function Component( props: PickerProps< any > ) {
 		<SingleOrigin { ...additionalProps } />
 	);
 
-	const { metaProps, labelProps } = useComputeCircularOptionPickerCommonProps(
+	const { metaProps, labelProps } = getComputeCircularOptionPickerCommonProps(
 		asButtons,
 		loop,
 		ariaLabel,

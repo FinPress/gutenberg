@@ -20,7 +20,7 @@ import { useCallback, useMemo, useState, forwardRef } from '@wordpress/element';
 import Dropdown from '../dropdown';
 import { ColorPicker } from '../color-picker';
 import CircularOptionPicker, {
-	useComputeCircularOptionPickerCommonProps,
+	getComputeCircularOptionPickerCommonProps,
 } from '../circular-option-picker';
 import { VStack } from '../v-stack';
 import { Truncate } from '../truncate';
@@ -253,7 +253,7 @@ function UnforwardedColorPalette(
 		</CircularOptionPicker.ButtonAction>
 	);
 
-	const { metaProps, labelProps } = useComputeCircularOptionPickerCommonProps(
+	const { metaProps, labelProps } = getComputeCircularOptionPickerCommonProps(
 		asButtons,
 		loop,
 		ariaLabel,

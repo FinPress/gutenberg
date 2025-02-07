@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Computes the common props for the CircularOptionPicker.
  */
-export function useComputeCircularOptionPickerCommonProps(
+export function getComputeCircularOptionPickerCommonProps(
 	asButtons?: boolean,
 	loop?: boolean,
 	ariaLabel?: string,

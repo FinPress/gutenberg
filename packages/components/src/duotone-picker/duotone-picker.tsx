@@ -14,7 +14,7 @@ import { __, sprintf } from '@wordpress/i18n';
  */
 import ColorListPicker from './color-list-picker';
 import CircularOptionPicker, {
-	useComputeCircularOptionPickerCommonProps,
+	getComputeCircularOptionPickerCommonProps,
 } from '../circular-option-picker';
 import { VStack } from '../v-stack';
 
@@ -129,7 +129,7 @@ function DuotonePicker( {
 		);
 	} );
 
-	const { metaProps, labelProps } = useComputeCircularOptionPickerCommonProps(
+	const { metaProps, labelProps } = getComputeCircularOptionPickerCommonProps(
 		asButtons,
 		loop,
 		ariaLabel,
