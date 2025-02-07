@@ -153,18 +153,6 @@ export const clearButton = css`
 	margin-top: 12px;
 `;
 
-export const resetButton = css`
-	justify-content: center;
-	width: 100%;
-
-	/* Override button component styling */
-	&& {
-		border-top: ${ CONFIG.borderWidth } solid ${ COLORS.gray[ 400 ] };
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-	}
-`;
-
 export const borderSlider = () => css`
 	flex: 1 1 60%;
 	${ rtl( { marginRight: space( 3 ) } )() }

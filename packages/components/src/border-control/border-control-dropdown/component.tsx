@@ -7,7 +7,6 @@ import type { CSSProperties } from 'react';
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import deprecated from '@wordpress/deprecated';
 
 /**
  * Internal dependencies
@@ -153,26 +152,16 @@ const BorderControlDropdown = (
 		indicatorClassName,
 		indicatorWrapperClassName,
 		isStyleSettable,
-		showClearButton,
 		onReset,
 		onColorChange,
 		onStyleChange,
 		popoverContentClassName,
 		popoverControlsClassName,
-		resetButtonClassName,
 		clearButtonClassName,
 		size,
 		__unstablePopoverProps,
 		...otherProps
 	} = useBorderControlDropdown( props );
-
-	if ( showClearButton === undefined ) {
-		deprecated( `Clear button styles for wp.components.BorderBoxControl`, {
-			since: '6.8',
-			version: '7.1',
-			hint: 'Set the `showClearButton` prop to true to start opting into the new styles, which will become the default in a future version.',
-		} );
-	}
 
 	const { color, style } = border || {};
 	const colorObject = getColorObject( color, colors );
@@ -210,9 +199,7 @@ const BorderControlDropdown = (
 		</Button>
 	);
 
-	const renderContent: DropdownComponentProps[ 'renderContent' ] = ( {
-		onClose,
-	} ) => (
+	const renderContent: DropdownComponentProps[ 'renderContent' ] = () => (
 		<>
 			<DropdownContentWrapper paddingSize="medium">
 				<VStack className={ popoverControlsClassName } spacing={ 6 }>
@@ -235,37 +222,20 @@ const BorderControlDropdown = (
 						/>
 					) }
 				</VStack>
-				{ showClearButton && (
-					<div className={ clearButtonClassName }>
-						<Button
-							variant="tertiary"
-							onClick={ () => {
-								onReset();
-							} }
-							disabled={ ! showResetButton }
-							accessibleWhenDisabled
-							__next40pxDefaultSize
-						>
-							{ __( 'Clear' ) }
-						</Button>
-					</div>
-				) }
-			</DropdownContentWrapper>
-			{ ! showClearButton && showResetButton && (
-				<DropdownContentWrapper paddingSize="none">
+				<div className={ clearButtonClassName }>
 					<Button
-						className={ resetButtonClassName }
 						variant="tertiary"
 						onClick={ () => {
 							onReset();
-							onClose();
 						} }
+						disabled={ ! showResetButton }
+						accessibleWhenDisabled
 						__next40pxDefaultSize
 					>
-						{ __( 'Reset' ) }
+						{ __( 'Clear' ) }
 					</Button>
-				</DropdownContentWrapper>
-			) }
+				</div>
+			</DropdownContentWrapper>
 		</>
 	);
 

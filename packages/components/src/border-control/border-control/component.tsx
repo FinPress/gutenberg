@@ -49,7 +49,6 @@ const UnconnectedBorderControl = (
 		innerWrapperClassName,
 		inputWidth,
 		isStyleSettable,
-		showClearButton,
 		label,
 		onBorderChange,
 		onSliderChange,
@@ -90,7 +89,6 @@ const UnconnectedBorderControl = (
 								enableAlpha={ enableAlpha }
 								enableStyle={ enableStyle }
 								isStyleSettable={ isStyleSettable }
-								showClearButton={ showClearButton }
 								onChange={ onBorderChange }
 								previousStyleSelection={
 									previousStyleSelection

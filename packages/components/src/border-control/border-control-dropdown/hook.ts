@@ -80,10 +80,6 @@ export function useBorderControlDropdown(
 		return cx( styles.clearButton );
 	}, [ cx ] );
 
-	const resetButtonClassName = useMemo( () => {
-		return cx( styles.resetButton );
-	}, [ cx ] );
-
 	return {
 		...otherProps,
 		border,
@@ -99,7 +95,6 @@ export function useBorderControlDropdown(
 		popoverContentClassName,
 		popoverControlsClassName,
 		clearButtonClassName,
-		resetButtonClassName,
 		size,
 		__experimentalIsRenderedInSidebar,
 	};

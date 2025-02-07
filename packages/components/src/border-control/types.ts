@@ -58,12 +58,6 @@ export type BorderControlProps = ColorProps &
 		 */
 		enableStyle?: boolean;
 		/**
-		 * ShowClearButton
-		 *
-		 * @default undefined
-		 */
-		showClearButton?: boolean | undefined;
-		/**
 		 * This flags the `BorderControl` to render with a more compact
 		 * appearance. It restricts the width of the control and prevents it
 		 * from expanding to take up additional space.
@@ -143,10 +137,6 @@ export type DropdownProps = ColorProps &
 		 * Whether a border style can be set, based on the border sanitization settings.
 		 */
 		isStyleSettable: boolean;
-		/**
-		 * Show Clear Button
-		 */
-		showClearButton?: boolean;
 		/**
 		 * An internal prop used to control the visibility of the dropdown.
 		 */

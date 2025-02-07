@@ -48,7 +48,6 @@ const MyBorderBoxControl = () => {
 	return (
 		<BorderBoxControl
 			__next40pxDefaultSize
-			showClearButton
 			colors={ colors }
 			label={ __( 'Borders' ) }
 			onChange={ onChange }
@@ -89,13 +88,6 @@ custom colors.
 
 -   Required: No
 -   Default: `false`
-
-### `showClearButton`: `boolean`
-
-Select whether to display the Clear button.
-
--   Required: No
--   Default: `undefined`
 
 ### `enableStyle`: `boolean`
 
