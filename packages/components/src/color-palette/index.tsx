@@ -19,7 +19,9 @@ import { useCallback, useMemo, useState, forwardRef } from '@wordpress/element';
  */
 import Dropdown from '../dropdown';
 import { ColorPicker } from '../color-picker';
-import CircularOptionPicker from '../circular-option-picker';
+import CircularOptionPicker, {
+	useComputeCircularOptionPickerCommonProps,
+} from '../circular-option-picker';
 import { VStack } from '../v-stack';
 import { Truncate } from '../truncate';
 import { ColorHeading } from './styles';
@@ -251,50 +253,12 @@ function UnforwardedColorPalette(
 		</CircularOptionPicker.ButtonAction>
 	);
 
-	let metaProps:
-		| { asButtons: false; loop?: boolean; 'aria-label': string }
-		| { asButtons: false; loop?: boolean; 'aria-labelledby': string }
-		| { asButtons: true; 'aria-label': string }
-		| { asButtons: true; 'aria-labelledby': string };
-
-	if ( asButtons ) {
-		const _metaProps: { asButtons: true } = {
-			asButtons: true,
-		};
-
-		if ( ariaLabel ) {
-			metaProps = { ..._metaProps, 'aria-label': ariaLabel };
-		} else if ( ariaLabelledby ) {
-			metaProps = {
-				..._metaProps,
-				'aria-labelledby': ariaLabelledby,
-			};
-		} else {
-			metaProps = {
-				..._metaProps,
-				'aria-label': __( 'Custom color picker.' ),
-			};
-		}
-	} else {
-		const _metaProps: { asButtons: false; loop?: boolean } = {
-			asButtons: false,
-			loop,
-		};
-
-		if ( ariaLabel ) {
-			metaProps = { ..._metaProps, 'aria-label': ariaLabel };
-		} else if ( ariaLabelledby ) {
-			metaProps = {
-				..._metaProps,
-				'aria-labelledby': ariaLabelledby,
-			};
-		} else {
-			metaProps = {
-				..._metaProps,
-				'aria-label': __( 'Custom color picker.' ),
-			};
-		}
-	}
+	const { metaProps, labelProps } = useComputeCircularOptionPickerCommonProps(
+		asButtons,
+		loop,
+		ariaLabel,
+		ariaLabelledby
+	);
 
 	return (
 		<VStack spacing={ 3 } ref={ forwardedRef } { ...additionalProps }>
@@ -352,6 +316,7 @@ function UnforwardedColorPalette(
 			{ ( colors.length > 0 || actions ) && (
 				<CircularOptionPicker
 					{ ...metaProps }
+					{ ...labelProps }
 					actions={ actions }
 					options={
 						hasMultipleColorOrigins ? (
