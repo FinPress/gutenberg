@@ -15,7 +15,7 @@ export function OptionGroup( {
 }: OptionGroupProps ) {
 	const role =
 		'aria-label' in additionalProps || 'aria-labelledby' in additionalProps
-			? 'group'
+			? 'listbox'
 			: undefined;
 
 	return (
