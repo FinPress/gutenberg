@@ -462,4 +462,27 @@ test.describe( 'Post-type locking', () => {
 			).toBeHidden();
 		} );
 	} );
+
+	test.describe( 'template_lock for columns block', () => {
+		test.beforeEach( async ( { admin } ) => {
+			await admin.createNewPost( { postType: 'locked-all-post' } );
+		} );
+
+		test( 'should not allow changing number of columns or column operations', async ( {
+			editor,
+			page,
+		} ) => {
+			const columnsBlock = editor.canvas.getByRole( 'document', {
+				name: 'Block: Columns',
+			} );
+			await columnsBlock.click();
+
+			await editor.clickBlockToolbarButton( 'Options' );
+			await expect(
+				page
+					.getByRole( 'menu', { name: 'Options' } )
+					.getByRole( 'menuitem', { name: 'Delete' } )
+			).toBeHidden();
+		} );
+	} );
 } );
