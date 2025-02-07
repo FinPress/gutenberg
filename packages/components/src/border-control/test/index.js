@@ -146,7 +146,7 @@ describe( 'BorderControl', () => {
 			const solidButton = getButton( 'Solid' );
 			const dashedButton = getButton( 'Dashed' );
 			const dottedButton = getButton( 'Dotted' );
-			const resetButton = getButton( 'Reset' );
+			const clearButton = getButton( 'Clear' );
 
 			expect( customColorPicker ).toBeInTheDocument();
 			expect( colorSwatchButtons.length ).toEqual( colors.length );
@@ -154,7 +154,7 @@ describe( 'BorderControl', () => {
 			expect( solidButton ).toBeInTheDocument();
 			expect( dashedButton ).toBeInTheDocument();
 			expect( dottedButton ).toBeInTheDocument();
-			expect( resetButton ).toBeInTheDocument();
+			expect( clearButton ).toBeInTheDocument();
 		} );
 
 		it( 'should not render style options when opted out of', async () => {
@@ -350,12 +350,12 @@ describe( 'BorderControl', () => {
 			expect( props.onChange ).not.toHaveBeenCalled();
 		} );
 
-		it( 'should reset color and style only when popover reset button clicked', async () => {
+		it( 'should clear color and style only when popover clear button clicked', async () => {
 			const user = userEvent.setup();
 			const props = createProps();
 			render( <BorderControl { ...props } /> );
 			await openPopover( user );
-			await user.click( getButton( 'Reset' ) );
+			await user.click( getButton( 'Clear' ) );
 
 			expect( props.onChange ).toHaveBeenNthCalledWith( 1, {
 				color: undefined,
