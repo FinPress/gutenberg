@@ -169,8 +169,6 @@ export default function StartPageOptions() {
 
 		// Open the modal after the initial render for a new page.
 		setIsOpen( true );
-
-		return () => setIsOpen( false );
 	}, [ enabled, postId, isEditedPostDirty, isEditedPostEmpty ] );
 
 	if ( ! isOpen ) {
