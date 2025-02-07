@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Enhancements
+
+-   `BorderControlDropdown`, `BorderControl`: Reset button is always visible. ([#69066](https://github.com/WordPress/gutenberg/pull/69066)).
+
+
 ## 29.3.0 (2025-01-29)
 
 ### Enhancements
