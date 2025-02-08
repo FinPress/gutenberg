@@ -29,7 +29,7 @@
  *
  * @see https://core.trac.wordpress.org/ticket/50544
  *
- * @global WP_Customize_Manager $wp_customize 
+ * @global WP_Customize_Manager $wp_customize
  *
  * @param int   $menu_id         ID of the updated menu.
  * @param int   $menu_item_db_id ID of the new menu item.
