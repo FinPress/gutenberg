@@ -31,7 +31,7 @@ export default ( props ) => ( element ) => {
 			}
 
 			// Exclude (command|ctrl)+shift+backspace as they are shortcuts for deleting blocks.
-			if ( ( ctrlKey && shiftKey ) || ( metaKey && shiftKey ) ) {
+			if ( shiftKey && ( ctrlKey || metaKey ) ) {
 				return;
 			}
 
