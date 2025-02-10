@@ -3,6 +3,7 @@
 ## Unreleased
 
 -   `ComboboxControl`: Add an `isLoading` prop to show a loading spinner ([#68990](https://github.com/WordPress/gutenberg/pull/68990))
+-   `BorderControl`: adjust `useBorderControlDropdown` hook to use `1px` width when selecting the border color initially without explicitly setting width ([#69112](https://github.com/WordPress/gutenberg/pull/69112)).
 
 ## 29.3.0 (2025-01-29)
 
