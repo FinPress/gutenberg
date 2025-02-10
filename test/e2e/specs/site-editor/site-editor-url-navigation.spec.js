@@ -54,7 +54,7 @@ test.describe( 'Site editor url navigation', () => {
 	} ) => {
 		await admin.visitSiteEditor();
 		await page.click( 'role=button[name="Patterns"i]' );
-		await page.click( 'role=button[name="add new pattern"i]' );
+		await page.click( 'role=button[name="add pattern"i]' );
 		await page
 			.getByRole( 'menu', { name: 'add pattern' } )
 			.getByRole( 'menuitem', { name: 'add new template part' } )
