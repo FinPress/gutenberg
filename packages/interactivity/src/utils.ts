@@ -397,21 +397,10 @@ export const isPlainObject = (
  * Indicates that the passed `callback` requires synchronous access to the event object.
  *
  * @param callback The event callback.
- * @return Wrapped event callback.
+ * @return Altered event callback.
  */
 export function withSyncEvent( callback: Function ): SyncAwareFunction {
-	let wrapped: SyncAwareFunction;
-
-	if ( callback?.constructor?.name === 'GeneratorFunction' ) {
-		wrapped = function* ( this: any, ...args: any[] ) {
-			yield* callback.apply( this, args );
-		};
-	} else {
-		wrapped = function ( this: any, ...args: any[] ) {
-			return callback.apply( this, args );
-		};
-	}
-
-	wrapped.sync = true;
-	return wrapped;
+	const syncAware = callback as SyncAwareFunction;
+	syncAware.sync = true;
+	return syncAware;
 }
