@@ -52,25 +52,50 @@ add_action(
 );
 
 /**
- * Returns an array of page IDs used in various parts of WordPress.
+ * Returns an array of page IDs and their associated states.
  *
- * The pages included are:
- * - Privacy policy page ID
- * - Cart page ID (from WooCommerce)
- * - Checkout page ID (from WooCommerce)
- * - Account page ID (from WooCommerce)
- * - Shop page ID (from WooCommerce)
+ * Uses the `display_post_states` filter to allow themes and plugins to add their own page states.
  *
- * @return array IDs of the pages in the format: array( 'privacyPolicyPageId' => int, ... )
+ * @return array Page IDs and their states in the format: array( 'privacyPolicyPageId' => int, ... )
  */
 if ( ! function_exists( 'get_page_options' ) ) {
+	/**
+	 * Returns an array of page IDs and their associated states.
+	 *
+	 * This function returns an associative array where the keys are page states in camelCase and the values are the IDs of the pages associated with each state. The page states are determined by the `display_post_states` filter.
+	 *
+	 * The array will contain the following default keys:
+	 *  - `privacyPolicyPageId`: The ID of the privacy policy page.
+	 *  - `cartPageId`: The ID of the cart page.
+	 *  - `checkoutPageId`: The ID of the checkout page.
+	 *  - `accountPageId`: The ID of the account page.
+	 *  - `shopPageId`: The ID of the shop page.
+	 *
+	 * Themes and plugins can add their own page states using the `display_post_states` filter. The keys for these states will be determined by the filter.
+	 *
+	 * @return array Page IDs and their states in the format: array( 'privacyPolicyPageId' => int, ... )
+	 */
 	function get_page_options() {
-		return array(
+		$page_options = array(
 			'privacyPolicyPageId' => get_option( 'wp_page_for_privacy_policy' ),
 			'cartPageId'          => get_option( 'woocommerce_cart_page_id' ),
 			'checkoutPageId'      => get_option( 'woocommerce_checkout_page_id' ),
 			'accountPageId'       => get_option( 'woocommerce_myaccount_page_id' ),
 			'shopPageId'          => get_option( 'woocommerce_shop_page_id' ),
 		);
+		$pages        = get_pages();
+
+		foreach ( $pages as $page ) {
+
+			$post_states = apply_filters( 'display_post_states', array(), get_post( $page->ID ) );
+
+			if ( ! empty( $post_states ) ) {
+				foreach ( $post_states as $state => $label ) {
+					$key                  = lcfirst( str_replace( ' ', '', ucwords( str_replace( '_', ' ', $state ) ) ) ) . 'PageId';
+					$page_options[ $key ] = $page->ID;
+				}
+			}
+		}
+		return $page_options;
 	}
 }
