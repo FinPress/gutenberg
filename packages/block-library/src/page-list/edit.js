@@ -466,55 +466,5 @@ export const transforms = {
 				);
 			},
 		},
-		{
-			type: 'block',
-			blocks: [ 'core/list' ],
-			transform: () => {
-				const pages = select( coreStore ).getEntityRecords(
-					'postType',
-					'page',
-					{
-						per_page: -1,
-						status: 'publish',
-					}
-				);
-
-				if ( ! pages || pages.length === 0 ) {
-					return createBlock( 'core/list', {
-						ordered: false,
-					} );
-				}
-
-				const createListItems = ( parentId = 0 ) => {
-					return pages
-						.filter( ( page ) => page.parent === parentId )
-						.map( ( page ) => {
-							const childItems = createListItems( page.id );
-							const listItem = createBlock( 'core/list-item', {
-								content: `<a href="${ page.link }">${ page.title.rendered }</a>`,
-							} );
-							if ( childItems.length > 0 ) {
-								const subList = createBlock(
-									'core/list',
-									{},
-									childItems
-								);
-								listItem.innerBlocks = [ subList ];
-							}
-							return listItem;
-						} );
-				};
-
-				const innerBlocks = createListItems();
-
-				return createBlock(
-					'core/list',
-					{
-						ordered: false,
-					},
-					innerBlocks
-				);
-			},
-		},
 	],
 };
