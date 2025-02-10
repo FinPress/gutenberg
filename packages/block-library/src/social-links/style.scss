@@ -103,6 +103,11 @@
 			color: currentColor;
 			fill: currentColor;
 		}
+		&:focus {
+			outline: 2px solid #000;
+			outline-offset: 2px;
+			border-radius: 9999px;
+		}
 	}
 }
 
