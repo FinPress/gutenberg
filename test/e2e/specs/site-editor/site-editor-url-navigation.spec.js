@@ -33,7 +33,7 @@ test.describe( 'Site editor url navigation', () => {
 
 		await admin.visitSiteEditor();
 		await page.click( 'role=button[name="Templates"]' );
-		await page.click( 'role=button[name="Add New Template"i]' );
+		await page.click( 'role=button[name="Add Template"i]' );
 		await page
 			.getByRole( 'button', {
 				name: 'Single item: Post',
