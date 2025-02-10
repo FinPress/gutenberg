@@ -449,7 +449,7 @@ describe( 'BorderControl', () => {
 			expect( props.onChange ).toHaveBeenCalledWith( {
 				color: '#bd8600',
 				style: undefined,
-				width: undefined,
+				width: '1px',
 			} );
 
 			await user.type( getWidthInput(), '0' );
@@ -478,7 +478,7 @@ describe( 'BorderControl', () => {
 			expect( props.onChange ).toHaveBeenCalledWith( {
 				color: undefined,
 				style: 'dashed',
-				width: undefined,
+				width: '1px',
 			} );
 
 			await user.type( getWidthInput(), '0' );
