@@ -13,16 +13,21 @@ import {
 	EditorKeyboardShortcutsRegister,
 	privateApis as editorPrivateApis,
 	store as editorStore,
+	useEntitiesSavedStatesIsDirty,
 } from '@wordpress/editor';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as coreDataStore } from '@wordpress/core-data';
 import { privateApis as blockLibraryPrivateApis } from '@wordpress/block-library';
-import { useCallback, useMemo } from '@wordpress/element';
+import { useCallback, useMemo, useEffect } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { decodeEntities } from '@wordpress/html-entities';
 import { Icon, arrowUpLeft } from '@wordpress/icons';
 import { store as blockEditorStore } from '@wordpress/block-editor';
+import {
+	useShortcut,
+	store as keyboardShortcutsStore,
+} from '@wordpress/keyboard-shortcuts';
 
 /**
  * Internal dependencies
@@ -243,6 +248,35 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 	const transition = {
 		duration: disableMotion ? 0 : 0.2,
 	};
+
+	const { saveDirtyEntities } = unlock( useDispatch( editorStore ) );
+	const { dirtyEntityRecords } = useEntitiesSavedStatesIsDirty();
+	const { registerShortcut } = useDispatch( keyboardShortcutsStore );
+
+	useEffect( () => {
+		registerShortcut( {
+			name: 'core/edit-site/save',
+			category: 'global',
+			description: __( 'Save your changes.' ),
+			keyCombination: {
+				modifier: 'primary',
+				character: 's',
+			},
+		} );
+	}, [ registerShortcut ] );
+
+	useShortcut( 'core/edit-site/save', ( event ) => {
+		event.preventDefault();
+
+		if ( ! dirtyEntityRecords.length ) {
+			return;
+		}
+
+		if ( canvas === 'edit' ) {
+			// Save dirty entities when the user presses the save shortcut.
+			saveDirtyEntities( { dirtyEntityRecords } );
+		}
+	} );
 
 	return (
 		<>
