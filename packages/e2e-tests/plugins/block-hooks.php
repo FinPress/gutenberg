@@ -33,7 +33,7 @@ function gutenberg_test_set_hooked_block_inner_html( $hooked_block, $hooked_bloc
 		( 'core/block' === $anchor_block['blockName'] && 'first_child' === $relative_position )
 	) {
 		$hooked_block['attrs']        = array(
-			'className' => "hooked-block-${relative_position}-" . $anchor_block['blockName'],
+			'className' => "hooked-block-${relative_position}-" . str_replace( 'core/', '', $anchor_block['blockName'] ),
 		);
 		$hooked_block['innerContent'] = array(
 			sprintf(

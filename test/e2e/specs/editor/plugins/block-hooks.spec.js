@@ -9,7 +9,10 @@ test.describe( 'Block Hooks API', () => {
 <!-- /wp:paragraph -->`;
 
 	const getHookedBlockClassName = ( relativePosition, anchorBlock ) =>
-		`hooked-block-${ relativePosition }-${ anchorBlock }`;
+		`hooked-block-${ relativePosition }-${ anchorBlock.replace(
+			'core/',
+			''
+		) }`;
 
 	const getHookedBlockMarkup = ( relativePosition, anchorBlock ) => {
 		const className = getHookedBlockClassName(
