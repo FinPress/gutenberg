@@ -124,8 +124,13 @@ function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 
 	return $response;
 }
+remove_filter( 'rest_prepare_page', 'insert_hooked_blocks_into_rest_response' );
 add_filter( 'rest_prepare_page', 'gutenberg_insert_hooked_blocks_into_rest_response', 10, 2 );
+
+remove_filter( 'rest_prepare_post', 'insert_hooked_blocks_into_rest_response' );
 add_filter( 'rest_prepare_post', 'gutenberg_insert_hooked_blocks_into_rest_response', 10, 2 );
+
+remove_filter( 'rest_prepare_wp_block', 'insert_hooked_blocks_into_rest_response' );
 add_filter( 'rest_prepare_wp_block', 'gutenberg_insert_hooked_blocks_into_rest_response', 10, 2 );
 
 /**
