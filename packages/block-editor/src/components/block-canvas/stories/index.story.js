@@ -1,14 +1,13 @@
 /**
  * WordPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { registerCoreBlocks } from '@wordpress/block-library';
-/**
- * Internal dependencies
- */
-import { BlockCanvas, BlockEditorProvider } from '../..';
-
-registerCoreBlocks();
+import {
+	BlockCanvas,
+	BlockEditorProvider,
+	BlockToolbar,
+} from '@wordpress/block-editor';
 
 const meta = {
 	title: 'BlockEditor/BlockCanvas',
@@ -22,6 +21,26 @@ const meta = {
 			},
 		},
 	},
+	decorators: [
+		( Story ) => {
+			const [ blocks, updateBlocks ] = useState( [] );
+
+			useEffect( () => {
+				registerCoreBlocks();
+			}, [] );
+
+			return (
+				<BlockEditorProvider
+					value={ blocks }
+					onInput={ ( newBlocks ) => updateBlocks( newBlocks ) }
+					onChange={ ( newBlocks ) => updateBlocks( newBlocks ) }
+				>
+					<BlockToolbar hideDragHandle />
+					<Story />
+				</BlockEditorProvider>
+			);
+		},
+	],
 	argTypes: {
 		children: {
 			control: false,
@@ -43,10 +62,7 @@ const meta = {
 			control: 'object',
 			description: 'The styles to apply to the canvas.',
 			table: {
-				type: {
-					summary:
-						'{ css?: string; assets?: string; isGlobalStyles?: boolean; __unstableType: string; }[]',
-				},
+				type: { summary: 'Array' },
 			},
 		},
 	},
@@ -55,17 +71,5 @@ const meta = {
 export default meta;
 
 export const Default = {
-	render: function Template( args ) {
-		const [ blocks, updateBlocks ] = useState( [] );
-
-		return (
-			<BlockEditorProvider
-				value={ blocks }
-				onInput={ ( newBlocks ) => updateBlocks( newBlocks ) }
-				onChange={ ( newBlocks ) => updateBlocks( newBlocks ) }
-			>
-				<BlockCanvas { ...args } />
-			</BlockEditorProvider>
-		);
-	},
+	render: ( args ) => <BlockCanvas { ...args } />,
 };
