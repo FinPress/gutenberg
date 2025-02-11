@@ -17,17 +17,6 @@ test.describe( 'Block Hooks API', () => {
 	const getHookedBlockSelector = ( relativePosition, anchorBlock ) =>
 		'.' + getHookedBlockClassName( relativePosition, anchorBlock );
 
-	const getHookedBlockMarkup = ( relativePosition, anchorBlock ) => {
-		const className = getHookedBlockClassName(
-			relativePosition,
-			anchorBlock
-		);
-		return `<!-- wp:paragraph {"className":"${ className }"} -->
-<p class="${ className }">
-This block was inserted by the Block Hooks API in the <code>${ relativePosition }</code> position next to the <code>${ anchorBlock }</code> anchor block.
-</p><!-- /wp:paragraph -->`;
-	};
-
 	let post;
 
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -62,11 +51,17 @@ This block was inserted by the Block Hooks API in the <code>${ relativePosition 
 		editor,
 	} ) => {
 		await admin.editPost( post.id );
-		await expect
-			.poll( editor.getEditedPostContent )
-			.toBe(
-				anchorBlockMarkup +
-					getHookedBlockMarkup( 'last_child', 'core/post-content' )
-			);
+		await expect.poll( editor.getBlocks ).toMatchObject( [
+			{ name: 'core/paragraph' },
+			{
+				name: 'core/paragraph',
+				attributes: {
+					className: getHookedBlockClassName(
+						'last_child',
+						'core/post-content'
+					),
+				},
+			},
+		] );
 	} );
 } );
