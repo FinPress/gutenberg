@@ -18,8 +18,9 @@ export * from './utils';
  * Note that for the block to be useful, any scripts required by a widget must
  * be loaded into the page.
  *
- * @param {Object} supports Block support settings.
  * @see https://developer.wordpress.org/block-editor/how-to-guides/widgets/legacy-widget-block/
+ *
+ * @param {Object} supports Block support settings.
  */
 export function registerLegacyWidgetBlock( supports = {} ) {
 	const { metadata, settings, name } = legacyWidget;

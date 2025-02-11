@@ -200,8 +200,9 @@ export default class TokenList {
 	 *
 	 * Always returns `true` in this implementation.
 	 *
-	 * @param _token
 	 * @see https://dom.spec.whatwg.org/#dom-domtokenlist-supports
+	 *
+	 * @param _token
 	 *
 	 * @return Whether token is supported.
 	 */

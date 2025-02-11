@@ -17,10 +17,10 @@ const logErrorOnce = memoize( console.error ); // eslint-disable-line no-console
  * Returns a formatted string. If an error occurs in applying the format, the
  * original format string is returned.
  *
+ * @see https://www.npmjs.com/package/sprintf-js
+ *
  * @param {string} format The format of the string to generate.
  * @param {...*}   args   Arguments to apply to the format.
- *
- * @see https://www.npmjs.com/package/sprintf-js
  *
  * @return {string} The formatted string.
  */
