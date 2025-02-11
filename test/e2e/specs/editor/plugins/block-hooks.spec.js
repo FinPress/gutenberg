@@ -14,6 +14,9 @@ test.describe( 'Block Hooks API', () => {
 			''
 		) }`;
 
+	const getHookedBlockSelector = ( relativePosition, anchorBlock ) =>
+		'.' + getHookedBlockClassName( relativePosition, anchorBlock );
+
 	const getHookedBlockMarkup = ( relativePosition, anchorBlock ) => {
 		const className = getHookedBlockClassName(
 			relativePosition,
@@ -49,7 +52,7 @@ This block was inserted by the Block Hooks API in the <code>${ relativePosition 
 		await page.goto( `/?p=${ post.id }` );
 		await expect(
 			page.locator(
-				getHookedBlockClassName( 'last_child', 'core/post-content' )
+				getHookedBlockSelector( 'last_child', 'core/post-content' )
 			)
 		).toHaveCount( 1 );
 	} );
