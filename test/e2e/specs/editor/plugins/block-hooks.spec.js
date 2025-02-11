@@ -43,6 +43,17 @@ This block was inserted by the Block Hooks API in the <code>${ relativePosition 
 		await requestUtils.deleteAllPosts();
 	} );
 
+	test( 'should insert hooked block as last child of Post Content block on frontend', async ( {
+		page,
+	} ) => {
+		await page.goto( `/?p=${ post.id }` );
+		await expect(
+			page.locator(
+				getHookedBlockClassName( 'last_child', 'core/post-content' )
+			)
+		).toHaveCount( 1 );
+	} );
+
 	test( 'should insert hooked block as last child of Post Content block in editor', async ( {
 		admin,
 		editor,
