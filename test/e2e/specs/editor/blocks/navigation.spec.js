@@ -199,6 +199,57 @@ test.describe( 'Navigation block', () => {
 		} );
 	} );
 
+	test.describe( 'Navigation block fallback behavior', () => {
+		test( 'falls back to Page List when no menus exist', async ( {
+			admin,
+			editor,
+		} ) => {
+			await admin.createNewPost();
+			await editor.insertBlock( { name: 'core/navigation' } );
+
+			const pageListBlock = editor.canvas.getByRole( 'document', {
+				name: 'Block: Page List',
+			} );
+
+			await expect( pageListBlock ).toBeVisible();
+
+			await expect.poll( editor.getBlocks ).toMatchObject( [
+				{
+					name: 'core/navigation',
+				},
+			] );
+		} );
+
+		test( 'uses first non-empty menu as fallback', async ( {
+			admin,
+			editor,
+			requestUtils,
+		} ) => {
+			await admin.createNewPost();
+
+			const menu = await requestUtils.createNavigationMenu( {
+				title: 'First Menu',
+				content:
+					'<!-- wp:navigation-link {"label":"First Link","type":"custom","url":"http://wordpress.org","kind":"custom"} /-->',
+			} );
+
+			await editor.insertBlock( { name: 'core/navigation' } );
+
+			await expect(
+				editor.canvas.locator(
+					`role=textbox[name="Navigation link text"i] >> text="First Link"`
+				)
+			).toBeVisible();
+
+			await expect.poll( editor.getBlocks ).toMatchObject( [
+				{
+					name: 'core/navigation',
+					attributes: { ref: menu.id },
+				},
+			] );
+		} );
+	} );
+
 	test.describe( 'As a user I want to create submenus using the navigation block', () => {
 		test( 'create a submenu', async ( {
 			admin,
