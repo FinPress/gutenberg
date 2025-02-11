@@ -8,13 +8,19 @@ test.describe( 'Block Hooks API', () => {
 <p>This is a test paragraph.</p>
 <!-- /wp:paragraph -->`;
 
-	const getHookedBlockMarkup = (
-		relativePosition,
-		anchorBlock
-	) => `<!-- wp:paragraph {"className":"hooked-block-${ relativePosition }-${ anchorBlock }"} -->
-<p class="hooked-block-${ relativePosition }-${ anchorBlock }">
+	const getHookedBlockClassName = ( relativePosition, anchorBlock ) =>
+		`hooked-block-${ relativePosition }-${ anchorBlock }`;
+
+	const getHookedBlockMarkup = ( relativePosition, anchorBlock ) => {
+		const className = getHookedBlockClassName(
+			relativePosition,
+			anchorBlock
+		);
+		return `<!-- wp:paragraph {"className":"${ className }"} -->
+<p class="${ className }">
 This block was inserted by the Block Hooks API in the <code>${ relativePosition }</code> position next to the <code>${ anchorBlock }</code> anchor block.
 </p><!-- /wp:paragraph -->`;
+	};
 
 	let post;
 
