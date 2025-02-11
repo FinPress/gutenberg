@@ -18,9 +18,12 @@ import { useBlockElement } from '../components/block-list/use-block-props/use-bl
 
 function SpacingVisualizer( { clientId, value, computeStyle, forceShow } ) {
 	const blockElement = useBlockElement( clientId );
-	const [ style, updateStyle ] = useReducer( () =>
-		computeStyle( blockElement )
-	);
+	const [ style, updateStyle ] = useReducer( ( state ) => {
+		if ( ! blockElement ) {
+			return state;
+		}
+		return computeStyle( blockElement );
+	} );
 
 	useLayoutEffect( () => {
 		if ( ! blockElement ) {
