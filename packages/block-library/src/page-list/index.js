@@ -8,7 +8,8 @@ import { pages } from '@wordpress/icons';
  */
 import initBlock from '../utils/init-block';
 import metadata from './block.json';
-import edit, { transforms } from './edit.js';
+import transforms from './transforms.js';
+import edit from './edit.js';
 
 const { name } = metadata;
 
