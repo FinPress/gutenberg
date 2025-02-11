@@ -33,11 +33,12 @@ function gutenberg_test_set_hooked_block_inner_html( $hooked_block, $hooked_bloc
 		( 'core/block' === $anchor_block['blockName'] && 'first_child' === $relative_position )
 	) {
 		$hooked_block['attrs']        = array(
-			'backgroundColor' => 'accent',
+			'className' => "hooked-block-${relative_position}-" . $anchor_block['blockName'],
 		);
 		$hooked_block['innerContent'] = array(
 			sprintf(
-				'<p class="has-background has-accent-background-color">This block was inserted by the Block Hooks API in the <code>%1$s</code> position next to the <code>%2$s</code> anchor block.</p>',
+				'<p class="%1$s">This block was inserted by the Block Hooks API in the <code>%2$s</code> position next to the <code>%3$s</code> anchor block.</p>',
+				$hooked_block['attrs']['className'],
 				$relative_position,
 				$anchor_block['blockName']
 			),

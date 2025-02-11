@@ -11,8 +11,8 @@ test.describe( 'Block Hooks API', () => {
 	const getHookedBlockMarkup = (
 		relativePosition,
 		anchorBlock
-	) => `<!-- wp:paragraph {"backgroundColor":"accent"} -->
-<p class="has-background has-accent-background-color">
+	) => `<!-- wp:paragraph {"className":"hooked-block-${ relativePosition }-${ anchorBlock }"} -->
+<p class="hooked-block-${ relativePosition }-${ anchorBlock }">
 This block was inserted by the Block Hooks API in the <code>${ relativePosition }</code> position next to the <code>${ anchorBlock }</code> anchor block.
 </p><!-- /wp:paragraph -->`;
 
