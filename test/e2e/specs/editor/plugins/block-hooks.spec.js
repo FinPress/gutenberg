@@ -53,25 +53,58 @@ test.describe( 'Block Hooks API', () => {
 	test( 'should insert hooked block as last child of Post Content block in editor', async ( {
 		admin,
 		editor,
+		page,
 	} ) => {
-		await admin.editPost( post.id );
-		await expect.poll( editor.getBlocks ).toMatchObject( [
-			{ name: 'core/paragraph' },
-			{
-				name: 'core/paragraph',
-				attributes: {
-					className: getHookedBlockClassName(
-						'last_child',
-						'core/post-content'
-					),
-				},
+		const expectedHookedBlock = {
+			name: 'core/paragraph',
+			attributes: {
+				className: getHookedBlockClassName(
+					'last_child',
+					'core/post-content'
+				),
 			},
-		] );
+		};
+
+		await admin.editPost( post.id );
+		await expect
+			.poll( editor.getBlocks )
+			.toMatchObject( [
+				{ name: 'core/paragraph' },
+				expectedHookedBlock,
+			] );
 
 		const hookedBlock = editor.canvas.getByText(
 			getHookedBlockContent( 'last_child', 'core/post-content' )
 		);
 		await editor.selectBlocks( hookedBlock );
 		await editor.clickBlockToolbarButton( 'Move up' );
+
+		// Save updated post.
+		const saveButton = page
+			.getByRole( 'region', { name: 'Editor top bar' } )
+			.getByRole( 'button', { name: 'Save', exact: true } );
+		await saveButton.click();
+		await page
+			.getByRole( 'button', { name: 'Dismiss this notice' } )
+			.filter( { hasText: 'updated' } )
+			.waitFor();
+
+		// Reload and verify that the new position of the hooked block has been persisted.
+		await page.reload();
+		await expect
+			.poll( editor.getBlocks )
+			.toMatchObject( [
+				expectedHookedBlock,
+				{ name: 'core/paragraph' },
+			] );
+
+		// Verify that the frontend reflects the changes made in the editor.
+		await page.goto( `/?p=${ post.id }` );
+		await expect(
+			page.locator(
+				getHookedBlockSelector( 'last_child', 'core/post-content' )
+			)
+		).toHaveCount( 1 );
+		// TODO: Verify that it's before the test paragraph.
 	} );
 } );
