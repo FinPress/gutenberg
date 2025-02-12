@@ -142,6 +142,7 @@ function ColorPicker( { name, property, value, onChange } ) {
 					setColors( value, name, colors, { [ property ]: color } )
 				);
 			} }
+			__experimentalIsRenderedInSidebar
 		/>
 	);
 }
