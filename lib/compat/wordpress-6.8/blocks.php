@@ -256,7 +256,7 @@ add_filter( 'query_loop_block_query_vars', 'gutenberg_show_descendents_query_var
  */
 function gutenberg_remove_limit_from_query_if_ancestor( $limits, $query ) {
 	$query_vars = $query->query_vars;
-	if ( empty( $query_vars['post_ancestor'] ) || ! is_int( $query_vars['post_ancestor'] ) || $query_vars['post_ancestor'] <= 0 ) {
+	if ( empty( $query_vars['post_ancestor'] ) || $query_vars['post_ancestor'] <= 0 ) {
 		return $limits;
 	}
 
@@ -275,10 +275,29 @@ add_filter( 'post_limits_request', 'gutenberg_remove_limit_from_query_if_ancesto
  */
 function gutenberg_get_all_descendents( $pages, $query ) {
 	$query_vars = $query->query_vars;
-	if ( empty( $query_vars['post_ancestor'] ) || ! is_int( $query_vars['post_ancestor'] ) || $query_vars['post_ancestor'] <= 0 ) {
+	if ( empty( $query_vars['post_ancestor'] ) || $query_vars['post_ancestor'] <= 0 ) {
 		return $pages;
 	}
 
 	return get_page_children( $query_vars['post_ancestor'], $pages );
 }
 add_filter( 'posts_results', 'gutenberg_get_all_descendents', 10, 2 );
+
+/**
+ * Adds ancestor to the query args in the REST API.
+ *
+ * @param array $args the query args
+ * @param WP_REST_Request $request the REST Request object
+ * @return array the query args with the ancestor arg added
+ */
+function gutenberg_add_ancestor_arg_to_rest_api( $args, $request ) {
+	$query_params = $request->get_query_params();
+	if ( array_key_exists( 'post_ancestor', $query_params ) ) {
+		$args['post_ancestor']   = intval( $request['post_ancestor'] );
+		$args['post_parent__in'] = array();
+	}
+
+	return $args;
+}
+
+add_filter( 'rest_page_query', 'gutenberg_add_ancestor_arg_to_rest_api', 10, 2 );
