@@ -47,6 +47,7 @@ test.describe( 'Block Hooks API', () => {
 				getHookedBlockSelector( 'last_child', 'core/post-content' )
 			)
 		).toHaveCount( 1 );
+		// TODO: Verify that it's after the test paragraph.
 	} );
 
 	test( 'should insert hooked block as last child of Post Content block in editor', async ( {
