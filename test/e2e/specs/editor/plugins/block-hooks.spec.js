@@ -3,23 +3,23 @@
  */
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
-test.describe( 'Block Hooks API', () => {
-	const anchorBlockMarkup = `<!-- wp:paragraph {"className":"test-paragraph"} -->
+const anchorBlockMarkup = `<!-- wp:paragraph {"className":"test-paragraph"} -->
 <p class="test-paragraph">This is a test paragraph.</p>
 <!-- /wp:paragraph -->`;
 
-	const getHookedBlockClassName = ( relativePosition, anchorBlock ) =>
-		`hooked-block-${ relativePosition }-${ anchorBlock.replace(
-			'core/',
-			''
-		) }`;
+const getHookedBlockClassName = ( relativePosition, anchorBlock ) =>
+	`hooked-block-${ relativePosition }-${ anchorBlock.replace(
+		'core/',
+		''
+	) }`;
 
-	const getHookedBlockSelector = ( relativePosition, anchorBlock ) =>
-		'.' + getHookedBlockClassName( relativePosition, anchorBlock );
+const getHookedBlockSelector = ( relativePosition, anchorBlock ) =>
+	'.' + getHookedBlockClassName( relativePosition, anchorBlock );
 
-	const getHookedBlockContent = ( relativePosition, anchorBlock ) =>
-		`This block was inserted by the Block Hooks API in the ${ relativePosition } position next to the ${ anchorBlock } anchor block.`;
+const getHookedBlockContent = ( relativePosition, anchorBlock ) =>
+	`This block was inserted by the Block Hooks API in the ${ relativePosition } position next to the ${ anchorBlock } anchor block.`;
 
+test.describe( 'Block Hooks API', () => {
 	let post;
 
 	test.beforeAll( async ( { requestUtils } ) => {
