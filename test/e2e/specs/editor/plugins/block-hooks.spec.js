@@ -4,8 +4,8 @@
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test.describe( 'Block Hooks API', () => {
-	const anchorBlockMarkup = `<!-- wp:paragraph -->
-<p>This is a test paragraph.</p>
+	const anchorBlockMarkup = `<!-- wp:paragraph {"className":"test-paragraph"} -->
+<p class="test-paragraph">This is a test paragraph.</p>
 <!-- /wp:paragraph -->`;
 
 	const getHookedBlockClassName = ( relativePosition, anchorBlock ) =>
@@ -47,7 +47,11 @@ test.describe( 'Block Hooks API', () => {
 				getHookedBlockSelector( 'last_child', 'core/post-content' )
 			)
 		).toHaveCount( 1 );
-		// TODO: Verify that it's after the test paragraph.
+		// Verify that the hook block is inserted after the test paragraph.
+		await expect( page.locator( '.entry-content p' ) ).toHaveClass( [
+			'test-paragraph',
+			getHookedBlockClassName( 'last_child', 'core/post-content' ),
+		] );
 	} );
 
 	test( 'should insert hooked block as last child of Post Content block in editor', async ( {
@@ -105,6 +109,10 @@ test.describe( 'Block Hooks API', () => {
 				getHookedBlockSelector( 'last_child', 'core/post-content' )
 			)
 		).toHaveCount( 1 );
-		// TODO: Verify that it's before the test paragraph.
+		// Verify that the hooked block is now before the test paragraph.
+		await expect( page.locator( '.entry-content p' ) ).toHaveClass( [
+			getHookedBlockClassName( 'last_child', 'core/post-content' ),
+			'test-paragraph',
+		] );
 	} );
 } );
