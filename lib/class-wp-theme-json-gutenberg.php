@@ -2932,7 +2932,11 @@ class WP_Theme_JSON_Gutenberg {
 			array_filter(
 				$element_pseudo_allowed,
 				static function ( $pseudo_selector ) use ( $selector ) {
-					return str_contains( $selector, $pseudo_selector );
+					/*
+					 * Check if the pseudo selector is in the current selector,
+					 * ensuring it is not followed by a dash (e.g., :focus should not match :focus-visible).
+					 */
+					return preg_match( '/' . preg_quote( $pseudo_selector, '/' ) . '(?!-)/', $selector ) === 1;
 				}
 			)
 		);
