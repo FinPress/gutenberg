@@ -17,6 +17,9 @@ test.describe( 'Block Hooks API', () => {
 	const getHookedBlockSelector = ( relativePosition, anchorBlock ) =>
 		'.' + getHookedBlockClassName( relativePosition, anchorBlock );
 
+	const getHookedBlockContent = ( relativePosition, anchorBlock ) =>
+		`This block was inserted by the Block Hooks API in the ${ relativePosition } position next to the ${ anchorBlock } anchor block.`;
+
 	let post;
 
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -63,5 +66,11 @@ test.describe( 'Block Hooks API', () => {
 				},
 			},
 		] );
+
+		const hookedBlock = editor.canvas.getByText(
+			getHookedBlockContent( 'last_child', 'core/post-content' )
+		);
+		await editor.selectBlocks( hookedBlock );
+		await editor.clickBlockToolbarButton( 'Move up' );
 	} );
 } );
