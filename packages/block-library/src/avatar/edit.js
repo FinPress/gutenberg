@@ -193,29 +193,13 @@ const UserEdit = ( { attributes, context, setAttributes, isSelected } ) => {
 				avatar={ avatar }
 				setAttributes={ setAttributes }
 			/>
-			{ attributes.isLink ? (
-				<a
-					href="#avatar-pseudo-link"
-					className="wp-block-avatar__link"
-					onClick={ ( event ) => event.preventDefault() }
-				>
-					<ResizableAvatar
-						attributes={ attributes }
-						avatar={ avatar }
-						blockProps={ blockProps }
-						isSelected={ isSelected }
-						setAttributes={ setAttributes }
-					/>
-				</a>
-			) : (
-				<ResizableAvatar
-					attributes={ attributes }
-					avatar={ avatar }
-					blockProps={ blockProps }
-					isSelected={ isSelected }
-					setAttributes={ setAttributes }
-				/>
-			) }
+			<ResizableAvatar
+				attributes={ attributes }
+				avatar={ avatar }
+				blockProps={ blockProps }
+				isSelected={ isSelected }
+				setAttributes={ setAttributes }
+			/>
 		</>
 	);
 };
