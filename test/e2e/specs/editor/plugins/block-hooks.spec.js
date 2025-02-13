@@ -50,7 +50,7 @@ test.describe( 'Block Hooks API', () => {
 		] );
 	} );
 
-	test( 'should insert hooked blocks into post content in editor', async ( {
+	test( 'should insert hooked blocks into post content in editor and respect changes made there', async ( {
 		admin,
 		editor,
 		page,
