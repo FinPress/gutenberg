@@ -3,7 +3,7 @@
  */
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
-const anchorBlockMarkup = `<!-- wp:heading -->
+const dummyBlockContent = `<!-- wp:heading -->
 <h2 class="wp-block-heading">This is a dummy heading</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph {"className":"dummy-paragraph"} -->
@@ -27,7 +27,7 @@ test.describe( 'Block Hooks API', () => {
 			post = await requestUtils.createPost( {
 				title: 'Block Hooks',
 				status: 'publish',
-				content: anchorBlockMarkup,
+				content: dummyBlockContent,
 			} );
 
 			await requestUtils.activatePlugin( 'gutenberg-test-block-hooks' );
@@ -130,7 +130,7 @@ test.describe( 'Block Hooks API', () => {
 			syncedPattern = await requestUtils.createBlock( {
 				title: 'Synced Pattern',
 				status: 'publish',
-				content: anchorBlockMarkup,
+				content: dummyBlockContent,
 			} );
 
 			await requestUtils.activatePlugin( 'gutenberg-test-block-hooks' );
