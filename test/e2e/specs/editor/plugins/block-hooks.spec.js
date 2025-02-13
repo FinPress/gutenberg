@@ -209,5 +209,84 @@ test.describe( 'Block Hooks API', () => {
 				'wp-block-page-list',
 			] );
 		} );
+
+		test( `should insert hooked blocks into Navigation Menu in editor and respect changes made there`, async ( {
+			admin,
+			editor,
+			page,
+		} ) => {
+			await admin.visitSiteEditor( {
+				postId: postObject.id,
+				postType: 'wp_navigation',
+				canvas: 'edit',
+			} );
+
+			// Since the Navigation block is a controlled block, we need
+			// to specify its client ID when calling `getBlocks`.
+			let navigationBlock = editor.canvas.getByRole( 'document', {
+				name: 'Block: Navigation',
+			} );
+			let navigationClientId =
+				await navigationBlock.getAttribute( 'data-block' );
+
+			await expect
+				.poll( () =>
+					editor.getBlocks( {
+						clientId: navigationClientId,
+					} )
+				)
+				.toMatchObject( [
+					{ name: 'core/home-link' },
+					{ name: 'core/navigation-link' },
+					{ name: 'core/page-list' },
+				] );
+
+			const hookedBlock = editor.canvas.getByRole( 'document', {
+				name: 'Block: Home Link',
+			} );
+			await editor.selectBlocks( hookedBlock );
+			await editor.clickBlockToolbarButton( 'Move right' );
+
+			// Save updated post.
+			const saveButton = page
+				.getByRole( 'region', { name: 'Editor top bar' } )
+				.getByRole( 'button', { name: 'Save', exact: true } );
+			await saveButton.click();
+			await page
+				.getByRole( 'button', { name: 'Dismiss this notice' } )
+				.filter( { hasText: 'updated' } )
+				.waitFor();
+
+			// Reload and verify that the new position of the hooked block has been persisted.
+			await page.reload();
+
+			navigationBlock = editor.canvas.getByRole( 'document', {
+				name: 'Block: Navigation',
+			} );
+			navigationClientId =
+				await navigationBlock.getAttribute( 'data-block' );
+
+			await expect
+				.poll( () =>
+					editor.getBlocks( {
+						clientId: navigationClientId,
+					} )
+				)
+				.toMatchObject( [
+					{ name: 'core/navigation-link' },
+					{ name: 'core/home-link' },
+					{ name: 'core/page-list' },
+				] );
+
+			// Verify that the frontend reflects the changes made in the editor.
+			await page.goto( `/?p=${ containerPost.id }` );
+			await expect(
+				page.locator( '.wp-block-navigation__container > *' )
+			).toHaveClass( [
+				' wp-block-navigation-item wp-block-navigation-link',
+				'wp-block-navigation-item wp-block-home-link',
+				'wp-block-page-list',
+			] );
+		} );
 	} );
 } );
