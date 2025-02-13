@@ -3,7 +3,10 @@
  */
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
-const anchorBlockMarkup = `<!-- wp:paragraph {"className":"dummy-paragraph"} -->
+const anchorBlockMarkup = `<!-- wp:heading -->
+<h2 class="wp-block-heading">This is a dummy heading</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"className":"dummy-paragraph"} -->
 <p class="dummy-paragraph">This is a dummy paragraph.</p>
 <!-- /wp:paragraph -->`;
 
@@ -38,7 +41,7 @@ test.describe( 'Block Hooks API', () => {
 		await requestUtils.deleteAllPosts();
 	} );
 
-	test( 'should insert hooked block as last child of Post Content block on frontend', async ( {
+	test( 'should insert hooked blocks into post content on frontend', async ( {
 		page,
 	} ) => {
 		await page.goto( `/?p=${ post.id }` );
@@ -48,18 +51,27 @@ test.describe( 'Block Hooks API', () => {
 			)
 		).toHaveCount( 1 );
 		// Verify that the hook block is inserted after the test paragraph.
-		await expect( page.locator( '.entry-content p' ) ).toHaveClass( [
+		await expect( page.locator( '.entry-content > *' ) ).toHaveClass( [
+			'wp-block-heading',
+			getHookedBlockClassName( 'after', 'core/heading' ),
 			'dummy-paragraph',
 			getHookedBlockClassName( 'last_child', 'core/post-content' ),
 		] );
 	} );
 
-	test( 'should insert hooked block as last child of Post Content block in editor', async ( {
+	test( 'should insert hooked blocks into post content in editor', async ( {
 		admin,
 		editor,
 		page,
 	} ) => {
-		const expectedHookedBlock = {
+		const expectedHookedBlockAfterHeading = {
+			name: 'core/paragraph',
+			attributes: {
+				className: getHookedBlockClassName( 'after', 'core/heading' ),
+			},
+		};
+
+		const expectedHookedBlockLastChild = {
 			name: 'core/paragraph',
 			attributes: {
 				className: getHookedBlockClassName(
@@ -73,8 +85,10 @@ test.describe( 'Block Hooks API', () => {
 		await expect
 			.poll( editor.getBlocks )
 			.toMatchObject( [
+				{ name: 'core/heading' },
+				expectedHookedBlockAfterHeading,
 				{ name: 'core/paragraph' },
-				expectedHookedBlock,
+				expectedHookedBlockLastChild,
 			] );
 
 		const hookedBlock = editor.canvas.getByText(
@@ -98,7 +112,9 @@ test.describe( 'Block Hooks API', () => {
 		await expect
 			.poll( editor.getBlocks )
 			.toMatchObject( [
-				expectedHookedBlock,
+				{ name: 'core/heading' },
+				expectedHookedBlockAfterHeading,
+				expectedHookedBlockLastChild,
 				{ name: 'core/paragraph' },
 			] );
 
@@ -110,7 +126,9 @@ test.describe( 'Block Hooks API', () => {
 			)
 		).toHaveCount( 1 );
 		// Verify that the hooked block is now before the test paragraph.
-		await expect( page.locator( '.entry-content p' ) ).toHaveClass( [
+		await expect( page.locator( '.entry-content > *' ) ).toHaveClass( [
+			'wp-block-heading',
+			getHookedBlockClassName( 'after', 'core/heading' ),
 			getHookedBlockClassName( 'last_child', 'core/post-content' ),
 			'dummy-paragraph',
 		] );

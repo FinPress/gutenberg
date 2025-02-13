@@ -15,7 +15,7 @@ function gutenberg_test_insert_hooked_blocks( $hooked_blocks, $position, $anchor
 	}
 
 	if (
-		( 'core/heading' === $anchor_block && 'before' === $position ) ||
+		( 'core/heading' === $anchor_block && 'after' === $position ) ||
 		( 'core/post-content' === $anchor_block && 'last_child' === $position ) ||
 		( 'core/block' === $anchor_block && 'first_child' === $position )
 	) {
@@ -28,7 +28,7 @@ add_filter( 'hooked_block_types', 'gutenberg_test_insert_hooked_blocks', 10, 4 )
 
 function gutenberg_test_set_hooked_block_inner_html( $hooked_block, $hooked_block_type, $relative_position, $anchor_block ) {
 	if (
-		( 'core/heading' === $anchor_block['blockName'] && 'before' === $relative_position ) ||
+		( 'core/heading' === $anchor_block['blockName'] && 'after' === $relative_position ) ||
 		( 'core/post-content' === $anchor_block['blockName'] && 'last_child' === $relative_position ) ||
 		( 'core/block' === $anchor_block['blockName'] && 'first_child' === $relative_position )
 	) {
