@@ -170,7 +170,8 @@ test.describe( 'Block Hooks API', () => {
 			postObject = await requestUtils.createNavigationMenu( {
 				title: 'Navigation Menu',
 				status: 'publish',
-				content: '<!-- wp:page-list /-->',
+				content:
+					'<!-- wp:navigation-link {"label":"wordpress.org","url":"https://wordpress.org","kind":"custom"} /-->', // '<!-- wp:page-list /-->',
 			} );
 
 			await requestUtils.activatePlugin( 'gutenberg-test-block-hooks' );
@@ -204,6 +205,7 @@ test.describe( 'Block Hooks API', () => {
 				page.locator( '.wp-block-navigation__container > *' )
 			).toHaveClass( [
 				'wp-block-navigation-item wp-block-home-link',
+				' wp-block-navigation-item wp-block-navigation-link',
 				'wp-block-page-list',
 			] );
 		} );
