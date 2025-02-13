@@ -350,12 +350,12 @@ describe( 'BorderControl', () => {
 			expect( props.onChange ).not.toHaveBeenCalled();
 		} );
 
-		it( 'should clear color and style only when popover clear button clicked', async () => {
+		it( 'should reset color and style only when popover reset button clicked', async () => {
 			const user = userEvent.setup();
 			const props = createProps();
 			render( <BorderControl { ...props } /> );
 			await openPopover( user );
-			await user.click( getButton( 'Clear' ) );
+			await user.click( getButton( 'Reset' ) );
 
 			expect( props.onChange ).toHaveBeenNthCalledWith( 1, {
 				color: undefined,
