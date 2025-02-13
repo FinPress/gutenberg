@@ -62,11 +62,13 @@ function AudioEdit( {
 		};
 	}
 
-	function checkAudioType( url ) {
+	function isValidAudioFile( url ) {
 		return new Promise( ( resolve ) => {
-			const audio = new window.Audio( url );
+			const audio = new window.Audio();
+			audio.preload = 'metadata';
+			audio.src = url;
 
-			audio.oncanplaythrough = () => resolve( true );
+			audio.oncanplay = () => resolve( true );
 			audio.onerror = () => resolve( false );
 		} );
 	}
@@ -75,7 +77,7 @@ function AudioEdit( {
 		// Set the block's src from the edit component's state, and switch off
 		// the editing UI.
 
-		const isAudio = await checkAudioType( newSrc );
+		const isAudio = await isValidAudioFile( newSrc );
 
 		if ( ! isAudio ) {
 			createErrorNotice( 'The selected URL is not a valid audio file.', {
