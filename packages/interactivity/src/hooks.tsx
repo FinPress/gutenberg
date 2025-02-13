@@ -74,16 +74,6 @@ interface DirectiveArgs {
 	 * context.
 	 */
 	evaluate: Evaluate;
-	/**
-	 * Function that resolves a given path to value data in the store or the
-	 * context.
-	 */
-	resolveEntry: ResolveEntry;
-	/**
-	 * Function that evaluates resolved value data to a value either in the store
-	 * or the context.
-	 */
-	evaluateResolved: EvaluateResolved;
 }
 
 export interface DirectiveCallback {
@@ -100,39 +90,12 @@ interface DirectiveOptions {
 	priority?: number;
 }
 
-interface ResolvedEntry {
-	/**
-	 * Resolved value, either a result or a function to get the result.
-	 */
-	value: any;
-	/**
-	 * Whether a negation operator should be used on the result.
-	 */
-	hasNegationOperator: boolean;
-}
-
 export interface Evaluate {
 	( entry: DirectiveEntry, ...args: any[] ): any;
 }
 
 interface GetEvaluate {
 	( args: { scope: Scope } ): Evaluate;
-}
-
-export interface ResolveEntry {
-	( entry: DirectiveEntry ): ResolvedEntry;
-}
-
-interface GetResolveEntry {
-	( args: { scope: Scope } ): ResolveEntry;
-}
-
-export interface EvaluateResolved {
-	( resolved: ResolvedEntry, ...args: any[] ): any;
-}
-
-interface GetEvaluateResolved {
-	( args: { scope: Scope } ): EvaluateResolved;
 }
 
 type PriorityLevel = string[];
@@ -266,19 +229,9 @@ const resolve = ( path: string, namespace: string ) => {
 };
 
 // Generate the evaluate function.
-export const getEvaluate: GetEvaluate = ( scopeData ) => {
-	const resolveEntry = getResolveEntry( scopeData );
-	const evaluateResolved = getEvaluateResolved( scopeData );
-	return ( entry, ...args ) => {
-		const resolved = resolveEntry( entry );
-		return evaluateResolved( resolved, ...args );
-	};
-};
-
-// Generate the resolveEntry function.
-export const getResolveEntry: GetResolveEntry =
+export const getEvaluate: GetEvaluate =
 	( { scope } ) =>
-	( entry ) => {
+	( entry, ...args ) => {
 		let { value: path, namespace } = entry;
 		if ( typeof path !== 'string' ) {
 			throw new Error( 'The `value` prop should be a string path' );
@@ -288,19 +241,6 @@ export const getResolveEntry: GetResolveEntry =
 			path[ 0 ] === '!' && !! ( path = path.slice( 1 ) );
 		setScope( scope );
 		const value = resolve( path, namespace );
-		resetScope();
-		return {
-			value,
-			hasNegationOperator,
-		};
-	};
-
-// Generate the evaluateResolved function.
-export const getEvaluateResolved: GetEvaluateResolved =
-	( { scope } ) =>
-	( resolved, ...args ) => {
-		const { value, hasNegationOperator } = resolved;
-		setScope( scope );
 		const result = typeof value === 'function' ? value( ...args ) : value;
 		resetScope();
 		return hasNegationOperator ? ! result : result;
@@ -337,11 +277,6 @@ const Directives = ( {
 	// element ref, state and props.
 	const scope = useRef< Scope >( {} as Scope ).current;
 	scope.evaluate = useCallback( getEvaluate( { scope } ), [] );
-	scope.resolveEntry = useCallback( getResolveEntry( { scope } ), [] );
-	scope.evaluateResolved = useCallback(
-		getEvaluateResolved( { scope } ),
-		[]
-	);
 	const { client, server } = useContext( context );
 	scope.context = client;
 	scope.serverContext = server;
@@ -373,8 +308,6 @@ const Directives = ( {
 		element,
 		context,
 		evaluate: scope.evaluate,
-		resolveEntry: scope.resolveEntry,
-		evaluateResolved: scope.evaluateResolved,
 	};
 
 	setScope( scope );

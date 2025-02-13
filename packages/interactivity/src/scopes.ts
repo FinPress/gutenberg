@@ -7,12 +7,10 @@ import type { h as createElement, RefObject } from 'preact';
  * Internal dependencies
  */
 import { getNamespace } from './namespaces';
-import type { Evaluate, ResolveEntry, EvaluateResolved } from './hooks';
+import type { Evaluate } from './hooks';
 
 export interface Scope {
 	evaluate: Evaluate;
-	resolveEntry: ResolveEntry;
-	evaluateResolved: EvaluateResolved;
 	context: object;
 	serverContext: object;
 	ref: RefObject< HTMLElement >;
