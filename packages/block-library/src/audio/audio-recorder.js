@@ -3,7 +3,7 @@
  * WordPress dependencies
  */
 import { useState, useEffect } from '@wordpress/element';
-import { Button, Spinner } from '@wordpress/components';
+import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
 import { store as noticesStore } from '@wordpress/notices';
@@ -93,7 +93,7 @@ const AudioRecorder = ( { onRecordingComplete, onError } ) => {
 					<Button
 						__next40pxDefaultSize
 						icon={ audio }
-						variant="primary"
+						variant="secondary"
 						onClick={ startRecording }
 						className="wp-block-audio-recorder__record-button"
 					>
@@ -104,7 +104,7 @@ const AudioRecorder = ( { onRecordingComplete, onError } ) => {
 						<Button
 							__next40pxDefaultSize
 							icon={ cancelCircleFilled }
-							variant="secondary"
+							variant="primary"
 							onClick={ stopRecording }
 							className="wp-block-audio-recorder__stop-button"
 						>
@@ -113,7 +113,6 @@ const AudioRecorder = ( { onRecordingComplete, onError } ) => {
 						<span className="wp-block-audio-recorder__timer">
 							{ formatTime( recordingTime ) }
 						</span>
-						<Spinner />
 					</>
 				) }
 			</div>
