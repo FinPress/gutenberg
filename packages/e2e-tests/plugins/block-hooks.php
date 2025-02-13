@@ -23,11 +23,11 @@ function gutenberg_test_insert_hooked_blocks( $hooked_blocks, $position, $anchor
 	}
 
 	if ( 'core/navigation' === $anchor_block && 'first_child' === $position ) {
-	    $hooked_blocks[] = 'core/home-link';
+		$hooked_blocks[] = 'core/home-link';
 	}
 
 	if ( 'core/navigation-link' === $anchor_block && 'after' === $position ) {
-	    $hooked_blocks[] = 'core/page-list';
+		$hooked_blocks[] = 'core/page-list';
 	}
 
 	return $hooked_blocks;
@@ -62,12 +62,12 @@ function gutenberg_register_wp_ignored_hooked_blocks_meta() {
 		'post',
 		'_wp_ignored_hooked_blocks',
 		array(
-			'show_in_rest'      => true,
-			'single'            => true,
-			'type'              => 'string',
-			'auth_callback' => function() {
+			'show_in_rest'  => true,
+			'single'        => true,
+			'type'          => 'string',
+			'auth_callback' => function () {
 				return current_user_can( 'edit_posts' );
-			}
+			},
 		)
 	);
 }
