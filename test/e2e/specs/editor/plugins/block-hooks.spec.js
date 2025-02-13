@@ -3,8 +3,8 @@
  */
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
-const anchorBlockMarkup = `<!-- wp:paragraph {"className":"test-paragraph"} -->
-<p class="test-paragraph">This is a test paragraph.</p>
+const anchorBlockMarkup = `<!-- wp:paragraph {"className":"dummy-paragraph"} -->
+<p class="dummy-paragraph">This is a dummy paragraph.</p>
 <!-- /wp:paragraph -->`;
 
 const getHookedBlockClassName = ( relativePosition, anchorBlock ) =>
@@ -49,7 +49,7 @@ test.describe( 'Block Hooks API', () => {
 		).toHaveCount( 1 );
 		// Verify that the hook block is inserted after the test paragraph.
 		await expect( page.locator( '.entry-content p' ) ).toHaveClass( [
-			'test-paragraph',
+			'dummy-paragraph',
 			getHookedBlockClassName( 'last_child', 'core/post-content' ),
 		] );
 	} );
@@ -112,7 +112,7 @@ test.describe( 'Block Hooks API', () => {
 		// Verify that the hooked block is now before the test paragraph.
 		await expect( page.locator( '.entry-content p' ) ).toHaveClass( [
 			getHookedBlockClassName( 'last_child', 'core/post-content' ),
-			'test-paragraph',
+			'dummy-paragraph',
 		] );
 	} );
 } );
