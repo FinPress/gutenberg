@@ -157,7 +157,7 @@ const BorderControlDropdown = (
 		onStyleChange,
 		popoverContentClassName,
 		popoverControlsClassName,
-		clearButtonClassName,
+		resetButtonClassName,
 		size,
 		__unstablePopoverProps,
 		...otherProps
@@ -222,7 +222,7 @@ const BorderControlDropdown = (
 						/>
 					) }
 				</VStack>
-				<div className={ clearButtonClassName }>
+				<div className={ resetButtonClassName }>
 					<Button
 						variant="tertiary"
 						onClick={ () => {
@@ -232,7 +232,7 @@ const BorderControlDropdown = (
 						accessibleWhenDisabled
 						__next40pxDefaultSize
 					>
-						{ __( 'Clear' ) }
+						{ __( 'Reset' ) }
 					</Button>
 				</div>
 			</DropdownContentWrapper>

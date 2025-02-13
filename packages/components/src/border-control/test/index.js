@@ -146,7 +146,7 @@ describe( 'BorderControl', () => {
 			const solidButton = getButton( 'Solid' );
 			const dashedButton = getButton( 'Dashed' );
 			const dottedButton = getButton( 'Dotted' );
-			const clearButton = getButton( 'Clear' );
+			const resetButton = getButton( 'Reset' );
 
 			expect( customColorPicker ).toBeInTheDocument();
 			expect( colorSwatchButtons.length ).toEqual( colors.length );
@@ -154,7 +154,7 @@ describe( 'BorderControl', () => {
 			expect( solidButton ).toBeInTheDocument();
 			expect( dashedButton ).toBeInTheDocument();
 			expect( dottedButton ).toBeInTheDocument();
-			expect( clearButton ).toBeInTheDocument();
+			expect( resetButton ).toBeInTheDocument();
 		} );
 
 		it( 'should not render style options when opted out of', async () => {
