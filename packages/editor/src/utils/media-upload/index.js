@@ -38,7 +38,7 @@ export default function mediaUpload( {
 	onError = noop,
 	onFileChange,
 	onSuccess,
-	multiple,
+	multiple = true,
 } ) {
 	const { getCurrentPost, getEditorSettings } = select( editorStore );
 	const {
