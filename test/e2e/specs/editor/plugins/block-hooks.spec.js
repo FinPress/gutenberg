@@ -163,4 +163,49 @@ test.describe( 'Block Hooks API', () => {
 			} );
 		} );
 	} );
+
+	test.describe( `Hooked blocks in Navigation Menu`, () => {
+		let postObject, containerPost;
+		test.beforeAll( async ( { requestUtils } ) => {
+			postObject = await requestUtils.createNavigationMenu( {
+				title: 'Navigation Menu',
+				status: 'publish',
+				content: '<!-- wp:page-list /-->',
+			} );
+
+			await requestUtils.activatePlugin( 'gutenberg-test-block-hooks' );
+
+			// We need a container post to hold our block instance.
+			containerPost = await requestUtils.createPost( {
+				title: `Block Hooks in Navigation Menu`,
+				status: 'publish',
+				content: `<!-- wp:navigation {"ref":${ postObject.id }} /-->`,
+				meta: {
+					// Prevent Block Hooks from injecting blocks into the container
+					// post content so they won't distract from the ones injected
+					// into the block instance.
+					_wp_ignored_hooked_blocks: '["core/paragraph"]',
+				},
+			} );
+		} );
+
+		test.afterAll( async ( { requestUtils } ) => {
+			await requestUtils.deactivatePlugin( 'gutenberg-test-block-hooks' );
+
+			await requestUtils.deleteAllPosts();
+			await requestUtils.deleteAllBlocks();
+		} );
+
+		test( `should insert hooked blocks into Navigation Menu on frontend`, async ( {
+			page,
+		} ) => {
+			await page.goto( `/?p=${ containerPost.id }` );
+			await expect(
+				page.locator( '.wp-block-navigation__container > *' )
+			).toHaveClass( [
+				'wp-block-navigation-item wp-block-home-link',
+				'wp-block-page-list',
+			] );
+		} );
+	} );
 } );

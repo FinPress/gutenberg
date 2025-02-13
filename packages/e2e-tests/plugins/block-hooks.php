@@ -22,6 +22,10 @@ function gutenberg_test_insert_hooked_blocks( $hooked_blocks, $position, $anchor
 		$hooked_blocks[] = 'core/paragraph';
 	}
 
+	if ( 'core/navigation' === $anchor_block && 'first_child' === $position ) {
+	    $hooked_blocks[] = 'core/home-link';
+	}
+
 	return $hooked_blocks;
 }
 add_filter( 'hooked_block_types', 'gutenberg_test_insert_hooked_blocks', 10, 4 );
