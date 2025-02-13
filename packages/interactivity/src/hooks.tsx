@@ -231,6 +231,7 @@ const resolve = ( path: string, namespace: string ) => {
 // Generate the evaluate function.
 export const getEvaluate: GetEvaluate =
 	( { scope } ) =>
+	// TODO: When removing the temporarily remaining `value( ...args )` call below, remove the `...args` parameter too.
 	( entry, ...args ) => {
 		let { value: path, namespace } = entry;
 		if ( typeof path !== 'string' ) {
@@ -241,7 +242,20 @@ export const getEvaluate: GetEvaluate =
 			path[ 0 ] === '!' && !! ( path = path.slice( 1 ) );
 		setScope( scope );
 		const value = resolve( path, namespace );
-		const result = typeof value === 'function' ? value( ...args ) : value;
+		// Functions are returned without invoking them.
+		if ( typeof value === 'function' ) {
+			// Except if they have a negation operator present, for backward compatibility.
+			// This pattern is strongly discouraged and deprecated, and it will be removed in a near future release.
+			// TODO: Remove this condition to effectively ignore negation operator when provided with a function.
+			if ( hasNegationOperator ) {
+				warn(
+					'Using a function with a negation operator is deprecated and will stop working in WordPress 6.9. Please use derived state instead.'
+				);
+				return ! value( ...args );
+			}
+			return value;
+		}
+		const result = value;
 		resetScope();
 		return hasNegationOperator ? ! result : result;
 	};
