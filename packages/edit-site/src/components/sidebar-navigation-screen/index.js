@@ -16,7 +16,6 @@ import { chevronRight, chevronLeft } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { useContext } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -28,7 +27,7 @@ import {
 	isPreviewingTheme,
 	currentlyPreviewingTheme,
 } from '../../utils/is-previewing-theme';
-import { SidebarNavigationContext } from '../sidebar';
+import { useNavStep } from '../sidebar';
 
 const { useHistory, useLocation } = unlock( routerPrivateApis );
 
@@ -61,8 +60,8 @@ export default function SidebarNavigationScreen( {
 	);
 	const location = useLocation();
 	const history = useHistory();
-	const { navigate } = useContext( SidebarNavigationContext );
 	const backPath = backPathProp ?? location.state?.backPath;
+	const navStep = useNavStep( 'back' );
 	const icon = isRTL() ? chevronRight : chevronLeft;
 
 	return (
@@ -82,8 +81,9 @@ export default function SidebarNavigationScreen( {
 					{ ! isRoot && (
 						<SidebarButton
 							onClick={ () => {
-								history.navigate( backPath );
-								navigate( 'back' );
+								history.navigate( backPath, {
+									state: navStep,
+								} );
 							} }
 							icon={ icon }
 							label={ __( 'Back' ) }

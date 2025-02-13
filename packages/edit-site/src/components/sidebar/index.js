@@ -6,23 +6,24 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import {
-	createContext,
-	useContext,
-	useState,
-	useRef,
-	useLayoutEffect,
-} from '@wordpress/element';
+import { useState, useRef, useLayoutEffect } from '@wordpress/element';
 import { focus } from '@wordpress/dom';
+import { privateApis as routerPrivateApis } from '@wordpress/router';
 
-export const SidebarNavigationContext = createContext( () => {} );
-// Focus a sidebar element after a navigation. The element to focus is either
+/**
+ * Internal dependencies
+ */
+import { unlock } from '../../lock-unlock';
+
+const { useLocation } = unlock( routerPrivateApis );
+
+// Focus an element after a navigation. The element to focus is either
 // specified by `focusSelector` (when navigating back) or it is the first
-// tabbable element (usually the "Back" button).
+// tabbable element in the sidebar (usually the "Back" button).
 function focusSidebarElement( el, direction, focusSelector ) {
 	let elementToFocus;
 	if ( direction === 'back' && focusSelector ) {
-		elementToFocus = el.querySelector( focusSelector );
+		elementToFocus = el.ownerDocument.querySelector( focusSelector );
 	}
 	if ( direction !== null && ! elementToFocus ) {
 		const [ firstTabbable ] = focus.tabbable.find( el );
@@ -31,40 +32,36 @@ function focusSidebarElement( el, direction, focusSelector ) {
 	elementToFocus?.focus();
 }
 
-// Navigation state that is updated when navigating back or forward. Helps us
-// manage the animations and also focus.
-function createNavState() {
-	let state = {
-		direction: null,
-		focusSelector: null,
-	};
-
+/**
+ * Helper for creating `navStep` state that’s used to manage animations and focus.
+ * @param {'back'|'forward'} direction
+ * @param {string}           [focusSelector]
+ */
+export function useNavStep( direction, focusSelector ) {
+	const { navStep: priorNavStep = {} } = useLocation().state || {};
 	return {
-		get() {
-			return state;
-		},
-		navigate( direction, focusSelector = null ) {
-			state = {
-				direction,
-				focusSelector:
-					direction === 'forward' && focusSelector
-						? focusSelector
-						: state.focusSelector,
-			};
+		navStep: {
+			direction,
+			focusSelector:
+				direction === 'forward' && focusSelector
+					? focusSelector
+					: priorNavStep.focusSelector,
 		},
 	};
 }
 
 function SidebarContentWrapper( { children, shouldAnimate } ) {
-	const navState = useContext( SidebarNavigationContext );
+	const { navStep } = useLocation().state || {};
 	const wrapperRef = useRef();
 	const [ navAnimation, setNavAnimation ] = useState( null );
 
 	useLayoutEffect( () => {
-		const { direction, focusSelector } = navState.get();
-		focusSidebarElement( wrapperRef.current, direction, focusSelector );
-		setNavAnimation( direction );
-	}, [ navState ] );
+		if ( navStep ) {
+			const { direction, focusSelector } = navStep;
+			focusSidebarElement( wrapperRef.current, direction, focusSelector );
+			setNavAnimation( direction ?? null );
+		}
+	}, [ navStep ] );
 
 	const wrapperCls = clsx(
 		'edit-site-sidebar__screen-wrapper',
@@ -92,18 +89,14 @@ export default function SidebarContent( {
 	shouldAnimate,
 	children,
 } ) {
-	const [ navState ] = useState( createNavState );
-
 	return (
-		<SidebarNavigationContext.Provider value={ navState }>
-			<div className="edit-site-sidebar__content">
-				<SidebarContentWrapper
-					shouldAnimate={ shouldAnimate }
-					key={ routeKey }
-				>
-					{ children }
-				</SidebarContentWrapper>
-			</div>
-		</SidebarNavigationContext.Provider>
+		<div className="edit-site-sidebar__content">
+			<SidebarContentWrapper
+				shouldAnimate={ shouldAnimate }
+				key={ routeKey }
+			>
+				{ children }
+			</SidebarContentWrapper>
+		</div>
 	);
 }

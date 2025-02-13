@@ -14,13 +14,12 @@ import {
 import { isRTL } from '@wordpress/i18n';
 import { chevronRightSmall, chevronLeftSmall, Icon } from '@wordpress/icons';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { useContext } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import { unlock } from '../../lock-unlock';
-import { SidebarNavigationContext } from '../sidebar';
+import { useNavStep } from '../sidebar';
 
 const { useHistory, useLink } = unlock( routerPrivateApis );
 
@@ -36,16 +35,14 @@ export default function SidebarNavigationItem( {
 	...props
 } ) {
 	const history = useHistory();
-	const { navigate } = useContext( SidebarNavigationContext );
+	const navStep = useNavStep( 'forward', !! uid && `[id="${ uid }"]` );
 	// If there is no custom click handler, create one that navigates to `params`.
 	function handleClick( e ) {
 		if ( onClick ) {
 			onClick( e );
-			navigate( 'forward' );
 		} else if ( to ) {
 			e.preventDefault();
-			history.navigate( to );
-			navigate( 'forward', `[id="${ uid }"]` );
+			history.navigate( to, { state: navStep } );
 		}
 	}
 	const linkProps = useLink( to );

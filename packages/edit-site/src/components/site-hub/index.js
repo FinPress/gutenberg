@@ -15,7 +15,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 import { decodeEntities } from '@wordpress/html-entities';
-import { memo, forwardRef, useContext } from '@wordpress/element';
+import { memo, forwardRef } from '@wordpress/element';
 import { search } from '@wordpress/icons';
 import { store as commandsStore } from '@wordpress/commands';
 import { displayShortcut } from '@wordpress/keycodes';
@@ -28,8 +28,9 @@ import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { store as editSiteStore } from '../../store';
 import SiteIcon from '../site-icon';
 import { unlock } from '../../lock-unlock';
+import { useNavStep } from '../sidebar';
+
 const { useHistory } = unlock( routerPrivateApis );
-import { SidebarNavigationContext } from '../sidebar';
 
 const SiteHub = memo(
 	forwardRef( ( { isTransparent }, ref ) => {
@@ -118,7 +119,7 @@ export default SiteHub;
 export const SiteHubMobile = memo(
 	forwardRef( ( { isTransparent }, ref ) => {
 		const history = useHistory();
-		const { navigate } = useContext( SidebarNavigationContext );
+		const navStep = useNavStep( 'back' );
 
 		const { dashboardLink, isBlockTheme, homeUrl, siteTitle } = useSelect(
 			( select ) => {
@@ -167,8 +168,9 @@ export const SiteHubMobile = memo(
 								  }
 								: {
 										onClick: () => {
-											history.navigate( '/' );
-											navigate( 'back' );
+											history.navigate( '/', {
+												state: navStep,
+											} );
 										},
 										label: __( 'Go to Site Editor' ),
 								  } ) }
