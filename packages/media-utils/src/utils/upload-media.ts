@@ -76,7 +76,7 @@ export function uploadMedia( {
 		onError?.(
 			new UploadError( {
 				code: 'GENERAL',
-				message: __( 'Only one image can be used here.' ),
+				message: __( 'Only one file can be used here.' ),
 			} )
 		);
 		return;
