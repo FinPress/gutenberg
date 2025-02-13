@@ -477,13 +477,6 @@ function MediaTextEdit( {
 							setAttributes( { aspectRatio: value } )
 						}
 						disabled={ imageFill }
-						help={
-							imageFill
-								? __(
-										'Aspect ratio cannot be changed while "Crop image to fill" is enabled'
-								  )
-								: undefined
-						}
 					/>
 				</ToolsPanelItem>
 			) }
