@@ -16,9 +16,6 @@ const getHookedBlockClassName = ( relativePosition, anchorBlock ) =>
 		''
 	) }`;
 
-const getHookedBlockSelector = ( relativePosition, anchorBlock ) =>
-	'.' + getHookedBlockClassName( relativePosition, anchorBlock );
-
 const getHookedBlockContent = ( relativePosition, anchorBlock ) =>
 	`This block was inserted by the Block Hooks API in the ${ relativePosition } position next to the ${ anchorBlock } anchor block.`;
 
@@ -45,12 +42,6 @@ test.describe( 'Block Hooks API', () => {
 		page,
 	} ) => {
 		await page.goto( `/?p=${ post.id }` );
-		await expect(
-			page.locator(
-				getHookedBlockSelector( 'last_child', 'core/post-content' )
-			)
-		).toHaveCount( 1 );
-		// Verify that the hook block is inserted after the test paragraph.
 		await expect( page.locator( '.entry-content > *' ) ).toHaveClass( [
 			'wp-block-heading',
 			getHookedBlockClassName( 'after', 'core/heading' ),
@@ -120,12 +111,6 @@ test.describe( 'Block Hooks API', () => {
 
 		// Verify that the frontend reflects the changes made in the editor.
 		await page.goto( `/?p=${ post.id }` );
-		await expect(
-			page.locator(
-				getHookedBlockSelector( 'last_child', 'core/post-content' )
-			)
-		).toHaveCount( 1 );
-		// Verify that the hooked block is now before the test paragraph.
 		await expect( page.locator( '.entry-content > *' ) ).toHaveClass( [
 			'wp-block-heading',
 			getHookedBlockClassName( 'after', 'core/heading' ),
