@@ -374,6 +374,22 @@ describe( 'ColorPicker', () => {
 				await user.clear( alphaInput );
 				await user.type( alphaInput, alphaValue );
 
+				const alphaSliders = await screen.findAllByText( 'Alpha' );
+				expect( alphaSliders ).toHaveLength( 2 );
+
+				const alphaSlider = [ alphaSliders[ 0 ] ];
+				expect( alphaSlider ).toHaveLength( 1 );
+
+				fireEvent.pointerDown( alphaSlider[ 0 ], {
+					clientX: 0,
+					clientY: 0,
+				} );
+				fireEvent.pointerMove( alphaSlider[ 0 ], {
+					clientX: 75,
+					clientY: 0,
+				} );
+				fireEvent.pointerUp( alphaSlider[ 0 ] );
+
 				expect( onChange ).toHaveBeenCalledTimes( 3 );
 				expect( onChange ).toHaveBeenLastCalledWith( expected );
 			} );
