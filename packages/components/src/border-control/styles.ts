@@ -147,7 +147,7 @@ export const borderControlPopoverControls = css`
 export const borderControlPopoverContent = css``;
 export const borderColorIndicator = css``;
 
-export const resetButton = css`
+export const resetButtonWrapper = css`
 	display: flex;
 	justify-content: flex-end;
 	margin-top: 12px;

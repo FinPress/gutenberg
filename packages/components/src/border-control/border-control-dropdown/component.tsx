@@ -157,7 +157,7 @@ const BorderControlDropdown = (
 		onStyleChange,
 		popoverContentClassName,
 		popoverControlsClassName,
-		resetButtonClassName,
+		resetButtonWrapperClassName,
 		size,
 		__unstablePopoverProps,
 		...otherProps
@@ -173,7 +173,7 @@ const BorderControlDropdown = (
 		enableStyle
 	);
 
-	const showResetButton = color || ( style && style !== 'none' );
+	const enableResetButton = color || ( style && style !== 'none' );
 	const dropdownPosition = __experimentalIsRenderedInSidebar
 		? 'bottom left'
 		: undefined;
@@ -222,13 +222,13 @@ const BorderControlDropdown = (
 						/>
 					) }
 				</VStack>
-				<div className={ resetButtonClassName }>
+				<div className={ resetButtonWrapperClassName }>
 					<Button
 						variant="tertiary"
 						onClick={ () => {
 							onReset();
 						} }
-						disabled={ ! showResetButton }
+						disabled={ ! enableResetButton }
 						accessibleWhenDisabled
 						__next40pxDefaultSize
 					>
