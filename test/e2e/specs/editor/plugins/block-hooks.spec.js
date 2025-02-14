@@ -171,7 +171,7 @@ test.describe( 'Block Hooks API', () => {
 				title: 'Navigation Menu',
 				status: 'publish',
 				content:
-					'<!-- wp:navigation-link {"label":"wordpress.org","url":"https://wordpress.org","kind":"custom"} /-->', // '<!-- wp:page-list /-->',
+					'<!-- wp:navigation-link {"label":"wordpress.org","url":"https://wordpress.org","kind":"custom"} /-->',
 			} );
 
 			await requestUtils.activatePlugin( 'gutenberg-test-block-hooks' );
