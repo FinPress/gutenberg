@@ -1,7 +1,7 @@
 interface UploadErrorArgs {
 	code: string;
 	message: string;
-	file?: File;
+	file: File;
 	cause?: Error;
 }
 
@@ -13,7 +13,7 @@ interface UploadErrorArgs {
  */
 export class UploadError extends Error {
 	code: string;
-	file?: File;
+	file: File;
 
 	constructor( { code, message, file, cause }: UploadErrorArgs ) {
 		super( message, { cause } );

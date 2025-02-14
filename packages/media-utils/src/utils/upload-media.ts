@@ -73,12 +73,7 @@ export function uploadMedia( {
 	multiple = true,
 }: UploadMediaArgs ) {
 	if ( ! multiple && filesList.length > 1 ) {
-		onError?.(
-			new UploadError( {
-				code: 'GENERAL',
-				message: __( 'Only one file can be used here.' ),
-			} )
-		);
+		onError?.( new Error( __( 'Only one file can be used here.' ) ) );
 		return;
 	}
 
