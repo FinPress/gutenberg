@@ -189,7 +189,6 @@ export default function CoverInspectorControls( {
 	return (
 		<>
 			<InspectorControls>
-				{ !! url && (
 					<ToolsPanel
 						label={ __( 'Settings' ) }
 						resetAll={ () => {
@@ -317,7 +316,6 @@ export default function CoverInspectorControls( {
 							/>
 						) }
 					</ToolsPanel>
-				) }
 			</InspectorControls>
 			{ colorGradientSettings.hasColorsOrGradients && (
 				<InspectorControls group="color">
