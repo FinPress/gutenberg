@@ -156,15 +156,15 @@ function TableRow< Item >( {
 			{ hasPrimaryColumn && (
 				<td
 					style={ {
-						width: titleField?.id
-							? view.layout?.styles?.[ titleField.id ]?.width
-							: undefined,
-						maxWidth: titleField?.id
-							? view.layout?.styles?.[ titleField.id ]?.maxWidth
-							: undefined,
-						minWidth: titleField?.id
-							? view.layout?.styles?.[ titleField.id ]?.minWidth
-							: undefined,
+						width:
+							titleField?.id &&
+							view.layout?.styles?.[ titleField.id ]?.width,
+						maxWidth:
+							titleField?.id &&
+							view.layout?.styles?.[ titleField.id ]?.maxWidth,
+						minWidth:
+							titleField?.id &&
+							view.layout?.styles?.[ titleField.id ]?.minWidth,
 					} }
 				>
 					<ColumnPrimary
@@ -323,18 +323,18 @@ function ViewTable< Item >( {
 							<th
 								scope="col"
 								style={ {
-									width: titleField?.id
-										? view.layout?.styles?.[ titleField.id ]
-												?.width
-										: undefined,
-									maxWidth: titleField?.id
-										? view.layout?.styles?.[ titleField.id ]
-												?.maxWidth
-										: undefined,
-									minWidth: titleField?.id
-										? view.layout?.styles?.[ titleField.id ]
-												?.minWidth
-										: undefined,
+									width:
+										titleField?.id &&
+										view.layout?.styles?.[ titleField.id ]
+											?.width,
+									maxWidth:
+										titleField?.id &&
+										view.layout?.styles?.[ titleField.id ]
+											?.maxWidth,
+									minWidth:
+										titleField?.id &&
+										view.layout?.styles?.[ titleField.id ]
+											?.minWidth,
 								} }
 							>
 								{ titleField && (
