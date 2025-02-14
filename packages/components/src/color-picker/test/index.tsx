@@ -342,4 +342,41 @@ describe( 'ColorPicker', () => {
 			} );
 		} );
 	} );
+
+	describe.each( [
+		[ 'hsl', 'HSL', '75', '#ffffffbf' ],
+		[ 'rgb', 'RGB', '75', '#ffffffbf' ],
+	] )(
+		'Alpha-enabled %s format',
+		( format, formatLabel, alphaValue, expected ) => {
+			it( `should update alpha correctly when ${ formatLabel } format is selected`, async () => {
+				const user = userEvent.setup();
+				const onChange = jest.fn();
+				const color = '#ffffff80';
+
+				render(
+					<ColorPicker
+						onChange={ onChange }
+						color={ color }
+						enableAlpha
+					/>
+				);
+
+				const formatSelector = screen.getByRole( 'combobox' );
+				expect( formatSelector ).toBeVisible();
+				await user.selectOptions( formatSelector, format );
+
+				const alphaInput = screen.getByRole( 'spinbutton', {
+					name: 'Alpha',
+				} );
+				expect( alphaInput ).toBeVisible();
+
+				await user.clear( alphaInput );
+				await user.type( alphaInput, alphaValue );
+
+				expect( onChange ).toHaveBeenCalledTimes( 3 );
+				expect( onChange ).toHaveBeenLastCalledWith( expected );
+			} );
+		}
+	);
 } );
