@@ -164,7 +164,7 @@ test.describe( 'Block Hooks API', () => {
 		} );
 	} );
 
-	test.describe( `Hooked blocks in Navigation Menu`, () => {
+	test.describe( 'Hooked blocks in Navigation Menu', () => {
 		let postObject, containerPost;
 		test.beforeAll( async ( { requestUtils } ) => {
 			postObject = await requestUtils.createNavigationMenu( {
@@ -178,7 +178,7 @@ test.describe( 'Block Hooks API', () => {
 
 			// We need a container post to hold our block instance.
 			containerPost = await requestUtils.createPost( {
-				title: `Block Hooks in Navigation Menu`,
+				title: 'Block Hooks in Navigation Menu',
 				status: 'publish',
 				content: `<!-- wp:navigation {"ref":${ postObject.id }} /-->`,
 				meta: {
@@ -197,7 +197,7 @@ test.describe( 'Block Hooks API', () => {
 			await requestUtils.deleteAllMenus();
 		} );
 
-		test( `should insert hooked blocks into Navigation Menu on frontend`, async ( {
+		test( 'should insert hooked blocks into Navigation Menu on frontend', async ( {
 			page,
 		} ) => {
 			await page.goto( `/?p=${ containerPost.id }` );
@@ -210,7 +210,7 @@ test.describe( 'Block Hooks API', () => {
 			] );
 		} );
 
-		test( `should insert hooked blocks into Navigation Menu in editor and respect changes made there`, async ( {
+		test( 'should insert hooked blocks into Navigation Menu in editor and respect changes made there', async ( {
 			admin,
 			editor,
 			page,
