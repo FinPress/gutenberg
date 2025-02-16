@@ -176,24 +176,21 @@ test.describe( 'Block Hooks API', () => {
 
 			await requestUtils.activatePlugin( 'gutenberg-test-block-hooks' );
 
-			// We need a container post to hold our block instance.
-			containerPost = await requestUtils.createPost( {
+			// We need a container to hold our Navigation block instance.
+			// We create a page (instead of a post) so that it will also
+			// populate the Page List block, which is one of the hooked blocks
+			// we use in our testing.
+			containerPost = await requestUtils.createPage( {
 				title: 'Block Hooks in Navigation Menu',
 				status: 'publish',
 				content: `<!-- wp:navigation {"ref":${ postObject.id }} /-->`,
-				meta: {
-					// Prevent Block Hooks from injecting blocks into the container
-					// post content so they won't distract from the ones injected
-					// into the block instance.
-					_wp_ignored_hooked_blocks: '["core/paragraph"]',
-				},
 			} );
 		} );
 
 		test.afterAll( async ( { requestUtils } ) => {
 			await requestUtils.deactivatePlugin( 'gutenberg-test-block-hooks' );
 
-			await requestUtils.deleteAllPosts();
+			await requestUtils.deleteAllPages();
 			await requestUtils.deleteAllMenus();
 		} );
 
