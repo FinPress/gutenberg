@@ -194,7 +194,6 @@ test.describe( 'Block Hooks API', () => {
 			await requestUtils.deactivatePlugin( 'gutenberg-test-block-hooks' );
 
 			await requestUtils.deleteAllPosts();
-			await requestUtils.deleteAllBlocks();
 			await requestUtils.deleteAllMenus();
 		} );
 
