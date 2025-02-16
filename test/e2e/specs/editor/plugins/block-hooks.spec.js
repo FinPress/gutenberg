@@ -195,6 +195,7 @@ test.describe( 'Block Hooks API', () => {
 
 			await requestUtils.deleteAllPosts();
 			await requestUtils.deleteAllBlocks();
+			await requestUtils.deleteAllMenus();
 		} );
 
 		test( `should insert hooked blocks into Navigation Menu on frontend`, async ( {
