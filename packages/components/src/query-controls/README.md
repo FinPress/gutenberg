@@ -32,11 +32,21 @@ const QUERY_DEFAULTS = {
 	numberOfItems: 10,
 	order: 'asc',
 	orderBy: 'title',
+	orderByOptions: [
+		{
+			label: 'Title Ascending',
+			value: 'title/asc',
+		},
+		{
+			label: 'Title Descending',
+			value: 'title/desc',
+		},
+	],
 };
 
 const MyQueryControls = () => {
 	const [ query, setQuery ] = useState( QUERY_DEFAULTS );
-	const { category, categories, maxItems, minItems, numberOfItems, order, orderBy  } = query;
+	const { category, categories, maxItems, minItems, numberOfItems, order, orderBy, orderByOptions } = query;
 
 	const updateQuery = ( newQuery ) => {
 		setQuery( { ...query, ...newQuery } );
@@ -44,7 +54,7 @@ const MyQueryControls = () => {
 
 	return (
 		<QueryControls
-			{ ...{ maxItems, minItems, numberOfItems, order, orderBy } }
+			{ ...{ maxItems, minItems, numberOfItems, order, orderBy, orderByOptions } }
 			onOrderByChange={ ( newOrderBy ) => updateQuery( { orderBy: newOrderBy } ) }
 			onOrderChange={ ( newOrder ) => updateQuery( { order: newOrder } ) }
 			categoriesList={ categories }
@@ -108,7 +118,7 @@ const MyQueryControls = () => {
 
 	return (
 		<QueryControls
-			{ ...{ orderBy, order, numberOfItems } }
+			{ ...{ orderBy, order, orderByOptions, numberOfItems } }
 			onOrderByChange={ ( newOrderBy ) => updateQuery( { orderBy: newOrderBy } ) }
 			onOrderChange={ ( newOrder ) => updateQuery( { order: newOrder } ) }
 			categorySuggestions={ categories }
