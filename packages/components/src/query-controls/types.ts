@@ -54,7 +54,7 @@ type OrderByOptions = ( {
 	/**
 	 * Option value passed to `onChange` when the option is selected.
 	 */
-	value: string;
+	value: `${ OrderBy }/${ Order }`;
 } & Omit<
 	React.OptionHTMLAttributes< HTMLOptionElement >,
 	'label' | 'value'
