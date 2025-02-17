@@ -46,7 +46,7 @@ export type AuthorSelectProps = Pick<
 
 type Order = 'asc' | 'desc';
 type OrderBy = 'date' | 'title' | 'menu_order';
-type OrderByOptions = ( {
+type OrderByOption = {
 	/**
 	 * The label to be shown to the user.
 	 */
@@ -55,10 +55,7 @@ type OrderByOptions = ( {
 	 * Option value passed to `onChange` when the option is selected.
 	 */
 	value: `${ OrderBy }/${ Order }`;
-} & Omit<
-	React.OptionHTMLAttributes< HTMLOptionElement >,
-	'label' | 'value'
-> )[];
+} & Omit< React.OptionHTMLAttributes< HTMLOptionElement >, 'label' | 'value' >;
 
 type BaseQueryControlsProps = {
 	/**
@@ -113,9 +110,9 @@ type BaseQueryControlsProps = {
 	 */
 	orderBy?: OrderBy;
 	/**
-	 * List of available menu_order options.
+	 * List of available ordering options.
 	 */
-	orderByOptions?: OrderByOptions;
+	orderByOptions?: OrderByOption[];
 	/**
 	 * The selected author ID.
 	 */
