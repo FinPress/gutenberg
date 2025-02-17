@@ -55,7 +55,7 @@ type OrderByOption = {
 	 * Option value passed to `onChange` when the option is selected.
 	 */
 	value: `${ OrderBy }/${ Order }`;
-} & Omit< React.OptionHTMLAttributes< HTMLOptionElement >, 'label' | 'value' >;
+};
 
 type BaseQueryControlsProps = {
 	/**
