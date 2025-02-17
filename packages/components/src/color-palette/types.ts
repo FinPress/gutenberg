@@ -122,3 +122,9 @@ export type ColorPaletteProps = Pick< PaletteProps, 'onChange' > & {
 				'aria-label'?: never;
 		  }
 	);
+
+export type CustomColorValueInputProps = {
+	value?: string;
+	onChange: ( newColor?: string ) => void;
+	isHex: boolean;
+};

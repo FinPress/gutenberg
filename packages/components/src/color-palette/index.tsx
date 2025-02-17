@@ -1,7 +1,12 @@
 /**
  * External dependencies
  */
-import type { ForwardedRef } from 'react';
+import type {
+	ForwardedRef,
+	MouseEvent,
+	ChangeEvent,
+	KeyboardEvent,
+} from 'react';
 import { colord, extend } from 'colord';
 import namesPlugin from 'colord/plugins/names';
 import a11yPlugin from 'colord/plugins/a11y';
@@ -12,7 +17,14 @@ import clsx from 'clsx';
  */
 import { useInstanceId } from '@wordpress/compose';
 import { __, sprintf } from '@wordpress/i18n';
-import { useCallback, useMemo, useState, forwardRef } from '@wordpress/element';
+import {
+	useCallback,
+	useMemo,
+	useState,
+	forwardRef,
+	useEffect,
+	useRef,
+} from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -31,6 +43,7 @@ import type {
 	MultiplePalettesProps,
 	PaletteObject,
 	SinglePaletteProps,
+	CustomColorValueInputProps,
 } from './types';
 import type { WordPressComponentProps } from '../context';
 import type { DropdownProps } from '../dropdown/types';
@@ -41,6 +54,77 @@ import {
 } from './utils';
 
 extend( [ namesPlugin, a11yPlugin ] );
+
+function CustomColorValueInput( {
+	value,
+	onChange,
+	isHex,
+}: CustomColorValueInputProps ) {
+	const [ isEditing, setIsEditing ] = useState( false );
+	const [ inputValue, setInputValue ] = useState( value );
+	const inputRef = useRef< HTMLInputElement >( null );
+
+	useEffect( () => {
+		if ( isEditing && inputRef.current ) {
+			inputRef.current.focus();
+		}
+	}, [ isEditing ] );
+
+	const handleClick = ( e: MouseEvent< HTMLDivElement > ) => {
+		e.preventDefault();
+		if ( isHex ) {
+			setIsEditing( true );
+		}
+	};
+
+	const handleChange = ( e: ChangeEvent< HTMLInputElement > ) => {
+		setInputValue( e.target.value );
+	};
+
+	const handleBlur = () => {
+		setIsEditing( false );
+		if ( isHex && /^#[0-9A-Fa-f]{6}$/.test( inputValue || '' ) ) {
+			onChange( inputValue );
+		} else {
+			setInputValue( value );
+		}
+	};
+
+	const handleKeyDown = ( e: KeyboardEvent< HTMLInputElement > ) => {
+		if ( e.key === 'Enter' ) {
+			( e.target as HTMLInputElement ).blur();
+		} else if ( e.key === 'Escape' ) {
+			setInputValue( value );
+			setIsEditing( false );
+		}
+	};
+
+	if ( isEditing && isHex ) {
+		return (
+			<input
+				type="text"
+				value={ inputValue || '' }
+				onChange={ handleChange }
+				onBlur={ handleBlur }
+				onKeyDown={ handleKeyDown }
+				className="components-color-palette__custom-color-value-input"
+			/>
+		);
+	}
+
+	return (
+		<Truncate
+			className={ clsx( 'components-color-palette__custom-color-value', {
+				'components-color-palette__custom-color-value--is-hex': isHex,
+				'components-color-palette__custom-color-value--is-editable':
+					isHex,
+			} ) }
+			onClick={ handleClick }
+		>
+			{ value }
+		</Truncate>
+	);
+}
 
 function SinglePalette( {
 	className,
@@ -220,7 +304,7 @@ function UnforwardedColorPalette(
 			/>
 		</DropdownContentWrapper>
 	);
-	const isHex = value?.startsWith( '#' );
+	const isHex = value?.startsWith( '#' ) ?? false;
 
 	// Leave hex values as-is. Remove the `var()` wrapper from CSS vars.
 	const displayValue = value?.replace( /^var\((.+)\)$/, '$1' );
@@ -311,22 +395,11 @@ function UnforwardedColorPalette(
 										? buttonLabelName
 										: __( 'No color selected' ) }
 								</Truncate>
-								{ /*
-								This `Truncate` is always rendered, even if
-								there is no `displayValue`, to ensure the layout
-								does not shift
-								*/ }
-								<Truncate
-									className={ clsx(
-										'components-color-palette__custom-color-value',
-										{
-											'components-color-palette__custom-color-value--is-hex':
-												isHex,
-										}
-									) }
-								>
-									{ displayValue }
-								</Truncate>
+								<CustomColorValueInput
+									value={ displayValue }
+									onChange={ onChange }
+									isHex={ isHex }
+								/>
 							</VStack>
 						</VStack>
 					) }
