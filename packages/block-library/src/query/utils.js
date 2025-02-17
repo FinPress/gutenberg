@@ -14,6 +14,7 @@ import {
 } from '@wordpress/blocks';
 
 /** @typedef {import('@wordpress/blocks').WPBlockVariation} WPBlockVariation */
+/** @typedef {import('@wordpress/components/build-types/query-controls/types').OrderByOption} OrderByOption */
 
 /**
  * @typedef IHasNameAndId
@@ -191,7 +192,7 @@ export function useIsPostTypeHierarchical( postType ) {
  * List of avaiable options to order by.
  *
  * @param {string} postType The post type to check.
- * @return {Object[]} List of order options.
+ * @return {OrderByOption[]} List of order options.
  */
 export function useOrderByOptions( postType ) {
 	const supportsCustomOrder = useSelect(
