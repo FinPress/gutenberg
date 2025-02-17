@@ -210,4 +210,28 @@ describe( 'uploadMedia', () => {
 		);
 		expect( uploadToServer ).not.toHaveBeenCalled();
 	} );
+
+	it( 'should return error that is not an Error object', () => {
+		( uploadToServer as jest.Mock ).mockImplementation( () => {
+			throw {
+				code: 'fetch_error',
+				message: 'You are probably offline.',
+			};
+		} );
+
+		const onError = jest.fn();
+		uploadMedia( {
+			filesList: [ imageFile ],
+			onError,
+			multiple: false,
+		} );
+
+		expect( onError ).toHaveBeenCalledWith(
+			new UploadError( {
+				code: 'GENERAL',
+				message: 'You are probably offline.',
+				file: imageFile,
+			} )
+		);
+	} );
 } );
