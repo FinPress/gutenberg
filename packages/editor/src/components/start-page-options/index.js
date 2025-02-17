@@ -142,10 +142,9 @@ function StartPageOptionsModal( { onClose } ) {
 export default function StartPageOptions() {
 	const [ isOpen, setIsOpen ] = useState( false );
 	const { isEditedPostDirty, isEditedPostEmpty } = useSelect( editorStore );
+	const { isModalActive } = useSelect( interfaceStore );
 	const { enabled, postId } = useSelect( ( select ) => {
 		const { getCurrentPostId, getCurrentPostType } = select( editorStore );
-		const preferencesModalActive =
-			select( interfaceStore ).isModalActive( 'editor/preferences' );
 		const choosePatternModalEnabled = select( preferencesStore ).get(
 			'core',
 			'enableChoosePatternModal'
@@ -153,9 +152,7 @@ export default function StartPageOptions() {
 		return {
 			postId: getCurrentPostId(),
 			enabled:
-				choosePatternModalEnabled &&
-				! preferencesModalActive &&
-				'page' === getCurrentPostType(),
+				choosePatternModalEnabled && 'page' === getCurrentPostType(),
 		};
 	}, [] );
 
@@ -163,13 +160,21 @@ export default function StartPageOptions() {
 	// Examples: changing pages in the List View, creating a new page via Command Palette.
 	useEffect( () => {
 		const isFreshPage = ! isEditedPostDirty() && isEditedPostEmpty();
-		if ( ! enabled || ! isFreshPage ) {
+		// Prevents immediately opening when features is enabled via preferences modal.
+		const isPreferencesModalActive = isModalActive( 'editor/preferences' );
+		if ( ! enabled || ! isFreshPage || isPreferencesModalActive ) {
 			return;
 		}
 
 		// Open the modal after the initial render for a new page.
 		setIsOpen( true );
-	}, [ enabled, postId, isEditedPostDirty, isEditedPostEmpty ] );
+	}, [
+		enabled,
+		postId,
+		isEditedPostDirty,
+		isEditedPostEmpty,
+		isModalActive,
+	] );
 
 	if ( ! isOpen ) {
 		return null;
