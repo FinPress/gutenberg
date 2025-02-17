@@ -342,4 +342,31 @@ describe( 'ColorPicker', () => {
 			} );
 		} );
 	} );
+
+	test( 'should copy the color value to the clipboard', async () => {
+		const color = '#000';
+		const user = userEvent.setup();
+
+		const readTextMock = jest
+			.spyOn( navigator.clipboard, 'readText' )
+			.mockResolvedValue( color );
+
+		render( <ColorPicker color={ color } enableAlpha={ false } /> );
+
+		const formatSelector = screen.getByRole( 'combobox' );
+		expect( formatSelector ).toBeVisible();
+		await user.selectOptions( formatSelector, 'hex' );
+
+		const copyButton = screen.getByRole( 'button', { name: 'Copy' } );
+		expect( copyButton ).toBeVisible();
+
+		await user.click( copyButton );
+
+		await waitFor( async () => {
+			const copiedText = await navigator.clipboard.readText();
+			expect( copiedText ).toBe( color );
+		} );
+
+		readTextMock.mockRestore();
+	} );
 } );
