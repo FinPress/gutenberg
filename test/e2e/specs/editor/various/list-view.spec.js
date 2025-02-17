@@ -163,7 +163,7 @@ test.describe( 'List View', () => {
 		await editor.canvas
 			.getByRole( 'document', { name: 'Block: Cover' } )
 			.getByRole( 'group', {
-				name: 'Background color',
+				name: 'Overlay color',
 			} )
 			.getByRole( 'button' )
 			.first()
