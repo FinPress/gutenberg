@@ -14,37 +14,6 @@ import CategorySelect from './category-select';
 const DEFAULT_MIN_ITEMS = 1;
 const DEFAULT_MAX_ITEMS = 100;
 
-const options = [
-	{
-		label: __( 'Newest to oldest' ),
-		value: 'date/desc',
-	},
-	{
-		label: __( 'Oldest to newest' ),
-		value: 'date/asc',
-	},
-	{
-		/* translators: Label for ordering posts by title in ascending order. */
-		label: __( 'A → Z' ),
-		value: 'title/asc',
-	},
-	{
-		/* translators: Label for ordering posts by title in descending order. */
-		label: __( 'Z → A' ),
-		value: 'title/desc',
-	},
-	{
-		/* translators: Label for ordering posts by ascending menu order. */
-		label: __( 'Ascending by order' ),
-		value: 'menu_order/asc',
-	},
-	{
-		/* translators: Label for ordering posts by descending menu order. */
-		label: __( 'Descending by order' ),
-		value: 'menu_order/desc',
-	},
-];
-
 const QueryControls = memo(
 	( {
 		categoriesList,
@@ -52,6 +21,7 @@ const QueryControls = memo(
 		numberOfItems,
 		order,
 		orderBy,
+		orderByOptions,
 		maxItems = DEFAULT_MAX_ITEMS,
 		minItems = DEFAULT_MIN_ITEMS,
 		onCategoryChange,
@@ -78,7 +48,7 @@ const QueryControls = memo(
 					<SelectControl
 						label={ __( 'Order by' ) }
 						value={ `${ orderBy }/${ order }` }
-						options={ options }
+						options={ orderByOptions }
 						onChange={ onChange }
 						hideCancelButton
 					/>

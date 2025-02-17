@@ -40,7 +40,7 @@ function isMultipleCategorySelection(
  * ```jsx
  * const MyQueryControls = () => (
  *   <QueryControls
- *     { ...{ maxItems, minItems, numberOfItems, order, orderBy } }
+ *     { ...{ maxItems, minItems, numberOfItems, order, orderBy, orderByOptions } }
  *     onOrderByChange={ ( newOrderBy ) => {
  *       updateQuery( { orderBy: newOrderBy } )
  *     }
@@ -65,6 +65,7 @@ export function QueryControls( {
 	numberOfItems,
 	order,
 	orderBy,
+	orderByOptions,
 	maxItems = DEFAULT_MAX_ITEMS,
 	minItems = DEFAULT_MIN_ITEMS,
 	onAuthorChange,
@@ -75,37 +76,6 @@ export function QueryControls( {
 	// but instead are destructured inline where necessary.
 	...props
 }: QueryControlsProps ) {
-	const orderByList = [
-		{
-			label: __( 'Newest to oldest' ),
-			value: 'date/desc',
-		},
-		{
-			label: __( 'Oldest to newest' ),
-			value: 'date/asc',
-		},
-		{
-			/* translators: Label for ordering posts by title in ascending order. */
-			label: __( 'A → Z' ),
-			value: 'title/asc',
-		},
-		{
-			/* translators: Label for ordering posts by title in descending order. */
-			label: __( 'Z → A' ),
-			value: 'title/desc',
-		},
-		{
-			/* translators: Label for ordering posts by ascending menu order. */
-			label: __( 'Ascending by order' ),
-			value: 'menu_order/asc',
-		},
-		{
-			/* translators: Label for ordering posts by descending menu order. */
-			label: __( 'Descending by order' ),
-			value: 'menu_order/desc',
-		},
-	];
-
 	return (
 		<VStack spacing="4" className="components-query-controls">
 			{ [
@@ -120,7 +90,7 @@ export function QueryControls( {
 								? undefined
 								: `${ orderBy }/${ order }`
 						}
-						options={ orderByList }
+						options={ orderByOptions }
 						onChange={ ( value ) => {
 							if ( typeof value !== 'string' ) {
 								return;

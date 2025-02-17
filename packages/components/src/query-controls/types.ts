@@ -46,7 +46,19 @@ export type AuthorSelectProps = Pick<
 
 type Order = 'asc' | 'desc';
 type OrderBy = 'date' | 'title' | 'menu_order';
-type OrderByOptions = Object[];
+type OrderByOptions = ( {
+	/**
+	 * The label to be shown to the user.
+	 */
+	label: string;
+	/**
+	 * Option value passed to `onChange` when the option is selected.
+	 */
+	value: string;
+} & Omit<
+	React.OptionHTMLAttributes< HTMLOptionElement >,
+	'label' | 'value'
+> )[];
 
 type BaseQueryControlsProps = {
 	/**

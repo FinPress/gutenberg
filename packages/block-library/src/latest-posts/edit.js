@@ -87,6 +87,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 		postsToShow,
 		order,
 		orderBy,
+		orderByOptions,
 		categories,
 		selectedAuthor,
 		displayFeaturedImage,
@@ -447,7 +448,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 
 			<PanelBody title={ __( 'Sorting and filtering' ) }>
 				<QueryControls
-					{ ...{ order, orderBy } }
+					{ ...{ order, orderBy, orderByOptions } }
 					numberOfItems={ postsToShow }
 					onOrderChange={ ( value ) =>
 						setAttributes( { order: value } )

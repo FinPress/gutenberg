@@ -148,6 +148,7 @@ class LatestPostsEdit extends Component {
 			addLinkToFeaturedImage,
 			order,
 			orderBy,
+			orderByOptions,
 			postsToShow,
 			categories,
 		} = attributes;
@@ -215,7 +216,7 @@ class LatestPostsEdit extends Component {
 
 				<PanelBody title={ __( 'Sorting and filtering' ) }>
 					<QueryControls
-						{ ...{ order, orderBy } }
+						{ ...{ order, orderBy, orderByOptions } }
 						numberOfItems={ postsToShow }
 						categoriesList={ categoriesList }
 						selectedCategoryId={
