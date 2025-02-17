@@ -4,7 +4,7 @@
 import { SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-function OrderControl( { order, orderBy, onChange, orderByOptions } ) {
+function OrderControl( { order, orderBy, orderByOptions, onChange } ) {
 	return (
 		<SelectControl
 			__nextHasNoMarginBottom
