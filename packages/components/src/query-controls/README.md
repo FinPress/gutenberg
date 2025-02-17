@@ -213,7 +213,14 @@ The order in which to retrieve posts.
 -   Required: No
 -   Platform: Web
 
-#### `orderBy`: `'date' | 'title'`
+#### `orderBy`: `'date' | 'title' | 'menu_order'`
+
+The meta key by which to order posts.
+
+-   Required: No
+-   Platform: Web
+
+#### `orderByOptions`: `OrderByOption[]`
 
 The meta key by which to order posts.
 
