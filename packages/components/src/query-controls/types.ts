@@ -46,6 +46,7 @@ export type AuthorSelectProps = Pick<
 
 type Order = 'asc' | 'desc';
 type OrderBy = 'date' | 'title' | 'menu_order';
+type OrderByOptions = Object[];
 
 type BaseQueryControlsProps = {
 	/**
@@ -99,6 +100,10 @@ type BaseQueryControlsProps = {
 	 * The meta key by which to order posts.
 	 */
 	orderBy?: OrderBy;
+	/**
+	 * List of available menu_order options.
+	 */
+	orderByOptions?: OrderByOptions;
 	/**
 	 * The selected author ID.
 	 */
