@@ -65,6 +65,7 @@ const VideoSettings = ( { setAttributes, attributes } ) => {
 					onChange={ toggleFactory.autoplay }
 					checked={ !! autoplay }
 					help={ getAutoplayHelp }
+					disabled={ ! muted }
 				/>
 			</ToolsPanelItem>
 			<ToolsPanelItem
