@@ -251,9 +251,18 @@ export const getEvaluate: GetEvaluate =
 				warn(
 					'Using a function with a negation operator is deprecated and will stop working in WordPress 6.9. Please use derived state instead.'
 				);
-				return ! value( ...args );
+				const functionResult = ! value( ...args );
+				resetScope();
+				return functionResult;
 			}
-			return value;
+			// Reset scope before return and wrap the function so it will still run within the correct scope.
+			resetScope();
+			return ( ...functionArgs: any[] ) => {
+				setScope( scope );
+				const functionResult = value( ...functionArgs );
+				resetScope();
+				return functionResult;
+			};
 		}
 		const result = value;
 		resetScope();
