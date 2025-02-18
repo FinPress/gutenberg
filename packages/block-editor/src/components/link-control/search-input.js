@@ -114,7 +114,8 @@ const LinkControlSearchInput = forwardRef(
 			}
 		};
 
-		const inputLabel = placeholder ?? __( 'Search or type URL' );
+		const inputLabel =
+			placeholder ?? __( 'Search for a Page/Post or type URL' );
 
 		return (
 			<div className="block-editor-link-control__search-input-container">
