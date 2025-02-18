@@ -305,7 +305,14 @@ describe( 'Interactivity API', () => {
 				actions.incrementValue( 1 ) satisfies void;
 
 				const { actions: actions2 } = store< { actions: Actions } >(
-					'storeWithoutState'
+					'storeWithoutState',
+					{
+						actions: {
+							incrementValue( n ) {
+								state.someValue += n;
+							},
+						},
+					}
 				);
 
 				actions2.incrementValue( 1 ) satisfies void;
