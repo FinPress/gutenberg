@@ -63,6 +63,7 @@ function CustomColorValueInput( {
 	const [ isEditing, setIsEditing ] = useState( false );
 	const [ inputValue, setInputValue ] = useState( value );
 	const inputRef = useRef< HTMLInputElement >( null );
+	const truncateRef = useRef< HTMLDivElement >( null );
 
 	useEffect( () => {
 		if ( isEditing && inputRef.current ) {
@@ -81,6 +82,13 @@ function CustomColorValueInput( {
 		setInputValue( e.target.value );
 	};
 
+	const handleTruncateKeyDown = ( e: KeyboardEvent< HTMLDivElement > ) => {
+		if ( isHex && ( e.key === 'Enter' || e.key === ' ' ) ) {
+			e.preventDefault();
+			setIsEditing( true );
+		}
+	};
+
 	const handleBlur = () => {
 		setIsEditing( false );
 		if ( isHex && /^#[0-9A-Fa-f]{6}$/.test( inputValue || '' ) ) {
@@ -96,6 +104,7 @@ function CustomColorValueInput( {
 		} else if ( e.key === 'Escape' ) {
 			setInputValue( value );
 			setIsEditing( false );
+			truncateRef.current?.focus();
 		}
 	};
 
@@ -108,18 +117,24 @@ function CustomColorValueInput( {
 				onBlur={ handleBlur }
 				onKeyDown={ handleKeyDown }
 				className="components-color-palette__custom-color-value-input"
+				aria-label={ __( 'Edit color hex value' ) }
 			/>
 		);
 	}
 
 	return (
 		<Truncate
+			ref={ truncateRef }
 			className={ clsx( 'components-color-palette__custom-color-value', {
 				'components-color-palette__custom-color-value--is-hex': isHex,
 				'components-color-palette__custom-color-value--is-editable':
 					isHex,
 			} ) }
 			onClick={ handleClick }
+			onKeyDown={ handleTruncateKeyDown }
+			role={ isHex ? 'button' : undefined }
+			tabIndex={ isHex ? 0 : undefined }
+			aria-label={ isHex ? __( 'Click to edit hex value' ) : undefined }
 		>
 			{ value }
 		</Truncate>
