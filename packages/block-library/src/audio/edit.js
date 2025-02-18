@@ -13,10 +13,10 @@ import {
 	SelectControl,
 	Spinner,
 	ToggleControl,
+	Placeholder,
 } from '@wordpress/components';
 import {
 	BlockControls,
-	BlockIcon,
 	InspectorControls,
 	MediaPlaceholder,
 	MediaReplaceFlow,
@@ -27,6 +27,7 @@ import { useDispatch } from '@wordpress/data';
 import { audio as icon } from '@wordpress/icons';
 import { store as noticesStore } from '@wordpress/notices';
 import { useState } from '@wordpress/element';
+import { useResizeObserver } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -44,6 +45,7 @@ function AudioEdit( {
 	onReplace,
 	isSelected: isSingleSelected,
 	insertBlocksAfter,
+	blockEditingMode,
 } ) {
 	const { id, autoplay, loop, preload, src } = attributes;
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
@@ -127,19 +129,60 @@ function AudioEdit( {
 		className: classes,
 	} );
 
+	const [ placeholderResizeListener, { width: placeholderWidth } ] =
+		useResizeObserver();
+
+	const isSmallContainer = placeholderWidth && placeholderWidth < 160;
+
+	const isContentOnlyMode = blockEditingMode === 'contentOnly';
+
+	const autioReplaceFlow = isSingleSelected && (
+		<BlockControls group={ isContentOnlyMode ? 'inline' : 'other' }>
+			<MediaReplaceFlow
+				name={ ! src ? __( 'Add audio' ) : __( 'Replace' ) }
+				mediaId={ id }
+				mediaURL={ src }
+				allowedTypes={ ALLOWED_MEDIA_TYPES }
+				accept="audio/*"
+				onSelect={ onSelectAudio }
+				onSelectURL={ onSelectURL }
+				onError={ onUploadError }
+				onReset={ () => onSelectAudio( undefined ) }
+			/>
+		</BlockControls>
+	);
+
 	if ( ! src && ! temporaryURL ) {
 		return (
-			<div { ...blockProps }>
-				<MediaPlaceholder
-					icon={ <BlockIcon icon={ icon } /> }
-					onSelect={ onSelectAudio }
-					onSelectURL={ onSelectURL }
-					accept="audio/*"
-					allowedTypes={ ALLOWED_MEDIA_TYPES }
-					value={ attributes }
-					onError={ onUploadError }
-				/>
-			</div>
+			<>
+				{ autioReplaceFlow }
+				<div { ...blockProps }>
+					<MediaPlaceholder
+						onSelect={ onSelectAudio }
+						onSelectURL={ onSelectURL }
+						accept="audio/*"
+						allowedTypes={ ALLOWED_MEDIA_TYPES }
+						value={ attributes }
+						onError={ onUploadError }
+						placeholder={ ( content ) => (
+							<Placeholder
+								className="block-editor-media-placeholder"
+								icon={ ! isSmallContainer && icon }
+								withIllustration={
+									! isSingleSelected || isSmallContainer
+								}
+								label={ ! isSmallContainer && __( 'Audio' ) }
+								instructions={ __(
+									'Upload or drag an audio file here, or pick one from your library.'
+								) }
+							>
+								{ ! isSmallContainer && content }
+								{ placeholderResizeListener }
+							</Placeholder>
+						) }
+					/>
+				</div>
+			</>
 		);
 	}
 
