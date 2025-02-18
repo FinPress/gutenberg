@@ -39,6 +39,7 @@
 	"supports": {
 		"anchor": true,
 		"html": false,
+		"layout": true,
 		"__experimentalBorder": {
 			"color": true,
 			"radius": true,
