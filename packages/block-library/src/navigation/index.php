@@ -492,30 +492,18 @@ class WP_Navigation_Block_Renderer {
 		$toggle_aria_label_close     = $should_display_icon_label ? 'aria-label="' . __( 'Close menu' ) . '"' : ''; // Close button label.
 
 		// Add Interactivity API directives to the markup if needed.
-		$open_button_directives          = '';
 		$responsive_container_directives = '';
 		$responsive_dialog_directives    = '';
-		$close_button_directives         = '';
 		if ( $is_interactive ) {
-			$open_button_directives                  = '
-				data-wp-on-async--click="actions.openMenuOnClick"
-				data-wp-on--keydown="actions.handleMenuKeydown"
-			';
 			$responsive_container_directives         = '
-				data-wp-class--has-modal-open="state.isMenuOpen"
-				data-wp-class--is-menu-open="state.isMenuOpen"
-				data-wp-watch="callbacks.initMenu"
+				data-wp-on--toggle="actions.handleToggle"
 				data-wp-on--keydown="actions.handleMenuKeydown"
-				data-wp-on-async--focusout="actions.handleMenuFocusout"
-				tabindex="-1"
+				data-wp-watch="callbacks.setModal"
 			';
 			$responsive_dialog_directives            = '
 				data-wp-bind--aria-modal="state.ariaModal"
 				data-wp-bind--aria-label="state.ariaLabel"
 				data-wp-bind--role="state.roleAttribute"
-			';
-			$close_button_directives                 = '
-				data-wp-on-async--click="actions.closeMenuOnClick"
 			';
 			$responsive_container_content_directives = '
 				data-wp-watch="callbacks.focusFirstElement"
@@ -525,12 +513,12 @@ class WP_Navigation_Block_Renderer {
 		$overlay_inline_styles = esc_attr( safecss_filter_attr( $colors['overlay_inline_styles'] ) );
 
 		return sprintf(
-			'<button aria-haspopup="dialog" %3$s class="%6$s" %10$s>%8$s</button>
-				<div class="%5$s" %7$s id="%1$s" %11$s>
+			'<button popovertarget="%1$s" aria-haspopup="dialog" %3$s class="%6$s">%8$s</button>
+				<div popover="auto" class="%5$s" %7$s id="%1$s" %10$s>
 					<div class="wp-block-navigation__responsive-close" tabindex="-1">
-						<div class="wp-block-navigation__responsive-dialog" %12$s>
-							<button %4$s class="wp-block-navigation__responsive-container-close" %13$s>%9$s</button>
-							<div class="wp-block-navigation__responsive-container-content" %14$s id="%1$s-content">
+						<div class="wp-block-navigation__responsive-dialog" %11$s>
+							<button popovertarget="%1$s" %4$s class="wp-block-navigation__responsive-container-close">%9$s</button>
+							<div class="wp-block-navigation__responsive-container-content" %12$s id="%1$s-content">
 								%2$s
 							</div>
 						</div>
@@ -545,10 +533,8 @@ class WP_Navigation_Block_Renderer {
 			( ! empty( $overlay_inline_styles ) ) ? "style=\"$overlay_inline_styles\"" : '',
 			$toggle_button_content,
 			$toggle_close_button_content,
-			$open_button_directives,
 			$responsive_container_directives,
 			$responsive_dialog_directives,
-			$close_button_directives,
 			$responsive_container_content_directives
 		);
 	}
@@ -811,18 +797,24 @@ if ( defined( 'IS_GUTENBERG_PLUGIN' ) && IS_GUTENBERG_PLUGIN ) {
  * @return string Submenu markup with the directives injected.
  */
 function block_core_navigation_add_directives_to_submenu( $tags, $block_attributes ) {
+	static $unique_id_counter = 0;
+
 	while ( $tags->next_tag(
 		array(
 			'tag_name'   => 'LI',
 			'class_name' => 'has-child',
 		)
 	) ) {
+		$unique_id_counter++;
+		$anchor_name = "wp-block-navigation-submenu-container-{$unique_id_counter}";
+
 		// Add directives to the parent `<li>`.
 		$tags->set_attribute( 'data-wp-interactive', 'core/navigation' );
 		$tags->set_attribute( 'data-wp-context', '{ "submenuOpenedBy": { "click": false, "hover": false, "focus": false }, "type": "submenu", "modal": null }' );
-		$tags->set_attribute( 'data-wp-watch', 'callbacks.initMenu' );
-		$tags->set_attribute( 'data-wp-on--focusout', 'actions.handleMenuFocusout' );
-		$tags->set_attribute( 'data-wp-on--keydown', 'actions.handleMenuKeydown' );
+		// TODO: Check if this is intended. Before this was on the submenu container, but then caused it to never open from focus alone.
+		$tags->set_attribute( 'data-wp-on--focusin', 'actions.openMenuOnFocus' );
+		$tags->set_attribute( 'data-wp-on--focusout', 'actions.closeMenuOnFocus' );
+		$tags->set_attribute( 'style', "anchor-name: --{$anchor_name};" );
 
 		// This is a fix for Safari. Without it, Safari doesn't change the active
 		// element when the user clicks on a button. It can be removed once we add
@@ -842,9 +834,8 @@ function block_core_navigation_add_directives_to_submenu( $tags, $block_attribut
 				'class_name' => 'wp-block-navigation-submenu__toggle',
 			)
 		) ) {
-			$tags->set_attribute( 'data-wp-on-async--click', 'actions.toggleMenuOnClick' );
-			$tags->set_attribute( 'data-wp-bind--aria-expanded', 'state.isMenuOpen' );
-			// The `aria-expanded` attribute for SSR is already added in the submenu block.
+			// Set bookmark to amend the submenu toggle based on the submenu container below.
+			$tags->set_bookmark( 'nav-submenu-toggle' );
 		}
 		// Add directives to the submenu.
 		if ( $tags->next_tag(
@@ -853,7 +844,26 @@ function block_core_navigation_add_directives_to_submenu( $tags, $block_attribut
 				'class_name' => 'wp-block-navigation__submenu-container',
 			)
 		) ) {
-			$tags->set_attribute( 'data-wp-on-async--focus', 'actions.openMenuOnFocus' );
+			$id = $tags->get_attribute( 'id' );
+			if ( ! $id ) {
+				$id = $anchor_name;
+				$tags->set_attribute( 'id', $id );
+			}
+			// TODO: `popover=hint` is not supported yet, but eventually it should be used if the menu opens on hover.
+			$tags->set_attribute( 'popover', /* isset( $block_attributes['openSubmenusOnClick'] ) && $block_attributes['openSubmenusOnClick'] ? 'auto' : 'hint' */ 'auto' );
+			$tags->set_attribute( 'data-wp-on--toggle', 'actions.handleToggle' );
+			$tags->set_attribute( 'data-wp-watch', 'callbacks.setModal' );
+			$tags->set_attribute( 'style', "position-anchor: --{$anchor_name};" );
+
+			// Set the ID of the submenu container as `popovertarget` on its submenu button if present.
+			$tags->set_bookmark( 'nav-submenu-container' );
+			if ( $tags->seek( 'nav-submenu-toggle' ) ) {
+				$tags->set_attribute( 'popovertarget', $id );
+				$tags->remove_attribute( 'aria-expanded' ); // Unnecessary when using `popovertarget`.
+			}
+			$tags->seek( 'nav-submenu-container' );
+			$tags->release_bookmark( 'nav-submenu-toggle' );
+			$tags->release_bookmark( 'nav-submenu-container' );
 		}
 
 		// Iterate through subitems if exist.
