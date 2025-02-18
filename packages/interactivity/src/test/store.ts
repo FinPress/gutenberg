@@ -293,7 +293,13 @@ describe( 'Interactivity API', () => {
 				const { state, actions } = store< {
 					state: State;
 					actions: Actions;
-				} >( 'storeWithState' );
+				} >( 'storeWithState', {
+					actions: {
+						incrementValue( n ) {
+							state.someValue += n;
+						},
+					},
+				} );
 
 				state.someValue satisfies number;
 				actions.incrementValue( 1 ) satisfies void;
