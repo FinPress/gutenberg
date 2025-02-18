@@ -32,6 +32,15 @@ for the `ColorPalette`'s color swatches, by rendering your `ColorPalette` with a
 `Popover.Slot` further up the element tree and within a
 `SlotFillProvider` overall.
 
+## Features
+
+- Select from predefined color swatches
+- Custom color picker with optional alpha channel
+- Direct hex value editing for hex colors (click the hex value to edit)
+- Clearing color selection
+- Multiple palette support
+- Keyboard navigation
+
 ## Props
 
 The component accepts the following props.
