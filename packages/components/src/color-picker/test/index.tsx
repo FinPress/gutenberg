@@ -352,6 +352,9 @@ describe( 'ColorPicker', () => {
 			const color = '#000';
 			const user = userEvent.setup();
 
+			// Mocks navigator.clipboard.readText to return the provided color value, simulating clipboard behavior in tests.
+			// This ensures that when the clipboard is read, the color value is returned.
+			// Reference: https://jestjs.io/docs/jest-object#jestspyonobject-methodname
 			const readTextMock = jest
 				.spyOn( navigator.clipboard, 'readText' )
 				.mockResolvedValue( color );
@@ -374,6 +377,7 @@ describe( 'ColorPicker', () => {
 				expect( copiedText ).toBe( color );
 			} );
 
+			// Restores the original readText implementation.
 			readTextMock.mockRestore();
 		} );
 	} );
