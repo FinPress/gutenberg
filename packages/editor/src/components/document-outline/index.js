@@ -83,16 +83,13 @@ function EmptyOutlineIllustration() {
  * @return {Array} An array of heading blocks enhanced with the properties described above.
  */
 const computeOutlineHeadings = ( blocks = [] ) => {
-	return blocks.flatMap( ( block = {} ) => {
-		if ( block.name === 'core/heading' ) {
-			return {
-				...block,
-				level: block.attributes.level,
-				isEmpty: isEmptyHeading( block ),
-			};
-		}
-		return computeOutlineHeadings( block.innerBlocks );
-	} );
+	return blocks
+		.filter( ( block ) => block.name === 'core/heading' )
+		.map( ( block ) => ( {
+			...block,
+			level: block.attributes.level,
+			isEmpty: isEmptyHeading( block ),
+		} ) );
 };
 
 const isEmptyHeading = ( heading ) =>
@@ -113,65 +110,27 @@ export default function DocumentOutline( {
 	hasOutlineItemsDisabled,
 } ) {
 	const { selectBlock } = useDispatch( blockEditorStore );
-	const { blocks, editorBlocks, title, isTitleSupported, isShowingTemplate } =
-		useSelect( ( select ) => {
-			const { getBlocks } = select( blockEditorStore );
-			const {
-				getEditedPostAttribute,
-				getEditorBlocks,
-				getRenderingMode,
-			} = select( editorStore );
-			const { getPostType } = select( coreStore );
-			const postType = getPostType( getEditedPostAttribute( 'type' ) );
-			return {
-				title: getEditedPostAttribute( 'title' ),
-				blocks: getBlocks(),
-				editorBlocks: getEditorBlocks(),
-				isTitleSupported: postType?.supports?.title ?? false,
-				isShowingTemplate: getRenderingMode() === 'template-locked',
-			};
-		} );
-
-	const combineBlocks = useMemo( () => {
-		const insertBlocks = ( currentBlocks, currentEditorBlocks ) => {
-			return currentBlocks.map( ( block ) => {
-				// Locate the post content block and insert the editor blocks.
-				if ( block.name === 'core/post-content' ) {
-					return {
-						...block,
-						innerBlocks: currentEditorBlocks,
-					};
-				}
-				// Also locate post content inside the inner blocks, and insert the editor blocks.
-				if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
-					return {
-						...block,
-						innerBlocks: insertBlocks(
-							block.innerBlocks,
-							currentEditorBlocks
-						),
-					};
-				}
-				return block;
-			} );
+	const { title, isTitleSupported, blockData } = useSelect( ( select ) => {
+		const { getEditedPostAttribute } = select( editorStore );
+		const { getPostType } = select( coreStore );
+		const { getClientIdsWithDescendants, getBlock } =
+			select( blockEditorStore );
+		const clientIds = getClientIdsWithDescendants();
+		const postType = getPostType( getEditedPostAttribute( 'type' ) );
+		return {
+			title: getEditedPostAttribute( 'title' ),
+			isTitleSupported: postType?.supports?.title ?? false,
+			blockData: clientIds.map( ( id ) => getBlock( id ) ),
 		};
-
-		return ( currentBlocks, currentEditorBlocks, showingTemplate ) => {
-			if ( showingTemplate ) {
-				return insertBlocks( currentBlocks, currentEditorBlocks );
-			}
-			return currentBlocks;
-		};
-	}, [] );
-
-	// Combine the blocks if the template is showing
-	const updatedBlocks = isShowingTemplate
-		? combineBlocks( blocks, editorBlocks, isShowingTemplate )
-		: blocks;
+	} );
 
 	const prevHeadingLevelRef = useRef( 1 );
 
-	const headings = computeOutlineHeadings( updatedBlocks );
+	const headings = useMemo(
+		() => computeOutlineHeadings( blockData ),
+		[ blockData ]
+	);
+
 	if ( headings.length < 1 ) {
 		return (
 			<div className="editor-document-outline has-no-headings">
