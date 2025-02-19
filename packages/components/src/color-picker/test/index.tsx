@@ -383,41 +383,86 @@ describe( 'ColorPicker', () => {
 	// } );
 
 	describe( 'ColorPicker copy button', () => {
+		let capturedValue: string | undefined;
+		let originalCreateElement: typeof document.createElement;
+		let originalExecCommand: typeof document.execCommand;
+
+		beforeEach( () => {
+			// Store original methods
+			originalCreateElement = document.createElement.bind( document );
+			originalExecCommand = document.execCommand;
+			capturedValue = undefined;
+
+			// Setup mocks
+			document.createElement = jest
+				.fn()
+				.mockImplementation( ( tagName: string ) => {
+					if ( tagName === 'textarea' ) {
+						const textarea = originalCreateElement( tagName );
+						Object.defineProperty( textarea, 'value', {
+							set( value ) {
+								capturedValue = value;
+								return value;
+							},
+							get() {
+								return capturedValue;
+							},
+						} );
+						return textarea;
+					}
+					return originalCreateElement( tagName );
+				} );
+
+			document.execCommand = jest.fn();
+		} );
+
+		afterEach( () => {
+			// Restore original methods
+			document.createElement = originalCreateElement;
+			document.execCommand = originalExecCommand;
+			capturedValue = undefined;
+			jest.restoreAllMocks();
+		} );
+
 		describe.each( [
 			[ 'hsl', 'HSL', 'hsl(0, 0%, 0%)' ],
 			[ 'rgb', 'RGB', 'rgb(0, 0, 0)' ],
 			[ 'hex', 'HEX', '#000000' ],
-		] )( 'copy button test for %s format', ( format, formatLabel ) => {
-			it( `should copy the color value to the clipboard for ${ formatLabel }`, async () => {
-				const color = '#000000';
-				const mockExecCommand = jest.fn();
-				document.execCommand = mockExecCommand;
+		] )(
+			'copy button test for %s format',
+			( format, formatLabel, expectedValue ) => {
+				it( `should copy the color value to the clipboard for ${ formatLabel }`, async () => {
+					const color = '#000000';
+					const user = userEvent.setup();
 
-				render( <ColorPicker color={ color } enableAlpha={ false } /> );
+					render(
+						<ColorPicker color={ color } enableAlpha={ false } />
+					);
 
-				const formatSelector = screen.getByRole( 'combobox' );
-				fireEvent.change( formatSelector, {
-					target: { value: format },
+					const formatSelector = screen.getByRole( 'combobox' );
+					await user.selectOptions( formatSelector, format );
+
+					const copyButton = screen.getByRole( 'button', {
+						name: 'Copy',
+					} );
+
+					await user.click( copyButton );
+
+					await waitFor( () => {
+						expect( document.execCommand ).toHaveBeenCalledWith(
+							'copy'
+						);
+					} );
+
+					await waitFor( () => {
+						expect( capturedValue ).toBe( expectedValue );
+					} );
+
+					expect( screen.getByRole( 'button' ) ).toHaveAccessibleName(
+						'Copied!'
+					);
 				} );
-
-				const copyButton = screen.getByRole( 'button', {
-					name: 'Copy',
-				} );
-
-				fireEvent.click( copyButton );
-
-				await waitFor( () => {
-					expect( mockExecCommand ).toHaveBeenCalledWith( 'copy' );
-				} );
-
-				expect( screen.getByRole( 'button' ) ).toHaveAccessibleName(
-					'Copied!'
-				);
-			} );
-
-			afterEach( () => {
-				jest.restoreAllMocks();
-			} );
-		} );
+			}
+		);
 	} );
 } );
