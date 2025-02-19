@@ -117,14 +117,13 @@ export default function ServerSideRender( props ) {
 			return;
 		}
 
-		const currentProps = latestPropsRef.current;
 		const {
 			attributes,
 			block,
 			skipBlockSupportAttributes = false,
 			httpMethod = 'GET',
 			urlQueryArgs,
-		} = currentProps;
+		} = latestPropsRef.current;
 
 		setIsLoading( true );
 
