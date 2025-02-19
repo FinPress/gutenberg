@@ -32,6 +32,7 @@ import PagesControl from './pages-control';
 import {
 	usePostTypes,
 	useIsPostTypeHierarchical,
+	usePostTypeSupportsPageAttributes,
 	useAllowedControls,
 	isControlAllowed,
 	useTaxonomies,
@@ -64,6 +65,8 @@ export default function QueryInspectorControls( props ) {
 	} = usePostTypes();
 	const taxonomies = useTaxonomies( postType );
 	const isPostTypeHierarchical = useIsPostTypeHierarchical( postType );
+	const postTypeSupportsPageAttributes =
+		usePostTypeSupportsPageAttributes( postType );
 	const onPostTypeChange = ( newValue ) => {
 		const updateQuery = { postType: newValue };
 		// We need to dynamically update the `taxQuery` property,
@@ -335,7 +338,11 @@ export default function QueryInspectorControls( props ) {
 							isShownByDefault
 						>
 							<OrderControl
-								{ ...{ order, orderBy, postType } }
+								{ ...{
+									order,
+									orderBy,
+									postTypeSupportsPageAttributes,
+								} }
 								onChange={ setQuery }
 							/>
 						</ToolsPanelItem>
