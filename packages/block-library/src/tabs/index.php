@@ -49,19 +49,7 @@ function block_core_tabs_generate_color_variables( $attributes ) {
  * @return string
  */
 function render_block_core_tabs( $attributes, $content, $block ) {
-	$suffix = wp_scripts_get_suffix();
-	if ( defined( 'IS_GUTENBERG_PLUGIN' ) && IS_GUTENBERG_PLUGIN ) {
-		$module_url = gutenberg_url( '/build/interactivity/tabs.min.js' );
-	}
-
-	wp_register_script_module(
-		'@wordpress/block-library/tabs',
-		isset( $module_url ) ? $module_url : includes_url( "blocks/tabs/view{$suffix}.js" ),
-		array( '@wordpress/interactivity' ),
-		defined( 'GUTENBERG_VERSION' ) ? GUTENBERG_VERSION : get_bloginfo( 'version' )
-	);
-
-	wp_enqueue_script_module( '@wordpress/block-library/tabs' );
+	wp_enqueue_script_module( '@wordpress/block-library/tabs/view' );
 
 	$styles = block_core_tabs_generate_color_variables( $attributes );
 
@@ -80,57 +68,60 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 		$active_tab_index = isset($matches[1]) ? (int) $matches[1] : 0;
 	}
 
-		$wrapper_attributes = get_block_wrapper_attributes(
-			array(
-				'class'                                => 'vertical' === $attributes['orientation'] ? 'is-orientation-vertical' : 'is-orientation-horizontal',
-				'data-wp-interactive'                  => 'core/tabs',
-				'data-wp-context'                      => wp_json_encode(
-					array(
-						'activeTabIndex'         => $active_tab_index,
-						'activeTabIndexQueryVar' => get_query_var( 'activeTabIndex', false ),
-					)
-				),
-				'style'                                => $styles,
-				'data-wp-init--focus-active-tab-index' => 'callbacks.focusActiveTabIndex',
-			)
-		);
+	$wrapper_attributes = get_block_wrapper_attributes(
+		array(
+			'class'                                => 'vertical' === $attributes['orientation'] ? 'is-orientation-vertical' : 'is-orientation-horizontal',
+			'data-wp-interactive'                  => 'core/tabs',
+			'data-wp-context'                      => wp_json_encode(
+				array(
+					'activeTabIndex'         => $active_tab_index,
+					'activeTabIndexQueryVar' => get_query_var( 'activeTabIndex', false ),
+				)
+			),
+			'style'                                => $styles,
+			'data-wp-init--focus-active-tab-index' => 'callbacks.focusActiveTabIndex',
+		)
+	);
 
-		$innerblocks = $block->parsed_block['innerBlocks'];
-		$tabs_list   = array_map(
-			function ( $tab ) {
-				$attrs = $tab['attrs'];
-				return $attrs;
-			},
-			$innerblocks
-		);
-		$tabs_markup = '<ul class="tabs__list" role="tablist">';
-		foreach ( $tabs_list as $tab_index => $tab ) {
-			if ( ! isset( $tab['slug'] ) || ! isset( $tab['label'] ) ) {
-				continue;
-			}
-			$tab_slug     = $tab['slug'];
-			$tab_label    = $tab['label'];
-			$tabs_markup .= wp_sprintf( '<li class="tabs__list-item"><a id="%1$s" class="tabs__tab-label" href="%1$s" data-wp-on--click="actions.handleTabClick" data-tab-index="%2$s" data-wp-bind--aria-selected="state.isActiveTab" data-tab-hash="%4$s">%3$s</a></li>', $tab_slug, $tab_index, $tab_label, base64_encode( $tab_label . '__' . $tab_index ) );
+	// Construct the tabs list navigation.
+	$innerblocks = $block->parsed_block['innerBlocks'];
+	$tabs_list   = array_map(
+		function ( $tab ) {
+			$attrs = $tab['attrs'];
+			return $attrs;
+		},
+		$innerblocks
+	);
+	$tabs_markup = '<ul class="tabs__list" role="tablist">';
+	foreach ( $tabs_list as $tab_index => $tab ) {
+		if ( ! isset( $tab['slug'] ) || ! isset( $tab['label'] ) ) {
+			continue;
 		}
-		$tabs_markup .= '</ul>';
+		$tab_slug     = $tab['slug'];
+		$tab_label    = $tab['label'];
+		$tabs_markup .= wp_sprintf( '<li class="tabs__list-item"><a id="%1$s" class="tabs__tab-label" href="%1$s" data-wp-on--click="actions.handleTabClick" data-tab-index="%2$s" data-wp-bind--aria-selected="state.isActiveTab" data-tab-hash="%4$s">%3$s</a></li>', $tab_slug, $tab_index, $tab_label, base64_encode( $tab_label . '__' . $tab_index ) );
+	}
+	$tabs_markup .= '</ul>';
 
-		// Add a data-tab-index attribute to each tab panel.
-		// We add this here, and not in the tab render because it's easier to count the index here.
-		$p = new WP_HTML_Tag_Processor( $content );
-		$tab_index = 0;
-		while ( $p->next_tag( array( 'class_name' => 'wp-block-tab' ) ) ) {
-			$p->set_attribute( 'data-tab-index', $tab_index );
-			$tab_index++;
-		}
-		$content = $p->get_updated_html();
+	// Add the data-tab-index attribute and interactivity directives to each tab panel. 
+	$p = new WP_HTML_Tag_Processor( $content );
+	$tab_index = 0;
+	while ( $p->next_tag( array( 'class_name' => 'wp-block-tab' ) ) ) {
+		$p->set_attribute( 'data-tab-index', $tab_index );
+		$p->set_attribute( 'data-wp-bind--role', 'state.roleAttribute' );
+		$p->set_attribute( 'data-wp-bind--hidden', '!state.isActiveTab' );
+		$p->set_attribute( 'data-wp-bind--tabindex', 'state.tabindexPanelAttribute' );
+		$tab_index++;
+	}
+	$content = $p->get_updated_html();
 
-		return wp_sprintf(
-			'<div %1$s><h3 class="tabs__title">%2$s</h3>%3$s%4$s</div>',
-			$wrapper_attributes,
-			'Contents',
-			$tabs_markup,
-			$content
-		);
+	return wp_sprintf(
+		'<div %1$s><h3 class="tabs__title">%2$s</h3>%3$s%4$s</div>',
+		$wrapper_attributes,
+		'Contents',
+		$tabs_markup,
+		$content
+	);
 }
 
 /**

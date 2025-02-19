@@ -37,7 +37,7 @@ export default function Controls( {
 		orientation,
 	} = attributes;
 	/**
-	 * Get the current block's color settings.
+	 * Get the color settings for the block.
 	 */
 	const colorSettings = useMultipleOriginColorsAndGradients();
 
