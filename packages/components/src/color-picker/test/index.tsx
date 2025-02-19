@@ -343,42 +343,81 @@ describe( 'ColorPicker', () => {
 		} );
 	} );
 
-	describe.each( [
-		[ 'hsl', 'HSL' ],
-		[ 'rgb', 'RGB' ],
-		[ 'hex', 'HEX' ],
-	] )( 'copy button test for %s format', ( format, formatLabel ) => {
-		it( `should copy the color value to the clipboard for ${ formatLabel }`, async () => {
-			const color = '#000';
-			const user = userEvent.setup();
+	// describe.each( [
+	// 	[ 'hsl', 'HSL' ],
+	// 	[ 'rgb', 'RGB' ],
+	// 	[ 'hex', 'HEX' ],
+	// ] )( 'copy button test for %s format', ( format, formatLabel ) => {
+	// 	it( `should copy the color value to the clipboard for ${ formatLabel }`, async () => {
+	// 		const color = '#000';
+	// 		const user = userEvent.setup();
 
-			// Mocks navigator.clipboard.readText to return the provided color value, simulating clipboard behavior in tests.
-			// This ensures that when the clipboard is read, the color value is returned.
-			// Reference: https://jestjs.io/docs/jest-object#jestspyonobject-methodname
-			const readTextMock = jest
-				.spyOn( navigator.clipboard, 'readText' )
-				.mockResolvedValue( color );
+	// 		// Mocks navigator.clipboard.readText to return the provided color value, simulating clipboard behavior in tests.
+	// 		// This ensures that when the clipboard is read, the color value is returned.
+	// 		// Reference: https://jestjs.io/docs/jest-object#jestspyonobject-methodname
+	// 		const readTextMock = jest
+	// 			.spyOn( navigator.clipboard, 'readText' )
+	// 			.mockResolvedValue( color );
 
-			render( <ColorPicker color={ color } enableAlpha={ false } /> );
+	// 		render( <ColorPicker color={ color } enableAlpha={ false } /> );
 
-			const formatSelector = screen.getByRole( 'combobox' );
-			expect( formatSelector ).toBeVisible();
-			await user.selectOptions( formatSelector, format );
+	// 		const formatSelector = screen.getByRole( 'combobox' );
+	// 		expect( formatSelector ).toBeVisible();
+	// 		await user.selectOptions( formatSelector, format );
 
-			const copyButton = screen.getByRole( 'button', {
-				name: 'Copy',
+	// 		const copyButton = screen.getByRole( 'button', {
+	// 			name: 'Copy',
+	// 		} );
+	// 		expect( copyButton ).toBeVisible();
+
+	// 		await user.click( copyButton );
+
+	// 		await waitFor( async () => {
+	// 			const copiedText = await navigator.clipboard.readText();
+	// 			expect( copiedText ).toBe( color );
+	// 		} );
+
+	// 		// Restores the original readText implementation.
+	// 		readTextMock.mockRestore();
+	// 	} );
+	// } );
+
+	describe( 'ColorPicker copy button', () => {
+		describe.each( [
+			[ 'hsl', 'HSL', 'hsl(0, 0%, 0%)' ],
+			[ 'rgb', 'RGB', 'rgb(0, 0, 0)' ],
+			[ 'hex', 'HEX', '#000000' ],
+		] )( 'copy button test for %s format', ( format, formatLabel ) => {
+			it( `should copy the color value to the clipboard for ${ formatLabel }`, async () => {
+				const color = '#000000';
+				const mockExecCommand = jest.fn();
+				document.execCommand = mockExecCommand;
+
+				render( <ColorPicker color={ color } enableAlpha={ false } /> );
+
+				const formatSelector = screen.getByRole( 'combobox' );
+				fireEvent.change( formatSelector, {
+					target: { value: format },
+				} );
+
+				const copyButton = screen.getByRole( 'button', {
+					name: 'Copy',
+				} );
+
+				fireEvent.click( copyButton );
+
+				await waitFor( () => {
+					expect( mockExecCommand ).toHaveBeenCalledWith( 'copy' );
+				} );
+
+				expect( screen.getByRole( 'button' ) ).toHaveAccessibleName(
+					'Copied!'
+				);
 			} );
-			expect( copyButton ).toBeVisible();
 
-			await user.click( copyButton );
-
-			await waitFor( async () => {
-				const copiedText = await navigator.clipboard.readText();
-				expect( copiedText ).toBe( color );
+			afterEach( () => {
+				jest.restoreAllMocks();
 			} );
-
-			// Restores the original readText implementation.
-			readTextMock.mockRestore();
 		} );
 	} );
 } );
