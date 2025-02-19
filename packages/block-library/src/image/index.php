@@ -210,10 +210,6 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 	$p->set_attribute( 'data-wp-init', 'callbacks.setButtonStyles' );
 	$p->set_attribute( 'data-wp-on-async--load', 'callbacks.setButtonStyles' );
 	$p->set_attribute( 'data-wp-on-async-window--resize', 'callbacks.setButtonStyles' );
-	// Sets an event callback on the `img` because the `figure` element can also
-	// contain a caption, and we don't want to trigger the lightbox when the
-	// caption is clicked.
-	$p->set_attribute( 'data-wp-on-async--click', 'actions.showLightbox' );
 	$p->set_attribute( 'data-wp-class--hide', 'state.isContentHidden' );
 	$p->set_attribute( 'data-wp-class--show', 'state.isContentVisible' );
 
@@ -223,21 +219,26 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 	$img = null;
 	preg_match( '/<img[^>]+>/', $body_content, $img );
 
-	$button =
-		$img[0]
-		. '<button
-			class="lightbox-trigger"
+	$button = '
+		<button
+			popovertarget="wp-core-image-lightbox-overlay"
+			class="wp-lightbox-image-button"
 			type="button"
 			aria-haspopup="dialog"
 			aria-label="' . esc_attr( $aria_label ) . '"
 			data-wp-init="callbacks.initTriggerButton"
-			data-wp-on-async--click="actions.showLightbox"
-			data-wp-style--right="state.imageButtonRight"
-			data-wp-style--top="state.imageButtonTop"
+			data-wp-on--click="actions.setCurrentImage"
 		>
-			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
-				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
-			</svg>
+			' . $img[0] . '
+			<span
+				class="wp-lightbox-indicator"
+				data-wp-style--right="state.imageButtonRight"
+				data-wp-style--top="state.imageButtonTop"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12" aria-hidden="true">
+					<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
+				</svg>
+			</span>
 		</button>';
 
 	$body_content = preg_replace( '/<img[^>]+>/', $button, $body_content );
@@ -269,16 +270,22 @@ function block_core_image_print_lightbox_overlay() {
 	}
 
 	echo <<<HTML
+		<style>
+			.wp-lightbox-overlay[popover]::backdrop {
+				background-color: $background_color;
+			}
+		</style>
 		<div
+			id="wp-core-image-lightbox-overlay"
+			popover="auto"
 			class="wp-lightbox-overlay zoom"
 			data-wp-interactive="core/image"
 			data-wp-context='{}'
 			data-wp-bind--role="state.roleAttribute"
 			data-wp-bind--aria-label="state.currentImage.ariaLabel"
 			data-wp-bind--aria-modal="state.ariaModal"
-			data-wp-class--active="state.overlayEnabled"
-			data-wp-class--show-closing-animation="state.showClosingAnimation"
 			data-wp-watch="callbacks.setOverlayFocus"
+			data-wp-on--toggle="actions.handleToggle"
 			data-wp-on--keydown="actions.handleKeydown"
 			data-wp-on-async--touchstart="actions.handleTouchStart"
 			data-wp-on--touchmove="actions.handleTouchMove"
@@ -287,9 +294,15 @@ function block_core_image_print_lightbox_overlay() {
 			data-wp-on-async-window--resize="callbacks.setOverlayStyles"
 			data-wp-on-async-window--scroll="actions.handleScroll"
 			data-wp-bind--style="state.overlayStyles"
-			tabindex="-1"
 			>
-				<button type="button" aria-label="$close_button_label" style="fill: $close_button_color" class="close-button">
+				<button
+					type="button"
+					popovertarget="wp-core-image-lightbox-overlay"
+					popovertargetaction="hide"
+					aria-label="$close_button_label"
+					style="fill: $close_button_color"
+					class="close-button"
+				>
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z"></path></svg>
 				</button>
 				<div class="lightbox-image-container">
@@ -302,7 +315,6 @@ function block_core_image_print_lightbox_overlay() {
 						<img data-wp-bind--alt="state.currentImage.alt" data-wp-bind--class="state.currentImage.imgClassNames" data-wp-bind--style="state.imgStyles" data-wp-bind--src="state.enlargedSrc">
 					</figure>
 				</div>
-				<div class="scrim" style="background-color: $background_color" aria-hidden="true"></div>
 		</div>
 HTML;
 }

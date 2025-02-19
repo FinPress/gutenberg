@@ -83,7 +83,23 @@ const { state, actions, callbacks } = store(
 			},
 		},
 		actions: {
-			showLightbox() {
+			hideLightbox( event ) {
+				/*
+				 * This handler is purely for the custom action of hiding the lightbox when clicking anywhere inside.
+				 * If this handler is triggered due to a click on the close button, it should be ignored as that
+				 * button automatically hides the lightbox via `popovertarget` and `popovertargetaction`.
+				 */
+				if ( event?.target?.tagName === 'BUTTON' ) {
+					return;
+				}
+				const lightboxOverlay = document.querySelector(
+					'#wp-core-image-lightbox-overlay[popover]'
+				);
+				if ( lightboxOverlay ) {
+					lightboxOverlay.hidePopover();
+				}
+			},
+			setCurrentImage() {
 				const { imageId } = getContext();
 
 				// Bails out if the image has not loaded yet.
@@ -91,6 +107,12 @@ const { state, actions, callbacks } = store(
 					return;
 				}
 
+				state.currentImageId = imageId;
+			},
+			resetCurrentImage() {
+				state.currentImageId = null;
+			},
+			handleShowLightbox() {
 				// Stores the positions of the scroll to fix it until the overlay is
 				// closed.
 				state.scrollTopReset = document.documentElement.scrollTop;
@@ -98,21 +120,17 @@ const { state, actions, callbacks } = store(
 
 				// Sets the current expanded image in the state and enables the overlay.
 				state.overlayEnabled = true;
-				state.currentImageId = imageId;
 
 				// Computes the styles of the overlay for the animation.
 				callbacks.setOverlayStyles();
 			},
-			hideLightbox() {
+			handleHideLightbox() {
 				if ( state.overlayEnabled ) {
-					// Starts the overlay closing animation. The showClosingAnimation
-					// class is used to avoid showing it on page load.
-					state.showClosingAnimation = true;
 					state.overlayEnabled = false;
 
 					// Waits until the close animation has completed before allowing a
 					// user to scroll again. The duration of this animation is defined in
-					// the `styles.scss` file, but in any case we should wait a few
+					// the `style.scss` file, but in any case we should wait a few
 					// milliseconds longer than the duration, otherwise a user may scroll
 					// too soon and cause the animation to look sloppy.
 					setTimeout( function () {
@@ -124,8 +142,18 @@ const { state, actions, callbacks } = store(
 						} );
 
 						// Resets the current image id to mark the overlay as closed.
-						state.currentImageId = null;
+						actions.resetCurrentImage();
 					}, 450 );
+				}
+			},
+			handleToggle( event ) {
+				if ( event.newState === 'open' && ! state.overlayEnabled ) {
+					actions.handleShowLightbox();
+				} else if (
+					event.newState !== 'open' &&
+					state.overlayEnabled
+				) {
+					actions.handleHideLightbox();
 				}
 			},
 			handleKeydown( event ) {
@@ -135,10 +163,6 @@ const { state, actions, callbacks } = store(
 						event.preventDefault();
 						const { ref } = getElement();
 						ref.querySelector( 'button' ).focus();
-					}
-					// Closes the lightbox when the user presses the escape key.
-					if ( event.key === 'Escape' ) {
-						actions.hideLightbox();
 					}
 				}
 			},
