@@ -116,4 +116,4 @@ $dynamic_tabs = array(
 		)
 	),
 );
-render_tabs( $dynamic_tabs, array( 'orientation' => 'horizontal', 'customTabBackground' => '#000000', 'customTabText' => '#ffffff' ) );
+// render_tabs( $dynamic_tabs, array( 'orientation' => 'horizontal', 'customTabBackground' => '#000000', 'customTabText' => '#ffffff' ) );

@@ -11,7 +11,7 @@ import {
 	RichText,
 } from '@wordpress/block-editor';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { Fragment, useEffect, useMemo } from '@wordpress/element';
+import { Fragment, useMemo } from '@wordpress/element';
 import { PanelBody, TextControl } from '@wordpress/components';
 import { cleanForSlug } from '@wordpress/url';
 
@@ -48,57 +48,90 @@ export default function Edit( {
 	isSelected,
 	setAttributes,
 } ) {
-	const { anchor, label, slug, tabIndex } = attributes;
-	const { __unstableMarkNextChangeAsNotPersistent } =
-		useDispatch( blockEditorStore );
+	const { anchor, label, slug } = attributes;
+	const { selectBlock } = useDispatch( blockEditorStore );
 
-	const { blockIndex, hasChildBlocks, hasInnerBlocksSelected, tabsClientId } =
-		useSelect(
-			( select ) => {
-				const rootClientId =
-					select( blockEditorStore ).getBlockRootClientId( clientId );
-				return {
-					blockIndex:
-						select( blockEditorStore ).getBlockIndex( clientId ),
-					hasChildBlocks:
-						select( blockEditorStore ).getBlockOrder( clientId )
-							.length > 0,
-					hasInnerBlocksSelected: select(
-						blockEditorStore
-					).hasSelectedInnerBlock( clientId, true ),
-					tabsClientId: rootClientId,
-				};
-			},
-			[ clientId ]
-		);
-
-	/**
-	 * This hook ensures the tabIndex attribute is kept in sync.
-	 */
-	useEffect( () => {
-		if ( blockIndex !== tabIndex ) {
-			__unstableMarkNextChangeAsNotPersistent();
-			setAttributes( { tabIndex: blockIndex } );
-		}
-	}, [
-		__unstableMarkNextChangeAsNotPersistent,
+	const {
 		blockIndex,
-		setAttributes,
-		tabIndex,
-	] );
+		hasChildBlocks,
+		hasInnerBlocksSelected,
+		tabsHasSelectedBlock,
+		tabsClientId,
+		forceDisplay,
+		isFirstTab,
+		isTabsClientSelected,
+		previousTabClientId,
+		nextTabClientId,
+	} = useSelect(
+		( select ) => {
+			const rootClientId =
+				select( blockEditorStore ).getBlockRootClientId( clientId );
+			const _isFirstTab =
+				select( blockEditorStore ).getBlockIndex( clientId ) === 0;
+			const _isTabsClientSelected =
+				select( blockEditorStore ).isBlockSelected( rootClientId );
+			// Check if any of the rootClientId blocks are selected...
+			const hasTabSelected = select(
+				blockEditorStore
+			).hasSelectedInnerBlock( rootClientId, true );
+
+			return {
+				blockIndex:
+					select( blockEditorStore ).getBlockIndex( clientId ),
+				hasChildBlocks:
+					select( blockEditorStore ).getBlockOrder( clientId )
+						.length > 0,
+				hasInnerBlocksSelected: select(
+					blockEditorStore
+				).hasSelectedInnerBlock( clientId, true ),
+				tabsClientId: rootClientId,
+				forceDisplay: _isFirstTab && _isTabsClientSelected,
+				tabsHasSelectedBlock: hasTabSelected,
+				isFirstTab: _isFirstTab,
+				isTabsClientSelected: _isTabsClientSelected,
+				previousTabClientId:
+					select( blockEditorStore ).getPreviousBlockClientId(
+						clientId
+					),
+				nextTabClientId:
+					select( blockEditorStore ).getNextBlockClientId( clientId ),
+			};
+		},
+		[ clientId ]
+	);
 
 	/**
 	 * This hook determines if the current tab is selected. This is true if it is the active tab, or if it is selected directly.
 	 */
 	const isSelectedTab = useMemo( () => {
-		return isSelected || hasInnerBlocksSelected;
-	}, [ isSelected, hasInnerBlocksSelected ] );
+		if ( isSelected || hasInnerBlocksSelected || forceDisplay ) {
+			return true;
+		}
+		if (
+			isFirstTab &&
+			! isTabsClientSelected &&
+			! isSelected &&
+			! tabsHasSelectedBlock
+		) {
+			return true;
+		}
+		return false;
+	}, [
+		isSelected,
+		hasInnerBlocksSelected,
+		forceDisplay,
+		isFirstTab,
+		isTabsClientSelected,
+		tabsHasSelectedBlock,
+	] );
 
 	// Use a custom anchor, if set. Otherwise fall back to the slug generated from the label text.
 	const tabPanelId = useMemo( () => anchor || slug, [ anchor, slug ] );
 	const tabLabelId = useMemo( () => `${ tabPanelId }--tab`, [ tabPanelId ] );
 
-	const blockProps = useBlockProps();
+	const blockProps = useBlockProps( {
+		hidden: ! isSelectedTab,
+	} );
 
 	const innerBlocksProps = useInnerBlocksProps(
 		{
@@ -137,15 +170,23 @@ export default function Edit( {
 							aria-selected={ isSelectedTab }
 							className="tabs__tab-label"
 							id={ tabLabelId }
-							// onClick={ () => console.log( 'onClick', clientId ) }
-							// onFocus={ () => console.log( 'onFocus', clientId ) }
-							// onKeyDown={ ( event ) => {
-							// 	if ( event.key === 'Enter' ) {
-							// 		console.log( 'onEnter', clientId );
-							// 	}
-							// } }
+							onKeyDown={ ( event ) => {
+								// Playing around with keyboard navigation. Will settle on the best approach next.
+								switch ( event.key ) {
+									case 'ArrowLeft':
+									case 'ArrowUp':
+										event.preventDefault();
+										selectBlock( previousTabClientId );
+										break;
+									case 'ArrowRight':
+									case 'ArrowDown':
+										event.preventDefault();
+										selectBlock( nextTabClientId );
+										break;
+								}
+							} }
 							role="tab"
-							tabIndex={ isSelectedTab ? 0 : -1 }
+							tabIndex="0"
 						>
 							<RichText
 								tagName="span"

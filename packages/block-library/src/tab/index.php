@@ -6,7 +6,7 @@
  * @param array    $source_args Source arguments.
  * @param WP_Block $block The block.
  * @param string   $attribute_name The attribute name.
- * @return string  The tab binding, either tab/label, tab/slug, or tab/tabIndex. Defaults to tab/label and ultimately Tab Title... if nothing is found.
+ * @return string  The tab binding, either tab/label, or tab/slug Defaults to tab/label and ultimately Tab Title... if nothing is found.
  */
 function get_tab_binding( $source_args, $block, $attribute_name ) {
 	$context_key = array_key_exists( 'contextKey', $source_args ) ? $source_args['contextKey'] : 'tab/label';
@@ -53,9 +53,6 @@ function render_block_core_tab( $attributes, $content ) {
 
 		// Add tabindex="0" to the selected tab panel, so it can be focused.
 		$p->set_attribute( 'data-wp-bind--tabindex', 'state.tabindexPanelAttribute' );
-
-		// Store the index of each tab panel for tracking the selected tab.
-		$p->set_attribute( 'data-tab-index', $attributes['tabIndex'] );
 	}
 
 	return $p->get_updated_html();

@@ -5,8 +5,11 @@ import {
 	useBlockProps,
 	useInnerBlocksProps,
 	withColors,
+	store as blockEditorStore,
+	InnerBlocks,
 } from '@wordpress/block-editor';
 import { Fragment } from '@wordpress/element';
+import { useDispatch } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -24,7 +27,6 @@ function Edit( {
 	clientId,
 	attributes,
 	setAttributes,
-	isSelected,
 	tabBackgroundColor,
 	setTabBackgroundColor,
 	tabHoverColor,
@@ -51,7 +53,7 @@ function Edit( {
 
 	/**
 	 * Provide additional non-core color supports for tab background and text colors.
-	 * TODO: Talk to Gutenberg team about how to add these into the style engine proper so that these can be set in the style book.
+	 * TODO: Talk to Gutenberg team about how to add these into the style engine proper so that these can be set in the style book??
 	 */
 	const additionalColorSupportingStyles = useColorSupports( {
 		customTabBackgroundColor,
@@ -91,6 +93,14 @@ function Edit( {
 		}
 	);
 
+	const { insertBlock } = useDispatch( blockEditorStore );
+
+	const appendTabItem = () => {
+		insertBlock( 'core/tab', {
+			label: 'New Tab',
+		} );
+	};
+
 	return (
 		<Fragment>
 			<Controls
@@ -113,19 +123,15 @@ function Edit( {
 				} }
 			/>
 			<div { ...blockProps }>
-				<TabFill tabsClientId={ clientId }>
-					{ isSelected && (
-						<li className="tab-item wp-block-tabs__tab-item tab-item--inserter">
-							{ /* <InnerBlocks.ButtonBlockAppender
-								icon="plus"
-								onClick={ appendTabItem }
-							/> */ }
-							<span>+ ADD TAB</span>
-						</li>
-					) }
-				</TabFill>
-
 				{ innerBlockProps.children }
+				<TabFill tabsClientId={ clientId }>
+					<li className="tab-item wp-block-tabs__tab-item tab-item__inserter">
+						<InnerBlocks.ButtonBlockAppender
+							icon="plus"
+							onClick={ appendTabItem }
+						/>
+					</li>
+				</TabFill>
 			</div>
 		</Fragment>
 	);

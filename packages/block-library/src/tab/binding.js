@@ -17,7 +17,7 @@ export default function registerTabLabelBinding() {
 				bindings
 			) ) {
 				if ( allowedAttributes.includes( source.args.key ) ) {
-					values[ attributeName ] = 'Tab Title !';
+					values[ attributeName ] = 'Tab Title';
 				}
 			}
 			return values;

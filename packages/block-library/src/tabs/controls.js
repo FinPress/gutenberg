@@ -1,19 +1,19 @@
 /**
  * WordPress dependencies
  */
+import { __ } from '@wordpress/i18n';
+import { Fragment } from '@wordpress/element';
+import { ToggleControl, PanelBody } from '@wordpress/components';
 import {
 	InspectorControls,
 	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
-import { ToggleControl, PanelBody } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 
-export default ( {
-	clientId,
+export default function Controls( {
 	attributes,
 	setAttributes,
+	clientId,
 	tabBackgroundColor,
 	setTabBackgroundColor,
 	tabHoverColor,
@@ -26,17 +26,19 @@ export default ( {
 	setTabActiveTextColor,
 	tabHoverTextColor,
 	setTabHoverTextColor,
-} ) => {
+} ) {
 	const {
 		customTabBackgroundColor,
-		customTabHoverColor,
 		customTabActiveColor,
+		customTabHoverColor,
 		customTabTextColor,
 		customTabActiveTextColor,
 		customTabHoverTextColor,
 		orientation,
 	} = attributes;
-
+	/**
+	 * Get the current block's color settings.
+	 */
 	const colorSettings = useMultipleOriginColorsAndGradients();
 
 	return (
@@ -44,7 +46,6 @@ export default ( {
 			<InspectorControls>
 				<PanelBody title={ __( 'Tabs Settings' ) }>
 					<ToggleControl
-						__nextHasNoMarginBottom
 						label="Vertical Tabs"
 						checked={ 'vertical' === orientation }
 						onChange={ () =>
@@ -55,6 +56,7 @@ export default ( {
 										: 'vertical',
 							} )
 						}
+						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -139,4 +141,4 @@ export default ( {
 			</InspectorControls>
 		</Fragment>
 	);
-};
+}
