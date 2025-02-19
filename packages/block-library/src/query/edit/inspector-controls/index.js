@@ -32,7 +32,7 @@ import PagesControl from './pages-control';
 import {
 	usePostTypes,
 	useIsPostTypeHierarchical,
-	usePostTypeSupportsPageAttributes,
+	usePostTypesSupportsPageAttributes,
 	useAllowedControls,
 	isControlAllowed,
 	useTaxonomies,
@@ -65,8 +65,8 @@ export default function QueryInspectorControls( props ) {
 	} = usePostTypes();
 	const taxonomies = useTaxonomies( postType );
 	const isPostTypeHierarchical = useIsPostTypeHierarchical( postType );
-	const postTypeSupportsPageAttributes =
-		usePostTypeSupportsPageAttributes( postType );
+	const postTypesSupportsPageAttributes =
+		usePostTypesSupportsPageAttributes();
 	const onPostTypeChange = ( newValue ) => {
 		const updateQuery = { postType: newValue };
 		// We need to dynamically update the `taxQuery` property,
@@ -89,8 +89,12 @@ export default function QueryInspectorControls( props ) {
 			updateQuery.sticky = '';
 		}
 
-		// We need to reset `orderBy` and `order` to their default values if `orderBy` is set to `menu_order` because only pages support this ordering by default
-		if ( orderBy === 'menu_order' && newValue !== 'page' ) {
+		// Reset `orderBy` and `order` if `orderBy` is set to `menu_order`
+		// and the selected post type does not support `page-attributes`.
+		if (
+			orderBy === 'menu_order' &&
+			! postTypesSupportsPageAttributes[ newValue ]
+		) {
 			updateQuery.orderBy = 'date';
 			updateQuery.order = 'desc';
 		}
@@ -341,7 +345,10 @@ export default function QueryInspectorControls( props ) {
 								{ ...{
 									order,
 									orderBy,
-									postTypeSupportsPageAttributes,
+									supportsPageAttributes:
+										postTypesSupportsPageAttributes[
+											postType
+										],
 								} }
 								onChange={ setQuery }
 							/>

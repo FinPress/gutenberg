@@ -4,12 +4,7 @@
 import { SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-function OrderControl( {
-	order,
-	orderBy,
-	postTypeSupportsPageAttributes,
-	onChange,
-} ) {
+function OrderControl( { order, orderBy, supportsPageAttributes, onChange } ) {
 	const orderOptions = [
 		{
 			label: __( 'Newest to oldest' ),
@@ -30,7 +25,7 @@ function OrderControl( {
 			value: 'title/desc',
 		},
 		// Only include the menu_order option for post types which support page-attributes
-		...( postTypeSupportsPageAttributes
+		...( supportsPageAttributes
 			? [
 					{
 						/* translators: Label for ordering posts by menu_order in ascending order. */

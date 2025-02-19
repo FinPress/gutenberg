@@ -187,19 +187,19 @@ export function useIsPostTypeHierarchical( postType ) {
 }
 
 /**
- * Hook that returns whether a specific post type supports page attributes.
+ * Hook that returns a map of all post types and whether they support page attributes.
  *
- * @param {string} postType The post type to check.
- * @return {boolean} Whether the post type supports page attributes (like menu order and hierarchy).
+ * @return {Object} A map of post types where key is the post type and value is a boolean indicating support for page attributes.
  */
-export function usePostTypeSupportsPageAttributes( postType ) {
-	return useSelect(
-		( select ) => {
-			const type = select( coreStore ).getPostType( postType );
-			return type?.supports?.[ 'page-attributes' ] || false;
-		},
-		[ postType ]
-	);
+export function usePostTypesSupportsPageAttributes() {
+	return useSelect( ( select ) => {
+		const postTypes = select( coreStore ).getPostTypes() || [];
+		return postTypes.reduce( ( accumulator, postType ) => {
+			accumulator[ postType.slug ] =
+				postType?.supports?.[ 'page-attributes' ] || false;
+			return accumulator;
+		}, {} );
+	}, [] );
 }
 
 /**
