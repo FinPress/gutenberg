@@ -66,6 +66,10 @@ function CustomColorValueInput( {
 	const truncateRef = useRef< HTMLDivElement >( null );
 
 	useEffect( () => {
+		setInputValue( value );
+	}, [ value ] );
+
+	useEffect( () => {
 		if ( isEditing && inputRef.current ) {
 			inputRef.current.focus();
 		}
@@ -111,6 +115,7 @@ function CustomColorValueInput( {
 	if ( isEditing && isHex ) {
 		return (
 			<input
+				ref={ inputRef }
 				type="text"
 				value={ inputValue || '' }
 				onChange={ handleChange }
