@@ -193,7 +193,8 @@ export function useIsPostTypeHierarchical( postType ) {
  */
 export function usePostTypesSupportsPageAttributes() {
 	return useSelect( ( select ) => {
-		const postTypes = select( coreStore ).getPostTypes() || [];
+		const postTypes =
+			select( coreStore ).getPostTypes( { per_page: -1 } ) || [];
 		return postTypes.reduce( ( accumulator, postType ) => {
 			accumulator[ postType.slug ] =
 				postType?.supports?.[ 'page-attributes' ] || false;
