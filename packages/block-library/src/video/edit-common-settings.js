@@ -73,7 +73,9 @@ const VideoSettings = ( { setAttributes, attributes } ) => {
 					checked={ !! autoplay }
 					help={
 						! muted
-							? __( 'Autoplay is disbaled when unmuted' )
+							? __(
+									'Autoplay can be enabled when Mute is enabled.'
+							  )
 							: getAutoplayHelp
 					}
 					disabled={ ! muted }
