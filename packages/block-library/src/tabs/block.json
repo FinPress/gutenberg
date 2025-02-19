@@ -12,6 +12,10 @@
 			"default": "horizontal",
 			"enum": [ "horizontal", "vertical" ]
 		},
+		"activeTabIndex": {
+			"type": "number",
+			"default": 0
+		},
 		"tabBackgroundColor": {
 			"type": "string"
 		},
@@ -50,7 +54,9 @@
 		}
 	},
 	"example": {
-		"attributes": {},
+		"attributes": {
+			"className": "is-example"
+		},
 		"innerBlocks": [
 			{
 				"name": "core/tab",
@@ -128,6 +134,8 @@
 		}
 	},
 	"textdomain": "tabs",
-	"style": "wp-block-tabs",
-	"editorStyle": "wp-block-tabs-editor"
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScriptModule": "file:./view.js"
 }

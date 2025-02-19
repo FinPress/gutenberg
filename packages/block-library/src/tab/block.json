@@ -13,13 +13,6 @@
 		"slug": {
 			"type": "string",
 			"default": ""
-		},
-		"tabIndex": {
-			"type": "number"
-		},
-		"isActive": {
-			"type": "boolean",
-			"default": false
 		}
 	},
 	"parent": [ "core/tabs" ],
@@ -50,9 +43,9 @@
 	},
 	"providesContext": {
 		"tab/label": "label",
-		"tab/slug": "slug",
-		"tab/index": "tabIndex"
+		"tab/slug": "slug"
 	},
 	"textdomain": "tab",
-	"style": "wp-block-tab"
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css"
 }
