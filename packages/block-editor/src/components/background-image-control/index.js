@@ -146,7 +146,7 @@ function InspectorImagePreviewItem( {
 					) : (
 						<ColorIndicator
 							as="span"
-							className="block-editor-global-styles-background-panel__inspector-image-indicator"
+							className="block-editor-global-styles-background-panel__inspector-image-indicator "
 							colorValue={ undefined }
 						/>
 					) }
