@@ -235,7 +235,12 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 				break;
 			case 'Space':
 				if ( tokenizeOnSpace ) {
-					preventDefault = addCurrentToken();
+					if (
+						inputHasValidValue() &&
+						__experimentalValidateInput( incompleteTokenValue )
+					) {
+						preventDefault = addCurrentToken();
+					}
 				}
 				break;
 			case 'Escape':
