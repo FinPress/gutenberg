@@ -11,7 +11,7 @@
  * @param int    $index The index of the tab.
  * @return WP_Block_Parser_Block The tab block
  */
-function generate_tab( $label, $content, $index = 0 ) {
+function generate_tab( $label, $content ) {
 	$parsed_content   = is_array( $content ) ? $content : parse_blocks( $content );
 	$inner_html_start = wp_sprintf(
 		'<section id="%s" class="wp-block-prc-block-tab">',
@@ -25,7 +25,6 @@ function generate_tab( $label, $content, $index = 0 ) {
 		array(
 			'label'    => $label,
 			'slug'     => sanitize_title( $label ),
-			'tabIndex' => $index,
 		),
 		$parsed_content,
 		$inner_html,
@@ -51,12 +50,11 @@ function create_tabs( $tabs = array(), $attributes = array() ) {
 	$tab_index     = 0;
 
 	foreach ( $tabs as $tab ) {
-		$new_tab = generate_tab( $tab['label'], $tab['content'], $tab_index );
+		$new_tab = generate_tab( $tab['label'], $tab['content'] );
 		$inner_html     .= $new_tab->innerHTML; // phpcs:ignore WordPress.NamingConventions.ValidVariableName
 		$new_tab         = (array) $new_tab;
 		$inner_blocks[]  = $new_tab;
 		$inner_content[] = null;
-		++$tab_index;
 	}
 
 	$tabs = new WP_Block_Parser_Block(

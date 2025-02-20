@@ -53,7 +53,7 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 
 	$styles = block_core_tabs_generate_color_variables( $attributes );
 
-	$url_encoded_active_tab_index = get_query_var( 'activeTabIndex', 0 );
+	$url_encoded_active_tab_index = get_query_var( 'activeTabIndex', false );
 	// Validate base64 string and safely decode
 	$decoded_tab_index = '';
 	if (is_string($url_encoded_active_tab_index) && !empty($url_encoded_active_tab_index)) {
@@ -62,7 +62,7 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 		$decoded_tab_index = ($decoded_tab_index !== false) ? $decoded_tab_index : '';
 	}
 	// Only try to match if we have a valid decoded string
-	$active_tab_index = 0;
+	$active_tab_index = $attributes['activeTabIndex'];
 	if (!empty($decoded_tab_index)) {
 		preg_match('/__(\d+)$/', $decoded_tab_index, $matches);
 		$active_tab_index = isset($matches[1]) ? (int) $matches[1] : 0;
@@ -109,6 +109,13 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 	while ( $p->next_tag( array( 'class_name' => 'wp-block-tab' ) ) ) {
 		$p->set_attribute( 'role', 'tabpanel' );
 		$p->set_attribute( 'data-tab-index', $tab_index );
+		$p->set_attribute( 'data-wp-interactive', 'core/tabs' );
+		$p->set_attribute( 'data-wp-context', wp_json_encode(
+			array(
+				'isActiveTab' => $tab_index === $active_tab_index,
+				'tabIndex' => $tab_index,
+			)
+		) );
 		$p->set_attribute( 'data-wp-bind--hidden', '!state.isActiveTab' );
 		$p->set_attribute( 'data-wp-bind--tabindex', 'state.tabindexPanelAttribute' );
 		$tab_index++;

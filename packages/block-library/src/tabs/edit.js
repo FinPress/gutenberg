@@ -9,7 +9,6 @@ import {
 	InnerBlocks,
 } from '@wordpress/block-editor';
 import { Fragment } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -19,8 +18,8 @@ import useColorSupports from './use-color-supports';
 import { TabFill } from '../tab/slotfill';
 
 const TABS_TEMPLATE = [
-	[ 'core/tab', { label: 'Tab 1' } ],
-	[ 'core/tab', { label: 'Tab 2' } ],
+	[ 'core/tab', { label: 'Tab 1', slug: 'tab-1' }, [ [ 'core/paragraph' ] ] ],
+	[ 'core/tab', { label: 'Tab 2', slug: 'tab-2' }, [ [ 'core/paragraph' ] ] ],
 ];
 
 function Edit( {
@@ -90,16 +89,9 @@ function Edit( {
 			clientId,
 			orientation,
 			template: TABS_TEMPLATE,
+			renderAppender: false, // We handle this element ourselves.
 		}
 	);
-
-	const { insertBlock } = useDispatch( blockEditorStore );
-
-	const appendTabItem = () => {
-		insertBlock( 'core/tab', {
-			label: 'New Tab',
-		} );
-	};
 
 	return (
 		<Fragment>
@@ -126,10 +118,7 @@ function Edit( {
 				{ innerBlockProps.children }
 				<TabFill tabsClientId={ clientId }>
 					<li className="tab-item wp-block-tabs__tab-item tab-item__inserter">
-						<InnerBlocks.ButtonBlockAppender
-							icon="plus"
-							onClick={ appendTabItem }
-						/>
+						<InnerBlocks.ButtonBlockAppender />
 					</li>
 				</TabFill>
 			</div>
