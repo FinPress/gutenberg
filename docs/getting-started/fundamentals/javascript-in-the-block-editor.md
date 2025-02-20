@@ -89,6 +89,6 @@ Refer to [Enqueueing assets in the Editor](/docs/how-to-guides/enqueueing-assets
 - [WordPress package handles](/docs/contributors/code/scripts.md)
 - [JavaScript reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | MDN Web Docs
 - [block-development-examples](https://github.com/WordPress/block-development-examples) | GitHub repository
-- [block-theme-examples](https://github.com/wptrainingteam/block-theme-examples) | GitHub repository
+- [block-theme-examples](https://github.com/WordPress/block-development-examples) | GitHub repository
 - [How webpack and WordPress packages interact](https://developer.wordpress.org/news/2023/04/how-webpack-and-wordpress-packages-interact/) | Developer Blog
 - [Build process diagram](https://excalidraw.com/#json=4aNG9JUti3pMnsfoga35b,ihEAI8p5dwkpjWr6gQmjuw)
