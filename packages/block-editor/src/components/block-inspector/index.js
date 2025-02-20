@@ -26,6 +26,7 @@ import useInspectorControlsTabs from '../inspector-controls-tabs/use-inspector-c
 import AdvancedControls from '../inspector-controls-tabs/advanced-controls-panel';
 import PositionControls from '../inspector-controls-tabs/position-controls-panel';
 import useBlockInspectorAnimationSettings from './useBlockInspectorAnimationSettings';
+import { useBlockEditingMode } from '../block-editing-mode';
 import BlockQuickNavigation from '../block-quick-navigation';
 import { useBorderPanelLabel } from '../../hooks/border';
 
@@ -221,6 +222,7 @@ const BlockInspectorSingleBlock = ( {
 	);
 	const blockInformation = useBlockDisplayInformation( clientId );
 	const borderPanelLabel = useBorderPanelLabel( { blockName } );
+	const blockEditingMode = useBlockEditingMode();
 	const contentClientIds = useSelect(
 		( select ) => {
 			// Avoid unnecessary subscription.
@@ -259,7 +261,7 @@ const BlockInspectorSingleBlock = ( {
 			) }
 			{ ! showTabs && (
 				<>
-					{ hasBlockStyles && (
+					{ blockEditingMode === 'default' && hasBlockStyles && (
 						<BlockStylesPanel clientId={ clientId } />
 					) }
 
