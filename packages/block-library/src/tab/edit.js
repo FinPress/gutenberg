@@ -11,8 +11,8 @@ import {
 	RichText,
 } from '@wordpress/block-editor';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { Fragment, useMemo } from '@wordpress/element';
-import { PanelBody, TextControl } from '@wordpress/components';
+import { Fragment, useMemo, useRef } from '@wordpress/element';
+import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
 import { cleanForSlug } from '@wordpress/url';
 
 /**
@@ -49,7 +49,8 @@ export default function Edit( {
 	setAttributes,
 } ) {
 	const { anchor, label, slug } = attributes;
-	const { selectBlock } = useDispatch( blockEditorStore );
+	const { selectBlock, updateBlockAttributes } =
+		useDispatch( blockEditorStore );
 
 	const {
 		blockIndex,
@@ -58,43 +59,54 @@ export default function Edit( {
 		tabsHasSelectedBlock,
 		tabsClientId,
 		forceDisplay,
-		isFirstTab,
 		isTabsClientSelected,
 		previousTabClientId,
 		nextTabClientId,
+		isDefaultTab,
 	} = useSelect(
 		( select ) => {
-			const rootClientId =
-				select( blockEditorStore ).getBlockRootClientId( clientId );
-			const _isFirstTab =
-				select( blockEditorStore ).getBlockIndex( clientId ) === 0;
-			const _isTabsClientSelected =
-				select( blockEditorStore ).isBlockSelected( rootClientId );
-			// Check if any of the rootClientId blocks are selected...
-			const hasTabSelected = select(
-				blockEditorStore
-			).hasSelectedInnerBlock( rootClientId, true );
+			const {
+				getBlockRootClientId,
+				getBlockIndex,
+				getBlockOrder,
+				getPreviousBlockClientId,
+				getNextBlockClientId,
+				isBlockSelected,
+				hasSelectedInnerBlock,
+				getBlockAttributes,
+			} = select( blockEditorStore );
+
+			// Get data from core/tabs.
+			const rootClientId = getBlockRootClientId( clientId );
+			const hasTabSelected = hasSelectedInnerBlock( rootClientId, true );
+			const rootAttributes = getBlockAttributes( rootClientId );
+			const { activeTabIndex } = rootAttributes;
+			const _isTabsClientSelected = isBlockSelected( rootClientId );
+
+			// Get data about this instance of core/tab.
+			const _blockIndex = getBlockIndex( clientId );
+			const _isDefaultTab = activeTabIndex === _blockIndex;
+			const _hasChildBlocks = getBlockOrder( clientId ).length > 0;
+			const _hasInnerBlocksSelected = hasSelectedInnerBlock(
+				clientId,
+				true
+			);
+
+			// Get data about the previous and next tabs.
+			const _previousTabClientId = getPreviousBlockClientId( clientId );
+			const _nextTabClientId = getNextBlockClientId( clientId );
 
 			return {
-				blockIndex:
-					select( blockEditorStore ).getBlockIndex( clientId ),
-				hasChildBlocks:
-					select( blockEditorStore ).getBlockOrder( clientId )
-						.length > 0,
-				hasInnerBlocksSelected: select(
-					blockEditorStore
-				).hasSelectedInnerBlock( clientId, true ),
+				blockIndex: _blockIndex,
+				hasChildBlocks: _hasChildBlocks,
+				hasInnerBlocksSelected: _hasInnerBlocksSelected,
 				tabsClientId: rootClientId,
-				forceDisplay: _isFirstTab && _isTabsClientSelected,
+				forceDisplay: _isDefaultTab && _isTabsClientSelected,
 				tabsHasSelectedBlock: hasTabSelected,
-				isFirstTab: _isFirstTab,
 				isTabsClientSelected: _isTabsClientSelected,
-				previousTabClientId:
-					select( blockEditorStore ).getPreviousBlockClientId(
-						clientId
-					),
-				nextTabClientId:
-					select( blockEditorStore ).getNextBlockClientId( clientId ),
+				previousTabClientId: _previousTabClientId,
+				nextTabClientId: _nextTabClientId,
+				isDefaultTab: _isDefaultTab,
 			};
 		},
 		[ clientId ]
@@ -108,7 +120,7 @@ export default function Edit( {
 			return true;
 		}
 		if (
-			isFirstTab &&
+			isDefaultTab &&
 			! isTabsClientSelected &&
 			! isSelected &&
 			! tabsHasSelectedBlock
@@ -120,7 +132,7 @@ export default function Edit( {
 		isSelected,
 		hasInnerBlocksSelected,
 		forceDisplay,
-		isFirstTab,
+		isDefaultTab,
 		isTabsClientSelected,
 		tabsHasSelectedBlock,
 	] );
@@ -133,11 +145,20 @@ export default function Edit( {
 		hidden: ! isSelectedTab,
 	} );
 
+	const innerBlocksRef = useRef( null );
+
 	const innerBlocksProps = useInnerBlocksProps(
 		{
 			'aria-labelledby': tabLabelId,
 			id: tabPanelId,
 			role: 'tabpanel',
+			ref: innerBlocksRef,
+			template: [
+				[
+					'core/paragraph',
+				],
+			],
+			tabIndex: 0,
 		},
 		{
 			renderAppender: hasChildBlocks
@@ -159,6 +180,19 @@ export default function Edit( {
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
 					/>
+					<ToggleControl
+						label="Is Default"
+						checked={ isDefaultTab }
+						onChange={ ( value ) => {
+							updateBlockAttributes( tabsClientId, {
+								activeTabIndex: value ? blockIndex : 0,
+							} );
+						} }
+						help={ __(
+							'If true, this tab will be selected when the page loads.'
+						) }
+						__nextHasNoMarginBottom
+					/>
 				</PanelBody>
 			</InspectorControls>
 
@@ -170,21 +204,6 @@ export default function Edit( {
 							aria-selected={ isSelectedTab }
 							className="tabs__tab-label"
 							id={ tabLabelId }
-							onKeyDown={ ( event ) => {
-								// Playing around with keyboard navigation. Will settle on the best approach next.
-								switch ( event.key ) {
-									case 'ArrowLeft':
-									case 'ArrowUp':
-										event.preventDefault();
-										selectBlock( previousTabClientId );
-										break;
-									case 'ArrowRight':
-									case 'ArrowDown':
-										event.preventDefault();
-										selectBlock( nextTabClientId );
-										break;
-								}
-							} }
 							role="tab"
 							tabIndex="0"
 						>
