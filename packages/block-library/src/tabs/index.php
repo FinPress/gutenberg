@@ -99,7 +99,7 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 		}
 		$tab_slug     = $tab['slug'];
 		$tab_label    = $tab['label'];
-		$tabs_markup .= wp_sprintf( '<li class="tabs__list-item"><a id="%1$s" class="tabs__tab-label" href="%1$s" data-wp-on--click="actions.handleTabClick" data-tab-index="%2$s" data-wp-bind--aria-selected="state.isActiveTab" data-tab-hash="%4$s">%3$s</a></li>', $tab_slug, $tab_index, $tab_label, base64_encode( $tab_label . '__' . $tab_index ) );
+		$tabs_markup .= wp_sprintf( '<li class="tabs__list-item" role="presentation"><a id="%1$s" class="tabs__tab-label" href="%1$s" role="tab" data-wp-on--click="actions.handleTabClick" data-tab-index="%2$s" data-wp-bind--aria-selected="state.isActiveTab" data-tab-hash="%4$s">%3$s</a></li>', $tab_slug, $tab_index, $tab_label, base64_encode( $tab_label . '__' . $tab_index ) );
 	}
 	$tabs_markup .= '</ul>';
 
@@ -107,8 +107,8 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 	$p = new WP_HTML_Tag_Processor( $content );
 	$tab_index = 0;
 	while ( $p->next_tag( array( 'class_name' => 'wp-block-tab' ) ) ) {
+		$p->set_attribute( 'role', 'tabpanel' );
 		$p->set_attribute( 'data-tab-index', $tab_index );
-		$p->set_attribute( 'data-wp-bind--role', 'state.roleAttribute' );
 		$p->set_attribute( 'data-wp-bind--hidden', '!state.isActiveTab' );
 		$p->set_attribute( 'data-wp-bind--tabindex', 'state.tabindexPanelAttribute' );
 		$tab_index++;
