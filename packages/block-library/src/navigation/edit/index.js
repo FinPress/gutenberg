@@ -570,7 +570,7 @@ function Navigation( {
 	const submenuAccessibilityNotice =
 		! showSubmenuIcon && ! openSubmenusOnClick
 			? __(
-					'The current menu options offer reduced accessibility for users and are not recommended. Enabling either "Open on Click" or "Show arrow" offers enhanced accessibility by allowing keyboard users to browse submenus selectively.'
+					'The current menu options limit accessibility. Enabling "Open on Click" or "Show Arrow" improves usability for keyboard users navigating submenus.'
 			  )
 			: '';
 
