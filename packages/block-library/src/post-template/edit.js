@@ -88,7 +88,6 @@ export default function PostTemplateEdit( {
 			sticky,
 			inherit,
 			taxQuery,
-			ancestor,
 			parents,
 			pages,
 			format,
@@ -170,9 +169,6 @@ export default function PostTemplateEdit( {
 			}
 			if ( exclude?.length ) {
 				query.exclude = exclude;
-			}
-			if ( ancestor ) {
-				query.post_ancestor = ancestor;
 			}
 			if ( parents?.length ) {
 				query.parent = parents;

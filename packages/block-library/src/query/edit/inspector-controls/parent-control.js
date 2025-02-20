@@ -24,7 +24,7 @@ const BASE_QUERY = {
 	context: 'view',
 };
 
-function ParentControl( { context, ancestor, parents, postType, onChange } ) {
+function ParentControl( { context, parents, postType, onChange } ) {
 	const [ search, setSearch ] = useState( '' );
 	const [ value, setValue ] = useState( EMPTY_ARRAY );
 	const [ suggestions, setSuggestions ] = useState( EMPTY_ARRAY );
@@ -73,9 +73,6 @@ function ParentControl( { context, ancestor, parents, postType, onChange } ) {
 	);
 	const { postId } = context;
 	const parentIsCurrentPage = value.length === 1 && value[ 0 ]?.id === postId;
-	const [ showDescendantsToggle, setShowDescendantsToggle ] =
-		useState( false );
-
 	// Update the `value` state only after the selectors are resolved
 	// to avoid emptying the input when we're changing parents.
 	useEffect( () => {
@@ -147,40 +144,23 @@ function ParentControl( { context, ancestor, parents, postType, onChange } ) {
 					label={ __( 'Set parent as current page' ) }
 					checked={ parentIsCurrentPage }
 					onChange={ ( toggleValue ) => {
-						setShowDescendantsToggle( toggleValue );
-
 						if ( toggleValue ) {
 							onChange( { parents: [ postId ] } );
 							return;
 						}
-						onChange( {
-							ancestor: 0,
-							parents: EMPTY_ARRAY,
-						} );
+						onChange( { parents: EMPTY_ARRAY } );
 					} }
 				/>
-				{ showDescendantsToggle && (
-					<ToggleControl
-						__nextHasNoMarginBottom
-						label={ __( 'Show all descendants' ) }
-						checked={ typeof ancestor === 'number' && ancestor > 0 }
-						onChange={ ( toggleValue ) => {
-							onChange( { ancestor: toggleValue ? postId : 0 } );
-						} }
-					/>
-				) }
-				{ ! showDescendantsToggle && (
-					<FormTokenField
-						__next40pxDefaultSize
-						label={ __( 'Parents' ) }
-						value={ value }
-						onInputChange={ debouncedSearch }
-						suggestions={ suggestions }
-						onChange={ onParentChange }
-						__experimentalShowHowTo={ false }
-						__nextHasNoMarginBottom
-					/>
-				) }
+				<FormTokenField
+					__next40pxDefaultSize
+					label={ __( 'Parents' ) }
+					value={ value }
+					onInputChange={ debouncedSearch }
+					suggestions={ suggestions }
+					onChange={ onParentChange }
+					__experimentalShowHowTo={ false }
+					__nextHasNoMarginBottom
+				/>
 			</VStack>
 		</>
 	);
