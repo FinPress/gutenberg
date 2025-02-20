@@ -1,4 +1,5 @@
 .wp-block-image {
+	line-height: 0;
 
 	> a,
 	> figure > a {
@@ -8,7 +9,6 @@
 	img {
 		height: auto;
 		max-width: 100%;
-		vertical-align: bottom;
 		box-sizing: border-box;
 
 		@media not (prefers-reduced-motion) {
