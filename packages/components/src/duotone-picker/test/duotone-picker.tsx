@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 /**
  * Internal dependencies
  */
-import { DuotonePicker } from '../index';
+import DuotonePicker from '../duotone-picker';
 
 const DUOTONE_PALETTE = [
 	{
