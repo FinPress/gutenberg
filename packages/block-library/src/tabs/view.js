@@ -16,27 +16,6 @@ function isNumeric( value ) {
 // Interactivy store for the tabs block.
 const { state, actions } = store( 'core/tabs', {
 	state: {
-		get roleAttribute() {
-			const el = getElement();
-			const classList = el?.attributes?.class ?? '';
-			const classArray = classList.split( ' ' );
-
-			const classToRoleMap = new Map( [
-				[ 'wp-block-tabs__list', 'tablist' ],
-				[ 'wp-block-tabs__list-item', 'presentation' ],
-				[ 'wp-block-tabs__tab-label', 'tab' ],
-				[ 'wp-block-tab', 'tabpanel' ],
-			] );
-
-			for ( const className of classArray ) {
-				const role = classToRoleMap.get( className );
-				if ( role ) {
-					return role;
-				}
-			}
-
-			return false;
-		},
 		/**
 		 * Whether the tab is the active tab.
 		 *
