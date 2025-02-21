@@ -1,5 +1,4 @@
 .wp-block-image {
-	line-height: 0;
 
 	> a,
 	> figure > a {
@@ -20,6 +19,10 @@
 				animation: show-content-image 0.4s;
 			}
 		}
+	}
+
+	&:not(:has(figcaption)) {
+		line-height: 0;
 	}
 
 	// The following style maintains border radius application for deprecated
