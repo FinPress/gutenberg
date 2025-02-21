@@ -24,10 +24,12 @@ const VideoSettings = ( { setAttributes, attributes } ) => {
 	);
 
 	useEffect( () => {
-		if ( ! muted && autoplay ) {
-			setAttributes( { autoplay: false } );
+		if ( autoplay ) {
+			setAttributes( { muted: true } );
+		} else {
+			setAttributes( { muted: false } );
 		}
-	}, [ muted, autoplay, setAttributes ] );
+	}, [ autoplay, setAttributes ] );
 
 	const getAutoplayHelp = Platform.select( {
 		web: useCallback( ( checked ) => {
@@ -71,14 +73,7 @@ const VideoSettings = ( { setAttributes, attributes } ) => {
 					label={ __( 'Autoplay' ) }
 					onChange={ toggleFactory.autoplay }
 					checked={ !! autoplay }
-					help={
-						! muted
-							? __(
-									'Autoplay can be enabled when Mute is enabled.'
-							  )
-							: getAutoplayHelp
-					}
-					disabled={ ! muted }
+					help={ getAutoplayHelp }
 				/>
 			</ToolsPanelItem>
 			<ToolsPanelItem
@@ -109,6 +104,10 @@ const VideoSettings = ( { setAttributes, attributes } ) => {
 					label={ __( 'Muted' ) }
 					onChange={ toggleFactory.muted }
 					checked={ !! muted }
+					disabled={ autoplay }
+					help={
+						autoplay ? __( 'Muted because of Autoplay.' ) : null
+					}
 				/>
 			</ToolsPanelItem>
 			<ToolsPanelItem
