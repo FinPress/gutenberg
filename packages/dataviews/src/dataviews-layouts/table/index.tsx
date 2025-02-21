@@ -140,12 +140,7 @@ function TableRow< Item >( {
 			} }
 		>
 			{ hasBulkActions && (
-				<td
-					className="dataviews-view-table__checkbox-column"
-					style={ {
-						width: '1%',
-					} }
-				>
+				<td className="dataviews-view-table__checkbox-column">
 					<div className="dataviews-view-table__cell-content-wrapper">
 						<DataViewsSelectionCheckbox
 							item={ item }
@@ -301,9 +296,6 @@ function ViewTable< Item >( {
 						{ hasBulkActions && (
 							<th
 								className="dataviews-view-table__checkbox-column"
-								style={ {
-									width: '1%',
-								} }
 								scope="col"
 							>
 								<BulkSelectionCheckbox
