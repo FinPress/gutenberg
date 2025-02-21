@@ -30,17 +30,23 @@ const wpYellow = boldWhite.bgHex( '#f0b849' );
 const withSpinner =
 	( command ) =>
 	( ...args ) => {
-		const spinner = ora().start();
+		const quiet = args[ 0 ]?.quiet ?? false;
+		const spinner = ora();
+		if ( ! quiet ) {
+			spinner.start();
+		}
 		args[ 0 ].spinner = spinner;
 		let time = process.hrtime();
 		return command( ...args ).then(
 			( message ) => {
-				time = process.hrtime( time );
-				spinner.succeed(
-					`${ message || spinner.text } (in ${ time[ 0 ] }s ${ (
-						time[ 1 ] / 1e6
-					).toFixed( 0 ) }ms)`
-				);
+				if ( ! quiet ) {
+					time = process.hrtime( time );
+					spinner.succeed(
+						`${ message || spinner.text } (in ${ time[ 0 ] }s ${ (
+							time[ 1 ] / 1e6
+						).toFixed( 0 ) }ms)`
+					);
+				}
 				process.exit( 0 );
 			},
 			( error ) => {
@@ -244,9 +250,10 @@ module.exports = function cli() {
 				describe: 'Execute any configured lifecycle scripts.',
 				default: true,
 			} );
-			args.option( 'skip-confirmation', {
+			args.option( 'quiet', {
 				type: 'boolean',
-				describe: 'Skip confirmation prompt',
+				alias: 'q',
+				describe: 'Supress non-error output and auto confirm',
 				default: false,
 			} );
 		},
