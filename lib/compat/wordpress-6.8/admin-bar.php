@@ -23,7 +23,7 @@ function gutenberg_wp_admin_bar_edit_site_menu( $wp_admin_bar ) {
 	$wp_admin_bar->add_node(
 		array(
 			'id'    => 'site-editor',
-			'title' => _x( 'Edit Site', 'site editor link from admin bar' ),
+			'title' => __( 'Edit Site' ),
 			'href'  => admin_url( 'site-editor.php' ),
 		)
 	);
