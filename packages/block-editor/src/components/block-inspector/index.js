@@ -244,6 +244,19 @@ const BlockInspectorSingleBlock = ( {
 		[ isSectionBlock, clientId ]
 	);
 
+	const isWithinContentBlock = useSelect(
+		( select ) => {
+			const { getBlockParents, getBlockName } =
+				select( blockEditorStore );
+			const parents = getBlockParents( clientId );
+
+			return parents.some(
+				( parent ) => getBlockName( parent ) === 'core/post-content'
+			);
+		},
+		[ clientId ]
+	);
+
 	return (
 		<div className="block-editor-block-inspector">
 			<BlockCard
@@ -261,9 +274,11 @@ const BlockInspectorSingleBlock = ( {
 			) }
 			{ ! showTabs && (
 				<>
-					{ blockEditingMode === 'default' && hasBlockStyles && (
-						<BlockStylesPanel clientId={ clientId } />
-					) }
+					{ ( isWithinContentBlock ||
+						blockEditingMode === 'default' ) &&
+						hasBlockStyles && (
+							<BlockStylesPanel clientId={ clientId } />
+						) }
 
 					{ contentClientIds && contentClientIds?.length > 0 && (
 						<PanelBody title={ __( 'Content' ) }>
