@@ -106,6 +106,25 @@ test.describe( 'Site editor navigation', () => {
 		// We should have our editor canvas button back
 		await expect( editorCanvasButton ).toBeVisible();
 	} );
+
+	test( 'Should show 404 page when navigating to non-existent template', async ( {
+		admin,
+		page,
+	} ) => {
+		await admin.visitSiteEditor();
+
+		// Navigate to a non-existent template.
+		await page.goto( '/wp-admin/site-editor.php?p=%2Ftemplate-foo-bar' );
+
+		// Verify the 404 error notice is displayed with the correct message.
+		await expect(
+			page
+				.locator( '.components-notice__content' )
+				.getByText(
+					'The requested page could not be found. Please check the URL.'
+				)
+		).toBeVisible();
+	} );
 } );
 
 class EditorNavigationUtils {
