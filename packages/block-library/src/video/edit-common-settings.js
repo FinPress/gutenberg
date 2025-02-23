@@ -7,7 +7,7 @@ import {
 	SelectControl,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
-import { useMemo, useCallback, Platform, useEffect } from '@wordpress/element';
+import { useMemo, useCallback, Platform } from '@wordpress/element';
 
 const options = [
 	{ value: 'auto', label: __( 'Auto' ) },
@@ -23,14 +23,6 @@ const VideoSettings = ( { setAttributes, attributes } ) => {
 		'Autoplay may cause usability issues for some users.'
 	);
 
-	useEffect( () => {
-		if ( autoplay ) {
-			setAttributes( { muted: true } );
-		} else {
-			setAttributes( { muted: false } );
-		}
-	}, [ autoplay, setAttributes ] );
-
 	const getAutoplayHelp = Platform.select( {
 		web: useCallback( ( checked ) => {
 			return checked ? autoPlayHelpText : null;
@@ -41,7 +33,11 @@ const VideoSettings = ( { setAttributes, attributes } ) => {
 	const toggleFactory = useMemo( () => {
 		const toggleAttribute = ( attribute ) => {
 			return ( newValue ) => {
-				setAttributes( { [ attribute ]: newValue } );
+				setAttributes( {
+					[ attribute ]: newValue,
+					// Set muted when autoplay changes
+					...( attribute === 'autoplay' && { muted: newValue } ),
+				} );
 			};
 		};
 
@@ -65,7 +61,7 @@ const VideoSettings = ( { setAttributes, attributes } ) => {
 				isShownByDefault
 				hasValue={ () => !! autoplay }
 				onDeselect={ () => {
-					setAttributes( { autoplay: false } );
+					setAttributes( { autoplay: false, muted: false } );
 				} }
 			>
 				<ToggleControl
