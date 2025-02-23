@@ -18,7 +18,7 @@ function gutenberg_post_format_template_title_description( $default_template_typ
 			),
 			'description' => sprintf(
 				/* translators: %s: Post format name. */
-				__( 'Displays the %s Post Format archive.' ),
+				__( 'Displays the %s post format archive.' ),
 				$post_format_name
 			),
 		);
