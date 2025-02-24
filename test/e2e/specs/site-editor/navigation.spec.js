@@ -114,16 +114,16 @@ test.describe( 'Site editor navigation', () => {
 		await admin.visitSiteEditor();
 
 		// Navigate to a non-existent template.
-		await page.goto( '/wp-admin/site-editor.php?p=%2Ftemplate-foo-bar' );
+		await admin.visitAdminPage( 'site-editor.php', 'p=/template-foo-bar' );
 
 		// Verify the 404 error notice is displayed with the correct message.
 		await expect(
-			page
-				.locator( '.components-notice__content' )
-				.getByText(
-					'The requested page could not be found. Please check the URL.'
-				)
-		).toBeVisible();
+			page.locator(
+				'.edit-site-layout__area .components-notice__content'
+			)
+		).toHaveText(
+			'The requested page could not be found. Please check the URL.'
+		);
 	} );
 } );
 
