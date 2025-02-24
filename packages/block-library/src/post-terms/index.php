@@ -25,11 +25,9 @@ function render_block_core_post_terms( $attributes, $content, $block ) {
 	}
 
 	$classes = array( 'taxonomy-' . $attributes['term'] );
-
 	if ( isset( $attributes['textAlign'] ) ) {
 		$classes[] = 'has-text-align-' . $attributes['textAlign'];
 	}
-
 	if ( isset( $attributes['style']['elements']['link']['color']['text'] ) ) {
 		$classes[] = 'has-link-color';
 	}
@@ -39,7 +37,6 @@ function render_block_core_post_terms( $attributes, $content, $block ) {
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classes ) ) );
 
 	$prefix = "<div $wrapper_attributes>";
-
 	if ( isset( $attributes['prefix'] ) && $attributes['prefix'] ) {
 		$prefix .= '<span class="wp-block-post-terms__prefix">' . $attributes['prefix'] . '</span>';
 	}
@@ -60,7 +57,7 @@ function render_block_core_post_terms( $attributes, $content, $block ) {
 			$terms_html[] = '<span class="wp-block-post-terms__term">' . esc_html( $term->name ) . '</span>';
 		}
 
-		$post_terms = $prefix;
+		$post_terms  = $prefix;
 		$post_terms .= implode(
 			'<span class="wp-block-post-terms__separator">' . esc_html( $separator ) . '</span>',
 			$terms_html
