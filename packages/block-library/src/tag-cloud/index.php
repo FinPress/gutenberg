@@ -39,14 +39,11 @@ function render_block_core_tag_cloud( $attributes ) {
 		}
 	}
 
-	$wrapper_attributes = get_block_wrapper_attributes();
-
-	$aria_label_attribute = 'aria-label="' . esc_attr( $aria_label ) . '" ';
+	$wrapper_attributes = get_block_wrapper_attributes( array( 'aria-label' => $aria_label ) );
 
 	return sprintf(
-		'<nav %1$s %2$s>%3$s</nav>',
+		'<nav %1$s>%2$s</nav>',
 		$wrapper_attributes,
-		$aria_label_attribute,
 		$tag_cloud
 	);
 }

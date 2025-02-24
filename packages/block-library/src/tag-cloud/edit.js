@@ -254,7 +254,7 @@ function TagCloudEdit( { attributes, setAttributes } ) {
 				<TextControl
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
-					label={ __( 'Tag Cloud Name' ) }
+					label={ __( 'Tag Cloud name' ) }
 					value={ ariaLabel || '' }
 					onChange={ ( value ) => {
 						setAttributes( { ariaLabel: value } );
