@@ -6,7 +6,7 @@
 			"separator": ", ",
 			"prefix": "",
 			"suffix": "",
-			"isLinkDisabled": false
+			"enableLinks": true
 		},
 		"innerBlocks": []
 	}

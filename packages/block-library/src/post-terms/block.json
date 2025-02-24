@@ -25,9 +25,9 @@
 			"type": "string",
 			"default": ""
 		},
-		"isLinkDisabled": {
+		"enableLinks": {
 			"type": "boolean",
-			"default": false
+			"default": true
 		}
 	},
 	"usesContext": [ "postId", "postType" ],

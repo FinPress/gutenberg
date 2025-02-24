@@ -15,7 +15,12 @@ import {
 	RichText,
 } from '@wordpress/block-editor';
 import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
-import { Spinner, TextControl, ToggleControl } from '@wordpress/components';
+import {
+	Spinner,
+	TextControl,
+	ToggleControl,
+	PanelBody,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
@@ -44,7 +49,7 @@ export default function PostTermsEdit( {
 	setAttributes,
 	insertBlocksAfter,
 } ) {
-	const { term, textAlign, separator, prefix, suffix, isLinkDisabled } =
+	const { term, textAlign, separator, prefix, suffix, enableLinks } =
 		attributes;
 	const { postId, postType } = context;
 
@@ -69,7 +74,7 @@ export default function PostTermsEdit( {
 		className: clsx( {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
 			[ `taxonomy-${ term }` ]: term,
-			'has-disabled-links': isLinkDisabled,
+			'has-disabled-links': ! enableLinks,
 		} ),
 	} );
 
@@ -83,6 +88,20 @@ export default function PostTermsEdit( {
 					} }
 				/>
 			</BlockControls>
+			<InspectorControls>
+				<PanelBody title={ __( 'Settings' ) }>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Enable links' ) }
+						onChange={ ( value ) =>
+							setAttributes( {
+								enableLinks: value,
+							} )
+						}
+						checked={ enableLinks }
+					/>
+				</PanelBody>
+			</InspectorControls>
 			<InspectorControls group="advanced">
 				<TextControl
 					__next40pxDefaultSize
@@ -94,15 +113,6 @@ export default function PostTermsEdit( {
 						setAttributes( { separator: nextValue } );
 					} }
 					help={ __( 'Enter character(s) used to separate terms.' ) }
-				/>
-				<ToggleControl
-					__nextHasNoMarginBottom
-					label={ __( 'Disable links' ) }
-					checked={ !! isLinkDisabled }
-					onChange={ () =>
-						setAttributes( { isLinkDisabled: ! isLinkDisabled } )
-					}
-					help={ __( 'Display terms as plain text without links.' ) }
 				/>
 			</InspectorControls>
 			<div { ...blockProps }>

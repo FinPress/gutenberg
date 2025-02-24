@@ -30,7 +30,7 @@ function render_block_core_post_terms( $attributes, $content, $block ) {
 		$classes[] = 'has-text-align-' . $attributes['textAlign'];
 	}
 
-	if ( isset( $attributes['isLinkDisabled'] ) && $attributes['isLinkDisabled'] ) {
+	if ( isset( $attributes['enableLinks'] ) && ! $attributes['enableLinks'] ) {
 		$classes[] = 'has-disabled-links';
 	}
 
