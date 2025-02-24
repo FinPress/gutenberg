@@ -57,6 +57,7 @@ export default function PreviewDropdown( { forceIsAutosaveable, disabled } ) {
 		};
 	}, [] );
 	const { setDeviceType, setRenderingMode } = useDispatch( editorStore );
+	const { set: setPreference } = useDispatch( preferencesStore );
 	const { resetZoomLevel } = unlock( useDispatch( blockEditorStore ) );
 
 	const handleDevicePreviewChange = ( newDeviceType ) => {
@@ -160,10 +161,14 @@ export default function PreviewDropdown( { forceIsAutosaveable, disabled } ) {
 								isSelected={ ! isTemplateHidden }
 								role="menuitemcheckbox"
 								onClick={ () => {
-									setRenderingMode(
-										isTemplateHidden
-											? 'template-locked'
-											: 'post-only'
+									const newRenderingMode = isTemplateHidden
+										? 'template-locked'
+										: 'post-only';
+									setRenderingMode( newRenderingMode );
+									setPreference(
+										'core',
+										'renderingMode',
+										newRenderingMode
 									);
 								} }
 							>

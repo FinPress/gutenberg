@@ -46,6 +46,7 @@ export default function BlockThemeControl( { id } ) {
 	}, [] );
 
 	const { get: getPreference } = useSelect( preferencesStore );
+	const { set: setPreference } = useDispatch( preferencesStore );
 
 	const { editedRecord: template, hasResolved } = useEntityRecord(
 		'postType',
@@ -149,10 +150,14 @@ export default function BlockThemeControl( { id } ) {
 								isSelected={ ! isTemplateHidden }
 								role="menuitemcheckbox"
 								onClick={ () => {
-									setRenderingMode(
-										isTemplateHidden
-											? 'template-locked'
-											: 'post-only'
+									const newRenderingMode = isTemplateHidden
+										? 'template-locked'
+										: 'post-only';
+									setRenderingMode( newRenderingMode );
+									setPreference(
+										'core',
+										'renderingMode',
+										newRenderingMode
 									);
 								} }
 							>

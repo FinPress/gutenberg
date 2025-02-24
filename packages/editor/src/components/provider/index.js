@@ -15,6 +15,7 @@ import {
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import { store as noticesStore } from '@wordpress/notices';
+import { store as preferencesStore } from '@wordpress/preferences';
 import { privateApis as editPatternsPrivateApis } from '@wordpress/patterns';
 import { createBlock } from '@wordpress/blocks';
 
@@ -195,12 +196,18 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					'getPostType',
 					[ post.type ]
 				);
-
-				const _defaultMode = Array.isArray( postTypeSupports?.editor )
+				const postTypeDefaultMode = Array.isArray(
+					postTypeSupports?.editor
+				)
 					? postTypeSupports.editor.find(
 							( features ) => 'default-mode' in features
 					  )?.[ 'default-mode' ]
 					: undefined;
+				const userDefaultMode = select( preferencesStore ).get(
+					'core',
+					'renderingMode'
+				);
+				const _defaultMode = userDefaultMode || postTypeDefaultMode;
 				const hasDefaultMode = RENDERING_MODES.includes( _defaultMode );
 
 				// Wait for template resolution when rendering in a `template-locked` mode.
