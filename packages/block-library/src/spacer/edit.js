@@ -171,7 +171,7 @@ const SpacerEdit = ( {
 		if ( isFlexLayout ) {
 			return undefined;
 		}
-		return temporaryHeight || getSpacingPresetCssVar( height ) || undefined;
+		return temporaryHeight || getSpacingPresetCssVar( height ) || '100px';
 	};
 
 	const getWidthForHorizontalBlocks = () => {

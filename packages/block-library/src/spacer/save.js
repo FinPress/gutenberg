@@ -3,6 +3,8 @@
  */
 import { useBlockProps, getSpacingPresetCssVar } from '@wordpress/block-editor';
 
+const DEFAULT_HEIGHT = '100px';
+
 export default function save( { attributes } ) {
 	const { height, width, style } = attributes;
 	const { layout: { selfStretch } = {} } = style || {};
@@ -13,7 +15,8 @@ export default function save( { attributes } ) {
 		<div
 			{ ...useBlockProps.save( {
 				style: {
-					height: getSpacingPresetCssVar( finalHeight ),
+					height:
+						getSpacingPresetCssVar( finalHeight ) || DEFAULT_HEIGHT,
 					width: getSpacingPresetCssVar( width ),
 				},
 				'aria-hidden': true,
