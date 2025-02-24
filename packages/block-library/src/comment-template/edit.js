@@ -116,7 +116,7 @@ function CommentTemplateInnerBlocks( {
 } ) {
 	const { children, ...innerBlocksProps } = useInnerBlocksProps(
 		{},
-		{ template: TEMPLATE }
+		{ template: TEMPLATE, __unstableDisableLayoutClassNames: true }
 	);
 
 	return (
@@ -241,8 +241,9 @@ const CommentsList = ( {
 export default function CommentTemplateEdit( {
 	clientId,
 	context: { postId },
+	__unstableLayoutClassNames: layoutClassNames,
 } ) {
-	const blockProps = useBlockProps();
+	const blockProps = useBlockProps( { className: layoutClassNames } );
 
 	const [ activeCommentId, setActiveCommentId ] = useState();
 	const {
