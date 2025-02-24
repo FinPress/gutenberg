@@ -54,3 +54,10 @@ const createActiveXObject = ( type ) => {
 	}
 	return ax;
 };
+
+export const formatFileSize = ( size ) => {
+	if ( ! size ) {
+		return null;
+	}
+	return ( size / ( 1024 * 1024 ) ).toFixed( 2 ) + ' MB';
+};

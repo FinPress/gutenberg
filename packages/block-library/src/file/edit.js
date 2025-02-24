@@ -34,7 +34,7 @@ import { store as noticesStore } from '@wordpress/notices';
  * Internal dependencies
  */
 import FileBlockInspector from './inspector';
-import { browserSupportsPdfs } from './utils';
+import { browserSupportsPdfs, formatFileSize } from './utils';
 import removeAnchorTag from '../utils/remove-anchor-tag';
 import { useUploadMediaFromBlobURL } from '../utils/hooks';
 
@@ -72,6 +72,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		downloadButtonText,
 		displayPreview,
 		previewHeight,
+		showFileSize,
 	} = attributes;
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
 	const { media } = useSelect(
@@ -83,6 +84,10 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		} ),
 		[ id ]
 	);
+
+	const fileSize = media?.media_details?.filesize
+		? formatFileSize( media.media_details.filesize )
+		: null;
 
 	const { createErrorNotice } = useDispatch( noticesStore );
 	const { toggleSelection, __unstableMarkNextChangeAsNotPersistent } =
@@ -167,6 +172,10 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		setAttributes( { showDownloadButton: newValue } );
 	}
 
+	function changeShowFileSize( newValue ) {
+		setAttributes( { showFileSize: newValue } );
+	}
+
 	function changeDisplayPreview( newValue ) {
 		setAttributes( { displayPreview: newValue } );
 	}
@@ -236,6 +245,8 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 					changeDisplayPreview,
 					previewHeight,
 					changePreviewHeight,
+					showFileSize,
+					changeShowFileSize,
 				} }
 			/>
 			<BlockControls group="other">
@@ -292,7 +303,11 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 					<RichText
 						identifier="fileName"
 						tagName="a"
-						value={ fileName }
+						value={
+							showFileSize && fileSize
+								? `${ fileName } (${ fileSize })`
+								: fileName
+						}
 						placeholder={ __( 'Write file name…' ) }
 						withoutInteractiveFormatting
 						onChange={ ( text ) =>
