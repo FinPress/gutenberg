@@ -26,6 +26,8 @@ export default function FileBlockInspector( {
 	changeDisplayPreview,
 	previewHeight,
 	changePreviewHeight,
+	showFileType,
+	changeShowFileType,
 } ) {
 	const { href, textLinkHref, attachmentPage } = hrefs;
 
@@ -91,6 +93,12 @@ export default function FileBlockInspector( {
 						label={ __( 'Show download button' ) }
 						checked={ showDownloadButton }
 						onChange={ changeShowDownloadButton }
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Show file type' ) }
+						checked={ showFileType }
+						onChange={ changeShowFileType }
 					/>
 				</PanelBody>
 			</InspectorControls>

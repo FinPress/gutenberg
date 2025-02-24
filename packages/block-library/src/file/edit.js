@@ -72,6 +72,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		downloadButtonText,
 		displayPreview,
 		previewHeight,
+		showFileType,
 	} = attributes;
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
 	const { media } = useSelect(
@@ -83,6 +84,8 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		} ),
 		[ id ]
 	);
+
+	const fileType = media?.mime_type?.split( '/' )[ 1 ];
 
 	const { createErrorNotice } = useDispatch( noticesStore );
 	const { toggleSelection, __unstableMarkNextChangeAsNotPersistent } =
@@ -167,6 +170,10 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		setAttributes( { showDownloadButton: newValue } );
 	}
 
+	function changeShowFileType( newValue ) {
+		setAttributes( { showFileType: newValue } );
+	}
+
 	function changeDisplayPreview( newValue ) {
 		setAttributes( { displayPreview: newValue } );
 	}
@@ -236,6 +243,8 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 					changeDisplayPreview,
 					previewHeight,
 					changePreviewHeight,
+					showFileType,
+					changeShowFileType,
 				} }
 			/>
 			<BlockControls group="other">
@@ -292,7 +301,11 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 					<RichText
 						identifier="fileName"
 						tagName="a"
-						value={ fileName }
+						value={
+							showFileType
+								? `${ fileName }.${ fileType }`
+								: fileName
+						}
 						placeholder={ __( 'Write file name…' ) }
 						withoutInteractiveFormatting
 						onChange={ ( text ) =>
