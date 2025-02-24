@@ -966,7 +966,7 @@ test.describe( 'List View', () => {
 				{ name: 'core/file' },
 			] );
 
-		// Move the focus to the second colummn block.
+		// Expand the current column.
 		await page.keyboard.press( 'ArrowRight' );
 		await page.keyboard.press( 'ArrowDown' );
 		await page.keyboard.press( 'ArrowDown' );
