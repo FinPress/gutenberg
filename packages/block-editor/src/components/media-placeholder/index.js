@@ -47,6 +47,7 @@ const InsertFromURLPopover = ( {
 			<InputControl
 				__next40pxDefaultSize
 				label={ __( 'URL' ) }
+				type="url"
 				hideLabelFromVision
 				placeholder={ __( 'Paste or type URL' ) }
 				onChange={ onChange }
@@ -226,6 +227,7 @@ export function MediaPlaceholder( {
 			filesList: files,
 			onFileChange: setMedia,
 			onError,
+			multiple,
 		} );
 	};
 

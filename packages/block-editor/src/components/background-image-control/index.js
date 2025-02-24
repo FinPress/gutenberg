@@ -24,6 +24,7 @@ import {
 	Placeholder,
 	Spinner,
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
+	Button,
 } from '@wordpress/components';
 import { __, _x, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
@@ -312,12 +313,6 @@ function BackgroundImageControls( {
 
 	// Drag and drop callback, restricting image to one.
 	const onFilesDrop = ( filesList ) => {
-		if ( filesList?.length > 1 ) {
-			onUploadError(
-				__( 'Only one image can be used as a background image.' )
-			);
-			return;
-		}
 		getSettings().mediaUpload( {
 			allowedTypes: [ IMAGE_BACKGROUND_TYPE ],
 			filesList,
@@ -325,6 +320,7 @@ function BackgroundImageControls( {
 				onSelectMedia( image );
 			},
 			onError: onUploadError,
+			multiple: false,
 		} );
 	};
 
@@ -377,7 +373,9 @@ function BackgroundImageControls( {
 						label={ imgLabel }
 					/>
 				}
-				variant="secondary"
+				renderToggle={ ( props ) => (
+					<Button { ...props } __next40pxDefaultSize />
+				) }
 				onError={ onUploadError }
 				onReset={ () => {
 					closeAndFocus();
