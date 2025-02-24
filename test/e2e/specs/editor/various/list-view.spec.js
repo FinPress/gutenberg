@@ -875,7 +875,49 @@ test.describe( 'List View', () => {
 			] );
 	} );
 
-	test( 'should insert and delete blocks using keyboard', async ( {
+	test( 'should insert blocks using keyboard', async ( {
+		editor,
+		pageUtils,
+		listViewUtils,
+	} ) => {
+		// Insert multiple blocks of different types.
+		await editor.insertBlock( { name: 'core/group' } );
+		await editor.insertBlock( { name: 'core/file' } );
+
+		// Open List View.
+		await listViewUtils.openListView();
+
+		// Test insert before.
+		await pageUtils.pressKeys( 'primaryAlt+t' );
+
+		await expect
+			.poll(
+				listViewUtils.getBlocksWithA11yAttributes,
+				'Inserting a block before should move selection and focus to the inserted block.'
+			)
+			.toMatchObject( [
+				{ name: 'core/group', focused: false, selected: false },
+				{ name: 'core/paragraph', focused: true, selected: true },
+				{ name: 'core/file', selected: false },
+			] );
+
+		// Test insert after.
+		await pageUtils.pressKeys( 'primaryAlt+y' );
+
+		await expect
+			.poll(
+				listViewUtils.getBlocksWithA11yAttributes,
+				'Inserting a block after should move selection and focus to the inserted block.'
+			)
+			.toMatchObject( [
+				{ name: 'core/group', focused: false, selected: false },
+				{ name: 'core/paragraph', focused: false, selected: false },
+				{ name: 'core/paragraph', focused: true, selected: true },
+				{ name: 'core/file', selected: false },
+			] );
+	} );
+
+	test( 'should delete blocks using keyboard', async ( {
 		editor,
 		page,
 		pageUtils,
@@ -905,42 +947,11 @@ test.describe( 'List View', () => {
 		// Open List View.
 		const listView = await listViewUtils.openListView();
 
-		// Test insert before.
-		await pageUtils.pressKeys( 'primaryAlt+t' );
-
-		await expect
-			.poll(
-				listViewUtils.getBlocksWithA11yAttributes,
-				'Inserting a block before should move selection and focus to the inserted block.'
-			)
-			.toMatchObject( [
-				{ name: 'core/group' },
-				{ name: 'core/columns' },
-				{ name: 'core/file', selected: false },
-				{ name: 'core/paragraph', focused: true, selected: true },
-				{ name: 'core/file', selected: false },
-			] );
-
-		// Test insert after.
-		await pageUtils.pressKeys( 'primaryAlt+y' );
-
-		await expect
-			.poll(
-				listViewUtils.getBlocksWithA11yAttributes,
-				'Inserting a block after should move selection and focus to the inserted block.'
-			)
-			.toMatchObject( [
-				{ name: 'core/group' },
-				{ name: 'core/columns' },
-				{ name: 'core/file', selected: false },
-				{ name: 'core/paragraph', focused: false, selected: false },
-				{ name: 'core/paragraph', focused: true, selected: true },
-				{ name: 'core/file', selected: false },
-			] );
-
-		// Remove the inserted blocks.
-		await page.keyboard.press( 'Delete' );
-		await page.keyboard.press( 'Delete' );
+		// Select the first file block.
+		await listView
+			.getByRole( 'gridcell', { name: 'File', exact: true } )
+			.first()
+			.dblclick();
 
 		// Delete the first File block.
 		await page.keyboard.press( 'Delete' );
@@ -955,7 +966,7 @@ test.describe( 'List View', () => {
 				{ name: 'core/file' },
 			] );
 
-		// Expand the current column.
+		// Move the focus to the second colummn block.
 		await page.keyboard.press( 'ArrowRight' );
 		await page.keyboard.press( 'ArrowDown' );
 		await page.keyboard.press( 'ArrowDown' );
