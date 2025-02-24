@@ -666,7 +666,7 @@ test.describe( 'List View', () => {
 			] );
 	} );
 
-	test( 'should select and deselect blocks using keyboard', async ( {
+	test( 'should select blocks using keyboard', async ( {
 		editor,
 		page,
 		pageUtils,
@@ -696,7 +696,7 @@ test.describe( 'List View', () => {
 		await editor.insertBlock( { name: 'core/file' } );
 
 		// Open List View.
-		const listView = await listViewUtils.openListView();
+		await listViewUtils.openListView();
 
 		await expect
 			.poll(
@@ -792,25 +792,59 @@ test.describe( 'List View', () => {
 				},
 				{ name: 'core/file', selected: true, focused: false },
 			] );
+	} );
+
+	test( 'should deselect blocks using keyboard', async ( {
+		editor,
+		page,
+		pageUtils,
+		listViewUtils,
+	} ) => {
+		// Insert some blocks of different types.
+		await editor.insertBlock( {
+			name: 'core/group',
+			innerBlocks: [ { name: 'core/pullquote' } ],
+		} );
+		await editor.insertBlock( {
+			name: 'core/columns',
+			innerBlocks: [
+				{
+					name: 'core/column',
+					innerBlocks: [
+						{ name: 'core/heading' },
+						{ name: 'core/paragraph' },
+					],
+				},
+				{
+					name: 'core/column',
+					innerBlocks: [ { name: 'core/verse' } ],
+				},
+			],
+		} );
+		await editor.insertBlock( { name: 'core/file' } );
+
+		// Open List View.
+		const listView = await listViewUtils.openListView();
+
+		// Select all the blocks.
+		await pageUtils.pressKeys( 'primary+a' );
 
 		// Deselect all blocks via Escape key.
 		await page.keyboard.press( 'Escape' );
-		// Collapse the columns block.
-		await page.keyboard.press( 'ArrowLeft' );
 
 		await expect
 			.poll(
 				listViewUtils.getBlocksWithA11yAttributes,
-				'All blocks should be deselected, with focus on the Columns block.'
+				'All blocks should be deselected, with focus on the last inserted block.'
 			)
 			.toMatchObject( [
 				{ name: 'core/group', selected: false, focused: false },
 				{
 					name: 'core/columns',
 					selected: false,
-					focused: true,
+					focused: false,
 				},
-				{ name: 'core/file', selected: false, focused: false },
+				{ name: 'core/file', selected: false, focused: true },
 			] );
 
 		// Select the columns block and focus the file block
