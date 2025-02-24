@@ -74,7 +74,6 @@ export default function PostTermsEdit( {
 		className: clsx( {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
 			[ `taxonomy-${ term }` ]: term,
-			'has-disabled-links': ! enableLinks,
 		} ),
 	} );
 
@@ -138,16 +137,27 @@ export default function PostTermsEdit( {
 					! isLoading &&
 					hasPostTerms &&
 					postTerms
-						.map( ( postTerm ) => (
-							<a
-								key={ postTerm.id }
-								href={ postTerm.link }
-								onClick={ ( event ) => event.preventDefault() }
-								rel="tag"
-							>
-								{ decodeEntities( postTerm.name ) }
-							</a>
-						) )
+						.map( ( postTerm ) => {
+							const Tag = enableLinks ? 'a' : 'span';
+							return (
+								<Tag
+									key={ postTerm.id }
+									{ ...( enableLinks
+										? {
+												href: postTerm.link,
+												rel: 'tag',
+												onClick: ( event ) =>
+													event.preventDefault(),
+										  }
+										: {
+												className:
+													'wp-block-post-terms__term',
+										  } ) }
+								>
+									{ decodeEntities( postTerm.name ) }
+								</Tag>
+							);
+						} )
 						.reduce( ( prev, curr ) => (
 							<>
 								{ prev }

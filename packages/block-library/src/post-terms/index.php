@@ -30,10 +30,6 @@ function render_block_core_post_terms( $attributes, $content, $block ) {
 		$classes[] = 'has-text-align-' . $attributes['textAlign'];
 	}
 
-	if ( isset( $attributes['enableLinks'] ) && ! $attributes['enableLinks'] ) {
-		$classes[] = 'has-disabled-links';
-	}
-
 	if ( isset( $attributes['style']['elements']['link']['color']['text'] ) ) {
 		$classes[] = 'has-link-color';
 	}
@@ -53,16 +49,35 @@ function render_block_core_post_terms( $attributes, $content, $block ) {
 		$suffix = '<span class="wp-block-post-terms__suffix">' . $attributes['suffix'] . '</span>' . $suffix;
 	}
 
-	$post_terms = get_the_term_list(
-		$block->context['postId'],
-		$attributes['term'],
-		wp_kses_post( $prefix ),
-		'<span class="wp-block-post-terms__separator">' . esc_html( $separator ) . '</span>',
-		wp_kses_post( $suffix )
-	);
+	if ( ! isset( $attributes['enableLinks'] ) || ! $attributes['enableLinks'] ) {
+		$terms = get_the_terms( $block->context['postId'], $attributes['term'] );
+		if ( is_wp_error( $terms ) || empty( $terms ) ) {
+			return '';
+		}
 
-	if ( is_wp_error( $post_terms ) || empty( $post_terms ) ) {
-		return '';
+		$terms_html = array();
+		foreach ( $terms as $term ) {
+			$terms_html[] = '<span class="wp-block-post-terms__term">' . esc_html( $term->name ) . '</span>';
+		}
+
+		$post_terms = $prefix;
+		$post_terms .= implode(
+			'<span class="wp-block-post-terms__separator">' . esc_html( $separator ) . '</span>',
+			$terms_html
+		);
+		$post_terms .= $suffix;
+	} else {
+		$post_terms = get_the_term_list(
+			$block->context['postId'],
+			$attributes['term'],
+			wp_kses_post( $prefix ),
+			'<span class="wp-block-post-terms__separator">' . esc_html( $separator ) . '</span>',
+			wp_kses_post( $suffix )
+		);
+
+		if ( is_wp_error( $post_terms ) || empty( $post_terms ) ) {
+			return '';
+		}
 	}
 
 	return $post_terms;
