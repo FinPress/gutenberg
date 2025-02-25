@@ -4,20 +4,21 @@
 
 import { create } from './create';
 import { normaliseFormats } from './normalise-formats';
-
-/** @typedef {import('./types').RichTextValue} RichTextValue */
+import type { RichTextValue } from './types';
 
 /**
  * Combine an array of Rich Text values into one, optionally separated by
  * `separator`, which can be a Rich Text value, HTML string, or plain text
  * string. This is similar to `Array.prototype.join`.
  *
- * @param {Array<RichTextValue>} values      An array of values to join.
- * @param {string|RichTextValue} [separator] Separator string or value.
- *
- * @return {RichTextValue} A new combined value.
+ * @param values    An array of values to join.
+ * @param separator Separator string or value.
+ * @return A new combined value.
  */
-export function join( values, separator = '' ) {
+export function join(
+	values: Array< RichTextValue >,
+	separator: string | RichTextValue = ''
+): RichTextValue {
 	if ( typeof separator === 'string' ) {
 		separator = create( { text: separator } );
 	}
@@ -30,6 +31,8 @@ export function join( values, separator = '' ) {
 				replacements
 			),
 			text: accumulator.text + separator.text + text,
+			start: accumulator.start, // TODO: Unsure about this
+			end: accumulator.end, // TODO: Unsure about this
 		} ) )
 	);
 }

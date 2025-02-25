@@ -27,8 +27,9 @@ export type RichTextFormatList = Array< RichTextFormat >;
 export type RichTextValue = {
 	text: string;
 	formats: Array< RichTextFormatList >;
-	activeFormats?: Array< RichTextFormat >;
 	replacements: Array< RichTextFormat >;
 	start: number;
 	end: number;
+	// TODO: Should these really be optional?
+	activeFormats?: Array< RichTextFormat >;
 };
