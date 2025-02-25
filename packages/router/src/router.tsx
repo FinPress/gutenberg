@@ -45,6 +45,7 @@ interface Match {
 	widths: Record< string, number >;
 	query?: Record< string, any >;
 	params?: Record< string, any >;
+	context?: Record< string, any >;
 }
 
 export type BeforeNavigate = ( arg: {
@@ -153,7 +154,8 @@ export function useHistory() {
 export default function useMatch(
 	location: LocationWithQuery,
 	matcher: RouteRecognizer,
-	pathArg: string
+	pathArg: string,
+	context: Record< string, any >
 ): Match {
 	const { query: rawQuery = {} } = location;
 
@@ -178,7 +180,11 @@ export default function useMatch(
 					if ( typeof value === 'function' ) {
 						return [
 							key,
-							value( { query, params: result.params } ),
+							value( {
+								query,
+								params: result.params,
+								context,
+							} ),
 						];
 					}
 					return [ key, value ];
@@ -193,7 +199,7 @@ export default function useMatch(
 			query,
 			path: addQueryArgs( path, query ),
 		};
-	}, [ matcher, rawQuery, pathArg ] );
+	}, [ matcher, rawQuery, pathArg, context ] );
 }
 
 export function RouterProvider( {
@@ -201,11 +207,13 @@ export function RouterProvider( {
 	pathArg,
 	beforeNavigate,
 	children,
+	context,
 }: {
 	routes: Route[];
 	pathArg: string;
 	beforeNavigate?: BeforeNavigate;
 	children: React.ReactNode;
+	context: Record< string, any >;
 } ) {
 	const location = useSyncExternalStore(
 		history.listen,
@@ -221,7 +229,7 @@ export function RouterProvider( {
 		} );
 		return ret;
 	}, [ routes ] );
-	const match = useMatch( location, matcher, pathArg );
+	const match = useMatch( location, matcher, pathArg, context );
 	const config = useMemo(
 		() => ( { beforeNavigate, pathArg } ),
 		[ beforeNavigate, pathArg ]

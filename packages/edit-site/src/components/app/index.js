@@ -4,6 +4,7 @@
 import { useSelect } from '@wordpress/data';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { useCallback } from '@wordpress/element';
+import { store as coreStore } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
@@ -30,9 +31,15 @@ function AppLayout() {
 
 export default function App() {
 	useRegisterSiteEditorRoutes();
-	const routes = useSelect( ( select ) => {
-		return unlock( select( editSiteStore ) ).getRoutes();
+	const { routes, currentTheme, themeSupports } = useSelect( ( select ) => {
+		const { getCurrentTheme, getThemeSupports } = select( coreStore );
+		return {
+			routes: unlock( select( editSiteStore ) ).getRoutes(),
+			currentTheme: getCurrentTheme(),
+			themeSupports: getThemeSupports(),
+		};
 	}, [] );
+
 	const beforeNavigate = useCallback( ( { path, query } ) => {
 		if ( ! isPreviewingTheme() ) {
 			return { path, query };
@@ -55,6 +62,7 @@ export default function App() {
 			routes={ routes }
 			pathArg="p"
 			beforeNavigate={ beforeNavigate }
+			context={ { currentTheme, themeSupports } }
 		>
 			<AppLayout />
 		</RouterProvider>
