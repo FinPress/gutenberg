@@ -232,15 +232,24 @@ export const getPostBlocksByName = createRegistrySelector( ( select ) =>
  */
 export const getDefaultRenderingMode = createRegistrySelector(
 	( select ) => ( state, postType ) => {
-		const postTypeEntity = select( coreStore ).getPostType( postType );
-		const currentTheme = select( coreStore ).getCurrentTheme();
+		const { getPostType, getCurrentTheme, hasFinishedResolution } =
+			select( coreStore );
 
-		// Wait for the post type and theme resolutions.
-		if ( ! postTypeEntity || ! currentTheme ) {
+		// This needs to be called before `hasFinishedResolution`.
+		// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+		const currentTheme = getCurrentTheme();
+		// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+		const postTypeEntity = getPostType( postType );
+
+		// Wait for the post type and theme resolution.
+		if (
+			! hasFinishedResolution( 'getPostType', [ postType ] ) ||
+			! hasFinishedResolution( 'getCurrentTheme' )
+		) {
 			return undefined;
 		}
 
-		const theme = currentTheme.stylesheet;
+		const theme = currentTheme?.stylesheet;
 		const defaultModePreference = select( preferencesStore ).get(
 			'core',
 			'renderingModes'
