@@ -4,8 +4,7 @@
 
 import { create } from './create';
 import { normaliseFormats } from './normalise-formats';
-
-/** @typedef {import('./types').RichTextValue} RichTextValue */
+import type { RichTextValue } from './types';
 
 /**
  * Insert a Rich Text value, an HTML string, or a plain text string, into a
@@ -21,11 +20,11 @@ import { normaliseFormats } from './normalise-formats';
  * @return {RichTextValue} A new value with the value inserted.
  */
 export function insert(
-	value,
-	valueToInsert,
-	startIndex = value.start,
-	endIndex = value.end
-) {
+	value: RichTextValue,
+	valueToInsert: RichTextValue | string,
+	startIndex: number = value.start,
+	endIndex: number = value.end
+): RichTextValue {
 	const { formats, replacements, text } = value;
 
 	if ( typeof valueToInsert === 'string' ) {

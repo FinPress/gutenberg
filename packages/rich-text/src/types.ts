@@ -26,8 +26,8 @@ export type RichTextFormatList = Array< RichTextFormat >;
 export type RichTextValue = {
 	text: string;
 	formats: Array< RichTextFormatList >;
+	activeFormats?: Array< RichTextFormat >;
 	replacements: Array< RichTextFormat >;
-	activeFormats: Array< RichTextFormat >;
 	start: number;
 	end: number;
 };

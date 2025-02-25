@@ -4,19 +4,18 @@
 
 import { normaliseFormats } from './normalise-formats';
 import { create } from './create';
-
-/** @typedef {import('./types').RichTextValue} RichTextValue */
+import type { RichTextValue } from './types';
 
 /**
- * Concats a pair of rich text values. Not that this mutates `a` and does NOT
+ * Concatenates a pair of rich text values. Note that this mutates `a` and does NOT
  * normalise formats!
  *
- * @param {Object} a Value to mutate.
- * @param {Object} b Value to add read from.
+ * @param {RichTextValue} a Value to mutate.
+ * @param {RichTextValue} b Value to add read from.
  *
- * @return {Object} `a`, mutated.
+ * @return {RichTextValue} `a`, mutated.
  */
-export function mergePair( a, b ) {
+export function mergePair( a: RichTextValue, b: RichTextValue ): RichTextValue {
 	a.formats = a.formats.concat( b.formats );
 	a.replacements = a.replacements.concat( b.replacements );
 	a.text += b.text;
@@ -32,6 +31,6 @@ export function mergePair( a, b ) {
  *
  * @return {RichTextValue} A new value combining all given records.
  */
-export function concat( ...values ) {
+export function concat( ...values: RichTextValue[] ): RichTextValue {
 	return normaliseFormats( values.reduce( mergePair, create() ) );
 }

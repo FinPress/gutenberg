@@ -2,17 +2,17 @@
  * Internal dependencies
  */
 import { isFormatEqual } from './is-format-equal';
-import type { RichTextValue } from './types';
+import type { RichTextFormat, RichTextValue } from './types';
 
 /**
  * Efficiently updates all the formats from `start` (including) until `end`
  * (excluding) with the active formats. Mutates `value`.
  *
- * @param {Object}        params         Named parameters.
- * @param {RichTextValue} params.value   Value to update.
- * @param {number}        params.start   Index to update from.
- * @param {number}        params.end     Index to update until.
- * @param {Array}         params.formats Replacement formats.
+ * @param {Object}                params         Named parameters.
+ * @param {RichTextValue}         params.value   Value to update.
+ * @param {number}                params.start   Index to update from.
+ * @param {number}                params.end     Index to update until.
+ * @param {Array<RichTextFormat>} params.formats Replacement formats.
  *
  * @return {RichTextValue} Mutated value.
  */
@@ -25,7 +25,7 @@ export function updateFormats( {
 	value: RichTextValue;
 	start: number;
 	end: number;
-	formats: Array< any >;
+	formats: Array< RichTextFormat >;
 } ): RichTextValue {
 	// Start and end may be switched in case of delete.
 	const min = Math.min( start, end );
