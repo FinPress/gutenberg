@@ -55,6 +55,12 @@ const createActiveXObject = ( type ) => {
 	return ax;
 };
 
+/**
+ * Helper function for returning file size in MB
+ *
+ * @param {string} size The size of the file in bytes
+ * @return {string} The size of the file in MB
+ */
 export const formatFileSize = ( size ) => {
 	if ( ! size ) {
 		return null;

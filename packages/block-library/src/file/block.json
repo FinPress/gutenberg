@@ -60,6 +60,14 @@
 		"previewHeight": {
 			"type": "number",
 			"default": 600
+		},
+		"fileSize": {
+			"type": "string",
+			"default": ""
+		},
+		"showFileSize": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"supports": {

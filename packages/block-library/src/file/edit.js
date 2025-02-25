@@ -74,7 +74,9 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		displayPreview,
 		previewHeight,
 		showFileSize,
+		fileSize,
 	} = attributes;
+
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
 	const { media } = useSelect(
 		( select ) => ( {
@@ -85,10 +87,6 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		} ),
 		[ id ]
 	);
-
-	const fileSize = media?.media_details?.filesize
-		? formatFileSize( media.media_details.filesize )
-		: null;
 
 	const { createErrorNotice } = useDispatch( noticesStore );
 	const { toggleSelection, __unstableMarkNextChangeAsNotPersistent } =
@@ -123,6 +121,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 				fileId: undefined,
 				displayPreview: undefined,
 				previewHeight: undefined,
+				fileSize: undefined,
 			} );
 			setTemporaryURL();
 			return;
@@ -141,6 +140,10 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 			previewHeight: isPdf ? attributes.previewHeight ?? 600 : undefined,
 		};
 
+		const newFileSize = newMedia?.filesizeInBytes
+			? formatFileSize( newMedia.filesizeInBytes )
+			: null;
+
 		setAttributes( {
 			href: newMedia.url,
 			fileName: newMedia.title,
@@ -148,6 +151,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 			id: newMedia.id,
 			fileId: `wp-block-file--media-${ clientId }`,
 			blob: undefined,
+			fileSize: newFileSize,
 			...pdfAttributes,
 		} );
 		setTemporaryURL();
