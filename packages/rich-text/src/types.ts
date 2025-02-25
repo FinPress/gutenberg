@@ -11,6 +11,9 @@ export type RichTextFormat = {
 		| string;
 	title?: string;
 	attributes?: Record< string, string >;
+	unregisteredAttributes?: Record< string, string >;
+	tagName?: string;
+	innerHTML?: string;
 };
 
 /**

@@ -13,19 +13,24 @@ import {
  */
 
 import { toTree } from './to-tree';
-
-/** @typedef {import('./types').RichTextValue} RichTextValue */
+import type { RichTextValue } from './types';
 
 /**
  * Create an HTML string from a Rich Text value.
  *
- * @param {Object}        $1                      Named arguments.
- * @param {RichTextValue} $1.value                Rich text value.
- * @param {boolean}       [$1.preserveWhiteSpace] Preserves newlines if true.
+ * @param options                    - Named arguments.
+ * @param options.value              - Rich text value.
+ * @param options.preserveWhiteSpace - Preserves newlines if true.
  *
- * @return {string} HTML string.
+ * @return HTML string.
  */
-export function toHTMLString( { value, preserveWhiteSpace } ) {
+export function toHTMLString( {
+	value,
+	preserveWhiteSpace,
+}: {
+	value: RichTextValue;
+	preserveWhiteSpace?: boolean;
+} ): string {
 	const tree = toTree( {
 		value,
 		preserveWhiteSpace,
@@ -37,20 +42,24 @@ export function toHTMLString( { value, preserveWhiteSpace } ) {
 		getText,
 		remove,
 		appendText,
+		onStartIndex: () => {},
+		onEndIndex: () => {},
+		isEditableTree: false,
+		placeholder: '',
 	} );
 
 	return createChildrenHTML( tree.children );
 }
 
-function createEmpty() {
+function createEmpty(): Record< string, any > {
 	return {};
 }
 
-function getLastChild( { children } ) {
+function getLastChild( { children }: { children?: any[] } ): any {
 	return children && children[ children.length - 1 ];
 }
 
-function append( parent, object ) {
+function append( parent: any, object: any ): any {
 	if ( typeof object === 'string' ) {
 		object = { text: object };
 	}
@@ -61,23 +70,23 @@ function append( parent, object ) {
 	return object;
 }
 
-function appendText( object, text ) {
+function appendText( object: any, text: string ): void {
 	object.text += text;
 }
 
-function getParent( { parent } ) {
+function getParent( { parent }: { parent: any } ): any {
 	return parent;
 }
 
-function isText( { text } ) {
+function isText( { text }: { text: any } ): boolean {
 	return typeof text === 'string';
 }
 
-function getText( { text } ) {
+function getText( { text }: { text: string } ): string {
 	return text;
 }
 
-function remove( object ) {
+function remove( object: any ): any {
 	const index = object.parent.children.indexOf( object );
 
 	if ( index !== -1 ) {
@@ -87,7 +96,19 @@ function remove( object ) {
 	return object;
 }
 
-function createElementHTML( { type, attributes, object, children } ) {
+interface ElementAttributes {
+	type: string;
+	attributes: Record< string, string >;
+	object?: any;
+	children?: any[];
+}
+
+function createElementHTML( {
+	type,
+	attributes,
+	object,
+	children,
+}: ElementAttributes ): string {
 	if ( type === '#comment' ) {
 		// We can't restore the original comment delimiters, because once parsed
 		// into DOM nodes, we don't have the information. But in the future we
@@ -118,7 +139,13 @@ function createElementHTML( { type, attributes, object, children } ) {
 	) }</${ type }>`;
 }
 
-function createChildrenHTML( children = [] ) {
+interface Child {
+	html?: string;
+	text?: string;
+	[ key: string ]: any;
+}
+
+function createChildrenHTML( children: Child[] = [] ): string {
 	return children
 		.map( ( child ) => {
 			if ( child.html !== undefined ) {

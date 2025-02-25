@@ -5,31 +5,34 @@
 import { toTree } from './to-tree';
 import { createElement } from './create-element';
 import { isRangeEqual } from './is-range-equal';
-
-/** @typedef {import('./types').RichTextValue} RichTextValue */
+import type { RichTextValue } from './types';
 
 /**
  * Creates a path as an array of indices from the given root node to the given
  * node.
  *
- * @param {Node}        node     Node to find the path of.
- * @param {HTMLElement} rootNode Root node to find the path from.
- * @param {Array}       path     Initial path to build on.
+ * @param node     Node to find the path of.
+ * @param rootNode Root node to find the path from.
+ * @param path     Initial path to build on.
  *
- * @return {Array} The path from the root node to the node.
+ * @return The path from the root node to the node.
  */
-function createPathToNode( node, rootNode, path ) {
+function createPathToNode(
+	node: Node,
+	rootNode: HTMLElement,
+	path: number[]
+): number[] {
 	const parentNode = node.parentNode;
 	let i = 0;
 
-	while ( ( node = node.previousSibling ) ) {
+	while ( ( node = node.previousSibling as Node ) ) {
 		i++;
 	}
 
 	path = [ i, ...path ];
 
 	if ( parentNode !== rootNode ) {
-		path = createPathToNode( parentNode, rootNode, path );
+		path = createPathToNode( parentNode as Node, rootNode, path );
 	}
 
 	return path;
@@ -38,16 +41,19 @@ function createPathToNode( node, rootNode, path ) {
 /**
  * Gets a node given a path (array of indices) from the given node.
  *
- * @param {HTMLElement} node Root node to find the wanted node in.
- * @param {Array}       path Path (indices) to the wanted node.
+ * @param node Root node to find the wanted node in.
+ * @param path Path (indices) to the wanted node.
  *
- * @return {Object} Object with the found node and the remaining offset (if any).
+ * @return Object with the found node and the remaining offset (if any).
  */
-function getNodeByPath( node, path ) {
+function getNodeByPath(
+	node: HTMLElement,
+	path: number[]
+): { node: Node; offset: number } {
 	path = [ ...path ];
 
 	while ( node && path.length > 1 ) {
-		node = node.childNodes[ path.shift() ];
+		node = node.childNodes[ path.shift() as number ] as HTMLElement;
 	}
 
 	return {
@@ -56,56 +62,88 @@ function getNodeByPath( node, path ) {
 	};
 }
 
-function append( element, child ) {
-	if ( child.html !== undefined ) {
-		return ( element.innerHTML += child.html );
+interface Child {
+	html?: string;
+	type?: string;
+	attributes?: Record< string, string >;
+	[ key: string ]: any;
+}
+
+function append( element: HTMLElement, child: Child | string ): Node {
+	if ( typeof child === 'object' && child.html !== undefined ) {
+		element.innerHTML += child.html;
+		return element.lastChild as Node;
 	}
 
 	if ( typeof child === 'string' ) {
 		child = element.ownerDocument.createTextNode( child );
+		return element.appendChild( child as Node );
 	}
 
 	const { type, attributes } = child;
 
 	if ( type ) {
+		let node: Node;
 		if ( type === '#comment' ) {
-			child = element.ownerDocument.createComment(
-				attributes[ 'data-rich-text-comment' ]
+			node = element.ownerDocument.createComment(
+				attributes?.[ 'data-rich-text-comment' ] || ''
 			);
 		} else {
-			child = element.ownerDocument.createElement( type );
+			node = element.ownerDocument.createElement( type );
 
-			for ( const key in attributes ) {
-				child.setAttribute( key, attributes[ key ] );
+			if ( attributes ) {
+				for ( const key in attributes ) {
+					( node as HTMLElement ).setAttribute(
+						key,
+						attributes[ key ]
+					);
+				}
 			}
 		}
+		return element.appendChild( node );
 	}
 
-	return element.appendChild( child );
+	return element.appendChild( child as Node );
 }
 
-function appendText( node, text ) {
+function appendText( node: Text, text: string ): void {
 	node.appendData( text );
 }
 
-function getLastChild( { lastChild } ) {
+function getLastChild( { lastChild }: { lastChild: Node } ): Node | null {
 	return lastChild;
 }
 
-function getParent( { parentNode } ) {
+function getParent( { parentNode }: { parentNode: Node } ): Node | null {
 	return parentNode;
 }
 
-function isText( node ) {
+function isText( node: Node ): boolean {
 	return node.nodeType === node.TEXT_NODE;
 }
 
-function getText( { nodeValue } ) {
+function getText( { nodeValue }: { nodeValue: string } ): string {
 	return nodeValue;
 }
 
-function remove( node ) {
-	return node.parentNode.removeChild( node );
+function remove( node: Node ): Node {
+	return node.parentNode?.removeChild( node ) as Node;
+}
+
+interface ToDomOptions {
+	value: RichTextValue;
+	prepareEditableTree?: ( value: RichTextValue ) => any[];
+	isEditableTree?: boolean;
+	placeholder?: string;
+	doc?: Document;
+}
+
+interface ToDomResult {
+	body: HTMLElement;
+	selection: {
+		startPath: number[];
+		endPath: number[];
+	};
 }
 
 export function toDom( {
@@ -114,9 +152,9 @@ export function toDom( {
 	isEditableTree = true,
 	placeholder,
 	doc = document,
-} ) {
-	let startPath = [];
-	let endPath = [];
+}: ToDomOptions ): ToDomResult {
+	let startPath: number[] = [];
+	let endPath: number[] = [];
 
 	if ( prepareEditableTree ) {
 		value = {
@@ -133,9 +171,9 @@ export function toDom( {
 	 * each call to `createEmpty`. Therefore, you should not hold a reference to
 	 * the value to operate upon asynchronously, as it may have unexpected results.
 	 *
-	 * @return {Object} RichText tree.
+	 * @return RichText tree.
 	 */
-	const createEmpty = () => createElement( doc, '' );
+	const createEmpty = (): HTMLElement => createElement( doc, '' );
 
 	const tree = toTree( {
 		value,
@@ -147,14 +185,14 @@ export function toDom( {
 		getText,
 		remove,
 		appendText,
-		onStartIndex( body, pointer ) {
+		onStartIndex( body: HTMLElement, pointer: Text ) {
 			startPath = createPathToNode( pointer, body, [
-				pointer.nodeValue.length,
+				pointer.nodeValue?.length || 0,
 			] );
 		},
-		onEndIndex( body, pointer ) {
+		onEndIndex( body: HTMLElement, pointer: Text ) {
 			endPath = createPathToNode( pointer, body, [
-				pointer.nodeValue.length,
+				pointer.nodeValue?.length || 0,
 			] );
 		},
 		isEditableTree,
@@ -167,16 +205,24 @@ export function toDom( {
 	};
 }
 
+interface ApplyOptions {
+	value: RichTextValue;
+	current: HTMLElement;
+	prepareEditableTree?: ( value: RichTextValue ) => any[];
+	__unstableDomOnly?: boolean;
+	placeholder?: string;
+}
+
 /**
  * Create an `Element` tree from a Rich Text value and applies the difference to
  * the `Element` tree contained by `current`.
  *
- * @param {Object}        $1                       Named arguments.
- * @param {RichTextValue} $1.value                 Value to apply.
- * @param {HTMLElement}   $1.current               The live root node to apply the element tree to.
- * @param {Function}      [$1.prepareEditableTree] Function to filter editorable formats.
- * @param {boolean}       [$1.__unstableDomOnly]   Only apply elements, no selection.
- * @param {string}        [$1.placeholder]         Placeholder text.
+ * @param options                     Named arguments.
+ * @param options.value
+ * @param options.current
+ * @param options.prepareEditableTree
+ * @param options.__unstableDomOnly
+ * @param options.placeholder
  */
 export function apply( {
 	value,
@@ -184,7 +230,7 @@ export function apply( {
 	prepareEditableTree,
 	__unstableDomOnly,
 	placeholder,
-} ) {
+}: ApplyOptions ): void {
 	// Construct a new element tree in memory.
 	const { body, selection } = toDom( {
 		value,
@@ -200,9 +246,9 @@ export function apply( {
 	}
 }
 
-export function applyValue( future, current ) {
+export function applyValue( future: HTMLElement, current: HTMLElement ): void {
 	let i = 0;
-	let futureChild;
+	let futureChild: Node | null;
 
 	while ( ( futureChild = future.firstChild ) ) {
 		const currentChild = current.childNodes[ i ];
@@ -213,12 +259,14 @@ export function applyValue( future, current ) {
 			if (
 				currentChild.nodeName !== futureChild.nodeName ||
 				( currentChild.nodeType === currentChild.TEXT_NODE &&
-					currentChild.data !== futureChild.data )
+					( currentChild as Text ).data !==
+						( futureChild as Text ).data )
 			) {
 				current.replaceChild( futureChild, currentChild );
 			} else {
-				const currentAttributes = currentChild.attributes;
-				const futureAttributes = futureChild.attributes;
+				const currentAttributes = ( currentChild as Element )
+					.attributes;
+				const futureAttributes = ( futureChild as Element ).attributes;
 
 				if ( currentAttributes ) {
 					let ii = currentAttributes.length;
@@ -228,8 +276,10 @@ export function applyValue( future, current ) {
 					while ( ii-- ) {
 						const { name } = currentAttributes[ ii ];
 
-						if ( ! futureChild.getAttribute( name ) ) {
-							currentChild.removeAttribute( name );
+						if (
+							! ( futureChild as Element ).getAttribute( name )
+						) {
+							( currentChild as Element ).removeAttribute( name );
 						}
 					}
 				}
@@ -238,13 +288,22 @@ export function applyValue( future, current ) {
 					for ( let ii = 0; ii < futureAttributes.length; ii++ ) {
 						const { name, value } = futureAttributes[ ii ];
 
-						if ( currentChild.getAttribute( name ) !== value ) {
-							currentChild.setAttribute( name, value );
+						if (
+							( currentChild as Element ).getAttribute( name ) !==
+							value
+						) {
+							( currentChild as Element ).setAttribute(
+								name,
+								value
+							);
 						}
 					}
 				}
 
-				applyValue( futureChild, currentChild );
+				applyValue(
+					futureChild as HTMLElement,
+					currentChild as HTMLElement
+				);
 				future.removeChild( futureChild );
 			}
 		} else {
@@ -259,7 +318,10 @@ export function applyValue( future, current ) {
 	}
 }
 
-export function applySelection( { startPath, endPath }, current ) {
+export function applySelection(
+	{ startPath, endPath }: { startPath: number[]; endPath: number[] },
+	current: HTMLElement
+): void {
 	const { node: startContainer, offset: startOffset } = getNodeByPath(
 		current,
 		startPath
@@ -270,7 +332,17 @@ export function applySelection( { startPath, endPath }, current ) {
 	);
 	const { ownerDocument } = current;
 	const { defaultView } = ownerDocument;
+
+	if ( ! defaultView ) {
+		return;
+	}
+
 	const selection = defaultView.getSelection();
+
+	if ( ! selection ) {
+		return;
+	}
+
 	const range = ownerDocument.createRange();
 
 	range.setStart( startContainer, startOffset );
