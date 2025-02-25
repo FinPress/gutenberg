@@ -1,13 +1,11 @@
-/** @typedef {import('./types').RichTextValue} RichTextValue */
-/** @typedef {import('./types').RichTextFormatList} RichTextFormatList */
-
 /**
  * Internal dependencies
  */
+import type { RichTextValue, RichTextFormatList } from './types';
 import { isFormatEqual } from './is-format-equal';
 
 /**
- * Gets the all format objects at the start of the selection.
+ * Gets all format objects at the start of the selection.
  *
  * @param {RichTextValue} value                Value to inspect.
  * @param {Array}         EMPTY_ACTIVE_FORMATS Array to return if there are no
@@ -15,7 +13,10 @@ import { isFormatEqual } from './is-format-equal';
  *
  * @return {RichTextFormatList} Active format objects.
  */
-export function getActiveFormats( value, EMPTY_ACTIVE_FORMATS = [] ) {
+export function getActiveFormats(
+	value: RichTextValue,
+	EMPTY_ACTIVE_FORMATS: Array< any > = []
+): RichTextFormatList {
 	const { formats, start, end, activeFormats } = value;
 	if ( start === undefined ) {
 		return EMPTY_ACTIVE_FORMATS;
@@ -52,7 +53,7 @@ export function getActiveFormats( value, EMPTY_ACTIVE_FORMATS = [] ) {
 	let i = selectedFormats.length;
 
 	// For performance reasons, start from the end where it's much quicker to
-	// realise that there are no active formats.
+	// realize that there are no active formats.
 	while ( i-- ) {
 		const formatsAtIndex = selectedFormats[ i ];
 
