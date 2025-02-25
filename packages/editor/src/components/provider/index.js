@@ -15,7 +15,6 @@ import {
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import { store as noticesStore } from '@wordpress/notices';
-import { store as preferencesStore } from '@wordpress/preferences';
 import { privateApis as editPatternsPrivateApis } from '@wordpress/patterns';
 import { createBlock } from '@wordpress/blocks';
 
@@ -56,11 +55,6 @@ const NON_CONTEXTUAL_POST_TYPES = [
 	'wp_navigation',
 	'wp_template_part',
 ];
-
-/**
- * These are rendering modes that the editor supports.
- */
-const RENDERING_MODES = [ 'post-only', 'template-locked' ];
 
 /**
  * Depending on the post, template and template mode,
@@ -184,43 +178,28 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					getEditorSelection,
 					getRenderingMode,
 					__unstableIsEditorReady,
-				} = select( editorStore );
-				const {
-					getEntitiesConfig,
-					getPostType,
-					hasFinishedResolution,
-				} = select( coreStore );
+					getDefaultRenderingMode,
+				} = unlock( select( editorStore ) );
+				const { getEntitiesConfig } = select( coreStore );
 
-				const postTypeSupports = getPostType( post.type )?.supports;
-				const hasLoadedPostObject = hasFinishedResolution(
-					'getPostType',
-					[ post.type ]
-				);
-				const postTypeDefaultMode = Array.isArray(
-					postTypeSupports?.editor
-				)
-					? postTypeSupports.editor.find(
-							( features ) => 'default-mode' in features
-					  )?.[ 'default-mode' ]
-					: undefined;
-				const userDefaultMode = select( preferencesStore ).get(
-					'core',
-					'renderingMode'
-				);
-				const _defaultMode = userDefaultMode || postTypeDefaultMode;
-				const hasDefaultMode = RENDERING_MODES.includes( _defaultMode );
-
-				// Wait for template resolution when rendering in a `template-locked` mode.
+				const _defaultMode = getDefaultRenderingMode( post.type );
+				/**
+				 * To avoid content "flash", wait until rendering mode has been resolved.
+				 * This is important for the initial render of the editor.
+				 *
+				 * - Wait for template to be resolved if the default mode is 'template-locked'.
+				 * - Wait for default mode to be resolved otherwise.
+				 */
 				const hasResolvedMode =
-					hasLoadedPostObject && _defaultMode === 'template-locked'
+					_defaultMode === 'template-locked'
 						? hasTemplate
-						: true;
+						: _defaultMode !== undefined;
 
 				return {
 					editorSettings: getEditorSettings(),
 					isReady: __unstableIsEditorReady() && hasResolvedMode,
 					mode: getRenderingMode(),
-					defaultMode: hasDefaultMode ? _defaultMode : 'post-only',
+					defaultMode: _defaultMode,
 					selection: getEditorSelection(),
 					postTypeEntities:
 						post.type === 'wp_template'

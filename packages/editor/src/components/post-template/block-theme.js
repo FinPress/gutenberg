@@ -46,7 +46,6 @@ export default function BlockThemeControl( { id } ) {
 	}, [] );
 
 	const { get: getPreference } = useSelect( preferencesStore );
-	const { set: setPreference } = useDispatch( preferencesStore );
 
 	const { editedRecord: template, hasResolved } = useEntityRecord(
 		'postType',
@@ -54,7 +53,9 @@ export default function BlockThemeControl( { id } ) {
 		id
 	);
 	const { createSuccessNotice } = useDispatch( noticesStore );
-	const { setRenderingMode } = useDispatch( editorStore );
+	const { setRenderingMode, setDefaultRenderingMode } = unlock(
+		useDispatch( editorStore )
+	);
 
 	const canCreateTemplate = useSelect(
 		( select ) =>
@@ -154,11 +155,7 @@ export default function BlockThemeControl( { id } ) {
 										? 'template-locked'
 										: 'post-only';
 									setRenderingMode( newRenderingMode );
-									setPreference(
-										'core',
-										'renderingMode',
-										newRenderingMode
-									);
+									setDefaultRenderingMode( newRenderingMode );
 								} }
 							>
 								{ __( 'Show template' ) }

@@ -56,8 +56,9 @@ export default function PreviewDropdown( { forceIsAutosaveable, disabled } ) {
 			templateId: getCurrentTemplateId(),
 		};
 	}, [] );
-	const { setDeviceType, setRenderingMode } = useDispatch( editorStore );
-	const { set: setPreference } = useDispatch( preferencesStore );
+	const { setDeviceType, setRenderingMode, setDefaultRenderingMode } = unlock(
+		useDispatch( editorStore )
+	);
 	const { resetZoomLevel } = unlock( useDispatch( blockEditorStore ) );
 
 	const handleDevicePreviewChange = ( newDeviceType ) => {
@@ -165,11 +166,7 @@ export default function PreviewDropdown( { forceIsAutosaveable, disabled } ) {
 										? 'template-locked'
 										: 'post-only';
 									setRenderingMode( newRenderingMode );
-									setPreference(
-										'core',
-										'renderingMode',
-										newRenderingMode
-									);
+									setDefaultRenderingMode( newRenderingMode );
 								} }
 							>
 								{ __( 'Show template' ) }
