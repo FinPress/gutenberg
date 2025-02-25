@@ -111,8 +111,6 @@ test.describe( 'Site editor navigation', () => {
 		admin,
 		page,
 	} ) => {
-		await admin.visitSiteEditor();
-
 		// Navigate to a non-existent template.
 		await admin.visitAdminPage( 'site-editor.php', 'p=/template-foo-bar' );
 
