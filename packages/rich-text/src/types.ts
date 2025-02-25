@@ -10,9 +10,9 @@ export type RichTextFormat = {
 		| 'core/image'
 		| string;
 	title?: string;
-	attributes?: Record< string, string >;
-	unregisteredAttributes?: Record< string, string >;
-	tagName?: string; // TODO: Is this correct?
+	attributes?: Record< string, any >;
+	unregisteredAttributes?: Record< string, any >;
+	tagName?: string; // TODO: Is this correct, possibly should be required?
 	innerHTML?: string; // TODO: Is this correct
 };
 
@@ -31,8 +31,8 @@ export type RichTextValue = {
 	text: string;
 	formats: Array< RichTextFormatList >;
 	replacements: Array< RichTextFormat >;
-	start: number;
-	end: number;
+	start?: number;
+	end?: number;
 	// TODO: Should these really be optional?
 	activeFormats?: Array< RichTextFormat >;
 };

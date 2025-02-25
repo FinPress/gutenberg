@@ -13,9 +13,18 @@ import { OBJECT_REPLACEMENT_CHARACTER, ZWNBSP } from './special-characters';
 import { toHTMLString } from './to-html-string';
 import { getTextContent } from './get-text-content';
 
-/** @typedef {import('./types').RichTextValue} RichTextValue */
+import type { RichTextValue } from './types';
 
-function createEmptyValue() {
+// interface CreateEmptyValue {
+// 	formats: any[];
+// 	replacements: any[];
+// 	text: string;
+// }
+// TODO: There are a few instances where a type of RichTextValue is used without the start and end properties.
+// type CreateEmptyValue = Omit< RichTextValue, 'start' | 'end' >;
+type CreateEmptyValue = RichTextValue;
+
+function createEmptyValue(): CreateEmptyValue {
 	return {
 		formats: [],
 		replacements: [],
@@ -23,10 +32,31 @@ function createEmptyValue() {
 	};
 }
 
-function toFormat( { tagName, attributes } ) {
+interface ToFormatAttributes {
+	class?: string;
+	[ key: string ]: any;
+}
+
+// TODO: This is very similar to RichTextFormat but has a formatType property.
+interface ToFormatResult {
+	formatType?: any;
+	type: string;
+	tagName: string;
+	attributes?: Record< string, any >;
+	unregisteredAttributes?: Record< string, any >;
+}
+
+function toFormat( {
+	tagName,
+	attributes,
+}: {
+	tagName: string;
+	attributes?: ToFormatAttributes;
+} ): ToFormatResult | null {
 	let formatType;
 
 	if ( attributes && attributes.class ) {
+		// @ts-expect-error Stores are not typed
 		formatType = select( richTextStore ).getFormatTypeForClassName(
 			attributes.class
 		);
@@ -45,6 +75,7 @@ function toFormat( { tagName, attributes } ) {
 
 	if ( ! formatType ) {
 		formatType =
+			// @ts-expect-error Stores are not typed
 			select( richTextStore ).getFormatTypeForBareElement( tagName );
 	}
 
@@ -63,8 +94,8 @@ function toFormat( { tagName, attributes } ) {
 		return { formatType, type: formatType.name, tagName };
 	}
 
-	const registeredAttributes = {};
-	const unregisteredAttributes = {};
+	const registeredAttributes: Record< string, any > = {};
+	const unregisteredAttributes: Record< string, any > = {};
 	const _attributes = { ...attributes };
 
 	for ( const key in formatType.attributes ) {
@@ -114,25 +145,29 @@ function toFormat( { tagName, attributes } ) {
  * @todo Add methods to manipulate the data, such as applyFormat, slice etc.
  */
 export class RichTextData {
-	#value;
+	private value: CreateEmptyValue;
 
-	static empty() {
+	static empty(): RichTextData {
 		return new RichTextData();
 	}
-	static fromPlainText( text ) {
+	static fromPlainText( text: string ): RichTextData {
 		return new RichTextData( create( { text } ) );
 	}
-	static fromHTMLString( html ) {
+	static fromHTMLString( html: string ): RichTextData {
 		return new RichTextData( create( { html } ) );
 	}
 	/**
 	 * Create a RichTextData instance from an HTML element.
 	 *
-	 * @param {HTMLElement}                    htmlElement The HTML element to create the instance from.
-	 * @param {{preserveWhiteSpace?: boolean}} options     Options.
+	 * @param {HTMLElement}                    htmlElement                The HTML element to create the instance from.
+	 * @param {{preserveWhiteSpace?: boolean}} options                    Options.
+	 * @param                                  options.preserveWhiteSpace
 	 * @return {RichTextData} The RichTextData instance.
 	 */
-	static fromHTMLElement( htmlElement, options = {} ) {
+	static fromHTMLElement(
+		htmlElement: HTMLElement,
+		options: { preserveWhiteSpace?: boolean } = {}
+	): RichTextData {
 		const { preserveWhiteSpace = false } = options;
 		const element = preserveWhiteSpace
 			? htmlElement
@@ -143,11 +178,11 @@ export class RichTextData {
 		} );
 		return richTextData;
 	}
-	constructor( init = createEmptyValue() ) {
-		this.#value = init;
+	constructor( init: CreateEmptyValue = createEmptyValue() ) {
+		this.value = init;
 	}
-	toPlainText() {
-		return getTextContent( this.#value );
+	toPlainText(): string {
+		return getTextContent( this.value );
 	}
 	// We could expose `toHTMLElement` at some point as well, but we'd only use
 	// it internally.
@@ -157,32 +192,34 @@ export class RichTextData {
 	 * @param {{preserveWhiteSpace?: boolean}} options Options.
 	 * @return {string} The HTML string.
 	 */
-	toHTMLString( { preserveWhiteSpace } = {} ) {
+	toHTMLString( {
+		preserveWhiteSpace,
+	}: { preserveWhiteSpace?: boolean } = {} ): string {
 		return (
-			this.originalHTML ||
-			toHTMLString( { value: this.#value, preserveWhiteSpace } )
+			( this as any ).originalHTML ||
+			toHTMLString( { value: this.value, preserveWhiteSpace } )
 		);
 	}
-	valueOf() {
+	valueOf(): string {
 		return this.toHTMLString();
 	}
-	toString() {
+	toString(): string {
 		return this.toHTMLString();
 	}
-	toJSON() {
+	toJSON(): string {
 		return this.toHTMLString();
 	}
-	get length() {
+	get length(): number {
 		return this.text.length;
 	}
-	get formats() {
-		return this.#value.formats;
+	get formats(): any[] {
+		return this.value.formats;
 	}
-	get replacements() {
-		return this.#value.replacements;
+	get replacements(): any[] {
+		return this.value.replacements;
 	}
-	get text() {
-		return this.#value.text;
+	get text(): string {
+		return this.value.text;
 	}
 }
 
@@ -192,7 +229,7 @@ for ( const name of Object.getOwnPropertyNames( String.prototype ) ) {
 	}
 
 	Object.defineProperty( RichTextData.prototype, name, {
-		value( ...args ) {
+		value( ...args: any[] ) {
 			// Should we convert back to RichTextData?
 			return this.toHTMLString()[ name ]( ...args );
 		},
@@ -225,12 +262,12 @@ for ( const name of Object.getOwnPropertyNames( String.prototype ) ) {
  * `start` and `end` state which text indices are selected. They are only
  * provided if a `Range` was given.
  *
- * @param {Object}  [$1]                          Optional named arguments.
- * @param {Element} [$1.element]                  Element to create value from.
- * @param {string}  [$1.text]                     Text to create value from.
- * @param {string}  [$1.html]                     HTML to create value from.
- * @param {Range}   [$1.range]                    Range to create value from.
- * @param {boolean} [$1.__unstableIsEditableTree]
+ * @param {Object}                [$1]                          Optional named arguments.
+ * @param {Element}               [$1.element]                  Element to create value from.
+ * @param {string}                [$1.text]                     Text to create value from.
+ * @param {string | RichTextData} [$1.html]                     HTML string or RichTextData to create value from.
+ * @param {Range}                 [$1.range]                    Range to create value from.
+ * @param {boolean}               [$1.__unstableIsEditableTree]
  * @return {RichTextValue} A rich text value.
  */
 export function create( {
@@ -239,7 +276,13 @@ export function create( {
 	html,
 	range,
 	__unstableIsEditableTree: isEditableTree,
-} = {} ) {
+}: {
+	element?: Element;
+	text?: string;
+	html?: string | RichTextData;
+	range?: Range;
+	__unstableIsEditableTree?: boolean;
+} = {} ): RichTextValue {
 	if ( html instanceof RichTextData ) {
 		return {
 			text: html.text,
@@ -282,7 +325,12 @@ export function create( {
  * @param {Range}  range       Range to create value with.
  * @param {Object} value       Value that is being accumulated.
  */
-function accumulateSelection( accumulator, node, range, value ) {
+function accumulateSelection(
+	accumulator: any,
+	node: Node,
+	range: Range | null | undefined,
+	value: any
+) {
 	if ( ! range ) {
 		return;
 	}
@@ -345,10 +393,15 @@ function accumulateSelection( accumulator, node, range, value ) {
  * @param {Range}    range  The range to filter.
  * @param {Function} filter Function to use to filter the text.
  *
- * @return {Object|void} Object containing range properties.
+ * @return {Object|undefined} Object containing range properties.
  */
-function filterRange( node, range, filter ) {
-	if ( ! range ) {
+function filterRange(
+	node: Node,
+	range: Range | null | undefined,
+	filter: ( text: string ) => string
+) {
+	// TODO: Added null check
+	if ( ! range || node.nodeValue === null ) {
 		return;
 	}
 
@@ -363,7 +416,12 @@ function filterRange( node, range, filter ) {
 		endOffset = filter( node.nodeValue.slice( 0, endOffset ) ).length;
 	}
 
-	return { startContainer, startOffset, endContainer, endOffset };
+	// TODO: Return a actual range object
+	const filteredRange = range.cloneRange();
+	filteredRange.setStart( node, startOffset );
+	filteredRange.setEnd( node, endOffset );
+	// return { startContainer, startOffset, endContainer, endOffset };
+	return filteredRange;
 }
 
 /**
@@ -383,11 +441,15 @@ function filterRange( node, range, filter ) {
  *
  * @return {HTMLElement} New element with collapsed whitespace.
  */
-function collapseWhiteSpace( element, isRoot = true ) {
-	const clone = element.cloneNode( true );
+function collapseWhiteSpace(
+	element: HTMLElement,
+	isRoot: boolean = true
+): HTMLElement {
+	const clone = element.cloneNode( true ) as HTMLElement;
 	clone.normalize();
 	Array.from( clone.childNodes ).forEach( ( node, i, nodes ) => {
-		if ( node.nodeType === node.TEXT_NODE ) {
+		// TODO: Added null check
+		if ( node.nodeType === node.TEXT_NODE && node.nodeValue !== null ) {
 			let newNodeValue = node.nodeValue;
 
 			if ( /[\n\t\r\f]/.test( newNodeValue ) ) {
@@ -410,7 +472,7 @@ function collapseWhiteSpace( element, isRoot = true ) {
 
 			node.nodeValue = newNodeValue;
 		} else if ( node.nodeType === node.ELEMENT_NODE ) {
-			collapseWhiteSpace( node, false );
+			collapseWhiteSpace( node as HTMLElement, false );
 		}
 	} );
 	return clone;
@@ -429,7 +491,7 @@ const CARRIAGE_RETURN = '\r';
  *
  * @param {string} string
  */
-export function removeReservedCharacters( string ) {
+export function removeReservedCharacters( string: string ): string {
 	// with the global flag, note that we should create a new regex each time OR
 	// reset lastIndex state.
 	return string.replace(
@@ -451,7 +513,15 @@ export function removeReservedCharacters( string ) {
  *
  * @return {RichTextValue} A rich text value.
  */
-function createFromElement( { element, range, isEditableTree } ) {
+function createFromElement( {
+	element,
+	range,
+	isEditableTree,
+}: {
+	element: Element;
+	range?: Range;
+	isEditableTree?: boolean;
+} ): RichTextValue {
 	const accumulator = createEmptyValue();
 
 	if ( ! element ) {
@@ -467,13 +537,19 @@ function createFromElement( { element, range, isEditableTree } ) {
 
 	// Optimise for speed.
 	for ( let index = 0; index < length; index++ ) {
-		const node = element.childNodes[ index ];
+		// const node = element.childNodes[ index ];
+		const node = element.children[ index ];
 		const tagName = node.nodeName.toLowerCase();
 
-		if ( node.nodeType === node.TEXT_NODE ) {
+		if ( node.nodeType === node.TEXT_NODE && node.nodeValue !== null ) {
 			const text = removeReservedCharacters( node.nodeValue );
-			range = filterRange( node, range, removeReservedCharacters );
-			accumulateSelection( accumulator, node, range, { text } );
+			// TODO: Is this supposed to be shadowing the range parameter?
+			const filteredRange = filterRange(
+				node,
+				range,
+				removeReservedCharacters
+			);
+			accumulateSelection( accumulator, node, filteredRange, { text } );
 			// Create a sparse array of the same length as `text`, in which
 			// formats can be added.
 			accumulator.formats.length += text.length;
@@ -488,8 +564,8 @@ function createFromElement( { element, range, isEditableTree } ) {
 				node.tagName === 'SPAN' &&
 				node.hasAttribute( 'data-rich-text-comment' ) )
 		) {
-			const value = {
-				formats: [ , ],
+			const value: RichTextValue = {
+				formats: [], // TODO: Is this correct?
 				replacements: [
 					{
 						type: '#comment',
@@ -525,8 +601,8 @@ function createFromElement( { element, range, isEditableTree } ) {
 		}
 
 		if ( tagName === 'script' ) {
-			const value = {
-				formats: [ , ],
+			const value: RichTextValue = {
+				formats: [], // TODO: Is this correct?
 				replacements: [
 					{
 						type: tagName,
@@ -561,7 +637,7 @@ function createFromElement( { element, range, isEditableTree } ) {
 			delete format.formatType;
 			accumulateSelection( accumulator, node, range, createEmptyValue() );
 			mergePair( accumulator, {
-				formats: [ , ],
+				formats: [], // TODO: Is this correct?
 				replacements: [
 					{
 						...format,
@@ -592,7 +668,7 @@ function createFromElement( { element, range, isEditableTree } ) {
 		} else if ( value.text.length === 0 ) {
 			if ( format.attributes ) {
 				mergePair( accumulator, {
-					formats: [ , ],
+					formats: [],
 					replacements: [ format ],
 					text: OBJECT_REPLACEMENT_CHARACTER,
 				} );
@@ -600,7 +676,7 @@ function createFromElement( { element, range, isEditableTree } ) {
 		} else {
 			// Indices should share a reference to the same formats array.
 			// Only create a new reference if `formats` changes.
-			function mergeFormats( formats ) {
+			function mergeFormats( formats: any[] ) {
 				if ( mergeFormats.formats === formats ) {
 					return mergeFormats.newFormats;
 				}
@@ -638,13 +714,17 @@ function createFromElement( { element, range, isEditableTree } ) {
  * @return {Object|void} Attribute object or `undefined` if the element has no
  *                       attributes.
  */
-function getAttributes( { element } ) {
+function getAttributes( {
+	element,
+}: {
+	element: Element;
+} ): Record< string, any > | undefined {
 	if ( ! element.hasAttributes() ) {
 		return;
 	}
 
 	const length = element.attributes.length;
-	let accumulator;
+	let accumulator: Record< string, any > | undefined;
 
 	// Optimise for speed.
 	for ( let i = 0; i < length; i++ ) {
