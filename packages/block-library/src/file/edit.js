@@ -178,7 +178,13 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 	}
 
 	function changeShowFileSize( newValue ) {
-		setAttributes( { showFileSize: newValue } );
+		const cleanFileName = removeFileSize( fileName );
+
+		const updatedFileName = newValue
+			? `${ cleanFileName } (${ fileSize })`
+			: cleanFileName;
+
+		setAttributes( { showFileSize: newValue, fileName: updatedFileName } );
 	}
 
 	function changeDisplayPreview( newValue ) {
@@ -308,18 +314,12 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 					<RichText
 						identifier="fileName"
 						tagName="a"
-						value={
-							showFileSize && fileSize
-								? `${ fileName } (${ fileSize })`
-								: fileName
-						}
+						value={ fileName }
 						placeholder={ __( 'Write file name…' ) }
 						withoutInteractiveFormatting
 						onChange={ ( text ) => {
-							const cleanFileName = removeFileSize( text );
-
 							setAttributes( {
-								fileName: removeAnchorTag( cleanFileName ),
+								fileName: removeAnchorTag( text ),
 							} );
 						} }
 						href={ textLinkHref }
