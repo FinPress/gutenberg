@@ -256,7 +256,7 @@ export const getDefaultRenderingMode = createRegistrySelector(
 		const defaultMode = defaultModePreference || postTypeDefaultMode;
 
 		// Fallback gracefully to 'post-only' when rendering mode is not supported.
-		if ( ! defaultMode || ! RENDERING_MODES.includes( defaultMode ) ) {
+		if ( ! RENDERING_MODES.includes( defaultMode ) ) {
 			return 'post-only';
 		}
 
