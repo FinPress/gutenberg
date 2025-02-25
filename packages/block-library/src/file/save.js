@@ -23,6 +23,8 @@ export default function save( { attributes } ) {
 		downloadButtonText,
 		displayPreview,
 		previewHeight,
+		showFileSize,
+		fileSize,
 	} = attributes;
 
 	const pdfEmbedLabel = RichText.isEmpty( fileName )
@@ -32,6 +34,9 @@ export default function save( { attributes } ) {
 		  fileName.toString();
 
 	const hasFilename = ! RichText.isEmpty( fileName );
+
+	const formattedFileName =
+		showFileSize && fileSize ? `${ fileName } (${ fileSize })` : fileName;
 
 	// Only output an `aria-describedby` when the element it's referring to is
 	// actually rendered.
@@ -63,7 +68,7 @@ export default function save( { attributes } ) {
 							textLinkTarget ? 'noreferrer noopener' : undefined
 						}
 					>
-						<RichText.Content value={ fileName } />
+						<RichText.Content value={ formattedFileName } />
 					</a>
 				) }
 				{ showDownloadButton && (
