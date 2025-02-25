@@ -310,11 +310,17 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 						}
 						placeholder={ __( 'Write file name…' ) }
 						withoutInteractiveFormatting
-						onChange={ ( text ) =>
+						onChange={ ( text ) => {
+							// Remove the already added file size from the file name.
+							const cleanFileName = text.replace(
+								/\s*\(\d+(\.\d{1,2})?\s*MB\)$/,
+								''
+							);
+
 							setAttributes( {
-								fileName: removeAnchorTag( text ),
-							} )
-						}
+								fileName: removeAnchorTag( cleanFileName ),
+							} );
+						} }
 						href={ textLinkHref }
 					/>
 					{ showDownloadButton && (
