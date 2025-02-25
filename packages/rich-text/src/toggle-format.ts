@@ -13,18 +13,20 @@ import { getActiveFormat } from './get-active-format';
 import { removeFormat } from './remove-format';
 import { applyFormat } from './apply-format';
 
-/** @typedef {import('./types').RichTextValue} RichTextValue */
-/** @typedef {import('./types').RichTextFormat} RichTextFormat */
+import type { RichTextValue, RichTextFormat } from './types';
 
 /**
  * Toggles a format object to a Rich Text value at the current selection.
  *
- * @param {RichTextValue}  value  Value to modify.
- * @param {RichTextFormat} format Format to apply or remove.
+ * @param {RichTextValue}  value  - Value to modify.
+ * @param {RichTextFormat} format - Format to apply or remove.
  *
  * @return {RichTextValue} A new value with the format applied or removed.
  */
-export function toggleFormat( value, format ) {
+export function toggleFormat(
+	value: RichTextValue,
+	format: RichTextFormat
+): RichTextValue {
 	if ( getActiveFormat( value, format.type ) ) {
 		// For screen readers, will announce if formatting control is disabled.
 		if ( format.title ) {

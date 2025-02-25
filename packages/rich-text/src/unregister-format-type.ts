@@ -7,19 +7,19 @@ import { select, dispatch } from '@wordpress/data';
  * Internal dependencies
  */
 import { store as richTextStore } from './store';
-
-/** @typedef {import('./register-format-type').WPFormat} WPFormat */
+import type { WPFormat } from './register-format-type';
 
 /**
  * Unregisters a format.
  *
- * @param {string} name Format name.
+ * @param name Format name.
  *
- * @return {WPFormat|undefined} The previous format value, if it has
- *                                        been successfully unregistered;
- *                                        otherwise `undefined`.
+ * @return The previous format value, if it has
+ *         been successfully unregistered;
+ *         otherwise `undefined`.
  */
-export function unregisterFormatType( name ) {
+export function unregisterFormatType( name: string ): WPFormat | undefined {
+	// @ts-ignore No typing on the store
 	const oldFormat = select( richTextStore ).getFormatType( name );
 
 	if ( ! oldFormat ) {
@@ -27,6 +27,7 @@ export function unregisterFormatType( name ) {
 		return;
 	}
 
+	// @ts-ignore No typing on the store
 	dispatch( richTextStore ).removeFormatTypes( name );
 
 	return oldFormat;

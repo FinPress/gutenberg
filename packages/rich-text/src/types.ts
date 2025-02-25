@@ -9,6 +9,7 @@ export type RichTextFormat = {
 		| 'core/strikethrough'
 		| 'core/image'
 		| string;
+	title?: string;
 };
 
 /**
@@ -26,6 +27,7 @@ export type RichTextValue = {
 	text: string;
 	formats: Array< RichTextFormatList >;
 	replacements: Array< RichTextFormat >;
+	activeFormats: Array< RichTextFormat >;
 	start: number;
 	end: number;
 };
