@@ -12,8 +12,8 @@ export type RichTextFormat = {
 	title?: string;
 	attributes?: Record< string, string >;
 	unregisteredAttributes?: Record< string, string >;
-	tagName?: string;
-	innerHTML?: string;
+	tagName?: string; // TODO: Is this correct?
+	innerHTML?: string; // TODO: Is this correct
 };
 
 /**
