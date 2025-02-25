@@ -23,7 +23,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
  */
 import { unlock } from '../lock-unlock';
 import SpacerControls from './controls';
-import { MIN_SPACER_SIZE } from './constants';
+import { DEFAULT_HEIGHT, MIN_SPACER_SIZE } from './constants';
 
 const { useSpacingSizes } = unlock( blockEditorPrivateApis );
 
@@ -171,7 +171,11 @@ const SpacerEdit = ( {
 		if ( isFlexLayout ) {
 			return undefined;
 		}
-		return temporaryHeight || getSpacingPresetCssVar( height ) || '100px';
+		return (
+			temporaryHeight ||
+			getSpacingPresetCssVar( height ) ||
+			DEFAULT_HEIGHT
+		);
 	};
 
 	const getWidthForHorizontalBlocks = () => {

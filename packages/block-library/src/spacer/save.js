@@ -3,7 +3,10 @@
  */
 import { useBlockProps, getSpacingPresetCssVar } from '@wordpress/block-editor';
 
-const DEFAULT_HEIGHT = '100px';
+/**
+ * Internal dependencies
+ */
+import { DEFAULT_HEIGHT } from './constants';
 
 export default function save( { attributes } ) {
 	const { height, width, style } = attributes;
