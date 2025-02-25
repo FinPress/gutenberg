@@ -6,19 +6,7 @@ import { select, dispatch } from '@wordpress/data';
  * Internal dependencies
  */
 import { store as richTextStore } from './store';
-
-/**
- * Represents a format in WordPress.
- */
-export interface WPFormat {
-	name: string; // A string identifying the format. Must be unique across all registered formats.
-	tagName: string; // The HTML tag this format will wrap the selection with.
-	interactive: boolean; // Whether format makes content interactive or not.
-	className?: string | null; // A class to match the format.
-	title: string; // Name of the format.
-	edit: () => JSX.Element; // Should return a component for the user to interact with the new registered format.
-	keywords?: string[]; // Keywords to match the format. // TODO: Is this correct?
-}
+import type { WPFormat } from './types';
 
 /**
  * Registers a new format provided a unique name and an object defining its behavior.
@@ -30,9 +18,10 @@ export interface WPFormat {
  */
 export function registerFormatType(
 	name: string,
-	settings: WPFormat
+	settings: WPFormat // TODO: Should we omit name from WPFormat?
 ): WPFormat | undefined {
 	settings = {
+		// @ts-ignore Overriding is expected
 		name, // TODO: Is this hiding a bug?
 		...settings,
 	};

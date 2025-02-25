@@ -36,3 +36,16 @@ export type RichTextValue = {
 	// TODO: Should these really be optional?
 	activeFormats?: Array< RichTextFormat >;
 };
+
+/**
+ * Represents a format in WordPress.
+ */
+export type WPFormat = {
+	name: string; // A string identifying the format. Must be unique across all registered formats.
+	tagName: string; // The HTML tag this format will wrap the selection with.
+	interactive: boolean; // Whether format makes content interactive or not.
+	className?: string | null; // A class to match the format.
+	title: string; // Name of the format.
+	edit: () => JSX.Element; // Should return a component for the user to interact with the new registered format.
+	keywords?: string[]; // Keywords to match the format. // TODO: Is this correct?
+};

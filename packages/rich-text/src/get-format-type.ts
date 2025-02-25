@@ -6,16 +6,16 @@ import { select } from '@wordpress/data';
  * Internal dependencies
  */
 import { store as richTextStore } from './store';
-
-/** @typedef {import('./register-format-type').RichTextFormatType} RichTextFormatType */
+import type { WPFormat } from './types';
 
 /**
  * Returns a registered format type.
  *
- * @param {string} name Format name.
+ * @param name - Format name.
  *
- * @return {RichTextFormatType|undefined} Format type.
+ * @return RichTextFormat | undefined - Format type.
  */
-export function getFormatType( name ) {
+export function getFormatType( name: string ): WPFormat | undefined {
+	// @ts-expect-error Stores are not typed
 	return select( richTextStore ).getFormatType( name );
 }
