@@ -67,7 +67,7 @@
 		},
 		"showFileSize": {
 			"type": "boolean",
-			"default": false
+			"default": true
 		}
 	},
 	"supports": {
