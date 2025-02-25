@@ -130,8 +130,8 @@ _Parameters_
 
 -   _value_ `RichTextValue`: Value to modify.
 -   _format_ `RichTextFormat`: Format to apply.
--   _startIndex_ `[number]`: Start index.
--   _endIndex_ `[number]`: End index.
+-   _startIndex_ `number`: Start index.
+-   _endIndex_ `number`: End index.
 
 _Returns_
 
@@ -172,7 +172,7 @@ _Parameters_
 -   _$1_ `[Object]`: Optional named arguments.
 -   _$1.element_ `[Element]`: Element to create value from.
 -   _$1.text_ `[string]`: Text to create value from.
--   _$1.html_ `[string]`: HTML to create value from.
+-   _$1.html_ `[string | RichTextData]`: HTML string or RichTextData to create value from.
 -   _$1.range_ `[Range]`: Range to create value from.
 -   _$1.\_\_unstableIsEditableTree_ `[boolean]`:
 
@@ -191,11 +191,11 @@ _Parameters_
 
 _Returns_
 
--   `RichTextFormat|undefined`: Active format object of the specified type, or undefined.
+-   `RichTextFormat | undefined`: Active format object of the specified type, or undefined.
 
 ### getActiveFormats
 
-Gets the all format objects at the start of the selection.
+Gets all format objects at the start of the selection.
 
 _Parameters_
 
@@ -216,7 +216,7 @@ _Parameters_
 
 _Returns_
 
--   `RichTextFormat|void`: Active object, or undefined.
+-   `RichTextFormat | undefined`: Active object, or undefined.
 
 ### getTextContent
 
@@ -276,7 +276,7 @@ _Returns_
 
 ### isEmpty
 
-Check if a Rich Text value is Empty, meaning it contains no text or any objects (such as images).
+Check if a Rich Text value is empty, meaning it contains no text or any objects (such as images).
 
 _Parameters_
 
@@ -292,8 +292,8 @@ Combine an array of Rich Text values into one, optionally separated by `separato
 
 _Parameters_
 
--   _values_ `Array<RichTextValue>`: An array of values to join.
--   _separator_ `[string|RichTextValue]`: Separator string or value.
+-   _values_ `Array< RichTextValue >`: An array of values to join.
+-   _separator_ `string | RichTextValue`: Separator string or value.
 
 _Returns_
 
@@ -305,12 +305,12 @@ Registers a new format provided a unique name and an object defining its behavio
 
 _Parameters_
 
--   _name_ `string`: Format name.
--   _settings_ `WPFormat`: Format settings.
+-   _name_ `string`: - Format name.
+-   _settings_ `WPFormat`: - Format settings.
 
 _Returns_
 
--   `WPFormat|undefined`: The format, if it has been successfully registered; otherwise `undefined`.
+-   `WPFormat | undefined`: The format, if it has been successfully registered; otherwise `undefined`.
 
 ### remove
 
@@ -319,8 +319,8 @@ Remove content from a Rich Text value between the given `startIndex` and `endInd
 _Parameters_
 
 -   _value_ `RichTextValue`: Value to modify.
--   _startIndex_ `[number]`: Start index.
--   _endIndex_ `[number]`: End index.
+-   _startIndex_ `number`: Start index.
+-   _endIndex_ `number`: End index.
 
 _Returns_
 
@@ -347,9 +347,9 @@ Search a Rich Text value and replace the match(es) with `replacement`. This is s
 
 _Parameters_
 
--   _value_ `RichTextValue`: The value to modify.
--   _pattern_ `RegExp|string`: A RegExp object or literal. Can also be a string. It is treated as a verbatim string and is not interpreted as a regular expression. Only the first occurrence will be replaced.
--   _replacement_ `Function|string`: The match or matches are replaced with the specified or the value returned by the specified function.
+-   _value_ `RichTextValue`: - The value to modify.
+-   _pattern_ `RegExp|string`: - A RegExp object or literal. Can also be a string. It is treated as a verbatim string and is not interpreted as a regular expression. Only the first occurrence will be replaced.
+-   _replacement_ `Function|string|RichTextValue`: - The match or matches are replaced with the specified or the value returned by the specified function.
 
 _Returns_
 
@@ -379,8 +379,8 @@ Slice a Rich Text value from `startIndex` to `endIndex`. Indices are retrieved f
 _Parameters_
 
 -   _value_ `RichTextValue`: Value to modify.
--   _startIndex_ `[number]`: Start index.
--   _endIndex_ `[number]`: End index.
+-   _startIndex_ `number`: Start index.
+-   _endIndex_ `number`: End index.
 
 _Returns_
 
@@ -392,12 +392,17 @@ Split a Rich Text value in two at the given `startIndex` and `endIndex`, or spli
 
 _Parameters_
 
--   _value_ `RichTextValue`:
--   _string_ `[number|string]`: Start index, or string at which to split.
+-   _value_ `RichTextValue`: The rich text value to split.
+-   _value.formats_ `RichTextValue[ 'formats' ]`:
+-   _value.replacements_ `RichTextValue[ 'replacements' ]`:
+-   _value.text_ `RichTextValue[ 'text' ]`:
+-   _value.start_ `RichTextValue[ 'start' ]`:
+-   _value.end_ `RichTextValue[ 'end' ]`:
+-   _string_ `number | string`: Start index, or string at which to split.
 
 _Returns_
 
--   `Array<RichTextValue>|undefined`: An array of new values.
+-   `Array< RichTextValue > | undefined`: An array of new values.
 
 ### store
 
@@ -417,8 +422,8 @@ Toggles a format object to a Rich Text value at the current selection.
 
 _Parameters_
 
--   _value_ `RichTextValue`: Value to modify.
--   _format_ `RichTextFormat`: Format to apply or remove.
+-   _value_ `RichTextValue`: - Value to modify.
+-   _format_ `RichTextFormat`: - Format to apply or remove.
 
 _Returns_
 
@@ -430,9 +435,9 @@ Create an HTML string from a Rich Text value.
 
 _Parameters_
 
--   _$1_ `Object`: Named arguments.
--   _$1.value_ `RichTextValue`: Rich text value.
--   _$1.preserveWhiteSpace_ `[boolean]`: Preserves newlines if true.
+-   _options_ `{ value: RichTextValue; preserveWhiteSpace?: boolean; }`: - Named arguments.
+-   _options.value_ `RichTextValue`: - Rich text value.
+-   _options.preserveWhiteSpace_ `boolean`: - Preserves newlines if true.
 
 _Returns_
 
@@ -448,7 +453,7 @@ _Parameters_
 
 _Returns_
 
--   `WPFormat|undefined`: The previous format value, if it has been successfully unregistered; otherwise `undefined`.
+-   `WPFormat | undefined`: The previous format value, if it has been successfully unregistered; otherwise `undefined`.
 
 ### useAnchor
 
