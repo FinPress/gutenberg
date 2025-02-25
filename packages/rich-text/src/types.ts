@@ -10,6 +10,7 @@ export type RichTextFormat = {
 		| 'core/image'
 		| string;
 	title?: string;
+	attributes?: Record< string, string >;
 };
 
 /**

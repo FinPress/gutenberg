@@ -1,14 +1,20 @@
-/** @typedef {import('./types').RichTextFormat} RichTextFormat */
+/**
+ * Internal dependencies
+ */
+import type { RichTextFormat } from './types';
 
 /**
  * Optimised equality check for format objects.
  *
- * @param {?RichTextFormat} format1 Format to compare.
- * @param {?RichTextFormat} format2 Format to compare.
+ * @param format1 Format to compare.
+ * @param format2 Format to compare.
  *
- * @return {boolean} True if formats are equal, false if not.
+ * @return True if formats are equal, false if not.
  */
-export function isFormatEqual( format1, format2 ) {
+export function isFormatEqual(
+	format1: RichTextFormat | null,
+	format2: RichTextFormat | null
+): boolean {
 	// Both not defined.
 	if ( format1 === format2 ) {
 		return true;
