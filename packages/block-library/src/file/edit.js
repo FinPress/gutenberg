@@ -36,6 +36,7 @@ import { store as noticesStore } from '@wordpress/notices';
 import FileBlockInspector from './inspector';
 import { browserSupportsPdfs, formatFileSize } from './utils';
 import removeAnchorTag from '../utils/remove-anchor-tag';
+import removeFileSize from '../utils/remove-file-size';
 import { useUploadMediaFromBlobURL } from '../utils/hooks';
 
 export const MIN_PREVIEW_HEIGHT = 200;
@@ -311,11 +312,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 						placeholder={ __( 'Write file name…' ) }
 						withoutInteractiveFormatting
 						onChange={ ( text ) => {
-							// Remove the already added file size from the file name.
-							const cleanFileName = text.replace(
-								/\s*\(\d+(\.\d{1,2})?\s*MB\)$/,
-								''
-							);
+							const cleanFileName = removeFileSize( text );
 
 							setAttributes( {
 								fileName: removeAnchorTag( cleanFileName ),
