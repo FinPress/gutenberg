@@ -37,6 +37,9 @@
 		}
 	},
 	"supports": {
+		"layout": {
+			"allowEditing": false
+		},
 		"anchor": true,
 		"html": false,
 		"__experimentalBorder": {
@@ -71,8 +74,10 @@
 			"padding": true,
 			"__experimentalDefaultControls": {
 				"margin": false,
-				"padding": false
-			}
+				"padding": false,
+				"blockGap": true
+			},
+			"blockGap": true
 		},
 		"__unstablePasteTextInline": true,
 		"__experimentalOnMerge": true,
@@ -81,6 +86,7 @@
 			"clientNavigation": true
 		}
 	},
+
 	"selectors": {
 		"border": ".wp-block-list:not(.wp-block-list .wp-block-list)"
 	},
