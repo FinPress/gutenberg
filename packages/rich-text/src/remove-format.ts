@@ -3,8 +3,7 @@
  */
 
 import { normaliseFormats } from './normalise-formats';
-
-/** @typedef {import('./types').RichTextValue} RichTextValue */
+import type { RichTextValue, RichTextFormat } from './types';
 
 /**
  * Remove any format object from a Rich Text value by type from the given
@@ -19,11 +18,11 @@ import { normaliseFormats } from './normalise-formats';
  * @return {RichTextValue} A new value with the format applied.
  */
 export function removeFormat(
-	value,
-	formatType,
-	startIndex = value.start,
-	endIndex = value.end
-) {
+	value: RichTextValue,
+	formatType: string,
+	startIndex: number = value.start,
+	endIndex: number = value.end
+): RichTextValue {
 	const { formats, activeFormats } = value;
 	const newFormats = formats.slice();
 
@@ -31,13 +30,13 @@ export function removeFormat(
 	// format.
 	if ( startIndex === endIndex ) {
 		const format = newFormats[ startIndex ]?.find(
-			( { type } ) => type === formatType
+			( { type }: RichTextFormat ) => type === formatType
 		);
 
 		if ( format ) {
 			while (
 				newFormats[ startIndex ]?.find(
-					( newFormat ) => newFormat === format
+					( newFormat: RichTextFormat ) => newFormat === format
 				)
 			) {
 				filterFormats( newFormats, startIndex, formatType );
@@ -48,7 +47,7 @@ export function removeFormat(
 
 			while (
 				newFormats[ endIndex ]?.find(
-					( newFormat ) => newFormat === format
+					( newFormat: RichTextFormat ) => newFormat === format
 				)
 			) {
 				filterFormats( newFormats, endIndex, formatType );
@@ -67,13 +66,19 @@ export function removeFormat(
 		...value,
 		formats: newFormats,
 		activeFormats:
-			activeFormats?.filter( ( { type } ) => type !== formatType ) || [],
+			activeFormats?.filter(
+				( { type }: RichTextFormat ) => type !== formatType
+			) || [],
 	} );
 }
 
-function filterFormats( formats, index, formatType ) {
+function filterFormats(
+	formats: Array< RichTextFormat[] >,
+	index: number,
+	formatType: string
+): void {
 	const newFormats = formats[ index ].filter(
-		( { type } ) => type !== formatType
+		( { type }: RichTextFormat ) => type !== formatType
 	);
 
 	if ( newFormats.length ) {

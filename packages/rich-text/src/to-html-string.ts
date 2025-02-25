@@ -96,19 +96,19 @@ function remove( object: any ): any {
 	return object;
 }
 
-interface ElementAttributes {
-	type: string;
-	attributes: Record< string, string >;
-	object?: any;
-	children?: any[];
-}
+// interface ElementAttributes {
+// 	type: string;
+// 	attributes: Record< string, string >;
+// 	object?: any;
+// 	children?: any[];
+// }
 
 function createElementHTML( {
 	type,
 	attributes,
 	object,
 	children,
-}: ElementAttributes ): string {
+}: Child ): string {
 	if ( type === '#comment' ) {
 		// We can't restore the original comment delimiters, because once parsed
 		// into DOM nodes, we don't have the information. But in the future we
