@@ -31,12 +31,10 @@ function AppLayout() {
 
 export default function App() {
 	useRegisterSiteEditorRoutes();
-	const { routes, currentTheme, themeSupports } = useSelect( ( select ) => {
-		const { getCurrentTheme, getThemeSupports } = select( coreStore );
+	const { routes, currentTheme } = useSelect( ( select ) => {
 		return {
 			routes: unlock( select( editSiteStore ) ).getRoutes(),
-			currentTheme: getCurrentTheme(),
-			themeSupports: getThemeSupports(),
+			currentTheme: select( coreStore ).getCurrentTheme(),
 		};
 	}, [] );
 
@@ -63,10 +61,7 @@ export default function App() {
 			pathArg="p"
 			beforeNavigate={ beforeNavigate }
 			matchResolverArgs={ {
-				siteData: {
-					currentTheme,
-					themeSupports,
-				},
+				siteData: { currentTheme },
 			} }
 		>
 			<AppLayout />
