@@ -169,7 +169,7 @@ const SpacerEdit = ( {
 
 	const getHeightForVerticalBlocks = () => {
 		if ( isFlexLayout ) {
-			return undefined;
+			return DEFAULT_HEIGHT;
 		}
 		return (
 			temporaryHeight ||
@@ -283,7 +283,7 @@ const SpacerEdit = ( {
 				const newSize =
 					getCustomValueFromPreset( width, spacingSizes ) ||
 					getCustomValueFromPreset( height, spacingSizes ) ||
-					'100px';
+					DEFAULT_HEIGHT;
 				setAttributesCovertly( {
 					width: '0px',
 					style: {
@@ -299,7 +299,7 @@ const SpacerEdit = ( {
 				const newSize =
 					getCustomValueFromPreset( height, spacingSizes ) ||
 					getCustomValueFromPreset( width, spacingSizes ) ||
-					'100px';
+					DEFAULT_HEIGHT;
 				setAttributesCovertly( {
 					height: '0px',
 					style: {
