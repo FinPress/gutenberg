@@ -1,5 +1,5 @@
 /** @type {HTMLTextAreaElement} */
-let _decodeTextArea;
+let _decodeTextArea: HTMLTextAreaElement | undefined;
 
 /**
  * Decodes the HTML entities from a given string.
@@ -16,7 +16,7 @@ let _decodeTextArea;
  *
  * @return {string} The decoded string.
  */
-export function decodeEntities( html ) {
+export function decodeEntities( html: string ): string {
 	// Not a string, or no entities to decode.
 	if ( 'string' !== typeof html || -1 === html.indexOf( '&' ) ) {
 		return html;
@@ -37,7 +37,7 @@ export function decodeEntities( html ) {
 	}
 
 	_decodeTextArea.innerHTML = html;
-	const decoded = _decodeTextArea.textContent;
+	const decoded = _decodeTextArea.textContent ?? '';
 	_decodeTextArea.innerHTML = '';
 
 	/**
@@ -57,5 +57,5 @@ export function decodeEntities( html ) {
 	 *
 	 * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
 	 */
-	return /** @type {string} */ ( decoded );
+	return /** @type {string} */ decoded;
 }
