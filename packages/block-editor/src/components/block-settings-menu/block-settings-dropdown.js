@@ -48,15 +48,16 @@ function CopyMenuItem( {
 		() => {
 			switch ( eventType ) {
 				case 'copy':
-				case 'cut':
-					onCopy?.();
+				case 'copyStyles':
+					onCopy();
 					notifyCopy( eventType, clientIds );
-					if ( eventType === 'cut' ) {
-						removeBlocks( clientIds, updateSelection );
-					}
+					break;
+				case 'cut':
+					notifyCopy( eventType, clientIds );
+					removeBlocks( clientIds, updateSelection );
 					break;
 				default:
-					notifyCopy( eventType, clientIds );
+					break;
 			}
 		}
 	);
@@ -281,7 +282,6 @@ export function BlockSettingsDropdown( {
 									/>
 									<CopyMenuItem
 										clientIds={ clientIds }
-										onCopy={ onCopy }
 										label={ __( 'Cut' ) }
 										eventType="cut"
 										shortcut={ shortcuts.cut }
