@@ -110,25 +110,29 @@ export default function DocumentOutline( {
 	hasOutlineItemsDisabled,
 } ) {
 	const { selectBlock } = useDispatch( blockEditorStore );
-	const { title, isTitleSupported, blockData } = useSelect( ( select ) => {
+	const { title, isTitleSupported } = useSelect( ( select ) => {
 		const { getEditedPostAttribute } = select( editorStore );
 		const { getPostType } = select( coreStore );
-		const { getClientIdsWithDescendants, getBlock } =
-			select( blockEditorStore );
-		const clientIds = getClientIdsWithDescendants();
 		const postType = getPostType( getEditedPostAttribute( 'type' ) );
 		return {
 			title: getEditedPostAttribute( 'title' ),
 			isTitleSupported: postType?.supports?.title ?? false,
-			blockData: clientIds.map( ( id ) => getBlock( id ) ),
 		};
+	} );
+	const blocks = useSelect( ( select ) => {
+		const { getClientIdsWithDescendants, getBlock } =
+			select( blockEditorStore );
+		const clientIds = getClientIdsWithDescendants();
+		// Note: Don't modify data inside the `Array.map` callback,
+		// all compulations should happen in `computeOutlineHeadings`.
+		return clientIds.map( ( id ) => getBlock( id ) );
 	} );
 
 	const prevHeadingLevelRef = useRef( 1 );
 
 	const headings = useMemo(
-		() => computeOutlineHeadings( blockData ),
-		[ blockData ]
+		() => computeOutlineHeadings( blocks ),
+		[ blocks ]
 	);
 
 	if ( headings.length < 1 ) {
