@@ -62,7 +62,12 @@ export default function App() {
 			routes={ routes }
 			pathArg="p"
 			beforeNavigate={ beforeNavigate }
-			context={ { currentTheme, themeSupports } }
+			matchResolverArgs={ {
+				siteData: {
+					currentTheme,
+					themeSupports,
+				},
+			} }
 		>
 			<AppLayout />
 		</RouterProvider>
