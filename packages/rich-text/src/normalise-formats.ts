@@ -18,7 +18,7 @@ export function normaliseFormats( value: RichTextValue ): RichTextValue {
 	newFormats.forEach( ( formatsAtIndex, index ) => {
 		const formatsAtPreviousIndex = newFormats[ index - 1 ];
 
-		if ( formatsAtPreviousIndex ) {
+		if ( formatsAtPreviousIndex && formatsAtIndex !== undefined ) {
 			const newFormatsAtIndex = formatsAtIndex.slice();
 
 			newFormatsAtIndex.forEach( ( format, formatIndex ) => {

@@ -9,25 +9,26 @@ import deepFreeze from 'deep-freeze';
 
 import { insert } from '../insert';
 import { getSparseArrayLength } from './helpers';
+import type { RichTextValue } from '../types';
 
 describe( 'insert', () => {
 	const em = { type: 'em' };
 	const strong = { type: 'strong' };
 
 	it( 'should delete and insert', () => {
-		const record = {
+		const record: RichTextValue = {
 			formats: [ , , , , [ em ], [ em ], [ em ], , , , , , , ],
 			replacements: [],
 			text: 'one two three',
 			start: 6,
 			end: 6,
 		};
-		const toInsert = {
+		const toInsert: RichTextValue = {
 			formats: [ [ strong ] ],
 			replacements: [],
 			text: 'a',
 		};
-		const expected = {
+		const expected: RichTextValue = {
 			formats: [ , , [ strong ], [ em ], , , , , , , ],
 			replacements: [],
 			text: 'onao three',
@@ -42,19 +43,19 @@ describe( 'insert', () => {
 	} );
 
 	it( 'should insert line break with selection', () => {
-		const record = {
+		const record: RichTextValue = {
 			formats: [ , , ],
 			replacements: [],
 			text: 'tt',
 			start: 1,
 			end: 1,
 		};
-		const toInsert = {
+		const toInsert: RichTextValue = {
 			formats: [ , ],
 			replacements: [],
 			text: '\n',
 		};
-		const expected = {
+		const expected: RichTextValue = {
 			formats: [ , , , ],
 			replacements: [],
 			text: 't\nt',

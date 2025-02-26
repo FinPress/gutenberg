@@ -39,9 +39,9 @@ interface ToFormatAttributes {
 
 // TODO: This is very similar to RichTextFormat but has a formatType property.
 interface ToFormatResult {
-	formatType?: any;
 	type: string;
-	tagName: string;
+	formatType?: any;
+	tagName?: string;
 	attributes?: Record< string, any >;
 	unregisteredAttributes?: Record< string, any >;
 }
@@ -537,8 +537,8 @@ function createFromElement( {
 
 	// Optimise for speed.
 	for ( let index = 0; index < length; index++ ) {
-		// const node = element.childNodes[ index ];
-		const node = element.children[ index ];
+		const node = element.childNodes[ index ] as HTMLElement; // TODO: This type isn't valid
+		// const node = element.children[ index ];
 		const tagName = node.nodeName.toLowerCase();
 
 		if ( node.nodeType === node.TEXT_NODE && node.nodeValue !== null ) {
@@ -565,7 +565,7 @@ function createFromElement( {
 				node.hasAttribute( 'data-rich-text-comment' ) )
 		) {
 			const value: RichTextValue = {
-				formats: [], // TODO: Is this correct?
+				formats: [ , ], // TODO: Is this correct?
 				replacements: [
 					{
 						type: '#comment',
@@ -602,7 +602,7 @@ function createFromElement( {
 
 		if ( tagName === 'script' ) {
 			const value: RichTextValue = {
-				formats: [], // TODO: Is this correct?
+				formats: [ , ], // TODO: Is this correct?
 				replacements: [
 					{
 						type: tagName,
@@ -637,7 +637,7 @@ function createFromElement( {
 			delete format.formatType;
 			accumulateSelection( accumulator, node, range, createEmptyValue() );
 			mergePair( accumulator, {
-				formats: [], // TODO: Is this correct?
+				formats: [ , ], // TODO: Is this correct?
 				replacements: [
 					{
 						...format,

@@ -16,6 +16,10 @@ export function getActiveObject(
 	value: RichTextValue
 ): RichTextFormat | undefined {
 	const { start, end, replacements, text } = value;
+	if ( start === undefined || end === undefined ) {
+		return;
+	}
+
 	if ( start + 1 !== end || text[ start ] !== OBJECT_REPLACEMENT_CHARACTER ) {
 		return;
 	}

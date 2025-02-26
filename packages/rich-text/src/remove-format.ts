@@ -20,9 +20,13 @@ import type { RichTextValue, RichTextFormat } from './types';
 export function removeFormat(
 	value: RichTextValue,
 	formatType: string,
-	startIndex: number = value.start,
-	endIndex: number = value.end
+	startIndex: number | undefined = value.start,
+	endIndex: number | undefined = value.end
 ): RichTextValue {
+	// TODO: This is copied from other files, doing the same check.
+	if ( startIndex === undefined || endIndex === undefined ) {
+		return { ...value };
+	}
 	const { formats, activeFormats } = value;
 	const newFormats = formats.slice();
 
@@ -73,10 +77,14 @@ export function removeFormat(
 }
 
 function filterFormats(
-	formats: Array< RichTextFormat[] >,
+	formats: Array< RichTextFormat[] | undefined >,
 	index: number,
 	formatType: string
 ): void {
+	if ( ! formats[ index ] ) {
+		return;
+	}
+
 	const newFormats = formats[ index ].filter(
 		( { type }: RichTextFormat ) => type !== formatType
 	);

@@ -84,10 +84,12 @@ describe( 'applyValue', () => {
 	cases.forEach( ( { current, future, description, movedCount } ) => {
 		// eslint-disable-next-line jest/valid-title
 		it( description, () => {
-			const body = createElement( document, current ).cloneNode( true );
+			const body = createElement( document, current ).cloneNode(
+				true
+			) as HTMLElement;
 			const futureBody = createElement( document, future ).cloneNode(
 				true
-			);
+			) as HTMLElement;
 			const childNodes = Array.from( futureBody.childNodes );
 			applyValue( futureBody, body );
 			const count = childNodes.reduce( ( acc, { parentNode } ) => {

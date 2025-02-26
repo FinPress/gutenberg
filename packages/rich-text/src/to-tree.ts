@@ -273,12 +273,12 @@ export function toTree( {
 					attributes: {
 						contenteditable: 'false',
 						'data-rich-text-comment':
-							attributes[ 'data-rich-text-comment' ],
+							attributes?.[ 'data-rich-text-comment' ],
 					},
 				} );
 				append(
 					append( pointer, { type: 'span' } ),
-					attributes[ 'data-rich-text-comment' ].trim()
+					attributes?.[ 'data-rich-text-comment' ].trim()
 				);
 			} else if ( ! isEditableTree && type === 'script' ) {
 				pointer = append(
@@ -290,7 +290,7 @@ export function toTree( {
 				);
 				append( pointer, {
 					html: decodeURIComponent(
-						attributes[ 'data-rich-text-script' ]
+						attributes?.[ 'data-rich-text-script' ]
 					),
 				} );
 			} else if ( formatType?.contentEditable === false ) {

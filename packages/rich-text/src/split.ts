@@ -40,8 +40,6 @@ export function split(
 				startIndex + substring.length
 			),
 			text: substring,
-			start: 0,
-			end: 0,
 		};
 
 		nextStart += string.length + substring.length;
@@ -66,8 +64,8 @@ export function split(
 
 function splitAtSelection(
 	{ formats, replacements, text, start, end }: RichTextValue,
-	startIndex: number = start,
-	endIndex: number = end
+	startIndex: number | undefined = start,
+	endIndex: number | undefined = end
 ): Array< RichTextValue > | undefined {
 	if ( start === undefined || end === undefined ) {
 		return;
@@ -77,8 +75,6 @@ function splitAtSelection(
 		formats: formats.slice( 0, startIndex ),
 		replacements: replacements.slice( 0, startIndex ),
 		text: text.slice( 0, startIndex ),
-		start: 0,
-		end: 0,
 	};
 	const after: RichTextValue = {
 		formats: formats.slice( endIndex ),

@@ -14,6 +14,7 @@ export type RichTextFormat = {
 	unregisteredAttributes?: Record< string, any >;
 	tagName?: string; // TODO: Is this correct, possibly should be required?
 	innerHTML?: string; // TODO: Is this correct
+	object?: boolean; // TODO: Is this correct
 };
 
 /**
@@ -29,23 +30,35 @@ export type RichTextFormatList = Array< RichTextFormat >;
  */
 export type RichTextValue = {
 	text: string;
-	formats: Array< RichTextFormatList >;
-	replacements: Array< RichTextFormat >;
+	formats: Array< RichTextFormatList | undefined >;
+	replacements: Array< RichTextFormat | undefined >;
+	// TODO: Should these really be optional?
 	start?: number;
 	end?: number;
-	// TODO: Should these really be optional?
 	activeFormats?: Array< RichTextFormat >;
+	// TODO: Is this correct?
+	object?: boolean; // Whether the format is an object.
 };
 
 /**
  * Represents a format in WordPress.
  */
 export type WPFormat = {
-	name: string; // A string identifying the format. Must be unique across all registered formats.
 	tagName: string; // The HTML tag this format will wrap the selection with.
-	interactive: boolean; // Whether format makes content interactive or not.
-	className?: string | null; // A class to match the format.
 	title: string; // Name of the format.
-	edit: () => JSX.Element; // Should return a component for the user to interact with the new registered format.
+	edit: ( () => JSX.Element ) | ( () => void ); // Should return a component for the user to interact with the new registered format.
+
+	name?: string; // A string identifying the format. Must be unique across all registered formats.
+	interactive?: boolean; // Whether format makes content interactive or not.
+	className?: string | null; // A class to match the format.
 	keywords?: string[]; // Keywords to match the format. // TODO: Is this correct?
+	contentEditable?: boolean; // Whether the format is editable.
+
+	// Experimental
+	__experimentalCreatePrepareEditableTree?: () => void; // A function that prepares the editable tree for the format.
+	__experimentalCreateOnChangeEditableValue?: () => void; // A function that is called when the editable value changes.
+
+	// TODO: Is these correct?
+	attributes?: Record< string, string >; // Attributes to match the format.
+	object?: boolean; // Whether the format is an object.
 };

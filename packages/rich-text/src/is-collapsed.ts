@@ -1,9 +1,4 @@
 /**
- * Internal dependencies
- */
-import type { RichTextValue } from './types';
-
-/**
  * Check if the selection of a Rich Text value is collapsed or not. Collapsed
  * means that no characters are selected, but there is a caret present. If there
  * is no selection, `undefined` will be returned. This is similar to
@@ -17,7 +12,10 @@ import type { RichTextValue } from './types';
 export function isCollapsed( {
 	start,
 	end,
-}: RichTextValue ): boolean | undefined {
+}: {
+	start?: number;
+	end?: number;
+} ): boolean | undefined {
 	if ( start === undefined || end === undefined ) {
 		return;
 	}

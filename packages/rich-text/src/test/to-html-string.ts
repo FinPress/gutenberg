@@ -7,11 +7,17 @@ import { registerFormatType } from '../register-format-type';
 import { unregisterFormatType } from '../unregister-format-type';
 import { specWithRegistration } from './helpers';
 
-function createNode( HTML ) {
+function createNode( HTML: string ) {
 	const doc = document.implementation.createHTMLDocument( '' );
 	doc.body.innerHTML = HTML;
 	return doc.body.firstChild;
 }
+
+// function createElement( HTML: string ): HTMLElement {
+// 	const doc = document.implementation.createHTMLDocument( '' );
+// 	doc.body.innerHTML = HTML;
+// 	return doc.body.children.item( 0 ) as HTMLElement;
+// }
 
 describe( 'toHTMLString', () => {
 	beforeAll( () => {

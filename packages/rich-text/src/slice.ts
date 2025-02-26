@@ -16,8 +16,8 @@ import type { RichTextValue } from './types';
  */
 export function slice(
 	value: RichTextValue,
-	startIndex: number = value.start,
-	endIndex: number = value.end
+	startIndex: number | undefined = value.start,
+	endIndex: number | undefined = value.end
 ): RichTextValue {
 	const { formats, replacements, text } = value;
 
@@ -29,7 +29,5 @@ export function slice(
 		formats: formats.slice( startIndex, endIndex ),
 		replacements: replacements.slice( startIndex, endIndex ),
 		text: text.slice( startIndex, endIndex ),
-		start: startIndex, // TODO: Is this correct?
-		end: endIndex, // TODO: Is this correct?
 	};
 }

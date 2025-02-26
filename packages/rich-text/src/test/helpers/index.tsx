@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import { ZWNBSP, OBJECT_REPLACEMENT_CHARACTER } from '../../special-characters';
+import type { RichTextValue, WPFormat } from '../../types';
 
 export function getSparseArrayLength( array ) {
 	return array.reduce( ( accumulator ) => accumulator + 1, 0 );
@@ -12,16 +13,25 @@ const strong = { type: 'strong' };
 const img = { type: 'img', attributes: { src: '' } };
 const a = { type: 'a', attributes: { href: '#' } };
 
-export const spec = [
+type Spec = {
+	description: string;
+	html: string;
+	createRange: ( element: HTMLElement ) => Range;
+	record: RichTextValue;
+	startPath: Array< number >;
+	endPath: Array< number >;
+};
+
+export const spec: Spec[] = [
 	{
 		description: 'should create an empty value',
 		html: '',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 0,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 0 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 0, 0 ],
 		record: {
@@ -36,12 +46,12 @@ export const spec = [
 		description:
 			'should ignore manually added object replacement character',
 		html: `test${ OBJECT_REPLACEMENT_CHARACTER }`,
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 0, 4 ],
 		record: {
@@ -56,12 +66,12 @@ export const spec = [
 		description:
 			'should ignore manually added object replacement character with formatting',
 		html: `<em>h${ OBJECT_REPLACEMENT_CHARACTER }i</em>`,
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0, 0 ],
 		endPath: [ 0, 0, 2 ],
 		record: {
@@ -75,12 +85,12 @@ export const spec = [
 	{
 		description: 'should preserve non breaking space',
 		html: 'test\u00a0 test',
-		createRange: ( element ) => ( {
-			startOffset: 5,
-			startContainer: element.firstChild,
-			endOffset: 5,
-			endContainer: element.firstChild,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 5 );
+			range.setEnd( element, 5 );
+			return range;
+		},
 		startPath: [ 0, 5 ],
 		endPath: [ 0, 5 ],
 		record: {
@@ -94,12 +104,12 @@ export const spec = [
 	{
 		description: 'should create an empty value from empty tags',
 		html: '<em></em>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 0, 0 ],
 		record: {
@@ -113,12 +123,12 @@ export const spec = [
 	{
 		description: 'should create a value without formatting',
 		html: 'test',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element.firstChild,
-			endOffset: 4,
-			endContainer: element.firstChild,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 4 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 0, 4 ],
 		record: {
@@ -132,12 +142,12 @@ export const spec = [
 	{
 		description: 'should preserve emoji',
 		html: '🍒',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 0, 2 ],
 		record: {
@@ -151,12 +161,12 @@ export const spec = [
 	{
 		description: 'should preserve emoji in formatting',
 		html: '<em>🍒</em>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0, 0 ],
 		endPath: [ 0, 0, 2 ],
 		record: {
@@ -170,12 +180,12 @@ export const spec = [
 	{
 		description: 'should create a value with formatting',
 		html: '<em>test</em>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element.firstChild,
-			endOffset: 1,
-			endContainer: element.firstChild,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element.getRootNode(), 0 );
+			range.setEnd( element.getRootNode(), 4 );
+			return range;
+		},
 		startPath: [ 0, 0, 0 ],
 		endPath: [ 0, 0, 4 ],
 		record: {
@@ -189,12 +199,12 @@ export const spec = [
 	{
 		description: 'should create a value with nested formatting',
 		html: '<em><strong>test</strong></em>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0, 0, 0 ],
 		endPath: [ 0, 0, 0, 4 ],
 		record: {
@@ -213,12 +223,14 @@ export const spec = [
 	{
 		description: 'should create a value with formatting for split tags',
 		html: '<em>te</em><em>st</em>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element.querySelector( 'em' ),
-			endOffset: 1,
-			endContainer: element.querySelector( 'em' ),
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			// @ts-ignore Node will exist in test
+			range.setStart( element.querySelector( 'em' ).getRootNode(), 0 );
+			// @ts-ignore Node will exist in test
+			range.setEnd( element.querySelector( 'em' ).getRootNode(), 1 );
+			return range;
+		},
 		startPath: [ 0, 0, 0 ],
 		endPath: [ 0, 0, 2 ],
 		record: {
@@ -232,12 +244,12 @@ export const spec = [
 	{
 		description: 'should create a value with formatting with attributes',
 		html: '<a href="#">test</a>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0, 0 ],
 		endPath: [ 0, 0, 4 ],
 		record: {
@@ -251,12 +263,12 @@ export const spec = [
 	{
 		description: 'should create a value with image object',
 		html: '<img src="">',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 0, 0 ],
 		record: {
@@ -270,12 +282,14 @@ export const spec = [
 	{
 		description: 'should create a value with image object and formatting',
 		html: '<em><img src=""></em>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element.querySelector( 'img' ),
-			endOffset: 1,
-			endContainer: element.querySelector( 'img' ),
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			// @ts-ignore Node will exist in test
+			range.setStart( element.querySelector( 'img' )?.getRootNode(), 0 );
+			// @ts-ignore Node will exist in test
+			range.setEnd( element.querySelector( 'img' )?.getRootNode(), 1 );
+			return range;
+		},
 		startPath: [ 0, 0, 0 ],
 		endPath: [ 0, 2, 0 ],
 		record: {
@@ -289,12 +303,12 @@ export const spec = [
 	{
 		description: 'should create a value with image object and text before',
 		html: 'te<em>st<img src=""></em>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 2,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 2 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 1, 2, 0 ],
 		record: {
@@ -308,12 +322,12 @@ export const spec = [
 	{
 		description: 'should create a value with image object and text after',
 		html: '<em><img src="">te</em>st',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 2,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 2 );
+			return range;
+		},
 		startPath: [ 0, 0, 0 ],
 		endPath: [ 1, 2 ],
 		record: {
@@ -327,12 +341,12 @@ export const spec = [
 	{
 		description: 'should handle br',
 		html: '<br>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 0, 0 ],
 		record: {
@@ -346,12 +360,12 @@ export const spec = [
 	{
 		description: 'should handle br with text',
 		html: 'te<br>st',
-		createRange: ( element ) => ( {
-			startOffset: 1,
-			startContainer: element,
-			endOffset: 2,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 1 );
+			range.setEnd( element, 2 );
+			return range;
+		},
 		startPath: [ 0, 2 ],
 		endPath: [ 2, 0 ],
 		record: {
@@ -365,12 +379,12 @@ export const spec = [
 	{
 		description: 'should handle br with formatting',
 		html: '<em><br></em>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0, 0 ],
 		endPath: [ 0, 2, 0 ],
 		record: {
@@ -384,12 +398,12 @@ export const spec = [
 	{
 		description: 'should handle double br',
 		html: 'a<br><br>b',
-		createRange: ( element ) => ( {
-			startOffset: 2,
-			startContainer: element,
-			endOffset: 3,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 2 );
+			range.setEnd( element, 3 );
+			return range;
+		},
 		startPath: [ 2, 0 ],
 		endPath: [ 4, 0 ],
 		record: {
@@ -403,12 +417,12 @@ export const spec = [
 	{
 		description: 'should handle selection before br',
 		html: 'a<br><br>b',
-		createRange: ( element ) => ( {
-			startOffset: 2,
-			startContainer: element,
-			endOffset: 2,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 2 );
+			range.setEnd( element, 2 );
+			return range;
+		},
 		startPath: [ 2, 0 ],
 		endPath: [ 2, 0 ],
 		record: {
@@ -422,12 +436,12 @@ export const spec = [
 	{
 		description: 'should remove padding',
 		html: ZWNBSP,
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 0, 0 ],
 		record: {
@@ -441,12 +455,12 @@ export const spec = [
 	{
 		description: 'should filter format boundary attributes',
 		html: '<strong data-rich-text-format-boundary="true">test</strong>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0, 0 ],
 		endPath: [ 0, 0, 4 ],
 		record: {
@@ -460,12 +474,12 @@ export const spec = [
 	{
 		description: 'should not error with overlapping formats (1)',
 		html: '<a href="#"><em>1</em><strong>2</strong></a>',
-		createRange: ( element ) => ( {
-			startOffset: 1,
-			startContainer: element.firstChild,
-			endOffset: 1,
-			endContainer: element.firstChild,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element.children[ 0 ], 1 );
+			range.setEnd( element.children[ 0 ], 1 );
+			return range;
+		},
 		startPath: [ 0, 0, 0, 1 ],
 		endPath: [ 0, 0, 0, 1 ],
 		record: {
@@ -482,12 +496,13 @@ export const spec = [
 	{
 		description: 'should not error with overlapping formats (2)',
 		html: '<em><a href="#">1</a></em><strong><a href="#">2</a></strong>',
-		createRange: ( element ) => ( {
-			startOffset: 1,
-			startContainer: element.firstChild,
-			endOffset: 1,
-			endContainer: element.firstChild,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			// TODO:: Unsure if these are the right element/node to pick
+			range.setStart( element.children[ 0 ], 1 );
+			range.setEnd( element.children[ 0 ], 1 );
+			return range;
+		},
 		startPath: [ 0, 0, 0, 1 ],
 		endPath: [ 0, 0, 0, 1 ],
 		record: {
@@ -504,12 +519,12 @@ export const spec = [
 	{
 		description: 'should disarm script',
 		html: '<script>alert("1")</script>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 0,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element.children[ 0 ], 0 );
+			range.setEnd( element.children[ 0 ], 0 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 0, 0 ],
 		record: {
@@ -528,12 +543,12 @@ export const spec = [
 	{
 		description: 'should disarm on* attribute',
 		html: '<img onerror="alert(\'1\')">',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 0,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element.children[ 0 ], 0 );
+			range.setEnd( element.children[ 0 ], 0 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 0, 0 ],
 		record: {
@@ -554,12 +569,12 @@ export const spec = [
 	{
 		description: 'should preserve comments',
 		html: '<!--comment-->',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 2, 0 ],
 		record: {
@@ -580,12 +595,12 @@ export const spec = [
 	{
 		description: 'should preserve funky comments',
 		html: '<//funky>',
-		createRange: ( element ) => ( {
-			startOffset: 0,
-			startContainer: element,
-			endOffset: 1,
-			endContainer: element,
-		} ),
+		createRange: ( element ) => {
+			const range = document.createRange();
+			range.setStart( element, 0 );
+			range.setEnd( element, 1 );
+			return range;
+		},
 		startPath: [ 0, 0 ],
 		endPath: [ 2, 0 ],
 		record: {
@@ -605,7 +620,16 @@ export const spec = [
 	},
 ];
 
-export const specWithRegistration = [
+type SpecWithRegistration = {
+	description: string;
+	formatName?: string;
+	formatType?: WPFormat;
+	html: string;
+	value: RichTextValue;
+	noToHTMLString?: boolean;
+};
+
+export const specWithRegistration: SpecWithRegistration[] = [
 	{
 		description: 'should create format by matching the class',
 		formatName: 'my-plugin/link',

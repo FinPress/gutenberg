@@ -23,7 +23,7 @@ export function insertObject(
 	startIndex?: number,
 	endIndex?: number
 ): RichTextValue {
-	const valueToInsert: Partial< RichTextValue > = {
+	const valueToInsert: RichTextValue = {
 		formats: [],
 		replacements: [ formatToInsert ],
 		text: OBJECT_REPLACEMENT_CHARACTER,

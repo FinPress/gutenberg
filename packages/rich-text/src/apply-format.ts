@@ -26,16 +26,21 @@ function replace< T >( array: T[], index: number, value: T ): T[] {
 export function applyFormat(
 	value: RichTextValue,
 	format: RichTextFormat,
-	startIndex: number = value.start,
-	endIndex: number = value.end
+	startIndex: number | undefined = value.start,
+	endIndex: number | undefined = value.end
 ): RichTextValue {
+	// TODO: This is copied from other files, doing the same check.
+	if ( startIndex === undefined || endIndex === undefined ) {
+		return { ...value };
+	}
+
 	const { formats, activeFormats } = value;
 	const newFormats = formats.slice();
 
 	// The selection is collapsed.
 	if ( startIndex === endIndex ) {
 		const startFormat = newFormats[ startIndex ]?.find(
-			( { type } ) => type === format.type
+			( newFormat ) => newFormat?.type === format.type
 		);
 
 		// If the caret is at a format of the same type, expand start and end to
@@ -76,7 +81,7 @@ export function applyFormat(
 		for ( let index = startIndex; index < endIndex; index++ ) {
 			if ( newFormats[ index ] ) {
 				newFormats[ index ] = newFormats[ index ].filter(
-					( { type } ) => type !== format.type
+					( newFormat ) => newFormat?.type !== format.type
 				);
 
 				const length = newFormats[ index ].length;

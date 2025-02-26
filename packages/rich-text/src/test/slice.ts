@@ -9,17 +9,18 @@ import deepFreeze from 'deep-freeze';
 
 import { slice } from '../slice';
 import { getSparseArrayLength } from './helpers';
+import type { RichTextValue } from '../types';
 
 describe( 'slice', () => {
 	const em = { type: 'em' };
 
 	it( 'should slice', () => {
-		const record = {
+		const record: RichTextValue = {
 			formats: [ , , , , [ em ], [ em ], [ em ], , , , , , , ],
 			replacements: [ , , , , , , , , , , , , , ],
 			text: 'one two three',
 		};
-		const expected = {
+		const expected: RichTextValue = {
 			formats: [ , [ em ], [ em ] ],
 			replacements: [ , , , ],
 			text: ' tw',
@@ -32,14 +33,14 @@ describe( 'slice', () => {
 	} );
 
 	it( 'should slice record', () => {
-		const record = {
+		const record: RichTextValue = {
 			formats: [ , , , , [ em ], [ em ], [ em ], , , , , , , ],
 			replacements: [ , , , , , , , , , , , , , ],
 			text: 'one two three',
 			start: 3,
 			end: 6,
 		};
-		const expected = {
+		const expected: RichTextValue = {
 			formats: [ , [ em ], [ em ] ],
 			replacements: [ , , , ],
 			text: ' tw',

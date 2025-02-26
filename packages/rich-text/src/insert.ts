@@ -22,8 +22,9 @@ import type { RichTextValue } from './types';
 export function insert(
 	value: RichTextValue,
 	valueToInsert: RichTextValue | string,
-	startIndex: number = value.start,
-	endIndex: number = value.end
+	// TODO: Unsure if values should be optional on RichTextValue
+	startIndex: number = value.start ?? 0,
+	endIndex: number = value.end ?? 0
 ): RichTextValue {
 	const { formats, replacements, text } = value;
 

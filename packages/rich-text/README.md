@@ -130,8 +130,8 @@ _Parameters_
 
 -   _value_ `RichTextValue`: Value to modify.
 -   _format_ `RichTextFormat`: Format to apply.
--   _startIndex_ `number`: Start index.
--   _endIndex_ `number`: End index.
+-   _startIndex_ `number | undefined`: Start index.
+-   _endIndex_ `number | undefined`: End index.
 
 _Returns_
 
@@ -266,9 +266,9 @@ Check if the selection of a Rich Text value is collapsed or not. Collapsed means
 
 _Parameters_
 
--   _props_ `RichTextValue`: The rich text value to check.
--   _props.start_ `RichTextValue[ 'start' ]`:
--   _props.end_ `RichTextValue[ 'end' ]`:
+-   _props_ `{ start?: number; end?: number; }`: The rich text value to check.
+-   _props.start_ `number`:
+-   _props.end_ `number`:
 
 _Returns_
 
@@ -379,8 +379,8 @@ Slice a Rich Text value from `startIndex` to `endIndex`. Indices are retrieved f
 _Parameters_
 
 -   _value_ `RichTextValue`: Value to modify.
--   _startIndex_ `number`: Start index.
--   _endIndex_ `number`: End index.
+-   _startIndex_ `number | undefined`: Start index.
+-   _endIndex_ `number | undefined`: End index.
 
 _Returns_
 
