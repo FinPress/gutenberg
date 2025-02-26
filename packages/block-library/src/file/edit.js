@@ -34,7 +34,11 @@ import { store as noticesStore } from '@wordpress/notices';
  * Internal dependencies
  */
 import FileBlockInspector from './inspector';
-import { browserSupportsPdfs } from './utils';
+import {
+	browserSupportsPdfs,
+	getFileExtension,
+	removeExtensionFromFile,
+} from './utils';
 import removeAnchorTag from '../utils/remove-anchor-tag';
 import { useUploadMediaFromBlobURL } from '../utils/hooks';
 
@@ -73,6 +77,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		displayPreview,
 		previewHeight,
 		showFileType,
+		fileType,
 	} = attributes;
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
 	const { media } = useSelect(
@@ -84,8 +89,6 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		} ),
 		[ id ]
 	);
-
-	const fileType = media?.mime_type?.split( '/' )[ 1 ];
 
 	const { createErrorNotice } = useDispatch( noticesStore );
 	const { toggleSelection, __unstableMarkNextChangeAsNotPersistent } =
@@ -138,6 +141,8 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 			previewHeight: isPdf ? attributes.previewHeight ?? 600 : undefined,
 		};
 
+		const newFileType = getFileExtension( newMedia?.filename );
+
 		setAttributes( {
 			href: newMedia.url,
 			fileName: newMedia.title,
@@ -145,6 +150,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 			id: newMedia.id,
 			fileId: `wp-block-file--media-${ clientId }`,
 			blob: undefined,
+			fileType: newFileType,
 			...pdfAttributes,
 		} );
 		setTemporaryURL();
@@ -171,7 +177,15 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 	}
 
 	function changeShowFileType( newValue ) {
-		setAttributes( { showFileType: newValue } );
+		let updatedFileName = fileName;
+
+		if ( ! newValue ) {
+			updatedFileName = removeExtensionFromFile( fileName );
+		} else if ( ! fileName.endsWith( `.${ fileType }` ) ) {
+			updatedFileName = `${ fileName }.${ fileType }`;
+		}
+
+		setAttributes( { showFileType: newValue, fileName: updatedFileName } );
 	}
 
 	function changeDisplayPreview( newValue ) {
@@ -301,11 +315,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 					<RichText
 						identifier="fileName"
 						tagName="a"
-						value={
-							showFileType
-								? `${ fileName }.${ fileType }`
-								: fileName
-						}
+						value={ fileName }
 						placeholder={ __( 'Write file name…' ) }
 						withoutInteractiveFormatting
 						onChange={ ( text ) =>

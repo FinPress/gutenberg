@@ -54,3 +54,25 @@ const createActiveXObject = ( type ) => {
 	}
 	return ax;
 };
+
+/**
+ * Returns the file extension from a given file name
+ *
+ * @param {string} file The name of the file.
+ * @return {string|null} File extension or null if it does not have one.
+ */
+export function getFileExtension( file ) {
+	return file.includes( '.' ) ? file.split( '.' ).pop() || null : null;
+}
+
+/**
+ * Returns the file name from a given file name
+ *
+ * @param {string} file The name of the file.
+ * @return {string|null} File name without the extension
+ */
+export function removeExtensionFromFile( file ) {
+	return file.includes( '.' )
+		? file.substring( 0, file.lastIndexOf( '.' ) )
+		: file;
+}
