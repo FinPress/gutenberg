@@ -379,6 +379,7 @@ function Layout( {
 	const {
 		mode,
 		isFullscreenActive,
+		hasResolvedMode,
 		hasActiveMetaboxes,
 		hasBlockSelected,
 		showIconLabels,
@@ -404,18 +405,25 @@ function Layout( {
 			} );
 			const { isZoomOut } = unlock( select( blockEditorStore ) );
 			const { getEditorMode, getRenderingMode } = select( editorStore );
+			const { getDefaultRenderingMode } = unlock( select( editorStore ) );
 			const isRenderingPostOnly = getRenderingMode() === 'post-only';
 			const isNotDesignPostType =
 				! DESIGN_POST_TYPES.includes( currentPostType );
 			const isDirectlyEditingPattern =
 				currentPostType === 'wp_block' &&
 				! onNavigateToPreviousEntityRecord;
+			const _templateId = getTemplateId( currentPostType, currentPostId );
+			const defaultMode = getDefaultRenderingMode( currentPostType );
 
 			return {
 				mode: getEditorMode(),
 				isFullscreenActive:
 					select( editPostStore ).isFeatureActive( 'fullscreenMode' ),
 				hasActiveMetaboxes: select( editPostStore ).hasMetaBoxes(),
+				hasResolvedMode:
+					defaultMode === 'template-locked'
+						? !! _templateId
+						: defaultMode !== undefined,
 				hasBlockSelected:
 					!! select( blockEditorStore ).getBlockSelectionStart(),
 				showIconLabels: get( 'core', 'showIconLabels' ),
@@ -429,7 +437,7 @@ function Layout( {
 					isViewable &&
 					canViewTemplate &&
 					! isEditingTemplate
-						? getTemplateId( currentPostType, currentPostId )
+						? _templateId
 						: null,
 				enablePaddingAppender:
 					! isZoomOut() && isRenderingPostOnly && isNotDesignPostType,
@@ -443,7 +451,8 @@ function Layout( {
 			onNavigateToPreviousEntityRecord,
 		]
 	);
-	useMetaBoxInitialization( hasActiveMetaboxes );
+
+	useMetaBoxInitialization( hasActiveMetaboxes && hasResolvedMode );
 
 	const [ paddingAppenderRef, paddingStyle ] = usePaddingAppender(
 		enablePaddingAppender
