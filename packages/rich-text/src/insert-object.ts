@@ -24,7 +24,7 @@ export function insertObject(
 	endIndex?: number
 ): RichTextValue {
 	const valueToInsert: RichTextValue = {
-		formats: [],
+		formats: [ , ],
 		replacements: [ formatToInsert ],
 		text: OBJECT_REPLACEMENT_CHARACTER,
 	};

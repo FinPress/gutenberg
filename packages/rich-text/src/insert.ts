@@ -22,11 +22,14 @@ import type { RichTextValue } from './types';
 export function insert(
 	value: RichTextValue,
 	valueToInsert: RichTextValue | string,
-	// TODO: Unsure if values should be optional on RichTextValue
-	startIndex: number = value.start ?? 0,
-	endIndex: number = value.end ?? 0
+	startIndex: number | undefined = value.start,
+	endIndex: number | undefined = value.end
 ): RichTextValue {
 	const { formats, replacements, text } = value;
+
+	if ( startIndex === undefined || endIndex === undefined ) {
+		return { ...value };
+	}
 
 	if ( typeof valueToInsert === 'string' ) {
 		valueToInsert = create( { text: valueToInsert } );

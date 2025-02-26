@@ -7,16 +7,17 @@ import { registerFormatType } from '../register-format-type';
 import { unregisterFormatType } from '../unregister-format-type';
 import { specWithRegistration } from './helpers';
 
-function createNode( HTML: string ) {
+// TODO: This is a temporary function to create an HTMLElement from a string.
+function createNode( HTML: string ): HTMLElement {
 	const doc = document.implementation.createHTMLDocument( '' );
 	doc.body.innerHTML = HTML;
-	return doc.body.firstChild;
+	return doc.body.firstChild as HTMLElement;
 }
 
-// function createElement( HTML: string ): HTMLElement {
-// 	const doc = document.implementation.createHTMLDocument( '' );
-// 	doc.body.innerHTML = HTML;
-// 	return doc.body.children.item( 0 ) as HTMLElement;
+// function createElement( htmlString: string ): HTMLElement {
+// 	const template = document.createElement( 'div' );
+// 	template.innerHTML = htmlString;
+// 	return template.firstElementChild as HTMLElement;
 // }
 
 describe( 'toHTMLString', () => {

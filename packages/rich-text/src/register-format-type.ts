@@ -18,8 +18,12 @@ import type { WPFormat } from './types';
  */
 export function registerFormatType(
 	name: string,
-	settings: WPFormat // TODO: Should we omit name from WPFormat?
+	settings: WPFormat | undefined
 ): WPFormat | undefined {
+	if ( settings === undefined ) {
+		return undefined;
+	}
+
 	settings = {
 		// @ts-ignore Overriding is expected
 		name, // TODO: Is this hiding a bug?

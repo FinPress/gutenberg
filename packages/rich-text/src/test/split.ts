@@ -37,6 +37,7 @@ describe( 'split', () => {
 			},
 		];
 		// TODO: These were taking too many parameters
+		// const result = split( deepFreeze( record ), 6, 6 );
 		const result = split( deepFreeze( record ), 6 );
 
 		expect( result ).toEqual( expected );
@@ -70,6 +71,7 @@ describe( 'split', () => {
 				end: 0,
 			},
 		];
+		// TODO: This wasn't taking any parameters
 		const result = split( deepFreeze( record ) );
 
 		expect( result ).toEqual( expected );
@@ -103,6 +105,7 @@ describe( 'split', () => {
 				end: 0,
 			},
 		];
+		// TODO: This wasn't taking any parameters
 		const result = split( deepFreeze( record ) );
 
 		expect( result ).toEqual( expected );
@@ -234,6 +237,7 @@ describe( 'split', () => {
 			replacements: [],
 			text: '',
 		};
+		// TODO: This wasn't taking any parameters
 		expect( split( deepFreeze( record ) ) ).toBe( undefined );
 	} );
 } );

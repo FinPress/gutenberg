@@ -30,7 +30,7 @@ export type RichTextFormatList = Array< RichTextFormat >;
  */
 export type RichTextValue = {
 	text: string;
-	formats: Array< RichTextFormatList | undefined >;
+	formats: Array< RichTextFormatList | any >; // TODO: using any to cover undefined case, which fixes types in create.ts, Array.from
 	replacements: Array< RichTextFormat | undefined >;
 	// TODO: Should these really be optional?
 	start?: number;

@@ -19,7 +19,7 @@ import type { WPFormat } from './types';
  *         otherwise `undefined`.
  */
 export function unregisterFormatType( name: string ): WPFormat | undefined {
-	// @ts-ignore No typing on the store
+	// @ts-expect-error No typing on the store
 	const oldFormat = select( richTextStore ).getFormatType( name );
 
 	if ( ! oldFormat ) {
@@ -27,7 +27,7 @@ export function unregisterFormatType( name: string ): WPFormat | undefined {
 		return;
 	}
 
-	// @ts-ignore No typing on the store
+	// @ts-expect-error No typing on the store
 	dispatch( richTextStore ).removeFormatTypes( name );
 
 	return oldFormat;

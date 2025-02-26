@@ -19,13 +19,12 @@ import type { RichTextValue } from './types';
  */
 export function split(
 	{ formats, replacements, text, start, end }: RichTextValue,
-	string?: number | string
+	string: number | string
 ): Array< RichTextValue > | undefined {
 	if ( typeof string !== 'string' ) {
 		return splitAtSelection(
 			{ formats, replacements, text, start, end },
-			string as number,
-			end
+			string
 		);
 	}
 

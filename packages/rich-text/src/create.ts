@@ -676,7 +676,7 @@ function createFromElement( {
 		} else {
 			// Indices should share a reference to the same formats array.
 			// Only create a new reference if `formats` changes.
-			function mergeFormats( formats: any[] ) {
+			const mergeFormats = ( formats: any[] ) => {
 				if ( mergeFormats.formats === formats ) {
 					return mergeFormats.newFormats;
 				}
@@ -689,7 +689,7 @@ function createFromElement( {
 				mergeFormats.newFormats = newFormats;
 
 				return newFormats;
-			}
+			};
 
 			// Since the formats parameter can be `undefined`, preset
 			// `mergeFormats` with a new reference.

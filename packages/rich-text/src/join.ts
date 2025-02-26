@@ -31,8 +31,6 @@ export function join(
 				replacements
 			),
 			text: accumulator.text + separator.text + text,
-			start: accumulator.start, // TODO: Unsure about this
-			end: accumulator.end, // TODO: Unsure about this
 		} ) )
 	);
 }
