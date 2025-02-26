@@ -210,7 +210,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 			[ post.type, hasTemplate ]
 		);
 
-		const shouldRenderTemplate = !! template && mode !== 'post-only';
+		const shouldRenderTemplate = hasTemplate && mode !== 'post-only';
 		const rootLevelPost = shouldRenderTemplate ? template : post;
 		const defaultBlockContext = useMemo( () => {
 			const postContext = {};
@@ -327,7 +327,9 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 
 		// Sets the right rendering mode when loading the editor.
 		useEffect( () => {
-			setRenderingMode( defaultMode );
+			if ( defaultMode ) {
+				setRenderingMode( defaultMode );
+			}
 		}, [ defaultMode, setRenderingMode ] );
 
 		useHideBlocksFromInserter( post.type, mode );
