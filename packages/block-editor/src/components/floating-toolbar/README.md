@@ -27,7 +27,9 @@ const MyBlock = () => (
             onNavigateUp={ () => {} }
             isRTL={ false }
         >
-            <button>Hello World</button>
+            <button>
+                { __( 'Button' ) }
+            </button>
         </FloatingToolbar>
     </div>
 );
