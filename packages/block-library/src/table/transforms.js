@@ -8,6 +8,25 @@ import { createBlock } from '@wordpress/blocks';
  */
 import { normalizeRowColSpan } from './utils';
 
+/**
+ * Extracts text alignment from a style attribute string.
+ *
+ * @param {string} styleAttr The style attribute string.
+ * @return {string|undefined} The alignment ('left', 'right', 'center', or undefined).
+ */
+const getAlignmentFromStyle = ( styleAttr ) => {
+	if ( ! styleAttr ) {
+		return undefined;
+	}
+
+	const alignMatch = styleAttr.match( /text-align:\s*(\w+)/i );
+	if ( alignMatch && alignMatch[ 1 ] ) {
+		return alignMatch[ 1 ].toLowerCase();
+	}
+
+	return undefined;
+};
+
 const tableContentPasteSchema = ( { phrasingContentSchema } ) => ( {
 	tr: {
 		allowEmpty: true,
@@ -15,12 +34,12 @@ const tableContentPasteSchema = ( { phrasingContentSchema } ) => ( {
 			th: {
 				allowEmpty: true,
 				children: phrasingContentSchema,
-				attributes: [ 'scope', 'colspan', 'rowspan' ],
+				attributes: [ 'scope', 'colspan', 'rowspan', 'style' ],
 			},
 			td: {
 				allowEmpty: true,
 				children: phrasingContentSchema,
-				attributes: [ 'colspan', 'rowspan' ],
+				attributes: [ 'colspan', 'rowspan', 'style' ],
 			},
 		},
 	},
@@ -79,11 +98,16 @@ const transforms = {
 									col.getAttribute( 'colspan' )
 								);
 
+								const styleAttr = col.getAttribute( 'style' );
+								const align =
+									getAlignmentFromStyle( styleAttr );
+
 								colAcc.push( {
 									tag: col.nodeName.toLowerCase(),
 									content: col.innerHTML,
 									rowspan,
 									colspan,
+									align,
 								} );
 
 								return colAcc;
