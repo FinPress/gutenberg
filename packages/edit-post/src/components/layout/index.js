@@ -391,7 +391,7 @@ function Layout( {
 	} = useSelect(
 		( select ) => {
 			const { get } = select( preferencesStore );
-			const { isFeatureActive } = select( editPostStore );
+			const { isFeatureActive, hasMetaBoxes } = select( editPostStore );
 			const { canUser, getPostType, getTemplateId } = unlock(
 				select( coreStore )
 			);
@@ -403,9 +403,11 @@ function Layout( {
 				kind: 'postType',
 				name: 'wp_template',
 			} );
-			const { isZoomOut } = unlock( select( blockEditorStore ) );
-			const { getEditorMode, getRenderingMode } = select( editorStore );
-			const { getDefaultRenderingMode } = unlock( select( editorStore ) );
+			const { getBlockSelectionStart, isZoomOut } = unlock(
+				select( blockEditorStore )
+			);
+			const { getEditorMode, getRenderingMode, getDefaultRenderingMode } =
+				unlock( select( editorStore ) );
 			const isRenderingPostOnly = getRenderingMode() === 'post-only';
 			const isNotDesignPostType =
 				! DESIGN_POST_TYPES.includes( currentPostType );
@@ -417,15 +419,13 @@ function Layout( {
 
 			return {
 				mode: getEditorMode(),
-				isFullscreenActive:
-					select( editPostStore ).isFeatureActive( 'fullscreenMode' ),
-				hasActiveMetaboxes: select( editPostStore ).hasMetaBoxes(),
+				isFullscreenActive: isFeatureActive( 'fullscreenMode' ),
+				hasActiveMetaboxes: hasMetaBoxes(),
 				hasResolvedMode:
 					defaultMode === 'template-locked'
 						? !! _templateId
 						: defaultMode !== undefined,
-				hasBlockSelected:
-					!! select( blockEditorStore ).getBlockSelectionStart(),
+				hasBlockSelected: !! getBlockSelectionStart(),
 				showIconLabels: get( 'core', 'showIconLabels' ),
 				isDistractionFree: get( 'core', 'distractionFree' ),
 				showMetaBoxes:
