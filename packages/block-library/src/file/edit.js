@@ -121,7 +121,6 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 				fileId: undefined,
 				displayPreview: undefined,
 				previewHeight: undefined,
-				fileSize: undefined,
 			} );
 			setTemporaryURL();
 			return;
@@ -317,11 +316,11 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 						value={ fileName }
 						placeholder={ __( 'Write file name…' ) }
 						withoutInteractiveFormatting
-						onChange={ ( text ) => {
+						onChange={ ( text ) =>
 							setAttributes( {
 								fileName: removeAnchorTag( text ),
-							} );
-						} }
+							} )
+						}
 						href={ textLinkHref }
 					/>
 					{ showDownloadButton && (
