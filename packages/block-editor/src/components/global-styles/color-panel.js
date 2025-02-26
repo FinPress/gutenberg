@@ -735,6 +735,31 @@ export default function ColorPanel( {
 		</div>
 	);
 
+	const hasLinkAndBackgroundColor =
+		linkColor && ( backgroundColor || gradient );
+
+	const linkBackgroundContrastChecker = hasLinkAndBackgroundColor && (
+		<div className="block-editor-panel-color-gradient-settings__contrast-checker">
+			<ContrastChecker
+				textColor={ linkColor }
+				backgroundColor={ backgroundColor || gradient }
+			/>
+		</div>
+	);
+
+	const hasHoverLinkAndBackgroundColor =
+		hoverLinkColor && ( backgroundColor || gradient );
+
+	const hoverLinkBackgroundContrastChecker =
+		hasHoverLinkAndBackgroundColor && (
+			<div className="block-editor-panel-color-gradient-settings__contrast-checker">
+				<ContrastChecker
+					textColor={ hoverLinkColor }
+					backgroundColor={ backgroundColor || gradient }
+				/>
+			</div>
+		);
+
 	const elementContrastCheckers = elements
 		.map( ( { name } ) => {
 			const elementTextColor = decodeValue(
@@ -791,7 +816,8 @@ export default function ColorPanel( {
 				);
 			} ) }
 			{ textBackgroundContrastChecker }
-
+			{ linkBackgroundContrastChecker }
+			{ hoverLinkBackgroundContrastChecker }
 			{ elementContrastCheckers }
 
 			{ children }
