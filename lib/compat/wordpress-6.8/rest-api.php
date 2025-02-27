@@ -48,7 +48,7 @@ function gutenberg_add_templates_default_data_to_index( WP_REST_Response $respon
 
 	$default_template_types = array();
 	foreach ( (array) get_default_block_template_types() as $slug => $template_type ) {
-		$template_type['slug'] = (string) $slug;
+		$template_type['slug']    = (string) $slug;
 		$default_template_types[] = $template_type;
 	}
 
