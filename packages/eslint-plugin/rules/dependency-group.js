@@ -254,6 +254,120 @@ module.exports = {
 						},
 					} );
 				}
+
+				/** @type {Record<WPPackageLocality, Array<[Node, string]>>} */
+				const groups = {
+					WordPress: [],
+					External: [],
+					Internal: [],
+				};
+
+				for ( const [ importNode, source ] of candidates ) {
+					const locality = getPackageLocality( source );
+					groups[ locality ].push( [ importNode, source ] );
+				}
+
+				let needsReordering = false;
+				for ( const [ importNode, source ] of candidates ) {
+					// Skip if no range available
+					if ( ! importNode.range ) {
+						continue;
+					}
+
+					const locality = getPackageLocality( source );
+					const importStart = importNode.range[ 0 ];
+
+					const isNotGrouped = candidates.some(
+						( [ otherNode, otherSource ] ) => {
+							if (
+								importNode === otherNode ||
+								! otherNode.range
+							) {
+								return false;
+							}
+
+							const otherLocality =
+								getPackageLocality( otherSource );
+							const otherStart = otherNode.range[ 0 ];
+
+							return candidates.some(
+								( [ middleNode, middleSource ] ) => {
+									if (
+										! middleNode.range ||
+										middleNode === importNode ||
+										middleNode === otherNode
+									) {
+										return false;
+									}
+
+									const middleLocality =
+										getPackageLocality( middleSource );
+									const middleStart = middleNode.range[ 0 ];
+
+									return (
+										locality === otherLocality &&
+										middleLocality !== locality &&
+										middleStart > importStart &&
+										middleStart < otherStart
+									);
+								}
+							);
+						}
+					);
+
+					if ( isNotGrouped ) {
+						needsReordering = true;
+						break;
+					}
+				}
+
+				if ( needsReordering && candidates.length > 0 ) {
+					const firstImport = candidates[ 0 ][ 0 ];
+					const lastImport = candidates[ candidates.length - 1 ][ 0 ];
+
+					// Early return if ranges are not available
+					if ( ! firstImport.range || ! lastImport.range ) {
+						return;
+					}
+
+					// TypeScript now knows these ranges exist
+					const startRange = firstImport.range;
+					const endRange = lastImport.range;
+
+					context.report( {
+						node: firstImport,
+						message: 'Dependencies should be properly grouped',
+						fix( fixer ) {
+							let newText = '';
+							/** @type {Array<WPPackageLocality>} */
+							const localities = [
+								'WordPress',
+								'External',
+								'Internal',
+							];
+
+							for ( const locality of localities ) {
+								if ( groups[ locality ].length > 0 ) {
+									newText += `/**\n * ${ locality } dependencies\n */\n`;
+									for ( const [ importNode ] of groups[
+										locality
+									] ) {
+										newText +=
+											context
+												.getSourceCode()
+												.getText( importNode ) + '\n';
+									}
+									newText += '\n';
+								}
+							}
+
+							return fixer.replaceTextRange(
+								[ startRange[ 0 ], endRange[ 1 ] ],
+								newText.trim()
+							);
+						},
+					} );
+				}
 			},
 		};
 	},
