@@ -59,6 +59,9 @@ figure.wp-block-image:not(.wp-block) {
 		width: inherit;
 		height: inherit;
 	}
+
+	max-width: inherit !important;
+	max-height: inherit !important;
 }
 
 .block-editor-block-list__block[data-type="core/image"] .block-editor-block-toolbar .block-editor-url-input__button-modal {
