@@ -41,7 +41,7 @@ add_action(
  * @param WP_REST_Response $response REST API response.
  * @return WP_REST_Response Modified REST API response.
  */
-function gutenberg_add_template_defaults_to_index( WP_REST_Response $response ) {
+function gutenberg_add_templates_default_data_to_index( WP_REST_Response $response ) {
 	if ( ! is_user_logged_in() ) {
 		return $response;
 	}
@@ -57,7 +57,7 @@ function gutenberg_add_template_defaults_to_index( WP_REST_Response $response ) 
 
 	return $response;
 }
-add_filter( 'rest_index', 'gutenberg_add_template_defaults_to_index' );
+add_filter( 'rest_index', 'gutenberg_add_templates_default_data_to_index' );
 
 /**
  * Adds the site reading options to the REST API index.
