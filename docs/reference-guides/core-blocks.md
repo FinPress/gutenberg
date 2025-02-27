@@ -805,6 +805,14 @@ Displays the link of a post, page, or any other content-type. ([Source](https://
 -	**Supports:** color (background, gradients, text), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** content, linkTarget
 
+## Read Progress
+
+Display a read progress. Useful for tracking read progress. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/read-progress))
+
+-	**Name:** core/read-progress
+-	**Category:** theme
+-	**Supports:** ~~html~~
+
 ## RSS
 
 Display entries from any RSS or Atom feed. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/rss))

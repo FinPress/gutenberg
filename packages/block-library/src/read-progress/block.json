@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "core/read-progress",
+	"category": "theme",
+	"title": "Read Progress",
+	"description": "Display a read progress. Useful for tracking read progress.",
+	"textdomain": "default",
+	"supports": {
+		"html": false
+	},
+	"style": "wp-block-read-progress"
+}

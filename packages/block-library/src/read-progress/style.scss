@@ -1,0 +1,57 @@
+@keyframes grow-progress {
+	from {
+		transform: scaleX(0);
+	}
+	to {
+		transform: scaleX(1);
+	}
+}
+
+.wp-block-read-progress {
+	&__container {
+		width: 100%;
+	}
+
+	&__read-bar {
+		width: 100%;
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 1000;
+
+		.admin-bar & {
+			top: 32px;
+
+			@media screen and (max-width: 779px) {
+				top: 46px;
+			}
+
+			@media screen and (max-width: 594px) {
+				top: 0;
+			}
+		}
+	}
+
+	&__progress-style {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		transform-origin: 0 50%;
+		animation: grow-progress auto linear;
+		z-index: 1000;
+		animation-timeline: scroll() !important;
+
+		.admin-bar & {
+			top: 32px;
+
+			@media screen and (max-width: 779px) {
+				top: 46px;
+			}
+
+			@media screen and (max-width: 594px) {
+				top: 0;
+			}
+		}
+	}
+}
