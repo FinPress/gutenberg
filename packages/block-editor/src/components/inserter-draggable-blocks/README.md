@@ -20,7 +20,14 @@ Renders a list of draggable blocks that can be inserted into the editor.
 import { InserterDraggableBlocks } from '@wordpress/block-editor';
 
 const MyInserterDraggableBlocks = () => (
-    <InserterDraggableBlocks />
+    return (
+        <InserterDraggableBlocks
+            blocks={ blocks }
+            icon={ icon }
+            isEnabled={ isEnabled }
+            pattern={ pattern }
+        />
+    );
 );
 ```
 
