@@ -96,7 +96,6 @@ const ResizableAvatar = ( {
 			s: attributes?.size * 2,
 		}
 	);
-
 	return (
 		<div { ...blockProps }>
 			<AvatarLinkWrapper isLink={ attributes.isLink }>
