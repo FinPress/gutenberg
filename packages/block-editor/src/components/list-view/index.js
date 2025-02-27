@@ -77,7 +77,7 @@ export const BLOCK_LIST_ITEM_HEIGHT = 32;
  * @param {Array}          props.blocks                 _deprecated_ Custom subset of block client IDs to be used instead of the default hierarchy.
  * @param {?HTMLElement}   props.dropZoneElement        Optional element to be used as the drop zone.
  * @param {?boolean}       props.showBlockMovers        Flag to enable block movers. Defaults to `false`.
- * @param {?boolean}       props.isExpanded             Flag to determine whether nested levels are expanded by default. Defaults to `false`.
+ * @param {?boolean}       props.isExpanded             Flag to determine whether nested levels are expanded by default. Defaults to `true`.
  * @param {?boolean}       props.showAppender           Flag to show or hide the block appender. Defaults to `false`.
  * @param {?ComponentType} props.blockSettingsMenu      Optional more menu substitution. Defaults to the standard `BlockSettingsDropdown` component.
  * @param {string}         props.rootClientId           The client id of the root block from which we determine the blocks to show in the list.
