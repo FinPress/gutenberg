@@ -208,6 +208,27 @@ module.exports = {
 			return false;
 		}
 
+		/**
+		 * Groups imports by their locality type
+		 * @param {Array<[Node, string]>} candidates
+		 * @return {Record<WPPackageLocality, Array<[Node, string]>>} Grouped imports
+		 */
+		function groupImportsByLocality( candidates ) {
+			/** @type {Record<WPPackageLocality, Array<[Node, string]>>} */
+			const groups = {
+				WordPress: [],
+				External: [],
+				Internal: [],
+			};
+
+			for ( const [ importNode, source ] of candidates ) {
+				const locality = getPackageLocality( source );
+				groups[ locality ].push( [ importNode, source ] );
+			}
+
+			return groups;
+		}
+
 		return {
 			/**
 			 * @param {import('estree').Program} node Program node.
@@ -311,18 +332,6 @@ module.exports = {
 					} );
 				}
 
-				/** @type {Record<WPPackageLocality, Array<[Node, string]>>} */
-				const groups = {
-					WordPress: [],
-					External: [],
-					Internal: [],
-				};
-
-				for ( const [ importNode, source ] of candidates ) {
-					const locality = getPackageLocality( source );
-					groups[ locality ].push( [ importNode, source ] );
-				}
-
 				const needsReordering = checkNeedsReordering( candidates );
 
 				if ( needsReordering && candidates.length > 0 ) {
@@ -349,6 +358,8 @@ module.exports = {
 								'External',
 								'Internal',
 							];
+
+							const groups = groupImportsByLocality( candidates );
 
 							for ( const locality of localities ) {
 								if ( groups[ locality ].length > 0 ) {
