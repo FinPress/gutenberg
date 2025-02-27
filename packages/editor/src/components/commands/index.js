@@ -322,7 +322,9 @@ const getSiteEditorCategoryCommands = () =>
 		const commands = [];
 
 		// Check if we are in the Site Editor and editing a category-related template
-		const isSiteEditor = window.location.href.includes( 'site-editor.php' );
+		const isSiteEditor = getPath( window.location.href )?.includes(
+			'site-editor.php'
+		);
 		if ( isSiteEditor && templateSlug ) {
 			const isCategoryTemplate =
 				templateSlug.includes( 'category' ) ||
