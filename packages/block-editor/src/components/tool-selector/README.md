@@ -14,6 +14,9 @@ The `ToolSelector` component is a toolbar component that allows user to choose b
 Render the `ToolSelector` component within the `BlockEditorProvider` component.
 
 ```jsx
+import { NavigableToolbar, ToolSelector } from '@wordpress/block-editor';
+import { ToolbarButton, ToolbarItem } from '@wordpress/components';
+
 const MyCustomToolbar = () => {
 	return (
 		<NavigationToolbar>
