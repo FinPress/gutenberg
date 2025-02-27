@@ -126,3 +126,17 @@ export function unregisterShortcut( name ) {
 		name,
 	};
 }
+
+/**
+ * Returns an action object used to toggle keyboard shortcuts on or off.
+ *
+ * @param {boolean} areShortcutsEnabled True to enable shortcuts, false to disable.
+ *
+ * @return {Object} action.
+ */
+export function toggleShortcutsEnabled( areShortcutsEnabled ) {
+	return {
+		type: 'TOGGLE_SHORTCUTS_ENABLED',
+		areShortcutsEnabled,
+	};
+}

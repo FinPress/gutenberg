@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { Modal } from '@wordpress/components';
+import { Modal, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import {
 	useShortcut,
@@ -104,6 +104,13 @@ function KeyboardShortcutHelpModal() {
 			openModal( KEYBOARD_SHORTCUT_HELP_MODAL_NAME );
 		}
 	};
+
+	const { toggleShortcutsEnabled } = useDispatch( keyboardShortcutsStore );
+	const shortcutsEnabled = useSelect(
+		( select ) => select( keyboardShortcutsStore ).areShortcutsEnabled(),
+		[]
+	);
+
 	useShortcut( 'core/editor/keyboard-shortcuts', toggleModal );
 
 	if ( ! isModalActive ) {
@@ -117,6 +124,22 @@ function KeyboardShortcutHelpModal() {
 			closeButtonLabel={ __( 'Close' ) }
 			onRequestClose={ toggleModal }
 		>
+			<div className="editor-keyboard-shortcut-help-modal__toggle">
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Enable keyboard shortcuts' ) }
+					checked={ shortcutsEnabled }
+					onChange={ () =>
+						toggleShortcutsEnabled( ! shortcutsEnabled )
+					}
+					help={
+						shortcutsEnabled
+							? __( 'Keyboard shortcuts are enabled.' )
+							: __( 'Keyboard shortcuts are disabled.' )
+					}
+				/>
+			</div>
+
 			<ShortcutSection
 				className="editor-keyboard-shortcut-help-modal__main-shortcuts"
 				shortcuts={ [ 'core/editor/keyboard-shortcuts' ] }

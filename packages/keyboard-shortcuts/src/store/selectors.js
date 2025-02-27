@@ -96,7 +96,9 @@ function getKeyCombinationRepresentation( shortcut, representation ) {
  * @return {WPShortcutKeyCombination?} Key combination.
  */
 export function getShortcutKeyCombination( state, name ) {
-	return state[ name ] ? state[ name ].keyCombination : null;
+	return state.registeredShortcuts[ name ]
+		? state.registeredShortcuts[ name ].keyCombination
+		: null;
 }
 
 /**
@@ -175,7 +177,9 @@ export function getShortcutRepresentation(
  * @return {?string} Shortcut description.
  */
 export function getShortcutDescription( state, name ) {
-	return state[ name ] ? state[ name ].description : null;
+	return state.registeredShortcuts[ name ]
+		? state.registeredShortcuts[ name ].description
+		: null;
 }
 
 /**
@@ -225,8 +229,9 @@ export function getShortcutDescription( state, name ) {
  * @return {WPShortcutKeyCombination[]} Key combinations.
  */
 export function getShortcutAliases( state, name ) {
-	return state[ name ] && state[ name ].aliases
-		? state[ name ].aliases
+	return state.registeredShortcuts[ name ] &&
+		state.registeredShortcuts[ name ].aliases
+		? state.registeredShortcuts[ name ].aliases
 		: EMPTY_ARRAY;
 }
 
@@ -286,7 +291,7 @@ export const getAllShortcutKeyCombinations = createSelector(
 			...getShortcutAliases( state, name ),
 		].filter( Boolean );
 	},
-	( state, name ) => [ state[ name ] ]
+	( state, name ) => [ state.registeredShortcuts[ name ] ]
 );
 
 /**
@@ -345,7 +350,7 @@ export const getAllShortcutRawKeyCombinations = createSelector(
 				getKeyCombinationRepresentation( combination, 'raw' )
 		);
 	},
-	( state, name ) => [ state[ name ] ]
+	( state, name ) => [ state.registeredShortcuts[ name ] ]
 );
 
 /**
@@ -383,9 +388,41 @@ export const getAllShortcutRawKeyCombinations = createSelector(
  */
 export const getCategoryShortcuts = createSelector(
 	( state, categoryName ) => {
-		return Object.entries( state )
+		return Object.entries( state.registeredShortcuts )
 			.filter( ( [ , shortcut ] ) => shortcut.category === categoryName )
 			.map( ( [ name ] ) => name );
 	},
-	( state ) => [ state ]
+	( state ) => [ state.registeredShortcuts ]
 );
+
+/**
+ * Returns whether keyboard shortcuts are enabled.
+ *
+ * @param {Object} state Global state.
+ *
+ * @example
+ *
+ *```js
+ * import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
+ * import { useSelect } from '@wordpress/data';
+ * import { __ } from '@wordpress/i18n';
+ *
+ * const ExampleComponent = () => {
+ *     const shortcutsEnabled = useSelect(
+ *         ( select ) =>
+ *             select( keyboardShortcutsStore ).areShortcutsEnabled(),
+ *         []
+ *     );
+ *
+ *     return shortcutsEnabled ? (
+ *         <div>{ __( 'Shortcuts enabled.' ) }</div>
+ *     ) : (
+ *         <div>{ __( 'Shortcuts disabled.' ) }</div>
+ *     );
+ * };
+ *```
+ * @return {boolean} Whether shortcuts are enabled.
+ */
+export function areShortcutsEnabled( state ) {
+	return state.shortcutsEnabled;
+}

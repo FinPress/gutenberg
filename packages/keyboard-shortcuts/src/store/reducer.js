@@ -1,4 +1,9 @@
 /**
+ * WordPress dependencies
+ */
+import { combineReducers } from '@wordpress/data';
+
+/**
  * Reducer returning the registered shortcuts
  *
  * @param {Object} state  Current state.
@@ -6,7 +11,7 @@
  *
  * @return {Object} Updated state.
  */
-function reducer( state = {}, action ) {
+function registeredShortcuts( state = {}, action ) {
 	switch ( action.type ) {
 		case 'REGISTER_SHORTCUT':
 			return {
@@ -26,4 +31,24 @@ function reducer( state = {}, action ) {
 	return state;
 }
 
-export default reducer;
+/**
+ * Reducer returning whether shortcuts are enabled.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {boolean} Updated state.
+ */
+function shortcutsEnabled( state = true, action ) {
+	switch ( action.type ) {
+		case 'TOGGLE_SHORTCUTS_ENABLED':
+			return action.areShortcutsEnabled;
+	}
+
+	return state;
+}
+
+export default combineReducers( {
+	registeredShortcuts,
+	shortcutsEnabled,
+} );
