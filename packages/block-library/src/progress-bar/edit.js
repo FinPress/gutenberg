@@ -32,7 +32,6 @@ export default function Edit( { attributes, setAttributes } ) {
 		progressColor,
 		height,
 		showValue,
-		isReadProgress,
 		symbol,
 		symbolPosition,
 		showTotal,
@@ -51,11 +50,6 @@ export default function Edit( { attributes, setAttributes } ) {
 	const progressStyle = {
 		backgroundColor: progressColor,
 		width: `${ ( value / max ) * 100 }%`,
-	};
-
-	const readProgressStyle = {
-		backgroundColor: progressColor,
-		height: `${ height }px`,
 	};
 
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
@@ -84,7 +78,6 @@ export default function Edit( { attributes, setAttributes } ) {
 							progressColor: '#1E1E1E',
 							height: 11,
 							showValue: true,
-							isReadProgress: false,
 							symbol: '%',
 							symbolPosition: 'suffix',
 							showTotal: false,
@@ -94,69 +87,41 @@ export default function Edit( { attributes, setAttributes } ) {
 					dropdownMenuProps={ dropdownMenuProps }
 				>
 					<ToolsPanelItem
-						label={ __( 'Use as read progress' ) }
+						label={ __( 'Progress Value' ) }
 						isShownByDefault
-						hasValue={ () => isReadProgress }
-						onDeselect={ () =>
-							setAttributes( { isReadProgress: false } )
-						}
+						hasValue={ () => value !== 50 }
+						onDeselect={ () => setAttributes( { value: 50 } ) }
 					>
-						<ToggleControl
+						<RangeControl
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-							label={ __( 'Use as read progress' ) }
-							checked={ isReadProgress }
-							onChange={ () =>
-								setAttributes( {
-									isReadProgress: ! isReadProgress,
-								} )
+							label={ __( 'Progress Value' ) }
+							value={ value }
+							onChange={ ( currentValue ) =>
+								setAttributes( { value: currentValue } )
+							}
+							min={ 0 }
+							max={ max }
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						label={ __( 'Maximum Value' ) }
+						isShownByDefault
+						hasValue={ () => max !== 100 }
+						onDeselect={ () => setAttributes( { max: 100 } ) }
+					>
+						<NumberControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							isShiftStepEnabled
+							shiftStep={ 10 }
+							label={ __( 'Maximum Value' ) }
+							value={ max }
+							onChange={ ( maxValue ) =>
+								setAttributes( { max: maxValue } )
 							}
 						/>
 					</ToolsPanelItem>
-					{ ! isReadProgress && (
-						<>
-							<ToolsPanelItem
-								label={ __( 'Progress Value' ) }
-								isShownByDefault
-								hasValue={ () => value !== 50 }
-								onDeselect={ () =>
-									setAttributes( { value: 50 } )
-								}
-							>
-								<RangeControl
-									__next40pxDefaultSize
-									__nextHasNoMarginBottom
-									label={ __( 'Progress Value' ) }
-									value={ value }
-									onChange={ ( currentValue ) =>
-										setAttributes( { value: currentValue } )
-									}
-									min={ 0 }
-									max={ max }
-								/>
-							</ToolsPanelItem>
-							<ToolsPanelItem
-								label={ __( 'Maximum Value' ) }
-								isShownByDefault
-								hasValue={ () => max !== 100 }
-								onDeselect={ () =>
-									setAttributes( { max: 100 } )
-								}
-							>
-								<NumberControl
-									__next40pxDefaultSize
-									__nextHasNoMarginBottom
-									isShiftStepEnabled
-									shiftStep={ 10 }
-									label={ __( 'Maximum Value' ) }
-									value={ max }
-									onChange={ ( maxValue ) =>
-										setAttributes( { max: maxValue } )
-									}
-								/>
-							</ToolsPanelItem>
-						</>
-					) }
 					<ToolsPanelItem
 						label={ __( 'Bar height' ) }
 						isShownByDefault
@@ -177,132 +142,124 @@ export default function Edit( { attributes, setAttributes } ) {
 						/>
 					</ToolsPanelItem>
 
-					{ ! isReadProgress && (
+					<ToolsPanelItem
+						label={ __( 'Show value' ) }
+						isShownByDefault
+						hasValue={ () => ! showValue }
+						onDeselect={ () =>
+							setAttributes( { showValue: true } )
+						}
+					>
+						<ToggleControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ __( 'Show value' ) }
+							checked={ showValue }
+							onChange={ () =>
+								setAttributes( {
+									showValue: ! showValue,
+								} )
+							}
+						/>
+					</ToolsPanelItem>
+					{ showValue && (
+						<ToolsPanelItem
+							label={ __( 'Show total value' ) }
+							isShownByDefault
+							hasValue={ () => showTotal }
+							onDeselect={ () =>
+								setAttributes( { showTotal: false } )
+							}
+						>
+							<ToggleControl
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+								label={ __( 'Show total value' ) }
+								checked={ showTotal }
+								onChange={ () =>
+									setAttributes( {
+										showTotal: ! showTotal,
+									} )
+								}
+							/>
+						</ToolsPanelItem>
+					) }
+					{ showValue && showTotal && (
+						<ToolsPanelItem
+							label={ __( 'Value Seprator' ) }
+							isShownByDefault
+							hasValue={ () => seprator !== '/' }
+							onDeselect={ () =>
+								setAttributes( { seprator: '/' } )
+							}
+						>
+							<TextControl
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+								label={ __( 'Value Seprator' ) }
+								value={ seprator }
+								onChange={ ( newSeprator ) =>
+									setAttributes( {
+										seprator: newSeprator,
+									} )
+								}
+							/>
+						</ToolsPanelItem>
+					) }
+					{ showValue && (
 						<>
 							<ToolsPanelItem
-								label={ __( 'Show value' ) }
+								label={ __( 'Value Symbol' ) }
 								isShownByDefault
-								hasValue={ () => ! showValue }
+								hasValue={ () => symbol !== '%' }
 								onDeselect={ () =>
-									setAttributes( { showValue: true } )
+									setAttributes( { symbol: '%' } )
 								}
 							>
-								<ToggleControl
+								<TextControl
 									__next40pxDefaultSize
 									__nextHasNoMarginBottom
-									label={ __( 'Show value' ) }
-									checked={ showValue }
-									onChange={ () =>
+									label={ __( 'Value Symbol' ) }
+									value={ symbol }
+									onChange={ ( newSymbol ) =>
 										setAttributes( {
-											showValue: ! showValue,
+											symbol: newSymbol,
 										} )
 									}
 								/>
 							</ToolsPanelItem>
-							{ showValue && (
-								<ToolsPanelItem
-									label={ __( 'Show total value' ) }
-									isShownByDefault
-									hasValue={ () => showTotal }
-									onDeselect={ () =>
-										setAttributes( { showTotal: false } )
+							<ToolsPanelItem
+								label={ __( 'Symbol Position' ) }
+								isShownByDefault
+								hasValue={ () => symbolPosition !== 'suffix' }
+								onDeselect={ () =>
+									setAttributes( {
+										symbolPosition: 'suffix',
+									} )
+								}
+							>
+								<SelectControl
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
+									label={ __( 'Symbol Position' ) }
+									value={ symbolPosition }
+									options={ [
+										{
+											label: __( 'Before number' ),
+											value: 'prefix',
+										},
+										{
+											label: __( 'After number' ),
+											value: 'suffix',
+										},
+									] }
+									onChange={ ( position ) =>
+										setAttributes( {
+											symbolPosition: position,
+										} )
 									}
-								>
-									<ToggleControl
-										__next40pxDefaultSize
-										__nextHasNoMarginBottom
-										label={ __( 'Show total value' ) }
-										checked={ showTotal }
-										onChange={ () =>
-											setAttributes( {
-												showTotal: ! showTotal,
-											} )
-										}
-									/>
-								</ToolsPanelItem>
-							) }
-							{ showValue && showTotal && (
-								<ToolsPanelItem
-									label={ __( 'Value Seprator' ) }
-									isShownByDefault
-									hasValue={ () => seprator !== '/' }
-									onDeselect={ () =>
-										setAttributes( { seprator: '/' } )
-									}
-								>
-									<TextControl
-										__next40pxDefaultSize
-										__nextHasNoMarginBottom
-										label={ __( 'Value Seprator' ) }
-										value={ seprator }
-										onChange={ ( newSeprator ) =>
-											setAttributes( {
-												seprator: newSeprator,
-											} )
-										}
-									/>
-								</ToolsPanelItem>
-							) }
-							{ showValue && (
-								<>
-									<ToolsPanelItem
-										label={ __( 'Value Symbol' ) }
-										isShownByDefault
-										hasValue={ () => symbol !== '%' }
-										onDeselect={ () =>
-											setAttributes( { symbol: '%' } )
-										}
-									>
-										<TextControl
-											__next40pxDefaultSize
-											__nextHasNoMarginBottom
-											label={ __( 'Value Symbol' ) }
-											value={ symbol }
-											onChange={ ( newSymbol ) =>
-												setAttributes( {
-													symbol: newSymbol,
-												} )
-											}
-										/>
-									</ToolsPanelItem>
-									<ToolsPanelItem
-										label={ __( 'Symbol Position' ) }
-										isShownByDefault
-										hasValue={ () =>
-											symbolPosition !== 'suffix'
-										}
-										onDeselect={ () =>
-											setAttributes( {
-												symbolPosition: 'suffix',
-											} )
-										}
-									>
-										<SelectControl
-											__next40pxDefaultSize
-											__nextHasNoMarginBottom
-											label={ __( 'Symbol Position' ) }
-											value={ symbolPosition }
-											options={ [
-												{
-													label: __(
-														'Before number'
-													),
-													value: 'prefix',
-												},
-												{
-													label: __( 'After number' ),
-													value: 'suffix',
-												},
-											] }
-											onChange={ ( position ) =>
-												setAttributes( {
-													symbolPosition: position,
-												} )
-											}
-										/>
-									</ToolsPanelItem>
-								</>
-							) }
+								/>
+							</ToolsPanelItem>
 						</>
 					) }
 				</ToolsPanel>
@@ -328,38 +285,27 @@ export default function Edit( { attributes, setAttributes } ) {
 			</InspectorControls>
 
 			<div className="wp-block-progress-bar__container">
-				{ ! isReadProgress && (
-					<div>
-						<RichText
-							identifier="value"
-							tagName="p"
-							className="wp-block-progress-bar__label"
-							value={ label }
-							onChange={ ( content ) =>
-								setAttributes( { label: content } )
-							}
-							placeholder={ __( 'Write heading…' ) }
-						/>
-						{ showValue && <p>{ valueDisplay }</p> }
-					</div>
-				) }
+				<div>
+					<RichText
+						identifier="value"
+						tagName="p"
+						className="wp-block-progress-bar__label"
+						value={ label }
+						onChange={ ( content ) =>
+							setAttributes( { label: content } )
+						}
+						placeholder={ __( 'Write heading…' ) }
+					/>
+					{ showValue && <p>{ valueDisplay }</p> }
+				</div>
+
 				<div
 					style={ progressBarStyle }
-					className={
-						isReadProgress
-							? 'wp-block-progress-bar__read-bar'
-							: 'wp-block-progress-bar__bar'
-					}
+					className="wp-block-progress-bar__bar"
 				>
 					<div
-						style={
-							isReadProgress ? readProgressStyle : progressStyle
-						}
-						className={
-							isReadProgress
-								? 'wp-block-progress-bar__read-progress'
-								: 'wp-block-progress-bar__progress'
-						}
+						style={ progressStyle }
+						className="wp-block-progress-bar__progress"
 					></div>
 				</div>
 			</div>

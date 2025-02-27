@@ -12,7 +12,6 @@ export default function Save( { attributes } ) {
 		progressColor,
 		height,
 		showValue,
-		isReadProgress,
 		symbol,
 		symbolPosition,
 		showTotal,
@@ -34,11 +33,6 @@ export default function Save( { attributes } ) {
 		width: `${ ( value / max ) * 100 }%`,
 	};
 
-	const readProgressStyle = {
-		backgroundColor: progressColor,
-		height: `${ height }px`,
-	};
-
 	const formatValue = ( val ) => {
 		return symbolPosition === 'prefix'
 			? `${ symbol }${ val }`
@@ -52,33 +46,22 @@ export default function Save( { attributes } ) {
 	return (
 		<div { ...blockProps }>
 			<div className="wp-block-progress-bar__container">
-				{ ! isReadProgress && (
-					<div>
-						<RichText.Content
-							tagName="p"
-							className="wp-block-progress-bar__label"
-							value={ label }
-						/>
-						{ showValue && <p>{ valueDisplay }</p> }
-					</div>
-				) }
+				<div>
+					<RichText.Content
+						tagName="p"
+						className="wp-block-progress-bar__label"
+						value={ label }
+					/>
+					{ showValue && <p>{ valueDisplay }</p> }
+				</div>
+
 				<div
 					style={ progressBarStyle }
-					className={
-						isReadProgress
-							? 'wp-block-progress-bar__read-bar'
-							: 'wp-block-progress-bar__bar'
-					}
+					className="wp-block-progress-bar__bar"
 				>
 					<div
-						style={
-							isReadProgress ? readProgressStyle : progressStyle
-						}
-						className={
-							isReadProgress
-								? 'wp-block-progress-bar__read-progress'
-								: 'wp-block-progress-bar__progress'
-						}
+						style={ progressStyle }
+						className="wp-block-progress-bar__progress"
 					></div>
 				</div>
 			</div>

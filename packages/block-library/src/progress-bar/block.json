@@ -35,10 +35,6 @@
 			"type": "boolean",
 			"default": true
 		},
-		"isReadProgress": {
-			"type": "boolean",
-			"default": false
-		},
 		"symbol": {
 			"type": "string",
 			"default": "%"
