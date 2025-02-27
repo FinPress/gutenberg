@@ -1,6 +1,6 @@
 # Tool Selector
 
-The `ToolSelector` component is a toolbar component that allows user to choose between simplified content tools (Write) and advanced visual editing tools (Design)/
+The `ToolSelector` component is a toolbar component that allows user to choose between simplified content tools (Write) and advanced visual editing tools (Design).
 
 ## Table of contents
 
