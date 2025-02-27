@@ -7,6 +7,7 @@ import type { ReactElement, ComponentType } from 'react';
  * Internal dependencies
  */
 import type { SetSelection } from './private-types';
+import type { ModalProps } from '../../components/src/modal/types';
 
 export type SortDirection = 'asc' | 'desc';
 
@@ -463,6 +464,19 @@ export interface ActionModal< Item > extends ActionBase< Item > {
 	 * The header of the modal.
 	 */
 	modalHeader?: string;
+
+	/**
+	 * Additional modal props.
+	 */
+	additionalModalProps?: Omit<
+		ModalProps,
+		| keyof ActionBase< Item >
+		| 'children'
+		| 'onRequestClose'
+		| 'title'
+		| '__experimentalHideHeader'
+		| 'overlayClassName'
+	>;
 }
 
 export interface ActionButton< Item > extends ActionBase< Item > {
