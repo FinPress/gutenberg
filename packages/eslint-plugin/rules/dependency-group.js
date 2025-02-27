@@ -152,6 +152,62 @@ module.exports = {
 			return { value };
 		}
 
+		/**
+		 * Checks if a group of imports needs reordering
+		 * @param {Array<[Node, string]>} candidates
+		 * @return {boolean} Whether the group needs reordering
+		 */
+		function checkNeedsReordering( candidates ) {
+			for ( const [ importNode, source ] of candidates ) {
+				if ( ! importNode.range ) {
+					continue;
+				}
+
+				const locality = getPackageLocality( source );
+				const importStart = importNode.range[ 0 ];
+
+				const isNotGrouped = candidates.some(
+					( [ otherNode, otherSource ] ) => {
+						if ( importNode === otherNode || ! otherNode.range ) {
+							return false;
+						}
+
+						const otherLocality = getPackageLocality( otherSource );
+						const otherStart = otherNode.range[ 0 ];
+
+						return candidates.some(
+							( [ middleNode, middleSource ] ) => {
+								if (
+									! middleNode.range ||
+									middleNode === importNode ||
+									middleNode === otherNode
+								) {
+									return false;
+								}
+
+								const middleLocality =
+									getPackageLocality( middleSource );
+								const middleStart = middleNode.range[ 0 ];
+
+								return (
+									locality === otherLocality &&
+									middleLocality !== locality &&
+									middleStart > importStart &&
+									middleStart < otherStart
+								);
+							}
+						);
+					}
+				);
+
+				if ( isNotGrouped ) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		return {
 			/**
 			 * @param {import('estree').Program} node Program node.
@@ -267,59 +323,7 @@ module.exports = {
 					groups[ locality ].push( [ importNode, source ] );
 				}
 
-				let needsReordering = false;
-				for ( const [ importNode, source ] of candidates ) {
-					// Skip if no range available
-					if ( ! importNode.range ) {
-						continue;
-					}
-
-					const locality = getPackageLocality( source );
-					const importStart = importNode.range[ 0 ];
-
-					const isNotGrouped = candidates.some(
-						( [ otherNode, otherSource ] ) => {
-							if (
-								importNode === otherNode ||
-								! otherNode.range
-							) {
-								return false;
-							}
-
-							const otherLocality =
-								getPackageLocality( otherSource );
-							const otherStart = otherNode.range[ 0 ];
-
-							return candidates.some(
-								( [ middleNode, middleSource ] ) => {
-									if (
-										! middleNode.range ||
-										middleNode === importNode ||
-										middleNode === otherNode
-									) {
-										return false;
-									}
-
-									const middleLocality =
-										getPackageLocality( middleSource );
-									const middleStart = middleNode.range[ 0 ];
-
-									return (
-										locality === otherLocality &&
-										middleLocality !== locality &&
-										middleStart > importStart &&
-										middleStart < otherStart
-									);
-								}
-							);
-						}
-					);
-
-					if ( isNotGrouped ) {
-						needsReordering = true;
-						break;
-					}
-				}
+				const needsReordering = checkNeedsReordering( candidates );
 
 				if ( needsReordering && candidates.length > 0 ) {
 					const firstImport = candidates[ 0 ][ 0 ];
