@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## 23.10.0 (2025-02-12)
+
+## 23.9.0 (2025-01-29)
+
+## 23.8.0 (2025-01-15)
+
+## 23.7.0 (2025-01-02)
+
+## 23.6.0 (2024-12-11)
+
 ## 23.5.0 (2024-11-27)
 
 ## 23.4.0 (2024-11-16)
@@ -309,7 +319,7 @@
 -   Added: `no-extra-semicolons` rule.
 -   Added: `selector-attribute-operator-space-after` rule.
 -   Added: `selector-attribute-operator-space-before` rule.
--   Added: `selector-max-empty-liness` rule.
+-   Added: `selector-max-empty-lines` rule.
 
 ## 5.0.0 (2016-04-24)
 

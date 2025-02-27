@@ -143,6 +143,8 @@ function ColorPicker( { name, property, value, onChange } ) {
 				);
 			} }
 			enableAlpha
+			// Prevent the text and color picker from overlapping.
+			__experimentalIsRenderedInSidebar
 		/>
 	);
 }

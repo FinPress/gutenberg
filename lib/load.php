@@ -42,9 +42,7 @@ if ( class_exists( 'WP_REST_Controller' ) ) {
 	require __DIR__ . '/compat/wordpress-6.7/rest-api.php';
 
 	// WordPress 6.8 compat.
-	require __DIR__ . '/compat/wordpress-6.8/block-comments.php';
-	require __DIR__ . '/compat/wordpress-6.8/class-gutenberg-rest-comment-controller-6-8.php';
-	require __DIR__ . '/compat/wordpress-6.8/class-gutenberg-rest-post-types-controller-6-8.php';
+	require __DIR__ . '/compat/wordpress-6.8/class-gutenberg-hierarchical-sort.php';
 	require __DIR__ . '/compat/wordpress-6.8/rest-api.php';
 
 	// Plugin specific code.
@@ -54,6 +52,12 @@ if ( class_exists( 'WP_REST_Controller' ) ) {
 
 	require_once __DIR__ . '/experimental/rest-api.php';
 	require_once __DIR__ . '/experimental/kses-allowed-html.php';
+
+	// Block Comments.
+	if ( gutenberg_is_experiment_enabled( 'gutenberg-block-comment' ) ) {
+		require __DIR__ . '/experimental/block-comments.php';
+		require __DIR__ . '/experimental/class-gutenberg-rest-comment-controller.php';
+	}
 }
 
 // Experimental signaling server.
@@ -100,6 +104,7 @@ require __DIR__ . '/compat/wordpress-6.8/functions.php';
 require __DIR__ . '/compat/wordpress-6.8/post.php';
 require __DIR__ . '/compat/wordpress-6.8/site-editor.php';
 require __DIR__ . '/compat/wordpress-6.8/class-gutenberg-rest-user-controller.php';
+require __DIR__ . '/compat/wordpress-6.8/block-template-utils.php';
 
 // Experimental features.
 require __DIR__ . '/experimental/block-editor-settings-mobile.php';
@@ -173,6 +178,7 @@ require __DIR__ . '/block-supports/duotone.php';
 require __DIR__ . '/block-supports/shadow.php';
 require __DIR__ . '/block-supports/background.php';
 require __DIR__ . '/block-supports/block-style-variations.php';
+require __DIR__ . '/block-supports/aria-label.php';
 
 // Data views.
 require_once __DIR__ . '/experimental/data-views.php';
