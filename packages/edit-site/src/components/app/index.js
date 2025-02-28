@@ -3,7 +3,7 @@
  */
 import { useSelect } from '@wordpress/data';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { useCallback } from '@wordpress/element';
+import { useCallback, useMemo } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
 
 /**
@@ -55,14 +55,19 @@ export default function App() {
 		};
 	}, [] );
 
+	const matchResolverArgsValue = useMemo(
+		() => ( {
+			siteData: { currentTheme },
+		} ),
+		[ currentTheme ]
+	);
+
 	return (
 		<RouterProvider
 			routes={ routes }
 			pathArg="p"
 			beforeNavigate={ beforeNavigate }
-			matchResolverArgs={ {
-				siteData: { currentTheme },
-			} }
+			matchResolverArgs={ matchResolverArgsValue }
 		>
 			<AppLayout />
 		</RouterProvider>
