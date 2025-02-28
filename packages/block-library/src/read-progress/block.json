@@ -6,6 +6,16 @@
 	"title": "Read Progress",
 	"description": "Display a read progress. Useful for tracking read progress.",
 	"textdomain": "default",
+	"attributes": {
+		"backgroundColor": {
+			"type": "string",
+			"default": "#f0f0f0"
+		},
+		"progressColor": {
+			"type": "string",
+			"default": "#1E1E1E"
+		}
+	},
 	"supports": {
 		"html": false
 	},
