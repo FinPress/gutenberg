@@ -51,7 +51,7 @@ function UnforwardedMenuItem(
 				<span className="components-menu-item__info" aria-hidden="true">
 					{ info }
 				</span>
-				<span id={ descriptionId } className="screen-reader-text ">
+				<span id={ descriptionId } className="screen-reader-text">
 					{ info }
 				</span>
 			</span>
