@@ -33,9 +33,10 @@ function getLatestHeadings( select, clientId ) {
 
 	const getPostContentDescendantBlocks = ( rootClientId ) => {
 		const children = getBlockOrder( rootClientId );
-		const descendants = [ ...children ];
+		const descendants = [];
 
 		for ( const childClientId of children ) {
+			descendants.push( childClientId );
 			descendants.push(
 				...getPostContentDescendantBlocks( childClientId )
 			);
