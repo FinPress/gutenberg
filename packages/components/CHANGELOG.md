@@ -2,12 +2,18 @@
 
 ## Unreleased
 
+### Documentation
+
+-   `FontSizePicker`: Fix Storybook units control type to use `inline-check` and improve documentation clarifying unitless mode in `README.md` ([#68936](https://github.com/WordPress/gutenberg/pull/68936)).
+
 ### Bug Fixes
 
 -   `TextControl`: Ensures email and url inputs have consistent LTR alignment in RTL languages ([#68561](https://github.com/WordPress/gutenberg/pull/68561)).
+-   `InputControl`: Ensure consistent placeholder color ([#69334](https://github.com/WordPress/gutenberg/pull/69334)).
 
 ### Enhancement
 
+-   `TextareaControl`: Fix Firefox placeholder text opacity override ([#69312](https://github.com/WordPress/gutenberg/pull/69312)).
 -   `BorderControlDropdown`, `BorderControl`: Reset button is always visible. ([#69066](https://github.com/WordPress/gutenberg/pull/69066)).
 
 ### Internal
