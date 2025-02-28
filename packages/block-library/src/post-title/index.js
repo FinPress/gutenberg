@@ -8,8 +8,9 @@ import { title as icon } from '@wordpress/icons';
  */
 import initBlock from '../utils/init-block';
 import metadata from './block.json';
-import edit, { transforms } from './edit';
+import edit from './edit';
 import deprecated from './deprecated';
+import transforms from './transforms';
 
 const { name } = metadata;
 export { metadata, name };
