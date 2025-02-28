@@ -337,13 +337,10 @@ module.exports = {
 				if ( needsReordering && candidates.length > 0 ) {
 					const firstImport = candidates[ 0 ][ 0 ];
 					const lastImport = candidates[ candidates.length - 1 ][ 0 ];
-
-					// Early return if ranges are not available
 					if ( ! firstImport.range || ! lastImport.range ) {
 						return;
 					}
 
-					// TypeScript now knows these ranges exist
 					const startRange = firstImport.range;
 					const endRange = lastImport.range;
 
@@ -354,8 +351,8 @@ module.exports = {
 							let newText = '';
 							/** @type {Array<WPPackageLocality>} */
 							const localities = [
-								'WordPress',
 								'External',
+								'WordPress',
 								'Internal',
 							];
 
