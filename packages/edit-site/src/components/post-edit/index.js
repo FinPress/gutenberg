@@ -13,6 +13,7 @@ import { store as coreDataStore } from '@wordpress/core-data';
 import { __experimentalVStack as VStack } from '@wordpress/components';
 import { useState, useMemo, useEffect } from '@wordpress/element';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
+import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
@@ -20,7 +21,6 @@ import { privateApis as editorPrivateApis } from '@wordpress/editor';
 import Page from '../page';
 import { unlock } from '../../lock-unlock';
 import usePatternSettings from '../page-patterns/use-pattern-settings';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 
 const { usePostFields, PostCardPanel } = unlock( editorPrivateApis );
 
