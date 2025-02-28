@@ -40,7 +40,7 @@ export interface PrefetchOptions {
 
 interface VdomParams {
 	vdom?: typeof initialVdom;
-	baseUrl?: string;
+	url?: string;
 }
 
 interface Page {
@@ -79,7 +79,7 @@ const fetchPage = async ( url: string, { html }: { html: string } ) => {
 			html = await res.text();
 		}
 		const dom = new window.DOMParser().parseFromString( html, 'text/html' );
-		return regionsToVdom( dom, { baseUrl: url } );
+		return regionsToVdom( dom, { url } );
 	} catch ( e ) {
 		return false;
 	}
@@ -87,9 +87,9 @@ const fetchPage = async ( url: string, { html }: { html: string } ) => {
 
 // Return an object with VDOM trees of those HTML regions marked with a
 // `router-region` directive.
-const regionsToVdom: RegionsToVdom = ( dom, { vdom, baseUrl } = {} ) => {
+const regionsToVdom: RegionsToVdom = ( dom, { vdom, url } = {} ) => {
 	const regions = { body: undefined };
-	const styles = prepareStyles( dom, baseUrl );
+	const styles = prepareStyles( dom, url );
 	const scriptModules = [
 		...dom.querySelectorAll< HTMLScriptElement >(
 			'script[type=module][src]'
@@ -115,7 +115,7 @@ const regionsToVdom: RegionsToVdom = ( dom, { vdom, baseUrl } = {} ) => {
 	}
 	const title = dom.querySelector( 'title' )?.innerText;
 	const initialData = parseServerData( dom );
-	return { regions, styles, scriptModules, title, initialData, url: baseUrl };
+	return { regions, styles, scriptModules, title, initialData, url };
 };
 
 // Render all interactive regions contained in the given page.
@@ -197,7 +197,7 @@ pages.set(
 	Promise.resolve(
 		regionsToVdom( document, {
 			vdom: initialVdom,
-			baseUrl: window.location.href,
+			url: window.location.href,
 		} )
 	)
 );
