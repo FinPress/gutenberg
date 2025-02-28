@@ -1,4 +1,20 @@
 /**
+ * External dependencies
+ */
+import clsx from 'clsx';
+
+/**
+ * WordPress dependencies
+ */
+import { __, _x, sprintf } from '@wordpress/i18n';
+import { useState, useEffect } from '@wordpress/element';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { useBlockProps } from '@wordpress/block-editor';
+import { store as coreStore } from '@wordpress/core-data';
+import { View } from '@wordpress/primitives';
+import { getAuthority } from '@wordpress/url';
+
+/**
  * Internal dependencies
  */
 import {
@@ -14,22 +30,6 @@ import { embedContentIcon } from './icons';
 import EmbedLoading from './embed-loading';
 import EmbedPlaceholder from './embed-placeholder';
 import EmbedPreview from './embed-preview';
-
-/**
- * External dependencies
- */
-import clsx from 'clsx';
-
-/**
- * WordPress dependencies
- */
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { useState, useEffect } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useBlockProps } from '@wordpress/block-editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { View } from '@wordpress/primitives';
-import { getAuthority } from '@wordpress/url';
 import { Caption } from '../utils/caption';
 
 const EmbedEdit = ( props ) => {

@@ -1,9 +1,4 @@
 /**
- * Internal dependencies
- */
-import { getPhotoHtml } from './util';
-
-/**
  * External dependencies
  */
 import clsx from 'clsx';
@@ -20,6 +15,7 @@ import { getAuthority } from '@wordpress/url';
 /**
  * Internal dependencies
  */
+import { getPhotoHtml } from './util';
 import WpEmbedPreview from './wp-embed-preview';
 
 export default function EmbedPreview( {
