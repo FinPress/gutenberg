@@ -18,6 +18,7 @@ function getLatestHeadings( select, clientId ) {
 		getBlockName,
 		getClientIdsWithDescendants,
 		getBlocksByName,
+		getBlockOrder,
 	} = select( blockEditorStore );
 
 	// FIXME: @wordpress/block-library should not depend on @wordpress/editor.
@@ -31,8 +32,27 @@ function getLatestHeadings( select, clientId ) {
 	const isPaginated = getBlocksByName( 'core/nextpage' ).length !== 0;
 	const { onlyIncludeCurrentPage } = getBlockAttributes( clientId ) ?? {};
 
+	// Get post-content block client ID.
+	const postContentBlocks = getBlocksByName( 'core/post-content' );
+	const postContentClientId = postContentBlocks?.[ 0 ];
+
+	const getPostContentDescendantBlocks = ( rootClientId ) => {
+		const children = getBlockOrder( rootClientId );
+		const descendants = [ ...children ];
+
+		for ( const childClientId of children ) {
+			descendants.push(
+				...getPostContentDescendantBlocks( childClientId )
+			);
+		}
+
+		return descendants;
+	};
+
 	// Get the client ids of all blocks in the editor.
-	const allBlockClientIds = getClientIdsWithDescendants();
+	const allBlockClientIds = !! postContentClientId
+		? getPostContentDescendantBlocks( postContentClientId )
+		: getClientIdsWithDescendants();
 
 	// If onlyIncludeCurrentPage is true, calculate the page (of a paginated post) this block is part of, so we know which headings to include; otherwise, skip the calculation.
 	let tocPage = 1;
