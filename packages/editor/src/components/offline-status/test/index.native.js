@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { act, render, screen } from 'test/helpers';
+import { AccessibilityInfo } from 'react-native';
 
 /**
  * WordPress dependencies
@@ -15,7 +16,6 @@ import {
  * Internal dependencies
  */
 import OfflineStatus from '../index';
-import { AccessibilityInfo } from 'react-native';
 
 jest.mock( '../style.native.scss', () => ( {
 	'offline--icon': {

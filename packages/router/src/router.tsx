@@ -3,6 +3,7 @@
  */
 import RouteRecognizer from 'route-recognizer';
 import { createBrowserHistory } from 'history';
+import type { ReactNode } from 'react';
 
 /**
  * WordPress dependencies
@@ -20,11 +21,6 @@ import {
 	buildQueryString,
 } from '@wordpress/url';
 import { useEvent } from '@wordpress/compose';
-
-/**
- * Internal dependencies
- */
-import type { ReactNode } from 'react';
 
 const history = createBrowserHistory();
 interface Route {
