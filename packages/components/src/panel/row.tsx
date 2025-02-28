@@ -2,12 +2,12 @@
  * External dependencies
  */
 import clsx from 'clsx';
+import type { ForwardedRef } from 'react';
 
 /**
  * WordPress dependencies
  */
 import { forwardRef } from '@wordpress/element';
-import type { ForwardedRef } from 'react';
 
 /**
  * Internal dependencies

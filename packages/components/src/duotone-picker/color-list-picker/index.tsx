@@ -4,6 +4,7 @@
 import { useState } from '@wordpress/element';
 import { swatch } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
+import { useInstanceId } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -13,7 +14,6 @@ import ColorPalette from '../../color-palette';
 import ColorIndicator from '../../color-indicator';
 import Icon from '../../icon';
 import type { ColorListPickerProps, ColorOptionProps } from './types';
-import { useInstanceId } from '@wordpress/compose';
 
 function ColorOption( {
 	label,

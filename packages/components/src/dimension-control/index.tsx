@@ -7,6 +7,7 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import deprecated from '@wordpress/deprecated';
 
 /**
  * Internal dependencies
@@ -17,7 +18,6 @@ import sizesTable, { findSizeBySlug } from './sizes';
 import type { DimensionControlProps, Size } from './types';
 import type { SelectControlSingleSelectionProps } from '../select-control/types';
 import { ContextSystemProvider } from '../context';
-import deprecated from '@wordpress/deprecated';
 import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const CONTEXT_VALUE = {

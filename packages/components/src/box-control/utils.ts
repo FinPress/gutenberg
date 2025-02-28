@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import deprecated from '@wordpress/deprecated';
 
 /**
  * Internal dependencies
@@ -13,7 +14,6 @@ import type {
 	CustomValueUnits,
 	Preset,
 } from './types';
-import deprecated from '@wordpress/deprecated';
 
 export const CUSTOM_VALUE_SETTINGS: CustomValueUnits = {
 	px: { max: 300, step: 1 },

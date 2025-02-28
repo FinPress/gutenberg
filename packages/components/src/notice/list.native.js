@@ -8,13 +8,13 @@ import { View } from 'react-native';
  */
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as noticesStore } from '@wordpress/notices';
+import { useCallback } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import Notice from './';
 import styles from './style.scss';
-import { useCallback } from '@wordpress/element';
 
 function NoticeList() {
 	const { notices } = useSelect( ( select ) => {

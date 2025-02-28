@@ -1,13 +1,13 @@
 /**
+ * WordPress dependencies
+ */
+import { useMemo } from '@wordpress/element';
+
+/**
  * Internal dependencies
  */
 import { buildTermsTree } from './terms';
 import TreeSelect from '../tree-select';
-
-/**
- * WordPress dependencies
- */
-import { useMemo } from '@wordpress/element';
 import type { CategorySelectProps } from './types';
 
 export default function CategorySelect( {

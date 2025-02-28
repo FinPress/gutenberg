@@ -9,6 +9,7 @@ import type { ForwardedRef } from 'react';
 import { useMemo, useReducer } from '@wordpress/element';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import warning from '@wordpress/warning';
+import deprecated from '@wordpress/deprecated';
 
 /**
  * Internal dependencies
@@ -28,7 +29,6 @@ import type {
 	Screen,
 	NavigateToParentOptions,
 } from '../types';
-import deprecated from '@wordpress/deprecated';
 
 type MatchedPath = ReturnType< typeof patternMatch >;
 

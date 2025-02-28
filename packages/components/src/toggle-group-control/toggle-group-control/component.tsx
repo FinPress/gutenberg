@@ -7,6 +7,7 @@ import type { ForwardedRef } from 'react';
  * WordPress dependencies
  */
 import { useMemo, useState } from '@wordpress/element';
+import { useMergeRefs } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -21,7 +22,6 @@ import * as styles from './styles';
 import { ToggleGroupControlAsRadioGroup } from './as-radio-group';
 import { ToggleGroupControlAsButtonGroup } from './as-button-group';
 import { useTrackElementOffsetRect } from '../../utils/element-rect';
-import { useMergeRefs } from '@wordpress/compose';
 import { useAnimatedOffsetRect } from '../../utils/hooks/use-animated-offset-rect';
 import { maybeWarnDeprecated36pxSize } from '../../utils/deprecated-36px-size';
 

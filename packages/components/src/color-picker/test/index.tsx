@@ -3,6 +3,7 @@
  */
 import { fireEvent, screen, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { click } from '@ariakit/test';
 
 /**
  * WordPress dependencies
@@ -13,7 +14,6 @@ import { useState } from '@wordpress/element';
  * Internal dependencies
  */
 import { ColorPicker } from '..';
-import { click } from '@ariakit/test';
 
 const hslaMatcher = expect.objectContaining( {
 	h: expect.any( Number ),

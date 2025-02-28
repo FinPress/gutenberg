@@ -3,12 +3,12 @@
  */
 import { useReducedMotion } from '@wordpress/compose';
 import { useCallback, useRef, useState } from '@wordpress/element';
+import warning from '@wordpress/warning';
 
 /**
  * Internal dependencies
  */
 import { CONFIG } from '../utils';
-import warning from '@wordpress/warning';
 
 // Animation duration (ms) extracted to JS in order to be used on a setTimeout.
 const FRAME_ANIMATION_DURATION = CONFIG.transitionDuration;
