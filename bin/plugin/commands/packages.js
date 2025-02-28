@@ -9,6 +9,7 @@ const { inc: semverInc } = require( 'semver' );
 const { rimraf } = require( 'rimraf' );
 const readline = require( 'readline' );
 const SimpleGit = require( 'simple-git' );
+const { join } = require( 'path' );
 
 /**
  * Internal dependencies
@@ -24,7 +25,6 @@ const {
 	calculateVersionBumpFromChangelog,
 	findPluginReleaseBranchName,
 } = require( './common' );
-const { join } = require( 'path' );
 const pluginConfig = require( '../config' );
 
 /**
