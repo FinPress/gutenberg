@@ -54,6 +54,7 @@ import {
 	DEFAULT_EXCERPT_LENGTH,
 } from './constants';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+import { useOrderByOptions } from '../query/utils';
 
 /**
  * Module Constants
@@ -87,7 +88,6 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 		postsToShow,
 		order,
 		orderBy,
-		orderByOptions,
 		categories,
 		selectedAuthor,
 		displayFeaturedImage,
@@ -160,6 +160,8 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 			selectedAuthor,
 		]
 	);
+
+	const orderByOptions = useOrderByOptions( 'post' );
 
 	// If a user clicks to a link prevent redirection and show a warning.
 	const { createWarningNotice } = useDispatch( noticeStore );
