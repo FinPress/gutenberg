@@ -32,16 +32,6 @@ const QUERY_DEFAULTS = {
 	numberOfItems: 10,
 	order: 'asc',
 	orderBy: 'title',
-	orderByOptions: [
-		{
-			label: 'Title Ascending',
-			value: 'title/asc',
-		},
-		{
-			label: 'Title Descending',
-			value: 'title/desc',
-		},
-	],
 };
 
 const MyQueryControls = () => {
