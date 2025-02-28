@@ -203,43 +203,45 @@ export function useOrderByOptions( postType ) {
 		[ postType ]
 	);
 
-	const orderByOptions = [
-		{
-			label: __( 'Newest to oldest' ),
-			value: 'date/desc',
-		},
-		{
-			label: __( 'Oldest to newest' ),
-			value: 'date/asc',
-		},
-		{
-			/* translators: Label for ordering posts by title in ascending order. */
-			label: __( 'A → Z' ),
-			value: 'title/asc',
-		},
-		{
-			/* translators: Label for ordering posts by title in descending order. */
-			label: __( 'Z → A' ),
-			value: 'title/desc',
-		},
-	];
-
-	if ( supportsCustomOrder ) {
-		orderByOptions.push(
+	return useMemo( () => {
+		const orderByOptions = [
 			{
-				/* translators: Label for ordering posts by ascending menu order. */
-				label: __( 'Ascending by order' ),
-				value: 'menu_order/asc',
+				label: __( 'Newest to oldest' ),
+				value: 'date/desc',
 			},
 			{
-				/* translators: Label for ordering posts by descending menu order. */
-				label: __( 'Descending by order' ),
-				value: 'menu_order/desc',
-			}
-		);
-	}
+				label: __( 'Oldest to newest' ),
+				value: 'date/asc',
+			},
+			{
+				/* translators: Label for ordering posts by title in ascending order. */
+				label: __( 'A → Z' ),
+				value: 'title/asc',
+			},
+			{
+				/* translators: Label for ordering posts by title in descending order. */
+				label: __( 'Z → A' ),
+				value: 'title/desc',
+			},
+		];
 
-	return orderByOptions;
+		if ( supportsCustomOrder ) {
+			orderByOptions.push(
+				{
+					/* translators: Label for ordering posts by ascending menu order. */
+					label: __( 'Ascending by order' ),
+					value: 'menu_order/asc',
+				},
+				{
+					/* translators: Label for ordering posts by descending menu order. */
+					label: __( 'Descending by order' ),
+					value: 'menu_order/desc',
+				}
+			);
+		}
+
+		return orderByOptions;
+	}, [ supportsCustomOrder ] );
 }
 
 /**
