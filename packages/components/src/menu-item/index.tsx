@@ -3,6 +3,7 @@
  */
 import type { ForwardedRef } from 'react';
 import clsx from 'clsx';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * WordPress dependencies
@@ -32,18 +33,32 @@ function UnforwardedMenuItem(
 		isSelected,
 		role = 'menuitem',
 		suffix,
-		...buttonProps
+		...restProps
 	} = props;
 
 	className = clsx( 'components-menu-item__button', className );
 
+	const buttonProps = { ...restProps };
 	if ( info ) {
+		const labelId = `menu-item-label-${ uuidv4() }`;
+		const descriptionId = `menu-item-description-${ uuidv4() }`;
+
 		children = (
 			<span className="components-menu-item__info-wrapper">
-				<span className="components-menu-item__item">{ children }</span>
-				<span className="components-menu-item__info">{ info }</span>
+				<span id={ labelId } className="components-menu-item__item">
+					{ children }
+				</span>
+				<span className="components-menu-item__info" aria-hidden="true">
+					{ info }
+				</span>
+				<span id={ descriptionId } className="screen-reader-text">
+					{ info }
+				</span>
 			</span>
 		);
+
+		buttonProps[ 'aria-labelledby' ] = labelId;
+		buttonProps[ 'aria-describedby' ] = descriptionId;
 	}
 
 	if ( icon && typeof icon !== 'string' ) {
