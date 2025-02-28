@@ -4,7 +4,7 @@
 import { SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-const orderByOptionsDefault = [
+const defaultOrderByOptions = [
 	{
 		label: __( 'Newest to oldest' ),
 		value: 'date/desc',
@@ -28,7 +28,7 @@ const orderByOptionsDefault = [
 function OrderControl( {
 	order,
 	orderBy,
-	orderByOptions = orderByOptionsDefault,
+	orderByOptions = defaultOrderByOptions,
 	onChange,
 } ) {
 	return (
