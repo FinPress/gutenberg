@@ -46,7 +46,8 @@ export type AuthorSelectProps = Pick<
 
 type Order = 'asc' | 'desc';
 type OrderBy = 'date' | 'title' | 'menu_order';
-type OrderByOption = {
+
+export type OrderByOption = {
 	/**
 	 * The label to be shown to the user.
 	 */

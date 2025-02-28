@@ -14,6 +14,27 @@ import CategorySelect from './category-select';
 const DEFAULT_MIN_ITEMS = 1;
 const DEFAULT_MAX_ITEMS = 100;
 
+const defaultOrderByOptions = [
+	{
+		label: __( 'Newest to oldest' ),
+		value: 'date/desc',
+	},
+	{
+		label: __( 'Oldest to newest' ),
+		value: 'date/asc',
+	},
+	{
+		/* translators: Label for ordering posts by title in ascending order. */
+		label: __( 'A → Z' ),
+		value: 'title/asc',
+	},
+	{
+		/* translators: Label for ordering posts by title in descending order. */
+		label: __( 'Z → A' ),
+		value: 'title/desc',
+	},
+];
+
 const QueryControls = memo(
 	( {
 		categoriesList,
@@ -21,7 +42,7 @@ const QueryControls = memo(
 		numberOfItems,
 		order,
 		orderBy,
-		orderByOptions,
+		orderByOptions = defaultOrderByOptions,
 		maxItems = DEFAULT_MAX_ITEMS,
 		minItems = DEFAULT_MIN_ITEMS,
 		onCategoryChange,
