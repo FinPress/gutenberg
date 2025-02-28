@@ -46,7 +46,7 @@ const QUERY_DEFAULTS = {
 
 const MyQueryControls = () => {
 	const [ query, setQuery ] = useState( QUERY_DEFAULTS );
-	const { category, categories, maxItems, minItems, numberOfItems, order, orderBy, orderByOptions } = query;
+	const { category, categories, maxItems, minItems, numberOfItems, order, orderBy } = query;
 
 	const updateQuery = ( newQuery ) => {
 		setQuery( { ...query, ...newQuery } );
@@ -54,7 +54,7 @@ const MyQueryControls = () => {
 
 	return (
 		<QueryControls
-			{ ...{ maxItems, minItems, numberOfItems, order, orderBy, orderByOptions } }
+			{ ...{ maxItems, minItems, numberOfItems, order, orderBy } }
 			onOrderByChange={ ( newOrderBy ) => updateQuery( { orderBy: newOrderBy } ) }
 			onOrderChange={ ( newOrder ) => updateQuery( { order: newOrder } ) }
 			categoriesList={ categories }
@@ -118,7 +118,7 @@ const MyQueryControls = () => {
 
 	return (
 		<QueryControls
-			{ ...{ orderBy, order, orderByOptions, numberOfItems } }
+			{ ...{ orderBy, order, numberOfItems } }
 			onOrderByChange={ ( newOrderBy ) => updateQuery( { orderBy: newOrderBy } ) }
 			onOrderChange={ ( newOrder ) => updateQuery( { order: newOrder } ) }
 			categorySuggestions={ categories }
