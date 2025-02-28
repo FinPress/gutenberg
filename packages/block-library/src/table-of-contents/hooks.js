@@ -13,13 +13,8 @@ import { addQueryArgs, removeQueryArgs } from '@wordpress/url';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
 function getLatestHeadings( select, clientId ) {
-	const {
-		getBlockAttributes,
-		getBlockName,
-		getClientIdsWithDescendants,
-		getBlocksByName,
-		getBlockOrder,
-	} = select( blockEditorStore );
+	const { getBlockAttributes, getBlockName, getBlocksByName, getBlockOrder } =
+		select( blockEditorStore );
 
 	// FIXME: @wordpress/block-library should not depend on @wordpress/editor.
 	// Blocks can be loaded into a *non-post* block editor, so to avoid
@@ -50,9 +45,8 @@ function getLatestHeadings( select, clientId ) {
 	};
 
 	// Get the client ids of all blocks in the editor.
-	const allBlockClientIds = !! postContentClientId
-		? getPostContentDescendantBlocks( postContentClientId )
-		: getClientIdsWithDescendants();
+	const allBlockClientIds =
+		getPostContentDescendantBlocks( postContentClientId );
 
 	// If onlyIncludeCurrentPage is true, calculate the page (of a paginated post) this block is part of, so we know which headings to include; otherwise, skip the calculation.
 	let tocPage = 1;
