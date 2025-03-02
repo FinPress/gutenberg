@@ -121,10 +121,21 @@ export const SiteHubMobile = memo(
 		const history = useHistory();
 		const { navigate } = useContext( SidebarNavigationContext );
 
-		const { dashboardLink, homeUrl, siteTitle } = useSelect( ( select ) => {
+		const {
+			dashboardLink,
+			homeUrl,
+			siteTitle,
+			isClassicThemeWithStyleBookSupport,
+		} = useSelect( ( select ) => {
 			const { getSettings } = unlock( select( editSiteStore ) );
-			const { getEntityRecord } = select( coreStore );
+			const { getEntityRecord, getCurrentTheme } = select( coreStore );
 			const _site = getEntityRecord( 'root', 'site' );
+			const isBlockTheme = getCurrentTheme().currentTheme?.is_block_theme;
+			const supportsEditorStyles =
+				getCurrentTheme().theme_supports[ 'editor-styles' ];
+			// supportsLayout is equivalent to the `wp_theme_has_theme_json()` PHP function.
+			const hasThemeJson = getSettings().supportsLayout;
+
 			return {
 				dashboardLink: getSettings().__experimentalDashboardLink,
 				homeUrl: getEntityRecord( 'root', '__unstableBase' )?.home,
@@ -132,10 +143,25 @@ export const SiteHubMobile = memo(
 					! _site?.title && !! _site?.url
 						? filterURLForDisplay( _site?.url )
 						: _site?.title,
+				isClassicThemeWithStyleBookSupport:
+					! isBlockTheme && ( supportsEditorStyles || hasThemeJson ),
 			};
 		}, [] );
 		const { open: openCommandCenter } = useDispatch( commandsStore );
-		const isRoot = path === '/';
+		const isRoot = path === '/' || ! isClassicThemeWithStyleBookSupport;
+
+		const backButtonProps = {
+			href: isRoot ? dashboardLink : undefined,
+			label: isRoot
+				? __( 'Go to the Dashboard' )
+				: __( 'Go to Site Editor' ),
+			onClick: isRoot
+				? undefined
+				: () => {
+						history.navigate( '/' );
+						navigate( 'back' );
+				  },
+		};
 
 		return (
 			<div className="edit-site-site-hub">
@@ -156,18 +182,7 @@ export const SiteHubMobile = memo(
 								transform: 'scale(0.5)',
 								borderRadius: 4,
 							} }
-							{ ...( isRoot
-								? {
-										href: dashboardLink,
-										label: __( 'Go to the Dashboard' ),
-								  }
-								: {
-										onClick: () => {
-											history.navigate( '/' );
-											navigate( 'back' );
-										},
-										label: __( 'Go to Site Editor' ),
-								  } ) }
+							{ ...backButtonProps }
 						>
 							<SiteIcon className="edit-site-layout__view-mode-toggle-icon" />
 						</Button>
