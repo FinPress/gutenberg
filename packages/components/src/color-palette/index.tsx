@@ -13,6 +13,7 @@ import clsx from 'clsx';
 import { useInstanceId } from '@wordpress/compose';
 import { __, sprintf } from '@wordpress/i18n';
 import { useCallback, useMemo, useState, forwardRef } from '@wordpress/element';
+import deprecated from '@wordpress/deprecated';
 
 /**
  * Internal dependencies
@@ -135,7 +136,7 @@ function MultiplePalettes( {
 }
 
 export function CustomColorPickerDropdown( {
-	isRenderedInSidebar,
+	isRenderedLeftStart,
 	popoverProps: receivedPopoverProps,
 	...props
 }: CustomColorPickerDropdownProps ) {
@@ -146,7 +147,7 @@ export function CustomColorPickerDropdown( {
 			// scrollbars while dragging the color picker's handle close to the
 			// popover edge.
 			resize: false,
-			...( isRenderedInSidebar
+			...( isRenderedLeftStart
 				? {
 						// When in the sidebar: open to the left (stacking),
 						// leaving the same gap as the parent popover.
@@ -160,7 +161,7 @@ export function CustomColorPickerDropdown( {
 				  } ),
 			...receivedPopoverProps,
 		} ),
-		[ isRenderedInSidebar, receivedPopoverProps ]
+		[ isRenderedLeftStart, receivedPopoverProps ]
 	);
 
 	return (
@@ -186,6 +187,7 @@ function UnforwardedColorPalette(
 		onChange,
 		value,
 		__experimentalIsRenderedInSidebar = false,
+		isRenderedLeftStart = false,
 		headingLevel = 2,
 		'aria-label': ariaLabel,
 		'aria-labelledby': ariaLabelledby,
@@ -260,11 +262,23 @@ function UnforwardedColorPalette(
 		ariaLabelledby
 	);
 
+	let _isRenderedLeftStart = isRenderedLeftStart;
+	if ( !! __experimentalIsRenderedInSidebar ) {
+		deprecated(
+			'`__experimentalIsRenderedInSidebar` prop in wp.components.ColorPalette',
+			{
+				since: '6.8',
+				alternative: '`isRenderedLeftStart` prop',
+			}
+		);
+		_isRenderedLeftStart = __experimentalIsRenderedInSidebar;
+	}
+
 	return (
 		<VStack spacing={ 3 } ref={ forwardedRef } { ...additionalProps }>
 			{ ! disableCustomColors && (
 				<CustomColorPickerDropdown
-					isRenderedInSidebar={ __experimentalIsRenderedInSidebar }
+					isRenderedLeftStart={ _isRenderedLeftStart }
 					renderContent={ renderCustomColorPicker }
 					renderToggle={ ( { isOpen, onToggle } ) => (
 						<VStack

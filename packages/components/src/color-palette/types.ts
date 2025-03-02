@@ -40,7 +40,8 @@ export type MultiplePalettesProps = PaletteProps & {
 };
 
 export type CustomColorPickerDropdownProps = DropdownProps & {
-	isRenderedInSidebar: boolean;
+	isRenderedInSidebar?: boolean;
+	isRenderedLeftStart?: boolean;
 };
 
 export type ColorPaletteProps = Pick< PaletteProps, 'onChange' > & {
@@ -102,6 +103,12 @@ export type ColorPaletteProps = Pick< PaletteProps, 'onChange' > & {
 	 * @default false
 	 */
 	__experimentalIsRenderedInSidebar?: boolean;
+	/**
+	 * Whether this is rendered in the sidebar.
+	 *
+	 * @default false
+	 */
+	isRenderedLeftStart?: boolean;
 } & (
 		| {
 				/**
