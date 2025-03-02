@@ -31,10 +31,11 @@ function AppLayout() {
 
 export default function App() {
 	useRegisterSiteEditorRoutes();
-	const { routes, currentTheme } = useSelect( ( select ) => {
+	const { routes, currentTheme, editorSettings } = useSelect( ( select ) => {
 		return {
 			routes: unlock( select( editSiteStore ) ).getRoutes(),
 			currentTheme: select( coreStore ).getCurrentTheme(),
+			editorSettings: select( editSiteStore ).getSettings(),
 		};
 	}, [] );
 
@@ -57,9 +58,9 @@ export default function App() {
 
 	const matchResolverArgsValue = useMemo(
 		() => ( {
-			siteData: { currentTheme },
+			siteData: { currentTheme, editorSettings },
 		} ),
-		[ currentTheme ]
+		[ currentTheme, editorSettings ]
 	);
 
 	return (
