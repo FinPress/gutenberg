@@ -341,8 +341,8 @@ module.exports = {
 						return;
 					}
 
-					const startRange = firstImport.range;
-					const endRange = lastImport.range;
+					let startRange = firstImport.range[ 0 ];
+					const endRange = lastImport.range[ 1 ];
 
 					context.report( {
 						node: firstImport,
@@ -357,24 +357,48 @@ module.exports = {
 							];
 
 							const groups = groupImportsByLocality( candidates );
+							const addedComments = new Set();
 
 							for ( const locality of localities ) {
-								if ( groups[ locality ].length > 0 ) {
-									newText += `/**\n * ${ locality } dependencies\n */\n`;
-									for ( const [ importNode ] of groups[
-										locality
-									] ) {
-										newText +=
-											context
-												.getSourceCode()
-												.getText( importNode ) + '\n';
-									}
-									newText += '\n';
+								const imports = groups[ locality ];
+
+								if ( imports.length === 0 ) {
+									continue;
 								}
+
+								if ( ! addedComments.has( locality ) ) {
+									if ( newText ) {
+										newText += '\n\n';
+									}
+									newText += `/**\n * ${ locality } dependencies\n */\n`;
+									addedComments.add( locality );
+								}
+
+								for ( const [ importNode ] of imports ) {
+									newText +=
+										context
+											.getSourceCode()
+											.getText( importNode ) + '\n';
+								}
+								newText += '\n';
 							}
 
+							comments.forEach( ( comment ) => {
+								if (
+									comment.value.includes( 'dependencies' ) &&
+									comment.range &&
+									firstImport.range &&
+									comment.range[ 1 ] <= firstImport.range[ 0 ]
+								) {
+									startRange = Math.min(
+										startRange,
+										comment.range[ 0 ]
+									);
+								}
+							} );
+
 							return fixer.replaceTextRange(
-								[ startRange[ 0 ], endRange[ 1 ] ],
+								[ startRange, endRange ],
 								newText.trim()
 							);
 						},
