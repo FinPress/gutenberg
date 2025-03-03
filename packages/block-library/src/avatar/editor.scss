@@ -7,3 +7,9 @@
 		margin: 0 auto;
 	}
 }
+
+.wp-block-avatar__link {
+	pointer-events: none;
+	display: block;
+	justify-self: start;
+}
