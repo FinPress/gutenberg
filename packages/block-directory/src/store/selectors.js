@@ -9,6 +9,8 @@ import { store as blockEditorStore } from '@wordpress/block-editor';
  */
 import hasBlockType from './utils/has-block-type';
 
+const EMPTY_ARRAY = [];
+
 /**
  * Returns true if application is requesting for downloadable blocks.
  *
@@ -30,7 +32,7 @@ export function isRequestingDownloadableBlocks( state, filterValue ) {
  * @return {Array} Downloadable blocks.
  */
 export function getDownloadableBlocks( state, filterValue ) {
-	return state.downloadableBlocks[ filterValue ]?.results ?? [];
+	return state.downloadableBlocks[ filterValue ]?.results ?? EMPTY_ARRAY;
 }
 
 /**
