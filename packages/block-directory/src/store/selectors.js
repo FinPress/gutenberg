@@ -4,11 +4,6 @@
 import { createSelector, createRegistrySelector } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
-/**
- * Internal dependencies
- */
-import hasBlockType from './utils/has-block-type';
-
 const EMPTY_ARRAY = [];
 
 /**
@@ -63,14 +58,28 @@ export const getNewBlockTypes = createRegistrySelector( ( select ) =>
 				return EMPTY_ARRAY;
 			}
 
-			const usedBlockTree = select( blockEditorStore ).getBlocks();
-			return installedBlockTypes.filter( ( blockType ) =>
-				hasBlockType( blockType, usedBlockTree )
+			const { getBlockName, getClientIdsWithDescendants } =
+				select( blockEditorStore );
+			const installedBlockNames = installedBlockTypes.map(
+				( blockType ) => blockType.name
 			);
+			const foundBlockNames = getClientIdsWithDescendants().flatMap(
+				( clientId ) => {
+					const blockName = getBlockName( clientId );
+					return installedBlockNames.includes( blockName )
+						? blockName
+						: [];
+				}
+			);
+			const newBlockTypes = installedBlockTypes.filter( ( blockType ) =>
+				foundBlockNames.includes( blockType.name )
+			);
+
+			return newBlockTypes.length > 0 ? newBlockTypes : EMPTY_ARRAY;
 		},
 		( state ) => [
 			getInstalledBlockTypes( state ),
-			select( blockEditorStore ).getBlocks(),
+			select( blockEditorStore ).getClientIdsWithDescendants(),
 		]
 	)
 );
@@ -91,15 +100,28 @@ export const getUnusedBlockTypes = createRegistrySelector( ( select ) =>
 				return EMPTY_ARRAY;
 			}
 
-			const usedBlockTree = select( blockEditorStore ).getBlocks();
-
-			return installedBlockTypes.filter(
-				( blockType ) => ! hasBlockType( blockType, usedBlockTree )
+			const { getBlockName, getClientIdsWithDescendants } =
+				select( blockEditorStore );
+			const installedBlockNames = installedBlockTypes.map(
+				( blockType ) => blockType.name
 			);
+			const foundBlockNames = getClientIdsWithDescendants().flatMap(
+				( clientId ) => {
+					const blockName = getBlockName( clientId );
+					return installedBlockNames.includes( blockName )
+						? blockName
+						: [];
+				}
+			);
+			const unusedBlockTypes = installedBlockTypes.filter(
+				( blockType ) => ! foundBlockNames.includes( blockType.name )
+			);
+
+			return unusedBlockTypes.length > 0 ? unusedBlockTypes : EMPTY_ARRAY;
 		},
 		( state ) => [
 			getInstalledBlockTypes( state ),
-			select( blockEditorStore ).getBlocks(),
+			select( blockEditorStore ).getClientIdsWithDescendants(),
 		]
 	)
 );
