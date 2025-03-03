@@ -2,13 +2,14 @@
 
 	> a,
 	> figure > a {
-		display: inline-block;
+		display: block;
+		justify-self: start;
 	}
 
 	img {
 		height: auto;
 		max-width: 100%;
-		box-sizing: border-box;
+		display: block;
 
 		@media not (prefers-reduced-motion) {
 			&.hide {
@@ -19,10 +20,6 @@
 				animation: show-content-image 0.4s;
 			}
 		}
-	}
-
-	&:not(:has(figcaption)) {
-		line-height: 0;
 	}
 
 	// The following style maintains border radius application for deprecated
