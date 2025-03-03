@@ -32,6 +32,9 @@ export const pagesRoute = {
 				title={ __( 'Pages' ) }
 				backPath="/"
 				content={ <DataViewsSidebarContent postType="page" /> }
+				description={ __(
+					'Create, edit, and manage the content and structure of individual pages on your site to customize your site layout and design.'
+				) }
 			/>
 		),
 		content: <PostList postType="page" />,
