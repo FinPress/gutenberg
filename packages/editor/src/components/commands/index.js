@@ -18,6 +18,7 @@ import {
 	layout,
 	rotateRight,
 	rotateLeft,
+	grid,
 } from '@wordpress/icons';
 import { useCommandLoader } from '@wordpress/commands';
 import { store as preferencesStore } from '@wordpress/preferences';
@@ -50,6 +51,7 @@ const getEditorCommandLoader = () =>
 			showBlockBreadcrumbs,
 			isDistractionFree,
 			isFocusMode,
+			isBoundaryMode,
 			isPreviewMode,
 			isViewable,
 			isCodeEditingEnabled,
@@ -68,6 +70,7 @@ const getEditorCommandLoader = () =>
 				showBlockBreadcrumbs: get( 'core', 'showBlockBreadcrumbs' ),
 				isDistractionFree: get( 'core', 'distractionFree' ),
 				isFocusMode: get( 'core', 'focusMode' ),
+				isBoundaryMode: get( 'core', 'boundaryMode' ),
 				isPreviewMode: getSettings().isPreviewMode,
 				isViewable:
 					getPostType( getCurrentPostType() )?.viewable ?? false,
@@ -150,6 +153,18 @@ const getEditorCommandLoader = () =>
 				: __( 'Enter Spotlight mode' ),
 			callback: ( { close } ) => {
 				toggleSpotlightMode();
+				close();
+			},
+		} );
+
+		commands.push( {
+			name: 'core/toggle-boundary-mode',
+			label: isBoundaryMode
+				? __( 'Disable boundary mode' )
+				: __( 'Enable boundary mode' ),
+			icon: grid,
+			callback: ( { close } ) => {
+				toggle( 'core', 'boundaryMode' );
 				close();
 			},
 		} );

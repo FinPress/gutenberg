@@ -124,6 +124,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 		userPatternCategories,
 		restBlockPatternCategories,
 		sectionRootClientId,
+		boundaryMode,
 	} = useSelect(
 		( select ) => {
 			const {
@@ -169,6 +170,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 					postId
 				)?._links?.hasOwnProperty( 'wp:action-unfiltered-html' ),
 				focusMode: get( 'core', 'focusMode' ),
+				boundaryMode: get( 'core', 'boundaryMode' ),
 				hasFixedToolbar:
 					get( 'core', 'fixedToolbar' ) || ! isLargeViewport,
 				hiddenBlockTypes: get( 'core', 'hiddenBlockTypes' ),
@@ -288,6 +290,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			allowedBlockTypes,
 			allowRightClickOverrides,
 			focusMode: focusMode && ! forceDisableFocusMode,
+			boundaryMode,
 			hasFixedToolbar,
 			isDistractionFree,
 			keepCaretInsideBlock,
@@ -341,6 +344,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 	}, [
 		allowedBlockTypes,
 		allowRightClickOverrides,
+		boundaryMode,
 		focusMode,
 		forceDisableFocusMode,
 		hasFixedToolbar,

@@ -231,6 +231,14 @@ function PreferencesModalContents( { extraSections = {} } ) {
 								) }
 								label={ __( 'Spotlight mode' ) }
 							/>
+							<PreferenceToggleControl
+								scope="core"
+								featureName="boundaryMode"
+								help={ __(
+									'Shows block outlines to help identify content boundaries.'
+								) }
+								label={ __( 'Boundary mode' ) }
+							/>
 							{ extraSections?.appearance }
 						</PreferencesModalSection>
 					),
