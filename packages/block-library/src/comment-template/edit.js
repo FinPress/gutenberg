@@ -283,8 +283,13 @@ export default function CommentTemplateEdit( {
 			: topLevelComments
 	);
 
-	if ( ! topLevelComments ) {
-		if ( postId && commentQuery ) {
+	if (
+		! topLevelComments ||
+		( Array.isArray( topLevelComments ) &&
+			topLevelComments.length === 0 ) ||
+		! commentTree.length
+	) {
+		if ( postId || ! commentTree.length ) {
 			return <p { ...blockProps }>{ __( 'No results found.' ) }</p>;
 		}
 		return (
