@@ -356,7 +356,10 @@ module.exports = {
 								'Internal',
 							];
 
+							// Group imports by locality.
 							const groups = groupImportsByLocality( candidates );
+
+							// Keep track of added comments to avoid duplication
 							const addedComments = new Set();
 
 							for ( const locality of localities ) {
@@ -366,6 +369,7 @@ module.exports = {
 									continue;
 								}
 
+								// Adds a comment for the locality if not already added.
 								if ( ! addedComments.has( locality ) ) {
 									if ( newText ) {
 										newText += '\n\n';
@@ -383,6 +387,8 @@ module.exports = {
 								newText += '\n';
 							}
 
+							// Added this to handle the case where there are comments before the first import.
+							// Helps in avoiding duplication of comments.
 							comments.forEach( ( comment ) => {
 								if (
 									comment.value.includes( 'dependencies' ) &&
