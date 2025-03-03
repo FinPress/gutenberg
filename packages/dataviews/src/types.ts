@@ -4,6 +4,11 @@
 import type { ReactElement, ComponentType } from 'react';
 
 /**
+ * WordPress dependencies
+ */
+import type { useFocusOnMount } from '@wordpress/compose';
+
+/**
  * Internal dependencies
  */
 import type { SetSelection } from './private-types';
@@ -468,6 +473,13 @@ export interface ActionModal< Item > extends ActionBase< Item > {
 	 * The size of the modal.
 	 */
 	modalSize?: 'small' | 'medium' | 'large' | 'fill';
+
+	/**
+	 * The focus on mount of the modal.
+	 */
+	modalFocusOnMount?:
+		| Parameters< typeof useFocusOnMount >[ 0 ]
+		| 'firstContentElement';
 }
 
 export interface ActionButton< Item > extends ActionBase< Item > {
