@@ -13,8 +13,12 @@ import { addQueryArgs, removeQueryArgs } from '@wordpress/url';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
 function getLatestHeadings( select, clientId ) {
-	const { getBlockAttributes, getBlockName, getBlocksByName, getBlockOrder } =
-		select( blockEditorStore );
+	const {
+		getBlockAttributes,
+		getBlockName,
+		getBlocksByName,
+		getClientIdsOfDescendants,
+	} = select( blockEditorStore );
 
 	// FIXME: @wordpress/block-library should not depend on @wordpress/editor.
 	// Blocks can be loaded into a *non-post* block editor, so to avoid
@@ -28,26 +32,10 @@ function getLatestHeadings( select, clientId ) {
 	const { onlyIncludeCurrentPage } = getBlockAttributes( clientId ) ?? {};
 
 	// Get post-content block client ID.
-	const postContentBlocks = getBlocksByName( 'core/post-content' );
-	const postContentClientId = postContentBlocks?.[ 0 ];
-
-	const getPostContentDescendantBlocks = ( rootClientId ) => {
-		const children = getBlockOrder( rootClientId );
-		const descendants = [];
-
-		for ( const childClientId of children ) {
-			descendants.push( childClientId );
-			descendants.push(
-				...getPostContentDescendantBlocks( childClientId )
-			);
-		}
-
-		return descendants;
-	};
+	const [ postContentClientId = '' ] = getBlocksByName( 'core/post-content' );
 
 	// Get the client ids of all blocks in the editor.
-	const allBlockClientIds =
-		getPostContentDescendantBlocks( postContentClientId );
+	const allBlockClientIds = getClientIdsOfDescendants( postContentClientId );
 
 	// If onlyIncludeCurrentPage is true, calculate the page (of a paginated post) this block is part of, so we know which headings to include; otherwise, skip the calculation.
 	let tocPage = 1;
