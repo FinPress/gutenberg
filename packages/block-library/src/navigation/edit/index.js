@@ -164,6 +164,7 @@ function ColorTools( {
 						onColorChange: setOverlayBackgroundColor,
 						resetAllFilter: () => setOverlayBackgroundColor(),
 						clearable: true,
+						enableAlpha: true,
 					},
 				] }
 				panelId={ clientId }
