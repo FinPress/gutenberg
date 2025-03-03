@@ -190,7 +190,7 @@ function AudioEdit( {
 							__nextHasNoMarginBottom
 							label={ __( 'Autoplay' ) }
 							onChange={ toggleAttribute( 'autoplay' ) }
-							checked={ autoplay }
+							checked={ !! autoplay }
 							help={ getAutoplayHelp }
 						/>
 					</ToolsPanelItem>
@@ -208,7 +208,7 @@ function AudioEdit( {
 							__nextHasNoMarginBottom
 							label={ __( 'Loop' ) }
 							onChange={ toggleAttribute( 'loop' ) }
-							checked={ loop }
+							checked={ !! loop }
 						/>
 					</ToolsPanelItem>
 					<ToolsPanelItem
