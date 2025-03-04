@@ -263,12 +263,14 @@ test.describe( 'Buttons', () => {
 		await editor.insertBlock( { name: 'core/buttons' } );
 		await page.keyboard.type( 'Content' );
 		await editor.openDocumentSettingsSidebar();
-		await page.click(
-			`role=region[name="Editor settings"i] >> role=tab[name="Settings"i]`
-		);
-		await page.click(
-			'role=group[name="Button width"i] >> role=button[name="25%"i]'
-		);
+		await page
+			.getByRole( 'region', { name: 'Editor settings' } )
+			.getByRole( 'tab', { name: 'Settings' } )
+			.click();
+		await page
+			.getByRole( 'radiogroup', { name: 'Width' } )
+			.getByRole( 'radio', { name: '25%' } )
+			.click();
 
 		// Check the content.
 		const content = await editor.getEditedPostContent();
@@ -291,13 +293,13 @@ test.describe( 'Buttons', () => {
 			`role=region[name="Editor settings"i] >> role=tab[name="Styles"i]`
 		);
 		await page.click(
-			'role=region[name="Editor settings"i] >> role=button[name="Color Text styles"i]'
+			'role=region[name="Editor settings"i] >> role=button[name="Text"i]'
 		);
-		await page.click( 'role=option[name="Color: Cyan bluish gray"i]' );
+		await page.click( 'role=option[name="Cyan bluish gray"i]' );
 		await page.click(
-			'role=region[name="Editor settings"i] >> role=button[name="Color Background styles"i]'
+			'role=region[name="Editor settings"i] >> role=button[name="Background"i]'
 		);
-		await page.click( 'role=option[name="Color: Vivid red"i]' );
+		await page.click( 'role=option[name="Vivid red"i]' );
 
 		// Check the content.
 		const content = await editor.getEditedPostContent();
@@ -320,15 +322,15 @@ test.describe( 'Buttons', () => {
 			`role=region[name="Editor settings"i] >> role=tab[name="Styles"i]`
 		);
 		await page.click(
-			'role=region[name="Editor settings"i] >> role=button[name="Color Text styles"i]'
+			'role=region[name="Editor settings"i] >> role=button[name="Text"i]'
 		);
-		await page.click( 'role=button[name="Custom color picker."i]' );
+		await page.click( 'role=button[name="Custom color picker"i]' );
 		await page.fill( 'role=textbox[name="Hex color"i]', 'ff0000' );
 
 		await page.click(
-			'role=region[name="Editor settings"i] >> role=button[name="Color Background styles"i]'
+			'role=region[name="Editor settings"i] >> role=button[name="Background"i]'
 		);
-		await page.click( 'role=button[name="Custom color picker."i]' );
+		await page.click( 'role=button[name="Custom color picker"i]' );
 		await page.fill( 'role=textbox[name="Hex color"i]', '00ff00' );
 
 		// Check the content.
@@ -355,7 +357,7 @@ test.describe( 'Buttons', () => {
 			`role=region[name="Editor settings"i] >> role=tab[name="Styles"i]`
 		);
 		await page.click(
-			'role=region[name="Editor settings"i] >> role=button[name="Color Background styles"i]'
+			'role=region[name="Editor settings"i] >> role=button[name="Background"i]'
 		);
 		await page.click( 'role=tab[name="Gradient"i]' );
 		await page.click( 'role=option[name="Gradient: Purple to yellow"i]' );
@@ -384,7 +386,7 @@ test.describe( 'Buttons', () => {
 			`role=region[name="Editor settings"i] >> role=tab[name="Styles"i]`
 		);
 		await page.click(
-			'role=region[name="Editor settings"i] >> role=button[name="Color Background styles"i]'
+			'role=region[name="Editor settings"i] >> role=button[name="Background"i]'
 		);
 		await page.click( 'role=tab[name="Gradient"i]' );
 		await page.click(

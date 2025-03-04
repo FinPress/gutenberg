@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+## 8.19.0 (2025-02-28)
+
+## 8.18.0 (2025-02-12)
+
+## 8.17.0 (2025-01-29)
+
+## 8.16.0 (2025-01-15)
+
+## 8.15.0 (2025-01-02)
+
+## 8.14.0 (2024-12-11)
+
+## 8.13.0 (2024-11-27)
+
+## 8.12.0 (2024-11-16)
+
+## 8.11.0 (2024-10-30)
+
+## 8.10.0 (2024-10-16)
+
 ### Enhancements
 
 -   The bundled `@babel/core` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).

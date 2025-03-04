@@ -24,7 +24,7 @@ const directiveParser = new RegExp(
 		// segments. It excludes underscore intentionally to prevent confusion.
 		// E.g., "custom-directive".
 		'([a-z0-9]+(?:-[a-z0-9]+)*)' +
-		// (Optional) Match '--' followed by any alphanumeric charachters. It
+		// (Optional) Match '--' followed by any alphanumeric characters. It
 		// excludes underscore intentionally to prevent confusion, but it can
 		// contain multiple hyphens. E.g., "--custom-prefix--with-more-info".
 		'(?:--([a-z0-9_-]+))?$',
@@ -161,7 +161,6 @@ export function toVdom( root: Node ): Array< ComponentChild > {
 			}, {} );
 		}
 
-		// @ts-expect-error Fixed in upcoming preact release https://github.com/preactjs/preact/pull/4334
 		if ( localName === 'template' ) {
 			props.content = [
 				...( elementNode as HTMLTemplateElement ).content.childNodes,

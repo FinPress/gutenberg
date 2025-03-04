@@ -60,6 +60,7 @@ function getPostMetaFields( select, context ) {
 					entityMetaValues?.[ key ] ??
 					// When using the default, an empty string IS NOT a valid value.
 					( props.default || undefined ),
+				type: props.type,
 			};
 		}
 	} );
@@ -107,11 +108,8 @@ export default {
 			return false;
 		}
 
-		const postType =
-			context?.postType || select( editorStore ).getCurrentPostType();
-
-		// Check that editing is happening in the post editor and not a template.
-		if ( postType === 'wp_template' ) {
+		// Lock editing when `postType` is not defined.
+		if ( ! context?.postType ) {
 			return false;
 		}
 

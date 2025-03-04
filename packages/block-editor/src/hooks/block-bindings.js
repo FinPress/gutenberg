@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 import {
 	getBlockBindingsSource,
 	getBlockBindingsSources,
+	getBlockType,
 } from '@wordpress/blocks';
 import {
 	__experimentalItemGroup as ItemGroup,
@@ -25,14 +26,15 @@ import { useViewportMatch } from '@wordpress/compose';
 import {
 	canBindAttribute,
 	getBindableAttributes,
-} from '../hooks/use-bindings-attributes';
+	useBlockBindingsUtils,
+} from '../utils/block-bindings';
 import { unlock } from '../lock-unlock';
 import InspectorControls from '../components/inspector-controls';
 import BlockContext from '../components/block-context';
-import { useBlockBindingsUtils } from '../utils/block-bindings';
+import { useBlockEditContext } from '../components/block-edit';
 import { store as blockEditorStore } from '../store';
 
-const { DropdownMenuV2 } = unlock( componentsPrivateApis );
+const { Menu } = unlock( componentsPrivateApis );
 
 const EMPTY_OBJECT = {};
 
@@ -49,46 +51,61 @@ const useToolsPanelDropdownMenuProps = () => {
 		: {};
 };
 
-function BlockBindingsPanelDropdown( { fieldsList, attribute, binding } ) {
+function BlockBindingsPanelMenuContent( { fieldsList, attribute, binding } ) {
+	const { clientId } = useBlockEditContext();
 	const registeredSources = getBlockBindingsSources();
 	const { updateBlockBindings } = useBlockBindingsUtils();
 	const currentKey = binding?.args?.key;
+	const attributeType = useSelect(
+		( select ) => {
+			const { name: blockName } =
+				select( blockEditorStore ).getBlock( clientId );
+			const _attributeType =
+				getBlockType( blockName ).attributes?.[ attribute ]?.type;
+			return _attributeType === 'rich-text' ? 'string' : _attributeType;
+		},
+		[ clientId, attribute ]
+	);
 	return (
 		<>
 			{ Object.entries( fieldsList ).map( ( [ name, fields ], i ) => (
 				<Fragment key={ name }>
-					<DropdownMenuV2.Group>
+					<Menu.Group>
 						{ Object.keys( fieldsList ).length > 1 && (
-							<DropdownMenuV2.GroupLabel>
+							<Menu.GroupLabel>
 								{ registeredSources[ name ].label }
-							</DropdownMenuV2.GroupLabel>
+							</Menu.GroupLabel>
 						) }
-						{ Object.entries( fields ).map( ( [ key, args ] ) => (
-							<DropdownMenuV2.RadioItem
-								key={ key }
-								onChange={ () =>
-									updateBlockBindings( {
-										[ attribute ]: {
-											source: name,
-											args: { key },
-										},
-									} )
-								}
-								name={ attribute + '-binding' }
-								value={ key }
-								checked={ key === currentKey }
-							>
-								<DropdownMenuV2.ItemLabel>
-									{ args?.label }
-								</DropdownMenuV2.ItemLabel>
-								<DropdownMenuV2.ItemHelpText>
-									{ args?.value }
-								</DropdownMenuV2.ItemHelpText>
-							</DropdownMenuV2.RadioItem>
-						) ) }
-					</DropdownMenuV2.Group>
+						{ Object.entries( fields )
+							.filter(
+								( [ , args ] ) => args?.type === attributeType
+							)
+							.map( ( [ key, args ] ) => (
+								<Menu.RadioItem
+									key={ key }
+									onChange={ () =>
+										updateBlockBindings( {
+											[ attribute ]: {
+												source: name,
+												args: { key },
+											},
+										} )
+									}
+									name={ attribute + '-binding' }
+									value={ key }
+									checked={ key === currentKey }
+								>
+									<Menu.ItemLabel>
+										{ args?.label }
+									</Menu.ItemLabel>
+									<Menu.ItemHelpText>
+										{ args?.value }
+									</Menu.ItemHelpText>
+								</Menu.RadioItem>
+							) ) }
+					</Menu.Group>
 					{ i !== Object.keys( fieldsList ).length - 1 && (
-						<DropdownMenuV2.Separator />
+						<Menu.Separator />
 					) }
 				</Fragment>
 			) ) }
@@ -158,27 +175,26 @@ function EditableBlockBindingsPanelItems( {
 							} );
 						} }
 					>
-						<DropdownMenuV2
+						<Menu
 							placement={
 								isMobile ? 'bottom-start' : 'left-start'
 							}
-							gutter={ isMobile ? 8 : 36 }
-							trigger={
-								<Item>
-									<BlockBindingsAttribute
-										attribute={ attribute }
-										binding={ binding }
-										fieldsList={ fieldsList }
-									/>
-								</Item>
-							}
 						>
-							<BlockBindingsPanelDropdown
-								fieldsList={ fieldsList }
-								attribute={ attribute }
-								binding={ binding }
-							/>
-						</DropdownMenuV2>
+							<Menu.TriggerButton render={ <Item /> }>
+								<BlockBindingsAttribute
+									attribute={ attribute }
+									binding={ binding }
+									fieldsList={ fieldsList }
+								/>
+							</Menu.TriggerButton>
+							<Menu.Popover gutter={ isMobile ? 8 : 36 }>
+								<BlockBindingsPanelMenuContent
+									fieldsList={ fieldsList }
+									attribute={ attribute }
+									binding={ binding }
+								/>
+							</Menu.Popover>
+						</Menu>
 					</ToolsPanelItem>
 				);
 			} ) }
@@ -283,13 +299,17 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 						/>
 					) }
 				</ItemGroup>
-				<ItemGroup>
-					<Text variant="muted">
+				{ /*
+					Use a div element to make the ToolsPanelHiddenInnerWrapper
+					toggle the visibility of this help text automatically.
+				*/ }
+				<Text as="div" variant="muted">
+					<p>
 						{ __(
 							'Attributes connected to custom fields or other dynamic data.'
 						) }
-					</Text>
-				</ItemGroup>
+					</p>
+				</Text>
 			</ToolsPanel>
 		</InspectorControls>
 	);

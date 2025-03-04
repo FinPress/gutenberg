@@ -27,7 +27,6 @@ export default function useTabNav() {
 		getLastFocus,
 		getSectionRootClientId,
 		isZoomOut,
-		__unstableGetEditorMode,
 	} = unlock( useSelect( blockEditorStore ) );
 	const { setLastFocus } = unlock( useDispatch( blockEditorStore ) );
 
@@ -36,6 +35,11 @@ export default function useTabNav() {
 	const noCaptureRef = useRef();
 
 	function onFocusCapture( event ) {
+		const canvasElement =
+			container.current.ownerDocument === event.target.ownerDocument
+				? container.current
+				: container.current.ownerDocument.defaultView.frameElement;
+
 		// Do not capture incoming focus if set by us in WritingFlow.
 		if ( noCaptureRef.current ) {
 			noCaptureRef.current = null;
@@ -54,7 +58,7 @@ export default function useTabNav() {
 			}
 		}
 		// In "compose" mode without a selected ID, we want to place focus on the section root when tabbing to the canvas.
-		else if ( __unstableGetEditorMode() === 'zoom-out' && isZoomOut() ) {
+		else if ( isZoomOut() ) {
 			const sectionRootClientId = getSectionRootClientId();
 			const sectionBlocks = getBlockOrder( sectionRootClientId );
 
@@ -65,17 +69,15 @@ export default function useTabNav() {
 					.focus();
 			}
 			// If we don't have any section blocks, focus the section root.
-			else {
+			else if ( sectionRootClientId ) {
 				container.current
 					.querySelector( `[data-block="${ sectionRootClientId }"]` )
 					.focus();
+			} else {
+				// If we don't have any section root, focus the canvas.
+				canvasElement.focus();
 			}
 		} else {
-			const canvasElement =
-				container.current.ownerDocument === event.target.ownerDocument
-					? container.current
-					: container.current.ownerDocument.defaultView.frameElement;
-
 			const isBefore =
 				// eslint-disable-next-line no-bitwise
 				event.target.compareDocumentPosition( canvasElement ) &
@@ -120,6 +122,10 @@ export default function useTabNav() {
 			// Arrow keys can be used, and Tab and arrow keys can be used in
 			// Navigation mode (press Esc), to navigate through blocks.
 			if ( event.keyCode !== TAB ) {
+				return;
+			}
+
+			if ( ! hasMultiSelection() && ! getSelectedBlockClientId() ) {
 				return;
 			}
 

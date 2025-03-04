@@ -2,6 +2,30 @@
 
 ## Unreleased
 
+### Enhancements
+
+-   Query Loop Block: Enable custom order or `menu_order` ordering option for post types that support it. ([#68781](https://github.com/WordPress/gutenberg/pull/68781))
+
+## 9.19.0 (2025-02-28)
+
+## 9.18.0 (2025-02-12)
+
+## 9.17.0 (2025-01-29)
+
+## 9.16.0 (2025-01-15)
+
+## 9.15.0 (2025-01-02)
+
+## 9.14.0 (2024-12-11)
+
+## 9.13.0 (2024-11-27)
+
+## 9.12.0 (2024-11-16)
+
+## 9.11.0 (2024-10-30)
+
+## 9.10.0 (2024-10-16)
+
 ## 9.9.0 (2024-10-03)
 
 ## 9.8.0 (2024-09-19)

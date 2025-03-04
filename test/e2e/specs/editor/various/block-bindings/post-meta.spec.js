@@ -524,6 +524,47 @@ test.describe( 'Post Meta source', () => {
 				previewPage.locator( '#connected-paragraph' )
 			).toHaveText( 'new value' );
 		} );
+
+		test( 'should be possible to edit the value of the connected custom fields in the inspector control registered by the plugin', async ( {
+			editor,
+			page,
+		} ) => {
+			await editor.insertBlock( {
+				name: 'core/paragraph',
+				attributes: {
+					anchor: 'connected-paragraph',
+					content: 'fallback content',
+					metadata: {
+						bindings: {
+							content: {
+								source: 'core/post-meta',
+								args: {
+									key: 'movie_field',
+								},
+							},
+						},
+					},
+				},
+			} );
+			const contentInput = page.getByRole( 'textbox', {
+				name: 'Content',
+			} );
+			await expect( contentInput ).toHaveValue(
+				'Movie field default value'
+			);
+			await contentInput.fill( 'new value' );
+			// Check that the paragraph content attribute didn't change.
+			const [ paragraphBlockObject ] = await editor.getBlocks();
+			expect( paragraphBlockObject.attributes.content ).toBe(
+				'fallback content'
+			);
+			// Check the value of the custom field is being updated by visiting the frontend.
+			const previewPage = await editor.openPreviewPage();
+			await expect(
+				previewPage.locator( '#connected-paragraph' )
+			).toHaveText( 'new value' );
+		} );
+
 		test( 'should be possible to connect movie fields through the attributes panel', async ( {
 			editor,
 			page,
@@ -546,6 +587,55 @@ test.describe( 'Post Meta source', () => {
 				.getByRole( 'menuitemradio' )
 				.filter( { hasText: 'Movie field label' } );
 			await expect( movieField ).toBeVisible();
+		} );
+		test( 'should not be possible to connect non-supported fields through the attributes panel', async ( {
+			editor,
+			page,
+		} ) => {
+			await editor.insertBlock( {
+				name: 'core/paragraph',
+			} );
+			await page.getByLabel( 'Attributes options' ).click();
+			await page
+				.getByRole( 'menuitemcheckbox', {
+					name: 'Show content',
+				} )
+				.click();
+			await page
+				.getByRole( 'button', {
+					name: 'content',
+				} )
+				.click();
+			await expect(
+				page.getByRole( 'menuitemradio', {
+					name: 'String custom field',
+				} )
+			).toBeVisible();
+			await expect(
+				page.getByRole( 'menuitemradio', {
+					name: 'Number custom field',
+				} )
+			).toBeHidden();
+			await expect(
+				page.getByRole( 'menuitemradio', {
+					name: 'Integer custom field',
+				} )
+			).toBeHidden();
+			await expect(
+				page.getByRole( 'menuitemradio', {
+					name: 'Boolean custom field',
+				} )
+			).toBeHidden();
+			await expect(
+				page.getByRole( 'menuitemradio', {
+					name: 'Object custom field',
+				} )
+			).toBeHidden();
+			await expect(
+				page.getByRole( 'menuitemradio', {
+					name: 'Array custom field',
+				} )
+			).toBeHidden();
 		} );
 	} );
 } );

@@ -7,17 +7,13 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-	Spinner,
-	__experimentalHStack as HStack,
-	__experimentalVStack as VStack,
-} from '@wordpress/components';
+import { Spinner } from '@wordpress/components';
 import { useEffect, useId, useRef, useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import SingleSelectionCheckbox from '../../components/dataviews-selection-checkbox';
+import DataViewsSelectionCheckbox from '../../components/dataviews-selection-checkbox';
 import ItemActions from '../../components/dataviews-item-actions';
 import { sortValues } from '../../constants';
 import {
@@ -30,121 +26,74 @@ import type {
 	NormalizedField,
 	ViewTable as ViewTableType,
 	ViewTableProps,
-	CombinedField,
 } from '../../types';
 import type { SetSelection } from '../../private-types';
 import ColumnHeaderMenu from './column-header-menu';
-import { getVisibleFieldIds } from '../index';
+import ColumnPrimary from './column-primary';
 
 interface TableColumnFieldProps< Item > {
-	primaryField?: NormalizedField< Item >;
-	field: NormalizedField< Item >;
-	item: Item;
-}
-
-interface TableColumnCombinedProps< Item > {
-	primaryField?: NormalizedField< Item >;
 	fields: NormalizedField< Item >[];
-	field: CombinedField;
-	item: Item;
-	view: ViewTableType;
-}
-
-interface TableColumnProps< Item > {
-	primaryField?: NormalizedField< Item >;
-	fields: NormalizedField< Item >[];
-	item: Item;
 	column: string;
-	view: ViewTableType;
+	item: Item;
 }
 
 interface TableRowProps< Item > {
 	hasBulkActions: boolean;
 	item: Item;
+	level?: number;
 	actions: Action< Item >[];
 	fields: NormalizedField< Item >[];
 	id: string;
 	view: ViewTableType;
-	primaryField?: NormalizedField< Item >;
+	titleField?: NormalizedField< Item >;
+	mediaField?: NormalizedField< Item >;
+	descriptionField?: NormalizedField< Item >;
 	selection: string[];
 	getItemId: ( item: Item ) => string;
 	onChangeSelection: SetSelection;
-}
-
-function TableColumn< Item >( {
-	column,
-	fields,
-	view,
-	...props
-}: TableColumnProps< Item > ) {
-	const field = fields.find( ( f ) => f.id === column );
-	if ( !! field ) {
-		return <TableColumnField { ...props } field={ field } />;
-	}
-	const combinedField = view.layout?.combinedFields?.find(
-		( f ) => f.id === column
-	);
-	if ( !! combinedField ) {
-		return (
-			<TableColumnCombined
-				{ ...props }
-				fields={ fields }
-				view={ view }
-				field={ combinedField }
-			/>
-		);
-	}
-
-	return null;
+	isItemClickable: ( item: Item ) => boolean;
+	onClickItem?: ( item: Item ) => void;
 }
 
 function TableColumnField< Item >( {
-	primaryField,
 	item,
-	field,
+	fields,
+	column,
 }: TableColumnFieldProps< Item > ) {
+	const field = fields.find( ( f ) => f.id === column );
+
+	if ( ! field ) {
+		return null;
+	}
+
 	return (
-		<div
-			className={ clsx( 'dataviews-view-table__cell-content-wrapper', {
-				'dataviews-view-table__primary-field':
-					primaryField?.id === field.id,
-			} ) }
-		>
+		<div className="dataviews-view-table__cell-content-wrapper">
 			<field.render { ...{ item } } />
 		</div>
 	);
 }
 
-function TableColumnCombined< Item >( {
-	field,
-	...props
-}: TableColumnCombinedProps< Item > ) {
-	const children = field.children.map( ( child ) => (
-		<TableColumn key={ child } { ...props } column={ child } />
-	) );
-
-	if ( field.direction === 'horizontal' ) {
-		return <HStack spacing={ 3 }>{ children }</HStack>;
-	}
-	return <VStack spacing={ 0 }>{ children }</VStack>;
-}
-
 function TableRow< Item >( {
 	hasBulkActions,
 	item,
+	level,
 	actions,
 	fields,
 	id,
 	view,
-	primaryField,
+	titleField,
+	mediaField,
+	descriptionField,
 	selection,
 	getItemId,
+	isItemClickable,
+	onClickItem,
 	onChangeSelection,
 }: TableRowProps< Item > ) {
 	const hasPossibleBulkAction = useHasAPossibleBulkAction( actions, item );
 	const isSelected = hasPossibleBulkAction && selection.includes( id );
 	const [ isHovered, setIsHovered ] = useState( false );
-
+	const { showTitle = true, showMedia = true, showDescription = true } = view;
 	const handleMouseEnter = () => {
 		setIsHovered( true );
 	};
@@ -156,7 +105,11 @@ function TableRow< Item >( {
 	// `onClick` and can be used to exclude touchscreen devices from certain
 	// behaviours.
 	const isTouchDeviceRef = useRef( false );
-	const columns = getVisibleFieldIds( view, fields );
+	const columns = view.fields ?? [];
+	const hasPrimaryColumn =
+		( titleField && showTitle ) ||
+		( mediaField && showMedia ) ||
+		( descriptionField && showDescription );
 
 	return (
 		<tr
@@ -187,37 +140,45 @@ function TableRow< Item >( {
 			} }
 		>
 			{ hasBulkActions && (
-				<td
-					className="dataviews-view-table__checkbox-column"
-					style={ {
-						width: '1%',
-					} }
-				>
+				<td className="dataviews-view-table__checkbox-column">
 					<div className="dataviews-view-table__cell-content-wrapper">
-						<SingleSelectionCheckbox
+						<DataViewsSelectionCheckbox
 							item={ item }
 							selection={ selection }
 							onChangeSelection={ onChangeSelection }
 							getItemId={ getItemId }
-							primaryField={ primaryField }
+							titleField={ titleField }
 							disabled={ ! hasPossibleBulkAction }
 						/>
 					</div>
 				</td>
 			) }
+			{ hasPrimaryColumn && (
+				<td>
+					<ColumnPrimary
+						item={ item }
+						level={ level }
+						titleField={ showTitle ? titleField : undefined }
+						mediaField={ showMedia ? mediaField : undefined }
+						descriptionField={
+							showDescription ? descriptionField : undefined
+						}
+						isItemClickable={ isItemClickable }
+						onClickItem={ onClickItem }
+					/>
+				</td>
+			) }
 			{ columns.map( ( column: string ) => {
-				// Explicits picks the supported styles.
+				// Explicit picks the supported styles.
 				const { width, maxWidth, minWidth } =
 					view.layout?.styles?.[ column ] ?? {};
 
 				return (
 					<td key={ column } style={ { width, maxWidth, minWidth } }>
-						<TableColumn
-							primaryField={ primaryField }
+						<TableColumnField
 							fields={ fields }
 							item={ item }
 							column={ column }
-							view={ view }
 						/>
 					</td>
 				);
@@ -247,11 +208,14 @@ function ViewTable< Item >( {
 	data,
 	fields,
 	getItemId,
+	getItemLevel,
 	isLoading = false,
 	onChangeView,
 	onChangeSelection,
 	selection,
 	setOpenedFilter,
+	onClickItem,
+	isItemClickable,
 	view,
 }: ViewTableProps< Item > ) {
 	const headerMenuRefs = useRef<
@@ -289,17 +253,41 @@ function ViewTable< Item >( {
 		setNextHeaderMenuToFocus( fallback?.node );
 	};
 
-	const columns = getVisibleFieldIds( view, fields );
 	const hasData = !! data?.length;
 
-	const primaryField = fields.find(
-		( field ) => field.id === view.layout?.primaryField
+	const titleField = fields.find( ( field ) => field.id === view.titleField );
+	const mediaField = fields.find( ( field ) => field.id === view.mediaField );
+	const descriptionField = fields.find(
+		( field ) => field.id === view.descriptionField
 	);
+	const { showTitle = true, showMedia = true, showDescription = true } = view;
+	const hasPrimaryColumn =
+		( titleField && showTitle ) ||
+		( mediaField && showMedia ) ||
+		( descriptionField && showDescription );
+	const columns = view.fields ?? [];
+	const headerMenuRef =
+		( column: string, index: number ) => ( node: HTMLButtonElement ) => {
+			if ( node ) {
+				headerMenuRefs.current.set( column, {
+					node,
+					fallback: columns[ index > 0 ? index - 1 : 1 ],
+				} );
+			} else {
+				headerMenuRefs.current.delete( column );
+			}
+		};
 
 	return (
 		<>
 			<table
-				className="dataviews-view-table"
+				className={ clsx( 'dataviews-view-table', {
+					[ `has-${ view.layout?.density }-density` ]:
+						view.layout?.density &&
+						[ 'compact', 'comfortable' ].includes(
+							view.layout.density
+						),
+				} ) }
 				aria-busy={ isLoading }
 				aria-describedby={ tableNoticeId }
 			>
@@ -308,9 +296,6 @@ function ViewTable< Item >( {
 						{ hasBulkActions && (
 							<th
 								className="dataviews-view-table__checkbox-column"
-								style={ {
-									width: '1%',
-								} }
 								scope="col"
 							>
 								<BulkSelectionCheckbox
@@ -322,8 +307,27 @@ function ViewTable< Item >( {
 								/>
 							</th>
 						) }
+						{ hasPrimaryColumn && (
+							<th scope="col">
+								{ titleField && (
+									<ColumnHeaderMenu
+										ref={ headerMenuRef(
+											titleField.id,
+											0
+										) }
+										fieldId={ titleField.id }
+										view={ view }
+										fields={ fields }
+										onChangeView={ onChangeView }
+										onHide={ onHide }
+										setOpenedFilter={ setOpenedFilter }
+										canMove={ false }
+									/>
+								) }
+							</th>
+						) }
 						{ columns.map( ( column, index ) => {
-							// Explicits picks the supported styles.
+							// Explicit picks the supported styles.
 							const { width, maxWidth, minWidth } =
 								view.layout?.styles?.[ column ] ?? {};
 							return (
@@ -331,6 +335,7 @@ function ViewTable< Item >( {
 									key={ column }
 									style={ { width, maxWidth, minWidth } }
 									aria-sort={
+										view.sort?.direction &&
 										view.sort?.field === column
 											? sortValues[ view.sort.direction ]
 											: undefined
@@ -338,26 +343,7 @@ function ViewTable< Item >( {
 									scope="col"
 								>
 									<ColumnHeaderMenu
-										ref={ ( node ) => {
-											if ( node ) {
-												headerMenuRefs.current.set(
-													column,
-													{
-														node,
-														fallback:
-															columns[
-																index > 0
-																	? index - 1
-																	: 1
-															],
-													}
-												);
-											} else {
-												headerMenuRefs.current.delete(
-													column
-												);
-											}
-										} }
+										ref={ headerMenuRef( column, index ) }
 										fieldId={ column }
 										view={ view }
 										fields={ fields }
@@ -383,15 +369,25 @@ function ViewTable< Item >( {
 							<TableRow
 								key={ getItemId( item ) }
 								item={ item }
+								level={
+									view.showLevels &&
+									typeof getItemLevel === 'function'
+										? getItemLevel( item )
+										: undefined
+								}
 								hasBulkActions={ hasBulkActions }
 								actions={ actions }
 								fields={ fields }
 								id={ getItemId( item ) || index.toString() }
 								view={ view }
-								primaryField={ primaryField }
+								titleField={ titleField }
+								mediaField={ mediaField }
+								descriptionField={ descriptionField }
 								selection={ selection }
 								getItemId={ getItemId }
 								onChangeSelection={ onChangeSelection }
+								onClickItem={ onClickItem }
+								isItemClickable={ isItemClickable }
 							/>
 						) ) }
 				</tbody>
