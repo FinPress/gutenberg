@@ -466,6 +466,8 @@ export interface ActionModal< Item > extends ActionBase< Item > {
 
 	/**
 	 * The size of the modal.
+	 *
+	 * @default 'medium'
 	 */
 	modalSize?: 'small' | 'medium' | 'large' | 'fill';
 }
