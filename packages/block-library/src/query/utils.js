@@ -152,7 +152,10 @@ export const usePostTypes = () => {
  * @param {boolean} [options.allowPubliclyQueryable=false] Whether to filter taxonomies by publicly_queryable.
  * @return {Object[]} An array of the associated taxonomies.
  */
-export const useTaxonomies = ( postType, options ) => {
+export const useTaxonomies = (
+	postType,
+	options = { allowPubliclyQueryable: false }
+) => {
 	const taxonomies = useSelect(
 		( select ) => {
 			const { getTaxonomies, getPostType } = select( coreStore );
