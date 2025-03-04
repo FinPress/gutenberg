@@ -69,7 +69,7 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 		 * Please ensure that the equivalent check is kept in sync with this preload path.
 		 */
 		$rest_context = current_user_can( 'edit_theme_options' ) ? 'edit' : 'view';
-		$paths[] = "/wp/v2/global-styles/$global_styles_id?context=$rest_context";
+		$paths[]      = "/wp/v2/global-styles/$global_styles_id?context=$rest_context";
 
 		// Used by getBlockPatternCategories in useBlockEditorSettings.
 		$paths[] = '/wp/v2/block-patterns/categories';
