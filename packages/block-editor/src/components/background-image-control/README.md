@@ -69,10 +69,3 @@ const coords = backgroundPositionToCoords('50% 50%');
 ## Related Components
 - `MediaReplaceFlow` - Handles media uploads and replacements.
 - `FocalPointPicker` - Allows precise background positioning.
-
-## Contributing
-If you find issues or have suggestions for improvement, please submit a pull request to the WordPress Gutenberg repository.
-
-## License
-GPLv2 or later.
-
