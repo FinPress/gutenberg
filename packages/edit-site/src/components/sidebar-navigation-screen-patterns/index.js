@@ -100,10 +100,7 @@ function CategoriesGroup( {
 	);
 }
 
-export default function SidebarNavigationScreenPatterns( {
-	isRoot,
-	backPath,
-} ) {
+export default function SidebarNavigationScreenPatterns( { backPath } ) {
 	const {
 		query: { postType = 'wp_block', categoryId },
 	} = useLocation();
@@ -123,7 +120,6 @@ export default function SidebarNavigationScreenPatterns( {
 			description={ __(
 				'Manage what patterns are available when editing the site.'
 			) }
-			isRoot={ isRoot }
 			backPath={ backPath }
 			content={
 				<>

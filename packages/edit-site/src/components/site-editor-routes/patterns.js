@@ -15,16 +15,7 @@ export const patternsRoute = {
 				isBlockTheme || isClassicThemeWithStyleBookSupport( siteData )
 					? '/'
 					: undefined;
-			const isRoot = ! (
-				isBlockTheme || isClassicThemeWithStyleBookSupport( siteData )
-			);
-
-			return (
-				<SidebarNavigationScreenPatterns
-					backPath={ backPath }
-					isRoot={ isRoot }
-				/>
-			);
+			return <SidebarNavigationScreenPatterns backPath={ backPath } />;
 		},
 		content: <PagePatterns />,
 		mobile( { siteData, query } ) {
@@ -34,17 +25,10 @@ export const patternsRoute = {
 				isBlockTheme || isClassicThemeWithStyleBookSupport( siteData )
 					? '/'
 					: undefined;
-			const isRoot = ! (
-				isBlockTheme || isClassicThemeWithStyleBookSupport( siteData )
-			);
-
 			return !! categoryId ? (
 				<PagePatterns />
 			) : (
-				<SidebarNavigationScreenPatterns
-					backPath={ backPath }
-					isRoot={ isRoot }
-				/>
+				<SidebarNavigationScreenPatterns backPath={ backPath } />
 			);
 		},
 	},
