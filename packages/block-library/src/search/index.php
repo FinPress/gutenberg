@@ -158,16 +158,16 @@ function render_block_core_search( $attributes ) {
 	if ( $is_button_inside && ! empty( $border_color_classes ) ) {
 		$field_markup_classes[] = $border_color_classes;
 	}
-	$field_markup         = sprintf(
+	$field_markup       = sprintf(
 		'<div class="%s" %s>%s</div>',
 		implode( ' ', $field_markup_classes ),
 		$inline_styles['wrapper'],
 		$input . $query_params_markup . $button
 	);
-	$wrapper_attributes   = get_block_wrapper_attributes(
+	$wrapper_attributes = get_block_wrapper_attributes(
 		array( 'class' => $classnames )
 	);
-	$form_directives      = '';
+	$form_directives    = '';
 
 	// If it's interactive, add the directives.
 	if ( $is_expandable_searchfield ) {
