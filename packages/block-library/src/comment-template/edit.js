@@ -284,9 +284,6 @@ export default function CommentTemplateEdit( {
 	);
 
 	if ( ! topLevelComments ) {
-		if ( postId && commentQuery ) {
-			return <p { ...blockProps }>{ __( 'No results found.' ) }</p>;
-		}
 		return (
 			<p { ...blockProps }>
 				<Spinner />
