@@ -37,7 +37,7 @@ const BlockCaption = ( {
 
 ### Props
 
-The properties `isSelected`, `onBlur`, `onChange`, `onFocus`, `shouldDisplay`, `value`, `insertBlocksAfter` of this component are passed directly to their related props of its inner `<RichText>` component ([see detailed info about the RichText component's props](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md)).
+<!-- The properties `isSelected`, `onBlur`, `onChange`, `onFocus`, `shouldDisplay`, `value`, `insertBlocksAfter` of this component are passed directly to their related props of its inner `<RichText>` component ([see detailed info about the RichText component's props](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md)). -->
 
 ## Related components
 
