@@ -94,13 +94,13 @@
 	},
 	"styles": [
 		{
-			"name": "tabbed",
-			"label": "Tabbed",
+			"name": "fill",
+			"label": "Fill",
 			"isDefault": true
 		},
 		{
-			"name": "tabbed-outline",
-			"label": "Tabbed Outline"
+			"name": "outline",
+			"label": "Outline"
 		}
 	],
 	"supports": {

@@ -18,8 +18,8 @@ import useColorSupports from './use-color-supports';
 import { TabFill } from '../tab/slotfill';
 
 const TABS_TEMPLATE = [
-	[ 'core/tab', { label: 'Tab 1', slug: 'tab-1' }, [ [ 'core/paragraph' ] ] ],
-	[ 'core/tab', { label: 'Tab 2', slug: 'tab-2' }, [ [ 'core/paragraph' ] ] ],
+	[ 'core/tab', { label: 'Tab 1', slug: 'tab-1' } ],
+	[ 'core/tab', { label: 'Tab 2', slug: 'tab-2' } ],
 ];
 
 function Edit( {
