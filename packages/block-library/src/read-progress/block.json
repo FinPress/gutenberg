@@ -17,7 +17,8 @@
 		}
 	},
 	"supports": {
-		"html": false
+		"html": false,
+		"interactivity": true
 	},
 	"style": "wp-block-read-progress"
 }

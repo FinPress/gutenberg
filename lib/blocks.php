@@ -43,7 +43,6 @@ function gutenberg_reregister_core_block_types() {
 				'verse',
 				'video',
 				'embed',
-				'read-progress',
 			),
 			'block_names'   => array(
 				'archives.php'                     => 'core/archives',
@@ -111,6 +110,7 @@ function gutenberg_reregister_core_block_types() {
 				'query-title.php'                  => 'core/query-title',
 				'query-total.php'                  => 'core/query-total',
 				'read-more.php'                    => 'core/read-more',
+				'read-progress.php'					   => 'core/read-progress',
 				'rss.php'                          => 'core/rss',
 				'search.php'                       => 'core/search',
 				'shortcode.php'                    => 'core/shortcode',
