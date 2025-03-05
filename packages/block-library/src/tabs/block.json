@@ -101,18 +101,6 @@
 		{
 			"name": "tabbed-outline",
 			"label": "Tabbed Outline"
-		},
-		{
-			"name": "underlined",
-			"label": "Underlined"
-		},
-		{
-			"name": "pills",
-			"label": "Pills"
-		},
-		{
-			"name": "underlined-pills",
-			"label": "Underlined Pills"
 		}
 	],
 	"supports": {
