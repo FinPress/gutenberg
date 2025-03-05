@@ -184,7 +184,7 @@ const SpacerEdit = ( {
 	const sizeConditionalOnOrientation =
 		inheritedOrientation === 'horizontal'
 			? temporaryWidth || flexSize
-			: temporaryHeight || flexSize;
+			: temporaryHeight || flexSize || DEFAULT_HEIGHT;
 
 	const style = {
 		height:
