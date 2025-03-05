@@ -87,6 +87,7 @@ export const installBlockType =
 
 			// Ensures that the block metadata is propagated to the editor when registered on the server.
 			const metadataFields = [
+				'name',
 				'api_version',
 				'title',
 				'category',
@@ -103,23 +104,32 @@ export const installBlockType =
 				'variations',
 			];
 			await apiFetch( {
-				path: addQueryArgs( `/wp/v2/block-types/${ name }`, {
+				path: addQueryArgs( `/wp/v2/block-types/`, {
 					_fields: metadataFields,
 				} ),
 			} )
 				// Ignore when the block is not registered on the server.
 				.catch( () => {} )
 				.then( ( response ) => {
-					if ( ! response ) {
+					if ( ! response && ! Array.isArray( response ) ) {
 						return;
 					}
-					unstable__bootstrapServerSideBlockDefinitions( {
-						[ name ]: Object.fromEntries(
-							Object.entries( response ).filter( ( [ key ] ) =>
-								metadataFields.includes( key )
-							)
-						),
-					} );
+					const blockDefinitions = Object.fromEntries(
+						response.map( ( blockItem ) => [
+							blockItem.name,
+							Object.fromEntries(
+								Object.entries( blockItem ).filter(
+									( [ key ] ) =>
+										metadataFields.includes( key )
+								)
+							),
+						] )
+					);
+
+					// Bootstrap all retrieved block definitions
+					unstable__bootstrapServerSideBlockDefinitions(
+						blockDefinitions
+					);
 				} );
 
 			await loadAssets();
