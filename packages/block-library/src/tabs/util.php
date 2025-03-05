@@ -14,7 +14,7 @@
 function generate_tab( $label, $content ) {
 	$parsed_content   = is_array( $content ) ? $content : parse_blocks( $content );
 	$inner_html_start = wp_sprintf(
-		'<section id="%s" class="wp-block-prc-block-tab">',
+		'<section id="%s" class="wp-block-tab">',
 		sanitize_title( $label )
 	);
 	$inner_html_end   = '</section>';

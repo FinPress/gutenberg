@@ -117,7 +117,7 @@ function Edit( {
 			<div { ...blockProps }>
 				{ innerBlockProps.children }
 				<TabFill tabsClientId={ clientId }>
-					<li className="tab-item wp-block-tabs__tab-item tab-item__inserter">
+					<li className="wp-block-tabs__tab-item__inserter">
 						<InnerBlocks.ButtonBlockAppender />
 					</li>
 				</TabFill>

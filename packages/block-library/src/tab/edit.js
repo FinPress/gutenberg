@@ -20,6 +20,16 @@ import { cleanForSlug } from '@wordpress/url';
  */
 import { TabFill, TabsListSlot } from './slotfill';
 
+
+const TEMPLATE = [
+	[
+		'core/paragraph',
+		{
+			placeholder: __( 'Type / to add a block to tab' ),
+		},
+	],
+];
+
 /**
  * Generates a slug from a tab's text label.
  *
@@ -153,17 +163,10 @@ export default function Edit( {
 			id: tabPanelId,
 			role: 'tabpanel',
 			ref: innerBlocksRef,
-			template: [
-				[
-					'core/paragraph',
-				],
-			],
 			tabIndex: 0,
 		},
 		{
-			renderAppender: hasChildBlocks
-				? undefined
-				: InnerBlocks.ButtonBlockAppender,
+			template: TEMPLATE,
 		}
 	);
 
