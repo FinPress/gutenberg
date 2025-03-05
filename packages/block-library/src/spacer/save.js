@@ -4,7 +4,7 @@
 import { useBlockProps, getSpacingPresetCssVar } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-	const { height, width, style } = attributes;
+	const { height = DEFAULT_HEIGHT, width, style } = attributes;
 	const { layout: { selfStretch } = {} } = style || {};
 	// If selfStretch is set to 'fill' or 'fit', don't set default height.
 	const finalHeight =
