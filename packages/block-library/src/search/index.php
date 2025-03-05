@@ -160,7 +160,7 @@ function render_block_core_search( $attributes ) {
 	}
 	$field_markup       = sprintf(
 		'<div class="%s" %s>%s</div>',
-		implode( ' ', $field_markup_classes ),
+		esc_attr( implode( ' ', $field_markup_classes ) ),
 		$inline_styles['wrapper'],
 		$input . $query_params_markup . $button
 	);
