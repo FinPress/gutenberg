@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import clsx from 'clsx';
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
@@ -9,6 +14,10 @@ import {
 	store as blockEditorStore,
 	InspectorControls,
 	RichText,
+	__experimentalUseBorderProps as useBorderProps,
+	__experimentalUseColorProps as useColorProps,
+	__experimentalGetSpacingClassesAndStyles as useSpacingProps,
+	__experimentalGetElementClassName as getElementClassName,
 } from '@wordpress/block-editor';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { Fragment, useMemo, useRef } from '@wordpress/element';
@@ -19,7 +28,6 @@ import { cleanForSlug } from '@wordpress/url';
  * Internal dependencies
  */
 import { TabFill, TabsListSlot } from './slotfill';
-
 
 const TEMPLATE = [
 	[
@@ -68,6 +76,7 @@ export default function Edit( {
 		hasInnerBlocksSelected,
 		tabsHasSelectedBlock,
 		tabsClientId,
+		tabsAttributes,
 		forceDisplay,
 		isTabsClientSelected,
 		previousTabClientId,
@@ -117,6 +126,7 @@ export default function Edit( {
 				previousTabClientId: _previousTabClientId,
 				nextTabClientId: _nextTabClientId,
 				isDefaultTab: _isDefaultTab,
+				tabsAttributes: rootAttributes,
 			};
 		},
 		[ clientId ]
@@ -151,7 +161,12 @@ export default function Edit( {
 	const tabPanelId = useMemo( () => anchor || slug, [ anchor, slug ] );
 	const tabLabelId = useMemo( () => `${ tabPanelId }--tab`, [ tabPanelId ] );
 
+	const borderProps = useBorderProps( tabsAttributes );
+	const colorProps = useColorProps( tabsAttributes );
+	const spacingProps = useSpacingProps( tabsAttributes );
+
 	const blockProps = useBlockProps( {
+		className: borderProps.className,
 		hidden: ! isSelectedTab,
 	} );
 
@@ -201,7 +216,13 @@ export default function Edit( {
 
 			<div { ...blockProps }>
 				<TabFill tabsClientId={ tabsClientId }>
-					<li role="presentation" className="tabs__list-item">
+					<li
+						role="presentation"
+						className={ clsx(
+							'tabs__list-item',
+							borderProps.className
+						) }
+					>
 						<a // eslint-disable-line jsx-a11y/anchor-is-valid -- remove href attribute in editor so inner text can be selected for editing
 							aria-controls={ tabPanelId }
 							aria-selected={ isSelectedTab }
