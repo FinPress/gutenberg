@@ -45,7 +45,7 @@ function render_block_core_latest_posts( $attributes ) {
 		'post_status'         => 'publish',
 		'order'               => $attributes['order'],
 		'orderby'             => $attributes['orderBy'],
-		'ignore_sticky_posts' => true,
+		'ignore_sticky_posts' => false,
 		'no_found_rows'       => true,
 	);
 
