@@ -3,11 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import {
-	VisuallyHidden,
-	__experimentalConfirmDialog as ConfirmDialog,
-	TextControl,
-} from '@wordpress/components';
+import { VisuallyHidden, TextControl } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@wordpress/block-editor';
@@ -34,12 +30,9 @@ export default function PostVisibility( { onClose } ) {
 		password: select( editorStore ).getEditedPostAttribute( 'password' ),
 	} ) );
 
-	const { editPost, savePost } = useDispatch( editorStore );
+	const { editPost } = useDispatch( editorStore );
 
 	const [ hasPassword, setHasPassword ] = useState( !! password );
-	const [ showPrivateConfirmDialog, setShowPrivateConfirmDialog ] =
-		useState( false );
-
 	const setPublic = () => {
 		editPost( {
 			status: visibility === 'private' ? 'draft' : status,
@@ -49,18 +42,8 @@ export default function PostVisibility( { onClose } ) {
 	};
 
 	const setPrivate = () => {
-		setShowPrivateConfirmDialog( true );
-	};
-
-	const confirmPrivate = () => {
 		editPost( { status: 'private', password: '' } );
 		setHasPassword( false );
-		setShowPrivateConfirmDialog( false );
-		savePost();
-	};
-
-	const handleDialogCancel = () => {
-		setShowPrivateConfirmDialog( false );
 	};
 
 	const setPasswordProtected = () => {
@@ -124,15 +107,6 @@ export default function PostVisibility( { onClose } ) {
 					/>
 				) }
 			</fieldset>
-			<ConfirmDialog
-				isOpen={ showPrivateConfirmDialog }
-				onConfirm={ confirmPrivate }
-				onCancel={ handleDialogCancel }
-				confirmButtonText={ __( 'Publish' ) }
-				size="medium"
-			>
-				{ __( 'Would you like to privately publish this post now?' ) }
-			</ConfirmDialog>
 		</div>
 	);
 }
