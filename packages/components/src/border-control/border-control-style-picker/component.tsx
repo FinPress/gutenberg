@@ -22,6 +22,7 @@ import {
 	ToggleGroupControl,
 	ToggleGroupControlOptionIcon,
 } from '../../toggle-group-control';
+import SelectControl from '../../select-control';
 
 const BORDER_STYLES = [
 	{ label: __( 'Solid' ), icon: lineSolid, value: 'solid' },
@@ -38,15 +39,25 @@ function UnconnectedBorderControlStylePicker(
 	{ onChange, ...restProps }: StylePickerProps,
 	forwardedRef: React.ForwardedRef< any >
 ) {
-	return (
+	const shouldUseSelect = BORDER_STYLES.length > 5; // Use Select when too many options
+
+	return shouldUseSelect ? (
+		<SelectControl
+			label={ __( 'Border Style' ) }
+			value={ restProps.value }
+			onChange={ ( value ) => onChange?.( value ) }
+			options={ BORDER_STYLES.map( ( { label, value } ) => ( {
+				label,
+				value,
+			} ) ) }
+		/>
+	) : (
 		<ToggleGroupControl
 			__nextHasNoMarginBottom
 			__next40pxDefaultSize
 			ref={ forwardedRef }
 			isDeselectable
-			onChange={ ( value ) => {
-				onChange?.( value as string | undefined );
-			} }
+			onChange={ ( value ) => onChange?.( value as string | undefined ) }
 			{ ...restProps }
 			style={ { display: 'flex' } }
 		>
