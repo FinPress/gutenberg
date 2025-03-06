@@ -50,15 +50,17 @@ const MaybeTagsPanel = () => {
 				select( editorStore ).getEditedPostAttribute(
 					tagsTaxonomy.rest_base
 				);
-			const siteTags = select( coreStore ).getEntityRecords(
-				'taxonomy',
-				'post_tag',
-				{ per_page: 1 }
-			);
+			const siteTags = _isPostTypeSupported
+				? !! select( coreStore ).getEntityRecords(
+						'taxonomy',
+						'post_tag',
+						{ per_page: 1 }
+				  )?.length
+				: false;
 
 			return {
 				postHasTags: !! tags?.length,
-				siteHasTags: !! siteTags?.length,
+				siteHasTags: siteTags,
 				isPostTypeSupported: areTagsFetched && _isPostTypeSupported,
 			};
 		},

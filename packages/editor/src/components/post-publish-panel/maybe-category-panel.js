@@ -14,14 +14,7 @@ import HierarchicalTermSelector from '../post-taxonomies/hierarchical-term-selec
 import { store as editorStore } from '../../store';
 
 function MaybeCategoryPanel() {
-	const hasSiteCategories = useSelect( ( select ) => {
-		const { getEntityRecords } = select( coreStore );
-		const categories =
-			getEntityRecords( 'taxonomy', 'category', { per_page: 2 } ) || [];
-		return categories.length > 1;
-	}, [] );
-
-	const hasNoCategory = useSelect( ( select ) => {
+	const { hasNoCategory, hasSiteCategories } = useSelect( ( select ) => {
 		const postType = select( editorStore ).getCurrentPostType();
 		const { canUser, getEntityRecord } = select( coreStore );
 		const categoriesTaxonomy = getEntityRecord(
@@ -46,18 +39,28 @@ function MaybeCategoryPanel() {
 			select( editorStore ).getEditedPostAttribute(
 				categoriesTaxonomy.rest_base
 			);
+		const siteCategories = postTypeSupportsCategories
+			? !! select( coreStore ).getEntityRecords( 'taxonomy', 'category', {
+					exclude: [ defaultCategoryId ],
+					per_page: 1,
+			  } )?.length
+			: false;
 
 		// This boolean should return true if everything is loaded
 		// ( categoriesTaxonomy, defaultCategory )
 		// and the post has not been assigned a category different than "uncategorized".
-		return (
+		const noCategory =
 			!! categoriesTaxonomy &&
 			!! defaultCategory &&
 			postTypeSupportsCategories &&
 			( categories?.length === 0 ||
 				( categories?.length === 1 &&
-					defaultCategory?.id === categories[ 0 ] ) )
-		);
+					defaultCategory?.id === categories[ 0 ] ) );
+
+		return {
+			hasNoCategory: noCategory,
+			hasSiteCategories: siteCategories,
+		};
 	}, [] );
 
 	const [ shouldShowPanel, setShouldShowPanel ] = useState( false );
