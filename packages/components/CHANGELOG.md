@@ -8,7 +8,7 @@
 
 ### Bug Fixes
 
--   `ItemGroup`: Fix focus style to make it consistent with the `Button` component
+-   `ItemGroup`: Fix focus style to make it consistent with the `Button` component([#69289](https://github.com/WordPress/gutenberg/pull/69289)).
 
 ## 29.5.0 (2025-02-28)
 
