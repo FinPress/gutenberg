@@ -35,6 +35,7 @@ export default function App() {
 		return {
 			routes: unlock( select( editSiteStore ) ).getRoutes(),
 			currentTheme: select( coreStore ).getCurrentTheme(),
+			// This is a temp solution until the has_theme_json value is available for the current theme.
 			editorSettings: select( editSiteStore ).getSettings(),
 		};
 	}, [] );
