@@ -3,6 +3,8 @@
  */
 import RouteRecognizer from 'route-recognizer';
 import { createBrowserHistory } from 'history';
+import type { ReactNode } from 'react';
+import type { Location } from 'history';
 
 /**
  * WordPress dependencies
@@ -20,11 +22,6 @@ import {
 	buildQueryString,
 } from '@wordpress/url';
 import { useEvent } from '@wordpress/compose';
-
-/**
- * Internal dependencies
- */
-import type { ReactNode } from 'react';
 
 const history = createBrowserHistory();
 interface Route {
@@ -45,6 +42,7 @@ interface Match {
 	widths: Record< string, number >;
 	query?: Record< string, any >;
 	params?: Record< string, any >;
+	state: Location[ 'state' ];
 }
 
 export type BeforeNavigate = ( arg: {
@@ -68,7 +66,7 @@ export interface NavigationOptions {
 const RoutesContext = createContext< Match | null >( null );
 export const ConfigContext = createContext< Config >( { pathArg: 'p' } );
 
-const locationMemo = new WeakMap();
+const locationMemo = new WeakMap< Location, LocationWithQuery >();
 function getLocationWithQuery() {
 	const location = history.location;
 	let locationWithQuery = locationMemo.get( location );
@@ -155,7 +153,7 @@ export default function useMatch(
 	matcher: RouteRecognizer,
 	pathArg: string
 ): Match {
-	const { query: rawQuery = {} } = location;
+	const { query: rawQuery = {}, state } = location;
 
 	return useMemo( () => {
 		const { [ pathArg ]: path = '/', ...query } = rawQuery;
@@ -168,6 +166,7 @@ export default function useMatch(
 				widths: {},
 				query,
 				params: {},
+				state,
 			};
 		}
 
@@ -192,8 +191,9 @@ export default function useMatch(
 			params: result.params,
 			query,
 			path: addQueryArgs( path, query ),
+			state,
 		};
-	}, [ matcher, rawQuery, pathArg ] );
+	}, [ matcher, rawQuery, pathArg, state ] );
 }
 
 export function RouterProvider( {

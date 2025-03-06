@@ -4,7 +4,6 @@
 import { useSelect } from '@wordpress/data';
 import { useMemo } from '@wordpress/element';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { usePrevious } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -18,22 +17,16 @@ const { useLocation, useHistory } = unlock( routerPrivateApis );
 
 function useNavigateToPreviousEntityRecord() {
 	const location = useLocation();
-	const previousLocation = usePrevious( location );
 	const history = useHistory();
-	const goBack = useMemo( () => {
+	return useMemo( () => {
 		const isFocusMode =
 			location.query.focusMode ||
 			( location?.params?.postId &&
 				FOCUSABLE_ENTITIES.includes( location?.params?.postType ) );
-		const didComeFromEditorCanvas =
-			previousLocation?.query.canvas === 'edit';
-		const showBackButton = isFocusMode && didComeFromEditorCanvas;
+		const { priorCanvas } = location.state || {};
+		const showBackButton = isFocusMode && priorCanvas === 'edit';
 		return showBackButton ? () => history.back() : undefined;
-		// `previousLocation` changes when the component updates for any reason, not
-		// just when location changes. Until this is fixed we can't add it to deps. See
-		// https://github.com/WordPress/gutenberg/pull/58710#discussion_r1479219465.
 	}, [ location, history ] );
-	return goBack;
 }
 
 export function useSpecificEditorSettings() {

@@ -9,18 +9,20 @@ import { useCallback } from '@wordpress/element';
  */
 import { unlock } from '../../lock-unlock';
 
-const { useHistory } = unlock( routerPrivateApis );
+const { useHistory, useLocation } = unlock( routerPrivateApis );
 
 export default function useNavigateToEntityRecord() {
 	const history = useHistory();
+	const { query } = useLocation();
 
 	const onNavigateToEntityRecord = useCallback(
 		( params ) => {
 			history.navigate(
-				`/${ params.postType }/${ params.postId }?canvas=edit&focusMode=true`
+				`/${ params.postType }/${ params.postId }?canvas=edit&focusMode=true`,
+				{ state: { priorCanvas: query.canvas } }
 			);
 		},
-		[ history ]
+		[ history, query.canvas ]
 	);
 
 	return onNavigateToEntityRecord;
