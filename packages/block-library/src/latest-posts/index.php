@@ -178,6 +178,7 @@ function render_block_core_latest_posts( $attributes ) {
 		if ( isset( $attributes['displayPostContent'] ) && $attributes['displayPostContent']
 			&& isset( $attributes['displayPostContentRadio'] ) && 'full_post' === $attributes['displayPostContentRadio'] ) {
 
+			/** This filter is documented in wp-includes/post-template.php */
 			$post_content = apply_filters( 'the_content', get_the_content( null, false, $post ) );
 			$post_content = str_replace( ']]>', ']]&gt;', $post_content );
 
