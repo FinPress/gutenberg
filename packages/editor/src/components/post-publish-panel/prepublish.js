@@ -51,7 +51,17 @@ function PostPublishPanelPrepublish( { children } ) {
 			siteHome: siteData.home && filterURLForDisplay( siteData.home ),
 		};
 	}, [] );
+	const categories = useSelect( ( select ) =>
+		select( coreStore ).getEntityRecords( 'taxonomy', 'category', {
+			per_page: -1,
+		} )
+	);
 
+	const tags = useSelect( ( select ) =>
+		select( coreStore ).getEntityRecords( 'taxonomy', 'post_tag', {
+			per_page: -1,
+		} )
+	);
 	let siteIcon = (
 		<Icon className="components-site-icon" size="36px" icon={ wordpress } />
 	);
@@ -88,7 +98,6 @@ function PostPublishPanelPrepublish( { children } ) {
 			'Double-check your settings before publishing.'
 		);
 	}
-
 	return (
 		<div className="editor-post-publish-panel__prepublish">
 			<div>
@@ -138,8 +147,8 @@ function PostPublishPanelPrepublish( { children } ) {
 				</>
 			) }
 			<MaybePostFormatPanel />
-			<MaybeTagsPanel />
-			<MaybeCategoryPanel />
+			{ tags && tags.length > 0 && <MaybeTagsPanel /> }
+			{ categories && categories.length > 0 && <MaybeCategoryPanel /> }
 			{ children }
 		</div>
 	);
