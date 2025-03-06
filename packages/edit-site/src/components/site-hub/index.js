@@ -133,7 +133,7 @@ export const SiteHubMobile = memo(
 			const isBlockTheme = getCurrentTheme().currentTheme?.is_block_theme;
 			const supportsEditorStyles =
 				getCurrentTheme().theme_supports[ 'editor-styles' ];
-			// supportsLayout is equivalent to the `wp_theme_has_theme_json()` PHP function.
+			// This is a temp solution until the has_theme_json value is available for the current theme.
 			const hasThemeJson = getSettings().supportsLayout;
 
 			return {
