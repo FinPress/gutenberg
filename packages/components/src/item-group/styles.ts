@@ -50,7 +50,7 @@ export const unstyledButton = ( as: 'a' | 'button' ) => {
 			outline: 2px solid transparent;
 			outline-offset: 0;
 			}
-      ` }
+		` }
 	`;
 };
 
