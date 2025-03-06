@@ -629,7 +629,7 @@ Display the publish date for an entry such as a post or page. ([Source](https://
 
 ## Excerpt
 
-Display the excerpt. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-excerpt))
+Display's the excerpt. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-excerpt))
 
 -	**Name:** core/post-excerpt
 -	**Category:** theme
