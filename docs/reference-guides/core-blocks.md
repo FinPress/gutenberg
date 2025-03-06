@@ -812,7 +812,7 @@ Display a read progress. Useful for tracking read progress. ([Source](https://gi
 -	**Name:** core/read-progress
 -	**Category:** theme
 -	**Supports:** interactivity, ~~html~~
--	**Attributes:** backgroundColor, progressColor
+-	**Attributes:** backgroundColor, height, progressColor
 
 ## RSS
 

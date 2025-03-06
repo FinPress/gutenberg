@@ -4,17 +4,17 @@
 import { useBlockProps } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-	const { backgroundColor, progressColor } = attributes;
+	const { backgroundColor, progressColor, height } = attributes;
 	const blockProps = useBlockProps.save();
 
 	const readProgressStyle = {
 		backgroundColor,
-		height: '20px',
+		height: height + 'px',
 	};
 
 	const progressStyle = {
 		backgroundColor: progressColor,
-		height: '20px',
+		height: height + 'px',
 	};
 
 	return (
