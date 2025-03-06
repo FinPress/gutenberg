@@ -14,6 +14,20 @@ import HierarchicalTermSelector from '../post-taxonomies/hierarchical-term-selec
 import { store as editorStore } from '../../store';
 
 function MaybeCategoryPanel() {
+	const hasSiteCategories = useSelect( ( select ) => {
+		const { getEntityRecords } = select( coreStore );
+		const categories =
+			getEntityRecords( 'taxonomy', 'category', { per_page: -1 } ) || [];
+		const defaultCategoryId = select( coreStore ).getEntityRecord(
+			'root',
+			'site'
+		)?.default_category;
+
+		return categories.some(
+			( category ) => category.id !== defaultCategoryId
+		);
+	}, [] );
+
 	const hasNoCategory = useSelect( ( select ) => {
 		const postType = select( editorStore ).getCurrentPostType();
 		const { canUser, getEntityRecord } = select( coreStore );
@@ -52,6 +66,7 @@ function MaybeCategoryPanel() {
 					defaultCategory?.id === categories[ 0 ] ) )
 		);
 	}, [] );
+
 	const [ shouldShowPanel, setShouldShowPanel ] = useState( false );
 	useEffect( () => {
 		// We use state to avoid hiding the panel if the user edits the categories
@@ -61,7 +76,11 @@ function MaybeCategoryPanel() {
 		}
 	}, [ hasNoCategory ] );
 
-	if ( ! shouldShowPanel ) {
+	// We only want to show the category panel:
+	// if the post type supports categories,
+	// if the site has categories other than the default category,
+	// and if the post has no other categories than the default category.
+	if ( ! shouldShowPanel || ! hasSiteCategories ) {
 		return null;
 	}
 
