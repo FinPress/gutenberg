@@ -26,7 +26,6 @@ import useInspectorControlsTabs from '../inspector-controls-tabs/use-inspector-c
 import AdvancedControls from '../inspector-controls-tabs/advanced-controls-panel';
 import PositionControls from '../inspector-controls-tabs/position-controls-panel';
 import useBlockInspectorAnimationSettings from './useBlockInspectorAnimationSettings';
-import { useBlockEditingMode } from '../block-editing-mode';
 import BlockQuickNavigation from '../block-quick-navigation';
 import { useBorderPanelLabel } from '../../hooks/border';
 
@@ -222,7 +221,10 @@ const BlockInspectorSingleBlock = ( {
 	);
 	const blockInformation = useBlockDisplayInformation( clientId );
 	const borderPanelLabel = useBorderPanelLabel( { blockName } );
-	const blockEditingMode = useBlockEditingMode();
+	const blockEditingMode = useSelect( ( select ) => {
+		const { getBlockEditingMode } = select( blockEditorStore );
+		return getBlockEditingMode( clientId );
+	} );
 	const contentClientIds = useSelect(
 		( select ) => {
 			// Avoid unnecessary subscription.
@@ -244,19 +246,6 @@ const BlockInspectorSingleBlock = ( {
 		[ isSectionBlock, clientId ]
 	);
 
-	const isWithinContentBlock = useSelect(
-		( select ) => {
-			const { getBlockParents, getBlockName } =
-				select( blockEditorStore );
-			const parents = getBlockParents( clientId );
-
-			return parents.some(
-				( parent ) => getBlockName( parent ) === 'core/post-content'
-			);
-		},
-		[ clientId ]
-	);
-
 	return (
 		<div className="block-editor-block-inspector">
 			<BlockCard
@@ -274,11 +263,9 @@ const BlockInspectorSingleBlock = ( {
 			) }
 			{ ! showTabs && (
 				<>
-					{ ( isWithinContentBlock ||
-						blockEditingMode === 'default' ) &&
-						hasBlockStyles && (
-							<BlockStylesPanel clientId={ clientId } />
-						) }
+					{ blockEditingMode === 'default' && hasBlockStyles && (
+						<BlockStylesPanel clientId={ clientId } />
+					) }
 
 					{ contentClientIds && contentClientIds?.length > 0 && (
 						<PanelBody title={ __( 'Content' ) }>
