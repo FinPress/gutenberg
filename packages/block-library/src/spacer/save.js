@@ -3,6 +3,11 @@
  */
 import { useBlockProps, getSpacingPresetCssVar } from '@wordpress/block-editor';
 
+/**
+ * Internal dependencies
+ */
+import { DEFAULT_HEIGHT } from './constants';
+
 export default function save( { attributes } ) {
 	const { height = DEFAULT_HEIGHT, width, style } = attributes;
 	const { layout: { selfStretch } = {} } = style || {};
