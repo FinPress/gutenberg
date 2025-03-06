@@ -11,26 +11,7 @@ import SidebarNavigationScreenMain from '../sidebar-navigation-screen-main';
 
 function NotFoundError() {
 	return (
-		<Notice
-			status="error"
-			isDismissible={ false }
-			actions={ [
-				{
-					label: 'Click me!',
-					onClick: () => {},
-					variant: 'primary',
-				},
-				{
-					label: 'Or click me instead!',
-					onClick: () => {},
-				},
-				{
-					label: 'Or visit a link for more info',
-					url: 'https://wordpress.org',
-					variant: 'link',
-				},
-			] }
-		>
+		<Notice status="error" isDismissible={ false }>
 			{ __(
 				'The requested page could not be found. Please check the URL.'
 			) }
