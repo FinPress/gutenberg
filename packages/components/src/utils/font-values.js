@@ -3,7 +3,7 @@ export default {
 		"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif",
 	'default.fontSize': '13px',
 
-	'helpText.fontSize': '12px',
+	'helpText.fontSize': '14px',
 
 	mobileTextMinFontSize: '16px',
 };
