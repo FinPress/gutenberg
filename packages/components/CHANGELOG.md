@@ -6,6 +6,10 @@
 
 -   `QueryControls`: Add menu_order sorting option if supported by the post type. ([#68781](https://github.com/WordPress/gutenberg/pull/68781)).
 
+### Bug Fixes
+
+-   `ItemGroup`: Fix focus style to make it consistent with the `Button` component
+
 ## 29.5.0 (2025-02-28)
 
 ### Documentation
