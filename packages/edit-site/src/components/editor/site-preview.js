@@ -22,10 +22,12 @@ export default function SitePreview() {
 				width: '100%',
 				height: '100%',
 				backgroundColor: '#fff',
+				visibility: 'hidden',
 			} }
 			onLoad={ ( event ) => {
+				const iframe = event.target;
 				// Hide the admin bar in the front-end preview.
-				const document = event.target.contentDocument;
+				const document = iframe.contentDocument;
 				document.getElementById( 'wpadminbar' ).remove();
 				document
 					.getElementsByTagName( 'html' )[ 0 ]
@@ -42,6 +44,7 @@ export default function SitePreview() {
 					element.tabIndex = -1;
 					element.setAttribute( 'aria-hidden', 'true' );
 				} );
+				iframe.style.visibility = 'visible';
 			} }
 		/>
 	);
