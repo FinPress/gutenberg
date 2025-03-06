@@ -17,15 +17,8 @@ function MaybeCategoryPanel() {
 	const hasSiteCategories = useSelect( ( select ) => {
 		const { getEntityRecords } = select( coreStore );
 		const categories =
-			getEntityRecords( 'taxonomy', 'category', { per_page: -1 } ) || [];
-		const defaultCategoryId = select( coreStore ).getEntityRecord(
-			'root',
-			'site'
-		)?.default_category;
-
-		return categories.some(
-			( category ) => category.id !== defaultCategoryId
-		);
+			getEntityRecords( 'taxonomy', 'category', { per_page: 2 } ) || [];
+		return categories.length > 1;
 	}, [] );
 
 	const hasNoCategory = useSelect( ( select ) => {
