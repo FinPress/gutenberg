@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { _x } from '@wordpress/i18n';
-import { link as icon } from '@wordpress/icons';
+import { readProgress as icon } from '@wordpress/icons';
 
 /**
  * Internal dependencies
