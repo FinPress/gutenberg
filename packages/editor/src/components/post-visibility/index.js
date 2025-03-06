@@ -3,7 +3,11 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { VisuallyHidden, TextControl } from '@wordpress/components';
+import {
+	TextControl,
+	RadioControl,
+	__experimentalVStack as VStack,
+} from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@wordpress/block-editor';
@@ -11,7 +15,7 @@ import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '
 /**
  * Internal dependencies
  */
-import { visibilityOptions } from './utils';
+import { VISIBILITY_OPTIONS } from './utils';
 import { store as editorStore } from '../../store';
 
 /**
@@ -33,26 +37,23 @@ export default function PostVisibility( { onClose } ) {
 	const { editPost } = useDispatch( editorStore );
 
 	const [ hasPassword, setHasPassword ] = useState( !! password );
-	const setPublic = () => {
-		editPost( {
-			status: visibility === 'private' ? 'draft' : status,
-			password: '',
-		} );
-		setHasPassword( false );
-	};
 
-	const setPrivate = () => {
-		editPost( { status: 'private', password: '' } );
-		setHasPassword( false );
-	};
+	function updateVisibility( value ) {
+		const nextValues = {
+			public: {
+				status: visibility === 'private' ? 'draft' : status,
+				password: '',
+			},
+			private: { status: 'private', password: '' },
+			password: {
+				status: visibility === 'private' ? 'draft' : status,
+				password: password || '',
+			},
+		};
 
-	const setPasswordProtected = () => {
-		editPost( {
-			status: visibility === 'private' ? 'draft' : status,
-			password: password || '',
-		} );
-		setHasPassword( true );
-	};
+		editPost( nextValues[ value ] );
+		setHasPassword( value === 'password' );
+	}
 
 	const updatePassword = ( value ) => {
 		editPost( { password: value } );
@@ -65,33 +66,13 @@ export default function PostVisibility( { onClose } ) {
 				help={ __( 'Control how this post is viewed.' ) }
 				onClose={ onClose }
 			/>
-			<fieldset className="editor-post-visibility__fieldset">
-				<VisuallyHidden as="legend">
-					{ __( 'Visibility' ) }
-				</VisuallyHidden>
-				<PostVisibilityChoice
-					instanceId={ instanceId }
-					value="public"
-					label={ visibilityOptions.public.label }
-					info={ visibilityOptions.public.info }
-					checked={ visibility === 'public' && ! hasPassword }
-					onChange={ setPublic }
-				/>
-				<PostVisibilityChoice
-					instanceId={ instanceId }
-					value="private"
-					label={ visibilityOptions.private.label }
-					info={ visibilityOptions.private.info }
-					checked={ visibility === 'private' }
-					onChange={ setPrivate }
-				/>
-				<PostVisibilityChoice
-					instanceId={ instanceId }
-					value="password"
-					label={ visibilityOptions.password.label }
-					info={ visibilityOptions.password.info }
-					checked={ hasPassword }
-					onChange={ setPasswordProtected }
+			<VStack spacing={ 4 }>
+				<RadioControl
+					label={ __( 'Visibility' ) }
+					hideLabelFromVision
+					options={ VISIBILITY_OPTIONS }
+					selected={ hasPassword ? 'password' : visibility }
+					onChange={ updateVisibility }
 				/>
 				{ hasPassword && (
 					<TextControl
@@ -106,35 +87,7 @@ export default function PostVisibility( { onClose } ) {
 						maxLength={ 255 }
 					/>
 				) }
-			</fieldset>
-		</div>
-	);
-}
-
-function PostVisibilityChoice( { instanceId, value, label, info, ...props } ) {
-	return (
-		<div className="editor-post-visibility__choice">
-			<input
-				type="radio"
-				name={ `editor-post-visibility__setting-${ instanceId }` }
-				value={ value }
-				id={ `editor-post-${ value }-${ instanceId }` }
-				aria-describedby={ `editor-post-${ value }-${ instanceId }-description` }
-				className="editor-post-visibility__radio"
-				{ ...props }
-			/>
-			<label
-				htmlFor={ `editor-post-${ value }-${ instanceId }` }
-				className="editor-post-visibility__label"
-			>
-				{ label }
-			</label>
-			<p
-				id={ `editor-post-${ value }-${ instanceId }-description` }
-				className="editor-post-visibility__info"
-			>
-				{ info }
-			</p>
+			</VStack>
 		</div>
 	);
 }
