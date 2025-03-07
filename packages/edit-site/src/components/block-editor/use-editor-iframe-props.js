@@ -39,6 +39,13 @@ export default function useEditorIframeProps() {
 		}
 	}, [ canvas ] );
 
+	const navigateToEditModeAndResetFocus = () => {
+		history.navigate( addQueryArgs( path, { canvas: 'edit' } ), {
+			transition: 'canvas-mode-edit-transition',
+		} );
+		window.document.activeElement?.blur();
+	};
+
 	// In view mode, make the canvas iframe be perceived and behave as a button
 	// to switch to edit mode, with a meaningful label and no title attribute.
 	const viewModeIframeProps = {
@@ -56,15 +63,10 @@ export default function useEditorIframeProps() {
 				! currentPostIsTrashed
 			) {
 				event.preventDefault();
-				history.navigate( addQueryArgs( path, { canvas: 'edit' } ), {
-					transition: 'canvas-mode-edit-transition',
-				} );
+				navigateToEditModeAndResetFocus();
 			}
 		},
-		onClick: () =>
-			history.navigate( addQueryArgs( path, { canvas: 'edit' } ), {
-				transition: 'canvas-mode-edit-transition',
-			} ),
+		onClick: () => navigateToEditModeAndResetFocus(),
 		onClickCapture: ( event ) => {
 			if ( currentPostIsTrashed ) {
 				event.preventDefault();

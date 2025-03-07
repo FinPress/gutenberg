@@ -295,7 +295,10 @@ export default function EditSiteEditor( {
 										animate="edit"
 										initial="edit"
 										whileHover="hover"
+										// All elements with tap listeners or whileTap receive tabindex="0".
+										// https://motion.dev/docs/react-upgrade-guide#9-0
 										whileTap="tap"
+										tabIndex="-1"
 									>
 										<Button
 											__next40pxDefaultSize
