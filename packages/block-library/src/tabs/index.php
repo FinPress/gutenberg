@@ -51,8 +51,6 @@ function block_core_tabs_generate_color_variables( $attributes ) {
 function render_block_core_tabs( $attributes, $content, $block ) {
 	wp_enqueue_script_module( '@wordpress/block-library/tabs/view' );
 
-	$styles = block_core_tabs_generate_color_variables( $attributes );
-
 	$url_encoded_active_tab_index = get_query_var( 'activeTabIndex', false );
 	// Validate base64 string and safely decode
 	$decoded_tab_index = '';
@@ -68,20 +66,18 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 		$active_tab_index = isset($matches[1]) ? (int) $matches[1] : 0;
 	}
 
-	$wrapper_attributes = get_block_wrapper_attributes(
+	// Modify the wrapper.
+	$tag_processor = new WP_HTML_Tag_Processor( $content );
+	$tag_processor->next_tag('.wp-block-tabs');
+	$tag_processor->add_class($attributes['orientation'] ? 'is-orientation-vertical' : 'is-orientation-horizontal');
+	$tag_processor->set_attribute('data-wp-interactive', 'core/tabs');
+	$tag_processor->set_attribute('data-wp-context', wp_json_encode(
 		array(
-			'class'                                => 'vertical' === $attributes['orientation'] ? 'is-orientation-vertical' : 'is-orientation-horizontal',
-			'data-wp-interactive'                  => 'core/tabs',
-			'data-wp-context'                      => wp_json_encode(
-				array(
-					'activeTabIndex'         => $active_tab_index,
-					'activeTabIndexQueryVar' => get_query_var( 'activeTabIndex', false ),
-				)
-			),
-			'style'                                => $styles,
-			'data-wp-init--focus-active-tab-index' => 'callbacks.focusActiveTabIndex',
+			'activeTabIndex'         => $active_tab_index,
+			'activeTabIndexQueryVar' => get_query_var( 'activeTabIndex', false ),
 		)
-	);
+	));
+	$tag_processor->set_attribute('data-wp-init--focus-active-tab-index', 'callbacks.focusActiveTabIndex');
 
 	// Construct the tabs list navigation.
 	$innerblocks = $block->parsed_block['innerBlocks'];
@@ -92,7 +88,7 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 		},
 		$innerblocks
 	);
-	$tabs_markup = '<ul class="tabs__list" role="tablist">';
+	$tabs_markup = '';
 	foreach ( $tabs_list as $tab_index => $tab ) {
 		if ( ! isset( $tab['slug'] ) || ! isset( $tab['label'] ) ) {
 			continue;
@@ -101,34 +97,52 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 		$tab_label    = $tab['label'];
 		$tabs_markup .= wp_sprintf( '<li class="tabs__list-item" role="presentation"><a id="%1$s" class="tabs__tab-label" href="%1$s" role="tab" data-wp-on--click="actions.handleTabClick" data-tab-index="%2$s" data-wp-bind--aria-selected="state.isActiveTab" data-tab-hash="%4$s">%3$s</a></li>', $tab_slug, $tab_index, $tab_label, base64_encode( $tab_label . '__' . $tab_index ) );
 	}
-	$tabs_markup .= '</ul>';
+	$tabs_markup .= count($tabs_list) > 1 ? '</ul>' : '';
 
-	// Add the data-tab-index attribute and interactivity directives to each tab panel. 
-	$p = new WP_HTML_Tag_Processor( $content );
+	$tag_processor->next_tag('ul.tabs__list');
+	// Now, using the wp html processor to add $tabs_markup in between the opening and closing tags of the ul.tabs__list
+	// Replace the content between the opening and closing tags of ul.tabs__list
+	// Since WP_HTML_Tag_Processor doesn't have a direct method to set inner HTML,
+	// we need to get the updated HTML and manually replace the content
+	$updated_content = $tag_processor->get_updated_html();
+
+	// Find the ul.tabs__list opening tag position
+	$list_start_pos = strpos($updated_content, '<ul class="tabs__list"');
+	if ($list_start_pos !== false) {
+		// Find the end of the opening tag
+		$list_open_end = strpos($updated_content, '>', $list_start_pos) + 1;
+		// Find the closing tag
+		$list_close_start = strpos($updated_content, '</ul>', $list_open_end);
+
+		// Replace the content between the tags
+		$new_html = substr($updated_content, 0, $list_open_end) .
+					$tabs_markup .
+					substr($updated_content, $list_close_start);
+
+		// Update the tag processor with the new HTML
+		$tag_processor = new WP_HTML_Tag_Processor($new_html);
+	}
+
+	// Add the data-tab-index attribute and interactivity directives to each tab panel.
 	$tab_index = 0;
-	while ( $p->next_tag( array( 'class_name' => 'wp-block-tab' ) ) ) {
-		$p->set_attribute( 'role', 'tabpanel' );
-		$p->set_attribute( 'data-tab-index', $tab_index );
-		$p->set_attribute( 'data-wp-interactive', 'core/tabs' );
-		$p->set_attribute( 'data-wp-context', wp_json_encode(
+	while ( $tag_processor->next_tag( array( 'class_name' => 'wp-block-tab' ) ) ) {
+		$tag_processor->set_attribute( 'role', 'tabpanel' );
+		$tag_processor->set_attribute( 'data-tab-index', $tab_index );
+		$tag_processor->set_attribute( 'data-wp-interactive', 'core/tabs' );
+		$tag_processor->set_attribute( 'data-wp-context', wp_json_encode(
 			array(
 				'isActiveTab' => $tab_index === $active_tab_index,
 				'tabIndex' => $tab_index,
 			)
 		) );
-		$p->set_attribute( 'data-wp-bind--hidden', '!state.isActiveTab' );
-		$p->set_attribute( 'data-wp-bind--tabindex', 'state.tabindexPanelAttribute' );
+		$tag_processor->set_attribute( 'data-wp-bind--hidden', '!state.isActiveTab' );
+		$tag_processor->set_attribute( 'data-wp-bind--tabindex', 'state.tabindexPanelAttribute' );
 		$tab_index++;
 	}
-	$content = $p->get_updated_html();
 
-	return wp_sprintf(
-		'<div %1$s><h3 class="tabs__title">%2$s</h3>%3$s%4$s</div>',
-		$wrapper_attributes,
-		'Contents',
-		$tabs_markup,
-		$content
-	);
+	$content = $tag_processor->get_updated_html();
+
+	return $content;
 }
 
 /**

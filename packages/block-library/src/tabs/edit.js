@@ -40,12 +40,6 @@ function Edit( {
 	setTabHoverTextColor,
 } ) {
 	const {
-		customTabBackgroundColor,
-		customTabHoverColor,
-		customTabActiveColor,
-		customTabTextColor,
-		customTabActiveTextColor,
-		customTabHoverTextColor,
 		style,
 		orientation,
 	} = attributes;
@@ -54,14 +48,7 @@ function Edit( {
 	 * Provide additional non-core color supports for tab background and text colors.
 	 * TODO: Talk to Gutenberg team about how to add these into the style engine proper so that these can be set in the style book??
 	 */
-	const additionalColorSupportingStyles = useColorSupports( {
-		customTabBackgroundColor,
-		customTabHoverColor,
-		customTabActiveColor,
-		customTabTextColor,
-		customTabActiveTextColor,
-		customTabHoverTextColor,
-	} );
+	const additionalColorSupportingStyles = useColorSupports(attributes);
 
 	/**
 	 * Block props for the tabs container.
