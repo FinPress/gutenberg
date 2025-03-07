@@ -8,7 +8,6 @@ import clsx from 'clsx';
  */
 import { __ } from '@wordpress/i18n';
 import {
-	InnerBlocks,
 	useBlockProps,
 	useInnerBlocksProps,
 	store as blockEditorStore,
@@ -166,7 +165,6 @@ export default function Edit( {
 	const spacingProps = useSpacingProps( tabsAttributes );
 
 	const blockProps = useBlockProps( {
-		className: borderProps.className,
 		hidden: ! isSelectedTab,
 	} );
 
@@ -220,8 +218,15 @@ export default function Edit( {
 						role="presentation"
 						className={ clsx(
 							'tabs__list-item',
-							borderProps.className
+							borderProps.className,
+							colorProps.className,
+							spacingProps.className
 						) }
+						style={ {
+							...borderProps.style,
+							...colorProps.style,
+							...spacingProps.style,
+						} }
 					>
 						<a // eslint-disable-line jsx-a11y/anchor-is-valid -- remove href attribute in editor so inner text can be selected for editing
 							aria-controls={ tabPanelId }

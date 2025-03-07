@@ -33,6 +33,7 @@
 			cursor: pointer;
 			background-color: var(--custom-tab-background-color);
 			color: var(--custom-tab-text-color);
+			border-radius: inherit;
 			&:hover {
 				opacity: 1;
 				color: var(--custom-tab-hover-text-color);
@@ -61,7 +62,6 @@
 			border-bottom: 1px solid var(--custom-tab-active-color, #eaeaea);
 		}
 		.tabs__tab-label {
-			border-radius: 0.5em 0.5em 0 0;
 			&:hover {
 				background-color: var(--custom-tab-hover-color, #eaeaea);
 			}
@@ -77,7 +77,6 @@
 			border-bottom: 1px solid var(--custom-tab-active-color);
 		}
 		.tabs__tab-label {
-			border-radius: 0.5em 0.5em 0 0;
 			border-top: 1px solid transparent;
 			border-left: 1px solid transparent;
 			border-right: 1px solid transparent;
@@ -100,9 +99,6 @@
 		.tabs__list {
 			border-right: 1px solid var(--custom-tab-active-color) !important;
 			border-bottom: none !important;
-		}
-		.tabs__tab-label {
-			border-radius: 0.5em 0 0 0.5em;
 		}
 	}
 	&.is-orientation-vertical.is-style-outline .tabs__tab-label {

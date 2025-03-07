@@ -21,7 +21,7 @@
 		"html": false,
 		"reusable": false,
 		"color": {
-			"background": true,
+			"background": false,
 			"heading": true,
 			"text": true
 		},
