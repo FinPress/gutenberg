@@ -25,7 +25,8 @@
 			"gradients": true,
 			"text": true,
 			"__experimentalDefaultControls": {
-				"background": true
+				"background": true,
+				"text": true
 			}
 		},
 		"typography": {
