@@ -159,15 +159,15 @@ html :where(img[class*="wp-image-"]) {
 	margin: 0 0 1em 0;
 }
 
-// Set the admin bar offset for sticky positioned blocks to the height of the admin bar.
-// This allows sticky positioned blocks to be positioned correctly when the admin bar is visible.
+// Set the admin bar offset for sticky and fixed positioned blocks to the height of the admin bar.
+// This allows sticky and fixed positioned blocks to be positioned correctly when the admin bar is visible.
 html :where(.is-position-sticky, .is-position-fixed) {
 	/* stylelint-disable length-zero-no-unit -- 0px is set explicitly so that it can be used in a calc value. */
 	--wp-admin--admin-bar--position-offset: var(--wp-admin--admin-bar--height, 0px);
 	/* stylelint-enable length-zero-no-unit */
 }
 
-// To support sticky positioning, reset the admin bar offset to 0px on mobile devices,
+// To support sticky and fixed positioning, reset the admin bar offset to 0px on mobile devices,
 // within the scope of the position classname. This is required because the admin bar
 // is not fixed to the top on mobile devices, but is fixed on viewports larger than 600px.
 @media screen and (max-width: 600px) {
