@@ -78,6 +78,7 @@ export default function save( { attributes } ) {
 					href={ href }
 					target={ linkTarget }
 					rel={ newRel }
+					title={ title || undefined }
 				>
 					{ image }
 				</a>
