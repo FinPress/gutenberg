@@ -12,7 +12,7 @@
 		"postType",
 		"queryId"
 	],
-	"description": "Insert an image to make a visual statement.",
+	"description": "Inserts an image to make a visual statement.",
 	"keywords": [ "img", "photo", "picture" ],
 	"textdomain": "default",
 	"attributes": {

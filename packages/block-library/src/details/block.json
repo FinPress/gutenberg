@@ -4,7 +4,7 @@
 	"name": "core/details",
 	"title": "Details",
 	"category": "text",
-	"description": "Hide and show additional content.",
+	"description": "Hides and shows additional content.",
 	"keywords": [ "accordion", "summary", "toggle", "disclosure" ],
 	"textdomain": "default",
 	"attributes": {

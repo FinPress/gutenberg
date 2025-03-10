@@ -4,7 +4,7 @@
 	"name": "core/verse",
 	"title": "Verse",
 	"category": "text",
-	"description": "Insert poetry. Use special spacing formats. Or quote song lyrics.",
+	"description": "Inserts poetry. Use special spacing formats. Or quote song lyrics.",
 	"keywords": [ "poetry", "poem" ],
 	"textdomain": "default",
 	"attributes": {
