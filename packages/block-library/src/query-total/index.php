@@ -23,7 +23,7 @@ function render_block_core_query_total( $attributes, $content, $block ) {
 	$wrapper_attributes = get_block_wrapper_attributes();
 	if ( isset( $block->context['query']['inherit'] ) && $block->context['query']['inherit'] ) {
 		$query_to_use = $wp_query;
-		$current_page = max( 1, get_query_var( 'paged', 1 ) );
+		$current_page = max( 1, (int) get_query_var( 'paged', 1 ) );
 	} else {
 		$page_key     = isset( $block->context['queryId'] ) ? 'query-' . $block->context['queryId'] . '-page' : 'query-page';
 		$current_page = isset( $_GET[ $page_key ] ) ? (int) $_GET[ $page_key ] : 1;
