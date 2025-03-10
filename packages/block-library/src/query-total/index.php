@@ -31,7 +31,7 @@ function render_block_core_query_total( $attributes, $content, $block ) {
 	}
 
 	$max_rows       = $query_to_use->found_posts;
-	$posts_per_page = $query_to_use->get( 'posts_per_page' );
+	$posts_per_page = (int) $query_to_use->get( 'posts_per_page' );
 
 	// Calculate the range of posts being displayed.
 	$start = ( $current_page - 1 ) * $posts_per_page + 1;
