@@ -126,7 +126,9 @@ function InspectorImagePreviewItem( {
 	}, [ toggleProps?.isOpen, onToggleCallback ] );
 	return (
 		<ItemGroup
-			role="none"
+			// TODO: Remove role when button is used. This is a temporary fix to not have role="list" on a button.
+			// See https://github.com/WordPress/gutenberg/pull/68631
+			role={ as === 'span' ? 'none' : 'button' }
 			as={ as }
 			className={ className }
 			{ ...toggleProps }

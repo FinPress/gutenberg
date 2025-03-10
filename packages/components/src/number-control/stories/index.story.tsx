@@ -45,6 +45,7 @@ const Template: StoryFn< typeof NumberControl > = ( {
 			<NumberControl
 				{ ...props }
 				value={ value }
+				className="hello"
 				onChange={ ( v, extra ) => {
 					setValue( v );
 					setIsValidValue(
