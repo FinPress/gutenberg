@@ -14,7 +14,7 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useMemo, useState } from '@wordpress/element';
-import { moreVertical } from '@wordpress/icons';
+import { Icon, moreVertical } from '@wordpress/icons';
 import { useRegistry } from '@wordpress/data';
 
 /**
@@ -92,7 +92,14 @@ function MenuItemTrigger< Item >( {
 	const label =
 		typeof action.label === 'string' ? action.label : action.label( items );
 	return (
-		<Menu.Item disabled={ action.disabled } onClick={ onClick }>
+		<Menu.Item
+			disabled={ action.disabled }
+			onClick={ onClick }
+			{ ...( action.icon &&
+				action.isPrimary && {
+					prefix: <Icon icon={ action.icon } />,
+				} ) }
+		>
 			<Menu.ItemLabel>{ label }</Menu.ItemLabel>
 		</Menu.Item>
 	);
