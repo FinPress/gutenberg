@@ -130,14 +130,16 @@ export const SiteHubMobile = memo(
 			const { getSettings } = unlock( select( editSiteStore ) );
 			const { getEntityRecord, getCurrentTheme } = select( coreStore );
 			const _site = getEntityRecord( 'root', 'site' );
-			const isBlockTheme = getCurrentTheme().currentTheme?.is_block_theme;
+			const currentTheme = getCurrentTheme();
+			const isBlockTheme = currentTheme?.is_block_theme;
+			const settings = getSettings();
 			const supportsEditorStyles =
-				getCurrentTheme().theme_supports[ 'editor-styles' ];
+				currentTheme.theme_supports[ 'editor-styles' ];
 			// This is a temp solution until the has_theme_json value is available for the current theme.
-			const hasThemeJson = getSettings().supportsLayout;
+			const hasThemeJson = settings.supportsLayout;
 
 			return {
-				dashboardLink: getSettings().__experimentalDashboardLink,
+				dashboardLink: settings.__experimentalDashboardLink,
 				homeUrl: getEntityRecord( 'root', '__unstableBase' )?.home,
 				siteTitle:
 					! _site?.title && !! _site?.url
