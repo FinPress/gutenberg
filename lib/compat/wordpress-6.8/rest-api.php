@@ -123,7 +123,18 @@ function gutenberg_register_rest_theme_fields() {
 				'description' => __( 'A list of default template types.' ),
 				'type'        => 'array',
 				'items'       => array(
-					'type' => 'string',
+					'type'       => 'object',
+					'properties' => array(
+						'slug'        => array(
+							'type' => 'string',
+						),
+						'title'       => array(
+							'type' => 'string',
+						),
+						'description' => array(
+							'type' => 'string',
+						),
+					),
 				),
 			),
 		)
@@ -143,7 +154,24 @@ function gutenberg_register_rest_theme_fields() {
 				'description' => __( 'A list of allowed area values for template parts.' ),
 				'type'        => 'array',
 				'items'       => array(
-					'type' => 'string',
+					'type'       => 'object',
+					'properties' => array(
+						'area'        => array(
+							'type' => 'string',
+						),
+						'label'       => array(
+							'type' => 'string',
+						),
+						'description' => array(
+							'type' => 'string',
+						),
+						'icon'        => array(
+							'type' => 'string',
+						),
+						'area_tag'    => array(
+							'type' => 'string',
+						),
+					),
 				),
 			),
 		)
