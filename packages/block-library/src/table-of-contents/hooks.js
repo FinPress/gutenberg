@@ -101,11 +101,6 @@ function getLatestHeadings( select, clientId ) {
 			if ( blockName === 'core/heading' ) {
 				const headingAttributes = getBlockAttributes( blockClientId );
 
-				// Skip headings that have the toc-exclude class
-				if ( headingAttributes.className?.includes( 'toc-exclude' ) ) {
-					continue;
-				}
-
 				// Skip headings that are deeper than maxLevel
 				if ( maxLevel !== null && headingAttributes.level > maxLevel ) {
 					continue;
