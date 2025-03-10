@@ -38,7 +38,11 @@ export const navigationItemRoute = {
 		},
 		preview( { siteData } ) {
 			const isBlockTheme = siteData.currentTheme?.is_block_theme;
-			return isBlockTheme ? <Editor /> : undefined;
+			return isBlockTheme ? (
+				<Editor />
+			) : (
+				<SidebarNavigationScreenUnsupported />
+			);
 		},
 		mobile( { siteData } ) {
 			const isBlockTheme = siteData.currentTheme?.is_block_theme;

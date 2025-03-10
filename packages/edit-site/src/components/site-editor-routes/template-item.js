@@ -19,7 +19,11 @@ export const templateItemRoute = {
 		},
 		mobile( { siteData } ) {
 			const isBlockTheme = siteData.currentTheme?.is_block_theme;
-			return isBlockTheme ? <Editor /> : undefined;
+			return isBlockTheme ? (
+				<Editor />
+			) : (
+				<SidebarNavigationScreenUnsupported />
+			);
 		},
 		preview( { siteData } ) {
 			const isBlockTheme = siteData.currentTheme?.is_block_theme;
