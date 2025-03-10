@@ -20,13 +20,9 @@
 			"type": "boolean",
 			"default": false
 		},
-		"includeAllHeadings": {
-			"type": "boolean",
-			"default": true
-		},
 		"maxLevel": {
-			"type": "number",
-			"default": 6
+			"type": [ "number", "null" ],
+			"default": null
 		}
 	},
 	"supports": {

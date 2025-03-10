@@ -5,8 +5,7 @@
 		"attributes": {
 			"headings": [],
 			"onlyIncludeCurrentPage": false,
-			"includeAllHeadings": true,
-			"maxLevel": 6
+			"maxLevel": null
 		},
 		"innerBlocks": []
 	}

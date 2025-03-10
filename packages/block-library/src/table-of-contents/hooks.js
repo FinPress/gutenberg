@@ -29,7 +29,7 @@ function getLatestHeadings( select, clientId ) {
 	const permalink = select( 'core/editor' ).getPermalink() ?? null;
 
 	const isPaginated = getBlocksByName( 'core/nextpage' ).length !== 0;
-	const { onlyIncludeCurrentPage, includeAllHeadings, maxLevel } =
+	const { onlyIncludeCurrentPage, maxLevel } =
 		getBlockAttributes( clientId ) ?? {};
 
 	// Get post-content block client ID.
@@ -106,11 +106,8 @@ function getLatestHeadings( select, clientId ) {
 					continue;
 				}
 
-				// Skip headings that are deeper than maxLevel when not including all headings
-				if (
-					! includeAllHeadings &&
-					headingAttributes.level > maxLevel
-				) {
+				// Skip headings that are deeper than maxLevel
+				if ( maxLevel !== null && headingAttributes.level > maxLevel ) {
 					continue;
 				}
 

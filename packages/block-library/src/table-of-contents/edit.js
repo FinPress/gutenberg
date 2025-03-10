@@ -42,20 +42,14 @@ import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
  * @param {Object}                       props.attributes                        The block attributes.
  * @param {HeadingData[]}                props.attributes.headings               The list of data for each heading in the post.
  * @param {boolean}                      props.attributes.onlyIncludeCurrentPage Whether to only include headings from the current page (if the post is paginated).
- * @param {boolean}                      props.attributes.includeAllHeadings     Whether to include all headings.
- * @param {number}                       props.attributes.maxLevel               The maximum heading level to include.
+ * @param {number|null}                  props.attributes.maxLevel               The maximum heading level to include, or null to include all levels.
  * @param {string}                       props.clientId                          The client id.
  * @param {(attributes: Object) => void} props.setAttributes                     The set attributes function.
  *
  * @return {Component} The component.
  */
 export default function TableOfContentsEdit( {
-	attributes: {
-		headings = [],
-		onlyIncludeCurrentPage,
-		includeAllHeadings,
-		maxLevel,
-	},
+	attributes: { headings = [], onlyIncludeCurrentPage, maxLevel },
 	clientId,
 	setAttributes,
 } ) {
@@ -123,8 +117,7 @@ export default function TableOfContentsEdit( {
 				resetAll={ () => {
 					setAttributes( {
 						onlyIncludeCurrentPage: false,
-						includeAllHeadings: true,
-						maxLevel: 6,
+						maxLevel: null,
 					} );
 				} }
 				dropdownMenuProps={ dropdownMenuProps }
@@ -156,54 +149,40 @@ export default function TableOfContentsEdit( {
 					/>
 				</ToolsPanelItem>
 				<ToolsPanelItem
-					hasValue={ () => ! includeAllHeadings }
-					label={ __( 'Include all headings' ) }
-					onDeselect={ () =>
-						setAttributes( { includeAllHeadings: true } )
-					}
+					hasValue={ () => maxLevel !== null }
+					label={ __( 'Limit heading levels' ) }
+					onDeselect={ () => setAttributes( { maxLevel: null } ) }
 					isShownByDefault
 				>
-					<ToggleControl
+					<SelectControl
 						__nextHasNoMarginBottom
-						label={ __( 'Include all headings' ) }
-						checked={ includeAllHeadings }
+						__next40pxDefaultSize
+						label={ __( 'Include headings down to level' ) }
+						value={ maxLevel || '' }
+						options={ [
+							{ value: '', label: __( 'All levels' ) },
+							{ value: '1', label: __( 'Heading 1' ) },
+							{ value: '2', label: __( 'Heading 2' ) },
+							{ value: '3', label: __( 'Heading 3' ) },
+							{ value: '4', label: __( 'Heading 4' ) },
+							{ value: '5', label: __( 'Heading 5' ) },
+							{ value: '6', label: __( 'Heading 6' ) },
+						] }
 						onChange={ ( value ) =>
-							setAttributes( { includeAllHeadings: value } )
+							setAttributes( {
+								maxLevel: value ? parseInt( value ) : null,
+							} )
 						}
 						help={
-							includeAllHeadings
+							maxLevel === null
 								? __(
 										'Including all heading levels in the table of contents.'
 								  )
 								: __(
-										'Filter headings by their level in the table of contents.'
+										'Only include headings up to and including this level.'
 								  )
 						}
 					/>
-					{ ! includeAllHeadings && (
-						<SelectControl
-							__nextHasNoMarginBottom
-							__next40pxDefaultSize
-							label={ __( 'Include headings down to level' ) }
-							value={ maxLevel }
-							options={ [
-								{ value: 1, label: __( 'Heading 1' ) },
-								{ value: 2, label: __( 'Heading 2' ) },
-								{ value: 3, label: __( 'Heading 3' ) },
-								{ value: 4, label: __( 'Heading 4' ) },
-								{ value: 5, label: __( 'Heading 5' ) },
-								{ value: 6, label: __( 'Heading 6' ) },
-							] }
-							onChange={ ( value ) =>
-								setAttributes( {
-									maxLevel: parseInt( value, 10 ),
-								} )
-							}
-							help={ __(
-								'Only include headings up to and including this level.'
-							) }
-						/>
-					) }
 				</ToolsPanelItem>
 			</ToolsPanel>
 		</InspectorControls>
