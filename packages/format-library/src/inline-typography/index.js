@@ -88,12 +88,14 @@ const Edit = ( { isActive, value, onChange, contentRef } ) => {
 	const dynamicFontFamilyOptions = useMemo( () => {
 		const options = [ { label: __( 'Default' ), value: '' } ];
 		if ( themeFontFamilies.length > 0 ) {
-			themeFontFamilies.forEach( ( { fontName, fontFamilyName } ) => {
-				options.push( {
-					label: fontName,
-					value: fontFamilyName,
-				} );
-			} );
+			themeFontFamilies.forEach(
+				( { name: themeName, fontFamily: themeFont } ) => {
+					options.push( {
+						label: themeName,
+						value: themeFont,
+					} );
+				}
+			);
 		} else {
 			options.push(
 				{ label: 'Arial', value: 'Arial, sans-serif' },
