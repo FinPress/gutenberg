@@ -125,13 +125,13 @@ export const SiteHubMobile = memo(
 			dashboardLink,
 			homeUrl,
 			siteTitle,
+			isBlockTheme,
 			isClassicThemeWithStyleBookSupport,
 		} = useSelect( ( select ) => {
 			const { getSettings } = unlock( select( editSiteStore ) );
 			const { getEntityRecord, getCurrentTheme } = select( coreStore );
 			const _site = getEntityRecord( 'root', 'site' );
 			const currentTheme = getCurrentTheme();
-			const isBlockTheme = currentTheme?.is_block_theme;
 			const settings = getSettings();
 			const supportsEditorStyles =
 				currentTheme.theme_supports[ 'editor-styles' ];
@@ -145,24 +145,40 @@ export const SiteHubMobile = memo(
 					! _site?.title && !! _site?.url
 						? filterURLForDisplay( _site?.url )
 						: _site?.title,
+				isBlockTheme: currentTheme?.is_block_theme,
 				isClassicThemeWithStyleBookSupport:
-					! isBlockTheme && ( supportsEditorStyles || hasThemeJson ),
+					! currentTheme?.is_block_theme &&
+					( supportsEditorStyles || hasThemeJson ),
 			};
 		}, [] );
 		const { open: openCommandCenter } = useDispatch( commandsStore );
-		const isRoot = path === '/' || ! isClassicThemeWithStyleBookSupport;
+
+		let backPath;
+
+		// If the current path is not the root page, find a page to back to.
+		if ( path !== '/' ) {
+			if ( isBlockTheme || isClassicThemeWithStyleBookSupport ) {
+				// If the current theme is a block theme or a classic theme that supports StyleBook,
+				// back to the Design screen.
+				backPath = '/';
+			} else if ( path !== '/pattern' ) {
+				// If the current theme is a classic theme that does not support StyleBook,
+				// back to the Patterns page.
+				backPath = '/pattern';
+			}
+		}
 
 		const backButtonProps = {
-			href: isRoot ? dashboardLink : undefined,
-			label: isRoot
-				? __( 'Go to the Dashboard' )
-				: __( 'Go to Site Editor' ),
-			onClick: isRoot
-				? undefined
-				: () => {
-						history.navigate( '/' );
+			href: !! backPath ? undefined : dashboardLink,
+			label: !! backPath
+				? __( 'Go to Site Editor' )
+				: __( 'Go to the Dashboard' ),
+			onClick: !! backPath
+				? () => {
+						history.navigate( backPath );
 						navigate( 'back' );
-				  },
+				  }
+				: undefined,
 		};
 
 		return (
