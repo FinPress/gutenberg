@@ -15,7 +15,7 @@ import { isInSameBlock, isInsideRootBlock } from '../../utils/dom';
 import { unlock } from '../../lock-unlock';
 
 export default function useTabNav() {
-	const container = useRef();
+	const container = /** @type {typeof useRef<HTMLElement>} */ ( useRef )();
 	const focusCaptureBeforeRef = useRef();
 	const focusCaptureAfterRef = useRef();
 
@@ -83,7 +83,6 @@ export default function useTabNav() {
 				event.target.compareDocumentPosition( canvasElement ) &
 				event.target.DOCUMENT_POSITION_FOLLOWING;
 			const tabbables = focus.tabbable.find( container.current );
-
 			if ( tabbables.length ) {
 				const next = isBefore
 					? tabbables[ 0 ]
@@ -110,8 +109,29 @@ export default function useTabNav() {
 	);
 
 	const ref = useRefEffect( ( node ) => {
+		function focusContainerAdjacent( isBefore ) {
+			const to = isBefore ? focusCaptureBeforeRef : focusCaptureAfterRef;
+
+			// Disable focus capturing on the focus capture element, so it
+			// doesn't refocus this block and so it allows default behaviour
+			// (moving focus to the next tabbable element).
+			noCaptureRef.current = true;
+
+			// Focusing the focus capture element, which is located above and
+			// below the editor, should not scroll the page all the way up or
+			// down.
+			to.current.focus( { preventScroll: true } );
+		}
+
 		function onKeyDown( event ) {
-			if ( event.defaultPrevented ) {
+			if (
+				event.defaultPrevented ||
+				// Bails in case the focus capture elements aren’t present. They
+				// may be omitted to avoid silent tab stops in preview mode.
+				// See: https://github.com/WordPress/gutenberg/pull/59317
+				! focusCaptureAfterRef.current ||
+				! focusCaptureBeforeRef.current
+			) {
 				return;
 			}
 
@@ -125,20 +145,22 @@ export default function useTabNav() {
 				return;
 			}
 
-			if ( ! hasMultiSelection() && ! getSelectedBlockClientId() ) {
+			const { target, shiftKey } = event;
+
+			if ( target === container.current ) {
+				focusContainerAdjacent( shiftKey );
 				return;
 			}
 
-			const isShift = event.shiftKey;
-			const direction = isShift ? 'findPrevious' : 'findNext';
-			const nextTabbable = focus.tabbable[ direction ]( event.target );
+			const direction = shiftKey ? 'findPrevious' : 'findNext';
+			const nextTabbable = focus.tabbable[ direction ]( target );
 
 			// We want to constrain the tabbing to the block and its child blocks.
 			// If the preceding form element is within a different block,
 			// such as two sibling image blocks in the placeholder state,
 			// we want shift + tab from the first form element to move to the image
 			// block toolbar and not the previous image block's form element.
-			const currentBlock = event.target.closest( '[data-block]' );
+			const currentBlock = target.closest( '[data-block]' );
 			const isElementPartOfSelectedBlock =
 				currentBlock &&
 				nextTabbable &&
@@ -158,17 +180,7 @@ export default function useTabNav() {
 				return;
 			}
 
-			const next = isShift ? focusCaptureBeforeRef : focusCaptureAfterRef;
-
-			// Disable focus capturing on the focus capture element, so it
-			// doesn't refocus this block and so it allows default behaviour
-			// (moving focus to the next tabbable element).
-			noCaptureRef.current = true;
-
-			// Focusing the focus capture element, which is located above and
-			// below the editor, should not scroll the page all the way up or
-			// down.
-			next.current.focus( { preventScroll: true } );
+			focusContainerAdjacent( shiftKey );
 		}
 
 		function onFocusOut( event ) {
