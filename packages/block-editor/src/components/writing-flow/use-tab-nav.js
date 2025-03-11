@@ -22,7 +22,6 @@ export default function useTabNav() {
 	const {
 		hasMultiSelection,
 		getSelectedBlockClientId,
-		getBlockCount,
 		getBlockOrder,
 		getLastFocus,
 		getSectionRootClientId,
@@ -175,18 +174,6 @@ export default function useTabNav() {
 
 		function onFocusOut( event ) {
 			setLastFocus( { ...getLastFocus(), current: event.target } );
-
-			const { ownerDocument } = node;
-
-			// If focus disappears due to there being no blocks, move focus to
-			// the writing flow wrapper.
-			if (
-				! event.relatedTarget &&
-				ownerDocument.activeElement === ownerDocument.body &&
-				getBlockCount() === 0
-			) {
-				node.focus();
-			}
 		}
 
 		// When tabbing back to an element in block list, this event handler prevents scrolling if the
