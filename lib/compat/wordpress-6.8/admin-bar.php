@@ -31,17 +31,16 @@ function gutenberg_wp_admin_bar_edit_site_menu( $wp_admin_bar ) {
 
 add_action( 'admin_bar_menu', 'gutenberg_wp_admin_bar_edit_site_menu', 41 );
 
-/**
- * Hide the admin bar in the classic theme site preview.
- *
- * @param bool $show_admin_bar Whether to show the admin bar.
- * @return bool
- */
-function gutenberg_hide_admin_bar_in_site_preview( $show_admin_bar ) {
-	if ( isset( $_GET['wp_site_preview'] ) && 1 === (int) $_GET['wp_site_preview'] ) {
-		return false;
+if ( ! function_exists( 'wp_initialize_site_preview_hooks' ) ) {
+	/**
+	 * Add filter to hide the admin bar.
+	 *
+	 * This filter is used to hide the admin bar in classic theme site previews in the site editor.
+	 */
+	function wp_initialize_site_preview_hooks() {
+		if ( isset( $_GET['wp_site_preview'] ) && 1 === (int) $_GET['wp_site_preview'] ) {
+			add_filter( 'show_admin_bar', '__return_false' );
+		}
 	}
-	return $show_admin_bar;
 }
-
-add_filter( 'show_admin_bar', 'gutenberg_hide_admin_bar_in_site_preview' );
+add_action( 'init', 'wp_initialize_site_preview_hooks', 1 );
