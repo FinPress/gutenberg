@@ -195,9 +195,8 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 					_defaultMode === 'template-locked'
 						? hasTemplate
 						: _defaultMode !== undefined;
-				// Wait until rendering mode defaults setup is complete.
-				const isRenderingModeReady =
-					_defaultMode !== undefined && _mode === _defaultMode;
+				// Wait until the default more is retrieved and start rendering canvas.
+				const isRenderingModeReady = _defaultMode !== undefined;
 
 				return {
 					editorSettings: getEditorSettings(),
