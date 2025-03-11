@@ -4,7 +4,7 @@
 	"name": "core/read-progress",
 	"category": "theme",
 	"title": "Read Progress",
-	"description": "Display a read progress. Useful for tracking read progress.",
+	"description": "Displays a read progress. Useful for tracking read progress.",
 	"textdomain": "default",
 	"attributes": {
 		"backgroundColor": {

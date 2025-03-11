@@ -88,6 +88,9 @@ export default function ReadMore( { attributes, setAttributes } ) {
 				/>
 			</InspectorControls>
 			<div className="wp-block-read-progress__container">
+				<p className="wp-block-read-progress__selector">
+					{ __( 'Reading Progress' ) }
+				</p>
 				<div
 					style={ readProgressStyle }
 					className="wp-block-read-progress__read-bar"

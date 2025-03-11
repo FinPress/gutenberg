@@ -807,7 +807,7 @@ Displays the link of a post, page, or any other content-type. ([Source](https://
 
 ## Read Progress
 
-Display a read progress. Useful for tracking read progress. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/read-progress))
+Displays a read progress. Useful for tracking read progress. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/read-progress))
 
 -	**Name:** core/read-progress
 -	**Category:** theme
