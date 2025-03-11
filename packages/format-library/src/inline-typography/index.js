@@ -160,7 +160,7 @@ const Edit = ( { isActive, value, onChange, contentRef } ) => {
 					position="bottom center"
 					onClose={ () => setShowSettings( false ) }
 				>
-					<div style={ { padding: '20px' } }>
+					<div style={ { padding: '20px', width: '235px' } }>
 						<SelectControl
 							label={ __( 'Font' ) }
 							value={ fontFamily }
