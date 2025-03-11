@@ -31,4 +31,7 @@
 		flex-grow: 0;
 		flex-shrink: 0;
 	}
+	&:not(.is-primary) .editor-autocompleters__user-slug {
+		color: $gray-700;
+	}
 }
