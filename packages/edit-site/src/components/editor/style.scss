@@ -92,6 +92,7 @@
 	padding: 0;
 	background: rgba(255, 0, 0, 0.3);
 	z-index: z-index(".edit-site-editor__edit-mode-toggle");
+	pointer-events: none;
 
 	&:not([aria-disabled="true"]) {
 		cursor: pointer;

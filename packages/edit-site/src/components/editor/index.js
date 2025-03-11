@@ -248,10 +248,10 @@ export default function EditSiteEditor( {
 		duration: disableMotion ? 0 : 0.2,
 	};
 
-	const handleEditModeToggle = () =>
-		history.navigate( addQueryArgs( location.path, { canvas: 'edit' } ), {
-			transition: 'canvas-mode-edit-transition',
-		} );
+	// We use the onClick on both the button (for keyboard) and on the iframe.
+	// The button uses `pointer-events: none` to allow to click the iframe behind it
+	// and preserve the scrolling behavior.
+	const { onClick } = iframeProps;
 
 	return ! isBlockBasedTheme && isHomeRoute ? (
 		<SitePreview />
@@ -272,11 +272,7 @@ export default function EditSiteEditor( {
 				<>
 					{ isViewMode && (
 						<button
-							onClick={
-								currentPostIsTrashed
-									? null
-									: handleEditModeToggle
-							}
+							onClick={ onClick }
 							aria-disabled={ currentPostIsTrashed }
 							type="button"
 							className="edit-site-editor__edit-mode-toggle"
