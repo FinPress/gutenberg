@@ -4,6 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
+import { focus } from '@wordpress/dom';
 import { addQueryArgs } from '@wordpress/url';
 
 export default function SitePreview() {
@@ -29,10 +30,8 @@ export default function SitePreview() {
 			onLoad={ ( event ) => {
 				// Make interactive elements unclickable.
 				const document = event.target.contentDocument;
-				const interactiveElements = document.querySelectorAll(
-					'a, button, input, details, audio'
-				);
-				interactiveElements.forEach( ( element ) => {
+				const focusableElements = focus.focusable.find( document );
+				focusableElements.forEach( ( element ) => {
 					element.style.pointerEvents = 'none';
 					element.tabIndex = -1;
 					element.setAttribute( 'aria-hidden', 'true' );
