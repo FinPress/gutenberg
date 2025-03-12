@@ -229,7 +229,6 @@ export { default as queryPaginationPrevious } from './library/query-pagination-p
 export { default as quote } from './library/quote';
 export { default as receipt } from './library/receipt';
 export { default as redo } from './library/redo';
-export { default as readProgress } from './library/read-progress';
 export { default as removeBug } from './library/remove-bug';
 export { default as removeSubmenu } from './library/remove-submenu';
 export { default as replace } from './library/replace';
