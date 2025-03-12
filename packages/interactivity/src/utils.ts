@@ -170,7 +170,11 @@ export function withScope( func: ( ...args: unknown[] ) => unknown ) {
 					error = e;
 				}
 				if ( it.done ) {
-					break;
+					if ( error ) {
+						throw error;
+					} else {
+						break;
+					}
 				}
 			}
 
