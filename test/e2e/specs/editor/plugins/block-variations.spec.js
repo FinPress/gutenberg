@@ -153,7 +153,7 @@ test.describe( 'Block variations', () => {
 		await expect(
 			page.locator( '.block-editor-block-card__description' )
 		).toHaveText(
-			'Give quoted text visual emphasis. "In quoting others, we cite ourselves." — Julio Cortázar'
+			'Gives quoted text visual emphasis. "In quoting others, we cite ourselves." — Julio Cortázar'
 		);
 	} );
 
