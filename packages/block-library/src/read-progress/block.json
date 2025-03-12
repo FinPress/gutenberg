@@ -18,6 +18,10 @@
 		"height": {
 			"type": "number",
 			"default": 15
+		},
+		"position": {
+			"type": "string",
+			"default": "top"
 		}
 	},
 	"supports": {

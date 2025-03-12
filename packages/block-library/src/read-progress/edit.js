@@ -7,6 +7,7 @@ import {
 	useBlockProps,
 } from '@wordpress/block-editor';
 import {
+	CustomSelectControl,
 	RangeControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
@@ -19,7 +20,7 @@ import { __ } from '@wordpress/i18n';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 export default function ReadMore( { attributes, setAttributes } ) {
-	const { backgroundColor, progressColor, height } = attributes;
+	const { backgroundColor, progressColor, height, position } = attributes;
 	const blockProps = useBlockProps();
 
 	const readProgressStyle = {
@@ -33,6 +34,13 @@ export default function ReadMore( { attributes, setAttributes } ) {
 		transform: 'scaleX(0.5)',
 	};
 
+	if ( position === 'bottom' ) {
+		readProgressStyle.top = 'auto';
+		progressStyle.top = 'auto';
+		readProgressStyle.bottom = 0;
+		progressStyle.bottom = 0;
+	}
+
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	return (
@@ -43,6 +51,7 @@ export default function ReadMore( { attributes, setAttributes } ) {
 					resetAll={ () => {
 						setAttributes( {
 							height: 11,
+							position: 'top',
 						} );
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
@@ -64,6 +73,36 @@ export default function ReadMore( { attributes, setAttributes } ) {
 							}
 							min={ 1 }
 							max={ 30 }
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						label={ __( 'Bar Position' ) }
+						isShownByDefault
+						hasValue={ () => position !== 'top' }
+						onDeselect={ () =>
+							setAttributes( { position: 'top' } )
+						}
+					>
+						<CustomSelectControl
+							__next40pxDefaultSize
+							label={ __( 'Bar Position' ) }
+							help={ __( 'Position of the bar' ) }
+							value={ position }
+							onChange={ ( positionValue ) => {
+								setAttributes( {
+									position: positionValue.selectedItem.key,
+								} );
+							} }
+							options={ [
+								{
+									key: 'top',
+									name: __( 'Top' ),
+								},
+								{
+									key: 'bottom',
+									name: __( 'Bottom' ),
+								},
+							] }
 						/>
 					</ToolsPanelItem>
 				</ToolsPanel>
