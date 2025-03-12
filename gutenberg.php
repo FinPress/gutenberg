@@ -12,6 +12,8 @@
  * @package gutenberg
  */
 
+// Test
+
 ### BEGIN AUTO-GENERATED DEFINES
 defined( 'GUTENBERG_DEVELOPMENT_MODE' ) or define( 'GUTENBERG_DEVELOPMENT_MODE', true );
 ### END AUTO-GENERATED DEFINES
