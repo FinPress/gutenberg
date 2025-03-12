@@ -16,6 +16,9 @@ import {
 	MenuGroup,
 	MenuItem,
 	ToolbarDropdownMenu,
+	Button,
+	SVG,
+	Rect,
 } from '@wordpress/components';
 import {
 	store as blockEditorStore,
@@ -40,6 +43,7 @@ import {
 	image as imageIcon,
 	linkOff,
 	fullscreen,
+	Icon,
 } from '@wordpress/icons';
 
 /**
@@ -84,6 +88,7 @@ const LINK_OPTIONS = [
 		value: LINK_DESTINATION_LIGHTBOX,
 		noticeText: __( 'Lightbox effect' ),
 		infoText: __( 'Scale images with a lightbox effect' ),
+		lightboxHasIcon: true,
 	},
 	{
 		icon: linkOff,
@@ -105,6 +110,22 @@ const MOBILE_CONTROL_PROPS_RANGE_CONTROL = Platform.isNative
 const DEFAULT_BLOCK = { name: 'core/image' };
 const EMPTY_ARRAY = [];
 
+const toggleLabel = (
+	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+		<Rect
+			x="4.75"
+			y="17.25"
+			width="5.5"
+			height="14.5"
+			transform="rotate(-90 4.75 17.25)"
+			stroke="currentColor"
+			fill="none"
+			strokeWidth="1.5"
+		/>
+		<Rect x="4" y="7" width="10" height="2" fill="currentColor" />
+	</SVG>
+);
+
 export default function GalleryEdit( props ) {
 	const {
 		setAttributes,
@@ -125,8 +146,15 @@ export default function GalleryEdit( props ) {
 		  )
 		: LINK_OPTIONS;
 
-	const { columns, imageCrop, randomOrder, linkTarget, linkTo, sizeSlug } =
-		attributes;
+	const {
+		columns,
+		imageCrop,
+		randomOrder,
+		lightboxHasIcon,
+		linkTarget,
+		linkTo,
+		sizeSlug,
+	} = attributes;
 
 	const {
 		__unstableMarkNextChangeAsNotPersistent,
@@ -372,8 +400,11 @@ export default function GalleryEdit( props ) {
 		createErrorNotice( message, { type: 'snackbar' } );
 	}
 
-	function setLinkTo( value ) {
-		setAttributes( { linkTo: value } );
+	function setLinkTo( value, lightboxHasIconValue ) {
+		setAttributes( {
+			linkTo: value,
+			lightboxHasIcon: lightboxHasIconValue,
+		} );
 		const changedAttributes = {};
 		const blocks = [];
 		getBlock( clientId ).innerBlocks.forEach( ( block ) => {
@@ -397,7 +428,7 @@ export default function GalleryEdit( props ) {
 
 		createSuccessNotice(
 			sprintf(
-				/* translators: %s: image size settings */
+				/* translators: %s: Gallery images link settings. */
 				__( 'All gallery image links updated to: %s' ),
 				linkToText.noticeText
 			),
@@ -406,6 +437,24 @@ export default function GalleryEdit( props ) {
 				type: 'snackbar',
 			}
 		);
+	}
+
+	function onSetLightboxIcon( enable ) {
+		setAttributes( {
+			lightboxHasIcon: enable,
+		} );
+
+		const changedAttributes = {};
+		const blocks = [];
+		getBlock( clientId ).innerBlocks.forEach( ( block ) => {
+			blocks.push( block.clientId );
+
+			changedAttributes[ block.clientId ] = {
+				lightbox: { enabled: true, hasIcon: enable },
+			};
+		} );
+
+		updateBlockAttributes( blocks, changedAttributes, true );
 	}
 
 	function setColumnsNumber( value ) {
@@ -555,7 +604,9 @@ export default function GalleryEdit( props ) {
 		);
 	}
 
-	const hasLinkTo = linkTo && linkTo !== 'none';
+	const hasLinkTo = linkTo && linkTo !== LINK_DESTINATION_NONE;
+	const hasLightbox = linkTo && linkTo === LINK_DESTINATION_LIGHTBOX;
+	const lightboxIconEnabled = !! lightboxHasIcon;
 
 	return (
 		<>
@@ -644,38 +695,80 @@ export default function GalleryEdit( props ) {
 					<ToolbarDropdownMenu
 						icon={ linkIcon }
 						label={ __( 'Link' ) }
+						toggleProps={ { isPressed: hasLinkTo } }
 					>
-						{ ( { onClose } ) => (
-							<MenuGroup>
-								{ linkOptions.map( ( linkItem ) => {
-									const isOptionSelected =
-										linkTo === linkItem.value;
-									return (
-										<MenuItem
-											key={ linkItem.value }
-											isSelected={ isOptionSelected }
-											className={ clsx(
-												'components-dropdown-menu__menu-item',
-												{
-													'is-active':
-														isOptionSelected,
-												}
+						{ ( { onClose } ) =>
+							hasLightbox ? (
+								<div className="block-editor-url-popover__expand-on-click">
+									<Icon icon={ fullscreen } />
+									<div className="text">
+										<p>{ __( 'Expand on click' ) }</p>
+										<p className="description">
+											{ __(
+												'Scales the image with a lightbox effect'
 											) }
-											iconPosition="left"
-											icon={ linkItem.icon }
-											onClick={ () => {
-												setLinkTo( linkItem.value );
-												onClose();
-											} }
-											role="menuitemradio"
-											info={ linkItem.infoText }
-										>
-											{ linkItem.label }
-										</MenuItem>
-									);
-								} ) }
-							</MenuGroup>
-						) }
+										</p>
+									</div>
+									<Button
+										icon={ linkOff }
+										label={ __( 'Remove link' ) }
+										onClick={ () => {
+											setLinkTo( LINK_DESTINATION_NONE );
+										} }
+										size="compact"
+									/>
+									<Button
+										icon={ toggleLabel }
+										label={ __( 'Show label' ) }
+										onClick={ () => {
+											onSetLightboxIcon(
+												! lightboxIconEnabled
+											);
+										} }
+										size="compact"
+										isPressed={ ! lightboxIconEnabled }
+									/>
+								</div>
+							) : (
+								<MenuGroup>
+									{ linkOptions.map( ( linkItem ) => {
+										const isOptionSelected =
+											linkTo === linkItem.value;
+										return (
+											<MenuItem
+												key={ linkItem.value }
+												isSelected={ isOptionSelected }
+												className={ clsx(
+													'components-dropdown-menu__menu-item',
+													{
+														'is-active':
+															isOptionSelected,
+													}
+												) }
+												iconPosition="left"
+												icon={ linkItem.icon }
+												onClick={ () => {
+													setLinkTo(
+														linkItem.value,
+														linkItem.lightboxHasIcon
+													);
+													if (
+														linkItem.value !==
+														LINK_DESTINATION_LIGHTBOX
+													) {
+														onClose();
+													}
+												} }
+												role="menuitemradio"
+												info={ linkItem.infoText }
+											>
+												{ linkItem.label }
+											</MenuItem>
+										);
+									} ) }
+								</MenuGroup>
+							)
+						}
 					</ToolbarDropdownMenu>
 				</BlockControls>
 			) : null }

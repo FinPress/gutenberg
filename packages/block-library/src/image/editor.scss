@@ -30,6 +30,27 @@ figure.wp-block-image:not(.wp-block) {
 		transform: translate(-50%, -50%);
 		margin: 0;
 	}
+
+	.lightbox-trigger-preview {
+		align-items: center;
+		background: $black;
+		border-radius: $grid-unit-05;
+		display: flex;
+		height: $grid-unit-30;
+		justify-content: center;
+		position: absolute;
+		right: $grid-unit-20;
+		top: $grid-unit-20;
+		width: $grid-unit-30;
+		z-index: 100;
+		color: $white;
+
+		&.lightbox-trigger-preview__has-text {
+			width: auto;
+			padding: 0 $grid-unit-10;
+			font-size: $font-size-small;
+		}
+	}
 }
 
 // Shown while image is being uploaded but cannot be previewed.

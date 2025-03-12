@@ -59,7 +59,7 @@ export function getHrefAndDestination(
 			return {
 				href: undefined,
 				lightbox: ! lightboxSetting?.enabled
-					? { ...attributes?.lightbox, enabled: true }
+					? { ...attributes?.lightbox, enabled: true, hasIcon: true }
 					: undefined,
 				linkDestination: IMAGE_LINK_DESTINATION_NONE,
 			};

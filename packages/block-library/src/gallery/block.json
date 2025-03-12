@@ -89,6 +89,9 @@
 			"type": "boolean",
 			"default": true
 		},
+		"lightboxHasIcon": {
+			"type": "boolean"
+		},
 		"linkTarget": {
 			"type": "string"
 		},

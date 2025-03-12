@@ -12,6 +12,8 @@ import {
 	ToggleControl,
 	TextControl,
 	__experimentalVStack as VStack,
+	SVG,
+	Rect,
 } from '@wordpress/components';
 import {
 	Icon,
@@ -33,6 +35,22 @@ const LINK_DESTINATION_MEDIA = 'media';
 const LINK_DESTINATION_ATTACHMENT = 'attachment';
 const NEW_TAB_REL = [ 'noreferrer', 'noopener' ];
 
+const toggleLabel = (
+	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+		<Rect
+			x="4.75"
+			y="17.25"
+			width="5.5"
+			height="14.5"
+			transform="rotate(-90 4.75 17.25)"
+			stroke="currentColor"
+			fill="none"
+			strokeWidth="1.5"
+		/>
+		<Rect x="4" y="7" width="10" height="2" fill="currentColor" />
+	</SVG>
+);
+
 const ImageURLInputUI = ( {
 	linkDestination,
 	onChangeUrl,
@@ -47,6 +65,8 @@ const ImageURLInputUI = ( {
 	lightboxEnabled,
 	onSetLightbox,
 	resetLightbox,
+	onSetLightboxIcon,
+	lightboxIconEnabled,
 } ) => {
 	const [ isOpen, setIsOpen ] = useState( false );
 	// Use internal state instead of a ref to make sure that the component
@@ -277,6 +297,15 @@ const ImageURLInputUI = ( {
 							onSetLightbox?.( false );
 						} }
 						size="compact"
+					/>
+					<Button
+						icon={ toggleLabel }
+						label={ __( 'Show label' ) }
+						onClick={ () => {
+							onSetLightboxIcon( ! lightboxIconEnabled );
+						} }
+						size="compact"
+						isPressed={ ! lightboxIconEnabled }
 					/>
 				</div>
 			);
