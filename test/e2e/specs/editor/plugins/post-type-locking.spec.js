@@ -463,25 +463,69 @@ test.describe( 'Post-type locking', () => {
 		} );
 	} );
 
-	test.describe( 'template_lock for columns block', () => {
+	test.describe( 'Column block with template_lock', () => {
 		test.beforeEach( async ( { admin } ) => {
-			await admin.createNewPost( { postType: 'locked-all-post' } );
+			await admin.createNewPost();
 		} );
 
-		test( 'should not allow changing number of columns or column operations', async ( {
+		test( 'should not allow column operations when templateLock is "all"', async ( {
 			editor,
 			page,
 		} ) => {
-			const columnsBlock = editor.canvas.getByRole( 'document', {
-				name: 'Block: Columns',
+			await editor.insertBlock( {
+				name: 'core/columns',
+				attributes: {
+					templateLock: 'all',
+				},
+				innerBlocks: [
+					{
+						name: 'core/column',
+						innerBlocks: [
+							{
+								name: 'core/paragraph',
+								attributes: { content: 'Column 1' },
+							},
+						],
+					},
+					{
+						name: 'core/column',
+						innerBlocks: [
+							{
+								name: 'core/paragraph',
+								attributes: { content: 'Column 2' },
+							},
+						],
+					},
+				],
 			} );
-			await columnsBlock.click();
 
+			await editor.selectBlocks(
+				editor.canvas.getByRole( 'document', {
+					name: 'Block: Columns',
+				} )
+			);
+			await editor.openDocumentSettingsSidebar();
+
+			await expect(
+				page.getByRole( 'spinbutton', { name: 'Columns' } )
+			).toBeHidden();
+
+			await editor.selectBlocks(
+				editor.canvas.locator(
+					'role=document[name="Block: Column (1 of 2)"]'
+				)
+			);
 			await editor.clickBlockToolbarButton( 'Options' );
 			await expect(
 				page
 					.getByRole( 'menu', { name: 'Options' } )
 					.getByRole( 'menuitem', { name: 'Delete' } )
+			).toBeHidden();
+
+			await expect(
+				page
+					.getByRole( 'toolbar', { name: 'Block tools' } )
+					.getByRole( 'button', { name: 'Move down' } )
 			).toBeHidden();
 		} );
 	} );
