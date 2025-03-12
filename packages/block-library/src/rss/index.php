@@ -73,6 +73,11 @@ function render_block_core_rss( $attributes ) {
 
 		$excerpt     = '';
 		$description = $item->get_description();
+
+		// Manually add block support text decoration as CSS class.
+		$text_decoration = $attributes['style']['typography']['textDecoration'] ?? null;
+		$inline_style    = $text_decoration ? sprintf( 'text-decoration: %s;', $text_decoration ) : '';
+
 		if ( $attributes['displayExcerpt'] && ! empty( $description ) ) {
 			$excerpt = html_entity_decode( $description, ENT_QUOTES, get_option( 'blog_charset' ) );
 			$excerpt = esc_attr( wp_trim_words( $excerpt, $attributes['excerptLength'], ' [&hellip;]' ) );
@@ -85,7 +90,7 @@ function render_block_core_rss( $attributes ) {
 			$excerpt = '<div class="wp-block-rss__item-excerpt">' . esc_html( $excerpt ) . '</div>';
 		}
 
-		$list_items .= "<li class='wp-block-rss__item'>{$title}{$date}{$author}{$excerpt}</li>";
+		$list_items .= "<li class='wp-block-rss__item' style='{$inline_style}'>{$title}{$date}{$author}{$excerpt}</li>";
 	}
 
 	$classnames = array();
