@@ -22,6 +22,96 @@
 		}
 	}
 
+	// Animation classes
+	&.wp-block-image-animation-fade-in img {
+		opacity: 0; // Default state for all browsers
+
+		@supports (animation-timeline: view()) {
+			animation: fadeIn 1s linear forwards;
+			animation-timeline: view();
+			animation-range: entry 0% cover 20%;
+		}
+
+		// Fallback for browsers without scroll-driven animations
+		&.animated {
+			animation: fadeIn 1s linear forwards;
+		}
+	}
+
+	&.wp-block-image-animation-slide-in-left img {
+		transform: translateX(-100%); // Default state for all browsers
+
+		@supports (animation-timeline: view()) {
+			animation: slideInLeft 1s ease-out forwards;
+			animation-timeline: view();
+			animation-range: entry 0% cover 20%;
+		}
+
+		// Fallback for browsers without scroll-driven animations
+		&.animated {
+			animation: slideInLeft 1s ease-out forwards;
+		}
+	}
+
+	&.wp-block-image-animation-slide-in-right img {
+		transform: translateX(100%); // Default state for all browsers
+
+		@supports (animation-timeline: view()) {
+			animation: slideInRight 1s ease-out forwards;
+			animation-timeline: view();
+			animation-range: entry 0% cover 20%;
+		}
+
+		// Fallback for browsers without scroll-driven animations
+		&.animated {
+			animation: slideInRight 1s ease-out forwards;
+		}
+	}
+
+	&.wp-block-image-animation-slide-in-bottom img {
+		transform: translateY(100%); // Default state for all browsers
+
+		@supports (animation-timeline: view()) {
+			animation: slideInBottom 1s ease-out forwards;
+			animation-timeline: view();
+			animation-range: entry 0% cover 20%;
+		}
+
+		// Fallback for browsers without scroll-driven animations
+		&.animated {
+			animation: slideInBottom 1s ease-out forwards;
+		}
+	}
+
+	&.wp-block-image-animation-scale-in img {
+		transform: scale(0.5); // Default state for all browsers
+		opacity: 0;
+
+		@supports (animation-timeline: view()) {
+			animation: scaleIn 1s ease-out forwards;
+			animation-timeline: view();
+			animation-range: entry 0% cover 20%;
+		}
+
+		// Fallback for browsers without scroll-driven animations
+		&.animated {
+			animation: scaleIn 1s ease-out forwards;
+		}
+	}
+
+	// Respect user's preference for reduced motion
+	@media (prefers-reduced-motion: reduce) {
+		&.wp-block-image-animation-fade-in img,
+		&.wp-block-image-animation-slide-in-left img,
+		&.wp-block-image-animation-slide-in-right img,
+		&.wp-block-image-animation-slide-in-bottom img,
+		&.wp-block-image-animation-scale-in img {
+			animation: none;
+			opacity: 1;
+			transform: none;
+		}
+	}
+
 	// The following style maintains border radius application for deprecated
 	// image blocks that applied border radius to the outer `figure` element.
 	//
@@ -396,5 +486,53 @@
 	100% {
 		visibility: hidden;
 		transform: translate(calc((-100vw + var(--wp--lightbox-scrollbar-width)) / 2 + var(--wp--lightbox-initial-left-position)), calc(-50vh + var(--wp--lightbox-initial-top-position))) scale(var(--wp--lightbox-scale));
+	}
+}
+
+// Animation keyframes for scroll-driven animations
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes slideInRight {
+	from {
+		transform: translateX(100%);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes slideInBottom {
+	from {
+		transform: translateY(100%);
+	}
+	to {
+		transform: translateY(0);
+	}
+}
+
+@keyframes scaleIn {
+	from {
+		transform: scale(0.5);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
 	}
 }

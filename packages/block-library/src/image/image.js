@@ -5,6 +5,7 @@ import { isBlobURL } from '@wordpress/blob';
 import {
 	ExternalLink,
 	ResizableBox,
+	SelectControl,
 	Spinner,
 	TextareaControl,
 	TextControl,
@@ -788,6 +789,52 @@ export default function Image( {
 					resetAll={ resetAll }
 					dropdownMenuProps={ dropdownMenuProps }
 				>
+					{ isSingleSelected && (
+						<ToolsPanelItem
+							label={ __( 'Animation' ) }
+							isShownByDefault
+							hasValue={ () => attributes.animation !== 'none' }
+							onDeselect={ () =>
+								setAttributes( { animation: 'none' } )
+							}
+						>
+							<SelectControl
+								__next40pxDefaultSize
+								label={ __( 'Animation' ) }
+								value={ attributes.animation || 'none' }
+								options={ [
+									{
+										value: 'none',
+										label: __( 'None' ),
+									},
+									{
+										value: 'fade-in',
+										label: __( 'Fade In' ),
+									},
+									{
+										value: 'slide-in-left',
+										label: __( 'Slide In From Left' ),
+									},
+									{
+										value: 'slide-in-right',
+										label: __( 'Slide In From Right' ),
+									},
+									{
+										value: 'slide-in-bottom',
+										label: __( 'Slide In From Bottom' ),
+									},
+									{
+										value: 'scale-in',
+										label: __( 'Scale In' ),
+									},
+								] }
+								onChange={ ( value ) =>
+									setAttributes( { animation: value } )
+								}
+								__nextHasNoMarginBottom
+							/>
+						</ToolsPanelItem>
+					) }
 					{ isSingleSelected && (
 						<ToolsPanelItem
 							label={ __( 'Alternative text' ) }

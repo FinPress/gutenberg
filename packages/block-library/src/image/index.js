@@ -62,4 +62,12 @@ export const settings = {
 	deprecated,
 };
 
-export const init = () => initBlock( { name, metadata, settings } );
+export const init = () => {
+	// Register the animation fallback script
+	if ( typeof window !== 'undefined' ) {
+		// In a browser environment, load the animation fallback script
+		import( './animation-fallback.js' );
+	}
+
+	return initBlock( { name, metadata, settings } );
+};
