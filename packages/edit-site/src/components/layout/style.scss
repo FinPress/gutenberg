@@ -74,13 +74,6 @@
 	.edit-site-sidebar-navigation-screen__main {
 		padding: 0 $grid-unit-15;
 	}
-
-	.edit-site-layout__content:has(.edit-site-page) & {
-		.edit-site-save-hub {
-			background: $white;
-			border-top-color: $gray-100;
-		}
-	}
 }
 
 .edit-site-layout__canvas-container {
