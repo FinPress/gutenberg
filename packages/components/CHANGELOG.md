@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Enhancement
+
+-   `QueryControls`: Add menu_order sorting option if supported by the post type. ([#68781](https://github.com/WordPress/gutenberg/pull/68781)).
+
+### Bug Fixes
+
+-   `Button`: Remove fixed width from small and compact buttons with icons ([#69378](https://github.com/WordPress/gutenberg/pull/69378)).
+
 ## 29.5.0 (2025-02-28)
 
 ### Documentation
@@ -24,6 +32,7 @@
 
 ### Bug Fixes
 
+-   `FontSizePicker`: Remove non translatable additional info from font size picker visual label and improve labeling. ([#69011](https://github.com/WordPress/gutenberg/pull/69011)).
 -   `Notice`: Fix text contrast for dark mode ([#69226](https://github.com/WordPress/gutenberg/pull/69226)).
 
 ## 29.4.0 (2025-02-12)
