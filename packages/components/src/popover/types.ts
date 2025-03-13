@@ -166,7 +166,7 @@ export type PopoverProps = {
 	 *
 	 * @default 0
 	 */
-	overflowOffset?: number | undefined;
+	overflowOffset?: number;
 	// Deprecated props
 	/**
 	 * Prevent the popover from flipping and resizing when meeting the viewport
