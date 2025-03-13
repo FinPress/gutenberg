@@ -4,7 +4,8 @@
 import { useBlockProps } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-	const { backgroundColor, progressColor, height, position } = attributes;
+	const { backgroundColor, progressColor, height, position, isInverted } =
+		attributes;
 	const blockProps = useBlockProps.save();
 
 	const readProgressStyle = {
@@ -15,6 +16,7 @@ export default function save( { attributes } ) {
 	const progressStyle = {
 		backgroundColor: progressColor,
 		height: height + 'px',
+		transformOrigin: isInverted ? '100% 50%' : '0 50%',
 	};
 
 	if ( position === 'bottom' ) {

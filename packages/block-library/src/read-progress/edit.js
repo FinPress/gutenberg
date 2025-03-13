@@ -9,6 +9,7 @@ import {
 import {
 	CustomSelectControl,
 	RangeControl,
+	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
@@ -20,7 +21,8 @@ import { __ } from '@wordpress/i18n';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 export default function ReadMore( { attributes, setAttributes } ) {
-	const { backgroundColor, progressColor, height, position } = attributes;
+	const { backgroundColor, progressColor, height, position, isInverted } =
+		attributes;
 	const blockProps = useBlockProps();
 
 	const readProgressStyle = {
@@ -32,6 +34,7 @@ export default function ReadMore( { attributes, setAttributes } ) {
 		backgroundColor: progressColor,
 		height: height + 'px',
 		transform: 'scaleX(0.5)',
+		transformOrigin: isInverted ? '100% 50%' : '0 50%',
 	};
 
 	if ( position === 'bottom' ) {
@@ -103,6 +106,27 @@ export default function ReadMore( { attributes, setAttributes } ) {
 									name: __( 'Bottom' ),
 								},
 							] }
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						label={ __( 'Inverted Bar' ) }
+						isShownByDefault
+						hasValue={ () => isInverted }
+						onDeselect={ () =>
+							setAttributes( { isInverted: false } )
+						}
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+							label={ __( 'Inverted Bar' ) }
+							help={ __( 'Enabling this will invert the bar' ) }
+							checked={ isInverted }
+							onChange={ ( isInvertedValue ) =>
+								setAttributes( {
+									isInverted: isInvertedValue,
+								} )
+							}
 						/>
 					</ToolsPanelItem>
 				</ToolsPanel>
