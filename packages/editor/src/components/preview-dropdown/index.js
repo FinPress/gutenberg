@@ -13,7 +13,6 @@ import {
 	MenuItem,
 	MenuItemsChoice,
 	VisuallyHidden,
-	Icon,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { desktop, mobile, tablet, external, check } from '@wordpress/icons';
@@ -27,15 +26,13 @@ import { ActionItem } from '@wordpress/interface';
  */
 import { store as editorStore } from '../../store';
 import { store as blockEditorStore } from '@wordpress/block-editor';
-import PostPreviewButton from '../post-preview-button';
 import { unlock } from '../../lock-unlock';
 
-export default function PreviewDropdown( { forceIsAutosaveable, disabled } ) {
+export default function PreviewDropdown( { disabled } ) {
 	const {
 		deviceType,
 		homeUrl,
 		isTemplate,
-		isViewable,
 		showIconLabels,
 		isTemplateHidden,
 		templateId,
@@ -43,14 +40,13 @@ export default function PreviewDropdown( { forceIsAutosaveable, disabled } ) {
 		const { getDeviceType, getCurrentPostType, getCurrentTemplateId } =
 			select( editorStore );
 		const { getRenderingMode } = unlock( select( editorStore ) );
-		const { getEntityRecord, getPostType } = select( coreStore );
+		const { getEntityRecord } = select( coreStore );
 		const { get } = select( preferencesStore );
 		const _currentPostType = getCurrentPostType();
 		return {
 			deviceType: getDeviceType(),
 			homeUrl: getEntityRecord( 'root', '__unstableBase' )?.home,
 			isTemplate: _currentPostType === 'wp_template',
-			isViewable: getPostType( _currentPostType )?.viewable ?? false,
 			showIconLabels: get( 'core', 'showIconLabels' ),
 			isTemplateHidden: getRenderingMode() === 'post-only',
 			templateId: getCurrentTemplateId(),
@@ -171,23 +167,6 @@ export default function PreviewDropdown( { forceIsAutosaveable, disabled } ) {
 							>
 								{ __( 'Show template' ) }
 							</MenuItem>
-						</MenuGroup>
-					) }
-					{ isViewable && (
-						<MenuGroup>
-							<PostPreviewButton
-								className="editor-preview-dropdown__button-external"
-								role="menuitem"
-								forceIsAutosaveable={ forceIsAutosaveable }
-								aria-label={ __( 'Preview in new tab' ) }
-								textContent={
-									<>
-										{ __( 'Preview in new tab' ) }
-										<Icon icon={ external } />
-									</>
-								}
-								onPreview={ onClose }
-							/>
 						</MenuGroup>
 					) }
 					<ActionItem.Slot

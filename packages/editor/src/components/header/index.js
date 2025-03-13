@@ -23,6 +23,7 @@ import PostPublishButtonOrToggle from '../post-publish-button/post-publish-butto
 import PostSavedState from '../post-saved-state';
 import PostViewLink from '../post-view-link';
 import PreviewDropdown from '../preview-dropdown';
+import PreviewChanges from '../preview-changes';
 import ZoomOutToggle from '../zoom-out-toggle';
 import { store as editorStore } from '../../store';
 import {
@@ -169,10 +170,9 @@ function Header( {
 
 				<PostViewLink />
 
-				<PreviewDropdown
-					forceIsAutosaveable={ forceIsDirty }
-					disabled={ disablePreviewOption }
-				/>
+				<PreviewChanges forceIsAutosaveable={ forceIsDirty } />
+
+				<PreviewDropdown disabled={ disablePreviewOption } />
 
 				<PostPreviewButton
 					className="editor-header__post-preview-button"
