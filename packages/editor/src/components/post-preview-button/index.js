@@ -111,6 +111,7 @@ function writeInterstitialMessage( targetDocument ) {
  * @param {boolean}  props.forceIsAutosaveable Whether to force autosave.
  * @param {string}   props.role                The role attribute for the button.
  * @param {Function} props.onPreview           The callback function for preview event.
+ * @param {boolean}  props.disabled            Whether the button is disabled.
  *
  * @return {React.ReactNode} The rendered button component.
  */
@@ -120,6 +121,7 @@ export default function PostPreviewButton( {
 	forceIsAutosaveable,
 	role,
 	onPreview,
+	disabled,
 } ) {
 	const { postId, currentPostLink, previewLink, isSaveable, isViewable } =
 		useSelect( ( select ) => {
@@ -188,7 +190,7 @@ export default function PostPreviewButton( {
 			href={ href }
 			target={ targetId }
 			accessibleWhenDisabled
-			disabled={ ! isSaveable }
+			disabled={ ! isSaveable || disabled }
 			onClick={ openPreviewWindow }
 			role={ role }
 			size="compact"
