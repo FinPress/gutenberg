@@ -59,44 +59,6 @@ import {
 import { useMergeRefs, useRefEffect } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
 
-/**
- * Given the Link block's type attribute, return the query params to give to
- * /wp/v2/search.
- *
- * @param {string} type Link block's type attribute.
- * @param {string} kind Link block's entity of kind (post-type|taxonomy)
- * @return {{ type?: string, subtype?: string }} Search query params.
- */
-function getSuggestionsQuery( type, kind ) {
-	switch ( type ) {
-		case 'post':
-		case 'page':
-			return { type: 'post', subtype: type };
-		case 'category':
-			return { type: 'term', subtype: 'category' };
-		case 'tag':
-			return { type: 'term', subtype: 'post_tag' };
-		case 'post_format':
-			return { type: 'post-format' };
-		default:
-			if ( kind === 'taxonomy' ) {
-				return { type: 'term', subtype: type };
-			}
-			if ( kind === 'post-type' ) {
-				return { type: 'post', subtype: type };
-			}
-			return {
-				// for custom link which has no type
-				// always show pages as initial suggestions
-				initialSuggestionsSearchOptions: {
-					type: 'post',
-					subtype: 'page',
-					perPage: 20,
-				},
-			};
-	}
-}
-
 const LINK_SETTINGS = [
 	...LinkControl.DEFAULT_LINK_SETTINGS,
 	{
@@ -273,8 +235,7 @@ function ButtonEdit( props ) {
 				return {};
 			}
 
-			const { getSettings } = select( blockEditorStore );
-			const _settings = getSettings();
+			const _settings = select( blockEditorStore ).getSettings();
 
 			const blockBindingsSource = getBlockBindingsSource(
 				metadata?.bindings?.url?.source
@@ -484,11 +445,6 @@ function ButtonEdit( props ) {
 							}
 							withCreateSuggestion={ userCanCreatePages }
 							createSuggestionButtonText={ createButtonText }
-							showInitialSuggestions
-							suggestionsQuery={ getSuggestionsQuery(
-								'page',
-								'post-type'
-							) }
 						/>
 					</Popover>
 				) }
