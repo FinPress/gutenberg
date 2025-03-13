@@ -2846,6 +2846,43 @@ class WP_Theme_JSON_Gutenberg {
 	}
 
 	/**
+	 * Enqueues a CSS file for a block using wp_enqueue_block_style().
+	 *
+	 * @param string $block_name The block name.
+	 * @param string $file_path  Relative path to the CSS file.
+	 * @return bool Whether the file was successfully enqueued.
+	 */
+	private function enqueue_block_css_file( $block_name, $file_path ) {
+		if ( empty( $block_name ) || empty( $file_path ) ) {
+			return false;
+		}
+		
+		$theme_directory = get_template_directory();
+		$theme_uri = get_template_directory_uri();
+		
+		$absolute_path = path_join( $theme_directory, $file_path );
+
+		if( ! file_exists( $absolute_path ) ) {
+			return false;
+		}
+		
+		$file_url = path_join( $theme_uri, $file_path );
+		
+		$handle = 'theme-json-' . sanitize_title( $block_name ) . '-css-' . md5( $file_path );
+		
+		wp_enqueue_block_style(
+			$block_name,
+			array(
+				'handle' => $handle,
+				'src'    => $file_url,
+				'path'   => $absolute_path,
+			)
+		);
+		
+		return true;
+	}
+
+	/**
 	 * Gets the CSS rules for a particular block from theme.json.
 	 *
 	 * @since 6.1.0
@@ -2903,7 +2940,16 @@ class WP_Theme_JSON_Gutenberg {
 				$style_variation_declarations[ $style_variation['selector'] ] = static::compute_style_properties( $style_variation_node, $settings, null, $this->theme_json );
 				// Store custom CSS for the style variation.
 				if ( isset( $style_variation_node['css'] ) ) {
-					$style_variation_custom_css[ $style_variation['selector'] ] = $this->process_blocks_custom_css( $style_variation_node['css'], $style_variation['selector'] );
+					// Check if CSS is a file path reference. Enqueue the CSS file or process as regular inline CSS.
+					if ( is_string( $style_variation_node['css'] ) && 0 === strpos( $style_variation_node['css'], 'file:' ) ) {
+						$file_path = trim( substr( $style_variation_node['css'], 5 ) );
+						
+						$block_name = isset( $block_metadata['name'] ) ? $block_metadata['name'] : '';
+						
+						$this->enqueue_block_css_file( $block_name, $file_path );
+					} else {
+						$style_variation_custom_css[ $style_variation['selector'] ] = $this->process_blocks_custom_css( $style_variation_node['css'], $style_variation['selector'] );
+					}
 				}
 			}
 		}
@@ -3066,7 +3112,16 @@ class WP_Theme_JSON_Gutenberg {
 
 		// 7. Generate and append any custom CSS rules.
 		if ( isset( $node['css'] ) && ! $is_root_selector ) {
-			$block_rules .= $this->process_blocks_custom_css( $node['css'], $selector );
+			// Check if CSS is a file path reference. Enqueue the CSS file or process as regular inline CSS.
+			if ( is_string( $node['css'] ) && 0 === strpos( $node['css'], 'file:' ) ) {
+				$file_path = trim( substr( $node['css'], 5 ) );
+				
+				$block_name = isset( $block_metadata['name'] ) ? $block_metadata['name'] : '';
+				
+				$this->enqueue_block_css_file( $block_name, $file_path );
+			} else {
+				$block_rules .= $this->process_blocks_custom_css( $node['css'], $selector );
+			}
 		}
 
 		return $block_rules;
