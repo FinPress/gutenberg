@@ -1,3 +1,0 @@
-<!-- wp:paragraph {"style":{"color":{"text":"#ff0000","background":"#00ff00"}}} -->
-<p class="has-text-color has-background" style="color:#ff0000;background-color:#00ff00">a</p>
-<!-- /wp:paragraph -->
