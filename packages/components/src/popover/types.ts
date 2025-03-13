@@ -160,6 +160,13 @@ export type PopoverProps = {
 	 * @default false
 	 */
 	inline?: boolean;
+	/**
+	 * The offset between the popover and the viewport edge.
+	 * This is used when calculating the maximum height of the popover.
+	 *
+	 * @default 0
+	 */
+	overflowOffset?: number | undefined;
 	// Deprecated props
 	/**
 	 * Prevent the popover from flipping and resizing when meeting the viewport
