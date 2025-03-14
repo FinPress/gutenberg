@@ -19,6 +19,7 @@ import {
 import {
 	ToggleControl,
 	RangeControl,
+	SelectControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
@@ -36,7 +37,13 @@ import {
 const ELLIPSIS = '…';
 
 export default function PostExcerptEditor( {
-	attributes: { textAlign, moreText, showMoreOnNewLine, excerptLength },
+	attributes: {
+		textAlign,
+		moreText,
+		showMoreOnNewLine,
+		excerptLength,
+		countType,
+	},
 	setAttributes,
 	isSelected,
 	context: { postId, postType, queryId },
@@ -142,7 +149,7 @@ export default function PostExcerptEditor( {
 			identifier="moreText"
 			className="wp-block-post-excerpt__more-link"
 			tagName="a"
-			aria-label={ __( '“Read more” link text' ) }
+			aria-label={ __( '"Read more" link text' ) }
 			placeholder={ __( 'Add "read more" link text' ) }
 			value={ moreText }
 			onChange={ ( newMoreText ) =>
@@ -164,11 +171,17 @@ export default function PostExcerptEditor( {
 	).trim();
 
 	let trimmedExcerpt = '';
-	if ( wordCountType === 'words' ) {
+
+	// Determine trimming logic based on countType setting
+	if ( countType === 'characters' ) {
+		// Character count logic - including spaces
 		trimmedExcerpt = rawOrRenderedExcerpt
-			.split( ' ', excerptLength )
-			.join( ' ' );
-	} else if ( wordCountType === 'characters_excluding_spaces' ) {
+			.split( '', excerptLength )
+			.join( '' );
+	} else if (
+		wordCountType === 'characters_excluding_spaces' ||
+		countType === 'characters_excluding_spaces'
+	) {
 		/*
 		 * 1. Split the excerpt at the character limit,
 		 * then join the substrings back into one string.
@@ -188,10 +201,17 @@ export default function PostExcerptEditor( {
 		trimmedExcerpt = rawOrRenderedExcerpt
 			.split( '', excerptLength + numberOfSpaces )
 			.join( '' );
-	} else if ( wordCountType === 'characters_including_spaces' ) {
+	} else if (
+		wordCountType === 'characters_including_spaces' ||
+		countType === 'characters_including_spaces'
+	) {
 		trimmedExcerpt = rawOrRenderedExcerpt
 			.split( '', excerptLength )
 			.join( '' );
+	} else {
+		trimmedExcerpt = rawOrRenderedExcerpt
+			.split( ' ', excerptLength )
+			.join( ' ' );
 	}
 
 	const isTrimmed = trimmedExcerpt !== rawOrRenderedExcerpt;
@@ -218,6 +238,19 @@ export default function PostExcerptEditor( {
 				: trimmedExcerpt + ELLIPSIS }
 		</p>
 	);
+
+	// Get appropriate label for excerpt length based on count type
+	const getExcerptLengthLabel = () => {
+		if (
+			countType === 'characters' ||
+			countType === 'characters_including_spaces' ||
+			countType === 'characters_excluding_spaces'
+		) {
+			return __( 'Max number of characters' );
+		}
+		return __( 'Max number of words' );
+	};
+
 	return (
 		<>
 			<BlockControls>
@@ -235,6 +268,7 @@ export default function PostExcerptEditor( {
 						setAttributes( {
 							showMoreOnNewLine: true,
 							excerptLength: 55,
+							countType: 'words',
 						} );
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
@@ -258,9 +292,36 @@ export default function PostExcerptEditor( {
 							}
 						/>
 					</ToolsPanelItem>
+
+					<ToolsPanelItem
+						hasValue={ () => countType !== 'words' }
+						label={ __( 'Count type' ) }
+						onDeselect={ () =>
+							setAttributes( { countType: 'words' } )
+						}
+						isShownByDefault
+					>
+						<SelectControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ __( 'Count type' ) }
+							value={ countType }
+							options={ [
+								{ label: __( 'Words' ), value: 'words' },
+								{
+									label: __( 'Characters' ),
+									value: 'characters',
+								},
+							] }
+							onChange={ ( value ) => {
+								setAttributes( { countType: value } );
+							} }
+						/>
+					</ToolsPanelItem>
+
 					<ToolsPanelItem
 						hasValue={ () => excerptLength !== 55 }
-						label={ __( 'Max number of words' ) }
+						label={ getExcerptLengthLabel() }
 						onDeselect={ () =>
 							setAttributes( { excerptLength: 55 } )
 						}
@@ -269,13 +330,25 @@ export default function PostExcerptEditor( {
 						<RangeControl
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-							label={ __( 'Max number of words' ) }
+							label={ getExcerptLengthLabel() }
 							value={ excerptLength }
 							onChange={ ( value ) => {
 								setAttributes( { excerptLength: value } );
 							} }
-							min="10"
-							max="100"
+							min={
+								countType === 'characters' ||
+								countType === 'characters_including_spaces' ||
+								countType === 'characters_excluding_spaces'
+									? '10'
+									: '10'
+							}
+							max={
+								countType === 'characters' ||
+								countType === 'characters_including_spaces' ||
+								countType === 'characters_excluding_spaces'
+									? '300'
+									: '100'
+							}
 						/>
 					</ToolsPanelItem>
 				</ToolsPanel>
