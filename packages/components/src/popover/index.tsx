@@ -143,7 +143,7 @@ const UnforwardedPopover = (
 		inline = false,
 		variant,
 		style: contentStyle,
-		overflowOffset = 0,
+		overflowOffsetY = 0,
 
 		// Deprecated props
 		__unstableForcePosition,
@@ -236,7 +236,7 @@ const UnforwardedPopover = (
 					// Reduce the height of the popover to the available space.
 					Object.assign( firstElementChild.style, {
 						maxHeight: `${
-							sizeProps.availableHeight - overflowOffset
+							sizeProps.availableHeight - overflowOffsetY
 						}px`,
 						overflow: 'auto',
 					} );
