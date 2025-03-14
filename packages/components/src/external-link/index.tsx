@@ -14,6 +14,8 @@ import { forwardRef } from '@wordpress/element';
  * Internal dependencies
  */
 import type { ExternalLinkProps } from './types';
+import { Icon } from '@wordpress/icons';
+import { Path, SVG } from '@wordpress/primitives';
 import type { WordPressComponentProps } from '../context';
 
 function UnforwardedExternalLink(
@@ -67,13 +69,23 @@ function UnforwardedExternalLink(
 				{ children }
 			</span>
 			<span
-				className="components-external-link__icon"
 				aria-label={
 					/* translators: accessibility text */
 					__( '(opens in a new tab)' )
 				}
 			>
-				&#8599;
+				<Icon
+					size={ 15 }
+					icon={
+						<SVG
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 20 20"
+							fill="#2271b1"
+						>
+							<Path d="M10 6h8v8h-1.5V8.5L7 18l-1-1 9.5-9.5H10V6Z" />
+						</SVG>
+					}
+				/>
 			</span>
 		</a>
 		/* eslint-enable react/jsx-no-target-blank */
