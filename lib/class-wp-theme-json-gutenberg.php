@@ -2858,7 +2858,7 @@ class WP_Theme_JSON_Gutenberg {
 		}
 
 		$theme_directory = get_template_directory();
-		$theme_uri = get_template_directory_uri();
+		$theme_uri       = get_template_directory_uri();
 
 		$absolute_path = path_join( $theme_directory, $file_path );
 
@@ -2945,7 +2945,7 @@ class WP_Theme_JSON_Gutenberg {
 						$file_path = trim( substr( $style_variation_node['css'], 5 ) );
 
 						$block_name = isset( $block_metadata['name'] ) ? $block_metadata['name'] : '';
-						
+
 						$this->enqueue_block_css_file( $block_name, $file_path );
 					} else {
 						$style_variation_custom_css[ $style_variation['selector'] ] = $this->process_blocks_custom_css( $style_variation_node['css'], $style_variation['selector'] );
@@ -3115,9 +3115,9 @@ class WP_Theme_JSON_Gutenberg {
 			// Check if CSS is a file path reference. Enqueue the CSS file or process as regular inline CSS.
 			if ( is_string( $node['css'] ) && 0 === strpos( $node['css'], 'file:' ) ) {
 				$file_path = trim( substr( $node['css'], 5 ) );
-				
+
 				$block_name = isset( $block_metadata['name'] ) ? $block_metadata['name'] : '';
-				
+
 				$this->enqueue_block_css_file( $block_name, $file_path );
 			} else {
 				$block_rules .= $this->process_blocks_custom_css( $node['css'], $selector );
