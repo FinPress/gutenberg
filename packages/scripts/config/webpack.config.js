@@ -12,6 +12,7 @@ const ReactRefreshWebpackPlugin = require( '@pmmmwh/react-refresh-webpack-plugin
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const { realpathSync } = require( 'fs' );
 const { sync: glob } = require( 'fast-glob' );
+const exec = require('child_process').exec;
 
 /**
  * WordPress dependencies
@@ -48,6 +49,22 @@ const hasReactFastRefresh = hasArgInCLI( '--hot' ) && ! isProduction;
 const hasExperimentalModulesFlag = getAsBooleanFromENV(
 	'WP_EXPERIMENTAL_MODULES'
 );
+
+const BlockManifest = {
+	apply(compiler){
+		compiler.hooks.afterEmit.tap('BlockManifest', (compilation) =>{
+			exec(`wp-scripts build-blocks-manifest`, (error, stdout, stderr) => {
+				if (error){
+					console.error(`exec error: ${error}`);
+				}
+				console.log(`${stdout}`);
+				if (stderr){
+					console.error(`stderr: ${stderr}`);
+				}
+			});
+		});
+	}
+};
 
 const cssLoaders = [
 	{
@@ -403,6 +420,7 @@ const scriptConfig = {
 		// generated, and the default externals set.
 		! process.env.WP_NO_EXTERNALS &&
 			new DependencyExtractionWebpackPlugin(),
+		BlockManifest
 	].filter( Boolean ),
 };
 
@@ -479,6 +497,7 @@ if ( hasExperimentalModulesFlag ) {
 			! process.env.WP_NO_EXTERNALS &&
 				new DependencyExtractionWebpackPlugin(),
 			new BlockJsonDependenciesPlugin(),
+			BlockManifest
 		].filter( Boolean ),
 	};
 
