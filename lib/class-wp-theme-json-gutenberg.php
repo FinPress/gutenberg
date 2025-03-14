@@ -2856,20 +2856,20 @@ class WP_Theme_JSON_Gutenberg {
 		if ( empty( $block_name ) || empty( $file_path ) ) {
 			return false;
 		}
-		
+
 		$theme_directory = get_template_directory();
 		$theme_uri = get_template_directory_uri();
-		
+
 		$absolute_path = path_join( $theme_directory, $file_path );
 
 		if( ! file_exists( $absolute_path ) ) {
 			return false;
 		}
-		
+
 		$file_url = path_join( $theme_uri, $file_path );
-		
+
 		$handle = 'theme-json-' . sanitize_title( $block_name ) . '-css-' . md5( $file_path );
-		
+
 		wp_enqueue_block_style(
 			$block_name,
 			array(
@@ -2878,7 +2878,7 @@ class WP_Theme_JSON_Gutenberg {
 				'path'   => $absolute_path,
 			)
 		);
-		
+
 		return true;
 	}
 
@@ -2943,7 +2943,7 @@ class WP_Theme_JSON_Gutenberg {
 					// Check if CSS is a file path reference. Enqueue the CSS file or process as regular inline CSS.
 					if ( is_string( $style_variation_node['css'] ) && 0 === strpos( $style_variation_node['css'], 'file:' ) ) {
 						$file_path = trim( substr( $style_variation_node['css'], 5 ) );
-						
+
 						$block_name = isset( $block_metadata['name'] ) ? $block_metadata['name'] : '';
 						
 						$this->enqueue_block_css_file( $block_name, $file_path );
