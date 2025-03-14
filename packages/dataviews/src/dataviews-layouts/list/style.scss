@@ -30,7 +30,7 @@ div.dataviews-view-list {
 			}
 		}
 
-		&:where(.is-selected, .is-hovered, :focus-within) {
+		&:where(.is-selected, .is-hovered, :focus-within, :has(button[aria-expanded="true"])) {
 			.dataviews-view-list__item-actions {
 				flex-basis: min-content;
 				overflow: unset;
