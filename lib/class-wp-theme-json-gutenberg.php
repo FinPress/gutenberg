@@ -2862,7 +2862,7 @@ class WP_Theme_JSON_Gutenberg {
 
 		$absolute_path = path_join( $theme_directory, $file_path );
 
-		if( ! file_exists( $absolute_path ) ) {
+		if ( ! file_exists( $absolute_path ) ) {
 			return false;
 		}
 
