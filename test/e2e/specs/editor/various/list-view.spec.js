@@ -649,7 +649,12 @@ test.describe( 'List View', () => {
 		// Move focus and selection to the file block to set up for testing duplication.
 		await listView
 			.getByRole( 'gridcell', { name: 'File', exact: true } )
-			.dblclick();
+			.click();
+
+		// Second click on the 'File' gridcell, so that's not interpreted as a double-click.
+		await listView
+			.getByRole( 'gridcell', { name: 'File', exact: true } )
+			.click();
 
 		// Test duplication behaviour.
 		await pageUtils.pressKeys( 'primaryShift+d' );
@@ -765,7 +770,11 @@ test.describe( 'List View', () => {
 		// Move focus and select the Heading block.
 		await listView
 			.getByRole( 'gridcell', { name: 'Heading', exact: true } )
-			.dblclick();
+			.click();
+		// Second click so that's not interpreted as double-click as it triggers the rename block.
+		await listView
+			.getByRole( 'gridcell', { name: 'Heading', exact: true } )
+			.click();
 		// Select both inner blocks in the column.
 		await page.keyboard.press( 'Shift+ArrowDown' );
 
@@ -794,7 +803,12 @@ test.describe( 'List View', () => {
 		// Move focus and select the first block.
 		await listView
 			.getByRole( 'gridcell', { name: 'Group', exact: true } )
-			.dblclick();
+			.click();
+		// Second click so that's not interpreted as double-click as it triggers the rename block.
+		await listView
+			.getByRole( 'gridcell', { name: 'Group', exact: true } )
+			.click();
+
 		await page.keyboard.press( 'Backspace' );
 		await expect
 			.poll(
