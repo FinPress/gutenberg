@@ -36,12 +36,15 @@
 -   `Autocomplete`: Extracts `getNodeText` function into a separate file and adds unit tests ([#69135](https://github.com/WordPress/gutenberg/pull/69135)).
 -   `NumberControl`: update stepping to match HTML number input stepping ([#34566](https://github.com/WordPress/gutenberg/pull/34566)).
 
+### Enhancement
+
+-   `Popover`: Introduce `overflowOffsetY` prop to support adding a vertical offset between popover and viewport edge ([#69555](https://github.com/WordPress/gutenberg/pull/69555)).
+
 ## 29.6.0 (2025-03-13)
 
 ### Enhancement
 
 -   `QueryControls`: Add menu_order sorting option if supported by the post type. ([#68781](https://github.com/WordPress/gutenberg/pull/68781)).
--   `Popover`: Introduce `overflowOffsetY` prop to support adding a vertical offset between popover and viewport edge ([#69555](https://github.com/WordPress/gutenberg/pull/69555)).
 
 ### Internal
 
