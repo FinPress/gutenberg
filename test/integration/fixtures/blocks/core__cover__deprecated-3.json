@@ -15,10 +15,10 @@
 				"name": "core/paragraph",
 				"isValid": true,
 				"attributes": {
-					"align": "center",
 					"content": "<strong>Cover Block</strong>",
 					"dropCap": false,
 					"placeholder": "Write title…",
+					"align": "center",
 					"fontSize": "large"
 				},
 				"innerBlocks": []
