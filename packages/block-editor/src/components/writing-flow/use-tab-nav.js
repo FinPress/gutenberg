@@ -110,14 +110,7 @@ export default function useTabNav() {
 
 	const ref = useRefEffect( ( node ) => {
 		function onKeyDown( event ) {
-			if (
-				event.defaultPrevented ||
-				// Bails in case the focus capture elements aren’t present. They
-				// may be omitted to avoid silent tab stops in preview mode.
-				// See: https://github.com/WordPress/gutenberg/pull/59317
-				! focusCaptureAfterRef.current ||
-				! focusCaptureBeforeRef.current
-			) {
+			if ( event.defaultPrevented ) {
 				return;
 			}
 
@@ -128,6 +121,16 @@ export default function useTabNav() {
 			// Arrow keys can be used, and Tab and arrow keys can be used in
 			// Navigation mode (press Esc), to navigate through blocks.
 			if ( event.keyCode !== TAB ) {
+				return;
+			}
+
+			if (
+				// Bails in case the focus capture elements aren’t present. They
+				// may be omitted to avoid silent tab stops in preview mode.
+				// See: https://github.com/WordPress/gutenberg/pull/59317
+				! focusCaptureAfterRef.current ||
+				! focusCaptureBeforeRef.current
+			) {
 				return;
 			}
 
@@ -159,7 +162,6 @@ export default function useTabNav() {
 			) {
 				return;
 			}
-
 			const next = isShift ? focusCaptureBeforeRef : focusCaptureAfterRef;
 
 			// Disable focus capturing on the focus capture element, so it
