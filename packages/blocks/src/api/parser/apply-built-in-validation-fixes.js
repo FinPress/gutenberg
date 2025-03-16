@@ -5,6 +5,11 @@ import { fixCustomClassname } from './fix-custom-classname';
 import { fixAriaLabel } from './fix-aria-label';
 
 /**
+ * WordPress dependencies
+ */
+import { applyFilters } from '@wordpress/hooks';
+
+/**
  * Attempts to fix block invalidation by applying build-in validation fixes
  * like moving all extra classNames to the className attribute.
  *
@@ -32,8 +37,14 @@ export function applyBuiltInValidationFixes( block, blockType ) {
 		originalContent
 	);
 
-	return {
+	const updatedBlock = {
 		...block,
 		attributes: updatedBlockAttributes,
 	};
+
+	return applyFilters(
+		'blocks.applyBuiltInValidationFixes',
+		updatedBlock,
+		blockType
+	);
 }

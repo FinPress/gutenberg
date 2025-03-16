@@ -13,7 +13,7 @@ import {
 	RichText,
 	useBlockProps,
 } from '@wordpress/block-editor';
-
+import { compose } from '@wordpress/compose';
 import { isRTL } from '@wordpress/i18n';
 
 const supports = {
@@ -90,9 +90,118 @@ const migrateCustomColorsAndFontSizes = ( attributes ) => {
 	};
 };
 
+const TEXT_ALIGN_OPTIONS = [ 'left', 'right', 'center' ];
+
+const migrateTextAlign = ( attributes ) => {
+	const { align, style = {}, ...rest } = attributes;
+	return TEXT_ALIGN_OPTIONS.includes( align )
+		? {
+				...rest,
+				align: undefined,
+				style: {
+					...style,
+					typography: {
+						...style?.typography,
+						textAlign: align,
+					},
+				},
+		  }
+		: attributes;
+};
+
 const { style, ...restBlockAttributes } = blockAttributes;
 
+const v7 = {
+	attributes: {
+		align: {
+			type: 'string',
+		},
+		content: {
+			type: 'rich-text',
+			source: 'rich-text',
+			selector: 'p',
+			role: 'content',
+		},
+		dropCap: {
+			type: 'boolean',
+			default: false,
+		},
+		placeholder: {
+			type: 'string',
+		},
+		direction: {
+			type: 'string',
+			enum: [ 'ltr', 'rtl' ],
+		},
+	},
+	supports: {
+		splitting: true,
+		align: true,
+		className: false,
+		__experimentalBorder: {
+			color: true,
+			radius: true,
+			style: true,
+			width: true,
+		},
+		color: {
+			gradients: true,
+			link: true,
+			__experimentalDefaultControls: {
+				background: true,
+				text: true,
+			},
+		},
+		spacing: {
+			margin: true,
+			padding: true,
+			__experimentalDefaultControls: {
+				margin: false,
+				padding: false,
+			},
+		},
+		typography: {
+			fontSize: true,
+			lineHeight: true,
+			__experimentalFontFamily: true,
+			__experimentalTextDecoration: true,
+			__experimentalFontStyle: true,
+			__experimentalFontWeight: true,
+			__experimentalLetterSpacing: true,
+			__experimentalTextTransform: true,
+			__experimentalWritingMode: true,
+			__experimentalDefaultControls: {
+				fontSize: true,
+			},
+		},
+		__experimentalSelector: 'p',
+		__unstablePasteTextInline: true,
+		interactivity: {
+			clientNavigation: true,
+		},
+	},
+	isEligible: ( { align } ) => TEXT_ALIGN_OPTIONS.includes( align ),
+	migrate: migrateTextAlign,
+	save( { attributes } ) {
+		const { align, content, dropCap, direction } = attributes;
+		const className = clsx( {
+			'has-drop-cap':
+				align === ( isRTL() ? 'left' : 'right' ) || align === 'center'
+					? false
+					: dropCap,
+			[ `has-text-align-${ align }` ]: align,
+		} );
+
+		return (
+			<p { ...useBlockProps.save( { className, dir: direction } ) }>
+				<RichText.Content value={ content } />
+			</p>
+		);
+	},
+};
+
 const deprecated = [
+	v7,
 	// Version without drop cap on aligned text.
 	{
 		supports,
@@ -108,6 +217,7 @@ const deprecated = [
 				type: 'number',
 			},
 		},
+		migrate: compose( migrateCustomColorsAndFontSizes, migrateTextAlign ),
 		save( { attributes } ) {
 			const { align, content, dropCap, direction } = attributes;
 			const className = clsx( {
@@ -140,7 +250,7 @@ const deprecated = [
 				type: 'number',
 			},
 		},
-		migrate: migrateCustomColorsAndFontSizes,
+		migrate: compose( migrateCustomColorsAndFontSizes, migrateTextAlign ),
 		save( { attributes } ) {
 			const {
 				align,
@@ -205,7 +315,7 @@ const deprecated = [
 				type: 'number',
 			},
 		},
-		migrate: migrateCustomColorsAndFontSizes,
+		migrate: compose( migrateCustomColorsAndFontSizes, migrateTextAlign ),
 		save( { attributes } ) {
 			const {
 				align,
@@ -273,7 +383,7 @@ const deprecated = [
 				type: 'string',
 			},
 		},
-		migrate: migrateCustomColorsAndFontSizes,
+		migrate: compose( migrateCustomColorsAndFontSizes, migrateTextAlign ),
 		save( { attributes } ) {
 			const {
 				width,
@@ -364,7 +474,7 @@ const deprecated = [
 		},
 		migrate( attributes ) {
 			return migrateCustomColorsAndFontSizes( {
-				...attributes,
+				...migrateTextAlign( attributes ),
 				customFontSize: Number.isFinite( attributes.fontSize )
 					? attributes.fontSize
 					: undefined,
@@ -393,9 +503,7 @@ const deprecated = [
 		save( { attributes } ) {
 			return <RawHTML>{ attributes.content }</RawHTML>;
 		},
-		migrate( attributes ) {
-			return attributes;
-		},
+		migrate: compose( migrateCustomColorsAndFontSizes, migrateTextAlign ),
 	},
 ];
 

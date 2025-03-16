@@ -3,6 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { paragraph as icon } from '@wordpress/icons';
+import { addFilter } from '@wordpress/hooks';
 
 /**
  * Internal dependencies
@@ -13,6 +14,7 @@ import edit from './edit';
 import metadata from './block.json';
 import save from './save';
 import transforms from './transforms';
+import { fixAttributes } from './hooks';
 
 const { name } = metadata;
 
@@ -56,4 +58,12 @@ export const settings = {
 	save,
 };
 
-export const init = () => initBlock( { name, metadata, settings } );
+export const init = () => {
+	addFilter(
+		'blocks.applyBuiltInValidationFixes',
+		'core/paragraph/get-attributes',
+		fixAttributes
+	);
+
+	initBlock( { name, metadata, settings } );
+};
