@@ -14,7 +14,7 @@ function ManagePatternsMenuItem() {
 			post_type: 'wp_block',
 		} );
 		const patternsUrl = addQueryArgs( 'site-editor.php', {
-			p: '/patterns',
+			p: '/pattern',
 		} );
 
 		// The site editor and templates both check whether the user has
