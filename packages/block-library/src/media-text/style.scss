@@ -9,6 +9,9 @@
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 
+	// This block has a customizable border radius, so setting overflow to hidden will clip any content exceeding the rounded corners.
+	overflow: hidden;
+
 	&.has-media-on-the-right {
 		grid-template-columns: 1fr 50%;
 	}
