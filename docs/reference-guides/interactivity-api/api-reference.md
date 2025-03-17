@@ -875,7 +875,9 @@ const { state } = store( 'myPlugin', {
 
 You may want to add multiple such `yield` points in your action if it is doing a lot of work.
 
-As mentioned above with [`wp-on`](#wp-on), [`wp-on-window`](#wp-on-window), and [`wp-on-document`](#wp-on-document), an async action should be used whenever the `async` versions of the aforementioned directives cannot be used due to the action requiring synchronous access to the `event` object. Synchronous access is required whenever the action needs to call `event.preventDefault()`, `event.stopPropagation()`, or `event.stopImmediatePropagation()`. To ensure that the action code does not contribute to a long task, you may manually yield to the main thread after calling the synchronous event API. For example:
+As mentioned above with [`wp-on`](#wp-on), [`wp-on-window`](#wp-on-window), and [`wp-on-document`](#wp-on-document), an async action should be used whenever the `async` versions of the aforementioned directives cannot be used due to the action requiring synchronous access to the `event` object. Synchronous access is required whenever the action needs to call `event.preventDefault()`, `event.stopPropagation()`, or `event.stopImmediatePropagation()`.
+
+To ensure that the action code does not contribute to a long task, you may manually yield to the main thread after calling the synchronous event API. The Interactivity API provides the `splitTask()` function for that purpose, which implements yielding in a cross-browser compatible way. Here is an example:
 
 ```js
 import { splitTask } from '@wordpress/interactivity';
