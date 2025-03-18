@@ -776,7 +776,7 @@ function DataviewsViewConfigDropdown() {
 			popoverProps={ {
 				...DATAVIEWS_CONFIG_POPOVER_PROPS,
 				id: popoverId,
-				overflowOffsetY: 16,
+				overflowPadding: 16,
 			} }
 			renderToggle={ ( { onToggle, isOpen } ) => {
 				return (
