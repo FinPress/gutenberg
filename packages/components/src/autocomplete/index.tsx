@@ -12,7 +12,6 @@ import {
 	useState,
 	useRef,
 	useMemo,
-	flushSync,
 } from '@wordpress/element';
 import { useInstanceId, useMergeRefs, useRefEffect } from '@wordpress/compose';
 import {
@@ -257,10 +256,7 @@ export function useAutocomplete( {
 	useEffect( () => {
 		if ( ! textContent ) {
 			if ( autocompleter ) {
-				// Reset the state synchronously to ensure timely DOM updates without flickering.
-				// The `flushSync` can't be called directly in the effect without scheduling.
-				// See: https://github.com/WordPress/gutenberg/pull/69562.
-				window.queueMicrotask( () => flushSync( reset ) );
+				reset();
 			}
 			return;
 		}
@@ -398,12 +394,13 @@ export function useAutocomplete( {
 		? `components-autocomplete-item-${ instanceId }-${ selectedKey }`
 		: null;
 	const hasSelection = record.start !== undefined;
+	const showPopover = !! textContent && hasSelection && !! AutocompleterUI;
 
 	return {
 		listBoxId,
 		activeId,
 		onKeyDown: withIgnoreIMEEvents( handleKeyDown ),
-		popover: hasSelection && AutocompleterUI && (
+		popover: showPopover && (
 			<AutocompleterUI
 				className={ className }
 				filterValue={ filterValue }
