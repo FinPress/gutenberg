@@ -229,8 +229,8 @@ function UnforwardedNumberControl(
 			hideHTMLArrows={ spinControls !== 'native' }
 			isDragEnabled={ isDragEnabled }
 			label={ label }
-			max={ max }
-			min={ min }
+			max={ max === Infinity ? undefined : max }
+			min={ min === -Infinity ? undefined : min }
 			ref={ mergedRef }
 			required={ required }
 			step={ step }
@@ -242,6 +242,7 @@ function UnforwardedNumberControl(
 				return stateReducerProp?.( baseState, action ) ?? baseState;
 			} }
 			size={ size }
+			__shouldNotWarnDeprecated36pxSize
 			suffix={
 				spinControls === 'custom' ? (
 					<>

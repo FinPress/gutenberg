@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+## 14.15.0 (2025-03-13)
+
+## 14.14.0 (2025-02-28)
+
+## 14.13.0 (2025-02-12)
+
+## 14.12.0 (2025-01-29)
+
+## 14.11.0 (2025-01-15)
+
+## 14.10.0 (2025-01-02)
+
+## 14.9.0 (2024-12-11)
+
 ## 14.8.0 (2024-11-27)
 
 ## 14.7.0 (2024-11-16)
@@ -97,7 +111,7 @@
 
 ### Enhancements
 
--   Embed the `ObserveTyping` behavior within the `BlockList` component making to simplify instanciations of third-party block editors.
+-   Embed the `ObserveTyping` behavior within the `BlockList` component making to simplify instantiations of third-party block editors.
 
 ## 12.8.0 (2023-08-16)
 
