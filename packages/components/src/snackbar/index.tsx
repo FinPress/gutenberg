@@ -116,13 +116,13 @@ function UnforwardedSnackbar(
 	const classes = clsx( className, 'components-snackbar', {
 		'components-snackbar-explicit-dismiss': !! explicitDismiss,
 	} );
-	if ( actions && actions.length > 1 ) {
-		// We need to inform developers that snackbar only accepts 1 action.
+	if ( actions && actions.length > 2 ) {
+		// We need to inform developers that snackbar only accepts 2 action.
 		warning(
-			'Snackbar can only have one action. Use Notice if your message requires many actions.'
+			'Snackbar can only have two action. Use Notice if your message requires many actions.'
 		);
-		// return first element only while keeping it inside an array
-		actions = [ actions[ 0 ] ];
+		// return first and second element while keeping it inside an array
+		actions = [ actions[ 0 ], actions[ 1 ] ];
 	}
 
 	const snackbarContentClassnames = clsx( 'components-snackbar__content', {
