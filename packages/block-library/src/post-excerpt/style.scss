@@ -9,7 +9,8 @@
 
 // Zero out the margin on the excerpt paragraph, to match the body paragraphs.
 .wp-block-post-excerpt__excerpt {
-	word-wrap: break-word;
+	word-break: break-word;
+	hyphens: auto;
 	margin-top: 0;
 	margin-bottom: 0;
 }
