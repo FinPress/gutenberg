@@ -22,6 +22,29 @@
 		}
 	}
 
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+			clip-path: inset(45% 20% 45% 20%);
+		}
+		to {
+			opacity: 1;
+			clip-path: inset(0% 0% 0% 0%);
+		}
+	}
+
+	&.wp-block-image-animation-fade-in img {
+		@media not (prefers-reduced-motion) {
+			view-timeline-name: --revealing-image;
+			view-timeline-axis: block;
+
+			animation: linear fadeIn both;
+			animation-timeline: --revealing-image;
+
+			animation-range: entry 15% cover 50%;
+		}
+	}
+
 	// The following style maintains border radius application for deprecated
 	// image blocks that applied border radius to the outer `figure` element.
 	//
