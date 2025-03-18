@@ -9,7 +9,7 @@
 	"attributes": {
 		"iconType": {
 			"type": "string",
-			"default": "bookmark"
+			"default": "heart"
 		}
 	},
 	"supports": {
@@ -22,8 +22,8 @@
 		},
 		"color": {
 			"gradients": true,
-			"text": true,
 			"__experimentalDefaultControls": {
+				"text": true,
 				"background": true
 			}
 		},

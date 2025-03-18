@@ -22,8 +22,8 @@
 		},
 		"color": {
 			"gradients": true,
-			"text": true,
 			"__experimentalDefaultControls": {
+				"text": true,
 				"background": true
 			}
 		},
