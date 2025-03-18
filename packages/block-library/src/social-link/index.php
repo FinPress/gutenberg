@@ -345,7 +345,7 @@ function block_core_social_link_services( $service = '', $field = '' ) {
 		return $services_data[ $service ];
 	}
 
-	return apply_filters( 'social_link_services_data', $services_data );
+	return $services_data;
 }
 
 /**
