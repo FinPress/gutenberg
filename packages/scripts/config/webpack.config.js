@@ -37,6 +37,7 @@ const {
 	getBlockJsonModuleFields,
 	getBlockJsonScriptFields,
 	fromProjectRoot,
+	fromScriptsRoot,
 } = require( '../utils' );
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -273,7 +274,11 @@ class BlocksManifestPlugin {
 	 */
 	apply( compiler ) {
 		compiler.hooks.afterEmit.tap( 'BlocksManifest', () => {
-			exec( 'wp-scripts build-blocks-manifest' );
+			exec(
+				`node ${ fromScriptsRoot(
+					'build-blocks-manifest'
+				) } --input="${ compiler.options.output.path }"`
+			);
 		} );
 	}
 }
