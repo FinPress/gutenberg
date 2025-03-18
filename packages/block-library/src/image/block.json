@@ -18,7 +18,7 @@
 	"attributes": {
 		"animation": {
 			"type": "string",
-			"default": "none"
+			"default": ""
 		},
 		"blob": {
 			"type": "string",

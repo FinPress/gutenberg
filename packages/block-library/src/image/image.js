@@ -588,14 +588,14 @@ export default function Image( {
 		<ToolsPanelItem
 			label={ __( 'Animation' ) }
 			isShownByDefault
-			hasValue={ () => attributes.animation !== 'none' }
-			onDeselect={ () => setAttributes( { animation: 'none' } ) }
+			hasValue={ () => attributes.animation !== '' }
+			onDeselect={ () => setAttributes( { animation: '' } ) }
 		>
 			<SelectControl
 				label={ __( 'Animation' ) }
-				value={ attributes.animation || 'none' }
+				value={ attributes.animation || '' }
 				options={ [
-					{ label: __( 'None' ), value: 'none' },
+					{ label: __( 'None' ), value: '' },
 					{
 						label: __( 'Fade in' ),
 						value: 'fade-in',
