@@ -186,7 +186,7 @@
 		color: $gray-600;
 
 		&.is-selected {
-			background-color: color-mix(in srgb, $components-color-accent 8%, transparent);
+			background: color-mix(in srgb, $components-color-accent 4%, transparent);
 		}
 	}
 
