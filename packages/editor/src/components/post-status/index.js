@@ -194,7 +194,12 @@ export default function PostStatus() {
 								title={ __( 'Status & visibility' ) }
 								onClose={ onClose }
 							/>
-							<form>
+							<form
+								onSubmit={ ( event ) => {
+									event.preventDefault();
+									onClose();
+								} }
+							>
 								<VStack spacing={ 4 }>
 									<RadioControl
 										className="editor-change-status__options"
@@ -257,17 +262,6 @@ export default function PostStatus() {
 														__next40pxDefaultSize
 														__nextHasNoMarginBottom
 														maxLength={ 255 }
-														onKeyDown={ (
-															event
-														) => {
-															if (
-																event.key ===
-																'Enter'
-															) {
-																event.preventDefault();
-																onClose();
-															}
-														} }
 													/>
 												</div>
 											) }
