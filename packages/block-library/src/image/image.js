@@ -301,7 +301,6 @@ export default function Image( {
 	}, [ imageElement ] );
 	const setRefs = useMergeRefs( [ setImageElement, setResizeObserved ] );
 	const { allowResize = true } = context;
-	const { getBlock, getSettings } = useSelect( blockEditorStore );
 
 	const image = useSelect(
 		( select ) =>
@@ -313,7 +312,7 @@ export default function Image( {
 
 	const { canInsertCover, imageEditing, imageSizes, maxWidth } = useSelect(
 		( select ) => {
-			const { getBlockRootClientId, canInsertBlockType } =
+			const { getBlockRootClientId, canInsertBlockType, getSettings } =
 				select( blockEditorStore );
 
 			const rootClientId = getBlockRootClientId( clientId );
@@ -331,6 +330,7 @@ export default function Image( {
 		},
 		[ clientId ]
 	);
+	const { getBlock, getSettings } = useSelect( blockEditorStore );
 
 	const { replaceBlocks, toggleSelection } = useDispatch( blockEditorStore );
 	const { createErrorNotice, createSuccessNotice } =
@@ -383,7 +383,7 @@ export default function Image( {
 			.then( ( blob ) => setExternalBlob( blob ) )
 			// Do nothing, cannot upload.
 			.catch( () => {} );
-	}, [ id, url, isSingleSelected, externalBlob ] );
+	}, [ id, url, isSingleSelected, externalBlob, getSettings ] );
 
 	// Get naturalWidth and naturalHeight from image, and fall back to loaded natural
 	// width and height. This resolves an issue in Safari where the loaded natural
