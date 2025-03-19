@@ -214,6 +214,10 @@ export const SelectedItemCheck = styled( Ariakit.SelectItemCheck )`
 	align-items: center;
 	margin-inline-start: ${ space( 2 ) };
 
+	path {
+		fill: currentColor;
+	}
+
 	// Keep the checkmark vertically aligned at the top. Since the item text has a
 	// 28px line height and the checkmark is 24px tall, a (28-24)/2 = 2px margin
 	// is applied to keep the correct alignment between the text and the checkmark.
