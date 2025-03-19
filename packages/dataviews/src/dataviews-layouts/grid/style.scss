@@ -152,11 +152,13 @@
 
 .dataviews-view-grid__card .dataviews-selection-checkbox {
 	position: absolute;
-	top: $grid-unit-10;
+	top: -9999em;
 	left: $grid-unit-10;
 	z-index: z-index(".dataviews-view-grid__card .dataviews-selection-checkbox");
 }
 
+.dataviews-view-grid__card:hover .dataviews-selection-checkbox,
+.dataviews-view-grid__card:focus-within .dataviews-selection-checkbox,
 .dataviews-view-grid__card.is-selected .dataviews-selection-checkbox {
 	top: $grid-unit-10;
 }
