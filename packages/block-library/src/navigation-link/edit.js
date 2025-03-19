@@ -108,7 +108,9 @@ const useIsInvalidLink = ( kind, type, id ) => {
 				return null;
 			}
 
-			// Avoid querying the post status if the block editing mode is disabled.
+			// Fetching the posts status is an "expensive" operation. Especially for sites with large navigations.
+			// When the block is rendered in a template or other disabled contexts we can skip this check in order
+			// to avoid all these additional requests that don't really add any value in that mode.
 			if ( blockEditingMode === 'disabled' ) {
 				return null;
 			}
