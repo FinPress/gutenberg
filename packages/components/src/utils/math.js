@@ -75,25 +75,19 @@ export function clamp( value, min, max ) {
  *
  * @param {number|string} value The value.
  * @param {number}        min   The minimum range.
- * @param {number}        step  A multiplier for the value.
+ * @param {number}        step  The increment for the value.
  *
  * @return {number} The value as a valid step.
  */
-export function ensureValidStep( value = 0, min = Infinity, step = 1 ) {
+export function ensureValidStep( value, min, step ) {
 	const baseValue = getNumber( value );
 	const stepValue = getNumber( step );
 	const precision = Math.max( getPrecision( step ), getPrecision( min ) );
 	const realMin = Math.abs( min ) === Infinity ? 0 : min;
-
-	// If the step is not a factor of the minimum the minimum will be used to
-	// offset the step.
-	let tare = 0;
-	if ( realMin % stepValue ) {
-		tare = realMin;
-	}
-
+	// If the step is not a factor of the minimum then the step must be
+	// offset by the minimum.
+	const tare = realMin % stepValue ? realMin : 0;
 	const rounded = Math.round( ( baseValue - tare ) / stepValue ) * stepValue;
 	const fromMin = rounded + tare;
-
 	return precision ? getNumber( fromMin.toFixed( precision ) ) : fromMin;
 }
