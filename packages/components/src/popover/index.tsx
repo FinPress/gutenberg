@@ -501,7 +501,27 @@ const UnforwardedPopover = (
  * ```
  *
  */
-export const Popover = contextConnect( UnforwardedPopover, 'Popover' );
+export const Popover = Object.assign(
+	contextConnect( UnforwardedPopover, 'Popover' ),
+	{
+		/**
+		 * Renders a slot that is used internally by Popover for rendering content.
+		 *
+		 * This should not be used directly in consumer code.
+		 */
+		Slot: Object.assign( forwardRef( PopoverSlot ), {
+			displayName: 'Popover.Slot',
+		} ),
+		/**
+		 * Provides a context to manage popover slot names.
+		 *
+		 * This is marked as unstable and should not be used directly.
+		 */
+		__unstableSlotNameProvider: Object.assign( slotNameContext.Provider, {
+			displayName: 'Popover.__unstableSlotNameProvider',
+		} ),
+	}
+);
 
 function PopoverSlot(
 	{ name = SLOT_NAME }: { name?: string },
@@ -516,10 +536,5 @@ function PopoverSlot(
 		/>
 	);
 }
-
-// @ts-expect-error For Legacy Reasons
-Popover.Slot = forwardRef( PopoverSlot );
-// @ts-expect-error For Legacy Reasons
-Popover.__unstableSlotNameProvider = slotNameContext.Provider;
 
 export default Popover;
