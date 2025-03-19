@@ -325,8 +325,8 @@ export default function NavigationLinkEdit( {
 		isAtMaxNesting,
 		isTopLevelLink,
 		isParentOfSelectedBlock,
-		isRootBlockSelected,
 		hasChildren,
+		validateLinkStatus,
 	} = useSelect(
 		( select ) => {
 			const {
@@ -337,28 +337,33 @@ export default function NavigationLinkEdit( {
 				getBlockParentsByBlockName,
 				getSelectedBlockClientId,
 			} = select( blockEditorStore );
+			const rootClientId = getBlockRootClientId( clientId );
+			const isTopLevel =
+				getBlockName( rootClientId ) === 'core/navigation';
 			const selectedBlockClientId = getSelectedBlockClientId();
-			const isRootParentSelected =
-				selectedBlockClientId && selectedBlockClientId !== clientId
-					? getBlockParentsByBlockName(
-							clientId,
-							'core/navigation'
-					  ).includes( selectedBlockClientId )
-					: false;
+			const rootNavigationClientId = isTopLevel
+				? rootClientId
+				: getBlockParentsByBlockName(
+						clientId,
+						'core/navigation'
+				  )[ 0 ];
+
+			// Enable when the root Navigation block is selected or any of its inner blocks.
+			const enableLinkStatusValidation =
+				selectedBlockClientId === rootNavigationClientId ||
+				hasSelectedInnerBlock( rootNavigationClientId, true );
 
 			return {
 				isAtMaxNesting:
 					getBlockParentsByBlockName( clientId, NESTING_BLOCK_NAMES )
 						.length >= maxNestingLevel,
-				isTopLevelLink:
-					getBlockName( getBlockRootClientId( clientId ) ) ===
-					'core/navigation',
+				isTopLevelLink: isTopLevel,
 				isParentOfSelectedBlock: hasSelectedInnerBlock(
 					clientId,
 					true
 				),
-				isRootBlockSelected: isRootParentSelected,
 				hasChildren: !! getBlockCount( clientId ),
+				validateLinkStatus: enableLinkStatusValidation,
 			};
 		},
 		[ clientId, maxNestingLevel ]
@@ -369,8 +374,7 @@ export default function NavigationLinkEdit( {
 		kind,
 		type,
 		id,
-		// Whether block link validation is enabled.
-		isSelected || isRootBlockSelected
+		validateLinkStatus
 	);
 
 	/**
