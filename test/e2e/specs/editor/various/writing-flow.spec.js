@@ -894,29 +894,16 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		editor,
 		page,
 	} ) => {
-		async function isPrecedingTabbableFocused() {
-			return await page.evaluate( () => {
-				const editorCanvasFrame =
-					window[ 'editor-canvas' ].frameElement;
-				const { focus } = window.wp.dom;
-				const tabbables = focus.tabbable.find( document.body );
-				// The tabbable to be checked isn’t the immediately preceding one
-				// because that’s the focus capture element.
-				const precedingIndex =
-					-2 + tabbables.indexOf( editorCanvasFrame );
-				return document.activeElement === tabbables[ precedingIndex ];
-			} );
-		}
-
+		const optionsButton = page.locator( 'role=button[name="Options"i]' );
 		await page.keyboard.press( 'Shift+Tab' );
-		expect( await isPrecedingTabbableFocused() ).toBe( true );
+		await expect( optionsButton ).toBeFocused();
 
 		const editorCanvasBody = editor.canvas.locator( 'body' );
 		// Focuses the editor canvas body. In the editor the click doesn’t have
 		// to be on the element itself – just somewhere that won’t focus a block.
 		await editorCanvasBody.click();
 		await page.keyboard.press( 'Shift+Tab' );
-		expect( await isPrecedingTabbableFocused() ).toBe( true );
+		await expect( optionsButton ).toBeFocused();
 	} );
 
 	test( 'should only consider the content as one tab stop', async ( {
