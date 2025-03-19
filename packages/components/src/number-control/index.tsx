@@ -83,8 +83,9 @@ function UnforwardedNumberControl(
 		stepOverride?: number
 	) => {
 		// When step is not "any" the value must be a valid step.
-		if ( ! isStepAny )
+		if ( ! isStepAny ) {
 			value = ensureValidStep( value, min, stepOverride ?? baseStep );
+		}
 
 		return `${ clamp( value, min, max ) }`;
 	};
