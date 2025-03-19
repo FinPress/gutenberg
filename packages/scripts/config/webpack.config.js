@@ -12,6 +12,7 @@ const ReactRefreshWebpackPlugin = require( '@pmmmwh/react-refresh-webpack-plugin
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const { realpathSync } = require( 'fs' );
 const { sync: glob } = require( 'fast-glob' );
+const million = require( 'million/compiler' );
 
 /**
  * WordPress dependencies
@@ -177,6 +178,7 @@ const baseConfig = {
 									),
 								],
 								plugins: [
+									million.webpack( { auto: true } ),
 									hasReactFastRefresh &&
 										require.resolve(
 											'react-refresh/babel'
