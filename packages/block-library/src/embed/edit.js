@@ -267,6 +267,8 @@ const EmbedEdit = ( props ) => {
 				allowResponsive={ allowResponsive }
 				toggleResponsive={ toggleResponsive }
 				switchBackToURLInput={ () => setIsEditingURL( true ) }
+				html={ preview.html }
+				{ ...props }
 			/>
 			<figure
 				{ ...blockProps }
