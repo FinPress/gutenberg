@@ -10,7 +10,10 @@
 	}
 
 	&.is-active {
-		@include input-style__focus();
+		border-color: $components-color-accent;
+		box-shadow: 0 0 0 0.5px $components-color-accent;
+		outline: 2px solid transparent;
+		outline-offset: -2px;
 	}
 
 	// Token input
@@ -27,7 +30,7 @@
 		min-width: 50px;
 		background: inherit;
 		border: 0;
-		color: $gray-900;
+		color: $components-color-foreground;
 		box-shadow: none;
 
 		// Resolves Zooming on iOS devices
@@ -168,7 +171,7 @@
 }
 
 .components-form-token-field__suggestion {
-	color: $gray-900;
+	color: $components-color-foreground;
 	display: block;
 	font-size: $default-font-size;
 	padding: $grid-unit-10 $grid-unit-15;
@@ -178,7 +181,7 @@
 
 	&.is-selected {
 		background: $components-color-accent;
-		color: $white;
+		color: $components-color-foreground-inverted;
 	}
 
 	&[aria-disabled="true"] {
