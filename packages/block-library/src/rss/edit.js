@@ -37,6 +37,9 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 		excerptLength,
 		feedURL,
 		itemsToShow,
+		openInNewTab,
+		addNofollow,
+		additionalRelAttributes,
 	} = attributes;
 
 	function toggleAttribute( propName ) {
@@ -197,6 +200,35 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 							required
 						/>
 					) }
+				</PanelBody>
+				<PanelBody title={ __( 'Link Settings' ) }>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Open links in new tab' ) }
+						checked={ openInNewTab }
+						onChange={ ( value ) =>
+							setAttributes( { openInNewTab: value } )
+						}
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Add nofollow to links' ) }
+						checked={ addNofollow }
+						onChange={ ( value ) =>
+							setAttributes( { addNofollow: value } )
+						}
+					/>
+					<InputControl
+						__next40pxDefaultSize
+						label={ __( 'Additional rel attributes' ) }
+						help={ __(
+							'Space-separated list of rel attributes (e.g., "sponsored ugc")'
+						) }
+						value={ additionalRelAttributes }
+						onChange={ ( value ) =>
+							setAttributes( { additionalRelAttributes: value } )
+						}
+					/>
 				</PanelBody>
 			</InspectorControls>
 			<div { ...blockProps }>

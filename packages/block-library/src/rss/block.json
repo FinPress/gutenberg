@@ -39,6 +39,18 @@
 		"excerptLength": {
 			"type": "number",
 			"default": 55
+		},
+		"openInNewTab": {
+			"type": "boolean",
+			"default": false
+		},
+		"addNofollow": {
+			"type": "boolean",
+			"default": false
+		},
+		"additionalRelAttributes": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {

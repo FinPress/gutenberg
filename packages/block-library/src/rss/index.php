@@ -31,6 +31,32 @@ function render_block_core_rss( $attributes ) {
 
 	$rss_items  = $rss->get_items( 0, $attributes['itemsToShow'] );
 	$list_items = '';
+
+	$link_attributes = '';
+	$rel_attributes  = array();
+
+	if ( ! empty( $attributes['openInNewTab'] ) ) {
+		$link_attributes .= ' target="_blank"';
+		$rel_attributes[] = 'noopener noreferrer';
+	}
+
+	if ( ! empty( $attributes['addNofollow'] ) ) {
+		$rel_attributes[] = 'nofollow';
+	}
+
+	if ( ! empty( $attributes['additionalRelAttributes'] ) ) {
+		$additional_rels = explode( ' ', $attributes['additionalRelAttributes'] );
+		foreach ( $additional_rels as $rel ) {
+			if ( ! empty( trim( $rel ) ) ) {
+				$rel_attributes[] = sanitize_html_class( trim( $rel ) );
+			}
+		}
+	}
+
+	if ( ! empty( $rel_attributes ) ) {
+		$link_attributes .= ' rel="' . esc_attr( implode( ' ', array_unique( $rel_attributes ) ) ) . '"';
+	}
+
 	foreach ( $rss_items as $item ) {
 		$title = esc_html( trim( strip_tags( $item->get_title() ) ) );
 		if ( empty( $title ) ) {
@@ -39,7 +65,7 @@ function render_block_core_rss( $attributes ) {
 		$link = $item->get_link();
 		$link = esc_url( $link );
 		if ( $link ) {
-			$title = "<a href='{$link}'>{$title}</a>";
+			$title = "<a href='{$link}'{$link_attributes}>{$title}</a>";
 		}
 		$title = "<div class='wp-block-rss__item-title'>{$title}</div>";
 
