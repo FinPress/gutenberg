@@ -369,7 +369,13 @@ export default function ColorPanel( {
 			[ 'color', 'background' ],
 			encodeColorValue( newColor )
 		);
-		newValue.color.gradient = undefined;
+
+		if ( undefined === newValue.color.background ) {
+			newValue.color.gradient = undefined;
+		} else {
+			newValue.color.gradient = 'none';
+		}
+
 		onChange( newValue );
 	};
 	const setGradient = ( newGradient ) => {
