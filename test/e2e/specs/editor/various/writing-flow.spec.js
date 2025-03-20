@@ -894,7 +894,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		editor,
 		page,
 	} ) => {
-		const optionsButton = page.locator( 'role=button[name="Options"i]' );
+		const optionsButton = page
+			.getByRole( 'region', { name: 'Editor top bar' } )
+			.getByRole( 'button', { name: 'Options' } );
 		await page.keyboard.press( 'Shift+Tab' );
 		await expect( optionsButton ).toBeFocused();
 
