@@ -205,6 +205,8 @@
 
 				.components-textarea-control__input {
 					flex: 1 1 auto;
+					background-color: transparent;
+
 					// CSS input is always LTR regardless of language.
 					/*rtl:ignore*/
 					direction: ltr;
