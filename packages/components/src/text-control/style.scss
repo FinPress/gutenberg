@@ -32,7 +32,7 @@
 
 	&:focus {
 		border-color: $components-color-accent;
-		box-shadow: 0 0 0 1.5px $components-color-accent;
+		box-shadow: 0 0 0 0.5px $components-color-accent;
 		// Windows High Contrast mode will show this outline, but not the box-shadow.
 		outline: 5px solid transparent;
 	}
