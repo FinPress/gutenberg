@@ -18,8 +18,8 @@
 
 ### Enhancement
 
--	`FormTokenField`: Add theming support ([#69638](https://github.com/WordPress/gutenberg/pull/69638)).
--	`ComboboxControl`: Add theming support ([#69638](https://github.com/WordPress/gutenberg/pull/69638)).
+-   `FormTokenField`: Add theming support ([#69638](https://github.com/WordPress/gutenberg/pull/69638)).
+-   `ComboboxControl`: Add theming support ([#69638](https://github.com/WordPress/gutenberg/pull/69638)).
 
 ## 29.6.0 (2025-03-13)
 
