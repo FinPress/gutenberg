@@ -226,13 +226,3 @@
 .dataviews-column-primary__media {
 	max-width: 60px;
 }
-
-@media (max-width: 768px) {
-	.dataviews-view-table {
-		tr {
-			.components-checkbox-control__input.components-checkbox-control__input {
-				opacity: 1 !important;
-			}
-		}
-	}
-}

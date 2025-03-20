@@ -174,3 +174,9 @@
 .dataviews-view-grid__media--clickable {
 	cursor: pointer;
 }
+
+@media (hover: none) {
+	.dataviews-view-grid__card .dataviews-selection-checkbox {
+		top: 8px;
+	}
+}
