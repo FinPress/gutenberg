@@ -1,7 +1,9 @@
-/**
- * Internal dependencies
- */
-require( './utils/polyfill' );
+if ( ! ( 'ScrollTimeline' in window ) ) {
+	/**
+	 * Internal dependencies
+	 */
+	require( './utils/polyfill' );
+}
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	const progressBar = document.querySelector(
