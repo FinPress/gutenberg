@@ -200,8 +200,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 							required
 						/>
 					) }
-				</PanelBody>
-				<PanelBody title={ __( 'Link Settings' ) }>
+
 					<ToggleControl
 						__nextHasNoMarginBottom
 						label={ __( 'Open links in new tab' ) }
