@@ -506,8 +506,6 @@ export const Popover = Object.assign(
 	{
 		/**
 		 * Renders a slot that is used internally by Popover for rendering content.
-		 *
-		 * This should not be used directly in consumer code.
 		 */
 		Slot: Object.assign( forwardRef( PopoverSlot ), {
 			displayName: 'Popover.Slot',
