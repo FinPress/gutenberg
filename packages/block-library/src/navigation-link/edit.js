@@ -14,7 +14,6 @@ import {
 	TextControl,
 	TextareaControl,
 	ToolbarButton,
-	Tooltip,
 	ToolbarGroup,
 } from '@wordpress/components';
 import { displayShortcut, isKeyboardEvent } from '@wordpress/keycodes';
@@ -27,6 +26,7 @@ import {
 	store as blockEditorStore,
 	getColorClassName,
 	useInnerBlocksProps,
+	useBlockEditingMode,
 } from '@wordpress/block-editor';
 import { isURL, prependHTTP, safeDecodeURI } from '@wordpress/url';
 import { useState, useEffect, useRef } from '@wordpress/element';
@@ -44,6 +44,10 @@ import { updateAttributes } from './update-attributes';
 import { getColors } from '../navigation/edit/utils';
 
 const DEFAULT_BLOCK = { name: 'core/navigation-link' };
+const NESTING_BLOCK_NAMES = [
+	'core/navigation-link',
+	'core/navigation-submenu',
+];
 
 /**
  * A React hook to determine if it's dragging within the target element.
@@ -100,15 +104,25 @@ const useIsInvalidLink = ( kind, type, id ) => {
 	const isPostType =
 		kind === 'post-type' || type === 'post' || type === 'page';
 	const hasId = Number.isInteger( id );
+	const blockEditingMode = useBlockEditingMode();
+
 	const postStatus = useSelect(
 		( select ) => {
 			if ( ! isPostType ) {
 				return null;
 			}
+
+			// Fetching the posts status is an "expensive" operation. Especially for sites with large navigations.
+			// When the block is rendered in a template or other disabled contexts we can skip this check in order
+			// to avoid all these additional requests that don't really add any value in that mode.
+			if ( blockEditingMode === 'disabled' ) {
+				return null;
+			}
+
 			const { getEntityRecord } = select( coreStore );
 			return getEntityRecord( 'postType', type, id )?.status;
 		},
-		[ isPostType, type, id ]
+		[ isPostType, blockEditingMode, type, id ]
 	);
 
 	// Check Navigation Link validity if:
@@ -202,6 +216,7 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 						);
 					} }
 					autoComplete="off"
+					type="url"
 				/>
 			</ToolsPanelItem>
 
@@ -325,10 +340,8 @@ export default function NavigationLinkEdit( {
 
 			return {
 				isAtMaxNesting:
-					getBlockParentsByBlockName( clientId, [
-						'core/navigation-link',
-						'core/navigation-submenu',
-					] ).length >= maxNestingLevel,
+					getBlockParentsByBlockName( clientId, NESTING_BLOCK_NAMES )
+						.length >= maxNestingLevel,
 				isTopLevelLink:
 					getBlockName( getBlockRootClientId( clientId ) ) ===
 					'core/navigation',
@@ -490,10 +503,6 @@ export default function NavigationLinkEdit( {
 	const placeholderText = `(${
 		isInvalid ? __( 'Invalid' ) : __( 'Draft' )
 	})`;
-	const tooltipText =
-		isInvalid || isDraft
-			? __( 'This item has been deleted, or is a draft' )
-			: __( 'This item is missing a link' );
 
 	return (
 		<>
@@ -533,9 +542,7 @@ export default function NavigationLinkEdit( {
 					{ /* eslint-enable */ }
 					{ ! url ? (
 						<div className="wp-block-navigation-link__placeholder-text">
-							<Tooltip text={ tooltipText }>
-								<span>{ missingText }</span>
-							</Tooltip>
+							<span>{ missingText }</span>
 						</div>
 					) : (
 						<>
@@ -578,27 +585,30 @@ export default function NavigationLinkEdit( {
 							{ ( isInvalid ||
 								isDraft ||
 								isLabelFieldFocused ) && (
-								<div className="wp-block-navigation-link__placeholder-text wp-block-navigation-link__label">
-									<Tooltip text={ tooltipText }>
-										<span
-											aria-label={ __(
-												'Navigation link text'
-											) }
-										>
-											{
-												// Some attributes are stored in an escaped form. It's a legacy issue.
-												// Ideally they would be stored in a raw, unescaped form.
-												// Unescape is used here to "recover" the escaped characters
-												// so they display without encoding.
-												// See `updateAttributes` for more details.
-												`${ decodeEntities( label ) } ${
-													isInvalid || isDraft
-														? placeholderText
-														: ''
-												}`.trim()
-											}
-										</span>
-									</Tooltip>
+								<div
+									className={ clsx(
+										'wp-block-navigation-link__placeholder-text',
+										'wp-block-navigation-link__label',
+										{
+											'is-invalid': isInvalid,
+											'is-draft': isDraft,
+										}
+									) }
+								>
+									<span>
+										{
+											// Some attributes are stored in an escaped form. It's a legacy issue.
+											// Ideally they would be stored in a raw, unescaped form.
+											// Unescape is used here to "recover" the escaped characters
+											// so they display without encoding.
+											// See `updateAttributes` for more details.
+											`${ decodeEntities( label ) } ${
+												isInvalid || isDraft
+													? placeholderText
+													: ''
+											}`.trim()
+										}
+									</span>
 								</div>
 							) }
 						</>

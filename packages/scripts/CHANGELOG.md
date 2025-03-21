@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+### New Features
+
+-   Add `--blocks-manifest` CLI flag to generate a PHP file containing block metadata from all `block.json` files in the project ([#79321](https://github.com/WordPress/gutenberg/pull/79321)).
+
+## 30.13.0 (2025-03-13)
+
+## 30.12.0 (2025-02-28)
+
+## 30.11.0 (2025-02-12)
+
+## 30.10.0 (2025-01-29)
+
+## 30.9.0 (2025-01-15)
+
 ## 30.8.0 (2025-01-02)
 
 ### Enhancements
