@@ -42,6 +42,7 @@ import {
 	LINK_DESTINATION_MEDIA,
 	LINK_DESTINATION_NONE,
 	ALLOWED_MEDIA_TYPES,
+	SIZED_LAYOUTS,
 } from './constants';
 
 export const pickRelevantMediaFiles = ( image, size ) => {
@@ -113,14 +114,6 @@ export function ImageEdit( {
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
 
 	const containerRef = useRef();
-	// Only observe the max width from the parent container when the parent layout is not flex nor grid.
-	// This won't work for them because the container width changes with the image.
-	// TODO: Find a way to observe the container width for flex and grid layouts.
-	const isMaxWidthContainerWidth =
-		! parentLayout ||
-		( parentLayout.type !== 'flex' && parentLayout.type !== 'grid' );
-	const [ maxWidthObserver, maxContentWidth ] = useMaxWidthObserver();
-
 	const [ placeholderResizeListener, { width: placeholderWidth } ] =
 		useResizeObserver();
 
@@ -363,6 +356,16 @@ export function ImageEdit( {
 		ref: containerRef,
 		className: classes,
 	} );
+	const [ maxWidthObserver, maxContentWidth ] = useMaxWidthObserver( {
+		className: blockProps.className,
+		isActive:
+			isSingleSelected &&
+			// Only observe the max width from the parent container when the parent layout
+			// is not flex nor grid. This won't work for them because the container width
+			// changes with the image.
+			// TODO: Find a way to observe the container width for flex and grid layouts.
+			( ! parentLayout || ! SIZED_LAYOUTS.includes( parentLayout.type ) ),
+	} );
 
 	// Much of this description is duplicated from MediaPlaceholder.
 	const { lockUrlControls = false, lockUrlControlsMessage } = useSelect(
@@ -472,7 +475,7 @@ export function ImageEdit( {
 			{
 				// The listener cannot be placed as the first element as it will break the in-between inserter.
 				// See https://github.com/WordPress/gutenberg/blob/71134165868298fc15e22896d0c28b41b3755ff7/packages/block-editor/src/components/block-list/use-in-between-inserter.js#L120
-				isSingleSelected && isMaxWidthContainerWidth && maxWidthObserver
+				maxWidthObserver
 			}
 		</>
 	);
