@@ -77,7 +77,7 @@ class Tests_Blocks_Render_Rss extends WP_UnitTestCase {
 	 *
 	 * @ticket 62400
 	 *
-	 * @covers ::render_block_core_rss
+	 * @covers ::gutenberg_render_block_core_rss
 	 */
 	public function test_rss_date_rendering() {
 
@@ -97,7 +97,7 @@ class Tests_Blocks_Render_Rss extends WP_UnitTestCase {
 			'blockLayout'    => 'list',
 		);
 
-		$rendered_html = render_block_core_rss( $attributes );
+		$rendered_html = gutenberg_render_block_core_rss( $attributes );
 
 		$this->assertStringContainsString( '<time datetime=', $rendered_html, 'No time element found in rendered HTML' );
 
