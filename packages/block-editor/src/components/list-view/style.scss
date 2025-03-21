@@ -565,6 +565,13 @@ svg {
 	height: 32px;
 }
 
+.block-editor-list-view-empty {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
 .list-view-appender .block-editor-inserter__toggle {
 	background-color: $gray-900;
 	color: $white;

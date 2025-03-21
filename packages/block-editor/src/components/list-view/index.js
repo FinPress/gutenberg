@@ -339,9 +339,13 @@ function ListViewComponent(
 		}
 	);
 
-	// If there are no blocks to show and we're not showing the appender, do not render the list view.
+	// If there are no blocks to show and we're not showing the appender, instead show a message.
 	if ( ! clientIdsTree.length && ! showAppender ) {
-		return null;
+		return (
+			<div className="block-editor-list-view-empty">
+				{ __( 'No block selected.' ) }
+			</div>
+		);
 	}
 
 	const describedById =
