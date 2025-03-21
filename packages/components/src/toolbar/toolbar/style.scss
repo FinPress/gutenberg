@@ -1,6 +1,6 @@
 .components-accessible-toolbar {
 	display: inline-flex;
-	border: $border-width solid $gray-900;
+	border: $border-width solid $components-color-foreground;
 	border-radius: $radius-small;
 	flex-shrink: 0;
 
@@ -79,7 +79,7 @@
 			}
 
 			&::before {
-				background: $gray-900;
+				background: $components-color-foreground;
 			}
 		}
 
