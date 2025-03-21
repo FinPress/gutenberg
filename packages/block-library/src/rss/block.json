@@ -39,6 +39,14 @@
 		"excerptLength": {
 			"type": "number",
 			"default": 55
+		},
+		"preserveSourceOrder": {
+			"type": "boolean",
+			"default": false
+		},
+		"reverseOrder": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"supports": {
