@@ -502,6 +502,7 @@ class WP_Navigation_Block_Renderer {
 				data-wp-on--keydown="actions.handleMenuKeydown"
 			';
 			$responsive_container_directives         = '
+				data-wp-init="callbacks.mountMenu"
 				data-wp-class--has-modal-open="state.isMenuOpen"
 				data-wp-class--is-menu-open="state.isMenuOpen"
 				data-wp-watch="callbacks.initMenu"

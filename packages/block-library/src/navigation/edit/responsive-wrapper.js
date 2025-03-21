@@ -15,6 +15,7 @@ import { getColorClassName } from '@wordpress/block-editor';
  * Internal dependencies
  */
 import OverlayMenuIcon from './overlay-menu-icon';
+import { createPortal } from '@wordpress/element';
 
 export default function ResponsiveWrapper( {
 	children,
@@ -27,6 +28,7 @@ export default function ResponsiveWrapper( {
 	overlayTextColor,
 	hasIcon,
 	icon,
+	navRef,
 } ) {
 	if ( ! isResponsive ) {
 		return children;
@@ -75,6 +77,37 @@ export default function ResponsiveWrapper( {
 		} ),
 	};
 
+	const wrapper = (
+		<div
+			className={ responsiveContainerClasses }
+			style={ styles }
+			id={ modalId }
+		>
+			<div
+				className="wp-block-navigation__responsive-close"
+				tabIndex="-1"
+			>
+				<div { ...dialogProps }>
+					<Button
+						__next40pxDefaultSize
+						className="wp-block-navigation__responsive-container-close"
+						aria-label={ hasIcon && __( 'Close menu' ) }
+						onClick={ () => onToggle( false ) }
+					>
+						{ hasIcon && <Icon icon={ close } /> }
+						{ ! hasIcon && __( 'Close' ) }
+					</Button>
+					<div
+						className="wp-block-navigation__responsive-container-content"
+						id={ `${ modalId }-content` }
+					>
+						{ children }
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+
 	return (
 		<>
 			{ ! isOpen && (
@@ -89,35 +122,9 @@ export default function ResponsiveWrapper( {
 					{ ! hasIcon && __( 'Menu' ) }
 				</Button>
 			) }
-
-			<div
-				className={ responsiveContainerClasses }
-				style={ styles }
-				id={ modalId }
-			>
-				<div
-					className="wp-block-navigation__responsive-close"
-					tabIndex="-1"
-				>
-					<div { ...dialogProps }>
-						<Button
-							__next40pxDefaultSize
-							className="wp-block-navigation__responsive-container-close"
-							aria-label={ hasIcon && __( 'Close menu' ) }
-							onClick={ () => onToggle( false ) }
-						>
-							{ hasIcon && <Icon icon={ close } /> }
-							{ ! hasIcon && __( 'Close' ) }
-						</Button>
-						<div
-							className="wp-block-navigation__responsive-container-content"
-							id={ `${ modalId }-content` }
-						>
-							{ children }
-						</div>
-					</div>
-				</div>
-			</div>
+			{ isOpen && navRef.current
+				? createPortal( wrapper, navRef.current.ownerDocument.body )
+				: wrapper }
 		</>
 	);
 }

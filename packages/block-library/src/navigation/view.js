@@ -213,6 +213,11 @@ const { state, actions } = store(
 					focusableElements?.[ 0 ]?.focus();
 				}
 			},
+			mountMenu() {
+				if ( getContext().type === 'overlay' ) {
+					document.body.appendChild( getElement().ref );
+				}
+			},
 		},
 	},
 	{ lock: true }
