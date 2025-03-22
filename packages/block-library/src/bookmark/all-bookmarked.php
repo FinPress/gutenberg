@@ -17,7 +17,7 @@ if ( is_user_logged_in() ) {
     $paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 
     $query = new WP_Query( array(
-        'post_type'      => 'post',
+        'post_type'      => 'any',
         'post__in'       => ! empty( $liked_posts ) ? array_map( 'intval', $liked_posts ) : [0],
         'orderby'        => 'post__in',
         'posts_per_page' => 10,

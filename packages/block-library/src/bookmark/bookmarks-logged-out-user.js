@@ -34,12 +34,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	);
 
 	// Fetch post data from WordPress REST API.
-	fetch( `/wp-json/wp/v2/posts?include=${ paginatedPosts.join( ',' ) }` )
+	fetch( `/wp-json/wp/v2/search?include=${ paginatedPosts.join( ',' ) }` )
 		.then( ( response ) => response.json() )
 		.then( ( posts ) => {
 			let output = '';
 			posts.forEach( ( post ) => {
-				output += `<li><h2><a href="${ post.link }">${ post.title.rendered }</a></h2></li>`;
+				output += `<li><h2><a href="${ post.url }">${ post.title }</a></h2></li>`;
 			} );
 
 			likedPostsElement.innerHTML = output;
