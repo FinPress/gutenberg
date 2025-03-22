@@ -3,7 +3,7 @@
 		"name": "core/bookmark-count",
 		"isValid": true,
 		"attributes": {
-			"iconType": "bookmark"
+			"iconType": "heart"
 		},
 		"innerBlocks": []
 	}
