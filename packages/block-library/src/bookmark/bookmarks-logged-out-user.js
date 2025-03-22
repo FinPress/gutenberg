@@ -24,7 +24,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	const postsPerPage = 10;
 	const urlParams = new URLSearchParams( window.location.search );
-	const currentPage = parseInt( urlParams.get( 'paged' ) );
+	const currentPage = parseInt( urlParams.get( 'paged' ) ) || 1;
 	const totalPages = Math.ceil( likedPosts.length / postsPerPage );
 
 	// Slice liked posts for current page.
