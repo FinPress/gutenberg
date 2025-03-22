@@ -740,12 +740,12 @@ button.wp-block-navigation-item__content {
 
 // Adjust open dialog top margin when admin-bar is visible.
 // Needs to be scoped to .is-menu-open, or it will shift the position of any other navigations that may be present.
-.has-modal-open .admin-bar .is-menu-open .wp-block-navigation__responsive-dialog {
-	margin-top: $admin-bar-height-big;
+.has-modal-open .admin-bar .is-menu-open.wp-block-navigation__responsive-container {
+	top: $admin-bar-height-big;
 
 	// Handle smaller admin-bar.
 	@include break-medium() {
-		margin-top: $admin-bar-height;
+		top: $admin-bar-height;
 	}
 }
 
