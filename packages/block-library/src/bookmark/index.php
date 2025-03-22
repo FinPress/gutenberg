@@ -143,7 +143,7 @@ add_action( 'init', 'register_block_core_bookmark' );
  */
 function block_core_bookmark_load_favorites_template( $template ) {
 	global $wp;
-	if ( isset( $wp->query_vars['pagename'] ) && $wp->query_vars['pagename'] === 'favorites' ) { // Ensure it's set
+	if ( isset( $wp->query_vars['pagename'] ) && 'favorites' === $wp->query_vars['pagename'] ) { // Ensure it's set
 		status_header( 200 );
 		if ( ! is_user_logged_in() ) {
 			wp_register_script( 'core-bookmarks-logged-out-user', '/wp-content/plugins/gutenberg/packages/block-library/src/bookmark/bookmarks-logged-out-user.js', array(), filemtime( '/wp-content/plugins/gutenberg/packages/block-library/src/bookmark/bookmarks-logged-out-user.js' ), true );
@@ -162,7 +162,7 @@ add_filter( 'template_include', 'block_core_bookmark_load_favorites_template' );
  */
 function block_core_bookmark_set_favorites_page_title( $title ) {
 	global $wp;
-	if ( isset( $wp->query_vars['pagename'] ) && $wp->query_vars['pagename'] === 'favorites' ) {
+	if ( isset( $wp->query_vars['pagename'] ) && 'favorites' === $wp->query_vars['pagename'] ) {
 		$title['title'] = 'Favorite Posts';
 	}
 	return $title;
