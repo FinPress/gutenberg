@@ -6,16 +6,24 @@ import { store, getContext } from '@wordpress/interactivity';
 const STORAGE_KEY = 'likedPosts';
 
 const getStoredLikedPosts = () => {
-	if ( typeof window.localStorage !== 'undefined' ) {
-		return JSON.parse( window.localStorage.getItem( STORAGE_KEY ) ) || [];
+	try {
+		if ( typeof window.localStorage !== 'undefined' ) {
+			return (
+				JSON.parse( window.localStorage.getItem( STORAGE_KEY ) ) || []
+			);
+		}
+	} catch {
+		return [];
 	}
 	return [];
 };
 
 const setStoredLikedPosts = ( posts ) => {
-	if ( typeof window.localStorage !== 'undefined' ) {
-		window.localStorage.setItem( STORAGE_KEY, JSON.stringify( posts ) );
-	}
+	try {
+		if ( typeof window.localStorage !== 'undefined' ) {
+			window.localStorage.setItem( STORAGE_KEY, JSON.stringify( posts ) );
+		}
+	} catch {}
 };
 
 const updateUserLikedPosts = async ( posts ) => {

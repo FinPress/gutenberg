@@ -129,8 +129,9 @@ function register_block_core_bookmark() {
 		)
 	);
 
-	add_rewrite_rule( '^favorites/?$', 'index.php?pagename=$matches[1]', 'top' );
-	add_rewrite_rule( '^favorites/page/([0-9]+)/?$', 'index.php?&paged=$matches[1]', 'top' );
+	add_rewrite_rule( '^favorites/?$', 'index.php?pagename=favorites', 'top' );
+	add_rewrite_rule( '^favorites/page/([0-9]+)/?$', 'index.php?pagename=favorites&paged=$matches[1]', 'top' );
+	flush_rewrite_rules();
 }
 
 add_action( 'init', 'register_block_core_bookmark' );
@@ -142,10 +143,10 @@ add_action( 'init', 'register_block_core_bookmark' );
  */
 function block_core_bookmark_load_favorites_template( $template ) {
 	global $wp;
-	if ( preg_match( '#^favorites(/page/([0-9]+))?$#', $wp->request, $matches ) ) { // Ensure it's set
+	if ( isset( $wp->query_vars['pagename'] ) && $wp->query_vars['pagename'] === 'favorites' ) { // Ensure it's set
 		status_header( 200 );
 		if ( ! is_user_logged_in() ) {
-			wp_register_script( 'core-bookmarks-logged-out-user', '/wp-content/plugins/gutenberg/packages/block-library/src/bookmark/bookmarks-logged-out-user.js', array(), '1.0.0', true );
+			wp_register_script( 'core-bookmarks-logged-out-user', '/wp-content/plugins/gutenberg/packages/block-library/src/bookmark/bookmarks-logged-out-user.js', array(), filemtime( '/wp-content/plugins/gutenberg/packages/block-library/src/bookmark/bookmarks-logged-out-user.js' ), true );
 			wp_enqueue_script( 'core-bookmarks-logged-out-user' );
 		}
 		return 'wp-content/plugins/gutenberg/packages/block-library/src/bookmark/all-bookmarked.php';
@@ -161,7 +162,7 @@ add_filter( 'template_include', 'block_core_bookmark_load_favorites_template' );
  */
 function block_core_bookmark_set_favorites_page_title( $title ) {
 	global $wp;
-	if ( preg_match( '#^favorites(/page/([0-9]+))?$#', $wp->request, $matches ) ) {
+	if ( isset( $wp->query_vars['pagename'] ) && $wp->query_vars['pagename'] === 'favorites' ) {
 		$title['title'] = 'Favorite Posts';
 	}
 	return $title;
