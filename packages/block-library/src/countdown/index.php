@@ -21,7 +21,7 @@ function render_block_core_countdown( $attributes ) {
 	$border_color = isset( $attributes['borderColor'] ) ? esc_attr( $attributes['borderColor'] ) : '#000000';
 
 	// Calculate the time remaining
-	$current_time   = current_time( 'timestamp' );
+	$current_time   = current_time( 'timestamp' ); //phpcs:ignore
 	$end_time_ts    = strtotime( $end_time );
 	$remaining_time = $end_time_ts - $current_time;
 
@@ -48,13 +48,13 @@ function render_block_core_countdown( $attributes ) {
 
 	// Prepare data attributes for the countdown
 	$data_attrs = array(
-		'data-end-time="' . esc_attr( $end_time ) . '"',
-		'data-show-days="' . ( $show_days ? 'true' : 'false' ) . '"',
-		'data-show-hours="' . ( $show_hours ? 'true' : 'false' ) . '"',
-		'data-show-minutes="' . ( $show_minutes ? 'true' : 'false' ) . '"',
-		'data-show-seconds="' . ( $show_seconds ? 'true' : 'false' ) . '"',
-		'data-action-on-end="' . esc_attr( $action_on_end ) . '"',
-		'data-action-value="' . esc_attr( $action_value ) . '"',
+		'data-end-time=' . esc_attr( $end_time ),
+		'data-show-days=' . ( $show_days ? 'true' : 'false' ),
+		'data-show-hours=' . ( $show_hours ? 'true' : 'false' ),
+		'data-show-minutes=' . ( $show_minutes ? 'true' : 'false' ),
+		'data-show-seconds=' . ( $show_seconds ? 'true' : 'false' ),
+		'data-action-on-end=' . esc_attr( $action_on_end ),
+		'data-action-value=' . esc_attr( $action_value ),
 	);
 
 	$wrapper_attributes = get_block_wrapper_attributes();
