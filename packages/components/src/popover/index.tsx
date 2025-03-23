@@ -479,6 +479,22 @@ const UnforwardedPopover = (
 };
 
 /**
+ * `PopoverSlot` is a component that renders a slot that is used by Popover for rendering content.
+ */
+export const PopoverSlot = forwardRef(
+	( { name = SLOT_NAME }: { name?: string }, ref: ForwardedRef< any > ) => {
+		return (
+			<Slot
+				bubblesVirtually
+				name={ name }
+				className="popover-slot"
+				ref={ ref }
+			/>
+		);
+	}
+);
+
+/**
  * `Popover` renders its content in a floating modal. If no explicit anchor is passed via props, it anchors to its parent element by default.
  *
  * ```jsx
@@ -507,7 +523,7 @@ export const Popover = Object.assign(
 		/**
 		 * Renders a slot that is used internally by Popover for rendering content.
 		 */
-		Slot: Object.assign( forwardRef( PopoverSlot ), {
+		Slot: Object.assign( PopoverSlot, {
 			displayName: 'Popover.Slot',
 		} ),
 		/**
@@ -520,19 +536,5 @@ export const Popover = Object.assign(
 		} ),
 	}
 );
-
-function PopoverSlot(
-	{ name = SLOT_NAME }: { name?: string },
-	ref: ForwardedRef< any >
-) {
-	return (
-		<Slot
-			bubblesVirtually
-			name={ name }
-			className="popover-slot"
-			ref={ ref }
-		/>
-	);
-}
 
 export default Popover;
