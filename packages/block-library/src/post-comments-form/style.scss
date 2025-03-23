@@ -83,6 +83,7 @@
 		}
 	}
 
+	// Override the 100% width derived from the Button block
 	input[type="submit"] {
 		width: auto;
 	}
