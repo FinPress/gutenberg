@@ -343,7 +343,7 @@ function ListViewComponent(
 	if ( ! clientIdsTree.length && ! showAppender ) {
 		return (
 			<div className="block-editor-list-view-empty">
-				{ __( 'No block selected.' ) }
+				{ __( 'No block exists.' ) }
 			</div>
 		);
 	}
