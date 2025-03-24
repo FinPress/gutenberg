@@ -169,6 +169,7 @@ const { state, actions } = store(
 				if ( type === 'overlay' ) {
 					// Add a `has-modal-open` class to the <html> root.
 					document.documentElement.classList.add( 'has-modal-open' );
+					document.body.appendChild( state.responsiveContainer );
 				}
 			},
 
@@ -188,6 +189,7 @@ const { state, actions } = store(
 						document.documentElement.classList.remove(
 							'has-modal-open'
 						);
+						state.responsiveContainer.remove();
 					}
 				}
 			},
@@ -213,10 +215,8 @@ const { state, actions } = store(
 					focusableElements?.[ 0 ]?.focus();
 				}
 			},
-			mountMenu() {
-				if ( getContext().type === 'overlay' ) {
-					document.body.appendChild( getElement().ref );
-				}
+			mountResponsiveContainer() {
+				state.responsiveContainer = getElement().ref;
 			},
 		},
 	},
