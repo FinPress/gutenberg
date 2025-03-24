@@ -25,7 +25,17 @@ jobs:
               run: npm run storybook:build
 
             - name: Start Storybook
-              run: npm run storybook:dev
+              run: npm run storybook:dev & echo $! > storybook_pid.txt & sleep 600
+              # Stores the process ID and waits for up to 10 minutes
 
             - name: Run Storybook smoke tests
-              run: NODE_PATH=./node_modules npx --package=@storybook/test-runner -- test-storybook --url http://localhost:50240 --config-dir ./storybook
+              run: NODE_PATH=./node_modules npx --package=@storybook/test-runner -- test-runner --url http://localhost:50240 --config-dir ./storybook
+
+            - name: Stop Storybook server
+              if: always()
+              run: |
+                  if [ -f storybook_pid.txt ]; then
+                    PID=$(cat storybook_pid.txt)
+                    kill $PID || true
+                    echo "Storybook server (PID: $PID) stopped"
+                  fi
