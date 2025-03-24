@@ -4,7 +4,7 @@
 import { useMemo, useState } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __experimentalBlockPatternsList as BlockPatternsList } from '@wordpress/block-editor';
-import { MenuItem, Modal } from '@wordpress/components';
+import { MenuItem, Modal, SearchControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
@@ -14,9 +14,11 @@ import { parse } from '@wordpress/blocks';
  * Internal dependencies
  */
 import { useAvailableTemplates, useEditedPostContext } from './hooks';
+import { searchTemplates } from '../../utils/search-templates';
 
-export default function SwapTemplateButton( { onClick } ) {
+export default function SwapTemplateButton( { onClick, showSearch = true } ) {
 	const [ showModal, setShowModal ] = useState( false );
+	const [ searchValue, setSearchValue ] = useState( '' );
 	const { postType, postId } = useEditedPostContext();
 	const availableTemplates = useAvailableTemplates( postType );
 	const { editEntityRecord } = useDispatch( coreStore );
@@ -49,9 +51,21 @@ export default function SwapTemplateButton( { onClick } ) {
 					isFullScreen
 				>
 					<div className="editor-post-template__swap-template-modal-content">
+						{ showSearch && (
+							<div className="editor-post-template__swap-template-search">
+								<SearchControl
+									__nextHasNoMarginBottom
+									onChange={ setSearchValue }
+									value={ searchValue }
+									label={ __( 'Search' ) }
+									placeholder={ __( 'Search' ) }
+								/>
+							</div>
+						) }
 						<TemplatesList
 							postType={ postType }
 							onSelect={ onTemplateSelect }
+							searchValue={ searchValue }
 						/>
 					</div>
 				</Modal>
@@ -60,7 +74,7 @@ export default function SwapTemplateButton( { onClick } ) {
 	);
 }
 
-function TemplatesList( { postType, onSelect } ) {
+function TemplatesList( { postType, onSelect, searchValue } ) {
 	const availableTemplates = useAvailableTemplates( postType );
 	const templatesAsPatterns = useMemo(
 		() =>
@@ -72,10 +86,15 @@ function TemplatesList( { postType, onSelect } ) {
 			} ) ),
 		[ availableTemplates ]
 	);
+
+	const filteredBlockTemplates = useMemo( () => {
+		return searchTemplates( templatesAsPatterns, searchValue );
+	}, [ templatesAsPatterns, searchValue ] );
+
 	return (
 		<BlockPatternsList
 			label={ __( 'Templates' ) }
-			blockPatterns={ templatesAsPatterns }
+			blockPatterns={ filteredBlockTemplates }
 			onClickPattern={ onSelect }
 		/>
 	);
