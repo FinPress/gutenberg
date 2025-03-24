@@ -7,7 +7,15 @@
 	"description": "Add white space between blocks and customize its height.",
 	"textdomain": "default",
 	"attributes": {
-		"height": {
+		"heightDesktop": {
+			"type": "string",
+			"default": "100px"
+		},
+		"heightTablet": {
+			"type": "string",
+			"default": "100px"
+		},
+		"heightMobile": {
 			"type": "string",
 			"default": "100px"
 		},

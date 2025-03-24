@@ -87,7 +87,9 @@ function DimensionInput( { label, onChange, isResizing, value = '' } ) {
 export default function SpacerControls( {
 	setAttributes,
 	orientation,
-	height,
+	heightDesktop,
+	heightTablet,
+	heightMobile,
 	width,
 	isResizing,
 } ) {
@@ -128,16 +130,40 @@ export default function SpacerControls( {
 					<ToolsPanelItem
 						label={ __( 'Height' ) }
 						isShownByDefault
-						hasValue={ () => height !== '100px' }
+						hasValue={ () =>
+							heightDesktop !== '100px' ||
+							heightTablet !== '100px' ||
+							heightMobile !== '100px'
+						}
 						onDeselect={ () =>
-							setAttributes( { height: '100px' } )
+							setAttributes( {
+								heightDesktop: '100px',
+								heightTablet: '100px',
+								heightMobile: '100px',
+							} )
 						}
 					>
 						<DimensionInput
-							label={ __( 'Height' ) }
-							value={ height }
+							label={ __( 'Desktop Height' ) }
+							value={ heightDesktop }
 							onChange={ ( nextHeight ) =>
-								setAttributes( { height: nextHeight } )
+								setAttributes( { heightDesktop: nextHeight } )
+							}
+							isResizing={ isResizing }
+						/>
+						<DimensionInput
+							label={ __( 'Tablet Height' ) }
+							value={ heightTablet }
+							onChange={ ( nextHeight ) =>
+								setAttributes( { heightTablet: nextHeight } )
+							}
+							isResizing={ isResizing }
+						/>
+						<DimensionInput
+							label={ __( 'Mobile Height' ) }
+							value={ heightMobile }
+							onChange={ ( nextHeight ) =>
+								setAttributes( { heightMobile: nextHeight } )
 							}
 							isResizing={ isResizing }
 						/>

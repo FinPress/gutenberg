@@ -13,6 +13,7 @@ import {
 	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
+import { store as viewportStore } from '@wordpress/viewport';
 import { ResizableBox } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { View } from '@wordpress/primitives';
@@ -110,7 +111,39 @@ const SpacerEdit = ( {
 		! parentOrientation && isFlexLayout
 			? 'horizontal'
 			: parentOrientation || orientation;
-	const { height, width, style: blockStyle = {} } = attributes;
+	const {
+		heightDesktop,
+		heightTablet,
+		heightMobile,
+		width,
+		style: blockStyle = {},
+	} = attributes;
+
+	const viewport = useSelect( ( select ) => {
+		if ( select( viewportStore ).isViewportMatch( '< small' ) ) {
+			return 'mobile';
+		}
+
+		if ( select( viewportStore ).isViewportMatch( '< large' ) ) {
+			return 'tablet';
+		}
+
+		return 'desktop';
+	} );
+
+	const isMobile = viewport === 'mobile';
+	const isTablet = viewport === 'tablet';
+	const isDesktop = viewport === 'desktop';
+
+	let height = '100px';
+
+	if ( isMobile && heightMobile !== undefined ) {
+		height = heightMobile;
+	} else if ( isTablet && heightTablet !== undefined ) {
+		height = heightTablet;
+	} else if ( isDesktop && heightDesktop !== undefined ) {
+		height = heightDesktop;
+	}
 
 	const { layout = {} } = blockStyle;
 	const { selfStretch, flexSize } = layout;
@@ -143,7 +176,13 @@ const SpacerEdit = ( {
 			} );
 		}
 
-		setAttributes( { height: newHeight } );
+		if ( isMobile ) {
+			setAttributes( { heightMobile: newHeight } );
+		} else if ( isTablet ) {
+			setAttributes( { heightTablet: newHeight } );
+		} else {
+			setAttributes( { heightDesktop: newHeight } );
+		}
 		setTemporaryHeight( null );
 	};
 
@@ -361,7 +400,21 @@ const SpacerEdit = ( {
 			{ ! isFlexLayout && (
 				<SpacerControls
 					setAttributes={ setAttributes }
-					height={ temporaryHeight || height }
+					heightDesktop={
+						isDesktop
+							? temporaryHeight || attributes.heightDesktop
+							: attributes.heightDesktop
+					}
+					heightTablet={
+						isTablet
+							? temporaryHeight || attributes.heightTablet
+							: attributes.heightTablet
+					}
+					heightMobile={
+						isMobile
+							? temporaryHeight || attributes.heightMobile
+							: attributes.heightMobile
+					}
 					width={ temporaryWidth || width }
 					orientation={ inheritedOrientation }
 					isResizing={ isResizing }
