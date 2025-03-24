@@ -21,11 +21,11 @@ jobs:
             - name: Setup Node.js and install dependencies
               uses: ./.github/setup-node
 
+            - name: Build Storybook
+              run: npm run storybook:build
+
             - name: Start Storybook
               run: npm run storybook:dev -- --ci &
-
-            - name: Wait for Storybook server
-              run: npx wait-on http://localhost:50240 -t 120000
 
             - name: Run Storybook smoke tests
               run: npm run test:storybook
