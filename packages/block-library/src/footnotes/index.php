@@ -23,13 +23,13 @@ function render_block_core_footnotes( $attributes, $content, $block ) {
 	}
 
 	if ( post_password_required( $block->context['postId'] ) ) {
-		return;
+		return '';
 	}
 
 	$footnotes = get_post_meta( $block->context['postId'], 'footnotes', true );
 
 	if ( ! $footnotes ) {
-		return;
+		return '';
 	}
 
 	$footnotes = json_decode( $footnotes, true );
