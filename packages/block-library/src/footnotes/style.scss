@@ -11,6 +11,7 @@ sup.fn > button {
 
 .wp-block-footnotes [popover] {
 	max-width: var(--wp--style--global--content-size);
+	margin: 0;
 	top: anchor(bottom);
 	justify-self: anchor-center;
 }
