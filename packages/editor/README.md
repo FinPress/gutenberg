@@ -379,7 +379,7 @@ _Parameters_
 -   _props.post_ `[Object]`: The post object to edit. This is required.
 -   _props.\_\_unstableTemplate_ `[Object]`: The template object wrapper the edited post. This is optional and can only be used when the post type supports templates (like posts and pages).
 -   _props.settings_ `[Object]`: The settings object to use for the editor. This is optional and can be used to override the default settings.
--   _props.children_ `[Element]`: Children elements for which the BlockEditorProvider context should apply. This is optional.
+-   _props.children_ `[React.ReactNode]`: Children elements for which the BlockEditorProvider context should apply. This is optional.
 
 _Returns_
 
@@ -499,6 +499,7 @@ _Parameters_
 -   _$0.maxUploadFileSize_ `?number`: Maximum upload size in bytes allowed for the site.
 -   _$0.onError_ `Function`: Function called when an error happens.
 -   _$0.onFileChange_ `Function`: Function called each time a file or a temporary representation of the file is available.
+-   _$0.onSuccess_ `Function`: Function called after the final representation of the file is available.
 
 ### MediaUploadCheck
 

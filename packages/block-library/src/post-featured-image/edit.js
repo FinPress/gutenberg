@@ -11,11 +11,12 @@ import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
 	ToggleControl,
-	PanelBody,
 	Placeholder,
 	Button,
 	Spinner,
 	TextControl,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import {
 	InspectorControls,
@@ -38,6 +39,7 @@ import { store as noticesStore } from '@wordpress/notices';
 import DimensionControls from './dimension-controls';
 import OverlayControls from './overlay-controls';
 import Overlay from './overlay';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
 
@@ -46,11 +48,6 @@ function getMediaSourceUrlBySizeSlug( media, slug ) {
 		media?.media_details?.sizes?.[ slug ]?.source_url || media?.source_url
 	);
 }
-
-const disabledClickProps = {
-	onClick: ( event ) => event.preventDefault(),
-	'aria-disabled': true,
-};
 
 export default function PostFeaturedImageEdit( {
 	clientId,
@@ -183,6 +180,8 @@ export default function PostFeaturedImageEdit( {
 		setTemporaryURL();
 	};
 
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+
 	const controls = blockEditingMode === 'default' && (
 		<>
 			<InspectorControls group="color">
@@ -201,9 +200,18 @@ export default function PostFeaturedImageEdit( {
 				/>
 			</InspectorControls>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings' ) }>
-					<ToggleControl
-						__nextHasNoMarginBottom
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ () => {
+						setAttributes( {
+							isLink: false,
+							linkTarget: '_self',
+							rel: '',
+						} );
+					} }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
+					<ToolsPanelItem
 						label={
 							postType?.labels.singular_name
 								? sprintf(
@@ -213,11 +221,42 @@ export default function PostFeaturedImageEdit( {
 								  )
 								: __( 'Link to post' )
 						}
-						onChange={ () => setAttributes( { isLink: ! isLink } ) }
-						checked={ isLink }
-					/>
+						isShownByDefault
+						hasValue={ () => !! isLink }
+						onDeselect={ () =>
+							setAttributes( {
+								isLink: false,
+							} )
+						}
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={
+								postType?.labels.singular_name
+									? sprintf(
+											// translators: %s: Name of the post type e.g: "post".
+											__( 'Link to %s' ),
+											postType.labels.singular_name
+									  )
+									: __( 'Link to post' )
+							}
+							onChange={ () =>
+								setAttributes( { isLink: ! isLink } )
+							}
+							checked={ isLink }
+						/>
+					</ToolsPanelItem>
 					{ isLink && (
-						<>
+						<ToolsPanelItem
+							label={ __( 'Open in new tab' ) }
+							isShownByDefault
+							hasValue={ () => '_self' !== linkTarget }
+							onDeselect={ () =>
+								setAttributes( {
+									linkTarget: '_self',
+								} )
+							}
+						>
 							<ToggleControl
 								__nextHasNoMarginBottom
 								label={ __( 'Open in new tab' ) }
@@ -228,6 +267,19 @@ export default function PostFeaturedImageEdit( {
 								}
 								checked={ linkTarget === '_blank' }
 							/>
+						</ToolsPanelItem>
+					) }
+					{ isLink && (
+						<ToolsPanelItem
+							label={ __( 'Link rel' ) }
+							isShownByDefault
+							hasValue={ () => !! rel }
+							onDeselect={ () =>
+								setAttributes( {
+									rel: '',
+								} )
+							}
+						>
 							<TextControl
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
@@ -237,9 +289,9 @@ export default function PostFeaturedImageEdit( {
 									setAttributes( { rel: newRel } )
 								}
 							/>
-						</>
+						</ToolsPanelItem>
 					) }
-				</PanelBody>
+				</ToolsPanel>
 			</InspectorControls>
 		</>
 	);
@@ -261,11 +313,7 @@ export default function PostFeaturedImageEdit( {
 				{ controls }
 				<div { ...blockProps }>
 					{ !! isLink ? (
-						<a
-							href={ postPermalink }
-							target={ linkTarget }
-							{ ...disabledClickProps }
-						>
+						<a href={ postPermalink } target={ linkTarget }>
 							{ placeholder() }
 						</a>
 					) : (
@@ -373,11 +421,7 @@ export default function PostFeaturedImageEdit( {
 			<figure { ...blockProps }>
 				{ /* If the featured image is linked, wrap in an <a /> tag to trigger any inherited link element styles */ }
 				{ !! isLink ? (
-					<a
-						href={ postPermalink }
-						target={ linkTarget }
-						{ ...disabledClickProps }
-					>
+					<a href={ postPermalink } target={ linkTarget }>
 						{ image }
 					</a>
 				) : (

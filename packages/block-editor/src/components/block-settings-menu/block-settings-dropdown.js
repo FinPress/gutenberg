@@ -26,17 +26,30 @@ import BlockSettingsMenuControls from '../block-settings-menu-controls';
 import BlockParentSelectorMenuItem from './block-parent-selector-menu-item';
 import { store as blockEditorStore } from '../../store';
 import { unlock } from '../../lock-unlock';
+import { useNotifyCopy } from '../../utils/use-notify-copy';
 
 const POPOVER_PROPS = {
 	className: 'block-editor-block-settings-menu__popover',
 	placement: 'bottom-start',
 };
 
-function CopyMenuItem( { clientIds, onCopy, label, shortcut } ) {
+function CopyMenuItem( {
+	clientIds,
+	onCopy,
+	label,
+	shortcut,
+	eventType = 'copy',
+} ) {
 	const { getBlocksByClientId } = useSelect( blockEditorStore );
+	const notifyCopy = useNotifyCopy();
 	const ref = useCopyToClipboard(
 		() => serialize( getBlocksByClientId( clientIds ) ),
-		onCopy
+		() => {
+			if ( onCopy && eventType === 'copy' ) {
+				onCopy();
+			}
+			notifyCopy( eventType, clientIds );
+		}
 	);
 	const copyMenuItemLabel = label ? label : __( 'Copy' );
 	return (
@@ -65,7 +78,6 @@ export function BlockSettingsDropdown( {
 		selectedBlockClientIds,
 		openedBlockSettingsMenu,
 		isContentOnly,
-		isZoomOut,
 	} = useSelect(
 		( select ) => {
 			const {
@@ -76,7 +88,6 @@ export function BlockSettingsDropdown( {
 				getBlockAttributes,
 				getOpenedBlockSettingsMenu,
 				getBlockEditingMode,
-				isZoomOut: _isZoomOut,
 			} = unlock( select( blockEditorStore ) );
 
 			const { getActiveBlockVariation } = select( blocksStore );
@@ -101,7 +112,6 @@ export function BlockSettingsDropdown( {
 				openedBlockSettingsMenu: getOpenedBlockSettingsMenu(),
 				isContentOnly:
 					getBlockEditingMode( firstBlockClientId ) === 'contentOnly',
-				isZoomOut: _isZoomOut(),
 			};
 		},
 		[ firstBlockClientId ]
@@ -253,15 +263,13 @@ export function BlockSettingsDropdown( {
 											clientId={ firstBlockClientId }
 										/>
 									) }
-									{ ( ! isContentOnly || isZoomOut ) && (
-										<CopyMenuItem
-											clientIds={ clientIds }
-											onCopy={ onCopy }
-											shortcut={ displayShortcut.primary(
-												'c'
-											) }
-										/>
-									) }
+									<CopyMenuItem
+										clientIds={ clientIds }
+										onCopy={ onCopy }
+										shortcut={ displayShortcut.primary(
+											'c'
+										) }
+									/>
 									{ canDuplicate && (
 										<MenuItem
 											onClick={ pipe(
@@ -310,20 +318,23 @@ export function BlockSettingsDropdown( {
 											clientIds={ clientIds }
 											onCopy={ onCopy }
 											label={ __( 'Copy styles' ) }
+											eventType="copyStyles"
 										/>
 										<MenuItem onClick={ onPasteStyles }>
 											{ __( 'Paste styles' ) }
 										</MenuItem>
 									</MenuGroup>
 								) }
-								<BlockSettingsMenuControls.Slot
-									fillProps={ {
-										onClose,
-										count,
-										firstBlockClientId,
-									} }
-									clientIds={ clientIds }
-								/>
+								{ ! isContentOnly && (
+									<BlockSettingsMenuControls.Slot
+										fillProps={ {
+											onClose,
+											count,
+											firstBlockClientId,
+										} }
+										clientIds={ clientIds }
+									/>
+								) }
 								{ typeof children === 'function'
 									? children( { onClose } )
 									: Children.map( ( child ) =>
