@@ -55,7 +55,6 @@
 		"@storybook/react-webpack5": "8.4.7",
 		"@storybook/source-loader": "8.4.7",
 		"@storybook/test": "8.4.7",
-		"@storybook/test-runner": "0.22.0",
 		"@storybook/theming": "8.4.7",
 		"@storybook/types": "8.4.7",
 		"@testing-library/jest-dom": "5.16.5",
