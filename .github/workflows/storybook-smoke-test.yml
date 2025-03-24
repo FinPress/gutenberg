@@ -1,0 +1,31 @@
+name: Storybook Smoke Tests
+
+on: pull_request
+
+# Cancels all previous workflow runs for pull requests that have not completed.
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.head_ref || github.sha }}
+    cancel-in-progress: true
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+              with:
+                  show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
+
+            - name: Setup Node.js and install dependencies
+              uses: ./.github/setup-node
+
+            - name: Start Storybook
+              run: npm run storybook:dev -- --ci &
+
+            - name: Wait for Storybook server
+              run: npx wait-on http://localhost:50240 -t 120000
+
+            - name: Run Storybook smoke tests
+              run: npm run test:storybook
