@@ -42,7 +42,7 @@ import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 // We only show the edit option when page count is <= MAX_PAGE_COUNT
 // Performance of Navigation Links is not good past this value.
-const MAX_PAGE_COUNT = 100;
+const MAX_PAGE_COUNT = 500;
 const NOOP = () => {};
 function BlockContent( {
 	blockProps,
