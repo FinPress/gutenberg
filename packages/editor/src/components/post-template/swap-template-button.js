@@ -9,12 +9,12 @@ import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { parse } from '@wordpress/blocks';
+import { searchItemsByTitle } from '@wordpress/block-library';
 
 /**
  * Internal dependencies
  */
 import { useAvailableTemplates, useEditedPostContext } from './hooks';
-import { searchTemplates } from '../../utils/search-templates';
 
 export default function SwapTemplateButton( { onClick, showSearch = true } ) {
 	const [ showModal, setShowModal ] = useState( false );
@@ -88,7 +88,7 @@ function TemplatesList( { postType, onSelect, searchValue } ) {
 	);
 
 	const filteredBlockTemplates = useMemo( () => {
-		return searchTemplates( templatesAsPatterns, searchValue );
+		return searchItemsByTitle( templatesAsPatterns, searchValue );
 	}, [ templatesAsPatterns, searchValue ] );
 
 	return (
