@@ -569,6 +569,8 @@ svg {
 	display: flex;
 	justify-content: center;
 	height: 100%;
+	padding: 0 $grid-unit-60;
+	color: $gray-800;
 }
 
 .list-view-appender .block-editor-inserter__toggle {

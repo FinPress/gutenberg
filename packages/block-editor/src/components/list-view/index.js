@@ -342,9 +342,11 @@ function ListViewComponent(
 	// If there are no blocks to show and we're not showing the appender, instead show a message.
 	if ( ! clientIdsTree.length && ! showAppender ) {
 		return (
-			<div className="block-editor-list-view-empty">
-				{ __( 'No block exists.' ) }
-			</div>
+			<p className="block-editor-list-view-empty">
+				{ __(
+					'No blocks added yet, open the block inserter to add one or start typing!'
+				) }
+			</p>
 		);
 	}
 
