@@ -28,4 +28,4 @@ jobs:
               run: npm run storybook:dev
 
             - name: Run Storybook smoke tests
-              run: npm run test:storybook
+              run: NODE_PATH=./node_modules npx --package=@storybook/test-runner -- test-storybook --url http://localhost:50240 --config-dir ./storybook
