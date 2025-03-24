@@ -208,6 +208,15 @@ function Navigation( {
 	customPlaceholder: CustomPlaceholder = null,
 	__unstableLayoutClassNames: layoutClassNames,
 } ) {
+	// Manually “inherit” overlay colors from block because when overlaid the
+	// dialog is not a child and won’t inherit through CSS.
+	const usedOverlayTextColor = overlayTextColor.color
+		? overlayTextColor
+		: textColor;
+	const usedOverlayBackgroundColor = overlayBackgroundColor.color
+		? overlayBackgroundColor
+		: backgroundColor;
+
 	const {
 		openSubmenusOnClick,
 		overlayMenu,
@@ -766,8 +775,8 @@ function Navigation( {
 					icon={ icon }
 					isResponsive={ isResponsive }
 					isHiddenByDefault={ isHiddenByDefault }
-					overlayBackgroundColor={ overlayBackgroundColor }
-					overlayTextColor={ overlayTextColor }
+					overlayBackgroundColor={ usedOverlayBackgroundColor }
+					overlayTextColor={ usedOverlayTextColor }
 					navRef={ navRef }
 				>
 					<UnsavedInnerBlocks
@@ -925,9 +934,9 @@ function Navigation( {
 								isResponsive={ isResponsive }
 								isHiddenByDefault={ isHiddenByDefault }
 								overlayBackgroundColor={
-									overlayBackgroundColor
+									usedOverlayBackgroundColor
 								}
-								overlayTextColor={ overlayTextColor }
+								overlayTextColor={ usedOverlayTextColor }
 								navRef={ navRef }
 							>
 								{ isEntityAvailable && (

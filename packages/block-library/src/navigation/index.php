@@ -882,75 +882,83 @@ function block_core_navigation_build_css_colors( $attributes ) {
 	);
 
 	// Text color.
-	$has_named_text_color  = array_key_exists( 'textColor', $attributes );
-	$has_custom_text_color = array_key_exists( 'customTextColor', $attributes );
+	$used_named_text_color  = $attributes[ 'textColor' ] ?? false;
+	$used_custom_text_color = $attributes[ 'customTextColor' ] ?? false;
 
 	// If has text color.
-	if ( $has_custom_text_color || $has_named_text_color ) {
+	if ( $used_custom_text_color || $used_named_text_color ) {
 		// Add has-text-color class.
 		$colors['css_classes'][] = 'has-text-color';
 	}
 
-	if ( $has_named_text_color ) {
+	if ( $used_named_text_color ) {
 		// Add the color class.
-		$colors['css_classes'][] = sprintf( 'has-%s-color', $attributes['textColor'] );
-	} elseif ( $has_custom_text_color ) {
+		$colors['css_classes'][] = sprintf( 'has-%s-color', $used_named_text_color );
+	} elseif ( $used_custom_text_color ) {
 		// Add the custom color inline style.
-		$colors['inline_styles'] .= sprintf( 'color: %s;', $attributes['customTextColor'] );
+		$colors['inline_styles'] .= sprintf( 'color: %s;', $used_custom_text_color );
 	}
 
 	// Background color.
-	$has_named_background_color  = array_key_exists( 'backgroundColor', $attributes );
-	$has_custom_background_color = array_key_exists( 'customBackgroundColor', $attributes );
+	$used_named_background_color  = $attributes[ 'backgroundColor' ] ?? false;
+	$used_custom_background_color = $attributes[ 'customBackgroundColor' ] ?? false;
 
 	// If has background color.
-	if ( $has_custom_background_color || $has_named_background_color ) {
+	if ( $used_custom_background_color || $used_named_background_color ) {
 		// Add has-background class.
 		$colors['css_classes'][] = 'has-background';
 	}
 
-	if ( $has_named_background_color ) {
+	if ( $used_named_background_color ) {
 		// Add the background-color class.
-		$colors['css_classes'][] = sprintf( 'has-%s-background-color', $attributes['backgroundColor'] );
-	} elseif ( $has_custom_background_color ) {
+		$colors['css_classes'][] = sprintf( 'has-%s-background-color', $used_named_background_color );
+	} elseif ( $used_custom_background_color ) {
 		// Add the custom background-color inline style.
-		$colors['inline_styles'] .= sprintf( 'background-color: %s;', $attributes['customBackgroundColor'] );
+		$colors['inline_styles'] .= sprintf( 'background-color: %s;', $used_custom_background_color );
 	}
 
 	// Overlay text color.
-	$has_named_overlay_text_color  = array_key_exists( 'overlayTextColor', $attributes );
-	$has_custom_overlay_text_color = array_key_exists( 'customOverlayTextColor', $attributes );
+	// Manually “inherits” text color of the block because when overlaid the dialog is not a child
+	// and won’t inherit through CSS.
+	$used_named_overlay_text_color = $attributes['overlayTextColor'] ??
+		( ! array_key_exists('customOverlayTextColor', $attributes) ? $used_named_text_color : false );
+	$used_custom_overlay_text_color = $attributes['customOverlayTextColor'] ??
+		( ! array_key_exists('overlayTextColor', $attributes) ? $used_custom_text_color : false );
 
 	// If has overlay text color.
-	if ( $has_custom_overlay_text_color || $has_named_overlay_text_color ) {
+	if ( $used_custom_overlay_text_color || $used_named_overlay_text_color ) {
 		// Add has-text-color class.
 		$colors['overlay_css_classes'][] = 'has-text-color';
 	}
 
-	if ( $has_named_overlay_text_color ) {
+	if ( $used_named_overlay_text_color ) {
 		// Add the overlay color class.
-		$colors['overlay_css_classes'][] = sprintf( 'has-%s-color', $attributes['overlayTextColor'] );
-	} elseif ( $has_custom_overlay_text_color ) {
+		$colors['overlay_css_classes'][] = sprintf( 'has-%s-color', $used_named_overlay_text_color );
+	} elseif ( $used_custom_overlay_text_color ) {
 		// Add the custom overlay color inline style.
-		$colors['overlay_inline_styles'] .= sprintf( 'color: %s;', $attributes['customOverlayTextColor'] );
+		$colors['overlay_inline_styles'] .= sprintf( 'color: %s;', $used_custom_overlay_text_color );
 	}
 
 	// Overlay background color.
-	$has_named_overlay_background_color  = array_key_exists( 'overlayBackgroundColor', $attributes );
-	$has_custom_overlay_background_color = array_key_exists( 'customOverlayBackgroundColor', $attributes );
+	// Manually “inherits” background color of the block because when overlaid the dialog is not a
+	// child and won’t inherit through CSS.
+	$used_named_overlay_background_color = $attributes['overlayBackgroundColor'] ??
+		( ! array_key_exists('customOverlayBackgroundColor', $attributes) ? $used_named_background_color : false );
+	$used_custom_overlay_background_color = $attributes['customOverlayBackgroundColor'] ??
+		( ! array_key_exists('overlayBackgroundColor', $attributes) ? $used_custom_background_color : false );
 
 	// If has overlay background color.
-	if ( $has_custom_overlay_background_color || $has_named_overlay_background_color ) {
+	if ( $used_custom_overlay_background_color || $used_named_overlay_background_color ) {
 		// Add has-background class.
 		$colors['overlay_css_classes'][] = 'has-background';
 	}
 
-	if ( $has_named_overlay_background_color ) {
+	if ( $used_named_overlay_background_color ) {
 		// Add the overlay background-color class.
-		$colors['overlay_css_classes'][] = sprintf( 'has-%s-background-color', $attributes['overlayBackgroundColor'] );
-	} elseif ( $has_custom_overlay_background_color ) {
+		$colors['overlay_css_classes'][] = sprintf( 'has-%s-background-color', $used_named_overlay_background_color );
+	} elseif ( $used_custom_overlay_background_color ) {
 		// Add the custom overlay background-color inline style.
-		$colors['overlay_inline_styles'] .= sprintf( 'background-color: %s;', $attributes['customOverlayBackgroundColor'] );
+		$colors['overlay_inline_styles'] .= sprintf( 'background-color: %s;', $used_custom_overlay_background_color );
 	}
 
 	return $colors;

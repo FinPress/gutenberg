@@ -493,6 +493,16 @@ button.wp-block-navigation-item__content {
 		background-color: inherit !important;
 	}
 
+	// Default menu background and font color.
+	&:not(.has-background).is-menu-open {
+		background-color: #fff;
+	}
+
+	&:not(.has-text-color).is-menu-open {
+		color: #000;
+	}
+
+
 	// Overlay menu.
 	// Provide an opinionated default style for menu items inside.
 	// Inherit as much as we can regarding colors, fonts, sizes,
@@ -633,18 +643,6 @@ button.wp-block-navigation-item__content {
 		}
 	}
 }
-
-// Default menu background and font color.
-.wp-block-navigation:not(.has-background)
-.wp-block-navigation__responsive-container.is-menu-open {
-	background-color: #fff;
-}
-
-.wp-block-navigation:not(.has-text-color)
-.wp-block-navigation__responsive-container.is-menu-open {
-	color: #000;
-}
-
 
 // Overlay menu toggle button label
 .wp-block-navigation__toggle_button_label {
