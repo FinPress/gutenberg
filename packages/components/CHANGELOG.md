@@ -9,10 +9,6 @@
 -   `CustomSelectControl`: Fix check icon color to adapt with dark theme ([#69626](https://github.com/WordPress/gutenberg/pull/69626)).
 -   `Autocomplete`: Extracts `getNodeText` function into a separate file and adds unit tests ([#69135](https://github.com/WordPress/gutenberg/pull/69135)).
 -
-### Documentation
-
--   `AnglePickerControl`: Improve documentation close tag ([#69673](https://github.com/WordPress/gutenberg/pull/69673)).
-
 ## 29.6.0 (2025-03-13)
 
 ### Enhancement
