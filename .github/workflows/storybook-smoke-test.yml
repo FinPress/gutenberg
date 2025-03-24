@@ -25,7 +25,7 @@ jobs:
               run: npm run storybook:build
 
             - name: Start Storybook
-              run: npm run storybook:dev -- --ci &
+              run: npm run storybook:dev
 
             - name: Run Storybook smoke tests
               run: npm run test:storybook
