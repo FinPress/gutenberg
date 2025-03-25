@@ -22,7 +22,10 @@ import { store as noticesStore } from '@wordpress/notices';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { decodeEntities } from '@wordpress/html-entities';
 import { Icon, arrowUpLeft } from '@wordpress/icons';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import {
+	store as blockEditorStore,
+	privateApis as blockEditorPrivateApis,
+} from '@wordpress/block-editor';
 import { addQueryArgs } from '@wordpress/url';
 
 /**
@@ -131,6 +134,12 @@ export default function EditSiteEditor( {
 	// deprecated sync state with url
 	useSyncDeprecatedEntityIntoState( entity );
 	const { postType, postId, context } = entity;
+	const { globalStylesDataKey } = unlock( blockEditorPrivateApis );
+	const globalStyles = useSelect( ( select ) => {
+		const settings = select( blockEditorStore ).getSettings();
+		return settings[ globalStylesDataKey ];
+	}, [] );
+
 	const {
 		isBlockBasedTheme,
 		editorCanvasView,
@@ -334,7 +343,21 @@ export default function EditSiteEditor( {
 											<motion.div
 												variants={ siteIconVariants }
 											>
-												<SiteIcon className="edit-site-editor__view-mode-toggle-icon" />
+												<SiteIcon
+													className="edit-site-editor__view-mode-toggle-icon"
+													style={ {
+														background: globalStyles
+															?.color?.gradient
+															? globalStyles
+																	?.color
+																	?.gradient
+															: globalStyles
+																	?.color
+																	?.background,
+														color: globalStyles
+															?.color?.text,
+													} }
+												/>
 											</motion.div>
 										</Button>
 										<motion.div
