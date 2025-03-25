@@ -6,42 +6,100 @@ import { useEntityProp } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { Placeholder } from '@wordpress/components';
 import { formatListNumbered as icon } from '@wordpress/icons';
+import { useState, useEffect } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
-export default function FootnotesEdit( { context: { postType, postId } } ) {
+export default function FootnotesEdit( {
+	context,
+	attributes,
+	setAttributes,
+} ) {
+	// Fallback context detection using current post.
+	const currentPost = useSelect(
+		// eslint-disable-next-line @wordpress/data-no-store-string-literals
+		( select ) => select( 'core/editor' ).getCurrentPost(),
+		[]
+	);
+	const currentPostId = currentPost?.id;
+	const currentPostType = currentPost?.type || 'post';
+
+	// Prioritize passed context, then fallback to detected context.
+	const postType = context?.postType || currentPostType;
+	const postId = context?.postId || currentPostId;
+
 	const [ meta, updateMeta ] = useEntityProp(
 		'postType',
 		postType,
 		'meta',
 		postId
 	);
-	const footnotesSupported = 'string' === typeof meta?.footnotes;
-	const footnotes = meta?.footnotes ? JSON.parse( meta.footnotes ) : [];
+
+	const [ footnotes, setFootnotes ] = useState( () => {
+		const sources = [
+			attributes.footnotes,
+			meta?.footnotes ? JSON.parse( meta.footnotes ) : null,
+			[],
+		];
+
+		const validSource = sources.find(
+			( source ) => Array.isArray( source ) && source.length > 0
+		);
+
+		return validSource || [];
+	} );
+
+	useEffect( () => {
+		setAttributes( { footnotes } );
+	}, [ footnotes, setAttributes ] );
+
 	const blockProps = useBlockProps();
 
-	if ( ! footnotesSupported ) {
-		return (
-			<div { ...blockProps }>
-				<Placeholder
-					icon={ <BlockIcon icon={ icon } /> }
-					label={ __( 'Footnotes' ) }
-					instructions={ __(
-						'Footnotes are not supported here. Add this block to post or page content.'
-					) }
-				/>
-			</div>
+	const handleFootnoteChange = ( nextFootnote, id ) => {
+		const updatedFootnotes = footnotes.map( ( footnote ) =>
+			footnote.id === id
+				? { ...footnote, content: nextFootnote }
+				: footnote
 		);
-	}
 
-	if ( ! footnotes.length ) {
+		setFootnotes( updatedFootnotes );
+
+		if ( meta ) {
+			try {
+				updateMeta( {
+					...meta,
+					footnotes: JSON.stringify( updatedFootnotes ),
+				} );
+			} catch ( error ) {
+				// Silent error handling.
+			}
+		}
+	};
+
+	const addInitialFootnote = () => {
+		const newFootnote = {
+			id: `footnote-${ Date.now() }`,
+			content: __( 'Add your footnote text' ),
+		};
+		setFootnotes( [ newFootnote ] );
+	};
+
+	if ( ! footnotes || footnotes.length === 0 ) {
 		return (
 			<div { ...blockProps }>
 				<Placeholder
 					icon={ <BlockIcon icon={ icon } /> }
 					label={ __( 'Footnotes' ) }
 					instructions={ __(
-						'Footnotes found in blocks within this document will be displayed here.'
+						'No footnotes available. Click below to add your first footnote.'
 					) }
-				/>
+				>
+					<button
+						className="components-button is-primary"
+						onClick={ addInitialFootnote }
+					>
+						{ __( 'Add Footnote' ) }
+					</button>
+				</Placeholder>
 			</div>
 		);
 	}
@@ -74,21 +132,10 @@ export default function FootnotesEdit( { context: { postType, postId } } ) {
 								event.target.scrollIntoView();
 							}
 						} }
-						onChange={ ( nextFootnote ) => {
-							updateMeta( {
-								...meta,
-								footnotes: JSON.stringify(
-									footnotes.map( ( footnote ) => {
-										return footnote.id === id
-											? {
-													content: nextFootnote,
-													id,
-											  }
-											: footnote;
-									} )
-								),
-							} );
-						} }
+						onChange={ ( nextFootnote ) =>
+							handleFootnoteChange( nextFootnote, id )
+						}
+						placeholder={ __( 'Enter footnote text' ) }
 					/>{ ' ' }
 					<a href={ `#${ id }-link` }>↩︎</a>
 				</li>
