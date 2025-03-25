@@ -24,6 +24,9 @@ jobs:
             - name: Build Storybook
               run: npm run storybook:build
 
+            - name: Install Playwright browsers
+              run: npx playwright install
+
             - name: Start Storybook
               run: npm run storybook:dev & echo $! > storybook_pid.txt & sleep 600
               # Stores the process ID and waits for up to 10 minutes
