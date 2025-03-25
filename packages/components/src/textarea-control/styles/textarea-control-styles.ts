@@ -37,7 +37,7 @@ export const StyledTextarea = styled.textarea`
 	display: block;
 	font-family: ${ font( 'default.fontFamily' ) };
 	line-height: 20px;
-	background: transparent;
+	background: ${ COLORS.theme.background };
 	color: ${ COLORS.theme.foreground };
 
 	// Vertical padding is to match the standard 40px control height when rows=1,
