@@ -37,19 +37,15 @@ function render_block_core_rss( $attributes ) {
 
 	if ( ! empty( $attributes['openInNewTab'] ) ) {
 		$link_attributes .= ' target="_blank"';
-		$rel_attributes[] = 'noopener noreferrer';
 	}
 
-	if ( ! empty( $attributes['addNofollow'] ) ) {
-		$rel_attributes[] = 'nofollow';
-	}
 
-	if ( ! empty( $attributes['additionalRelAttributes'] ) ) {
-		$additional_rels = explode( ' ', $attributes['additionalRelAttributes'] );
-		foreach ( $additional_rels as $rel ) {
-			if ( ! empty( trim( $rel ) ) ) {
-				$rel_attributes[] = sanitize_html_class( trim( $rel ) );
-			}
+	if ( ! empty( $attributes['linkRel'] ) ) {
+		$rel_attributes = explode( ' ', $attributes['linkRel'] );
+		$rel_attributes = array_filter( array_map( 'sanitize_html_class', $rel_attributes ) );
+
+		if ( ! empty( $rel_attributes ) ) {
+			$link_attributes .= ' rel="' . esc_attr( implode( ' ', $rel_attributes ) ) . '"';
 		}
 	}
 

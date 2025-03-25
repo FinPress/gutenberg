@@ -44,11 +44,7 @@
 			"type": "boolean",
 			"default": false
 		},
-		"addNofollow": {
-			"type": "boolean",
-			"default": false
-		},
-		"additionalRelAttributes": {
+		"linkRel": {
 			"type": "string",
 			"default": ""
 		}

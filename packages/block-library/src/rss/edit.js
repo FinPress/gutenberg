@@ -38,8 +38,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 		feedURL,
 		itemsToShow,
 		openInNewTab,
-		addNofollow,
-		additionalRelAttributes,
+		linkRel,
 	} = attributes;
 
 	function toggleAttribute( propName ) {
@@ -209,23 +208,15 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 							setAttributes( { openInNewTab: value } )
 						}
 					/>
-					<ToggleControl
-						__nextHasNoMarginBottom
-						label={ __( 'Add nofollow to links' ) }
-						checked={ addNofollow }
-						onChange={ ( value ) =>
-							setAttributes( { addNofollow: value } )
-						}
-					/>
 					<InputControl
 						__next40pxDefaultSize
-						label={ __( 'Additional rel attributes' ) }
+						label={ __( 'Rel Attributes' ) }
 						help={ __(
-							'Space-separated list of rel attributes (e.g., "sponsored ugc")'
+							'Space-separated list of rel attributes (e.g., "nofollow sponsored")'
 						) }
-						value={ additionalRelAttributes }
+						value={ linkRel }
 						onChange={ ( value ) =>
-							setAttributes( { additionalRelAttributes: value } )
+							setAttributes( { linkRel: value } )
 						}
 					/>
 				</PanelBody>
