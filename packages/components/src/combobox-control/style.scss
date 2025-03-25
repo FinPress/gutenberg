@@ -12,7 +12,7 @@ input.components-combobox-control__input[type="text"] {
 	margin: 0;
 	line-height: inherit;
 	min-height: auto;
-	background: inherit;
+	background: $components-color-background;
 	color: $components-color-foreground;
 
 	// Resolves Zooming on iOS devices
@@ -36,10 +36,7 @@ input.components-combobox-control__input[type="text"] {
 	padding: 0;
 
 	&:focus-within {
-		border-color: $components-color-accent;
-		box-shadow: 0 0 0 0.5px $components-color-accent;
-		outline: 2px solid transparent;
-		outline-offset: -2px;
+		@include input-style__focus($components-color-accent);
 	}
 
 	.components-spinner {

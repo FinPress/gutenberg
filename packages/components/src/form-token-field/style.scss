@@ -10,10 +10,7 @@
 	}
 
 	&.is-active {
-		border-color: $components-color-accent;
-		box-shadow: 0 0 0 0.5px $components-color-accent;
-		outline: 2px solid transparent;
-		outline-offset: -2px;
+		@include input-style__focus($components-color-accent);
 	}
 
 	// Token input
