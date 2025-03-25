@@ -86,10 +86,13 @@ export const Default: StoryObj< typeof Popover > = {
 	decorators: [
 		( Story ) => {
 			const [ isVisible, setIsVisible ] = useState( false );
-			const toggleVisible = () => {
+			const buttonRef = useRef< HTMLButtonElement | undefined >();
+			const toggleVisible = ( event: React.MouseEvent ) => {
+				if ( buttonRef.current && event.target !== buttonRef.current ) {
+					return;
+				}
 				setIsVisible( ( state ) => ! state );
 			};
-			const buttonRef = useRef< HTMLButtonElement | undefined >();
 			useEffect( () => {
 				buttonRef.current?.scrollIntoView?.( {
 					block: 'center',
@@ -254,4 +257,94 @@ export const WithSlotOutsideIframe: StoryObj< typeof Popover > = {
 	args: {
 		...Default.args,
 	},
+};
+
+export const WithCloseHandlers: StoryObj< typeof Popover > = {
+	decorators: [
+		() => {
+			const [ isVisible, setIsVisible ] = useState( false );
+			const buttonRef = useRef< HTMLButtonElement | null >( null );
+
+			const toggleVisible = () => {
+				setIsVisible( ( state ) => ! state );
+			};
+
+			// Handler for onClose prop
+			const handleClose = () => {
+				setIsVisible( false );
+			};
+
+			// Handler for onFocusOutside prop
+			const handleFocusOutside = () => {
+				setIsVisible( false );
+			};
+
+			useEffect( () => {
+				buttonRef.current?.scrollIntoView?.( {
+					block: 'center',
+					inline: 'center',
+				} );
+			}, [] );
+
+			return (
+				<div
+					style={ {
+						width: '100%',
+						height: '400px',
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+						justifyContent: 'center',
+						gap: '20px',
+					} }
+				>
+					<div>
+						<Button
+							variant="secondary"
+							onClick={ toggleVisible }
+							ref={ buttonRef }
+						>
+							Toggle Popover
+						</Button>
+					</div>
+
+					{ isVisible && (
+						<Popover
+							anchor={ buttonRef.current }
+							onClose={ handleClose }
+							onFocusOutside={ handleFocusOutside }
+						>
+							<div
+								style={ {
+									padding: '16px',
+									width: '280px',
+									whiteSpace: 'normal',
+								} }
+							>
+								<p>
+									This popover demonstrates proper use of
+									event handlers:
+								</p>
+								<ul>
+									<li>
+										<strong>onClose</strong>: Called when
+										escape key is pressed
+									</li>
+									<li>
+										<strong>onFocusOutside</strong>: Called
+										when focus moves outside the popover
+									</li>
+								</ul>
+								<p>
+									Try clicking outside or pressing ESC to
+									close this popover.
+								</p>
+								<Button>Focus me then tab away</Button>
+							</div>
+						</Popover>
+					) }
+				</div>
+			);
+		},
+	],
 };
