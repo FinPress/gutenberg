@@ -7,11 +7,12 @@ import { useEffect, useCallback } from '@wordpress/element';
 import {
 	BlockControls,
 	InspectorControls,
+	Warning,
 	useBlockProps,
 	store as blockEditorStore,
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { SelectControl } from '@wordpress/components';
+import { Button, SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 
@@ -101,21 +102,15 @@ export default function QueryContent( {
 		} else if ( ! query.perPage && postsPerPage ) {
 			newQuery.perPage = postsPerPage;
 		}
-		// We need to reset the `inherit` value if in a singular template, as queries
-		// are not inherited when in singular content (e.g. post, page, 404, blank).
-		if ( isSingular && query.inherit ) {
-			newQuery.inherit = false;
-		}
+
 		if ( !! Object.keys( newQuery ).length ) {
 			__unstableMarkNextChangeAsNotPersistent();
 			updateQuery( newQuery );
 		}
 	}, [
 		query.perPage,
-		query.inherit,
-		postsPerPage,
 		inherit,
-		isSingular,
+		postsPerPage,
 		__unstableMarkNextChangeAsNotPersistent,
 		updateQuery,
 	] );
@@ -136,6 +131,8 @@ export default function QueryContent( {
 		setAttributes( {
 			displayLayout: { ...displayLayout, ...newDisplayLayout },
 		} );
+
+	const hasInheritanceWarning = isSingular && inherit;
 
 	return (
 		<>
@@ -181,7 +178,30 @@ export default function QueryContent( {
 					clientId={ clientId }
 				/>
 			</InspectorControls>
-			<TagName { ...innerBlocksProps } />
+			{ hasInheritanceWarning ? (
+				<div { ...blockProps }>
+					<Warning
+						actions={ [
+							<Button
+								__next40pxDefaultSize
+								key="switch"
+								onClick={ () =>
+									updateQuery( { inherit: false } )
+								}
+								variant="primary"
+							>
+								{ __( 'Switch to Custom' ) }
+							</Button>,
+						] }
+					>
+						{ __(
+							'Cannot inherit the global queries when placed inside the singular content'
+						) }
+					</Warning>
+				</div>
+			) : (
+				<TagName { ...innerBlocksProps } />
+			) }
 		</>
 	);
 }
