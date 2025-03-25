@@ -16,7 +16,7 @@ import { parse } from '@wordpress/blocks';
 import { useAvailableTemplates, useEditedPostContext } from './hooks';
 import { searchTemplates } from '../../utils/search-templates';
 
-export default function SwapTemplateButton( { onClick, showSearch = true } ) {
+export default function SwapTemplateButton( { onClick } ) {
 	const [ showModal, setShowModal ] = useState( false );
 	const [ searchValue, setSearchValue ] = useState( '' );
 	const { postType, postId } = useEditedPostContext();
@@ -51,17 +51,14 @@ export default function SwapTemplateButton( { onClick, showSearch = true } ) {
 					isFullScreen
 				>
 					<div className="editor-post-template__swap-template-modal-content">
-						{ showSearch && (
-							<div className="editor-post-template__swap-template-search">
-								<SearchControl
-									__nextHasNoMarginBottom
-									onChange={ setSearchValue }
-									value={ searchValue }
-									label={ __( 'Search' ) }
-									placeholder={ __( 'Search' ) }
-								/>
-							</div>
-						) }
+						<SearchControl
+							__nextHasNoMarginBottom
+							onChange={ setSearchValue }
+							value={ searchValue }
+							label={ __( 'Search' ) }
+							placeholder={ __( 'Search' ) }
+							className="editor-post-template__swap-template-search"
+						/>
 						<TemplatesList
 							postType={ postType }
 							onSelect={ onTemplateSelect }
