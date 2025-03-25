@@ -29,7 +29,7 @@ jobs:
               # Stores the process ID and waits for up to 10 minutes
 
             - name: Run Storybook smoke tests
-              run: NODE_PATH=./node_modules npx --package=@storybook/test-runner -- test-runner --url http://localhost:50240 --config-dir ./storybook
+              run: NODE_PATH=./node_modules npx --package=@storybook/test-runner -- test-storybook --url http://localhost:50240 --config-dir ./storybook
 
             - name: Stop Storybook server
               if: always()
