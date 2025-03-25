@@ -126,6 +126,23 @@ export const saveWidgetArea =
 				buildWidgetAreaPostId( widgetAreaId )
 			);
 
+		// Process blocks to reset paragraph widget IDs and prevent conflicts
+		const processedBlocks = post.blocks.map( ( block ) => {
+			if (
+				block.name === 'core/paragraph' &&
+				block.attributes.__internalWidgetId
+			) {
+				return {
+					...block,
+					attributes: {
+						...block.attributes,
+						__internalWidgetId: undefined,
+					},
+				};
+			}
+			return block;
+		} );
+
 		// Get all widgets from this area
 		const areaWidgets = Object.values( widgets ).filter(
 			( { sidebar } ) => sidebar === widgetAreaId
@@ -136,7 +153,7 @@ export const saveWidgetArea =
 		// implemented using a function. WordPress doesn't support having more than one instance of these, if you try to
 		// save multiple instances of these in different sidebars you will run into undefined behaviors.
 		const usedReferenceWidgets = [];
-		const widgetsBlocks = post.blocks.filter( ( block ) => {
+		const widgetsBlocks = processedBlocks.filter( ( block ) => {
 			const { id } = block.attributes;
 
 			if ( block.name === 'core/legacy-widget' && id ) {
