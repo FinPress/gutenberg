@@ -25,6 +25,7 @@ function normalizeSearchInput( input = '' ) {
  *
  * @param {Object} template    Template to rank
  * @param {string} searchValue Search term
+ *
  * @return {number} A template search rank
  */
 function getTemplateSearchRank( template, searchValue ) {
@@ -53,7 +54,7 @@ function getTemplateSearchRank( template, searchValue ) {
 }
 
 /**
- * Filters an template list given a search term.
+ * Filters a template list given a search term.
  *
  * @param {Array}  templates   Item list
  * @param {string} searchValue Search input.
