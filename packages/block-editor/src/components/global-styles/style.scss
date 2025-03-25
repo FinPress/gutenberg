@@ -27,6 +27,11 @@
 	position: relative;
 }
 
+.block-editor-global-styles__shadow-dropdown {
+	border: 1px solid $gray-300;
+	border-radius: $radius-small;
+}
+
 .block-editor-global-styles-filters-panel__dropdown-toggle,
 .block-editor-global-styles__shadow-dropdown-toggle {
 	width: 100%;
