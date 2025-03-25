@@ -334,4 +334,3 @@ export const __experimentalRegisterExperimentalCoreBlocks =
 		: undefined;
 
 export { privateApis } from './private-apis';
-export { searchPatterns as searchItemsByTitle } from './utils/search-patterns';
