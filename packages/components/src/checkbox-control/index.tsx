@@ -53,6 +53,7 @@ export function CheckboxControl(
 		indeterminate,
 		help,
 		id: idProp,
+		disabled,
 		onChange,
 		...additionalProps
 	} = props;
@@ -89,8 +90,13 @@ export function CheckboxControl(
 		'inspector-checkbox-control',
 		idProp
 	);
-	const onChangeValue = ( event: ChangeEvent< HTMLInputElement > ) =>
+	const onChangeValue = ( event: ChangeEvent< HTMLInputElement > ) => {
+		if ( disabled ) {
+			return;
+		}
+
 		onChange( event.target.checked );
+	};
 
 	return (
 		<BaseControl
@@ -108,7 +114,14 @@ export function CheckboxControl(
 			className={ clsx( 'components-checkbox-control', className ) }
 		>
 			<HStack spacing={ 0 } justify="start" alignment="top">
-				<span className="components-checkbox-control__input-container">
+				<span
+					className={ clsx(
+						'components-checkbox-control__input-container',
+						{
+							'is-disabled': disabled,
+						}
+					) }
+				>
 					<input
 						ref={ ref }
 						id={ id }
@@ -116,6 +129,7 @@ export function CheckboxControl(
 						type="checkbox"
 						value="1"
 						onChange={ onChangeValue }
+						aria-disabled={ disabled }
 						checked={ checked }
 						aria-describedby={ !! help ? id + '__help' : undefined }
 						{ ...additionalProps }
@@ -137,7 +151,12 @@ export function CheckboxControl(
 				</span>
 				{ label && (
 					<label
-						className="components-checkbox-control__label"
+						className={ clsx(
+							'components-checkbox-control__label',
+							{
+								'is-disabled': disabled,
+							}
+						) }
 						htmlFor={ id }
 					>
 						{ label }
