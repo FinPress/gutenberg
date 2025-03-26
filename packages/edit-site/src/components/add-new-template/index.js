@@ -16,7 +16,7 @@ import {
 	Icon,
 } from '@wordpress/components';
 import { decodeEntities } from '@wordpress/html-entities';
-import { useState, memo } from '@wordpress/element';
+import { useState, memo, useRef, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { useViewportMatch } from '@wordpress/compose';
@@ -246,6 +246,29 @@ function NewTemplateModal( { onClose } ) {
 		modalTitle = __( 'Create custom template' );
 	}
 
+	const modalRef = useRef( null );
+
+	useEffect( () => {
+		if (
+			modalRef.current &&
+			( modalContent === modalContentMap.customTemplate ||
+				modalContent === modalContentMap.customGenericTemplate )
+		) {
+			const firstFocusableElement = modalRef.current.querySelector(
+				'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+			);
+			if ( firstFocusableElement ) {
+				// To ensure the DOM updates before setting focus.
+				const timeoutId = setTimeout(
+					() => firstFocusableElement.focus(),
+					0
+				);
+
+				return () => clearTimeout( timeoutId );
+			}
+		}
+	}, [ modalContent ] );
+
 	return (
 		<Modal
 			title={ modalTitle }
@@ -255,6 +278,7 @@ function NewTemplateModal( { onClose } ) {
 				'edit-site-custom-template-modal':
 					modalContent === modalContentMap.customTemplate,
 			} ) }
+			ref={ modalRef }
 			onRequestClose={ onModalClose }
 			overlayClassName={
 				modalContent === modalContentMap.customGenericTemplate
