@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Button Block Alignment
+
+- [Button Block Alignment fix] ([#67796](https://github.com/WordPress/gutenberg/pull/67796))
+
 ## 29.2.0 (2025-01-15)
 
 ### Internal
@@ -2953,10 +2957,4 @@
 
 ### New Features
 
--   Added a new `AccessibleSVG` component.
-
-## 3.0.0 (2025-03-26)
-
-### Button Block Alignment
-
-- [Button Block Alignment fix] ([#67796](https://github.com/WordPress/gutenberg/pull/67796))
+-   Added a new `AccessibleSVG` component
