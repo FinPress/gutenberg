@@ -25,11 +25,17 @@ export type ToggleGroupControlOptionBaseProps = {
 	 * @default false
 	 */
 	showTooltip?: boolean;
+	/**
+	 * Whether the option is disabled.
+	 *
+	 * @default false
+	 */
+	disabled?: boolean;
 };
 
 export type ToggleGroupControlOptionIconProps = Pick<
 	ToggleGroupControlOptionBaseProps,
-	'value'
+	'value' | 'disabled'
 > & {
 	/**
 	 * Icon displayed as the content of the option. Usually one of the icons from
@@ -44,7 +50,7 @@ export type ToggleGroupControlOptionIconProps = Pick<
 
 export type ToggleGroupControlOptionProps = Pick<
 	ToggleGroupControlOptionBaseProps,
-	'value' | 'showTooltip'
+	'value' | 'showTooltip' | 'disabled'
 > & {
 	/**
 	 * Label for the option. If needed, the `aria-label` prop can be used in addition
