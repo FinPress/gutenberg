@@ -30,7 +30,6 @@ export default function save( { attributes } ) {
 		id,
 		linkTarget,
 		sizeSlug,
-		title,
 	} = attributes;
 
 	const newRel = ! rel ? undefined : rel;
@@ -66,7 +65,6 @@ export default function save( { attributes } ) {
 				width,
 				height,
 			} }
-			title={ title }
 		/>
 	);
 
