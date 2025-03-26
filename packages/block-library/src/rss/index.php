@@ -47,9 +47,12 @@ function render_block_core_rss( $attributes ) {
 
 		if ( $open_in_new_tab ) {
 			$link_attributes .= ' target="_blank"';
-			$link_attributes .= ' rel="' . esc_attr( trim( $rel . ' noopener nofollow' ) ) . '"';
+
+			if ( '' !== $rel ) {
+				$link_attributes .= ' rel="' . esc_attr( $rel ) . '"';
+			}
 		} elseif ( '' !== $rel ) {
-			$link_attributes .= ' rel="' . esc_attr( trim( $rel ) ) . '"';
+			$link_attributes .= ' rel="' . esc_attr( $rel ) . '"';
 		}
 
 		if ( $link ) {
