@@ -45,6 +45,8 @@ import {
 	getNavigationChildBlockProps,
 } from '../navigation/edit/utils';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+import { store as coreStore } from '@wordpress/core-data';
+import { decodeEntities } from '@wordpress/html-entities';
 
 const ALLOWED_BLOCKS = [
 	'core/navigation-link',
@@ -107,6 +109,36 @@ const useIsDraggingWithin = ( elementRef ) => {
 	return isDraggingWithin;
 };
 
+const useIsInvalidLink = ( kind, type, id ) => {
+	const isPostType =
+		kind === 'post-type' || type === 'post' || type === 'page';
+	const hasId = Number.isInteger( id );
+	const postStatus = useSelect(
+		( select ) => {
+			if ( ! isPostType ) {
+				return null;
+			}
+			const { getEntityRecord } = select( coreStore );
+			return getEntityRecord( 'postType', type, id )?.status;
+		},
+		[ isPostType, type, id ]
+	);
+
+	// Check Navigation Link validity if:
+	// 1. Link is 'post-type'.
+	// 2. It has an id.
+	// 3. It's neither null, nor undefined, as valid items might be either of those while loading.
+	// If those conditions are met, check if
+	// 1. The post status is published.
+	// 2. The Navigation Link item has no label.
+	// If either of those is true, invalidate.
+	const isInvalid =
+		isPostType && hasId && postStatus && 'trash' === postStatus;
+	const isDraft = 'draft' === postStatus;
+
+	return [ isInvalid, isDraft ];
+};
+
 /**
  * @typedef {'post-type'|'custom'|'taxonomy'|'post-type-archive'} WPNavigationLinkKind
  */
@@ -135,9 +167,11 @@ export default function NavigationSubmenuEdit( {
 	context,
 	clientId,
 } ) {
-	const { label, url, description, rel, title } = attributes;
+	const { label, url, description, rel, title, id, type, kind } = attributes;
 
 	const { showSubmenuIcon, maxNestingLevel, openSubmenusOnClick } = context;
+
+	const [ isInvalid, isDraft ] = useIsInvalidLink( kind, type, id );
 
 	const {
 		__unstableMarkNextChangeAsNotPersistent,
@@ -296,6 +330,8 @@ export default function NavigationSubmenuEdit( {
 			[ getColorClassName( 'background-color', backgroundColor ) ]:
 				!! backgroundColor,
 			'open-on-click': openSubmenusOnClick,
+			'is-invalid': isInvalid,
+			'is-draft': isDraft,
 		} ),
 		style: {
 			color: ! textColor && customTextColor,
@@ -355,6 +391,10 @@ export default function NavigationSubmenuEdit( {
 
 	const canConvertToLink =
 		! selectedBlockHasChildren || onlyDescendantIsEmptyLink;
+
+	const placeholderText = `(${
+		isInvalid ? __( 'Invalid' ) : __( 'Draft' )
+	})`;
 
 	return (
 		<>
@@ -505,31 +545,57 @@ export default function NavigationSubmenuEdit( {
 				{ /* eslint-disable jsx-a11y/anchor-is-valid */ }
 				<ParentElement className="wp-block-navigation-item__content">
 					{ /* eslint-enable */ }
-					<RichText
-						ref={ ref }
-						identifier="label"
-						className="wp-block-navigation-item__label"
-						value={ label }
-						onChange={ ( labelValue ) =>
-							setAttributes( { label: labelValue } )
-						}
-						onMerge={ mergeBlocks }
-						onReplace={ onReplace }
-						aria-label={ __( 'Navigation link text' ) }
-						placeholder={ itemLabelPlaceholder }
-						withoutInteractiveFormatting
-						onClick={ () => {
-							if ( ! openSubmenusOnClick && ! url ) {
-								setIsLinkOpen( true );
-								setOpenedBy( ref.current );
-							}
-						} }
-					/>
-					{ description && (
-						<span className="wp-block-navigation-item__description">
-							{ description }
-						</span>
-					) }
+					<>
+						{ ! isInvalid && ! isDraft && (
+							<>
+								<RichText
+									ref={ ref }
+									identifier="label"
+									className="wp-block-navigation-item__label"
+									value={ label }
+									onChange={ ( labelValue ) =>
+										setAttributes( { label: labelValue } )
+									}
+									onMerge={ mergeBlocks }
+									onReplace={ onReplace }
+									aria-label={ __( 'Navigation link text' ) }
+									placeholder={ itemLabelPlaceholder }
+									withoutInteractiveFormatting
+									onClick={ () => {
+										if ( ! openSubmenusOnClick && ! url ) {
+											setIsLinkOpen( true );
+											setOpenedBy( ref.current );
+										}
+									} }
+								/>
+								{ description && (
+									<span className="wp-block-navigation-item__description">
+										{ description }
+									</span>
+								) }
+							</>
+						) }
+						{ ( isInvalid || isDraft ) && (
+							<div
+								className={ clsx(
+									'wp-block-navigation-link__placeholder-text',
+									'wp-block-navigation-link__label',
+									{
+										'is-invalid': isInvalid,
+										'is-draft': isDraft,
+									}
+								) }
+							>
+								<span>
+									{ `${ decodeEntities( label ) } ${
+										isInvalid || isDraft
+											? placeholderText
+											: ''
+									}`.trim() }
+								</span>
+							</div>
+						) }
+					</>
 					{ ! openSubmenusOnClick && isLinkOpen && (
 						<LinkUI
 							clientId={ clientId }
