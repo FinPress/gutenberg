@@ -37,6 +37,8 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 		excerptLength,
 		feedURL,
 		itemsToShow,
+		preserveSourceOrder,
+		reverseOrder,
 	} = attributes;
 
 	function toggleAttribute( propName ) {
@@ -197,6 +199,22 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 							required
 						/>
 					) }
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Preserve source order' ) }
+						checked={ preserveSourceOrder }
+						onChange={ toggleAttribute( 'preserveSourceOrder' ) }
+						help={ __(
+							'Display items in the original order from the feed instead of sorting by date.'
+						) }
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Reverse order' ) }
+						checked={ reverseOrder }
+						onChange={ toggleAttribute( 'reverseOrder' ) }
+						help={ __( 'Display items in reverse order.' ) }
+					/>
 				</PanelBody>
 			</InspectorControls>
 			<div { ...blockProps }>

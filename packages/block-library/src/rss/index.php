@@ -25,11 +25,20 @@ function render_block_core_rss( $attributes ) {
 		return '<div class="components-placeholder"><div class="notice notice-error"><strong>' . __( 'RSS Error:' ) . '</strong> ' . esc_html( $rss->get_error_message() ) . '</div></div>';
 	}
 
+	if ( isset( $attributes['preserveSourceOrder'] ) && $attributes['preserveSourceOrder'] ) {
+		$rss->enable_order_by_date( false );
+	}
+
 	if ( ! $rss->get_item_quantity() ) {
 		return '<div class="components-placeholder"><div class="notice notice-error">' . __( 'An error has occurred, which probably means the feed is down. Try again later.' ) . '</div></div>';
 	}
 
 	$rss_items  = $rss->get_items( 0, $attributes['itemsToShow'] );
+
+	if ( isset( $attributes['reverseOrder'] ) && $attributes['reverseOrder'] ) {
+		$rss_items = array_reverse( $rss_items );
+	}
+
 	$list_items = '';
 	foreach ( $rss_items as $item ) {
 		$title = esc_html( trim( strip_tags( $item->get_title() ) ) );
