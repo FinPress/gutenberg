@@ -313,6 +313,7 @@ export const WithCloseHandlers: StoryObj< typeof Popover > = {
 							anchor={ buttonRef.current }
 							onClose={ handleClose }
 							onFocusOutside={ handleFocusOutside }
+							focusOnMount={ false }
 						>
 							<div
 								style={ {
