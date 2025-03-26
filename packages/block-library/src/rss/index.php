@@ -47,11 +47,9 @@ function render_block_core_rss( $attributes ) {
 
 		if ( $open_in_new_tab ) {
 			$link_attributes .= ' target="_blank"';
+		}
 
-			if ( '' !== $rel ) {
-				$link_attributes .= ' rel="' . esc_attr( $rel ) . '"';
-			}
-		} elseif ( '' !== $rel ) {
+		if ( '' !== $rel ) {
 			$link_attributes .= ' rel="' . esc_attr( $rel ) . '"';
 		}
 
