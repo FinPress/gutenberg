@@ -492,27 +492,24 @@ class WP_Navigation_Block_Renderer {
 		$toggle_aria_label_close     = $should_display_icon_label ? 'aria-label="' . __( 'Close menu' ) . '"' : ''; // Close button label.
 
 		// Add Interactivity API directives to the markup if needed.
-		$open_button_directives          = '';
-		$responsive_container_directives = '';
-		$responsive_dialog_directives    = '';
-		$close_button_directives         = '';
+		$open_button_directives                  = '';
+		$responsive_container_directives         = '';
+		$responsive_dialog_directives            = '';
+		$close_button_directives                 = '';
+		$responsive_container_content_directives = '';
 		if ( $is_interactive ) {
 			$open_button_directives                  = '
 				data-wp-on-async--click="actions.openMenuOnClick"
 				data-wp-on--keydown="actions.handleMenuKeydown"
 			';
 			$responsive_container_directives         = '
+				data-wp-init="callbacks.initDialog"
 				data-wp-class--has-modal-open="state.isMenuOpen"
 				data-wp-class--is-menu-open="state.isMenuOpen"
 				data-wp-watch="callbacks.initMenu"
-				data-wp-on--keydown="actions.handleMenuKeydown"
-				data-wp-on-async--focusout="actions.handleMenuFocusout"
-				tabindex="-1"
 			';
 			$responsive_dialog_directives            = '
-				data-wp-bind--aria-modal="state.ariaModal"
 				data-wp-bind--aria-label="state.ariaLabel"
-				data-wp-bind--role="state.roleAttribute"
 			';
 			$close_button_directives                 = '
 				data-wp-on-async--click="actions.closeMenuOnClick"
@@ -526,7 +523,7 @@ class WP_Navigation_Block_Renderer {
 
 		return sprintf(
 			'<button aria-haspopup="dialog" %3$s class="%6$s" %10$s>%8$s</button>
-				<div class="%5$s" %7$s id="%1$s" %11$s>
+				<dialog class="%5$s" %7$s id="%1$s" %11$s>
 					<div class="wp-block-navigation__responsive-close" tabindex="-1">
 						<div class="wp-block-navigation__responsive-dialog" %12$s>
 							<button %4$s class="wp-block-navigation__responsive-container-close" %13$s>%9$s</button>
@@ -535,7 +532,7 @@ class WP_Navigation_Block_Renderer {
 							</div>
 						</div>
 					</div>
-				</div>',
+				</dialog>',
 			esc_attr( $modal_unique_id ),
 			$inner_blocks_html,
 			$toggle_aria_label_open,
@@ -606,7 +603,6 @@ class WP_Navigation_Block_Renderer {
 					'focus' => false,
 				),
 				'type'            => 'overlay',
-				'roleAttribute'   => '',
 				'ariaLabel'       => __( 'Menu' ),
 			)
 		);
@@ -822,7 +818,6 @@ function block_core_navigation_add_directives_to_submenu( $tags, $block_attribut
 		$tags->set_attribute( 'data-wp-context', '{ "submenuOpenedBy": { "click": false, "hover": false, "focus": false }, "type": "submenu", "modal": null }' );
 		$tags->set_attribute( 'data-wp-watch', 'callbacks.initMenu' );
 		$tags->set_attribute( 'data-wp-on--focusout', 'actions.handleMenuFocusout' );
-		$tags->set_attribute( 'data-wp-on--keydown', 'actions.handleMenuKeydown' );
 
 		// This is a fix for Safari. Without it, Safari doesn't change the active
 		// element when the user clicks on a button. It can be removed once we add

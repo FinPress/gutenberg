@@ -1,12 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	store,
-	getContext,
-	getElement,
-	withSyncEvent,
-} from '@wordpress/interactivity';
+import { store, getContext, getElement } from '@wordpress/interactivity';
 
 const focusableSelectors = [
 	'a[href]',
@@ -27,18 +22,6 @@ const { state, actions } = store(
 	'core/navigation',
 	{
 		state: {
-			get roleAttribute() {
-				const ctx = getContext();
-				return ctx.type === 'overlay' && state.isMenuOpen
-					? 'dialog'
-					: null;
-			},
-			get ariaModal() {
-				const ctx = getContext();
-				return ctx.type === 'overlay' && state.isMenuOpen
-					? 'true'
-					: null;
-			},
 			get ariaLabel() {
 				const ctx = getContext();
 				return ctx.type === 'overlay' && state.isMenuOpen
@@ -111,40 +94,8 @@ const { state, actions } = store(
 					actions.openMenu( 'click' );
 				}
 			},
-			handleMenuKeydown: withSyncEvent( ( event ) => {
-				const { type, firstFocusableElement, lastFocusableElement } =
-					getContext();
-				if ( state.menuOpenedBy.click ) {
-					// If Escape close the menu.
-					if ( event?.key === 'Escape' ) {
-						actions.closeMenu( 'click' );
-						actions.closeMenu( 'focus' );
-						return;
-					}
-
-					// Trap focus if it is an overlay (main menu).
-					if ( type === 'overlay' && event.key === 'Tab' ) {
-						// If shift + tab it change the direction.
-						if (
-							event.shiftKey &&
-							window.document.activeElement ===
-								firstFocusableElement
-						) {
-							event.preventDefault();
-							lastFocusableElement.focus();
-						} else if (
-							! event.shiftKey &&
-							window.document.activeElement ===
-								lastFocusableElement
-						) {
-							event.preventDefault();
-							firstFocusableElement.focus();
-						}
-					}
-				}
-			} ),
 			handleMenuFocusout( event ) {
-				const { modal, type } = getContext();
+				const { modal } = getContext();
 				// If focus is outside modal, and in the document, close menu
 				// event.target === The element losing focus
 				// event.relatedTarget === The element receiving focus (if any)
@@ -155,8 +106,7 @@ const { state, actions } = store(
 				if (
 					event.relatedTarget === null ||
 					( ! modal?.contains( event.relatedTarget ) &&
-						event.target !== window.document.activeElement &&
-						type === 'submenu' )
+						event.target !== window.document.activeElement )
 				) {
 					actions.closeMenu( 'click' );
 					actions.closeMenu( 'focus' );
@@ -164,11 +114,12 @@ const { state, actions } = store(
 			},
 
 			openMenu( menuOpenedOn = 'click' ) {
-				const { type } = getContext();
+				const { type, dialog } = getContext();
 				state.menuOpenedBy[ menuOpenedOn ] = true;
 				if ( type === 'overlay' ) {
 					// Add a `has-modal-open` class to the <html> root.
 					document.documentElement.classList.add( 'has-modal-open' );
+					dialog.showModal();
 				}
 			},
 
@@ -188,6 +139,7 @@ const { state, actions } = store(
 						document.documentElement.classList.remove(
 							'has-modal-open'
 						);
+						ctx.dialog?.close();
 					}
 				}
 			},
@@ -212,6 +164,10 @@ const { state, actions } = store(
 						ref.querySelectorAll( focusableSelectors );
 					focusableElements?.[ 0 ]?.focus();
 				}
+			},
+			initDialog() {
+				const ctx = getContext();
+				ctx.dialog = getElement().ref;
 			},
 		},
 	},
