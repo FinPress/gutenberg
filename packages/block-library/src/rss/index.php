@@ -37,6 +37,14 @@ function render_block_core_rss( $attributes ) {
 
 	$link_attributes = '';
 
+	if ( $open_in_new_tab ) {
+		$link_attributes .= ' target="_blank"';
+	}
+
+	if ( '' !== $rel ) {
+		$link_attributes .= ' rel="' . esc_attr( $rel ) . '"';
+	}
+
 	foreach ( $rss_items as $item ) {
 		$title = esc_html( trim( strip_tags( $item->get_title() ) ) );
 		if ( empty( $title ) ) {
@@ -44,14 +52,6 @@ function render_block_core_rss( $attributes ) {
 		}
 		$link = $item->get_link();
 		$link = esc_url( $link );
-
-		if ( $open_in_new_tab ) {
-			$link_attributes .= ' target="_blank"';
-		}
-
-		if ( '' !== $rel ) {
-			$link_attributes .= ' rel="' . esc_attr( $rel ) . '"';
-		}
 
 		if ( $link ) {
 			$title = "<a href='{$link}'{$link_attributes}>{$title}</a>";
