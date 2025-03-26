@@ -13,6 +13,8 @@ import {
 } from '@wordpress/compose';
 import {
 	__experimentalTreeGrid as TreeGrid,
+	__experimentalSpacer as Spacer,
+	__experimentalText as Text,
 	VisuallyHidden,
 } from '@wordpress/components';
 import { AsyncModeProvider, useSelect } from '@wordpress/data';
@@ -342,11 +344,13 @@ function ListViewComponent(
 	// If there are no blocks to show and we're not showing the appender, instead show a message.
 	if ( ! clientIdsTree.length && ! showAppender ) {
 		return (
-			<p className="block-editor-list-view-empty">
-				{ __(
-					'No blocks added yet, open the block inserter to add one or start typing!'
-				) }
-			</p>
+			<Spacer padding={ 4 }>
+				<Text>
+					{ __(
+						'No blocks added yet, open the block inserter to add one or start typing!'
+					) }
+				</Text>
+			</Spacer>
 		);
 	}
 
