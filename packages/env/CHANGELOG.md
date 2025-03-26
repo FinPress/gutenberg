@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## 10.20.0 (2025-03-13)
+
+## 10.19.0 (2025-02-28)
+
+## 10.18.0 (2025-02-12)
+
+## 10.17.0 (2025-01-29)
+
+### Enhancements
+
+-   Add a `WP_ENV_MULTISITE` environment variable to override the `multisite` option ([#68792](https://github.com/WordPress/gutenberg/pull/68792)).
+
 ## 10.16.0 (2025-01-15)
 
 ## 10.15.0 (2025-01-02)
