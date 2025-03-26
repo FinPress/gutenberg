@@ -136,6 +136,11 @@
 		.components-v-stack > .dataviews-view-table__cell-content-wrapper:not(:first-child) {
 			min-height: 0;
 		}
+
+		&[aria-busy="true"] {
+			opacity: 0.5;
+			pointer-events: none;
+		}
 	}
 	.dataviews-view-table-header-button {
 		padding: $grid-unit-05 $grid-unit-10;

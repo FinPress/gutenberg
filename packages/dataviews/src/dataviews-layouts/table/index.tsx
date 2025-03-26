@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { Spinner } from '@wordpress/components';
 import { useEffect, useId, useRef, useState } from '@wordpress/element';
+import { usePrevious } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -210,6 +211,7 @@ function ViewTable< Item >( {
 	getItemId,
 	getItemLevel,
 	isLoading = false,
+	keepPreviousData,
 	onChangeView,
 	onChangeSelection,
 	selection,
@@ -234,6 +236,8 @@ function ViewTable< Item >( {
 	} );
 
 	const tableNoticeId = useId();
+	// We need to keep the previous data to render the table when the new data is loading.
+	const previousData = usePrevious( data );
 
 	if ( nextHeaderMenuToFocus ) {
 		// If we need to force focus, we short-circuit rendering here
@@ -277,6 +281,40 @@ function ViewTable< Item >( {
 				headerMenuRefs.current.delete( column );
 			}
 		};
+
+	/**
+	 * Render the table rows.
+	 *
+	 * @param items The items to render.
+	 *
+	 * @return The table rows.
+	 */
+	const renderTableRows = ( items: Item[] ) => {
+		return items.map( ( item, index ) => (
+			<TableRow
+				key={ getItemId( item ) }
+				item={ item }
+				level={
+					view.showLevels && typeof getItemLevel === 'function'
+						? getItemLevel( item )
+						: undefined
+				}
+				hasBulkActions={ hasBulkActions }
+				actions={ actions }
+				fields={ fields }
+				id={ getItemId( item ) || index.toString() }
+				view={ view }
+				titleField={ titleField }
+				mediaField={ mediaField }
+				descriptionField={ descriptionField }
+				selection={ selection }
+				getItemId={ getItemId }
+				onChangeSelection={ onChangeSelection }
+				onClickItem={ onClickItem }
+				isItemClickable={ isItemClickable }
+			/>
+		) );
+	};
 
 	return (
 		<>
@@ -363,33 +401,12 @@ function ViewTable< Item >( {
 						) }
 					</tr>
 				</thead>
-				<tbody>
-					{ hasData &&
-						data.map( ( item, index ) => (
-							<TableRow
-								key={ getItemId( item ) }
-								item={ item }
-								level={
-									view.showLevels &&
-									typeof getItemLevel === 'function'
-										? getItemLevel( item )
-										: undefined
-								}
-								hasBulkActions={ hasBulkActions }
-								actions={ actions }
-								fields={ fields }
-								id={ getItemId( item ) || index.toString() }
-								view={ view }
-								titleField={ titleField }
-								mediaField={ mediaField }
-								descriptionField={ descriptionField }
-								selection={ selection }
-								getItemId={ getItemId }
-								onChangeSelection={ onChangeSelection }
-								onClickItem={ onClickItem }
-								isItemClickable={ isItemClickable }
-							/>
-						) ) }
+				<tbody aria-busy={ keepPreviousData && isLoading }>
+					{ keepPreviousData &&
+						isLoading &&
+						previousData &&
+						renderTableRows( previousData ) }
+					{ hasData && ! isLoading && renderTableRows( data ) }
 				</tbody>
 			</table>
 			<div
