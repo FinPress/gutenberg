@@ -2957,4 +2957,4 @@
 
 ### New Features
 
--   Added a new `AccessibleSVG` component
+-   Added a new `AccessibleSVG` component.
