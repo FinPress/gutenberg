@@ -94,6 +94,15 @@ const { state, actions } = store(
 					actions.openMenu( 'click' );
 				}
 			},
+			handleMenuKeydown: ( { key } ) => {
+				if ( state.menuOpenedBy.click ) {
+					// If Escape close the menu.
+					if ( key === 'Escape' ) {
+						actions.closeMenu( 'click' );
+						actions.closeMenu( 'focus' );
+					}
+				}
+			},
 			handleMenuFocusout( event ) {
 				const { modal } = getContext();
 				// If focus is outside modal, and in the document, close menu
@@ -149,12 +158,7 @@ const { state, actions } = store(
 				const ctx = getContext();
 				const { ref } = getElement();
 				if ( state.isMenuOpen ) {
-					const focusableElements =
-						ref.querySelectorAll( focusableSelectors );
 					ctx.modal = ref;
-					ctx.firstFocusableElement = focusableElements[ 0 ];
-					ctx.lastFocusableElement =
-						focusableElements[ focusableElements.length - 1 ];
 				}
 			},
 			focusFirstElement() {
