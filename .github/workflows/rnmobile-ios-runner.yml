@@ -14,8 +14,9 @@ concurrency:
 
 jobs:
     test:
-        runs-on: macos-12
-        if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
+        runs-on: macos-13
+        if: false
+        #if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
         strategy:
             matrix:
                 xcode: ['14.2']
@@ -27,7 +28,7 @@ jobs:
               with:
                   show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
 
-            - uses: ruby/setup-ruby@a2bbe5b1b236842c1cb7dd11e8e3b51e0a616acc # v1.202.0
+            - uses: ruby/setup-ruby@7a6302104fbeea3c6aaa43b1b91e08f7d6623279 # v1.209.0
               with:
                   # `.ruby-version` file location
                   working-directory: packages/react-native-editor/ios
