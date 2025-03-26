@@ -9,13 +9,17 @@ test.describe( 'Template hierarchy', () => {
 	} );
 
 	test.afterEach( async ( { requestUtils } ) => {
+		await requestUtils.updateSiteSettings( {
+			show_on_front: 'posts',
+			page_on_front: 0,
+			page_for_posts: 0,
+		} );
+	} );
+
+	test.afterAll( async ( { requestUtils } ) => {
 		await Promise.all( [
-			requestUtils.updateSiteSettings( {
-				show_on_front: 'posts',
-				page_on_front: 0,
-				page_for_posts: 0,
-			} ),
 			requestUtils.activateTheme( 'twentytwentyone' ),
+			requestUtils.deleteAllPages(),
 		] );
 	} );
 
