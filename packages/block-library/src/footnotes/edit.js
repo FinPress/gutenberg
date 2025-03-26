@@ -52,6 +52,7 @@ export default function FootnotesEdit( {
 		setAttributes( { footnotes } );
 	}, [ footnotes, setAttributes ] );
 
+	const footnotesSupported = 'string' === typeof meta?.footnotes;
 	const blockProps = useBlockProps();
 
 	const handleFootnoteChange = ( nextFootnote, id ) => {
@@ -75,13 +76,19 @@ export default function FootnotesEdit( {
 		}
 	};
 
-	const addInitialFootnote = () => {
-		const newFootnote = {
-			id: `footnote-${ Date.now() }`,
-			content: __( 'Add your footnote text' ),
-		};
-		setFootnotes( [ newFootnote ] );
-	};
+	if ( ! footnotesSupported ) {
+		return (
+			<div { ...blockProps }>
+				<Placeholder
+					icon={ <BlockIcon icon={ icon } /> }
+					label={ __( 'Footnotes' ) }
+					instructions={ __(
+						'Footnotes are not supported here. Add this block to post or page content.'
+					) }
+				/>
+			</div>
+		);
+	}
 
 	if ( ! footnotes || footnotes.length === 0 ) {
 		return (
@@ -92,14 +99,7 @@ export default function FootnotesEdit( {
 					instructions={ __(
 						'No footnotes available. Click below to add your first footnote.'
 					) }
-				>
-					<button
-						className="components-button is-primary"
-						onClick={ addInitialFootnote }
-					>
-						{ __( 'Add Footnote' ) }
-					</button>
-				</Placeholder>
+				/>
 			</div>
 		);
 	}
