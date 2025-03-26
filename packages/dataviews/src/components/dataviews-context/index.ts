@@ -17,6 +17,7 @@ type DataViewsContextType< Item > = {
 	actions?: Action< Item >[];
 	data: Item[];
 	isLoading?: boolean;
+	keepPreviousData?: boolean;
 	paginationInfo: {
 		totalItems: number;
 		totalPages: number;
