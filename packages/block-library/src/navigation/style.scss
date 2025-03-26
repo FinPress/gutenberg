@@ -466,6 +466,8 @@ button.wp-block-navigation-item__content {
 	}
 }
 .wp-block-navigation__responsive-container {
+	color: inherit;
+	background-color: inherit;
 	width: auto;
 	height: auto;
 	max-width: 100%;
@@ -486,13 +488,6 @@ button.wp-block-navigation-item__content {
 		align-items: var(--navigation-layout-align, initial);
 	}
 
-	// If the responsive wrapper is present but overlay is not open,
-	// overlay styles shouldn't apply.
-	&:not(.is-menu-open.is-menu-open) {
-		color: inherit !important;
-		background-color: inherit !important;
-	}
-
 	// Overlay menu.
 	// Provide an opinionated default style for menu items inside.
 	// Inherit as much as we can regarding colors, fonts, sizes,
@@ -501,7 +496,6 @@ button.wp-block-navigation-item__content {
 	&.is-menu-open {
 		display: flex;
 		flex-direction: column;
-		background-color: inherit;
 
 		// Animation.
 		@media not (prefers-reduced-motion) {
