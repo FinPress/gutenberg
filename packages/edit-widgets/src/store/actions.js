@@ -126,12 +126,14 @@ export const saveWidgetArea =
 				buildWidgetAreaPostId( widgetAreaId )
 			);
 
-		// Process blocks to reset paragraph widget IDs and prevent conflicts
+		/**
+		 * Process blocks to ensure unique widget IDs before saving.
+		 * Clears __internalWidgetId for all non-legacy widgets to prevent
+		 * conflicts during save operations.
+		 */
 		const processedBlocks = post.blocks.map( ( block ) => {
-			if (
-				block.name === 'core/paragraph' &&
-				block.attributes.__internalWidgetId
-			) {
+			// Skip legacy widgets as they handle their own IDs
+			if ( block.name !== 'core/legacy-widget' ) {
 				return {
 					...block,
 					attributes: {
