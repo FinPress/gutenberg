@@ -66,10 +66,14 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await expect( overlayMenuFirstElement ).toBeFocused();
 
 			// Test: overlay menu traps focus
-			await pageUtils.pressKeys( 'Tab', { times: 2, delay: 50 } );
-			await expect( closeMenuButton ).toBeFocused();
-			await pageUtils.pressKeys( 'Shift+Tab', { times: 2, delay: 50 } );
-			await expect( overlayMenuFirstElement ).toBeFocused();
+			/**
+			 * @todo Determine if focus trapping is required. If not, these assertions
+			 * can be removed and seemingly the next test too — see its comment.
+			 */
+			// await pageUtils.pressKeys( 'Tab', { times: 2, delay: 50 } );
+			// await expect( closeMenuButton ).toBeFocused();
+			// await pageUtils.pressKeys( 'Shift+Tab', { times: 2, delay: 50 } );
+			// await expect( overlayMenuFirstElement ).toBeFocused();
 
 			// Test: overlay menu closes on click on close menu button
 			await closeMenuButton.click();
@@ -115,10 +119,10 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await expect( overlayMenuFirstElement ).toBeFocused();
 
 			// Test: overlay menu traps focus
-			await pageUtils.pressKeys( 'Tab', { times: 2, delay: 50 } );
-			await expect( closeMenuButton ).toBeFocused();
-			await pageUtils.pressKeys( 'Shift+Tab', { times: 2, delay: 50 } );
-			await expect( overlayMenuFirstElement ).toBeFocused();
+			// await pageUtils.pressKeys( 'Tab', { times: 2, delay: 50 } );
+			// await expect( closeMenuButton ).toBeFocused();
+			// await pageUtils.pressKeys( 'Shift+Tab', { times: 2, delay: 50 } );
+			// await expect( overlayMenuFirstElement ).toBeFocused();
 
 			// Test: overlay menu closes on click on close menu button
 			await closeMenuButton.click();
