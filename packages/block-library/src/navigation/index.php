@@ -507,12 +507,13 @@ class WP_Navigation_Block_Renderer {
 				data-wp-class--has-modal-open="state.isMenuOpen"
 				data-wp-class--is-menu-open="state.isMenuOpen"
 				data-wp-watch="callbacks.initMenu"
+				data-wp-on-async--close="actions.closeMenu"
 			';
 			$responsive_dialog_directives            = '
 				data-wp-bind--aria-label="state.ariaLabel"
 			';
 			$close_button_directives                 = '
-				data-wp-on-async--click="actions.closeMenuOnClick"
+				data-wp-on-async--click="actions.closeMenu"
 			';
 			$responsive_container_content_directives = '
 				data-wp-watch="callbacks.focusFirstElement"

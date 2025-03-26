@@ -13,6 +13,8 @@ const focusableSelectors = [
 	'[tabindex]:not([tabindex^="-"])',
 ];
 
+const openedByNone = { click: false, focus: false, hover: false };
+
 // This is a fix for Safari in iOS/iPadOS. Without it, Safari doesn't focus out
 // when the user taps in the body. It can be removed once we add an overlay to
 // capture the clicks, instead of relying on the focusout event.
@@ -62,7 +64,7 @@ const { state, actions } = store(
 					Object.values( overlayOpenedBy || {} ).filter( Boolean )
 						.length === 0
 				) {
-					actions.closeMenu( 'hover' );
+					actions.closeMenu();
 				}
 			},
 			openMenuOnClick() {
@@ -70,10 +72,6 @@ const { state, actions } = store(
 				const { ref } = getElement();
 				ctx.previousFocus = ref;
 				actions.openMenu( 'click' );
-			},
-			closeMenuOnClick() {
-				actions.closeMenu( 'click' );
-				actions.closeMenu( 'focus' );
 			},
 			openMenuOnFocus() {
 				actions.openMenu( 'focus' );
@@ -87,8 +85,7 @@ const { state, actions } = store(
 				}
 				const { menuOpenedBy } = state;
 				if ( menuOpenedBy.click || menuOpenedBy.focus ) {
-					actions.closeMenu( 'click' );
-					actions.closeMenu( 'focus' );
+					actions.closeMenu();
 				} else {
 					ctx.previousFocus = ref;
 					actions.openMenu( 'click' );
@@ -98,8 +95,7 @@ const { state, actions } = store(
 				if ( state.menuOpenedBy.click ) {
 					// If Escape close the menu.
 					if ( key === 'Escape' ) {
-						actions.closeMenu( 'click' );
-						actions.closeMenu( 'focus' );
+						actions.closeMenu();
 					}
 				}
 			},
@@ -117,8 +113,7 @@ const { state, actions } = store(
 					( ! modal?.contains( event.relatedTarget ) &&
 						event.target !== window.document.activeElement )
 				) {
-					actions.closeMenu( 'click' );
-					actions.closeMenu( 'focus' );
+					actions.closeMenu();
 				}
 			},
 
@@ -132,24 +127,19 @@ const { state, actions } = store(
 				}
 			},
 
-			closeMenu( menuClosedOn = 'click' ) {
+			closeMenu() {
 				const ctx = getContext();
-				state.menuOpenedBy[ menuClosedOn ] = false;
-				// Check if the menu is still open or not.
-				if ( ! state.isMenuOpen ) {
-					if (
-						ctx.modal?.contains( window.document.activeElement )
-					) {
-						ctx.previousFocus?.focus();
-					}
-					ctx.modal = null;
-					ctx.previousFocus = null;
-					if ( ctx.type === 'overlay' ) {
-						document.documentElement.classList.remove(
-							'has-modal-open'
-						);
-						ctx.dialog?.close();
-					}
+				Object.assign( state.menuOpenedBy, openedByNone );
+				if ( ctx.modal?.contains( window.document.activeElement ) ) {
+					ctx.previousFocus?.focus();
+				}
+				ctx.modal = null;
+				ctx.previousFocus = null;
+				if ( ctx.type === 'overlay' ) {
+					document.documentElement.classList.remove(
+						'has-modal-open'
+					);
+					ctx.dialog?.close();
 				}
 			},
 		},
