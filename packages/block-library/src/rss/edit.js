@@ -14,6 +14,7 @@ import {
 	RangeControl,
 	ToggleControl,
 	ToolbarGroup,
+	TextControl,
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
@@ -38,7 +39,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 		feedURL,
 		itemsToShow,
 		openInNewTab,
-		linkRel,
+		rel,
 	} = attributes;
 
 	function toggleAttribute( propName ) {
@@ -208,18 +209,16 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 							setAttributes( { openInNewTab: value } )
 						}
 					/>
-					<InputControl
-						__next40pxDefaultSize
-						label={ __( 'Rel Attributes' ) }
-						help={ __(
-							'Space-separated list of rel attributes (e.g., "nofollow sponsored")'
-						) }
-						value={ linkRel }
-						onChange={ ( value ) =>
-							setAttributes( { linkRel: value } )
-						}
-					/>
 				</PanelBody>
+			</InspectorControls>
+			<InspectorControls group="advanced">
+				<TextControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					label={ __( 'Link rel' ) }
+					value={ rel || '' }
+					onChange={ ( value ) => setAttributes( { rel: value } ) }
+				/>
 			</InspectorControls>
 			<div { ...blockProps }>
 				<Disabled>

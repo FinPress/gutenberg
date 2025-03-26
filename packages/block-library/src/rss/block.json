@@ -44,9 +44,8 @@
 			"type": "boolean",
 			"default": false
 		},
-		"linkRel": {
-			"type": "string",
-			"default": ""
+		"rel": {
+			"type": "string"
 		}
 	},
 	"supports": {
