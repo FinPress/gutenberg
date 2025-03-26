@@ -998,6 +998,7 @@ export const __unstableSplitSelection =
 
 		let tail = {
 			...blockB,
+			// Only preserve the original client ID if the end is different.
 			clientId:
 				blockA.clientId === blockB.clientId
 					? createBlock( blockB.name ).clientId
@@ -1005,10 +1006,6 @@ export const __unstableSplitSelection =
 			attributes: {
 				...blockB.attributes,
 				[ attributeKeyB ]: toHTMLString( { value: valueB } ),
-				// Add widget ID clearance for same-block splits
-				...( blockA.clientId === blockB.clientId && {
-					__internalWidgetId: undefined,
-				} ),
 			},
 		};
 
