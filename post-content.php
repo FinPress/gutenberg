@@ -82,7 +82,7 @@
 <!-- /wp:list -->
 
 <!-- wp:separator {"opacity":"css"} -->
-<hr class="wp-block-separator has-css-opacity"/>
+<hr class="wp-block-separator has-css-opacity" />
 <!-- /wp:separator -->
 
 <!-- wp:heading -->
@@ -113,13 +113,13 @@
 <!-- wp:gallery {"columns":2,"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-2 is-cropped">
 	<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-	<figure class="wp-block-image size-large"><img src="https://cldup.com/n0g6ME5VKC.jpg" alt=""/></figure>
+	<figure class="wp-block-image size-large"><img src="https://cldup.com/n0g6ME5VKC.jpg" alt="" /></figure>
 	<!-- /wp:image -->
 	<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-	<figure class="wp-block-image size-large"><img src="https://cldup.com/ZjESfxPI3R.jpg" alt=""/></figure>
+	<figure class="wp-block-image size-large"><img src="https://cldup.com/ZjESfxPI3R.jpg" alt="" /></figure>
 	<!-- /wp:image -->
 	<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-	<figure class="wp-block-image size-large"><img src="https://cldup.com/EKNF8xD2UM.jpg" alt=""/></figure>
+	<figure class="wp-block-image size-large"><img src="https://cldup.com/EKNF8xD2UM.jpg" alt="" /></figure>
 	<!-- /wp:image -->
 </figure>
 <!-- /wp:gallery -->
@@ -147,10 +147,10 @@
 <!-- wp:gallery {"linkTo":"none","align":"wide"} -->
 <figure class="wp-block-gallery alignwide has-nested-images columns-default is-cropped">
 	<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-	<figure class="wp-block-image size-large"><img src="https://cldup.com/_rSwtEeDGD.jpg" alt=""/></figure>
+	<figure class="wp-block-image size-large"><img src="https://cldup.com/_rSwtEeDGD.jpg" alt="" /></figure>
 	<!-- /wp:image -->
 	<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-	<figure class="wp-block-image size-large"><img src="https://cldup.com/L-cC3qX2DN.jpg" alt=""/></figure>
+	<figure class="wp-block-image size-large"><img src="https://cldup.com/L-cC3qX2DN.jpg" alt="" /></figure>
 	<!-- /wp:image -->
 </figure>
 <!-- /wp:gallery -->
@@ -196,7 +196,7 @@ https://vimeo.com/22439234
 <!-- /wp:button -->
 
 <!-- wp:separator {"opacity":"css"} -->
-<hr class="wp-block-separator has-css-opacity"/>
+<hr class="wp-block-separator has-css-opacity" />
 <!-- /wp:separator -->
 
 <!-- wp:paragraph {"align":"center"} -->
