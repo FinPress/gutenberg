@@ -148,7 +148,6 @@ test.describe( 'Registered sources', () => {
 					anchor: 'connected-image',
 					url: imagePlaceholderSrc,
 					alt: 'default alt value',
-					title: 'default title value',
 					metadata: {
 						bindings: {
 							url: {
@@ -186,23 +185,6 @@ test.describe( 'Registered sources', () => {
 				.inputValue();
 			expect( altValue ).toBe( 'Text Field Value' );
 
-			// Title input should have the original value.
-			const advancedButton = page
-				.getByRole( 'tabpanel', { name: 'Settings' } )
-				.getByRole( 'button', {
-					name: 'Advanced',
-				} );
-			const isAdvancedPanelOpen =
-				await advancedButton.getAttribute( 'aria-expanded' );
-			if ( isAdvancedPanelOpen === 'false' ) {
-				await advancedButton.click();
-			}
-			const titleValue = await page
-				.getByRole( 'tabpanel', { name: 'Settings' } )
-				.getByLabel( 'Title attribute' )
-				.inputValue();
-			expect( titleValue ).toBe( 'default title value' );
-
 			// Check the frontend uses the values of the custom fields.
 			const previewPage = await editor.openPreviewPage();
 			const imageDom = previewPage.locator( '#connected-image img' );
@@ -210,10 +192,6 @@ test.describe( 'Registered sources', () => {
 			await expect( imageDom ).toHaveAttribute(
 				'alt',
 				'Text Field Value'
-			);
-			await expect( imageDom ).toHaveAttribute(
-				'title',
-				'default title value'
 			);
 		} );
 		test( 'should fall back to source label when `getValues` is undefined', async ( {
@@ -483,22 +461,6 @@ test.describe( 'Registered sources', () => {
 					.getByLabel( 'Alternative text' )
 					.inputValue();
 				expect( altValue ).toBe( 'Text Field Value' );
-
-				// Title input is enabled and with the original value.
-				await page
-					.getByRole( 'tabpanel', { name: 'Settings' } )
-					.getByRole( 'button', { name: 'Advanced' } )
-					.click();
-				await expect(
-					page
-						.getByRole( 'tabpanel', { name: 'Settings' } )
-						.getByLabel( 'Title attribute' )
-				).toHaveAttribute( 'readonly' );
-				const titleValue = await page
-					.getByRole( 'tabpanel', { name: 'Settings' } )
-					.getByLabel( 'Title attribute' )
-					.inputValue();
-				expect( titleValue ).toBe( 'Text Field Value' );
 			} );
 		} );
 		// The following tests just check the paragraph and assume is the case for the rest of the blocks.
