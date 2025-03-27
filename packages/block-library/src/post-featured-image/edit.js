@@ -196,6 +196,16 @@ export default function PostFeaturedImageEdit( {
 		}
 	};
 
+	// On reset image
+	const onResetImage = () => {
+		setAttributes( {
+			isLink: false,
+			linkTarget: '_self',
+			rel: '',
+		} );
+		setFeaturedImage( 0 );
+	};
+
 	// Reset temporary url when media is available.
 	useEffect( () => {
 		if ( mediaUrl && temporaryURL ) {
@@ -240,26 +250,8 @@ export default function PostFeaturedImageEdit( {
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
 				>
-					<ToolsPanelItem
-						label={
-							postType?.labels.singular_name
-								? sprintf(
-										// translators: %s: Name of the post type e.g: "post".
-										__( 'Link to %s' ),
-										postType.labels.singular_name
-								  )
-								: __( 'Link to post' )
-						}
-						isShownByDefault
-						hasValue={ () => !! isLink }
-						onDeselect={ () =>
-							setAttributes( {
-								isLink: false,
-							} )
-						}
-					>
-						<ToggleControl
-							__nextHasNoMarginBottom
+					{ ( featuredImage || isDescendentOfQueryLoop ) && (
+						<ToolsPanelItem
 							label={
 								postType?.labels.singular_name
 									? sprintf(
@@ -269,12 +261,32 @@ export default function PostFeaturedImageEdit( {
 									  )
 									: __( 'Link to post' )
 							}
-							onChange={ () =>
-								setAttributes( { isLink: ! isLink } )
+							isShownByDefault
+							hasValue={ () => !! isLink }
+							onDeselect={ () =>
+								setAttributes( {
+									isLink: false,
+								} )
 							}
-							checked={ isLink }
-						/>
-					</ToolsPanelItem>
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={
+									postType?.labels.singular_name
+										? sprintf(
+												// translators: %s: Name of the post type e.g: "post".
+												__( 'Link to %s' ),
+												postType.labels.singular_name
+										  )
+										: __( 'Link to post' )
+								}
+								onChange={ () =>
+									setAttributes( { isLink: ! isLink } )
+								}
+								checked={ isLink }
+							/>
+						</ToolsPanelItem>
+					) }
 					{ isLink && (
 						<ToolsPanelItem
 							label={ __( 'Open in new tab' ) }
@@ -398,8 +410,7 @@ export default function PostFeaturedImageEdit( {
 							label={ label }
 							showTooltip
 							tooltipPosition="top center"
-							onClick={ ( e ) => {
-								e.preventDefault();
+							onClick={ () => {
 								open();
 							} }
 						/>
@@ -451,7 +462,7 @@ export default function PostFeaturedImageEdit( {
 						accept="image/*"
 						onSelect={ onSelectImage }
 						onError={ onUploadError }
-						onReset={ () => setFeaturedImage( 0 ) }
+						onReset={ onResetImage }
 					/>
 				</BlockControls>
 			) }
