@@ -14,6 +14,11 @@ import { Popover, SelectControl, Button } from '@wordpress/components';
 import { useState, useMemo } from '@wordpress/element';
 import { inlineTypography } from '@wordpress/icons';
 
+/**
+ * Internal dependencies
+ */
+import { getTypographyFontSizeValue } from '../../../block-editor/src/components/global-styles/typography-utils';
+
 // Utility functions
 const serializeStyle = ( styleObj ) => {
 	return (
@@ -59,6 +64,7 @@ const title = __( 'Inline Typography' );
 const Edit = ( { isActive, value, onChange, contentRef } ) => {
 	const [ showSettings, setShowSettings ] = useState( false );
 	const activeFormat = getActiveFormat( value, name );
+	const originalFontSize = activeFormat?.attributes?.fontSize;
 	const computedStyles = useMemo( () => {
 		return activeFormat && activeFormat.attributes.style
 			? parseStyle( activeFormat.attributes.style )
@@ -67,7 +73,6 @@ const Edit = ( { isActive, value, onChange, contentRef } ) => {
 
 	const {
 		fontFamily = '',
-		fontSize = '',
 		letterSpacing = '',
 		textTransform = '',
 		lineHeight = '',
@@ -116,23 +121,98 @@ const Edit = ( { isActive, value, onChange, contentRef } ) => {
 		settings: { ...inlineTypographyButton, isActive },
 	} );
 
-	const updateInlineFormat = ( newStyles ) => {
+	const [ fontSizes, fluidSettings, layoutSettings ] = useSettings(
+		'typography.fontSizes',
+		'typography.fluid',
+		'layout'
+	);
+
+	// Process theme font sizes for FontSizePicker
+	const themeFontSizes = useMemo(
+		() =>
+			( fontSizes || [] ).map(
+				( { name: fontName, size, slug, fluid } ) => ( {
+					name: fontName,
+					size,
+					slug,
+					fluid,
+				} )
+			),
+		[ fontSizes ]
+	);
+
+	// Create an effective font size to pass to the FontSizePicker.
+	// If originalFontSize is a preset slug, we retrieve its numeric size.
+	const effectiveFontSize = useMemo( () => {
+		const preset = themeFontSizes.find(
+			( item ) => item.slug === originalFontSize
+		);
+		return preset ? preset.size : originalFontSize;
+	}, [ originalFontSize, themeFontSizes ] );
+
+	const updateInlineFormat = ( newStyles, newFontSize ) => {
 		const styleString = serializeStyle( newStyles );
+		const currentFontSize = activeFormat?.attributes?.fontSize;
+		const attributes = {
+			style: styleString,
+			fontSize: newFontSize !== undefined ? newFontSize : currentFontSize,
+		};
 		let newValue = toggleFormat( value, { type: name } );
 		newValue = toggleFormat( newValue, {
 			type: name,
-			attributes: { style: styleString },
+			attributes,
 		} );
 		onChange( newValue );
 	};
 
-	// onUpdate merges the new value into the computed styles.
 	const onUpdate = ( key, newVal ) => {
-		const updatedStyles = {
-			...computedStyles,
-			[ key ]: newVal,
-		};
-		updateInlineFormat( updatedStyles );
+		if ( key === 'fontSize' ) {
+			let fontSizeObject = themeFontSizes.find(
+				( size ) => size.slug === newVal
+			);
+			if ( ! fontSizeObject ) {
+				fontSizeObject = themeFontSizes.find(
+					( size ) => size.size === newVal
+				);
+			}
+
+			if ( fontSizeObject ) {
+				// Handle theme presets with their own fluid settings
+				const fluidValue = getTypographyFontSizeValue(
+					{
+						size: fontSizeObject.size,
+						fluid: fontSizeObject.fluid,
+					},
+					{
+						typography: { fluid: fluidSettings },
+						layout: layoutSettings,
+					}
+				);
+				updateInlineFormat(
+					{ ...computedStyles, fontSize: fluidValue },
+					fontSizeObject.slug
+				);
+			} else {
+				// Handle custom values with global fluid settings
+				const fluidValue = getTypographyFontSizeValue(
+					{ size: newVal },
+					{
+						typography: { fluid: fluidSettings },
+						layout: layoutSettings,
+					}
+				);
+
+				updateInlineFormat(
+					{ ...computedStyles, fontSize: fluidValue },
+					newVal
+				);
+			}
+		} else {
+			updateInlineFormat(
+				{ ...computedStyles, [ key ]: newVal },
+				activeFormat?.attributes?.fontSize
+			);
+		}
 	};
 
 	return (
@@ -173,7 +253,8 @@ const Edit = ( { isActive, value, onChange, contentRef } ) => {
 						/>
 						<div style={ { marginTop: '20px' } }>
 							<FontSizePicker
-								value={ fontSize }
+								fontSizes={ themeFontSizes }
+								value={ effectiveFontSize }
 								fallbackFontSize={ 16 }
 								onChange={ ( newSize ) =>
 									onUpdate( 'fontSize', newSize )
@@ -248,6 +329,6 @@ export const inlineTypographyButton = {
 	title,
 	tagName: 'span',
 	className: 'wp_block_inline_typography',
-	attributes: { style: 'style' },
+	attributes: { style: 'style', fontSize: 'data-font-size' },
 	edit: Edit,
 };
