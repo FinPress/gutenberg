@@ -17,7 +17,6 @@ import {
 	FocalPointPicker,
 	MenuItem,
 	VisuallyHidden,
-	__experimentalItemGroup as ItemGroup,
 	__experimentalHStack as HStack,
 	__experimentalTruncate as Truncate,
 	Dropdown,
@@ -111,7 +110,6 @@ export const backgroundPositionToCoords = ( value ) => {
 };
 
 function InspectorImagePreviewItem( {
-	as = 'span',
 	imgUrl,
 	toggleProps = {},
 	filename,
@@ -124,12 +122,9 @@ function InspectorImagePreviewItem( {
 			onToggleCallback( toggleProps?.isOpen );
 		}
 	}, [ toggleProps?.isOpen, onToggleCallback ] );
-	return (
-		<ItemGroup
-			// TODO: Remove role when button is used. This is a temporary fix to not have role="list" on a button.
-			// See https://github.com/WordPress/gutenberg/pull/68631
-			role={ as === 'span' ? 'none' : 'button' }
-			as={ as }
+	return imgUrl ? (
+		<Button
+			__next40pxDefaultSize
 			className={ className }
 			{ ...toggleProps }
 		>
@@ -169,7 +164,29 @@ function InspectorImagePreviewItem( {
 					</VisuallyHidden>
 				</FlexItem>
 			</HStack>
-		</ItemGroup>
+		</Button>
+	) : (
+		<FlexItem
+			className={ className }
+			as="span"
+			style={ imgUrl ? {} : { flexGrow: 1 } }
+		>
+			<Truncate
+				numberOfLines={ 1 }
+				className="block-editor-global-styles-background-panel__inspector-media-replace-title"
+			>
+				{ label }
+			</Truncate>
+			<VisuallyHidden as="span">
+				{ imgUrl
+					? sprintf(
+							/* translators: %s: file name */
+							__( 'Background image: %s' ),
+							filename || label
+					  )
+					: __( 'No background image selected' ) }
+			</VisuallyHidden>
+		</FlexItem>
 	);
 }
 
@@ -208,7 +225,6 @@ function BackgroundControlsPanel( {
 						filename={ filename }
 						label={ imgLabel }
 						toggleProps={ toggleProps }
-						as="button"
 						onToggleCallback={ onToggleCallback }
 					/>
 				);
