@@ -117,7 +117,7 @@ export default function TableOfContentsEdit( {
 				resetAll={ () => {
 					setAttributes( {
 						onlyIncludeCurrentPage: false,
-						maxLevel: null,
+						maxLevel: undefined,
 					} );
 				} }
 				dropdownMenuProps={ dropdownMenuProps }
