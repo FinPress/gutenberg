@@ -102,7 +102,7 @@ function getLatestHeadings( select, clientId ) {
 				const headingAttributes = getBlockAttributes( blockClientId );
 
 				// Skip headings that are deeper than maxLevel
-				if ( maxLevel !== null && headingAttributes.level > maxLevel ) {
+				if ( maxLevel && headingAttributes.level > maxLevel ) {
 					continue;
 				}
 

@@ -21,8 +21,7 @@
 			"default": false
 		},
 		"maxLevel": {
-			"type": [ "number", "null" ],
-			"default": null
+			"type": "number"
 		}
 	},
 	"supports": {
