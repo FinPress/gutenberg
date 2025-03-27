@@ -57,9 +57,11 @@ const { state, actions } = store(
 				}
 			},
 			closeMenuOnHover() {
-				const { type, overlayOpenedBy } = getContext();
+				const { type, overlayOpenedBy, submenuOpenedBy } = getContext();
 				if (
 					type === 'submenu' &&
+					// Close only if not opened by click.
+					submenuOpenedBy.click === false &&
 					// Only close on hover if the overlay is closed.
 					Object.values( overlayOpenedBy || {} ).filter( Boolean )
 						.length === 0
