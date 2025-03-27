@@ -4,8 +4,7 @@
 		"isValid": true,
 		"attributes": {
 			"headings": [],
-			"onlyIncludeCurrentPage": false,
-			"maxLevel": null
+			"onlyIncludeCurrentPage": false
 		},
 		"innerBlocks": []
 	}
