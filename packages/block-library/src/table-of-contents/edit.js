@@ -42,7 +42,7 @@ import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
  * @param {Object}                       props.attributes                        The block attributes.
  * @param {HeadingData[]}                props.attributes.headings               The list of data for each heading in the post.
  * @param {boolean}                      props.attributes.onlyIncludeCurrentPage Whether to only include headings from the current page (if the post is paginated).
- * @param {number|null}                  props.attributes.maxLevel               The maximum heading level to include, or null to include all levels.
+ * @param {number|undefined}             props.attributes.maxLevel               The maximum heading level to include, or null to include all levels.
  * @param {string}                       props.clientId                          The client id.
  * @param {(attributes: Object) => void} props.setAttributes                     The set attributes function.
  *
