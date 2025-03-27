@@ -287,51 +287,55 @@ export default function PostFeaturedImageEdit( {
 							/>
 						</ToolsPanelItem>
 					) }
-					{ isLink && (
-						<ToolsPanelItem
-							label={ __( 'Open in new tab' ) }
-							isShownByDefault
-							hasValue={ () => '_self' !== linkTarget }
-							onDeselect={ () =>
-								setAttributes( {
-									linkTarget: '_self',
-								} )
-							}
-						>
-							<ToggleControl
-								__nextHasNoMarginBottom
+					{ ( featuredImage || isDescendentOfQueryLoop ) &&
+						isLink && (
+							<ToolsPanelItem
 								label={ __( 'Open in new tab' ) }
-								onChange={ ( value ) =>
+								isShownByDefault
+								hasValue={ () => '_self' !== linkTarget }
+								onDeselect={ () =>
 									setAttributes( {
-										linkTarget: value ? '_blank' : '_self',
+										linkTarget: '_self',
 									} )
 								}
-								checked={ linkTarget === '_blank' }
-							/>
-						</ToolsPanelItem>
-					) }
-					{ isLink && (
-						<ToolsPanelItem
-							label={ __( 'Link rel' ) }
-							isShownByDefault
-							hasValue={ () => !! rel }
-							onDeselect={ () =>
-								setAttributes( {
-									rel: '',
-								} )
-							}
-						>
-							<TextControl
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
+							>
+								<ToggleControl
+									__nextHasNoMarginBottom
+									label={ __( 'Open in new tab' ) }
+									onChange={ ( value ) =>
+										setAttributes( {
+											linkTarget: value
+												? '_blank'
+												: '_self',
+										} )
+									}
+									checked={ linkTarget === '_blank' }
+								/>
+							</ToolsPanelItem>
+						) }
+					{ ( featuredImage || isDescendentOfQueryLoop ) &&
+						isLink && (
+							<ToolsPanelItem
 								label={ __( 'Link rel' ) }
-								value={ rel }
-								onChange={ ( newRel ) =>
-									setAttributes( { rel: newRel } )
+								isShownByDefault
+								hasValue={ () => !! rel }
+								onDeselect={ () =>
+									setAttributes( {
+										rel: '',
+									} )
 								}
-							/>
-						</ToolsPanelItem>
-					) }
+							>
+								<TextControl
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
+									label={ __( 'Link rel' ) }
+									value={ rel }
+									onChange={ ( newRel ) =>
+										setAttributes( { rel: newRel } )
+									}
+								/>
+							</ToolsPanelItem>
+						) }
 					<FeaturedImageResolutionTool
 						image={ media }
 						value={ sizeSlug }
