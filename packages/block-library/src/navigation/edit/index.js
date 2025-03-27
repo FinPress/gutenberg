@@ -143,6 +143,7 @@ function ColorTools( {
 						onColorChange: setTextColor,
 						resetAllFilter: () => setTextColor(),
 						clearable: true,
+						enableAlpha: true,
 					},
 					{
 						colorValue: backgroundColor.color,
@@ -150,6 +151,7 @@ function ColorTools( {
 						onColorChange: setBackgroundColor,
 						resetAllFilter: () => setBackgroundColor(),
 						clearable: true,
+						enableAlpha: true,
 					},
 					{
 						colorValue: overlayTextColor.color,
@@ -157,6 +159,7 @@ function ColorTools( {
 						onColorChange: setOverlayTextColor,
 						resetAllFilter: () => setOverlayTextColor(),
 						clearable: true,
+						enableAlpha: true,
 					},
 					{
 						colorValue: overlayBackgroundColor.color,
