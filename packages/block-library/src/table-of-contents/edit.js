@@ -149,7 +149,7 @@ export default function TableOfContentsEdit( {
 					/>
 				</ToolsPanelItem>
 				<ToolsPanelItem
-					hasValue={ () => maxLevel !== null }
+					hasValue={ () => maxLevel }
 					label={ __( 'Limit heading levels' ) }
 					onDeselect={ () => setAttributes( { maxLevel: null } ) }
 					isShownByDefault
