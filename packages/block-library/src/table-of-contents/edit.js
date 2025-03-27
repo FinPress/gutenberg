@@ -151,7 +151,9 @@ export default function TableOfContentsEdit( {
 				<ToolsPanelItem
 					hasValue={ () => !! maxLevel }
 					label={ __( 'Limit heading levels' ) }
-					onDeselect={ () => setAttributes( { maxLevel: null } ) }
+					onDeselect={ () =>
+						setAttributes( { maxLevel: undefined } )
+					}
 					isShownByDefault
 				>
 					<SelectControl
