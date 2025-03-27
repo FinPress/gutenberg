@@ -36,7 +36,14 @@ import { getBlockAndPreviewFromMedia } from './utils';
 import { store as blockEditorStore } from '../../../store';
 
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
-const MAXIMUM_TITLE_LENGTH = 25;
+/**
+ * Default maximum length for media item titles in the inserter.
+ * This can be filtered using the block editor settings.
+ * Use -1 for no truncation.
+ *
+ * @type {number}
+ */
+const DEFAULT_MAXIMUM_TITLE_LENGTH = 25;
 const MEDIA_OPTIONS_POPOVER_PROPS = {
 	position: 'bottom left',
 	className:
@@ -135,6 +142,14 @@ export function MediaPreview( { media, onClick, category } ) {
 		useDispatch( noticesStore );
 	const { getSettings, getBlock } = useSelect( blockEditorStore );
 	const { updateBlockAttributes } = useDispatch( blockEditorStore );
+
+	// Get the maximum title length, which can be filtered.
+	const maxTitleLength = useSelect( () => {
+		const settings = getSettings();
+		return settings.__experimentalMediaPreviewTitleLength !== undefined
+			? settings.__experimentalMediaPreviewTitleLength
+			: DEFAULT_MAXIMUM_TITLE_LENGTH;
+	}, [ getSettings ] );
 
 	const onMediaInsert = useCallback(
 		( previewBlock ) => {
@@ -239,11 +254,12 @@ export function MediaPreview( { media, onClick, category } ) {
 			? media.title
 			: media.title?.rendered || __( 'no title' );
 
-	let truncatedTitle;
-	if ( title.length > MAXIMUM_TITLE_LENGTH ) {
+	let truncatedTitle = title;
+	// Only truncate if maxTitleLength is a positive number.
+	if ( maxTitleLength > 0 && title.length > maxTitleLength ) {
 		const omission = '...';
 		truncatedTitle =
-			title.slice( 0, MAXIMUM_TITLE_LENGTH - omission.length ) + omission;
+			title.slice( 0, maxTitleLength - omission.length ) + omission;
 	}
 	const onMouseEnter = useCallback( () => setIsHovered( true ), [] );
 	const onMouseLeave = useCallback( () => setIsHovered( false ), [] );
