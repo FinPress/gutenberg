@@ -238,19 +238,19 @@ export default function PostFeaturedImageEdit( {
 					media={ media }
 				/>
 			</InspectorControls>
-			<InspectorControls>
-				<ToolsPanel
-					label={ __( 'Settings' ) }
-					resetAll={ () => {
-						setAttributes( {
-							isLink: false,
-							linkTarget: '_self',
-							rel: '',
-						} );
-					} }
-					dropdownMenuProps={ dropdownMenuProps }
-				>
-					{ ( featuredImage || isDescendentOfQueryLoop ) && (
+			{ ( featuredImage || isDescendentOfQueryLoop ) && (
+				<InspectorControls>
+					<ToolsPanel
+						label={ __( 'Settings' ) }
+						resetAll={ () => {
+							setAttributes( {
+								isLink: false,
+								linkTarget: '_self',
+								rel: '',
+							} );
+						} }
+						dropdownMenuProps={ dropdownMenuProps }
+					>
 						<ToolsPanelItem
 							label={
 								postType?.labels.singular_name
@@ -286,9 +286,8 @@ export default function PostFeaturedImageEdit( {
 								checked={ isLink }
 							/>
 						</ToolsPanelItem>
-					) }
-					{ ( featuredImage || isDescendentOfQueryLoop ) &&
-						isLink && (
+
+						{ isLink && (
 							<ToolsPanelItem
 								label={ __( 'Open in new tab' ) }
 								isShownByDefault
@@ -313,8 +312,7 @@ export default function PostFeaturedImageEdit( {
 								/>
 							</ToolsPanelItem>
 						) }
-					{ ( featuredImage || isDescendentOfQueryLoop ) &&
-						isLink && (
+						{ isLink && (
 							<ToolsPanelItem
 								label={ __( 'Link rel' ) }
 								isShownByDefault
@@ -336,15 +334,16 @@ export default function PostFeaturedImageEdit( {
 								/>
 							</ToolsPanelItem>
 						) }
-					<FeaturedImageResolutionTool
-						image={ media }
-						value={ sizeSlug }
-						onChange={ ( nextSizeSlug ) =>
-							setAttributes( { sizeSlug: nextSizeSlug } )
-						}
-					/>
-				</ToolsPanel>
-			</InspectorControls>
+						<FeaturedImageResolutionTool
+							image={ media }
+							value={ sizeSlug }
+							onChange={ ( nextSizeSlug ) =>
+								setAttributes( { sizeSlug: nextSizeSlug } )
+							}
+						/>
+					</ToolsPanel>
+				</InspectorControls>
+			) }
 		</>
 	);
 
