@@ -26,9 +26,6 @@
 		},
 		"placeholder": {
 			"type": "string"
-		},
-		"allowedFormats": {
-			"type": "array"
 		}
 	},
 	"supports": {

@@ -39,7 +39,7 @@ function HeadingEdit( {
 		levelOptions,
 		placeholder,
 		anchor,
-		allowedFormats,
+		metadata,
 	} = attributes;
 	const tagName = 'h' + level;
 	const blockProps = useBlockProps( {
@@ -133,7 +133,7 @@ function HeadingEdit( {
 				onRemove={ () => onReplace( [] ) }
 				placeholder={ placeholder || __( 'Heading' ) }
 				textAlign={ textAlign }
-				allowedFormats={ allowedFormats }
+				allowedFormats={ metadata?.allowedFormats }
 				{ ...( Platform.isNative && { deleteEnter: true } ) } // setup RichText on native mobile to delete the "Enter" key as it's handled by the JS/RN side
 				{ ...blockProps }
 			/>
