@@ -32,8 +32,11 @@ jobs:
                   npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
                   "npm run storybook:dev" \
                   "npx wait-on tcp:127.0.0.1:50240 && \
+                  echo 'Storybook server detected, waiting to ensure full initialization...' && \
+                  sleep 120 && \
                   NODE_PATH=./node_modules \
                   npx --package=@storybook/test-runner -- \
                   test-storybook \
                   --url http://localhost:50240 \
-                  --config-dir ./storybook"
+                  --config-dir ./storybook \
+                  --timeout 60000"
