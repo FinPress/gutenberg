@@ -15,6 +15,9 @@ const focusableSelectors = [
 
 const openedByNone = { click: false, focus: false, hover: false };
 
+const hasCommandSupport =
+	window.HTMLButtonElement.prototype.hasOwnProperty( 'command' );
+
 // This is a fix for Safari in iOS/iPadOS. Without it, Safari doesn't focus out
 // when the user taps in the body. It can be removed once we add an overlay to
 // capture the clicks, instead of relying on the focusout event.
@@ -118,17 +121,17 @@ const { state, actions } = store(
 					actions.closeMenu();
 				}
 			},
-
 			openMenu( menuOpenedOn = 'click' ) {
 				const { type, dialog } = getContext();
 				state.menuOpenedBy[ menuOpenedOn ] = true;
 				if ( type === 'overlay' ) {
 					// Add a `has-modal-open` class to the <html> root.
 					document.documentElement.classList.add( 'has-modal-open' );
-					dialog.showModal();
+					if ( ! hasCommandSupport ) {
+						dialog.showModal();
+					}
 				}
 			},
-
 			closeMenu() {
 				const ctx = getContext();
 				Object.assign( state.menuOpenedBy, openedByNone );
@@ -141,7 +144,9 @@ const { state, actions } = store(
 					document.documentElement.classList.remove(
 						'has-modal-open'
 					);
-					ctx.dialog?.close();
+					if ( ! hasCommandSupport ) {
+						ctx.dialog?.close();
+					}
 				}
 			},
 		},

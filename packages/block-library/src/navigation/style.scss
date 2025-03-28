@@ -493,7 +493,7 @@ button.wp-block-navigation-item__content {
 	// Inherit as much as we can regarding colors, fonts, sizes,
 	// but otherwise provide a baseline.
 	// In a future version, we can explore more customizability.
-	&.is-menu-open {
+	&:is(.is-menu-open, [open]) {
 		display: flex;
 		flex-direction: column;
 
@@ -603,7 +603,7 @@ button.wp-block-navigation-item__content {
 
 	@include break-small() {
 		&:not(.hidden-by-default) {
-			&:not(.is-menu-open) {
+			&:not(.is-menu-open, [open]) {
 				display: block;
 				width: 100%;
 				position: relative;
@@ -616,7 +616,7 @@ button.wp-block-navigation-item__content {
 			}
 		}
 
-		&.is-menu-open {
+		&:is(.is-menu-open, [open]) {
 			// Override breakpoint-inherited submenu rules.
 			.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container {
 				left: 0;
@@ -627,12 +627,12 @@ button.wp-block-navigation-item__content {
 
 // Default menu background and font color.
 .wp-block-navigation:not(.has-background)
-.wp-block-navigation__responsive-container.is-menu-open {
+.wp-block-navigation__responsive-container:is(.is-menu-open, [open]) {
 	background-color: #fff;
 }
 
 .wp-block-navigation:not(.has-text-color)
-.wp-block-navigation__responsive-container.is-menu-open {
+.wp-block-navigation__responsive-container:is(.is-menu-open, [open]) {
 	color: #000;
 }
 
@@ -719,9 +719,8 @@ button.wp-block-navigation-item__content {
 	}
 }
 
-.is-menu-open .wp-block-navigation__responsive-close,
-.is-menu-open .wp-block-navigation__responsive-dialog,
-.is-menu-open .wp-block-navigation__responsive-container-content {
+.wp-block-navigation__responsive-container:is(.is-menu-open, [open])
+:is(.wp-block-navigation__responsive-close, .wp-block-navigation__responsive-dialog, .wp-block-navigation__responsive-container-content) {
 	box-sizing: border-box;
 }
 
@@ -730,6 +729,7 @@ button.wp-block-navigation-item__content {
 }
 
 // Prevent scrolling of the parent content when the modal is open.
-html.has-modal-open {
+html.has-modal-open,
+html:has(.wp-block-navigation__responsive-container[open]) {
 	overflow: hidden;
 }

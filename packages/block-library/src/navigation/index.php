@@ -523,11 +523,11 @@ class WP_Navigation_Block_Renderer {
 		$overlay_inline_styles = esc_attr( safecss_filter_attr( $colors['overlay_inline_styles'] ) );
 
 		return sprintf(
-			'<button aria-haspopup="dialog" %3$s class="%6$s" %10$s>%8$s</button>
+			'<button aria-haspopup="dialog" %3$s class="%6$s" %10$s commandfor="%1$s" command="show-modal">%8$s</button>
 				<dialog class="%5$s" %7$s id="%1$s" %11$s>
 					<div class="wp-block-navigation__responsive-close" tabindex="-1">
 						<div class="wp-block-navigation__responsive-dialog" %12$s>
-							<button %4$s class="wp-block-navigation__responsive-container-close" %13$s>%9$s</button>
+							<button %4$s class="wp-block-navigation__responsive-container-close" %13$s commandfor="%1$s" command="close">%9$s</button>
 							<div class="wp-block-navigation__responsive-container-content" %14$s id="%1$s-content">
 								%2$s
 							</div>
