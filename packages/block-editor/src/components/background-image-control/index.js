@@ -110,6 +110,7 @@ export const backgroundPositionToCoords = ( value ) => {
 };
 
 function InspectorImagePreviewItem( {
+	as = 'span',
 	imgUrl,
 	toggleProps = {},
 	filename,
@@ -122,12 +123,9 @@ function InspectorImagePreviewItem( {
 			onToggleCallback( toggleProps?.isOpen );
 		}
 	}, [ toggleProps?.isOpen, onToggleCallback ] );
-	return imgUrl ? (
-		<Button
-			__next40pxDefaultSize
-			className={ className }
-			{ ...toggleProps }
-		>
+
+	const renderLabelContent = () => {
+		return (
 			<HStack
 				justify="flex-start"
 				as="span"
@@ -164,29 +162,19 @@ function InspectorImagePreviewItem( {
 					</VisuallyHidden>
 				</FlexItem>
 			</HStack>
+		);
+	};
+
+	return as === 'button' ? (
+		<Button
+			__next40pxDefaultSize
+			className={ className }
+			{ ...toggleProps }
+		>
+			{ renderLabelContent() }
 		</Button>
 	) : (
-		<FlexItem
-			className={ className }
-			as="span"
-			style={ imgUrl ? {} : { flexGrow: 1 } }
-		>
-			<Truncate
-				numberOfLines={ 1 }
-				className="block-editor-global-styles-background-panel__inspector-media-replace-title"
-			>
-				{ label }
-			</Truncate>
-			<VisuallyHidden as="span">
-				{ imgUrl
-					? sprintf(
-							/* translators: %s: file name */
-							__( 'Background image: %s' ),
-							filename || label
-					  )
-					: __( 'No background image selected' ) }
-			</VisuallyHidden>
-		</FlexItem>
+		renderLabelContent()
 	);
 }
 
@@ -225,6 +213,7 @@ function BackgroundControlsPanel( {
 						filename={ filename }
 						label={ imgLabel }
 						toggleProps={ toggleProps }
+						as="button"
 						onToggleCallback={ onToggleCallback }
 					/>
 				);
