@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Bug Fixes
+
+-   `Notice`: Fix notice component spacing issue ([#69430](https://github.com/WordPress/gutenberg/pull/69430)).
+
 ### Enhancement
 
 -   `QueryControls`: Add menu_order sorting option if supported by the post type. ([#68781](https://github.com/WordPress/gutenberg/pull/68781)).
