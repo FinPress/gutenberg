@@ -124,7 +124,7 @@ function InspectorImagePreviewItem( {
 		}
 	}, [ toggleProps?.isOpen, onToggleCallback ] );
 
-	const renderLabelContent = () => {
+	const renderPreviewContent = () => {
 		return (
 			<HStack
 				justify="flex-start"
@@ -171,10 +171,10 @@ function InspectorImagePreviewItem( {
 			className={ className }
 			{ ...toggleProps }
 		>
-			{ renderLabelContent() }
+			{ renderPreviewContent() }
 		</Button>
 	) : (
-		renderLabelContent()
+		renderPreviewContent()
 	);
 }
 
