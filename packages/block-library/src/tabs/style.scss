@@ -50,7 +50,7 @@
 		}
 	}
 
-	&.is-orientation-vertical {
+	&.is-vertical {
 		flex-wrap: nowrap;
 		.tabs__list,
 		.tabs__content {
@@ -111,14 +111,14 @@
 	}
 
 	// Vertical tweaks to styles.
-	&.is-orientation-vertical.is-style-fill,
-	&.is-orientation-vertical.is-style-outline {
+	&.is-vertical.is-style-fill,
+	&.is-vertical.is-style-outline {
 		.tabs__list {
 			border-right: 1px solid var(--custom-tab-active-color) !important;
 			border-bottom: none !important;
 		}
 	}
-	&.is-orientation-vertical.is-style-outline .tabs__tab-label {
+	&.is-vertical.is-style-outline .tabs__tab-label {
 		border-bottom: 1px solid transparent;
 		border-right: none !important;
 		&:hover {

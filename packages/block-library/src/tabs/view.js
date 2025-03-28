@@ -1,7 +1,12 @@
 /**
  * WordPress dependencies
  */
-import { store, getContext, getElement } from '@wordpress/interactivity';
+import {
+	store,
+	getContext,
+	getElement,
+	withSyncEvent,
+} from '@wordpress/interactivity';
 
 /**
  * Determines whether a value is numeric.
@@ -53,7 +58,8 @@ const { state, actions } = store( 'core/tabs', {
 		 *
 		 * @param {KeyboardEvent} event The keydown event.
 		 */
-		handleTabKeyDown: ( event ) => {
+
+		handleTabKeyDown: withSyncEvent( ( event ) => {
 			const { key, target } = event;
 
 			if ( ! target ) {
@@ -92,13 +98,13 @@ const { state, actions } = store( 'core/tabs', {
 				default:
 					break;
 			}
-		},
+		} ),
 		/**
 		 * Handles the click event for the tab label.
 		 *
 		 * @param {MouseEvent} event The click event.
 		 */
-		handleTabClick: ( event ) => {
+		handleTabClick: withSyncEvent( ( event ) => {
 			event.preventDefault();
 
 			const tabIndexValue =
@@ -110,7 +116,7 @@ const { state, actions } = store( 'core/tabs', {
 			if ( tabIndex !== null ) {
 				actions.setActiveTab( tabIndex );
 			}
-		},
+		} ),
 		/**
 		 * Sets the active tab index.
 		 *

@@ -55,9 +55,7 @@ function Edit( {
 	 */
 	const blockProps = useBlockProps( {
 		className: clsx(
-			'vertical' === orientation
-				? 'is-orientation-vertical'
-				: 'is-orientation-horizontal'
+			'vertical' === orientation ? 'is-vertical' : 'is-horizontal'
 		),
 		style: {
 			...style,

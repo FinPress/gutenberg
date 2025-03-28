@@ -66,10 +66,11 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 		$active_tab_index = isset($matches[1]) ? (int) $matches[1] : 0;
 	}
 
+
 	// Modify the wrapper.
 	$tag_processor = new WP_HTML_Tag_Processor( $content );
-	$tag_processor->next_tag('.wp-block-tabs');
-	$tag_processor->add_class($attributes['orientation'] ? 'is-orientation-vertical' : 'is-orientation-horizontal');
+	$tag_processor->next_tag( array('class_name' => 'wp-block-tabs') );
+	$tag_processor->add_class( 'vertical' === $attributes['orientation'] ? 'is-vertical' : 'is-horizontal');
 	$tag_processor->set_attribute('data-wp-interactive', 'core/tabs');
 	$tag_processor->set_attribute('data-wp-context', wp_json_encode(
 		array(
@@ -95,11 +96,16 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 		}
 		$tab_slug     = $tab['slug'];
 		$tab_label    = $tab['label'];
-		$tabs_markup .= wp_sprintf( '<li class="tabs__list-item" role="presentation"><a id="%1$s" class="tabs__tab-label" href="%1$s" role="tab" data-wp-on--click="actions.handleTabClick" data-tab-index="%2$s" data-wp-bind--aria-selected="state.isActiveTab" data-tab-hash="%4$s">%3$s</a></li>', $tab_slug, $tab_index, $tab_label, base64_encode( $tab_label . '__' . $tab_index ) );
+		$safe_tab_label = wp_strip_all_tags( $tab_label );
+		$tab_hash = base64_encode( $safe_tab_label . '__' . $tab_index );
+		$tabs_markup .= wp_sprintf( '<li class="tabs__list-item" role="presentation"><a id="%1$s" class="tabs__tab-label" href="%1$s" role="tab" data-wp-on--click="actions.handleTabClick" data-tab-index="%2$s" data-wp-bind--aria-selected="state.isActiveTab" data-tab-hash="%4$s">%3$s</a></li>', $tab_slug, $tab_index, $tab_label, $tab_hash );
 	}
 	$tabs_markup .= count($tabs_list) > 1 ? '</ul>' : '';
 
-	$tag_processor->next_tag('ul.tabs__list');
+	$tag_processor->next_tag( array(
+		'class_name' => 'tabs__list',
+		'tag_name' => 'ul',
+	) );
 	$updated_content = $tag_processor->get_updated_html();
 
 	$list_start_pos = strpos($updated_content, '<ul class="tabs__list"');
