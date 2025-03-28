@@ -91,13 +91,12 @@ function DetailsEdit( { attributes, setAttributes } ) {
 					) }
 				/>
 			</InspectorControls>
-			<details { ...innerBlocksProps } open={ isOpen }>
-				<summary
-					onClick={ ( event ) => {
-						event.preventDefault();
-						setIsOpen( ! isOpen );
-					} }
-				>
+			<details
+				{ ...innerBlocksProps }
+				open={ isOpen }
+				onToggle={ ( event ) => setIsOpen( event.target.open ) }
+			>
+				<summary>
 					<RichText
 						identifier="summary"
 						aria-label={ __( 'Write summary' ) }
