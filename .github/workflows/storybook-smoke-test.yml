@@ -11,6 +11,7 @@ jobs:
     test:
         runs-on: ubuntu-latest
         if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
+        timeout-minutes: 60
 
         steps:
             - name: Checkout
@@ -38,5 +39,4 @@ jobs:
                   npx --package=@storybook/test-runner -- \
                   test-storybook \
                   --url http://localhost:50240 \
-                  --config-dir ./storybook \
-                  --timeout 60000"
+                  --config-dir ./storybook"
