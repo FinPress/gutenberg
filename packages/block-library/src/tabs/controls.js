@@ -64,7 +64,7 @@ export default function Controls( {
 				<ColorGradientSettingsDropdown
 					settings={ [
 						{
-							label: __( 'Tab Background' ),
+							label: __( 'Tab Inactive State' ),
 							colorValue:
 								tabBackgroundColor?.color ??
 								customTabBackgroundColor,
@@ -72,6 +72,17 @@ export default function Controls( {
 								setTabBackgroundColor( value );
 								setAttributes( {
 									customTabBackgroundColor: value,
+								} );
+							},
+						},
+						{
+							label: __( 'Tab Inactive Text' ),
+							colorValue:
+								tabTextColor?.color ?? customTabTextColor,
+							onColorChange: ( value ) => {
+								setTabTextColor( value );
+								setAttributes( {
+									customTabTextColor: value,
 								} );
 							},
 						},
@@ -87,28 +98,6 @@ export default function Controls( {
 							},
 						},
 						{
-							label: __( 'Tab Active State' ),
-							colorValue:
-								tabActiveColor?.color ?? customTabActiveColor,
-							onColorChange: ( value ) => {
-								setTabActiveColor( value );
-								setAttributes( {
-									customTabActiveColor: value,
-								} );
-							},
-						},
-						{
-							label: __( 'Tab Text' ),
-							colorValue:
-								tabTextColor?.color ?? customTabTextColor,
-							onColorChange: ( value ) => {
-								setTabTextColor( value );
-								setAttributes( {
-									customTabTextColor: value,
-								} );
-							},
-						},
-						{
 							label: __( 'Tab Hover Text' ),
 							colorValue:
 								tabHoverTextColor?.color ??
@@ -117,6 +106,17 @@ export default function Controls( {
 								setTabHoverTextColor( value );
 								setAttributes( {
 									customTabHoverTextColor: value,
+								} );
+							},
+						},
+						{
+							label: __( 'Tab Active State' ),
+							colorValue:
+								tabActiveColor?.color ?? customTabActiveColor,
+							onColorChange: ( value ) => {
+								setTabActiveColor( value );
+								setAttributes( {
+									customTabActiveColor: value,
 								} );
 							},
 						},

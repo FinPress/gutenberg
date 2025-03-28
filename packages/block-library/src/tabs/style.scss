@@ -44,7 +44,6 @@
 			}
 			&[aria-selected="true"] {
 				opacity: 1;
-				background-color: var(--custom-tab-active-color);
 				color: var(--custom-tab-active-text-color);
 			}
 		}
@@ -91,7 +90,7 @@
 
 	&.is-style-outline {
 		.tabs__list {
-			border-bottom: 1px solid var(--custom-tab-active-color);
+			border-bottom: 1px solid var(--custom-tab-active-color, #eaeaea);
 		}
 		.tabs__tab-label {
 			border-top: 1px solid transparent;
@@ -114,10 +113,11 @@
 	&.is-vertical.is-style-fill,
 	&.is-vertical.is-style-outline {
 		.tabs__list {
-			border-right: 1px solid var(--custom-tab-active-color) !important;
+			border-right: 1px solid var(--custom-tab-active-color, #eaeaea) !important;
 			border-bottom: none !important;
 		}
 	}
+
 	&.is-vertical.is-style-outline .tabs__tab-label {
 		border-bottom: 1px solid transparent;
 		border-right: none !important;
