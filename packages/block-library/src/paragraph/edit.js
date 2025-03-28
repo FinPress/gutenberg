@@ -108,7 +108,8 @@ function ParagraphBlock( {
 	isSelected: isSingleSelected,
 	name,
 } ) {
-	const { align, content, direction, dropCap, placeholder } = attributes;
+	const { align, allowedFormats, content, direction, dropCap, placeholder } =
+		attributes;
 	const blockProps = useBlockProps( {
 		ref: useOnEnter( { clientId, content } ),
 		className: clsx( {
@@ -171,6 +172,7 @@ function ParagraphBlock( {
 				data-empty={ RichText.isEmpty( content ) }
 				placeholder={ placeholder || __( 'Type / to choose a block' ) }
 				data-custom-placeholder={ placeholder ? true : undefined }
+				allowedFormats={ allowedFormats }
 				__unstableEmbedURLOnPaste
 				__unstableAllowPrefixTransformations
 			/>
