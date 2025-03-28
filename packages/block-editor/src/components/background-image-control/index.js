@@ -124,6 +124,8 @@ function InspectorImagePreviewItem( {
 		}
 	}, [ toggleProps?.isOpen, onToggleCallback ] );
 
+	const { isOpen, ...restToggleProps } = toggleProps;
+
 	const renderPreviewContent = () => {
 		return (
 			<HStack
@@ -169,7 +171,8 @@ function InspectorImagePreviewItem( {
 		<Button
 			__next40pxDefaultSize
 			className={ className }
-			{ ...toggleProps }
+			{ ...restToggleProps }
+			aria-expanded={ isOpen }
 		>
 			{ renderPreviewContent() }
 		</Button>
