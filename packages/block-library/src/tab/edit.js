@@ -19,7 +19,7 @@ import {
 	__experimentalGetElementClassName as getElementClassName,
 } from '@wordpress/block-editor';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { Fragment, useMemo, useRef } from '@wordpress/element';
+import { useMemo, useRef } from '@wordpress/element';
 import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
 import { cleanForSlug } from '@wordpress/url';
 
@@ -160,9 +160,9 @@ export default function Edit( {
 	const tabPanelId = useMemo( () => anchor || slug, [ anchor, slug ] );
 	const tabLabelId = useMemo( () => `${ tabPanelId }--tab`, [ tabPanelId ] );
 
-	const borderProps = useBorderProps( tabsAttributes );
 	const colorProps = useColorProps( tabsAttributes );
-	const spacingProps = useSpacingProps( tabsAttributes );
+
+	console.log( 'COLOR PROPS:', colorProps );
 
 	const blockProps = useBlockProps( {
 		hidden: ! isSelectedTab,
@@ -184,7 +184,7 @@ export default function Edit( {
 	);
 
 	return (
-		<Fragment>
+		<>
 			<InspectorControls>
 				<PanelBody title="Tab Settings">
 					<TextControl
@@ -218,11 +218,9 @@ export default function Edit( {
 						role="presentation"
 						className={ clsx(
 							'tabs__list-item',
-							borderProps.className,
 							colorProps.className
 						) }
 						style={ {
-							...borderProps.style,
 							...colorProps.style,
 						} }
 						tabIndex={ isSelectedTab ? 0 : -1 }
@@ -255,12 +253,12 @@ export default function Edit( {
 				</TabFill>
 
 				{ isSelectedTab && (
-					<Fragment>
+					<>
 						<TabsListSlot tabsClientId={ tabsClientId } />
 						<section { ...innerBlocksProps } />
-					</Fragment>
+					</>
 				) }
 			</div>
-		</Fragment>
+		</>
 	);
 }
