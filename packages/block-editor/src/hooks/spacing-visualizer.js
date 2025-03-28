@@ -27,13 +27,16 @@ function SpacingVisualizer( { clientId, value, computeStyle, forceShow } ) {
 			return;
 		}
 		// It's not sufficient to read the computed spacing value when value.spacing changes as
-		// useEffect may run before the browser recomputes CSS. We therefore combine
-		// useLayoutEffect and two rAF calls to ensure that we read the spacing after the current
-		// paint but before the next paint.
-		// See https://github.com/WordPress/gutenberg/pull/59227.
-		window.requestAnimationFrame( () =>
-			window.requestAnimationFrame( updateStyle )
-		);
+		// useEffect may run before the browser recomputes CSS. So we use a MutationObserver to track style/class changes.
+		// Fixes issue where visualizer applies previous margin/padding due to delayed style updates in Chromium based browsers.
+		const observer = new window.MutationObserver( updateStyle );
+		observer.observe( blockElement, {
+			attributes: true,
+			attributeFilter: [ 'style', 'class' ],
+		} );
+		return () => {
+			observer.disconnect();
+		};
 	}, [ blockElement, value ] );
 
 	const previousValueRef = useRef( value );
