@@ -1,4 +1,4 @@
-name: Check Storybook build
+name: Storybook build and Smoke Tests
 
 on: pull_request
 
@@ -13,6 +13,7 @@ jobs:
     check:
         runs-on: ubuntu-latest
         if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
+        timeout-minutes: 60
 
         steps:
             - name: Checkout
@@ -25,3 +26,19 @@ jobs:
 
             - name: Build Storybook
               run: npm run storybook:build
+
+            - name: Install Playwright dependencies
+              run: npx playwright install
+
+            - name: Serve Storybook and run tests
+              run: |
+                  npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+                  "npm run storybook:dev" \
+                  "npx wait-on tcp:127.0.0.1:50240 && \
+                  echo 'Storybook server detected, waiting to ensure full initialization...' && \
+                  sleep 120 && \
+                  NODE_PATH=./node_modules \
+                  npx --package=@storybook/test-runner -- \
+                  test-storybook \
+                  --url http://localhost:50240 \
+                  --config-dir ./storybook"
