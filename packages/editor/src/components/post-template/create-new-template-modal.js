@@ -96,7 +96,7 @@ export default function CreateNewTemplateModal( { onClose } ) {
 			] );
 
 		const newTemplate = await createTemplate( {
-			slug: 'wp-custom-template-' + kebabCase( title || DEFAULT_TITLE ),
+			slug: kebabCase( title || DEFAULT_TITLE ) || 'wp-custom-template',
 			content: newTemplateContent,
 			title: title || DEFAULT_TITLE,
 		} );
