@@ -219,14 +219,13 @@ export default function Edit( {
 						className={ clsx(
 							'tabs__list-item',
 							borderProps.className,
-							colorProps.className,
-							spacingProps.className
+							colorProps.className
 						) }
 						style={ {
 							...borderProps.style,
 							...colorProps.style,
-							...spacingProps.style,
 						} }
+						tabIndex={ isSelectedTab ? 0 : -1 }
 					>
 						<a // eslint-disable-line jsx-a11y/anchor-is-valid -- remove href attribute in editor so inner text can be selected for editing
 							aria-controls={ tabPanelId }

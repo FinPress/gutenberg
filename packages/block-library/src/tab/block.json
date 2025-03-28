@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "core/tab",
 	"title": "Tab",
+	"description": "A single tab in a tabbed interface.",
 	"version": "1.0.0",
 	"category": "design",
 	"attributes": {

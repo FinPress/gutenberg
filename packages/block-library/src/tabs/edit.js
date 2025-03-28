@@ -1,11 +1,15 @@
 /**
+ * External dependencies
+ */
+import clsx from 'clsx';
+
+/**
  * WordPress dependencies
  */
 import {
 	useBlockProps,
 	useInnerBlocksProps,
 	withColors,
-	store as blockEditorStore,
 	InnerBlocks,
 } from '@wordpress/block-editor';
 import { Fragment } from '@wordpress/element';
@@ -39,25 +43,23 @@ function Edit( {
 	tabHoverTextColor,
 	setTabHoverTextColor,
 } ) {
-	const {
-		style,
-		orientation,
-	} = attributes;
+	const { style, orientation } = attributes;
 
 	/**
 	 * Provide additional non-core color supports for tab background and text colors.
 	 * TODO: Talk to Gutenberg team about how to add these into the style engine proper so that these can be set in the style book??
 	 */
-	const additionalColorSupportingStyles = useColorSupports(attributes);
+	const additionalColorSupportingStyles = useColorSupports( attributes );
 
 	/**
 	 * Block props for the tabs container.
 	 */
 	const blockProps = useBlockProps( {
-		className:
+		className: clsx(
 			'vertical' === orientation
 				? 'is-orientation-vertical'
-				: 'is-orientation-horizontal',
+				: 'is-orientation-horizontal'
+		),
 		style: {
 			...style,
 			...additionalColorSupportingStyles,
@@ -76,7 +78,7 @@ function Edit( {
 			clientId,
 			orientation,
 			template: TABS_TEMPLATE,
-			renderAppender: false, // We handle this element ourselves.
+			renderAppender: false, // We handle this via a slotfill.
 		}
 	);
 
