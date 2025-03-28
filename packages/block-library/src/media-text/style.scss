@@ -143,3 +143,25 @@
 		}
 	}
 }
+
+// Ensure media-text block handles border-radius properly
+.wp-block-media-text[style*="border-radius"] {
+	figure {
+		border-top-left-radius: inherit;
+		border-bottom-left-radius: inherit;
+
+		img,
+		video {
+			border-radius: inherit; // Use the parent's border-radius by default
+		}
+	}
+
+	@media (max-width: 768px) {
+		figure {
+			border-top-left-radius: inherit;
+			border-top-right-radius: inherit;
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
+}
