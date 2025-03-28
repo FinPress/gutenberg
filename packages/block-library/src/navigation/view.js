@@ -122,40 +122,44 @@ const { state, actions } = store(
 				}
 			},
 			openMenu( menuOpenedOn = 'click' ) {
-				const { type, dialog } = getContext();
 				state.menuOpenedBy[ menuOpenedOn ] = true;
-				if ( type === 'overlay' ) {
-					// Add a `has-modal-open` class to the <html> root.
-					document.documentElement.classList.add( 'has-modal-open' );
-					if ( ! hasCommandSupport ) {
-						dialog.showModal();
-					}
-				}
 			},
 			closeMenu() {
-				const ctx = getContext();
-				Object.assign( state.menuOpenedBy, openedByNone );
-				if ( ctx.modal?.contains( window.document.activeElement ) ) {
-					ctx.previousFocus?.focus();
-				}
-				ctx.modal = null;
-				ctx.previousFocus = null;
-				if ( ctx.type === 'overlay' ) {
-					document.documentElement.classList.remove(
-						'has-modal-open'
-					);
-					if ( ! hasCommandSupport ) {
-						ctx.dialog?.close();
-					}
+				// For the overlay, this would be redundant if the close button was
+				// clicked and `command` is not supported. It’s not redundant in case
+				// `command` is supported or closed by way of Escape key press.
+				if ( state.isMenuOpen ) {
+					Object.assign( state.menuOpenedBy, openedByNone );
 				}
 			},
 		},
 		callbacks: {
-			initMenu() {
+			effectOpenClose() {
 				const ctx = getContext();
+				// Skips initial run.
+				if ( ! state.isMenuOpen && ! ctx.modal ) {
+					return;
+				}
 				const { ref } = getElement();
 				if ( state.isMenuOpen ) {
 					ctx.modal = ref;
+				} else {
+					const { activeElement } = window.document;
+					if ( ctx.modal.contains( activeElement ) ) {
+						ctx.previousFocus?.focus();
+					}
+					ctx.modal = null;
+					ctx.previousFocus = null;
+				}
+				if ( ctx.type === 'overlay' ) {
+					// Toggles `has-modal-open` class on the <html> root.
+					document.documentElement.classList.toggle(
+						'has-modal-open',
+						state.isMenuOpen
+					);
+					if ( ! hasCommandSupport ) {
+						ref[ state.isMenuOpen ? 'showModal' : 'close' ]();
+					}
 				}
 			},
 			focusFirstElement() {
@@ -165,10 +169,6 @@ const { state, actions } = store(
 						ref.querySelectorAll( focusableSelectors );
 					focusableElements?.[ 0 ]?.focus();
 				}
-			},
-			initDialog() {
-				const ctx = getContext();
-				ctx.dialog = getElement().ref;
 			},
 		},
 	},
