@@ -12,7 +12,6 @@ import {
 	withColors,
 	InnerBlocks,
 } from '@wordpress/block-editor';
-import { Fragment } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -83,7 +82,7 @@ function Edit( {
 	);
 
 	return (
-		<Fragment>
+		<>
 			<Controls
 				{ ...{
 					clientId,
@@ -111,7 +110,7 @@ function Edit( {
 					</li>
 				</TabFill>
 			</div>
-		</Fragment>
+		</>
 	);
 }
 

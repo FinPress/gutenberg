@@ -54,6 +54,35 @@
 			"type": "string"
 		}
 	},
+	"styles": [
+		{
+			"name": "fill",
+			"label": "Fill",
+			"isDefault": true
+		},
+		{
+			"name": "outline",
+			"label": "Outline"
+		}
+	],
+	"supports": {
+		"align": true,
+		"color": {
+			"text": false,
+			"background": false
+		},
+		"html": false,
+		"interactivity": true,
+		"spacing": {
+			"blockGap": true,
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true,
+			"fontFamily": true
+		}
+	},
 	"example": {
 		"attributes": {
 			"className": "is-example"
@@ -92,48 +121,6 @@
 				}
 			}
 		]
-	},
-	"styles": [
-		{
-			"name": "fill",
-			"label": "Fill",
-			"isDefault": true
-		},
-		{
-			"name": "outline",
-			"label": "Outline"
-		}
-	],
-	"supports": {
-		"align": true,
-		"color": {
-			"text": false,
-			"background": false
-		},
-		"html": false,
-		"interactivity": true,
-		"spacing": {
-			"blockGap": true,
-			"margin": true,
-			"padding": true
-		},
-		"typography": {
-			"fontSize": true,
-			"fontFamily": true
-		},
-		"__experimentalBorder": {
-			"color": true,
-			"radius": true,
-			"style": true,
-			"width": true,
-			"__experimentalSkipSerialization": true,
-			"__experimentalDefaultControls": {
-				"color": true,
-				"radius": true,
-				"style": true,
-				"width": true
-			}
-		}
 	},
 	"textdomain": "tabs",
 	"editorScript": "file:./index.js",
