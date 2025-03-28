@@ -118,13 +118,13 @@ function InspectorImagePreviewItem( {
 	className,
 	onToggleCallback = noop,
 } ) {
-	useEffect( () => {
-		if ( typeof toggleProps?.isOpen !== 'undefined' ) {
-			onToggleCallback( toggleProps?.isOpen );
-		}
-	}, [ toggleProps?.isOpen, onToggleCallback ] );
-
 	const { isOpen, ...restToggleProps } = toggleProps;
+
+	useEffect( () => {
+		if ( typeof isOpen !== 'undefined' ) {
+			onToggleCallback( isOpen );
+		}
+	}, [ isOpen, onToggleCallback ] );
 
 	const renderPreviewContent = () => {
 		return (
