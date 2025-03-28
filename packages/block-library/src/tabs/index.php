@@ -100,30 +100,21 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 	$tabs_markup .= count($tabs_list) > 1 ? '</ul>' : '';
 
 	$tag_processor->next_tag('ul.tabs__list');
-	// Now, using the wp html processor to add $tabs_markup in between the opening and closing tags of the ul.tabs__list
-	// Replace the content between the opening and closing tags of ul.tabs__list
-	// Since WP_HTML_Tag_Processor doesn't have a direct method to set inner HTML,
-	// we need to get the updated HTML and manually replace the content
 	$updated_content = $tag_processor->get_updated_html();
 
-	// Find the ul.tabs__list opening tag position
 	$list_start_pos = strpos($updated_content, '<ul class="tabs__list"');
 	if ($list_start_pos !== false) {
-		// Find the end of the opening tag
 		$list_open_end = strpos($updated_content, '>', $list_start_pos) + 1;
-		// Find the closing tag
 		$list_close_start = strpos($updated_content, '</ul>', $list_open_end);
 
-		// Replace the content between the tags
 		$new_html = substr($updated_content, 0, $list_open_end) .
 					$tabs_markup .
 					substr($updated_content, $list_close_start);
 
-		// Update the tag processor with the new HTML
 		$tag_processor = new WP_HTML_Tag_Processor($new_html);
 	}
 
-	// Add the data-tab-index attribute and interactivity directives to each tab panel.
+	// Set up interactivity directives for each tab panel.
 	$tab_index = 0;
 	while ( $tag_processor->next_tag( array( 'class_name' => 'wp-block-tab' ) ) ) {
 		$tag_processor->set_attribute( 'role', 'tabpanel' );

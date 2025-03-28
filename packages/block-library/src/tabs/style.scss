@@ -23,6 +23,12 @@
 		overflow-x: auto;
 		align-items: center;
 
+		.tabs__list-item {
+			border-bottom-width: 0;
+			border-radius: 12px 12px 0 0;
+			overflow: hidden; // Hides the border radius overflow of the tab labels.
+		}
+
 		.tabs__tab-label {
 			display: block;
 			width: max-content;
@@ -33,7 +39,6 @@
 			cursor: pointer;
 			background-color: var(--custom-tab-background-color);
 			color: var(--custom-tab-text-color);
-			border-radius: inherit;
 			&:hover {
 				opacity: 1;
 				color: var(--custom-tab-hover-text-color);
@@ -54,6 +59,15 @@
 		}
 		.tabs__list {
 			flex-direction: column;
+		}
+		.tabs__list-item {
+			border-bottom-width: inherit;
+			border-radius: 0px 0px 12px 12px;
+		}
+
+		&.wp-block > .wp-block-tab.wp-block {
+			display: flex;
+			flex-direction: row;
 		}
 	}
 

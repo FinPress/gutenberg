@@ -1,4 +1,3 @@
-
 const useColorSupports = ( attributes ) => {
 	const {
 		customTabBackgroundColor,
