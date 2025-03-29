@@ -482,19 +482,18 @@ const UnforwardedPopover = (
 /**
  * `PopoverSlot` is a component that renders a slot that is used by Popover for rendering content.
  */
-export const PopoverSlot = forwardRef<
-	HTMLDivElement,
-	WordPressComponentProps< PopoverSlotProps, 'div', false >
->( ( { name = SLOT_NAME }, ref ) => {
-	return (
-		<Slot
-			bubblesVirtually
-			name={ name }
-			className="popover-slot"
-			ref={ ref }
-		/>
-	);
-} );
+export const PopoverSlot = forwardRef< HTMLDivElement, PopoverSlotProps >(
+	( { name = SLOT_NAME }, ref ) => {
+		return (
+			<Slot
+				bubblesVirtually
+				name={ name }
+				className="popover-slot"
+				ref={ ref }
+			/>
+		);
+	}
+);
 
 /**
  * `Popover` renders its content in a floating modal. If no explicit anchor is passed via props, it anchors to its parent element by default.
