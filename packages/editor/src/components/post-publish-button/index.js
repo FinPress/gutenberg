@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { Button } from '@wordpress/components';
-import { Component } from '@wordpress/element';
+import { useState, useCallback } from '@wordpress/element';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 
@@ -14,54 +14,50 @@ import { store as editorStore } from '../../store';
 
 const noop = () => {};
 
-export class PostPublishButton extends Component {
-	constructor( props ) {
-		super( props );
+export const PostPublishButton = ( props ) => {
+	const [ entitiesSavedStatesCallback, setEntitiesSavedStatesCallbackState ] =
+		useState( false );
 
-		this.createOnClick = this.createOnClick.bind( this );
-		this.closeEntitiesSavedStates =
-			this.closeEntitiesSavedStates.bind( this );
+	const createOnClick = useCallback(
+		( callback ) => {
+			return ( ...args ) => {
+				const {
+					hasNonPostEntityChanges,
+					setEntitiesSavedStatesCallback,
+				} = props;
+				// If a post with non-post entities is published, but the user
+				// elects to not save changes to the non-post entities, those
+				// entities will still be dirty when the Publish button is clicked.
+				// We also need to check that the `setEntitiesSavedStatesCallback`
+				// prop was passed. See https://github.com/WordPress/gutenberg/pull/37383
+				if (
+					hasNonPostEntityChanges &&
+					setEntitiesSavedStatesCallback
+				) {
+					// The modal for multiple entity saving will open,
+					// hold the callback for saving/publishing the post
+					// so that we can call it if the post entity is checked.
+					setEntitiesSavedStatesCallbackState(
+						() => () => callback( ...args )
+					);
+					// Open the save panel by setting its callback.
+					// To set a function on the useState hook, we must set it
+					// with another function (() => myFunction). Passing the
+					// function on its own will cause an error when called.
+					setEntitiesSavedStatesCallback(
+						() => closeEntitiesSavedStates
+					);
+					return noop;
+				}
+				return callback( ...args );
+			};
+		},
+		[ props ]
+	);
 
-		this.state = {
-			entitiesSavedStatesCallback: false,
-		};
-	}
-
-	createOnClick( callback ) {
-		return ( ...args ) => {
-			const { hasNonPostEntityChanges, setEntitiesSavedStatesCallback } =
-				this.props;
-			// If a post with non-post entities is published, but the user
-			// elects to not save changes to the non-post entities, those
-			// entities will still be dirty when the Publish button is clicked.
-			// We also need to check that the `setEntitiesSavedStatesCallback`
-			// prop was passed. See https://github.com/WordPress/gutenberg/pull/37383
-			if ( hasNonPostEntityChanges && setEntitiesSavedStatesCallback ) {
-				// The modal for multiple entity saving will open,
-				// hold the callback for saving/publishing the post
-				// so that we can call it if the post entity is checked.
-				this.setState( {
-					entitiesSavedStatesCallback: () => callback( ...args ),
-				} );
-
-				// Open the save panel by setting its callback.
-				// To set a function on the useState hook, we must set it
-				// with another function (() => myFunction). Passing the
-				// function on its own will cause an error when called.
-				setEntitiesSavedStatesCallback(
-					() => this.closeEntitiesSavedStates
-				);
-				return noop;
-			}
-
-			return callback( ...args );
-		};
-	}
-
-	closeEntitiesSavedStates( savedEntities ) {
-		const { postType, postId } = this.props;
-		const { entitiesSavedStatesCallback } = this.state;
-		this.setState( { entitiesSavedStatesCallback: false }, () => {
+	const closeEntitiesSavedStates = useCallback(
+		( savedEntities ) => {
+			const { postType, postId } = props;
 			if (
 				savedEntities &&
 				savedEntities.some(
@@ -74,110 +70,110 @@ export class PostPublishButton extends Component {
 				// The post entity was checked, call the held callback from `createOnClick`.
 				entitiesSavedStatesCallback();
 			}
-		} );
+			setEntitiesSavedStatesCallbackState( false );
+		},
+		[ props, entitiesSavedStatesCallback ]
+	);
+
+	const {
+		forceIsDirty,
+		hasPublishAction,
+		isBeingScheduled,
+		isOpen,
+		isPostSavingLocked,
+		isPublishable,
+		isPublished,
+		isSaveable,
+		isSaving,
+		isAutoSaving,
+		isToggle,
+		savePostStatus,
+		onSubmit = noop,
+		onToggle,
+		visibility,
+		hasNonPostEntityChanges,
+		isSavingNonPostEntityChanges,
+		postStatus,
+		postStatusHasChanged,
+	} = props;
+
+	const isButtonDisabled =
+		( isSaving ||
+			! isSaveable ||
+			isPostSavingLocked ||
+			( ! isPublishable && ! forceIsDirty ) ) &&
+		( ! hasNonPostEntityChanges || isSavingNonPostEntityChanges );
+
+	const isToggleDisabled =
+		( isPublished ||
+			isSaving ||
+			! isSaveable ||
+			( ! isPublishable && ! forceIsDirty ) ) &&
+		( ! hasNonPostEntityChanges || isSavingNonPostEntityChanges );
+
+	// If the new status has not changed explicitly, we derive it from
+	// other factors, like having a publish action, etc.. We need to preserve
+	// this because it affects when to show the pre and post publish panels.
+	// If it has changed though explicitly, we need to respect that.
+	let publishStatus = 'publish';
+	if ( postStatusHasChanged ) {
+		publishStatus = postStatus;
+	} else if ( ! hasPublishAction ) {
+		publishStatus = 'pending';
+	} else if ( visibility === 'private' ) {
+		publishStatus = 'private';
+	} else if ( isBeingScheduled ) {
+		publishStatus = 'future';
 	}
 
-	render() {
-		const {
-			forceIsDirty,
-			hasPublishAction,
-			isBeingScheduled,
-			isOpen,
-			isPostSavingLocked,
-			isPublishable,
-			isPublished,
-			isSaveable,
-			isSaving,
-			isAutoSaving,
-			isToggle,
-			savePostStatus,
-			onSubmit = noop,
-			onToggle,
-			visibility,
-			hasNonPostEntityChanges,
-			isSavingNonPostEntityChanges,
-			postStatus,
-			postStatusHasChanged,
-		} = this.props;
-
-		const isButtonDisabled =
-			( isSaving ||
-				! isSaveable ||
-				isPostSavingLocked ||
-				( ! isPublishable && ! forceIsDirty ) ) &&
-			( ! hasNonPostEntityChanges || isSavingNonPostEntityChanges );
-
-		const isToggleDisabled =
-			( isPublished ||
-				isSaving ||
-				! isSaveable ||
-				( ! isPublishable && ! forceIsDirty ) ) &&
-			( ! hasNonPostEntityChanges || isSavingNonPostEntityChanges );
-
-		// If the new status has not changed explicitly, we derive it from
-		// other factors, like having a publish action, etc.. We need to preserve
-		// this because it affects when to show the pre and post publish panels.
-		// If it has changed though explicitly, we need to respect that.
-		let publishStatus = 'publish';
-		if ( postStatusHasChanged ) {
-			publishStatus = postStatus;
-		} else if ( ! hasPublishAction ) {
-			publishStatus = 'pending';
-		} else if ( visibility === 'private' ) {
-			publishStatus = 'private';
-		} else if ( isBeingScheduled ) {
-			publishStatus = 'future';
+	const onClickButton = () => {
+		if ( isButtonDisabled ) {
+			return;
 		}
+		onSubmit();
+		savePostStatus( publishStatus );
+	};
 
-		const onClickButton = () => {
-			if ( isButtonDisabled ) {
-				return;
-			}
-			onSubmit();
-			savePostStatus( publishStatus );
-		};
+	// Callback to open the publish panel.
+	const onClickToggle = () => {
+		if ( isToggleDisabled ) {
+			return;
+		}
+		onToggle();
+	};
 
-		// Callback to open the publish panel.
-		const onClickToggle = () => {
-			if ( isToggleDisabled ) {
-				return;
-			}
-			onToggle();
-		};
+	const buttonProps = {
+		'aria-disabled': isButtonDisabled,
+		className: 'editor-post-publish-button',
+		isBusy: ! isAutoSaving && isSaving,
+		variant: 'primary',
+		onClick: createOnClick( onClickButton ),
+		'aria-haspopup': hasNonPostEntityChanges ? 'dialog' : undefined,
+	};
 
-		const buttonProps = {
-			'aria-disabled': isButtonDisabled,
-			className: 'editor-post-publish-button',
-			isBusy: ! isAutoSaving && isSaving,
-			variant: 'primary',
-			onClick: this.createOnClick( onClickButton ),
-			'aria-haspopup': hasNonPostEntityChanges ? 'dialog' : undefined,
-		};
-
-		const toggleProps = {
-			'aria-disabled': isToggleDisabled,
-			'aria-expanded': isOpen,
-			className: 'editor-post-publish-panel__toggle',
-			isBusy: isSaving && isPublished,
-			variant: 'primary',
-			size: 'compact',
-			onClick: this.createOnClick( onClickToggle ),
-			'aria-haspopup': hasNonPostEntityChanges ? 'dialog' : undefined,
-		};
-		const componentProps = isToggle ? toggleProps : buttonProps;
-		return (
-			<>
-				<Button
-					{ ...componentProps }
-					className={ `${ componentProps.className } editor-post-publish-button__button` }
-					size="compact"
-				>
-					<PublishButtonLabel />
-				</Button>
-			</>
-		);
-	}
-}
+	const toggleProps = {
+		'aria-disabled': isToggleDisabled,
+		'aria-expanded': isOpen,
+		className: 'editor-post-publish-panel__toggle',
+		isBusy: isSaving && isPublished,
+		variant: 'primary',
+		size: 'compact',
+		onClick: createOnClick( onClickToggle ),
+		'aria-haspopup': hasNonPostEntityChanges ? 'dialog' : undefined,
+	};
+	const componentProps = isToggle ? toggleProps : buttonProps;
+	return (
+		<>
+			<Button
+				{ ...componentProps }
+				className={ `${ componentProps.className } editor-post-publish-button__button` }
+				size="compact"
+			>
+				<PublishButtonLabel />
+			</Button>
+		</>
+	);
+};
 
 /**
  * Renders the publish button.
