@@ -144,15 +144,14 @@ export default function StartPageOptions() {
 	const { isEditedPostDirty, isEditedPostEmpty } = useSelect( editorStore );
 	const { isModalActive } = useSelect( interfaceStore );
 	const { enabled, postId } = useSelect( ( select ) => {
-		const { getCurrentPostId, getCurrentPostType } = select( editorStore );
+		const { getCurrentPostId } = select( editorStore );
 		const choosePatternModalEnabled = select( preferencesStore ).get(
 			'core',
 			'enableChoosePatternModal'
 		);
 		return {
 			postId: getCurrentPostId(),
-			enabled:
-				choosePatternModalEnabled && 'page' === getCurrentPostType(),
+			enabled: choosePatternModalEnabled,
 		};
 	}, [] );
 
