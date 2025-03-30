@@ -47,6 +47,13 @@
 				"type": "boolean"
 			}
 		},
+		"title": {
+			"type": "string",
+			"source": "attribute",
+			"selector": "img",
+			"attribute": "title",
+			"role": "content"
+		},
 		"href": {
 			"type": "string",
 			"source": "attribute",

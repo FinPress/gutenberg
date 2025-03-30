@@ -41,7 +41,7 @@ function getFirstAnchorAttributeFormHTML( html, attributeName ) {
 
 const imageSchema = {
 	img: {
-		attributes: [ 'src', 'alt' ],
+		attributes: [ 'src', 'alt', 'title' ],
 		classes: [
 			'alignleft',
 			'aligncenter',

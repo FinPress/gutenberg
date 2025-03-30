@@ -7,6 +7,7 @@ import {
 	ResizableBox,
 	Spinner,
 	TextareaControl,
+	TextControl,
 	ToolbarButton,
 	ToolbarGroup,
 	__experimentalToolsPanel as ToolsPanel,
@@ -109,11 +110,14 @@ function ContentOnlyControls( {
 	setAttributes,
 	lockAltControls,
 	lockAltControlsMessage,
+	lockTitleControls,
+	lockTitleControlsMessage,
 } ) {
 	// Use internal state instead of a ref to make sure that the component
 	// re-renders when the popover's anchor updates.
 	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
 	const [ isAltDialogOpen, setIsAltDialogOpen ] = useState( false );
+	const [ isTitleDialogOpen, setIsTitleDialogOpen ] = useState( false );
 	return (
 		<>
 			<ToolbarItem ref={ setPopoverAnchor }>
@@ -141,6 +145,15 @@ function ContentOnlyControls( {
 										'Alternative text',
 										'Alternative text for an image. Block toolbar label, a low character count is preferred.'
 									) }
+								</MenuItem>
+								<MenuItem
+									onClick={ () => {
+										setIsTitleDialogOpen( true );
+										onClose();
+									} }
+									aria-haspopup="dialog"
+								>
+									{ __( 'Title text' ) }
 								</MenuItem>
 							</>
 						) }
@@ -191,6 +204,47 @@ function ContentOnlyControls( {
 					</div>
 				</Popover>
 			) }
+			{ isTitleDialogOpen && (
+				<Popover
+					placement="bottom-start"
+					anchor={ popoverAnchor }
+					onClose={ () => setIsTitleDialogOpen( false ) }
+					offset={ 13 }
+					variant="toolbar"
+				>
+					<div className="wp-block-image__toolbar_content_textarea__container">
+						<TextControl
+							__next40pxDefaultSize
+							className="wp-block-image__toolbar_content_textarea"
+							__nextHasNoMarginBottom
+							label={ __( 'Title attribute' ) }
+							value={ attributes.title || '' }
+							onChange={ ( value ) =>
+								setAttributes( {
+									title: value,
+								} )
+							}
+							disabled={ lockTitleControls }
+							help={
+								lockTitleControls ? (
+									<>{ lockTitleControlsMessage }</>
+								) : (
+									<>
+										{ __(
+											'Describe the role of this image on the page.'
+										) }
+										<ExternalLink href="https://www.w3.org/TR/html52/dom.html#the-title-attribute">
+											{ __(
+												'(Note: many devices and browsers do not display this text.)'
+											) }
+										</ExternalLink>
+									</>
+								)
+							}
+						/>
+					</div>
+				</Popover>
+			) }
 		</>
 	);
 }
@@ -220,6 +274,7 @@ export default function Image( {
 		rel,
 		linkClass,
 		linkDestination,
+		title,
 		width,
 		height,
 		aspectRatio,
@@ -396,6 +451,12 @@ export default function Image( {
 				lightbox: undefined,
 			} );
 		}
+	}
+
+	function onSetTitle( value ) {
+		// This is the HTML title attribute, separate from the media object
+		// title.
+		setAttributes( { title: value } );
 	}
 
 	function updateAlt( newAlt ) {
@@ -780,6 +841,32 @@ export default function Image( {
 						/>
 					) }
 				</ToolsPanel>
+			</InspectorControls>
+			<InspectorControls group="advanced">
+				<TextControl
+					__nextHasNoMarginBottom
+					__next40pxDefaultSize
+					label={ __( 'Title attribute' ) }
+					value={ title || '' }
+					onChange={ onSetTitle }
+					readOnly={ lockTitleControls }
+					help={
+						lockTitleControls ? (
+							<>{ lockTitleControlsMessage }</>
+						) : (
+							<>
+								{ __(
+									'Describe the role of this image on the page.'
+								) }
+								<ExternalLink href="https://www.w3.org/TR/html52/dom.html#the-title-attribute">
+									{ __(
+										'(Note: many devices and browsers do not display this text.)'
+									) }
+								</ExternalLink>
+							</>
+						)
+					}
+				/>
 			</InspectorControls>
 		</>
 	);
