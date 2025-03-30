@@ -127,15 +127,15 @@ function render_block_core_search( $attributes ) {
 				</svg>';
 		}
 
-		$results_container = new WP_HTML_Tag_Processor( sprintf( '<div id="live-search-results" class="wp-block-search__live-result" data-wp-bind--hidden="!context.isSearchInputVisible" data-wp-bind--aria-hidden="!context.isSearchInputVisible" %s hidden></div>', $inline_styles['wrapper'] ) );
+		$results_container = new WP_HTML_Tag_Processor( '<div id="live-search-results" class="wp-block-search__live-result" data-wp-bind--hidden="!context.isSearchInputVisible" data-wp-bind--aria-hidden="!context.isSearchInputVisible" hidden></div>' );
 		// Inline JavaScript for live-search.
 		$inline_script = '<script>
 				const resultsContainer = document.getElementById( "live-search-results" );
 				const searchBox = document.getElementById( "' . esc_js( $input_id ) . '" );
-				resultsContainer.style.width = parseFloat( getComputedStyle(searchBox).width ) - 2 * parseFloat( getComputedStyle(searchBox).padding ) - 2 * parseFloat( getComputedStyle(searchBox).border ) + "px";
 				searchBox.addEventListener( "input", fetchSearchResults );
 				let searchTimeout;
 				function fetchSearchResults() {
+					resultsContainer.style.width = parseFloat( getComputedStyle(searchBox).width ) - 2 * parseFloat( getComputedStyle(searchBox).padding ) - 2 * parseFloat( getComputedStyle(searchBox).border ) + "px";
 					clearTimeout( searchTimeout );
 					searchTimeout = setTimeout( () => {
 						const input = searchBox.value.trim();
@@ -166,8 +166,7 @@ function render_block_core_search( $attributes ) {
 							} )
 							.catch( ( error ) => console.error( "Search error:", error ) );
 					}, 300 );
-				}
-			</script>';
+				}';
 		// Include the button element class.
 		$button_classes[] = wp_theme_get_element_class_name( 'button' );
 		$button           = new WP_HTML_Tag_Processor( sprintf( '<button type="submit" %s>%s</button>', $inline_styles['button'], $button_internal_markup ) );
@@ -230,6 +229,8 @@ function render_block_core_search( $attributes ) {
 			resultsContainer.style.display = "none";
 		} );';
 	}
+
+	$inline_script .= '</script>';
 
 	return sprintf(
 		'<form role="search" method="get" action="%1s" %2s %3s>%4s%5$s%6$s</form>',
