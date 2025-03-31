@@ -35,7 +35,7 @@ function block_core_latest_posts_get_excerpt_length() {
  *
  * @global WP_Post $post Global post object.
  * @global int $block_core_latest_posts_excerpt_length Filters the excerpt length.
- * 
+ *
  * @param array $attributes The block attributes.
  *
  * @return string Returns the post content with latest posts added.
