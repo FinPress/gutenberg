@@ -29,6 +29,7 @@ import { store as editSiteStore } from '../../store';
 import SiteIcon from '../site-icon';
 import { unlock } from '../../lock-unlock';
 import { SidebarNavigationContext } from '../sidebar';
+import AddEntityMenu from './add-entity-menu';
 const { useLocation, useHistory } = unlock( routerPrivateApis );
 
 const SiteHub = memo(
@@ -105,6 +106,7 @@ const SiteHub = memo(
 								label={ __( 'Open command palette' ) }
 								shortcut={ displayShortcut.primary( 'k' ) }
 							/>
+							<AddEntityMenu />
 						</HStack>
 					</HStack>
 				</HStack>
@@ -231,6 +233,7 @@ export const SiteHubMobile = memo(
 								label={ __( 'Open command palette' ) }
 								shortcut={ displayShortcut.primary( 'k' ) }
 							/>
+							<AddEntityMenu />
 						</HStack>
 					</HStack>
 				</HStack>
