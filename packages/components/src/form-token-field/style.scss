@@ -1,5 +1,5 @@
 .components-form-token-field__input-container {
-	@include input-control();
+	@include input-control($components-color-accent);
 	width: 100%;
 	padding: 0;
 	cursor: text;

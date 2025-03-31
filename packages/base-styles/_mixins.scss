@@ -259,7 +259,7 @@
 	}
 }
 
-@mixin input-control {
+@mixin input-control($accent-color: var(--wp-admin-theme-color)) {
 	font-family: $default-font;
 	padding: 6px 8px;
 	@include input-style__neutral();
@@ -275,7 +275,7 @@
 	}
 
 	&:focus {
-		@include input-style__focus();
+		@include input-style__focus($accent-color);
 	}
 
 	// Use opacity to work in various editor styles.
