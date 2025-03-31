@@ -372,7 +372,7 @@ module.exports = {
 								// Adds a comment for the locality if not already added.
 								if ( ! addedComments.has( locality ) ) {
 									if ( newText ) {
-										newText += '\n\n';
+										newText += '\n';
 									}
 									newText += `/**\n * ${ locality } dependencies\n */\n`;
 									addedComments.add( locality );
@@ -384,7 +384,6 @@ module.exports = {
 											.getSourceCode()
 											.getText( importNode ) + '\n';
 								}
-								newText += '\n';
 							}
 
 							// Added this to handle the case where there are comments before the first import.
