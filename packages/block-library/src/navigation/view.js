@@ -49,25 +49,18 @@ const { state, actions } = store(
 		},
 		actions: {
 			openMenuOnHover() {
-				const { type, overlayOpenedBy } = getContext();
-				if (
-					type === 'submenu' &&
-					// Only open on hover if the overlay is closed.
-					Object.values( overlayOpenedBy || {} ).filter( Boolean )
-						.length === 0
-				) {
+				const { overlayOpenedBy } = getContext();
+				// Opens only if the overlay is closed.
+				if ( Object.values( overlayOpenedBy || {} ).some( Boolean ) ) {
 					actions.openMenu( 'hover' );
 				}
 			},
 			closeMenuOnHover() {
-				const { type, overlayOpenedBy, submenuOpenedBy } = getContext();
+				const { overlayOpenedBy, submenuOpenedBy } = getContext();
+				// Closes only if not opened by click and the overlay is closed.
 				if (
-					type === 'submenu' &&
-					// Close only if not opened by click.
 					submenuOpenedBy.click === false &&
-					// Only close on hover if the overlay is closed.
-					Object.values( overlayOpenedBy || {} ).filter( Boolean )
-						.length === 0
+					Object.values( overlayOpenedBy || {} ).some( Boolean )
 				) {
 					actions.closeMenu();
 				}
