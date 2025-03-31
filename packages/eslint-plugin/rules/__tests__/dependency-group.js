@@ -131,5 +131,54 @@ const { Component } = require( '@wordpress/element' );
  */
 const edit = require( './edit' );`,
 		},
+		{
+			code: `
+/**
+ * External dependencies
+ */
+import { camelCase } from 'change-case';
+import clsx from 'clsx';
+
+/**
+ * WordPress dependencies
+ */
+import { Component } from '@wordpress/element';
+import lodash from 'lodash';
+import { useSelect } from '@wordpress/data';
+
+/**
+ * Internal dependencies
+ */
+import edit from './edit';
+import { __ } from '@wordpress/i18n';
+import utils from './utils';
+import constants from './constants';`,
+			errors: [
+				{
+					message: 'Dependencies should be properly grouped',
+				},
+			],
+			output: `
+/**
+ * External dependencies
+ */
+import { camelCase } from 'change-case';
+import clsx from 'clsx';
+import lodash from 'lodash';
+
+/**
+ * WordPress dependencies
+ */
+import { Component } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
+
+/**
+ * Internal dependencies
+ */
+import edit from './edit';
+import utils from './utils';
+import constants from './constants';`,
+		},
 	],
 } );
