@@ -494,7 +494,6 @@ class WP_Navigation_Block_Renderer {
 		// Add Interactivity API directives to the markup if needed.
 		$open_button_directives                  = '';
 		$responsive_container_directives         = '';
-		$responsive_dialog_directives            = '';
 		$close_button_directives                 = '';
 		$responsive_container_content_directives = '';
 		if ( $is_interactive ) {
@@ -507,8 +506,6 @@ class WP_Navigation_Block_Renderer {
 				data-wp-class--is-menu-open="state.isMenuOpen"
 				data-wp-watch="callbacks.effectOpenClose"
 				data-wp-on-async--close="actions.closeMenu"
-			';
-			$responsive_dialog_directives            = '
 				data-wp-bind--aria-label="state.ariaLabel"
 			';
 			$close_button_directives                 = '
@@ -525,9 +522,9 @@ class WP_Navigation_Block_Renderer {
 			'<button aria-haspopup="dialog" %3$s class="%6$s" %10$s commandfor="%1$s" command="show-modal">%8$s</button>
 				<dialog class="%5$s" %7$s id="%1$s" %11$s>
 					<div class="wp-block-navigation__responsive-close" tabindex="-1">
-						<div class="wp-block-navigation__responsive-dialog" %12$s>
-							<button %4$s class="wp-block-navigation__responsive-container-close" %13$s commandfor="%1$s" command="close">%9$s</button>
-							<div class="wp-block-navigation__responsive-container-content" %14$s id="%1$s-content">
+						<div class="wp-block-navigation__responsive-dialog">
+							<button %4$s class="wp-block-navigation__responsive-container-close" %12$s commandfor="%1$s" command="close">%9$s</button>
+							<div class="wp-block-navigation__responsive-container-content" %13$s id="%1$s-content">
 								%2$s
 							</div>
 						</div>
@@ -544,7 +541,6 @@ class WP_Navigation_Block_Renderer {
 			$toggle_close_button_content,
 			$open_button_directives,
 			$responsive_container_directives,
-			$responsive_dialog_directives,
 			$close_button_directives,
 			$responsive_container_content_directives
 		);

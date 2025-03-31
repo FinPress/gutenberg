@@ -132,15 +132,13 @@ export default function ResponsiveWrapper( {
 				style={ styles }
 				id={ modalId }
 				ref={ effectRootAndScrollContainer }
+				aria-label={ isOpen && __( 'Menu' ) }
 			>
 				<div
 					className="wp-block-navigation__responsive-close"
 					tabIndex="-1"
 				>
-					<div
-						className="wp-block-navigation__responsive-dialog"
-						aria-label={ isOpen && __( 'Menu' ) }
-					>
+					<div className="wp-block-navigation__responsive-dialog">
 						<Button
 							__next40pxDefaultSize
 							className="wp-block-navigation__responsive-container-close"
