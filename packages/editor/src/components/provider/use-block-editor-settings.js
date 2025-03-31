@@ -17,6 +17,7 @@ import {
 	privateApis,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * Internal dependencies
@@ -108,6 +109,12 @@ const {
  */
 function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 	const isLargeViewport = useViewportMatch( 'medium' );
+	const sectionBlockTypes = useMemo(
+		() => [
+			...applyFilters( 'editor.sectionBlockTypes', 'core/post-content' ),
+		],
+		[]
+	);
 	const {
 		allowRightClickOverrides,
 		blockTypes,
@@ -146,7 +153,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 
 			function getSectionRootBlock() {
 				if ( renderingMode === 'template-locked' ) {
-					return getBlocksByName( 'core/post-content' )?.[ 0 ] ?? '';
+					return getBlocksByName( sectionBlockTypes )?.[ 0 ] ?? '';
 				}
 
 				return (
