@@ -703,7 +703,7 @@ button.wp-block-navigation-item__content {
 .wp-block-navigation__responsive-close {
 	width: 100%;
 
-	.has-modal-open & {
+	:is(.is-menu-open, [open]) > & {
 		// Try to inherit wide-width when defined, so the X can align to a top-right aligned menu.
 		max-width: var(--wp--style--global--wide-size, 100%);
 		margin-left: auto;
