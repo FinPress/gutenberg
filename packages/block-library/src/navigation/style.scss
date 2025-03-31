@@ -490,7 +490,7 @@ button.wp-block-navigation-item__content {
 
 	// If the responsive wrapper is present but overlay is not open, overlay colors
 	// shouldn't apply and !important is to override color classes or inline styles.
-	&:not(.is-menu-open) {
+	&:not(.is-menu-open, :open) { /* stylelint-disable-line selector-pseudo-class-no-unknown -- :open is real. */
 		color: inherit !important;
 		background-color: inherit !important;
 	}
