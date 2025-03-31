@@ -82,7 +82,7 @@ export default function PostURL( { onClose } ) {
 	return (
 		<div className="editor-post-url">
 			<InspectorPopoverHeader
-				title={ __( 'Slug' ) }
+				title={ __( 'Link' ) }
 				onClose={ onClose }
 			/>
 			<VStack spacing={ 3 }>
