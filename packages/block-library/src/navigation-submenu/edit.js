@@ -123,7 +123,6 @@ const useIsDraggingWithin = ( elementRef ) => {
  * @property {number}               [id]            A post or term id.
  * @property {boolean}              [opensInNewTab] Sets link target to _blank when true.
  * @property {string}               [url]           Link href.
- * @property {string}               [title]         Link title attribute.
  */
 
 export default function NavigationSubmenuEdit( {
@@ -392,7 +391,6 @@ export default function NavigationSubmenuEdit( {
 							label: '',
 							url: '',
 							description: '',
-							title: '',
 							rel: '',
 						} );
 					} }
