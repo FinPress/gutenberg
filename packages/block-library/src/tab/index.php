@@ -76,7 +76,7 @@ function render_block_core_tab( $attributes, $content ) {
 
 	$tab_id = $tag_processor->get_attribute( 'id' );
 
-	$classname = $tag_processor->get_attribute( 'class' );
+	$classname  = $tag_processor->get_attribute( 'class' );
 	$classname .= ' ' . block_core_tab_get_typography_classes( $attributes );
 	$tag_processor->set_attribute( 'class', $classname );
 
