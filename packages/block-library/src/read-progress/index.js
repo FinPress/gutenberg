@@ -22,7 +22,7 @@ export const settings = {
 	save,
 	example: {
 		attributes: {
-			label: _x( 'Read Progress', 'block example' ),
+			label: _x( 'Reading Progress Bar', 'block example' ),
 		},
 	},
 };

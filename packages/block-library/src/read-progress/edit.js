@@ -50,7 +50,7 @@ export default function ReadMore( { attributes, setAttributes } ) {
 		<div { ...blockProps }>
 			<InspectorControls>
 				<ToolsPanel
-					label={ __( 'Progress Bar Settings' ) }
+					label={ __( 'Reading Progress Bar Settings' ) }
 					resetAll={ () => {
 						setAttributes( {
 							height: 11,
@@ -63,7 +63,7 @@ export default function ReadMore( { attributes, setAttributes } ) {
 						label={ __( 'Bar height' ) }
 						isShownByDefault
 						hasValue={ () => height !== 11 }
-						onDeselect={ () => setAttributes( { height: 11 } ) }
+						onDeselect={ () => setAttributes( { height: 15 } ) }
 					>
 						<RangeControl
 							__next40pxDefaultSize
@@ -90,7 +90,13 @@ export default function ReadMore( { attributes, setAttributes } ) {
 							__next40pxDefaultSize
 							label={ __( 'Bar Position' ) }
 							help={ __( 'Position of the bar' ) }
-							value={ position }
+							value={ {
+								key: position,
+								name:
+									position === 'top'
+										? __( 'Top' )
+										: __( 'Bottom' ),
+							} }
 							onChange={ ( positionValue ) => {
 								setAttributes( {
 									position: positionValue.selectedItem.key,

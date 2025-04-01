@@ -3,8 +3,8 @@
 	"apiVersion": 3,
 	"name": "core/read-progress",
 	"category": "theme",
-	"title": "Read Progress",
-	"description": "Displays a read progress. Useful for tracking read progress.",
+	"title": "Reading Progress Bar",
+	"description": "Displays a reading progress bar. Useful for tracking the read progress.",
 	"textdomain": "default",
 	"attributes": {
 		"backgroundColor": {
