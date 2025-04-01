@@ -1,13 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	useState,
-	useRef,
-	useLayoutEffect,
-	useEffect,
-	useReducer,
-} from '@wordpress/element';
+import { useState, useRef, useEffect, useReducer } from '@wordpress/element';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 
 /**
@@ -22,13 +16,13 @@ function SpacingVisualizer( { clientId, value, computeStyle, forceShow } ) {
 		computeStyle( blockElement )
 	);
 
-	useLayoutEffect( () => {
+	// It's not sufficient to read the block’s computed style when `value` changes because
+	// the effect would run before the block’s style has updated. Thus observing mutations
+	// to the block’s attributes is used to trigger updates to the visualizer’s styles.
+	useEffect( () => {
 		if ( ! blockElement ) {
 			return;
 		}
-		// It's not sufficient to read the computed spacing value when value.spacing changes as
-		// useEffect may run before the browser recomputes CSS. So we use a MutationObserver to track style/class changes.
-		// Fixes issue where visualizer applies previous margin/padding due to delayed style updates in Chromium based browsers.
 		const observer = new window.MutationObserver( updateStyle );
 		observer.observe( blockElement, {
 			attributes: true,
@@ -37,7 +31,7 @@ function SpacingVisualizer( { clientId, value, computeStyle, forceShow } ) {
 		return () => {
 			observer.disconnect();
 		};
-	}, [ blockElement, value ] );
+	}, [ blockElement ] );
 
 	const previousValueRef = useRef( value );
 	const [ isActive, setIsActive ] = useState( false );
