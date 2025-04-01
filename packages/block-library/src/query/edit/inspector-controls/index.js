@@ -11,11 +11,12 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { debounce } from '@wordpress/compose';
 import { useEffect, useState, useCallback } from '@wordpress/element';
+import { store as blockEditorStore } from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
@@ -167,6 +168,45 @@ export default function QueryInspectorControls( props ) {
 		[ allowedControls, postTypeHasFormatSupport ]
 	);
 
+	const { getBlocks, getBlockAttributes } = useSelect( ( select ) => {
+		return select( blockEditorStore );
+	}, [] );
+
+	const innerBlocks = getBlocks( props.clientId );
+
+	const hasPaginationBlock = innerBlocks.find(
+		( block ) => block.name === 'core/query-pagination'
+	);
+
+	const { updateBlockAttributes } = useDispatch( blockEditorStore );
+
+	useEffect( () => {
+		if ( hasPaginationBlock ) {
+			const paginationAttributes = getBlockAttributes(
+				hasPaginationBlock.clientId
+			);
+			if ( paginationAttributes?.pages !== pages ) {
+				updateBlockAttributes( hasPaginationBlock.clientId, { pages } );
+			}
+		}
+	}, [
+		pages,
+		hasPaginationBlock,
+		updateBlockAttributes,
+		getBlockAttributes,
+	] );
+
+	useEffect( () => {
+		if ( hasPaginationBlock ) {
+			const paginationAttributes = getBlockAttributes(
+				hasPaginationBlock.clientId
+			);
+			if ( paginationAttributes?.pages !== pages ) {
+				setQuery( { pages: paginationAttributes.pages } );
+			}
+		}
+	}, [ pages, hasPaginationBlock, setQuery, getBlockAttributes ] );
+
 	const showFiltersPanel =
 		showTaxControl ||
 		showAuthorControl ||
@@ -184,6 +224,9 @@ export default function QueryInspectorControls( props ) {
 
 	const showDisplayPanel =
 		showPostCountControl || showOffSetControl || showPagesControl;
+
+	const showMaxPagesControl =
+		hasPaginationBlock && isControlAllowed( allowedControls, 'pages' );
 
 	return (
 		<>
@@ -386,13 +429,18 @@ export default function QueryInspectorControls( props ) {
 							onChange={ setQuery }
 						/>
 					</ToolsPanelItem>
-					<ToolsPanelItem
-						label={ __( 'Max pages to show' ) }
-						hasValue={ () => pages > 0 }
-						onDeselect={ () => setQuery( { pages: 0 } ) }
-					>
-						<PagesControl pages={ pages } onChange={ setQuery } />
-					</ToolsPanelItem>
+					{ showMaxPagesControl && (
+						<ToolsPanelItem
+							label={ __( 'Max pages to show' ) }
+							hasValue={ () => pages > 0 }
+							onDeselect={ () => setQuery( { pages: 0 } ) }
+						>
+							<PagesControl
+								pages={ pages }
+								onChange={ setQuery }
+							/>
+						</ToolsPanelItem>
+					) }
 				</ToolsPanel>
 			) }
 			{ ! inherit && showFiltersPanel && (

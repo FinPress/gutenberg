@@ -21,6 +21,7 @@ import { useEffect } from '@wordpress/element';
 import { QueryPaginationArrowControls } from './query-pagination-arrow-controls';
 import { QueryPaginationLabelControl } from './query-pagination-label-control';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+import PagesControl from '../query/edit/inspector-controls/pages-control';
 
 const TEMPLATE = [
 	[ 'core/query-pagination-previous' ],
@@ -29,7 +30,7 @@ const TEMPLATE = [
 ];
 
 export default function QueryPaginationEdit( {
-	attributes: { paginationArrow, showLabel },
+	attributes: { paginationArrow, showLabel, pages },
 	setAttributes,
 	clientId,
 } ) {
@@ -50,6 +51,39 @@ export default function QueryPaginationEdit( {
 		},
 		[ clientId ]
 	);
+
+	const parentClientId = useSelect(
+		( select ) => {
+			const { getBlockParents } = select( blockEditorStore );
+			return getBlockParents( clientId )[ 0 ];
+		},
+		[ clientId ]
+	);
+
+	const parentAttributes = useSelect(
+		( select ) => {
+			const { getBlockAttributes } = select( blockEditorStore );
+			return parentClientId ? getBlockAttributes( parentClientId ) : {};
+		},
+		[ parentClientId ]
+	);
+	const { updateBlockAttributes } = useDispatch( blockEditorStore );
+
+	const handlePagesChange = ( newPages ) => {
+		setAttributes( { pages: newPages?.pages } );
+
+		if ( parentClientId ) {
+			if ( parentAttributes?.query?.pages !== newPages ) {
+				updateBlockAttributes( parentClientId, {
+					query: {
+						...parentAttributes.query,
+						pages: newPages?.pages,
+					},
+				} );
+			}
+		}
+	};
+
 	const { __unstableMarkNextChangeAsNotPersistent } =
 		useDispatch( blockEditorStore );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
@@ -81,6 +115,7 @@ export default function QueryPaginationEdit( {
 							setAttributes( {
 								paginationArrow: 'none',
 								showLabel: true,
+								pages: 0,
 							} );
 						} }
 						dropdownMenuProps={ dropdownMenuProps }
@@ -117,6 +152,17 @@ export default function QueryPaginationEdit( {
 								/>
 							</ToolsPanelItem>
 						) }
+						<ToolsPanelItem
+							label={ __( 'Max pages to show' ) }
+							hasValue={ () => pages > 0 }
+							onDeselect={ () => setAttributes( { pages: 0 } ) }
+							isShownByDefault
+						>
+							<PagesControl
+								pages={ pages }
+								onChange={ handlePagesChange }
+							/>
+						</ToolsPanelItem>
 					</ToolsPanel>
 				</InspectorControls>
 			) }

@@ -20,6 +20,9 @@
 		"showLabel": {
 			"type": "boolean",
 			"default": true
+		},
+		"pages": {
+			"type": "number"
 		}
 	},
 	"usesContext": [ "queryId", "query" ],
