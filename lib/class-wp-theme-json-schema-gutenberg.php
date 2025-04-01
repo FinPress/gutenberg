@@ -60,6 +60,8 @@ class WP_Theme_JSON_Schema_Gutenberg {
 				// Deliberate fall through. Once migrated to v2, also migrate to v3.
 			case 2:
 				$theme_json = self::migrate_v2_to_v3( $theme_json, $origin );
+			case 3:
+				$theme_json = self::migrate_v3_to_v4( $theme_json, $origin );
 		}
 
 		return $theme_json;
@@ -161,6 +163,89 @@ class WP_Theme_JSON_Schema_Gutenberg {
 		 */
 		if ( isset( $old['settings']['spacing']['spacingSizes'] ) ) {
 			unset( $new['settings']['spacing']['spacingScale'] );
+		}
+
+		return $new;
+	}
+
+	/**
+	 * Migrates from v3 to v4.
+	 *
+	 * - Updates any deprecated or new settings introduced in v4.
+	 * - Adjusts spacing and typography settings if required.
+	 * - Ensures backward compatibility with existing version 3 themes.
+	 *
+	 * @since 6.7.0
+	 *
+	 * @param array $old     Data to migrate.
+	 * @param string $origin What source of data this object represents.
+	 *                       One of 'blocks', 'default', 'theme', or 'custom'.
+	 * @return array Data updated to version 4 standards.
+	 */
+	 private static function migrate_v3_to_v4( $old, $origin ) {
+		// Copy everything.
+		$new = $old;
+
+		// Set the new version.
+		$new['version'] = 4;
+
+		/*
+		* If the origin is 'custom', we don't need to do any further changes.
+		* Custom themes will take on the values of the theme origin settings.
+		*/
+		if ( 'custom' === $origin ) {
+			return $new;
+		}
+
+		/*
+		* Version 4 introduces a new typography setting structure, which may require
+		* merging certain typography presets or altering the way fonts are applied.
+		* We need to check if any typography settings are defined and apply necessary changes.
+		*/
+		if ( isset( $old['settings']['typography'] ) ) {
+			// If 'fontSizes' is set, ensure that 'defaultFontSizes' is updated for v4.
+			if ( isset( $old['settings']['typography']['fontSizes'] ) ) {
+				$new['settings']['typography']['defaultFontSizes'] = true;
+			}
+
+			// Example of adding new typography behavior (like 'fontFamilies').
+			if ( isset( $old['settings']['typography']['fontFamilies'] ) ) {
+				// Update or merge new fontFamilies structure for v4.
+				$new['settings']['typography']['fontFamilies'] = array_merge( 
+					$old['settings']['typography']['fontFamilies'], 
+					[ /* new default font families for v4 */ ]
+				);
+			}
+		}
+
+		/*
+		* Version 4 might require handling changes to spacing, such as a new spacing scale
+		* or additional margin/padding presets.
+		*/
+		if ( isset( $old['settings']['spacing'] ) ) {
+			// Ensure that 'spacingScale' is handled properly.
+			if ( isset( $old['settings']['spacing']['spacingScale'] ) ) {
+				// Migrate or update spacingScale settings for version 4.
+				$new['settings']['spacing']['spacingScale'] = array_map( function( $size ) {
+					$size = floatval( $size ); // Convert to float to avoid string * float error.
+					return $size * 1.2; // Scale spacing sizes by 1.2x.
+				}, $old['settings']['spacing']['spacingScale'] );
+			}
+		}
+
+		/*
+		* Version 4 may introduce a more standardized way of handling color presets or gradient properties.
+		* This section should handle the introduction of new color rules or structures.
+		*/
+		if ( isset( $old['settings']['color'] ) ) {
+			// Check for color preset changes or new color properties introduced in v4.
+			if ( isset( $old['settings']['color']['customColors'] ) ) {
+				// Apply color migration logic for any new properties or changes in v4.
+				$new['settings']['color']['customColors'] = array_merge( 
+					$old['settings']['color']['customColors'],
+					[ /* new custom color defaults for v4 */ ]
+				);
+			}
 		}
 
 		return $new;
