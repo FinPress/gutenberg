@@ -132,6 +132,8 @@ export default function QueryContent( {
 			displayLayout: { ...displayLayout, ...newDisplayLayout },
 		} );
 
+	// The block cannot inherit a default WordPress query in singular content (e.g., post, page, 404, blank).
+	// Warn users but still permit this type of query for exceptional cases in Classic and Hybrid themes.
 	const hasInheritanceWarning = isSingular && inherit;
 
 	return (
@@ -195,7 +197,7 @@ export default function QueryContent( {
 						] }
 					>
 						{ __(
-							'Cannot inherit the global queries when placed inside the singular content'
+							'Cannot inherit the default WordPress query when placed inside the singular content (e.g., post, page, 404, blank).'
 						) }
 					</Warning>
 				</div>
