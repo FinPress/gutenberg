@@ -178,3 +178,22 @@ function gutenberg_register_rest_theme_fields() {
 	);
 }
 add_action( 'rest_api_init', 'gutenberg_register_rest_theme_fields' );
+
+/**
+ * Hook in to the navigation post type and modify the
+ * access control for the rest endpoint to allow lower user roles to access
+ * the templates and template parts.
+ *
+ * @param array  $args Current registered post type args.
+ * @param string $post_type Name of post type.
+ *
+ * @return array
+ */
+function gutenberg_api_posts_access_controller( $args, $post_type ) {
+	if ( 'wp_navigation' === $post_type ) {
+		$args['rest_controller_class'] = 'Gutenberg_REST_Posts_Controller_6_6';
+	}
+	return $args;
+}
+
+add_filter( 'register_post_type_args', 'gutenberg_api_posts_access_controller', 10, 2 );
