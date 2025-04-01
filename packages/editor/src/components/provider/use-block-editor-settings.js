@@ -110,9 +110,8 @@ const {
 function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 	const isLargeViewport = useViewportMatch( 'medium' );
 	const sectionBlockTypes = useMemo(
-		() => [
-			...applyFilters( 'editor.sectionBlockTypes', 'core/post-content' ),
-		],
+		() =>
+			applyFilters( 'editor.sectionBlockTypes', [ 'core/post-content' ] ),
 		[]
 	);
 	const {
