@@ -17,6 +17,7 @@ import { store as interfaceStore } from '@wordpress/interface';
 /**
  * Internal dependencies
  */
+import { TEMPLATE_POST_TYPE } from '../../store/constants';
 import { store as editorStore } from '../../store';
 
 export function useStartPatterns() {
@@ -144,14 +145,16 @@ export default function StartPageOptions() {
 	const { isEditedPostDirty, isEditedPostEmpty } = useSelect( editorStore );
 	const { isModalActive } = useSelect( interfaceStore );
 	const { enabled, postId } = useSelect( ( select ) => {
-		const { getCurrentPostId } = select( editorStore );
+		const { getCurrentPostId, getCurrentPostType } = select( editorStore );
 		const choosePatternModalEnabled = select( preferencesStore ).get(
 			'core',
 			'enableChoosePatternModal'
 		);
 		return {
 			postId: getCurrentPostId(),
-			enabled: choosePatternModalEnabled,
+			enabled:
+				choosePatternModalEnabled &&
+				TEMPLATE_POST_TYPE !== getCurrentPostType(),
 		};
 	}, [] );
 
