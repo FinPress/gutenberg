@@ -518,6 +518,16 @@ class WP_Navigation_Block_Renderer {
 
 		$overlay_inline_styles = esc_attr( safecss_filter_attr( $colors['overlay_inline_styles'] ) );
 
+		// Set the autofocus attribute on the first link.
+		$tag_processor = new WP_HTML_Tag_Processor( $inner_blocks_html );
+		while ( $tag_processor->next_tag( array( 'tag_name' => 'A' ) ) ) {
+			if ( is_string( $tag_processor->get_attribute( 'href' ) ) ) {
+				$tag_processor->set_attribute( 'autofocus', true );
+				$inner_blocks_html = $tag_processor->get_updated_html();
+				break;
+			}
+		}
+
 		return sprintf(
 			'<button aria-haspopup="dialog" %3$s class="%6$s" %10$s commandfor="%1$s" command="show-modal">%8$s</button>
 				<dialog class="%5$s" %7$s id="%1$s" %11$s>
