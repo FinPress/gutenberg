@@ -2,9 +2,33 @@
 
 ## Unreleased
 
+### Bug Fixes
+
+-   `Button`: Fix tertiary variant displaying incorrect text color in pressed and hover states ([#68542](https://github.com/WordPress/gutenberg/pull/68542)).
+
+## 29.7.0 (2025-03-27)
+
+### Bug Fixes
+
+-   `useAutocomplete`: Fix autocomple UI flicker when deleting trigger prefix ([#69562](https://github.com/WordPress/gutenberg/pull/69562)).
+-   `FormTokenField`: Use `color-mix` for disabled option selection background ([#69621](https://github.com/WordPress/gutenberg/pull/69621)).
+-   `CustomSelectControl`: Fix check icon color to adapt with dark theme ([#69626](https://github.com/WordPress/gutenberg/pull/69626)).
+-   `Autocomplete`: Extracts `getNodeText` function into a separate file and adds unit tests ([#69135](https://github.com/WordPress/gutenberg/pull/69135)).
+-   `NumberControl`: update stepping to match HTML number input stepping ([#34566](https://github.com/WordPress/gutenberg/pull/34566)).
+
+## 29.6.0 (2025-03-13)
+
 ### Enhancement
 
 -   `QueryControls`: Add menu_order sorting option if supported by the post type. ([#68781](https://github.com/WordPress/gutenberg/pull/68781)).
+
+### Internal
+
+-   `NumberControl`: Fixed className test to properly verify className application. ([#69540](https://github.com/WordPress/gutenberg/pull/69540)).
+
+### Bug Fixes
+
+-   `Button`: Remove fixed width from small and compact buttons with icons ([#69378](https://github.com/WordPress/gutenberg/pull/69378)).
 
 ## 29.5.0 (2025-02-28)
 
