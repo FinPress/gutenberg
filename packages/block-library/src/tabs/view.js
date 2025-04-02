@@ -19,8 +19,7 @@ const { state, actions } = store( 'core/tabs', {
 		 */
 		get tabIndex() {
 			const { attributes } = getElement();
-			// Check if data-wp-tab-id exists in attributes and if so use that as the tab id.
-			const tabId = attributes?.[ 'data-wp-tab-id' ] || null;
+			const tabId = attributes?.id?.replace( 'tab-', '' ) || null;
 			if ( ! tabId ) {
 				return null;
 			}

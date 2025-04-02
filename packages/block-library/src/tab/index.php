@@ -81,8 +81,7 @@ function render_block_core_tab( $attributes, $content ) {
 	$tag_processor->set_attribute( 'class', $classname );
 
 	$tag_processor->set_attribute( 'role', 'tabpanel' );
-	$tag_processor->set_attribute( 'aria-labelledby', $tab_id );
-	$tag_processor->set_attribute( 'data-wp-tab-id', $tab_id );
+	$tag_processor->set_attribute( 'aria-labelledby', 'tab-' . $tab_id );
 	$tag_processor->set_attribute( 'data-wp-bind--hidden', '!state.isActiveTab' );
 	$tag_processor->set_attribute( 'data-wp-bind--tabindex', 'state.tabIndexAttribute' );
 

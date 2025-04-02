@@ -19,7 +19,7 @@
  * @param array $attributes Block attributes.
  * @return string A string of CSS variables.
  */
-function block_core_tabs_generate_color_variables( $attributes ) {
+function block_core_tabs_generate_color_styles( $attributes ) {
 	$tab_inactive = array_key_exists( 'customTabInactiveColor', $attributes ) ? $attributes['customTabInactiveColor'] : '';
 	$tab_hover    = array_key_exists( 'customTabHoverColor', $attributes ) ? $attributes['customTabHoverColor'] : '';
 	$tab_active   = array_key_exists( 'customTabActiveColor', $attributes ) ? $attributes['customTabActiveColor'] : '';
@@ -154,7 +154,7 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 	$tabs_list = block_core_tabs_generate_tabs_list_from_innerblocks( $block->parsed_block['innerBlocks'] );
 
 	// Generate the color styles and gap styles.
-	$color_styles = block_core_tabs_generate_color_variables( $attributes );
+	$color_styles = block_core_tabs_generate_color_styles( $attributes );
 	$gap_styles   = block_core_tabs_generate_gap_styles( $attributes );
 
 	// Modify the wrapper and setup initial interactivity directives and context.
@@ -185,7 +185,7 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 	$tabs_list = array_map(
 		function ( $tab ) {
 			return wp_sprintf(
-				'<li class="tabs__list-item" role="presentation"><a data-wp-tab-id="%s" class="tabs__tab-label" data-wp-bind--href="state.getTabHref" role="tab" data-wp-on--click="actions.handleTabClick" data-wp-on--keydown="actions.handleTabKeyDown" data-wp-bind--aria-selected="state.isActiveTab" data-wp-bind--tabindex="state.tabIndexAttribute">%s</a></li>',
+				'<li class="tabs__list-item" role="presentation"><a id="tab-%1$s" class="tabs__tab-label" href="#%1$s" role="tab" aria-controls="%1$s" data-wp-on--click="actions.handleTabClick" data-wp-on--keydown="actions.handleTabKeyDown" data-wp-bind--aria-selected="state.isActiveTab" data-wp-bind--tabindex="state.tabIndexAttribute">%2$s</a></li>',
 				$tab['id'],
 				$tab['label']
 			);
