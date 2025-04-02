@@ -70,7 +70,17 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await expect( overlayMenuFirstElement ).toBeHidden();
 
 			// Test: overlay menu closes on ESC key
-			await openMenuButton.click();
+			// In webkit clicking a button doesn’t focus it. Tabbing to the button and opening it
+			// with a Space key press ensures that even in webkit it is focused before the dialog
+			// opens and thereby gets focused after the dialog closes.
+			while (
+				! ( await openMenuButton.evaluate( ( button ) =>
+					button.matches( ':focus' )
+				) )
+			) {
+				await pageUtils.pressKeys( 'Tab' );
+			}
+			await pageUtils.pressKeys( 'Space' );
 			await expect( overlayMenuFirstElement ).toBeVisible();
 			await pageUtils.pressKeys( 'Escape' );
 			await expect( overlayMenuFirstElement ).toBeHidden();
