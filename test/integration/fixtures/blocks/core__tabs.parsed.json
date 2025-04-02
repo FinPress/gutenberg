@@ -15,13 +15,13 @@
 							"placeholder": "Type / to add a block to tab"
 						},
 						"innerBlocks": [],
-						"innerHTML": "\n\t<p>Tab 1 content</p>\n\t",
-						"innerContent": [ "\n\t<p>Tab 1 content</p>\n\t" ]
+						"innerHTML": "\n\t<p></p>\n\t",
+						"innerContent": [ "\n\t<p></p>\n\t" ]
 					}
 				],
-				"innerHTML": "\n\t<section class=\"wp-block-tab\" id=\"tab-1\"></section>\n\t",
+				"innerHTML": "\n\t<section id=\"tab-1\" class=\"wp-block-tab\"></section>\n\t",
 				"innerContent": [
-					"\n\t<section class=\"wp-block-tab\" id=\"tab-1\">",
+					"\n\t<section id=\"tab-1\" class=\"wp-block-tab\">",
 					null,
 					"</section>\n\t"
 				]
@@ -31,32 +31,20 @@
 				"attrs": {
 					"label": "Tab 2"
 				},
-				"innerBlocks": [
-					{
-						"blockName": "core/paragraph",
-						"attrs": {
-							"placeholder": "Type / to add a block to tab"
-						},
-						"innerBlocks": [],
-						"innerHTML": "\n\t<p>Tab 2 content</p>\n\t",
-						"innerContent": [ "\n\t<p>Tab 2 content</p>\n\t" ]
-					}
-				],
-				"innerHTML": "\n\t<section class=\"wp-block-tab\" id=\"tab-2\"></section>\n\t",
+				"innerBlocks": [],
+				"innerHTML": "\n\t<section id=\"tab-2\" class=\"wp-block-tab\"></section>\n\t",
 				"innerContent": [
-					"\n\t<section class=\"wp-block-tab\" id=\"tab-2\">",
-					null,
-					"</section>\n\t"
+					"\n\t<section id=\"tab-2\" class=\"wp-block-tab\"></section>\n\t"
 				]
 			}
 		],
-		"innerHTML": "\n<div class=\"wp-block-tabs\"><h3 class=\"tabs__title\">Contents</h3><ul class=\"tabs__list\"></ul>\n\n\t</div>\n",
+		"innerHTML": "\n<div class=\"wp-block-tabs\"><h3 class=\"tabs__title\">Tab Contents</h3><ul class=\"tabs__list\"></ul>\n\n\t</div>\n\t",
 		"innerContent": [
-			"\n<div class=\"wp-block-tabs\"><h3 class=\"tabs__title\">Contents</h3><ul class=\"tabs__list\"></ul>",
+			"\n<div class=\"wp-block-tabs\"><h3 class=\"tabs__title\">Tab Contents</h3><ul class=\"tabs__list\"></ul>",
 			null,
 			"\n\n\t",
 			null,
-			"</div>\n"
+			"</div>\n\t"
 		]
 	}
 ]

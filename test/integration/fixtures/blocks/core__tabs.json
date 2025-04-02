@@ -19,7 +19,7 @@
 						"name": "core/paragraph",
 						"isValid": true,
 						"attributes": {
-							"content": "Tab 1 content",
+							"content": "",
 							"dropCap": false,
 							"placeholder": "Type / to add a block to tab"
 						},
@@ -34,18 +34,7 @@
 					"label": "Tab 2",
 					"anchor": "tab-2"
 				},
-				"innerBlocks": [
-					{
-						"name": "core/paragraph",
-						"isValid": true,
-						"attributes": {
-							"content": "Tab 2 content",
-							"dropCap": false,
-							"placeholder": "Type / to add a block to tab"
-						},
-						"innerBlocks": []
-					}
-				]
+				"innerBlocks": []
 			}
 		]
 	}
