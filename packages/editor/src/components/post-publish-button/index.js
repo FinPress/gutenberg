@@ -14,7 +14,7 @@ import { store as editorStore } from '../../store';
 
 const noop = () => {};
 
-export const PostPublishButton = ( props ) => {
+export function PostPublishButton( props ) {
 	const [ entitiesSavedStatesCallback, setEntitiesSavedStatesCallbackState ] =
 		useState( false );
 
@@ -173,7 +173,7 @@ export const PostPublishButton = ( props ) => {
 			</Button>
 		</>
 	);
-};
+}
 
 /**
  * Renders the publish button.
