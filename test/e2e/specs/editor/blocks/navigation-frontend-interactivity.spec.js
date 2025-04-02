@@ -104,7 +104,7 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			} );
 			await editor.insertBlock( {
 				name: 'core/navigation',
-				attributes: { overlayMenu: 'off', openSubmenusOnClick: true },
+				attributes: { overlayMenu: 'never', openSubmenusOnClick: true },
 			} );
 			await editor.saveSiteEditorEntities( {
 				isOnlyCurrentEntityDirty: true,
@@ -313,7 +313,7 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			} );
 			await editor.insertBlock( {
 				name: 'core/navigation',
-				attributes: { overlayMenu: 'off' },
+				attributes: { overlayMenu: 'never' },
 			} );
 			await editor.saveSiteEditorEntities( {
 				isOnlyCurrentEntityDirty: true,
@@ -405,7 +405,7 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			} );
 			await editor.insertBlock( {
 				name: 'core/navigation',
-				attributes: { overlayMenu: 'off', openSubmenusOnClick: true },
+				attributes: { overlayMenu: 'never', openSubmenusOnClick: true },
 			} );
 			await editor.saveSiteEditorEntities( {
 				isOnlyCurrentEntityDirty: true,
