@@ -16,7 +16,7 @@
  *
  * @return string Returns the block content.
  */
-function render_block_read_progress( $attributes, $content ) {
+function render_block_core_read_progress( $attributes, $content ) {
 	wp_enqueue_script_module( '@wordpress/block-library/read-progress/view' );
 	return $content;
 }
@@ -30,7 +30,7 @@ function register_block_core_read_progress() {
 	register_block_type_from_metadata(
 		__DIR__ . '/read-progress',
 		array(
-			'render_callback' => 'render_block_read_progress',
+			'render_callback' => 'render_block_core_read_progress',
 		)
 	);
 }

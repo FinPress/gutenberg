@@ -3,9 +3,13 @@ if ( ! ( 'ScrollTimeline' in window ) ) {
 	 * Internal dependencies
 	 */
 	require( './utils/polyfill' );
+
+	document.addEventListener( 'DOMContentLoaded', initScrollAnimation );
+} else {
+	document.addEventListener( 'DOMContentLoaded', initScrollAnimation );
 }
 
-document.addEventListener( 'DOMContentLoaded', () => {
+function initScrollAnimation() {
 	const progressBar = document.querySelector(
 		'.wp-block-read-progress__progress-style'
 	);
@@ -25,4 +29,4 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			easing: 'linear',
 		}
 	);
-} );
+}
