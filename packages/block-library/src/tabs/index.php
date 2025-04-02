@@ -180,7 +180,7 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 	// Set the updated styles.
 	$tag_processor->set_attribute( 'style', $style );
 
-	$content = $tag_processor->get_updated_html();
+	$updated_content = $tag_processor->get_updated_html();
 
 	$tabs_list = array_map(
 		function ( $tab ) {
@@ -194,14 +194,12 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 	);
 	$tabs_list = implode( '', $tabs_list );
 
-	// Splice the tabs_template into the updated_content.
-	$list_start_pos = strpos( $content, '<ul class="tabs__list"' );
-	if ( false !== $list_start_pos ) {
-		$list_open_end    = strpos( $content, '>', $list_start_pos ) + 1;
-		$list_close_start = strpos( $content, '</ul>', $list_open_end );
-
-		$content = substr( $content, 0, $list_open_end ) . $tabs_list . substr( $content, $list_close_start );
-	}
+	// Splice the tabs_list into the updated content.
+	$content = preg_replace(
+		'/<ul\s+class="tabs__list">\s*<\/ul>/i',
+		'<ul class="tabs__list">' . $tabs_list . '</ul>',
+		$updated_content
+	);
 
 	return $content;
 }
