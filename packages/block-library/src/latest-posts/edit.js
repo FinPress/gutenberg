@@ -114,10 +114,53 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 		( select ) => {
 			const { getEntityRecords, getUsers } = select( coreStore );
 			const settings = select( blockEditorStore ).getSettings();
-			const catIds =
+			const allCategories = getEntityRecords(
+				'taxonomy',
+				'category',
+				CATEGORIES_LIST_QUERY
+			);
+			const selectedCatIds =
 				categories && categories.length > 0
 					? categories.map( ( cat ) => cat.id )
 					: [];
+
+			let catIds = [ ...selectedCatIds ];
+
+			if ( allCategories && selectedCatIds.length > 0 ) {
+				const childrenMap = {};
+
+				allCategories.forEach( ( category ) => {
+					const parentId = category.parent;
+					if ( parentId ) {
+						if ( ! childrenMap[ parentId ] ) {
+							childrenMap[ parentId ] = [];
+						}
+						childrenMap[ parentId ].push( category.id );
+					}
+				} );
+
+				const getAllDescendants = ( parentIds ) => {
+					let descendants = [];
+					parentIds.forEach( ( parentId ) => {
+						const children = childrenMap[ parentId ] || [];
+						descendants = [ ...descendants, ...children ];
+						if ( children.length > 0 ) {
+							descendants = [
+								...descendants,
+								...getAllDescendants( children ),
+							];
+						}
+					} );
+					return descendants;
+				};
+
+				const childCatIds = getAllDescendants( selectedCatIds );
+
+				catIds = [
+					...new Set( [ ...selectedCatIds, ...childCatIds ] ),
+				];
+			}
+
 			const latestPostsQuery = Object.fromEntries(
 				Object.entries( {
 					categories: catIds,
@@ -143,11 +186,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					'post',
 					latestPostsQuery
 				),
-				categoriesList: getEntityRecords(
-					'taxonomy',
-					'category',
-					CATEGORIES_LIST_QUERY
-				),
+				categoriesList: allCategories,
 				authorList: getUsers( USERS_LIST_QUERY ),
 			};
 		},
