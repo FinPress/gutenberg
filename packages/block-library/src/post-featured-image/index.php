@@ -21,10 +21,14 @@ function render_block_core_post_featured_image( $attributes, $content, $block ) 
 	}
 	$post_ID = $block->context['postId'];
 
-	$is_link        = isset( $attributes['isLink'] ) && $attributes['isLink'];
-	$size_slug      = isset( $attributes['sizeSlug'] ) ? $attributes['sizeSlug'] : 'post-thumbnail';
-	$attr           = get_block_core_post_featured_image_border_attributes( $attributes );
-	$overlay_markup = get_block_core_post_featured_image_overlay_element_markup( $attributes );
+	$is_link                = isset( $attributes['isLink'] ) && $attributes['isLink'];
+	$size_slug              = isset( $attributes['sizeSlug'] ) ? $attributes['sizeSlug'] : 'post-thumbnail';
+	$attr                   = get_block_core_post_featured_image_border_attributes( $attributes );
+	$overlay_markup         = get_block_core_post_featured_image_overlay_element_markup( $attributes );
+	$theme_block_dimensions = wp_get_global_styles(
+		array( 'dimensions' ),
+		array( 'block_name' => $block->name )
+	);
 
 	if ( $is_link ) {
 		if ( get_the_title( $post_ID ) ) {
@@ -41,7 +45,7 @@ function render_block_core_post_featured_image( $attributes, $content, $block ) 
 	$extra_styles = '';
 
 	// Aspect ratio with a height set needs to override the default width/height.
-	if ( ! empty( $attributes['aspectRatio'] ) ) {
+	if ( ! empty( $attributes['aspectRatio'] ) || ! empty( $theme_block_dimensions['aspectRatio'] ) ) {
 		$extra_styles .= 'width:100%;height:100%;';
 	} elseif ( ! empty( $attributes['height'] ) ) {
 		$extra_styles .= "height:{$attributes['height']};";
