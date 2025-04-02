@@ -175,8 +175,8 @@ export default function PostFeaturedImageEdit( {
 				) }
 				withIllustration
 				style={ {
-					height: !! aspectRatio && '100%',
-					width: !! aspectRatio && '100%',
+					height: '100%',
+					width: '100%',
 					...borderProps.style,
 					...shadowProps.style,
 				} }
@@ -369,9 +369,9 @@ export default function PostFeaturedImageEdit( {
 	const imageStyles = {
 		...borderProps.style,
 		...shadowProps.style,
-		height: aspectRatio ? '100%' : height,
-		width: !! aspectRatio && '100%',
-		objectFit: !! ( height || aspectRatio ) && scale,
+		height: '100%',
+		width: '100%',
+		objectFit: scale,
 	};
 
 	/**
