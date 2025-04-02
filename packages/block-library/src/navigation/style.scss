@@ -490,7 +490,7 @@ button.wp-block-navigation-item__content {
 
 	// If the responsive wrapper is present but overlay is not open, overlay colors
 	// shouldn't apply and !important is to override color classes or inline styles.
-	&:not(.is-menu-open, :open) { /* stylelint-disable-line selector-pseudo-class-no-unknown -- :open is real. */
+	&:not(.is-menu-open, [open]) { /* todo: replace [open] with :open when browser support is widely available. */
 		color: inherit !important;
 		background-color: inherit !important;
 	}
@@ -500,7 +500,7 @@ button.wp-block-navigation-item__content {
 	// Inherit as much as we can regarding colors, fonts, sizes,
 	// but otherwise provide a baseline.
 	// In a future version, we can explore more customizability.
-	&:is(.is-menu-open, :open) { /* stylelint-disable-line selector-pseudo-class-no-unknown -- :open is real. */
+	&:is(.is-menu-open, [open]) { /* todo: replace [open] with :open when browser support is widely available. */
 		display: flex;
 		flex-direction: column;
 
@@ -610,7 +610,7 @@ button.wp-block-navigation-item__content {
 
 	@include break-small() {
 		&:not(.hidden-by-default) {
-			&:not(.is-menu-open, :open) {  /* stylelint-disable-line selector-pseudo-class-no-unknown -- :open is real. */
+			&:not(.is-menu-open, [open]) { /* todo: replace [open] with :open when browser support is widely available. */
 				display: block;
 				width: 100%;
 				position: relative;
@@ -623,7 +623,7 @@ button.wp-block-navigation-item__content {
 			}
 		}
 
-		&:is(.is-menu-open, :open) { /* stylelint-disable-line selector-pseudo-class-no-unknown -- :open is real. */
+		&:is(.is-menu-open, [open]) { /* todo: replace [open] with :open when browser support is widely available. */
 			// Override breakpoint-inherited submenu rules.
 			.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container {
 				left: 0;
@@ -634,12 +634,12 @@ button.wp-block-navigation-item__content {
 
 // Default menu background and font color.
 .wp-block-navigation:not(.has-background)
-.wp-block-navigation__responsive-container:is(.is-menu-open, :open) { /* stylelint-disable-line selector-pseudo-class-no-unknown -- :open is real. */
+.wp-block-navigation__responsive-container:is(.is-menu-open, [open]) { /* todo: replace [open] with :open when browser support is widely available. */
 	background-color: #fff;
 }
 
 .wp-block-navigation:not(.has-text-color)
-.wp-block-navigation__responsive-container:is(.is-menu-open, :open) { /* stylelint-disable-line selector-pseudo-class-no-unknown -- :open is real. */
+.wp-block-navigation__responsive-container:is(.is-menu-open, [open]) { /* todo: replace [open] with :open when browser support is widely available. */
 	color: #000;
 }
 
@@ -710,7 +710,7 @@ button.wp-block-navigation-item__content {
 .wp-block-navigation__responsive-close {
 	width: 100%;
 
-	:is(.is-menu-open, :open) > & { /* stylelint-disable-line selector-pseudo-class-no-unknown -- :open is real. */
+	:is(.is-menu-open, [open]) > & { /* todo: replace [open] with :open when browser support is widely available. */
 		// Try to inherit wide-width when defined, so the X can align to a top-right aligned menu.
 		max-width: var(--wp--style--global--wide-size, 100%);
 		margin-left: auto;
@@ -726,7 +726,7 @@ button.wp-block-navigation-item__content {
 	}
 }
 
-.wp-block-navigation__responsive-container:is(.is-menu-open, :open) /* stylelint-disable-line selector-pseudo-class-no-unknown -- :open is real. */
+.wp-block-navigation__responsive-container:is(.is-menu-open, [open]) /* todo: replace [open] with :open when browser support is widely available. */
 :is(.wp-block-navigation__responsive-close, .wp-block-navigation__responsive-dialog, .wp-block-navigation__responsive-container-content) {
 	box-sizing: border-box;
 }
@@ -737,6 +737,6 @@ button.wp-block-navigation-item__content {
 
 // Prevent scrolling of the parent content when the modal is open.
 html.has-modal-open,
-html:has(.wp-block-navigation__responsive-container:open) { /* stylelint-disable-line selector-pseudo-class-no-unknown -- :open is real. */
+html:has(.wp-block-navigation__responsive-container[open]) { /* todo: replace [open] with :open when browser support is widely available. */
 	overflow: hidden;
 }
