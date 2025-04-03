@@ -34,10 +34,11 @@ const countries = [
 ];
 
 const meta: Meta< typeof ComboboxControl > = {
-	title: 'Components/ComboboxControl',
+	title: 'Components/Selection & Input/Common/ComboboxControl',
+	id: 'components-comboboxcontrol',
 	component: ComboboxControl,
 	argTypes: {
-		value: { control: { type: null } },
+		value: { control: false },
 	},
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },
@@ -76,6 +77,8 @@ const Template: StoryFn< typeof ComboboxControl > = ( {
 };
 export const Default = Template.bind( {} );
 Default.args = {
+	__next40pxDefaultSize: true,
+	__nextHasNoMarginBottom: true,
 	allowReset: false,
 	label: 'Select a country',
 	options: countryOptions,
@@ -135,7 +138,19 @@ const optionsWithDisabledOptions = countryOptions.map( ( option, index ) => ( {
 } ) );
 
 WithDisabledOptions.args = {
-	allowReset: false,
-	label: 'Select a country',
+	...Default.args,
 	options: optionsWithDisabledOptions,
+};
+
+/**
+ * By default, the combobox expands when focused.
+ * You can disable this behavior by setting the `expandOnFocus` prop to `false`.
+ * This is useful when you want to show the suggestions only when the user interacts with the input.
+ */
+export const NotExpandOnFocus = Template.bind( {} );
+
+NotExpandOnFocus.args = {
+	...Default.args,
+	options: countryOptions,
+	expandOnFocus: false,
 };

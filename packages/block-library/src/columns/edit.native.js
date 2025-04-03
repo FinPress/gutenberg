@@ -13,7 +13,6 @@ import {
 	FooterMessageControl,
 	UnitControl,
 	getValueAndUnit,
-	GlobalStylesContext,
 	alignmentHelpers,
 	__experimentalUseCustomUnits as useCustomUnits,
 } from '@wordpress/components';
@@ -25,12 +24,12 @@ import {
 	BlockVariationPicker,
 	useSettings,
 	store as blockEditorStore,
+	useGlobalStyles,
 } from '@wordpress/block-editor';
 import { withDispatch, useSelect } from '@wordpress/data';
 import {
 	useEffect,
 	useState,
-	useContext,
 	useMemo,
 	useCallback,
 	memo,
@@ -90,7 +89,7 @@ function ColumnsEditContainer( {
 	const [ resizeListener, sizes ] = useResizeObserver();
 	const [ columnsInRow, setColumnsInRow ] = useState( MIN_COLUMNS_NUM );
 	const screenWidth = Math.floor( Dimensions.get( 'window' ).width );
-	const globalStyles = useContext( GlobalStylesContext );
+	const globalStyles = useGlobalStyles();
 
 	const { verticalAlignment, align } = attributes;
 	const { width } = sizes || {};
@@ -288,7 +287,7 @@ const ColumnsEditContainerWrapper = withDispatch(
 		/**
 		 * Update all child Column blocks with a new vertical alignment setting
 		 * based on whatever alignment is passed in. This allows change to parent
-		 * to overide anything set on a individual column basis.
+		 * to override anything set on a individual column basis.
 		 *
 		 * @param {string} verticalAlignment the vertical alignment setting
 		 */

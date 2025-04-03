@@ -4,6 +4,7 @@
 import { store as coreStore } from '@wordpress/core-data';
 import { useDispatch } from '@wordpress/data';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { addQueryArgs } from '@wordpress/url';
 
 /**
  * Internal dependencies
@@ -23,7 +24,7 @@ const { useHistory, useLocation } = unlock( routerPrivateApis );
  */
 export function useActivateTheme() {
 	const history = useHistory();
-	const { params } = useLocation();
+	const { path } = useLocation();
 	const { startResolution, finishResolution } = useDispatch( coreStore );
 
 	return async () => {
@@ -38,7 +39,7 @@ export function useActivateTheme() {
 			finishResolution( 'activateTheme' );
 			// Remove the wp_theme_preview query param: we've finished activating
 			// the queue and are switching to normal Site Editor.
-			history.replace( { ...params, wp_theme_preview: undefined } );
+			history.navigate( addQueryArgs( path, { wp_theme_preview: '' } ) );
 		}
 	};
 }

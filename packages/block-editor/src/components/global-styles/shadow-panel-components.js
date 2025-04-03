@@ -10,20 +10,16 @@ import {
 	Button,
 	FlexItem,
 	Dropdown,
-	privateApis as componentsPrivateApis,
+	Composite,
+	Tooltip,
 } from '@wordpress/components';
-import { useMemo } from '@wordpress/element';
-import { shadow as shadowIcon, Icon, check } from '@wordpress/icons';
+import { useMemo, useRef } from '@wordpress/element';
+import { shadow as shadowIcon, Icon, check, reset } from '@wordpress/icons';
 
 /**
  * External dependencies
  */
 import clsx from 'clsx';
-
-/**
- * Internal dependencies
- */
-import { unlock } from '../../lock-unlock';
 
 /**
  * Shared reference to an empty array for cases where it is important to avoid
@@ -47,8 +43,11 @@ export function ShadowPopoverContainer( { shadow, onShadowChange, settings } ) {
 				/>
 				<div className="block-editor-global-styles__clear-shadow">
 					<Button
+						__next40pxDefaultSize
 						variant="tertiary"
 						onClick={ () => onShadowChange( undefined ) }
+						disabled={ ! shadow }
+						accessibleWhenDisabled
 					>
 						{ __( 'Clear' ) }
 					</Button>
@@ -59,12 +58,8 @@ export function ShadowPopoverContainer( { shadow, onShadowChange, settings } ) {
 }
 
 export function ShadowPresets( { presets, activeShadow, onSelect } ) {
-	const { CompositeV2: Composite, useCompositeStoreV2: useCompositeStore } =
-		unlock( componentsPrivateApis );
-	const compositeStore = useCompositeStore();
 	return ! presets ? null : (
 		<Composite
-			store={ compositeStore }
 			role="listbox"
 			className="block-editor-global-styles__shadow__list"
 			aria-label={ __( 'Drop shadows' ) }
@@ -86,32 +81,32 @@ export function ShadowPresets( { presets, activeShadow, onSelect } ) {
 }
 
 export function ShadowIndicator( { type, label, isActive, onSelect, shadow } ) {
-	const { CompositeItemV2: CompositeItem } = unlock( componentsPrivateApis );
 	return (
-		<CompositeItem
-			role="option"
-			aria-label={ label }
-			aria-selected={ isActive }
-			className={ clsx( 'block-editor-global-styles__shadow__item', {
-				'is-active': isActive,
-			} ) }
-			render={
-				<Button
-					className={ clsx(
-						'block-editor-global-styles__shadow-indicator',
-						{
-							unset: type === 'unset',
-						}
-					) }
-					onClick={ onSelect }
-					label={ label }
-					style={ { boxShadow: shadow } }
-					showTooltip
-				>
-					{ isActive && <Icon icon={ check } /> }
-				</Button>
-			}
-		/>
+		<Tooltip text={ label }>
+			<Composite.Item
+				role="option"
+				aria-label={ label }
+				aria-selected={ isActive }
+				className={ clsx( 'block-editor-global-styles__shadow__item', {
+					'is-active': isActive,
+				} ) }
+				render={
+					<button
+						className={ clsx(
+							'block-editor-global-styles__shadow-indicator',
+							{
+								unset: type === 'unset',
+							}
+						) }
+						onClick={ onSelect }
+						style={ { boxShadow: shadow } }
+						aria-label={ label }
+					>
+						{ isActive && <Icon icon={ check } /> }
+					</button>
+				}
+			/>
+		</Tooltip>
 	);
 }
 
@@ -126,7 +121,7 @@ export function ShadowPopover( { shadow, onShadowChange, settings } ) {
 		<Dropdown
 			popoverProps={ popoverProps }
 			className="block-editor-global-styles__shadow-dropdown"
-			renderToggle={ renderShadowToggle() }
+			renderToggle={ renderShadowToggle( shadow, onShadowChange ) }
 			renderContent={ () => (
 				<DropdownContentWrapper paddingSize="medium">
 					<ShadowPopoverContainer
@@ -140,25 +135,57 @@ export function ShadowPopover( { shadow, onShadowChange, settings } ) {
 	);
 }
 
-function renderShadowToggle() {
+function renderShadowToggle( shadow, onShadowChange ) {
 	return ( { onToggle, isOpen } ) => {
+		const shadowButtonRef = useRef( undefined );
+
 		const toggleProps = {
 			onClick: onToggle,
-			className: clsx( { 'is-open': isOpen } ),
+			className: clsx(
+				'block-editor-global-styles__shadow-dropdown-toggle',
+				{ 'is-open': isOpen }
+			),
 			'aria-expanded': isOpen,
+			ref: shadowButtonRef,
+		};
+
+		const removeButtonProps = {
+			onClick: () => {
+				if ( isOpen ) {
+					onToggle();
+				}
+				onShadowChange( undefined );
+				// Return focus to parent button.
+				shadowButtonRef.current?.focus();
+			},
+			className: clsx(
+				'block-editor-global-styles__shadow-editor__remove-button',
+				{ 'is-open': isOpen }
+			),
+			label: __( 'Remove' ),
 		};
 
 		return (
-			<Button { ...toggleProps }>
-				<HStack justify="flex-start">
-					<Icon
-						className="block-editor-global-styles__toggle-icon"
-						icon={ shadowIcon }
-						size={ 24 }
+			<>
+				<Button __next40pxDefaultSize { ...toggleProps }>
+					<HStack justify="flex-start">
+						<Icon
+							className="block-editor-global-styles__toggle-icon"
+							icon={ shadowIcon }
+							size={ 24 }
+						/>
+						<FlexItem>{ __( 'Drop shadow' ) }</FlexItem>
+					</HStack>
+				</Button>
+				{ !! shadow && (
+					<Button
+						__next40pxDefaultSize
+						size="small"
+						icon={ reset }
+						{ ...removeButtonProps }
 					/>
-					<FlexItem>{ __( 'Drop shadow' ) }</FlexItem>
-				</HStack>
-			</Button>
+				) }
+			</>
 		);
 	};
 }
@@ -170,8 +197,11 @@ export function useShadowPresets( settings ) {
 		}
 
 		const defaultPresetsEnabled = settings?.shadow?.defaultPresets;
-		const { default: defaultShadows, theme: themeShadows } =
-			settings?.shadow?.presets ?? {};
+		const {
+			default: defaultShadows,
+			theme: themeShadows,
+			custom: customShadows,
+		} = settings?.shadow?.presets ?? {};
 		const unsetShadow = {
 			name: __( 'Unset' ),
 			slug: 'unset',
@@ -181,6 +211,7 @@ export function useShadowPresets( settings ) {
 		const shadowPresets = [
 			...( ( defaultPresetsEnabled && defaultShadows ) || EMPTY_ARRAY ),
 			...( themeShadows || EMPTY_ARRAY ),
+			...( customShadows || EMPTY_ARRAY ),
 		];
 		if ( shadowPresets.length ) {
 			shadowPresets.unshift( unsetShadow );

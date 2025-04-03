@@ -20,11 +20,11 @@ const POPOVER_PROPS = {
  */
 import { unlock } from '../../lock-unlock';
 
-const { useLocation, useHistory } = unlock( routerPrivateApis );
+const { useHistory, useLocation } = unlock( routerPrivateApis );
 
 export default function LeafMoreMenu( props ) {
-	const { params } = useLocation();
 	const history = useHistory();
+	const { path } = useLocation();
 	const { block } = props;
 	const { clientId } = block;
 	const { moveBlocksDown, moveBlocksUp, removeBlocks } =
@@ -60,29 +60,20 @@ export default function LeafMoreMenu( props ) {
 				attributes.type &&
 				history
 			) {
-				history.push(
+				history.navigate(
+					`/${ attributes.type }/${ attributes.id }?canvas=edit`,
 					{
-						postType: attributes.type,
-						postId: attributes.id,
-					},
-					{
-						backPath: params,
+						state: { backPath: path },
 					}
 				);
 			}
 			if ( name === 'core/page-list-item' && attributes.id && history ) {
-				history.push(
-					{
-						postType: 'page',
-						postId: attributes.id,
-					},
-					{
-						backPath: params,
-					}
-				);
+				history.navigate( `/page/${ attributes.id }?canvas=edit`, {
+					state: { backPath: path },
+				} );
 			}
 		},
-		[ history, params ]
+		[ path, history ]
 	);
 
 	return (

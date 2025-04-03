@@ -10,28 +10,27 @@ import {
 import { store as coreStore } from '@wordpress/core-data';
 import { __experimentalText as Text, MenuItem } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import { store as editorStore } from '../../store';
 import { unlock } from '../../lock-unlock';
+import usePostContentBlocks from '../provider/use-post-content-blocks';
 
 function ContentOnlySettingsMenuItems( { clientId, onClose } ) {
-	const { entity, onNavigateToEntityRecord } = useSelect(
+	const postContentBlocks = usePostContentBlocks();
+	const { entity, onNavigateToEntityRecord, canEditTemplates } = useSelect(
 		( select ) => {
 			const {
-				getBlockEditingMode,
 				getBlockParentsByBlockName,
 				getSettings,
 				getBlockAttributes,
+				getBlockParents,
 			} = select( blockEditorStore );
-			const contentOnly =
-				getBlockEditingMode( clientId ) === 'contentOnly';
-			if ( ! contentOnly ) {
-				return {};
-			}
+			const { getCurrentTemplateId, getRenderingMode } =
+				select( editorStore );
 			const patternParent = getBlockParentsByBlockName(
 				clientId,
 				'core/block',
@@ -45,26 +44,33 @@ function ContentOnlySettingsMenuItems( { clientId, onClose } ) {
 					'wp_block',
 					getBlockAttributes( patternParent ).ref
 				);
-			} else {
-				const { getCurrentPostType, getCurrentTemplateId } =
-					select( editorStore );
-				const currentPostType = getCurrentPostType();
-				const templateId = getCurrentTemplateId();
-				if ( currentPostType === 'page' && templateId ) {
-					record = select( coreStore ).getEntityRecord(
-						'postType',
-						'wp_template',
-						templateId
-					);
-				}
+			} else if (
+				getRenderingMode() === 'template-locked' &&
+				! getBlockParents( clientId ).some( ( parent ) =>
+					postContentBlocks.includes( parent )
+				)
+			) {
+				record = select( coreStore ).getEntityRecord(
+					'postType',
+					'wp_template',
+					getCurrentTemplateId()
+				);
 			}
+			if ( ! record ) {
+				return {};
+			}
+			const _canEditTemplates = select( coreStore ).canUser( 'create', {
+				kind: 'postType',
+				name: 'wp_template',
+			} );
 			return {
+				canEditTemplates: _canEditTemplates,
 				entity: record,
 				onNavigateToEntityRecord:
 					getSettings().onNavigateToEntityRecord,
 			};
 		},
-		[ clientId ]
+		[ clientId, postContentBlocks ]
 	);
 
 	if ( ! entity ) {
@@ -77,6 +83,19 @@ function ContentOnlySettingsMenuItems( { clientId, onClose } ) {
 	}
 
 	const isPattern = entity.type === 'wp_block';
+	let helpText = isPattern
+		? __(
+				'Edit the pattern to move, delete, or make further changes to this block.'
+		  )
+		: __(
+				'Edit the template to move, delete, or make further changes to this block.'
+		  );
+
+	if ( ! canEditTemplates ) {
+		helpText = __(
+			'Only users with permissions to edit the template can move or delete this block'
+		);
+	}
 
 	return (
 		<>
@@ -88,6 +107,7 @@ function ContentOnlySettingsMenuItems( { clientId, onClose } ) {
 							postType: entity.type,
 						} );
 					} }
+					disabled={ ! canEditTemplates }
 				>
 					{ isPattern ? __( 'Edit pattern' ) : __( 'Edit template' ) }
 				</MenuItem>
@@ -97,13 +117,7 @@ function ContentOnlySettingsMenuItems( { clientId, onClose } ) {
 				as="p"
 				className="editor-content-only-settings-menu__description"
 			>
-				{ isPattern
-					? __(
-							'Edit the pattern to move, delete, or make further changes to this block.'
-					  )
-					: __(
-							'Edit the template to move, delete, or make further changes to this block.'
-					  ) }
+				{ helpText }
 			</Text>
 		</>
 	);
@@ -123,27 +137,23 @@ function TemplateLockContentOnlyMenuItems( { clientId, onClose } ) {
 	);
 	const blockDisplayInformation =
 		useBlockDisplayInformation( contentLockingParent );
-	// Disable reason: We're using a hook here so it has to be on top-level.
-	// eslint-disable-next-line @wordpress/no-unused-vars-before-return
-	const { modifyContentLockBlock, selectBlock } = unlock(
-		useDispatch( blockEditorStore )
-	);
-
+	const blockEditorActions = useDispatch( blockEditorStore );
 	if ( ! blockDisplayInformation?.title ) {
 		return null;
 	}
+
+	const { modifyContentLockBlock } = unlock( blockEditorActions );
 
 	return (
 		<>
 			<BlockSettingsMenuFirstItem>
 				<MenuItem
 					onClick={ () => {
-						selectBlock( contentLockingParent );
 						modifyContentLockBlock( contentLockingParent );
 						onClose();
 					} }
 				>
-					{ __( 'Unlock' ) }
+					{ _x( 'Unlock', 'Unlock content locked blocks' ) }
 				</MenuItem>
 			</BlockSettingsMenuFirstItem>
 			<Text

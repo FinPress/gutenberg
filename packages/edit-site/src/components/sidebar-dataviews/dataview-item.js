@@ -9,11 +9,11 @@ import clsx from 'clsx';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { __experimentalHStack as HStack } from '@wordpress/components';
 import { VIEW_LAYOUTS } from '@wordpress/dataviews';
+import { addQueryArgs } from '@wordpress/url';
 
 /**
  * Internal dependencies
  */
-import { useLink } from '../routes/link';
 import SidebarNavigationItem from '../sidebar-navigation-item';
 import { unlock } from '../../lock-unlock';
 const { useLocation } = unlock( routerPrivateApis );
@@ -28,19 +28,20 @@ export default function DataViewItem( {
 	isCustom,
 	suffix,
 } ) {
-	const {
-		params: { path, layout },
-	} = useLocation();
+	const { path } = useLocation();
 
 	const iconToUse =
 		icon || VIEW_LAYOUTS.find( ( v ) => v.type === type ).icon;
 
-	const linkInfo = useLink( {
-		path,
-		layout,
-		activeView: isCustom ? customViewId : slug,
-		isCustom: isCustom ? 'true' : 'false',
-	} );
+	let activeView = isCustom ? customViewId : slug;
+	if ( activeView === 'all' ) {
+		activeView = undefined;
+	}
+	const query = {
+		layout: type,
+		activeView,
+		isCustom: isCustom ? 'true' : undefined,
+	};
 	return (
 		<HStack
 			justify="flex-start"
@@ -50,7 +51,7 @@ export default function DataViewItem( {
 		>
 			<SidebarNavigationItem
 				icon={ iconToUse }
-				{ ...linkInfo }
+				to={ addQueryArgs( path, query ) }
 				aria-current={ isActive ? 'true' : undefined }
 			>
 				{ title }

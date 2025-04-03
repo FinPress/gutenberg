@@ -33,7 +33,6 @@ import {
 	ColorPicker,
 	BottomSheetConsumer,
 	useConvertUnitToMobile,
-	useMobileGlobalStylesColors,
 } from '@wordpress/components';
 import {
 	BlockControls,
@@ -47,6 +46,8 @@ import {
 	getColorObjectByAttributeValues,
 	getGradientValueBySlug,
 	store as blockEditorStore,
+	useGlobalStyles,
+	useMobileGlobalStylesColors,
 } from '@wordpress/block-editor';
 import { compose, withPreferredColorScheme } from '@wordpress/compose';
 import { useDispatch, withSelect, withDispatch } from '@wordpress/data';
@@ -57,7 +58,7 @@ import {
 	useCallback,
 	useMemo,
 } from '@wordpress/element';
-import { cover as icon, replace, image, warning } from '@wordpress/icons';
+import { cover as icon, replace, image, cautionFilled } from '@wordpress/icons';
 import { getProtocol } from '@wordpress/url';
 // eslint-disable-next-line no-restricted-imports
 import { store as editPostStore } from '@wordpress/edit-post';
@@ -156,9 +157,11 @@ const Cover = ( {
 		mediaUploadSync();
 	}, [] );
 
+	const globalStyles = useGlobalStyles();
 	const convertedMinHeight = useConvertUnitToMobile(
 		minHeight || COVER_DEFAULT_HEIGHT,
-		minHeightUnit
+		minHeightUnit,
+		globalStyles
 	);
 
 	const isImage = backgroundType === MEDIA_TYPE_IMAGE;
@@ -217,6 +220,21 @@ const Cover = ( {
 			isDark: undefined,
 		} );
 	};
+
+	const onUpdateMediaProgress = useCallback(
+		( payload ) => {
+			const { mediaUrl, state } = payload;
+
+			setIsUploadInProgress( true );
+
+			if ( isUploadInProgress && isImage && mediaUrl && ! state ) {
+				setAttributes( {
+					url: mediaUrl,
+				} );
+			}
+		},
+		[ isImage, isUploadInProgress, setAttributes ]
+	);
 
 	const onMediaPressed = () => {
 		if ( isUploadInProgress ) {
@@ -447,9 +465,7 @@ const Cover = ( {
 					toolbarControls( openMediaOptionsRef.current ) }
 				<MediaUploadProgress
 					mediaId={ id }
-					onUpdateMediaProgress={ () => {
-						setIsUploadInProgress( true );
-					} }
+					onUpdateMediaProgress={ onUpdateMediaProgress }
 					onFinishMediaUploadWithSuccess={ ( {
 						mediaServerId,
 						mediaUrl,
@@ -496,7 +512,7 @@ const Cover = ( {
 						muted
 						disableFocus
 						repeat
-						resizeMode={ 'cover' }
+						resizeMode="cover"
 						source={ { uri: url } }
 						onLoad={ onVideoLoad }
 						onLoadStart={ onVideoLoadStart }
@@ -649,7 +665,10 @@ const Cover = ( {
 					style={ styles.uploadFailedContainer }
 				>
 					<View style={ styles.uploadFailed }>
-						<Icon icon={ warning } { ...styles.uploadFailedIcon } />
+						<Icon
+							icon={ cautionFilled }
+							{ ...styles.uploadFailedIcon }
+						/>
 					</View>
 				</View>
 			) }

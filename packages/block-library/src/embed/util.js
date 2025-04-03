@@ -23,6 +23,7 @@ import { ASPECT_RATIOS, WP_EMBED_TYPE } from './constants';
 import { unlock } from '../lock-unlock';
 
 const { name: DEFAULT_EMBED_BLOCK } = metadata;
+const { kebabCase } = unlock( componentsPrivateApis );
 
 /** @typedef {import('@wordpress/blocks').WPBlockVariation} WPBlockVariation */
 
@@ -41,7 +42,7 @@ export const getEmbedInfoByProvider = ( provider ) =>
  * Returns true if any of the regular expressions match the URL.
  *
  * @param {string} url      The URL to test.
- * @param {Array}  patterns The list of regular expressions to test agains.
+ * @param {Array}  patterns The list of regular expressions to test against.
  * @return {boolean} True if any of the regular expressions match the URL.
  */
 export const matchesPatterns = ( url, patterns = [] ) =>
@@ -288,7 +289,6 @@ export const getAttributesFromPreview = memoize(
 		// If we got a provider name from the API, use it for the slug, otherwise we use the title,
 		// because not all embed code gives us a provider name.
 		const { html, provider_name: providerName } = preview;
-		const { kebabCase } = unlock( componentsPrivateApis );
 		const providerNameSlug = kebabCase(
 			( providerName || title ).toLowerCase()
 		);

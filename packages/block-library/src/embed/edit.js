@@ -30,6 +30,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
 import { View } from '@wordpress/primitives';
 import { getAuthority } from '@wordpress/url';
+import { Caption } from '../utils/caption';
 
 const EmbedEdit = ( props ) => {
 	const {
@@ -171,7 +172,13 @@ const EmbedEdit = ( props ) => {
 			// When obtaining an incoming preview,
 			// we set the attributes derived from the preview data.
 			const mergedAttributes = getMergedAttributes();
-			setAttributes( mergedAttributes );
+			const hasChanges = Object.keys( mergedAttributes ).some(
+				( key ) => mergedAttributes[ key ] !== attributes[ key ]
+			);
+
+			if ( hasChanges ) {
+				setAttributes( mergedAttributes );
+			}
 
 			if ( onReplace ) {
 				const upgradedBlock = createUpgradedEmbedBlock(
@@ -225,7 +232,7 @@ const EmbedEdit = ( props ) => {
 					} }
 					value={ url }
 					cannotEmbed={ cannotEmbed }
-					onChange={ ( event ) => setURL( event.target.value ) }
+					onChange={ ( value ) => setURL( value ) }
 					fallback={ () => fallback( url, onReplace ) }
 					tryAgain={ () => {
 						invalidateResolution( 'getEmbedPreview', [ url ] );
@@ -261,7 +268,15 @@ const EmbedEdit = ( props ) => {
 				toggleResponsive={ toggleResponsive }
 				switchBackToURLInput={ () => setIsEditingURL( true ) }
 			/>
-			<View { ...blockProps }>
+			<figure
+				{ ...blockProps }
+				className={ clsx( blockProps.className, className, {
+					[ `is-type-${ type }` ]: type,
+					[ `is-provider-${ providerNameSlug }` ]: providerNameSlug,
+					[ `wp-block-embed-${ providerNameSlug }` ]:
+						providerNameSlug,
+				} ) }
+			>
 				<EmbedPreview
 					preview={ preview }
 					previewable={ previewable }
@@ -276,8 +291,18 @@ const EmbedEdit = ( props ) => {
 					icon={ icon }
 					label={ label }
 					insertBlocksAfter={ insertBlocksAfter }
+					attributes={ attributes }
+					setAttributes={ setAttributes }
 				/>
-			</View>
+				<Caption
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+					isSelected={ isSelected }
+					insertBlocksAfter={ insertBlocksAfter }
+					label={ __( 'Embed caption text' ) }
+					showToolbarButton={ isSelected }
+				/>
+			</figure>
 		</>
 	);
 };
