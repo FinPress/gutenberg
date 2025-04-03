@@ -334,13 +334,15 @@ export default function PostFeaturedImageEdit( {
 								/>
 							</ToolsPanelItem>
 						) }
-						<FeaturedImageResolutionTool
-							image={ media }
-							value={ sizeSlug }
-							onChange={ ( nextSizeSlug ) =>
-								setAttributes( { sizeSlug: nextSizeSlug } )
-							}
-						/>
+						{ !! media && (
+							<FeaturedImageResolutionTool
+								image={ media }
+								value={ sizeSlug }
+								onChange={ ( nextSizeSlug ) =>
+									setAttributes( { sizeSlug: nextSizeSlug } )
+								}
+							/>
+						) }
 					</ToolsPanel>
 				</InspectorControls>
 			) }
