@@ -165,7 +165,7 @@ const renderPage = ( page: Page ) => {
 };
 
 /**
- * Load the given page forcing a full page reload.
+ * Loads the given page forcing a full page reload.
  *
  * The function returns a promise that won't resolve, useful to prevent any
  * potential feedback indicating that the navigation has finished while the new
