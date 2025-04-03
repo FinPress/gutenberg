@@ -1,9 +1,12 @@
 /**
  * WordPress dependencies
  */
+import { __ } from '@wordpress/i18n';
 import {
 	FormTokenField,
 	__experimentalVStack as VStack,
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
@@ -58,20 +61,64 @@ export function TaxonomyControls( { onChange, query } ) {
 	return (
 		<VStack spacing={ 4 }>
 			{ taxonomies.map( ( taxonomy ) => {
-				const termIds = taxQuery?.[ taxonomy.slug ] || [];
-				const handleChange = ( newTermIds ) =>
-					onChange( {
-						taxQuery: {
-							...taxQuery,
-							[ taxonomy.slug ]: newTermIds,
-						},
-					} );
+				const termData = taxQuery?.[ taxonomy.slug ];
+				const termIds = Array.isArray( termData ) ? termData : [];
+
+				const handleChange = ( newData ) => {
+					const newTaxQuery = { ...taxQuery };
+
+					if ( newData.terms?.length ) {
+						if ( taxonomy.slug === 'category' ) {
+							if ( newData.exclude ) {
+								onChange( {
+									categories_exclude: newData.terms,
+								} );
+							} else {
+								onChange( {
+									categories: newData.terms,
+								} );
+							}
+						} else if ( taxonomy.slug === 'post_tag' ) {
+							if ( newData.exclude ) {
+								onChange( {
+									tags_exclude: newData.terms,
+								} );
+							} else {
+								onChange( {
+									tags: newData.terms,
+								} );
+							}
+						} else {
+							newTaxQuery[ taxonomy.slug ] = newData.terms;
+							onChange( { taxQuery: newTaxQuery } );
+						}
+					} else if ( taxonomy.slug === 'category' ) {
+						onChange( {
+							categories: undefined,
+							categories_exclude: undefined,
+						} );
+					} else if ( taxonomy.slug === 'post_tag' ) {
+						onChange( {
+							tags: undefined,
+							tags_exclude: undefined,
+						} );
+					} else {
+						delete newTaxQuery[ taxonomy.slug ];
+						onChange( {
+							taxQuery:
+								Object.keys( newTaxQuery ).length > 0
+									? newTaxQuery
+									: null,
+						} );
+					}
+				};
 
 				return (
 					<TaxonomyItem
 						key={ taxonomy.slug }
 						taxonomy={ taxonomy }
 						termIds={ termIds }
+						isExclude={ false }
 						onChange={ handleChange }
 					/>
 				);
@@ -83,15 +130,17 @@ export function TaxonomyControls( { onChange, query } ) {
 /**
  * Renders a `FormTokenField` for a given taxonomy.
  *
- * @param {Object}   props          The props for the component.
- * @param {Object}   props.taxonomy The taxonomy object.
- * @param {number[]} props.termIds  An array with the block's term ids for the given taxonomy.
- * @param {Function} props.onChange Callback `onChange` function.
- * @return {JSX.Element} The rendered component.
+ * @param {Object}   props           The props for the component.
+ * @param {Object}   props.taxonomy  The taxonomy object.
+ * @param {number[]} props.termIds   An array with the block's term ids for the given taxonomy.
+ * @param {Function} props.onChange  Callback `onChange` function.
+ * @param {string}   props.isExclude Whether the terms should be excluded.
+ * @return {JSX.Element}            The rendered component.
  */
-function TaxonomyItem( { taxonomy, termIds, onChange } ) {
+function TaxonomyItem( { taxonomy, termIds, onChange, isExclude } ) {
 	const [ search, setSearch ] = useState( '' );
 	const [ value, setValue ] = useState( EMPTY_ARRAY );
+	const [ mode, setMode ] = useState( isExclude ? 'exclude' : 'include' );
 	const [ suggestions, setSuggestions ] = useState( EMPTY_ARRAY );
 	const debouncedSearch = useDebounce( setSearch, 250 );
 	const { searchResults, searchHasResolved } = useSelect(
@@ -120,11 +169,9 @@ function TaxonomyItem( { taxonomy, termIds, onChange } ) {
 				),
 			};
 		},
-		[ search, termIds ]
+		[ search, termIds, taxonomy.slug ]
 	);
-	// `existingTerms` are the ones fetched from the API and their type is `{ id: number; name: string }`.
-	// They are used to extract the terms' names to populate the `FormTokenField` properly
-	// and to sanitize the provided `termIds`, by setting only the ones that exist.
+
 	const existingTerms = useSelect(
 		( select ) => {
 			if ( ! termIds?.length ) {
@@ -137,10 +184,9 @@ function TaxonomyItem( { taxonomy, termIds, onChange } ) {
 				per_page: termIds.length,
 			} );
 		},
-		[ termIds ]
+		[ termIds, taxonomy.slug ]
 	);
-	// Update the `value` state only after the selectors are resolved
-	// to avoid emptying the input when we're changing terms.
+
 	useEffect( () => {
 		if ( ! termIds?.length ) {
 			setValue( EMPTY_ARRAY );
@@ -148,8 +194,6 @@ function TaxonomyItem( { taxonomy, termIds, onChange } ) {
 		if ( ! existingTerms?.length ) {
 			return;
 		}
-		// Returns only the existing entity ids. This prevents the component
-		// from crashing in the editor, when non existing ids are provided.
 		const sanitizedValue = termIds.reduce( ( accumulator, id ) => {
 			const entity = existingTerms.find( ( term ) => term.id === id );
 			if ( entity ) {
@@ -162,13 +206,14 @@ function TaxonomyItem( { taxonomy, termIds, onChange } ) {
 		}, [] );
 		setValue( sanitizedValue );
 	}, [ termIds, existingTerms ] );
-	// Update suggestions only when the query has resolved.
+
 	useEffect( () => {
-		if ( ! searchHasResolved ) {
+		if ( ! searchHasResolved || ! searchResults ) {
 			return;
 		}
-		setSuggestions( searchResults.map( ( result ) => result.name ) );
+		setSuggestions( searchResults.map( ( result ) => result.name || '' ) );
 	}, [ searchResults, searchHasResolved ] );
+
 	const onTermsChange = ( newTermValues ) => {
 		const newTermIds = new Set();
 		for ( const termValue of newTermValues ) {
@@ -178,21 +223,66 @@ function TaxonomyItem( { taxonomy, termIds, onChange } ) {
 			}
 		}
 		setSuggestions( EMPTY_ARRAY );
-		onChange( Array.from( newTermIds ) );
+
+		const terms = Array.from( newTermIds );
+		if ( terms.length === 0 ) {
+			onChange( {} );
+		} else {
+			onChange( {
+				terms,
+				exclude: mode === 'exclude',
+			} );
+		}
 	};
+
+	const onModeChange = ( newMode ) => {
+		setMode( newMode );
+
+		if ( termIds.length ) {
+			onChange( {
+				terms: termIds,
+				exclude: newMode === 'exclude',
+			} );
+		}
+	};
+
+	const includeLabel = __( 'Include' );
+	const excludeLabel = __( 'Exclude' );
+	const taxonomyLabel =
+		mode === 'include' ? __( 'Include terms' ) : __( 'Exclude terms' );
+
 	return (
 		<div className="block-library-query-inspector__taxonomy-control">
-			<FormTokenField
-				label={ taxonomy.name }
-				value={ value }
-				onInputChange={ debouncedSearch }
-				suggestions={ suggestions }
-				displayTransform={ decodeEntities }
-				onChange={ onTermsChange }
-				__experimentalShowHowTo={ false }
-				__nextHasNoMarginBottom
-				__next40pxDefaultSize
-			/>
+			<VStack spacing={ 2 }>
+				<ToggleGroupControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					label={ taxonomy.name }
+					value={ mode }
+					onChange={ onModeChange }
+					isBlock
+				>
+					<ToggleGroupControlOption
+						value="include"
+						label={ includeLabel }
+					/>
+					<ToggleGroupControlOption
+						value="exclude"
+						label={ excludeLabel }
+					/>
+				</ToggleGroupControl>
+				<FormTokenField
+					label={ taxonomyLabel }
+					value={ value }
+					onInputChange={ debouncedSearch }
+					suggestions={ suggestions || [] }
+					displayTransform={ decodeEntities }
+					onChange={ onTermsChange }
+					__experimentalShowHowTo={ false }
+					__nextHasNoMarginBottom
+					__next40pxDefaultSize
+				/>
+			</VStack>
 		</div>
 	);
 }
