@@ -116,7 +116,7 @@ function getOverviewBlockExamples(
 	if ( getBlockType( 'core/heading' ) ) {
 		const headingBlock = createBlock( 'core/heading', {
 			content: __(
-				`AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0l23456789X{(…)},.?!*&:/A@HELFO™©`
+				`AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0l23456789X{(…)},.-<>?!*&:/A@HELFO™©`
 			),
 			level: 1,
 		} );
