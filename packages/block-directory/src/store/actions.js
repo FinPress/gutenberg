@@ -87,10 +87,12 @@ export const installBlockType =
 
 			// Ensures that the block metadata is propagated to the editor when registered on the server.
 			const metadataFields = [
+				'name',
 				'api_version',
 				'title',
 				'category',
 				'parent',
+				'ancestor',
 				'icon',
 				'description',
 				'keywords',
@@ -101,25 +103,84 @@ export const installBlockType =
 				'styles',
 				'example',
 				'variations',
+				'blockHooks',
+				'allowedBlocks',
 			];
 			await apiFetch( {
-				path: addQueryArgs( `/wp/v2/block-types/${ name }`, {
+				path: addQueryArgs( `/wp/v2/block-types/`, {
 					_fields: metadataFields,
 				} ),
 			} )
 				// Ignore when the block is not registered on the server.
 				.catch( () => {} )
 				.then( ( response ) => {
-					if ( ! response ) {
+					if ( ! response && ! Array.isArray( response ) ) {
 						return;
 					}
-					unstable__bootstrapServerSideBlockDefinitions( {
-						[ name ]: Object.fromEntries(
-							Object.entries( response ).filter( ( [ key ] ) =>
-								metadataFields.includes( key )
-							)
-						),
-					} );
+
+					const blockDefinitions = Object.fromEntries(
+						response.map( ( blockItem ) => [
+							blockItem.name,
+							Object.fromEntries(
+								Object.entries( blockItem ).filter(
+									( [ key ] ) =>
+										metadataFields.includes( key )
+								)
+							),
+						] )
+					);
+
+					const installedDefinition = blockDefinitions[ name ];
+					if ( ! installedDefinition ) {
+						return;
+					}
+
+					const { allowedBlocks = [] } = installedDefinition;
+
+					let blocksToBootstrap = {};
+					if (
+						Array.isArray( allowedBlocks ) &&
+						allowedBlocks.length > 0
+					) {
+						blocksToBootstrap = allowedBlocks.reduce(
+							( acc, blockName ) => {
+								if (
+									! blockName.startsWith( 'core/' ) &&
+									blockDefinitions[ blockName ]
+								) {
+									acc[ blockName ] =
+										blockDefinitions[ blockName ];
+								}
+								return acc;
+							},
+							{}
+						);
+
+						blocksToBootstrap[ name ] = installedDefinition;
+					} else {
+						const childBlocks = Object.entries(
+							blockDefinitions
+						).filter( ( [ , def ] ) => {
+							function includesBlockName( defProp ) {
+								if ( Array.isArray( defProp ) ) {
+									return defProp.includes( name );
+								}
+								return false;
+							}
+
+							return (
+								includesBlockName( def.parent ) ||
+								includesBlockName( def.ancestor )
+							);
+						} );
+
+						blocksToBootstrap = Object.fromEntries( childBlocks );
+
+						blocksToBootstrap[ name ] = installedDefinition;
+					}
+					unstable__bootstrapServerSideBlockDefinitions(
+						blocksToBootstrap
+					);
 				} );
 
 			await loadAssets();
