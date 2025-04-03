@@ -1,11 +1,12 @@
 /**
  * WordPress dependencies
  */
-import { useEntityBlockEditor } from '@wordpress/core-data';
+import { useEntityBlockEditor, store as coreStore } from '@wordpress/core-data';
 import {
 	useInnerBlocksProps,
 	InnerBlocks,
 	store as blockEditorStore,
+	useBlockEditingMode,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { useMemo } from '@wordpress/element';
@@ -16,7 +17,39 @@ import { useMemo } from '@wordpress/element';
 import PlaceholderPreview from './placeholder/placeholder-preview';
 import { DEFAULT_BLOCK, PRIORITIZED_INSERTER_BLOCKS } from '../constants';
 
-export default function NavigationInnerBlocks( {
+function NonEditableNavigationInnerBlocks( {
+	hasCustomPlaceholder,
+	orientation,
+	templateLock,
+} ) {
+	useBlockEditingMode( 'disabled' );
+
+	const [ blocks ] = useEntityBlockEditor( 'postType', 'wp_navigation' );
+
+	const showPlaceholder = ! hasCustomPlaceholder && ! blocks?.length;
+	const placeholder = useMemo( () => <PlaceholderPreview />, [] );
+
+	const innerBlocksProps = useInnerBlocksProps(
+		{
+			className: 'wp-block-navigation__container',
+		},
+		{
+			value: blocks,
+			onInput: () => {},
+			onChange: () => {},
+			orientation,
+			templateLock,
+			renderAppender: false,
+			placeholder: showPlaceholder ? placeholder : undefined,
+			__experimentalCaptureToolbars: true,
+			__unstableDisableLayoutClassNames: true,
+		}
+	);
+
+	return <div { ...innerBlocksProps } />;
+}
+
+function EditableNavigationInnerBlocks( {
 	clientId,
 	hasCustomPlaceholder,
 	orientation,
@@ -107,4 +140,48 @@ export default function NavigationInnerBlocks( {
 	);
 
 	return <div { ...innerBlocksProps } />;
+}
+
+export default function NavigationInnerBlocks( {
+	clientId,
+	hasCustomPlaceholder,
+	orientation,
+	templateLock,
+	postId,
+} ) {
+	const { canViewNavigation, canEditNavigation } = useSelect(
+		( select ) => {
+			return {
+				canViewNavigation: !! select( coreStore ).canUser( 'read', {
+					kind: 'postType',
+					name: 'wp_navigation',
+					id: postId,
+				} ),
+				canEditNavigation: !! select( coreStore ).canUser( 'update', {
+					kind: 'postType',
+					name: 'wp_navigation',
+					id: postId,
+				} ),
+			};
+		},
+		[ postId ]
+	);
+
+	if ( ! canViewNavigation ) {
+		return null;
+	}
+
+	const NavigationInnerBlocksComponent = canEditNavigation
+		? EditableNavigationInnerBlocks
+		: NonEditableNavigationInnerBlocks;
+
+	return (
+		<NavigationInnerBlocksComponent
+			clientId={ clientId }
+			hasCustomPlaceholder={ hasCustomPlaceholder }
+			orientation={ orientation }
+			templateLock={ templateLock }
+			postId={ postId }
+		/>
+	);
 }

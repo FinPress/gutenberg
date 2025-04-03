@@ -940,6 +940,7 @@ function Navigation( {
 										}
 										templateLock={ templateLock }
 										orientation={ orientation }
+										postId={ ref }
 									/>
 								) }
 							</ResponsiveWrapper>
