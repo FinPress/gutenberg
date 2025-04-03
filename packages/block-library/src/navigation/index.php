@@ -498,18 +498,13 @@ class WP_Navigation_Block_Renderer {
 		$responsive_container_content_directives = '';
 		if ( $is_interactive ) {
 			$open_button_directives                  = '
-				data-wp-on-async--click="actions.openMenuOnClick"
-				data-wp-on--keydown="actions.handleMenuKeydown"
+				data-wp-init="callbacks.mountDialogInvoker"
 			';
 			$responsive_container_directives         = '
-				data-wp-class--has-modal-open="state.isMenuOpen"
-				data-wp-class--is-menu-open="state.isMenuOpen"
-				data-wp-watch="callbacks.effectOpenClose"
-				data-wp-on-async--close="actions.closeMenu"
-				data-wp-bind--aria-label="state.ariaLabel"
+				data-wp-init="callbacks.mountDialog"
 			';
 			$close_button_directives                 = '
-				data-wp-on-async--click="actions.closeMenu"
+				data-wp-init="callbacks.mountDialogInvoker"
 			';
 			$responsive_container_content_directives = '
 				data-wp-watch="callbacks.focusFirstElement"
@@ -602,16 +597,7 @@ class WP_Navigation_Block_Renderer {
 		}
 		// When adding to this array be mindful of security concerns.
 		$nav_element_context    = wp_interactivity_data_wp_context(
-			array(
-				'overlayOpenedBy' => array(
-					'click' => false,
-					'hover' => false,
-					'focus' => false,
-				),
-				'type'            => 'overlay',
-				'modal'           => '',
-				'ariaLabel'       => __( 'Menu' ),
-			)
+			array( 'ariaLabel' => __( 'Menu' ) )
 		);
 		$nav_element_directives = '
 		 data-wp-interactive="core/navigation" '
@@ -822,8 +808,7 @@ function block_core_navigation_add_directives_to_submenu( $tags, $block_attribut
 	) ) {
 		// Add directives to the parent `<li>`.
 		$tags->set_attribute( 'data-wp-interactive', 'core/navigation' );
-		$tags->set_attribute( 'data-wp-context', '{ "submenuOpenedBy": { "click": false, "hover": false, "focus": false }, "type": "submenu", "modal": null }' );
-		$tags->set_attribute( 'data-wp-watch', 'callbacks.effectOpenClose' );
+		$tags->set_attribute( 'data-wp-context', '{ "submenuOpenedBy": { "click": false, "hover": false, "focus": false }, "menu": null }' );
 		$tags->set_attribute( 'data-wp-on--focusout', 'actions.handleMenuFocusout' );
 		$tags->set_attribute( 'data-wp-on-async--keydown', 'actions.handleMenuKeydown' );
 
