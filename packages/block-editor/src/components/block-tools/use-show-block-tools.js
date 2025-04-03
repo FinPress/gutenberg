@@ -46,11 +46,11 @@ export function useShowBlockTools() {
 			editorMode !== 'navigation' &&
 			isEmptyDefaultBlock;
 		const _showBlockToolbarPopover =
+			! isBlockInterfaceHidden() &&
 			! getSettings().hasFixedToolbar &&
 			! _showEmptyBlockSideInserter &&
 			hasSelectedBlock &&
-			! isEmptyDefaultBlock &&
-			! isBlockInterfaceHidden();
+			! isEmptyDefaultBlock;
 
 		return {
 			showEmptyBlockSideInserter: _showEmptyBlockSideInserter,
