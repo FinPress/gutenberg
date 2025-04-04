@@ -8,7 +8,7 @@ BottomSheetSubSheet allows for adding controls inside the React Native bottom sh
 /**
  * External dependencies
  */
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { SafeAreaView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 

@@ -11,7 +11,7 @@ Render a Popover adjacent to its container.
 If a Popover is returned by your component, it will be shown. To hide the popover, simply omit it from your component's render value.
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { Button, Popover } from '@wordpress/components';
 
 const MyPopover = () => {
@@ -32,7 +32,7 @@ const MyPopover = () => {
 In order to pass an explicit anchor, you can use the `anchor` prop. When doing so, **the anchor element should be stored in local state** rather than a plain React ref to ensure reactive updating when it changes.
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { Button, Popover } from '@wordpress/components';
 
 const MyPopover = () => {

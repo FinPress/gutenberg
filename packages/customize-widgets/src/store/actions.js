@@ -10,7 +10,7 @@
  *
  * @example
  * ```js
- * import { useState } from 'react';
+ * import { useState } from '@wordpress/element';;
  * import { store as customizeWidgetsStore } from '@wordpress/customize-widgets';
  * import { __ } from '@wordpress/i18n';
  * import { useDispatch } from '@wordpress/data';

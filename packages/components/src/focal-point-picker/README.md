@@ -8,7 +8,7 @@ Focal Point Picker is a component which creates a UI for identifying the most im
 ## Usage
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { FocalPointPicker } from '@wordpress/components';
 
 const Example = () => {

@@ -9,7 +9,7 @@ define a multi step gradient. There's either a _linear_ or a _radial_ type
 available.
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { GradientPicker } from '@wordpress/components';
 
 const MyGradientPicker = () => {

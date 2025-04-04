@@ -7,7 +7,7 @@
 Generates a hierarchical select input.
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { TreeSelect } from '@wordpress/components';
 
 const MyTreeSelect = () => {

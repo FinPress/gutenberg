@@ -52,7 +52,7 @@ Render a user interface to select the user type using radio inputs.
 
 ```jsx
 import { RadioControl } from '@wordpress/components';
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 
 const MyRadioControl = () => {
 	const [ option, setOption ] = useState( 'a' );

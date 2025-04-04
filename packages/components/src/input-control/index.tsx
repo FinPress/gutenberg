@@ -127,7 +127,7 @@ export function UnforwardedInputControl(
  *
  * ```jsx
  * import { __experimentalInputControl as InputControl } from '@wordpress/components';
- * import { useState } from 'react';
+ * import { useState } from '@wordpress/element';;
  *
  * const Example = () => {
  *   const [ value, setValue ] = useState( '' );

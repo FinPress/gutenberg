@@ -43,7 +43,7 @@ Let the parent component control when the dialog is open/closed. It's activated 
 -   You'll want to update the state that controls `isOpen` by updating it from the `onCancel` and `onConfirm` callbacks.
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { __experimentalConfirmDialog as ConfirmDialog } from '@wordpress/components';
 
 function Example() {

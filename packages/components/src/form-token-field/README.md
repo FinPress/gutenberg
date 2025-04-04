@@ -68,7 +68,7 @@ The `value` property is handled in a manner similar to controlled form component
 ## Usage
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { FormTokenField } from '@wordpress/components';
 
 const continents = [

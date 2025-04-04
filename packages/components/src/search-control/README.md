@@ -11,7 +11,7 @@ Check out the [Storybook page](https://wordpress.github.io/gutenberg/?path=/docs
 Render a user interface to input the name of an additional css class.
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { __ } from '@wordpress/i18n';
 import { SearchControl } from '@wordpress/components';
 

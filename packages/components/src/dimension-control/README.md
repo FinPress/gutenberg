@@ -13,7 +13,7 @@ This feature is still experimental. “Experimental” means this is an early im
 ## Usage
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { __experimentalDimensionControl as DimensionControl } from '@wordpress/components';
 
 export default function MyCustomDimensionControl() {

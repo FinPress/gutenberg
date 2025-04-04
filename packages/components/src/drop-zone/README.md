@@ -5,7 +5,7 @@
 ## Usage
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { DropZone } from '@wordpress/components';
 
 const MyDropZone = () => {

@@ -153,7 +153,7 @@ function Component( props: PickerProps< any > ) {
  * available.
  *
  * ```jsx
- * import { useState } from 'react';
+ * import { useState } from '@wordpress/element';;
  * import { GradientPicker } from '@wordpress/components';
  *
  * const MyGradientPicker = () => {

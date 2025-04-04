@@ -3,7 +3,7 @@
 ## Usage
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';;
 import { DuotonePicker, DuotoneSwatch } from '@wordpress/components';
 
 const DUOTONE_PALETTE = [
