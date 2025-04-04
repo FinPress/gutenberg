@@ -13,7 +13,7 @@ Optionally, you can provide a `fontFamilies` prop that overrides the predefined 
 ## Usage
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';
 import { __experimentalFontFamilyControl as FontFamilyControl } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
