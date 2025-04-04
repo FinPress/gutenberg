@@ -22,7 +22,7 @@ show "Mixed" placeholder text.
 ## Usage
 
 ```jsx
-import { useState } from 'react';
+import { useState } from '@wordpress/element';
 import { BorderBoxControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
