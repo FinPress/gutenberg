@@ -53,7 +53,7 @@ registerCoreBlocks();
 Finally, we’ll put our editor together. In `src/App.jsx` replace the contents with the following code:
 
 ```jsx
-import { useState } from "react";
+import { useState } from "@wordpress/element";
 import {
   BlockEditorProvider,
   BlockCanvas,

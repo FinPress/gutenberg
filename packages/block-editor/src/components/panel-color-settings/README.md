@@ -9,7 +9,7 @@ It is essentially a wrapper around the `PanelColorGradientSettings` component, b
 /**
  * External dependencies
  */
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 
 /**
  * WordPress dependencies

@@ -150,7 +150,7 @@ The list of pages is short for now; however, the longer it grows, the harder it 
 Let’s start by adding a search field:
 
 ```js
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { SearchControl } from '@wordpress/components';
 
 function MyFirstApp() {
@@ -211,7 +211,7 @@ The `searchTerm` is now used as a `search` query parameter when provided. Note t
 Finally, here’s how `MyFirstApp` looks once we wire it all together:
 
 ```js
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { createRoot } from 'react-dom';
 import { SearchControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
@@ -360,7 +360,7 @@ And voilà! That's it.
 All the pieces are in place, great! Here’s the complete JavaScript code of our app:
 
 ```js
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { createRoot } from 'react-dom';
 import { SearchControl, Spinner } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';

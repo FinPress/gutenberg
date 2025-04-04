@@ -21,7 +21,7 @@ In a block's `edit` implementation, render a `<ResponsiveBlockControl />` compon
 By default the default control will be used to render the default (ie: "All") setting _as well as_ the per-viewport responsive settings.
 
 ```jsx
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { registerBlockType } from '@wordpress/blocks';
 import {
 	InspectorControls,

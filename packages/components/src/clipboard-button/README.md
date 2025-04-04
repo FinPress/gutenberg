@@ -11,7 +11,7 @@ With a clipboard button, users copy text (or other elements) with a single click
 ## Usage
 
 ```jsx
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { ClipboardButton } from '@wordpress/components';
 
 const MyClipboardButton = () => {

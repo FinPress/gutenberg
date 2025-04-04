@@ -14,7 +14,7 @@ First, make sure you add the `@wordpress/compose` package to your dependencies, 
 
 ```jsx
 import { useStateWithHistory } from '@wordpress/compose';
-import { createElement, useState } from "react";
+import { createElement, useState } from '@wordpress/element';
 import { createRoot } from 'react-dom/client';
 import {
   BlockEditorProvider,

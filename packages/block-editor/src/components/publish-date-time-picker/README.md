@@ -10,7 +10,7 @@ for more information.
 ## Usage
 
 ```jsx
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { Dropdown, Button } from '@wordpress/components';
 import { __experimentalPublishDateTimePicker as PublishDateTimePicker } from '@wordpress/block-editor';
 

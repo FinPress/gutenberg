@@ -39,7 +39,7 @@ function getSelectOptions(
  * Generates a hierarchical select input.
  *
  * ```jsx
- * import { useState } from '@wordpress/element';;
+ * import { useState } from '@wordpress/element';
  * import { TreeSelect } from '@wordpress/components';
  *
  * const MyTreeSelect = () => {

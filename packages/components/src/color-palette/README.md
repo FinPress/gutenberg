@@ -5,7 +5,7 @@
 ## Usage
 
 ```jsx
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { ColorPalette } from '@wordpress/components';
 
 const MyColorPalette = () => {

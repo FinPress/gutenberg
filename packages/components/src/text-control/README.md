@@ -54,7 +54,7 @@ Don’t use unclear visual markers to indicate a text field.
 Render a user interface to input the name of an additional css class.
 
 ```js
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { TextControl } from '@wordpress/components';
 
 const MyTextControl = () => {

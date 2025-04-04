@@ -82,7 +82,7 @@ RangeControls should provide the full range of choices available for the user to
 Render a RangeControl to make a selection from a range of incremental values.
 
 ```jsx
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { RangeControl } from '@wordpress/components';
 
 const MyRangeControl = () => {

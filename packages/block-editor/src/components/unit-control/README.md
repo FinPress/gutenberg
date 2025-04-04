@@ -22,7 +22,7 @@ UnitControl component allows the user to set a value as well as a unit (e.g. `px
 Renders a control (`input` and `select`) with the values `10` and `px` parsed from `10px`.
 
 ```jsx
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { __experimentalUnitControl as UnitControl } from '@wordpress/block-editor/';
 
 const Example = () => {

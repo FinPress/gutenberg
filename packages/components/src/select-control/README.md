@@ -76,7 +76,7 @@ Use sentences in your menu.
 Render a user interface to select the size of an image.
 
 ```jsx
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { SelectControl } from '@wordpress/components';
 
 const MySelectControl = () => {

@@ -10,7 +10,7 @@ InputControl components let users enter and edit text. This is an experimental c
 
 ```js
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 
 const Example = () => {
 	const [ value, setValue ] = useState( '' );

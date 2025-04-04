@@ -50,7 +50,7 @@ Returns an action object used to open/close the inserter.
 _Usage_
 
 ```js
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { store as customizeWidgetsStore } from '@wordpress/customize-widgets';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';

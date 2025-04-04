@@ -5,7 +5,7 @@
 ### Usage
 
 ```jsx
-import { useState } from '@wordpress/element';;
+import { useState } from '@wordpress/element';
 import { QueryControls } from '@wordpress/components';
 
 const QUERY_DEFAULTS = {
