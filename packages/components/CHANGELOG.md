@@ -49,11 +49,6 @@
 -   `Autocomplete`: Extracts `getNodeText` function into a separate file and adds unit tests ([#69135](https://github.com/WordPress/gutenberg/pull/69135)).
 -   `NumberControl`: update stepping to match HTML number input stepping ([#34566](https://github.com/WordPress/gutenberg/pull/34566)).
 
-### Enhancement
-
--   `TextControl`: Add theming support ([#69640](https://github.com/WordPress/gutenberg/pull/69640)).
--   `TextAreaControl`: Add theming support ([#69640](https://github.com/WordPress/gutenberg/pull/69640)).
-
 ## 29.6.0 (2025-03-13)
 
 ### Enhancement
