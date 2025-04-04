@@ -479,9 +479,6 @@ const UnforwardedPopover = (
 	);
 };
 
-/**
- * `PopoverSlot` is a component that renders a slot that is used by Popover for rendering content.
- */
 export const PopoverSlot = forwardRef< HTMLDivElement, PopoverSlotProps >(
 	( { name = SLOT_NAME }, ref ) => {
 		return (
