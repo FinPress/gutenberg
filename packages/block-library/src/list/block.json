@@ -34,6 +34,12 @@
 		},
 		"placeholder": {
 			"type": "string"
+		},
+		"markerColor": {
+			"type": "string"
+		},
+		"customMarkerColor": {
+			"type": "string"
 		}
 	},
 	"supports": {

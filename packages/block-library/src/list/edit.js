@@ -6,6 +6,10 @@ import {
 	useBlockProps,
 	useInnerBlocksProps,
 	store as blockEditorStore,
+	InspectorControls,
+	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
+	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
+	withColors,
 } from '@wordpress/block-editor';
 import { ToolbarButton } from '@wordpress/components';
 import { useDispatch, useSelect, useRegistry } from '@wordpress/data';
@@ -118,12 +122,23 @@ function IndentUI( { clientId } ) {
 	);
 }
 
-export default function Edit( { attributes, setAttributes, clientId, style } ) {
+function Edit( {
+	attributes,
+	setAttributes,
+	clientId,
+	style,
+	setMarkerColor,
+	markerColor,
+	customMarkerColor,
+} ) {
 	const { ordered, type, reversed, start } = attributes;
+	const markerColorValue = markerColor?.color || customMarkerColor?.color;
+
 	const blockProps = useBlockProps( {
 		style: {
 			...( Platform.isNative && style ),
 			listStyleType: ordered && type !== 'decimal' ? type : undefined,
+			'--wp--list-style-marker-color': markerColorValue || undefined,
 		},
 	} );
 
@@ -166,6 +181,31 @@ export default function Edit( { attributes, setAttributes, clientId, style } ) {
 		</BlockControls>
 	);
 
+	const colorGradientSettings = useMultipleOriginColorsAndGradients();
+	if ( ! colorGradientSettings.hasColorsOrGradients ) {
+		return null;
+	}
+
+	const inspectorControls = (
+		<InspectorControls group="color">
+			<ColorGradientSettingsDropdown
+				__experimentalIsRenderedInSidebar
+				settings={ [
+					{
+						colorValue: markerColorValue,
+						label: __( 'Marker' ),
+						onColorChange: setMarkerColor,
+						resetAllFilter: () => setMarkerColor(),
+						clearable: true,
+					},
+				] }
+				panelId={ clientId }
+				gradients={ [] }
+				disableCustomGradients
+				{ ...colorGradientSettings }
+			/>
+		</InspectorControls>
+	);
 	return (
 		<>
 			<TagName
@@ -175,6 +215,7 @@ export default function Edit( { attributes, setAttributes, clientId, style } ) {
 				{ ...innerBlocksProps }
 			/>
 			{ controls }
+			{ inspectorControls }
 			{ ordered && (
 				<OrderedListSettings
 					{ ...{
@@ -188,3 +229,5 @@ export default function Edit( { attributes, setAttributes, clientId, style } ) {
 		</>
 	);
 }
+
+export default withColors( { markerColor: 'color' } )( Edit );

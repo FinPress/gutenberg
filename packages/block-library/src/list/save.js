@@ -4,7 +4,11 @@
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-	const { ordered, type, reversed, start } = attributes;
+	const { ordered, type, reversed, start, markerColor, customMarkerColor } =
+		attributes;
+
+	const markerColorValue = markerColor || customMarkerColor;
+
 	const TagName = ordered ? 'ol' : 'ul';
 	return (
 		<TagName
@@ -14,6 +18,8 @@ export default function save( { attributes } ) {
 				style: {
 					listStyleType:
 						ordered && type !== 'decimal' ? type : undefined,
+					'--wp--list-style-marker-color':
+						markerColorValue || undefined,
 				},
 			} ) }
 		>
