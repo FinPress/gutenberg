@@ -15,7 +15,7 @@ _This package assumes that your code will run in an **ES2015+** environment. If 
 ## Usage
 
 ```js
-import { useState } from 'react';
+import { useState } from '@wordpress/element';
 import {
 	BlockCanvas,
 	BlockEditorProvider,
