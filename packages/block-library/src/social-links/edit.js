@@ -57,7 +57,6 @@ export function SocialLinksEdit( props ) {
 
 	const {
 		iconBackgroundColorValue,
-		customIconBackgroundColor,
 		iconColorValue,
 		openInNewTab,
 		showLabels,
@@ -87,20 +86,22 @@ export function SocialLinksEdit( props ) {
 	const backgroundBackupRef = useRef( {} );
 	useEffect( () => {
 		if ( logosOnly ) {
-			backgroundBackupRef.current = {
-				iconBackgroundColor,
-				iconBackgroundColorValue,
-				customIconBackgroundColor,
-			};
-			setAttributes( {
-				iconBackgroundColor: undefined,
-				customIconBackgroundColor: undefined,
-				iconBackgroundColorValue: undefined,
+			setAttributes( ( prev ) => {
+				backgroundBackupRef.current = {
+					iconBackgroundColor: prev.iconBackgroundColor,
+					iconBackgroundColorValue: prev.iconBackgroundColorValue,
+					customIconBackgroundColor: prev.customIconBackgroundColor,
+				};
+				return {
+					iconBackgroundColor: undefined,
+					iconBackgroundColorValue: undefined,
+					customIconBackgroundColor: undefined,
+				};
 			} );
 		} else {
 			setAttributes( { ...backgroundBackupRef.current } );
 		}
-	}, [ logosOnly ] );
+	}, [ logosOnly, setAttributes ] );
 
 	// Fallback color values are used maintain selections in case switching
 	// themes and named colors in palette do not match.
