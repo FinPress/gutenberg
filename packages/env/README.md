@@ -493,6 +493,7 @@ You can customize the WordPress installation, plugins and themes that the develo
 | `"phpmyadminPort"`   | `integer`      | `null`                                 | The port number for phpMyAdmin. If provided, you'll access phpMyAdmin through: http://localhost:<port>                           |
 | `"multisite"`        | `boolean`      | `false`                                | Whether to set up a multisite installation.                                                                                      |
 | `"lifecycleScripts"` | `Object`       | `"{}"`                                 | Mapping of commands that should be executed at certain points in the lifecycle.                                                   |
+| `"preserveUrls"`     | `boolean`      | `false`                                | Whether to prevent port numbers from being automatically appended to URLs.                                                      |
 
 _Note: the port number environment variables (`WP_ENV_PORT` and `WP_ENV_TESTS_PORT`) take precedent over the .wp-env.json values._
 
@@ -563,6 +564,20 @@ On the test instance, all of the above are still defined, but `WP_DEBUG` and `SC
 These can be overridden by setting a value within the `config` configuration. Setting it to `null` will prevent the constant being defined entirely.
 
 Additionally, the values referencing a URL include the specified port for the given environment. So if you set `testsPort: 3000, port: 2000`, `WP_HOME` (for example) will be `http://localhost:3000` on the tests instance and `http://localhost:2000` on the development instance.
+
+You can prevent port numbers from being automatically appended to URLs by setting the `preserveUrls` option to `true`:
+
+```json
+{
+  "preserveUrls": true,
+  "config": {
+    "WP_SITEURL": "https://wp.local",
+    "WP_HOME": "https://wp.local"
+  }
+}
+```
+
+This is useful when working with custom domains and HTTPS setups where automatic port appending would break functionality.
 
 ## Lifecycle Scripts
 

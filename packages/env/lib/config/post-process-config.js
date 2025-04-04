@@ -110,6 +110,11 @@ function appendPortToWPConfigs( config ) {
 				continue;
 			}
 
+			// Skip adding port if preserveUrls is set to true.
+			if ( config.env[ env ].preserveUrls === true ) {
+				continue;
+			}
+
 			config.env[ env ].config[ option ] = addOrReplacePort(
 				config.env[ env ].config[ option ],
 				config.env[ env ].port,
