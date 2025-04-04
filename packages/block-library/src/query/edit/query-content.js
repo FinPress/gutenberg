@@ -7,12 +7,11 @@ import { useEffect, useCallback } from '@wordpress/element';
 import {
 	BlockControls,
 	InspectorControls,
-	Warning,
 	useBlockProps,
 	store as blockEditorStore,
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { Button, SelectControl } from '@wordpress/components';
+import { SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 
@@ -132,10 +131,6 @@ export default function QueryContent( {
 			displayLayout: { ...displayLayout, ...newDisplayLayout },
 		} );
 
-	// The block cannot inherit a default WordPress query in singular content (e.g., post, page, 404, blank).
-	// Warn users but still permit this type of query for exceptional cases in Classic and Hybrid themes.
-	const hasInheritanceWarning = isSingular && inherit;
-
 	return (
 		<>
 			<EnhancedPaginationModal
@@ -180,30 +175,7 @@ export default function QueryContent( {
 					clientId={ clientId }
 				/>
 			</InspectorControls>
-			{ hasInheritanceWarning ? (
-				<div { ...blockProps }>
-					<Warning
-						actions={ [
-							<Button
-								__next40pxDefaultSize
-								key="switch"
-								onClick={ () =>
-									updateQuery( { inherit: false } )
-								}
-								variant="primary"
-							>
-								{ __( 'Switch to Custom' ) }
-							</Button>,
-						] }
-					>
-						{ __(
-							'Cannot inherit the default WordPress query when placed inside the singular content (e.g., post, page, 404, blank).'
-						) }
-					</Warning>
-				</div>
-			) : (
-				<TagName { ...innerBlocksProps } />
-			) }
+			<TagName { ...innerBlocksProps } />
 		</>
 	);
 }
