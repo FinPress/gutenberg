@@ -27,6 +27,7 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
+	CheckboxControl,
 } from '@wordpress/components';
 import { useMergeRefs } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
@@ -44,8 +45,35 @@ const SocialLinkURLPopover = ( {
 	setPopover,
 	popoverAnchor,
 	clientId,
+	service,
 } ) => {
 	const { removeBlock } = useDispatch( blockEditorStore );
+
+	const hasRssFeedSuffix = url && url.endsWith( '/feed/' );
+
+	const [ useRssFeed, setUseRssFeed ] = useState( hasRssFeedSuffix );
+
+	const handleRssFeedToggle = ( checked ) => {
+		setUseRssFeed( checked );
+
+		const currentUrl = url || '';
+
+		if ( checked ) {
+			// When checked, add "/feed/" if it doesn't already exist
+			if ( ! currentUrl.endsWith( '/feed/' ) ) {
+				// Remove trailing slash if present before adding "/feed/"
+				const normalizedUrl = currentUrl.endsWith( '/' )
+					? currentUrl.slice( 0, -1 )
+					: currentUrl;
+
+				setAttributes( { url: `${ normalizedUrl }/feed/` } );
+			}
+		} else if ( currentUrl.endsWith( '/feed/' ) ) {
+			const urlWithoutFeed = currentUrl.slice( 0, -6 );
+			setAttributes( { url: urlWithoutFeed } );
+		}
+	};
+
 	return (
 		<URLPopover
 			anchor={ popoverAnchor }
@@ -66,9 +94,10 @@ const SocialLinkURLPopover = ( {
 				<div className="block-editor-url-input">
 					<URLInput
 						value={ url }
-						onChange={ ( nextURL ) =>
-							setAttributes( { url: nextURL } )
-						}
+						onChange={ ( nextURL ) => {
+							setAttributes( { url: nextURL } );
+							setUseRssFeed( nextURL.endsWith( '/feed/' ) );
+						} }
 						placeholder={ __( 'Enter social link' ) }
 						label={ __( 'Enter social link' ) }
 						hideLabelFromVision
@@ -96,6 +125,18 @@ const SocialLinkURLPopover = ( {
 							</InputControlSuffixWrapper>
 						}
 					/>
+					{ service === 'feed' && (
+						<div className="block-editor-url-input__rss-option">
+							<CheckboxControl
+								__nextHasNoMarginBottom
+								label={ __(
+									'Link to the RSS feed of this site'
+								) }
+								checked={ useRssFeed }
+								onChange={ handleRssFeedToggle }
+							/>
+						</div>
+					) }
 				</div>
 			</form>
 		</URLPopover>
@@ -275,6 +316,7 @@ const SocialLinkEdit = ( {
 						setPopover={ setPopover }
 						popoverAnchor={ popoverAnchor }
 						clientId={ clientId }
+						service={ service }
 					/>
 				) }
 			</li>
