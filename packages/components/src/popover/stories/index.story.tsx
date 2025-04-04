@@ -260,23 +260,22 @@ export const WithSlotOutsideIframe: StoryObj< typeof Popover > = {
 };
 
 export const WithCloseHandlers: StoryObj< typeof Popover > = {
-	decorators: [
-		() => {
+	render: ( args ) => {
+		const WithHandlers = () => {
 			const [ isVisible, setIsVisible ] = useState( false );
-			const buttonRef = useRef< HTMLButtonElement | undefined >();
+			const buttonRef = useRef< HTMLButtonElement >( null );
+
 			const toggleVisible = ( event: React.MouseEvent ) => {
 				if ( buttonRef.current && event.target !== buttonRef.current ) {
 					return;
 				}
-				setIsVisible( ( state ) => ! state );
+				setIsVisible( ( prev ) => ! prev );
 			};
 
-			// Handler for onClose prop
 			const handleClose = () => {
 				setIsVisible( false );
 			};
 
-			// Handler for onFocusOutside prop
 			const handleFocusOutside = () => {
 				setIsVisible( false );
 			};
@@ -306,43 +305,29 @@ export const WithCloseHandlers: StoryObj< typeof Popover > = {
 						Toggle Popover
 						{ isVisible && (
 							<Popover
-								anchor={ buttonRef.current }
+								{ ...args }
 								onClose={ handleClose }
 								onFocusOutside={ handleFocusOutside }
 							>
-								<div
-									style={ {
-										padding: '16px',
-										width: '280px',
-										whiteSpace: 'normal',
-									} }
-								>
-									<p>
-										This popover demonstrates proper use of
-										event handlers:
-									</p>
-									<ul>
-										<li>
-											<strong>onClose</strong>: Called
-											when escape key is pressed
-										</li>
-										<li>
-											<strong>onFocusOutside</strong>:
-											Called when focus moves outside the
-											popover
-										</li>
-									</ul>
-									<p>
-										Try clicking outside or pressing ESC to
-										close this popover.
-									</p>
-									<Button>Focus me then tab away</Button>
-								</div>
+								{ args.children }
 							</Popover>
 						) }
 					</Button>
 				</div>
 			);
-		},
-	],
+		};
+
+		return <WithHandlers />;
+	},
+	args: {
+		...Default.args,
+		children: (
+			<div style={ { width: '280px', whiteSpace: 'normal' } }>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+				eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+				enim ad minim veniam, quis nostrud exercitation ullamco laboris
+				nisi ut aliquip ex ea commodo consequat.
+			</div>
+		),
+	},
 };
