@@ -43,6 +43,7 @@ if ( class_exists( 'WP_REST_Controller' ) ) {
 
 	// WordPress 6.8 compat.
 	require __DIR__ . '/compat/wordpress-6.8/rest-api.php';
+	require __DIR__ . '/compat/wordpress-6.8/query-block.php';
 
 	// WordPress 6.9 compat.
 	require __DIR__ . '/compat/wordpress-6.9/class-gutenberg-hierarchical-sort.php';

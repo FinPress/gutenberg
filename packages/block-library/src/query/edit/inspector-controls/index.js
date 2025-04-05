@@ -10,10 +10,11 @@ import {
 	Notice,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	ToggleControl,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { debounce } from '@wordpress/compose';
 import { useEffect, useState, useCallback } from '@wordpress/element';
 
@@ -40,7 +41,13 @@ import {
 import { useToolsPanelDropdownMenuProps } from '../../../utils/hooks';
 
 export default function QueryInspectorControls( props ) {
-	const { attributes, setQuery, setDisplayLayout, isSingular } = props;
+	const {
+		attributes,
+		setQuery,
+		setDisplayLayout,
+		isSingular,
+		shouldExcludeCurrentPost,
+	} = props;
 	const { query, displayLayout } = attributes;
 	const {
 		order,
@@ -55,6 +62,7 @@ export default function QueryInspectorControls( props ) {
 		taxQuery,
 		parents,
 		format,
+		excludeCurrent,
 	} = query;
 	const allowedControls = useAllowedControls( attributes );
 	const showSticky = postType === 'post';
@@ -167,12 +175,22 @@ export default function QueryInspectorControls( props ) {
 		[ allowedControls, postTypeHasFormatSupport ]
 	);
 
+	const showExcludeCurrentControl =
+		shouldExcludeCurrentPost &&
+		isControlAllowed( allowedControls, 'excludeCurrent' );
+	const postTypeSingularName = useSelect(
+		( select ) =>
+			select( coreStore ).getPostType( postType )?.labels.singular_name,
+		[ postType ]
+	);
+
 	const showFiltersPanel =
 		showTaxControl ||
 		showAuthorControl ||
 		showSearchControl ||
 		showParentControl ||
-		showFormatControl;
+		showFormatControl ||
+		showExcludeCurrentControl;
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	const showPostCountControl = isControlAllowed(
@@ -406,6 +424,7 @@ export default function QueryInspectorControls( props ) {
 							search: '',
 							taxQuery: null,
 							format: [],
+							excludeCurrent: null,
 						} );
 						setQuerySearch( '' );
 					} }
@@ -476,6 +495,33 @@ export default function QueryInspectorControls( props ) {
 							<FormatControls
 								onChange={ setQuery }
 								query={ query }
+							/>
+						</ToolsPanelItem>
+					) }
+					{ showExcludeCurrentControl && (
+						<ToolsPanelItem
+							label={ __( 'Exclude' ) }
+							hasValue={ () => excludeCurrent !== null }
+							onDeselect={ () =>
+								setQuery( { excludeCurrent: null } )
+							}
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ __( 'Exclude current' ) }
+								help={ sprintf(
+									/* translators: %s: the post type singular name */
+									__(
+										'Exclude the current %s from the query.'
+									),
+									postTypeSingularName
+								) }
+								checked={ !! excludeCurrent }
+								onChange={ ( value ) => {
+									setQuery( {
+										excludeCurrent: !! value,
+									} );
+								} }
 							/>
 						</ToolsPanelItem>
 					) }
