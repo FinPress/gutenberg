@@ -7,6 +7,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * WordPress dependencies
  */
 import { useState, useRef, useEffect } from '@wordpress/element';
+import type { SyntheticEvent } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -260,73 +261,87 @@ export const WithSlotOutsideIframe: StoryObj< typeof Popover > = {
 };
 
 export const WithCloseHandlers: StoryObj< typeof Popover > = {
-	render: ( args ) => {
-		const WithHandlers = () => {
-			const [ isVisible, setIsVisible ] = useState( false );
-			const buttonRef = useRef< HTMLButtonElement >( null );
+	render: function WithCloseHandlersStory( args ) {
+		const [ isVisible, setIsVisible ] = useState( false );
+		const buttonRef = useRef< HTMLButtonElement >( null );
 
-			const toggleVisible = ( event: React.MouseEvent ) => {
-				if ( buttonRef.current && event.target !== buttonRef.current ) {
-					return;
-				}
-				setIsVisible( ( prev ) => ! prev );
-			};
-
-			const handleClose = () => {
-				setIsVisible( false );
-			};
-
-			const handleFocusOutside = () => {
-				setIsVisible( false );
-			};
-
-			useEffect( () => {
-				buttonRef.current?.scrollIntoView?.( {
-					block: 'center',
-					inline: 'center',
-				} );
-			}, [] );
-
-			return (
-				<div
-					style={ {
-						width: '300vw',
-						height: '300vh',
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center',
-					} }
-				>
-					<Button
-						variant="secondary"
-						onClick={ toggleVisible }
-						ref={ buttonRef }
-					>
-						Toggle Popover
-						{ isVisible && (
-							<Popover
-								{ ...args }
-								onClose={ handleClose }
-								onFocusOutside={ handleFocusOutside }
-							>
-								{ args.children }
-							</Popover>
-						) }
-					</Button>
-				</div>
-			);
+		const toggleVisible = ( event: React.MouseEvent ) => {
+			if ( buttonRef.current && event.target !== buttonRef.current ) {
+				return;
+			}
+			setIsVisible( ( prev ) => ! prev );
 		};
 
-		return <WithHandlers />;
+		const handleClose = () => {
+			setIsVisible( false );
+			args.onClose?.();
+		};
+
+		const handleFocusOutside = ( e: SyntheticEvent ) => {
+			setIsVisible( false );
+			args.onFocusOutside?.( e );
+		};
+
+		useEffect( () => {
+			buttonRef.current?.scrollIntoView( {
+				block: 'center',
+				inline: 'center',
+			} );
+		}, [] );
+
+		return (
+			<div
+				style={ {
+					width: '300vw',
+					height: '300vh',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+				} }
+			>
+				<Button
+					variant="secondary"
+					onClick={ toggleVisible }
+					ref={ buttonRef }
+				>
+					Toggle Popover
+					{ isVisible && (
+						<Popover
+							{ ...args }
+							onClose={ handleClose }
+							onFocusOutside={ handleFocusOutside }
+						>
+							{ args.children }
+						</Popover>
+					) }
+				</Button>
+			</div>
+		);
 	},
 	args: {
 		...Default.args,
 		children: (
 			<div style={ { width: '280px', whiteSpace: 'normal' } }>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-				eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-				enim ad minim veniam, quis nostrud exercitation ullamco laboris
-				nisi ut aliquip ex ea commodo consequat.
+				<div style={ { padding: '16px' } }>
+					<p>
+						This popover demonstrates proper use of event handlers:
+					</p>
+					<ul className="mb-2 list-disc pl-4">
+						<li>
+							<strong>onClose</strong>: Called when escape key is
+							pressed
+						</li>
+						<li>
+							<strong>onFocusOutside</strong>: Called when focus
+							moves outside the popover
+						</li>
+					</ul>
+					<p>
+						Try clicking outside or pressing ESC to close this
+						popover.
+					</p>
+					<Button className="mt-2">Focus me then tab away</Button>
+				</div>
 			</div>
 		),
 	},
