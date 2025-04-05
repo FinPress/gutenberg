@@ -202,6 +202,7 @@ export default function PostFeaturedImageEdit( {
 			isLink: false,
 			linkTarget: '_self',
 			rel: '',
+			sizeSlug: undefined,
 		} );
 		setFeaturedImage( 0 );
 	};
