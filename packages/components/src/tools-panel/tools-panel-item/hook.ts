@@ -71,7 +71,7 @@ export function useToolsPanelItem(
 	// is registered before it is rendered preventing a rendering glitch.
 	// See: https://github.com/WordPress/gutenberg/issues/56470
 	useLayoutEffect( () => {
-		if ( hasMatchingPanel && previousPanelId !== null && ! isHidden ) {
+		if ( hasMatchingPanel && previousPanelId !== null ) {
 			registerPanelItem( {
 				hasValue: hasValueCallback,
 				isShownByDefault,
