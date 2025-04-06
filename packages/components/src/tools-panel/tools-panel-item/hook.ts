@@ -33,6 +33,7 @@ export function useToolsPanelItem(
 		resetAllFilter = noop,
 		onDeselect,
 		onSelect,
+		isHidden = false,
 		...otherProps
 	} = useContextSystem( props, 'ToolsPanelItem' );
 
@@ -177,7 +178,7 @@ export function useToolsPanelItem(
 	const cx = useCx();
 	const classes = useMemo( () => {
 		const shouldApplyPlaceholderStyles =
-			shouldRenderPlaceholder && ! isShown;
+			shouldRenderPlaceholder && ( ! isShown || isHidden );
 		const firstItemStyle =
 			firstDisplayedItem === label && __experimentalFirstVisibleItemClass;
 		const lastItemStyle =
@@ -199,11 +200,12 @@ export function useToolsPanelItem(
 		__experimentalFirstVisibleItemClass,
 		__experimentalLastVisibleItemClass,
 		label,
+		isHidden,
 	] );
 
 	return {
 		...otherProps,
-		isShown,
+		isShown: isShown && ! isHidden,
 		shouldRenderPlaceholder,
 		className: classes,
 	};

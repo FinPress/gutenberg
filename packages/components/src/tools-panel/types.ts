@@ -133,6 +133,13 @@ export type ToolsPanelItem = {
 	 * from a shared source.
 	 */
 	panelId?: string | null;
+	/**
+	 * When true, the item will be visually hidden but still maintain its position in the DOM.
+	 * This ensures the order of items remains consistent even when they are conditionally rendered.
+	 *
+	 * @default false
+	 */
+	isHidden?: boolean;
 };
 
 export type ToolsPanelItemProps = ToolsPanelItem & {
