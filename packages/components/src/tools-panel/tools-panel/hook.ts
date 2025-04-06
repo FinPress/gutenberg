@@ -316,7 +316,7 @@ export function useToolsPanel(
 		[]
 	);
 
-	// Updates the status of the panel's menu items. For default items the
+	// Updates the status of the panel’s menu items. For default items the
 	// value represents whether it differs from the default and for optional
 	// items whether the item is shown.
 	const flagItemCustomization = useCallback(
