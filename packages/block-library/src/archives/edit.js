@@ -56,29 +56,26 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 							}
 						/>
 					</ToolsPanelItem>
-
-					{ displayAsDropdown && (
-						<ToolsPanelItem
+					<ToolsPanelItem
+						label={ __( 'Show label' ) }
+						isShownByDefault
+						isHidden={ ! displayAsDropdown }
+						hasValue={ () => ! showLabel }
+						onDeselect={ () =>
+							setAttributes( { showLabel: true } )
+						}
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
 							label={ __( 'Show label' ) }
-							isShownByDefault
-							hasValue={ () => ! showLabel }
-							onDeselect={ () =>
-								setAttributes( { showLabel: true } )
+							checked={ showLabel }
+							onChange={ () =>
+								setAttributes( {
+									showLabel: ! showLabel,
+								} )
 							}
-						>
-							<ToggleControl
-								__nextHasNoMarginBottom
-								label={ __( 'Show label' ) }
-								checked={ showLabel }
-								onChange={ () =>
-									setAttributes( {
-										showLabel: ! showLabel,
-									} )
-								}
-							/>
-						</ToolsPanelItem>
-					) }
-
+						/>
+					</ToolsPanelItem>
 					<ToolsPanelItem
 						label={ __( 'Show post counts' ) }
 						isShownByDefault

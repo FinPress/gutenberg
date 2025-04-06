@@ -71,12 +71,13 @@ export function useToolsPanelItem(
 	// is registered before it is rendered preventing a rendering glitch.
 	// See: https://github.com/WordPress/gutenberg/issues/56470
 	useLayoutEffect( () => {
-		if ( hasMatchingPanel && previousPanelId !== null ) {
+		if ( hasMatchingPanel && previousPanelId !== null && ! isHidden ) {
 			registerPanelItem( {
 				hasValue: hasValueCallback,
 				isShownByDefault,
 				label,
 				panelId,
+				isHidden,
 			} );
 		}
 
@@ -98,6 +99,7 @@ export function useToolsPanelItem(
 		previousPanelId,
 		registerPanelItem,
 		deregisterPanelItem,
+		isHidden,
 	] );
 
 	useEffect( () => {
@@ -114,6 +116,7 @@ export function useToolsPanelItem(
 		deregisterResetAllFilter,
 		resetAllFilterCallback,
 		hasMatchingPanel,
+		isHidden,
 	] );
 
 	// Note: `label` is used as a key when building menu item state in
@@ -178,7 +181,7 @@ export function useToolsPanelItem(
 	const cx = useCx();
 	const classes = useMemo( () => {
 		const shouldApplyPlaceholderStyles =
-			shouldRenderPlaceholder && ( ! isShown || isHidden );
+			shouldRenderPlaceholder && ! isShown;
 		const firstItemStyle =
 			firstDisplayedItem === label && __experimentalFirstVisibleItemClass;
 		const lastItemStyle =
@@ -200,7 +203,6 @@ export function useToolsPanelItem(
 		__experimentalFirstVisibleItemClass,
 		__experimentalLastVisibleItemClass,
 		label,
-		isHidden,
 	] );
 
 	return {

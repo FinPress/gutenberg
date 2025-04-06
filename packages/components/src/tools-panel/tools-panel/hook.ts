@@ -62,8 +62,13 @@ const generateMenuItems = ( {
 	const newMenuItems: ToolsPanelMenuItems = emptyMenuItems();
 	const menuItems: ToolsPanelMenuItems = emptyMenuItems();
 
-	panelItems.forEach( ( { hasValue, isShownByDefault, label } ) => {
+	panelItems.forEach( ( { hasValue, isShownByDefault, isHidden, label } ) => {
 		const group = isShownByDefault ? 'default' : 'optional';
+
+		// Skip hidden items.
+		if ( isHidden ) {
+			return;
+		}
 
 		// If a menu item for this label has already been flagged as customized
 		// (for default controls), or toggled on (for optional controls), do not
@@ -311,7 +316,7 @@ export function useToolsPanel(
 		[]
 	);
 
-	// Updates the status of the panel’s menu items. For default items the
+	// Updates the status of the panel's menu items. For default items the
 	// value represents whether it differs from the default and for optional
 	// items whether the item is shown.
 	const flagItemCustomization = useCallback(

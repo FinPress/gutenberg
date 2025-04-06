@@ -170,7 +170,6 @@ const ToolsPanelHeader = (
 	if ( ! labelText ) {
 		return null;
 	}
-
 	const defaultItems = Object.entries( menuItems?.default || {} );
 	const optionalItems = Object.entries( menuItems?.optional || {} );
 	const dropDownMenuIcon = areAllOptionalControlsHidden ? plus : moreVertical;
