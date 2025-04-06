@@ -229,7 +229,7 @@ function Controls( { attributes, setAttributes, postCount } ) {
 				{ displayPostContent && (
 					<ToolsPanelItem
 						hasValue={ () => displayPostContentRadio !== 'excerpt' }
-						label={ __( 'Show' ) }
+						label={ _x( 'Show', 'noun' ) }
 						onDeselect={ () =>
 							setAttributes( {
 								displayPostContentRadio: 'excerpt',
@@ -238,7 +238,7 @@ function Controls( { attributes, setAttributes, postCount } ) {
 						isShownByDefault
 					>
 						<RadioControl
-							label={ __( 'Show' ) }
+							label={ _x( 'Show', 'noun' ) }
 							selected={ displayPostContentRadio }
 							options={ [
 								{ label: __( 'Excerpt' ), value: 'excerpt' },
