@@ -16,29 +16,25 @@ div.dataviews-view-list {
 		}
 
 		.dataviews-view-list__item-actions {
-			flex: 0;
-			overflow: hidden;
+			display: flex;
+			flex: 0 0 auto;
+			width: max-content;
+			padding-inline-end: $grid-unit-05;
 
-			> div {
+			> div:not(:last-child) {
 				height: $button-size-small;
+				display: none;
 			}
 
 			.components-button {
 				position: relative;
 				z-index: 1;
-				opacity: 0;
 			}
 		}
 
-		&:where(.is-selected, .is-hovered, :focus-within) {
-			.dataviews-view-list__item-actions {
-				flex-basis: min-content;
-				overflow: unset;
-				padding-inline-end: $grid-unit-05;
-
-				.components-button {
-					opacity: 1;
-				}
+		&:where(.is-selected, .is-hovered, :focus-within) .dataviews-view-list__item-actions {
+			> div:not(:last-child) {
+				display: flex;
 			}
 		}
 
