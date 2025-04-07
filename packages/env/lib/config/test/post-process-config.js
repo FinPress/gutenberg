@@ -275,12 +275,12 @@ describe( 'postProcessConfig', () => {
 			} );
 		} );
 
-		it( 'should not add port to URLs when preserveUrls is true', () => {
+		it( 'should not add port to URLs when preserveSiteUrl is true', () => {
 			const processed = postProcessConfig( {
 				env: {
 					development: {
 						port: 123,
-						preserveUrls: true,
+						preserveSiteUrl: true,
 						config: {
 							WP_TESTS_DOMAIN: 'https://wp.local',
 							WP_SITEURL: 'https://wp.local',
@@ -289,7 +289,7 @@ describe( 'postProcessConfig', () => {
 					},
 					tests: {
 						port: 456,
-						preserveUrls: true,
+						preserveSiteUrl: true,
 						config: {
 							WP_TESTS_DOMAIN: 'https://wp.local',
 							WP_SITEURL: 'https://wp.local',
@@ -303,7 +303,7 @@ describe( 'postProcessConfig', () => {
 				env: {
 					development: {
 						port: 123,
-						preserveUrls: true,
+						preserveSiteUrl: true,
 						config: {
 							WP_TESTS_DOMAIN: 'https://wp.local',
 							WP_SITEURL: 'https://wp.local',
@@ -312,7 +312,7 @@ describe( 'postProcessConfig', () => {
 					},
 					tests: {
 						port: 456,
-						preserveUrls: true,
+						preserveSiteUrl: true,
 						config: {
 							WP_TESTS_DOMAIN: 'https://wp.local',
 							WP_SITEURL: 'https://wp.local',

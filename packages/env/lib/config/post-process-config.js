@@ -110,8 +110,8 @@ function appendPortToWPConfigs( config ) {
 				continue;
 			}
 
-			// Skip adding port if preserveUrls is set to true.
-			if ( config.env[ env ].preserveUrls === true ) {
+			// Skip adding port if preserveSiteUrl is set to true.
+			if ( config.env[ env ].preserveSiteUrl === true ) {
 				continue;
 			}
 

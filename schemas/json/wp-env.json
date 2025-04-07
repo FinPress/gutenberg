@@ -71,8 +71,8 @@
 					"description": "Whether to set up a multisite installation.",
 					"type": "boolean"
 				},
-				"preserveUrls": {
-					"description": "Whether to prevent port numbers from being automatically appended to URLs.",
+				"preserveSiteUrl": {
+					"description": "Whether to prevent port number from being appended to the site URL.",
 					"type": "boolean",
 					"default": false
 				}
@@ -89,7 +89,7 @@
 				"mappings",
 				"phpmyadminPort",
 				"multisite",
-				"preserveUrls"
+				"preserveSiteUrl"
 			]
 		}
 	},
