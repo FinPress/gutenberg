@@ -15,7 +15,7 @@ import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { debounce } from '@wordpress/compose';
-import { useEffect, useState, useMemo } from '@wordpress/element';
+import { useState, useMemo } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -99,17 +99,13 @@ export default function QueryInspectorControls( props ) {
 		setQuery( updateQuery );
 	};
 	const [ querySearch, setQuerySearch ] = useState( query.search );
-	const onChangeDebounced = useMemo(
+	const debouncedQuerySearch = useMemo(
 		() =>
 			debounce( ( newQuerySearch ) => {
 				setQuery( { search: newQuerySearch } );
 			}, 250 ),
 		[ setQuery ]
 	);
-	useEffect( () => {
-		onChangeDebounced( querySearch );
-		return onChangeDebounced.cancel;
-	}, [ querySearch, onChangeDebounced ] );
 
 	const orderByOptions = useOrderByOptions( postType );
 	const showInheritControl = isControlAllowed( allowedControls, 'inherit' );
@@ -425,7 +421,10 @@ export default function QueryInspectorControls( props ) {
 								__next40pxDefaultSize
 								label={ __( 'Keyword' ) }
 								value={ querySearch }
-								onChange={ setQuerySearch }
+								onChange={ ( newQuerySearch ) => {
+									debouncedQuerySearch( newQuerySearch );
+									setQuerySearch( newQuerySearch );
+								} }
 							/>
 						</ToolsPanelItem>
 					) }
