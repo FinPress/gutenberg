@@ -86,9 +86,18 @@ export default function QueryContent( {
 	// would cause to override previous wanted changes.
 	const updateQuery = useCallback(
 		( newQuery ) =>
-			setAttributes( ( prevAttributes ) => ( {
-				query: { ...prevAttributes.query, ...newQuery },
-			} ) ),
+			setAttributes( ( prevAttributes ) => {
+				// Avoid persisting changes if the new query is the same as the previous one.
+				const hasChanges = Object.keys( newQuery ).some(
+					( key ) => prevAttributes.query[ key ] !== newQuery[ key ]
+				);
+
+				return hasChanges
+					? {
+							query: { ...prevAttributes.query, ...newQuery },
+					  }
+					: prevAttributes;
+			} ),
 		[ setAttributes ]
 	);
 	useEffect( () => {
