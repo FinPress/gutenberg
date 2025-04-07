@@ -99,13 +99,11 @@ export default function QueryInspectorControls( props ) {
 		setQuery( updateQuery );
 	};
 	const [ querySearch, setQuerySearch ] = useState( query.search );
-	const debouncedQuerySearch = useMemo(
-		() =>
-			debounce( ( newQuerySearch ) => {
-				setQuery( { search: newQuerySearch } );
-			}, 250 ),
-		[ setQuery ]
-	);
+	const debouncedQuerySearch = useMemo( () => {
+		return debounce( ( newQuerySearch ) => {
+			setQuery( { search: newQuerySearch } );
+		}, 250 );
+	}, [ setQuery ] );
 
 	const orderByOptions = useOrderByOptions( postType );
 	const showInheritControl = isControlAllowed( allowedControls, 'inherit' );
