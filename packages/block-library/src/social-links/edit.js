@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useEffect, useRef } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import {
 	BlockControls,
 	useInnerBlocksProps,
@@ -83,11 +83,11 @@ export function SocialLinksEdit( props ) {
 
 	// Remove icon background color when logos only style is selected or
 	// restore it when any other style is selected.
-	const backgroundBackupRef = useRef( {} );
 	useEffect( () => {
 		if ( logosOnly ) {
+			let restore;
 			setAttributes( ( prev ) => {
-				backgroundBackupRef.current = {
+				restore = {
 					iconBackgroundColor: prev.iconBackgroundColor,
 					iconBackgroundColorValue: prev.iconBackgroundColorValue,
 					customIconBackgroundColor: prev.customIconBackgroundColor,
@@ -98,8 +98,8 @@ export function SocialLinksEdit( props ) {
 					customIconBackgroundColor: undefined,
 				};
 			} );
-		} else {
-			setAttributes( { ...backgroundBackupRef.current } );
+
+			return () => setAttributes( { ...restore } );
 		}
 	}, [ logosOnly, setAttributes ] );
 
