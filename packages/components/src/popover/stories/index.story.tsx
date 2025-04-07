@@ -273,13 +273,13 @@ export const WithCloseHandlers: StoryObj< typeof Popover > = {
 		};
 
 		const handleClose = () => {
-			setIsVisible( false );
 			args.onClose?.();
+			setIsVisible( false );
 		};
 
 		const handleFocusOutside = ( e: SyntheticEvent ) => {
-			setIsVisible( false );
 			args.onFocusOutside?.( e );
+			setIsVisible( false );
 		};
 
 		useEffect( () => {
