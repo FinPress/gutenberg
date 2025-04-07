@@ -9,7 +9,7 @@ used as an input control for values like `padding` or `margin`.
 
 ```jsx
 import { useState } from 'react';
-import { BoxControl } from '@wordpress/components';
+import { __experimentalBoxControl as BoxControl } from '@wordpress/components';
 
 function Example() {
   const [ values, setValues ] = useState( {
