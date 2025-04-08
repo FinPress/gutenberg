@@ -8,7 +8,6 @@ export function isClassicThemeWithStyleBookSupport( siteData ) {
 	const isBlockTheme = siteData.currentTheme?.is_block_theme;
 	const supportsEditorStyles =
 		siteData.currentTheme?.theme_supports[ 'editor-styles' ];
-	// This is a temp solution until the has_theme_json value is available for the current theme.
-	const hasThemeJson = siteData.editorSettings?.supportsLayout;
+	const hasThemeJson = siteData.currentTheme?.has_theme_json;
 	return ! isBlockTheme && ( supportsEditorStyles || hasThemeJson );
 }
