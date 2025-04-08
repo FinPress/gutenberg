@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Documentation
+
+- `Storybook`: Popover: improve Storybook examples around onClose and onFocusOutside props. ([#69675](https://github.com/WordPress/gutenberg/issues/69675))
+
 ### Bug Fixes
 
 -   `useAutocomplete`: Fix autocomple UI flicker when deleting trigger prefix ([#69562](https://github.com/WordPress/gutenberg/pull/69562)).
