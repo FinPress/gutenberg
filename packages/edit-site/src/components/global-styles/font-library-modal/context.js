@@ -92,6 +92,7 @@ function FontLibraryProvider( { children } ) {
 	 * It uses the font families from the param to avoid using the font families from an outdated state.
 	 *
 	 * @param {Array} fonts - The font families that will be saved to the database.
+	 * @param {boolean} persist - Whether to immediately persist changes to the database.
 	 */
 	const saveFontFamilies = async ( fonts, persist = false ) => {
 		// Gets the global styles database post content.
