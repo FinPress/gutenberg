@@ -4,7 +4,7 @@
 
 ### Documentation 
 
-- `Storybook`: Fix expose Popover typeScript types for subcomponents. ([69615](https://github.com/WordPress/gutenberg/issues/69615))
+- `Storybook`: Fix Expose Popover TypeScript types for subcomponents. ([69615](https://github.com/WordPress/gutenberg/issues/69615))
 
 ### Bug Fixes
 
