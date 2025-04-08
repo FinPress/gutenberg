@@ -4,7 +4,7 @@
 
 ### Documentation 
 
--   `Popover`: Expose Popover TypeScript types for subcomponents. ([#69619](https://github.com/WordPress/gutenberg/issues/69619))
+-   `Popover`: Expose Popover TypeScript types for subcomponents. ([#69619](https://github.com/WordPress/gutenberg/pull/69619))
 
 ### Internal
 
