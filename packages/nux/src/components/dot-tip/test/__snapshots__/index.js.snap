@@ -12,7 +12,7 @@ exports[`DotTip should render correctly 1`] = `
 >
   <div
     class="components-popover__content"
-    style="max-height: 0px; overflow: auto;"
+    style="max-height: -32px; overflow: auto;"
   >
     <p>
       It looks like you’re writing a letter. Would you like help?
