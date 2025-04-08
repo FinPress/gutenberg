@@ -6,6 +6,7 @@
 
 ### Enhancements
 
+- Popover: improve Storybook examples around onClose and onFocusOutside props ([69675](https://github.com/WordPress/gutenberg/issues/69675))
 - Admin bar: Update the Edit Site link. ([69271](https://github.com/WordPress/gutenberg/pull/69271))
 - Enhance create-block package to support blocks manifest and relevant Core APIs by default. ([69446](https://github.com/WordPress/gutenberg/pull/69446))
 - Remove trailing periods from Show or hide settings panel. ([69356](https://github.com/WordPress/gutenberg/pull/69356))
