@@ -4,12 +4,12 @@
 import {
 	TextControl,
 	SelectControl,
-	RangeControl,
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	Notice,
+	__experimentalVStack as VStack,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
@@ -40,8 +40,8 @@ import {
 import { useToolsPanelDropdownMenuProps } from '../../../utils/hooks';
 
 export default function QueryInspectorControls( props ) {
-	const { attributes, setQuery, setDisplayLayout, isSingular } = props;
-	const { query, displayLayout } = attributes;
+	const { attributes, setQuery, isSingular } = props;
+	const { query } = attributes;
 	const {
 		order,
 		orderBy,
@@ -113,15 +113,13 @@ export default function QueryInspectorControls( props ) {
 	}, [ querySearch, onChangeDebounced ] );
 
 	const orderByOptions = useOrderByOptions( postType );
-	const showInheritControl =
-		! isSingular && isControlAllowed( allowedControls, 'inherit' );
+	const showInheritControl = isControlAllowed( allowedControls, 'inherit' );
 	const showPostTypeControl =
 		! inherit && isControlAllowed( allowedControls, 'postType' );
 	const postTypeControlLabel = __( 'Post type' );
 	const postTypeControlHelp = __(
 		'Select the type of content to display: posts, pages, or custom post types.'
 	);
-	const showColumnsControl = false;
 	const showOrderControl =
 		! inherit && isControlAllowed( allowedControls, 'order' );
 	const showStickyControl =
@@ -131,7 +129,6 @@ export default function QueryInspectorControls( props ) {
 	const showSettingsPanel =
 		showInheritControl ||
 		showPostTypeControl ||
-		showColumnsControl ||
 		showOrderControl ||
 		showStickyControl;
 	const showTaxControl =
@@ -185,6 +182,10 @@ export default function QueryInspectorControls( props ) {
 	const showDisplayPanel =
 		showPostCountControl || showOffSetControl || showPagesControl;
 
+	// The block cannot inherit a default WordPress query in singular content (e.g., post, page, 404, blank).
+	// Warn users but still permit this type of query for exceptional cases in Classic and Hybrid themes.
+	const hasInheritanceWarning = isSingular && inherit;
+
 	return (
 		<>
 			{ showSettingsPanel && (
@@ -208,36 +209,48 @@ export default function QueryInspectorControls( props ) {
 							onDeselect={ () => setQuery( { inherit: true } ) }
 							isShownByDefault
 						>
-							<ToggleGroupControl
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
-								label={ __( 'Query type' ) }
-								isBlock
-								onChange={ ( value ) => {
-									setQuery( {
-										inherit: value === 'default',
-									} );
-								} }
-								help={
-									inherit
-										? __(
-												'Display a list of posts or custom post types based on the current template.'
-										  )
-										: __(
-												'Display a list of posts or custom post types based on specific criteria.'
-										  )
-								}
-								value={ !! inherit ? 'default' : 'custom' }
-							>
-								<ToggleGroupControlOption
-									value="default"
-									label={ __( 'Default' ) }
-								/>
-								<ToggleGroupControlOption
-									value="custom"
-									label={ __( 'Custom' ) }
-								/>
-							</ToggleGroupControl>
+							<VStack spacing={ 4 }>
+								<ToggleGroupControl
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
+									label={ __( 'Query type' ) }
+									isBlock
+									onChange={ ( value ) => {
+										setQuery( {
+											inherit: value === 'default',
+										} );
+									} }
+									help={
+										inherit
+											? __(
+													'Display a list of posts or custom post types based on the current template.'
+											  )
+											: __(
+													'Display a list of posts or custom post types based on specific criteria.'
+											  )
+									}
+									value={ !! inherit ? 'default' : 'custom' }
+								>
+									<ToggleGroupControlOption
+										value="default"
+										label={ __( 'Default' ) }
+									/>
+									<ToggleGroupControlOption
+										value="custom"
+										label={ __( 'Custom' ) }
+									/>
+								</ToggleGroupControl>
+								{ hasInheritanceWarning && (
+									<Notice
+										status="warning"
+										isDismissible={ false }
+									>
+										{ __(
+											'Cannot inherit the current template query when placed inside the singular content (e.g., post, page, 404, blank).'
+										) }
+									</Notice>
+								) }
+							</VStack>
 						</ToolsPanelItem>
 					) }
 
@@ -279,43 +292,6 @@ export default function QueryInspectorControls( props ) {
 									) }
 								</ToggleGroupControl>
 							) }
-						</ToolsPanelItem>
-					) }
-
-					{ showColumnsControl && (
-						<ToolsPanelItem
-							hasValue={ () => displayLayout?.columns !== 2 }
-							label={ __( 'Columns' ) }
-							onDeselect={ () =>
-								setDisplayLayout( { columns: 2 } )
-							}
-							isShownByDefault
-						>
-							<>
-								<RangeControl
-									__nextHasNoMarginBottom
-									__next40pxDefaultSize
-									label={ __( 'Columns' ) }
-									value={ displayLayout.columns }
-									onChange={ ( value ) =>
-										setDisplayLayout( {
-											columns: value,
-										} )
-									}
-									min={ 2 }
-									max={ Math.max( 6, displayLayout.columns ) }
-								/>
-								{ displayLayout.columns > 6 && (
-									<Notice
-										status="warning"
-										isDismissible={ false }
-									>
-										{ __(
-											'This column count exceeds the recommended amount and may cause visual breakage.'
-										) }
-									</Notice>
-								) }
-							</>
 						</ToolsPanelItem>
 					) }
 
