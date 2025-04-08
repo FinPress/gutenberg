@@ -309,7 +309,7 @@ export const WithCloseHandlers: StoryObj< typeof Popover > = {
 							{ ...args }
 							onClose={ handleClose }
 							onFocusOutside={ handleFocusOutside }
-							focusOnMount
+							focusOnMount={ args.focusOnMount }
 						>
 							{ args.children }
 						</Popover>
@@ -320,6 +320,7 @@ export const WithCloseHandlers: StoryObj< typeof Popover > = {
 	},
 	args: {
 		...Default.args,
+		focusOnMount: true,
 		children: (
 			<div style={ { width: '280px', whiteSpace: 'normal' } }>
 				<p>
