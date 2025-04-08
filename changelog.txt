@@ -115,7 +115,6 @@
 
 ### Documentation
 
-- Storybook: Expose Popover TypeScript types for subcomponents. ([69615](https://github.com/WordPress/gutenberg/issues/69615))
 - Docs/update reference to JS build setup 404 in scripts README, fix absolute links. ([69495](https://github.com/WordPress/gutenberg/pull/69495))
 - Fix: Update invalid JSON Schema link in README.md. ([69505](https://github.com/WordPress/gutenberg/pull/69505))
 - Update documentation about wp-scripts build-blocks-manifest in relation to new WordPress 6.8 function. ([69445](https://github.com/WordPress/gutenberg/pull/69445))
