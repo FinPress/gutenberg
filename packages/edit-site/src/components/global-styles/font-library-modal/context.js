@@ -93,7 +93,7 @@ function FontLibraryProvider( { children } ) {
 	 *
 	 * @param {Array} fonts - The font families that will be saved to the database.
 	 */
-	const saveFontFamilies = async ( fonts, shouldAutoSave = false ) => {
+	const saveFontFamilies = async ( fonts, persist = false ) => {
 		// Gets the global styles database post content.
 		const updatedGlobalStyles = globalStyles.record;
 
@@ -104,7 +104,7 @@ function FontLibraryProvider( { children } ) {
 			fonts
 		);
 
-		if ( shouldAutoSave ) {
+		if ( persist ) {
 			// Saves a new version of the global styles in the database.
 			await saveEntityRecord(
 				'root',
