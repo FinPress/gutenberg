@@ -32,6 +32,9 @@ test.describe( 'Dataviews List Layout', () => {
 	} );
 
 	test( 'Items list is reachable via TAB', async ( { page } ) => {
+		// Make sure the items have loaded before reaching for the 1st item in the list.
+		await expect( page.getByRole( 'grid' ) ).toBeVisible();
+
 		// Start the sequence on the search component.
 		await page.getByRole( 'searchbox', { name: 'Search' } ).click();
 
@@ -51,8 +54,6 @@ test.describe( 'Dataviews List Layout', () => {
 			page.getByRole( 'button', { name: 'View options' } )
 		).toBeFocused();
 
-		// Make sure the items have loaded before reaching for the 1st item in the list.
-		await expect( page.getByRole( 'grid' ) ).toBeVisible();
 		await page.keyboard.press( 'Tab' );
 		await expect(
 			page.getByRole( 'grid' ).getByRole( 'button' ).first()
@@ -62,6 +63,9 @@ test.describe( 'Dataviews List Layout', () => {
 	test( 'Navigates from items list to preview via TAB, and vice versa', async ( {
 		page,
 	} ) => {
+		// Make sure the items have loaded before reaching for the 1st item in the list.
+		await expect( page.getByRole( 'grid' ) ).toBeVisible();
+
 		// Start the sequence on the search component.
 		await page.getByRole( 'searchbox', { name: 'Search' } ).click();
 
@@ -75,8 +79,6 @@ test.describe( 'Dataviews List Layout', () => {
 			.getByRole( 'button' )
 			.first();
 
-		// Make sure the items have loaded before reaching for the 1st item in the list.
-		await expect( page.getByRole( 'grid' ) ).toBeVisible();
 		await page.keyboard.press( 'Tab' );
 		await expect( firstItem ).toBeFocused();
 
@@ -96,6 +98,9 @@ test.describe( 'Dataviews List Layout', () => {
 	test( 'Navigates the items list via UP/DOWN arrow keys', async ( {
 		page,
 	} ) => {
+		// Make sure the items have loaded before reaching for the 1st item in the list.
+		await expect( page.getByRole( 'grid' ) ).toBeVisible();
+
 		// Start the sequence on the search component.
 		await page.getByRole( 'searchbox', { name: 'Search' } ).click();
 
@@ -103,9 +108,6 @@ test.describe( 'Dataviews List Layout', () => {
 		await page.keyboard.press( 'Tab' );
 		await page.keyboard.press( 'Tab' );
 		await page.keyboard.press( 'Tab' );
-
-		// Make sure the items have loaded before reaching for the 1st item in the list.
-		await expect( page.getByRole( 'grid' ) ).toBeVisible();
 		await page.keyboard.press( 'Tab' );
 
 		// Use arrow up/down to move through the list.
@@ -119,6 +121,9 @@ test.describe( 'Dataviews List Layout', () => {
 	test( 'Actions are reachable via RIGHT/LEFT arrow keys', async ( {
 		page,
 	} ) => {
+		// Make sure the items have loaded before reaching for the 1st item in the list.
+		await expect( page.getByRole( 'grid' ) ).toBeVisible();
+
 		// Start the sequence on the search component.
 		await page.getByRole( 'searchbox', { name: 'Search' } ).click();
 
@@ -126,9 +131,6 @@ test.describe( 'Dataviews List Layout', () => {
 		await page.keyboard.press( 'Tab' );
 		await page.keyboard.press( 'Tab' );
 		await page.keyboard.press( 'Tab' );
-
-		// Make sure the items have loaded before reaching for the 1st item in the list.
-		await expect( page.getByRole( 'grid' ) ).toBeVisible();
 		await page.keyboard.press( 'Tab' );
 
 		// Use right/left arrow keys to move horizontally.
@@ -160,6 +162,9 @@ test.describe( 'Dataviews List Layout', () => {
 	test( 'Navigates the list via UP/DOWN arrow keys from action buttons', async ( {
 		page,
 	} ) => {
+		// Make sure the items have loaded before reaching for the 1st item in the list.
+		await expect( page.getByRole( 'grid' ) ).toBeVisible();
+
 		// Start the sequence on the search component.
 		await page.getByRole( 'searchbox', { name: 'Search' } ).click();
 
@@ -167,9 +172,6 @@ test.describe( 'Dataviews List Layout', () => {
 		await page.keyboard.press( 'Tab' );
 		await page.keyboard.press( 'Tab' );
 		await page.keyboard.press( 'Tab' );
-
-		// Make sure the items have loaded before reaching for the 1st item in the list.
-		await expect( page.getByRole( 'grid' ) ).toBeVisible();
 		await page.keyboard.press( 'Tab' );
 
 		// Use arrow up/down to move through the list from the edit primary action button.
