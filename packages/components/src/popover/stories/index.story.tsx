@@ -7,7 +7,6 @@ import type { Meta, StoryObj } from '@storybook/react';
  * WordPress dependencies
  */
 import { useState, useRef, useEffect } from '@wordpress/element';
-import type { SyntheticEvent } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -277,7 +276,7 @@ export const WithCloseHandlers: StoryObj< typeof Popover > = {
 			setIsVisible( false );
 		};
 
-		const handleFocusOutside = ( e: SyntheticEvent ) => {
+		const handleFocusOutside = ( e: React.SyntheticEvent ) => {
 			args.onFocusOutside?.( e );
 			setIsVisible( false );
 		};
@@ -310,6 +309,7 @@ export const WithCloseHandlers: StoryObj< typeof Popover > = {
 							{ ...args }
 							onClose={ handleClose }
 							onFocusOutside={ handleFocusOutside }
+							focusOnMount
 						>
 							{ args.children }
 						</Popover>
@@ -322,26 +322,12 @@ export const WithCloseHandlers: StoryObj< typeof Popover > = {
 		...Default.args,
 		children: (
 			<div style={ { width: '280px', whiteSpace: 'normal' } }>
-				<div style={ { padding: '16px' } }>
-					<p>
-						This popover demonstrates proper use of event handlers:
-					</p>
-					<ul className="mb-2 list-disc pl-4">
-						<li>
-							<strong>onClose</strong>: Called when escape key is
-							pressed
-						</li>
-						<li>
-							<strong>onFocusOutside</strong>: Called when focus
-							moves outside the popover
-						</li>
-					</ul>
-					<p>
-						Try clicking outside or pressing ESC to close this
-						popover.
-					</p>
-					<Button className="mt-2">Focus me then tab away</Button>
-				</div>
+				<p>
+					Clicking outside triggers the onFocusOutside callback prop.
+				</p>
+				<p>
+					Pressing the Escape key triggers the onClose callback prop.
+				</p>
 			</div>
 		),
 	},
