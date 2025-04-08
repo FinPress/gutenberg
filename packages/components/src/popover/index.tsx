@@ -479,6 +479,7 @@ const UnforwardedPopover = (
 	);
 };
 
+// Export the PopoverSlot individually to allow typescript to pick the types up.
 export const PopoverSlot = forwardRef< HTMLDivElement, PopoverSlotProps >(
 	( { name = SLOT_NAME }, ref ) => {
 		return (

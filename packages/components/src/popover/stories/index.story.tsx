@@ -12,7 +12,7 @@ import { useState, useRef, useEffect } from '@wordpress/element';
  * Internal dependencies
  */
 import Button from '../../button';
-import { Popover, PopoverSlot } from '..';
+import { Popover } from '..';
 import { PopoverInsideIframeRenderedInExternalSlot } from '../test/utils';
 import type { PopoverProps } from '../types';
 
@@ -38,7 +38,7 @@ const meta: Meta< typeof Popover > = {
 	component: Popover,
 	subcomponents: {
 		// @ts-expect-error - See https://github.com/storybookjs/storybook/issues/23170
-		'Popover.Slot': PopoverSlot,
+		'Popover.Slot': Popover.Slot,
 	},
 	argTypes: {
 		anchor: { control: false },
