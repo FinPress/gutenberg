@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 30.14.1 (2025-04-01)
+
+### Bug Fixes
+
+-   Fix: `--blocks-manifest` CLI flag doesn't work when the directory name has space ([#69766](https://github.com/WordPress/gutenberg/pull/69766)).
+
+
+## 30.14.0 (2025-03-27)
+
 ### New Features
 
 -   Add `--blocks-manifest` CLI flag to generate a PHP file containing block metadata from all `block.json` files in the project ([#69578](https://github.com/WordPress/gutenberg/pull/69578)).
