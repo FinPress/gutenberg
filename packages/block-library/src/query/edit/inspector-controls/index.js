@@ -412,7 +412,10 @@ export default function QueryInspectorControls( props ) {
 						<ToolsPanelItem
 							hasValue={ () => !! querySearch }
 							label={ __( 'Keyword' ) }
-							onDeselect={ () => setQuerySearch( '' ) }
+							onDeselect={ () => {
+								setQuery( { search: '' } );
+								setQuerySearch( '' );
+							} }
 						>
 							<TextControl
 								__nextHasNoMarginBottom
