@@ -63,6 +63,7 @@ const { state, actions } = store(
 			},
 			handleMenuKeydown: ( { key } ) => {
 				if ( getContext().submenuOpenedBy.click && key === 'Escape' ) {
+					event.stopPropagation(); // Keeps ancestor menus open.
 					actions.closeMenu();
 				}
 			},
