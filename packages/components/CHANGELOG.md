@@ -38,7 +38,7 @@
 
 ### Enhancement
 
--   `Popover`: Introduce `overflowPadding` prop to configure virtual padding around boundary for overflow detection ([#69555](https://github.com/WordPress/gutenberg/pull/69555)).
+-   `Popover`: Introduce a virtual padding of `8px` to prevent it from hitting the viewport edge ([#69555](https://github.com/WordPress/gutenberg/pull/69555)).
 
 ## 29.6.0 (2025-03-13)
 

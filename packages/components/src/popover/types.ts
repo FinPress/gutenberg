@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { ReactNode, MutableRefObject, SyntheticEvent } from 'react';
-import type { Padding, Placement } from '@floating-ui/react-dom';
+import type { Placement } from '@floating-ui/react-dom';
 
 type PositionYAxis = 'top' | 'middle' | 'bottom';
 type PositionXAxis = 'left' | 'center' | 'right';
@@ -160,12 +160,6 @@ export type PopoverProps = {
 	 * @default false
 	 */
 	inline?: boolean;
-	/**
-	 * The virtual padding around the boundary to check for overflow.
-	 *
-	 * @default 0
-	 */
-	overflowPadding?: Padding;
 	// Deprecated props
 	/**
 	 * Prevent the popover from flipping and resizing when meeting the viewport
