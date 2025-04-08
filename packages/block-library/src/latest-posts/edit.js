@@ -42,7 +42,7 @@ import {
 import { store as coreStore } from '@wordpress/core-data';
 import { store as noticeStore } from '@wordpress/notices';
 import { useInstanceId } from '@wordpress/compose';
-import { createInterpolateElement } from '@wordpress/element';
+import { createInterpolateElement, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -160,6 +160,30 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 			selectedAuthor,
 		]
 	);
+
+	// Update category names in attributes if they've changed.
+	useEffect( () => {
+		if ( categoriesList && categories && categories.length > 0 ) {
+			const categoriesNeedUpdate = categories.some( ( cat ) => {
+				const currentCategory = categoriesList.find(
+					( apiCat ) => apiCat.id === cat.id
+				);
+				return currentCategory && currentCategory.name !== cat.name;
+			} );
+
+			if ( categoriesNeedUpdate ) {
+				const updatedCategories = categories.map( ( cat ) => {
+					const currentCategory = categoriesList.find(
+						( apiCat ) => apiCat.id === cat.id
+					);
+					return currentCategory
+						? { ...cat, name: currentCategory.name }
+						: cat;
+				} );
+				setAttributes( { categories: updatedCategories } );
+			}
+		}
+	}, [ categoriesList, categories ] );
 
 	// If a user clicks to a link prevent redirection and show a warning.
 	const { createWarningNotice } = useDispatch( noticeStore );
