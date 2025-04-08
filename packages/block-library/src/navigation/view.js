@@ -67,7 +67,7 @@ const { state, actions } = store(
 				}
 			},
 			handleMenuFocusout( event ) {
-				const { menu, previousFocus } = getContext();
+				const { menu } = getContext();
 				const { activeElement } = window.document;
 				// If focus is outside menu, and in the document, close menu
 				// event.target === The element losing focus
@@ -77,13 +77,11 @@ const { state, actions } = store(
 
 				// The event.relatedTarget is null when something outside the navigation menu is clicked. This is only necessary for Safari.
 				if (
-					event.relatedTarget === null ||
-					( ! menu?.contains( event.relatedTarget ) &&
-						event.target !== activeElement )
+					menu &&
+					( event.relatedTarget === null ||
+						( ! menu.contains( event.relatedTarget ) &&
+							event.target !== activeElement ) )
 				) {
-					if ( menu?.contains( activeElement ) ) {
-						previousFocus?.focus();
-					}
 					actions.closeMenu();
 				}
 			},
@@ -95,6 +93,9 @@ const { state, actions } = store(
 			closeMenu() {
 				const ctx = getContext();
 				Object.assign( ctx.submenuOpenedBy, openedByNone );
+				if ( ctx.menu.contains( window.document.activeElement ) ) {
+					ctx.previousFocus?.focus();
+				}
 				ctx.menu = null;
 				ctx.previousFocus = null;
 			},
