@@ -19,8 +19,7 @@ div.dataviews-view-list {
 			display: flex;
 			width: max-content;
 			flex: 0 0 auto;
-			gap: $grid-unit-10;
-			padding-inline-end: $grid-unit-05;
+			gap: $grid-unit-15 * 0.5; // 6px.
 
 			.components-button {
 				position: relative;
