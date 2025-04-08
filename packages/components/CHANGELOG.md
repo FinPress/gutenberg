@@ -4,11 +4,30 @@
 
 ### Documentation 
 
-- `Storybook`: Fix Expose Popover TypeScript types for subcomponents. ([69615](https://github.com/WordPress/gutenberg/issues/69615))
+-   `Popover`: Expose Popover TypeScript types for subcomponents. ([69615](https://github.com/WordPress/gutenberg/issues/69615))
+
+### Internal
+
+-   Update `gradient-parser` to version `1.0.2` ([#69783](https://github.com/WordPress/gutenberg/pull/69783)).
+
+### Bug Fixes
+
+-   `Button`: Fix tertiary variant displaying incorrect text color in pressed and hover states ([#68542](https://github.com/WordPress/gutenberg/pull/68542)).
+
+### Enhancement
+
+-   `FormTokenField`: Add theming support ([#69638](https://github.com/WordPress/gutenberg/pull/69638)).
+-   `ComboboxControl`: Add theming support ([#69638](https://github.com/WordPress/gutenberg/pull/69638)).
+
+## 29.7.0 (2025-03-27)
 
 ### Bug Fixes
 
 -   `useAutocomplete`: Fix autocomple UI flicker when deleting trigger prefix ([#69562](https://github.com/WordPress/gutenberg/pull/69562)).
+-   `FormTokenField`: Use `color-mix` for disabled option selection background ([#69621](https://github.com/WordPress/gutenberg/pull/69621)).
+-   `CustomSelectControl`: Fix check icon color to adapt with dark theme ([#69626](https://github.com/WordPress/gutenberg/pull/69626)).
+-   `Autocomplete`: Extracts `getNodeText` function into a separate file and adds unit tests ([#69135](https://github.com/WordPress/gutenberg/pull/69135)).
+-   `NumberControl`: update stepping to match HTML number input stepping ([#34566](https://github.com/WordPress/gutenberg/pull/34566)).
 
 ## 29.6.0 (2025-03-13)
 

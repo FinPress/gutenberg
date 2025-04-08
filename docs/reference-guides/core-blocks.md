@@ -484,7 +484,7 @@ Add a page, link, or another item to your navigation. ([Source](https://github.c
 -	**Parent:** core/navigation
 -	**Allowed Blocks:** core/navigation-link, core/navigation-submenu, core/page-list
 -	**Supports:** interactivity (clientNavigation), typography (fontSize, lineHeight), ~~html~~, ~~renaming~~, ~~reusable~~
--	**Attributes:** description, id, isTopLevelLink, kind, label, opensInNewTab, rel, title, type, url
+-	**Attributes:** description, id, isTopLevelLink, kind, label, opensInNewTab, rel, type, url
 
 ## Submenu
 
@@ -494,7 +494,7 @@ Add a submenu to your navigation. ([Source](https://github.com/WordPress/gutenbe
 -	**Category:** design
 -	**Parent:** core/navigation
 -	**Supports:** interactivity (clientNavigation), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
--	**Attributes:** description, id, isTopLevelItem, kind, label, opensInNewTab, rel, title, type, url
+-	**Attributes:** description, id, isTopLevelItem, kind, label, opensInNewTab, rel, type, url
 
 ## Page Break
 
@@ -784,7 +784,7 @@ Display the total number of results in a query. ([Source](https://github.com/Wor
 -	**Name:** core/query-total
 -	**Category:** theme
 -	**Ancestor:** core/query
--	**Supports:** align (full, wide), color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), color (background, gradients, text), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** displayType
 
 ## Quote
@@ -812,7 +812,7 @@ Display entries from any RSS or Atom feed. ([Source](https://github.com/WordPres
 -	**Name:** core/rss
 -	**Category:** widgets
 -	**Supports:** align, color (background, gradients, link, text), interactivity (clientNavigation), spacing (margin, padding), ~~html~~
--	**Attributes:** blockLayout, columns, displayAuthor, displayDate, displayExcerpt, excerptLength, feedURL, itemsToShow
+-	**Attributes:** blockLayout, columns, displayAuthor, displayDate, displayExcerpt, excerptLength, feedURL, itemsToShow, openInNewTab, rel
 
 ## Search
 
@@ -914,7 +914,7 @@ Summarize your post with a list of headings. Add HTML anchors to Heading blocks 
 -	**Experimental:** true
 -	**Category:** design
 -	**Supports:** color (background, gradients, link, text), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** headings, onlyIncludeCurrentPage
+-	**Attributes:** headings, maxLevel, onlyIncludeCurrentPage
 
 ## Tag Cloud
 
