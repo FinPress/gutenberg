@@ -19,7 +19,7 @@ div.dataviews-view-list {
 			display: flex;
 			width: max-content;
 			flex: 0 0 auto;
-			gap: $grid-unit-15 * 0.5; // 6px.
+			gap: $grid-unit-05;
 
 			.components-button {
 				position: relative;
@@ -34,10 +34,6 @@ div.dataviews-view-list {
 				flex: 0;
 				overflow: hidden;
 				width: 0;
-
-				.components-button {
-					opacity: 0;
-				}
 			}
 		}
 
@@ -46,10 +42,6 @@ div.dataviews-view-list {
 				flex-basis: min-content;
 				width: auto;
 				overflow: unset;
-
-				.components-button {
-					opacity: 1;
-				}
 			}
 		}
 
