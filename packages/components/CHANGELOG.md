@@ -9,7 +9,6 @@
 ### Internal
 
 -   Update `gradient-parser` to version `1.0.2` ([#69783](https://github.com/WordPress/gutenberg/pull/69783)).
--   `CustomSelectControlV2`: Make disabled cursor style consistent ([#69870](https://github.com/WordPress/gutenberg/pull/69870)).
 
 ### Bug Fixes
 
