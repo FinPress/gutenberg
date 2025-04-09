@@ -164,9 +164,10 @@ export const SelectItem = styled( Ariakit.SelectItem )(
 		padding-block: ${ space( 2 ) };
 		scroll-margin: ${ space( 1 ) };
 		user-select: none;
+		cursor: pointer;
 
 		&[aria-disabled='true'] {
-			cursor: not-allowed;
+			cursor: default;
 		}
 
 		&[data-active-item] {
