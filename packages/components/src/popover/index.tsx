@@ -244,15 +244,9 @@ const UnforwardedPopover = (
 							? sizeProps.availableHeight - OVERFLOW_PADDING
 							: sizeProps.availableHeight;
 
-					const computedWidth =
-						sizeProps.availableWidth >= OVERFLOW_PADDING
-							? sizeProps.availableWidth - OVERFLOW_PADDING
-							: sizeProps.availableWidth;
-
 					// Reduce the height of the popover to the available space.
 					Object.assign( firstElementChild.style, {
 						maxHeight: `${ computedHeight }px`,
-						maxWidth: `${ computedWidth }px`,
 						overflow: 'auto',
 					} );
 				},
