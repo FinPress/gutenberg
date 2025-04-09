@@ -41,6 +41,34 @@ const legacyColorMatcher = {
 	source: 'hex',
 };
 
+// Without the controlled component, slider values don't update after changes.
+// Controlled component with state helps synchronize input box and slider during testing.
+const ControlledColorPicker = ( {
+	onChange: onChangeProp,
+	initialColor = '#000000',
+	...restProps
+}: React.ComponentProps< typeof ColorPicker > & { initialColor?: string } ) => {
+	const [ colorState, setColorState ] = useState( initialColor );
+
+	const internalOnChange: typeof onChangeProp = ( newColor ) => {
+		onChangeProp?.( newColor );
+		setColorState( newColor );
+	};
+
+	return (
+		<>
+			<ColorPicker
+				{ ...restProps }
+				onChange={ internalOnChange }
+				color={ colorState }
+			/>
+			<button onClick={ () => setColorState( '#4d87ba' ) }>
+				Set color to #4d87ba
+			</button>
+		</>
+	);
+};
+
 describe( 'ColorPicker', () => {
 	describe( 'legacy props', () => {
 		it( 'should fire onChangeComplete with the legacy color format', async () => {
@@ -143,31 +171,6 @@ describe( 'ColorPicker', () => {
 		it( 'sliders should use accurate H and S values based on user interaction when possible', async () => {
 			const user = userEvent.setup();
 			const onChange = jest.fn();
-
-			const ControlledColorPicker = ( {
-				onChange: onChangeProp,
-				...restProps
-			}: React.ComponentProps< typeof ColorPicker > ) => {
-				const [ colorState, setColorState ] = useState( '#000000' );
-
-				const internalOnChange: typeof onChangeProp = ( newColor ) => {
-					onChangeProp?.( newColor );
-					setColorState( newColor );
-				};
-
-				return (
-					<>
-						<ColorPicker
-							{ ...restProps }
-							onChange={ internalOnChange }
-							color={ colorState }
-						/>
-						<button onClick={ () => setColorState( '#4d87ba' ) }>
-							Set color to #4d87ba
-						</button>
-					</>
-				);
-			};
 
 			render(
 				<ControlledColorPicker
@@ -351,30 +354,12 @@ describe( 'ColorPicker', () => {
 			const user = userEvent.setup();
 			const onChange = jest.fn();
 
-			const ControlledColorPicker = ( {
-				onChange: onChangeProp,
-				...restProps
-			}: React.ComponentProps< typeof ColorPicker > ) => {
-				const [ colorState, setColorState ] = useState( '#ffffff80' );
-
-				const internalOnChange: typeof onChangeProp = ( newColor ) => {
-					onChangeProp?.( newColor );
-					setColorState( newColor );
-				};
-
-				return (
-					<>
-						<ColorPicker
-							{ ...restProps }
-							onChange={ internalOnChange }
-							color={ colorState }
-						/>
-					</>
-				);
-			};
-
 			render(
-				<ControlledColorPicker onChange={ onChange } enableAlpha />
+				<ControlledColorPicker
+					onChange={ onChange }
+					enableAlpha
+					initialColor="#ffffff80"
+				/>
 			);
 
 			const formatSelector = screen.getByRole( 'combobox' );
