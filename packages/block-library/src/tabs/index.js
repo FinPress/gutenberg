@@ -1,9 +1,13 @@
 /**
+ * WordPress dependencies
+ */
+import { tabs as icon } from '@wordpress/icons';
+
+/**
  * Internal dependencies
  */
 
 import edit from './edit';
-import icon from './icon';
 import save from './save';
 import initBlock from '../utils/init-block';
 
