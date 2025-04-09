@@ -71,7 +71,6 @@ const PredefinedNetworkConditions: Record< string, NetworkConditions > = {
 	 *
 	 * @see https://github.com/paulirish/lighthouse/blob/f0855904aaffaecf3089169449646960782d7e92/core/config/constants.js#L40-L49
 	 * @see https://docs.google.com/document/d/1-p4HSp42REEA5-jCBVB6PqQcVhI1nQIblBCNKhPJUXg/edit?tab=t.0#heading=h.jsap7yf4phk6
-	 * @type {NetworkConditions}
 	 */
 	Broadband: {
 		offline: false,
