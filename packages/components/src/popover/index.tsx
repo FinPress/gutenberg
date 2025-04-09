@@ -231,7 +231,6 @@ const UnforwardedPopover = (
 		computedFlipProp && flipMiddleware(),
 		computedResizeProp &&
 			size( {
-				padding: OVERFLOW_PADDING,
 				apply( sizeProps ) {
 					const { firstElementChild } = refs.floating.current ?? {};
 
@@ -240,9 +239,20 @@ const UnforwardedPopover = (
 						return;
 					}
 
+					const computedHeight =
+						sizeProps.availableHeight >= OVERFLOW_PADDING
+							? sizeProps.availableHeight - OVERFLOW_PADDING
+							: sizeProps.availableHeight;
+
+					const computedWidth =
+						sizeProps.availableWidth >= OVERFLOW_PADDING
+							? sizeProps.availableWidth - OVERFLOW_PADDING
+							: sizeProps.availableWidth;
+
 					// Reduce the height of the popover to the available space.
 					Object.assign( firstElementChild.style, {
-						maxHeight: `${ sizeProps.availableHeight }px`,
+						maxHeight: `${ computedHeight }px`,
+						maxWidth: `${ computedWidth }px`,
 						overflow: 'auto',
 					} );
 				},
