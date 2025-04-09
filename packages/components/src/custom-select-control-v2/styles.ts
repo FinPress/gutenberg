@@ -154,7 +154,7 @@ export const SelectItem = styled( Ariakit.SelectItem )(
 	}: {
 		size: NonNullable< CustomSelectButtonSize[ 'size' ] >;
 	} ) => css`
-		cursor: default;
+		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -164,7 +164,6 @@ export const SelectItem = styled( Ariakit.SelectItem )(
 		padding-block: ${ space( 2 ) };
 		scroll-margin: ${ space( 1 ) };
 		user-select: none;
-		cursor: pointer;
 
 		&[aria-disabled='true'] {
 			cursor: default;
