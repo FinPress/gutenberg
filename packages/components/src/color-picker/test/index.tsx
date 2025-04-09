@@ -344,83 +344,105 @@ describe( 'ColorPicker', () => {
 	} );
 
 	describe.each( [
-		[ 'hsl', 'HSL', '75', '#ffffff12' ],
-		[ 'rgb', 'RGB', '75', '#ffffff12' ],
-	] )(
-		'Alpha-enabled %s format',
-		( format, formatLabel, alphaValue, expected ) => {
-			it( `should update alpha correctly when ${ formatLabel } format is selected`, async () => {
-				const user = userEvent.setup();
-				const onChange = jest.fn();
+		[ 'hsl', 'HSL' ],
+		[ 'rgb', 'RGB' ],
+	] )( 'Alpha-enabled %s format', ( format, formatLabel ) => {
+		it( `should update alpha correctly when ${ formatLabel } format is selected`, async () => {
+			const user = userEvent.setup();
+			const onChange = jest.fn();
 
-				const ControlledColorPicker = ( {
-					onChange: onChangeProp,
-					...restProps
-				}: React.ComponentProps< typeof ColorPicker > ) => {
-					const [ colorState, setColorState ] =
-						useState( '#ffffff80' );
+			const ControlledColorPicker = ( {
+				onChange: onChangeProp,
+				...restProps
+			}: React.ComponentProps< typeof ColorPicker > ) => {
+				const [ colorState, setColorState ] = useState( '#ffffff80' );
 
-					const internalOnChange: typeof onChangeProp = (
-						newColor
-					) => {
-						onChangeProp?.( newColor );
-						setColorState( newColor );
-					};
-
-					return (
-						<>
-							<ColorPicker
-								{ ...restProps }
-								onChange={ internalOnChange }
-								color={ colorState }
-							/>
-						</>
-					);
+				const internalOnChange: typeof onChangeProp = ( newColor ) => {
+					onChangeProp?.( newColor );
+					setColorState( newColor );
 				};
 
-				render(
-					<ControlledColorPicker onChange={ onChange } enableAlpha />
+				return (
+					<>
+						<ColorPicker
+							{ ...restProps }
+							onChange={ internalOnChange }
+							color={ colorState }
+						/>
+					</>
 				);
+			};
 
-				const formatSelector = screen.getByRole( 'combobox' );
-				expect( formatSelector ).toBeVisible();
-				await user.selectOptions( formatSelector, format );
+			render(
+				<ControlledColorPicker onChange={ onChange } enableAlpha />
+			);
 
-				const alphaInput = screen.getByRole( 'spinbutton', {
-					name: 'Alpha',
-				} );
-				expect( alphaInput ).toBeVisible();
+			const formatSelector = screen.getByRole( 'combobox' );
+			expect( formatSelector ).toBeVisible();
+			await user.selectOptions( formatSelector, format );
 
-				const alphaSliders = screen.getAllByRole( 'slider', {
-					name: 'Alpha',
-				} );
-
-				const alphaSlider = alphaSliders.at( -1 )!;
-
-				expect( alphaSlider ).toHaveValue( '50' );
-				expect( alphaInput ).toHaveValue( Number( '50' ) );
-
-				fireEvent.change( alphaSlider, {
-					target: { value: alphaValue },
-				} );
-				expect( onChange ).not.toHaveBeenCalled();
-
-				await waitFor( () => {
-					expect( alphaInput ).toHaveValue( Number( alphaValue ) );
-				} );
-
-				await waitFor( () => {
-					expect( alphaSlider ).toHaveValue( alphaValue );
-				} );
-
-				await user.clear( alphaInput );
-				await user.type( alphaInput, alphaValue );
-
-				expect( alphaInput ).toHaveValue( Number( alphaValue ) );
-
-				expect( onChange ).toHaveBeenCalledTimes( 3 );
-				expect( onChange ).toHaveBeenLastCalledWith( expected );
+			const alphaInput = screen.getByRole( 'spinbutton', {
+				name: 'Alpha',
 			} );
-		}
-	);
+			expect( alphaInput ).toBeVisible();
+
+			const alphaSliders = screen.getAllByRole( 'slider', {
+				name: 'Alpha',
+			} );
+
+			expect( alphaSliders ).toHaveLength( 2 );
+
+			// Choose the second slider which is the actual slider of type: input[type="range"]
+			const alphaSlider = alphaSliders.at( -1 )!;
+
+			expect( alphaSlider ).toHaveValue( '50' );
+			expect( alphaInput ).toHaveValue( 50 );
+
+			expect( onChange ).not.toHaveBeenCalledWith();
+
+			// Test pattern 1: Update the slider
+			fireEvent.change( alphaSlider, {
+				target: { value: 75 },
+			} );
+
+			await waitFor( () => {
+				expect( onChange ).toHaveBeenCalledTimes( 1 );
+			} );
+			await waitFor( () => {
+				expect( onChange ).toHaveBeenCalledWith( '#ffffffbf' );
+			} );
+
+			await waitFor( () => {
+				expect( alphaInput ).toHaveValue( 75 );
+			} );
+			await waitFor( () => {
+				expect( alphaSlider ).toHaveValue( '75' );
+			} );
+
+			onChange.mockClear();
+
+			// Test pattern 2: Update the alphaInput
+			await user.clear( alphaInput );
+			expect( onChange ).toHaveBeenCalledTimes( 1 );
+
+			// Initially type 7 in the alpha input, we expect it to be called with #ffffff12
+			await user.type( alphaInput, '7' );
+
+			expect( onChange ).toHaveBeenCalledTimes( 2 );
+			await waitFor( () => {
+				expect( onChange ).toHaveBeenCalledWith( '#ffffff12' );
+			} );
+
+			// Now with 75% opacity we expect it to be called with #ffffffbf
+			await user.type( alphaInput, '5' );
+
+			expect( onChange ).toHaveBeenCalledTimes( 3 );
+			await waitFor( () => {
+				expect( onChange ).toHaveBeenCalledWith( '#ffffffbf' );
+			} );
+
+			expect( alphaSlider ).toHaveValue( '75' );
+			expect( alphaInput ).toHaveValue( 75 );
+		} );
+	} );
 } );
