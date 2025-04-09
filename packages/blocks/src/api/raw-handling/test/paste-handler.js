@@ -61,7 +61,7 @@ const tableWithHeaderFooterAndBodyUsingRowspan = `
 	</tfoot>
 </table>`;
 
-const markdownTableHTML = `
+const tableWithCellAlignments = `
 <table>
 	<thead>
 		<tr>
@@ -176,34 +176,9 @@ describe( 'pasteHandler', () => {
 		expect( result.isValid ).toBeTruthy();
 	} );
 
-	it( 'can handle a video', () => {
-		const [ result ] = pasteHandler( {
-			HTML: '<video controls src="https://example.com/media.mp4" autoplay loop muted controls playsinline preload="auto" poster="https://example.com/media.jpg"></video>',
-			tagName: 'p',
-			preserveWhiteSpace: false,
-		} );
-
-		expect( console ).toHaveLogged();
-
-		delete result.attributes.caption;
-		expect( result.attributes ).toEqual( {
-			autoplay: true,
-			loop: true,
-			muted: true,
-			controls: true,
-			playsInline: true,
-			preload: 'auto',
-			poster: 'https://example.com/media.jpg',
-			src: 'https://example.com/media.mp4',
-			tracks: [],
-		} );
-		expect( result.name ).toEqual( 'core/video' );
-		expect( result.isValid ).toBeTruthy();
-	} );
-
 	it( 'can preserve column alignments when pasting Markdown tables', () => {
 		const [ result ] = pasteHandler( {
-			HTML: markdownTableHTML,
+			HTML: tableWithCellAlignments,
 			tagName: 'p',
 		} );
 
@@ -286,5 +261,30 @@ describe( 'pasteHandler', () => {
 			],
 			foot: [],
 		} );
+	} );
+
+	it( 'can handle a video', () => {
+		const [ result ] = pasteHandler( {
+			HTML: '<video controls src="https://example.com/media.mp4" autoplay loop muted controls playsinline preload="auto" poster="https://example.com/media.jpg"></video>',
+			tagName: 'p',
+			preserveWhiteSpace: false,
+		} );
+
+		expect( console ).toHaveLogged();
+
+		delete result.attributes.caption;
+		expect( result.attributes ).toEqual( {
+			autoplay: true,
+			loop: true,
+			muted: true,
+			controls: true,
+			playsInline: true,
+			preload: 'auto',
+			poster: 'https://example.com/media.jpg',
+			src: 'https://example.com/media.mp4',
+			tracks: [],
+		} );
+		expect( result.name ).toEqual( 'core/video' );
+		expect( result.isValid ).toBeTruthy();
 	} );
 } );
