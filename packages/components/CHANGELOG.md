@@ -5,6 +5,7 @@
 ### Documentation
 
 -   `Popover`: Expose Popover TypeScript types for subcomponents. ([#69619](https://github.com/WordPress/gutenberg/pull/69619))
+-   `CustomSelectControlV2`: Make disabled cursor style consistent ([#69870](https://github.com/WordPress/gutenberg/pull/69870)).
 
 ### Internal
 
