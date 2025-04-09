@@ -46,6 +46,8 @@ export function ShadowPopoverContainer( { shadow, onShadowChange, settings } ) {
 						__next40pxDefaultSize
 						variant="tertiary"
 						onClick={ () => onShadowChange( undefined ) }
+						disabled={ ! shadow }
+						accessibleWhenDisabled
 					>
 						{ __( 'Clear' ) }
 					</Button>
@@ -139,7 +141,10 @@ function renderShadowToggle( shadow, onShadowChange ) {
 
 		const toggleProps = {
 			onClick: onToggle,
-			className: clsx( { 'is-open': isOpen } ),
+			className: clsx(
+				'block-editor-global-styles__shadow-dropdown-toggle',
+				{ 'is-open': isOpen }
+			),
 			'aria-expanded': isOpen,
 			ref: shadowButtonRef,
 		};
