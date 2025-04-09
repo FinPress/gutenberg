@@ -92,7 +92,7 @@ function ListViewComponent(
 		blocks,
 		dropZoneElement,
 		showBlockMovers = false,
-		isExpanded = true,
+		isExpanded = false,
 		showAppender = false,
 		blockSettingsMenu: BlockSettingsMenu = BlockSettingsDropdown,
 		rootClientId,
