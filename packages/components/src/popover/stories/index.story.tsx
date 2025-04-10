@@ -323,6 +323,7 @@ export const WithCloseHandlers: StoryObj< typeof Popover > = {
 		);
 	},
 	args: {
+		...Default.args,
 		focusOnMount: true,
 		children: (
 			<div style={ DEFAULT_POPOVER_CONTENT_STYLE }>
