@@ -32,6 +32,36 @@ const AVAILABLE_PLACEMENTS: PopoverProps[ 'placement' ][] = [
 	'overlay',
 ];
 
+// Common styles for reuse
+const FULLSCREEN_CONTAINER_STYLE = {
+	width: '300vw',
+	height: '300vh',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+};
+
+const DEFAULT_POPOVER_CONTENT_STYLE = {
+	width: '280px',
+	whiteSpace: 'normal' as const,
+};
+
+const DEFAULT_POPOVER_CONTENT = (
+	<div style={ DEFAULT_POPOVER_CONTENT_STYLE }>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+		veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+		commodo consequat.
+	</div>
+);
+
+const COMPACT_POPOVER_CONTENT = (
+	<div style={ DEFAULT_POPOVER_CONTENT_STYLE }>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua.
+	</div>
+);
+
 const meta: Meta< typeof Popover > = {
 	title: 'Components/Overlays/Popover',
 	id: 'components-popover',
@@ -105,15 +135,7 @@ export const Default: StoryObj< typeof Popover > = {
 			}, [] );
 
 			return (
-				<div
-					style={ {
-						width: '300vw',
-						height: '300vh',
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center',
-					} }
-				>
+				<div style={ FULLSCREEN_CONTAINER_STYLE }>
 					<Button
 						variant="secondary"
 						onClick={ toggleVisible }
@@ -127,14 +149,7 @@ export const Default: StoryObj< typeof Popover > = {
 		},
 	],
 	args: {
-		children: (
-			<div style={ { width: '280px', whiteSpace: 'normal' } }>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-				eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-				enim ad minim veniam, quis nostrud exercitation ullamco laboris
-				nisi ut aliquip ex ea commodo consequat.
-			</div>
-		),
+		children: DEFAULT_POPOVER_CONTENT,
 	},
 };
 
@@ -142,7 +157,6 @@ export const Unstyled: StoryObj< typeof Popover > = {
 	...Default,
 	args: {
 		...Default.args,
-
 		variant: 'unstyled',
 	},
 };
@@ -185,13 +199,7 @@ export const AllPlacements: StoryObj< typeof Popover > = {
 		},
 	},
 	args: {
-		...Default.args,
-		children: (
-			<div style={ { width: '280px', whiteSpace: 'normal' } }>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-				eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			</div>
-		),
+		children: COMPACT_POPOVER_CONTENT,
 		noArrow: false,
 		offset: 10,
 		resize: false,
@@ -239,7 +247,6 @@ export const DynamicHeight: StoryObj< typeof Popover > = {
 		},
 	],
 	args: {
-		...Default.args,
 		children: (
 			<div
 				style={ {
@@ -259,7 +266,7 @@ export const WithSlotOutsideIframe: StoryObj< typeof Popover > = {
 		<PopoverInsideIframeRenderedInExternalSlot { ...args } />
 	),
 	args: {
-		...Default.args,
+		children: DEFAULT_POPOVER_CONTENT,
 	},
 };
 
@@ -293,15 +300,7 @@ export const WithCloseHandlers: StoryObj< typeof Popover > = {
 		}, [] );
 
 		return (
-			<div
-				style={ {
-					width: '300vw',
-					height: '300vh',
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-				} }
-			>
+			<div style={ FULLSCREEN_CONTAINER_STYLE }>
 				<Button
 					variant="secondary"
 					onClick={ toggleVisible }
@@ -322,10 +321,9 @@ export const WithCloseHandlers: StoryObj< typeof Popover > = {
 		);
 	},
 	args: {
-		...Default.args,
 		focusOnMount: true,
 		children: (
-			<div style={ { width: '280px', whiteSpace: 'normal' } }>
+			<div style={ DEFAULT_POPOVER_CONTENT_STYLE }>
 				<p>
 					Clicking outside triggers the onFocusOutside callback prop.
 				</p>
