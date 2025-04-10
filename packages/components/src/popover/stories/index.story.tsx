@@ -199,6 +199,7 @@ export const AllPlacements: StoryObj< typeof Popover > = {
 		},
 	},
 	args: {
+		...Default.args,
 		children: COMPACT_POPOVER_CONTENT,
 		noArrow: false,
 		offset: 10,
