@@ -176,7 +176,7 @@ describe( 'pasteHandler', () => {
 		expect( result.isValid ).toBeTruthy();
 	} );
 
-	it( 'can preserve column alignments when pasting Markdown tables', () => {
+	it( 'can handle a table with cell alignments', () => {
 		const [ result ] = pasteHandler( {
 			HTML: tableWithCellAlignments,
 			tagName: 'p',
