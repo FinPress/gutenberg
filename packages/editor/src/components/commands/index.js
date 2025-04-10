@@ -91,9 +91,13 @@ const getEditorCommandLoader = () =>
 		const { openModal, enableComplementaryArea, disableComplementaryArea } =
 			useDispatch( interfaceStore );
 		const { getCurrentPostId } = useSelect( editorStore );
-		const { isBlockBasedTheme, canCreateTemplate } = useSelect(
-			( select ) => {
+		const { isSupportEditorStyles, isBlockBasedTheme, canCreateTemplate } =
+			useSelect( ( select ) => {
 				return {
+					isSupportEditorStyles:
+						select( coreStore ).getCurrentTheme().theme_supports[
+							'editor-styles'
+						],
 					isBlockBasedTheme:
 						select( coreStore ).getCurrentTheme()?.is_block_theme,
 					canCreateTemplate: select( coreStore ).canUser( 'create', {
@@ -101,9 +105,8 @@ const getEditorCommandLoader = () =>
 						name: 'wp_template',
 					} ),
 				};
-			},
-			[]
-		);
+			}, [] );
+
 		const allowSwitchEditorMode =
 			isCodeEditingEnabled && isRichEditingEnabled;
 
@@ -285,14 +288,21 @@ const getEditorCommandLoader = () =>
 				},
 			} );
 		}
-		if ( canCreateTemplate && isBlockBasedTheme ) {
+		if (
+			canCreateTemplate &&
+			( isBlockBasedTheme || isSupportEditorStyles )
+		) {
+			const label = isBlockBasedTheme
+				? __( 'Open Site Editor' )
+				: __( 'Open Design' );
+
 			const isSiteEditor = getPath( window.location.href )?.includes(
 				'site-editor.php'
 			);
 			if ( ! isSiteEditor ) {
 				commands.push( {
 					name: 'core/go-to-site-editor',
-					label: __( 'Open Site Editor' ),
+					label,
 					callback: ( { close } ) => {
 						close();
 						document.location = 'site-editor.php';
