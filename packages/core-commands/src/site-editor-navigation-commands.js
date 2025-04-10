@@ -280,9 +280,13 @@ const getSiteEditorBasicNavigationCommands = () =>
 		const isSiteEditor = getPath( window.location.href )?.includes(
 			'site-editor.php'
 		);
-		const { isBlockBasedTheme, canCreateTemplate } = useSelect(
-			( select ) => {
+		const { isSupportEditorStyles, isBlockBasedTheme, canCreateTemplate } =
+			useSelect( ( select ) => {
 				return {
+					isSupportEditorStyles:
+						select( coreStore ).getCurrentTheme().theme_supports[
+							'editor-styles'
+						],
 					isBlockBasedTheme:
 						select( coreStore ).getCurrentTheme()?.is_block_theme,
 					canCreateTemplate: select( coreStore ).canUser( 'create', {
@@ -290,88 +294,107 @@ const getSiteEditorBasicNavigationCommands = () =>
 						name: 'wp_template',
 					} ),
 				};
-			},
-			[]
-		);
+			}, [] );
 		const commands = useMemo( () => {
 			const result = [];
 
-			if ( canCreateTemplate && isBlockBasedTheme ) {
-				result.push( {
-					name: 'core/edit-site/open-navigation',
-					label: __( 'Navigation' ),
-					icon: navigation,
-					callback: ( { close } ) => {
-						if ( isSiteEditor ) {
-							history.navigate( '/navigation' );
-						} else {
-							document.location = addQueryArgs(
-								'site-editor.php',
-								{
-									p: '/navigation',
-								}
-							);
-						}
-						close();
-					},
-				} );
+			if ( canCreateTemplate ) {
+				if ( isBlockBasedTheme ) {
+					result.push( {
+						name: 'core/edit-site/open-navigation',
+						label: __( 'Navigation' ),
+						icon: navigation,
+						callback: ( { close } ) => {
+							if ( isSiteEditor ) {
+								history.navigate( '/navigation' );
+							} else {
+								document.location = addQueryArgs(
+									'site-editor.php',
+									{
+										p: '/navigation',
+									}
+								);
+							}
+							close();
+						},
+					} );
 
-				result.push( {
-					name: 'core/edit-site/open-styles',
-					label: __( 'Styles' ),
-					icon: styles,
-					callback: ( { close } ) => {
-						if ( isSiteEditor ) {
-							history.navigate( '/styles' );
-						} else {
-							document.location = addQueryArgs(
-								'site-editor.php',
-								{
-									p: '/styles',
-								}
-							);
-						}
-						close();
-					},
-				} );
+					result.push( {
+						name: 'core/edit-site/open-styles',
+						label: __( 'Styles' ),
+						icon: styles,
+						callback: ( { close } ) => {
+							if ( isSiteEditor ) {
+								history.navigate( '/styles' );
+							} else {
+								document.location = addQueryArgs(
+									'site-editor.php',
+									{
+										p: '/styles',
+									}
+								);
+							}
+							close();
+						},
+					} );
 
-				result.push( {
-					name: 'core/edit-site/open-pages',
-					label: __( 'Pages' ),
-					icon: page,
-					callback: ( { close } ) => {
-						if ( isSiteEditor ) {
-							history.navigate( '/page' );
-						} else {
-							document.location = addQueryArgs(
-								'site-editor.php',
-								{
-									p: '/page',
-								}
-							);
-						}
-						close();
-					},
-				} );
+					result.push( {
+						name: 'core/edit-site/open-pages',
+						label: __( 'Pages' ),
+						icon: page,
+						callback: ( { close } ) => {
+							if ( isSiteEditor ) {
+								history.navigate( '/page' );
+							} else {
+								document.location = addQueryArgs(
+									'site-editor.php',
+									{
+										p: '/page',
+									}
+								);
+							}
+							close();
+						},
+					} );
 
-				result.push( {
-					name: 'core/edit-site/open-templates',
-					label: __( 'Templates' ),
-					icon: layout,
-					callback: ( { close } ) => {
-						if ( isSiteEditor ) {
-							history.navigate( '/template' );
-						} else {
-							document.location = addQueryArgs(
-								'site-editor.php',
-								{
-									p: '/template',
-								}
-							);
-						}
-						close();
-					},
-				} );
+					result.push( {
+						name: 'core/edit-site/open-templates',
+						label: __( 'Templates' ),
+						icon: layout,
+						callback: ( { close } ) => {
+							if ( isSiteEditor ) {
+								history.navigate( '/template' );
+							} else {
+								document.location = addQueryArgs(
+									'site-editor.php',
+									{
+										p: '/template',
+									}
+								);
+							}
+							close();
+						},
+					} );
+				} else if ( isSupportEditorStyles ) {
+					result.push( {
+						name: 'core/edit-site/open-stylebook',
+						label: __( 'Stylebook' ),
+						icon: styles,
+						callback: ( { close } ) => {
+							if ( isSiteEditor ) {
+								history.navigate( '/stylebook' );
+							} else {
+								document.location = addQueryArgs(
+									'site-editor.php',
+									{
+										p: '/stylebook',
+									}
+								);
+							}
+							close();
+						},
+					} );
+				}
 			}
 
 			result.push( {
