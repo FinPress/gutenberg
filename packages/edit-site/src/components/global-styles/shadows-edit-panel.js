@@ -15,7 +15,7 @@ import {
 	__experimentalUnitControl as UnitControl,
 	__experimentalGrid as Grid,
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
-	__experimentalUseNavigator as useNavigator,
+	useNavigator,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalConfirmDialog as ConfirmDialog,
@@ -35,7 +35,7 @@ import {
 	reset,
 	moreVertical,
 } from '@wordpress/icons';
-import { useState, useMemo } from '@wordpress/element';
+import { useState, useMemo, useEffect, useRef } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -51,7 +51,7 @@ import {
 } from './shadow-utils';
 
 const { useGlobalSetting } = unlock( blockEditorPrivateApis );
-const { DropdownMenuV2 } = unlock( componentsPrivateApis );
+const { Menu } = unlock( componentsPrivateApis );
 
 const customShadowMenuItems = [
 	{
@@ -73,12 +73,30 @@ const presetShadowMenuItems = [
 
 export default function ShadowsEditPanel() {
 	const {
+		goBack,
 		params: { category, slug },
-		goTo,
 	} = useNavigator();
 	const [ shadows, setShadows ] = useGlobalSetting(
 		`shadow.presets.${ category }`
 	);
+
+	useEffect( () => {
+		const hasCurrentShadow = shadows?.some(
+			( shadow ) => shadow.slug === slug
+		);
+		// If the shadow being edited doesn't exist anymore in the global styles setting, navigate back
+		// to prevent the user from editing a non-existent shadow entry.
+		// This can happen, for example:
+		// - when the user deletes the shadow
+		// - when the user resets the styles while editing a custom shadow
+		//
+		// The check on the slug is necessary to prevent a double back navigation when the user triggers
+		// a backward navigation by interacting with the screen's UI.
+		if ( !! slug && ! hasCurrentShadow ) {
+			goBack();
+		}
+	}, [ shadows, slug, goBack ] );
+
 	const [ baseShadows ] = useGlobalSetting(
 		`shadow.presets.${ category }`,
 		undefined,
@@ -95,6 +113,10 @@ export default function ShadowsEditPanel() {
 		useState( false );
 	const [ isRenameModalVisible, setIsRenameModalVisible ] = useState( false );
 	const [ shadowName, setShadowName ] = useState( selectedShadow.name );
+
+	if ( ! category || ! slug ) {
+		return null;
+	}
 
 	const onShadowChange = ( shadow ) => {
 		setSelectedShadow( { ...selectedShadow, shadow } );
@@ -119,9 +141,7 @@ export default function ShadowsEditPanel() {
 	};
 
 	const handleShadowDelete = () => {
-		const updatedShadows = shadows.filter( ( s ) => s.slug !== slug );
-		setShadows( updatedShadows );
-		goTo( `/shadows` );
+		setShadows( shadows.filter( ( s ) => s.slug !== slug ) );
 	};
 
 	const handleShadowRename = ( newName ) => {
@@ -143,34 +163,39 @@ export default function ShadowsEditPanel() {
 				<ScreenHeader title={ selectedShadow.name } />
 				<FlexItem>
 					<Spacer marginTop={ 2 } marginBottom={ 0 } paddingX={ 4 }>
-						<DropdownMenuV2
-							trigger={
-								<Button
-									size="small"
-									icon={ moreVertical }
-									label={ __( 'Menu' ) }
-								/>
-							}
-						>
-							{ ( category === 'custom'
-								? customShadowMenuItems
-								: presetShadowMenuItems
-							).map( ( item ) => (
-								<DropdownMenuV2.Item
-									key={ item.action }
-									onClick={ () => onMenuClick( item.action ) }
-									disabled={
-										item.action === 'reset' &&
-										selectedShadow.shadow ===
-											baseSelectedShadow.shadow
-									}
-								>
-									<DropdownMenuV2.ItemLabel>
-										{ item.label }
-									</DropdownMenuV2.ItemLabel>
-								</DropdownMenuV2.Item>
-							) ) }
-						</DropdownMenuV2>
+						<Menu>
+							<Menu.TriggerButton
+								render={
+									<Button
+										size="small"
+										icon={ moreVertical }
+										label={ __( 'Menu' ) }
+									/>
+								}
+							/>
+							<Menu.Popover>
+								{ ( category === 'custom'
+									? customShadowMenuItems
+									: presetShadowMenuItems
+								).map( ( item ) => (
+									<Menu.Item
+										key={ item.action }
+										onClick={ () =>
+											onMenuClick( item.action )
+										}
+										disabled={
+											item.action === 'reset' &&
+											selectedShadow.shadow ===
+												baseSelectedShadow.shadow
+										}
+									>
+										<Menu.ItemLabel>
+											{ item.label }
+										</Menu.ItemLabel>
+									</Menu.Item>
+								) ) }
+							</Menu.Popover>
+						</Menu>
 					</Spacer>
 				</FlexItem>
 			</HStack>
@@ -195,8 +220,10 @@ export default function ShadowsEditPanel() {
 					size="medium"
 				>
 					{ sprintf(
-						// translators: %s: name of the shadow
-						'Are you sure you want to delete "%s"?',
+						/* translators: %s: Name of the shadow preset. */
+						__(
+							'Are you sure you want to delete "%s" shadow preset?'
+						),
 						selectedShadow.name
 					) }
 				</ConfirmDialog>
@@ -278,21 +305,22 @@ function ShadowsPreview( { shadow } ) {
 }
 
 function ShadowEditor( { shadow, onChange } ) {
+	const addShadowButtonRef = useRef();
 	const shadowParts = useMemo( () => getShadowParts( shadow ), [ shadow ] );
 
 	const onChangeShadowPart = ( index, part ) => {
-		shadowParts[ index ] = part;
-		onChange( shadowParts.join( ', ' ) );
+		const newShadowParts = [ ...shadowParts ];
+		newShadowParts[ index ] = part;
+		onChange( newShadowParts.join( ', ' ) );
 	};
 
 	const onAddShadowPart = () => {
-		shadowParts.push( defaultShadow );
-		onChange( shadowParts.join( ', ' ) );
+		onChange( [ ...shadowParts, defaultShadow ].join( ', ' ) );
 	};
 
 	const onRemoveShadowPart = ( index ) => {
-		shadowParts.splice( index, 1 );
-		onChange( shadowParts.join( ', ' ) );
+		onChange( shadowParts.filter( ( p, i ) => i !== index ).join( ', ' ) );
+		addShadowButtonRef.current.focus();
 	};
 
 	return (
@@ -313,6 +341,7 @@ function ShadowEditor( { shadow, onChange } ) {
 							onClick={ () => {
 								onAddShadowPart();
 							} }
+							ref={ addShadowButtonRef }
 						/>
 					</FlexItem>
 				</HStack>
@@ -363,7 +392,12 @@ function ShadowItem( { shadow, onChange, canRemove, onRemove } ) {
 					'aria-expanded': isOpen,
 				};
 				const removeButtonProps = {
-					onClick: onRemove,
+					onClick: () => {
+						if ( isOpen ) {
+							onToggle();
+						}
+						onRemove();
+					},
 					className: clsx(
 						'edit-site-global-styles__shadow-editor__remove-button',
 						{ 'is-open': isOpen }
@@ -372,28 +406,24 @@ function ShadowItem( { shadow, onChange, canRemove, onRemove } ) {
 				};
 
 				return (
-					<HStack align="center" justify="flex-start" spacing={ 0 }>
-						<FlexItem style={ { flexGrow: 1 } }>
-							<Button
-								__next40pxDefaultSize
-								icon={ shadowIcon }
-								{ ...toggleProps }
-							>
-								{ shadowObj.inset
-									? __( 'Inner shadow' )
-									: __( 'Drop shadow' ) }
-							</Button>
-						</FlexItem>
+					<>
+						<Button
+							__next40pxDefaultSize
+							icon={ shadowIcon }
+							{ ...toggleProps }
+						>
+							{ shadowObj.inset
+								? __( 'Inner shadow' )
+								: __( 'Drop shadow' ) }
+						</Button>
 						{ canRemove && (
-							<FlexItem>
-								<Button
-									__next40pxDefaultSize
-									icon={ reset }
-									{ ...removeButtonProps }
-								/>
-							</FlexItem>
+							<Button
+								size="small"
+								icon={ reset }
+								{ ...removeButtonProps }
+							/>
 						) }
-					</HStack>
+					</>
 				);
 			} }
 			renderContent={ () => (

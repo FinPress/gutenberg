@@ -2,11 +2,53 @@
 
 ## Unreleased
 
+## 10.21.0 (2025-03-27)
+
+## 10.20.0 (2025-03-13)
+
+## 10.19.0 (2025-02-28)
+
+## 10.18.0 (2025-02-12)
+
+## 10.17.0 (2025-01-29)
+
+## 10.16.0 (2025-01-15)
+
+## 10.15.0 (2025-01-02)
+
+-   Add new `caution` icon ([#66555](https://github.com/WordPress/gutenberg/pull/66555)).
+-   Add new `error` icon ([#66555](https://github.com/WordPress/gutenberg/pull/66555)).
+-   Deprecate `warning` icon and rename to `cautionFilled` ([#67895](https://github.com/WordPress/gutenberg/pull/67895)).
+
+## 10.14.0 (2024-12-11)
+
+## 10.13.0 (2024-11-27)
+
+## 10.12.0 (2024-11-16)
+
+## 10.11.0 (2024-10-30)
+
+## 10.10.0 (2024-10-16)
+
+### Enhancements
+
+-   Update `cloudUpload` icon to improve visibility of the up arrow.
+
+### New Features
+
+-   Add new `cloudDownload` icon.
+-   Update `unseen` icon to be a strike-through eye, rather than a closed eye, to match provide consistency. ([#65914](https://github.com/WordPress/gutenberg/pull/65914)).
+
+## 10.9.0 (2024-10-03)
+
 ## 10.8.0 (2024-09-19)
 
 ### New Features
 
+-   Add new `envelope` icon.
+
 -   Add new `bell` and `bell-unread` icons.
+-   Add new `arrowUpLeft` and `arrowDownRight` icons.
 
 ## 10.7.0 (2024-09-05)
 

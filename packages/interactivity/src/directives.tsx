@@ -4,7 +4,7 @@
 /**
  * External dependencies
  */
-import { h as createElement, type RefObject } from 'preact';
+import { h as createElement, type VNode, type RefObject } from 'preact';
 import { useContext, useMemo, useRef } from 'preact/hooks';
 
 /**
@@ -18,7 +18,14 @@ import {
 	splitTask,
 	isPlainObject,
 } from './utils';
-import { directive, getEvaluate, type DirectiveEntry } from './hooks';
+import {
+	directive,
+	getEvaluate,
+	isDefaultDirectiveSuffix,
+	isNonDefaultDirectiveSuffix,
+	type DirectiveCallback,
+	type DirectiveEntry,
+} from './hooks';
 import { getScope } from './scopes';
 import { proxifyState, proxifyContext, deepMerge } from './proxies';
 
@@ -41,6 +48,54 @@ function deepClone< T >( source: T ): T {
 		return source.map( ( i ) => deepClone( i ) ) as T;
 	}
 	return source;
+}
+
+/**
+ * Wraps event object to warn about access of synchronous properties and methods.
+ *
+ * For all store actions attached to an event listener the event object is proxied via this function, unless the action
+ * uses the `withSyncEvent()` utility to indicate that it requires synchronous access to the event object.
+ *
+ * At the moment, the proxied event only emits warnings when synchronous properties or methods are being accessed. In
+ * the future this will be changed and result in an error. The current temporary behavior allows implementers to update
+ * their relevant actions to use `withSyncEvent()`.
+ *
+ * For additional context, see https://github.com/WordPress/gutenberg/issues/64944.
+ *
+ * @param event Event object.
+ * @return Proxied event object.
+ */
+function wrapEventAsync( event: Event ) {
+	const handler = {
+		get( target: Event, prop: string | symbol, receiver: any ) {
+			const value = target[ prop ];
+			switch ( prop ) {
+				case 'currentTarget':
+					warn(
+						`Accessing the synchronous event.${ prop } property in a store action without wrapping it in withSyncEvent() is deprecated and will stop working in WordPress 6.9. Please wrap the store action in withSyncEvent().`
+					);
+					break;
+				case 'preventDefault':
+				case 'stopImmediatePropagation':
+				case 'stopPropagation':
+					warn(
+						`Using the synchronous event.${ prop }() function in a store action without wrapping it in withSyncEvent() is deprecated and will stop working in WordPress 6.9. Please wrap the store action in withSyncEvent().`
+					);
+					break;
+			}
+			if ( value instanceof Function ) {
+				return function ( this: any, ...args: any[] ) {
+					return value.apply(
+						this === receiver ? target : this,
+						args
+					);
+				};
+			}
+			return value;
+		},
+	};
+
+	return new Proxy( event, handler );
 }
 
 const newRule =
@@ -86,14 +141,24 @@ const cssStringToObject = (
  *
  * @param type 'window' or 'document'
  */
-const getGlobalEventDirective = ( type: 'window' | 'document' ) => {
+const getGlobalEventDirective = (
+	type: 'window' | 'document'
+): DirectiveCallback => {
 	return ( { directives, evaluate } ) => {
 		directives[ `on-${ type }` ]
-			.filter( ( { suffix } ) => suffix !== 'default' )
-			.forEach( ( entry: DirectiveEntry ) => {
+			.filter( isNonDefaultDirectiveSuffix )
+			.forEach( ( entry ) => {
 				const eventName = entry.suffix.split( '--', 1 )[ 0 ];
 				useInit( () => {
-					const cb = ( event: Event ) => evaluate( entry, event );
+					const cb = ( event: Event ) => {
+						const result = evaluate( entry );
+						if ( typeof result === 'function' ) {
+							if ( ! result?.sync ) {
+								event = wrapEventAsync( event );
+							}
+							result( event );
+						}
+					};
 					const globalVar = type === 'window' ? window : document;
 					globalVar.addEventListener( eventName, cb );
 					return () => globalVar.removeEventListener( eventName, cb );
@@ -108,16 +173,21 @@ const getGlobalEventDirective = ( type: 'window' | 'document' ) => {
  *
  * @param type 'window' or 'document'
  */
-const getGlobalAsyncEventDirective = ( type: 'window' | 'document' ) => {
+const getGlobalAsyncEventDirective = (
+	type: 'window' | 'document'
+): DirectiveCallback => {
 	return ( { directives, evaluate } ) => {
 		directives[ `on-async-${ type }` ]
-			.filter( ( { suffix } ) => suffix !== 'default' )
-			.forEach( ( entry: DirectiveEntry ) => {
+			.filter( isNonDefaultDirectiveSuffix )
+			.forEach( ( entry ) => {
 				const eventName = entry.suffix.split( '--', 1 )[ 0 ];
 				useInit( () => {
 					const cb = async ( event: Event ) => {
 						await splitTask();
-						evaluate( entry, event );
+						const result = evaluate( entry );
+						if ( typeof result === 'function' ) {
+							result( event );
+						}
 					};
 					const globalVar = type === 'window' ? window : document;
 					globalVar.addEventListener( eventName, cb, {
@@ -139,9 +209,7 @@ export default () => {
 			context: inheritedContext,
 		} ) => {
 			const { Provider } = inheritedContext;
-			const defaultEntry = context.find(
-				( { suffix } ) => suffix === 'default'
-			);
+			const defaultEntry = context.find( isDefaultDirectiveSuffix );
 			const { client: inheritedClient, server: inheritedServer } =
 				useContext( inheritedContext );
 
@@ -197,7 +265,10 @@ export default () => {
 						start = performance.now();
 					}
 				}
-				const result = evaluate( entry );
+				let result = evaluate( entry );
+				if ( typeof result === 'function' ) {
+					result = result();
+				}
 				if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 					if ( globalThis.SCRIPT_DEBUG ) {
 						performance.measure(
@@ -230,7 +301,10 @@ export default () => {
 						start = performance.now();
 					}
 				}
-				const result = evaluate( entry );
+				let result = evaluate( entry );
+				if ( typeof result === 'function' ) {
+					result = result();
+				}
 				if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 					if ( globalThis.SCRIPT_DEBUG ) {
 						performance.measure(
@@ -256,15 +330,13 @@ export default () => {
 	// data-wp-on--[event]
 	directive( 'on', ( { directives: { on }, element, evaluate } ) => {
 		const events = new Map< string, Set< DirectiveEntry > >();
-		on.filter( ( { suffix } ) => suffix !== 'default' ).forEach(
-			( entry ) => {
-				const event = entry.suffix.split( '--' )[ 0 ];
-				if ( ! events.has( event ) ) {
-					events.set( event, new Set< DirectiveEntry >() );
-				}
-				events.get( event )!.add( entry );
+		on.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
+			const event = entry.suffix.split( '--' )[ 0 ];
+			if ( ! events.has( event ) ) {
+				events.set( event, new Set< DirectiveEntry >() );
 			}
-		);
+			events.get( event )!.add( entry );
+		} );
 
 		events.forEach( ( entries, eventType ) => {
 			const existingHandler = element.props[ `on${ eventType }` ];
@@ -279,7 +351,13 @@ export default () => {
 							start = performance.now();
 						}
 					}
-					evaluate( entry, event );
+					const result = evaluate( entry );
+					if ( typeof result === 'function' ) {
+						if ( ! result?.sync ) {
+							event = wrapEventAsync( event );
+						}
+						result( event );
+					}
 					if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 						if ( globalThis.SCRIPT_DEBUG ) {
 							performance.measure(
@@ -308,7 +386,7 @@ export default () => {
 		( { directives: { 'on-async': onAsync }, element, evaluate } ) => {
 			const events = new Map< string, Set< DirectiveEntry > >();
 			onAsync
-				.filter( ( { suffix } ) => suffix !== 'default' )
+				.filter( isNonDefaultDirectiveSuffix )
 				.forEach( ( entry ) => {
 					const event = entry.suffix.split( '--' )[ 0 ];
 					if ( ! events.has( event ) ) {
@@ -325,7 +403,10 @@ export default () => {
 					}
 					entries.forEach( async ( entry ) => {
 						await splitTask();
-						evaluate( entry, event );
+						const result = evaluate( entry );
+						if ( typeof result === 'function' ) {
+							result( event );
+						}
 					} );
 				};
 			} );
@@ -350,10 +431,13 @@ export default () => {
 		'class',
 		( { directives: { class: classNames }, element, evaluate } ) => {
 			classNames
-				.filter( ( { suffix } ) => suffix !== 'default' )
+				.filter( isNonDefaultDirectiveSuffix )
 				.forEach( ( entry ) => {
 					const className = entry.suffix;
-					const result = evaluate( entry );
+					let result = evaluate( entry );
+					if ( typeof result === 'function' ) {
+						result = result();
+					}
 					const currentClass = element.props.class || '';
 					const classFinder = new RegExp(
 						`(^|\\s)${ className }(\\s|$)`,
@@ -391,119 +475,118 @@ export default () => {
 
 	// data-wp-style--[style-prop]
 	directive( 'style', ( { directives: { style }, element, evaluate } ) => {
-		style
-			.filter( ( { suffix } ) => suffix !== 'default' )
-			.forEach( ( entry ) => {
-				const styleProp = entry.suffix;
-				const result = evaluate( entry );
-				element.props.style = element.props.style || {};
-				if ( typeof element.props.style === 'string' ) {
-					element.props.style = cssStringToObject(
-						element.props.style
-					);
-				}
-				if ( ! result ) {
-					delete element.props.style[ styleProp ];
-				} else {
-					element.props.style[ styleProp ] = result;
-				}
+		style.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
+			const styleProp = entry.suffix;
+			let result = evaluate( entry );
+			if ( typeof result === 'function' ) {
+				result = result();
+			}
+			element.props.style = element.props.style || {};
+			if ( typeof element.props.style === 'string' ) {
+				element.props.style = cssStringToObject( element.props.style );
+			}
+			if ( ! result ) {
+				delete element.props.style[ styleProp ];
+			} else {
+				element.props.style[ styleProp ] = result;
+			}
 
-				useInit( () => {
-					/*
-					 * This seems necessary because Preact doesn't change the styles on
-					 * the hydration, so we have to do it manually. It doesn't need deps
-					 * because it only needs to do it the first time.
-					 */
-					if ( ! result ) {
-						(
-							element.ref as RefObject< HTMLElement >
-						 ).current!.style.removeProperty( styleProp );
-					} else {
-						(
-							element.ref as RefObject< HTMLElement >
-						 ).current!.style[ styleProp ] = result;
-					}
-				} );
+			useInit( () => {
+				/*
+				 * This seems necessary because Preact doesn't change the styles on
+				 * the hydration, so we have to do it manually. It doesn't need deps
+				 * because it only needs to do it the first time.
+				 */
+				if ( ! result ) {
+					(
+						element.ref as RefObject< HTMLElement >
+					 ).current!.style.removeProperty( styleProp );
+				} else {
+					( element.ref as RefObject< HTMLElement > ).current!.style[
+						styleProp
+					] = result;
+				}
 			} );
+		} );
 	} );
 
 	// data-wp-bind--[attribute]
 	directive( 'bind', ( { directives: { bind }, element, evaluate } ) => {
-		bind.filter( ( { suffix } ) => suffix !== 'default' ).forEach(
-			( entry ) => {
-				const attribute = entry.suffix;
-				const result = evaluate( entry );
-				element.props[ attribute ] = result;
+		bind.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
+			const attribute = entry.suffix;
+			let result = evaluate( entry );
+			if ( typeof result === 'function' ) {
+				result = result();
+			}
+			element.props[ attribute ] = result;
+
+			/*
+			 * This is necessary because Preact doesn't change the attributes on the
+			 * hydration, so we have to do it manually. It only needs to do it the
+			 * first time. After that, Preact will handle the changes.
+			 */
+			useInit( () => {
+				const el = ( element.ref as RefObject< HTMLElement > ).current!;
 
 				/*
-				 * This is necessary because Preact doesn't change the attributes on the
-				 * hydration, so we have to do it manually. It only needs to do it the
-				 * first time. After that, Preact will handle the changes.
+				 * We set the value directly to the corresponding HTMLElement instance
+				 * property excluding the following special cases. We follow Preact's
+				 * logic: https://github.com/preactjs/preact/blob/ea49f7a0f9d1ff2c98c0bdd66aa0cbc583055246/src/diff/props.js#L110-L129
 				 */
-				useInit( () => {
-					const el = ( element.ref as RefObject< HTMLElement > )
-						.current!;
-
+				if ( attribute === 'style' ) {
+					if ( typeof result === 'string' ) {
+						el.style.cssText = result;
+					}
+					return;
+				} else if (
+					attribute !== 'width' &&
+					attribute !== 'height' &&
+					attribute !== 'href' &&
+					attribute !== 'list' &&
+					attribute !== 'form' &&
 					/*
-					 * We set the value directly to the corresponding HTMLElement instance
-					 * property excluding the following special cases. We follow Preact's
-					 * logic: https://github.com/preactjs/preact/blob/ea49f7a0f9d1ff2c98c0bdd66aa0cbc583055246/src/diff/props.js#L110-L129
+					 * The value for `tabindex` follows the parsing rules for an
+					 * integer. If that fails, or if the attribute isn't present, then
+					 * the browsers should "follow platform conventions to determine if
+					 * the element should be considered as a focusable area",
+					 * practically meaning that most elements get a default of `-1` (not
+					 * focusable), but several also get a default of `0` (focusable in
+					 * order after all elements with a positive `tabindex` value).
+					 *
+					 * @see https://html.spec.whatwg.org/#tabindex-value
 					 */
-					if ( attribute === 'style' ) {
-						if ( typeof result === 'string' ) {
-							el.style.cssText = result;
-						}
+					attribute !== 'tabIndex' &&
+					attribute !== 'download' &&
+					attribute !== 'rowSpan' &&
+					attribute !== 'colSpan' &&
+					attribute !== 'role' &&
+					attribute in el
+				) {
+					try {
+						el[ attribute ] =
+							result === null || result === undefined
+								? ''
+								: result;
 						return;
-					} else if (
-						attribute !== 'width' &&
-						attribute !== 'height' &&
-						attribute !== 'href' &&
-						attribute !== 'list' &&
-						attribute !== 'form' &&
-						/*
-						 * The value for `tabindex` follows the parsing rules for an
-						 * integer. If that fails, or if the attribute isn't present, then
-						 * the browsers should "follow platform conventions to determine if
-						 * the element should be considered as a focusable area",
-						 * practically meaning that most elements get a default of `-1` (not
-						 * focusable), but several also get a default of `0` (focusable in
-						 * order after all elements with a positive `tabindex` value).
-						 *
-						 * @see https://html.spec.whatwg.org/#tabindex-value
-						 */
-						attribute !== 'tabIndex' &&
-						attribute !== 'download' &&
-						attribute !== 'rowSpan' &&
-						attribute !== 'colSpan' &&
-						attribute !== 'role' &&
-						attribute in el
-					) {
-						try {
-							el[ attribute ] =
-								result === null || result === undefined
-									? ''
-									: result;
-							return;
-						} catch ( err ) {}
-					}
-					/*
-					 * aria- and data- attributes have no boolean representation.
-					 * A `false` value is different from the attribute not being
-					 * present, so we can't remove it.
-					 * We follow Preact's logic: https://github.com/preactjs/preact/blob/ea49f7a0f9d1ff2c98c0bdd66aa0cbc583055246/src/diff/props.js#L131C24-L136
-					 */
-					if (
-						result !== null &&
-						result !== undefined &&
-						( result !== false || attribute[ 4 ] === '-' )
-					) {
-						el.setAttribute( attribute, result );
-					} else {
-						el.removeAttribute( attribute );
-					}
-				} );
-			}
-		);
+					} catch ( err ) {}
+				}
+				/*
+				 * aria- and data- attributes have no boolean representation.
+				 * A `false` value is different from the attribute not being
+				 * present, so we can't remove it.
+				 * We follow Preact's logic: https://github.com/preactjs/preact/blob/ea49f7a0f9d1ff2c98c0bdd66aa0cbc583055246/src/diff/props.js#L131C24-L136
+				 */
+				if (
+					result !== null &&
+					result !== undefined &&
+					( result !== false || attribute[ 4 ] === '-' )
+				) {
+					el.setAttribute( attribute, result );
+				} else {
+					el.removeAttribute( attribute );
+				}
+			} );
+		} );
 	} );
 
 	// data-wp-ignore
@@ -528,14 +611,17 @@ export default () => {
 
 	// data-wp-text
 	directive( 'text', ( { directives: { text }, element, evaluate } ) => {
-		const entry = text.find( ( { suffix } ) => suffix === 'default' );
+		const entry = text.find( isDefaultDirectiveSuffix );
 		if ( ! entry ) {
 			element.props.children = null;
 			return;
 		}
 
 		try {
-			const result = evaluate( entry );
+			let result = evaluate( entry );
+			if ( typeof result === 'function' ) {
+				result = result();
+			}
 			element.props.children =
 				typeof result === 'object' ? null : result.toString();
 		} catch ( e ) {
@@ -545,7 +631,13 @@ export default () => {
 
 	// data-wp-run
 	directive( 'run', ( { directives: { run }, evaluate } ) => {
-		run.forEach( ( entry ) => evaluate( entry ) );
+		run.forEach( ( entry ) => {
+			let result = evaluate( entry );
+			if ( typeof result === 'function' ) {
+				result = result();
+			}
+			return result;
+		} );
 	} );
 
 	// data-wp-each--[item]
@@ -565,12 +657,24 @@ export default () => {
 			const inheritedValue = useContext( inheritedContext );
 
 			const [ entry ] = each;
-			const { namespace, suffix } = entry;
+			const { namespace } = entry;
 
-			const list = evaluate( entry );
-			return list.map( ( item ) => {
-				const itemProp =
-					suffix === 'default' ? 'item' : kebabToCamelCase( suffix );
+			let iterable = evaluate( entry );
+			if ( typeof iterable === 'function' ) {
+				iterable = iterable();
+			}
+
+			if ( typeof iterable?.[ Symbol.iterator ] !== 'function' ) {
+				return;
+			}
+
+			const itemProp = isNonDefaultDirectiveSuffix( entry )
+				? kebabToCamelCase( entry.suffix )
+				: 'item';
+
+			const result: VNode< any >[] = [];
+
+			for ( const item of iterable ) {
 				const itemContext = proxifyContext(
 					proxifyState( namespace, {} ),
 					inheritedValue.client[ namespace ]
@@ -595,12 +699,15 @@ export default () => {
 					? getEvaluate( { scope } )( eachKey[ 0 ] )
 					: item;
 
-				return createElement(
-					Provider,
-					{ value: mergedContext, key },
-					element.props.content
+				result.push(
+					createElement(
+						Provider,
+						{ value: mergedContext, key },
+						element.props.content
+					)
 				);
-			} );
+			}
+			return result;
 		},
 		{ priority: 20 }
 	);

@@ -7,7 +7,7 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { isBlobURL, createBlobURL } from '@wordpress/blob';
-import { store as blocksStore, createBlock } from '@wordpress/blocks';
+import { createBlock, getBlockBindingsSource } from '@wordpress/blocks';
 import { Placeholder } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
@@ -28,7 +28,6 @@ import { useResizeObserver } from '@wordpress/compose';
 /**
  * Internal dependencies
  */
-import { unlock } from '../lock-unlock';
 import { useUploadMediaFromBlobURL } from '../utils/hooks';
 import Image from './image';
 import { isValidFileType } from './utils';
@@ -117,9 +116,9 @@ export function ImageEdit( {
 	// Only observe the max width from the parent container when the parent layout is not flex nor grid.
 	// This won't work for them because the container width changes with the image.
 	// TODO: Find a way to observe the container width for flex and grid layouts.
+	const layoutType = parentLayout?.type || parentLayout?.default?.type;
 	const isMaxWidthContainerWidth =
-		! parentLayout ||
-		( parentLayout.type !== 'flex' && parentLayout.type !== 'grid' );
+		! layoutType || ( layoutType !== 'flex' && layoutType !== 'grid' );
 	const [ maxWidthObserver, maxContentWidth ] = useMaxWidthObserver();
 
 	const [ placeholderResizeListener, { width: placeholderWidth } ] =
@@ -372,9 +371,9 @@ export function ImageEdit( {
 				return {};
 			}
 
-			const blockBindingsSource = unlock(
-				select( blocksStore )
-			).getBlockBindingsSource( metadata?.bindings?.url?.source );
+			const blockBindingsSource = getBlockBindingsSource(
+				metadata?.bindings?.url?.source
+			);
 
 			return {
 				lockUrlControls:
@@ -412,7 +411,7 @@ export function ImageEdit( {
 					! lockUrlControls &&
 					! isSmallContainer &&
 					__(
-						'Upload or drag an image file here, or pick one from your library.'
+						'Drag and drop an image, upload, or choose from your library.'
 					)
 				}
 				style={ {
@@ -453,7 +452,7 @@ export function ImageEdit( {
 					context={ context }
 					clientId={ clientId }
 					blockEditingMode={ blockEditingMode }
-					parentLayoutType={ parentLayout?.type }
+					parentLayoutType={ layoutType }
 					maxContentWidth={ maxContentWidth }
 				/>
 				<MediaPlaceholder

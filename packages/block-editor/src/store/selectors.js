@@ -16,12 +16,13 @@ import { symbol } from '@wordpress/icons';
 import { create, remove, toHTMLString } from '@wordpress/rich-text';
 import deprecated from '@wordpress/deprecated';
 import { createSelector, createRegistrySelector } from '@wordpress/data';
+import { store as preferencesStore } from '@wordpress/preferences';
 
 /**
  * Internal dependencies
  */
 import {
-	withRootClientIdOptionKey,
+	isFiltered,
 	checkAllowListRecursive,
 	checkAllowList,
 	getAllPatternsDependants,
@@ -40,6 +41,7 @@ import {
 	getSectionRootClientId,
 	isSectionBlock,
 	getParentSectionBlock,
+	isZoomOut,
 } from './private-selectors';
 
 /**
@@ -80,7 +82,9 @@ const EMPTY_ARRAY = [];
  */
 const EMPTY_SET = new Set();
 
-const EMPTY_OBJECT = {};
+const DEFAULT_INSERTER_OPTIONS = {
+	[ isFiltered ]: true,
+};
 
 /**
  * Returns a block's name given its client ID, or null if no block exists with
@@ -124,7 +128,7 @@ export function isBlockValid( state, clientId ) {
  * @param {Object} state    Editor state.
  * @param {string} clientId Block client ID.
  *
- * @return {Object?} Block attributes.
+ * @return {?Object} Block attributes.
  */
 export function getBlockAttributes( state, clientId ) {
 	const block = state.blocks.byClientId.get( clientId );
@@ -537,6 +541,39 @@ export function getSelectedBlockClientId( state ) {
  * Returns the currently selected block, or null if there is no selected block.
  *
  * @param {Object} state Global application state.
+ *
+ * @example
+ *
+ *```js
+ * import { select } from '@wordpress/data'
+ * import { store as blockEditorStore } from '@wordpress/block-editor'
+ *
+ * // Set initial active block client ID
+ * let activeBlockClientId = null
+ *
+ * const getActiveBlockData = () => {
+ * 	const activeBlock = select(blockEditorStore).getSelectedBlock()
+ *
+ * 	if (activeBlock && activeBlock.clientId !== activeBlockClientId) {
+ * 		activeBlockClientId = activeBlock.clientId
+ *
+ * 		// Get active block name and attributes
+ * 		const activeBlockName = activeBlock.name
+ * 		const activeBlockAttributes = activeBlock.attributes
+ *
+ * 		// Log active block name and attributes
+ * 		console.log(activeBlockName, activeBlockAttributes)
+ * 		}
+ * 	}
+ *
+ * 	// Subscribe to changes in the editor
+ * 	// wp.data.subscribe(() => {
+ * 		// getActiveBlockData()
+ * 	// })
+ *
+ * 	// Update active block data on click
+ * 	// onclick="getActiveBlockData()"
+ *```
  *
  * @return {?Object} Selected block.
  */
@@ -1452,8 +1489,7 @@ export function isCaretWithinFormattedText() {
 }
 
 /**
- * Returns the insertion point, the index at which the new inserted block would
- * be placed. Defaults to the last index.
+ * Returns the location of the insertion cue. Defaults to the last index.
  *
  * @param {Object} state Editor state.
  *
@@ -1464,11 +1500,11 @@ export const getBlockInsertionPoint = createSelector(
 		let rootClientId, index;
 
 		const {
-			insertionPoint,
+			insertionCue,
 			selection: { selectionEnd },
 		} = state;
-		if ( insertionPoint !== null ) {
-			return insertionPoint;
+		if ( insertionCue !== null ) {
+			return insertionCue;
 		}
 
 		const { clientId } = selectionEnd;
@@ -1483,7 +1519,7 @@ export const getBlockInsertionPoint = createSelector(
 		return { rootClientId, index };
 	},
 	( state ) => [
-		state.insertionPoint,
+		state.insertionCue,
 		state.selection.selectionEnd.clientId,
 		state.blocks.parents,
 		state.blocks.order,
@@ -1491,14 +1527,14 @@ export const getBlockInsertionPoint = createSelector(
 );
 
 /**
- * Returns true if we should show the block insertion point.
+ * Returns true if the block insertion point is visible.
  *
  * @param {Object} state Global application state.
  *
  * @return {?boolean} Whether the insertion point is visible or not.
  */
 export function isBlockInsertionPointVisible( state ) {
-	return state.insertionPoint !== null;
+	return state.insertionCue !== null;
 }
 
 /**
@@ -1540,6 +1576,79 @@ export function getTemplateLock( state, rootClientId ) {
 }
 
 /**
+ * Determines if the given block type is visible in the inserter.
+ * Note that this is different than whether a block is allowed to be inserted.
+ * In some cases, the block is not allowed in a given position but
+ * it should still be visible in the inserter to be able to add it
+ * to a different position.
+ *
+ * @param {Object}        state           Editor state.
+ * @param {string|Object} blockNameOrType The block type object, e.g., the response
+ *                                        from the block directory; or a string name of
+ *                                        an installed block type, e.g.' core/paragraph'.
+ * @param {?string}       rootClientId    Optional root client ID of block list.
+ *
+ * @return {boolean} Whether the given block type is allowed to be inserted.
+ */
+const isBlockVisibleInTheInserter = (
+	state,
+	blockNameOrType,
+	rootClientId = null
+) => {
+	let blockType;
+	let blockName;
+
+	if ( blockNameOrType && 'object' === typeof blockNameOrType ) {
+		blockType = blockNameOrType;
+		blockName = blockNameOrType.name;
+	} else {
+		blockType = getBlockType( blockNameOrType );
+		blockName = blockNameOrType;
+	}
+
+	if ( ! blockType ) {
+		return false;
+	}
+
+	const { allowedBlockTypes } = getSettings( state );
+
+	const isBlockAllowedInEditor = checkAllowList(
+		allowedBlockTypes,
+		blockName,
+		true
+	);
+	if ( ! isBlockAllowedInEditor ) {
+		return false;
+	}
+
+	// If parent blocks are not visible, child blocks should be hidden too.
+	const parents = (
+		Array.isArray( blockType.parent ) ? blockType.parent : []
+	).concat( Array.isArray( blockType.ancestor ) ? blockType.ancestor : [] );
+	if ( parents.length > 0 ) {
+		// This is an exception to the rule that says that all blocks are visible in the inserter.
+		// Blocks that require a given parent or ancestor are only visible if we're within that parent.
+		if ( parents.includes( 'core/post-content' ) ) {
+			return true;
+		}
+
+		let current = rootClientId;
+		let hasParent = false;
+		do {
+			if ( parents.includes( getBlockName( state, current ) ) ) {
+				hasParent = true;
+				break;
+			}
+			current = state.blocks.parents.get( current );
+		} while ( current );
+
+		return hasParent;
+	}
+
+	return true;
+};
+
+/**
  * Determines if the given block type is allowed to be inserted into the block list.
  * This function is not exported and not memoized because using a memoized selector
  * inside another memoized selector is just a waste of time.
@@ -1557,26 +1666,16 @@ const canInsertBlockTypeUnmemoized = (
 	blockName,
 	rootClientId = null
 ) => {
+	if ( ! isBlockVisibleInTheInserter( state, blockName, rootClientId ) ) {
+		return false;
+	}
+
 	let blockType;
 	if ( blockName && 'object' === typeof blockName ) {
 		blockType = blockName;
 		blockName = blockType.name;
 	} else {
 		blockType = getBlockType( blockName );
-	}
-	if ( ! blockType ) {
-		return false;
-	}
-
-	const { allowedBlockTypes } = getSettings( state );
-
-	const isBlockAllowedInEditor = checkAllowList(
-		allowedBlockTypes,
-		blockName,
-		true
-	);
-	if ( ! isBlockAllowedInEditor ) {
-		return false;
 	}
 
 	const isLocked = !! getTemplateLock( state, rootClientId );
@@ -1696,10 +1795,12 @@ const canInsertBlockTypeUnmemoized = (
  *
  * @return {boolean} Whether the given block type is allowed to be inserted.
  */
-export const canInsertBlockType = createSelector(
-	canInsertBlockTypeUnmemoized,
-	( state, blockName, rootClientId ) =>
-		getInsertBlockTypeDependants( state, rootClientId )
+export const canInsertBlockType = createRegistrySelector( ( select ) =>
+	createSelector(
+		canInsertBlockTypeUnmemoized,
+		( state, blockName, rootClientId ) =>
+			getInsertBlockTypeDependants( select )( state, rootClientId )
+	)
 );
 
 /**
@@ -1865,7 +1966,7 @@ const canIncludeBlockTypeInInserter = ( state, blockType, rootClientId ) => {
 };
 
 /**
- * Return a function to be used to tranform a block variation to an inserter item
+ * Return a function to be used to transform a block variation to an inserter item
  *
  * @param {Object} state Global State
  * @param {Object} item  Denormalized inserter item
@@ -1899,7 +2000,7 @@ const getItemFromVariation = ( state, item ) => ( variation ) => {
  * Returns the calculated frecency.
  *
  * 'frecency' is a heuristic (https://en.wikipedia.org/wiki/Frecency)
- * that combines block usage frequenty and recency.
+ * that combines block usage frequency and recency.
  *
  * @param {number} time  When the last insert occurred as a UNIX epoch
  * @param {number} count The number of inserts that have occurred.
@@ -1928,7 +2029,7 @@ const calculateFrecency = ( time, count ) => {
 /**
  * Returns a function that accepts a block type and builds an item to be shown
  * in a specific context. It's used for building items for Inserter and available
- * block Transfroms list.
+ * block Transforms list.
  *
  * @param {Object} state              Editor state.
  * @param {Object} options            Options object for handling the building of a block type.
@@ -1971,6 +2072,8 @@ const buildBlockTypeItem =
 			description: blockType.description,
 			category: blockType.category,
 			keywords: blockType.keywords,
+			parent: blockType.parent,
+			ancestor: blockType.ancestor,
 			variations: inserterVariations,
 			example: blockType.example,
 			utility: 1, // Deprecated.
@@ -1985,7 +2088,7 @@ const buildBlockTypeItem =
  * inserter and handle its selection.
  *
  * The 'frecency' property is a heuristic (https://en.wikipedia.org/wiki/Frecency)
- * that combines block usage frequenty and recency.
+ * that combines block usage frequency and recency.
  *
  * Items are returned ordered descendingly by their 'utility' and 'frecency'.
  *
@@ -2008,7 +2111,7 @@ const buildBlockTypeItem =
  */
 export const getInserterItems = createRegistrySelector( ( select ) =>
 	createSelector(
-		( state, rootClientId = null, options = EMPTY_OBJECT ) => {
+		( state, rootClientId = null, options = DEFAULT_INSERTER_OPTIONS ) => {
 			const buildReusableBlockInserterItem = ( reusableBlock ) => {
 				const icon = ! reusableBlock.wp_pattern_sync_status
 					? {
@@ -2056,56 +2159,7 @@ export const getInserterItems = createRegistrySelector( ( select ) =>
 				)
 				.map( buildBlockTypeInserterItem );
 
-			if ( options[ withRootClientIdOptionKey ] ) {
-				blockTypeInserterItems = blockTypeInserterItems.reduce(
-					( accumulator, item ) => {
-						item.rootClientId = rootClientId ?? '';
-
-						while (
-							! canInsertBlockTypeUnmemoized(
-								state,
-								item.name,
-								item.rootClientId
-							)
-						) {
-							if ( ! item.rootClientId ) {
-								let sectionRootClientId;
-								try {
-									sectionRootClientId =
-										getSectionRootClientId( state );
-								} catch ( e ) {}
-								if (
-									sectionRootClientId &&
-									canInsertBlockTypeUnmemoized(
-										state,
-										item.name,
-										sectionRootClientId
-									)
-								) {
-									item.rootClientId = sectionRootClientId;
-								} else {
-									delete item.rootClientId;
-								}
-								break;
-							} else {
-								const parentClientId = getBlockRootClientId(
-									state,
-									item.rootClientId
-								);
-								item.rootClientId = parentClientId;
-							}
-						}
-
-						// We could also add non insertable items and gray them out.
-						if ( item.hasOwnProperty( 'rootClientId' ) ) {
-							accumulator.push( item );
-						}
-
-						return accumulator;
-					},
-					[]
-				);
-			} else {
+			if ( options[ isFiltered ] !== false ) {
 				blockTypeInserterItems = blockTypeInserterItems.filter(
 					( blockType ) =>
 						canIncludeBlockTypeInInserter(
@@ -2114,6 +2168,23 @@ export const getInserterItems = createRegistrySelector( ( select ) =>
 							rootClientId
 						)
 				);
+			} else {
+				blockTypeInserterItems = blockTypeInserterItems
+					.filter( ( blockType ) =>
+						isBlockVisibleInTheInserter(
+							state,
+							blockType,
+							rootClientId
+						)
+					)
+					.map( ( blockType ) => ( {
+						...blockType,
+						isAllowedInCurrentRoot: canIncludeBlockTypeInInserter(
+							state,
+							blockType,
+							rootClientId
+						),
+					} ) );
 			}
 
 			const items = blockTypeInserterItems.reduce(
@@ -2161,7 +2232,7 @@ export const getInserterItems = createRegistrySelector( ( select ) =>
 			unlock( select( STORE_NAME ) ).getReusableBlocks(),
 			state.blocks.order,
 			state.preferences.insertUsage,
-			...getInsertBlockTypeDependants( state, rootClientId ),
+			...getInsertBlockTypeDependants( select )( state, rootClientId ),
 		]
 	)
 );
@@ -2173,7 +2244,7 @@ export const getInserterItems = createRegistrySelector( ( select ) =>
  * transform list and handle its selection.
  *
  * The 'frecency' property is a heuristic (https://en.wikipedia.org/wiki/Frecency)
- * that combines block usage frequenty and recency.
+ * that combines block usage frequency and recency.
  *
  * Items are returned ordered descendingly by their 'frecency'.
  *
@@ -2192,44 +2263,51 @@ export const getInserterItems = createRegistrySelector( ( select ) =>
  *                                          this item.
  * @property {number}          frecency     Heuristic that combines frequency and recency.
  */
-export const getBlockTransformItems = createSelector(
-	( state, blocks, rootClientId = null ) => {
-		const normalizedBlocks = Array.isArray( blocks ) ? blocks : [ blocks ];
-		const buildBlockTypeTransformItem = buildBlockTypeItem( state, {
-			buildScope: 'transform',
-		} );
-		const blockTypeTransformItems = getBlockTypes()
-			.filter( ( blockType ) =>
-				canIncludeBlockTypeInInserter( state, blockType, rootClientId )
-			)
-			.map( buildBlockTypeTransformItem );
+export const getBlockTransformItems = createRegistrySelector( ( select ) =>
+	createSelector(
+		( state, blocks, rootClientId = null ) => {
+			const normalizedBlocks = Array.isArray( blocks )
+				? blocks
+				: [ blocks ];
+			const buildBlockTypeTransformItem = buildBlockTypeItem( state, {
+				buildScope: 'transform',
+			} );
+			const blockTypeTransformItems = getBlockTypes()
+				.filter( ( blockType ) =>
+					canIncludeBlockTypeInInserter(
+						state,
+						blockType,
+						rootClientId
+					)
+				)
+				.map( buildBlockTypeTransformItem );
 
-		const itemsByName = Object.fromEntries(
-			Object.entries( blockTypeTransformItems ).map( ( [ , value ] ) => [
-				value.name,
-				value,
-			] )
-		);
+			const itemsByName = Object.fromEntries(
+				Object.entries( blockTypeTransformItems ).map(
+					( [ , value ] ) => [ value.name, value ]
+				)
+			);
 
-		const possibleTransforms = getPossibleBlockTransformations(
-			normalizedBlocks
-		).reduce( ( accumulator, block ) => {
-			if ( itemsByName[ block?.name ] ) {
-				accumulator.push( itemsByName[ block.name ] );
-			}
-			return accumulator;
-		}, [] );
-		return orderBy(
-			possibleTransforms,
-			( block ) => itemsByName[ block.name ].frecency,
-			'desc'
-		);
-	},
-	( state, blocks, rootClientId ) => [
-		getBlockTypes(),
-		state.preferences.insertUsage,
-		...getInsertBlockTypeDependants( state, rootClientId ),
-	]
+			const possibleTransforms = getPossibleBlockTransformations(
+				normalizedBlocks
+			).reduce( ( accumulator, block ) => {
+				if ( itemsByName[ block?.name ] ) {
+					accumulator.push( itemsByName[ block.name ] );
+				}
+				return accumulator;
+			}, [] );
+			return orderBy(
+				possibleTransforms,
+				( block ) => itemsByName[ block.name ].frecency,
+				'desc'
+			);
+		},
+		( state, blocks, rootClientId ) => [
+			getBlockTypes(),
+			state.preferences.insertUsage,
+			...getInsertBlockTypeDependants( select )( state, rootClientId ),
+		]
+	)
 );
 
 /**
@@ -2297,7 +2375,7 @@ export const getAllowedBlocks = createRegistrySelector( ( select ) =>
 		( state, rootClientId ) => [
 			getBlockTypes(),
 			unlock( select( STORE_NAME ) ).getReusableBlocks(),
-			...getInsertBlockTypeDependants( state, rootClientId ),
+			...getInsertBlockTypeDependants( select )( state, rootClientId ),
 		]
 	)
 );
@@ -2330,7 +2408,7 @@ export const __experimentalGetAllowedBlocks = createSelector(
  * @typedef {Object} WPDirectInsertBlock
  * @property {string}         name             The type of block.
  * @property {?Object}        attributes       Attributes to pass to the newly created block.
- * @property {?Array<string>} attributesToCopy Attributes to be copied from adjecent blocks when inserted.
+ * @property {?Array<string>} attributesToCopy Attributes to be copied from adjacent blocks when inserted.
  */
 export function getDirectInsertBlock( state, rootClientId = null ) {
 	if ( ! rootClientId ) {
@@ -2372,8 +2450,23 @@ export const __experimentalGetParsedPattern = createRegistrySelector(
 
 const getAllowedPatternsDependants = ( select ) => ( state, rootClientId ) => [
 	...getAllPatternsDependants( select )( state ),
-	...getInsertBlockTypeDependants( state, rootClientId ),
+	...getInsertBlockTypeDependants( select )( state, rootClientId ),
 ];
+
+const patternsWithParsedBlocks = new WeakMap();
+function enhancePatternWithParsedBlocks( pattern ) {
+	let enhancedPattern = patternsWithParsedBlocks.get( pattern );
+	if ( ! enhancedPattern ) {
+		enhancedPattern = {
+			...pattern,
+			get blocks() {
+				return getParsedPattern( pattern ).blocks;
+			},
+		};
+		patternsWithParsedBlocks.set( pattern, enhancedPattern );
+	}
+	return enhancedPattern;
+}
 
 /**
  * Returns the list of allowed patterns for inner blocks children.
@@ -2385,37 +2478,47 @@ const getAllowedPatternsDependants = ( select ) => ( state, rootClientId ) => [
  */
 export const __experimentalGetAllowedPatterns = createRegistrySelector(
 	( select ) => {
-		return createSelector( ( state, rootClientId = null ) => {
-			const { getAllPatterns } = unlock( select( STORE_NAME ) );
-			const patterns = getAllPatterns();
-			const { allowedBlockTypes } = getSettings( state );
-			const parsedPatterns = patterns
-				.filter( ( { inserter = true } ) => !! inserter )
-				.map( ( pattern ) => {
-					return {
-						...pattern,
-						get blocks() {
-							return getParsedPattern( pattern ).blocks;
-						},
-					};
-				} );
+		return createSelector(
+			(
+				state,
+				rootClientId = null,
+				options = DEFAULT_INSERTER_OPTIONS
+			) => {
+				const { getAllPatterns } = unlock( select( STORE_NAME ) );
+				const patterns = getAllPatterns();
+				const { allowedBlockTypes } = getSettings( state );
+				const parsedPatterns = patterns
+					.filter( ( { inserter = true } ) => !! inserter )
+					.map( enhancePatternWithParsedBlocks );
 
-			const availableParsedPatterns = parsedPatterns.filter(
-				( pattern ) =>
-					checkAllowListRecursive(
-						getGrammar( pattern ),
-						allowedBlockTypes
-					)
-			);
-			const patternsAllowed = availableParsedPatterns.filter(
-				( pattern ) =>
-					getGrammar( pattern ).every( ( { blockName: name } ) =>
-						canInsertBlockType( state, name, rootClientId )
-					)
-			);
+				const availableParsedPatterns = parsedPatterns.filter(
+					( pattern ) =>
+						checkAllowListRecursive(
+							getGrammar( pattern ),
+							allowedBlockTypes
+						)
+				);
+				const patternsAllowed = availableParsedPatterns.filter(
+					( pattern ) =>
+						getGrammar( pattern ).every( ( { blockName: name } ) =>
+							options[ isFiltered ] !== false
+								? canInsertBlockType(
+										state,
+										name,
+										rootClientId
+								  )
+								: isBlockVisibleInTheInserter(
+										state,
+										name,
+										rootClientId
+								  )
+						)
+				);
 
-			return patternsAllowed;
-		}, getAllowedPatternsDependants( select ) );
+				return patternsAllowed;
+			},
+			getAllowedPatternsDependants( select )
+		);
 	}
 );
 
@@ -2427,7 +2530,7 @@ export const __experimentalGetAllowedPatterns = createRegistrySelector(
  * or blocks transformations.
  *
  * @param {Object}          state        Editor state.
- * @param {string|string[]} blockNames   Block's name or array of block names to find matching pattens.
+ * @param {string|string[]} blockNames   Block's name or array of block names to find matching patterns.
  * @param {?string}         rootClientId Optional target root client ID.
  *
  * @return {Array} The list of matched block patterns based on declared `blockTypes` and block name.
@@ -2479,7 +2582,7 @@ export const __experimentalGetPatternsByBlockTypes = createRegistrySelector(
  * Determines the items that appear in the available pattern transforms list.
  *
  * For now we only handle blocks without InnerBlocks and take into account
- * the `__experimentalRole` property of blocks' attributes for the transformation.
+ * the `role` property of blocks' attributes for the transformation.
  *
  * We return the first set of possible eligible block patterns,
  * by checking the `blockTypes` property. We still have to recurse through
@@ -2501,7 +2604,7 @@ export const __experimentalGetPatternTransformItems = createRegistrySelector(
 				}
 				/**
 				 * For now we only handle blocks without InnerBlocks and take into account
-				 * the `__experimentalRole` property of blocks' attributes for the transformation.
+				 * the `role` property of blocks' attributes for the transformation.
 				 * Note that the blocks have been retrieved through `getBlock`, which doesn't
 				 * return the inner blocks of an inner block controller, so we still need
 				 * to check for this case too.
@@ -2669,7 +2772,7 @@ export function __experimentalGetLastBlockAttributeChanges( state ) {
  * @return {boolean} Is navigation mode enabled.
  */
 export function isNavigationMode( state ) {
-	return state.editorMode === 'navigation';
+	return __unstableGetEditorMode( state ) === 'navigation';
 }
 
 /**
@@ -2679,9 +2782,17 @@ export function isNavigationMode( state ) {
  *
  * @return {string} the editor mode.
  */
-export function __unstableGetEditorMode( state ) {
-	return state.editorMode;
-}
+export const __unstableGetEditorMode = createRegistrySelector(
+	( select ) => ( state ) => {
+		if ( ! window?.__experimentalEditorWriteMode ) {
+			return 'edit';
+		}
+		return (
+			state.settings.editorTool ??
+			select( preferencesStore ).get( 'core', 'editorTool' )
+		);
+	}
+);
 
 /**
  * Returns whether block moving mode is enabled.
@@ -2838,7 +2949,7 @@ export const __unstableGetVisibleBlocks = createSelector(
 );
 
 export function __unstableHasActiveBlockOverlayActive( state, clientId ) {
-	// Prevent overlay on blocks with a non-default editing mode. If the mdoe is
+	// Prevent overlay on blocks with a non-default editing mode. If the mode is
 	// 'disabled' then the overlay is redundant since the block can't be
 	// selected. If the mode is 'contentOnly' then the overlay is redundant
 	// since there will be no controls to interact with once selected.
@@ -2851,10 +2962,8 @@ export function __unstableHasActiveBlockOverlayActive( state, clientId ) {
 		return true;
 	}
 
-	const editorMode = __unstableGetEditorMode( state );
-
 	// In zoom-out mode, the block overlay is always active for section level blocks.
-	if ( editorMode === 'zoom-out' ) {
+	if ( isZoomOut( state ) ) {
 		const sectionRootClientId = getSectionRootClientId( state );
 		if ( sectionRootClientId ) {
 			const sectionClientIds = getBlockOrder(
@@ -2901,14 +3010,6 @@ export function __unstableIsWithinBlockOverlay( state, clientId ) {
 	return false;
 }
 
-function isWithinBlock( state, clientId, parentClientId ) {
-	let parent = state.blocks.parents.get( clientId );
-	while ( !! parent && parent !== parentClientId ) {
-		parent = state.blocks.parents.get( parent );
-	}
-	return parent === parentClientId;
-}
-
 /**
  * @typedef {import('../components/block-editing-mode').BlockEditingMode} BlockEditingMode
  */
@@ -2950,77 +3051,36 @@ export const getBlockEditingMode = createRegistrySelector(
 				clientId = '';
 			}
 
-			// In zoom-out mode, override the behavior set by
-			// __unstableSetBlockEditingMode to only allow editing the top-level
-			// sections.
-			const editorMode = __unstableGetEditorMode( state );
-			if ( editorMode === 'zoom-out' ) {
-				const sectionRootClientId = getSectionRootClientId( state );
+			const isNavMode = isNavigationMode( state );
 
-				if ( clientId === '' /* ROOT_CONTAINER_CLIENT_ID */ ) {
-					return sectionRootClientId ? 'disabled' : 'contentOnly';
-				}
-				if ( clientId === sectionRootClientId ) {
-					return 'contentOnly';
-				}
-				const sectionsClientIds = getBlockOrder(
-					state,
-					sectionRootClientId
-				);
-
-				// Sections are always contentOnly.
-				if ( sectionsClientIds?.includes( clientId ) ) {
-					return 'contentOnly';
-				}
-
-				return 'disabled';
+			// If the editor is currently not in navigation mode, check if the clientId
+			// has an editing mode set in the regular derived map.
+			// There may be an editing mode set here for synced patterns or in zoomed out
+			// mode.
+			if (
+				! isNavMode &&
+				state.derivedBlockEditingModes?.has( clientId )
+			) {
+				return state.derivedBlockEditingModes.get( clientId );
 			}
 
-			if ( editorMode === 'navigation' ) {
-				const sectionRootClientId = getSectionRootClientId( state );
-
-				// The root section is "default mode"
-				if ( clientId === sectionRootClientId ) {
-					return 'default';
-				}
-
-				// Sections should always be contentOnly in navigation mode.
-				const sectionsClientIds = getBlockOrder(
-					state,
-					sectionRootClientId
-				);
-				if ( sectionsClientIds.includes( clientId ) ) {
-					return 'contentOnly';
-				}
-
-				// Blocks outside sections should be disabled.
-				const isWithinSectionRoot = isWithinBlock(
-					state,
-					clientId,
-					sectionRootClientId
-				);
-				if ( ! isWithinSectionRoot ) {
-					return 'disabled';
-				}
-
-				// The rest of the blocks depend on whether they are content blocks or not.
-				// This "flattens" the sections tree.
-				const name = getBlockName( state, clientId );
-				const isContent =
-					select( blocksStore ).__experimentalHasContentRoleAttribute(
-						name
-					);
-				return isContent ? 'contentOnly' : 'disabled';
+			// If the editor *is* in navigation mode, the block editing mode states
+			// are stored in the derivedNavModeBlockEditingModes map.
+			if (
+				isNavMode &&
+				state.derivedNavModeBlockEditingModes?.has( clientId )
+			) {
+				return state.derivedNavModeBlockEditingModes.get( clientId );
 			}
 
-			// In normal mode, consider that an explicitely set editing mode takes over.
+			// In normal mode, consider that an explicitly set editing mode takes over.
 			const blockEditingMode = state.blockEditingModes.get( clientId );
 			if ( blockEditingMode ) {
 				return blockEditingMode;
 			}
 
 			// In normal mode, top level is default mode.
-			if ( ! clientId ) {
+			if ( clientId === '' ) {
 				return 'default';
 			}
 
@@ -3029,15 +3089,13 @@ export const getBlockEditingMode = createRegistrySelector(
 			// If the parent of the block is contentOnly locked, check whether it's a content block.
 			if ( templateLock === 'contentOnly' ) {
 				const name = getBlockName( state, clientId );
-				const isContent =
-					select( blocksStore ).__experimentalHasContentRoleAttribute(
-						name
-					);
+				const { hasContentRoleAttribute } = unlock(
+					select( blocksStore )
+				);
+				const isContent = hasContentRoleAttribute( name );
 				return isContent ? 'contentOnly' : 'disabled';
 			}
-			// Otherwise, check if there's an ancestor that is contentOnly
-			const parentMode = getBlockEditingMode( state, rootClientId );
-			return parentMode === 'contentOnly' ? 'default' : parentMode;
+			return 'default';
 		}
 );
 

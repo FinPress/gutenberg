@@ -19,9 +19,11 @@ import { store as coreStore } from '@wordpress/core-data';
  * Internal dependencies
  */
 import EnhancedPaginationControl from './inspector-controls/enhanced-pagination-control';
-import QueryToolbar from './query-toolbar';
 import QueryInspectorControls from './inspector-controls';
 import EnhancedPaginationModal from './enhanced-pagination-modal';
+import { getQueryContextFromTemplate } from '../utils';
+import QueryToolbar from './query-toolbar';
+import { htmlElementMessages } from '../../utils/messages';
 
 const DEFAULTS_POSTS_PER_PAGE = 3;
 
@@ -29,20 +31,19 @@ const TEMPLATE = [ [ 'core/post-template' ] ];
 export default function QueryContent( {
 	attributes,
 	setAttributes,
-	openPatternSelectionModal,
-	name,
 	clientId,
 	context,
+	name,
 } ) {
 	const {
 		queryId,
 		query,
-		displayLayout,
 		enhancedPagination,
 		tagName: TagName = 'div',
 		query: { inherit } = {},
 	} = attributes;
-	const { postType } = context;
+	const { templateSlug } = context;
+	const { isSingular } = getQueryContextFromTemplate( templateSlug );
 	const { __unstableMarkNextChangeAsNotPersistent } =
 		useDispatch( blockEditorStore );
 	const instanceId = useInstanceId( QueryContent );
@@ -50,16 +51,6 @@ export default function QueryContent( {
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		template: TEMPLATE,
 	} );
-	const isTemplate = useSelect(
-		( select ) => {
-			const currentTemplate =
-				select( coreStore ).__experimentalGetTemplateForLink()?.type;
-			const isInTemplate = 'wp_template' === currentTemplate;
-			const isInSingularContent = postType !== undefined;
-			return isInTemplate && ! isInSingularContent;
-		},
-		[ postType ]
-	);
 	const { postsPerPage } = useSelect( ( select ) => {
 		const { getSettings } = select( blockEditorStore );
 		const { getEntityRecord, getEntityRecordEdits, canUser } =
@@ -94,8 +85,11 @@ export default function QueryContent( {
 	// because updates are batched after the render and changes in different query properties
 	// would cause to override previous wanted changes.
 	const updateQuery = useCallback(
-		( newQuery ) => setAttributes( { query: { ...query, ...newQuery } } ),
-		[ query, setAttributes ]
+		( newQuery ) =>
+			setAttributes( ( prevAttributes ) => ( {
+				query: { ...prevAttributes.query, ...newQuery },
+			} ) ),
+		[ setAttributes ]
 	);
 	useEffect( () => {
 		const newQuery = {};
@@ -106,21 +100,15 @@ export default function QueryContent( {
 		} else if ( ! query.perPage && postsPerPage ) {
 			newQuery.perPage = postsPerPage;
 		}
-		// We need to reset the `inherit` value if not in a template, as queries
-		// are not inherited when outside a template (e.g. when in singular content).
-		if ( ! isTemplate && query.inherit ) {
-			newQuery.inherit = false;
-		}
+
 		if ( !! Object.keys( newQuery ).length ) {
 			__unstableMarkNextChangeAsNotPersistent();
 			updateQuery( newQuery );
 		}
 	}, [
 		query.perPage,
-		postsPerPage,
 		inherit,
-		isTemplate,
-		query.inherit,
+		postsPerPage,
 		__unstableMarkNextChangeAsNotPersistent,
 		updateQuery,
 	] );
@@ -137,21 +125,6 @@ export default function QueryContent( {
 		__unstableMarkNextChangeAsNotPersistent,
 		setAttributes,
 	] );
-	const updateDisplayLayout = ( newDisplayLayout ) =>
-		setAttributes( {
-			displayLayout: { ...displayLayout, ...newDisplayLayout },
-		} );
-	const htmlElementMessages = {
-		main: __(
-			'The <main> element should be used for the primary content of your document only.'
-		),
-		section: __(
-			"The <section> element should represent a standalone portion of the document that can't be better represented by another element."
-		),
-		aside: __(
-			"The <aside> element should represent a portion of a document whose content is only indirectly related to the document's main content."
-		),
-	};
 
 	return (
 		<>
@@ -162,22 +135,16 @@ export default function QueryContent( {
 			/>
 			<InspectorControls>
 				<QueryInspectorControls
+					name={ name }
 					attributes={ attributes }
 					setQuery={ updateQuery }
-					setDisplayLayout={ updateDisplayLayout }
 					setAttributes={ setAttributes }
 					clientId={ clientId }
-					isTemplate={ isTemplate }
+					isSingular={ isSingular }
 				/>
 			</InspectorControls>
 			<BlockControls>
-				<QueryToolbar
-					name={ name }
-					clientId={ clientId }
-					attributes={ attributes }
-					setQuery={ updateQuery }
-					openPatternSelectionModal={ openPatternSelectionModal }
-				/>
+				<QueryToolbar attributes={ attributes } clientId={ clientId } />
 			</BlockControls>
 			<InspectorControls group="advanced">
 				<SelectControl
