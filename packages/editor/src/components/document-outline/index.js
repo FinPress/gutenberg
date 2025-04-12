@@ -164,6 +164,23 @@ export default function DocumentOutline( {
 		// all compulations should happen in `computeOutlineHeadings`.
 		return clientIds.map( ( id ) => getBlock( id ) );
 	} );
+	const contentBlocks = useSelect( ( select ) => {
+		// When rendering in `post-only` mode all blocks are considered content blocks.
+		if ( select( editorStore ).getRenderingMode() === 'post-only' ) {
+			return undefined;
+		}
+
+		const { getBlocksByName, getClientIdsOfDescendants } =
+			select( blockEditorStore );
+		const [ postContentClientId ] = getBlocksByName( 'core/post-content' );
+
+		// Do nothing if there's no post content block.
+		if ( ! postContentClientId ) {
+			return undefined;
+		}
+
+		return getClientIdsOfDescendants( postContentClientId );
+	}, [] );
 
 	const contentBlocks = useSelect( ( select ) => {
 		// When rendering in `post-only` mode all blocks are considered content blocks.
@@ -209,6 +226,12 @@ export default function DocumentOutline( {
 	 */
 	const titleNode = document.querySelector( '.editor-post-title__input' );
 	const hasTitle = isTitleSupported && title && titleNode;
+
+	function isContentBlock( clientId ) {
+		return Array.isArray( contentBlocks )
+			? contentBlocks.includes( clientId )
+			: true;
+	}
 
 	function isContentBlock( clientId ) {
 		return Array.isArray( contentBlocks )
