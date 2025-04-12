@@ -55,7 +55,7 @@ export default function FileBlockInspector( {
 						<ToolsPanelItem
 							label={ __( 'Show inline embed' ) }
 							isShownByDefault
-							hasValue={ () => !!! displayPreview }
+							hasValue={ () => ! displayPreview }
 							onDeselect={ () => changeDisplayPreview( true ) }
 						>
 							<ToggleControl
