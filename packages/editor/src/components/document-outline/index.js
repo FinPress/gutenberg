@@ -165,6 +165,24 @@ export default function DocumentOutline( {
 		return clientIds.map( ( id ) => getBlock( id ) );
 	} );
 
+	const contentBlocks = useSelect( ( select ) => {
+		// When rendering in `post-only` mode all blocks are considered content blocks.
+		if ( select( editorStore ).getRenderingMode() === 'post-only' ) {
+			return undefined;
+		}
+
+		const { getBlocksByName, getClientIdsOfDescendants } =
+			select( blockEditorStore );
+		const [ postContentClientId ] = getBlocksByName( 'core/post-content' );
+
+		// Do nothing if there's no post content block.
+		if ( ! postContentClientId ) {
+			return undefined;
+		}
+
+		return getClientIdsOfDescendants( postContentClientId );
+	}, [] );
+
 	const prevHeadingLevelRef = useRef( 1 );
 
 	const outlineElements = useMemo(
@@ -191,6 +209,12 @@ export default function DocumentOutline( {
 	 */
 	const titleNode = document.querySelector( '.editor-post-title__input' );
 	const hasTitle = isTitleSupported && title && titleNode;
+
+	function isContentBlock( clientId ) {
+		return Array.isArray( contentBlocks )
+			? contentBlocks.includes( clientId )
+			: true;
+	}
 
 	return (
 		<div
@@ -240,21 +264,17 @@ export default function DocumentOutline( {
 					const isMain = item.type === 'main';
 					const level = isMain ? __( 'Main' ) : `H${ item.level }`;
 
-					const isValid = isMain
-						? mainElements.length === 1
-						: ! item.isEmpty &&
-						  !! item.level &&
-						  item.level <= prevHeadingLevelRef.current + 1 &&
-						  ( item.level !== 1 ||
-								( ! hasMultipleH1 && ! hasTitle ) );
-
 					if ( isMain ) {
+						const isValid = mainElements.length === 1;
 						return (
 							<DocumentOutlineItem
 								key={ item.clientId }
 								level={ level }
 								isValid={ isValid }
-								isDisabled={ hasOutlineItemsDisabled }
+								isDisabled={
+									hasOutlineItemsDisabled ||
+									! isContentBlock( item.clientId )
+								}
 								href={ `#block-${ item.clientId }` }
 								onSelect={ () => {
 									selectBlock( item.clientId );
@@ -273,13 +293,24 @@ export default function DocumentOutline( {
 							item.level > prevHeadingLevelRef.current + 1;
 						prevHeadingLevelRef.current = item.level;
 
+						const isValid =
+							! item.isEmpty &&
+							! isIncorrectLevel &&
+							!! item.level &&
+							( item.level !== 1 ||
+								( ! hasMultipleH1 && ! hasTitle ) );
+						prevHeadingLevelRef.current = item.level;
+
 						return (
 							<>
 								<DocumentOutlineItem
 									key={ item.clientId }
 									level={ level }
 									isValid={ isValid }
-									isDisabled={ hasOutlineItemsDisabled }
+									isDisabled={
+										hasOutlineItemsDisabled ||
+										! isContentBlock( item.clientId )
+									}
 									href={ `#block-${ item.clientId }` }
 									onSelect={ () => {
 										selectBlock( item.clientId );
