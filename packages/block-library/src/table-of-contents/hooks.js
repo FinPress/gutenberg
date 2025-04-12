@@ -29,7 +29,8 @@ function getLatestHeadings( select, clientId ) {
 	const permalink = select( 'core/editor' ).getPermalink() ?? null;
 
 	const isPaginated = getBlocksByName( 'core/nextpage' ).length !== 0;
-	const { onlyIncludeCurrentPage } = getBlockAttributes( clientId ) ?? {};
+	const { onlyIncludeCurrentPage, maxLevel } =
+		getBlockAttributes( clientId ) ?? {};
 
 	// Get post-content block client ID.
 	const [ postContentClientId = '' ] = getBlocksByName( 'core/post-content' );
@@ -100,6 +101,11 @@ function getLatestHeadings( select, clientId ) {
 			if ( blockName === 'core/heading' ) {
 				const headingAttributes = getBlockAttributes( blockClientId );
 
+				// Skip headings that are deeper than maxLevel
+				if ( maxLevel && headingAttributes.level > maxLevel ) {
+					continue;
+				}
+
 				const canBeLinked =
 					typeof headingPageLink === 'string' &&
 					typeof headingAttributes.anchor === 'string' &&
@@ -142,8 +148,11 @@ function observeCallback( select, dispatch, clientId ) {
 
 	const headings = getLatestHeadings( select, clientId );
 	if ( ! fastDeepEqual( headings, attributes.headings ) ) {
-		__unstableMarkNextChangeAsNotPersistent();
-		updateBlockAttributes( clientId, { headings } );
+		// Executing the update in a microtask ensures that the non-persistent marker doesn't affect an attribute triggering the change.
+		window.queueMicrotask( () => {
+			__unstableMarkNextChangeAsNotPersistent();
+			updateBlockAttributes( clientId, { headings } );
+		} );
 	}
 }
 
