@@ -8,11 +8,24 @@ import clsx from 'clsx';
  */
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { useRef, useMemo, useEffect, useState } from '@wordpress/element';
+import {
+	useRef,
+	useMemo,
+	useEffect,
+	useState,
+	createInterpolateElement,
+} from '@wordpress/element';
 import { create, getTextContent } from '@wordpress/rich-text';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
-import { Path, SVG, Line, Rect, Notice } from '@wordpress/components';
+import {
+	Path,
+	SVG,
+	Line,
+	Rect,
+	Notice,
+	ExternalLink,
+} from '@wordpress/components';
 import { store as noticesStore } from '@wordpress/notices';
 
 /**
@@ -285,11 +298,21 @@ export default function DocumentOutline( {
 					status="warning"
 					isDismissible={ false }
 				>
-					<p>
-						{ __(
-							'The main element is missing. Select the block that contains your most important content and add the main HTML element in the Advanced panel.'
-						) }
-					</p>
+					{ createInterpolateElement(
+						__(
+							'The main HTML element is missing. Select the block that contains your most important content and add the main HTML element in the Advanced panel. <Link>Learn more about the main element</Link>.'
+						),
+						{
+							Link: (
+								<ExternalLink
+									// This link is wrapped in __() because it is translatable, for example https://developer.mozilla.org/fr/ for French.
+									href={ __(
+										'https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/main#accessibility'
+									) }
+								/>
+							),
+						}
+					) }
 				</Notice>
 			) }
 			<ul>
