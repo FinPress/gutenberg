@@ -117,7 +117,7 @@ add_action( 'init', 'register_block_core_footnotes_post_meta', 20 );
 /**
  * Marks the 'footnotes' meta key as protected.
  *
- * @since 20.7.0
+ * @since 6.9.0
  *
  * @param bool   $is_protected Whether the meta key is considered protected.
  * @param string $meta_key     Meta key.
