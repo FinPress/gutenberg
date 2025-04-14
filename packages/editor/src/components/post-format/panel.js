@@ -1,8 +1,8 @@
 /**
  * WordPress dependencies
  */
-import { Button, Dropdown } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
+import { Dropdown } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { useState, useMemo } from '@wordpress/element';
 import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@wordpress/block-editor';
@@ -14,6 +14,7 @@ import { default as PostFormatForm, POST_FORMATS } from './';
 import PostFormatCheck from './check';
 import PostPanelRow from '../post-panel-row';
 import { store as editorStore } from '../../store';
+import PostPanelRowButton from '../post-panel-row-button';
 
 /**
  * Renders the Post Author Panel component.
@@ -49,25 +50,20 @@ function PostFormat() {
 	);
 	return (
 		<PostFormatCheck>
-			<PostPanelRow label={ __( 'Format' ) } ref={ setPopoverAnchor }>
+			<PostPanelRow ref={ setPopoverAnchor }>
 				<Dropdown
 					popoverProps={ popoverProps }
+					className="editor-post-format__dropdown"
 					contentClassName="editor-post-format__dialog"
 					focusOnMount
 					renderToggle={ ( { isOpen, onToggle } ) => (
-						<Button
-							size="compact"
-							variant="tertiary"
-							aria-expanded={ isOpen }
-							aria-label={ sprintf(
-								// translators: %s: Current post format.
-								__( 'Change format: %s' ),
-								activeFormat?.caption
-							) }
+						<PostPanelRowButton
+							label={ __( 'Format' ) }
+							displayedValue={ activeFormat?.caption }
+							isExpanded={ isOpen }
 							onClick={ onToggle }
-						>
-							{ activeFormat?.caption }
-						</Button>
+							aria-haspopup="true"
+						/>
 					) }
 					renderContent={ ( { onClose } ) => (
 						<div className="editor-post-format__dialog-content">

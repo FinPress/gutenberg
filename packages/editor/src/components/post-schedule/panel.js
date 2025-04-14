@@ -1,8 +1,8 @@
 /**
  * WordPress dependencies
  */
-import { Button, Dropdown } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
+import { Dropdown } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 import { useState, useMemo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
@@ -20,6 +20,7 @@ import {
 	PATTERN_POST_TYPE,
 	NAVIGATION_POST_TYPE,
 } from '../../store/constants';
+import PostPanelRowButton from '../post-panel-row-button';
 
 const DESIGN_POST_TYPES = [
 	TEMPLATE_POST_TYPE,
@@ -54,37 +55,26 @@ export default function PostSchedulePanel() {
 	);
 
 	const label = usePostScheduleLabel();
-	const fullLabel = usePostScheduleLabel( { full: true } );
 	if ( DESIGN_POST_TYPES.includes( postType ) ) {
 		return null;
 	}
 
 	return (
 		<PostScheduleCheck>
-			<PostPanelRow label={ __( 'Publish' ) } ref={ setPopoverAnchor }>
+			<PostPanelRow ref={ setPopoverAnchor }>
 				<Dropdown
 					popoverProps={ popoverProps }
 					focusOnMount
 					className="editor-post-schedule__panel-dropdown"
 					contentClassName="editor-post-schedule__dialog"
 					renderToggle={ ( { onToggle, isOpen } ) => (
-						<Button
-							size="compact"
+						<PostPanelRowButton
+							label={ __( 'Publish' ) }
+							displayedValue={ label }
 							className="editor-post-schedule__dialog-toggle"
-							variant="tertiary"
-							tooltipPosition="middle left"
 							onClick={ onToggle }
-							aria-label={ sprintf(
-								// translators: %s: Current post date.
-								__( 'Change date: %s' ),
-								label
-							) }
-							label={ fullLabel }
-							showTooltip={ label !== fullLabel }
-							aria-expanded={ isOpen }
-						>
-							{ label }
-						</Button>
+							isExpanded={ isOpen }
+						/>
 					) }
 					renderContent={ ( { onClose } ) => (
 						<PostScheduleForm onClose={ onClose } />

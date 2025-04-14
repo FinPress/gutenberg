@@ -47,7 +47,7 @@ test.describe( 'Clicking "Switch to draft" on a published/scheduled post/page', 
 
 					await editor.openDocumentSettingsSidebar();
 					await page
-						.getByRole( 'button', { name: 'Change status:' } )
+						.getByRole( 'button', { name: 'Status' } )
 						.click();
 					await page.getByRole( 'radio', { name: 'Draft' } ).click();
 

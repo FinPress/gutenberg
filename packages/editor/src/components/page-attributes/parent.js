@@ -7,12 +7,7 @@ import removeAccents from 'remove-accents';
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import {
-	Button,
-	Dropdown,
-	ComboboxControl,
-	ExternalLink,
-} from '@wordpress/components';
+import { Dropdown, ComboboxControl, ExternalLink } from '@wordpress/components';
 import { debounce } from '@wordpress/compose';
 import {
 	createInterpolateElement,
@@ -31,6 +26,7 @@ import { filterURLForDisplay } from '@wordpress/url';
 import PostPanelRow from '../post-panel-row';
 import { buildTermsTree } from '../../utils/terms';
 import { store as editorStore } from '../../store';
+import PostPanelRowButton from '../post-panel-row-button';
 
 function getTitle( post ) {
 	return post?.title?.rendered
@@ -224,19 +220,13 @@ function PostParentToggle( { isOpen, onClick } ) {
 		[ parentPost ]
 	);
 	return (
-		<Button
-			size="compact"
+		<PostPanelRowButton
+			label={ __( 'Parent' ) }
+			displayedValue={ parentTitle }
 			className="editor-post-parent__panel-toggle"
-			variant="tertiary"
-			aria-expanded={ isOpen }
-			aria-label={
-				// translators: %s: Current post parent.
-				sprintf( __( 'Change parent: %s' ), parentTitle )
-			}
+			isExpanded={ isOpen }
 			onClick={ onClick }
-		>
-			{ parentTitle }
-		</Button>
+		/>
 	);
 }
 
@@ -262,7 +252,7 @@ export function ParentRow() {
 		[ popoverAnchor ]
 	);
 	return (
-		<PostPanelRow label={ __( 'Parent' ) } ref={ setPopoverAnchor }>
+		<PostPanelRow ref={ setPopoverAnchor }>
 			<Dropdown
 				popoverProps={ popoverProps }
 				className="editor-post-parent__panel-dropdown"

@@ -1,0 +1,32 @@
+.editor-post-panel__row-button.editor-post-panel__row-button {
+	width: calc(100% + $grid-unit-20);
+	max-width: none;
+	margin: 0 -1 * $grid-unit-10;
+	padding-left: $grid-unit-10;
+	padding-right: $grid-unit-10;
+}
+
+.editor-post-panel__row-button-label {
+	width: 38%;
+	flex-shrink: 0;
+	min-height: $grid-unit-40;
+	display: flex;
+	align-items: center;
+	line-height: $grid-unit-05 * 5;
+	hyphens: auto;
+}
+
+.editor-post-panel__row-button-value {
+	flex-grow: 1;
+	min-height: $grid-unit-40;
+	display: flex;
+	align-items: center;
+	padding-left: $grid-unit-15;
+	padding-right: $grid-unit-15;
+	color: $gray-900;
+
+	&.has-icon {
+		padding-left: $grid-unit-10;
+		gap: $grid-unit-05;
+	}
+}

@@ -5,7 +5,6 @@ import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import {
-	Button,
 	Dropdown,
 	__experimentalNumberControl as NumberControl,
 } from '@wordpress/components';
@@ -18,6 +17,7 @@ import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '
 import { TEMPLATE_POST_TYPE } from '../../store/constants';
 import { store as editorStore } from '../../store';
 import PostPanelRow from '../post-panel-row';
+import PostPanelRowButton from '../post-panel-row-button';
 
 export default function PostsPerPage() {
 	const { editEntityRecord } = useDispatch( coreStore );
@@ -62,21 +62,20 @@ export default function PostsPerPage() {
 		} );
 	};
 	return (
-		<PostPanelRow label={ __( 'Posts per page' ) } ref={ setPopoverAnchor }>
+		<PostPanelRow ref={ setPopoverAnchor }>
 			<Dropdown
 				popoverProps={ popoverProps }
+				className="editor-posts-per-page-dropdown"
 				contentClassName="editor-posts-per-page-dropdown__content"
 				focusOnMount
 				renderToggle={ ( { isOpen, onToggle } ) => (
-					<Button
-						size="compact"
-						variant="tertiary"
-						aria-expanded={ isOpen }
-						aria-label={ __( 'Change posts per page' ) }
+					<PostPanelRowButton
+						label={ __( 'Posts per page' ) }
+						displayedValue={ postsPerPage }
+						isExpanded={ isOpen }
 						onClick={ onToggle }
-					>
-						{ postsPerPage }
-					</Button>
+						aria-haspopup="true"
+					/>
 				) }
 				renderContent={ ( { onClose } ) => (
 					<>

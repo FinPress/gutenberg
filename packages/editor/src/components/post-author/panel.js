@@ -1,8 +1,8 @@
 /**
  * WordPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { Button, Dropdown } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+import { Dropdown } from '@wordpress/components';
 import { useState, useMemo } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@wordpress/block-editor';
@@ -14,25 +14,20 @@ import PostAuthorCheck from './check';
 import PostAuthorForm from './index';
 import PostPanelRow from '../post-panel-row';
 import { useAuthorsQuery } from './hook';
+import PostPanelRowButton from '../post-panel-row-button';
 
 function PostAuthorToggle( { isOpen, onClick } ) {
 	const { postAuthor } = useAuthorsQuery();
 	const authorName =
 		decodeEntities( postAuthor?.name ) || __( '(No author)' );
 	return (
-		<Button
-			size="compact"
+		<PostPanelRowButton
+			label={ __( 'Author' ) }
+			displayedValue={ authorName }
 			className="editor-post-author__panel-toggle"
-			variant="tertiary"
-			aria-expanded={ isOpen }
-			aria-label={
-				// translators: %s: Author name.
-				sprintf( __( 'Change author: %s' ), authorName )
-			}
+			isExpanded={ isOpen }
 			onClick={ onClick }
-		>
-			{ authorName }
-		</Button>
+		/>
 	);
 }
 
@@ -59,9 +54,10 @@ export function PostAuthor() {
 	);
 	return (
 		<PostAuthorCheck>
-			<PostPanelRow label={ __( 'Author' ) } ref={ setPopoverAnchor }>
+			<PostPanelRow ref={ setPopoverAnchor }>
 				<Dropdown
 					popoverProps={ popoverProps }
+					className="editor-post-author__panel-dropdown"
 					contentClassName="editor-post-author__panel-dialog"
 					focusOnMount
 					renderToggle={ ( { isOpen, onToggle } ) => (

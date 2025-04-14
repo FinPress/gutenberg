@@ -109,8 +109,8 @@ test.describe( 'Post Editor Template mode', () => {
 			} )
 			.click();
 		await expect(
-			page.getByRole( 'button', { name: 'Template options' } )
-		).toHaveText( 'Single Entries' );
+			page.getByRole( 'button', { name: 'Template' } )
+		).toContainText( 'Single Entries' );
 	} );
 
 	test( 'Allow creating custom block templates in classic themes', async ( {
@@ -175,7 +175,7 @@ class PostEditorTemplateMode {
 		// Only match the beginning of Select template: because it contains the template name or slug afterwards.
 		await this.editorSettingsSidebar
 			.getByRole( 'button', {
-				name: 'Template options',
+				name: 'Template',
 			} )
 			.click();
 	}

@@ -108,7 +108,7 @@ test.describe( 'Block template registration', () => {
 
 		// Change template.
 		await page.getByRole( 'button', { name: 'Post', exact: true } ).click();
-		await page.getByRole( 'button', { name: 'Template options' } ).click();
+		await page.getByRole( 'button', { name: 'Template' } ).click();
 		await page.getByRole( 'menuitem', { name: 'Change template' } ).click();
 		await page.getByText( 'Plugin Template' ).click();
 
@@ -135,7 +135,7 @@ test.describe( 'Block template registration', () => {
 
 		// Change template.
 		await page.getByRole( 'button', { name: 'Post', exact: true } ).click();
-		await page.getByRole( 'button', { name: 'Template options' } ).click();
+		await page.getByRole( 'button', { name: 'Template' } ).click();
 		await page.getByRole( 'menuitem', { name: 'Change template' } ).click();
 		await page.getByText( 'Custom', { exact: true } ).click();
 

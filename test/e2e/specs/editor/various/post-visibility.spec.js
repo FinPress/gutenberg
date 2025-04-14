@@ -17,9 +17,7 @@ test.describe( 'Post visibility', () => {
 
 			await editor.openDocumentSettingsSidebar();
 
-			await page
-				.getByRole( 'button', { name: 'Change status:' } )
-				.click();
+			await page.getByRole( 'button', { name: 'Status' } ).click();
 			await page.getByRole( 'radio', { name: 'Private' } ).click();
 
 			const currentStatus = await page.evaluate( () => {
@@ -47,7 +45,12 @@ test.describe( 'Post visibility', () => {
 		await editor.openDocumentSettingsSidebar();
 
 		// Set a publish date for the next month.
-		await page.click( 'role=button[name="Change date: Immediately"i]' );
+		await page
+			.getByRole( 'region', { name: 'Editor settings' } )
+			.getByRole( 'button', {
+				name: 'Publish',
+			} )
+			.click();
 
 		await page.click( 'role=button[name="View next month"i]' );
 		await page.click( 'role=application[name="Calendar"] >> text=15' );
@@ -57,7 +60,7 @@ test.describe( 'Post visibility', () => {
 				name: 'Close',
 			} )
 			.click();
-		await page.getByRole( 'button', { name: 'Change status:' } ).click();
+		await page.getByRole( 'button', { name: 'Status' } ).click();
 		await page.getByRole( 'radio', { name: 'Private' } ).click();
 		await page
 			.getByRole( 'region', { name: 'Editor top bar' } )

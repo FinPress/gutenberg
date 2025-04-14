@@ -3,8 +3,8 @@
  */
 import { useMemo, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { Dropdown, Button, ExternalLink } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
+import { Dropdown } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 import { safeDecodeURIComponent } from '@wordpress/url';
 import { store as coreStore } from '@wordpress/core-data';
 
@@ -15,6 +15,7 @@ import PostURLCheck from './check';
 import PostURL from './index';
 import PostPanelRow from '../post-panel-row';
 import { store as editorStore } from '../../store';
+import PostPanelRowButton from '../post-panel-row-button';
 
 /**
  * Renders the `PostURLPanel` component.
@@ -52,11 +53,9 @@ export default function PostURLPanel() {
 		[ popoverAnchor ]
 	);
 
-	const label = isFrontPage ? __( 'Link' ) : __( 'Slug' );
-
 	return (
 		<PostURLCheck>
-			<PostPanelRow label={ label } ref={ setPopoverAnchor }>
+			<PostPanelRow ref={ setPopoverAnchor }>
 				{ ! isFrontPage && (
 					<Dropdown
 						popoverProps={ popoverProps }
@@ -67,6 +66,7 @@ export default function PostURLPanel() {
 							<PostURLToggle
 								isOpen={ isOpen }
 								onClick={ onToggle }
+								label={ __( 'Slug' ) }
 							/>
 						) }
 						renderContent={ ( { onClose } ) => (
@@ -80,7 +80,7 @@ export default function PostURLPanel() {
 	);
 }
 
-function PostURLToggle( { isOpen, onClick } ) {
+function PostURLToggle( { isOpen, onClick, label } ) {
 	const { slug } = useSelect( ( select ) => {
 		return {
 			slug: select( editorStore ).getEditedPostSlug(),
@@ -88,19 +88,13 @@ function PostURLToggle( { isOpen, onClick } ) {
 	}, [] );
 	const decodedSlug = safeDecodeURIComponent( slug );
 	return (
-		<Button
-			size="compact"
+		<PostPanelRowButton
+			label={ label }
+			displayedValue={ <>{ decodedSlug }</> }
 			className="editor-post-url__panel-toggle"
-			variant="tertiary"
-			aria-expanded={ isOpen }
-			aria-label={
-				// translators: %s: Current post link.
-				sprintf( __( 'Change link: %s' ), decodedSlug )
-			}
 			onClick={ onClick }
-		>
-			<>{ decodedSlug }</>
-		</Button>
+			isExpanded={ isOpen }
+		/>
 	);
 }
 
@@ -113,12 +107,25 @@ function FrontPageLink() {
 	}, [] );
 
 	return (
-		<ExternalLink
-			className="editor-post-url__front-page-link"
+		<PostPanelRowButton
+			label={ __( 'Link' ) }
+			displayedValue={
+				<span>
+					<span>{ postLink } &#8599;</span>
+				</span>
+			}
+			description={
+				<>
+					{
+						/* translators: accessibility text */
+						__( '(opens in a new tab)' )
+					}
+					{ postLink }
+				</>
+			}
 			href={ postLink }
 			target="_blank"
-		>
-			{ postLink }
-		</ExternalLink>
+			className="editor-post-url__front-page-link"
+		/>
 	);
 }

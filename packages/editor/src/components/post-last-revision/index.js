@@ -13,6 +13,7 @@ import { addQueryArgs } from '@wordpress/url';
 import PostLastRevisionCheck from './check';
 import PostPanelRow from '../post-panel-row';
 import { store as editorStore } from '../../store';
+import PostPanelRowButton from '../post-panel-row-button';
 
 function usePostLastRevisionInfo() {
 	return useSelect( ( select ) => {
@@ -57,15 +58,14 @@ export function PrivatePostLastRevision() {
 	const { lastRevisionId, revisionsCount } = usePostLastRevisionInfo();
 	return (
 		<PostLastRevisionCheck>
-			<PostPanelRow label={ __( 'Revisions' ) }>
-				<Button
+			<PostPanelRow>
+				<PostPanelRowButton
+					label={ __( 'Revisions' ) }
+					displayedValue={ revisionsCount }
 					href={ addQueryArgs( 'revision.php', {
 						revision: lastRevisionId,
 					} ) }
 					className="editor-private-post-last-revision__button"
-					text={ revisionsCount }
-					variant="tertiary"
-					size="compact"
 				/>
 			</PostPanelRow>
 		</PostLastRevisionCheck>

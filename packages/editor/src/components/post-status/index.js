@@ -2,14 +2,13 @@
  * WordPress dependencies
  */
 import {
-	Button,
 	CheckboxControl,
 	Dropdown,
 	__experimentalVStack as VStack,
 	TextControl,
 	RadioControl,
 } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useState, useMemo } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
@@ -36,6 +35,7 @@ import PostPanelRow from '../post-panel-row';
 import PostSticky from '../post-sticky';
 import { PrivatePostSchedule } from '../post-schedule';
 import { store as editorStore } from '../../store';
+import PostPanelRowButton from '../post-panel-row-button';
 
 const postStatusesInfo = {
 	'auto-draft': { label: __( 'Draft' ), icon: drafts },
@@ -164,7 +164,7 @@ export default function PostStatus() {
 	};
 
 	return (
-		<PostPanelRow label={ __( 'Status' ) } ref={ setPopoverAnchor }>
+		<PostPanelRow ref={ setPopoverAnchor }>
 			{ canEdit ? (
 				<Dropdown
 					className="editor-post-status"
@@ -172,21 +172,14 @@ export default function PostStatus() {
 					popoverProps={ popoverProps }
 					focusOnMount
 					renderToggle={ ( { onToggle, isOpen } ) => (
-						<Button
-							className="editor-post-status__toggle"
-							variant="tertiary"
-							size="compact"
-							onClick={ onToggle }
+						<PostPanelRowButton
+							label={ __( 'Status' ) }
 							icon={ postStatusesInfo[ status ]?.icon }
-							aria-label={ sprintf(
-								// translators: %s: Current post status.
-								__( 'Change status: %s' ),
-								postStatusesInfo[ status ]?.label
-							) }
-							aria-expanded={ isOpen }
-						>
-							{ postStatusesInfo[ status ]?.label }
-						</Button>
+							displayedValue={ postStatusesInfo[ status ]?.label }
+							className="editor-post-status__toggle"
+							onClick={ onToggle }
+							isExpanded={ isOpen }
+						/>
 					) }
 					renderContent={ ( { onClose } ) => (
 						<>

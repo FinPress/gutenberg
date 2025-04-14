@@ -40,9 +40,13 @@ test.describe( 'Scheduling', () => {
 					topBar.getByRole( 'button', { name: 'Publish' } )
 				).toBeVisible();
 
+				const settingsRegion = page.getByRole( 'region', {
+					name: 'Editor settings',
+				} );
+
 				// Open the datepicker.
-				await page
-					.getByRole( 'button', { name: 'Change date' } )
+				await settingsRegion
+					.getByRole( 'button', { name: 'Publish' } )
 					.click();
 
 				// Change the publishing date to a year in the future.
@@ -69,7 +73,11 @@ test.describe( 'Scheduling', () => {
 	} ) => {
 		await admin.createNewPost();
 		await editor.openDocumentSettingsSidebar();
-		await page.getByRole( 'button', { name: 'Change date' } ).click();
+
+		const settingsRegion = page.getByRole( 'region', {
+			name: 'Editor settings',
+		} );
+		await settingsRegion.getByRole( 'button', { name: 'Publish' } ).click();
 
 		const calendar = page.getByRole( 'application', { name: 'Calendar' } );
 		const prevMonth = calendar.getByRole( 'button', {

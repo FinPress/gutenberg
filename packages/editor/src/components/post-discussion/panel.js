@@ -4,7 +4,6 @@
 import { __, _x } from '@wordpress/i18n';
 import {
 	Dropdown,
-	Button,
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
@@ -20,6 +19,7 @@ import PostTypeSupportCheck from '../post-type-support-check';
 import PostComments from '../post-comments';
 import PostPingbacks from '../post-pingbacks';
 import PostPanelRow from '../post-panel-row';
+import PostPanelRowButton from '../post-panel-row-button';
 
 const PANEL_NAME = 'discussion-panel';
 
@@ -59,31 +59,34 @@ function PostDiscussionToggle( { isOpen, onClick } ) {
 			trackbacksSupported: !! postType.supports.trackbacks,
 		};
 	}, [] );
-	let label;
+	let discussionStatus;
 	if ( commentStatus === 'open' ) {
 		if ( pingStatus === 'open' ) {
-			label = _x( 'Open', 'Adjective: e.g. "Comments are open"' );
+			discussionStatus = _x(
+				'Open',
+				'Adjective: e.g. "Comments are open"'
+			);
 		} else {
-			label = trackbacksSupported
+			discussionStatus = trackbacksSupported
 				? __( 'Comments only' )
 				: _x( 'Open', 'Adjective: e.g. "Comments are open"' );
 		}
 	} else if ( pingStatus === 'open' ) {
-		label = commentsSupported ? __( 'Pings only' ) : __( 'Pings enabled' );
+		discussionStatus = commentsSupported
+			? __( 'Pings only' )
+			: __( 'Pings enabled' );
 	} else {
-		label = __( 'Closed' );
+		discussionStatus = __( 'Closed' );
 	}
 	return (
-		<Button
-			size="compact"
+		<PostPanelRowButton
+			label={ __( 'Discussion' ) }
+			displayedValue={ discussionStatus }
 			className="editor-post-discussion__panel-toggle"
-			variant="tertiary"
-			aria-label={ __( 'Change discussion options' ) }
 			aria-expanded={ isOpen }
 			onClick={ onClick }
-		>
-			{ label }
-		</Button>
+			aria-haspopup="true"
+		/>
 	);
 }
 
@@ -125,7 +128,7 @@ export default function PostDiscussionPanel() {
 
 	return (
 		<PostTypeSupportCheck supportKeys={ [ 'comments', 'trackbacks' ] }>
-			<PostPanelRow label={ __( 'Discussion' ) } ref={ setPopoverAnchor }>
+			<PostPanelRow ref={ setPopoverAnchor }>
 				<Dropdown
 					popoverProps={ popoverProps }
 					className="editor-post-discussion__panel-dropdown"

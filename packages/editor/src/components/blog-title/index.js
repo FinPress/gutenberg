@@ -1,13 +1,12 @@
 /**
  * WordPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import { debounce } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { decodeEntities } from '@wordpress/html-entities';
 import {
-	Button,
 	Dropdown,
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
@@ -20,6 +19,7 @@ import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '
 import { TEMPLATE_POST_TYPE } from '../../store/constants';
 import PostPanelRow from '../post-panel-row';
 import { store as editorStore } from '../../store';
+import PostPanelRowButton from '../post-panel-row-button';
 
 const EMPTY_OBJECT = {};
 
@@ -84,25 +84,20 @@ export default function BlogTitle() {
 	};
 	const decodedTitle = decodeEntities( postsPageTitle );
 	return (
-		<PostPanelRow label={ __( 'Blog title' ) } ref={ setPopoverAnchor }>
+		<PostPanelRow ref={ setPopoverAnchor }>
 			<Dropdown
 				popoverProps={ popoverProps }
+				className="editor-blog-title-dropdown"
 				contentClassName="editor-blog-title-dropdown__content"
 				focusOnMount
 				renderToggle={ ( { isOpen, onToggle } ) => (
-					<Button
-						size="compact"
-						variant="tertiary"
-						aria-expanded={ isOpen }
-						aria-label={ sprintf(
-							// translators: %s: Current post link.
-							__( 'Change blog title: %s' ),
-							decodedTitle
-						) }
+					<PostPanelRowButton
+						label={ __( 'Blog title' ) }
+						displayedValue={ decodedTitle }
+						isExpanded={ isOpen }
 						onClick={ onToggle }
-					>
-						{ decodedTitle }
-					</Button>
+						aria-haspopup="true"
+					/>
 				) }
 				renderContent={ ( { onClose } ) => (
 					<>

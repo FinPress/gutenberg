@@ -5,7 +5,6 @@ import { __, _x } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import {
-	Button,
 	Dropdown,
 	RadioControl,
 	__experimentalVStack as VStack,
@@ -20,6 +19,7 @@ import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '
 import { TEMPLATE_POST_TYPE } from '../../store/constants';
 import PostPanelRow from '../post-panel-row';
 import { store as editorStore } from '../../store';
+import PostPanelRowButton from '../post-panel-row-button';
 
 const COMMENT_OPTIONS = [
 	{
@@ -84,23 +84,24 @@ export default function SiteDiscussion() {
 		} );
 	};
 	return (
-		<PostPanelRow label={ __( 'Discussion' ) } ref={ setPopoverAnchor }>
+		<PostPanelRow ref={ setPopoverAnchor }>
 			<Dropdown
 				popoverProps={ popoverProps }
+				className="editor-site-discussion-dropdown"
 				contentClassName="editor-site-discussion-dropdown__content"
 				focusOnMount
 				renderToggle={ ( { isOpen, onToggle } ) => (
-					<Button
-						size="compact"
-						variant="tertiary"
-						aria-expanded={ isOpen }
-						aria-label={ __( 'Change discussion settings' ) }
+					<PostPanelRowButton
+						label={ __( 'Discussion' ) }
+						displayedValue={
+							allowCommentsOnNewPosts
+								? __( 'Comments open' )
+								: __( 'Comments closed' )
+						}
+						isExpanded={ isOpen }
 						onClick={ onToggle }
-					>
-						{ allowCommentsOnNewPosts
-							? __( 'Comments open' )
-							: __( 'Comments closed' ) }
-					</Button>
+						aria-haspopup="true"
+					/>
 				) }
 				renderContent={ ( { onClose } ) => (
 					<>

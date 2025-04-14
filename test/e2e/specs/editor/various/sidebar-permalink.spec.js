@@ -34,7 +34,7 @@ test.describe( 'Sidebar Permalink', () => {
 			.getByRole( 'textbox', { name: 'Add title' } )
 			.fill( 'aaaa (Updated)' );
 		await expect(
-			page.getByRole( 'button', { name: 'Change link' } )
+			page.getByRole( 'button', { name: 'Slug' } )
 		).toBeHidden();
 	} );
 
@@ -54,7 +54,7 @@ test.describe( 'Sidebar Permalink', () => {
 			.getByRole( 'textbox', { name: 'Add title' } )
 			.fill( 'aaaa (Updated)' );
 		await expect(
-			page.getByRole( 'button', { name: 'Change link' } )
+			page.getByRole( 'button', { name: 'Slug' } )
 		).toBeHidden();
 	} );
 
@@ -75,7 +75,7 @@ test.describe( 'Sidebar Permalink', () => {
 			.getByRole( 'textbox', { name: 'Add title' } )
 			.fill( 'aaaa (Updated)' );
 		await expect(
-			page.getByRole( 'button', { name: 'Change link' } )
+			page.getByRole( 'button', { name: 'Slug' } )
 		).toBeVisible();
 	} );
 } );

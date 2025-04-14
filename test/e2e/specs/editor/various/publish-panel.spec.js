@@ -66,7 +66,7 @@ test.describe( 'Post publish panel', () => {
 			.getByRole( 'textbox', { name: 'Add title' } )
 			.fill( 'Test Post' );
 		await page
-			.getByRole( 'region', 'Editor top bar' )
+			.getByRole( 'region', { name: 'Editor top bar' } )
 			.getByRole( 'button', { name: 'Publish', exact: true } )
 			.click();
 
@@ -102,7 +102,7 @@ test.describe( 'Post publish panel', () => {
 			.getByRole( 'textbox', { name: 'Add title' } )
 			.fill( 'Test Post' );
 		await page
-			.getByRole( 'region', 'Editor top bar' )
+			.getByRole( 'region', { name: 'Editor top bar' } )
 			.getByRole( 'button', { name: 'Publish', exact: true } )
 			.click();
 		await pageUtils.pressKeys( 'shift+Tab' );
