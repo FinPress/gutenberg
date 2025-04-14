@@ -40,9 +40,13 @@ export default function Edit( {
 	isSelected,
 	setAttributes,
 } ) {
-	const { anchor, label } = attributes;
 	const { selectBlock } = useDispatch( blockEditorStore );
+
+	const innerBlocksRef = useRef( null );
 	const labelRef = useRef();
+	const timeoutRef = useRef();
+
+	const { anchor, label } = attributes;
 
 	// Focus the label RichText component when no label exists
 	// and when the block is mounted.
@@ -51,9 +55,19 @@ export default function Edit( {
 			const timeoutId = setTimeout( () => {
 				labelRef.current.focus();
 			}, 100 ); // A really quick millisecond delay to ensure the ref is and block is selected and active.
-			return () => clearTimeout( timeoutId );
+			timeoutRef.current = timeoutId;
+			return () => clearTimeout( timeoutRef.current );
 		}
 	}, [ label ] );
+
+	// Clean up timeouts on unmount
+	useEffect( () => {
+		return () => {
+			if ( timeoutRef.current ) {
+				clearTimeout( timeoutRef.current );
+			}
+		};
+	}, [] );
 
 	const {
 		blockIndex,
@@ -69,8 +83,6 @@ export default function Edit( {
 			const {
 				getBlockRootClientId,
 				getBlockIndex,
-				getPreviousBlockClientId,
-				getNextBlockClientId,
 				isBlockSelected,
 				hasSelectedInnerBlock,
 				getBlockAttributes,
@@ -91,10 +103,6 @@ export default function Edit( {
 				true
 			);
 
-			// Get data about the previous and next tabs.
-			const _previousTabClientId = getPreviousBlockClientId( clientId );
-			const _nextTabClientId = getNextBlockClientId( clientId );
-
 			return {
 				blockIndex: _blockIndex,
 				hasInnerBlocksSelected: _hasInnerBlocksSelected,
@@ -102,8 +110,6 @@ export default function Edit( {
 				forceDisplay: _isDefaultTab && _isTabsClientSelected,
 				tabsHasSelectedBlock: hasTabSelected,
 				isTabsClientSelected: _isTabsClientSelected,
-				previousTabClientId: _previousTabClientId,
-				nextTabClientId: _nextTabClientId,
 				isDefaultTab: _isDefaultTab,
 				tabsAttributes: rootAttributes,
 			};
@@ -135,7 +141,17 @@ export default function Edit( {
 		isTabsClientSelected,
 		tabsHasSelectedBlock,
 	] );
-	const innerBlocksRef = useRef( null );
+
+	/**
+	 * This hook focuses the label when the block is selected and does not have any inner blocks selected, usually when the block is mounted by the user by clicking on the label.
+	 */
+	useEffect( () => {
+		if ( isSelected && ! hasInnerBlocksSelected ) {
+			timeoutRef.current = setTimeout( () => {
+				labelRef.current.focus();
+			}, 0 );
+		}
+	}, [ isSelected, hasInnerBlocksSelected ] );
 
 	// Use a custom anchor, if set. Otherwise fall back to the slug generated from the label text.
 	const tabPanelId = useMemo(
@@ -157,7 +173,7 @@ export default function Edit( {
 			id: tabPanelId,
 			role: 'tabpanel',
 			ref: innerBlocksRef,
-			tabIndex: 0,
+			tabIndex: isSelectedTab ? 0 : -1,
 			className: clsx(
 				tabContentTypographyProps.className,
 				'tabs__tab-editor-content'
@@ -191,22 +207,25 @@ export default function Edit( {
 						style={ {
 							...tabItemColorProps.style,
 						} }
-						// tabIndex={ isSelectedTab ? 0 : -1 }
 					>
-						<a // eslint-disable-line jsx-a11y/anchor-is-valid -- remove href attribute in editor so inner text can be selected for editing
+						<button
 							aria-controls={ tabPanelId }
 							aria-selected={ isSelectedTab }
 							className="tabs__tab-label"
 							id={ tabLabelId }
 							role="tab"
-							tabIndex="0"
+							tabIndex={ 0 }
 							onClick={ ( event ) => {
 								event.preventDefault();
 								selectBlock( clientId );
 							} }
 							onKeyDown={ ( event ) => {
 								if ( event.key === 'Enter' ) {
+									event.preventDefault();
 									selectBlock( clientId );
+									timeoutRef.current = setTimeout( () => {
+										labelRef.current.focus();
+									}, 100 );
 								}
 							} }
 						>
@@ -227,7 +246,7 @@ export default function Edit( {
 									} )
 								}
 							/>
-						</a>
+						</button>
 					</li>
 				</TabFill>
 				{ isSelectedTab && (

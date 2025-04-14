@@ -19,7 +19,7 @@ const { state, actions } = store( 'core/tabs', {
 		 */
 		get tabIndex() {
 			const { attributes } = getElement();
-			const tabId = attributes?.id?.replace( 'tab-', '' ) || null;
+			const tabId = attributes?.id?.replace( 'tab__', '' ) || null;
 			if ( ! tabId ) {
 				return null;
 			}
@@ -48,7 +48,7 @@ const { state, actions } = store( 'core/tabs', {
 	},
 	actions: {
 		/**
-		 * Handles the keydown event for the tab label.
+		 * Handles the keydown events for the tab label and tabs controller.
 		 *
 		 * @param {KeyboardEvent} event The keydown event.
 		 */
@@ -58,6 +58,16 @@ const { state, actions } = store( 'core/tabs', {
 				const tabIndex = state.tabIndex;
 				if ( tabIndex !== null ) {
 					actions.setActiveTab( tabIndex );
+				}
+			} else if ( event.key === 'ArrowRight' ) {
+				const tabIndex = state.tabIndex;
+				if ( tabIndex !== null ) {
+					actions.setActiveTab( tabIndex + 1 );
+				}
+			} else if ( event.key === 'ArrowLeft' ) {
+				const tabIndex = state.tabIndex;
+				if ( tabIndex !== null ) {
+					actions.setActiveTab( tabIndex - 1 );
 				}
 			}
 		} ),
@@ -93,7 +103,7 @@ const { state, actions } = store( 'core/tabs', {
 			const hash = window.location.hash;
 			const tabId = hash.replace( '#', '' );
 			const tabIndex = tabsList.findIndex( ( t ) => t.id === tabId );
-			// Check if tabIndex is a positive number.
+			// Check if tabIndex is a positive number and if so we'll auto activate that tab.
 			if ( tabIndex >= 0 ) {
 				actions.setActiveTab( tabIndex );
 			}

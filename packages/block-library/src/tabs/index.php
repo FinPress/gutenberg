@@ -172,6 +172,7 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 		)
 	);
 	$tag_processor->set_attribute( 'data-wp-init', 'callbacks.onTabsInit' );
+	$tag_processor->set_attribute( 'data-wp-on--keydown', 'actions.handleTabKeyDown' );
 	// Get the current hardcoded styles.
 	$style = $tag_processor->get_attribute( 'style' );
 	// Add the color styles and gap styles to the existing styles.
@@ -185,7 +186,7 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 	$tabs_list = array_map(
 		function ( $tab ) {
 			return wp_sprintf(
-				'<li class="tabs__list-item" role="presentation"><a id="tab-%1$s" class="tabs__tab-label" href="#%1$s" role="tab" aria-controls="%1$s" data-wp-on--click="actions.handleTabClick" data-wp-on--keydown="actions.handleTabKeyDown" data-wp-bind--aria-selected="state.isActiveTab" data-wp-bind--tabindex="state.tabIndexAttribute">%2$s</a></li>',
+				'<li class="tabs__list-item" role="presentation"><a id="tab__%1$s" class="tabs__tab-label" href="#%1$s" role="tab" aria-controls="%1$s" data-wp-on--click="actions.handleTabClick" data-wp-on--keydown="actions.handleTabKeyDown" data-wp-bind--aria-selected="state.isActiveTab" data-wp-bind--tabindex="state.tabIndexAttribute">%2$s</a></li>',
 				$tab['id'],
 				$tab['label']
 			);
