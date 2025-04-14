@@ -8,6 +8,8 @@ import {
 	InspectorControls,
 	useInnerBlocksProps,
 	store as blockEditorStore,
+	AlignmentControl,
+	BlockControls,
 } from '@wordpress/block-editor';
 import { SelectControl } from '@wordpress/components';
 import { useRef } from '@wordpress/element';
@@ -71,6 +73,7 @@ function GroupEdit( { attributes, name, setAttributes, clientId } ) {
 		templateLock,
 		allowedBlocks,
 		layout = {},
+		textAlign,
 	} = attributes;
 
 	// Layout settings.
@@ -80,7 +83,11 @@ function GroupEdit( { attributes, name, setAttributes, clientId } ) {
 
 	// Hooks.
 	const ref = useRef();
-	const blockProps = useBlockProps( { ref } );
+	const blockProps = useBlockProps( {
+		ref,
+		className: textAlign ? `has-text-align-${ textAlign }` : '',
+		style: { textAlign },
+	} );
 
 	const [ showPlaceholder, setShowPlaceholder ] = useShouldShowPlaceHolder( {
 		attributes,
@@ -124,6 +131,16 @@ function GroupEdit( { attributes, name, setAttributes, clientId } ) {
 
 	return (
 		<>
+			<BlockControls>
+				<AlignmentControl
+					value={ textAlign }
+					onChange={ ( newAlignment ) =>
+						setAttributes( {
+							textAlign: newAlignment || undefined,
+						} )
+					}
+				/>
+			</BlockControls>
 			<GroupEditControls
 				tagName={ TagName }
 				onSelectTagName={ ( value ) =>
