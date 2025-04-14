@@ -20,6 +20,12 @@ import { __ } from '@wordpress/i18n';
  */
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
+/**
+ * Default Constants
+ */
+const DEFAULT_HEIGHT = 15;
+const DEFAULT_POSITION = 'top';
+
 export default function ReadMore( { attributes, setAttributes } ) {
 	const { backgroundColor, progressColor, height, position, isInverted } =
 		attributes;
@@ -53,8 +59,8 @@ export default function ReadMore( { attributes, setAttributes } ) {
 					label={ __( 'Reading Progress Bar Settings' ) }
 					resetAll={ () => {
 						setAttributes( {
-							height: 11,
-							position: 'top',
+							height: DEFAULT_HEIGHT,
+							position: DEFAULT_POSITION,
 						} );
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
@@ -62,8 +68,10 @@ export default function ReadMore( { attributes, setAttributes } ) {
 					<ToolsPanelItem
 						label={ __( 'Bar height' ) }
 						isShownByDefault
-						hasValue={ () => height !== 11 }
-						onDeselect={ () => setAttributes( { height: 15 } ) }
+						hasValue={ () => height !== DEFAULT_HEIGHT }
+						onDeselect={ () =>
+							setAttributes( { height: DEFAULT_HEIGHT } )
+						}
 					>
 						<RangeControl
 							__next40pxDefaultSize
@@ -81,9 +89,9 @@ export default function ReadMore( { attributes, setAttributes } ) {
 					<ToolsPanelItem
 						label={ __( 'Bar Position' ) }
 						isShownByDefault
-						hasValue={ () => position !== 'top' }
+						hasValue={ () => position !== DEFAULT_POSITION }
 						onDeselect={ () =>
-							setAttributes( { position: 'top' } )
+							setAttributes( { position: DEFAULT_POSITION } )
 						}
 					>
 						<CustomSelectControl
