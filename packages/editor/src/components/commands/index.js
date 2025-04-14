@@ -44,6 +44,7 @@ import isTemplateRevertable from '../../store/utils/is-template-revertable';
 
 const getEditorCommandLoader = () =>
 	function useEditorCommandLoader() {
+		const wpApiSettings = window.wpApiSettings;
 		const {
 			editorMode,
 			isListViewOpen,
@@ -269,6 +270,46 @@ const getEditorCommandLoader = () =>
 						type: 'snackbar',
 					}
 				);
+			},
+		} );
+
+		commands.push( {
+			name: 'custom/deactivate-all-plugins',
+			label: __( 'Deactivate All Plugins' ),
+			icon: blockDefault,
+			callback: async ( { close } ) => {
+				close();
+				try {
+					const response = await fetch(
+						'/wp-json/custom/v1/deactivate-plugins',
+						{
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+								'X-WP-Nonce': wpApiSettings.nonce,
+							},
+						}
+					);
+					const result = await response.json();
+					if ( response.ok ) {
+						createInfoNotice(
+							__( 'All plugins have been deactivated.' ),
+							{ type: 'snackbar' }
+						);
+					} else {
+						createInfoNotice(
+							__( 'Failed to deactivate plugins:' ) +
+								' ' +
+								result.message,
+							{ type: 'snackbar' }
+						);
+					}
+				} catch ( error ) {
+					createInfoNotice(
+						__( 'Error: Unable to deactivate plugins.' ),
+						{ type: 'snackbar' }
+					);
+				}
 			},
 		} );
 
