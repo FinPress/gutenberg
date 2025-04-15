@@ -407,18 +407,13 @@ describe( 'ColorPicker', () => {
 			// Initially type 7 in the alpha input, we expect it to be called with #ffffff12
 			await user.type( alphaInput, '7' );
 
-			expect( onChange ).toHaveBeenCalledTimes( 2 );
-			await waitFor( () => {
-				expect( onChange ).toHaveBeenCalledWith( '#ffffff12' );
-			} );
-
 			// Now with 75% opacity we expect it to be called with #ffffffbf
 			await user.type( alphaInput, '5' );
 
+			// Called twice, once per key stroke (`7` and `5`)
 			expect( onChange ).toHaveBeenCalledTimes( 3 );
-			await waitFor( () => {
-				expect( onChange ).toHaveBeenCalledWith( '#ffffffbf' );
-			} );
+			expect( onChange ).toHaveBeenNthCalledWith( 2, '#ffffff12' );
+			expect( onChange ).toHaveBeenNthCalledWith( 3, '#ffffffbf' );
 
 			expect( alphaSlider ).toHaveValue( '75' );
 			expect( alphaInput ).toHaveValue( 75 );
