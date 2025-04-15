@@ -394,7 +394,7 @@ describe( 'ColorPicker', () => {
 				expect( onChange ).toHaveBeenCalledTimes( 1 );
 			} );
 
-			expect( onChange ).toHaveBeenCalledWith( '#ffffffbf' );
+			expect( onChange ).toHaveBeenLastCalledWith( '#ffffffbf' );
 			expect( alphaInput ).toHaveValue( 75 );
 			expect( alphaSlider ).toHaveValue( '75' );
 
