@@ -179,7 +179,7 @@ function BlockListBlock( {
 
 	let block;
 
-	if ( ! isValid ) {
+	if ( ! isValid && mode !== 'html' ) {
 		const saveContent = __unstableBlockSource
 			? serializeRawBlock( __unstableBlockSource )
 			: getSaveContent( blockType, attributes );
