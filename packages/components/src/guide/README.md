@@ -73,7 +73,7 @@ Use this to customize the label of the _Previous_ button shown on each page of t
 
 -   Type: `string`
 -   Required: No
--   Default: `'Next'`
+-   Default: `'Previous'`
 
 ### onFinish
 
