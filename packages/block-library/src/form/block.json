@@ -19,6 +19,12 @@
 	"textdomain": "default",
 	"icon": "feedback",
 	"attributes": {
+		"formId": {
+			"type": "string",
+			"source": "attribute",
+			"selector": "form",
+			"attribute": "id"
+		},
 		"submissionMethod": {
 			"type": "string",
 			"default": "email"
