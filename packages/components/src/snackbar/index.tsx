@@ -22,10 +22,10 @@ import warning from '@wordpress/warning';
  * Internal dependencies
  */
 import Button from '../button';
+import ExternalLink from '../external-link';
 import type { SnackbarProps } from './types';
 import type { NoticeAction } from '../notice/types';
 import type { WordPressComponentProps } from '../context';
-import ExternalLink from '../external-link';
 
 const NOTICE_TIMEOUT = 10000;
 
