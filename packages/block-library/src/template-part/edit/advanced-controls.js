@@ -5,12 +5,12 @@ import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { SelectControl, TextControl } from '@wordpress/components';
 import { sprintf, __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
+import { HTMLElementSelectControl } from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
  */
 import { TemplatePartImportControls } from './import-controls';
-import { htmlElementMessages } from '../../utils/messages';
 
 export function TemplatePartAdvancedControls( {
 	tagName,
@@ -19,6 +19,7 @@ export function TemplatePartAdvancedControls( {
 	templatePartId,
 	defaultWrapper,
 	hasInnerBlocks,
+	clientId,
 } ) {
 	const [ area, setArea ] = useEntityProp(
 		'postType',
@@ -73,10 +74,10 @@ export function TemplatePartAdvancedControls( {
 					/>
 				</>
 			) }
-			<SelectControl
-				__nextHasNoMarginBottom
-				__next40pxDefaultSize
-				label={ __( 'HTML element' ) }
+			<HTMLElementSelectControl
+				tagName={ tagName || '' }
+				onChange={ ( value ) => setAttributes( { tagName: value } ) }
+				currentClientId={ clientId }
 				options={ [
 					{
 						label: sprintf(
@@ -94,9 +95,6 @@ export function TemplatePartAdvancedControls( {
 					{ label: '<footer>', value: 'footer' },
 					{ label: '<div>', value: 'div' },
 				] }
-				value={ tagName || '' }
-				onChange={ ( value ) => setAttributes( { tagName: value } ) }
-				help={ htmlElementMessages[ tagName ] }
 			/>
 			{ ! hasInnerBlocks && (
 				<TemplatePartImportControls

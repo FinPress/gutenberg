@@ -47,6 +47,7 @@ export { default as __experimentalDateFormatPicker } from './date-format-picker'
 export { default as __experimentalDuotoneControl } from './duotone-control';
 export { default as __experimentalFontAppearanceControl } from './font-appearance-control';
 export { default as __experimentalFontFamilyControl } from './font-family';
+export { default as HTMLElementSelectControl } from './html-element-select-control';
 export { default as __experimentalLetterSpacingControl } from './letter-spacing-control';
 export { default as __experimentalTextDecorationControl } from './text-decoration-control';
 export { default as __experimentalTextTransformControl } from './text-transform-control';

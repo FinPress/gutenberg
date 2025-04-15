@@ -10,8 +10,8 @@ import {
 	useBlockProps,
 	store as blockEditorStore,
 	useInnerBlocksProps,
+	HTMLElementSelectControl,
 } from '@wordpress/block-editor';
-import { SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 
@@ -23,7 +23,6 @@ import QueryInspectorControls from './inspector-controls';
 import EnhancedPaginationModal from './enhanced-pagination-modal';
 import { getQueryContextFromTemplate } from '../utils';
 import QueryToolbar from './query-toolbar';
-import { htmlElementMessages } from '../../utils/messages';
 
 const DEFAULTS_POSTS_PER_PAGE = 3;
 
@@ -147,21 +146,18 @@ export default function QueryContent( {
 				<QueryToolbar attributes={ attributes } clientId={ clientId } />
 			</BlockControls>
 			<InspectorControls group="advanced">
-				<SelectControl
-					__nextHasNoMarginBottom
-					__next40pxDefaultSize
-					label={ __( 'HTML element' ) }
+				<HTMLElementSelectControl
+					tagName={ TagName }
+					onChange={ ( value ) =>
+						setAttributes( { tagName: value } )
+					}
+					currentClientId={ clientId }
 					options={ [
 						{ label: __( 'Default (<div>)' ), value: 'div' },
 						{ label: '<main>', value: 'main' },
 						{ label: '<section>', value: 'section' },
 						{ label: '<aside>', value: 'aside' },
 					] }
-					value={ TagName }
-					onChange={ ( value ) =>
-						setAttributes( { tagName: value } )
-					}
-					help={ htmlElementMessages[ TagName ] }
 				/>
 				<EnhancedPaginationControl
 					enhancedPagination={ enhancedPagination }

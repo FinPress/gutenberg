@@ -6,12 +6,13 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { HorizontalRule, SelectControl } from '@wordpress/components';
+import { HorizontalRule } from '@wordpress/components';
 import {
 	useBlockProps,
 	getColorClassName,
 	__experimentalUseColorProps as useColorProps,
 	InspectorControls,
+	HTMLElementSelectControl,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
@@ -19,9 +20,12 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import useDeprecatedOpacity from './use-deprecated-opacity';
-import { htmlElementMessages } from '../utils/messages';
 
-export default function SeparatorEdit( { attributes, setAttributes } ) {
+export default function SeparatorEdit( {
+	attributes,
+	setAttributes,
+	clientId,
+} ) {
 	const { backgroundColor, opacity, style, tagName } = attributes;
 	const colorProps = useColorProps( attributes );
 	const currentColor = colorProps?.style?.backgroundColor;
@@ -52,19 +56,16 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls group="advanced">
-				<SelectControl
-					__nextHasNoMarginBottom
-					__next40pxDefaultSize
-					label={ __( 'HTML element' ) }
+				<HTMLElementSelectControl
+					tagName={ tagName }
+					onChange={ ( value ) =>
+						setAttributes( { tagName: value } )
+					}
+					currentClientId={ clientId }
 					options={ [
 						{ label: __( 'Default (<hr>)' ), value: 'hr' },
 						{ label: '<div>', value: 'div' },
 					] }
-					value={ tagName }
-					onChange={ ( value ) =>
-						setAttributes( { tagName: value } )
-					}
-					help={ htmlElementMessages[ tagName ] }
 				/>
 			</InspectorControls>
 			<Wrapper

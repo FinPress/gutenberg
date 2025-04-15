@@ -609,6 +609,22 @@ _Returns_
 
 -   `Component`: The component to be rendered.
 
+### HTMLElementSelectControl
+
+Renders a SelectControl for choosing HTML elements with validation to prevent duplicate <main> elements.
+
+_Parameters_
+
+-   _props_ `Object`: Component props.
+-   _props.tagName_ `string`: The current HTML tag name.
+-   _props.onChange_ `Function`: Function to call when the tag is changed.
+-   _props.currentClientId_ `string`: The client ID of the current block.
+-   _props.options_ `Array`: SelectControl options (optional).
+
+_Returns_
+
+-   `Component`: The HTML element select control with validation.
+
 ### InnerBlocks
 
 _Related_
