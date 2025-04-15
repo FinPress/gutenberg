@@ -3,6 +3,7 @@
  */
 import { fireEvent, screen, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { click } from '@ariakit/test';
 
 /**
  * WordPress dependencies
@@ -13,7 +14,6 @@ import { useState } from '@wordpress/element';
  * Internal dependencies
  */
 import { ColorPicker } from '..';
-import { click } from '@ariakit/test';
 
 const hslaMatcher = expect.objectContaining( {
 	h: expect.any( Number ),
@@ -405,10 +405,10 @@ describe( 'ColorPicker', () => {
 			expect( onChange ).toHaveBeenCalledTimes( 1 );
 
 			// Initially type 7 in the alpha input, we expect it to be called with #ffffff12
-			await user.type( alphaInput, '7' );
+			await user.keyboard( '7' );
 
 			// Now with 75% opacity we expect it to be called with #ffffffbf
-			await user.type( alphaInput, '5' );
+			await user.keyboard( '5' );
 
 			// Called twice, once per key stroke (`7` and `5`)
 			expect( onChange ).toHaveBeenCalledTimes( 3 );
