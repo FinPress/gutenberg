@@ -383,7 +383,7 @@ describe( 'ColorPicker', () => {
 			expect( alphaSlider ).toHaveValue( '50' );
 			expect( alphaInput ).toHaveValue( 50 );
 
-			expect( onChange ).not.toHaveBeenCalledWith();
+			expect( onChange ).not.toHaveBeenCalled();
 
 			// Test pattern 1: Update the slider
 			fireEvent.change( alphaSlider, {
@@ -393,16 +393,10 @@ describe( 'ColorPicker', () => {
 			await waitFor( () => {
 				expect( onChange ).toHaveBeenCalledTimes( 1 );
 			} );
-			await waitFor( () => {
-				expect( onChange ).toHaveBeenCalledWith( '#ffffffbf' );
-			} );
 
-			await waitFor( () => {
-				expect( alphaInput ).toHaveValue( 75 );
-			} );
-			await waitFor( () => {
-				expect( alphaSlider ).toHaveValue( '75' );
-			} );
+			expect( onChange ).toHaveBeenCalledWith( '#ffffffbf' );
+			expect( alphaInput ).toHaveValue( 75 );
+			expect( alphaSlider ).toHaveValue( '75' );
 
 			onChange.mockClear();
 
