@@ -1,0 +1,93 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "core/back-to-top",
+	"title": "Back to Top",
+	"category": "design",
+	"icon": "arrow-up-alt",
+	"description": "Add a smooth scrolling back to top button to your content.",
+	"attributes": {
+		"content": {
+			"type": "string",
+			"default": "Back to top"
+		},
+		"buttonPosition": {
+			"type": "string",
+			"default": "right"
+		},
+		"scrollOffset": {
+			"type": "number",
+			"default": 300
+		},
+		"scrollDuration": {
+			"type": "number",
+			"default": 500
+		},
+		"smoothScroll": {
+			"type": "boolean",
+			"default": true
+		},
+		"hasIcon": {
+			"type": "boolean",
+			"default": true
+		},
+		"iconName": {
+			"type": "string",
+			"default": "arrow-up-alt2"
+		},
+		"iconPosition": {
+			"type": "string",
+			"default": "before"
+		},
+		"showText": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"color": {
+			"background": true,
+			"text": true,
+			"gradients": true,
+			"__experimentalDefaultControls": {
+				"background": true,
+				"text": true
+			}
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"__experimentalDefaultControls": {
+				"margin": true,
+				"padding": true
+			}
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"width": true,
+			"style": true
+		},
+		"border": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
+			"__experimentalDefaultControls": {
+				"color": true,
+				"radius": true,
+				"style": true,
+				"width": true
+			}
+		}
+	},
+	"styles": [],
+	"editorScript": "file:./index.js",
+	"selectors": {
+		"root": ".wp-block-back-to-top",
+		"button": ".wp-block-back-to-top button"
+	},
+	"editorStyle": "file:./editor.scss",
+	"style": "file:./style.scss",
+	"viewScript": "file:./view.js"
+}

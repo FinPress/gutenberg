@@ -1,0 +1,46 @@
+.wp-block-back-to-top-editor {
+	position: fixed;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 40px;
+	bottom: 20px; // Add bottom positioning
+
+	&.align-right {
+		right: 20px; // Increase right position to match front-end
+		left: 90%; // Ensure left is not affecting position
+	}
+
+	&.align-left {
+		left: 20px;
+		right: 90%; // Ensure right is not affecting position
+	}
+
+	&.align-center {
+		left: 50%; // Center properly
+		transform: translateX(-50%); // Fix center transform
+	}
+
+	// Editor selection styles
+	&.is-selected button {
+		outline: 2px solid var(--wp-admin-theme-color);
+	}
+
+	.dashicon {
+		display: inline-flex;
+		align-items: center;
+		margin: 0 4px;
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	.wp-block-back-to-top-text {
+		margin: 0 4px;
+	}
+}

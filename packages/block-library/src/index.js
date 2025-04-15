@@ -122,7 +122,7 @@ import * as textColumns from './text-columns';
 import * as verse from './verse';
 import * as video from './video';
 import * as footnotes from './footnotes';
-
+import * as backToTop from './back-to-top';
 import isBlockMetadataExperimental from './utils/is-block-metadata-experimental';
 
 /**
@@ -141,6 +141,7 @@ const getAllBlocks = () => {
 		quote,
 
 		// Register all remaining core blocks.
+		backToTop,
 		archives,
 		audio,
 		button,

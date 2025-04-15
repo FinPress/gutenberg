@@ -1,6 +1,7 @@
 @import "./archives/editor.scss";
 @import "./audio/editor.scss";
 @import "./avatar/editor.scss";
+@import "./back-to-top/editor.scss";
 @import "./button/editor.scss";
 @import "./buttons/editor.scss";
 @import "./categories/editor.scss";
@@ -84,4 +85,8 @@
 // Remove the browser default border for iframe in Custom HTML block, Embed block, etc.
 :where(.editor-styles-wrapper) iframe:not([frameborder]) {
 	border: 0;
+}
+
+.test {
+	font-size: large !important;
 }
