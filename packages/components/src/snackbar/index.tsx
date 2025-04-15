@@ -25,6 +25,7 @@ import Button from '../button';
 import type { SnackbarProps } from './types';
 import type { NoticeAction } from '../notice/types';
 import type { WordPressComponentProps } from '../context';
+import ExternalLink from '../external-link';
 
 const NOTICE_TIMEOUT = 10000;
 
@@ -147,22 +148,34 @@ function UnforwardedSnackbar(
 					<div className="components-snackbar__icon">{ icon }</div>
 				) }
 				{ children }
-				{ actions.map( ( { label, onClick, url }, index ) => {
-					return (
-						<Button
-							__next40pxDefaultSize
-							key={ index }
-							href={ url }
-							variant="link"
-							onClick={ (
-								event: MouseEvent< HTMLButtonElement >
-							) => onActionClick( event, onClick ) }
-							className="components-snackbar__action"
-						>
-							{ label }
-						</Button>
-					);
-				} ) }
+				{ actions.map(
+					( { label, onClick, url, openInNewTab = false }, index ) =>
+						url !== undefined && openInNewTab ? (
+							<ExternalLink
+								key={ index }
+								href={ url }
+								onClick={ ( event ) => {
+									event.stopPropagation();
+								} }
+								className="components-snackbar__action"
+							>
+								{ label }
+							</ExternalLink>
+						) : (
+							<Button
+								__next40pxDefaultSize
+								key={ index }
+								href={ url }
+								variant="link"
+								onClick={ (
+									event: MouseEvent< HTMLButtonElement >
+								) => onActionClick( event, onClick ) }
+								className="components-snackbar__action"
+							>
+								{ label }
+							</Button>
+						)
+				) }
 				{ explicitDismiss && (
 					<span
 						role="button"
