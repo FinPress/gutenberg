@@ -2,9 +2,13 @@
 
 ## Unreleased
 
+### Internal
+
+-   `ColorPicker`: Add tests for Alpha slider functionality ([#69203](https://github.com/WordPress/gutenberg/pull/69203)).
+
 ## 29.8.0 (2025-04-11)
 
-### Documentation 
+### Documentation
 
 -   `Popover`: Expose Popover TypeScript types for subcomponents. ([#69619](https://github.com/WordPress/gutenberg/pull/69619))
 
