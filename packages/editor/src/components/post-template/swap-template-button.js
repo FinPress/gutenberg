@@ -18,7 +18,6 @@ import { searchTemplates } from '../../utils/search-templates';
 
 export default function SwapTemplateButton( { onClick } ) {
 	const [ showModal, setShowModal ] = useState( false );
-	const [ searchValue, setSearchValue ] = useState( '' );
 	const { postType, postId } = useEditedPostContext();
 	const availableTemplates = useAvailableTemplates( postType );
 	const { editEntityRecord } = useDispatch( coreStore );
@@ -51,18 +50,9 @@ export default function SwapTemplateButton( { onClick } ) {
 					isFullScreen
 				>
 					<div className="editor-post-template__swap-template-modal-content">
-						<SearchControl
-							__nextHasNoMarginBottom
-							onChange={ setSearchValue }
-							value={ searchValue }
-							label={ __( 'Search' ) }
-							placeholder={ __( 'Search' ) }
-							className="editor-post-template__swap-template-search"
-						/>
 						<TemplatesList
 							postType={ postType }
 							onSelect={ onTemplateSelect }
-							searchValue={ searchValue }
 						/>
 					</div>
 				</Modal>
@@ -71,7 +61,8 @@ export default function SwapTemplateButton( { onClick } ) {
 	);
 }
 
-function TemplatesList( { postType, onSelect, searchValue } ) {
+function TemplatesList( { postType, onSelect } ) {
+	const [ searchValue, setSearchValue ] = useState( '' );
 	const availableTemplates = useAvailableTemplates( postType );
 	const templatesAsPatterns = useMemo(
 		() =>
@@ -89,10 +80,20 @@ function TemplatesList( { postType, onSelect, searchValue } ) {
 	}, [ templatesAsPatterns, searchValue ] );
 
 	return (
-		<BlockPatternsList
-			label={ __( 'Templates' ) }
-			blockPatterns={ filteredBlockTemplates }
-			onClickPattern={ onSelect }
-		/>
+		<>
+			<SearchControl
+				__nextHasNoMarginBottom
+				onChange={ setSearchValue }
+				value={ searchValue }
+				label={ __( 'Search' ) }
+				placeholder={ __( 'Search' ) }
+				className="editor-post-template__swap-template-search"
+			/>
+			<BlockPatternsList
+				label={ __( 'Templates' ) }
+				blockPatterns={ filteredBlockTemplates }
+				onClickPattern={ onSelect }
+			/>
+		</>
 	);
 }
