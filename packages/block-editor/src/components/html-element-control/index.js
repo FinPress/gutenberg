@@ -2,12 +2,16 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { SelectControl, Notice } from '@wordpress/components';
+import {
+	SelectControl,
+	Notice,
+	__experimentalVStack as VStack,
+} from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
-import { useSelect } from '@wordpress/data';
 import { store as blockEditorStore } from '../../store';
 import { htmlElementMessages } from './messages';
 
@@ -77,7 +81,7 @@ export default function HTMLElementControl( {
 	} );
 
 	return (
-		<>
+		<VStack spacing={ 2 }>
 			<SelectControl
 				__nextHasNoMarginBottom
 				__next40pxDefaultSize
@@ -89,16 +93,12 @@ export default function HTMLElementControl( {
 			/>
 
 			{ tagName === 'main' && hasMainElementElsewhere && (
-				<Notice
-					status="warning"
-					isDismissible={ false }
-					className="html-element-select-control__notice"
-				>
+				<Notice status="warning" isDismissible={ false }>
 					{ __(
 						'Multiple <main> elements detected. This is not valid HTML and may cause accessibility issues. Please change this HTML element.'
 					) }
 				</Notice>
 			) }
-		</>
+		</VStack>
 	);
 }
