@@ -52,12 +52,13 @@ export function formatFontFamily( input ) {
 	// Matches strings that are not exclusively alphabetic characters or hyphens, and do not exactly follow the pattern generic(alphabetic characters or hyphens).
 	const regex = /^(?!generic\([ a-zA-Z\-]+\)$)(?!^[a-zA-Z\-]+$).+/;
 	const cssVariableRegex = /^var\(--[a-zA-Z0-9_-]+(,.+)?\)$/;
+
 	const output = input.trim();
 
 	const formatItem = ( item ) => {
 		item = item.trim();
-
 		if ( !cssVarRegex.test( item ) && item.match( regex ) ) {
+
 			// removes leading and trailing quotes.
 			item = item.replace( /^["']|["']$/g, '' );
 			return `"${ item }"`;
