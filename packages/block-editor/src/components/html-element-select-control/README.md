@@ -25,7 +25,6 @@ function MyBlockEdit( { attributes, setAttributes, clientId } ) {
                 tagName={ tagName }
                 onChange={ ( value ) => setAttributes( { tagName: value } ) }
                 clientId={ clientId }
-                checkForMainTag={ true } /* Optional, defaults to true */
                 options={ [
                     { label: 'Default (<div>)', value: 'div' },
                     { label: '<header>', value: 'header' },
@@ -67,10 +66,3 @@ The client ID of the current block. Used for validating element uniqueness acros
 -   **Default:** Standard HTML elements (div, header, main, section, article, aside, footer)
 
 An array of options for the select control. Each option should contain a `label` and `value` property.
-
-#### `checkForMainTag`
-
--   **Type:** `Boolean`
--   **Default:** `true`
-
-Whether to check for duplicate `<main>` tags. Set to `false` for blocks that don't offer the `<main>` tag as an option for performance optimization.

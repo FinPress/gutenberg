@@ -15,12 +15,11 @@ import { htmlElementMessages } from './messages';
  * Renders a SelectControl for choosing HTML elements with validation
  * to prevent duplicate <main> elements.
  *
- * @param {Object}   props                 Component props.
- * @param {string}   props.tagName         The current HTML tag name.
- * @param {Function} props.onChange        Function to call when the tag is changed.
- * @param {string}   props.clientId        The client ID of the current block.
- * @param {Array}    props.options         SelectControl options (optional).
- * @param {boolean}  props.checkForMainTag Whether to check for duplicate main tags (optional). Default: true.
+ * @param {Object}   props          Component props.
+ * @param {string}   props.tagName  The current HTML tag name.
+ * @param {Function} props.onChange Function to call when the tag is changed.
+ * @param {string}   props.clientId The client ID of the current block.
+ * @param {Array}    props.options  SelectControl options (optional).
  *
  * @return {Component} The HTML element select control with validation.
  */
@@ -37,8 +36,10 @@ export default function HTMLElementSelectControl( {
 		{ label: '<aside>', value: 'aside' },
 		{ label: '<footer>', value: 'footer' },
 	],
-	checkForMainTag = true,
 } ) {
+	const checkForMainTag =
+		!! clientId && options.some( ( option ) => option.value === 'main' );
+
 	const { hasMultipleMainElements, hasMainElementElsewhere } = useSelect(
 		( select ) => {
 			if ( ! checkForMainTag ) {
@@ -99,14 +100,6 @@ export default function HTMLElementSelectControl( {
 
 	return (
 		<>
-			{ tagName === 'main' && hasMultipleMainElements && (
-				<Notice status="warning" isDismissible={ false }>
-					{ __(
-						'Multiple <main> elements detected. This is not valid HTML and may cause accessibility issues. Please change this HTML element.'
-					) }
-				</Notice>
-			) }
-
 			<SelectControl
 				__nextHasNoMarginBottom
 				__next40pxDefaultSize
@@ -116,6 +109,18 @@ export default function HTMLElementSelectControl( {
 				onChange={ onChange }
 				help={ htmlElementMessages[ tagName ] }
 			/>
+
+			{ tagName === 'main' && hasMultipleMainElements && (
+				<Notice
+					status="warning"
+					isDismissible={ false }
+					className="html-element-select-control__notice"
+				>
+					{ __(
+						'Multiple <main> elements detected. This is not valid HTML and may cause accessibility issues. Please change this HTML element.'
+					) }
+				</Notice>
+			) }
 		</>
 	);
 }

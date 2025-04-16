@@ -28,7 +28,6 @@ export default function CommentsInspectorControls( {
 						setAttributes( { tagName: value } )
 					}
 					clientId={ clientId }
-					checkForMainTag={ false }
 					options={ [
 						{ label: __( 'Default (<div>)' ), value: 'div' },
 						{ label: '<section>', value: 'section' },
