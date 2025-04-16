@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 /**
@@ -10,6 +11,8 @@ import Button from '../../button';
 import { boxSizingReset, COLORS, CONFIG } from '../../utils';
 import { HStack } from '../../h-stack';
 import { Heading } from '../../heading';
+import { Input } from '../../input-control/styles/input-control-styles';
+import NumberControl from '../../number-control';
 import { space } from '../../utils/space';
 
 export const Wrapper = styled.div`
@@ -137,4 +140,40 @@ export const DayButton = styled( Button, {
 			transform: translate(-50%, 9px);
 		}
 		` }
+`;
+
+const baseInput = css`
+	&&& ${ Input } {
+		padding-left: ${ space( 2 ) };
+		padding-right: ${ space( 2 ) };
+		text-align: center;
+	}
+`;
+
+// Ideally we wouldn't need a wrapper, but can't otherwise target the
+// <BaseControl> in <SelectControl>
+export const MonthSelectWrapper = styled.div`
+	flex-grow: 1;
+`;
+
+export const DayInput = styled( NumberControl )`
+	${ baseInput }
+
+	width: ${ space( 9 ) };
+`;
+
+export const YearInput = styled( NumberControl )`
+	${ baseInput }
+
+	width: ${ space( 14 ) };
+`;
+
+export const Fieldset = styled.fieldset`
+	border: 0;
+	margin: 0 0 ${ space( 2 * 2 ) } 0;
+	padding: 0;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
 `;
