@@ -35,6 +35,15 @@ Add a user’s avatar. ([Source](https://github.com/WordPress/gutenberg/tree/tru
 -	**Supports:** align, color (~~background~~, ~~text~~), filter (duotone), interactivity (clientNavigation), spacing (margin, padding), ~~alignWide~~, ~~html~~
 -	**Attributes:** isLink, linkTarget, size, userId
 
+## Back to Top
+
+Add a smooth scrolling back to top button to your content. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/back-to-top))
+
+-	**Name:** core/back-to-top
+-	**Category:** design
+-	**Supports:** border (color, radius, style, width), color (background, gradients, text), spacing (margin, padding)
+-	**Attributes:** buttonPosition, content, hasIcon, iconName, iconPosition, scrollDuration, scrollOffset, showText, smoothScroll
+
 ## Pattern
 
 Reuse this design across your site. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/block))

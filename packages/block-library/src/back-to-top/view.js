@@ -4,7 +4,13 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	);
 
 	backToTopButtons.forEach( ( button ) => {
+		// Get settings from data attributes
 		const scrollOffset = parseInt( button.dataset.scrollOffset || 300, 10 );
+		const scrollDuration = parseInt(
+			button.dataset.scrollDuration || 500,
+			10
+		);
+		const smoothScroll = button.dataset.smoothScroll !== 'false';
 
 		// Initial state
 		button.style.opacity = '0';
@@ -14,7 +20,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		button.style.position = 'fixed';
 		button.style.zIndex = '9999';
 
-		// Handle scroll
+		// Handle scroll visibility
 		function handleScroll() {
 			if ( window.pageYOffset > scrollOffset ) {
 				button.style.visibility = 'visible';
@@ -23,6 +29,31 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				button.style.opacity = '0';
 				button.style.visibility = 'hidden';
 			}
+		}
+
+		// Smooth scroll with duration support
+		function smoothScrollToTop( duration ) {
+			const startPosition = window.pageYOffset;
+			const startTime = window.performance.now();
+
+			function scrollStep( currentTime ) {
+				const timeElapsed = currentTime - startTime;
+				const progress = Math.min( timeElapsed / duration, 1 );
+
+				// Easing function
+				const easeInOutCubic =
+					progress < 0.5
+						? 4 * progress * progress * progress
+						: 1 - Math.pow( -2 * progress + 2, 3 ) / 2;
+
+				window.scrollTo( 0, startPosition * ( 1 - easeInOutCubic ) );
+
+				if ( timeElapsed < duration ) {
+					window.requestAnimationFrame( scrollStep );
+				}
+			}
+
+			window.requestAnimationFrame( scrollStep );
 		}
 
 		// Throttle scroll event
@@ -40,10 +71,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		// Handle click
 		button.addEventListener( 'click', function ( e ) {
 			e.preventDefault();
-			window.scrollTo( {
-				top: 0,
-				behavior: 'smooth',
-			} );
+			if ( smoothScroll ) {
+				smoothScrollToTop( scrollDuration );
+			} else {
+				window.scrollTo( { top: 0 } );
+			}
 		} );
 
 		// Initial check
