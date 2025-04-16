@@ -12,31 +12,6 @@ import { store as blockEditorStore } from '../../store';
 import { htmlElementMessages } from './messages';
 
 /**
- * Checks if a block has a specific HTML element tag.
- *
- * @param {Object} block Block object to check.
- * @param {string} tag   HTML tag to look for.
- * @return {boolean}     Whether the block has the specified HTML element.
- */
-const blockHasHtmlTag = ( block, tag ) => {
-	if ( ! block ) {
-		return false;
-	}
-
-	if ( block.attributes && block.attributes.tagName === tag ) {
-		return true;
-	}
-
-	if ( block.innerBlocks && block.innerBlocks.length ) {
-		return block.innerBlocks.some( ( innerBlock ) =>
-			blockHasHtmlTag( innerBlock, tag )
-		);
-	}
-
-	return false;
-};
-
-/**
  * Renders a SelectControl for choosing HTML elements with validation
  * to prevent duplicate <main> elements.
  *
@@ -73,16 +48,24 @@ export default function HTMLElementSelectControl( {
 				};
 			}
 
-			const { getBlocks, getBlock } = select( blockEditorStore );
-			const allBlocks = getBlocks();
+			const {
+				getClientIdsWithDescendants,
+				getBlockAttributes,
+				getBlock,
+			} = select( blockEditorStore );
+
+			const allBlockIds = getClientIdsWithDescendants();
 			const currentBlock = getBlock( clientId );
 			let mainElementsCount = 0;
 
-			const blocksWithMainTag = allBlocks.filter(
-				( block ) =>
-					block.clientId !== clientId &&
-					blockHasHtmlTag( block, 'main' )
-			);
+			const blocksWithMainTag = allBlockIds.filter( ( id ) => {
+				if ( id === clientId ) {
+					return false;
+				}
+
+				const blockAttrs = getBlockAttributes( id );
+				return blockAttrs && blockAttrs.tagName === 'main';
+			} );
 
 			mainElementsCount += blocksWithMainTag.length;
 
