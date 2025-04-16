@@ -13,7 +13,7 @@ import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 import { TemplatePartImportControls } from './import-controls';
 import { unlock } from '../../lock-unlock';
 
-const { HTMLElementSelectControl } = unlock( blockEditorPrivateApis );
+const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
 export function TemplatePartAdvancedControls( {
 	tagName,
@@ -77,7 +77,7 @@ export function TemplatePartAdvancedControls( {
 					/>
 				</>
 			) }
-			<HTMLElementSelectControl
+			<HTMLElementControl
 				tagName={ tagName || '' }
 				onChange={ ( value ) => setAttributes( { tagName: value } ) }
 				clientId={ clientId }

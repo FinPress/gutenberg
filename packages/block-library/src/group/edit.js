@@ -20,7 +20,7 @@ import { View } from '@wordpress/primitives';
 import GroupPlaceHolder, { useShouldShowPlaceHolder } from './placeholder';
 import { unlock } from '../lock-unlock';
 
-const { HTMLElementSelectControl } = unlock( blockEditorPrivateApis );
+const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
 /**
  * Render inspector controls for the Group block.
@@ -35,7 +35,7 @@ const { HTMLElementSelectControl } = unlock( blockEditorPrivateApis );
 function GroupEditControls( { tagName, onSelectTagName, clientId } ) {
 	return (
 		<InspectorControls group="advanced">
-			<HTMLElementSelectControl
+			<HTMLElementControl
 				tagName={ tagName }
 				onChange={ onSelectTagName }
 				clientId={ clientId }

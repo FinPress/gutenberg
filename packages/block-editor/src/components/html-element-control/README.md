@@ -1,8 +1,8 @@
-# HTML Element Select Control
+# HTML Element Control
 
 A specialized component for selecting HTML elements with validation to prevent duplicate `<main>` elements.
 
-The `HTMLElementSelectControl` is an extension of the WordPress `SelectControl` component that adds validation to prevent duplicate `<main>` HTML elements. This component is designed to help ensure valid HTML structure and improve accessibility in content created with the WordPress block editor.
+The `HTMLElementControl` provides a way to select HTML elements with validation to prevent duplicate `<main>` elements. This component is designed to help ensure valid HTML structure and improve accessibility in content created with the WordPress block editor.
 
 > **Note:** This component is available via private APIs using the unlock pattern. It is not directly exposed as a public API.
 
@@ -14,14 +14,14 @@ The `HTMLElementSelectControl` is an extension of the WordPress `SelectControl` 
 import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 import { unlock } from './lock-unlock';
 
-const { HTMLElementSelectControl } = unlock( blockEditorPrivateApis );
+const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
 function MyBlockEdit( { attributes, setAttributes, clientId } ) {
     const { tagName } = attributes;
     
     return (
         <InspectorControls group="advanced">
-            <HTMLElementSelectControl
+            <HTMLElementControl
                 tagName={ tagName }
                 onChange={ ( value ) => setAttributes( { tagName: value } ) }
                 clientId={ clientId }

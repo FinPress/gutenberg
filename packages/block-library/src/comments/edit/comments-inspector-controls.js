@@ -12,7 +12,7 @@ import {
  */
 import { unlock } from '../../lock-unlock';
 
-const { HTMLElementSelectControl } = unlock( blockEditorPrivateApis );
+const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
 export default function CommentsInspectorControls( {
 	attributes: { tagName },
@@ -22,7 +22,7 @@ export default function CommentsInspectorControls( {
 	return (
 		<InspectorControls>
 			<InspectorControls group="advanced">
-				<HTMLElementSelectControl
+				<HTMLElementControl
 					tagName={ tagName }
 					onChange={ ( value ) =>
 						setAttributes( { tagName: value } )

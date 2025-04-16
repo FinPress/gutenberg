@@ -25,7 +25,7 @@ import EnhancedPaginationModal from './enhanced-pagination-modal';
 import { getQueryContextFromTemplate } from '../utils';
 import QueryToolbar from './query-toolbar';
 
-const { HTMLElementSelectControl } = unlock( blockEditorPrivateApis );
+const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
 const DEFAULTS_POSTS_PER_PAGE = 3;
 
@@ -149,7 +149,7 @@ export default function QueryContent( {
 				<QueryToolbar attributes={ attributes } clientId={ clientId } />
 			</BlockControls>
 			<InspectorControls group="advanced">
-				<HTMLElementSelectControl
+				<HTMLElementControl
 					tagName={ TagName }
 					onChange={ ( value ) =>
 						setAttributes( { tagName: value } )

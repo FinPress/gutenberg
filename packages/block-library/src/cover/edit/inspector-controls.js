@@ -36,7 +36,7 @@ import { unlock } from '../../lock-unlock';
 import { useToolsPanelDropdownMenuProps } from '../../utils/hooks';
 import { DEFAULT_MEDIA_SIZE_SLUG } from '../constants';
 
-const { cleanEmptyObject, ResolutionTool, HTMLElementSelectControl } = unlock(
+const { cleanEmptyObject, ResolutionTool, HTMLElementControl } = unlock(
 	blockEditorPrivateApis
 );
 
@@ -421,7 +421,7 @@ export default function CoverInspectorControls( {
 				</ToolsPanelItem>
 			</InspectorControls>
 			<InspectorControls group="advanced">
-				<HTMLElementSelectControl
+				<HTMLElementControl
 					tagName={ tagName }
 					onChange={ ( value ) =>
 						setAttributes( { tagName: value } )

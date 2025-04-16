@@ -22,7 +22,7 @@ import { __ } from '@wordpress/i18n';
 import useDeprecatedOpacity from './use-deprecated-opacity';
 import { unlock } from '../lock-unlock';
 
-const { HTMLElementSelectControl } = unlock( blockEditorPrivateApis );
+const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
 export default function SeparatorEdit( {
 	attributes,
@@ -59,7 +59,7 @@ export default function SeparatorEdit( {
 	return (
 		<>
 			<InspectorControls group="advanced">
-				<HTMLElementSelectControl
+				<HTMLElementControl
 					tagName={ tagName }
 					onChange={ ( value ) =>
 						setAttributes( { tagName: value } )

@@ -23,7 +23,7 @@ import { htmlElementMessages } from './messages';
  *
  * @return {Component} The HTML element select control with validation.
  */
-export default function HTMLElementSelectControl( {
+export default function HTMLElementControl( {
 	tagName,
 	onChange,
 	clientId,

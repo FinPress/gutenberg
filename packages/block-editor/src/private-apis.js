@@ -50,7 +50,7 @@ import useBlockDisplayTitle from './components/block-title/use-block-display-tit
 import TabbedSidebar from './components/tabbed-sidebar';
 import CommentIconSlotFill from './components/collab/block-comment-icon-slot';
 import CommentIconToolbarSlotFill from './components/collab/block-comment-icon-toolbar-slot';
-import HTMLElementSelectControl from './components/html-element-select-control';
+import HTMLElementControl from './components/html-element-control';
 /**
  * Private @wordpress/block-editor APIs.
  */
@@ -81,7 +81,7 @@ lock( privateApis, {
 	TextAlignmentControl,
 	usesContextKey,
 	useFlashEditableBlocks,
-	HTMLElementSelectControl,
+	HTMLElementControl,
 	useZoomOut,
 	globalStylesDataKey,
 	globalStylesLinksDataKey,
