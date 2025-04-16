@@ -4,7 +4,13 @@
  * @group script-dependencies
  */
 class Test_Script_Dependencies extends WP_UnitTestCase {
-	public $bundled_scripts = array( 'wp-upload-media' );
+	/**
+	 * The `wp-fileds` was accidintally bundled in WP 6.7, but removed later.
+	 * It's is listed here to avoid breaking previous WP version tests.
+	 *
+	 * @var array
+	 */
+	public $bundled_scripts = array( 'wp-upload-media', 'wp-fields' );
 
 	/**
 	 * Tests for accidental `wp-polyfill` script dependents.
@@ -38,7 +44,6 @@ class Test_Script_Dependencies extends WP_UnitTestCase {
 			'wp-edit-site',
 			'wp-core-data',
 			'wp-editor',
-			'wp-fields',
 			'wp-router',
 			'wp-url',
 			'wp-widgets',
