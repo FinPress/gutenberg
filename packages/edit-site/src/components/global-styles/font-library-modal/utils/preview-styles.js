@@ -45,15 +45,19 @@ function extractFontWeights( fontFaces ) {
  * formatFontFamily( "'Open Sans', generic(kai), sans-serif" ) => '"Open Sans", sans-serif'
  * formatFontFamily( "DotGothic16, Slabo 27px, serif" ) => '"DotGothic16","Slabo 27px",serif'
  * formatFontFamily( "Mine's, Moe's Typography" ) => `"mine's","Moe's Typography"`
+ * formatFontFamily("var(--my-font), sans-serif") => 'var(--my-font), sans-serif'
+ * formatFontFamily("var(--heading-font, 'Open Sans'), serif") => 'var(--heading-font, \'Open Sans\'), serif'
  */
 export function formatFontFamily( input ) {
 	// Matches strings that are not exclusively alphabetic characters or hyphens, and do not exactly follow the pattern generic(alphabetic characters or hyphens).
 	const regex = /^(?!generic\([ a-zA-Z\-]+\)$)(?!^[a-zA-Z\-]+$).+/;
+	const cssVariableRegex = /^var\(--[a-zA-Z0-9_-]+(,.+)?\)$/;
 	const output = input.trim();
 
 	const formatItem = ( item ) => {
 		item = item.trim();
-		if ( item.match( regex ) ) {
+
+		if ( !cssVarRegex.test( item ) && item.match( regex ) ) {
 			// removes leading and trailing quotes.
 			item = item.replace( /^["']|["']$/g, '' );
 			return `"${ item }"`;
