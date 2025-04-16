@@ -11,6 +11,7 @@ import {
 } from 'test/helpers';
 import { Platform } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
+import { WebView } from 'react-native-webview';
 
 /**
  * WordPress dependencies
@@ -30,7 +31,6 @@ import { requestPreview } from '@wordpress/react-native-bridge';
  */
 import * as paragraph from '../../paragraph';
 import * as embed from '..';
-import { WebView } from 'react-native-webview';
 
 // Override modal mock to prevent unmounting it when is not visible.
 // This is required to be able to trigger onClose and onDismiss events when

@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 /**
  * Internal dependencies
  */
 import Disabled from '../';
-import userEvent from '@testing-library/user-event';
 
 describe( 'Disabled', () => {
 	const Form = () => (

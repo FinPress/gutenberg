@@ -21,6 +21,7 @@ import {
 } from '@wordpress/components';
 import { useCallback, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { reset as resetIcon } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -30,7 +31,6 @@ import { useColorsPerOrigin, useGradientsPerOrigin } from './hooks';
 import { getValueFromVariable, useToolsPanelDropdownMenuProps } from './utils';
 import { setImmutably } from '../../utils/object';
 import { unlock } from '../../lock-unlock';
-import { reset as resetIcon } from '@wordpress/icons';
 
 export function useHasColorPanel( settings ) {
 	const hasTextPanel = useHasTextPanel( settings );

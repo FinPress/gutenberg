@@ -152,6 +152,83 @@ module.exports = {
 			return { value };
 		}
 
+		/**
+		 * Checks if a group of imports needs reordering
+		 * @param {Array<[Node, string]>} candidates
+		 * @return {boolean} Whether the group needs reordering
+		 */
+		function checkNeedsReordering( candidates ) {
+			for ( const [ importNode, source ] of candidates ) {
+				if ( ! importNode.range ) {
+					continue;
+				}
+
+				const locality = getPackageLocality( source );
+				const importStart = importNode.range[ 0 ];
+
+				const isNotGrouped = candidates.some(
+					( [ otherNode, otherSource ] ) => {
+						if ( importNode === otherNode || ! otherNode.range ) {
+							return false;
+						}
+
+						const otherLocality = getPackageLocality( otherSource );
+						const otherStart = otherNode.range[ 0 ];
+
+						return candidates.some(
+							( [ middleNode, middleSource ] ) => {
+								if (
+									! middleNode.range ||
+									middleNode === importNode ||
+									middleNode === otherNode
+								) {
+									return false;
+								}
+
+								const middleLocality =
+									getPackageLocality( middleSource );
+								const middleStart = middleNode.range[ 0 ];
+
+								return (
+									locality === otherLocality &&
+									middleLocality !== locality &&
+									middleStart > importStart &&
+									middleStart < otherStart
+								);
+							}
+						);
+					}
+				);
+
+				if ( isNotGrouped ) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * Groups imports by their locality type
+		 * @param {Array<[Node, string]>} candidates
+		 * @return {Record<WPPackageLocality, Array<[Node, string]>>} Grouped imports
+		 */
+		function groupImportsByLocality( candidates ) {
+			/** @type {Record<WPPackageLocality, Array<[Node, string]>>} */
+			const groups = {
+				WordPress: [],
+				External: [],
+				Internal: [],
+			};
+
+			for ( const [ importNode, source ] of candidates ) {
+				const locality = getPackageLocality( source );
+				groups[ locality ].push( [ importNode, source ] );
+			}
+
+			return groups;
+		}
+
 		return {
 			/**
 			 * @param {import('estree').Program} node Program node.
@@ -251,6 +328,84 @@ module.exports = {
 							}
 
 							return fixer.insertTextBefore( child, text + '\n' );
+						},
+					} );
+				}
+
+				const needsReordering = checkNeedsReordering( candidates );
+
+				if ( needsReordering && candidates.length > 0 ) {
+					const firstImport = candidates[ 0 ][ 0 ];
+					const lastImport = candidates[ candidates.length - 1 ][ 0 ];
+					if ( ! firstImport.range || ! lastImport.range ) {
+						return;
+					}
+
+					let startRange = firstImport.range[ 0 ];
+					const endRange = lastImport.range[ 1 ];
+
+					context.report( {
+						node: firstImport,
+						message: 'Dependencies should be properly grouped',
+						fix( fixer ) {
+							let newText = '';
+							/** @type {Array<WPPackageLocality>} */
+							const localities = [
+								'External',
+								'WordPress',
+								'Internal',
+							];
+
+							// Group imports by locality.
+							const groups = groupImportsByLocality( candidates );
+
+							// Keep track of added comments to avoid duplication
+							const addedComments = new Set();
+
+							for ( const locality of localities ) {
+								const imports = groups[ locality ];
+
+								if ( imports.length === 0 ) {
+									continue;
+								}
+
+								// Adds a comment for the locality if not already added.
+								if ( ! addedComments.has( locality ) ) {
+									if ( newText ) {
+										newText += '\n';
+									}
+									newText += `/**\n * ${ locality } dependencies\n */\n`;
+									addedComments.add( locality );
+								}
+
+								for ( const [ importNode ] of imports ) {
+									newText +=
+										context
+											.getSourceCode()
+											.getText( importNode ) + '\n';
+								}
+							}
+
+							// Added this to handle the case where there are comments before the first import.
+							// Helps in avoiding duplication of comments.
+							comments.forEach( ( comment ) => {
+								if (
+									comment.value.includes( 'dependencies' ) &&
+									comment.range &&
+									firstImport.range &&
+									comment.range[ 1 ] <= firstImport.range[ 0 ]
+								) {
+									startRange = Math.min(
+										startRange,
+										comment.range[ 0 ]
+									);
+								}
+							} );
+
+							return fixer.replaceTextRange(
+								[ startRange, endRange ],
+								newText.trim()
+							);
 						},
 					} );
 				}

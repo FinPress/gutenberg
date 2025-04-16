@@ -2,6 +2,11 @@
  * WordPress dependencies
  */
 import * as interfaceApis from '@wordpress/interface';
+import {
+	CreateTemplatePartModal,
+	patternTitleField,
+	templateTitleField,
+} from '@wordpress/fields';
 
 /**
  * Internal dependencies
@@ -23,11 +28,6 @@ import {
 	mergeBaseAndUserConfigs,
 	GlobalStylesProvider,
 } from './components/global-styles-provider';
-import {
-	CreateTemplatePartModal,
-	patternTitleField,
-	templateTitleField,
-} from '@wordpress/fields';
 import { registerCoreBlockBindingsSources } from './bindings/api';
 import { getTemplateInfo } from './utils/get-template-info';
 

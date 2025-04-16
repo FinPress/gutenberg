@@ -7,13 +7,13 @@ import { __experimentalItemGroup as ItemGroup } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { addQueryArgs } from '@wordpress/url';
+import { layout } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import SidebarNavigationItem from '../sidebar-navigation-item';
 import { useAddedBy } from '../page-templates/hooks';
-import { layout } from '@wordpress/icons';
 import { TEMPLATE_POST_TYPE } from '../../utils/constants';
 import { unlock } from '../../lock-unlock';
 

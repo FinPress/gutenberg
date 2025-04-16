@@ -10,12 +10,12 @@ import {
 	FlexItem,
 	Icon,
 } from '@wordpress/components';
+import { chevronLeft, chevronRight } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import FontDemo from './font-demo';
-import { chevronLeft, chevronRight } from '@wordpress/icons';
 
 function FontCard( { font, onClick, variantsText, navigatorPath } ) {
 	const variantsCount = font.fontFace?.length || 1;

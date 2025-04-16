@@ -2,9 +2,13 @@
 
 ## Unreleased
 
+### Internal
+
+-   `Components`: Fix imported depedencies after correcting ESLint rule related to grouping imports([#69361](https://github.com/WordPress/gutenberg/pull/69361)).
+
 ## 29.8.0 (2025-04-11)
 
-### Documentation 
+### Documentation
 
 -   `Popover`: Expose Popover TypeScript types for subcomponents. ([#69619](https://github.com/WordPress/gutenberg/pull/69619))
 

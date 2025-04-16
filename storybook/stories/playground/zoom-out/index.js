@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import contentCss from '!!raw-loader!../../../../packages/block-editor/build-style/content.css';
+
+/**
  * WordPress dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
@@ -17,8 +22,6 @@ import { parse } from '@wordpress/blocks';
  * Internal dependencies
  */
 import { editorStyles } from '../editor-styles';
-// eslint-disable-next-line @wordpress/dependency-group
-import contentCss from '!!raw-loader!../../../../packages/block-editor/build-style/content.css';
 import { pattern } from './pattern';
 
 // Temporary hack to access private APIs before stabilizing zoom level.

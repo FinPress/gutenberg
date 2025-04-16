@@ -8,6 +8,7 @@ import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
 import { addQueryArgs } from '@wordpress/url';
+import { useEvent } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -24,7 +25,6 @@ import {
 import { unlock } from '../../lock-unlock';
 import { useEditPostAction } from '../dataviews-actions';
 import { authorField, descriptionField, previewField } from './fields';
-import { useEvent } from '@wordpress/compose';
 
 const { usePostActions, templateTitleField } = unlock( editorPrivateApis );
 const { useHistory, useLocation } = unlock( routerPrivateApis );

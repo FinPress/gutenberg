@@ -2,6 +2,7 @@
  * External dependencies
  */
 import clsx from 'clsx';
+import type { KeyboardEventHandler } from 'react';
 
 /**
  * WordPress dependencies
@@ -33,7 +34,6 @@ import type {
 	FocalPoint as FocalPointType,
 	FocalPointPickerProps,
 } from './types';
-import type { KeyboardEventHandler } from 'react';
 
 const GRID_OVERLAY_TIMEOUT = 600;
 

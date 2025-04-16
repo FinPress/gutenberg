@@ -18,6 +18,7 @@ import {
 	chevronRight,
 	moreVertical,
 } from '@wordpress/icons';
+import { useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -27,7 +28,6 @@ import Subtitle from './subtitle';
 import { NavigationButtonAsItem } from './navigation-button';
 import ScreenHeader from './header';
 import { getNewIndexFromPresets } from './utils';
-import { useState } from '@wordpress/element';
 import ConfirmResetShadowDialog from './confirm-reset-shadow-dialog';
 
 const { useGlobalSetting } = unlock( blockEditorPrivateApis );

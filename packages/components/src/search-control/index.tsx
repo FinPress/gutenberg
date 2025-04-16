@@ -2,6 +2,7 @@
  * External dependencies
  */
 import clsx from 'clsx';
+import type { ForwardedRef } from 'react';
 
 /**
  * WordPress dependencies
@@ -18,7 +19,6 @@ import deprecated from '@wordpress/deprecated';
 import Button from '../button';
 import type { WordPressComponentProps } from '../context/wordpress-component';
 import type { SearchControlProps, SuffixItemProps } from './types';
-import type { ForwardedRef } from 'react';
 import { ContextSystemProvider } from '../context';
 import { StyledInputControl, SuffixItemWrapper } from './styles';
 

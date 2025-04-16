@@ -4,12 +4,12 @@
 import { readFile } from 'fs/promises';
 import { basename } from 'path';
 import { getType } from 'mime';
+import type { Locator } from '@playwright/test';
 
 /**
  * Internal dependencies
  */
 import type { PageUtils } from './index';
-import type { Locator } from '@playwright/test';
 
 type FileObject = {
 	name: string;

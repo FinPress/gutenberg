@@ -4,6 +4,7 @@
 import { createSelector, createRegistrySelector } from '@wordpress/data';
 import { addQueryArgs } from '@wordpress/url';
 import deprecated from '@wordpress/deprecated';
+import type { UndoManager } from '@wordpress/undo-manager';
 
 /**
  * Internal dependencies
@@ -23,7 +24,6 @@ import {
 	getUserPermissionCacheKey,
 } from './utils';
 import type * as ET from './entity-types';
-import type { UndoManager } from '@wordpress/undo-manager';
 
 // This is an incomplete, high-level approximation of the State type.
 // It makes the selectors slightly more safe, but is intended to evolve

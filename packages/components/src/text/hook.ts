@@ -3,6 +3,7 @@
  */
 import type { SerializedStyles } from '@emotion/react';
 import { css } from '@emotion/react';
+import type React from 'react';
 
 /**
  * WordPress dependencies
@@ -23,7 +24,6 @@ import { CONFIG, COLORS } from '../utils';
 import { getLineHeight } from './get-line-height';
 import { useCx } from '../utils/hooks/use-cx';
 import type { Props } from './types';
-import type React from 'react';
 
 /**
  * @param {import('../context').WordPressComponentProps<import('./types').Props, 'span'>} props

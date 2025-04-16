@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { useState } from '@wordpress/element';
+import { observableMap } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -15,7 +16,6 @@ import type {
 	SlotFillProviderProps,
 	SlotKey,
 } from './types';
-import { observableMap } from '@wordpress/compose';
 
 function createSlotRegistry(): BaseSlotFillContext {
 	const slots = observableMap< SlotKey, BaseSlotInstance >();

@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 /**
  * WordPress dependencies
@@ -9,7 +10,6 @@ import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { __ } from '@wordpress/i18n';
 import { useState, useContext } from '@wordpress/element';
 import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { useRoute, useNavigation } from '@react-navigation/native';
 
 /**
  * Internal dependencies
@@ -22,7 +22,6 @@ import { colorsUtils } from './utils';
 import PanelBody from '../../panel/body';
 import { BottomSheetContext } from '../bottom-sheet/bottom-sheet-context';
 import ColorControl from '../../color-control';
-
 import styles from './style.scss';
 
 const HIT_SLOP = { top: 8, bottom: 8, left: 8, right: 8 };
