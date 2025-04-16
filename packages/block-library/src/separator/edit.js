@@ -62,6 +62,7 @@ export default function SeparatorEdit( {
 						setAttributes( { tagName: value } )
 					}
 					currentClientId={ clientId }
+					checkForMainTag={ false }
 					options={ [
 						{ label: __( 'Default (<hr>)' ), value: 'hr' },
 						{ label: '<div>', value: 'div' },

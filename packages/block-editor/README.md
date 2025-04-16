@@ -620,6 +620,7 @@ _Parameters_
 -   _props.onChange_ `Function`: Function to call when the tag is changed.
 -   _props.currentClientId_ `string`: The client ID of the current block.
 -   _props.options_ `Array`: SelectControl options (optional).
+-   _props.checkForMainTag_ `boolean`: Whether to check for duplicate main tags (optional). Default: true.
 
 _Returns_
 

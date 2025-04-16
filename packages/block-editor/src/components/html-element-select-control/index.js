@@ -45,6 +45,7 @@ const blockHasHtmlTag = ( block, tag ) => {
  * @param {Function} props.onChange        Function to call when the tag is changed.
  * @param {string}   props.currentClientId The client ID of the current block.
  * @param {Array}    props.options         SelectControl options (optional).
+ * @param {boolean}  props.checkForMainTag Whether to check for duplicate main tags (optional). Default: true.
  *
  * @return {Component} The HTML element select control with validation.
  */
@@ -61,9 +62,17 @@ export default function HTMLElementSelectControl( {
 		{ label: '<aside>', value: 'aside' },
 		{ label: '<footer>', value: 'footer' },
 	],
+	checkForMainTag = true,
 } ) {
 	const { hasMultipleMainElements, hasMainElementElsewhere } = useSelect(
 		( select ) => {
+			if ( ! checkForMainTag ) {
+				return {
+					hasMultipleMainElements: false,
+					hasMainElementElsewhere: false,
+				};
+			}
+
 			const { getBlocks, getBlock } = select( blockEditorStore );
 			const allBlocks = getBlocks();
 			const currentBlock = getBlock( currentClientId );
@@ -92,7 +101,7 @@ export default function HTMLElementSelectControl( {
 				hasMainElementElsewhere: hasMainElsewhere,
 			};
 		},
-		[ currentClientId, tagName ]
+		[ currentClientId, tagName, checkForMainTag ]
 	);
 
 	// Create a modified options array that disables the main option if needed.
