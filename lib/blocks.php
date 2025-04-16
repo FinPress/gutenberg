@@ -43,7 +43,6 @@ function gutenberg_reregister_core_block_types() {
 				'verse',
 				'video',
 				'embed',
-				// 'back-to-top',
 			),
 			'block_names'   => array(
 				'back-to-top.php' 				   => 'core/back-to-top',
