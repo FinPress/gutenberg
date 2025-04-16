@@ -12,7 +12,6 @@ import {
 	Dashicon,
 } from '@wordpress/components';
 
-// Icon options for the button
 const ICON_OPTIONS = [
 	{ label: __( 'Arrow Up Alt' ), value: 'arrow-up-alt' },
 	{ label: __( 'Arrow Up Alt 2' ), value: 'arrow-up-alt2' },
@@ -30,7 +29,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		iconName,
 		iconPosition,
 		showText,
-	} = attributes; // Remove borderRadius and padding from destructuring
+	} = attributes;
 
 	// Calculate position based on buttonPosition
 	const getPositionStyles = () => {

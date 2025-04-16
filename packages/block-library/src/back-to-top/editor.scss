@@ -4,21 +4,21 @@
 	align-items: center;
 	justify-content: center;
 	min-width: 40px;
-	bottom: 20px; // Add bottom positioning
+	bottom: 20px;
 
 	&.align-right {
-		right: 20px; // Increase right position to match front-end
-		left: 90%; // Ensure left is not affecting position
+		right: 20px;
+		left: 90%;
 	}
 
 	&.align-left {
 		left: 20px;
-		right: 90%; // Ensure right is not affecting position
+		right: 90%;
 	}
 
 	&.align-center {
-		left: 50%; // Center properly
-		transform: translateX(-50%); // Fix center transform
+		left: 50%;
+		transform: translateX(-50%);
 	}
 
 	// Editor selection styles
