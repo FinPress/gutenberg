@@ -11,12 +11,12 @@ import { store as coreStore } from '@wordpress/core-data';
  * Internal dependencies
  */
 import { store as editorStore } from '../../store';
-import { AUTHORS_QUERY, BASE_QUERY } from './constants';
+import { AUTHORS_QUERY } from './constants';
 
 export function useAuthorsQuery( search ) {
 	const { authorId, authors, postAuthor, isLoading } = useSelect(
 		( select ) => {
-			const { getUser, getUsers, isResolving } = select( coreStore );
+			const { getUsers, isResolving } = select( coreStore );
 			const { getEditedPostAttribute } = select( editorStore );
 			const _authorId = getEditedPostAttribute( 'author' );
 			const query = { ...AUTHORS_QUERY };
@@ -29,7 +29,10 @@ export function useAuthorsQuery( search ) {
 			return {
 				authorId: _authorId,
 				authors: getUsers( query ),
-				postAuthor: getUser( _authorId, BASE_QUERY ),
+				postAuthor: getUsers( {
+					include: [ _authorId ],
+					...AUTHORS_QUERY,
+				} )?.[ 0 ],
 				isLoading: isResolving( 'getUsers', [ query ] ),
 			};
 		},
