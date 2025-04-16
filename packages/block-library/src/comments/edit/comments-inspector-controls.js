@@ -20,7 +20,7 @@ export default function CommentsInspectorControls( {
 					onChange={ ( value ) =>
 						setAttributes( { tagName: value } )
 					}
-					currentClientId={ clientId }
+					clientId={ clientId }
 					checkForMainTag={ false }
 					options={ [
 						{ label: __( 'Default (<div>)' ), value: 'div' },

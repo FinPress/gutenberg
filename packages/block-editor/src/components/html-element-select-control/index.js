@@ -43,7 +43,7 @@ const blockHasHtmlTag = ( block, tag ) => {
  * @param {Object}   props                 Component props.
  * @param {string}   props.tagName         The current HTML tag name.
  * @param {Function} props.onChange        Function to call when the tag is changed.
- * @param {string}   props.currentClientId The client ID of the current block.
+ * @param {string}   props.clientId        The client ID of the current block.
  * @param {Array}    props.options         SelectControl options (optional).
  * @param {boolean}  props.checkForMainTag Whether to check for duplicate main tags (optional). Default: true.
  *
@@ -52,7 +52,7 @@ const blockHasHtmlTag = ( block, tag ) => {
 export default function HTMLElementSelectControl( {
 	tagName,
 	onChange,
-	currentClientId,
+	clientId,
 	options = [
 		{ label: __( 'Default (<div>)' ), value: 'div' },
 		{ label: '<header>', value: 'header' },
@@ -75,7 +75,7 @@ export default function HTMLElementSelectControl( {
 
 			const { getBlocks, getBlock } = select( blockEditorStore );
 			const allBlocks = getBlocks();
-			const currentBlock = getBlock( currentClientId );
+			const currentBlock = getBlock( clientId );
 
 			let mainElementCount = 0;
 
@@ -85,7 +85,7 @@ export default function HTMLElementSelectControl( {
 			}
 
 			const hasMainElsewhere = allBlocks.some( ( block ) => {
-				if ( block.clientId === currentClientId ) {
+				if ( block.clientId === clientId ) {
 					return false;
 				}
 
@@ -101,7 +101,7 @@ export default function HTMLElementSelectControl( {
 				hasMainElementElsewhere: hasMainElsewhere,
 			};
 		},
-		[ currentClientId, tagName, checkForMainTag ]
+		[ clientId, tagName, checkForMainTag ]
 	);
 
 	// Create a modified options array that disables the main option if needed.

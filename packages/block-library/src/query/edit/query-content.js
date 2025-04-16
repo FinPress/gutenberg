@@ -151,7 +151,7 @@ export default function QueryContent( {
 					onChange={ ( value ) =>
 						setAttributes( { tagName: value } )
 					}
-					currentClientId={ clientId }
+					clientId={ clientId }
 					options={ [
 						{ label: __( 'Default (<div>)' ), value: 'div' },
 						{ label: '<main>', value: 'main' },

@@ -425,7 +425,7 @@ export default function CoverInspectorControls( {
 					onChange={ ( value ) =>
 						setAttributes( { tagName: value } )
 					}
-					currentClientId={ clientId }
+					clientId={ clientId }
 					options={ [
 						{ label: __( 'Default (<div>)' ), value: 'div' },
 						{ label: '<header>', value: 'header' },

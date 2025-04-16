@@ -77,7 +77,7 @@ export function TemplatePartAdvancedControls( {
 			<HTMLElementSelectControl
 				tagName={ tagName || '' }
 				onChange={ ( value ) => setAttributes( { tagName: value } ) }
-				currentClientId={ clientId }
+				clientId={ clientId }
 				options={ [
 					{
 						label: sprintf(
