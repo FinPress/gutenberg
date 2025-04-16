@@ -10,7 +10,7 @@ import {
 	useBlockProps,
 	store as blockEditorStore,
 	useInnerBlocksProps,
-	HTMLElementSelectControl,
+	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
@@ -19,10 +19,13 @@ import { store as coreStore } from '@wordpress/core-data';
  * Internal dependencies
  */
 import EnhancedPaginationControl from './inspector-controls/enhanced-pagination-control';
+import { unlock } from '../../lock-unlock';
 import QueryInspectorControls from './inspector-controls';
 import EnhancedPaginationModal from './enhanced-pagination-modal';
 import { getQueryContextFromTemplate } from '../utils';
 import QueryToolbar from './query-toolbar';
+
+const { HTMLElementSelectControl } = unlock( blockEditorPrivateApis );
 
 const DEFAULTS_POSTS_PER_PAGE = 3;
 

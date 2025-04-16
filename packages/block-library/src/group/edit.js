@@ -8,7 +8,7 @@ import {
 	InspectorControls,
 	useInnerBlocksProps,
 	store as blockEditorStore,
-	HTMLElementSelectControl,
+	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import { useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -18,6 +18,9 @@ import { View } from '@wordpress/primitives';
  * Internal dependencies
  */
 import GroupPlaceHolder, { useShouldShowPlaceHolder } from './placeholder';
+import { unlock } from '../lock-unlock';
+
+const { HTMLElementSelectControl } = unlock( blockEditorPrivateApis );
 
 /**
  * Render inspector controls for the Group block.
@@ -35,7 +38,7 @@ function GroupEditControls( { tagName, onSelectTagName, clientId } ) {
 			<HTMLElementSelectControl
 				tagName={ tagName }
 				onChange={ onSelectTagName }
-				currentClientId={ clientId }
+				clientId={ clientId }
 				options={ [
 					{ label: __( 'Default (<div>)' ), value: 'div' },
 					{ label: '<header>', value: 'header' },

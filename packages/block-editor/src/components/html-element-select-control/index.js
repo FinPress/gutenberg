@@ -76,29 +76,23 @@ export default function HTMLElementSelectControl( {
 			const { getBlocks, getBlock } = select( blockEditorStore );
 			const allBlocks = getBlocks();
 			const currentBlock = getBlock( clientId );
+			let mainElementsCount = 0;
 
-			let mainElementCount = 0;
+			const blocksWithMainTag = allBlocks.filter(
+				( block ) =>
+					block.clientId !== clientId &&
+					blockHasHtmlTag( block, 'main' )
+			);
 
-			// Check if the current block or its inner blocks have a main element.
+			mainElementsCount += blocksWithMainTag.length;
+
 			if ( currentBlock && tagName === 'main' ) {
-				mainElementCount++;
-			}
-
-			const hasMainElsewhere = allBlocks.some( ( block ) => {
-				if ( block.clientId === clientId ) {
-					return false;
-				}
-
-				return blockHasHtmlTag( block, 'main' );
-			} );
-
-			if ( hasMainElsewhere ) {
-				mainElementCount++;
+				mainElementsCount++;
 			}
 
 			return {
-				hasMultipleMainElements: mainElementCount > 1,
-				hasMainElementElsewhere: hasMainElsewhere,
+				hasMultipleMainElements: mainElementsCount > 1,
+				hasMainElementElsewhere: blocksWithMainTag.length > 0,
 			};
 		},
 		[ clientId, tagName, checkForMainTag ]

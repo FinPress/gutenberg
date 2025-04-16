@@ -12,7 +12,7 @@ import {
 	getColorClassName,
 	__experimentalUseColorProps as useColorProps,
 	InspectorControls,
-	HTMLElementSelectControl,
+	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
@@ -20,6 +20,9 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import useDeprecatedOpacity from './use-deprecated-opacity';
+import { unlock } from '../lock-unlock';
+
+const { HTMLElementSelectControl } = unlock( blockEditorPrivateApis );
 
 export default function SeparatorEdit( {
 	attributes,

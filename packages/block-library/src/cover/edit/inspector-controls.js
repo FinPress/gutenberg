@@ -23,7 +23,6 @@ import {
 	__experimentalUseGradient,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 	privateApis as blockEditorPrivateApis,
-	HTMLElementSelectControl,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
@@ -37,7 +36,9 @@ import { unlock } from '../../lock-unlock';
 import { useToolsPanelDropdownMenuProps } from '../../utils/hooks';
 import { DEFAULT_MEDIA_SIZE_SLUG } from '../constants';
 
-const { cleanEmptyObject, ResolutionTool } = unlock( blockEditorPrivateApis );
+const { cleanEmptyObject, ResolutionTool, HTMLElementSelectControl } = unlock(
+	blockEditorPrivateApis
+);
 
 function CoverHeightInput( {
 	onChange,

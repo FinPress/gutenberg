@@ -4,8 +4,15 @@
 import { __ } from '@wordpress/i18n';
 import {
 	InspectorControls,
-	HTMLElementSelectControl,
+	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
+
+/**
+ * Internal dependencies
+ */
+import { unlock } from '../../lock-unlock';
+
+const { HTMLElementSelectControl } = unlock( blockEditorPrivateApis );
 
 export default function CommentsInspectorControls( {
 	attributes: { tagName },
