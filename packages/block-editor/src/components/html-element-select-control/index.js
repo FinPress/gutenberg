@@ -40,60 +40,38 @@ export default function HTMLElementSelectControl( {
 	const checkForMainTag =
 		!! clientId && options.some( ( option ) => option.value === 'main' );
 
-	const { hasMultipleMainElements, hasMainElementElsewhere } = useSelect(
+	const hasMainElementElsewhere = useSelect(
 		( select ) => {
 			if ( ! checkForMainTag ) {
-				return {
-					hasMultipleMainElements: false,
-					hasMainElementElsewhere: false,
-				};
+				return false;
 			}
 
-			const {
-				getClientIdsWithDescendants,
-				getBlockAttributes,
-				getBlock,
-			} = select( blockEditorStore );
+			const { getClientIdsWithDescendants, getBlockAttributes } =
+				select( blockEditorStore );
 
-			const allBlockIds = getClientIdsWithDescendants();
-			const currentBlock = getBlock( clientId );
-			let mainElementsCount = 0;
-
-			const blocksWithMainTag = allBlockIds.filter( ( id ) => {
+			return getClientIdsWithDescendants().some( ( id ) => {
+				// Skip the current block.
 				if ( id === clientId ) {
 					return false;
 				}
 
-				const blockAttrs = getBlockAttributes( id );
-				return blockAttrs && blockAttrs.tagName === 'main';
+				return getBlockAttributes( id )?.tagName === 'main';
 			} );
-
-			mainElementsCount += blocksWithMainTag.length;
-
-			if ( currentBlock && tagName === 'main' ) {
-				mainElementsCount++;
-			}
-
-			return {
-				hasMultipleMainElements: mainElementsCount > 1,
-				hasMainElementElsewhere: blocksWithMainTag.length > 0,
-			};
 		},
-		[ clientId, tagName, checkForMainTag ]
+		[ clientId, checkForMainTag ]
 	);
 
 	// Create a modified options array that disables the main option if needed.
 	const modifiedOptions = options.map( ( option ) => {
-		if (
-			option.value === 'main' &&
-			hasMainElementElsewhere &&
-			tagName !== 'main'
-		) {
-			return {
-				...option,
-				disabled: true,
-				label: `${ option.label } (${ __( 'Already in use' ) })`,
-			};
+		if ( option.value === 'main' ) {
+			// If there's already a main element elsewhere and this isn't currently main.
+			if ( hasMainElementElsewhere && tagName !== 'main' ) {
+				return {
+					...option,
+					disabled: true,
+					label: `${ option.label } (${ __( 'Already in use' ) })`,
+				};
+			}
 		}
 		return option;
 	} );
@@ -110,7 +88,7 @@ export default function HTMLElementSelectControl( {
 				help={ htmlElementMessages[ tagName ] }
 			/>
 
-			{ tagName === 'main' && hasMultipleMainElements && (
+			{ tagName === 'main' && hasMainElementElsewhere && (
 				<Notice
 					status="warning"
 					isDismissible={ false }
