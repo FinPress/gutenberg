@@ -114,9 +114,13 @@ register_block_style(
            'style_data'=> array(
                            'border' => array(
                            'color' => '#f5bc42',
-                            'style' => 'solid',
-                            'width' => '4px',
-                            'radius' => '15px'
+                           'style' => 'solid',
+                           'width' => '4px',
+                           'radius' => '15px'
+						   )
+		   		)
+	   )
+);
 ```
 Using the `style_data` property, makes the block style no only available when editing content, but also via the **Editor > Styles** where users can modify the style to their needs.
 The `style_data`property was added in WordPress 6.6.
