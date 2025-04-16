@@ -8,11 +8,19 @@
 
 .editor-collab-sidebar {
 	height: 100%;
+	overflow: hidden;
+
+	.editor-collab-sidebar-panel {
+		&__thread {
+			position: absolute;
+			width: calc(100% - 32px);
+		}
+	}
 }
 
 .editor-collab-sidebar-panel {
 	padding: $grid-unit-20;
-	height: 100%;
+	height: 100vw;
 
 	&__thread {
 		position: relative;

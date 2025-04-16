@@ -2,11 +2,16 @@
  * External dependencies
  */
 import clsx from 'clsx';
+import {
+	useFloating,
+	autoUpdate,
+	offset as offsetMiddleware,
+} from '@floating-ui/react-dom';
 
 /**
  * WordPress dependencies
  */
-import { useState, RawHTML } from '@wordpress/element';
+import { useState, RawHTML, useRef, useEffect } from '@wordpress/element';
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
@@ -17,26 +22,36 @@ import {
 } from '@wordpress/components';
 import { Icon, check, published, moreVertical } from '@wordpress/icons';
 import { __, _x, sprintf } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { useDispatch, useSelect } from '@wordpress/data';
+import {
+	store as blockEditorStore,
+	privateApis as blockEditorPrivateApis,
+} from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
  */
 import CommentAuthorInfo from './comment-author-info';
 import CommentForm from './comment-form';
+import { unlock } from '../../lock-unlock';
+import { AddComment } from './add-comment';
+
+const { useBlockElementRef } = unlock( blockEditorPrivateApis );
 
 /**
  * Renders the Comments component.
  *
- * @param {Object}   props                     - The component props.
- * @param {Array}    props.threads             - The array of comment threads.
- * @param {Function} props.onEditComment       - The function to handle comment editing.
- * @param {Function} props.onAddReply          - The function to add a reply to a comment.
- * @param {Function} props.onCommentDelete     - The function to delete a comment.
- * @param {Function} props.onCommentResolve    - The function to mark a comment as resolved.
- * @param {boolean}  props.showCommentBoard    - Whether to show the comment board.
- * @param {Function} props.setShowCommentBoard - The function to set the comment board visibility.
+ * @param {Object}   props                  - The component props.
+ * @param {Array}    props.threads          - The array of comment threads.
+ * @param {Function} props.onEditComment    - The function to handle comment editing.
+ * @param {Function} props.onAddReply       - The function to add a reply to a comment.
+ * @param {Function} props.onCommentDelete  - The function to delete a comment.
+ * @param {Function} props.onCommentResolve - The function to mark a comment as resolved.
+ * @param {boolean}  props.activeComment    - Active comment board id.
+ * @param {Function} props.setActiveComment - The function to set the active comment.
+ * @param {boolean}  props.canvasSidebar    - Whether is this canvas sidebar or not.
+ * @param {Function} props.setIsNewComment  - The function to set the new comment board visibility.
+ * @param {boolean}  props.isNewComment     - Whether to show the new comment board.
  * @return {React.ReactNode} The rendered Comments component.
  */
 export function Comments( {
@@ -45,10 +60,24 @@ export function Comments( {
 	onAddReply,
 	onCommentDelete,
 	onCommentResolve,
-	showCommentBoard,
-	setShowCommentBoard,
+	activeComment,
+	setActiveComment,
+	canvasSidebar,
+	isNewComment,
+	setIsNewComment,
 } ) {
-	const { blockCommentId } = useSelect( ( select ) => {
+	const [ heights, setHeights ] = useState( {} );
+
+	const updateHeight = ( id, newHeight ) => {
+		setHeights( ( prev ) => {
+			if ( prev[ id ] !== newHeight ) {
+				return { ...prev, [ id ]: newHeight };
+			}
+			return prev;
+		} );
+	};
+
+	const { blockCommentId, selectedBlockClientId } = useSelect( ( select ) => {
 		const { getBlockAttributes, getSelectedBlockClientId } =
 			select( blockEditorStore );
 		const _clientId = getSelectedBlockClientId();
@@ -57,16 +86,29 @@ export function Comments( {
 			blockCommentId: _clientId
 				? getBlockAttributes( _clientId )?.blockCommentId
 				: null,
+			selectedBlockClientId: _clientId,
 		};
 	}, [] );
 
-	const [ focusThread, setFocusThread ] = useState(
-		showCommentBoard && blockCommentId ? blockCommentId : null
-	);
+	// Object to store offsets for each board.
+	const offsetsRef = useRef( {} );
+
+	const updateOffsets = ( id, offset ) => {
+		offsetsRef.current[ id ] = offset;
+	};
 
 	const clearThreadFocus = () => {
-		setFocusThread( null );
-		setShowCommentBoard( false );
+		setActiveComment( null );
+	};
+
+	const ParentWrapper = canvasSidebar ? ThreadWrapper : VStack;
+
+	const { selectBlock } = useDispatch( blockEditorStore );
+	const handleThreadClick = ( thread ) => {
+		if ( thread?.clientId ) {
+			selectBlock( thread.clientId ); // Use the action to select the block
+		}
+		setActiveComment( thread.id );
 	};
 
 	return (
@@ -87,11 +129,36 @@ export function Comments( {
 					</VStack>
 				)
 			}
+			{ isNewComment && (
+				<ParentWrapper
+					thread={ {
+						id: 'new-comment',
+						clientId: selectedBlockClientId,
+					} }
+					spacing="3"
+					className={ clsx( 'editor-collab-sidebar-panel__thread', {
+						'editor-collab-sidebar-panel__active-thread': true,
+						'editor-collab-sidebar-panel__focus-thread': true,
+					} ) }
+					offsetsRef={ offsetsRef }
+					updateOffsets={ updateOffsets }
+					updateHeight={ updateHeight }
+					heights={ heights }
+				>
+					<AddComment
+						onSubmit={ onAddReply }
+						setIsNewComment={ setIsNewComment }
+					/>
+				</ParentWrapper>
+			) }
 			{ Array.isArray( threads ) &&
 				threads.length > 0 &&
-				threads.map( ( thread ) => (
-					<VStack
+				threads.map( ( thread, index ) => (
+					<ParentWrapper
 						key={ thread.id }
+						id={ thread.id }
+						thread={ thread }
+						spacing="3"
 						className={ clsx(
 							'editor-collab-sidebar-panel__thread',
 							{
@@ -99,12 +166,16 @@ export function Comments( {
 									blockCommentId &&
 									blockCommentId === thread.id,
 								'editor-collab-sidebar-panel__focus-thread':
-									focusThread && focusThread === thread.id,
+									activeComment &&
+									activeComment === thread.id,
 							}
 						) }
-						id={ thread.id }
-						spacing="3"
-						onClick={ () => setFocusThread( thread.id ) }
+						onClick={ () => handleThreadClick( thread ) }
+						offsetsRef={ offsetsRef }
+						updateOffsets={ updateOffsets }
+						previousThreadId={ threads[ index - 1 ]?.id }
+						updateHeight={ updateHeight }
+						heights={ heights }
 					>
 						<Thread
 							thread={ thread }
@@ -112,10 +183,10 @@ export function Comments( {
 							onCommentDelete={ onCommentDelete }
 							onCommentResolve={ onCommentResolve }
 							onEditComment={ onEditComment }
-							isFocused={ focusThread === thread.id }
+							isFocused={ activeComment === thread.id }
 							clearThreadFocus={ clearThreadFocus }
 						/>
-					</VStack>
+					</ParentWrapper>
 				) ) }
 		</>
 	);
@@ -355,5 +426,83 @@ const CommentBoard = ( { thread, onResolve, onEdit, onDelete, status } ) => {
 				</ConfirmDialog>
 			) }
 		</>
+	);
+};
+
+const ThreadWrapper = ( {
+	children,
+	thread,
+	className,
+	onClick,
+	offsetsRef,
+	updateOffsets,
+	previousThreadId,
+	updateHeight,
+	heights,
+} ) => {
+	const blockRef = useRef();
+	useBlockElementRef( thread.clientId, blockRef );
+
+	const selectedBlockElementRect = blockRef.current?.getBoundingClientRect();
+
+	const initialOffsetTop = selectedBlockElementRect?.top;
+
+	const previousOffset = previousThreadId
+		? offsetsRef.current[ previousThreadId ]
+		: 0;
+
+	const previousBoardHeight = heights[ previousThreadId ];
+
+	const calculateOffset = () => {
+		if (
+			previousOffset &&
+			initialOffsetTop < previousOffset + previousBoardHeight
+		) {
+			return previousOffset - initialOffsetTop + previousBoardHeight + 20;
+		}
+		return 0;
+	};
+
+	const { y, refs } = useFloating( {
+		placement: 'right-start',
+		middleware: [
+			offsetMiddleware( {
+				crossAxis: calculateOffset(),
+			} ),
+		],
+		whileElementsMounted: autoUpdate,
+	} );
+
+	useEffect( () => {
+		if ( blockRef.current ) {
+			refs.setReference( blockRef.current ); // Bind reference element
+		}
+	}, [ blockRef, refs ] );
+
+	useEffect( () => {
+		if ( y !== null && y !== 0 ) {
+			updateOffsets( thread.id, y, refs.floating?.current?.clientHeight ); // Pass the offset to the parent
+		}
+	}, [ y, updateOffsets ] );
+
+	useEffect( () => {
+		if ( refs.floating?.current ) {
+			const newHeight = refs.floating?.current.scrollHeight;
+			updateHeight( thread.id, newHeight );
+		}
+	}, [ thread.id, updateHeight ] );
+
+	return (
+		<VStack
+			ref={ refs.setFloating }
+			className={ className }
+			spacing="3"
+			onClick={ onClick }
+			style={ {
+				top: y,
+			} }
+		>
+			{ children }
+		</VStack>
 	);
 };

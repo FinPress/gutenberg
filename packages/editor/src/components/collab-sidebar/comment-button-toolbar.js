@@ -13,7 +13,7 @@ import { unlock } from '../../lock-unlock';
 
 const { CommentIconToolbarSlotFill } = unlock( blockEditorPrivateApis );
 
-const AddCommentToolbarButton = ( { onClick } ) => {
+const AddCommentToolbarButton = ( { isActive, onClick } ) => {
 	return (
 		<CommentIconToolbarSlotFill.Fill>
 			<ToolbarButton
@@ -21,6 +21,7 @@ const AddCommentToolbarButton = ( { onClick } ) => {
 				icon={ commentIcon }
 				label={ _x( 'Comment', 'View comment' ) }
 				onClick={ onClick }
+				isActive={ isActive }
 			/>
 		</CommentIconToolbarSlotFill.Fill>
 	);

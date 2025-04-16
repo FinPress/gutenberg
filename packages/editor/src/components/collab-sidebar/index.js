@@ -8,7 +8,7 @@ import {
 	resolveSelect,
 	subscribe,
 } from '@wordpress/data';
-import { useState, useMemo } from '@wordpress/element';
+import { useState, useMemo, useEffect } from '@wordpress/element';
 import { comment as commentIcon } from '@wordpress/icons';
 import { addFilter } from '@wordpress/hooks';
 import { store as noticesStore } from '@wordpress/notices';
@@ -22,7 +22,6 @@ import { store as interfaceStore } from '@wordpress/interface';
 import PluginSidebar from '../plugin-sidebar';
 import { collabHistorySidebarName, collabSidebarName } from './constants';
 import { Comments } from './comments';
-import { AddComment } from './add-comment';
 import { store as editorStore } from '../../store';
 import AddCommentButton from './comment-button';
 import AddCommentToolbarButton from './comment-button-toolbar';
@@ -50,10 +49,13 @@ addFilter(
 );
 
 function CollabSidebarContent( {
-	showCommentBoard,
-	setShowCommentBoard,
+	activeComment,
+	setActiveComment,
+	isNewComment,
+	setIsNewComment,
 	styles,
 	comments,
+	canvasSidebar = false,
 } ) {
 	const { createNotice } = useDispatch( noticesStore );
 	const { saveEntityRecord, deleteEntityRecord } = useDispatch( coreStore );
@@ -195,20 +197,17 @@ function CollabSidebarContent( {
 
 	return (
 		<div className="editor-collab-sidebar-panel" style={ styles }>
-			<AddComment
-				onSubmit={ addNewComment }
-				showCommentBoard={ showCommentBoard }
-				setShowCommentBoard={ setShowCommentBoard }
-			/>
 			<Comments
-				key={ getSelectedBlockClientId() }
 				threads={ comments }
 				onEditComment={ onEditComment }
 				onAddReply={ addNewComment }
 				onCommentDelete={ onCommentDelete }
 				onCommentResolve={ onCommentResolve }
-				showCommentBoard={ showCommentBoard }
-				setShowCommentBoard={ setShowCommentBoard }
+				activeComment={ activeComment }
+				setActiveComment={ setActiveComment }
+				canvasSidebar={ canvasSidebar }
+				isNewComment={ isNewComment }
+				setIsNewComment={ setIsNewComment }
 			/>
 		</div>
 	);
@@ -218,7 +217,8 @@ function CollabSidebarContent( {
  * Renders the Collab sidebar.
  */
 export default function CollabSidebar() {
-	const [ showCommentBoard, setShowCommentBoard ] = useState( false );
+	const [ activeComment, setActiveComment ] = useState( null );
+	const [ isNewComment, setIsNewComment ] = useState( false );
 	const { enableComplementaryArea } = useDispatch( interfaceStore );
 	const { getActiveComplementaryArea } = useSelect( interfaceStore );
 
@@ -243,7 +243,7 @@ export default function CollabSidebar() {
 		};
 	}, [] );
 
-	const { blockCommentId } = useSelect( ( select ) => {
+	const { blockCommentId, selectedBlockClientId } = useSelect( ( select ) => {
 		const { getBlockAttributes, getSelectedBlockClientId } =
 			select( blockEditorStore );
 		const _clientId = getSelectedBlockClientId();
@@ -252,13 +252,25 @@ export default function CollabSidebar() {
 			blockCommentId: _clientId
 				? getBlockAttributes( _clientId )?.blockCommentId
 				: null,
+			selectedBlockClientId: _clientId,
 		};
 	}, [] );
 
-	const openCollabBoard = () => {
-		setShowCommentBoard( true );
-		enableComplementaryArea( 'core', 'edit-post/collab-sidebar' );
+	const setCommentBoardFocus = () => {
+		setActiveComment(
+			blockCommentId === activeComment ? null : blockCommentId
+		);
 	};
+
+	// clear board focus when block selection is changed.
+	useEffect( () => {
+		if ( activeComment !== blockCommentId ) {
+			setActiveComment( null );
+		}
+		if ( isNewComment ) {
+			setIsNewComment( false );
+		}
+	}, [ selectedBlockClientId ] );
 
 	const [ blocks ] = useEntityBlockEditor( 'postType', postType, {
 		id: postId,
@@ -294,19 +306,23 @@ export default function CollabSidebar() {
 			return { resultComments: [], sortedThreads: [] };
 		}
 
+		const blockCommentIds = getCommentIdsFromBlocks( blocks );
+		const blockCommentIdMap = new Map(
+			blockCommentIds.map( ( item ) => [ item.commentID, item ] )
+		);
+
 		const updatedResult = result.map( ( item ) => ( {
 			...item,
 			reply: [ ...item.reply ].reverse(),
+			clientId: blockCommentIdMap.get( item.id )?.clientID,
 		} ) );
-
-		const blockCommentIds = getCommentIdsFromBlocks( blocks );
 
 		const threadIdMap = new Map(
 			updatedResult.map( ( thread ) => [ thread.id, thread ] )
 		);
 
 		const sortedComments = blockCommentIds
-			.map( ( id ) => threadIdMap.get( id ) )
+			.map( ( item ) => threadIdMap.get( item.commentID ) )
 			.filter( ( thread ) => thread !== undefined );
 
 		return { resultComments: updatedResult, sortedThreads: sortedComments };
@@ -331,13 +347,22 @@ export default function CollabSidebar() {
 		return null; // or maybe return some message indicating no threads are available.
 	}
 
-	const AddCommentComponent = blockCommentId
-		? AddCommentToolbarButton
-		: AddCommentButton;
+	// Open the comment board when the user clicks on the comment button.
+	const openNewCommentBoard = () => {
+		setIsNewComment( true );
+	};
 
 	return (
 		<>
-			<AddCommentComponent onClick={ openCollabBoard } />
+			{ blockCommentId && (
+				<AddCommentToolbarButton
+					isActive={ !! activeComment }
+					onClick={ setCommentBoardFocus }
+				/>
+			) }
+			{ ! blockCommentId && (
+				<AddCommentButton onClick={ openNewCommentBoard } />
+			) }
 			<PluginSidebar
 				identifier={ collabHistorySidebarName }
 				// translators: Comments sidebar title
@@ -346,8 +371,10 @@ export default function CollabSidebar() {
 			>
 				<CollabSidebarContent
 					comments={ resultComments }
-					showCommentBoard={ showCommentBoard }
-					setShowCommentBoard={ setShowCommentBoard }
+					activeComment={ activeComment }
+					setActiveComment={ setActiveComment }
+					isNewComment={ isNewComment }
+					setIsNewComment={ setIsNewComment }
 				/>
 			</PluginSidebar>
 			<PluginSidebar
@@ -359,11 +386,14 @@ export default function CollabSidebar() {
 			>
 				<CollabSidebarContent
 					comments={ sortedThreads }
-					showCommentBoard={ showCommentBoard }
-					setShowCommentBoard={ setShowCommentBoard }
+					activeComment={ activeComment }
+					setActiveComment={ setActiveComment }
+					isNewComment={ isNewComment }
+					setIsNewComment={ setIsNewComment }
 					styles={ {
 						backgroundColor,
 					} }
+					canvasSidebar
 				/>
 			</PluginSidebar>
 		</>
