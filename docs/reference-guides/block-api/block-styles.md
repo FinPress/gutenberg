@@ -122,8 +122,7 @@ register_block_style(
 	   )
 );
 ```
-Using the `style_data` property, makes the block style no only available when editing content, but also via the **Editor > Styles** where users can modify the style to their needs.
-The `style_data`property was added in WordPress 6.6.
+Using the `style_data` property empowers the user to change it with the Global Styles UI via the **Editor > Styles**. The `style_data`property was added in WordPress 6.6.
 
 More information via WordPress 6.6 Dev Note: [Section Styles](https://make.wordpress.org/core/2024/06/24/section-styles/).
 Also on the WordPress Developer Blog: [Styling sections, nested elements, and more with Block Style Variations in WordPress 6.6](https://developer.wordpress.org/news/2024/06/styling-sections-nested-elements-and-more-with-block-style-variations-in-wordpress-6-6/)
