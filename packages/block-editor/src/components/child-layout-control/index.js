@@ -97,7 +97,6 @@ function FlexControls( {
 	parentLayout,
 	isShownByDefault,
 	panelId,
-	minUnitValue,
 } ) {
 	const { selfStretch, flexSize } = childLayout;
 	const { orientation = 'horizontal' } = parentLayout ?? {};
@@ -192,7 +191,7 @@ function FlexControls( {
 						} );
 					} }
 					value={ flexSize }
-					min={ minUnitValue }
+					min={ 0 }
 					label={ flexResetLabel }
 					hideLabelFromVision
 				/>
