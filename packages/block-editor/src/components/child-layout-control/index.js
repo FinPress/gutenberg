@@ -48,7 +48,6 @@ function helpText( selfStretch, parentLayout ) {
  *
  * @param {boolean}  props.isShownByDefault
  * @param {string}   props.panelId
- * @param {number}   [props.minUnitValue=0] Minimum allowed value for the unit control
  * @return {Element} child layout edit element.
  */
 export default function ChildLayoutControl( {
@@ -57,7 +56,6 @@ export default function ChildLayoutControl( {
 	parentLayout,
 	isShownByDefault,
 	panelId,
-	minUnitValue = 0,
 } ) {
 	const {
 		type: parentType,
@@ -73,7 +71,6 @@ export default function ChildLayoutControl( {
 				parentLayout={ parentLayout }
 				isShownByDefault={ isShownByDefault }
 				panelId={ panelId }
-				minUnitValue={ minUnitValue }
 			/>
 		);
 	} else if ( parentLayoutType === 'grid' ) {
