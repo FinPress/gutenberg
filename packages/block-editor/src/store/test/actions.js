@@ -1110,7 +1110,7 @@ describe( 'actions', () => {
 			)( { select, dispatch } );
 
 			expect( dispatch.selectionChange ).not.toHaveBeenCalled();
-			expect( dispatch.replaceBlocks ).not.toHaveBeenCalledWith();
+			expect( dispatch.replaceBlocks ).not.toHaveBeenCalled();
 		} );
 
 		it( 'should not merge the blocks if blockA editing mode is `disabled`', () => {
@@ -1169,7 +1169,7 @@ describe( 'actions', () => {
 			)( { select, dispatch } );
 
 			expect( dispatch.selectionChange ).not.toHaveBeenCalled();
-			expect( dispatch.replaceBlocks ).not.toHaveBeenCalledWith();
+			expect( dispatch.replaceBlocks ).not.toHaveBeenCalled();
 		} );
 	} );
 
