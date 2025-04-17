@@ -28,7 +28,6 @@ const ShortcutList = ( { shortcuts } ) => (
 	 * Safari+VoiceOver won't announce the list otherwise.
 	 */
 	/* eslint-disable jsx-a11y/no-redundant-roles */
-
 	<ul
 		className="customize-widgets-keyboard-shortcut-help-modal__shortcut-list"
 		role="list"
