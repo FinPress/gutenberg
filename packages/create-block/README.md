@@ -114,7 +114,7 @@ $ npx @wordpress/create-block@latest --wp-env
 With this argument, the `create-block` package will a generate a block with the provided text domain. If not specified, the block’s slug is used as the default text domain.
 
 ```bash
-$ npx @wordpress/create-block@latest block-name --textdomain=my-custom-domain
+$ npx @wordpress/create-block@latest --textdomain my-custom-domain
 ```
 
 #### `--help`
