@@ -117,9 +117,9 @@ register_block_style(
                            'style' => 'solid',
                            'width' => '4px',
                            'radius' => '15px'
-						   )
-		   		)
-	   )
+                        )
+             )
+      )
 );
 ```
 Using the `style_data` property empowers the user to change it with the Global Styles UI via the **Editor > Styles**. The `style_data`property was added in WordPress 6.6.
