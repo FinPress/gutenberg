@@ -13,6 +13,7 @@ import {
 	store as keyboardShortcutsStore,
 } from '@wordpress/keyboard-shortcuts';
 import { useDispatch, useSelect } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -27,6 +28,7 @@ const ShortcutList = ( { shortcuts } ) => (
 	 * Safari+VoiceOver won't announce the list otherwise.
 	 */
 	/* eslint-disable jsx-a11y/no-redundant-roles */
+
 	<ul
 		className="customize-widgets-keyboard-shortcut-help-modal__shortcut-list"
 		role="list"
@@ -90,15 +92,18 @@ export default function KeyboardShortcutHelpModal( {
 	toggleModal,
 } ) {
 	const { registerShortcut } = useDispatch( keyboardShortcutsStore );
-	registerShortcut( {
-		name: 'core/customize-widgets/keyboard-shortcuts',
-		category: 'main',
-		description: __( 'Display these keyboard shortcuts.' ),
-		keyCombination: {
-			modifier: 'access',
-			character: 'h',
-		},
-	} );
+
+	useEffect( () => {
+		registerShortcut( {
+			name: 'core/customize-widgets/keyboard-shortcuts',
+			category: 'main',
+			description: __( 'Display these keyboard shortcuts.' ),
+			keyCombination: {
+				modifier: 'access',
+				character: 'h',
+			},
+		} );
+	}, [ registerShortcut ] );
 
 	useShortcut( 'core/customize-widgets/keyboard-shortcuts', toggleModal );
 
