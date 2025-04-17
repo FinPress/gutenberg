@@ -2,10 +2,6 @@
 
 ## Unreleased
 
-### Internal
-
--   `StyleLint`: Migrate configuration from JSON to JavaScript format ([#69590](https://github.com/WordPress/gutenberg/pull/69590)).
-
 ### Enhancement
 
 -   `Guide`: Make next and previous button text customizable ([#69907](https://github.com/WordPress/gutenberg/pull/69907)).
