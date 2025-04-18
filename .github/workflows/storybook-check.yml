@@ -28,7 +28,8 @@ jobs:
               run: npm run storybook:build
 
             - name: Install Playwright dependencies
-              run: npx playwright install --with-deps chromium
+              run: |
+                  npx --package=@playwright/test@1.51.1 playwright install --with-deps
 
             - name: Serve Storybook and run tests
               run: |
