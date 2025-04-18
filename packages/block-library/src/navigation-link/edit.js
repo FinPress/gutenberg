@@ -217,6 +217,26 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 						);
 					} }
 					autoComplete="off"
+					type="url"
+				/>
+			</ToolsPanelItem>
+
+			<ToolsPanelItem
+				hasValue={ () => !! opensInNewTab }
+				label={ __( 'Open in new tab' ) }
+				onDeselect={ () => setAttributes( { opensInNewTab: false } ) }
+				isShownByDefault
+			>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Open in new tab' ) }
+					help={ __(
+						'The link will open in a new tab when clicked.'
+					) }
+					checked={ opensInNewTab }
+					onChange={ () =>
+						setAttributes( { opensInNewTab: ! opensInNewTab } )
+					}
 				/>
 			</ToolsPanelItem>
 
