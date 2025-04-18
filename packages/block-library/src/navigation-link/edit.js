@@ -6,43 +6,43 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import {
-	BlockControls,
-	InspectorControls,
-	RichText,
-	store as blockEditorStore,
-	getColorClassName,
-	useBlockProps,
-	useInnerBlocksProps,
-	useBlockEditingMode,
-} from '@wordpress/block-editor';
 import { createBlock } from '@wordpress/blocks';
+import { useSelect, useDispatch } from '@wordpress/data';
 import {
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 	TextControl,
 	TextareaControl,
 	ToggleControl,
 	ToolbarButton,
 	ToolbarGroup,
-	__experimentalToolsPanel as ToolsPanel,
-	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
-import { useMergeRefs, usePrevious } from '@wordpress/compose';
-import { store as coreStore } from '@wordpress/core-data';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
-import { useEffect, useRef, useState } from '@wordpress/element';
-import { decodeEntities } from '@wordpress/html-entities';
-import { __ } from '@wordpress/i18n';
-import { addSubmenu, link as linkIcon } from '@wordpress/icons';
 import { displayShortcut, isKeyboardEvent } from '@wordpress/keycodes';
+import { __ } from '@wordpress/i18n';
+import {
+	BlockControls,
+	InspectorControls,
+	RichText,
+	useBlockProps,
+	store as blockEditorStore,
+	getColorClassName,
+	useInnerBlocksProps,
+	useBlockEditingMode,
+} from '@wordpress/block-editor';
 import { isURL, prependHTTP, safeDecodeURI } from '@wordpress/url';
+import { useState, useEffect, useRef } from '@wordpress/element';
+import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+import { decodeEntities } from '@wordpress/html-entities';
+import { link as linkIcon, addSubmenu } from '@wordpress/icons';
+import { store as coreStore } from '@wordpress/core-data';
+import { useMergeRefs, usePrevious } from '@wordpress/compose';
 
 /**
  * Internal dependencies
  */
-import { getColors } from '../navigation/edit/utils';
 import { LinkUI } from './link-ui';
 import { updateAttributes } from './update-attributes';
+import { getColors } from '../navigation/edit/utils';
 
 const DEFAULT_BLOCK = { name: 'core/navigation-link' };
 const NESTING_BLOCK_NAMES = [
