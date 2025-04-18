@@ -367,7 +367,6 @@ test.describe( 'Block Grouping', () => {
 		test( 'should use registered grouping block for grouping interactions', async ( {
 			editor,
 			page,
-			pageUtils,
 			groupingUtils,
 		} ) => {
 			// Set custom Block as the Block to use for Grouping.
@@ -378,7 +377,17 @@ test.describe( 'Block Grouping', () => {
 			} );
 
 			await groupingUtils.insertBlocksOfSameType();
-			await pageUtils.pressKeys( 'primary+a', { times: 2 } );
+
+			await page
+				.getByRole( 'document', { name: 'Block: Paragraph' } )
+				.first()
+				.click();
+
+			// Use Shift+click to select a range.
+			await page.keyboard.down( 'Shift' );
+			await page.keyboard.press( 'ArrowDown' );
+			await page.keyboard.press( 'ArrowDown' );
+			await page.keyboard.up( 'Shift' );
 
 			// Group - this will use whichever Block is registered as the Grouping Block
 			// as opposed to "transformTo()" which uses whatever is passed to it. To

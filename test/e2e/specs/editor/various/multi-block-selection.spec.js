@@ -306,7 +306,7 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 
 		await page
 			.getByRole( 'document', { name: 'Block: Paragraph' } )
-			.click( { modifiers: [ 'Shift' ] } );
+			.dblclick( { modifiers: [ 'Shift' ] } );
 		await pageUtils.pressKeys( 'primary+a' );
 		await page.keyboard.type( 'new content' );
 
