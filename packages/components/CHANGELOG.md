@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Enhancement
+
+-   DatePicker: Add support for dropdown and inputs in date selection. ([#69913](https://github.com/WordPress/gutenberg/pull/69913))
+
 ### Documentation 
 
 -   `Popover`: Expose Popover TypeScript types for subcomponents. ([#69619](https://github.com/WordPress/gutenberg/pull/69619))
