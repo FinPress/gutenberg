@@ -28,9 +28,7 @@ jobs:
               run: npm run storybook:build
 
             - name: Install Playwright dependencies
-              run: |
-                  npm install --save-dev playwright@1.51.1
-                  npx playwright install --with-deps
+              run: npx playwright@1.52.0 install --with-deps
 
             - name: Serve Storybook and run tests
               run: |
