@@ -1,6 +1,11 @@
 .wp-block-group {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
+
+	&.is-layout-flex:not(.is-vertical) > * {
+		overflow-wrap: break-word;
+		word-break: break-word;
+	}
 }
 
 // We need this so groups with negative margins overlap as expected.
