@@ -28,7 +28,9 @@ jobs:
               run: npm run storybook:build
 
             - name: Install Playwright dependencies
-              run: npx playwright install chromium firefox webkit --with-deps
+              run: |
+                  npm install --save-dev playwright@1.51.1
+                  npx playwright install --with-deps
 
             - name: Serve Storybook and run tests
               run: |
