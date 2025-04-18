@@ -4,9 +4,7 @@
 
 ### Enhancement
 
--   DatePicker: Add support for dropdown and inputs in date selection. ([#69913](https://github.com/WordPress/gutenberg/pull/69913))
-
-### Enhancement
+-   `DatePicker`: Add support for dropdown and inputs in date selection. ([#69913](https://github.com/WordPress/gutenberg/pull/69913))
 
 -   `Guide`: Make next and previous button text customizable ([#69907](https://github.com/WordPress/gutenberg/pull/69907)).
 -   `Popover`: Introduce a virtual padding of `8px` to prevent it from hitting the viewport edge ([#69555](https://github.com/WordPress/gutenberg/pull/69555)).
