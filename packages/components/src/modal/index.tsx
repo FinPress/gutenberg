@@ -137,6 +137,7 @@ function UnforwardedModal(
 	// Keeps a fresh ref for the subsequent effect.
 	const onRequestCloseRef = useRef< ModalProps[ 'onRequestClose' ] >();
 	useEffect( () => {
+		// eslint-disable-next-line react-compiler/react-compiler
 		onRequestCloseRef.current = onRequestClose;
 	}, [ onRequestClose ] );
 

@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useMemo, useRef, useInsertionEffect } from '@wordpress/element';
+import { useMemo, useState, useInsertionEffect } from '@wordpress/element';
 import { useRefEffect } from '@wordpress/compose';
 
 /**
@@ -34,13 +34,16 @@ const allEventListeners = [
 ];
 
 export function useEventListeners( props ) {
-	const propsRef = useRef( props );
+	const [ state, setState ] = useState( props );
 	useInsertionEffect( () => {
-		propsRef.current = props;
+		setState( props );
 	} );
 	const refEffects = useMemo(
-		() => allEventListeners.map( ( refEffect ) => refEffect( propsRef ) ),
-		[ propsRef ]
+		() =>
+			allEventListeners.map( ( refEffect ) =>
+				refEffect( { current: state } )
+			),
+		[ state ]
 	);
 
 	return useRefEffect(

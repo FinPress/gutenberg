@@ -185,7 +185,6 @@ function LinkControl( {
 	const isMountingRef = useRef( true );
 	const wrapperNode = useRef();
 	const textInputRef = useRef();
-	const isEndingEditWithFocusRef = useRef( false );
 
 	const settingsKeys = settings.map( ( { id } ) => id );
 
@@ -235,8 +234,6 @@ function LinkControl( {
 			wrapperNode.current;
 
 		nextFocusTarget.focus();
-
-		isEndingEditWithFocusRef.current = false;
 	}, [ isEditingLink, isCreatingPage ] );
 
 	// The component mounting reference is maintained separately
@@ -256,10 +253,6 @@ function LinkControl( {
 	 * the next render, if focus was within the wrapper when editing finished.
 	 */
 	const stopEditing = () => {
-		isEndingEditWithFocusRef.current = !! wrapperNode.current?.contains(
-			wrapperNode.current.ownerDocument.activeElement
-		);
-
 		setIsEditingLink( false );
 	};
 

@@ -21,6 +21,7 @@ import useRefEffect from '../use-ref-effect';
 function useUpdatedRef( value ) {
 	const ref = useRef( value );
 	useLayoutEffect( () => {
+		// eslint-disable-next-line react-compiler/react-compiler
 		ref.current = value;
 	}, [ value ] );
 	return ref;

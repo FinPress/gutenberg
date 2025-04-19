@@ -6,13 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import {
-	useState,
-	useRef,
-	useEffect,
-	useCallback,
-	useMemo,
-} from '@wordpress/element';
+import { useState, useRef, useCallback, useMemo } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { lineSolid, moreVertical, plus } from '@wordpress/icons';
 import { useDebounce } from '@wordpress/compose';
@@ -296,12 +290,6 @@ function PaletteEditListView< T extends PaletteElement >( {
 	popoverProps,
 	addColorRef,
 }: PaletteEditListViewProps< T > ) {
-	// When unmounting the component if there are empty elements (the user did not complete the insertion) clean them.
-	const elementsReferenceRef = useRef< typeof elements >();
-	useEffect( () => {
-		elementsReferenceRef.current = elements;
-	}, [ elements ] );
-
 	const debounceOnChange = useDebounce(
 		( updatedElements: T[] ) =>
 			onChange( deduplicateElementSlugs( updatedElements ) ),
