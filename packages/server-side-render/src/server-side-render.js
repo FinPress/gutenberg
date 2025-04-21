@@ -106,11 +106,7 @@ export default function ServerSideRender( props ) {
 	const prevProps = usePrevious( props );
 	const [ isLoading, setIsLoading ] = useState( false );
 	const latestPropsRef = useRef( props );
-
-	// Store props in ref to prevent stale closures in the fetchData callback.
-	useEffect( () => {
-		latestPropsRef.current = props;
-	}, [ props ] );
+	latestPropsRef.current = props;
 
 	const fetchData = useCallback( () => {
 		if ( ! isMountedRef.current ) {
