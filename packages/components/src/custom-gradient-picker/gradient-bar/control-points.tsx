@@ -77,7 +77,7 @@ function ControlPointButton( {
 			/>
 			<VisuallyHidden id={ descriptionId }>
 				{ __(
-					'Use your left or right arrow keys or drag and drop with the mouse to change the gradient position. Press the button to change the color or remove the control point.'
+					'Use your left or right arrow keys or drag and drop with the mouse to change the gradient position. Press the button to change the color or remove the control point. You can also press backspace to delete the selected control point.'
 				) }
 			</VisuallyHidden>
 		</>
@@ -269,6 +269,26 @@ function ControlPoints( {
 													)
 												)
 											);
+										} else if (
+											// Add backspace/delete key support
+											( event.code === 'Backspace' ||
+												event.code === 'Delete' ) &&
+											! disableRemove &&
+											controlPoints.length > 2
+										) {
+											// Stop propagation
+											event.stopPropagation();
+											onChange(
+												removeControlPoint(
+													controlPoints,
+													index
+												)
+											);
+											// Close the picker if open
+											if ( isOpen ) {
+												onToggle();
+												onStopControlPointChange();
+											}
 										}
 									} }
 									isOpen={ isOpen }
@@ -277,7 +297,29 @@ function ControlPoints( {
 								/>
 							) }
 							renderContent={ ( { onClose } ) => (
-								<DropdownContentWrapper paddingSize="none">
+								<DropdownContentWrapper
+									paddingSize="none"
+									onKeyDown={ (
+										event: React.KeyboardEvent< HTMLButtonElement >
+									) => {
+										if (
+											( event.code === 'Backspace' ||
+												event.code === 'Delete' ) &&
+											! disableRemove &&
+											controlPoints.length > 2
+										) {
+											event.stopPropagation();
+											onChange(
+												removeControlPoint(
+													controlPoints,
+													index
+												)
+											);
+
+											onClose();
+										}
+									} }
+								>
 									<ColorPicker
 										enableAlpha={ ! disableAlpha }
 										color={ point.color }
