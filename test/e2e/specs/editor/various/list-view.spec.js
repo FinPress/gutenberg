@@ -812,8 +812,8 @@ test.describe( 'List View', () => {
 
 		// Delete remaining blocks.
 		// Keyboard shortcut should also work.
-		await pageUtils.pressKeys( 'primaryShift+Backspace' );
-		await pageUtils.pressKeys( 'primaryShift+Backspace' );
+		await pageUtils.pressKeys( 'access+z' );
+		await pageUtils.pressKeys( 'access+z' );
 		await expect
 			.poll(
 				listViewUtils.getBlocksWithA11yAttributes,
@@ -845,7 +845,7 @@ test.describe( 'List View', () => {
 				{ name: 'core/heading', selected: false },
 			] );
 
-		await pageUtils.pressKeys( 'primaryShift+Backspace' );
+		await pageUtils.pressKeys( 'access+z' );
 		await expect
 			.poll(
 				listViewUtils.getBlocksWithA11yAttributes,
@@ -868,11 +868,7 @@ test.describe( 'List View', () => {
 			.getByRole( 'gridcell', { name: 'File' } )
 			.getByRole( 'link' )
 			.focus();
-		for ( const keys of [
-			'Delete',
-			'Backspace',
-			'primaryShift+Backspace',
-		] ) {
+		for ( const keys of [ 'Delete', 'Backspace', 'access+z' ] ) {
 			await pageUtils.pressKeys( keys );
 			await expect
 				.poll(
@@ -1140,7 +1136,7 @@ test.describe( 'List View', () => {
 			optionsForFileMenu,
 			'Pressing Space should also open the menu dropdown'
 		).toBeVisible();
-		await pageUtils.pressKeys( 'primaryShift+Backspace' ); // Keyboard shortcut for Delete.
+		await pageUtils.pressKeys( 'access+z' ); // Keyboard shortcut for Delete.
 		await expect
 			.poll(
 				listViewUtils.getBlocksWithA11yAttributes,
@@ -1160,7 +1156,7 @@ test.describe( 'List View', () => {
 			optionsForFileMenu.getByRole( 'menuitem', { name: 'Delete' } ),
 			'The delete menu item should be hidden for locked blocks'
 		).toBeHidden();
-		await pageUtils.pressKeys( 'primaryShift+Backspace' );
+		await pageUtils.pressKeys( 'access+z' );
 		await expect
 			.poll(
 				listViewUtils.getBlocksWithA11yAttributes,
