@@ -215,7 +215,7 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 
 	if ( is_post_type_archive() ) {
 		$queried_archive_link = get_post_type_archive_link( get_queried_object()->name );
-		if ( $attributes['url'] === $queried_archive_link ) {
+		if ( isset( $attributes['url'] ) && $attributes['url'] === $queried_archive_link ) {
 			$is_active = true;
 		}
 	}
