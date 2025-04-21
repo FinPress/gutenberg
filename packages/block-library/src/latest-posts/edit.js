@@ -219,7 +219,7 @@ function Controls( { attributes, setAttributes, postCount } ) {
 				>
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={ __( 'Post content' ) }
+						label={ __( 'Display post content' ) }
 						checked={ displayPostContent }
 						onChange={ ( value ) =>
 							setAttributes( { displayPostContent: value } )
@@ -238,7 +238,7 @@ function Controls( { attributes, setAttributes, postCount } ) {
 						isShownByDefault
 					>
 						<RadioControl
-							label={ _x( 'Show', 'noun' ) }
+							label={ __( 'Content Length' ) }
 							selected={ displayPostContentRadio }
 							options={ [
 								{ label: __( 'Excerpt' ), value: 'excerpt' },
