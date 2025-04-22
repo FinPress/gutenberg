@@ -29,6 +29,12 @@ Many components include CSS to add styles, which you will need to load in order 
 
 In non-WordPress projects, link to the `build-style/style.css` file directly, it is located at `node_modules/@wordpress/components/build-style/style.css`.
 
+> **Note:** If your project supports right-to-left (RTL) languages, you should also include the RTL stylesheet:
+>
+> ```text
+> node_modules/@wordpress/components/build-style/style-rtl.css
+> ```
+
 ### Popovers
 
 By default, the `Popover` component will render within an extra element appended to the body of the document.
