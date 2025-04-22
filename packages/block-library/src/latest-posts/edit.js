@@ -211,7 +211,7 @@ function Controls( { attributes, setAttributes, postCount } ) {
 			>
 				<ToolsPanelItem
 					hasValue={ () => !! displayPostContent }
-					label={ __( 'Post content' ) }
+					label={ __( 'Display post content' ) }
 					onDeselect={ () =>
 						setAttributes( { displayPostContent: false } )
 					}
