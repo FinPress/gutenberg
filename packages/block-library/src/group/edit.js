@@ -9,7 +9,7 @@ import {
 	useInnerBlocksProps,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { SelectControl } from '@wordpress/components';
+import { SelectControl, TextControl } from '@wordpress/components';
 import { useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { View } from '@wordpress/primitives';
@@ -23,13 +23,14 @@ import { htmlElementMessages } from '../utils/messages';
 /**
  * Render inspector controls for the Group block.
  *
- * @param {Object}   props                 Component props.
- * @param {string}   props.tagName         The HTML tag name.
- * @param {Function} props.onSelectTagName onChange function for the SelectControl.
- *
- * @return {JSX.Element}                The control group.
+ * @param {Object}                       props               Component props.
+ * @param {Object}                       props.attributes    Block attributes.
+ * @param {(attributes: Object) => void} props.setAttributes Callback for updating block attributes.
+ * @return {JSX.Element} The control group.
  */
-function GroupEditControls( { tagName, onSelectTagName } ) {
+function GroupEditControls( { attributes, setAttributes } ) {
+	const { tagName, ariaLabel } = attributes;
+
 	return (
 		<InspectorControls group="advanced">
 			<SelectControl
@@ -44,11 +45,31 @@ function GroupEditControls( { tagName, onSelectTagName } ) {
 					{ label: '<article>', value: 'article' },
 					{ label: '<aside>', value: 'aside' },
 					{ label: '<footer>', value: 'footer' },
+					{ label: '<nav>', value: 'nav' },
 				] }
 				value={ tagName }
-				onChange={ onSelectTagName }
+				onChange={ ( value ) => {
+					setAttributes( {
+						tagName: value,
+						ariaLabel: value === 'nav' ? ariaLabel : undefined,
+					} );
+				} }
 				help={ htmlElementMessages[ tagName ] }
 			/>
+			{ tagName === 'nav' && (
+				<TextControl
+					label={ __( 'Navigation label' ) }
+					value={ ariaLabel || '' }
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					onChange={ ( value ) => {
+						setAttributes( { ariaLabel: value } );
+					} }
+					help={ __(
+						'If a page includes more than one navigation, each should have a unique label.'
+					) }
+				/>
+			) }
 		</InspectorControls>
 	);
 }
@@ -125,10 +146,8 @@ function GroupEdit( { attributes, name, setAttributes, clientId } ) {
 	return (
 		<>
 			<GroupEditControls
-				tagName={ TagName }
-				onSelectTagName={ ( value ) =>
-					setAttributes( { tagName: value } )
-				}
+				attributes={ attributes }
+				setAttributes={ setAttributes }
 			/>
 			{ showPlaceholder && (
 				<View>
