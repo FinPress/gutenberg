@@ -148,6 +148,15 @@ function ControlPoints( {
 			controlPointMoveStateRef.current;
 
 		if (
+			( relativePosition >= 99 || relativePosition <= 0 ) &&
+			controlPoints.length > 2
+		) {
+			onChange( removeControlPoint( controlPoints, index ) );
+			cleanEventListeners();
+			return;
+		}
+
+		if (
 			! significantMoveHappened &&
 			Math.abs( initialPosition - relativePosition ) >=
 				MINIMUM_SIGNIFICANT_MOVE
