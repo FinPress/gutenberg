@@ -186,7 +186,7 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 	$tabs_list = array_map(
 		function ( $tab ) {
 			return wp_sprintf(
-				'<li class="tabs__list-item" role="presentation"><a id="tab__%1$s" class="tabs__tab-label" href="#%1$s" role="tab" aria-controls="%1$s" data-wp-on--click="actions.handleTabClick" data-wp-on--keydown="actions.handleTabKeyDown" data-wp-bind--aria-selected="state.isActiveTab" data-wp-bind--tabindex="state.tabIndexAttribute">%2$s</a></li>',
+				'<a id="tab__%1$s" class="tabs__tab-label" href="#%1$s" role="tab" aria-controls="%1$s" data-wp-on--click="actions.handleTabClick" data-wp-on--keydown="actions.handleTabKeyDown" data-wp-bind--aria-selected="state.isActiveTab" data-wp-bind--tabindex="state.tabIndexAttribute">%2$s</a>',
 				$tab['id'],
 				$tab['label']
 			);
@@ -198,7 +198,7 @@ function render_block_core_tabs( $attributes, $content, $block ) {
 	// Splice the tabs_list into the updated content.
 	$content = preg_replace(
 		'/<ul\s+class="tabs__list">\s*<\/ul>/i',
-		'<ul class="tabs__list">' . $tabs_list . '</ul>',
+		'<div class="tabs__list" role="tablist">' . $tabs_list . '</div>',
 		$updated_content
 	);
 

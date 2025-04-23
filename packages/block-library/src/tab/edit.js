@@ -198,56 +198,48 @@ export default function Edit( {
 			/>
 			<div { ...blockProps }>
 				<TabFill tabsClientId={ tabsClientId }>
-					<li
-						role="presentation"
+					<button
+						aria-controls={ tabPanelId }
+						aria-selected={ isSelectedTab }
+						id={ tabLabelId }
+						role="tab"
 						className={ clsx(
-							'tabs__list-item',
+							'tabs__tab-label',
 							tabItemColorProps.className
 						) }
 						style={ {
 							...tabItemColorProps.style,
 						} }
-					>
-						<button
-							aria-controls={ tabPanelId }
-							aria-selected={ isSelectedTab }
-							className="tabs__tab-label"
-							id={ tabLabelId }
-							role="tab"
-							tabIndex={ 0 }
-							onClick={ ( event ) => {
+						tabIndex={ 0 }
+						onClick={ ( event ) => {
+							event.preventDefault();
+							selectBlock( clientId );
+						} }
+						onKeyDown={ ( event ) => {
+							if ( event.key === 'Enter' ) {
 								event.preventDefault();
 								selectBlock( clientId );
-							} }
-							onKeyDown={ ( event ) => {
-								if ( event.key === 'Enter' ) {
-									event.preventDefault();
-									selectBlock( clientId );
-									timeoutRef.current = setTimeout( () => {
-										labelRef.current.focus();
-									}, 100 );
-								}
-							} }
-						>
-							<RichText
-								ref={ labelRef }
-								tagName="span"
-								allowedFormats={ [] }
-								withoutInteractiveFormatting
-								placeholder={ __( 'Add tab label…' ) }
-								value={ decodeEntities( label ) }
-								onChange={ ( value ) =>
-									setAttributes( {
-										label: value,
-										anchor: slugFromLabel(
-											value,
-											blockIndex
-										),
-									} )
-								}
-							/>
-						</button>
-					</li>
+								timeoutRef.current = setTimeout( () => {
+									labelRef.current.focus();
+								}, 100 );
+							}
+						} }
+					>
+						<RichText
+							ref={ labelRef }
+							tagName="span"
+							allowedFormats={ [] }
+							withoutInteractiveFormatting
+							placeholder={ __( 'Add tab label…' ) }
+							value={ decodeEntities( label ) }
+							onChange={ ( value ) =>
+								setAttributes( {
+									label: value,
+									anchor: slugFromLabel( value, blockIndex ),
+								} )
+							}
+						/>
+					</button>
 				</TabFill>
 				{ isSelectedTab && (
 					<>
