@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import {
 	SelectControl,
 	Notice,
@@ -73,7 +73,12 @@ export default function HTMLElementControl( {
 				return {
 					...option,
 					disabled: true,
-					label: `${ option.label } (${ __( 'Already in use' ) })`,
+					label: sprintf(
+						/* translators: %1$s: HTML element name, %2$s: Reason the element is disabled */
+						__( '%1$s (%2$s)' ),
+						option.label,
+						__( 'Already in use' )
+					),
 				};
 			}
 		}

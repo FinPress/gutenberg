@@ -1,4 +1,4 @@
-# HTML Element Control
+# HTMLElementControl
 
 A specialized component for selecting HTML elements with validation to prevent duplicate `<main>` elements.
 
