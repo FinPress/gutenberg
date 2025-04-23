@@ -4,7 +4,6 @@
 import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
 import { __, _x } from '@wordpress/i18n';
@@ -114,7 +113,7 @@ export default function ScaleTool( {
 				size="__unstable-large"
 			>
 				{ options.map( ( option ) => (
-					<ToggleGroupControlOption
+					<ToggleGroupControl.Option
 						key={ option.value }
 						{ ...option }
 					/>

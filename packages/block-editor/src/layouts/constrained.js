@@ -5,7 +5,6 @@ import {
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalUnitControl as UnitControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 	__experimentalInputControlPrefixWrapper as InputControlPrefixWrapper,
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
@@ -139,7 +138,7 @@ export default {
 						{ justificationOptions.map(
 							( { value, icon, label } ) => {
 								return (
-									<ToggleGroupControlOptionIcon
+									<ToggleGroupControl.OptionIcon
 										key={ value }
 										value={ value }
 										icon={ icon }

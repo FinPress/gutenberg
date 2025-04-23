@@ -175,11 +175,7 @@ export { default as TextareaControl } from './textarea-control';
 export { default as TextHighlight } from './text-highlight';
 export { default as Tip } from './tip';
 export { default as ToggleControl } from './toggle-control';
-export {
-	ToggleGroupControl as __experimentalToggleGroupControl,
-	ToggleGroupControlOption as __experimentalToggleGroupControlOption,
-	ToggleGroupControlOptionIcon as __experimentalToggleGroupControlOptionIcon,
-} from './toggle-group-control';
+export { ToggleGroupControl as __experimentalToggleGroupControl } from './toggle-group-control';
 export {
 	Toolbar,
 	ToolbarButton,

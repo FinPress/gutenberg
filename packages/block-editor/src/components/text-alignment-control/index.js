@@ -14,10 +14,7 @@ import {
 	alignJustify,
 } from '@wordpress/icons';
 import { useMemo } from '@wordpress/element';
-import {
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
-} from '@wordpress/components';
+import { __experimentalToggleGroupControl as ToggleGroupControl } from '@wordpress/components';
 
 const TEXT_ALIGNMENT_OPTIONS = [
 	{
@@ -90,7 +87,7 @@ export default function TextAlignmentControl( {
 		>
 			{ validOptions.map( ( option ) => {
 				return (
-					<ToggleGroupControlOptionIcon
+					<ToggleGroupControl.OptionIcon
 						key={ option.value }
 						value={ option.value }
 						icon={ option.icon }

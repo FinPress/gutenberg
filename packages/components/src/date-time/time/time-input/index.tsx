@@ -30,10 +30,7 @@ import type { TimeInputProps } from '../../types';
 import type { InputChangeCallback } from '../../../input-control/types';
 import { useControlledValue } from '../../../utils';
 import BaseControl from '../../../base-control';
-import {
-	ToggleGroupControl,
-	ToggleGroupControlOption,
-} from '../../../toggle-group-control';
+import { ToggleGroupControl } from '../../../toggle-group-control';
 
 export function TimeInput( {
 	value: valueProp,
@@ -179,11 +176,11 @@ export function TimeInput( {
 							)();
 						} }
 					>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="AM"
 							label={ __( 'AM' ) }
 						/>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="PM"
 							label={ __( 'PM' ) }
 						/>

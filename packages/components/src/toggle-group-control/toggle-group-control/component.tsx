@@ -121,7 +121,7 @@ function UnconnectedToggleGroupControl(
 /**
  * `ToggleGroupControl` is a form component that lets users choose options
  * represented in horizontal segments. To render options for this control use
- * `ToggleGroupControlOption` component.
+ * `ToggleGroupControl.Option` component.
  *
  * This component is intended for selecting a single persistent value from a set of options,
  * similar to a how a radio button group would work. If you simply want a toggle to switch between views,
@@ -134,7 +134,6 @@ function UnconnectedToggleGroupControl(
  * ```jsx
  * import {
  *   __experimentalToggleGroupControl as ToggleGroupControl,
- *   __experimentalToggleGroupControlOption as ToggleGroupControlOption,
  * } from '@wordpress/components';
  *
  * function Example() {
@@ -146,8 +145,8 @@ function UnconnectedToggleGroupControl(
  *       __nextHasNoMarginBottom
  *       __next40pxDefaultSize
  *     >
- *       <ToggleGroupControlOption value="horizontal" label="Horizontal" />
- *       <ToggleGroupControlOption value="vertical" label="Vertical" />
+ *       <ToggleGroupControl.Option value="horizontal" label="Horizontal" />
+ *       <ToggleGroupControl.Option value="vertical" label="Vertical" />
  *     </ToggleGroupControl>
  *   );
  * }

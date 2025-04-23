@@ -10,7 +10,6 @@ import {
 	RangeControl,
 	__experimentalNumberControl as NumberControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalUnitControl as UnitControl,
 	__experimentalParseQuantityAndUnitFromRawValue as parseQuantityAndUnitFromRawValue,
 	__experimentalVStack as VStack,
@@ -470,12 +469,12 @@ function GridLayoutTypeControl( { layout, onChange } ) {
 					: undefined
 			}
 		>
-			<ToggleGroupControlOption
+			<ToggleGroupControl.Option
 				key="auto"
 				value="auto"
 				label={ __( 'Auto' ) }
 			/>
-			<ToggleGroupControlOption
+			<ToggleGroupControl.Option
 				key="manual"
 				value="manual"
 				label={ __( 'Manual' ) }

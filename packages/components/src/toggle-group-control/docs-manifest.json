@@ -1,0 +1,17 @@
+{
+	"$schema": "../../schemas/docs-manifest.json",
+	"displayName": "ToggleGroupControl",
+	"filePath": "./index.ts",
+	"subcomponents": [
+		{
+			"displayName": "ToggleGroupControlOption",
+			"preferredDisplayName": "ToggleGroupControl.Option",
+			"filePath": "./toggle-group-control-option/index.ts"
+		},
+		{
+			"displayName": "ToggleGroupControlOptionIcon",
+			"preferredDisplayName": "ToggleGroupControl.OptionIcon",
+			"filePath": "./toggle-group-control-option-icon/index.ts"
+		}
+	]
+}

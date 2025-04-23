@@ -54,7 +54,7 @@ export function FormFileUpload( {
 	const ui = render ? (
 		render( { openFileDialog } )
 	) : (
-		<Button onClick={ openFileDialog } { ...props }>
+		<Button role="button" onClick={ openFileDialog } { ...props }>
 			{ children }
 		</Button>
 	);

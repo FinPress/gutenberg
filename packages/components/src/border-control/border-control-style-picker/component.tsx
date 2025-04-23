@@ -9,10 +9,7 @@ import { __ } from '@wordpress/i18n';
  */
 import { contextConnect } from '../../context';
 import type { StylePickerProps } from '../types';
-import {
-	ToggleGroupControl,
-	ToggleGroupControlOptionIcon,
-} from '../../toggle-group-control';
+import { ToggleGroupControl } from '../../toggle-group-control';
 
 const BORDER_STYLES = [
 	{ label: __( 'Solid' ), icon: lineSolid, value: 'solid' },
@@ -36,7 +33,7 @@ function UnconnectedBorderControlStylePicker(
 			{ ...restProps }
 		>
 			{ BORDER_STYLES.map( ( borderStyle ) => (
-				<ToggleGroupControlOptionIcon
+				<ToggleGroupControl.OptionIcon
 					key={ borderStyle.value }
 					value={ borderStyle.value }
 					icon={ borderStyle.icon }

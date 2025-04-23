@@ -4,7 +4,6 @@
 import {
 	ToggleControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
@@ -35,12 +34,12 @@ export default function OverlayMenuPreview( { setAttributes, hasIcon, icon } ) {
 				onChange={ ( value ) => setAttributes( { icon: value } ) }
 				isBlock
 			>
-				<ToggleGroupControlOption
+				<ToggleGroupControl.Option
 					value="handle"
 					aria-label={ __( 'handle' ) }
 					label={ <OverlayMenuIcon icon="handle" /> }
 				/>
-				<ToggleGroupControlOption
+				<ToggleGroupControl.Option
 					value="menu"
 					aria-label={ __( 'menu' ) }
 					label={ <OverlayMenuIcon icon="menu" /> }

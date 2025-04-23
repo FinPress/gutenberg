@@ -12,10 +12,7 @@ import { useState } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import {
-	ToggleGroupControl,
-	ToggleGroupControlOption,
-} from '../../toggle-group-control';
+import { ToggleGroupControl } from '../../toggle-group-control';
 
 /**
  * Internal dependencies
@@ -119,15 +116,15 @@ export const Default: StoryFn< typeof ToolsPanel > = ( {
 							onChange={ ( next ) => setScale( next ) }
 							isBlock
 						>
-							<ToggleGroupControlOption
+							<ToggleGroupControl.Option
 								value="cover"
 								label="Cover"
 							/>
-							<ToggleGroupControlOption
+							<ToggleGroupControl.Option
 								value="contain"
 								label="Contain"
 							/>
-							<ToggleGroupControlOption
+							<ToggleGroupControl.Option
 								value="fill"
 								label="Fill"
 							/>
@@ -477,12 +474,15 @@ export const WithConditionalDefaultControl: StoryFn< typeof ToolsPanel > = ( {
 						}
 						isBlock
 					>
-						<ToggleGroupControlOption value="cover" label="Cover" />
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
+							value="cover"
+							label="Cover"
+						/>
+						<ToggleGroupControl.Option
 							value="contain"
 							label="Contain"
 						/>
-						<ToggleGroupControlOption value="fill" label="Fill" />
+						<ToggleGroupControl.Option value="fill" label="Fill" />
 					</ToggleGroupControl>
 				</ToolsPanelItem>
 			</ToolsPanelItems>
@@ -581,15 +581,15 @@ export const WithConditionallyRenderedControl: StoryFn<
 							}
 							isBlock
 						>
-							<ToggleGroupControlOption
+							<ToggleGroupControl.Option
 								value="cover"
 								label="Cover"
 							/>
-							<ToggleGroupControlOption
+							<ToggleGroupControl.Option
 								value="contain"
 								label="Contain"
 							/>
-							<ToggleGroupControlOption
+							<ToggleGroupControl.Option
 								value="fill"
 								label="Fill"
 							/>

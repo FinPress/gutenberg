@@ -8,10 +8,7 @@ import clsx from 'clsx';
  */
 import { reset, formatStrikethrough, formatUnderline } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
-import {
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
-} from '@wordpress/components';
+import { __experimentalToggleGroupControl as ToggleGroupControl } from '@wordpress/components';
 
 const TEXT_DECORATIONS = [
 	{
@@ -63,7 +60,7 @@ export default function TextDecorationControl( {
 		>
 			{ TEXT_DECORATIONS.map( ( option ) => {
 				return (
-					<ToggleGroupControlOptionIcon
+					<ToggleGroupControl.OptionIcon
 						key={ option.value }
 						value={ option.value }
 						icon={ option.icon }

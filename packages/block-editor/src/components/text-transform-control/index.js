@@ -13,10 +13,7 @@ import {
 	formatLowercase,
 	formatUppercase,
 } from '@wordpress/icons';
-import {
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
-} from '@wordpress/components';
+import { __experimentalToggleGroupControl as ToggleGroupControl } from '@wordpress/components';
 
 const TEXT_TRANSFORMS = [
 	{
@@ -69,7 +66,7 @@ export default function TextTransformControl( { className, value, onChange } ) {
 		>
 			{ TEXT_TRANSFORMS.map( ( option ) => {
 				return (
-					<ToggleGroupControlOptionIcon
+					<ToggleGroupControl.OptionIcon
 						key={ option.value }
 						value={ option.value }
 						icon={ option.icon }

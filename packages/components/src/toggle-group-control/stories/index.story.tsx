@@ -12,11 +12,7 @@ import { formatLowercase, formatUppercase } from '@wordpress/icons';
 /**
  * Internal dependencies
  */
-import {
-	ToggleGroupControl,
-	ToggleGroupControlOption,
-	ToggleGroupControlOptionIcon,
-} from '../index';
+import { ToggleGroupControl } from '../index';
 import type {
 	ToggleGroupControlOptionProps,
 	ToggleGroupControlOptionIconProps,
@@ -25,8 +21,12 @@ import type {
 
 const meta: Meta< typeof ToggleGroupControl > = {
 	component: ToggleGroupControl,
-	// @ts-expect-error - See https://github.com/storybookjs/storybook/issues/23170
-	subcomponents: { ToggleGroupControlOption, ToggleGroupControlOptionIcon },
+	subcomponents: {
+		// @ts-expect-error - See https://github.com/storybookjs/storybook/issues/23170
+		Option: ToggleGroupControl.Option,
+		// @ts-expect-error - See https://github.com/storybookjs/storybook/issues/23170
+		OptionIcon: ToggleGroupControl.OptionIcon,
+	},
 	title: 'Components (Experimental)/Selection & Input/ToggleGroupControl',
 	id: 'components-experimental-togglegroupcontrol',
 	argTypes: {
@@ -66,14 +66,14 @@ const mapPropsToOptionComponent = ( {
 	value,
 	...props
 }: ToggleGroupControlOptionProps ) => (
-	<ToggleGroupControlOption value={ value } key={ value } { ...props } />
+	<ToggleGroupControl.Option value={ value } key={ value } { ...props } />
 );
 
 const mapPropsToOptionIconComponent = ( {
 	value,
 	...props
 }: ToggleGroupControlOptionIconProps ) => (
-	<ToggleGroupControlOptionIcon value={ value } key={ value } { ...props } />
+	<ToggleGroupControl.OptionIcon value={ value } key={ value } { ...props } />
 );
 
 export const Default: StoryFn< typeof ToggleGroupControl > = Template.bind(

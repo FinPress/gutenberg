@@ -12,8 +12,6 @@ import {
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
 	Dropdown,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 	SelectControl,
 	__experimentalItemGroup as ItemGroup,
 	__experimentalItem as Item,
@@ -206,7 +204,7 @@ function SortDirectionControl() {
 		>
 			{ SORTING_DIRECTIONS.map( ( direction ) => {
 				return (
-					<ToggleGroupControlOptionIcon
+					<ToggleGroupControl.OptionIcon
 						key={ direction }
 						value={ direction }
 						icon={ sortIcons[ direction ] }
@@ -244,7 +242,7 @@ function ItemsPerPageControl() {
 		>
 			{ PAGE_SIZE_VALUES.map( ( value ) => {
 				return (
-					<ToggleGroupControlOption
+					<ToggleGroupControl.Option
 						key={ value }
 						value={ value }
 						label={ value.toString() }

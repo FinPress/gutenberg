@@ -37,13 +37,12 @@ function UnforwardedToggleGroupControlOption(
 }
 
 /**
- * `ToggleGroupControlOption` is a form component and is meant to be used as a
+ * `ToggleGroupControl.Option` is a form component and is meant to be used as a
  * child of `ToggleGroupControl`.
  *
  * ```jsx
  * import {
  *   __experimentalToggleGroupControl as ToggleGroupControl,
- *   __experimentalToggleGroupControlOption as ToggleGroupControlOption,
  * } from '@wordpress/components';
  *
  * function Example() {
@@ -55,8 +54,8 @@ function UnforwardedToggleGroupControlOption(
  *       __nextHasNoMarginBottom
  *       __next40pxDefaultSize
  *     >
- *       <ToggleGroupControlOption value="horizontal" label="Horizontal" />
- *       <ToggleGroupControlOption value="vertical" label="Vertical" />
+ *       <ToggleGroupControl.Option value="horizontal" label="Horizontal" />
+ *       <ToggleGroupControl.Option value="vertical" label="Vertical" />
  *     </ToggleGroupControl>
  *   );
  * }

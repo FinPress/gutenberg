@@ -6,10 +6,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import {
-	ToggleGroupControl,
-	ToggleGroupControlOption,
-} from '../toggle-group-control';
+import { ToggleGroupControl } from '../toggle-group-control';
 import { T_SHIRT_ABBREVIATIONS, T_SHIRT_NAMES } from './constants';
 import type { FontSizePickerToggleGroupProps } from './types';
 
@@ -28,7 +25,7 @@ const FontSizePickerToggleGroup = ( props: FontSizePickerToggleGroupProps ) => {
 			size={ size }
 		>
 			{ fontSizes.map( ( fontSize, index ) => (
-				<ToggleGroupControlOption
+				<ToggleGroupControl.Option
 					key={ fontSize.slug }
 					value={ fontSize.size }
 					label={ T_SHIRT_ABBREVIATIONS[ index ] }

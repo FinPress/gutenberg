@@ -1,10 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-} from '@wordpress/components';
+import { __experimentalToggleGroupControl as ToggleGroupControl } from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
 import { useContext } from '@wordpress/element';
 
@@ -34,7 +31,7 @@ export default function DensityPicker() {
 			} }
 			isBlock
 		>
-			<ToggleGroupControlOption
+			<ToggleGroupControl.Option
 				key="comfortable"
 				value="comfortable"
 				label={ _x(
@@ -42,12 +39,12 @@ export default function DensityPicker() {
 					'Density option for DataView layout'
 				) }
 			/>
-			<ToggleGroupControlOption
+			<ToggleGroupControl.Option
 				key="balanced"
 				value="balanced"
 				label={ _x( 'Balanced', 'Density option for DataView layout' ) }
 			/>
-			<ToggleGroupControlOption
+			<ToggleGroupControl.Option
 				key="compact"
 				value="compact"
 				label={ _x( 'Compact', 'Density option for DataView layout' ) }
