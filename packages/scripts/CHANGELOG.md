@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+## 30.15.0 (2025-04-11)
+
+## 30.14.1 (2025-04-01)
+
+### Bug Fixes
+
+-   Fix: `--blocks-manifest` CLI flag doesn't work when the directory name has space ([#69766](https://github.com/WordPress/gutenberg/pull/69766)).
+
+
+## 30.14.0 (2025-03-27)
+
+### New Features
+
+-   Add `--blocks-manifest` CLI flag to generate a PHP file containing block metadata from all `block.json` files in the project ([#69578](https://github.com/WordPress/gutenberg/pull/69578)).
+
+## 30.13.0 (2025-03-13)
+
+## 30.12.0 (2025-02-28)
+
+## 30.11.0 (2025-02-12)
+
+## 30.10.0 (2025-01-29)
+
+## 30.9.0 (2025-01-15)
+
 ## 30.8.0 (2025-01-02)
 
 ### Enhancements
@@ -355,7 +380,7 @@
 
 ### Breaking Changes
 
--   Remove `lint-md-js` script that was broken for some time and it's extemely hard to make it work correctly with the recommended ESLint config in Markdown files ([#40511](https://github.com/WordPress/gutenberg/pull/40511)).
+-   Remove `lint-md-js` script that was broken for some time and it's extremely hard to make it work correctly with the recommended ESLint config in Markdown files ([#40511](https://github.com/WordPress/gutenberg/pull/40511)).
 -   Remove the previously deprecated and undocumented `format-js` command ([#40512](https://github.com/WordPress/gutenberg/pull/40512)). You should use the `format` command instead.
 
 ### New Features

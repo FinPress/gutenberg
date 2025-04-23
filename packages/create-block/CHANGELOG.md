@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+### Enhancement
+
+-   Add support for `--textdomain` flag to create block tool ([#69802](https://github.com/WordPress/gutenberg/pull/69802)).
+
+## 4.65.0 (2025-04-11)
+
+## 4.64.0 (2025-03-27)
+
+## 4.63.0 (2025-03-13)
+
+## 4.62.0 (2025-02-28)
+
+## 4.61.0 (2025-02-12)
+
+## 4.60.0 (2025-01-29)
+
+## 4.59.0 (2025-01-15)
+
 ## 4.58.0 (2025-01-02)
 
 ### Enhancement
@@ -480,7 +498,7 @@
 
 ### Internal
 
--   Relocated npm packge from `create-wordpress-block` to `@wordpress/create-block` ([#19773](https://github.com/WordPress/gutenberg/pull/19773)).
+-   Relocated npm package from `create-wordpress-block` to `@wordpress/create-block` ([#19773](https://github.com/WordPress/gutenberg/pull/19773)).
 
 ## 0.5.0 (2020-01-08)
 
