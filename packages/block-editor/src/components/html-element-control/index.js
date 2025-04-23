@@ -74,10 +74,9 @@ export default function HTMLElementControl( {
 					...option,
 					disabled: true,
 					label: sprintf(
-						/* translators: %1$s: HTML element name, %2$s: Reason the element is disabled */
-						__( '%1$s (%2$s)' ),
-						option.label,
-						__( 'Already in use' )
+						/* translators: %s: HTML element name */
+						__( '%s (Already in use)' ),
+						option.label
 					),
 				};
 			}
