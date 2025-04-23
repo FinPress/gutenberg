@@ -100,7 +100,7 @@ require __DIR__ . '/compat/wordpress-6.7/compat.php';
 require __DIR__ . '/compat/wordpress-6.7/post-formats.php';
 
 // WordPress 6.8 compat.
-require __DIR__ . '/compat/wordpress-6.8/admin-bar.php';
+// Note: admin-bar.php (69271) was reverted in Gutenberg 20.8.0.
 require __DIR__ . '/compat/wordpress-6.8/preload.php';
 require __DIR__ . '/compat/wordpress-6.8/blocks.php';
 require __DIR__ . '/compat/wordpress-6.8/functions.php';
