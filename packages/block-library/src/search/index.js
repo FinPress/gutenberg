@@ -20,18 +20,23 @@ export { metadata, name };
 
 export const settings = {
 	icon,
-	__experimentalLabel( attributes, { clientId } ) {
-		const { label } = attributes;
-		const customName = attributes?.metadata?.name;
+	__experimentalLabel( attributes, { clientId, context } ) {
+		// Only show the label in list view.
+		if ( context !== 'list-view' ) {
+			return;
+		}
 
 		// Check if the block is inside a Query Loop block.
 		const queryLoopBlockIds = select(
 			blockEditorStore
 		).getBlockParentsByBlockName( clientId, 'core/query' );
 
+		const blockTitle = __( 'Search' );
+		const customName = attributes?.metadata?.name;
+
 		// If the block is not inside a Query Loop block, return the block label.
 		if ( ! queryLoopBlockIds.length ) {
-			return customName || label;
+			return customName || blockTitle;
 		}
 
 		const queryLoopBlock = select( blockEditorStore ).getBlock(
@@ -46,13 +51,13 @@ export const settings = {
 		);
 
 		if ( ! hasInstantSearch ) {
-			return customName || label;
+			return customName || blockTitle;
 		}
 
 		return sprintf(
 			/* translators: %s: The block label */
 			__( '%s (Instant search enabled)' ),
-			customName || label || 'Search'
+			customName || blockTitle
 		);
 	},
 	example: {
