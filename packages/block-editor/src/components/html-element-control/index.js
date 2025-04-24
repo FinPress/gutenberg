@@ -67,19 +67,20 @@ export default function HTMLElementControl( {
 
 	// Create a modified options array that disables the main option if needed.
 	const modifiedOptions = options.map( ( option ) => {
-		if ( option.value === 'main' ) {
-			// If there's already a main element elsewhere and this isn't currently main.
-			if ( hasMainElementElsewhere && tagName !== 'main' ) {
-				return {
-					...option,
-					disabled: true,
-					label: sprintf(
-						/* translators: %s: HTML element name */
-						__( '%s (Already in use)' ),
-						option.label
-					),
-				};
-			}
+		if (
+			option.value === 'main' &&
+			hasMainElementElsewhere &&
+			tagName !== 'main'
+		) {
+			return {
+				...option,
+				disabled: true,
+				label: sprintf(
+					/* translators: %s: HTML element name */
+					__( '%s (Already in use)' ),
+					option.label
+				),
+			};
 		}
 		return option;
 	} );
