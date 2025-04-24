@@ -89,7 +89,9 @@ function AudioEdit( {
 
 	function getAutoplayHelp( checked ) {
 		return checked
-			? __( 'Autoplay may cause usability issues for some users.' )
+			? __(
+					'Autoplay only works if audio is muted or after user interact with the page.'
+			  )
 			: null;
 	}
 
