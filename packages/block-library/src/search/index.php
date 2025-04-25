@@ -193,8 +193,8 @@ function render_block_core_search( $attributes, $content, $block ) {
 	$wrapper_attributes = get_block_wrapper_attributes(
 		array( 'class' => $classnames )
 	);
-	$form_directives      = '';
-	$form_context         = array();
+	$form_directives    = '';
+	$form_context       = array();
 
 	// If it's interactive, add the directives.
 	if ( $is_expandable_searchfield || $instant_search_enabled ) {
