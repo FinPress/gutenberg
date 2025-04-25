@@ -34,6 +34,7 @@ export function removeBlockSupportAttributes( attributes ) {
 	const {
 		backgroundColor,
 		borderColor,
+		boxShadow,
 		fontFamily,
 		fontSize,
 		gradient,
@@ -42,7 +43,7 @@ export function removeBlockSupportAttributes( attributes ) {
 		...restAttributes
 	} = attributes;
 
-	const { border, color, elements, spacing, typography, ...restStyles } =
+	const { border, color, elements, shadow, spacing, typography, ...restStyles } =
 		attributes?.style || EMPTY_OBJECT;
 
 	return {
