@@ -17,6 +17,7 @@ function gutenberg_bootstrap_server_block_bindings_sources() {
 				'name'        => $source->name,
 				'label'       => $source->label,
 				'usesContext' => $source->uses_context,
+				'args'   => $source->args,
 			);
 		}
 		$script = sprintf( 'for ( const source of %s ) { ! wp.blocks.getBlockBindingsSource( source.name ) && wp.blocks.registerBlockBindingsSource( source ); }', wp_json_encode( $filtered_sources ) );

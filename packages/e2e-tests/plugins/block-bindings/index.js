@@ -27,7 +27,7 @@ registerBlockBindingsSource( {
 	getValues,
 	setValues,
 	canUserEditValue: () => true,
-	getFieldsList: () => fieldsList,
+	fields: () => fieldsList,
 } );
 
 registerBlockBindingsSource( {

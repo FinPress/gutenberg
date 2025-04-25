@@ -203,7 +203,7 @@ export function RichTextWrapper(
 
 			const { getBlockAttributes } = select( blockEditorStore );
 			const blockAttributes = getBlockAttributes( clientId );
-			const fieldsList = blockBindingsSource?.getFieldsList?.( {
+			const fieldsList = blockBindingsSource?.args?.( {
 				select,
 				context: blockBindingsContext,
 			} );

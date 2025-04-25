@@ -800,7 +800,7 @@ export const registerBlockBindingsSource = ( source ) => {
 		getValues,
 		setValues,
 		canUserEditValue,
-		getFieldsList,
+		args,
 	} = source;
 
 	const existingSource = unlock(
@@ -811,6 +811,7 @@ export const registerBlockBindingsSource = ( source ) => {
 	 * Check if the source has been already registered on the client.
 	 * If any property expected to be "client-only" is defined, return a warning.
 	 */
+	// TODO: Check if server prop fields has to be included in serverProps.
 	const serverProps = [ 'label', 'usesContext' ];
 	for ( const prop in existingSource ) {
 		if ( ! serverProps.includes( prop ) && existingSource[ prop ] ) {
@@ -892,12 +893,9 @@ export const registerBlockBindingsSource = ( source ) => {
 		warning( 'Block bindings source canUserEditValue must be a function.' );
 		return;
 	}
-
-	// Check the `getFieldsList` property is correct.
-	if ( getFieldsList && typeof getFieldsList !== 'function' ) {
-		// eslint-disable-next-line no-console
-		warning( 'Block bindings source getFieldsList must be a function.' );
-		return;
+	// Check the `fields` property is correct.
+	if ( args && typeof args !== 'object' ) {
+		warning( 'Block bindings source args must be an object.' );
 	}
 
 	return unlock( dispatch( blocksStore ) ).addBlockBindingsSource( source );

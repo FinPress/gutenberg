@@ -208,9 +208,9 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 	const bindableAttributes = getBindableAttributes( blockName );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
-	// `useSelect` is used purposely here to ensure `getFieldsList`
+	// `useSelect` is used purposely here to ensure `args`
 	// is updated whenever there are updates in block context.
-	// `source.getFieldsList` may also call a selector via `select`.
+	// `source.args` may also call a selector via `select`.
 	const _fieldsList = {};
 	const { fieldsList, canUpdateBlockBindings } = useSelect(
 		( select ) => {
@@ -219,8 +219,8 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 			}
 			const registeredSources = getBlockBindingsSources();
 			Object.entries( registeredSources ).forEach(
-				( [ sourceName, { getFieldsList, usesContext } ] ) => {
-					if ( getFieldsList ) {
+				( [ sourceName, { args, usesContext } ] ) => {
+					if ( args ) {
 						// Populate context.
 						const context = {};
 						if ( usesContext?.length ) {
@@ -228,10 +228,15 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 								context[ key ] = blockContext[ key ];
 							}
 						}
-						const sourceList = getFieldsList( {
-							select,
-							context,
-						} );
+						let sourceList;
+						if ( typeof args === 'function' ) {
+							sourceList = args( {
+								select,
+								context,
+							} );
+						} else {
+							sourceList = { ...args };
+						}
 						// Only add source if the list is not empty.
 						if ( Object.keys( sourceList || {} ).length ) {
 							_fieldsList[ sourceName ] = { ...sourceList };

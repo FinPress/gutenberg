@@ -763,7 +763,7 @@ test.describe( 'Registered sources', () => {
 		} );
 	} );
 
-	test.describe( 'getFieldsList', () => {
+	test.describe( 'fields', () => {
 		test( 'should be possible to update attribute value through bindings UI', async ( {
 			editor,
 			page,
@@ -1104,7 +1104,7 @@ test.describe( 'Registered sources', () => {
 				'Add Empty Field Label'
 			);
 		} );
-		test( 'should show source label when value is empty, cannot edit, and `getFieldsList` is undefined', async ( {
+		test( 'should show source label when value is empty, cannot edit, and `fields` is undefined', async ( {
 			editor,
 		} ) => {
 			await editor.insertBlock( {
