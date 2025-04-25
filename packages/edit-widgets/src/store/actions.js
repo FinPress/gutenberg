@@ -431,3 +431,17 @@ export const moveBlockToWidgetArea =
 				destinationIndex
 			);
 	};
+
+export function unlockWidgetSaving( lockName ) {
+	return {
+		type: 'UNLOCK_WIDGET_SAVING',
+		lockName,
+	};
+}
+
+export function lockWidgetSaving( lockName ) {
+	return {
+		type: 'LOCK_WIDGET_SAVING',
+		lockName,
+	};
+}

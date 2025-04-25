@@ -90,10 +90,26 @@ export function inserterSidebarToggleRef( state = { current: null } ) {
 	return state;
 }
 
+export function widgetSavingLock( state = {}, action ) {
+	switch ( action.type ) {
+		case 'LOCK_WIDGET_SAVING':
+			return { ...state, [ action.lockName ]: true };
+
+		case 'UNLOCK_WIDGET_SAVING': {
+			const { [ action.lockName ]: removedLockName, ...restState } =
+				state;
+			return restState;
+		}
+	}
+
+	return state;
+}
+
 export default combineReducers( {
 	blockInserterPanel,
 	inserterSidebarToggleRef,
 	listViewPanel,
 	listViewToggleRef,
 	widgetAreasOpenState,
+	widgetSavingLock,
 } );

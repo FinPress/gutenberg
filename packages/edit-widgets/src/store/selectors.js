@@ -311,3 +311,7 @@ export const canInsertBlockInWidgetArea = createRegistrySelector(
 export function isListViewOpened( state ) {
 	return state.listViewPanel;
 }
+
+export function isWidgetSavingLocked( state ) {
+	return Object.keys( state.widgetSavingLock ).length > 0;
+}
