@@ -157,7 +157,7 @@ export default function PostFeaturedImageEdit( {
 		media?.source_url;
 
 	const blockProps = useBlockProps( {
-		style: { width, height, aspectRatio },
+		style: { width, height },
 		className: clsx( {
 			'is-transient': temporaryURL,
 		} ),
@@ -389,7 +389,7 @@ export default function PostFeaturedImageEdit( {
 		...shadowProps.style,
 		height: aspectRatio ? '100%' : height,
 		width: !! aspectRatio && '100%',
-		objectFit: !! ( height || aspectRatio ) && scale,
+		objectFit: scale,
 	};
 
 	/**

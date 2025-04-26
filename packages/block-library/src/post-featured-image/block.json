@@ -12,9 +12,6 @@
 			"default": false,
 			"role": "content"
 		},
-		"aspectRatio": {
-			"type": "string"
-		},
 		"width": {
 			"type": "string"
 		},
@@ -87,6 +84,9 @@
 		"shadow": {
 			"__experimentalSkipSerialization": true
 		},
+		"dimensions": {
+			"aspectRatio": true
+		},
 		"html": false,
 		"spacing": {
 			"margin": true,
@@ -101,6 +101,9 @@
 		"shadow": ".wp-block-post-featured-image img, .wp-block-post-featured-image .components-placeholder",
 		"filter": {
 			"duotone": ".wp-block-post-featured-image img, .wp-block-post-featured-image .wp-block-post-featured-image__placeholder, .wp-block-post-featured-image .components-placeholder__illustration, .wp-block-post-featured-image .components-placeholder::before"
+		},
+		"dimensions": {
+			"aspectRatio": ".wp-block-post-featured-image, .wp-block-post-featured-image img"
 		}
 	},
 	"editorStyle": "wp-block-post-featured-image-editor",

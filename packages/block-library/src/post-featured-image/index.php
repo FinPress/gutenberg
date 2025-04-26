@@ -41,6 +41,8 @@ function render_block_core_post_featured_image( $attributes, $content, $block ) 
 	$extra_styles = '';
 
 	// Aspect ratio with a height set needs to override the default width/height.
+	// $attributes['aspectRatio'] is a legacy attribute.
+	// It will be migrated to $attributes['style']['dimensions']['aspectRatio'] but needs to remain for compatibility.
 	if ( ! empty( $attributes['aspectRatio'] ) ) {
 		$extra_styles .= 'width:100%;height:100%;';
 	} elseif ( ! empty( $attributes['height'] ) ) {
