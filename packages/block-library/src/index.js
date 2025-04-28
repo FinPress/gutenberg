@@ -23,6 +23,7 @@ import {
 import * as archives from './archives';
 import * as avatar from './avatar';
 import * as audio from './audio';
+import * as bookmarkCount from './bookmark-count';
 import * as button from './button';
 import * as buttons from './buttons';
 import * as calendar from './calendar';
@@ -143,6 +144,7 @@ const getAllBlocks = () => {
 		// Register all remaining core blocks.
 		archives,
 		audio,
+		bookmarkCount,
 		button,
 		buttons,
 		calendar,
