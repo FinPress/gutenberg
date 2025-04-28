@@ -55,7 +55,7 @@ function InlineLinkUI( {
 
 	const { selectionChange } = useDispatch( blockEditorStore );
 
-	const { createPageEntity, userCanCreatePages, selectionStart } = useSelect(
+	const { createPageEntity, canUserCreatePages, selectionStart } = useSelect(
 		( select ) => {
 			const { getSettings, getSelectionStart } =
 				select( blockEditorStore );
@@ -63,7 +63,7 @@ function InlineLinkUI( {
 
 			return {
 				createPageEntity: _settings.__experimentalCreatePageEntity,
-				userCanCreatePages: _settings.__experimentalUserCanCreatePages,
+				canUserCreatePages: _settings.canUserCreatePages,
 				selectionStart: getSelectionStart(),
 			};
 		},
@@ -267,7 +267,7 @@ function InlineLinkUI( {
 				onRemove={ removeLink }
 				hasRichPreviews
 				createSuggestion={ createPageEntity && handleCreate }
-				withCreateSuggestion={ userCanCreatePages }
+				withCreateSuggestion={ canUserCreatePages }
 				createSuggestionButtonText={ createButtonText }
 				hasTextControl
 				settings={ LINK_SETTINGS }

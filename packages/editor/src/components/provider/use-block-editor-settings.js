@@ -118,7 +118,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 		hasUploadPermissions,
 		hiddenBlockTypes,
 		canUseUnfilteredHTML,
-		userCanCreatePages,
+		canUserCreatePages,
 		pageOnFront,
 		pageForPosts,
 		userPatternCategories,
@@ -179,7 +179,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 						kind: 'root',
 						name: 'media',
 					} ) ?? true,
-				userCanCreatePages: canUser( 'create', {
+				canUserCreatePages: canUser( 'create', {
 					kind: 'postType',
 					name: 'page',
 				} ),
@@ -243,7 +243,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 	 */
 	const createPageEntity = useCallback(
 		( options ) => {
-			if ( ! userCanCreatePages ) {
+			if ( ! canUserCreatePages ) {
 				return Promise.reject( {
 					message: __(
 						'You do not have permission to create Pages.'
@@ -252,7 +252,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			}
 			return saveEntityRecord( 'postType', 'page', options );
 		},
-		[ saveEntityRecord, userCanCreatePages ]
+		[ saveEntityRecord, canUserCreatePages ]
 	);
 
 	const allowedBlockTypes = useMemo( () => {
@@ -319,7 +319,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			outlineMode: ! isDistractionFree && postType === 'wp_template',
 			// Check these two properties: they were not present in the site editor.
 			__experimentalCreatePageEntity: createPageEntity,
-			__experimentalUserCanCreatePages: userCanCreatePages,
+			canUserCreatePages,
 			pageOnFront,
 			pageForPosts,
 			__experimentalPreferPatternsOnRoot: postType === 'wp_template',
@@ -354,7 +354,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 		canUseUnfilteredHTML,
 		undo,
 		createPageEntity,
-		userCanCreatePages,
+		canUserCreatePages,
 		pageOnFront,
 		pageForPosts,
 		postType,

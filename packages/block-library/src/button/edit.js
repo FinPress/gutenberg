@@ -227,7 +227,7 @@ function ButtonEdit( props ) {
 
 	const {
 		createPageEntity,
-		userCanCreatePages,
+		canUserCreatePages,
 		lockUrlControls = false,
 	} = useSelect(
 		( select ) => {
@@ -243,7 +243,7 @@ function ButtonEdit( props ) {
 
 			return {
 				createPageEntity: _settings.__experimentalCreatePageEntity,
-				userCanCreatePages: _settings.__experimentalUserCanCreatePages,
+				canUserCreatePages: _settings.canUserCreatePages,
 				lockUrlControls:
 					!! metadata?.bindings?.url &&
 					! blockBindingsSource?.canUserEditValue?.( {
@@ -443,7 +443,7 @@ function ButtonEdit( props ) {
 							createSuggestion={
 								createPageEntity && handleCreate
 							}
-							withCreateSuggestion={ userCanCreatePages }
+							withCreateSuggestion={ canUserCreatePages }
 							createSuggestionButtonText={ createButtonText }
 						/>
 					</Popover>
