@@ -34,6 +34,7 @@ export default function PostNavigationLinkEdit( {
 		linkLabel,
 		arrow,
 		taxonomy,
+		showLabel,
 	},
 	setAttributes,
 } ) {
@@ -128,7 +129,14 @@ export default function PostNavigationLinkEdit( {
 						label={ __( 'Arrow' ) }
 						value={ arrow }
 						onChange={ ( value ) => {
-							setAttributes( { arrow: value } );
+							if ( value === 'none' ) {
+								setAttributes( {
+									showLabel: false,
+									arrow: value,
+								} );
+							} else {
+								setAttributes( { arrow: value } );
+							}
 						} }
 						help={ __(
 							'A decorative arrow for the next and previous link.'
@@ -157,6 +165,18 @@ export default function PostNavigationLinkEdit( {
 							) }
 						/>
 					</ToggleGroupControl>
+					{ arrow !== 'none' && (
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={ __( 'Show label text' ) }
+							checked={ !! showLabel }
+							onChange={ () =>
+								setAttributes( {
+									showLabel: ! showLabel,
+								} )
+							}
+						/>
+					) }
 				</PanelBody>
 			</InspectorControls>
 			<InspectorControls group="advanced">
@@ -192,17 +212,19 @@ export default function PostNavigationLinkEdit( {
 						{ displayArrow }
 					</span>
 				) }
-				<RichText
-					tagName="a"
-					identifier="label"
-					aria-label={ ariaLabel }
-					placeholder={ placeholder }
-					value={ label }
-					withoutInteractiveFormatting
-					onChange={ ( newLabel ) =>
-						setAttributes( { label: newLabel } )
-					}
-				/>
+				{ showLabel && (
+					<RichText
+						tagName="a"
+						identifier="label"
+						aria-label={ ariaLabel }
+						placeholder={ placeholder }
+						value={ label }
+						withoutInteractiveFormatting
+						onChange={ ( newLabel ) =>
+							setAttributes( { label: newLabel } )
+						}
+					/>
+				) }
 				{ showTitle && (
 					<a
 						href="#post-navigation-pseudo-link"
