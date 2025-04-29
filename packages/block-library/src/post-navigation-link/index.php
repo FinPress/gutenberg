@@ -118,12 +118,12 @@ function render_block_core_post_navigation_link( $attributes, $content ) {
 
 	if ( empty( $content ) ) {
 		$label_text = 'next' === $navigation_type ? __( 'Next' ) : __( 'Previous' );
-	
+
 		// Setup arrow if needed
 		$arrow_html = '';
 		if ( isset( $attributes['arrow'] ) && 'none' !== $attributes['arrow'] && isset( $arrow_map[ $attributes['arrow'] ] ) ) {
 			$arrow = $arrow_map[ $attributes['arrow'] ][ $navigation_type ];
-	
+
 			if ( 'next' === $navigation_type ) {
 				$arrow_html = sprintf(
 					'<span class="wp-block-post-navigation-link__arrow-next is-arrow-%1$s" aria-hidden="true">%2$s</span>',
@@ -138,7 +138,7 @@ function render_block_core_post_navigation_link( $attributes, $content ) {
 				);
 			}
 		}
-	
+
 		// Build content with arrow and label
 		if ( 'next' === $navigation_type ) {
 			$content = sprintf(
