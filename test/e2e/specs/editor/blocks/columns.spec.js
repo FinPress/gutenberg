@@ -407,4 +407,90 @@ test.describe( 'Columns', () => {
 			},
 		] );
 	} );
+
+	test.describe( 'Template Lock', () => {
+		test.describe( 'templateLock="all"', () => {
+			test.beforeEach( async ( { editor } ) => {
+				await editor.insertBlock( {
+					name: 'core/columns',
+					attributes: { templateLock: 'all' },
+					innerBlocks: [
+						{
+							name: 'core/column',
+							innerBlocks: [
+								{
+									name: 'core/paragraph',
+									attributes: { content: 'Col 1' },
+								},
+							],
+						},
+						{
+							name: 'core/column',
+							innerBlocks: [
+								{
+									name: 'core/paragraph',
+									attributes: { content: 'Col 2' },
+								},
+							],
+						},
+					],
+				} );
+			} );
+
+			test( 'should hide column count control', async ( {
+				editor,
+				page,
+			} ) => {
+				await editor.openDocumentSettingsSidebar();
+
+				await expect(
+					page.getByRole( 'slider', { name: 'Columns' } )
+				).toBeHidden();
+			} );
+
+			test( 'should prevent deleting columns', async ( {
+				editor,
+				page,
+			} ) => {
+				await editor.canvas
+					.getByLabel( 'Block: Column (1 of 2)' )
+					.click();
+
+				await editor.clickBlockToolbarButton( 'Options' );
+
+				await expect(
+					page
+						.getByRole( 'menu', { name: 'Options' } )
+						.getByRole( 'menuitem', { name: 'Delete' } )
+				).toBeHidden();
+			} );
+
+			test( 'should prevent moving columns', async ( {
+				editor,
+				page,
+			} ) => {
+				await editor.canvas
+					.getByLabel( 'Block: Column (1 of 2)' )
+					.click();
+
+				await expect(
+					page
+						.getByRole( 'toolbar', { name: 'Block tools' } )
+						.getByRole( 'button', { name: 'Move up' } )
+				).toBeHidden();
+			} );
+
+			test( 'should prevent inserting blocks inside columns', async ( {
+				editor,
+			} ) => {
+				await editor.canvas
+					.getByLabel( 'Block: Column (1 of 2)' )
+					.click();
+
+				await expect(
+					editor.canvas.getByLabel( 'Add Block' )
+				).toBeHidden();
+			} );
+		} );
+	} );
 } );
