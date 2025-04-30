@@ -664,5 +664,63 @@ test.describe( 'Columns', () => {
 				await expect( paragraphLocator ).toHaveText( 'Edited - Col 1' );
 			} );
 		} );
+
+		test.describe( 'templateLock=false inside locked parent (Group block)', () => {
+			test.beforeEach( async ( { editor } ) => {
+				await editor.insertBlock( {
+					name: 'core/group',
+					attributes: {
+						templateLock: 'insert',
+						layout: { type: 'constrained' },
+					},
+					innerBlocks: [
+						{
+							name: 'core/columns',
+							attributes: { templateLock: false },
+							innerBlocks: [
+								{
+									name: 'core/column',
+									innerBlocks: [
+										{
+											name: 'core/paragraph',
+											attributes: {
+												content: 'Col 1',
+											},
+										},
+										{
+											name: 'core/paragraph',
+											attributes: {
+												content: 'Col 2',
+											},
+										},
+									],
+								},
+							],
+						},
+						{
+							name: 'core/paragraph',
+							attributes: { content: 'Sibling Paragraph' },
+						},
+					],
+				} );
+			} );
+
+			test( 'should prevent deleting the Columns block itself (due to parent lock)', async ( {
+				editor,
+				page,
+			} ) => {
+				await editor.selectBlocks(
+					editor.canvas.getByLabel( 'Block: Columns' )
+				);
+
+				await editor.clickBlockToolbarButton( 'Options' );
+
+				await expect(
+					page
+						.getByRole( 'menu', { name: 'Options' } )
+						.getByRole( 'menuitem', { name: 'Delete' } )
+				).toBeHidden();
+			} );
+		} );
 	} );
 } );
