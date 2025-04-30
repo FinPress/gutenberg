@@ -15,4 +15,10 @@
 		text-align: initial;
 		/*!rtl:end:ignore*/
 	}
+
+	.wp-block-code__container {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+	}
 }
