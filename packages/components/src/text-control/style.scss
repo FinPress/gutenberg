@@ -18,7 +18,7 @@
 	margin: 0;
 	background: $components-color-background;
 	color: $components-color-foreground;
-	@include input-control;
+	@include input-control( $components-color-accent);
 
 	&.is-next-40px-default-size {
 		height: $grid-unit-50;
@@ -28,10 +28,6 @@
 		// These values should be shared with the `controlPaddingX` in ./utils/config-values.js
 		padding-left: $grid-unit-15;
 		padding-right: $grid-unit-15;
-	}
-
-	&:focus {
-		@include input-style__focus( $components-color-accent);
 	}
 }
 
