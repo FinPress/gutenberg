@@ -17,7 +17,12 @@
 function render_block_core_loginout( $attributes ) {
 
 	// Build the redirect URL.
-	$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	if ( ! isset( $_SERVER['REQUEST_URI'] ) || empty( $_SERVER['REQUEST_URI'] ) ) {
+		// Fallback to home URL if REQUEST_URI is not set.
+		$current_url = home_url();
+	} else {
+		$current_url = home_url( wp_unslash( sanitize_url( $_SERVER['REQUEST_URI'] ) ) );
+	}
 
 	$classes  = is_user_logged_in() ? 'logged-in' : 'logged-out';
 	$contents = wp_loginout(
