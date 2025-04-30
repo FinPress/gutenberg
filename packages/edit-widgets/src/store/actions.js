@@ -432,6 +432,13 @@ export const moveBlockToWidgetArea =
 			);
 	};
 
+/**
+ * Returns an action object used to signal that widget saving is unlocked.
+ *
+ * @param {string} lockName The lock name.
+ *
+ * @return {Object} Action object
+ */
 export function unlockWidgetSaving( lockName ) {
 	return {
 		type: 'UNLOCK_WIDGET_SAVING',
@@ -439,6 +446,13 @@ export function unlockWidgetSaving( lockName ) {
 	};
 }
 
+/**
+ * Returns an action object used to signal that widget saving is locked.
+ *
+ * @param {string} lockName The lock name.
+ *
+ * @return {Object} Action object
+ */
 export function lockWidgetSaving( lockName ) {
 	return {
 		type: 'LOCK_WIDGET_SAVING',
