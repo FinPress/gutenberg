@@ -5,7 +5,7 @@
 		"appearanceTools": false,
 		"useRootPaddingAwareAlignments": false,
 		"border": {
-			"color": false,
+			"color": true,
 			"radius": false,
 			"style": false,
 			"width": false
