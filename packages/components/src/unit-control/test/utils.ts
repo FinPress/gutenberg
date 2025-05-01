@@ -42,6 +42,44 @@ describe( 'UnitControl utils', () => {
 			] );
 		} );
 
+		it( 'should not mutate default units argument definiton', () => {
+			const unitsA = useCustomUnits( {
+				availableUnits: [ 'px', 'em', 'rem' ],
+				defaultValues: { px: 8, em: 0.5, rem: 0.5 },
+			} );
+
+			const unitsB = useCustomUnits( {
+				availableUnits: [ 'px', 'em', 'rem' ],
+				defaultValues: { px: 16, em: 1, rem: 1 },
+			} );
+
+			expect( unitsA ).not.toEqual( unitsB );
+		} );
+
+		it( 'should not mutate custon units argument definitons', () => {
+			const unitsA = useCustomUnits( {
+				availableUnits: [ 'px', 'em', 'rem' ],
+				defaultValues: { px: 8, em: 0.5, rem: 0.5 },
+				units: [
+					{ value: 'px', label: 'pixel' },
+					{ value: 'em', label: 'em' },
+					{ value: 'rem', label: 'rem' },
+				],
+			} );
+
+			const unitsB = useCustomUnits( {
+				availableUnits: [ 'px', 'em', 'rem' ],
+				defaultValues: { px: 16, em: 1, rem: 1 },
+				units: [
+					{ value: 'px', label: 'pixel' },
+					{ value: 'em', label: 'em' },
+					{ value: 'rem', label: 'rem' },
+				],
+			} );
+
+			expect( unitsA ).not.toEqual( unitsB );
+		} );
+
 		it( 'should add default values to available units even if the default values are strings', () => {
 			// Although the public APIs of the component expect a `number` as the type of the
 			// default values, it's still good to test for strings (as it can happen in un-typed
