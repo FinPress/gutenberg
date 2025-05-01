@@ -16,8 +16,11 @@
  */
 function render_block_core_loginout( $attributes ) {
 
-	// This current url fetching logic matches with the core: https://github.com/WordPress/WordPress/blob/6612d90f6c8ee9e917dc2dfcbcc24e120a5746ea/wp-includes/general-template.php#L528
-	// Build the redirect URL.
+	/*
+	 * Build the redirect URL. This current url fetching logic matches with the core.
+	 *
+	 * @see https://github.com/WordPress/wordpress-develop/blob/6bf62e58d21739938f3bb3f9e16ba702baf9c2cc/src/wp-includes/general-template.php#L528.
+	 */
 	$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 	$classes  = is_user_logged_in() ? 'logged-in' : 'logged-out';
