@@ -47,7 +47,7 @@ const InsertFromURLPopover = ( {
 			<InputControl
 				__next40pxDefaultSize
 				label={ __( 'URL' ) }
-				type="url"
+				type="text"
 				hideLabelFromVision
 				placeholder={ __( 'Paste or type URL' ) }
 				onChange={ onChange }
