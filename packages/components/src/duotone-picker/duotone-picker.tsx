@@ -76,7 +76,7 @@ function DuotonePicker( {
 		[ colorPalette ]
 	);
 
-	const isUnset = value === 'unset' || value === undefined;
+	const isUnset = value === 'unset';
 	const unsetOptionLabel = __( 'Unset' );
 
 	const unsetOption = (
