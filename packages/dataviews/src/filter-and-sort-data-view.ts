@@ -26,16 +26,23 @@ const EMPTY_ARRAY: [] = [];
 /**
  * Applies the filtering, sorting and pagination to the raw data based on the view configuration.
  *
- * @param data   Raw data.
- * @param view   View config.
- * @param fields Fields config.
+ * @param data               Raw data.
+ * @param view               View config.
+ * @param fields             Fields config.
+ * @param options            Optional parameters.
+ * @param options.totalItems Optional total number of items (used when data is already paginated).
+ * @param options.totalPages Optional total number of pages (used when data is already paginated).
  *
  * @return Filtered, sorted and paginated data.
  */
 export function filterSortAndPaginate< Item >(
 	data: Item[],
 	view: View,
-	fields: Field< Item >[]
+	fields: Field< Item >[],
+	options?: {
+		totalItems?: number;
+		totalPages?: number;
+	}
 ): {
 	data: Item[];
 	paginationInfo: { totalItems: number; totalPages: number };
@@ -145,13 +152,23 @@ export function filterSortAndPaginate< Item >(
 		}
 	}
 
-	// Handle pagination.
-	let totalItems = filteredData.length;
-	let totalPages = 1;
+	let totalItems =
+		options?.totalItems !== undefined
+			? options.totalItems
+			: filteredData.length;
+	let totalPages = options?.totalPages !== undefined ? options.totalPages : 1;
+
 	if ( view.page !== undefined && view.perPage !== undefined ) {
+		// Only calculate pagination values if they weren't provided in options
+		if ( options?.totalItems === undefined ) {
+			totalItems = filteredData?.length || 0;
+		}
+		if ( options?.totalPages === undefined ) {
+			totalPages = Math.ceil( totalItems / view.perPage );
+		}
+
+		// Always slice the data for pagination
 		const start = ( view.page - 1 ) * view.perPage;
-		totalItems = filteredData?.length || 0;
-		totalPages = Math.ceil( totalItems / view.perPage );
 		filteredData = filteredData?.slice( start, start + view.perPage );
 	}
 

@@ -359,4 +359,34 @@ describe( 'pagination', () => {
 			totalPages: 6,
 		} );
 	} );
+
+	it( 'should use provided totalItems and totalPages', () => {
+		// This test simulates the case where we have a paginated dataset from an API
+		// and we want to use the totalItems and totalPages from the API response
+		const paginatedData = data.slice( 0, 2 ); // Just the first 2 items
+		const { data: result, paginationInfo } = filterSortAndPaginate(
+			paginatedData,
+			{
+				perPage: 2,
+				page: 1,
+				filters: [],
+			},
+			fields,
+			{
+				totalItems: 100000, // Custom totalItems value
+				totalPages: 50, // Custom totalPages value
+			}
+		);
+
+		// The result should contain the 2 items we passed in
+		expect( result ).toHaveLength( 2 );
+		expect( result[ 0 ].title ).toBe( 'Apollo' );
+		expect( result[ 1 ].title ).toBe( 'Space' );
+
+		// But the pagination info should use our custom values
+		expect( paginationInfo ).toStrictEqual( {
+			totalItems: 100000,
+			totalPages: 50,
+		} );
+	} );
 } );
