@@ -109,7 +109,7 @@ jobs:
                   CODEHEALTH_PROJECT_TOKEN: ${{ secrets.CODEHEALTH_PROJECT_TOKEN }}
               run: |
                   COMMITTED_AT="$(git show -s "$GITHUB_SHA" --format="%cI")"
-                  ./bin/log-performance-results.js "$CODEHEALTH_PROJECT_TOKEN" trunk "$GITHUB_SHA" c7722262e65a3f4d0f1a2d1ad29eccb2069509e4 "$COMMITTED_AT"
+                  ./bin/log-performance-results.js "$CODEHEALTH_PROJECT_TOKEN" trunk "$GITHUB_SHA" 7f6a627a028f6c5013dc97df316e04e8fc39a4ef "$COMMITTED_AT"
 
             - name: Archive debug artifacts (screenshots, HTML snapshots)
               uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
