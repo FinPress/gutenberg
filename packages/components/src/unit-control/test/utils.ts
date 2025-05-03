@@ -57,24 +57,22 @@ describe( 'UnitControl utils', () => {
 		} );
 
 		it( 'should not mutate custon units argument definitons', () => {
+			const units = [
+				{ value: 'px', label: 'pixel' },
+				{ value: 'em', label: 'em' },
+				{ value: 'rem', label: 'rem' },
+			];
+
 			const unitsA = useCustomUnits( {
 				availableUnits: [ 'px', 'em', 'rem' ],
 				defaultValues: { px: 8, em: 0.5, rem: 0.5 },
-				units: [
-					{ value: 'px', label: 'pixel' },
-					{ value: 'em', label: 'em' },
-					{ value: 'rem', label: 'rem' },
-				],
+				units,
 			} );
 
 			const unitsB = useCustomUnits( {
 				availableUnits: [ 'px', 'em', 'rem' ],
 				defaultValues: { px: 16, em: 1, rem: 1 },
-				units: [
-					{ value: 'px', label: 'pixel' },
-					{ value: 'em', label: 'em' },
-					{ value: 'rem', label: 'rem' },
-				],
+				units,
 			} );
 
 			expect( unitsA ).not.toEqual( unitsB );
