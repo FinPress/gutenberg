@@ -48,7 +48,6 @@ const InsertFromURLPopover = ( {
 				__next40pxDefaultSize
 				label={ __( 'URL' ) }
 				type="text" // Use text instead of URL to allow relative paths (e.g., /image/image.jpg)
-				className="block-editor-media-placeholder__url-input-form__input"
 				hideLabelFromVision
 				placeholder={ __( 'Paste or type URL' ) }
 				onChange={ onChange }
