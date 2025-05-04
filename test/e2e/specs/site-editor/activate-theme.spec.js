@@ -23,7 +23,7 @@ test.describe( 'Activate theme', () => {
 			.click();
 		await expect(
 			page.getByRole( 'button', { name: 'Dismiss this notice' } )
-		).toContainText( 'Site updated' );
+		).toContainText( 'Emptytheme activated' );
 		await admin.visitAdminPage( 'themes.php' );
 		await expect( page.getByLabel( 'Customize Emptytheme' ) ).toBeVisible();
 	} );
@@ -46,7 +46,7 @@ test.describe( 'Activate theme', () => {
 			.click();
 		await expect(
 			page.getByRole( 'button', { name: 'Dismiss this notice' } )
-		).toContainText( 'Site updated' );
+		).toContainText( 'Emptytheme activated' );
 		await admin.visitAdminPage( 'themes.php' );
 		await expect( page.getByLabel( 'Customize Emptytheme' ) ).toBeVisible();
 	} );

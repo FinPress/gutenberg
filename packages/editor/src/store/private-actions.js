@@ -207,18 +207,27 @@ export const saveDirtyEntities =
 						.dispatch( noticesStore )
 						.createErrorNotice( __( 'Saving failed.' ) );
 				} else {
+					const isActivatingTheme = onSave
+						?.toString()
+						.includes( 'activateTheme' );
+
 					registry
 						.dispatch( noticesStore )
-						.createSuccessNotice( __( 'Site updated.' ), {
-							type: 'snackbar',
-							id: saveNoticeId,
-							actions: [
-								{
-									label: __( 'View site' ),
-									url: homeUrl,
-								},
-							],
-						} );
+						.createSuccessNotice(
+							isActivatingTheme
+								? __( 'Theme activated.' )
+								: __( 'Site updated.' ),
+							{
+								type: 'snackbar',
+								id: saveNoticeId,
+								actions: [
+									{
+										label: __( 'View site' ),
+										url: homeUrl,
+									},
+								],
+							}
+						);
 				}
 			} )
 			.catch( ( error ) =>
