@@ -32,6 +32,7 @@ export default function SidebarNavigationItem( {
 	uid,
 	to,
 	onClick,
+	description,
 	children,
 	...props
 } ) {
@@ -80,6 +81,11 @@ export default function SidebarNavigationItem( {
 				) }
 				{ ! withChevron && suffix }
 			</HStack>
+			{ description && (
+				<p className="edit-site-sidebar-navigation-item__description">
+					{ description }
+				</p>
+			) }
 		</Item>
 	);
 }
