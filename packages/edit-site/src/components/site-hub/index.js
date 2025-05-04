@@ -135,8 +135,7 @@ export const SiteHubMobile = memo(
 			const settings = getSettings();
 			const supportsEditorStyles =
 				currentTheme.theme_supports[ 'editor-styles' ];
-			// This is a temp solution until the has_theme_json value is available for the current theme.
-			const hasThemeJson = settings.supportsLayout;
+			const hasThemeJson = currentTheme.has_theme_json;
 
 			return {
 				dashboardLink: settings.__experimentalDashboardLink,

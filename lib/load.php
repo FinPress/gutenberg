@@ -40,6 +40,7 @@ if ( class_exists( 'WP_REST_Controller' ) ) {
 
 	// WordPress 6.9 compat.
 	require __DIR__ . '/compat/wordpress-6.9/class-gutenberg-hierarchical-sort.php';
+	require __DIR__ . '/compat/wordpress-6.9/rest-api.php';
 
 	// Plugin specific code.
 	require_once __DIR__ . '/class-wp-rest-global-styles-controller-gutenberg.php';

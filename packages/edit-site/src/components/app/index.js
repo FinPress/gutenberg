@@ -31,12 +31,10 @@ function AppLayout() {
 
 export default function App() {
 	useRegisterSiteEditorRoutes();
-	const { routes, currentTheme, editorSettings } = useSelect( ( select ) => {
+	const { routes, currentTheme } = useSelect( ( select ) => {
 		return {
 			routes: unlock( select( editSiteStore ) ).getRoutes(),
 			currentTheme: select( coreStore ).getCurrentTheme(),
-			// This is a temp solution until the has_theme_json value is available for the current theme.
-			editorSettings: select( editSiteStore ).getSettings(),
 		};
 	}, [] );
 
@@ -59,9 +57,9 @@ export default function App() {
 
 	const matchResolverArgsValue = useMemo(
 		() => ( {
-			siteData: { currentTheme, editorSettings },
+			siteData: { currentTheme },
 		} ),
-		[ currentTheme, editorSettings ]
+		[ currentTheme ]
 	);
 
 	return (
