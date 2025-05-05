@@ -32,7 +32,7 @@ const TEMPLATE = [
 	],
 ];
 
-function DetailsEdit( { attributes, setAttributes, isSelected, clientId } ) {
+function DetailsEdit( { attributes, setAttributes, clientId } ) {
 	const { name, showContent, summary, allowedBlocks, placeholder } =
 		attributes;
 	const blockProps = useBlockProps();
@@ -50,8 +50,6 @@ function DetailsEdit( { attributes, setAttributes, isSelected, clientId } ) {
 			select( blockEditorStore ).hasSelectedInnerBlock( clientId, true ),
 		[ clientId ]
 	);
-
-	const shouldRenderChildren = hasSelectedInnerBlock || isSelected || isOpen;
 
 	return (
 		<>
@@ -109,7 +107,6 @@ function DetailsEdit( { attributes, setAttributes, isSelected, clientId } ) {
 			>
 				<summary
 					onKeyDown={ ( event ) => {
-						event.preventDefault();
 						if ( event.key === 'ArrowDown' ) {
 							setIsOpen( true );
 						} else if ( event.key === 'ArrowUp' && isOpen ) {
@@ -128,7 +125,7 @@ function DetailsEdit( { attributes, setAttributes, isSelected, clientId } ) {
 						}
 					/>
 				</summary>
-				{ shouldRenderChildren && innerBlocksProps.children }
+				{ innerBlocksProps.children }
 			</details>
 		</>
 	);
