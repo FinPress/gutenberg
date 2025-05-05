@@ -16,12 +16,12 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
-import { useSelect } from '@wordpress/data';
 
 const TEMPLATE = [
 	[
