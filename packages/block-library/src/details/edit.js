@@ -6,6 +6,7 @@ import {
 	useBlockProps,
 	useInnerBlocksProps,
 	InspectorControls,
+	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import {
 	TextControl,
@@ -20,6 +21,7 @@ import { useState } from '@wordpress/element';
  * Internal dependencies
  */
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+import { useSelect } from '@wordpress/data';
 
 const TEMPLATE = [
 	[
@@ -30,7 +32,7 @@ const TEMPLATE = [
 	],
 ];
 
-function DetailsEdit( { attributes, setAttributes } ) {
+function DetailsEdit( { attributes, setAttributes, isSelected, clientId } ) {
 	const { name, showContent, summary, allowedBlocks, placeholder } =
 		attributes;
 	const blockProps = useBlockProps();
@@ -41,6 +43,15 @@ function DetailsEdit( { attributes, setAttributes } ) {
 	} );
 	const [ isOpen, setIsOpen ] = useState( showContent );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+
+	// Check if the inner blocks are selected.
+	const hasSelectedInnerBlock = useSelect(
+		( select ) =>
+			select( blockEditorStore ).hasSelectedInnerBlock( clientId, true ),
+		[ clientId ]
+	);
+
+	const shouldRenderChildren = hasSelectedInnerBlock || isSelected || isOpen;
 
 	return (
 		<>
@@ -93,10 +104,19 @@ function DetailsEdit( { attributes, setAttributes } ) {
 			</InspectorControls>
 			<details
 				{ ...innerBlocksProps }
-				open={ isOpen }
+				open={ isOpen || hasSelectedInnerBlock }
 				onToggle={ ( event ) => setIsOpen( event.target.open ) }
 			>
-				<summary>
+				<summary
+					onKeyDown={ ( event ) => {
+						event.preventDefault();
+						if ( event.key === 'ArrowDown' ) {
+							setIsOpen( true );
+						} else if ( event.key === 'ArrowUp' && isOpen ) {
+							setIsOpen( false );
+						}
+					} }
+				>
 					<RichText
 						identifier="summary"
 						aria-label={ __( 'Write summary' ) }
@@ -108,7 +128,7 @@ function DetailsEdit( { attributes, setAttributes } ) {
 						}
 					/>
 				</summary>
-				{ innerBlocksProps.children }
+				{ shouldRenderChildren && innerBlocksProps.children }
 			</details>
 		</>
 	);
