@@ -452,9 +452,9 @@ test.describe( 'Columns', () => {
 				editor,
 				page,
 			} ) => {
-				await editor.canvas
-					.getByLabel( 'Block: Column (1 of 2)' )
-					.click();
+				await editor.selectBlocks(
+					editor.canvas.getByLabel( 'Block: Column (1 of 2)' )
+				);
 
 				await editor.clickBlockToolbarButton( 'Options' );
 
@@ -469,9 +469,9 @@ test.describe( 'Columns', () => {
 				editor,
 				page,
 			} ) => {
-				await editor.canvas
-					.getByLabel( 'Block: Column (1 of 2)' )
-					.click();
+				await editor.selectBlocks(
+					editor.canvas.getByLabel( 'Block: Column (1 of 2)' )
+				);
 
 				await expect(
 					page
@@ -483,9 +483,9 @@ test.describe( 'Columns', () => {
 			test( 'should prevent inserting blocks inside columns', async ( {
 				editor,
 			} ) => {
-				await editor.canvas
-					.getByLabel( 'Block: Column (1 of 2)' )
-					.click();
+				await editor.selectBlocks(
+					editor.canvas.getByLabel( 'Block: Column (1 of 2)' )
+				);
 
 				await expect(
 					editor.canvas.getByLabel( 'Add Block' )
@@ -536,9 +536,9 @@ test.describe( 'Columns', () => {
 				editor,
 				page,
 			} ) => {
-				await editor.canvas
-					.getByLabel( 'Block: Column (1 of 2)' )
-					.click();
+				await editor.selectBlocks(
+					editor.canvas.getByLabel( 'Block: Column (1 of 2)' )
+				);
 
 				await editor.clickBlockToolbarButton( 'Options' );
 
@@ -550,23 +550,23 @@ test.describe( 'Columns', () => {
 			} );
 
 			test( 'should allow moving columns', async ( { editor, page } ) => {
-				await editor.canvas
-					.getByLabel( 'Block: Column (1 of 2)' )
-					.click();
+				await editor.selectBlocks(
+					editor.canvas.getByLabel( 'Block: Column (1 of 2)' )
+				);
 
 				await expect(
 					page
 						.getByRole( 'toolbar', { name: 'Block tools' } )
-						.getByRole( 'button', { name: 'Move up' } )
+						.getByRole( 'button', { name: 'Move right' } )
 				).toBeVisible();
 			} );
 
 			test( 'should prevent inserting blocks inside columns', async ( {
 				editor,
 			} ) => {
-				await editor.canvas
-					.getByLabel( 'Block: Column (1 of 2)' )
-					.click();
+				await editor.selectBlocks(
+					editor.canvas.getByLabel( 'Block: Column (1 of 2)' )
+				);
 
 				await expect(
 					editor.canvas.getByLabel( 'Add Block' )
@@ -617,9 +617,9 @@ test.describe( 'Columns', () => {
 				editor,
 				page,
 			} ) => {
-				await editor.canvas
-					.getByLabel( 'Block: Column (1 of 2)' )
-					.click();
+				await editor.selectBlocks(
+					editor.canvas.getByLabel( 'Block: Column (1 of 2)' )
+				);
 
 				await expect(
 					page.getByRole( 'menu', { name: 'Options' } )
@@ -630,9 +630,9 @@ test.describe( 'Columns', () => {
 				editor,
 				page,
 			} ) => {
-				await editor.canvas
-					.getByLabel( 'Block: Column (1 of 2)' )
-					.click();
+				await editor.selectBlocks(
+					editor.canvas.getByLabel( 'Block: Column (1 of 2)' )
+				);
 
 				await expect(
 					page
@@ -644,9 +644,9 @@ test.describe( 'Columns', () => {
 			test( 'should prevent inserting blocks inside columns', async ( {
 				editor,
 			} ) => {
-				await editor.canvas
-					.getByLabel( 'Block: Column (1 of 2)' )
-					.click();
+				await editor.selectBlocks(
+					editor.canvas.getByLabel( 'Block: Column (1 of 2)' )
+				);
 
 				await expect(
 					editor.canvas.getByLabel( 'Add Block' )
