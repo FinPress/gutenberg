@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { _x } from '@wordpress/i18n';
-import { progressBar as icon } from '@wordpress/icons';
+import { progressMeter as icon } from '@wordpress/icons';
 
 /**
  * Internal dependencies

@@ -1,6 +1,6 @@
 [
 	{
-		"name": "core/progress-bar",
+		"name": "core/progress-meter",
 		"isValid": true,
 		"attributes": {
 			"label": "",

@@ -3,7 +3,7 @@
  */
 import { G, Path, SVG } from '@wordpress/primitives';
 
-const progressBar = (
+const progressMeter = (
 	<SVG
 		x="0px"
 		y="0px"
@@ -20,4 +20,4 @@ const progressBar = (
 	</SVG>
 );
 
-export default progressBar;
+export default progressMeter;
