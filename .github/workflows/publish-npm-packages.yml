@@ -100,7 +100,7 @@ jobs:
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-            - name: Publish latest packages to npm ("latest" dist-tag)
+            - name: Publish packages based on the latest Gutenberg plugin to npm ("latest" dist-tag)
               if: ${{ github.event.inputs.release_type == 'latest' }}
               run: |
                   cd cli
