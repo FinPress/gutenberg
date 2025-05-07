@@ -60,4 +60,25 @@ test.describe( 'Details', () => {
 			useInnerText: true,
 		} );
 	} );
+
+	test( 'typing space in summary rich-text should not toggle details', async ( {
+		editor,
+	} ) => {
+		// Insert a details block.
+		await editor.insertBlock( {
+			name: 'core/details',
+		} );
+
+		const summary = editor.canvas.getByRole( 'textbox', {
+			name: 'Write summary',
+		} );
+
+		// Type space in the summary rich-text.
+		await summary.type( ' ' );
+
+		// Verify the details block is not toggled.
+		await expect(
+			editor.canvas.getByRole( 'document', { name: 'Empty block' } )
+		).toBeHidden();
+	} );
 } );

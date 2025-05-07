@@ -62,6 +62,13 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 		}
 	};
 
+	// Prevent spacebar from toggling <details> while typing.
+	const handleSummaryKeyUp = ( event ) => {
+		if ( event.key === ' ' ) {
+			event.preventDefault();
+		}
+	};
+
 	return (
 		<>
 			<InspectorControls>
@@ -118,6 +125,7 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 			>
 				<summary
 					onKeyDown={ withIgnoreIMEEvents( handleSummaryKeyDown ) }
+					onKeyUp={ handleSummaryKeyUp }
 				>
 					<RichText
 						identifier="summary"
