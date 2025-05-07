@@ -7,6 +7,7 @@ import { BACKSPACE, DELETE } from '@wordpress/keycodes';
  * Internal dependencies
  */
 import { remove } from '../../remove';
+import { isCollapsed } from '../../is-collapsed';
 
 export default ( props ) => ( element ) => {
 	function onKeyDown( event ) {
@@ -23,6 +24,16 @@ export default ( props ) => ( element ) => {
 
 		const currentValue = createRecord();
 		const { start, end, text } = currentValue;
+
+		if ( ! isCollapsed( currentValue ) ) {
+			const modifiedValue = {
+				...currentValue,
+				activeFormats: [],
+			};
+			handleChange( remove( modifiedValue ) );
+			event.preventDefault();
+			return;
+		}
 
 		// Always handle full content deletion ourselves.
 		if ( start === 0 && end !== 0 && end === text.length ) {

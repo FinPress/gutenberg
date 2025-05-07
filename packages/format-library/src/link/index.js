@@ -161,7 +161,16 @@ function Edit( {
 	}
 
 	function onRemoveFormat() {
-		onChange( removeFormat( value, name ) );
+		const newValue = removeFormat( value, name );
+
+		const updatedValue = {
+			...newValue,
+			activeFormats: [],
+			start: newValue.start,
+			end: newValue.end,
+		};
+
+		onChange( updatedValue );
 		speak( __( 'Link removed.' ), 'assertive' );
 	}
 
