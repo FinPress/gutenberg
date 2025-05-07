@@ -33,12 +33,6 @@ import type { ColorPickerProps, ColorType } from './types';
 
 extend( [ namesPlugin ] );
 
-const options = [
-	{ label: 'RGB', value: 'rgb' as const },
-	{ label: 'HSL', value: 'hsl' as const },
-	{ label: 'Hex', value: 'hex' as const },
-];
-
 const UnconnectedColorPicker = (
 	props: ColorPickerProps,
 	forwardedRef: ForwardedRef< any >
@@ -75,6 +69,23 @@ const UnconnectedColorPicker = (
 	const [ colorType, setColorType ] = useState< ColorType >(
 		copyFormat || 'hex'
 	);
+
+	const options = useMemo( () => {
+		return [
+			{
+				label: enableAlpha ? 'RGBA' : 'RGB',
+				value: 'rgb' as const,
+			},
+			{
+				label: enableAlpha ? 'HSLA' : 'HSL',
+				value: 'hsl' as const,
+			},
+			{
+				label: 'Hex',
+				value: 'hex' as const,
+			},
+		];
+	}, [ enableAlpha ] );
 
 	return (
 		<ColorfulWrapper ref={ forwardedRef } { ...divProps }>
