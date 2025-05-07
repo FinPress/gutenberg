@@ -46,6 +46,7 @@
 ### Internal
 
 -   `ColorPicker`: Add tests for Alpha slider functionality ([#69203](https://github.com/WordPress/gutenberg/pull/69203)).
+-   Mark `withIgnoreIMEEvents()` function as private API ([#70056](https://github.com/WordPress/gutenberg/pull/70056)).
 
 ## 29.8.0 (2025-04-11)
 
