@@ -1,10 +1,10 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "core/progress-bar",
+	"name": "core/progress-meter",
 	"category": "design",
-	"title": "Progress Bar",
-	"description": "Display a progress bar. Useful for tracking progress on a task or project.",
+	"title": "Progress Meter",
+	"description": "Display a progress meter. Useful for tracking progress on a task or project.",
 	"textdomain": "default",
 	"attributes": {
 		"label": {
@@ -55,5 +55,5 @@
 	"supports": {
 		"html": false
 	},
-	"style": "wp-block-progress-bar"
+	"style": "wp-block-progress-meter"
 }

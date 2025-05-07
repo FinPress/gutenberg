@@ -22,7 +22,7 @@ export const settings = {
 	save,
 	example: {
 		attributes: {
-			label: _x( 'Progress Bar', 'block example' ),
+			label: _x( 'Progress Meter', 'block example' ),
 		},
 	},
 };

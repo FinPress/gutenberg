@@ -20,7 +20,7 @@ export default function Save( { attributes } ) {
 
 	// eslint-disable-next-line react-compiler/react-compiler
 	const blockProps = useBlockProps.save( {
-		className: 'wp-block-progress-bar',
+		className: 'wp-block-progress-meter',
 	} );
 
 	const progressBarStyle = {
@@ -45,11 +45,11 @@ export default function Save( { attributes } ) {
 
 	return (
 		<div { ...blockProps }>
-			<div className="wp-block-progress-bar__container">
+			<div className="wp-block-progress-meter__container">
 				<div>
 					<RichText.Content
 						tagName="p"
-						className="wp-block-progress-bar__label"
+						className="wp-block-progress-meter__label"
 						value={ label }
 					/>
 					{ showValue && <p>{ valueDisplay }</p> }
@@ -57,11 +57,11 @@ export default function Save( { attributes } ) {
 
 				<div
 					style={ progressBarStyle }
-					className="wp-block-progress-bar__bar"
+					className="wp-block-progress-meter__bar"
 				>
 					<div
 						style={ progressStyle }
-						className="wp-block-progress-bar__progress"
+						className="wp-block-progress-meter__progress"
 					></div>
 				</div>
 			</div>

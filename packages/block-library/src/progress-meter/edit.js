@@ -39,7 +39,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	} = attributes;
 
 	const blockProps = useBlockProps( {
-		className: 'wp-block-progress-bar',
+		className: 'wp-block-progress-meter',
 	} );
 
 	const progressBarStyle = {
@@ -68,7 +68,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		<div { ...blockProps }>
 			<InspectorControls>
 				<ToolsPanel
-					label={ __( 'Progress Bar Settings' ) }
+					label={ __( 'Progress Meter Settings' ) }
 					resetAll={ () => {
 						setAttributes( {
 							label: '',
@@ -284,12 +284,12 @@ export default function Edit( { attributes, setAttributes } ) {
 				/>
 			</InspectorControls>
 
-			<div className="wp-block-progress-bar__container">
+			<div className="wp-block-progress-meter__container">
 				<div>
 					<RichText
 						identifier="value"
 						tagName="p"
-						className="wp-block-progress-bar__label"
+						className="wp-block-progress-meter__label"
 						value={ label }
 						onChange={ ( content ) =>
 							setAttributes( { label: content } )
@@ -301,11 +301,11 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				<div
 					style={ progressBarStyle }
-					className="wp-block-progress-bar__bar"
+					className="wp-block-progress-meter__bar"
 				>
 					<div
 						style={ progressStyle }
-						className="wp-block-progress-bar__progress"
+						className="wp-block-progress-meter__progress"
 					></div>
 				</div>
 			</div>

@@ -93,7 +93,7 @@ import * as postTerms from './post-terms';
 import * as postTimeToRead from './post-time-to-read';
 import * as postTitle from './post-title';
 import * as preformatted from './preformatted';
-import * as progressBar from './progress-bar';
+import * as progressMeter from './progress-meter';
 import * as pullquote from './pullquote';
 import * as query from './query';
 import * as queryNoResults from './query-no-results';
@@ -183,7 +183,7 @@ const getAllBlocks = () => {
 		verse,
 		video,
 		footnotes,
-		progressBar,
+		progressMeter,
 
 		// theme blocks
 		navigation,
