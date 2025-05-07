@@ -13,6 +13,7 @@ import {
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
@@ -22,6 +23,9 @@ import { useSelect } from '@wordpress/data';
  * Internal dependencies
  */
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+import { unlock } from '../lock-unlock';
+
+const { withIgnoreIMEEvents } = unlock( componentsPrivateApis );
 
 const TEMPLATE = [
 	[
@@ -50,6 +54,13 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 			select( blockEditorStore ).hasSelectedInnerBlock( clientId, true ),
 		[ clientId ]
 	);
+
+	const handleSummaryKeyDown = ( event ) => {
+		if ( event.key === 'Enter' && ! event.shiftKey ) {
+			setIsOpen( ( prevIsOpen ) => ! prevIsOpen );
+			event.preventDefault();
+		}
+	};
 
 	return (
 		<>
@@ -106,13 +117,7 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 				onToggle={ ( event ) => setIsOpen( event.target.open ) }
 			>
 				<summary
-					onKeyDown={ ( event ) => {
-						if ( event.key === 'ArrowDown' ) {
-							setIsOpen( true );
-						} else if ( event.key === 'ArrowUp' && isOpen ) {
-							setIsOpen( false );
-						}
-					} }
+					onKeyDown={ withIgnoreIMEEvents( handleSummaryKeyDown ) }
 				>
 					<RichText
 						identifier="summary"
