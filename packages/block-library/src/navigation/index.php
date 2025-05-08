@@ -482,13 +482,13 @@ class WP_Navigation_Block_Renderer {
 		if ( isset( $attributes['icon'] ) ) {
 			if ( 'menu' === $attributes['icon'] ) {
 				$toggle_button_icon = '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 5v1.5h14V5H5zm0 7.8h14v-1.5H5v1.5zM5 19h14v-1.5H5V19z" /></svg>';
-			} else if ( 'quad-lines' === $attributes['icon'] ) {
+			} elseif ( 'quad-lines' === $attributes['icon'] ) {
 				$toggle_button_icon = '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 4h18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2z"/><path d="M3 8h18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2z"/><path d="M3 12h18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2z"/><path d="M3 16h18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2z"/></svg>';
-			} else if ( 'menu-alt' === $attributes['icon'] ) {
+			} elseif ( 'menu-alt' === $attributes['icon'] ) {
 				$toggle_button_icon = '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6H20M7 12H17M9 18H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-			} else if ( 'hamburger-2' === $attributes['icon'] ) {
+			} elseif ( 'hamburger-2' === $attributes['icon'] ) {
 				$toggle_button_icon = '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 17H8M12 17H20M4 12H20M4 7H12M16 7H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-			} else if ( 'grid' === $attributes['icon'] ) {
+			} elseif ( 'grid' === $attributes['icon'] ) {
 				$toggle_button_icon = '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h4v4H0V0zm0 6h4v4H0V6zm0 6h4v4H0v-4zM6 0h4v4H6V0zm0 6h4v4H6V6zm0 6h4v4H6v-4zm6-12h4v4h-4V0zm0 6h4v4h-4V6zm0 6h4v4h-4v-4z" fill-rule="evenodd"/></svg>';
 			}
 		}
