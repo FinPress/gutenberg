@@ -2,6 +2,12 @@
  * WordPress dependencies
  */
 import { removep, autop } from '@wordpress/autop';
+import { createBlock } from '@wordpress/blocks';
+
+/**
+ * Internal dependencies
+ */
+import { isEmbedShortcode, extractEmbedUrl } from './utils';
 
 const transforms = {
 	from: [
@@ -24,6 +30,17 @@ const transforms = {
 				},
 			},
 			priority: 20,
+		},
+	],
+	to: [
+		{
+			type: 'block',
+			blocks: [ 'core/embed' ],
+			isMatch: ( { text } ) => isEmbedShortcode( text ),
+			transform: ( { text } ) => {
+				const url = extractEmbedUrl( text );
+				return createBlock( 'core/embed', { url } );
+			},
 		},
 	],
 };

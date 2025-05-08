@@ -6,3 +6,23 @@
 	resize: none;
 	@include editor-input-reset();
 }
+
+.blocks-shortcode__notice {
+	margin-bottom: 16px;
+
+	.blocks-shortcode__url-preview {
+		margin: 8px 0 4px;
+		font-family: monospace;
+		word-break: break-all;
+		font-size: 12px;
+		color: $gray-700;
+	}
+
+	.blocks-shortcode__convert-button-wrapper {
+		margin-top: 8px;
+	}
+
+	.blocks-shortcode__convert-button {
+		margin-top: 4px;
+	}
+}
