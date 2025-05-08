@@ -18,6 +18,14 @@ test.describe( 'Details', () => {
 			attributes: {
 				summary: 'Details summary',
 			},
+			innerBlocks: [
+				{
+					name: 'core/paragraph',
+					attributes: {
+						content: 'Details content',
+					},
+				},
+			],
 		} );
 
 		// Open the details block.
@@ -25,15 +33,15 @@ test.describe( 'Details', () => {
 
 		// The inner block should be visible.
 		await expect(
-			editor.canvas.getByRole( 'document', { name: 'Empty block' } )
-		).toBeVisible();
+			editor.canvas.getByRole( 'document', { name: 'Block: Paragraph' } )
+		).toContainText( 'Details content' );
 
 		// Close the details block.
 		await page.keyboard.press( 'Enter' );
 
 		// The inner block should be hidden.
 		await expect(
-			editor.canvas.getByRole( 'document', { name: 'Empty block' } )
+			editor.canvas.getByRole( 'document', { name: 'Block: Paragraph' } )
 		).toBeHidden();
 	} );
 
@@ -80,5 +88,56 @@ test.describe( 'Details', () => {
 		await expect(
 			editor.canvas.getByRole( 'document', { name: 'Empty block' } )
 		).toBeHidden();
+	} );
+
+	test( 'selecting hidden blocks in list view expands details and focuses content', async ( {
+		editor,
+		page,
+		pageUtils,
+	} ) => {
+		// Insert a details block.
+		await editor.insertBlock( {
+			name: 'core/details',
+			attributes: {
+				summary: 'Details summary',
+			},
+			innerBlocks: [
+				{
+					name: 'core/paragraph',
+					attributes: {
+						content: 'Details content',
+					},
+				},
+			],
+		} );
+
+		const listView = page.getByRole( 'treegrid', {
+			name: 'Block navigation structure',
+		} );
+
+		// Open the list view.
+		await pageUtils.pressKeys( 'access+o' );
+
+		// Verify inner blocks appear in the list view.
+		await page.keyboard.press( 'ArrowRight' );
+		await expect(
+			listView.getByRole( 'link', {
+				name: 'Paragraph',
+			} )
+		).toBeVisible();
+
+		// Verify the first inner block in the list view is focused.
+		await page.keyboard.press( 'ArrowDown' );
+		await expect(
+			listView.getByRole( 'link', {
+				name: 'Paragraph',
+			} )
+		).toBeFocused();
+
+		// Verify the first inner block in the editor canvas is focused.
+		await page.keyboard.press( 'Enter' );
+		await expect(
+			editor.canvas.getByRole( 'document', { name: 'Block: Paragraph' } )
+		).toBeFocused();
 	} );
 } );
