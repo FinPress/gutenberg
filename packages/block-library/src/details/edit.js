@@ -125,7 +125,7 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 			>
 				<summary
 					onKeyDown={ withIgnoreIMEEvents( handleSummaryKeyDown ) }
-					onKeyUp={ handleSummaryKeyUp }
+					onKeyUp={ withIgnoreIMEEvents( handleSummaryKeyUp ) }
 				>
 					<RichText
 						identifier="summary"
