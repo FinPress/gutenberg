@@ -26,6 +26,7 @@
 ### Internal
 
 -   Clarify `withIgnoreIMEEvents` documentation to reflect support for all keyboard event handlers ([#70098](https://github.com/WordPress/gutenberg/pull/70098)).
+-   Mark `withIgnoreIMEEvents()` function as private API ([#70056](https://github.com/WordPress/gutenberg/pull/70056)).
 
 ## 29.9.0 (2025-05-07)
 
@@ -46,7 +47,6 @@
 ### Internal
 
 -   `ColorPicker`: Add tests for Alpha slider functionality ([#69203](https://github.com/WordPress/gutenberg/pull/69203)).
--   Mark `withIgnoreIMEEvents()` function as private API ([#70056](https://github.com/WordPress/gutenberg/pull/70056)).
 
 ## 29.8.0 (2025-04-11)
 
