@@ -81,7 +81,7 @@ function UnforwardedSnackbar(
 	}
 
 	function onActionClick(
-		event: MouseEvent< HTMLButtonElement >,
+		event: MouseEvent< HTMLButtonElement | HTMLAnchorElement >,
 		onClick: NoticeAction[ 'onClick' ]
 	) {
 		event.stopPropagation();
@@ -154,9 +154,9 @@ function UnforwardedSnackbar(
 							<ExternalLink
 								key={ index }
 								href={ url }
-								onClick={ ( event ) => {
-									event.stopPropagation();
-								} }
+								onClick={ (
+									event: MouseEvent< HTMLAnchorElement >
+								) => onActionClick( event, onClick ) }
 								className="components-snackbar__action"
 							>
 								{ label }

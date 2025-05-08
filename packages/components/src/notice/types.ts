@@ -20,7 +20,7 @@ type NoticeActionWithURL = CommonNoticeActionProps & {
 type NoticeActionWithOnClick = CommonNoticeActionProps & {
 	url?: never;
 	openInNewTab?: never;
-	onClick: MouseEventHandler< HTMLButtonElement >;
+	onClick: MouseEventHandler< HTMLButtonElement | HTMLAnchorElement >;
 };
 
 export type NoticeAction = NoticeActionWithURL | NoticeActionWithOnClick;
