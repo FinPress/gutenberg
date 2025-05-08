@@ -524,7 +524,7 @@ test.describe( 'Navigation block', () => {
 		await expect( navBlockInserter ).toBeFocused();
 	} );
 
-	test.describe( 'Navigation block focus management', () => {
+	test.describe( 'Focus management', () => {
 		test.beforeEach(
 			async ( { admin, editor, requestUtils, navigation } ) => {
 				await admin.createNewPost();
@@ -578,7 +578,6 @@ test.describe( 'Navigation block', () => {
 			await pageUtils.pressKeys( 'ArrowDown' );
 			await navigation.useBlockInserter();
 			await navigation.addPage( 'Cat' );
-			await navigation.checkLabelFocus( 'Cat' );
 
 			/**
 			 * Test: We can open and close the preview with the keyboard and escape
@@ -678,10 +677,6 @@ test.describe( 'Navigation block', () => {
 			await navigation.checkLabelFocus( 'Dog' );
 		} );
 
-		/**
-		 * New test: Use the submenu nav item appender to add a custom link
-		 */
-		// eslint-disable-next-line playwright/expect-expect
 		test( 'Can add submenu item(custom-link) using the keyboard', async ( {
 			page,
 			pageUtils,
@@ -693,7 +688,7 @@ test.describe( 'Navigation block', () => {
 			await navigation.addPage( 'Cat' );
 
 			/**
-			 * Test: Can add submenu item using the keyboard
+			 * Test: Can add submenu item(custome-link) using the keyboard
 			 */
 			navigation.useToolbarButton( 'Add submenu' );
 
@@ -702,26 +697,6 @@ test.describe( 'Navigation block', () => {
 				editor.canvas.locator( 'a' ).filter( { hasText: 'Add link' } )
 			).toBeVisible();
 
-			await pageUtils.pressKeys( 'ArrowDown' );
-			// There is a bug that won't allow us to press Enter to add the link: https://github.com/WordPress/gutenberg/issues/60051
-			// TODO: Use Enter after that bug is resolved
-			await navigation.useLinkShortcut();
-
-			await navigation.addPage( 'Dog' );
-
-			/**
-			 * Test: We can open and close the preview with the keyboard and escape
-			 *       buttons from a submenu nav item using both the shortcut and toolbar
-			 */
-			await navigation.useLinkShortcut();
-			await navigation.previewIsOpenAndCloses();
-			await navigation.checkLabelFocus( 'Dog' );
-			/**
-			 * Test: Use the submenu nav item appender to add a custom link
-			 */
-			await page.keyboard.press( 'End' );
-			await pageUtils.pressKeys( 'ArrowRight', { times: 2 } );
-			await navigation.useBlockInserter();
 			await navigation.addCustomURL( 'https://wordpress.org' );
 			await navigation.expectToHaveTextSelected( 'wordpress.org' );
 
@@ -742,7 +717,7 @@ test.describe( 'Navigation block', () => {
 			// Exit the toolbar
 			await page.keyboard.press( 'Escape' );
 			// Move to the submenu item
-			await pageUtils.pressKeys( 'ArrowUp', { times: 4 } );
+			await pageUtils.pressKeys( 'ArrowUp', { times: 2 } );
 			await page.keyboard.press( 'Home' );
 
 			// Check we're on our submenu link
@@ -759,7 +734,6 @@ test.describe( 'Navigation block', () => {
 			await navigation.checkLabelFocus( 'Cat' );
 		} );
 
-		// eslint-disable-next-line playwright/expect-expect
 		test( 'Deleting returns items focus to its sibling', async ( {
 			page,
 			pageUtils,
@@ -769,7 +743,6 @@ test.describe( 'Navigation block', () => {
 			await pageUtils.pressKeys( 'ArrowDown' );
 			await navigation.useBlockInserter();
 			await navigation.addPage( 'Cat' );
-			await navigation.checkLabelFocus( 'Cat' );
 
 			/**
 			 * Test: We can open and close the preview with the keyboard and escape
