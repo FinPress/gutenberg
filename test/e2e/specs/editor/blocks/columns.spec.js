@@ -472,13 +472,6 @@ test.describe( 'Columns', () => {
 							},
 						],
 					},
-					{
-						name: 'core/paragraph',
-						attributes: {
-							content:
-								'Paragraph to enable moving of Columns block',
-						},
-					},
 				],
 			} );
 			await editor.selectBlocks(
