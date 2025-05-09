@@ -427,15 +427,6 @@ test.describe( 'Columns', () => {
 								},
 							],
 						},
-						{
-							name: 'core/column',
-							innerBlocks: [
-								{
-									name: 'core/paragraph',
-									attributes: { content: 'Col 2' },
-								},
-							],
-						},
 					],
 				} );
 				await editor.openDocumentSettingsSidebar();
