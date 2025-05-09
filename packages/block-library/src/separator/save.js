@@ -13,7 +13,7 @@ import {
 } from '@wordpress/block-editor';
 
 export default function separatorSave( { attributes } ) {
-	const { backgroundColor, style, opacity, tagName: Tag } = attributes;
+	const { backgroundColor, style, opacity, tagName: Tag, align } = attributes;
 	const customColor = style?.color?.background;
 	const colorProps = getColorClassesAndStyles( attributes );
 	// The hr support changing color using border-color, since border-color
@@ -30,7 +30,8 @@ export default function separatorSave( { attributes } ) {
 			'has-css-opacity': opacity === 'css',
 			'has-alpha-channel-opacity': opacity === 'alpha-channel',
 		},
-		colorProps.className
+		colorProps.className,
+		align ? `align${ align }` : null
 	);
 
 	const styles = {

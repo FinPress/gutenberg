@@ -8,6 +8,9 @@
 	"keywords": [ "horizontal-line", "hr", "divider" ],
 	"textdomain": "default",
 	"attributes": {
+		"align": {
+			"type": "string"
+		},
 		"opacity": {
 			"type": "string",
 			"default": "alpha-channel"
@@ -20,7 +23,7 @@
 	},
 	"supports": {
 		"anchor": true,
-		"align": [ "center", "wide", "full" ],
+		"align": [ "center", "wide", "full", "left", "right" ],
 		"color": {
 			"enableContrastChecker": false,
 			"__experimentalSkipSerialization": true,

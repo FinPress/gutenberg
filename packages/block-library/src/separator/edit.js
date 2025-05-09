@@ -29,7 +29,7 @@ export default function SeparatorEdit( {
 	setAttributes,
 	clientId,
 } ) {
-	const { backgroundColor, opacity, style, tagName } = attributes;
+	const { backgroundColor, opacity, style, tagName, align } = attributes;
 	const colorProps = useColorProps( attributes );
 	const currentColor = colorProps?.style?.backgroundColor;
 	const hasCustomColor = !! style?.color?.background;
@@ -73,7 +73,10 @@ export default function SeparatorEdit( {
 			</InspectorControls>
 			<Wrapper
 				{ ...useBlockProps( {
-					className,
+					className: clsx(
+						className,
+						align ? `align${ align }` : null
+					),
 					style: hasCustomColor ? styles : undefined,
 				} ) }
 			/>
