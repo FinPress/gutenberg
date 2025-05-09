@@ -97,17 +97,21 @@ const UnconnectedColorPicker = (
 						hideLabelFromVision
 						variant="minimal"
 					/>
-					<ColorCopyButton
-						color={ safeColordColor }
-						colorType={ copyFormat || colorType }
-					/>
 				</AuxiliaryColorArtefactHStackHeader>
-				<ColorInputWrapper direction="column" gap={ 2 }>
+				<ColorInputWrapper
+					direction="column"
+					align="flex-start"
+					gap={ 2 }
+				>
 					<ColorInput
 						colorType={ colorType }
 						color={ safeColordColor }
 						onChange={ handleChange }
 						enableAlpha={ enableAlpha }
+					/>
+					<ColorCopyButton
+						color={ safeColordColor }
+						colorType={ copyFormat || colorType }
 					/>
 				</ColorInputWrapper>
 			</AuxiliaryColorArtefactWrapper>
