@@ -438,7 +438,6 @@ test.describe( 'Columns', () => {
 						},
 					],
 				} );
-
 				await editor.openDocumentSettingsSidebar();
 
 				await expect(
@@ -446,5 +445,51 @@ test.describe( 'Columns', () => {
 				).toBeHidden();
 			} );
 		}
+
+		test( 'templateLock=false should show column count control inside locked parent', async ( {
+			editor,
+			page,
+		} ) => {
+			await editor.insertBlock( {
+				name: 'core/group',
+				attributes: {
+					templateLock: 'insert',
+					layout: { type: 'constrained' },
+				},
+				innerBlocks: [
+					{
+						name: 'core/columns',
+						attributes: { templateLock: false },
+						innerBlocks: [
+							{
+								name: 'core/column',
+								innerBlocks: [
+									{
+										name: 'core/paragraph',
+										attributes: { content: 'Col 1' },
+									},
+								],
+							},
+						],
+					},
+					{
+						name: 'core/paragraph',
+						attributes: {
+							content:
+								'Paragraph to enable moving of Columns block',
+						},
+					},
+				],
+			} );
+			await editor.selectBlocks(
+				editor.canvas.getByLabel( 'Block: Columns' )
+			);
+
+			await editor.openDocumentSettingsSidebar();
+
+			await expect(
+				page.getByRole( 'slider', { name: 'Columns' } )
+			).toBeVisible();
+		} );
 	} );
 } );
