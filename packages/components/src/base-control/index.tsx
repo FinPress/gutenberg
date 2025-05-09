@@ -22,13 +22,16 @@ import {
 	StyledHelp,
 	StyledVisualLabel,
 } from './styles/base-control-styles';
-import type { WordPressComponentProps } from '../context';
+import type {
+	WordPressComponentProps,
+	NonPolymorphicWordPressComponentProps,
+} from '../context';
 import { contextConnectWithoutRef, useContextSystem } from '../context';
 
 export { useBaseControlProps } from './hooks';
 
 const UnconnectedBaseControl = (
-	props: WordPressComponentProps< BaseControlProps, null >
+	props: NonPolymorphicWordPressComponentProps< BaseControlProps, null >
 ) => {
 	const {
 		__nextHasNoMarginBottom = false,

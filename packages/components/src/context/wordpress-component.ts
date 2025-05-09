@@ -28,6 +28,19 @@ export type WordPressComponentProps<
 		  }
 		: {} );
 
+export type NonPolymorphicWordPressComponentProps<
+	/** Prop types. */
+	P,
+	/** The HTML element to inherit props from. */
+	T extends React.ElementType | null,
+> = P &
+	( T extends React.ElementType
+		? Omit<
+				React.ComponentPropsWithoutRef< T >,
+				'as' | keyof P | 'children'
+		  >
+		: {} );
+
 export type WordPressComponent<
 	T extends React.ElementType | null,
 	O,
