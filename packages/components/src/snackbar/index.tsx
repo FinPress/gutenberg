@@ -154,9 +154,9 @@ function UnforwardedSnackbar(
 							<ExternalLink
 								key={ index }
 								href={ url }
-								onClick={ (
-									event: MouseEvent< HTMLAnchorElement >
-								) => onActionClick( event, onClick ) }
+								onClick={ ( event ) =>
+									onActionClick( event, onClick )
+								}
 								className="components-snackbar__action"
 							>
 								{ label }
