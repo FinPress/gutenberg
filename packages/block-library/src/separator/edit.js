@@ -11,15 +11,25 @@ import {
 	useBlockProps,
 	getColorClassName,
 	__experimentalUseColorProps as useColorProps,
+	InspectorControls,
+	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import useDeprecatedOpacity from './use-deprecated-opacity';
+import { unlock } from '../lock-unlock';
 
-export default function SeparatorEdit( { attributes, setAttributes } ) {
-	const { backgroundColor, opacity, style } = attributes;
+const { HTMLElementControl } = unlock( blockEditorPrivateApis );
+
+export default function SeparatorEdit( {
+	attributes,
+	setAttributes,
+	clientId,
+} ) {
+	const { backgroundColor, opacity, style, tagName } = attributes;
 	const colorProps = useColorProps( attributes );
 	const currentColor = colorProps?.style?.backgroundColor;
 	const hasCustomColor = !! style?.color?.background;
@@ -44,10 +54,24 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 		color: currentColor,
 		backgroundColor: currentColor,
 	};
+	const Wrapper = tagName === 'hr' ? HorizontalRule : tagName;
 
 	return (
 		<>
-			<HorizontalRule
+			<InspectorControls group="advanced">
+				<HTMLElementControl
+					tagName={ tagName }
+					onChange={ ( value ) =>
+						setAttributes( { tagName: value } )
+					}
+					clientId={ clientId }
+					options={ [
+						{ label: __( 'Default (<hr>)' ), value: 'hr' },
+						{ label: '<div>', value: 'div' },
+					] }
+				/>
+			</InspectorControls>
+			<Wrapper
 				{ ...useBlockProps( {
 					className,
 					style: hasCustomColor ? styles : undefined,

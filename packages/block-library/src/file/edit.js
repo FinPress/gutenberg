@@ -103,8 +103,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 				downloadButtonText: _x( 'Download', 'button label' ),
 			} );
 		}
-		// Reason: This effect should only run on mount.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		// This effect should only run on mount.
 	}, [] );
 
 	function onSelectFile( newMedia ) {
@@ -129,15 +128,21 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		}
 
 		const isPdf = newMedia.url.endsWith( '.pdf' );
+		const pdfAttributes = {
+			displayPreview: isPdf
+				? attributes.displayPreview ?? true
+				: undefined,
+			previewHeight: isPdf ? attributes.previewHeight ?? 600 : undefined,
+		};
+
 		setAttributes( {
 			href: newMedia.url,
 			fileName: newMedia.title,
 			textLinkHref: newMedia.url,
 			id: newMedia.id,
-			displayPreview: isPdf ? true : undefined,
-			previewHeight: isPdf ? 600 : undefined,
 			fileId: `wp-block-file--media-${ clientId }`,
 			blob: undefined,
+			...pdfAttributes,
 		} );
 		setTemporaryURL();
 	}
@@ -202,7 +207,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 					labels={ {
 						title: __( 'File' ),
 						instructions: __(
-							'Upload a file or pick one from your media library.'
+							'Drag and drop a file, upload, or choose from your library.'
 						),
 					} }
 					onSelect={ onSelectFile }
@@ -250,11 +255,12 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 			<div { ...blockProps }>
 				{ displayPreviewInEditor && (
 					<ResizableBox
-						size={ { height: previewHeight } }
+						size={ { height: previewHeight, width: '100%' } }
 						minHeight={ MIN_PREVIEW_HEIGHT }
 						maxHeight={ MAX_PREVIEW_HEIGHT }
-						minWidth="100%"
-						grid={ [ 10, 10 ] }
+						// The horizontal grid value must be 1 or else the width may snap during a
+						// resize even though only vertical resizing is enabled.
+						grid={ [ 1, 10 ] }
 						enable={ {
 							top: false,
 							right: false,

@@ -8,7 +8,6 @@ import {
 	RangeControl,
 	TextareaControl,
 	ToggleControl,
-	SelectControl,
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
@@ -37,7 +36,9 @@ import { unlock } from '../../lock-unlock';
 import { useToolsPanelDropdownMenuProps } from '../../utils/hooks';
 import { DEFAULT_MEDIA_SIZE_SLUG } from '../constants';
 
-const { cleanEmptyObject, ResolutionTool } = unlock( blockEditorPrivateApis );
+const { cleanEmptyObject, ResolutionTool, HTMLElementControl } = unlock(
+	blockEditorPrivateApis
+);
 
 function CoverHeightInput( {
 	onChange,
@@ -96,6 +97,7 @@ export default function CoverInspectorControls( {
 	coverRef,
 	currentSettings,
 	updateDimRatio,
+	featuredImage,
 } ) {
 	const {
 		useFeaturedImage,
@@ -132,8 +134,12 @@ export default function CoverInspectorControls( {
 		[ id, isImageBackground ]
 	);
 
+	const currentBackgroundImage = useFeaturedImage ? featuredImage : image;
+
 	function updateImage( newSizeSlug ) {
-		const newUrl = image?.media_details?.sizes?.[ newSizeSlug ]?.source_url;
+		const newUrl =
+			currentBackgroundImage?.media_details?.sizes?.[ newSizeSlug ]
+				?.source_url;
 		if ( ! newUrl ) {
 			return null;
 		}
@@ -146,7 +152,9 @@ export default function CoverInspectorControls( {
 
 	const imageSizeOptions = imageSizes
 		?.filter(
-			( { slug } ) => image?.media_details?.sizes?.[ slug ]?.source_url
+			( { slug } ) =>
+				currentBackgroundImage?.media_details?.sizes?.[ slug ]
+					?.source_url
 		)
 		?.map( ( { name, slug } ) => ( { value: slug, label: name } ) );
 
@@ -175,27 +183,6 @@ export default function CoverInspectorControls( {
 	};
 
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();
-
-	const htmlElementMessages = {
-		header: __(
-			'The <header> element should represent introductory content, typically a group of introductory or navigational aids.'
-		),
-		main: __(
-			'The <main> element should be used for the primary content of your document only.'
-		),
-		section: __(
-			"The <section> element should represent a standalone portion of the document that can't be better represented by another element."
-		),
-		article: __(
-			'The <article> element should represent a self-contained, syndicatable portion of the document.'
-		),
-		aside: __(
-			"The <aside> element should represent a portion of a document whose content is only indirectly related to the document's main content."
-		),
-		footer: __(
-			'The <footer> element should represent a footer for its nearest sectioning element (e.g.: <section>, <article>, <main> etc.).'
-		),
-	};
 
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
@@ -321,7 +308,7 @@ export default function CoverInspectorControls( {
 								/>
 							</ToolsPanelItem>
 						) }
-						{ ! useFeaturedImage && !! imageSizeOptions?.length && (
+						{ !! imageSizeOptions?.length && (
 							<ResolutionTool
 								value={ sizeSlug }
 								onChange={ updateImage }
@@ -434,10 +421,12 @@ export default function CoverInspectorControls( {
 				</ToolsPanelItem>
 			</InspectorControls>
 			<InspectorControls group="advanced">
-				<SelectControl
-					__nextHasNoMarginBottom
-					__next40pxDefaultSize
-					label={ __( 'HTML element' ) }
+				<HTMLElementControl
+					tagName={ tagName }
+					onChange={ ( value ) =>
+						setAttributes( { tagName: value } )
+					}
+					clientId={ clientId }
 					options={ [
 						{ label: __( 'Default (<div>)' ), value: 'div' },
 						{ label: '<header>', value: 'header' },
@@ -447,11 +436,6 @@ export default function CoverInspectorControls( {
 						{ label: '<aside>', value: 'aside' },
 						{ label: '<footer>', value: 'footer' },
 					] }
-					value={ tagName }
-					onChange={ ( value ) =>
-						setAttributes( { tagName: value } )
-					}
-					help={ htmlElementMessages[ tagName ] }
 				/>
 			</InspectorControls>
 		</>

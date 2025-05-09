@@ -73,33 +73,6 @@ import AccessibleDescription from './accessible-description';
 import AccessibleMenuDescription from './accessible-menu-description';
 import { unlock } from '../../lock-unlock';
 
-function useResponsiveMenu( navRef ) {
-	const [ isResponsiveMenuOpen, setResponsiveMenuVisibility ] =
-		useState( false );
-
-	useEffect( () => {
-		if ( ! navRef.current ) {
-			return;
-		}
-
-		const htmlElement = navRef.current.ownerDocument.documentElement;
-
-		// Add a `has-modal-open` class to the <html> when the responsive
-		// menu is open. This reproduces the same behavior of the frontend.
-		if ( isResponsiveMenuOpen ) {
-			htmlElement.classList.add( 'has-modal-open' );
-		} else {
-			htmlElement.classList.remove( 'has-modal-open' );
-		}
-
-		return () => {
-			htmlElement?.classList.remove( 'has-modal-open' );
-		};
-	}, [ navRef, isResponsiveMenuOpen ] );
-
-	return [ isResponsiveMenuOpen, setResponsiveMenuVisibility ];
-}
-
 function ColorTools( {
 	textColor,
 	setTextColor,
@@ -169,24 +142,32 @@ function ColorTools( {
 						label: __( 'Text' ),
 						onColorChange: setTextColor,
 						resetAllFilter: () => setTextColor(),
+						clearable: true,
+						enableAlpha: true,
 					},
 					{
 						colorValue: backgroundColor.color,
 						label: __( 'Background' ),
 						onColorChange: setBackgroundColor,
 						resetAllFilter: () => setBackgroundColor(),
+						clearable: true,
+						enableAlpha: true,
 					},
 					{
 						colorValue: overlayTextColor.color,
 						label: __( 'Submenu & overlay text' ),
 						onColorChange: setOverlayTextColor,
 						resetAllFilter: () => setOverlayTextColor(),
+						clearable: true,
+						enableAlpha: true,
 					},
 					{
 						colorValue: overlayBackgroundColor.color,
 						label: __( 'Submenu & overlay background' ),
 						onColorChange: setOverlayBackgroundColor,
 						resetAllFilter: () => setOverlayBackgroundColor(),
+						clearable: true,
+						enableAlpha: true,
 					},
 				] }
 				panelId={ clientId }
@@ -311,10 +292,8 @@ function Navigation( {
 		__unstableMarkNextChangeAsNotPersistent,
 	} = useDispatch( blockEditorStore );
 
-	const navRef = useRef();
-
 	const [ isResponsiveMenuOpen, setResponsiveMenuVisibility ] =
-		useResponsiveMenu( navRef );
+		useState( false );
 
 	const [ overlayMenuPreview, setOverlayMenuPreview ] = useState( false );
 
@@ -395,6 +374,8 @@ function Navigation( {
 		navigationFallbackId,
 		__unstableMarkNextChangeAsNotPersistent,
 	] );
+
+	const navRef = useRef();
 
 	// The standard HTML5 tag for the block wrapper.
 	const TagName = 'nav';

@@ -12,9 +12,11 @@
 	overflow-y: hidden;
 	overflow-x: auto;
 
-	// Animation
-	transition: border-color 0.1s linear, box-shadow 0.1s linear;
-	@include reduce-motion("transition");
+	@media not ( prefers-reduced-motion ) {
+
+		// Animation
+		transition: border-color 0.1s linear, box-shadow 0.1s linear;
+	}
 
 	@include break-small() {
 		overflow: inherit;
@@ -282,6 +284,22 @@
 	.block-editor-rich-text__inline-format-toolbar-group {
 		.components-button + .components-button {
 			margin-left: 6px;
+		}
+	}
+}
+
+.block-editor-block-toolbar-change-design-content-wrapper {
+	padding: $grid-unit-15;
+	width: 320px;
+	.block-editor-block-patterns-list {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: $grid-unit-15;
+		.block-editor-block-patterns-list__list-item {
+			margin-bottom: 0;
+		}
+		.block-editor-inserter__media-list__list-item {
+			min-height: 100px;
 		}
 	}
 }
