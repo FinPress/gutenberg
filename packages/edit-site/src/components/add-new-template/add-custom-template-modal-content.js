@@ -260,6 +260,15 @@ function AddCustomTemplateModalContent( { onSelect, entityForSuggestions } ) {
 						entityForSuggestions={ entityForSuggestions }
 						onSelect={ onSelect }
 					/>
+					<Flex justify="right">
+						<Button
+							__next40pxDefaultSize
+							variant="tertiary"
+							onClick={ () => setShowSearchEntities( false ) }
+						>
+							{ __( 'Back' ) }
+						</Button>
+					</Flex>
 				</>
 			) }
 		</VStack>

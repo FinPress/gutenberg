@@ -324,8 +324,10 @@ function NewTemplateModal( { onClose } ) {
 			) }
 			{ modalContent === modalContentMap.customGenericTemplate && (
 				<AddCustomGenericTemplateModalContent
-					onClose={ onModalClose }
 					createTemplate={ createTemplate }
+					onBack={ () =>
+						setModalContent( modalContentMap.templatesList )
+					}
 				/>
 			) }
 		</Modal>
