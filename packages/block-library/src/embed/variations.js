@@ -30,6 +30,7 @@ import {
 	embedBlueskyIcon,
 	embedSoundCloudIcon,
 	embedTikTokIcon,
+	embedCloudupIcon,
 } from './icons';
 
 /** @typedef {import('@wordpress/blocks').WPBlockVariation} WPBlockVariation */
@@ -157,7 +158,7 @@ const variations = [
 	{
 		name: 'cloudup',
 		title: getTitle( 'Cloudup' ),
-		icon: embedContentIcon,
+		icon: embedCloudupIcon,
 		description: __( 'Embed Cloudup content.' ),
 		patterns: [ /^https?:\/\/cloudup\.com\/.+/i ],
 		attributes: { providerNameSlug: 'cloudup', responsive: true },
