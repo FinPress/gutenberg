@@ -213,6 +213,19 @@ export const embedRedditIcon = (
 	</SVG>
 );
 
+export const embedReverbNationIcon = (
+	<SVG fill="none" viewBox="0 0 24 24">
+		<Path
+			fill="#F035DD"
+			d="m13.5 11.13-2.85-8.85L12.63 0l2.76 8.52H24l-1.23 2.61H13.5Z"
+		/>
+		<Path
+			fill="#F035DD"
+			d="M0 8.52h11.13L7.68 19.17l8.85-6.75 3.72 9.96-2.1 1.62-2.76-7.41-9.66 6.96-1.56-1.17 3.57-11.25H1.23L0 8.52Z"
+		/>
+	</SVG>
+);
+
 export const embedSpotifyIcon = {
 	foreground: '#1db954',
 	src: (

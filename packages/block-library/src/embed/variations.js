@@ -7,7 +7,6 @@ import { __, sprintf } from '@wordpress/i18n';
  * Internal dependencies
  */
 import {
-	embedAudioIcon,
 	embedContentIcon,
 	embedPhotoIcon,
 	embedVideoIcon,
@@ -27,6 +26,7 @@ import {
 	embedPinterestIcon,
 	embedPocketCastsIcon,
 	embedRedditIcon,
+	embedReverbNationIcon,
 	embedSpotifyIcon,
 	embedSoundCloudIcon,
 	embedTikTokIcon,
@@ -254,7 +254,7 @@ const variations = [
 	{
 		name: 'reverbnation',
 		title: getTitle( 'ReverbNation' ),
-		icon: embedAudioIcon,
+		icon: embedReverbNationIcon,
 		description: __( 'Embed ReverbNation content.' ),
 		patterns: [ /^https?:\/\/(www\.)?reverbnation\.com\/.+/i ],
 		attributes: { providerNameSlug: 'reverbnation', responsive: true },
