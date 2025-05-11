@@ -28,6 +28,7 @@ import {
 	embedWolframIcon,
 	embedPocketCastsIcon,
 	embedBlueskyIcon,
+	embedSoundCloudIcon,
 } from './icons';
 
 /** @typedef {import('@wordpress/blocks').WPBlockVariation} WPBlockVariation */
@@ -108,9 +109,9 @@ const variations = [
 	{
 		name: 'soundcloud',
 		title: getTitle( 'SoundCloud' ),
-		icon: embedAudioIcon,
+		icon: embedSoundCloudIcon,
 		keywords: [ __( 'music' ), __( 'audio' ) ],
-		description: __( 'Embed SoundCloud content.' ),
+		description: __( 'Embed SoundCloud content!.' ),
 		patterns: [ /^https?:\/\/(www\.)?soundcloud\.com\/.+/i ],
 		attributes: { providerNameSlug: 'soundcloud', responsive: true },
 	},
