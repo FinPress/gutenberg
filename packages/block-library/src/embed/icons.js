@@ -226,6 +226,40 @@ export const embedReverbNationIcon = (
 	</SVG>
 );
 
+export const embedScreencastIcon = (
+	<SVG fill="none" viewBox="0 0 24 24">
+		<Path
+			fill="url(#a)"
+			d="M21.656 0H2.344A2.344 2.344 0 0 0 0 2.344v19.312A2.344 2.344 0 0 0 2.344 24h19.312A2.344 2.344 0 0 0 24 21.656V2.344A2.344 2.344 0 0 0 21.656 0Z"
+		/>
+		<Path
+			fill="#fff"
+			d="m12.784 16.814-6.75-4.51a.02.02 0 0 0-.021-.001.021.021 0 0 0-.011.019v8.12a.524.524 0 0 0 .817.432l5.965-4.06Z"
+		/>
+		<Path
+			fill="#FCE2C9"
+			d="m9 10.5-3 1.782 6.784 4.532 2.783-1.894L9 10.5Z"
+		/>
+		<Path
+			fill="#fff"
+			d="M19.222 11.567 6.818 3.127A.523.523 0 0 0 6 3.559v4.959a.022.022 0 0 0 .01.017l9.545 6.376a.021.021 0 0 0 .023 0l3.644-2.48a.524.524 0 0 0 0-.864Z"
+		/>
+		<defs>
+			<linearGradient
+				withInstanceId="a"
+				x1="12"
+				x2="12"
+				y1="0"
+				y2="24"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#F9A731" />
+				<stop offset="1" stopColor="#EE7B2E" />
+			</linearGradient>
+		</defs>
+	</SVG>
+);
+
 export const embedSpotifyIcon = {
 	foreground: '#1db954',
 	src: (
