@@ -21,6 +21,7 @@ import {
 	embedFlickrIcon,
 	embedImgurIcon,
 	embedInstagramIcon,
+	embedIssuuIcon,
 	embedPinterestIcon,
 	embedPocketCastsIcon,
 	embedRedditIcon,
@@ -206,7 +207,7 @@ const variations = [
 	{
 		name: 'issuu',
 		title: getTitle( 'Issuu' ),
-		icon: embedContentIcon,
+		icon: embedIssuuIcon,
 		description: __( 'Embed Issuu content.' ),
 		patterns: [ /^https?:\/\/(www\.)?issuu\.com\/.+/i ],
 		attributes: { providerNameSlug: 'issuu', responsive: true },
