@@ -14,6 +14,7 @@ import {
 	embedAmazonIcon,
 	embedAnimotoIcon,
 	embedBlueskyIcon,
+	embedCrowdSignalIcon,
 	embedDailymotionIcon,
 	embedCloudupIcon,
 	embedFacebookIcon,
@@ -176,7 +177,7 @@ const variations = [
 	{
 		name: 'crowdsignal',
 		title: getTitle( 'Crowdsignal' ),
-		icon: embedContentIcon,
+		icon: embedCrowdSignalIcon,
 		keywords: [ 'polldaddy', __( 'survey' ) ],
 		description: __( 'Embed Crowdsignal (formerly Polldaddy) content.' ),
 		patterns: [
