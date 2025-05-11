@@ -29,6 +29,7 @@ import {
 	embedPocketCastsIcon,
 	embedBlueskyIcon,
 	embedSoundCloudIcon,
+	embedTikTokIcon,
 } from './icons';
 
 /** @typedef {import('@wordpress/blocks').WPBlockVariation} WPBlockVariation */
@@ -291,7 +292,7 @@ const variations = [
 	{
 		name: 'tiktok',
 		title: getTitle( 'TikTok' ),
-		icon: embedVideoIcon,
+		icon: embedTikTokIcon,
 		keywords: [ __( 'video' ) ],
 		description: __( 'Embed a TikTok video.' ),
 		patterns: [ /^https?:\/\/(www\.)?tiktok\.com\/.+/i ],
