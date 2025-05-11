@@ -22,6 +22,8 @@ import {
 	embedImgurIcon,
 	embedInstagramIcon,
 	embedIssuuIcon,
+	embedKickStarterIcon,
+	embedMixcloudIcon,
 	embedPinterestIcon,
 	embedPocketCastsIcon,
 	embedRedditIcon,
@@ -215,7 +217,7 @@ const variations = [
 	{
 		name: 'kickstarter',
 		title: getTitle( 'Kickstarter' ),
-		icon: embedContentIcon,
+		icon: embedKickStarterIcon,
 		description: __( 'Embed Kickstarter content.' ),
 		patterns: [
 			/^https?:\/\/(www\.)?kickstarter\.com\/.+/i,
@@ -226,7 +228,7 @@ const variations = [
 	{
 		name: 'mixcloud',
 		title: getTitle( 'Mixcloud' ),
-		icon: embedAudioIcon,
+		icon: embedMixcloudIcon,
 		keywords: [ __( 'music' ), __( 'audio' ) ],
 		description: __( 'Embed Mixcloud content.' ),
 		patterns: [ /^https?:\/\/(www\.)?mixcloud\.com\/.+/i ],
