@@ -11,6 +11,15 @@ const transforms = {
 			transform: ( attributes ) =>
 				createBlock( 'core/verse', attributes ),
 		},
+		{
+			type: 'block',
+			blocks: [ 'core/preformatted' ],
+			transform: ( { content, anchor } ) =>
+				createBlock( 'core/verse', {
+					content,
+					anchor,
+				} ),
+		},
 	],
 	to: [
 		{
@@ -18,6 +27,15 @@ const transforms = {
 			blocks: [ 'core/paragraph' ],
 			transform: ( attributes ) =>
 				createBlock( 'core/paragraph', attributes ),
+		},
+		{
+			type: 'block',
+			blocks: [ 'core/preformatted' ],
+			transform: ( { content, anchor } ) =>
+				createBlock( 'core/preformatted', {
+					content,
+					anchor,
+				} ),
 		},
 	],
 };
