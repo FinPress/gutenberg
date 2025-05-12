@@ -124,6 +124,7 @@ export default {
 export function addSaveProps( extraProps, blockType, attributes ) {
 	if ( hasBlockSupport( blockType, 'anchor' ) ) {
 		extraProps.id = attributes.anchor === '' ? null : attributes.anchor;
+		extraProps.tabIndex = -1;
 	}
 
 	return extraProps;
