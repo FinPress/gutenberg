@@ -28,6 +28,15 @@ const transforms = {
 			transform: ( attributes ) =>
 				createBlock( 'core/paragraph', attributes ),
 		},
+		{
+			type: 'block',
+			blocks: [ 'core/preformatted' ],
+			transform: ( { content, anchor } ) =>
+				createBlock( 'core/preformatted', {
+					content,
+					anchor,
+				} ),
+		},
 	],
 };
 
