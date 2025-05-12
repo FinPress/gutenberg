@@ -42,21 +42,11 @@ test.describe( 'Link color in themes', () => {
 			},
 		] );
 
-		const colorOptionsButton = editor.page.locator(
-			'[aria-label="Color options"]'
-		);
+		await page.getByRole( 'button', { name: 'Color options' } ).click();
 
-		await colorOptionsButton.waitFor( {
-			state: 'visible',
-			timeout: 10000,
-		} );
-
-		await colorOptionsButton.click();
-
-		const linkButton = editor.page.locator(
-			'button[aria-label="Show Link"]'
-		);
-		await linkButton.click();
+		await page
+			.getByRole( 'menuitemcheckbox', { name: 'Show Link' } )
+			.click();
 
 		const linkMenuButton = page.locator(
 			'.components-button.block-editor-panel-color-gradient-settings__dropdown',
