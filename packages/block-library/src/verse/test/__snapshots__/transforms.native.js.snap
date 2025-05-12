@@ -26,6 +26,6 @@ exports[`Verse block transforms to Paragraph block 1`] = `
 
 exports[`Verse block transforms to Preformatted block 1`] = `
 "<!-- wp:preformatted -->
-<pre class="wp-block-preformatted">Come<br>Home.</pre>
+<pre class="wp-block-preformatted">Come<br />Home.</pre>
 <!-- /wp:preformatted -->"
 `;
