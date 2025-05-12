@@ -13,6 +13,7 @@ import {
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
@@ -22,6 +23,9 @@ import { useSelect } from '@wordpress/data';
  * Internal dependencies
  */
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+import { unlock } from '../lock-unlock';
+
+const { withIgnoreIMEEvents } = unlock( componentsPrivateApis );
 
 const TEMPLATE = [
 	[
@@ -120,7 +124,7 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 				onToggle={ ( event ) => setIsOpen( event.target.open ) }
 			>
 				<summary
-					onKeyDown={ handleSummaryKeyDown }
+					onKeyDown={ withIgnoreIMEEvents( handleSummaryKeyDown ) }
 					onKeyUp={ handleSummaryKeyUp }
 				>
 					<RichText
