@@ -42,6 +42,8 @@ test.describe( 'Link color in themes', () => {
 			},
 		] );
 
+		await editor.openDocumentSettingsSidebar();
+
 		await page.getByRole( 'button', { name: 'Color options' } ).click();
 
 		await page
@@ -56,12 +58,17 @@ test.describe( 'Link color in themes', () => {
 		);
 		await linkMenuButton.click();
 
-		const vividCyanBlueButton = editor.page.locator(
-			'[aria-label="Vivid cyan blue"]'
-		);
-		await vividCyanBlueButton.click();
+		await page
+			.getByRole( 'option', { name: 'Vivid cyan blue' } )
+			// eslint-disable-next-line playwright/no-force-option
+			.click( { force: true } );
 
-		await pageUtils.pressKeys( 'Escape' );
+		// await pageUtils.pressKeys( 'Escape' );
+
+		await page
+			.getByRole( 'button', { name: 'Close Settings' } )
+			// eslint-disable-next-line playwright/no-force-option
+			.click( { force: true } );
 
 		const paragraphBlockLinkColor = await editor.getBlocks();
 
