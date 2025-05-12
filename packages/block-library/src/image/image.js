@@ -285,6 +285,7 @@ export default function Image( {
 		metadata,
 	} = attributes;
 	const [ imageElement, setImageElement ] = useState();
+	const [ srcSet, setSrcSet ] = useState( '' );
 	const [ resizeDelta, setResizeDelta ] = useState( null );
 	const [ pixelSize, setPixelSize ] = useState( {} );
 	const [ offsetTop, setOffsetTop ] = useState( 0 );
@@ -595,6 +596,39 @@ export default function Image( {
 			lightbox: undefined,
 		} );
 	};
+
+	function extractSrcSetFromMedia( media ) {
+		const mediaDetails = media?.media_details ?? {};
+		const sizes = Object.values( mediaDetails?.sizes ?? {} );
+
+		if ( ! media || 0 === sizes.length ) {
+			return '';
+		}
+
+		const sortedSizes = sizes.sort(
+			( sort1, sort2 ) => sort1.width - sort2.width
+		);
+
+		// Holds the individual url in format url width
+		const individualSrc = sortedSizes.map( ( size ) => {
+			const curWidth = size.width;
+			const curUrl = size.source_url;
+
+			if ( curWidth && curUrl ) {
+				return ` ${ curUrl } ${ curWidth }w `;
+			}
+			return undefined;
+		} );
+
+		return individualSrc.join( ',' );
+	}
+
+	useEffect( () => {
+		if ( image ) {
+			const extractedSrcSet = extractSrcSetFromMedia( image );
+			setSrcSet( extractedSrcSet );
+		}
+	}, [ image ] );
 
 	const sizeControls = (
 		<InspectorControls>
@@ -910,6 +944,7 @@ export default function Image( {
 			<>
 				<img
 					src={ temporaryURL || url }
+					srcSet={ srcSet ?? '' }
 					alt={ defaultedAlt }
 					onError={ onImageError }
 					onLoad={ onImageLoad }
