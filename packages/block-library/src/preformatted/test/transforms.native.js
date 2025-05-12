@@ -16,12 +16,7 @@ const initialHtml = `
 <!-- /wp:preformatted -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
-const blockTransforms = [
-	'Paragraph',
-	'Code',
-	'Verse',
-	...transformsWithInnerBlocks,
-];
+const blockTransforms = [ 'Paragraph', 'Code', ...transformsWithInnerBlocks ];
 
 setupCoreBlocks();
 
