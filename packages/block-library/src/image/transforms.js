@@ -210,6 +210,72 @@ const transforms = {
 				},
 			},
 		},
+		{
+			type: 'block',
+			blocks: [ 'core/paragraph' ],
+			isMatch: ( { content } ) => {
+				if ( ! content ) {
+					return false;
+				}
+				const trimmedContent = content.trim();
+				const { body } =
+					document.implementation.createHTMLDocument( '' );
+				body.innerHTML = trimmedContent;
+				return (
+					body.childNodes.length === 1 &&
+					body.firstChild.nodeName === 'IMG'
+				);
+			},
+			transform: ( { content } ) => {
+				const { body } =
+					document.implementation.createHTMLDocument( '' );
+				body.innerHTML = content.trim();
+				const imgElement = body.firstChild;
+
+				if ( ! imgElement ) {
+					return null;
+				}
+
+				const url = imgElement.getAttribute( 'src' );
+				const alt = imgElement.getAttribute( 'alt' ) || '';
+				const title = imgElement.getAttribute( 'title' );
+				const imgClassName = imgElement.getAttribute( 'class' ) || '';
+
+				let id;
+				const idMatches = /(?:^|\s)wp-image-(\d+)(?:$|\s)/.exec(
+					imgClassName
+				);
+				if ( idMatches ) {
+					id = Number( idMatches[ 1 ] );
+				}
+
+				const alignMatches =
+					/(?:^|\s)align(left|center|right|none)(?:$|\s)/.exec(
+						imgClassName
+					);
+				const align = alignMatches ? alignMatches[ 1 ] : undefined;
+
+				const imageAttributes = {
+					url,
+					alt,
+				};
+
+				if ( title ) {
+					imageAttributes.title = title;
+				}
+				if ( id ) {
+					imageAttributes.id = id;
+				}
+				if ( align ) {
+					imageAttributes.align = align;
+				}
+				if ( imgClassName ) {
+					imageAttributes.className = imgClassName;
+				}
+
+				return createBlock( 'core/image', imageAttributes );
+			},
+		},
 	],
 };
 
