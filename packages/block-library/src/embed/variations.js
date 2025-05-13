@@ -27,7 +27,6 @@ import {
 	embedPocketCastsIcon,
 	embedRedditIcon,
 	embedReverbNationIcon,
-	embedScreencastIcon,
 	embedSpotifyIcon,
 	embedSoundCloudIcon,
 	embedTikTokIcon,
@@ -263,7 +262,7 @@ const variations = [
 	{
 		name: 'screencast',
 		title: getTitle( 'Screencast' ),
-		icon: embedScreencastIcon,
+		icon: embedVideoIcon,
 		description: __( 'Embed Screencast content.' ),
 		patterns: [ /^https?:\/\/(www\.)?screencast\.com\/.+/i ],
 		attributes: { providerNameSlug: 'screencast', responsive: true },
