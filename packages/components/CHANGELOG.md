@@ -2,10 +2,6 @@
 
 ## Unreleased
 
-### Bug Fixes
-
--   `Notice`: Fix notice component spacing issue ([#69430](https://github.com/WordPress/gutenberg/pull/69430)).
-
 ### Documentation 
 
 -   `Popover`: Expose Popover TypeScript types for subcomponents. ([#69619](https://github.com/WordPress/gutenberg/pull/69619))
