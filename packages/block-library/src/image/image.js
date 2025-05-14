@@ -285,7 +285,6 @@ export default function Image( {
 		metadata,
 	} = attributes;
 	const [ imageElement, setImageElement ] = useState();
-	const [ srcSet, setSrcSet ] = useState( '' );
 	const [ resizeDelta, setResizeDelta ] = useState( null );
 	const [ pixelSize, setPixelSize ] = useState( {} );
 	const [ offsetTop, setOffsetTop ] = useState( 0 );
@@ -623,11 +622,11 @@ export default function Image( {
 		return individualSrc.join( ',' );
 	}
 
-	useEffect( () => {
+	const srcSet = useMemo( () => {
 		if ( image ) {
-			const extractedSrcSet = extractSrcSetFromMedia( image );
-			setSrcSet( extractedSrcSet );
+			return extractSrcSetFromMedia( image );
 		}
+		return '';
 	}, [ image ] );
 
 	const sizeControls = (
