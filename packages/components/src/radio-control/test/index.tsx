@@ -274,4 +274,38 @@ describe.each( [
 			);
 		} );
 	} );
+
+	describe( 'layout direction', () => {
+		it( 'should apply vertical layout when direction is not provided (default)', () => {
+			const onChangeSpy = jest.fn();
+
+			render(
+				<Component { ...defaultProps } onChange={ onChangeSpy } />
+			);
+
+			const groupWrapper = screen
+				.getByRole( 'group' )
+				// eslint-disable-next-line testing-library/no-node-access
+				.querySelector( '.components-radio-control__group-wrapper' );
+
+			expect( groupWrapper ).not.toHaveClass( 'is-horizontal' );
+		} );
+
+		it( 'should apply horizontal layout when direction="horizontal"', () => {
+			const onChangeSpy = jest.fn();
+			render(
+				<Component
+					{ ...defaultProps }
+					direction="horizontal"
+					onChange={ onChangeSpy }
+				/>
+			);
+			const groupWrapper = screen
+				.getByRole( 'group' )
+				// eslint-disable-next-line testing-library/no-node-access
+				.querySelector( '.components-radio-control__group-wrapper' );
+
+			expect( groupWrapper ).toHaveClass( 'is-horizontal' );
+		} );
+	} );
 } );
