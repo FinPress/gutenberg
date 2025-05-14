@@ -11,6 +11,11 @@
 	margin-block-end: $grid-unit-15;
 }
 
+.components-radio-control__group-wrapper.is-horizontal {
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
 .components-radio-control__option {
 	display: grid;
 	grid-template-columns: auto 1fr;

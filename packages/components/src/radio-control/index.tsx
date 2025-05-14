@@ -62,6 +62,7 @@ export function RadioControl(
 	const {
 		label,
 		className,
+		direction = 'vertical',
 		selected,
 		help,
 		onChange,
@@ -101,6 +102,7 @@ export function RadioControl(
 				spacing={ 3 }
 				className={ clsx( 'components-radio-control__group-wrapper', {
 					'has-help': !! help,
+					'is-horizontal': direction === 'horizontal',
 				} ) }
 			>
 				{ options.map( ( option, index ) => (

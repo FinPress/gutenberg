@@ -115,6 +115,15 @@ The value property of the currently selected option.
 
 -   Required: No
 
+#### `direction`: `'horizontal' | 'vertical'`
+
+Controls the layout direction of the radio buttons.
+
+-   Use 'horizontal' to display options in a row.
+-   Use 'vertical' (default) to display them in a column.
+
+-   Required: No
+
 ## Related components
 
 -   To select one or more items from a set, use the `CheckboxControl` component.

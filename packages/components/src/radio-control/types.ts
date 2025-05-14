@@ -33,4 +33,9 @@ export type RadioControlProps = Pick<
 	 * The value property of the currently selected option.
 	 */
 	selected?: string;
+	/**
+	 * Layout direction for the radio options.
+	 * Use 'horizontal' to display options in a row, or 'vertical' (default) for column layout.
+	 */
+	direction?: 'horizontal' | 'vertical';
 };

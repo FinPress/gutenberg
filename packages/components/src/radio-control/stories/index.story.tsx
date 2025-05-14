@@ -30,6 +30,10 @@ const meta: Meta< typeof RadioControl > = {
 		help: {
 			control: { type: 'text' },
 		},
+		direction: {
+			control: 'radio',
+			options: [ 'horizontal', 'vertical' ],
+		},
 	},
 	parameters: {
 		controls: {
