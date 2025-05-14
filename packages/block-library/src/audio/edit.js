@@ -139,7 +139,8 @@ function AudioEdit( {
 					icon={ <BlockIcon icon={ icon } /> }
 					onSelect={ onSelectAudio }
 					onSelectURL={ onSelectURL }
-					accept="audio/*"
+					accept="audio/*,audio/wav,audio/x-wav,audio/aiff,audio/x-aiff,audio/flac,audio/alac,audio/aac,audio/ogg,audio/mp3,audio/mpeg"
+					// Note: Explicit MIME types required for iOS compatibility
 					allowedTypes={ ALLOWED_MEDIA_TYPES }
 					value={ attributes }
 					onError={ onUploadError }
@@ -156,7 +157,8 @@ function AudioEdit( {
 						mediaId={ id }
 						mediaURL={ src }
 						allowedTypes={ ALLOWED_MEDIA_TYPES }
-						accept="audio/*"
+						accept="audio/mpeg,audio/mp3,audio/*,audio/wav,audio/x-wav,audio/aiff,audio/x-aiff,audio/flac,audio/alac,audio/aac,audio/ogg"
+						// Note: Explicit MIME types required for iOS compatibility
 						onSelect={ onSelectAudio }
 						onSelectURL={ onSelectURL }
 						onError={ onUploadError }
