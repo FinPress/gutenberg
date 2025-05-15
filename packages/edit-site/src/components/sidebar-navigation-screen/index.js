@@ -16,7 +16,7 @@ import { chevronRight, chevronLeft } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { useContext } from '@wordpress/element';
+import { useContext, useMemo } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -65,6 +65,19 @@ export default function SidebarNavigationScreen( {
 	const backPath = backPathProp ?? location.state?.backPath;
 	const icon = isRTL() ? chevronRight : chevronLeft;
 
+	// Compute the back label from the back path.
+	const backLabel = useMemo( () => {
+		if ( ! backPath ) {
+			return;
+		}
+
+		const segments = backPath.split( '/' ).filter( Boolean );
+		const lastSegment = segments.pop();
+
+		// Default back label to "design" if no segments are found.
+		return lastSegment?.trim() || __( 'design' );
+	}, [ backPath ] );
+
 	return (
 		<>
 			<VStack
@@ -86,7 +99,15 @@ export default function SidebarNavigationScreen( {
 								navigate( 'back' );
 							} }
 							icon={ icon }
-							label={ __( 'Back' ) }
+							label={
+								backLabel
+									? sprintf(
+											/* translators: %s: back path label */
+											__( 'Back to %s' ),
+											backLabel
+									  )
+									: __( 'Back' )
+							}
 							showTooltip={ false }
 						/>
 					) }
