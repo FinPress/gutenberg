@@ -6,10 +6,23 @@ import EditorBox from './box';
 import EditorWithUndoRedo from './with-undo-redo';
 import EditorZoomOut from './zoom-out';
 
+const PLAYGROUND_URL =
+	'https://github.com/WordPress/gutenberg/blob/trunk/storybook/stories/playground/';
+
 export default {
 	title: 'Playground/Block Editor',
 	parameters: {
-		sourceLink: 'storybook/stories/playground',
+		sourceLink: {
+			links: {
+				'story-github': () => {
+					return {
+						label: 'View source on GitHub',
+						href: PLAYGROUND_URL,
+						icon: 'GithubIcon',
+					};
+				},
+			},
+		},
 	},
 };
 
@@ -18,7 +31,17 @@ export const _default = () => {
 };
 
 _default.parameters = {
-	sourceLink: 'storybook/stories/playground/fullpage/index.js',
+	sourceLink: {
+		links: {
+			'story-github': () => {
+				return {
+					label: 'View source on GitHub',
+					href: `${ PLAYGROUND_URL }fullpage/index.js`,
+					icon: 'GithubIcon',
+				};
+			},
+		},
+	},
 };
 
 export const Box = () => {
@@ -26,7 +49,17 @@ export const Box = () => {
 };
 
 Box.parameters = {
-	sourceLink: 'storybook/stories/playground/box/index.js',
+	sourceLink: {
+		links: {
+			'story-github': () => {
+				return {
+					label: 'View source on GitHub',
+					href: `${ PLAYGROUND_URL }box/index.js`,
+					icon: 'GithubIcon',
+				};
+			},
+		},
+	},
 };
 
 export const UndoRedo = () => {
@@ -34,7 +67,17 @@ export const UndoRedo = () => {
 };
 
 UndoRedo.parameters = {
-	sourceLink: 'storybook/stories/playground/with-undo-redo/index.js',
+	sourceLink: {
+		links: {
+			'story-github': () => {
+				return {
+					label: 'View source on GitHub',
+					href: `${ PLAYGROUND_URL }with-undo-redo/index.js`,
+					icon: 'GithubIcon',
+				};
+			},
+		},
+	},
 };
 
 export const ZoomOut = ( props ) => {
@@ -42,7 +85,17 @@ export const ZoomOut = ( props ) => {
 };
 
 ZoomOut.parameters = {
-	sourceLink: 'storybook/stories/playground/zoom-out/index.js',
+	sourceLink: {
+		links: {
+			'story-github': () => {
+				return {
+					label: 'View source on GitHub',
+					href: `${ PLAYGROUND_URL }zoom-out/index.js`,
+					icon: 'GithubIcon',
+				};
+			},
+		},
+	},
 };
 ZoomOut.argTypes = {
 	zoomLevel: { control: { type: 'range', min: 10, max: 100, step: 5 } },

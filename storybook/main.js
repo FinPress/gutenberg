@@ -55,7 +55,7 @@ module.exports = {
 		'@storybook/addon-toolbars',
 		'@storybook/addon-actions',
 		'@storybook/addon-webpack5-compiler-babel',
-		'storybook-source-link',
+		'storybook-addon-source-link',
 		'@geometricpanda/storybook-addon-badges',
 	],
 	framework: {
@@ -76,13 +76,6 @@ module.exports = {
 					{
 						test: /\/stories\/.+\.story\.(j|t)sx?$/,
 						use: [
-							{
-								// Adds a `sourceLink` parameter to the story metadata, based on the file path
-								loader: path.resolve(
-									__dirname,
-									'./webpack/source-link-loader.js'
-								),
-							},
 							{
 								// Reads `tags` from the story metadata and copies them to `badges`
 								loader: path.resolve(

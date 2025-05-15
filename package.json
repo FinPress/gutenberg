@@ -162,7 +162,7 @@
 		"source-map-loader": "3.0.0",
 		"sprintf-js": "1.1.1",
 		"storybook": "8.4.7",
-		"storybook-source-link": "2.0.9",
+		"storybook-addon-source-link": "0.2.1",
 		"strip-json-comments": "5.0.0",
 		"style-loader": "3.2.1",
 		"terser": "5.32.0",
