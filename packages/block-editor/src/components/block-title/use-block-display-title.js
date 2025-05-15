@@ -54,12 +54,28 @@ export default function useBlockDisplayTitle( {
 			const label = getBlockLabel( blockType, attributes, context );
 			// If the label is defined we prioritize it over a possible block variation title match.
 			if ( label !== blockType.title ) {
+				if (
+					context === 'list-view' &&
+					blockType.name === 'core/heading'
+				) {
+					return `H${ attributes.level }: ${ label }`;
+				}
+
 				return label;
+			}
+
+			let title = blockType.title;
+
+			if (
+				context === 'list-view' &&
+				blockType.name === 'core/heading'
+			) {
+				title = `H${ attributes.level }: ${ title }`;
 			}
 
 			const match = getActiveBlockVariation( blockName, attributes );
 			// Label will fallback to the title if no label is defined for the current label context.
-			return match?.title || blockType.title;
+			return match?.title || title;
 		},
 		[ clientId, context ]
 	);
