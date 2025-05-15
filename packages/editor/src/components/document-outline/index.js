@@ -244,6 +244,9 @@ export default function DocumentOutline( {
 					},
 				}
 			);
+		} else if ( mainElements.length > 0 && isShowingNotice ) {
+			// Remove the notice if a main element is added.
+			removeNotice('missing-main-html-element');
 		}
 	}, [
 		isNoticeDismissed,
