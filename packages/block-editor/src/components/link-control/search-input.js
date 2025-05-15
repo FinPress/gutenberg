@@ -114,10 +114,7 @@ const LinkControlSearchInput = forwardRef(
 			}
 		};
 
-		const _placeholder =
-			placeholder === null || placeholder === undefined
-				? __( 'Search or type URL' )
-				: placeholder;
+		const _placeholder = placeholder ?? __( 'Search or type URL' );
 
 		const label =
 			hideLabelFromVision && placeholder !== ''
