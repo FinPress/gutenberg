@@ -24,9 +24,11 @@ test.describe( 'Compatibility with classic editor', () => {
 		// Publish Post
 		await editor.publishPost();
 		// View Post
-		await page.click(
-			'role=region[name="Editor publish"i] >> role=link[name="View post"i]'
+		const postUrl = await page.getAttribute(
+			'role=region[name="Editor publish"i] >> role=link[name=/View post/i]',
+			'href'
 		);
+		await page.goto( postUrl );
 
 		// Check the content doesn't contain <p> tags.
 		// No accessible selector for now.

@@ -217,9 +217,10 @@ test.describe( 'Pattern Overrides', () => {
 			await editorPublishPanel
 				.getByRole( 'button', { name: 'Publish', exact: true } )
 				.click();
-			await editorPublishPanel
+			const postUrl = await editorPublishPanel
 				.getByRole( 'link', { name: 'View post' } )
-				.click();
+				.getAttribute( 'href' );
+			await page.goto( postUrl );
 
 			await expect( page.locator( 'p' ) ).toContainText( [
 				'I would word it this way',
