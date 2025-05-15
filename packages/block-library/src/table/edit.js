@@ -457,7 +457,7 @@ function TableEdit( {
 
 	return (
 		<figure { ...useBlockProps( { ref: tableRef } ) }>
-			{ ! isEmpty && blockEditingMode !== 'contentOnly' && (
+			{ ! isEmpty && blockEditingMode === 'default' && (
 				<>
 					<BlockControls group="block">
 						<AlignmentControl
@@ -608,7 +608,7 @@ function TableEdit( {
 					insertBlocksAfter={ insertBlocksAfter }
 					label={ __( 'Table caption text' ) }
 					showToolbarButton={
-						isSingleSelected && blockEditingMode !== 'contentOnly'
+						isSingleSelected && blockEditingMode === 'default'
 					}
 				/>
 			) }
