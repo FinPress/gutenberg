@@ -1171,7 +1171,11 @@ export const mergeBlocks =
 		// remove it and select the preceding block (blockA).
 		// This handles the case where backspace on an empty paragraph
 		// should delete the paragraph, not merge it into a preceding container.
-		if ( blockB && isUnmodifiedDefaultBlock( blockB ) ) {
+		if (
+			blockB &&
+			isUnmodifiedDefaultBlock( blockB ) &&
+			! select.getBlockRootClientId( clientIdB )
+		) {
 			dispatch.removeBlock( clientIdB, true );
 			return;
 		}
