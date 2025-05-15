@@ -48,7 +48,7 @@ export const RgbInput = ( { color, onChange, enableAlpha }: RgbInputProps ) => {
 				<InputWithSlider
 					min={ 0 }
 					max={ 100 }
-					label="Alpha"
+					label="Alpha (RGB A value)"
 					abbreviation="A"
 					value={ Math.trunc( a * 100 ) }
 					onChange={ ( nextA: number ) =>
