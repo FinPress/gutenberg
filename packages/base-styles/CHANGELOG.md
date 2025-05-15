@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Breaking Changes
+
+-   This package now requires Dart Sass. The legacy `sass` package is no longer supported ([#70135](https://github.com/WordPress/gutenberg/pull/70135)).
+
 ## 5.23.0 (2025-05-07)
 
 ## 5.22.0 (2025-04-11)
