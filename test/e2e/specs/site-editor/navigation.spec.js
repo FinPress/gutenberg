@@ -37,7 +37,7 @@ test.describe( 'Site editor navigation', () => {
 		await pageUtils.pressKeys( 'Enter' );
 		// We should be in the Pages sidebar
 		await expect(
-			page.getByRole( 'button', { name: 'Back', exact: true } )
+			page.getByRole( 'button', { name: 'Back' } )
 		).toBeFocused();
 		await pageUtils.pressKeys( 'Enter' );
 		// Go back to the main navigation
