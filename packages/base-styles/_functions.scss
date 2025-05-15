@@ -1,11 +1,12 @@
-@use "sass:color";
-
 /**
 *  Converts a hex value into the rgb equivalent.
 *
 * @param {string} hex - the hexadecimal value to convert
 * @return {string} comma separated rgb values
 */
+
+@use "sass:color";
+
 @function hex-to-rgb($hex) {
 	@return color.red($hex), color.green($hex), color.blue($hex);
 }

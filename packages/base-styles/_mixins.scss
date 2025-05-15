@@ -1,11 +1,11 @@
-@use "sass:color";
-@use "functions";
-@use "long-content-fade";
-@use "sass:math";
-
 /**
  * Typography
  */
+
+@use "sass:color";
+@use "sass:math";
+@use "./functions";
+@use "./long-content-fade";
 
 @mixin _text-heading() {
 	font-family: $font-family-headings;
