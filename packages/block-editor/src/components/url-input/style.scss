@@ -30,6 +30,10 @@ $input-size: 300px;
 	}
 }
 
+.block-editor-url-input .components-input-control__container .components-input-control__input {
+	padding-right: 30px !important;
+}
+
 // Suggestions
 .block-editor-url-input__suggestions {
 	max-height: 200px;
