@@ -15,13 +15,13 @@ import { addQueryArgs, safeDecodeURIComponent } from '@wordpress/url';
 import { decodeEntities } from '@wordpress/html-entities';
 import { useCopyToClipboard } from '@wordpress/compose';
 import { store as coreStore } from '@wordpress/core-data';
+import { external } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import PostScheduleLabel from '../post-schedule/label';
 import { store as editorStore } from '../../store';
-import { external } from '@wordpress/icons';
 
 const POSTNAME = '%postname%';
 const PAGENAME = '%pagename%';
