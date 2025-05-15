@@ -1,7 +1,13 @@
 /**
  * WordPress dependencies
  */
-import { PanelBody, Button, TextControl } from '@wordpress/components';
+import {
+	PanelBody,
+	Button,
+	TextControl,
+	ExternalLink,
+	VisuallyHidden,
+} from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { useCallback, useEffect, useState, useRef } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
@@ -15,6 +21,7 @@ import { store as coreStore } from '@wordpress/core-data';
  */
 import PostScheduleLabel from '../post-schedule/label';
 import { store as editorStore } from '../../store';
+import { external } from '@wordpress/icons';
 
 const POSTNAME = '%postname%';
 const PAGENAME = '%pagename%';
@@ -118,9 +125,9 @@ export default function PostPublishPanelPostpublish( {
 	return (
 		<div className="post-publish-panel__postpublish">
 			<PanelBody className="post-publish-panel__postpublish-header">
-				<a ref={ postLinkRef } href={ link }>
+				<ExternalLink ref={ postLinkRef } href={ link }>
 					{ decodeEntities( post.title ) || __( '(no title)' ) }
-				</a>{ ' ' }
+				</ExternalLink>{ ' ' }
 				{ postPublishNonLinkHeader }
 			</PanelBody>
 			<PanelBody>
@@ -153,8 +160,18 @@ export default function PostPublishPanelPostpublish( {
 							variant="primary"
 							href={ link }
 							__next40pxDefaultSize
+							icon={ external }
+							iconPosition="right"
+							target="_blank"
+							rel="noopener noreferrer"
 						>
 							{ viewPostLabel }
+							<VisuallyHidden as="span">
+								{
+									/* translators: accessibility text */
+									__( '(opens in a new tab)' )
+								}
+							</VisuallyHidden>
 						</Button>
 					) }
 					<Button

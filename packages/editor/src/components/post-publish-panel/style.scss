@@ -138,7 +138,8 @@
 	flex-wrap: wrap;
 	gap: $grid-unit-20;
 
-	.components-button {
+	.components-button,
+	.components-button.has-icon {
 		justify-content: center;
 		flex: 1;
 	}
