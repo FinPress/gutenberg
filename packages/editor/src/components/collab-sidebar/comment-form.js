@@ -36,7 +36,8 @@ function CommentForm( { onSubmit, onCancel, thread, submitButtonText } ) {
 				__nextHasNoMarginBottom
 				value={ inputComment ?? '' }
 				onChange={ setInputComment }
-				aria-label={ __( 'Comment' ) }
+				label={ __( 'Comment' ) }
+				hideLabelFromVision
 			/>
 			<HStack alignment="left" spacing="3" justify="flex-start">
 				<Button
