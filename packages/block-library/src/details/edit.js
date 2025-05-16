@@ -11,6 +11,7 @@ import {
 import {
 	TextControl,
 	ToggleControl,
+	VisuallyHidden,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	privateApis as componentsPrivateApis,
@@ -18,6 +19,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
+import { useInstanceId } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -39,7 +41,10 @@ const TEMPLATE = [
 function DetailsEdit( { attributes, setAttributes, clientId } ) {
 	const { name, showContent, summary, allowedBlocks, placeholder } =
 		attributes;
-	const blockProps = useBlockProps();
+	const instanceId = useInstanceId( DetailsEdit, 'details-edit-desc' );
+	const blockProps = useBlockProps( {
+		'aria-describedby': instanceId,
+	} );
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		template: TEMPLATE,
 		__experimentalCaptureToolbars: true,
@@ -127,6 +132,11 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 					onKeyDown={ withIgnoreIMEEvents( handleSummaryKeyDown ) }
 					onKeyUp={ handleSummaryKeyUp }
 				>
+					<VisuallyHidden id={ instanceId }>
+						{ __(
+							'Press Enter to expand or collapse the details.'
+						) }
+					</VisuallyHidden>
 					<RichText
 						identifier="summary"
 						aria-label={ __( 'Write summary' ) }
