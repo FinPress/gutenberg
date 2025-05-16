@@ -376,7 +376,10 @@
 	min-width: variables.$radio-input-size-sm;
 	max-width: variables.$radio-input-size-sm;
 	position: relative;
-	@include input-control;
+
+	@media not (prefers-reduced-motion) {
+		transition: box-shadow 0.1s linear;
+	}
 
 	@include break-small() {
 		height: variables.$radio-input-size;
