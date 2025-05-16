@@ -8,5 +8,11 @@
 @use "sass:color";
 
 @function hex-to-rgb($hex) {
-	@return color.channel($hex, "red", $space: rgb), color.channel($hex, "green", $space: rgb), color.channel($hex, "blue", $space: rgb);
+	/*
+	 * We should use the color.channel() function instead of color.red(), color.green(), color.blue().
+	 * However, the Sass currently used by the Gutenberg project does not support color.channel().
+	 * We should update to color.channel() once the entire Gutenberg project has completed the migration to
+	 * Dart Sass and the Sass version is updated.
+	 */
+	@return color.red($hex), color.green($hex), color.blue($hex);
 }
