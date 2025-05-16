@@ -6,13 +6,19 @@
 */
 
 @use "sass:color";
+@use "sass:meta";
 
 @function hex-to-rgb($hex) {
 	/*
-	 * We should use the color.channel() function instead of color.red(), color.green(), color.blue().
-	 * However, the Sass currently used by the Gutenberg project does not support color.channel().
-	 * We should update to color.channel() once the entire Gutenberg project has completed the migration to
-	 * Dart Sass and the Sass version is updated.
+	 * TODO: `color.{red|green|blue}` will trigger a deprecation warning in Dart Sass,
+	 * but the Sass used by the Gutenberg project doesn't support `color.channel()` yet,
+	 * so we can't migrate to it at this time.
+	 * In the future, after the Gutenberg project has been fully migrated to Dart Sass,
+	 * Remove this conditional statement and use only `color.channel()`.
 	 */
-	@return color.red($hex), color.green($hex), color.blue($hex);
+	@if meta.function-exists("channel", "color") {
+		@return color.channel($hex, "red"), color.channel($hex, "green"), color.channel($hex, "blue");
+	} @else {
+		@return color.red($hex), color.green($hex), color.blue($hex);
+	}
 }
