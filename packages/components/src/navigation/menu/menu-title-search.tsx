@@ -92,7 +92,6 @@ function MenuTitleSearch( {
 				onClose={ onClose }
 				ref={ inputRef }
 				value={ search }
-				label={ __( 'Search' ) }
 			/>
 		</MenuTitleSearchControlWrapper>
 	);
