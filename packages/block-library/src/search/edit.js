@@ -527,6 +527,27 @@ export default function SearchEdit( {
 							}
 						/>
 					</ToolsPanelItem>
+					<ToolsPanelItem
+						hasValue={ () => !! buttonUseIcon }
+						label={ __( 'Use button with icon' ) }
+						onDeselect={ () => {
+							setAttributes( {
+								buttonUseIcon: false,
+							} );
+						} }
+						isShownByDefault
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							checked={ buttonUseIcon }
+							label={ __( 'Use button with icon' ) }
+							onChange={ ( value ) =>
+								setAttributes( {
+									buttonUseIcon: value,
+								} )
+							}
+						/>
+					</ToolsPanelItem>
 				</ToolsPanel>
 			</InspectorControls>
 		</>
