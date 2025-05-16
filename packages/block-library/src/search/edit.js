@@ -21,7 +21,7 @@ import {
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect, useRef } from '@wordpress/element';
 import {
-	ToolbarDropdownMenu,
+	SelectControl,
 	ToolbarGroup,
 	ToggleControl,
 	ToolbarButton,
@@ -42,14 +42,7 @@ import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 /**
  * Internal dependencies
  */
-import {
-	buttonOnly,
-	buttonOutside,
-	buttonInside,
-	noButton,
-	buttonWithIcon,
-	toggleLabel,
-} from './icons';
+import { buttonWithIcon, toggleLabel } from './icons';
 import {
 	PC_WIDTH_DEFAULT,
 	PX_WIDTH_DEFAULT,
@@ -202,67 +195,22 @@ export default function SearchEdit( {
 
 	const buttonPositionControls = [
 		{
-			role: 'menuitemradio',
-			title: __( 'Button outside' ),
-			isActive: buttonPosition === 'button-outside',
-			icon: buttonOutside,
-			onClick: () => {
-				setAttributes( {
-					buttonPosition: 'button-outside',
-					isSearchFieldHidden: false,
-				} );
-			},
+			label: __( 'Button outside' ),
+			value: 'button-outside',
 		},
 		{
-			role: 'menuitemradio',
-			title: __( 'Button inside' ),
-			isActive: buttonPosition === 'button-inside',
-			icon: buttonInside,
-			onClick: () => {
-				setAttributes( {
-					buttonPosition: 'button-inside',
-					isSearchFieldHidden: false,
-				} );
-			},
+			label: __( 'Button inside' ),
+			value: 'button-inside',
 		},
 		{
-			role: 'menuitemradio',
-			title: __( 'No button' ),
-			isActive: buttonPosition === 'no-button',
-			icon: noButton,
-			onClick: () => {
-				setAttributes( {
-					buttonPosition: 'no-button',
-					isSearchFieldHidden: false,
-				} );
-			},
+			label: __( 'No button' ),
+			value: 'no-button',
 		},
 		{
-			role: 'menuitemradio',
-			title: __( 'Button only' ),
-			isActive: buttonPosition === 'button-only',
-			icon: buttonOnly,
-			onClick: () => {
-				setAttributes( {
-					buttonPosition: 'button-only',
-					isSearchFieldHidden: true,
-				} );
-			},
+			label: __( 'Button only' ),
+			value: 'button-only',
 		},
 	];
-
-	const getButtonPositionIcon = () => {
-		switch ( buttonPosition ) {
-			case 'button-inside':
-				return buttonInside;
-			case 'button-outside':
-				return buttonOutside;
-			case 'no-button':
-				return noButton;
-			case 'button-only':
-				return buttonOnly;
-		}
-	};
 
 	const getResizableSides = () => {
 		if ( hasOnlyButton ) {
@@ -388,11 +336,6 @@ export default function SearchEdit( {
 							} );
 						} }
 						className={ showLabel ? 'is-pressed' : undefined }
-					/>
-					<ToolbarDropdownMenu
-						icon={ getButtonPositionIcon() }
-						label={ __( 'Change button position' ) }
-						controls={ buttonPositionControls }
 					/>
 					{ ! hasNoButton && (
 						<ToolbarButton
@@ -546,6 +489,38 @@ export default function SearchEdit( {
 									buttonUseIcon: value,
 								} )
 							}
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						hasValue={ () => buttonPosition !== 'button-outside' }
+						label={ __( 'Change button position' ) }
+						onDeselect={ () => {
+							setAttributes( {
+								buttonPosition: 'button-outside',
+								isSearchFieldHidden: false,
+							} );
+						} }
+						isShownByDefault
+					>
+						<SelectControl
+							value={ buttonPosition }
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ __( 'Change button position' ) }
+							onChange={ ( value ) => {
+								if ( value === 'button-only' ) {
+									setAttributes( {
+										buttonPosition: value,
+										isSearchFieldHidden: true,
+									} );
+								} else {
+									setAttributes( {
+										buttonPosition: value,
+										isSearchFieldHidden: false,
+									} );
+								}
+							} }
+							options={ buttonPositionControls }
 						/>
 					</ToolsPanelItem>
 				</ToolsPanel>
