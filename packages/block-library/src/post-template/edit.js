@@ -27,9 +27,19 @@ const TEMPLATE = [
 	[ 'core/post-excerpt' ],
 ];
 
-function PostTemplateInnerBlocks( { classList } ) {
+function PostTemplateInnerBlocks( {
+	classList,
+	blockContext,
+	activeBlockContextId,
+} ) {
+	const isActive = blockContext.postId === activeBlockContextId;
+
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: clsx( 'wp-block-post', classList ) },
+		{
+			className: clsx( 'wp-block-post', classList, {
+				'is-active-post': isActive,
+			} ),
+		},
 		{ template: TEMPLATE, __unstableDisableLayoutClassNames: true }
 	);
 	return <li { ...innerBlocksProps } />;
@@ -243,6 +253,7 @@ export default function PostTemplateEdit( {
 			previewPostType,
 		]
 	);
+
 	const blockContexts = useMemo(
 		() =>
 			posts?.map( ( post ) => ( {
@@ -318,6 +329,10 @@ export default function PostTemplateEdit( {
 								blockContexts[ 0 ]?.postId ) ? (
 								<PostTemplateInnerBlocks
 									classList={ blockContext.classList }
+									blockContext={ blockContext } // Pass the whole context
+									activeBlockContextId={
+										activeBlockContextId
+									} // Pass the active ID
 								/>
 							) : null }
 							<MemoizedPostTemplateBlockPreview
