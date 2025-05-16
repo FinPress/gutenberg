@@ -23,6 +23,7 @@ import { useEffect, useRef } from '@wordpress/element';
 import {
 	ToolbarDropdownMenu,
 	ToolbarGroup,
+	ToggleControl,
 	ToolbarButton,
 	ResizableBox,
 	__experimentalUseCustomUnits as useCustomUnits,
@@ -504,6 +505,27 @@ export default function SearchEdit( {
 								} ) }
 							</ToggleGroupControl>
 						</VStack>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						hasValue={ () => ! showLabel }
+						label={ __( 'Show search label' ) }
+						onDeselect={ () => {
+							setAttributes( {
+								showLabel: true,
+							} );
+						} }
+						isShownByDefault
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							checked={ showLabel }
+							label={ __( 'Show search label' ) }
+							onChange={ ( value ) =>
+								setAttributes( {
+									showLabel: value,
+								} )
+							}
+						/>
 					</ToolsPanelItem>
 				</ToolsPanel>
 			</InspectorControls>
