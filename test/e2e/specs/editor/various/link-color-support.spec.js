@@ -63,8 +63,6 @@ test.describe( 'Link color in themes', () => {
 			// eslint-disable-next-line playwright/no-force-option
 			.click( { force: true } );
 
-		// await pageUtils.pressKeys( 'Escape' );
-
 		await page
 			.getByRole( 'button', { name: 'Close Settings' } )
 			// eslint-disable-next-line playwright/no-force-option
@@ -72,17 +70,30 @@ test.describe( 'Link color in themes', () => {
 
 		const paragraphBlockLinkColor = await editor.getBlocks();
 
+		/**
+		 * Test: Check if the link color is set in the editor.
+		 */
 		await expect(
 			paragraphBlockLinkColor[ 0 ].attributes.style.elements.link.color
 				.text
 		).toContain( 'var:preset|color|vivid-cyan-blue' );
 
-		await editor.openPreviewPage();
+		const previewPage = await editor.openPreviewPage();
 
-		const paragraphWithLinkColor = editor.page.locator( '.has-link-color' );
-		expect( paragraphWithLinkColor ).not.toBeNull();
+		const previewContent = previewPage.locator( '.has-link-color a' );
+		await expect( previewContent ).toBeVisible();
 
-		const anchorTag = editor.page.locator( '.has-link-color a' );
-		expect( anchorTag ).not.toBeNull();
+		/**
+		 * Test: Check if the link color is set in the frontend.
+		 */
+		const color = await previewContent.evaluate( ( element ) => {
+			return window
+				.getComputedStyle( element )
+				.getPropertyValue( 'color' );
+		} );
+
+		// getComputedStyle(...).getPropertyValue('color') returns a rgb()
+		// 'vivid-cyan-blue' is rgb(6, 147, 227)
+		expect( color.trim() ).toBe( 'rgb(6, 147, 227)' );
 	} );
 } );
