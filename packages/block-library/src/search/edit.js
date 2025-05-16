@@ -8,7 +8,6 @@ import clsx from 'clsx';
  */
 import {
 	useBlockProps,
-	BlockControls,
 	InspectorControls,
 	RichText,
 	__experimentalUseBorderProps as useBorderProps,
@@ -22,9 +21,7 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect, useRef } from '@wordpress/element';
 import {
 	SelectControl,
-	ToolbarGroup,
 	ToggleControl,
-	ToolbarButton,
 	ResizableBox,
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalUnitControl as UnitControl,
@@ -42,7 +39,6 @@ import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 /**
  * Internal dependencies
  */
-import { buttonWithIcon, toggleLabel } from './icons';
 import {
 	PC_WIDTH_DEFAULT,
 	PX_WIDTH_DEFAULT,
@@ -325,35 +321,6 @@ export default function SearchEdit( {
 
 	const controls = (
 		<>
-			<BlockControls>
-				<ToolbarGroup>
-					<ToolbarButton
-						title={ __( 'Show search label' ) }
-						icon={ toggleLabel }
-						onClick={ () => {
-							setAttributes( {
-								showLabel: ! showLabel,
-							} );
-						} }
-						className={ showLabel ? 'is-pressed' : undefined }
-					/>
-					{ ! hasNoButton && (
-						<ToolbarButton
-							title={ __( 'Use button with icon' ) }
-							icon={ buttonWithIcon }
-							onClick={ () => {
-								setAttributes( {
-									buttonUseIcon: ! buttonUseIcon,
-								} );
-							} }
-							className={
-								buttonUseIcon ? 'is-pressed' : undefined
-							}
-						/>
-					) }
-				</ToolbarGroup>
-			</BlockControls>
-
 			<InspectorControls>
 				<ToolsPanel
 					label={ __( 'Settings' ) }
