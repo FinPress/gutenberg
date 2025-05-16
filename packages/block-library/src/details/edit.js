@@ -31,7 +31,8 @@ const TEMPLATE = [
 ];
 
 function DetailsEdit( { attributes, setAttributes } ) {
-	const { name, showContent, summary, allowedBlocks } = attributes;
+	const { name, showContent, summary, allowedBlocks, placeholder } =
+		attributes;
 	const blockProps = useBlockProps();
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		template: TEMPLATE,
@@ -90,18 +91,16 @@ function DetailsEdit( { attributes, setAttributes } ) {
 					) }
 				/>
 			</InspectorControls>
-			<details { ...innerBlocksProps } open={ isOpen }>
-				<summary
-					onClick={ ( event ) => {
-						event.preventDefault();
-						setIsOpen( ! isOpen );
-					} }
-				>
+			<details
+				{ ...innerBlocksProps }
+				open={ isOpen }
+				onToggle={ ( event ) => setIsOpen( event.target.open ) }
+			>
+				<summary>
 					<RichText
 						identifier="summary"
 						aria-label={ __( 'Write summary' ) }
-						placeholder={ __( 'Write summary…' ) }
-						allowedFormats={ [] }
+						placeholder={ placeholder || __( 'Write summary…' ) }
 						withoutInteractiveFormatting
 						value={ summary }
 						onChange={ ( newSummary ) =>

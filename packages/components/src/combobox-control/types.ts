@@ -87,6 +87,13 @@ export type ComboboxControlProps = Pick<
 	 */
 	placeholder?: string;
 	/**
+	 * Show a spinner (and hide the suggestions dropdown) while data
+	 * about the matching suggestions (ie the `options` prop) is loading
+	 *
+	 * @default false
+	 */
+	isLoading?: boolean;
+	/**
 	 * Specifies which property of the options to use for search comparisons.
 	 * Defaults to searching the 'label' property if not specified.
 	 */
