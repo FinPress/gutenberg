@@ -328,6 +328,10 @@ export default function SearchEdit( {
 						setAttributes( {
 							width: undefined,
 							widthUnit: undefined,
+							showLabel: true,
+							buttonUseIcon: false,
+							buttonPosition: 'button-outside',
+							isSearchFieldHidden: false,
 						} );
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
