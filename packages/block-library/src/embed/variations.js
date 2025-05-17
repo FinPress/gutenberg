@@ -7,8 +7,6 @@ import { __, sprintf } from '@wordpress/i18n';
  * Internal dependencies
  */
 import {
-	embedContentIcon,
-	embedPhotoIcon,
 	embedVideoIcon,
 	embedAmazonIcon,
 	embedAnimotoIcon,
@@ -27,11 +25,17 @@ import {
 	embedPocketCastsIcon,
 	embedRedditIcon,
 	embedReverbNationIcon,
-	embedSpotifyIcon,
+	embedScreencastIcon,
+	embedScribdIcon,
 	embedSoundCloudIcon,
+	embedSmugMugIcon,
+	embedSpeakerDeckIcon,
+	embedSpotifyIcon,
+	embedTedIcon,
 	embedTikTokIcon,
 	embedTumblrIcon,
 	embedTwitterIcon,
+	embedVideoPressIcon,
 	embedVimeoIcon,
 	embedWolframIcon,
 	embedWordPressIcon,
@@ -262,7 +266,7 @@ const variations = [
 	{
 		name: 'screencast',
 		title: getTitle( 'Screencast' ),
-		icon: embedVideoIcon,
+		icon: embedScreencastIcon,
 		description: __( 'Embed Screencast content.' ),
 		patterns: [ /^https?:\/\/(www\.)?screencast\.com\/.+/i ],
 		attributes: { providerNameSlug: 'screencast', responsive: true },
@@ -270,7 +274,7 @@ const variations = [
 	{
 		name: 'scribd',
 		title: getTitle( 'Scribd' ),
-		icon: embedContentIcon,
+		icon: embedScribdIcon,
 		description: __( 'Embed Scribd content.' ),
 		patterns: [ /^https?:\/\/(www\.)?scribd\.com\/.+/i ],
 		attributes: { providerNameSlug: 'scribd', responsive: true },
@@ -278,7 +282,7 @@ const variations = [
 	{
 		name: 'smugmug',
 		title: getTitle( 'SmugMug' ),
-		icon: embedPhotoIcon,
+		icon: embedSmugMugIcon,
 		description: __( 'Embed SmugMug content.' ),
 		patterns: [ /^https?:\/\/(.+\.)?smugmug\.com\/.*/i ],
 		attributes: {
@@ -290,7 +294,7 @@ const variations = [
 	{
 		name: 'speaker-deck',
 		title: getTitle( 'Speaker Deck' ),
-		icon: embedContentIcon,
+		icon: embedSpeakerDeckIcon,
 		description: __( 'Embed Speaker Deck content.' ),
 		patterns: [ /^https?:\/\/(www\.)?speakerdeck\.com\/.+/i ],
 		attributes: { providerNameSlug: 'speaker-deck', responsive: true },
@@ -307,7 +311,7 @@ const variations = [
 	{
 		name: 'ted',
 		title: getTitle( 'TED' ),
-		icon: embedVideoIcon,
+		icon: embedTedIcon,
 		description: __( 'Embed a TED video.' ),
 		patterns: [ /^https?:\/\/(www\.|embed\.)?ted\.com\/.+/i ],
 		attributes: { providerNameSlug: 'ted', responsive: true },
@@ -324,7 +328,7 @@ const variations = [
 	{
 		name: 'videopress',
 		title: getTitle( 'VideoPress' ),
-		icon: embedVideoIcon,
+		icon: embedVideoPressIcon,
 		keywords: [ __( 'video' ) ],
 		description: __( 'Embed a VideoPress video.' ),
 		patterns: [ /^https?:\/\/videopress\.com\/.+/i ],
@@ -333,7 +337,7 @@ const variations = [
 	{
 		name: 'wordpress-tv',
 		title: getTitle( 'WordPress.tv' ),
-		icon: embedVideoIcon,
+		icon: embedWordPressIcon,
 		description: __( 'Embed a WordPress.tv video.' ),
 		patterns: [ /^https?:\/\/wordpress\.tv\/.+/i ],
 		attributes: { providerNameSlug: 'wordpress-tv', responsive: true },
