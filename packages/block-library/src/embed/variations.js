@@ -7,7 +7,6 @@ import { __, sprintf } from '@wordpress/i18n';
  * Internal dependencies
  */
 import {
-	embedVideoIcon,
 	embedAmazonIcon,
 	embedAnimotoIcon,
 	embedBlueskyIcon,
@@ -35,6 +34,7 @@ import {
 	embedTikTokIcon,
 	embedTumblrIcon,
 	embedTwitterIcon,
+	embedVideoIcon,
 	embedVideoPressIcon,
 	embedVimeoIcon,
 	embedWolframIcon,
