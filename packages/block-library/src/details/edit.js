@@ -42,9 +42,7 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 	const { name, showContent, summary, allowedBlocks, placeholder } =
 		attributes;
 	const instanceId = useInstanceId( DetailsEdit, 'details-edit-desc' );
-	const blockProps = useBlockProps( {
-		'aria-describedby': instanceId,
-	} );
+	const blockProps = useBlockProps();
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		template: TEMPLATE,
 		__experimentalCaptureToolbars: true,
@@ -140,6 +138,7 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 					<RichText
 						identifier="summary"
 						aria-label={ __( 'Write summary' ) }
+						aria-describedby={ instanceId }
 						placeholder={ placeholder || __( 'Write summary…' ) }
 						withoutInteractiveFormatting
 						value={ summary }
