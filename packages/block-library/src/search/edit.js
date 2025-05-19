@@ -464,7 +464,7 @@ export default function SearchEdit( {
 					</ToolsPanelItem>
 					<ToolsPanelItem
 						hasValue={ () => buttonPosition !== 'button-outside' }
-						label={ __( 'Change button position' ) }
+						label={ __( 'Button position' ) }
 						onDeselect={ () => {
 							setAttributes( {
 								buttonPosition: 'button-outside',
@@ -477,19 +477,13 @@ export default function SearchEdit( {
 							value={ buttonPosition }
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-							label={ __( 'Change button position' ) }
+							label={ __( 'Button position' ) }
 							onChange={ ( value ) => {
-								if ( value === 'button-only' ) {
-									setAttributes( {
-										buttonPosition: value,
-										isSearchFieldHidden: true,
-									} );
-								} else {
-									setAttributes( {
-										buttonPosition: value,
-										isSearchFieldHidden: false,
-									} );
-								}
+								setAttributes( {
+									buttonPosition: value,
+									isSearchFieldHidden:
+										value === 'button-only',
+								} );
 							} }
 							options={ buttonPositionControls }
 						/>
