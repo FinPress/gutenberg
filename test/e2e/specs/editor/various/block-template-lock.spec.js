@@ -1,5 +1,3 @@
-// test/e2e/specs/editor/various/block-template-lock.spec.js
-
 /**
  * WordPress dependencies
  */
@@ -106,6 +104,54 @@ test.describe( 'Template Lock', () => {
 			await expect(
 				editor.canvas.getByLabel( 'Add Block' )
 			).toBeHidden();
+		} );
+	} );
+
+	test.describe( 'templateLock="contentOnly"', () => {
+		test.beforeEach( async ( { editor } ) => {
+			await editor.insertBlock(
+				createColumnsBlockWithLock( 'contentOnly' )
+			);
+
+			await editor.selectBlocks(
+				editor.canvas.getByLabel( 'Block: Column (1 of 2)' )
+			);
+		} );
+
+		// test( 'should prevent deleting columns', async ( { editor, page } ) => {
+		// 	await editor.clickBlockToolbarButton( 'Options' );
+		// 	await expect(
+		// 		page
+		// 			.getByRole( 'menu', { name: 'Options' } )
+		// 			.getByRole( 'menuitem', { name: 'Delete' } )
+		// 	).toBeHidden();
+		// } );
+
+		test( 'should prevent moving columns', async ( { page } ) => {
+			await expect(
+				page
+					.getByRole( 'toolbar', { name: 'Block tools' } )
+					.getByRole( 'button', { name: 'Move down' } )
+			).toBeHidden();
+		} );
+
+		test( 'should prevent inserting blocks inside columns', async ( {
+			editor,
+		} ) => {
+			await expect(
+				editor.canvas.getByLabel( 'Add Block' )
+			).toBeHidden();
+		} );
+
+		test( 'should allow editing content inside columns', async ( {
+			editor,
+			page,
+		} ) => {
+			const paragraphLocator = editor.canvas.getByText( 'Col 1' );
+			await editor.selectBlocks( paragraphLocator );
+
+			await page.keyboard.type( 'Edited - ' );
+			await expect( paragraphLocator ).toHaveText( 'Edited - Col 1' );
 		} );
 	} );
 } );
