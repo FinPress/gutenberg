@@ -35,7 +35,6 @@ if ( hasPackageProp( 'files' ) ) {
 		[
 			'admin/**',
 			'build/**',
-			( includeSrcFolder !== undefined ) ? 'src/**' : null,
 			'includes/**',
 			'languages/**',
 			'public/**',
@@ -50,6 +49,12 @@ if ( hasPackageProp( 'files' ) ) {
 			caseSensitiveMatch: false,
 		}
 	);
+
+	if ( includeSrcFolder !== undefined ) {
+		files = files.concat(
+			glob( 'src/**', { caseSensitiveMatch: false } )
+		);
+	}
 }
 
 if ( noRootFolderArg !== undefined ) {
