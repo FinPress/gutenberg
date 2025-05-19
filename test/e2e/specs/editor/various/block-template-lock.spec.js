@@ -73,4 +73,39 @@ test.describe( 'Template Lock', () => {
 			).toBeHidden();
 		} );
 	} );
+
+	test.describe( 'templateLock="insert"', () => {
+		test.beforeEach( async ( { editor } ) => {
+			await editor.insertBlock( createColumnsBlockWithLock( 'insert' ) );
+
+			await editor.selectBlocks(
+				editor.canvas.getByLabel( 'Block: Column (1 of 2)' )
+			);
+		} );
+
+		test( 'should prevent deleting columns', async ( { editor, page } ) => {
+			await editor.clickBlockToolbarButton( 'Options' );
+			await expect(
+				page
+					.getByRole( 'menu', { name: 'Options' } )
+					.getByRole( 'menuitem', { name: 'Delete' } )
+			).toBeHidden();
+		} );
+
+		test( 'should allow moving columns', async ( { page } ) => {
+			await expect(
+				page
+					.getByRole( 'toolbar', { name: 'Block tools' } )
+					.getByRole( 'button', { name: 'Move right' } )
+			).toBeVisible();
+		} );
+
+		test( 'should prevent inserting blocks inside columns', async ( {
+			editor,
+		} ) => {
+			await expect(
+				editor.canvas.getByLabel( 'Add Block' )
+			).toBeHidden();
+		} );
+	} );
 } );
