@@ -259,3 +259,10 @@
 		border-radius: $radius-small;
 	}
 }
+
+.edit-site-global-styles-color-palette-panel {
+	// Reduce spacing between Color palette and Randomize colors button
+	.components-button.is-secondary.has-icon.has-text {
+		margin-top: -16px;
+	}
+}
