@@ -142,6 +142,7 @@
 	.components-button.has-icon {
 		justify-content: center;
 		flex: 1;
+		min-width: unset;
 	}
 
 	.components-clipboard-button {
