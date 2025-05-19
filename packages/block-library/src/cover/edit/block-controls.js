@@ -9,6 +9,7 @@ import {
 	__experimentalBlockAlignmentMatrixControl as BlockAlignmentMatrixControl,
 	__experimentalBlockFullHeightAligmentControl as FullHeightAlignmentControl,
 	privateApis as blockEditorPrivateApis,
+	useBlockEditingMode,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
@@ -28,6 +29,8 @@ export default function CoverBlockControls( {
 	toggleUseFeaturedImage,
 	onClearMedia,
 } ) {
+	const blockEditingMode = useBlockEditingMode();
+	const isDefaultEditingMode = blockEditingMode === 'default';
 	const { contentPosition, id, useFeaturedImage, minHeight, minHeightUnit } =
 		attributes;
 	const { hasInnerBlocks, url } = currentSettings;
@@ -75,23 +78,25 @@ export default function CoverBlockControls( {
 
 	return (
 		<>
-			<BlockControls group="block">
-				<BlockAlignmentMatrixControl
-					label={ __( 'Change content position' ) }
-					value={ contentPosition }
-					onChange={ ( nextPosition ) =>
-						setAttributes( {
-							contentPosition: nextPosition,
-						} )
-					}
-					isDisabled={ ! hasInnerBlocks }
-				/>
-				<FullHeightAlignmentControl
-					isActive={ isMinFullHeight }
-					onToggle={ toggleMinFullHeight }
-					isDisabled={ ! hasInnerBlocks }
-				/>
-			</BlockControls>
+			{ isDefaultEditingMode && (
+				<BlockControls group="block">
+					<BlockAlignmentMatrixControl
+						label={ __( 'Change content position' ) }
+						value={ contentPosition }
+						onChange={ ( nextPosition ) =>
+							setAttributes( {
+								contentPosition: nextPosition,
+							} )
+						}
+						isDisabled={ ! hasInnerBlocks }
+					/>
+					<FullHeightAlignmentControl
+						isActive={ isMinFullHeight }
+						onToggle={ toggleMinFullHeight }
+						isDisabled={ ! hasInnerBlocks }
+					/>
+				</BlockControls>
+			) }
 			<BlockControls group="other">
 				<MediaReplaceFlow
 					mediaId={ id }
