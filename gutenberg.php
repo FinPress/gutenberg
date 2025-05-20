@@ -6,7 +6,7 @@
  * Requires at least: 6.7
  * Requires PHP: 7.2
  * Version: 20.8.0
- * Author: Gutenberg Team
+ * Author: wordpressdotorg
  * Text Domain: gutenberg
  *
  * @package gutenberg
