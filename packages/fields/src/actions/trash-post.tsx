@@ -2,24 +2,33 @@
  * WordPress dependencies
  */
 import { trash } from '@wordpress/icons';
-import { useDispatch } from '@wordpress/data';
+import { useDispatch, select } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { __, _n, sprintf, _x } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import {
 	Button,
 	__experimentalText as Text,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
+	SelectControl,
 } from '@wordpress/components';
 import type { Action } from '@wordpress/dataviews';
 
 /**
  * Internal dependencies
  */
-import { getItemTitle, isTemplateOrTemplatePart } from './utils';
-import type { CoreDataError, PostWithPermissions } from '../types';
+import { isTemplateOrTemplatePart } from './utils';
+import type { PostWithPermissions } from '../types';
+
+declare global {
+	interface Window {
+		wpApiSettings: {
+			nonce: string;
+		};
+	}
+}
 
 const trashPost: Action< PostWithPermissions > = {
 	id: 'move-to-trash',
@@ -42,9 +51,224 @@ const trashPost: Action< PostWithPermissions > = {
 	modalFocusOnMount: 'firstContentElement',
 	RenderModal: ( { items, closeModal, onActionPerformed } ) => {
 		const [ isBusy, setIsBusy ] = useState( false );
+		const [ availablePages, setAvailablePages ] = useState<
+			Array< { id: number; title: { rendered: string } } >
+		>( [] );
+		const [ selectedHomepage, setSelectedHomepage ] = useState<
+			string | undefined
+		>( '' );
+		const [ selectedPostsPage, setSelectedPostsPage ] = useState<
+			string | undefined
+		>( '' );
+		const [ selectedPrivacyPolicyPage, setSelectedPrivacyPolicyPage ] =
+			useState< string | undefined >( '' );
+
 		const { createSuccessNotice, createErrorNotice } =
 			useDispatch( noticesStore );
-		const { deleteEntityRecord } = useDispatch( coreStore );
+		const { saveEntityRecord, deleteEntityRecord } =
+			useDispatch( coreStore );
+
+		// Fetch front page and posts page IDs
+		const frontPageId = (
+			select( coreStore ).getEntityRecord( 'root', 'site' ) as {
+				page_on_front?: number;
+			}
+		 )?.page_on_front;
+
+		const postsPageId = (
+			select( coreStore ).getEntityRecord( 'root', 'site' ) as {
+				page_for_posts?: number;
+			}
+		 )?.page_for_posts;
+
+		const [ options, setOptions ] = useState< {
+			privacyPolicyPageId: number | null;
+		} | null >( null );
+
+		const privacyPolicyPageId = options?.privacyPolicyPageId;
+
+		const isTrashingHomePage = items.some(
+			( item ) => item.id === frontPageId
+		);
+		const isTrashingPostsPage = items.some(
+			( item ) => item.id === postsPageId
+		);
+
+		const isTrashingPrivacyPolicyPage = items.some(
+			( item ) => Number( item.id ) === Number( privacyPolicyPageId )
+		);
+		// Fetch available pages excluding the trashed one and posts page for homepage dropdown
+		useEffect( () => {
+			const fetchPages = async () => {
+				const pages = await select( coreStore ).getEntityRecords< {
+					id: number;
+					title: { rendered: string };
+				} >( 'postType', 'page', { per_page: -1 } );
+				setAvailablePages(
+					pages?.filter( ( page ) => {
+						const isTrashedPage = items.some(
+							( item ) => item.id === page.id
+						);
+						const isExcludedForHomepage =
+							( isTrashingHomePage && page.id === postsPageId ) ||
+							page.id === frontPageId ||
+							page.id === privacyPolicyPageId;
+						return ! isTrashedPage && ! isExcludedForHomepage;
+					} ) || []
+				);
+			};
+			const fetchOptions = async () => {
+				try {
+					const response = await fetch(
+						'/wp-json/page-options/v1/options'
+					);
+					const data = await response.json();
+					setOptions( data );
+				} catch ( error ) {}
+			};
+
+			fetchOptions();
+			fetchPages();
+		}, [
+			items,
+			isTrashingHomePage,
+			postsPageId,
+			frontPageId,
+			privacyPolicyPageId,
+		] );
+
+		interface UpdatePrivacyPolicyPageResponse {
+			newPageId: number;
+			error?: string;
+		}
+
+		const updatePrivacyPolicyPage = async (
+			newSelectedPrivacyPolicyPage: string
+		): Promise< void > => {
+			try {
+				const response: Response = await fetch(
+					'/wp-json/page-options/v1/update-privacy-page',
+					{
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'X-WP-Nonce': (
+								window.wpApiSettings as { nonce: string }
+							 ).nonce, // Ensure nonce is available and passed
+						},
+						body: JSON.stringify( {
+							page_id: parseInt(
+								newSelectedPrivacyPolicyPage,
+								10
+							),
+						} ),
+					}
+				);
+
+				const result: UpdatePrivacyPolicyPageResponse =
+					await response.json();
+
+				if ( ! response.ok ) {
+					throw new Error(
+						result.error || 'Failed to update Privacy Policy page'
+					);
+				}
+			} catch ( error ) {
+				createErrorNotice(
+					__(
+						'An error occurred while updating the privacy policy page.'
+					),
+					{ type: 'snackbar' }
+				);
+			}
+		};
+
+		const handleDelete = async () => {
+			setIsBusy( true );
+			try {
+				// Update site settings for homepage or posts page
+				if ( isTrashingHomePage && selectedHomepage ) {
+					await saveEntityRecord( 'root', 'site', {
+						page_on_front: parseInt( selectedHomepage, 10 ),
+					} );
+				}
+				if ( isTrashingPostsPage && selectedPostsPage ) {
+					await saveEntityRecord( 'root', 'site', {
+						page_for_posts: parseInt( selectedPostsPage, 10 ),
+					} );
+				}
+
+				if (
+					isTrashingPrivacyPolicyPage &&
+					selectedPrivacyPolicyPage
+				) {
+					await updatePrivacyPolicyPage( selectedPrivacyPolicyPage );
+				}
+
+				// Perform delete actions
+				const promiseResult = await Promise.allSettled(
+					items.map( ( item ) =>
+						deleteEntityRecord(
+							'postType',
+							item.type,
+							item.id.toString(),
+							{},
+							{ throwOnError: true }
+						)
+					)
+				);
+
+				if (
+					promiseResult.every(
+						( { status } ) => status === 'fulfilled'
+					)
+				) {
+					const successMessage =
+						promiseResult.length === 1
+							? sprintf(
+									// translators: %s: The item's title.
+									__( '"%s" moved to the trash.' ),
+									typeof items[ 0 ].title === 'object' &&
+										'rendered' in items[ 0 ].title
+										? items[ 0 ].title.rendered
+										: items[ 0 ].title
+							  )
+							: sprintf(
+									// translators: %d: number of items to move to the trash.
+									_n(
+										'%s item moved to the trash.',
+										'%s items moved to the trash.',
+										items.length
+									),
+									items.length
+							  );
+					createSuccessNotice( successMessage, {
+						type: 'snackbar',
+						id: 'move-to-trash-action',
+					} );
+				} else {
+					createErrorNotice(
+						__(
+							'An error occurred while moving the items to the trash.'
+						),
+						{ type: 'snackbar' }
+					);
+				}
+
+				if ( onActionPerformed ) {
+					onActionPerformed( items );
+				}
+			} catch ( error ) {
+				createErrorNotice(
+					__( 'An error occurred while deleting the item.' ),
+					{ type: 'snackbar' }
+				);
+			} finally {
+				setIsBusy( false );
+				closeModal?.();
+			}
+		};
+
 		return (
 			<VStack spacing="5">
 				<Text>
@@ -54,7 +278,10 @@ const trashPost: Action< PostWithPermissions > = {
 								__(
 									'Are you sure you want to move "%s" to the trash?'
 								),
-								getItemTitle( items[ 0 ] )
+								typeof items[ 0 ]?.title === 'object' &&
+									'rendered' in items[ 0 ].title
+									? items[ 0 ].title.rendered
+									: items[ 0 ]?.title || ''
 						  )
 						: sprintf(
 								// translators: %d: The number of items (2 or more).
@@ -66,6 +293,84 @@ const trashPost: Action< PostWithPermissions > = {
 								items.length
 						  ) }
 				</Text>
+				{ ( isTrashingHomePage ||
+					isTrashingPostsPage ||
+					isTrashingPrivacyPolicyPage ) &&
+					availablePages.length > 0 && (
+						<>
+							{ isTrashingHomePage && (
+								<SelectControl
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
+									label={ __( 'Choose a new homepage' ) }
+									value={ selectedHomepage }
+									options={ [
+										{
+											value: '',
+											label: __( 'Select a page' ),
+										},
+										...availablePages.map( ( page ) => ( {
+											value: page.id.toString(),
+											label:
+												page.title.rendered ||
+												__( '(no title)' ),
+										} ) ),
+									] }
+									onChange={ ( value ) =>
+										setSelectedHomepage( value )
+									}
+								/>
+							) }
+							{ isTrashingPostsPage && (
+								<SelectControl
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
+									label={ __( 'Choose a new posts page' ) }
+									value={ selectedPostsPage }
+									options={ [
+										{
+											value: '',
+											label: __( 'Select a page' ),
+										},
+										...availablePages.map( ( page ) => ( {
+											value: page.id.toString(),
+											label:
+												page.title.rendered ||
+												__( '(no title)' ),
+										} ) ),
+									] }
+									onChange={ ( value ) =>
+										setSelectedPostsPage( value )
+									}
+								/>
+							) }
+							{ isTrashingPrivacyPolicyPage && (
+								<SelectControl
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
+									label={ __(
+										'Choose a new privacy policy page'
+									) }
+									value={ selectedPrivacyPolicyPage }
+									options={ [
+										{
+											value: '',
+											label: __( 'Select a page' ),
+										},
+										...availablePages.map( ( page ) => ( {
+											value: page.id.toString(),
+											label:
+												page.title.rendered ||
+												__( '(no title)' ),
+										} ) ),
+									] }
+									onChange={ ( value ) =>
+										setSelectedPrivacyPolicyPage( value )
+									}
+								/>
+							) }
+						</>
+					) }
 				<HStack justify="right">
 					<Button
 						__next40pxDefaultSize
@@ -78,115 +383,17 @@ const trashPost: Action< PostWithPermissions > = {
 					</Button>
 					<Button
 						__next40pxDefaultSize
-						variant="primary"
-						onClick={ async () => {
-							setIsBusy( true );
-							const promiseResult = await Promise.allSettled(
-								items.map( ( item ) =>
-									deleteEntityRecord(
-										'postType',
-										item.type,
-										item.id.toString(),
-										{},
-										{ throwOnError: true }
-									)
-								)
-							);
-							// If all the promises were fulfilled with success.
-							if (
-								promiseResult.every(
-									( { status } ) => status === 'fulfilled'
-								)
-							) {
-								let successMessage;
-								if ( promiseResult.length === 1 ) {
-									successMessage = sprintf(
-										/* translators: The item's title. */
-										__( '"%s" moved to the trash.' ),
-										getItemTitle( items[ 0 ] )
-									);
-								} else {
-									successMessage = sprintf(
-										/* translators: The number of items. */
-										_n(
-											'%s item moved to the trash.',
-											'%s items moved to the trash.',
-											items.length
-										),
-										items.length
-									);
-								}
-								createSuccessNotice( successMessage, {
-									type: 'snackbar',
-									id: 'move-to-trash-action',
-								} );
-							} else {
-								// If there was at least one failure.
-								let errorMessage;
-								// If we were trying to delete a single item.
-								if ( promiseResult.length === 1 ) {
-									const typedError = promiseResult[ 0 ] as {
-										reason?: CoreDataError;
-									};
-									if ( typedError.reason?.message ) {
-										errorMessage =
-											typedError.reason.message;
-									} else {
-										errorMessage = __(
-											'An error occurred while moving the item to the trash.'
-										);
-									}
-									// If we were trying to delete multiple items.
-								} else {
-									const errorMessages = new Set();
-									const failedPromises = promiseResult.filter(
-										( { status } ) => status === 'rejected'
-									);
-									for ( const failedPromise of failedPromises ) {
-										const typedError = failedPromise as {
-											reason?: CoreDataError;
-										};
-										if ( typedError.reason?.message ) {
-											errorMessages.add(
-												typedError.reason.message
-											);
-										}
-									}
-									if ( errorMessages.size === 0 ) {
-										errorMessage = __(
-											'An error occurred while moving the items to the trash.'
-										);
-									} else if ( errorMessages.size === 1 ) {
-										errorMessage = sprintf(
-											/* translators: %s: an error message */
-											__(
-												'An error occurred while moving the item to the trash: %s'
-											),
-											[ ...errorMessages ][ 0 ]
-										);
-									} else {
-										errorMessage = sprintf(
-											/* translators: %s: a list of comma separated error messages */
-											__(
-												'Some errors occurred while moving the items to the trash: %s'
-											),
-											[ ...errorMessages ].join( ',' )
-										);
-									}
-								}
-								createErrorNotice( errorMessage, {
-									type: 'snackbar',
-								} );
-							}
-							if ( onActionPerformed ) {
-								onActionPerformed( items );
-							}
-							setIsBusy( false );
-							closeModal?.();
-						} }
-						isBusy={ isBusy }
-						disabled={ isBusy }
 						accessibleWhenDisabled
+						variant="primary"
+						isBusy={ isBusy }
+						disabled={
+							isBusy ||
+							( isTrashingHomePage && ! selectedHomepage ) ||
+							( isTrashingPostsPage && ! selectedPostsPage ) ||
+							( isTrashingPrivacyPolicyPage &&
+								! selectedPrivacyPolicyPage )
+						}
+						onClick={ handleDelete }
 					>
 						{ _x( 'Trash', 'verb' ) }
 					</Button>
