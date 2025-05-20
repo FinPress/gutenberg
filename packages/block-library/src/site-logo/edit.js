@@ -284,7 +284,7 @@ const SiteLogo = ( {
 						onChange={ ( newWidth ) =>
 							setAttributes( { width: newWidth } )
 						}
-						min={ minWidth }
+						//min={ minWidth }
 						max={ maxWidthBuffer }
 						initialPosition={ Math.min(
 							defaultWidth,
