@@ -22,6 +22,13 @@ if ( ! class_exists( 'Gutenberg_Interactivity_API_Full_Page_Navigation' ) ) {
 			return self::$instance;
 		}
 
+		public static function instance() {
+			if ( null === self::$instance ) {
+				self::$instance = new WP_Interactivity_API_Full_Page_Navigation();
+			}
+			return self::$instance;
+		}
+
 		public function __construct() {
 			add_action( 'wp_head', array( $this, 'buffer_start' ) );
 			add_action( 'wp_footer', array( $this, 'buffer_end' ), 8 );
