@@ -422,7 +422,7 @@ export default function SearchEdit( {
 					</ToolsPanelItem>
 					<ToolsPanelItem
 						hasValue={ () => ! showLabel }
-						label={ __( 'Show search label' ) }
+						label={ __( 'Show label' ) }
 						onDeselect={ () => {
 							setAttributes( {
 								showLabel: true,
@@ -433,31 +433,10 @@ export default function SearchEdit( {
 						<ToggleControl
 							__nextHasNoMarginBottom
 							checked={ showLabel }
-							label={ __( 'Show search label' ) }
+							label={ __( 'Show label' ) }
 							onChange={ ( value ) =>
 								setAttributes( {
 									showLabel: value,
-								} )
-							}
-						/>
-					</ToolsPanelItem>
-					<ToolsPanelItem
-						hasValue={ () => !! buttonUseIcon }
-						label={ __( 'Use button with icon' ) }
-						onDeselect={ () => {
-							setAttributes( {
-								buttonUseIcon: false,
-							} );
-						} }
-						isShownByDefault
-					>
-						<ToggleControl
-							__nextHasNoMarginBottom
-							checked={ buttonUseIcon }
-							label={ __( 'Use button with icon' ) }
-							onChange={ ( value ) =>
-								setAttributes( {
-									buttonUseIcon: value,
 								} )
 							}
 						/>
@@ -488,6 +467,29 @@ export default function SearchEdit( {
 							options={ buttonPositionControls }
 						/>
 					</ToolsPanelItem>
+					{ buttonPosition !== 'no-button' && (
+						<ToolsPanelItem
+							hasValue={ () => !! buttonUseIcon }
+							label={ __( 'Use button with icon' ) }
+							onDeselect={ () => {
+								setAttributes( {
+									buttonUseIcon: false,
+								} );
+							} }
+							isShownByDefault
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								checked={ buttonUseIcon }
+								label={ __( 'Use button with icon' ) }
+								onChange={ ( value ) =>
+									setAttributes( {
+										buttonUseIcon: value,
+									} )
+								}
+							/>
+						</ToolsPanelItem>
+					) }
 				</ToolsPanel>
 			</InspectorControls>
 		</>
