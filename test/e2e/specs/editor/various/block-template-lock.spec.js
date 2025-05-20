@@ -118,14 +118,11 @@ test.describe( 'Template Lock', () => {
 			);
 		} );
 
-		// test( 'should prevent deleting columns', async ( { editor, page } ) => {
-		// 	await editor.clickBlockToolbarButton( 'Options' );
-		// 	await expect(
-		// 		page
-		// 			.getByRole( 'menu', { name: 'Options' } )
-		// 			.getByRole( 'menuitem', { name: 'Delete' } )
-		// 	).toBeHidden();
-		// } );
+		test( 'should prevent deleting columns', async ( { page } ) => {
+			await expect(
+				page.getByRole( 'menu', { name: 'Options' } )
+			).toBeHidden();
+		} );
 
 		test( 'should prevent moving columns', async ( { page } ) => {
 			await expect(
