@@ -6,6 +6,10 @@
 
 -   Added TypeScript variant of the template ([#64577](https://github.com/WordPress/gutenberg/pull/64577)).
 
+### Enhancements
+
+-   Added TypeScript variant of the template ([#64577](https://github.com/WordPress/gutenberg/pull/64577)).
+
 ## 2.7.0 (2024-09-05)
 
 ### Enhancements

@@ -471,7 +471,9 @@ type Store = {
 };
 ```
 
-There's something to keep in mind when when using asynchronous actions. Just like with the derived state, if the asynchronous action needs to return a value and this value directly depends on some part of the global state, TypeScript will not be able to infer the type due to a circular reference.
+However, there are a couple of things to consider when using asynchronous actions.
+
+1.  Just like with the derived state, if the asynchronous action needs to return a value and this value directly depends on some part of the global state, TypeScript will not be able to infer the type due to a circular reference.
 
     ```ts
     const { state, actions } = store( 'myCounterPlugin', {
@@ -504,6 +506,40 @@ There's something to keep in mind when when using asynchronous actions. Just lik
     ```
 
     That's it! Remember that the return type of a Generator is the second generic argument: `Generator< unknown, ReturnType, unknown >`.
+
+2.  When yielding inside a generator, TypeScript does not resolve the types of the promises directly because it doesn't know what the controller will return after processing the promise.
+
+    ```ts
+    const getAsyncNumber = async () => {
+    	return 1;
+    };
+
+    store( 'myCounterPlugin', {
+    	actions: {
+    		*getSomeNumber() {
+    			const n = yield getAsyncNumber(); // TypeScript doesn't resolve this type.
+    		},
+    	},
+    } );
+    ```
+
+    To fix this, you can combine the use of `yield*` with the `typed()` helper, which converts the promise type into an iterator that can be correctly inferred by TypeScript when used in conjunction with `yield*`.
+
+    _**Note**: The `typed` function will be included in WordPress 6.7._
+
+    ```ts
+    import { typed } from '@wordpress/interactivity';
+
+    // ...
+
+    store( 'myCounterPlugin', {
+    	actions: {
+    		*getSomeNumber() {
+    			const n = yield* typed( getAsyncNumber() ); // This is correctly typed now.
+    		},
+    	},
+    } );
+    ```
 
 ## Typing stores that are divided into multiple parts
 
@@ -721,15 +757,15 @@ store( 'myAddPostToTodoPlugin', {
 
 Remember that you will need to declare the `my-todo-plugin-module` script module as a dependency.
 
-If the other store is optional and you don't want to load it eagerly, a dynamic import can be used instead of a static import.
+If including the other store is optional and you don't want to load it from the beginning, instead of a static import, you can also use a dynamic import. Remember that in this case, you have to use the `typed` helper in conjunction with `yield*` to be able to utilize the types within the generator.
 
 ```ts
-import { store } from '@wordpress/interactivity';
+import { store, typed } from '@wordpress/interactivity';
 
 store( 'myAddPostToTodoPlugin', {
 	actions: {
 		*addPostToTodo() {
-			const todoPlugin = yield import( 'my-todo-plugin-module' );
+			const todoPlugin = yield typed( import( 'my-todo-plugin-module' ) );
 			const todo = `Read: ${ state.postTitle }`.trim();
 			if ( ! todoPlugin.state.todos.includes( todo ) ) {
 				todoPlugin.actions.addTodo( todo );
