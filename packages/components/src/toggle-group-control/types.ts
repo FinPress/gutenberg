@@ -112,8 +112,8 @@ export type ToggleGroupControlProps = Pick<
 	 */
 	value?: string | number;
 	/**
-	 * The options to render in the `ToggleGroupControl`, using either the `ToggleGroupControlOption` or
-	 * `ToggleGroupControlOptionIcon` components.
+	 * The options to render in the `ToggleGroupControl`, using either the `ToggleGroupControl.Option` or
+	 * `ToggleGroupControl.OptionIcon` components.
 	 */
 	children: ReactNode;
 	/**

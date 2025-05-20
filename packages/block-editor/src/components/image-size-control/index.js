@@ -6,7 +6,6 @@ import {
 	__experimentalNumberControl as NumberControl,
 	__experimentalHStack as HStack,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -134,7 +133,7 @@ export default function ImageSizeControl( {
 					>
 						{ IMAGE_SIZE_PRESETS.map( ( scale ) => {
 							return (
-								<ToggleGroupControlOption
+								<ToggleGroupControl.Option
 									key={ scale }
 									value={ scale }
 									label={ sprintf(

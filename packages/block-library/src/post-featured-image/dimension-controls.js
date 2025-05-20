@@ -6,7 +6,6 @@ import {
 	SelectControl,
 	__experimentalUnitControl as UnitControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
@@ -14,18 +13,18 @@ import { useSettings } from '@wordpress/block-editor';
 
 const SCALE_OPTIONS = (
 	<>
-		<ToggleGroupControlOption
+		<ToggleGroupControl.Option
 			value="cover"
 			label={ _x( 'Cover', 'Scale option for Image dimension control' ) }
 		/>
-		<ToggleGroupControlOption
+		<ToggleGroupControl.Option
 			value="contain"
 			label={ _x(
 				'Contain',
 				'Scale option for Image dimension control'
 			) }
 		/>
-		<ToggleGroupControlOption
+		<ToggleGroupControl.Option
 			value="fill"
 			label={ _x( 'Fill', 'Scale option for Image dimension control' ) }
 		/>

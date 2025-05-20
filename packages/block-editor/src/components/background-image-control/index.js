@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import {
 	ToggleControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalUnitControl as UnitControl,
 	__experimentalVStack as VStack,
 	DropZone,
@@ -580,7 +579,7 @@ function BackgroundSizeControls( {
 					sizeValue || defaultValues?.backgroundSize
 				) }
 			>
-				<ToggleGroupControlOption
+				<ToggleGroupControl.Option
 					key="cover"
 					value="cover"
 					label={ _x(
@@ -588,7 +587,7 @@ function BackgroundSizeControls( {
 						'Size option for background image control'
 					) }
 				/>
-				<ToggleGroupControlOption
+				<ToggleGroupControl.Option
 					key="contain"
 					value="contain"
 					label={ _x(
@@ -596,7 +595,7 @@ function BackgroundSizeControls( {
 						'Size option for background image control'
 					) }
 				/>
-				<ToggleGroupControlOption
+				<ToggleGroupControl.Option
 					key="tile"
 					value="auto"
 					label={ _x(

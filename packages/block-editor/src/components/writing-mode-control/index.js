@@ -8,10 +8,7 @@ import clsx from 'clsx';
  */
 import { __, isRTL } from '@wordpress/i18n';
 import { textHorizontal, textVertical } from '@wordpress/icons';
-import {
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
-} from '@wordpress/components';
+import { __experimentalToggleGroupControl as ToggleGroupControl } from '@wordpress/components';
 
 const WRITING_MODES = [
 	{
@@ -51,7 +48,7 @@ export default function WritingModeControl( { className, value, onChange } ) {
 		>
 			{ WRITING_MODES.map( ( option ) => {
 				return (
-					<ToggleGroupControlOptionIcon
+					<ToggleGroupControl.OptionIcon
 						key={ option.value }
 						value={ option.value }
 						icon={ option.icon }

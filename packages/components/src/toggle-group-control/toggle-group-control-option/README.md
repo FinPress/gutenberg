@@ -4,15 +4,12 @@
 This feature is still experimental. “Experimental” means this is an early implementation subject to drastic and breaking changes.
 </div>
 
-`ToggleGroupControlOption` is a form component and is meant to be used as a child of [`ToggleGroupControl`](/packages/components/src/toggle-group-control/toggle-group-control/README.md).
+`ToggleGroupControl.Option` is a form component and is meant to be used as a child of [`ToggleGroupControl`](/packages/components/src/toggle-group-control/toggle-group-control/README.md).
 
 ## Usage
 
 ```js
-import {
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-} from '@wordpress/components';
+import { __experimentalToggleGroupControl as ToggleGroupControl } from '@wordpress/components';
 
 function Example() {
 	return (
@@ -23,12 +20,12 @@ function Example() {
 			__nextHasNoMarginBottom
 			__next40pxDefaultSize
 		>
-			<ToggleGroupControlOption
+			<ToggleGroupControl.Option
 				value="horizontal"
 				label="Horizontal"
 				showTooltip={ true }
 			/>
-			<ToggleGroupControlOption value="vertical" label="Vertical" />
+			<ToggleGroupControl.Option value="vertical" label="Vertical" />
 		</ToggleGroupControl>
 	);
 }

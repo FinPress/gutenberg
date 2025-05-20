@@ -17,7 +17,6 @@ import {
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
 	useNavigator,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalConfirmDialog as ConfirmDialog,
 	Dropdown,
 	Button,
@@ -477,11 +476,11 @@ function ShadowPopover( { shadowObj, onChange } ) {
 				hideLabelFromVision
 				__next40pxDefaultSize
 			>
-				<ToggleGroupControlOption
+				<ToggleGroupControl.Option
 					value="outset"
 					label={ __( 'Outset' ) }
 				/>
-				<ToggleGroupControlOption
+				<ToggleGroupControl.Option
 					value="inset"
 					label={ __( 'Inset' ) }
 				/>

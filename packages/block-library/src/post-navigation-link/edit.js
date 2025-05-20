@@ -8,7 +8,6 @@ import clsx from 'clsx';
  */
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	ToggleControl,
 	SelectControl,
 	PanelBody,
@@ -138,21 +137,21 @@ export default function PostNavigationLinkEdit( {
 						) }
 						isBlock
 					>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="none"
 							label={ _x(
 								'None',
 								'Arrow option for Next/Previous link'
 							) }
 						/>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="arrow"
 							label={ _x(
 								'Arrow',
 								'Arrow option for Next/Previous link'
 							) }
 						/>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="chevron"
 							label={ _x(
 								'Chevron',

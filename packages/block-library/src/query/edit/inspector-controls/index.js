@@ -9,7 +9,6 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
@@ -224,11 +223,11 @@ export default function QueryInspectorControls( props ) {
 									}
 									value={ !! inherit ? 'default' : 'custom' }
 								>
-									<ToggleGroupControlOption
+									<ToggleGroupControl.Option
 										value="default"
 										label={ __( 'Default' ) }
 									/>
-									<ToggleGroupControlOption
+									<ToggleGroupControl.Option
 										value="custom"
 										label={ __( 'Custom' ) }
 									/>
@@ -276,7 +275,7 @@ export default function QueryInspectorControls( props ) {
 								>
 									{ postTypesSelectOptions.map(
 										( option ) => (
-											<ToggleGroupControlOption
+											<ToggleGroupControl.Option
 												key={ option.value }
 												value={ option.value }
 												label={ option.label }

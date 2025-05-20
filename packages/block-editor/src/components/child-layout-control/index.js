@@ -3,7 +3,6 @@
  */
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalUnitControl as UnitControl,
 	__experimentalInputControl as InputControl,
 	__experimentalHStack as HStack,
@@ -152,7 +151,7 @@ function FlexControls( {
 				} }
 				isBlock
 			>
-				<ToggleGroupControlOption
+				<ToggleGroupControl.Option
 					key="fit"
 					value="fit"
 					label={ _x(
@@ -160,7 +159,7 @@ function FlexControls( {
 						'Intrinsic block width in flex layout'
 					) }
 				/>
-				<ToggleGroupControlOption
+				<ToggleGroupControl.Option
 					key="fill"
 					value="fill"
 					label={ _x(
@@ -168,7 +167,7 @@ function FlexControls( {
 						'Block with expanding width in flex layout'
 					) }
 				/>
-				<ToggleGroupControlOption
+				<ToggleGroupControl.Option
 					key="fixed"
 					value="fixed"
 					label={ _x(

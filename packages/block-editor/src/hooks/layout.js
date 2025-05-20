@@ -12,7 +12,6 @@ import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 import { useSelect } from '@wordpress/data';
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	ToggleControl,
 	PanelBody,
 	privateApis as componentsPrivateApis,
@@ -327,7 +326,7 @@ function LayoutTypeSwitcher( { type, onChange } ) {
 		>
 			{ getLayoutTypes().map( ( { name, label } ) => {
 				return (
-					<ToggleGroupControlOption
+					<ToggleGroupControl.Option
 						key={ name }
 						value={ name }
 						label={ label }

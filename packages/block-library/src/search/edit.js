@@ -28,7 +28,6 @@ import {
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalUnitControl as UnitControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalVStack as VStack,
@@ -491,7 +490,7 @@ export default function SearchEdit( {
 							>
 								{ PERCENTAGE_WIDTHS.map( ( widthValue ) => {
 									return (
-										<ToggleGroupControlOption
+										<ToggleGroupControl.Option
 											key={ widthValue }
 											value={ widthValue }
 											label={ sprintf(

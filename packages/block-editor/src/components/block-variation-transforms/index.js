@@ -9,7 +9,6 @@ import {
 	MenuGroup,
 	MenuItemsChoice,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 	VisuallyHidden,
 } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -115,7 +114,7 @@ function VariationsToggleGroupControl( {
 				__nextHasNoMarginBottom
 			>
 				{ variations.map( ( variation ) => (
-					<ToggleGroupControlOptionIcon
+					<ToggleGroupControl.OptionIcon
 						key={ variation.name }
 						icon={
 							<BlockIcon icon={ variation.icon } showColors />

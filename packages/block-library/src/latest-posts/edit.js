@@ -16,7 +16,6 @@ import {
 	ToggleControl,
 	ToolbarGroup,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
@@ -385,7 +384,7 @@ function Controls( { attributes, setAttributes, postCount } ) {
 							{ imageAlignmentOptions.map(
 								( { value, icon, label } ) => {
 									return (
-										<ToggleGroupControlOptionIcon
+										<ToggleGroupControl.OptionIcon
 											key={ value }
 											value={ value }
 											icon={ icon }

@@ -2,10 +2,7 @@
  * WordPress dependencies
  */
 import { __, _x } from '@wordpress/i18n';
-import {
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-} from '@wordpress/components';
+import { __experimentalToggleGroupControl as ToggleGroupControl } from '@wordpress/components';
 
 export function QueryPaginationArrowControls( { value, onChange } ) {
 	return (
@@ -20,21 +17,21 @@ export function QueryPaginationArrowControls( { value, onChange } ) {
 			) }
 			isBlock
 		>
-			<ToggleGroupControlOption
+			<ToggleGroupControl.Option
 				value="none"
 				label={ _x(
 					'None',
 					'Arrow option for Query Pagination Next/Previous blocks'
 				) }
 			/>
-			<ToggleGroupControlOption
+			<ToggleGroupControl.Option
 				value="arrow"
 				label={ _x(
 					'Arrow',
 					'Arrow option for Query Pagination Next/Previous blocks'
 				) }
 			/>
-			<ToggleGroupControlOption
+			<ToggleGroupControl.Option
 				value="chevron"
 				label={ _x(
 					'Chevron',

@@ -34,7 +34,6 @@ import {
 	PanelBody,
 	ToggleControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	Button,
 	Spinner,
 	Notice,
@@ -649,15 +648,15 @@ function Navigation( {
 							}
 							isBlock
 						>
-							<ToggleGroupControlOption
+							<ToggleGroupControl.Option
 								value="never"
 								label={ __( 'Off' ) }
 							/>
-							<ToggleGroupControlOption
+							<ToggleGroupControl.Option
 								value="mobile"
 								label={ __( 'Mobile' ) }
 							/>
-							<ToggleGroupControlOption
+							<ToggleGroupControl.Option
 								value="always"
 								label={ __( 'Always' ) }
 							/>

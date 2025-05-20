@@ -179,8 +179,8 @@ function ToggleGroupControlOptionBase(
  * function Example() {
  *   return (
  *     <ToggleGroupControl label="my label" value="vertical" isBlock>
- *       <ToggleGroupControlOption value="horizontal" label="Horizontal" />
- *       <ToggleGroupControlOption value="vertical" label="Vertical" />
+ *       <ToggleGroupControl.Option value="horizontal" label="Horizontal" />
+ *       <ToggleGroupControl.Option value="vertical" label="Vertical" />
  *     </ToggleGroupControl>
  *   );
  * }

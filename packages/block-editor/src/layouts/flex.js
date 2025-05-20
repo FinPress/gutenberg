@@ -16,7 +16,6 @@ import {
 	Flex,
 	FlexItem,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 } from '@wordpress/components';
 
 /**
@@ -301,7 +300,7 @@ function FlexLayoutJustifyContentControl( {
 		>
 			{ justificationOptions.map( ( { value, icon, label } ) => {
 				return (
-					<ToggleGroupControlOptionIcon
+					<ToggleGroupControl.OptionIcon
 						key={ value }
 						value={ value }
 						icon={ icon }
@@ -370,12 +369,12 @@ function OrientationControl( { layout, onChange } ) {
 				} );
 			} }
 		>
-			<ToggleGroupControlOptionIcon
+			<ToggleGroupControl.OptionIcon
 				icon={ arrowRight }
 				value="horizontal"
 				label={ __( 'Horizontal' ) }
 			/>
-			<ToggleGroupControlOptionIcon
+			<ToggleGroupControl.OptionIcon
 				icon={ arrowDown }
 				value="vertical"
 				label={ __( 'Vertical' ) }

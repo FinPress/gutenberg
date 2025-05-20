@@ -4,7 +4,6 @@
 import { __, _x } from '@wordpress/i18n';
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalSpacer as Spacer,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
@@ -65,43 +64,43 @@ function ScreenTypographyElement( { element } ) {
 						size="__unstable-large"
 						__nextHasNoMarginBottom
 					>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="heading"
 							showTooltip
 							aria-label={ __( 'All headings' ) }
 							label={ _x( 'All', 'heading levels' ) }
 						/>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="h1"
 							showTooltip
 							aria-label={ __( 'Heading 1' ) }
 							label={ __( 'H1' ) }
 						/>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="h2"
 							showTooltip
 							aria-label={ __( 'Heading 2' ) }
 							label={ __( 'H2' ) }
 						/>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="h3"
 							showTooltip
 							aria-label={ __( 'Heading 3' ) }
 							label={ __( 'H3' ) }
 						/>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="h4"
 							showTooltip
 							aria-label={ __( 'Heading 4' ) }
 							label={ __( 'H4' ) }
 						/>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="h5"
 							showTooltip
 							aria-label={ __( 'Heading 5' ) }
 							label={ __( 'H5' ) }
 						/>
-						<ToggleGroupControlOption
+						<ToggleGroupControl.Option
 							value="h6"
 							showTooltip
 							aria-label={ __( 'Heading 6' ) }

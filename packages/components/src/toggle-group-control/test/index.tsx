@@ -14,11 +14,7 @@ import { formatLowercase, formatUppercase } from '@wordpress/icons';
  * Internal dependencies
  */
 import Button from '../../button';
-import {
-	ToggleGroupControl as _ToggleGroupControl,
-	ToggleGroupControlOption,
-	ToggleGroupControlOptionIcon,
-} from '../index';
+import { ToggleGroupControl as _ToggleGroupControl } from '../index';
 import { TOOLTIP_DELAY } from '../../tooltip';
 import type { ToggleGroupControlProps } from '../types';
 
@@ -77,19 +73,19 @@ const ControlledToggleGroupControl = ( {
 };
 const options = (
 	<>
-		<ToggleGroupControlOption value="rigas" label="R" />
-		<ToggleGroupControlOption value="jack" label="J" />
+		<_ToggleGroupControl.Option value="rigas" label="R" />
+		<_ToggleGroupControl.Option value="jack" label="J" />
 	</>
 );
 const optionsWithTooltip = (
 	<>
-		<ToggleGroupControlOption
+		<_ToggleGroupControl.Option
 			value="gnocchi"
 			label="Delicious Gnocchi"
 			aria-label="Click for Delicious Gnocchi"
 			showTooltip
 		/>
-		<ToggleGroupControlOption
+		<_ToggleGroupControl.Option
 			value="caponata"
 			label="Sumptuous Caponata"
 			aria-label="Click for Sumptuous Caponata"
@@ -98,9 +94,9 @@ const optionsWithTooltip = (
 );
 const optionsWithDisabledOption = (
 	<>
-		<ToggleGroupControlOption value="pizza" label="Pizza" />
-		<ToggleGroupControlOption value="rice" label="Rice" disabled />
-		<ToggleGroupControlOption value="pasta" label="Pasta" />
+		<_ToggleGroupControl.Option value="pizza" label="Pizza" />
+		<_ToggleGroupControl.Option value="rice" label="Rice" disabled />
+		<_ToggleGroupControl.Option value="pasta" label="Pasta" />
 	</>
 );
 
@@ -124,12 +120,12 @@ describe.each( [
 		it( 'with icons', () => {
 			const { container } = render(
 				<Component value="uppercase" label="Test Toggle Group Control">
-					<ToggleGroupControlOptionIcon
+					<_ToggleGroupControl.OptionIcon
 						value="uppercase"
 						icon={ formatUppercase }
 						label="Uppercase"
 					/>
-					<ToggleGroupControlOptionIcon
+					<_ToggleGroupControl.OptionIcon
 						value="lowercase"
 						icon={ formatLowercase }
 						label="Lowercase"

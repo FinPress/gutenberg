@@ -29,7 +29,6 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import {
 	AlignmentControl,
@@ -151,7 +150,7 @@ function WidthPanel( { selectedWidth, setAttributes } ) {
 				>
 					{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
 						return (
-							<ToggleGroupControlOption
+							<ToggleGroupControl.Option
 								key={ widthValue }
 								value={ widthValue }
 								label={ sprintf(

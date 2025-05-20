@@ -39,26 +39,25 @@ function UnforwardedToggleGroupControlOptionIcon(
 }
 
 /**
- * `ToggleGroupControlOptionIcon` is a form component which is meant to be used as a
+ * `ToggleGroupControl.OptionIcon` is a form component which is meant to be used as a
  * child of `ToggleGroupControl` and displays an icon.
  *
  * ```jsx
  *
  * import {
  *	__experimentalToggleGroupControl as ToggleGroupControl,
- *	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
  * from '@wordpress/components';
  * import { formatLowercase, formatUppercase } from '@wordpress/icons';
  *
  * function Example() {
  *  return (
  *    <ToggleGroupControl __nextHasNoMarginBottom __next40pxDefaultSize>
- *      <ToggleGroupControlOptionIcon
+ *      <ToggleGroupControl.OptionIcon
  *        value="uppercase"
  *        label="Uppercase"
  *        icon={ formatUppercase }
  *      />
- *      <ToggleGroupControlOptionIcon
+ *      <ToggleGroupControl.OptionIcon
  *        value="lowercase"
  *        label="Lowercase"
  *        icon={ formatLowercase }
