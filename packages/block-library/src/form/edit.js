@@ -50,6 +50,23 @@ const TEMPLATE = [
 	[ 'core/form-submit-button', {} ],
 ];
 
+/*
+ * Edit component for the custom form block.
+ *
+ * This function renders the block's edit interface in the WordPress block editor, allowing users to configure
+ * form submission settings and define inner block content. The form block supports email and custom submission methods.
+ *
+ * @param {Object} props 									Component properties.
+ * @param {Object} props.attributes 						The block's attributes.
+ * @param {string} props.attributes.action 					The action URL for the form submission.
+ * @param {string} props.attributes.method 					The HTTP method for the form submission (e.g., 'get', 'post').
+ * @param {string} props.attributes.email 					The email address for form submissions (used in "email" mode).
+ * @param {string} props.attributes.submissionMethod 		The method for handling form submissions ('email' or 'custom').
+ * @param {Function} props.setAttributes 					Function to update block attributes.
+ * @param {string} props.clientId 							The unique client ID for the block instance.
+ *
+ * @returns {JSX.Element} The edit interface for the custom form block.
+ */
 const Edit = ( { attributes, setAttributes, clientId } ) => {
 	const { action, method, email, submissionMethod } = attributes;
 	const blockProps = useBlockProps();

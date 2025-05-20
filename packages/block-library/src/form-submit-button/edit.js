@@ -20,6 +20,12 @@ const TEMPLATE = [
 		],
 	],
 ];
+
+/*
+ * Edit - The edit function for the custom block, defining its structure and behavior in the block editor.
+ *
+ * @returns {JSX.Element} The rendered edit component.
+ */
 const Edit = () => {
 	const blockProps = useBlockProps();
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {

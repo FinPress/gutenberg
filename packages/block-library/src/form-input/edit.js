@@ -18,6 +18,22 @@ import { PanelBody, TextControl, CheckboxControl } from '@wordpress/components';
 
 import { useRef } from '@wordpress/element';
 
+/*
+ * InputFieldBlock - A WordPress block for rendering and managing input fields with customizable attributes.
+ *
+ * @param {Object} props 									Component properties.
+ * @param {Object} props.attributes 						The block's attributes.
+ * @param {string} props.attributes.type 					The type of the input field (e.g., 'text', 'checkbox', 'textarea', 'hidden').
+ * @param {string} props.attributes.name 					The name attribute for the input field.
+ * @param {string} props.attributes.label 					The label text for the input field.
+ * @param {boolean} props.attributes.inlineLabel 			Determines if the label is inline with the input field.
+ * @param {boolean} props.attributes.required 				Indicates whether the input field is required.
+ * @param {string} props.attributes.placeholder 			The placeholder text for the input field.
+ * @param {string} props.attributes.value 					The value of the input field.
+ * @param {Function} props.setAttributes 					Function to update block attributes.
+ * @param {string} props.className 							The class name for the block.
+ * @returns {JSX.Element} 									The rendered InputFieldBlock component.
+ */
 function InputFieldBlock( { attributes, setAttributes, className } ) {
 	const { type, name, label, inlineLabel, required, placeholder, value } =
 		attributes;

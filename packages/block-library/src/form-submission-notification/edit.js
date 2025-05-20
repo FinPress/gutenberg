@@ -26,6 +26,15 @@ const TEMPLATE = [
 	],
 ];
 
+/*
+ * Edit - The edit function for the custom block, allowing configuration and rendering within the block editor.
+ *
+ * @param {Object} props 							Component properties.
+ * @param {Object} props.attributes 				The attributes of the block.
+ * @param {string} props.attributes.type 			The notification type (e.g., 'success', 'error').
+ * @param {string} props.clientId 					The unique identifier for the block instance.
+ * @returns {JSX.Element} 							The rendered edit component.
+ */
 const Edit = ( { attributes, clientId } ) => {
 	const { type } = attributes;
 	const blockProps = useBlockProps( {
