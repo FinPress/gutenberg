@@ -65,7 +65,11 @@ export const Empty = () => {
 	return (
 		<DataViews
 			getItemId={ ( item ) => item.id.toString() }
-			paginationInfo={ { totalItems: 0, totalPages: 0 } }
+			paginationInfo={ {
+				totalItems: 0,
+				totalPages: 0,
+				enablePerPageFilter: true,
+			} }
 			data={ [] }
 			view={ view }
 			fields={ fields }

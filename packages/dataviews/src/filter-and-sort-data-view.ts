@@ -38,12 +38,20 @@ export function filterSortAndPaginate< Item >(
 	fields: Field< Item >[]
 ): {
 	data: Item[];
-	paginationInfo: { totalItems: number; totalPages: number };
+	paginationInfo: {
+		totalItems: number;
+		totalPages: number;
+		enablePerPageFilter: boolean;
+	};
 } {
 	if ( ! data ) {
 		return {
 			data: EMPTY_ARRAY,
-			paginationInfo: { totalItems: 0, totalPages: 0 },
+			paginationInfo: {
+				totalItems: 0,
+				totalPages: 0,
+				enablePerPageFilter: false,
+			},
 		};
 	}
 	const _fields = normalizeFields( fields );
@@ -160,6 +168,7 @@ export function filterSortAndPaginate< Item >(
 		paginationInfo: {
 			totalItems,
 			totalPages,
+			enablePerPageFilter: true,
 		},
 	};
 }

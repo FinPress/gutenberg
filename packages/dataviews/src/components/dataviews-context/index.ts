@@ -20,6 +20,7 @@ type DataViewsContextType< Item > = {
 	paginationInfo: {
 		totalItems: number;
 		totalPages: number;
+		enablePerPageFilter: boolean;
 	};
 	selection: string[];
 	onChangeSelection: SetSelection;
@@ -40,6 +41,7 @@ const DataViewsContext = createContext< DataViewsContextType< any > >( {
 	paginationInfo: {
 		totalItems: 0,
 		totalPages: 0,
+		enablePerPageFilter: true,
 	},
 	selection: [],
 	onChangeSelection: () => {},

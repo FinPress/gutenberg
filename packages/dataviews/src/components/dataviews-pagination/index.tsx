@@ -19,7 +19,11 @@ function DataViewsPagination() {
 	const {
 		view,
 		onChangeView,
-		paginationInfo: { totalItems = 0, totalPages },
+		paginationInfo: {
+			totalItems = 0,
+			totalPages,
+			enablePerPageFilter = true,
+		},
 	} = useContext( DataViewsContext );
 
 	if ( ! totalItems || ! totalPages ) {
@@ -55,43 +59,45 @@ function DataViewsPagination() {
 				justify="end"
 				spacing={ 6 }
 			>
-				<HStack
-					justify="flex-start"
-					expanded={ false }
-					spacing={ 1 }
-					className="dataviews-pagination__page-select"
-				>
-					{ createInterpolateElement(
-						sprintf(
-							// translators: 1: Current page number, 2: Total number of pages.
-							_x(
-								'<div>Page</div>%1$s<div>of %2$s</div>',
-								'paging'
+				{ enablePerPageFilter && (
+					<HStack
+						justify="flex-start"
+						expanded={ false }
+						spacing={ 1 }
+						className="dataviews-pagination__page-select"
+					>
+						{ createInterpolateElement(
+							sprintf(
+								// translators: 1: Current page number, 2: Total number of pages.
+								_x(
+									'<div>Page</div>%1$s<div>of %2$s</div>',
+									'paging'
+								),
+								'<CurrentPage />',
+								totalPages
 							),
-							'<CurrentPage />',
-							totalPages
-						),
-						{
-							div: <div aria-hidden />,
-							CurrentPage: (
-								<SelectControl
-									aria-label={ __( 'Current page' ) }
-									value={ currentPage.toString() }
-									options={ pageSelectOptions }
-									onChange={ ( newValue ) => {
-										onChangeView( {
-											...view,
-											page: +newValue,
-										} );
-									} }
-									size="small"
-									__nextHasNoMarginBottom
-									variant="minimal"
-								/>
-							),
-						}
-					) }
-				</HStack>
+							{
+								div: <div aria-hidden />,
+								CurrentPage: (
+									<SelectControl
+										aria-label={ __( 'Current page' ) }
+										value={ currentPage.toString() }
+										options={ pageSelectOptions }
+										onChange={ ( newValue ) => {
+											onChangeView( {
+												...view,
+												page: +newValue,
+											} );
+										} }
+										size="small"
+										__nextHasNoMarginBottom
+										variant="minimal"
+									/>
+								),
+							}
+						) }
+					</HStack>
+				) }
 				<HStack expanded={ false } spacing={ 1 }>
 					<Button
 						onClick={ () =>
