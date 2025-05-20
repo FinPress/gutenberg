@@ -22,6 +22,22 @@ import { useSelect } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 
+/*
+ * Edit component for the block, rendering the block's interface in the editor.
+ *
+ * @param {Object} props                                  Component properties.
+ * @param {Object} props.attributes                       Block attributes.
+ * @param {string} props.attributes.textAlign             Text alignment for the block (e.g., "left", "center", "right").
+ * @param {boolean} props.attributes.showPostTitle        Whether to display the post title in the block.
+ * @param {boolean} props.attributes.showCommentsCount    Whether to display the comments count in the block.
+ * @param {number} props.attributes.level                 Heading level (e.g., 1 for `<h1>`, 2 for `<h2>`, etc.).
+ * @param {Array} props.attributes.levelOptions           Options for heading levels available in the dropdown.
+ * @param {Function} props.setAttributes                  Function to update block attributes.
+ * @param {Object} props.context                          Block context.
+ * @param {string} props.context.postType                 The post type of the current post.
+ * @param {number|undefined} props.context.postId         The ID of the current post. Undefined if editing in the Site Editor.
+ * @returns {JSX.Element}                                 The rendered Edit component.
+ */
 export default function Edit( {
 	attributes: {
 		textAlign,

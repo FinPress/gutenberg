@@ -23,6 +23,16 @@ const TEMPLATE = [
 	[ 'core/comments-pagination-next' ],
 ];
 
+/*
+ * Renders the Query Pagination block in the block editor.
+ *
+ * @param {Object} props                                  Component properties.
+ * @param {Object} props.attributes                       Block attributes.
+ * @param {string} props.attributes.paginationArrow       The selected pagination arrow type.
+ * @param {Function} props.setAttributes                  Function to update block attributes.
+ * @param {string} props.clientId                         The unique client ID for the block.
+ * @returns {JSX.Element}                                 The Query Pagination Edit component.
+ */
 export default function QueryPaginationEdit( {
 	attributes: { paginationArrow },
 	setAttributes,

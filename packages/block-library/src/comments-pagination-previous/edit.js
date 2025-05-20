@@ -10,6 +10,17 @@ const arrowMap = {
 	chevron: '«',
 };
 
+/*
+ * Renders the Comments Pagination Previous block in the block editor.
+ *
+ * @param {Object} props                                   Component properties.
+ * @param {Object} props.attributes                        Block attributes.
+ * @param {string} props.attributes.label                  The label for the "Previous Comments" pagination link.
+ * @param {Function} props.setAttributes                   Function to update block attributes.
+ * @param {Object} props.context                           Block context.
+ * @param {string} props.context['comments/paginationArrow'] The type of arrow to display for pagination (e.g., "next", "previous").
+ * @returns {JSX.Element}                                  The Comments Pagination Previous Edit component.
+ */
 export default function CommentsPaginationPreviousEdit( {
 	attributes: { label },
 	setAttributes,

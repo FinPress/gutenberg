@@ -12,6 +12,15 @@ import { createInterpolateElement } from '@wordpress/element';
  */
 import CommentsForm from '../../post-comments-form/form';
 
+/*
+ * Renders a placeholder for post comments, including navigation, a sample comment,
+ * and a form for adding new comments.
+ *
+ * @param {Object} props                       Component properties.
+ * @param {string} props.postType              The type of the post (e.g., 'post', 'page').
+ * @param {string} props.postId                The ID of the post.
+ * @returns {JSX.Element}                      The Post Comments Placeholder component.
+ */
 export default function PostCommentsPlaceholder( { postType, postId } ) {
 	let [ postTitle ] = useEntityProp( 'postType', postType, 'title', postId );
 	postTitle = postTitle || __( 'Post Title' );

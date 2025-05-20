@@ -20,6 +20,21 @@ import { Button } from '@wordpress/components';
  */
 import Placeholder from './placeholder';
 
+/*
+ * Renders the legacy version of the Comments block.
+ *
+ * This component serves as a placeholder for the Comments block, informing the user
+ * that they are using the legacy version and providing an option to switch to an editable mode.
+ *
+ * @param {Object} props                              Component properties.
+ * @param {Object} props.attributes                   Block attributes.
+ * @param {string} [props.attributes.textAlign]       Text alignment for the block (e.g., 'left', 'center', 'right').
+ * @param {Function} props.setAttributes              Function to update block attributes.
+ * @param {Object} props.context                      Contextual properties.
+ * @param {string} props.context.postType             The type of the post (e.g., 'post', 'page').
+ * @param {string} props.context.postId               The ID of the current post.
+ * @returns {JSX.Element}                             The legacy Comments block placeholder component.
+ */
 export default function CommentsLegacy( {
 	attributes,
 	setAttributes,
