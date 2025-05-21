@@ -163,7 +163,6 @@ export default function PostPublishPanelPostpublish( {
 							icon={ external }
 							iconPosition="right"
 							target="_blank"
-							rel="noopener noreferrer"
 						>
 							{ viewPostLabel }
 							<VisuallyHidden as="span">
