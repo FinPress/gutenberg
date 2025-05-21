@@ -44,11 +44,8 @@ const transforms = {
 		{
 			type: 'block',
 			blocks: [ 'core/verse' ],
-			transform: ( { content, anchor } ) =>
-				createBlock( 'core/verse', {
-					content,
-					anchor,
-				} ),
+			transform: ( attributes ) =>
+				createBlock( 'core/verse', attributes ),
 		},
 	],
 };
