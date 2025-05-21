@@ -337,6 +337,76 @@ export default function SearchEdit( {
 					dropdownMenuProps={ dropdownMenuProps }
 				>
 					<ToolsPanelItem
+						hasValue={ () => ! showLabel }
+						label={ __( 'Show label' ) }
+						onDeselect={ () => {
+							setAttributes( {
+								showLabel: true,
+							} );
+						} }
+						isShownByDefault
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							checked={ showLabel }
+							label={ __( 'Show label' ) }
+							onChange={ ( value ) =>
+								setAttributes( {
+									showLabel: value,
+								} )
+							}
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						hasValue={ () => buttonPosition !== 'button-outside' }
+						label={ __( 'Button position' ) }
+						onDeselect={ () => {
+							setAttributes( {
+								buttonPosition: 'button-outside',
+								isSearchFieldHidden: false,
+							} );
+						} }
+						isShownByDefault
+					>
+						<SelectControl
+							value={ buttonPosition }
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ __( 'Button position' ) }
+							onChange={ ( value ) => {
+								setAttributes( {
+									buttonPosition: value,
+									isSearchFieldHidden:
+										value === 'button-only',
+								} );
+							} }
+							options={ buttonPositionControls }
+						/>
+					</ToolsPanelItem>
+					{ buttonPosition !== 'no-button' && (
+						<ToolsPanelItem
+							hasValue={ () => !! buttonUseIcon }
+							label={ __( 'Use button with icon' ) }
+							onDeselect={ () => {
+								setAttributes( {
+									buttonUseIcon: false,
+								} );
+							} }
+							isShownByDefault
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								checked={ buttonUseIcon }
+								label={ __( 'Use button with icon' ) }
+								onChange={ ( value ) =>
+									setAttributes( {
+										buttonUseIcon: value,
+									} )
+								}
+							/>
+						</ToolsPanelItem>
+					) }
+					<ToolsPanelItem
 						hasValue={ () => !! width }
 						label={ __( 'Width' ) }
 						onDeselect={ () => {
@@ -420,76 +490,6 @@ export default function SearchEdit( {
 							</ToggleGroupControl>
 						</VStack>
 					</ToolsPanelItem>
-					<ToolsPanelItem
-						hasValue={ () => ! showLabel }
-						label={ __( 'Show label' ) }
-						onDeselect={ () => {
-							setAttributes( {
-								showLabel: true,
-							} );
-						} }
-						isShownByDefault
-					>
-						<ToggleControl
-							__nextHasNoMarginBottom
-							checked={ showLabel }
-							label={ __( 'Show label' ) }
-							onChange={ ( value ) =>
-								setAttributes( {
-									showLabel: value,
-								} )
-							}
-						/>
-					</ToolsPanelItem>
-					<ToolsPanelItem
-						hasValue={ () => buttonPosition !== 'button-outside' }
-						label={ __( 'Button position' ) }
-						onDeselect={ () => {
-							setAttributes( {
-								buttonPosition: 'button-outside',
-								isSearchFieldHidden: false,
-							} );
-						} }
-						isShownByDefault
-					>
-						<SelectControl
-							value={ buttonPosition }
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
-							label={ __( 'Button position' ) }
-							onChange={ ( value ) => {
-								setAttributes( {
-									buttonPosition: value,
-									isSearchFieldHidden:
-										value === 'button-only',
-								} );
-							} }
-							options={ buttonPositionControls }
-						/>
-					</ToolsPanelItem>
-					{ buttonPosition !== 'no-button' && (
-						<ToolsPanelItem
-							hasValue={ () => !! buttonUseIcon }
-							label={ __( 'Use button with icon' ) }
-							onDeselect={ () => {
-								setAttributes( {
-									buttonUseIcon: false,
-								} );
-							} }
-							isShownByDefault
-						>
-							<ToggleControl
-								__nextHasNoMarginBottom
-								checked={ buttonUseIcon }
-								label={ __( 'Use button with icon' ) }
-								onChange={ ( value ) =>
-									setAttributes( {
-										buttonUseIcon: value,
-									} )
-								}
-							/>
-						</ToolsPanelItem>
-					) }
 				</ToolsPanel>
 			</InspectorControls>
 		</>
