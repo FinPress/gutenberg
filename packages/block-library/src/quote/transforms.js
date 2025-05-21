@@ -135,19 +135,22 @@ const transforms = {
 		{
 			type: 'block',
 			blocks: [ 'core/group' ],
-			transform: ( { citation, anchor }, innerBlocks ) =>
-				createBlock(
+			transform: ( attributes, innerBlocks ) => {
+				const quoteBlock = createBlock(
+					'core/quote',
+					{
+						...attributes,
+						anchor: undefined,
+					},
+					innerBlocks
+				);
+
+				return createBlock(
 					'core/group',
-					{ anchor },
-					RichText.isEmpty( citation )
-						? innerBlocks
-						: [
-								...innerBlocks,
-								createBlock( 'core/paragraph', {
-									content: citation,
-								} ),
-						  ]
-				),
+					{ anchor: attributes.anchor },
+					[ quoteBlock ]
+				);
+			},
 		},
 	],
 	ungroup: ( { citation }, innerBlocks ) =>
