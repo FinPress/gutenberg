@@ -11,7 +11,6 @@ import {
 import {
 	TextControl,
 	ToggleControl,
-	VisuallyHidden,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	privateApis as componentsPrivateApis,
@@ -130,14 +129,11 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 					onKeyDown={ withIgnoreIMEEvents( handleSummaryKeyDown ) }
 					onKeyUp={ handleSummaryKeyUp }
 				>
-					<VisuallyHidden id={ instanceId }>
-						{ __(
-							'Press Enter to expand or collapse the details.'
-						) }
-					</VisuallyHidden>
 					<RichText
 						identifier="summary"
-						aria-label={ __( 'Write summary' ) }
+						aria-label={ __(
+							'Write summary. Press Enter to expand or collapse the details.'
+						) }
 						aria-describedby={ instanceId }
 						placeholder={ placeholder || __( 'Write summary…' ) }
 						withoutInteractiveFormatting
