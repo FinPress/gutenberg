@@ -5,7 +5,7 @@
 // It also provides default CSS variables for npm package consumers.
 :root {
 	--wp-block-synced-color: #7a00df;
-	--wp-block-synced-color--rgb: #{hex-to-rgb(#7a00df)};
+	--wp-block-synced-color--rgb: #{functions.hex-to-rgb(#7a00df)};
 	// This CSS variable is not used in Gutenberg project,
 	// but is maintained for backwards compatibility.
 	--wp-bound-block-color: var(--wp-block-synced-color);
