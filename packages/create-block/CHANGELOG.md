@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 4.66.0 (2025-05-07)
+
+### Enhancement
+
+-   Add support for `--textdomain` flag to create block tool ([#69802](https://github.com/WordPress/gutenberg/pull/69802)).
+
+## 4.65.0 (2025-04-11)
+
 ## 4.64.0 (2025-03-27)
 
 ## 4.63.0 (2025-03-13)
