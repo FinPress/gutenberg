@@ -136,7 +136,7 @@ export default function FileBlockInspector( {
 					<ToolsPanelItem
 						label={ __( 'Show download button' ) }
 						isShownByDefault
-						hasValue={ () => !!! showDownloadButton }
+						hasValue={ () => ! showDownloadButton }
 						onDeselect={ () => changeShowDownloadButton( true ) }
 					>
 						<ToggleControl
