@@ -158,7 +158,6 @@ exports[`PostPublishPanel should render the post-publish panel if the post is pu
             <a
               class="components-button is-next-40px-default-size is-primary has-icon"
               href="https://wordpress.local/sample-page/"
-              rel="noopener noreferrer"
               target="_blank"
             >
               <span
@@ -386,7 +385,6 @@ exports[`PostPublishPanel should render the post-publish panel if the post is sc
             <a
               class="components-button is-next-40px-default-size is-primary has-icon"
               href="https://wordpress.local/sample-page/"
-              rel="noopener noreferrer"
               target="_blank"
             >
               <span
