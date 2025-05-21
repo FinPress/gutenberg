@@ -1,4 +1,5 @@
 @use "./mixins";
+@use "./functions";
 
 // It is important to include these styles in all built stylesheets.
 // This allows to CSS variables post CSS plugin to generate fallbacks.
