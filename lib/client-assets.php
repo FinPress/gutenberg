@@ -653,8 +653,14 @@ function gutenberg_default_script_modules() {
 				break;
 		}
 
+		// All script modules in Gutenberg are (currently) related to the Interactivity API which prioritizes server-side rendering.
+		// Therefore, the modules should be fetched with a low priority to avoid network contention with any LCP element resource.
+		$args = array(
+			'fetchpriority' => 'low',
+		);
+
 		$path = gutenberg_url( "build-module/{$file_name}" );
-		wp_register_script_module( $script_module_id, $path, $script_module_data['dependencies'], $script_module_data['version'] );
+		wp_register_script_module( $script_module_id, $path, $script_module_data['dependencies'], $script_module_data['version'], $args ); // The 5th args parameter is proposed in <https://core.trac.wordpress.org/ticket/61734>.
 	}
 }
 remove_action( 'wp_default_scripts', 'wp_default_script_modules' );
