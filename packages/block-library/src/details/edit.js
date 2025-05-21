@@ -18,7 +18,6 @@ import {
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { useInstanceId } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -40,7 +39,6 @@ const TEMPLATE = [
 function DetailsEdit( { attributes, setAttributes, clientId } ) {
 	const { name, showContent, summary, allowedBlocks, placeholder } =
 		attributes;
-	const instanceId = useInstanceId( DetailsEdit, 'details-edit-desc' );
 	const blockProps = useBlockProps();
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		template: TEMPLATE,
@@ -134,7 +132,6 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 						aria-label={ __(
 							'Write summary. Press Enter to expand or collapse the details.'
 						) }
-						aria-describedby={ instanceId }
 						placeholder={ placeholder || __( 'Write summary…' ) }
 						withoutInteractiveFormatting
 						value={ summary }
