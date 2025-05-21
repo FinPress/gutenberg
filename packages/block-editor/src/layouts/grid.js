@@ -54,6 +54,8 @@ const RANGE_CONTROL_MAX_VALUES = {
 	svmax: 100,
 	lvmax: 100,
 	dvmax: 100,
+	lh: 10,
+	rlh: 10,
 };
 
 const units = [

@@ -55,7 +55,7 @@ const observeAndResizeJS = function () {
 				[ 'width', 'height', 'minHeight', 'maxHeight' ] as const
 			 ).forEach( function ( style ) {
 				if (
-					/^\\d+(vw|vh|svw|lvw|dvw|svh|lvh|dvh|vi|svi|lvi|dvi|vb|svb|lvb|dvb|vmin|svmin|lvmin|dvmin|vmax|svmax|lvmax|dvmax)$/.test(
+					/^\\d+(vw|vh|svw|lvw|dvw|svh|lvh|dvh|vi|svi|lvi|dvi|vb|svb|lvb|dvb|vmin|svmin|lvmin|dvmin|vmax|svmax|lvmax|dvmax|lh|rlh)$/.test(
 						ruleOrNode.style[ style ]
 					)
 				) {

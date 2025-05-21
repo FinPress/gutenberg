@@ -48,6 +48,8 @@ const RANGE_CONTROL_CUSTOM_SETTINGS = {
 	svmax: { max: 100, step: 1 },
 	lvmax: { max: 100, step: 1 },
 	dvmax: { max: 100, step: 1 },
+	lh: { max: 10, steps: 0.1 },
+	rlh: { max: 10, steps: 0.1 },
 };
 
 /**

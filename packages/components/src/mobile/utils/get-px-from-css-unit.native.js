@@ -210,6 +210,7 @@ function convertParsedUnitToPx( parsedUnit, options ) {
 		ch: 8, // The advance measure (width) of the glyph "0" of the element's font. Approximate
 		ex: 7.15625, // X-height of the element's font. Approximate.
 		lh: setOptions.lineHeight,
+		rlh: setOptions.lineHeight,
 	};
 	relativeUnits.svw = relativeUnits.vmin;
 	relativeUnits.lvw = relativeUnits.vmax;
