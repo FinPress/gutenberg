@@ -59,17 +59,30 @@ export default function ColorPalettePanel( { name } ) {
 			className="edit-site-global-styles-color-palette-panel"
 			spacing={ 8 }
 		>
-			{ !! themeColors && !! themeColors.length && (
-				<PaletteEdit
-					canReset={ themeColors !== baseThemeColors }
-					canOnlyChangeValues
-					colors={ themeColors }
-					onChange={ setThemeColors }
-					paletteLabel={ __( 'Theme' ) }
-					paletteLabelHeadingLevel={ 3 }
-					popoverProps={ popoverProps }
-				/>
-			) }
+			<VStack spacing={ 4 }>
+				{ !! themeColors && !! themeColors.length && (
+					<PaletteEdit
+						canReset={ themeColors !== baseThemeColors }
+						canOnlyChangeValues
+						colors={ themeColors }
+						onChange={ setThemeColors }
+						paletteLabel={ __( 'Theme' ) }
+						paletteLabelHeadingLevel={ 3 }
+						popoverProps={ popoverProps }
+					/>
+				) }
+				{ window.__experimentalEnableColorRandomizer &&
+					themeColors?.length > 0 && (
+						<Button
+							__next40pxDefaultSize
+							variant="secondary"
+							icon={ shuffle }
+							onClick={ randomizeThemeColors }
+						>
+							{ __( 'Randomize colors' ) }
+						</Button>
+					) }
+			</VStack>
 			{ !! defaultColors &&
 				!! defaultColors.length &&
 				!! defaultPaletteEnabled && (
@@ -82,17 +95,6 @@ export default function ColorPalettePanel( { name } ) {
 						paletteLabelHeadingLevel={ 3 }
 						popoverProps={ popoverProps }
 					/>
-				) }
-			{ window.__experimentalEnableColorRandomizer &&
-				themeColors?.length > 0 && (
-					<Button
-						__next40pxDefaultSize
-						variant="secondary"
-						icon={ shuffle }
-						onClick={ randomizeThemeColors }
-					>
-						{ __( 'Randomize colors' ) }
-					</Button>
 				) }
 			<PaletteEdit
 				colors={ customColors }
