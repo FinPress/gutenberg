@@ -32,7 +32,6 @@ import {
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import {
-	AlignmentControl,
 	BlockControls,
 	InspectorControls,
 	RichText,
@@ -44,7 +43,6 @@ import {
 	__experimentalGetShadowClassesAndStyles as useShadowProps,
 	__experimentalGetElementClassName,
 	store as blockEditorStore,
-	useBlockEditingMode,
 	getTypographyClassesAndStyles as useTypographyProps,
 	useSettings,
 } from '@wordpress/block-editor';
@@ -217,7 +215,6 @@ function ButtonEdit( props ) {
 		ref: useMergeRefs( [ setPopoverAnchor, ref ] ),
 		onKeyDown,
 	} );
-	const blockEditingMode = useBlockEditingMode();
 
 	const [ isEditingURL, setIsEditingURL ] = useState( false );
 	const isURLSet = !! url;
@@ -375,14 +372,6 @@ function ButtonEdit( props ) {
 				/>
 			</div>
 			<BlockControls group="block">
-				{ blockEditingMode === 'default' && (
-					<AlignmentControl
-						value={ textAlign }
-						onChange={ ( nextAlign ) => {
-							setAttributes( { textAlign: nextAlign } );
-						} }
-					/>
-				) }
 				{ ! isURLSet && isLinkTag && ! lockUrlControls && (
 					<ToolbarButton
 						name="link"
