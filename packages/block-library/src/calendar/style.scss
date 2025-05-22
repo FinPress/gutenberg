@@ -29,11 +29,14 @@
 			}
 		}
 
-		&.has-background th {
+		&.has-background th,
+		&.has-background td {
 			background-color: inherit;
 		}
 
-		&.has-text-color th {
+		&.has-text-color th,
+		&.has-text-color td,
+		&.has-text-color caption {
 			color: inherit;
 		}
 	}
