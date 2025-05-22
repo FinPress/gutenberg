@@ -47,7 +47,7 @@ const InsertFromURLPopover = ( {
 			<InputControl
 				__next40pxDefaultSize
 				label={ __( 'URL' ) }
-				type="text" // Use text instead of URL to allow relative paths (e.g., /image/image.jpg)
+				type="url"
 				hideLabelFromVision
 				placeholder={ __( 'Paste or type URL' ) }
 				onChange={ onChange }
@@ -272,11 +272,11 @@ export function MediaPlaceholder( {
 			} )
 		).catch( ( err ) => onError( err ) );
 
-		if ( ! uploadedMediaList?.length ) {
-			return;
+		if ( multiple ) {
+			onSelect( uploadedMediaList );
+		} else {
+			onSelect( uploadedMediaList[ 0 ] );
 		}
-
-		onSelect( multiple ? uploadedMediaList : uploadedMediaList[ 0 ] );
 	}
 
 	const onUpload = ( event ) => {

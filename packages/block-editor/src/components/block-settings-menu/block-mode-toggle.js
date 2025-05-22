@@ -14,7 +14,7 @@ import { store as blockEditorStore } from '../../store';
 const noop = () => {};
 
 export default function BlockModeToggle( { clientId, onToggle = noop } ) {
-	const { blockType, mode, enabled } = useSelect(
+	const { blockType, mode, isCodeEditingEnabled } = useSelect(
 		( select ) => {
 			const { getBlock, getBlockMode, getSettings } =
 				select( blockEditorStore );
@@ -23,7 +23,7 @@ export default function BlockModeToggle( { clientId, onToggle = noop } ) {
 			return {
 				mode: getBlockMode( clientId ),
 				blockType: block ? getBlockType( block.name ) : null,
-				enabled: getSettings().codeEditingEnabled && !! block?.isValid,
+				isCodeEditingEnabled: getSettings().codeEditingEnabled,
 			};
 		},
 		[ clientId ]
@@ -33,7 +33,7 @@ export default function BlockModeToggle( { clientId, onToggle = noop } ) {
 	if (
 		! blockType ||
 		! hasBlockSupport( blockType, 'html', true ) ||
-		! enabled
+		! isCodeEditingEnabled
 	) {
 		return null;
 	}

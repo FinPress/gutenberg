@@ -14,7 +14,7 @@ import { store as blockEditorStore } from '../../store';
  * @return {boolean} Whether the block toolbar component will be rendered.
  */
 export function useHasBlockToolbar() {
-	const enabled = useSelect( ( select ) => {
+	const { isToolbarEnabled, isBlockDisabled } = useSelect( ( select ) => {
 		const { getBlockEditingMode, getBlockName, getBlockSelectionStart } =
 			select( blockEditorStore );
 
@@ -27,12 +27,18 @@ export function useHasBlockToolbar() {
 			selectedBlockClientId &&
 			getBlockType( getBlockName( selectedBlockClientId ) );
 
-		return (
-			blockType &&
-			hasBlockSupport( blockType, '__experimentalToolbar', true ) &&
-			getBlockEditingMode( selectedBlockClientId ) !== 'disabled'
-		);
+		return {
+			isToolbarEnabled:
+				blockType &&
+				hasBlockSupport( blockType, '__experimentalToolbar', true ),
+			isBlockDisabled:
+				getBlockEditingMode( selectedBlockClientId ) === 'disabled',
+		};
 	}, [] );
 
-	return enabled;
+	if ( ! isToolbarEnabled || isBlockDisabled ) {
+		return false;
+	}
+
+	return true;
 }

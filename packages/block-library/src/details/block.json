@@ -15,8 +15,7 @@
 		"summary": {
 			"type": "rich-text",
 			"source": "rich-text",
-			"selector": "summary",
-			"role": "content"
+			"selector": "summary"
 		},
 		"name": {
 			"type": "string",

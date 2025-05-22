@@ -19,7 +19,6 @@ Go ahead and create these files using the following snippets:
 
 ```js
 import { createRoot } from 'react-dom';
-import './style.css';
 
 function MyFirstApp() {
 	return <span>Hello from JavaScript!</span>;

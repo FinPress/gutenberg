@@ -6,7 +6,6 @@ import { ExperimentalBlockEditorProvider } from './components/provider';
 import { getRichTextValues } from './components/rich-text/get-rich-text-values';
 import { lock } from './lock-unlock';
 import { PrivateRichText } from './components/rich-text/';
-import HTMLElementControl from './components/html-element-control';
 
 /**
  * Private @wordpress/block-editor APIs.
@@ -17,5 +16,4 @@ lock( privateApis, {
 	ExperimentalBlockEditorProvider,
 	getRichTextValues,
 	PrivateRichText,
-	HTMLElementControl,
 } );

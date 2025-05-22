@@ -13,7 +13,6 @@ import {
 	store as keyboardShortcutsStore,
 } from '@wordpress/keyboard-shortcuts';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -91,18 +90,15 @@ export default function KeyboardShortcutHelpModal( {
 	toggleModal,
 } ) {
 	const { registerShortcut } = useDispatch( keyboardShortcutsStore );
-
-	useEffect( () => {
-		registerShortcut( {
-			name: 'core/customize-widgets/keyboard-shortcuts',
-			category: 'main',
-			description: __( 'Display these keyboard shortcuts.' ),
-			keyCombination: {
-				modifier: 'access',
-				character: 'h',
-			},
-		} );
-	}, [ registerShortcut ] );
+	registerShortcut( {
+		name: 'core/customize-widgets/keyboard-shortcuts',
+		category: 'main',
+		description: __( 'Display these keyboard shortcuts.' ),
+		keyCombination: {
+			modifier: 'access',
+			character: 'h',
+		},
+	} );
 
 	useShortcut( 'core/customize-widgets/keyboard-shortcuts', toggleModal );
 

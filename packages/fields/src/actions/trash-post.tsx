@@ -39,7 +39,6 @@ const trashPost: Action< PostWithPermissions > = {
 	},
 	supportsBulk: true,
 	hideModalHeader: true,
-	modalFocusOnMount: 'firstContentElement',
 	RenderModal: ( { items, closeModal, onActionPerformed } ) => {
 		const [ isBusy, setIsBusy ] = useState( false );
 		const { createSuccessNotice, createErrorNotice } =

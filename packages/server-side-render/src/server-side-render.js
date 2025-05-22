@@ -7,14 +7,7 @@ import fastDeepEqual from 'fast-deep-equal/es6';
  * WordPress dependencies
  */
 import { useDebounce, usePrevious } from '@wordpress/compose';
-import {
-	RawHTML,
-	useCallback,
-	useEffect,
-	useLayoutEffect,
-	useRef,
-	useState,
-} from '@wordpress/element';
+import { RawHTML, useEffect, useRef, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
@@ -69,22 +62,7 @@ function DefaultErrorResponsePlaceholder( { response, className } ) {
 	return <Placeholder className={ className }>{ errorMessage }</Placeholder>;
 }
 
-function DefaultLoadingResponsePlaceholder( { children, isLoading } ) {
-	const [ showLoader, setShowLoader ] = useState( false );
-
-	useEffect( () => {
-		if ( ! isLoading ) {
-			setShowLoader( false );
-			return;
-		}
-
-		// Schedule showing the Spinner after 1 second.
-		const timeout = setTimeout( () => {
-			setShowLoader( true );
-		}, 1000 );
-		return () => clearTimeout( timeout );
-	}, [ isLoading ] );
-
+function DefaultLoadingResponsePlaceholder( { children, showLoader } ) {
 	return (
 		<div style={ { position: 'relative' } }>
 			{ showLoader && (
@@ -109,37 +87,35 @@ function DefaultLoadingResponsePlaceholder( { children, isLoading } ) {
 
 export default function ServerSideRender( props ) {
 	const {
+		attributes,
+		block,
 		className,
+		httpMethod = 'GET',
+		urlQueryArgs,
+		skipBlockSupportAttributes = false,
 		EmptyResponsePlaceholder = DefaultEmptyResponsePlaceholder,
 		ErrorResponsePlaceholder = DefaultErrorResponsePlaceholder,
 		LoadingResponsePlaceholder = DefaultLoadingResponsePlaceholder,
 	} = props;
 
 	const isMountedRef = useRef( false );
+	const [ showLoader, setShowLoader ] = useState( false );
 	const fetchRequestRef = useRef();
 	const [ response, setResponse ] = useState( null );
 	const prevProps = usePrevious( props );
 	const [ isLoading, setIsLoading ] = useState( false );
-	const latestPropsRef = useRef( props );
 
-	useLayoutEffect( () => {
-		latestPropsRef.current = props;
-	}, [ props ] );
-
-	const fetchData = useCallback( () => {
+	function fetchData() {
 		if ( ! isMountedRef.current ) {
 			return;
 		}
 
-		const {
-			attributes,
-			block,
-			skipBlockSupportAttributes = false,
-			httpMethod = 'GET',
-			urlQueryArgs,
-		} = latestPropsRef.current;
-
 		setIsLoading( true );
+
+		// Schedule showing the Spinner after 1 second.
+		const timeout = setTimeout( () => {
+			setShowLoader( true );
+		}, 1000 );
 
 		let sanitizedAttributes =
 			attributes &&
@@ -194,11 +170,14 @@ export default function ServerSideRender( props ) {
 					fetchRequest === fetchRequestRef.current
 				) {
 					setIsLoading( false );
+					// Cancel the timeout to show the Spinner.
+					setShowLoader( false );
+					clearTimeout( timeout );
 				}
 			} ) );
 
 		return fetchRequest;
-	}, [] );
+	}
 
 	const debouncedFetchData = useDebounce( fetchData, 500 );
 
@@ -223,12 +202,12 @@ export default function ServerSideRender( props ) {
 
 	const hasResponse = !! response;
 	const hasEmptyResponse = response === '';
-	const hasError = !! response?.error;
+	const hasError = response?.error;
 
 	if ( isLoading ) {
 		return (
-			<LoadingResponsePlaceholder { ...props } isLoading={ isLoading }>
-				{ hasResponse && ! hasError && (
+			<LoadingResponsePlaceholder { ...props } showLoader={ showLoader }>
+				{ hasResponse && (
 					<RawHTML className={ className }>{ response }</RawHTML>
 				) }
 			</LoadingResponsePlaceholder>

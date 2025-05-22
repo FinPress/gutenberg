@@ -90,7 +90,7 @@ test.describe( 'Post publish panel', () => {
 			page
 				.getByRole( 'region', { name: 'Editor publish' } )
 				.locator( ':focus' )
-		).toContainText( 'Test Post' );
+		).toHaveText( 'Test Post' );
 	} );
 
 	test( 'should retain focus within the panel', async ( {

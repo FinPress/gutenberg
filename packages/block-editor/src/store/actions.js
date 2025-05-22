@@ -1157,11 +1157,7 @@ export const mergeBlocks =
 		const blockA = select.getBlock( clientIdA );
 		const blockAType = getBlockType( blockA.name );
 
-		if (
-			! blockAType ||
-			select.getBlockEditingMode( clientIdA ) === 'disabled' ||
-			select.getBlockEditingMode( clientIdB ) === 'disabled'
-		) {
+		if ( ! blockAType ) {
 			return;
 		}
 

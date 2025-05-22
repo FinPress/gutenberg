@@ -46,6 +46,7 @@ export const PopoverInsideIframeRenderedInExternalSlot = (
 
 	return (
 		<SlotFillProvider>
+			{ /* @ts-expect-error Slot is not currently typed on Popover */ }
 			<Popover.Slot name={ SLOT_NAME } />
 			<GenericIframe
 				style={ {

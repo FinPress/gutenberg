@@ -55,8 +55,6 @@ function Guide( {
 	className,
 	contentLabel,
 	finishButtonText = __( 'Finish' ),
-	nextButtonText = __( 'Next' ),
-	previousButtonText = __( 'Previous' ),
 	onFinish,
 	pages = [],
 }: GuideProps ) {
@@ -148,7 +146,7 @@ function Guide( {
 							onClick={ goBack }
 							__next40pxDefaultSize
 						>
-							{ previousButtonText }
+							{ __( 'Previous' ) }
 						</Button>
 					) }
 					{ canGoForward && (
@@ -158,7 +156,7 @@ function Guide( {
 							onClick={ goForward }
 							__next40pxDefaultSize
 						>
-							{ nextButtonText }
+							{ __( 'Next' ) }
 						</Button>
 					) }
 					{ ! canGoForward && (

@@ -53,11 +53,9 @@ function styleToAttributes( style ) {
 	const updatedStyle = { ...omit( style, [ 'fontFamily' ] ) };
 	const fontSizeValue = style?.typography?.fontSize;
 	const fontFamilyValue = style?.typography?.fontFamily;
-	const fontSizeSlug =
-		typeof fontSizeValue === 'string' &&
-		fontSizeValue?.startsWith( 'var:preset|font-size|' )
-			? fontSizeValue.substring( 'var:preset|font-size|'.length )
-			: undefined;
+	const fontSizeSlug = fontSizeValue?.startsWith( 'var:preset|font-size|' )
+		? fontSizeValue.substring( 'var:preset|font-size|'.length )
+		: undefined;
 	const fontFamilySlug = fontFamilyValue?.startsWith(
 		'var:preset|font-family|'
 	)

@@ -42,7 +42,6 @@ import {
 	LINK_DESTINATION_MEDIA,
 	LINK_DESTINATION_NONE,
 	ALLOWED_MEDIA_TYPES,
-	DEFAULT_MEDIA_SIZE_SLUG,
 } from './constants';
 
 export const pickRelevantMediaFiles = ( image, size ) => {
@@ -240,7 +239,7 @@ export function ImageEdit( {
 
 		// Try to use the previous selected image size if its available
 		// otherwise try the default image size or fallback to "full"
-		let newSize = DEFAULT_MEDIA_SIZE_SLUG;
+		let newSize = 'full';
 		if ( sizeSlug && hasSize( media, sizeSlug ) ) {
 			newSize = sizeSlug;
 		} else if ( hasSize( media, imageDefaultSize ) ) {
@@ -263,6 +262,10 @@ export function ImageEdit( {
 			additionalAttributes = {
 				sizeSlug: newSize,
 			};
+		} else {
+			// Keep the same url when selecting the same file, so "Resolution"
+			// option is not changed.
+			additionalAttributes = { url };
 		}
 
 		// Check if default link setting should be used.

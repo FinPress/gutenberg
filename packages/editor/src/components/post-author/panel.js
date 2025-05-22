@@ -6,8 +6,6 @@ import { Button, Dropdown } from '@wordpress/components';
 import { useState, useMemo } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
@@ -15,16 +13,10 @@ import { store as coreStore } from '@wordpress/core-data';
 import PostAuthorCheck from './check';
 import PostAuthorForm from './index';
 import PostPanelRow from '../post-panel-row';
-import { BASE_QUERY } from './constants';
-import { store as editorStore } from '../../store';
+import { useAuthorsQuery } from './hook';
 
 function PostAuthorToggle( { isOpen, onClick } ) {
-	const { postAuthor } = useSelect( ( select ) => {
-		const id = select( editorStore ).getEditedPostAttribute( 'author' );
-		return {
-			postAuthor: select( coreStore ).getUser( id, BASE_QUERY ),
-		};
-	}, [] );
+	const { postAuthor } = useAuthorsQuery();
 	const authorName =
 		decodeEntities( postAuthor?.name ) || __( '(No author)' );
 	return (

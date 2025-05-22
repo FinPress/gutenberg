@@ -119,7 +119,6 @@ const reorderPage: Action< BasePost > = {
 	isEligible( { status } ) {
 		return status !== 'trash';
 	},
-	modalFocusOnMount: 'firstContentElement',
 	RenderModal: ReorderModal,
 };
 

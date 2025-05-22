@@ -22,9 +22,11 @@ test.describe( 'Compatibility with classic editor', () => {
 		await page.keyboard.type( 'Random Link' );
 		await page.keyboard.type( '</a> ' );
 		// Publish Post
-		const postId = await editor.publishPost();
+		await editor.publishPost();
 		// View Post
-		await page.goto( `/?p=${ postId }` );
+		await page.click(
+			'role=region[name="Editor publish"i] >> role=link[name="View post"i]'
+		);
 
 		// Check the content doesn't contain <p> tags.
 		// No accessible selector for now.

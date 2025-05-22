@@ -10,8 +10,8 @@ import {
 	useBlockProps,
 	store as blockEditorStore,
 	useInnerBlocksProps,
-	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
+import { SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 
@@ -19,13 +19,11 @@ import { store as coreStore } from '@wordpress/core-data';
  * Internal dependencies
  */
 import EnhancedPaginationControl from './inspector-controls/enhanced-pagination-control';
-import { unlock } from '../../lock-unlock';
 import QueryInspectorControls from './inspector-controls';
 import EnhancedPaginationModal from './enhanced-pagination-modal';
 import { getQueryContextFromTemplate } from '../utils';
 import QueryToolbar from './query-toolbar';
-
-const { HTMLElementControl } = unlock( blockEditorPrivateApis );
+import { htmlElementMessages } from '../../utils/messages';
 
 const DEFAULTS_POSTS_PER_PAGE = 3;
 
@@ -40,6 +38,7 @@ export default function QueryContent( {
 	const {
 		queryId,
 		query,
+		displayLayout,
 		enhancedPagination,
 		tagName: TagName = 'div',
 		query: { inherit } = {},
@@ -102,15 +101,21 @@ export default function QueryContent( {
 		} else if ( ! query.perPage && postsPerPage ) {
 			newQuery.perPage = postsPerPage;
 		}
-
+		// We need to reset the `inherit` value if in a singular template, as queries
+		// are not inherited when in singular content (e.g. post, page, 404, blank).
+		if ( isSingular && query.inherit ) {
+			newQuery.inherit = false;
+		}
 		if ( !! Object.keys( newQuery ).length ) {
 			__unstableMarkNextChangeAsNotPersistent();
 			updateQuery( newQuery );
 		}
 	}, [
 		query.perPage,
-		inherit,
+		query.inherit,
 		postsPerPage,
+		inherit,
+		isSingular,
 		__unstableMarkNextChangeAsNotPersistent,
 		updateQuery,
 	] );
@@ -127,6 +132,10 @@ export default function QueryContent( {
 		__unstableMarkNextChangeAsNotPersistent,
 		setAttributes,
 	] );
+	const updateDisplayLayout = ( newDisplayLayout ) =>
+		setAttributes( {
+			displayLayout: { ...displayLayout, ...newDisplayLayout },
+		} );
 
 	return (
 		<>
@@ -140,6 +149,7 @@ export default function QueryContent( {
 					name={ name }
 					attributes={ attributes }
 					setQuery={ updateQuery }
+					setDisplayLayout={ updateDisplayLayout }
 					setAttributes={ setAttributes }
 					clientId={ clientId }
 					isSingular={ isSingular }
@@ -149,18 +159,21 @@ export default function QueryContent( {
 				<QueryToolbar attributes={ attributes } clientId={ clientId } />
 			</BlockControls>
 			<InspectorControls group="advanced">
-				<HTMLElementControl
-					tagName={ TagName }
-					onChange={ ( value ) =>
-						setAttributes( { tagName: value } )
-					}
-					clientId={ clientId }
+				<SelectControl
+					__nextHasNoMarginBottom
+					__next40pxDefaultSize
+					label={ __( 'HTML element' ) }
 					options={ [
 						{ label: __( 'Default (<div>)' ), value: 'div' },
 						{ label: '<main>', value: 'main' },
 						{ label: '<section>', value: 'section' },
 						{ label: '<aside>', value: 'aside' },
 					] }
+					value={ TagName }
+					onChange={ ( value ) =>
+						setAttributes( { tagName: value } )
+					}
+					help={ htmlElementMessages[ TagName ] }
 				/>
 				<EnhancedPaginationControl
 					enhancedPagination={ enhancedPagination }

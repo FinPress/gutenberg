@@ -311,14 +311,3 @@ export const canInsertBlockInWidgetArea = createRegistrySelector(
 export function isListViewOpened( state ) {
 	return state.listViewPanel;
 }
-
-/**
- * Returns whether widget saving is locked.
- *
- * @param {Object} state Global application state.
- *
- * @return {boolean} Is locked.
- */
-export function isWidgetSavingLocked( state ) {
-	return Object.keys( state.widgetSavingLock ).length > 0;
-}

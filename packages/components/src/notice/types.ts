@@ -14,13 +14,11 @@ type CommonNoticeActionProps = {
 // `onClick` will be ignored.
 type NoticeActionWithURL = CommonNoticeActionProps & {
 	url: string;
-	openInNewTab?: boolean;
 	onClick?: never;
 };
 type NoticeActionWithOnClick = CommonNoticeActionProps & {
 	url?: never;
-	openInNewTab?: never;
-	onClick: MouseEventHandler< HTMLButtonElement | HTMLAnchorElement >;
+	onClick: MouseEventHandler< HTMLButtonElement >;
 };
 
 export type NoticeAction = NoticeActionWithURL | NoticeActionWithOnClick;

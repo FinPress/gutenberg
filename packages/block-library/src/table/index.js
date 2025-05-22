@@ -48,7 +48,7 @@ export const settings = {
 							tag: 'td',
 						},
 						{
-							content: __( 'Jaco Pastorius' ),
+							content: 'Jaco Pastorius',
 							tag: 'td',
 						},
 						{
@@ -64,7 +64,7 @@ export const settings = {
 							tag: 'td',
 						},
 						{
-							content: __( 'Betty Carter' ),
+							content: 'Betty Carter',
 							tag: 'td',
 						},
 						{
@@ -80,7 +80,7 @@ export const settings = {
 							tag: 'td',
 						},
 						{
-							content: __( 'Bebo Valdés' ),
+							content: 'Bebo Valdés',
 							tag: 'td',
 						},
 						{

@@ -196,17 +196,6 @@ export default function PostFeaturedImageEdit( {
 		}
 	};
 
-	// On reset image
-	const onResetImage = () => {
-		setAttributes( {
-			isLink: false,
-			linkTarget: '_self',
-			rel: '',
-			sizeSlug: undefined,
-		} );
-		setFeaturedImage( 0 );
-	};
-
 	// Reset temporary url when media is available.
 	useEffect( () => {
 		if ( mediaUrl && temporaryURL ) {
@@ -239,20 +228,38 @@ export default function PostFeaturedImageEdit( {
 					media={ media }
 				/>
 			</InspectorControls>
-			{ ( featuredImage || isDescendentOfQueryLoop || ! postId ) && (
-				<InspectorControls>
-					<ToolsPanel
-						label={ __( 'Settings' ) }
-						resetAll={ () => {
+			<InspectorControls>
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ () => {
+						setAttributes( {
+							isLink: false,
+							linkTarget: '_self',
+							rel: '',
+						} );
+					} }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
+					<ToolsPanelItem
+						label={
+							postType?.labels.singular_name
+								? sprintf(
+										// translators: %s: Name of the post type e.g: "post".
+										__( 'Link to %s' ),
+										postType.labels.singular_name
+								  )
+								: __( 'Link to post' )
+						}
+						isShownByDefault
+						hasValue={ () => !! isLink }
+						onDeselect={ () =>
 							setAttributes( {
 								isLink: false,
-								linkTarget: '_self',
-								rel: '',
-							} );
-						} }
-						dropdownMenuProps={ dropdownMenuProps }
+							} )
+						}
 					>
-						<ToolsPanelItem
+						<ToggleControl
+							__nextHasNoMarginBottom
 							label={
 								postType?.labels.singular_name
 									? sprintf(
@@ -262,91 +269,68 @@ export default function PostFeaturedImageEdit( {
 									  )
 									: __( 'Link to post' )
 							}
+							onChange={ () =>
+								setAttributes( { isLink: ! isLink } )
+							}
+							checked={ isLink }
+						/>
+					</ToolsPanelItem>
+					{ isLink && (
+						<ToolsPanelItem
+							label={ __( 'Open in new tab' ) }
 							isShownByDefault
-							hasValue={ () => !! isLink }
+							hasValue={ () => '_self' !== linkTarget }
 							onDeselect={ () =>
 								setAttributes( {
-									isLink: false,
+									linkTarget: '_self',
 								} )
 							}
 						>
 							<ToggleControl
 								__nextHasNoMarginBottom
-								label={
-									postType?.labels.singular_name
-										? sprintf(
-												// translators: %s: Name of the post type e.g: "post".
-												__( 'Link to %s' ),
-												postType.labels.singular_name
-										  )
-										: __( 'Link to post' )
+								label={ __( 'Open in new tab' ) }
+								onChange={ ( value ) =>
+									setAttributes( {
+										linkTarget: value ? '_blank' : '_self',
+									} )
 								}
-								onChange={ () =>
-									setAttributes( { isLink: ! isLink } )
-								}
-								checked={ isLink }
+								checked={ linkTarget === '_blank' }
 							/>
 						</ToolsPanelItem>
-
-						{ isLink && (
-							<ToolsPanelItem
-								label={ __( 'Open in new tab' ) }
-								isShownByDefault
-								hasValue={ () => '_self' !== linkTarget }
-								onDeselect={ () =>
-									setAttributes( {
-										linkTarget: '_self',
-									} )
-								}
-							>
-								<ToggleControl
-									__nextHasNoMarginBottom
-									label={ __( 'Open in new tab' ) }
-									onChange={ ( value ) =>
-										setAttributes( {
-											linkTarget: value
-												? '_blank'
-												: '_self',
-										} )
-									}
-									checked={ linkTarget === '_blank' }
-								/>
-							</ToolsPanelItem>
-						) }
-						{ isLink && (
-							<ToolsPanelItem
+					) }
+					{ isLink && (
+						<ToolsPanelItem
+							label={ __( 'Link rel' ) }
+							isShownByDefault
+							hasValue={ () => !! rel }
+							onDeselect={ () =>
+								setAttributes( {
+									rel: '',
+								} )
+							}
+						>
+							<TextControl
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 								label={ __( 'Link rel' ) }
-								isShownByDefault
-								hasValue={ () => !! rel }
-								onDeselect={ () =>
-									setAttributes( {
-										rel: '',
-									} )
-								}
-							>
-								<TextControl
-									__next40pxDefaultSize
-									__nextHasNoMarginBottom
-									label={ __( 'Link rel' ) }
-									value={ rel }
-									onChange={ ( newRel ) =>
-										setAttributes( { rel: newRel } )
-									}
-								/>
-							</ToolsPanelItem>
-						) }
-						{ !! media && (
-							<FeaturedImageResolutionTool
-								image={ media }
-								value={ sizeSlug }
-								onChange={ ( nextSizeSlug ) =>
-									setAttributes( { sizeSlug: nextSizeSlug } )
+								value={ rel }
+								onChange={ ( newRel ) =>
+									setAttributes( { rel: newRel } )
 								}
 							/>
-						) }
-					</ToolsPanel>
-				</InspectorControls>
-			) }
+						</ToolsPanelItem>
+					) }
+					{ !! media && (
+						<FeaturedImageResolutionTool
+							image={ media }
+							value={ sizeSlug }
+							onChange={ ( nextSizeSlug ) =>
+								setAttributes( { sizeSlug: nextSizeSlug } )
+							}
+						/>
+					) }
+				</ToolsPanel>
+			</InspectorControls>
 		</>
 	);
 
@@ -416,7 +400,8 @@ export default function PostFeaturedImageEdit( {
 							label={ label }
 							showTooltip
 							tooltipPosition="top center"
-							onClick={ () => {
+							onClick={ ( e ) => {
+								e.preventDefault();
 								open();
 							} }
 						/>
@@ -468,7 +453,7 @@ export default function PostFeaturedImageEdit( {
 						accept="image/*"
 						onSelect={ onSelectImage }
 						onError={ onUploadError }
-						onReset={ onResetImage }
+						onReset={ () => setFeaturedImage( 0 ) }
 					/>
 				</BlockControls>
 			) }

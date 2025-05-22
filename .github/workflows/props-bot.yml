@@ -76,8 +76,6 @@ jobs:
             - name: Remove the props-bot label
               uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
               if: ${{ github.event.action == 'labeled' && 'props-bot' == github.event.label.name }}
-              env:
-                  ISSUE_NUMBER: ${{ github.event.number }}
               with:
                   retries: 2
                   retry-exempt-status-codes: 418
@@ -85,6 +83,6 @@ jobs:
                       github.rest.issues.removeLabel({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        issue_number: process.env.ISSUE_NUMBER,
+                        issue_number: '${{ github.event.number }}',
                         name: 'props-bot'
                       });

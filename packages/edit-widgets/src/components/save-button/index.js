@@ -11,26 +11,18 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { store as editWidgetsStore } from '../../store';
 
 function SaveButton() {
-	const { hasEditedWidgetAreaIds, isSaving, isWidgetSaveLocked } = useSelect(
-		( select ) => {
-			const {
-				getEditedWidgetAreas,
-				isSavingWidgetAreas,
-				isWidgetSavingLocked,
-			} = select( editWidgetsStore );
+	const { hasEditedWidgetAreaIds, isSaving } = useSelect( ( select ) => {
+		const { getEditedWidgetAreas, isSavingWidgetAreas } =
+			select( editWidgetsStore );
 
-			return {
-				hasEditedWidgetAreaIds: getEditedWidgetAreas()?.length > 0,
-				isSaving: isSavingWidgetAreas(),
-				isWidgetSaveLocked: isWidgetSavingLocked(),
-			};
-		},
-		[]
-	);
+		return {
+			hasEditedWidgetAreaIds: getEditedWidgetAreas()?.length > 0,
+			isSaving: isSavingWidgetAreas(),
+		};
+	}, [] );
 	const { saveEditedWidgetAreas } = useDispatch( editWidgetsStore );
 
-	const isDisabled =
-		isWidgetSaveLocked || isSaving || ! hasEditedWidgetAreaIds;
+	const isDisabled = isSaving || ! hasEditedWidgetAreaIds;
 
 	return (
 		<Button

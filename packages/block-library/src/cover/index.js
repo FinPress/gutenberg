@@ -39,7 +39,7 @@ export const settings = {
 			{
 				name: 'core/paragraph',
 				attributes: {
-					content: `<strong>${ __( 'Snow Patrol' ) }</strong>`,
+					content: __( '<strong>Snow Patrol</strong>' ),
 					align: 'center',
 				},
 			},

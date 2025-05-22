@@ -65,7 +65,7 @@ export const separated = css`
 		border-bottom: 1px solid ${ CONFIG.surfaceBorderColor };
 	}
 
-	> *:last-of-type > * {
+	> *:last-of-type > *:not( :focus ) {
 		border-bottom-color: transparent;
 	}
 `;

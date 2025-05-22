@@ -70,9 +70,7 @@ describe( 'getNotificationArgumentsForSaveSuccess()', () => {
 				'updated',
 				{
 					...defaultExpectedAction,
-					actions: [
-						{ label: 'view', openInNewTab: true, url: 'some_link' },
-					],
+					actions: [ { label: 'view', url: 'some_link' } ],
 				},
 			],
 		],

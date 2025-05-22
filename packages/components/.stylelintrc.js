@@ -1,6 +1,6 @@
 /** @type {import('stylelint').Config} */
 module.exports = {
-	extends: '../../.stylelintrc.js',
+	extends: '../../.stylelintrc.json',
 	rules: {
 		'declaration-property-value-disallowed-list': [
 			{

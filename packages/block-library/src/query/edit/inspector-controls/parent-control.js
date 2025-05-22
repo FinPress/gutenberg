@@ -51,7 +51,7 @@ function ParentControl( { parents, postType, onChange } ) {
 				),
 			};
 		},
-		[ search, postType, parents ]
+		[ search, parents ]
 	);
 	const currentParents = useSelect(
 		( select ) => {
@@ -65,7 +65,7 @@ function ParentControl( { parents, postType, onChange } ) {
 				per_page: parents.length,
 			} );
 		},
-		[ parents, postType ]
+		[ parents ]
 	);
 	// Update the `value` state only after the selectors are resolved
 	// to avoid emptying the input when we're changing parents.

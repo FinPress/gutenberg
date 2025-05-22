@@ -15,12 +15,12 @@ const tableContentPasteSchema = ( { phrasingContentSchema } ) => ( {
 			th: {
 				allowEmpty: true,
 				children: phrasingContentSchema,
-				attributes: [ 'scope', 'colspan', 'rowspan', 'style' ],
+				attributes: [ 'scope', 'colspan', 'rowspan' ],
 			},
 			td: {
 				allowEmpty: true,
 				children: phrasingContentSchema,
-				attributes: [ 'colspan', 'rowspan', 'style' ],
+				attributes: [ 'colspan', 'rowspan' ],
 			},
 		},
 	},
@@ -79,23 +79,11 @@ const transforms = {
 									col.getAttribute( 'colspan' )
 								);
 
-								const { textAlign } = col.style || {};
-
-								let align;
-								if (
-									textAlign === 'left' ||
-									textAlign === 'center' ||
-									textAlign === 'right'
-								) {
-									align = textAlign;
-								}
-
 								colAcc.push( {
 									tag: col.nodeName.toLowerCase(),
 									content: col.innerHTML,
 									rowspan,
 									colspan,
-									align,
 								} );
 
 								return colAcc;

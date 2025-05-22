@@ -76,7 +76,9 @@ test.describe( 'Comments', () => {
 		}
 
 		// Visit the post that was just published.
-		await page.goto( `/?p=${ postId }` );
+		await page.click(
+			'role=region[name="Editor publish"] >> role=link[name="View Post"i]'
+		);
 
 		// We check that there is a previous comments page link.
 		await expect(
@@ -128,7 +130,9 @@ test.describe( 'Comments', () => {
 		}
 
 		// Visit the post that was just published.
-		await page.goto( `/?p=${ postId }` );
+		await page.click(
+			'role=region[name="Editor publish"] >> role=link[name="View Post"i]'
+		);
 
 		// We check that there are no comments page link.
 		await expect(
@@ -191,7 +195,9 @@ test.describe( 'Comments', () => {
 		} );
 
 		// Visit the post that was just published.
-		await page.goto( `/?p=${ postId }` );
+		await page.click(
+			'role=region[name="Editor publish"] >> role=link[name="View Post"i]'
+		);
 
 		// Check that the Comment Template block (an inner block) is rendered.
 		await expect(
@@ -220,7 +226,9 @@ test.describe( 'Comments', () => {
 		} );
 
 		// Visit the post that was just published.
-		await page.goto( `/?p=${ postId }` );
+		await page.click(
+			'role=region[name="Editor publish"] >> role=link[name="View Post"i]'
+		);
 
 		// Check that the Comment Template block (an inner block) is NOT rendered.
 		await expect(

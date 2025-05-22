@@ -116,8 +116,7 @@ const { state, actions } = store(
 					getContext();
 				if ( state.menuOpenedBy.click ) {
 					// If Escape close the menu.
-					if ( event.key === 'Escape' ) {
-						event.stopPropagation(); // Keeps ancestor menus open.
+					if ( event?.key === 'Escape' ) {
 						actions.closeMenu( 'click' );
 						actions.closeMenu( 'focus' );
 						return;

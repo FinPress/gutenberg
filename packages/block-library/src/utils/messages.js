@@ -3,9 +3,6 @@
  */
 import { __ } from '@wordpress/i18n';
 
-/**
- * Messages providing helpful descriptions for HTML elements.
- */
 export const htmlElementMessages = {
 	article: __(
 		'The <article> element should represent a self-contained, syndicatable portion of the document.'

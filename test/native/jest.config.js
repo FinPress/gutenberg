@@ -27,9 +27,6 @@ const RAW_HANDLING_UNSUPPORTED_UNIT_TESTS = [
 	'figure-content-reducer',
 	'normalise-blocks',
 	'image-corrector',
-	// Disabled due to jsdom-jscore-rn limitations.
-	// See: https://github.com/WordPress/gutenberg/pull/69322#issuecomment-2789510963
-	'paste-handler',
 ];
 
 module.exports = {

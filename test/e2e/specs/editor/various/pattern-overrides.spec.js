@@ -207,8 +207,19 @@ test.describe( 'Pattern Overrides', () => {
 				},
 			] );
 
-			const postId = await editor.publishPost();
-			await page.goto( `/?p=${ postId }` );
+			await page
+				.getByRole( 'region', { name: 'Editor top bar' } )
+				.getByRole( 'button', { name: 'Publish' } )
+				.click();
+			const editorPublishPanel = page.getByRole( 'region', {
+				name: 'Editor publish',
+			} );
+			await editorPublishPanel
+				.getByRole( 'button', { name: 'Publish', exact: true } )
+				.click();
+			await editorPublishPanel
+				.getByRole( 'link', { name: 'View post' } )
+				.click();
 
 			await expect( page.locator( 'p' ) ).toContainText( [
 				'I would word it this way',

@@ -216,7 +216,6 @@ export const saveDirtyEntities =
 								{
 									label: __( 'View site' ),
 									url: homeUrl,
-									openInNewTab: true,
 								},
 							],
 						} );

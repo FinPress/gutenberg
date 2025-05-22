@@ -16,9 +16,7 @@
 	height: $grid-unit-40;
 	// Override input style margin in WP forms.css.
 	margin: 0;
-	background: $components-color-background;
-	color: $components-color-foreground;
-	@include input-control( $components-color-accent);
+	@include input-control;
 
 	&.is-next-40px-default-size {
 		height: $grid-unit-50;

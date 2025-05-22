@@ -428,16 +428,19 @@ export const useCustomUnits = ( {
 		units
 	);
 
-	if ( ! defaultValues ) {
-		return customUnitsToReturn;
+	if ( defaultValues ) {
+		customUnitsToReturn.forEach( ( unit, i ) => {
+			if ( defaultValues[ unit.value ] ) {
+				const [ parsedDefaultValue ] = parseQuantityAndUnitFromRawValue(
+					defaultValues[ unit.value ]
+				);
+
+				customUnitsToReturn[ i ].default = parsedDefaultValue;
+			}
+		} );
 	}
 
-	return customUnitsToReturn.map( ( unit ) => {
-		const [ defaultValue ] = defaultValues[ unit.value ]
-			? parseQuantityAndUnitFromRawValue( defaultValues[ unit.value ] )
-			: [];
-		return { ...unit, default: defaultValue };
-	} );
+	return customUnitsToReturn;
 };
 
 /**

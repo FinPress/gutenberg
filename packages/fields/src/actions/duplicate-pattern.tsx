@@ -21,7 +21,6 @@ const duplicatePattern: Action< Pattern > = {
 	label: _x( 'Duplicate', 'action label' ),
 	isEligible: ( item ) => item.type !== 'wp_template_part',
 	modalHeader: _x( 'Duplicate pattern', 'action label' ),
-	modalFocusOnMount: 'firstContentElement',
 	RenderModal: ( { items, closeModal } ) => {
 		const [ item ] = items;
 		const duplicatedProps = useDuplicatePatternProps( {

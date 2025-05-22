@@ -160,7 +160,6 @@ export const useSetAsHomepageAction = () => {
 
 				return true;
 			},
-			modalFocusOnMount: 'firstContentElement',
 			RenderModal: SetAsHomepageModal,
 		} ),
 		[ pageForPosts, pageOnFront ]
