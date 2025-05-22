@@ -57,7 +57,7 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 			<InspectorControls>
 				<PanelBody title="Settings">
 					<SelectControl
-						label={ __( 'HTML Element' ) }
+						label={ __( 'HTML element' ) }
 						value={ tagName }
 						onChange={ ( value ) =>
 							setAttributes( { tagName: value } )
