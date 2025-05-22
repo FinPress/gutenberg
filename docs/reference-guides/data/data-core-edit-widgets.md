@@ -195,7 +195,6 @@ import { useDispatch } from '@wordpress/data';
 
 const ExampleComponent = () => {
 	const { lockWidgetSaving } = useDispatch( widgetStore );
-
 	return (
 		<Button onClick={ () => lockWidgetSaving( 'lockName' ) }>
 			{ __( 'Lock Widget Saving' ) }
@@ -344,7 +343,6 @@ import { useDispatch } from '@wordpress/data';
 
 const ExampleComponent = () => {
 	const { unlockWidgetSaving } = useDispatch( widgetStore );
-
 	return (
 		<Button onClick={ () => unlockWidgetSaving( 'lockName' ) }>
 			{ __( 'Unlock Widget Saving' ) }

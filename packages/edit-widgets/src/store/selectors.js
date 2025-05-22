@@ -324,16 +324,16 @@ export function isListViewOpened( state ) {
  * import { useSelect } from '@wordpress/data';
  *
  * const ExampleComponent = () => {
- *     const isSavingLocked = useSelect(
- *         (select) => select(widgetStore).isWidgetSavingLocked(),
- *         []
- *     );
+ * 	const isSavingLocked = useSelect(
+ * 		( select ) => select( widgetStore ).isWidgetSavingLocked(),
+ * 		[]
+ * 	);
  *
- *     return (
- *         isSavingLocked ?
- *             <p>{__('Widget saving is locked')}</p> :
- *             <p>{__('Widget saving is not locked')}</p>
- *     );
+ * 	return isSavingLocked ? (
+ * 		<p>{ __( 'Widget saving is locked' ) }</p>
+ * 	) : (
+ * 		<p>{ __( 'Widget saving is not locked' ) }</p>
+ * 	);
  * };
  * ```
  *
