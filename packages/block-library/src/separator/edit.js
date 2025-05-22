@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { HorizontalRule } from '@wordpress/components';
+import { HorizontalRule, PanelBody } from '@wordpress/components';
 import {
 	useBlockProps,
 	getColorClassName,
@@ -58,18 +58,20 @@ export default function SeparatorEdit( {
 
 	return (
 		<>
-			<InspectorControls group="advanced">
-				<HTMLElementControl
-					tagName={ tagName }
-					onChange={ ( value ) =>
-						setAttributes( { tagName: value } )
-					}
-					clientId={ clientId }
-					options={ [
-						{ label: __( 'Default (<hr>)' ), value: 'hr' },
-						{ label: '<div>', value: 'div' },
-					] }
-				/>
+			<InspectorControls group="styles">
+				<PanelBody title={ __( 'Accessibility' ) }>
+					<HTMLElementControl
+						tagName={ tagName }
+						onChange={ ( value ) =>
+							setAttributes( { tagName: value } )
+						}
+						clientId={ clientId }
+						options={ [
+							{ label: __( 'Default (<hr>)' ), value: 'hr' },
+							{ label: '<div>', value: 'div' },
+						] }
+					/>
+				</PanelBody>
 			</InspectorControls>
 			<Wrapper
 				{ ...useBlockProps( {
