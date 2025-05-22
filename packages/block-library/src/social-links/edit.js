@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 /**
  * External dependencies
  */
@@ -8,7 +10,6 @@ import clsx from 'clsx';
  */
 import { useEffect } from '@wordpress/element';
 import {
-	BlockControls,
 	useInnerBlocksProps,
 	useBlockProps,
 	InspectorControls,
@@ -20,15 +21,13 @@ import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import {
-	MenuGroup,
-	MenuItem,
+	PanelBody,
 	ToggleControl,
 	ToolbarDropdownMenu,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { check } from '@wordpress/icons';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -123,10 +122,6 @@ export function SocialLinksEdit( props ) {
 				: undefined,
 	} );
 
-	const POPOVER_PROPS = {
-		position: 'bottom right',
-	};
-
 	const colorSettings = [
 		{
 			// Use custom attribute as fallback to prevent loss of named color selection when
@@ -167,43 +162,6 @@ export function SocialLinksEdit( props ) {
 
 	return (
 		<>
-			<BlockControls group="other">
-				<ToolbarDropdownMenu
-					label={ __( 'Size' ) }
-					text={ __( 'Size' ) }
-					icon={ null }
-					popoverProps={ POPOVER_PROPS }
-				>
-					{ ( { onClose } ) => (
-						<MenuGroup>
-							{ sizeOptions.map( ( entry ) => {
-								return (
-									<MenuItem
-										icon={
-											( size === entry.value ||
-												( ! size &&
-													entry.value ===
-														'has-normal-icon-size' ) ) &&
-											check
-										}
-										isSelected={ size === entry.value }
-										key={ entry.value }
-										onClick={ () => {
-											setAttributes( {
-												size: entry.value,
-											} );
-										} }
-										onClose={ onClose }
-										role="menuitemradio"
-									>
-										{ entry.name }
-									</MenuItem>
-								);
-							} ) }
-						</MenuGroup>
-					) }
-				</ToolbarDropdownMenu>
-			</BlockControls>
 			<InspectorControls>
 				<ToolsPanel
 					label={ __( 'Settings' ) }
@@ -291,7 +249,7 @@ export function SocialLinksEdit( props ) {
 		</>
 	);
 }
-
+/* eslint-enable no-unused-vars */
 const iconColorAttributes = {
 	iconColor: 'icon-color',
 	iconBackgroundColor: 'icon-background-color',
