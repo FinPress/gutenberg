@@ -6,13 +6,16 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { HorizontalRule, PanelBody } from '@wordpress/components';
+import {
+	HorizontalRule,
+	PanelBody,
+	SelectControl,
+} from '@wordpress/components';
 import {
 	useBlockProps,
 	getColorClassName,
 	__experimentalUseColorProps as useColorProps,
 	InspectorControls,
-	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
@@ -20,9 +23,6 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import useDeprecatedOpacity from './use-deprecated-opacity';
-import { unlock } from '../lock-unlock';
-
-const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
 export default function SeparatorEdit( {
 	attributes,
@@ -58,10 +58,11 @@ export default function SeparatorEdit( {
 
 	return (
 		<>
-			<InspectorControls group="styles">
-				<PanelBody title={ __( 'Accessibility' ) }>
-					<HTMLElementControl
-						tagName={ tagName }
+			<InspectorControls>
+				<PanelBody title="Settings">
+					<SelectControl
+						label="HTML Element"
+						value={ tagName }
 						onChange={ ( value ) =>
 							setAttributes( { tagName: value } )
 						}
@@ -70,6 +71,17 @@ export default function SeparatorEdit( {
 							{ label: __( 'Default (<hr>)' ), value: 'hr' },
 							{ label: '<div>', value: 'div' },
 						] }
+						help={
+							tagName === 'hr'
+								? __(
+										'Only select <hr> if the separator conveys important information and should be announced by screen readers.'
+								  )
+								: __(
+										'The <div> element should only be used if the block is a design element with no semantic meaning.'
+								  )
+						}
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 			</InspectorControls>
