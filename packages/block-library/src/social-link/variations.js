@@ -1,4 +1,9 @@
 /**
+ * WordPress dependencies
+ */
+import { __ } from '@wordpress/i18n';
+
+/**
  * Internal dependencies
  */
 import {
@@ -219,12 +224,10 @@ const variations = [
 	},
 	{
 		name: 'phone',
-		attributes: {
-			service: 'phone',
-			url: 'tel:',
-		},
+		attributes: { service: 'phone' },
 		title: 'Phone',
 		icon: PhoneIcon,
+		description: __( 'Display an icon linking to a phone number.' ),
 	},
 	{
 		name: 'pinterest',
