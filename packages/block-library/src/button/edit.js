@@ -325,6 +325,9 @@ function ButtonEdit( props ) {
 		},
 	} );
 
+	const hasNonContentControls = blockEditingMode === 'default';
+	const hasBlockControls = hasNonContentControls || ! lockUrlControls;
+
 	return (
 		<>
 			<div
@@ -374,35 +377,37 @@ function ButtonEdit( props ) {
 					identifier="text"
 				/>
 			</div>
-			<BlockControls group="block">
-				{ blockEditingMode === 'default' && (
-					<AlignmentControl
-						value={ textAlign }
-						onChange={ ( nextAlign ) => {
-							setAttributes( { textAlign: nextAlign } );
-						} }
-					/>
-				) }
-				{ ! isURLSet && isLinkTag && ! lockUrlControls && (
-					<ToolbarButton
-						name="link"
-						icon={ link }
-						title={ __( 'Link' ) }
-						shortcut={ displayShortcut.primary( 'k' ) }
-						onClick={ startEditing }
-					/>
-				) }
-				{ isURLSet && isLinkTag && ! lockUrlControls && (
-					<ToolbarButton
-						name="link"
-						icon={ linkOff }
-						title={ __( 'Unlink' ) }
-						shortcut={ displayShortcut.primaryShift( 'k' ) }
-						onClick={ unlink }
-						isActive
-					/>
-				) }
-			</BlockControls>
+			{ hasBlockControls && (
+				<BlockControls group="block">
+					{ hasNonContentControls && (
+						<AlignmentControl
+							value={ textAlign }
+							onChange={ ( nextAlign ) => {
+								setAttributes( { textAlign: nextAlign } );
+							} }
+						/>
+					) }
+					{ ! isURLSet && isLinkTag && ! lockUrlControls && (
+						<ToolbarButton
+							name="link"
+							icon={ link }
+							title={ __( 'Link' ) }
+							shortcut={ displayShortcut.primary( 'k' ) }
+							onClick={ startEditing }
+						/>
+					) }
+					{ isURLSet && isLinkTag && ! lockUrlControls && (
+						<ToolbarButton
+							name="link"
+							icon={ linkOff }
+							title={ __( 'Unlink' ) }
+							shortcut={ displayShortcut.primaryShift( 'k' ) }
+							onClick={ unlink }
+							isActive
+						/>
+					) }
+				</BlockControls>
+			) }
 			{ isLinkTag &&
 				isSelected &&
 				( isEditingURL || isURLSet ) &&
