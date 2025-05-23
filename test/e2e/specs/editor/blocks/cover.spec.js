@@ -339,6 +339,12 @@ test.describe( 'Cover', () => {
 			x: 0.2,
 			y: 0.2,
 		} );
+
+		const coverImage = coverBlock.locator(
+			'img.wp-block-cover__image-background'
+		);
+
+		await expect( coverImage ).toHaveCSS( 'object-position', '20% 20%' );
 	} );
 } );
 
