@@ -7,6 +7,7 @@ import {
 	store as coreStore,
 	__experimentalFetchLinkSuggestions as fetchLinkSuggestions,
 	__experimentalFetchUrlData as fetchUrlData,
+	privateApis as coreDataPrivateApis,
 } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { store as preferencesStore } from '@wordpress/preferences';
@@ -22,19 +23,20 @@ import {
  */
 import inserterMediaCategories from '../media-categories';
 import { mediaUpload } from '../../utils';
+import { default as mediaSideload } from '../../utils/media-sideload';
 import { store as editorStore } from '../../store';
-import { lock, unlock } from '../../lock-unlock';
+import { unlock } from '../../lock-unlock';
 import { useGlobalStylesContext } from '../global-styles-provider';
 
-const EMPTY_BLOCKS_LIST = [];
 const EMPTY_OBJECT = {};
 
 function __experimentalReusableBlocksSelect( select ) {
-	return (
-		select( coreStore ).getEntityRecords( 'postType', 'wp_block', {
-			per_page: -1,
-		} ) ?? EMPTY_BLOCKS_LIST
-	);
+	const { RECEIVE_INTERMEDIATE_RESULTS } = unlock( coreDataPrivateApis );
+	const { getEntityRecords } = select( coreStore );
+	return getEntityRecords( 'postType', 'wp_block', {
+		per_page: -1,
+		[ RECEIVE_INTERMEDIATE_RESULTS ]: true,
+	} );
 }
 
 const BLOCK_EDITOR_SETTINGS = [
@@ -44,9 +46,11 @@ const BLOCK_EDITOR_SETTINGS = [
 	'__experimentalGlobalStylesBaseStyles',
 	'alignWide',
 	'blockInspectorTabs',
+	'maxUploadFileSize',
 	'allowedMimeTypes',
 	'bodyPlaceholder',
 	'canLockBlocks',
+	'canUpdateBlockBindings',
 	'capabilities',
 	'clearBlockSelection',
 	'codeEditingEnabled',
@@ -68,19 +72,18 @@ const BLOCK_EDITOR_SETTINGS = [
 	'imageDimensions',
 	'imageEditing',
 	'imageSizes',
+	'isPreviewMode',
 	'isRTL',
 	'locale',
 	'maxWidth',
 	'postContentAttributes',
 	'postsPerPage',
 	'readOnly',
-	'sectionRootClientId',
 	'styles',
 	'titlePlaceholder',
 	'supportsLayout',
 	'widgetTypesToHideFromLegacyWidgetBlock',
 	'__unstableHasCustomAppender',
-	'__unstableIsPreviewMode',
 	'__unstableResolvedAssets',
 	'__unstableIsBlockBasedTheme',
 ];
@@ -90,6 +93,7 @@ const {
 	globalStylesLinksDataKey,
 	selectBlockPatternsKey,
 	reusableBlocksSelectKey,
+	sectionRootClientIdKey,
 } = unlock( privateApis );
 
 /**
@@ -288,6 +292,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			isDistractionFree,
 			keepCaretInsideBlock,
 			mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
+			mediaSideload: hasUploadPermissions ? mediaSideload : undefined,
 			__experimentalBlockPatterns: blockPatterns,
 			[ selectBlockPatternsKey ]: ( select ) => {
 				const { hasFinishedResolution, getBlockPatternsForPostType } =
@@ -311,7 +316,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			__experimentalUndo: undo,
 			// Check whether we want all site editor frames to have outlines
 			// including the navigation / pattern / parts editors.
-			outlineMode: postType === 'wp_template',
+			outlineMode: ! isDistractionFree && postType === 'wp_template',
 			// Check these two properties: they were not present in the site editor.
 			__experimentalCreatePageEntity: createPageEntity,
 			__experimentalUserCanCreatePages: userCanCreatePages,
@@ -325,10 +330,13 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 					? [ [ 'core/navigation', {}, [] ] ]
 					: settings.template,
 			__experimentalSetIsInserterOpened: setIsInserterOpened,
+			[ sectionRootClientIdKey ]: sectionRootClientId,
+			editorTool:
+				renderingMode === 'post-only' && postType !== 'wp_template'
+					? 'edit'
+					: undefined,
 		};
-		lock( blockEditorSettings, {
-			sectionRootClientId,
-		} );
+
 		return blockEditorSettings;
 	}, [
 		allowedBlockTypes,
@@ -353,6 +361,8 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 		setIsInserterOpened,
 		sectionRootClientId,
 		globalStylesData,
+		globalStylesLinksData,
+		renderingMode,
 	] );
 }
 

@@ -21,7 +21,7 @@ import { unregisterFormatType } from '@wordpress/rich-text';
  * Internal dependencies
  */
 import { store as coreDataStore } from '../index';
-import { useEntityBlockEditor } from '../entity-provider';
+import useEntityBlockEditor from '../hooks/use-entity-block-editor';
 
 const postTypeConfig = {
 	kind: 'postType',
@@ -104,7 +104,7 @@ describe( 'useEntityBlockEditor', () => {
 					source: 'html',
 					selector: 'p',
 					default: '',
-					__experimentalRole: 'content',
+					role: 'content',
 				},
 			},
 			title: 'block title',

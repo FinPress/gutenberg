@@ -394,13 +394,17 @@ function getTypeAnnotation( typeAnnotation ) {
  * with their descriptions in the JSDoc comments.
  *
  * If we find more wrapper functions on selectors we should add them below following the
- * example of `createSelector` and `createRegsitrySelector`.
+ * example of `createSelector` and `createRegistrySelector`.
  *
  * @param {ASTNode} token Contains either a function or a call to a function-wrapper.
  *
  *                        TODO: Remove the special-casing here once we're able to infer the types from TypeScript itself.
  */
 function unwrapWrappedSelectors( token ) {
+	if ( babelTypes.isTSDeclareFunction( token ) ) {
+		return token;
+	}
+
 	if ( babelTypes.isFunctionDeclaration( token ) ) {
 		return token;
 	}

@@ -316,7 +316,7 @@ class WP_Theme_JSON_Resolver_Gutenberg {
 		 * So we take theme supports, transform it to theme.json shape
 		 * and merge the static::$theme upon that.
 		 */
-		$theme_support_data = WP_Theme_JSON_Gutenberg::get_from_editor_settings( gutenberg_get_classic_theme_supports_block_editor_settings() );
+		$theme_support_data = WP_Theme_JSON_Gutenberg::get_from_editor_settings( get_classic_theme_supports_block_editor_settings() );
 		if ( ! wp_theme_has_theme_json() ) {
 			/*
 			 * Unlike block themes, classic themes without a theme.json disable
@@ -359,7 +359,7 @@ class WP_Theme_JSON_Resolver_Gutenberg {
 			}
 			if ( current_theme_supports( 'experimental-link-color' ) ) {
 				_doing_it_wrong(
-					current_theme_supports( 'experimental-link-color' ),
+					"add_theme_support( 'experimental-link-color' )",
 					__( '`experimental-link-color` is no longer supported. Use `link-color` instead.', 'gutenberg' ),
 					'6.3.0'
 				);
@@ -764,8 +764,18 @@ class WP_Theme_JSON_Resolver_Gutenberg {
 	 * @return array
 	 */
 	public static function get_style_variations( $scope = 'theme' ) {
+		return static::get_style_variations_from_directory( get_stylesheet_directory(), $scope );
+	}
+
+	/**
+	 * Returns the style variation files defined by the theme (parent and child).
+	 *
+	 * @since 6.7.0
+	 *
+	 * @return array An array of style variation files.
+	 */
+	protected static function get_style_variation_files_from_current_theme() {
 		$variation_files    = array();
-		$variations         = array();
 		$base_directory     = get_stylesheet_directory() . '/styles';
 		$template_directory = get_template_directory() . '/styles';
 		if ( is_dir( $base_directory ) ) {
@@ -782,6 +792,29 @@ class WP_Theme_JSON_Resolver_Gutenberg {
 				}
 			}
 			$variation_files = array_merge( $variation_files, $variation_files_parent );
+		}
+
+		return $variation_files;
+	}
+
+	/**
+	 * Returns the style variations in the given directory.
+	 *
+	 * @since 6.7.0
+	 *
+	 * @param string $directory The directory to get the style variations from.
+	 * @param string $scope     The scope or type of style variation to retrieve e.g. theme, block etc.
+	 * @return array
+	 */
+	public static function get_style_variations_from_directory( $directory, $scope = 'theme' ) {
+		$variation_files = array();
+		$variations      = array();
+		if ( is_dir( $directory ) ) {
+			if ( get_stylesheet_directory() === $directory ) {
+				$variation_files = static::get_style_variation_files_from_current_theme();
+			} else {
+				$variation_files = static::recursively_iterate_json( $directory );
+			}
 		}
 		ksort( $variation_files );
 		foreach ( $variation_files as $path => $file ) {
@@ -887,18 +920,14 @@ class WP_Theme_JSON_Resolver_Gutenberg {
 			return $theme_json;
 		}
 
-		$resolved_theme_json_data = array(
-			'version' => WP_Theme_JSON_Gutenberg::LATEST_SCHEMA,
-		);
+		$resolved_theme_json_data = $theme_json->get_raw_data();
 
 		foreach ( $resolved_urls as $resolved_url ) {
 			$path = explode( '.', $resolved_url['target'] );
 			_wp_array_set( $resolved_theme_json_data, $path, $resolved_url['href'] );
 		}
 
-		$theme_json->merge( new WP_Theme_JSON_Gutenberg( $resolved_theme_json_data ) );
-
-		return $theme_json;
+		return new WP_Theme_JSON_Gutenberg( $resolved_theme_json_data );
 	}
 
 	/**

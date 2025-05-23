@@ -1,7 +1,12 @@
 /**
  * WordPress dependencies
  */
-import { store, getContext, getElement } from '@wordpress/interactivity';
+import {
+	store,
+	getContext,
+	getElement,
+	withSyncEvent,
+} from '@wordpress/interactivity';
 
 /**
  * Tracks whether user is touching screen; used to differentiate behavior for
@@ -42,6 +47,15 @@ const { state, actions, callbacks } = store(
 					'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
 				);
 			},
+			get figureStyles() {
+				return (
+					state.overlayOpened &&
+					`${ state.currentImage.figureStyles?.replace(
+						/margin[^;]*;?/g,
+						''
+					) };`
+				);
+			},
 			get imgStyles() {
 				return (
 					state.overlayOpened &&
@@ -59,6 +73,19 @@ const { state, actions, callbacks } = store(
 				const { imageId } = getContext();
 				return state.metadata[ imageId ].imageButtonTop;
 			},
+			get isContentHidden() {
+				const ctx = getContext();
+				return (
+					state.overlayEnabled && state.currentImageId === ctx.imageId
+				);
+			},
+			get isContentVisible() {
+				const ctx = getContext();
+				return (
+					! state.overlayEnabled &&
+					state.currentImageId === ctx.imageId
+				);
+			},
 		},
 		actions: {
 			showLightbox() {
@@ -75,8 +102,8 @@ const { state, actions, callbacks } = store(
 				state.scrollLeftReset = document.documentElement.scrollLeft;
 
 				// Sets the current expanded image in the state and enables the overlay.
-				state.currentImageId = imageId;
 				state.overlayEnabled = true;
+				state.currentImageId = imageId;
 
 				// Computes the styles of the overlay for the animation.
 				callbacks.setOverlayStyles();
@@ -106,7 +133,7 @@ const { state, actions, callbacks } = store(
 					}, 450 );
 				}
 			},
-			handleKeydown( event ) {
+			handleKeydown: withSyncEvent( ( event ) => {
 				if ( state.overlayEnabled ) {
 					// Focuses the close button when the user presses the tab key.
 					if ( event.key === 'Tab' ) {
@@ -119,8 +146,8 @@ const { state, actions, callbacks } = store(
 						actions.hideLightbox();
 					}
 				}
-			},
-			handleTouchMove( event ) {
+			} ),
+			handleTouchMove: withSyncEvent( ( event ) => {
 				// On mobile devices, prevents triggering the scroll event because
 				// otherwise the page jumps around when it resets the scroll position.
 				// This also means that closing the lightbox requires that a user
@@ -130,7 +157,7 @@ const { state, actions, callbacks } = store(
 				if ( state.overlayEnabled ) {
 					event.preventDefault();
 				}
-			},
+			} ),
 			handleTouchStart() {
 				isTouching = true;
 			},
@@ -166,7 +193,7 @@ const { state, actions, callbacks } = store(
 		},
 		callbacks: {
 			setOverlayStyles() {
-				if ( ! state.currentImage.imageRef ) {
+				if ( ! state.overlayEnabled ) {
 					return;
 				}
 
@@ -319,7 +346,6 @@ const { state, actions, callbacks } = store(
 				// adding 1 pixel to the container width and height solves the problem,
 				// though this can be removed if the issue is fixed in the future.
 				state.overlayStyles = `
-				:root {
 					--wp--lightbox-initial-top-position: ${ screenPosY }px;
 					--wp--lightbox-initial-left-position: ${ screenPosX }px;
 					--wp--lightbox-container-width: ${ containerWidth + 1 }px;
@@ -330,8 +356,7 @@ const { state, actions, callbacks } = store(
 					--wp--lightbox-scrollbar-width: ${
 						window.innerWidth - document.documentElement.clientWidth
 					}px;
-				}
-			`;
+				`;
 			},
 			setButtonStyles() {
 				const { imageId } = getContext();

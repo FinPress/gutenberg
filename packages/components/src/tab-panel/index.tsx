@@ -15,6 +15,7 @@ import {
 	useCallback,
 } from '@wordpress/element';
 import { useInstanceId, usePrevious } from '@wordpress/compose';
+import { isRTL } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -119,9 +120,12 @@ const UnforwardedTabPanel = (
 		orientation,
 		selectOnMove,
 		defaultSelectedId: prependInstanceId( initialTabName ),
+		rtl: isRTL(),
 	} );
 
-	const selectedTabName = extractTabName( tabStore.useState( 'selectedId' ) );
+	const selectedTabName = extractTabName(
+		Ariakit.useStoreState( tabStore, 'selectedId' )
+	);
 
 	const setTabStoreSelectedId = useCallback(
 		( tabName: string ) => {
@@ -215,6 +219,7 @@ const UnforwardedTabPanel = (
 							) }-view` }
 							render={
 								<Button
+									__next40pxDefaultSize
 									icon={ tab.icon }
 									label={ tab.icon && tab.title }
 									showTooltip={ !! tab.icon }

@@ -62,7 +62,7 @@ const CustomSelectButton = ( {
 		CustomSelectStore,
 	'onChange'
 > ) => {
-	const { value: currentValue } = store.useState();
+	const { value: currentValue } = Ariakit.useStoreState( store );
 
 	const computedRenderSelectedValue = useMemo(
 		() => renderSelectedValue ?? defaultRenderSelectedValue,

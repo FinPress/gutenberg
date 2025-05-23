@@ -43,9 +43,9 @@ type BaseButtonProps = {
 	 */
 	children?: ReactNode;
 	/**
-	 * An accessible description for the button.
+	 * A visually hidden accessible description for the button.
 	 */
-	describedBy?: string;
+	description?: string;
 	/**
 	 * If provided, renders an Icon component inside the button.
 	 */
@@ -111,11 +111,13 @@ type BaseButtonProps = {
 	tooltipPosition?: PopoverProps[ 'position' ];
 	/**
 	 * Specifies the button's style.
+	 *
 	 * The accepted values are:
-	 * 'primary' (the primary button styles)
-	 * 'secondary' (the default button styles)
-	 * 'tertiary' (the text-based button styles)
-	 * 'link' (the link button styles)
+	 *
+	 * 1. `'primary'` (the primary button styles)
+	 * 2. `'secondary'` (the default button styles)
+	 * 3. `'tertiary'` (the text-based button styles)
+	 * 4. `'link'` (the link button styles)
 	 */
 	variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
 };
@@ -199,6 +201,13 @@ export type DeprecatedButtonProps = {
 	 * @ignore
 	 */
 	isSmall?: boolean;
+	/**
+	 * A visually hidden accessible description for the button.
+	 *
+	 * @deprecated Use the `description` prop instead.
+	 * @ignore
+	 */
+	describedBy?: string;
 };
 
 export type DeprecatedIconButtonProps = {

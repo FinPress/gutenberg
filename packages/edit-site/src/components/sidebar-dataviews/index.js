@@ -9,15 +9,16 @@ import { privateApis as routerPrivateApis } from '@wordpress/router';
  */
 import { useDefaultViews } from './default-views';
 import { unlock } from '../../lock-unlock';
-const { useLocation } = unlock( routerPrivateApis );
 import DataViewItem from './dataview-item';
 import CustomDataViewsList from './custom-dataviews-list';
 
-export default function DataViewsSidebarContent() {
+const { useLocation } = unlock( routerPrivateApis );
+
+export default function DataViewsSidebarContent( { postType } ) {
 	const {
-		params: { postType, activeView = 'all', isCustom = 'false' },
+		query: { activeView = 'all', isCustom = 'false' },
 	} = useLocation();
-	const DEFAULT_VIEWS = useDefaultViews( { postType } );
+	const defaultViews = useDefaultViews( { postType } );
 	if ( ! postType ) {
 		return null;
 	}
@@ -25,8 +26,8 @@ export default function DataViewsSidebarContent() {
 
 	return (
 		<>
-			<ItemGroup>
-				{ DEFAULT_VIEWS[ postType ].map( ( dataview ) => {
+			<ItemGroup className="edit-site-sidebar-dataviews">
+				{ defaultViews.map( ( dataview ) => {
 					return (
 						<DataViewItem
 							key={ dataview.slug }

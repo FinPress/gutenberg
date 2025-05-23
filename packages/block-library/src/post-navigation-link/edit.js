@@ -19,6 +19,7 @@ import {
 	BlockControls,
 	AlignmentToolbar,
 	useBlockProps,
+	useBlockEditingMode,
 } from '@wordpress/block-editor';
 import { __, _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
@@ -37,6 +38,8 @@ export default function PostNavigationLinkEdit( {
 	},
 	setAttributes,
 } ) {
+	const blockEditingMode = useBlockEditingMode();
+	const showControls = blockEditingMode === 'default';
 	const isNext = type === 'next';
 	let placeholder = isNext ? __( 'Next' ) : __( 'Previous' );
 
@@ -49,8 +52,11 @@ export default function PostNavigationLinkEdit( {
 	const displayArrow = arrowMap[ arrow ];
 
 	if ( showTitle ) {
-		/* translators: Label before for next and previous post. There is a space after the colon. */
-		placeholder = isNext ? __( 'Next: ' ) : __( 'Previous: ' );
+		placeholder = isNext
+			? /* translators: Label before for next and previous post. There is a space after the colon. */
+			  __( 'Next: ' ) // eslint-disable-line @wordpress/i18n-no-flanking-whitespace
+			: /* translators: Label before for next and previous post. There is a space after the colon. */
+			  __( 'Previous: ' ); // eslint-disable-line @wordpress/i18n-no-flanking-whitespace
 	}
 
 	const ariaLabel = isNext ? __( 'Next post' ) : __( 'Previous post' );
@@ -120,6 +126,7 @@ export default function PostNavigationLinkEdit( {
 						/>
 					) }
 					<ToggleGroupControl
+						__next40pxDefaultSize
 						__nextHasNoMarginBottom
 						label={ __( 'Arrow' ) }
 						value={ arrow }
@@ -157,6 +164,8 @@ export default function PostNavigationLinkEdit( {
 			</InspectorControls>
 			<InspectorControls group="advanced">
 				<SelectControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
 					label={ __( 'Filter by taxonomy' ) }
 					value={ taxonomy }
 					options={ getTaxonomyOptions() }
@@ -170,14 +179,16 @@ export default function PostNavigationLinkEdit( {
 					) }
 				/>
 			</InspectorControls>
-			<BlockControls>
-				<AlignmentToolbar
-					value={ textAlign }
-					onChange={ ( nextAlign ) => {
-						setAttributes( { textAlign: nextAlign } );
-					} }
-				/>
-			</BlockControls>
+			{ showControls && (
+				<BlockControls>
+					<AlignmentToolbar
+						value={ textAlign }
+						onChange={ ( nextAlign ) => {
+							setAttributes( { textAlign: nextAlign } );
+						} }
+					/>
+				</BlockControls>
+			) }
 			<div { ...blockProps }>
 				{ ! isNext && displayArrow && (
 					<span
@@ -192,7 +203,7 @@ export default function PostNavigationLinkEdit( {
 					aria-label={ ariaLabel }
 					placeholder={ placeholder }
 					value={ label }
-					allowedFormats={ [ 'core/bold', 'core/italic' ] }
+					withoutInteractiveFormatting
 					onChange={ ( newLabel ) =>
 						setAttributes( { label: newLabel } )
 					}

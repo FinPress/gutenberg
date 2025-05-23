@@ -11,7 +11,6 @@ import {
 	__experimentalVStack as VStack,
 	__experimentalHStack as HStack,
 	FlexItem,
-	FlexBlock,
 	Button,
 } from '@wordpress/components';
 import {
@@ -27,17 +26,14 @@ import { useState } from '@wordpress/element';
  * Internal dependencies
  */
 import { unlock } from '../../../lock-unlock';
-const {
-	DropdownMenuV2: DropdownMenu,
-	DropdownMenuItemV2: DropdownMenuItem,
-	DropdownMenuItemLabelV2: DropdownMenuItemLabel,
-} = unlock( componentsPrivateApis );
-const { useGlobalSetting } = unlock( blockEditorPrivateApis );
 import Subtitle from '../subtitle';
 import { NavigationButtonAsItem } from '../navigation-button';
 import { getNewIndexFromPresets } from '../utils';
 import ScreenHeader from '../header';
 import ConfirmResetFontSizesDialog from './confirm-reset-font-sizes-dialog';
+
+const { Menu } = unlock( componentsPrivateApis );
+const { useGlobalSetting } = unlock( blockEditorPrivateApis );
 
 function FontSizeGroup( {
 	label,
@@ -85,25 +81,32 @@ function FontSizeGroup( {
 							/>
 						) }
 						{ !! handleResetFontSizes && (
-							<DropdownMenu
-								trigger={
-									<Button
-										size="small"
-										icon={ moreVertical }
-										label={ __(
-											'Font size presets options'
-										) }
-									/>
-								}
-							>
-								<DropdownMenuItem onClick={ toggleResetDialog }>
-									<DropdownMenuItemLabel>
-										{ origin === 'custom'
-											? __( 'Remove font size presets' )
-											: __( 'Reset font size presets' ) }
-									</DropdownMenuItemLabel>
-								</DropdownMenuItem>
-							</DropdownMenu>
+							<Menu>
+								<Menu.TriggerButton
+									render={
+										<Button
+											size="small"
+											icon={ moreVertical }
+											label={ __(
+												'Font size presets options'
+											) }
+										/>
+									}
+								/>
+								<Menu.Popover>
+									<Menu.Item onClick={ toggleResetDialog }>
+										<Menu.ItemLabel>
+											{ origin === 'custom'
+												? __(
+														'Remove font size presets'
+												  )
+												: __(
+														'Reset font size presets'
+												  ) }
+										</Menu.ItemLabel>
+									</Menu.Item>
+								</Menu.Popover>
+							</Menu>
 						) }
 					</FlexItem>
 				</HStack>
@@ -115,23 +118,18 @@ function FontSizeGroup( {
 								key={ size.slug }
 								path={ `/typography/font-sizes/${ origin }/${ size.slug }` }
 							>
-								<HStack direction="row">
+								<HStack>
 									<FlexItem className="edit-site-font-size__item">
 										{ size.name }
 									</FlexItem>
-									<FlexItem>
-										<HStack justify="flex-end">
-											<FlexBlock className="edit-site-font-size__item edit-site-font-size__item-value">
-												{ size.size }
-											</FlexBlock>
-											<Icon
-												icon={
-													isRTL()
-														? chevronLeft
-														: chevronRight
-												}
-											/>
-										</HStack>
+									<FlexItem display="flex">
+										<Icon
+											icon={
+												isRTL()
+													? chevronLeft
+													: chevronRight
+											}
+										/>
 									</FlexItem>
 								</HStack>
 							</NavigationButtonAsItem>

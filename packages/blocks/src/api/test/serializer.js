@@ -149,13 +149,13 @@ describe( 'block serializer', () => {
 			expect( attributes ).toEqual( { fruit: 'bananas' } );
 		} );
 
-		it( 'should ingore local attributes', () => {
+		it( 'should ignore local attributes', () => {
 			const attributes = getCommentAttributes(
 				{
 					attributes: {
 						blob: {
 							type: 'string',
-							__experimentalRole: 'local',
+							role: 'local',
 						},
 						url: {
 							type: 'string',
