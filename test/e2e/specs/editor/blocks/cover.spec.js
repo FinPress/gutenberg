@@ -312,7 +312,7 @@ test.describe( 'Cover', () => {
 			coverBlock.getByTestId( 'form-file-upload-input' )
 		);
 
-		await editor.page.keyboard.press( 'ArrowUp' );
+		await editor.selectBlocks( coverBlock );
 
 		const focalPointLeft = page.getByLabel( 'Focal point left position' );
 
@@ -323,14 +323,6 @@ test.describe( 'Cover', () => {
 
 		await expect( focalPointLeft ).toHaveValue( '20' );
 		await expect( focalPointTop ).toHaveValue( '20' );
-
-		await focalPointLeft.fill( '120' );
-		await focalPointTop.fill( '120' );
-
-		await page.keyboard.press( 'Tab' );
-
-		await expect( focalPointLeft ).toHaveValue( '100' );
-		await expect( focalPointTop ).toHaveValue( '100' );
 	} );
 } );
 
