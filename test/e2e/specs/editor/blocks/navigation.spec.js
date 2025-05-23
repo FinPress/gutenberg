@@ -238,7 +238,7 @@ test.describe( 'Navigation block', () => {
 
 			await requestUtils.createNavigationMenu( {
 				title: 'Empty Menu',
-				content: '<!-- wp:paragraph --><!-- /wp:paragraph -->',
+				content: '',
 			} );
 			const validMenu = await requestUtils.createNavigationMenu( {
 				title: 'Primary Menu',
@@ -260,6 +260,33 @@ test.describe( 'Navigation block', () => {
 			await page.goto( `/?p=${ postId }` );
 			await expect(
 				page.getByRole( 'link', { name: 'Home', exact: true } )
+			).toBeVisible();
+		} );
+
+		test( 'should fall back to Page List when all navigation posts are empty', async ( {
+			admin,
+			editor,
+		} ) => {
+			await admin.createNewPost();
+
+			await editor.insertBlock( {
+				name: 'core/navigation',
+				attributes: {},
+			} );
+
+			await expect.poll( editor.getBlocks ).toMatchObject( [
+				{
+					name: 'core/navigation',
+					attributes: expect.not.objectContaining( {
+						ref: expect.any( Number ),
+					} ),
+				},
+			] );
+
+			await expect(
+				editor.canvas.getByRole( 'document', {
+					name: 'Block: Page List',
+				} )
 			).toBeVisible();
 		} );
 	} );
