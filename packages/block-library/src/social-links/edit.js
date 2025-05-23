@@ -173,7 +173,9 @@ export function SocialLinksEdit( props ) {
 				>
 					<ToolsPanelItem
 						isShownByDefault
-						hasValue={ () => size !== 'has-normal-icon-size' }
+						hasValue={ () =>
+							!! size && size !== 'has-normal-icon-size'
+						}
 						label={ __( 'Icon size' ) }
 						onDeselect={ () =>
 							setAttributes( { size: 'has-normal-icon-size' } )
@@ -183,9 +185,9 @@ export function SocialLinksEdit( props ) {
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
 							label={ __( 'Icon Size' ) }
-							onChange={ ( entry ) => {
+							onChange={ ( newSize ) => {
 								setAttributes( {
-									size: entry,
+									size: newSize,
 								} );
 							} }
 							value={ size ?? 'has-normal-icon-size' }
