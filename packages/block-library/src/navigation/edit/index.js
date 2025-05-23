@@ -279,12 +279,7 @@ function Navigation( {
 		hasUncontrolledInnerBlocks,
 		uncontrolledInnerBlocks,
 		isInnerBlockSelected,
-		innerBlocks,
 	} = useInnerBlocks( clientId );
-
-	const hasSubmenus = !! innerBlocks.find(
-		( block ) => block.name === 'core/navigation-submenu'
-	);
 
 	const {
 		replaceInnerBlocks,
@@ -662,47 +657,43 @@ function Navigation( {
 								label={ __( 'Always' ) }
 							/>
 						</ToggleGroupControl>
-						{ hasSubmenus && (
-							<>
-								<h3>{ __( 'Submenus' ) }</h3>
-								<ToggleControl
-									__nextHasNoMarginBottom
-									checked={ openSubmenusOnClick }
-									onChange={ ( value ) => {
-										setAttributes( {
-											openSubmenusOnClick: value,
-											...( value && {
-												showSubmenuIcon: true,
-											} ), // Make sure arrows are shown when we toggle this on.
-										} );
-									} }
-									label={ __( 'Open on click' ) }
-								/>
+						<h3>{ __( 'Submenus' ) }</h3>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							checked={ openSubmenusOnClick }
+							onChange={ ( value ) => {
+								setAttributes( {
+									openSubmenusOnClick: value,
+									...( value && {
+										showSubmenuIcon: true,
+									} ), // Make sure arrows are shown when we toggle this on.
+								} );
+							} }
+							label={ __( 'Open on click' ) }
+						/>
 
-								<ToggleControl
-									__nextHasNoMarginBottom
-									checked={ showSubmenuIcon }
-									onChange={ ( value ) => {
-										setAttributes( {
-											showSubmenuIcon: value,
-										} );
-									} }
-									disabled={ attributes.openSubmenusOnClick }
-									label={ __( 'Show arrow' ) }
-								/>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							checked={ showSubmenuIcon }
+							onChange={ ( value ) => {
+								setAttributes( {
+									showSubmenuIcon: value,
+								} );
+							} }
+							disabled={ attributes.openSubmenusOnClick }
+							label={ __( 'Show arrow' ) }
+						/>
 
-								{ submenuAccessibilityNotice && (
-									<div>
-										<Notice
-											spokenMessage={ null }
-											status="warning"
-											isDismissible={ false }
-										>
-											{ submenuAccessibilityNotice }
-										</Notice>
-									</div>
-								) }
-							</>
+						{ submenuAccessibilityNotice && (
+							<div>
+								<Notice
+									spokenMessage={ null }
+									status="warning"
+									isDismissible={ false }
+								>
+									{ submenuAccessibilityNotice }
+								</Notice>
+							</div>
 						) }
 					</PanelBody>
 				) }
