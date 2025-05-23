@@ -166,21 +166,18 @@ export function SocialLinksEdit( props ) {
 						setAttributes( {
 							openInNewTab: false,
 							showLabels: false,
+							size: 'has-normal-icon-size',
 						} );
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
 				>
 					<ToolsPanelItem
-						hasValue={ () => !! size }
-						label={ __( 'Icon Size' ) }
+						isShownByDefault
+						hasValue={ () => size !== 'has-normal-icon-size' }
+						label={ __( 'Icon size' ) }
 						onDeselect={ () =>
 							setAttributes( { size: 'has-normal-icon-size' } )
 						}
-						resetAllFilter={ () => ( {
-							size: 'has-normal-icon-size',
-						} ) }
-						isShownByDefault
-						panelId={ clientId }
 					>
 						<SelectControl
 							__next40pxDefaultSize
