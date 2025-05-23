@@ -20,7 +20,6 @@ import { __ } from '@wordpress/i18n';
 import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
-
 export default function PostTitleEdit( {
 	attributes: { level, levelOptions, textAlign, isLink, rel, linkTarget },
 	setAttributes,
@@ -30,6 +29,7 @@ export default function PostTitleEdit( {
 	const TagName = level === 0 ? 'p' : `h${ level }`;
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const userCanEdit = useSelect(
+		// eslint-disable-next-line no-shadow
 		( select ) => {
 			/**
 			 * useCanEditEntity may trigger an OPTIONS request to the REST API
