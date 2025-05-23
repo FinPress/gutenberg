@@ -327,6 +327,18 @@ test.describe( 'Cover', () => {
 
 		await expect( focalPointLeft ).toHaveValue( '20' );
 		await expect( focalPointTop ).toHaveValue( '20' );
+
+		const blockAttributes = await page.evaluate( () => {
+			const selectedBlock = window.wp.data
+				.select( 'core/block-editor' )
+				.getSelectedBlock();
+			return selectedBlock?.attributes;
+		} );
+
+		expect( blockAttributes.focalPoint ).toMatchObject( {
+			x: 0.2,
+			y: 0.2,
+		} );
 	} );
 } );
 
