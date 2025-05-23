@@ -314,9 +314,13 @@ test.describe( 'Cover', () => {
 
 		await editor.selectBlocks( coverBlock );
 
-		const focalPointLeft = page.getByLabel( 'Focal point left position' );
+		const focalPointLeft = page.getByRole( 'spinbutton', {
+			name: 'Focal point left position',
+		} );
 
-		const focalPointTop = page.getByLabel( 'Focal point top position' );
+		const focalPointTop = page.getByRole( 'spinbutton', {
+			name: 'Focal point top position',
+		} );
 
 		await focalPointLeft.fill( '20' );
 		await focalPointTop.fill( '20' );
