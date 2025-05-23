@@ -8,8 +8,9 @@ import clsx from 'clsx';
  */
 import {
 	HorizontalRule,
-	PanelBody,
 	SelectControl,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import {
 	useBlockProps,
@@ -55,30 +56,37 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings' ) }>
-					<SelectControl
+				<ToolsPanel label={ __( 'Settings' ) }>
+					<ToolsPanelItem
+						hasValue={ () => tagName !== 'hr' }
 						label={ __( 'HTML element' ) }
-						value={ tagName }
-						onChange={ ( value ) =>
-							setAttributes( { tagName: value } )
-						}
-						options={ [
-							{ label: __( 'Default (<hr>)' ), value: 'hr' },
-							{ label: '<div>', value: 'div' },
-						] }
-						help={
-							tagName === 'hr'
-								? __(
-										'Only select <hr> if the separator conveys important information and should be announced by screen readers.'
-								  )
-								: __(
-										'The <div> element should only be used if the block is a design element with no semantic meaning.'
-								  )
-						}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-					/>
-				</PanelBody>
+						onDeselect={ () => setAttributes( { tagName: 'hr' } ) }
+						isShownByDefault
+					>
+						<SelectControl
+							label={ __( 'HTML element' ) }
+							value={ tagName }
+							onChange={ ( value ) =>
+								setAttributes( { tagName: value } )
+							}
+							options={ [
+								{ label: __( 'Default (<hr>)' ), value: 'hr' },
+								{ label: '<div>', value: 'div' },
+							] }
+							help={
+								tagName === 'hr'
+									? __(
+											'Only select <hr> if the separator conveys important information and should be announced by screen readers.'
+									  )
+									: __(
+											'The <div> element should only be used if the block is a design element with no semantic meaning.'
+									  )
+							}
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+						/>
+					</ToolsPanelItem>
+				</ToolsPanel>
 			</InspectorControls>
 			<Wrapper
 				{ ...useBlockProps( {
