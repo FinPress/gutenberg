@@ -178,5 +178,6 @@ describe( 'normalizeTextString', () => {
 			'playstation 2'
 		);
 		expect( normalizeTextString( 'ＡＢＣ' ) ).toBe( 'abc' );
+		expect( normalizeTextString( 'Amélie' ) ).toBe( 'amelie' );
 	} );
 } );
