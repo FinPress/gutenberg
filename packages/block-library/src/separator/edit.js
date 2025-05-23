@@ -24,12 +24,14 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import useDeprecatedOpacity from './use-deprecated-opacity';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 export default function SeparatorEdit( { attributes, setAttributes } ) {
 	const { backgroundColor, opacity, style, tagName } = attributes;
 	const colorProps = useColorProps( attributes );
 	const currentColor = colorProps?.style?.backgroundColor;
 	const hasCustomColor = !! style?.color?.background;
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	useDeprecatedOpacity( opacity, currentColor, setAttributes );
 
@@ -56,7 +58,13 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<ToolsPanel label={ __( 'Settings' ) }>
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ () => {
+						setAttributes( { tagName: 'hr' } );
+					} }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
 					<ToolsPanelItem
 						hasValue={ () => tagName !== 'hr' }
 						label={ __( 'HTML element' ) }
