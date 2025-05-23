@@ -263,7 +263,7 @@ test.describe( 'Navigation block', () => {
 			).toBeVisible();
 		} );
 
-		test( 'should fall back to Page List when all navigation posts are empty', async ( {
+		test( 'should fall back to Page List when all menus are empty', async ( {
 			admin,
 			editor,
 		} ) => {
