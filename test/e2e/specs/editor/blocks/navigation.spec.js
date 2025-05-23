@@ -200,24 +200,32 @@ test.describe( 'Navigation block', () => {
 	} );
 
 	test.describe( 'Navigation block fallback behavior', () => {
-		test( 'falls back to Page List when no menus exist', async ( {
+		test( 'should fall back to Page List when no menus exist', async ( {
 			admin,
 			editor,
+			page,
 		} ) => {
 			await admin.createNewPost();
 			await editor.insertBlock( { name: 'core/navigation' } );
 
-			const pageListBlock = editor.canvas.getByRole( 'document', {
-				name: 'Block: Page List',
-			} );
+			await expect(
+				editor.canvas.getByRole( 'document', {
+					name: 'Block: Page List',
+				} )
+			).toBeVisible();
 
-			await expect( pageListBlock ).toBeVisible();
+			const postId = await editor.publishPost();
+			await page.goto( `/?p=${ postId }` );
 
-			await expect.poll( editor.getBlocks ).toMatchObject( [
-				{
-					name: 'core/navigation',
-				},
-			] );
+			await expect(
+				page.getByRole( 'link', { name: 'Cat', exact: true } )
+			).toBeVisible();
+			await expect(
+				page.getByRole( 'link', { name: 'Dog', exact: true } )
+			).toBeVisible();
+			await expect(
+				page.getByRole( 'link', { name: 'Walrus', exact: true } )
+			).toBeVisible();
 		} );
 
 		test( 'uses first non-empty menu as fallback', async ( {
