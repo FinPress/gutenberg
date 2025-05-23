@@ -194,6 +194,23 @@ export function SocialLinksEdit( props ) {
 					</ToolsPanelItem>
 					<ToolsPanelItem
 						isShownByDefault
+						label={ __( 'Show text' ) }
+						hasValue={ () => !! showLabels }
+						onDeselect={ () =>
+							setAttributes( { showLabels: false } )
+						}
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={ __( 'Show text' ) }
+							checked={ showLabels }
+							onChange={ () =>
+								setAttributes( { showLabels: ! showLabels } )
+							}
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						isShownByDefault
 						label={ __( 'Open links in new tab' ) }
 						hasValue={ () => !! openInNewTab }
 						onDeselect={ () =>
@@ -208,23 +225,6 @@ export function SocialLinksEdit( props ) {
 								setAttributes( {
 									openInNewTab: ! openInNewTab,
 								} )
-							}
-						/>
-					</ToolsPanelItem>
-					<ToolsPanelItem
-						isShownByDefault
-						label={ __( 'Show text' ) }
-						hasValue={ () => !! showLabels }
-						onDeselect={ () =>
-							setAttributes( { showLabels: false } )
-						}
-					>
-						<ToggleControl
-							__nextHasNoMarginBottom
-							label={ __( 'Show text' ) }
-							checked={ showLabels }
-							onChange={ () =>
-								setAttributes( { showLabels: ! showLabels } )
 							}
 						/>
 					</ToolsPanelItem>
