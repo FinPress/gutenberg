@@ -326,7 +326,8 @@ function ButtonEdit( props ) {
 	} );
 
 	const hasNonContentControls = blockEditingMode === 'default';
-	const hasBlockControls = hasNonContentControls || ! lockUrlControls;
+	const hasBlockControls =
+		hasNonContentControls || ( isLinkTag && ! lockUrlControls );
 
 	return (
 		<>
