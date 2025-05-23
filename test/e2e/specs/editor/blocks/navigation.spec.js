@@ -199,7 +199,7 @@ test.describe( 'Navigation block', () => {
 		} );
 	} );
 
-	test.describe( 'Navigation block fallback behavior', () => {
+	test.describe( 'Navigation block fronted fallback behavior', () => {
 		test( 'should fall back to Page List when no menus exist', async ( {
 			admin,
 			editor,
@@ -228,33 +228,39 @@ test.describe( 'Navigation block', () => {
 			).toBeVisible();
 		} );
 
-		test( 'uses first non-empty menu as fallback', async ( {
+		test( 'should use first non-empty menu as fallback', async ( {
 			admin,
 			editor,
+			page,
 			requestUtils,
 		} ) => {
 			await admin.createNewPost();
 
-			const menu = await requestUtils.createNavigationMenu( {
-				title: 'First Menu',
+			await requestUtils.createNavigationMenu( {
+				title: 'Empty Menu',
+				content: '<!-- wp:paragraph --><!-- /wp:paragraph -->',
+			} );
+			const validMenu = await requestUtils.createNavigationMenu( {
+				title: 'Primary Menu',
 				content:
-					'<!-- wp:navigation-link {"label":"First Link","type":"custom","url":"http://wordpress.org","kind":"custom"} /-->',
+					'<!-- wp:navigation-link {"label":"Home","url":"/"} /-->',
 			} );
 
 			await editor.insertBlock( { name: 'core/navigation' } );
 
-			await expect(
-				editor.canvas.locator(
-					`role=textbox[name="Navigation link text"i] >> text="First Link"`
-				)
-			).toBeVisible();
-
+			await expect( editor.canvas.getByText( 'Home' ) ).toBeVisible();
 			await expect.poll( editor.getBlocks ).toMatchObject( [
 				{
 					name: 'core/navigation',
-					attributes: { ref: menu.id },
+					attributes: { ref: validMenu.id },
 				},
 			] );
+
+			const postId = await editor.publishPost();
+			await page.goto( `/?p=${ postId }` );
+			await expect(
+				page.getByRole( 'link', { name: 'Home', exact: true } )
+			).toBeVisible();
 		} );
 	} );
 
