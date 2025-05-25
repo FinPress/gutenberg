@@ -67,7 +67,7 @@ const EmbedControls = ( {
 								! allowResponsive || ! blockSupportsResponsive
 							}
 							onDeselect={ () => {
-								toggleResponsive( true );
+								toggleResponsive( ! allowResponsive );
 							} }
 						>
 							<ToggleControl
