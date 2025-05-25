@@ -16,7 +16,6 @@ import { edit } from '@wordpress/icons';
  * Internal dependencies
  */
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
-import { getClassNames } from './util';
 
 function getResponsiveHelp( checked ) {
 	return checked
@@ -35,13 +34,8 @@ const EmbedControls = ( {
 	allowResponsive,
 	toggleResponsive,
 	switchBackToURLInput,
-	html,
-	attributes,
-	setAttributes,
 } ) => {
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
-	const { responsive, className } = attributes;
-	const newAllowResponsive = ! allowResponsive;
 
 	return (
 		<>
@@ -62,40 +56,28 @@ const EmbedControls = ( {
 					<ToolsPanel
 						label={ __( 'Media settings' ) }
 						resetAll={ () => {
-							setAttributes( {
-								allowResponsive: true,
-								className: getClassNames(
-									html,
-									className,
-									responsive && newAllowResponsive
-								),
-								responsive: true,
-							} );
+							toggleResponsive( ! allowResponsive );
 						} }
 						dropdownMenuProps={ dropdownMenuProps }
 					>
 						<ToolsPanelItem
 							label={ __( 'Media settings' ) }
 							isShownByDefault
-							hasValue={ () => ! allowResponsive || ! responsive }
-							onDeselect={ () =>
-								setAttributes( {
-									allowResponsive: true,
-									className: getClassNames(
-										html,
-										className,
-										responsive && newAllowResponsive
-									),
-									responsive: true,
-								} )
+							hasValue={ () =>
+								! allowResponsive || ! blockSupportsResponsive
 							}
+							onDeselect={ () => {
+								toggleResponsive( true );
+							} }
 						>
 							<ToggleControl
 								__nextHasNoMarginBottom
 								label={ __( 'Resize for smaller devices' ) }
 								checked={ allowResponsive }
 								help={ getResponsiveHelp }
-								onChange={ toggleResponsive }
+								onChange={ ( v ) => {
+									toggleResponsive( v );
+								} }
 							/>
 						</ToolsPanelItem>
 					</ToolsPanel>
