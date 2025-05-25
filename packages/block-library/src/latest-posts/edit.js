@@ -522,7 +522,8 @@ function Controls( { attributes, setAttributes, postCount } ) {
 						selectedCategories={ categories }
 						onAuthorChange={ ( value ) =>
 							setAttributes( {
-								selectedAuthor: value,
+								selectedAuthor:
+									'' !== value ? Number( value ) : undefined,
 							} )
 						}
 						authorList={ authorList ?? [] }
