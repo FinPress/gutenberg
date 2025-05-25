@@ -333,16 +333,16 @@ function Controls( { attributes, setAttributes, postCount } ) {
 					setAttributes( {
 						displayFeaturedImage: false,
 						featuredImageAlign: undefined,
-						featuredImageSizeSlug: undefined,
-						featuredImageSizeWidth: undefined,
-						featuredImageSizeHeight: undefined,
+						featuredImageSizeSlug: 'thumbnail',
+						featuredImageSizeWidth: null,
+						featuredImageSizeHeight: null,
 						addLinkToFeaturedImage: false,
 					} )
 				}
 				dropdownMenuProps={ dropdownMenuProps }
 			>
 				<ToolsPanelItem
-					hasValue={ () => displayFeaturedImage !== false }
+					hasValue={ () => !! displayFeaturedImage }
 					label={ __( 'Display featured image' ) }
 					onDeselect={ () =>
 						setAttributes( { displayFeaturedImage: false } )
@@ -362,16 +362,16 @@ function Controls( { attributes, setAttributes, postCount } ) {
 					<>
 						<ToolsPanelItem
 							hasValue={ () =>
-								featuredImageSizeSlug !== undefined ||
-								featuredImageSizeWidth !== undefined ||
-								featuredImageSizeHeight !== undefined
+								featuredImageSizeSlug !== 'thumbnail' ||
+								featuredImageSizeWidth !== null ||
+								featuredImageSizeHeight !== null
 							}
 							label={ __( 'Image size' ) }
 							onDeselect={ () =>
 								setAttributes( {
-									featuredImageSizeSlug: undefined,
-									featuredImageSizeWidth: undefined,
-									featuredImageSizeHeight: undefined,
+									featuredImageSizeSlug: 'thumbnail',
+									featuredImageSizeWidth: null,
+									featuredImageSizeHeight: null,
 								} )
 							}
 							isShownByDefault
@@ -408,7 +408,7 @@ function Controls( { attributes, setAttributes, postCount } ) {
 							/>
 						</ToolsPanelItem>
 						<ToolsPanelItem
-							hasValue={ () => featuredImageAlign !== undefined }
+							hasValue={ () => featuredImageAlign }
 							label={ __( 'Image alignment' ) }
 							onDeselect={ () =>
 								setAttributes( {
@@ -447,7 +447,7 @@ function Controls( { attributes, setAttributes, postCount } ) {
 							</ToggleGroupControl>
 						</ToolsPanelItem>
 						<ToolsPanelItem
-							hasValue={ () => addLinkToFeaturedImage === true }
+							hasValue={ () => addLinkToFeaturedImage }
 							label={ __( 'Add link to featured image' ) }
 							onDeselect={ () =>
 								setAttributes( {
@@ -491,7 +491,7 @@ function Controls( { attributes, setAttributes, postCount } ) {
 						orderBy !== 'date' ||
 						postsToShow !== 5 ||
 						categories?.length > 0 ||
-						selectedAuthor !== ''
+						!! selectedAuthor
 					}
 					label={ __( 'Sort and filter' ) }
 					onDeselect={ () =>
