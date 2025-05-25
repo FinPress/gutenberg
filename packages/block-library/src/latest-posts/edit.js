@@ -408,7 +408,7 @@ function Controls( { attributes, setAttributes, postCount } ) {
 							/>
 						</ToolsPanelItem>
 						<ToolsPanelItem
-							hasValue={ () => featuredImageAlign }
+							hasValue={ () => !! featuredImageAlign }
 							label={ __( 'Image alignment' ) }
 							onDeselect={ () =>
 								setAttributes( {
@@ -447,7 +447,7 @@ function Controls( { attributes, setAttributes, postCount } ) {
 							</ToggleGroupControl>
 						</ToolsPanelItem>
 						<ToolsPanelItem
-							hasValue={ () => addLinkToFeaturedImage }
+							hasValue={ () => !! addLinkToFeaturedImage }
 							label={ __( 'Add link to featured image' ) }
 							onDeselect={ () =>
 								setAttributes( {
