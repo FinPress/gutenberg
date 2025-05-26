@@ -16,6 +16,7 @@ import {
 	useBlockProps,
 	__experimentalUseColorProps as useColorProps,
 	__experimentalUseBorderProps as useBorderProps,
+	useBlockEditingMode,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import {
@@ -57,6 +58,7 @@ import {
 	isEmptyTableSection,
 } from './state';
 import { Caption } from '../utils/caption';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 const ALIGNMENT_CONTROLS = [
 	{
@@ -105,9 +107,12 @@ function TableEdit( {
 
 	const colorProps = useColorProps( attributes );
 	const borderProps = useBorderProps( attributes );
+	const blockEditingMode = useBlockEditingMode();
 
 	const tableRef = useRef();
 	const [ hasTableCreated, setHasTableCreated ] = useState( false );
+
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	/**
 	 * Updates the initial column count used for table creation.
@@ -452,7 +457,7 @@ function TableEdit( {
 
 	return (
 		<figure { ...useBlockProps( { ref: tableRef } ) }>
-			{ ! isEmpty && (
+			{ ! isEmpty && blockEditingMode === 'default' && (
 				<>
 					<BlockControls group="block">
 						<AlignmentControl
@@ -483,6 +488,7 @@ function TableEdit( {
 							foot: [],
 						} );
 					} }
+					dropdownMenuProps={ dropdownMenuProps }
 				>
 					<ToolsPanelItem
 						hasValue={ () => hasFixedLayout !== true }
@@ -601,7 +607,9 @@ function TableEdit( {
 					isSelected={ isSingleSelected }
 					insertBlocksAfter={ insertBlocksAfter }
 					label={ __( 'Table caption text' ) }
-					showToolbarButton={ isSingleSelected }
+					showToolbarButton={
+						isSingleSelected && blockEditingMode === 'default'
+					}
 				/>
 			) }
 		</figure>

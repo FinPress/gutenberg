@@ -14,7 +14,7 @@ import {
 } from '@wordpress/components';
 
 // So that we illustrate the different formats in the dropdown properly, show a date that is
-// somwhat recent, has a day greater than 12, and a month with more than three letters.
+// somewhat recent, has a day greater than 12, and a month with more than three letters.
 const exampleDate = new Date();
 exampleDate.setDate( 20 );
 exampleDate.setMonth( exampleDate.getMonth() - 3 );
@@ -40,7 +40,11 @@ export default function DateFormatPicker( {
 	onChange,
 } ) {
 	return (
-		<fieldset className="block-editor-date-format-picker">
+		<VStack
+			as="fieldset"
+			spacing={ 4 }
+			className="block-editor-date-format-picker"
+		>
 			<VisuallyHidden as="legend">{ __( 'Date format' ) }</VisuallyHidden>
 			<ToggleControl
 				__nextHasNoMarginBottom
@@ -57,7 +61,7 @@ export default function DateFormatPicker( {
 			{ format && (
 				<NonDefaultControls format={ format } onChange={ onChange } />
 			) }
-		</fieldset>
+		</VStack>
 	);
 }
 

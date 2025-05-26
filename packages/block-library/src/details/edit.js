@@ -5,16 +5,21 @@ import {
 	RichText,
 	useBlockProps,
 	useInnerBlocksProps,
-	store as blockEditorStore,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
 import {
+	TextControl,
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 const TEMPLATE = [
 	[
@@ -25,27 +30,17 @@ const TEMPLATE = [
 	],
 ];
 
-function DetailsEdit( { attributes, setAttributes, clientId } ) {
-	const { showContent, summary } = attributes;
+function DetailsEdit( { attributes, setAttributes } ) {
+	const { name, showContent, summary, allowedBlocks, placeholder } =
+		attributes;
 	const blockProps = useBlockProps();
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		template: TEMPLATE,
 		__experimentalCaptureToolbars: true,
+		allowedBlocks,
 	} );
-
-	// Check if either the block or the inner blocks are selected.
-	const hasSelection = useSelect(
-		( select ) => {
-			const { isBlockSelected, hasSelectedInnerBlock } =
-				select( blockEditorStore );
-			/* Sets deep to true to also find blocks inside the details content block. */
-			return (
-				hasSelectedInnerBlock( clientId, true ) ||
-				isBlockSelected( clientId )
-			);
-		},
-		[ clientId ]
-	);
+	const [ isOpen, setIsOpen ] = useState( showContent );
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	return (
 		<>
@@ -57,6 +52,7 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 							showContent: false,
 						} );
 					} }
+					dropdownMenuProps={ dropdownMenuProps }
 				>
 					<ToolsPanelItem
 						isShownByDefault
@@ -81,16 +77,30 @@ function DetailsEdit( { attributes, setAttributes, clientId } ) {
 					</ToolsPanelItem>
 				</ToolsPanel>
 			</InspectorControls>
+			<InspectorControls group="advanced">
+				<TextControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					label={ __( 'Name attribute' ) }
+					value={ name || '' }
+					onChange={ ( newName ) =>
+						setAttributes( { name: newName } )
+					}
+					help={ __(
+						'Enables multiple Details blocks with the same name attribute to be connected, with only one open at a time.'
+					) }
+				/>
+			</InspectorControls>
 			<details
 				{ ...innerBlocksProps }
-				open={ hasSelection || showContent }
+				open={ isOpen }
+				onToggle={ ( event ) => setIsOpen( event.target.open ) }
 			>
-				<summary onClick={ ( event ) => event.preventDefault() }>
+				<summary>
 					<RichText
 						identifier="summary"
 						aria-label={ __( 'Write summary' ) }
-						placeholder={ __( 'Write summary…' ) }
-						allowedFormats={ [] }
+						placeholder={ placeholder || __( 'Write summary…' ) }
 						withoutInteractiveFormatting
 						value={ summary }
 						onChange={ ( newSummary ) =>
