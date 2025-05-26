@@ -75,9 +75,7 @@ const EmbedControls = ( {
 								label={ __( 'Resize for smaller devices' ) }
 								checked={ allowResponsive }
 								help={ getResponsiveHelp }
-								onChange={ ( v ) => {
-									toggleResponsive( v );
-								} }
+								onChange={ toggleResponsive }
 							/>
 						</ToolsPanelItem>
 					</ToolsPanel>
