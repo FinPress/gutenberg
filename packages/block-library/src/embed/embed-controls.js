@@ -56,7 +56,7 @@ const EmbedControls = ( {
 					<ToolsPanel
 						label={ __( 'Media settings' ) }
 						resetAll={ () => {
-							toggleResponsive( ! allowResponsive );
+							toggleResponsive( true );
 						} }
 						dropdownMenuProps={ dropdownMenuProps }
 					>
