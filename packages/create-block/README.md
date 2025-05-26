@@ -40,7 +40,7 @@ $ npx @wordpress/create-block@latest [options] [slug]
 
 When no `slug` is provided, the script will run in interactive mode and will start prompting for the input required (`slug`, title, namespace...) to scaffold the project.
 
-### Block Namespace
+### `namespace`
 
 By default, blocks are created with the `create-block` namespace. You should specify your own unique namespace:
 
