@@ -8,14 +8,26 @@ const transforms = {
 		{
 			type: 'block',
 			blocks: [ 'core/image' ],
-			transform: ( { alt, url, id, anchor } ) =>
-				createBlock( 'core/media-text', {
+			transform: ( { alt, url, id, anchor, caption } ) => {
+				const attributes = {
 					mediaAlt: alt,
 					mediaId: id,
 					mediaUrl: url,
 					mediaType: 'image',
 					anchor,
-				} ),
+				};
+
+				// If there's a caption, create a paragraph block with it
+				const innerBlocks = caption
+					? [ createBlock( 'core/paragraph', { content: caption } ) ]
+					: [];
+
+				return createBlock(
+					'core/media-text',
+					attributes,
+					innerBlocks
+				);
+			},
 		},
 		{
 			type: 'block',
@@ -104,12 +116,28 @@ const transforms = {
 			isMatch: ( { mediaType, mediaUrl } ) => {
 				return ! mediaUrl || mediaType === 'image';
 			},
-			transform: ( { mediaAlt, mediaId, mediaUrl, anchor } ) => {
+			transform: (
+				{ mediaAlt, mediaId, mediaUrl, anchor },
+				innerBlocks
+			) => {
+				const caption = innerBlocks?.length
+					? innerBlocks
+							.filter( ( block ) =>
+								[ 'core/paragraph', 'core/heading' ].includes(
+									block.name
+								)
+							)
+							.map( ( block ) => block.attributes.content || '' )
+							.join( ' ' )
+							.trim()
+					: '';
+
 				return createBlock( 'core/image', {
 					alt: mediaAlt,
 					id: mediaId,
 					url: mediaUrl,
 					anchor,
+					...( caption && { caption } ),
 				} );
 			},
 		},
