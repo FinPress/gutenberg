@@ -63,9 +63,7 @@ const EmbedControls = ( {
 						<ToolsPanelItem
 							label={ __( 'Media settings' ) }
 							isShownByDefault
-							hasValue={ () =>
-								! allowResponsive || ! blockSupportsResponsive
-							}
+							hasValue={ () => ! allowResponsive }
 							onDeselect={ () => {
 								toggleResponsive( ! allowResponsive );
 							} }
