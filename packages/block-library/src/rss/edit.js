@@ -158,7 +158,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 							displayDate: false,
 							displayExcerpt: false,
 							excerptLength: 55,
-							columns: 3,
+							columns: 2,
 							openInNewTab: false,
 						} );
 					} }
@@ -186,7 +186,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 
 					<ToolsPanelItem
 						label={ __( 'Display author' ) }
-						hasValue={ () => displayAuthor !== false }
+						hasValue={ () => !! displayAuthor }
 						onDeselect={ () =>
 							setAttributes( { displayAuthor: false } )
 						}
@@ -202,7 +202,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 
 					<ToolsPanelItem
 						label={ __( 'Display date' ) }
-						hasValue={ () => displayDate !== false }
+						hasValue={ () => !! displayDate }
 						onDeselect={ () =>
 							setAttributes( { displayDate: false } )
 						}
@@ -218,7 +218,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 
 					<ToolsPanelItem
 						label={ __( 'Display excerpt' ) }
-						hasValue={ () => displayExcerpt !== false }
+						hasValue={ () => !! displayExcerpt }
 						onDeselect={ () =>
 							setAttributes( { displayExcerpt: false } )
 						}
@@ -259,8 +259,8 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 					{ blockLayout === 'grid' && (
 						<ToolsPanelItem
 							label={ __( 'Columns' ) }
-							hasValue={ () => columns !== 3 }
-							onDeselect={ () => setAttributes( { columns: 3 } ) }
+							hasValue={ () => columns !== 2 }
+							onDeselect={ () => setAttributes( { columns: 2 } ) }
 							isShownByDefault
 						>
 							<RangeControl
@@ -280,7 +280,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 
 					<ToolsPanelItem
 						label={ __( 'Open links in new tab' ) }
-						hasValue={ () => openInNewTab !== false }
+						hasValue={ () => !! openInNewTab }
 						onDeselect={ () =>
 							setAttributes( { openInNewTab: false } )
 						}
