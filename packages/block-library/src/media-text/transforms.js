@@ -17,7 +17,6 @@ const transforms = {
 					anchor,
 				};
 
-				// If there's a caption, create a paragraph block with it
 				const innerBlocks = caption
 					? [ createBlock( 'core/paragraph', { content: caption } ) ]
 					: [];
