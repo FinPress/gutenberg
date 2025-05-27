@@ -323,10 +323,10 @@ test.describe( 'Cover', () => {
 		} );
 
 		await focalPointLeft.fill( '20' );
-		await focalPointTop.fill( '20' );
+		await focalPointTop.fill( '30' );
 
 		await expect( focalPointLeft ).toHaveValue( '20' );
-		await expect( focalPointTop ).toHaveValue( '20' );
+		await expect( focalPointTop ).toHaveValue( '30' );
 
 		const blockAttributes = await page.evaluate( () => {
 			const selectedBlock = window.wp.data
