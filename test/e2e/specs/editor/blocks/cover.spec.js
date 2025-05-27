@@ -341,7 +341,7 @@ test.describe( 'Cover', () => {
 			'img.wp-block-cover__image-background'
 		);
 
-		await expect( coverImage ).toHaveCSS( 'object-position', '20% 20%' );
+		await expect( coverImage ).toHaveCSS( 'object-position', '20% 30%' );
 	} );
 } );
 
