@@ -45,6 +45,26 @@ export default function OverlayMenuPreview( { setAttributes, hasIcon, icon } ) {
 					aria-label={ __( 'menu' ) }
 					label={ <OverlayMenuIcon icon="menu" /> }
 				/>
+				<ToggleGroupControlOption
+					value="menu-alt"
+					aria-label={ __( 'menu-alt' ) }
+					label={ <OverlayMenuIcon icon="menu-alt" /> }
+				/>
+				<ToggleGroupControlOption
+					value="quad-lines"
+					aria-label={ __( 'quad-lines' ) }
+					label={ <OverlayMenuIcon icon="quad-lines" /> }
+				/>
+				<ToggleGroupControlOption
+					value="grid"
+					aria-label={ __( 'grid' ) }
+					label={ <OverlayMenuIcon icon="grid" /> }
+				/>
+				<ToggleGroupControlOption
+					value="hamburger-2"
+					aria-label={ __( 'hamburger-2' ) }
+					label={ <OverlayMenuIcon icon="hamburger-2" /> }
+				/>
 			</ToggleGroupControl>
 		</>
 	);
