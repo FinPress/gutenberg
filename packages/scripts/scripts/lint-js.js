@@ -14,6 +14,7 @@ const {
 	hasFileArgInCLI,
 	hasPackageProp,
 	hasProjectFile,
+	checkForDeprecatedUsage,
 } = require( '../utils' );
 
 const args = getArgsFromCLI();
@@ -50,6 +51,8 @@ const defaultIgnoreArgs = ! hasIgnoredFiles
 const defaultExtArgs = hasArgInCLI( '--ext' )
 	? []
 	: [ '--ext', 'js,jsx,ts,tsx' ];
+
+checkForDeprecatedUsage( process.cwd() );
 
 const result = spawn(
 	resolveBin( 'eslint' ),
