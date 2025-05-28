@@ -9,7 +9,12 @@ import {
 	InspectorControls,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { TextControl, SelectControl, PanelBody } from '@wordpress/components';
+import {
+	SelectControl,
+	TextControl,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -51,6 +56,18 @@ const TEMPLATE = [
 ];
 
 const Edit = ( { attributes, setAttributes, clientId } ) => {
+	const defaultSubmissionMethod = 'email';
+	const defaultEmail = '';
+
+	const resetAllSettings = () => {
+		setAttributes( {
+			submissionMethod: defaultSubmissionMethod,
+			email: defaultEmail,
+			action: '',
+			method: 'post',
+		} );
+	};
+
 	const { action, method, email, submissionMethod } = attributes;
 	const blockProps = useBlockProps();
 
@@ -75,58 +92,87 @@ const Edit = ( { attributes, setAttributes, clientId } ) => {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings' ) }>
-					<SelectControl
-						__nextHasNoMarginBottom
-						__next40pxDefaultSize
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ resetAllSettings }
+				>
+					<ToolsPanelItem
+						hasValue={ () =>
+							submissionMethod !== defaultSubmissionMethod
+						}
 						label={ __( 'Submissions method' ) }
-						options={ [
-							// TODO: Allow plugins to add their own submission methods.
-							{
-								label: __( 'Send email' ),
-								value: 'email',
-							},
-							{
-								label: __( '- Custom -' ),
-								value: 'custom',
-							},
-						] }
-						value={ submissionMethod }
-						onChange={ ( value ) =>
-							setAttributes( { submissionMethod: value } )
+						onDeselect={ () =>
+							setAttributes( {
+								submissionMethod: defaultSubmissionMethod,
+							} )
 						}
-						help={
-							submissionMethod === 'custom'
-								? __(
-										'Select the method to use for form submissions. Additional options for the "custom" mode can be found in the "Advanced" section.'
-								  )
-								: __(
-										'Select the method to use for form submissions.'
-								  )
-						}
-					/>
-					{ submissionMethod === 'email' && (
-						<TextControl
+						isShownByDefault
+					>
+						<SelectControl
 							__nextHasNoMarginBottom
 							__next40pxDefaultSize
-							autoComplete="off"
-							label={ __( 'Email for form submissions' ) }
-							value={ email }
-							required
-							onChange={ ( value ) => {
-								setAttributes( { email: value } );
-								setAttributes( {
-									action: `mailto:${ value }`,
-								} );
-								setAttributes( { method: 'post' } );
-							} }
-							help={ __(
-								'The email address where form submissions will be sent. Separate multiple email addresses with a comma.'
-							) }
-							type="email"
+							label={ __( 'Submissions method' ) }
+							options={ [
+								// TODO: Allow plugins to add their own submission methods.
+								{
+									label: __( 'Send email' ),
+									value: 'email',
+								},
+								{
+									label: __( '- Custom -' ),
+									value: 'custom',
+								},
+							] }
+							value={ submissionMethod }
+							onChange={ ( value ) =>
+								setAttributes( { submissionMethod: value } )
+							}
+							help={
+								submissionMethod === 'custom'
+									? __(
+											'Select the method to use for form submissions. Additional options for the "custom" mode can be found in the "Advanced" section.'
+									  )
+									: __(
+											'Select the method to use for form submissions.'
+									  )
+							}
 						/>
+					</ToolsPanelItem>
+					{ submissionMethod === 'email' && (
+						<ToolsPanelItem
+							hasValue={ () => email !== defaultEmail }
+							label={ __( 'Email for form submissions' ) }
+							onDeselect={ () =>
+								setAttributes( {
+									email: defaultEmail,
+									action: '',
+									method: 'post',
+								} )
+							}
+							isShownByDefault
+						>
+							<TextControl
+								__nextHasNoMarginBottom
+								__next40pxDefaultSize
+								autoComplete="off"
+								label={ __( 'Email for form submissions' ) }
+								value={ email }
+								required
+								onChange={ ( value ) => {
+									setAttributes( { email: value } );
+									setAttributes( {
+										action: `mailto:${ value }`,
+									} );
+									setAttributes( { method: 'post' } );
+								} }
+								help={ __(
+									'The email address where form submissions will be sent. Separate multiple email addresses with a comma.'
+								) }
+								type="email"
+							/>
+						</ToolsPanelItem>
 					) }
-				</PanelBody>
+				</ToolsPanel>
 			</InspectorControls>
 			{ submissionMethod !== 'email' && (
 				<InspectorControls group="advanced">
