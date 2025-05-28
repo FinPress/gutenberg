@@ -11,7 +11,7 @@ import { ChainIcon } from './icons';
 /**
  * Retrieves the social service's icon component and label.
  *
- * @param {Object} variation The object of the social service variation
+ * @param {Object} variation The object of the social service variation.
  * @return {Object} An object containing the Icon component for social service and label.
  */
 export function getSocialService( variation ) {
