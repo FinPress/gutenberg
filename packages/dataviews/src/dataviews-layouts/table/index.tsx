@@ -40,6 +40,7 @@ interface TableColumnFieldProps< Item > {
 interface TableRowProps< Item > {
 	hasBulkActions: boolean;
 	item: Item;
+	level?: number;
 	actions: Action< Item >[];
 	fields: NormalizedField< Item >[];
 	id: string;
@@ -75,6 +76,7 @@ function TableColumnField< Item >( {
 function TableRow< Item >( {
 	hasBulkActions,
 	item,
+	level,
 	actions,
 	fields,
 	id,
@@ -138,12 +140,7 @@ function TableRow< Item >( {
 			} }
 		>
 			{ hasBulkActions && (
-				<td
-					className="dataviews-view-table__checkbox-column"
-					style={ {
-						width: '1%',
-					} }
-				>
+				<td className="dataviews-view-table__checkbox-column">
 					<div className="dataviews-view-table__cell-content-wrapper">
 						<DataViewsSelectionCheckbox
 							item={ item }
@@ -160,6 +157,7 @@ function TableRow< Item >( {
 				<td>
 					<ColumnPrimary
 						item={ item }
+						level={ level }
 						titleField={ showTitle ? titleField : undefined }
 						mediaField={ showMedia ? mediaField : undefined }
 						descriptionField={
@@ -171,7 +169,7 @@ function TableRow< Item >( {
 				</td>
 			) }
 			{ columns.map( ( column: string ) => {
-				// Explicits picks the supported styles.
+				// Explicit picks the supported styles.
 				const { width, maxWidth, minWidth } =
 					view.layout?.styles?.[ column ] ?? {};
 
@@ -210,6 +208,7 @@ function ViewTable< Item >( {
 	data,
 	fields,
 	getItemId,
+	getItemLevel,
 	isLoading = false,
 	onChangeView,
 	onChangeSelection,
@@ -297,9 +296,6 @@ function ViewTable< Item >( {
 						{ hasBulkActions && (
 							<th
 								className="dataviews-view-table__checkbox-column"
-								style={ {
-									width: '1%',
-								} }
 								scope="col"
 							>
 								<BulkSelectionCheckbox
@@ -313,27 +309,25 @@ function ViewTable< Item >( {
 						) }
 						{ hasPrimaryColumn && (
 							<th scope="col">
-								<span className="dataviews-view-table-header">
-									{ titleField && (
-										<ColumnHeaderMenu
-											ref={ headerMenuRef(
-												titleField.id,
-												0
-											) }
-											fieldId={ titleField.id }
-											view={ view }
-											fields={ fields }
-											onChangeView={ onChangeView }
-											onHide={ onHide }
-											setOpenedFilter={ setOpenedFilter }
-											canMove={ false }
-										/>
-									) }
-								</span>
+								{ titleField && (
+									<ColumnHeaderMenu
+										ref={ headerMenuRef(
+											titleField.id,
+											0
+										) }
+										fieldId={ titleField.id }
+										view={ view }
+										fields={ fields }
+										onChangeView={ onChangeView }
+										onHide={ onHide }
+										setOpenedFilter={ setOpenedFilter }
+										canMove={ false }
+									/>
+								) }
 							</th>
 						) }
 						{ columns.map( ( column, index ) => {
-							// Explicits picks the supported styles.
+							// Explicit picks the supported styles.
 							const { width, maxWidth, minWidth } =
 								view.layout?.styles?.[ column ] ?? {};
 							return (
@@ -375,6 +369,12 @@ function ViewTable< Item >( {
 							<TableRow
 								key={ getItemId( item ) }
 								item={ item }
+								level={
+									view.showLevels &&
+									typeof getItemLevel === 'function'
+										? getItemLevel( item )
+										: undefined
+								}
 								hasBulkActions={ hasBulkActions }
 								actions={ actions }
 								fields={ fields }

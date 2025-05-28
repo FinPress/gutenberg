@@ -8,6 +8,11 @@ import type { ReactElement, ComponentType } from 'react';
  */
 import type { SetSelection } from './private-types';
 
+/**
+ * WordPress dependencies
+ */
+import type { useFocusOnMount } from '@wordpress/compose';
+
 export type SortDirection = 'asc' | 'desc';
 
 /**
@@ -42,7 +47,7 @@ export type Operator =
 	| 'isAll'
 	| 'isNotAll';
 
-export type FieldType = 'text' | 'integer' | 'datetime';
+export type FieldType = 'text' | 'integer' | 'datetime' | 'media';
 
 export type ValidationContext = {
 	elements?: Option[];
@@ -322,6 +327,11 @@ interface ViewBase {
 	 * Whether to show the description
 	 */
 	showDescription?: boolean;
+
+	/**
+	 * Whether to show the hierarchical levels.
+	 */
+	showLevels?: boolean;
 }
 
 export interface ColumnStyle {
@@ -458,6 +468,20 @@ export interface ActionModal< Item > extends ActionBase< Item > {
 	 * The header of the modal.
 	 */
 	modalHeader?: string;
+
+	/**
+	 * The size of the modal.
+	 *
+	 * @default 'medium'
+	 */
+	modalSize?: 'small' | 'medium' | 'large' | 'fill';
+
+	/**
+	 * The focus on mount property of the modal.
+	 */
+	modalFocusOnMount?:
+		| Parameters< typeof useFocusOnMount >[ 0 ]
+		| 'firstContentElement';
 }
 
 export interface ActionButton< Item > extends ActionBase< Item > {
@@ -480,6 +504,7 @@ export interface ViewBaseProps< Item > {
 	data: Item[];
 	fields: NormalizedField< Item >[];
 	getItemId: ( item: Item ) => string;
+	getItemLevel?: ( item: Item ) => number;
 	isLoading?: boolean;
 	onChangeView: ( view: View ) => void;
 	onChangeSelection: SetSelection;
