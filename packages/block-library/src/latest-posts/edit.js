@@ -478,8 +478,8 @@ function Controls( { attributes, setAttributes, postCount } ) {
 						order: 'desc',
 						orderBy: 'date',
 						postsToShow: 5,
-						categories: [],
-						selectedAuthor: '',
+						categories: undefined,
+						selectedAuthor: undefined,
 						columns: 3,
 					} )
 				}
@@ -499,8 +499,8 @@ function Controls( { attributes, setAttributes, postCount } ) {
 							order: 'desc',
 							orderBy: 'date',
 							postsToShow: 5,
-							categories: [],
-							selectedAuthor: '',
+							categories: undefined,
+							selectedAuthor: undefined,
 						} )
 					}
 					isShownByDefault
