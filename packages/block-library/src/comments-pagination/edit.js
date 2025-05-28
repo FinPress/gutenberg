@@ -83,7 +83,7 @@ export default function QueryPaginationEdit( {
 						}
 					>
 						<ToolsPanelItem
-							label={ __( 'Show Arrow Controls' ) }
+							label={ __( 'Arrow Controls' ) }
 							hasValue={ () => paginationArrow !== undefined }
 							onDeselect={ () =>
 								setAttributes( { paginationArrow: 'none' } )
