@@ -139,7 +139,7 @@ function SingleTrackEditor( {
 					help={ __( 'Language tag (en, fr, etc.)' ) }
 				/>
 			</Grid>
-			<VStack spacing="8">
+			<VStack spacing="4">
 				<SelectControl
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
