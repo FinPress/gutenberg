@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import { forwardRef } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import deprecated from '@wordpress/deprecated';
+
 /**
  * Internal dependencies
  */
