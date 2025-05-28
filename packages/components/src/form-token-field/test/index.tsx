@@ -1279,10 +1279,15 @@ describe( 'FormTokenField', () => {
 			const user = userEvent.setup();
 
 			const suggestions = [
+				// Half-width characters
 				'WordPress',
-				'ＷｏｒｄＰｒｅｓｓ',
 				'Gutenberg',
+				// Full-width characters
+				'ＷｏｒｄＰｒｅｓｓ',
 				'Ｇｕｔｅｎｂｅｒｇ',
+				// Mixed characters
+				'WordＰｒｅｓｓ',
+				'Guteｎｂｅｒｇ',
 			];
 
 			render( <FormTokenFieldWithState suggestions={ suggestions } /> );
@@ -1295,6 +1300,7 @@ describe( 'FormTokenField', () => {
 			expectVisibleSuggestionsToBe( screen.getByRole( 'listbox' ), [
 				'WordPress',
 				'ＷｏｒｄＰｒｅｓｓ',
+				'WordＰｒｅｓｓ',
 			] );
 
 			// Search with full-width characters.
@@ -1304,6 +1310,7 @@ describe( 'FormTokenField', () => {
 			expectVisibleSuggestionsToBe( screen.getByRole( 'listbox' ), [
 				'Gutenberg',
 				'Ｇｕｔｅｎｂｅｒｇ',
+				'Guteｎｂｅｒｇ',
 			] );
 		} );
 
