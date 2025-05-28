@@ -13,6 +13,7 @@ import {
 	useBlockProps,
 	useBlockDisplayInformation,
 	RichText,
+	__experimentalGetGapCSSValue as getGapCSSValue,
 } from '@wordpress/block-editor';
 import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
 import { Spinner, TextControl } from '@wordpress/components';
@@ -64,11 +65,20 @@ export default function PostTermsEdit( {
 	} );
 	const hasPost = postId && postType;
 	const blockInformation = useBlockDisplayInformation( clientId );
+	const blockGap = attributes?.style?.spacing?.blockGap;
+	const fallbackValue = 'var(--wp--style--block-gap)';
+	const gap = blockGap ? getGapCSSValue( blockGap ) : fallbackValue;
+
 	const blockProps = useBlockProps( {
+		layout: true,
 		className: clsx( {
+			'is-layout-flex': true,
 			[ `has-text-align-${ textAlign }` ]: textAlign,
 			[ `taxonomy-${ term }` ]: term,
 		} ),
+		style: {
+			gap,
+		},
 	} );
 
 	return (
@@ -116,26 +126,22 @@ export default function PostTermsEdit( {
 				{ hasPost &&
 					! isLoading &&
 					hasPostTerms &&
-					postTerms
-						.map( ( postTerm ) => (
+					postTerms.map( ( postTerm, index ) => (
+						<span key={ postTerm.id }>
 							<a
-								key={ postTerm.id }
 								href={ postTerm.link }
 								onClick={ ( event ) => event.preventDefault() }
 								rel="tag"
 							>
 								{ decodeEntities( postTerm.name ) }
 							</a>
-						) )
-						.reduce( ( prev, curr ) => (
-							<>
-								{ prev }
+							{ index < postTerms.length - 1 && (
 								<span className="wp-block-post-terms__separator">
 									{ separator || ' ' }
 								</span>
-								{ curr }
-							</>
-						) ) }
+							) }
+						</span>
+					) ) }
 				{ hasPost &&
 					! isLoading &&
 					! hasPostTerms &&
