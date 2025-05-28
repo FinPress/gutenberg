@@ -29,8 +29,11 @@ function getLatestHeadings( select, clientId ) {
 	const permalink = select( 'core/editor' ).getPermalink() ?? null;
 
 	const isPaginated = getBlocksByName( 'core/nextpage' ).length !== 0;
-	const { onlyIncludeCurrentPage, maxLevel } =
-		getBlockAttributes( clientId ) ?? {};
+	const {
+		onlyIncludeCurrentPage,
+		maxLevel,
+		hiddenHeadings = [],
+	} = getBlockAttributes( clientId ) ?? {};
 
 	// Get post-content block client ID.
 	const [ postContentClientId = '' ] = getBlocksByName( 'core/post-content' );
@@ -100,9 +103,18 @@ function getLatestHeadings( select, clientId ) {
 		else if ( ! onlyIncludeCurrentPage || headingPage === tocPage ) {
 			if ( blockName === 'core/heading' ) {
 				const headingAttributes = getBlockAttributes( blockClientId );
+				const headingContent = headingAttributes.content.replace(
+					/<[^>]*>?/g,
+					''
+				);
 
 				// Skip headings that are deeper than maxLevel
 				if ( maxLevel && headingAttributes.level > maxLevel ) {
+					continue;
+				}
+
+				// Skip headings that are set to be hidden in TOC
+				if ( hiddenHeadings.includes( headingContent ) ) {
 					continue;
 				}
 

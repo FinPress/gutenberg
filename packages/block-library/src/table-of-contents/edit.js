@@ -43,13 +43,19 @@ import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
  * @param {HeadingData[]}                props.attributes.headings               The list of data for each heading in the post.
  * @param {boolean}                      props.attributes.onlyIncludeCurrentPage Whether to only include headings from the current page (if the post is paginated).
  * @param {number|undefined}             props.attributes.maxLevel               The maximum heading level to include, or null to include all levels.
+ * @param {string[]}                     props.attributes.hiddenHeadings         Array of heading content that should be hidden from TOC.
  * @param {string}                       props.clientId                          The client id.
  * @param {(attributes: Object) => void} props.setAttributes                     The set attributes function.
  *
  * @return {Component} The component.
  */
 export default function TableOfContentsEdit( {
-	attributes: { headings = [], onlyIncludeCurrentPage, maxLevel },
+	attributes: {
+		headings = [],
+		onlyIncludeCurrentPage,
+		maxLevel,
+		hiddenHeadings = [],
+	},
 	clientId,
 	setAttributes,
 } ) {
@@ -60,6 +66,29 @@ export default function TableOfContentsEdit( {
 		TableOfContentsEdit,
 		'table-of-contents'
 	);
+
+	// Get all heading blocks for the visibility controls
+	const { allHeadingBlocks } = useSelect( ( select ) => {
+		const { getBlocksByName, getBlockAttributes } =
+			select( blockEditorStore );
+		const headingIds = getBlocksByName( 'core/heading' );
+
+		const headingBlocks = headingIds
+			.map( ( headingId ) => {
+				const attributes = getBlockAttributes( headingId );
+				return {
+					content:
+						attributes?.content?.replace( /<[^>]*>?/g, '' ) ||
+						__( 'Untitled' ),
+					level: attributes?.level || 2,
+				};
+			} )
+			.filter( ( heading ) => heading.content.trim() !== '' );
+
+		return {
+			allHeadingBlocks: headingBlocks,
+		};
+	}, [] );
 
 	// If a user clicks to a link prevent redirection and show a warning.
 	const { createWarningNotice } = useDispatch( noticeStore );
@@ -85,6 +114,21 @@ export default function TableOfContentsEdit( {
 	const { replaceBlocks } = useDispatch( blockEditorStore );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 	const headingTree = linearToNestedHeadingList( headings );
+
+	/**
+	 * Toggle the visibility of a heading in the table of contents.
+	 *
+	 * @param {string} headingContent Heading content to compare against hiddenHeadings.
+	 *
+	 * @return {void}
+	 */
+	const toggleHeadingVisibility = ( headingContent ) => {
+		const newHiddenHeadings = hiddenHeadings.includes( headingContent )
+			? hiddenHeadings.filter( ( id ) => id !== headingContent )
+			: [ ...hiddenHeadings, headingContent ];
+
+		setAttributes( { hiddenHeadings: newHiddenHeadings } );
+	};
 
 	const toolbarControls = canInsertList && (
 		<BlockControls>
@@ -187,6 +231,49 @@ export default function TableOfContentsEdit( {
 					/>
 				</ToolsPanelItem>
 			</ToolsPanel>
+			{ allHeadingBlocks.length > 0 && (
+				<ToolsPanel
+					label={ __( 'Heading Visibility' ) }
+					resetAll={ () => {
+						setAttributes( { hiddenHeadings: [] } );
+					} }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
+					{ allHeadingBlocks.map( ( heading ) => (
+						<ToolsPanelItem
+							key={ heading.content }
+							hasValue={ () =>
+								hiddenHeadings.includes( heading.content )
+							}
+							label={ heading.content }
+							onDeselect={ () =>
+								toggleHeadingVisibility( heading.content )
+							}
+							isShownByDefault={ false }
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ heading.content }
+								checked={
+									! hiddenHeadings.includes( heading.content )
+								}
+								onChange={ () =>
+									toggleHeadingVisibility( heading.content )
+								}
+								help={
+									! hiddenHeadings.includes( heading.content )
+										? __(
+												'This heading will appear in the table of contents.'
+										  )
+										: __(
+												'This heading will be hidden from the table of contents.'
+										  )
+								}
+							/>
+						</ToolsPanelItem>
+					) ) }
+				</ToolsPanel>
+			) }
 		</InspectorControls>
 	);
 
