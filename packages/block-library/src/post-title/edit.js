@@ -83,6 +83,7 @@ export default function PostTitleEdit( {
 	if ( postType && postId ) {
 		titleElement = userCanEdit ? (
 			<PlainText
+				tagName={ TagName }
 				placeholder={ __( 'No title' ) }
 				value={ rawTitle }
 				onChange={ setTitle }
