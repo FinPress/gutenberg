@@ -7,6 +7,8 @@ export type DropZoneProps = {
 	className?: string;
 	/**
 	 * An icon to be shown within the drop zone area.
+	 *
+	 * @default "upload"
 	 */
 	icon?: JSX.Element;
 	/**
