@@ -10,7 +10,10 @@ import {
 	Warning,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-import { PanelBody } from '@wordpress/components';
+import {
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+} from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -73,14 +76,28 @@ export default function QueryPaginationEdit( {
 		<>
 			{ hasNextPreviousBlocks && (
 				<InspectorControls>
-					<PanelBody title={ __( 'Settings' ) }>
-						<CommentsPaginationArrowControls
-							value={ paginationArrow }
-							onChange={ ( value ) => {
-								setAttributes( { paginationArrow: value } );
-							} }
-						/>
-					</PanelBody>
+					<ToolsPanel
+						label={ __( 'Settings' ) }
+						resetAll={ () =>
+							setAttributes( { paginationArrow: 'none' } )
+						}
+					>
+						<ToolsPanelItem
+							label={ __( 'Show Arrow Controls' ) }
+							hasValue={ () => paginationArrow !== undefined }
+							onDeselect={ () =>
+								setAttributes( { paginationArrow: 'none' } )
+							}
+							isShownByDefault
+						>
+							<CommentsPaginationArrowControls
+								value={ paginationArrow }
+								onChange={ ( value ) => {
+									setAttributes( { paginationArrow: value } );
+								} }
+							/>
+						</ToolsPanelItem>
+					</ToolsPanel>
 				</InspectorControls>
 			) }
 			<div { ...innerBlocksProps } />
