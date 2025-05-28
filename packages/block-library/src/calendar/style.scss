@@ -19,16 +19,6 @@
 		width: 100%;
 		border-collapse: collapse;
 
-		&:where(:not(.has-text-color)) {
-			color: #40464d;
-
-			// Keep the hard-coded border color for backward compatibility.
-			th,
-			td {
-				border-color: $gray-300;
-			}
-		}
-
 		&.has-background th,
 		&.has-background td {
 			background-color: inherit;
@@ -38,6 +28,16 @@
 		&.has-text-color td,
 		&.has-text-color caption {
 			color: inherit;
+		}
+	}
+
+	:where(table:not(.has-text-color)) {
+		color: #40464d;
+
+		// Keep the hard-coded border color for backward compatibility.
+		th,
+		td {
+			border-color: $gray-300;
 		}
 	}
 }
