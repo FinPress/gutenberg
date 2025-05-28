@@ -12,7 +12,11 @@ import {
 	useBlockProps,
 	__experimentalDateFormatPicker as DateFormatPicker,
 } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl } from '@wordpress/components';
+import {
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+	ToggleControl,
+} from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
 
 /**
@@ -41,23 +45,50 @@ export default function Edit( {
 		'date_format'
 	);
 
+	const defaultIsLink = false;
+	const defaultFormat = siteFormat;
+
+	const resetAll = () => {
+		setAttributes( {
+			format: undefined,
+			isLink: defaultIsLink,
+		} );
+	};
+
 	const inspectorControls = (
 		<InspectorControls>
-			<PanelBody title={ __( 'Settings' ) }>
-				<DateFormatPicker
-					format={ format }
-					defaultFormat={ siteFormat }
-					onChange={ ( nextFormat ) =>
-						setAttributes( { format: nextFormat } )
-					}
-				/>
-				<ToggleControl
-					__nextHasNoMarginBottom
+			<ToolsPanel label={ __( 'Settings' ) } resetAll={ resetAll }>
+				<ToolsPanelItem
+					hasValue={ () => format !== undefined }
+					label={ __( 'Date format' ) }
+					onDeselect={ () => setAttributes( { format: undefined } ) }
+					isShownByDefault
+				>
+					<DateFormatPicker
+						format={ format }
+						defaultFormat={ defaultFormat }
+						onChange={ ( nextFormat ) =>
+							setAttributes( { format: nextFormat } )
+						}
+					/>
+				</ToolsPanelItem>
+
+				<ToolsPanelItem
+					hasValue={ () => isLink !== defaultIsLink }
 					label={ __( 'Link to comment' ) }
-					onChange={ () => setAttributes( { isLink: ! isLink } ) }
-					checked={ isLink }
-				/>
-			</PanelBody>
+					onDeselect={ () =>
+						setAttributes( { isLink: defaultIsLink } )
+					}
+					isShownByDefault
+				>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Link to comment' ) }
+						onChange={ () => setAttributes( { isLink: ! isLink } ) }
+						checked={ isLink }
+					/>
+				</ToolsPanelItem>
+			</ToolsPanel>
 		</InspectorControls>
 	);
 
