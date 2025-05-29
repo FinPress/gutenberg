@@ -50,6 +50,7 @@ import {
 import { sharedIcon } from './shared-icon';
 import { defaultColumnsNumber, pickRelevantMediaFiles } from './shared';
 import { getHrefAndDestination } from './utils';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 import {
 	getUpdatedLinkTargetSettings,
 	getImageSizeAttributes,
@@ -555,6 +556,8 @@ export default function GalleryEdit( props ) {
 		...nativeInnerBlockProps,
 	} );
 
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+
 	if ( ! hasImages ) {
 		return (
 			<View { ...innerBlocksProps }>
@@ -586,6 +589,7 @@ export default function GalleryEdit( props ) {
 								randomOrder: false,
 							} );
 						} }
+						dropdownMenuProps={ dropdownMenuProps }
 					>
 						{ images.length > 1 && (
 							<ToolsPanelItem
