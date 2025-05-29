@@ -19,6 +19,7 @@ import {
  * Internal dependencies
  */
 import { CommentsPaginationArrowControls } from './comments-pagination-arrow-controls';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 const TEMPLATE = [
 	[ 'core/comments-pagination-previous' ],
@@ -48,6 +49,7 @@ export default function QueryPaginationEdit( {
 	}, [] );
 
 	const blockProps = useBlockProps();
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		template: TEMPLATE,
 	} );
@@ -78,13 +80,14 @@ export default function QueryPaginationEdit( {
 				<InspectorControls>
 					<ToolsPanel
 						label={ __( 'Settings' ) }
+						dropdownMenuProps={ dropdownMenuProps }
 						resetAll={ () =>
 							setAttributes( { paginationArrow: 'none' } )
 						}
 					>
 						<ToolsPanelItem
-							label={ __( 'Arrow Controls' ) }
-							hasValue={ () => paginationArrow !== undefined }
+							label={ __( 'Arrow' ) }
+							hasValue={ () => paginationArrow !== 'none' }
 							onDeselect={ () =>
 								setAttributes( { paginationArrow: 'none' } )
 							}
