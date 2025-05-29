@@ -131,13 +131,9 @@ function PostAuthorEdit( {
 						} }
 					>
 						{ showAuthorControl && (
-							<ToolsPanelItem
-								label={ __( 'Author' ) }
-								isShownByDefault
-								hasValue={ () => authorId }
-								onDeselect={ () =>
-									setAttributes( { authorId: null } )
-								}
+							<VStack
+								spacing={ 4 }
+								style={ { gridColumn: '1 / -1' } }
 							>
 								{ ( showCombobox && (
 									<ComboboxControl
@@ -159,7 +155,7 @@ function PostAuthorEdit( {
 										onChange={ handleSelect }
 									/>
 								) }
-							</ToolsPanelItem>
+							</VStack>
 						) }
 						<ToolsPanelItem
 							label={ __( 'Show avatar' ) }
