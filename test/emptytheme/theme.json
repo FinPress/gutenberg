@@ -8,6 +8,24 @@
 			"wideSize": "1100px"
 		}
 	},
+	"styles": {
+		"blocks": {
+			"core/pullquote": {
+				"elements": {
+					"cite": {
+						"color": {
+							"text": "#ff0000"
+						},
+						"typography": {
+							"fontSize": "30px",
+							"textTransform": "lowercase",
+							"fontStyle": "italic"
+						}
+					}
+				}
+			}
+		}
+	},
 	"customTemplates": [
 		{
 			"name": "custom-template",
