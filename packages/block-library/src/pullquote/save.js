@@ -23,11 +23,7 @@ export default function save( { attributes } ) {
 			<blockquote>
 				<RichText.Content tagName="p" value={ value } />
 				{ shouldShowCitation && (
-					<RichText.Content
-						tagName="cite"
-						className="wp-block-pullquote__citation"
-						value={ citation }
-					/>
+					<RichText.Content tagName="cite" value={ citation } />
 				) }
 			</blockquote>
 		</figure>
