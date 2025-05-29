@@ -135,9 +135,9 @@ export default function Edit( {
 				<ToolsPanelItem
 					label={ __( 'Show post title' ) }
 					isShownByDefault
-					hasValue={ () => showPostTitle }
+					hasValue={ () => ! showPostTitle }
 					onDeselect={ () =>
-						setAttributes( { showPostTitle: false } )
+						setAttributes( { showPostTitle: true } )
 					}
 				>
 					<ToggleControl
@@ -152,9 +152,9 @@ export default function Edit( {
 				<ToolsPanelItem
 					label={ __( 'Show comments count' ) }
 					isShownByDefault
-					hasValue={ () => showCommentsCount }
+					hasValue={ () => ! showCommentsCount }
 					onDeselect={ () =>
-						setAttributes( { showCommentsCount: false } )
+						setAttributes( { showCommentsCount: true } )
 					}
 				>
 					<ToggleControl
