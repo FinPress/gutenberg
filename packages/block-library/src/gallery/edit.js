@@ -677,9 +677,11 @@ export default function GalleryEdit( props ) {
 						{ hasLinkTo && (
 							<ToolsPanelItem
 								isShownByDefault
-								label={ __( 'Open images in a new tab' ) }
-								hasValue={ () => linkTarget === '_blank' }
-								onDeselect={ () => toggleOpenInNewTab( false ) }
+								label={ __( 'Open images in new tab' ) }
+								hasValue={ () => !! linkTarget }
+								onDeselect={ () =>
+									setAttributes( { linkTarget: undefined } )
+								}
 							>
 								<ToggleControl
 									__nextHasNoMarginBottom
