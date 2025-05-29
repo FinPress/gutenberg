@@ -20,6 +20,9 @@ import {
 	formSubmissionNotificationError,
 } from './utils.js';
 
+// Use local useInstanceId
+import { default as useInstanceId } from './components/useInstanceId';
+
 const TEMPLATE = [
 	formSubmissionNotificationSuccess,
 	formSubmissionNotificationError,
@@ -51,8 +54,19 @@ const TEMPLATE = [
 ];
 
 const Edit = ( { attributes, setAttributes, clientId } ) => {
-	const { action, method, email, submissionMethod } = attributes;
-	const blockProps = useBlockProps();
+	const { action, method, email, submissionMethod, formId } = attributes;
+
+	// Use useInstanceId to generate a unique form id
+	const instanceId = useInstanceId( Edit, 'wpf' );
+	
+		setAttributes( {
+			formId: instanceId,
+			action: ''
+		} );
+
+	const blockProps = useBlockProps( {
+		id: formId
+	} );
 
 	const { hasInnerBlocks } = useSelect(
 		( select ) => {

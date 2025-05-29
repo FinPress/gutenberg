@@ -1,7 +1,9 @@
 [
 	{
 		"blockName": "core/form",
-		"attrs": {},
+		"attrs": {
+			"formId": "wpf-abc-xyz"
+		},
 		"innerBlocks": [
 			{
 				"blockName": "core/form-input",
@@ -82,9 +84,9 @@
 				]
 			}
 		],
-		"innerHTML": "\n<form class=\"wp-block-form\" enctype=\"text/plain\">\n\n\n\n\n\n\n\n\n\n</form>\n",
+		"innerHTML": "\n<form class=\"wp-block-form\" id=\"wpf-abc-xyz\" enctype=\"text/plain\">\n\n\n\n\n\n\n\n\n\n</form>\n",
 		"innerContent": [
-			"\n<form class=\"wp-block-form\" enctype=\"text/plain\">\n",
+			"\n<form class=\"wp-block-form\" id=\"wpf-abc-xyz\" enctype=\"text/plain\">\n",
 			null,
 			"\n\n",
 			null,

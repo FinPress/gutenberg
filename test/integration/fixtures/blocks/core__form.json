@@ -3,8 +3,10 @@
 		"name": "core/form",
 		"isValid": true,
 		"attributes": {
+			"formId": "wpf-abc-xyz",
 			"submissionMethod": "email",
-			"method": "post"
+			"method": "post",
+			"action": ""
 		},
 		"innerBlocks": [
 			{

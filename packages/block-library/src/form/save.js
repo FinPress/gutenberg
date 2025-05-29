@@ -4,8 +4,11 @@
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-	const blockProps = useBlockProps.save();
-	const { submissionMethod } = attributes;
+	const { submissionMethod, formId } = attributes;
+
+	const blockProps = useBlockProps.save({
+		id: formId
+	});
 
 	return (
 		<form
