@@ -567,10 +567,6 @@ export default function GalleryEdit( props ) {
 		);
 	}
 
-	const sizeSlugInOptions = imageSizeOptions?.some(
-		( size ) => size.value === sizeSlug
-	);
-
 	const hasLinkTo = linkTo && linkTo !== 'none';
 
 	return (
@@ -628,8 +624,7 @@ export default function GalleryEdit( props ) {
 								isShownByDefault
 								label={ __( 'Resolution' ) }
 								hasValue={ () =>
-									sizeSlug !== defaultImageSizeSlug &&
-									sizeSlugInOptions
+									sizeSlug !== defaultImageSizeSlug
 								}
 								onDeselect={ () =>
 									updateImagesSize( defaultImageSizeSlug )
