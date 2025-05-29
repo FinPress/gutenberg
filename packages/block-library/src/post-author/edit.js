@@ -168,7 +168,7 @@ function PostAuthorEdit( {
 						<ToolsPanelItem
 							label={ __( 'Show avatar' ) }
 							isShownByDefault
-							hasValue={ () => showAvatar }
+							hasValue={ () => showAvatar !== true }
 							onDeselect={ () =>
 								setAttributes( { showAvatar: true } )
 							}
@@ -188,7 +188,7 @@ function PostAuthorEdit( {
 							<ToolsPanelItem
 								label={ __( 'Avatar size' ) }
 								isShownByDefault
-								hasValue={ () => attributes.avatarSize }
+								hasValue={ () => attributes.avatarSize !== 48 }
 								onDeselect={ () =>
 									setAttributes( { avatarSize: 48 } )
 								}
@@ -210,9 +210,9 @@ function PostAuthorEdit( {
 						<ToolsPanelItem
 							label={ __( 'Show bio' ) }
 							isShownByDefault
-							hasValue={ () => showBio }
+							hasValue={ () => !! showBio !== false }
 							onDeselect={ () =>
-								setAttributes( { showBio: true } )
+								setAttributes( { showBio: undefined } )
 							}
 						>
 							<ToggleControl
@@ -227,7 +227,7 @@ function PostAuthorEdit( {
 						<ToolsPanelItem
 							label={ __( 'Link author name' ) }
 							isShownByDefault
-							hasValue={ () => isLink }
+							hasValue={ () => isLink !== false }
 							onDeselect={ () =>
 								setAttributes( { isLink: false } )
 							}
@@ -247,7 +247,7 @@ function PostAuthorEdit( {
 							<ToolsPanelItem
 								label={ __( 'Link target' ) }
 								isShownByDefault
-								hasValue={ () => linkTarget }
+								hasValue={ () => linkTarget !== '_self' }
 								onDeselect={ () =>
 									setAttributes( { linkTarget: '_self' } )
 								}
