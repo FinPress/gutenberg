@@ -6,8 +6,7 @@
 	padding: 4em 0;
 
 	p,
-	blockquote,
-	cite {
+	blockquote {
 		color: inherit;
 	}
 
@@ -74,7 +73,6 @@
 	}
 }
 
-.wp-block-pullquote cite {
-	color: inherit;
+.wp-block-pullquote__citation {
 	display: block;
 }
