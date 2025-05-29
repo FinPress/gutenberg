@@ -578,12 +578,17 @@ export default function GalleryEdit( props ) {
 						resetAll={ () => {
 							setAttributes( {
 								columns: undefined,
-								linkTarget: undefined,
-								linkTo: 'none',
 								imageCrop: true,
 								randomOrder: false,
 							} );
-							updateImagesSize( defaultImageSizeSlug );
+
+							if ( sizeSlug !== defaultImageSizeSlug ) {
+								updateImagesSize( defaultImageSizeSlug );
+							}
+
+							if ( linkTarget ) {
+								toggleOpenInNewTab( false );
+							}
 						} }
 						dropdownMenuProps={ dropdownMenuProps }
 					>
@@ -679,9 +684,7 @@ export default function GalleryEdit( props ) {
 								isShownByDefault
 								label={ __( 'Open images in new tab' ) }
 								hasValue={ () => !! linkTarget }
-								onDeselect={ () =>
-									setAttributes( { linkTarget: undefined } )
-								}
+								onDeselect={ () => toggleOpenInNewTab( false ) }
 							>
 								<ToggleControl
 									__nextHasNoMarginBottom
