@@ -20,6 +20,11 @@ import {
 import { __, _x } from '@wordpress/i18n';
 
 /**
+ * Internal dependencies
+ */
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+
+/**
  * Renders the `core/comment-date` block on the editor.
  *
  * @param {Object} props                   React props.
@@ -38,6 +43,8 @@ export default function Edit( {
 	setAttributes,
 } ) {
 	const blockProps = useBlockProps();
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+
 	let [ date ] = useEntityProp( 'root', 'comment', 'date', commentId );
 	const [ siteFormat = getDateSettings().formats.date ] = useEntityProp(
 		'root',
@@ -45,28 +52,27 @@ export default function Edit( {
 		'date_format'
 	);
 
-	const defaultIsLink = false;
-	const defaultFormat = siteFormat;
-
-	const resetAll = () => {
-		setAttributes( {
-			format: undefined,
-			isLink: defaultIsLink,
-		} );
-	};
-
 	const inspectorControls = (
 		<InspectorControls>
-			<ToolsPanel label={ __( 'Settings' ) } resetAll={ resetAll }>
+			<ToolsPanel
+				label={ __( 'Settings' ) }
+				resetAll={ () => {
+					setAttributes( {
+						format: undefined,
+						isLink: true,
+					} );
+				} }
+				dropdownMenuProps={ dropdownMenuProps }
+			>
 				<ToolsPanelItem
-					hasValue={ () => format !== undefined }
 					label={ __( 'Date format' ) }
+					hasValue={ () => format !== undefined }
 					onDeselect={ () => setAttributes( { format: undefined } ) }
 					isShownByDefault
 				>
 					<DateFormatPicker
 						format={ format }
-						defaultFormat={ defaultFormat }
+						defaultFormat={ siteFormat }
 						onChange={ ( nextFormat ) =>
 							setAttributes( { format: nextFormat } )
 						}
@@ -74,11 +80,9 @@ export default function Edit( {
 				</ToolsPanelItem>
 
 				<ToolsPanelItem
-					hasValue={ () => isLink !== defaultIsLink }
 					label={ __( 'Link to comment' ) }
-					onDeselect={ () =>
-						setAttributes( { isLink: defaultIsLink } )
-					}
+					hasValue={ () => ! isLink }
+					onDeselect={ () => setAttributes( { isLink: true } ) }
 					isShownByDefault
 				>
 					<ToggleControl
