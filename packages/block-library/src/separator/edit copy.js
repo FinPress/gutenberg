@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import {
 	HorizontalRule,
 	SelectControl,
-	PanelBody,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
@@ -19,7 +18,6 @@ import {
 	__experimentalUseColorProps as useColorProps,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import { Platform } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -60,8 +58,19 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				{ Platform.isNative ? (
-					<PanelBody title={ __( 'Settings' ) }>
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ () => {
+						setAttributes( { tagName: 'hr' } );
+					} }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
+					<ToolsPanelItem
+						hasValue={ () => tagName !== 'hr' }
+						label={ __( 'HTML element' ) }
+						onDeselect={ () => setAttributes( { tagName: 'hr' } ) }
+						isShownByDefault
+					>
 						<SelectControl
 							label={ __( 'HTML element' ) }
 							value={ tagName }
@@ -84,51 +93,8 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
 						/>
-					</PanelBody>
-				) : (
-					<ToolsPanel
-						label={ __( 'Settings' ) }
-						resetAll={ () => {
-							setAttributes( { tagName: 'hr' } );
-						} }
-						dropdownMenuProps={ dropdownMenuProps }
-					>
-						<ToolsPanelItem
-							hasValue={ () => tagName !== 'hr' }
-							label={ __( 'HTML element' ) }
-							onDeselect={ () =>
-								setAttributes( { tagName: 'hr' } )
-							}
-							isShownByDefault
-						>
-							<SelectControl
-								label={ __( 'HTML element' ) }
-								value={ tagName }
-								onChange={ ( value ) =>
-									setAttributes( { tagName: value } )
-								}
-								options={ [
-									{
-										label: __( 'Default (<hr>)' ),
-										value: 'hr',
-									},
-									{ label: '<div>', value: 'div' },
-								] }
-								help={
-									tagName === 'hr'
-										? __(
-												'Only select <hr> if the separator conveys important information and should be announced by screen readers.'
-										  )
-										: __(
-												'The <div> element should only be used if the block is a design element with no semantic meaning.'
-										  )
-								}
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
-							/>
-						</ToolsPanelItem>
-					</ToolsPanel>
-				) }
+					</ToolsPanelItem>
+				</ToolsPanel>
 			</InspectorControls>
 			<Wrapper
 				{ ...useBlockProps( {
