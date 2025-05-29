@@ -580,10 +580,10 @@ export default function GalleryEdit( props ) {
 								columns: undefined,
 								linkTarget: undefined,
 								linkTo: 'none',
-								sizeSlug: defaultImageSizeSlug,
 								imageCrop: true,
 								randomOrder: false,
 							} );
+							updateImagesSize( defaultImageSizeSlug );
 						} }
 						dropdownMenuProps={ dropdownMenuProps }
 					>
