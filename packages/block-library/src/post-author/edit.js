@@ -25,6 +25,11 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 
+/**
+ * Internal dependencies
+ */
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+
 const minimumUsersForCombobox = 25;
 
 const AUTHORS_QUERY = {
@@ -39,6 +44,8 @@ function PostAuthorEdit( {
 	setAttributes,
 } ) {
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+
 	const { authorId, authorDetails, authors, supportsAuthor } = useSelect(
 		( select ) => {
 			const { getEditedEntityRecord, getUser, getUsers, getPostType } =
@@ -129,6 +136,7 @@ function PostAuthorEdit( {
 								linkTarget: '_self',
 							} );
 						} }
+						dropdownMenuProps={ dropdownMenuProps }
 					>
 						{ showAuthorControl && (
 							<VStack
