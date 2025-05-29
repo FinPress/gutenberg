@@ -577,7 +577,7 @@ export default function GalleryEdit( props ) {
 						label={ __( 'Settings' ) }
 						resetAll={ () => {
 							setAttributes( {
-								columns: images.length,
+								columns: undefined,
 								linkTarget: undefined,
 								linkTo: 'none',
 								sizeSlug: defaultImageSizeSlug,
@@ -592,10 +592,10 @@ export default function GalleryEdit( props ) {
 								isShownByDefault
 								label={ __( 'Columns' ) }
 								hasValue={ () =>
-									columns ? columns !== images.length : false
+									!! columns && columns !== images.length
 								}
 								onDeselect={ () =>
-									setColumnsNumber( images.length )
+									setColumnsNumber( undefined )
 								}
 							>
 								<RangeControl
