@@ -57,33 +57,39 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 	};
 	const Wrapper = tagName === 'hr' ? HorizontalRule : tagName;
 
+	const HtmlElementControl = () => {
+		return (
+			<SelectControl
+				label={ __( 'HTML element' ) }
+				value={ tagName }
+				onChange={ ( newValue ) =>
+					setAttributes( { tagName: newValue } )
+				}
+				options={ [
+					{ label: __( 'Default (<hr>)' ), value: 'hr' },
+					{ label: '<div>', value: 'div' },
+				] }
+				help={
+					tagName === 'hr'
+						? __(
+								'Only select <hr> if the separator conveys important information and should be announced by screen readers.'
+						  )
+						: __(
+								'The <div> element should only be used if the block is a design element with no semantic meaning.'
+						  )
+				}
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+			/>
+		);
+	};
+
 	return (
 		<>
 			<InspectorControls>
 				{ Platform.isNative ? (
 					<PanelBody title={ __( 'Settings' ) }>
-						<SelectControl
-							label={ __( 'HTML element' ) }
-							value={ tagName }
-							onChange={ ( value ) =>
-								setAttributes( { tagName: value } )
-							}
-							options={ [
-								{ label: __( 'Default (<hr>)' ), value: 'hr' },
-								{ label: '<div>', value: 'div' },
-							] }
-							help={
-								tagName === 'hr'
-									? __(
-											'Only select <hr> if the separator conveys important information and should be announced by screen readers.'
-									  )
-									: __(
-											'The <div> element should only be used if the block is a design element with no semantic meaning.'
-									  )
-							}
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
-						/>
+						<HtmlElementControl />
 					</PanelBody>
 				) : (
 					<ToolsPanel
@@ -101,31 +107,7 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 							}
 							isShownByDefault
 						>
-							<SelectControl
-								label={ __( 'HTML element' ) }
-								value={ tagName }
-								onChange={ ( value ) =>
-									setAttributes( { tagName: value } )
-								}
-								options={ [
-									{
-										label: __( 'Default (<hr>)' ),
-										value: 'hr',
-									},
-									{ label: '<div>', value: 'div' },
-								] }
-								help={
-									tagName === 'hr'
-										? __(
-												'Only select <hr> if the separator conveys important information and should be announced by screen readers.'
-										  )
-										: __(
-												'The <div> element should only be used if the block is a design element with no semantic meaning.'
-										  )
-								}
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
-							/>
+							<HtmlElementControl />
 						</ToolsPanelItem>
 					</ToolsPanel>
 				) }
