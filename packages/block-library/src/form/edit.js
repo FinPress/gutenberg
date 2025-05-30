@@ -20,6 +20,7 @@ import { useSelect } from '@wordpress/data';
 /**
  * Internal dependencies
  */
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 import {
 	formSubmissionNotificationSuccess,
 	formSubmissionNotificationError,
@@ -56,13 +57,13 @@ const TEMPLATE = [
 ];
 
 const Edit = ( { attributes, setAttributes, clientId } ) => {
-	const defaultSubmissionMethod = 'email';
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	const resetAllSettings = () => {
 		setAttributes( {
-			submissionMethod: defaultSubmissionMethod,
-			email: '',
-			action: '',
+			submissionMethod: 'email',
+			email: undefined,
+			action: undefined,
 			method: 'post',
 		} );
 	};
@@ -92,17 +93,16 @@ const Edit = ( { attributes, setAttributes, clientId } ) => {
 		<>
 			<InspectorControls>
 				<ToolsPanel
+					dropdownMenuProps={ dropdownMenuProps }
 					label={ __( 'Settings' ) }
 					resetAll={ resetAllSettings }
 				>
 					<ToolsPanelItem
-						hasValue={ () =>
-							submissionMethod !== defaultSubmissionMethod
-						}
+						hasValue={ () => submissionMethod !== 'email' }
 						label={ __( 'Submissions method' ) }
 						onDeselect={ () =>
 							setAttributes( {
-								submissionMethod: defaultSubmissionMethod,
+								submissionMethod: 'email',
 							} )
 						}
 						isShownByDefault
@@ -139,12 +139,12 @@ const Edit = ( { attributes, setAttributes, clientId } ) => {
 					</ToolsPanelItem>
 					{ submissionMethod === 'email' && (
 						<ToolsPanelItem
-							hasValue={ () => email !== '' }
+							hasValue={ () => !! email }
 							label={ __( 'Email for form submissions' ) }
 							onDeselect={ () =>
 								setAttributes( {
-									email: '',
-									action: '',
+									email: undefined,
+									action: undefined,
 									method: 'post',
 								} )
 							}
