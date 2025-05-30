@@ -199,7 +199,7 @@ test.describe( 'Navigation block', () => {
 		} );
 	} );
 
-	test.describe( 'Navigation block fronted fallback behavior', () => {
+	test.describe( 'Fronted fallback behavior', () => {
 		test( 'should fall back to Page List when no menus exist', async ( {
 			admin,
 			editor,
