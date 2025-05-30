@@ -54,7 +54,8 @@ export default function ParentPostTitleEdit( {
 			return {
 				parentPostId: _parentId,
 				supportsParent:
-					getPostType( postType )?.supports?.parent ?? false,
+					getPostType( postType )?.supports?.[ 'page-attributes' ] ??
+					false,
 			};
 		},
 		[ postType, postId ]
@@ -62,7 +63,7 @@ export default function ParentPostTitleEdit( {
 
 	const blockEditingMode = useBlockEditingMode();
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
-	const [ fullTitle ] = useEntityProp(
+	const [ , , fullTitle ] = useEntityProp(
 		'postType',
 		postType,
 		'title',
