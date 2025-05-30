@@ -540,11 +540,6 @@ export default function LogoEdit( {
 	};
 
 	const onFilesDrop = ( filesList ) => {
-		if ( filesList?.length > 1 ) {
-			onUploadError( __( 'Only one image can be used as a site logo.' ) );
-			return;
-		}
-
 		getSettings().mediaUpload( {
 			allowedTypes: ALLOWED_MEDIA_TYPES,
 			filesList,
@@ -556,6 +551,7 @@ export default function LogoEdit( {
 				onInitialSelectLogo( image );
 			},
 			onError: onUploadError,
+			multiple: false,
 		} );
 	};
 
