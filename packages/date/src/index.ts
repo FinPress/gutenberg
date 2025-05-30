@@ -397,7 +397,7 @@ const formatMap = {
  * Formats a date. Does not alter the date's timezone.
  *
  * @param dateFormat PHP-style formatting string.
- *                   See php.net/date.
+ *                   See [php.net/date](https://www.php.net/manual/en/function.date.php).
  * @param dateValue  Date object or string,
  *                   parsable by moment.js.
  *
@@ -441,7 +441,7 @@ export function format(
  * Formats a date (like `date()` in PHP).
  *
  * @param  dateFormat PHP-style formatting string.
- *                    See php.net/date.
+ *                    See [php.net/date](https://www.php.net/manual/en/function.date.php).
  * @param  dateValue  Date object or string, parsable
  *                    by moment.js.
  * @param  timezone   Timezone to output result in or a
@@ -466,7 +466,7 @@ export function date(
  * Formats a date (like `date()` in PHP), in the UTC timezone.
  *
  * @param dateFormat PHP-style formatting string.
- *                   See php.net/date.
+ *                   See [php.net/date](https://www.php.net/manual/en/function.date.php).
  * @param dateValue  Date object or string,
  *                   parsable by moment.js.
  *
@@ -487,7 +487,7 @@ export function gmdate(
  * behaves like `gmdateI18n`.
  *
  * @param dateFormat PHP-style formatting string.
- *                   See php.net/date.
+ *                   See [php.net/date](https://www.php.net/manual/en/function.date.php).
  * @param dateValue  Date object or string, parsable by
  *                   moment.js.
  * @param timezone   Timezone to output result in or a
@@ -524,7 +524,7 @@ export function dateI18n(
  * and using the UTC timezone.
  *
  * @param dateFormat PHP-style formatting string.
- *                   See php.net/date.
+ *                   See [php.net/date](https://www.php.net/manual/en/function.date.php).
  * @param dateValue  Date object or string,
  *                   parsable by moment.js.
  *
