@@ -15,17 +15,23 @@ import {
 	__experimentalUseColorProps as useColorProps,
 } from '@wordpress/block-editor';
 import {
-	__experimentalToolsPanel as ToolsPanel,
-	__experimentalToolsPanelItem as ToolsPanelItem,
 	TextControl,
 	CheckboxControl,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { useRef } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 function InputFieldBlock( { attributes, setAttributes, className } ) {
 	const { type, name, label, inlineLabel, required, placeholder, value } =
 		attributes;
 	const blockProps = useBlockProps();
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 	const ref = useRef();
 	const TagName = type === 'textarea' ? 'textarea' : 'input';
 
@@ -38,34 +44,26 @@ function InputFieldBlock( { attributes, setAttributes, className } ) {
 	// Note: radio inputs aren't implemented yet.
 	const isCheckboxOrRadio = type === 'checkbox' || type === 'radio';
 
-	const defaultRequired = false;
-	const defaultInlineLabel = false;
-
-	const resetAllSettings = () => {
-		setAttributes( {
-			required: defaultRequired,
-			inlineLabel: defaultInlineLabel,
-		} );
-	};
-
 	const controls = (
 		<>
 			{ 'hidden' !== type && (
 				<InspectorControls>
 					<ToolsPanel
 						label={ __( 'Settings' ) }
-						resetAll={ resetAllSettings }
+						resetAll={ () => {
+							setAttributes( {
+								inlineLabel: false,
+								required: true,
+							} );
+						} }
+						dropdownMenuProps={ dropdownMenuProps }
 					>
-						{ type !== 'checkbox' && (
+						{ 'checkbox' !== type && (
 							<ToolsPanelItem
-								hasValue={ () =>
-									inlineLabel !== defaultInlineLabel
-								}
 								label={ __( 'Inline label' ) }
+								hasValue={ () => !! inlineLabel }
 								onDeselect={ () =>
-									setAttributes( {
-										inlineLabel: defaultInlineLabel,
-									} )
+									setAttributes( { inlineLabel: false } )
 								}
 								isShownByDefault
 							>
@@ -81,11 +79,12 @@ function InputFieldBlock( { attributes, setAttributes, className } ) {
 								/>
 							</ToolsPanelItem>
 						) }
+
 						<ToolsPanelItem
-							hasValue={ () => required !== defaultRequired }
 							label={ __( 'Required' ) }
+							hasValue={ () => ! required }
 							onDeselect={ () =>
-								setAttributes( { required: defaultRequired } )
+								setAttributes( { required: true } )
 							}
 							isShownByDefault
 						>
