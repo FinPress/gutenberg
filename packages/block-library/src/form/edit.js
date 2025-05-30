@@ -155,7 +155,7 @@ const Edit = ( { attributes, setAttributes, clientId } ) => {
 								__next40pxDefaultSize
 								autoComplete="off"
 								label={ __( 'Email for form submissions' ) }
-								value={ email }
+								value={ email || '' }
 								required
 								onChange={ ( value ) => {
 									setAttributes( { email: value } );
