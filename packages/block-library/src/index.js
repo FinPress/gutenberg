@@ -122,6 +122,7 @@ import * as textColumns from './text-columns';
 import * as verse from './verse';
 import * as video from './video';
 import * as footnotes from './footnotes';
+import * as parentPostTitle from './parent-post-title';
 
 import isBlockMetadataExperimental from './utils/is-block-metadata-experimental';
 
@@ -194,6 +195,7 @@ const getAllBlocks = () => {
 		templatePart,
 		avatar,
 		postTitle,
+		parentPostTitle,
 		postExcerpt,
 		postFeaturedImage,
 		postContent,
