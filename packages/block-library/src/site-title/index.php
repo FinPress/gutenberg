@@ -12,7 +12,7 @@
  *
  * @param array $attributes The block attributes.
  *
- * @return string The render.
+ * @return null|string The render.
  */
 function render_block_core_site_title( $attributes ) {
 	$site_title = get_bloginfo( 'name' );
