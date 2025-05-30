@@ -56,7 +56,7 @@ const verticalAlignmentMap = {
 	'space-between': 'space-between',
 };
 
-const DEFAULT_ALIGNMENT = {
+const defaultAlignments = {
 	horizontal: 'center',
 	vertical: 'top',
 };
@@ -206,8 +206,8 @@ function FlexLayoutVerticalAlignmentControl( { layout, onChange } ) {
 
 	const defaultVerticalAlignment =
 		orientation === 'horizontal'
-			? DEFAULT_ALIGNMENT.horizontal
-			: DEFAULT_ALIGNMENT.vertical;
+			? defaultAlignments.horizontal
+			: defaultAlignments.vertical;
 
 	const { verticalAlignment = defaultVerticalAlignment } = layout;
 
