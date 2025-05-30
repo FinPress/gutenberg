@@ -56,4 +56,23 @@ describe( 'ToggleControl', () => {
 			).toBeInTheDocument();
 		} );
 	} );
+
+	it( 'should hide label', () => {
+		render(
+			<ToggleControl
+				hideLabelFromVision
+				label="My toggle"
+				onChange={ () => {} }
+			/>
+		);
+		const label = screen.getByText( 'My toggle' );
+
+		// As visually hidden labels are still included in the document
+		// and do not have `display: none` styling, we can't rely on
+		// `.toBeInTheDocument()` or `.toBeVisible()` assertions.
+		expect( label ).toHaveAttribute(
+			'data-wp-component',
+			'VisuallyHidden'
+		);
+	} );
 } );
