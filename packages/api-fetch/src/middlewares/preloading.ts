@@ -77,15 +77,41 @@ function prepareResponse(
 	responseData: Record< string, any >,
 	parse: boolean
 ) {
-	return Promise.resolve(
-		parse
-			? responseData.body
-			: new window.Response( JSON.stringify( responseData.body ), {
-					status: 200,
-					statusText: 'OK',
-					headers: responseData.headers,
-			  } )
-	);
+	if ( parse ) {
+		return Promise.resolve( responseData.body );
+	}
+
+	try {
+		return Promise.resolve(
+			new window.Response( JSON.stringify( responseData.body ), {
+				status: 200,
+				statusText: 'OK',
+				headers: responseData.headers,
+			} )
+		);
+	} catch {
+		// See: https://github.com/WordPress/gutenberg/issues/67358#issuecomment-2621163926.
+		Object.entries(
+			responseData.headers as Record< string, string >
+		).forEach( ( [ key, value ] ) => {
+			if ( key.toLowerCase() === 'link' ) {
+				responseData.headers[ key ] = value.replace(
+					/<([^>]+)>/,
+					( _, url ) => `<${ encodeURI( url ) }>`
+				);
+			}
+		} );
+
+		return Promise.resolve(
+			parse
+				? responseData.body
+				: new window.Response( JSON.stringify( responseData.body ), {
+						status: 200,
+						statusText: 'OK',
+						headers: responseData.headers,
+				  } )
+		);
+	}
 }
 
 export default createPreloadingMiddleware;
