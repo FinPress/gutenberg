@@ -7,11 +7,9 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import {
-	BaseControl,
 	SelectControl,
 	ToggleControl,
 	RangeControl,
-	Spinner,
 	MenuGroup,
 	MenuItem,
 	__experimentalToolsPanel as ToolsPanel,
@@ -693,20 +691,6 @@ export default function GalleryEdit( props ) {
 									onChange={ toggleOpenInNewTab }
 								/>
 							</ToolsPanelItem>
-						) }
-						{ ! imageSizeOptions && hasImageIds && (
-							<BaseControl
-								className="gallery-image-sizes"
-								__nextHasNoMarginBottom
-							>
-								<BaseControl.VisualLabel>
-									{ __( 'Resolution' ) }
-								</BaseControl.VisualLabel>
-								<View className="gallery-image-sizes__loading">
-									<Spinner />
-									{ __( 'Loading options…' ) }
-								</View>
-							</BaseControl>
 						) }
 					</ToolsPanel>
 				) }
