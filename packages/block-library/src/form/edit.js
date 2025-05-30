@@ -57,12 +57,11 @@ const TEMPLATE = [
 
 const Edit = ( { attributes, setAttributes, clientId } ) => {
 	const defaultSubmissionMethod = 'email';
-	const defaultEmail = '';
 
 	const resetAllSettings = () => {
 		setAttributes( {
 			submissionMethod: defaultSubmissionMethod,
-			email: defaultEmail,
+			email: '',
 			action: '',
 			method: 'post',
 		} );
@@ -140,11 +139,11 @@ const Edit = ( { attributes, setAttributes, clientId } ) => {
 					</ToolsPanelItem>
 					{ submissionMethod === 'email' && (
 						<ToolsPanelItem
-							hasValue={ () => email !== defaultEmail }
+							hasValue={ () => email !== '' }
 							label={ __( 'Email for form submissions' ) }
 							onDeselect={ () =>
 								setAttributes( {
-									email: defaultEmail,
+									email: '',
 									action: '',
 									method: 'post',
 								} )
