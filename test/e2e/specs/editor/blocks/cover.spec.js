@@ -33,8 +33,8 @@ test.describe( 'Cover', () => {
 		} );
 
 		// Locate the Black color swatch.
-		const blackColorSwatch = coverBlock.getByRole( 'option', {
-			name: 'Color: Black',
+		const blackColorSwatch = coverBlock.getByRole( 'button', {
+			name: 'Black',
 		} );
 		await expect( blackColorSwatch ).toBeVisible();
 
@@ -105,8 +105,8 @@ test.describe( 'Cover', () => {
 		// Choose a color swatch to transform the placeholder block into
 		// a functioning block.
 		await coverBlock
-			.getByRole( 'option', {
-				name: 'Color: Black',
+			.getByRole( 'button', {
+				name: 'Black',
 			} )
 			.click();
 
@@ -128,8 +128,8 @@ test.describe( 'Cover', () => {
 			name: 'Block: Cover',
 		} );
 		await coverBlock
-			.getByRole( 'option', {
-				name: 'Color: Black',
+			.getByRole( 'button', {
+				name: 'Black',
 			} )
 			.click();
 
@@ -177,7 +177,7 @@ test.describe( 'Cover', () => {
 		expect( coverBlockBox.height ).toBeTruthy();
 		expect( coverBlockResizeHandleBox.height ).toBeTruthy();
 
-		// Increse the Cover block height by 100px.
+		// Increase the Cover block height by 100px.
 		await coverBlockResizeHandle.hover();
 		await page.mouse.down();
 
@@ -240,8 +240,8 @@ test.describe( 'Cover', () => {
 		// Choose a color swatch to transform the placeholder block into
 		// a functioning block.
 		await coverBlock
-			.getByRole( 'option', {
-				name: 'Color: Black',
+			.getByRole( 'button', {
+				name: 'Black',
 			} )
 			.click();
 
@@ -266,8 +266,8 @@ test.describe( 'Cover', () => {
 		// Choose a color swatch to transform the placeholder block into
 		// a functioning block.
 		await secondCoverBlock
-			.getByRole( 'option', {
-				name: 'Color: Black',
+			.getByRole( 'button', {
+				name: 'Black',
 			} )
 			.click();
 
@@ -296,6 +296,52 @@ test.describe( 'Cover', () => {
 		}
 
 		expect( isClickable ).toBe( false );
+	} );
+
+	test( 'can use focal point picker to set the focal point of the cover image', async ( {
+		editor,
+		coverBlockUtils,
+		page,
+	} ) => {
+		await editor.insertBlock( { name: 'core/cover' } );
+		const coverBlock = editor.canvas.getByRole( 'document', {
+			name: 'Block: Cover',
+		} );
+
+		await coverBlockUtils.upload(
+			coverBlock.getByTestId( 'form-file-upload-input' )
+		);
+
+		await editor.selectBlocks( coverBlock );
+
+		const focalPointLeft = page.getByRole( 'spinbutton', {
+			name: 'Focal point left position',
+		} );
+
+		const focalPointTop = page.getByRole( 'spinbutton', {
+			name: 'Focal point top position',
+		} );
+
+		await focalPointLeft.fill( '20' );
+		await focalPointTop.fill( '30' );
+
+		await expect( focalPointLeft ).toHaveValue( '20' );
+		await expect( focalPointTop ).toHaveValue( '30' );
+
+		await expect.poll( editor.getBlocks ).toMatchObject( [
+			{
+				name: 'core/cover',
+				attributes: {
+					focalPoint: { x: 0.2, y: 0.3 },
+				},
+			},
+		] );
+
+		const coverImage = coverBlock.locator(
+			'img.wp-block-cover__image-background'
+		);
+
+		await expect( coverImage ).toHaveCSS( 'object-position', '20% 30%' );
 	} );
 } );
 
