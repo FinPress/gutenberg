@@ -453,7 +453,10 @@ function MediaTextEdit( {
 	} );
 
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: 'wp-block-media-text__content' },
+		{
+			className:
+				'wp-block-media-text__content is-layout-flow wp-block-media-text__content-is-layout-flow',
+		},
 		{ template: TEMPLATE, allowedBlocks }
 	);
 
