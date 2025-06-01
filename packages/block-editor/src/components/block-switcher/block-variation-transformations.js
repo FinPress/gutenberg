@@ -6,6 +6,7 @@ import {
 	getBlockMenuDefaultClassName,
 	cloneBlock,
 	store as blocksStore,
+	getBlockType,
 } from '@wordpress/blocks';
 import { useSelect } from '@wordpress/data';
 import { useState, useMemo } from '@wordpress/element';
@@ -61,6 +62,7 @@ const BlockVariationTransformations = ( {
 } ) => {
 	const [ hoveredTransformItemName, setHoveredTransformItemName ] =
 		useState();
+	const blockIcon = getBlockType( blocks[ 0 ].name ).icon;
 	return (
 		<>
 			{ hoveredTransformItemName && (
@@ -76,7 +78,10 @@ const BlockVariationTransformations = ( {
 			{ transformations?.map( ( item ) => (
 				<BlockVariationTransformationItem
 					key={ item.name }
-					item={ item }
+					item={ {
+						icon: blockIcon,
+						...item,
+					} }
 					onSelect={ onSelect }
 					setHoveredTransformItemName={ setHoveredTransformItemName }
 				/>
