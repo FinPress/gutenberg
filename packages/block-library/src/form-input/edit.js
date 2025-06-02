@@ -53,7 +53,7 @@ function InputFieldBlock( { attributes, setAttributes, className } ) {
 						resetAll={ () => {
 							setAttributes( {
 								inlineLabel: false,
-								required: true,
+								required: false,
 							} );
 						} }
 						dropdownMenuProps={ dropdownMenuProps }
@@ -82,9 +82,9 @@ function InputFieldBlock( { attributes, setAttributes, className } ) {
 
 						<ToolsPanelItem
 							label={ __( 'Required' ) }
-							hasValue={ () => ! required }
+							hasValue={ () => !! required }
 							onDeselect={ () =>
-								setAttributes( { required: true } )
+								setAttributes( { required: false } )
 							}
 							isShownByDefault
 						>
