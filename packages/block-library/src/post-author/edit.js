@@ -68,8 +68,15 @@ function PostAuthorEdit( {
 
 	const { editEntityRecord } = useDispatch( coreStore );
 
-	const { textAlign, showAvatar, showBio, byline, isLink, linkTarget } =
-		attributes;
+	const {
+		textAlign,
+		showAvatar,
+		showBio,
+		byline,
+		isLink,
+		linkTarget,
+		avatarSize,
+	} = attributes;
 	const avatarSizes = [];
 	const authorName = authorDetails?.name || __( 'Post Author' );
 	if ( authorDetails?.avatar_urls ) {
@@ -180,7 +187,7 @@ function PostAuthorEdit( {
 						<ToolsPanelItem
 							label={ __( 'Avatar size' ) }
 							isShownByDefault
-							hasValue={ () => attributes.avatarSize !== 48 }
+							hasValue={ () => avatarSize !== 48 }
 							onDeselect={ () =>
 								setAttributes( { avatarSize: 48 } )
 							}
@@ -189,7 +196,7 @@ function PostAuthorEdit( {
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
 								label={ __( 'Avatar size' ) }
-								value={ attributes.avatarSize }
+								value={ avatarSize }
 								options={ avatarSizes }
 								onChange={ ( size ) => {
 									setAttributes( {
@@ -268,12 +275,8 @@ function PostAuthorEdit( {
 				{ showAvatar && authorDetails?.avatar_urls && (
 					<div className="wp-block-post-author__avatar">
 						<img
-							width={ attributes.avatarSize }
-							src={
-								authorDetails.avatar_urls[
-									attributes.avatarSize
-								]
-							}
+							width={ avatarSize }
+							src={ authorDetails.avatar_urls[ avatarSize ] }
 							alt={ authorDetails.name }
 						/>
 					</div>
