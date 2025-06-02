@@ -6,8 +6,10 @@ import { Menu } from './menu';
 import { ComponentsContext } from './context/context-system-provider';
 import Theme from './theme';
 import { Tabs } from './tabs';
-import { kebabCase } from './utils/strings';
+import { kebabCase, normalizeTextString } from './utils/strings';
+import { withIgnoreIMEEvents } from './utils/with-ignore-ime-events';
 import { lock } from './lock-unlock';
+import Badge from './badge';
 
 export const privateApis = {};
 lock( privateApis, {
@@ -17,4 +19,7 @@ lock( privateApis, {
 	Theme,
 	Menu,
 	kebabCase,
+	withIgnoreIMEEvents,
+	Badge,
+	normalizeTextString,
 } );

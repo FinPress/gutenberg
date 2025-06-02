@@ -3,11 +3,6 @@
  */
 import { store, privateApis, getConfig } from '@wordpress/interactivity';
 
-/**
- * Internal dependencies
- */
-import { fetchHeadAssets, updateHead, headElements } from './head';
-
 const {
 	directivePrefix,
 	getRegionRootFragment,
@@ -41,16 +36,15 @@ interface VdomParams {
 
 interface Page {
 	regions: Record< string, any >;
-	head: HTMLHeadElement[];
 	title: string;
 	initialData: any;
 }
 
 type RegionsToVdom = ( dom: Document, params?: VdomParams ) => Promise< Page >;
 
-// Check if the navigation mode is full page or region based.
-const navigationMode: 'regionBased' | 'fullPage' =
-	getConfig( 'core/router' ).navigationMode ?? 'regionBased';
+// Check if the navigation mode is full page or region based. The only supported
+// mode for now is 'regionBased'.
+const navigationMode: 'regionBased' = 'regionBased';
 
 // The cache of visited and prefetched pages, stylesheets and scripts.
 const pages = new Map< string, Promise< Page | false > >();
@@ -83,15 +77,6 @@ const fetchPage = async ( url: string, { html }: { html: string } ) => {
 // `router-region` directive.
 const regionsToVdom: RegionsToVdom = async ( dom, { vdom } = {} ) => {
 	const regions = { body: undefined };
-	let head: HTMLElement[];
-	if ( globalThis.IS_GUTENBERG_PLUGIN ) {
-		if ( navigationMode === 'fullPage' ) {
-			head = await fetchHeadAssets( dom );
-			regions.body = vdom
-				? vdom.get( document.body )
-				: toVdom( dom.body );
-		}
-	}
 	if ( navigationMode === 'regionBased' ) {
 		const attrName = `data-${ directivePrefix }-router-region`;
 		dom.querySelectorAll( `[${ attrName }]` ).forEach( ( region ) => {
@@ -103,22 +88,11 @@ const regionsToVdom: RegionsToVdom = async ( dom, { vdom } = {} ) => {
 	}
 	const title = dom.querySelector( 'title' )?.innerText;
 	const initialData = parseServerData( dom );
-	return { regions, head, title, initialData };
+	return { regions, title, initialData };
 };
 
 // Render all interactive regions contained in the given page.
 const renderRegions = async ( page: Page ) => {
-	if ( globalThis.IS_GUTENBERG_PLUGIN ) {
-		if ( navigationMode === 'fullPage' ) {
-			// Once this code is tested and more mature, the head should be updated for region based navigation as well.
-			await updateHead( page.head );
-			const fragment = getRegionRootFragment( document.body );
-			batch( () => {
-				populateServerData( page.initialData );
-				render( page.regions.body, fragment );
-			} );
-		}
-	}
 	if ( navigationMode === 'regionBased' ) {
 		const attrName = `data-${ directivePrefix }-router-region`;
 		batch( () => {
@@ -167,48 +141,10 @@ window.addEventListener( 'popstate', async () => {
 } );
 
 // Initialize the router and cache the initial page using the initial vDOM.
-// Once this code is tested and more mature, the head should be updated for
-// region based navigation as well.
-if ( globalThis.IS_GUTENBERG_PLUGIN ) {
-	if ( navigationMode === 'fullPage' ) {
-		// Cache the scripts. Has to be called before fetching the assets.
-		[].map.call(
-			document.querySelectorAll( 'script[type="module"][src]' ),
-			( script ) => {
-				headElements.set( script.getAttribute( 'src' ), {
-					tag: script,
-				} );
-			}
-		);
-		await fetchHeadAssets( document );
-	}
-}
 pages.set(
 	getPagePath( window.location.href ),
 	Promise.resolve( regionsToVdom( document, { vdom: initialVdom } ) )
 );
-
-// Check if the link is valid for client-side navigation.
-const isValidLink = ( ref: HTMLAnchorElement ) =>
-	ref &&
-	ref instanceof window.HTMLAnchorElement &&
-	ref.href &&
-	( ! ref.target || ref.target === '_self' ) &&
-	ref.origin === window.location.origin &&
-	! ref.pathname.startsWith( '/wp-admin' ) &&
-	! ref.pathname.startsWith( '/wp-login.php' ) &&
-	! ref.getAttribute( 'href' ).startsWith( '#' ) &&
-	! new URL( ref.href ).searchParams.has( '_wpnonce' );
-
-// Check if the event is valid for client-side navigation.
-const isValidEvent = ( event: MouseEvent ) =>
-	event &&
-	event.button === 0 && // Left clicks only.
-	! event.metaKey && // Open in new tab (Mac).
-	! event.ctrlKey && // Open in new tab (Windows).
-	! event.altKey && // Download.
-	! event.shiftKey &&
-	! event.defaultPrevented;
 
 // Variable to store the current navigation.
 let navigatingTo = '';
@@ -223,7 +159,6 @@ interface Store {
 	state: {
 		url: string;
 		navigation: {
-			isLoading: boolean;
 			hasStarted: boolean;
 			hasFinished: boolean;
 		};
@@ -238,7 +173,6 @@ export const { state, actions } = store< Store >( 'core/router', {
 	state: {
 		url: window.location.href,
 		navigation: {
-			isLoading: false,
 			hasStarted: false,
 			hasFinished: false,
 		},
@@ -247,7 +181,7 @@ export const { state, actions } = store< Store >( 'core/router', {
 		/**
 		 * Navigates to the specified page.
 		 *
-		 * This function normalizes the passed href, fetchs the page HTML if
+		 * This function normalizes the passed href, fetches the page HTML if
 		 * needed, and updates any interactive regions whose contents have
 		 * changed. It also creates a new entry in the browser session history.
 		 *
@@ -291,7 +225,6 @@ export const { state, actions } = store< Store >( 'core/router', {
 					return;
 				}
 
-				navigation.isLoading = true;
 				if ( loadingAnimation ) {
 					navigation.hasStarted = true;
 					navigation.hasFinished = false;
@@ -331,7 +264,6 @@ export const { state, actions } = store< Store >( 'core/router', {
 
 				// Update the navigation status once the the new page rendering
 				// has been completed.
-				navigation.isLoading = false;
 				if ( loadingAnimation ) {
 					navigation.hasStarted = false;
 					navigation.hasFinished = true;
@@ -352,7 +284,7 @@ export const { state, actions } = store< Store >( 'core/router', {
 		},
 
 		/**
-		 * Prefetchs the page with the passed URL.
+		 * Prefetches the page with the passed URL.
 		 *
 		 * The function normalizes the URL and stores internally the fetch
 		 * promise, to avoid triggering a second fetch for an ongoing request.
@@ -427,35 +359,4 @@ function a11ySpeak( messageKey: keyof typeof navigationTexts ) {
 		// Ignore failures to load the a11y module.
 		() => {}
 	);
-}
-
-// Add click and prefetch to all links.
-if ( globalThis.IS_GUTENBERG_PLUGIN ) {
-	if ( navigationMode === 'fullPage' ) {
-		// Navigate on click.
-		document.addEventListener(
-			'click',
-			function ( event ) {
-				const ref = ( event.target as Element ).closest( 'a' );
-				if ( isValidLink( ref ) && isValidEvent( event ) ) {
-					event.preventDefault();
-					actions.navigate( ref.href );
-				}
-			},
-			true
-		);
-		// Prefetch on hover.
-		document.addEventListener(
-			'mouseenter',
-			function ( event ) {
-				if ( ( event.target as Element )?.nodeName === 'A' ) {
-					const ref = ( event.target as Element ).closest( 'a' );
-					if ( isValidLink( ref ) && isValidEvent( event ) ) {
-						actions.prefetch( ref.href );
-					}
-				}
-			},
-			true
-		);
-	}
 }
