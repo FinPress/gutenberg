@@ -4,7 +4,7 @@
 	margin-bottom: 1.75em;
 	color: currentColor;
 
-	cite,
+	:where(cite),
 	footer,
 	&__citation {
 		color: currentColor;
