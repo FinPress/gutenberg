@@ -85,25 +85,6 @@ const AvatarInspectorControls = ( {
 						checked={ attributes.isLink }
 					/>
 				</ToolsPanelItem>
-				{ selectUser && (
-					<ToolsPanelItem
-						label={ __( 'User' ) }
-						isShownByDefault
-						hasValue={ () => !! attributes?.userId }
-						onDeselect={ () =>
-							setAttributes( { userId: undefined } )
-						}
-					>
-						<UserControl
-							value={ attributes?.userId }
-							onChange={ ( value ) => {
-								setAttributes( {
-									userId: value,
-								} );
-							} }
-						/>
-					</ToolsPanelItem>
-				) }
 				{ attributes.isLink && (
 					<ToolsPanelItem
 						label={ __( 'Open in new tab' ) }
@@ -122,6 +103,25 @@ const AvatarInspectorControls = ( {
 								} )
 							}
 							checked={ attributes.linkTarget === '_blank' }
+						/>
+					</ToolsPanelItem>
+				) }
+				{ selectUser && (
+					<ToolsPanelItem
+						label={ __( 'User' ) }
+						isShownByDefault
+						hasValue={ () => !! attributes?.userId }
+						onDeselect={ () =>
+							setAttributes( { userId: undefined } )
+						}
+					>
+						<UserControl
+							value={ attributes?.userId }
+							onChange={ ( value ) => {
+								setAttributes( {
+									userId: value,
+								} );
+							} }
 						/>
 					</ToolsPanelItem>
 				) }
