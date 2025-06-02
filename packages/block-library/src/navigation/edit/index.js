@@ -33,9 +33,10 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-	ToggleControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
+	__experimentalVStack as VStack,
+	ToggleControl,
 	Button,
 	Spinner,
 	Notice,
@@ -632,9 +633,12 @@ function Navigation( {
 									) }
 								</Button>
 								{ overlayMenuPreview && (
-									<div
+									<VStack
 										id={ overlayMenuPreviewId }
-										className="wp-block-navigation__overlay-menu-preview-controls"
+										spacing={ 4 }
+										style={ {
+											gridColumn: 'span 2',
+										} }
 									>
 										<OverlayMenuPreview
 											setAttributes={ setAttributes }
@@ -642,7 +646,7 @@ function Navigation( {
 											icon={ icon }
 											hidden={ ! overlayMenuPreview }
 										/>
-									</div>
+									</VStack>
 								) }
 							</>
 						) }
@@ -744,15 +748,14 @@ function Navigation( {
 								</ToolsPanelItem>
 
 								{ submenuAccessibilityNotice && (
-									<div className="wp-block-navigation__submenu-accessibility-notice">
-										<Notice
-											spokenMessage={ null }
-											status="warning"
-											isDismissible={ false }
-										>
-											{ submenuAccessibilityNotice }
-										</Notice>
-									</div>
+									<Notice
+										spokenMessage={ null }
+										status="warning"
+										isDismissible={ false }
+										className="wp-block-navigation__submenu-accessibility-notice"
+									>
+										{ submenuAccessibilityNotice }
+									</Notice>
 								) }
 							</>
 						) }
