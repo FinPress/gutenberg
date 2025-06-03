@@ -8,9 +8,9 @@ const transforms = {
 		{
 			type: 'block',
 			blocks: [ 'core/post-comments-count' ],
-			transform: ( attributes ) => {
+			transform: ( { textAlign } ) => {
 				return createBlock( 'core/post-comments-count', {
-					textAlign: attributes.textAlign,
+					textAlign,
 				} );
 			},
 		},

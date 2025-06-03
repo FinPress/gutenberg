@@ -8,9 +8,9 @@ const transforms = {
 		{
 			type: 'block',
 			blocks: [ 'core/post-comments-link' ],
-			transform: ( attributes ) => {
+			transform: ( { textAlign } ) => {
 				return createBlock( 'core/post-comments-link', {
-					textAlign: attributes.textAlign,
+					textAlign,
 				} );
 			},
 		},
