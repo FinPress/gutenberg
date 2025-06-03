@@ -19,19 +19,16 @@
 		width: 100%;
 		border-collapse: collapse;
 
-		&.has-background th,
-		&.has-background td {
+		&.has-background th {
 			background-color: inherit;
 		}
 
-		&.has-text-color th,
-		&.has-text-color td,
-		&.has-text-color caption {
+		&.has-text-color th {
 			color: inherit;
 		}
 	}
 
-	:where(table:not(.has-text-color)) {
+	&:where(:not(.has-text-color)) {
 		color: #40464d;
 
 		// Keep the hard-coded border color for backward compatibility.
