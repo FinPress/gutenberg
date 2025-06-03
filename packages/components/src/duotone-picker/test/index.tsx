@@ -41,13 +41,13 @@ describe( 'DuotonePicker', () => {
 		);
 
 		expect(
-			screen.getByLabelText( 'Custom color picker' )
+			screen.getByRole( 'listbox', { name: 'Custom color picker' } )
 		).toBeInTheDocument();
 		expect(
-			screen.getByLabelText( 'Duotone: Purple and Yellow' )
+			screen.getByRole( 'option', { name: 'Duotone: Purple and Yellow' } )
 		).toBeInTheDocument();
 		expect(
-			screen.getByLabelText( 'Duotone: Blue and Red' )
+			screen.getByRole( 'option', { name: 'Duotone: Blue and Red' } )
 		).toBeInTheDocument();
 	} );
 
@@ -64,9 +64,10 @@ describe( 'DuotonePicker', () => {
 			/>
 		);
 
-		const purpleYellowOption = screen.getByLabelText(
-			'Duotone: Purple and Yellow'
-		);
+		const purpleYellowOption = screen.getByRole( 'option', {
+			name: 'Duotone: Purple and Yellow',
+		} );
+
 		await user.click( purpleYellowOption );
 
 		expect( handleChange ).toHaveBeenCalledWith( [ '#8c00b7', '#fcff41' ] );
@@ -85,7 +86,10 @@ describe( 'DuotonePicker', () => {
 			/>
 		);
 
-		const unsetOption = screen.getByLabelText( 'Unset' );
+		const unsetOption = screen.getByRole( 'option', {
+			name: 'Unset',
+		} );
+
 		await user.click( unsetOption );
 
 		expect( handleChange ).toHaveBeenCalledWith( 'unset' );
