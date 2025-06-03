@@ -41,7 +41,7 @@ describe( 'DuotonePicker', () => {
 		);
 
 		expect(
-			screen.getByLabelText( 'Custom color picker.' )
+			screen.getByLabelText( 'Custom color picker' )
 		).toBeInTheDocument();
 		expect(
 			screen.getByLabelText( 'Duotone: Purple and Yellow' )
