@@ -2,7 +2,12 @@
  * WordPress dependencies
  */
 import { escapeHTML } from '@wordpress/escape-html';
-import { safeDecodeURI } from '@wordpress/url';
+import { prependHTTP, safeDecodeURI } from '@wordpress/url';
+
+/**
+ * Internal dependencies
+ */
+import { getUpdatedLinkAttributes } from './get-updated-link-attributes';
 
 /**
  * @typedef {'post-type'|'custom'|'taxonomy'|'post-type-archive'} WPNavigationLinkKind
@@ -44,9 +49,13 @@ export const updateAttributes = (
 		title: newLabel = '', // the title of any provided Post.
 		url: newUrl = '',
 		opensInNewTab,
+		nofollow,
 		id,
 		kind: newKind = originalKind,
 		type: newType = originalType,
+		rel: newRel,
+		linkTarget,
+		...otherValues
 	} = updatedValue;
 
 	const newLabelWithoutHttp = newLabel.replace( /http(s?):\/\//gi, '' );
@@ -86,13 +95,31 @@ export const updateAttributes = (
 		( ! newKind && ! isBuiltInType ) || newKind === 'custom';
 	const kind = isCustomLink ? 'custom' : newKind;
 
+	// If we have opensInNewTab or nofollow values, use getUpdatedLinkAttributes to handle rel properly
+	let finalRel = newRel;
+	let finalUrl = newUrl;
+	if ( opensInNewTab !== undefined || nofollow !== undefined ) {
+		const linkAttributes = getUpdatedLinkAttributes( {
+			rel: blockAttributes.rel || '',
+			url: newUrl,
+			opensInNewTab,
+			nofollow,
+		} );
+		finalRel = linkAttributes.rel;
+		finalUrl = linkAttributes.url; // This already has prependHTTP applied
+	} else if ( newUrl ) {
+		// Apply prependHTTP for URLs when opensInNewTab/nofollow are not being set
+		finalUrl = prependHTTP( newUrl );
+	}
+
 	setAttributes( {
 		// Passed `url` may already be encoded. To prevent double encoding, decodeURI is executed to revert to the original string.
-		...( newUrl && { url: encodeURI( safeDecodeURI( newUrl ) ) } ),
+		...( finalUrl && { url: encodeURI( safeDecodeURI( finalUrl ) ) } ),
 		...( label && { label } ),
-		...( undefined !== opensInNewTab && { opensInNewTab } ),
+		...( finalRel !== undefined && { rel: finalRel } ),
 		...( id && Number.isInteger( id ) && { id } ),
 		...( kind && { kind } ),
 		...( type && type !== 'URL' && { type } ),
+		...otherValues,
 	} );
 };

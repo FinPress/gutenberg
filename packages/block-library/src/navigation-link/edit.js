@@ -381,7 +381,7 @@ export default function NavigationLinkEdit( {
 			__unstableMarkNextChangeAsNotPersistent();
 			transformToSubmenu();
 		}
-	}, [ hasChildren ] );
+	}, [ hasChildren ] ); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// If the LinkControl popover is open and the URL has changed, close the LinkControl and focus the label text.
 	useEffect( () => {
@@ -428,7 +428,7 @@ export default function NavigationLinkEdit( {
 			id: undefined,
 			kind: undefined,
 			type: undefined,
-			opensInNewTab: false,
+			rel: undefined,
 		} );
 
 		// Close the link editing UI.
