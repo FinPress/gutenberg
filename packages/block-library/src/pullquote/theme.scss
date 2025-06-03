@@ -5,7 +5,7 @@
 	color: currentColor;
 
 	:where(cite),
-	footer,
+	:where(footer),
 	&__citation {
 		color: currentColor;
 		text-transform: uppercase;
