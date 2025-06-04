@@ -33,15 +33,9 @@ test.describe( 'Link color in themes', () => {
 			.getByRole( 'button', { name: 'Link', exact: true } )
 			.click();
 
-		await page
-			.getByRole( 'option', { name: 'Vivid cyan blue' } )
-			// eslint-disable-next-line playwright/no-force-option
-			.click( { force: true } );
+		await page.getByRole( 'option', { name: 'Vivid cyan blue' } ).click();
 
-		await page
-			.getByRole( 'button', { name: 'Close Settings' } )
-			// eslint-disable-next-line playwright/no-force-option
-			.click( { force: true } );
+		await page.getByRole( 'button', { name: 'Close Settings' } ).click();
 
 		await expect.poll( editor.getBlocks ).toMatchObject( [
 			{
