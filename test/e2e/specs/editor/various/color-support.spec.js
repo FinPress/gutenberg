@@ -50,13 +50,10 @@ test.describe( 'Link color in themes', () => {
 			.getByRole( 'menuitemcheckbox', { name: 'Show Link' } )
 			.click();
 
-		const linkMenuButton = page.locator(
-			'.components-button.block-editor-panel-color-gradient-settings__dropdown',
-			{
-				hasText: 'Link',
-			}
-		);
-		await linkMenuButton.click();
+		await page
+			.getByRole( 'region', { name: 'Editor settings' } )
+			.getByRole( 'button', { name: 'Link', exact: true } )
+			.click();
 
 		await page
 			.getByRole( 'option', { name: 'Vivid cyan blue' } )
