@@ -106,6 +106,7 @@
 		"filter": {
 			"duotone": true
 		},
+		"shadow": true,
 		"__experimentalBorder": {
 			"color": true,
 			"radius": true,
