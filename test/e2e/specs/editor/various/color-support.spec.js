@@ -43,16 +43,22 @@ test.describe( 'Link color in themes', () => {
 			// eslint-disable-next-line playwright/no-force-option
 			.click( { force: true } );
 
-		const paragraphBlockLinkColor = await editor.getBlocks();
-
-		/**
-		 * Test: Check if the link color is set in the editor.
-		 */
-		await expect(
-			paragraphBlockLinkColor[ 0 ].attributes.style.elements.link.color
-				.text
-		).toContain( 'var:preset|color|vivid-cyan-blue' );
-
+		await expect.poll( editor.getBlocks ).toMatchObject( [
+			{
+				name: 'core/paragraph',
+				attributes: {
+					style: {
+						elements: {
+							link: {
+								color: {
+									text: 'var:preset|color|vivid-cyan-blue',
+								},
+							},
+						},
+					},
+				},
+			},
+		] );
 		const previewPage = await editor.openPreviewPage();
 
 		const previewContent = previewPage.locator( '.has-link-color a' );
