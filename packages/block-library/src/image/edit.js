@@ -9,7 +9,12 @@ import clsx from 'clsx';
 import { isBlobURL, createBlobURL } from '@wordpress/blob';
 import { createBlock, getBlockBindingsSource } from '@wordpress/blocks';
 import { Placeholder } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
+import {
+	useDispatch,
+	useSelect,
+	subscribe,
+	select as editorSelect,
+} from '@wordpress/data';
 import {
 	BlockIcon,
 	useBlockProps,
@@ -19,11 +24,13 @@ import {
 	__experimentalGetShadowClassesAndStyles as getShadowClassesAndStyles,
 	useBlockEditingMode,
 } from '@wordpress/block-editor';
+import { store as postEditorStore } from '@wordpress/editor';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { image as icon, plugins as pluginsIcon } from '@wordpress/icons';
 import { store as noticesStore } from '@wordpress/notices';
-import { useResizeObserver } from '@wordpress/compose';
+import { useResizeObserver, useDebounce } from '@wordpress/compose';
+import apiFetch from '@wordpress/api-fetch';
 
 /**
  * Internal dependencies
@@ -109,11 +116,21 @@ export function ImageEdit( {
 		scale,
 		align,
 		metadata,
+		uploadedTo,
 	} = attributes;
 
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
 
 	const containerRef = useRef();
+
+	const {
+		getCurrentPostId,
+		isSavingPost,
+		isPublishingPost,
+		isAutosavingPost,
+	} = editorSelect( postEditorStore );
+
+	const postId = getCurrentPostId();
 	// Only observe the max width from the parent container when the parent layout is not flex nor grid.
 	// This won't work for them because the container width changes with the image.
 	// TODO: Find a way to observe the container width for flex and grid layouts.
@@ -228,6 +245,9 @@ export function ImageEdit( {
 			} );
 			setTemporaryURL();
 
+			// Detach media from post when the reset option is selected.
+			detachMediaFromPost();
+
 			return;
 		}
 
@@ -309,9 +329,108 @@ export function ImageEdit( {
 			...mediaAttributes,
 			...additionalAttributes,
 			linkDestination,
+			// set uploadedTo as the postId to which the media is attached or current postId if not attached to any post.
+			uploadedTo: media?.uploadedTo || postId,
 		} );
 		setTemporaryURL();
 	}
+
+	/**
+	 * Detach media from post when the reset option is selected.
+	 * Detach only if the media is attached to the current post.
+	 */
+	function detachMediaFromPost() {
+		if ( uploadedTo !== postId ) {
+			return;
+		}
+
+		apiFetch( {
+			path: `/wp/v2/media/${ id }`,
+			method: 'PATCH',
+			data: {
+				post: 0,
+			},
+		} );
+
+		setAttributes( {
+			uploadedTo: 0,
+		} );
+	}
+
+	/**
+	 * Attach media to post when the save option is selected.
+	 */
+	function attachMediaToPost() {
+		// Bail early if media ID doesn't exist.
+		if ( ! id ) {
+			return;
+		}
+
+		// Bail early if media is already attached to another post.
+		// Instead of early bail out, we set the uploadedTo to the current postId.
+		// This is to avoid updating attributes after the post is saved/published which ignores the new attributes.
+		if ( uploadedTo !== postId ) {
+			return;
+		}
+
+		// Attach media to post by updating via WP REST API.
+		apiFetch( {
+			path: `/wp/v2/media/${ id }`,
+			method: 'PATCH',
+			data: {
+				post: postId,
+			},
+		} );
+	}
+
+	// Debounce the attachMediaToPost function to avoid multiple calls.
+	const debouncedAttachMediaToPost = useDebounce( attachMediaToPost, 250 );
+
+	useEffect( () => {
+		// Prevent subscribing if the media ID doesn't exist.
+		if ( ! id ) {
+			return;
+		}
+
+		// Subscribe ONCE, when the block editor mounts.
+		const unsubscribe = subscribe( () => {
+			const isSaving = isSavingPost();
+			const isPublishing = isPublishingPost();
+			const isAutosaving = isAutosavingPost();
+
+			if ( ( isSaving || isPublishing ) && ! isAutosaving ) {
+				debouncedAttachMediaToPost();
+			}
+		} );
+
+		return () => unsubscribe();
+	}, [
+		id,
+		isSavingPost,
+		isPublishingPost,
+		isAutosavingPost,
+		debouncedAttachMediaToPost,
+	] );
+
+	// Detach media from post when the block is removed.
+	useEffect( () => {
+		// Clean up function to be called when the block is removed.
+		return () => {
+			// Bail early if the media is not attached to the current post.
+			if ( uploadedTo !== postId ) {
+				return;
+			}
+
+			// Detach media from post by updating via WP REST API.
+			apiFetch( {
+				path: `/wp/v2/media/${ id }`,
+				method: 'PATCH',
+				data: {
+					post: 0,
+				},
+			} );
+		};
+	}, [ uploadedTo, postId, id ] );
 
 	function onSelectURL( newURL ) {
 		if ( newURL !== url ) {

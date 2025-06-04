@@ -100,6 +100,10 @@
 			"source": "attribute",
 			"selector": "figure > a",
 			"attribute": "target"
+		},
+		"uploadedTo": {
+			"type": "number",
+			"default": 0
 		}
 	},
 	"supports": {
