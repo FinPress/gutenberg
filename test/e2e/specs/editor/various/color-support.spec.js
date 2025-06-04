@@ -33,7 +33,12 @@ test.describe( 'Link color in themes', () => {
 			.getByRole( 'button', { name: 'Link', exact: true } )
 			.click();
 
-		await page.getByRole( 'option', { name: 'Vivid cyan blue' } ).click();
+		await page
+			.getByRole( 'button', { name: 'Custom color picker' } )
+			.click();
+		await page
+			.getByRole( 'textbox', { name: 'Hex color' } )
+			.fill( 'ff0000' );
 
 		await page.getByRole( 'button', { name: 'Close Settings' } ).click();
 
@@ -45,7 +50,7 @@ test.describe( 'Link color in themes', () => {
 						elements: {
 							link: {
 								color: {
-									text: 'var:preset|color|vivid-cyan-blue',
+									text: '#ff0000',
 								},
 							},
 						},
@@ -68,7 +73,7 @@ test.describe( 'Link color in themes', () => {
 		} );
 
 		// getComputedStyle(...).getPropertyValue('color') returns a rgb()
-		// 'vivid-cyan-blue' is rgb(6, 147, 227)
-		expect( color.trim() ).toBe( 'rgb(6, 147, 227)' );
+		// #ff0000 is rgb(255, 0, 0)
+		expect( color.trim() ).toBe( 'rgb(255, 0, 0)' );
 	} );
 } );
