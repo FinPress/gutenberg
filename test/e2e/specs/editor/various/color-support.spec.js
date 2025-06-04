@@ -11,36 +11,14 @@ test.describe( 'Link color in themes', () => {
 	test( 'should apply selected link color in editor and frontend', async ( {
 		page,
 		editor,
-		pageUtils,
 	} ) => {
 		await editor.insertBlock( {
 			name: 'core/paragraph',
-		} );
-
-		await page.keyboard.type(
-			'This paragraph will have a custom link color set'
-		);
-
-		await page.keyboard.down( 'Shift' );
-		for ( let i = 0; i < 21; i++ ) {
-			await page.keyboard.press( 'ArrowLeft' );
-		}
-		await page.keyboard.up( 'Shift' );
-
-		await editor.clickBlockToolbarButton( 'Link' );
-
-		await page.keyboard.type( 'https://example.com' );
-		await pageUtils.pressKeys( 'Enter' );
-
-		await expect.poll( editor.getBlocks ).toMatchObject( [
-			{
-				name: 'core/paragraph',
-				attributes: {
-					content:
-						'This paragraph will have a <a href="https://example.com">custom link color set</a>',
-				},
+			attributes: {
+				content:
+					'This paragraph will have a <a href="https://example.com">custom link color set</a>',
 			},
-		] );
+		} );
 
 		await editor.openDocumentSettingsSidebar();
 
