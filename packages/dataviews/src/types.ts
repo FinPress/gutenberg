@@ -506,6 +506,7 @@ export interface ViewBaseProps< Item > {
 	getItemId: ( item: Item ) => string;
 	getItemLevel?: ( item: Item ) => number;
 	isLoading?: boolean;
+	keepPreviousData?: boolean;
 	onChangeView: ( view: View ) => void;
 	onChangeSelection: SetSelection;
 	selection: string[];

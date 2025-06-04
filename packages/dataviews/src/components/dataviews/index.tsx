@@ -38,6 +38,7 @@ type DataViewsProps< Item > = {
 	actions?: Action< Item >[];
 	data: Item[];
 	isLoading?: boolean;
+	keepPreviousData?: boolean;
 	paginationInfo: {
 		totalItems: number;
 		totalPages: number;
@@ -68,6 +69,7 @@ export default function DataViews< Item >( {
 	getItemId = defaultGetItemId,
 	getItemLevel,
 	isLoading = false,
+	keepPreviousData = false,
 	paginationInfo,
 	defaultLayouts,
 	selection: selectionProperty,
@@ -121,6 +123,7 @@ export default function DataViews< Item >( {
 				actions,
 				data,
 				isLoading,
+				keepPreviousData,
 				paginationInfo,
 				selection: _selection,
 				onChangeSelection: setSelectionWithChange,
