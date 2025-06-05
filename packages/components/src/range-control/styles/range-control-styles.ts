@@ -283,7 +283,7 @@ const tooltipShow = ( { show }: TooltipProps ) => {
 	`;
 };
 
-const tooltipPosition = ( { placement }: TooltipProps ) => {
+const tooltipPlacement = ( { placement }: TooltipProps ) => {
 	const isBottom = placement === 'bottom';
 
 	if ( isBottom ) {
@@ -312,7 +312,7 @@ export const Tooltip = styled.span< TooltipProps >`
 
 	${ tooltipShow };
 
-	${ tooltipPosition };
+	${ tooltipPlacement };
 	${ rtl(
 		{ transform: 'translateX(-50%)' },
 		{ transform: 'translateX(50%)' }
