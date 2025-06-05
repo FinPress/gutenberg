@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Bug Fixes
+
+-   Fixed Row block child elements with fixed width shrinking when sibling content wraps by adding `flex-shrink: 0` to the generated CSS.
+
 ## 14.20.0 (2025-06-04)
 
 ## 14.19.0 (2025-05-22)
