@@ -60,6 +60,7 @@ function useBlockPropsChildLayoutStyles( { style } ) {
 		if ( selfStretch === 'fixed' && flexSize ) {
 			css = `${ selector } {
 				flex-basis: ${ flexSize };
+				flex-shrink: 0;
 				box-sizing: border-box;
 			}`;
 		} else if ( selfStretch === 'fill' ) {
