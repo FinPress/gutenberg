@@ -313,8 +313,9 @@ button.wp-block-navigation-item__content {
 }
 
 // Flip submenu arrow icon when expanded.
-.wp-block-navigation-submenu__toggle[aria-expanded="true"] {
-	transform: scaleY(-1);
+.wp-block-navigation-submenu__toggle[aria-expanded="true"] + .wp-block-navigation__submenu-icon,
+.wp-block-navigation__submenu-icon[aria-expanded="true"] {
+	transform: rotate(180deg);
 }
 
 // When set to open on click, a button element is used.
