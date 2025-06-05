@@ -77,6 +77,17 @@
 				"fontSize": true
 			}
 		},
+		"__experimentalBorder": {
+			"color": true,
+			"style": true,
+			"width": true
+		},
+		"spacing": {
+			"padding": true,
+			"__experimentalDefaultControls": {
+				"padding": false
+			}
+		},
 		"renaming": false,
 		"interactivity": {
 			"clientNavigation": true
