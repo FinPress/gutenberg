@@ -268,7 +268,7 @@ function gutenberg_register_packages_styles( $styles ) {
 		$styles,
 		'wp-block-editor',
 		gutenberg_url( 'build/block-editor/style.css' ),
-		array( 'wp-admin-schemes', 'wp-components', 'wp-preferences' ),
+		array( 'wp-base-styles', 'wp-components', 'wp-preferences' ),
 		$version
 	);
 	$styles->add_data( 'wp-block-editor', 'rtl', 'replace' );
@@ -286,7 +286,7 @@ function gutenberg_register_packages_styles( $styles ) {
 		$styles,
 		'wp-edit-post',
 		gutenberg_url( 'build/edit-post/style.css' ),
-		array( 'wp-admin-schemes', 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-edit-blocks', 'wp-block-library', 'wp-commands', 'wp-preferences' ),
+		array( 'wp-base-styles', 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-edit-blocks', 'wp-block-library', 'wp-commands', 'wp-preferences' ),
 		$version
 	);
 	$styles->add_data( 'wp-edit-post', 'rtl', 'replace' );
@@ -401,7 +401,7 @@ function gutenberg_register_packages_styles( $styles ) {
 		$styles,
 		'wp-list-reusable-blocks',
 		gutenberg_url( 'build/list-reusable-blocks/style.css' ),
-		array( 'wp-admin-schemes', 'wp-components' ),
+		array( 'wp-base-styles', 'wp-components' ),
 		$version
 	);
 	$styles->add_data( 'wp-list-reusable-block', 'rtl', 'replace' );
@@ -419,7 +419,7 @@ function gutenberg_register_packages_styles( $styles ) {
 		$styles,
 		'wp-edit-site',
 		gutenberg_url( 'build/edit-site/style.css' ),
-		array( 'wp-admin-schemes', 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-block-library-editor', 'common', 'forms', 'wp-commands', 'wp-preferences' ),
+		array( 'wp-base-styles', 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-block-library-editor', 'common', 'forms', 'wp-commands', 'wp-preferences' ),
 		$version
 	);
 	$styles->add_data( 'wp-edit-site', 'rtl', 'replace' );
@@ -428,7 +428,7 @@ function gutenberg_register_packages_styles( $styles ) {
 		$styles,
 		'wp-edit-widgets',
 		gutenberg_url( 'build/edit-widgets/style.css' ),
-		array( 'wp-admin-schemes', 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-edit-blocks', 'wp-patterns', 'wp-widgets', 'wp-preferences' ),
+		array( 'wp-base-styles', 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-edit-blocks', 'wp-patterns', 'wp-widgets', 'wp-preferences' ),
 		$version
 	);
 	$styles->add_data( 'wp-edit-widgets', 'rtl', 'replace' );

@@ -13,7 +13,7 @@
 function gutenberg_register_admin_schemes_stylesheet( $styles ) {
 
 	$styles->add(
-		'wp-admin-schemes',
+		'wp-base-styles',
 		gutenberg_url( 'build/base-styles/admin-schemes.css' )
 	);
 }
