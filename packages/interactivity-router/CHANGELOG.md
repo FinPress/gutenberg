@@ -2,6 +2,42 @@
 
 ## Unreleased
 
+### Enhancements
+
+-   Export `NavigateOptions` and `PrefetchOptions` types. ([#70315](https://github.com/WordPress/gutenberg/pull/70315))
+
+### Bug Fixes
+
+-   Prevents duplicating nested router regions after a client-side navigation. ([#70302](https://github.com/WordPress/gutenberg/pull/70302))
+
+## 2.25.0 (2025-06-04)
+
+## 2.24.0 (2025-05-22)
+
+## 2.23.0 (2025-05-07)
+
+## 2.22.0 (2025-04-11)
+
+## 2.21.0 (2025-03-27)
+
+## 2.20.0 (2025-03-13)
+
+## 2.19.0 (2025-02-28)
+
+### Bug Fixes
+
+-   Revert "Handle styles assets on region-based navigation". ([#69222](https://github.com/WordPress/gutenberg/pull/69222))
+
+## 2.18.0 (2025-02-12)
+
+### Bug Fixes
+
+-   Fix CSS rule order in some constructed style sheets. ([#68923](https://github.com/WordPress/gutenberg/pull/68923))
+
+## 2.17.0 (2025-01-29)
+
+## 2.16.0 (2025-01-15)
+
 ## 2.15.0 (2025-01-02)
 
 ## 2.14.0 (2024-12-11)
