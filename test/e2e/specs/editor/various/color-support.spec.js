@@ -66,16 +66,8 @@ test.describe( 'Link color in themes', () => {
 		await expect( previewContent ).toBeVisible();
 
 		/**
-		 * Test: Check if the link color is set in the frontend.
+		 * #ff0000 is rgb(255, 0, 0)
 		 */
-		const color = await previewContent.evaluate( ( element ) => {
-			return window
-				.getComputedStyle( element )
-				.getPropertyValue( 'color' );
-		} );
-
-		// getComputedStyle(...).getPropertyValue('color') returns a rgb()
-		// #ff0000 is rgb(255, 0, 0)
-		expect( color.trim() ).toBe( 'rgb(255, 0, 0)' );
+		await expect( previewContent ).toHaveCSS( 'color', 'rgb(255, 0, 0)' );
 	} );
 } );
