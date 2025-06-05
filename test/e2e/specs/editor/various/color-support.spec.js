@@ -66,7 +66,8 @@ test.describe( 'Link color in themes', () => {
 		await expect( previewContent ).toBeVisible();
 
 		/**
-		 * #ff0000 is rgb(255, 0, 0)
+		 * Test: Check if the link color is set in the frontend.
+		 * #ff0000 is rgb(255, 0, 0).
 		 */
 		await expect( previewContent ).toHaveCSS( 'color', 'rgb(255, 0, 0)' );
 	} );
