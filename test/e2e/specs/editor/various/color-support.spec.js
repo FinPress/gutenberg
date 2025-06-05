@@ -60,7 +60,9 @@ test.describe( 'Link color in themes', () => {
 		] );
 		const previewPage = await editor.openPreviewPage();
 
-		const previewContent = previewPage.locator( '.has-link-color a' );
+		const previewContent = previewPage.getByRole( 'link', {
+			name: 'custom link color set',
+		} );
 		await expect( previewContent ).toBeVisible();
 
 		/**
