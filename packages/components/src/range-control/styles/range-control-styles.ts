@@ -283,8 +283,8 @@ const tooltipShow = ( { show }: TooltipProps ) => {
 	`;
 };
 
-const tooltipPosition = ( { position }: TooltipProps ) => {
-	const isBottom = position === 'bottom';
+const tooltipPosition = ( { placement }: TooltipProps ) => {
+	const isBottom = placement === 'bottom';
 
 	if ( isBottom ) {
 		return css`
