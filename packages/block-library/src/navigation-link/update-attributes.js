@@ -2,12 +2,7 @@
  * WordPress dependencies
  */
 import { escapeHTML } from '@wordpress/escape-html';
-import { prependHTTP, safeDecodeURI } from '@wordpress/url';
-
-/**
- * Internal dependencies
- */
-import { getUpdatedLinkAttributes } from './get-updated-link-attributes';
+import { safeDecodeURI } from '@wordpress/url';
 
 /**
  * @typedef {'post-type'|'custom'|'taxonomy'|'post-type-archive'} WPNavigationLinkKind
@@ -17,14 +12,13 @@ import { getUpdatedLinkAttributes } from './get-updated-link-attributes';
  *
  * @typedef {Object} WPNavigationLinkBlockAttributes
  *
- * @property {string}               [label]         Link text.
- * @property {WPNavigationLinkKind} [kind]          Kind is used to differentiate between term and post ids to check post draft status.
- * @property {string}               [type]          The type such as post, page, tag, category and other custom types.
- * @property {string}               [rel]           The relationship of the linked URL.
- * @property {number}               [id]            A post or term id.
- * @property {boolean}              [opensInNewTab] Sets link target to _blank when true.
- * @property {string}               [url]           Link href.
- * @property {string}               [title]         Link title attribute.
+ * @property {string}               [label] Link text.
+ * @property {WPNavigationLinkKind} [kind]  Kind is used to differentiate between term and post ids to check post draft status.
+ * @property {string}               [type]  The type such as post, page, tag, category and other custom types.
+ * @property {string}               [rel]   The relationship of the linked URL.
+ * @property {number}               [id]    A post or term id.
+ * @property {string}               [url]   Link href.
+ * @property {string}               [title] Link title attribute.
  */
 /**
  * Link Control onChange handler that updates block attributes when a setting is changed.
@@ -48,14 +42,10 @@ export const updateAttributes = (
 	const {
 		title: newLabel = '', // the title of any provided Post.
 		url: newUrl = '',
-		opensInNewTab,
-		nofollow,
 		id,
 		kind: newKind = originalKind,
 		type: newType = originalType,
-		rel: newRel,
-		linkTarget,
-		...otherValues
+		rel,
 	} = updatedValue;
 
 	const newLabelWithoutHttp = newLabel.replace( /http(s?):\/\//gi, '' );
@@ -95,31 +85,13 @@ export const updateAttributes = (
 		( ! newKind && ! isBuiltInType ) || newKind === 'custom';
 	const kind = isCustomLink ? 'custom' : newKind;
 
-	// If we have opensInNewTab or nofollow values, use getUpdatedLinkAttributes to handle rel properly
-	let finalRel = newRel;
-	let finalUrl = newUrl;
-	if ( opensInNewTab !== undefined || nofollow !== undefined ) {
-		const linkAttributes = getUpdatedLinkAttributes( {
-			rel: blockAttributes.rel || '',
-			url: newUrl,
-			opensInNewTab,
-			nofollow,
-		} );
-		finalRel = linkAttributes.rel;
-		finalUrl = linkAttributes.url; // This already has prependHTTP applied
-	} else if ( newUrl ) {
-		// Apply prependHTTP for URLs when opensInNewTab/nofollow are not being set
-		finalUrl = prependHTTP( newUrl );
-	}
-
 	setAttributes( {
 		// Passed `url` may already be encoded. To prevent double encoding, decodeURI is executed to revert to the original string.
-		...( finalUrl && { url: encodeURI( safeDecodeURI( finalUrl ) ) } ),
+		...( newUrl && { url: encodeURI( safeDecodeURI( newUrl ) ) } ),
 		...( label && { label } ),
-		...( finalRel !== undefined && { rel: finalRel } ),
+		...{ rel },
 		...( id && Number.isInteger( id ) && { id } ),
 		...( kind && { kind } ),
 		...( type && type !== 'URL' && { type } ),
-		...otherValues,
 	} );
 };

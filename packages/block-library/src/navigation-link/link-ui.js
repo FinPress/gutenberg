@@ -284,7 +284,7 @@ function UnforwardedLinkUI( props, ref ) {
 						} ) => {
 							const updatedAttributes = getUpdatedLinkAttributes(
 								{
-									rel: props.link.rel || '',
+									rel: props.link.rel,
 									url: newURL,
 									opensInNewTab: newOpensInNewTab,
 									nofollow: newNofollow,
