@@ -379,3 +379,62 @@ export function hasPageContentFocus() {
 
 	return false;
 }
+
+/**
+ * Returns true if the current template/template part is being saved.
+ *
+ * @return {boolean} Whether the template/template part is being saved.
+ */
+export const isSavingPost = createRegistrySelector( ( select ) => () => {
+	const { getCurrentPostType, getCurrentPostId } = select( editorStore );
+	const postType = getCurrentPostType();
+	const postId = getCurrentPostId();
+
+	if ( ! postType || ! postId ) {
+		return false;
+	}
+
+	return select( coreDataStore ).isSavingEntityRecord(
+		'postType',
+		postType,
+		postId
+	);
+} );
+
+/**
+ * Returns the current template/template part attribute value.
+ *
+ * @param {Object} state         Global application state.
+ * @param {string} attributeName Template attribute name.
+ *
+ * @return {*} Template attribute value.
+ */
+export const getCurrentPostAttribute = createRegistrySelector(
+	( select ) => ( state, attributeName ) => {
+		const { getCurrentPostType, getCurrentPostId } = select( editorStore );
+		const postType = getCurrentPostType();
+		const postId = getCurrentPostId();
+
+		if ( ! postType || ! postId ) {
+			return undefined;
+		}
+
+		const entity = select( coreDataStore ).getEntityRecord(
+			'postType',
+			postType,
+			postId
+		);
+
+		if ( ! entity || ! entity.hasOwnProperty( attributeName ) ) {
+			return undefined;
+		}
+
+		const value = entity[ attributeName ];
+
+		if ( value && typeof value === 'object' && value.raw !== undefined ) {
+			return value.rendered || value.raw;
+		}
+
+		return value;
+	}
+);
