@@ -167,7 +167,7 @@ function PostAuthorEdit( {
 					<ToolsPanelItem
 						label={ __( 'Show avatar' ) }
 						isShownByDefault
-						hasValue={ () => showAvatar !== true }
+						hasValue={ () => ! showAvatar }
 						onDeselect={ () =>
 							setAttributes( { showAvatar: true } )
 						}
@@ -226,7 +226,7 @@ function PostAuthorEdit( {
 					<ToolsPanelItem
 						label={ __( 'Link author name to author page' ) }
 						isShownByDefault
-						hasValue={ () => isLink !== false }
+						hasValue={ () => !! isLink }
 						onDeselect={ () => setAttributes( { isLink: false } ) }
 					>
 						<ToggleControl
