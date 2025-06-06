@@ -8,37 +8,7 @@ import { InnerBlocks } from '@wordpress/block-editor';
  */
 import { NEW_TAB_REL, NOFOLLOW_REL } from './constants';
 
-// Migration function to convert old attributes to new rel-based structure
-const migrateToRelAttribute = ( attributes ) => {
-	const { opensInNewTab, nofollow, rel = '', ...restAttributes } = attributes;
-
-	// If no opensInNewTab or nofollow attributes exist, no migration needed
-	if ( opensInNewTab === undefined && nofollow === undefined ) {
-		return attributes;
-	}
-
-	let newRel = rel;
-
-	// Add new tab rel if opensInNewTab was true
-	if ( opensInNewTab && ! newRel.includes( NEW_TAB_REL ) ) {
-		newRel = newRel ? `${ newRel } ${ NEW_TAB_REL }` : NEW_TAB_REL;
-	}
-
-	// Add nofollow rel if nofollow was true
-	if ( nofollow && ! newRel.includes( NOFOLLOW_REL ) ) {
-		newRel = newRel ? `${ newRel } ${ NOFOLLOW_REL }` : NOFOLLOW_REL;
-	}
-
-	// Clean up extra spaces
-	newRel = newRel.trim().replace( /\s+/g, ' ' );
-
-	return {
-		...restAttributes,
-		rel: newRel || undefined,
-	};
-};
-
-// Version 2: Navigation link with opensInNewTab attribute (and potentially remaining nofollow)
+// Version 2: Navigation link with opensInNewTab attribute
 const v2 = {
 	attributes: {
 		label: {
@@ -78,15 +48,43 @@ const v2 = {
 		},
 	},
 	isEligible( attributes ) {
-		// This deprecation is eligible if the block has opensInNewTab attribute
-		// (nofollow might still exist from blocks that haven't been migrated from v1)
 		return attributes.opensInNewTab !== undefined;
 	},
-	migrate: migrateToRelAttribute,
+	migrate: ( attributes ) => {
+		const {
+			opensInNewTab,
+			nofollow,
+			rel = '',
+			...restAttributes
+		} = attributes;
+
+		// If no opensInNewTab or nofollow attributes exist, no migration needed
+		if ( opensInNewTab === undefined && nofollow === undefined ) {
+			return attributes;
+		}
+
+		let newRel = rel;
+
+		// Add new tab rel if opensInNewTab was true
+		if ( opensInNewTab && ! newRel.includes( NEW_TAB_REL ) ) {
+			newRel = newRel ? `${ newRel } ${ NEW_TAB_REL }` : NEW_TAB_REL;
+		}
+
+		// Add nofollow rel if nofollow was true
+		if ( nofollow && ! newRel.includes( NOFOLLOW_REL ) ) {
+			newRel = newRel ? `${ newRel } ${ NOFOLLOW_REL }` : NOFOLLOW_REL;
+		}
+
+		// Clean up extra spaces
+		newRel = newRel.trim().replace( /\s+/g, ' ' );
+
+		return {
+			...restAttributes,
+			rel: newRel,
+		};
+	},
 	save() {
-		// No save function needed since we're only migrating attributes
-		// The current save function will handle the migrated attributes
-		return null;
+		return <InnerBlocks.Content />;
 	},
 };
 

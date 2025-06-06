@@ -10,7 +10,7 @@ describe( 'edit', () => {
 		it( 'can update a post link', () => {
 			const setAttributes = jest.fn();
 			const linkSuggestion = {
-				opensInNewTab: false,
+				rel: undefined,
 				id: 1337,
 				url: 'https://wordpress.local/menu-test/',
 				kind: 'post-type',
@@ -22,7 +22,7 @@ describe( 'edit', () => {
 			expect( setAttributes ).toHaveBeenCalledWith( {
 				id: 1337,
 				label: 'Menu Test',
-				opensInNewTab: false,
+				rel: undefined,
 				kind: 'post-type',
 				type: 'post',
 				url: 'https://wordpress.local/menu-test/',
@@ -34,7 +34,7 @@ describe( 'edit', () => {
 			const linkSuggestion = {
 				id: 2,
 				kind: 'post-type',
-				opensInNewTab: false,
+				rel: undefined,
 				title: 'Sample Page',
 				type: 'page',
 				url: 'http://wordpress.local/sample-page/',
@@ -44,7 +44,7 @@ describe( 'edit', () => {
 				id: 2,
 				kind: 'post-type',
 				label: 'Sample Page',
-				opensInNewTab: false,
+				rel: undefined,
 				type: 'page',
 				url: 'http://wordpress.local/sample-page/',
 			} );
@@ -55,7 +55,7 @@ describe( 'edit', () => {
 			const linkSuggestion = {
 				id: 15,
 				kind: 'taxonomy',
-				opensInNewTab: false,
+				rel: undefined,
 				title: 'bar',
 				type: 'post_tag',
 				url: 'http://wordpress.local/tag/bar/',
@@ -64,7 +64,7 @@ describe( 'edit', () => {
 			expect( setAttributes ).toHaveBeenCalledWith( {
 				id: 15,
 				kind: 'taxonomy',
-				opensInNewTab: false,
+				rel: undefined,
 				label: 'bar',
 				type: 'tag',
 				url: 'http://wordpress.local/tag/bar/',
@@ -76,7 +76,7 @@ describe( 'edit', () => {
 			const linkSuggestion = {
 				id: 9,
 				kind: 'taxonomy',
-				opensInNewTab: false,
+				rel: undefined,
 				title: 'Cats',
 				type: 'category',
 				url: 'http://wordpress.local/category/cats/',
@@ -85,7 +85,7 @@ describe( 'edit', () => {
 			expect( setAttributes ).toHaveBeenCalledWith( {
 				id: 9,
 				kind: 'taxonomy',
-				opensInNewTab: false,
+				rel: undefined,
 				label: 'Cats',
 				type: 'category',
 				url: 'http://wordpress.local/category/cats/',
@@ -97,7 +97,7 @@ describe( 'edit', () => {
 			const linkSuggestion = {
 				id: 131,
 				kind: 'post-type',
-				opensInNewTab: false,
+				rel: undefined,
 				title: 'Fall',
 				type: 'portfolio',
 				url: 'http://wordpress.local/portfolio/fall/',
@@ -106,7 +106,7 @@ describe( 'edit', () => {
 			expect( setAttributes ).toHaveBeenCalledWith( {
 				id: 131,
 				kind: 'post-type',
-				opensInNewTab: false,
+				rel: undefined,
 				label: 'Fall',
 				type: 'portfolio',
 				url: 'http://wordpress.local/portfolio/fall/',
@@ -118,7 +118,7 @@ describe( 'edit', () => {
 			const linkSuggestion = {
 				id: 4,
 				kind: 'taxonomy',
-				opensInNewTab: false,
+				rel: undefined,
 				title: 'Portfolio Tag',
 				type: 'portfolio_tag',
 				url: 'http://wordpress.local/portfolio_tag/PortfolioTag/',
@@ -127,7 +127,7 @@ describe( 'edit', () => {
 			expect( setAttributes ).toHaveBeenCalledWith( {
 				id: 4,
 				kind: 'taxonomy',
-				opensInNewTab: false,
+				rel: undefined,
 				label: 'Portfolio Tag',
 				type: 'portfolio_tag',
 				url: 'http://wordpress.local/portfolio_tag/PortfolioTag/',
@@ -139,7 +139,7 @@ describe( 'edit', () => {
 			const linkSuggestion = {
 				id: 2,
 				kind: 'taxonomy',
-				opensInNewTab: false,
+				rel: undefined,
 				title: 'Portfolio Category',
 				type: 'portfolio_category',
 				url: 'http://wordpress.local/portfolio_category/Portfolio-category/',
@@ -148,7 +148,7 @@ describe( 'edit', () => {
 			expect( setAttributes ).toHaveBeenCalledWith( {
 				id: 2,
 				kind: 'taxonomy',
-				opensInNewTab: false,
+				rel: undefined,
 				label: 'Portfolio Category',
 				type: 'portfolio_category',
 				url: 'http://wordpress.local/portfolio_category/Portfolio-category/',
@@ -160,7 +160,7 @@ describe( 'edit', () => {
 			const linkSuggestion = {
 				id: 'video',
 				kind: 'taxonomy',
-				opensInNewTab: false,
+				rel: undefined,
 				title: 'Video',
 				type: 'post-format',
 				url: 'http://wordpress.local/type/video/',
@@ -170,7 +170,7 @@ describe( 'edit', () => {
 			// we do not persist this ID since we expect this value to be a post or term ID.
 			expect( setAttributes ).toHaveBeenCalledWith( {
 				kind: 'taxonomy',
-				opensInNewTab: false,
+				rel: undefined,
 				label: 'Video',
 				type: 'post_format',
 				url: 'http://wordpress.local/type/video/',
@@ -181,12 +181,12 @@ describe( 'edit', () => {
 			it( 'when typing a url, but not selecting a search suggestion', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
-					opensInNewTab: false,
+					rel: undefined,
 					url: 'www.wordpress.org',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
-					opensInNewTab: false,
+					rel: undefined,
 					url: 'www.wordpress.org',
 					label: 'www.wordpress.org',
 					kind: 'custom',
@@ -197,14 +197,14 @@ describe( 'edit', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
 					id: 'www.wordpress.org',
-					opensInNewTab: false,
+					rel: undefined,
 					title: 'www.wordpress.org',
 					type: 'URL',
 					url: 'http://www.wordpress.org',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
-					opensInNewTab: false,
+					rel: undefined,
 					label: 'www.wordpress.org',
 					kind: 'custom',
 					url: 'http://www.wordpress.org',
@@ -215,14 +215,14 @@ describe( 'edit', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
 					id: 'mailto:foo@example.com',
-					opensInNewTab: false,
+					rel: undefined,
 					title: 'mailto:foo@example.com',
 					type: 'mailto',
 					url: 'mailto:foo@example.com',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
-					opensInNewTab: false,
+					rel: undefined,
 					label: 'mailto:foo@example.com',
 					kind: 'custom',
 					url: 'mailto:foo@example.com',
@@ -234,14 +234,14 @@ describe( 'edit', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
 					id: '#foo',
-					opensInNewTab: false,
+					rel: undefined,
 					title: '#foo',
 					type: 'internal',
 					url: '#foo',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
-					opensInNewTab: false,
+					rel: undefined,
 					label: '#foo',
 					kind: 'custom',
 					url: '#foo',
@@ -253,14 +253,14 @@ describe( 'edit', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
 					id: 'tel:5555555',
-					opensInNewTab: false,
+					rel: undefined,
 					title: 'tel:5555555',
 					type: 'tel',
 					url: 'tel:5555555',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
-					opensInNewTab: false,
+					rel: undefined,
 					label: 'tel:5555555',
 					kind: 'custom',
 					url: 'tel:5555555',
@@ -275,14 +275,14 @@ describe( 'edit', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
 					id: 'www.wordpress.org/foo bar',
-					opensInNewTab: false,
+					rel: undefined,
 					title: '',
 					type: 'URL',
 					url: 'https://www.wordpress.org',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
-					opensInNewTab: false,
+					rel: undefined,
 					label: 'www.wordpress.org',
 					kind: 'custom',
 					url: 'https://www.wordpress.org',
@@ -292,14 +292,14 @@ describe( 'edit', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
 					id: 'www.wordpress.org',
-					opensInNewTab: false,
+					rel: undefined,
 					title: 'Custom Title',
 					type: 'URL',
 					url: 'wordpress.org',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
-					opensInNewTab: false,
+					rel: undefined,
 					label: 'Custom Title',
 					kind: 'custom',
 					url: 'wordpress.org',
@@ -309,14 +309,14 @@ describe( 'edit', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
 					id: 'www.wordpress.org',
-					opensInNewTab: false,
+					rel: undefined,
 					title: 'Custom Title',
 					type: 'URL',
 					url: 'https://wordpress.org',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
-					opensInNewTab: false,
+					rel: undefined,
 					label: 'Custom Title',
 					kind: 'custom',
 					url: 'https://wordpress.org',
@@ -327,14 +327,14 @@ describe( 'edit', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
 					id: 'http://wordpress.org/?s=',
-					opensInNewTab: false,
+					rel: undefined,
 					title: 'Custom Title',
 					type: 'URL',
 					url: 'http://wordpress.org/?s=<>',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
-					opensInNewTab: false,
+					rel: undefined,
 					label: 'Custom Title',
 					kind: 'custom',
 					url: 'http://wordpress.org/?s=%3C%3E',
@@ -349,7 +349,7 @@ describe( 'edit', () => {
 					Object.assign( mockState, attr )
 				);
 				const linkSuggestion = {
-					opensInNewTab: false,
+					rel: undefined,
 					id: 1337,
 					url: 'https://wordpress.local/menu-test/',
 					kind: 'post-type',
@@ -361,7 +361,7 @@ describe( 'edit', () => {
 				expect( mockState ).toEqual( {
 					id: 1337,
 					label: 'Menu Test',
-					opensInNewTab: false,
+					rel: undefined,
 					kind: 'post-type',
 					type: 'post',
 					url: 'https://wordpress.local/menu-test/',
@@ -370,7 +370,7 @@ describe( 'edit', () => {
 				updateAttributes(
 					{
 						url: 'https://wordpress.local/menu-test/',
-						opensInNewTab: true,
+						rel: 'noreferrer noopener',
 					},
 					setAttributes,
 					mockState
@@ -378,7 +378,7 @@ describe( 'edit', () => {
 				expect( mockState ).toEqual( {
 					id: 1337,
 					label: 'Menu Test',
-					opensInNewTab: true,
+					rel: 'noreferrer noopener',
 					kind: 'post-type',
 					type: 'post',
 					url: 'https://wordpress.local/menu-test/',
@@ -390,7 +390,7 @@ describe( 'edit', () => {
 					Object.assign( mockState, attr )
 				);
 				const linkSuggestion = {
-					opensInNewTab: false,
+					rel: undefined,
 					id: 1337,
 					url: 'https://wordpress.local/menu-test/',
 					kind: 'post-type',
@@ -402,7 +402,7 @@ describe( 'edit', () => {
 				expect( mockState ).toEqual( {
 					id: 1337,
 					label: 'Menu Test',
-					opensInNewTab: false,
+					rel: undefined,
 					kind: 'post-type',
 					type: 'post',
 					url: 'https://wordpress.local/menu-test/',
@@ -411,7 +411,7 @@ describe( 'edit', () => {
 				updateAttributes(
 					{
 						url: 'https://wordpress.local/foo/',
-						opensInNewTab: false,
+						rel: undefined,
 					},
 					setAttributes,
 					mockState
@@ -419,7 +419,7 @@ describe( 'edit', () => {
 				expect( mockState ).toEqual( {
 					id: 1337,
 					label: 'Menu Test',
-					opensInNewTab: false,
+					rel: undefined,
 					kind: 'post-type',
 					type: 'post',
 					url: 'https://wordpress.local/foo/',
