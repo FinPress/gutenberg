@@ -36,6 +36,8 @@ export type RadioControlProps = Pick<
 	/**
 	 * Layout direction for the radio options.
 	 * Use 'horizontal' to display options in a row, or 'vertical' (default) for column layout.
+	 *
+	 * @default 'vertical'
 	 */
-	direction?: 'horizontal' | 'vertical';
+	direction?: 'vertical' | 'horizontal';
 };
