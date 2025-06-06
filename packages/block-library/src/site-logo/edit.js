@@ -280,7 +280,10 @@ const SiteLogo = ( {
 	return (
 		<>
 			<InspectorControls>
-				<ToolsPanel label={ __( 'Settings' ) }>
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
 					<ToolsPanelItem
 						isShownByDefault
 						hasValue={ () => !! width }
@@ -288,7 +291,6 @@ const SiteLogo = ( {
 						onDeselect={ () =>
 							setAttributes( { width: undefined } )
 						}
-						dropdownMenuProps={ dropdownMenuProps }
 					>
 						<RangeControl
 							__nextHasNoMarginBottom
