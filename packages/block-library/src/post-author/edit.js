@@ -224,7 +224,7 @@ function PostAuthorEdit( {
 						/>
 					</ToolsPanelItem>
 					<ToolsPanelItem
-						label={ __( 'Link author name' ) }
+						label={ __( 'Link author name to author page' ) }
 						isShownByDefault
 						hasValue={ () => isLink !== false }
 						onDeselect={ () => setAttributes( { isLink: false } ) }
