@@ -43,6 +43,25 @@ export function PostPublishButton( props ) {
 	const [ entitiesSavedStatesCallback, setEntitiesSavedStatesCallbackState ] =
 		useState( false );
 
+	const closeEntitiesSavedStates = useCallback(
+		( savedEntities ) => {
+			if (
+				savedEntities &&
+				savedEntities.some(
+					( elt ) =>
+						elt.kind === 'postType' &&
+						elt.name === postType &&
+						elt.key === postId
+				)
+			) {
+				// The post entity was checked, call the held callback from `createOnClick`.
+				entitiesSavedStatesCallback();
+			}
+			setEntitiesSavedStatesCallbackState( false );
+		},
+		[ entitiesSavedStatesCallback, postType, postId ]
+	);
+
 	const createOnClick = useCallback(
 		( callback ) => {
 			return ( ...args ) => {
@@ -78,25 +97,6 @@ export function PostPublishButton( props ) {
 			setEntitiesSavedStatesCallback,
 			closeEntitiesSavedStates,
 		]
-	);
-
-	const closeEntitiesSavedStates = useCallback(
-		( savedEntities ) => {
-			if (
-				savedEntities &&
-				savedEntities.some(
-					( elt ) =>
-						elt.kind === 'postType' &&
-						elt.name === postType &&
-						elt.key === postId
-				)
-			) {
-				// The post entity was checked, call the held callback from `createOnClick`.
-				entitiesSavedStatesCallback();
-			}
-			setEntitiesSavedStatesCallbackState( false );
-		},
-		[ entitiesSavedStatesCallback, postType, postId ]
 	);
 
 	const isButtonDisabled =
