@@ -14,7 +14,7 @@ import { store as editorStore } from '../../store';
 
 const noop = () => {};
 
-const PostPublishButton = ( {
+export const PostPublishButton = ( {
 	forceIsDirty,
 	hasPublishAction,
 	isBeingScheduled,
