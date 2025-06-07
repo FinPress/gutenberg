@@ -14,38 +14,35 @@ import { store as editorStore } from '../../store';
 
 const noop = () => {};
 
-export function PostPublishButton( props ) {
-	const {
-		forceIsDirty,
-		hasPublishAction,
-		isBeingScheduled,
-		isOpen,
-		isPostSavingLocked,
-		isPublishable,
-		isPublished,
-		isSaveable,
-		isSaving,
-		isAutoSaving,
-		isToggle,
-		savePostStatus,
-		onSubmit = noop,
-		onToggle,
-		visibility,
-		hasNonPostEntityChanges,
-		isSavingNonPostEntityChanges,
-		postStatus,
-		postStatusHasChanged,
-		postType,
-		postId,
-		setEntitiesSavedStatesCallback,
-	} = props;
-
+const PostPublishButton = ( {
+	forceIsDirty,
+	hasPublishAction,
+	isBeingScheduled,
+	isOpen,
+	isPostSavingLocked,
+	isPublishable,
+	isPublished,
+	isSaveable,
+	isSaving,
+	isAutoSaving,
+	isToggle,
+	savePostStatus,
+	onSubmit = noop,
+	onToggle,
+	visibility,
+	hasNonPostEntityChanges,
+	isSavingNonPostEntityChanges,
+	postStatus,
+	postStatusHasChanged,
+	postType,
+	postId,
+	setEntitiesSavedStatesCallback,
+} ) => {
 	const [ entitiesSavedStatesCallback, setEntitiesSavedStatesCallbackState ] =
 		useState( false );
 
 	const closeEntitiesSavedStates = useCallback(
 		( savedEntities ) => {
-			setEntitiesSavedStatesCallbackState( false );
 			if (
 				savedEntities &&
 				savedEntities.some(
@@ -56,10 +53,9 @@ export function PostPublishButton( props ) {
 				)
 			) {
 				// The post entity was checked, call the held callback from `createOnClick`.
-				if ( entitiesSavedStatesCallback ) {
-					entitiesSavedStatesCallback();
-				}
+				entitiesSavedStatesCallback();
 			}
+			setEntitiesSavedStatesCallbackState( false );
 		},
 		[ entitiesSavedStatesCallback, postType, postId ]
 	);
@@ -177,7 +173,7 @@ export function PostPublishButton( props ) {
 			</Button>
 		</>
 	);
-}
+};
 
 /**
  * Renders the publish button.
