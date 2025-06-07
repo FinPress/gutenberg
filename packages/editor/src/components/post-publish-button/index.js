@@ -45,6 +45,7 @@ export function PostPublishButton( props ) {
 
 	const closeEntitiesSavedStates = useCallback(
 		( savedEntities ) => {
+			setEntitiesSavedStatesCallbackState( false );
 			if (
 				savedEntities &&
 				savedEntities.some(
@@ -55,9 +56,10 @@ export function PostPublishButton( props ) {
 				)
 			) {
 				// The post entity was checked, call the held callback from `createOnClick`.
-				entitiesSavedStatesCallback();
+				if ( entitiesSavedStatesCallback ) {
+					entitiesSavedStatesCallback();
+				}
 			}
-			setEntitiesSavedStatesCallbackState( false );
 		},
 		[ entitiesSavedStatesCallback, postType, postId ]
 	);
