@@ -597,6 +597,39 @@ export default function Image( {
 		} );
 	};
 
+	function extractSrcSetFromMedia( media ) {
+		const mediaDetails = media?.media_details ?? {};
+		const sizes = Object.values( mediaDetails?.sizes ?? {} );
+
+		if ( ! media || 0 === sizes.length ) {
+			return '';
+		}
+
+		const sortedSizes = sizes.sort(
+			( sort1, sort2 ) => sort1.width - sort2.width
+		);
+
+		// Holds the individual url in format url width
+		const individualSrc = sortedSizes.map( ( size ) => {
+			const curWidth = size.width;
+			const curUrl = size.source_url;
+
+			if ( curWidth && curUrl ) {
+				return ` ${ curUrl } ${ curWidth }w `;
+			}
+			return undefined;
+		} );
+
+		return individualSrc.join( ',' );
+	}
+
+	const srcSet = useMemo( () => {
+		if ( image ) {
+			return extractSrcSetFromMedia( image );
+		}
+		return '';
+	}, [ image ] );
+
 	const sizeControls = (
 		<InspectorControls>
 			<ToolsPanel
@@ -912,6 +945,7 @@ export default function Image( {
 			<>
 				<img
 					src={ temporaryURL || url }
+					srcSet={ srcSet ?? '' }
 					alt={ defaultedAlt }
 					onError={ onImageError }
 					onLoad={ onImageLoad }
