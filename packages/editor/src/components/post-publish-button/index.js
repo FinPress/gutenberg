@@ -15,16 +15,37 @@ import { store as editorStore } from '../../store';
 const noop = () => {};
 
 export function PostPublishButton( props ) {
+	const {
+		forceIsDirty,
+		hasPublishAction,
+		isBeingScheduled,
+		isOpen,
+		isPostSavingLocked,
+		isPublishable,
+		isPublished,
+		isSaveable,
+		isSaving,
+		isAutoSaving,
+		isToggle,
+		savePostStatus,
+		onSubmit = noop,
+		onToggle,
+		visibility,
+		hasNonPostEntityChanges,
+		isSavingNonPostEntityChanges,
+		postStatus,
+		postStatusHasChanged,
+		postType,
+		postId,
+		setEntitiesSavedStatesCallback,
+	} = props;
+
 	const [ entitiesSavedStatesCallback, setEntitiesSavedStatesCallbackState ] =
 		useState( false );
 
 	const createOnClick = useCallback(
 		( callback ) => {
 			return ( ...args ) => {
-				const {
-					hasNonPostEntityChanges,
-					setEntitiesSavedStatesCallback,
-				} = props;
 				// If a post with non-post entities is published, but the user
 				// elects to not save changes to the non-post entities, those
 				// entities will still be dirty when the Publish button is clicked.
@@ -52,12 +73,15 @@ export function PostPublishButton( props ) {
 				return callback( ...args );
 			};
 		},
-		[ props ]
+		[
+			hasNonPostEntityChanges,
+			setEntitiesSavedStatesCallback,
+			closeEntitiesSavedStates,
+		]
 	);
 
 	const closeEntitiesSavedStates = useCallback(
 		( savedEntities ) => {
-			const { postType, postId } = props;
 			if (
 				savedEntities &&
 				savedEntities.some(
@@ -72,30 +96,8 @@ export function PostPublishButton( props ) {
 			}
 			setEntitiesSavedStatesCallbackState( false );
 		},
-		[ props, entitiesSavedStatesCallback ]
+		[ entitiesSavedStatesCallback, postType, postId ]
 	);
-
-	const {
-		forceIsDirty,
-		hasPublishAction,
-		isBeingScheduled,
-		isOpen,
-		isPostSavingLocked,
-		isPublishable,
-		isPublished,
-		isSaveable,
-		isSaving,
-		isAutoSaving,
-		isToggle,
-		savePostStatus,
-		onSubmit = noop,
-		onToggle,
-		visibility,
-		hasNonPostEntityChanges,
-		isSavingNonPostEntityChanges,
-		postStatus,
-		postStatusHasChanged,
-	} = props;
 
 	const isButtonDisabled =
 		( isSaving ||
