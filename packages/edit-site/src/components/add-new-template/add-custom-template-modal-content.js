@@ -16,6 +16,7 @@ import {
 import { useEntityRecords } from '@wordpress/core-data';
 import { decodeEntities } from '@wordpress/html-entities';
 import { useDebouncedInput } from '@wordpress/compose';
+import { focus } from '@wordpress/dom';
 
 /**
  * Internal dependencies
@@ -169,10 +170,23 @@ function AddCustomTemplateModalContent( {
 	onSelect,
 	entityForSuggestions,
 	onBack,
+	containerRef,
 } ) {
 	const [ showSearchEntities, setShowSearchEntities ] = useState(
 		entityForSuggestions.hasGeneralTemplate
 	);
+
+	// Focus on the first focusable element when the modal opens.
+	// We handle focus management in the parent modal, just need to focus on the first focusable element.
+	useEffect( () => {
+		if ( containerRef.current ) {
+			const [ firstFocusable ] = focus.focusable.find(
+				containerRef.current
+			);
+			firstFocusable?.focus();
+		}
+	}, [ showSearchEntities ] );
+
 	return (
 		<VStack
 			spacing={ 4 }
