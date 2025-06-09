@@ -118,7 +118,6 @@ describe( 'getUpdatedLinkAttributes method (navigation-link)', () => {
 		expect( result.rel ).toEqual( 'rel_value noreferrer noopener' );
 	} );
 
-	// NEW TEST: This is the key test case that was failing before our fix
 	it( 'should correctly remove all rel values when both options are false', () => {
 		const options = {
 			url: 'example.com',
@@ -133,7 +132,6 @@ describe( 'getUpdatedLinkAttributes method (navigation-link)', () => {
 		expect( result.rel ).toEqual( undefined );
 	} );
 
-	// NEW TEST: Mixed scenario
 	it( 'should correctly remove all rel values when both options are false with custom rel', () => {
 		const options = {
 			url: 'example.com',
@@ -148,7 +146,6 @@ describe( 'getUpdatedLinkAttributes method (navigation-link)', () => {
 		expect( result.rel ).toEqual( 'custom-value another-custom' );
 	} );
 
-	// NEW TEST: Partial removal
 	it( 'should correctly remove only new tab values when opensInNewTab is false', () => {
 		const options = {
 			url: 'example.com',
