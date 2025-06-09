@@ -29,8 +29,8 @@ function KeyboardShortcutsRegister() {
 			category: 'block',
 			description: __( 'Lock/Unlock the selected block.' ),
 			keyCombination: {
-				modifier: 'primaryShift',
-				character: 'k',
+				modifier: 'primaryAlt',
+				character: 'l',
 			},
 		} );
 

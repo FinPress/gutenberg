@@ -79,6 +79,7 @@ export default function BlockTools( {
 
 	const {
 		duplicateBlocks,
+		lockBlock,
 		removeBlocks,
 		replaceBlocks,
 		insertAfterBlock,
@@ -129,6 +130,12 @@ export default function BlockTools( {
 			if ( clientIds.length ) {
 				event.preventDefault();
 				duplicateBlocks( clientIds );
+			}
+		} else if ( isMatch( 'core/block-editor/toggle-lock', event ) ) {
+			const clientIds = getSelectedBlockClientIds();
+			if ( clientIds.length ) {
+				event.preventDefault();
+				lockBlock( clientIds );
 			}
 		} else if ( isMatch( 'core/block-editor/remove', event ) ) {
 			const clientIds = getSelectedBlockClientIds();
