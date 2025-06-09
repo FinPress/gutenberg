@@ -840,9 +840,21 @@
 		"parent": "components"
 	},
 	{
+		"title": "Date",
+		"slug": "date",
+		"markdown_source": "../packages/components/src/date-time/date/README.md",
+		"parent": "components"
+	},
+	{
 		"title": "DateTime",
 		"slug": "date-time",
 		"markdown_source": "../packages/components/src/date-time/README.md",
+		"parent": "components"
+	},
+	{
+		"title": "Time",
+		"slug": "time",
+		"markdown_source": "../packages/components/src/date-time/time/README.md",
 		"parent": "components"
 	},
 	{
