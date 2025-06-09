@@ -505,5 +505,15 @@ _Example_: `content` role used by the paragraph block
         role: 'content',
     }
 }
+```
 
+_Example_: `local` role used for temporary data.
+
+```js
+{
+    blob: {
+        type: 'string',
+        role: 'local',
+    }
+}
 ```
