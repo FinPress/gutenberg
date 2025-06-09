@@ -6,6 +6,7 @@ import {
 	useBlockProps,
 	__experimentalGetElementClassName,
 } from '@wordpress/block-editor';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -37,6 +38,11 @@ export default function save( { attributes } ) {
 					preload={ preload !== 'metadata' ? preload : undefined }
 					src={ src }
 					playsInline={ playsInline }
+					aria-label={
+						RichText.isEmpty( caption )
+							? __( 'Uncaptioned video' )
+							: undefined
+					}
 				>
 					<Tracks tracks={ tracks } />
 				</video>
