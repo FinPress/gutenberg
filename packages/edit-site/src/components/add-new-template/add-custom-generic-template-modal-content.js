@@ -23,14 +23,9 @@ function AddCustomGenericTemplateModalContent( { createTemplate, onBack } ) {
 
 	// Set focus to the name input when the component mounts
 	useEffect( () => {
-		// Use requestAnimationFrame to ensure the DOM is fully rendered
-		const frameId = window.requestAnimationFrame( () => {
-			if ( inputRef.current ) {
-				inputRef.current.focus();
-			}
-		} );
-
-		return () => window.cancelAnimationFrame( frameId );
+		if ( inputRef.current ) {
+			inputRef.current.focus();
+		}
 	}, [] );
 
 	async function onCreateTemplate( event ) {
