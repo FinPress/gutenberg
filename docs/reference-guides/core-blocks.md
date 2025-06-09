@@ -952,6 +952,15 @@ This block is deprecated. Please use the Columns block instead. ([Source](https:
 -	**Supports:** interactivity (clientNavigation), ~~inserter~~
 -	**Attributes:** columns, content, width
 
+## TODO
+
+A customizable todo list with role-based permissions. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/todo))
+
+-	**Name:** core/todo
+-	**Category:** theme
+-	**Supports:** align (full, wide), color (background, gradients, text), interactivity, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** allowedRoles, checkboxColor, checkboxSize, isGlobal, todos
+
 ## Verse
 
 Insert poetry. Use special spacing formats. Or quote song lyrics. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/verse))

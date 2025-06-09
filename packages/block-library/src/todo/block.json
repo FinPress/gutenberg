@@ -1,0 +1,63 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "core/todo",
+	"title": "TODO",
+	"category": "theme",
+	"description": "A customizable todo list with role-based permissions.",
+	"icon": "list-view",
+	"attributes": {
+		"todos": {
+			"type": "array",
+			"default": []
+		},
+		"allowedRoles": {
+			"type": "array",
+			"default": []
+		},
+		"isGlobal": {
+			"type": "boolean",
+			"default": true
+		},
+		"checkboxColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"checkboxSize": {
+			"type": "string",
+			"default": "16px"
+		}
+	},
+	"usesContext": [ "postType" ],
+	"supports": {
+		"interactivity": true,
+		"align": [ "wide", "full" ],
+		"html": false,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"color": {
+			"gradients": true,
+			"text": true,
+			"__experimentalDefaultControls": {
+				"background": true,
+				"text": true
+			}
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
+		}
+	},
+	"editorStyle": "wp-block-todo-editor"
+}

@@ -1,0 +1,11 @@
+.todo-text {
+	display: block;
+	border: solid 1px currentColor;
+	padding: 4px;
+	border-radius: 3px;
+}
+
+.remove-todo,
+.move-todo {
+	transform: scale(1.5);
+}
