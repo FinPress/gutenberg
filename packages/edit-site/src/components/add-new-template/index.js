@@ -320,6 +320,9 @@ function NewTemplateModal( { onClose } ) {
 				<AddCustomTemplateModalContent
 					onSelect={ createTemplate }
 					entityForSuggestions={ entityForSuggestions }
+					onBack={ () =>
+						setModalContent( modalContentMap.templatesList )
+					}
 				/>
 			) }
 			{ modalContent === modalContentMap.customGenericTemplate && (

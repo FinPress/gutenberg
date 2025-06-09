@@ -165,7 +165,11 @@ function SuggestionList( { entityForSuggestions, onSelect } ) {
 	);
 }
 
-function AddCustomTemplateModalContent( { onSelect, entityForSuggestions } ) {
+function AddCustomTemplateModalContent( {
+	onSelect,
+	entityForSuggestions,
+	onBack,
+} ) {
 	const [ showSearchEntities, setShowSearchEntities ] = useState(
 		entityForSuggestions.hasGeneralTemplate
 	);
@@ -247,6 +251,15 @@ function AddCustomTemplateModalContent( { onSelect, entityForSuggestions } ) {
 							</Text>
 						</FlexItem>
 					</Flex>
+					<Flex justify="right">
+						<Button
+							__next40pxDefaultSize
+							variant="tertiary"
+							onClick={ onBack }
+						>
+							{ __( 'Back' ) }
+						</Button>
+					</Flex>
 				</>
 			) }
 			{ showSearchEntities && (
@@ -264,7 +277,15 @@ function AddCustomTemplateModalContent( { onSelect, entityForSuggestions } ) {
 						<Button
 							__next40pxDefaultSize
 							variant="tertiary"
-							onClick={ () => setShowSearchEntities( false ) }
+							onClick={ () => {
+								// If general template exists, go directly back to main screen
+								// instead of showing the choice screen
+								if ( entityForSuggestions.hasGeneralTemplate ) {
+									onBack();
+								} else {
+									setShowSearchEntities( false );
+								}
+							} }
 						>
 							{ __( 'Back' ) }
 						</Button>
