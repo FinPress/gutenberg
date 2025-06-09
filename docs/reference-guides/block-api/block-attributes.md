@@ -493,3 +493,17 @@ The `role` property designates an attribute as being of a particular conceptual 
 
 Use `content` to designate the attribute as user-editable content. Blocks with attributes marked as `content` may be enabled for privileged editing in special circumstances such as partially synced Patterns.
 Use `local` to mark the attribute as temporary and non-persistable. Attributes marked as `local` are ignored by the Block Serializer and never saved to post content.
+
+_Example_: `content` role used by the paragraph block
+
+```js
+{
+    content: {
+        type: 'string',
+        source: 'html',
+        selector: 'p',
+        role: 'content',
+    }
+}
+
+```
