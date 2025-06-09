@@ -9,7 +9,16 @@ import { doAction } from '@wordpress/hooks';
  *
  * @type {Record<string, true | undefined>}
  */
-export const logged = Object.create( null );
+export const logged: Record< string, true | undefined > = Object.create( null );
+
+type DeprecatedOptions = {
+	since?: string;
+	version?: string;
+	alternative?: string;
+	plugin?: string;
+	link?: string;
+	hint?: string;
+};
 
 /**
  * Logs a message to notify developers about a deprecated feature.
@@ -38,7 +47,10 @@ export const logged = Object.create( null );
  * // Logs: 'Eating meat is deprecated since version 2019.01.01 and will be removed from the earth in version 2020.01.01. Please use vegetables instead. Note: You may find it beneficial to transition gradually.'
  * ```
  */
-export default function deprecated( feature, options = {} ) {
+export default function deprecated(
+	feature: string,
+	options: DeprecatedOptions = {}
+) {
 	const { since, version, alternative, plugin, link, hint } = options;
 
 	const pluginMessage = plugin ? ` from ${ plugin }` : '';
@@ -78,5 +90,3 @@ export default function deprecated( feature, options = {} ) {
 
 	logged[ message ] = true;
 }
-
-/** @typedef {import('utility-types').NonUndefined<Parameters<typeof deprecated>[1]>} DeprecatedOptions */
