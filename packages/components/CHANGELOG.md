@@ -8,7 +8,7 @@
 
 ### Enhancement
 
--   `ComboboxControl`: Add direction prop. ([#70120](https://github.com/WordPress/gutenberg/pull/70120)).
+-   `ComboboxControl`: Add direction prop ([#70120](https://github.com/WordPress/gutenberg/pull/70120)).
 
 ## 29.11.0 (2025-06-04)
 
