@@ -586,6 +586,17 @@ test.describe( 'Navigation block', () => {
 			 */
 			await pageUtils.pressKeys( 'access+z' );
 			await navigation.checkLabelFocus( 'Cat' );
+
+			/**
+			 * Test: Deleting with no more siblings should focus the navigation block again
+			 */
+			await pageUtils.pressKeys( 'access+z' );
+			await expect( navigation.getNavBlock() ).toBeFocused();
+			// Wait until the nav block inserter is visible before we continue.
+			await expect( navigation.getNavBlockInserter() ).toBeVisible();
+			// Now the appender should be visible and reachable with an arrow down
+			await pageUtils.pressKeys( 'ArrowDown' );
+			await expect( navigation.getNavBlockInserter() ).toBeFocused();
 		} );
 	} );
 
