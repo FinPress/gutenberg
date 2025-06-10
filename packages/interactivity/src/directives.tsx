@@ -167,6 +167,26 @@ const getGlobalEventDirective = (
 	};
 };
 
+const useItemContexts = function* (
+	inheritedValue: any,
+	namespace: string,
+	items: Iterable< unknown >
+) {
+	const { current: itemContexts } = useRef< any >( [] );
+
+	let index = 0;
+	for ( const item of items ) {
+		if ( ! itemContexts[ index ] ) {
+			itemContexts[ index ] = proxifyContext(
+				proxifyState( namespace, {} ),
+				inheritedValue.client[ namespace ]
+			);
+		}
+		yield [ item, itemContexts[ index ] ];
+		index += 1;
+	}
+};
+
 /**
  * Creates a directive that adds an async event listener to the global window or
  * document object.
@@ -674,11 +694,13 @@ export default () => {
 
 			const result: VNode< any >[] = [];
 
-			for ( const item of iterable ) {
-				const itemContext = proxifyContext(
-					proxifyState( namespace, {} ),
-					inheritedValue.client[ namespace ]
-				);
+			const itemContexts = useItemContexts(
+				inheritedValue,
+				namespace,
+				iterable
+			);
+
+			for ( const [ item, itemContext ] of itemContexts ) {
 				const mergedContext = {
 					client: {
 						...inheritedValue.client,
