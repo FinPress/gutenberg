@@ -127,7 +127,7 @@ export default function TodoEdit( { attributes, setAttributes, context } ) {
 			<PanelBody title={ __( 'Settings' ) } initialOpen>
 				<PanelRow>
 					<strong>
-						{ __( 'Select roles that can toggle todos' ) }
+						{ __( 'Roles that can check or uncheck todos' ) }
 					</strong>
 				</PanelRow>
 				{ roles.map( ( role ) => (
