@@ -37,9 +37,12 @@ export async function visitSiteEditor(
 		query.set( 'canvas', canvas );
 	}
 
+	const waitForDocumentReady =
+		this.page.waitForLoadState( 'domcontentloaded' );
 	await this.visitAdminPage( 'site-editor.php', query.toString() );
 
 	if ( ! options.showWelcomeGuide ) {
+		await waitForDocumentReady;
 		await this.editor.setPreferences( 'core/edit-site', {
 			welcomeGuide: false,
 			welcomeGuideStyles: false,
