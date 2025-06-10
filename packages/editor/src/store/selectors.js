@@ -195,6 +195,20 @@ export function getCurrentPostType( state ) {
  *
  * @param {Object} state Global application state.
  *
+ * @example
+ * import { useSelect } from '@wordpress/data';
+ *
+ * function MyComponent() {
+ *   const postId = useSelect( ( select ) => {
+ *     return select( 'core/editor' ).getCurrentPostId();
+ *   }, [] );
+ *
+ *   if ( postId !== null ) {
+ *     return <div>Editing post with ID: { postId }</div>;
+ *   }
+ *   return <div>Creating new post</div>;
+ * }
+ *
  * @return {?number} ID of current post.
  */
 export function getCurrentPostId( state ) {
