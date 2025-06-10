@@ -30,8 +30,8 @@ $input-size: 300px;
 	}
 }
 
-.block-editor-url-input input {
-	padding-right: 30px !important;
+&:has(.components-spinner) .components-input-control__input {
+	padding-right: $grid-unit-40;
 }
 
 // Suggestions
