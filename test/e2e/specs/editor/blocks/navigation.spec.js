@@ -558,6 +558,12 @@ test.describe( 'Navigation block', () => {
 			await navigation.addCustomURL( 'https://wordpress.org' );
 			await navigation.expectToHaveTextSelected( 'wordpress.org' );
 
+			/**
+			 * Test: Deleting second item returns focus to its sibling
+			 */
+			await pageUtils.pressKeys( 'access+z' );
+			await navigation.checkLabelFocus( 'Dog' );
+
 			// /**
 			//  * Test: We can open and close the preview with the keyboard and escape
 			//  *       buttons from a top-level nav item using both the shortcut and toolbar
