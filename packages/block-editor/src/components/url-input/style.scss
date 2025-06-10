@@ -28,10 +28,10 @@ $input-size: 300px;
 		top: calc(50% - #{$spinner-size} / 2);
 		right: $grid-unit;
 	}
-}
 
-&:has(.components-spinner) .components-input-control__input {
-	padding-right: $grid-unit-40;
+	&:has(.components-spinner) .components-input-control__input {
+		padding-right: $grid-unit-40;
+	}
 }
 
 // Suggestions
