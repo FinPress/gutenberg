@@ -958,7 +958,7 @@ A customizable todo list with role-based permissions. ([Source](https://github.c
 
 -	**Name:** core/todo
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, gradients, text), interactivity, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), color (background, gradients, text), interactivity, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~multiple~~
 -	**Attributes:** allowedRoles, checkboxColor, checkboxSize, isGlobal, todos
 
 ## Verse
