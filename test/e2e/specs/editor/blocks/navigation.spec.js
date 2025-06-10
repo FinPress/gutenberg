@@ -564,6 +564,23 @@ test.describe( 'Navigation block', () => {
 			await pageUtils.pressKeys( 'access+z' );
 			await navigation.checkLabelFocus( 'Dog' );
 
+			/**
+			 * Test: Deleting first item returns focus to the parent submenu item
+			 */
+			// Add a link back so we can delete the first submenu link.
+			await page.keyboard.press( 'End' );
+			await pageUtils.pressKeys( 'ArrowRight', { times: 2 } );
+			await navigation.useBlockInserter();
+			await navigation.addCustomURL( 'https://wordpress.org' );
+			await navigation.expectToHaveTextSelected( 'wordpress.org' );
+
+			await pageUtils.pressKeys( 'ArrowUp', { times: 2 } );
+			await navigation.checkLabelFocus( 'Dog' );
+			await pageUtils.pressKeys( 'ArrowUp', { times: 1 } );
+			await pageUtils.pressKeys( 'access+z' );
+			await pageUtils.pressKeys( 'ArrowDown' );
+			await navigation.checkLabelFocus( 'example.com' );
+
 			// /**
 			//  * Test: We can open and close the preview with the keyboard and escape
 			//  *       buttons from a top-level nav item using both the shortcut and toolbar
