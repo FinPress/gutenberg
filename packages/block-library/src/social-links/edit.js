@@ -187,7 +187,7 @@ export function SocialLinksEdit( props ) {
 							label={ __( 'Icon Size' ) }
 							onChange={ ( newSize ) => {
 								setAttributes( {
-									size: newSize !== '' ? newSize : undefined,
+									size: newSize,
 								} );
 							} }
 							value={ size ?? 'has-normal-icon-size' }
