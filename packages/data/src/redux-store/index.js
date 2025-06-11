@@ -300,7 +300,8 @@ export default function createReduxStore( key, options ) {
 					selectorName,
 					resolver,
 					store,
-					resolversCache
+					resolversCache,
+					boundMetadataSelectors
 				);
 			}
 
@@ -385,7 +386,10 @@ export default function createReduxStore( key, options ) {
 
 			// For each selector, create a function that calls the selector, waits for resolution and returns
 			// a promise that resolves when the resolution is finished.
-			const bindResolveSelector = mapResolveSelector( store );
+			const bindResolveSelector = mapResolveSelector(
+				store,
+				boundMetadataSelectors
+			);
 
 			// Now apply this function to all bound selectors, public and private. We are excluding
 			// metadata selectors because they don't have resolvers.
@@ -407,7 +411,10 @@ export default function createReduxStore( key, options ) {
 
 			// Now, in a way very similar to `bindResolveSelector`, we create a function that maps
 			// selectors to functions that throw a suspense promise if not yet resolved.
-			const bindSuspendSelector = mapSuspendSelector( store );
+			const bindSuspendSelector = mapSuspendSelector(
+				store,
+				boundMetadataSelectors
+			);
 
 			const suspendSelectors = {
 				...boundMetadataSelectors, // no special suspense behavior
@@ -544,11 +551,12 @@ function instantiateReduxStore( key, options, registry, thunkArgs ) {
 /**
  * Maps selectors to functions that return a resolution promise for them.
  *
- * @param {Object} store The redux store the selectors are bound to.
+ * @param {Object} store                  The redux store the selectors are bound to.
+ * @param {Object} boundMetadataSelectors The bound metadata selectors.
  *
  * @return {Function} Function that maps selectors to resolvers.
  */
-function mapResolveSelector( store ) {
+function mapResolveSelector( store, boundMetadataSelectors ) {
 	return ( selector, selectorName ) => {
 		// If the selector doesn't have a resolver, just convert the return value
 		// (including exceptions) to a Promise, no additional extra behavior is needed.
@@ -559,23 +567,19 @@ function mapResolveSelector( store ) {
 		return ( ...args ) =>
 			new Promise( ( resolve, reject ) => {
 				const hasFinished = () => {
-					const { metadata } = store.__unstableOriginalGetState();
-					return metadataSelectors.hasFinishedResolution(
-						metadata,
+					return boundMetadataSelectors.hasFinishedResolution(
 						selectorName,
 						args
 					);
 				};
 				const finalize = ( result ) => {
-					const { metadata } = store.__unstableOriginalGetState();
-					const hasFailed = metadataSelectors.hasResolutionFailed(
-						metadata,
-						selectorName,
-						args
-					);
+					const hasFailed =
+						boundMetadataSelectors.hasResolutionFailed(
+							selectorName,
+							args
+						);
 					if ( hasFailed ) {
-						const error = metadataSelectors.getResolutionError(
-							metadata,
+						const error = boundMetadataSelectors.getResolutionError(
 							selectorName,
 							args
 						);
@@ -605,11 +609,12 @@ function mapResolveSelector( store ) {
 /**
  * Maps selectors to functions that throw a suspense promise if not yet resolved.
  *
- * @param {Object} store The redux store the selectors select from.
+ * @param {Object} store                  The redux store the selectors select from.
+ * @param {Object} boundMetadataSelectors The bound metadata selectors.
  *
  * @return {Function} Function that maps selectors to their suspending versions.
  */
-function mapSuspendSelector( store ) {
+function mapSuspendSelector( store, boundMetadataSelectors ) {
 	return ( selector, selectorName ) => {
 		// Selector without a resolver doesn't have any extra suspense behavior.
 		if ( ! selector.hasResolver ) {
@@ -619,23 +624,19 @@ function mapSuspendSelector( store ) {
 		return ( ...args ) => {
 			const result = selector.apply( null, args );
 
-			const { metadata } = store.__unstableOriginalGetState();
 			if (
-				metadataSelectors.hasFinishedResolution(
-					metadata,
+				boundMetadataSelectors.hasFinishedResolution(
 					selectorName,
 					args
 				)
 			) {
 				if (
-					metadataSelectors.hasResolutionFailed(
-						metadata,
+					boundMetadataSelectors.hasResolutionFailed(
 						selectorName,
 						args
 					)
 				) {
-					throw metadataSelectors.getResolutionError(
-						metadata,
+					throw boundMetadataSelectors.getResolutionError(
 						selectorName,
 						args
 					);
@@ -647,8 +648,7 @@ function mapSuspendSelector( store ) {
 			throw new Promise( ( resolve ) => {
 				const unsubscribe = store.subscribe( () => {
 					if (
-						metadataSelectors.hasFinishedResolution(
-							store.__unstableOriginalGetState().metadata,
+						boundMetadataSelectors.hasFinishedResolution(
 							selectorName,
 							args
 						)
@@ -684,18 +684,20 @@ function mapResolver( resolver ) {
  * Resolvers are side effects invoked once per argument set of a given selector call,
  * used in ensuring that the data needs for the selector are satisfied.
  *
- * @param {Object} selector       The selector function to be bound.
- * @param {string} selectorName   The selector name.
- * @param {Object} resolver       Resolver to call.
- * @param {Object} store          The redux store to which the resolvers should be mapped.
- * @param {Object} resolversCache Resolvers Cache.
+ * @param {Object} selector               The selector function to be bound.
+ * @param {string} selectorName           The selector name.
+ * @param {Object} resolver               Resolver to call.
+ * @param {Object} store                  The redux store to which the resolvers should be mapped.
+ * @param {Object} resolversCache         Resolvers Cache.
+ * @param {Object} boundMetadataSelectors The bound metadata selectors.
  */
 function mapSelectorWithResolver(
 	selector,
 	selectorName,
 	resolver,
 	store,
-	resolversCache
+	resolversCache,
+	boundMetadataSelectors
 ) {
 	function fulfillSelector( args ) {
 		const state = store.getState();
@@ -708,14 +710,8 @@ function mapSelectorWithResolver(
 			return;
 		}
 
-		const { metadata } = store.__unstableOriginalGetState();
-
 		if (
-			metadataSelectors.hasStartedResolution(
-				metadata,
-				selectorName,
-				args
-			)
+			boundMetadataSelectors.hasStartedResolution( selectorName, args )
 		) {
 			return;
 		}
