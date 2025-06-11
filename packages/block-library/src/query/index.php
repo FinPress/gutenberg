@@ -1,9 +1,70 @@
 <?php
+
 /**
  * Server-side rendering of the `core/query` block.
  *
  * @package WordPress
  */
+
+/** Determines whether we have no results
+ *
+ * @since 6.9.0
+ *
+ * @param array    $attributes Block attributes.
+ * @param WP_Block $block      The block instance.
+ * @return bool Returns true if the query has results, false otherwise.
+ */
+function block_core_query_has_results( $attributes, $block ) {
+	$page_key         = isset( $attributes['queryId'] ) ? 'query-' . $attributes['queryId'] . '-page' : 'query-page';
+	$page             = empty( $_GET[ $page_key ] ) ? 1 : (int) $_GET[ $page_key ];
+	$use_global_query = ( isset( $attributes['query']['inherit'] ) && $attributes['query']['inherit'] );
+	if ( $use_global_query ) {
+		global $wp_query;
+
+		/*
+		 * If already in the main query loop, duplicate the query instance to not tamper with the main instance.
+		 * Since this is a nested query, it should start at the beginning, therefore rewind posts.
+		 * Otherwise, the main query loop has not started yet and this block is responsible for doing so.
+		 */
+		if ( in_the_loop() ) {
+			$query = clone $wp_query;
+			$query->rewind_posts();
+		} else {
+			$query = $wp_query;
+		}
+	} else {
+		$query_args = build_query_vars_from_query_block( $block, $page );
+		$query      = new WP_Query( $query_args );
+	}
+
+	return $query->have_posts();
+}
+
+/**
+ * Checks if the block has a no results block
+ *
+ * @param WP_Block $block The block instance.
+ * @return bool Returns true if the block has a no results block, false otherwise.
+ */
+function has_no_results_block( $block ) {
+	if ( empty( $block['innerBlocks'] ) ) {
+		return false;
+	}
+
+	foreach ( $block['innerBlocks'] as $inner_block ) {
+		// Check if this inner block is the no-results block
+		if ( $inner_block['blockName'] === 'core/query-no-results' ) {
+			return true;
+		}
+
+		// Recursively check this inner block's children
+		if ( has_no_results_block( $inner_block ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 /**
  * Modifies the static `core/query` block on the server.
@@ -150,3 +211,57 @@ function block_core_query_disable_enhanced_pagination( $parsed_block ) {
 }
 
 add_filter( 'render_block_data', 'block_core_query_disable_enhanced_pagination', 10, 1 );
+
+/**
+ * Adds a query no results block to a query block.
+ *
+ * @since 6.9.0
+ *
+ * @param array $parsed_block The block being rendered.
+ * @return array The modified block.
+ */
+function block_core_query_add_no_results_block( $parsed_block ) {
+	if ( $parsed_block['blockName'] !== 'core/query' ) {
+		return $parsed_block;
+	}
+
+	// Check if we already have a no results block
+	if ( has_no_results_block( $parsed_block ) ) {
+		return $parsed_block;
+	}
+
+	if ( block_core_query_has_results( $parsed_block['attrs'], $parsed_block ) ) {
+		return $parsed_block;
+	}
+
+	// Create the no results block structure
+	$no_results_block = array(
+		'blockName'    => 'core/query-no-results',
+		'attrs'        => array(),
+		'innerBlocks'  => array(
+			array(
+				'blockName'    => 'core/paragraph',
+				'attrs'        => array(
+					'placeholder' => __( 'Add text or blocks that will display when a query returns no results.' ),
+				),
+				'innerHTML'    => '<p>' . __( 'No posts were found.' ) . '</p>',
+				'innerContent' => array( '<p>' . __( 'No posts were found.' ) . '</p>' ),
+			),
+		),
+		'innerHTML'    => "\n\n",
+		'innerContent' => array( "\n", null, "\n" ),
+	);
+
+	//var_dump($parsed_block['innerBlocks'][0]['innerBlocks']);
+	$parsed_block['innerBlocks'][] = $no_results_block;
+
+	// Update the innerContent array to include the new block
+	if ( ! isset( $parsed_block['innerContent'] ) ) {
+		$parsed_block['innerContent'] = array();
+	}
+	$parsed_block['innerContent'][] = null; // Add a placeholder for the new block
+
+	return $parsed_block;
+}
+
+add_filter( 'render_block_data', 'block_core_query_add_no_results_block', 20, 1 );
