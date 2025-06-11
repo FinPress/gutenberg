@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Enhancement
+
+-   `Card`: Adjust padding to maintain visual balance across different sizes ([#70344](https://github.com/WordPress/gutenberg/pull/70344)).
+
 ## 29.11.0 (2025-06-04)
 
 ### Enhancement
