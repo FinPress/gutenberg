@@ -33,6 +33,10 @@
 		"taxonomy": {
 			"type": "string",
 			"default": ""
+		},
+		"showLabel": {
+			"type": "boolean",
+			"default": true
 		}
 	},
 	"usesContext": [ "postType" ],
