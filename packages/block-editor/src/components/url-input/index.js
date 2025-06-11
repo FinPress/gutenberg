@@ -7,13 +7,17 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { __, sprintf, _n } from '@wordpress/i18n';
-import { Component, createRef } from '@wordpress/element';
+import {
+	Component,
+	createRef,
+	cloneElement,
+	isValidElement,
+} from '@wordpress/element';
 import { UP, DOWN, ENTER, TAB } from '@wordpress/keycodes';
 import {
 	BaseControl,
 	Button,
 	__experimentalInputControl as InputControl,
-	Spinner,
 	withSpokenMessages,
 	Popover,
 } from '@wordpress/components';
@@ -445,6 +449,18 @@ class URLInput extends Component {
 			hideLabelFromVision,
 		};
 
+		const { suffix } = this.props;
+		const clonedSuffix =
+			suffix?.props?.children && isValidElement( suffix.props.children )
+				? cloneElement( suffix.props.children, {
+						...( loading && { isBusy: true } ),
+				  } )
+				: null;
+		const finalSuffix =
+			suffix && clonedSuffix
+				? cloneElement( suffix, { children: clonedSuffix } )
+				: suffix;
+
 		const inputProps = {
 			id: inputId,
 			value,
@@ -464,7 +480,7 @@ class URLInput extends Component {
 					? `${ suggestionOptionIdPrefix }-${ selectedSuggestion }`
 					: undefined,
 			ref: this.inputRef,
-			suffix: this.props.suffix,
+			suffix: finalSuffix,
 		};
 
 		if ( renderControl ) {
@@ -474,7 +490,6 @@ class URLInput extends Component {
 		return (
 			<BaseControl __nextHasNoMarginBottom { ...controlProps }>
 				<InputControl { ...inputProps } __next40pxDefaultSize />
-				{ loading && <Spinner /> }
 			</BaseControl>
 		);
 	}
