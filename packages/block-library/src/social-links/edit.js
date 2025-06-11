@@ -166,7 +166,7 @@ export function SocialLinksEdit( props ) {
 						setAttributes( {
 							openInNewTab: false,
 							showLabels: false,
-							size: 'has-normal-icon-size',
+							size: undefined,
 						} );
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
@@ -178,7 +178,7 @@ export function SocialLinksEdit( props ) {
 						}
 						label={ __( 'Icon size' ) }
 						onDeselect={ () =>
-							setAttributes( { size: 'has-normal-icon-size' } )
+							setAttributes( { size: undefined } )
 						}
 					>
 						<SelectControl
@@ -187,7 +187,7 @@ export function SocialLinksEdit( props ) {
 							label={ __( 'Icon Size' ) }
 							onChange={ ( newSize ) => {
 								setAttributes( {
-									size: newSize,
+									size: newSize !== '' ? newSize : undefined,
 								} );
 							} }
 							value={ size ?? 'has-normal-icon-size' }
