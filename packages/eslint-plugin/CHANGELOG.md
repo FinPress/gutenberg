@@ -4,6 +4,8 @@
 
 - Remove `fixable` option from `i18n-no-flanking-whitespace` rule.
 
+## 22.11.0 (2025-06-04)
+
 ## 22.10.0 (2025-05-22)
 
 ## 22.9.0 (2025-05-07)
