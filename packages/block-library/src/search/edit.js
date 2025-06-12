@@ -42,7 +42,6 @@ import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 import {
 	PC_WIDTH_DEFAULT,
 	PX_WIDTH_DEFAULT,
-	MIN_WIDTH,
 	isPercentageUnit,
 } from './utils.js';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
@@ -422,11 +421,7 @@ export default function SearchEdit( {
 								__next40pxDefaultSize
 								label={ __( 'Width' ) }
 								id={ unitControlInputId } // Unused, kept for backwards compatibility
-								min={
-									isPercentageUnit( widthUnit )
-										? 0
-										: MIN_WIDTH
-								}
+								min={ 0 }
 								max={
 									isPercentageUnit( widthUnit )
 										? 100
@@ -593,7 +588,7 @@ export default function SearchEdit( {
 					isButtonPositionInside ? borderProps.className : undefined
 				) }
 				style={ getWrapperStyles() }
-				minWidth={ MIN_WIDTH }
+				minWidth={ 0 }
 				enable={ getResizableSides() }
 				onResizeStart={ ( event, direction, elt ) => {
 					setAttributes( {

@@ -3,7 +3,6 @@
  */
 export const PC_WIDTH_DEFAULT = 50;
 export const PX_WIDTH_DEFAULT = 350;
-export const MIN_WIDTH = 220;
 
 /**
  * Returns a boolean whether passed unit is percentage
