@@ -224,18 +224,24 @@ function URLInput( props ) {
 				return;
 			}
 
-			// Initial suggestions may only show if there is no value
-			// (note: this includes whitespace).
+			/**
+			 * Initial suggestions may only show if there is no value
+			 * (note: this includes whitespace).
+			 */
 			const isInitialSuggestions = ! inputValue?.length;
 
-			// Trim only now we've determined whether or not it originally had a "length"
-			// (even if that value was all whitespace).
+			/**
+			 * Trim only now we've determined whether or not it originally had a "length"
+			 * (even if that value was all whitespace).
+			 */
 			const trimmedValue = inputValue.trim();
 
-			// Allow a suggestions request if:
-			// - there are at least 2 characters in the search input (except manual searches where
-			//   search input length is not required to trigger a fetch)
-			// - this is a direct entry (eg: a URL)
+			/**
+			 * Allow a suggestions request if:
+			 * - there are at least 2 characters in the search input (except manual searches where
+			 *   search input length is not required to trigger a fetch)
+			 * - this is a direct entry (eg: a URL)
+			 */
 			if (
 				! isInitialSuggestions &&
 				( 2 > trimmedValue.length ||
@@ -259,9 +265,11 @@ function URLInput( props ) {
 
 			request
 				.then( ( newSuggestions ) => {
-					// A fetch Promise doesn't have an abort option. It's mimicked by
-					// comparing the request reference on the instance, which is
-					// reset or deleted on subsequent requests or unmounting.
+					/**
+					 * A fetch Promise doesn't have an abort option. It's mimicked by
+					 * comparing the request reference on the instance, which is
+					 * reset or deleted on subsequent requests or unmounting.
+					 */
 					if ( request !== suggestionsRequest.current ) {
 						return;
 					}
@@ -298,8 +306,10 @@ function URLInput( props ) {
 					dispatch( { type: 'FETCH_FAILURE' } );
 				} )
 				.finally( () => {
-					// If this is the current promise then reset the reference
-					// to allow for checking if a new request is made.
+					/**
+					 * If this is the current promise then reset the reference
+					 * to allow for checking if a new request is made.
+					 */
 					if ( request === suggestionsRequest.current ) {
 						suggestionsRequest.current = null;
 					}
@@ -308,8 +318,10 @@ function URLInput( props ) {
 		[ fetchLinkSuggestions, handleURLSuggestions, debouncedSpeak ]
 	);
 
-	// Create a debounced version of `updateSuggestions` using useMemo to prevent
-	// re-creating the debounced function on every render.
+	/**
+	 * Create a debounced version of `updateSuggestions` using useMemo to prevent
+	 * re-creating the debounced function on every render.
+	 */
 	const debouncedUpdateSuggestions = useMemo(
 		() => debounce( updateSuggestions, 200 ),
 		[ updateSuggestions ]
@@ -350,13 +362,14 @@ function URLInput( props ) {
 	] );
 
 	/**
-	 * A side effect that runs when the selected suggestion changes.
+	 * Runs when the selected suggestion changes.
 	 * It scrolls the selected suggestion into view.
-	 * This replaces the `componentDidUpdate` logic for scrolling.
 	 */
 	useEffect( () => {
-		// Only have to worry about scrolling selected suggestion into view
-		// when already expanded.
+		/**
+		 * Only have to worry about scrolling selected suggestion into view
+		 * when already expanded and there is a selected suggestion.
+		 */
 		if (
 			showSuggestions &&
 			null !== selectedSuggestion &&
@@ -414,9 +427,11 @@ function URLInput( props ) {
 	 * It may trigger an update of suggestions.
 	 */
 	const onFocus = useCallback( () => {
-		// When opening the link editor, if there's a value present, we want to load the suggestions pane with the results for this input search value
-		// Don't re-run the suggestions on focus if there are already suggestions present (prevents searching again when tabbing between the input and buttons)
-		// or there is already a request in progress.
+		/**
+		 * When opening the link editor, if there's a value present, we want to load the suggestions pane with the results for this input search value
+		 * Don't re-run the suggestions on focus if there are already suggestions present (prevents searching again when tabbing between the input and buttons)
+		 * or there is already a request in progress.
+		 */
 		if (
 			value &&
 			! disableSuggestions &&
@@ -453,17 +468,23 @@ function URLInput( props ) {
 	const onKeyDown = useCallback(
 		( event ) => {
 			onKeyDownProp?.( event );
-			// If the suggestions are not shown or loading, we shouldn't handle the arrow keys
-			// We shouldn't preventDefault to allow block arrow keys navigation.
+			/**
+			 * If the suggestions are not shown or loading, we shouldn't handle the arrow keys
+			 * We shouldn't preventDefault to allow block arrow keys navigation.
+			 */
 			if ( ! showSuggestions || ! suggestions.length || loading ) {
-				// In the Windows version of Firefox the up and down arrows don't move the caret
-				// within an input field like they do for Mac Firefox/Chrome/Safari. This causes
-				// a form of focus trapping that is disruptive to the user experience. This disruption
-				// only happens if the caret is not in the first or last position in the text input.
-				// See: https://github.com/WordPress/gutenberg/issues/5693#issuecomment-436684747
+				/**
+				 * In the Windows version of Firefox the up and down arrows don't move the caret
+				 * within an input field like they do for Mac Firefox/Chrome/Safari. This causes
+				 * a form of focus trapping that is disruptive to the user experience. This disruption
+				 * only happens if the caret is not in the first or last position in the text input.
+				 * See: https://github.com/WordPress/gutenberg/issues/5693#issuecomment-436684747
+				 */
 				switch ( event.keyCode ) {
-					// When UP is pressed, if the caret is at the start of the text, move it to the 0
-					// position.
+					/**
+					 * When UP is pressed, if the caret is at the start of the text, move it to the 0
+					 * position.
+					 */
 					case UP: {
 						if ( 0 !== event.target.selectionStart ) {
 							event.preventDefault();
@@ -473,8 +494,10 @@ function URLInput( props ) {
 						}
 						break;
 					}
-					// When DOWN is pressed, if the caret is not at the end of the text, move it to the
-					// last position.
+					/**
+					 * When DOWN is pressed, if the caret is not at the end of the text, move it to the
+					 * last position.
+					 */
 					case DOWN: {
 						if ( value.length !== event.target.selectionStart ) {
 							event.preventDefault();
@@ -488,7 +511,9 @@ function URLInput( props ) {
 						break;
 					}
 
-					// Submitting while loading should trigger onSubmit.
+					/**
+					 * Submitting while loading should trigger onSubmit.
+					 */
 					case ENTER: {
 						if ( onSubmit ) {
 							event.preventDefault();
