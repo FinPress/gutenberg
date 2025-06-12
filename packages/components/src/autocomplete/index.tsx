@@ -233,24 +233,33 @@ export function useAutocomplete( {
 			return;
 		}
 
-		// Find the completer with the highest triggerPrefix index in the
-		// textContent.
-		const completer = completers.reduce< WPCompleter | null >(
-			( lastTrigger, currentCompleter ) => {
-				const triggerIndex = textContent.lastIndexOf(
-					currentCompleter.triggerPrefix
-				);
-				const lastTriggerIndex =
-					lastTrigger !== null
-						? textContent.lastIndexOf( lastTrigger.triggerPrefix )
-						: -1;
+		let lastCompleter: WPCompleter | null = null;
+		let lastTriggerEndIndex = -1;
 
-				return triggerIndex > lastTriggerIndex
-					? currentCompleter
-					: lastTrigger;
-			},
-			null
-		);
+		for ( const completer of completers ) {
+			const { triggerPrefix } = completer;
+			const triggerIndex = textContent.lastIndexOf( triggerPrefix );
+			const triggerEndIndex = triggerIndex + triggerPrefix.length;
+
+			if ( triggerIndex === -1 ) {
+				continue;
+			}
+
+			// Choose the completer whose trigger appears later in
+			// the text, or, if at the same position, the one with
+			// the longer triggerPrefix.
+			if (
+				lastCompleter === null ||
+				triggerEndIndex > lastTriggerEndIndex ||
+				( triggerEndIndex === lastTriggerEndIndex &&
+					triggerPrefix.length > lastCompleter.triggerPrefix.length )
+			) {
+				lastCompleter = completer;
+				lastTriggerEndIndex = triggerEndIndex;
+			}
+		}
+
+		const completer = lastCompleter;
 
 		if ( ! completer ) {
 			if ( autocompleter ) {
