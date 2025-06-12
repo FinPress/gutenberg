@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { useState, useEffect } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { withSelect } from '@wordpress/data';
 import { addQueryArgs } from '@wordpress/url';
 import { store as editorStore } from '@wordpress/editor';
 
@@ -47,25 +47,17 @@ export function BrowserURL( { postId, postStatus } ) {
 	return null;
 }
 
-const BrowserURLWithSelect = () => {
-	const { postId, postStatus } = useSelect( ( select ) => {
-		const { getCurrentPost } = select( editorStore );
-		const post = getCurrentPost();
-		let { id, status, type } = post;
-		const isTemplate = [ 'wp_template', 'wp_template_part' ].includes(
-			type
-		);
-		if ( isTemplate ) {
-			id = post.wp_id;
-		}
+export default withSelect( ( select ) => {
+	const { getCurrentPost } = select( editorStore );
+	const post = getCurrentPost();
+	let { id, status, type } = post;
+	const isTemplate = [ 'wp_template', 'wp_template_part' ].includes( type );
+	if ( isTemplate ) {
+		id = post.wp_id;
+	}
 
-		return {
-			postId: id,
-			postStatus: status,
-		};
-	}, [] );
-
-	return <BrowserURL postId={ postId } postStatus={ postStatus } />;
-};
-
-export default BrowserURLWithSelect;
+	return {
+		postId: id,
+		postStatus: status,
+	};
+} )( BrowserURL );
