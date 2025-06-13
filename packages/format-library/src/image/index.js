@@ -13,7 +13,7 @@ import {
 	TextareaControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { insertObject, useAnchor } from '@wordpress/rich-text';
 import {
 	MediaUpload,
@@ -45,13 +45,50 @@ export const image = {
 function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
 	const { style, alt } = activeObjectAttributes;
 	const width = style?.replace( /\D/g, '' );
-	const [ editedWidth, setEditedWidth ] = useState( width );
-	const [ editedAlt, setEditedAlt ] = useState( alt );
-	const hasChanged = editedWidth !== width || editedAlt !== alt;
+
+	const [ editedValues, setEditedValues ] = useState( {
+		width,
+		alt: alt || '',
+	} );
+
+	useEffect( () => {
+		setEditedValues( {
+			width: style?.replace( /\D/g, '' ),
+			alt: alt || '',
+		} );
+	}, [ style, alt ] );
+
+	const hasChanged = editedValues.width !== width || editedValues.alt !== alt;
+
 	const popoverAnchor = useAnchor( {
 		editableContentElement: contentRef.current,
 		settings: image,
 	} );
+
+	const handleImageReplace = ( {
+		id,
+		url: newUrl,
+		alt: newAlt,
+		width: imgWidth,
+	} ) => {
+		const newWidth = Math.min( imgWidth, 150 );
+		const newReplacements = value.replacements.slice();
+
+		newReplacements[ value.start ] = {
+			type: name,
+			attributes: {
+				className: `wp-image-${ id }`,
+				style: `width: ${ newWidth }px;`,
+				url: newUrl,
+				alt: newAlt || '',
+			},
+		};
+
+		onChange( {
+			...value,
+			replacements: newReplacements,
+		} );
+	};
 
 	return (
 		<Popover
@@ -69,10 +106,10 @@ function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
 						type: name,
 						attributes: {
 							...activeObjectAttributes,
-							style: editedWidth
-								? `width: ${ editedWidth }px;`
+							style: editedValues.width
+								? `width: ${ editedValues.width }px;`
 								: '',
-							alt: editedAlt,
+							alt: editedValues.alt,
 						},
 					};
 
@@ -88,18 +125,24 @@ function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
 					<NumberControl
 						__next40pxDefaultSize
 						label={ __( 'Width' ) }
-						value={ editedWidth }
+						value={ editedValues.width }
 						min={ 1 }
 						onChange={ ( newWidth ) => {
-							setEditedWidth( newWidth );
+							setEditedValues( {
+								...editedValues,
+								width: newWidth,
+							} );
 						} }
 					/>
 					<TextareaControl
 						label={ __( 'Alternative text' ) }
 						__nextHasNoMarginBottom
-						value={ editedAlt }
+						value={ editedValues.alt }
 						onChange={ ( newAlt ) => {
-							setEditedAlt( newAlt );
+							setEditedValues( {
+								...editedValues,
+								alt: newAlt,
+							} );
 						} }
 						help={
 							<>
@@ -121,6 +164,21 @@ function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
 						}
 					/>
 					<HStack justify="right">
+						<MediaUploadCheck>
+							<MediaUpload
+								allowedTypes={ ALLOWED_MEDIA_TYPES }
+								onSelect={ handleImageReplace }
+								render={ ( { open } ) => (
+									<Button
+										variant="secondary"
+										onClick={ open }
+										size="compact"
+									>
+										{ __( 'Replace' ) }
+									</Button>
+								) }
+							/>
+						</MediaUploadCheck>
 						<Button
 							disabled={ ! hasChanged }
 							accessibleWhenDisabled
