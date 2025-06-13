@@ -7,18 +7,18 @@
  * @since      X.X.X
  */
 
-if ( ! class_exists( 'WP_Interactivity_API_Full_Page_Navigation' ) ) {
+if ( ! class_exists( 'Gutenberg_Interactivity_API_Full_Page_Navigation' ) ) {
 
 	/**
-	 * Class WP_Interactivity_API_Full_Page_Navigation.
+	 * Class Gutenberg_Interactivity_API_Full_Page_Navigation.
 	 */
-	class WP_Interactivity_API_Full_Page_Navigation {
+	class Gutenberg_Interactivity_API_Full_Page_Navigation {
 
 		private static $instance = null;
 
 		public static function instance() {
 			if ( null === self::$instance ) {
-				self::$instance = new WP_Interactivity_API_Full_Page_Navigation();
+				self::$instance = new Gutenberg_Interactivity_API_Full_Page_Navigation();
 			}
 			return self::$instance;
 		}
