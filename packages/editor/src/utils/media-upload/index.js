@@ -85,6 +85,9 @@ export default function mediaUpload( {
 			}
 			onFileChange?.( file );
 
+			// Files are initially received by `onFileChange` as a blob.
+			// After that the function is called a second time with the file as an entity.
+			// For core-data, we only care about receiving/invalidating entities.
 			const entityFiles = file.filter( ( _file ) => _file?.id );
 			if ( entityFiles?.length ) {
 				const invalidateCache = true;
