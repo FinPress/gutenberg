@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { PanelBody } from '@wordpress/components';
@@ -14,18 +14,31 @@ import FlatTermSelector from '../post-taxonomies/flat-term-selector';
 import { store as editorStore } from '../../store';
 
 const TagsPanel = () => {
+	const tagLabel = useSelect( ( select ) => {
+		const taxonomy = select( coreStore ).getTaxonomy( 'post_tag' );
+		return taxonomy?.labels?.name ?? 'Tags'; // fallback to 'Tags'.
+	}, [] );
+
 	const panelBodyTitle = [
 		__( 'Suggestion:' ),
 		<span className="editor-post-publish-panel__link" key="label">
-			{ __( 'Add tags' ) }
+			{ sprintf(
+				// translators: %s is the taxonomy name (e.g., "Tags").
+				__( 'Add %s' ),
+				tagLabel
+			) }
 		</span>,
 	];
 
 	return (
 		<PanelBody initialOpen={ false } title={ panelBodyTitle }>
 			<p>
-				{ __(
-					'Tags help users and search engines navigate your site and find your content. Add a few keywords to describe your post.'
+				{ sprintf(
+					// translators: %s is the taxonomy name (e.g., "Tags").
+					__(
+						'%s help users and search engines navigate your site and find your content. Add a few keywords to describe your post.'
+					),
+					tagLabel
 				) }
 			</p>
 			<FlatTermSelector slug="post_tag" __nextHasNoMarginBottom />
