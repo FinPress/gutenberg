@@ -97,13 +97,47 @@ function createColorHOC( colorTypes, withColorPalette ) {
 		};
 	}, {} );
 
+	function computeDerivedColorState( attributes, colors, prevState = {} ) {
+		return Object.entries( colorMap ).reduce(
+			( acc, [ colorAttributeName, colorContext ] ) => {
+				const customAttr = `custom${ upperFirst(
+					colorAttributeName
+				) }`;
+				const colorObject = getColorObjectByAttributeValues(
+					colors,
+					attributes[ colorAttributeName ],
+					attributes[ customAttr ]
+				);
+
+				const prevColor = prevState[ colorAttributeName ]?.color;
+				const prevColorObject = prevState[ colorAttributeName ];
+
+				acc[ colorAttributeName ] =
+					prevColor === colorObject.color && prevColorObject
+						? prevColorObject
+						: {
+								...colorObject,
+								class: getColorClassName(
+									colorContext,
+									colorObject.slug
+								),
+						  };
+
+				return acc;
+			},
+			{}
+		);
+	}
+
 	return compose( [
 		withColorPalette,
 		( WrappedComponent ) => {
 			return function ( props ) {
 				const { colors, attributes, setAttributes } = props;
 
-				const [ colorState, setColorState ] = useState( {} );
+				const [ colorState, setColorState ] = useState( () =>
+					computeDerivedColorState( attributes, colors )
+				);
 
 				const getMostReadableColorFn = useCallback(
 					( colorValue ) =>
@@ -151,57 +185,24 @@ function createColorHOC( colorTypes, withColorPalette ) {
 
 				// Mimic the behavior of getDerivedStateFromProps.
 				useEffect( () => {
-					setColorState( ( prevState ) => {
-						const newState = Object.entries( colorMap ).reduce(
-							( acc, [ colorAttributeName, colorContext ] ) => {
-								const colorObject =
-									getColorObjectByAttributeValues(
-										colors,
-										attributes[ colorAttributeName ],
-										attributes[
-											`custom${ upperFirst(
-												colorAttributeName
-											) }`
-										]
-									);
-
-								const previousColorObject =
-									prevState[ colorAttributeName ];
-								const previousColor =
-									previousColorObject?.color;
-
-								if (
-									previousColor === colorObject.color &&
-									previousColorObject
-								) {
-									acc[ colorAttributeName ] =
-										previousColorObject;
-								} else {
-									acc[ colorAttributeName ] = {
-										...colorObject,
-										class: getColorClassName(
-											colorContext,
-											colorObject.slug
-										),
-									};
-								}
-
-								return acc;
-							},
-							{}
-						);
-
-						return newState;
-					} );
+					setColorState( ( prevState ) =>
+						computeDerivedColorState(
+							attributes,
+							colors,
+							prevState
+						)
+					);
 				}, [ attributes, colors ] );
 
 				return (
 					<WrappedComponent
-						{ ...props }
-						colors={ undefined }
-						{ ...colorState }
-						{ ...setters }
-						colorUtils={ colorUtils }
+						{ ...{
+							...props,
+							colors: undefined,
+							...colorState,
+							...setters,
+							colorUtils,
+						} }
 					/>
 				);
 			};
