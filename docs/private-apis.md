@@ -309,6 +309,8 @@ Private actions:
 - `setIsReady`
 - `showBlockTypes`
 - `unregisterEntityAction`
+- `registerEntityField`
+- `unregisterEntityField`
 
 Private selectors:
 - `getEntityActions`

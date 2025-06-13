@@ -1587,7 +1587,7 @@ _Parameters_
 
 Registers a new DataViews field.
 
-This is an experimental API and is subject to change. it's only available in the Gutenberg plugin for now.
+This is an experimental API and is subject to change.
 
 _Parameters_
 
@@ -1694,7 +1694,7 @@ _Parameters_
 
 Unregisters a DataViews field.
 
-This is an experimental API and is subject to change. it's only available in the Gutenberg plugin for now.
+This is an experimental API and is subject to change.
 
 _Parameters_
 
