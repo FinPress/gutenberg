@@ -279,7 +279,7 @@ function block_core_image_print_lightbox_overlay() {
 			data-wp-bind--aria-label="state.currentImage.ariaLabel"
 			data-wp-bind--aria-modal="state.ariaModal"
 			data-wp-class--active="state.overlayEnabled"
-			data-wp-class--show-closing-animation="state.showClosingAnimation"
+			data-wp-class--show-closing-animation="state.overlayOpened"
 			data-wp-watch="callbacks.setOverlayFocus"
 			data-wp-on--keydown="actions.handleKeydown"
 			data-wp-on-async--touchstart="actions.handleTouchStart"
