@@ -1,24 +1,30 @@
 <?php
 /**
- * Enables full page client-side navigation for the Interactivity API.
+ * Interactivity API: Experimental full-page client-side navigation.
  *
- * IMPORTANT: this code is not meant to be included in Gutenberg yet. Instead,
- * it will be part of an external plugin to test this feature separately.
+ * @package    Gutenberg
+ * @subpackage Interactivity API
+ * @since      X.X.X
  */
 
 if ( ! class_exists( 'WP_Interactivity_API_Full_Page_Navigation' ) ) {
 
 	/**
-	 * Class to enable full page client-side navigation for the Interactivity API.
+	 * Class WP_Interactivity_API_Full_Page_Navigation.
 	 */
 	class WP_Interactivity_API_Full_Page_Navigation {
 
 		private static $instance = null;
 
-		private static $unlock_message = 'I acknowledge that full-page client-side navigation is still experimental and will probably change, breaking my plugin or website on its next version.';
+		public static function instance() {
+			if ( null === self::$instance ) {
+				self::$instance = new WP_Interactivity_API_Full_Page_Navigation();
+			}
+			return self::$instance;
+		}
 
 		public function __construct() {
-			add_action( 'init', array( $this, 'set_default_mode' ), 9 );
+			add_action( 'init', array( $this, 'set_default_mode' ), 11 );
 			add_action( 'wp_head', array( $this, 'buffer_start' ) );
 			add_action( 'wp_footer', array( $this, 'buffer_end' ), 8 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script_modules' ) );
@@ -36,13 +42,10 @@ if ( ! class_exists( 'WP_Interactivity_API_Full_Page_Navigation' ) ) {
 		 * Sets the client navigation mode by default.
 		 */
 		public function set_default_mode() {
-			$unlock_message = apply_filters( 'wp_interactivity_experimental_full_page_client_navigation', '' );
-			if ( self::$unlock_message === $unlock_message ) {
-				wp_interactivity_config(
-					'core/router',
-					array( 'clientNavigationMode' => 'experimentalFullPage' )
-				);
-			}
+			wp_interactivity_config(
+				'core/router',
+				array( 'clientNavigationMode' => 'experimentalFullPage' )
+			);
 		}
 
 		/**
@@ -96,13 +99,6 @@ if ( ! class_exists( 'WP_Interactivity_API_Full_Page_Navigation' ) ) {
 			} else {
 				return $buffer;
 			}
-		}
-
-		public static function instance() {
-			if ( null === self::$instance ) {
-				self::$instance = new WP_Interactivity_API_Full_Page_Navigation();
-			}
-			return self::$instance;
 		}
 	}
 }

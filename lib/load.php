@@ -157,6 +157,8 @@ if ( gutenberg_is_experiment_enabled( 'gutenberg-media-processing' ) ) {
 	require_once __DIR__ . '/experimental/media/load.php';
 }
 
-// Interactivity API full page client-side navigation.
-require __DIR__ . '/experimental/interactivity-api/class-wp-interactivity-api-full-page-navigation.php';
-WP_Interactivity_API_Full_Page_Navigation::instance();
+// Interactivity API full-page client-side navigation.
+if ( gutenberg_is_experiment_enabled( 'gutenberg-full-page-client-side-navigation' ) ) {
+	require __DIR__ . '/experimental/interactivity-api/class-wp-interactivity-api-full-page-navigation.php';
+	WP_Interactivity_API_Full_Page_Navigation::instance();
+}
