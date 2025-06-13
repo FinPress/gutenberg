@@ -1,7 +1,13 @@
 /**
  * WordPress dependencies
  */
-import { useMemo, Component } from '@wordpress/element';
+import {
+	useMemo,
+	Component,
+	useCallback,
+	useEffect,
+	useState,
+} from '@wordpress/element';
 import { compose, createHigherOrderComponent } from '@wordpress/compose';
 import { privateApis as componentsPrivateApis } from '@wordpress/components';
 
@@ -94,119 +100,110 @@ function createColorHOC( colorTypes, withColorPalette ) {
 	return compose( [
 		withColorPalette,
 		( WrappedComponent ) => {
-			return class extends Component {
-				constructor( props ) {
-					super( props );
+			return function ( props ) {
+				const { colors, attributes, setAttributes } = props;
 
-					this.setters = this.createSetters();
-					this.colorUtils = {
-						getMostReadableColor:
-							this.getMostReadableColor.bind( this ),
-					};
+				const [ colorState, setColorState ] = useState( {} );
 
-					this.state = {};
-				}
+				const getMostReadableColorFn = useCallback(
+					( colorValue ) =>
+						getMostReadableColor( colors, colorValue ),
+					[ colors ]
+				);
 
-				getMostReadableColor( colorValue ) {
-					const { colors } = this.props;
-					return getMostReadableColor( colors, colorValue );
-				}
+				const colorUtils = useMemo(
+					() => ( {
+						getMostReadableColor: getMostReadableColorFn,
+					} ),
+					[ getMostReadableColorFn ]
+				);
 
-				createSetters() {
+				const setters = useMemo( () => {
 					return Object.keys( colorMap ).reduce(
-						( settersAccumulator, colorAttributeName ) => {
+						( acc, colorAttributeName ) => {
 							const upperFirstColorAttributeName =
 								upperFirst( colorAttributeName );
 							const customColorAttributeName = `custom${ upperFirstColorAttributeName }`;
-							settersAccumulator[
-								`set${ upperFirstColorAttributeName }`
-							] = this.createSetColor(
-								colorAttributeName,
-								customColorAttributeName
-							);
-							return settersAccumulator;
+
+							acc[ `set${ upperFirstColorAttributeName }` ] = (
+								colorValue
+							) => {
+								const colorObject = getColorObjectByColorValue(
+									colors,
+									colorValue
+								);
+
+								setAttributes( {
+									[ colorAttributeName ]:
+										colorObject?.slug || undefined,
+									[ customColorAttributeName ]:
+										colorObject?.slug
+											? undefined
+											: colorValue,
+								} );
+							};
+
+							return acc;
 						},
 						{}
 					);
-				}
+				}, [ colors, setAttributes ] );
 
-				createSetColor( colorAttributeName, customColorAttributeName ) {
-					return ( colorValue ) => {
-						const colorObject = getColorObjectByColorValue(
-							this.props.colors,
-							colorValue
+				// Mimic the behavior of getDerivedStateFromProps.
+				useEffect( () => {
+					setColorState( ( prevState ) => {
+						const newState = Object.entries( colorMap ).reduce(
+							( acc, [ colorAttributeName, colorContext ] ) => {
+								const colorObject =
+									getColorObjectByAttributeValues(
+										colors,
+										attributes[ colorAttributeName ],
+										attributes[
+											`custom${ upperFirst(
+												colorAttributeName
+											) }`
+										]
+									);
+
+								const previousColorObject =
+									prevState[ colorAttributeName ];
+								const previousColor =
+									previousColorObject?.color;
+
+								if (
+									previousColor === colorObject.color &&
+									previousColorObject
+								) {
+									acc[ colorAttributeName ] =
+										previousColorObject;
+								} else {
+									acc[ colorAttributeName ] = {
+										...colorObject,
+										class: getColorClassName(
+											colorContext,
+											colorObject.slug
+										),
+									};
+								}
+
+								return acc;
+							},
+							{}
 						);
-						this.props.setAttributes( {
-							[ colorAttributeName ]:
-								colorObject && colorObject.slug
-									? colorObject.slug
-									: undefined,
-							[ customColorAttributeName ]:
-								colorObject && colorObject.slug
-									? undefined
-									: colorValue,
-						} );
-					};
-				}
 
-				static getDerivedStateFromProps(
-					{ attributes, colors },
-					previousState
-				) {
-					return Object.entries( colorMap ).reduce(
-						( newState, [ colorAttributeName, colorContext ] ) => {
-							const colorObject = getColorObjectByAttributeValues(
-								colors,
-								attributes[ colorAttributeName ],
-								attributes[
-									`custom${ upperFirst(
-										colorAttributeName
-									) }`
-								]
-							);
+						return newState;
+					} );
+				}, [ attributes, colors ] );
 
-							const previousColorObject =
-								previousState[ colorAttributeName ];
-							const previousColor = previousColorObject?.color;
-							/**
-							 * The "and previousColorObject" condition checks that a previous color object was already computed.
-							 * At the start previousColorObject and colorValue are both equal to undefined
-							 * bus as previousColorObject does not exist we should compute the object.
-							 */
-							if (
-								previousColor === colorObject.color &&
-								previousColorObject
-							) {
-								newState[ colorAttributeName ] =
-									previousColorObject;
-							} else {
-								newState[ colorAttributeName ] = {
-									...colorObject,
-									class: getColorClassName(
-										colorContext,
-										colorObject.slug
-									),
-								};
-							}
-							return newState;
-						},
-						{}
-					);
-				}
-
-				render() {
-					return (
-						<WrappedComponent
-							{ ...{
-								...this.props,
-								colors: undefined,
-								...this.state,
-								...this.setters,
-								colorUtils: this.colorUtils,
-							} }
-						/>
-					);
-				}
+				return (
+					<WrappedComponent
+						{ ...props }
+						colors={ undefined }
+						{ ...colorState }
+						{ ...setters }
+						colorUtils={ colorUtils }
+					/>
+				);
 			};
 		},
 	] );
