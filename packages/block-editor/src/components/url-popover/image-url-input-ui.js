@@ -3,6 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useRef, useEffect, useState } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 import { focus } from '@wordpress/dom';
 import {
 	ToolbarButton,
@@ -26,6 +27,7 @@ import {
  * Internal dependencies
  */
 import URLPopover from './index';
+import { store as blockEditorStore } from '../../store';
 
 const LINK_DESTINATION_NONE = 'none';
 const LINK_DESTINATION_CUSTOM = 'custom';
@@ -61,6 +63,13 @@ const ImageURLInputUI = ( {
 
 	const autocompleteRef = useRef( null );
 	const wrapperRef = useRef();
+
+	const attachmentPagesEnabled = useSelect(
+		( select ) =>
+			select( blockEditorStore ).getSettings()
+				.__unstableAttachmentPagesEnabled,
+		[]
+	);
 
 	useEffect( () => {
 		if ( ! wrapperRef.current ) {
@@ -176,7 +185,7 @@ const ImageURLInputUI = ( {
 				icon: image,
 			},
 		];
-		if ( mediaType === 'image' && mediaLink ) {
+		if ( mediaType === 'image' && mediaLink && attachmentPagesEnabled ) {
 			linkDestinations.push( {
 				linkDestination: LINK_DESTINATION_ATTACHMENT,
 				title: __( 'Link to attachment page' ),

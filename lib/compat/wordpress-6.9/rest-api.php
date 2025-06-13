@@ -29,3 +29,12 @@ function gutenberg_rest_theme_export_link_rel( $response, $theme ) {
 	return $response;
 }
 add_filter( 'rest_prepare_theme', 'gutenberg_rest_theme_export_link_rel', 10, 2 );
+
+// Adds a setting to indicate whether attachment pages are enabled.
+add_filter(
+	'block_editor_settings_all',
+	function ( $settings ) {
+		$settings['__unstableAttachmentPagesEnabled'] = (bool) get_option( 'wp_attachment_pages_enabled' );
+		return $settings;
+	}
+);
