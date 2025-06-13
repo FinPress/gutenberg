@@ -845,6 +845,13 @@ test.describe( 'Image', () => {
 			} )
 		).toBeFocused();
 
+		// Enable attachment pages to make the "Link to attachment page" option available.
+		await page.evaluate( () => {
+			window.wp.data.dispatch( 'core/block-editor' ).updateSettings( {
+				__unstableAttachmentPagesEnabled: true,
+			} );
+		} );
+
 		// Select "Link to attachment page".
 		await pageUtils.pressKeys( 'Tab' );
 		await page.keyboard.press( 'Enter' );
