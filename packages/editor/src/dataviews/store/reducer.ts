@@ -68,7 +68,7 @@ function actions( state: ActionState = {}, action: ReduxAction ) {
 	return state;
 }
 
-function fields( state: FieldsState = {}, action: ReduxAction ) {
+export function fields( state: FieldsState = {}, action: ReduxAction ) {
 	switch ( action.type ) {
 		case 'REGISTER_ENTITY_FIELD':
 			return {
