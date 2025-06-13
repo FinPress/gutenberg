@@ -4,7 +4,6 @@
  *
  * @package    Gutenberg
  * @subpackage Interactivity API
- * @since      X.X.X
  */
 
 if ( ! class_exists( 'Gutenberg_Interactivity_API_Full_Page_Navigation' ) ) {
