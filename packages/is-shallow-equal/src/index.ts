@@ -11,6 +11,8 @@ export { default as isShallowEqualArrays } from './arrays';
  * @typedef {Record<string, any>} ComparableObject
  */
 
+export type ComparableObject = Record< string, any >;
+
 /**
  * Returns true if the two arrays or objects are shallow equal, or false
  * otherwise. Also handles primitive values, just in case.
@@ -20,7 +22,7 @@ export { default as isShallowEqualArrays } from './arrays';
  *
  * @return {boolean} Whether the two values are shallow equal.
  */
-export default function isShallowEqual( a, b ) {
+export default function isShallowEqual( a: unknown, b: unknown ): boolean {
 	if ( a && b ) {
 		if ( a.constructor === Object && b.constructor === Object ) {
 			return isShallowEqualObjects( a, b );

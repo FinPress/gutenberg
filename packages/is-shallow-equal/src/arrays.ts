@@ -1,12 +1,15 @@
 /**
  * Returns true if the two arrays are shallow equal, or false otherwise.
  *
- * @param {any[]} a First array to compare.
- * @param {any[]} b Second array to compare.
+ * @param {unknown[]} a First array to compare.
+ * @param {unknown[]} b Second array to compare.
  *
  * @return {boolean} Whether the two arrays are shallow equal.
  */
-export default function isShallowEqualArrays( a, b ) {
+export default function isShallowEqualArrays(
+	a: unknown[],
+	b: unknown[]
+): boolean {
 	if ( a === b ) {
 		return true;
 	}
