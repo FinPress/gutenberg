@@ -11,13 +11,13 @@ variations: [
 	{
 		name: 'wordpress',
 		title: 'WordPress',
-		description: __( 'Embed a WordPress post.' ),
+		description: __( 'Embeds a WordPress post.' ),
 		attributes: { providerNameSlug: 'wordpress' },
 	},
 	{
 		name: 'youtube',
 		title: 'YouTube',
-		description: __( 'Embed a YouTube video.' ),
+		description: __( 'Embeds a YouTube video.' ),
 		attributes: { providerNameSlug: 'youtube' },
 	},
 ],
@@ -173,7 +173,7 @@ const variations = [
 		title: 'Twitter',
 		icon: embedTwitterIcon,
 		keywords: [ 'tweet', __( 'social' ) ],
-		description: __( 'Embed a tweet.' ),
+		description: __( 'Embeds a tweet.' ),
 		patterns: [ /^https?:\/\/(www\.)?twitter\.com\/.+/i ],
 		attributes: { providerNameSlug: 'twitter', responsive: true },
 	},
@@ -182,7 +182,7 @@ const variations = [
 		title: 'YouTube',
 		icon: embedYouTubeIcon,
 		keywords: [ __( 'music' ), __( 'video' ) ],
-		description: __( 'Embed a YouTube video.' ),
+		description: __( 'Embeds a YouTube video.' ),
 		patterns: [
 			/^https?:\/\/((m|www)\.)?youtube\.com\/.+/i,
 			/^https?:\/\/youtu\.be\/.+/i,
