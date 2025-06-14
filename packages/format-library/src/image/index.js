@@ -43,13 +43,15 @@ export const image = {
 };
 
 function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
-	const { style, alt } = activeObjectAttributes;
+	const { style, alt, className } = activeObjectAttributes;
 	const width = style?.replace( /\D/g, '' );
 
 	const [ editedValues, setEditedValues ] = useState( {
 		width,
 		alt: alt || '',
 	} );
+
+	const imageId = className?.replace( /wp-image-(\d+)/, '$1' );
 
 	useEffect( () => {
 		setEditedValues( {
@@ -168,6 +170,7 @@ function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
 							<MediaUpload
 								allowedTypes={ ALLOWED_MEDIA_TYPES }
 								onSelect={ handleImageReplace }
+								value={ imageId }
 								render={ ( { open } ) => (
 									<Button
 										variant="secondary"
