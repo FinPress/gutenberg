@@ -1,26 +1,54 @@
 /**
  * WordPress dependencies
  */
-import { PanelBody } from '@wordpress/components';
+import {
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import BlockStyles from '../block-styles';
+import { getDefaultStyle } from '../block-styles/utils';
+import useStylesForBlocks from '../block-styles/use-styles-for-block';
 import InspectorControls from '../inspector-controls';
 import { useBorderPanelLabel } from '../../hooks/border';
+import { useToolsPanelDropdownMenuProps } from '../global-styles/utils';
+
+const noop = () => {};
 
 const StylesTab = ( { blockName, clientId, hasBlockStyles } ) => {
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 	const borderPanelLabel = useBorderPanelLabel( { blockName } );
+	const { onSelect, stylesToRender, activeStyle } = useStylesForBlocks( {
+		clientId,
+		onSwitch: noop,
+	} );
+
+	const defaultStyle = getDefaultStyle( stylesToRender );
 
 	return (
 		<>
 			{ hasBlockStyles && (
 				<div>
-					<PanelBody title={ __( 'Styles' ) }>
-						<BlockStyles clientId={ clientId } />
-					</PanelBody>
+					<ToolsPanel
+						label={ __( 'Styles' ) }
+						resetAll={ () => {
+							onSelect( undefined );
+						} }
+						dropdownMenuProps={ dropdownMenuProps }
+					>
+						<ToolsPanelItem
+							isShownByDefault
+							hasValue={ () => activeStyle !== defaultStyle }
+							label={ __( 'Styles' ) }
+							onDeselect={ () => onSelect( undefined ) }
+						>
+							<BlockStyles clientId={ clientId } />
+						</ToolsPanelItem>
+					</ToolsPanel>
 				</div>
 			) }
 			<InspectorControls.Slot

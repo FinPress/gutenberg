@@ -7,7 +7,12 @@ import {
 	getUnregisteredTypeHandlerName,
 	store as blocksStore,
 } from '@wordpress/blocks';
-import { PanelBody, __unstableMotion as motion } from '@wordpress/components';
+import {
+	PanelBody,
+	__unstableMotion as motion,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -20,6 +25,8 @@ import BlockVariationTransforms from '../block-variation-transforms';
 import useBlockDisplayInformation from '../use-block-display-information';
 import { store as blockEditorStore } from '../../store';
 import BlockStyles from '../block-styles';
+import { getDefaultStyle } from '../block-styles/utils';
+import useStylesForBlocks from '../block-styles/use-styles-for-block';
 import { default as InspectorControls } from '../inspector-controls';
 import { default as InspectorControlsTabs } from '../inspector-controls-tabs';
 import useInspectorControlsTabs from '../inspector-controls-tabs/use-inspector-controls-tabs';
@@ -28,14 +35,37 @@ import PositionControls from '../inspector-controls-tabs/position-controls-panel
 import useBlockInspectorAnimationSettings from './useBlockInspectorAnimationSettings';
 import BlockQuickNavigation from '../block-quick-navigation';
 import { useBorderPanelLabel } from '../../hooks/border';
+import { useToolsPanelDropdownMenuProps } from '../global-styles/utils';
+
+const noop = () => {};
 
 import { unlock } from '../../lock-unlock';
 
 function BlockStylesPanel( { clientId } ) {
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+	const { onSelect, stylesToRender, activeStyle } = useStylesForBlocks( {
+		clientId,
+		onSwitch: noop,
+	} );
+	const defaultStyle = getDefaultStyle( stylesToRender );
+
 	return (
-		<PanelBody title={ __( 'Styles' ) }>
-			<BlockStyles clientId={ clientId } />
-		</PanelBody>
+		<ToolsPanel
+			label={ __( 'Styles' ) }
+			resetAll={ () => {
+				onSelect( undefined );
+			} }
+			dropdownMenuProps={ dropdownMenuProps }
+		>
+			<ToolsPanelItem
+				isShownByDefault
+				hasValue={ () => activeStyle !== defaultStyle }
+				label={ __( 'Styles' ) }
+				onDeselect={ () => onSelect( undefined ) }
+			>
+				<BlockStyles clientId={ clientId } />
+			</ToolsPanelItem>
+		</ToolsPanel>
 	);
 }
 
