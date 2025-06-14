@@ -24,7 +24,7 @@ const variations = [
 	{
 		name: 'categories',
 		title: __( 'Categories List' ),
-		description: __( 'Display a list of all categories.' ),
+		description: __( 'Displays a list of all categories.' ),
 		icon,
 		attributes: {
 			taxonomy: 'category',

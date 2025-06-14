@@ -9,7 +9,7 @@ const variations = [
 		name: 'archive-title',
 		title: __( 'Archive Title' ),
 		description: __(
-			'Display the archive title based on the queried object.'
+			'Displays the archive title based on the queried object.'
 		),
 		icon: title,
 		attributes: {
@@ -22,7 +22,7 @@ const variations = [
 		name: 'search-title',
 		title: __( 'Search Results Title' ),
 		description: __(
-			'Display the search results title based on the queried object.'
+			'Displays the search results title based on the queried object.'
 		),
 		icon: title,
 		attributes: {

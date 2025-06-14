@@ -66,7 +66,7 @@ function BlockKeyboardShortcuts() {
 		registerShortcut( {
 			name: 'core/block-editor/transform-heading-to-paragraph',
 			category: 'block-library',
-			description: __( 'Transform heading to paragraph.' ),
+			description: __( 'Transforms heading to paragraph.' ),
 			keyCombination: {
 				modifier: 'access',
 				character: '0',
@@ -83,7 +83,7 @@ function BlockKeyboardShortcuts() {
 			registerShortcut( {
 				name: `core/block-editor/transform-paragraph-to-heading-${ level }`,
 				category: 'block-library',
-				description: __( 'Transform paragraph to heading.' ),
+				description: __( 'Transforms paragraph to heading.' ),
 				keyCombination: {
 					modifier: 'access',
 					character: `${ level }`,

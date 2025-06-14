@@ -61,7 +61,7 @@ const variations = [
 	{
 		name: 'group',
 		title: __( 'Group' ),
-		description: __( 'Gather blocks in a container.' ),
+		description: __( 'Gathers blocks in a container.' ),
 		attributes: { layout: { type: 'constrained' } },
 		isDefault: true,
 		scope: [ 'block', 'inserter', 'transform' ],
@@ -75,7 +75,7 @@ const variations = [
 	{
 		name: 'group-row',
 		title: _x( 'Row', 'single horizontal line' ),
-		description: __( 'Arrange blocks horizontally.' ),
+		description: __( 'Arranges blocks horizontally.' ),
 		attributes: { layout: { type: 'flex', flexWrap: 'nowrap' } },
 		scope: [ 'block', 'inserter', 'transform' ],
 		isActive: ( blockAttributes ) =>
@@ -88,7 +88,7 @@ const variations = [
 	{
 		name: 'group-stack',
 		title: __( 'Stack' ),
-		description: __( 'Arrange blocks vertically.' ),
+		description: __( 'Arranges blocks vertically.' ),
 		attributes: { layout: { type: 'flex', orientation: 'vertical' } },
 		scope: [ 'block', 'inserter', 'transform' ],
 		isActive: ( blockAttributes ) =>
@@ -100,7 +100,7 @@ const variations = [
 	{
 		name: 'group-grid',
 		title: __( 'Grid' ),
-		description: __( 'Arrange blocks in a grid.' ),
+		description: __( 'Arranges blocks in a grid.' ),
 		attributes: { layout: { type: 'grid' } },
 		scope: [ 'block', 'inserter', 'transform' ],
 		isActive: ( blockAttributes ) =>

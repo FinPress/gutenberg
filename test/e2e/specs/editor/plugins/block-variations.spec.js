@@ -227,6 +227,8 @@ test.describe( 'Block variations', () => {
 		// Warning Message variation is missing the `description`.
 		await expect(
 			page.locator( '.block-editor-block-card__description' )
-		).toHaveText( 'Start with the basic building block of all narrative.' );
+		).toHaveText(
+			'Starts with the basic building block of all narrative.'
+		);
 	} );
 } );
