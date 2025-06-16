@@ -1,12 +1,3 @@
-/**
- * WordPress dependencies
- */
-import { getConfig } from '@wordpress/interactivity';
-
-// Check if the navigation mode is full page or region based.
-const clientNavigationMode: 'regionBased' | 'experimentalFullPage' =
-	getConfig( 'core/router' ).clientNavigationMode ?? 'regionBased';
-
 // Check if the link is valid for client-side navigation.
 const isValidLink = ( ref: HTMLAnchorElement ) =>
 	ref &&
@@ -29,37 +20,34 @@ const isValidEvent = ( event: MouseEvent ) =>
 	! event.shiftKey &&
 	! event.defaultPrevented;
 
-// Add click and prefetch to all links.
-if ( clientNavigationMode === 'experimentalFullPage' ) {
-	// Navigate on click.
-	document.addEventListener(
-		'click',
-		async ( event ) => {
+// Navigate on click.
+document.addEventListener(
+	'click',
+	async ( event ) => {
+		const ref = ( event.target as Element ).closest( 'a' );
+		if ( isValidLink( ref ) && isValidEvent( event ) ) {
+			event.preventDefault();
+			const { actions } = await import(
+				'@wordpress/interactivity-router'
+			);
+			actions.navigate( ref.href );
+		}
+	},
+	true
+);
+// Prefetch on hover.
+document.addEventListener(
+	'mouseenter',
+	async ( event ) => {
+		if ( ( event.target as Element )?.nodeName === 'A' ) {
 			const ref = ( event.target as Element ).closest( 'a' );
 			if ( isValidLink( ref ) && isValidEvent( event ) ) {
-				event.preventDefault();
 				const { actions } = await import(
 					'@wordpress/interactivity-router'
 				);
-				actions.navigate( ref.href );
+				actions.prefetch( ref.href );
 			}
-		},
-		true
-	);
-	// Prefetch on hover.
-	document.addEventListener(
-		'mouseenter',
-		async ( event ) => {
-			if ( ( event.target as Element )?.nodeName === 'A' ) {
-				const ref = ( event.target as Element ).closest( 'a' );
-				if ( isValidLink( ref ) && isValidEvent( event ) ) {
-					const { actions } = await import(
-						'@wordpress/interactivity-router'
-					);
-					actions.prefetch( ref.href );
-				}
-			}
-		},
-		true
-	);
-}
+		}
+	},
+	true
+);
