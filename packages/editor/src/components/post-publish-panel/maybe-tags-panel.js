@@ -16,17 +16,13 @@ import { store as editorStore } from '../../store';
 const TagsPanel = () => {
 	const tagLabel = useSelect( ( select ) => {
 		const taxonomy = select( coreStore ).getTaxonomy( 'post_tag' );
-		return taxonomy?.labels?.name ?? 'Tags'; // fallback to 'Tags'.
+		return taxonomy?.labels?.add_new_item ?? 'Add tag'; // fallback to 'Add tag'.
 	}, [] );
 
 	const panelBodyTitle = [
 		__( 'Suggestion:' ),
 		<span className="editor-post-publish-panel__link" key="label">
-			{ sprintf(
-				// translators: %s is the taxonomy name (e.g., "Tags").
-				__( 'Add %s' ),
-				tagLabel
-			) }
+			{ tagLabel }
 		</span>,
 	];
 
@@ -34,11 +30,12 @@ const TagsPanel = () => {
 		<PanelBody initialOpen={ false } title={ panelBodyTitle }>
 			<p>
 				{ sprintf(
-					// translators: %s is the taxonomy name (e.g., "Tags").
+					// translators: %s is the taxonomy label to add a new term (e.g., "Add Tag").
 					__(
-						'%s help users and search engines navigate your site and find your content. Add a few keywords to describe your post.'
+						'%s to help users and search engines navigate your site and find your content. Add a few keywords to describe your post.'
 					),
-					tagLabel
+					tagLabel[ 0 ].toUpperCase() +
+						tagLabel.slice( 1 ).toLowerCase()
 				) }
 			</p>
 			<FlatTermSelector slug="post_tag" __nextHasNoMarginBottom />
