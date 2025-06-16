@@ -19,8 +19,8 @@ const TagsPanel = () => {
 		return taxonomy?.labels;
 	}, [] );
 
-	const addNewItem = tagLabels?.add_new_item ?? 'Add tag';
-	const tagLabel = tagLabels?.name ?? 'Tags';
+	const addNewItem = tagLabels?.add_new_item ?? __( 'Add tag' );
+	const tagLabel = tagLabels?.name ?? __( 'Tags' );
 
 	const panelBodyTitle = [
 		__( 'Suggestion:' ),
