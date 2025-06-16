@@ -4,24 +4,33 @@
 import _sprintf from '@tannin/sprintf';
 import type { SprintfArgs } from '@tannin/sprintf/types';
 
-export type TranslatableText< T extends string > = string & {
-	readonly __translatableText: T;
-};
-type ExtractT< V > = V extends { __translatableText: infer T extends string }
-	? T
-	: V;
+/**
+ * Internal dependencies
+ */
+import type { TranslatableText } from './types';
 
+/**
+ * Returns a formatted string.
+ *
+ * @template {string} T
+ * @param {T | TranslatableText<T>} format The format of the string to generate.
+ * @param {SprintfArgs<T>}          args   Arguments to apply to the format.
+ *
+ * @see https://www.npmjs.com/package/@tannin/sprintf
+ *
+ * @return {string} The formatted string.
+ */
 export function sprintf< T extends string >(
 	format: T | TranslatableText< T >,
-	...args: SprintfArgs< ExtractT< T > >
+	...args: SprintfArgs< T >
 ): string;
 export function sprintf< T extends string >(
 	format: T | TranslatableText< T >,
-	args: SprintfArgs< ExtractT< T > >
+	args: SprintfArgs< T >
 ): string;
 export function sprintf< T extends string >(
 	format: T | TranslatableText< T >,
-	...args: SprintfArgs< ExtractT< T > >
+	...args: SprintfArgs< T >
 ): string {
 	return _sprintf( format as T, ...( args as SprintfArgs< T > ) );
 }

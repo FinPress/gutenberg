@@ -76,7 +76,7 @@ export const subscribe = i18n.subscribe.bind( i18n );
  * @param {T}      text     Text to translate.
  * @param {string} [domain] Domain to retrieve the translated text.
  *
- * @return {T} Translated text.
+ * @return {import('./types').TranslatableText<T>} Translated text.
  */
 export const __ = i18n.__.bind( i18n );
 
@@ -91,7 +91,7 @@ export const __ = i18n.__.bind( i18n );
  * @param {string} context  Context information for the translators.
  * @param {string} [domain] Domain to retrieve the translated text.
  *
- * @return {T} Translated context string without pipe.
+ * @return {import('./types').TranslatableText<T>} Translated context string without pipe.
  */
 export const _x = i18n._x.bind( i18n );
 
@@ -109,7 +109,7 @@ export const _x = i18n._x.bind( i18n );
  *                          singular or plural form.
  * @param {string} [domain] Domain to retrieve the translated text.
  *
- * @return {T} The translated singular or plural form.
+ * @return {import('./types').TranslatableText<T>} The translated singular or plural form.
  */
 export const _n = i18n._n.bind( i18n );
 
@@ -128,7 +128,7 @@ export const _n = i18n._n.bind( i18n );
  * @param {string} context  Context information for the translators.
  * @param {string} [domain] Domain to retrieve the translated text.
  *
- * @return {T} The translated singular or plural form.
+ * @return {import('./types').TranslatableText<T>} The translated singular or plural form.
  */
 export const _nx = i18n._nx.bind( i18n );
 
