@@ -23,39 +23,18 @@ if ( ! class_exists( 'Gutenberg_Interactivity_API_Full_Page_Navigation' ) ) {
 		}
 
 		public function __construct() {
-			add_action( 'init', array( $this, 'set_default_mode' ), 11 );
 			add_action( 'wp_head', array( $this, 'buffer_start' ) );
 			add_action( 'wp_footer', array( $this, 'buffer_end' ), 8 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script_modules' ) );
 		}
 
 		/**
-		 * Returns whether the client navigation mode is `experimentalFullPage`.
-		 */
-		public function is_enabled() {
-			$iapi_router_config = wp_interactivity_config( 'core/router' );
-			return 'experimentalFullPage' === ( $iapi_router_config['clientNavigationMode'] ?? '' );
-		}
-
-		/**
-		 * Sets the client navigation mode by default.
-		 */
-		public function set_default_mode() {
-			wp_interactivity_config(
-				'core/router',
-				array( 'clientNavigationMode' => 'experimentalFullPage' )
-			);
-		}
-
-		/**
 		 * Enqueues the required script modules.
 		 */
 		public function enqueue_script_modules() {
-			if ( $this->is_enabled() ) {
-				wp_enqueue_script_module(
-					'@wordpress/interactivity-router/full-page'
-				);
-			}
+			wp_enqueue_script_module(
+				'@wordpress/interactivity-router/full-page'
+			);
 		}
 
 		/**
@@ -64,18 +43,14 @@ if ( ! class_exists( 'Gutenberg_Interactivity_API_Full_Page_Navigation' ) ) {
 		 * buffer is flushed.
 		 */
 		public function buffer_start() {
-			if ( $this->is_enabled() ) {
-				ob_start( array( $this, 'add_directives_to_body' ) );
-			}
+			ob_start( array( $this, 'add_directives_to_body' ) );
 		}
 
 		/**
 		 * Flushes the output buffer at the end of the 'wp_footer' action.
 		 */
 		public function buffer_end() {
-			if ( $this->is_enabled() ) {
-				ob_end_flush();
-			}
+			ob_end_flush();
 		}
 
 		/**
