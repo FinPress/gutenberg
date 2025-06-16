@@ -3,12 +3,12 @@
  */
 import type { ForwardedRef } from 'react';
 import clsx from 'clsx';
-import { v4 as uuidv4 } from 'uuid';
 
 /**
  * WordPress dependencies
  */
 import { cloneElement, forwardRef } from '@wordpress/element';
+import { useInstanceId } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -38,27 +38,25 @@ function UnforwardedMenuItem(
 
 	className = clsx( 'components-menu-item__button', className );
 
-	const buttonProps = { ...restProps };
-	if ( info ) {
-		const labelId = `menu-item-label-${ uuidv4() }`;
-		const descriptionId = `menu-item-description-${ uuidv4() }`;
+	const descriptionId = useInstanceId(
+		UnforwardedMenuItem,
+		'menu-item-description'
+	);
 
+	const buttonProps = {
+		...( info ? { 'aria-describedby': descriptionId } : {} ),
+		...restProps,
+	};
+
+	if ( info ) {
 		children = (
 			<span className="components-menu-item__info-wrapper">
-				<span id={ labelId } className="components-menu-item__item">
-					{ children }
-				</span>
+				<span className="components-menu-item__item">{ children }</span>
 				<span className="components-menu-item__info" aria-hidden="true">
-					{ info }
-				</span>
-				<span id={ descriptionId } className="screen-reader-text">
 					{ info }
 				</span>
 			</span>
 		);
-
-		buttonProps[ 'aria-labelledby' ] = labelId;
-		buttonProps[ 'aria-describedby' ] = descriptionId;
 	}
 
 	if ( icon && typeof icon !== 'string' ) {
@@ -70,32 +68,38 @@ function UnforwardedMenuItem(
 	}
 
 	return (
-		<Button
-			__next40pxDefaultSize
-			ref={ ref }
-			// Make sure aria-checked matches spec https://www.w3.org/TR/wai-aria-1.1/#aria-checked
-			aria-checked={
-				role === 'menuitemcheckbox' || role === 'menuitemradio'
-					? isSelected
-					: undefined
-			}
-			role={ role }
-			icon={ iconPosition === 'left' ? icon : undefined }
-			className={ className }
-			{ ...buttonProps }
-		>
-			<span className="components-menu-item__item">{ children }</span>
-			{ ! suffix && (
-				<Shortcut
-					className="components-menu-item__shortcut"
-					shortcut={ shortcut }
-				/>
+		<>
+			<Button
+				__next40pxDefaultSize
+				ref={ ref }
+				aria-checked={
+					role === 'menuitemcheckbox' || role === 'menuitemradio'
+						? isSelected
+						: undefined
+				}
+				role={ role }
+				icon={ iconPosition === 'left' ? icon : undefined }
+				className={ className }
+				{ ...buttonProps }
+			>
+				{ children }
+				{ ! suffix && (
+					<Shortcut
+						className="components-menu-item__shortcut"
+						shortcut={ shortcut }
+					/>
+				) }
+				{ ! suffix && icon && iconPosition === 'right' && (
+					<Icon icon={ icon } />
+				) }
+				{ suffix }
+			</Button>
+			{ info && (
+				<span id={ descriptionId } className="screen-reader-text">
+					{ info }
+				</span>
 			) }
-			{ ! suffix && icon && iconPosition === 'right' && (
-				<Icon icon={ icon } />
-			) }
-			{ suffix }
-		</Button>
+		</>
 	);
 }
 
