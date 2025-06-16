@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import type { RequestUtils } from './index';
+import type { RestOptions } from './rest';
 
 export interface Comment {
 	id: number;
@@ -24,12 +25,15 @@ export interface User {
  *
  * @param this
  * @param payload
+ * @param restOptions Optional REST options to override default settings.
  */
 export async function createComment(
 	this: RequestUtils,
-	payload: CreateCommentPayload
+	payload: CreateCommentPayload,
+	restOptions?: Partial< RestOptions >
 ) {
 	const currentUser = await this.rest< User >( {
+		...restOptions,
 		path: '/wp/v2/users/me',
 		method: 'GET',
 	} );
@@ -37,6 +41,7 @@ export async function createComment(
 	const author = currentUser.id;
 
 	const comment = await this.rest< Comment >( {
+		...restOptions,
 		method: 'POST',
 		path: '/wp/v2/comments',
 		data: { ...payload, author },
@@ -49,11 +54,16 @@ export async function createComment(
  * Delete all comments using the REST API.
  *
  * @param this
+ * @param restOptions Optional REST options to override default settings.
  */
-export async function deleteAllComments( this: RequestUtils ) {
+export async function deleteAllComments(
+	this: RequestUtils,
+	restOptions?: Partial< RestOptions >
+) {
 	// List all comments.
 	// https://developer.wordpress.org/rest-api/reference/comments/#list-comments
 	const comments = await this.rest( {
+		...restOptions,
 		path: '/wp/v2/comments',
 		params: {
 			per_page: 100,
@@ -68,6 +78,7 @@ export async function deleteAllComments( this: RequestUtils ) {
 	await Promise.all(
 		comments.map( ( comment: Comment ) =>
 			this.rest( {
+				...restOptions,
 				method: 'DELETE',
 				path: `/wp/v2/comments/${ comment.id }`,
 				params: {

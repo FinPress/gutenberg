@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import type { RequestUtils } from './index';
+import type { RestOptions } from './rest';
 
 type TemplateType = 'wp_template' | 'wp_template_part';
 
@@ -26,16 +27,21 @@ const PATH_MAPPING = {
  * Delete all the templates of given type.
  *
  * @param this
- * @param type - Template type to delete.
+ * @param type        - Template type to delete.
+ * @param restOptions Optional REST options to override default settings.
  */
-async function deleteAllTemplates( this: RequestUtils, type: TemplateType ) {
+async function deleteAllTemplates(
+	this: RequestUtils,
+	type: TemplateType,
+	restOptions?: Partial< RestOptions >
+) {
 	const path = PATH_MAPPING[ type ];
 
 	if ( ! path ) {
 		throw new Error( `Unsupported template type: ${ type }.` );
 	}
 
-	const templates = await this.rest< Template[] >( { path } );
+	const templates = await this.rest< Template[] >( { ...restOptions, path } );
 
 	for ( const template of templates ) {
 		if ( ! template?.id || ! template?.wp_id ) {
@@ -44,6 +50,7 @@ async function deleteAllTemplates( this: RequestUtils, type: TemplateType ) {
 
 		try {
 			await this.rest( {
+				...restOptions,
 				method: 'DELETE',
 				path: `${ path }/${ template.id }`,
 				params: { force: true },
@@ -63,15 +70,18 @@ async function deleteAllTemplates( this: RequestUtils, type: TemplateType ) {
  * Creates a new template using the REST API.
  *
  * @param this
- * @param type    Template type to delete.
- * @param payload Template attributes.
+ * @param type        Template type to delete.
+ * @param payload     Template attributes.
+ * @param restOptions Optional REST options to override default settings.
  */
 async function createTemplate(
 	this: RequestUtils,
 	type: TemplateType,
-	payload: CreateTemplatePayload
+	payload: CreateTemplatePayload,
+	restOptions?: Partial< RestOptions >
 ) {
 	const template = await this.rest< Template >( {
+		...restOptions,
 		method: 'POST',
 		path: PATH_MAPPING[ type ],
 		params: { ...payload, type, status: 'publish', is_wp_suggestion: true },

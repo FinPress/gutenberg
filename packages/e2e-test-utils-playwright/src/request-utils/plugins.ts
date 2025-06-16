@@ -7,6 +7,7 @@ import { paramCase as kebabCase } from 'change-case';
  * Internal dependencies
  */
 import type { RequestUtils } from './index';
+import type { RestOptions } from './rest';
 
 /**
  * Fetch the plugins from API and cache them in memory,
@@ -14,13 +15,19 @@ import type { RequestUtils } from './index';
  *
  * @param this
  * @param forceRefetch Force refetch the installed plugins to update the cache.
+ * @param restOptions  Optional REST options to override default settings.
  */
-async function getPluginsMap( this: RequestUtils, forceRefetch = false ) {
+async function getPluginsMap(
+	this: RequestUtils,
+	forceRefetch = false,
+	restOptions?: Partial< RestOptions >
+) {
 	if ( ! forceRefetch && this.pluginsMap ) {
 		return this.pluginsMap;
 	}
 
 	const plugins = await this.rest( {
+		...restOptions,
 		path: '/wp/v2/plugins',
 	} );
 	this.pluginsMap = {};
@@ -69,14 +76,20 @@ function getPluginFromMap(
 /**
  * Activates an installed plugin.
  *
- * @param this RequestUtils.
- * @param slug Plugin slug.
+ * @param this        RequestUtils.
+ * @param slug        Plugin slug.
+ * @param restOptions Optional REST options to override default settings.
  */
-async function activatePlugin( this: RequestUtils, slug: string ) {
-	const pluginsMap = await this.getPluginsMap();
+async function activatePlugin(
+	this: RequestUtils,
+	slug: string,
+	restOptions?: Partial< RestOptions >
+) {
+	const pluginsMap = await this.getPluginsMap( false, restOptions );
 	const plugin = getPluginFromMap( slug, pluginsMap );
 
 	await this.rest( {
+		...restOptions,
 		method: 'PUT',
 		path: `/wp/v2/plugins/${ plugin }`,
 		data: { status: 'active' },
@@ -86,14 +99,20 @@ async function activatePlugin( this: RequestUtils, slug: string ) {
 /**
  * Deactivates an active plugin.
  *
- * @param this RequestUtils.
- * @param slug Plugin slug.
+ * @param this        RequestUtils.
+ * @param slug        Plugin slug.
+ * @param restOptions Optional REST options to override default settings.
  */
-async function deactivatePlugin( this: RequestUtils, slug: string ) {
-	const pluginsMap = await this.getPluginsMap();
+async function deactivatePlugin(
+	this: RequestUtils,
+	slug: string,
+	restOptions?: Partial< RestOptions >
+) {
+	const pluginsMap = await this.getPluginsMap( false, restOptions );
 	const plugin = getPluginFromMap( slug, pluginsMap );
 
 	await this.rest( {
+		...restOptions,
 		method: 'PUT',
 		path: `/wp/v2/plugins/${ plugin }`,
 		data: { status: 'inactive' },

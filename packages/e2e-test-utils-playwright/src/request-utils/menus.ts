@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import type { RequestUtils } from './index';
+import type { RestOptions } from './rest';
 
 export interface MenuData {
 	title: string;
@@ -16,10 +17,15 @@ export interface NavigationMenu {
 /**
  * Create a classic menu
  *
- * @param name Menu name.
+ * @param name        Menu name.
+ * @param restOptions Optional REST options to override default settings.
  * @return Menu content.
  */
-export async function createClassicMenu( this: RequestUtils, name: string ) {
+export async function createClassicMenu(
+	this: RequestUtils,
+	name: string,
+	restOptions?: Partial< RestOptions >
+) {
 	const menuItems = [
 		{
 			title: 'Custom link',
@@ -30,6 +36,7 @@ export async function createClassicMenu( this: RequestUtils, name: string ) {
 	];
 
 	const menu = await this.rest< NavigationMenu >( {
+		...restOptions,
 		method: 'POST',
 		path: `/wp/v2/menus/`,
 		data: {
@@ -47,7 +54,8 @@ export async function createClassicMenu( this: RequestUtils, name: string ) {
 				...menuItem,
 				parent: undefined,
 			},
-		} ) )
+		} ) ),
+		restOptions
 	);
 
 	return menu;
@@ -56,14 +64,17 @@ export async function createClassicMenu( this: RequestUtils, name: string ) {
 /**
  * Create a navigation menu
  *
- * @param menuData navigation menu post data.
+ * @param menuData    navigation menu post data.
+ * @param restOptions Optional REST options to override default settings.
  * @return Menu content.
  */
 export async function createNavigationMenu(
 	this: RequestUtils,
-	menuData: MenuData
+	menuData: MenuData,
+	restOptions?: Partial< RestOptions >
 ) {
 	return this.rest( {
+		...restOptions,
 		method: 'POST',
 		path: `/wp/v2/navigation/`,
 		data: {
@@ -76,9 +87,14 @@ export async function createNavigationMenu(
 /**
  * Delete all navigation and classic menus
  *
+ * @param restOptions Optional REST options to override default settings.
  */
-export async function deleteAllMenus( this: RequestUtils ) {
+export async function deleteAllMenus(
+	this: RequestUtils,
+	restOptions?: Partial< RestOptions >
+) {
 	const navMenus = await this.rest< NavigationMenu[] >( {
+		...restOptions,
 		path: `/wp/v2/navigation/`,
 		data: {
 			status: [
@@ -99,11 +115,13 @@ export async function deleteAllMenus( this: RequestUtils ) {
 			navMenus.map( ( menu ) => ( {
 				method: 'DELETE',
 				path: `/wp/v2/navigation/${ menu.id }?force=true`,
-			} ) )
+			} ) ),
+			restOptions
 		);
 	}
 
 	const classicMenus = await this.rest< NavigationMenu[] >( {
+		...restOptions,
 		path: `/wp/v2/menus/`,
 		data: {
 			status: [
@@ -124,7 +142,8 @@ export async function deleteAllMenus( this: RequestUtils ) {
 			classicMenus.map( ( menu ) => ( {
 				method: 'DELETE',
 				path: `/wp/v2/menus/${ menu.id }?force=true`,
-			} ) )
+			} ) ),
+			restOptions
 		);
 	}
 }
@@ -134,13 +153,16 @@ export async function deleteAllMenus( this: RequestUtils ) {
  *
  * @param  args
  * @param  args.status
+ * @param  restOptions Optional REST options to override default settings.
  * @return {string} Menu content.
  */
 export async function getNavigationMenus(
 	this: RequestUtils,
-	args: { status: 'publish' }
+	args: { status: 'publish' },
+	restOptions?: Partial< RestOptions >
 ) {
 	const navigationMenus = await this.rest< NavigationMenu[] >( {
+		...restOptions,
 		method: 'GET',
 		path: `/wp/v2/navigation/`,
 		data: args,

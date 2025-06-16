@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import type { RequestUtils } from './index';
+import type { RestOptions } from './rest';
 
 export interface User {
 	id: number;
@@ -32,9 +33,14 @@ export interface UserRequestData {
  *
  * @see https://developer.wordpress.org/rest-api/reference/users/#list-users
  * @param this
+ * @param restOptions Optional REST options to override default settings.
  */
-async function listUsers( this: RequestUtils ) {
+async function listUsers(
+	this: RequestUtils,
+	restOptions?: Partial< RestOptions >
+) {
 	const response = await this.rest< User[] >( {
+		...restOptions,
 		method: 'GET',
 		path: '/wp/v2/users',
 		params: {
@@ -50,9 +56,14 @@ async function listUsers( this: RequestUtils ) {
  *
  * @see https://developer.wordpress.org/rest-api/reference/users/#create-a-user
  * @param this
- * @param user User data to create.
+ * @param user        User data to create.
+ * @param restOptions Optional REST options to override default settings.
  */
-async function createUser( this: RequestUtils, user: UserData ) {
+async function createUser(
+	this: RequestUtils,
+	user: UserData,
+	restOptions?: Partial< RestOptions >
+) {
 	const userData: UserRequestData = {
 		username: user.username,
 		email: user.email,
@@ -75,6 +86,7 @@ async function createUser( this: RequestUtils, user: UserData ) {
 	}
 
 	const response = await this.rest< User >( {
+		...restOptions,
 		method: 'POST',
 		path: '/wp/v2/users',
 		data: userData,
@@ -88,10 +100,16 @@ async function createUser( this: RequestUtils, user: UserData ) {
  *
  * @see https://developer.wordpress.org/rest-api/reference/users/#delete-a-user
  * @param this
- * @param userId The ID of the user.
+ * @param userId      The ID of the user.
+ * @param restOptions Optional REST options to override default settings.
  */
-async function deleteUser( this: RequestUtils, userId: number ) {
+async function deleteUser(
+	this: RequestUtils,
+	userId: number,
+	restOptions?: Partial< RestOptions >
+) {
 	const response = await this.rest( {
+		...restOptions,
 		method: 'DELETE',
 		path: `/wp/v2/users/${ userId }`,
 		params: { force: true, reassign: 1 },
@@ -104,9 +122,13 @@ async function deleteUser( this: RequestUtils, userId: number ) {
  * Delete all users except main root user.
  *
  * @param this
+ * @param restOptions Optional REST options to override default settings.
  */
-async function deleteAllUsers( this: RequestUtils ) {
-	const users = await listUsers.bind( this )();
+async function deleteAllUsers(
+	this: RequestUtils,
+	restOptions?: Partial< RestOptions >
+) {
+	const users = await listUsers.bind( this )( restOptions );
 
 	// The users endpoint doesn't support batch request yet.
 	const responses = await Promise.all(
@@ -116,7 +138,9 @@ async function deleteAllUsers( this: RequestUtils ) {
 				( user: User ) =>
 					user.id !== 1 && user.name !== this.user.username
 			)
-			.map( ( user: User ) => deleteUser.bind( this )( user.id ) )
+			.map( ( user: User ) =>
+				deleteUser.bind( this )( user.id, restOptions )
+			)
 	);
 
 	return responses;

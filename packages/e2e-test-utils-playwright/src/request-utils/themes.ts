@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import type { RequestUtils } from './index';
+import type { RestOptions } from './rest';
 import { WP_BASE_URL } from '../config';
 
 const THEMES_URL = new URL( 'wp-admin/themes.php', WP_BASE_URL ).href;
@@ -51,13 +52,17 @@ async function activateTheme(
 }
 
 // https://developer.wordpress.org/rest-api/reference/themes/#definition
-async function getCurrentThemeGlobalStylesPostId( this: RequestUtils ) {
+async function getCurrentThemeGlobalStylesPostId(
+	this: RequestUtils,
+	restOptions?: Partial< RestOptions >
+) {
 	type ThemeItem = {
 		stylesheet: string;
 		status: string;
 		_links: { 'wp:user-global-styles': { href: string }[] };
 	};
 	const themes = await this.rest< ThemeItem[] >( {
+		...restOptions,
 		path: '/wp/v2/themes',
 	} );
 	let themeGlobalStylesId: string = '';
@@ -80,15 +85,18 @@ async function getCurrentThemeGlobalStylesPostId( this: RequestUtils ) {
 /**
  * Deletes all post revisions using the REST API.
  *
- * @param {}              this     RequestUtils.
- * @param {string|number} parentId Post attributes.
+ * @param {}              this        RequestUtils.
+ * @param {string|number} parentId    Post attributes.
+ * @param                 restOptions Optional REST options to override default settings.
  */
 async function getThemeGlobalStylesRevisions(
 	this: RequestUtils,
-	parentId: number | string
+	parentId: number | string,
+	restOptions?: Partial< RestOptions >
 ) {
 	// Lists all global styles revisions.
 	return await this.rest< Record< string, Object >[] >( {
+		...restOptions,
 		path: `/wp/v2/global-styles/${ parentId }/revisions`,
 		params: {
 			per_page: 100,

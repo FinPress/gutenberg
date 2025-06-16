@@ -184,7 +184,8 @@ export interface BatchRequest {
 
 async function batchRest< BatchResponse >(
 	this: RequestUtils,
-	requests: BatchRequest[]
+	requests: BatchRequest[],
+	restOptions?: Partial< RestOptions >
 ): Promise< BatchResponse[] > {
 	const maxBatchSize = await this.getMaxBatchSize();
 
@@ -193,7 +194,7 @@ async function batchRest< BatchResponse >(
 
 		const chunkResponses = await Promise.all(
 			chunks.map( ( chunkRequests ) =>
-				this.batchRest< BatchResponse >( chunkRequests )
+				this.batchRest< BatchResponse >( chunkRequests, restOptions )
 			)
 		);
 
@@ -204,6 +205,7 @@ async function batchRest< BatchResponse >(
 		failed?: string;
 		responses: BatchResponse[];
 	} >( {
+		...restOptions,
 		method: 'POST',
 		path: '/batch/v1',
 		data: {
