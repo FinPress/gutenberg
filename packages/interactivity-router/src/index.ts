@@ -59,7 +59,7 @@ interface Page {
 	initialData: any;
 }
 
-type RegionsToVdom = ( dom: Document, params?: VdomParams ) => Promise< Page >;
+type PreparePage = ( dom: Document, params?: VdomParams ) => Promise< Page >;
 
 // The cache of visited and prefetched pages, stylesheets and scripts.
 const pages = new Map< string, Promise< Page | false > >();
@@ -71,7 +71,16 @@ const getPagePath = ( url: string ) => {
 	return u.pathname + u.search;
 };
 
-// Fetch a new page and convert it to a static virtual DOM.
+/**
+ * Fetches and prepares a page from a given URL.
+ *
+ * @param url          The URL of the page to fetch.
+ * @param options      Options for the fetch operation.
+ * @param options.html Optional HTML content. If provided, the function will use
+ *                     this instead of fetching from the URL.
+ * @return             A Promise that resolves to the prepared page, or false if there was
+ *                     an error during fetching or preparation.
+ */
 const fetchPage = async ( url: string, { html }: { html: string } ) => {
 	try {
 		if ( ! html ) {
@@ -82,15 +91,33 @@ const fetchPage = async ( url: string, { html }: { html: string } ) => {
 			html = await res.text();
 		}
 		const dom = new window.DOMParser().parseFromString( html, 'text/html' );
-		return await regionsToVdom( dom, { url } );
+		return await preparePage( dom, { url } );
 	} catch ( e ) {
 		return false;
 	}
 };
 
-// Return an object with VDOM trees of those HTML regions marked with a
-// `router-region` directive.
-const regionsToVdom: RegionsToVdom = async ( dom, { vdom, url } = {} ) => {
+/**
+ * Processes a DOM document to extract router regions and related resources.
+ *
+ * This function analyzes the provided DOM document and creates a virtual DOM
+ * representation of all HTML regions marked with a `router-region` directive.
+ * It also extracts and preloads associated styles and scripts to prepare for
+ * rendering the page.
+ *
+ * @param dom             The DOM document to process.
+ * @param vdomParams      Optional parameters for virtual DOM processing.
+ * @param vdomParams.vdom An optional existing virtual DOM cache to check for
+ *                        regions. If a region exists in this cache, it will be
+ *                        reused instead of creating a new vDOM representation.
+ * @param vdomParams.url  The URL associated with the page, used for asset
+ *                        loading and caching.
+ * @return                A Promise that resolves to a {@link Page} object
+ *                        containing the virtual DOM for all router regions,
+ *                        preloaded styles and scripts, page title, and initial
+ *                        server-rendered data.
+ */
+const preparePage: PreparePage = async ( dom, { vdom, url } = {} ) => {
 	const regions = {};
 	dom.querySelectorAll( regionsSelector ).forEach( ( region ) => {
 		const id = region.getAttribute( regionAttr );
@@ -111,8 +138,13 @@ const regionsToVdom: RegionsToVdom = async ( dom, { vdom, url } = {} ) => {
 	return { regions, styles, scriptModules, title, initialData, url };
 };
 
-// Render all interactive regions contained in the given page.
-const renderRegions = ( page: Page ) => {
+/**
+ * Renders a page by applying styles, populating server data, rendering regions,
+ * and updating the document title.
+ *
+ * @param page The {@link Page} object to render.
+ */
+const renderPage = ( page: Page ) => {
 	applyStyles( page.styles );
 
 	batch( () => {
@@ -150,7 +182,7 @@ window.addEventListener( 'popstate', async () => {
 	const pagePath = getPagePath( window.location.href ); // Remove hash.
 	const page = pages.has( pagePath ) && ( await pages.get( pagePath ) );
 	if ( page ) {
-		renderRegions( page );
+		renderPage( page );
 		// Update the URL in the state.
 		state.url = window.location.href;
 	} else {
@@ -167,7 +199,7 @@ window.document
 pages.set(
 	getPagePath( window.location.href ),
 	Promise.resolve(
-		regionsToVdom( document, {
+		preparePage( document, {
 			vdom: initialVdom,
 			url: getPagePath( window.location.href ),
 		} )
@@ -286,7 +318,7 @@ export const { state, actions } = store< Store >( 'core/router', {
 					?.clientNavigationDisabled
 			) {
 				yield importScriptModules( page.scriptModules );
-				renderRegions( page );
+				renderPage( page );
 				window.history[
 					options.replace ? 'replaceState' : 'pushState'
 				]( {}, '', href );
