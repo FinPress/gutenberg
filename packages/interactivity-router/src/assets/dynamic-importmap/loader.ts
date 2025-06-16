@@ -1,4 +1,19 @@
 /**
+ * This code is derived from the following projects:
+ *
+ * 1. dynamic-importmap (https://github.com/keller-mark/dynamic-importmap)
+ * 2. es-module-shims (https://github.com/guybedford/es-module-shims)
+ *
+ * The original implementation was created by Guy Bedford in es-module-shims,
+ * then adapted by Mark Keller in dynamic-importmap, and further modified
+ * for use in this project.
+ *
+ * Both projects are licensed under the MIT license.
+ *
+ * MIT License: https://opensource.org/licenses/MIT
+ */
+
+/**
  * External dependencies
  */
 import * as lexer from 'es-module-lexer';
