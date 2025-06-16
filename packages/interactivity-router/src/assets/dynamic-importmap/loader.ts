@@ -25,15 +25,15 @@ import { fetchModule } from './fetch';
 import { resolve } from './resolver';
 
 export interface ModuleLoad {
-	u?: string; // original URL
-	r?: string; // response url
-	f?: Promise< ModuleLoad >; // fetch promise
-	S?: string; // source code
-	L?: Promise< void >; // link-promise (dependency fetch)
-	a?: ReturnType< typeof lexer.parse >; // analysis ([ imports, exports, ... ])
-	d?: ModuleLoad[]; // deps
-	b?: string; // blobUrl
-	s?: string; // shellUrl for circular references
+	url?: string; // original URL
+	responseUrl?: string; // response url
+	fetchPromise?: Promise< ModuleLoad >; // fetch promise
+	source?: string; // source code
+	linkPromise?: Promise< void >; // link-promise (dependency fetch)
+	analysis?: ReturnType< typeof lexer.parse >; // analysis ([ imports, exports, ... ])
+	deps?: ModuleLoad[]; // deps
+	blobUrl?: string; // blobUrl
+	shellUrl?: string; // shellUrl for circular references
 }
 
 export const initPromise = lexer.init;
@@ -51,12 +51,12 @@ const fetchCache = {};
 export const registry = {};
 
 async function loadAll( load: ModuleLoad, seen: Record< string, any > ) {
-	if ( load.b || seen[ load.u ] ) {
+	if ( load.blobUrl || seen[ load.url ] ) {
 		return;
 	}
-	seen[ load.u ] = 1;
-	await load.L;
-	await Promise.all( load.d.map( ( dep ) => loadAll( dep, seen ) ) );
+	seen[ load.url ] = 1;
+	await load.linkPromise;
+	await Promise.all( load.deps.map( ( dep ) => loadAll( dep, seen ) ) );
 }
 
 function urlJsString( url: string ) {
@@ -67,17 +67,17 @@ const createBlob = ( source: string, type = 'text/javascript' ) =>
 	URL.createObjectURL( new Blob( [ source ], { type } ) );
 
 function resolveDeps( load: ModuleLoad, seen: Record< string, any > ) {
-	if ( load.b || ! seen[ load.u ] ) {
+	if ( load.blobUrl || ! seen[ load.url ] ) {
 		return;
 	}
-	seen[ load.u ] = 0;
+	seen[ load.url ] = 0;
 
-	for ( const dep of load.d ) {
+	for ( const dep of load.deps ) {
 		resolveDeps( dep, seen );
 	}
 
-	const [ imports, exports ] = load.a;
-	const source = load.S;
+	const [ imports, exports ] = load.analysis;
+	const source = load.source;
 
 	let resolvedSource = '';
 
@@ -98,7 +98,7 @@ function resolveDeps( load: ModuleLoad, seen: Record< string, any > ) {
 				resolvedSource += `${ source.slice(
 					lastIndex,
 					dynamicImportEnd
-				) }, ${ urlJsString( load.r ) }`;
+				) }, ${ urlJsString( load.responseUrl ) }`;
 				lastIndex = dynamicImportEnd;
 			}
 			resolvedSource += source.slice( lastIndex, originalIndex );
@@ -113,40 +113,40 @@ function resolveDeps( load: ModuleLoad, seen: Record< string, any > ) {
 		} of imports ) {
 			// static import
 			if ( dynamicImportIndex === -1 ) {
-				const depLoad = load.d[ depIndex++ ];
-				let blobUrl = depLoad.b;
+				const depLoad = load.deps[ depIndex++ ];
+				let blobUrl = depLoad.blobUrl;
 				const cycleShell = ! blobUrl;
 				if ( cycleShell ) {
 					// Circular shell creation
-					if ( ! ( blobUrl = depLoad.s ) ) {
-						blobUrl = depLoad.s = createBlob(
-							`export function u$_(m){${ depLoad.a[ 1 ]
+					if ( ! ( blobUrl = depLoad.shellUrl ) ) {
+						blobUrl = depLoad.shellUrl = createBlob(
+							`export function u$_(m){${ depLoad.analysis[ 1 ]
 								.map( ( { s, e }, i ) => {
 									const q =
-										depLoad.S[ s ] === '"' ||
-										depLoad.S[ s ] === "'";
+										depLoad.source[ s ] === '"' ||
+										depLoad.source[ s ] === "'";
 									return `e$_${ i }=m${
 										q ? `[` : '.'
-									}${ depLoad.S.slice( s, e ) }${
+									}${ depLoad.source.slice( s, e ) }${
 										q ? `]` : ''
 									}`;
 								} )
 								.join( ',' ) }}${
-								depLoad.a[ 1 ].length
-									? `let ${ depLoad.a[ 1 ]
+								depLoad.analysis[ 1 ].length
+									? `let ${ depLoad.analysis[ 1 ]
 											.map( ( _, i ) => `e$_${ i }` )
 											.join( ',' ) };`
 									: ''
-							}export {${ depLoad.a[ 1 ]
+							}export {${ depLoad.analysis[ 1 ]
 								.map(
 									( { s, e }, i ) =>
-										`e$_${ i } as ${ depLoad.S.slice(
+										`e$_${ i } as ${ depLoad.source.slice(
 											s,
 											e
 										) }`
 								)
 								.join( ',' ) }}\n//# sourceURL=${
-								depLoad.r
+								depLoad.responseUrl
 							}?cycle`
 						);
 					}
@@ -159,9 +159,9 @@ function resolveDeps( load: ModuleLoad, seen: Record< string, any > ) {
 				) }*/${ urlJsString( blobUrl ) }`;
 
 				// circular shell execution
-				if ( ! cycleShell && depLoad.s ) {
-					resolvedSource += `;import*as m$_${ depIndex } from'${ depLoad.b }';import{u$_ as u$_${ depIndex }}from'${ depLoad.s }';u$_${ depIndex }(m$_${ depIndex })`;
-					depLoad.s = undefined;
+				if ( ! cycleShell && depLoad.shellUrl ) {
+					resolvedSource += `;import*as m$_${ depIndex } from'${ depLoad.blobUrl }';import{u$_ as u$_${ depIndex }}from'${ depLoad.shellUrl }';u$_${ depIndex }(m$_${ depIndex })`;
+					depLoad.shellUrl = undefined;
 				}
 				lastIndex = statementEnd;
 			}
@@ -179,9 +179,9 @@ function resolveDeps( load: ModuleLoad, seen: Record< string, any > ) {
 		}
 
 		// progressive cycle binding updates
-		if ( load.s ) {
+		if ( load.shellUrl ) {
 			resolvedSource += `\n;import{u$_}from'${
-				load.s
+				load.shellUrl
 			}';try{u$_({${ exports
 				.filter( ( e ) => e.ln )
 				.map( ( { s, e, ln } ) => `${ source.slice( s, e ) }:${ ln }` )
@@ -198,16 +198,16 @@ function resolveDeps( load: ModuleLoad, seen: Record< string, any > ) {
 		( match, isMapping, url ) => {
 			hasSourceURL = ! isMapping;
 			return match.replace( url, () =>
-				new URL( url, load.r ).toString()
+				new URL( url, load.responseUrl ).toString()
 			);
 		}
 	);
 	if ( ! hasSourceURL ) {
-		resolvedSource += '\n//# sourceURL=' + load.r;
+		resolvedSource += '\n//# sourceURL=' + load.responseUrl;
 	}
 
-	load.b = createBlob( resolvedSource );
-	load.S = undefined; // free memory
+	load.blobUrl = createBlob( resolvedSource );
+	load.source = undefined; // free memory
 }
 
 const sourceMapURLRegEx =
@@ -223,52 +223,45 @@ function getOrCreateLoad(
 		return load;
 	}
 
-	load = {
-		u: url,
-		r: undefined,
-		f: undefined,
-		S: undefined,
-		L: undefined,
-		a: undefined,
-		d: undefined,
-		b: undefined,
-		s: undefined,
-	};
+	load = { url };
 
 	if ( registry[ url ] ) {
 		// If there's a naming conflict, keep incrementing until unique
 		let i = 0;
-		while ( registry[ load.u + ++i ] ) {
+		while ( registry[ load.url + ++i ] ) {
 			/* no-op */
 		}
-		load.u += i;
+		load.url += i;
 	}
-	registry[ load.u ] = load;
+	registry[ load.url ] = load;
 
-	load.f = ( async () => {
+	load.fetchPromise = ( async () => {
 		let source;
-		( { r: load.r, s: source } = await ( fetchCache[ url ] ||
+		( { r: load.responseUrl, s: source } = await ( fetchCache[ url ] ||
 			fetchModule( url, fetchOpts, parent ) ) );
 		try {
-			load.a = lexer.parse( source, load.u );
+			load.analysis = lexer.parse( source, load.url );
 		} catch ( e ) {
 			// eslint-disable-next-line no-console
 			console.error( e );
-			load.a = [ [], [], false, false ];
+			load.analysis = [ [], [], false, false ];
 		}
-		load.S = source;
+		load.source = source;
 		return load;
 	} )();
 
-	load.L = load.f.then( async () => {
+	load.linkPromise = load.fetchPromise.then( async () => {
 		let childFetchOpts = fetchOpts;
-		load.d = (
+		load.deps = (
 			await Promise.all(
-				load.a[ 0 ].map( async ( { n, d } ) => {
+				load.analysis[ 0 ].map( async ( { n, d } ) => {
 					if ( d !== -1 || ! n ) {
 						return undefined;
 					}
-					const { r } = await resolve( n, load.r || load.u );
+					const { r } = await resolve(
+						n,
+						load.responseUrl || load.url
+					);
 					if ( d !== -1 ) {
 						return undefined;
 					}
@@ -282,7 +275,11 @@ function getOrCreateLoad(
 							integrity: undefined,
 						};
 					}
-					return getOrCreateLoad( r, childFetchOpts, load.r ).f;
+					return getOrCreateLoad(
+						r,
+						childFetchOpts,
+						load.responseUrl
+					).fetchPromise;
 				} )
 			)
 		).filter( ( l ) => l );
@@ -325,10 +322,10 @@ export async function preloadModule(
 export async function importPreloadedModule< Module = unknown >(
 	load: ModuleLoad
 ): Promise< Module > {
-	const module = await dynamicImport( load.b );
+	const module = await dynamicImport( load.blobUrl );
 	// if the preloaded module ended up with a shell (circular refs), finalize it
-	if ( load.s ) {
-		( await dynamicImport( load.s ) ).u$_( module );
+	if ( load.shellUrl ) {
+		( await dynamicImport( load.shellUrl ) ).u$_( module );
 	}
 	return module;
 }
