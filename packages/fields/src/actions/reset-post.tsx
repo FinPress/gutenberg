@@ -211,8 +211,8 @@ const resetPostAction: Action< Template | TemplatePart > = {
 				createSuccessNotice(
 					items.length > 1
 						? sprintf(
-								/* translators: The number of items. */
-								__( '%s items reset.' ),
+								/* translators: %d: The number of items. */
+								__( '%d items reset.' ),
 								items.length
 						  )
 						: sprintf(
