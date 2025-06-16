@@ -12,7 +12,13 @@ import type { CSSProperties, ReactNode } from 'react';
 import type { WordPressComponentProps } from '../../context';
 import { Flex, FlexItem } from '../../flex';
 import { Text } from '../../text';
-import { baseLabelTypography, COLORS, CONFIG, rtl } from '../../utils';
+import {
+	baseLabelTypography,
+	COLORS,
+	CONFIG,
+	rtl,
+	placeholderStyles,
+} from '../../utils';
 import type { LabelPosition, Size, PrefixSuffixWrapperProps } from '../types';
 
 type ContainerProps = {
@@ -283,20 +289,7 @@ export const Input = styled.input< InputProps >`
 		${ fontSizeStyles }
 		${ sizeStyles }
 		${ customPaddings }
-
-		&::-webkit-input-placeholder {
-			line-height: normal;
-			color: ${ COLORS.ui.darkGrayPlaceholder };
-		}
-
-		&::-moz-placeholder {
-			opacity: 1; // Necessary because Firefox reduces this from 1.
-			color: ${ COLORS.ui.darkGrayPlaceholder };
-		}
-
-		&:-ms-input-placeholder {
-			color: ${ COLORS.ui.darkGrayPlaceholder };
-		}
+		${ placeholderStyles }
 
 		&[type='email'],
 		&[type='url'] {
