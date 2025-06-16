@@ -319,8 +319,8 @@ button.wp-block-navigation-item__content {
 // - Without it: aria-expanded is on the icon itself.
 //
 // Both selectors are needed to handle both cases.
-.wp-block-navigation-submenu__toggle[aria-expanded="true"] + .wp-block-navigation__submenu-icon,
-.wp-block-navigation__submenu-icon[aria-expanded="true"] {
+.wp-block-navigation-submenu__toggle[aria-expanded="true"] + .wp-block-navigation__submenu-icon > svg,
+.wp-block-navigation__submenu-icon[aria-expanded="true"] > svg {
 	transform: rotate(180deg);
 }
 
