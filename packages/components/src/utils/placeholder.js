@@ -15,7 +15,6 @@ export const placeholderStyles = css`
 
 	&::-webkit-input-placeholder {
 		color: ${ COLORS.ui.darkGrayPlaceholder };
-		line-height: normal;
 	}
 
 	&::-moz-placeholder {
