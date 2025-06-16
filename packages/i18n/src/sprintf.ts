@@ -9,6 +9,15 @@ import type { SprintfArgs } from '@tannin/sprintf/types';
  */
 import type { TranslatableText } from './types';
 
+export function sprintf< T extends string >(
+	format: T | TranslatableText< T >,
+	...args: SprintfArgs< T >
+): string;
+export function sprintf< T extends string >(
+	format: T | TranslatableText< T >,
+	args: SprintfArgs< T >
+): string;
+
 /**
  * Returns a formatted string.
  *
@@ -20,14 +29,6 @@ import type { TranslatableText } from './types';
  *
  * @return {string} The formatted string.
  */
-export function sprintf< T extends string >(
-	format: T | TranslatableText< T >,
-	...args: SprintfArgs< T >
-): string;
-export function sprintf< T extends string >(
-	format: T | TranslatableText< T >,
-	args: SprintfArgs< T >
-): string;
 export function sprintf< T extends string >(
 	format: T | TranslatableText< T >,
 	...args: SprintfArgs< T >
