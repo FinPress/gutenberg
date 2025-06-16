@@ -151,18 +151,19 @@ export const Default = {
 	args: {
 		colors: [
 			{
+				name: 'Theme',
+				slug: 'theme',
 				colors: [
 					{ name: 'Red', color: '#ff0000', slug: 'red' },
 					{ name: 'Green', color: '#00ff00', slug: 'green' },
 					{ name: 'Blue', color: '#0000ff', slug: 'blue' },
 				],
-
-				name: 'Theme',
-				slug: 'theme',
 			},
 		],
 		gradients: [
 			{
+				name: 'Theme',
+				slug: 'theme',
 				gradients: [
 					{
 						name: 'Sunset',
@@ -175,8 +176,6 @@ export const Default = {
 						slug: 'gradient-2',
 					},
 				],
-				name: 'Theme',
-				slug: 'theme',
 			},
 		],
 		disableCustomColors: false,
