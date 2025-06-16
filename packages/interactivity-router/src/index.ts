@@ -47,7 +47,6 @@ export interface PrefetchOptions {
 
 interface VdomParams {
 	vdom?: typeof initialVdom;
-	url?: string;
 }
 
 interface Page {
@@ -59,7 +58,11 @@ interface Page {
 	initialData: any;
 }
 
-type PreparePage = ( dom: Document, params?: VdomParams ) => Promise< Page >;
+type PreparePage = (
+	url: string,
+	dom: Document,
+	params?: VdomParams
+) => Promise< Page >;
 
 // The cache of visited and prefetched pages, stylesheets and scripts.
 const pages = new Map< string, Promise< Page | false > >();
@@ -78,8 +81,8 @@ const getPagePath = ( url: string ) => {
  * @param options      Options for the fetch operation.
  * @param options.html Optional HTML content. If provided, the function will use
  *                     this instead of fetching from the URL.
- * @return             A Promise that resolves to the prepared page, or false if there was
- *                     an error during fetching or preparation.
+ * @return             A Promise that resolves to the prepared page, or false if
+ *                     there was an error during fetching or preparation.
  */
 const fetchPage = async ( url: string, { html }: { html: string } ) => {
 	try {
@@ -91,7 +94,7 @@ const fetchPage = async ( url: string, { html }: { html: string } ) => {
 			html = await res.text();
 		}
 		const dom = new window.DOMParser().parseFromString( html, 'text/html' );
-		return await preparePage( dom, { url } );
+		return await preparePage( url, dom );
 	} catch ( e ) {
 		return false;
 	}
@@ -105,19 +108,19 @@ const fetchPage = async ( url: string, { html }: { html: string } ) => {
  * It also extracts and preloads associated styles and scripts to prepare for
  * rendering the page.
  *
+ * @param url             The URL associated with the page, used for asset
+ *                        loading and caching.
  * @param dom             The DOM document to process.
  * @param vdomParams      Optional parameters for virtual DOM processing.
  * @param vdomParams.vdom An optional existing virtual DOM cache to check for
  *                        regions. If a region exists in this cache, it will be
  *                        reused instead of creating a new vDOM representation.
- * @param vdomParams.url  The URL associated with the page, used for asset
- *                        loading and caching.
  * @return                A Promise that resolves to a {@link Page} object
  *                        containing the virtual DOM for all router regions,
  *                        preloaded styles and scripts, page title, and initial
  *                        server-rendered data.
  */
-const preparePage: PreparePage = async ( dom, { vdom, url } = {} ) => {
+const preparePage: PreparePage = async ( url, dom, { vdom } = {} ) => {
 	const regions = {};
 	dom.querySelectorAll( regionsSelector ).forEach( ( region ) => {
 		const id = region.getAttribute( regionAttr );
@@ -199,9 +202,8 @@ window.document
 pages.set(
 	getPagePath( window.location.href ),
 	Promise.resolve(
-		preparePage( document, {
+		preparePage( getPagePath( window.location.href ), document, {
 			vdom: initialVdom,
-			url: getPagePath( window.location.href ),
 		} )
 	)
 );
