@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 -   `FormFileUpload`: Extend audio accept MIME types for iOS compatibility ([#70354](https://github.com/WordPress/gutenberg/pull/70354)).
+-   `Autocomplete`: Fix matching logic to prefer longest overlapping trigger ([#70400](https://github.com/WordPress/gutenberg/pull/70400)).
 
 ### Internal
 
