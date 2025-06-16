@@ -20,7 +20,6 @@ export const placeholderStyles = css`
 
 	&::-moz-placeholder {
 		color: ${ COLORS.ui.darkGrayPlaceholder };
-		opacity: 1;
 	}
 
 	&:-ms-input-placeholder {
