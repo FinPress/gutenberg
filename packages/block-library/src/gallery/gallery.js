@@ -43,6 +43,9 @@ export default function Gallery( props ) {
 					'is-cropped': imageCrop,
 				}
 			) }
+			style={ {
+				'--gallery-columns': columns || 3,
+			} }
 		>
 			{ blockProps.children }
 			{ isSelected && ! blockProps.children && (

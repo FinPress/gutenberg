@@ -561,7 +561,7 @@ export default function GalleryEdit( props ) {
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Settings' ) }>
-					{ images.length > 1 && (
+					{ images.length > 0 && (
 						<RangeControl
 							__nextHasNoMarginBottom
 							label={ __( 'Columns' ) }
@@ -572,7 +572,7 @@ export default function GalleryEdit( props ) {
 							}
 							onChange={ setColumnsNumber }
 							min={ 1 }
-							max={ Math.min( MAX_COLUMNS, images.length ) }
+							max={ Math.min( MAX_COLUMNS ) }
 							{ ...MOBILE_CONTROL_PROPS_RANGE_CONTROL }
 							required
 							__next40pxDefaultSize
