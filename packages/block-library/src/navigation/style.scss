@@ -312,7 +312,13 @@ button.wp-block-navigation-item__content {
 	cursor: pointer;
 }
 
-// Flip submenu arrow icon when expanded.
+// Rotate submenu icon when open.
+//
+// Two structures:
+// - With "open on click" option enabled: aria-expanded is on the button, icon is it's next sibling.
+// - Without it: aria-expanded is on the icon itself.
+//
+// Both selectors are needed to handle both cases.
 .wp-block-navigation-submenu__toggle[aria-expanded="true"] + .wp-block-navigation__submenu-icon,
 .wp-block-navigation__submenu-icon[aria-expanded="true"] {
 	transform: rotate(180deg);
