@@ -13,7 +13,7 @@ import {
 	TextareaControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useState, useEffect } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { insertObject, useAnchor } from '@wordpress/rich-text';
 import {
 	MediaUpload,
@@ -44,23 +44,32 @@ export const image = {
 
 function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
 	const { style, alt, className } = activeObjectAttributes;
-	const width = style?.replace( /\D/g, '' );
-
-	const [ editedValues, setEditedValues ] = useState( {
-		width,
-		alt: alt || '',
-	} );
-
+	const currentWidth = style?.replace( /\D/g, '' );
+	const currentAlt = alt || '';
 	const imageId = className?.replace( /wp-image-(\d+)/, '$1' );
 
-	useEffect( () => {
-		setEditedValues( {
-			width: style?.replace( /\D/g, '' ),
-			alt: alt || '',
-		} );
-	}, [ style, alt ] );
+	const [ formState, setFormState ] = useState( {
+		values: {
+			width: currentWidth,
+			alt: currentAlt,
+		},
+		lastReplaced: null,
+	} );
 
-	const hasChanged = editedValues.width !== width || editedValues.alt !== alt;
+	const updateFormValue = ( key, newValue ) => {
+		setFormState( ( state ) => ( {
+			values: { ...state.values, [ key ]: newValue },
+			lastReplaced: null,
+		} ) );
+	};
+
+	const comparisonValues = formState.lastReplaced || {
+		width: currentWidth,
+		alt: currentAlt,
+	};
+	const hasChanged =
+		formState.values.width !== comparisonValues.width ||
+		formState.values.alt !== comparisonValues.alt;
 
 	const popoverAnchor = useAnchor( {
 		editableContentElement: contentRef.current,
@@ -75,6 +84,16 @@ function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
 	} ) => {
 		const newWidth = Math.min( imgWidth, 150 );
 		const newReplacements = value.replacements.slice();
+
+		const newValues = {
+			width: newWidth,
+			alt: newAlt || '',
+		};
+
+		setFormState( {
+			values: newValues,
+			lastReplaced: newValues,
+		} );
 
 		newReplacements[ value.start ] = {
 			type: name,
@@ -108,10 +127,10 @@ function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
 						type: name,
 						attributes: {
 							...activeObjectAttributes,
-							style: editedValues.width
-								? `width: ${ editedValues.width }px;`
+							style: formState.values.width
+								? `width: ${ formState.values.width }px;`
 								: '',
-							alt: editedValues.alt,
+							alt: formState.values.alt,
 						},
 					};
 
@@ -120,6 +139,11 @@ function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
 						replacements: newReplacements,
 					} );
 
+					setFormState( ( state ) => ( {
+						...state,
+						lastReplaced: null,
+					} ) );
+
 					event.preventDefault();
 				} }
 			>
@@ -127,25 +151,19 @@ function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
 					<NumberControl
 						__next40pxDefaultSize
 						label={ __( 'Width' ) }
-						value={ editedValues.width }
+						value={ formState.values.width }
 						min={ 1 }
-						onChange={ ( newWidth ) => {
-							setEditedValues( {
-								...editedValues,
-								width: newWidth,
-							} );
-						} }
+						onChange={ ( newWidth ) =>
+							updateFormValue( 'width', newWidth )
+						}
 					/>
 					<TextareaControl
 						label={ __( 'Alternative text' ) }
 						__nextHasNoMarginBottom
-						value={ editedValues.alt }
-						onChange={ ( newAlt ) => {
-							setEditedValues( {
-								...editedValues,
-								alt: newAlt,
-							} );
-						} }
+						value={ formState.values.alt }
+						onChange={ ( newAlt ) =>
+							updateFormValue( 'alt', newAlt )
+						}
 						help={
 							<>
 								<ExternalLink
