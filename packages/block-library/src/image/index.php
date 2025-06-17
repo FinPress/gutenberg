@@ -212,6 +212,8 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 	$p->set_attribute( 'data-wp-on-async--load', 'callbacks.setButtonStyles' );
 	$p->set_attribute( 'data-wp-on-async-window--resize', 'callbacks.setButtonStyles' );
 	// Set an event to prefetch the image on pointerenter and pointerdown(mobile).
+	// Pointerleave is used to cancel the prefetch if the user hovers away from the image
+	// before the predefined delay.
 	$p->set_attribute( 'data-wp-on--pointerenter', 'actions.prefetchImageWithDelay' );
 	$p->set_attribute( 'data-wp-on--pointerdown', 'actions.prefetchImage' );
 	$p->set_attribute( 'data-wp-on--pointerleave', 'actions.cancelPrefetch' );
