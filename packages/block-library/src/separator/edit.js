@@ -9,22 +9,15 @@ import clsx from 'clsx';
 import {
 	getColorClassName,
 	InspectorAdvancedControls,
-	InspectorControls,
 	useBlockProps,
 	__experimentalUseColorProps as useColorProps,
 } from '@wordpress/block-editor';
-import {
-	HorizontalRule,
-	SelectControl,
-	__experimentalToolsPanel as ToolsPanel,
-	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
+import { HorizontalRule, SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
-import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 import useDeprecatedOpacity from './use-deprecated-opacity';
 
 const HtmlElementControl = ( { tagName, setAttributes } ) => {
@@ -57,7 +50,6 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 	const colorProps = useColorProps( attributes );
 	const currentColor = colorProps?.style?.backgroundColor;
 	const hasCustomColor = !! style?.color?.background;
-	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	useDeprecatedOpacity( opacity, currentColor, setAttributes );
 
@@ -83,27 +75,6 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 
 	return (
 		<>
-			<InspectorControls>
-				<ToolsPanel
-					label={ __( 'Settings' ) }
-					resetAll={ () => {
-						setAttributes( { tagName: 'hr' } );
-					} }
-					dropdownMenuProps={ dropdownMenuProps }
-				>
-					<ToolsPanelItem
-						hasValue={ () => tagName !== 'hr' }
-						label={ __( 'HTML element' ) }
-						onDeselect={ () => setAttributes( { tagName: 'hr' } ) }
-						isShownByDefault
-					>
-						<HtmlElementControl
-							tagName={ tagName }
-							setAttributes={ setAttributes }
-						/>
-					</ToolsPanelItem>
-				</ToolsPanel>
-			</InspectorControls>
 			<InspectorAdvancedControls>
 				<HtmlElementControl
 					tagName={ tagName }
