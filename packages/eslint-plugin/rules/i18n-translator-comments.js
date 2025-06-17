@@ -9,12 +9,62 @@ const {
 	getTextContentFromNode,
 } = require( '../utils' );
 
+/**
+ * @typedef {Object} Placeholder
+ * @property {string}  key          - The key of the placeholder, either positional or named.
+ * @property {string}  raw          - The raw placeholder string.
+ * @property {string}  type         - The type of the placeholder (e.g., 's', 'd').
+ * @property {boolean} isNamed      - Whether the placeholder is named (e.g., %(name)s).
+ * @property {boolean} isPositional - Whether the placeholder is positional (e.g., %1$s).
+ */
+
+/**
+ * Extracts placeholders from a string.
+ *
+ * @param {string} str - The string to extract placeholders from.
+ * @return {Placeholder[]} An array of objects representing the placeholders found in the string.
+ */
+function extractPlaceholders( str ) {
+	const matches = [];
+	let match;
+	REGEXP_SPRINTF_PLACEHOLDER.lastIndex = 0;
+
+	while ( ( match = REGEXP_SPRINTF_PLACEHOLDER.exec( str ) ) !== null ) {
+		matches.push( match[ 0 ] );
+	}
+	return matches;
+}
+
+/**
+ * Extracts translator keys from a comment text.
+ *
+ * @param {string} commentText - The text of the comment to extract keys from.
+ * @return	 {Set<string>} A set of translator keys found in the comment text.
+ */
+function extractTranslatorKeys( commentText ) {
+	const keys = new Set();
+	let match;
+
+	REGEXP_SPRINTF_PLACEHOLDER.lastIndex = 0;
+
+	while (
+		( match = REGEXP_SPRINTF_PLACEHOLDER.exec( commentText ) ) !== null
+	) {
+		const fullPlaceholder = match[ 0 ]; // e.g. "%s", "%1$s", "%(name)s"
+		keys.add( fullPlaceholder );
+	}
+
+	return keys;
+}
+
 module.exports = {
 	meta: {
 		type: 'problem',
 		messages: {
 			missing:
 				'Translation function with placeholders is missing preceding translator comment',
+			missingKeys:
+				'Translator comment missing description(s) for placeholder(s): {{ keys }}.',
 		},
 	},
 	create( context ) {
@@ -98,6 +148,25 @@ module.exports = {
 					}
 
 					if ( /translators:\s*\S+/i.test( commentText ) ) {
+						const keysInComment =
+							extractTranslatorKeys( commentText );
+						const placeholdersUsed =
+							candidates.flatMap( extractPlaceholders );
+
+						const missing = placeholdersUsed.filter(
+							( key ) => ! keysInComment.has( key )
+						);
+
+						if ( missing.length > 0 ) {
+							context.report( {
+								node,
+								messageId: 'missingKeys',
+								data: {
+									keys: missing.join( ', ' ),
+								},
+							} );
+						}
+
 						return;
 					}
 				}
