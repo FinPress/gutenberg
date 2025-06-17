@@ -83,9 +83,9 @@ export default function deprecated(
 	/**
 	 * Fires whenever a deprecated feature is encountered
 	 *
-	 * @param {string}             feature Name of the deprecated feature.
-	 * @param {?DeprecatedOptions} options Personalisation options
-	 * @param {?string}            message The deprecation message.
+	 * @param {string}            feature Name of the deprecated feature.
+	 * @param {DeprecatedOptions} options Personalisation options
+	 * @param {string}            message Message sent to console.warn
 	 */
 	doAction( 'deprecated', feature, options, message );
 
