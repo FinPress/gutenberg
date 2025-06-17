@@ -1,4 +1,3 @@
-/** @type {HTMLTextAreaElement} */
 let _decodeTextArea: HTMLTextAreaElement | undefined;
 
 /**
