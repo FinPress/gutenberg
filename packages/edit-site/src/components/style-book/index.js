@@ -217,11 +217,11 @@ export function getExamplesForSinglePageUse( examples ) {
 }
 
 /**
- * Returns examples with variation styles applied.
+ * Applies a block variation to each example by updating its attributes.
  *
  * @param {Array}  examples  Array of examples
- * @param {string} variation The block variation
- * @return {Array} Updated array
+ * @param {string} variation Block variation name.
+ * @return {Array} Updated examples with variation applied.
  */
 function applyBlockVariationsToExamples( examples, variation ) {
 	if ( ! variation ) {
@@ -472,8 +472,8 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 		( category ) => category.slug === previewCategory
 	);
 
-	// If there's no category definition there may be a single block.
 	const filteredExamples = useMemo( () => {
+		// If there's no category definition there may be a single block.
 		if ( ! categoryDefinition ) {
 			return {
 				examples: [
