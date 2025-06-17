@@ -13,6 +13,7 @@ import {
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	__experimentalVStack as VStack,
 } from '@wordpress/components';
 
 import {
@@ -152,7 +153,6 @@ function ColumnInspectorControls( {
 		<ToolsPanel
 			label={ __( 'Settings' ) }
 			resetAll={ () => {
-				updateColumns( count, minCount );
 				setAttributes( {
 					isStackedOnMobile: true,
 				} );
@@ -160,12 +160,7 @@ function ColumnInspectorControls( {
 			dropdownMenuProps={ dropdownMenuProps }
 		>
 			{ canInsertColumnBlock && (
-				<ToolsPanelItem
-					label={ __( 'Columns' ) }
-					isShownByDefault
-					hasValue={ () => count }
-					onDeselect={ () => updateColumns( count, minCount ) }
-				>
+				<VStack spacing={ 4 } style={ { gridColumn: '1 / -1' } }>
 					<RangeControl
 						__nextHasNoMarginBottom
 						__next40pxDefaultSize
@@ -184,7 +179,7 @@ function ColumnInspectorControls( {
 							) }
 						</Notice>
 					) }
-				</ToolsPanelItem>
+				</VStack>
 			) }
 			<ToolsPanelItem
 				label={ __( 'Stack on mobile' ) }
@@ -236,7 +231,7 @@ function ColumnsEditContainer( { attributes, setAttributes, clientId } ) {
 	/**
 	 * Update all child Column blocks with a new vertical alignment setting
 	 * based on whatever alignment is passed in. This allows change to parent
-	 * to overide anything set on a individual column basis.
+	 * to override anything set on a individual column basis.
 	 *
 	 * @param {string} newVerticalAlignment The vertical alignment setting.
 	 */

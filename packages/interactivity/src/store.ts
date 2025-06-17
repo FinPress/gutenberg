@@ -28,7 +28,7 @@ export const getConfig = ( namespace?: string ) =>
  *
  * The object returned is read-only, and includes the state defined in PHP with
  * `wp_interactivity_state()`. When using `actions.navigate()`, this object is
- * updated to reflect the changes in its properites, without affecting the state
+ * updated to reflect the changes in its properties, without affecting the state
  * returned by `store()`. Directives can subscribe to those changes to update
  * the state if needed.
  *
@@ -179,14 +179,14 @@ export function store< T extends object >(
 // Overload for when types are passed via generics and they contain state.
 export function store< T extends { state: object } >(
 	namespace: string,
-	storePart: ConvertPromisesToGenerators< DeepPartialState< T > >,
+	storePart?: ConvertPromisesToGenerators< DeepPartialState< T > >,
 	options?: StoreOptions
 ): Prettify< ConvertGeneratorsToPromises< T > >;
 
 // Overload for when types are passed via generics and they don't contain state.
 export function store< T extends object >(
 	namespace: string,
-	storePart: ConvertPromisesToGenerators< T >,
+	storePart?: ConvertPromisesToGenerators< T >,
 	options?: StoreOptions
 ): Prettify< ConvertGeneratorsToPromises< T > >;
 
