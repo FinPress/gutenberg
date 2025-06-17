@@ -56,5 +56,5 @@ export function decodeEntities( html: string ): string {
 	 *
 	 * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
 	 */
-	return /** @type {string} */ decoded;
+	return decoded;
 }
