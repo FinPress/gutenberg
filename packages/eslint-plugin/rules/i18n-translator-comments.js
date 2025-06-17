@@ -21,7 +21,9 @@ function extractPlaceholders( str ) {
 	REGEXP_SPRINTF_PLACEHOLDER.lastIndex = 0;
 
 	while ( ( match = REGEXP_SPRINTF_PLACEHOLDER.exec( str ) ) !== null ) {
-		matches.push( match[ 0 ] );
+		const index = match[ 3 ]; // from %1$s
+		const name = match[ 5 ]; // from %(name)s
+		matches.push( index ?? name ?? match[ 0 ] );
 	}
 	return matches;
 }
@@ -36,13 +38,23 @@ function extractTranslatorKeys( commentText ) {
 	const keys = new Set();
 	let match;
 
-	REGEXP_SPRINTF_PLACEHOLDER.lastIndex = 0;
+	match = commentText.match( /translators:\s*(.*)/i );
+	if ( ! match ) {
+		return keys;
+	}
 
-	while (
-		( match = REGEXP_SPRINTF_PLACEHOLDER.exec( commentText ) ) !== null
-	) {
-		const fullPlaceholder = match[ 0 ]; // e.g. "%s", "%1$s", "%(name)s"
-		keys.add( fullPlaceholder );
+	const commentBody = match[ 1 ];
+
+	// Match unnamed (%s, %d) — colon optional
+	const unnamedRegex = /(?:^|\s|,)\s*(%[a-zA-Z])/g;
+	while ( ( match = unnamedRegex.exec( commentBody ) ) !== null ) {
+		keys.add( match[ 1 ] ); // e.g., %s
+	}
+
+	// Match named or indexed (e.g., 1:, name:) — colon required
+	const namedRegex = /(?:^|\s|,)\s*([a-zA-Z0-9_]+):/g;
+	while ( ( match = namedRegex.exec( commentBody ) ) !== null ) {
+		keys.add( match[ 1 ] );
 	}
 
 	return keys;
