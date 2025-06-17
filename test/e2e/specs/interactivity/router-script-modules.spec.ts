@@ -75,6 +75,9 @@ test.describe( 'Router script modules', () => {
 		await expect( csn ).toBeHidden();
 		await expect( csn ).toBeVisible();
 
+		// Check the page title to ensure navigation was successful.
+		await expect( page ).toHaveTitle( 'alpha – gutenberg' );
+
 		await expect( alpha ).toBeVisible();
 		await expect( bravo ).toBeHidden();
 		await expect( charlie ).toBeHidden();
@@ -83,6 +86,7 @@ test.describe( 'Router script modules', () => {
 
 		await expect( csn ).toBeHidden();
 		await expect( csn ).toBeVisible();
+		await expect( page ).toHaveTitle( 'bravo – gutenberg' );
 
 		await expect( alpha ).toBeHidden();
 		await expect( bravo ).toBeVisible();
@@ -92,6 +96,7 @@ test.describe( 'Router script modules', () => {
 
 		await expect( csn ).toBeHidden();
 		await expect( csn ).toBeVisible();
+		await expect( page ).toHaveTitle( 'charlie – gutenberg' );
 
 		await expect( alpha ).toBeHidden();
 		await expect( bravo ).toBeHidden();
@@ -101,6 +106,7 @@ test.describe( 'Router script modules', () => {
 
 		await expect( csn ).toBeHidden();
 		await expect( csn ).toBeVisible();
+		await expect( page ).toHaveTitle( 'all – gutenberg' );
 
 		await expect( alpha ).toBeVisible();
 		await expect( bravo ).toBeVisible();
