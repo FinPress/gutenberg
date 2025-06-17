@@ -10,19 +10,10 @@ const {
 } = require( '../utils' );
 
 /**
- * @typedef {Object} Placeholder
- * @property {string}  key          - The key of the placeholder, either positional or named.
- * @property {string}  raw          - The raw placeholder string.
- * @property {string}  type         - The type of the placeholder (e.g., 's', 'd').
- * @property {boolean} isNamed      - Whether the placeholder is named (e.g., %(name)s).
- * @property {boolean} isPositional - Whether the placeholder is positional (e.g., %1$s).
- */
-
-/**
  * Extracts placeholders from a string.
  *
  * @param {string} str - The string to extract placeholders from.
- * @return {Placeholder[]} An array of objects representing the placeholders found in the string.
+ * @return {string[]} An array of objects representing the placeholders found in the string.
  */
 function extractPlaceholders( str ) {
 	const matches = [];
