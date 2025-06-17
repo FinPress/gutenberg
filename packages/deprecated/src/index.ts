@@ -6,7 +6,6 @@ import { doAction } from '@wordpress/hooks';
 /**
  * Object map tracking messages which have been logged, for use in ensuring a
  * message is only logged once.
- *
  */
 export const logged: Record< string, true > = Object.create( null );
 
@@ -86,6 +85,7 @@ export default function deprecated(
 	 *
 	 * @param {string}             feature Name of the deprecated feature.
 	 * @param {?DeprecatedOptions} options Personalisation options
+	 * @param {?string}            message The deprecation message.
 	 */
 	doAction( 'deprecated', feature, options, message );
 
