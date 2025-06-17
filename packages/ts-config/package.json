@@ -1,0 +1,32 @@
+{
+	"name": "@wordpress/ts-config",
+	"version": "1.0.0-prerelease",
+	"description": "Shared TypeScript configuration for WordPress packages.",
+	"author": "The WordPress Contributors",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"wordpress",
+		"typescript",
+		"config"
+	],
+	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/ts-config/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/WordPress/gutenberg.git",
+		"directory": "packages/ts-config"
+	},
+	"bugs": {
+		"url": "https://github.com/WordPress/gutenberg/issues"
+	},
+	"engines": {
+		"node": ">=18.12.0",
+		"npm": ">=8.19.2"
+	},
+	"main": "tsconfig.base.json",
+	"types": "tsconfig.base.json",
+	"sideEffects": false,
+	"dependencies": {},
+	"publishConfig": {
+		"access": "public"
+	}
+}

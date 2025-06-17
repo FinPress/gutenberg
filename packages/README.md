@@ -236,7 +236,7 @@ A `tsconfig.json` file should look like the following (comments are not necessar
 ```jsonc
 {
 	// Extends a base configuration common to most packages
-	"extends": "../../tsconfig.base.json",
+	"extends": "@wordpress/ts-config/tsconfig.base.json",
 
 	// Options for the TypeScript compiler
 	// We'll usually set our `rootDir` and `declarationDir` as follows, which is specific
