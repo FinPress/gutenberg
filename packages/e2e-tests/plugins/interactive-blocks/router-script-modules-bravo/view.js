@@ -16,4 +16,4 @@ store( 'test/router-script-modules-bravo', {
 } );
 
 const { actions } = store( 'test/router-script-modules' );
-actions.pushName( name );
+actions.pushName?.( name );

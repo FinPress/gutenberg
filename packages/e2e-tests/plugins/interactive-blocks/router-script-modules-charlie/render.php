@@ -7,13 +7,13 @@
  * @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
  */
 
-$module_path = './module.js';
+$module_path = '/module.js';
 $module_url  = plugins_url( $module_path, __FILE__ );
 wp_register_script_module(
 	'test/router-script-modules-charlie',
 	$module_url,
 	array(),
-	filemtime( $module_path )
+	filemtime( plugin_dir_path( __FILE__ ) . $module_path )
 );
 
 $wrapper_attributes = get_block_wrapper_attributes(

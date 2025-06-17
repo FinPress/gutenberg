@@ -15,16 +15,18 @@ $wrapper_attributes = get_block_wrapper_attributes();
 
 	<!-- Links to pages with different blocks combination. -->
 	<nav data-wp-interactive="test/router-script-modules">
-		<?php foreach ( $attributes['links'] as $label => $link ) : ?>
-			<a
-				data-testid="link <?php echo $label; ?>"
-				data-wp-on--click="actions.navigate"
-				data-wp-on-async--mouseenter="actions.prefetch"
-				href="<?php echo $link; ?>"
-			>
-				<?php echo $label; ?>
-			</a>
-		<?php endforeach; ?>
+		<?php if ( isset( $attributes['links'] ) ) : ?>
+			<?php foreach ( $attributes['links'] as $label => $link ) : ?>
+				<a
+					data-testid="link <?php echo $label; ?>"
+					data-wp-on--click="actions.navigate"
+					data-wp-on-async--mouseenter="actions.prefetch"
+					href="<?php echo $link; ?>"
+				>
+					<?php echo $label; ?>
+				</a>
+			<?php endforeach; ?>
+		<?php endif; ?>
 	</nav>
 
 	<!-- HTML updated on navigation. -->
