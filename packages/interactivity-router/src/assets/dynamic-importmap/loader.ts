@@ -47,7 +47,7 @@ const skip = ( id ) =>
 		).imports
 	).includes( id );
 
-const fetchCache = {};
+const fetchCache: Record< string, Promise< ModuleLoad > > = {};
 export const registry = {};
 
 async function loadAll( load: ModuleLoad, seen: Record< string, any > ) {
@@ -237,8 +237,9 @@ function getOrCreateLoad(
 
 	load.fetchPromise = ( async () => {
 		let source;
-		( { r: load.responseUrl, s: source } = await ( fetchCache[ url ] ||
-			fetchModule( url, fetchOpts, parent ) ) );
+		( { responseUrl: load.responseUrl, source: source } =
+			await ( fetchCache[ url ] ||
+				fetchModule( url, fetchOpts, parent ) ) );
 		try {
 			load.analysis = lexer.parse( source, load.url );
 		} catch ( e ) {
@@ -258,15 +259,15 @@ function getOrCreateLoad(
 					if ( d !== -1 || ! n ) {
 						return undefined;
 					}
-					const { r } = await resolve(
+					const { responseUrl } = await resolve(
 						n,
 						load.responseUrl || load.url
 					);
 					if ( d !== -1 ) {
 						return undefined;
 					}
-					if ( skip && skip( r ) ) {
-						return { b: r } as ModuleLoad;
+					if ( skip && skip( responseUrl ) ) {
+						return { blobUrl: responseUrl } as ModuleLoad;
 					}
 					// remove integrity for child fetches
 					if ( childFetchOpts.integrity ) {
@@ -276,7 +277,7 @@ function getOrCreateLoad(
 						};
 					}
 					return getOrCreateLoad(
-						r,
+						responseUrl,
 						childFetchOpts,
 						load.responseUrl
 					).fetchPromise;
