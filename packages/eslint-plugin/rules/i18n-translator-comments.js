@@ -8,6 +8,7 @@ const {
 	getTranslateFunctionArgs,
 	getTextContentFromNode,
 } = require( '../utils' );
+const { REGEXP_COMMENT_PLACEHOLDER } = require( '../utils/constants' );
 
 /**
  * Extracts placeholders from a string.
@@ -45,15 +46,10 @@ function extractTranslatorKeys( commentText ) {
 
 	const commentBody = match[ 1 ];
 
-	// Match unnamed (%s, %d) — colon optional
-	const unnamedRegex = /(?:^|\s|,)\s*(%[a-zA-Z])/g;
-	while ( ( match = unnamedRegex.exec( commentBody ) ) !== null ) {
-		keys.add( match[ 1 ] ); // e.g., %s
-	}
-
-	// Match named or indexed (e.g., 1:, name:) — colon required
-	const namedRegex = /(?:^|\s|,)\s*([a-zA-Z0-9_]+):/g;
-	while ( ( match = namedRegex.exec( commentBody ) ) !== null ) {
+	// Match placeholders in the comment body.
+	while (
+		( match = REGEXP_COMMENT_PLACEHOLDER.exec( commentBody ) ) !== null
+	) {
 		keys.add( match[ 1 ] );
 	}
 
