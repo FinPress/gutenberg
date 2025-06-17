@@ -1,0 +1,17 @@
+/**
+ * WordPress dependencies
+ */
+import { SVG, Path } from '@wordpress/primitives';
+
+/**
+ * External dependencies
+ */
+import type { ReactElement } from 'react';
+
+const menu: ReactElement = (
+	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+		<Path d="M5 5v1.5h14V5H5zm0 7.8h14v-1.5H5v1.5zM5 19h14v-1.5H5V19z" />
+	</SVG>
+);
+
+export default menu;

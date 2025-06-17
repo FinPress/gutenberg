@@ -1,0 +1,17 @@
+/**
+ * WordPress dependencies
+ */
+import { Path, SVG } from '@wordpress/primitives';
+
+/**
+ * External dependencies
+ */
+import type { ReactElement } from 'react';
+
+const filter: ReactElement = (
+	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+		<Path d="M12 4 4 19h16L12 4zm0 3.2 5.5 10.3H12V7.2z" />
+	</SVG>
+);
+
+export default filter;
