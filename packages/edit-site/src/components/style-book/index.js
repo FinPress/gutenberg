@@ -55,6 +55,7 @@ import {
 	STYLE_BOOK_COLOR_GROUPS,
 	STYLE_BOOK_PREVIEW_CATEGORIES,
 } from '../style-book/constants';
+import { getVariationClassName } from '../global-styles/utils';
 
 const {
 	ExperimentalBlockEditorProvider,
@@ -213,6 +214,31 @@ export function getExamplesForSinglePageUse( examples ) {
 	examplesForSinglePageUse.push( ...otherExamples );
 
 	return examplesForSinglePageUse;
+}
+
+/**
+ * Returns examples with variation styles applied.
+ *
+ * @param {Array}  examples  Array of examples
+ * @param {string} variation The block variation
+ * @return {Array} Updated array
+ */
+function applyBlockVariationsToExamples( examples, variation ) {
+	if ( ! variation ) {
+		return examples;
+	}
+
+	return examples.map( ( example ) => ( {
+		...example,
+		blocks: {
+			...example.blocks,
+			attributes: {
+				...example.blocks.attributes,
+				style: undefined,
+				className: getVariationClassName( variation ),
+			},
+		},
+	} ) );
 }
 
 function StyleBook( {
@@ -419,14 +445,20 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 	const examplesForSinglePageUse = getExamplesForSinglePageUse( examples );
 
 	let previewCategory = null;
+	let blockVariation = null;
 	if ( section.includes( '/colors' ) ) {
 		previewCategory = 'colors';
 	} else if ( section.includes( '/typography' ) ) {
 		previewCategory = 'text';
 	} else if ( section.includes( '/blocks' ) ) {
 		previewCategory = 'blocks';
-		const blockName =
-			decodeURIComponent( section ).split( '/blocks/' )[ 1 ];
+		let blockName = decodeURIComponent( section ).split( '/blocks/' )[ 1 ];
+
+		// The blockName can contain variations, if so, extract the variation.
+		if ( blockName?.includes( '/variations' ) ) {
+			[ blockName, blockVariation ] = blockName.split( '/variations/' );
+		}
+
 		if (
 			blockName &&
 			examples.find( ( example ) => example.name === blockName )
@@ -441,20 +473,42 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 	);
 
 	// If there's no category definition there may be a single block.
-	const filteredExamples = categoryDefinition
-		? getExamplesByCategory( categoryDefinition, examples )
-		: {
+	const filteredExamples = useMemo( () => {
+		if ( ! categoryDefinition ) {
+			return {
 				examples: [
 					examples.find(
 						( example ) => example.name === previewCategory
 					),
 				],
-		  };
+			};
+		}
 
-	// If there's no preview category, show all examples.
-	const displayedExamples = previewCategory
-		? filteredExamples
-		: { examples: examplesForSinglePageUse };
+		return getExamplesByCategory( categoryDefinition, examples );
+	}, [ categoryDefinition, examples, previewCategory ] );
+
+	const displayedExamples = useMemo( () => {
+		// If there's no preview category, show all examples.
+		if ( ! previewCategory ) {
+			return { examples: examplesForSinglePageUse };
+		}
+
+		if ( blockVariation ) {
+			return {
+				examples: applyBlockVariationsToExamples(
+					filteredExamples.examples,
+					blockVariation
+				),
+			};
+		}
+
+		return filteredExamples;
+	}, [
+		previewCategory,
+		examplesForSinglePageUse,
+		blockVariation,
+		filteredExamples,
+	] );
 
 	const { base: baseConfig } = useContext( GlobalStylesContext );
 	const goTo = getStyleBookNavigationFromPath( section );
