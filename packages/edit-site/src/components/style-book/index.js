@@ -51,11 +51,11 @@ import { getExamples } from './examples';
 import { store as siteEditorStore } from '../../store';
 import { useSection } from '../sidebar-global-styles-wrapper';
 import { GlobalStylesRenderer } from '../global-styles-renderer';
+import { getVariationClassName } from '../global-styles/utils';
 import {
 	STYLE_BOOK_COLOR_GROUPS,
 	STYLE_BOOK_PREVIEW_CATEGORIES,
 } from '../style-book/constants';
-import { getVariationClassName } from '../global-styles/utils';
 
 const {
 	ExperimentalBlockEditorProvider,
