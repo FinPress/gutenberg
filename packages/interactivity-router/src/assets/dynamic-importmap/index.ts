@@ -32,10 +32,9 @@ const pageBaseUrl = baseUrl;
 
 async function importShim< Module = unknown >( id: string ) {
 	await initPromise;
-	return topLevelLoad< Module >(
-		( await resolve( id, pageBaseUrl ) ).responseUrl,
-		{ credentials: 'same-origin' }
-	);
+	return topLevelLoad< Module >( resolve( id, pageBaseUrl ), {
+		credentials: 'same-origin',
+	} );
 }
 
 /**
@@ -69,7 +68,7 @@ export async function importWithMap< Module = unknown >(
 export async function preloadWithMap( id: string, importMapIn: ImportMap ) {
 	addImportMap( importMapIn );
 	await initPromise;
-	return preloadModule( ( await resolve( id, pageBaseUrl ) ).responseUrl, {
+	return preloadModule( resolve( id, pageBaseUrl ), {
 		credentials: 'same-origin',
 	} );
 }

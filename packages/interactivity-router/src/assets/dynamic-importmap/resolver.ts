@@ -13,11 +13,6 @@
  * MIT License: https://opensource.org/licenses/MIT
  */
 
-/**
- * Internal dependencies
- */
-import { type ModuleLoad } from './loader';
-
 const backslashRegEx = /\\/g;
 
 function isURL( url: string ) {
@@ -291,15 +286,7 @@ export function addImportMap( importMapIn: {
  * @param parentUrl Parent URL, in case the module ID is relative.
  * @return Resolved module URL.
  */
-export async function resolve(
-	id: string,
-	parentUrl: string
-): Promise< ModuleLoad > {
+export function resolve( id: string, parentUrl: string ): string {
 	const urlResolved = resolveIfNotPlainOrUrl( id, parentUrl );
-	return {
-		responseUrl:
-			resolveImportMap( importMap, urlResolved || id, parentUrl ) || id, // throwUnresolved( id, parentUrl ),
-		// b = bare specifier
-		// b: ! urlResolved && ! isURL( id ),
-	};
+	return resolveImportMap( importMap, urlResolved || id, parentUrl ) || id;
 }

@@ -259,13 +259,10 @@ function getOrCreateLoad(
 					if ( d !== -1 || ! n ) {
 						return undefined;
 					}
-					const { responseUrl } = await resolve(
+					const responseUrl = resolve(
 						n,
 						load.responseUrl || load.url
 					);
-					if ( d !== -1 ) {
-						return undefined;
-					}
 					if ( skip && skip( responseUrl ) ) {
 						return { blobUrl: responseUrl } as ModuleLoad;
 					}
