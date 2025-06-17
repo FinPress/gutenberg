@@ -6,10 +6,10 @@ import type { ComparableObject } from '.';
 /**
  * Returns true if the two objects are shallow equal, or false otherwise.
  *
- * @param {ComparableObject} a First object to compare.
- * @param {ComparableObject} b Second object to compare.
+ * @param a First object to compare.
+ * @param b Second object to compare.
  *
- * @return {boolean} Whether the two objects are shallow equal.
+ * @return Whether the two objects are shallow equal.
  */
 export default function isShallowEqualObjects(
 	a: ComparableObject,
