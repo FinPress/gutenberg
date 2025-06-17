@@ -12,6 +12,7 @@ import {
 	ToggleControl,
 	TextControl,
 	__experimentalVStack as VStack,
+	ExternalLink,
 } from '@wordpress/components';
 import {
 	Icon,
@@ -229,9 +230,19 @@ const ImageURLInputUI = ( {
 			<TextControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ __( 'Link rel' ) }
+				label={ __( 'Link Relation' ) }
 				value={ rel ?? '' }
 				onChange={ onSetLinkRel }
+				help={
+					<span>
+						{ __(
+							'The Link Relation attribute defines the relationship between a linked resource and the current document.'
+						) }{ ' ' }
+						<ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel">
+							{ __( 'Learn more.' ) }
+						</ExternalLink>
+					</span>
+				}
 			/>
 			<TextControl
 				__next40pxDefaultSize
