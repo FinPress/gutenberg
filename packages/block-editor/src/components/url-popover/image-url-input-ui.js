@@ -238,7 +238,7 @@ const ImageURLInputUI = ( {
 						{ __(
 							'The Link Relation attribute defines the relationship between a linked resource and the current document.'
 						) }{ ' ' }
-						<ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel">
+						<ExternalLink href="https://developer.mozilla.org/docs/Web/HTML/Attributes/rel">
 							{ __( 'Learn more.' ) }
 						</ExternalLink>
 					</span>
