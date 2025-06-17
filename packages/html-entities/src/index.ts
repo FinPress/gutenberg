@@ -3,7 +3,7 @@ let _decodeTextArea: HTMLTextAreaElement | undefined;
 /**
  * Decodes the HTML entities from a given string.
  *
- * @param {string} html String that contain HTML entities.
+ * @param html String that contain HTML entities.
  *
  * @example
  * ```js
@@ -13,7 +13,7 @@ let _decodeTextArea: HTMLTextAreaElement | undefined;
  * console.log( result ); // result will be "á"
  * ```
  *
- * @return {string} The decoded string.
+ * @return The decoded string.
  */
 export function decodeEntities( html: string ): string {
 	// Not a string, or no entities to decode.
