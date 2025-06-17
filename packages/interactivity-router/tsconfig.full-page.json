@@ -8,5 +8,5 @@
 	},
 	"references": [ { "path": "tsconfig.main.json" } ],
 	"files": [ "src/full-page.ts" ],
-	"include": [],
+	"include": []
 }
