@@ -144,6 +144,50 @@ export function unstable__bootstrapServerSideBlockDefinitions( definitions ) {
 	}
 }
 
+function getAllowedFields() {
+	const deprecatedFields = [
+		'editorScript',
+		'script',
+		'viewScript',
+		'editorStyle',
+		'style',
+	];
+
+	const allowedFields = [
+		'$schema',
+		'apiVersion',
+		'name',
+		'title',
+		'description',
+		'icon',
+		'category',
+		'keywords',
+		'attributes',
+		'parent',
+		'ancestor',
+		'allowedBlocks',
+		'providesContext',
+		'usesContext',
+		'selectors',
+		'supports',
+		'styles',
+		'textdomain',
+		'example',
+		'editorScriptHandles',
+		'scriptHandles',
+		'viewScriptHandles',
+		'viewScriptModuleIds',
+		'editorStyleHandles',
+		'styleHandles',
+		'viewStyleSandles',
+		'variations',
+		'blockHooks',
+		'__experimental',
+	];
+
+	return [ ...deprecatedFields, ...allowedFields ];
+}
+
 /**
  * Gets block settings from metadata loaded from `block.json` file
  *
@@ -248,6 +292,14 @@ export function registerBlockType( blockNameOrMetadata, settings ) {
 	);
 
 	if ( isObject( blockNameOrMetadata ) ) {
+		Object.keys( blockNameOrMetadata ).forEach( ( key ) => {
+			if ( ! getAllowedFields().includes( key ) ) {
+				warning(
+					`Warning: Unexpected field "${ key }" found in "${ name }" block metadata.`
+				);
+			}
+		} );
+
 		const metadata = getBlockSettingsFromMetadata( blockNameOrMetadata );
 		addBootstrappedBlockType( name, metadata );
 	}
