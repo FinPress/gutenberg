@@ -8,7 +8,7 @@ import clsx from 'clsx';
  */
 import {
 	getColorClassName,
-	InspectorAdvancedControls,
+	InspectorControls,
 	useBlockProps,
 	__experimentalUseColorProps as useColorProps,
 } from '@wordpress/block-editor';
@@ -75,12 +75,12 @@ export default function SeparatorEdit( { attributes, setAttributes } ) {
 
 	return (
 		<>
-			<InspectorAdvancedControls>
+			<InspectorControls group="advanced">
 				<HtmlElementControl
 					tagName={ tagName }
 					setAttributes={ setAttributes }
 				/>
-			</InspectorAdvancedControls>
+			</InspectorControls>
 			<Wrapper
 				{ ...useBlockProps( {
 					className,
