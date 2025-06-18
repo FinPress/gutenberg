@@ -22,6 +22,7 @@ import { isShallowEqualObjects } from '@wordpress/is-shallow-equal';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as preferencesStore } from '@wordpress/preferences';
 import { keyboardReturn } from '@wordpress/icons';
+import { hasFills } from '@wordpress/slot-fill';
 
 /**
  * Internal dependencies
@@ -33,7 +34,9 @@ import LinkSettings from './settings';
 import useCreatePage from './use-create-page';
 import useInternalValue from './use-internal-value';
 import { ViewerFill } from './viewer-slot';
+import { EditorSlot, EditorFill } from './editor-slot';
 import { DEFAULT_LINK_SETTINGS } from './constants';
+import { useSettings } from '../use-settings';
 import deprecated from '@wordpress/deprecated';
 
 /**
@@ -157,6 +160,8 @@ function LinkControl( {
 				prefsStore.get( PREFERENCE_SCOPE, PREFERENCE_KEY ) ?? false,
 		};
 	}, [] );
+
+	const [ linkControlExtensibility ] = useSettings( 'linkControlExtensibility' );
 
 	const { set: setPreference } = useDispatch( preferencesStore );
 
@@ -355,6 +360,20 @@ function LinkControl( {
 	const isDisabled = ! valueHasChanges || currentInputIsEmpty;
 	const showSettings = !! settings?.length && isEditingLink && hasLinkValue;
 
+	// Check for extensibility slot fills when feature is enabled.
+	const editorSlotName = 'BlockEditorLinkControlEditor';
+	const hasEditorFills = linkControlExtensibility && hasFills( editorSlotName );
+	const showExtensibilitySlot = hasEditorFills && isEditingLink && hasLinkValue;
+
+	// Context for extensibility slot.
+	const editorSlotContext = {
+		value: internalControlValue,
+		// Note: attributes and setAttributes will be provided by the block that uses LinkControl.
+		// These are placeholders for the interface.
+		attributes: {},
+		setAttributes: () => {},
+	};
+
 	return (
 		<div
 			tabIndex={ -1 }
@@ -450,20 +469,25 @@ function LinkControl( {
 				/>
 			) }
 
-			{ showSettings && (
+			{ (showSettings || showExtensibilitySlot) && (
 				<div className="block-editor-link-control__tools">
 					{ ! currentInputIsEmpty && (
 						<LinkControlSettingsDrawer
 							settingsOpen={ isSettingsOpen }
 							setSettingsOpen={ setSettingsOpenWithPreference }
 						>
-							<LinkSettings
-								value={ internalControlValue }
-								settings={ settings }
-								onChange={ createSetInternalSettingValueHandler(
-									settingsKeys
-								) }
-							/>
+							{ showSettings && (
+								<LinkSettings
+									value={ internalControlValue }
+									settings={ settings }
+									onChange={ createSetInternalSettingValueHandler(
+										settingsKeys
+									) }
+								/>
+							) }
+							{ showExtensibilitySlot && (
+								<EditorSlot fillProps={ editorSlotContext } />
+							) }
 						</LinkControlSettingsDrawer>
 					) }
 				</div>
@@ -499,6 +523,7 @@ function LinkControl( {
 }
 
 LinkControl.ViewerFill = ViewerFill;
+LinkControl.EditorFill = EditorFill;
 LinkControl.DEFAULT_LINK_SETTINGS = DEFAULT_LINK_SETTINGS;
 
 const DeprecatedExperimentalLinkControl = ( props ) => {
@@ -511,6 +536,7 @@ const DeprecatedExperimentalLinkControl = ( props ) => {
 };
 
 DeprecatedExperimentalLinkControl.ViewerFill = LinkControl.ViewerFill;
+DeprecatedExperimentalLinkControl.EditorFill = LinkControl.EditorFill;
 DeprecatedExperimentalLinkControl.DEFAULT_LINK_SETTINGS =
 	LinkControl.DEFAULT_LINK_SETTINGS;
 
