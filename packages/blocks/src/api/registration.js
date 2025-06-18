@@ -9,6 +9,7 @@ import warning from '@wordpress/warning';
  * Internal dependencies
  */
 import i18nBlockSchema from './i18n-block.json';
+import blockSchema from '../../../../schemas/json/block.json';
 import { store as blocksStore } from '../store';
 import { unlock } from '../lock-unlock';
 
@@ -188,6 +189,29 @@ function getAllowedFields() {
 	return [ ...deprecatedFields, ...allowedFields ];
 }
 
+function validateBlockSchema( name, blockMetadata ) {
+	if (
+		typeof blockMetadata !== 'object' ||
+		blockMetadata === null ||
+		Array.isArray( blockMetadata )
+	) {
+		warning( `"${ name }" block.json: Metadata must be a JSON object.` );
+		return false;
+	}
+
+	const requiredProperties = blockSchema.required || [];
+	for ( const property of requiredProperties ) {
+		if ( ! ( property in blockMetadata ) ) {
+			warning(
+				`"${ name }" block.json: Missing required property "${ property }".`
+			);
+			return false;
+		}
+	}
+
+	return true;
+}
+
 /**
  * Gets block settings from metadata loaded from `block.json` file
  *
@@ -295,10 +319,15 @@ export function registerBlockType( blockNameOrMetadata, settings ) {
 		Object.keys( blockNameOrMetadata ).forEach( ( key ) => {
 			if ( ! getAllowedFields().includes( key ) ) {
 				warning(
-					`Warning: Unexpected field "${ key }" found in "${ name }" block metadata.`
+					`"${ name }" block.json: Unexpected field "${ key }" found.`
 				);
 			}
 		} );
+
+		const validation = validateBlockSchema( name, blockNameOrMetadata );
+		if ( ! validation ) {
+			warning( `Block schema validation failed for "${ name }" block.` );
+		}
 
 		const metadata = getBlockSettingsFromMetadata( blockNameOrMetadata );
 		addBootstrappedBlockType( name, metadata );
