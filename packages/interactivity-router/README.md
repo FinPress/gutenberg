@@ -91,9 +91,10 @@ The `attachTo` property is a CSS selector that points to the parent element wher
 
 When navigating between pages:
 
--   If a region with `attachTo` exists on both the current and the new page, its content is updated.
+-   If a region exists on both the current and the new page, its content is updated. `attachTo` is ignored in this case.
+-   If a region without `attachTo` exists on the new page but not on the current one, it is not added to the DOM.
 -   If a region with `attachTo` exists on the new page but not on the current one, it is created and appended to the parent element specified in `attachTo`.
--   If a region with `attachTo` exists on the current page but not on the new one, it is removed from the DOM.
+-   If a region exists on the current page but not on the new one, it is removed from the DOM. `attachTo` is ignored in this case.
 
 Example with `attachTo`:
 
