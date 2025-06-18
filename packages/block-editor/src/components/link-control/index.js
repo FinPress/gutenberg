@@ -35,6 +35,7 @@ import useCreatePage from './use-create-page';
 import useInternalValue from './use-internal-value';
 import { ViewerFill } from './viewer-slot';
 import { EditorSlot, EditorFill } from './editor-slot';
+import LinkControlEditorContext from './editor-context';
 import { DEFAULT_LINK_SETTINGS } from './constants';
 import { useSettings } from '../use-settings';
 import deprecated from '@wordpress/deprecated';
@@ -111,6 +112,8 @@ import deprecated from '@wordpress/deprecated';
  * @property {boolean=}                   hasTextControl             Whether to add a text field to the UI to update the value.title.
  * @property {string|Function|undefined}  createSuggestionButtonText The text to use in the button that calls createSuggestion.
  * @property {Function}                   renderControlBottom        Optional controls to be rendered at the bottom of the component.
+ * @property {Object=}                    attributes                 Block attributes object for extensibility context.
+ * @property {Function=}                  setAttributes              Block setAttributes function for extensibility context.
  */
 
 const noop = () => {};
@@ -145,6 +148,8 @@ function LinkControl( {
 	hasRichPreviews = false,
 	hasTextControl = false,
 	renderControlBottom = null,
+	attributes = {},
+	setAttributes = noop,
 } ) {
 	if ( withCreateSuggestion === undefined && createSuggestion ) {
 		withCreateSuggestion = true;
@@ -368,10 +373,8 @@ function LinkControl( {
 	// Context for extensibility slot.
 	const editorSlotContext = {
 		value: internalControlValue,
-		// Note: attributes and setAttributes will be provided by the block that uses LinkControl.
-		// These are placeholders for the interface.
-		attributes: {},
-		setAttributes: () => {},
+		attributes,
+		setAttributes,
 	};
 
 	return (
@@ -486,7 +489,9 @@ function LinkControl( {
 								/>
 							) }
 							{ showExtensibilitySlot && (
-								<EditorSlot fillProps={ editorSlotContext } />
+								<LinkControlEditorContext.Provider value={ editorSlotContext }>
+									<EditorSlot />
+								</LinkControlEditorContext.Provider>
 							) }
 						</LinkControlSettingsDrawer>
 					) }
