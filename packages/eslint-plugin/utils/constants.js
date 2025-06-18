@@ -58,7 +58,8 @@ const REGEXP_SPRINTF_PLACEHOLDER_UNORDERED =
 /**
  * Regular expression matching comment placeholders.
  */
-const REGEXP_COMMENT_PLACEHOLDER = /(?:^|\s|,)\s*(%[a-zA-Z]|[a-zA-Z0-9_]+):?/g;
+const REGEXP_COMMENT_PLACEHOLDER =
+	/(?:^|\s|,)\s*(%[a-zA-Z]|[a-zA-Z0-9_]+)(:)?/g;
 
 module.exports = {
 	TRANSLATION_FUNCTIONS,

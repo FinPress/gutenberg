@@ -33,10 +33,10 @@ function extractPlaceholders( str ) {
  * Extracts translator keys from a comment text.
  *
  * @param {string} commentText - The text of the comment to extract keys from.
- * @return	 {Set<string>} A set of translator keys found in the comment text.
+ * @return	 {Map<string, boolean>} A set of translator keys found in the comment text.
  */
 function extractTranslatorKeys( commentText ) {
-	const keys = new Set();
+	const keys = new Map();
 	let match;
 
 	match = commentText.match( /translators:\s*(.*)/i );
@@ -50,7 +50,7 @@ function extractTranslatorKeys( commentText ) {
 	while (
 		( match = REGEXP_COMMENT_PLACEHOLDER.exec( commentBody ) ) !== null
 	) {
-		keys.add( match[ 1 ] );
+		keys.set( match[ 1 ], keys.get( match[ 1 ] ) || match[ 2 ] === ':' );
 	}
 
 	return keys;
@@ -64,6 +64,8 @@ module.exports = {
 				'Translation function with placeholders is missing preceding translator comment',
 			missingKeys:
 				'Translator comment missing description(s) for placeholder(s): {{ keys }}.',
+			extraPlaceholders:
+				'Translator comment has extra placeholder(s): {{ keys }}.',
 		},
 	},
 	create( context ) {
@@ -164,6 +166,29 @@ module.exports = {
 									keys: missing.join( ', ' ),
 								},
 							} );
+
+							return;
+						}
+
+						const extra = keysInComment.size
+							? [ ...keysInComment.keys() ].filter(
+									( key ) =>
+										! placeholdersUsed.includes( key ) &&
+										( key.includes( '%' ) ||
+											keysInComment.get( key ) )
+							  )
+							: [];
+
+						if ( extra.length > 0 ) {
+							context.report( {
+								node,
+								messageId: 'extraPlaceholders',
+								data: {
+									keys: extra.join( ', ' ),
+								},
+							} );
+
+							return;
 						}
 
 						return;
