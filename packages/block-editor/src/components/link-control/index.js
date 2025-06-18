@@ -38,6 +38,7 @@ import { EditorSlot, EditorFill } from './editor-slot';
 import LinkControlEditorContext from './editor-context';
 import { DEFAULT_LINK_SETTINGS } from './constants';
 import { useSettings } from '../use-settings';
+import { useBlockEditContext } from '../block-edit/context';
 import deprecated from '@wordpress/deprecated';
 
 /**
@@ -169,6 +170,9 @@ function LinkControl( {
 	const [ linkControlExtensibility ] = useSettings( 'linkControlExtensibility' );
 
 	const { set: setPreference } = useDispatch( preferencesStore );
+
+	// Get block edit context for extensibility features.
+	const blockEditContext = useBlockEditContext();
 
 	/**
 	 * Sets the open/closed state of the Advanced Settings Drawer,
@@ -367,15 +371,19 @@ function LinkControl( {
 
 	// Check for extensibility slot fills when feature is enabled.
 	const editorSlotName = 'BlockEditorLinkControlEditor';
-	const editorFills = useSlotFills( editorSlotName );
-	const hasEditorFills = linkControlExtensibility && Boolean( editorFills && editorFills.length );
+	const editorFills = useSlotFills( linkControlExtensibility ? editorSlotName : null );
+	const hasEditorFills = Boolean( editorFills && editorFills.length );
 	const showExtensibilitySlot = hasEditorFills && isEditingLink && hasLinkValue;
 
 	// Context for extensibility slot.
+	// Use block edit context when available, fall back to props.
+	const contextAttributes = blockEditContext?.attributes || attributes;
+	const contextSetAttributes = blockEditContext?.setAttributes || setAttributes;
+
 	const editorSlotContext = {
 		value: internalControlValue,
-		attributes,
-		setAttributes,
+		attributes: contextAttributes,
+		setAttributes: contextSetAttributes,
 	};
 
 	return (
