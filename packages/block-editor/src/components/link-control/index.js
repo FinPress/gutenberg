@@ -13,6 +13,7 @@ import {
 	TextControl,
 	__experimentalHStack as HStack,
 	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
+	__experimentalUseSlotFills as useSlotFills,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useRef, useState, useEffect } from '@wordpress/element';
@@ -22,7 +23,6 @@ import { isShallowEqualObjects } from '@wordpress/is-shallow-equal';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as preferencesStore } from '@wordpress/preferences';
 import { keyboardReturn } from '@wordpress/icons';
-import { hasFills } from '@wordpress/slot-fill';
 
 /**
  * Internal dependencies
@@ -367,7 +367,8 @@ function LinkControl( {
 
 	// Check for extensibility slot fills when feature is enabled.
 	const editorSlotName = 'BlockEditorLinkControlEditor';
-	const hasEditorFills = linkControlExtensibility && hasFills( editorSlotName );
+	const editorFills = useSlotFills( editorSlotName );
+	const hasEditorFills = linkControlExtensibility && Boolean( editorFills && editorFills.length );
 	const showExtensibilitySlot = hasEditorFills && isEditingLink && hasLinkValue;
 
 	// Context for extensibility slot.
