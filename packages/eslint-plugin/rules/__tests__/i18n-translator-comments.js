@@ -61,8 +61,14 @@ ruleTester.run( 'i18n-translator-comments', rule, {
 sprintf( __( 'City: %(city)s' ),{ city: 'New York' });`,
 		},
 		{
-			code: `// translators: 1: Address, 2: City
+			code: `
+// translators: 1: Address, 2: City
 sprintf( __( 'Address: %1$s, City: %2$s' ), address, city );`,
+		},
+		{
+			code: `
+// translators: %s: 1\\: or 2\\:
+sprintf( __( '%s point' ), number );`,
 		},
 	],
 	invalid: [
@@ -118,12 +124,21 @@ sprintf( __( 'Address: %1$s, City: %2$s' ), address, city );`,
 		{
 			code: ` // translators: %s: City
 		i18n.sprintf( i18n.__( 'City: %(city)s' ), { city: 'New York' } );`,
-			errors: [ { messageId: 'missingKeys' } ],
+			errors: [
+				{ messageId: 'missingKeys', data: { keys: [ 'city' ] } },
+			],
 		},
 		{
 			code: `// translators: 1: Address
 		i18n.sprintf( i18n.__( 'Address: %1$s, City: %2$s' ), address, city );`,
-			errors: [ { messageId: 'missingKeys' } ],
+			errors: [ { messageId: 'missingKeys', data: { keys: [ '2' ] } } ],
+		},
+		{
+			code: `// translators: %s: City %d: Number
+		i18n.sprintf( i18n.__( 'City: %s' ), city, number );`,
+			errors: [
+				{ messageId: 'extraPlaceholders', data: { keys: [ '%d' ] } },
+			],
 		},
 	],
 } );
