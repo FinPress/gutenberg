@@ -22,15 +22,15 @@ $input-size: 300px;
 		}
 	}
 
+	&.has-spinner .components-input-control__input {
+		padding-right: $grid-unit-40;
+	}
+
 	.components-spinner {
 		position: absolute;
 		margin: 0;
 		top: calc(50% - #{$spinner-size} / 2);
 		right: $grid-unit;
-	}
-
-	&:has(.components-spinner) .components-input-control__input {
-		padding-right: $grid-unit-40;
 	}
 }
 

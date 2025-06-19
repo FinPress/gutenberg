@@ -7,17 +7,13 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { __, sprintf, _n } from '@wordpress/i18n';
-import {
-	Component,
-	createRef,
-	cloneElement,
-	isValidElement,
-} from '@wordpress/element';
+import { Component, createRef } from '@wordpress/element';
 import { UP, DOWN, ENTER, TAB } from '@wordpress/keycodes';
 import {
 	BaseControl,
 	Button,
 	__experimentalInputControl as InputControl,
+	Spinner,
 	withSpokenMessages,
 	Popover,
 } from '@wordpress/components';
@@ -426,6 +422,8 @@ class URLInput extends Component {
 			instanceId,
 			placeholder = __( 'Paste URL or type to search' ),
 			__experimentalRenderControl: renderControl,
+			__experimentalShowInitialSuggestions: showInitialSuggestions,
+			__experimentalHandleURLSuggestions: handleURLSuggestions,
 			value = '',
 			hideLabelFromVision = false,
 		} = this.props;
@@ -445,21 +443,10 @@ class URLInput extends Component {
 			label,
 			className: clsx( 'block-editor-url-input', className, {
 				'is-full-width': isFullWidth,
+				'has-spinner': showInitialSuggestions && handleURLSuggestions,
 			} ),
 			hideLabelFromVision,
 		};
-
-		const { suffix } = this.props;
-		const clonedSuffix =
-			suffix?.props?.children && isValidElement( suffix.props.children )
-				? cloneElement( suffix.props.children, {
-						...( loading && { isBusy: true } ),
-				  } )
-				: null;
-		const finalSuffix =
-			suffix && clonedSuffix
-				? cloneElement( suffix, { children: clonedSuffix } )
-				: suffix;
 
 		const inputProps = {
 			id: inputId,
@@ -480,7 +467,7 @@ class URLInput extends Component {
 					? `${ suggestionOptionIdPrefix }-${ selectedSuggestion }`
 					: undefined,
 			ref: this.inputRef,
-			suffix: finalSuffix,
+			suffix: this.props.suffix,
 		};
 
 		if ( renderControl ) {
@@ -490,6 +477,7 @@ class URLInput extends Component {
 		return (
 			<BaseControl __nextHasNoMarginBottom { ...controlProps }>
 				<InputControl { ...inputProps } __next40pxDefaultSize />
+				{ loading && <Spinner /> }
 			</BaseControl>
 		);
 	}
