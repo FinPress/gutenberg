@@ -81,6 +81,12 @@ test.describe( 'Router script modules', () => {
 		await expect( alpha ).toBeVisible();
 		await expect( bravo ).toBeHidden();
 		await expect( charlie ).toBeHidden();
+		await expect( alpha ).toHaveText( 'alpha' );
+
+		// This click executes an action that does a dynamic import and
+		// modifies the block text.
+		await alpha.click();
+		await expect( alpha ).toHaveText( 'alpha (dynamic)' );
 
 		await page.getByTestId( 'link bravo' ).click();
 
@@ -92,6 +98,9 @@ test.describe( 'Router script modules', () => {
 		await expect( bravo ).toBeVisible();
 		await expect( charlie ).toBeHidden();
 
+		await bravo.click();
+		await expect( bravo ).toHaveText( 'bravo (dynamic)' );
+
 		await page.getByTestId( 'link charlie' ).click();
 
 		await expect( csn ).toBeHidden();
@@ -102,6 +111,9 @@ test.describe( 'Router script modules', () => {
 		await expect( bravo ).toBeHidden();
 		await expect( charlie ).toBeVisible();
 
+		await charlie.click();
+		await expect( charlie ).toHaveText( 'charlie (dynamic)' );
+
 		await page.getByTestId( 'link all' ).click();
 
 		await expect( csn ).toBeHidden();
@@ -111,5 +123,9 @@ test.describe( 'Router script modules', () => {
 		await expect( alpha ).toBeVisible();
 		await expect( bravo ).toBeVisible();
 		await expect( charlie ).toBeVisible();
+
+		await expect( alpha ).toHaveText( 'alpha (dynamic)' );
+		await expect( bravo ).toHaveText( 'bravo (dynamic)' );
+		await expect( charlie ).toHaveText( 'charlie (dynamic)' );
 	} );
 } );
