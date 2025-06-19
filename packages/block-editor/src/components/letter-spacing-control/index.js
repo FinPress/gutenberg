@@ -32,8 +32,15 @@ export default function LetterSpacingControl( {
 	...otherProps
 } ) {
 	const [ availableUnits ] = useSettings( 'spacing.units' );
+
+	// In most contexts the letter-spacing cannot meaningfully be set to a
+	// percentage, since this is relative to the parent container. This
+	// unit is disabled from the UI.
+	const filteredAvailableUnits = availableUnits
+		? availableUnits.filter( ( unit ) => unit !== '%' )
+		: [ 'px', 'em', 'rem' ];
 	const units = useCustomUnits( {
-		availableUnits: availableUnits || [ 'px', 'em', 'rem' ],
+		availableUnits: filteredAvailableUnits,
 		defaultValues: { px: 2, em: 0.2, rem: 0.2 },
 	} );
 
