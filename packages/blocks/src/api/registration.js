@@ -145,50 +145,6 @@ export function unstable__bootstrapServerSideBlockDefinitions( definitions ) {
 	}
 }
 
-function getAllowedFields() {
-	const deprecatedFields = [
-		'editorScript',
-		'script',
-		'viewScript',
-		'editorStyle',
-		'style',
-	];
-
-	const allowedFields = [
-		'$schema',
-		'apiVersion',
-		'name',
-		'title',
-		'description',
-		'icon',
-		'category',
-		'keywords',
-		'attributes',
-		'parent',
-		'ancestor',
-		'allowedBlocks',
-		'providesContext',
-		'usesContext',
-		'selectors',
-		'supports',
-		'styles',
-		'textdomain',
-		'example',
-		'editorScriptHandles',
-		'scriptHandles',
-		'viewScriptHandles',
-		'viewScriptModuleIds',
-		'editorStyleHandles',
-		'styleHandles',
-		'viewStyleSandles',
-		'variations',
-		'blockHooks',
-		'__experimental',
-	];
-
-	return [ ...deprecatedFields, ...allowedFields ];
-}
-
 function validateBlockSchema( name, blockMetadata ) {
 	if (
 		typeof blockMetadata !== 'object' ||
@@ -198,6 +154,14 @@ function validateBlockSchema( name, blockMetadata ) {
 		warning( `"${ name }" block.json: Metadata must be a JSON object.` );
 		return false;
 	}
+
+	Object.keys( blockMetadata ).forEach( ( key ) => {
+		if ( ! Object.keys( blockSchema.properties ).includes( key ) ) {
+			warning(
+				`"${ name }" block.json: Unexpected field "${ key }" found.`
+			);
+		}
+	} );
 
 	const requiredProperties = blockSchema.required || [];
 	for ( const property of requiredProperties ) {
@@ -316,14 +280,6 @@ export function registerBlockType( blockNameOrMetadata, settings ) {
 	);
 
 	if ( isObject( blockNameOrMetadata ) ) {
-		Object.keys( blockNameOrMetadata ).forEach( ( key ) => {
-			if ( ! getAllowedFields().includes( key ) ) {
-				warning(
-					`"${ name }" block.json: Unexpected field "${ key }" found.`
-				);
-			}
-		} );
-
 		const validation = validateBlockSchema( name, blockNameOrMetadata );
 		if ( ! validation ) {
 			warning( `Block schema validation failed for "${ name }" block.` );
