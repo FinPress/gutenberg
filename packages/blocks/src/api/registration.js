@@ -145,7 +145,41 @@ export function unstable__bootstrapServerSideBlockDefinitions( definitions ) {
 	}
 }
 
+function validateType( value, expectedType ) {
+	const getJSType = ( val ) => {
+		if ( null === val ) {
+			return 'null';
+		}
+
+		const type = typeof val;
+		if ( 'object' === type ) {
+			if ( Array.isArray( val ) ) {
+				return 'array';
+			}
+			return 'object';
+		}
+		if ( type === 'number' && Number.isInteger( val ) ) {
+			return 'integer';
+		}
+
+		return type;
+	};
+
+	const actualType = getJSType( value );
+
+	if ( Array.isArray( expectedType ) ) {
+		return expectedType.includes( actualType );
+	}
+	if ( expectedType === 'number' && actualType === 'integer' ) {
+		return true;
+	}
+
+	return actualType === expectedType;
+}
+
 function validateBlockSchema( name, blockMetadata ) {
+	let errors = [];
+
 	if (
 		typeof blockMetadata !== 'object' ||
 		blockMetadata === null ||
@@ -155,25 +189,280 @@ function validateBlockSchema( name, blockMetadata ) {
 		return false;
 	}
 
-	Object.keys( blockMetadata ).forEach( ( key ) => {
-		if ( ! Object.keys( blockSchema.properties ).includes( key ) ) {
-			warning(
-				`"${ name }" block.json: Unexpected field "${ key }" found.`
-			);
-		}
-	} );
-
 	const requiredProperties = blockSchema.required || [];
-	for ( const property of requiredProperties ) {
-		if ( ! ( property in blockMetadata ) ) {
+	for ( const key of requiredProperties ) {
+		if ( ! ( key in blockMetadata ) ) {
 			warning(
-				`"${ name }" block.json: Missing required property "${ property }".`
+				`"${ name }" block.json: Missing required property "${ key }".`
 			);
 			return false;
 		}
 	}
 
-	return true;
+	for ( const key in blockMetadata ) {
+		let propertySchema =
+			blockSchema.properties && blockSchema.properties[ key ];
+
+		if ( ! propertySchema && blockSchema.patternProperties ) {
+			for ( const pattern in blockSchema.patternProperties ) {
+				const regex = new RegExp( pattern );
+				if ( regex.test( key ) ) {
+					propertySchema = blockSchema.patternProperties[ pattern ];
+					break;
+				}
+			}
+		}
+
+		if ( propertySchema ) {
+			const validateRecursive = ( data, subSchema, currentPath ) => {
+				// Type validation
+				if ( subSchema.type ) {
+					if ( ! validateType( data, subSchema.type ) ) {
+						const expected = Array.isArray( subSchema.type )
+							? subSchema.type.join( ' or ' )
+							: subSchema.type;
+						errors.push(
+							`${ currentPath }: Value has type '${ typeof data }', but expected '${ expected }'.`
+						);
+						return false;
+					}
+				}
+
+				// Enum validation
+				if ( subSchema.enum && ! subSchema.enum.includes( data ) ) {
+					errors.push(
+						`${ currentPath }: Value '${ data }' is not one of the allowed enum values: [${ subSchema.enum.join(
+							', '
+						) }].`
+					);
+					return false;
+				}
+
+				// Pattern validation (for strings)
+				if ( subSchema.pattern && typeof data === 'string' ) {
+					const regex = new RegExp( subSchema.pattern );
+					if ( ! regex.test( data ) ) {
+						errors.push(
+							`${ currentPath }: Value '${ data }' does not match pattern '${ subSchema.pattern }'.`
+						);
+						return false;
+					}
+				}
+
+				// Required properties within objects (nested)
+				if (
+					subSchema.required &&
+					typeof data === 'object' &&
+					data !== null &&
+					! Array.isArray( data )
+				) {
+					for ( const requiredProp of subSchema.required ) {
+						if ( ! ( requiredProp in data ) ) {
+							errors.push(
+								`${ currentPath }: Missing required property '${ requiredProp }'.`
+							);
+						}
+					}
+				}
+
+				// Properties of objects
+				if (
+					subSchema.properties &&
+					typeof data === 'object' &&
+					data !== null &&
+					! Array.isArray( data )
+				) {
+					for ( const propKey in subSchema.properties ) {
+						if ( propKey in data ) {
+							validateRecursive(
+								data[ propKey ],
+								subSchema.properties[ propKey ],
+								`${ currentPath }.${ propKey }`
+							);
+						}
+					}
+				}
+
+				// Pattern properties within objects
+				if (
+					subSchema.patternProperties &&
+					typeof data === 'object' &&
+					data !== null &&
+					! Array.isArray( data )
+				) {
+					for ( const dataPropKey in data ) {
+						let matched = false;
+						for ( const pattern in subSchema.patternProperties ) {
+							const regex = new RegExp( pattern );
+							if ( regex.test( dataPropKey ) ) {
+								matched = true;
+								validateRecursive(
+									data[ dataPropKey ],
+									subSchema.patternProperties[ pattern ],
+									`${ currentPath }.${ dataPropKey }`
+								);
+								break;
+							}
+						}
+
+						if (
+							! matched &&
+							! subSchema.properties?.hasOwnProperty(
+								dataPropKey
+							) &&
+							subSchema.additionalProperties === false
+						) {
+							errors.push(
+								`${ currentPath }: Additional property '${ dataPropKey }' is not allowed.`
+							);
+						}
+					}
+				}
+
+				if (
+					subSchema.additionalProperties === false &&
+					typeof data === 'object' &&
+					data !== null &&
+					! Array.isArray( data )
+				) {
+					const knownProperties = new Set(
+						Object.keys( subSchema.properties || {} )
+					);
+					for ( const dataKey of Object.keys( data ) ) {
+						if ( ! knownProperties.has( dataKey ) ) {
+							let isAllowedByPattern = false;
+							if ( subSchema.patternProperties ) {
+								for ( const pattern in subSchema.patternProperties ) {
+									const regex = new RegExp( pattern );
+									if ( regex.test( dataKey ) ) {
+										isAllowedByPattern = true;
+										break;
+									}
+								}
+							}
+							if ( ! isAllowedByPattern ) {
+								errors.push(
+									`${ currentPath }: Additional property '${ dataKey }' is not allowed.`
+								);
+							}
+						}
+					}
+				}
+
+				// Items of arrays
+				if ( subSchema.items && Array.isArray( data ) ) {
+					if ( Array.isArray( subSchema.items ) ) {
+						for ( let i = 0; i < data.length; i++ ) {
+							const itemSchema = subSchema.items[ i ];
+							if ( itemSchema ) {
+								validateRecursive(
+									data[ i ],
+									itemSchema,
+									`${ currentPath }[${ i }]`
+								);
+							} else if ( subSchema.additionalItems === false ) {
+								errors.push(
+									`${ currentPath }[${ i }]: Additional item is not allowed.`
+								);
+							} else if (
+								typeof subSchema.additionalItems === 'object'
+							) {
+								validateRecursive(
+									data[ i ],
+									subSchema.additionalItems,
+									`${ currentPath }[${ i }]`
+								);
+							}
+						}
+					} else {
+						for ( let i = 0; i < data.length; i++ ) {
+							validateRecursive(
+								data[ i ],
+								subSchema.items,
+								`${ currentPath }[${ i }]`
+							);
+						}
+					}
+					if ( subSchema.uniqueItems && Array.isArray( data ) ) {
+						const uniqueSet = new Set(
+							data.map( ( item ) => JSON.stringify( item ) )
+						);
+						if ( uniqueSet.size !== data.length ) {
+							errors.push(
+								`${ currentPath }: Array items must be unique.`
+							);
+						}
+					}
+				}
+
+				// oneOf validation
+				if ( subSchema.oneOf && Array.isArray( subSchema.oneOf ) ) {
+					let matchedCount = 0;
+					const tempErrors = [];
+
+					for ( const potentialSchema of subSchema.oneOf ) {
+						const tempCurrentErrorsLength = tempErrors.length;
+						const originalErrorsRef = errors;
+						errors = tempErrors;
+						validateRecursive( data, potentialSchema, currentPath );
+						errors = originalErrorsRef;
+
+						if ( tempErrors.length === tempCurrentErrorsLength ) {
+							matchedCount++;
+						}
+					}
+
+					if ( matchedCount !== 1 ) {
+						errors.push(
+							`${ currentPath }: Value must match one of the 'oneOf' schemas (matched ${ matchedCount } from [${ subSchema.oneOf
+								.map( ( option ) => option.type )
+								.join( ', ' ) }]).`
+						);
+					}
+				}
+
+				// anyOf validation
+				if ( subSchema.anyOf && Array.isArray( subSchema.anyOf ) ) {
+					let anyMatched = false;
+					const tempErrors = [];
+
+					for ( const potentialSchema of subSchema.anyOf ) {
+						const tempCurrentErrorsLength = tempErrors.length;
+						const originalErrorsRef = errors;
+						errors = tempErrors;
+						validateRecursive( data, potentialSchema, currentPath );
+						errors = originalErrorsRef;
+
+						if ( tempErrors.length === tempCurrentErrorsLength ) {
+							anyMatched = true;
+							break;
+						}
+					}
+
+					if ( ! anyMatched ) {
+						errors.push(
+							`${ currentPath }: Value must match at least one of the 'anyOf' schemas [${ subSchema.anyOf
+								.map( ( option ) => option.type )
+								.join( ', ' ) }].`
+						);
+					}
+				}
+
+				return true;
+			};
+
+			// Start recursive validation for current top-level property
+			validateRecursive(
+				blockMetadata[ key ],
+				propertySchema,
+				`"${ name }" block.json.${ key }`
+			);
+		} else {
+			errors.push( `${ name }: Unexpected field "${ key }" found.` );
+		}
+	}
+
+	return errors;
 }
 
 /**
@@ -281,8 +570,11 @@ export function registerBlockType( blockNameOrMetadata, settings ) {
 
 	if ( isObject( blockNameOrMetadata ) ) {
 		const validation = validateBlockSchema( name, blockNameOrMetadata );
-		if ( ! validation ) {
+		if ( Array.isArray( validation ) && validation.length ) {
 			warning( `Block schema validation failed for "${ name }" block.` );
+			validation.forEach( ( error ) => {
+				warning( error );
+			} );
 		}
 
 		const metadata = getBlockSettingsFromMetadata( blockNameOrMetadata );
