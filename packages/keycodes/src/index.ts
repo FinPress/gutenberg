@@ -166,8 +166,8 @@ export { isAppleOS };
 
 /**
  * Capitalise the first character of a string.
- * @param {string} string String to capitalise.
- * @return {string} Capitalised string.
+ * @param string String to capitalise.
+ * @return Capitalised string.
  */
 function capitaliseFirstCharacter( string: string ): string {
 	return string.length < 2
