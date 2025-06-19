@@ -277,7 +277,10 @@ describe( 'isKeyboardEvent', () => {
 		}
 	} );
 
-	function keyPress( target, modifiers ) {
+	function keyPress(
+		target: HTMLElement,
+		modifiers: Partial< KeyboardEventInit > & { key: string }
+	) {
 		[ 'keydown', 'keypress', 'keyup' ].forEach( ( eventName ) => {
 			const event = new window.KeyboardEvent( eventName, {
 				...modifiers,
@@ -288,11 +291,19 @@ describe( 'isKeyboardEvent', () => {
 		} );
 	}
 
-	function attachEventListeners( eventHandler ) {
-		const attachNode = document.createElement( 'div' );
+	function attachEventListeners(
+		eventHandler: ( event: KeyboardEvent ) => void
+	): HTMLElement {
+		const attachNode = document.createElement( 'div' ) as HTMLDivElement;
 		document.body.appendChild( attachNode );
 
-		[ 'keydown', 'keypress', 'keyup' ].forEach( ( eventName ) => {
+		const keyboardEvents: Array< 'keydown' | 'keypress' | 'keyup' > = [
+			'keydown',
+			'keypress',
+			'keyup',
+		];
+
+		keyboardEvents.forEach( ( eventName ) => {
 			attachNode.addEventListener( eventName, eventHandler );
 		} );
 
