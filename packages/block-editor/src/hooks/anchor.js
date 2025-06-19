@@ -134,13 +134,20 @@ addFilter( 'blocks.registerBlockType', 'core/anchor/attribute', addAttribute );
  * @param {Object} blockAttributes Additional props applied to save element.
  * @param {Object} blockType       Block type.
  * @param {Object} innerHTML       Current block innerHTML.
+ * @param {Object} attributes      Current block attributes.
  *
  * @return {Object}               All block attributes.
  */
-export function getBlockAttributes( blockAttributes, blockType, innerHTML ) {
+export function getBlockAttributes(
+	blockAttributes,
+	blockType,
+	innerHTML,
+	attributes
+) {
 	if (
 		hasBlockSupport( blockType, 'anchor' ) &&
-		blockAttributes.anchor === undefined
+		blockAttributes.anchor === undefined &&
+		attributes?.anchor === undefined
 	) {
 		const idMatch = innerHTML?.match( /^<[^>]+id="([^"]+)"/ );
 		const id = idMatch ? idMatch[ 1 ] : null;
