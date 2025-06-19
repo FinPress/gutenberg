@@ -55,7 +55,7 @@ export type WPKeyHandler< T > = (
 ) => T;
 
 export type WPEventKeyHandler = (
-	event: import('react').KeyboardEvent< HTMLElement > | KeyboardEvent,
+	event: ReactKeyboardEvent< HTMLElement > | KeyboardEvent,
 	character: string,
 	isApple?: () => boolean
 ) => boolean;
