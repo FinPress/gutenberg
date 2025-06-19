@@ -30,6 +30,13 @@ type ImportMap = {
 const baseUrl = document.baseURI;
 const pageBaseUrl = baseUrl;
 
+Object.defineProperty( self, 'importShim', {
+	value: importShim,
+	writable: false,
+	enumerable: false,
+	configurable: false,
+} );
+
 async function importShim< Module = unknown >( id: string ) {
 	await initPromise;
 	return topLevelLoad< Module >( resolve( id, pageBaseUrl ), {
