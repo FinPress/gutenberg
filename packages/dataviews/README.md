@@ -296,7 +296,7 @@ const actions = [
 		label: 'View',
 		isPrimary: true,
 		icon: <Icon icon={ view } />,
-		isEligible: ( item ) => item.status === 'published'
+		isEligible: ( item ) => item.status === 'published',
 		callback: ( items ) => {
 			console.log( 'Viewing item:', items[0] );
 		},
@@ -719,6 +719,23 @@ Example:
 ```js
 {
 	modalSize: 'large';
+}
+```
+
+### `modalFocusOnMount`
+
+Specifies the focus on mount property of the modal.
+
+-	Type: `boolean` | `string`
+-	Optional
+-	Default: `true`
+-	One of: `true` | `false` | `'firstElement'` | `'firstContentElement'`
+
+Example:
+
+```js
+{
+	modalFocusOnMount: 'firstContentElement';
 }
 ```
 

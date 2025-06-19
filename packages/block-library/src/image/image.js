@@ -44,7 +44,7 @@ import { getFilename } from '@wordpress/url';
 import { getBlockBindingsSource, switchToBlockType } from '@wordpress/blocks';
 import { crop, overlayText, upload, chevronDown } from '@wordpress/icons';
 import { store as noticesStore } from '@wordpress/notices';
-import { store as coreStore, useEntityProp } from '@wordpress/core-data';
+import { store as coreStore } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
@@ -53,12 +53,13 @@ import { unlock } from '../lock-unlock';
 import { createUpgradedEmbedBlock } from '../embed/util';
 import { isExternalImage } from './edit';
 import { Caption } from '../utils/caption';
-
-/**
- * Module constants
- */
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
-import { MIN_SIZE, ALLOWED_MEDIA_TYPES, SIZED_LAYOUTS } from './constants';
+import {
+	MIN_SIZE,
+	ALLOWED_MEDIA_TYPES,
+	SIZED_LAYOUTS,
+	DEFAULT_MEDIA_SIZE_SLUG,
+} from './constants';
 import { evalAspectRatio } from './utils';
 
 const { DimensionsTool, ResolutionTool } = unlock( blockEditorPrivateApis );
@@ -301,7 +302,6 @@ export default function Image( {
 	}, [ imageElement ] );
 	const setRefs = useMergeRefs( [ setImageElement, setResizeObserved ] );
 	const { allowResize = true } = context;
-	const { getBlock, getSettings } = useSelect( blockEditorStore );
 
 	const image = useSelect(
 		( select ) =>
@@ -313,7 +313,7 @@ export default function Image( {
 
 	const { canInsertCover, imageEditing, imageSizes, maxWidth } = useSelect(
 		( select ) => {
-			const { getBlockRootClientId, canInsertBlockType } =
+			const { getBlockRootClientId, canInsertBlockType, getSettings } =
 				select( blockEditorStore );
 
 			const rootClientId = getBlockRootClientId( clientId );
@@ -331,10 +331,13 @@ export default function Image( {
 		},
 		[ clientId ]
 	);
+	const { getBlock, getSettings } = useSelect( blockEditorStore );
 
 	const { replaceBlocks, toggleSelection } = useDispatch( blockEditorStore );
 	const { createErrorNotice, createSuccessNotice } =
 		useDispatch( noticesStore );
+	const { editEntityRecord } = useDispatch( coreStore );
+
 	const isLargeViewport = useViewportMatch( 'medium' );
 	const isWideAligned = [ 'wide', 'full' ].includes( align );
 	const [
@@ -381,7 +384,7 @@ export default function Image( {
 			.then( ( blob ) => setExternalBlob( blob ) )
 			// Do nothing, cannot upload.
 			.catch( () => {} );
-	}, [ id, url, isSingleSelected, externalBlob ] );
+	}, [ id, url, isSingleSelected, externalBlob, getSettings ] );
 
 	// Get naturalWidth and naturalHeight from image, and fall back to loaded natural
 	// width and height. This resolves an issue in Safari where the loaded natural
@@ -834,6 +837,7 @@ export default function Image( {
 					{ !! imageSizeOptions.length && (
 						<ResolutionTool
 							value={ sizeSlug }
+							defaultValue={ DEFAULT_MEDIA_SIZE_SLUG }
 							onChange={ updateImage }
 							options={ imageSizeOptions }
 						/>
@@ -890,13 +894,6 @@ export default function Image( {
 
 	const { postType, postId, queryId } = context;
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
-
-	const [ , setFeaturedImage ] = useEntityProp(
-		'postType',
-		postType,
-		'featured_media',
-		postId
-	);
 
 	let img =
 		temporaryURL && hasImageErrored ? (
@@ -1103,7 +1100,9 @@ export default function Image( {
 	 * Set the post's featured image with the current image.
 	 */
 	const setPostFeatureImage = () => {
-		setFeaturedImage( id );
+		editEntityRecord( 'postType', postType, postId, {
+			featured_media: id,
+		} );
 		createSuccessNotice( __( 'Post featured image updated.' ), {
 			type: 'snackbar',
 		} );

@@ -59,8 +59,20 @@ function KeyboardShortcutsRegister() {
 			category: 'block',
 			description: __( 'Remove the selected block(s).' ),
 			keyCombination: {
-				modifier: 'primaryShift',
-				character: 'backspace',
+				modifier: 'access',
+				character: 'z',
+			},
+		} );
+
+		registerShortcut( {
+			name: 'core/block-editor/paste-styles',
+			category: 'block',
+			description: __(
+				'Paste the copied style to the selected block(s).'
+			),
+			keyCombination: {
+				modifier: 'primaryAlt',
+				character: 'v',
 			},
 		} );
 

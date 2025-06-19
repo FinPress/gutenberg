@@ -2,9 +2,102 @@
 
 ## Unreleased
 
+### Bug Fixes
+
+-   `FormFileUpload`: Extend audio accept MIME types for iOS compatibility ([#70354](https://github.com/WordPress/gutenberg/pull/70354)).
+
+### Internal
+
+-   `FormFileUpload`: Remove temporary fix for selecting .heic file in Chromium browsers ([#70383](https://github.com/WordPress/gutenberg/pull/70383)).
+
+## 29.11.0 (2025-06-04)
+
+### Enhancement
+
+-   `ComboboxControl`: Handle Unicode characters when matching values ([#70180](https://github.com/WordPress/gutenberg/pull/70180)).
+-   `Toolbar`: Adjust colors for dark mode support ([#69278](https://github.com/WordPress/gutenberg/pull/69278)).
+-   `DropZone`: Allow overriding the default icon ([#70236](https://github.com/WordPress/gutenberg/pull/70236)).
+
+### Bug Fixes
+
+-   `FormTokenField`: Fix filtering with full-width string ([#70232](https://github.com/WordPress/gutenberg/pull/70232)).
+
+### Internal
+
+-   Expose `normalizeTextString` method as private API ([#70178](https://github.com/WordPress/gutenberg/pull/70178)).
+-   Mark `withIgnoreIMEEvents()` function as private API ([#70056](https://github.com/WordPress/gutenberg/pull/70056)).
+-   `InputControl`: remove unnecessary forced focus on `mousedown` ([#41118](https://github.com/WordPress/gutenberg/pull/41118)).
+
+## 29.10.0 (2025-05-22)
+
+### Enhancement
+
+-   `Snackbar`: Add support to open links in a new tab ([#69905](https://github.com/WordPress/gutenberg/pull/69905)).
+-   `ColorPicker`: Add a visual cue when the value is copied ([#70083](https://github.com/WordPress/gutenberg/pull/70083)).
+
+### Internal
+
+-   Clarify `withIgnoreIMEEvents` documentation to reflect support for all keyboard event handlers ([#70098](https://github.com/WordPress/gutenberg/pull/70098)).
+
+## 29.9.0 (2025-05-07)
+
+### Enhancement
+
+-   `Guide`: Make next and previous button text customizable ([#69907](https://github.com/WordPress/gutenberg/pull/69907)).
+-   `Popover`: Introduce a virtual padding of `8px` to prevent it from hitting the viewport edge ([#69555](https://github.com/WordPress/gutenberg/pull/69555)).
+-   `TextControl`: Add theming support ([#69640](https://github.com/WordPress/gutenberg/pull/69640)).
+-   `TextareaControl`: Add theming support ([#69640](https://github.com/WordPress/gutenberg/pull/69640)).
+
+### Bug Fixes
+
+-   `ToggleGroupControl`: Fix active background for empty string value ([#69969](https://github.com/WordPress/gutenberg/pull/69969)).
+-   `ItemGroup`: Fix double border in `ItemGroup` when last item is focused ([#70021](https://github.com/WordPress/gutenberg/pull/70021)).
+-   `__experimentalUseCustomUnits `: Don't mutate 'ALL_CSS_UNITS' default value ([#70037](https://github.com/WordPress/gutenberg/pull/70037)).
+-   `FocalPointPicker`: Fix SVG display when it doesn't provide a width attribute ([#70061](https://github.com/WordPress/gutenberg/pull/70061))..
+
+### Internal
+
+-   `ColorPicker`: Add tests for Alpha slider functionality ([#69203](https://github.com/WordPress/gutenberg/pull/69203)).
+
+## 29.8.0 (2025-04-11)
+
+### Documentation
+
+-   `Popover`: Expose Popover TypeScript types for subcomponents. ([#69619](https://github.com/WordPress/gutenberg/pull/69619))
+
+### Internal
+
+-   Update `gradient-parser` to version `1.0.2` ([#69783](https://github.com/WordPress/gutenberg/pull/69783)).
+
+### Bug Fixes
+
+-   `Button`: Fix tertiary variant displaying incorrect text color in pressed and hover states ([#68542](https://github.com/WordPress/gutenberg/pull/68542)).
+
+### Enhancement
+
+-   `Popover`: improve Storybook examples around onClose and onFocusOutside props. ([#69688](https://github.com/WordPress/gutenberg/pull/69688))
+-   `FormTokenField`: Add theming support ([#69638](https://github.com/WordPress/gutenberg/pull/69638)).
+-   `ComboboxControl`: Add theming support ([#69638](https://github.com/WordPress/gutenberg/pull/69638)).
+
+## 29.7.0 (2025-03-27)
+
+### Bug Fixes
+
+-   `useAutocomplete`: Fix autocomple UI flicker when deleting trigger prefix ([#69562](https://github.com/WordPress/gutenberg/pull/69562)).
+-   `FormTokenField`: Use `color-mix` for disabled option selection background ([#69621](https://github.com/WordPress/gutenberg/pull/69621)).
+-   `CustomSelectControl`: Fix check icon color to adapt with dark theme ([#69626](https://github.com/WordPress/gutenberg/pull/69626)).
+-   `Autocomplete`: Extracts `getNodeText` function into a separate file and adds unit tests ([#69135](https://github.com/WordPress/gutenberg/pull/69135)).
+-   `NumberControl`: update stepping to match HTML number input stepping ([#34566](https://github.com/WordPress/gutenberg/pull/34566)).
+
+## 29.6.0 (2025-03-13)
+
 ### Enhancement
 
 -   `QueryControls`: Add menu_order sorting option if supported by the post type. ([#68781](https://github.com/WordPress/gutenberg/pull/68781)).
+
+### Internal
+
+-   `NumberControl`: Fixed className test to properly verify className application. ([#69540](https://github.com/WordPress/gutenberg/pull/69540)).
 
 ### Bug Fixes
 
