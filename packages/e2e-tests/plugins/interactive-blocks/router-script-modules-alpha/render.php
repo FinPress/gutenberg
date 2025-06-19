@@ -21,6 +21,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 		'data-testid'         => 'alpha-block',
 		'data-wp-interactive' => 'test/router-script-modules-alpha',
 		'data-wp-text'        => 'state.name',
+		'data-wp-on--click'   => 'actions.updateName',
 	)
 );
 ?>

@@ -21,6 +21,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 		'data-testid'         => 'charlie-block',
 		'data-wp-interactive' => 'test/router-script-modules-charlie',
 		'data-wp-text'        => 'state.name',
+		'data-wp-on--click'   => 'actions.updateName',
 	)
 );
 ?>

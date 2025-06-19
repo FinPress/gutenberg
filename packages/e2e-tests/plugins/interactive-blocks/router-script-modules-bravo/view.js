@@ -9,9 +9,18 @@ import { store } from '@wordpress/interactivity';
 // eslint-disable-next-line import/no-unresolved
 import name from 'test/router-script-modules-bravo';
 
-store( 'test/router-script-modules-bravo', {
+const { state } = store( 'test/router-script-modules-bravo', {
 	state: {
 		name,
+	},
+	actions: {
+		*updateName() {
+			const { default: suffix } = yield import(
+				// eslint-disable-next-line import/no-unresolved
+				'test/router-script-modules-dynamic'
+			);
+			state.name += ` (${ suffix })`;
+		},
 	},
 } );
 
