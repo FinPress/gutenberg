@@ -33,6 +33,7 @@ import {
 	getBlockBindingsSource,
 	hasBlockSupport,
 	isReusableBlock,
+	validateType,
 	unstable__bootstrapServerSideBlockDefinitions, // eslint-disable-line camelcase
 } from '../registration';
 import { BLOCK_ICON_DEFAULT, DEPRECATED_ENTRY_KEYS } from '../constants';
@@ -476,6 +477,7 @@ describe( 'blocks', () => {
 			registerBlockType(
 				{
 					name: blockName,
+					title: 'block title',
 					blockHooks: {
 						'tests/block': 'firstChild',
 					},
@@ -1777,6 +1779,87 @@ describe( 'blocks', () => {
 			unregisterBlockBindingsSource( 'core/non-existing-source' );
 			expect( console ).toHaveWarnedWith(
 				'Block bindings source "core/non-existing-source" is not registered.'
+			);
+		} );
+	} );
+
+	describe( 'validateType', () => {
+		it( 'should correctly validate string types', () => {
+			expect( validateType( 'hello', 'string' ) ).toBe( true );
+			expect( validateType( 123, 'string' ) ).toBe( false );
+			expect( validateType( null, 'string' ) ).toBe( false );
+			expect( validateType( undefined, 'string' ) ).toBe( false );
+		} );
+
+		it( 'should correctly validate number types', () => {
+			expect( validateType( 123, 'number' ) ).toBe( true );
+			expect( validateType( 3.14, 'number' ) ).toBe( true );
+			expect( validateType( 'hello', 'number' ) ).toBe( false );
+			expect( validateType( null, 'number' ) ).toBe( false );
+		} );
+
+		it( 'should correctly validate integer types', () => {
+			expect( validateType( 123, 'integer' ) ).toBe( true );
+			expect( validateType( 3.14, 'integer' ) ).toBe( false );
+			expect( validateType( '123', 'integer' ) ).toBe( false );
+			expect( validateType( null, 'integer' ) ).toBe( false );
+		} );
+
+		it( 'should consider integer as a valid number', () => {
+			expect( validateType( 123, 'number' ) ).toBe( true );
+			expect( validateType( 123, 'integer' ) ).toBe( true );
+		} );
+
+		it( 'should correctly validate boolean types', () => {
+			expect( validateType( true, 'boolean' ) ).toBe( true );
+			expect( validateType( false, 'boolean' ) ).toBe( true );
+			expect( validateType( 0, 'boolean' ) ).toBe( false );
+			expect( validateType( 1, 'boolean' ) ).toBe( false );
+		} );
+
+		it( 'should correctly validate array types', () => {
+			expect( validateType( [], 'array' ) ).toBe( true );
+			expect( validateType( [ 1, 2, 3 ], 'array' ) ).toBe( true );
+			expect( validateType( {}, 'array' ) ).toBe( false );
+			expect( validateType( null, 'array' ) ).toBe( false );
+		} );
+
+		it( 'should correctly validate object types', () => {
+			expect( validateType( {}, 'object' ) ).toBe( true );
+			expect( validateType( { a: 1 }, 'object' ) ).toBe( true );
+			expect( validateType( [], 'object' ) ).toBe( false ); // Array is not an object in block.json context
+			expect( validateType( null, 'object' ) ).toBe( false );
+		} );
+
+		it( 'should correctly validate null types', () => {
+			expect( validateType( null, 'null' ) ).toBe( true );
+			expect( validateType( undefined, 'null' ) ).toBe( false );
+			expect( validateType( 0, 'null' ) ).toBe( false );
+		} );
+
+		it( 'should correctly validate for multiple expected types (array of strings)', () => {
+			expect( validateType( 'test', [ 'string', 'number' ] ) ).toBe(
+				true
+			);
+			expect( validateType( 123, [ 'string', 'number' ] ) ).toBe( true );
+			expect( validateType( true, [ 'string', 'number' ] ) ).toBe(
+				false
+			);
+			expect( validateType( null, [ 'string', 'null' ] ) ).toBe( true );
+			expect( validateType( [], [ 'object', 'array' ] ) ).toBe( true );
+			expect( validateType( {}, [ 'object', 'array' ] ) ).toBe( true );
+			expect( validateType( 1, [ 'integer', 'string' ] ) ).toBe( true );
+			expect( validateType( 1.5, [ 'integer', 'string' ] ) ).toBe(
+				false
+			);
+		} );
+
+		it( 'should return false for undefined values', () => {
+			expect( validateType( undefined, 'string' ) ).toBe( false );
+			expect( validateType( undefined, 'number' ) ).toBe( false );
+			expect( validateType( undefined, 'object' ) ).toBe( false );
+			expect( validateType( undefined, [ 'string', 'number' ] ) ).toBe(
+				false
 			);
 		} );
 	} );

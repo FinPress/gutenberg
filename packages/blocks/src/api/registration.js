@@ -156,7 +156,7 @@ export function unstable__bootstrapServerSideBlockDefinitions( definitions ) {
  *
  * @return {boolean} Whether the value matches the expected type(s).
  */
-function validateType( value, expectedType ) {
+export function validateType( value, expectedType ) {
 	const getJSType = ( val ) => {
 		if ( null === val ) {
 			return 'null';
@@ -179,8 +179,12 @@ function validateType( value, expectedType ) {
 	const actualType = getJSType( value );
 
 	if ( Array.isArray( expectedType ) ) {
-		return expectedType.includes( actualType );
+		return (
+			expectedType.includes( actualType ) ||
+			( expectedType.includes( 'number' ) && actualType === 'integer' )
+		);
 	}
+
 	if ( expectedType === 'number' && actualType === 'integer' ) {
 		return true;
 	}
