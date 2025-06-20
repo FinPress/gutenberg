@@ -29,7 +29,7 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 	$excerpt_length = $attributes['excerptLength'];
 	$excerpt        = get_the_excerpt( $block->context['postId'] );
 	if ( isset( $excerpt_length ) ) {
-		$excerpt = wp_trim_words( $excerpt, $excerpt_length );
+		$excerpt = wp_trim_words_preserve_newlines( $excerpt, $excerpt_length );
 	}
 
 	$more_text           = ! empty( $attributes['moreText'] ) ? '<a class="wp-block-post-excerpt__more-link" href="' . esc_url( get_the_permalink( $block->context['postId'] ) ) . '">' . wp_kses_post( $attributes['moreText'] ) . '</a>' : '';
@@ -64,6 +64,51 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 	}
 	remove_filter( 'excerpt_more', $filter_excerpt_more );
 	return sprintf( '<div %1$s>%2$s</div>', $wrapper_attributes, $content );
+}
+
+/**
+ * Trims text to a given number of words, preserving newlines.
+ *
+ * Similar to wp_trim_words(), but avoids stripping line breaks and HTML <br> tags.
+ *
+ * @since 21.0.0
+ *
+ * @param  string $text The text to trim.
+ * @param  int    $num_words The maximum number of words. Default 55.
+ * @param  string $more Optional. What to append if the text is trimmed. Default '…'.
+ * @return string The trimmed text with newlines preserved.
+ */
+function wp_trim_words_preserve_newlines( $text, $num_words = 55, $more = null ) {
+	if ( null === $more ) {
+		$more = __( '&hellip;' );
+	}
+	// Replace <br> tags with newlines temporarily,
+	// to retain manual breaks from editors.
+	$text      = str_replace( array( '<br>', '<br/>', '<br />' ), "\n", $text );
+	$text      = strip_tags( $text );
+	$num_words = (int) $num_words;
+
+	if (
+		str_starts_with( wp_get_word_count_type(), 'characters' ) &&
+		preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) )
+	) {
+		$text = trim( preg_replace( "/[^\S\n\r]+/", ' ', $text ), ' ' );
+		preg_match_all( '/./u', $text, $words_array );
+		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
+		$sep         = '';
+	} else {
+		$words_array = preg_split( '/([ \t]+)/', $text, $num_words + 1, PREG_SPLIT_NO_EMPTY );
+		$sep         = ' ';
+	}
+
+	if ( count( $words_array ) > $num_words ) {
+		array_pop( $words_array );
+		$text = implode( $sep, $words_array ) . $more;
+	} else {
+		$text = implode( $sep, $words_array );
+	}
+
+	return nl2br( $text );
 }
 
 /**
