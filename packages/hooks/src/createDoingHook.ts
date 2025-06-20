@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import type { Hooks, StoreKey } from '.';
+
 /**
  * Returns whether a hook is currently being executed.
  *
