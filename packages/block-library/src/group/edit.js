@@ -10,7 +10,7 @@ import {
 	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
-import { useRef } from '@wordpress/element';
+import { useRef, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { View } from '@wordpress/primitives';
 
@@ -87,6 +87,38 @@ function GroupEdit( { attributes, name, setAttributes, clientId } ) {
 		usedLayoutType: type,
 		hasInnerBlocks,
 	} );
+
+	// Automatically apply padding when border is set and no padding exists.
+	useEffect( () => {
+		const border = attributes?.style?.border;
+		const padding = attributes?.style?.spacing?.padding;
+
+		const hasBorder =
+			!! border?.width || !! border?.color || !! border?.style;
+		const hasPadding = !! (
+			padding?.top ||
+			padding?.right ||
+			padding?.bottom ||
+			padding?.left
+		);
+
+		if ( hasBorder && ! hasPadding ) {
+			setAttributes( {
+				style: {
+					...( attributes.style || {} ),
+					spacing: {
+						...( attributes.style?.spacing || {} ),
+						padding: {
+							top: '1rem',
+							right: '1rem',
+							bottom: '1rem',
+							left: '1rem',
+						},
+					},
+				},
+			} );
+		}
+	}, [ attributes.style, setAttributes ] );
 
 	// Default to the regular appender being rendered.
 	let renderAppender;
