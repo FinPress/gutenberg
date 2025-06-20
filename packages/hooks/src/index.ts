@@ -3,38 +3,29 @@
  */
 import createHooks from './createHooks';
 
-/** @typedef {(...args: any[])=>any} Callback */
+export type Callback = ( ...args: any[] ) => any;
 
-/**
- * @typedef Handler
- * @property {Callback} callback  The callback
- * @property {string}   namespace The namespace
- * @property {number}   priority  The namespace
- */
+export type Handler = {
+	callback: Callback;
+	namespace: string;
+	priority: number;
+};
 
-/**
- * @typedef Hook
- * @property {Handler[]} handlers Array of handlers
- * @property {number}    runs     Run counter
- */
+export type Hook = {
+	handlers: Handler[];
+	runs: number;
+};
 
-/**
- * @typedef Current
- * @property {string} name         Hook name
- * @property {number} currentIndex The index
- */
+export type Current = {
+	name: string;
+	currentIndex: number;
+};
 
-/**
- * @typedef {Record<string, Hook> & {__current: Set<Current>}} Store
- */
+export type Store = Record< string, Hook > & { __current: Set< Current > };
 
-/**
- * @typedef {'actions' | 'filters'} StoreKey
- */
+export type StoreKey = 'actions' | 'filters';
 
-/**
- * @typedef {import('./createHooks').Hooks} Hooks
- */
+export type Hooks = import('./createHooks').Hooks;
 
 export const defaultHooks = createHooks();
 
