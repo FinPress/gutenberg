@@ -69,7 +69,7 @@ Displays a calendar of your site’s posts. ([Source](https://github.com/WordPre
 
 -	**Name:** core/calendar
 -	**Category:** widgets
--	**Supports:** align, color (background, link, text), interactivity (clientNavigation), typography (fontSize, lineHeight)
+-	**Supports:** align, color (background, link, text), interactivity (clientNavigation), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** month, year
 
 ## Terms List
@@ -586,7 +586,6 @@ This block is deprecated. Please use the Comments block instead. ([Source](https
 Displays a post's comments count. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments-count))
 
 -	**Name:** core/post-comments-count
--	**Experimental:** fse
 -	**Category:** theme
 -	**Supports:** color (background, gradients, text), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
@@ -605,7 +604,6 @@ Displays a post's comments form. ([Source](https://github.com/WordPress/gutenber
 Displays the link to the current post comments. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments-link))
 
 -	**Name:** core/post-comments-link
--	**Experimental:** fse
 -	**Category:** theme
 -	**Supports:** color (background, link, ~~text~~), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
