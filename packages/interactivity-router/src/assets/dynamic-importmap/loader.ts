@@ -50,6 +50,19 @@ const skip = ( id ) =>
 const fetchCache: Record< string, Promise< ModuleLoad > > = {};
 export const registry = {};
 
+// Init registry with importamp content.
+Object.keys(
+	JSON.parse(
+		document.querySelector< HTMLScriptElement >(
+			'script#wp-importmap[type=importmap]'
+		).text
+	).imports
+).forEach( ( id ) => {
+	registry[ id ] = {
+		blobUrl: id,
+	};
+} );
+
 async function loadAll( load: ModuleLoad, seen: Record< string, any > ) {
 	if ( load.blobUrl || seen[ load.url ] ) {
 		return;
