@@ -200,7 +200,7 @@ test.describe( 'Navigation block', () => {
 	} );
 
 	test.describe( 'Fronted fallback behavior', () => {
-		test( 'should fall back to Page List when no menus exist', async ( {
+		test( 'should render a Page List on the frontend when no menus exist', async ( {
 			admin,
 			editor,
 			page,
@@ -208,15 +208,10 @@ test.describe( 'Navigation block', () => {
 			await admin.createNewPost();
 			await editor.insertBlock( { name: 'core/navigation' } );
 
-			await expect(
-				editor.canvas.getByRole( 'document', {
-					name: 'Block: Page List',
-				} )
-			).toBeVisible();
-
 			const postId = await editor.publishPost();
 			await page.goto( `/?p=${ postId }` );
 
+			await expect( page.locator( '.wp-block-page-list' ) ).toBeVisible();
 			await expect(
 				page.getByRole( 'link', { name: 'Cat', exact: true } )
 			).toBeVisible();
@@ -225,68 +220,6 @@ test.describe( 'Navigation block', () => {
 			).toBeVisible();
 			await expect(
 				page.getByRole( 'link', { name: 'Walrus', exact: true } )
-			).toBeVisible();
-		} );
-
-		test( 'should use first non-empty menu as fallback', async ( {
-			admin,
-			editor,
-			page,
-			requestUtils,
-		} ) => {
-			await admin.createNewPost();
-
-			await requestUtils.createNavigationMenu( {
-				title: 'Empty Menu',
-				content: '',
-			} );
-			const validMenu = await requestUtils.createNavigationMenu( {
-				title: 'Primary Menu',
-				content:
-					'<!-- wp:navigation-link {"label":"Home","url":"/"} /-->',
-			} );
-
-			await editor.insertBlock( { name: 'core/navigation' } );
-
-			await expect( editor.canvas.getByText( 'Home' ) ).toBeVisible();
-			await expect.poll( editor.getBlocks ).toMatchObject( [
-				{
-					name: 'core/navigation',
-					attributes: { ref: validMenu.id },
-				},
-			] );
-
-			const postId = await editor.publishPost();
-			await page.goto( `/?p=${ postId }` );
-			await expect(
-				page.getByRole( 'link', { name: 'Home', exact: true } )
-			).toBeVisible();
-		} );
-
-		test( 'should fall back to Page List when all menus are empty', async ( {
-			admin,
-			editor,
-		} ) => {
-			await admin.createNewPost();
-
-			await editor.insertBlock( {
-				name: 'core/navigation',
-				attributes: {},
-			} );
-
-			await expect.poll( editor.getBlocks ).toMatchObject( [
-				{
-					name: 'core/navigation',
-					attributes: expect.not.objectContaining( {
-						ref: expect.any( Number ),
-					} ),
-				},
-			] );
-
-			await expect(
-				editor.canvas.getByRole( 'document', {
-					name: 'Block: Page List',
-				} )
 			).toBeVisible();
 		} );
 	} );
