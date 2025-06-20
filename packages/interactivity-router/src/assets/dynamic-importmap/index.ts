@@ -80,4 +80,8 @@ export async function preloadWithMap( id: string, importMapIn: ImportMap ) {
 	} );
 }
 
-export { importPreloadedModule, type ModuleLoad } from './loader';
+export {
+	initialImportMap,
+	importPreloadedModule,
+	type ModuleLoad,
+} from './loader';

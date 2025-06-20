@@ -38,26 +38,32 @@ export interface ModuleLoad {
 
 export const initPromise = lexer.init;
 
-const skip = ( id ) =>
-	Object.keys(
-		JSON.parse(
-			document.querySelector< HTMLScriptElement >(
-				'script#wp-importmap[type=importmap]'
-			).text
-		).imports
-	).includes( id );
+/**
+ * Script element containing the initial page's import map.
+ */
+const initialImportMapElement =
+	window.document.querySelector< HTMLScriptElement >(
+		'script#wp-importmap[type=importmap]'
+	);
+
+/**
+ * Data from the initial page's import map.
+ *
+ * Pages containing any of the imports present on the original page
+ * in their import maps should ignore them, as those imports would
+ * be handled natively.
+ */
+export const initialImportMap = initialImportMapElement
+	? JSON.parse( initialImportMapElement.text )
+	: { imports: {}, scopes: {} };
+
+const skip = ( id ) => Object.keys( initialImportMap.imports ).includes( id );
 
 const fetchCache: Record< string, Promise< ModuleLoad > > = {};
 export const registry = {};
 
 // Init registry with importamp content.
-Object.keys(
-	JSON.parse(
-		document.querySelector< HTMLScriptElement >(
-			'script#wp-importmap[type=importmap]'
-		).text
-	).imports
-).forEach( ( id ) => {
+Object.keys( initialImportMap.imports ).forEach( ( id ) => {
 	registry[ id ] = {
 		blobUrl: id,
 	};
