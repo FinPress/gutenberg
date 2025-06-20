@@ -542,7 +542,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 
 		await editor.canvas
 			.getByRole( 'button', {
-				name: 'Group: Gather blocks in a container.',
+				name: 'Group: Gathers blocks in a container.',
 			} )
 			.click();
 		await editor.canvas
@@ -590,7 +590,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 
 		await editor.canvas
 			.getByRole( 'button', {
-				name: 'Group: Gather blocks in a container.',
+				name: 'Group: Gathers blocks in a container.',
 			} )
 			.click();
 		await editor.canvas
