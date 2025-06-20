@@ -260,6 +260,37 @@ test.describe( 'Navigation block', () => {
 				} )
 			).toBeHidden();
 		} );
+
+		test( 'should skip empty menus and render the next available menu', async ( {
+			admin,
+			editor,
+			page,
+			requestUtils,
+		} ) => {
+			// The fallback should skip empty 'Menu A' and render non-empty 'Menu B'.
+			await requestUtils.createNavigationMenu( {
+				title: 'Menu A',
+				content: '',
+			} );
+			await requestUtils.createNavigationMenu( {
+				title: 'Menu B',
+				content:
+					'<!-- wp:navigation-link {"label":"Dog","url":"#dog"} /-->',
+			} );
+
+			await admin.createNewPost();
+			await editor.insertBlock( { name: 'core/navigation' } );
+
+			const postId = await editor.publishPost();
+			await page.goto( `/?p=${ postId }` );
+
+			await expect(
+				page.getByRole( 'link', {
+					name: 'Dog',
+					exact: true,
+				} )
+			).toBeVisible();
+		} );
 	} );
 
 	test.describe( 'As a user I want to create submenus using the navigation block', () => {
