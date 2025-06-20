@@ -1,6 +1,7 @@
 /**
  * Internal dependencies
  */
+import type { Hooks as internalHooks } from './createHooks';
 import createHooks from './createHooks';
 
 export type Callback = ( ...args: any[] ) => any;
@@ -25,7 +26,7 @@ export type Store = Record< string, Hook > & { __current: Set< Current > };
 
 export type StoreKey = 'actions' | 'filters';
 
-export type Hooks = import('./createHooks').Hooks;
+export type Hooks = internalHooks;
 
 export const defaultHooks = createHooks();
 
