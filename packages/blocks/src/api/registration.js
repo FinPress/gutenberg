@@ -145,6 +145,17 @@ export function unstable__bootstrapServerSideBlockDefinitions( definitions ) {
 	}
 }
 
+/**
+ * Validates that a given value matches an expected type or types.
+ * Useful for enforcing type constraints in block schemas.
+ *
+ * @param {*}               value        The value to be type-checked.
+ * @param {string|string[]} expectedType The expected type or an array of possible types.
+ *                                       Supported types include: 'string', 'number',
+ *                                       'integer', 'boolean', 'array', 'object', 'null'.
+ *
+ * @return {boolean} Whether the value matches the expected type(s).
+ */
 function validateType( value, expectedType ) {
 	const getJSType = ( val ) => {
 		if ( null === val ) {
@@ -177,6 +188,18 @@ function validateType( value, expectedType ) {
 	return actualType === expectedType;
 }
 
+/**
+ * Validates a block's metadata schema based on the provided metadata
+ * object. This ensures the block adheres to expected structural
+ * and format standards as specified in the `block.json` schema.
+ *
+ * Use this utility when developing custom blocks to catch schema issues.
+ *
+ * @param {string} name          The unique block name.
+ * @param {Object} blockMetadata The metadata object describing the block.
+ *
+ * @return {Array} Array containing the errors encountered.
+ */
 function validateBlockSchema( name, blockMetadata ) {
 	let errors = [];
 
