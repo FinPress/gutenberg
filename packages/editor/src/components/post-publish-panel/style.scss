@@ -132,6 +132,13 @@
 	word-break: break-word;
 }
 
+.post-publish-panel__postpublish.is-success {
+	border-left: 2.5px;
+	border-style: solid;
+	border-color: #28a745;
+	padding-left: 12px;
+}
+
 .post-publish-panel__postpublish-buttons {
 	display: flex;
 	align-content: space-between;

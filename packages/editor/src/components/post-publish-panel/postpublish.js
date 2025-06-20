@@ -123,7 +123,7 @@ export default function PostPublishPanelPostpublish( {
 	);
 
 	return (
-		<div className="post-publish-panel__postpublish">
+		<div className="post-publish-panel__postpublish is-success">
 			<PanelBody className="post-publish-panel__postpublish-header">
 				<ExternalLink ref={ postLinkRef } href={ link }>
 					{ decodeEntities( post.title ) || __( '(no title)' ) }
