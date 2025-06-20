@@ -1,13 +1,9 @@
 /**
  * Internal dependencies
  */
+import validateNamespace from './validateNamespace';
+import validateHookName from './validateHookName';
 import type { Hooks, StoreKey } from '.';
-
-/**
- * Internal dependencies
- */
-import validateNamespace from './validateNamespace.js';
-import validateHookName from './validateHookName.js';
 
 /**
  * Removes the specified callback (or all callbacks) from the hook with a given hookName

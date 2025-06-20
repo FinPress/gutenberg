@@ -8,7 +8,6 @@ import createRunHook from './createRunHook';
 import createCurrentHook from './createCurrentHook';
 import createDoingHook from './createDoingHook';
 import createDidHook from './createDidHook';
-
 import type { Store } from '.';
 
 /**

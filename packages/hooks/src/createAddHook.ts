@@ -1,9 +1,9 @@
 /**
  * Internal dependencies
  */
-import validateNamespace from './validateNamespace.js';
-import validateHookName from './validateHookName.js';
-import type { Callback, Hooks, StoreKey } from './index.js';
+import validateNamespace from './validateNamespace';
+import validateHookName from './validateHookName';
+import type { Callback, Hooks, StoreKey } from '.';
 
 /**
  *

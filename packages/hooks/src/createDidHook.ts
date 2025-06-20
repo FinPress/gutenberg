@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import validateHookName from './validateHookName.js';
+import validateHookName from './validateHookName';
 import type { Hooks, StoreKey } from '.';
 
 /**
