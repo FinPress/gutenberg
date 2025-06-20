@@ -12,10 +12,10 @@ export type DoingHook = ( hookName?: string ) => boolean;
  * Returns a function which, when invoked, will return whether a hook is
  * currently being executed.
  *
- * @param  hooks    Hooks instance.
- * @param  storeKey
+ * @param hooks    Hooks instance.
+ * @param storeKey
  *
- * @return {DoingHook} Function that returns whether a hook is currently
+ * @return Function that returns whether a hook is currently
  *                     being executed.
  */
 function createDoingHook( hooks: Hooks, storeKey: StoreKey ): DoingHook {
