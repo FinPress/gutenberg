@@ -6,15 +6,17 @@
  *
  * @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
  */
+$modules = array( 'initial-1', 'initial-2' );
 
-$module_path = '/module-dynamic.js';
-$module_url  = plugins_url( $module_path, __FILE__ );
-wp_register_script_module(
-	'test/router-script-modules-dynamic',
-	$module_url,
-	array(),
-	filemtime( plugin_dir_path( __FILE__ ) . $module_path )
-);
+foreach ( $modules as $module ) {
+	$module_path = '/module-' . $module . '.js';
+	wp_register_script_module(
+		'test/router-script-modules-' . $module,
+		plugins_url( $module_path, __FILE__ ),
+		array(),
+		filemtime( plugin_dir_path( __FILE__ ) . $module_path )
+	);
+}
 
 $wrapper_attributes = get_block_wrapper_attributes();
 ?>

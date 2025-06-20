@@ -7,22 +7,37 @@ import { store } from '@wordpress/interactivity';
  * External dependencies
  */
 // eslint-disable-next-line import/no-unresolved
-import name from 'test/router-script-modules-alpha';
+import nameStatic from 'test/router-script-modules-alpha-1';
+// eslint-disable-next-line import/no-unresolved
+import nameInitialStatic from 'test/router-script-modules-initial-1';
 
 const { state } = store( 'test/router-script-modules-alpha', {
 	state: {
-		name,
+		name: 'alpha',
 	},
 	actions: {
-		*updateName() {
-			const { default: suffix } = yield import(
+		updateFromStatic() {
+			state.name = nameStatic;
+		},
+		updateFromInitialStatic() {
+			state.name = nameInitialStatic;
+		},
+		*updateFromDynamic() {
+			const { default: nameDynamic } = yield import(
 				// eslint-disable-next-line import/no-unresolved
-				'test/router-script-modules-dynamic'
+				'test/router-script-modules-alpha-2'
 			);
-			state.name += ` (${ suffix })`;
+			state.name = nameDynamic;
+		},
+		*updateFromInitialDynamic() {
+			const { default: nameInitialDynamic } = yield import(
+				// eslint-disable-next-line import/no-unresolved
+				'test/router-script-modules-initial-2'
+			);
+			state.name = nameInitialDynamic;
 		},
 	},
 } );
 
 const { actions } = store( 'test/router-script-modules' );
-actions.pushName?.( name );
+actions.pushName?.( state.name );
