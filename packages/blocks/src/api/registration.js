@@ -204,7 +204,7 @@ export function validateType( value, expectedType ) {
  *
  * @return {Array} Array containing the errors encountered.
  */
-function validateBlockSchema( name, blockMetadata ) {
+export function validateBlockSchema( name, blockMetadata ) {
 	let errors = [];
 
 	if (
@@ -212,17 +212,18 @@ function validateBlockSchema( name, blockMetadata ) {
 		blockMetadata === null ||
 		Array.isArray( blockMetadata )
 	) {
-		warning( `"${ name }" block.json: Metadata must be a JSON object.` );
-		return false;
+		errors.push(
+			`"${ name }" block.json: Metadata must be a JSON object.`
+		);
+		return errors;
 	}
 
 	const requiredProperties = blockSchema.required || [];
 	for ( const key of requiredProperties ) {
 		if ( ! ( key in blockMetadata ) ) {
-			warning(
+			errors.push(
 				`"${ name }" block.json: Missing required property "${ key }".`
 			);
-			return false;
 		}
 	}
 
