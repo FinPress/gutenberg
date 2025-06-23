@@ -1,7 +1,7 @@
 /**
  * Checks for invalid characters within the provided fragment.
  *
- * @param {string} fragment The url fragment.
+ * @param fragment The url fragment.
  *
  * @example
  * ```js
@@ -9,9 +9,9 @@
  * const isNotValid = isValidFragment( '#invalid-#fragment' ); // false
  * ```
  *
- * @return {boolean} True if the argument contains a valid fragment.
+ * @return True if the argument contains a valid fragment.
  */
-export function isValidFragment( fragment ) {
+export function isValidFragment( fragment: string ): boolean {
 	if ( ! fragment ) {
 		return false;
 	}

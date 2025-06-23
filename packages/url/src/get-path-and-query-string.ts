@@ -6,7 +6,7 @@ import { getPath, getQueryString } from '.';
 /**
  * Returns the path part and query string part of the URL.
  *
- * @param {string} url The full URL.
+ * @param url The full URL.
  *
  * @example
  * ```js
@@ -14,9 +14,9 @@ import { getPath, getQueryString } from '.';
  * const pathAndQueryString2 = getPathAndQueryString( 'https://wordpress.org/help/faq/' ); // '/help/faq'
  * ```
  *
- * @return {string} The path part and query string part of the URL.
+ * @return The path part and query string part of the URL.
  */
-export function getPathAndQueryString( url ) {
+export function getPathAndQueryString( url: string ): string {
 	const path = getPath( url );
 	const queryString = getQueryString( url );
 	let value = '/';

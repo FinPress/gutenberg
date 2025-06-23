@@ -3,11 +3,11 @@
  * will be treated as identical, regardless of order they appear in the original
  * text.
  *
- * @param {string} path Original path.
+ * @param path Original path.
  *
- * @return {string} Normalized path.
+ * @return Normalized path.
  */
-export function normalizePath( path ) {
+export function normalizePath( path: string ): string {
 	const split = path.split( '?' );
 	const query = split[ 1 ];
 	const base = split[ 0 ];

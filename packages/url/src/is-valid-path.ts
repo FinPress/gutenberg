@@ -1,7 +1,7 @@
 /**
  * Checks for invalid characters within the provided path.
  *
- * @param {string} path The URL path.
+ * @param path The URL path.
  *
  * @example
  * ```js
@@ -9,9 +9,9 @@
  * const isNotValid = isValidPath( '/invalid?test/path/' ); // false
  * ```
  *
- * @return {boolean} True if the argument contains a valid path
+ * @return True if the argument contains a valid path
  */
-export function isValidPath( path ) {
+export function isValidPath( path: string ): boolean {
 	if ( ! path ) {
 		return false;
 	}

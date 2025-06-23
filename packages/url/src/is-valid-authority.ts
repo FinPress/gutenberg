@@ -1,7 +1,7 @@
 /**
  * Checks for invalid characters within the provided authority.
  *
- * @param {string} authority A string containing the URL authority.
+ * @param authority A string containing the URL authority.
  *
  * @example
  * ```js
@@ -9,9 +9,9 @@
  * const isNotValid = isValidAuthority( 'wordpress#org' ); // false
  * ```
  *
- * @return {boolean} True if the argument contains a valid authority.
+ * @return True if the argument contains a valid authority.
  */
-export function isValidAuthority( authority ) {
+export function isValidAuthority( authority: string ): boolean {
 	if ( ! authority ) {
 		return false;
 	}

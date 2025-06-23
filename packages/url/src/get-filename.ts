@@ -1,7 +1,7 @@
 /**
  * Returns the filename part of the URL.
  *
- * @param {string} url The full URL.
+ * @param url The full URL.
  *
  * @example
  * ```js
@@ -9,9 +9,9 @@
  * const filename2 = getFilename( '/this/is/a/test.png' ); // 'test.png'
  * ```
  *
- * @return {string|void} The filename part of the URL.
+ * @return The filename part of the URL.
  */
-export function getFilename( url ) {
+export function getFilename( url: string ): string | void {
 	let filename;
 
 	if ( ! url ) {

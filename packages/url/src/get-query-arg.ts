@@ -3,19 +3,17 @@
  */
 import { getQueryArgs } from './get-query-args';
 
-/**
- * @typedef {{[key: string]: QueryArgParsed}} QueryArgObject
- */
+export interface QueryArgObject {
+	[ key: string ]: QueryArgParsed;
+}
 
-/**
- * @typedef {string|string[]|QueryArgObject} QueryArgParsed
- */
+export type QueryArgParsed = string | string[] | QueryArgObject;
 
 /**
  * Returns a single query argument of the url
  *
- * @param {string} url URL.
- * @param {string} arg Query arg name.
+ * @param  url URL.
+ * @param  arg Query arg name.
  *
  * @example
  * ```js
@@ -24,6 +22,6 @@ import { getQueryArgs } from './get-query-args';
  *
  * @return {QueryArgParsed|void} Query arg value.
  */
-export function getQueryArg( url, arg ) {
+export function getQueryArg( url: string, arg: string ) {
 	return getQueryArgs( url )[ arg ];
 }

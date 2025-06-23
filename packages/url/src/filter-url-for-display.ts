@@ -1,8 +1,8 @@
 /**
  * Returns a URL for display.
  *
- * @param {string}      url       Original URL.
- * @param {number|null} maxLength URL length.
+ * @param url       Original URL.
+ * @param maxLength URL length.
  *
  * @example
  * ```js
@@ -10,9 +10,12 @@
  * const imageUrl = filterURLForDisplay( 'https://www.wordpress.org/wp-content/uploads/img.png', 20 ); // …ent/uploads/img.png
  * ```
  *
- * @return {string} Displayed URL.
+ * @return Displayed URL.
  */
-export function filterURLForDisplay( url, maxLength = null ) {
+export function filterURLForDisplay(
+	url: string,
+	maxLength: number | null = null
+): string {
 	if ( ! url ) {
 		return '';
 	}

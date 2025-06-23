@@ -1,7 +1,7 @@
 /**
  * Returns the path part of the URL.
  *
- * @param {string} url The full URL.
+ * @param url The full URL.
  *
  * @example
  * ```js
@@ -9,9 +9,9 @@
  * const path2 = getPath( 'https://wordpress.org/help/faq/' ); // 'help/faq'
  * ```
  *
- * @return {string|void} The path part of the URL.
+ * @return The path part of the URL.
  */
-export function getPath( url ) {
+export function getPath( url: string ): string | void {
 	const matches =
 		/^[^\/\s:]+:(?:\/\/)?[^\/\s#?]+[\/]([^\s#?]+)[#?]{0,1}\S*$/.exec( url );
 	if ( matches ) {

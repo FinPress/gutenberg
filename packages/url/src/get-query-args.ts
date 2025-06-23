@@ -3,22 +3,19 @@
  */
 import { safeDecodeURIComponent } from './safe-decode-uri-component';
 import { getQueryString } from './get-query-string';
+import type { QueryArgParsed } from './get-query-arg';
 
-/** @typedef {import('./get-query-arg').QueryArgParsed} QueryArgParsed */
-
-/**
- * @typedef {Record<string,QueryArgParsed>} QueryArgs
- */
+type QueryArgs = Record< string, QueryArgParsed >;
 
 /**
  * Sets a value in object deeply by a given array of path segments. Mutates the
  * object reference.
  *
- * @param {Record<string,*>} object Object in which to assign.
- * @param {string[]}         path   Path segment at which to set value.
- * @param {*}                value  Value to set.
+ * @param object Object in which to assign.
+ * @param path   Path segment at which to set value.
+ * @param value  Value to set.
  */
-function setPath( object, path, value ) {
+function setPath( object: Record< string, any >, path: string[], value: any ) {
 	const length = path.length;
 	const lastIndex = length - 1;
 	for ( let i = 0; i < length; i++ ) {
@@ -61,7 +58,7 @@ function setPath( object, path, value ) {
  * Returns an object of query arguments of the given URL. If the given URL is
  * invalid or has no querystring, an empty object is returned.
  *
- * @param {string} url URL.
+ * @param url URL.
  *
  * @example
  * ```js
@@ -69,9 +66,9 @@ function setPath( object, path, value ) {
  * // { "foo": "bar", "bar": "baz" }
  * ```
  *
- * @return {QueryArgs} Query args object.
+ * @return Query args object.
  */
-export function getQueryArgs( url ) {
+export function getQueryArgs( url: string ): QueryArgs {
 	return (
 		( getQueryString( url ) || '' )
 			// Normalize space encoding, accounting for PHP URL encoding

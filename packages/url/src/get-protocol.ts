@@ -1,7 +1,7 @@
 /**
  * Returns the protocol part of the URL.
  *
- * @param {string} url The full URL.
+ * @param url The full URL.
  *
  * @example
  * ```js
@@ -9,9 +9,9 @@
  * const protocol2 = getProtocol( 'https://wordpress.org' ); // 'https:'
  * ```
  *
- * @return {string|void} The protocol part of the URL.
+ * @return  The protocol part of the URL.
  */
-export function getProtocol( url ) {
+export function getProtocol( url: string ): string | void {
 	const matches = /^([^\s:]+:)/.exec( url );
 	if ( matches ) {
 		return matches[ 1 ];

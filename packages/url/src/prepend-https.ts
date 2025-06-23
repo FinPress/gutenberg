@@ -8,16 +8,16 @@ import { prependHTTP } from './prepend-http';
  *
  * Note: this will not replace "http://" with "https://".
  *
- * @param {string} url The URL to test.
+ * @param url The URL to test.
  *
  * @example
  * ```js
  * const actualURL = prependHTTPS( 'wordpress.org' ); // https://wordpress.org
  * ```
  *
- * @return {string} The updated URL.
+ * @return The updated URL.
  */
-export function prependHTTPS( url ) {
+export function prependHTTPS( url: string ): string {
 	if ( ! url ) {
 		return url;
 	}

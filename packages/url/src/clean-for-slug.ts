@@ -15,11 +15,11 @@ import removeAccents from 'remove-accents';
  * except hyphens. Converts remaining string to lowercase. It does not account
  * for octets, HTML entities, or other encoded characters.
  *
- * @param {string} string Title or slug to be processed.
+ * @param string Title or slug to be processed.
  *
- * @return {string} Processed string.
+ * @return Processed string.
  */
-export function cleanForSlug( string ) {
+export function cleanForSlug( string: string ): string {
 	if ( ! string ) {
 		return '';
 	}

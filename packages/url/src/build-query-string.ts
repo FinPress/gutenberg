@@ -18,11 +18,11 @@
  * // "simple=is%20ok&arrays%5B0%5D=are&arrays%5B1%5D=fine&arrays%5B2%5D=too&objects%5BevenNested%5D%5Bok%5D=yes"
  * ```
  *
- * @param {Record<string,*>} data Data to encode.
+ * @param data Data to encode.
  *
- * @return {string} Query string.
+ * @return Query string.
  */
-export function buildQueryString( data ) {
+export function buildQueryString( data: Record< string, any > ): string {
 	let string = '';
 
 	const stack = Object.entries( data );

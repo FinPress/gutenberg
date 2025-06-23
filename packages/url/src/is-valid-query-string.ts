@@ -1,7 +1,7 @@
 /**
  * Checks for invalid characters within the provided query string.
  *
- * @param {string} queryString The query string.
+ * @param queryString The query string.
  *
  * @example
  * ```js
@@ -9,9 +9,9 @@
  * const isNotValid = isValidQueryString( 'query=true?another=false' ); // false
  * ```
  *
- * @return {boolean} True if the argument contains a valid query string.
+ * @return True if the argument contains a valid query string.
  */
-export function isValidQueryString( queryString ) {
+export function isValidQueryString( queryString: string ): boolean {
 	if ( ! queryString ) {
 		return false;
 	}
