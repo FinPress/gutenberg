@@ -7,10 +7,12 @@ import {
 	Disabled,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	TextControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
+import { Fragment } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -18,7 +20,8 @@ import ServerSideRender from '@wordpress/server-side-render';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 export default function ArchivesEdit( { attributes, setAttributes } ) {
-	const { showLabel, showPostCounts, displayAsDropdown, type } = attributes;
+	const { showLabel, label, showPostCounts, displayAsDropdown, type } =
+		attributes;
 
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
@@ -58,25 +61,48 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 					</ToolsPanelItem>
 
 					{ displayAsDropdown && (
-						<ToolsPanelItem
-							label={ __( 'Show label' ) }
-							isShownByDefault
-							hasValue={ () => ! showLabel }
-							onDeselect={ () =>
-								setAttributes( { showLabel: true } )
-							}
-						>
-							<ToggleControl
-								__nextHasNoMarginBottom
+						<Fragment>
+							<ToolsPanelItem
 								label={ __( 'Show label' ) }
-								checked={ showLabel }
-								onChange={ () =>
-									setAttributes( {
-										showLabel: ! showLabel,
-									} )
+								isShownByDefault
+								hasValue={ () => ! showLabel }
+								onDeselect={ () =>
+									setAttributes( { showLabel: true } )
 								}
-							/>
-						</ToolsPanelItem>
+							>
+								<ToggleControl
+									__nextHasNoMarginBottom
+									label={ __( 'Show label' ) }
+									checked={ showLabel }
+									onChange={ () =>
+										setAttributes( {
+											showLabel: ! showLabel,
+										} )
+									}
+								/>
+							</ToolsPanelItem>
+							{ showLabel && (
+								<ToolsPanelItem
+									label={ __( 'Label' ) }
+									isShownByDefault
+									hasValue={ () => !! label }
+									onDeselect={ () =>
+										setAttributes( { label: '' } )
+									}
+								>
+									<TextControl
+										__nextHasNoMarginBottom
+										__next40pxDefaultSize
+										label={ __( 'Label' ) }
+										value={ label }
+										onChange={ ( value ) =>
+											setAttributes( { label: value } )
+										}
+										placeholder={ __( 'Archives' ) }
+									/>
+								</ToolsPanelItem>
+							) }
+						</Fragment>
 					) }
 
 					<ToolsPanelItem

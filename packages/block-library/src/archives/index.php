@@ -19,6 +19,7 @@
 function render_block_core_archives( $attributes ) {
 	$show_post_count = ! empty( $attributes['showPostCounts'] );
 	$type            = isset( $attributes['type'] ) ? $attributes['type'] : 'monthly';
+	$label           = isset( $attributes['label'] ) ? $attributes['label'] : __( 'Archives' );
 
 	$class = 'wp-block-archives-list';
 
@@ -27,7 +28,7 @@ function render_block_core_archives( $attributes ) {
 		$class = 'wp-block-archives-dropdown';
 
 		$dropdown_id = wp_unique_id( 'wp-block-archives-' );
-		$title       = __( 'Archives' );
+		$title       = $label;
 
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-archives.php */
 		$dropdown_args = apply_filters(
