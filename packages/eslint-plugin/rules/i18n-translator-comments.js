@@ -185,9 +185,9 @@ module.exports = {
 									);
 
 									// Only allow numeric or printf-style placeholders
-									const isNumbered = /^[0-9]+:$/.test(
+									const isNumbered = /^[0-9]+$/.test(
 										normalizedKey
-									); // 1:, 2:, etc.
+									);
 									const isPrintf = [
 										'%s',
 										'%d',
@@ -195,22 +195,30 @@ module.exports = {
 									].includes( key );
 
 									// Only add if it's not already in allowedUsed
-									return (
-										( isNumbered || isPrintf ) &&
+									const isValidType =
+										( isNumbered &&
+											keysInComment.get(
+												normalizedKey
+											) ) ||
+										isPrintf;
+									const isUnused =
 										! placeholdersUsed.includes( key ) &&
 										! placeholdersUsed.includes(
 											normalizedKey
-										)
-									);
+										);
+
+									return isValidType && isUnused;
 							  } )
 							: [];
+
+						// console.log({extra, keysInComment, placeholdersUsed});
 
 						if ( extra.length > 0 ) {
 							context.report( {
 								node,
 								messageId: 'extraPlaceholders',
 								data: {
-									keys: extra.join( ', ' ),
+									keys: extra.join( ',' ),
 								},
 							} );
 

@@ -157,5 +157,16 @@ _x( '"%1$s"/ %2$s', 'caption' );
 				{ messageId: 'extraPlaceholders', data: { keys: [ '%d' ] } },
 			],
 		},
+		{
+			code: `
+// translators: %s: hi, 1: okay, 2: bye
+		i18n.sprintf( i18n.__( '%s point' ), number );`,
+			errors: [
+				{
+					messageId: 'extraPlaceholders',
+					data: { keys: [ '1', '2' ] },
+				},
+			],
+		},
 	],
 } );
