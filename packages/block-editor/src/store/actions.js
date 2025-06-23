@@ -1157,7 +1157,11 @@ export const mergeBlocks =
 		const blockA = select.getBlock( clientIdA );
 		const blockAType = getBlockType( blockA.name );
 
-		if ( ! blockAType ) {
+		if (
+			! blockAType ||
+			select.getBlockEditingMode( clientIdA ) === 'disabled' ||
+			select.getBlockEditingMode( clientIdB ) === 'disabled'
+		) {
 			return;
 		}
 
@@ -1266,7 +1270,7 @@ export const mergeBlocks =
 			offset !== undefined &&
 			// We cannot restore text selection if the RichText identifier
 			// is not a defined block attribute key. This can be the case if the
-			// fallback intance ID is used to store selection (and no RichText
+			// fallback instance ID is used to store selection (and no RichText
 			// identifier is set), or when the identifier is wrong.
 			!! attributeDefinition;
 

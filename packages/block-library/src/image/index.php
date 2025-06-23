@@ -149,18 +149,14 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 		return $block_content;
 	}
 
-	$alt              = $p->get_attribute( 'alt' );
-	$img_uploaded_src = $p->get_attribute( 'src' );
-	$img_class_names  = $p->get_attribute( 'class' );
-	$img_styles       = $p->get_attribute( 'style' );
-	$img_width        = 'none';
-	$img_height       = 'none';
-	$aria_label       = __( 'Enlarge image' );
-
-	if ( $alt ) {
-		/* translators: %s: Image alt text. */
-		$aria_label = sprintf( __( 'Enlarge image: %s' ), $alt );
-	}
+	$alt               = $p->get_attribute( 'alt' );
+	$img_uploaded_src  = $p->get_attribute( 'src' );
+	$img_class_names   = $p->get_attribute( 'class' );
+	$img_styles        = $p->get_attribute( 'style' );
+	$img_width         = 'none';
+	$img_height        = 'none';
+	$aria_label        = __( 'Enlarge' );
+	$dialog_aria_label = __( 'Enlarged image' );
 
 	if ( isset( $block['attrs']['id'] ) ) {
 		$img_uploaded_src = wp_get_attachment_url( $block['attrs']['id'] );
@@ -190,7 +186,7 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 					'targetWidth'      => $img_width,
 					'targetHeight'     => $img_height,
 					'scaleAttr'        => $block['attrs']['scale'] ?? false,
-					'ariaLabel'        => $aria_label,
+					'ariaLabel'        => $dialog_aria_label,
 					'alt'              => $alt,
 				),
 			),
@@ -208,6 +204,7 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 			JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
 		)
 	);
+	$p->set_attribute( 'data-wp-key', $unique_image_id );
 
 	// Image.
 	$p->next_tag( 'img' );
@@ -276,12 +273,14 @@ function block_core_image_print_lightbox_overlay() {
 		<div
 			class="wp-lightbox-overlay zoom"
 			data-wp-interactive="core/image"
+			data-wp-router-region='{ "id": "core/image-overlay", "attachTo": "body" }'
+			data-wp-key="wp-lightbox-overlay"
 			data-wp-context='{}'
 			data-wp-bind--role="state.roleAttribute"
 			data-wp-bind--aria-label="state.currentImage.ariaLabel"
 			data-wp-bind--aria-modal="state.ariaModal"
 			data-wp-class--active="state.overlayEnabled"
-			data-wp-class--show-closing-animation="state.showClosingAnimation"
+			data-wp-class--show-closing-animation="state.overlayOpened"
 			data-wp-watch="callbacks.setOverlayFocus"
 			data-wp-on--keydown="actions.handleKeydown"
 			data-wp-on-async--touchstart="actions.handleTouchStart"

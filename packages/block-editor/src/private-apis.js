@@ -51,6 +51,7 @@ import TabbedSidebar from './components/tabbed-sidebar';
 import CommentIconSlotFill from './components/collab/block-comment-icon-slot';
 import CommentIconToolbarSlotFill from './components/collab/block-comment-icon-toolbar-slot';
 import ImageEditor from './components/image-editor/v2';
+import HTMLElementControl from './components/html-element-control';
 /**
  * Private @wordpress/block-editor APIs.
  */
@@ -81,6 +82,7 @@ lock( privateApis, {
 	TextAlignmentControl,
 	usesContextKey,
 	useFlashEditableBlocks,
+	HTMLElementControl,
 	useZoomOut,
 	globalStylesDataKey,
 	globalStylesLinksDataKey,
