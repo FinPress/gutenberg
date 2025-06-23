@@ -127,7 +127,7 @@ If this property is added, an option will be added with this label to represent 
 
 ### `onChange`
 
- - Type: `(value: NoInfer<V>, extra?: { event?: ChangeEvent<HTMLSelectElement>; }) => void`
+ - Type: `(value: string, extra?: { event?: ChangeEvent<HTMLSelectElement>; }) => void`
  - Required: No
 
 A function that receives the value of the new option that is being selected as input.
@@ -165,7 +165,7 @@ import {
 
 ### `selectedId`
 
- - Type: `NoInfer<V>`
+ - Type: `string`
  - Required: No
 
 The id of the currently selected node.

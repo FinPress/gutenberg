@@ -7,12 +7,14 @@ import {
 	Disabled,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-	TextControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import {
+	InspectorControls,
+	useBlockProps,
+	RichText,
+} from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
-import { Fragment } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -24,6 +26,10 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 		attributes;
 
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+
+	// Clone the attributes to avoid mutating the original object and add the `isEditor` property.
+	const propsAttributes = structuredClone( attributes );
+	propsAttributes.isEditor = true;
 
 	return (
 		<>
@@ -61,48 +67,25 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 					</ToolsPanelItem>
 
 					{ displayAsDropdown && (
-						<Fragment>
-							<ToolsPanelItem
+						<ToolsPanelItem
+							label={ __( 'Show label' ) }
+							isShownByDefault
+							hasValue={ () => ! showLabel }
+							onDeselect={ () =>
+								setAttributes( { showLabel: true } )
+							}
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
 								label={ __( 'Show label' ) }
-								isShownByDefault
-								hasValue={ () => ! showLabel }
-								onDeselect={ () =>
-									setAttributes( { showLabel: true } )
+								checked={ showLabel }
+								onChange={ () =>
+									setAttributes( {
+										showLabel: ! showLabel,
+									} )
 								}
-							>
-								<ToggleControl
-									__nextHasNoMarginBottom
-									label={ __( 'Show label' ) }
-									checked={ showLabel }
-									onChange={ () =>
-										setAttributes( {
-											showLabel: ! showLabel,
-										} )
-									}
-								/>
-							</ToolsPanelItem>
-							{ showLabel && (
-								<ToolsPanelItem
-									label={ __( 'Label' ) }
-									isShownByDefault
-									hasValue={ () => !! label }
-									onDeselect={ () =>
-										setAttributes( { label: '' } )
-									}
-								>
-									<TextControl
-										__nextHasNoMarginBottom
-										__next40pxDefaultSize
-										label={ __( 'Label' ) }
-										value={ label }
-										onChange={ ( value ) =>
-											setAttributes( { label: value } )
-										}
-										placeholder={ __( 'Archives' ) }
-									/>
-								</ToolsPanelItem>
-							) }
-						</Fragment>
+							/>
+						</ToolsPanelItem>
 					) }
 
 					<ToolsPanelItem
@@ -152,11 +135,24 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 				</ToolsPanel>
 			</InspectorControls>
 			<div { ...useBlockProps() }>
+				{ displayAsDropdown && showLabel && (
+					<RichText
+						tagName="label"
+						value={ label }
+						className="wp-block-archives__label"
+						// htmlFor={ instanceId }
+						onChange={ ( value ) =>
+							setAttributes( { label: value } )
+						}
+						placeholder={ __( 'Archives' ) }
+						aria-label={ __( 'Archives label' ) }
+					/>
+				) }
 				<Disabled>
 					<ServerSideRender
 						block="core/archives"
 						skipBlockSupportAttributes
-						attributes={ attributes }
+						attributes={ propsAttributes }
 					/>
 				</Disabled>
 			</div>

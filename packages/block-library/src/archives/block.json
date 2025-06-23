@@ -17,7 +17,11 @@
 		},
 		"label": {
 			"type": "string",
-			"default": "Archives"
+			"default": ""
+		},
+		"isEditor": {
+			"type": "boolean",
+			"default": false
 		},
 		"showPostCounts": {
 			"type": "boolean",
