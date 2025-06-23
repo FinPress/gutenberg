@@ -4,15 +4,15 @@ const EMAIL_REGEXP =
 /**
  * Determines whether the given string looks like an email.
  *
- * @param {string} email The string to scrutinise.
+ * @param email The string to scrutinise.
  *
  * @example
  * ```js
  * const isEmail = isEmail( 'hello@wordpress.org' ); // true
  * ```
  *
- * @return {boolean} Whether or not it looks like an email.
+ * @return Whether or not it looks like an email.
  */
-export function isEmail( email ) {
+export function isEmail( email: string ): boolean {
 	return EMAIL_REGEXP.test( email );
 }
