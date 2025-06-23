@@ -55,7 +55,7 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 	}
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classes ) ) );
 
-	$content               = '<p class="wp-block-post-excerpt__excerpt">' . $excerpt;
+	$content               = '<p class="wp-block-post-excerpt__excerpt">' . nl2br( wp_kses_post( $excerpt ) );
 	$show_more_on_new_line = ! isset( $attributes['showMoreOnNewLine'] ) || $attributes['showMoreOnNewLine'];
 	if ( $show_more_on_new_line && ! empty( $more_text ) ) {
 		$content .= '</p><p class="wp-block-post-excerpt__more-text">' . $more_text . '</p>';
@@ -109,7 +109,7 @@ function block_core_post_excerpt_trim_words( $text, $num_words = 55, $more = nul
 		$text = implode( $sep, $words_array );
 	}
 
-	return nl2br( $text );
+	return $text;
 }
 
 /**
