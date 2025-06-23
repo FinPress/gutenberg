@@ -67,8 +67,25 @@ sprintf( __( 'Address: %1$s, City: %2$s' ), address, city );`,
 		},
 		{
 			code: `
-// translators: %s: 1\\: or 2\\:
+// translators: %s: 1 or 2
 sprintf( __( '%s point' ), number );`,
+		},
+		{
+			code: `
+/* translators: accessibility text. %1: current block position (number). %2: next block position (number) */
+	__( 'Move block left from position %1$s to position %2$s');`,
+		},
+		{
+			code: `
+// translators: %1s: Title of a media work from Openverse; %2s: Work's licence e.g: "CC0 1.0".
+_x( '"%1$s"/ %2$s', 'caption' );
+`,
+		},
+		{
+			code: `
+// translators: %1$s: Title of a media work from Openverse; %2$s: Work's licence e.g: "CC0 1.0".
+_x( '"%1$s"/ %2$s', 'caption' );
+			`,
 		},
 	],
 	invalid: [
