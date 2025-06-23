@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Enhancement
+
+-   `ColorPicker`: Improve color picker slider focus styles for better keyboard navigation accessibility ([#70146](https://github.com/WordPress/gutenberg/pull/70146)).
+
 ### Bug Fixes
 
 -   `FormFileUpload`: Extend audio accept MIME types for iOS compatibility ([#70354](https://github.com/WordPress/gutenberg/pull/70354)).
