@@ -597,6 +597,87 @@ test.describe( 'List View', () => {
 			] );
 	} );
 
+	test( 'should paste block styles using keyboard', async ( {
+		editor,
+		page,
+		pageUtils,
+		listViewUtils,
+		context,
+	} ) => {
+		// Grant clipboard access for copying and pasting styles between blocks.
+		await context.grantPermissions( [
+			'clipboard-read',
+			'clipboard-write',
+		] );
+
+		// Insert a block without styles.
+		await editor.insertBlock( {
+			name: 'core/paragraph',
+			attributes: {
+				content: 'First Block',
+			},
+		} );
+
+		// Insert a block with styles.
+		await editor.insertBlock( {
+			name: 'core/paragraph',
+			attributes: {
+				content: 'Second Block',
+				style: {
+					color: {
+						text: '#ff0000',
+						background: '#00ff00',
+					},
+				},
+			},
+		} );
+
+		// Copy the styles from the second block.
+		await editor.clickBlockToolbarButton( 'Options' );
+		await page
+			.getByRole( 'menu', { name: 'Options' } )
+			.getByRole( 'menuitem', {
+				name: 'Copy Styles',
+			} )
+			.click();
+
+		// Open List View.
+		await listViewUtils.openListView();
+
+		// Navigate to the block without styles.
+		await page.keyboard.press( 'ArrowUp' );
+
+		// Paste the copied styles.
+		await pageUtils.pressKeys( 'primaryAlt+v' );
+
+		await expect.poll( editor.getBlocks ).toMatchObject( [
+			{
+				name: 'core/paragraph',
+				attributes: {
+					content: 'First Block',
+					style: {
+						color: {
+							text: '#ff0000',
+							background: '#00ff00',
+						},
+					},
+				},
+			},
+			{
+				name: 'core/paragraph',
+				attributes: {
+					content: 'Second Block',
+					style: {
+						color: {
+							text: '#ff0000',
+							background: '#00ff00',
+						},
+					},
+				},
+			},
+		] );
+	} );
+
 	test( 'should cut and paste blocks using keyboard', async ( {
 		editor,
 		pageUtils,
@@ -1062,8 +1143,8 @@ test.describe( 'List View', () => {
 
 		// Delete remaining blocks.
 		// Keyboard shortcut should also work.
-		await pageUtils.pressKeys( 'primaryShift+Backspace' );
-		await pageUtils.pressKeys( 'primaryShift+Backspace' );
+		await pageUtils.pressKeys( 'access+z' );
+		await pageUtils.pressKeys( 'access+z' );
 		await expect
 			.poll(
 				listViewUtils.getBlocksWithA11yAttributes,
@@ -1095,7 +1176,7 @@ test.describe( 'List View', () => {
 				{ name: 'core/heading', selected: false },
 			] );
 
-		await pageUtils.pressKeys( 'primaryShift+Backspace' );
+		await pageUtils.pressKeys( 'access+z' );
 		await expect
 			.poll(
 				listViewUtils.getBlocksWithA11yAttributes,
@@ -1118,11 +1199,7 @@ test.describe( 'List View', () => {
 			.getByRole( 'gridcell', { name: 'File' } )
 			.getByRole( 'link' )
 			.focus();
-		for ( const keys of [
-			'Delete',
-			'Backspace',
-			'primaryShift+Backspace',
-		] ) {
+		for ( const keys of [ 'Delete', 'Backspace', 'access+z' ] ) {
 			await pageUtils.pressKeys( keys );
 			await expect
 				.poll(
@@ -1283,7 +1360,7 @@ test.describe( 'List View', () => {
 			optionsForFileMenu,
 			'Pressing Space should also open the menu dropdown'
 		).toBeVisible();
-		await pageUtils.pressKeys( 'primaryShift+Backspace' ); // Keyboard shortcut for Delete.
+		await pageUtils.pressKeys( 'access+z' ); // Keyboard shortcut for Delete.
 		await expect
 			.poll(
 				listViewUtils.getBlocksWithA11yAttributes,
@@ -1303,7 +1380,7 @@ test.describe( 'List View', () => {
 			optionsForFileMenu.getByRole( 'menuitem', { name: 'Delete' } ),
 			'The delete menu item should be hidden for locked blocks'
 		).toBeHidden();
-		await pageUtils.pressKeys( 'primaryShift+Backspace' );
+		await pageUtils.pressKeys( 'access+z' );
 		await expect
 			.poll(
 				listViewUtils.getBlocksWithA11yAttributes,
