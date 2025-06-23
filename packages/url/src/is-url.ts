@@ -1,7 +1,7 @@
 /**
  * Determines whether the given string looks like a URL.
  *
- * @param {string} url The string to scrutinise.
+ * @param url The string to scrutinise.
  *
  * @example
  * ```js
@@ -11,9 +11,9 @@
  * @see https://url.spec.whatwg.org/
  * @see https://url.spec.whatwg.org/#valid-url-string
  *
- * @return {boolean} Whether or not it looks like a URL.
+ * @return Whether or not it looks like a URL.
  */
-export function isURL( url ) {
+export function isURL( url: string ): boolean {
 	// A URL can be considered value if the `URL` constructor is able to parse
 	// it. The constructor throws an error for an invalid URL.
 	try {
