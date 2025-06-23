@@ -291,7 +291,7 @@ export default function CommentTemplateEdit( {
 		);
 	}
 
-	if ( ! postId ) {
+	if ( ! postId || ! commentTree.length ) {
 		commentTree = getCommentsPlaceholder( {
 			perPage: commentsPerPage,
 			pageComments,
