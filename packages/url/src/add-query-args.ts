@@ -21,7 +21,7 @@ import { getFragment } from './get-fragment';
  *
  * @return {string} URL with arguments applied.
  */
-export function addQueryArgs( url: string = '', args: Object ): string {
+export function addQueryArgs( url: string = '', args?: Object ): string {
 	// If no arguments are to be appended, return original URL.
 	if ( ! args || ! Object.keys( args ).length ) {
 		return url;
