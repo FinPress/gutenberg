@@ -93,12 +93,14 @@ test.describe( 'Router script modules', () => {
 			await page.getByTestId( 'link alpha' ).click();
 
 			// This element disappears when a navigation starts.
-			// It should be visible again after a successful navigation.
 			await expect( csn ).toBeHidden();
-			await expect( csn ).toBeVisible();
 
 			// Check the page title to ensure navigation was successful.
 			await expect( page ).toHaveTitle( 'alpha – gutenberg' );
+
+			// This should be visible again after a successful client-side
+			// navigation.
+			await expect( csn ).toBeVisible();
 
 			await expect( alpha ).toBeVisible();
 			await expect( bravo ).toBeHidden();
@@ -115,8 +117,8 @@ test.describe( 'Router script modules', () => {
 			await page.getByTestId( 'link bravo' ).click();
 
 			await expect( csn ).toBeHidden();
-			await expect( csn ).toBeVisible();
 			await expect( page ).toHaveTitle( 'bravo – gutenberg' );
+			await expect( csn ).toBeVisible();
 
 			await expect( alpha ).toBeHidden();
 			await expect( bravo ).toBeVisible();
@@ -130,8 +132,8 @@ test.describe( 'Router script modules', () => {
 			await page.getByTestId( 'link charlie' ).click();
 
 			await expect( csn ).toBeHidden();
-			await expect( csn ).toBeVisible();
 			await expect( page ).toHaveTitle( 'charlie – gutenberg' );
+			await expect( csn ).toBeVisible();
 
 			await expect( alpha ).toBeHidden();
 			await expect( bravo ).toBeHidden();
@@ -145,8 +147,8 @@ test.describe( 'Router script modules', () => {
 			await page.getByTestId( 'link all' ).click();
 
 			await expect( csn ).toBeHidden();
-			await expect( csn ).toBeVisible();
 			await expect( page ).toHaveTitle( 'all – gutenberg' );
+			await expect( csn ).toBeVisible();
 
 			await expect( alpha ).toBeVisible();
 			await expect( bravo ).toBeVisible();
