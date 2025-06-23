@@ -46,7 +46,7 @@ function render_block_core_rss( $attributes ) {
 	}
 
 	foreach ( $rss_items as $item ) {
-		$title = esc_html( trim( strip_tags( $item->get_title() ) ) );
+		$title = esc_html( trim( strip_tags( html_entity_decode( $item->get_title(), ENT_QUOTES, get_option( 'blog_charset' ) ) ) ) );
 		if ( empty( $title ) ) {
 			$title = __( '(no title)' );
 		}
