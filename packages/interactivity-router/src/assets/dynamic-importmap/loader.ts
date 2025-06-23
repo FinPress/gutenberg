@@ -190,8 +190,8 @@ function resolveDeps( load: ModuleLoad, seen: Record< string, any > ) {
 			}
 			// dynamic import
 			else {
-				pushStringTo( statementStart + 6 );
-				resolvedSource += `Shim(`;
+				pushStringTo( statementStart );
+				resolvedSource += `wpInteractivityRouterImport(`;
 				dynamicImportEndStack.push( statementEnd - 1 );
 				lastIndex = start;
 			}
