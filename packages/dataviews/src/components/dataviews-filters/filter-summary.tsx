@@ -80,7 +80,7 @@ const FilterText = ( {
 	if ( filterInView?.operator === OPERATOR_IS_ANY ) {
 		return createInterpolateElement(
 			sprintf(
-				/* translators: 1: Filter name. 3: Filter value. e.g.: "Author is any: Admin, Editor". */
+				/* translators: 1: Filter name. 2: Filter value. e.g.: "Author is any: Admin, Editor". */
 				__( '<Name>%1$s is any: </Name><Value>%2$s</Value>' ),
 				filter.name,
 				activeElements.map( ( element ) => element.label ).join( ', ' )
@@ -92,7 +92,7 @@ const FilterText = ( {
 	if ( filterInView?.operator === OPERATOR_IS_NONE ) {
 		return createInterpolateElement(
 			sprintf(
-				/* translators: 1: Filter name. 3: Filter value. e.g.: "Author is none: Admin, Editor". */
+				/* translators: 1: Filter name. 2: Filter value. e.g.: "Author is none: Admin, Editor". */
 				__( '<Name>%1$s is none: </Name><Value>%2$s</Value>' ),
 				filter.name,
 				activeElements.map( ( element ) => element.label ).join( ', ' )
@@ -104,7 +104,7 @@ const FilterText = ( {
 	if ( filterInView?.operator === OPERATOR_IS_ALL ) {
 		return createInterpolateElement(
 			sprintf(
-				/* translators: 1: Filter name. 3: Filter value. e.g.: "Author is all: Admin, Editor". */
+				/* translators: 1: Filter name. 2: Filter value. e.g.: "Author is all: Admin, Editor". */
 				__( '<Name>%1$s is all: </Name><Value>%2$s</Value>' ),
 				filter.name,
 				activeElements.map( ( element ) => element.label ).join( ', ' )
@@ -116,7 +116,7 @@ const FilterText = ( {
 	if ( filterInView?.operator === OPERATOR_IS_NOT_ALL ) {
 		return createInterpolateElement(
 			sprintf(
-				/* translators: 1: Filter name. 3: Filter value. e.g.: "Author is not all: Admin, Editor". */
+				/* translators: 1: Filter name. 2: Filter value. e.g.: "Author is not all: Admin, Editor". */
 				__( '<Name>%1$s is not all: </Name><Value>%2$s</Value>' ),
 				filter.name,
 				activeElements.map( ( element ) => element.label ).join( ', ' )
@@ -128,7 +128,7 @@ const FilterText = ( {
 	if ( filterInView?.operator === OPERATOR_IS ) {
 		return createInterpolateElement(
 			sprintf(
-				/* translators: 1: Filter name. 3: Filter value. e.g.: "Author is: Admin". */
+				/* translators: 1: Filter name. 2: Filter value. e.g.: "Author is: Admin". */
 				__( '<Name>%1$s is: </Name><Value>%2$s</Value>' ),
 				filter.name,
 				activeElements[ 0 ].label
@@ -140,7 +140,7 @@ const FilterText = ( {
 	if ( filterInView?.operator === OPERATOR_IS_NOT ) {
 		return createInterpolateElement(
 			sprintf(
-				/* translators: 1: Filter name. 3: Filter value. e.g.: "Author is not: Admin". */
+				/* translators: 1: Filter name. 2: Filter value. e.g.: "Author is not: Admin". */
 				__( '<Name>%1$s is not: </Name><Value>%2$s</Value>' ),
 				filter.name,
 				activeElements[ 0 ].label

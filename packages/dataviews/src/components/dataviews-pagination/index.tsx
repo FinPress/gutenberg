@@ -36,7 +36,7 @@ function DataViewsPagination() {
 				'aria-label':
 					currentPage === page
 						? sprintf(
-								// translators: Current page number in total number of pages
+								// translators: 1: Current page number, 2: total number of pages
 								__( 'Page %1$s of %2$s' ),
 								currentPage,
 								totalPages
