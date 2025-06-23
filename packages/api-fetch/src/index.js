@@ -67,6 +67,15 @@ function registerMiddleware( middleware ) {
 }
 
 /**
+ * Returns the list of registered middlewares.
+ *
+ * @return {import('./types').APIFetchMiddleware[]} The list of middlewares.
+ */
+function getMiddlewares() {
+	return middlewares;
+}
+
+/**
  * Checks the status of a response, throwing the Response as an error if
  * it is outside the 200 range.
  *
@@ -187,6 +196,7 @@ function apiFetch( options ) {
 }
 
 apiFetch.use = registerMiddleware;
+apiFetch.getMiddlewares = getMiddlewares;
 apiFetch.setFetchHandler = setFetchHandler;
 
 apiFetch.createNonceMiddleware = createNonceMiddleware;
