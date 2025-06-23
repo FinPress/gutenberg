@@ -155,7 +155,10 @@ module.exports = {
 							candidates.flatMap( extractPlaceholders );
 
 						const keysInCommentArr = [ ...keysInComment.keys() ];
+
+						// Check and filter placeholders that are not present in the comment.
 						const missing = placeholdersUsed.filter( ( key ) => {
+							// Regex to match the key and its potential formats in the array.
 							const regex = new RegExp( `%?${ key }(\\$[sdf])?` );
 							return ! keysInCommentArr.some( ( y ) =>
 								regex.test( y )
