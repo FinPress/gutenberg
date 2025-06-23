@@ -154,9 +154,13 @@ module.exports = {
 						const placeholdersUsed =
 							candidates.flatMap( extractPlaceholders );
 
-						const missing = placeholdersUsed.filter(
-							( key ) => ! keysInComment.has( key )
-						);
+						const keysInCommentArr = [ ...keysInComment.keys() ];
+						const missing = placeholdersUsed.filter( ( key ) => {
+							const regex = new RegExp( `%?${ key }(\\$[sdf])?` );
+							return ! keysInCommentArr.some( ( y ) =>
+								regex.test( y )
+							);
+						} );
 
 						if ( missing.length > 0 ) {
 							context.report( {
@@ -171,12 +175,31 @@ module.exports = {
 						}
 
 						const extra = keysInComment.size
-							? [ ...keysInComment.keys() ].filter(
-									( key ) =>
+							? [ ...keysInComment.keys() ].filter( ( key ) => {
+									const normalizedKey = key.replace(
+										/^%/,
+										''
+									);
+
+									// Only allow numeric or printf-style placeholders
+									const isNumbered = /^[0-9]+:$/.test(
+										normalizedKey
+									); // 1:, 2:, etc.
+									const isPrintf = [
+										'%s',
+										'%d',
+										'%f',
+									].includes( key );
+
+									// Only add if it's not already in allowedUsed
+									return (
+										( isNumbered || isPrintf ) &&
 										! placeholdersUsed.includes( key ) &&
-										( key.includes( '%' ) ||
-											keysInComment.get( key ) )
-							  )
+										! placeholdersUsed.includes(
+											normalizedKey
+										)
+									);
+							  } )
 							: [];
 
 						if ( extra.length > 0 ) {
