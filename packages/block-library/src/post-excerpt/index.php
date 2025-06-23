@@ -29,7 +29,7 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 	$excerpt_length = $attributes['excerptLength'];
 	$excerpt        = get_the_excerpt( $block->context['postId'] );
 	if ( isset( $excerpt_length ) ) {
-		$excerpt = wp_trim_words_preserve_newlines( $excerpt, $excerpt_length );
+		$excerpt = block_core_post_excerpt_trim_words( $excerpt, $excerpt_length );
 	}
 
 	$more_text           = ! empty( $attributes['moreText'] ) ? '<a class="wp-block-post-excerpt__more-link" href="' . esc_url( get_the_permalink( $block->context['postId'] ) ) . '">' . wp_kses_post( $attributes['moreText'] ) . '</a>' : '';
@@ -78,10 +78,11 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
  * @param  string $more Optional. What to append if the text is trimmed. Default '…'.
  * @return string The trimmed text with newlines preserved.
  */
-function wp_trim_words_preserve_newlines( $text, $num_words = 55, $more = null ) {
+function block_core_post_excerpt_trim_words( $text, $num_words = 55, $more = null ) {
 	if ( null === $more ) {
 		$more = __( '&hellip;' );
 	}
+
 	// Replace <br> tags with newlines temporarily,
 	// to retain manual breaks from editors.
 	$text      = str_replace( array( '<br>', '<br/>', '<br />' ), "\n", $text );
