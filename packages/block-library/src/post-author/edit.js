@@ -20,6 +20,8 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
+import { debounce } from '@wordpress/compose';
+import { useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
@@ -29,12 +31,56 @@ import { store as coreStore } from '@wordpress/core-data';
  */
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
-const minimumUsersForCombobox = 25;
-
 const AUTHORS_QUERY = {
 	who: 'authors',
 	per_page: 100,
+	_fields: 'id,name',
+	context: 'view',
 };
+
+function AuthorCombobox( { value, onChange } ) {
+	const [ filterValue, setFilterValue ] = useState( '' );
+	const { authors, isLoading } = useSelect(
+		( select ) => {
+			const { getUsers, isResolving } = select( coreStore );
+
+			const query = { ...AUTHORS_QUERY };
+			if ( filterValue ) {
+				query.search = filterValue;
+				query.search_columns = [ 'name' ];
+			}
+
+			return {
+				authors: getUsers( query ),
+				isLoading: isResolving( 'getUsers', [ query ] ),
+			};
+		},
+		[ filterValue ]
+	);
+
+	const authorOptions = authors?.length
+		? authors.map( ( { id, name } ) => {
+				return {
+					value: id,
+					label: name,
+				};
+		  } )
+		: [];
+
+	return (
+		<ComboboxControl
+			__next40pxDefaultSize
+			__nextHasNoMarginBottom
+			label={ __( 'Author' ) }
+			options={ authorOptions }
+			value={ value }
+			onFilterValueChange={ debounce( setFilterValue, 300 ) }
+			onChange={ onChange }
+			allowReset={ false }
+			isLoading={ isLoading }
+		/>
+	);
+}
 
 function PostAuthorEdit( {
 	isSelected,
@@ -45,9 +91,9 @@ function PostAuthorEdit( {
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
-	const { authorId, authorDetails, authors, supportsAuthor } = useSelect(
+	const { authorId, authorDetails, supportsAuthor } = useSelect(
 		( select ) => {
-			const { getEditedEntityRecord, getUser, getUsers, getPostType } =
+			const { getEditedEntityRecord, getUser, getPostType } =
 				select( coreStore );
 			const _authorId = getEditedEntityRecord(
 				'postType',
@@ -58,7 +104,6 @@ function PostAuthorEdit( {
 			return {
 				authorId: _authorId,
 				authorDetails: _authorId ? getUser( _authorId ) : null,
-				authors: getUsers( AUTHORS_QUERY ),
 				supportsAuthor:
 					getPostType( postType )?.supports?.author ?? false,
 			};
@@ -94,24 +139,13 @@ function PostAuthorEdit( {
 		} ),
 	} );
 
-	const authorOptions = authors?.length
-		? authors.map( ( { id, name } ) => {
-				return {
-					value: id,
-					label: name,
-				};
-		  } )
-		: [];
-
 	const handleSelect = ( nextAuthorId ) => {
 		editEntityRecord( 'postType', postType, postId, {
 			author: nextAuthorId,
 		} );
 	};
 
-	const showCombobox = authorOptions.length >= minimumUsersForCombobox;
-	const showAuthorControl =
-		!! postId && ! isDescendentOfQueryLoop && authorOptions.length > 0;
+	const showAuthorControl = !! postId && ! isDescendentOfQueryLoop;
 
 	if ( ! supportsAuthor && postType !== undefined ) {
 		return (
@@ -142,26 +176,10 @@ function PostAuthorEdit( {
 				>
 					{ showAuthorControl && (
 						<div style={ { gridColumn: '1 / -1' } }>
-							{ ( showCombobox && (
-								<ComboboxControl
-									__next40pxDefaultSize
-									__nextHasNoMarginBottom
-									label={ __( 'Author' ) }
-									options={ authorOptions }
-									value={ authorId }
-									onChange={ handleSelect }
-									allowReset={ false }
-								/>
-							) ) || (
-								<SelectControl
-									__next40pxDefaultSize
-									__nextHasNoMarginBottom
-									label={ __( 'Author' ) }
-									value={ authorId }
-									options={ authorOptions }
-									onChange={ handleSelect }
-								/>
-							) }
+							<AuthorCombobox
+								value={ authorId }
+								onChange={ handleSelect }
+							/>
 						</div>
 					) }
 					<ToolsPanelItem
