@@ -98,7 +98,10 @@ function block_core_post_excerpt_trim_words( $text, $num_words = 55, $more = nul
 		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
 		$sep         = '';
 	} else {
-		$words_array = preg_split( '/([ \t]+)/', $text, $num_words + 1, PREG_SPLIT_NO_EMPTY );
+		// Match words and optionally include trailing line breaks.
+		// Ensures newlines are preserved as part of the trimmed output.
+		preg_match_all( '/[^\s]+(?:[ \t]*[\n\r])?/', $text, $words_array );
+		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
 		$sep         = ' ';
 	}
 
