@@ -314,7 +314,7 @@ function UnforwardedRangeControl(
 						<SimpleTooltip
 							className="components-range-control__tooltip"
 							inputRef={ inputRef }
-							tooltipPlacement="bottom"
+							tooltipPlacement="top"
 							renderTooltipContent={ renderTooltipContent }
 							show={ isCurrentlyFocused || showTooltip }
 							style={ offsetStyle }
