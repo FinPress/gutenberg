@@ -21,9 +21,10 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { debounce } from '@wordpress/compose';
-import { useState } from '@wordpress/element';
+import { useMemo, useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __, sprintf } from '@wordpress/i18n';
+import { decodeEntities } from '@wordpress/html-entities';
 import { store as coreStore } from '@wordpress/core-data';
 
 /**
@@ -58,14 +59,38 @@ function AuthorCombobox( { value, onChange } ) {
 		[ filterValue ]
 	);
 
-	const authorOptions = authors?.length
-		? authors.map( ( { id, name } ) => {
-				return {
-					value: id,
-					label: name,
-				};
-		  } )
-		: [];
+	const authorOptions = useMemo( () => {
+		const fetchedAuthors = ( authors ?? [] ).map( ( author ) => {
+			return {
+				value: author.id,
+				label: decodeEntities( author.name ),
+			};
+		} );
+
+		// Ensure the current author is included in the list.
+		const foundAuthor = fetchedAuthors.findIndex(
+			( fetchedAuthor ) => value?.id === fetchedAuthor.value
+		);
+
+		let currentAuthor = [];
+		if ( foundAuthor < 0 && value ) {
+			currentAuthor = [
+				{
+					value: value.id,
+					label: decodeEntities( value.name ),
+				},
+			];
+		} else if ( foundAuthor < 0 && ! value ) {
+			currentAuthor = [
+				{
+					value: 0,
+					label: __( '(No author)' ),
+				},
+			];
+		}
+
+		return [ ...currentAuthor, ...fetchedAuthors ];
+	}, [ authors, value ] );
 
 	return (
 		<ComboboxControl
@@ -73,7 +98,7 @@ function AuthorCombobox( { value, onChange } ) {
 			__nextHasNoMarginBottom
 			label={ __( 'Author' ) }
 			options={ authorOptions }
-			value={ value }
+			value={ value?.id }
 			onFilterValueChange={ debounce( setFilterValue, 300 ) }
 			onChange={ onChange }
 			allowReset={ false }
@@ -91,34 +116,32 @@ function PostAuthorEdit( {
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
-	const { authorId, authorDetails, canAssignAuthor, supportsAuthor } =
-		useSelect(
-			( select ) => {
-				const { getEditedEntityRecord, getUser, getPostType } =
-					select( coreStore );
-				const currentPost = getEditedEntityRecord(
-					'postType',
-					postType,
-					postId
-				);
-				const _authorId = currentPost?.author;
+	const { authorDetails, canAssignAuthor, supportsAuthor } = useSelect(
+		( select ) => {
+			const { getEditedEntityRecord, getUser, getPostType } =
+				select( coreStore );
+			const currentPost = getEditedEntityRecord(
+				'postType',
+				postType,
+				postId
+			);
+			const authorId = currentPost?.author;
 
-				return {
-					authorId: _authorId,
-					authorDetails: _authorId
-						? getUser( _authorId, { context: 'view' } )
-						: null,
-					supportsAuthor:
-						getPostType( postType )?.supports?.author ?? false,
-					canAssignAuthor: currentPost?._links?.[
-						'wp:action-assign-author'
-					]
-						? true
-						: false,
-				};
-			},
-			[ postType, postId ]
-		);
+			return {
+				authorDetails: authorId
+					? getUser( authorId, { context: 'view' } )
+					: null,
+				supportsAuthor:
+					getPostType( postType )?.supports?.author ?? false,
+				canAssignAuthor: currentPost?._links?.[
+					'wp:action-assign-author'
+				]
+					? true
+					: false,
+			};
+		},
+		[ postType, postId ]
+	);
 
 	const { editEntityRecord } = useDispatch( coreStore );
 
@@ -187,7 +210,7 @@ function PostAuthorEdit( {
 					{ showAuthorControl && (
 						<div style={ { gridColumn: '1 / -1' } }>
 							<AuthorCombobox
-								value={ authorId }
+								value={ authorDetails }
 								onChange={ handleSelect }
 							/>
 						</div>
