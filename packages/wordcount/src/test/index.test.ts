@@ -3,15 +3,24 @@
  */
 
 import { count } from '../';
+import type { WPWordCountUserSettings, WPWordCountStrategy } from '../types';
 
-const mockData = {
+const mockData: WPWordCountUserSettings = {
 	l10n: {
 		shortcodes: [ 'shortcode' ],
 	},
 };
 
+interface TestDataItem {
+	message: string;
+	string: string;
+	words: number;
+	characters_excluding_spaces: number;
+	characters_including_spaces: number;
+}
+
 describe( 'WordCounter', () => {
-	const dataProvider = [
+	const dataProvider: TestDataItem[] = [
 		{
 			message: 'Basic test.',
 			string: 'one two three',
@@ -105,7 +114,7 @@ describe( 'WordCounter', () => {
 		},
 	];
 
-	const types = [
+	const types: WPWordCountStrategy[] = [
 		'words',
 		'characters_excluding_spaces',
 		'characters_including_spaces',

@@ -4,18 +4,15 @@
 import type { WPWordCountSettings } from './types';
 
 /**
- * Replaces items matched in the regex with a new line.
+ * Replaces items matched in the regex with new line.
  *
  * @param settings The main settings object containing regular expressions
  * @param text     The string being counted.
  * @return The manipulated text.
  */
-export default function stripShortcodes(
+export default function stripHTMLComments(
 	settings: WPWordCountSettings,
 	text: string
 ): string {
-	if ( settings.shortcodesRegExp ) {
-		return text.replace( settings.shortcodesRegExp, '\n' );
-	}
-	return text;
+	return text.replace( settings.HTMLcommentRegExp, '' );
 }

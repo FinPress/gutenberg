@@ -21,8 +21,8 @@ import type {
 /**
  * Private function to manage the settings.
  *
- * @param type         - The type of count to be done.
- * @param userSettings - Custom settings for the count.
+ * @param type         The type of count to be done.
+ * @param userSettings Custom settings for the count.
  * @return The combined settings object to be used.
  */
 function loadSettings(
@@ -59,9 +59,9 @@ function loadSettings(
 /**
  * Count the words in text
  *
- * @param text     - The text being processed
- * @param regex    - The regular expression pattern being matched
- * @param settings - Settings object containing regular expressions for each strip function
+ * @param text     The text being processed
+ * @param regex    The regular expression pattern being matched
+ * @param settings Settings object containing regular expressions for each strip function
  * @return Count of words.
  */
 function countWords(
@@ -85,9 +85,9 @@ function countWords(
 /**
  * Count the characters in text
  *
- * @param text     - The text being processed
- * @param regex    - The regular expression pattern being matched
- * @param settings - Settings object containing regular expressions for each strip function
+ * @param text     The text being processed
+ * @param regex    The regular expression pattern being matched
+ * @param settings Settings object containing regular expressions for each strip function
  * @return Count of characters.
  */
 function countCharacters(
@@ -110,9 +110,9 @@ function countCharacters(
 /**
  * Count some words.
  *
- * @param text         - The text being processed
- * @param type         - The type of count. Accepts 'words', 'characters_excluding_spaces', or 'characters_including_spaces'.
- * @param userSettings - Custom settings object.
+ * @param text         The text being processed
+ * @param type         The type of count. Accepts 'words', 'characters_excluding_spaces', or 'characters_including_spaces'.
+ * @param userSettings Custom settings object.
  *
  * @example
  * ```ts
