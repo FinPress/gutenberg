@@ -91,25 +91,34 @@ function PostAuthorEdit( {
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
-	const { authorId, authorDetails, supportsAuthor } = useSelect(
-		( select ) => {
-			const { getEditedEntityRecord, getUser, getPostType } =
-				select( coreStore );
-			const _authorId = getEditedEntityRecord(
-				'postType',
-				postType,
-				postId
-			)?.author;
+	const { authorId, authorDetails, canAssignAuthor, supportsAuthor } =
+		useSelect(
+			( select ) => {
+				const { getEditedEntityRecord, getUser, getPostType } =
+					select( coreStore );
+				const currentPost = getEditedEntityRecord(
+					'postType',
+					postType,
+					postId
+				);
+				const _authorId = currentPost?.author;
 
-			return {
-				authorId: _authorId,
-				authorDetails: _authorId ? getUser( _authorId ) : null,
-				supportsAuthor:
-					getPostType( postType )?.supports?.author ?? false,
-			};
-		},
-		[ postType, postId ]
-	);
+				return {
+					authorId: _authorId,
+					authorDetails: _authorId
+						? getUser( _authorId, { context: 'view' } )
+						: null,
+					supportsAuthor:
+						getPostType( postType )?.supports?.author ?? false,
+					canAssignAuthor: currentPost?._links?.[
+						'wp:action-assign-author'
+					]
+						? true
+						: false,
+				};
+			},
+			[ postType, postId ]
+		);
 
 	const { editEntityRecord } = useDispatch( coreStore );
 
@@ -145,7 +154,8 @@ function PostAuthorEdit( {
 		} );
 	};
 
-	const showAuthorControl = !! postId && ! isDescendentOfQueryLoop;
+	const showAuthorControl =
+		!! postId && ! isDescendentOfQueryLoop && canAssignAuthor;
 
 	if ( ! supportsAuthor && postType !== undefined ) {
 		return (
