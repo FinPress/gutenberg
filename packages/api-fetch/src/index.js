@@ -67,6 +67,19 @@ function registerMiddleware( middleware ) {
 }
 
 /**
+ * Removes a middleware from the list of registered middlewares.
+ * If the middleware is not found, it does nothing.
+ *
+ * @param {import('./types').APIFetchMiddleware} middleware The middleware to remove.
+ */
+function removeMiddleware( middleware ) {
+	const index = middlewares.indexOf( middleware );
+	if ( index !== -1 ) {
+		middlewares.splice( index, 1 );
+	}
+}
+
+/**
  * Returns the list of registered middlewares.
  *
  * @return {import('./types').APIFetchMiddleware[]} The list of middlewares.
@@ -197,6 +210,7 @@ function apiFetch( options ) {
 
 apiFetch.use = registerMiddleware;
 apiFetch.getMiddlewares = getMiddlewares;
+apiFetch.removeMiddleware = removeMiddleware;
 apiFetch.setFetchHandler = setFetchHandler;
 
 apiFetch.createNonceMiddleware = createNonceMiddleware;
