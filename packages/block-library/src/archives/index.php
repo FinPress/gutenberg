@@ -73,7 +73,7 @@ function render_block_core_archives( $attributes ) {
 			// Inject the dropdown script immediately after the select dropdown.
 			$block_content = preg_replace(
 				'#(?<=</select>)#',
-				build_dropdown_script_block_core_archives( $dropdown_id ),
+				block_core_archives_build_dropdown_script( $dropdown_id ),
 				$block_content,
 				1
 			);
@@ -125,7 +125,7 @@ function render_block_core_archives( $attributes ) {
  *
  * @return string Returns the dropdown onChange redirection script.
  */
-function build_dropdown_script_block_core_archives( $dropdown_id ) {
+function block_core_archives_build_dropdown_script( $dropdown_id ) {
 	ob_start();
 	?>
 	<script>
