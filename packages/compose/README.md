@@ -358,7 +358,7 @@ _Parameters_
 
 _Returns_
 
--   `import('react').RefCallback<HTMLElement>`: Ref callback.
+-   `RefCallback< HTMLElement >`: Ref callback.
 
 ### useFocusReturn
 
