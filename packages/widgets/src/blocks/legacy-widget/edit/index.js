@@ -12,7 +12,13 @@ import {
 	InspectorControls,
 	BlockIcon,
 } from '@wordpress/block-editor';
-import { Flex, FlexBlock, Spinner, Placeholder } from '@wordpress/components';
+import {
+	Flex,
+	FlexBlock,
+	Spinner,
+	Placeholder,
+	__experimentalText as Text,
+} from '@wordpress/components';
 import { brush as brushIcon } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 import { useState, useCallback } from '@wordpress/element';
@@ -159,9 +165,12 @@ function NotEmpty( {
 					{ hasPreview === null && mode === 'preview' && (
 						<Placeholder>
 							<Spinner />
-							<span className="wp-block-legacy-widget__preview-loading-text">
+							<Text
+								variant="muted"
+								className="wp-block-legacy-widget__preview-loading"
+							>
 								{ __( 'Loading preview…' ) }
-							</span>
+							</Text>
 						</Placeholder>
 					) }
 					{ hasPreview === true && (
