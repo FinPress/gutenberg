@@ -159,6 +159,9 @@ function NotEmpty( {
 					{ hasPreview === null && mode === 'preview' && (
 						<Placeholder>
 							<Spinner />
+							<span className="wp-block-legacy-widget__preview-loading-text">
+								{ __( 'Loading preview…' ) }
+							</span>
 						</Placeholder>
 					) }
 					{ hasPreview === true && (
