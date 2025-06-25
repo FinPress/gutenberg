@@ -1,16 +1,20 @@
 /**
  * WordPress dependencies
  */
+import { Button, Dropdown } from '@wordpress/components';
 import { pipe } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { Dropdown, Button } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import ImportForm from '../import-form';
 
-function ImportDropdown( { onUpload } ) {
+interface ImportDropdownProps {
+	onUpload: ( data: any ) => void;
+}
+
+function ImportDropdown( { onUpload }: ImportDropdownProps ) {
 	return (
 		<Dropdown
 			popoverProps={ { placement: 'bottom-start' } }

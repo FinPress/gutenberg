@@ -38,6 +38,7 @@
 		{ "path": "packages/is-shallow-equal" },
 		{ "path": "packages/keycodes" },
 		{ "path": "packages/lazy-import" },
+		{ "path": "packages/list-reusable-blocks" },
 		{ "path": "packages/media-utils" },
 		{ "path": "packages/notices" },
 		{ "path": "packages/plugins" },
