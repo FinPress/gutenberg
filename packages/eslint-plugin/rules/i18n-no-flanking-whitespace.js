@@ -15,21 +15,6 @@ const PROBLEMS_BY_CHAR_CODE = {
 	32: 'whitespace',
 };
 
-function makeFixerFunction( arg ) {
-	return ( fixer ) => {
-		switch ( arg.type ) {
-			case 'Literal':
-				return [ fixer.replaceText( arg, `'${ arg.value.trim() }'` ) ];
-
-			case 'BinaryExpression':
-				return [
-					...makeFixerFunction( arg.left )( fixer ),
-					...makeFixerFunction( arg.right )( fixer ),
-				];
-		}
-	};
-}
-
 module.exports = {
 	meta: {
 		type: 'problem',
@@ -38,7 +23,6 @@ module.exports = {
 			noFlankingWhitespace:
 				'Translations should not contain flanking whitespace{{problem}}',
 		},
-		fixable: 'code',
 	},
 	create( context ) {
 		return {
@@ -81,7 +65,6 @@ module.exports = {
 						data: {
 							problem: problemString,
 						},
-						fix: makeFixerFunction( arg ),
 					} );
 				}
 			},
