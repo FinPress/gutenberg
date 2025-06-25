@@ -216,9 +216,9 @@ Copies the text to the clipboard when the element is clicked.
 
 _Parameters_
 
--   _ref_ `import('react').RefObject<string | Element | NodeListOf<Element>>`: Reference with the element.
--   _text_ `string|Function`: The text to copy.
--   _timeout_ `[number]`: Optional timeout to reset the returned state. 4 seconds by default.
+-   _ref_ `RefObject< string | Element | NodeListOf< Element > >`: Reference with the element.
+-   _text_ `string | Function`: The text to copy.
+-   _timeout_ Optional timeout to reset the returned state. 4 seconds by default.
 
 _Returns_
 
@@ -230,12 +230,12 @@ Copies the given text to the clipboard when the element is clicked.
 
 _Parameters_
 
--   _text_ `string | (() => string)`: The text to copy. Use a function if not already available and expensive to compute.
+-   _text_ `string | ( () => string )`: The text to copy. Use a function if not already available and expensive to compute.
 -   _onSuccess_ `Function`: Called when to text is copied.
 
 _Returns_
 
--   `import('react').Ref<TElementType>`: A ref to assign to the target element.
+-   `Ref< TElementType >`: A ref to assign to the target element.
 
 ### useDebounce
 
@@ -248,12 +248,12 @@ _Related_
 _Parameters_
 
 -   _fn_ `TFunc`: The function to debounce.
--   _wait_ `[number]`: The number of milliseconds to delay.
--   _options_ `[import('../../utils/debounce').DebounceOptions]`: The options object.
+-   _wait_ `number`: The number of milliseconds to delay.
+-   _options_ `DebounceOptions`: The options object.
 
 _Returns_
 
--   `import('../../utils/debounce').DebouncedFunc<TFunc>`: Debounced function.
+-   `DebouncedFunc< TFunc >`: Debounced function.
 
 ### useDebouncedInput
 
