@@ -208,10 +208,6 @@ const ConstrainedTabbingExample = () => {
 };
 ```
 
-_Returns_
-
--   `import('react').RefCallback<Element>`: Element Ref.
-
 ### useCopyOnClick
 
 > **Deprecated**

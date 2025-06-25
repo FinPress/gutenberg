@@ -9,10 +9,13 @@ import { focus } from '@wordpress/dom';
 import useRefEffect from '../use-ref-effect';
 
 /**
+ * External dependencies
+ */
+import type { RefCallback } from 'react';
+
+/**
  * In Dialogs/modals, the tabbing must be constrained to the content of
  * the wrapper element. This hook adds the behavior to the returned ref.
- *
- * @return {import('react').RefCallback<Element>} Element Ref.
  *
  * @example
  * ```js
@@ -29,9 +32,9 @@ import useRefEffect from '../use-ref-effect';
  * }
  * ```
  */
-function useConstrainedTabbing() {
-	return useRefEffect( ( /** @type {HTMLElement} */ node ) => {
-		function onKeyDown( /** @type {KeyboardEvent} */ event ) {
+function useConstrainedTabbing(): RefCallback< HTMLElement > {
+	return useRefEffect( ( node: HTMLElement ) => {
+		function onKeyDown( event: KeyboardEvent ) {
 			const { key, shiftKey, target } = event;
 
 			if ( key !== 'Tab' ) {
@@ -40,9 +43,7 @@ function useConstrainedTabbing() {
 
 			const action = shiftKey ? 'findPrevious' : 'findNext';
 			const nextElement =
-				focus.tabbable[ action ](
-					/** @type {HTMLElement} */ ( target )
-				) || null;
+				focus.tabbable[ action ]( target as HTMLElement ) || null;
 
 			// When the target element contains the element that is about to
 			// receive focus, for example when the target is a tabbable
@@ -50,9 +51,7 @@ function useConstrainedTabbing() {
 			// In this case we can't rely on native browsers behavior. We need
 			// to manage focus instead.
 			// See https://github.com/WordPress/gutenberg/issues/46041.
-			if (
-				/** @type {HTMLElement} */ ( target ).contains( nextElement )
-			) {
+			if ( ( target as HTMLElement ).contains( nextElement ) ) {
 				event.preventDefault();
 				nextElement?.focus();
 				return;
