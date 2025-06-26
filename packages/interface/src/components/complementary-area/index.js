@@ -107,9 +107,26 @@ function ComplementaryAreaFill( {
 								width: isMobileViewport
 									? '100vw'
 									: sidebarWidth,
+								height: '100%',
+								display: 'flex',
+								flexDirection: 'row',
 							} }
 						>
-							{ children }
+							<div
+								className="interface-complementary-area__resize-handle"
+								style={ {
+									width: '8px',
+									cursor: 'ew-resize',
+									flexShrink: 0,
+								} }
+							></div>
+
+							<div
+								style={ { flexGrow: 1, overflowY: 'auto' } }
+								transition={ transition }
+							>
+								{ children }
+							</div>
 						</div>
 					</motion.div>
 				) }
