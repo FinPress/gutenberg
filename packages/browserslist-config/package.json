@@ -24,14 +24,9 @@
 		"npm": ">=8.19.2"
 	},
 	"files": [
-		"build",
-		"build-module",
-		"build-types",
-		"src",
-		"*.md"
+		"index.js"
 	],
-	"main": "build/index.js",
-	"types": "build-types",
+	"main": "index.js",
 	"publishConfig": {
 		"access": "public"
 	}

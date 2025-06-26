@@ -1,9 +1,5 @@
-/**
- * WordPress Browserslist shared configuration.
- *
- * @see https://make.wordpress.org/core/handbook/best-practices/browser-support/
- */
-const config: string[] = [
+// browserslist-config/index.js
+module.exports = [
 	'> 1%',
 	'last 1 Android versions',
 	'last 1 ChromeAndroid versions',
@@ -14,5 +10,3 @@ const config: string[] = [
 	'last 2 Edge versions',
 	'last 2 Opera versions',
 ];
-
-export default config;
