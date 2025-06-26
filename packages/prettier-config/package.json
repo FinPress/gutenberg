@@ -24,7 +24,9 @@
 		"npm": ">=8.19.2"
 	},
 	"files": [
-		"build/index.js"
+		"build",
+		"build-module",
+		"build-types"
 	],
 	"main": "build/index.js",
 	"module": "build-module/index.js",
