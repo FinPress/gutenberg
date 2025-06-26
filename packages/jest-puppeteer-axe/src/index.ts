@@ -65,15 +65,6 @@ interface MatcherContext {
 	};
 }
 
-declare global {
-	// eslint-disable-next-line @typescript-eslint/no-namespace
-	namespace jest {
-		interface Matchers< R > {
-			toPassAxeTests: ( params?: AxeTestParams ) => Promise< R >;
-		}
-	}
-}
-
 /**
  * Defines async matcher to check whether a given Puppeteer's page instance passes Axe accessibility tests.
  *
@@ -87,8 +78,10 @@ declare global {
  * @param {string|string[]} [params.include]       CSS selector(s) to include in analysis.
  * @param {string|string[]} [params.exclude]       CSS selector(s) to exclude from analysis.
  * @param {string[]}        [params.disabledRules] List of Axe rules to skip from verification.
- * @param {RunOptions}      [params.options]       Options to configure how Axe run operates.
- * @param {Spec}            [params.config]        Axe configuration object.
+ * @param {RunOptions}      [params.options]       Options to configure how Axe run operates,
+ *                                                 see https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter.
+ * @param {Spec}            [params.config]        Axe configuration object,
+ *                                                 see https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#api-name-axeconfigure.
  * @return {Object} A matcher object with two keys `pass` and `message`.
  */
 async function toPassAxeTests(
