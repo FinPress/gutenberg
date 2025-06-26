@@ -10,7 +10,12 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
 	const { textAlign, citation, value } = attributes;
+	const shouldShowQuote = ! RichText.isEmpty( value );
 	const shouldShowCitation = ! RichText.isEmpty( citation );
+
+	if ( ! shouldShowQuote && ! shouldShowCitation ) {
+		return null;
+	}
 
 	return (
 		<figure
@@ -21,7 +26,9 @@ export default function save( { attributes } ) {
 			} ) }
 		>
 			<blockquote>
-				<RichText.Content tagName="p" value={ value } />
+				{ shouldShowQuote && (
+					<RichText.Content tagName="p" value={ value } />
+				) }
 				{ shouldShowCitation && (
 					<RichText.Content tagName="cite" value={ citation } />
 				) }
