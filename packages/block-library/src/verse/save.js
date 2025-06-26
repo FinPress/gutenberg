@@ -11,7 +11,7 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
 export default function save( { attributes } ) {
 	const { textAlign, content } = attributes;
 
-	if ( ! content || content.trim().length === 0 ) {
+	if ( RichText.isEmpty( content ) ) {
 		return null;
 	}
 
