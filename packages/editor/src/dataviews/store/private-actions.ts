@@ -133,6 +133,7 @@ export const registerPostTypeSchema =
 
 		let hasDuplicateTemplatePartAction = false;
 		if ( postTypeConfig.slug === 'wp_template_part' && canCreate ) {
+			// Avoid a blocking network request if we can.
 			hasDuplicateTemplatePartAction = (
 				await registry.resolveSelect( coreStore ).getCurrentTheme()
 			)?.is_block_theme;
