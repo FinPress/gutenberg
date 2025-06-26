@@ -3,6 +3,7 @@
  */
 import {
 	FormTokenField,
+	ToggleControl,
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
@@ -10,6 +11,7 @@ import { store as coreStore } from '@wordpress/core-data';
 import { useState, useEffect } from '@wordpress/element';
 import { useDebounce } from '@wordpress/compose';
 import { decodeEntities } from '@wordpress/html-entities';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -47,7 +49,8 @@ const getTermIdByTermValue = ( terms, termValue ) => {
 	)?.id;
 };
 
-export function TaxonomyControls( { onChange, query } ) {
+export function TaxonomyControls( { onChange, attributes, setAttributes } ) {
+	const { query, matchAllTaxonomies } = attributes;
 	const { postType, taxQuery } = query;
 
 	const taxonomies = useTaxonomies( postType );
@@ -76,6 +79,17 @@ export function TaxonomyControls( { onChange, query } ) {
 					/>
 				);
 			} ) }
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Match all taxonomies' ) }
+				help={ __( 'Help message' ) }
+				checked={ matchAllTaxonomies }
+				onChange={ ( value ) => {
+					setAttributes( {
+						matchAllTaxonomies: value,
+					} );
+				} }
+			/>
 		</VStack>
 	);
 }

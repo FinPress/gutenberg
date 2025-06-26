@@ -40,6 +40,10 @@
 		"enhancedPagination": {
 			"type": "boolean",
 			"default": false
+		},
+		"matchAllTaxonomies": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"usesContext": [ "templateSlug" ],

@@ -40,7 +40,7 @@ import {
 import { useToolsPanelDropdownMenuProps } from '../../../utils/hooks';
 
 export default function QueryInspectorControls( props ) {
-	const { attributes, setQuery, isSingular } = props;
+	const { attributes, setAttributes, setQuery, isSingular } = props;
 	const { query } = attributes;
 	const {
 		order,
@@ -392,7 +392,8 @@ export default function QueryInspectorControls( props ) {
 						>
 							<TaxonomyControls
 								onChange={ setQuery }
-								query={ query }
+								attributes={ attributes }
+								setAttributes={ setAttributes }
 							/>
 						</ToolsPanelItem>
 					) }
