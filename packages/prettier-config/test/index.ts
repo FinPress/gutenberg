@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import config from '../lib/';
+import * as config from '../src';
 
 describe( 'prettier config tests', () => {
 	it( 'should be an object', () => {
