@@ -230,6 +230,7 @@ function applyBlockVariationsToExamples( examples, variation ) {
 
 	return examples.map( ( example ) => ( {
 		...example,
+		variation,
 		blocks: {
 			...example.blocks,
 			attributes: {
@@ -420,7 +421,7 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 		);
 	};
 
-	const onSelect = ( blockName ) => {
+	const onSelect = ( blockName, isBlockVariation = false ) => {
 		if (
 			STYLE_BOOK_COLOR_GROUPS.find(
 				( group ) => group.slug === blockName
@@ -433,6 +434,10 @@ export const StyleBookPreview = ( { userConfig = {}, isStatic = false } ) => {
 		if ( blockName === 'typography' ) {
 			// Go to typography Global Styles.
 			onChangeSection( '/typography' );
+			return;
+		}
+
+		if ( isBlockVariation ) {
 			return;
 		}
 
@@ -657,7 +662,11 @@ const Examples = memo(
 							isSelected={ isSelected?.( example.name ) }
 							onClick={
 								!! onSelect
-									? () => onSelect( example.name )
+									? () =>
+											onSelect(
+												example.name,
+												!! example.variation
+											)
 									: null
 							}
 						/>
