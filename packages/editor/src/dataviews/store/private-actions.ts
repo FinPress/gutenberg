@@ -131,6 +131,13 @@ export const registerPostTypeSchema =
 			.resolveSelect( coreStore )
 			.getCurrentTheme();
 
+		let hasDuplicateTemplatePartAction = false;
+		if ( postTypeConfig.slug === 'wp_template_part' && canCreate ) {
+			hasDuplicateTemplatePartAction = (
+				await registry.resolveSelect( coreStore ).getCurrentTheme()
+			)?.is_block_theme;
+		}
+
 		const actions = [
 			postTypeConfig.viewable ? viewPost : undefined,
 			!! postTypeConfig.supports?.revisions
@@ -144,11 +151,7 @@ export const registerPostTypeSchema =
 				  canCreate &&
 				  duplicatePost
 				: undefined,
-			postTypeConfig.slug === 'wp_template_part' &&
-			canCreate &&
-			currentTheme?.is_block_theme
-				? duplicateTemplatePart
-				: undefined,
+			hasDuplicateTemplatePartAction ? duplicateTemplatePart : undefined,
 			canCreate && postTypeConfig.slug === 'wp_block'
 				? duplicatePattern
 				: undefined,
