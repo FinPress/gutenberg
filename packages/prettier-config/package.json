@@ -27,6 +27,7 @@
 		"build/index.js"
 	],
 	"main": "build/index.js",
+	"module": "build-module/index.js",
 	"types": "build-types",
 	"peerDependencies": {
 		"prettier": ">=3"
