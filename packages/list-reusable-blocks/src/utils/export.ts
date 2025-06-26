@@ -12,29 +12,7 @@ import apiFetch from '@wordpress/api-fetch';
  * Internal dependencies
  */
 import { downloadBlob } from '@wordpress/blob';
-
-interface PostType {
-	rest_base: string;
-	[ key: string ]: any;
-}
-
-interface Post {
-	title: {
-		raw: string;
-	};
-	content: {
-		raw: string;
-	};
-	wp_pattern_sync_status: string;
-	[ key: string ]: any;
-}
-
-interface ExportedBlock {
-	__file: string;
-	title: string;
-	content: string;
-	syncStatus: string;
-}
+import type { ExportedBlock, Post, PostType } from './types';
 
 /**
  * Export a reusable block as a JSON file.

@@ -10,11 +10,7 @@ import { __, _x } from '@wordpress/i18n';
  * Internal dependencies
  */
 import importReusableBlock from '../../utils/import';
-
-interface ImportFormProps {
-	instanceId: string | number;
-	onUpload: ( reusableBlock: any ) => void;
-}
+import type { ImportFormProps } from '../../utils/types';
 
 function ImportForm( { instanceId, onUpload }: ImportFormProps ) {
 	const inputId = 'list-reusable-blocks-import-form-' + instanceId;

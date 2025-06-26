@@ -8,11 +8,8 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
+import type { ImportDropdownProps } from '../../utils/types';
 import ImportForm from '../import-form';
-
-interface ImportDropdownProps {
-	onUpload: ( data: any ) => void;
-}
 
 function ImportDropdown( { onUpload }: ImportDropdownProps ) {
 	return (
