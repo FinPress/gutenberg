@@ -12,10 +12,9 @@ export default function save( { attributes } ) {
 	const { textAlign, content, level } = attributes;
 	const TagName = 'h' + level;
 
-	if ( ! content || content.trim().length === 0 ) {
+	if ( RichText.isEmpty( content ) ) {
 		return null;
 	}
-
 	const className = clsx( {
 		[ `has-text-align-${ textAlign }` ]: textAlign,
 	} );
