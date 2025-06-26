@@ -274,6 +274,20 @@ Component used to render unescaped HTML.
 
 Note: The `renderElement` serializer will remove the `div` wrapper unless non-children props are present; typically when preparing a block for saving.
 
+_Usage_
+
+```jsx
+import { RawHTML } from '@wordpress/element';
+
+const Component = () => (
+	<RawHTML>
+		<h3>Hello world</h3>
+	</RawHTML>
+);
+// Edit: <div><h3>Hello world</h3></div>
+// save: <h3>Hello world</h3>
+```
+
 _Parameters_
 
 -   _props_ `RawHTMLProps`: Children should be a string of HTML or an array of strings. Other props will be passed through to the div wrapper.

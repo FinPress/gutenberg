@@ -11,6 +11,15 @@ import { Children, createElement } from './react';
  * Note: The `renderElement` serializer will remove the `div` wrapper
  * unless non-children props are present; typically when preparing a block for saving.
  *
+ * @example
+ * ```jsx
+ * import { RawHTML } from '@wordpress/element';
+ *
+ * const Component = () => <RawHTML><h3>Hello world</h3></RawHTML>;
+ * // Edit: <div><h3>Hello world</h3></div>
+ * // save: <h3>Hello world</h3>
+ * ```
+ *
  * @param {RawHTMLProps} props Children should be a string of HTML or an array
  *                             of strings. Other props will be passed through
  *                             to the div wrapper.
