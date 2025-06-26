@@ -24,9 +24,11 @@
 		"npm": ">=8.19.2"
 	},
 	"files": [
-		"index.js"
+		"index.js",
+		"build-types"
 	],
 	"main": "index.js",
+	"types": "build-types/index.d.ts",
 	"publishConfig": {
 		"access": "public"
 	}
