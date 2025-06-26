@@ -20,7 +20,7 @@ export default function save( { attributes } ) {
 			  } )
 	);
 
-	if ( ! content || content.trim().length === 0 ) {
+	if ( RichText.isEmpty( content ) ) {
 		return null;
 	}
 
