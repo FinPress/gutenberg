@@ -82,6 +82,12 @@ function ComplementaryAreaFill( {
 		ease: [ 0.6, 0, 0.4, 1 ],
 	};
 
+	const [ isResizing, setResizing ] = useState( false );
+	const sidebarWidth = useState( SIDEBAR_WIDTH );
+	const [ width, setWidth ] = useState( SIDEBAR_WIDTH );
+	const startX = useRef( 0 );
+	const startWidth = useRef( SIDEBAR_WIDTH );
+
 	return (
 		<Fill name={ `ComplementaryArea/${ scope }` }>
 			<AnimatePresence initial={ false }>
@@ -100,7 +106,7 @@ function ComplementaryAreaFill( {
 							style={ {
 								width: isMobileViewport
 									? '100vw'
-									: SIDEBAR_WIDTH,
+									: sidebarWidth,
 							} }
 						>
 							{ children }
