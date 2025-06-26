@@ -7,28 +7,24 @@ import supportedMatchers from './supported-matchers';
 /**
  * Sets spy on the console object's method to make it possible to fail test when method called without assertion.
  *
- * @param {Array}  args
- * @param {string} args."0" Name of console method.
- * @param {string} args."1" Name of Jest matcher.
+ * @param args
  */
-const setConsoleMethodSpy = ( [ methodName, matcherName ] ) => {
+const setConsoleMethodSpy = ( args: [ string, string ] ) => {
+	const [ methodName, matcherName ] = args;
 	const spy = jest
-		.spyOn( console, methodName )
+		.spyOn( console, methodName as 'error' | 'info' | 'log' | 'warn' )
 		.mockName( `console.${ methodName }` );
 
-	/**
-	 * Resets the spy to its initial state.
-	 */
 	function resetSpy() {
 		spy.mockReset();
-		spy.assertionsNumber = 0;
+		( spy as any ).assertionsNumber = 0;
 	}
 
-	/**
-	 * Verifies that the spy has only been called if expected.
-	 */
 	function assertExpectedCalls() {
-		if ( spy.assertionsNumber === 0 && spy.mock.calls.length > 0 ) {
+		if (
+			( spy as any ).assertionsNumber === 0 &&
+			spy.mock.calls.length > 0
+		) {
 			expect( console ).not[ matcherName ]();
 		}
 	}
