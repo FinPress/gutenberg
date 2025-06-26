@@ -128,18 +128,6 @@ function gutenberg_initialize_experiments_settings() {
 	);
 
 	add_settings_field(
-		'gutenberg-sync-heartbeat-collaboration',
-		__( 'Collaboration: add (almost) real time editing using heartbeat API', 'gutenberg' ),
-		'gutenberg_display_experiment_field',
-		'gutenberg-experiments',
-		'gutenberg_experiments_section',
-		array(
-			'label' => __( 'Enables (almost) live collaboration using heartbeat API.', 'gutenberg' ),
-			'id'    => 'gutenberg-sync-heartbeat-collaboration',
-		)
-	);
-
-	add_settings_field(
 		'gutenberg-sync-webrtc-collaboration',
 		__( 'Collaboration: add real time editing using webrtc', 'gutenberg' ),
 		'gutenberg_display_experiment_field',
