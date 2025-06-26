@@ -69,7 +69,7 @@ interface MatcherContext {
  * Defines async matcher to check whether a given Puppeteer's page instance passes Axe accessibility tests.
  *
  * @see https://www.deque.com/axe/
- *   It is possible to pass optional Axe API options to perform customized check.
+ * It is possible to pass optional Axe API options to perform customized check.
  * @see https://github.com/dequelabs/axe-core-npm/tree/develop/packages/puppeteer
  *
  * @param {MatcherContext}  this                   Matcher context from Jest.
