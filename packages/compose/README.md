@@ -382,11 +382,11 @@ const WithFocusReturn = () => {
 
 _Parameters_
 
--   _onFocusReturn_ `[() => void]`: Overrides the default return behavior.
+-   _onFocusReturn_ `() => void`: Overrides the default return behavior.
 
 _Returns_
 
--   `import('react').RefCallback<HTMLElement>`: Element Ref.
+-   `RefCallback< HTMLElement >`: Element Ref.
 
 ### useInstanceId
 

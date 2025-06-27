@@ -3,15 +3,19 @@
  */
 import { useRef, useEffect, useCallback } from '@wordpress/element';
 
-/** @type {Element|null} */
-let origin = null;
+/**
+ * External dependencies
+ */
+import type { RefCallback, MutableRefObject } from 'react';
+
+let origin: Element | null = null;
 
 /**
  * Adds the unmount behavior of returning focus to the element which had it
  * previously as is expected for roles like menus or dialogs.
  *
- * @param {() => void} [onFocusReturn] Overrides the default return behavior.
- * @return {import('react').RefCallback<HTMLElement>} Element Ref.
+ * @param onFocusReturn Overrides the default return behavior.
+ * @return Element Ref.
  *
  * @example
  * ```js
@@ -28,11 +32,12 @@ let origin = null;
  * }
  * ```
  */
-function useFocusReturn( onFocusReturn ) {
-	/** @type {import('react').MutableRefObject<null | HTMLElement>} */
-	const ref = useRef( null );
-	/** @type {import('react').MutableRefObject<null | Element>} */
-	const focusedBeforeMount = useRef( null );
+function useFocusReturn(
+	onFocusReturn?: () => void
+): RefCallback< HTMLElement > {
+	const ref: MutableRefObject< null | HTMLElement > = useRef( null );
+	const focusedBeforeMount: MutableRefObject< null | Element > =
+		useRef( null );
 	const onFocusReturnRef = useRef( onFocusReturn );
 	useEffect( () => {
 		onFocusReturnRef.current = onFocusReturn;
@@ -72,11 +77,11 @@ function useFocusReturn( onFocusReturn ) {
 			if ( onFocusReturnRef.current ) {
 				onFocusReturnRef.current();
 			} else {
-				/** @type {null|HTMLElement} */ (
-					! focusedBeforeMount.current.isConnected
+				(
+					( ! focusedBeforeMount.current.isConnected
 						? origin
-						: focusedBeforeMount.current
-				)?.focus();
+						: focusedBeforeMount.current ) as HTMLElement | null
+				 )?.focus();
 			}
 			origin = null;
 		}
