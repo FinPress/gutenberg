@@ -117,25 +117,13 @@ function gutenberg_initialize_experiments_settings() {
 
 	add_settings_field(
 		'gutenberg-sync-collaboration',
-		__( 'Collaboration: add automatic conflict resolution on save / autosave.', 'gutenberg' ),
+		__( 'Collaboration: enable realtime collaboration', 'gutenberg' ),
 		'gutenberg_display_experiment_field',
 		'gutenberg-experiments',
 		'gutenberg_experiments_section',
 		array(
-			'label' => __( 'Enables automatic conflict resolution on save / autosave.', 'gutenberg' ),
+			'label' => __( 'Enables realtime collaboration.', 'gutenberg' ),
 			'id'    => 'gutenberg-sync-collaboration',
-		)
-	);
-
-	add_settings_field(
-		'gutenberg-sync-webrtc-collaboration',
-		__( 'Collaboration: add real time editing using webrtc', 'gutenberg' ),
-		'gutenberg_display_experiment_field',
-		'gutenberg-experiments',
-		'gutenberg_experiments_section',
-		array(
-			'label' => __( 'Enables live collaboration using webrtc.', 'gutenberg' ),
-			'id'    => 'gutenberg-sync-webrtc-collaboration',
 		)
 	);
 
