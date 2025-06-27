@@ -58,14 +58,33 @@ export default function save( { attributes } ) {
 			src={ url }
 			alt={ alt }
 			className={ imageClasses || undefined }
-			style={ {
-				...borderProps.style,
-				...shadowProps.style,
-				aspectRatio,
-				objectFit: scale,
-				width,
-				height,
-			} }
+			style={ ( () => {
+				const style = {
+					...borderProps.style,
+					...shadowProps.style,
+					aspectRatio,
+					objectFit: scale,
+				};
+				// Only apply width when explicitly provided; preserve theme CSS otherwise
+				if ( width === 'auto' ) {
+					style.width = 'auto';
+				} else if ( width !== undefined && width !== null ) {
+					style.width =
+						typeof width === 'number' ? `${ width }px` : width;
+				}
+				// Force height to auto when unspecified
+				if (
+					height === 'auto' ||
+					height === undefined ||
+					height === null
+				) {
+					style.height = 'auto';
+				} else {
+					style.height =
+						typeof height === 'number' ? `${ height }px` : height;
+				}
+				return style;
+			} )() }
 			title={ title }
 		/>
 	);
