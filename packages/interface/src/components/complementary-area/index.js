@@ -43,6 +43,8 @@ function ComplementaryAreaSlot( { scope, ...props } ) {
 }
 
 const SIDEBAR_WIDTH = 280;
+const SIDEBAR_MAX_WIDTH = 800;
+const SIDEBAR_MIN_WIDTH = 250;
 const variants = {
 	open: { width: SIDEBAR_WIDTH },
 	closed: { width: 0 },
@@ -69,23 +71,28 @@ function ComplementaryAreaFill( {
 	useEffect( () => {
 		setState( {} );
 	}, [ isActive ] );
-	const transition = {
-		type: 'tween',
-		duration:
-			disableMotion ||
-			isMobileViewport ||
-			( !! previousActiveArea &&
-				!! activeArea &&
-				activeArea !== previousActiveArea )
-				? 0
-				: ANIMATION_DURATION,
-		ease: [ 0.6, 0, 0.4, 1 ],
-	};
 
 	const [ isResizing, setResizing ] = useState( false );
 	const [ width, setWidth ] = useState( SIDEBAR_WIDTH );
-	const startX = useRef( 0 );
-	const startWidth = useRef( SIDEBAR_WIDTH );
+	const [ startX, setStartX ] = useState( 0 );
+	const [ startWidth, setStartWidth ] = useState( SIDEBAR_WIDTH );
+
+	const transition = ! isResizing
+		? {
+				type: 'tween',
+				duration:
+					disableMotion ||
+					isMobileViewport ||
+					( !! previousActiveArea &&
+						!! activeArea &&
+						activeArea !== previousActiveArea )
+						? 0
+						: ANIMATION_DURATION,
+				ease: [ 0.6, 0, 0.4, 1 ],
+		  }
+		: {
+				duration: 0,
+		  };
 
 	const handleMouseMove = useCallback(
 		( event ) => {
@@ -93,10 +100,13 @@ function ComplementaryAreaFill( {
 				return;
 			}
 
-			const deltaX = event.clientX - startX.current;
-			const newWidth = startWidth.current - deltaX;
+			const deltaX = event.clientX - startX;
+			const newWidth = startWidth - deltaX;
 
-			const constrainedWidth = Math.max( 100, Math.min( 800, newWidth ) );
+			const constrainedWidth = Math.max(
+				SIDEBAR_MIN_WIDTH,
+				Math.min( SIDEBAR_MAX_WIDTH, newWidth )
+			);
 
 			setWidth( constrainedWidth );
 		},
@@ -112,15 +122,16 @@ function ComplementaryAreaFill( {
 		event.stopPropagation();
 
 		setResizing( true );
-		startX.current = event.clientX;
-		startWidth.current = width;
+
+		setStartX( event.clientX );
+		setStartWidth( width );
 	};
 
 	const handleKeyDown = ( event ) => {
 		if ( event.key === 'ArrowLeft' ) {
-			setWidth( ( prev ) => Math.max( 100, prev + 10 ) );
+			setWidth( ( prev ) => Math.max( SIDEBAR_MIN_WIDTH, prev + 10 ) );
 		} else if ( event.key === 'ArrowRight' ) {
-			setWidth( ( prev ) => Math.min( 800, prev - 10 ) );
+			setWidth( ( prev ) => Math.min( SIDEBAR_MAX_WIDTH, prev - 10 ) );
 		}
 	};
 
