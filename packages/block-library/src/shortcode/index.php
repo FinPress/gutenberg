@@ -22,7 +22,7 @@ function render_block_core_shortcode( $attributes, $content ) {
 		// For ServerSideRender (editor preview), use do_shortcode
 		return do_shortcode( $attributes['text'] );
 	}
-	
+
 	// For frontend rendering, use wpautop on the block content
 	return wpautop( $content );
 }
