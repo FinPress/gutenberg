@@ -376,6 +376,9 @@ export default function QueryInspectorControls( props ) {
 							taxQuery: null,
 							format: [],
 						} );
+						setAttributes( {
+							matchAllTerms: false,
+						} );
 						setQuerySearch( '' );
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
