@@ -50,8 +50,10 @@ const getTermIdByTermValue = ( terms, termValue ) => {
 };
 
 export function TaxonomyControls( { onChange, attributes, setAttributes } ) {
-	const { query, matchAllTerms } = attributes;
-	const { postType, taxQuery } = query;
+	const {
+		query: { postType, taxQuery },
+		matchAllTerms,
+	} = attributes;
 
 	const taxonomies = useTaxonomies( postType );
 	if ( ! taxonomies || taxonomies.length === 0 ) {
