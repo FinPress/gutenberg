@@ -42,7 +42,7 @@ const JUSTIFICATIONS = {
 
 const meta: Meta< typeof HStack > = {
 	component: HStack,
-	title: 'Components (Experimental)/Layout/HStack',
+	title: 'Components/Layout/HStack',
 	id: 'components-experimental-hstack',
 	argTypes: {
 		as: {
@@ -70,6 +70,7 @@ const meta: Meta< typeof HStack > = {
 			control: { type: 'text' },
 		},
 	},
+	tags: [ 'status-experimental' ],
 	parameters: {
 		controls: { expanded: true },
 		docs: { canvas: { sourceState: 'shown' } },

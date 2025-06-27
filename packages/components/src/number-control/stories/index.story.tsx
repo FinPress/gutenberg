@@ -14,7 +14,7 @@ import { useState } from '@wordpress/element';
 import NumberControl from '..';
 
 const meta: Meta< typeof NumberControl > = {
-	title: 'Components (Experimental)/Selection & Input/NumberControl',
+	title: 'Components/Selection & Input/NumberControl',
 	id: 'components-experimental-numbercontrol',
 	component: NumberControl,
 	argTypes: {
@@ -25,6 +25,7 @@ const meta: Meta< typeof NumberControl > = {
 		type: { control: { type: 'text' } },
 		value: { control: false },
 	},
+	tags: [ 'status-experimental' ],
 	parameters: {
 		controls: { expanded: true },
 		docs: { canvas: { sourceState: 'shown' } },

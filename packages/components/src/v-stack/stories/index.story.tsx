@@ -25,7 +25,7 @@ const ALIGNMENTS = {
 
 const meta: Meta< typeof VStack > = {
 	component: VStack,
-	title: 'Components (Experimental)/Layout/VStack',
+	title: 'Components/Layout/VStack',
 	id: 'components-experimental-vstack',
 	argTypes: {
 		alignment: {
@@ -38,6 +38,7 @@ const meta: Meta< typeof VStack > = {
 		justify: { control: { type: 'text' } },
 		spacing: { control: { type: 'text' } },
 	},
+	tags: [ 'status-experimental' ],
 	parameters: {
 		controls: { expanded: true },
 		docs: { canvas: { sourceState: 'shown' } },

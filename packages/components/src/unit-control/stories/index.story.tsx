@@ -16,7 +16,7 @@ import { CSS_UNITS } from '../utils';
 
 const meta: Meta< typeof UnitControl > = {
 	component: UnitControl,
-	title: 'Components (Experimental)/Selection & Input/UnitControl',
+	title: 'Components/Selection & Input/UnitControl',
 	id: 'components-experimental-unitcontrol',
 	argTypes: {
 		__unstableInputWidth: { control: { type: 'text' } },
@@ -26,6 +26,7 @@ const meta: Meta< typeof UnitControl > = {
 		prefix: { control: { type: 'text' } },
 		value: { control: false },
 	},
+	tags: [ 'status-experimental' ],
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },
 		controls: {

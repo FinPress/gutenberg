@@ -24,7 +24,7 @@ import type { Props } from '../types';
 
 const meta: Meta< typeof Menu > = {
 	id: 'components-menu',
-	title: 'Components (Experimental)/Actions/Menu',
+	title: 'Components/Actions/Menu',
 	component: Menu,
 	subcomponents: {
 		// @ts-expect-error - See https://github.com/storybookjs/storybook/issues/23170
@@ -55,7 +55,7 @@ const meta: Meta< typeof Menu > = {
 	argTypes: {
 		children: { control: false },
 	},
-	tags: [ 'status-private' ],
+	tags: [ 'status-experimental', 'status-private' ],
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },
 		controls: { expanded: true },

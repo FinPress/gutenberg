@@ -10,7 +10,7 @@ import { Text } from '../component';
 
 const meta: Meta< typeof Text > = {
 	component: Text,
-	title: 'Components (Experimental)/Typography/Text',
+	title: 'Components/Typography/Text',
 	id: 'components-experimental-text',
 	argTypes: {
 		as: { control: { type: 'text' } },
@@ -26,6 +26,7 @@ const meta: Meta< typeof Text > = {
 		},
 		weight: { control: { type: 'text' } },
 	},
+	tags: [ 'status-experimental' ],
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },
 		controls: { expanded: true },
