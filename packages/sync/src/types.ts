@@ -2,6 +2,8 @@
  * External dependencies
  */
 import type * as Y from 'yjs';
+
+export type * as Y from 'yjs';
 export type ObjectID = string;
 export type ObjectType = string;
 export type ObjectData = any;
