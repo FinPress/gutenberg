@@ -13,12 +13,10 @@ Relevant docs:
 The experiment can be enabled in the "Guteberg > Experiments" page. When it is enabled (search for `gutenberg-sync-collaboration` in the codebase), the client receives three new pieces of data:
 
 - `window.__experimentalEnableSync`: boolean. Used by the `core-data` package to determine whether to bootstrap and use the sync provider offered by the `sync` package.
-- `window.__experimentalEnableWebrtcSync`: boolean. Used to enable WebRTC collaboration.
 - `window.__experimentalCollaborativeEditingSecret`: string. A secret used by the `sync` package to create a secure connection among peers.
 
 If collaborative editing is enabled, the autosave interval is set to 5 seconds.
-The changes are pulled using the heartbeat API. In order to get a
-better real-time experience, reduce the autosave and heartbeat interval.
+In order to get a better real-time experience, reduce the autosave interval.
 
 ## How it works
 
@@ -135,17 +133,10 @@ Yet, we wanted that collaborative editing is supported for all users without
 needing to set up a separate server. We need a base-layer sync approach that
 works for everyone.
 
-We use the existing autosave and heartbeat APIs to create a relatively good
+We use the existing autosave APIs to create a relatively good
 collaborative editing experience. Changes will only be synced every few seconds.
 
-When collaborative editing is enabled, we regularly pull changes from the
-backend using the heartbeat API. The client may ask the backend for updates on a
-list of documents by sending a `y-sync` heartbeat. It will supply the last known
-`new-content-clientid`, which changes whenever the document is updated. If the
-clientid changed, the server will forward the Yjs update.
-
-In order to get an improved real-time experience, users may reduce the autosave
-and heartbeat interval.
+In order to get an improved real-time experience, users may reduce the autosave interval.
 
 ### Realtime for almost everyone
 

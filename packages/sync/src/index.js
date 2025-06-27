@@ -11,7 +11,6 @@ export { connectIndexDb } from './connect-indexdb';
 export { createWebRTCConnection } from './create-webrtc-connection';
 export { createSyncProvider } from './provider';
 import { createWebRTCConnection } from './create-webrtc-connection';
-// import { connectIndexDb } from './connect-indexdb';
 
 /**
  * External dependencies
@@ -68,28 +67,33 @@ let syncProvider;
 export function getSyncProvider() {
 	if ( ! syncProvider ) {
 		// @ts-ignore
-		syncProvider = applyFilters( 'core.getSyncProvider', null );
-	}
+		const password = window?.__experimentalCollaborativeEditingSecret;
 
-	if ( ! syncProvider ) {
 		// @ts-ignore
-		const connectionProvider = window?.__experimentalEnableWebrtcSync
-			? createWebRTCConnection( {
-					signaling: [
-						// @ts-ignore
-						window?.wp?.ajax?.settings?.url,
-						//'ws://localhost:4444',
-					],
+		let connectionProvider = applyFilters(
+			'core.getConnectionProvider',
+			password
+		);
+
+		if ( ! connectionProvider ) {
+			// Fallback to the default WebRTC connection provider
+			connectionProvider = createWebRTCConnection( {
+				signaling: [
 					// @ts-ignore
-					password: window?.__experimentalCollaborativeEditingSecret,
-			  } )
-			: null;
+					window?.wp?.ajax?.settings?.url,
+				],
+				password,
+			} );
+		}
+
 		syncProvider = createSyncProvider(
-			// connectIndexDb,
 			null,
-			connectionProvider
+			/** @type {import('./types').ConnectDoc | null} */ (
+				connectionProvider
+			)
 		);
 	}
+
 	return syncProvider;
 }
 
