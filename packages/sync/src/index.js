@@ -1,4 +1,9 @@
 /**
+ * WordPress dependencies
+ */
+import { applyFilters } from '@wordpress/hooks';
+
+/**
  * Internal dependencies
  */
 import { createSyncProvider } from './provider';
@@ -61,6 +66,11 @@ export function extractFromYGutenbergComment( content ) {
 let syncProvider;
 
 export function getSyncProvider() {
+	if ( ! syncProvider ) {
+		// @ts-ignore
+		syncProvider = applyFilters( 'core.getSyncProvider', null );
+	}
+
 	if ( ! syncProvider ) {
 		// @ts-ignore
 		const connectionProvider = window?.__experimentalEnableWebrtcSync
