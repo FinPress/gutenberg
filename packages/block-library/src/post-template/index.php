@@ -78,8 +78,6 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 				}
 			}
 			unset( $tax_query_part );
-
-			$query_args['tax_query']['relation'] = 'AND';
 		}
 
 		$query = new WP_Query( $query_args );
