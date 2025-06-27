@@ -17,7 +17,7 @@ import {
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { check, starEmpty, starFilled } from '@wordpress/icons';
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState, useCallback } from '@wordpress/element';
 import { store as viewportStore } from '@wordpress/viewport';
 import { store as preferencesStore } from '@wordpress/preferences';
 import {
@@ -83,17 +83,68 @@ function ComplementaryAreaFill( {
 	};
 
 	const [ isResizing, setResizing ] = useState( false );
-	const sidebarWidth = useState( SIDEBAR_WIDTH );
 	const [ width, setWidth ] = useState( SIDEBAR_WIDTH );
 	const startX = useRef( 0 );
 	const startWidth = useRef( SIDEBAR_WIDTH );
+
+	const handleMouseMove = useCallback(
+		( event ) => {
+			if ( ! isResizing ) {
+				return;
+			}
+
+			const deltaX = event.clientX - startX.current;
+			const newWidth = startWidth.current - deltaX;
+
+			const constrainedWidth = Math.max( 100, Math.min( 800, newWidth ) );
+
+			setWidth( constrainedWidth );
+		},
+		[ isResizing ]
+	);
+
+	const handleMouseUp = useCallback( () => {
+		setResizing( false );
+	}, [] );
+
+	const handleMouseDown = ( event ) => {
+		event.preventDefault();
+		event.stopPropagation();
+
+		setResizing( true );
+		startX.current = event.clientX;
+		startWidth.current = width;
+	};
+
+	const handleKeyDown = ( event ) => {
+		if ( event.key === 'ArrowLeft' ) {
+			setWidth( ( prev ) => Math.max( 100, prev + 10 ) );
+		} else if ( event.key === 'ArrowRight' ) {
+			setWidth( ( prev ) => Math.min( 800, prev - 10 ) );
+		}
+	};
+
+	useEffect( () => {
+		if ( isResizing ) {
+			window.addEventListener( 'mousemove', handleMouseMove );
+			window.addEventListener( 'mouseup', handleMouseUp );
+		} else {
+			window.removeEventListener( 'mousemove', handleMouseMove );
+			window.removeEventListener( 'mouseup', handleMouseUp );
+		}
+
+		return () => {
+			window.removeEventListener( 'mousemove', handleMouseMove );
+			window.removeEventListener( 'mouseup', handleMouseUp );
+		};
+	}, [ isResizing, handleMouseMove, handleMouseUp ] );
 
 	return (
 		<Fill name={ `ComplementaryArea/${ scope }` }>
 			<AnimatePresence initial={ false }>
 				{ ( previousIsActive || isActive ) && (
 					<motion.div
-						variants={ variants }
+						variants={ { ...variants, open: { width } } }
 						initial="closed"
 						animate={ isMobileViewport ? 'mobileOpen' : 'open' }
 						exit="closed"
@@ -104,22 +155,27 @@ function ComplementaryAreaFill( {
 							id={ id }
 							className={ className }
 							style={ {
-								width: isMobileViewport
-									? '100vw'
-									: sidebarWidth,
+								width: isMobileViewport ? '100vw' : '100%',
 								height: '100%',
 								display: 'flex',
 								flexDirection: 'row',
 							} }
 						>
-							<div
+							<button
 								className="interface-complementary-area__resize-handle"
+								onMouseDown={ handleMouseDown }
+								tabIndex={ 0 }
+								aria-label="Resize sidebar"
+								onKeyDown={ handleKeyDown }
 								style={ {
 									width: '8px',
+									border: '0',
+									background: 'none',
 									cursor: 'ew-resize',
 									flexShrink: 0,
+									padding: 0,
 								} }
-							></div>
+							></button>
 
 							<div
 								style={ { flexGrow: 1, overflowY: 'auto' } }
