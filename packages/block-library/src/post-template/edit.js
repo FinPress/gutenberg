@@ -100,7 +100,7 @@ export default function PostTemplateEdit( {
 		} = {},
 		templateSlug,
 		previewPostType,
-		matchAllTaxonomies,
+		matchAllTerms,
 	},
 	attributes: { layout },
 	__unstableLayoutClassNames,
@@ -247,10 +247,10 @@ export default function PostTemplateEdit( {
 	);
 
 	// Filtered list of posts that match all selected taxonomy terms,
-	// applied only when matchAllTaxonomies is enabled.
+	// applied only when matchAllTerms is enabled.
 	const posts = useMemo( () => {
 		if (
-			! matchAllTaxonomies ||
+			! matchAllTerms ||
 			! Array.isArray( fetchedPosts ) ||
 			fetchedPosts.length === 0 ||
 			! taxQuery ||
@@ -278,7 +278,7 @@ export default function PostTemplateEdit( {
 				}
 			);
 		} );
-	}, [ fetchedPosts, matchAllTaxonomies, taxQuery ] );
+	}, [ fetchedPosts, matchAllTerms, taxQuery ] );
 
 	const blockContexts = useMemo(
 		() =>

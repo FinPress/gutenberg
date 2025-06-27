@@ -14,7 +14,7 @@
 		"templateSlug",
 		"previewPostType",
 		"enhancedPagination",
-		"matchAllTaxonomies",
+		"matchAllTerms",
 		"postType"
 	],
 	"supports": {

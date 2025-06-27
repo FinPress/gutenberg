@@ -41,7 +41,7 @@
 			"type": "boolean",
 			"default": false
 		},
-		"matchAllTaxonomies": {
+		"matchAllTerms": {
 			"type": "boolean",
 			"default": false
 		}
@@ -52,7 +52,7 @@
 		"query": "query",
 		"displayLayout": "displayLayout",
 		"enhancedPagination": "enhancedPagination",
-		"matchAllTaxonomies": "matchAllTaxonomies"
+		"matchAllTerms": "matchAllTerms"
 	},
 	"supports": {
 		"align": [ "wide", "full" ],

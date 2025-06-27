@@ -50,7 +50,7 @@ const getTermIdByTermValue = ( terms, termValue ) => {
 };
 
 export function TaxonomyControls( { onChange, attributes, setAttributes } ) {
-	const { query, matchAllTaxonomies } = attributes;
+	const { query, matchAllTerms } = attributes;
 	const { postType, taxQuery } = query;
 
 	const taxonomies = useTaxonomies( postType );
@@ -81,12 +81,12 @@ export function TaxonomyControls( { onChange, attributes, setAttributes } ) {
 			} ) }
 			<ToggleControl
 				__nextHasNoMarginBottom
-				label={ __( 'Match all taxonomies' ) }
+				label={ __( 'Match all taxonomies terms' ) }
 				help={ __( 'Help message' ) }
-				checked={ matchAllTaxonomies }
+				checked={ matchAllTerms }
 				onChange={ ( value ) => {
 					setAttributes( {
-						matchAllTaxonomies: value,
+						matchAllTerms: value,
 					} );
 				} }
 			/>
