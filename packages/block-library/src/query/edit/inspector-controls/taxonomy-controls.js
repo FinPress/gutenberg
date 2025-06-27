@@ -81,8 +81,10 @@ export function TaxonomyControls( { onChange, attributes, setAttributes } ) {
 			} ) }
 			<ToggleControl
 				__nextHasNoMarginBottom
-				label={ __( 'Match all taxonomies terms' ) }
-				help={ __( 'Help message' ) }
+				label={ __( 'Require all selected terms' ) }
+				help={ __(
+					'Only show posts that match all selected terms across all taxonomies.'
+				) }
 				checked={ matchAllTerms }
 				onChange={ ( value ) => {
 					setAttributes( {
