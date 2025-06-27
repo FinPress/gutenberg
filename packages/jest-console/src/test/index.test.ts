@@ -17,6 +17,7 @@ describe( 'jest-console', () => {
 
 		test( `${ matcherName } works`, () => {
 			console[ methodName ]( message );
+
 			expect( console )[ matcherName ]();
 		} );
 
@@ -29,6 +30,7 @@ describe( 'jest-console', () => {
 
 		test( `${ matcherNameWith } works with arguments that match`, () => {
 			console[ methodName ]( message );
+
 			expect( console )[ matcherNameWith ]( message );
 		} );
 
@@ -44,6 +46,7 @@ describe( 'jest-console', () => {
 		test( `${ matcherNameWith } works with many arguments that do not match`, () => {
 			console[ methodName ]( 'Unknown message.' );
 			console[ methodName ]( message, 'Unknown param.' );
+
 			expect( console ).not[ matcherNameWith ]( message );
 			expect( () =>
 				expect( console )[ matcherNameWith ]( message )
@@ -54,14 +57,37 @@ describe( 'jest-console', () => {
 
 		test( 'assertions number gets incremented after every matcher call', () => {
 			const spy = console[ methodName ];
-			// Call the console method so the matcher has something to assert
+
+			expect( ( spy as any ).assertionsNumber ).toBe( 0 );
+
 			console[ methodName ]( message );
-			expect( typeof ( spy as any ).assertionsNumber ).toBe( 'number' );
-			const before = ( spy as any ).assertionsNumber;
+
 			expect( console )[ matcherName ]();
-			const after = ( spy as any ).assertionsNumber;
-			expect( after ).toBe( before + 1 );
+			expect( ( spy as any ).assertionsNumber ).toBe( 1 );
+
+			expect( console )[ matcherNameWith ]( message );
+			expect( ( spy as any ).assertionsNumber ).toBe( 2 );
+		} );
+
+		describe( 'lifecycle', () => {
+			beforeAll( () => {
+				// Disable reason:
+				// This is a difficult one to test, since the matcher's
+				// own lifecycle is defined to run before ours. Infer
+				// that we're being watched by testing the console
+				// method as being a spy.
+				// eslint-disable-next-line jest/no-standalone-expect
+				expect(
+					console[ methodName ].assertionsNumber
+				).toBeGreaterThanOrEqual( 0 );
+			} );
+
+			// Disable reason:
+			// See beforeAll implementation and explanation added there.
+			// eslint-disable-next-line jest/expect-expect
+			it( 'captures logging in lifecycle', () => {} );
 		} );
 	} );
 } );
+
 /* eslint-enable no-console */

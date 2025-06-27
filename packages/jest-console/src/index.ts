@@ -15,11 +15,17 @@ const setConsoleMethodSpy = ( args: [ string, string ] ) => {
 		.spyOn( console, methodName as 'error' | 'info' | 'log' | 'warn' )
 		.mockName( `console.${ methodName }` );
 
+	/**
+	 * Resets the spy to its initial state.
+	 */
 	function resetSpy() {
 		spy.mockReset();
 		( spy as any ).assertionsNumber = 0;
 	}
 
+	/**
+	 * Verifies that the spy has only been called if expected.
+	 */
 	function assertExpectedCalls() {
 		if (
 			( spy as any ).assertionsNumber === 0 &&

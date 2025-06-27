@@ -45,9 +45,11 @@ const createSpyInfo = (
 	expected?: any[]
 ) => {
 	const calls = spy.mock.calls;
+
 	const pass = expected
 		? JSON.stringify( calls ).includes( JSON.stringify( expected ) )
 		: calls.length > 0;
+
 	const message = createErrorMessage( {
 		spy,
 		pass,
@@ -56,6 +58,7 @@ const createSpyInfo = (
 		methodName,
 		expected,
 	} );
+
 	return {
 		pass,
 		message,
@@ -85,6 +88,7 @@ expect.extend(
 	Object.entries( supportedMatchers ).reduce(
 		( result, [ methodName, matcherName ] ) => {
 			const matcherNameWith = `${ matcherName }With`;
+
 			return {
 				...result,
 				[ matcherName ]: createToHaveBeenCalledMatcher(
