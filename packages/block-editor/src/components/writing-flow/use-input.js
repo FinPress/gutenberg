@@ -69,6 +69,9 @@ export default function useInput() {
 					const selectionStart = getSelectionStart();
 					const selectionEnd = getSelectionEnd();
 
+					if ( blockName === null ) {
+						return;
+					}
 					if (
 						selectionStart.attributeKey ===
 						selectionEnd.attributeKey

@@ -3,7 +3,11 @@
  */
 import { useCallback, useMemo } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { parse, __unstableSerializeAndClean } from '@wordpress/blocks';
+import {
+	parse,
+	__unstableSerializeAndCleanWithYdoc,
+	__unstableSerializeAndClean,
+} from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -34,9 +38,11 @@ const parsedBlocksCache = new WeakMap();
  * @return {[unknown[], Function, Function]} The block array and setters.
  */
 export default function useEntityBlockEditor( kind, name, { id: _id } = {} ) {
+	// @todo is this where the content is set / updated?
 	const providerId = useEntityId( kind, name );
 	const id = _id ?? providerId;
-	const { getEntityRecord, getEntityRecordEdits } = useSelect( STORE_NAME );
+	const { getEntityRecord, getEntityRecordEdits, getEntityConfig } =
+		useSelect( STORE_NAME );
 	const { content, editedBlocks, meta } = useSelect(
 		( select ) => {
 			if ( ! id ) {
@@ -104,8 +110,20 @@ export default function useEntityBlockEditor( kind, name, { id: _id } = {} ) {
 			// a new undo level.
 			const edits = {
 				selection,
-				content: ( { blocks: blocksForSerialization = [] } ) =>
-					__unstableSerializeAndClean( blocksForSerialization ),
+				content: ( { blocks: blocksForSerialization = [] } ) => {
+					const entityConfig = getEntityConfig( kind, name );
+					const objectId =
+						entityConfig?.getSyncObjectId?.( id ) ?? null;
+					if ( objectId === null ) {
+						// no sync feature available for this entity type
+						return __unstableSerializeAndClean( blocks );
+					}
+					return __unstableSerializeAndCleanWithYdoc(
+						blocksForSerialization,
+						entityConfig.syncObjectType,
+						objectId
+					);
+				},
 				...updateFootnotesFromMeta( newBlocks, meta ),
 			};
 
@@ -122,6 +140,7 @@ export default function useEntityBlockEditor( kind, name, { id: _id } = {} ) {
 			meta,
 			__unstableCreateUndoLevel,
 			editEntityRecord,
+			getEntityConfig,
 		]
 	);
 

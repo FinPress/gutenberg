@@ -10,7 +10,6 @@ import { WebrtcProviderWithHttpSignaling } from './webrtc-http-stream-signaling'
 
 /** @typedef {import('./types').ObjectType} ObjectType */
 /** @typedef {import('./types').ObjectID} ObjectID */
-/** @typedef {import('./types').CRDTDoc} CRDTDoc */
 
 /**
  * Function that creates a new WebRTC Connection.
@@ -19,7 +18,7 @@ import { WebrtcProviderWithHttpSignaling } from './webrtc-http-stream-signaling'
  *
  * @param {Array<string>} config.signaling
  * @param {string}        config.password
- * @return {Function} Promise that resolves when the connection is established.
+ * @return {import('./types').ConnectDoc} Promise that resolves when the connection is established.
  */
 export function createWebRTCConnection( { signaling, password } ) {
 	return function (
@@ -28,12 +27,15 @@ export function createWebRTCConnection( { signaling, password } ) {
 		/** @type {import("yjs").Doc} */ doc
 	) {
 		const roomName = `${ objectType }-${ objectId }`;
-		new WebrtcProviderWithHttpSignaling( roomName, doc, {
-			signaling,
-			// @ts-ignore
-			password,
-		} );
-
+		try {
+			new WebrtcProviderWithHttpSignaling( roomName, doc, {
+				signaling,
+				// @ts-ignore
+				password,
+			} );
+		} catch ( err ) {
+			// nop
+		}
 		return Promise.resolve( () => true );
 	};
 }

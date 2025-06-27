@@ -403,7 +403,6 @@ export function entitiesConfig( state = rootEntitiesConfig, action ) {
 		case 'ADD_ENTITIES':
 			return [ ...state, ...action.entities ];
 	}
-
 	return state;
 }
 

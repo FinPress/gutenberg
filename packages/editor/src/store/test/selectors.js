@@ -45,6 +45,12 @@ selectorNames.forEach( ( name ) => {
 				);
 			},
 
+			getEntityConfig() {
+				return {
+					getSyncObjectId: () => '0',
+				};
+			},
+
 			getEntityRecordEdits() {
 				const present = state.editor && state.editor.present;
 				let edits = present && present.edits;
