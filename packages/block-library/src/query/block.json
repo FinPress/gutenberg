@@ -51,7 +51,8 @@
 		"queryId": "queryId",
 		"query": "query",
 		"displayLayout": "displayLayout",
-		"enhancedPagination": "enhancedPagination"
+		"enhancedPagination": "enhancedPagination",
+		"matchAllTaxonomies": "matchAllTaxonomies"
 	},
 	"supports": {
 		"align": [ "wide", "full" ],
