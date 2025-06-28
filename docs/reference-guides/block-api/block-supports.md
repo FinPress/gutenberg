@@ -974,6 +974,14 @@ supports: {
     -   `fontSize`: type `boolean`, default value `false`
     -   `lineHeight`: type `boolean`, default value `false`
     -   `textAlign`: type `boolean` or `array`, default value `false`
+    -   `__experimentalFontFamily`: type `boolean`, default value `false`
+    -   `__experimentalFontWeight`: type `boolean`, default value `false`
+    -   `__experimentalFontStyle`: type `boolean`, default value `false`
+    -   `__experimentalTextTransform`: type `boolean`, default value `false`
+    -   `__experimentalTextDecoration`: type `boolean`, default value `false`
+    -   `__experimentalLetterSpacing`: type `boolean`, default value `false`
+    -   `__experimentalWritingMode`: type `boolean`, default value `false`
+    -   `__experimentalDefaultControls`: type `object`, default value `null`
 
 The presence of this object signals that a block supports some typography related properties. When it does, the block editor will show a typography UI allowing the user to control their values.
 
@@ -986,6 +994,18 @@ supports: {
         lineHeight: true,
         // Enable support and UI control for text alignment.
         textAlign: true,
+	// Enable support and UI control for font-family.
+	__experimentalFontFamily: true,
+	// Enable support and UI control for font-weight (Combines with font-style for font-appearance support and UI control).
+	__experimentalFontWeight: true,
+	// Enable support and UI control for font-style (Combines with font-weight for font-appearance support and UI control).
+	__experimentalFontStyle: true,
+	// Enable support and UI control for text-transform (letter-spacing).
+	__experimentalTextTransform: true,
+	// Enable support and UI control for writing-mode (orientation).
+	__experimentalWritingMode: true,
+	// Allows the selection of enabled typography UI controls that are visible by default for the block as subproperties. 
+	__experimentalDefaultControls: {...subproperties}
     },
 }
 ```
@@ -1106,6 +1126,34 @@ attributes: {
             typography: {
                 textAlign: 'value'
             }
+        }
+    }
+}
+```
+
+### typography.__experimentalFontFamily
+
+- Type: `boolean`
+- Default value: `false`
+
+This value signals that a block supports the font-family CSS style property. When it does, the block editor will show an UI control for the user to set its value. The values shown in this control are the ones declared by the theme or added by the user in Appearance > Editor > Styles > Typography > Fonts.
+
+```js
+supports: {
+    typography: {
+        // Enable support and UI control for font-family.
+        __experimentalFontFamily: true,
+    },
+}
+```
+
+When the block declares support for `__experimentalFontFamily`, the attributes definition is extended to include a new attribute `fontFamily` of `string` type with no default assigned. It stores the custom value set by the user. The block can apply a default style by specifying its own `style` attribute with a default. For example:
+
+```js
+attributes: {
+    fontFamily: {
+        type: 'string',
+        default: 'value'
         }
     }
 }
