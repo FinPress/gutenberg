@@ -1,14 +1,12 @@
 /**
  * WordPress dependencies
  */
-import { addAction } from '@wordpress/hooks';
 
 /**
  * External dependencies
  */
 // @ts-ignore
 import * as Y from 'yjs';
-import * as buffer from 'lib0/buffer';
 
 /** @typedef {import('./types').ObjectType} ObjectType */
 /** @typedef {import('./types').ObjectID} ObjectID */
