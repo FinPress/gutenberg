@@ -25,17 +25,9 @@ export default function save( { attributes } ) {
 		playsInline,
 		tracks,
 	} = attributes;
-
-	const hasSrc = !! src;
-	const hasCaption = ! RichText.isEmpty( caption );
-
-	if ( ! hasSrc && ! hasCaption ) {
-		return null;
-	}
-
 	return (
 		<figure { ...useBlockProps.save() }>
-			{ hasSrc && (
+			{ src && (
 				<video
 					autoPlay={ autoplay }
 					controls={ controls }
@@ -49,7 +41,7 @@ export default function save( { attributes } ) {
 					<Tracks tracks={ tracks } />
 				</video>
 			) }
-			{ hasCaption && (
+			{ ! RichText.isEmpty( caption ) && (
 				<RichText.Content
 					className={ __experimentalGetElementClassName( 'caption' ) }
 					tagName="figcaption"
