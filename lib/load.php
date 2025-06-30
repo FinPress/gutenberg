@@ -122,9 +122,6 @@ require __DIR__ . '/demo.php';
 require __DIR__ . '/experiments-page.php';
 require __DIR__ . '/interactivity-api.php';
 require __DIR__ . '/block-template-utils.php';
-if ( gutenberg_is_experiment_enabled( 'gutenberg-full-page-client-side-navigation' ) ) {
-	require __DIR__ . '/experimental/full-page-client-side-navigation.php';
-}
 
 // Copied package PHP files.
 if ( is_dir( __DIR__ . '/../build/style-engine' ) ) {
@@ -158,4 +155,10 @@ require_once __DIR__ . '/experimental/data-views.php';
 // Client-side media processing.
 if ( gutenberg_is_experiment_enabled( 'gutenberg-media-processing' ) ) {
 	require_once __DIR__ . '/experimental/media/load.php';
+}
+
+// Interactivity API full-page client-side navigation.
+if ( gutenberg_is_experiment_enabled( 'gutenberg-full-page-client-side-navigation' ) ) {
+	require __DIR__ . '/experimental/interactivity-api/class-gutenberg-interactivity-api-full-page-navigation.php';
+	Gutenberg_Interactivity_API_Full_Page_Navigation::instance();
 }
