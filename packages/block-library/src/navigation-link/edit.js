@@ -243,9 +243,6 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 				<CheckboxControl
 					__nextHasNoMarginBottom
 					label={ __( 'Open in new tab' ) }
-					help={ __(
-						'The link will open in a new tab when clicked.'
-					) }
 					checked={ opensInNewTab }
 					onChange={ ( value ) =>
 						setAttributes( { opensInNewTab: value } )
