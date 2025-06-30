@@ -36,11 +36,11 @@ export const OPERATORS: Record< Operator, { key: string; label: string } > = {
 	},
 	[ OPERATOR_IS_ANY ]: {
 		key: 'is-any-filter',
-		label: __( 'Is any' ),
+		label: __( 'Includes' ),
 	},
 	[ OPERATOR_IS_NONE ]: {
 		key: 'is-none-filter',
-		label: __( 'Is none' ),
+		label: __( 'Excludes' ),
 	},
 	[ OPERATOR_IS_ALL ]: {
 		key: 'is-all-filter',

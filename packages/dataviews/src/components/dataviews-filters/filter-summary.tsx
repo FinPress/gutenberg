@@ -80,8 +80,8 @@ const FilterText = ( {
 	if ( filterInView?.operator === OPERATOR_IS_ANY ) {
 		return createInterpolateElement(
 			sprintf(
-				/* translators: 1: Filter name. 3: Filter value. e.g.: "Author is any: Admin, Editor". */
-				__( '<Name>%1$s is any: </Name><Value>%2$s</Value>' ),
+				/* translators: 1: Filter name. 3: Filter value. e.g.: "Author includes: Admin, Editor". */
+				__( '<Name>%1$s includes: </Name><Value>%2$s</Value>' ),
 				filter.name,
 				activeElements.map( ( element ) => element.label ).join( ', ' )
 			),
@@ -92,8 +92,8 @@ const FilterText = ( {
 	if ( filterInView?.operator === OPERATOR_IS_NONE ) {
 		return createInterpolateElement(
 			sprintf(
-				/* translators: 1: Filter name. 3: Filter value. e.g.: "Author is none: Admin, Editor". */
-				__( '<Name>%1$s is none: </Name><Value>%2$s</Value>' ),
+				/* translators: 1: Filter name. 3: Filter value. e.g.: "Author excludes: Admin, Editor". */
+				__( '<Name>%1$s excludes: </Name><Value>%2$s</Value>' ),
 				filter.name,
 				activeElements.map( ( element ) => element.label ).join( ', ' )
 			),

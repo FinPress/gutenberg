@@ -1099,14 +1099,14 @@ Configuration of the filters.
 
 Operators:
 
-| Operator   | Selection      | Description                                                             | Example                                            |
-| ---------- | -------------- | ----------------------------------------------------------------------- | -------------------------------------------------- |
-| `is`       | Single item    | `EQUAL TO`. The item's field is equal to a single value.                | Author is Admin                                    |
-| `isNot`    | Single item    | `NOT EQUAL TO`. The item's field is not equal to a single value.        | Author is not Admin                                |
-| `isAny`    | Multiple items | `OR`. The item's field is present in a list of values.                  | Author is any: Admin, Editor                       |
-| `isNone`   | Multiple items | `NOT OR`. The item's field is not present in a list of values.          | Author is none: Admin, Editor                      |
-| `isAll`    | Multiple items | `AND`. The item's field has all of the values in the list.              | Category is all: Book, Review, Science Fiction     |
-| `isNotAll` | Multiple items | `NOT AND`. The item's field doesn't have all of the values in the list. | Category is not all: Book, Review, Science Fiction |
+| Operator   | Selection      | Description                                                                 | Example                                            |
+|------------|----------------|-----------------------------------------------------------------------------|----------------------------------------------------|
+| `is`       | Single item    | `EQUAL TO`. The item's field is equal to a single value.                    | Author is Admin                                    |
+| `isNot`    | Single item    | `NOT EQUAL TO`. The item's field is not equal to a single value.            | Author is not Admin                                |
+| `isAny`    | Multiple items | `OR`. The item's field is included in a list of values.                     | Author includes: Admin, Editor                       |
+| `isNone`   | Multiple items | `NOT OR`. The item's field is not included in a list of values.             | Author excludes: Admin, Editor                      |
+| `isAll`    | Multiple items | `AND`. The item's field includes all the values in the list.                | Category is all: Book, Review, Science Fiction     |
+| `isNotAll` | Multiple items | `NOT AND`. The item's field does not include all of the values in the list. | Category is not all: Book, Review, Science Fiction |
 
 `is` and `isNot` are single-selection operators, while `isAny`, `isNone`, `isAll`, and `isNotALl` are multi-selection. A filter with no operators declared will support the `isAny` and `isNone` multi-selection operators by default. A filter cannot mix single-selection & multi-selection operators; if a single-selection operator is present in the list of valid operators, the multi-selection ones will be discarded, and the filter won't allow selecting more than one item.
 
