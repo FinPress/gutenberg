@@ -54,10 +54,12 @@ module.exports = ( token ) => {
 	}
 
 	const name = [];
-	if ( token.declaration === null ) {
+	// ToDo: token.declaration can be undefined in cases where the export is an external node module - see sync/index.ts's Y export.
+	if ( ! token.declaration ) {
 		token.specifiers.forEach( ( specifier ) =>
 			name.push( {
-				localName: specifier.local.name,
+				// ToDo: specifier.local can be null in cases where the export is an external node module - see sync/index.ts's Y export.
+				localName: specifier.local?.name ?? null,
 				exportName: specifier.exported.name,
 				module: token.source?.value ?? null,
 				lineStart: specifier.loc.start.line,

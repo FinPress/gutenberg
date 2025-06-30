@@ -1,4 +1,13 @@
 /**
+ * External dependencies
+ */
+import * as Y from 'yjs';
+import * as number from 'lib0/number';
+import * as buffer from 'lib0/buffer';
+import * as string from 'lib0/string';
+import * as sha256 from 'lib0/hash/sha256';
+
+/**
  * WordPress dependencies
  */
 import { applyFilters } from '@wordpress/hooks';
@@ -10,26 +19,16 @@ import { createIndexedDBConnection } from './create-indexeddb-connection';
 import { createSyncProvider } from './provider';
 import { createWebRTCConnection } from './create-webrtc-connection';
 import { createWebSocketConnection } from './create-websocket-connection';
-// ToDo: Fix the npm run other:check-local-changes from failing due to this import. It's to do with docgen not being able to resolve this import.
 import type { ConnectDoc, SyncProvider } from './types';
-
-/**
- * External dependencies
- */
-import * as Y from 'yjs';
-import * as number from 'lib0/number';
-import * as buffer from 'lib0/buffer';
-import * as string from 'lib0/string';
-import * as sha256 from 'lib0/hash/sha256';
 
 /**
  * Export dependencies
  */
+export * as Y from 'yjs';
 export { createIndexedDBConnection } from './create-indexeddb-connection';
 export { createSyncProvider } from './provider';
 export { createWebRTCConnection } from './create-webrtc-connection';
 export { createWebSocketConnection } from './create-websocket-connection';
-export * as Y from 'yjs';
 
 const queryYdocComment =
 	/<!-- y:gutenberg version="([a-zA-Z0-9]*)" state="([a-zA-Z0-9+/]*={0,3})" new-content-clientid="([0-9]*)" -->/;
