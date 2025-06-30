@@ -75,6 +75,7 @@ export const Default = () => {
 			actions={ actions }
 			renderItemLink={ ( { item, ...props }: { item: SpaceObject } ) => (
 				<button
+					style={ { background: 'none', border: 'none', padding: 0 } }
 					onClick={ ( e ) => {
 						e.stopPropagation();
 						// eslint-disable-next-line no-alert
