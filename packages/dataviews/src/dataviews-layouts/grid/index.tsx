@@ -7,12 +7,12 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import {
-	__experimentalGrid as Grid,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	Spinner,
 	Flex,
 	FlexItem,
+	Composite,
 	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -36,7 +36,7 @@ import type {
 } from '../../types';
 import type { SetSelection } from '../../private-types';
 import getClickableItemProps from '../utils/get-clickable-item-props';
-import { useUpdatedPreviewSizeOnViewportChange } from './preview-size-picker';
+import { usePreviewSize } from './preview-size-picker';
 const { Badge } = unlock( componentsPrivateApis );
 
 interface GridItemProps< Item > {
@@ -54,6 +54,14 @@ interface GridItemProps< Item > {
 	regularFields: NormalizedField< Item >[];
 	badgeFields: NormalizedField< Item >[];
 	hasBulkActions: boolean;
+}
+
+function chunk( array: any, size: number ) {
+	const chunks = [];
+	for ( let i = 0, j = array.length; i < j; i += size ) {
+		chunks.push( array.slice( i, i + size ) );
+	}
+	return chunks;
 }
 
 function GridItem< Item >( {
@@ -267,47 +275,75 @@ export default function ViewGrid< Item >( {
 		{ regularFields: [], badgeFields: [] }
 	);
 	const hasData = !! data?.length;
-	const updatedPreviewSize = useUpdatedPreviewSizeOnViewportChange();
+	const previewSize = usePreviewSize();
 	const hasBulkActions = useSomeItemHasAPossibleBulkAction( actions, data );
-	const usedPreviewSize = updatedPreviewSize || view.layout?.previewSize;
-	const gridStyle = usedPreviewSize
-		? {
-				gridTemplateColumns: `repeat(${ usedPreviewSize }, minmax(0, 1fr))`,
-		  }
-		: {};
 	return (
 		<>
 			{ hasData && (
-				<Grid
-					gap={ 8 }
-					columns={ 2 }
-					alignment="top"
+				<Composite
+					role="grid"
 					className="dataviews-view-grid"
-					style={ gridStyle }
+					focusLoop
+					focusWrap
 					aria-busy={ isLoading }
 				>
-					{ data.map( ( item ) => {
-						return (
-							<GridItem
-								key={ getItemId( item ) }
-								view={ view }
-								selection={ selection }
-								onChangeSelection={ onChangeSelection }
-								onClickItem={ onClickItem }
-								isItemClickable={ isItemClickable }
-								getItemId={ getItemId }
-								item={ item }
-								actions={ actions }
-								mediaField={ mediaField }
-								titleField={ titleField }
-								descriptionField={ descriptionField }
-								regularFields={ regularFields }
-								badgeFields={ badgeFields }
-								hasBulkActions={ hasBulkActions }
-							/>
-						);
-					} ) }
-				</Grid>
+					<VStack spacing={ 8 }>
+						{ chunk( data, previewSize ).map( ( row, i ) => (
+							<Composite.Row
+								key={ i }
+								role="row"
+								render={
+									<div
+										className="dataviews-view-grid__row"
+										style={ {
+											gridTemplateColumns: `repeat( ${ previewSize }, minmax(0, 1fr) )`,
+										} }
+									/>
+								}
+							>
+								{ row.map( ( item: any ) => (
+									<Composite.Item
+										key={ getItemId( item ) }
+										render={
+											<div
+												id={ getItemId( item ) }
+												className="dataviews-view-grid__row__gridcell"
+												role="gridcell"
+											>
+												<GridItem
+													view={ view }
+													selection={ selection }
+													onChangeSelection={
+														onChangeSelection
+													}
+													onClickItem={ onClickItem }
+													isItemClickable={
+														isItemClickable
+													}
+													getItemId={ getItemId }
+													item={ item }
+													actions={ actions }
+													mediaField={ mediaField }
+													titleField={ titleField }
+													descriptionField={
+														descriptionField
+													}
+													regularFields={
+														regularFields
+													}
+													badgeFields={ badgeFields }
+													hasBulkActions={
+														hasBulkActions
+													}
+												/>
+											</div>
+										}
+									/>
+								) ) }
+							</Composite.Row>
+						) ) }
+					</VStack>
+				</Composite>
 			) }
 			{ ! hasData && (
 				<div

@@ -65,7 +65,7 @@ export function useHasAPossibleBulkAction< Item >(
 	item: Item
 ) {
 	return useMemo( () => {
-		return actions.some( ( action ) => {
+		return actions?.some( ( action ) => {
 			return (
 				action.supportsBulk &&
 				( ! action.isEligible || action.isEligible( item ) )

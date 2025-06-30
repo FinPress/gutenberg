@@ -43,23 +43,24 @@ function useViewPortBreakpoint() {
 	return 'mobile';
 }
 
-export function useUpdatedPreviewSizeOnViewportChange() {
+export function usePreviewSize() {
 	const view = useContext( DataViewsContext ).view as ViewGrid;
 	const viewport = useViewPortBreakpoint();
 	return useMemo( () => {
 		const previewSize = view.layout?.previewSize;
-		let newPreviewSize;
 		if ( ! previewSize ) {
-			return;
+			// For mobile, we want the `min` value as the default.
+			const breakValueProp = viewport === 'mobile' ? 'min' : 'default';
+			return viewportBreaks[ viewport ][ breakValueProp ];
 		}
 		const breakValues = viewportBreaks[ viewport ];
 		if ( previewSize < breakValues.min ) {
-			newPreviewSize = breakValues.min;
+			return breakValues.min;
 		}
 		if ( previewSize > breakValues.max ) {
-			newPreviewSize = breakValues.max;
+			return breakValues.max;
 		}
-		return newPreviewSize;
+		return previewSize;
 	}, [ viewport, view ] );
 }
 
