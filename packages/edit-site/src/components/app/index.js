@@ -1,10 +1,11 @@
 /**
  * WordPress dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { useCallback, useMemo } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
+import { store as editorStore } from '@wordpress/editor';
 
 /**
  * Internal dependencies
@@ -31,6 +32,7 @@ function AppLayout() {
 
 export default function App() {
 	useRegisterSiteEditorRoutes();
+	const { setEditedPost } = useDispatch( editorStore );
 	const { routes, currentTheme, editorSettings } = useSelect( ( select ) => {
 		return {
 			routes: unlock( select( editSiteStore ) ).getRoutes(),
@@ -40,22 +42,26 @@ export default function App() {
 		};
 	}, [] );
 
-	const beforeNavigate = useCallback( ( { path, query } ) => {
-		if ( ! isPreviewingTheme() ) {
-			return { path, query };
-		}
+	const beforeNavigate = useCallback(
+		( { path, query } ) => {
+			setEditedPost( null, null );
+			if ( ! isPreviewingTheme() ) {
+				return { path, query };
+			}
 
-		return {
-			path,
-			query: {
-				...query,
-				wp_theme_preview:
-					'wp_theme_preview' in query
-						? query.wp_theme_preview
-						: currentlyPreviewingTheme(),
-			},
-		};
-	}, [] );
+			return {
+				path,
+				query: {
+					...query,
+					wp_theme_preview:
+						'wp_theme_preview' in query
+							? query.wp_theme_preview
+							: currentlyPreviewingTheme(),
+				},
+			};
+		},
+		[ setEditedPost ]
+	);
 
 	const matchResolverArgsValue = useMemo(
 		() => ( {
