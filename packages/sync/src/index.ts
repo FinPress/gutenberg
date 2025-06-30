@@ -10,6 +10,7 @@ import { createIndexedDBConnection } from './create-indexeddb-connection';
 import { createSyncProvider } from './provider';
 import { createWebRTCConnection } from './create-webrtc-connection';
 import { createWebSocketConnection } from './create-websocket-connection';
+// ToDo: Fix the npm run other:check-local-changes from failing due to this import. It's to do with docgen not being able to resolve this import.
 import type { ConnectDoc, SyncProvider } from './types';
 
 /**
