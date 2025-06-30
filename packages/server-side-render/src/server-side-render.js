@@ -11,6 +11,7 @@ import {
 	RawHTML,
 	useCallback,
 	useEffect,
+	useLayoutEffect,
 	useRef,
 	useState,
 } from '@wordpress/element';
@@ -68,7 +69,22 @@ function DefaultErrorResponsePlaceholder( { response, className } ) {
 	return <Placeholder className={ className }>{ errorMessage }</Placeholder>;
 }
 
-function DefaultLoadingResponsePlaceholder( { children, showLoader } ) {
+function DefaultLoadingResponsePlaceholder( { children, isLoading } ) {
+	const [ showLoader, setShowLoader ] = useState( false );
+
+	useEffect( () => {
+		if ( ! isLoading ) {
+			setShowLoader( false );
+			return;
+		}
+
+		// Schedule showing the Spinner after 1 second.
+		const timeout = setTimeout( () => {
+			setShowLoader( true );
+		}, 1000 );
+		return () => clearTimeout( timeout );
+	}, [ isLoading ] );
+
 	return (
 		<div style={ { position: 'relative' } }>
 			{ showLoader && (
@@ -100,13 +116,15 @@ export default function ServerSideRender( props ) {
 	} = props;
 
 	const isMountedRef = useRef( false );
-	const [ showLoader, setShowLoader ] = useState( false );
 	const fetchRequestRef = useRef();
 	const [ response, setResponse ] = useState( null );
 	const prevProps = usePrevious( props );
 	const [ isLoading, setIsLoading ] = useState( false );
 	const latestPropsRef = useRef( props );
-	latestPropsRef.current = props;
+
+	useLayoutEffect( () => {
+		latestPropsRef.current = props;
+	}, [ props ] );
 
 	const fetchData = useCallback( () => {
 		if ( ! isMountedRef.current ) {
@@ -122,11 +140,6 @@ export default function ServerSideRender( props ) {
 		} = latestPropsRef.current;
 
 		setIsLoading( true );
-
-		// Schedule showing the Spinner after 1 second.
-		const timeout = setTimeout( () => {
-			setShowLoader( true );
-		}, 1000 );
 
 		let sanitizedAttributes =
 			attributes &&
@@ -181,9 +194,6 @@ export default function ServerSideRender( props ) {
 					fetchRequest === fetchRequestRef.current
 				) {
 					setIsLoading( false );
-					// Cancel the timeout to show the Spinner.
-					setShowLoader( false );
-					clearTimeout( timeout );
 				}
 			} ) );
 
@@ -213,12 +223,12 @@ export default function ServerSideRender( props ) {
 
 	const hasResponse = !! response;
 	const hasEmptyResponse = response === '';
-	const hasError = response?.error;
+	const hasError = !! response?.error;
 
 	if ( isLoading ) {
 		return (
-			<LoadingResponsePlaceholder { ...props } showLoader={ showLoader }>
-				{ hasResponse && (
+			<LoadingResponsePlaceholder { ...props } isLoading={ isLoading }>
+				{ hasResponse && ! hasError && (
 					<RawHTML className={ className }>{ response }</RawHTML>
 				) }
 			</LoadingResponsePlaceholder>
