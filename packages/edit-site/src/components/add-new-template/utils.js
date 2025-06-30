@@ -80,10 +80,12 @@ const usePublicPostTypes = () => {
 	);
 	return useMemo( () => {
 		const excludedPostTypes = [ 'attachment' ];
-		return postTypes?.filter(
-			( { viewable, slug } ) =>
-				viewable && ! excludedPostTypes.includes( slug )
-		);
+		return postTypes
+			?.filter(
+				( { viewable, slug } ) =>
+					viewable && ! excludedPostTypes.includes( slug )
+			)
+			.sort( ( a, b ) => a.name.localeCompare( b.name ) );
 	}, [ postTypes ] );
 };
 
