@@ -11,9 +11,9 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	CheckboxControl,
 	TextControl,
 	TextareaControl,
-	ToggleControl,
 	ToolbarButton,
 	ToolbarGroup,
 } from '@wordpress/components';
@@ -240,15 +240,15 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 				onDeselect={ () => setAttributes( { opensInNewTab: false } ) }
 				isShownByDefault
 			>
-				<ToggleControl
+				<CheckboxControl
 					__nextHasNoMarginBottom
 					label={ __( 'Open in new tab' ) }
 					help={ __(
 						'The link will open in a new tab when clicked.'
 					) }
 					checked={ opensInNewTab }
-					onChange={ () =>
-						setAttributes( { opensInNewTab: ! opensInNewTab } )
+					onChange={ ( value ) =>
+						setAttributes( { opensInNewTab: value } )
 					}
 				/>
 			</ToolsPanelItem>
