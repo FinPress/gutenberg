@@ -38,7 +38,6 @@ import type {
 } from '../../types';
 import type { SetSelection } from '../../private-types';
 import { ItemClickWrapper } from '../utils/item-click-wrapper';
-import { useUpdatedPreviewSizeOnViewportChange } from './preview-size-picker';
 const { Badge } = unlock( componentsPrivateApis );
 
 interface GridItemProps< Item > {
@@ -288,12 +287,11 @@ function ViewGrid< Item >( {
 		{ regularFields: [], badgeFields: [] }
 	);
 	const hasData = !! data?.length;
-	const updatedPreviewSize = useUpdatedPreviewSizeOnViewportChange();
 	const hasBulkActions = useSomeItemHasAPossibleBulkAction( actions, data );
-	const usedPreviewSize = updatedPreviewSize || view.layout?.previewSize;
+	const usedPreviewSize = view.layout?.previewSize;
 	const gridStyle = usedPreviewSize
 		? {
-				gridTemplateColumns: `repeat(${ usedPreviewSize }, minmax(0, 1fr))`,
+				gridTemplateColumns: `repeat(auto-fill, minmax(${ usedPreviewSize }px, 1fr))`,
 		  }
 		: {};
 
