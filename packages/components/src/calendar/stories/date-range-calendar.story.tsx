@@ -28,12 +28,12 @@ import { useState, useEffect } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import { DateCalendar, TZDate } from '../../';
+import { DateRangeCalendar, TZDate } from '..';
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta< typeof DateCalendar > = {
-	title: 'UI/DateCalendar',
-	component: DateCalendar,
+const meta: Meta< typeof DateRangeCalendar > = {
+	title: 'UI/DateRangeCalendar',
+	component: DateRangeCalendar,
 	argTypes: {
 		locale: {
 			options: [
@@ -89,8 +89,8 @@ const meta: Meta< typeof DateCalendar > = {
 		labels: {
 			control: false,
 		},
-		defaultSelected: { control: 'date' },
-		selected: { control: 'date' },
+		defaultSelected: { control: false },
+		selected: { control: false },
 		onSelect: {
 			control: false,
 		},
@@ -109,7 +109,7 @@ const meta: Meta< typeof DateCalendar > = {
 };
 export default meta;
 
-type Story = StoryObj< typeof DateCalendar >;
+type Story = StoryObj< typeof DateRangeCalendar >;
 
 export const Default: Story = {};
 
@@ -150,9 +150,13 @@ const nextMonthYear =
 		? new Date().getFullYear() + 1
 		: new Date().getFullYear();
 const firstDayOfNextMonth = new Date( nextMonthYear, nextMonth, 1 );
-export const WithSelectedDateAndMonth: Story = {
+const fourthDayOfNextMonth = new Date( nextMonthYear, nextMonth, 4 );
+export const WithSelectedRangeAndMonth: Story = {
 	args: {
-		defaultSelected: firstDayOfNextMonth,
+		defaultSelected: {
+			from: firstDayOfNextMonth,
+			to: fourthDayOfNextMonth,
+		},
 		defaultMonth: firstDayOfNextMonth,
 	},
 };
@@ -162,28 +166,40 @@ export const WithSelectedDateAndMonth: Story = {
  */
 export const WithTimeZone: Story = {
 	render: function DateCalendarWithTimeZone( args ) {
-		const [ selected, setSelected ] = useState< TZDate | null >( null );
+		const [ range, setRange ] = useState< typeof args.selected | null >(
+			null
+		);
 
 		useEffect( () => {
-			setSelected(
-				// Select one week from today every time the time zone changes.
-				new TZDate(
-					new Date().setDate( new Date().getDate() + 7 ),
-					args.timeZone
-				)
+			setRange(
+				// Select from one week from today to two weeks from today
+				// every time the timezone changes.
+				{
+					from: new TZDate(
+						new Date().setDate( new Date().getDate() + 7 ),
+						args.timeZone
+					),
+					to: new TZDate(
+						new Date().setDate( new Date().getDate() + 14 ),
+						args.timeZone
+					),
+				}
 			);
 		}, [ args.timeZone ] );
 
 		return (
 			<>
-				<DateCalendar
+				<DateRangeCalendar
 					{ ...args }
-					selected={ selected }
+					selected={ range }
 					onSelect={ ( selectedDate, ...rest ) => {
-						setSelected(
-							selectedDate
-								? new TZDate( selectedDate, args.timeZone )
-								: null
+						setRange(
+							// Set controlled state to null if there's no selection
+							! selectedDate ||
+								( selectedDate.from === undefined &&
+									selectedDate.to === undefined )
+								? null
+								: selectedDate
 						);
 						args.onSelect?.( selectedDate, ...rest );
 					} }
@@ -194,11 +210,11 @@ export const WithTimeZone: Story = {
 						},
 					] }
 				/>
-
 				<p>
 					Calendar set to { args.timeZone ?? 'current' } timezone,
 					disabling selection for all dates before today, and starting
-					with a default date of 1 week from today.
+					with a default date range of 1 week from today to 2 weeks
+					from today.
 				</p>
 			</>
 		);
@@ -207,12 +223,6 @@ export const WithTimeZone: Story = {
 		timeZone: 'Pacific/Auckland',
 	},
 	argTypes: {
-		selected: {
-			control: false,
-		},
-		defaultSelected: {
-			control: false,
-		},
 		disabled: {
 			control: false,
 		},

@@ -25,14 +25,10 @@ import '@testing-library/jest-dom';
 /**
  * Internal dependencies
  */
-import { usePreviewRange } from '../';
-import { DateRangeCalendar, TZDate } from '../..';
-import {
-	getDateButton,
-	getDateCell,
-	monthNameFormatter,
-} from '../../utils/test-utils';
-import type { DateRange, DateRangeCalendarProps } from '../../types';
+import { usePreviewRange } from '../date-range-calendar';
+import { DateRangeCalendar, TZDate } from '..';
+import { getDateButton, getDateCell, monthNameFormatter } from './utils';
+import type { DateRange, DateRangeCalendarProps } from '../types';
 
 const UncontrolledDateRangeCalendar = (
 	props: DateRangeCalendarProps & {

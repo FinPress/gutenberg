@@ -25,14 +25,14 @@ import '@testing-library/jest-dom';
 /**
  * Internal dependencies
  */
-import { DateCalendar, TZDate } from '../../';
+import { DateCalendar, TZDate } from '..';
 import {
 	getDateButton,
 	getDateCell,
 	queryDateCell,
 	monthNameFormatter,
-} from '../../utils/test-utils';
-import type { DateCalendarProps } from '../../types';
+} from './utils';
+import type { DateCalendarProps } from '../types';
 
 const UncontrolledDateCalendar = (
 	props: DateCalendarProps & {
