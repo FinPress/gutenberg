@@ -222,7 +222,7 @@ export default function ServerSideRender( props ) {
 
 	if ( isLoading ) {
 		return (
-			<LoadingResponsePlaceholder { ...props } isLoading={ isLoading }>
+			<LoadingResponsePlaceholder { ...props }>
 				{ hasResponse && ! hasError && (
 					<RawHTML className={ className }>{ response }</RawHTML>
 				) }
