@@ -1,4 +1,10 @@
-import { CalendarDay } from 'react-day-picker';
+/**
+ * External dependencies
+ */
+import type { CalendarDay } from 'react-day-picker';
+/**
+ * Internal dependencies
+ */
 import type { Modifiers } from '../types';
 
 /**

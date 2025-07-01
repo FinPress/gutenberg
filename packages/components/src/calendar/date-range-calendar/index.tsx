@@ -1,7 +1,16 @@
+/**
+ * External dependencies
+ */
 import { differenceInCalendarDays } from 'date-fns';
-import { useMemo, useState } from 'react';
+/**
+ * WordPress dependencies
+ */
+import { useMemo, useState } from '@wordpress/element';
 import { DayPicker, rangeContainsModifiers } from 'react-day-picker';
 import { enUS } from 'react-day-picker/locale';
+/**
+ * Internal dependencies
+ */
 import { COMMON_PROPS, MODIFIER_CLASSNAMES } from '../utils/constants';
 import { clampNumberOfMonths } from '../utils/misc';
 import { useControlledValue } from '../utils/use-controlled-value';
@@ -15,7 +24,10 @@ export function usePreviewRange( {
 	min,
 	max,
 	disabled,
-}: Pick< DateRangeCalendarProps, 'selected' | 'excludeDisabled' | 'min' | 'max' | 'disabled' > & {
+}: Pick<
+	DateRangeCalendarProps,
+	'selected' | 'excludeDisabled' | 'min' | 'max' | 'disabled'
+> & {
 	hoveredDate: Date | undefined;
 } ) {
 	return useMemo( () => {
@@ -37,7 +49,11 @@ export function usePreviewRange( {
 				from: hoveredDate,
 				to: selected.to ?? selected.from,
 			};
-		} else if ( selected.to && hoveredDate > selected.from && hoveredDate < selected.to ) {
+		} else if (
+			selected.to &&
+			hoveredDate > selected.from &&
+			hoveredDate < selected.to
+		) {
 			// Hovering on a date between the start and end of the selected range
 			previewHighlight = {
 				from: selected.from,
@@ -66,7 +82,10 @@ export function usePreviewRange( {
 			min !== undefined &&
 			min > 0 &&
 			potentialNewRange &&
-			differenceInCalendarDays( potentialNewRange.to, potentialNewRange.from ) < min
+			differenceInCalendarDays(
+				potentialNewRange.to,
+				potentialNewRange.from
+			) < min
 		) {
 			previewHighlight = {
 				from: hoveredDate,
@@ -78,7 +97,10 @@ export function usePreviewRange( {
 			max !== undefined &&
 			max > 0 &&
 			potentialNewRange &&
-			differenceInCalendarDays( potentialNewRange.to, potentialNewRange.from ) > max
+			differenceInCalendarDays(
+				potentialNewRange.to,
+				potentialNewRange.from
+			) > max
 		) {
 			previewHighlight = {
 				from: hoveredDate,
@@ -123,15 +145,23 @@ export const DateRangeCalendar = ( {
 	timeZone,
 	...props
 }: DateRangeCalendarProps ) => {
-	const localizationProps = useLocalizationProps( { locale, timeZone, mode: 'range' } );
+	const localizationProps = useLocalizationProps( {
+		locale,
+		timeZone,
+		mode: 'range',
+	} );
 
-	const [ selected, setSelected ] = useControlledValue< DateRange | undefined >( {
+	const [ selected, setSelected ] = useControlledValue<
+		DateRange | undefined
+	>( {
 		defaultValue: defaultSelected,
 		value: selectedProp,
 		onChange: onSelect,
 	} );
 
-	const [ hoveredDate, setHoveredDate ] = useState< Date | undefined >( undefined );
+	const [ hoveredDate, setHoveredDate ] = useState< Date | undefined >(
+		undefined
+	);
 
 	// Compute the preview range for hover effect
 	const previewRange = usePreviewRange( {

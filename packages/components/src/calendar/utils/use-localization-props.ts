@@ -1,5 +1,14 @@
+/**
+ * WordPress dependencies
+ */
 import { __, sprintf } from '@wordpress/i18n';
-import { useMemo } from 'react';
+/**
+ * External dependencies
+ */
+import { useMemo } from '@wordpress/element';
+/**
+ * Internal dependencies
+ */
 import type { Modifiers, BaseProps } from '../types';
 
 function isLocaleRTL( localeCode: string ) {
@@ -34,6 +43,10 @@ function isLocaleRTL( localeCode: string ) {
  *   strings, meaning that the dates are formatted using the `locale` prop.
  *   For a correct localized experience, consumers should make sure that
  *   translation context and `locale` prop are consistent.
+ * @param props
+ * @param props.locale
+ * @param props.timeZone
+ * @param props.mode
  */
 export const useLocalizationProps = ( {
 	locale,
@@ -73,11 +86,21 @@ export const useLocalizationProps = ( {
 		// Note: the following props should be intended as defaults, and should
 		// be overridden by consumer props if listed as public props.
 		return {
-			'aria-label': mode === 'single' ? __( 'Date calendar' ) : __( 'Date range calendar' ),
+			'aria-label':
+				mode === 'single'
+					? __( 'Date calendar' )
+					: __( 'Date range calendar' ),
 			labels: {
-				/** The label for the month grid. */
+				/**
+				 * The label for the month grid.
+				 * @param date
+				 */
 				labelGrid: ( date: Date ) => monthNameFormatter.format( date ),
-				/** The label for the gridcell, when the calendar is not interactive. */
+				/**
+				 * The label for the gridcell, when the calendar is not interactive.
+				 * @param date
+				 * @param modifiers
+				 */
 				labelGridcell: (
 					date: Date,
 					/** The modifiers for the day. */
@@ -98,7 +121,11 @@ export const useLocalizationProps = ( {
 				labelNext: () => __( 'Go to the Next Month' ),
 				/** The label for the "previous month" button. */
 				labelPrevious: () => __( 'Go to the Previous Month' ),
-				/** The label for the day button. */
+				/**
+				 * The label for the day button.
+				 * @param date
+				 * @param modifiers
+				 */
 				labelDayButton: (
 					date: Date,
 					/** The modifiers for the day. */
@@ -122,8 +149,12 @@ export const useLocalizationProps = ( {
 					}
 					return label;
 				},
-				/** The label for the weekday. */
-				labelWeekday: ( date: Date ) => weekdayLongFormatter.format( date ),
+				/**
+				 * The label for the weekday.
+				 * @param date
+				 */
+				labelWeekday: ( date: Date ) =>
+					weekdayLongFormatter.format( date ),
 			},
 			locale,
 			dir: isLocaleRTL( locale.code ) ? 'rtl' : 'ltr',

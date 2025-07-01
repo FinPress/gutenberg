@@ -1,7 +1,10 @@
 /**
  * WordPress dependencies
  */
-import { useState, useCallback } from 'react';
+/**
+ * External dependencies
+ */
+import { useState, useCallback } from '@wordpress/element';
 
 type Props< T > = {
 	defaultValue?: T;
@@ -20,6 +23,10 @@ type Props< T > = {
  * regardless of controlled / uncontrolled. It is expected that the consumer
  * of the component will handle setting the value to `null` to indicate no date
  * selected in controlled mode.
+ * @param root0
+ * @param root0.defaultValue
+ * @param root0.onChange
+ * @param root0.value
  */
 export function useControlledValue< T >( {
 	defaultValue,

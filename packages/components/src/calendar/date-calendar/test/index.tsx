@@ -1,3 +1,6 @@
+/**
+ * External dependencies
+ */
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
@@ -14,8 +17,14 @@ import {
 	addHours,
 } from 'date-fns';
 import { ar } from 'date-fns/locale';
-import { useState, default as React } from 'react';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
 import '@testing-library/jest-dom';
+/**
+ * Internal dependencies
+ */
 import { DateCalendar, TZDate } from '../../';
 import {
 	getDateButton,
@@ -46,8 +55,12 @@ const ControlledDateCalendar = (
 		initialMonth?: Date | undefined;
 	}
 ) => {
-	const [ selected, setSelected ] = useState< Date | undefined | null >( props.initialSelected );
-	const [ month, setMonth ] = useState< Date | undefined >( props.initialMonth );
+	const [ selected, setSelected ] = useState< Date | undefined | null >(
+		props.initialSelected
+	);
+	const [ month, setMonth ] = useState< Date | undefined >(
+		props.initialMonth
+	);
 	return (
 		<DateCalendar
 			{ ...props }
@@ -57,9 +70,9 @@ const ControlledDateCalendar = (
 				props.onSelect?.( ...args );
 			} }
 			month={ month }
-			onMonthChange={ ( month ) => {
-				setMonth( month );
-				props.onMonthChange?.( month );
+			onMonthChange={ ( newMonth ) => {
+				setMonth( newMonth );
+				props.onMonthChange?.( newMonth );
 			} }
 		/>
 	);
@@ -105,13 +118,18 @@ describe( 'DateCalendar', () => {
 		it( 'should apply the correct roles, semantics and attributes', async () => {
 			render( <DateCalendar /> );
 
-			expect( screen.getByRole( 'application', { name: 'Date calendar' } ) ).toBeVisible();
+			expect(
+				screen.getByRole( 'application', { name: 'Date calendar' } )
+			).toBeVisible();
 
 			const tableGrid = screen.getByRole( 'grid', {
 				name: monthNameFormatter( 'en-US' ).format( today ),
 			} );
 			expect( tableGrid ).toBeVisible();
-			expect( tableGrid ).toHaveAttribute( 'aria-multiselectable', 'false' );
+			expect( tableGrid ).toHaveAttribute(
+				'aria-multiselectable',
+				'false'
+			);
 
 			const todayButton = getDateButton( today );
 			expect( todayButton ).toBeVisible();
@@ -123,7 +141,9 @@ describe( 'DateCalendar', () => {
 
 			const grids = screen.getAllByRole( 'grid' );
 			expect( grids ).toHaveLength( 2 );
-			expect( grids[ 0 ] ).toHaveAccessibleName( monthNameFormatter( 'en-US' ).format( today ) );
+			expect( grids[ 0 ] ).toHaveAccessibleName(
+				monthNameFormatter( 'en-US' ).format( today )
+			);
 			expect( grids[ 1 ] ).toHaveAccessibleName(
 				monthNameFormatter( 'en-US' ).format( nextMonth )
 			);
@@ -143,7 +163,9 @@ describe( 'DateCalendar', () => {
 
 		it( 'should select an initial date in controlled mode via the `selected` prop', () => {
 			// Note: the `defaultSelected` prop is ignored when the `selected` prop is set.
-			render( <DateCalendar defaultSelected={ tomorrow } selected={ today } /> );
+			render(
+				<DateCalendar defaultSelected={ tomorrow } selected={ today } />
+			);
 
 			expect( getDateCell( today, { selected: true } ) ).toBeVisible();
 
@@ -155,20 +177,35 @@ describe( 'DateCalendar', () => {
 		it( 'should have no date selected in uncontrolled mode when the `selected` and `defaultSelected` props are set to `undefined`', () => {
 			render( <DateCalendar /> );
 
-			expect( screen.queryByRole( 'gridcell', { selected: true } ) ).not.toBeInTheDocument();
-			expect( screen.queryByRole( 'button', { name: /selected/i } ) ).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole( 'gridcell', { selected: true } )
+			).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole( 'button', { name: /selected/i } )
+			).not.toBeInTheDocument();
 		} );
 
 		it( 'should have no date selected in controlled mode when the `selected` prop is set to `null`', () => {
 			// Note: the `defaultSelected` prop is ignored when the `selected` prop is set.
-			render( <DateCalendar defaultSelected={ tomorrow } selected={ null } /> );
+			render(
+				<DateCalendar defaultSelected={ tomorrow } selected={ null } />
+			);
 
-			expect( screen.queryByRole( 'gridcell', { selected: true } ) ).not.toBeInTheDocument();
-			expect( screen.queryByRole( 'button', { name: /selected/i } ) ).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole( 'gridcell', { selected: true } )
+			).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole( 'button', { name: /selected/i } )
+			).not.toBeInTheDocument();
 		} );
 
 		it( 'should select a date in uncontrolled mode via the `defaultSelected` prop even if the date is disabled`', () => {
-			render( <DateCalendar defaultSelected={ tomorrow } disabled={ tomorrow } /> );
+			render(
+				<DateCalendar
+					defaultSelected={ tomorrow }
+					disabled={ tomorrow }
+				/>
+			);
 
 			expect( getDateCell( tomorrow, { selected: true } ) ).toBeVisible();
 
@@ -179,7 +216,9 @@ describe( 'DateCalendar', () => {
 		} );
 
 		it( 'should select a date in controlled mode via the `selected` prop even if the date is disabled`', () => {
-			render( <DateCalendar selected={ tomorrow } disabled={ tomorrow } /> );
+			render(
+				<DateCalendar selected={ tomorrow } disabled={ tomorrow } />
+			);
 
 			expect( getDateCell( tomorrow, { selected: true } ) ).toBeVisible();
 
@@ -194,7 +233,7 @@ describe( 'DateCalendar', () => {
 			[ 'Controlled', ControlledDateCalendar ],
 		] )( '[`%s`]', ( _mode, Component ) => {
 			it( 'should select a date when a date button is clicked', async () => {
-				const user = setupUserEvent();
+				const user = await setupUserEvent();
 				const onSelect = jest.fn();
 
 				render( <Component onSelect={ onSelect } /> );
@@ -207,29 +246,43 @@ describe( 'DateCalendar', () => {
 					today,
 					today,
 					expect.objectContaining( { today: true } ),
-					expect.objectContaining( { type: 'click', target: todayButton } )
+					expect.objectContaining( {
+						type: 'click',
+						target: todayButton,
+					} )
 				);
 
-				expect( getDateCell( today, { selected: true } ) ).toBeVisible();
+				expect(
+					getDateCell( today, { selected: true } )
+				).toBeVisible();
 			} );
 
 			it( 'should not select a disabled date when a date button is clicked', async () => {
-				const user = setupUserEvent();
+				const user = await setupUserEvent();
 				const onSelect = jest.fn();
 
-				render( <Component onSelect={ onSelect } disabled={ tomorrow } /> );
+				render(
+					<Component onSelect={ onSelect } disabled={ tomorrow } />
+				);
 
 				await user.click( getDateButton( tomorrow ) );
 
 				expect( onSelect ).not.toHaveBeenCalled();
-				expect( screen.queryByRole( 'button', { name: /selected/i } ) ).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole( 'button', { name: /selected/i } )
+				).not.toBeInTheDocument();
 			} );
 
 			it( 'should select a new date when a different date button is clicked', async () => {
-				const user = setupUserEvent();
+				const user = await setupUserEvent();
 				const onSelect = jest.fn();
 
-				render( <Component initialSelected={ today } onSelect={ onSelect } /> );
+				render(
+					<Component
+						initialSelected={ today }
+						onSelect={ onSelect }
+					/>
+				);
 
 				const tomorrowButton = getDateButton( tomorrow );
 				await user.click( tomorrowButton );
@@ -239,17 +292,27 @@ describe( 'DateCalendar', () => {
 					tomorrow,
 					tomorrow,
 					expect.objectContaining( { today: false } ),
-					expect.objectContaining( { type: 'click', target: tomorrowButton } )
+					expect.objectContaining( {
+						type: 'click',
+						target: tomorrowButton,
+					} )
 				);
 
-				expect( getDateCell( tomorrow, { selected: true } ) ).toBeVisible();
+				expect(
+					getDateCell( tomorrow, { selected: true } )
+				).toBeVisible();
 			} );
 
 			it( 'should de-select the selected date when the selected date button is clicked', async () => {
-				const user = setupUserEvent();
+				const user = await setupUserEvent();
 				const onSelect = jest.fn();
 
-				render( <Component initialSelected={ today } onSelect={ onSelect } /> );
+				render(
+					<Component
+						initialSelected={ today }
+						onSelect={ onSelect }
+					/>
+				);
 
 				const todayButton = getDateButton( today );
 				await user.click( todayButton );
@@ -259,17 +322,28 @@ describe( 'DateCalendar', () => {
 					undefined,
 					today,
 					expect.objectContaining( { today: true, selected: true } ),
-					expect.objectContaining( { type: 'click', target: todayButton } )
+					expect.objectContaining( {
+						type: 'click',
+						target: todayButton,
+					} )
 				);
 
-				expect( queryDateCell( today, { selected: true } ) ).not.toBeInTheDocument();
+				expect(
+					queryDateCell( today, { selected: true } )
+				).not.toBeInTheDocument();
 			} );
 
 			it( 'should not de-select the selected date when the selected date button is clicked if the `required` prop is set to `true`', async () => {
-				const user = setupUserEvent();
+				const user = await setupUserEvent();
 				const onSelect = jest.fn();
 
-				render( <Component initialSelected={ today } onSelect={ onSelect } required /> );
+				render(
+					<Component
+						initialSelected={ today }
+						onSelect={ onSelect }
+						required
+					/>
+				);
 
 				const todayButton = getDateButton( today );
 				await user.click( todayButton );
@@ -279,9 +353,14 @@ describe( 'DateCalendar', () => {
 					today,
 					today,
 					expect.objectContaining( { today: true, selected: true } ),
-					expect.objectContaining( { type: 'click', target: todayButton } )
+					expect.objectContaining( {
+						type: 'click',
+						target: todayButton,
+					} )
 				);
-				expect( queryDateCell( today, { selected: true } ) ).toBeVisible();
+				expect(
+					queryDateCell( today, { selected: true } )
+				).toBeVisible();
 			} );
 		} );
 	} );
@@ -291,7 +370,9 @@ describe( 'DateCalendar', () => {
 			render( <DateCalendar defaultMonth={ nextMonth } /> );
 
 			expect(
-				screen.getByRole( 'grid', { name: monthNameFormatter( 'en-US' ).format( nextMonth ) } )
+				screen.getByRole( 'grid', {
+					name: monthNameFormatter( 'en-US' ).format( nextMonth ),
+				} )
 			).toBeVisible();
 			expect( getDateCell( nextMonth ) ).toBeVisible();
 			expect( getDateButton( nextMonth ) ).toBeVisible();
@@ -301,7 +382,9 @@ describe( 'DateCalendar', () => {
 			render( <DateCalendar month={ nextMonth } /> );
 
 			expect(
-				screen.getByRole( 'grid', { name: monthNameFormatter( 'en-US' ).format( nextMonth ) } )
+				screen.getByRole( 'grid', {
+					name: monthNameFormatter( 'en-US' ).format( nextMonth ),
+				} )
 			).toBeVisible();
 			expect( getDateCell( nextMonth ) ).toBeVisible();
 			expect( getDateButton( nextMonth ) ).toBeVisible();
@@ -312,20 +395,26 @@ describe( 'DateCalendar', () => {
 			[ 'Controlled', ControlledDateCalendar ],
 		] )( '[`%s`]', ( _mode, Component ) => {
 			it( 'should navigate to the previous and next months when the previous and next month buttons are clicked', async () => {
-				const user = setupUserEvent();
+				const user = await setupUserEvent();
 				const onMonthChange = jest.fn();
 
 				render( <Component onMonthChange={ onMonthChange } /> );
 
-				const prevButton = screen.getByRole( 'button', { name: /previous month/i } );
-				const nextButton = screen.getByRole( 'button', { name: /next month/i } );
+				const prevButton = screen.getByRole( 'button', {
+					name: /previous month/i,
+				} );
+				const nextButton = screen.getByRole( 'button', {
+					name: /next month/i,
+				} );
 				await user.click( prevButton );
 
 				expect( onMonthChange ).toHaveBeenCalledTimes( 1 );
 				expect( onMonthChange ).toHaveBeenCalledWith( prevMonth );
 
 				expect(
-					screen.getByRole( 'grid', { name: monthNameFormatter( 'en-US' ).format( prevMonth ) } )
+					screen.getByRole( 'grid', {
+						name: monthNameFormatter( 'en-US' ).format( prevMonth ),
+					} )
 				).toBeVisible();
 				expect( getDateCell( prevMonth ) ).toBeVisible();
 				expect( getDateButton( prevMonth ) ).toBeVisible();
@@ -336,7 +425,11 @@ describe( 'DateCalendar', () => {
 				expect( onMonthChange ).toHaveBeenCalledWith( currentMonth );
 
 				expect(
-					screen.getByRole( 'grid', { name: monthNameFormatter( 'en-US' ).format( currentMonth ) } )
+					screen.getByRole( 'grid', {
+						name: monthNameFormatter( 'en-US' ).format(
+							currentMonth
+						),
+					} )
 				).toBeVisible();
 				expect( getDateCell( currentMonth ) ).toBeVisible();
 				expect( getDateButton( currentMonth ) ).toBeVisible();
@@ -347,23 +440,36 @@ describe( 'DateCalendar', () => {
 				expect( onMonthChange ).toHaveBeenCalledWith( nextMonth );
 
 				expect(
-					screen.getByRole( 'grid', { name: monthNameFormatter( 'en-US' ).format( nextMonth ) } )
+					screen.getByRole( 'grid', {
+						name: monthNameFormatter( 'en-US' ).format( nextMonth ),
+					} )
 				).toBeVisible();
 				expect( getDateCell( nextMonth ) ).toBeVisible();
 				expect( getDateButton( nextMonth ) ).toBeVisible();
 			} );
 
 			it( 'should not navigate to a month that is before the `startMonth` prop', async () => {
-				const user = setupUserEvent();
+				const user = await setupUserEvent();
 				const onMonthChange = jest.fn();
 
-				render( <Component startMonth={ nextMonth } onMonthChange={ onMonthChange } /> );
+				render(
+					<Component
+						startMonth={ nextMonth }
+						onMonthChange={ onMonthChange }
+					/>
+				);
 
-				const prevButton = screen.getByRole( 'button', { name: /previous month/i } );
-				const nextButton = screen.getByRole( 'button', { name: /next month/i } );
+				const prevButton = screen.getByRole( 'button', {
+					name: /previous month/i,
+				} );
+				const nextButton = screen.getByRole( 'button', {
+					name: /next month/i,
+				} );
 
 				expect(
-					screen.getByRole( 'grid', { name: monthNameFormatter( 'en-US' ).format( nextMonth ) } )
+					screen.getByRole( 'grid', {
+						name: monthNameFormatter( 'en-US' ).format( nextMonth ),
+					} )
 				).toBeVisible();
 				expect( getDateCell( nextMonth ) ).toBeVisible();
 				expect( getDateButton( nextMonth ) ).toBeVisible();
@@ -381,7 +487,9 @@ describe( 'DateCalendar', () => {
 
 				expect(
 					screen.getByRole( 'grid', {
-						name: monthNameFormatter( 'en-US' ).format( nextNextMonth ),
+						name: monthNameFormatter( 'en-US' ).format(
+							nextNextMonth
+						),
 					} )
 				).toBeVisible();
 				expect( getDateCell( nextNextMonth ) ).toBeVisible();
@@ -391,16 +499,27 @@ describe( 'DateCalendar', () => {
 			} );
 
 			it( 'should not navigate to a month that is after the `endMonth` prop', async () => {
-				const user = setupUserEvent();
+				const user = await setupUserEvent();
 				const onMonthChange = jest.fn();
 
-				render( <Component endMonth={ prevMonth } onMonthChange={ onMonthChange } /> );
+				render(
+					<Component
+						endMonth={ prevMonth }
+						onMonthChange={ onMonthChange }
+					/>
+				);
 
-				const prevButton = screen.getByRole( 'button', { name: /previous month/i } );
-				const nextButton = screen.getByRole( 'button', { name: /next month/i } );
+				const prevButton = screen.getByRole( 'button', {
+					name: /previous month/i,
+				} );
+				const nextButton = screen.getByRole( 'button', {
+					name: /next month/i,
+				} );
 
 				expect(
-					screen.getByRole( 'grid', { name: monthNameFormatter( 'en-US' ).format( prevMonth ) } )
+					screen.getByRole( 'grid', {
+						name: monthNameFormatter( 'en-US' ).format( prevMonth ),
+					} )
 				).toBeVisible();
 				expect( getDateCell( prevMonth ) ).toBeVisible();
 				expect( getDateButton( prevMonth ) ).toBeVisible();
@@ -418,7 +537,9 @@ describe( 'DateCalendar', () => {
 
 				expect(
 					screen.getByRole( 'grid', {
-						name: monthNameFormatter( 'en-US' ).format( prevPrevMonth ),
+						name: monthNameFormatter( 'en-US' ).format(
+							prevPrevMonth
+						),
 					} )
 				).toBeVisible();
 				expect( getDateCell( prevPrevMonth ) ).toBeVisible();
@@ -443,16 +564,20 @@ describe( 'DateCalendar', () => {
 		} );
 
 		it( 'should focus each arrow as a tab stop, but treat the grid as a 2d composite widget', async () => {
-			const user = setupUserEvent();
+			const user = await setupUserEvent();
 			render( <DateCalendar /> );
 
 			// Focus previous month button
 			await user.tab();
-			expect( screen.getByRole( 'button', { name: /previous month/i } ) ).toHaveFocus();
+			expect(
+				screen.getByRole( 'button', { name: /previous month/i } )
+			).toHaveFocus();
 
 			// Focus next month button
 			await user.tab();
-			expect( screen.getByRole( 'button', { name: /next month/i } ) ).toHaveFocus();
+			expect(
+				screen.getByRole( 'button', { name: /next month/i } )
+			).toHaveFocus();
 
 			// Focus today button
 			await user.tab();
@@ -484,11 +609,15 @@ describe( 'DateCalendar', () => {
 
 			// Focus previous month
 			await user.keyboard( '{PageUp}' );
-			expect( getDateButton( subMonths( endOfWeek( today ), 1 ) ) ).toHaveFocus();
+			expect(
+				getDateButton( subMonths( endOfWeek( today ), 1 ) )
+			).toHaveFocus();
 
 			expect(
 				screen.getByRole( 'grid', {
-					name: monthNameFormatter( 'en-US' ).format( subMonths( endOfWeek( today ), 1 ) ),
+					name: monthNameFormatter( 'en-US' ).format(
+						subMonths( endOfWeek( today ), 1 )
+					),
 				} )
 			).toBeVisible();
 
@@ -497,17 +626,23 @@ describe( 'DateCalendar', () => {
 			expect( getDateButton( endOfWeek( today ) ) ).toHaveFocus();
 			expect(
 				screen.getByRole( 'grid', {
-					name: monthNameFormatter( 'en-US' ).format( endOfWeek( today ) ),
+					name: monthNameFormatter( 'en-US' ).format(
+						endOfWeek( today )
+					),
 				} )
 			).toBeVisible();
 
 			// Focus previous year
 			await user.keyboard( '{Shift>}{PageUp}{/Shift}' );
-			expect( getDateButton( subYears( endOfWeek( today ), 1 ) ) ).toHaveFocus();
+			expect(
+				getDateButton( subYears( endOfWeek( today ), 1 ) )
+			).toHaveFocus();
 
 			expect(
 				screen.getByRole( 'grid', {
-					name: monthNameFormatter( 'en-US' ).format( subYears( endOfWeek( today ), 1 ) ),
+					name: monthNameFormatter( 'en-US' ).format(
+						subYears( endOfWeek( today ), 1 )
+					),
 				} )
 			).toBeVisible();
 
@@ -517,7 +652,9 @@ describe( 'DateCalendar', () => {
 
 			expect(
 				screen.getByRole( 'grid', {
-					name: monthNameFormatter( 'en-US' ).format( endOfWeek( today ) ),
+					name: monthNameFormatter( 'en-US' ).format(
+						endOfWeek( today )
+					),
 				} )
 			).toBeVisible();
 		} );
@@ -525,7 +662,7 @@ describe( 'DateCalendar', () => {
 		// Note: the following test is not testing advanced keyboard interactions
 		// (pageUp, pageDown, shift+pageUp, shift+pageDown, home, end)
 		it( 'should not focus disabled dates and skip over them when navigating using arrow keys', async () => {
-			const user = setupUserEvent();
+			const user = await setupUserEvent();
 
 			render(
 				<DateCalendar
@@ -547,7 +684,9 @@ describe( 'DateCalendar', () => {
 			expect( getDateButton( addDays( tomorrow, 1 ) ) ).toHaveFocus();
 
 			await user.keyboard( '{ArrowDown}' );
-			expect( getDateButton( addWeeks( addDays( tomorrow, 1 ), 2 ) ) ).toHaveFocus();
+			expect(
+				getDateButton( addWeeks( addDays( tomorrow, 1 ), 2 ) )
+			).toHaveFocus();
 
 			await user.keyboard( '{ArrowLeft}' );
 			expect( getDateButton( addWeeks( yesterday, 2 ) ) ).toHaveFocus();
@@ -557,7 +696,7 @@ describe( 'DateCalendar', () => {
 		} );
 
 		it( 'should focus the selected date when tabbing into the calendar', async () => {
-			const user = setupUserEvent();
+			const user = await setupUserEvent();
 			render( <DateCalendar selected={ tomorrow } /> );
 
 			// Tab to the calendar grid
@@ -571,7 +710,7 @@ describe( 'DateCalendar', () => {
 
 	describe( 'Disabled states', () => {
 		it( 'should support disabling all dates via the `disabled` prop', async () => {
-			const user = setupUserEvent();
+			const user = await setupUserEvent();
 
 			render( <DateCalendar disabled /> );
 
@@ -581,7 +720,9 @@ describe( 'DateCalendar', () => {
 					expect( button ).toBeDisabled();
 				} );
 
-			await user.click( screen.getByRole( 'button', { name: /previous/i } ) );
+			await user.click(
+				screen.getByRole( 'button', { name: /previous/i } )
+			);
 
 			within( screen.getByRole( 'grid' ) )
 				.getAllByRole( 'button' )
@@ -607,11 +748,19 @@ describe( 'DateCalendar', () => {
 
 		it( 'should support passing a custom function via the `disabled` prop', async () => {
 			const primeNumbers = [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31 ];
-			render( <DateCalendar disabled={ ( date ) => primeNumbers.includes( date.getDate() ) } /> );
+			render(
+				<DateCalendar
+					disabled={ ( date ) =>
+						primeNumbers.includes( date.getDate() )
+					}
+				/>
+			);
 
 			for ( const date of primeNumbers ) {
 				expect(
-					getDateButton( new Date( today.getFullYear(), today.getMonth(), date ) )
+					getDateButton(
+						new Date( today.getFullYear(), today.getMonth(), date )
+					)
 				).toBeDisabled();
 			}
 		} );
@@ -621,10 +770,12 @@ describe( 'DateCalendar', () => {
 
 			for ( let date = 1; date < today.getDate(); date++ ) {
 				expect(
-					getDateButton( new Date( today.getFullYear(), today.getMonth(), date ) )
+					getDateButton(
+						new Date( today.getFullYear(), today.getMonth(), date )
+					)
 				).toBeDisabled();
 			}
-			expect( getDateButton( today ) ).not.toBeDisabled();
+			expect( getDateButton( today ) ).toBeEnabled();
 		} );
 
 		it( 'should support disabling all dates after a certain date via the `disabled` prop', async () => {
@@ -632,42 +783,61 @@ describe( 'DateCalendar', () => {
 
 			for ( let date = today.getDate() + 1; date < 32; date++ ) {
 				expect(
-					getDateButton( new Date( today.getFullYear(), today.getMonth(), date ) )
+					getDateButton(
+						new Date( today.getFullYear(), today.getMonth(), date )
+					)
 				).toBeDisabled();
 			}
-			expect( getDateButton( today ) ).not.toBeDisabled();
+			expect( getDateButton( today ) ).toBeEnabled();
 		} );
 
 		it( 'should support disabling all dates before a certain date and after a certain date via the `disabled` prop', async () => {
-			render( <DateCalendar disabled={ { before: yesterday, after: addDays( today, 1 ) } } /> );
+			render(
+				<DateCalendar
+					disabled={ {
+						before: yesterday,
+						after: addDays( today, 1 ),
+					} }
+				/>
+			);
 
 			let date;
 
 			for ( date = 1; date < today.getDate() - 1; date++ ) {
 				expect(
-					getDateButton( new Date( today.getFullYear(), today.getMonth(), date ) )
+					getDateButton(
+						new Date( today.getFullYear(), today.getMonth(), date )
+					)
 				).toBeDisabled();
 			}
-			expect( getDateButton( yesterday ) ).not.toBeDisabled();
-			expect( getDateButton( today ) ).not.toBeDisabled();
-			expect( getDateButton( addDays( today, 1 ) ) ).not.toBeDisabled();
+			expect( getDateButton( yesterday ) ).toBeEnabled();
+			expect( getDateButton( today ) ).toBeEnabled();
+			expect( getDateButton( addDays( today, 1 ) ) ).toBeEnabled();
 
 			for ( date = today.getDate() + 2; date < 32; date++ ) {
 				expect(
-					getDateButton( new Date( today.getFullYear(), today.getMonth(), date ) )
+					getDateButton(
+						new Date( today.getFullYear(), today.getMonth(), date )
+					)
 				).toBeDisabled();
 			}
 		} );
 
 		it( 'should support disabling all dates within a certain date range via the `disabled` prop', async () => {
-			render( <DateCalendar disabled={ { from: yesterday, to: addDays( today, 1 ) } } /> );
+			render(
+				<DateCalendar
+					disabled={ { from: yesterday, to: addDays( today, 1 ) } }
+				/>
+			);
 
 			let date;
 
 			for ( date = 1; date < today.getDate() - 1; date++ ) {
 				expect(
-					getDateButton( new Date( today.getFullYear(), today.getMonth(), date ) )
-				).not.toBeDisabled();
+					getDateButton(
+						new Date( today.getFullYear(), today.getMonth(), date )
+					)
+				).toBeEnabled();
 			}
 			expect( getDateButton( yesterday ) ).toBeDisabled();
 			expect( getDateButton( today ) ).toBeDisabled();
@@ -675,8 +845,10 @@ describe( 'DateCalendar', () => {
 
 			for ( date = today.getDate() + 2; date < 32; date++ ) {
 				expect(
-					getDateButton( new Date( today.getFullYear(), today.getMonth(), date ) )
-				).not.toBeDisabled();
+					getDateButton(
+						new Date( today.getFullYear(), today.getMonth(), date )
+					)
+				).toBeEnabled();
 			}
 		} );
 
@@ -686,27 +858,29 @@ describe( 'DateCalendar', () => {
 
 			for ( const date of weekendsInMay ) {
 				expect(
-					getDateButton( new Date( today.getFullYear(), today.getMonth(), date ) )
+					getDateButton(
+						new Date( today.getFullYear(), today.getMonth(), date )
+					)
 				).toBeDisabled();
 			}
 		} );
 
 		it( 'should disable the previous and next months buttons if the `disableNavigation` is set to `true`', async () => {
-			const user = setupUserEvent();
+			const user = await setupUserEvent();
 
 			render( <DateCalendar disableNavigation /> );
 
-			expect( screen.getByRole( 'button', { name: /previous month/i } ) ).toHaveAttribute(
-				'aria-disabled',
-				'true'
-			);
-			expect( screen.getByRole( 'button', { name: /next month/i } ) ).toHaveAttribute(
-				'aria-disabled',
-				'true'
-			);
+			expect(
+				screen.getByRole( 'button', { name: /previous month/i } )
+			).toHaveAttribute( 'aria-disabled', 'true' );
+			expect(
+				screen.getByRole( 'button', { name: /next month/i } )
+			).toHaveAttribute( 'aria-disabled', 'true' );
 
 			await user.tab();
-			expect( screen.getByRole( 'button', { name: /today/i } ) ).toHaveFocus();
+			expect(
+				screen.getByRole( 'button', { name: /today/i } )
+			).toHaveFocus();
 		} );
 	} );
 
@@ -714,15 +888,14 @@ describe( 'DateCalendar', () => {
 	// that the date formatting, computed dir, and calendar format are correct.
 	describe( 'Localization', () => {
 		it( 'should localize the calendar based on the `locale` prop', async () => {
-			const user = setupUserEvent();
+			const user = await setupUserEvent();
 
 			render( <DateCalendar locale={ ar } /> );
 
 			// Check computed writing direction
-			expect( screen.getByRole( 'application', { name: 'Date calendar' } ) ).toHaveAttribute(
-				'dir',
-				'rtl'
-			);
+			expect(
+				screen.getByRole( 'application', { name: 'Date calendar' } )
+			).toHaveAttribute( 'dir', 'rtl' );
 
 			// Check month name
 			const grid = screen.getByRole( 'grid', {
@@ -731,7 +904,9 @@ describe( 'DateCalendar', () => {
 			expect( grid ).toBeVisible();
 
 			// Check today button
-			expect( getDateButton( today, {}, 'ar' ) ).toHaveAccessibleName( /today/i );
+			expect( getDateButton( today, {}, 'ar' ) ).toHaveAccessibleName(
+				/today/i
+			);
 
 			await user.tab();
 			await user.tab();
@@ -739,18 +914,24 @@ describe( 'DateCalendar', () => {
 			expect( getDateButton( today, {}, 'ar' ) ).toHaveFocus();
 
 			await user.keyboard( '{Home}' );
-			expect( getDateButton( startOfWeek( today, { locale: ar } ), {}, 'ar' ) ).toHaveFocus();
+			expect(
+				getDateButton( startOfWeek( today, { locale: ar } ), {}, 'ar' )
+			).toHaveFocus();
 		} );
 
 		it( 'should support timezones according to the `timeZone` prop', async () => {
-			const user = setupUserEvent();
+			const user = await setupUserEvent();
 			const onSelect = jest.fn();
 
-			render( <DateCalendar timeZone="Asia/Tokyo" onSelect={ onSelect } /> );
+			render(
+				<DateCalendar timeZone="Asia/Tokyo" onSelect={ onSelect } />
+			);
 
 			// For someone in Tokyo, the current time simulated in the test
 			// (ie. 20:00 UTC) is the next day.
-			expect( getDateButton( tomorrow ) ).toHaveAccessibleName( /today/i );
+			expect( getDateButton( tomorrow ) ).toHaveAccessibleName(
+				/today/i
+			);
 
 			// Select tomorrow's button (which is today in Tokyo)
 			const tomorrowButton = getDateButton( tomorrow );
@@ -765,15 +946,26 @@ describe( 'DateCalendar', () => {
 				tomorrowFromTokyoTimezone,
 				tomorrowFromTokyoTimezone,
 				expect.objectContaining( { today: true } ),
-				expect.objectContaining( { type: 'click', target: tomorrowButton } )
+				expect.objectContaining( {
+					type: 'click',
+					target: tomorrowButton,
+				} )
 			);
 		} );
 
 		it( 'should handle timezoned dates and convert them to the calendar timezone', async () => {
 			// Still the same time from UTC's POV, just expressed in Tokyo time.
-			const tomorrowAtMidnightInTokyo = new TZDate( tomorrow, 'Asia/Tokyo' );
+			const tomorrowAtMidnightInTokyo = new TZDate(
+				tomorrow,
+				'Asia/Tokyo'
+			);
 
-			render( <DateCalendar defaultSelected={ tomorrowAtMidnightInTokyo } timeZone="-02:00" /> );
+			render(
+				<DateCalendar
+					defaultSelected={ tomorrowAtMidnightInTokyo }
+					timeZone="-02:00"
+				/>
+			);
 
 			// Changing the calendar timezone to UTC-2 makes the dates become
 			// earlier by 1 day (from midnight to 10pm the previous day).
