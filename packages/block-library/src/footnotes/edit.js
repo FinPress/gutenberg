@@ -6,7 +6,7 @@ import { useEntityProp } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { Placeholder } from '@wordpress/components';
 import { formatListNumbered as icon } from '@wordpress/icons';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useMemo } from '@wordpress/element';
 
 export default function FootnotesEdit( {
 	attributes,
@@ -22,16 +22,15 @@ export default function FootnotesEdit( {
 
 	const footnotesSupported = 'string' === typeof meta?.footnotes;
 	const blockProps = useBlockProps();
-	const { footnotes = [] } = attributes;
+	const footnotes = useMemo( () => {
+		return meta?.footnotes ? JSON.parse( meta.footnotes ) : [];
+	}, [ meta?.footnotes ] );
 
 	useEffect( () => {
 		if ( footnotesSupported ) {
-			const metaFootnotes = meta?.footnotes
-				? JSON.parse( meta.footnotes )
-				: [];
-			if ( ! footnotes.length ) {
+			if ( ! attributes.footnotes.length && footnotes.length ) {
 				setAttributes( {
-					footnotes: metaFootnotes,
+					footnotes,
 				} );
 			}
 		}
@@ -40,6 +39,8 @@ export default function FootnotesEdit( {
 		footnotes.length,
 		setAttributes,
 		meta.footnotes,
+		attributes.footnotes.length,
+		footnotes,
 	] );
 
 	if ( ! footnotesSupported ) {
