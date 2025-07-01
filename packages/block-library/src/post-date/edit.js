@@ -40,8 +40,8 @@ import { useSelect } from '@wordpress/data';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 export default function PostDateEdit( {
-	attributes: { textAlign, format, isLink, displayType },
-	context: { postId, postType: postTypeSlug, queryId },
+	attributes: { date, textAlign, format, isLink, displayType },
+	context: { postType: postTypeSlug, queryId },
 	setAttributes,
 } ) {
 	const blockProps = useBlockProps( {
@@ -72,12 +72,6 @@ export default function PostDateEdit( {
 		'root',
 		'site',
 		'time_format'
-	);
-	const [ date, setDate ] = useEntityProp(
-		'postType',
-		postTypeSlug,
-		displayType,
-		postId
 	);
 
 	const postType = useSelect(
@@ -121,49 +115,46 @@ export default function PostDateEdit( {
 						setAttributes( { textAlign: nextAlign } );
 					} }
 				/>
-				{ date &&
-					displayType === 'date' &&
-					! isDescendentOfQueryLoop && (
-						<ToolbarGroup>
-							<Dropdown
-								popoverProps={ popoverProps }
-								renderContent={ ( { onClose } ) => (
-									<PublishDateTimePicker
-										currentDate={ date }
-										onChange={ setDate }
-										is12Hour={ is12HourFormat(
-											siteTimeFormat
-										) }
-										onClose={ onClose }
-										dateOrder={
-											/* translators: Order of day, month, and year. Available formats are 'dmy', 'mdy', and 'ymd'. */
-											_x( 'dmy', 'date order' )
-										}
+				{ displayType === 'date' && ! isDescendentOfQueryLoop && (
+					<ToolbarGroup>
+						<Dropdown
+							popoverProps={ popoverProps }
+							renderContent={ ( { onClose } ) => (
+								<PublishDateTimePicker
+									currentDate={ date }
+									onChange={ ( newDate ) =>
+										setAttributes( { date: newDate } )
+									}
+									is12Hour={ is12HourFormat(
+										siteTimeFormat
+									) }
+									onClose={ onClose }
+									dateOrder={
+										/* translators: Order of day, month, and year. Available formats are 'dmy', 'mdy', and 'ymd'. */
+										_x( 'dmy', 'date order' )
+									}
+								/>
+							) }
+							renderToggle={ ( { isOpen, onToggle } ) => {
+								const openOnArrowDown = ( event ) => {
+									if ( ! isOpen && event.keyCode === DOWN ) {
+										event.preventDefault();
+										onToggle();
+									}
+								};
+								return (
+									<ToolbarButton
+										aria-expanded={ isOpen }
+										icon={ edit }
+										title={ __( 'Change Date' ) }
+										onClick={ onToggle }
+										onKeyDown={ openOnArrowDown }
 									/>
-								) }
-								renderToggle={ ( { isOpen, onToggle } ) => {
-									const openOnArrowDown = ( event ) => {
-										if (
-											! isOpen &&
-											event.keyCode === DOWN
-										) {
-											event.preventDefault();
-											onToggle();
-										}
-									};
-									return (
-										<ToolbarButton
-											aria-expanded={ isOpen }
-											icon={ edit }
-											title={ __( 'Change Date' ) }
-											onClick={ onToggle }
-											onKeyDown={ openOnArrowDown }
-										/>
-									);
-								} }
-							/>
-						</ToolbarGroup>
-					) }
+								);
+							} }
+						/>
+					</ToolbarGroup>
+				) }
 			</BlockControls>
 
 			<InspectorControls>
@@ -171,6 +162,7 @@ export default function PostDateEdit( {
 					label={ __( 'Settings' ) }
 					resetAll={ () => {
 						setAttributes( {
+							date: undefined,
 							format: undefined,
 							isLink: false,
 							displayType: 'date',

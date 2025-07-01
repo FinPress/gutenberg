@@ -7,6 +7,9 @@
 	"description": "Display the publish date for an entry such as a post or page.",
 	"textdomain": "default",
 	"attributes": {
+		"date": {
+			"type": "string"
+		},
 		"textAlign": {
 			"type": "string"
 		},
