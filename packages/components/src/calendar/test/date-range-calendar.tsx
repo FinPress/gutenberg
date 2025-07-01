@@ -17,17 +17,17 @@ import {
 	addHours,
 } from 'date-fns';
 import { ar } from 'date-fns/locale';
+import '@testing-library/jest-dom';
 /**
  * WordPress dependencies
  */
 import { useState } from '@wordpress/element';
-import '@testing-library/jest-dom';
 /**
  * Internal dependencies
  */
-import { usePreviewRange } from '../date-range-calendar';
-import { DateRangeCalendar, TZDate } from '..';
-import { getDateButton, getDateCell, monthNameFormatter } from './utils';
+import { usePreviewRange, DateRangeCalendar } from '../date-range-calendar';
+import { TZDate } from '../';
+import { getDateButton, getDateCell, monthNameFormatter } from './__utils__';
 import type { DateRange, DateRangeCalendarProps } from '../types';
 
 const UncontrolledDateRangeCalendar = (
@@ -1445,6 +1445,16 @@ describe( 'DateRangeCalendar', () => {
 				/>
 			);
 
+			const now = new Date();
+			today = new Date(
+				Date.UTC(
+					now.getUTCFullYear(),
+					now.getUTCMonth(),
+					now.getUTCDate()
+				)
+			);
+			tomorrow = addDays( today, 1 );
+
 			// For someone in Tokyo, the current time simulated in the test
 			// (ie. 20:00 UTC) is the next day.
 			expect( getDateButton( tomorrow ) ).toHaveAccessibleName(
@@ -1493,7 +1503,7 @@ describe( 'DateRangeCalendar', () => {
 			render(
 				<DateRangeCalendar
 					defaultSelected={ timezoneRange }
-					timeZone="-02:00"
+					timeZone="Etc/GMT+2"
 				/>
 			);
 
@@ -1505,10 +1515,14 @@ describe( 'DateRangeCalendar', () => {
 	} );
 
 	describe( 'usePreviewRange', () => {
-		today = new Date( '2024-03-15' );
-		tomorrow = addDays( today, 1 );
-		yesterday = subDays( today, 1 );
-		const nextWeek = addDays( today, 7 );
+		let nextWeek: Date;
+
+		beforeEach( () => {
+			today = new Date( '2024-03-15' );
+			tomorrow = addDays( today, 1 );
+			yesterday = subDays( today, 1 );
+			nextWeek = addDays( today, 7 );
+		} );
 
 		it( 'should return undefined when there is no hovered date', () => {
 			const { result } = renderHook( () =>

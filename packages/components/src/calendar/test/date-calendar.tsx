@@ -31,7 +31,7 @@ import {
 	getDateCell,
 	queryDateCell,
 	monthNameFormatter,
-} from './utils';
+} from './__utils__';
 import type { DateCalendarProps } from '../types';
 
 const UncontrolledDateCalendar = (
@@ -927,6 +927,16 @@ describe( 'DateCalendar', () => {
 				<DateCalendar timeZone="Asia/Tokyo" onSelect={ onSelect } />
 			);
 
+			const now = new Date();
+			today = new Date(
+				Date.UTC(
+					now.getUTCFullYear(),
+					now.getUTCMonth(),
+					now.getUTCDate()
+				)
+			);
+			tomorrow = addDays( today, 1 );
+
 			// For someone in Tokyo, the current time simulated in the test
 			// (ie. 20:00 UTC) is the next day.
 			expect( getDateButton( tomorrow ) ).toHaveAccessibleName(
@@ -963,7 +973,7 @@ describe( 'DateCalendar', () => {
 			render(
 				<DateCalendar
 					defaultSelected={ tomorrowAtMidnightInTokyo }
-					timeZone="-02:00"
+					timeZone="Etc/GMT+2"
 				/>
 			);
 
