@@ -929,6 +929,14 @@ export default function Image( {
 										pixelSize.height + resizeDelta.height,
 							  }
 							: ( () => {
+									// Only apply dimension styles when the user set width or height
+									if (
+										width === undefined &&
+										( height === undefined ||
+											height === null )
+									) {
+										return {};
+									}
 									const style = {};
 									// Only apply width when explicitly provided; preserve theme CSS otherwise
 									if ( width === 'auto' ) {
