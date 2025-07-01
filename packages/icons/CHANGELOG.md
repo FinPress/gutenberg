@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+-  Update `help`, `plusCircle`, and `typography` icons to have a unified circular footprint that matches other circle icons. ([#70299](https://github.com/WordPress/gutenberg/pull/70299)).
+
 ## 10.26.0 (2025-06-25)
 
 ## 10.25.0 (2025-06-04)
