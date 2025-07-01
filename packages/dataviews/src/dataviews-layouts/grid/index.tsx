@@ -3,10 +3,6 @@
  */
 import clsx from 'clsx';
 import type { ComponentProps, ReactElement } from 'react';
-/**
- * WordPress dependencies
- */
-import { useContext } from '@wordpress/element';
 
 /**
  * WordPress dependencies
@@ -22,6 +18,7 @@ import {
 import { __, sprintf } from '@wordpress/i18n';
 import { useInstanceId } from '@wordpress/compose';
 import { isAppleOS } from '@wordpress/keycodes';
+import { useContext } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -29,6 +26,7 @@ import { isAppleOS } from '@wordpress/keycodes';
 import { unlock } from '../../lock-unlock';
 import ItemActions from '../../components/dataviews-item-actions';
 import DataViewsSelectionCheckbox from '../../components/dataviews-selection-checkbox';
+import DataViewsContext from '../../components/dataviews-context';
 import {
 	useHasAPossibleBulkAction,
 	useSomeItemHasAPossibleBulkAction,
@@ -42,7 +40,6 @@ import type {
 import type { SetSelection } from '../../private-types';
 import { ItemClickWrapper } from '../utils/item-click-wrapper';
 const { Badge } = unlock( componentsPrivateApis );
-import DataViewsContext from '../../components/dataviews-context';
 
 interface GridItemProps< Item > {
 	view: ViewGridType;
@@ -261,7 +258,7 @@ function ViewGrid< Item >( {
 	view,
 	className,
 }: ViewGridProps< Item > ) {
-	const { containerRef } = useContext( DataViewsContext );
+	const { resizeObserverRef } = useContext( DataViewsContext );
 	const titleField = fields.find(
 		( field ) => field.id === view?.titleField
 	);
