@@ -1,5 +1,11 @@
+/**
+ * External dependencies
+ */
 import { DayPicker } from 'react-day-picker';
 import { enUS } from 'react-day-picker/locale';
+/**
+ * Internal dependencies
+ */
 import { COMMON_PROPS } from '../utils/constants';
 import { clampNumberOfMonths } from '../utils/misc';
 import { useControlledValue } from '../utils/use-controlled-value';
