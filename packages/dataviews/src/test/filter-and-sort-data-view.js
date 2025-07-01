@@ -10,6 +10,13 @@ import { filterSortAndPaginate } from '../filter-and-sort-data-view';
 import { data, fields } from '../components/dataviews/stories/fixtures';
 
 describe( 'filters', () => {
+	// Fixed date for datetime tests to ensure consistent results
+	const FIXED_DATE = new Date( '2025-07-01T12:00:00.000Z' );
+
+	afterEach( () => {
+		jest.useRealTimers();
+	} );
+
 	it( 'should return empty if the data is empty', () => {
 		expect( filterSortAndPaginate( null, {}, [] ) ).toStrictEqual( {
 			data: [],
@@ -647,9 +654,13 @@ describe( 'filters', () => {
 	} );
 
 	it( 'should filter using IN_THE_PAST operator for datetime (days)', () => {
+		// Use fake timers to ensure consistent time
+		jest.useFakeTimers();
+		jest.setSystemTime( FIXED_DATE );
+
 		const testData = [
-			{ title: 'Recent', date: subDays( new Date(), 5 ) },
-			{ title: 'Old', date: subDays( new Date(), 14 ) },
+			{ title: 'Recent', date: subDays( FIXED_DATE, 5 ) },
+			{ title: 'Old', date: subDays( FIXED_DATE, 14 ) },
 		];
 		const testFields = [ { id: 'date', type: 'datetime', label: 'Date' } ];
 		const { data: result } = filterSortAndPaginate(
@@ -665,14 +676,19 @@ describe( 'filters', () => {
 			},
 			testFields
 		);
+
 		expect( result ).toHaveLength( 1 );
 		expect( result ).toStrictEqual( [ testData[ 0 ] ] );
 	} );
 
 	it( 'should filter using OVER operator for datetime (days)', () => {
+		// Use fake timers to ensure consistent time
+		jest.useFakeTimers();
+		jest.setSystemTime( FIXED_DATE );
+
 		const testData = [
-			{ title: 'Recent', date: subDays( new Date(), 7 ) },
-			{ title: 'Old', date: subDays( new Date(), 14 ) },
+			{ title: 'Recent', date: subDays( FIXED_DATE, 7 ) },
+			{ title: 'Old', date: subDays( FIXED_DATE, 14 ) },
 		];
 		const testFields = [ { id: 'date', type: 'datetime', label: 'Date' } ];
 		const { data: result } = filterSortAndPaginate(
@@ -688,14 +704,19 @@ describe( 'filters', () => {
 			},
 			testFields
 		);
+
 		expect( result ).toHaveLength( 1 );
 		expect( result ).toStrictEqual( [ testData[ 1 ] ] );
 	} );
 
 	it( 'should filter using IN_THE_PAST operator for datetime (years)', () => {
+		// Use fake timers to ensure consistent time
+		jest.useFakeTimers();
+		jest.setSystemTime( FIXED_DATE );
+
 		const testData = [
-			{ title: 'Recent', date: subYears( new Date(), 1 ) },
-			{ title: 'Old', date: subYears( new Date(), 2 ) },
+			{ title: 'Recent', date: subYears( FIXED_DATE, 1 ) },
+			{ title: 'Old', date: subYears( FIXED_DATE, 2 ) },
 		];
 		const testFields = [ { id: 'date', type: 'datetime', label: 'Date' } ];
 		const { data: result } = filterSortAndPaginate(
@@ -711,14 +732,19 @@ describe( 'filters', () => {
 			},
 			testFields
 		);
+
 		expect( result ).toHaveLength( 1 );
 		expect( result ).toStrictEqual( [ testData[ 0 ] ] );
 	} );
 
 	it( 'should filter using OVER operator for datetime (years)', () => {
+		// Use fake timers to ensure consistent time
+		jest.useFakeTimers();
+		jest.setSystemTime( FIXED_DATE );
+
 		const testData = [
-			{ title: 'Recent', date: subYears( new Date(), 1 ) },
-			{ title: 'Old', date: subYears( new Date(), 2 ) },
+			{ title: 'Recent', date: subYears( FIXED_DATE, 1 ) },
+			{ title: 'Old', date: subYears( FIXED_DATE, 2 ) },
 		];
 		const testFields = [ { id: 'date', type: 'datetime', label: 'Date' } ];
 		const { data: result } = filterSortAndPaginate(
@@ -734,6 +760,7 @@ describe( 'filters', () => {
 			},
 			testFields
 		);
+
 		expect( result ).toHaveLength( 1 );
 		expect( result ).toStrictEqual( [ testData[ 1 ] ] );
 	} );
