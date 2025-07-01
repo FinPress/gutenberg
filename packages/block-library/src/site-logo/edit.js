@@ -23,7 +23,6 @@ import {
 	Button,
 	DropZone,
 	FlexItem,
-	PanelBody,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalItemGroup as ItemGroup,
@@ -476,6 +475,7 @@ export default function LogoEdit( {
 	}, [] );
 	const { getSettings } = useSelect( blockEditorStore );
 	const [ temporaryURL, setTemporaryURL ] = useState();
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	const { editEntityRecord } = useDispatch( coreStore );
 
@@ -633,19 +633,32 @@ export default function LogoEdit( {
 
 	const mediaInspectorPanel = ( canUserEdit || logoUrl ) && (
 		<InspectorControls>
-			<PanelBody title={ __( 'Media' ) }>
-				<div className="block-library-site-logo__inspector-media-replace-container">
-					{ ! canUserEdit ? (
-						<InspectorLogoPreview
-							media={ mediaItemData }
-							itemGroupProps={ {
-								isBordered: true,
-								className:
-									'block-library-site-logo__inspector-readonly-logo-preview',
-							} }
-						/>
-					) : (
-						<>
+			<ToolsPanel
+				label={ __( 'Media' ) }
+				dropdownMenuProps={ dropdownMenuProps }
+			>
+				{ ! canUserEdit ? (
+					<ToolsPanelItem
+						hasValue={ () => false }
+						label={ __( 'Logo preview' ) }
+					>
+						<div className="block-library-site-logo__inspector-media-replace-container">
+							<InspectorLogoPreview
+								media={ mediaItemData }
+								itemGroupProps={ {
+									isBordered: true,
+									className:
+										'block-library-site-logo__inspector-readonly-logo-preview',
+								} }
+							/>
+						</div>
+					</ToolsPanelItem>
+				) : (
+					<ToolsPanelItem
+						hasValue={ () => false }
+						label={ __( 'Logo' ) }
+					>
+						<div className="block-library-site-logo__inspector-media-replace-container">
 							<SiteLogoReplaceFlow
 								{ ...mediaReplaceFlowProps }
 								name={
@@ -668,10 +681,10 @@ export default function LogoEdit( {
 								) }
 							/>
 							<DropZone onFilesDrop={ onFilesDrop } />
-						</>
-					) }
-				</div>
-			</PanelBody>
+						</div>
+					</ToolsPanelItem>
+				) }
+			</ToolsPanel>
 		</InspectorControls>
 	);
 
