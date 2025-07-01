@@ -68,6 +68,35 @@ const predefinedPluginTemplates = {
 				title: 'Example Dynamic',
 				render: 'file:./render.php',
 			},
+			css: {
+				slug: 'example-static-css',
+				title: 'Example Static (CSS)',
+				description:
+					'Example block scaffolded with Create Block tool using CSS instead of SCSS.',
+				editorStyle: 'file:./editor.css',
+				style: 'file:./style.css',
+
+				customScripts: {
+					'build:css': 'wp-scripts build --webpack-copy-php',
+					'start:css': 'wp-scripts start --webpack-copy-php',
+				},
+
+				blockTemplatesPath: join( __dirname, 'templates', 'block-css' ),
+			},
+			'css-dynamic': {
+				slug: 'example-dynamic-css',
+				title: 'Example Dynamic (CSS)',
+				description:
+					'Example dynamic block scaffolded with Create Block tool using CSS instead of SCSS.',
+				render: 'file:./render.php',
+				editorStyle: 'file:./editor.css',
+				style: 'file:./style.css',
+				customScripts: {
+					'build:css': 'wp-scripts build --webpack-copy-php',
+					'start:css': 'wp-scripts start --webpack-copy-php',
+				},
+				blockTemplatesPath: join( __dirname, 'templates', 'block-css' ),
+			},
 		},
 	},
 };
