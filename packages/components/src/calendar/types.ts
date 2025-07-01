@@ -1,3 +1,6 @@
+/**
+ * External dependencies
+ */
 import type { Locale } from 'date-fns';
 import type * as React from 'react';
 
@@ -144,11 +147,11 @@ type DayOfWeek = {
  *   };
  * @template T - The type of the selected item.
  * @callback OnSelectHandler
- * @param {T} selected - The selected item after the event.
- * @param {Date} triggerDate - The date when the event was triggered. This is
- *   typically the day clicked or interacted with.
- * @param {Modifiers} modifiers - The modifiers associated with the event.
- * @param {React.MouseEvent | React.KeyboardEvent} e - The event object.
+ * @param {T}                                      selected    - The selected item after the event.
+ * @param {Date}                                   triggerDate - The date when the event was triggered. This is
+ *                                                             typically the day clicked or interacted with.
+ * @param {Modifiers}                              modifiers   - The modifiers associated with the event.
+ * @param {React.MouseEvent | React.KeyboardEvent} e           - The event object.
  */
 type OnSelectHandler< T > = (
 	selected: T,
@@ -158,7 +161,10 @@ type OnSelectHandler< T > = (
 ) => void;
 
 export interface BaseProps
-	extends Omit< React.HTMLAttributes< HTMLDivElement >, 'onSelect' | 'defaultValue' > {
+	extends Omit<
+		React.HTMLAttributes< HTMLDivElement >,
+		'onSelect' | 'defaultValue'
+	> {
 	/**
 	 * Whether the selection is required.
 	 * When `true`, there always needs to be a date selected.

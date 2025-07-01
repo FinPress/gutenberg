@@ -168,5 +168,5 @@ export const useLocalizationProps = ( {
 			},
 			timeZone,
 		} as const;
-	}, [ locale, timeZone, mode, __ ] );
+	}, [ locale, timeZone, mode ] );
 };
