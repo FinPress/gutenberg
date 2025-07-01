@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### New Features
+
+-   Add new `DateCalendar` and `DateRangeCalendar` components ([#70578](https://github.com/WordPress/gutenberg/pull/70578)).
+
 ## 29.12.0 (2025-06-25)
 
 ### Bug Fixes
