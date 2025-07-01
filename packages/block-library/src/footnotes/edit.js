@@ -6,7 +6,6 @@ import { useEntityProp } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { Placeholder } from '@wordpress/components';
 import { formatListNumbered as icon } from '@wordpress/icons';
-import { useMemo } from '@wordpress/element';
 
 export default function FootnotesEdit( {
 	setAttributes,
@@ -19,10 +18,7 @@ export default function FootnotesEdit( {
 		postId
 	);
 	const footnotesSupported = 'string' === typeof meta?.footnotes;
-	const footnotes = useMemo(
-		() => ( meta?.footnotes ? JSON.parse( meta.footnotes ) : [] ),
-		[ meta ]
-	);
+	const footnotes = meta?.footnotes ? JSON.parse( meta.footnotes ) : [];
 	const blockProps = useBlockProps();
 
 	if ( ! footnotesSupported ) {
