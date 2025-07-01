@@ -15,8 +15,8 @@
 	position: relative; /* Required to position the navigation toolbar. */
 	box-sizing: border-box;
 	display: inline flow-root;
-	color: colors.$gray-900;
-	background-color: colors.$white;
+	color: $gray-900;
+	background-color: $white;
 	font-size: 13px;
 	font-weight: 400;
 	z-index: 0; // Create a stacking context and render on top of the background.
@@ -37,7 +37,7 @@
 	// date follows the same color as the button's text, since the button
 	// inherits its text color.
 	&:has(.components-calendar__day-button:disabled) {
-		color: colors.$gray-600;
+		color: $gray-600;
 	}
 	&:has(.components-calendar__day-button:hover:not(:disabled)),
 	&:has(.components-calendar__day-button:focus-visible) {
@@ -141,7 +141,7 @@
 	&[aria-disabled="true"] {
 		cursor: revert;
 
-		color: colors.$gray-600;
+		color: $gray-600;
 	}
 
 	&:focus-visible {
@@ -204,7 +204,7 @@
 	height: var(--components-calendar-button-height);
 	padding: 0;
 
-	color: colors.$gray-700;
+	color: $gray-700;
 	text-align: center;
 	text-transform: uppercase;
 }
@@ -229,12 +229,12 @@
 	.components-calendar__day-button,
 	.components-calendar__day-button:hover:not(:disabled)
 ) {
-		color: colors.$white;
+		color: $white;
 	}
 
 	.components-calendar__day-button {
 		&::before {
-			background-color: colors.$gray-900;
+			background-color: $gray-900;
 			// Render a transparent border to highlight the selected day in
 			// forced-colors (high-contrast) mode, since the background is not
 			// visible.
@@ -242,11 +242,11 @@
 		}
 
 		&:disabled::before {
-			background-color: colors.$gray-600;
+			background-color: $gray-600;
 		}
 
 		&:hover:not(:disabled)::before {
-			background-color: colors.$gray-800;
+			background-color: $gray-800;
 		}
 	}
 }

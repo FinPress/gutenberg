@@ -32,7 +32,7 @@ import { DateCalendar, TZDate } from '..';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta< typeof DateCalendar > = {
-	title: 'UI/DateCalendar',
+	title: 'Components/DateCalendar',
 	component: DateCalendar,
 	argTypes: {
 		locale: {
