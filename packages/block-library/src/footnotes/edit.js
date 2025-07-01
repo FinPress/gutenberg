@@ -6,8 +6,10 @@ import { useEntityProp } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { Placeholder } from '@wordpress/components';
 import { formatListNumbered as icon } from '@wordpress/icons';
+import { useEffect } from '@wordpress/element';
 
 export default function FootnotesEdit( {
+	attributes,
 	setAttributes,
 	context: { postType, postId },
 } ) {
@@ -17,9 +19,28 @@ export default function FootnotesEdit( {
 		'meta',
 		postId
 	);
+
 	const footnotesSupported = 'string' === typeof meta?.footnotes;
-	const footnotes = meta?.footnotes ? JSON.parse( meta.footnotes ) : [];
 	const blockProps = useBlockProps();
+	const { footnotes = [] } = attributes;
+
+	useEffect( () => {
+		if ( footnotesSupported ) {
+			const metaFootnotes = meta?.footnotes
+				? JSON.parse( meta.footnotes )
+				: [];
+			if ( ! footnotes.length ) {
+				setAttributes( {
+					footnotes: metaFootnotes,
+				} );
+			}
+		}
+	}, [
+		footnotesSupported,
+		footnotes.length,
+		setAttributes,
+		meta.footnotes,
+	] );
 
 	if ( ! footnotesSupported ) {
 		return (
