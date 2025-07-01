@@ -6,10 +6,9 @@ import { useEntityProp } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { Placeholder } from '@wordpress/components';
 import { formatListNumbered as icon } from '@wordpress/icons';
-import { useEffect, useMemo } from '@wordpress/element';
+import { useMemo } from '@wordpress/element';
 
 export default function FootnotesEdit( {
-	attributes,
 	setAttributes,
 	context: { postType, postId },
 } ) {
@@ -20,19 +19,11 @@ export default function FootnotesEdit( {
 		postId
 	);
 	const footnotesSupported = 'string' === typeof meta?.footnotes;
-	const metaFootnotes = useMemo(
+	const footnotes = useMemo(
 		() => ( meta?.footnotes ? JSON.parse( meta.footnotes ) : [] ),
 		[ meta ]
 	);
-	const { footnotes = metaFootnotes } = attributes;
 	const blockProps = useBlockProps();
-
-	useEffect( () => {
-		// If the footnotes attribute is not set, initialize it with the meta value.
-		if ( ! attributes.footnotes.length && metaFootnotes.length ) {
-			setAttributes( { footnotes: metaFootnotes } );
-		}
-	}, [ attributes.footnotes.length, metaFootnotes, setAttributes ] );
 
 	if ( ! footnotesSupported ) {
 		return (
@@ -103,6 +94,14 @@ export default function FootnotesEdit( {
 											: footnote;
 									} )
 								),
+							} );
+
+							setAttributes( {
+								footnotes: footnotes.map( ( footnote ) => {
+									return footnote.id === id
+										? { content: nextFootnote, id }
+										: footnote;
+								} ),
 							} );
 						} }
 					/>{ ' ' }
