@@ -73,15 +73,6 @@ const predefinedPluginTemplates = {
 				title: 'Example Static (CSS)',
 				description:
 					'Example block scaffolded with Create Block tool using CSS instead of SCSS.',
-				editorStyle: 'file:./editor.css',
-				style: 'file:./style.css',
-
-				customScripts: {
-					'build:css': 'wp-scripts build --webpack-copy-php',
-					'start:css': 'wp-scripts start --webpack-copy-php',
-				},
-
-				blockTemplatesPath: join( __dirname, 'templates', 'block-css' ),
 			},
 			'css-dynamic': {
 				slug: 'example-dynamic-css',
@@ -89,13 +80,6 @@ const predefinedPluginTemplates = {
 				description:
 					'Example dynamic block scaffolded with Create Block tool using CSS instead of SCSS.',
 				render: 'file:./render.php',
-				editorStyle: 'file:./editor.css',
-				style: 'file:./style.css',
-				customScripts: {
-					'build:css': 'wp-scripts build --webpack-copy-php',
-					'start:css': 'wp-scripts start --webpack-copy-php',
-				},
-				blockTemplatesPath: join( __dirname, 'templates', 'block-css' ),
 			},
 		},
 	},
@@ -255,6 +239,18 @@ const getProjectTemplate = async ( templateName ) => {
 	}
 };
 
+const defaultTransformer = ( view ) => {
+	const isCssVariant = view.variantVars && view.variantVars.isCssVariant;
+
+	if ( isCssVariant ) {
+		view.editorStyle =
+			view.editorStyle && view.editorStyle.replace( /\.scss$/, '.css' );
+		view.style = view.style && view.style.replace( /\.scss$/, '.css' );
+	}
+
+	return view;
+};
+
 const getDefaultValues = ( projectTemplate, variant ) => {
 	return {
 		$schema: 'https://schemas.wp.org/trunk/block.json',
@@ -277,7 +273,7 @@ const getDefaultValues = ( projectTemplate, variant ) => {
 		editorScript: 'file:./index.js',
 		editorStyle: 'file:./index.css',
 		style: 'file:./style-index.css',
-		transformer: ( view ) => view,
+		transformer: projectTemplate.transformer || defaultTransformer,
 		...projectTemplate.defaultValues,
 		...projectTemplate.variants?.[ variant ],
 		variantVars: getVariantVars( projectTemplate.variants, variant ),
@@ -320,6 +316,10 @@ const getVariantVars = ( variants, variant ) => {
 			variantName.charAt( 0 ).toUpperCase() + variantName.slice( 1 );
 		variantVars[ `is${ key }Variant` ] = currentVariant === variantName;
 	}
+
+	const isCssVariant =
+		currentVariant === 'css' || currentVariant === 'css-dynamic';
+	variantVars.isCssVariant = isCssVariant;
 
 	return variantVars;
 };
