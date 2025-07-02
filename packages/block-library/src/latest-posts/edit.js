@@ -739,7 +739,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 								.join( ' ' ) }
 							{ createInterpolateElement(
 								sprintf(
-									/* translators: 1: Hidden accessibility text\\: Post title */
+									/* translators: 1: Hidden accessibility text: Post title */
 									__(
 										'… <a>Read more<span>: %1$s</span></a>'
 									),
