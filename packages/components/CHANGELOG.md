@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Bug Fixes
+
+-	`FormTokenField`: Fix focus lost on tab when used within modal ([#70591](https://github.com/WordPress/gutenberg/pull/70591)).
+
 ## 29.12.0 (2025-06-25)
 
 ### Bug Fixes
