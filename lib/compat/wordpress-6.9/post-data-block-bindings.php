@@ -55,7 +55,7 @@ function _block_bindings_post_data_get_value( array $source_args, $block_instanc
  */
 function _register_block_bindings_post_data_source() {
 	register_block_bindings_source(
-		'core/post-date',
+		'core/post-data',
 		array(
 			'label'              => _x( 'Post Data', 'block bindings source' ),
 			'get_value_callback' => '_block_bindings_post_data_get_value',
