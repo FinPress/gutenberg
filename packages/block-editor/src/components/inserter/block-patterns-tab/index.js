@@ -37,7 +37,9 @@ function BlockPatternsTab( {
 	}, [ initialLoaded, categories ] );
 
 	if ( ! initialLoaded ) {
-		return <Spinner />;
+		return (
+			<Spinner className="block-editor-inserter__categories-panel-spinner" />
+		);
 	}
 
 	if ( ! categories.length ) {
