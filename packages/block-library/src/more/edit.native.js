@@ -2,7 +2,6 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
 import { withPreferredColorScheme } from '@wordpress/compose';
 import { HorizontalRule } from '@wordpress/components';
 
@@ -12,10 +11,8 @@ import { HorizontalRule } from '@wordpress/components';
 import styles from './editor.scss';
 
 function MoreEdit( { attributes, getStylesFromColorScheme } ) {
-	const [ defaultText ] = useState( __( 'Read more' ) );
 	const { customText } = attributes;
 
-	const content = customText || defaultText;
 	const textStyle = getStylesFromColorScheme(
 		styles.moreText,
 		styles.moreTextDark
@@ -27,7 +24,7 @@ function MoreEdit( { attributes, getStylesFromColorScheme } ) {
 
 	return (
 		<HorizontalRule
-			text={ content }
+			text={ customText || __( 'Read more' ) }
 			marginLeft={ 0 }
 			marginRight={ 0 }
 			textStyle={ textStyle }
