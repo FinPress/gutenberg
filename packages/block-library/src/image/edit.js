@@ -137,15 +137,6 @@ export function ImageEdit( {
 		captionRef.current = caption;
 	}, [ caption ] );
 
-	useEffect( () => {
-		// Replacing `\n` with `<br />` ensures that line breaks are preserved,
-		// consistenctly in both the editor and the frontend.
-		if ( typeof caption === 'string' && caption.includes( '\n' ) ) {
-			const normalized = caption.replace( /\n/g, '<br />' );
-			setAttributes( { caption: normalized } );
-		}
-	}, [ caption, setAttributes ] );
-
 	const { __unstableMarkNextChangeAsNotPersistent, replaceBlock } =
 		useDispatch( blockEditorStore );
 
@@ -257,6 +248,18 @@ export function ImageEdit( {
 		}
 
 		let mediaAttributes = pickRelevantMediaFiles( media, newSize );
+
+		// Normalize newline characters in caption to <br />
+		// to preserve line breaks in both editor and frontend.
+		if (
+			typeof mediaAttributes.caption === 'string' &&
+			mediaAttributes.caption.includes( '\n' )
+		) {
+			mediaAttributes.caption = mediaAttributes.caption.replace(
+				/\n/g,
+				'<br />'
+			);
+		}
 
 		// If a caption text was meanwhile written by the user,
 		// make sure the text is not overwritten by empty captions.
