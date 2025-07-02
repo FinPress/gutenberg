@@ -127,9 +127,6 @@ export const registerPostTypeSchema =
 				kind: 'postType',
 				name: postType,
 			} );
-		const currentTheme = await registry
-			.resolveSelect( coreStore )
-			.getCurrentTheme();
 
 		let hasDuplicateTemplatePartAction = false;
 		if ( postTypeConfig.slug === 'wp_template_part' && canCreate ) {
@@ -137,6 +134,13 @@ export const registerPostTypeSchema =
 			hasDuplicateTemplatePartAction = (
 				await registry.resolveSelect( coreStore ).getCurrentTheme()
 			)?.is_block_theme;
+		}
+
+		let hasFeaturedImageField = false;
+		if ( postTypeConfig.supports?.thumbnail ) {
+			hasFeaturedImageField = (
+				await registry.resolveSelect( coreStore ).getCurrentTheme()
+			)?.theme_supports?.[ 'post-thumbnails' ];
 		}
 
 		const actions = [
@@ -169,9 +173,7 @@ export const registerPostTypeSchema =
 		].filter( Boolean );
 
 		const fields = [
-			postTypeConfig.supports?.thumbnail &&
-				currentTheme?.theme_supports?.[ 'post-thumbnails' ] &&
-				featuredImageField,
+			hasFeaturedImageField ? featuredImageField : undefined,
 			postTypeConfig.supports?.author && authorField,
 			statusField,
 			dateField,
