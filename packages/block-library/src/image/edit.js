@@ -257,7 +257,7 @@ export function ImageEdit( {
 		) {
 			mediaAttributes.caption = mediaAttributes.caption.replace(
 				/\n/g,
-				'<br />'
+				'<br>'
 			);
 		}
 
