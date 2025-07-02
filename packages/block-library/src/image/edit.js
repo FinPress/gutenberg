@@ -471,6 +471,15 @@ export function ImageEdit( {
 				// See https://github.com/WordPress/gutenberg/blob/71134165868298fc15e22896d0c28b41b3755ff7/packages/block-editor/src/components/block-list/use-in-between-inserter.js#L120
 				isSingleSelected && isMaxWidthContainerWidth && maxWidthObserver
 			}
+<ToolbarButton
+	icon="crop"
+	label="Crop to Content"
+	onClick={ () => {
+		alert( 'This would auto-crop the image to content.' );
+	}
+ }
+/>
+
 		</>
 	);
 }
