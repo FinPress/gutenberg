@@ -2,6 +2,7 @@
  * External dependencies
  */
 import type { Meta, StoryFn } from '@storybook/react';
+import { fn } from '@storybook/test';
 
 /**
  * WordPress dependencies
@@ -24,8 +25,12 @@ const meta: Meta< typeof TreeGrid > = {
 	argTypes: {
 		children: { control: false },
 	},
+	args: {
+		onExpandRow: fn(),
+		onCollapseRow: fn(),
+		onFocusRow: fn(),
+	},
 	parameters: {
-		actions: { argTypesRegex: '^on.*' },
 		controls: { expanded: true },
 	},
 };

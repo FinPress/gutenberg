@@ -2,6 +2,7 @@
  * External dependencies
  */
 import type { Meta, StoryFn } from '@storybook/react';
+import { fn } from '@storybook/test';
 
 /**
  * WordPress dependencies
@@ -26,8 +27,13 @@ const meta: Meta< typeof UnitControl > = {
 		prefix: { control: { type: 'text' } },
 		value: { control: false },
 	},
+	args: {
+		onChange: fn(),
+		onUnitChange: fn(),
+		onFocus: fn(),
+		onBlur: fn(),
+	},
 	parameters: {
-		actions: { argTypesRegex: '^on.*' },
 		controls: {
 			expanded: true,
 		},

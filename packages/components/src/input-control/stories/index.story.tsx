@@ -2,6 +2,8 @@
  * External dependencies
  */
 import type { Meta, StoryFn } from '@storybook/react';
+import { fn } from '@storybook/test';
+
 /**
  * WordPress dependencies
  */
@@ -30,8 +32,12 @@ const meta: Meta< typeof InputControl > = {
 		type: { control: { type: 'text' } },
 		value: { control: { disable: true } },
 	},
+	args: {
+		onChange: fn(),
+		onValidate: fn(),
+		onKeyDown: fn(),
+	},
 	parameters: {
-		actions: { argTypesRegex: '^on.*' },
 		controls: { expanded: true },
 		docs: { canvas: { sourceState: 'shown' } },
 	},
