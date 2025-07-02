@@ -34,11 +34,11 @@ function _block_bindings_post_data_get_value( array $source_args, $block_instanc
 		return null;
 	}
 
-	if ( 'date' === $source_args['key'] ) {
+	if ( 'post_date' === $source_args['key'] ) {
 		return esc_attr( get_the_date( 'c', $post_id ) );
 	}
 
-	if ( 'modified' === $source_args['key'] ) {
+	if ( 'post_modified' === $source_args['key'] ) {
 		if ( get_the_modified_date( 'Ymdhi', $post_id ) > get_the_date( 'Ymdhi', $post_id ) ) {
 			return esc_attr( get_the_modified_date( 'c', $post_id ) );
 		} else {
