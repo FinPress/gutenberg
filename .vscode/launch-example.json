@@ -11,6 +11,13 @@
 			}
 		},
 		{
+			"type": "chrome",
+			"request": "launch",
+			"name": "Launch Chrome and debug",
+			"url": "http://localhost:8888/",
+			"webRoot": "${workspaceFolder}"
+		},
+		{
 			"type": "node",
 			"request": "launch",
 			"name": "Debug current e2e test",
