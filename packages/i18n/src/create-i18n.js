@@ -88,7 +88,7 @@ const I18N_HOOK_REGEXP = /^i18n\.(n?gettext|has_translation)(_|$)/;
  * @see https://developer.wordpress.org/reference/functions/_x/
  */
 /**
- * @typedef {<T extends string>(single: T, plural: T, number: number, domain?: string) => import('./types').TranslatableText< T >} _n
+ * @typedef {<T extends string, P extends string>(single: T, plural: P, number: number, domain?: string) => import('./types').TranslatableText< T | P >} _n
  *
  * Translates and retrieves the singular or plural form based on the supplied
  * number.
@@ -96,7 +96,7 @@ const I18N_HOOK_REGEXP = /^i18n\.(n?gettext|has_translation)(_|$)/;
  * @see https://developer.wordpress.org/reference/functions/_n/
  */
 /**
- * @typedef {<T extends string>(single: T, plural: T, number: number, context: string, domain?: string) => import('./types').TranslatableText< T >} _nx
+ * @typedef {<T extends string, P extends string>(single: T, plural: P, number: number, context: string, domain?: string) => import('./types').TranslatableText< T | P >} _nx
  *
  * Translates and retrieves the singular or plural form based on the supplied
  * number, with gettext context.
@@ -353,7 +353,7 @@ export const createI18n = ( initialData, initialDomain, hooks ) => {
 			number
 		);
 		if ( ! hooks ) {
-			return /** @type {import('./types').TranslatableText<typeof single>} */ (
+			return /** @type {import('./types').TranslatableText<typeof single | typeof plural>} */ (
 				translation
 			);
 		}
@@ -377,7 +377,7 @@ export const createI18n = ( initialData, initialDomain, hooks ) => {
 				domain
 			)
 		);
-		return /** @type {import('./types').TranslatableText<typeof single>} */ (
+		return /** @type {import('./types').TranslatableText<typeof single | typeof plural>} */ (
 			/** @type {*} */ hooks.applyFilters(
 				'i18n.ngettext_' + getFilterDomain( domain ),
 				translation,
@@ -399,7 +399,7 @@ export const createI18n = ( initialData, initialDomain, hooks ) => {
 			number
 		);
 		if ( ! hooks ) {
-			return /** @type {import('./types').TranslatableText<typeof single>} */ (
+			return /** @type {import('./types').TranslatableText<typeof single | typeof plural>} */ (
 				translation
 			);
 		}
@@ -426,7 +426,7 @@ export const createI18n = ( initialData, initialDomain, hooks ) => {
 			)
 		);
 
-		return /** @type {import('./types').TranslatableText<typeof single>} */ (
+		return /** @type {import('./types').TranslatableText<typeof single | typeof plural>} */ (
 			/** @type {*} */ hooks.applyFilters(
 				'i18n.ngettext_with_context_' + getFilterDomain( domain ),
 				translation,
