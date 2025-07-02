@@ -16,14 +16,14 @@
  * @return string Returns the filtered post date for the current post wrapped inside "time" tags.
  */
 function render_block_core_post_date( $attributes, $content, $block ) {
-	if ( ! isset( $block->context['postId'] ) ) {
+	if ( ! isset( $attributes['date'] ) ) {
 		return '';
 	}
 
-	$post_ID = $block->context['postId'];
+	$unformatted_date = $attributes['date'];
+	$post_timestamp   = strtotime( $unformatted_date );
 
 	if ( isset( $attributes['format'] ) && 'human-diff' === $attributes['format'] ) {
-		$post_timestamp = get_post_timestamp( $post_ID );
 		if ( $post_timestamp > time() ) {
 			// translators: %s: human-readable time difference.
 			$formatted_date = sprintf( __( '%s from now' ), human_time_diff( $post_timestamp ) );
@@ -32,10 +32,10 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 			$formatted_date = sprintf( __( '%s ago' ), human_time_diff( $post_timestamp ) );
 		}
 	} else {
-		$formatted_date = get_the_date( empty( $attributes['format'] ) ? '' : $attributes['format'], $post_ID );
+		$formatted_date = date( empty( $attributes['format'] ) ? get_option( 'date_format' ) : $attributes['format'], $post_timestamp );
 	}
-	$unformatted_date = esc_attr( get_the_date( 'c', $post_ID ) );
-	$classes          = array();
+
+	$classes = array();
 
 	if ( isset( $attributes['textAlign'] ) ) {
 		$classes[] = 'has-text-align-' . $attributes['textAlign'];
