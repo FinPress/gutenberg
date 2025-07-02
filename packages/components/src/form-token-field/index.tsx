@@ -241,6 +241,9 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 			case 'Escape':
 				preventDefault = handleEscapeKey( event );
 				break;
+			case 'Tab':
+				preventDefault = handleTabKey( event );
+				break;
 			default:
 				break;
 		}
@@ -381,6 +384,11 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 		}
 
 		return true; // PreventDefault.
+	}
+
+	function handleTabKey( event: KeyboardEvent ) {
+		handleEscapeKey( event );
+		return false; // Do not prevent the default behavior.
 	}
 
 	function handleCommaKey() {
