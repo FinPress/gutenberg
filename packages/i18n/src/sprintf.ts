@@ -26,8 +26,8 @@ export function sprintf< T extends string >(
  * Returns a formatted string.
  *
  * @template {string} T
- * @param {T | TranslatableText<T>} format The format of the string to generate.
- * @param {DistributeSprintfArgs<T>}          args   Arguments to apply to the format.
+ * @param {T | TranslatableText<T>}  format The format of the string to generate.
+ * @param {DistributeSprintfArgs<T>} args   Arguments to apply to the format.
  *
  * @see https://www.npmjs.com/package/@tannin/sprintf
  *
