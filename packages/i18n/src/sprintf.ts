@@ -9,13 +9,17 @@ import type { SprintfArgs } from '@tannin/sprintf/types';
  */
 import type { TranslatableText } from './types';
 
+type DistributeSprintfArgs< T extends string > = T extends any
+	? SprintfArgs< T >
+	: never;
+
 export function sprintf< T extends string >(
 	format: T | TranslatableText< T >,
-	...args: SprintfArgs< T >
+	...args: DistributeSprintfArgs< T >
 ): string;
 export function sprintf< T extends string >(
 	format: T | TranslatableText< T >,
-	args: SprintfArgs< T >
+	args: DistributeSprintfArgs< T >
 ): string;
 
 /**
@@ -31,7 +35,7 @@ export function sprintf< T extends string >(
  */
 export function sprintf< T extends string >(
 	format: T | TranslatableText< T >,
-	...args: SprintfArgs< T >
+	...args: DistributeSprintfArgs< T >
 ): string {
-	return _sprintf( format as T, ...( args as SprintfArgs< T > ) );
+	return _sprintf( format as T, ...( args as DistributeSprintfArgs< T > ) );
 }
