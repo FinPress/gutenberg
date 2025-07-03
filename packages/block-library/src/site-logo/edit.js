@@ -639,7 +639,7 @@ export default function LogoEdit( {
 			>
 				{ ! canUserEdit ? (
 					<ToolsPanelItem
-						hasValue={ () => false }
+						hasValue={ () => !! logoUrl }
 						label={ __( 'Logo preview' ) }
 					>
 						<div className="block-library-site-logo__inspector-media-replace-container">
@@ -655,7 +655,7 @@ export default function LogoEdit( {
 					</ToolsPanelItem>
 				) : (
 					<ToolsPanelItem
-						hasValue={ () => false }
+						hasValue={ () => !! logoUrl }
 						label={ __( 'Logo' ) }
 					>
 						<div className="block-library-site-logo__inspector-media-replace-container">
