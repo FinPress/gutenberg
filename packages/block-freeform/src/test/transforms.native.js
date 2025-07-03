@@ -9,6 +9,11 @@ import {
 } from 'test/helpers';
 
 /**
+ * WordPress dependencies
+ */
+import { setFreeformContentHandlerName } from '@wordpress/blocks';
+
+/**
  * Internal dependencies
  */
 import { init as initFreeformBlock } from '../index';
@@ -22,6 +27,7 @@ const blockTransforms = [ ...transformsWithInnerBlocks ];
 // Register the freeform block for tests
 beforeAll( () => {
 	initFreeformBlock();
+	setFreeformContentHandlerName( 'core/freeform' );
 } );
 
 describe( `${ block } block transforms`, () => {
