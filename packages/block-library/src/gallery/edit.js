@@ -59,7 +59,7 @@ import {
 	LINK_DESTINATION_MEDIA,
 	LINK_DESTINATION_NONE,
 	LINK_DESTINATION_LIGHTBOX,
-	DEFAULT_SIZE_SLUG,
+	DEFAULT_MEDIA_SIZE_SLUG,
 } from './constants';
 import useImageSizes from './use-image-sizes';
 import useGetNewImages from './use-get-new-images';
@@ -477,9 +477,9 @@ export default function GalleryEdit( props ) {
 	}
 
 	const defaultImageSizeSlug = imageSizeOptions?.find(
-		( size ) => size.value === DEFAULT_SIZE_SLUG
+		( size ) => size.value === DEFAULT_MEDIA_SIZE_SLUG
 	)
-		? DEFAULT_SIZE_SLUG
+		? DEFAULT_MEDIA_SIZE_SLUG
 		: imageSizeOptions?.[ 0 ]?.value;
 
 	useEffect( () => {
