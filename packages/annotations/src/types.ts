@@ -29,6 +29,10 @@ export interface WPAnnotation {
 	richTextIdentifier?: string | null;
 	/** Range for range-based annotations. */
 	range?: WPAnnotationRange | null;
+	/** Start position for annotations returned from selectors. */
+	start?: number;
+	/** End position for annotations returned from selectors. */
+	end?: number;
 }
 
 /**

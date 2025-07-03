@@ -27,7 +27,11 @@ export function applyAnnotations(
 	annotations: WPAnnotation[] = []
 ): RichTextValue {
 	annotations.forEach( ( annotation ) => {
-		let { start, end } = annotation.range || { start: 0, end: 0 };
+		let { start, end } = annotation;
+
+		if ( typeof start !== 'number' || typeof end !== 'number' ) {
+			return;
+		}
 
 		if ( start > record.text.length ) {
 			start = record.text.length;
@@ -137,10 +141,12 @@ function updateAnnotationsWithPositions(
 			return;
 		}
 
-		const { start, end } = currentAnnotation.range || { start: 0, end: 0 };
+		const { start, end } = currentAnnotation;
 		if (
-			start !== position.start ||
-			end !== ( position.end ?? position.start )
+			typeof start === 'number' &&
+			typeof end === 'number' &&
+			( start !== position.start ||
+				end !== ( position.end ?? position.start ) )
 		) {
 			updateAnnotationRange(
 				currentAnnotation.id,
