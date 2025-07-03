@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Enhancement
+
+-   `FontSizePicker`: Introduce label and help props ([#68557](https://github.com/WordPress/gutenberg/pull/68557)).
+
 ## 29.12.0 (2025-06-25)
 
 ### Bug Fixes

@@ -28,6 +28,7 @@ import { Spacer } from '../spacer';
 import FontSizePickerSelect from './font-size-picker-select';
 import FontSizePickerToggleGroup from './font-size-picker-toggle-group';
 import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
+import BaseControl from '../base-control';
 
 const DEFAULT_UNITS = [ 'px', 'em', 'rem', 'vw', 'vh' ];
 
@@ -48,6 +49,8 @@ const UnforwardedFontSizePicker = (
 		value,
 		withSlider = false,
 		withReset = true,
+		label = __( 'Font size' ),
+		help,
 	} = props;
 
 	const labelId = useInstanceId(
@@ -104,169 +107,195 @@ const UnforwardedFontSizePicker = (
 		size,
 	} );
 
+	let helpLabel;
+	if ( help ) {
+		if ( typeof help === 'function' ) {
+			if ( value !== undefined ) {
+				helpLabel = help( value );
+			}
+		} else {
+			helpLabel = help;
+		}
+	}
+
 	return (
-		<Container
-			ref={ ref }
-			className="components-font-size-picker"
-			// This Container component renders a fieldset element that needs to be labeled.
-			aria-labelledby={ labelId }
-		>
-			<Spacer>
-				<Header className="components-font-size-picker__header">
-					<HeaderLabel id={ labelId }>
-						{ __( 'Font size' ) }
-					</HeaderLabel>
-					{ ! disableCustomFontSizes && (
-						<HeaderToggle
-							label={
-								currentPickerType === 'custom'
-									? __( 'Use size preset' )
-									: __( 'Set custom size' )
+		<BaseControl __nextHasNoMarginBottom help={ helpLabel }>
+			<Container
+				ref={ ref }
+				className="components-font-size-picker"
+				// This Container component renders a fieldset element that needs to be labeled.
+				aria-labelledby={ labelId }
+			>
+				<Spacer>
+					<Header className="components-font-size-picker__header">
+						<HeaderLabel id={ labelId }>{ label }</HeaderLabel>
+						{ ! disableCustomFontSizes && (
+							<HeaderToggle
+								label={
+									currentPickerType === 'custom'
+										? __( 'Use size preset' )
+										: __( 'Set custom size' )
+								}
+								icon={ settings }
+								onClick={ () =>
+									setUserRequestedCustom(
+										! userRequestedCustom
+									)
+								}
+								isPressed={ currentPickerType === 'custom' }
+								size="small"
+							/>
+						) }
+					</Header>
+				</Spacer>
+				<div>
+					{ currentPickerType === 'select' && (
+						<FontSizePickerSelect
+							__next40pxDefaultSize={ __next40pxDefaultSize }
+							fontSizes={ fontSizes }
+							value={ value }
+							disableCustomFontSizes={ disableCustomFontSizes }
+							size={ size }
+							onChange={ ( newValue ) => {
+								if ( newValue === undefined ) {
+									onChange?.( undefined );
+								} else {
+									onChange?.(
+										hasUnits
+											? newValue
+											: Number( newValue ),
+										fontSizes.find(
+											( fontSize ) =>
+												fontSize.size === newValue
+										)
+									);
+								}
+							} }
+							onSelectCustom={ () =>
+								setUserRequestedCustom( true )
 							}
-							icon={ settings }
-							onClick={ () =>
-								setUserRequestedCustom( ! userRequestedCustom )
-							}
-							isPressed={ currentPickerType === 'custom' }
-							size="small"
 						/>
 					) }
-				</Header>
-			</Spacer>
-			<div>
-				{ currentPickerType === 'select' && (
-					<FontSizePickerSelect
-						__next40pxDefaultSize={ __next40pxDefaultSize }
-						fontSizes={ fontSizes }
-						value={ value }
-						disableCustomFontSizes={ disableCustomFontSizes }
-						size={ size }
-						onChange={ ( newValue ) => {
-							if ( newValue === undefined ) {
-								onChange?.( undefined );
-							} else {
-								onChange?.(
-									hasUnits ? newValue : Number( newValue ),
-									fontSizes.find(
-										( fontSize ) =>
-											fontSize.size === newValue
-									)
-								);
-							}
-						} }
-						onSelectCustom={ () => setUserRequestedCustom( true ) }
-					/>
-				) }
-				{ currentPickerType === 'togglegroup' && (
-					<FontSizePickerToggleGroup
-						fontSizes={ fontSizes }
-						value={ value }
-						__next40pxDefaultSize={ __next40pxDefaultSize }
-						size={ size }
-						onChange={ ( newValue ) => {
-							if ( newValue === undefined ) {
-								onChange?.( undefined );
-							} else {
-								onChange?.(
-									hasUnits ? newValue : Number( newValue ),
-									fontSizes.find(
-										( fontSize ) =>
-											fontSize.size === newValue
-									)
-								);
-							}
-						} }
-					/>
-				) }
-				{ currentPickerType === 'custom' && (
-					<Flex className="components-font-size-picker__custom-size-control">
-						<FlexItem isBlock>
-							<UnitControl
-								__next40pxDefaultSize={ __next40pxDefaultSize }
-								__shouldNotWarnDeprecated36pxSize
-								label={ __( 'Font size' ) }
-								labelPosition="top"
-								hideLabelFromVision
-								value={ value }
-								onChange={ ( newValue ) => {
-									setUserRequestedCustom( true );
-
-									if ( newValue === undefined ) {
-										onChange?.( undefined );
-									} else {
-										onChange?.(
-											hasUnits
-												? newValue
-												: parseInt( newValue, 10 )
-										);
-									}
-								} }
-								size={ size }
-								units={ hasUnits ? units : [] }
-								min={ 0 }
-							/>
-						</FlexItem>
-						{ withSlider && (
+					{ currentPickerType === 'togglegroup' && (
+						<FontSizePickerToggleGroup
+							fontSizes={ fontSizes }
+							value={ value }
+							__next40pxDefaultSize={ __next40pxDefaultSize }
+							size={ size }
+							onChange={ ( newValue ) => {
+								if ( newValue === undefined ) {
+									onChange?.( undefined );
+								} else {
+									onChange?.(
+										hasUnits
+											? newValue
+											: Number( newValue ),
+										fontSizes.find(
+											( fontSize ) =>
+												fontSize.size === newValue
+										)
+									);
+								}
+							} }
+						/>
+					) }
+					{ currentPickerType === 'custom' && (
+						<Flex className="components-font-size-picker__custom-size-control">
 							<FlexItem isBlock>
-								<Spacer marginX={ 2 } marginBottom={ 0 }>
-									<RangeControl
-										__nextHasNoMarginBottom
-										__next40pxDefaultSize={
-											__next40pxDefaultSize
-										}
-										__shouldNotWarnDeprecated36pxSize
-										className="components-font-size-picker__custom-input"
-										label={ __( 'Font size' ) }
-										hideLabelFromVision
-										value={ valueQuantity }
-										initialPosition={ fallbackFontSize }
-										withInputField={ false }
-										onChange={ ( newValue ) => {
-											setUserRequestedCustom( true );
-
-											if ( newValue === undefined ) {
-												onChange?.( undefined );
-											} else if ( hasUnits ) {
-												onChange?.(
-													newValue +
-														( valueUnit ?? 'px' )
-												);
-											} else {
-												onChange?.( newValue );
-											}
-										} }
-										min={ 0 }
-										max={ isValueUnitRelative ? 10 : 100 }
-										step={ isValueUnitRelative ? 0.1 : 1 }
-									/>
-								</Spacer>
-							</FlexItem>
-						) }
-						{ withReset && (
-							<FlexItem>
-								<Button
-									disabled={ isDisabled }
-									accessibleWhenDisabled
-									onClick={ () => {
-										onChange?.( undefined );
-									} }
-									variant="secondary"
-									__next40pxDefaultSize
-									size={
-										size === '__unstable-large' ||
-										props.__next40pxDefaultSize
-											? 'default'
-											: 'small'
+								<UnitControl
+									__next40pxDefaultSize={
+										__next40pxDefaultSize
 									}
-								>
-									{ __( 'Reset' ) }
-								</Button>
+									__shouldNotWarnDeprecated36pxSize
+									label={ label }
+									labelPosition="top"
+									hideLabelFromVision
+									value={ value }
+									onChange={ ( newValue ) => {
+										setUserRequestedCustom( true );
+
+										if ( newValue === undefined ) {
+											onChange?.( undefined );
+										} else {
+											onChange?.(
+												hasUnits
+													? newValue
+													: parseInt( newValue, 10 )
+											);
+										}
+									} }
+									size={ size }
+									units={ hasUnits ? units : [] }
+									min={ 0 }
+								/>
 							</FlexItem>
-						) }
-					</Flex>
-				) }
-			</div>
-		</Container>
+							{ withSlider && (
+								<FlexItem isBlock>
+									<Spacer marginX={ 2 } marginBottom={ 0 }>
+										<RangeControl
+											__nextHasNoMarginBottom
+											__next40pxDefaultSize={
+												__next40pxDefaultSize
+											}
+											__shouldNotWarnDeprecated36pxSize
+											className="components-font-size-picker__custom-input"
+											label={ label }
+											hideLabelFromVision
+											value={ valueQuantity }
+											initialPosition={ fallbackFontSize }
+											withInputField={ false }
+											onChange={ ( newValue ) => {
+												setUserRequestedCustom( true );
+
+												if ( newValue === undefined ) {
+													onChange?.( undefined );
+												} else if ( hasUnits ) {
+													onChange?.(
+														newValue +
+															( valueUnit ??
+																'px' )
+													);
+												} else {
+													onChange?.( newValue );
+												}
+											} }
+											min={ 0 }
+											max={
+												isValueUnitRelative ? 10 : 100
+											}
+											step={
+												isValueUnitRelative ? 0.1 : 1
+											}
+										/>
+									</Spacer>
+								</FlexItem>
+							) }
+							{ withReset && (
+								<FlexItem>
+									<Button
+										disabled={ isDisabled }
+										accessibleWhenDisabled
+										onClick={ () => {
+											onChange?.( undefined );
+										} }
+										variant="secondary"
+										__next40pxDefaultSize
+										size={
+											size === '__unstable-large' ||
+											props.__next40pxDefaultSize
+												? 'default'
+												: 'small'
+										}
+									>
+										{ __( 'Reset' ) }
+									</Button>
+								</FlexItem>
+							) }
+						</Flex>
+					) }
+				</div>
+			</Container>
+		</BaseControl>
 	);
 };
 

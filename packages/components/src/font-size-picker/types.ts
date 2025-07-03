@@ -78,6 +78,16 @@ export type FontSizePickerProps = {
 	 * @default 'default'
 	 */
 	size?: 'default' | '__unstable-large';
+	/**
+	 * Label for the control. If this prop is provided, it will be rendered
+	 * above the control interface.
+	 */
+	label?: string;
+	/**
+	 * Help text to be displayed below the control. If a function is provided, it will
+	 * receive the current font size value as an argument and should return a string.
+	 */
+	help?: string | ( ( value: number | string | undefined ) => string );
 };
 
 export type FontSize = {

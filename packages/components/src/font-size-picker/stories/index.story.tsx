@@ -22,6 +22,7 @@ const meta: Meta< typeof FontSizePicker > = {
 			control: 'inline-check',
 			options: [ 'px', 'em', 'rem', 'vw', 'vh' ],
 		},
+		help: { control: 'text' },
 	},
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },
