@@ -7,7 +7,6 @@ import {
 	getEditorHtml,
 	initializeEditor,
 	screen,
-	setupCoreBlocks,
 	within,
 } from 'test/helpers';
 
@@ -21,8 +20,6 @@ const DEFAULT_EDITOR_CAPABILITIES = {
 	unsupportedBlockEditor: true,
 	canEnableUnsupportedBlockEditor: true,
 };
-
-setupCoreBlocks();
 
 // Register the freeform block for tests
 beforeAll( () => {

@@ -8,11 +8,10 @@ import { View, Text, TouchableOpacity } from 'react-native';
  */
 import { Icon } from '@wordpress/components';
 import { compose, withPreferredColorScheme } from '@wordpress/compose';
-import { coreBlocks } from '@wordpress/block-library';
-import { normalizeIconObject, rawHandler, serialize } from '@wordpress/blocks';
+import { rawHandler, serialize } from '@wordpress/blocks';
 import { Component } from '@wordpress/element';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { help, plugins } from '@wordpress/icons';
+import { __, sprintf } from '@wordpress/i18n';
+import { help, classic as icon } from '@wordpress/icons';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import {
@@ -29,7 +28,6 @@ import styles from './style.scss';
 
 // Blocks that can't be edited through the Unsupported block editor identified by their name.
 const UBE_INCOMPATIBLE_BLOCKS = [ 'core/block' ];
-const I18N_BLOCK_SCHEMA_TITLE = 'block title';
 
 const EMPTY_ARRAY = [];
 
@@ -91,15 +89,7 @@ export class UnsupportedBlockEdit extends Component {
 	}
 
 	getTitle() {
-		const { originalName } = this.props.attributes;
-		const blockType = coreBlocks[ originalName ];
-		const title = blockType?.metadata.title;
-		const textdomain = blockType?.metadata.textdomain;
-
-		return title && textdomain
-			? // eslint-disable-next-line @wordpress/i18n-no-variables, @wordpress/i18n-text-domain
-			  _x( title, I18N_BLOCK_SCHEMA_TITLE, textdomain )
-			: originalName;
+		return __( 'Classic' );
 	}
 
 	renderHelpIcon() {
@@ -198,7 +188,6 @@ export class UnsupportedBlockEdit extends Component {
 		const { originalName } = this.props.attributes;
 		const { isSelected, getStylesFromColorScheme, preferredColorScheme } =
 			this.props;
-		const blockType = coreBlocks[ originalName ];
 
 		const title = this.getTitle();
 		const titleStyle = getStylesFromColorScheme(
@@ -219,9 +208,6 @@ export class UnsupportedBlockEdit extends Component {
 			</Text>
 		);
 
-		const icon = blockType
-			? normalizeIconObject( blockType.settings.icon )
-			: plugins;
 		const iconStyle = getStylesFromColorScheme(
 			styles.unsupportedBlockIcon,
 			styles.unsupportedBlockIconDark

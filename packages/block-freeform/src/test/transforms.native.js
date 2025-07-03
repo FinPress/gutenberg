@@ -4,7 +4,6 @@
 import {
 	getEditorHtml,
 	initializeEditor,
-	setupCoreBlocks,
 	transformBlock,
 	getBlockTransformOptions,
 } from 'test/helpers';
@@ -19,8 +18,6 @@ const initialHtml = `Classic block`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];
-
-setupCoreBlocks();
 
 // Register the freeform block for tests
 beforeAll( () => {
