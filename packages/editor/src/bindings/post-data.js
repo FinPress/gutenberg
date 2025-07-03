@@ -45,12 +45,12 @@ function getPostDataFields( select, context ) {
 			context?.postId
 		);
 		dataFields = {
-			post_date: {
+			date: {
 				label: 'Post Date',
 				value: entityDataValues?.date,
 				type: 'string',
 			},
-			post_modified: {
+			modified: {
 				label: 'Post Modified Date',
 				value: entityDataValues?.modified,
 				type: 'string',
