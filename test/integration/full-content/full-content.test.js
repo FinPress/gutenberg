@@ -11,6 +11,7 @@ import {
 	getBlockTypes,
 	parse,
 	serialize,
+	setFreeformContentHandlerName,
 	unstable__bootstrapServerSideBlockDefinitions, // eslint-disable-line camelcase
 } from '@wordpress/blocks';
 import { parse as grammarParse } from '@wordpress/block-serialization-default-parser';
@@ -18,6 +19,7 @@ import {
 	registerCoreBlocks,
 	__experimentalRegisterExperimentalCoreBlocks,
 } from '@wordpress/block-library';
+import { init as initFreeformBlock } from '@wordpress/block-freeform';
 import prettierConfig from '@wordpress/prettier-config';
 
 /**
@@ -63,14 +65,24 @@ describe( 'full post content fixture', () => {
 		const blockMetadataFiles = glob.sync(
 			'packages/block-library/src/*/block.json'
 		);
+		// Include freeform block definition from the extracted package
+		const freeformMetadataFiles = glob.sync(
+			'packages/block-freeform/src/block.json'
+		);
+		const allMetadataFiles = [
+			...blockMetadataFiles,
+			...freeformMetadataFiles,
+		];
 		const blockDefinitions = Object.fromEntries(
-			blockMetadataFiles.map( ( file ) => {
+			allMetadataFiles.map( ( file ) => {
 				const { name, ...metadata } = require( file );
 				return [ name, metadata ];
 			} )
 		);
 		unstable__bootstrapServerSideBlockDefinitions( blockDefinitions );
 		registerCoreBlocks();
+		initFreeformBlock();
+		setFreeformContentHandlerName( 'core/freeform' );
 
 		// Form-related blocks will not be registered unless they are opted
 		// in on the experimental settings page. Therefore, these blocks
