@@ -20,11 +20,14 @@ const writeOutputTemplate = async ( inputFile, outputFile, view ) => {
 		const isScssFile = outputFile.endsWith( '.scss' );
 		const isCssFile = outputFile.endsWith( '.css' );
 
-		// Only apply filtering for the 'standard' template variants
-		// Don't filter CSS files for other templates like 'es5' that naturally use CSS
-		const isStandardTemplate = view.wpScripts !== false; // ES5 template has wpScripts: false
+		const hasCssVariants =
+			view.variantVars &&
+			Object.prototype.hasOwnProperty.call(
+				view.variantVars,
+				'isCssVariant'
+			);
 
-		if ( isStandardTemplate ) {
+		if ( hasCssVariants ) {
 			if ( isCssVariant && isScssFile ) {
 				return;
 			}

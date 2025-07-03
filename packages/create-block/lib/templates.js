@@ -304,14 +304,17 @@ const getVariantVars = ( variants, variant ) => {
 	}
 
 	const currentVariant = variant ?? variantNames[ 0 ];
+
 	for ( const variantName of variantNames ) {
 		const key =
 			variantName.charAt( 0 ).toUpperCase() + variantName.slice( 1 );
 		variantVars[ `is${ key }Variant` ] = currentVariant === variantName;
 	}
 
-	const isCssVariant = currentVariant === 'css';
-	variantVars.isCssVariant = isCssVariant;
+	if ( variantNames.includes( 'css' ) ) {
+		const isCssVariant = currentVariant === 'css';
+		variantVars.isCssVariant = isCssVariant;
+	}
 
 	return variantVars;
 };
