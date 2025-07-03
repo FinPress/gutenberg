@@ -139,7 +139,7 @@ function PanelDropdown< Item >( {
 					aria-label={ sprintf(
 						// translators: %s: Field name.
 						_x( 'Edit %s', 'field' ),
-						fieldLabel
+						fieldLabel || ''
 					) }
 					onClick={ onToggle }
 					disabled={ fieldDefinition.readOnly === true }
