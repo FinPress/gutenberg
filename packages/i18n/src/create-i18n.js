@@ -74,14 +74,14 @@ const I18N_HOOK_REGEXP = /^i18n\.(n?gettext|has_translation)(_|$)/;
  * Retrieve the domain to use when calling domain-specific filters.
  */
 /**
- * @typedef {<T extends string>(text: T, domain?: string) => import('./types').TranslatableText< T >} __
+ * @typedef {<Text extends string>(text: Text, domain?: string) => import('./types').TranslatableText< Text >} __
  *
  * Retrieve the translation of text.
  *
  * @see https://developer.wordpress.org/reference/functions/__/
  */
 /**
- * @typedef {<T extends string>(text: T, context: string, domain?: string) => import('./types').TranslatableText< T >} _x
+ * @typedef {<Text extends string>(text: Text, context: string, domain?: string) => import('./types').TranslatableText< Text >} _x
  *
  * Retrieve translated string with gettext context.
  *
