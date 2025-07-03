@@ -1,0 +1,20 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"rootDir": "src",
+		"declarationDir": "build-types"
+	},
+	"references": [
+		{ "path": "../data" },
+		{ "path": "../hooks" },
+		{ "path": "../i18n" },
+		{ "path": "../rich-text" }
+	],
+	"include": [ "src/**/*" ],
+	"exclude": [
+		"src/**/*.test.ts",
+		"src/**/*.test.tsx",
+		"src/**/test/**/*.ts",
+		"src/**/test/**/*.tsx"
+	]
+}
