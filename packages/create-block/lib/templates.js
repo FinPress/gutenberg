@@ -74,13 +74,6 @@ const predefinedPluginTemplates = {
 				description:
 					'Example block scaffolded with Create Block tool using CSS instead of SCSS.',
 			},
-			'css-dynamic': {
-				slug: 'example-dynamic-css',
-				title: 'Example Dynamic (CSS)',
-				description:
-					'Example dynamic block scaffolded with Create Block tool using CSS instead of SCSS.',
-				render: 'file:./render.php',
-			},
 		},
 	},
 };
@@ -317,8 +310,7 @@ const getVariantVars = ( variants, variant ) => {
 		variantVars[ `is${ key }Variant` ] = currentVariant === variantName;
 	}
 
-	const isCssVariant =
-		currentVariant === 'css' || currentVariant === 'css-dynamic';
+	const isCssVariant = currentVariant === 'css';
 	variantVars.isCssVariant = isCssVariant;
 
 	return variantVars;
