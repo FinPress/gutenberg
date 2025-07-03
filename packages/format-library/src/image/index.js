@@ -26,6 +26,23 @@ const ALLOWED_MEDIA_TYPES = [ 'image' ];
 const name = 'core/image';
 const title = __( 'Inline image' );
 
+/**
+ * Extracts the image ID from the className attribute.
+ *
+ * @param {Object} activeObjectAttributes The attributes of the active object.
+ * @return {number|undefined} The extracted image ID or undefined if not found.
+ */
+function getCurrentImageId( activeObjectAttributes ) {
+	if ( ! activeObjectAttributes?.className ) {
+		return undefined;
+	}
+
+	const [ , id ] =
+		activeObjectAttributes.className.match( /wp-image-(\d+)/ ) ?? [];
+
+	return id ? parseInt( id, 10 ) : undefined;
+}
+
 export const image = {
 	name,
 	title,
@@ -145,20 +162,11 @@ function Edit( {
 	activeObjectAttributes,
 	contentRef,
 } ) {
-	let currentImageId;
-	if ( isObjectActive && activeObjectAttributes.className ) {
-		const wpImageMatch =
-			activeObjectAttributes.className.match( /wp-image-(\d+)/ );
-		if ( wpImageMatch && wpImageMatch[ 1 ] ) {
-			currentImageId = parseInt( wpImageMatch[ 1 ], 10 );
-		}
-	}
-
 	return (
 		<MediaUploadCheck>
 			<MediaUpload
 				allowedTypes={ ALLOWED_MEDIA_TYPES }
-				value={ currentImageId }
+				value={ getCurrentImageId( activeObjectAttributes ) }
 				onSelect={ ( { id, url, alt, width: imgWidth } ) => {
 					onChange(
 						insertObject( value, {
