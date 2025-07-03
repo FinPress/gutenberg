@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import MissingEdit from '../missing/edit';
+import MissingEdit from './missing';
 
 const ClassicEdit = ( props ) => (
 	<MissingEdit

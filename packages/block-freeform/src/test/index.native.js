@@ -11,6 +11,11 @@ import {
 	within,
 } from 'test/helpers';
 
+/**
+ * Internal dependencies
+ */
+import { init as initFreeformBlock } from '../index';
+
 const CLASSIC_BLOCK_HTML = `<p>I'm classic!</p>`;
 const DEFAULT_EDITOR_CAPABILITIES = {
 	unsupportedBlockEditor: true,
@@ -18,6 +23,11 @@ const DEFAULT_EDITOR_CAPABILITIES = {
 };
 
 setupCoreBlocks();
+
+// Register the freeform block for tests
+beforeAll( () => {
+	initFreeformBlock();
+} );
 
 describe( 'Classic block', () => {
 	it( 'displays option to edit using web editor', async () => {

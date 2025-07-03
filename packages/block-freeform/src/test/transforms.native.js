@@ -9,6 +9,11 @@ import {
 	getBlockTransformOptions,
 } from 'test/helpers';
 
+/**
+ * Internal dependencies
+ */
+import { init as initFreeformBlock } from '../index';
+
 const block = 'Classic';
 const initialHtml = `Classic block`;
 
@@ -16,6 +21,11 @@ const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];
 
 setupCoreBlocks();
+
+// Register the freeform block for tests
+beforeAll( () => {
+	initFreeformBlock();
+} );
 
 describe( `${ block } block transforms`, () => {
 	test.each( blockTransforms )( 'to %s block', async ( blockTransform ) => {
