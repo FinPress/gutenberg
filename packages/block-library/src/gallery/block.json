@@ -97,7 +97,7 @@
 		},
 		"sizeSlug": {
 			"type": "string",
-			"default": "full"
+			"default": "large"
 		},
 		"allowResize": {
 			"type": "boolean",

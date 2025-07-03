@@ -467,7 +467,7 @@ export default function GalleryEdit( props ) {
 			sprintf(
 				/* translators: %s: image size settings */
 				__( 'All gallery image sizes updated to: %s' ),
-				imageSize.label
+				imageSize?.label ?? newSizeSlug
 			),
 			{
 				id: 'gallery-attributes-sizeSlug',
@@ -475,12 +475,6 @@ export default function GalleryEdit( props ) {
 			}
 		);
 	}
-
-	const defaultImageSizeSlug = imageSizeOptions?.find(
-		( size ) => size.value === DEFAULT_MEDIA_SIZE_SLUG
-	)
-		? DEFAULT_MEDIA_SIZE_SLUG
-		: imageSizeOptions?.[ 0 ]?.value;
 
 	useEffect( () => {
 		// linkTo attribute must be saved so blocks don't break when changing image_default_link_type in options.php.
@@ -580,8 +574,8 @@ export default function GalleryEdit( props ) {
 								randomOrder: false,
 							} );
 
-							if ( sizeSlug !== defaultImageSizeSlug ) {
-								updateImagesSize( defaultImageSizeSlug );
+							if ( sizeSlug !== DEFAULT_MEDIA_SIZE_SLUG ) {
+								updateImagesSize( DEFAULT_MEDIA_SIZE_SLUG );
 							}
 
 							if ( linkTarget ) {
@@ -627,10 +621,10 @@ export default function GalleryEdit( props ) {
 								isShownByDefault
 								label={ __( 'Resolution' ) }
 								hasValue={ () =>
-									sizeSlug !== defaultImageSizeSlug
+									sizeSlug !== DEFAULT_MEDIA_SIZE_SLUG
 								}
 								onDeselect={ () =>
-									updateImagesSize( defaultImageSizeSlug )
+									updateImagesSize( DEFAULT_MEDIA_SIZE_SLUG )
 								}
 							>
 								<SelectControl
