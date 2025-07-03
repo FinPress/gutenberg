@@ -325,15 +325,6 @@ A submission button for forms. ([Source](https://github.com/WordPress/gutenberg/
 -	**Ancestor:** core/form
 -	**Allowed Blocks:** core/buttons, core/button
 
-## Classic
-
-Use the classic WordPress editor. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/freeform))
-
--	**Name:** core/freeform
--	**Category:** text
--	**Supports:** ~~className~~, ~~customClassName~~, ~~reusable~~
--	**Attributes:** content
-
 ## Gallery
 
 Display multiple images in a rich gallery. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/gallery))

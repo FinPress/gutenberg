@@ -6,7 +6,7 @@ import { classic as icon } from '@wordpress/icons';
 /**
  * Internal dependencies
  */
-import initBlock from '../utils/init-block';
+import { registerBlockType } from '@wordpress/blocks';
 import edit from './edit';
 import metadata from './block.json';
 import save from './save';
@@ -21,4 +21,5 @@ export const settings = {
 	save,
 };
 
-export const init = () => initBlock( { name, metadata, settings } );
+export const init = () =>
+	registerBlockType( name, { ...metadata, ...settings } );
