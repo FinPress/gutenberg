@@ -122,7 +122,7 @@ _Related_
 _Parameters_
 
 -   _format_ `T | TranslatableText<T>`: The format of the string to generate.
--   _args_ `SprintfArgs<T>`: Arguments to apply to the format.
+-   _args_ `DistributeSprintfArgs<T>`: Arguments to apply to the format.
 
 _Returns_
 
