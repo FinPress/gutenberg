@@ -125,8 +125,15 @@ export default function GalleryEdit( props ) {
 		  )
 		: LINK_OPTIONS;
 
-	const { columns, imageCrop, randomOrder, linkTarget, linkTo, sizeSlug } =
-		attributes;
+	const {
+		columns,
+		imageCrop,
+		uniformImageSizes,
+		randomOrder,
+		linkTarget,
+		linkTo,
+		sizeSlug,
+	} = attributes;
 
 	const {
 		__unstableMarkNextChangeAsNotPersistent,
@@ -416,6 +423,10 @@ export default function GalleryEdit( props ) {
 		setAttributes( { imageCrop: ! imageCrop } );
 	}
 
+	function toggleUniformImageSizes() {
+		setAttributes( { uniformImageSizes: ! uniformImageSizes } );
+	}
+
 	function toggleRandomOrder() {
 		setAttributes( { randomOrder: ! randomOrder } );
 	}
@@ -485,6 +496,17 @@ export default function GalleryEdit( props ) {
 			} );
 		}
 	}, [ linkTo ] );
+
+	useEffect( () => {
+		if ( ! columns || ! images ) {
+			return;
+		}
+
+		// Keep the number of columns in sync with the number of images.
+		if ( images?.length < columns ) {
+			setColumnsNumber( defaultColumnsNumber( images.length ) );
+		}
+	}, [ columns, images ] );
 
 	const hasImages = !! images.length;
 	const hasImageIds = hasImages && images.some( ( image ) => !! image.id );
@@ -609,6 +631,14 @@ export default function GalleryEdit( props ) {
 						checked={ !! imageCrop }
 						onChange={ toggleImageCrop }
 					/>
+					{ images.length > 1 && (
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={ __( 'Uniform image sizes' ) }
+							checked={ !! uniformImageSizes }
+							onChange={ toggleUniformImageSizes }
+						/>
+					) }
 					<ToggleControl
 						__nextHasNoMarginBottom
 						label={ __( 'Randomize order' ) }
