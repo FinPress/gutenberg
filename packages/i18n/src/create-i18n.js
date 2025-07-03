@@ -88,7 +88,7 @@ const I18N_HOOK_REGEXP = /^i18n\.(n?gettext|has_translation)(_|$)/;
  * @see https://developer.wordpress.org/reference/functions/_x/
  */
 /**
- * @typedef {<T extends string, P extends string>(single: T, plural: P, number: number, domain?: string) => import('./types').TranslatableText< T | P >} _n
+ * @typedef {<Single extends string, Plural extends string>(single: Single, plural: Plural, number: number, domain?: string) => import('./types').TranslatableText< Single | Plural >} _n
  *
  * Translates and retrieves the singular or plural form based on the supplied
  * number.
@@ -96,7 +96,7 @@ const I18N_HOOK_REGEXP = /^i18n\.(n?gettext|has_translation)(_|$)/;
  * @see https://developer.wordpress.org/reference/functions/_n/
  */
 /**
- * @typedef {<T extends string, P extends string>(single: T, plural: P, number: number, context: string, domain?: string) => import('./types').TranslatableText< T | P >} _nx
+ * @typedef {<Single extends string, Plural extends string>(single: Single, plural: Plural, number: number, context: string, domain?: string) => import('./types').TranslatableText< Single | Plural >} _nx
  *
  * Translates and retrieves the singular or plural form based on the supplied
  * number, with gettext context.
