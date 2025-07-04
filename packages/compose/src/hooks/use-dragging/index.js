@@ -4,7 +4,6 @@
 import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
 
 /**
- *
  * Internal dependencies
  */
 /**
