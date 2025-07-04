@@ -31,7 +31,7 @@ import type { DebounceOptions, DebouncedFunc } from '../../utils/debounce';
  */
 export default function useDebounce< TFunc extends ( ...args: any[] ) => void >(
 	fn: TFunc,
-	wait: number,
+	wait?: number,
 	options?: DebounceOptions
 ): DebouncedFunc< TFunc > {
 	const debounced = useMemoOne(
