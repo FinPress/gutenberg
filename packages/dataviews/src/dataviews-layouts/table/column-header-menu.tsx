@@ -103,6 +103,9 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 						className="dataviews-view-table-header-button"
 						ref={ ref }
 						variant="tertiary"
+						showTooltip={ !! field.description }
+						tooltipPosition="top"
+						label={ field.description }
 					/>
 				}
 			>

@@ -27,6 +27,7 @@
 - Add `label-position-side` classes to labels in the form field layouts. Ensure that labels in the panel view do not align center, and that all side labels are center aligned.
 - Allow readonly fields in DataForm when `readOnly` is set to `true`.
 - Adjust the padding when the component is placed inside a `Card`.
+- Show tooltip when the user hover on a table header that has `description` property set in the field.
 
 ### Breaking Changes
 
