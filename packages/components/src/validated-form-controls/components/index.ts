@@ -9,3 +9,4 @@ export * from './select-control';
 export * from './text-control';
 export * from './textarea-control';
 export * from './toggle-control';
+export * from './toggle-group-control';
