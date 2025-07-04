@@ -105,7 +105,7 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 						variant="tertiary"
 						showTooltip={ !! field.description }
 						tooltipPosition="top"
-						label={ field.description }
+						shortcut={ field.description }
 					/>
 				}
 			>
