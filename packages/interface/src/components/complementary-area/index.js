@@ -73,9 +73,16 @@ function ComplementaryAreaFill( {
 	}, [ isActive ] );
 
 	const [ isResizing, setResizing ] = useState( false );
-	const [ width, setWidth ] = useState( SIDEBAR_WIDTH );
 	const [ startX, setStartX ] = useState( 0 );
 	const [ startWidth, setStartWidth ] = useState( SIDEBAR_WIDTH );
+
+	const width = useSelect(
+		( select ) =>
+			select( interfaceStore ).getComplementaryAreaWidth( scope ) ??
+			SIDEBAR_WIDTH,
+		[ scope ]
+	);
+	const { setComplementaryAreaWidth } = useDispatch( interfaceStore );
 
 	const transition = ! isResizing
 		? {
@@ -108,9 +115,9 @@ function ComplementaryAreaFill( {
 				Math.min( SIDEBAR_MAX_WIDTH, newWidth )
 			);
 
-			setWidth( constrainedWidth );
+			setComplementaryAreaWidth( scope, constrainedWidth );
 		},
-		[ isResizing ]
+		[ isResizing, scope ]
 	);
 
 	const handleMouseUp = useCallback( () => {
@@ -128,11 +135,15 @@ function ComplementaryAreaFill( {
 	};
 
 	const handleKeyDown = ( event ) => {
+		let newWidth = width;
 		if ( event.key === 'ArrowLeft' ) {
-			setWidth( ( prev ) => Math.max( SIDEBAR_MIN_WIDTH, prev + 10 ) );
+			newWidth = Math.max( SIDEBAR_MIN_WIDTH, width + 10 );
 		} else if ( event.key === 'ArrowRight' ) {
-			setWidth( ( prev ) => Math.min( SIDEBAR_MAX_WIDTH, prev - 10 ) );
+			newWidth = Math.min( SIDEBAR_MAX_WIDTH, width - 10 );
+		} else {
+			return;
 		}
+		setComplementaryAreaWidth( scope, newWidth );
 	};
 
 	useEffect( () => {
@@ -180,6 +191,7 @@ function ComplementaryAreaFill( {
 								onKeyDown={ handleKeyDown }
 								style={ {
 									width: '8px',
+									height: '100vh',
 									border: '0',
 									background: 'none',
 									cursor: 'ew-resize',
