@@ -8,30 +8,15 @@ import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
  */
 import useIsomorphicLayoutEffect from '../use-isomorphic-layout-effect';
 
-/**
- * External dependencies
- */
-import type { MouseEvent as ReactMouseEvent } from 'react';
-
-interface UseDraggingProps {
-	onDragStart?: ( e: ReactMouseEvent ) => void;
-	onDragMove?: ( e: MouseEvent ) => void;
-	onDragEnd?: ( e?: MouseEvent ) => void;
-}
-
 // Event handlers that are triggered from `document` listeners accept a MouseEvent,
 // while those triggered from React listeners accept a React.MouseEvent.
 /**
- * @param props
- * @param props.onDragStart
- * @param props.onDragMove
- * @param props.onDragEnd
+ * @param {Object}                                  props
+ * @param {(e: import('react').MouseEvent) => void} props.onDragStart
+ * @param {(e: MouseEvent) => void}                 props.onDragMove
+ * @param {(e?: MouseEvent) => void}                props.onDragEnd
  */
-export default function useDragging( {
-	onDragStart,
-	onDragMove,
-	onDragEnd,
-}: UseDraggingProps ) {
+export default function useDragging( { onDragStart, onDragMove, onDragEnd } ) {
 	const [ isDragging, setIsDragging ] = useState( false );
 
 	const eventsRef = useRef( {
@@ -45,13 +30,15 @@ export default function useDragging( {
 		eventsRef.current.onDragEnd = onDragEnd;
 	}, [ onDragStart, onDragMove, onDragEnd ] );
 
+	/** @type {(e: MouseEvent) => void} */
 	const onMouseMove = useCallback(
-		( event: MouseEvent ) =>
+		( event ) =>
 			eventsRef.current.onDragMove &&
 			eventsRef.current.onDragMove( event ),
 		[]
 	);
-	const endDrag = useCallback( ( event: MouseEvent ) => {
+	/** @type {(e?: MouseEvent) => void} */
+	const endDrag = useCallback( ( event ) => {
 		if ( eventsRef.current.onDragEnd ) {
 			eventsRef.current.onDragEnd( event );
 		}
@@ -59,7 +46,8 @@ export default function useDragging( {
 		document.removeEventListener( 'mouseup', endDrag );
 		setIsDragging( false );
 	}, [] );
-	const startDrag = useCallback( ( event: ReactMouseEvent ) => {
+	/** @type {(e: import('react').MouseEvent) => void} */
+	const startDrag = useCallback( ( event ) => {
 		if ( eventsRef.current.onDragStart ) {
 			eventsRef.current.onDragStart( event );
 		}
