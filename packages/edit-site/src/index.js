@@ -38,10 +38,7 @@ export function initializeEditor( id, settings ) {
 	const root = createRoot( target );
 
 	dispatch( blocksStore ).reapplyBlockTypeFilters();
-	const coreBlocks = __experimentalGetCoreBlocks().filter(
-		( { name } ) => name !== 'core/freeform'
-	);
-	registerCoreBlocks( coreBlocks );
+	registerCoreBlocks( __experimentalGetCoreBlocks() );
 	registerCoreBlockBindingsSources();
 	dispatch( blocksStore ).setFreeformFallbackBlockName( 'core/html' );
 	registerLegacyWidgetBlock( { inserter: false } );

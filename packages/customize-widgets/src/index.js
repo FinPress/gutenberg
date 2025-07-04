@@ -29,12 +29,7 @@ import './filters';
 
 const { wp } = window;
 
-const DISABLED_BLOCKS = [
-	'core/more',
-	'core/block',
-	'core/freeform',
-	'core/template-part',
-];
+const DISABLED_BLOCKS = [ 'core/more', 'core/block', 'core/template-part' ];
 const ENABLE_EXPERIMENTAL_FSE_BLOCKS = false;
 
 /**
