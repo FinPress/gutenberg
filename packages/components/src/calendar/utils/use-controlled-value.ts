@@ -23,10 +23,13 @@ type Props< T > = {
  * regardless of controlled / uncontrolled. It is expected that the consumer
  * of the component will handle setting the value to `null` to indicate no date
  * selected in controlled mode.
- * @param root0
- * @param root0.defaultValue
- * @param root0.onChange
- * @param root0.value
+ *
+ * @param props              - The props object.
+ * @param props.defaultValue - The default value.
+ * @param props.onChange     - The onChange callback.
+ * @param props.value        - The value.
+ *
+ * @return The value and the setValue function.
  */
 export function useControlledValue< T >( {
 	defaultValue,
