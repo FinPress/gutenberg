@@ -10,7 +10,14 @@ import type { Hooks, StoreKey } from '.';
  * and namespace.
  */
 export type RemoveHook = (
+	/**
+	 * The name of the hook to modify.
+	 */
 	hookName: string,
+	/**
+	 * The unique namespace identifying the callback in the
+	 *                           form `vendor/plugin/function`.
+	 */
 	namespace: string
 ) => number | undefined;
 
