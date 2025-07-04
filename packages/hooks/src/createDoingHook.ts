@@ -7,7 +7,12 @@ import type { Hooks, StoreKey } from '.';
  * Returns whether a hook is currently being executed.
  *
  */
-export type DoingHook = ( hookName?: string ) => boolean;
+export type DoingHook = (
+	/**
+	 * The name of the hook to check for.
+	 * If omitted, will check for any hook being executed.
+	 */ hookName?: string
+) => boolean;
 
 /**
  * Returns a function which, when invoked, will return whether a hook is
