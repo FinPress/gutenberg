@@ -6,7 +6,16 @@ import type { Hooks, StoreKey } from '.';
  *
  * Returns whether any handlers are attached for the given hookName and optional namespace.
  */
-export type HasHook = ( hookname: string, namespace?: string ) => boolean;
+export type HasHook = (
+	/**
+	 * The name of the hook to check for.
+	 */
+	hookname: string,
+	/**
+	 * The unique namespace identifying the callback in the form `vendor/plugin/function`.
+	 */
+	namespace?: string
+) => boolean;
 
 /**
  * Returns a function which, when invoked, will return whether any handlers are
