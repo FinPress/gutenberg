@@ -11,6 +11,7 @@ import { arrowLeft, arrowRight, unseen, funnel } from '@wordpress/icons';
 import {
 	Button,
 	Icon,
+	Tooltip,
 	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { forwardRef, Children, Fragment } from '@wordpress/element';
@@ -98,15 +99,27 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 		<Menu>
 			<Menu.TriggerButton
 				render={
-					<Button
-						size="compact"
-						className="dataviews-view-table-header-button"
-						ref={ ref }
-						variant="tertiary"
-						showTooltip={ !! field.description }
-						tooltipPosition="top"
-						shortcut={ field.description }
-					/>
+					field.description ? (
+						( props: any ) => (
+							<Tooltip text={ field.description } placement="top">
+								<Button
+									size="compact"
+									className="dataviews-view-table-header-button"
+									ref={ ref }
+									variant="tertiary"
+									description={ field.description }
+									{ ...props }
+								/>
+							</Tooltip>
+						)
+					) : (
+						<Button
+							size="compact"
+							className="dataviews-view-table-header-button"
+							ref={ ref }
+							variant="tertiary"
+						/>
+					)
 				}
 			>
 				{ header }
