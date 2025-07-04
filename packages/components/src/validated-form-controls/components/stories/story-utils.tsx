@@ -1,5 +1,16 @@
-import { Button } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * External dependencies
+ */
 import type { Meta } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
+import Button from '../../../button';
 
 export const formDecorator: Meta[ 'decorators' ] = ( Story ) => (
 	<form
@@ -12,6 +23,7 @@ export const formDecorator: Meta[ 'decorators' ] = ( Story ) => (
 		} }
 		onSubmit={ ( e ) => {
 			e.preventDefault();
+			// eslint-disable-next-line no-alert
 			alert( 'Form submitted!' );
 		} }
 	>

@@ -1,8 +1,16 @@
-import { TextControl } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
 import { useMergeRefs } from '@wordpress/compose';
-import { forwardRef, useRef } from 'react';
+import { forwardRef, useRef } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { TextControlProps, ValidatedControlProps } from './types';
+import type { ValidatedControlProps } from './types';
+import TextControl from '../../text-control';
+import type { TextControlProps } from '../../text-control/types';
 
 type Value = TextControlProps[ 'value' ];
 
@@ -13,7 +21,10 @@ const UnforwardedValidatedTextControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< TextControlProps, '__next40pxDefaultSize' | '__nextHasNoMarginBottom' > &
+	}: Omit<
+		TextControlProps,
+		'__next40pxDefaultSize' | '__nextHasNoMarginBottom'
+	> &
 		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {
@@ -44,4 +55,6 @@ const UnforwardedValidatedTextControl = (
 	);
 };
 
-export const ValidatedTextControl = forwardRef( UnforwardedValidatedTextControl );
+export const ValidatedTextControl = forwardRef(
+	UnforwardedValidatedTextControl
+);

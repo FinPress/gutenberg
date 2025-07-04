@@ -1,8 +1,16 @@
-import { ToggleControl } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
+import { forwardRef, useRef, useEffect } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
-import { forwardRef, useRef, useEffect } from 'react';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { ToggleControlProps, ValidatedControlProps } from './types';
+import type { ValidatedControlProps } from './types';
+import ToggleControl from '../../toggle-control';
+import type { ToggleControlProps } from '../../toggle-control/types';
 
 type Value = ToggleControlProps[ 'checked' ];
 
@@ -15,7 +23,8 @@ const UnforwardedValidatedToggleControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< ToggleControlProps, '__nextHasNoMarginBottom' > & ValidatedControlProps< Value >,
+	}: Omit< ToggleControlProps, '__nextHasNoMarginBottom' > &
+		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {
 	const validityTargetRef = useRef< HTMLInputElement >( null );
@@ -52,4 +61,6 @@ const UnforwardedValidatedToggleControl = (
 	);
 };
 
-export const ValidatedToggleControl = forwardRef( UnforwardedValidatedToggleControl );
+export const ValidatedToggleControl = forwardRef(
+	UnforwardedValidatedToggleControl
+);

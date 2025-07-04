@@ -1,20 +1,31 @@
-import { fn } from '@storybook/test';
-import {
-	Button,
-	// eslint-disable-next-line wpcalypso/no-unsafe-wp-apis
-	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
-} from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import type { StoryObj, Meta } from '@storybook/react';
+
+/**
+ * WordPress dependencies
+ */
 import { seen, unseen } from '@wordpress/icons';
-import { useState } from 'react';
-import { ValidatedInputControl } from './input-control';
+
+/**
+ * Internal dependencies
+ */
+import { ValidatedInputControl } from '../input-control';
 import { formDecorator } from './story-utils';
-import type { Meta, StoryObj } from '@storybook/react';
+import InputControlSuffixWrapper from '../../../input-control/input-suffix-wrapper';
+import { Button } from '../../../button';
 
 const meta: Meta< typeof ValidatedInputControl > = {
 	title: 'Validated Form Controls/ValidatedInputControl',
 	component: ValidatedInputControl,
 	decorators: formDecorator,
-	args: { onChange: fn() },
+	args: { onChange: () => {} },
 	argTypes: {
 		__unstableInputWidth: { control: { type: 'text' } },
 		__unstableStateReducer: { control: false },
@@ -30,7 +41,9 @@ export default meta;
 export const Default: StoryObj< typeof ValidatedInputControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ value, setValue ] =
-			useState< React.ComponentProps< typeof ValidatedInputControl >[ 'value' ] >( '' );
+			useState<
+				React.ComponentProps< typeof ValidatedInputControl >[ 'value' ]
+			>( '' );
 
 		return (
 			<ValidatedInputControl
@@ -52,6 +65,7 @@ Default.args = {
 		if ( value?.toLowerCase() === 'error' ) {
 			return 'The word "error" is not allowed.';
 		}
+		return undefined;
 	},
 };
 
@@ -63,7 +77,9 @@ Default.args = {
 export const Password: StoryObj< typeof ValidatedInputControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ value, setValue ] =
-			useState< React.ComponentProps< typeof ValidatedInputControl >[ 'value' ] >( '' );
+			useState<
+				React.ComponentProps< typeof ValidatedInputControl >[ 'value' ]
+			>( '' );
 		const [ visible, setVisible ] = useState( false );
 
 		return (
@@ -75,8 +91,10 @@ export const Password: StoryObj< typeof ValidatedInputControl > = {
 						<Button
 							size="small"
 							icon={ visible ? unseen : seen }
-							onClick={ () => setVisible( ( value ) => ! value ) }
-							label={ visible ? 'Hide password' : 'Show password' }
+							onClick={ () => setVisible( ( v ) => ! v ) }
+							label={
+								visible ? 'Hide password' : 'Show password'
+							}
 						/>
 					</InputControlSuffixWrapper>
 				}
@@ -104,6 +122,7 @@ Password.args = {
 		if ( ! /[!@£$%^&*#]/.test( value ?? '' ) ) {
 			return 'Password must include at least one symbol.';
 		}
+		return undefined;
 	},
 };
 Password.argTypes = {

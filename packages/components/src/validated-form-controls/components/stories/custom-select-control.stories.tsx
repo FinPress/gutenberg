@@ -1,14 +1,24 @@
-import { fn } from '@storybook/test';
-import { useState } from 'react';
-import { ValidatedCustomSelectControl } from './custom-select-control';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import type { StoryObj, Meta } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
+import { ValidatedCustomSelectControl } from '../custom-select-control';
 import { formDecorator } from './story-utils';
-import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta< typeof ValidatedCustomSelectControl > = {
 	title: 'Validated Form Controls/ValidatedCustomSelectControl',
 	component: ValidatedCustomSelectControl,
 	decorators: formDecorator,
-	args: { onChange: fn() },
+	args: { onChange: () => {} },
 	argTypes: {
 		value: { control: false },
 	},
@@ -18,7 +28,11 @@ export default meta;
 export const Default: StoryObj< typeof ValidatedCustomSelectControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ value, setValue ] =
-			useState< React.ComponentProps< typeof ValidatedCustomSelectControl >[ 'value' ] >();
+			useState<
+				React.ComponentProps<
+					typeof ValidatedCustomSelectControl
+				>[ 'value' ]
+			>();
 
 		return (
 			<ValidatedCustomSelectControl
@@ -44,5 +58,6 @@ Default.args = {
 		if ( value?.key === 'a' ) {
 			return 'Option A is not allowed.';
 		}
+		return undefined;
 	},
 };

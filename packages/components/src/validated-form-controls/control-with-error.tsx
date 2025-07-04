@@ -1,10 +1,26 @@
-import { Icon } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
 import { __ } from '@wordpress/i18n';
 import { error } from '@wordpress/icons';
-import { cloneElement, forwardRef, useEffect, useState } from 'react';
+
+/**
+ * External dependencies
+ */
+import {
+	cloneElement,
+	forwardRef,
+	useEffect,
+	useState,
+} from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { withIgnoreIMEEvents } from '../utils/with-ignore-ime-events';
 
 import './style.scss';
+import Icon from '../icon';
 
 function appendRequiredIndicator(
 	label: React.ReactNode,
@@ -83,12 +99,16 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 	// with multiple invalid fields.
 	useEffect( () => {
 		const validityTarget = getValidityTarget();
-		const showValidationMessage = () => setErrorMessage( validityTarget?.validationMessage );
+		const showValidationMessage = () =>
+			setErrorMessage( validityTarget?.validationMessage );
 
 		validityTarget?.addEventListener( 'invalid', showValidationMessage );
 
 		return () => {
-			validityTarget?.removeEventListener( 'invalid', showValidationMessage );
+			validityTarget?.removeEventListener(
+				'invalid',
+				showValidationMessage
+			);
 		};
 	} );
 
@@ -103,7 +123,10 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 	const onBlur = ( event: React.FocusEvent< HTMLDivElement > ) => {
 		// Only consider "blurred from the component" if focus has fully left the wrapping div.
 		// This prevents unnecessary blurs from components with multiple focusable elements.
-		if ( ! event.relatedTarget || ! event.currentTarget.contains( event.relatedTarget ) ) {
+		if (
+			! event.relatedTarget ||
+			! event.currentTarget.contains( event.relatedTarget )
+		) {
 			setIsTouched( true );
 
 			const validityTarget = getValidityTarget();
@@ -148,7 +171,11 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 			onKeyDown={ withIgnoreIMEEvents( onKeyDown ) }
 		>
 			{ cloneElement( children, {
-				label: appendRequiredIndicator( children.props.label, required, markWhenOptional ),
+				label: appendRequiredIndicator(
+					children.props.label,
+					required,
+					markWhenOptional
+				),
 				onChange,
 				required,
 			} ) }

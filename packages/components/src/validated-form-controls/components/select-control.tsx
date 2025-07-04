@@ -1,11 +1,22 @@
-import { SelectControl } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
+import { forwardRef, useRef } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
-import { forwardRef, useRef } from 'react';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { SelectControlProps as _SelectControlProps, ValidatedControlProps } from './types';
+import SelectControl from '../../select-control';
+import type { ValidatedControlProps } from './types';
+import type { SelectControlProps as _SelectControlProps } from '../../select-control/types';
 
 // Only support single value selection
-type SelectControlProps = Omit< _SelectControlProps, 'multiple' | 'onChange' | 'value' > & {
+type SelectControlProps = Omit<
+	_SelectControlProps,
+	'multiple' | 'onChange' | 'value'
+> & {
 	onChange?: ( value: string ) => void;
 	value?: string;
 };
@@ -19,7 +30,10 @@ const UnforwardedValidatedSelectControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< SelectControlProps, '__next40pxDefaultSize' | '__nextHasNoMarginBottom' > &
+	}: Omit<
+		SelectControlProps,
+		'__next40pxDefaultSize' | '__nextHasNoMarginBottom'
+	> &
 		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLSelectElement >
 ) => {
@@ -50,4 +64,6 @@ const UnforwardedValidatedSelectControl = (
 	);
 };
 
-export const ValidatedSelectControl = forwardRef( UnforwardedValidatedSelectControl );
+export const ValidatedSelectControl = forwardRef(
+	UnforwardedValidatedSelectControl
+);

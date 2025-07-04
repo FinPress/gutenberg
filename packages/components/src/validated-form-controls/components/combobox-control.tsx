@@ -1,8 +1,16 @@
-import { ComboboxControl } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
 import { useMergeRefs } from '@wordpress/compose';
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { ComboboxControlProps, ValidatedControlProps } from './types';
+import type { ValidatedControlProps } from './types';
+import ComboboxControl from '../../combobox-control';
+import type { ComboboxControlProps } from '../../combobox-control/types';
 
 type Value = ComboboxControlProps[ 'value' ];
 
@@ -13,7 +21,10 @@ const UnforwardedValidatedComboboxControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< ComboboxControlProps, '__next40pxDefaultSize' | '__nextHasNoMarginBottom' > &
+	}: Omit<
+		ComboboxControlProps,
+		'__next40pxDefaultSize' | '__nextHasNoMarginBottom'
+	> &
 		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {
@@ -25,7 +36,9 @@ const UnforwardedValidatedComboboxControl = (
 	// so we need to set it manually.
 	useEffect( () => {
 		const input =
-			validityTargetRef.current?.querySelector< HTMLInputElement >( 'input[role="combobox"]' );
+			validityTargetRef.current?.querySelector< HTMLInputElement >(
+				'input[role="combobox"]'
+			);
 		if ( input ) {
 			input.required = required ?? false;
 		}
@@ -41,7 +54,9 @@ const UnforwardedValidatedComboboxControl = (
 				return customValidator?.( valueRef.current );
 			} }
 			getValidityTarget={ () =>
-				validityTargetRef.current?.querySelector< HTMLInputElement >( 'input[role="combobox"]' )
+				validityTargetRef.current?.querySelector< HTMLInputElement >(
+					'input[role="combobox"]'
+				)
 			}
 		>
 			<ComboboxControl
@@ -57,4 +72,6 @@ const UnforwardedValidatedComboboxControl = (
 	);
 };
 
-export const ValidatedComboboxControl = forwardRef( UnforwardedValidatedComboboxControl );
+export const ValidatedComboboxControl = forwardRef(
+	UnforwardedValidatedComboboxControl
+);

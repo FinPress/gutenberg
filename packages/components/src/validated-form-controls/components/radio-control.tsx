@@ -1,8 +1,16 @@
-import { RadioControl } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
 import { useMergeRefs } from '@wordpress/compose';
-import { forwardRef, useRef } from 'react';
+import { forwardRef, useRef } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { RadioControlProps, ValidatedControlProps } from './types';
+import type { ValidatedControlProps } from './types';
+import RadioControl from '../../radio-control';
+import type { RadioControlProps } from '../../radio-control/types';
 
 type Value = RadioControlProps[ 'selected' ];
 
@@ -30,7 +38,9 @@ const UnforwardedValidatedRadioControl = (
 				return customValidator?.( valueRef.current );
 			} }
 			getValidityTarget={ () =>
-				validityTargetRef.current?.querySelector< HTMLInputElement >( 'input[type="radio"]' )
+				validityTargetRef.current?.querySelector< HTMLInputElement >(
+					'input[type="radio"]'
+				)
 			}
 		>
 			<RadioControl
@@ -44,4 +54,6 @@ const UnforwardedValidatedRadioControl = (
 	);
 };
 
-export const ValidatedRadioControl = forwardRef( UnforwardedValidatedRadioControl );
+export const ValidatedRadioControl = forwardRef(
+	UnforwardedValidatedRadioControl
+);

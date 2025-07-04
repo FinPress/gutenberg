@@ -1,8 +1,16 @@
-import { RangeControl } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
 import { useMergeRefs } from '@wordpress/compose';
-import { forwardRef, useRef } from 'react';
+import { forwardRef, useRef } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { RangeControlProps, ValidatedControlProps } from './types';
+import type { ValidatedControlProps } from './types';
+import RangeControl from '../../range-control';
+import type { RangeControlProps } from '../../range-control/types';
 
 type Value = RangeControlProps[ 'value' ];
 
@@ -13,7 +21,10 @@ const UnforwardedValidatedRangeControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< RangeControlProps, '__next40pxDefaultSize' | '__nextHasNoMarginBottom' > &
+	}: Omit<
+		RangeControlProps,
+		'__next40pxDefaultSize' | '__nextHasNoMarginBottom'
+	> &
 		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {
@@ -44,4 +55,6 @@ const UnforwardedValidatedRangeControl = (
 	);
 };
 
-export const ValidatedRangeControl = forwardRef( UnforwardedValidatedRangeControl );
+export const ValidatedRangeControl = forwardRef(
+	UnforwardedValidatedRangeControl
+);

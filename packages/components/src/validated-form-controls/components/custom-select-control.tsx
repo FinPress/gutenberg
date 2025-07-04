@@ -1,7 +1,20 @@
-import { CustomSelectControl } from '@wordpress/components';
-import { forwardRef, useRef } from 'react';
+/**
+ * WordPress dependencies
+ */
+import { forwardRef, useRef } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { CustomSelectControlProps, ValidatedControlProps } from './types';
+import type { ValidatedControlProps } from './types';
+import CustomSelectControl from '../../custom-select-control';
+import type {
+	CustomSelectOption,
+	CustomSelectProps,
+} from '../../custom-select-control/types';
+
+type CustomSelectControlProps = CustomSelectProps< CustomSelectOption >;
 
 type Value = CustomSelectControlProps[ 'value' ];
 
@@ -12,14 +25,18 @@ const UnforwardedValidatedCustomSelectControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< CustomSelectControlProps, '__next40pxDefaultSize' > & ValidatedControlProps< Value >,
+	}: Omit< CustomSelectControlProps, '__next40pxDefaultSize' > &
+		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLDivElement >
 ) => {
 	const validityTargetRef = useRef< HTMLSelectElement >( null );
 	const valueRef = useRef< Value >( restProps.value );
 
 	return (
-		<div className="a8c-validated-control__wrapper-with-error-delegate" ref={ forwardedRef }>
+		<div
+			className="a8c-validated-control__wrapper-with-error-delegate"
+			ref={ forwardedRef }
+		>
 			<ControlWithError
 				required={ required }
 				markWhenOptional={ markWhenOptional }
@@ -48,7 +65,9 @@ const UnforwardedValidatedCustomSelectControl = (
 				onChange={ () => {} }
 				onFocus={ ( e ) => {
 					e.target.previousElementSibling
-						?.querySelector< HTMLButtonElement >( '[role="combobox"]' )
+						?.querySelector< HTMLButtonElement >(
+							'[role="combobox"]'
+						)
 						?.focus();
 				} }
 			>
@@ -59,4 +78,6 @@ const UnforwardedValidatedCustomSelectControl = (
 	);
 };
 
-export const ValidatedCustomSelectControl = forwardRef( UnforwardedValidatedCustomSelectControl );
+export const ValidatedCustomSelectControl = forwardRef(
+	UnforwardedValidatedCustomSelectControl
+);

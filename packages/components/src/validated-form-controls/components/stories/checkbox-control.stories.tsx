@@ -1,14 +1,24 @@
-import { fn } from '@storybook/test';
-import { useState } from 'react';
-import { ValidatedCheckboxControl } from './checkbox-control';
-import { formDecorator } from './story-utils';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
 import type { StoryObj, Meta } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
+import { ValidatedCheckboxControl } from '../checkbox-control';
+import { formDecorator } from './story-utils';
 
 const meta: Meta< typeof ValidatedCheckboxControl > = {
 	title: 'Validated Form Controls/ValidatedCheckboxControl',
 	component: ValidatedCheckboxControl,
 	decorators: formDecorator,
-	args: { onChange: fn() },
+	args: { onChange: () => {} },
 	argTypes: {
 		checked: { control: false },
 		// TODO: Figure out why this deprecated prop is still showing up here and not in the WP Storybook.
@@ -41,5 +51,6 @@ Default.args = {
 		if ( value ) {
 			return 'This checkbox may not be checked.';
 		}
+		return undefined;
 	},
 };

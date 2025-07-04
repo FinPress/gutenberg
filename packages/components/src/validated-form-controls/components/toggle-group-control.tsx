@@ -1,8 +1,15 @@
-// eslint-disable-next-line wpcalypso/no-unsafe-wp-apis
-import { __experimentalToggleGroupControl as ToggleGroupControl } from '@wordpress/components';
-import React, { forwardRef, useId, useRef } from 'react';
+/**
+ * WordPress dependencies
+ */
+import { forwardRef, useId, useRef } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { ToggleGroupControlProps, ValidatedControlProps } from './types';
+import type { ValidatedControlProps } from './types';
+import { ToggleGroupControl } from '../../toggle-group-control';
+import type { ToggleGroupControlProps } from '../../toggle-group-control/types';
 
 type Value = ToggleGroupControlProps[ 'value' ];
 
@@ -13,7 +20,10 @@ const UnforwardedValidatedToggleGroupControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< ToggleGroupControlProps, '__next40pxDefaultSize' | '__nextHasNoMarginBottom' > &
+	}: Omit<
+		ToggleGroupControlProps,
+		'__next40pxDefaultSize' | '__nextHasNoMarginBottom'
+	> &
 		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {
@@ -50,14 +60,16 @@ const UnforwardedValidatedToggleGroupControl = (
 				type="radio"
 				ref={ validityTargetRef }
 				required={ required }
-				checked={ restProps.value != null }
+				checked={ restProps.value !== null }
 				tabIndex={ -1 }
 				// A name attribute is needed for the `required` behavior to work.
 				name={ nameAttr }
 				onChange={ () => {} }
 				onFocus={ ( e ) => {
 					e.target.previousElementSibling
-						?.querySelector< HTMLButtonElement | HTMLInputElement >( '[data-active-item="true"]' )
+						?.querySelector< HTMLButtonElement | HTMLInputElement >(
+							'[data-active-item="true"]'
+						)
 						?.focus();
 				} }
 			/>
@@ -65,4 +77,6 @@ const UnforwardedValidatedToggleGroupControl = (
 	);
 };
 
-export const ValidatedToggleGroupControl = forwardRef( UnforwardedValidatedToggleGroupControl );
+export const ValidatedToggleGroupControl = forwardRef(
+	UnforwardedValidatedToggleGroupControl
+);

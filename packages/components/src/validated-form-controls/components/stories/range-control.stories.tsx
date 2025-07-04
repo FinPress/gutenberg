@@ -1,14 +1,24 @@
-import { fn } from '@storybook/test';
-import { useState } from 'react';
-import { ValidatedRangeControl } from './range-control';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import type { StoryObj, Meta } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
 import { formDecorator } from './story-utils';
-import type { Meta, StoryObj } from '@storybook/react';
+import { ValidatedRangeControl } from '../range-control';
 
 const meta: Meta< typeof ValidatedRangeControl > = {
 	title: 'Validated Form Controls/ValidatedRangeControl',
 	component: ValidatedRangeControl,
 	decorators: formDecorator,
-	args: { onChange: fn() },
+	args: { onChange: () => {} },
 	argTypes: {
 		value: { control: false },
 	},
@@ -18,7 +28,9 @@ export default meta;
 export const Default: StoryObj< typeof ValidatedRangeControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ value, setValue ] =
-			useState< React.ComponentProps< typeof ValidatedRangeControl >[ 'value' ] >();
+			useState<
+				React.ComponentProps< typeof ValidatedRangeControl >[ 'value' ]
+			>();
 
 		return (
 			<ValidatedRangeControl
@@ -42,5 +54,6 @@ Default.args = {
 		if ( value && value % 2 !== 0 ) {
 			return 'Choose an even number.';
 		}
+		return undefined;
 	},
 };

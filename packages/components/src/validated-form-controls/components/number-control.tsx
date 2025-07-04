@@ -1,8 +1,16 @@
-import { __experimentalNumberControl as NumberControl } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
+import { forwardRef, useRef } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
-import { forwardRef, useRef } from 'react';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { NumberControlProps, ValidatedControlProps } from './types';
+import NumberControl from '../../number-control';
+import type { ValidatedControlProps } from './types';
+import type { NumberControlProps } from '../../number-control/types';
 
 type Value = NumberControlProps[ 'value' ];
 
@@ -13,7 +21,8 @@ const UnforwardedValidatedNumberControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< NumberControlProps, '__next40pxDefaultSize' > & ValidatedControlProps< Value >,
+	}: Omit< NumberControlProps, '__next40pxDefaultSize' > &
+		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {
 	const validityTargetRef = useRef< HTMLInputElement >( null );
@@ -44,4 +53,6 @@ const UnforwardedValidatedNumberControl = (
 	);
 };
 
-export const ValidatedNumberControl = forwardRef( UnforwardedValidatedNumberControl );
+export const ValidatedNumberControl = forwardRef(
+	UnforwardedValidatedNumberControl
+);

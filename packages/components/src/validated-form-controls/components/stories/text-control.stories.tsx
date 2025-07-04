@@ -1,14 +1,24 @@
-import { fn } from '@storybook/test';
-import { useState } from 'react';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import type { StoryObj, Meta } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
 import { formDecorator } from './story-utils';
-import { ValidatedTextControl } from './text-control';
-import type { Meta, StoryObj } from '@storybook/react';
+import { ValidatedTextControl } from '../text-control';
 
 const meta: Meta< typeof ValidatedTextControl > = {
 	title: 'Validated Form Controls/ValidatedTextControl',
 	component: ValidatedTextControl,
 	decorators: formDecorator,
-	args: { onChange: fn() },
+	args: { onChange: () => {} },
 	argTypes: {
 		value: { control: false },
 	},
@@ -39,5 +49,6 @@ Default.args = {
 		if ( value?.toString().toLowerCase() === 'error' ) {
 			return 'The word "error" is not allowed.';
 		}
+		return undefined;
 	},
 };

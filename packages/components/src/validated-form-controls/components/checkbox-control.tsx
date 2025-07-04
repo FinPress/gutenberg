@@ -1,8 +1,16 @@
-import { CheckboxControl } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
 import { useMergeRefs } from '@wordpress/compose';
-import { forwardRef, useRef } from 'react';
+import { forwardRef, useRef } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { CheckboxControlProps, ValidatedControlProps } from './types';
+import type { ValidatedControlProps } from './types';
+import CheckboxControl from '../../checkbox-control';
+import type { CheckboxControlProps } from '../../checkbox-control/types';
 
 type Value = CheckboxControlProps[ 'checked' ];
 
@@ -13,7 +21,8 @@ const UnforwardedValidatedCheckboxControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< CheckboxControlProps, '__nextHasNoMarginBottom' > & ValidatedControlProps< Value >,
+	}: Omit< CheckboxControlProps, '__nextHasNoMarginBottom' > &
+		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {
 	const validityTargetRef = useRef< HTMLDivElement >( null );
@@ -29,7 +38,9 @@ const UnforwardedValidatedCheckboxControl = (
 				return customValidator?.( valueRef.current );
 			} }
 			getValidityTarget={ () =>
-				validityTargetRef.current?.querySelector< HTMLInputElement >( 'input[type="checkbox"]' )
+				validityTargetRef.current?.querySelector< HTMLInputElement >(
+					'input[type="checkbox"]'
+				)
 			}
 		>
 			<CheckboxControl
@@ -45,4 +56,6 @@ const UnforwardedValidatedCheckboxControl = (
 	);
 };
 
-export const ValidatedCheckboxControl = forwardRef( UnforwardedValidatedCheckboxControl );
+export const ValidatedCheckboxControl = forwardRef(
+	UnforwardedValidatedCheckboxControl
+);

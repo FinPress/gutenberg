@@ -1,14 +1,24 @@
-import { fn } from '@storybook/test';
-import { useState } from 'react';
-import { ValidatedComboboxControl } from './combobox-control';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import type { StoryObj, Meta } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
+import { ValidatedComboboxControl } from '../combobox-control';
 import { formDecorator } from './story-utils';
-import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta< typeof ValidatedComboboxControl > = {
 	title: 'Validated Form Controls/ValidatedComboboxControl',
 	component: ValidatedComboboxControl,
 	decorators: formDecorator,
-	args: { onChange: fn() },
+	args: { onChange: () => {} },
 	argTypes: {
 		value: { control: false },
 	},
@@ -18,7 +28,11 @@ export default meta;
 export const Default: StoryObj< typeof ValidatedComboboxControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ value, setValue ] =
-			useState< React.ComponentProps< typeof ValidatedComboboxControl >[ 'value' ] >();
+			useState<
+				React.ComponentProps<
+					typeof ValidatedComboboxControl
+				>[ 'value' ]
+			>();
 
 		return (
 			<ValidatedComboboxControl
@@ -44,5 +58,6 @@ Default.args = {
 		if ( value === 'a' ) {
 			return 'Option A is not allowed.';
 		}
+		return undefined;
 	},
 };

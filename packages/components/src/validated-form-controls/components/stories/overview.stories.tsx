@@ -1,8 +1,19 @@
-import { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
-import { ValidatedInputControl } from './components/input-control';
-import { formDecorator } from './components/story-utils';
-import { ControlWithError } from './control-with-error';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import type { Meta, StoryObj } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
+import { ValidatedInputControl } from '../input-control';
+import { formDecorator } from './story-utils';
+import type { ControlWithError } from '../../control-with-error';
 
 const meta: Meta< typeof ControlWithError > = {
 	title: 'Validated Form Controls/Overview',
@@ -33,6 +44,7 @@ export const WithMultipleControls: Story = {
 						if ( value?.toLowerCase() === 'error' ) {
 							return 'The word "error" is not allowed.';
 						}
+						return undefined;
 					} }
 					onChange={ ( value ) => setText( value ?? '' ) }
 				/>
@@ -45,6 +57,7 @@ export const WithMultipleControls: Story = {
 						if ( value?.toLowerCase() === 'error' ) {
 							return 'The word "error" is not allowed.';
 						}
+						return undefined;
 					} }
 					onChange={ ( value ) => setText2( value ?? '' ) }
 				/>
@@ -67,13 +80,18 @@ export const WithHelpTextReplacement: Story = {
 				label="Text"
 				required
 				value={ text }
-				help={ hasCustomError ? undefined : 'The word "error" is not allowed.' }
+				help={
+					hasCustomError
+						? undefined
+						: 'The word "error" is not allowed.'
+				}
 				customValidator={ ( value ) => {
 					if ( value?.toLowerCase() === 'error' ) {
 						setHasCustomError( true );
 						return 'The word "error" is not allowed.';
 					}
 					setHasCustomError( false );
+					return undefined;
 				} }
 				onChange={ ( value ) => setText( value ?? '' ) }
 			/>

@@ -1,14 +1,24 @@
-import { fn } from '@storybook/test';
-import { useState } from 'react';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import type { StoryObj, Meta } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
 import { formDecorator } from './story-utils';
-import { ValidatedToggleControl } from './toggle-control';
-import type { Meta, StoryObj } from '@storybook/react';
+import { ValidatedToggleControl } from '../toggle-control';
 
 const meta: Meta< typeof ValidatedToggleControl > = {
 	title: 'Validated Form Controls/ValidatedToggleControl',
 	component: ValidatedToggleControl,
 	decorators: formDecorator,
-	args: { onChange: fn() },
+	args: { onChange: () => {} },
 	argTypes: {
 		checked: { control: false },
 	},
@@ -39,5 +49,6 @@ Default.args = {
 		if ( value ) {
 			return 'This toggle may not be enabled.';
 		}
+		return undefined;
 	},
 };

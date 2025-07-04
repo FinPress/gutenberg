@@ -1,19 +1,25 @@
-import { fn } from '@storybook/test';
-import {
-	/* eslint-disable wpcalypso/no-unsafe-wp-apis */
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-	/* eslint-enable wpcalypso/no-unsafe-wp-apis */
-} from '@wordpress/components';
-import { useState } from 'react';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import type { StoryObj, Meta } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
 import { formDecorator } from './story-utils';
-import { ValidatedToggleGroupControl } from './toggle-group-control';
-import type { Meta, StoryObj } from '@storybook/react';
+import { ValidatedToggleGroupControl } from '../toggle-group-control';
+import { ToggleGroupControlOption } from '../../../toggle-group-control';
 
 const meta: Meta< typeof ValidatedToggleGroupControl > = {
 	title: 'Validated Form Controls/ValidatedToggleGroupControl',
 	component: ValidatedToggleGroupControl,
 	decorators: formDecorator,
-	args: { onChange: fn() },
+	args: { onChange: () => {} },
 	argTypes: {
 		value: { control: false },
 	},
@@ -23,7 +29,11 @@ export default meta;
 export const Default: StoryObj< typeof ValidatedToggleGroupControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ value, setValue ] =
-			useState< React.ComponentProps< typeof ValidatedToggleGroupControl >[ 'value' ] >( '1' );
+			useState<
+				React.ComponentProps<
+					typeof ValidatedToggleGroupControl
+				>[ 'value' ]
+			>( '1' );
 
 		return (
 			<ValidatedToggleGroupControl
@@ -50,5 +60,6 @@ Default.args = {
 		if ( value === '2' ) {
 			return 'Option 2 is not allowed.';
 		}
+		return undefined;
 	},
 };

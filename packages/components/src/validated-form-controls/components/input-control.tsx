@@ -1,9 +1,16 @@
-// eslint-disable-next-line wpcalypso/no-unsafe-wp-apis
-import { __experimentalInputControl as InputControl } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
+import { forwardRef, useRef } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
-import React, { forwardRef, useRef } from 'react';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { InputControlProps, ValidatedControlProps } from './types';
+import type { ValidatedControlProps } from './types';
+import InputControl from '../../input-control';
+import type { InputControlProps } from '../../input-control/types';
 
 type Value = InputControlProps[ 'value' ];
 
@@ -14,7 +21,8 @@ const UnforwardedValidatedInputControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< InputControlProps, '__next40pxDefaultSize' > & ValidatedControlProps< Value >,
+	}: Omit< InputControlProps, '__next40pxDefaultSize' > &
+		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {
 	const validityTargetRef = useRef< HTMLInputElement >( null );
@@ -43,4 +51,6 @@ const UnforwardedValidatedInputControl = (
 	);
 };
 
-export const ValidatedInputControl = forwardRef( UnforwardedValidatedInputControl );
+export const ValidatedInputControl = forwardRef(
+	UnforwardedValidatedInputControl
+);

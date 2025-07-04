@@ -1,14 +1,24 @@
-import { fn } from '@storybook/test';
-import { useState } from 'react';
-import { ValidatedRadioControl } from './radio-control';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import type { StoryObj, Meta } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
+import { ValidatedRadioControl } from '../radio-control';
 import { formDecorator } from './story-utils';
-import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta< typeof ValidatedRadioControl > = {
 	title: 'Validated Form Controls/ValidatedRadioControl',
 	component: ValidatedRadioControl,
 	decorators: formDecorator,
-	args: { onChange: fn() },
+	args: { onChange: () => {} },
 	argTypes: {
 		selected: { control: false },
 	},
@@ -18,7 +28,11 @@ export default meta;
 export const Default: StoryObj< typeof ValidatedRadioControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ selected, setSelected ] =
-			useState< React.ComponentProps< typeof ValidatedRadioControl >[ 'selected' ] >();
+			useState<
+				React.ComponentProps<
+					typeof ValidatedRadioControl
+				>[ 'selected' ]
+			>();
 
 		return (
 			<ValidatedRadioControl
@@ -44,5 +58,6 @@ Default.args = {
 		if ( value === 'b' ) {
 			return 'Option B is not allowed.';
 		}
+		return undefined;
 	},
 };

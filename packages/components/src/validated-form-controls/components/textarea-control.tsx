@@ -1,8 +1,16 @@
-import { TextareaControl } from '@wordpress/components';
+/**
+ * WordPress dependencies
+ */
+import { forwardRef, useRef } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
-import { forwardRef, useRef } from 'react';
+
+/**
+ * Internal dependencies
+ */
 import { ControlWithError } from '../control-with-error';
-import type { TextareaControlProps, ValidatedControlProps } from './types';
+import type { ValidatedControlProps } from './types';
+import TextareaControl from '../../textarea-control';
+import type { TextareaControlProps } from '../../textarea-control/types';
 
 type Value = TextareaControlProps[ 'value' ];
 
@@ -13,7 +21,8 @@ const UnforwardedValidatedTextareaControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< TextareaControlProps, '__nextHasNoMarginBottom' > & ValidatedControlProps< Value >,
+	}: Omit< TextareaControlProps, '__nextHasNoMarginBottom' > &
+		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLTextAreaElement >
 ) => {
 	const validityTargetRef = useRef< HTMLTextAreaElement >( null );
@@ -42,4 +51,6 @@ const UnforwardedValidatedTextareaControl = (
 	);
 };
 
-export const ValidatedTextareaControl = forwardRef( UnforwardedValidatedTextareaControl );
+export const ValidatedTextareaControl = forwardRef(
+	UnforwardedValidatedTextareaControl
+);

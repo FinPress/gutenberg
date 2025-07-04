@@ -1,14 +1,24 @@
-import { fn } from '@storybook/test';
-import { useState } from 'react';
-import { ValidatedNumberControl } from './number-control';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import type { StoryObj, Meta } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
+import { ValidatedNumberControl } from '../number-control';
 import { formDecorator } from './story-utils';
-import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta< typeof ValidatedNumberControl > = {
 	title: 'Validated Form Controls/ValidatedNumberControl',
 	component: ValidatedNumberControl,
 	decorators: formDecorator,
-	args: { onChange: fn() },
+	args: { onChange: () => {} },
 	argTypes: {
 		prefix: { control: { type: 'text' } },
 		step: { control: { type: 'text' } },
@@ -22,7 +32,9 @@ export default meta;
 export const Default: StoryObj< typeof ValidatedNumberControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ value, setValue ] =
-			useState< React.ComponentProps< typeof ValidatedNumberControl >[ 'value' ] >();
+			useState<
+				React.ComponentProps< typeof ValidatedNumberControl >[ 'value' ]
+			>();
 
 		return (
 			<ValidatedNumberControl
@@ -44,5 +56,6 @@ Default.args = {
 		if ( value && parseInt( value.toString(), 10 ) % 2 !== 0 ) {
 			return 'Choose an even number.';
 		}
+		return undefined;
 	},
 };

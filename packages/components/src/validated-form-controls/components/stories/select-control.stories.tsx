@@ -1,14 +1,24 @@
-import { fn } from '@storybook/test';
-import { useState } from 'react';
-import { ValidatedSelectControl } from './select-control';
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import type { StoryObj, Meta } from '@storybook/react';
+
+/**
+ * Internal dependencies
+ */
+import { ValidatedSelectControl } from '../select-control';
 import { formDecorator } from './story-utils';
-import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta< typeof ValidatedSelectControl > = {
 	title: 'Validated Form Controls/ValidatedSelectControl',
 	component: ValidatedSelectControl,
 	decorators: formDecorator,
-	args: { onChange: fn() },
+	args: { onChange: () => {} },
 	argTypes: {
 		value: { control: false },
 	},
@@ -44,5 +54,6 @@ Default.args = {
 		if ( value === '1' ) {
 			return 'Option 1 is not allowed.';
 		}
+		return undefined;
 	},
 };
