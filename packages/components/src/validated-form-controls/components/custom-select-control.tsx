@@ -34,7 +34,7 @@ const UnforwardedValidatedCustomSelectControl = (
 
 	return (
 		<div
-			className="a8c-validated-control__wrapper-with-error-delegate"
+			className="components-validated-control__wrapper-with-error-delegate"
 			ref={ forwardedRef }
 		>
 			<ControlWithError
@@ -57,7 +57,7 @@ const UnforwardedValidatedCustomSelectControl = (
 				/>
 			</ControlWithError>
 			<select
-				className="a8c-validated-control__error-delegate"
+				className="components-validated-control__error-delegate"
 				ref={ validityTargetRef }
 				required={ required }
 				tabIndex={ -1 }

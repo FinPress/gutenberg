@@ -33,7 +33,7 @@ const UnforwardedValidatedToggleGroupControl = (
 	const nameAttr = useId();
 
 	return (
-		<div className="a8c-validated-control__wrapper-with-error-delegate">
+		<div className="components-validated-control__wrapper-with-error-delegate">
 			<ControlWithError
 				required={ required }
 				markWhenOptional={ markWhenOptional }
@@ -56,7 +56,7 @@ const UnforwardedValidatedToggleGroupControl = (
 				/>
 			</ControlWithError>
 			<input
-				className="a8c-validated-control__error-delegate"
+				className="components-validated-control__error-delegate"
 				type="radio"
 				ref={ validityTargetRef }
 				required={ required }

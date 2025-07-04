@@ -19,7 +19,6 @@ import {
  */
 import { withIgnoreIMEEvents } from '../utils/with-ignore-ime-events';
 
-import './style.scss';
 import Icon from '../icon';
 
 function appendRequiredIndicator(
@@ -165,7 +164,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		// Disable reason: Just listening to a bubbled event, not for interaction.
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
-			className="a8c-validated-control"
+			className="components-validated-control"
 			ref={ forwardedRef }
 			onBlur={ onBlur }
 			onKeyDown={ withIgnoreIMEEvents( onKeyDown ) }
@@ -181,9 +180,9 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 			} ) }
 			<div aria-live="polite">
 				{ errorMessage && (
-					<p className="a8c-validated-control__error">
+					<p className="components-validated-control__error">
 						<Icon
-							className="a8c-validated-control__error-icon"
+							className="components-validated-control__error-icon"
 							icon={ error }
 							size={ 16 }
 							fill="currentColor"
