@@ -9,7 +9,12 @@ import type { Hooks, StoreKey } from '.';
  * Returns the number of times an action has been fired.
  *
  */
-export type DidHook = ( hookName: string ) => number | undefined;
+export type DidHook = (
+	/**
+	 * The hook name to check.
+	 */
+	hookName: string
+) => number | undefined;
 
 /**
  * Returns a function which, when invoked, will return the number of times a
