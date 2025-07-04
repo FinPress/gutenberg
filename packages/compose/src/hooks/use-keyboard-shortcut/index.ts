@@ -3,6 +3,8 @@
  */
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
+import type { RefObject } from 'react';
+import type { ExtendedKeyboardEvent } from 'mousetrap';
 
 /**
  * WordPress dependencies
@@ -12,14 +14,25 @@ import { isAppleOS } from '@wordpress/keycodes';
 
 /**
  * A block selection object.
- *
- * @typedef {Object} WPKeyboardShortcutConfig
- *
- * @property {boolean}                                [bindGlobal] Handle keyboard events anywhere including inside textarea/input fields.
- * @property {string}                                 [eventName]  Event name used to trigger the handler, defaults to keydown.
- * @property {boolean}                                [isDisabled] Disables the keyboard handler if the value is true.
- * @property {import('react').RefObject<HTMLElement>} [target]     React reference to the DOM element used to catch the keyboard event.
  */
+type WPKeyboardShortcutConfig = {
+	/**
+	 * Handle keyboard events anywhere including inside textarea/input fields.
+	 */
+	bindGlobal: boolean;
+	/**
+	 * Event name used to trigger the handler, defaults to keydown.
+	 */
+	eventName: string;
+	/**
+	 * Disables the keyboard handler if the value is true.
+	 */
+	isDisabled: boolean;
+	/**
+	 * React reference to the DOM element used to catch the keyboard event.
+	 */
+	target: RefObject< HTMLElement >;
+};
 
 /* eslint-disable jsdoc/valid-types */
 /**
@@ -27,20 +40,24 @@ import { isAppleOS } from '@wordpress/keycodes';
  *
  * @see https://craig.is/killing/mice#api.bind for information about the `callback` parameter.
  *
- * @param {string[]|string}                                                       shortcuts Keyboard Shortcuts.
- * @param {(e: import('mousetrap').ExtendedKeyboardEvent, combo: string) => void} callback  Shortcut callback.
- * @param {WPKeyboardShortcutConfig}                                              options   Shortcut options.
+ * @param shortcuts          Keyboard Shortcuts.
+ * @param callback           Shortcut callback.
+ * @param options            Shortcut options.
+ * @param options.bindGlobal
+ * @param options.eventName
+ * @param options.isDisabled
+ * @param options.target
  */
 function useKeyboardShortcut(
 	/* eslint-enable jsdoc/valid-types */
-	shortcuts,
-	callback,
+	shortcuts: string[] | string,
+	callback: ( e: ExtendedKeyboardEvent, combo: string ) => void,
 	{
 		bindGlobal = false,
 		eventName = 'keydown',
 		isDisabled = false, // This is important for performance considerations.
 		target,
-	} = {}
+	}: Partial< WPKeyboardShortcutConfig > = {}
 ) {
 	const currentCallbackRef = useRef( callback );
 	useEffect( () => {
@@ -57,7 +74,7 @@ function useKeyboardShortcut(
 				: // We were passing `document` here previously, so to successfully cast it to Element we must cast it first to `unknown`.
 				  // Not sure if this is a mistake but it was the behavior previous to the addition of types so we're just doing what's
 				  // necessary to maintain the existing behavior.
-				  /** @type {Element} */ ( /** @type {unknown} */ ( document ) )
+				  ( document as unknown as Element )
 		);
 		const shortcutsArray = Array.isArray( shortcuts )
 			? shortcuts
@@ -90,7 +107,7 @@ function useKeyboardShortcut(
 				shortcut,
 				(
 					/* eslint-disable jsdoc/valid-types */
-					/** @type {[e: import('mousetrap').ExtendedKeyboardEvent, combo: string]} */ ...args
+					...args: [ e: ExtendedKeyboardEvent, combo: string ]
 				) =>
 					/* eslint-enable jsdoc/valid-types */
 					currentCallbackRef.current( ...args ),
