@@ -58,15 +58,15 @@ describe( 'jest-console', () => {
 		test( 'assertions number gets incremented after every matcher call', () => {
 			const spy = console[ methodName ];
 
-			expect( ( spy as any ).assertionsNumber ).toBe( 0 );
+			expect( spy.assertionsNumber ).toBe( 0 );
 
 			console[ methodName ]( message );
 
 			expect( console )[ matcherName ]();
-			expect( ( spy as any ).assertionsNumber ).toBe( 1 );
+			expect( spy.assertionsNumber ).toBe( 1 );
 
 			expect( console )[ matcherNameWith ]( message );
-			expect( ( spy as any ).assertionsNumber ).toBe( 2 );
+			expect( spy.assertionsNumber ).toBe( 2 );
 		} );
 
 		describe( 'lifecycle', () => {
