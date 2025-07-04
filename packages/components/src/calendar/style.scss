@@ -1,16 +1,14 @@
 /* Root of the component. */
+// Internal variables
+$wp-components-calendar-outline-focus: 1.5px solid $components-color-accent;
+$wp-components-calendar-button-height: 2rem;
+$wp-components-calendar-button-width: 2rem;
+$wp-components-calendar-nav-height: 2rem;
+$wp-components-calendar-range-middle-background-color: color-mix(in srgb, $components-color-accent 4%, transparent);
+$wp-components-calendar-preview-border-color: color-mix(in srgb, $components-color-accent 16%, transparent);
+
 .components-calendar {
 	// TODO: add font family rule when Theme is ready
-
-	// Internal variables
-	--components-calendar-outline-focus: 1.5px solid $components-color-accent;
-	--components-calendar-button-height: 2rem;
-	--components-calendar-button-width: 2rem;
-	--components-calendar-nav-height: 2rem;
-
-	// TODO: themify / align to DS tokens
-	--components-calendar-range-middle-background-color: color-mix(in srgb, $components-color-accent 4%, transparent);
-	--components-calendar-preview-border-color: color-mix(in srgb, $components-color-accent 16%, transparent);
 
 	position: relative; /* Required to position the navigation toolbar. */
 	box-sizing: border-box;
@@ -55,8 +53,8 @@
 	display: flex;
 	position: relative;
 
-	width: var(--components-calendar-button-width);
-	height: var(--components-calendar-button-height);
+	width: $wp-components-calendar-button-width;
+	height: $wp-components-calendar-button-height;
 
 	border: none;
 	border-radius: 2px;
@@ -98,7 +96,7 @@
 	}
 
 	&:focus-visible {
-		outline: var(--components-calendar-outline-focus);
+		outline: $wp-components-calendar-outline-focus;
 		outline-offset: 1px;
 	}
 }
@@ -132,8 +130,8 @@
 	position: relative;
 	appearance: none;
 
-	width: var(--components-calendar-button-width);
-	height: var(--components-calendar-button-height);
+	width: $wp-components-calendar-button-width;
+	height: $wp-components-calendar-button-height;
 
 	color: inherit;
 
@@ -145,7 +143,7 @@
 	}
 
 	&:focus-visible {
-		outline: var(--components-calendar-outline-focus);
+		outline: $wp-components-calendar-outline-focus;
 	}
 }
 
@@ -168,7 +166,7 @@
 	justify-content: center;
 	align-content: center;
 
-	height: var(--components-calendar-nav-height);
+	height: $wp-components-calendar-nav-height;
 	margin-bottom: 12px;
 }
 
@@ -196,12 +194,12 @@
 	align-items: center;
 	justify-content: space-between;
 
-	height: var(--components-calendar-nav-height);
+	height: $wp-components-calendar-nav-height;
 }
 
 .components-calendar__weekday {
-	width: var(--components-calendar-button-width);
-	height: var(--components-calendar-button-height);
+	width: $wp-components-calendar-button-width;
+	height: $wp-components-calendar-button-height;
 	padding: 0;
 
 	color: $gray-700;
@@ -271,7 +269,7 @@
 // Middle of date range
 .components-calendar__range-middle .components-calendar__day-button {
 	&::before {
-		background-color: var(--components-calendar-range-middle-background-color);
+		background-color: $wp-components-calendar-range-middle-background-color;
 		border-radius: 0;
 
 		// Render a top and bottom transparent border to highlight the selected
@@ -311,7 +309,7 @@
 	position: absolute;
 	inset: 0;
 	pointer-events: none;
-	color: var(--components-calendar-preview-border-color);
+	color: $wp-components-calendar-preview-border-color;
 
 	@media ( forced-colors: active ) {
 		color: inherit;
