@@ -10,9 +10,21 @@ import type { Callback, Hooks, StoreKey } from '.';
  * Adds the hook to the appropriate hooks container.
  */
 export type AddHook = (
+	/**
+	 * Name of hook to add
+	 */
 	hookName: string,
+	/**
+	 * The unique namespace identifying the callback in the form.
+	 */
 	namespace: string,
+	/**
+	 * Function to call when the hook is run.
+	 */
 	callback: Callback,
+	/**
+	 * Priority of this hook
+	 */
 	priority?: number
 ) => void;
 
