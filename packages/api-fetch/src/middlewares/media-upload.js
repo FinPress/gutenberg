@@ -63,7 +63,7 @@ const mediaUploadMiddleware = ( options, next ) => {
 
 	return next( { ...options, parse: false } )
 		.catch( ( response ) => {
-			// Probably a `fetch_error` error.
+			// `response` could actually be an error thrown by `defaultFetchHandler`.
 			if ( ! response.headers ) {
 				return Promise.reject( response );
 			}

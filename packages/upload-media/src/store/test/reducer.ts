@@ -18,8 +18,6 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
-					mediaSideload: jest.fn(),
-					imageSizes: {},
 				},
 				queue: [
 					{
@@ -41,8 +39,6 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: expect.any( Function ),
-					mediaSideload: expect.any( Function ),
-					imageSizes: {},
 				},
 				queue: [
 					{
@@ -65,8 +61,6 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
-					mediaSideload: jest.fn(),
-					imageSizes: {},
 				},
 				queue: [
 					{
@@ -90,8 +84,6 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: expect.any( Function ),
-					mediaSideload: expect.any( Function ),
-					imageSizes: {},
 				},
 				queue: [
 					{
@@ -115,8 +107,6 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
-					mediaSideload: jest.fn(),
-					imageSizes: {},
 				},
 				queue: [
 					{
@@ -139,106 +129,8 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: expect.any( Function ),
-					mediaSideload: expect.any( Function ),
-					imageSizes: {},
 				},
 				queue: [
-					{
-						id: '2',
-						status: ItemStatus.Processing,
-					},
-				],
-			} );
-		} );
-	} );
-
-	describe( `${ Type.PauseItem }`, () => {
-		it( 'marks an item as paused', () => {
-			const initialState: State = {
-				queueStatus: 'active',
-				blobUrls: {},
-				settings: {
-					mediaUpload: jest.fn(),
-					mediaSideload: jest.fn(),
-					imageSizes: {},
-				},
-				queue: [
-					{
-						id: '1',
-						status: ItemStatus.Processing,
-					} as QueueItem,
-					{
-						id: '2',
-						status: ItemStatus.Processing,
-					} as QueueItem,
-				],
-			};
-			const state = reducer( initialState, {
-				type: Type.PauseItem,
-				id: '2',
-			} );
-
-			expect( state ).toEqual( {
-				queueStatus: 'active',
-				blobUrls: {},
-				settings: {
-					mediaUpload: expect.any( Function ),
-					mediaSideload: expect.any( Function ),
-					imageSizes: {},
-				},
-				queue: [
-					{
-						id: '1',
-						status: ItemStatus.Processing,
-					},
-					{
-						id: '2',
-						status: ItemStatus.Paused,
-					},
-				],
-			} );
-		} );
-	} );
-
-	describe( `${ Type.ResumeItem }`, () => {
-		it( 'marks an item as processing', () => {
-			const initialState: State = {
-				queueStatus: 'active',
-				blobUrls: {},
-				settings: {
-					mediaUpload: jest.fn(),
-					mediaSideload: jest.fn(),
-					imageSizes: {},
-				},
-				queue: [
-					{
-						id: '1',
-						status: ItemStatus.Processing,
-					} as QueueItem,
-					{
-						id: '2',
-						status: ItemStatus.Paused,
-					} as QueueItem,
-				],
-			};
-			const state = reducer( initialState, {
-				type: Type.ResumeItem,
-				id: '2',
-			} );
-
-			expect( state ).toEqual( {
-				queueStatus: 'active',
-				blobUrls: {},
-				settings: {
-					mediaUpload: expect.any( Function ),
-					mediaSideload: expect.any( Function ),
-					imageSizes: {},
-				},
-				queue: [
-					{
-						id: '1',
-						status: ItemStatus.Processing,
-					},
 					{
 						id: '2',
 						status: ItemStatus.Processing,
@@ -255,8 +147,6 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
-					mediaSideload: jest.fn(),
-					imageSizes: {},
 				},
 				queue: [
 					{
@@ -269,7 +159,7 @@ describe( 'reducer', () => {
 			const state = reducer( initialState, {
 				type: Type.AddOperations,
 				id: '1',
-				operations: [ OperationType.Compress, OperationType.AddPoster ],
+				operations: [ OperationType.Upload ],
 			} );
 
 			expect( state ).toEqual( {
@@ -277,8 +167,6 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: expect.any( Function ),
-					mediaSideload: expect.any( Function ),
-					imageSizes: {},
 				},
 				queue: [
 					{
@@ -286,8 +174,7 @@ describe( 'reducer', () => {
 						status: ItemStatus.Processing,
 						operations: [
 							OperationType.Upload,
-							OperationType.Compress,
-							OperationType.AddPoster,
+							OperationType.Upload,
 						],
 					},
 				],
@@ -302,32 +189,24 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
-					mediaSideload: jest.fn(),
-					imageSizes: {},
 				},
 				queue: [
 					{
 						id: '1',
 						status: ItemStatus.Processing,
-						operations: [
-							OperationType.AddPoster,
-							OperationType.Upload,
-						],
+						operations: [ OperationType.Upload ],
 					} as QueueItem,
 					{
 						id: '2',
 						status: ItemStatus.Processing,
-						operations: [
-							OperationType.AddPoster,
-							OperationType.Upload,
-						],
+						operations: [ OperationType.Upload ],
 					} as QueueItem,
 				],
 			};
 			const state = reducer( initialState, {
 				type: Type.OperationStart,
 				id: '2',
-				operation: OperationType.AddPoster,
+				operation: OperationType.Upload,
 			} );
 
 			expect( state ).toEqual( {
@@ -335,26 +214,18 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: expect.any( Function ),
-					mediaSideload: expect.any( Function ),
-					imageSizes: {},
 				},
 				queue: [
 					{
 						id: '1',
 						status: ItemStatus.Processing,
-						operations: [
-							OperationType.AddPoster,
-							OperationType.Upload,
-						],
+						operations: [ OperationType.Upload ],
 					},
 					{
 						id: '2',
 						status: ItemStatus.Processing,
-						operations: [
-							OperationType.AddPoster,
-							OperationType.Upload,
-						],
-						currentOperation: OperationType.AddPoster,
+						operations: [ OperationType.Upload ],
+						currentOperation: OperationType.Upload,
 					},
 				],
 			} );
@@ -368,8 +239,6 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
-					mediaSideload: jest.fn(),
-					imageSizes: {},
 				},
 				queue: [
 					{
@@ -377,11 +246,8 @@ describe( 'reducer', () => {
 						additionalData: {},
 						attachment: {},
 						status: ItemStatus.Processing,
-						operations: [
-							OperationType.AddPoster,
-							OperationType.Upload,
-						],
-						currentOperation: OperationType.AddPoster,
+						operations: [ OperationType.Upload ],
+						currentOperation: OperationType.Upload,
 					} as QueueItem,
 				],
 			};
@@ -396,8 +262,6 @@ describe( 'reducer', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: expect.any( Function ),
-					mediaSideload: expect.any( Function ),
-					imageSizes: {},
 				},
 				queue: [
 					{
@@ -406,8 +270,7 @@ describe( 'reducer', () => {
 						attachment: {},
 						status: ItemStatus.Processing,
 						currentOperation: undefined,
-						operations: [ OperationType.Upload ],
-						timings: [],
+						operations: [],
 					},
 				],
 			} );

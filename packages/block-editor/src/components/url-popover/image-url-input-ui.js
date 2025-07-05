@@ -227,12 +227,14 @@ const ImageURLInputUI = ( {
 				checked={ linkTarget === '_blank' }
 			/>
 			<TextControl
+				__next40pxDefaultSize
 				__nextHasNoMarginBottom
 				label={ __( 'Link rel' ) }
 				value={ rel ?? '' }
 				onChange={ onSetLinkRel }
 			/>
 			<TextControl
+				__next40pxDefaultSize
 				__nextHasNoMarginBottom
 				label={ __( 'Link CSS class' ) }
 				value={ linkClass || '' }
@@ -263,14 +265,14 @@ const ImageURLInputUI = ( {
 				<div className="block-editor-url-popover__expand-on-click">
 					<Icon icon={ fullscreen } />
 					<div className="text">
-						<p>{ __( 'Expand on click' ) }</p>
+						<p>{ __( 'Enlarge on click' ) }</p>
 						<p className="description">
 							{ __( 'Scales the image with a lightbox effect' ) }
 						</p>
 					</div>
 					<Button
 						icon={ linkOff }
-						label={ __( 'Disable expand on click' ) }
+						label={ __( 'Disable enlarge on click' ) }
 						onClick={ () => {
 							onSetLightbox?.( false );
 						} }
@@ -370,7 +372,7 @@ const ImageURLInputUI = ( {
 											stopEditLink();
 										} }
 									>
-										{ __( 'Expand on click' ) }
+										{ __( 'Enlarge on click' ) }
 									</MenuItem>
 								) }
 							</NavigableMenu>

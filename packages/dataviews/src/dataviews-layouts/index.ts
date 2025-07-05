@@ -16,7 +16,8 @@ import ViewTable from './table';
 import ViewGrid from './grid';
 import ViewList from './list';
 import { LAYOUT_GRID, LAYOUT_LIST, LAYOUT_TABLE } from '../constants';
-import type { View } from '../types';
+import PreviewSizePicker from './grid/preview-size-picker';
+import DensityPicker from './table/density-picker';
 
 export const VIEW_LAYOUTS = [
 	{
@@ -24,12 +25,14 @@ export const VIEW_LAYOUTS = [
 		label: __( 'Table' ),
 		component: ViewTable,
 		icon: blockTable,
+		viewConfigOptions: DensityPicker,
 	},
 	{
 		type: LAYOUT_GRID,
 		label: __( 'Grid' ),
 		component: ViewGrid,
 		icon: category,
+		viewConfigOptions: PreviewSizePicker,
 	},
 	{
 		type: LAYOUT_LIST,
@@ -38,29 +41,3 @@ export const VIEW_LAYOUTS = [
 		icon: isRTL() ? formatListBulletsRTL : formatListBullets,
 	},
 ];
-
-export function getMandatoryFields( view: View ): string[] {
-	if ( view.type === 'table' ) {
-		return [ view.layout?.primaryField ]
-			.concat(
-				view.layout?.combinedFields?.flatMap(
-					( field ) => field.children
-				) ?? []
-			)
-			.filter( ( item ): item is string => !! item );
-	}
-
-	if ( view.type === 'grid' ) {
-		return [ view.layout?.primaryField, view.layout?.mediaField ].filter(
-			( item ): item is string => !! item
-		);
-	}
-
-	if ( view.type === 'list' ) {
-		return [ view.layout?.primaryField, view.layout?.mediaField ].filter(
-			( item ): item is string => !! item
-		);
-	}
-
-	return [];
-}

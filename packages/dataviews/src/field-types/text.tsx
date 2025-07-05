@@ -1,18 +1,24 @@
 /**
- * WordPress dependencies
- */
-import { SelectControl, TextControl } from '@wordpress/components';
-import { useCallback } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-
-/**
  * Internal dependencies
  */
 import type {
+	DataViewRenderFieldProps,
 	SortDirection,
 	ValidationContext,
-	DataFormControlProps,
+	FieldTypeDefinition,
 } from '../types';
+import { renderFromElements } from '../utils';
+import {
+	OPERATOR_CONTAINS,
+	OPERATOR_IS,
+	OPERATOR_IS_ALL,
+	OPERATOR_IS_ANY,
+	OPERATOR_IS_NONE,
+	OPERATOR_IS_NOT,
+	OPERATOR_IS_NOT_ALL,
+	OPERATOR_NOT_CONTAINS,
+	OPERATOR_STARTS_WITH,
+} from '../constants';
 
 function sort( valueA: any, valueB: any, direction: SortDirection ) {
 	return direction === 'asc'
@@ -31,65 +37,30 @@ function isValid( value: any, context?: ValidationContext ) {
 	return true;
 }
 
-function Edit< Item >( {
-	data,
-	field,
-	onChange,
-	hideLabelFromVision,
-}: DataFormControlProps< Item > ) {
-	const { id, label, placeholder } = field;
-	const value = field.getValue( { item: data } );
-
-	const onChangeControl = useCallback(
-		( newValue: string ) =>
-			onChange( ( prevItem: Item ) => ( {
-				...prevItem,
-				[ id ]: newValue,
-			} ) ),
-		[ id, onChange ]
-	);
-
-	if ( field.elements ) {
-		const elements = [
-			/*
-			 * Value can be undefined when:
-			 *
-			 * - the field is not required
-			 * - in bulk editing
-			 *
-			 */
-			{ label: __( 'Select item' ), value: '' },
-			...field.elements,
-		];
-
-		return (
-			<SelectControl
-				label={ label }
-				value={ value }
-				options={ elements }
-				onChange={ onChangeControl }
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
-				hideLabelFromVision={ hideLabelFromVision }
-			/>
-		);
-	}
-
-	return (
-		<TextControl
-			label={ label }
-			placeholder={ placeholder }
-			value={ value ?? '' }
-			onChange={ onChangeControl }
-			__next40pxDefaultSize
-			__nextHasNoMarginBottom
-			hideLabelFromVision={ hideLabelFromVision }
-		/>
-	);
-}
-
 export default {
 	sort,
 	isValid,
-	Edit,
-};
+	Edit: 'text',
+	render: ( { item, field }: DataViewRenderFieldProps< any > ) => {
+		return field.elements
+			? renderFromElements( { item, field } )
+			: field.getValue( { item } );
+	},
+	enableSorting: true,
+	filterBy: {
+		defaultOperators: [ OPERATOR_IS_ANY, OPERATOR_IS_NONE ],
+		validOperators: [
+			// Single selection
+			OPERATOR_IS,
+			OPERATOR_IS_NOT,
+			OPERATOR_CONTAINS,
+			OPERATOR_NOT_CONTAINS,
+			OPERATOR_STARTS_WITH,
+			// Multiple selection
+			OPERATOR_IS_ANY,
+			OPERATOR_IS_NONE,
+			OPERATOR_IS_ALL,
+			OPERATOR_IS_NOT_ALL,
+		],
+	},
+} satisfies FieldTypeDefinition< any >;

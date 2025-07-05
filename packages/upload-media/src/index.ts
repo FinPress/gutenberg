@@ -5,6 +5,7 @@ import { store as uploadStore } from './store';
 
 export { uploadStore as store };
 
-export { MediaError } from './mediaError';
+export { default as MediaUploadProvider } from './components/provider';
+export { UploadError } from './upload-error';
 
-export type { ImageFormat, ImageSizeCrop } from './store/types';
+export type { ImageFormat } from './store/types';

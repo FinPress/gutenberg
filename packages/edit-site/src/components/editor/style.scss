@@ -1,7 +1,9 @@
 .edit-site-editor__editor-interface {
 	opacity: 1;
-	transition: opacity 0.1s ease-out;
-	@include reduce-motion( "transition" );
+
+	@media not (prefers-reduced-motion) {
+		transition: opacity 0.1s ease-out;
+	}
 
 	&.is-loading {
 		opacity: 0;
@@ -12,7 +14,7 @@
 	box-sizing: border-box;
 	width: $sidebar-width;
 	background-color: $white;
-	border: 1px dotted $gray-300;
+	border: $border-width dotted $gray-300;
 	padding: $grid-unit-30;
 	display: flex;
 	justify-content: center;
@@ -68,6 +70,10 @@
 	justify-content: center;
 	background-color: hsla(0, 0%, 80%);
 	pointer-events: none;
+
+	svg {
+		fill: currentColor;
+	}
 
 	&.has-site-icon {
 		background-color: hsla(0, 0%, 100%, 0.6);

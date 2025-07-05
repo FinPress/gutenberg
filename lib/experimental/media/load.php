@@ -1,14 +1,12 @@
 <?php
 /**
- * Adds media-related settings to the block editor.
+ * Adds media-related experimental functionality.
  *
  * @package gutenberg
  */
 
 /**
  * Returns a list of all available image sizes.
- *
- * @since X.X.X
  *
  * @return array Existing image sizes.
  */
@@ -26,34 +24,70 @@ function gutenberg_get_all_image_sizes(): array {
 }
 
 /**
- * Adds media-related settings to the block editor.
+ * Returns the default output format mapping for the supported image formats.
  *
- * @since X.X.X
- *
- * @param array $settings Existing block editor settings.
- *
- * @return array New block editor settings.
+ * @return array<string,string> Map of input formats to output formats.
  */
-function gutenberg_block_editor_settings_media_processing( $settings ) {
-	if ( ! gutenberg_is_experiment_enabled( 'gutenberg-media-processing' ) ) {
-		return $settings;
+function gutenberg_get_default_image_output_formats() {
+	$input_formats = array(
+		'image/jpeg',
+		'image/png',
+		'image/gif',
+		'image/webp',
+		'image/avif',
+		'image/heic',
+	);
+
+	$output_formats = array();
+
+	foreach ( $input_formats as $mime_type ) {
+		/** This filter is documented in wp-includes/media.php */
+		$output_formats = apply_filters(
+			'image_editor_output_format', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+			$output_formats,
+			'',
+			$mime_type
+		);
 	}
 
+	return $output_formats;
+}
+
+/**
+ * Filters the REST API root index data to add custom settings.
+ *
+ * @param WP_REST_Response $response Response data.
+ */
+function gutenberg_media_processing_filter_rest_index( WP_REST_Response $response ) {
 	/** This filter is documented in wp-admin/includes/images.php */
 	$image_size_threshold = (int) apply_filters( 'big_image_size_threshold', 2560, array( 0, 0 ), '', 0 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-	$settings['__experimentalAvailableImageSizes']   = gutenberg_get_all_image_sizes();
-	$settings['__experimentalBigImageSizeThreshold'] = $image_size_threshold;
+	$default_image_output_formats = gutenberg_get_default_image_output_formats();
 
-	return $settings;
+	/** This filter is documented in wp-includes/class-wp-image-editor-imagick.php */
+	$jpeg_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/jpeg' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+	/** This filter is documented in wp-includes/class-wp-image-editor-imagick.php */
+	$png_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/png' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+	/** This filter is documented in wp-includes/class-wp-image-editor-imagick.php */
+	$gif_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/gif' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+
+	if ( current_user_can( 'upload_files' ) ) {
+		$response->data['image_sizes']          = gutenberg_get_all_image_sizes();
+		$response->data['image_size_threshold'] = $image_size_threshold;
+		$response->data['image_output_formats'] = (object) $default_image_output_formats;
+		$response->data['jpeg_interlaced']      = $jpeg_interlaced;
+		$response->data['png_interlaced']       = $png_interlaced;
+		$response->data['gif_interlaced']       = $gif_interlaced;
+	}
+
+	return $response;
 }
 
-add_filter( 'block_editor_settings_all', 'gutenberg_block_editor_settings_media_processing' );
+add_filter( 'rest_index', 'gutenberg_media_processing_filter_rest_index' );
+
 
 /**
-* Filters the arguments for registering a post type.
- *
- * @since X.X.X
+ * Overrides the REST controller for the attachment post type.
  *
  * @param array  $args      Array of arguments for registering a post type.
  *                          See the register_post_type() function for accepted arguments.
@@ -73,7 +107,7 @@ add_filter( 'register_post_type_args', 'gutenberg_filter_attachment_post_type_ar
 
 
 /**
- * Register additional REST fields for attachments.
+ * Registers additional REST fields for attachments.
  */
 function gutenberg_media_processing_register_rest_fields(): void {
 	register_rest_field(
@@ -152,10 +186,40 @@ function gutenberg_rest_get_attachment_filesize( array $post ): ?int {
 	return null;
 }
 
-function gutenberg_media_processing_cross_origin_isolation() {
-	global $is_safari;
+/**
+ * Filters the list of rewrite rules formatted for output to an .htaccess file.
+ *
+ * Adds support for serving wasm-vips locally.
+ *
+ * @param string $rules mod_rewrite Rewrite rules formatted for .htaccess.
+ * @return string Filtered rewrite rules.
+ */
+function gutenberg_filter_mod_rewrite_rules( string $rules ): string {
+	$rules .= "\n# BEGIN Gutenberg client-side media processing experiment\n" .
+				"AddType application/wasm wasm\n" .
+				"# END Gutenberg client-side media processing experiment\n";
 
-	if ( ! gutenberg_is_experiment_enabled( 'gutenberg-media-processing' ) ) {
+	return $rules;
+}
+
+add_filter( 'mod_rewrite_rules', 'gutenberg_filter_mod_rewrite_rules' );
+
+/**
+ * Enables cross-origin isolation in the block editor.
+ *
+ * Required for enabling SharedArrayBuffer for WebAssembly-based
+ * media processing in the editor.
+ *
+ * @link https://web.dev/coop-coep/
+ */
+function gutenberg_set_up_cross_origin_isolation() {
+	$screen = get_current_screen();
+
+	if ( ! $screen ) {
+		return;
+	}
+
+	if ( ! $screen->is_block_editor() && 'site-editor' !== $screen->id && ! ( 'widgets' === $screen->id && wp_use_widgets_block_editor() ) ) {
 		return;
 	}
 
@@ -169,15 +233,130 @@ function gutenberg_media_processing_cross_origin_isolation() {
 		return;
 	}
 
-	$coep = $is_safari ? 'require-corp' : 'credentialless';
-
-	header( 'Cross-Origin-Opener-Policy: same-origin' );
-	header( "Cross-Origin-Embedder-Policy: $coep" );
-
-	//  ob_start( 'gutenberg_media_processing_output_buffer' );
+	gutenberg_start_cross_origin_isolation_output_buffer();
 }
 
-add_action( 'load-post.php', 'gutenberg_media_processing_cross_origin_isolation' );
-add_action( 'load-post-new.php', 'gutenberg_media_processing_cross_origin_isolation' );
-add_action( 'load-site-editor.php', 'gutenberg_media_processing_cross_origin_isolation' );
-add_action( 'load-widgets.php', 'gutenberg_media_processing_cross_origin_isolation' );
+add_action( 'load-post.php', 'gutenberg_set_up_cross_origin_isolation' );
+add_action( 'load-post-new.php', 'gutenberg_set_up_cross_origin_isolation' );
+add_action( 'load-site-editor.php', 'gutenberg_set_up_cross_origin_isolation' );
+add_action( 'load-widgets.php', 'gutenberg_set_up_cross_origin_isolation' );
+
+/**
+ * Sends headers for cross-origin isolation.
+ *
+ * Uses an output buffer to add crossorigin="anonymous" where needed.
+ *
+ * @link https://web.dev/coop-coep/
+ *
+ * @global bool $is_safari
+ */
+function gutenberg_start_cross_origin_isolation_output_buffer(): void {
+	global $is_safari;
+
+	$coep = $is_safari ? 'require-corp' : 'credentialless';
+
+	ob_start(
+		function ( string $output ) use ( $coep ): string {
+			header( 'Cross-Origin-Opener-Policy: same-origin' );
+			header( "Cross-Origin-Embedder-Policy: $coep" );
+
+			return gutenberg_add_crossorigin_attributes( $output );
+		}
+	);
+}
+
+/**
+ * Adds crossorigin="anonymous" to relevant tags in the given HTML string.
+ *
+ * @param string $html HTML input.
+ *
+ * @return string Modified HTML.
+ */
+function gutenberg_add_crossorigin_attributes( string $html ): string {
+	$site_url = site_url();
+
+	$processor = new WP_HTML_Tag_Processor( $html );
+
+	// See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin.
+	$tags = array(
+		'AUDIO'  => 'src',
+		'IMG'    => 'src',
+		'LINK'   => 'href',
+		'SCRIPT' => 'src',
+		'VIDEO'  => 'src',
+		'SOURCE' => 'src',
+	);
+
+	$tag_names = array_keys( $tags );
+
+	while ( $processor->next_tag() ) {
+		$tag = $processor->get_tag();
+
+		if ( ! in_array( $tag, $tag_names, true ) ) {
+			continue;
+		}
+
+		if ( 'AUDIO' === $tag || 'VIDEO' === $tag ) {
+			$processor->set_bookmark( 'audio-video-parent' );
+		}
+
+		$processor->set_bookmark( 'resume' );
+
+		$sought = false;
+
+		$crossorigin = $processor->get_attribute( 'crossorigin' );
+
+		$url = $processor->get_attribute( $tags[ $tag ] );
+
+		if ( is_string( $url ) && ! str_starts_with( $url, $site_url ) && ! str_starts_with( $url, '/' ) && ! is_string( $crossorigin ) ) {
+			if ( 'SOURCE' === $tag ) {
+				$sought = $processor->seek( 'audio-video-parent' );
+
+				if ( $sought ) {
+					$processor->set_attribute( 'crossorigin', 'anonymous' );
+				}
+			} else {
+				$processor->set_attribute( 'crossorigin', 'anonymous' );
+			}
+
+			if ( $sought ) {
+				$processor->seek( 'resume' );
+				$processor->release_bookmark( 'audio-video-parent' );
+			}
+		}
+	}
+
+	return $processor->get_updated_html();
+}
+
+/**
+ * Overrides templates from wp_print_media_templates with custom ones.
+ *
+ * Adds `crossorigin` attribute to all tags that
+ * could have assets loaded from a different domain.
+ */
+function gutenberg_override_media_templates(): void {
+	remove_action( 'admin_footer', 'wp_print_media_templates' );
+	add_action(
+		'admin_footer',
+		static function (): void {
+			ob_start();
+			wp_print_media_templates();
+			$html = (string) ob_get_clean();
+
+			$tags = array(
+				'audio',
+				'img',
+				'video',
+			);
+
+			foreach ( $tags as $tag ) {
+				$html = (string) str_replace( "<$tag", "<$tag crossorigin=\"anonymous\"", $html );
+			}
+
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
+	);
+}
+
+add_action( 'wp_enqueue_media', 'gutenberg_override_media_templates' );

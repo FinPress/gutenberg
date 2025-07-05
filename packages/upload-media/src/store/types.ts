@@ -1,15 +1,10 @@
-/**
- * Internal dependencies
- */
-import type { MeasureOptions } from '../utils';
-
 export type QueueItemId = string;
 
 export type QueueStatus = 'active' | 'paused';
 
 export type BatchId = string;
 
-export type QueueItem = {
+export interface QueueItem {
 	id: QueueItemId;
 	sourceFile: File;
 	file: File;
@@ -26,13 +21,9 @@ export type QueueItem = {
 	error?: Error;
 	batchId?: string;
 	sourceUrl?: string;
-	sourceAttachmentId?: number; // TODO: implement.
-	generatedPosterId?: number;
-	parentId?: QueueItemId;
+	sourceAttachmentId?: number;
 	abortController?: AbortController;
-	startTime?: number;
-	timings?: MeasureOptions[];
-};
+}
 
 export interface State {
 	queue: QueueItem[];
@@ -51,7 +42,6 @@ export enum Type {
 	ResumeItem = 'RESUME_ITEM',
 	PauseQueue = 'PAUSE_QUEUE',
 	ResumeQueue = 'RESUME_QUEUE',
-	ApproveUpload = 'APPROVE_UPLOAD',
 	OperationStart = 'OPERATION_START',
 	OperationFinish = 'OPERATION_FINISH',
 	AddOperations = 'ADD_OPERATIONS',
@@ -86,10 +76,6 @@ export type OperationFinishAction = Action<
 export type AddOperationsAction = Action<
 	Type.AddOperations,
 	{ id: QueueItemId; operations: Operation[] }
->;
-export type ApproveUploadAction = Action<
-	Type.ApproveUpload,
-	{ id: QueueItemId }
 >;
 export type CancelAction = Action<
 	Type.Cancel,
@@ -134,30 +120,17 @@ interface UploadMediaArgs {
 	signal?: AbortSignal;
 }
 
-interface SideloadMediaArgs {
-	// Additional data to include in the request.
-	additionalData?: SideloadAdditionalData;
-	// File to sideload.
-	file: File;
-	// Attachment ID.
-	attachmentId: number;
-	// Function called when an error happens.
-	onError?: OnErrorHandler;
-	// Function called each time a file or a temporary representation of the file is available.
-	onFileChange?: OnChangeHandler;
-	// Abort signal.
-	signal?: AbortSignal;
+export interface Settings {
+	// Function for uploading files to the server.
+	mediaUpload: ( args: UploadMediaArgs ) => void;
+	// List of allowed mime types and file extensions.
+	allowedMimeTypes?: Record< string, string > | null;
+	// Maximum upload file size
+	maxUploadFileSize?: number;
 }
 
-export type Settings = {
-	mediaUpload: ( args: UploadMediaArgs ) => void;
-	mediaSideload: ( args: SideloadMediaArgs ) => void;
-	imageSizes: Record< string, ImageSizeCrop >;
-	imageSizeThreshold: number;
-};
-
 // Must match the Attachment type from the media-utils package.
-export type Attachment = {
+export interface Attachment {
 	id: number;
 	alt: string;
 	caption: string;
@@ -170,7 +143,7 @@ export type Attachment = {
 	featured_media?: number;
 	missing_image_sizes?: string[];
 	poster?: string;
-};
+}
 
 export type OnChangeHandler = ( attachments: Partial< Attachment >[] ) => void;
 export type OnSuccessHandler = ( attachments: Partial< Attachment >[] ) => void;
@@ -180,42 +153,14 @@ export type OnBatchSuccessHandler = () => void;
 export enum ItemStatus {
 	Processing = 'PROCESSING',
 	Paused = 'PAUSED',
-	PendingApproval = 'PENDING_APPROVAL',
 }
 
 export enum OperationType {
 	Prepare = 'PREPARE',
-	AddPoster = 'ADD_POSTER',
-	UploadOriginal = 'UPLOAD_ORIGINAL',
-	ThumbnailGeneration = 'THUMBNAIL_GENERATION',
-	ResizeCrop = 'RESIZE_CROP',
-	TranscodeVideo = 'TRANSCODE_VIDEO',
-	TranscodeImage = 'TRANSCODE_IMAGE',
-	MuteVideo = 'TRANSCODE_MUTE_VIDEO',
-	Compress = 'TRANSCODE_COMPRESS',
-	FetchRemoteFile = 'FETCH_REMOTE_FILE',
 	Upload = 'UPLOAD',
 }
 
-export type OperationArgs = {
-	[ OperationType.Compress ]: {
-		requireApproval?: boolean;
-	};
-	[ OperationType.FetchRemoteFile ]: {
-		url: string;
-		fileName: string;
-		newFileName?: string;
-		skipAttachment?: boolean;
-	};
-	[ OperationType.TranscodeImage ]: {
-		requireApproval?: boolean;
-		outputFormat?: ImageFormat;
-		outputQuality?: number;
-		interlaced?: boolean;
-	};
-	[ OperationType.ResizeCrop ]: { resize?: ImageSizeCrop };
-	[ OperationType.TranscodeVideo ]: { continueOnError?: true };
-};
+export interface OperationArgs {}
 
 type OperationWithArgs< T extends keyof OperationArgs = keyof OperationArgs > =
 	[ T, OperationArgs[ T ] ];
@@ -223,16 +168,5 @@ type OperationWithArgs< T extends keyof OperationArgs = keyof OperationArgs > =
 export type Operation = OperationType | OperationWithArgs;
 
 export type AdditionalData = Record< string, unknown >;
-
-export type SideloadAdditionalData = Record< string, unknown >;
-
-export type ImageSizeCrop = {
-	name?: string; // Only set if dealing with sub-sizes, not for general cropping.
-	width: number;
-	height: number;
-	crop?:
-		| boolean
-		| [ 'left' | 'center' | 'right', 'top' | 'center' | 'bottom' ];
-};
 
 export type ImageFormat = 'jpeg' | 'webp' | 'avif' | 'png' | 'gif';

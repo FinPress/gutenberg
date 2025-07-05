@@ -4,17 +4,13 @@
 import {
 	type AddAction,
 	type AddOperationsAction,
-	type ApproveUploadAction,
 	type CacheBlobUrlAction,
 	type CancelAction,
-	ItemStatus,
 	type OperationFinishAction,
 	type OperationStartAction,
-	type PauseItemAction,
 	type PauseQueueAction,
 	type QueueItem,
 	type RemoveAction,
-	type ResumeItemAction,
 	type ResumeQueueAction,
 	type RevokeBlobUrlsAction,
 	type State,
@@ -31,9 +27,6 @@ const DEFAULT_STATE: State = {
 	blobUrls: {},
 	settings: {
 		mediaUpload: noop,
-		mediaSideload: noop,
-		imageSizes: {},
-		imageSizeThreshold: 9999,
 	},
 };
 
@@ -41,12 +34,9 @@ type Action =
 	| AddAction
 	| RemoveAction
 	| CancelAction
-	| PauseItemAction
-	| ResumeItemAction
 	| PauseQueueAction
 	| ResumeQueueAction
 	| AddOperationsAction
-	| ApproveUploadAction
 	| OperationFinishAction
 	| OperationStartAction
 	| CacheBlobUrlAction
@@ -97,34 +87,6 @@ function reducer(
 			return {
 				...state,
 				queue: state.queue.filter( ( item ) => item.id !== action.id ),
-			};
-
-		case Type.PauseItem:
-			return {
-				...state,
-				queue: state.queue.map(
-					( item ): QueueItem =>
-						item.id === action.id
-							? {
-									...item,
-									status: ItemStatus.Paused,
-							  }
-							: item
-				),
-			};
-
-		case Type.ResumeItem:
-			return {
-				...state,
-				queue: state.queue.map(
-					( item ): QueueItem =>
-						item.id === action.id
-							? {
-									...item,
-									status: ItemStatus.Processing,
-							  }
-							: item
-				),
 			};
 
 		case Type.OperationStart: {
@@ -191,26 +153,8 @@ function reducer(
 							...item.additionalData,
 							...action.item.additionalData,
 						},
-						timings: [
-							...( item.timings || [] ),
-							...( action.item.timings || [] ),
-						],
 					};
 				} ),
-			};
-
-		case Type.ApproveUpload:
-			return {
-				...state,
-				queue: state.queue.map(
-					( item ): QueueItem =>
-						item.id === action.id
-							? {
-									...item,
-									status: ItemStatus.Processing,
-							  }
-							: item
-				),
 			};
 
 		case Type.CacheBlobUrl: {

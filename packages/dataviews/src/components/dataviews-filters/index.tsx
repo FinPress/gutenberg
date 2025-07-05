@@ -7,42 +7,41 @@ import {
 	useRef,
 	useMemo,
 	useCallback,
+	useEffect,
 } from '@wordpress/element';
 import { __experimentalHStack as HStack, Button } from '@wordpress/components';
 import { funnel } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
-import FilterSummary from './filter-summary';
-import { default as AddFilter, AddFilterDropdownMenu } from './add-filter';
+import Filter from './filter';
+import { default as AddFilter, AddFilterMenu } from './add-filter';
 import ResetFilters from './reset-filters';
 import DataViewsContext from '../dataviews-context';
-import { sanitizeOperators } from '../../utils';
-import { ALL_OPERATORS, OPERATOR_IS, OPERATOR_IS_NOT } from '../../constants';
+import { ALL_OPERATORS, SINGLE_SELECTION_OPERATORS } from '../../constants';
 import type { NormalizedFilter, NormalizedField, View } from '../../types';
 
 export function useFilters( fields: NormalizedField< any >[], view: View ) {
 	return useMemo( () => {
 		const filters: NormalizedFilter[] = [];
 		fields.forEach( ( field ) => {
-			if ( ! field.elements?.length ) {
+			if (
+				field.filterBy === false ||
+				( ! field.elements?.length && ! field.Edit )
+			) {
 				return;
 			}
 
-			const operators = sanitizeOperators( field );
-			if ( operators.length === 0 ) {
-				return;
-			}
-
+			const operators = field.filterBy.operators;
 			const isPrimary = !! field.filterBy?.isPrimary;
 			filters.push( {
 				field: field.id,
 				name: field.label,
-				elements: field.elements,
+				elements: field.elements ?? [],
 				singleSelection: operators.some( ( op ) =>
-					[ OPERATOR_IS, OPERATOR_IS_NOT ].includes( op )
+					SINGLE_SELECTION_OPERATORS.includes( op )
 				),
 				operators,
 				isVisible:
@@ -70,21 +69,17 @@ export function useFilters( fields: NormalizedField< any >[], view: View ) {
 	}, [ fields, view ] );
 }
 
-export function FilterVisibilityToggle( {
-	filters,
-	view,
-	onChangeView,
-	setOpenedFilter,
-	isShowingFilter,
-	setIsShowingFilter,
-}: {
-	filters: NormalizedFilter[];
-	view: View;
-	onChangeView: ( view: View ) => void;
-	setOpenedFilter: ( filter: string | null ) => void;
-	isShowingFilter: boolean;
-	setIsShowingFilter: React.Dispatch< React.SetStateAction< boolean > >;
-} ) {
+export function FiltersToggle() {
+	const {
+		filters,
+		view,
+		onChangeView,
+		setOpenedFilter,
+		isShowingFilter,
+		setIsShowingFilter,
+	} = useContext( DataViewsContext );
+
+	const buttonRef = useRef< HTMLButtonElement >( null );
 	const onChangeViewWithFilterVisibility = useCallback(
 		( _view: View ) => {
 			onChangeView( _view );
@@ -95,52 +90,88 @@ export function FilterVisibilityToggle( {
 	const visibleFilters = filters.filter( ( filter ) => filter.isVisible );
 
 	const hasVisibleFilters = !! visibleFilters.length;
-	if ( ! hasVisibleFilters ) {
-		return (
-			<AddFilterDropdownMenu
-				filters={ filters }
-				view={ view }
-				onChangeView={ onChangeViewWithFilterVisibility }
-				setOpenedFilter={ setOpenedFilter }
-				trigger={
-					<Button
-						className="dataviews-filters__visibility-toggle"
-						size="compact"
-						icon={ funnel }
-						label={ __( 'Add filter' ) }
-						isPressed={ false }
-						aria-expanded={ false }
-					/>
-				}
-			/>
-		);
+	if ( filters.length === 0 ) {
+		return null;
 	}
+
+	const addFilterButtonProps = {
+		label: __( 'Add filter' ),
+		'aria-expanded': false,
+		isPressed: false,
+	};
+	const toggleFiltersButtonProps = {
+		label: _x( 'Filter', 'verb' ),
+		'aria-expanded': isShowingFilter,
+		isPressed: isShowingFilter,
+		onClick: () => {
+			if ( ! isShowingFilter ) {
+				setOpenedFilter( null );
+			}
+			setIsShowingFilter( ! isShowingFilter );
+		},
+	};
+	const buttonComponent = (
+		<Button
+			ref={ buttonRef }
+			className="dataviews-filters__visibility-toggle"
+			size="compact"
+			icon={ funnel }
+			{ ...( hasVisibleFilters
+				? toggleFiltersButtonProps
+				: addFilterButtonProps ) }
+		/>
+	);
 	return (
 		<div className="dataviews-filters__container-visibility-toggle">
-			<Button
-				className="dataviews-filters__visibility-toggle"
-				size="compact"
-				icon={ funnel }
-				label={ __( 'Toggle filter display' ) }
-				onClick={ () => {
-					if ( ! isShowingFilter ) {
-						setOpenedFilter( null );
-					}
-					setIsShowingFilter( ! isShowingFilter );
-				} }
-				isPressed={ isShowingFilter }
-				aria-expanded={ isShowingFilter }
-			/>
-			{ hasVisibleFilters && !! view.filters?.length && (
-				<span className="dataviews-filters-toggle__count">
-					{ view.filters?.length }
-				</span>
+			{ ! hasVisibleFilters ? (
+				<AddFilterMenu
+					filters={ filters }
+					view={ view }
+					onChangeView={ onChangeViewWithFilterVisibility }
+					setOpenedFilter={ setOpenedFilter }
+					triggerProps={ { render: buttonComponent } }
+				/>
+			) : (
+				<FilterVisibilityToggle
+					buttonRef={ buttonRef }
+					filtersCount={ view.filters?.length }
+				>
+					{ buttonComponent }
+				</FilterVisibilityToggle>
 			) }
 		</div>
 	);
 }
 
-function Filters() {
+function FilterVisibilityToggle( {
+	buttonRef,
+	filtersCount,
+	children,
+}: {
+	buttonRef: React.RefObject< HTMLButtonElement >;
+	filtersCount?: number;
+	children: React.ReactNode;
+} ) {
+	// Focus the `add filter` button when unmounts.
+	useEffect(
+		() => () => {
+			buttonRef.current?.focus();
+		},
+		[ buttonRef ]
+	);
+	return (
+		<>
+			{ children }
+			{ !! filtersCount && (
+				<span className="dataviews-filters-toggle__count">
+					{ filtersCount }
+				</span>
+			) }
+		</>
+	);
+}
+
+function Filters( { className }: { className?: string } ) {
 	const { fields, view, onChangeView, openedFilter, setOpenedFilter } =
 		useContext( DataViewsContext );
 	const addFilterRef = useRef< HTMLButtonElement >( null );
@@ -162,10 +193,11 @@ function Filters() {
 	const filterComponents = [
 		...visibleFilters.map( ( filter ) => {
 			return (
-				<FilterSummary
+				<Filter
 					key={ filter.field }
 					filter={ filter }
 					view={ view }
+					fields={ fields }
 					onChangeView={ onChangeView }
 					addFilterRef={ addFilterRef }
 					openedFilter={ openedFilter }
@@ -188,8 +220,8 @@ function Filters() {
 		<HStack
 			justify="flex-start"
 			style={ { width: 'fit-content' } }
-			className="dataviews-filters__container"
 			wrap
+			className={ className }
 		>
 			{ filterComponents }
 		</HStack>

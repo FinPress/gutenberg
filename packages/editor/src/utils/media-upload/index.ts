@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid';
  * WordPress dependencies
  */
 import { select, dispatch } from '@wordpress/data';
+import { store as coreDataStore } from '@wordpress/core-data';
 import { uploadMedia } from '@wordpress/media-utils';
 
 /**
@@ -27,17 +28,20 @@ const noop = () => {};
  * @param {?number}  $0.maxUploadFileSize Maximum upload size in bytes allowed for the site.
  * @param {Function} $0.onError           Function called when an error happens.
  * @param {Function} $0.onFileChange      Function called each time a file or a temporary representation of the file is available.
- * @param            $0.signal
+ * @param {Function} $0.onSuccess         Function called after the final representation of the file is available.
+ * @param {boolean}  $0.multiple          Whether to allow multiple files to be uploaded.
  */
-export default function editorUploadMedia( {
-	allowedTypes,
+export default function mediaUpload( {
 	additionalData = {},
+	allowedTypes,
 	filesList,
 	maxUploadFileSize,
 	onError = noop,
 	onFileChange,
-	signal,
-}: Parameters< typeof uploadMedia >[ 0 ] ) {
+	onSuccess,
+	multiple = true,
+} ) {
+	const { receiveEntityRecords } = dispatch( coreDataStore );
 	const { getCurrentPost, getEditorSettings } = select( editorStore );
 	const {
 		lockPostAutosaving,
@@ -46,25 +50,24 @@ export default function editorUploadMedia( {
 		unlockPostSaving,
 	} = dispatch( editorStore );
 
-	// @ts-ignore
 	const wpAllowedMimeTypes = getEditorSettings().allowedMimeTypes;
 	const lockKey = `image-upload-${ uuid() }`;
 	let imageIsUploading = false;
-	maxUploadFileSize = // @ts-ignore
+	maxUploadFileSize =
 		maxUploadFileSize || getEditorSettings().maxUploadFileSize;
-
 	const currentPost = getCurrentPost();
 	// Templates and template parts' numerical ID is stored in `wp_id`.
 	const currentPostId =
-		currentPost && 'wp_id' in currentPost
-			? currentPost.wp_id
-			: currentPost?.id;
-	const postData = currentPostId ? { post: currentPostId } : {};
+		typeof currentPost?.id === 'number'
+			? currentPost.id
+			: currentPost?.wp_id;
 	const setSaveLock = () => {
 		lockPostSaving( lockKey );
 		lockPostAutosaving( lockKey );
 		imageIsUploading = true;
 	};
+
+	const postData = currentPostId ? { post: currentPostId } : {};
 	const clearSaveLock = () => {
 		unlockPostSaving( lockKey );
 		unlockPostAutosaving( lockKey );
@@ -74,21 +77,40 @@ export default function editorUploadMedia( {
 	uploadMedia( {
 		allowedTypes,
 		filesList,
-		onFileChange: ( media ) => {
+		onFileChange: ( file ) => {
 			if ( ! imageIsUploading ) {
 				setSaveLock();
 			} else {
 				clearSaveLock();
 			}
-			onFileChange?.( media );
+			onFileChange?.( file );
+
+			// Files are initially received by `onFileChange` as a blob.
+			// After that the function is called a second time with the file as an entity.
+			// For core-data, we only care about receiving/invalidating entities.
+			const entityFiles = file.filter( ( _file ) => _file?.id );
+			if ( entityFiles?.length ) {
+				const invalidateCache = true;
+				receiveEntityRecords(
+					'root',
+					'media',
+					entityFiles,
+					undefined,
+					invalidateCache
+				);
+			}
 		},
+		onSuccess,
 		additionalData: {
 			...postData,
 			...additionalData,
 		},
 		maxUploadFileSize,
-		onError,
+		onError: ( { message } ) => {
+			clearSaveLock();
+			onError( message );
+		},
 		wpAllowedMimeTypes,
-		signal,
+		multiple,
 	} );
 }

@@ -178,10 +178,7 @@ interface WP_REST_API_Attachment {
 /**
  * REST API attachment object with additional fields added by this project.
  */
-export interface RestAttachment extends WP_REST_API_Attachment {
-	filename: string | null;
-	filesize: number | null;
-}
+export interface RestAttachment extends WP_REST_API_Attachment {}
 
 type BetterOmit< T, K extends PropertyKey > = {
 	[ P in keyof T as P extends K ? never : P ]: T[ P ];
@@ -202,22 +199,18 @@ export type Attachment = BetterOmit<
 };
 
 export type OnChangeHandler = ( attachments: Partial< Attachment >[] ) => void;
-export type OnSuccessHandler = ( attachments: Partial< Attachment >[] ) => void;
 export type OnErrorHandler = ( error: Error ) => void;
 
-export type CreateRestAttachment = Partial< RestAttachment > & {
-	generate_sub_sizes?: boolean;
-};
+export type CreateRestAttachment = Partial< RestAttachment >;
 
 export type AdditionalData = BetterOmit< CreateRestAttachment, 'meta' >;
 
-export type CreateSideloadFile = {
+export interface CreateSideloadFile {
 	image_size?: string;
 	upload_request?: string;
-};
+}
 
-export type SideloadAdditionalData = {
+export interface SideloadAdditionalData {
 	post: RestAttachment[ 'id' ];
 	image_size?: string;
-	upload_request?: string;
-};
+}

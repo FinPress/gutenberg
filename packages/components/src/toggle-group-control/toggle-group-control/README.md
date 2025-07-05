@@ -25,6 +25,7 @@ function Example() {
 			value="vertical"
 			isBlock
 			__nextHasNoMarginBottom
+			__next40pxDefaultSize
 		>
 			<ToggleGroupControlOption value="horizontal" label="Horizontal" />
 			<ToggleGroupControlOption value="vertical" label="Vertical" />
@@ -87,6 +88,13 @@ Callback when a segment is selected.
 The value of the `ToggleGroupControl`.
 
 -   Required: No
+
+### `__next40pxDefaultSize`: `boolean`
+
+Start opting into the larger default height that will become the default size in a future version.
+
+-   Required: No
+-   Default: `false`
 
 ### `__nextHasNoMarginBottom`: `boolean`
 

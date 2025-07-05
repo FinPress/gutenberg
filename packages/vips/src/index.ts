@@ -1,54 +1,77 @@
 /**
  * External dependencies
  */
-const Vips = require( 'wasm-vips' ) as (
-	config?: Parameters< typeof VipsInstance >[ 0 ]
-) => Promise< NonNullable< typeof VipsInstance > >;
-import type VipsInstance from 'wasm-vips';
+import Vips from 'wasm-vips';
 
-/**
- * WordPress dependencies
- */
-import { getExtensionFromMimeType } from '@wordpress/mime';
+// @ts-expect-error
+// eslint-disable-next-line import/no-unresolved
+import VipsModule from 'wasm-vips/vips.wasm';
+
+// @ts-expect-error
+// eslint-disable-next-line import/no-unresolved
+import VipsHeifModule from 'wasm-vips/vips-heif.wasm';
+
+// @ts-expect-error
+// eslint-disable-next-line import/no-unresolved
+import VipsJxlModule from 'wasm-vips/vips-jxl.wasm';
 
 /**
  * Internal dependencies
  */
 import type {
+	ItemId,
 	ImageSizeCrop,
 	LoadOptions,
 	SaveOptions,
 	ThumbnailOptions,
 } from './types';
+import { supportsAnimation, supportsInterlace, supportsQuality } from './utils';
 
-type EmscriptenModule = {
+interface EmscriptenModule {
 	setAutoDeleteLater: ( autoDelete: boolean ) => void;
 	setDelayFunction: ( fn: ( fn: () => void ) => void ) => void;
-};
+}
+
+let location = '';
+
+/**
+ * Dynamically sets the location / public path to use for loading the WASM files.
+ *
+ * This is required when loading this module in an inline worker,
+ * where globals such as __webpack_public_path__ are not available.
+ *
+ * @param newLocation Location, typically a base URL such as "https://example.com/path/to/js/...".
+ */
+export function setLocation( newLocation: string ) {
+	location = newLocation;
+}
 
 let cleanup: () => void;
 
-let vipsInstance: typeof VipsInstance;
-
-type ItemId = string;
+let vipsInstance: typeof Vips;
 
 /**
  * Instantiates and returns a new vips instance.
  *
  * Reuses any existing instance.
  */
-async function getVips(): Promise< typeof VipsInstance > {
+async function getVips(): Promise< typeof Vips > {
 	if ( vipsInstance ) {
 		return vipsInstance;
 	}
 
-	const mainBlobUrl = URL.createObjectURL(
-		await ( await fetch( `${ VIPS_CDN_URL }/vips.js` ) ).blob()
-	);
-
 	vipsInstance = await Vips( {
-		locateFile: ( fileName: string ) => `${ VIPS_CDN_URL }/${ fileName }`,
-		mainScriptUrlOrBlob: mainBlobUrl,
+		locateFile: ( fileName: string ) => {
+			if ( fileName.endsWith( 'vips.wasm' ) ) {
+				fileName = VipsModule;
+			} else if ( fileName.endsWith( 'vips-heif.wasm' ) ) {
+				fileName = VipsHeifModule;
+			} else if ( fileName.endsWith( 'vips-jxl.wasm' ) ) {
+				fileName = VipsJxlModule;
+			}
+
+			return location + fileName;
+		},
 		preRun: ( module: EmscriptenModule ) => {
 			// https://github.com/kleisauke/wasm-vips/issues/13#issuecomment-1073246828
 			module.setAutoDeleteLater( true );
@@ -62,51 +85,18 @@ async function getVips(): Promise< typeof VipsInstance > {
 }
 
 /**
- * Determines whether a given file type supports a quality setting,
+ * Holds a list of ongoing operations for a given ID.
  *
- * @todo Make this smarter.
- *
- * @param type Mime type.
- * @return Whether the file supports a quality setting.
+ * This way, operations can be cancelled mid-progress.
  */
-function supportsQuality(
-	type: string
-): type is 'image/jpeg' | 'image/png' | 'image/webp' | 'image/avif' {
-	return [ 'image/jpeg', 'image/png', 'image/webp', 'image/avif' ].includes(
-		type
-	);
-}
-
-/**
- * Determines whether a given file type supports animation,
- *
- * @todo Make this smarter.
- *
- * @param type Mime type.
- * @return Whether the file supports animation.
- */
-function supportsAnimation( type: string ): type is 'image/webp' | 'image/gif' {
-	return [ 'image/webp', 'image/gif' ].includes( type );
-}
-
-/**
- * Determines whether a given file type supports interlaced/progressive output.
- *
- * @todo Make this smarter.
- *
- * @param type Mime type.
- * @return Whether the file supports interlaced/progressive output.
- */
-function supportsInterlace(
-	type: string
-): type is 'image/jpeg' | 'image/gif' | 'image/png' {
-	return [ 'image/jpeg', 'image/gif', 'image/png' ].includes( type );
-}
-
 const inProgressOperations = new Set< ItemId >();
 
 /**
  * Cancels all ongoing image operations for a given item ID.
+ *
+ * The onProgress callbacks check for an IDs existence in this list,
+ * killing the process if it's absent.
+ *
  * @param id Item ID.
  * @return boolean Whether any operation was cancelled.
  */
@@ -123,6 +113,7 @@ export async function cancelOperations( id: ItemId ) {
  * @param outputType Output mime type.
  * @param quality    Desired quality.
  * @param interlaced Whether to use interlaced/progressive mode.
+ *                   Only used if the outputType supports it.
  */
 export async function convertImageFormat(
 	id: ItemId,
@@ -131,12 +122,8 @@ export async function convertImageFormat(
 	outputType: string,
 	quality = 0.82,
 	interlaced = false
-): Promise< ArrayBuffer > {
-	const ext = getExtensionFromMimeType( outputType );
-
-	if ( ! ext ) {
-		throw new Error( 'Unsupported file type' );
-	}
+): Promise< ArrayBuffer | ArrayBufferLike > {
+	const ext = outputType.split( '/' )[ 1 ];
 
 	inProgressOperations.add( id );
 
@@ -152,6 +139,7 @@ export async function convertImageFormat(
 	const vips = await getVips();
 	const image = vips.Image.newFromBuffer( buffer, strOptions, loadOptions );
 
+	// TODO: Report progress, see https://github.com/swissspidy/media-experiments/issues/327.
 	image.onProgress = () => {
 		if ( ! inProgressOperations.has( id ) ) {
 			image.kill = true;
@@ -182,29 +170,6 @@ export async function convertImageFormat(
 }
 
 /**
- * Determines whether a given file type is supported by vips.
- *
- * @param type Mime type.
- * @return Whether the file type is supported.
- */
-function isFileTypeSupported(
-	type: string
-): type is
-	| 'image/jpeg'
-	| 'image/png'
-	| 'image/webp'
-	| 'image/avif'
-	| 'image/gif' {
-	return [
-		'image/jpeg',
-		'image/png',
-		'image/webp',
-		'image/avif',
-		'image/gif',
-	].includes( type );
-}
-
-/**
  * Compresses an existing image using vips.
  *
  * @param id         Item ID.
@@ -212,6 +177,7 @@ function isFileTypeSupported(
  * @param type       Mime type.
  * @param quality    Desired quality.
  * @param interlaced Whether to use interlaced/progressive mode.
+ *                   Only used if the outputType supports it.
  * @return Compressed file data.
  */
 export async function compressImage(
@@ -220,10 +186,7 @@ export async function compressImage(
 	type: string,
 	quality = 0.82,
 	interlaced = false
-): Promise< ArrayBuffer > {
-	if ( ! isFileTypeSupported( type ) ) {
-		throw new Error( 'Unsupported file type' );
-	}
+): Promise< ArrayBuffer | ArrayBufferLike > {
 	return convertImageFormat( id, buffer, type, type, quality, interlaced );
 }
 
@@ -244,17 +207,13 @@ export async function resizeImage(
 	resize: ImageSizeCrop,
 	smartCrop = false
 ): Promise< {
-	buffer: ArrayBuffer;
+	buffer: ArrayBuffer | ArrayBufferLike;
 	width: number;
 	height: number;
 	originalWidth: number;
 	originalHeight: number;
 } > {
-	const ext = getExtensionFromMimeType( type );
-
-	if ( ! ext ) {
-		throw new Error( 'Unsupported file type' );
-	}
+	const ext = type.split( '/' )[ 1 ];
 
 	inProgressOperations.add( id );
 
@@ -273,17 +232,15 @@ export async function resizeImage(
 		thumbnailOptions.option_string = strOptions;
 		( loadOptions as LoadOptions< typeof type > ).n = -1;
 	}
+
+	// TODO: Report progress, see https://github.com/swissspidy/media-experiments/issues/327.
 	const onProgress = () => {
 		if ( ! inProgressOperations.has( id ) ) {
 			image.kill = true;
 		}
 	};
 
-	let image = vips.Image.newFromBuffer(
-		new Uint8Array( buffer ),
-		strOptions,
-		loadOptions
-	);
+	let image = vips.Image.newFromBuffer( buffer, strOptions, loadOptions );
 
 	image.onProgress = onProgress;
 
@@ -297,7 +254,7 @@ export async function resizeImage(
 
 	if ( ! resize.crop ) {
 		image = vips.Image.thumbnailBuffer(
-			new Uint8Array( buffer ),
+			buffer,
 			resizeWidth,
 			thumbnailOptions
 		);
@@ -307,7 +264,7 @@ export async function resizeImage(
 		thumbnailOptions.crop = smartCrop ? 'attention' : 'centre';
 
 		image = vips.Image.thumbnailBuffer(
-			new Uint8Array( buffer ),
+			buffer,
 			resizeWidth,
 			thumbnailOptions
 		);
@@ -338,7 +295,7 @@ export async function resizeImage(
 		}
 
 		image = vips.Image.thumbnailBuffer(
-			new Uint8Array( buffer ),
+			buffer,
 			resizeWidth,
 			thumbnailOptions
 		);

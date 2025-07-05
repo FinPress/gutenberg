@@ -9,10 +9,11 @@ import clsx from 'clsx';
 import { isBlobURL } from '@wordpress/blob';
 import {
 	Disabled,
-	PanelBody,
 	SelectControl,
 	Spinner,
 	ToggleControl,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import {
 	BlockControls,
@@ -32,7 +33,10 @@ import { useState } from '@wordpress/element';
  * Internal dependencies
  */
 import { createUpgradedEmbedBlock } from '../embed/util';
-import { useUploadMediaFromBlobURL } from '../utils/hooks';
+import {
+	useUploadMediaFromBlobURL,
+	useToolsPanelDropdownMenuProps,
+} from '../utils/hooks';
 import { Caption } from '../utils/caption';
 
 const ALLOWED_MEDIA_TYPES = [ 'audio' ];
@@ -126,6 +130,7 @@ function AudioEdit( {
 	const blockProps = useBlockProps( {
 		className: classes,
 	} );
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	if ( ! src && ! temporaryURL ) {
 		return (
@@ -155,51 +160,99 @@ function AudioEdit( {
 						onSelect={ onSelectAudio }
 						onSelectURL={ onSelectURL }
 						onError={ onUploadError }
+						onReset={ () => onSelectAudio( undefined ) }
 					/>
 				</BlockControls>
 			) }
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings' ) }>
-					<ToggleControl
-						__nextHasNoMarginBottom
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ () => {
+						setAttributes( {
+							autoplay: false,
+							loop: false,
+							preload: undefined,
+						} );
+					} }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
+					<ToolsPanelItem
 						label={ __( 'Autoplay' ) }
-						onChange={ toggleAttribute( 'autoplay' ) }
-						checked={ autoplay }
-						help={ getAutoplayHelp }
-					/>
-					<ToggleControl
-						__nextHasNoMarginBottom
-						label={ __( 'Loop' ) }
-						onChange={ toggleAttribute( 'loop' ) }
-						checked={ loop }
-					/>
-					<SelectControl
-						__nextHasNoMarginBottom
-						label={ _x( 'Preload', 'noun; Audio block parameter' ) }
-						value={ preload || '' }
-						// `undefined` is required for the preload attribute to be unset.
-						onChange={ ( value ) =>
+						isShownByDefault
+						hasValue={ () => !! autoplay }
+						onDeselect={ () =>
 							setAttributes( {
-								preload: value || undefined,
+								autoplay: false,
 							} )
 						}
-						options={ [
-							{ value: '', label: __( 'Browser default' ) },
-							{ value: 'auto', label: __( 'Auto' ) },
-							{ value: 'metadata', label: __( 'Metadata' ) },
-							{
-								value: 'none',
-								label: _x( 'None', 'Preload value' ),
-							},
-						] }
-					/>
-				</PanelBody>
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={ __( 'Autoplay' ) }
+							onChange={ toggleAttribute( 'autoplay' ) }
+							checked={ !! autoplay }
+							help={ getAutoplayHelp }
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						label={ __( 'Loop' ) }
+						isShownByDefault
+						hasValue={ () => !! loop }
+						onDeselect={ () =>
+							setAttributes( {
+								loop: false,
+							} )
+						}
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={ __( 'Loop' ) }
+							onChange={ toggleAttribute( 'loop' ) }
+							checked={ !! loop }
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						label={ __( 'Preload' ) }
+						isShownByDefault
+						hasValue={ () => !! preload }
+						onDeselect={ () =>
+							setAttributes( {
+								preload: undefined,
+							} )
+						}
+					>
+						<SelectControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ _x(
+								'Preload',
+								'noun; Audio block parameter'
+							) }
+							value={ preload || '' }
+							// `undefined` is required for the preload attribute to be unset.
+							onChange={ ( value ) =>
+								setAttributes( {
+									preload: value || undefined,
+								} )
+							}
+							options={ [
+								{ value: '', label: __( 'Browser default' ) },
+								{ value: 'auto', label: __( 'Auto' ) },
+								{ value: 'metadata', label: __( 'Metadata' ) },
+								{
+									value: 'none',
+									label: _x( 'None', 'Preload value' ),
+								},
+							] }
+						/>
+					</ToolsPanelItem>
+				</ToolsPanel>
 			</InspectorControls>
 			<figure { ...blockProps }>
 				{ /*
-					Disable the audio tag if the block is not selected
-					so the user clicking on it won't play the
-					file or change the position slider when the controls are enabled.
+				Disable the audio tag if the block is not selected
+				so the user clicking on it won't play the
+				file or change the position slider when the controls are enabled.
 				*/ }
 				<Disabled isDisabled={ ! isSingleSelected }>
 					<audio controls="controls" src={ src ?? temporaryURL } />

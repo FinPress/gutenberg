@@ -359,7 +359,7 @@ _Parameters_
 -   _state_ `State`: State tree
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
--   _key_ `EntityRecordKey`: Record's key
+-   _key_ `EntityRecordKey`: Optional record's key. If requesting a global record (e.g. site settings), the key can be omitted. If requesting a specific item, the key must always be included.
 -   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available "Retrieve a [Entity kind]".
 
 _Returns_
@@ -772,7 +772,7 @@ _Parameters_
 
 -   _kind_ `string`: Kind of the deleted entity.
 -   _name_ `string`: Name of the deleted entity.
--   _recordId_ `string`: Record ID of the deleted entity.
+-   _recordId_ `number|string`: Record ID of the deleted entity.
 -   _query_ `?Object`: Special query parameters for the DELETE API call.
 -   _options_ `[Object]`: Delete options.
 -   _options.\_\_unstableFetch_ `[Function]`: Internal use only. Function to call instead of `apiFetch()`. Must return a promise.
@@ -878,7 +878,7 @@ _Returns_
 
 ### redo
 
-Action triggered to redo the last undoed edit to an entity record, if any.
+Action triggered to redo the last undone edit to an entity record, if any.
 
 ### saveEditedEntityRecord
 

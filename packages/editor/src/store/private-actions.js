@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { store as coreStore } from '@wordpress/core-data';
-import { __, sprintf } from '@wordpress/i18n';
+import { __, _x, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { store as preferencesStore } from '@wordpress/preferences';
@@ -34,7 +34,7 @@ export function setCurrentTemplateId( id ) {
 /**
  * Create a block based template.
  *
- * @param {Object?} template Template to create and assign.
+ * @param {?Object} template Template to create and assign.
  */
 export const createTemplate =
 	( template ) =>
@@ -137,7 +137,9 @@ export const saveDirtyEntities =
 			{ kind: 'postType', name: 'wp_navigation' },
 		];
 		const saveNoticeId = 'site-editor-save-success';
-		const homeUrl = registry.select( coreStore ).getUnstableBase()?.home;
+		const homeUrl = registry
+			.select( coreStore )
+			.getEntityRecord( 'root', '__unstableBase' )?.home;
 		registry.dispatch( noticesStore ).removeNotice( saveNoticeId );
 		const entitiesToSave = dirtyEntityRecords.filter(
 			( { kind, name, key, property } ) => {
@@ -214,6 +216,7 @@ export const saveDirtyEntities =
 								{
 									label: __( 'View site' ),
 									url: homeUrl,
+									openInNewTab: true,
 								},
 							],
 						} );
@@ -269,7 +272,7 @@ export const revertTemplate =
 
 			const fileTemplatePath = addQueryArgs(
 				`${ templateEntityConfig.baseURL }/${ template.id }`,
-				{ context: 'edit', source: 'theme' }
+				{ context: 'edit', source: template.origin }
 			);
 
 			const fileTemplate = await apiFetch( { path: fileTemplatePath } );
@@ -386,7 +389,7 @@ export const removeTemplates =
 			} )
 		);
 
-		// If all the promises were fulfilled with sucess.
+		// If all the promises were fulfilled with success.
 		if ( promiseResult.every( ( { status } ) => status === 'fulfilled' ) ) {
 			let successMessage;
 
@@ -408,8 +411,8 @@ export const removeTemplates =
 							decodeEntities( title )
 					  )
 					: sprintf(
-							/* translators: The template/part's name. */
-							__( '"%s" deleted.' ),
+							/* translators: %s: The template/part's name. */
+							_x( '"%s" deleted.', 'template part' ),
 							decodeEntities( title )
 					  );
 			} else {
@@ -489,4 +492,37 @@ export const removeTemplates =
 				.dispatch( noticesStore )
 				.createErrorNotice( errorMessage, { type: 'snackbar' } );
 		}
+	};
+
+/**
+ * Set the default rendering mode preference for the current post type.
+ *
+ * @param {string} mode The rendering mode to set as default.
+ */
+export const setDefaultRenderingMode =
+	( mode ) =>
+	( { select, registry } ) => {
+		const postType = select.getCurrentPostType();
+		const theme = registry
+			.select( coreStore )
+			.getCurrentTheme()?.stylesheet;
+		const renderingModes =
+			registry
+				.select( preferencesStore )
+				.get( 'core', 'renderingModes' )?.[ theme ] ?? {};
+
+		if ( renderingModes[ postType ] === mode ) {
+			return;
+		}
+
+		const newModes = {
+			[ theme ]: {
+				...renderingModes,
+				[ postType ]: mode,
+			},
+		};
+
+		registry
+			.dispatch( preferencesStore )
+			.set( 'core', 'renderingModes', newModes );
 	};

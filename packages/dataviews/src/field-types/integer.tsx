@@ -1,28 +1,33 @@
 /**
- * WordPress dependencies
- */
-import {
-	__experimentalNumberControl as NumberControl,
-	SelectControl,
-} from '@wordpress/components';
-import { useCallback } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-
-/**
  * Internal dependencies
  */
 import type {
+	DataViewRenderFieldProps,
 	SortDirection,
 	ValidationContext,
-	DataFormControlProps,
+	FieldTypeDefinition,
 } from '../types';
+import { renderFromElements } from '../utils';
+import {
+	OPERATOR_IS,
+	OPERATOR_IS_NOT,
+	OPERATOR_LESS_THAN,
+	OPERATOR_GREATER_THAN,
+	OPERATOR_LESS_THAN_OR_EQUAL,
+	OPERATOR_GREATER_THAN_OR_EQUAL,
+	OPERATOR_IS_ANY,
+	OPERATOR_IS_NONE,
+	OPERATOR_IS_ALL,
+	OPERATOR_IS_NOT_ALL,
+	OPERATOR_BETWEEN,
+} from '../constants';
 
 function sort( a: any, b: any, direction: SortDirection ) {
 	return direction === 'asc' ? a - b : b - a;
 }
 
 function isValid( value: any, context?: ValidationContext ) {
-	// TODO: this implicitely means the value is required.
+	// TODO: this implicitly means the value is required.
 	if ( value === '' ) {
 		return false;
 	}
@@ -41,63 +46,40 @@ function isValid( value: any, context?: ValidationContext ) {
 	return true;
 }
 
-function Edit< Item >( {
-	data,
-	field,
-	onChange,
-	hideLabelFromVision,
-}: DataFormControlProps< Item > ) {
-	const { id, label, description } = field;
-	const value = field.getValue( { item: data } ) ?? '';
-	const onChangeControl = useCallback(
-		( newValue: string | undefined ) =>
-			onChange( ( prevItem: Item ) => ( {
-				...prevItem,
-				[ id ]: newValue,
-			} ) ),
-		[ id, onChange ]
-	);
-
-	if ( field.elements ) {
-		const elements = [
-			/*
-			 * Value can be undefined when:
-			 *
-			 * - the field is not required
-			 * - in bulk editing
-			 *
-			 */
-			{ label: __( 'Select item' ), value: '' },
-			...field.elements,
-		];
-
-		return (
-			<SelectControl
-				label={ label }
-				value={ value }
-				options={ elements }
-				onChange={ onChangeControl }
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
-				hideLabelFromVision={ hideLabelFromVision }
-			/>
-		);
-	}
-
-	return (
-		<NumberControl
-			label={ label }
-			help={ description }
-			value={ value }
-			onChange={ onChangeControl }
-			__next40pxDefaultSize
-			hideLabelFromVision={ hideLabelFromVision }
-		/>
-	);
-}
-
 export default {
 	sort,
 	isValid,
-	Edit,
-};
+	Edit: 'integer',
+	render: ( { item, field }: DataViewRenderFieldProps< any > ) => {
+		return field.elements
+			? renderFromElements( { item, field } )
+			: field.getValue( { item } );
+	},
+	enableSorting: true,
+	filterBy: {
+		defaultOperators: [
+			OPERATOR_IS,
+			OPERATOR_IS_NOT,
+			OPERATOR_LESS_THAN,
+			OPERATOR_GREATER_THAN,
+			OPERATOR_LESS_THAN_OR_EQUAL,
+			OPERATOR_GREATER_THAN_OR_EQUAL,
+			OPERATOR_BETWEEN,
+		],
+		validOperators: [
+			// Single-selection
+			OPERATOR_IS,
+			OPERATOR_IS_NOT,
+			OPERATOR_LESS_THAN,
+			OPERATOR_GREATER_THAN,
+			OPERATOR_LESS_THAN_OR_EQUAL,
+			OPERATOR_GREATER_THAN_OR_EQUAL,
+			OPERATOR_BETWEEN,
+			// Multiple-selection
+			OPERATOR_IS_ANY,
+			OPERATOR_IS_NONE,
+			OPERATOR_IS_ALL,
+			OPERATOR_IS_NOT_ALL,
+		],
+	},
+} satisfies FieldTypeDefinition< any >;

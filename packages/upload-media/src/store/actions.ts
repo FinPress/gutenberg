@@ -6,55 +6,40 @@ import { v4 as uuidv4 } from 'uuid';
 /**
  * WordPress dependencies
  */
-import { store as preferencesStore } from '@wordpress/preferences';
-// eslint-disable-next-line no-restricted-syntax
-import type { WPDataRegistry } from '@wordpress/data/build-types/registry';
+import type { createRegistry } from '@wordpress/data';
+
+type WPDataRegistry = ReturnType< typeof createRegistry >;
 
 /**
  * Internal dependencies
  */
-import { MediaError } from '../mediaError';
-import {
-	getFileBasename,
-	getFileNameFromUrl,
-	type MeasureOptions,
-} from '../utils';
-import { StubFile } from '../stubFile';
 import type {
-	AddAction,
 	AdditionalData,
-	ApproveUploadAction,
-	BatchId,
 	CancelAction,
 	OnBatchSuccessHandler,
 	OnChangeHandler,
 	OnErrorHandler,
 	OnSuccessHandler,
-	QueueItem,
 	QueueItemId,
-	Settings,
 	State,
-	UpdateSettingsAction,
 } from './types';
-import { ItemStatus, OperationType, Type } from './types';
+import { Type } from './types';
 import type {
 	addItem,
 	processItem,
 	removeItem,
 	revokeBlobUrls,
 } from './private-actions';
-import { vipsCancelOperations } from './utils/vips';
+import { validateMimeType } from '../validate-mime-type';
+import { validateMimeTypeForUser } from '../validate-mime-type-for-user';
+import { validateFileSize } from '../validate-file-size';
 
 type ActionCreators = {
 	addItem: typeof addItem;
 	addItems: typeof addItems;
-	addItemFromUrl: typeof addItemFromUrl;
 	removeItem: typeof removeItem;
 	processItem: typeof processItem;
 	cancelItem: typeof cancelItem;
-	rejectApproval: typeof rejectApproval;
-	grantApproval: typeof grantApproval;
-	optimizeExistingItem: typeof optimizeExistingItem;
 	revokeBlobUrls: typeof revokeBlobUrls;
 	< T = Record< string, unknown > >( args: T ): void;
 };
@@ -74,23 +59,6 @@ type ThunkArgs = {
 	registry: WPDataRegistry;
 };
 
-/**
- * Returns an action object that pauses all processing in the queue.
- *
- * Useful for testing purposes.
- *
- * @param settings
- * @return Action object.
- */
-export function updateSettings(
-	settings: Partial< Settings >
-): UpdateSettingsAction {
-	return {
-		type: Type.UpdateSettings,
-		settings,
-	};
-}
-
 interface AddItemsArgs {
 	files: File[];
 	onChange?: OnChangeHandler;
@@ -98,6 +66,7 @@ interface AddItemsArgs {
 	onBatchSuccess?: OnBatchSuccessHandler;
 	onError?: OnErrorHandler;
 	additionalData?: AdditionalData;
+	allowedTypes?: string[];
 }
 
 /**
@@ -110,6 +79,7 @@ interface AddItemsArgs {
  * @param [$0.onBatchSuccess] Function called after a batch of files is uploaded.
  * @param [$0.onError]        Function called when an error happens.
  * @param [$0.additionalData] Additional data to include in the request.
+ * @param [$0.allowedTypes]   Array with the types of media that can be uploaded, if unset all types are allowed.
  */
 export function addItems( {
 	files,
@@ -118,10 +88,37 @@ export function addItems( {
 	onError,
 	onBatchSuccess,
 	additionalData,
+	allowedTypes,
 }: AddItemsArgs ) {
-	return async ( { dispatch }: { dispatch: ActionCreators } ) => {
+	return async ( { select, dispatch }: ThunkArgs ) => {
 		const batchId = uuidv4();
 		for ( const file of files ) {
+			/*
+			 Check if the caller (e.g. a block) supports this mime type.
+			 Special case for file types such as HEIC which will be converted before upload anyway.
+			 Another check will be done before upload.
+			*/
+			try {
+				validateMimeType( file, allowedTypes );
+				validateMimeTypeForUser(
+					file,
+					select.getSettings().allowedMimeTypes
+				);
+			} catch ( error: unknown ) {
+				onError?.( error as Error );
+				continue;
+			}
+
+			try {
+				validateFileSize(
+					file,
+					select.getSettings().maxUploadFileSize
+				);
+			} catch ( error: unknown ) {
+				onError?.( error as Error );
+				continue;
+			}
+
 			dispatch.addItem( {
 				file,
 				batchId,
@@ -135,222 +132,15 @@ export function addItems( {
 	};
 }
 
-interface AddItemFromUrlArgs {
-	url: string;
-	onChange?: OnChangeHandler;
-	onSuccess?: OnSuccessHandler;
-	onError?: OnErrorHandler;
-	additionalData?: AdditionalData;
-}
-
-/**
- * Adds a new item to the upload queue.
- *
- * @param $0
- * @param $0.url              URL
- * @param [$0.onChange]       Function called each time a file or a temporary representation of the file is available.
- * @param [$0.onSuccess]      Function called after the file is uploaded.
- * @param [$0.onError]        Function called when an error happens.
- * @param [$0.additionalData] Additional data to include in the request.
- */
-export function addItemFromUrl( {
-	url,
-	onChange,
-	onSuccess,
-	onError,
-	additionalData,
-}: AddItemFromUrlArgs ) {
-	return async ( { dispatch }: { dispatch: ActionCreators } ) => {
-		const fileName = getFileNameFromUrl( url );
-
-		dispatch.addItem( {
-			file: new StubFile(),
-			onChange,
-			onSuccess,
-			onError,
-			additionalData,
-			sourceUrl: url,
-			operations: [
-				[ OperationType.FetchRemoteFile, { url, fileName } ],
-				// This will add the next steps, such as compression, poster generation, and upload.
-				OperationType.Prepare,
-			],
-		} );
-	};
-}
-
-interface OptimizeExistingItemArgs {
-	id: number;
-	url: string;
-	fileName?: string;
-	poster?: string;
-	batchId?: BatchId;
-	onChange?: OnChangeHandler;
-	onSuccess?: OnSuccessHandler;
-	onBatchSuccess?: OnBatchSuccessHandler;
-	onError?: OnErrorHandler;
-	additionalData?: AdditionalData;
-	generatedPosterId?: number;
-	startTime?: number;
-}
-
-/**
- * Adds a new item to the upload queue for optimizing (compressing) an existing item.
- *
- * @todo Rename id to sourceAttachmentId for consistency
- *
- * @param $0
- * @param $0.id                  Attachment ID.
- * @param $0.url                 URL.
- * @param [$0.fileName]          File name.
- * @param [$0.poster]            Poster URL.
- * @param [$0.batchId]           Batch ID.
- * @param [$0.onChange]          Function called each time a file or a temporary representation of the file is available.
- * @param [$0.onSuccess]         Function called after the file is uploaded.
- * @param [$0.onBatchSuccess]    Function called after a batch of files is uploaded.
- * @param [$0.onError]           Function called when an error happens.
- * @param [$0.additionalData]    Additional data to include in the request.
- * @param [$0.generatedPosterId] Attachment ID of the generated poster image, if it exists.
- * @param [$0.startTime]         Time the action was initiated by the user (e.g. by clicking on a button).
- */
-export function optimizeExistingItem( {
-	id,
-	url,
-	fileName,
-	poster,
-	batchId,
-	onChange,
-	onSuccess,
-	onBatchSuccess,
-	onError,
-	additionalData = {} as AdditionalData,
-	generatedPosterId,
-	startTime,
-}: OptimizeExistingItemArgs ) {
-	return async ( { dispatch, registry }: ThunkArgs ) => {
-		fileName = fileName || getFileNameFromUrl( url );
-		const baseName = getFileBasename( fileName );
-		const newFileName = fileName.replace(
-			baseName,
-			`${ baseName }-optimized`
-		);
-
-		const requireApproval = registry
-			.select( preferencesStore )
-			.get( 'core/media', 'requireApproval' );
-
-		// TODO: Same considerations apply as for muteExistingVideo.
-
-		const abortController = new AbortController();
-
-		const itemId = uuidv4();
-
-		const timing: MeasureOptions = {
-			measureName: `Optimize existing item ${ fileName }`,
-			startTime: startTime || performance.now(),
-			tooltipText: 'This is a rendering task',
-			properties: [
-				[ 'Item ID', itemId ],
-				[ 'File name', fileName ],
-			],
-		};
-
-		const timings = [ timing ];
-
-		dispatch< AddAction >( {
-			type: Type.Add,
-			item: {
-				id: itemId,
-				batchId,
-				status: ItemStatus.Processing,
-				sourceFile: new StubFile(),
-				file: new StubFile(),
-				attachment: {
-					url,
-					poster,
-				},
-				additionalData: {
-					generate_sub_sizes: false,
-					...additionalData,
-				},
-				onChange,
-				onSuccess,
-				onBatchSuccess,
-				onError,
-				sourceUrl: url,
-				sourceAttachmentId: id,
-				operations: [
-					[
-						OperationType.FetchRemoteFile,
-						{ url, fileName, newFileName },
-					],
-					[ OperationType.Compress, { requireApproval } ],
-					OperationType.Upload,
-					OperationType.ThumbnailGeneration,
-				],
-				generatedPosterId,
-				abortController,
-				timings,
-			},
-		} );
-
-		dispatch.processItem( itemId );
-	};
-}
-
-/**
- * Rejects a proposed optimized/converted version of a file
- * by essentially cancelling its further processing.
- *
- * @param id Item ID.
- */
-export function rejectApproval( id: number ) {
-	return async ( { select, dispatch }: ThunkArgs ) => {
-		const item = select.getItemByAttachmentId( id );
-		if ( ! item ) {
-			return;
-		}
-
-		dispatch.cancelItem(
-			item.id,
-			new MediaError( {
-				code: 'UPLOAD_CANCELLED',
-				message: 'File upload was cancelled',
-				file: item.file,
-			} )
-		);
-	};
-}
-
-/**
- * Approves a proposed optimized/converted version of a file
- * so it can continue being processed and uploaded.
- *
- * @param id Item ID.
- */
-export function grantApproval( id: number ) {
-	return async ( { select, dispatch }: ThunkArgs ) => {
-		const item = select.getItemByAttachmentId( id );
-		if ( ! item ) {
-			return;
-		}
-
-		dispatch< ApproveUploadAction >( {
-			type: Type.ApproveUpload,
-			id: item.id,
-		} );
-
-		dispatch.processItem( item.id );
-	};
-}
-
 /**
  * Cancels an item in the queue based on an error.
  *
- * @param id    Item ID.
- * @param error Error instance.
+ * @param id     Item ID.
+ * @param error  Error instance.
+ * @param silent Whether to cancel the item silently,
+ *               without invoking its `onError` callback.
  */
-export function cancelItem( id: QueueItemId, error: Error ) {
+export function cancelItem( id: QueueItemId, error: Error, silent = false ) {
 	return async ( { select, dispatch }: ThunkArgs ) => {
 		const item = select.getItem( id );
 
@@ -365,22 +155,16 @@ export function cancelItem( id: QueueItemId, error: Error ) {
 			return;
 		}
 
-		// When cancelling a parent item, cancel all the children too.
-		for ( const child of select.getChildItems( id ) ) {
-			dispatch.cancelItem( child.id, error );
-		}
-
-		await vipsCancelOperations( id );
-
 		item.abortController?.abort();
 
-		// TODO: Do not log error for children if cancelling a parent and all its children.
-		const { onError } = item;
-		onError?.( error ?? new Error( 'Upload cancelled' ) );
-		if ( ! onError && error ) {
-			// TODO: Find better way to surface errors with sideloads etc.
-			// eslint-disable-next-line no-console -- Deliberately log errors here.
-			console.error( 'Upload cancelled', error );
+		if ( ! silent ) {
+			const { onError } = item;
+			onError?.( error ?? new Error( 'Upload cancelled' ) );
+			if ( ! onError && error ) {
+				// TODO: Find better way to surface errors with sideloads etc.
+				// eslint-disable-next-line no-console -- Deliberately log errors here.
+				console.error( 'Upload cancelled', error );
+			}
 		}
 
 		dispatch< CancelAction >( {
@@ -391,23 +175,9 @@ export function cancelItem( id: QueueItemId, error: Error ) {
 		dispatch.removeItem( id );
 		dispatch.revokeBlobUrls( id );
 
-		// All other side-loaded items have been removed, so remove the parent too.
-		if (
-			item.parentId &&
-			item.batchId &&
-			select.isBatchUploaded( item.batchId )
-		) {
-			const parentItem = select.getItem( item.parentId ) as QueueItem;
-
-			if (
-				parentItem.batchId &&
-				select.isBatchUploaded( parentItem.batchId )
-			) {
-				parentItem.onBatchSuccess?.();
-			}
-
-			dispatch.removeItem( item.parentId );
-			dispatch.revokeBlobUrls( item.parentId );
+		// All items of this batch were cancelled or finished.
+		if ( item.batchId && select.isBatchUploaded( item.batchId ) ) {
+			item.onBatchSuccess?.();
 		}
 	};
 }

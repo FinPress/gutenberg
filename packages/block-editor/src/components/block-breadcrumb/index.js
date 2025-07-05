@@ -66,8 +66,8 @@ function BlockBreadcrumb( { rootLabelText } ) {
 			>
 				{ hasSelection && (
 					<Button
+						size="small"
 						className="block-editor-block-breadcrumb__button"
-						variant="tertiary"
 						onClick={ () => {
 							// Find the block editor wrapper for the selected block
 							const blockEditor = blockRef.current?.closest(
@@ -82,7 +82,7 @@ function BlockBreadcrumb( { rootLabelText } ) {
 						{ rootLabel }
 					</Button>
 				) }
-				{ ! hasSelection && rootLabel }
+				{ ! hasSelection && <span>{ rootLabel }</span> }
 				{ !! clientId && (
 					<Icon
 						icon={ chevronRightSmall }
@@ -94,8 +94,8 @@ function BlockBreadcrumb( { rootLabelText } ) {
 			{ parents.map( ( parentClientId ) => (
 				<li key={ parentClientId }>
 					<Button
+						size="small"
 						className="block-editor-block-breadcrumb__button"
-						variant="tertiary"
 						onClick={ () => selectBlock( parentClientId ) }
 					>
 						<BlockTitle

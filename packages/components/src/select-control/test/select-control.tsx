@@ -7,7 +7,19 @@ import userEvent from '@testing-library/user-event';
 /**
  * Internal dependencies
  */
-import SelectControl from '..';
+import _SelectControl from '..';
+
+const SelectControl = (
+	props: React.ComponentProps< typeof _SelectControl >
+) => {
+	return (
+		<_SelectControl
+			{ ...props }
+			__nextHasNoMarginBottom
+			__next40pxDefaultSize
+		/>
+	);
+};
 
 describe( 'SelectControl', () => {
 	it( 'should not render when no options or children are provided', () => {
@@ -123,7 +135,7 @@ describe( 'SelectControl', () => {
 					onChange={ onChange }
 				/>;
 
-				<SelectControl
+				<_SelectControl
 					// @ts-expect-error "string" is not "narrow" or "value"
 					value="string"
 					options={ [
@@ -142,7 +154,7 @@ describe( 'SelectControl', () => {
 			} );
 
 			it( 'should accept an explicit type argument', () => {
-				<SelectControl< 'narrow' | 'value' >
+				<_SelectControl< 'narrow' | 'value' >
 					// @ts-expect-error "string" is not "narrow" or "value"
 					value="string"
 					options={ [
@@ -166,7 +178,7 @@ describe( 'SelectControl', () => {
 					value: ( 'foo' | 'bar' )[]
 				) => void = () => {};
 
-				<SelectControl
+				<_SelectControl
 					multiple
 					value={ [ 'narrow' ] }
 					options={ [
@@ -183,7 +195,7 @@ describe( 'SelectControl', () => {
 					onChange={ onChange }
 				/>;
 
-				<SelectControl
+				<_SelectControl
 					multiple
 					// @ts-expect-error "string" is not "narrow" or "value"
 					value={ [ 'string' ] }
@@ -205,7 +217,7 @@ describe( 'SelectControl', () => {
 			} );
 
 			it( 'should accept an explicit type argument', () => {
-				<SelectControl< 'narrow' | 'value' >
+				<_SelectControl< 'narrow' | 'value' >
 					multiple
 					// @ts-expect-error "string" is not "narrow" or "value"
 					value={ [ 'string' ] }

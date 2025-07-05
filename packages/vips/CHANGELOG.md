@@ -2,4 +2,6 @@
 
 ## Unreleased
 
-Initial release.
+### New Features
+
+-   Initial public release.

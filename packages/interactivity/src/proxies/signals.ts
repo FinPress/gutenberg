@@ -20,7 +20,7 @@ import { withScope } from '../utils';
 /**
  * Identifier for property computeds not associated to any scope.
  */
-const NO_SCOPE = Symbol();
+const NO_SCOPE = {};
 
 /**
  * Structure that manages reactivity for a property in a state object. It uses
@@ -119,7 +119,7 @@ export class PropSignal {
 	}
 
 	/**
-	 *  Update the internal signals for the value and the getter of the
+	 *  Updates the internal signals for the value and the getter of the
 	 *  corresponding prop.
 	 *
 	 * @param param0

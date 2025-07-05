@@ -25,9 +25,10 @@ import {
 	VariationsPanel,
 } from './variations/variations-panel';
 
-// Initial control values where no block style is set.
+// Initial control values.
 const BACKGROUND_BLOCK_DEFAULT_VALUES = {
 	backgroundSize: 'cover',
+	backgroundPosition: '50% 50%', // used only when backgroundSize is 'contain'.
 };
 
 function applyFallbackStyle( border ) {
@@ -84,7 +85,6 @@ const {
 	FiltersPanel: StylesFiltersPanel,
 	ImageSettingsPanel,
 	AdvancedPanel: StylesAdvancedPanel,
-	useGlobalStyleLinks,
 } = unlock( blockEditorPrivateApis );
 
 function ScreenBlock( { name, variation } ) {
@@ -102,13 +102,16 @@ function ScreenBlock( { name, variation } ) {
 	} );
 	const [ userSettings ] = useGlobalSetting( '', name, 'user' );
 	const [ rawSettings, setSettings ] = useGlobalSetting( '', name );
-	const settings = useSettingsForBlockElement( rawSettings, name );
+	const settingsForBlockElement = useSettingsForBlockElement(
+		rawSettings,
+		name
+	);
 	const blockType = getBlockType( name );
-	const _links = useGlobalStyleLinks();
 
 	// Only allow `blockGap` support if serialization has not been skipped, to be sure global spacing can be applied.
+	let disableBlockGap = false;
 	if (
-		settings?.spacing?.blockGap &&
+		settingsForBlockElement?.spacing?.blockGap &&
 		blockType?.supports?.spacing?.blockGap &&
 		( blockType?.supports?.spacing?.__experimentalSkipSerialization ===
 			true ||
@@ -116,7 +119,7 @@ function ScreenBlock( { name, variation } ) {
 				( spacingType ) => spacingType === 'blockGap'
 			) )
 	) {
-		settings.spacing.blockGap = false;
+		disableBlockGap = true;
 	}
 
 	// Only allow `aspectRatio` support if the block is not the grouping block.
@@ -125,9 +128,24 @@ function ScreenBlock( { name, variation } ) {
 	// for all three at once. Until there is the ability to set a different aspect
 	// ratio for each variation, we disable the aspect ratio controls for the
 	// grouping block in global styles.
-	if ( settings?.dimensions?.aspectRatio && name === 'core/group' ) {
-		settings.dimensions.aspectRatio = false;
+	let disableAspectRatio = false;
+	if (
+		settingsForBlockElement?.dimensions?.aspectRatio &&
+		name === 'core/group'
+	) {
+		disableAspectRatio = true;
 	}
+
+	const settings = useMemo( () => {
+		const updatedSettings = structuredClone( settingsForBlockElement );
+		if ( disableBlockGap ) {
+			updatedSettings.spacing.blockGap = false;
+		}
+		if ( disableAspectRatio ) {
+			updatedSettings.dimensions.aspectRatio = false;
+		}
+		return updatedSettings;
+	}, [ settingsForBlockElement, disableBlockGap, disableAspectRatio ] );
 
 	const blockVariations = useBlockVariations( name );
 	const hasBackgroundPanel = useHasBackgroundPanel( settings );
@@ -271,7 +289,6 @@ function ScreenBlock( { name, variation } ) {
 					onChange={ setStyle }
 					settings={ settings }
 					defaultValues={ BACKGROUND_BLOCK_DEFAULT_VALUES }
-					themeFileURIs={ _links?.[ 'wp:theme-file' ] }
 				/>
 			) }
 			{ hasTypographyPanel && (

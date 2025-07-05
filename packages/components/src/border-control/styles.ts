@@ -99,7 +99,7 @@ export const colorIndicatorWrapper = (
 	const { style } = border || {};
 
 	return css`
-		border-radius: 9999px;
+		border-radius: ${ CONFIG.radiusFull };
 		border: 2px solid transparent;
 		${ style ? colorIndicatorBorder( border ) : undefined }
 		width: ${ size === '__unstable-large' ? '24px' : '22px' };
@@ -147,17 +147,10 @@ export const borderControlPopoverControls = css`
 export const borderControlPopoverContent = css``;
 export const borderColorIndicator = css``;
 
-export const resetButton = css`
-	justify-content: center;
-	width: 100%;
-
-	/* Override button component styling */
-	&& {
-		border-top: ${ CONFIG.borderWidth } solid ${ COLORS.gray[ 400 ] };
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-		height: 40px;
-	}
+export const resetButtonWrapper = css`
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 12px;
 `;
 
 export const borderSlider = () => css`
