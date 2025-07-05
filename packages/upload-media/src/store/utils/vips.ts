@@ -2,11 +2,7 @@
  * External dependencies
  */
 import { createWorkerFactory } from '@shopify/web-worker';
-
-/**
- * WordPress dependencies
- */
-import { getExtensionFromMimeType } from '@wordpress/mime';
+import mime from 'mime';
 
 /**
  * Internal dependencies
@@ -35,7 +31,7 @@ export async function vipsConvertImageFormat(
 		quality,
 		interlaced
 	);
-	const ext = getExtensionFromMimeType( type );
+	const ext = mime.getExtension( type );
 	const fileName = `${ getFileBasename( file.name ) }.${ ext }`;
 	return new File( [ new Blob( [ buffer ] ) ], fileName, { type } );
 }

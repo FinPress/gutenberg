@@ -1794,12 +1794,6 @@
 		"parent": "packages"
 	},
 	{
-		"title": "@wordpress/mime",
-		"slug": "packages-mime",
-		"markdown_source": "../packages/mime/README.md",
-		"parent": "packages"
-	},
-	{
 		"title": "@wordpress/notices",
 		"slug": "packages-notices",
 		"markdown_source": "../packages/notices/README.md",
