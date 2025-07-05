@@ -73,10 +73,6 @@ export function initializeEditor(
 		enableChoosePatternModal: true,
 		isPublishSidebarEnabled: true,
 	} );
-	dispatch( preferencesStore ).setDefaults( 'core/media', {
-		requireApproval: true,
-		optimizeOnUpload: true,
-	} );
 
 	if ( window.__experimentalMediaProcessing ) {
 		dispatch( preferencesStore ).setDefaults( 'core/media', {
