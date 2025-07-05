@@ -27,6 +27,9 @@ const DEFAULT_STATE: State = {
 	blobUrls: {},
 	settings: {
 		mediaUpload: noop,
+		mediaSideload: noop,
+		imageSizes: {},
+		imageSizeThreshold: 2560,
 	},
 };
 

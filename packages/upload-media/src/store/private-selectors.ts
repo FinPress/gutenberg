@@ -37,6 +37,38 @@ export function getItem(
 }
 
 /**
+ * Returns a specific item given its source attachment ID.
+ *
+ * @param state        Upload state.
+ * @param attachmentId Item ID.
+ *
+ * @return Queue item.
+ */
+export function getItemByAttachmentId(
+	state: State,
+	attachmentId: number
+): QueueItem | undefined {
+	return state.queue.find(
+		( item ) => item.sourceAttachmentId === attachmentId
+	);
+}
+
+/**
+ * Returns all child items for a given parent item ID.
+ *
+ * @param state    Upload state.
+ * @param parentId Parent item ID.
+ *
+ * @return Child queue items.
+ */
+export function getChildItems(
+	state: State,
+	parentId: QueueItemId
+): QueueItem[] {
+	return state.queue.filter( ( item ) => item.parentId === parentId );
+}
+
+/**
  * Determines whether a batch has been successfully uploaded, given its unique ID.
  *
  * @param state   Upload state.

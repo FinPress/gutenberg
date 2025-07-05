@@ -1,8 +1,3 @@
-/**
- * Internal dependencies
- */
-import type { MeasureOptions } from '../utils';
-
 export type QueueItemId = string;
 
 export type QueueStatus = 'active' | 'paused';
@@ -30,7 +25,6 @@ export interface QueueItem {
 	parentId?: QueueItemId;
 	abortController?: AbortController;
 	startTime?: number;
-	timings?: MeasureOptions[];
 };
 
 export interface State {

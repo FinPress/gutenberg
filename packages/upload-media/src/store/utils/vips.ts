@@ -33,7 +33,7 @@ export async function vipsConvertImageFormat(
 	);
 	const ext = mime.getExtension( type );
 	const fileName = `${ getFileBasename( file.name ) }.${ ext }`;
-	return new File( [ new Blob( [ buffer ] ) ], fileName, { type } );
+	return new File( [ new Blob( [ buffer as ArrayBuffer ] ) ], fileName, { type } );
 }
 
 export async function vipsCompressImage(
@@ -50,7 +50,7 @@ export async function vipsCompressImage(
 		interlaced
 	);
 	return new File(
-		[ new Blob( [ buffer ], { type: file.type } ) ],
+		[ new Blob( [ buffer as ArrayBuffer ], { type: file.type } ) ],
 		file.name,
 		{ type: file.type }
 	);
@@ -83,7 +83,7 @@ export async function vipsResizeImage(
 	}
 
 	return new ImageFile(
-		new File( [ new Blob( [ buffer ], { type: file.type } ) ], fileName, {
+		new File( [ new Blob( [ buffer as ArrayBuffer ], { type: file.type } ) ], fileName, {
 			type: file.type,
 		} ),
 		width,
