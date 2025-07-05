@@ -1986,12 +1986,6 @@
 		"parent": "packages"
 	},
 	{
-		"title": "@wordpress/vips",
-		"slug": "packages-vips",
-		"markdown_source": "../packages/vips/README.md",
-		"parent": "packages"
-	},
-	{
 		"title": "@wordpress/warning",
 		"slug": "packages-warning",
 		"markdown_source": "../packages/warning/README.md",
