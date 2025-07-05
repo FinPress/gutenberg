@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createWorkerFactory } from '@shopify/web-worker';
+import { createWorkerFactory } from '@shopify/web-worker'; // @TODO: remove - this has been deprecated
 import mime from 'mime';
 
 /**
