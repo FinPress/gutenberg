@@ -78,13 +78,10 @@ const getAddNewPageCommand = () =>
 					icon: plus,
 					callback: addNewPage,
 					keywords: [
-						'page',
-						'new',
-						'page new',
-						'add new page',
-						'create page',
-						'create new page',
-						'create',
+						__( 'page' ),
+						__( 'new' ),
+						__( 'add' ),
+						__( 'create' ),
 					],
 				},
 			];
@@ -104,15 +101,7 @@ export function useAdminNavigationCommands() {
 		callback: () => {
 			document.location.assign( 'post-new.php' );
 		},
-		keywords: [
-			'post',
-			'new',
-			'post new',
-			'add new post',
-			'create post',
-			'create new post',
-			'create',
-		],
+		keywords: [ __( 'post' ), __( 'new' ), __( 'add' ), __( 'create' ) ],
 	} );
 
 	useCommandLoader( {
