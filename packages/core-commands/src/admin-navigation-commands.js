@@ -77,6 +77,15 @@ const getAddNewPageCommand = () =>
 					label: __( 'Add new page' ),
 					icon: plus,
 					callback: addNewPage,
+					keywords: [
+						'page',
+						'new',
+						'page new',
+						'add new page',
+						'create page',
+						'create new page',
+						'create',
+					],
 				},
 			];
 		}, [ createPageEntity, isSiteEditor, isBlockBasedTheme ] );
@@ -95,6 +104,15 @@ export function useAdminNavigationCommands() {
 		callback: () => {
 			document.location.assign( 'post-new.php' );
 		},
+		keywords: [
+			'post',
+			'new',
+			'post new',
+			'add new post',
+			'create post',
+			'create new post',
+			'create',
+		],
 	} );
 
 	useCommandLoader( {
