@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { differenceInCalendarDays } from 'date-fns';
+import { DayPicker, rangeContainsModifiers } from 'react-day-picker';
+import { enUS } from 'react-day-picker/locale';
 /**
  * WordPress dependencies
  */
 import { useMemo, useState } from '@wordpress/element';
-import { DayPicker, rangeContainsModifiers } from 'react-day-picker';
-import { enUS } from 'react-day-picker/locale';
 /**
  * Internal dependencies
  */
