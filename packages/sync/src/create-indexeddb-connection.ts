@@ -22,7 +22,10 @@ export function createIndexedDBConnection(): ConnectDoc {
 
 		return new Promise( ( resolve ) => {
 			provider.on( 'synced', () => {
-				resolve( () => provider.destroy() );
+				resolve( {
+					awareness: null,
+					destroy: () => provider.destroy(),
+				} );
 			} );
 		} );
 	};
