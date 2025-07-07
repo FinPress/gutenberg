@@ -1,6 +1,6 @@
 /* Root of the component. */
 // Internal variables
-$wp-components-calendar-outline-focus: 1.5px solid $components-color-accent;
+$wp-components-calendar-outline-focus: var(--wp-admin-border-width-focus) solid $components-color-accent;
 $wp-components-calendar-button-height: 2rem;
 $wp-components-calendar-button-width: 2rem;
 $wp-components-calendar-nav-height: 2rem;
