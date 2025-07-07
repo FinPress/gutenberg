@@ -18,6 +18,7 @@
 			"type": "string",
 			"source": "html",
 			"selector": "ol,ul",
+			"multiline": "li",
 			"default": "",
 			"role": "content"
 		},
