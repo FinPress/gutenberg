@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { ComponentType } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
 /**
  * WordPress dependencies
@@ -17,9 +17,13 @@ import type { ViewBaseProps } from '../../types';
 
 type DataViewsLayoutProps = {
 	className?: string;
+	empty?: ReactNode;
 };
 
-export default function DataViewsLayout( { className }: DataViewsLayoutProps ) {
+export default function DataViewsLayout( {
+	className,
+	empty,
+}: DataViewsLayoutProps ) {
 	const {
 		actions = [],
 		data,
@@ -43,6 +47,7 @@ export default function DataViewsLayout( { className }: DataViewsLayoutProps ) {
 	return (
 		<ViewComponent
 			className={ className }
+			empty={ empty }
 			actions={ actions }
 			data={ data }
 			fields={ fields }

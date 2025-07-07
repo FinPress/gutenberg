@@ -56,6 +56,7 @@ type DataViewsProps< Item > = {
 		} & ComponentProps< 'a' >
 	) => ReactElement;
 	isItemClickable?: ( item: Item ) => boolean;
+	empty?: ReactNode;
 	header?: ReactNode;
 	getItemLevel?: ( item: Item ) => number;
 	children?: ReactNode;
@@ -70,10 +71,11 @@ const EMPTY_ARRAY: any[] = [];
 
 type DefaultUIProps = Pick<
 	DataViewsProps< any >,
-	'header' | 'search' | 'searchLabel'
+	'empty' | 'header' | 'search' | 'searchLabel'
 >;
 
 function DefaultUI( {
+	empty,
 	header,
 	search = true,
 	searchLabel = undefined,
@@ -107,7 +109,7 @@ function DefaultUI( {
 			{ isShowingFilter && (
 				<DataViewsFilters className="dataviews-filters__container" />
 			) }
-			<DataViewsLayout />
+			<DataViewsLayout empty={ empty } />
 			<DataViewsFooter />
 		</>
 	);
@@ -131,6 +133,7 @@ function DataViews< Item >( {
 	onClickItem,
 	renderItemLink,
 	isItemClickable = defaultIsItemClickable,
+	empty,
 	header,
 	children,
 	perPageSizes,
@@ -206,6 +209,7 @@ function DataViews< Item >( {
 			>
 				{ children ?? (
 					<DefaultUI
+						empty={ empty }
 						header={ header }
 						search={ search }
 						searchLabel={ searchLabel }

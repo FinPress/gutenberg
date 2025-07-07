@@ -326,3 +326,23 @@ export const CustomPerPageSizes = () => {
 		/>
 	);
 };
+
+export const CustomEmptyState = () => {
+	const [ view, setView ] = useState< View >( {
+		...DEFAULT_VIEW,
+		fields: [ 'title', 'description', 'categories' ],
+	} );
+	return (
+		<DataViews
+			getItemId={ ( item ) => item.id.toString() }
+			paginationInfo={ { totalItems: 0, totalPages: 0 } }
+			data={ [] }
+			view={ view }
+			fields={ fields }
+			onChangeView={ setView }
+			actions={ actions }
+			defaultLayouts={ defaultLayouts }
+			empty={ <p>Nothing found, add some data to your dataview.</p> }
+		/>
+	);
+};

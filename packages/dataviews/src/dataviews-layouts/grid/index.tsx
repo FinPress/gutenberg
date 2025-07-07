@@ -254,6 +254,7 @@ function ViewGrid< Item >( {
 	selection,
 	view,
 	className,
+	empty,
 }: ViewGridProps< Item > ) {
 	const titleField = fields.find(
 		( field ) => field.id === view?.titleField
@@ -335,7 +336,13 @@ function ViewGrid< Item >( {
 						'dataviews-no-results': ! isLoading,
 					} ) }
 				>
-					<p>{ isLoading ? <Spinner /> : __( 'No results' ) }</p>
+					{ isLoading ? (
+						<p>
+							<Spinner />
+						</p>
+					) : (
+						empty || <p>{ __( 'No results' ) }</p>
+					) }
 				</div>
 			) }
 		</>

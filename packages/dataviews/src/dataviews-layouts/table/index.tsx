@@ -256,6 +256,7 @@ function ViewTable< Item >( {
 	renderItemLink,
 	view,
 	className,
+	empty,
 }: ViewTableProps< Item > ) {
 	const { containerRef } = useContext( DataViewsContext );
 	const headerMenuRefs = useRef<
@@ -463,9 +464,14 @@ function ViewTable< Item >( {
 				} ) }
 				id={ tableNoticeId }
 			>
-				{ ! hasData && (
-					<p>{ isLoading ? <Spinner /> : __( 'No results' ) }</p>
-				) }
+				{ ! hasData &&
+					( isLoading ? (
+						<p>
+							<Spinner />
+						</p>
+					) : (
+						empty || <p>{ __( 'No results' ) }</p>
+					) ) }
 			</div>
 		</>
 	);

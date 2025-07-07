@@ -1,7 +1,12 @@
 /**
  * External dependencies
  */
-import type { ReactElement, ComponentType, ComponentProps } from 'react';
+import type {
+	ReactElement,
+	ReactNode,
+	ComponentType,
+	ComponentProps,
+} from 'react';
 
 /**
  * Internal dependencies
@@ -592,6 +597,7 @@ export type Action< Item > = ActionModal< Item > | ActionButton< Item >;
 
 export interface ViewBaseProps< Item > {
 	className?: string;
+	empty?: ReactNode;
 	actions: Action< Item >[];
 	data: Item[];
 	fields: NormalizedField< Item >[];
