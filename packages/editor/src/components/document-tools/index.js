@@ -174,7 +174,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 						/>
 						{ ! isDistractionFree && (
 							<ToolbarButton
-								className="editor-document-tools__document-overview-toggle nikunj"
+								className="editor-document-tools__document-overview-toggle"
 								icon={ listView }
 								disabled={ disableBlockTools }
 								isPressed={ isListViewOpen }
