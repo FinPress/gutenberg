@@ -2,9 +2,6 @@
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-/**
- * External dependencies
- */
 import { useMemo } from '@wordpress/element';
 /**
  * Internal dependencies
