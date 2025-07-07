@@ -11,7 +11,14 @@ import { createHash } from 'crypto';
  * Options for lazy importing a package.
  */
 export interface WPLazyImportOptions {
+	/**
+	 * Path to the local directory or file.
+	 */
 	localPath?: string;
+	/**
+	 *
+	 * Callback to invoke when install starts.
+	 */
 	onInstall?: () => void;
 }
 /**
