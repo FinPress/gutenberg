@@ -1515,19 +1515,15 @@ describe( 'DateRangeCalendar', () => {
 	} );
 
 	describe( 'usePreviewRange', () => {
-		let nextWeek: Date;
-
-		beforeEach( () => {
-			today = new Date( '2024-03-15' );
-			tomorrow = addDays( today, 1 );
-			yesterday = subDays( today, 1 );
-			nextWeek = addDays( today, 7 );
-		} );
+		const previewToday = new Date( '2024-03-15' );
+		const previewTomorrow = addDays( previewToday, 1 );
+		const previewYesterday = subDays( previewToday, 1 );
+		const previewNextWeek = addDays( previewToday, 7 );
 
 		it( 'should return undefined when there is no hovered date', () => {
 			const { result } = renderHook( () =>
 				usePreviewRange( {
-					selected: { from: today, to: tomorrow },
+					selected: { from: previewToday, to: previewTomorrow },
 					hoveredDate: undefined,
 				} )
 			);
@@ -1539,7 +1535,7 @@ describe( 'DateRangeCalendar', () => {
 			const { result } = renderHook( () =>
 				usePreviewRange( {
 					selected: undefined,
-					hoveredDate: today,
+					hoveredDate: previewToday,
 				} )
 			);
 
@@ -1549,8 +1545,8 @@ describe( 'DateRangeCalendar', () => {
 		it( 'should return undefined when there is no selected start date', () => {
 			const { result } = renderHook( () =>
 				usePreviewRange( {
-					selected: { from: undefined, to: tomorrow },
-					hoveredDate: today,
+					selected: { from: undefined, to: previewTomorrow },
+					hoveredDate: previewToday,
 				} )
 			);
 
@@ -1560,56 +1556,56 @@ describe( 'DateRangeCalendar', () => {
 		it( 'should show preview when hovering before selected range', () => {
 			const { result } = renderHook( () =>
 				usePreviewRange( {
-					selected: { from: today, to: tomorrow },
-					hoveredDate: yesterday,
+					selected: { from: previewToday, to: previewTomorrow },
+					hoveredDate: previewYesterday,
 				} )
 			);
 
 			expect( result.current ).toEqual( {
-				from: yesterday,
-				to: today,
+				from: previewYesterday,
+				to: previewToday,
 			} );
 		} );
 
 		it( 'should show preview when hovering between selected range dates', () => {
 			const { result } = renderHook( () =>
 				usePreviewRange( {
-					selected: { from: yesterday, to: tomorrow },
-					hoveredDate: today,
+					selected: { from: previewYesterday, to: previewTomorrow },
+					hoveredDate: previewToday,
 				} )
 			);
 
 			expect( result.current ).toEqual( {
-				from: yesterday,
-				to: today,
+				from: previewYesterday,
+				to: previewToday,
 			} );
 		} );
 
 		it( 'should show preview when hovering after selected range', () => {
 			const { result } = renderHook( () =>
 				usePreviewRange( {
-					selected: { from: yesterday, to: today },
-					hoveredDate: tomorrow,
+					selected: { from: previewYesterday, to: previewToday },
+					hoveredDate: previewTomorrow,
 				} )
 			);
 
 			expect( result.current ).toEqual( {
-				from: today,
-				to: tomorrow,
+				from: previewToday,
+				to: previewTomorrow,
 			} );
 		} );
 
 		it( 'should show preview when hovering after selected range with no end date', () => {
 			const { result } = renderHook( () =>
 				usePreviewRange( {
-					selected: { from: today },
-					hoveredDate: tomorrow,
+					selected: { from: previewToday },
+					hoveredDate: previewTomorrow,
 				} )
 			);
 
 			expect( result.current ).toEqual( {
-				from: today,
-				to: tomorrow,
+				from: previewToday,
+				to: previewTomorrow,
 			} );
 		} );
 
@@ -1617,30 +1613,30 @@ describe( 'DateRangeCalendar', () => {
 			it( 'should collapse preview to single date when range is less than min', () => {
 				const { result } = renderHook( () =>
 					usePreviewRange( {
-						selected: { from: today },
-						hoveredDate: tomorrow,
+						selected: { from: previewToday },
+						hoveredDate: previewTomorrow,
 						min: 3,
 					} )
 				);
 
 				expect( result.current ).toEqual( {
-					from: tomorrow,
-					to: tomorrow,
+					from: previewTomorrow,
+					to: previewTomorrow,
 				} );
 			} );
 
 			it( 'should allow preview when range meets min requirement', () => {
 				const { result } = renderHook( () =>
 					usePreviewRange( {
-						selected: { from: today },
-						hoveredDate: nextWeek,
+						selected: { from: previewToday },
+						hoveredDate: previewNextWeek,
 						min: 3,
 					} )
 				);
 
 				expect( result.current ).toEqual( {
-					from: today,
-					to: nextWeek,
+					from: previewToday,
+					to: previewNextWeek,
 				} );
 			} );
 		} );
@@ -1649,30 +1645,30 @@ describe( 'DateRangeCalendar', () => {
 			it( 'should collapse preview to single date when range exceeds max', () => {
 				const { result } = renderHook( () =>
 					usePreviewRange( {
-						selected: { from: today },
-						hoveredDate: nextWeek,
+						selected: { from: previewToday },
+						hoveredDate: previewNextWeek,
 						max: 3,
 					} )
 				);
 
 				expect( result.current ).toEqual( {
-					from: nextWeek,
-					to: nextWeek,
+					from: previewNextWeek,
+					to: previewNextWeek,
 				} );
 			} );
 
 			it( 'should allow preview when range meets max requirement', () => {
 				const { result } = renderHook( () =>
 					usePreviewRange( {
-						selected: { from: today },
-						hoveredDate: tomorrow,
+						selected: { from: previewToday },
+						hoveredDate: previewTomorrow,
 						max: 3,
 					} )
 				);
 
 				expect( result.current ).toEqual( {
-					from: today,
-					to: tomorrow,
+					from: previewToday,
+					to: previewTomorrow,
 				} );
 			} );
 		} );
@@ -1681,32 +1677,32 @@ describe( 'DateRangeCalendar', () => {
 			it( 'should collapse preview to single date when range contains disabled dates and excludeDisabled is true', () => {
 				const { result } = renderHook( () =>
 					usePreviewRange( {
-						selected: { from: today },
-						hoveredDate: nextWeek,
-						disabled: [ tomorrow ],
+						selected: { from: previewToday },
+						hoveredDate: previewNextWeek,
+						disabled: [ previewTomorrow ],
 						excludeDisabled: true,
 					} )
 				);
 
 				expect( result.current ).toEqual( {
-					from: nextWeek,
-					to: nextWeek,
+					from: previewNextWeek,
+					to: previewNextWeek,
 				} );
 			} );
 
 			it( 'should allow preview when range contains disabled dates but excludeDisabled is false', () => {
 				const { result } = renderHook( () =>
 					usePreviewRange( {
-						selected: { from: today },
-						hoveredDate: nextWeek,
-						disabled: [ tomorrow ],
+						selected: { from: previewToday },
+						hoveredDate: previewNextWeek,
+						disabled: [ previewTomorrow ],
 						excludeDisabled: false,
 					} )
 				);
 
 				expect( result.current ).toEqual( {
-					from: today,
-					to: nextWeek,
+					from: previewToday,
+					to: previewNextWeek,
 				} );
 			} );
 		} );
