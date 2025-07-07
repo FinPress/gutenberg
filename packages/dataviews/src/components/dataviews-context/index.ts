@@ -51,7 +51,6 @@ type DataViewsContextType< Item > = {
 	filters: NormalizedFilter[];
 	isShowingFilter: boolean;
 	setIsShowingFilter: ( value: boolean ) => void;
-	/** Control the available sizes of the items per page */
 	perPageSizes?: [ number, number, number, number ];
 };
 
