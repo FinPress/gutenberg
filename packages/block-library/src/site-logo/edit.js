@@ -657,6 +657,7 @@ export default function LogoEdit( {
 					<ToolsPanelItem
 						hasValue={ () => !! logoUrl }
 						label={ __( 'Logo' ) }
+						isShownByDefault
 					>
 						<div className="block-library-site-logo__inspector-media-replace-container">
 							<SiteLogoReplaceFlow
