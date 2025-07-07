@@ -96,7 +96,6 @@ function render_block_core_post_navigation_link( $attributes, $content ) {
 		}
 	}
 
-
 	// Display arrows.
 	if ( isset( $attributes['arrow'] ) && 'none' !== $attributes['arrow'] && isset( $arrow_map[ $attributes['arrow'] ] ) ) {
 		$arrow = $arrow_map[ $attributes['arrow'] ][ $navigation_type ];
@@ -113,7 +112,7 @@ function render_block_core_post_navigation_link( $attributes, $content ) {
 				: _x( 'Previous Post', 'aria label for previous post link' );
 
 			$format = '%link';
-			$link = sprintf(
+			$link   = sprintf(
 				'<span class="wp-block-post-navigation-link__arrow-%1$s is-arrow-%2$s no-label" aria-label="%3$s">%4$s</span>',
 				esc_attr( $navigation_type ),
 				esc_attr( $attributes['arrow'] ),
