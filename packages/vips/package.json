@@ -28,7 +28,7 @@
 	"wpScript": true,
 	"types": "build-types",
 	"dependencies": {
-		"wasm-vips": "^0.0.10"
+		"wasm-vips": "^0.0.13"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { v4 as uuidv4 } from 'uuid';
+import mime from 'mime';
 
 /**
  * WordPress dependencies
@@ -519,9 +520,11 @@ export function finishOperation(
  */
 export function prepareItem( id: QueueItemId ) {
 	return async ( { select, dispatch, registry }: ThunkArgs ) => {
-		// const item = select.getItem( id ) as QueueItem;
+		const item = select.getItem( id ) as QueueItem;
 
-		const mediaType = 'image';//getMediaTypeFromMimeType( file.type );
+		const { file } = item;
+
+		const mediaType = getMediaTypeFromMimeType( file.type );
 
 		const operations: Operation[] = [];
 
@@ -695,7 +698,7 @@ export function optimizeImageItem(
 	return async ( { select, dispatch }: ThunkArgs ) => {
 		const item = select.getItem( id ) as QueueItem;
 
-		const inputFormat = 'image'; //getExtensionFromMimeType( item.file.type );
+		const inputFormat = item.file.type.split( '/' )[ 1 ];
 
 		if ( ! inputFormat ) {
 			dispatch.cancelItem( id, new Error( 'Unsupported file type' ) );
@@ -709,7 +712,7 @@ export function optimizeImageItem(
 		try {
 			let file: File;
 
-			const mimeType = 'image/jpeg'; //getMimeTypeFromExtension( outputFormat );
+			const mimeType =  mime.getType( outputFormat );
 
 			if ( outputFormat === inputFormat || ! mimeType ) {
 				file = await vipsCompressImage(
@@ -921,4 +924,17 @@ export function revokeBlobUrls( id: QueueItemId ) {
 			id,
 		} );
 	};
+}
+
+/**
+ * Helper to extract the file extension from a MIME type.
+ *
+ * @param mimeType
+ * @returns
+ */
+export function getMediaTypeFromMimeType( mimeType: string ): string {
+	if ( mimeType === 'application/pdf' ) {
+		return 'pdf';
+	}
+	return mimeType.split( '/' )[ 0 ];
 }

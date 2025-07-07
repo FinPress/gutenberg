@@ -4,7 +4,6 @@
 import Vips from 'wasm-vips';
 import type VipsInstance from 'wasm-vips';
 
-
 /**
  * Internal dependencies
  */
@@ -32,7 +31,7 @@ let vipsInstance: typeof VipsInstance;
  *
  * Reuses any existing instance.
  */
-async function getVips(): Promise< typeof VipsInstance > {
+async function getVips(): Promise< typeof Vips > {
 	if ( vipsInstance ) {
 		return vipsInstance;
 	}
@@ -215,7 +214,7 @@ export async function resizeImage(
 		}
 	};
 
-	let image = vips.Image.newFromBuffer( buffer, strOptions, loadOptions );
+	let image = vips.Image.newFromBuffer( buffer ); //  buffer, strOptions, loadOptions );
 
 	image.onProgress = onProgress;
 
