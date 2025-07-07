@@ -1,18 +1,21 @@
 /**
  * WordPress dependencies
  */
+import { lazy } from '@wordpress/element';
+
+/**
+ * WordPress dependencies
+ */
 import { trash, image, Icon, category } from '@wordpress/icons';
-import {
-	Button,
-	__experimentalText as Text,
-	__experimentalHStack as HStack,
-	__experimentalVStack as VStack,
-} from '@wordpress/components';
+import { __experimentalHStack as HStack } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import type { Field, Action } from '../../../types';
+import type { SpaceObject } from './action-modal';
+
+const ActionModal = lazy( () => import( './action-modal' ) );
 
 export type Theme = {
 	slug: string;
@@ -23,18 +26,7 @@ export type Theme = {
 	tags: string[];
 };
 
-export type SpaceObject = {
-	id: number;
-	title: string;
-	description: string;
-	image: string;
-	type: string;
-	isPlanet: boolean;
-	categories: string[];
-	satellites: number;
-	date: string;
-	email: string;
-};
+export type { SpaceObject };
 
 export const data: SpaceObject[] = [
 	{
@@ -614,31 +606,7 @@ export const actions: Action< SpaceObject >[] = [
 		hideModalHeader: true,
 		modalFocusOnMount: 'firstContentElement',
 		supportsBulk: true,
-		RenderModal: ( { items, closeModal } ) => {
-			return (
-				<VStack spacing="5">
-					<Text>
-						{ `Are you sure you want to delete "${ items[ 0 ].title }"?` }
-					</Text>
-					<HStack justify="right">
-						<Button
-							__next40pxDefaultSize
-							variant="tertiary"
-							onClick={ closeModal }
-						>
-							Cancel
-						</Button>
-						<Button
-							__next40pxDefaultSize
-							variant="primary"
-							onClick={ closeModal }
-						>
-							Delete
-						</Button>
-					</HStack>
-				</VStack>
-			);
-		},
+		RenderModal: ( props ) => <ActionModal { ...props } />,
 	},
 	{
 		id: 'secondary',
