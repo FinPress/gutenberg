@@ -1,9 +1,6 @@
 /**
  * WordPress dependencies
  */
-/**
- * External dependencies
- */
 import { useState, useCallback } from '@wordpress/element';
 
 type Props< T > = {
