@@ -46,7 +46,7 @@ import { unlock } from '../lock-unlock';
 
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
 const { ResolutionTool } = unlock( blockEditorPrivateApis );
-const DEFAULT_MEDIA_SIZE_SLUG = 'full';
+const DEFAULT_MEDIA_SIZE_SLUG = 'post-thumbnail';
 
 function FeaturedImageResolutionTool( { image, value, onChange } ) {
 	const { imageSizes } = useSelect( ( select ) => {
