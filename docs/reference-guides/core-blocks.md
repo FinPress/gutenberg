@@ -932,6 +932,15 @@ Edit the different global regions of your site, like the header, footer, sidebar
 -	**Supports:** align, interactivity (clientNavigation), ~~html~~, ~~renaming~~, ~~reusable~~
 -	**Attributes:** area, slug, tagName, theme
 
+## Term Count
+
+Displays the number of posts associated with a taxonomy term. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/term-count))
+
+-	**Name:** core/term-count
+-	**Category:** theme
+-	**Supports:** color (background, gradients, link, text), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** format, textAlign
+
 ## Term Description
 
 Display the description of categories, tags and custom taxonomies when viewing an archive. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/term-description))
@@ -940,6 +949,33 @@ Display the description of categories, tags and custom taxonomies when viewing a
 -	**Category:** theme
 -	**Supports:** align (full, wide), color (background, link, text), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
+
+## Term Name
+
+Displays the name of a taxonomy term. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/term-name))
+
+-	**Name:** core/term-name
+-	**Category:** theme
+-	**Supports:** align (full, wide), color (background, gradients, link, text), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** isLink, linkTarget, rel, textAlign
+
+## Terms Query
+
+An advanced block that allows displaying taxonomy terms based on different query parameters and visual configurations. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/terms-query))
+
+-	**Name:** core/terms-query
+-	**Category:** theme
+-	**Supports:** align (full, wide), interactivity, layout, ~~html~~
+-	**Attributes:** namespace, query, queryId, tagName
+
+## Terms Template
+
+Contains the block elements used to render a taxonomy term, like the title, count, description, and more. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/terms-template))
+
+-	**Name:** core/terms-template
+-	**Category:** theme
+-	**Ancestor:** core/terms-query
+-	**Supports:** align (full, wide), color (background, gradients, link, text), interactivity (clientNavigation), layout, spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 
 ## Text Columns (deprecated)
 

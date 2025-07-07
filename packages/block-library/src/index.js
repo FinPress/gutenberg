@@ -118,6 +118,10 @@ import * as tableOfContents from './table-of-contents';
 import * as tagCloud from './tag-cloud';
 import * as templatePart from './template-part';
 import * as termDescription from './term-description';
+import * as termsQuery from './terms-query';
+import * as termsTemplate from './terms-template';
+import * as termName from './term-name';
+import * as termCount from './term-count';
 import * as textColumns from './text-columns';
 import * as verse from './verse';
 import * as video from './video';
@@ -231,6 +235,10 @@ const getAllBlocks = () => {
 		homeLink,
 		logInOut,
 		termDescription,
+		termsQuery,
+		termsTemplate,
+		termName,
+		termCount,
 		queryTitle,
 		postAuthorBiography,
 	];
