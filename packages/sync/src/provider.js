@@ -101,7 +101,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 		undoManagers[ objectType ] = undoManagers[ objectType ] || {};
 		const yUndoManager = new Y.UndoManager( doc.getMap( 'document' ), {
 			captureTimeout: 0,
-			trackedOrigins: new Set( [ 'gutenberg' ] ),
+			trackedOrigins: new Set( [ 'gutenberg', doc.clientID ] ),
 		} );
 		// @ts-ignore
 		yUndoManager.on( 'stack-item-added', ( stackItem ) => {
@@ -118,6 +118,17 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 			// eslint-disable-next-line no-console
 			console.log( 'Undo manager stack item updated:', stackItem );
 		} );
+		yUndoManager.on(
+			'stack-cleared',
+			// @ts-ignore
+			( { undoStackCleared, redoStackCleared } ) => {
+				// eslint-disable-next-line no-console
+				console.log( 'Undo manager stack cleared:', {
+					undoStackCleared,
+					redoStackCleared,
+				} );
+			}
+		);
 		undoManagers[ objectType ][ objectId ] = {
 			ydoc: doc,
 			undoManager: yUndoManager,

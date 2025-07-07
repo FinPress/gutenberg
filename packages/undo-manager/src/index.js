@@ -152,7 +152,7 @@ export function createUndoManager() {
 		},
 
 		undo() {
-			getSyncProvider().clearUndos();
+			//getSyncProvider().clearUndos();
 			getSyncProvider().undo();
 
 			return [];
@@ -170,7 +170,7 @@ export function createUndoManager() {
 		},
 
 		redo() {
-			getSyncProvider().clearRedos();
+			//getSyncProvider().clearRedos();
 			getSyncProvider().redo();
 
 			return [];
