@@ -70,7 +70,7 @@ async function install( arg: string, alias: string ): Promise< void > {
  *
  * @return  Promise resolving to required module.
  */
-async function lazyImport(
+export async function lazyImport(
 	arg: string,
 	options: Partial< WPLazyImportOptions > = {}
 ): Promise< NodeRequire > {
@@ -148,4 +148,4 @@ async function lazyImport(
 	return require( join( localModule, localPath ) );
 }
 
-module.exports = lazyImport;
+export default lazyImport;
