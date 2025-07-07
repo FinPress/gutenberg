@@ -10,11 +10,13 @@ import { useViewportMatch } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __, _x } from '@wordpress/i18n';
 import { NavigableToolbar, ToolSelector } from '@wordpress/block-editor';
-import { ToolbarButton, ToolbarItem } from '@wordpress/components';
+import { ToolbarButton, ToolbarItem, Button } from '@wordpress/components';
 import { listView, plus } from '@wordpress/icons';
 import { useCallback } from '@wordpress/element';
 import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
 import { store as preferencesStore } from '@wordpress/preferences';
+import { addQueryArgs } from '@wordpress/url';
+import { store as coreStore } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
@@ -36,6 +38,8 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 		listViewToggleRef,
 		showIconLabels,
 		showTools,
+		post,
+		postType
 	} = useSelect( ( select ) => {
 		const { get } = select( preferencesStore );
 		const {
@@ -45,8 +49,11 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 			getListViewToggleRef,
 			getRenderingMode,
 			getCurrentPostType,
+			getEditedPostAttribute,
+			getCurrentPost,
 		} = unlock( select( editorStore ) );
 		const { getShortcutRepresentation } = select( keyboardShortcutsStore );
+		const { getPostType } = select( coreStore );
 
 		return {
 			isInserterOpened: select( editorStore ).isInserterOpened(),
@@ -63,6 +70,9 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 				!! window?.__experimentalEditorWriteMode &&
 				( getRenderingMode() !== 'post-only' ||
 					getCurrentPostType() === 'wp_template' ),
+			post: getCurrentPost(),
+			postType: getPostType( getEditedPostAttribute( 'type' ) ),
+
 		};
 	}, [] );
 
@@ -101,6 +111,11 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 		'Generic label for block inserter button'
 	);
 	const shortLabel = ! isInserterOpened ? __( 'Add' ) : __( 'Close' );
+
+	const addNewPostLabel = postType?.labels?.add_new_item;
+	const addLink = addQueryArgs( 'post-new.php', {
+		post_type: post.type,
+	} );
 
 	return (
 		// Some plugins expect and use the `edit-post-header-toolbar` CSS class to
@@ -159,7 +174,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 						/>
 						{ ! isDistractionFree && (
 							<ToolbarButton
-								className="editor-document-tools__document-overview-toggle"
+								className="editor-document-tools__document-overview-toggle nikunj"
 								icon={ listView }
 								disabled={ disableBlockTools }
 								isPressed={ isListViewOpen }
@@ -175,6 +190,14 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 								ref={ listViewToggleRef }
 							/>
 						) }
+						<Button
+							variant="primary"
+							__next40pxDefaultSize
+							href={ addLink }
+							className="editor-document-tools__add-new-button"
+						>
+							{ addNewPostLabel }
+						</Button>
 					</>
 				) }
 			</div>

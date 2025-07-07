@@ -61,6 +61,9 @@
 			display: none;
 		}
 	}
+	.editor-document-tools__add-new-button.is-primary {
+		height: $button-size-compact;
+	}
 }
 
 .editor-document-tools__left {
