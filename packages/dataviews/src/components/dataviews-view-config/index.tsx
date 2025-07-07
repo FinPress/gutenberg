@@ -215,8 +215,8 @@ function SortDirectionControl() {
 
 const PAGE_SIZE_VALUES = [ 10, 20, 50, 100 ];
 function ItemsPerPageControl() {
-	const { view, onChangeView } = useContext( DataViewsContext );
-	const pageSizeValues = view.perPageSizes ?? PAGE_SIZE_VALUES;
+	const { view, perPageSizes, onChangeView } = useContext( DataViewsContext );
+	const pageSizeValues = perPageSizes ?? PAGE_SIZE_VALUES;
 	return (
 		<ToggleGroupControl
 			__nextHasNoMarginBottom

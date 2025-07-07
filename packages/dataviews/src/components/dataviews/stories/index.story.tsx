@@ -307,7 +307,6 @@ export const CustomPerPageSizes = () => {
 		titleField: 'title',
 		descriptionField: 'description',
 		mediaField: 'image',
-		perPageSizes: [ 3, 6, 12, 24 ],
 		perPage: 3,
 	} );
 	const { data: shownData, paginationInfo } = useMemo( () => {
@@ -323,6 +322,7 @@ export const CustomPerPageSizes = () => {
 			onChangeView={ setView }
 			actions={ actions.filter( ( action ) => ! action.supportsBulk ) }
 			defaultLayouts={ defaultLayouts }
+			perPageSizes={ [ 3, 6, 12, 24 ] }
 		/>
 	);
 };
