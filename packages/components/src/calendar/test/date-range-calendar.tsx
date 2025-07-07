@@ -1445,16 +1445,6 @@ describe( 'DateRangeCalendar', () => {
 				/>
 			);
 
-			const now = new Date();
-			today = new Date(
-				Date.UTC(
-					now.getUTCFullYear(),
-					now.getUTCMonth(),
-					now.getUTCDate()
-				)
-			);
-			tomorrow = addDays( today, 1 );
-
 			// For someone in Tokyo, the current time simulated in the test
 			// (ie. 20:00 UTC) is the next day.
 			expect( getDateButton( tomorrow ) ).toHaveAccessibleName(

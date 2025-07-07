@@ -99,10 +99,9 @@ describe( 'DateCalendar', () => {
 		// For consistent tests, set the system time to a fixed date:
 		// Thursday, May 15, 2025, 20:00 UTC
 		jest.setSystemTime( 1747339200000 );
-
 		today = startOfDay( new Date() );
-		tomorrow = addDays( today, 1 );
-		yesterday = subDays( today, 1 );
+		tomorrow = startOfDay( addDays( today, 1 ) );
+		yesterday = startOfDay( subDays( today, 1 ) );
 		currentMonth = startOfMonth( today );
 		nextMonth = startOfMonth( addMonths( today, 1 ) );
 		nextNextMonth = startOfMonth( addMonths( today, 2 ) );
@@ -926,16 +925,6 @@ describe( 'DateCalendar', () => {
 			render(
 				<DateCalendar timeZone="Asia/Tokyo" onSelect={ onSelect } />
 			);
-
-			const now = new Date();
-			today = new Date(
-				Date.UTC(
-					now.getUTCFullYear(),
-					now.getUTCMonth(),
-					now.getUTCDate()
-				)
-			);
-			tomorrow = addDays( today, 1 );
 
 			// For someone in Tokyo, the current time simulated in the test
 			// (ie. 20:00 UTC) is the next day.
