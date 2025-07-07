@@ -22,7 +22,7 @@ export type ConnectDoc = (
 ) => Promise< () => void >;
 
 export type SyncProvider = {
-	addRecord: ( record: any, isStaged?: boolean ) => void;
+	addRecord: () => void;
 	clearUndos: () => void;
 	clearRedos: () => void;
 	undo: () => void;

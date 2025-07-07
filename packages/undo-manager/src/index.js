@@ -126,6 +126,7 @@ export function createUndoManager() {
 		 * @param {HistoryRecord=} record   A record of changes to record.
 		 * @param {boolean}        isStaged Whether to immediately create an undo point or not.
 		 */
+		// eslint-disable-next-line no-unused-vars
 		addRecord( record, isStaged = false ) {
 			// const isEmpty = ! record || isRecordEmpty( record );
 			// if ( isStaged ) {
@@ -148,7 +149,7 @@ export function createUndoManager() {
 			// 	}
 			// 	history.push( record );
 			// }
-			getSyncProvider().addRecord( record, isStaged );
+			getSyncProvider().addRecord();
 		},
 
 		undo() {

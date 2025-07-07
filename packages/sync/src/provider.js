@@ -155,6 +155,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	}
 
 	function clearUndos() {
+		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
 		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
 
 		if ( ! undoManager ) {
@@ -165,6 +166,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	}
 
 	function clearRedos() {
+		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
 		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
 
 		if ( ! undoManager ) {
@@ -175,6 +177,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	}
 
 	function canUndo() {
+		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
 		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
 
 		if ( ! undoManager ) {
@@ -185,6 +188,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	}
 
 	function canRedo() {
+		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
 		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
 
 		if ( ! undoManager ) {
@@ -195,6 +199,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	}
 
 	function undo() {
+		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
 		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
 
 		if ( ! undoManager ) {
@@ -208,6 +213,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	}
 
 	function redo() {
+		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
 		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
 
 		if ( ! undoManager ) {
@@ -221,15 +227,9 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	}
 
 	// @ts-ignore
-	function addRecord( record, isStaged = false ) {
-		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
-
-		if ( ! undoManager ) {
-			throw new Error( 'Undo manager is not initialized.' );
-		}
-
-		// eslint-disable-next-line no-console
-		console.log( 'Adding record:', record, isStaged );
+	function addRecord() {
+		// do nothing
+		// This is a no-op in the sync provider context.
 	}
 
 	/**
