@@ -21,7 +21,6 @@ import { ar } from 'date-fns/locale';
  * WordPress dependencies
  */
 import { useState } from '@wordpress/element';
-import '@testing-library/jest-dom';
 /**
  * Internal dependencies
  */

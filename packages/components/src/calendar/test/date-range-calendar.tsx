@@ -17,7 +17,6 @@ import {
 	addHours,
 } from 'date-fns';
 import { ar } from 'date-fns/locale';
-import '@testing-library/jest-dom';
 /**
  * WordPress dependencies
  */
