@@ -61,8 +61,8 @@ interface GridItemProps< Item > {
 	regularFields: NormalizedField< Item >[];
 	badgeFields: NormalizedField< Item >[];
 	hasBulkActions: boolean;
-	mediaAppearance: {
-		maxImageWidth: string;
+	config: {
+		size: string;
 	};
 }
 
@@ -82,7 +82,7 @@ function GridItem< Item >( {
 	regularFields,
 	badgeFields,
 	hasBulkActions,
-	mediaAppearance,
+	config,
 }: GridItemProps< Item > ) {
 	const { showTitle = true, showMedia = true, showDescription = true } = view;
 	const hasBulkAction = useHasAPossibleBulkAction( actions, item );
@@ -93,7 +93,7 @@ function GridItem< Item >( {
 		<mediaField.render
 			item={ item }
 			field={ mediaField }
-			mediaAppearance={ mediaAppearance }
+			config={ config }
 		/>
 	) : null;
 	const renderedTitleField =
@@ -297,6 +297,8 @@ function ViewGrid< Item >( {
 	const hasData = !! data?.length;
 	const hasBulkActions = useSomeItemHasAPossibleBulkAction( actions, data );
 	const usedPreviewSize = view.layout?.previewSize;
+	// This is the maximum width that an image can achieve in the grid.
+	const size = '900px';
 
 	const groupField = view.groupByField
 		? fields.find( ( f ) => f.id === view.groupByField )
@@ -331,16 +333,18 @@ function ViewGrid< Item >( {
 											groupName
 										) }
 									</h3>
-									<Grid
-										gap={ 8 }
-										columns={ 2 }
-										alignment="top"
+									<div
 										className={ clsx(
 											'dataviews-view-grid',
 											className
 										) }
-										style={ gridStyle }
+										style={ {
+											gridTemplateColumns:
+												usedPreviewSize &&
+												`repeat(auto-fill, minmax(${ usedPreviewSize }px, 1fr))`,
+										} }
 										aria-busy={ isLoading }
+										ref={ resizeObserverRef }
 									>
 										{ groupItems.map( ( item ) => {
 											return (
@@ -373,10 +377,13 @@ function ViewGrid< Item >( {
 													hasBulkActions={
 														hasBulkActions
 													}
+													config={ {
+														size,
+													} }
 												/>
 											);
 										} ) }
-									</Grid>
+									</div>
 								</VStack>
 							)
 						) }
@@ -387,13 +394,15 @@ function ViewGrid< Item >( {
 			{
 				// Render a single grid with all data.
 				hasData && ! dataByGroup && (
-					<Grid
-						gap={ 8 }
-						columns={ 2 }
-						alignment="top"
+					<div
 						className={ clsx( 'dataviews-view-grid', className ) }
-						style={ gridStyle }
+						style={ {
+							gridTemplateColumns:
+								usedPreviewSize &&
+								`repeat(auto-fill, minmax(${ usedPreviewSize }px, 1fr))`,
+						} }
 						aria-busy={ isLoading }
+						ref={ resizeObserverRef }
 					>
 						{ data.map( ( item ) => {
 							return (
@@ -414,10 +423,13 @@ function ViewGrid< Item >( {
 									regularFields={ regularFields }
 									badgeFields={ badgeFields }
 									hasBulkActions={ hasBulkActions }
+									config={ {
+										size,
+									} }
 								/>
 							);
 						} ) }
-					</Grid>
+					</div>
 				)
 			}
 			{
