@@ -11,14 +11,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 /**
  * Internal dependencies
  */
-import { ValidatedInputControl } from '../input-control';
+import { ValidatedInputControl } from '..';
 import { formDecorator } from './story-utils';
 import type { ControlWithError } from '../../control-with-error';
 
 const meta: Meta< typeof ControlWithError > = {
-	title: 'Validated Form Controls/Overview',
+	title: 'Components/Validated Form Controls/Overview',
 	decorators: formDecorator,
-	tags: [ '!dev' ],
 };
 export default meta;
 
