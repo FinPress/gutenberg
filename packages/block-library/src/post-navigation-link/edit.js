@@ -207,7 +207,7 @@ export default function PostNavigationLinkEdit( {
 							/>
 						</ToggleGroupControl>
 					</ToolsPanelItem>
-					{ arrow !== 'none' && (
+					{ arrow !== 'none' && ! showTitle && (
 						<ToolsPanelItem
 							hasValue={ () => ! showLabel }
 							label={ __( 'Show label' ) }
@@ -220,7 +220,7 @@ export default function PostNavigationLinkEdit( {
 								__nextHasNoMarginBottom
 								label={ __( 'Show label text' ) }
 								help={ __(
-									'Make label text visible, e.g. "Next".'
+									'Make Next/Previous label text visible'
 								) }
 								onChange={ ( value ) => {
 									setAttributes( { showLabel: value } );
@@ -271,7 +271,7 @@ export default function PostNavigationLinkEdit( {
 						{ displayArrow }
 					</span>
 				) }
-				{ showLabel && (
+				{ ( ! displayArrow || showLabel ) && (
 					<RichText
 						tagName="a"
 						identifier="label"

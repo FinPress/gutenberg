@@ -40,7 +40,7 @@ function render_block_core_post_navigation_link( $attributes, $content ) {
 	$link   = '';
 	$label  = '';
 
-	$show_label = ! isset( $attributes['showLabel'] ) || $attributes['showLabel'];
+	$show_label = ! isset( $attributes['showLabel'] ) || $attributes['showLabel'] || 'none' === $attributes['arrow'];
 
 	if ( $show_label ) {
 		$link = 'next' === $navigation_type ? _x( 'Next', 'label for next post link' ) : _x( 'Previous', 'label for previous post link' );
