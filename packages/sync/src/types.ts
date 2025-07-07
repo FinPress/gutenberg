@@ -7,6 +7,7 @@ export type * as Y from 'yjs';
 export type ObjectID = string;
 export type ObjectType = string;
 export type ObjectData = any;
+export type UndoManager = Y.UndoManager;
 
 export type ObjectConfig = {
 	fetch: ( id: ObjectID ) => Promise< ObjectData >;
@@ -21,6 +22,13 @@ export type ConnectDoc = (
 ) => Promise< () => void >;
 
 export type SyncProvider = {
+	addRecord: ( record: any, isStaged?: boolean ) => void;
+	clearUndos: () => void;
+	clearRedos: () => void;
+	undo: () => void;
+	redo: () => void;
+	canUndo: () => boolean;
+	canRedo: () => boolean;
 	register: ( type: ObjectType, config: ObjectConfig ) => void;
 	bootstrap: (
 		type: ObjectType,
