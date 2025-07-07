@@ -21,6 +21,8 @@ import {
 	ar,
 	sv,
 } from 'date-fns/locale';
+import type { Meta, StoryObj } from '@storybook/react';
+
 /**
  * WordPress dependencies
  */
@@ -29,7 +31,6 @@ import { useState, useEffect } from '@wordpress/element';
  * Internal dependencies
  */
 import { DateCalendar, TZDate } from '..';
-import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta< typeof DateCalendar > = {
 	title: 'Components/Selection & Input/Time & Date/DateCalendar',
