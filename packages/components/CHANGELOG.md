@@ -6,6 +6,10 @@
 
 -   Add new `DateCalendar` and `DateRangeCalendar` components ([#70578](https://github.com/WordPress/gutenberg/pull/70578)).
 
+### Bug Fixes
+
+-   `FormTokenField`: Fix focus lost on tab when `__experimentalExpandOnFocus` is set ([#70591](https://github.com/WordPress/gutenberg/pull/70591)).
+
 ## 29.12.0 (2025-06-25)
 
 ### Bug Fixes
