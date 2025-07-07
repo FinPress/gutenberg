@@ -37,7 +37,7 @@
 		"@wordpress/keyboard-shortcuts": "file:../keyboard-shortcuts",
 		"@wordpress/private-apis": "file:../private-apis",
 		"clsx": "^2.1.1",
-		"cmdk": "^1.0.0"
+		"cmdk": "1.1.1"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0",
