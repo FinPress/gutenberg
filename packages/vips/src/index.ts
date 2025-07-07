@@ -2,6 +2,8 @@
  * External dependencies
  */
 import Vips from 'wasm-vips';
+import type VipsInstance from 'wasm-vips';
+
 
 /**
  * Internal dependencies
@@ -22,18 +24,21 @@ interface EmscriptenModule {
 
 let cleanup: () => void;
 
-let vipsInstance: typeof Vips;
+let vipsInstance: typeof VipsInstance;
+
 
 /**
  * Instantiates and returns a new vips instance.
  *
  * Reuses any existing instance.
  */
-async function getVips(): Promise< typeof vipsInstance > {
+async function getVips(): Promise< typeof VipsInstance > {
 	if ( vipsInstance ) {
 		return vipsInstance;
 	}
-	const VIPS_CDN_URL = "https://cdn.jsdelivr.net/npm/wasm-vips";
+
+	const VIPS_CDN_URL = "https://cdn.jsdelivr.net/npm/wasm-vips@latest/lib";
+
 
 	const mainBlobUrl = URL.createObjectURL(
 		await ( await fetch( `${ VIPS_CDN_URL }/vips.js` ) ).blob()
