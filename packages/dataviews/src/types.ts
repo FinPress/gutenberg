@@ -170,6 +170,11 @@ export type Field< Item > = {
 	header?: string | ReactElement;
 
 	/**
+	 * The text of the tooltip to display when hovering the header.
+	 */
+	headerTooltipText?: string;
+
+	/**
 	 * A description of the field.
 	 */
 	description?: string;

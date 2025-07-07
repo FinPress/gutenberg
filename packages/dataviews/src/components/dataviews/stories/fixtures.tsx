@@ -706,7 +706,7 @@ export const fields: Field< SpaceObject >[] = [
 		label: 'Satellites',
 		id: 'satellites',
 		type: 'integer',
-		description: 'The number of satellites orbiting this planet',
+		headerTooltipText: 'The number of satellites orbiting this planet',
 		enableSorting: true,
 	},
 	{

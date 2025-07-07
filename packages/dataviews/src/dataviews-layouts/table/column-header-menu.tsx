@@ -79,7 +79,7 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 
 	isHidable = field.enableHiding !== false;
 	isSortable = field.enableSorting !== false;
-	const header = field.header;
+	const { header, headerTooltipText } = field;
 
 	operators = ( !! field.filterBy && field.filterBy?.operators ) || [];
 
@@ -99,15 +99,14 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 		<Menu>
 			<Menu.TriggerButton
 				render={
-					field.description ? (
+					headerTooltipText ? (
 						( props: any ) => (
-							<Tooltip text={ field.description } placement="top">
+							<Tooltip text={ headerTooltipText } placement="top">
 								<Button
 									size="compact"
 									className="dataviews-view-table-header-button"
 									ref={ ref }
 									variant="tertiary"
-									description={ field.description }
 									{ ...props }
 								/>
 							</Tooltip>
