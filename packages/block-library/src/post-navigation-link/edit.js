@@ -40,6 +40,7 @@ export default function PostNavigationLinkEdit( {
 		textAlign,
 		linkLabel,
 		arrow,
+		showLabel,
 		taxonomy,
 	},
 	setAttributes,
@@ -109,6 +110,7 @@ export default function PostNavigationLinkEdit( {
 					label={ __( 'Settings' ) }
 					resetAll={ () => {
 						setAttributes( {
+							showLabel: true,
 							showTitle: false,
 							linkLabel: false,
 							arrow: 'none',
@@ -205,6 +207,28 @@ export default function PostNavigationLinkEdit( {
 							/>
 						</ToggleGroupControl>
 					</ToolsPanelItem>
+					{ arrow !== 'none' && (
+						<ToolsPanelItem
+							hasValue={ () => ! showLabel }
+							label={ __( 'Show label' ) }
+							onDeselect={ () =>
+								setAttributes( { showLabel: true } )
+							}
+							isShownByDefault
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ __( 'Show label text' ) }
+								help={ __(
+									'Make label text visible, e.g. "Next".'
+								) }
+								onChange={ ( value ) => {
+									setAttributes( { showLabel: value } );
+								} }
+								checked={ showLabel === true }
+							/>
+						</ToolsPanelItem>
+					) }
 				</ToolsPanel>
 			</InspectorControls>
 			<InspectorControls group="advanced">
@@ -237,22 +261,29 @@ export default function PostNavigationLinkEdit( {
 			<div { ...blockProps }>
 				{ ! isNext && displayArrow && (
 					<span
-						className={ `wp-block-post-navigation-link__arrow-previous is-arrow-${ arrow }` }
+						className={ `wp-block-post-navigation-link__arrow-previous is-arrow-${ arrow } ${
+							! showLabel ? 'no-label' : ''
+						}` }
+						{ ...( ! showLabel
+							? { 'aria-label': ariaLabel }
+							: { 'aria-hidden': true } ) }
 					>
 						{ displayArrow }
 					</span>
 				) }
-				<RichText
-					tagName="a"
-					identifier="label"
-					aria-label={ ariaLabel }
-					placeholder={ placeholder }
-					value={ label }
-					withoutInteractiveFormatting
-					onChange={ ( newLabel ) =>
-						setAttributes( { label: newLabel } )
-					}
-				/>
+				{ showLabel && (
+					<RichText
+						tagName="a"
+						identifier="label"
+						aria-label={ ariaLabel }
+						placeholder={ placeholder }
+						value={ label }
+						withoutInteractiveFormatting
+						onChange={ ( newLabel ) =>
+							setAttributes( { label: newLabel } )
+						}
+					/>
+				) }
 				{ showTitle && (
 					<a
 						href="#post-navigation-pseudo-link"
@@ -263,8 +294,12 @@ export default function PostNavigationLinkEdit( {
 				) }
 				{ isNext && displayArrow && (
 					<span
-						className={ `wp-block-post-navigation-link__arrow-next is-arrow-${ arrow }` }
-						aria-hidden
+						className={ `wp-block-post-navigation-link__arrow-next is-arrow-${ arrow } ${
+							! showLabel ? 'no-label' : ''
+						}` }
+						{ ...( ! showLabel
+							? { 'aria-label': ariaLabel }
+							: { 'aria-hidden': true } ) }
 					>
 						{ displayArrow }
 					</span>
