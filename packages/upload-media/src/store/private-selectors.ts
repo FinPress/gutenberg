@@ -3,6 +3,7 @@
  */
 import {
 	type BatchId,
+	type ImageSizeCrop,
 	ItemStatus,
 	OperationType,
 	type QueueItem,
@@ -22,6 +23,21 @@ export function getAllItems( state: State ): QueueItem[] {
 }
 
 /**
+ * Returns all items currently being uploaded.
+ *
+ * @param state    Upload state.
+ * @param parentId Parent item ID.
+ *
+ * @return Queue items.
+ */
+export function getChildItems(
+	state: State,
+	parentId: QueueItemId
+): QueueItem[] {
+	return state.queue.filter( ( item ) => item.parentId === parentId );
+}
+
+/**
  * Returns a specific item given its unique ID.
  *
  * @param state Upload state.
@@ -37,7 +53,7 @@ export function getItem(
 }
 
 /**
- * Returns a specific item given its source attachment ID.
+ * Returns a specific item given its associated attachment ID.
  *
  * @param state        Upload state.
  * @param attachmentId Item ID.
@@ -49,23 +65,10 @@ export function getItemByAttachmentId(
 	attachmentId: number
 ): QueueItem | undefined {
 	return state.queue.find(
-		( item ) => item.sourceAttachmentId === attachmentId
+		( item ) =>
+			item.attachment?.id === attachmentId ||
+			item.sourceAttachmentId === attachmentId
 	);
-}
-
-/**
- * Returns all child items for a given parent item ID.
- *
- * @param state    Upload state.
- * @param parentId Parent item ID.
- *
- * @return Child queue items.
- */
-export function getChildItems(
-	state: State,
-	parentId: QueueItemId
-): QueueItem[] {
-	return state.queue.filter( ( item ) => item.parentId === parentId );
 }
 
 /**
@@ -80,7 +83,7 @@ export function isBatchUploaded( state: State, batchId: BatchId ): boolean {
 	const batchItems = state.queue.filter(
 		( item ) => batchId === item.batchId
 	);
-	return batchItems.length === 0;
+	return batchItems.length <= 1;
 }
 
 /**
@@ -122,6 +125,21 @@ export function getPausedUploadForPost(
 }
 
 /**
+ * Determines whether an upload is currently in progress given a parent ID.
+ *
+ * @param state    Upload state.
+ * @param parentId Parent ID.
+ *
+ * @return Whether upload is currently in progress for the given parent ID.
+ */
+export function isUploadingByParentId(
+	state: State,
+	parentId: QueueItemId
+): boolean {
+	return state.queue.some( ( item ) => item.parentId === parentId );
+}
+
+/**
  * Determines whether uploading is currently paused.
  *
  * @param state Upload state.
@@ -130,6 +148,18 @@ export function getPausedUploadForPost(
  */
 export function isPaused( state: State ): boolean {
 	return state.queueStatus === 'paused';
+}
+
+/**
+ * Returns an image size given its name.
+ *
+ * @param state Upload state.
+ * @param name  Image size name.
+ *
+ * @return Image size data.
+ */
+export function getImageSize( state: State, name: string ): ImageSizeCrop {
+	return state.settings.imageSizes[ name ];
 }
 
 /**

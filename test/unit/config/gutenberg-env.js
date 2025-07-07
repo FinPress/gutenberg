@@ -12,5 +12,3 @@ globalThis.IS_WORDPRESS_CORE = true;
 globalThis.IS_GUTENBERG_PLUGIN =
 	String( process.env.npm_package_config_IS_GUTENBERG_PLUGIN ) === 'true';
 
-// eslint-disable-next-line @wordpress/wp-global-usage
-globalThis.VIPS_CDN_URL = '';

@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from 'uuid';
 /**
  * WordPress dependencies
  */
-import { store as preferencesStore } from '@wordpress/preferences';
 // eslint-disable-next-line no-restricted-syntax
 import type { WPDataRegistry } from '@wordpress/data/build-types/registry';
 
@@ -258,7 +257,7 @@ export function optimizeExistingItem( {
 	additionalData = {} as AdditionalData,
 	generatedPosterId,
 }: OptimizeExistingItemArgs ) {
-	return async ( { dispatch, registry }: ThunkArgs ) => {
+	return async ( { dispatch }: ThunkArgs ) => {
 		fileName = fileName || getFileNameFromUrl( url );
 		const baseName = getFileBasename( fileName );
 		const newFileName = fileName.replace(
@@ -266,9 +265,7 @@ export function optimizeExistingItem( {
 			`${ baseName }-optimized`
 		);
 
-		const requireApproval = registry
-			.select( preferencesStore )
-			.get( 'core/media', 'requireApproval' );
+		const requireApproval = false;
 
 		// TODO: Same considerations apply as for muteExistingVideo.
 
