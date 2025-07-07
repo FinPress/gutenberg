@@ -262,16 +262,16 @@ export default function PostNavigationLinkEdit( {
 				{ ! isNext && displayArrow && (
 					<span
 						className={ `wp-block-post-navigation-link__arrow-previous is-arrow-${ arrow } ${
-							! showLabel ? 'no-label' : ''
+							! showLabel && ! showTitle ? 'no-label' : ''
 						}` }
-						{ ...( ! showLabel
+						{ ...( ! showLabel && ! showTitle
 							? { 'aria-label': ariaLabel }
 							: { 'aria-hidden': true } ) }
 					>
 						{ displayArrow }
 					</span>
 				) }
-				{ ( ! displayArrow || showLabel ) && (
+				{ ( ! displayArrow || showLabel || showTitle ) && (
 					<RichText
 						tagName="a"
 						identifier="label"
@@ -295,9 +295,9 @@ export default function PostNavigationLinkEdit( {
 				{ isNext && displayArrow && (
 					<span
 						className={ `wp-block-post-navigation-link__arrow-next is-arrow-${ arrow } ${
-							! showLabel ? 'no-label' : ''
+							! showLabel && ! showTitle ? 'no-label' : ''
 						}` }
-						{ ...( ! showLabel
+						{ ...( ! showLabel && ! showTitle
 							? { 'aria-label': ariaLabel }
 							: { 'aria-hidden': true } ) }
 					>
