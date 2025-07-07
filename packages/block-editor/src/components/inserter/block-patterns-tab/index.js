@@ -27,7 +27,7 @@ function BlockPatternsTab( {
 	children,
 } ) {
 	const [ showPatternsExplorer, setShowPatternsExplorer ] = useState( false );
-	const [ initialLoaded, setInitialLoaded ] = useState( false );
+	const [ isLoading, setIsLoading ] = useState( true );
 
 	const categories = usePatternCategories( rootClientId );
 
@@ -39,13 +39,19 @@ function BlockPatternsTab( {
 		[]
 	);
 
+	/**
+	 * Hide spinner when atleast one category is loaded or pattern resolution is complete.
+	 */
 	useEffect( () => {
-		if ( categories?.length > 0 && ! initialLoaded ) {
-			setInitialLoaded( true );
+		if (
+			( categories?.length > 0 || ! isResolvingPatterns ) &&
+			isLoading
+		) {
+			setIsLoading( false );
 		}
-	}, [ initialLoaded, categories ] );
+	}, [ isLoading, categories, isResolvingPatterns ] );
 
-	if ( ! initialLoaded && isResolvingPatterns ) {
+	if ( isLoading ) {
 		return (
 			<Spinner className="block-editor-inserter__categories-panel-spinner" />
 		);
