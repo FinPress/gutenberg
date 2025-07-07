@@ -638,21 +638,19 @@ export default function LogoEdit( {
 				dropdownMenuProps={ dropdownMenuProps }
 			>
 				{ ! canUserEdit ? (
-					<ToolsPanelItem
-						hasValue={ () => !! logoUrl }
-						label={ __( 'Logo preview' ) }
+					<div
+						className="block-library-site-logo__inspector-media-replace-container"
+						style={ { gridColumn: '1 / -1' } }
 					>
-						<div className="block-library-site-logo__inspector-media-replace-container">
-							<InspectorLogoPreview
-								media={ mediaItemData }
-								itemGroupProps={ {
-									isBordered: true,
-									className:
-										'block-library-site-logo__inspector-readonly-logo-preview',
-								} }
-							/>
-						</div>
-					</ToolsPanelItem>
+						<InspectorLogoPreview
+							media={ mediaItemData }
+							itemGroupProps={ {
+								isBordered: true,
+								className:
+									'block-library-site-logo__inspector-readonly-logo-preview',
+							} }
+						/>
+					</div>
 				) : (
 					<ToolsPanelItem
 						hasValue={ () => !! logoUrl }
