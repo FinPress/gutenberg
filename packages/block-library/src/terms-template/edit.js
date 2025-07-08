@@ -72,42 +72,67 @@ function TermsTemplateBlockPreview( {
 
 const MemoizedTermsTemplateBlockPreview = memo( TermsTemplateBlockPreview );
 
+/**
+ * Builds a hierarchical tree structure from flat terms array.
+ *
+ * @param {Array} terms Array of term objects.
+ * @return {Array} Tree structure with parent/child relationships.
+ */
+function buildTermsTree( terms ) {
+	const termsById = {};
+	const rootTerms = [];
+
+	terms.forEach( ( term ) => {
+		termsById[ term.id ] = {
+			term,
+			children: [],
+		};
+	} );
+
+	terms.forEach( ( term ) => {
+		if ( term.parent && termsById[ term.parent ] ) {
+			termsById[ term.parent ].children.push( termsById[ term.id ] );
+		} else {
+			rootTerms.push( termsById[ term.id ] );
+		}
+	} );
+
+	return rootTerms;
+}
+
+/**
+ * Renders a single term node and its children recursively.
+ *
+ * @param {Object}   termNode   Term node with term object and children.
+ * @param {Function} renderTerm Function to render a single term.
+ * @return {JSX.Element} Rendered term node.
+ */
+function renderTermNode( termNode, renderTerm ) {
+	const children =
+		termNode.children.length > 0 ? (
+			<ul className="children">
+				{ termNode.children.map( ( childNode ) =>
+					renderTermNode( childNode, renderTerm )
+				) }
+			</ul>
+		) : null;
+
+	return (
+		<>
+			{ renderTerm( termNode.term ) }
+			{ children }
+		</>
+	);
+}
+
 export default function TermsTemplateEdit( {
 	setAttributes,
 	clientId,
-	context: {
-		query: {
-			perPage,
-			offset = 0,
-			taxonomy: taxonomySlug,
-			order,
-			orderBy,
-			hideEmpty,
-			hierarchical,
-			parent,
-			exclude,
-			include,
-			search,
-		} = {},
-	},
+	context: { query: { taxonomy: taxonomySlug, hierarchical } = {} },
 	attributes: { layout },
 	__unstableLayoutClassNames,
 } ) {
 	const [ activeBlockContextId, setActiveBlockContextId ] = useState();
-
-	const query = {
-		per_page: perPage || 3,
-		offset,
-		order,
-		orderby: orderBy,
-		hide_empty: hideEmpty,
-		hierarchical,
-		parent,
-		exclude,
-		include,
-		search,
-		context: 'view',
-	};
 
 	const { records: terms, isResolving } = useEntityRecords(
 		'taxonomy',
@@ -177,42 +202,75 @@ export default function TermsTemplateEdit( {
 		},
 	];
 
+	const renderTerm = ( term ) => {
+		const blockContext = {
+			termType: taxonomySlug,
+			termId: term.id,
+			classList: `term-${ term.id }`,
+		};
+
+		return (
+			<BlockContextProvider key={ term.id } value={ blockContext }>
+				{ term.id ===
+				( activeBlockContextId || blockContexts[ 0 ]?.termId ) ? (
+					<TermsTemplateInnerBlocks
+						classList={ blockContext.classList }
+					/>
+				) : null }
+				<MemoizedTermsTemplateBlockPreview
+					blocks={ blocks }
+					blockContextId={ term.id }
+					classList={ blockContext.classList }
+					setActiveBlockContextId={ setActiveBlockContextId }
+					isHidden={
+						term.id ===
+						( activeBlockContextId || blockContexts[ 0 ]?.termId )
+					}
+				/>
+			</BlockContextProvider>
+		);
+	};
+
+	const renderTerms = () => {
+		if ( hierarchical ) {
+			const termsTree = buildTermsTree( terms );
+			return termsTree.map( ( termNode ) =>
+				renderTermNode( termNode, renderTerm )
+			);
+		}
+
+		return blockContexts.map( ( blockContext ) => (
+			<BlockContextProvider
+				key={ blockContext.termId }
+				value={ blockContext }
+			>
+				{ blockContext.termId ===
+				( activeBlockContextId || blockContexts[ 0 ]?.termId ) ? (
+					<TermsTemplateInnerBlocks
+						classList={ blockContext.classList }
+					/>
+				) : null }
+				<MemoizedTermsTemplateBlockPreview
+					blocks={ blocks }
+					blockContextId={ blockContext.termId }
+					classList={ blockContext.classList }
+					setActiveBlockContextId={ setActiveBlockContextId }
+					isHidden={
+						blockContext.termId ===
+						( activeBlockContextId || blockContexts[ 0 ]?.termId )
+					}
+				/>
+			</BlockContextProvider>
+		) );
+	};
+
 	return (
 		<>
 			<BlockControls>
 				<ToolbarGroup controls={ displayLayoutControls } />
 			</BlockControls>
 
-			<ul { ...blockProps }>
-				{ blockContexts &&
-					blockContexts.map( ( blockContext ) => (
-						<BlockContextProvider
-							key={ blockContext.termId }
-							value={ blockContext }
-						>
-							{ blockContext.termId ===
-							( activeBlockContextId ||
-								blockContexts[ 0 ]?.termId ) ? (
-								<TermsTemplateInnerBlocks
-									classList={ blockContext.classList }
-								/>
-							) : null }
-							<MemoizedTermsTemplateBlockPreview
-								blocks={ blocks }
-								blockContextId={ blockContext.termId }
-								classList={ blockContext.classList }
-								setActiveBlockContextId={
-									setActiveBlockContextId
-								}
-								isHidden={
-									blockContext.termId ===
-									( activeBlockContextId ||
-										blockContexts[ 0 ]?.termId )
-								}
-							/>
-						</BlockContextProvider>
-					) ) }
-			</ul>
+			<ul { ...blockProps }>{ renderTerms() }</ul>
 		</>
 	);
 }

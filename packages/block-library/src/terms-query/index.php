@@ -54,34 +54,10 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => trim( $classnames ) ) );
 
-	$content = '';
-	foreach ( $terms as $term ) {
-		// Get an instance of the current Terms Template block.
-		$block_instance = $block->parsed_block;
-
-		// Set the block name to one that does not correspond to an existing registered block.
-		// This ensures that for the inner instances of the Terms Template block, we do not render any block supports.
-		$block_instance['blockName'] = 'core/null';
-
-		$term_id   = $term->term_id;
-		$term_type = $term->taxonomy;
-		$filter_block_context = static function ( $context ) use ( $term_id, $term_type ) {
-			$context['termType'] = $term_type;
-			$context['termId']   = $term_id;
-			return $context;
-		};
-
-		// Use an early priority to so that other 'render_block_context' filters have access to the values.
-		add_filter( 'render_block_context', $filter_block_context, 1 );
-		// Render the inner blocks of the Terms Template block with `dynamic` set to `false` to prevent calling
-		// `render_callback` and ensure that no wrapper markup is included.
-		$block_content = ( new WP_Block( $block_instance ) )->render( array( 'dynamic' => false ) );
-		remove_filter( 'render_block_context', $filter_block_context, 1 );
-
-		// Wrap the render inner blocks in a `li` element with the appropriate term classes.
-		$term_classes = implode( ' ', get_term_class( 'wp-block-term', $term ) );
-
-		$content .= '<li class="' . esc_attr( $term_classes ) . '">' . $block_content . '</li>';
+	if ( $query_args['hierarchical'] ) {
+		$content = render_hierarchical_terms( $terms, $block );
+	} else {
+		$content = render_flat_terms( $terms, $block );
 	}
 
 	return sprintf(
@@ -89,6 +65,86 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 		$wrapper_attributes,
 		$content
 	);
+}
+
+/**
+ * Renders terms in a flat list structure.
+ *
+ * @param array    $terms Array of WP_Term objects.
+ * @param WP_Block $block Block instance.
+ * @return string HTML content.
+ */
+function render_flat_terms( $terms, $block ) {
+	$content = '';
+	foreach ( $terms as $term ) {
+		$content .= render_single_term( $term, $block );
+	}
+	return $content;
+}
+
+/**
+ * Renders terms in a hierarchical tree structure.
+ *
+ * @param array    $terms Array of WP_Term objects.
+ * @param WP_Block $block Block instance.
+ * @return string HTML content.
+ */
+function render_hierarchical_terms( $terms, $block ) {
+	$terms_tree = build_terms_tree( $terms );
+	$content = '';
+	foreach ( $terms_tree as $term_node ) {
+		$content .= render_term_node( $term_node, $block );
+	}
+	return $content;
+}
+
+/**
+ * Builds a hierarchical tree structure from flat terms array.
+ *
+ * @param array $terms Array of WP_Term objects.
+ * @return array Tree structure with parent/child relationships.
+ */
+function build_terms_tree( $terms ) {
+	$terms_by_id = array();
+	$root_terms  = array();
+
+	foreach ( $terms as $term ) {
+		$terms_by_id[ $term->term_id ] = array(
+			'term'     => $term,
+			'children' => array(),
+		);
+	}
+
+	foreach ( $terms as $term ) {
+		if ( $term->parent && isset( $terms_by_id[ $term->parent ] ) ) {
+			$terms_by_id[ $term->parent ]['children'][] = $terms_by_id[ $term->term_id ];
+		} else {
+			$root_terms[] = $terms_by_id[ $term->term_id ];
+		}
+	}
+
+	return $root_terms;
+}
+
+/**
+ * Renders a single term node and its children recursively.
+ *
+ * @param array    $term_node Term node with term object and children.
+ * @param WP_Block $block     Block instance.
+ * @return string HTML content.
+ */
+function render_term_node( $term_node, $block ) {
+	$content = render_single_term( $term_node['term'], $block );
+
+	if ( ! empty( $term_node['children'] ) ) {
+		$children_content = '';
+		foreach ( $term_node['children'] as $child_node ) {
+			$children_content .= render_term_node( $child_node, $block );
+		}
+		$content .= '<ul class="children">' . $children_content . '</ul>';
+	}
+
+	return $content;
 }
 
 /**
