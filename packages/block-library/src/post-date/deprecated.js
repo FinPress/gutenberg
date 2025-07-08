@@ -3,6 +3,93 @@
  */
 import migrateFontFamily from '../utils/migrate-font-family';
 
+const v2 = {
+	attributes: {
+		textAlign: {
+			type: 'string',
+		},
+		format: {
+			type: 'string',
+		},
+		isLink: {
+			type: 'boolean',
+			default: false,
+			role: 'content',
+		},
+		displayType: {
+			type: 'string',
+			default: 'date',
+		},
+	},
+	supports: {
+		html: false,
+		color: {
+			gradients: true,
+			link: true,
+			__experimentalDefaultControls: {
+				background: true,
+				text: true,
+				link: true,
+			},
+		},
+		spacing: {
+			margin: true,
+			padding: true,
+		},
+		typography: {
+			fontSize: true,
+			lineHeight: true,
+			__experimentalFontFamily: true,
+			__experimentalFontWeight: true,
+			__experimentalFontStyle: true,
+			__experimentalTextTransform: true,
+			__experimentalTextDecoration: true,
+			__experimentalLetterSpacing: true,
+			__experimentalDefaultControls: {
+				fontSize: true,
+			},
+		},
+		interactivity: {
+			clientNavigation: true,
+		},
+		__experimentalBorder: {
+			radius: true,
+			color: true,
+			width: true,
+			style: true,
+			__experimentalDefaultControls: {
+				radius: true,
+				color: true,
+				width: true,
+				style: true,
+			},
+		},
+	},
+	save() {
+		return null;
+	},
+	migrate( { displayType, ...otherAttributes } ) {
+		if ( displayType === 'date' || displayType === 'modified' ) {
+			return {
+				...otherAttributes,
+				metadata: {
+					bindings: {
+						date: {
+							source: 'core/post-data',
+							args: { key: displayType },
+						},
+					},
+				},
+			};
+		}
+	},
+	isEligible( attributes ) {
+		// If there's neither an explicit `date` attribute nor a block binding for that attriubte,
+		// then we're dealing with an old version of the block.
+		return ! attributes.date && ! attributes?.metadata?.bindings?.date;
+	},
+};
+
 const v1 = {
 	attributes: {
 		textAlign: {
@@ -49,4 +136,4 @@ const v1 = {
  *
  * See block-deprecation.md
  */
-export default [ v1 ];
+export default [ v2, v1 ];

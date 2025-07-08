@@ -9,7 +9,7 @@
 					"date": {
 						"source": "core/post-data",
 						"args": {
-							"key": "date"
+							"key": "modified"
 						}
 					}
 				}
