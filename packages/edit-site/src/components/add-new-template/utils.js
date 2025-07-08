@@ -86,6 +86,8 @@ const usePublicPostTypes = () => {
 					viewable && ! excludedPostTypes.includes( slug )
 			)
 			.sort( ( a, b ) => {
+				// Sort post types alphabetically by name,
+				// but exclude the built-in 'post' type from sorting.
 				if ( a.slug === 'post' || b.slug === 'post' ) {
 					return 0;
 				}
