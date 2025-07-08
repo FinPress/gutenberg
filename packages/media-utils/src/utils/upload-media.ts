@@ -12,6 +12,7 @@ import type {
 	Attachment,
 	OnChangeHandler,
 	OnErrorHandler,
+	OnSuccessHandler,
 } from './types';
 import { uploadToServer } from './upload-to-server';
 import { validateMimeType } from './validate-mime-type';
@@ -38,6 +39,8 @@ interface UploadMediaArgs {
 	onError?: OnErrorHandler;
 	// Function called each time a file or a temporary representation of the file is available.
 	onFileChange?: OnChangeHandler;
+	// Function called after the final representation of the file is available.
+	onSuccess?: OnSuccessHandler;
 	// List of allowed mime types and file extensions.
 	wpAllowedMimeTypes?: Record< string, string > | null;
 	// Abort signal.
@@ -57,6 +60,7 @@ interface UploadMediaArgs {
  * @param $0.maxUploadFileSize  Maximum upload size in bytes allowed for the site.
  * @param $0.onError            Function called when an error happens.
  * @param $0.onFileChange       Function called each time a file or a temporary representation of the file is available.
+ * @param $0.onSuccess          Function called after the final representation of the file is available.
  * @param $0.wpAllowedMimeTypes List of allowed mime types and file extensions.
  * @param $0.signal             Abort signal.
  * @param $0.multiple           Whether to allow multiple files to be uploaded.
@@ -69,6 +73,7 @@ export function uploadMedia( {
 	maxUploadFileSize,
 	onError,
 	onFileChange,
+	onSuccess,
 	signal,
 	multiple = true,
 }: UploadMediaArgs ) {
@@ -131,45 +136,60 @@ export function uploadMedia( {
 		}
 	}
 
-	validFiles.map( async ( file, index ) => {
-		try {
-			const attachment = await uploadToServer(
-				file,
-				additionalData,
-				signal
-			);
-			setAndUpdateFiles( index, attachment );
-		} catch ( error ) {
-			// Reset to empty on failure.
-			setAndUpdateFiles( index, null );
-
-			// @wordpress/api-fetch throws any response that isn't in the 200 range as-is.
-			let message: string;
-			if (
-				typeof error === 'object' &&
-				error !== null &&
-				'message' in error
-			) {
-				message =
-					typeof error.message === 'string'
-						? error.message
-						: String( error.message );
-			} else {
-				message = sprintf(
-					// translators: %s: file name
-					__( 'Error while uploading file %s to the media library.' ),
-					file.name
-				);
-			}
-
-			onError?.(
-				new UploadError( {
-					code: 'GENERAL',
-					message,
+	Promise.all(
+		validFiles.map( async ( file, index ) => {
+			try {
+				const attachment = await uploadToServer(
 					file,
-					cause: error instanceof Error ? error : undefined,
-				} )
-			);
+					additionalData,
+					signal
+				);
+				setAndUpdateFiles( index, attachment );
+				return attachment;
+			} catch ( error ) {
+				// Reset to empty on failure.
+				setAndUpdateFiles( index, null );
+
+				// @wordpress/api-fetch throws any response that isn't in the 200 range as-is.
+				let message: string;
+				if (
+					typeof error === 'object' &&
+					error !== null &&
+					'message' in error
+				) {
+					message =
+						typeof error.message === 'string'
+							? error.message
+							: String( error.message );
+				} else {
+					message = sprintf(
+						// translators: %s: file name
+						__(
+							'Error while uploading file %s to the media library.'
+						),
+						file.name
+					);
+				}
+
+				onError?.(
+					new UploadError( {
+						code: 'GENERAL',
+						message,
+						file,
+						cause: error instanceof Error ? error : undefined,
+					} )
+				);
+
+				return null;
+			}
+		} )
+	).then( ( results ) => {
+		const attachments = results.filter(
+			( attachment ) => attachment !== null
+		);
+
+		if ( attachments.length > 0 ) {
+			onSuccess?.( attachments );
 		}
 	} );
 }
