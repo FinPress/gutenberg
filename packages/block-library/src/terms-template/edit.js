@@ -128,7 +128,9 @@ function renderTermNode( termNode, renderTerm ) {
 export default function TermsTemplateEdit( {
 	setAttributes,
 	clientId,
-	context: { query: { taxonomy: taxonomySlug, hierarchical } = {} },
+	context: {
+		query: { taxonomy: taxonomySlug, hierarchical, hideEmpty } = {},
+	},
 	attributes: { layout },
 	__unstableLayoutClassNames,
 } ) {
@@ -136,7 +138,10 @@ export default function TermsTemplateEdit( {
 
 	const { records: terms, isResolving } = useEntityRecords(
 		'taxonomy',
-		taxonomySlug
+		taxonomySlug,
+		{
+			hide_empty: hideEmpty,
+		}
 	);
 
 	const { blocks } = useSelect(
