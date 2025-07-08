@@ -85,7 +85,13 @@ const usePublicPostTypes = () => {
 				( { viewable, slug } ) =>
 					viewable && ! excludedPostTypes.includes( slug )
 			)
-			.sort( ( a, b ) => a.name.localeCompare( b.name ) );
+			.sort( ( a, b ) => {
+				if ( a.slug === 'post' || b.slug === 'post' ) {
+					return 0;
+				}
+
+				return a.name.localeCompare( b.name );
+			} );
 	}, [ postTypes ] );
 };
 
