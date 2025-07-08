@@ -86,17 +86,12 @@ export default function PostDateEdit( {
 		[ postTypeSlug ]
 	);
 
-	const dateLabel =
-		displayType === 'date' ? __( 'Post Date' ) : __( 'Post Modified Date' );
-
-	let postDate = ! displayType ? (
+	let postDate = (
 		<time dateTime={ dateI18n( 'c', date ) } ref={ setPopoverAnchor }>
 			{ format === 'human-diff'
 				? humanTimeDiff( date )
 				: dateI18n( format || siteFormat, date ) }
 		</time>
-	) : (
-		dateLabel
 	);
 
 	if ( isLink && date ) {
