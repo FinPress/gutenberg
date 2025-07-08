@@ -248,7 +248,7 @@ export function CommandMenu() {
 							ref={ commandMenuInput }
 							value={ search }
 							onValueChange={ setSearch }
-							placeholder={ __( 'Type a command or search' ) }
+							placeholder={ inputLabel }
 						/>
 						<Icon icon={ inputIcon } />
 					</div>
