@@ -229,6 +229,8 @@ if ( files.length ) {
 				`**/{__mocks__,__tests__,test}/**`,
 				`**/{storybook,stories}/**`,
 				`**/e2e-test-utils-playwright/**`,
+				// Native stylesheets are irrelevant to web builds, and require configuration not supported by this build script
+				`**/*.native.scss`,
 			],
 			onlyFiles: true,
 		}
