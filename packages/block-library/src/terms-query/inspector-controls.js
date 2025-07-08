@@ -59,6 +59,7 @@ export default function TermsQueryInspectorControls( {
 						include: [],
 						search: '',
 						inherit: false,
+						hideParents: false,
 					},
 				} );
 			} }
@@ -163,9 +164,39 @@ export default function TermsQueryInspectorControls( {
 					__nextHasNoMarginBottom
 					label={ __( 'Show hierarchy' ) }
 					checked={ query.hierarchical }
-					onChange={ ( hierarchical ) =>
-						setQuery( { hierarchical } )
-					}
+					onChange={ ( hierarchical ) => {
+						setQuery( { hierarchical } );
+						if ( hierarchical && query.hideParents ) {
+							setQuery( { hideParents: false } );
+						}
+					} }
+					help={ __(
+						'Display terms in a hierarchical tree structure.'
+					) }
+					disabled={ !! query.hideParents }
+				/>
+			</ToolsPanelItem>
+
+			<ToolsPanelItem
+				hasValue={ () => query.hideParents !== false }
+				label={ __( 'Hide parent terms' ) }
+				onDeselect={ () => setQuery( { hideParents: false } ) }
+				isShownByDefault
+			>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Hide parent terms' ) }
+					checked={ query.hideParents }
+					onChange={ ( hideParents ) => {
+						setQuery( { hideParents } );
+						if ( hideParents && query.hierarchical ) {
+							setQuery( { hierarchical: false } );
+						}
+					} }
+					help={ __(
+						'Only show child terms, hiding parent terms that have children.'
+					) }
+					disabled={ !! query.hierarchical }
 				/>
 			</ToolsPanelItem>
 

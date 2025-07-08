@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { list as icon } from '@wordpress/icons';
+import { formatListNumbered as icon } from '@wordpress/icons';
 
 /**
  * Internal dependencies

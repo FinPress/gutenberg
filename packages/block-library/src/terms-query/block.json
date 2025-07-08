@@ -26,7 +26,8 @@
 				"exclude": [],
 				"include": [],
 				"search": "",
-				"inherit": false
+				"inherit": false,
+				"hideParents": false
 			}
 		},
 		"tagName": {

@@ -42,6 +42,13 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 		return '';
 	}
 
+		// Filter out parent terms if hideParents is enabled
+	if ( ! empty( $query['hideParents'] ) ) {
+		$terms = array_filter( $terms, function( $term ) {
+			return ! empty( $term->parent );
+		} );
+	}
+
 	$classnames = '';
 	if ( isset( $block->context['displayLayout'] ) && isset( $block->context['query'] ) ) {
 		if ( isset( $block->context['displayLayout']['type'] ) && 'flex' === $block->context['displayLayout']['type'] ) {

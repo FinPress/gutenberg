@@ -37,6 +37,7 @@ The Terms Query block supports the following query parameters:
 - `orderBy` - Order by field ('name', 'slug', 'term_id', 'count')
 - `hideEmpty` - Whether to hide terms with no posts
 - `hierarchical` - Whether to show hierarchical structure
+- `hideParents` - Whether to hide parent terms that have children
 - `parent` - Parent term ID for hierarchical queries
 - `exclude` - Array of term IDs to exclude
 - `include` - Array of term IDs to include

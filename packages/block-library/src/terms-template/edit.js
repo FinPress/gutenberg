@@ -129,7 +129,12 @@ export default function TermsTemplateEdit( {
 	setAttributes,
 	clientId,
 	context: {
-		query: { taxonomy: taxonomySlug, hierarchical, hideEmpty } = {},
+		query: {
+			taxonomy: taxonomySlug,
+			hierarchical,
+			hideEmpty,
+			hideParents,
+		} = {},
 	},
 	attributes: { layout },
 	__unstableLayoutClassNames,
@@ -144,6 +149,14 @@ export default function TermsTemplateEdit( {
 		}
 	);
 
+	// Filter out parent terms if hideParents is enabled.
+	const filteredTerms = useMemo( () => {
+		if ( ! terms || ! hideParents ) {
+			return terms;
+		}
+		return terms.filter( ( term ) => !! term.parent );
+	}, [ terms, hideParents ] );
+
 	const { blocks } = useSelect(
 		( select ) => ( {
 			blocks: select( blockEditorStore ).getBlocks( clientId ),
@@ -156,12 +169,12 @@ export default function TermsTemplateEdit( {
 
 	const blockContexts = useMemo(
 		() =>
-			terms?.map( ( term ) => ( {
+			filteredTerms?.map( ( term ) => ( {
 				termType: taxonomySlug,
 				termId: term.id,
 				classList: `term-${ term.id }`,
 			} ) ),
-		[ terms, taxonomySlug ]
+		[ filteredTerms, taxonomySlug ]
 	);
 
 	const blockProps = useBlockProps( {
@@ -179,7 +192,7 @@ export default function TermsTemplateEdit( {
 		);
 	}
 
-	if ( ! terms?.length ) {
+	if ( ! filteredTerms?.length ) {
 		return <p { ...blockProps }> { __( 'No terms found.' ) }</p>;
 	}
 
@@ -238,7 +251,7 @@ export default function TermsTemplateEdit( {
 
 	const renderTerms = () => {
 		if ( hierarchical ) {
-			const termsTree = buildTermsTree( terms );
+			const termsTree = buildTermsTree( filteredTerms );
 			return termsTree.map( ( termNode ) =>
 				renderTermNode( termNode, renderTerm )
 			);
