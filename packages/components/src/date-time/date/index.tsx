@@ -306,6 +306,7 @@ function Day( {
 
 	return (
 		<DayButton
+			__next40pxDefaultSize
 			ref={ ref }
 			className="components-datetime__date__day" // Unused, for backwards compatibility.
 			disabled={ isInvalid }
@@ -343,7 +344,7 @@ function getDayLabel( date: Date, isSelected: boolean, numEvents: number ) {
 		);
 	} else if ( isSelected ) {
 		return sprintf(
-			// translators: %s: The calendar date.
+			// translators: 1: The calendar date.
 			__( '%1$s. Selected' ),
 			localizedDate
 		);

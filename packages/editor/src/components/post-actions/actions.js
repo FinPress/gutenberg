@@ -11,6 +11,7 @@ import { store as coreStore } from '@wordpress/core-data';
 import { store as editorStore } from '../../store';
 import { unlock } from '../../lock-unlock';
 import { useSetAsHomepageAction } from './set-as-homepage';
+import { useSetAsPostsPageAction } from './set-as-posts-page';
 
 export function usePostActions( { postType, onActionPerformed, context } ) {
 	const { defaultActions } = useSelect(
@@ -23,28 +24,55 @@ export function usePostActions( { postType, onActionPerformed, context } ) {
 		[ postType ]
 	);
 
-	const { canManageOptions, hasFrontPageTemplate } = useSelect(
+	const shouldShowHomepageActions = useSelect(
 		( select ) => {
-			const { getEntityRecords } = select( coreStore );
-			const templates = getEntityRecords( 'postType', 'wp_template', {
-				per_page: -1,
+			if ( postType !== 'page' ) {
+				return false;
+			}
+
+			const { getDefaultTemplateId, getEntityRecord, canUser } =
+				select( coreStore );
+			const canUpdateSettings = canUser( 'update', {
+				kind: 'root',
+				name: 'site',
 			} );
 
-			return {
-				canManageOptions: select( coreStore ).canUser( 'update', {
-					kind: 'root',
-					name: 'site',
-				} ),
-				hasFrontPageTemplate: !! templates?.find(
-					( template ) => template?.slug === 'front-page'
-				),
-			};
-		}
+			if ( ! canUpdateSettings ) {
+				return false;
+			}
+
+			// Note that resolved template for `front-page` is not necessarily a
+			// `front-page` template.
+			const frontPageTemplateId = getDefaultTemplateId( {
+				slug: 'front-page',
+			} );
+
+			if ( ! frontPageTemplateId ) {
+				return true;
+			}
+
+			// This won't trigger a second network request, getDefaultTemplateId
+			// will have received the whole template from the REST API.
+			const frontPageTemplate = getEntityRecord(
+				'postType',
+				'wp_template',
+				frontPageTemplateId
+			);
+
+			if ( ! frontPageTemplate ) {
+				return true;
+			}
+
+			// When there is a front page template, the front page cannot be
+			// changed. See
+			// https://developer.wordpress.org/themes/basics/template-hierarchy/
+			return frontPageTemplate.slug !== 'front-page';
+		},
+		[ postType ]
 	);
 
 	const setAsHomepageAction = useSetAsHomepageAction();
-	const shouldShowSetAsHomepageAction =
-		canManageOptions && ! hasFrontPageTemplate;
+	const setAsPostsPageAction = useSetAsPostsPageAction();
 
 	const { registerPostTypeSchema } = unlock( useDispatch( editorStore ) );
 	useEffect( () => {
@@ -53,9 +81,14 @@ export function usePostActions( { postType, onActionPerformed, context } ) {
 
 	return useMemo( () => {
 		let actions = [ ...defaultActions ];
-		if ( shouldShowSetAsHomepageAction ) {
-			actions.push( setAsHomepageAction );
+		if ( shouldShowHomepageActions ) {
+			actions.push( setAsHomepageAction, setAsPostsPageAction );
 		}
+
+		// Ensure "Move to trash" is always the last action.
+		actions = actions.sort( ( a, b ) =>
+			b.id === 'move-to-trash' ? -1 : 0
+		);
 
 		// Filter actions based on provided context. If not provided
 		// all actions are returned. We'll have a single entry for getting the actions
@@ -123,6 +156,7 @@ export function usePostActions( { postType, onActionPerformed, context } ) {
 		defaultActions,
 		onActionPerformed,
 		setAsHomepageAction,
-		shouldShowSetAsHomepageAction,
+		setAsPostsPageAction,
+		shouldShowHomepageActions,
 	] );
 }

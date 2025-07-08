@@ -4,11 +4,6 @@
 import { __ } from '@wordpress/i18n';
 
 /**
- * Internal dependencies
- */
-import { SAVE_POST_NOTICE_ID, TRASH_POST_NOTICE_ID } from '../constants';
-
-/**
  * Builds the arguments for a success notification dispatch.
  *
  * @param {Object} data Incoming data to build the arguments from.
@@ -63,12 +58,13 @@ export function getNotificationArgumentsForSaveSuccess( data ) {
 		actions.push( {
 			label: isDraft ? __( 'View Preview' ) : postType.labels.view_item,
 			url: post.link,
+			openInNewTab: true,
 		} );
 	}
 	return [
 		noticeMessage,
 		{
-			id: SAVE_POST_NOTICE_ID,
+			id: 'editor-save',
 			type: 'snackbar',
 			actions,
 		},
@@ -113,7 +109,7 @@ export function getNotificationArgumentsForSaveFail( data ) {
 	return [
 		noticeMessage,
 		{
-			id: SAVE_POST_NOTICE_ID,
+			id: 'editor-save',
 		},
 	];
 }
@@ -131,7 +127,7 @@ export function getNotificationArgumentsForTrashFail( data ) {
 			? data.error.message
 			: __( 'Trashing failed' ),
 		{
-			id: TRASH_POST_NOTICE_ID,
+			id: 'editor-trash-fail',
 		},
 	];
 }

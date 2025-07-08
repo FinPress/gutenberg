@@ -7,8 +7,7 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { DELETE, BACKSPACE, ENTER } from '@wordpress/keycodes';
-import { useDispatch } from '@wordpress/data';
-
+import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	BlockControls,
 	InspectorControls,
@@ -20,22 +19,25 @@ import {
 } from '@wordpress/block-editor';
 import { useState, useRef } from '@wordpress/element';
 import {
+	Icon,
 	Button,
 	Dropdown,
-	PanelBody,
-	PanelRow,
 	TextControl,
 	ToolbarButton,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
 } from '@wordpress/components';
 import { useMergeRefs } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { keyboardReturn } from '@wordpress/icons';
+import { store as blocksStore } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
  */
-import { getIconBySite, getNameBySite } from './social-list';
+import { getSocialService } from './social-list';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 const SocialLinkURLPopover = ( {
 	url,
@@ -107,8 +109,10 @@ const SocialLinkEdit = ( {
 	isSelected,
 	setAttributes,
 	clientId,
+	name,
 } ) => {
 	const { url, service, label = '', rel } = attributes;
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 	const {
 		showLabels,
 		iconColor,
@@ -136,8 +140,17 @@ const SocialLinkEdit = ( {
 	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
 	const isContentOnlyMode = useBlockEditingMode() === 'contentOnly';
 
-	const IconComponent = getIconBySite( service );
-	const socialLinkName = getNameBySite( service );
+	const { activeVariation } = useSelect(
+		( select ) => {
+			const { getActiveBlockVariation } = select( blocksStore );
+			return {
+				activeVariation: getActiveBlockVariation( name, attributes ),
+			};
+		},
+		[ name, attributes ]
+	);
+
+	const { icon, label: socialLinkName } = getSocialService( activeVariation );
 	// The initial label (ie. the link text) is an empty string.
 	// We want to prevent empty links so that the link text always fallbacks to
 	// the social name, even when users enter and save an empty string or only
@@ -165,7 +178,7 @@ const SocialLinkEdit = ( {
 				// to edit this attribute.
 				<BlockControls group="other">
 					<Dropdown
-						popoverProps={ { position: 'bottom right' } }
+						popoverProps={ { placement: 'bottom-start' } }
 						renderToggle={ ( { isOpen, onToggle } ) => (
 							<ToolbarButton
 								onClick={ onToggle }
@@ -195,8 +208,21 @@ const SocialLinkEdit = ( {
 				</BlockControls>
 			) }
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings' ) }>
-					<PanelRow>
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ () => {
+						setAttributes( { label: undefined } );
+					} }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
+					<ToolsPanelItem
+						isShownByDefault
+						label={ __( 'Text' ) }
+						hasValue={ () => !! label }
+						onDeselect={ () => {
+							setAttributes( { label: undefined } );
+						} }
+					>
 						<TextControl
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
@@ -210,8 +236,8 @@ const SocialLinkEdit = ( {
 							}
 							placeholder={ socialLinkName }
 						/>
-					</PanelRow>
-				</PanelBody>
+					</ToolsPanelItem>
+				</ToolsPanel>
 			</InspectorControls>
 			<InspectorControls group="advanced">
 				<TextControl
@@ -243,7 +269,7 @@ const SocialLinkEdit = ( {
 				 */
 				/* eslint-disable jsx-a11y/no-redundant-roles */ }
 				<button aria-haspopup="dialog" { ...blockProps } role="button">
-					<IconComponent />
+					<Icon icon={ icon } />
 					<span
 						className={ clsx( 'wp-block-social-link-label', {
 							'screen-reader-text': ! showLabels,

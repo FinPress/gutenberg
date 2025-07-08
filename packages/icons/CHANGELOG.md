@@ -2,6 +2,39 @@
 
 ## Unreleased
 
+-  Update `cancelCircleFilled`, `currencyDollar`, `currencyPound`, `currencyEuro`, `globe`, `helpFilled`, `siteLogo`, `swatch`, to have unified circular size footprints. ([https://github.com/WordPress/gutenberg/pull/70581](#70581)).
+-  Update `help`, `plusCircle`, and `typography` icons to have a unified circular footprint that matches other circle icons. ([#70299](https://github.com/WordPress/gutenberg/pull/70299)).
+
+## 10.26.0 (2025-06-25)
+
+## 10.25.0 (2025-06-04)
+
+## 10.24.0 (2025-05-22)
+
+## 10.23.0 (2025-05-07)
+
+## 10.22.0 (2025-04-11)
+
+## 10.21.0 (2025-03-27)
+
+## 10.20.0 (2025-03-13)
+
+## 10.19.0 (2025-02-28)
+
+## 10.18.0 (2025-02-12)
+
+## 10.17.0 (2025-01-29)
+
+## 10.16.0 (2025-01-15)
+
+## 10.15.0 (2025-01-02)
+
+-   Add new `caution` icon ([#66555](https://github.com/WordPress/gutenberg/pull/66555)).
+-   Add new `error` icon ([#66555](https://github.com/WordPress/gutenberg/pull/66555)).
+-   Deprecate `warning` icon and rename to `cautionFilled` ([#67895](https://github.com/WordPress/gutenberg/pull/67895)).
+
+## 10.14.0 (2024-12-11)
+
 ## 10.13.0 (2024-11-27)
 
 ## 10.12.0 (2024-11-16)

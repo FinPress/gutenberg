@@ -7,7 +7,7 @@ import {
 	Button,
 	TextareaControl,
 } from '@wordpress/components';
-import { _x } from '@wordpress/i18n';
+import { _x, __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -36,13 +36,18 @@ function CommentForm( { onSubmit, onCancel, thread, submitButtonText } ) {
 				__nextHasNoMarginBottom
 				value={ inputComment ?? '' }
 				onChange={ setInputComment }
+				label={ __( 'Comment' ) }
+				hideLabelFromVision
 			/>
 			<HStack alignment="left" spacing="3" justify="flex-start">
 				<Button
 					__next40pxDefaultSize
 					accessibleWhenDisabled
 					variant="primary"
-					onClick={ () => onSubmit( inputComment ) }
+					onClick={ () => {
+						onSubmit( inputComment );
+						setInputComment( '' );
+					} }
 					disabled={
 						0 === sanitizeCommentString( inputComment ).length
 					}

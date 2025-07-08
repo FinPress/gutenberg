@@ -5,7 +5,7 @@ The [Gutenberg repository](https://github.com/WordPress/gutenberg) on GitHub is 
 Before you begin, there are some requirements that must be met in order to successfully release a stable version of the Gutenberg plugin. You will need to:
 
 -   Be a member of the [Gutenberg development team](https://developer.wordpress.org/block-editor/block-editor/contributors/repository-management/#teams). This gives you the ability to launch the GitHub actions that are related to the release process and to backport pull requests (PRs) to the release branch.
--   Have write permissions on the [Make WordPress Core](http://make.wordpress.org/core) blog. This allows you to draft the release post.
+-   Have write permissions on the [Make WordPress Core](https://make.wordpress.org/core) blog. This allows you to draft the release post.
 -   Obtain approval from a member of the Gutenberg Core team in order to upload the new version Gutenberg to the WordPress.org plugin directory.
 
 Similar requirements apply to releasing WordPress's [npm packages](https://developer.wordpress.org/block-editor/contributors/code/release/#packages-releases-to-npm-and-wordpress-core-updates).
@@ -234,7 +234,7 @@ It's important to check that:
 - the plugin from the directory works as expected
 - the ZIP contents (see [Downloads](https://plugins.trac.wordpress.org/browser/gutenberg/)) looks correct (doesn't have anything obvious missing)
 - the [Gutenberg SVN repo](https://plugins.trac.wordpress.org/browser/gutenberg/) has two new commits (see [the log](https://plugins.trac.wordpress.org/browser/gutenberg/)):
-  - the `trunk` folder should have "Commiting version X.Y.Z"
+  - the `trunk` folder should have "Committing version X.Y.Z"
   - there is a new `tags/X.Y.Z` folder with the same contents as `trunk` whose latest commit is "Tagging version X.Y.Z"
 
 Most likely, the tag folder couldn't be created. This is a [known issue](https://plugins.trac.wordpress.org/browser/gutenberg/) that [can be fixed manually](https://github.com/WordPress/gutenberg/issues/55295#issuecomment-1759292978).
@@ -344,7 +344,7 @@ To do this, when running the Workflow, select the appropriate `release/` branch 
 
 It is possible to create a minor release for any release branch even after a more recent stable release has been published. This can be done for _any_ previous release branches, allowing more flexibility in delivering updates to users. In the past, users had to wait for the next stable release, potentially taking days. Now, fixes can be swiftly shipped to any previous release branches as required.
 
-The process is identical to the one documented above when an RC is already out: choose a previous release branch, type `stable`, and click "Run workflow". The release will be published on the GitHub releases page for Gutenberg and to the WordPress core repository SVN as a `tag` under http://plugins.svn.wordpress.org/gutenberg/tags/. The SVN `trunk` directory will not be touched.
+The process is identical to the one documented above when an RC is already out: choose a previous release branch, type `stable`, and click "Run workflow". The release will be published on the GitHub releases page for Gutenberg and to the WordPress core repository SVN as a `tag` under https://plugins.svn.wordpress.org/gutenberg/tags/. The SVN `trunk` directory will not be touched.
 
 **IMPORTANT:** When publishing the draft created by the ["Build Plugin Zip" workflow](https://github.com/WordPress/gutenberg/actions/workflows/build-plugin-zip.yml), make sure to leave the "Set as last release" checkbox unchecked. If it is left checked by accident, the ["Upload Gutenberg plugin to WordPress.org plugin" workflow](https://github.com/WordPress/gutenberg/actions/workflows/upload-release-to-plugin-repo.yml) will still correctly upload it **as a tag (and will _not_ replace the `trunk` version)** to the WordPress plugin repository SVN - the workflow will perform some version arithmetic to determine how the plugin should be shipped - but you'll still need to fix the state on GitHub by setting the right release as `latest` on the [releases](https://github.com/WordPress/gutenberg/releases/) page!
 
@@ -408,7 +408,7 @@ Behind the scenes, all steps are automated via `./bin/plugin/cli.js npm-latest` 
 10. Run the script `npx lerna publish --no-private`.
     - When asked for the version numbers to choose for each package pick the values of the updated CHANGELOG files.
     - You'll be asked for your One-Time Password (OTP) a couple of times. This is the code from the 2FA authenticator app you use. Depending on how many packages are to be released you may be asked for more than one OTP, as they tend to expire before all packages are released.
-    - If the publishing process ends up incomplete (perhaps because it timed-out or an bad OTP was introduce) you can resume it via [`npx lerna publish from-package`](https://lerna.js.org/docs/features/version-and-publish#from-package).
+    - If the publishing process ends up incomplete (perhaps because it timed-out or a bad OTP was introduced) you can resume it via [`npx lerna publish from-package`](https://lerna.js.org/docs/features/version-and-publish#from-package).
 11. Finally, now that the npm packages are published, cherry-pick the commits created by lerna ("Publish" and the CHANGELOG update) into the `trunk` branch of Gutenberg.
 
 ### WordPress releases
@@ -502,7 +502,7 @@ Behind the scenes, the rest of the process is automated with `./bin/plugin/cli.j
 5. Run the script `npx lerna publish --no-private`.
     - When asked for the version numbers to choose for each package pick the values of the updated CHANGELOG files.
     - You'll be asked for your One-Time Password (OTP) a couple of times. This is the code from the 2FA authenticator app you use. Depending on how many packages are to be released you may be asked for more than one OTP, as they tend to expire before all packages are released.
-    - If the publishing process ends up incomplete (perhaps because it timed-out or an bad OTP was introduce) you can resume it via [`npx lerna publish from-package`](https://lerna.js.org/docs/features/version-and-publish#from-package).
+    - If the publishing process ends up incomplete (perhaps because it timed-out or a bad OTP was introduced) you can resume it via [`npx lerna publish from-package`](https://lerna.js.org/docs/features/version-and-publish#from-package).
 6. Finally, now that the npm packages are published, cherry-pick the commits created by lerna ("Publish" and the CHANGELOG update) into the `trunk` branch of Gutenberg.
 
 ### Development releases

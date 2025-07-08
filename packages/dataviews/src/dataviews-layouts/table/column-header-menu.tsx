@@ -19,7 +19,6 @@ import { forwardRef, Children, Fragment } from '@wordpress/element';
  * Internal dependencies
  */
 import { unlock } from '../../lock-unlock';
-import { sanitizeOperators } from '../../utils';
 import { SORTING_DIRECTIONS, sortArrows, sortLabels } from '../../constants';
 import type {
 	NormalizedField,
@@ -81,180 +80,187 @@ const _HeaderMenu = forwardRef( function HeaderMenu< Item >(
 	isSortable = field.enableSorting !== false;
 	const header = field.header;
 
-	operators = sanitizeOperators( field );
-	// Filter can be added:
-	// 1. If the field is not already part of a view's filters.
-	// 2. If the field meets the type and operator requirements.
-	// 3. If it's not primary. If it is, it should be already visible.
+	operators = ( !! field.filterBy && field.filterBy?.operators ) || [];
+
+	// Filter can be added if:
+	//
+	// 1. The field is not already part of a view's filters.
+	// 2. The field has elements or Edit property.
+	// 3. The field does not opt-out of filtering.
+	// 4. The filter is not primary (if it is, it is already visible).
 	canAddFilter =
 		! view.filters?.some( ( _filter ) => fieldId === _filter.field ) &&
-		!! field.elements?.length &&
-		!! operators.length &&
+		!! ( field.elements?.length || field.Edit ) &&
+		field.filterBy !== false &&
 		! field.filterBy?.isPrimary;
 
 	return (
-		<Menu
-			align="start"
-			trigger={
-				<Button
-					size="compact"
-					className="dataviews-view-table-header-button"
-					ref={ ref }
-					variant="tertiary"
-				>
-					{ header }
-					{ view.sort && isSorted && (
-						<span aria-hidden="true">
-							{ sortArrows[ view.sort.direction ] }
-						</span>
+		<Menu>
+			<Menu.TriggerButton
+				render={
+					<Button
+						size="compact"
+						className="dataviews-view-table-header-button"
+						ref={ ref }
+						variant="tertiary"
+					/>
+				}
+			>
+				{ header }
+				{ view.sort && isSorted && (
+					<span aria-hidden="true">
+						{ sortArrows[ view.sort.direction ] }
+					</span>
+				) }
+			</Menu.TriggerButton>
+			<Menu.Popover style={ { minWidth: '240px' } }>
+				<WithMenuSeparators>
+					{ isSortable && (
+						<Menu.Group>
+							{ SORTING_DIRECTIONS.map(
+								( direction: SortDirection ) => {
+									const isChecked =
+										view.sort &&
+										isSorted &&
+										view.sort.direction === direction;
+
+									const value = `${ fieldId }-${ direction }`;
+
+									return (
+										<Menu.RadioItem
+											key={ value }
+											// All sorting radio items share the same name, so that
+											// selecting a sorting option automatically deselects the
+											// previously selected one, even if it is displayed in
+											// another submenu. The field and direction are passed via
+											// the `value` prop.
+											name="view-table-sorting"
+											value={ value }
+											checked={ isChecked }
+											onChange={ () => {
+												onChangeView( {
+													...view,
+													sort: {
+														field: fieldId,
+														direction,
+													},
+													showLevels: false,
+												} );
+											} }
+										>
+											<Menu.ItemLabel>
+												{ sortLabels[ direction ] }
+											</Menu.ItemLabel>
+										</Menu.RadioItem>
+									);
+								}
+							) }
+						</Menu.Group>
 					) }
-				</Button>
-			}
-			style={ { minWidth: '240px' } }
-		>
-			<WithMenuSeparators>
-				{ isSortable && (
-					<Menu.Group>
-						{ SORTING_DIRECTIONS.map(
-							( direction: SortDirection ) => {
-								const isChecked =
-									view.sort &&
-									isSorted &&
-									view.sort.direction === direction;
-
-								const value = `${ fieldId }-${ direction }`;
-
-								return (
-									<Menu.RadioItem
-										key={ value }
-										// All sorting radio items share the same name, so that
-										// selecting a sorting option automatically deselects the
-										// previously selected one, even if it is displayed in
-										// another submenu. The field and direction are passed via
-										// the `value` prop.
-										name="view-table-sorting"
-										value={ value }
-										checked={ isChecked }
-										onChange={ () => {
-											onChangeView( {
-												...view,
-												sort: {
-													field: fieldId,
-													direction,
-												},
-											} );
-										} }
-									>
-										<Menu.ItemLabel>
-											{ sortLabels[ direction ] }
-										</Menu.ItemLabel>
-									</Menu.RadioItem>
-								);
-							}
-						) }
-					</Menu.Group>
-				) }
-				{ canAddFilter && (
-					<Menu.Group>
-						<Menu.Item
-							prefix={ <Icon icon={ funnel } /> }
-							onClick={ () => {
-								setOpenedFilter( fieldId );
-								onChangeView( {
-									...view,
-									page: 1,
-									filters: [
-										...( view.filters || [] ),
-										{
-											field: fieldId,
-											value: undefined,
-											operator: operators[ 0 ],
-										},
-									],
-								} );
-							} }
-						>
-							<Menu.ItemLabel>
-								{ __( 'Add filter' ) }
-							</Menu.ItemLabel>
-						</Menu.Item>
-					</Menu.Group>
-				) }
-				{ ( canMove || isHidable ) && field && (
-					<Menu.Group>
-						{ canMove && (
+					{ canAddFilter && (
+						<Menu.Group>
 							<Menu.Item
-								prefix={ <Icon icon={ arrowLeft } /> }
-								disabled={ index < 1 }
+								prefix={ <Icon icon={ funnel } /> }
 								onClick={ () => {
+									setOpenedFilter( fieldId );
 									onChangeView( {
 										...view,
-										fields: [
-											...( visibleFieldIds.slice(
-												0,
-												index - 1
-											) ?? [] ),
-											fieldId,
-											visibleFieldIds[ index - 1 ],
-											...visibleFieldIds.slice(
-												index + 1
-											),
+										page: 1,
+										filters: [
+											...( view.filters || [] ),
+											{
+												field: fieldId,
+												value: undefined,
+												operator: operators[ 0 ],
+											},
 										],
 									} );
 								} }
 							>
 								<Menu.ItemLabel>
-									{ __( 'Move left' ) }
+									{ __( 'Add filter' ) }
 								</Menu.ItemLabel>
 							</Menu.Item>
-						) }
-						{ canMove && (
-							<Menu.Item
-								prefix={ <Icon icon={ arrowRight } /> }
-								disabled={ index >= visibleFieldIds.length - 1 }
-								onClick={ () => {
-									onChangeView( {
-										...view,
-										fields: [
-											...( visibleFieldIds.slice(
-												0,
-												index
-											) ?? [] ),
-											visibleFieldIds[ index + 1 ],
-											fieldId,
-											...visibleFieldIds.slice(
-												index + 2
+						</Menu.Group>
+					) }
+					{ ( canMove || isHidable ) && field && (
+						<Menu.Group>
+							{ canMove && (
+								<Menu.Item
+									prefix={ <Icon icon={ arrowLeft } /> }
+									disabled={ index < 1 }
+									onClick={ () => {
+										onChangeView( {
+											...view,
+											fields: [
+												...( visibleFieldIds.slice(
+													0,
+													index - 1
+												) ?? [] ),
+												fieldId,
+												visibleFieldIds[ index - 1 ],
+												...visibleFieldIds.slice(
+													index + 1
+												),
+											],
+										} );
+									} }
+								>
+									<Menu.ItemLabel>
+										{ __( 'Move left' ) }
+									</Menu.ItemLabel>
+								</Menu.Item>
+							) }
+							{ canMove && (
+								<Menu.Item
+									prefix={ <Icon icon={ arrowRight } /> }
+									disabled={
+										index >= visibleFieldIds.length - 1
+									}
+									onClick={ () => {
+										onChangeView( {
+											...view,
+											fields: [
+												...( visibleFieldIds.slice(
+													0,
+													index
+												) ?? [] ),
+												visibleFieldIds[ index + 1 ],
+												fieldId,
+												...visibleFieldIds.slice(
+													index + 2
+												),
+											],
+										} );
+									} }
+								>
+									<Menu.ItemLabel>
+										{ __( 'Move right' ) }
+									</Menu.ItemLabel>
+								</Menu.Item>
+							) }
+							{ isHidable && field && (
+								<Menu.Item
+									prefix={ <Icon icon={ unseen } /> }
+									onClick={ () => {
+										onHide( field );
+										onChangeView( {
+											...view,
+											fields: visibleFieldIds.filter(
+												( id ) => id !== fieldId
 											),
-										],
-									} );
-								} }
-							>
-								<Menu.ItemLabel>
-									{ __( 'Move right' ) }
-								</Menu.ItemLabel>
-							</Menu.Item>
-						) }
-						{ isHidable && field && (
-							<Menu.Item
-								prefix={ <Icon icon={ unseen } /> }
-								onClick={ () => {
-									onHide( field );
-									onChangeView( {
-										...view,
-										fields: visibleFieldIds.filter(
-											( id ) => id !== fieldId
-										),
-									} );
-								} }
-							>
-								<Menu.ItemLabel>
-									{ __( 'Hide column' ) }
-								</Menu.ItemLabel>
-							</Menu.Item>
-						) }
-					</Menu.Group>
-				) }
-			</WithMenuSeparators>
+										} );
+									} }
+								>
+									<Menu.ItemLabel>
+										{ __( 'Hide column' ) }
+									</Menu.ItemLabel>
+								</Menu.Item>
+							) }
+						</Menu.Group>
+					) }
+				</WithMenuSeparators>
+			</Menu.Popover>
 		</Menu>
 	);
 } );
