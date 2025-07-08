@@ -20,10 +20,6 @@
 			"type": "boolean",
 			"default": false,
 			"role": "content"
-		},
-		"displayType": {
-			"type": "string",
-			"default": "date"
 		}
 	},
 	"usesContext": [ "postId", "postType", "queryId" ],

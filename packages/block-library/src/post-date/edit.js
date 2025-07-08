@@ -40,10 +40,14 @@ import { useSelect } from '@wordpress/data';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 export default function PostDateEdit( {
-	attributes: { date, textAlign, format, isLink, displayType },
+	attributes: { date, textAlign, format, isLink, metadata },
 	context: { postType: postTypeSlug, queryId },
 	setAttributes,
 } ) {
+	const displayType =
+		metadata?.bindings?.date?.source === 'core/post-data' &&
+		metadata?.bindings?.date?.args?.key;
+
 	const blockProps = useBlockProps( {
 		className: clsx( {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
@@ -85,7 +89,7 @@ export default function PostDateEdit( {
 	const dateLabel =
 		displayType === 'date' ? __( 'Post Date' ) : __( 'Post Modified Date' );
 
-	let postDate = date ? (
+	let postDate = ! displayType ? (
 		<time dateTime={ dateI18n( 'c', date ) } ref={ setPopoverAnchor }>
 			{ format === 'human-diff'
 				? humanTimeDiff( date )
@@ -115,7 +119,7 @@ export default function PostDateEdit( {
 						setAttributes( { textAlign: nextAlign } );
 					} }
 				/>
-				{ displayType === 'date' && ! isDescendentOfQueryLoop && (
+				{ displayType !== 'modified' && ! isDescendentOfQueryLoop && (
 					<ToolbarGroup>
 						<Dropdown
 							popoverProps={ popoverProps }
@@ -165,7 +169,6 @@ export default function PostDateEdit( {
 							date: undefined,
 							format: undefined,
 							isLink: false,
-							displayType: 'date',
 						} );
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
@@ -215,28 +218,6 @@ export default function PostDateEdit( {
 								setAttributes( { isLink: ! isLink } )
 							}
 							checked={ isLink }
-						/>
-					</ToolsPanelItem>
-					<ToolsPanelItem
-						hasValue={ () => displayType !== 'date' }
-						label={ __( 'Display last modified date' ) }
-						onDeselect={ () =>
-							setAttributes( { displayType: 'date' } )
-						}
-						isShownByDefault
-					>
-						<ToggleControl
-							__nextHasNoMarginBottom
-							label={ __( 'Display last modified date' ) }
-							onChange={ ( value ) =>
-								setAttributes( {
-									displayType: value ? 'modified' : 'date',
-								} )
-							}
-							checked={ displayType === 'modified' }
-							help={ __(
-								'Only shows if the post has been modified'
-							) }
 						/>
 					</ToolsPanelItem>
 				</ToolsPanel>
