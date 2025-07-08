@@ -44,25 +44,6 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 		$classes[] = 'has-link-color';
 	}
 
-	/*
-	 * If the "Display last modified date" setting is enabled,
-	 * only display the modified date if it is later than the publishing date.
-	 */
-	if ( isset( $attributes['displayType'] ) && 'modified' === $attributes['displayType'] ) {
-		if ( get_the_modified_date( 'Ymdhi', $post_ID ) > get_the_date( 'Ymdhi', $post_ID ) ) {
-			if ( isset( $attributes['format'] ) && 'human-diff' === $attributes['format'] ) {
-				// translators: %s: human-readable time difference.
-				$formatted_date = sprintf( __( '%s ago' ), human_time_diff( get_post_timestamp( $post_ID, 'modified' ) ) );
-			} else {
-				$formatted_date = get_the_modified_date( empty( $attributes['format'] ) ? '' : $attributes['format'], $post_ID );
-			}
-			$unformatted_date = esc_attr( get_the_modified_date( 'c', $post_ID ) );
-			$classes[]        = 'wp-block-post-date__modified-date';
-		} else {
-			return '';
-		}
-	}
-
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classes ) ) );
 
 	if ( isset( $attributes['isLink'] ) && $attributes['isLink'] ) {
