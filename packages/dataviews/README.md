@@ -410,9 +410,13 @@ The component receives the following props:
 />
 ```
 
+#### `empty`: React component
+
+React element to be rendered in place of the data view's default empty state.
+
 #### `header`: React component
 
-React component to be rendered next to the view config button.
+React element to be rendered next to the view config button.
 
 #### `perPageSizes`: `[ number, number, number, number ]`
 
