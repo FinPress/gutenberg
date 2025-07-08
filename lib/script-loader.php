@@ -82,7 +82,7 @@ add_action( 'wp_footer', 'gutenberg_enqueue_global_styles', 1 );
  */
 function gutenberg_enqueue_global_styles_custom_css() {
 	_deprecated_function( __FUNCTION__, 'Gutenberg 17.8.0', 'gutenberg_enqueue_global_styles' );
-	if ( ! wp_is_block_theme() || is_customize_preview() ) {
+	if ( ! wp_is_block_theme() ) {
 		return;
 	}
 
