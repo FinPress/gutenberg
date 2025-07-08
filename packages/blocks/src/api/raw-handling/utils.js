@@ -71,6 +71,11 @@ export function getBlockContentSchemaFromTransforms( transforms, context ) {
 					return objValue( ...args ) || srcValue( ...args );
 				};
 			}
+			case 'classes': {
+				return Array.from(
+					new Set( [ ...( objValue || [] ), ...( srcValue || [] ) ] )
+				);
+			}
 		}
 	}
 
