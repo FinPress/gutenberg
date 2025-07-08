@@ -1254,6 +1254,14 @@ export const mergeBlocks =
 		}
 
 		if ( ! blockAType.merge ) {
+			// If the first block doesn't support merging and the second block is unmodified,
+			// remove the second block and focus the first block.
+			if ( blockB.attributes && isUnmodifiedBlock( blockB ) ) {
+				dispatch.removeBlock(
+					clientIdB,
+					select.isBlockSelected( clientIdB )
+				);
+			}
 			dispatch.selectBlock( blockA.clientId );
 			return;
 		}
