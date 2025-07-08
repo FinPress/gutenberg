@@ -9,10 +9,21 @@ const variations = [
 		name: 'post-date-modified',
 		title: __( 'Modified Date' ),
 		description: __( "Display a post's last updated date." ),
-		attributes: { displayType: 'modified' },
+		attributes: {
+			metadata: {
+				bindings: {
+					date: {
+						source: 'core/post-data',
+						args: { key: 'modified' },
+					},
+				},
+			},
+		},
 		scope: [ 'block', 'inserter' ],
 		isActive: ( blockAttributes ) =>
-			blockAttributes.displayType === 'modified',
+			blockAttributes?.metadata?.bindings?.date?.source ===
+				'core/post-data' &&
+			blockAttributes?.metadata?.bindings?.date?.args?.key === 'modified',
 		icon: postDate,
 	},
 ];
