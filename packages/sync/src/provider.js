@@ -35,9 +35,21 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	const docs = {};
 
 	/**
-	 * @type {Record<string,Record<string,{ ydoc: Y.Doc, undoManager: UndoManager, destroy: ()=>void }>>}
+	 * @type { { yMap: Y.Map<any> | null, ydoc: Y.Doc | null, instance: UndoManager | null, destroy: ()=>void } }
 	 */
-	const undoManagers = {};
+	const undoManager = {
+		ydoc: null,
+		yMap: null,
+		instance: null,
+		destroy: () => {
+			if ( undoManager.instance ) {
+				undoManager.instance.destroy();
+			}
+			undoManager.ydoc = null;
+			undoManager.yMap = null;
+			undoManager.instance = null;
+		},
+	};
 
 	/**
 	 * Registers an object type.
@@ -98,45 +110,17 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 			},
 		};
 
-		undoManagers[ objectType ] = undoManagers[ objectType ] || {};
-		const yUndoManager = new Y.UndoManager( doc.getMap( 'document' ), {
-			captureTimeout: 0,
-			trackedOrigins: new Set( [ 'gutenberg', doc.clientID ] ),
-		} );
-		// @ts-ignore
-		yUndoManager.on( 'stack-item-added', ( stackItem ) => {
-			// eslint-disable-next-line no-console
-			console.log( 'Undo manager stack item added:', stackItem );
-		} );
-		// @ts-ignore
-		yUndoManager.on( 'stack-item-popped', ( stackItem ) => {
-			// eslint-disable-next-line no-console
-			console.log( 'Undo manager stack item removed:', stackItem );
-		} );
-		// @ts-ignore
-		yUndoManager.on( 'stack-item-updated', ( stackItem ) => {
-			// eslint-disable-next-line no-console
-			console.log( 'Undo manager stack item updated:', stackItem );
-		} );
-		yUndoManager.on(
-			'stack-cleared',
-			// @ts-ignore
-			( { undoStackCleared, redoStackCleared } ) => {
-				// eslint-disable-next-line no-console
-				console.log( 'Undo manager stack cleared:', {
-					undoStackCleared,
-					redoStackCleared,
-				} );
-			}
-		);
-		undoManagers[ objectType ][ objectId ] = {
-			ydoc: doc,
-			undoManager: yUndoManager,
-			destroy: () => {
-				yUndoManager.destroy();
-				delete undoManagers[ objectType ][ objectId ];
-			},
-		};
+		if ( objectType.startsWith( 'postType/' ) ) {
+			// Create an undo manager for the document.
+			const undoManagerMap = doc.getMap( 'document' );
+			const yUndoManager = new Y.UndoManager( undoManagerMap, {
+				captureTimeout: 0,
+				trackedOrigins: new Set( [ 'gutenberg', doc.clientID ] ),
+			} );
+			undoManager.ydoc = doc;
+			undoManager.yMap = undoManagerMap;
+			undoManager.instance = yUndoManager;
+		}
 
 		// @todo do proper typings for fetch api
 		/**
@@ -154,81 +138,35 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 		return null;
 	}
 
-	function clearUndos() {
-		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
-		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
-
-		if ( ! undoManager ) {
-			throw new Error( 'Undo manager is not initialized.' );
-		}
-
-		undoManager.clear( true, false );
-	}
-
-	function clearRedos() {
-		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
-		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
-
-		if ( ! undoManager ) {
-			throw new Error( 'Undo manager is not initialized.' );
-		}
-
-		undoManager.clear( false, true );
-	}
-
 	function canUndo() {
-		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
-		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
-
-		if ( ! undoManager ) {
-			throw new Error( 'Undo manager is not initialized.' );
-		}
-
-		return undoManager.canUndo();
+		return undoManager?.instance?.canUndo() || false;
 	}
 
 	function canRedo() {
-		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
-		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
-
-		if ( ! undoManager ) {
-			throw new Error( 'Undo manager is not initialized.' );
-		}
-
-		return undoManager.canRedo();
+		return undoManager?.instance?.canRedo() || false;
 	}
 
 	function undo() {
-		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
-		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
-
-		if ( ! undoManager ) {
-			throw new Error( 'Undo manager is not initialized.' );
-		}
-
-		const stackItem = undoManager.undo();
+		const stackItem = undoManager?.instance?.undo();
 
 		// eslint-disable-next-line no-console
 		console.log( 'Undoing changes:', stackItem );
+
+		// ToDo: This isn't 100% correct, but can't really find a way to return the changes from Yjs that could be transformed to Gutenberg format.
+		return [];
 	}
 
 	function redo() {
-		// ToDo: This shouldn't be hardcoded to 'postType/Posts' and 81. It should be passed as parameters or derived from the context.
-		const undoManager = undoManagers[ 'postType/Posts' ][ 81 ]?.undoManager;
-
-		if ( ! undoManager ) {
-			throw new Error( 'Undo manager is not initialized.' );
-		}
-
-		const stackItem = undoManager.redo();
+		const stackItem = undoManager?.instance?.redo();
 
 		// eslint-disable-next-line no-console
 		console.log( 'Redoing changes:', stackItem );
+
+		// ToDo: This isn't 100% correct, but can't really find a way to return the changes from Yjs that could be transformed to Gutenberg format.
+		return [];
 	}
 
-	// @ts-ignore
 	function addRecord() {
-		// do nothing
 		// This is a no-op in the sync provider context.
 	}
 
@@ -260,7 +198,10 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {ObjectID}   objectId   Object ID to load.
 	 */
 	async function discard( objectType, objectId ) {
-		undoManagers[ objectType ]?.[ objectId ]?.undoManager?.destroy();
+		if ( objectType.startsWith( 'postType/' ) && undoManager.instance ) {
+			undoManager.instance.destroy();
+		}
+
 		docs[ objectType ]?.[ objectId ]?.destroy();
 	}
 
@@ -287,8 +228,6 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 		canUndo,
 		redo,
 		canRedo,
-		clearUndos,
-		clearRedos,
 		encodeState,
 		discard,
 		postTypeConfigs,

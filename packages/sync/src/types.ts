@@ -23,10 +23,8 @@ export type ConnectDoc = (
 
 export type SyncProvider = {
 	addRecord: () => void;
-	clearUndos: () => void;
-	clearRedos: () => void;
-	undo: () => void;
-	redo: () => void;
+	undo: () => Array< any >;
+	redo: () => Array< any >;
 	canUndo: () => boolean;
 	canRedo: () => boolean;
 	register: ( type: ObjectType, config: ObjectConfig ) => void;
