@@ -134,6 +134,7 @@ export default function TermsTemplateEdit( {
 			hierarchical,
 			hideEmpty,
 			hideParents,
+			search,
 		} = {},
 	},
 	attributes: { layout },
@@ -141,12 +142,18 @@ export default function TermsTemplateEdit( {
 } ) {
 	const [ activeBlockContextId, setActiveBlockContextId ] = useState();
 
+	const queryArgs = {
+		hide_empty: hideEmpty,
+	};
+
+	if ( search ) {
+		queryArgs.search = search;
+	}
+
 	const { records: terms, isResolving } = useEntityRecords(
 		'taxonomy',
 		taxonomySlug,
-		{
-			hide_empty: hideEmpty,
-		}
+		queryArgs
 	);
 
 	// Filter out parent terms if hideParents is enabled.
