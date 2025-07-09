@@ -5,9 +5,7 @@ import { __ } from '@wordpress/i18n';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-	RangeControl,
 	SelectControl,
-	TextControl,
 	ToggleControl,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
@@ -46,7 +44,6 @@ export default function TermsQueryInspectorControls( {
 			resetAll={ () => {
 				setAttributes( {
 					query: {
-						perPage: 10,
 						pages: 0,
 						offset: 0,
 						taxonomy: 'category',
@@ -59,7 +56,7 @@ export default function TermsQueryInspectorControls( {
 						include: [],
 						search: '',
 						inherit: false,
-						hideParents: false,
+						showOnlyTopLevel: false,
 					},
 				} );
 			} }
@@ -80,23 +77,6 @@ export default function TermsQueryInspectorControls( {
 					onChange={ ( selectedTaxonomy ) =>
 						setQuery( { taxonomy: selectedTaxonomy } )
 					}
-				/>
-			</ToolsPanelItem>
-
-			<ToolsPanelItem
-				hasValue={ () => query.perPage !== null }
-				label={ __( 'Terms per page' ) }
-				onDeselect={ () => setQuery( { perPage: null } ) }
-				isShownByDefault
-			>
-				<RangeControl
-					__nextHasNoMarginBottom
-					__next40pxDefaultSize
-					label={ __( 'Terms per page' ) }
-					value={ query.perPage }
-					onChange={ ( perPage ) => setQuery( { perPage } ) }
-					min={ 1 }
-					max={ 100 }
 				/>
 			</ToolsPanelItem>
 
@@ -141,16 +121,38 @@ export default function TermsQueryInspectorControls( {
 			</ToolsPanelItem>
 
 			<ToolsPanelItem
-				hasValue={ () => query.hideEmpty !== false }
-				label={ __( 'Hide empty terms' ) }
-				onDeselect={ () => setQuery( { hideEmpty: false } ) }
+				hasValue={ () => query.showOnlyTopLevel !== false }
+				label={ __( 'Show only top level terms' ) }
+				onDeselect={ () => setQuery( { showOnlyTopLevel: false } ) }
 				isShownByDefault
 			>
 				<ToggleControl
 					__nextHasNoMarginBottom
-					label={ __( 'Hide empty terms' ) }
-					checked={ query.hideEmpty }
-					onChange={ ( hideEmpty ) => setQuery( { hideEmpty } ) }
+					label={ __( 'Show only top level terms' ) }
+					checked={ query.showOnlyTopLevel }
+					onChange={ ( showOnlyTopLevel ) => {
+						setQuery( { showOnlyTopLevel } );
+						if ( showOnlyTopLevel && query.hierarchical ) {
+							setQuery( { hierarchical: false } );
+						}
+					} }
+					disabled={ !! query.hierarchical }
+				/>
+			</ToolsPanelItem>
+
+			<ToolsPanelItem
+				hasValue={ () => query.hideEmpty !== true }
+				label={ __( 'Show empty terms' ) }
+				onDeselect={ () => setQuery( { hideEmpty: true } ) }
+				isShownByDefault
+			>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Show empty terms' ) }
+					checked={ ! query.hideEmpty }
+					onChange={ ( showEmpty ) =>
+						setQuery( { hideEmpty: ! showEmpty } )
+					}
 				/>
 			</ToolsPanelItem>
 
@@ -166,52 +168,11 @@ export default function TermsQueryInspectorControls( {
 					checked={ query.hierarchical }
 					onChange={ ( hierarchical ) => {
 						setQuery( { hierarchical } );
-						if ( hierarchical && query.hideParents ) {
-							setQuery( { hideParents: false } );
+						if ( hierarchical && query.showOnlyTopLevel ) {
+							setQuery( { showOnlyTopLevel: false } );
 						}
 					} }
-					help={ __(
-						'Display terms in a hierarchical tree structure.'
-					) }
-					disabled={ !! query.hideParents }
-				/>
-			</ToolsPanelItem>
-
-			<ToolsPanelItem
-				hasValue={ () => query.hideParents !== false }
-				label={ __( 'Hide parent terms' ) }
-				onDeselect={ () => setQuery( { hideParents: false } ) }
-				isShownByDefault
-			>
-				<ToggleControl
-					__nextHasNoMarginBottom
-					label={ __( 'Hide parent terms' ) }
-					checked={ query.hideParents }
-					onChange={ ( hideParents ) => {
-						setQuery( { hideParents } );
-						if ( hideParents && query.hierarchical ) {
-							setQuery( { hierarchical: false } );
-						}
-					} }
-					help={ __(
-						'Only show child terms, hiding parent terms that have children.'
-					) }
-					disabled={ !! query.hierarchical }
-				/>
-			</ToolsPanelItem>
-
-			<ToolsPanelItem
-				hasValue={ () => query.search !== '' }
-				label={ __( 'Search terms' ) }
-				onDeselect={ () => setQuery( { search: '' } ) }
-				isShownByDefault
-			>
-				<TextControl
-					__nextHasNoMarginBottom
-					__next40pxDefaultSize
-					label={ __( 'Search terms' ) }
-					value={ query.search }
-					onChange={ ( search ) => setQuery( { search } ) }
+					disabled={ !! query.showOnlyTopLevel }
 				/>
 			</ToolsPanelItem>
 		</ToolsPanel>

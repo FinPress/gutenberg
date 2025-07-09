@@ -37,16 +37,15 @@ The Terms Query block supports the following query parameters:
 - `orderBy` - Order by field ('name', 'slug', 'term_id', 'count')
 - `hideEmpty` - Whether to hide terms with no posts
 - `hierarchical` - Whether to show hierarchical structure
-- `hideParents` - Whether to hide parent terms that have children
 - `parent` - Parent term ID for hierarchical queries
 - `exclude` - Array of term IDs to exclude
 - `include` - Array of term IDs to include
-- `search` - Search terms by name
+- `showOnlyTopLevel` - Whether to show only top-level terms
 
 ## Usage Example
 
 ```html
-<!-- wp:terms-query {"query":{"taxonomy":"category","perPage":10,"order":"asc","orderBy":"name"}} -->
+<!-- wp:terms-query {"query":{"taxonomy":"category","order":"asc","orderBy":"name","showOnlyTopLevel":true}} -->
 <ul class="wp-block-terms-query">
   <!-- wp:terms-template -->
   <li class="wp-block-term">

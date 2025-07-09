@@ -133,7 +133,7 @@ export default function TermsTemplateEdit( {
 			taxonomy: taxonomySlug,
 			hierarchical,
 			hideEmpty,
-			hideParents,
+			showOnlyTopLevel,
 			search,
 		} = {},
 	},
@@ -156,13 +156,13 @@ export default function TermsTemplateEdit( {
 		queryArgs
 	);
 
-	// Filter out parent terms if hideParents is enabled.
+	// Filter to show only top-level terms if showOnlyTopLevel is enabled.
 	const filteredTerms = useMemo( () => {
-		if ( ! terms || ! hideParents ) {
+		if ( ! terms || ! showOnlyTopLevel ) {
 			return terms;
 		}
-		return terms.filter( ( term ) => !! term.parent );
-	}, [ terms, hideParents ] );
+		return terms.filter( ( term ) => ! term.parent );
+	}, [ terms, showOnlyTopLevel ] );
 
 	const { blocks } = useSelect(
 		( select ) => ( {

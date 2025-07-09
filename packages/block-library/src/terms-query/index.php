@@ -39,7 +39,6 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 
 	$query_args = array(
 		'taxonomy'   => $query['taxonomy'] ?? 'category',
-		'number'     => $query['perPage'] ?? get_option( 'posts_per_page' ),
 		'offset'     => $query['offset'] ?? 0,
 		'order'      => $query['order'] ?? 'asc',
 		'orderby'    => $query['orderBy'] ?? 'name',
@@ -48,7 +47,6 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 		'parent'     => $query['parent'] ?? 0,
 		'exclude'    => $query['exclude'] ?? array(),
 		'include'    => $query['include'] ?? array(),
-		'search'     => $query['search'] ?? '',
 	);
 
 	$terms_query = new WP_Term_Query( $query_args );
@@ -58,10 +56,10 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 		return '<div class="wp-block-terms-query"><p>No terms found.</p></div>';
 	}
 
-	// Filter out parent terms if hideParents is enabled
-	if ( ! empty( $query['hideParents'] ) ) {
+	// Filter to show only top-level terms if showOnlyTopLevel is enabled
+	if ( ! empty( $query['showOnlyTopLevel'] ) ) {
 		$terms = array_filter( $terms, function( $term ) {
-			return ! empty( $term->parent );
+			return empty( $term->parent );
 		} );
 	}
 
