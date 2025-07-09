@@ -177,10 +177,10 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 	// Check for the `showForLoggedInOnly` attribute.
 	if ( ! empty( $attributes['showForLoggedInOnly'] ) ) {
 		// If the block is set to show only for logged-in users, check if the user is logged in.
-        if ( ! is_user_logged_in() ) {
-            return ''; // Hide for non-logged-in users
-        }
-    }
+		if ( ! is_user_logged_in() ) {
+			return ''; // Hide for non-logged-in users
+		}
+	}
 
 	// Don't render the block's subtree if it is a draft or if the ID does not exist.
 	if ( $is_post_type && $navigation_link_has_id ) {
