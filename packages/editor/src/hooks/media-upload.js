@@ -1,20 +1,24 @@
 /**
  * WordPress dependencies
  */
+import { Component } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import { MediaUpload } from '@wordpress/media-utils';
 import { store as coreStore } from '@wordpress/core-data';
-import { useDispatch } from '@wordpress/data';
+import { dispatch } from '@wordpress/data';
 
-function MediaUploadWithCacheInvalidation( props ) {
-	const { invalidateResolutionForStoreSelector } = useDispatch( coreStore );
-	const { onClose: originalOnClose, ...rest } = props;
+class MediaUploadWithCacheInvalidation extends Component {
+	render() {
+		const { onClose: originalOnClose, ...rest } = this.props;
 
-	const onClose = ( ...onCloseArgs ) => {
-		invalidateResolutionForStoreSelector( 'getMediaItems' );
-		originalOnClose?.( ...onCloseArgs );
-	};
-	return <MediaUpload onClose={ onClose } { ...rest } />;
+		const onClose = ( ...onCloseArgs ) => {
+			dispatch( coreStore ).invalidateResolutionForStoreSelector(
+				'getMediaItems'
+			);
+			originalOnClose?.( ...onCloseArgs );
+		};
+		return <MediaUpload onClose={ onClose } { ...rest } />;
+	}
 }
 
 addFilter(
