@@ -429,88 +429,468 @@ describe( 'edit', () => {
 		} );
 
 		describe( 'ID handling when URL is manually changed', () => {
+			describe( 'URL modifications that should sever the entity link', () => {
+				it( 'should remove ID when URL path is changed', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/original-page',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/different-page',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+							kind: 'custom',
+							type: 'custom',
+							url: 'https://example.com/different-page',
+						} )
+					);
+				} );
+
+				it( 'should remove ID when URL domain is changed', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/page',
+					};
+
+					const updatedValue = {
+						url: 'https://different-site.com/page',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+							kind: 'custom',
+							type: 'custom',
+							url: 'https://different-site.com/page',
+						} )
+					);
+				} );
+
+				it( 'should remove ID when plain permalink post ID is changed', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/?p=123',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/?p=456',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+							kind: 'custom',
+							type: 'custom',
+							url: 'https://example.com/?p=456',
+						} )
+					);
+				} );
+
+				it( 'should remove ID when changing from plain permalink to different plain permalink', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/?p=123',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/?page_id=456',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+							kind: 'custom',
+							type: 'custom',
+							url: 'https://example.com/?page_id=456',
+						} )
+					);
+				} );
+			} );
+
+			describe( 'URL modifications that should preserve the entity link', () => {
+				it( 'should preserve ID when only query string is added', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/page',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/page?utm_source=test',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'https://example.com/page?utm_source=test',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
+				it( 'should preserve ID when only hash fragment is added', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/page',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/page#section',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'https://example.com/page#section',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
+				it( 'should preserve ID when both query string and hash are added', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/page',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/page?param=value#section',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'https://example.com/page?param=value#section',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
+				it( 'should preserve ID when query string is modified', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/page?old=value',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/page?new=value',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'https://example.com/page?new=value',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
+				it( 'should preserve ID when hash fragment is modified', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/page#old-section',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/page#new-section',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'https://example.com/page#new-section',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
+				it( 'should preserve ID when protocol changes from http to https', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'http://example.com/page',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/page',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'https://example.com/page',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
+				it( 'should preserve ID when protocol changes from https to http', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/page',
+					};
+
+					const updatedValue = {
+						url: 'http://example.com/page',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'http://example.com/page',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
+				it( 'should preserve ID when query string is removed', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/page?utm_source=test',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/page',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'https://example.com/page',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
+				it( 'should preserve ID when hash fragment is removed', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/page#section',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/page',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'https://example.com/page',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
+				it( 'should preserve ID when both query string and hash are removed', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/page?param=value#section',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/page',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'https://example.com/page',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
+				it( 'should preserve ID when query string is partially removed', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/page?param1=value1&param2=value2',
+					};
+
+					const updatedValue = {
+						url: 'https://example.com/page?param1=value1',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'https://example.com/page?param1=value1',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+			} );
+
 			it( 'should remove ID when URL is changed without new ID', () => {
-				const setAttributes = jest.fn();
-				const blockAttributes = {
-					id: 123,
-					type: 'page',
-					kind: 'post-type',
-					url: 'https://example.com/original-page',
-				};
-
-				const updatedValue = {
-					url: 'https://example.com/custom-url',
-				};
-
-				updateAttributes(
-					updatedValue,
-					setAttributes,
-					blockAttributes
-				);
-
-				expect( setAttributes ).toHaveBeenCalledWith(
-					expect.objectContaining( {
-						id: undefined,
-						url: 'https://example.com/custom-url',
-					} )
-				);
-			} );
-
-			it( 'should update kind to "custom" when URL is manually changed', () => {
-				const setAttributes = jest.fn();
-				const blockAttributes = {
-					id: 123,
-					type: 'page',
-					kind: 'post-type',
-					url: 'https://example.com/original-page',
-				};
-
-				const updatedValue = {
-					url: 'https://example.com/custom-url',
-				};
-
-				updateAttributes(
-					updatedValue,
-					setAttributes,
-					blockAttributes
-				);
-
-				expect( setAttributes ).toHaveBeenCalledWith(
-					expect.objectContaining( {
-						kind: 'custom',
-						url: 'https://example.com/custom-url',
-					} )
-				);
-			} );
-
-			it( 'should update type to "custom" when URL is manually changed', () => {
-				const setAttributes = jest.fn();
-				const blockAttributes = {
-					id: 123,
-					type: 'page',
-					kind: 'post-type',
-					url: 'https://example.com/original-page',
-				};
-
-				const updatedValue = {
-					url: 'https://example.com/custom-url',
-				};
-
-				updateAttributes(
-					updatedValue,
-					setAttributes,
-					blockAttributes
-				);
-
-				expect( setAttributes ).toHaveBeenCalledWith(
-					expect.objectContaining( {
-						type: 'custom',
-						url: 'https://example.com/custom-url',
-					} )
-				);
-			} );
-
-			it( 'should remove ID and update kind/type to custom when URL is manually changed', () => {
 				const setAttributes = jest.fn();
 				const blockAttributes = {
 					id: 123,
@@ -577,7 +957,7 @@ describe( 'edit', () => {
 				};
 
 				const updatedValue = {
-					title: 'New Label',
+					label: 'New Label',
 				};
 
 				updateAttributes(
@@ -621,33 +1001,6 @@ describe( 'edit', () => {
 					kind: 'post-type',
 					type: 'page',
 				} );
-			} );
-
-			it( 'should remove ID when URL is changed to external site', () => {
-				const setAttributes = jest.fn();
-				const blockAttributes = {
-					id: 123,
-					type: 'page',
-					kind: 'post-type',
-					url: 'https://example.com/page',
-				};
-
-				const updatedValue = {
-					url: 'https://external-site.com/page',
-				};
-
-				updateAttributes(
-					updatedValue,
-					setAttributes,
-					blockAttributes
-				);
-
-				expect( setAttributes ).toHaveBeenCalledWith(
-					expect.objectContaining( {
-						id: undefined,
-						url: 'https://external-site.com/page',
-					} )
-				);
 			} );
 
 			it( 'should handle case where block has no existing ID', () => {

@@ -2,7 +2,58 @@
  * WordPress dependencies
  */
 import { escapeHTML } from '@wordpress/escape-html';
-import { safeDecodeURI } from '@wordpress/url';
+import { safeDecodeURI, getPath } from '@wordpress/url';
+
+/**
+ * Determines if an entity link should be severed based on URL changes.
+ *
+ * @param {string} originalUrl - The original URL
+ * @param {string} newUrl      - The new URL
+ * @return {boolean} True if the entity link should be severed
+ */
+const shouldSeverEntityLink = ( originalUrl, newUrl ) => {
+	if ( ! originalUrl || ! newUrl ) {
+		return false;
+	}
+
+	try {
+		const originalUrlObj = new URL( originalUrl );
+		const newUrlObj = new URL( newUrl );
+
+		const originalHostname = originalUrlObj.hostname;
+		const newHostname = newUrlObj.hostname;
+		const originalPath = getPath( originalUrl );
+		const newPath = getPath( newUrl );
+
+		// If hostname or path changed, sever the entity link
+		if ( originalHostname !== newHostname || originalPath !== newPath ) {
+			return true;
+		}
+
+		// Special handling for plain permalinks (query string post IDs)
+		const originalP = originalUrlObj.searchParams.get( 'p' );
+		const newP = newUrlObj.searchParams.get( 'p' );
+		const originalPageId = originalUrlObj.searchParams.get( 'page_id' );
+		const newPageId = newUrlObj.searchParams.get( 'page_id' );
+
+		// If both are plain permalinks (with ?p= or ?page_id=), compare the IDs
+		if ( originalP && newP && originalP !== newP ) {
+			return true;
+		}
+		if ( originalPageId && newPageId && originalPageId !== newPageId ) {
+			return true;
+		}
+		// If switching between ?p= and ?page_id=, or one is missing, sever
+		if ( ( originalP && newPageId ) || ( originalPageId && newP ) ) {
+			return true;
+		}
+
+		// If only query string or fragment changed, preserve the entity link
+		return false;
+	} catch ( error ) {
+		return true;
+	}
+};
 
 /**
  * @typedef {'post-type'|'custom'|'taxonomy'|'post-type-archive'} WPNavigationLinkKind
@@ -96,14 +147,21 @@ export const updateAttributes = (
 	};
 
 	// If the block's id is set then the menu item is linking to an entity.
-	// Therefore, if the URL is set but a new ID is not provided, the ID
-	// should be removed because the URL was manually changed by the User.
+	// Therefore, if the URL is set but a new ID is not provided, check if
+	// the entity link should be severed based on URL changes.
 	if ( newUrl && ! newID && blockAttributes.id ) {
-		attributes.id = undefined; // explicity "unset" the ID.
-		// When URL is manually changed, update kind and type to "custom"
-		// to indicate this is now a custom link rather than an entity link.
-		attributes.kind = 'custom';
-		attributes.type = 'custom';
+		const shouldSever = shouldSeverEntityLink(
+			blockAttributes.url,
+			newUrl
+		);
+
+		if ( shouldSever ) {
+			attributes.id = undefined; // explicitly "unset" the ID.
+			// When URL is manually changed in a way that severs the entity link,
+			// update kind and type to "custom" to indicate this is now a custom link.
+			attributes.kind = 'custom';
+			attributes.type = 'custom';
+		}
 	} else if ( newID && Number.isInteger( newID ) ) {
 		attributes.id = newID;
 	}
