@@ -16,6 +16,7 @@ import {
 	ToolbarButton,
 	Tooltip,
 	ToolbarGroup,
+	CheckboxControl,
 } from '@wordpress/components';
 import { displayShortcut, isKeyboardEvent } from '@wordpress/keycodes';
 import { __ } from '@wordpress/i18n';
@@ -160,7 +161,8 @@ function getMissingText( type ) {
  * Consider reuseing this components for both blocks.
  */
 function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
-	const { label, url, description, title, rel } = attributes;
+	const { label, url, description, title, rel, showForLoggedInOnly } =
+		attributes;
 	return (
 		<ToolsPanel label={ __( 'Settings' ) }>
 			<ToolsPanelItem
@@ -202,6 +204,25 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 						);
 					} }
 					autoComplete="off"
+				/>
+			</ToolsPanelItem>
+
+			<ToolsPanelItem
+				hasValue={ () => !! showForLoggedInOnly }
+				label={ __( 'Visibility' ) }
+				onDeselect={ () =>
+					setAttributes( { showForLoggedInOnly: false } )
+				}
+				isShownByDefault
+			>
+				<CheckboxControl
+					__nextHasNoMarginBottom
+					label="Only show for logged-in users"
+					help="Show navigation link only to logged-in users."
+					checked={ showForLoggedInOnly }
+					onChange={ ( value ) =>
+						setAttributes( { showForLoggedInOnly: value } )
+					}
 				/>
 			</ToolsPanelItem>
 
