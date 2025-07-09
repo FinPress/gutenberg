@@ -93,6 +93,7 @@ export const updateAttributes = (
 
 	const {
 		title: newLabel = '', // the title of any provided Post.
+		label: newLabelFromLabel = '', // alternative to title
 		url: newUrl = '',
 		opensInNewTab,
 		id: newID,
@@ -100,12 +101,15 @@ export const updateAttributes = (
 		type: newType = originalType,
 	} = updatedValue;
 
-	const newLabelWithoutHttp = newLabel.replace( /http(s?):\/\//gi, '' );
+	// Use title if provided, otherwise fall back to label
+	const finalNewLabel = newLabel || newLabelFromLabel;
+
+	const newLabelWithoutHttp = finalNewLabel.replace( /http(s?):\/\//gi, '' );
 	const newUrlWithoutHttp = newUrl.replace( /http(s?):\/\//gi, '' );
 
 	const useNewLabel =
-		newLabel &&
-		newLabel !== originalLabel &&
+		finalNewLabel &&
+		finalNewLabel !== originalLabel &&
 		// LinkControl without the title field relies
 		// on the check below. Specifically, it assumes that
 		// the URL is the same as a title.
@@ -124,7 +128,7 @@ export const updateAttributes = (
 	// - https://github.com/WordPress/gutenberg/pull/41063
 	// - https://github.com/WordPress/gutenberg/pull/18617.
 	const label = useNewLabel
-		? escapeHTML( newLabel )
+		? escapeHTML( finalNewLabel )
 		: originalLabel || escapeHTML( newUrlWithoutHttp );
 
 	// In https://github.com/WordPress/gutenberg/pull/24670 we decided to use "tag" in favor of "post_tag"
@@ -164,6 +168,10 @@ export const updateAttributes = (
 		}
 	} else if ( newID && Number.isInteger( newID ) ) {
 		attributes.id = newID;
+	} else if ( blockAttributes.id ) {
+		// If we have an existing ID and no URL change, ensure kind and type are preserved
+		attributes.kind = kind;
+		attributes.type = type;
 	}
 
 	setAttributes( attributes );
