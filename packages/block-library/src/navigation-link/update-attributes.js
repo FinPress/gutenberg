@@ -23,43 +23,65 @@ const shouldSeverEntityLink = ( originalUrl, newUrl ) => {
 		return path.replace( /\/+$/, '' ); // Remove trailing slashes
 	};
 
-	try {
-		const originalUrlObj = new URL( originalUrl );
-		const newUrlObj = new URL( newUrl );
-
-		const originalHostname = originalUrlObj.hostname;
-		const newHostname = newUrlObj.hostname;
-		const originalPath = normalizePath( getPath( originalUrl ) );
-		const newPath = normalizePath( getPath( newUrl ) );
-
-		// If hostname or path changed, sever the entity link
-		if ( originalHostname !== newHostname || originalPath !== newPath ) {
-			return true;
+	// Helper function to create URL objects with proper base handling
+	const createUrlObject = ( url, baseUrl = null ) => {
+		try {
+			// Always provide a base URL - it will be ignored for absolute URLs
+			// Use window.location.origin in browser, fallback for Node/tests
+			const base =
+				baseUrl ||
+				( typeof window !== 'undefined'
+					? window.location.origin
+					: 'https://wordpress.org' );
+			return new URL( url, base );
+		} catch ( error ) {
+			// If URL construction still fails, it's likely an invalid URL
+			// and we should sever the entity link
+			return null;
 		}
+	};
 
-		// Special handling for plain permalinks (query string post IDs)
-		const originalP = originalUrlObj.searchParams.get( 'p' );
-		const newP = newUrlObj.searchParams.get( 'p' );
-		const originalPageId = originalUrlObj.searchParams.get( 'page_id' );
-		const newPageId = newUrlObj.searchParams.get( 'page_id' );
-
-		// If both are plain permalinks (with ?p= or ?page_id=), compare the IDs
-		if ( originalP && newP && originalP !== newP ) {
-			return true;
-		}
-		if ( originalPageId && newPageId && originalPageId !== newPageId ) {
-			return true;
-		}
-		// If switching between ?p= and ?page_id=, or one is missing, sever
-		if ( ( originalP && newPageId ) || ( originalPageId && newP ) ) {
-			return true;
-		}
-
-		// If only query string or fragment changed, preserve the entity link
-		return false;
-	} catch ( error ) {
+	const originalUrlObj = createUrlObject( originalUrl );
+	if ( ! originalUrlObj ) {
 		return true;
 	}
+
+	const newUrlObj = createUrlObject( newUrl, originalUrl );
+	if ( ! newUrlObj ) {
+		return true;
+	}
+
+	// Move these declarations here, after the null checks
+	const originalHostname = originalUrlObj.hostname;
+	const newHostname = newUrlObj.hostname;
+	const originalPath = normalizePath( getPath( originalUrlObj.toString() ) );
+	const newPath = normalizePath( getPath( newUrlObj.toString() ) );
+
+	// If hostname or path changed, sever the entity link
+	if ( originalHostname !== newHostname || originalPath !== newPath ) {
+		return true;
+	}
+
+	// Special handling for plain permalinks (query string post IDs)
+	const originalP = originalUrlObj.searchParams.get( 'p' );
+	const newP = newUrlObj.searchParams.get( 'p' );
+	const originalPageId = originalUrlObj.searchParams.get( 'page_id' );
+	const newPageId = newUrlObj.searchParams.get( 'page_id' );
+
+	// If both are plain permalinks (with ?p= or ?page_id=), compare the IDs
+	if ( originalP && newP && originalP !== newP ) {
+		return true;
+	}
+	if ( originalPageId && newPageId && originalPageId !== newPageId ) {
+		return true;
+	}
+	// If switching between ?p= and ?page_id=, or one is missing, sever
+	if ( ( originalP && newPageId ) || ( originalPageId && newP ) ) {
+		return true;
+	}
+
+	// If only query string or fragment changed, preserve the entity link
+	return false;
 };
 
 /**

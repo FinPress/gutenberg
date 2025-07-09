@@ -459,6 +459,35 @@ describe( 'edit', () => {
 					);
 				} );
 
+				it( 'should remove ID when changing to relative URL that does not match the path', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/hello-world/',
+					};
+
+					const updatedValue = {
+						url: '/different-page',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+							kind: 'custom',
+							type: 'custom',
+							url: '/different-page',
+						} )
+					);
+				} );
+
 				it( 'should remove ID when URL domain is changed', () => {
 					const setAttributes = jest.fn();
 					const blockAttributes = {
@@ -548,6 +577,38 @@ describe( 'edit', () => {
 			} );
 
 			describe( 'URL modifications that should preserve the entity link', () => {
+				it( 'should preserve ID when changing to relative URL that matches the path', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'https://example.com/hello-world/',
+					};
+
+					const updatedValue = {
+						url: '/hello-world/',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: '/hello-world/',
+						} )
+					);
+					// Should not sever the entity link when relative URL matches the path
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
 				it( 'should preserve ID when only query string is added', () => {
 					const setAttributes = jest.fn();
 					const blockAttributes = {
