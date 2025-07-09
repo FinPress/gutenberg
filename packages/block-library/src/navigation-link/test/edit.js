@@ -858,6 +858,37 @@ describe( 'edit', () => {
 					);
 				} );
 
+				it( 'should preserve ID when adding query string to URL with hash fragment', () => {
+					const setAttributes = jest.fn();
+					const blockAttributes = {
+						id: 123,
+						type: 'page',
+						kind: 'post-type',
+						url: 'http://localhost:8888/daves-page-2/#somehash',
+					};
+
+					const updatedValue = {
+						url: 'http://localhost:8888/daves-page-2?somequery#somehash',
+					};
+
+					updateAttributes(
+						updatedValue,
+						setAttributes,
+						blockAttributes
+					);
+
+					expect( setAttributes ).toHaveBeenCalledWith(
+						expect.objectContaining( {
+							url: 'http://localhost:8888/daves-page-2?somequery#somehash',
+						} )
+					);
+					expect( setAttributes ).not.toHaveBeenCalledWith(
+						expect.objectContaining( {
+							id: undefined,
+						} )
+					);
+				} );
+
 				it( 'should preserve ID when query string is partially removed', () => {
 					const setAttributes = jest.fn();
 					const blockAttributes = {

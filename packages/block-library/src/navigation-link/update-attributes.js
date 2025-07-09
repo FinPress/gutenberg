@@ -16,14 +16,21 @@ const shouldSeverEntityLink = ( originalUrl, newUrl ) => {
 		return false;
 	}
 
+	const normalizePath = ( path ) => {
+		if ( ! path ) {
+			return '';
+		}
+		return path.replace( /\/+$/, '' ); // Remove trailing slashes
+	};
+
 	try {
 		const originalUrlObj = new URL( originalUrl );
 		const newUrlObj = new URL( newUrl );
 
 		const originalHostname = originalUrlObj.hostname;
 		const newHostname = newUrlObj.hostname;
-		const originalPath = getPath( originalUrl );
-		const newPath = getPath( newUrl );
+		const originalPath = normalizePath( getPath( originalUrl ) );
+		const newPath = normalizePath( getPath( newUrl ) );
 
 		// If hostname or path changed, sever the entity link
 		if ( originalHostname !== newHostname || originalPath !== newPath ) {
