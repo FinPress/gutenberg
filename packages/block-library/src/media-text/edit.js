@@ -27,6 +27,7 @@ import {
 	ToolbarButton,
 	ExternalLink,
 	FocalPointPicker,
+	SelectControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
@@ -185,6 +186,7 @@ function MediaTextEdit( {
 		verticalAlignment,
 		allowedBlocks,
 		useFeaturedImage,
+		aspectRatio,
 	} = attributes;
 
 	const [ featuredImage ] = useEntityProp(
@@ -277,6 +279,9 @@ function MediaTextEdit( {
 		'is-stacked-on-mobile': isStackedOnMobile,
 		[ `is-vertically-aligned-${ verticalAlignment }` ]: verticalAlignment,
 		'is-image-fill-element': imageFill,
+		'has-aspect-ratio': aspectRatio && aspectRatio !== 'auto',
+		[ `has-aspect-ratio-${ aspectRatio?.replace( ':', '-' ) }` ]:
+			aspectRatio && aspectRatio !== 'auto',
 	} );
 	const widthString = `${ temporaryMediaWidth || mediaWidth }%`;
 	const gridTemplateColumns =
@@ -318,6 +323,7 @@ function MediaTextEdit( {
 					focalPoint: undefined,
 					mediaWidth: 50,
 					mediaSizeSlug: undefined,
+					aspectRatio: 'auto',
 				} );
 			} }
 			dropdownMenuProps={ dropdownMenuProps }
@@ -434,6 +440,43 @@ function MediaTextEdit( {
 								{ __( 'Leave empty if decorative.' ) }
 							</>
 						}
+					/>
+				</ToolsPanelItem>
+			) }
+			{ mediaType === 'image' && (
+				<ToolsPanelItem
+					label={ __( 'Aspect ratio' ) }
+					isShownByDefault
+					hasValue={ () => !! aspectRatio && aspectRatio !== 'auto' }
+					onDeselect={ () =>
+						setAttributes( {
+							aspectRatio: 'auto',
+							customAspectRatio: undefined,
+						} )
+					}
+				>
+					<SelectControl
+						__nextHasNoMarginBottom
+						__next40pxDefaultSize
+						label={ __( 'Aspect ratio' ) }
+						value={ aspectRatio }
+						options={ [
+							{ value: 'auto', label: __( 'Original' ) },
+							{ value: '1:1', label: __( 'Square - 1:1' ) },
+							{ value: '4:3', label: __( 'Standard - 4:3' ) },
+							{ value: '3:4', label: __( 'Portrait - 3:4' ) },
+							{ value: '3:2', label: __( 'Classic - 3:2' ) },
+							{
+								value: '2:3',
+								label: __( 'Classic Portrait - 2:3' ),
+							},
+							{ value: '16:9', label: __( 'Wide - 16:9' ) },
+							{ value: '9:16', label: __( 'Tall - 9:16' ) },
+						] }
+						onChange={ ( value ) =>
+							setAttributes( { aspectRatio: value } )
+						}
+						disabled={ imageFill }
 					/>
 				</ToolsPanelItem>
 			) }

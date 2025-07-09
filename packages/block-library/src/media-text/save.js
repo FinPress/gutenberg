@@ -33,6 +33,7 @@ export default function save( { attributes } ) {
 		href,
 		linkTarget,
 		rel,
+		aspectRatio,
 	} = attributes;
 	const mediaSizeSlug = attributes.mediaSizeSlug || DEFAULT_MEDIA_SIZE_SLUG;
 	const newRel = ! rel ? undefined : rel;
@@ -77,6 +78,9 @@ export default function save( { attributes } ) {
 		'is-stacked-on-mobile': isStackedOnMobile,
 		[ `is-vertically-aligned-${ verticalAlignment }` ]: verticalAlignment,
 		'is-image-fill-element': imageFill,
+		'has-aspect-ratio': aspectRatio && aspectRatio !== 'auto',
+		[ `has-aspect-ratio-${ aspectRatio?.replace( ':', '-' ) }` ]:
+			aspectRatio && aspectRatio !== 'auto',
 	} );
 
 	let gridTemplateColumns;

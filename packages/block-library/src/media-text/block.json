@@ -96,6 +96,10 @@
 		"useFeaturedImage": {
 			"type": "boolean",
 			"default": false
+		},
+		"aspectRatio": {
+			"type": "string",
+			"default": "auto"
 		}
 	},
 	"usesContext": [ "postId", "postType" ],
