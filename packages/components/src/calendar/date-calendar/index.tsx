@@ -40,7 +40,7 @@ export const DateCalendar = ( {
 	>( {
 		defaultValue: defaultSelected,
 		value: selectedProp,
-		// @ts-ignore: The onChange parameter type expected by useControlledValue differs from the type provided by onSelect. Here, onSelect only receives DateRange | undefined.
+		// @ts-ignore: The useControlledValue expects onChange value parameter type is the same as the value parameter, but in our case, onSelect always receives DateRange | undefined.
 		onChange: onSelect,
 	} );
 
