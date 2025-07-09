@@ -196,6 +196,7 @@ function installDependencies( service, env, config ) {
 		case 'wordpress': {
 			dockerFileContent += `
 # Make sure we're working with the latest packages.
+RUN apt-get clean
 RUN apt-get -qy update
 
 # Install some basic PHP dependencies.
