@@ -131,10 +131,11 @@ export default function TermsTemplateEdit( {
 	context: {
 		query: {
 			taxonomy: taxonomySlug,
-			hierarchical,
+			order,
+			orderBy,
 			hideEmpty,
+			hierarchical,
 			showOnlyTopLevel,
-			search,
 		} = {},
 	},
 	attributes: { layout },
@@ -143,12 +144,10 @@ export default function TermsTemplateEdit( {
 	const [ activeBlockContextId, setActiveBlockContextId ] = useState();
 
 	const queryArgs = {
+		order,
+		orderby: orderBy,
 		hide_empty: hideEmpty,
 	};
-
-	if ( search ) {
-		queryArgs.search = search;
-	}
 
 	const { records: terms, isResolving } = useEntityRecords(
 		'taxonomy',

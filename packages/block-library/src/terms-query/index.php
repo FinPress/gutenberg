@@ -39,14 +39,10 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 
 	$query_args = array(
 		'taxonomy'   => $query['taxonomy'] ?? 'category',
-		'offset'     => $query['offset'] ?? 0,
 		'order'      => $query['order'] ?? 'asc',
 		'orderby'    => $query['orderBy'] ?? 'name',
 		'hide_empty' => $query['hideEmpty'] ?? false,
 		'hierarchical' => $query['hierarchical'] ?? false,
-		'parent'     => $query['parent'] ?? 0,
-		'exclude'    => $query['exclude'] ?? array(),
-		'include'    => $query['include'] ?? array(),
 	);
 
 	$terms_query = new WP_Term_Query( $query_args );

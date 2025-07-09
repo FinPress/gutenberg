@@ -44,18 +44,11 @@ export default function TermsQueryInspectorControls( {
 			resetAll={ () => {
 				setAttributes( {
 					query: {
-						pages: 0,
-						offset: 0,
 						taxonomy: 'category',
 						order: 'asc',
 						orderBy: 'name',
 						hideEmpty: false,
 						hierarchical: false,
-						parent: 0,
-						exclude: [],
-						include: [],
-						search: '',
-						inherit: false,
 						showOnlyTopLevel: false,
 					},
 				} );
@@ -112,7 +105,6 @@ export default function TermsQueryInspectorControls( {
 					options={ [
 						{ label: __( 'Name' ), value: 'name' },
 						{ label: __( 'Slug' ), value: 'slug' },
-						{ label: __( 'Term ID' ), value: 'term_id' },
 						{ label: __( 'Count' ), value: 'count' },
 					] }
 					value={ query.orderBy }

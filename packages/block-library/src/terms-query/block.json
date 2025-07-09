@@ -14,16 +14,11 @@
 		"query": {
 			"type": "object",
 			"default": {
-				"offset": 0,
 				"taxonomy": "category",
 				"order": "asc",
 				"orderBy": "name",
 				"hideEmpty": false,
 				"hierarchical": false,
-				"parent": 0,
-				"exclude": [],
-				"include": [],
-				"inherit": false,
 				"showOnlyTopLevel": false
 			}
 		},
