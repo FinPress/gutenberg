@@ -3,7 +3,7 @@
  */
 import { useDispatch } from '@wordpress/data';
 import { useInstanceId } from '@wordpress/compose';
-import { useEffect, useCallback } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import {
 	InspectorControls,
 	useBlockProps,
@@ -29,7 +29,7 @@ export default function TermsQueryContent( {
 	clientId,
 	name,
 } ) {
-	const { queryId, tagName: TagName = 'div' } = attributes;
+	const { queryId, tagName: TagName = 'div', query = {} } = attributes;
 
 	const { __unstableMarkNextChangeAsNotPersistent } =
 		useDispatch( blockEditorStore );
@@ -38,6 +38,15 @@ export default function TermsQueryContent( {
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		template: TEMPLATE,
 	} );
+
+	const setQuery = ( newQuery ) => {
+		setAttributes( {
+			query: {
+				...query,
+				...newQuery,
+			},
+		} );
+	};
 
 	useEffect( () => {
 		if ( ! queryId ) {
@@ -51,21 +60,13 @@ export default function TermsQueryContent( {
 		__unstableMarkNextChangeAsNotPersistent,
 	] );
 
-	const updateQuery = useCallback(
-		( newQuery ) =>
-			setAttributes( ( prevAttributes ) => ( {
-				query: { ...prevAttributes.query, ...newQuery },
-			} ) ),
-		[ setAttributes ]
-	);
-
 	return (
 		<>
 			<InspectorControls>
 				<TermsQueryInspectorControls
 					name={ name }
 					attributes={ attributes }
-					setQuery={ updateQuery }
+					setQuery={ setQuery }
 					setAttributes={ setAttributes }
 					clientId={ clientId }
 				/>
