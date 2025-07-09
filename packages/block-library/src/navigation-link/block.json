@@ -43,6 +43,10 @@
 		},
 		"isTopLevelLink": {
 			"type": "boolean"
+		},
+		"showForLoggedInOnly": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"usesContext": [
