@@ -30,14 +30,9 @@ async function globalSetup( config: FullConfig ) {
 		requestUtils.activateTheme( 'twentytwentyone' ),
 		// Disable this test plugin as it's conflicting with some of the tests.
 		// We already have reduced motion enabled and Playwright will wait for most of the animations anyway.
-		// Only try to deactivate if the plugin exists
-		requestUtils
-			.deactivatePlugin(
-				'gutenberg-test-plugin-disables-the-css-animations'
-			)
-			.catch( () => {
-				// Plugin doesn't exist, which is fine
-			} ),
+		requestUtils.deactivatePlugin(
+			'gutenberg-test-plugin-disables-the-css-animations'
+		),
 		requestUtils.deleteAllPosts(),
 		requestUtils.deleteAllBlocks(),
 		requestUtils.resetPreferences(),
