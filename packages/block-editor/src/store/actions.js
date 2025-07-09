@@ -1254,9 +1254,14 @@ export const mergeBlocks =
 		}
 
 		if ( ! blockAType.merge ) {
-			// If the first block doesn't support merging and the second block is unmodified,
+			// If the first block doesn't support merging and the second block is empty,
 			// remove the second block and focus the first block.
-			if ( blockB.attributes && isUnmodifiedBlock( blockB ) ) {
+			const isHeadingBlock = blockB.name === 'core/heading';
+			const isEmptyHeading =
+				isHeadingBlock &&
+				( ! blockB.attributes.content ||
+					blockB.attributes.content.length === 0 );
+			if ( isUnmodifiedBlock( blockB ) || isEmptyHeading ) {
 				dispatch.removeBlock(
 					clientIdB,
 					select.isBlockSelected( clientIdB )
