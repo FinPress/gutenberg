@@ -13,7 +13,7 @@ import { useMemo, useState } from '@wordpress/element';
  */
 import { COMMON_PROPS, MODIFIER_CLASSNAMES } from '../utils/constants';
 import { clampNumberOfMonths } from '../utils/misc';
-import { useControlledValue } from '../utils/use-controlled-value';
+import { useControlledValue } from '../../utils/hooks';
 import { useLocalizationProps } from '../utils/use-localization-props';
 import type { DateRangeCalendarProps, DateRange } from '../types';
 
@@ -152,10 +152,11 @@ export const DateRangeCalendar = ( {
 	} );
 
 	const [ selected, setSelected ] = useControlledValue<
-		DateRange | undefined
+		DateRange | undefined | null
 	>( {
 		defaultValue: defaultSelected,
 		value: selectedProp,
+		// @ts-ignore: The onChange parameter type expected by useControlledValue differs from the type provided by onSelect. Here, onSelect only receives DateRange | undefined.
 		onChange: onSelect,
 	} );
 
@@ -192,7 +193,7 @@ export const DateRangeCalendar = ( {
 			excludeDisabled={ excludeDisabled }
 			min={ min }
 			max={ max }
-			selected={ selected }
+			selected={ selected ?? undefined }
 			onSelect={ setSelected }
 			onDayMouseEnter={ ( date ) => setHoveredDate( date ) }
 			onDayMouseLeave={ () => setHoveredDate( undefined ) }

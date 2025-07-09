@@ -8,7 +8,7 @@ import { enUS } from 'react-day-picker/locale';
  */
 import { COMMON_PROPS } from '../utils/constants';
 import { clampNumberOfMonths } from '../utils/misc';
-import { useControlledValue } from '../utils/use-controlled-value';
+import { useControlledValue } from '../../utils/hooks';
 import { useLocalizationProps } from '../utils/use-localization-props';
 import type { DateCalendarProps } from '../types';
 
@@ -35,9 +35,12 @@ export const DateCalendar = ( {
 		mode: 'single',
 	} );
 
-	const [ selected, setSelected ] = useControlledValue< Date | undefined >( {
+	const [ selected, setSelected ] = useControlledValue<
+		Date | undefined | null
+	>( {
 		defaultValue: defaultSelected,
 		value: selectedProp,
+		// @ts-ignore: The onChange parameter type expected by useControlledValue differs from the type provided by onSelect. Here, onSelect only receives DateRange | undefined.
 		onChange: onSelect,
 	} );
 
@@ -48,7 +51,7 @@ export const DateCalendar = ( {
 			{ ...props }
 			mode="single"
 			numberOfMonths={ clampNumberOfMonths( numberOfMonths ) }
-			selected={ selected }
+			selected={ selected ?? undefined }
 			onSelect={ setSelected }
 		/>
 	);
