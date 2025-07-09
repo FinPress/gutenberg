@@ -100,6 +100,10 @@ export const updateAttributes = (
 	// should be removed because the URL was manually changed by the User.
 	if ( newUrl && ! newID && blockAttributes.id ) {
 		attributes.id = undefined; // explicity "unset" the ID.
+		// When URL is manually changed, update kind and type to "custom"
+		// to indicate this is now a custom link rather than an entity link.
+		attributes.kind = 'custom';
+		attributes.type = 'custom';
 	} else if ( newID && Number.isInteger( newID ) ) {
 		attributes.id = newID;
 	}

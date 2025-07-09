@@ -421,8 +421,8 @@ describe( 'edit', () => {
 					id: undefined,
 					label: 'Menu Test',
 					opensInNewTab: false,
-					kind: 'post-type',
-					type: 'post',
+					kind: 'custom',
+					type: 'custom',
 					url: 'https://wordpress.local/foo/',
 				} );
 			} );
@@ -451,6 +451,89 @@ describe( 'edit', () => {
 				expect( setAttributes ).toHaveBeenCalledWith(
 					expect.objectContaining( {
 						id: undefined,
+						url: 'https://example.com/custom-url',
+					} )
+				);
+			} );
+
+			it( 'should update kind to "custom" when URL is manually changed', () => {
+				const setAttributes = jest.fn();
+				const blockAttributes = {
+					id: 123,
+					type: 'page',
+					kind: 'post-type',
+					url: 'https://example.com/original-page',
+				};
+
+				const updatedValue = {
+					url: 'https://example.com/custom-url',
+				};
+
+				updateAttributes(
+					updatedValue,
+					setAttributes,
+					blockAttributes
+				);
+
+				expect( setAttributes ).toHaveBeenCalledWith(
+					expect.objectContaining( {
+						kind: 'custom',
+						url: 'https://example.com/custom-url',
+					} )
+				);
+			} );
+
+			it( 'should update type to "custom" when URL is manually changed', () => {
+				const setAttributes = jest.fn();
+				const blockAttributes = {
+					id: 123,
+					type: 'page',
+					kind: 'post-type',
+					url: 'https://example.com/original-page',
+				};
+
+				const updatedValue = {
+					url: 'https://example.com/custom-url',
+				};
+
+				updateAttributes(
+					updatedValue,
+					setAttributes,
+					blockAttributes
+				);
+
+				expect( setAttributes ).toHaveBeenCalledWith(
+					expect.objectContaining( {
+						type: 'custom',
+						url: 'https://example.com/custom-url',
+					} )
+				);
+			} );
+
+			it( 'should remove ID and update kind/type to custom when URL is manually changed', () => {
+				const setAttributes = jest.fn();
+				const blockAttributes = {
+					id: 123,
+					type: 'page',
+					kind: 'post-type',
+					url: 'https://example.com/original-page',
+				};
+
+				const updatedValue = {
+					url: 'https://example.com/custom-url',
+				};
+
+				updateAttributes(
+					updatedValue,
+					setAttributes,
+					blockAttributes
+				);
+
+				expect( setAttributes ).toHaveBeenCalledWith(
+					expect.objectContaining( {
+						id: undefined,
+						kind: 'custom',
+						type: 'custom',
 						url: 'https://example.com/custom-url',
 					} )
 				);
