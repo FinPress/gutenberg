@@ -965,6 +965,7 @@ An advanced block that allows displaying taxonomy terms based on different query
 
 -	**Name:** core/terms-query
 -	**Category:** theme
+-	**Allowed Blocks:** core/terms-template
 -	**Supports:** align (full, wide), interactivity, layout, ~~html~~
 -	**Attributes:** namespace, query, queryId, tagName
 
@@ -975,6 +976,7 @@ Contains the block elements used to render a taxonomy term, like the title, coun
 -	**Name:** core/terms-template
 -	**Category:** theme
 -	**Ancestor:** core/terms-query
+-	**Allowed Blocks:** core/term-name, core/term-count, core/term-description, core/paragraph
 -	**Supports:** align (full, wide), color (background, gradients, link, text), interactivity (clientNavigation), layout, spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 
 ## Text Columns (deprecated)

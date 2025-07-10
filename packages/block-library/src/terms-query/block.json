@@ -41,6 +41,7 @@
 		"layout": true,
 		"interactivity": true
 	},
+	"allowedBlocks": [ "core/terms-template" ],
 	"style": "wp-block-terms-query",
 	"editorStyle": "wp-block-terms-query-editor"
 }

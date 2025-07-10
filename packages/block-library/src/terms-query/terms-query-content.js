@@ -21,7 +21,13 @@ import TermsQueryInspectorControls from './inspector-controls';
 
 const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
-const TEMPLATE = [ [ 'core/terms-template' ] ];
+const TEMPLATE = [
+	[
+		'core/terms-template',
+		{},
+		[ [ 'core/term-name' ], [ 'core/term-count' ] ],
+	],
+];
 
 export default function TermsQueryContent( {
 	attributes,

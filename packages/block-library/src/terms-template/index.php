@@ -47,6 +47,11 @@ function render_block_core_terms_template( $attributes, $content, $block ) {
 		} );
 	}
 
+	// Check if we have terms after filtering.
+	if ( empty( $terms ) ) {
+		return '';
+	}
+
 	// Handle hierarchical list.
 	$is_hierarchical = ! empty( $query['hierarchical'] );
 
@@ -56,11 +61,8 @@ function render_block_core_terms_template( $attributes, $content, $block ) {
 		$content = render_flat_terms_template( $terms, $block );
 	}
 
-	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'wp-block-terms-template' ) );
-
 	return sprintf(
-		'<div %1$s><ul>%2$s</ul></div>',
-		$wrapper_attributes,
+		'<ul>%s</ul>',
 		$content
 	);
 }

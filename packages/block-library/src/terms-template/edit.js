@@ -20,11 +20,7 @@ import {
 import { Spinner, ToolbarGroup } from '@wordpress/components';
 import { useEntityRecords } from '@wordpress/core-data';
 
-const TEMPLATE = [
-	[ 'core/term-name' ],
-	[ 'core/term-count' ],
-	[ 'core/term-description' ],
-];
+const TEMPLATE = [ [ 'core/term-name' ], [ 'core/term-count' ] ];
 
 function TermsTemplateInnerBlocks( { classList } ) {
 	const innerBlocksProps = useInnerBlocksProps(
