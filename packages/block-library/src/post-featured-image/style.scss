@@ -13,6 +13,11 @@
 		box-sizing: border-box;
 	}
 
+	&.has-aspect-ratio img {
+		object-fit: cover;
+		height: 100%;
+	}
+
 	&.alignwide img,
 	&.alignfull img {
 		width: 100%;

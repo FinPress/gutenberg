@@ -3,7 +3,6 @@
  */
 import { __, _x } from '@wordpress/i18n';
 import {
-	SelectControl,
 	__experimentalUnitControl as UnitControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
@@ -48,16 +47,15 @@ const scaleHelp = {
 
 const DimensionControls = ( {
 	clientId,
-	attributes: { aspectRatio, width, height, scale },
+	attributes: { width, height, scale },
 	setAttributes,
 } ) => {
-	const [ availableUnits, defaultRatios, themeRatios, showDefaultRatios ] =
-		useSettings(
-			'spacing.units',
-			'dimensions.aspectRatios.default',
-			'dimensions.aspectRatios.theme',
-			'dimensions.defaultAspectRatios'
-		);
+	const [ availableUnits ] = useSettings(
+		'spacing.units',
+		'dimensions.aspectRatios.default',
+		'dimensions.aspectRatios.theme',
+		'dimensions.defaultAspectRatios'
+	);
 	const units = useCustomUnits( {
 		availableUnits: availableUnits || [ 'px', '%', 'vw', 'em', 'rem' ],
 	} );
@@ -78,54 +76,10 @@ const DimensionControls = ( {
 	};
 	const scaleLabel = _x( 'Scale', 'Image scaling options' );
 
-	const showScaleControl =
-		height || ( aspectRatio && aspectRatio !== 'auto' );
-
-	const themeOptions = themeRatios?.map( ( { name, ratio } ) => ( {
-		label: name,
-		value: ratio,
-	} ) );
-
-	const defaultOptions = defaultRatios?.map( ( { name, ratio } ) => ( {
-		label: name,
-		value: ratio,
-	} ) );
-
-	const aspectRatioOptions = [
-		{
-			label: _x(
-				'Original',
-				'Aspect ratio option for dimensions control'
-			),
-			value: 'auto',
-		},
-		...( showDefaultRatios ? defaultOptions : [] ),
-		...( themeOptions ? themeOptions : [] ),
-	];
+	const showScaleControl = height;
 
 	return (
 		<>
-			<ToolsPanelItem
-				hasValue={ () => !! aspectRatio }
-				label={ __( 'Aspect ratio' ) }
-				onDeselect={ () => setAttributes( { aspectRatio: undefined } ) }
-				resetAllFilter={ () => ( {
-					aspectRatio: undefined,
-				} ) }
-				isShownByDefault
-				panelId={ clientId }
-			>
-				<SelectControl
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-					label={ __( 'Aspect ratio' ) }
-					value={ aspectRatio }
-					options={ aspectRatioOptions }
-					onChange={ ( nextAspectRatio ) =>
-						setAttributes( { aspectRatio: nextAspectRatio } )
-					}
-				/>
-			</ToolsPanelItem>
 			<ToolsPanelItem
 				className="single-column"
 				hasValue={ () => !! height }
