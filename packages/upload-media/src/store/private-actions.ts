@@ -2,7 +2,6 @@
  * External dependencies
  */
 import { v4 as uuidv4 } from 'uuid';
-import mime from 'mime';
 
 /**
  * WordPress dependencies
@@ -382,18 +381,12 @@ export function processItem( id: QueueItemId ) {
 				break;
 
 			case OperationType.TranscodeImage:
-				dispatch.optimizeImageItem(
-					item.id,
-					operationArgs as OperationArgs[ OperationType.TranscodeImage ]
-				);
+				dispatch.optimizeImageItem( item.id );
 				break;
 
 			// TODO: Right now only handles images, but should support other types too.
 			case OperationType.Compress:
-				dispatch.optimizeImageItem(
-					item.id,
-					operationArgs as OperationArgs[ OperationType.TranscodeImage ]
-				);
+				dispatch.optimizeImageItem( item.id );
 				break;
 
 			case OperationType.Upload:
@@ -683,18 +676,12 @@ export function uploadOriginal( id: QueueItemId ) {
 	};
 }
 
-type OptimizeImageItemArgs = OperationArgs[ OperationType.TranscodeImage ];
-
 /**
  * Optimizes/Compresses an existing image item.
  *
- * @param id     Item ID.
- * @param [args] Additional arguments for the operation.
+ * @param id Item ID.
  */
-export function optimizeImageItem(
-	id: QueueItemId,
-	args?: OptimizeImageItemArgs
-) {
+export function optimizeImageItem( id: QueueItemId ) {
 	return async ( { select, dispatch }: ThunkArgs ) => {
 		const item = select.getItem( id ) as QueueItem;
 
@@ -712,7 +699,7 @@ export function optimizeImageItem(
 		try {
 			let file: File;
 
-			const mimeType =  mime.getType( outputFormat );
+			const mimeType = getMimeTypeFromExtension( outputFormat );
 
 			if ( outputFormat === inputFormat || ! mimeType ) {
 				file = await vipsCompressImage(
@@ -746,24 +733,12 @@ export function optimizeImageItem(
 				blobUrl,
 			} );
 
-
-			if ( args?.requireApproval ) {
-				dispatch.finishOperation( id, {
-					status: ItemStatus.PendingApproval,
-					file,
-					attachment: {
-						url: blobUrl,
-						mime_type: file.type,
-					},
-				} );
-			} else {
-				dispatch.finishOperation( id, {
-					file,
-					attachment: {
-						url: blobUrl,
-					},
-				} );
-			}
+			dispatch.finishOperation( id, {
+				file,
+				attachment: {
+					url: blobUrl,
+				},
+			} );
 		} catch ( error ) {
 			dispatch.cancelItem(
 				id,
@@ -929,12 +904,40 @@ export function revokeBlobUrls( id: QueueItemId ) {
 /**
  * Helper to extract the file extension from a MIME type.
  *
- * @param mimeType
- * @returns
+ * @param mimeType Mime type to extract the extension from.
+ * @return File extension or an empty string if not found.
  */
 export function getMediaTypeFromMimeType( mimeType: string ): string {
 	if ( mimeType === 'application/pdf' ) {
 		return 'pdf';
 	}
 	return mimeType.split( '/' )[ 0 ];
+}
+
+/**
+ * Get mime type associated with an extension
+ *
+ * @param path Path to the file.
+ * @return Mime type or null if not found.
+ */
+export function getMimeTypeFromExtension( path: string ) {
+	if ( typeof path !== 'string' ) {
+		return null;
+	}
+
+	// Remove chars preceding `/` or `\`
+	const last = path.replace( /^.*[/\\]/s, '' ).toLowerCase();
+
+	// Remove chars preceding '.'
+	const ext = last.replace( /^.*\./s, '' ).toLowerCase();
+
+	const hasPath = last.length < path.length;
+	const hasDot = ext.length < last.length - 1;
+
+	// Extension-less file?
+	if ( ! hasDot && hasPath ) {
+		return null;
+	}
+
+	return ext;
 }

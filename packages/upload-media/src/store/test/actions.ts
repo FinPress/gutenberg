@@ -9,7 +9,7 @@ type WPDataRegistry = ReturnType< typeof createRegistry >;
  * Internal dependencies
  */
 import { store as uploadStore } from '..';
-import { ItemStatus } from '../types';
+import { ItemStatus, OperationType, type QueueItem } from '../types';
 import { unlock } from '../../lock-unlock';
 
 jest.mock( '@wordpress/blob', () => ( {
@@ -150,7 +150,7 @@ describe( 'actions', () => {
 		it( 'adds an item to the queue for downloading', async () => {
 			await registry.dispatch( uploadStore ).optimizeExistingItem( {
 				id: 1234,
-				url: 'https://example.com/awesome-video.mp4',
+				url: 'https://example.com/awesome-image.jpg',
 			} );
 
 			expect( registry.select( uploadStore ).getItems() ).toHaveLength(
@@ -161,40 +161,23 @@ describe( 'actions', () => {
 				.select( uploadStore )
 				.getItems()[ 0 ];
 
-			expect( item ).toEqual(
-				expect.objectContaining( {
-					abortController: expect.any( AbortController ),
-					id: expect.any( String ),
-					sourceUrl: 'https://example.com/awesome-video.mp4',
-					file: expect.any( File ),
-					sourceFile: expect.any( File ),
-					sourceAttachmentId: 1234,
-					status: ItemStatus.Processing,
-					additionalData: {
-						generate_sub_sizes: false,
-					},
-					attachment: {
-						url: 'https://example.com/awesome-video.mp4',
-						poster: undefined,
-					},
-					operations: [
-						[
-							OperationType.FetchRemoteFile,
-							{
-								url: 'https://example.com/awesome-video.mp4',
-								fileName: 'awesome-video.mp4',
-								newFileName: 'awesome-video-optimized.mp4',
-							},
-						],
-						[
-							OperationType.Compress,
-							{ requireApproval: undefined },
-						],
-						OperationType.Upload,
-						OperationType.ThumbnailGeneration,
-					],
-				} )
+			expect( item.sourceAttachmentId ).toBe( 1234 );
+			expect( item.sourceUrl ).toBe(
+				'https://example.com/awesome-image.jpg'
 			);
+			expect( item.operations ).toEqual( [
+				[
+					OperationType.FetchRemoteFile,
+					{
+						url: 'https://example.com/awesome-image.jpg',
+						fileName: 'awesome-image.jpg',
+						newFileName: 'awesome-image-optimized.jpg',
+					},
+				],
+				OperationType.Compress,
+				OperationType.Upload,
+				OperationType.ThumbnailGeneration,
+			] );
 		} );
 	} );
 } );

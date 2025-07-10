@@ -13,10 +13,7 @@ import type { WPDataRegistry } from '@wordpress/data/build-types/registry';
  * Internal dependencies
  */
 import { MediaError } from '../mediaError';
-import {
-	getFileBasename,
-	getFileNameFromUrl,
-} from '../utils';
+import { getFileBasename, getFileNameFromUrl } from '../utils';
 import { StubFile } from '../stubFile';
 import type {
 	AddAction,
@@ -46,7 +43,6 @@ import { validateMimeTypeForUser } from '../validate-mime-type-for-user';
 import { validateFileSize } from '../validate-file-size';
 import { vipsCancelOperations } from './utils/vips';
 
-
 type ActionCreators = {
 	addItem: typeof addItem;
 	addItems: typeof addItems;
@@ -63,7 +59,8 @@ type ActionCreators = {
 
 type AllSelectors = typeof import('./selectors') &
 	typeof import('./private-selectors');
-type CurriedState< F > = F extends ( state: State, ...args: infer P ) => infer R	? ( ...args: P ) => R
+type CurriedState< F > = F extends ( state: State, ...args: infer P ) => infer R
+	? ( ...args: P ) => R
 	: F;
 type Selectors = {
 	[ key in keyof AllSelectors ]: CurriedState< AllSelectors[ key ] >;
@@ -146,10 +143,7 @@ export function addItems( {
 			}
 
 			try {
-				validateFileSize(
-					file,
-					maxUploadFileSize
-				);
+				validateFileSize( file, maxUploadFileSize );
 			} catch ( error: unknown ) {
 				onError?.( error as Error );
 				continue;
@@ -265,14 +259,11 @@ export function optimizeExistingItem( {
 			`${ baseName }-optimized`
 		);
 
-		const requireApproval = false;
-
 		// TODO: Same considerations apply as for muteExistingVideo.
 
 		const abortController = new AbortController();
 
 		const itemId = uuidv4();
-
 
 		dispatch< AddAction >( {
 			type: Type.Add,
@@ -301,7 +292,7 @@ export function optimizeExistingItem( {
 						OperationType.FetchRemoteFile,
 						{ url, fileName, newFileName },
 					],
-					[ OperationType.Compress, { requireApproval } ],
+					OperationType.Compress,
 					OperationType.Upload,
 					OperationType.ThumbnailGeneration,
 				],

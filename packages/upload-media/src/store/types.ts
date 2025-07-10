@@ -192,9 +192,7 @@ export enum OperationType {
 }
 
 export type OperationArgs = {
-	[ OperationType.Compress ]: {
-		requireApproval?: boolean;
-	};
+	[ OperationType.Compress ]: {};
 	[ OperationType.FetchRemoteFile ]: {
 		url: string;
 		fileName: string;
@@ -202,7 +200,6 @@ export type OperationArgs = {
 		skipAttachment?: boolean;
 	};
 	[ OperationType.TranscodeImage ]: {
-		requireApproval?: boolean;
 		outputFormat?: ImageFormat;
 		outputQuality?: number;
 		interlaced?: boolean;

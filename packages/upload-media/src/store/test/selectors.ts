@@ -66,6 +66,9 @@ describe( 'selectors', () => {
 					},
 					{
 						status: ItemStatus.Processing,
+						attachment: {
+							url: 'https://example.com/two.jpeg',
+						},
 					},
 				] as QueueItem[],
 				queueStatus: 'paused',
@@ -97,6 +100,12 @@ describe( 'selectors', () => {
 						status: ItemStatus.Processing,
 						attachment: {
 							id: 123,
+						},
+					},
+					{
+						status: ItemStatus.Processing,
+						attachment: {
+							id: 456,
 						},
 					},
 				] as QueueItem[],

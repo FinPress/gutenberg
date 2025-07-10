@@ -407,7 +407,6 @@ describe( 'reducer', () => {
 						status: ItemStatus.Processing,
 						currentOperation: undefined,
 						operations: [ OperationType.Upload ],
-						timings: [],
 					},
 				],
 			} );
