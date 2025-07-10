@@ -2,7 +2,6 @@
  * External dependencies
  */
 import { createWorkerFactory } from '@shopify/web-worker'; // @TODO: remove - this has been deprecated
-import mime from 'mime';
 
 /**
  * Internal dependencies
@@ -31,9 +30,11 @@ export async function vipsConvertImageFormat(
 		quality,
 		interlaced
 	);
-	const ext = mime.getExtension( type );
+	const ext = getExtension( type );
 	const fileName = `${ getFileBasename( file.name ) }.${ ext }`;
-	return new File( [ new Blob( [ buffer as ArrayBuffer ] ) ], fileName, { type } );
+	return new File( [ new Blob( [ buffer as ArrayBuffer ] ) ], fileName, {
+		type,
+	} );
 }
 
 export async function vipsCompressImage(
@@ -83,9 +84,13 @@ export async function vipsResizeImage(
 	}
 
 	return new ImageFile(
-		new File( [ new Blob( [ buffer as ArrayBuffer ], { type: file.type } ) ], fileName, {
-			type: file.type,
-		} ),
+		new File(
+			[ new Blob( [ buffer as ArrayBuffer ], { type: file.type } ) ],
+			fileName,
+			{
+				type: file.type,
+			}
+		),
 		width,
 		height,
 		originalWidth,
@@ -100,4 +105,17 @@ export async function vipsResizeImage(
  */
 export async function vipsCancelOperations( id: QueueItemId ) {
 	return vipsWorker.cancelOperations( id );
+}
+
+/**
+ *
+ * @param type Helper to extract the extension from a MIME type string.
+ * @return The extension or null if the type is not a string or is empty.
+ */
+export function getExtension( type: string ) {
+	if ( typeof type !== 'string' ) {
+		return null;
+	}
+	type = type?.split?.( ';' )[ 0 ];
+	return ( type && type.trim().toLowerCase() ) ?? null;
 }
