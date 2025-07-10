@@ -5,7 +5,6 @@
 /**
  * External dependencies
  */
-// @ts-ignore
 import * as Y from 'yjs';
 
 /** @typedef {import('./types').ObjectType} ObjectType */
@@ -14,6 +13,7 @@ import * as Y from 'yjs';
 /** @typedef {import('./types').ConnectDoc} ConnectDoc */
 /** @typedef {import('./types').SyncProvider} SyncProvider */
 /** @typedef {import('./types').UndoManager} UndoManager */
+/** @typedef {import('./types').HistoryRecord} HistoryRecord */
 
 /**
  * Create a sync provider.
@@ -138,14 +138,29 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 		return null;
 	}
 
+	/**
+	 * Check the UndoManager to see if it can undo.
+	 *
+	 * @return {boolean} Whether the undo manager can undo.
+	 */
 	function canUndo() {
 		return undoManager?.instance?.canUndo() || false;
 	}
 
+	/**
+	 * Check the UndoManager to see if it can redo.
+	 *
+	 * @return {boolean} Whether the undo manager can redo.
+	 */
 	function canRedo() {
 		return undoManager?.instance?.canRedo() || false;
 	}
 
+	/**
+	 * Undo the last operation, scoped to the current client.
+	 *
+	 * @return {HistoryRecord} The changes made by the undo operation.
+	 */
 	function undo() {
 		undoManager?.instance?.undo();
 
@@ -153,6 +168,11 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 		return [];
 	}
 
+	/**
+	 * Redo the last operation, scoped to the current client.
+	 *
+	 * @return {HistoryRecord} The changes made by the redo operation.
+	 */
 	function redo() {
 		undoManager?.instance?.redo();
 
@@ -160,10 +180,15 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 		return [];
 	}
 
-	// @ts-ignore
+	/**
+	 * This is a no-op way to add a record to the undo stack, for gutenberg's undo manager.
+	 *
+	 * @param {HistoryRecord} record   The record to add to the undo stack.
+	 * @param {boolean}       isStaged Whether the record is staged.
+	 */
 	// eslint-disable-next-line no-unused-vars
 	function addRecord( record, isStaged = false ) {
-		// This is a no-op in the sync provider context.
+		// ToDo: This is a no-op in the sync provider context at the moment, as Yjs UndoManager handles it automatically.
 	}
 
 	/**
