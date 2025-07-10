@@ -4,14 +4,15 @@ export type QueueStatus = 'active' | 'paused';
 
 export type BatchId = string;
 
-export interface QueueItem {
+export type QueueItem = {
 	id: QueueItemId;
 	sourceFile: File;
 	file: File;
 	poster?: File;
 	attachment?: Partial< Attachment >;
 	status: ItemStatus;
-	additionalData: AdditionalData;	onChange?: OnChangeHandler;
+	additionalData: AdditionalData;
+	onChange?: OnChangeHandler;
 	onSuccess?: OnSuccessHandler;
 	onError?: OnErrorHandler;
 	onBatchSuccess?: OnBatchSuccessHandler;

@@ -18,6 +18,8 @@ describe( 'selectors', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
+					mediaSideload: jest.fn(),
+					imageSizes: {},
 				},
 			};
 
@@ -43,6 +45,8 @@ describe( 'selectors', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
+					mediaSideload: jest.fn(),
+					imageSizes: {},
 				},
 			};
 
@@ -68,11 +72,16 @@ describe( 'selectors', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
+					mediaSideload: jest.fn(),
+					imageSizes: {},
 				},
 			};
 
 			expect(
 				isUploadingByUrl( state, 'https://example.com/one.jpeg' )
+			).toBe( true );
+			expect(
+				isUploadingByUrl( state, 'https://example.com/two.jpeg' )
 			).toBe( true );
 			expect(
 				isUploadingByUrl( state, 'https://example.com/three.jpeg' )
@@ -95,10 +104,13 @@ describe( 'selectors', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
+					mediaSideload: jest.fn(),
+					imageSizes: {},
 				},
 			};
 
 			expect( isUploadingById( state, 123 ) ).toBe( true );
+			expect( isUploadingById( state, 456 ) ).toBe( true );
 			expect( isUploadingById( state, 789 ) ).toBe( false );
 		} );
 	} );
