@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import type { Hooks, StoreKey } from '.';
+import type { Hooks, StoreKey } from './types';
 
 /**
  * Returns a function which, when invoked, will return the name of the

@@ -4,6 +4,7 @@
 import validateNamespace from './validateNamespace';
 import validateHookName from './validateHookName';
 import type { Callback, Hooks, StoreKey } from '.';
+import type { Handler, HookInfo } from './types';
 
 /**
  *
@@ -27,17 +28,6 @@ export type AddHook = (
 	 */
 	priority?: number
 ) => void;
-
-export type Handler = {
-	callback: Callback;
-	priority: number;
-	namespace: string;
-};
-
-export type HookInfo = {
-	name: string;
-	currentIndex: number;
-};
 
 /**
  * Returns a function which, when invoked, will add a hook.

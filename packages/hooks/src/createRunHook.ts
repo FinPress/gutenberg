@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import type { Hooks, StoreKey } from '.';
+import type { Hooks, StoreKey } from './types';
 
 export type RunHook = (
 	hookName: string,
