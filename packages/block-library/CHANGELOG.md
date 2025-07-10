@@ -1,6 +1,9 @@
 <!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
+
+### Fix
+
 -   Video Block: Fix blank first frame on iOS. ([#70298](https://github.com/WordPress/gutenberg/pull/70298))
 
 ## 9.26.0 (2025-06-25)
