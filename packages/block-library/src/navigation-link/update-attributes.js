@@ -65,13 +65,15 @@ const shouldSeverEntityLink = ( originalUrl, newUrl ) => {
 	// Special handling for plain permalinks (query string post IDs)
 	const originalP = originalUrlObj.searchParams.get( 'p' );
 	const newP = newUrlObj.searchParams.get( 'p' );
-	const originalPageId = originalUrlObj.searchParams.get( 'page_id' );
-	const newPageId = newUrlObj.searchParams.get( 'page_id' );
 
 	// If both are plain permalinks (with ?p= or ?page_id=), compare the IDs
 	if ( originalP && newP && originalP !== newP ) {
 		return true;
 	}
+
+	const originalPageId = originalUrlObj.searchParams.get( 'page_id' );
+	const newPageId = newUrlObj.searchParams.get( 'page_id' );
+
 	if ( originalPageId && newPageId && originalPageId !== newPageId ) {
 		return true;
 	}
