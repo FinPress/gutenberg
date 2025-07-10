@@ -10,7 +10,7 @@ import { createHash } from 'crypto';
 /**
  * Options for lazy importing a package.
  */
-export interface WPLazyImportOptions {
+export interface LazyImportOptions {
 	/**
 	 * Path to the local directory or file.
 	 */
@@ -72,7 +72,7 @@ async function install( arg: string, alias: string ): Promise< void > {
  */
 export async function lazyImport(
 	arg: string,
-	options: Partial< WPLazyImportOptions > = {}
+	options: Partial< LazyImportOptions > = {}
 ): Promise< NodeRequire > {
 	const { localPath = '' } = options;
 	const { rawSpec, name } = npmPackageArg( arg );
