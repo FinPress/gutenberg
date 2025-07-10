@@ -23,30 +23,31 @@ const { log, formats } = require( './logger' );
  * @param {string=} cwd    Working directory.
  * @param {Env=}    env    Additional environment variables to pass to the script.
  */
-function runShellScript( script, cwd, env = {} ) {
+function runShellScript( command, args = [], cwd, env = {} ) {
 	return new Promise( ( resolve, reject ) => {
-		childProcess.exec(
-			script,
-			{
-				cwd,
-				env: {
-					NO_CHECKS: 'true',
-					PATH: process.env.PATH,
-					HOME: process.env.HOME,
-					USER: process.env.USER,
-					...env,
-				},
-			},
-			function ( error, stdout, stderr ) {
-				if ( error ) {
-					console.log( stdout ); // Sometimes the error message is thrown via stdout.
-					console.log( stderr );
-					reject( error );
-				} else {
-					resolve( true );
-				}
-			}
-		);
+	    childProcess.execFile(
+	        command,
+	        args,
+	        {
+	            cwd,
+	            env: {
+	                NO_CHECKS: 'true',
+	                PATH: process.env.PATH,
+	                HOME: process.env.HOME,
+	                USER: process.env.USER,
+	                ...env,
+	            },
+	        },
+	        function ( error, stdout, stderr ) {
+	            if ( error ) {
+	                console.log( stdout ); // Sometimes the error message is thrown via stdout.
+	                console.log( stderr );
+	                reject( error );
+	            } else {
+	                resolve( true );
+	            }
+	        }
+	    );
 	} );
 }
 
