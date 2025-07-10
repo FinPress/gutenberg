@@ -144,6 +144,7 @@ require __DIR__ . '/block-supports/position.php';
 require __DIR__ . '/block-supports/spacing.php';
 require __DIR__ . '/block-supports/dimensions.php';
 require __DIR__ . '/block-supports/duotone.php';
+require __DIR__ . '/block-supports/anchor.php';
 require __DIR__ . '/block-supports/shadow.php';
 require __DIR__ . '/block-supports/background.php';
 require __DIR__ . '/block-supports/block-style-variations.php';

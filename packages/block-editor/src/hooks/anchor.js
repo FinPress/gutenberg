@@ -22,9 +22,6 @@ const ANCHOR_REGEX = /[\s#]/g;
 
 const ANCHOR_SCHEMA = {
 	type: 'string',
-	source: 'attribute',
-	attribute: 'id',
-	selector: '*',
 };
 
 /**
@@ -91,7 +88,7 @@ function BlockEditAnchorControlPure( { anchor, setAttributes } ) {
 				onChange={ ( nextValue ) => {
 					nextValue = nextValue.replace( ANCHOR_REGEX, '-' );
 					setAttributes( {
-						anchor: nextValue,
+						anchor: nextValue !== '' ? nextValue : undefined,
 					} );
 				} }
 				autoCapitalize="none"
@@ -130,3 +127,38 @@ export function addSaveProps( extraProps, blockType, attributes ) {
 }
 
 addFilter( 'blocks.registerBlockType', 'core/anchor/attribute', addAttribute );
+
+/**
+ * Get anchor attributes from innerHTML.
+ *
+ * @param {Object} blockAttributes Additional props applied to save element.
+ * @param {Object} blockType       Block type.
+ * @param {Object} innerHTML       Current block innerHTML.
+ * @param {Object} attributes      Current block attributes.
+ *
+ * @return {Object}               All block attributes.
+ */
+export function getBlockAttributes(
+	blockAttributes,
+	blockType,
+	innerHTML,
+	attributes
+) {
+	if (
+		hasBlockSupport( blockType, 'anchor' ) &&
+		blockAttributes.anchor === undefined &&
+		attributes?.anchor === undefined
+	) {
+		const idMatch = innerHTML?.match( /^<[^>]+id="([^"]+)"/ );
+		const id = idMatch ? idMatch[ 1 ] : undefined;
+		if ( id ) {
+			blockAttributes.anchor = id;
+		}
+	}
+	return blockAttributes;
+}
+addFilter(
+	'blocks.getBlockAttributes',
+	'core/anchor/get-attribute',
+	getBlockAttributes
+);
