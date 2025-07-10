@@ -147,26 +147,22 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	}
 
 	function undo() {
-		const stackItem = undoManager?.instance?.undo();
-
-		// eslint-disable-next-line no-console
-		console.log( 'Undoing changes:', stackItem );
+		undoManager?.instance?.undo();
 
 		// ToDo: This isn't 100% correct, but can't really find a way to return the changes from Yjs that could be transformed to Gutenberg format.
 		return [];
 	}
 
 	function redo() {
-		const stackItem = undoManager?.instance?.redo();
-
-		// eslint-disable-next-line no-console
-		console.log( 'Redoing changes:', stackItem );
+		undoManager?.instance?.redo();
 
 		// ToDo: This isn't 100% correct, but can't really find a way to return the changes from Yjs that could be transformed to Gutenberg format.
 		return [];
 	}
 
-	function addRecord() {
+	// @ts-ignore
+	// eslint-disable-next-line no-unused-vars
+	function addRecord( record, isStaged = false ) {
 		// This is a no-op in the sync provider context.
 	}
 

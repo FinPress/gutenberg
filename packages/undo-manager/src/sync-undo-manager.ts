@@ -3,10 +3,10 @@
  */
 import { getSyncProvider } from '@wordpress/sync';
 
-/** @typedef {import('./types').HistoryRecord}  HistoryRecord */
-/** @typedef {import('./types').HistoryChange}  HistoryChange */
-/** @typedef {import('./types').HistoryChanges} HistoryChanges */
-/** @typedef {import('./types').UndoManager} UndoManager */
+/**
+ * Internal dependencies
+ */
+import type { UndoManager, HistoryRecord } from './types';
 
 /**
  * Creates the sync powered undo manager.
@@ -21,9 +21,8 @@ export function createSyncUndoManager() {
 		 * @param {HistoryRecord=} record   A record of changes to record.
 		 * @param {boolean}        isStaged Whether to immediately create an undo point or not.
 		 */
-		// eslint-disable-next-line no-unused-vars
-		addRecord( record, isStaged = false ) {
-			getSyncProvider().addRecord();
+		addRecord( record: HistoryRecord, isStaged: boolean = false ) {
+			getSyncProvider().addRecord( record, isStaged );
 		},
 
 		undo() {
