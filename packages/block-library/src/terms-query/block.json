@@ -33,8 +33,7 @@
 	"usesContext": [ "templateSlug" ],
 	"providesContext": {
 		"queryId": "queryId",
-		"query": "query",
-		"displayLayout": "displayLayout"
+		"query": "query"
 	},
 	"supports": {
 		"align": [ "wide", "full" ],

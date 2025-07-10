@@ -8,7 +8,7 @@ import clsx from 'clsx';
  */
 import { memo, useMemo, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { __, _x } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import {
 	BlockControls,
 	BlockContextProvider,
@@ -19,7 +19,6 @@ import {
 } from '@wordpress/block-editor';
 import { Spinner, ToolbarGroup } from '@wordpress/components';
 import { useEntityRecords } from '@wordpress/core-data';
-import { list, grid } from '@wordpress/icons';
 
 const TEMPLATE = [
 	[ 'core/term-name' ],
@@ -126,7 +125,6 @@ function renderTermNode( termNode, renderTerm ) {
 }
 
 export default function TermsTemplateEdit( {
-	setAttributes,
 	clientId,
 	context: {
 		query: {
@@ -138,8 +136,6 @@ export default function TermsTemplateEdit( {
 			showOnlyTopLevel,
 		} = {},
 	},
-	attributes: { layout },
-	__unstableLayoutClassNames,
 } ) {
 	const [ activeBlockContextId, setActiveBlockContextId ] = useState();
 
@@ -170,9 +166,6 @@ export default function TermsTemplateEdit( {
 		[ clientId ]
 	);
 
-	const layoutType = layout?.type || 'default';
-	const columnCount = layout?.columnCount || 3;
-
 	const blockContexts = useMemo(
 		() =>
 			filteredTerms?.map( ( term ) => ( {
@@ -184,10 +177,7 @@ export default function TermsTemplateEdit( {
 	);
 
 	const blockProps = useBlockProps( {
-		className: clsx( __unstableLayoutClassNames, {
-			[ `columns-${ columnCount }` ]:
-				layoutType === 'grid' && columnCount,
-		} ),
+		className: clsx( 'wp-block-terms-template' ),
 	} );
 
 	if ( isResolving ) {
@@ -201,30 +191,6 @@ export default function TermsTemplateEdit( {
 	if ( ! filteredTerms?.length ) {
 		return <p { ...blockProps }> { __( 'No terms found.' ) }</p>;
 	}
-
-	const setDisplayLayout = ( newDisplayLayout ) =>
-		setAttributes( {
-			layout: { ...layout, ...newDisplayLayout },
-		} );
-
-	const displayLayoutControls = [
-		{
-			icon: list,
-			title: _x( 'List view', 'Terms template block display setting' ),
-			onClick: () => setDisplayLayout( { type: 'default' } ),
-			isActive: layoutType === 'default' || layoutType === 'constrained',
-		},
-		{
-			icon: grid,
-			title: _x( 'Grid view', 'Terms template block display setting' ),
-			onClick: () =>
-				setDisplayLayout( {
-					type: 'grid',
-					columnCount,
-				} ),
-			isActive: layoutType === 'grid',
-		},
-	];
 
 	const renderTerm = ( term ) => {
 		const blockContext = {
@@ -291,7 +257,7 @@ export default function TermsTemplateEdit( {
 	return (
 		<>
 			<BlockControls>
-				<ToolbarGroup controls={ displayLayoutControls } />
+				<ToolbarGroup />
 			</BlockControls>
 
 			<ul { ...blockProps }>{ renderTerms() }</ul>

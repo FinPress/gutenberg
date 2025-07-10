@@ -6,15 +6,9 @@
  */
 
 /**
- * Note: The following WordPress core functions/classes are used and are globally available:
- * is_category, is_tag, is_tax, get_queried_object, is_wp_error, get_option, WP_Term_Query,
- * get_block_wrapper_attributes, render_single_term
- */
-
-/**
  * Renders the `core/terms-query` block on the server.
  *
- * @since 6.0.0
+ * @since 6.x.x
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
@@ -29,7 +23,7 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 		'taxonomy'   => $query['taxonomy'] ?? 'category',
 		'order'      => $query['order'] ?? 'asc',
 		'orderby'    => $query['orderBy'] ?? 'name',
-		'hide_empty' => isset( $query['hideEmpty'] ) ? (bool) $query['hideEmpty'] : true,
+		'hide_empty' => $query['hideEmpty'] ?? true,
 		'hierarchical' => $query['hierarchical'] ?? false,
 	);
 
@@ -40,7 +34,7 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 		return '<div class="wp-block-terms-query"><p>No terms found.</p></div>';
 	}
 
-	// Filter to show only top-level terms if showOnlyTopLevel is enabled
+	// Filter to show only top-level terms if showOnlyTopLevel is enabled.
 	if ( ! empty( $query['showOnlyTopLevel'] ) ) {
 		$terms = array_filter( $terms, function( $term ) {
 			return empty( $term->parent );
@@ -48,24 +42,13 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 	}
 
 	$classnames = 'wp-block-terms-query';
-	if ( isset( $block->context['displayLayout'] ) && isset( $block->context['query'] ) ) {
-		if ( isset( $block->context['displayLayout']['type'] ) && 'flex' === $block->context['displayLayout']['type'] ) {
-			$classnames .= " is-flex-container columns-{$block->context['displayLayout']['columns']}";
-		}
-	}
-
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $classnames ) );
 
 	$content = '';
 	foreach ( $terms as $term ) {
-
-		// Get the inner blocks from the terms-template block
 		$inner_blocks = $block->inner_blocks;
 
-		// If no inner blocks, create a simple fallback
-		if ( empty( $inner_blocks ) ) {
-			$block_content = '<span class="wp-block-term-name">' . esc_html( $term->name ) . '</span>';
-		} else {
+		if ( ! empty( $inner_blocks ) ) {
 			$term_id   = $term->term_id;
 			$term_type = $term->taxonomy;
 
@@ -75,10 +58,8 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 				return $context;
 			};
 
-			// Use an early priority so that other 'render_block_context' filters have access to the values.
 			add_filter( 'render_block_context', $filter_block_context, 1 );
 
-			// Render the inner blocks with the term context
 			$block_content = '';
 			foreach ( $inner_blocks as $inner_block ) {
 				$block_content .= $inner_block->render( array( 'dynamic' => true ) );
@@ -87,13 +68,6 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 			remove_filter( 'render_block_context', $filter_block_context, 1 );
 		}
 
-		// If no content was rendered, create a simple fallback
-		if ( empty( $block_content ) ) {
-			$block_content = '<span class="wp-block-term-name">' . esc_html( $term->name ) . '</span>';
-			$block_content .= '<span class="wp-block-term-count">' . $term->count . '</span>';
-		}
-
-		// Wrap the rendered inner blocks in a `li` element with the appropriate term classes.
 		$term_classes = implode( ' ', array( 'wp-block-term', 'term-' . $term->term_id ) );
 
 		$content .= '<li class="' . esc_attr( $term_classes ) . '">' . $block_content . '</li>';
@@ -109,7 +83,7 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 /**
  * Registers the `core/terms-query` block on the server.
  *
- * @since 6.0.0
+ * @since 6.x.x
  */
 function register_block_core_terms_query() {
 	register_block_type_from_metadata(

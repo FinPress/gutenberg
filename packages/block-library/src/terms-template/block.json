@@ -10,7 +10,6 @@
 	"usesContext": [
 		"queryId",
 		"query",
-		"displayLayout",
 		"templateSlug",
 		"previewTaxonomy",
 		"termType"

@@ -72,7 +72,6 @@ The Terms Query block provides the following context to its inner blocks:
 
 - `queryId` - Unique identifier for the query
 - `query` - Query parameters
-- `displayLayout` - Layout configuration
 - `termType` - The taxonomy type
 - `termId` - The current term ID
 
