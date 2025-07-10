@@ -14,19 +14,23 @@ jest.mock( '../shared/clear', () => {
 	return jest.fn();
 } );
 jest.mock( '@wordpress/dom-ready', () => {
-	return jest.fn( ( callback ) => {
+	return jest.fn( ( callback: () => void ) => {
 		callback();
 	} );
 } );
 jest.mock( '../shared/filter-message', () => {
-	return jest.fn( ( message ) => {
+	return jest.fn( ( message: string ) => {
 		return message;
 	} );
 } );
 
 describe( 'speak', () => {
-	let containerPolite = document.getElementById( 'a11y-speak-polite' );
-	let containerAssertive = document.getElementById( 'a11y-speak-assertive' );
+	let containerPolite = document.getElementById(
+		'a11y-speak-polite'
+	) as HTMLElement;
+	let containerAssertive = document.getElementById(
+		'a11y-speak-assertive'
+	) as HTMLElement;
 
 	beforeEach( () => {
 		containerPolite.textContent = '';
@@ -69,14 +73,14 @@ describe( 'speak', () => {
 
 	describe( 'when somehow the assertive container is not present', () => {
 		beforeEach( () => {
-			document.getElementById( 'a11y-speak-assertive' ).remove();
+			document.getElementById( 'a11y-speak-assertive' )?.remove();
 		} );
 
 		afterEach( () => {
 			setup();
 			containerAssertive = document.getElementById(
 				'a11y-speak-assertive'
-			);
+			) as HTMLElement;
 		} );
 
 		it( 'should set the textcontent of the polite aria-live region', () => {
@@ -96,10 +100,12 @@ describe( 'speak', () => {
 
 		afterEach( () => {
 			setup();
-			containerPolite = document.getElementById( 'a11y-speak-polite' );
+			containerPolite = document.getElementById(
+				'a11y-speak-polite'
+			) as HTMLElement;
 			containerAssertive = document.getElementById(
 				'a11y-speak-assertive'
-			);
+			) as HTMLElement;
 		} );
 
 		it( 'should set the textcontent of the polite aria-live region', () => {
