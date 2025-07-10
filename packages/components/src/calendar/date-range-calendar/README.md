@@ -1,5 +1,7 @@
 # `DateRangeCalendar`
 
+🔒 This component is locked as a [private API](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-private-apis/). We do not yet recommend using this outside of the Gutenberg project.
+
 `DateRangeCalendar` is a React component that provides a customizable calendar interface for **date range** selection.
 
 The component is built with accessibility in mind and follows ARIA best practices for calendar widgets. It provides keyboard navigation, screen reader support, and customizable labels for internationalization.
@@ -7,7 +9,7 @@ The component is built with accessibility in mind and follows ARIA best practice
 ## Usage example
 
 ```tsx
-import { DateRangeCalendar } from '@automattic/components';
+import { DateRangeCalendar } from '@wordpress/components';
 
 type DateRange = {
 	from: Date | undefined;
@@ -199,7 +201,7 @@ The time zone (IANA or UTC offset) to use in the calendar. See [Wikipedia](https
 When working with time zones, use the `TZDate` object exported by this package instead of the native `Date` object.
 
 ```tsx
-import { DateRangeCalendar, TZDate } from '@automattic/components';
+import { DateRangeCalendar, TZDate } from '@wordpress/components';
 
 export function WithTimeZone() {
 	const timeZone = 'America/New_York';
