@@ -8,7 +8,7 @@
 /**
  * Renders the `core/term-count` block on the server.
  *
- * @since 6.0.0
+ * @since 6.x.x
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
@@ -53,7 +53,7 @@ function render_block_core_term_count( $attributes, $content, $block ) {
 /**
  * Registers the `core/term-count` block on the server.
  *
- * @since 6.0.0
+ * @since 6.x.x
  */
 function register_block_core_term_count() {
 	register_block_type_from_metadata(

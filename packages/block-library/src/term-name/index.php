@@ -8,7 +8,7 @@
 /**
  * Renders the `core/term-name` block on the server.
  *
- * @since 6.0.0
+ * @since 6.x.x
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
@@ -24,12 +24,10 @@ function render_block_core_term_name( $attributes, $content, $block ) {
 	$term_id = $block->context['termId'];
 	$term_type = $block->context['termType'] ?? 'category';
 
-	// Ensure we have valid term ID and type
 	if ( empty( $term_id ) || empty( $term_type ) ) {
 		return '';
 	}
 
-	// Check if the taxonomy exists and is publicly queryable
 	if ( ! taxonomy_exists( $term_type ) || ! is_taxonomy_viewable( $term_type ) ) {
 		return '';
 	}
@@ -51,14 +49,11 @@ function render_block_core_term_name( $attributes, $content, $block ) {
 		$rel   = ! empty( $attributes['rel'] ) ? 'rel="' . esc_attr( $attributes['rel'] ) . '"' : '';
 		$link_target = isset( $attributes['linkTarget'] ) ? $attributes['linkTarget'] : '_self';
 
-		// Get the term link and handle potential errors
 		$term_link = get_term_link( $term );
 		if ( is_wp_error( $term_link ) ) {
-			// If get_term_link fails, try using the term ID and taxonomy
 			$term_link = get_term_link( $term_id, $term_type );
 		}
 
-		// Only create the link if we have a valid URL
 		if ( ! is_wp_error( $term_link ) && ! empty( $term_link ) ) {
 			$title = sprintf( '<a href="%1$s" target="%2$s" %3$s>%4$s</a>', esc_url( $term_link ), esc_attr( $link_target ), $rel, $title );
 		}
@@ -84,7 +79,7 @@ function render_block_core_term_name( $attributes, $content, $block ) {
 /**
  * Registers the `core/term-name` block on the server.
  *
- * @since 6.0.0
+ * @since 6.x.x
  */
 function register_block_core_term_name() {
 	register_block_type_from_metadata(

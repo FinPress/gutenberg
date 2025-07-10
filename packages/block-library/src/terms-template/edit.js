@@ -109,7 +109,7 @@ function buildTermsTree( terms ) {
 function renderTermNode( termNode, renderTerm ) {
 	const children =
 		termNode.children.length > 0 ? (
-			<ul className="children">
+			<ul>
 				{ termNode.children.map( ( childNode ) =>
 					renderTermNode( childNode, renderTerm )
 				) }
@@ -260,7 +260,9 @@ export default function TermsTemplateEdit( {
 				<ToolbarGroup />
 			</BlockControls>
 
-			<ul { ...blockProps }>{ renderTerms() }</ul>
+			<div { ...blockProps }>
+				<ul>{ renderTerms() }</ul>
+			</div>
 		</>
 	);
 }
