@@ -23,25 +23,13 @@
  * @return string Returns the output of the query, structured using the layout defined by the block's inner blocks.
  */
 function render_block_core_terms_query( $attributes, $content, $block ) {
-	$query = $block->context['query'] ?? array();
-
-	// Default to current term if on a term archive, otherwise default to categories.
-	if ( empty( $query['taxonomy'] ) || ( isset( $query['taxonomy'] ) && $query['taxonomy'] === 'category' && empty( $query['include'] ) ) ) {
-		if ( is_category() || is_tag() || is_tax() ) {
-			$term = get_queried_object();
-			if ( $term && ! is_wp_error( $term ) && isset( $term->term_id ) && isset( $term->taxonomy ) ) {
-				// Update the query to use the current term
-				$query['taxonomy'] = $term->taxonomy;
-				$query['include'] = array( $term->term_id );
-			}
-		}
-	}
+	$query = $attributes['query'] ?? array();
 
 	$query_args = array(
 		'taxonomy'   => $query['taxonomy'] ?? 'category',
 		'order'      => $query['order'] ?? 'asc',
 		'orderby'    => $query['orderBy'] ?? 'name',
-		'hide_empty' => $query['hideEmpty'] ?? false,
+		'hide_empty' => isset( $query['hideEmpty'] ) ? (bool) $query['hideEmpty'] : true,
 		'hierarchical' => $query['hierarchical'] ?? false,
 	);
 
@@ -66,43 +54,55 @@ function render_block_core_terms_query( $attributes, $content, $block ) {
 		}
 	}
 
-	$terms_html = '';
-	foreach ( $terms as $term ) {
-		$term_link  = get_term_link( $term );
-		$term_name  = $term->name;
-		$term_count = $term->count;
-		$is_link    = $query['isLink'] ?? false;
+	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $classnames ) );
 
-		if ( $is_link && ! is_wp_error( $term_link ) ) {
-			$terms_html .= sprintf(
-				'<li class="wp-block-term term-%d">
-					<a href="%s" class="wp-block-term-link">
-						<span class="wp-block-term-name">%s</span>
-						<span class="wp-block-term-count">%d</span>
-					</a>
-				</li>',
-				$term->term_id,
-				esc_url( $term_link ),
-				esc_html( $term_name ),
-				$term_count
-			);
+	$content = '';
+	foreach ( $terms as $term ) {
+
+		// Get the inner blocks from the terms-template block
+		$inner_blocks = $block->inner_blocks;
+
+		// If no inner blocks, create a simple fallback
+		if ( empty( $inner_blocks ) ) {
+			$block_content = '<span class="wp-block-term-name">' . esc_html( $term->name ) . '</span>';
 		} else {
-			$terms_html .= sprintf(
-				'<li class="wp-block-term term-%d">
-					<span class="wp-block-term-name">%s</span>
-					<span class="wp-block-term-count">%d</span>
-				</li>',
-				$term->term_id,
-				esc_html( $term_name ),
-				$term_count
-			);
+			$term_id   = $term->term_id;
+			$term_type = $term->taxonomy;
+
+			$filter_block_context = static function ( $context ) use ( $term_id, $term_type ) {
+				$context['termId']   = $term_id;
+				$context['termType'] = $term_type;
+				return $context;
+			};
+
+			// Use an early priority so that other 'render_block_context' filters have access to the values.
+			add_filter( 'render_block_context', $filter_block_context, 1 );
+
+			// Render the inner blocks with the term context
+			$block_content = '';
+			foreach ( $inner_blocks as $inner_block ) {
+				$block_content .= $inner_block->render( array( 'dynamic' => true ) );
+			}
+
+			remove_filter( 'render_block_context', $filter_block_context, 1 );
 		}
+
+		// If no content was rendered, create a simple fallback
+		if ( empty( $block_content ) ) {
+			$block_content = '<span class="wp-block-term-name">' . esc_html( $term->name ) . '</span>';
+			$block_content .= '<span class="wp-block-term-count">' . $term->count . '</span>';
+		}
+
+		// Wrap the rendered inner blocks in a `li` element with the appropriate term classes.
+		$term_classes = implode( ' ', array( 'wp-block-term', 'term-' . $term->term_id ) );
+
+		$content .= '<li class="' . esc_attr( $term_classes ) . '">' . $block_content . '</li>';
 	}
 
 	return sprintf(
-		'<div class="%s"><ul>%s</ul></div>',
-		esc_attr( $classnames ),
-		$terms_html
+		'<div %1$s><ul>%2$s</ul></div>',
+		$wrapper_attributes,
+		$content
 	);
 }
 

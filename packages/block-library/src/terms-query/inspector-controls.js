@@ -47,7 +47,7 @@ export default function TermsQueryInspectorControls( {
 						taxonomy: 'category',
 						order: 'asc',
 						orderBy: 'name',
-						hideEmpty: false,
+						hideEmpty: true,
 						hierarchical: false,
 						showOnlyTopLevel: false,
 					},
