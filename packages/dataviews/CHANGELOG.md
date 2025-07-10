@@ -2,6 +2,117 @@
 
 ## Unreleased
 
+### Bug Fixes
+
+- Fix `filterSortAndPaginate` to handle undefined values for the `is` filter.
+- Fix the background color of the action column if the row is selected
+
+### Features
+
+- Add support for free composition in the `DataViews` component by exporting subcomponents: `<DataViews.ViewConfig />`, `<DataViews.Search />`, `<DataViews.Pagination />`, `<DataViews.LayoutSwitcher />`, `<DataViews.Layout />`, `<DataViews.FiltersToggle />`, `<DataViews.Filters />`, `<DataViews.BulkActionToolbar />`.
+- `select`, `text`, `email` controls: add `help` support from the field `description` prop.
+- `text`, `email` Edit control: add `help` support from the field `description` prop.
+
+- Add new Edit controls: `checkbox`, `toggleGroup`. In the `toggleGroup`, if the field elements (options) have a `description`, then the selected option's description will be also rendered.
+- Add new `media`, `boolean`, `email` and `array` field type definitions.
+- Field type definitions are now able to define a default `enableSorting` and `render` function.
+- Pin the actions column on the table view when the width is insufficient.
+- Enhance filter component styles.
+- Add user input filter support based on the `Edit` property of the field type definitions.
+- Add new filter operators: `lessThan`, `greaterThan`, `lessThanOrEqual`, `greaterThanOrEqual`, `contains`, `notContains`, `startsWith`, `between`, `on`, `notOn`, `before`, `after`, `inThePast`, `over`, `beforeInc`, and `afterInc`.
+- Add `align` to the `layout.styles` properties, for use in the DataViews table layout. Options are: `start`, `center`, and `end`.
+- Allow fields to opt-out of filtering via `field.filterBy: false`.
+- Update the field type definitions to declare the default and valid operators they support. Fields with no `type` property can use all operators; if none is provided in the field's config, they'll use `is` and `isNot` by default.
+- Adjust the spacing of the `DataForm` based on the type.
+- Add `label-position-side` classes to labels in the form field layouts. Ensure that labels in the panel view do not align center, and that all side labels are center aligned.
+- Allow readonly fields in DataForm when `readOnly` is set to `true`.
+- Adjust the padding when the component is placed inside a `Card`.
+- Introduce `perPageSizes` to control the available sizes of the items per page
+
+### Breaking Changes
+
+- Fields with `Edit` defined or `type` will automatically be considered as filters unless `filterBy` is set to `false`.
+- Add `renderItemLink` prop support in the `DataViews` component. It replaces `onClickItem`prop and allows integration with router libraries.
+
+### Internal
+
+- Adds new story that combines DataViews and DataForm.
+- Add a story for each FieldTypeDefinition.
+
+## 4.22.0 (2025-06-25)
+
+## 4.21.0 (2025-06-04)
+
+## 4.20.0 (2025-05-22)
+
+## 4.19.0 (2025-05-07)
+
+## 4.18.0 (2025-04-11)
+
+## 4.17.0 (2025-03-27)
+
+## 4.16.0 (2025-03-13)
+
+## 4.15.0 (2025-02-28)
+
+## 4.14.0 (2025-02-12)
+
+## 4.13.0 (2025-01-29)
+
+## 4.12.0 (2025-01-15)
+
+## 4.11.0 (2025-01-02)
+
+### Bug Fixes
+
+-   Fixed commonjs export ([#67962](https://github.com/WordPress/gutenberg/pull/67962))
+
+### Features
+
+- Add support for hierarchical visualization of data. `DataViews` gets a new prop `getItemLevel` that should return the hierarchical level of the item. The view can use `view.showLevels` to display the levels. It's up to the consumer data source to prepare this information.
+
+## 4.10.0 (2024-12-11)
+
+### Breaking Changes
+
+-   Support showing or hiding title, media and description fields ([#67477](https://github.com/WordPress/gutenberg/pull/67477)).
+-   Unify the `title`, `media` and `description` fields for the different layouts. So instead of the previous `view.layout.mediaField`, `view.layout.primaryField` and `view.layout.columnFields`, all the layouts now support these three fields with the following config ([#67477](https://github.com/WordPress/gutenberg/pull/67477)):
+
+```js
+const view = {
+	type: 'table',
+	titleField: 'title',
+	mediaField: 'media',
+	descriptionField: 'description',
+	fields: [ 'author', 'date' ],
+};
+```
+
+### Internal
+
+-   Upgraded `@ariakit/react` (v0.4.13) and `@ariakit/test` (v0.4.5) ([#65907](https://github.com/WordPress/gutenberg/pull/65907)).
+-   Upgraded `@ariakit/react` (v0.4.15) and `@ariakit/test` (v0.4.7) ([#67404](https://github.com/WordPress/gutenberg/pull/67404)).
+
+## 4.9.0 (2024-11-27)
+
+### Bug Fixes
+
+-   Fix focus loss when removing all filters or resetting ([#67003](https://github.com/WordPress/gutenberg/pull/67003)).
+
+## 4.8.0 (2024-11-16)
+
+## 4.7.0 (2024-10-30)
+
+## 4.6.0 (2024-10-16)
+
+-   Invert the logic for which icon to show in `DataViews` when using the filter view. Icons now match the action of the button label. ([#65914](https://github.com/WordPress/gutenberg/pull/65914)).
+
+## 4.5.0 (2024-10-03)
+
+## 4.4.0 (2024-09-19)
+
+## 4.3.0 (2024-09-05)
+
 ## 4.2.0 (2024-08-21)
 
 ## New features
@@ -11,8 +122,7 @@
 ## Internal
 
 -   The "move left/move right" controls in the table layout (popup displayed on cliking header) are always visible. ([#64646](https://github.com/WordPress/gutenberg/pull/64646)). Before this, its visibility depending on filters, enableSorting, and enableHiding.
-- Filters no longer display the elements' description. ([#64674](https://github.com/WordPress/gutenberg/pull/64674))
-
+-   Filters no longer display the elements' description. ([#64674](https://github.com/WordPress/gutenberg/pull/64674))
 
 ## Enhancements
 

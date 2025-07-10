@@ -1,29 +1,25 @@
 /**
  * Internal dependencies
  */
-import { Composite } from './composite';
-import { useCompositeStore } from './composite/store';
 import { positionToPlacement as __experimentalPopoverLegacyPositionToPlacement } from './popover/utils';
-import { createPrivateSlotFill } from './slot-fill';
-import { DropdownMenuV2 } from './dropdown-menu-v2';
+import { Menu } from './menu';
 import { ComponentsContext } from './context/context-system-provider';
 import Theme from './theme';
-import Tabs from './tabs';
-import { kebabCase } from './utils/strings';
+import { Tabs } from './tabs';
+import { kebabCase, normalizeTextString } from './utils/strings';
+import { withIgnoreIMEEvents } from './utils/with-ignore-ime-events';
 import { lock } from './lock-unlock';
+import Badge from './badge';
 
 export const privateApis = {};
 lock( privateApis, {
-	CompositeV2: Composite,
-	CompositeGroupV2: Composite.Group,
-	CompositeItemV2: Composite.Item,
-	CompositeRowV2: Composite.Row,
-	useCompositeStoreV2: useCompositeStore,
 	__experimentalPopoverLegacyPositionToPlacement,
-	createPrivateSlotFill,
 	ComponentsContext,
 	Tabs,
 	Theme,
-	DropdownMenuV2,
+	Menu,
 	kebabCase,
+	withIgnoreIMEEvents,
+	Badge,
+	normalizeTextString,
 } );

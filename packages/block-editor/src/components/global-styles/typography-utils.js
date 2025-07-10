@@ -45,7 +45,7 @@ import { getFontStylesAndWeights } from '../../utils/get-font-styles-and-weights
  * @param {Preset}                     preset
  * @param {Object}                     settings
  * @param {boolean|TypographySettings} settings.typography.fluid  Whether fluid typography is enabled, and, optionally, fluid font size options.
- * @param {Object?}                    settings.typography.layout Layout options.
+ * @param {?Object}                    settings.typography.layout Layout options.
  *
  * @return {string|*} A font-size value or the value of preset.size.
  */
@@ -174,6 +174,10 @@ export function findNearestFontWeight(
 	availableFontWeights,
 	newFontWeightValue
 ) {
+	newFontWeightValue =
+		'number' === typeof newFontWeightValue
+			? newFontWeightValue.toString()
+			: newFontWeightValue;
 	if ( ! newFontWeightValue || typeof newFontWeightValue !== 'string' ) {
 		return '';
 	}
@@ -260,7 +264,7 @@ export function findNearestStyleAndWeight(
 		( { value: fs } ) => fs === fontStyle
 	);
 	const hasFontWeight = fontWeights?.some(
-		( { value: fw } ) => fw === fontWeight
+		( { value: fw } ) => fw?.toString() === fontWeight?.toString()
 	);
 
 	if ( ! hasFontStyle ) {

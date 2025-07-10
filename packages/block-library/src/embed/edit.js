@@ -14,7 +14,6 @@ import { embedContentIcon } from './icons';
 import EmbedLoading from './embed-loading';
 import EmbedPlaceholder from './embed-placeholder';
 import EmbedPreview from './embed-preview';
-import { Caption } from '../utils/caption';
 
 /**
  * External dependencies
@@ -31,6 +30,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
 import { View } from '@wordpress/primitives';
 import { getAuthority } from '@wordpress/url';
+import { Caption } from '../utils/caption';
 
 const EmbedEdit = ( props ) => {
 	const {
@@ -118,11 +118,9 @@ const EmbedEdit = ( props ) => {
 			responsive
 		);
 
-	const toggleResponsive = () => {
-		const { allowResponsive, className } = attributes;
+	function toggleResponsive( newAllowResponsive ) {
+		const { className } = attributes;
 		const { html } = preview;
-		const newAllowResponsive = ! allowResponsive;
-
 		setAttributes( {
 			allowResponsive: newAllowResponsive,
 			className: getClassNames(
@@ -131,7 +129,7 @@ const EmbedEdit = ( props ) => {
 				responsive && newAllowResponsive
 			),
 		} );
-	};
+	}
 
 	useEffect( () => {
 		if ( preview?.html || ! cannotEmbed || ! hasResolved ) {
@@ -172,7 +170,13 @@ const EmbedEdit = ( props ) => {
 			// When obtaining an incoming preview,
 			// we set the attributes derived from the preview data.
 			const mergedAttributes = getMergedAttributes();
-			setAttributes( mergedAttributes );
+			const hasChanges = Object.keys( mergedAttributes ).some(
+				( key ) => mergedAttributes[ key ] !== attributes[ key ]
+			);
+
+			if ( hasChanges ) {
+				setAttributes( mergedAttributes );
+			}
 
 			if ( onReplace ) {
 				const upgradedBlock = createUpgradedEmbedBlock(
@@ -262,7 +266,15 @@ const EmbedEdit = ( props ) => {
 				toggleResponsive={ toggleResponsive }
 				switchBackToURLInput={ () => setIsEditingURL( true ) }
 			/>
-			<View { ...blockProps }>
+			<figure
+				{ ...blockProps }
+				className={ clsx( blockProps.className, className, {
+					[ `is-type-${ type }` ]: type,
+					[ `is-provider-${ providerNameSlug }` ]: providerNameSlug,
+					[ `wp-block-embed-${ providerNameSlug }` ]:
+						providerNameSlug,
+				} ) }
+			>
 				<EmbedPreview
 					preview={ preview }
 					previewable={ previewable }
@@ -277,6 +289,8 @@ const EmbedEdit = ( props ) => {
 					icon={ icon }
 					label={ label }
 					insertBlocksAfter={ insertBlocksAfter }
+					attributes={ attributes }
+					setAttributes={ setAttributes }
 				/>
 				<Caption
 					attributes={ attributes }
@@ -286,7 +300,7 @@ const EmbedEdit = ( props ) => {
 					label={ __( 'Embed caption text' ) }
 					showToolbarButton={ isSelected }
 				/>
-			</View>
+			</figure>
 		</>
 	);
 };

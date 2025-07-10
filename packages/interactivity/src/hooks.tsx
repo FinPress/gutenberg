@@ -23,7 +23,27 @@ import { getScope, setScope, resetScope, type Scope } from './scopes';
 export interface DirectiveEntry {
 	value: string | object;
 	namespace: string;
+	suffix: string | null;
+}
+
+export interface NonDefaultSuffixDirectiveEntry extends DirectiveEntry {
 	suffix: string;
+}
+
+export interface DefaultSuffixDirectiveEntry extends DirectiveEntry {
+	suffix: null;
+}
+
+export function isNonDefaultDirectiveSuffix(
+	entry: DirectiveEntry
+): entry is NonDefaultSuffixDirectiveEntry {
+	return entry.suffix !== null;
+}
+
+export function isDefaultDirectiveSuffix(
+	entry: DirectiveEntry
+): entry is DefaultSuffixDirectiveEntry {
+	return entry.suffix === null;
 }
 
 type DirectiveEntries = Record< string, DirectiveEntry[] >;
@@ -56,8 +76,8 @@ interface DirectiveArgs {
 	evaluate: Evaluate;
 }
 
-interface DirectiveCallback {
-	( args: DirectiveArgs ): VNode< any > | null | void;
+export interface DirectiveCallback {
+	( args: DirectiveArgs ): VNode< any > | VNode< any >[] | null | void;
 }
 
 interface DirectiveOptions {
@@ -93,21 +113,21 @@ interface DirectivesProps {
 }
 
 // Main context.
-const context = createContext< any >( {} );
+const context = createContext< any >( { client: {}, server: {} } );
 
 // WordPress Directives.
 const directiveCallbacks: Record< string, DirectiveCallback > = {};
 const directivePriorities: Record< string, number > = {};
 
 /**
- * Register a new directive type in the Interactivity API runtime.
+ * Registers a new directive type in the Interactivity API runtime.
  *
  * @example
  * ```js
  * directive(
  *   'alert', // Name without the `data-wp-` prefix.
  *   ( { directives: { alert }, element, evaluate } ) => {
- *     const defaultEntry = alert.find( entry => entry.suffix === 'default' );
+ *     const defaultEntry = alert.find( isDefaultDirectiveSuffix );
  *     element.props.onclick = () => { alert( evaluate( defaultEntry ) ); }
  *   }
  * )
@@ -126,7 +146,7 @@ const directivePriorities: Record< string, number > = {};
  * </div>
  * ```
  * Note that, in the previous example, the directive callback gets the path
- * value (`state.alert`) from the directive entry with suffix `default`. A
+ * value (`state.alert`) from the directive entry with suffix `null`. A
  * custom suffix can also be specified by appending `--` to the directive
  * attribute, followed by the suffix, like in the following HTML snippet:
  *
@@ -190,9 +210,13 @@ const resolve = ( path: string, namespace: string ) => {
 	}
 	let resolvedStore = stores.get( namespace );
 	if ( typeof resolvedStore === 'undefined' ) {
-		resolvedStore = store( namespace, undefined, {
-			lock: universalUnlock,
-		} );
+		resolvedStore = store(
+			namespace,
+			{},
+			{
+				lock: universalUnlock,
+			}
+		);
 	}
 	const current = {
 		...resolvedStore,
@@ -207,6 +231,7 @@ const resolve = ( path: string, namespace: string ) => {
 // Generate the evaluate function.
 export const getEvaluate: GetEvaluate =
 	( { scope } ) =>
+	// TODO: When removing the temporarily remaining `value( ...args )` call below, remove the `...args` parameter too.
 	( entry, ...args ) => {
 		let { value: path, namespace } = entry;
 		if ( typeof path !== 'string' ) {
@@ -217,7 +242,29 @@ export const getEvaluate: GetEvaluate =
 			path[ 0 ] === '!' && !! ( path = path.slice( 1 ) );
 		setScope( scope );
 		const value = resolve( path, namespace );
-		const result = typeof value === 'function' ? value( ...args ) : value;
+		// Functions are returned without invoking them.
+		if ( typeof value === 'function' ) {
+			// Except if they have a negation operator present, for backward compatibility.
+			// This pattern is strongly discouraged and deprecated, and it will be removed in a near future release.
+			// TODO: Remove this condition to effectively ignore negation operator when provided with a function.
+			if ( hasNegationOperator ) {
+				warn(
+					'Using a function with a negation operator is deprecated and will stop working in WordPress 6.9. Please use derived state instead.'
+				);
+				const functionResult = ! value( ...args );
+				resetScope();
+				return functionResult;
+			}
+			// Reset scope before return and wrap the function so it will still run within the correct scope.
+			resetScope();
+			return ( ...functionArgs: any[] ) => {
+				setScope( scope );
+				const functionResult = value( ...functionArgs );
+				resetScope();
+				return functionResult;
+			};
+		}
+		const result = value;
 		resetScope();
 		return hasNegationOperator ? ! result : result;
 	};
@@ -253,7 +300,9 @@ const Directives = ( {
 	// element ref, state and props.
 	const scope = useRef< Scope >( {} as Scope ).current;
 	scope.evaluate = useCallback( getEvaluate( { scope } ), [] );
-	scope.context = useContext( context );
+	const { client, server } = useContext( context );
+	scope.context = client;
+	scope.serverContext = server;
 	/* eslint-disable react-hooks/rules-of-hooks */
 	scope.ref = previousScope?.ref || useRef( null );
 	/* eslint-enable react-hooks/rules-of-hooks */
@@ -305,9 +354,7 @@ options.vnode = ( vnode: VNode< any > ) => {
 		const props = vnode.props;
 		const directives = props.__directives;
 		if ( directives.key ) {
-			vnode.key = directives.key.find(
-				( { suffix } ) => suffix === 'default'
-			).value;
+			vnode.key = directives.key.find( isDefaultDirectiveSuffix ).value;
 		}
 		delete props.__directives;
 		const priorityLevels = getPriorityLevels( directives );

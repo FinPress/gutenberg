@@ -171,17 +171,19 @@ export default function PostStatus() {
 					contentClassName="editor-change-status__content"
 					popoverProps={ popoverProps }
 					focusOnMount
-					renderToggle={ ( { onToggle } ) => (
+					renderToggle={ ( { onToggle, isOpen } ) => (
 						<Button
+							className="editor-post-status__toggle"
 							variant="tertiary"
 							size="compact"
 							onClick={ onToggle }
 							icon={ postStatusesInfo[ status ]?.icon }
 							aria-label={ sprintf(
 								// translators: %s: Current post status.
-								__( 'Change post status: %s' ),
+								__( 'Change status: %s' ),
 								postStatusesInfo[ status ]?.label
 							) }
+							aria-expanded={ isOpen }
 						>
 							{ postStatusesInfo[ status ]?.label }
 						</Button>
@@ -192,7 +194,12 @@ export default function PostStatus() {
 								title={ __( 'Status & visibility' ) }
 								onClose={ onClose }
 							/>
-							<form>
+							<form
+								onSubmit={ ( event ) => {
+									event.preventDefault();
+									onClose();
+								} }
+							>
 								<VStack spacing={ 4 }>
 									<RadioControl
 										className="editor-change-status__options"
@@ -228,7 +235,7 @@ export default function PostStatus() {
 													'Password protected'
 												) }
 												help={ __(
-													'Only visible to those who know the password'
+													'Only visible to those who know the password.'
 												) }
 												checked={ showPassword }
 												onChange={

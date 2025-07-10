@@ -17,6 +17,8 @@ import sizesTable, { findSizeBySlug } from './sizes';
 import type { DimensionControlProps, Size } from './types';
 import type { SelectControlSingleSelectionProps } from '../select-control/types';
 import { ContextSystemProvider } from '../context';
+import deprecated from '@wordpress/deprecated';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const CONTEXT_VALUE = {
 	BaseControl: {
@@ -29,7 +31,7 @@ const CONTEXT_VALUE = {
 /**
  * `DimensionControl` is a component designed to provide a UI to control spacing and/or dimensions.
  *
- * This feature is still experimental. “Experimental” means this is an early implementation subject to drastic and breaking changes.
+ * @deprecated
  *
  * ```jsx
  * import { __experimentalDimensionControl as DimensionControl } from '@wordpress/components';
@@ -40,6 +42,7 @@ const CONTEXT_VALUE = {
  *
  * 	return (
  * 		<DimensionControl
+ * 			__next40pxDefaultSize
  * 			__nextHasNoMarginBottom
  * 			label={ 'Padding' }
  * 			icon={ 'desktop' }
@@ -61,6 +64,17 @@ export function DimensionControl( props: DimensionControlProps ) {
 		onChange,
 		className = '',
 	} = props;
+
+	deprecated( 'wp.components.DimensionControl', {
+		since: '6.7',
+		version: '7.0',
+	} );
+
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'DimensionControl',
+		__next40pxDefaultSize,
+		size: undefined,
+	} );
 
 	const onChangeSpacingSize: SelectControlSingleSelectionProps[ 'onChange' ] =
 		( val ) => {
@@ -99,6 +113,7 @@ export function DimensionControl( props: DimensionControlProps ) {
 		<ContextSystemProvider value={ CONTEXT_VALUE }>
 			<SelectControl
 				__next40pxDefaultSize={ __next40pxDefaultSize }
+				__shouldNotWarnDeprecated36pxSize
 				__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
 				className={ clsx(
 					className,

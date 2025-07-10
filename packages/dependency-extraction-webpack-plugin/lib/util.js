@@ -5,10 +5,13 @@ const WORDPRESS_NAMESPACE = '@wordpress/';
 // !!
 const BUNDLED_PACKAGES = [
 	'@wordpress/dataviews',
+	'@wordpress/dataviews/wp',
 	'@wordpress/icons',
 	'@wordpress/interface',
 	'@wordpress/sync',
 	'@wordpress/undo-manager',
+	'@wordpress/upload-media',
+	'@wordpress/fields',
 ];
 
 /**
@@ -89,9 +92,10 @@ function defaultRequestToExternalModule( request ) {
 		return `module ${ request }`;
 	}
 
-	if ( request === '@wordpress/interactivity-router' ) {
-		// Assumes this is usually going to be used as a dynamic import.
-		return `import ${ request }`;
+	switch ( request ) {
+		case '@wordpress/interactivity-router':
+		case '@wordpress/a11y':
+			return `import ${ request }`;
 	}
 
 	const isWordPressScript = Boolean( defaultRequestToExternal( request ) );

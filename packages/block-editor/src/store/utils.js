@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { parse } from '@wordpress/blocks';
+import { parse as grammarParse } from '@wordpress/block-serialization-default-parser';
 
 /**
  * Internal dependencies
@@ -9,10 +10,11 @@ import { parse } from '@wordpress/blocks';
 import { selectBlockPatternsKey } from './private-keys';
 import { unlock } from '../lock-unlock';
 import { STORE_NAME } from './constants';
+import { getSectionRootClientId } from './private-selectors';
 
-export const withRootClientIdOptionKey = Symbol( 'withRootClientId' );
-
+export const isFiltered = Symbol( 'isFiltered' );
 const parsedPatternCache = new WeakMap();
+const grammarMapCache = new WeakMap();
 
 function parsePattern( pattern ) {
 	const blocks = parse( pattern.content, {
@@ -37,12 +39,22 @@ function parsePattern( pattern ) {
 
 export function getParsedPattern( pattern ) {
 	let parsedPattern = parsedPatternCache.get( pattern );
-	if ( parsedPattern ) {
-		return parsedPattern;
+	if ( ! parsedPattern ) {
+		parsedPattern = parsePattern( pattern );
+		parsedPatternCache.set( pattern, parsedPattern );
 	}
-	parsedPattern = parsePattern( pattern );
-	parsedPatternCache.set( pattern, parsedPattern );
 	return parsedPattern;
+}
+
+export function getGrammar( pattern ) {
+	let grammarMap = grammarMapCache.get( pattern );
+	if ( ! grammarMap ) {
+		grammarMap = grammarParse( pattern.content );
+		// Block names are null only at the top level for whitespace.
+		grammarMap = grammarMap.filter( ( block ) => block.blockName !== null );
+		grammarMapCache.set( pattern, grammarMap );
+	}
+	return grammarMap;
 }
 
 export const checkAllowList = ( list, item, defaultResult = null ) => {
@@ -98,12 +110,15 @@ export const getAllPatternsDependants = ( select ) => ( state ) => {
 	];
 };
 
-export function getInsertBlockTypeDependants( state, rootClientId ) {
-	return [
-		state.blockListSettings[ rootClientId ],
-		state.blocks.byClientId.get( rootClientId ),
-		state.settings.allowedBlockTypes,
-		state.settings.templateLock,
-		state.blockEditingModes,
-	];
-}
+export const getInsertBlockTypeDependants =
+	( select ) => ( state, rootClientId ) => {
+		return [
+			state.blockListSettings[ rootClientId ],
+			state.blocks.byClientId.get( rootClientId ),
+			state.settings.allowedBlockTypes,
+			state.settings.templateLock,
+			state.blockEditingModes,
+			select( STORE_NAME ).__unstableGetEditorMode( state ),
+			getSectionRootClientId( state ),
+		];
+	};

@@ -1,6 +1,10 @@
 # DimensionControl
 
 <div class="callout callout-alert">
+This component is deprecated.
+</div>
+
+<div class="callout callout-alert">
 This feature is still experimental. “Experimental” means this is an early implementation subject to drastic and breaking changes.
 </div>
 
@@ -18,6 +22,7 @@ export default function MyCustomDimensionControl() {
 	return (
 		<DimensionControl
 			__nextHasNoMarginBottom
+			__next40pxDefaultSize
 			label={ 'Padding' }
 			icon={ 'desktop' }
 			onChange={ ( value ) => setPaddingSize( value ) }

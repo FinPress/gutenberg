@@ -59,35 +59,19 @@ export function getBlockClientId( node ) {
 }
 
 /**
- * Calculates the union of two rectangles, and optionally constrains this union within a containerRect's
- * left and right values.
- * The function returns a new DOMRect object representing this union.
+ * Calculates the union of two rectangles.
  *
- * @param {DOMRect}          rect1         First rectangle.
- * @param {DOMRect}          rect2         Second rectangle.
- * @param {DOMRectReadOnly?} containerRect An optional container rectangle. The union will be clipped to this rectangle.
+ * @param {DOMRect} rect1 First rectangle.
+ * @param {DOMRect} rect2 Second rectangle.
  * @return {DOMRect} Union of the two rectangles.
  */
-export function rectUnion( rect1, rect2, containerRect ) {
-	let left = Math.min( rect1.left, rect2.left );
-	let right = Math.max( rect1.right, rect2.right );
+export function rectUnion( rect1, rect2 ) {
+	const left = Math.min( rect1.left, rect2.left );
+	const right = Math.max( rect1.right, rect2.right );
 	const bottom = Math.max( rect1.bottom, rect2.bottom );
 	const top = Math.min( rect1.top, rect2.top );
 
-	/*
-	 * To calculate visible bounds using rectUnion, take into account the outer
-	 * horizontal limits of the container in which an element is supposed to be "visible".
-	 * For example, if an element is positioned -10px to the left of the window x value (0),
-	 * this function discounts the negative overhang because it's not visible and
-	 * therefore not to be counted in the visibility calculations.
-	 * Top and bottom values are not accounted for to accommodate vertical scroll.
-	 */
-	if ( containerRect ) {
-		left = Math.max( left, containerRect.left );
-		right = Math.min( right, containerRect.right );
-	}
-
-	return new window.DOMRect( left, top, right - left, bottom - top );
+	return new window.DOMRectReadOnly( left, top, right - left, bottom - top );
 }
 
 /**
@@ -112,55 +96,106 @@ function isElementVisible( element ) {
 		return false;
 	}
 
-	return element.checkVisibility( {
-		opacityProperty: true,
-		contentVisibilityAuto: true,
-		visibilityProperty: true,
-	} );
+	// Older browsers, e.g. Safari < 17.4 may not support the `checkVisibility` method.
+	if ( element.checkVisibility ) {
+		return element.checkVisibility?.( {
+			opacityProperty: true,
+			contentVisibilityAuto: true,
+			visibilityProperty: true,
+		} );
+	}
+
+	const style = viewport.getComputedStyle( element );
+
+	if (
+		style.display === 'none' ||
+		style.visibility === 'hidden' ||
+		style.opacity === '0'
+	) {
+		return false;
+	}
+
+	return true;
 }
 
 /**
- * Returns the rect of the element including all visible nested elements.
+ * Checks if the element is scrollable.
  *
- * Visible nested elements, including elements that overflow the parent, are
- * taken into account.
+ * @param {Element} element Element.
+ * @return {boolean} True if the element is scrollable.
+ */
+function isScrollable( element ) {
+	const style = window.getComputedStyle( element );
+	return (
+		style.overflowX === 'auto' ||
+		style.overflowX === 'scroll' ||
+		style.overflowY === 'auto' ||
+		style.overflowY === 'scroll'
+	);
+}
+
+export const WITH_OVERFLOW_ELEMENT_BLOCKS = [ 'core/navigation' ];
+/**
+ * Returns the bounding rectangle of an element, with special handling for blocks
+ * that have visible overflowing children (defined in WITH_OVERFLOW_ELEMENT_BLOCKS).
  *
- * This function is useful for calculating the visible area of a block that
- * contains nested elements that overflow the block, e.g. the Navigation block,
- * which can contain overflowing Submenu blocks.
- *
+ * For blocks like Navigation that can have overflowing elements (e.g. submenus),
+ * this function calculates the combined bounds of both the parent and its visible
+ * children. The returned rect may extend beyond the viewport.
  * The returned rect represents the full extent of the element and its visible
  * children, which may extend beyond the viewport.
  *
  * @param {Element} element Element.
  * @return {DOMRect} Bounding client rect of the element and its visible children.
  */
-export function getVisibleElementBounds( element ) {
+export function getElementBounds( element ) {
 	const viewport = element.ownerDocument.defaultView;
+
 	if ( ! viewport ) {
-		return new window.DOMRect();
+		return new window.DOMRectReadOnly();
 	}
 
 	let bounds = element.getBoundingClientRect();
-	const viewportRect = new window.DOMRectReadOnly(
-		0,
-		0,
-		viewport.innerWidth,
-		viewport.innerHeight
-	);
+	const dataType = element.getAttribute( 'data-type' );
 
-	const stack = [ element ];
-	let currentElement;
+	/*
+	 * For blocks with overflowing elements (like Navigation), include the bounds
+	 * of visible children that extend beyond the parent container.
+	 */
+	if ( dataType && WITH_OVERFLOW_ELEMENT_BLOCKS.includes( dataType ) ) {
+		const stack = [ element ];
+		let currentElement;
 
-	while ( ( currentElement = stack.pop() ) ) {
-		for ( const child of currentElement.children ) {
-			if ( isElementVisible( child ) ) {
-				const childBounds = child.getBoundingClientRect();
-				bounds = rectUnion( bounds, childBounds, viewportRect );
-				stack.push( child );
+		while ( ( currentElement = stack.pop() ) ) {
+			// Children won’t affect bounds unless the element is not scrollable.
+			if ( ! isScrollable( currentElement ) ) {
+				for ( const child of currentElement.children ) {
+					if ( isElementVisible( child ) ) {
+						const childBounds = child.getBoundingClientRect();
+						bounds = rectUnion( bounds, childBounds );
+						stack.push( child );
+					}
+				}
 			}
 		}
 	}
+
+	/*
+	 * Take into account the outer horizontal limits of the container in which
+	 * an element is supposed to be "visible". For example, if an element is
+	 * positioned -10px to the left of the window x value (0), this function
+	 * discounts the negative overhang because it's not visible and therefore
+	 * not to be counted in the visibility calculations. Top and bottom values
+	 * are not accounted for to accommodate vertical scroll.
+	 */
+	const left = Math.max( bounds.left, 0 );
+	const right = Math.min( bounds.right, viewport.innerWidth );
+	bounds = new window.DOMRectReadOnly(
+		left,
+		bounds.top,
+		right - left,
+		bounds.height
+	);
 
 	return bounds;
 }

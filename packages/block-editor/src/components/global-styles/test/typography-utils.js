@@ -585,7 +585,7 @@ describe( 'typography utils', () => {
 					'clamp(14px, 0.875rem + ((1vw - 3.2px) * 0.078), 15px)',
 			},
 
-			// Equivalent custom config PHP unit tests in `test_should_covert_font_sizes_to_fluid_values()`.
+			// Equivalent custom config PHP unit tests in `test_should_convert_font_sizes_to_fluid_values()`.
 			{
 				message: 'should return clamp value using custom fluid config',
 				preset: {
@@ -1289,6 +1289,61 @@ describe( 'typography utils', () => {
 				expected: {
 					nearestFontStyle: 'italic',
 					nearestFontWeight: '400',
+				},
+			},
+			{
+				message:
+					'should return nearest fontStyle and fontWeight for normal/400 when fontFamilyFaces contain numerical fontWeight value',
+				fontFamilyFaces: [
+					{
+						fontFamily: 'IBM Plex Mono',
+						fontStyle: 'normal',
+						fontWeight: 400,
+						src: [
+							'file:./assets/fonts/ibm-plex-mono/IBMPlexMono-Regular.woff2',
+						],
+					},
+					{
+						fontFamily: 'IBM Plex Mono',
+						fontStyle: 'italic',
+						fontWeight: '400',
+						src: [
+							'file:./assets/fonts/ibm-plex-mono/IBMPlexMono-Italic.woff2',
+						],
+					},
+					{
+						fontFamily: 'IBM Plex Mono',
+						fontStyle: 'normal',
+						fontWeight: '700',
+						src: [
+							'file:./assets/fonts/ibm-plex-mono/IBMPlexMono-Bold.woff2',
+						],
+					},
+				],
+				fontStyle: 'normal',
+				fontWeight: '400',
+				expected: {
+					nearestFontStyle: 'normal',
+					nearestFontWeight: '400',
+				},
+			},
+			{
+				message:
+					'should return nearest fontStyle and fontWeight for normal/400 when fontFamilyFaces contain undefined fontWeight value',
+				fontFamilyFaces: [
+					{
+						fontFamily: 'IBM Plex Mono',
+						fontStyle: 'normal',
+						src: [
+							'file:./assets/fonts/ibm-plex-mono/IBMPlexMono-Regular.woff2',
+						],
+					},
+				],
+				fontStyle: 'normal',
+				fontWeight: '400',
+				expected: {
+					nearestFontStyle: 'normal',
+					nearestFontWeight: '700',
 				},
 			},
 		].forEach(

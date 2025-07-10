@@ -15,7 +15,13 @@ import { plus } from '@wordpress/icons';
 import { DimensionControl as _DimensionControl } from '../';
 
 const DimensionControl = ( props ) => {
-	return <_DimensionControl { ...props } __nextHasNoMarginBottom />;
+	return (
+		<_DimensionControl
+			{ ...props }
+			__next40pxDefaultSize
+			__nextHasNoMarginBottom
+		/>
+	);
 };
 
 describe( 'DimensionControl', () => {
@@ -31,6 +37,7 @@ describe( 'DimensionControl', () => {
 			const { container } = render(
 				<DimensionControl instanceId={ instanceId } label="Padding" />
 			);
+			expect( console ).toHaveWarned();
 			expect( container ).toMatchSnapshot();
 		} );
 

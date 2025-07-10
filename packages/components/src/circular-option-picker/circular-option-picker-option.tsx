@@ -2,14 +2,13 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { useStoreState } from '@ariakit/react';
 import type { ForwardedRef } from 'react';
 
 /**
  * WordPress dependencies
  */
 import { useInstanceId } from '@wordpress/compose';
-import { forwardRef, useContext } from '@wordpress/element';
+import { forwardRef, useContext, useEffect } from '@wordpress/element';
 import { Icon, check } from '@wordpress/icons';
 
 /**
@@ -18,7 +17,6 @@ import { Icon, check } from '@wordpress/icons';
 import { CircularOptionPickerContext } from './circular-option-picker-context';
 import Button from '../button';
 import { Composite } from '../composite';
-import Tooltip from '../tooltip';
 import type { OptionProps } from './types';
 
 function UnforwardedOptionAsButton(
@@ -26,15 +24,17 @@ function UnforwardedOptionAsButton(
 		id?: string;
 		className?: string;
 		isPressed?: boolean;
+		label?: string;
 	},
 	forwardedRef: ForwardedRef< any >
 ) {
-	const { isPressed, ...additionalProps } = props;
+	const { isPressed, label, ...additionalProps } = props;
 	return (
 		<Button
 			{ ...additionalProps }
 			aria-pressed={ isPressed }
 			ref={ forwardedRef }
+			label={ label }
 		/>
 	);
 }
@@ -46,18 +46,22 @@ function UnforwardedOptionAsOption(
 		id: string;
 		className?: string;
 		isSelected?: boolean;
-		compositeStore: NonNullable<
-			React.ComponentProps< typeof Composite >[ 'store' ]
-		>;
+		label?: string;
 	},
 	forwardedRef: ForwardedRef< any >
 ) {
-	const { id, isSelected, compositeStore, ...additionalProps } = props;
-	const activeId = useStoreState( compositeStore, 'activeId' );
+	const { id, isSelected, label, ...additionalProps } = props;
 
-	if ( isSelected && ! activeId ) {
-		compositeStore.setActiveId( id );
-	}
+	const { setActiveId, activeId } = useContext( CircularOptionPickerContext );
+
+	useEffect( () => {
+		if ( isSelected && ! activeId ) {
+			// The setTimeout call is necessary to make sure that this update
+			// doesn't get overridden by `Composite`'s internal logic, which picks
+			// an initial active item if one is not specifically set.
+			window.setTimeout( () => setActiveId?.( id ), 0 );
+		}
+	}, [ isSelected, setActiveId, activeId, id ] );
 
 	return (
 		<Composite.Item
@@ -67,6 +71,7 @@ function UnforwardedOptionAsOption(
 					role="option"
 					aria-selected={ !! isSelected }
 					ref={ forwardedRef }
+					label={ label }
 				/>
 			}
 			id={ id }
@@ -83,9 +88,7 @@ export function Option( {
 	tooltipText,
 	...additionalProps
 }: OptionProps ) {
-	const { baseId, compositeStore } = useContext(
-		CircularOptionPickerContext
-	);
+	const { baseId, setActiveId } = useContext( CircularOptionPickerContext );
 	const id = useInstanceId(
 		Option,
 		baseId || 'components-circular-option-picker__option'
@@ -94,17 +97,23 @@ export function Option( {
 	const commonProps = {
 		id,
 		className: 'components-circular-option-picker__option',
+		__next40pxDefaultSize: true,
 		...additionalProps,
 	};
 
-	const optionControl = compositeStore ? (
+	const isListbox = setActiveId !== undefined;
+	const optionControl = isListbox ? (
 		<OptionAsOption
 			{ ...commonProps }
-			compositeStore={ compositeStore }
+			label={ tooltipText }
 			isSelected={ isSelected }
 		/>
 	) : (
-		<OptionAsButton { ...commonProps } isPressed={ isSelected } />
+		<OptionAsButton
+			{ ...commonProps }
+			label={ tooltipText }
+			isPressed={ isSelected }
+		/>
 	);
 
 	return (
@@ -114,11 +123,7 @@ export function Option( {
 				'components-circular-option-picker__option-wrapper'
 			) }
 		>
-			{ tooltipText ? (
-				<Tooltip text={ tooltipText }>{ optionControl }</Tooltip>
-			) : (
-				optionControl
-			) }
+			{ optionControl }
 			{ isSelected && <Icon icon={ check } { ...selectedIconProps } /> }
 		</div>
 	);

@@ -13,15 +13,13 @@ import {
 	__experimentalItemGroup as ItemGroup,
 	__experimentalInputControl as InputControl,
 	__experimentalUnitControl as UnitControl,
-	__experimentalParseQuantityAndUnitFromRawValue as parseQuantityAndUnitFromRawValue,
 	__experimentalGrid as Grid,
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
-	__experimentalUseNavigator as useNavigator,
+	useNavigator,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalConfirmDialog as ConfirmDialog,
 	Dropdown,
-	RangeControl,
 	Button,
 	Flex,
 	FlexItem,
@@ -35,10 +33,9 @@ import {
 	plus,
 	shadow as shadowIcon,
 	reset,
-	settings,
 	moreVertical,
 } from '@wordpress/icons';
-import { useState, useMemo } from '@wordpress/element';
+import { useState, useMemo, useEffect, useRef } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -51,11 +48,10 @@ import {
 	getShadowParts,
 	shadowStringToObject,
 	shadowObjectToString,
-	CUSTOM_VALUE_SETTINGS,
 } from './shadow-utils';
 
 const { useGlobalSetting } = unlock( blockEditorPrivateApis );
-const { DropdownMenuV2 } = unlock( componentsPrivateApis );
+const { Menu } = unlock( componentsPrivateApis );
 
 const customShadowMenuItems = [
 	{
@@ -77,12 +73,30 @@ const presetShadowMenuItems = [
 
 export default function ShadowsEditPanel() {
 	const {
+		goBack,
 		params: { category, slug },
-		goTo,
 	} = useNavigator();
 	const [ shadows, setShadows ] = useGlobalSetting(
 		`shadow.presets.${ category }`
 	);
+
+	useEffect( () => {
+		const hasCurrentShadow = shadows?.some(
+			( shadow ) => shadow.slug === slug
+		);
+		// If the shadow being edited doesn't exist anymore in the global styles setting, navigate back
+		// to prevent the user from editing a non-existent shadow entry.
+		// This can happen, for example:
+		// - when the user deletes the shadow
+		// - when the user resets the styles while editing a custom shadow
+		//
+		// The check on the slug is necessary to prevent a double back navigation when the user triggers
+		// a backward navigation by interacting with the screen's UI.
+		if ( !! slug && ! hasCurrentShadow ) {
+			goBack();
+		}
+	}, [ shadows, slug, goBack ] );
+
 	const [ baseShadows ] = useGlobalSetting(
 		`shadow.presets.${ category }`,
 		undefined,
@@ -99,6 +113,10 @@ export default function ShadowsEditPanel() {
 		useState( false );
 	const [ isRenameModalVisible, setIsRenameModalVisible ] = useState( false );
 	const [ shadowName, setShadowName ] = useState( selectedShadow.name );
+
+	if ( ! category || ! slug ) {
+		return null;
+	}
 
 	const onShadowChange = ( shadow ) => {
 		setSelectedShadow( { ...selectedShadow, shadow } );
@@ -123,9 +141,7 @@ export default function ShadowsEditPanel() {
 	};
 
 	const handleShadowDelete = () => {
-		const updatedShadows = shadows.filter( ( s ) => s.slug !== slug );
-		setShadows( updatedShadows );
-		goTo( `/shadows` );
+		setShadows( shadows.filter( ( s ) => s.slug !== slug ) );
 	};
 
 	const handleShadowRename = ( newName ) => {
@@ -147,34 +163,39 @@ export default function ShadowsEditPanel() {
 				<ScreenHeader title={ selectedShadow.name } />
 				<FlexItem>
 					<Spacer marginTop={ 2 } marginBottom={ 0 } paddingX={ 4 }>
-						<DropdownMenuV2
-							trigger={
-								<Button
-									size="small"
-									icon={ moreVertical }
-									label={ __( 'Menu' ) }
-								/>
-							}
-						>
-							{ ( category === 'custom'
-								? customShadowMenuItems
-								: presetShadowMenuItems
-							).map( ( item ) => (
-								<DropdownMenuV2.Item
-									key={ item.action }
-									onClick={ () => onMenuClick( item.action ) }
-									disabled={
-										item.action === 'reset' &&
-										selectedShadow.shadow ===
-											baseSelectedShadow.shadow
-									}
-								>
-									<DropdownMenuV2.ItemLabel>
-										{ item.label }
-									</DropdownMenuV2.ItemLabel>
-								</DropdownMenuV2.Item>
-							) ) }
-						</DropdownMenuV2>
+						<Menu>
+							<Menu.TriggerButton
+								render={
+									<Button
+										size="small"
+										icon={ moreVertical }
+										label={ __( 'Menu' ) }
+									/>
+								}
+							/>
+							<Menu.Popover>
+								{ ( category === 'custom'
+									? customShadowMenuItems
+									: presetShadowMenuItems
+								).map( ( item ) => (
+									<Menu.Item
+										key={ item.action }
+										onClick={ () =>
+											onMenuClick( item.action )
+										}
+										disabled={
+											item.action === 'reset' &&
+											selectedShadow.shadow ===
+												baseSelectedShadow.shadow
+										}
+									>
+										<Menu.ItemLabel>
+											{ item.label }
+										</Menu.ItemLabel>
+									</Menu.Item>
+								) ) }
+							</Menu.Popover>
+						</Menu>
 					</Spacer>
 				</FlexItem>
 			</HStack>
@@ -199,8 +220,10 @@ export default function ShadowsEditPanel() {
 					size="medium"
 				>
 					{ sprintf(
-						// translators: %s: name of the shadow
-						'Are you sure you want to delete "%s"?',
+						/* translators: %s: Name of the shadow preset. */
+						__(
+							'Are you sure you want to delete "%s" shadow preset?'
+						),
 						selectedShadow.name
 					) }
 				</ConfirmDialog>
@@ -234,8 +257,7 @@ export default function ShadowsEditPanel() {
 						>
 							<FlexItem>
 								<Button
-									// TODO: Switch to `true` (40px size) if possible
-									__next40pxDefaultSize={ false }
+									__next40pxDefaultSize
 									variant="tertiary"
 									onClick={ () =>
 										setIsRenameModalVisible( false )
@@ -246,8 +268,7 @@ export default function ShadowsEditPanel() {
 							</FlexItem>
 							<FlexItem>
 								<Button
-									// TODO: Switch to `true` (40px size) if possible
-									__next40pxDefaultSize={ false }
+									__next40pxDefaultSize
 									variant="primary"
 									type="submit"
 								>
@@ -284,33 +305,29 @@ function ShadowsPreview( { shadow } ) {
 }
 
 function ShadowEditor( { shadow, onChange } ) {
+	const addShadowButtonRef = useRef();
 	const shadowParts = useMemo( () => getShadowParts( shadow ), [ shadow ] );
 
 	const onChangeShadowPart = ( index, part ) => {
-		shadowParts[ index ] = part;
-		onChange( shadowParts.join( ', ' ) );
+		const newShadowParts = [ ...shadowParts ];
+		newShadowParts[ index ] = part;
+		onChange( newShadowParts.join( ', ' ) );
 	};
 
 	const onAddShadowPart = () => {
-		shadowParts.push( defaultShadow );
-		onChange( shadowParts.join( ', ' ) );
+		onChange( [ ...shadowParts, defaultShadow ].join( ', ' ) );
 	};
 
 	const onRemoveShadowPart = ( index ) => {
-		shadowParts.splice( index, 1 );
-		onChange( shadowParts.join( ', ' ) );
+		onChange( shadowParts.filter( ( p, i ) => i !== index ).join( ', ' ) );
+		addShadowButtonRef.current.focus();
 	};
 
 	return (
 		<>
 			<VStack spacing={ 2 }>
 				<HStack justify="space-between">
-					<Flex
-						align="center"
-						className="edit-site-global-styles__shadows-panel__title"
-					>
-						<Subtitle level={ 3 }>{ __( 'Shadows' ) }</Subtitle>
-					</Flex>
+					<Subtitle level={ 3 }>{ __( 'Shadows' ) }</Subtitle>
 					<FlexItem className="edit-site-global-styles__shadows-panel__options-container">
 						<Button
 							size="small"
@@ -319,6 +336,7 @@ function ShadowEditor( { shadow, onChange } ) {
 							onClick={ () => {
 								onAddShadowPart();
 							} }
+							ref={ addShadowButtonRef }
 						/>
 					</FlexItem>
 				</HStack>
@@ -369,7 +387,12 @@ function ShadowItem( { shadow, onChange, canRemove, onRemove } ) {
 					'aria-expanded': isOpen,
 				};
 				const removeButtonProps = {
-					onClick: onRemove,
+					onClick: () => {
+						if ( isOpen ) {
+							onToggle();
+						}
+						onRemove();
+					},
 					className: clsx(
 						'edit-site-global-styles__shadow-editor__remove-button',
 						{ 'is-open': isOpen }
@@ -378,30 +401,24 @@ function ShadowItem( { shadow, onChange, canRemove, onRemove } ) {
 				};
 
 				return (
-					<HStack align="center" justify="flex-start" spacing={ 0 }>
-						<FlexItem style={ { flexGrow: 1 } }>
-							<Button
-								// TODO: Switch to `true` (40px size) if possible
-								__next40pxDefaultSize={ false }
-								icon={ shadowIcon }
-								{ ...toggleProps }
-							>
-								{ shadowObj.inset
-									? __( 'Inner shadow' )
-									: __( 'Drop shadow' ) }
-							</Button>
-						</FlexItem>
+					<>
+						<Button
+							__next40pxDefaultSize
+							icon={ shadowIcon }
+							{ ...toggleProps }
+						>
+							{ shadowObj.inset
+								? __( 'Inner shadow' )
+								: __( 'Drop shadow' ) }
+						</Button>
 						{ canRemove && (
-							<FlexItem>
-								<Button
-									// TODO: Switch to `true` (40px size) if possible
-									__next40pxDefaultSize={ false }
-									icon={ reset }
-									{ ...removeButtonProps }
-								/>
-							</FlexItem>
+							<Button
+								size="small"
+								icon={ reset }
+								{ ...removeButtonProps }
+							/>
 						) }
-					</HStack>
+					</>
 				);
 			} }
 			renderContent={ () => (
@@ -468,13 +485,11 @@ function ShadowPopover( { shadowObj, onChange } ) {
 				<ShadowInputControl
 					label={ __( 'X Position' ) }
 					value={ shadowObj.x }
-					hasNegativeRange
 					onChange={ ( value ) => onShadowChange( 'x', value ) }
 				/>
 				<ShadowInputControl
 					label={ __( 'Y Position' ) }
 					value={ shadowObj.y }
-					hasNegativeRange
 					onChange={ ( value ) => onShadowChange( 'y', value ) }
 				/>
 				<ShadowInputControl
@@ -485,7 +500,6 @@ function ShadowPopover( { shadowObj, onChange } ) {
 				<ShadowInputControl
 					label={ __( 'Spread' ) }
 					value={ shadowObj.spread }
-					hasNegativeRange
 					onChange={ ( value ) => onShadowChange( 'spread', value ) }
 				/>
 			</Grid>
@@ -493,16 +507,7 @@ function ShadowPopover( { shadowObj, onChange } ) {
 	);
 }
 
-function ShadowInputControl( { label, value, onChange, hasNegativeRange } ) {
-	const [ isCustomInput, setIsCustomInput ] = useState( false );
-	const [ parsedQuantity, parsedUnit ] =
-		parseQuantityAndUnitFromRawValue( value );
-
-	const sliderOnChange = ( next ) => {
-		onChange(
-			next !== undefined ? [ next, parsedUnit || 'px' ].join( '' ) : '0px'
-		);
-	};
+function ShadowInputControl( { label, value, onChange } ) {
 	const onValueChange = ( next ) => {
 		const isNumeric = next !== undefined && ! isNaN( parseFloat( next ) );
 		const nextValue = isNumeric ? next : '0px';
@@ -510,50 +515,11 @@ function ShadowInputControl( { label, value, onChange, hasNegativeRange } ) {
 	};
 
 	return (
-		<VStack justify="flex-start">
-			<HStack justify="space-between">
-				<Subtitle>{ label }</Subtitle>
-				<Button
-					label={ __( 'Use custom size' ) }
-					icon={ settings }
-					onClick={ () => {
-						setIsCustomInput( ! isCustomInput );
-					} }
-					isPressed={ isCustomInput }
-					size="small"
-				/>
-			</HStack>
-			{ isCustomInput ? (
-				<UnitControl
-					label={ label }
-					hideLabelFromVision
-					__next40pxDefaultSize
-					value={ value }
-					onChange={ onValueChange }
-				/>
-			) : (
-				<RangeControl
-					value={ parsedQuantity ?? 0 }
-					onChange={ sliderOnChange }
-					withInputField={ false }
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-					min={
-						hasNegativeRange
-							? -(
-									CUSTOM_VALUE_SETTINGS[ parsedUnit ?? 'px' ]
-										?.max ?? 10
-							  )
-							: 0
-					}
-					max={
-						CUSTOM_VALUE_SETTINGS[ parsedUnit ?? 'px' ]?.max ?? 10
-					}
-					step={
-						CUSTOM_VALUE_SETTINGS[ parsedUnit ?? 'px' ]?.step ?? 0.1
-					}
-				/>
-			) }
-		</VStack>
+		<UnitControl
+			label={ label }
+			__next40pxDefaultSize
+			value={ value }
+			onChange={ onValueChange }
+		/>
 	);
 }

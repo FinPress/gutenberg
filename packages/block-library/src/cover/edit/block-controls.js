@@ -10,7 +10,6 @@ import {
 	__experimentalBlockFullHeightAligmentControl as FullHeightAlignmentControl,
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
-import { MenuItem } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -102,17 +101,9 @@ export default function CoverBlockControls( {
 					onSelect={ onSelectMedia }
 					onToggleFeaturedImage={ toggleUseFeaturedImage }
 					useFeaturedImage={ useFeaturedImage }
-					name={ ! url ? __( 'Add Media' ) : __( 'Replace' ) }
-				>
-					{ !! url && (
-						<MenuItem
-							className="block-library-cover__reset-button"
-							onClick={ onClearMedia }
-						>
-							{ __( 'Reset' ) }
-						</MenuItem>
-					) }
-				</MediaReplaceFlow>
+					name={ ! url ? __( 'Add media' ) : __( 'Replace' ) }
+					onReset={ onClearMedia }
+				/>
 			</BlockControls>
 		</>
 	);
