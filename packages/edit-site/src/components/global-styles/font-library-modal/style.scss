@@ -90,11 +90,6 @@ $footer-height: 70px;
 
 .font-library-modal__fonts-list-item {
 	margin-bottom: 0;
-	.components-button {
-		&:focus {
-			position: relative;
-		}
-	}
 }
 
 .font-library-modal__font-card {
@@ -110,6 +105,10 @@ $footer-height: 70px;
 
 	&:hover {
 		background-color: $gray-100;
+	}
+
+	&:focus {
+		position: relative;
 	}
 
 	.font-library-modal__font-card__name {
