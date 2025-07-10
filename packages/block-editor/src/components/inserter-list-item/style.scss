@@ -49,12 +49,13 @@
 	position: relative;
 	height: auto;
 
-	&:disabled {
+	&:disabled,
+	&[aria-disabled="true"] {
 		opacity: 0.6;
 		cursor: default;
 	}
 
-	&:not(:disabled) {
+	&:not(:disabled, [aria-disabled="true"]) {
 		&:hover {
 			.block-editor-block-types-list__item-title {
 				color: var(--wp-admin-theme-color) !important;

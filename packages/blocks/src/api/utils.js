@@ -242,7 +242,7 @@ export function getAccessibleBlockLabel(
 
 	if ( hasLabel ) {
 		return sprintf(
-			/* translators: accessibility text. %1: The block title. %2: The block label. */
+			/* translators: accessibility text. 1: The block title. 2: The block label. */
 			__( '%1$s Block. %2$s' ),
 			title,
 			label
@@ -417,4 +417,23 @@ export function omit( object, keys ) {
 	return Object.fromEntries(
 		Object.entries( object ).filter( ( [ key ] ) => ! keys.includes( key ) )
 	);
+}
+
+/**
+ * Return the block image URL.
+ *
+ * @param {string|Object} blockTypeOrName The block type or name.
+ * @param {Object}        attributes      The block's attributes.
+ * @param {string}        context         The context in which the block is being displayed.
+ *
+ * @return {string|null} The block image URL or null.
+ */
+export function getBlockImage( blockTypeOrName, attributes, context ) {
+	const blockType = normalizeBlockType( blockTypeOrName );
+	const { __experimentalImage: getImage } = blockType;
+	const url = getImage && getImage( attributes, { context } );
+	if ( url ) {
+		return url;
+	}
+	return null;
 }
