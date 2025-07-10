@@ -225,6 +225,22 @@ export default function TracksEditor( { tracks = [], onChange } ) {
 		setTrackBeingEdited( trackIndex );
 	};
 
+	function uploadFiles( event ) {
+		const files = event.target.files;
+		mediaUpload( {
+			allowedTypes: ALLOWED_TYPES,
+			filesList: files,
+			onFileChange: ( [ track ] ) => {
+				// Wait until the track has been uploaded.
+				if ( ! track?.id ) {
+					return;
+				}
+
+				handleTrackSelect( track );
+			},
+		} );
+	}
+
 	useEffect( () => {
 		dropdownPopoverRef.current?.focus();
 	}, [ trackBeingEdited ] );
@@ -312,60 +328,27 @@ export default function TracksEditor( { tracks = [], onChange } ) {
 								className="block-library-video-tracks-editor__add-tracks-container"
 								label={ __( 'Add tracks' ) }
 							>
-								<MediaUpload
-									onSelect={ handleTrackSelect }
-									allowedTypes={ ALLOWED_TYPES }
-									render={ ( { open } ) => (
-										<MenuItem
-											icon={ media }
-											onClick={ open }
-										>
-											{ __( 'Open Media Library' ) }
-										</MenuItem>
-									) }
-								/>
 								<MediaUploadCheck>
+									<MediaUpload
+										onSelect={ handleTrackSelect }
+										allowedTypes={ ALLOWED_TYPES }
+										render={ ( { open } ) => (
+											<MenuItem
+												icon={ media }
+												onClick={ open }
+											>
+												{ __( 'Open Media Library' ) }
+											</MenuItem>
+										) }
+									/>
 									<FormFileUpload
-										onChange={ ( event ) => {
-											const files = event.target.files;
-											const trackIndex = tracks.length;
-											mediaUpload( {
-												allowedTypes: ALLOWED_TYPES,
-												filesList: files,
-												onFileChange: ( [
-													{ url },
-												] ) => {
-													const newTracks = [
-														...tracks,
-													];
-													if (
-														! newTracks[
-															trackIndex
-														]
-													) {
-														newTracks[
-															trackIndex
-														] = {};
-													}
-													newTracks[ trackIndex ] = {
-														...tracks[ trackIndex ],
-														src: url,
-													};
-													onChange( newTracks );
-													setTrackBeingEdited(
-														trackIndex
-													);
-												},
-											} );
-										} }
+										onChange={ uploadFiles }
 										accept=".vtt,text/vtt"
 										render={ ( { openFileDialog } ) => {
 											return (
 												<MenuItem
 													icon={ upload }
-													onClick={ () => {
-														openFileDialog();
-													} }
+													onClick={ openFileDialog }
 												>
 													{ _x( 'Upload', 'verb' ) }
 												</MenuItem>
