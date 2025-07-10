@@ -150,7 +150,7 @@ describe( 'babel-plugin', () => {
 			expect( string ).toBe( 'hello world' );
 		} );
 
-		it( 'should return a empty for template literal with variable interpolation', () => {
+		it( 'should return an empty string for template literal with variable interpolation', () => {
 			const string = getNodeAsStringFromArgument(
 				'const a = "hi"; __( `hello ${a}` );'
 			);
