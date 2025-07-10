@@ -57,6 +57,7 @@ export {
 	CardHeader,
 	CardMedia,
 } from './card';
+export { DateCalendar, DateRangeCalendar, TZDate } from './calendar';
 export { default as CheckboxControl } from './checkbox-control';
 export { default as ClipboardButton } from './clipboard-button';
 export { default as __experimentalPaletteEdit } from './palette-edit';
