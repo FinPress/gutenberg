@@ -11,17 +11,16 @@
  * @since 6.x.x
  *
  * @param array    $attributes Block attributes.
- * @param string   $content    Block default content.
  * @param WP_Block $block      Block instance.
  *
  * @return string Returns the filtered term name for the current term wrapped inside heading tags.
  */
-function render_block_core_term_name( $attributes, $content, $block ) {
+function render_block_core_term_name( $attributes, $block ) {
 	if ( ! isset( $block->context['termId'] ) ) {
 		return '';
 	}
 
-	$term_id = $block->context['termId'];
+	$term_id   = $block->context['termId'];
 	$term_type = $block->context['termType'] ?? 'category';
 
 	if ( empty( $term_id ) || empty( $term_type ) ) {
@@ -46,7 +45,7 @@ function render_block_core_term_name( $attributes, $content, $block ) {
 	$tag_name = 'span';
 
 	if ( isset( $attributes['isLink'] ) && $attributes['isLink'] ) {
-		$rel   = ! empty( $attributes['rel'] ) ? 'rel="' . esc_attr( $attributes['rel'] ) . '"' : '';
+		$rel         = ! empty( $attributes['rel'] ) ? 'rel="' . esc_attr( $attributes['rel'] ) . '"' : '';
 		$link_target = isset( $attributes['linkTarget'] ) ? $attributes['linkTarget'] : '_self';
 
 		$term_link = get_term_link( $term );

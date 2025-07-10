@@ -21,7 +21,7 @@ function render_block_core_term_count( $attributes, $content, $block ) {
 		return '';
 	}
 
-	$term_id = $block->context['termId'];
+	$term_id   = $block->context['termId'];
 	$term_type = $block->context['termType'] ?? 'category';
 
 	$term = get_term( $term_id, $term_type );
@@ -29,7 +29,7 @@ function render_block_core_term_count( $attributes, $content, $block ) {
 		return '';
 	}
 
-	$count = $term->count;
+	$count  = $term->count;
 	$format = $attributes['format'] ?? '';
 
 	$formatted_count = $format ? str_replace( '%d', $count, $format ) : $count;

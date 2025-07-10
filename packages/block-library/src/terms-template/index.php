@@ -26,10 +26,10 @@ function render_block_core_terms_template( $attributes, $content, $block ) {
 	$query = $query_block_context['query'];
 
 	$query_args = array(
-		'taxonomy'   => $query['taxonomy'] ?? 'category',
-		'order'      => $query['order'] ?? 'asc',
-		'orderby'    => $query['orderBy'] ?? 'name',
-		'hide_empty' => $query['hideEmpty'] ?? true,
+		'taxonomy'     => $query['taxonomy'] ?? 'category',
+		'order'        => $query['order'] ?? 'asc',
+		'orderby'      => $query['orderBy'] ?? 'name',
+		'hide_empty'   => $query['hideEmpty'] ?? true,
 		'hierarchical' => $query['hierarchical'] ?? false,
 	);
 
@@ -42,9 +42,12 @@ function render_block_core_terms_template( $attributes, $content, $block ) {
 
 	// Handle showOnlyTopLevel.
 	if ( ! empty( $query['showOnlyTopLevel'] ) ) {
-		$terms = array_filter( $terms, function( $term ) {
-			return empty( $term->parent );
-		} );
+		$terms = array_filter(
+			$terms,
+			function ( $term ) {
+				return empty( $term->parent );
+			}
+		);
 	}
 
 	// Check if we have terms after filtering.
@@ -56,9 +59,9 @@ function render_block_core_terms_template( $attributes, $content, $block ) {
 	$is_hierarchical = ! empty( $query['hierarchical'] );
 
 	if ( $is_hierarchical ) {
-		$content = render_hierarchical_terms_template( $terms, $block );
+		$content = render_block_core_terms_template_hierarchical( $terms, $block );
 	} else {
-		$content = render_flat_terms_template( $terms, $block );
+		$content = render_block_core_terms_template_flat( $terms, $block );
 	}
 
 	return sprintf(
@@ -70,15 +73,17 @@ function render_block_core_terms_template( $attributes, $content, $block ) {
 /**
  * Renders terms in a flat list structure.
  *
+ * @since 6.x.x
+ *
  * @param array    $terms Array of WP_Term objects.
  * @param WP_Block $block Block instance.
  *
  * @return string HTML content for flat terms list.
  */
-function render_flat_terms_template( $terms, $block ) {
+function render_block_core_terms_template_flat( $terms, $block ) {
 	$content = '';
 	foreach ( $terms as $term ) {
-		$content .= render_single_term_template( $term, $block );
+		$content .= render_block_core_terms_template_single( $term, $block );
 	}
 	return $content;
 }
@@ -86,24 +91,29 @@ function render_flat_terms_template( $terms, $block ) {
 /**
  * Renders terms in a hierarchical structure.
  *
+ * @since 6.x.x
+ *
  * @param array    $terms Array of WP_Term objects.
  * @param WP_Block $block Block instance.
  * @param int      $parent_id Parent term ID (0 for top-level).
  *
  * @return string HTML content for hierarchical terms list.
  */
-function render_hierarchical_terms_template( $terms, $block, $parent_id = 0 ) {
+function render_block_core_terms_template_hierarchical( $terms, $block, $parent_id = 0 ) {
 	$content = '';
 
 	// Filter terms for current parent.
-	$child_terms = array_filter( $terms, function( $term ) use ( $parent_id ) {
-		return $term->parent == $parent_id;
-	} );
+	$child_terms = array_filter(
+		$terms,
+		function ( $term ) use ( $parent_id ) {
+			return $term->parent === $parent_id;
+		}
+	);
 
 	foreach ( $child_terms as $term ) {
-		$term_content = render_single_term_template( $term, $block );
+		$term_content = render_block_core_terms_template_single( $term, $block );
 
-		$children_content = render_hierarchical_terms_template( $terms, $block, $term->term_id );
+		$children_content = render_block_core_terms_template_hierarchical( $terms, $block, $term->term_id );
 
 		if ( ! empty( $children_content ) ) {
 			$term_content = str_replace( '</li>', '<ul>' . $children_content . '</ul></li>', $term_content );
@@ -118,13 +128,15 @@ function render_hierarchical_terms_template( $terms, $block, $parent_id = 0 ) {
 /**
  * Renders a single term with its inner blocks.
  *
+ * @since 6.x.x
+ *
  * @param WP_Term  $term  Term object.
  * @param WP_Block $block Block instance.
  *
  * @return string HTML content for a single term.
  */
-function render_single_term_template( $term, $block ) {
-	$inner_blocks = $block->inner_blocks;
+function render_block_core_terms_template_single( $term, $block ) {
+	$inner_blocks  = $block->inner_blocks;
 	$block_content = '';
 
 	if ( ! empty( $inner_blocks ) ) {
