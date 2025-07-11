@@ -12,6 +12,7 @@ import { Spinner } from '@wordpress/components';
 import {
 	useContext,
 	useEffect,
+	useMemo,
 	useId,
 	useRef,
 	useState,
@@ -95,6 +96,14 @@ function TableColumnField< Item >( {
 	);
 }
 
+function getHasActionsColumn< Item >( actions: Action< Item >[], item: Item ) {
+	return actions.some(
+		( action ) =>
+			! action.hideItemAction &&
+			( ! action.isEligible || action.isEligible( item ) )
+	);
+}
+
 function TableRow< Item >( {
 	hasBulkActions,
 	item,
@@ -134,6 +143,11 @@ function TableRow< Item >( {
 		( titleField && showTitle ) ||
 		( mediaField && showMedia ) ||
 		( descriptionField && showDescription );
+
+	const hasActionsColumn = useMemo(
+		() => getHasActionsColumn( actions, item ),
+		[ actions, item ]
+	);
 
 	return (
 		<tr
@@ -216,7 +230,7 @@ function TableRow< Item >( {
 					</td>
 				);
 			} ) }
-			{ !! actions?.length && (
+			{ hasActionsColumn && (
 				// Disable reason: we are not making the element interactive,
 				// but preventing any click events from bubbling up to the
 				// table row. This allows us to add a click handler to the row
@@ -265,6 +279,10 @@ function ViewTable< Item >( {
 	const [ nextHeaderMenuToFocus, setNextHeaderMenuToFocus ] =
 		useState< HTMLButtonElement >();
 	const hasBulkActions = useSomeItemHasAPossibleBulkAction( actions, data );
+	const hasActionsColumns = useMemo(
+		() => data.some( ( item ) => getHasActionsColumn( actions, item ) ),
+		[ actions, data ]
+	);
 
 	useEffect( () => {
 		if ( headerMenuToFocusRef.current ) {
@@ -404,7 +422,7 @@ function ViewTable< Item >( {
 								</th>
 							);
 						} ) }
-						{ !! actions?.length && (
+						{ hasActionsColumns && (
 							<th
 								className={ clsx(
 									'dataviews-view-table__actions-column',
