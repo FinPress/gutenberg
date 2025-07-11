@@ -94,7 +94,6 @@ const createToHaveBeenCalledWith = (
 		return spyInfo;
 	};
 
-// Define the return type of our reduce call
 type MatchersObject = Record<
 	string,
 	MatcherFunction | MatcherWithArgsFunction
