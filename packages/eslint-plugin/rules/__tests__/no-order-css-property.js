@@ -30,6 +30,10 @@ ruleTester.run( 'no-order-css-property', rule, {
 		{ code: 'const style = { border: 0 };' },
 		// 'order' as a variable, not a property
 		{ code: 'const order = 1;' },
+		// String literal with 'border', not 'order'
+		{
+			code: "container.setAttribute('style', 'position: absolute; border: 0;' );",
+		},
 	],
 	invalid: [
 		// Object style
@@ -82,19 +86,14 @@ ruleTester.run( 'no-order-css-property', rule, {
 			code: "const style = {\n    order: '123'\n};",
 			errors: [ { messageId: 'noOrder' } ],
 		},
-		// String containing 'order: 123;'
-		{
-			code: "'order: 123;'",
-			errors: [ { messageId: 'noOrder' } ],
-		},
-		// String containing '    order: 123;'
-		{
-			code: "'    order: 123;'",
-			errors: [ { messageId: 'noOrder' } ],
-		},
 		// Assigning to prop like 'style.order =  '123';'
 		{
 			code: "div.style.order = '123';",
+			errors: [ { messageId: 'noOrder' } ],
+		},
+		// Assigning as an attribute.
+		{
+			code: "orderedDiv.setAttribute( 'style', 'order: 0;' );",
 			errors: [ { messageId: 'noOrder' } ],
 		},
 	],
