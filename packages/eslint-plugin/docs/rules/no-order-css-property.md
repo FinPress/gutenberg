@@ -17,6 +17,9 @@ const Styled = styled.div`
 	display: flex;
 	order: 2;
 `;
+const theS = myDiv.style;
+theS.order = '123';
+myOtherDiv.style = { ...theS };
 ```
 
 Examples of **correct** code for this rule:
@@ -40,3 +43,18 @@ If you have a rare case where the `order` property is appropriate and does not a
 ## Run the test for this rule alone
 
 `npm run test:unit -- packages/eslint-plugin/rules/__tests__/no-order-css-property.js`
+
+or test it by adding the error in a random file (e.g. edit `/packages/myTempTestFileToDelete.ts`) and create illegal code to test, like
+
+```
+	const div = document.createElement( 'div' );
+	div.style.order = '123';
+```
+
+And run eslint, expecting to receive the 'noOrder' eslint error:
+
+```
+	npm run lint:js -- /packages/myTempTestFileToDelete.ts
+```
+
+Don't forget to delete the test file afterwards!

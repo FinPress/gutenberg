@@ -19,6 +19,7 @@ const ruleTester = new RuleTester( {
 // We need to disable the eslint rule because, ironically, eslint triggers the
 // errors when linting the staged js.
 /* eslint-disable @wordpress/no-order-css-property */
+
 ruleTester.run( 'no-order-css-property', rule, {
 	valid: [
 		// Object style, not using 'order'
@@ -89,6 +90,11 @@ ruleTester.run( 'no-order-css-property', rule, {
 		// String containing '    order: 123;'
 		{
 			code: "'    order: 123;'",
+			errors: [ { messageId: 'noOrder' } ],
+		},
+		// Assigning to prop like 'style.order =  '123';'
+		{
+			code: "div.style.order = '123';",
 			errors: [ { messageId: 'noOrder' } ],
 		},
 	],

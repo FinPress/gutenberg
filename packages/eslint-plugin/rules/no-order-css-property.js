@@ -48,6 +48,45 @@ module.exports = {
 					report( node );
 				}
 			},
+			// Detect assignments like myDiv.style.order = XXX (complex but effective)
+			AssignmentExpression( node ) {
+				const left = node.left;
+
+				// Helper to check if a MemberExpression is .order
+				function isOrderProperty( memberExpr ) {
+					return (
+						memberExpr.type === 'MemberExpression' &&
+						! memberExpr.computed &&
+						memberExpr.property.type === 'Identifier' &&
+						memberExpr.property.name === 'order'
+					);
+				}
+
+				// Helper to check if a MemberExpression is .style
+				function isStyleProperty( memberExpr ) {
+					return (
+						memberExpr.type === 'MemberExpression' &&
+						! memberExpr.computed &&
+						memberExpr.property.type === 'Identifier' &&
+						memberExpr.property.name === 'style'
+					);
+				}
+
+				// Case 1: div.style.order = '123';
+				if (
+					isOrderProperty( left ) &&
+					isStyleProperty( left.object )
+				) {
+					report( left.property );
+				}
+
+				// Case 2: theS.order = '123'; where theS is later assigned to div.style
+				// We want to catch any assignment to .order, regardless of the object,
+				// as long as it's a direct property (not computed).
+				else if ( isOrderProperty( left ) ) {
+					report( left.property );
+				}
+			},
 		};
 	},
 };
