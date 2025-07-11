@@ -89,6 +89,7 @@ The granular rulesets will not define any environment globals. As such, if they 
 | [react-no-unsafe-timeout](https://github.com/WordPress/gutenberg/tree/HEAD/packages/eslint-plugin/docs/rules/react-no-unsafe-timeout.md)                             | Disallow unsafe `setTimeout` in component.                                                      |             |
 | [valid-sprintf](https://github.com/WordPress/gutenberg/tree/HEAD/packages/eslint-plugin/docs/rules/valid-sprintf.md)                                                 | Enforce valid sprintf usage.                                                                    | ✓           |
 | [wp-global-usage](https://github.com/WordPress/gutenberg/tree/HEAD/packages/eslint-plugin/docs/rules/wp-global-usage.md)                                             | Enforce correct usage of WordPress globals like `globalThis.SCRIPT_DEBUG`.                      |             |
+| [no-order-css-property](https://github.com/WordPress/gutenberg/tree/HEAD/packages/eslint-plugin/docs/rules/no-order-css-property.md)                                 | Disallow usage of the `order` CSS property in JS (CSS-in-JS, object styles).                    |             |
 
 ### Legacy
 
