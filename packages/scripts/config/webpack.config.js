@@ -471,6 +471,7 @@ if ( hasExperimentalModulesFlag ) {
 
 		experiments: {
 			...baseConfig.experiments,
+			asyncWebAssembly: true,
 			outputModule: true,
 		},
 
