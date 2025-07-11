@@ -518,6 +518,11 @@ interface ActionBase< Item > {
 	isPrimary?: boolean;
 
 	/**
+	 * Whether to show a text button instead of an icon button in the bulk actions footer.
+	 */
+	isTextButton?: boolean;
+
+	/**
 	 * Whether the item passed as an argument supports the current action.
 	 */
 	isEligible?: ( item: Item ) => boolean;

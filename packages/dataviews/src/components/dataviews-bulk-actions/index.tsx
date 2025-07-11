@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 /**
  * WordPress dependencies
@@ -169,7 +169,11 @@ function ActionTrigger< Item >( {
 		<Button
 			disabled={ isBusy }
 			accessibleWhenDisabled
-			label={ label }
+			label={ action.isTextButton ? undefined : label }
+			children={
+				action.isTextButton ? ( label as ReactNode ) : undefined
+			}
+			variant={ action.isPrimary ? 'primary' : undefined }
 			icon={ action.icon }
 			isDestructive={ action.isDestructive }
 			size="compact"
@@ -336,7 +340,7 @@ function FooterContent< Item >( {
 			actions.filter( ( action ) => {
 				return (
 					action.supportsBulk &&
-					action.icon &&
+					( action.icon || action.isTextButton ) &&
 					selectedItems.some(
 						( item ) =>
 							! action.isEligible || action.isEligible( item )
