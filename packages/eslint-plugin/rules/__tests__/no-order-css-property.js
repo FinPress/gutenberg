@@ -96,6 +96,16 @@ ruleTester.run( 'no-order-css-property', rule, {
 			code: "orderedDiv.setAttribute( 'style', 'order: 0;' );",
 			errors: [ { messageId: 'noOrder' } ],
 		},
+		// Assigning as a property.
+		{
+			code: "div2.style.setProperty( 'order', '1' );",
+			errors: [ { messageId: 'noOrder' } ],
+		},
+		// creating CSS inline
+		{
+			code: "const style = document.createElement( 'style' ); style.textContent = `.order-one { order: 1; }`;",
+			errors: [ { messageId: 'noOrder' } ],
+		},
 	],
 	/* eslint-enable @wordpress/no-order-css-property */
 } );

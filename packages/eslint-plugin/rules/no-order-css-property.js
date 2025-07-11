@@ -81,16 +81,17 @@ module.exports = {
 
 				// Check if any sibling properties are CSS properties
 				for ( const prop of objectProps ) {
-					let keyName;
-					if ( prop.key.type === 'Identifier' ) {
-						keyName = prop.key.name;
-					} else if ( prop.key.type === 'Literal' ) {
-						keyName = prop.key.value;
-					} else {
-						keyName = null;
-					}
-					if ( keyName && cssProperties.has( keyName ) ) {
-						return true;
+					if ( prop.type === 'Property' && prop.key ) {
+						let keyName = null;
+						if ( prop.key.type === 'Identifier' ) {
+							keyName = prop.key.name;
+						} else if ( prop.key.type === 'Literal' ) {
+							keyName = prop.key.value;
+						}
+
+						if ( keyName && cssProperties.has( keyName ) ) {
+							return true;
+						}
 					}
 				}
 			}
@@ -116,14 +117,13 @@ module.exports = {
 
 				// Check if we're in a Property assignment (for object properties)
 				if ( current.type === 'Property' && current.key ) {
-					let keyName;
+					let keyName = null;
 					if ( current.key.type === 'Identifier' ) {
 						keyName = current.key.name;
 					} else if ( current.key.type === 'Literal' ) {
 						keyName = current.key.value;
-					} else {
-						keyName = null;
 					}
+
 					if ( keyName && isCSSRelatedName( keyName ) ) {
 						return true;
 					}
@@ -205,26 +205,68 @@ module.exports = {
 			return false;
 		}
 
+		// Track variable declarations to better detect DOM elements
+		// Maps variable name to its created element type (e.g., 'style', 'div')
+		const domElementVariables = new Map();
+
 		return {
+			// Track variable declarations to identify DOM elements
+			VariableDeclarator( node ) {
+				if (
+					node.id &&
+					node.id.type === 'Identifier' &&
+					node.init &&
+					node.init.type === 'CallExpression'
+				) {
+					const init = node.init;
+					// Track document.createElement calls
+					if (
+						init.callee &&
+						init.callee.type === 'MemberExpression' &&
+						init.callee.object &&
+						init.callee.object.name === 'document' &&
+						init.callee.property &&
+						init.callee.property.name === 'createElement' &&
+						init.arguments &&
+						init.arguments[ 0 ] &&
+						init.arguments[ 0 ].type === 'Literal'
+					) {
+						domElementVariables.set(
+							node.id.name,
+							init.arguments[ 0 ].value
+						);
+					}
+				}
+			},
 			// Detect order in object styles: { order: ... }
 			Property( node ) {
-				if (
-					node.key &&
-					( ( node.key.type === 'Identifier' &&
-						node.key.name === 'order' ) ||
-						( node.key.type === 'Literal' &&
-							node.key.value === 'order' ) )
-				) {
-					// Check multiple contexts:
-					// 1. Object contains other CSS properties
-					// 2. Object is assigned to a CSS-related variable
-					// 3. We're in a CSS-in-JS context
+				if ( node.key ) {
+					let isOrderProperty = false;
+
 					if (
-						isLikelyCSSContext( node.key ) ||
-						isInCSSObjectDeclaration( node ) ||
-						isInCSSInJSContext( node )
+						node.key.type === 'Identifier' &&
+						node.key.name === 'order'
 					) {
-						report( node.key );
+						isOrderProperty = true;
+					} else if (
+						node.key.type === 'Literal' &&
+						node.key.value === 'order'
+					) {
+						isOrderProperty = true;
+					}
+
+					if ( isOrderProperty ) {
+						// Check multiple contexts:
+						// 1. Object contains other CSS properties
+						// 2. Object is assigned to a CSS-related variable
+						// 3. We're in a CSS-in-JS context
+						if (
+							isLikelyCSSContext( node.key ) ||
+							isInCSSObjectDeclaration( node ) ||
+							isInCSSInJSContext( node )
+						) {
+							report( node.key );
+						}
 					}
 				}
 			},
@@ -244,15 +286,16 @@ module.exports = {
 					typeof node.value === 'string' &&
 					/(^|\s|;)order\s*:/i.test( node.value )
 				) {
-					// Be more conservative with string literals
+					// Be more conservative with string literals, only report if in a clear CSS-in-JS context
 					if ( isInCSSInJSContext( node ) ) {
 						report( node );
 					}
 				}
 			},
-			// Detect assignments like myDiv.style.order = XXX (complex but effective)
+			// Detect assignments like myDiv.style.order = XXX or styleElement.textContent = '...'
 			AssignmentExpression( node ) {
 				const left = node.left;
+				const right = node.right;
 
 				// Helper to check if a MemberExpression is .order
 				function isOrderProperty( memberExpr ) {
@@ -281,21 +324,55 @@ module.exports = {
 				) {
 					report( left.property );
 				}
-
 				// Case 2: theS.order = '123'; where theS might be assigned to div.style
-				// Be more careful here - only report if the object name suggests CSS context
 				else if ( isOrderProperty( left ) ) {
-					const objectName =
-						left.object.type === 'Identifier'
-							? left.object.name
-							: null;
+					let objectName = null;
+					if ( left.object.type === 'Identifier' ) {
+						objectName = left.object.name;
+					}
+
 					if ( objectName && isCSSRelatedName( objectName ) ) {
 						report( left.property );
+					}
+				}
+				// NEW Case 3: styleElement.textContent = `.order-one { order: 1; }`;
+				else if (
+					left.type === 'MemberExpression' &&
+					! left.computed &&
+					left.property.type === 'Identifier' &&
+					left.property.name === 'textContent' &&
+					left.object.type === 'Identifier' // e.g., 'style' in 'style.textContent'
+				) {
+					const varName = left.object.name;
+					// Check if the variable refers to a '<style>' element
+					if ( domElementVariables.get( varName ) === 'style' ) {
+						let cssContent = null;
+						if (
+							right.type === 'Literal' &&
+							typeof right.value === 'string'
+						) {
+							cssContent = right.value;
+						} else if ( right.type === 'TemplateLiteral' ) {
+							// Concatenate all parts of the template literal
+							cssContent = right.quasis
+								.map( ( q ) => q.value.cooked )
+								.join( '' );
+							// Note: This won't evaluate expressions inside template literals.
+							// For full accuracy, you'd need a more complex AST traversal or type checker.
+						}
+
+						if (
+							cssContent &&
+							/(^|\s|;)order\s*:/i.test( cssContent )
+						) {
+							report( right ); // Report the right-hand side (the content)
+						}
 					}
 				}
 			},
 
 			// Detect setAttribute with style attribute containing order
+			// NEW: Also detect setProperty for CSSStyleDeclaration
 			CallExpression( node ) {
 				// Check for setAttribute calls
 				if (
@@ -320,6 +397,35 @@ module.exports = {
 						// Check if the style string contains 'order:'
 						if ( /(^|\s|;)order\s*:/i.test( secondArg.value ) ) {
 							report( secondArg );
+						}
+					}
+				}
+				// NEW Case: Detect .style.setProperty('order', 'value')
+				else if (
+					node.callee &&
+					node.callee.type === 'MemberExpression' &&
+					node.callee.property &&
+					node.callee.property.type === 'Identifier' &&
+					node.callee.property.name === 'setProperty' &&
+					node.arguments &&
+					node.arguments.length >= 1
+				) {
+					const firstArg = node.arguments[ 0 ]; // The property name, e.g., 'order'
+					const styleObject = node.callee.object; // The object before .setProperty, e.g., 'div2.style'
+
+					// Ensure the first argument is 'order'
+					if (
+						firstArg.type === 'Literal' &&
+						firstArg.value === 'order'
+					) {
+						// Ensure it's being called on a '.style' property
+						if (
+							styleObject.type === 'MemberExpression' &&
+							! styleObject.computed &&
+							styleObject.property.type === 'Identifier' &&
+							styleObject.property.name === 'style'
+						) {
+							report( firstArg ); // Report the 'order' literal
 						}
 					}
 				}
