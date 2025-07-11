@@ -183,7 +183,9 @@ function ListItem< Item >( {
 		// If an action is eligible for all items, doesn't need
 		// to provide the `isEligible` function.
 		const _eligibleActions = actions.filter(
-			( action ) => ! action.isEligible || action.isEligible( item )
+			( action ) =>
+				! action.hideItemAction &&
+				( ! action.isEligible || action.isEligible( item ) )
 		);
 		const _primaryActions = _eligibleActions.filter(
 			( action ) => action.isPrimary && !! action.icon
