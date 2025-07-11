@@ -5,63 +5,6 @@
  * @package gutenberg
  */
 
-
-class Bindings_Unsecure_HTML_Processor extends WP_HTML_Tag_Processor {
-
-    /**
-     * Replace the inner content of a figcaption element with the passed content.
-     *
-     * @param string $new_content New content to insert in the figcaption element.
-     * @return bool Whether the inner content was properly replaced.
-     */
-    public function set_figcaption_content( $new_content ) {
-        // Check that the processor is paused on a figcaption opener tag
-        if ( $this->is_tag_closer() || 'FIGCAPTION' !== $this->get_tag() ) {
-            return false;
-        }
-
-        // Set position of the opener tag
-        $this->set_bookmark( 'opener_tag' );
-
-        // Find the closing figcaption tag
-        if ( ! $this->next_tag(
-            array(
-                'tag_name'    => 'FIGCAPTION',
-                'tag_closers' => 'visit',
-            )
-        ) || ! $this->is_tag_closer() ) {
-            return false;
-        }
-
-        // Set position of the closer tag
-        $this->set_bookmark( 'closer_tag' );
-
-        // Get opener and closer tag bookmarks
-        $opener_tag_bookmark = $this->bookmarks['opener_tag'];
-        $closer_tag_bookmark = $this->bookmarks['closer_tag'];
-
-        // Calculate the position after the opening tag
-        $after_opener_tag = $opener_tag_bookmark->start + $opener_tag_bookmark->length;
-
-        // Handle the '>' character after the tag
-        if ( '>' === $this->html[ $after_opener_tag ] ) {
-            ++$after_opener_tag;
-        }
-
-        // Calculate the length of content between tags
-        $inner_content_length = $closer_tag_bookmark->start - $after_opener_tag;
-
-        // Replace the content between the tags
-        $this->lexical_updates[] = new WP_HTML_Text_Replacement(
-            $after_opener_tag,
-            $inner_content_length,
-            $new_content
-        );
-
-        return true;
-    }
-}
-
 /**
  * Replace the `__default` block bindings attribute with the full list of supported
  * attribute names for pattern overrides.
@@ -125,7 +68,64 @@ function gutenberg_process_image_caption_binding( $block_content, $parsed_block,
 	if ( is_null( $source_value ) ) {
 		return $block_content;
 	}
-	$processor = new Bindings_Unsecure_HTML_Processor( $block_content );
+
+	// Creating an internal class to process the HTML until we have set_inner_html() available in the block API.
+	$block_reader = new class($block_content) extends WP_HTML_Tag_Processor {
+		/**
+		 * Replace the inner content of a figcaption element with the passed content.
+		 *
+		 * @param string $new_content New content to insert in the figcaption element.
+		 * @return bool Whether the inner content was properly replaced.
+		 */
+		public function set_figcaption_content( $new_content ) {
+			// Check that the processor is paused on a figcaption opener tag
+			if ( $this->is_tag_closer() || 'FIGCAPTION' !== $this->get_tag() ) {
+				return false;
+			}
+
+			// Set position of the opener tag
+			$this->set_bookmark( 'opener_tag' );
+
+			// Find the closing figcaption tag
+			if ( ! $this->next_tag(
+				array(
+					'tag_name'    => 'FIGCAPTION',
+					'tag_closers' => 'visit',
+				)
+			) || ! $this->is_tag_closer() ) {
+				return false;
+			}
+
+			// Set position of the closer tag
+			$this->set_bookmark( 'closer_tag' );
+
+			// Get opener and closer tag bookmarks
+			$opener_tag_bookmark = $this->bookmarks['opener_tag'];
+			$closer_tag_bookmark = $this->bookmarks['closer_tag'];
+
+			// Calculate the position after the opening tag
+			$after_opener_tag = $opener_tag_bookmark->start + $opener_tag_bookmark->length;
+
+			// Handle the '>' character after the tag
+			if ( '>' === $this->html[ $after_opener_tag ] ) {
+				++$after_opener_tag;
+			}
+
+			// Calculate the length of content between tags
+			$inner_content_length = $closer_tag_bookmark->start - $after_opener_tag;
+
+			// Replace the content between the tags
+			$this->lexical_updates[] = new WP_HTML_Text_Replacement(
+				$after_opener_tag,
+				$inner_content_length,
+				$new_content
+			);
+
+			return true;
+		}
+	};
+
+	$processor = new $block_reader( $block_content );
 
 	// Find and update the figcaption
 	if ( $processor->next_tag( 'FIGCAPTION' ) ) {
