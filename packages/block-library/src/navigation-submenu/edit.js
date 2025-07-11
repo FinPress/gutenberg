@@ -393,6 +393,7 @@ export default function NavigationSubmenuEdit( {
 							url: '',
 							description: '',
 							rel: '',
+							opensInNewTab: false,
 						} );
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
