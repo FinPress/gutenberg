@@ -58,7 +58,7 @@ export function __experimentalUpdateSettings(
 			}
 		}
 
-		if ( Object.hasOwn( settings, '__unstableIsPreviewMode' ) ) {
+		if ( Object.hasOwn( cleanSettings, '__unstableIsPreviewMode' ) ) {
 			deprecated(
 				"__unstableIsPreviewMode argument in wp.data.dispatch('core/block-editor').updateSettings",
 				{
@@ -66,6 +66,8 @@ export function __experimentalUpdateSettings(
 					alternative: 'isPreviewMode',
 				}
 			);
+			cleanSettings.isPreviewMode = cleanSettings.__unstableIsPreviewMode;
+			delete cleanSettings.__unstableIsPreviewMode;
 		}
 
 		if ( window.__experimentalMediaProcessing ) {
