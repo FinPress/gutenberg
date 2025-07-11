@@ -39,6 +39,8 @@ Thumbs.db
 # Report generated from jest-junit
 junit.xml
 
+.vscode/launch.json
+
 # Local overrides
 .wp-env.override.json
 playwright.config.override.ts
