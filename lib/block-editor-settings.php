@@ -159,14 +159,6 @@ function gutenberg_get_block_editor_settings( $settings ) {
 			);
 	}
 
-	if ( gutenberg_is_experiment_enabled( 'gutenberg-media-processing' ) ) {
-		/** This filter is documented in wp-admin/includes/images.php */
-		$image_size_threshold = (int) apply_filters( 'big_image_size_threshold', 2560, array( 0, 0 ), '', 0 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-
-		$settings['__experimentalAvailableImageSizes']   = gutenberg_get_all_image_sizes();
-		$settings['__experimentalBigImageSizeThreshold'] = $image_size_threshold;
-	}
-
 	return $settings;
 }
 add_filter( 'block_editor_settings_all', 'gutenberg_get_block_editor_settings', 0 );
