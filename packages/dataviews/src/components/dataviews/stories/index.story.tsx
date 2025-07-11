@@ -9,6 +9,7 @@ import type { Meta } from '@storybook/react';
 import {
 	useState,
 	useMemo,
+	useCallback,
 	createInterpolateElement,
 } from '@wordpress/element';
 import {
@@ -323,6 +324,113 @@ export const CustomPerPageSizes = () => {
 			actions={ actions.filter( ( action ) => ! action.supportsBulk ) }
 			defaultLayouts={ defaultLayouts }
 			perPageSizes={ [ 3, 6, 12, 24 ] }
+		/>
+	);
+};
+
+const Selection = ( {
+	multiple,
+	onSelectionComplete,
+}: {
+	multiple?: boolean;
+	onSelectionComplete: ( items: SpaceObject[] ) => void;
+} ) => {
+	const [ selection, setSelection ] = useState< string[] >( [] );
+	const [ view, setView ] = useState< View >( {
+		...DEFAULT_VIEW,
+		fields: [ 'categories' ],
+		titleField: 'title',
+		descriptionField: 'description',
+		mediaField: 'image',
+	} );
+
+	const { data: shownData, paginationInfo } = useMemo( () => {
+		return filterSortAndPaginate( data, view, fields );
+	}, [ view ] );
+
+	const selectionActions = useMemo(
+		() =>
+			multiple
+				? [
+						{
+							id: 'select',
+							label: __( 'Select' ),
+							isPrimary: true,
+							isEligible() {
+								return Boolean( multiple );
+							},
+							callback( items: SpaceObject[] ) {
+								onSelectionComplete( items );
+							},
+							supportsBulk: Boolean( multiple ),
+						},
+				  ]
+				: [],
+		[ multiple, onSelectionComplete ]
+	);
+
+	const onClickItem = useCallback(
+		( item: SpaceObject ) => {
+			if ( multiple ) {
+				if ( selection.includes( item.id.toString() ) ) {
+					setSelection(
+						selection.filter( ( id ) => id !== item.id.toString() )
+					);
+				} else {
+					setSelection( [ item.id.toString(), ...selection ] );
+				}
+			} else {
+				onSelectionComplete( [ item ] );
+			}
+		},
+		[ multiple, selection, onSelectionComplete ]
+	);
+
+	return (
+		<DataViews
+			getItemId={ ( item ) => item.id.toString() }
+			paginationInfo={ paginationInfo }
+			data={ shownData }
+			view={ view }
+			fields={ fields }
+			onChangeView={ setView }
+			actions={ selectionActions }
+			selection={ selection }
+			onChangeSelection={ setSelection }
+			onClickItem={ onClickItem }
+			isItemClickable={ () => true }
+			defaultLayouts={ defaultLayouts }
+		/>
+	);
+};
+
+export const SingleSelection = () => {
+	return (
+		<Selection
+			onSelectionComplete={ ( items: SpaceObject[] ) => {
+				// eslint-disable-next-line no-alert
+				alert(
+					`Selected: ${ items
+						.map( ( item ) => item.title )
+						.join( ', ' ) }`
+				);
+			} }
+		/>
+	);
+};
+
+export const MultiSelection = () => {
+	return (
+		<Selection
+			multiple
+			onSelectionComplete={ ( items: SpaceObject[] ) => {
+				// eslint-disable-next-line no-alert
+				alert(
+					`Selected: ${ items
+						.map( ( item ) => item.title )
+						.join( ', ' ) }`
+				);
+			} }
 		/>
 	);
 };
