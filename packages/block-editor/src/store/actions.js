@@ -1259,9 +1259,13 @@ export const mergeBlocks =
 			const isHeadingBlock = blockB.name === 'core/heading';
 			const isEmptyHeading =
 				isHeadingBlock &&
+				blockB.attributes &&
 				( ! blockB.attributes.content ||
 					blockB.attributes.content.length === 0 );
-			if ( isUnmodifiedBlock( blockB ) || isEmptyHeading ) {
+			if (
+				( blockB.attributes && isUnmodifiedBlock( blockB ) ) ||
+				isEmptyHeading
+			) {
 				dispatch.removeBlock(
 					clientIdB,
 					select.isBlockSelected( clientIdB )
