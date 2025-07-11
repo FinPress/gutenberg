@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { UploadError } from '../uploadError';
+import { UploadError } from '../upload-error';
 
 describe( 'UploadError', () => {
 	it( 'holds error code and file name', () => {

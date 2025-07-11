@@ -1,8 +1,8 @@
 /**
  * Internal dependencies
  */
-import { validateFileSize } from '../validateFileSize';
-import { UploadError } from '../uploadError';
+import { validateFileSize } from '../validate-file-size';
+import { UploadError } from '../upload-error';
 
 const imageFile = new window.File( [ 'fake_file' ], 'test.jpeg', {
 	type: 'image/jpeg',

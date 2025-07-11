@@ -37,6 +37,10 @@ async function getVips(): Promise< typeof Vips > {
 
 	const VIPS_CDN_URL = 'https://cdn.jsdelivr.net/npm/wasm-vips@latest/lib';
 
+	if ( 'undefined' === typeof fetch ) {
+		return Vips;
+	}
+
 	const mainBlobUrl = URL.createObjectURL(
 		await ( await fetch( `${ VIPS_CDN_URL }/vips.js` ) ).blob()
 	);

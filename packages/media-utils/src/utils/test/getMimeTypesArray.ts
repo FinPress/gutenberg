@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { getMimeTypesArray } from '../getMimeTypesArray';
+import { getMimeTypesArray } from '../get-mime-types-array';
 
 describe( 'getMimeTypesArray', () => {
 	it( 'should return null if it is "falsy" e.g: undefined or null', () => {

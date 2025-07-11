@@ -1,8 +1,8 @@
 /**
  * Internal dependencies
  */
-import { sideloadMedia } from '../sideloadMedia';
-import { sideloadToServer } from '../sideloadToServer';
+import { sideloadMedia } from '../sideload-media';
+import { sideloadToServer } from '../sideload-to-server';
 
 jest.mock( '../sideloadToServer', () => ( {
 	sideloadToServer: jest.fn(),

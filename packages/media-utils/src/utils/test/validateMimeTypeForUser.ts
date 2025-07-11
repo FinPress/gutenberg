@@ -1,8 +1,8 @@
 /**
  * Internal dependencies
  */
-import { validateMimeTypeForUser } from '../validateMimeTypeForUser';
-import { UploadError } from '../uploadError';
+import { validateMimeTypeForUser } from '../validate-mime-type-for-user';
+import { UploadError } from '../upload-error';
 
 const imageFile = new window.File( [ 'fake_file' ], 'test.jpeg', {
 	type: 'image/jpeg',
