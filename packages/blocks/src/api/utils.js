@@ -11,13 +11,14 @@ import a11yPlugin from 'colord/plugins/a11y';
 import { Component, isValidElement } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+import { RichTextData } from '@wordpress/rich-text';
+import deprecated from '@wordpress/deprecated';
 
 /**
  * Internal dependencies
  */
 import { BLOCK_ICON_DEFAULT } from './constants';
 import { getBlockType, getDefaultBlockName } from './registration';
-import { createBlock } from './factory';
 
 extend( [ namesPlugin, a11yPlugin ] );
 
@@ -38,17 +39,25 @@ const ICON_COLORS = [ '#191e23', '#f8f9f9' ];
  * @return {boolean} Whether the block is an unmodified block.
  */
 export function isUnmodifiedBlock( block ) {
-	// Cache a created default block if no cache exists or the default block
-	// name changed.
-	if ( ! isUnmodifiedBlock[ block.name ] ) {
-		isUnmodifiedBlock[ block.name ] = createBlock( block.name );
-	}
+	return Object.entries( getBlockType( block.name )?.attributes ?? {} ).every(
+		( [ key, definition ] ) => {
+			const value = block.attributes[ key ];
 
-	const newBlock = isUnmodifiedBlock[ block.name ];
-	const blockType = getBlockType( block.name );
+			// Every attribute that has a default must match the default.
+			if ( definition.hasOwnProperty( 'default' ) ) {
+				return value === definition.default;
+			}
 
-	return Object.keys( blockType?.attributes ?? {} ).every(
-		( key ) => newBlock.attributes[ key ] === block.attributes[ key ]
+			// The rich text type is a bit different from the rest because it
+			// has an implicit default value of an empty RichTextData instance,
+			// so check the length of the value.
+			if ( definition.type === 'rich-text' ) {
+				return ! value?.length;
+			}
+
+			// Every attribute that doesn't have a default should be undefined.
+			return value === undefined;
+		}
 	);
 }
 
@@ -156,6 +165,10 @@ export function getBlockLabel( blockType, attributes, context = 'visual' ) {
 		return title;
 	}
 
+	if ( label.toPlainText ) {
+		return label.toPlainText();
+	}
+
 	// Strip any HTML (i.e. RichText formatting) before returning.
 	return stripHTML( label );
 }
@@ -229,7 +242,7 @@ export function getAccessibleBlockLabel(
 
 	if ( hasLabel ) {
 		return sprintf(
-			/* translators: accessibility text. %1: The block title. %2: The block label. */
+			/* translators: accessibility text. 1: The block title. 2: The block label. */
 			__( '%1$s Block. %2$s' ),
 			title,
 			label
@@ -241,6 +254,27 @@ export function getAccessibleBlockLabel(
 		__( '%s Block' ),
 		title
 	);
+}
+
+export function getDefault( attributeSchema ) {
+	if ( attributeSchema.default !== undefined ) {
+		return attributeSchema.default;
+	}
+
+	if ( attributeSchema.type === 'rich-text' ) {
+		return new RichTextData();
+	}
+}
+
+/**
+ * Check if a block is registered.
+ *
+ * @param {string} name The block's name.
+ *
+ * @return {boolean} Whether the block is registered.
+ */
+export function isBlockRegistered( name ) {
+	return getBlockType( name ) !== undefined;
 }
 
 /**
@@ -264,9 +298,26 @@ export function __experimentalSanitizeBlockAttributes( name, attributes ) {
 			const value = attributes[ key ];
 
 			if ( undefined !== value ) {
-				accumulator[ key ] = value;
-			} else if ( schema.hasOwnProperty( 'default' ) ) {
-				accumulator[ key ] = schema.default;
+				if ( schema.type === 'rich-text' ) {
+					if ( value instanceof RichTextData ) {
+						accumulator[ key ] = value;
+					} else if ( typeof value === 'string' ) {
+						accumulator[ key ] =
+							RichTextData.fromHTMLString( value );
+					}
+				} else if (
+					schema.type === 'string' &&
+					value instanceof RichTextData
+				) {
+					accumulator[ key ] = value.toHTMLString();
+				} else {
+					accumulator[ key ] = value;
+				}
+			} else {
+				const _default = getDefault( schema );
+				if ( undefined !== _default ) {
+					accumulator[ key ] = _default;
+				}
 			}
 
 			if ( [ 'node', 'children' ].indexOf( schema.source ) !== -1 ) {
@@ -293,15 +344,65 @@ export function __experimentalSanitizeBlockAttributes( name, attributes ) {
  *
  * @return {string[]} The attribute names that have the provided role.
  */
-export function __experimentalGetBlockAttributesNamesByRole( name, role ) {
+export function getBlockAttributesNamesByRole( name, role ) {
 	const attributes = getBlockType( name )?.attributes;
-	if ( ! attributes ) return [];
+	if ( ! attributes ) {
+		return [];
+	}
 	const attributesNames = Object.keys( attributes );
-	if ( ! role ) return attributesNames;
-	return attributesNames.filter(
-		( attributeName ) =>
-			attributes[ attributeName ]?.__experimentalRole === role
-	);
+	if ( ! role ) {
+		return attributesNames;
+	}
+
+	return attributesNames.filter( ( attributeName ) => {
+		const attribute = attributes[ attributeName ];
+		if ( attribute?.role === role ) {
+			return true;
+		}
+		if ( attribute?.__experimentalRole === role ) {
+			deprecated( '__experimentalRole attribute', {
+				since: '6.7',
+				version: '6.8',
+				alternative: 'role attribute',
+				hint: `Check the block.json of the ${ name } block.`,
+			} );
+			return true;
+		}
+		return false;
+	} );
+}
+
+export const __experimentalGetBlockAttributesNamesByRole = ( ...args ) => {
+	deprecated( '__experimentalGetBlockAttributesNamesByRole', {
+		since: '6.7',
+		version: '6.8',
+		alternative: 'getBlockAttributesNamesByRole',
+	} );
+	return getBlockAttributesNamesByRole( ...args );
+};
+
+/**
+ * Checks if a block is a content block by examining its attributes.
+ * A block is considered a content block if it has at least one attribute
+ * with a role of 'content'.
+ *
+ * @param {string} name The name of the block to check.
+ * @return {boolean}    Whether the block is a content block.
+ */
+export function isContentBlock( name ) {
+	const attributes = getBlockType( name )?.attributes;
+
+	if ( ! attributes ) {
+		return false;
+	}
+
+	return !! Object.keys( attributes )?.some( ( attributeKey ) => {
+		const attribute = attributes[ attributeKey ];
+		return (
+			attribute?.role === 'content' ||
+			attribute?.__experimentalRole === 'content'
+		);
+	} );
 }
 
 /**
@@ -316,4 +417,23 @@ export function omit( object, keys ) {
 	return Object.fromEntries(
 		Object.entries( object ).filter( ( [ key ] ) => ! keys.includes( key ) )
 	);
+}
+
+/**
+ * Return the block image URL.
+ *
+ * @param {string|Object} blockTypeOrName The block type or name.
+ * @param {Object}        attributes      The block's attributes.
+ * @param {string}        context         The context in which the block is being displayed.
+ *
+ * @return {string|null} The block image URL or null.
+ */
+export function getBlockImage( blockTypeOrName, attributes, context ) {
+	const blockType = normalizeBlockType( blockTypeOrName );
+	const { __experimentalImage: getImage } = blockType;
+	const url = getImage && getImage( attributes, { context } );
+	if ( url ) {
+		return url;
+	}
+	return null;
 }

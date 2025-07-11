@@ -106,48 +106,6 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		] );
 	} );
 
-	test( 'Should navigate between inner and root blocks in navigation mode', async ( {
-		page,
-		writingFlowUtils,
-	} ) => {
-		await writingFlowUtils.addDemoContent();
-
-		// Switch to navigation mode.
-		await page.keyboard.press( 'Escape' );
-		// Arrow up to Columns block.
-		await page.keyboard.press( 'ArrowUp' );
-		await expect
-			.poll( writingFlowUtils.getActiveBlockName )
-			.toBe( 'core/columns' );
-		// Arrow right into Column block.
-		await page.keyboard.press( 'ArrowRight' );
-		await expect
-			.poll( writingFlowUtils.getActiveBlockName )
-			.toBe( 'core/column' );
-		// Arrow down to reach second Column block.
-		await page.keyboard.press( 'ArrowDown' );
-		// Arrow right again into Paragraph block.
-		await page.keyboard.press( 'ArrowRight' );
-		await expect
-			.poll( writingFlowUtils.getActiveBlockName )
-			.toBe( 'core/paragraph' );
-		// Arrow left back to Column block.
-		await page.keyboard.press( 'ArrowLeft' );
-		await expect
-			.poll( writingFlowUtils.getActiveBlockName )
-			.toBe( 'core/column' );
-		// Arrow left back to Columns block.
-		await page.keyboard.press( 'ArrowLeft' );
-		await expect
-			.poll( writingFlowUtils.getActiveBlockName )
-			.toBe( 'core/columns' );
-		// Arrow up to first paragraph.
-		await page.keyboard.press( 'ArrowUp' );
-		await expect
-			.poll( writingFlowUtils.getActiveBlockName )
-			.toBe( 'core/paragraph' );
-	} );
-
 	test( 'should navigate around inline boundaries', async ( {
 		editor,
 		page,
@@ -356,7 +314,7 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.type( 'a' );
 		await page.keyboard.press( 'Backspace' );
 		await expect.poll( editor.getEditedPostContent ).toBe( `<!-- wp:list -->
-<ul><!-- wp:list-item -->
+<ul class="wp-block-list"><!-- wp:list-item -->
 <li></li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->` );
@@ -591,6 +549,37 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 			{
 				name: 'core/paragraph',
 				attributes: { content: '>' },
+			},
+		] );
+	} );
+
+	test( 'should remove first empty paragraph on Backspace', async ( {
+		editor,
+		page,
+	} ) => {
+		await page.keyboard.press( 'Enter' );
+		await page.keyboard.press( 'Enter' );
+		await page.keyboard.type( '2' );
+		await page.keyboard.press( 'ArrowUp' );
+
+		// Ensure setup is correct.
+		expect( await editor.getBlocks() ).toMatchObject( [
+			{
+				name: 'core/paragraph',
+				attributes: { content: '' },
+			},
+			{
+				name: 'core/paragraph',
+				attributes: { content: '2' },
+			},
+		] );
+
+		await page.keyboard.press( 'Backspace' );
+
+		expect( await editor.getBlocks() ).toMatchObject( [
+			{
+				name: 'core/paragraph',
+				attributes: { content: '2' },
 			},
 		] );
 	} );
@@ -901,6 +890,24 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		).toHaveClass( /is-selected/ );
 	} );
 
+	test( 'should focus preceding tabbable using shift+tab from post title and writing flow container', async ( {
+		editor,
+		page,
+	} ) => {
+		const optionsButton = page
+			.getByRole( 'region', { name: 'Editor top bar' } )
+			.getByRole( 'button', { name: 'Options' } );
+		await page.keyboard.press( 'Shift+Tab' );
+		await expect( optionsButton ).toBeFocused();
+
+		const editorCanvasBody = editor.canvas.locator( 'body' );
+		// Focuses the editor canvas body. In the editor the click doesn’t have
+		// to be on the element itself – just somewhere that won’t focus a block.
+		await editorCanvasBody.click();
+		await page.keyboard.press( 'Shift+Tab' );
+		await expect( optionsButton ).toBeFocused();
+	} );
+
 	test( 'should only consider the content as one tab stop', async ( {
 		editor,
 		page,
@@ -923,32 +930,8 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		// Confirm correct setup.
 		await expect.poll( editor.getEditedPostContent )
 			.toBe( `<!-- wp:table -->
-<figure class="wp-block-table"><table><tbody><tr><td></td><td>2</td></tr><tr><td></td><td></td></tr></tbody></table></figure>
+<figure class="wp-block-table"><table class="has-fixed-layout"><tbody><tr><td></td><td>2</td></tr><tr><td></td><td></td></tr></tbody></table></figure>
 <!-- /wp:table -->` );
-	} );
-
-	test( 'should unselect all blocks when hitting double escape', async ( {
-		page,
-		writingFlowUtils,
-	} ) => {
-		await page.keyboard.press( 'Enter' );
-		await page.keyboard.type( 'Random Paragraph' );
-
-		await expect
-			.poll( writingFlowUtils.getActiveBlockName )
-			.toBe( 'core/paragraph' );
-
-		// First escape enters navigaiton mode.
-		await page.keyboard.press( 'Escape' );
-		await expect
-			.poll( writingFlowUtils.getActiveBlockName )
-			.toBe( 'core/paragraph' );
-
-		// Second escape unselects the blocks.
-		await page.keyboard.press( 'Escape' );
-		await expect
-			.poll( writingFlowUtils.getActiveBlockName )
-			.toBe( undefined );
 	} );
 
 	// Checks for regressions of https://github.com/WordPress/gutenberg/issues/40091.
@@ -1122,9 +1105,12 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.type( 'synced' );
 
 		await editor.clickBlockOptionsMenuItem( 'Create pattern' );
-		await page.keyboard.press( 'Tab' );
-		await page.keyboard.press( 'Tab' );
-		await page.keyboard.type( 'test' );
+		const createPatternDialog = editor.page.getByRole( 'dialog', {
+			name: 'add pattern',
+		} );
+		await createPatternDialog
+			.getByRole( 'textbox', { name: 'Name' } )
+			.fill( 'test' );
 		await page.keyboard.press( 'Enter' );
 
 		await expect(
@@ -1169,7 +1155,7 @@ class WritingFlowUtils {
 			.locator( 'role=button[name="Two columns; equal split"i]' )
 			.click();
 		await this.editor.canvas
-			.locator( 'role=button[name="Add block"i]' )
+			.locator( '.is-selected >> role=button[name="Add block"i]' )
 			.click();
 		await this.page.click(
 			'role=listbox[name="Blocks"i] >> role=option[name="Paragraph"i]'
@@ -1186,11 +1172,11 @@ class WritingFlowUtils {
 			'role=listbox[name="Blocks"i] >> role=option[name="Paragraph"i]'
 		);
 		await this.page.keyboard.type( '2nd col' ); // If this text is too long, it may wrap to a new line and cause test failure. That's why we're using "2nd" instead of "Second" here.
-
-		await this.page.keyboard.press( 'Escape' ); // Enter navigation mode.
-		await this.page.keyboard.press( 'ArrowLeft' ); // Move to the column block.
-		await this.page.keyboard.press( 'ArrowLeft' ); // Move to the columns block.
-		await this.page.keyboard.press( 'Enter' ); // Enter edit mode with the columns block selected.
+		await this.editor.showBlockToolbar();
+		await this.page.keyboard.press( 'Shift+Tab' ); // Move to toolbar to select parent
+		await this.page.keyboard.press( 'Enter' ); // Selects the column block.
+		await this.page.keyboard.press( 'Shift+Tab' ); // Move to toolbar to select parent
+		await this.page.keyboard.press( 'Enter' ); // Selects the columns block.
 		await this.page.keyboard.press( 'Enter' ); // Creates a paragraph after the columns block.
 		await this.page.keyboard.type( 'Second paragraph' );
 	}

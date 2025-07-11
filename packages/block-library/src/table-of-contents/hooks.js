@@ -16,8 +16,8 @@ function getLatestHeadings( select, clientId ) {
 	const {
 		getBlockAttributes,
 		getBlockName,
-		getClientIdsWithDescendants,
-		__experimentalGetGlobalBlocksByName: getGlobalBlocksByName,
+		getBlocksByName,
+		getClientIdsOfDescendants,
 	} = select( blockEditorStore );
 
 	// FIXME: @wordpress/block-library should not depend on @wordpress/editor.
@@ -28,11 +28,15 @@ function getLatestHeadings( select, clientId ) {
 	// eslint-disable-next-line @wordpress/data-no-store-string-literals
 	const permalink = select( 'core/editor' ).getPermalink() ?? null;
 
-	const isPaginated = getGlobalBlocksByName( 'core/nextpage' ).length !== 0;
-	const { onlyIncludeCurrentPage } = getBlockAttributes( clientId ) ?? {};
+	const isPaginated = getBlocksByName( 'core/nextpage' ).length !== 0;
+	const { onlyIncludeCurrentPage, maxLevel } =
+		getBlockAttributes( clientId ) ?? {};
+
+	// Get post-content block client ID.
+	const [ postContentClientId = '' ] = getBlocksByName( 'core/post-content' );
 
 	// Get the client ids of all blocks in the editor.
-	const allBlockClientIds = getClientIdsWithDescendants();
+	const allBlockClientIds = getClientIdsOfDescendants( postContentClientId );
 
 	// If onlyIncludeCurrentPage is true, calculate the page (of a paginated post) this block is part of, so we know which headings to include; otherwise, skip the calculation.
 	let tocPage = 1;
@@ -97,6 +101,11 @@ function getLatestHeadings( select, clientId ) {
 			if ( blockName === 'core/heading' ) {
 				const headingAttributes = getBlockAttributes( blockClientId );
 
+				// Skip headings that are deeper than maxLevel
+				if ( maxLevel && headingAttributes.level > maxLevel ) {
+					continue;
+				}
+
 				const canBeLinked =
 					typeof headingPageLink === 'string' &&
 					typeof headingAttributes.anchor === 'string' &&
@@ -139,8 +148,11 @@ function observeCallback( select, dispatch, clientId ) {
 
 	const headings = getLatestHeadings( select, clientId );
 	if ( ! fastDeepEqual( headings, attributes.headings ) ) {
-		__unstableMarkNextChangeAsNotPersistent();
-		updateBlockAttributes( clientId, { headings } );
+		// Executing the update in a microtask ensures that the non-persistent marker doesn't affect an attribute triggering the change.
+		window.queueMicrotask( () => {
+			__unstableMarkNextChangeAsNotPersistent();
+			updateBlockAttributes( clientId, { headings } );
+		} );
 	}
 }
 

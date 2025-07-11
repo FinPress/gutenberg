@@ -26,8 +26,8 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await admin.visitSiteEditor( {
 				postId: 'emptytheme//header',
 				postType: 'wp_template_part',
+				canvas: 'edit',
 			} );
-			await editor.canvas.locator( 'body' ).click();
 			await requestUtils.createNavigationMenu( {
 				title: 'Hidden menu',
 				content: `
@@ -39,7 +39,9 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 				name: 'core/navigation',
 				attributes: { overlayMenu: 'always' },
 			} );
-			await editor.saveSiteEditorEntities();
+			await editor.saveSiteEditorEntities( {
+				isOnlyCurrentEntityDirty: true,
+			} );
 		} );
 
 		test( 'Overlay menu interactions', async ( { page, pageUtils } ) => {
@@ -84,7 +86,7 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 		/**
 		 * These are already tested within the Overlay Interactions test above, but Safari is flakey on the Tab
 		 * keypresses (passes 50 - 70% of the time). Tab keypresses are testing fine manually in Safari, but not
-		 * in the test. nce we figure out why the Tab keypresses are flakey in the test, we can
+		 * in the test. Once we figure out why the Tab keypresses are flakey in the test, we can
 		 * remove this test and only rely on the Overlay Interactions test above and add a (@firefox, @webkit)
 		 * directive to the describe() statement. https://github.com/WordPress/gutenberg/pull/55198
 		 */
@@ -112,7 +114,11 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			// Test: overlay menu focuses on first element after opening
 			await expect( overlayMenuFirstElement ).toBeFocused();
 
-			// Not Tested: overlay menu traps focus
+			// Test: overlay menu traps focus
+			await pageUtils.pressKeys( 'Tab', { times: 2, delay: 50 } );
+			await expect( closeMenuButton ).toBeFocused();
+			await pageUtils.pressKeys( 'Shift+Tab', { times: 2, delay: 50 } );
+			await expect( overlayMenuFirstElement ).toBeFocused();
 
 			// Test: overlay menu closes on click on close menu button
 			await closeMenuButton.click();
@@ -132,8 +138,8 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await admin.visitSiteEditor( {
 				postId: 'emptytheme//header',
 				postType: 'wp_template_part',
+				canvas: 'edit',
 			} );
-			await editor.canvas.locator( 'body' ).click();
 			await requestUtils.createNavigationMenu( {
 				title: 'Hidden menu',
 				content: `
@@ -155,7 +161,9 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 				name: 'core/navigation',
 				attributes: { overlayMenu: 'off', openSubmenusOnClick: true },
 			} );
-			await editor.saveSiteEditorEntities();
+			await editor.saveSiteEditorEntities( {
+				isOnlyCurrentEntityDirty: true,
+			} );
 		} );
 
 		test( 'Submenu interactions', async ( { page, pageUtils } ) => {
@@ -248,6 +256,15 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			// Tab outside the complex submenu.
 			await page.keyboard.press( 'Tab' );
 			await expect( firstLevelElement ).toBeHidden();
+
+			// Test: nested submenu closes on ESC key and focuses parent menu item:
+			// See: https://github.com/WordPress/gutenberg/issues/69834
+			await complexSubmenuButton.click();
+			await nestedSubmenuButton.click();
+			await expect( secondLevelElement ).toBeVisible();
+			await pageUtils.pressKeys( 'Escape' );
+			await expect( secondLevelElement ).toBeHidden();
+			await expect( nestedSubmenuButton ).toBeFocused();
 		} );
 
 		/**
@@ -336,6 +353,15 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await page.click( 'body' );
 			await expect( firstLevelElement ).toBeHidden();
 
+			// Test: nested submenu closes on ESC key and focuses parent menu item:
+			// See: https://github.com/WordPress/gutenberg/issues/69834
+			await complexSubmenuButton.click();
+			await nestedSubmenuButton.click();
+			await expect( secondLevelElement ).toBeVisible();
+			await pageUtils.pressKeys( 'Escape' );
+			await expect( secondLevelElement ).toBeHidden();
+			await expect( nestedSubmenuButton ).toBeFocused();
+
 			// Tests not covered: Tabbing to close menus
 		} );
 	} );
@@ -345,8 +371,8 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await admin.visitSiteEditor( {
 				postId: 'emptytheme//header',
 				postType: 'wp_template_part',
+				canvas: 'edit',
 			} );
-			await editor.canvas.locator( 'body' ).click();
 			await requestUtils.createNavigationMenu( {
 				title: 'Hidden menu',
 				content: `
@@ -362,7 +388,9 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 				name: 'core/navigation',
 				attributes: { overlayMenu: 'off' },
 			} );
-			await editor.saveSiteEditorEntities();
+			await editor.saveSiteEditorEntities( {
+				isOnlyCurrentEntityDirty: true,
+			} );
 		} );
 
 		test( 'submenu click on the arrow interactions', async ( { page } ) => {
@@ -439,8 +467,8 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await admin.visitSiteEditor( {
 				postId: 'emptytheme//header',
 				postType: 'wp_template_part',
+				canvas: 'edit',
 			} );
-			await editor.canvas.locator( 'body' ).click();
 			await requestUtils.createNavigationMenu( {
 				title: 'Page list menu',
 				content: `
@@ -452,7 +480,9 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 				name: 'core/navigation',
 				attributes: { overlayMenu: 'off', openSubmenusOnClick: true },
 			} );
-			await editor.saveSiteEditorEntities();
+			await editor.saveSiteEditorEntities( {
+				isOnlyCurrentEntityDirty: true,
+			} );
 		} );
 
 		test( 'page-list submenu user interactions', async ( {

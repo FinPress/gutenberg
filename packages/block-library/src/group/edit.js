@@ -8,8 +8,9 @@ import {
 	InspectorControls,
 	useInnerBlocksProps,
 	store as blockEditorStore,
+	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
-import { SelectControl } from '@wordpress/components';
+import { useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { View } from '@wordpress/primitives';
 
@@ -17,6 +18,9 @@ import { View } from '@wordpress/primitives';
  * Internal dependencies
  */
 import GroupPlaceHolder, { useShouldShowPlaceHolder } from './placeholder';
+import { unlock } from '../lock-unlock';
+
+const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
 /**
  * Render inspector controls for the Group block.
@@ -24,35 +28,17 @@ import GroupPlaceHolder, { useShouldShowPlaceHolder } from './placeholder';
  * @param {Object}   props                 Component props.
  * @param {string}   props.tagName         The HTML tag name.
  * @param {Function} props.onSelectTagName onChange function for the SelectControl.
+ * @param {string}   props.clientId        The client ID of the current block.
  *
  * @return {JSX.Element}                The control group.
  */
-function GroupEditControls( { tagName, onSelectTagName } ) {
-	const htmlElementMessages = {
-		header: __(
-			'The <header> element should represent introductory content, typically a group of introductory or navigational aids.'
-		),
-		main: __(
-			'The <main> element should be used for the primary content of your document only. '
-		),
-		section: __(
-			"The <section> element should represent a standalone portion of the document that can't be better represented by another element."
-		),
-		article: __(
-			'The <article> element should represent a self-contained, syndicatable portion of the document.'
-		),
-		aside: __(
-			"The <aside> element should represent a portion of a document whose content is only indirectly related to the document's main content."
-		),
-		footer: __(
-			'The <footer> element should represent a footer for its nearest sectioning element (e.g.: <section>, <article>, <main> etc.).'
-		),
-	};
+function GroupEditControls( { tagName, onSelectTagName, clientId } ) {
 	return (
 		<InspectorControls group="advanced">
-			<SelectControl
-				__nextHasNoMarginBottom
-				label={ __( 'HTML element' ) }
+			<HTMLElementControl
+				tagName={ tagName }
+				onChange={ onSelectTagName }
+				clientId={ clientId }
 				options={ [
 					{ label: __( 'Default (<div>)' ), value: 'div' },
 					{ label: '<header>', value: 'header' },
@@ -62,21 +48,12 @@ function GroupEditControls( { tagName, onSelectTagName } ) {
 					{ label: '<aside>', value: 'aside' },
 					{ label: '<footer>', value: 'footer' },
 				] }
-				value={ tagName }
-				onChange={ onSelectTagName }
-				help={ htmlElementMessages[ tagName ] }
 			/>
 		</InspectorControls>
 	);
 }
 
-function GroupEdit( {
-	attributes,
-	name,
-	setAttributes,
-	clientId,
-	__unstableLayoutClassNames: layoutClassNames,
-} ) {
+function GroupEdit( { attributes, name, setAttributes, clientId } ) {
 	const { hasInnerBlocks, themeSupportsLayout } = useSelect(
 		( select ) => {
 			const { getBlock, getSettings } = select( blockEditorStore );
@@ -102,9 +79,9 @@ function GroupEdit( {
 		themeSupportsLayout || type === 'flex' || type === 'grid';
 
 	// Hooks.
-	const blockProps = useBlockProps( {
-		className: ! layoutSupportEnabled ? layoutClassNames : null,
-	} );
+	const ref = useRef();
+	const blockProps = useBlockProps( { ref } );
+
 	const [ showPlaceholder, setShowPlaceholder ] = useShouldShowPlaceHolder( {
 		attributes,
 		usedLayoutType: type,
@@ -130,10 +107,10 @@ function GroupEdit( {
 			? blockProps
 			: { className: 'wp-block-group__inner-container' },
 		{
+			dropZoneElement: ref.current,
 			templateLock,
 			allowedBlocks,
 			renderAppender,
-			__unstableDisableLayoutClassNames: ! layoutSupportEnabled,
 		}
 	);
 
@@ -152,6 +129,7 @@ function GroupEdit( {
 				onSelectTagName={ ( value ) =>
 					setAttributes( { tagName: value } )
 				}
+				clientId={ clientId }
 			/>
 			{ showPlaceholder && (
 				<View>

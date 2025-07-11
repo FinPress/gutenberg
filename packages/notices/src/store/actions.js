@@ -209,7 +209,7 @@ export function createInfoNotice( content, options ) {
  *             }
  *         >
  *             { __(
- *                 'Generate an snackbar error notice with explicit dismiss button.'
+ *                 'Generate a snackbar error notice with explicit dismiss button.'
  *             ) }
  *         </Button>
  *     );
@@ -330,7 +330,7 @@ export function removeNotice( id, context = DEFAULT_CONTEXT ) {
  * 	const notices = useSelect( ( select ) =>
  * 		select( noticesStore ).getNotices()
  * 	);
- * 	const { removeNotices } = useDispatch( noticesStore );
+ * 	const { removeAllNotices } = useDispatch( noticesStore );
  * 	return (
  * 		<>
  * 			<ul>

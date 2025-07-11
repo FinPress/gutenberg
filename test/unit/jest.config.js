@@ -8,18 +8,25 @@ const transpiledPackageNames = glob( 'packages/*/src/index.{js,ts,tsx}' ).map(
 	( fileName ) => fileName.split( '/' )[ 1 ]
 );
 
+// Make sure the tests run in UTC timezone, regardless of the system timezone.
+process.env.TZ = 'UTC';
+
 module.exports = {
 	rootDir: '../../',
 	moduleNameMapper: {
 		[ `@wordpress\\/(${ transpiledPackageNames.join( '|' ) })$` ]:
 			'packages/$1/src',
+		'.+\\.wasm$': '<rootDir>/test/unit/config/wasm-stub.js',
 	},
 	preset: '@wordpress/jest-preset-default',
 	setupFiles: [
 		'<rootDir>/test/unit/config/global-mocks.js',
 		'<rootDir>/test/unit/config/gutenberg-env.js',
 	],
-	setupFilesAfterEnv: [ '<rootDir>/test/unit/config/testing-library.js' ],
+	setupFilesAfterEnv: [
+		'<rootDir>/test/unit/config/testing-library.js',
+		'<rootDir>/test/unit/mocks/match-media.js',
+	],
 	testEnvironmentOptions: {
 		url: 'http://localhost/',
 	},
@@ -39,6 +46,10 @@ module.exports = {
 	transform: {
 		'^.+\\.[jt]sx?$': '<rootDir>/test/unit/scripts/babel-transformer.js',
 	},
+	transformIgnorePatterns: [
+		'/node_modules/(?!(docker-compose|yaml|preact|@preact|parsel-js)/)',
+		'\\.pnp\\.[^\\/]+$',
+	],
 	snapshotSerializers: [
 		'@emotion/jest/serializer',
 		'snapshot-diff/serializer',

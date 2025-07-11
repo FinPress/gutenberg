@@ -6,23 +6,28 @@ import {
 	InspectorControls,
 	useBlockProps,
 	useInnerBlocksProps,
-	__experimentalRecursionProvider as RecursionProvider,
-	__experimentalUseHasRecursion as useHasRecursion,
+	RecursionProvider,
+	useHasRecursion,
 	Warning,
+	__experimentalUseBlockPreview as useBlockPreview,
 } from '@wordpress/block-editor';
 import { SelectControl } from '@wordpress/components';
+import { parse } from '@wordpress/blocks';
 import {
 	useEntityProp,
 	useEntityBlockEditor,
 	store as coreStore,
 } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
+import { useMemo } from '@wordpress/element';
+
 /**
  * Internal dependencies
  */
 import { useCanEditEntity } from '../utils/hooks';
 
 function ReadOnlyContent( {
+	parentLayout,
 	layoutClassNames,
 	userCanEdit,
 	postType,
@@ -36,7 +41,28 @@ function ReadOnlyContent( {
 		postId
 	);
 	const blockProps = useBlockProps( { className: layoutClassNames } );
-	return content?.protected && ! userCanEdit ? (
+	const blocks = useMemo( () => {
+		return content?.raw ? parse( content.raw ) : [];
+	}, [ content?.raw ] );
+	const blockPreviewProps = useBlockPreview( {
+		blocks,
+		props: blockProps,
+		layout: parentLayout,
+	} );
+
+	if ( userCanEdit ) {
+		/*
+		 * Rendering the block preview using the raw content blocks allows for
+		 * block support styles to be generated and applied by the editor.
+		 *
+		 * The preview using the raw blocks can only be presented to users with
+		 * edit permissions for the post to prevent potential exposure of private
+		 * block content.
+		 */
+		return <div { ...blockPreviewProps }></div>;
+	}
+
+	return content?.protected ? (
 		<TagName { ...blockProps }>
 			<Warning>{ __( 'This content is password protected.' ) }</Warning>
 		</TagName>
@@ -102,6 +128,7 @@ function Content( props ) {
 		<EditableContent { ...props } />
 	) : (
 		<ReadOnlyContent
+			parentLayout={ props.parentLayout }
 			layoutClassNames={ layoutClassNames }
 			userCanEdit={ userCanEdit }
 			postType={ postType }
@@ -187,9 +214,10 @@ function PostContentEditControls( { tagName, onSelectTagName } ) {
 
 export default function PostContentEdit( {
 	context,
-	__unstableLayoutClassNames: layoutClassNames,
 	attributes: { tagName = 'div' },
 	setAttributes,
+	__unstableLayoutClassNames: layoutClassNames,
+	__unstableParentLayout: parentLayout,
 } ) {
 	const { postId: contextPostId, postType: contextPostType } = context;
 	const hasAlreadyRendered = useHasRecursion( contextPostId );
@@ -198,20 +226,22 @@ export default function PostContentEdit( {
 		return <RecursionError />;
 	}
 
+	const handleSelectTagName = ( value ) => {
+		setAttributes( { tagName: value } );
+	};
+
 	return (
 		<>
 			<PostContentEditControls
 				tagName={ tagName }
-				onSelectTagName={ ( value ) =>
-					setAttributes( { tagName: value } )
-				}
+				onSelectTagName={ handleSelectTagName }
 			/>
 			<RecursionProvider uniqueId={ contextPostId }>
 				{ contextPostId && contextPostType ? (
 					<Content
 						context={ context }
+						parentLayout={ parentLayout }
 						layoutClassNames={ layoutClassNames }
-						tagName={ tagName }
 					/>
 				) : (
 					<Placeholder layoutClassNames={ layoutClassNames } />

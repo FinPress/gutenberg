@@ -4,26 +4,11 @@ The WordPress block editor is a powerful tool that allows you to create and form
 
 This package can also be used to create custom block editors for virtually any other web application. This means that you can use the same blocks and block editing experience outside of WordPress.
 
-![alt text](https://developer.wordpress.org/files/2023/07/custom-block-editor.png 'The Standalone Editor instance populated with example Blocks within a custom WordPress admin page.')
+![WordPress block editor showing content blocks and editing options](https://developer.wordpress.org/files/2023/07/custom-block-editor.png 'The Standalone Editor instance populated with example Blocks within a custom WordPress admin page.')
 
 This flexibility and interoperability makes blocks a powerful tool for building and managing content across multiple applications. It also makes it simpler for developers to create content editors that work best for their users.
 
 This guide covers the basics of creating your first custom block editor.
-
-## Table of contents
-
--   [Introduction](#introduction)
-- 	[Code Syntax](#code-syntax)
--   [What you're going to be building](#what-youre-going-to-be-building)
--   [Plugin setup and organization](#plugin-setup-and-organization)
--   [The "Core" of the editor](#the-core-of-the-editor)
--   [Creating the custom "Block Editor" page](#creating-the-custom-block-editor-page)
--   [Registering and rendering the custom block editor](#registering-and-rendering-the-custom-block-editor)
--   [Reviewing the `<Editor>` component](#reviewing-the-editor-component)
--   [The custom `<BlockEditor>`](#the-custom-blockeditor)
--   [Reviewing the sidebar](#reviewing-the-sidebar)
--   [Block persistence](#block-persistence)
--   [Wrapping up](#wrapping-up)
 
 ## Introduction
 
@@ -39,7 +24,7 @@ By the end of this article, you will have a solid understanding of the block edi
 
 ## Code syntax
 
-The code snippets in this guide use JSX syntax. However, you could use plain JavaScript if you prefer. However, once familiar with JSX, many developers find it easier to read and write, so most code examples in the Block Editor Handbook use this syntax.
+The code snippets in this guide use JSX syntax. However, you could use plain JavaScript if you prefer. However, once familiar with JSX, many developers find it easier to read and write, so all code examples in the Block Editor Handbook use this syntax.
 
 ## What you're going to be building
 
@@ -61,7 +46,7 @@ The custom editor is going to be built as a WordPress plugin. To keep things sim
 
 The plugin file structure will look like this:
 
-![alt text](https://wordpress.org/gutenberg/files/2020/03/repo-files.png 'Screenshot showing file structure of the Plugin at https://github.com/getdave/standalone-block-editor.')
+![Project directory listing with configuration and source files](https://wordpress.org/gutenberg/files/2020/03/repo-files.png 'Screenshot showing file structure of the Plugin at https://github.com/getdave/standalone-block-editor.')
 
 Here is a brief summary of what's going on:
 
@@ -292,7 +277,7 @@ function Editor( { settings } ) {
 }
 ```
 
-In this process, the core of the editor's layout is being scaffolded, along with a few specialized [context providers](https://reactjs.org/docs/context.html#contextprovider) that make specific functionality available throughout the component hierarchy.
+In this process, the core of the editor's layout is being scaffolded, along with a few specialized [context providers](https://react.dev/reference/react/createContext#provider) that make specific functionality available throughout the component hierarchy.
 
 Let's examine these in more detail:
 
@@ -476,7 +461,7 @@ it display within the editor's sidebar. Exploring this component in more detail 
 You have come a long way on your journey to create a custom block editor. But there is one major area left to touch upon - block persistence. In other words, having your
 blocks saved and available _between_ page refreshes.
 
-![alt text](https://developer.wordpress.org/files/2023/07/custom-block-editor-persistance.gif 'Screencapture showing blocks being restored between page refreshes.')
+![WordPress custom block editor interface with various content blocks and editing options](https://developer.wordpress.org/files/2023/07/custom-block-editor-persistance.gif 'Screencapture showing blocks being restored between page refreshes.')
 
 As this is only an _experiment_, this guide has opted to utilize the browser's `localStorage` API to handle saving block data. In a real-world scenario, you would likely choose a more reliable and robust system (e.g. a database).
 

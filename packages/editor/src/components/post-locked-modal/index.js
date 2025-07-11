@@ -7,6 +7,7 @@ import {
 	Button,
 	ExternalLink,
 	__experimentalHStack as HStack,
+	withFilters,
 } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { addQueryArgs } from '@wordpress/url';
@@ -20,7 +21,7 @@ import { store as coreStore } from '@wordpress/core-data';
  */
 import { store as editorStore } from '../../store';
 
-export default function PostLockedModal() {
+function PostLockedModal() {
 	const instanceId = useInstanceId( PostLockedModal );
 	const hookName = 'core/editor/post-locked-modal-' + instanceId;
 	const { autosave, updatePostLock } = useDispatch( editorStore );
@@ -168,11 +169,13 @@ export default function PostLockedModal() {
 					? __( 'Someone else has taken over this post' )
 					: __( 'This post is already being edited' )
 			}
-			focusOnMount={ true }
+			focusOnMount
 			shouldCloseOnClickOutside={ false }
 			shouldCloseOnEsc={ false }
 			isDismissible={ false }
+			// Do not remove this class, as this class is used by third party plugins.
 			className="editor-post-locked-modal"
+			size="medium"
 		>
 			<HStack alignment="top" spacing={ 6 }>
 				{ !! userAvatar && (
@@ -248,11 +251,19 @@ export default function PostLockedModal() {
 						justify="flex-end"
 					>
 						{ ! isTakeover && (
-							<Button variant="tertiary" href={ unlockUrl }>
+							<Button
+								__next40pxDefaultSize
+								variant="tertiary"
+								href={ unlockUrl }
+							>
 								{ __( 'Take over' ) }
 							</Button>
 						) }
-						<Button variant="primary" href={ allPostsUrl }>
+						<Button
+							__next40pxDefaultSize
+							variant="primary"
+							href={ allPostsUrl }
+						>
 							{ allPostsLabel }
 						</Button>
 					</HStack>
@@ -261,3 +272,13 @@ export default function PostLockedModal() {
 		</Modal>
 	);
 }
+
+/**
+ * A modal component that is displayed when a post is locked for editing by another user.
+ * The modal provides information about the lock status and options to take over or exit the editor.
+ *
+ * @return {React.ReactNode} The rendered PostLockedModal component.
+ */
+export default globalThis.IS_GUTENBERG_PLUGIN
+	? withFilters( 'editor.PostLockedModal' )( PostLockedModal )
+	: PostLockedModal;

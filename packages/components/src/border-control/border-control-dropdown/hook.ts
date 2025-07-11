@@ -57,8 +57,8 @@ export function useBorderControlDropdown(
 	// Generate class names.
 	const cx = useCx();
 	const classes = useMemo( () => {
-		return cx( styles.borderControlDropdown( size ), className );
-	}, [ className, cx, size ] );
+		return cx( styles.borderControlDropdown, className );
+	}, [ className, cx ] );
 
 	const indicatorClassName = useMemo( () => {
 		return cx( styles.borderColorIndicator );
@@ -76,8 +76,8 @@ export function useBorderControlDropdown(
 		return cx( styles.borderControlPopoverContent );
 	}, [ cx ] );
 
-	const resetButtonClassName = useMemo( () => {
-		return cx( styles.resetButton );
+	const resetButtonWrapperClassName = useMemo( () => {
+		return cx( styles.resetButtonWrapper );
 	}, [ cx ] );
 
 	return {
@@ -94,7 +94,8 @@ export function useBorderControlDropdown(
 		onReset,
 		popoverContentClassName,
 		popoverControlsClassName,
-		resetButtonClassName,
+		resetButtonWrapperClassName,
+		size,
 		__experimentalIsRenderedInSidebar,
 	};
 }
