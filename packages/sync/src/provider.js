@@ -119,6 +119,9 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 				// Ensure that we only scope the undo/redo to the current client, and Gutenberg origins.
 				// ToDo: Keep an eye on this, as it needs to be battle tested.
 				trackedOrigins: new Set( [ 'gutenberg', doc.clientID ] ),
+				// This ensures that are able to improve the client specific undo/redo experience.
+				// This reduces the bugs we see, but it doesn't eliminate them entirely.
+				ignoreRemoteMapChanges: true,
 			} );
 			undoManager.ydoc = doc;
 			undoManager.yMap = undoManagerMap;
