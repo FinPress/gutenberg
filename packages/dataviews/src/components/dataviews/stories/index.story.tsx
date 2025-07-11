@@ -299,3 +299,30 @@ export const WithCard = () => {
 		</Card>
 	);
 };
+
+export const CustomPerPageSizes = () => {
+	const [ view, setView ] = useState< View >( {
+		...DEFAULT_VIEW,
+		fields: [ 'categories' ],
+		titleField: 'title',
+		descriptionField: 'description',
+		mediaField: 'image',
+		perPage: 3,
+	} );
+	const { data: shownData, paginationInfo } = useMemo( () => {
+		return filterSortAndPaginate( data, view, fields );
+	}, [ view ] );
+	return (
+		<DataViews
+			getItemId={ ( item ) => item.id.toString() }
+			paginationInfo={ paginationInfo }
+			data={ shownData }
+			view={ view }
+			fields={ fields }
+			onChangeView={ setView }
+			actions={ actions.filter( ( action ) => ! action.supportsBulk ) }
+			defaultLayouts={ defaultLayouts }
+			perPageSizes={ [ 3, 6, 12, 24 ] }
+		/>
+	);
+};

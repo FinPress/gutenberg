@@ -8,6 +8,20 @@ export type * as Y from 'yjs';
 export type ObjectID = string;
 export type ObjectType = string;
 export type ObjectData = any;
+export type UndoManager = Y.UndoManager;
+
+// Duplicated from `@wordpress/undo-manager` to avoid circular dependencies.
+export type HistoryChange = {
+	from: any;
+	to: any;
+};
+
+export type HistoryChanges = {
+	id: string | Record< string, any >;
+	changes: Record< string, HistoryChange >;
+};
+
+export type HistoryRecord = Array< HistoryChanges >;
 
 export type ObjectConfig = {
 	fetch: ( id: ObjectID ) => Promise< ObjectData >;
@@ -38,6 +52,11 @@ export interface PendingAwarenessSetup {
 }
 
 export type SyncProvider = {
+	addRecord: ( record: HistoryRecord, isStaged: boolean ) => void;
+	undo: () => HistoryRecord | undefined;
+	redo: () => HistoryRecord | undefined;
+	canUndo: () => boolean;
+	canRedo: () => boolean;
 	register: ( type: ObjectType, config: ObjectConfig ) => void;
 	bootstrap: (
 		type: ObjectType,
