@@ -83,6 +83,7 @@ export function useSomeItemHasAPossibleBulkAction< Item >(
 			return actions.some( ( action ) => {
 				return (
 					action.supportsBulk &&
+					! action.hideItemAction &&
 					( ! action.isEligible || action.isEligible( item ) )
 				);
 			} );

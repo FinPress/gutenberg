@@ -357,6 +357,7 @@ const Selection = ( {
 							label: __( 'Select' ),
 							isPrimary: true,
 							isTextButton: true,
+							hideItemAction: true,
 							isEligible() {
 								return Boolean( multiple );
 							},

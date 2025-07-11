@@ -533,6 +533,11 @@ interface ActionBase< Item > {
 	supportsBulk?: boolean;
 
 	/**
+	 * Whether the action is hidden on the item.
+	 */
+	hideItemAction?: boolean;
+
+	/**
 	 * The context in which the action is visible.
 	 * This is only a "meta" information for now.
 	 */
