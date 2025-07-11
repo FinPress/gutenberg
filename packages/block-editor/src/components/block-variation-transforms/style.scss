@@ -1,4 +1,4 @@
-fieldset.block-editor-block-variation-transforms {
+.block-editor-block-variation-transforms:where(fieldset) {
 	// Reset `fieldset` browser defaults.
 	border: 0;
 	padding: 0;
