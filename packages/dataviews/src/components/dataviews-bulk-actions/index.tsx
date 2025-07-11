@@ -173,7 +173,9 @@ function ActionTrigger< Item >( {
 			children={
 				action.isTextButton ? ( label as ReactNode ) : undefined
 			}
-			variant={ action.isPrimary ? 'primary' : undefined }
+			variant={
+				action.isPrimary && action.isTextButton ? 'primary' : undefined
+			}
 			icon={ action.icon }
 			isDestructive={ action.isDestructive }
 			size="compact"
