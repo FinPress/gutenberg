@@ -16,7 +16,6 @@ export default function save( {
 		<TagName { ...blockProps }>
 			{ isLink ? (
 				<a href={ href } target={ linkTarget } rel={ rel }>
-					{ /* This will be replaced by the server-side render */ }
 					{ __( 'Term Name' ) }
 				</a>
 			) : (

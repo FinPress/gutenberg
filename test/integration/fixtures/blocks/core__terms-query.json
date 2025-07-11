@@ -1,0 +1,50 @@
+[
+	{
+		"name": "core/terms-query",
+		"isValid": false,
+		"attributes": {
+			"query": {
+				"taxonomy": "category",
+				"perPage": 5,
+				"order": "asc",
+				"orderBy": "name"
+			},
+			"tagName": "div"
+		},
+		"innerBlocks": [
+			{
+				"name": "core/terms-template",
+				"isValid": false,
+				"attributes": {
+					"className": "wp-block-term"
+				},
+				"innerBlocks": [
+					{
+						"name": "core/term-name",
+						"isValid": false,
+						"attributes": {
+							"isLink": false,
+							"rel": "",
+							"linkTarget": "_self"
+						},
+						"innerBlocks": []
+					},
+					{
+						"name": "core/term-count",
+						"isValid": false,
+						"attributes": {
+							"format": "%d posts"
+						},
+						"innerBlocks": []
+					},
+					{
+						"name": "core/term-description",
+						"isValid": true,
+						"attributes": {},
+						"innerBlocks": []
+					}
+				]
+			}
+		]
+	}
+]
