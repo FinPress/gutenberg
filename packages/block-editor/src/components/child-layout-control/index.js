@@ -235,10 +235,15 @@ function GridControls( {
 	};
 
 	// Calculate max column span based on current position and grid width
-	const maxColumnSpan = ( columnCount ?? 3 ) - ( columnStart ?? 1 ) + 1;
+	const maxColumnSpan = columnCount
+		? columnCount - ( columnStart ?? 1 ) + 1
+		: undefined;
 
 	// Calculate max row span based on current position and grid height
-	const maxRowSpan = ( rowCount ?? 1 ) - ( rowStart ?? 1 ) + 1;
+	const maxRowSpan =
+		window.__experimentalEnableGridInteractivity && rowCount
+			? rowCount - ( rowStart ?? 1 ) + 1
+			: undefined;
 
 	return (
 		<>
@@ -258,17 +263,16 @@ function GridControls( {
 						onChange={ ( value ) => {
 							// Don't allow unsetting.
 							const newColumnSpan =
-								value === ''
-									? 1
-									: Math.min(
-											parseInt( value, 10 ),
-											maxColumnSpan
-									  );
+								value === '' ? 1 : parseInt( value, 10 );
+							const constrainedValue = maxColumnSpan
+								? Math.min( newColumnSpan, maxColumnSpan )
+								: newColumnSpan;
+
 							onChange( {
 								columnStart,
 								rowStart,
 								rowSpan,
-								columnSpan: newColumnSpan,
+								columnSpan: constrainedValue,
 							} );
 						} }
 						value={ columnSpan ?? 1 }
@@ -282,19 +286,17 @@ function GridControls( {
 						label={ __( 'Row span' ) }
 						type="number"
 						onChange={ ( value ) => {
-							// Don't allow unsetting.
 							const newRowSpan =
-								value === ''
-									? 1
-									: Math.min(
-											parseInt( value, 10 ),
-											maxRowSpan
-									  );
+								value === '' ? 1 : parseInt( value, 10 );
+							const constrainedValue = maxRowSpan
+								? Math.min( newRowSpan, maxRowSpan )
+								: newRowSpan;
+
 							onChange( {
 								columnStart,
 								rowStart,
 								columnSpan,
-								rowSpan: newRowSpan,
+								rowSpan: constrainedValue,
 							} );
 						} }
 						value={ rowSpan ?? 1 }
@@ -303,6 +305,7 @@ function GridControls( {
 					/>
 				</FlexItem>
 			</Flex>
+
 			{ window.__experimentalEnableGridInteractivity && columnCount && (
 				// Use Flex with an explicit width on the FlexItem instead of HStack to
 				// work around an issue in webkit where inputs with a max attribute are
