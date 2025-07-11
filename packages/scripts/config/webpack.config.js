@@ -235,6 +235,10 @@ const baseConfig = {
 					filename: 'fonts/[name].[hash:8][ext]',
 				},
 			},
+			{
+				test: /vips-es6\.js$/,
+				type: 'javascript/auto',
+			},
 		],
 	},
 	stats: {
