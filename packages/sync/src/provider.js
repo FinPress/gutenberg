@@ -114,7 +114,10 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 			// Create an undo manager for the document.
 			const undoManagerMap = doc.getMap( 'document' );
 			const yUndoManager = new Y.UndoManager( undoManagerMap, {
+				// Ensure we undo and redo one character at a time.
 				captureTimeout: 0,
+				// Ensure that we only scope the undo/redo to the current client, and Gutenberg origins.
+				// ToDo: Keep an eye on this, as it needs to be battle tested.
 				trackedOrigins: new Set( [ 'gutenberg', doc.clientID ] ),
 			} );
 			undoManager.ydoc = doc;

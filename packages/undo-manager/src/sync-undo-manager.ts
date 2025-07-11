@@ -13,32 +13,34 @@ import type { UndoManager, HistoryRecord } from './types';
  *
  * @return {UndoManager} Undo manager.
  */
-export function createSyncUndoManager() {
+export function createSyncUndoManager(): UndoManager {
+	const syncProvider = getSyncProvider();
+
 	return {
 		/**
 		 * Record changes into the history.
 		 *
-		 * @param {HistoryRecord=} record   A record of changes to record.
-		 * @param {boolean}        isStaged Whether to immediately create an undo point or not.
+		 * @param {HistoryRecord} record   A record of changes to record.
+		 * @param {boolean}       isStaged Whether to immediately create an undo point or not.
 		 */
 		addRecord( record: HistoryRecord, isStaged: boolean = false ) {
-			getSyncProvider().addRecord( record, isStaged );
+			syncProvider.addRecord( record, isStaged );
 		},
 
 		undo() {
-			return getSyncProvider().undo();
+			return syncProvider.undo();
 		},
 
 		redo() {
-			return getSyncProvider().redo();
+			return syncProvider.redo();
 		},
 
 		hasUndo() {
-			return getSyncProvider().canUndo();
+			return syncProvider.canUndo();
 		},
 
 		hasRedo() {
-			return getSyncProvider().canRedo();
+			return syncProvider.canRedo();
 		},
 	};
 }
