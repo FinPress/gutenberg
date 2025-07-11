@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { createUndoManager } from '../';
+import { createUndoManager } from '../index';
 
 describe( 'Undo Manager', () => {
 	it( 'stacks undo levels', () => {
@@ -115,9 +115,8 @@ describe( 'Undo Manager', () => {
 		manager.addRecord( [
 			{ id: '1', changes: { value: { from: undefined, to: 1 } } },
 		] );
-		// These three calls do nothing because they're empty.
+		// These two calls do nothing because they're empty.
 		manager.addRecord( [] );
-		manager.addRecord();
 		manager.addRecord( [
 			{ id: '1', changes: { value: { from: 1, to: 1 } } },
 		] );
@@ -197,7 +196,6 @@ describe( 'Undo Manager', () => {
 			],
 			true
 		);
-		manager.addRecord();
 		expect( manager.undo() ).toEqual( [
 			{
 				id: { kind: 'postType', name: 'post', recordId: 1 },
@@ -219,7 +217,6 @@ describe( 'Undo Manager', () => {
 		const manager = createUndoManager();
 
 		// All the following changes are considered empty for different reasons.
-		manager.addRecord();
 		manager.addRecord( [] );
 		manager.addRecord( [
 			{ id: '1', changes: { a: { from: 'value', to: 'value' } } },
@@ -252,9 +249,8 @@ describe( 'Undo Manager', () => {
 		const undoRecord = manager.undo();
 		expect( undoRecord ).not.toBeUndefined();
 		// b is included in the changes.
-		expect( Object.keys( undoRecord[ 0 ].changes ) ).toEqual( [
-			'a',
-			'b',
-		] );
+		expect( undoRecord && Object.keys( undoRecord[ 0 ].changes ) ).toEqual(
+			[ 'a', 'b' ]
+		);
 	} );
 } );

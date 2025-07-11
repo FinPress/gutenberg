@@ -5,7 +5,6 @@
 /**
  * External dependencies
  */
-// @ts-ignore
 import * as Y from 'yjs';
 
 /** @typedef {import('./types').ObjectType} ObjectType */
@@ -13,6 +12,8 @@ import * as Y from 'yjs';
 /** @typedef {import('./types').ObjectConfig} ObjectConfig */
 /** @typedef {import('./types').ConnectDoc} ConnectDoc */
 /** @typedef {import('./types').SyncProvider} SyncProvider */
+/** @typedef {import('./types').UndoManager} UndoManager */
+/** @typedef {import('./types').HistoryRecord} HistoryRecord */
 
 /**
  * Create a sync provider.
@@ -32,6 +33,23 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @type {Record<string,Record<string,{ ydoc: Y.Doc, prevContentClientId: number, destroy: ()=>void }>>}
 	 */
 	const docs = {};
+
+	/**
+	 * @type { { yMap: Y.Map<any> | null, ydoc: Y.Doc | null, instance: UndoManager | null, destroy: ()=>void } }
+	 */
+	const undoManager = {
+		ydoc: null,
+		yMap: null,
+		instance: null,
+		destroy: () => {
+			if ( undoManager.instance ) {
+				undoManager.instance.destroy();
+			}
+			undoManager.ydoc = null;
+			undoManager.yMap = null;
+			undoManager.instance = null;
+		},
+	};
 
 	/**
 	 * Registers an object type.
@@ -92,6 +110,24 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 			},
 		};
 
+		if ( objectType.startsWith( 'postType/' ) ) {
+			// Create an undo manager for the document.
+			const undoManagerMap = doc.getMap( 'document' );
+			const yUndoManager = new Y.UndoManager( undoManagerMap, {
+				// Ensure we undo and redo one character at a time.
+				captureTimeout: 0,
+				// Ensure that we only scope the undo/redo to the current client, and Gutenberg origins.
+				// ToDo: Keep an eye on this, as it needs to be battle tested.
+				trackedOrigins: new Set( [ 'gutenberg', doc.clientID ] ),
+				// This ensures that are able to improve the client specific undo/redo experience.
+				// This reduces the bugs we see, but it doesn't eliminate them entirely.
+				ignoreRemoteMapChanges: true,
+			} );
+			undoManager.ydoc = doc;
+			undoManager.yMap = undoManagerMap;
+			undoManager.instance = yUndoManager;
+		}
+
 		// @todo do proper typings for fetch api
 		/**
 		 * @type {any}
@@ -104,7 +140,61 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 			}, 'gutenberg' );
 			return data;
 		}
+
 		return null;
+	}
+
+	/**
+	 * Check the UndoManager to see if it can undo.
+	 *
+	 * @return {boolean} Whether the undo manager can undo.
+	 */
+	function canUndo() {
+		return undoManager?.instance?.canUndo() || false;
+	}
+
+	/**
+	 * Check the UndoManager to see if it can redo.
+	 *
+	 * @return {boolean} Whether the undo manager can redo.
+	 */
+	function canRedo() {
+		return undoManager?.instance?.canRedo() || false;
+	}
+
+	/**
+	 * Undo the last operation, scoped to the current client.
+	 *
+	 * @return {HistoryRecord} The changes made by the undo operation.
+	 */
+	function undo() {
+		undoManager?.instance?.undo();
+
+		// ToDo: This isn't 100% correct, but can't really find a way to return the changes from Yjs that could be transformed to Gutenberg format.
+		return [];
+	}
+
+	/**
+	 * Redo the last operation, scoped to the current client.
+	 *
+	 * @return {HistoryRecord} The changes made by the redo operation.
+	 */
+	function redo() {
+		undoManager?.instance?.redo();
+
+		// ToDo: This isn't 100% correct, but can't really find a way to return the changes from Yjs that could be transformed to Gutenberg format.
+		return [];
+	}
+
+	/**
+	 * This is a no-op way to add a record to the undo stack, for gutenberg's undo manager.
+	 *
+	 * @param {HistoryRecord} record   The record to add to the undo stack.
+	 * @param {boolean}       isStaged Whether the record is staged.
+	 */
+	// eslint-disable-next-line no-unused-vars
+	function addRecord( record, isStaged = false ) {
+		// ToDo: This is a no-op in the sync provider context at the moment, as Yjs UndoManager handles it automatically.
 	}
 
 	/**
@@ -135,6 +225,10 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {ObjectID}   objectId   Object ID to load.
 	 */
 	async function discard( objectType, objectId ) {
+		if ( objectType.startsWith( 'postType/' ) && undoManager.instance ) {
+			undoManager.instance.destroy();
+		}
+
 		docs[ objectType ]?.[ objectId ]?.destroy();
 	}
 
@@ -156,6 +250,11 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 		register,
 		bootstrap,
 		update,
+		addRecord,
+		undo,
+		canUndo,
+		redo,
+		canRedo,
 		encodeState,
 		discard,
 		postTypeConfigs,

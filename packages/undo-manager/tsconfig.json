@@ -4,5 +4,9 @@
 	"compilerOptions": {
 		"types": [ "node" ]
 	},
-	"references": [ { "path": "../is-shallow-equal" } ]
+	"references": [
+		{ "path": "../is-shallow-equal" },
+		{ "path": "../sync" },
+		{ "path": "../hooks" }
+	]
 }
