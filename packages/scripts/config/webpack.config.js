@@ -158,7 +158,7 @@ const baseConfig = {
 		rules: [
 			{
 				test: /\.m?(j|t)sx?$/,
-				exclude: [ /node_modules/, /wasm-vips/ ],
+				exclude: [ /node_modules/ ],
 				use: [
 					{
 						loader: require.resolve( 'babel-loader' ),
@@ -269,7 +269,7 @@ if (
 if ( baseConfig.devtool ) {
 	baseConfig.module.rules.unshift( {
 		test: /\.(j|t)sx?$/,
-		exclude: [ /node_modules/, /wasm-vips/ ],
+		exclude: [ /node_modules/ ],
 		use: require.resolve( 'source-map-loader' ),
 		enforce: 'pre',
 	} );
