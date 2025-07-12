@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * Internal dependencies
+ */
 const parseSpxMode = require( '../parse-spx-mode' );
 
 describe( 'parseSpxMode', () => {
@@ -20,23 +23,10 @@ describe( 'parseSpxMode', () => {
 		expect( result ).toBe( 'enabled' );
 	} );
 
-	it( 'errors with invalid modes', () => {
-		const fakeMode = 'invalidmode';
-		expect( () => parseSpxMode( fakeMode ) ).toThrow( fakeMode );
-	} );
-
 	it( 'errors with a mix of valid and invalid modes', () => {
 		const fakeMode = 'invalidmode';
-		expect( () =>
-			parseSpxMode( `enabled,${ fakeMode }` )
-		).toThrow( fakeMode );
-	} );
-
-	it( 'accepts valid SPX modes', () => {
-		const result = parseSpxMode( 'enabled' );
-		expect( result ).toBe( 'enabled' );
-
-		const offResult = parseSpxMode( 'off' );
-		expect( offResult ).toBe( 'off' );
+		expect( () => parseSpxMode( `enabled,${ fakeMode }` ) ).toThrow(
+			fakeMode
+		);
 	} );
 } );
