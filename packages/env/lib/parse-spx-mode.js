@@ -2,10 +2,7 @@
 
 // SPX is a simple profiling extension for PHP
 // See https://github.com/NoiseByNorthwest/php-spx
-const SPX_MODES = [
-	'off',
-	'enabled',
-];
+const SPX_MODES = [ 'off', 'enabled' ];
 
 /**
  * Custom parsing for the SPX mode set via yargs. This function ensures three things:
