@@ -254,7 +254,7 @@ if ( process.env.WP_DEVTOOL ) {
 
 if ( ! isProduction ) {
 	// Set default sourcemap mode if it wasn't set by WP_DEVTOOL.
-	baseConfig.devtool = 'source-map';
+	baseConfig.devtool = baseConfig.devtool || 'source-map';
 }
 
 // Add source-map-loader if devtool is set, whether in dev mode or not.
@@ -470,8 +470,6 @@ if ( hasExperimentalModulesFlag ) {
 	/** @type {webpack.Configuration} */
 	const moduleConfig = {
 		...baseConfig,
-		// Ensure devtool is properly handled for module config
-		devtool: baseConfig.devtool,
 
 		entry: getWebpackEntryPoints( 'module' ),
 
