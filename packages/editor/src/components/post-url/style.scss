@@ -19,6 +19,19 @@
 .editor-post-url__front-page-link {
 	// Match padding on tertiary buttons for alignment.
 	padding: $grid-unit-15 * 0.5 $grid-unit-15;
+	border-radius: $radius-small;
+	color: $components-color-accent;
+
+	&:hover {
+		background: color-mix(in srgb, $components-color-accent 4%, transparent);
+		color: $components-color-accent-darker-20;
+	}
+
+	&:focus {
+		box-shadow: 0 0 0 var(--wp-admin-border-width-focus) $components-color-accent;
+		color: $components-color-accent;
+		outline: 3px solid #0000;
+	}
 }
 
 
