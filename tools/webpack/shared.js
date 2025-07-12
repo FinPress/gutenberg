@@ -16,7 +16,7 @@ const { NODE_ENV: mode = 'development', WP_DEVTOOL } = process.env;
 // Handle devtool configuration
 let devtool;
 if ( WP_DEVTOOL ) {
-	if ( WP_DEVTOOL === 'false' ) {
+	if ( 'false' === WP_DEVTOOL ) {
 		devtool = undefined; // Disable source maps
 	} else {
 		devtool = WP_DEVTOOL;
