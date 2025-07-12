@@ -242,7 +242,8 @@ RUN echo "#$HOST_UID ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers`;
 
 	dockerFileContent += getSpxConfig(
 		config.spx,
-		config.env[ env ].phpVersion
+		config.env[ env ].phpVersion,
+		service
 	);
 
 	// Add better PHP settings.
@@ -322,10 +323,11 @@ RUN echo 'xdebug.client_host="host.docker.internal"' >> /usr/local/etc/php/php.i
  *
  * @param {string} spxMode    The SPX mode set in the config.
  * @param {string} phpVersion The php version set in the environment.
+ * @param {string} service    The service name.
  * @return {string} The SPX config -- can be an empty string when it's not used.
  */
-function getSpxConfig( spxMode = 'off', phpVersion ) {
-	if ( spxMode === 'off' ) {
+function getSpxConfig( spxMode = 'off', phpVersion, service ) {
+	if ( spxMode === 'off' || service === 'cli' ) {
 		return '';
 	}
 
