@@ -1,18 +1,5 @@
 .components-external-link {
-	border-radius: $radius-small;
-	color: $components-color-accent;
 	text-decoration: none;
-
-	&:hover {
-		background: color-mix(in srgb, $components-color-accent 4%, transparent);
-		color: $components-color-accent-darker-20;
-	}
-
-	&:focus {
-		box-shadow: 0 0 0 var(--wp-admin-border-width-focus) $components-color-accent;
-		color: $components-color-accent;
-		outline: 3px solid #0000;
-	}
 }
 
 .components-external-link__contents {
