@@ -249,18 +249,10 @@ const baseConfig = {
 // WP_DEVTOOL global variable controls how source maps are generated.
 // See: https://webpack.js.org/configuration/devtool/#devtool.
 if ( process.env.WP_DEVTOOL ) {
-	if ( process.env.WP_DEVTOOL === 'false' ) {
-		// Don't set devtool, leaving it undefined to disable source maps
-	} else {
-		baseConfig.devtool = process.env.WP_DEVTOOL;
-	}
+	baseConfig.devtool = process.env.WP_DEVTOOL;
 }
 
-if (
-	! isProduction &&
-	baseConfig.devtool === undefined &&
-	process.env.WP_DEVTOOL !== 'false'
-) {
+if ( ! isProduction ) {
 	// Set default sourcemap mode if it wasn't set by WP_DEVTOOL.
 	baseConfig.devtool = 'source-map';
 }
