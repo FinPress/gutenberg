@@ -9,9 +9,9 @@ import {
 	RecursionProvider,
 	useHasRecursion,
 	Warning,
+	privateApis as blockEditorPrivateApis,
 	__experimentalUseBlockPreview as useBlockPreview,
 } from '@wordpress/block-editor';
-import { SelectControl } from '@wordpress/components';
 import { parse } from '@wordpress/blocks';
 import {
 	useEntityProp,
@@ -25,6 +25,9 @@ import { useMemo } from '@wordpress/element';
  * Internal dependencies
  */
 import { useCanEditEntity } from '../utils/hooks';
+import { unlock } from '../lock-unlock';
+
+const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
 function ReadOnlyContent( {
 	parentLayout,
@@ -178,35 +181,23 @@ function RecursionError() {
  * @param {Object}   props                 Component props.
  * @param {string}   props.tagName         The HTML tag name.
  * @param {Function} props.onSelectTagName onChange function for the SelectControl.
+ * @param {string}   props.clientId        The client ID of the current block.
  *
  * @return {JSX.Element}                The control group.
  */
-function PostContentEditControls( { tagName, onSelectTagName } ) {
-	const htmlElementMessages = {
-		main: __(
-			'The <main> element should be used for the primary content of your document only. '
-		),
-		section: __(
-			"The <section> element should represent a standalone portion of the document that can't be better represented by another element."
-		),
-		article: __(
-			'The <article> element should represent a self-contained, syndicatable portion of the document.'
-		),
-	};
+function PostContentEditControls( { tagName, onSelectTagName, clientId } ) {
 	return (
 		<InspectorControls group="advanced">
-			<SelectControl
-				__nextHasNoMarginBottom
-				label={ __( 'HTML element' ) }
+			<HTMLElementControl
+				tagName={ tagName }
+				onChange={ onSelectTagName }
+				clientId={ clientId }
 				options={ [
 					{ label: __( 'Default (<div>)' ), value: 'div' },
 					{ label: '<main>', value: 'main' },
 					{ label: '<section>', value: 'section' },
 					{ label: '<article>', value: 'article' },
 				] }
-				value={ tagName }
-				onChange={ onSelectTagName }
-				help={ htmlElementMessages[ tagName ] }
 			/>
 		</InspectorControls>
 	);
@@ -216,6 +207,7 @@ export default function PostContentEdit( {
 	context,
 	attributes: { tagName = 'div' },
 	setAttributes,
+	clientId,
 	__unstableLayoutClassNames: layoutClassNames,
 	__unstableParentLayout: parentLayout,
 } ) {
@@ -235,6 +227,7 @@ export default function PostContentEdit( {
 			<PostContentEditControls
 				tagName={ tagName }
 				onSelectTagName={ handleSelectTagName }
+				clientId={ clientId }
 			/>
 			<RecursionProvider uniqueId={ contextPostId }>
 				{ contextPostId && contextPostType ? (
