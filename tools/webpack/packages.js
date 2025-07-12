@@ -169,6 +169,10 @@ module.exports = {
 					publicPath: '',
 				},
 			},
+			{
+				test: /vips-es6\.js$/,
+				type: 'asset/source',
+			},
 		],
 	},
 	performance: {

@@ -158,7 +158,7 @@ const baseConfig = {
 		rules: [
 			{
 				test: /\.m?(j|t)sx?$/,
-				exclude: /node_modules/,
+				exclude: [ /node_modules/, /wasm-vips/ ],
 				use: [
 					{
 						loader: require.resolve( 'babel-loader' ),
@@ -237,7 +237,7 @@ const baseConfig = {
 			},
 			{
 				test: /vips-es6\.js$/,
-				type: 'javascript/auto',
+				type: 'asset/source',
 			},
 		],
 	},
@@ -249,19 +249,27 @@ const baseConfig = {
 // WP_DEVTOOL global variable controls how source maps are generated.
 // See: https://webpack.js.org/configuration/devtool/#devtool.
 if ( process.env.WP_DEVTOOL ) {
-	baseConfig.devtool = process.env.WP_DEVTOOL;
+	if ( process.env.WP_DEVTOOL === 'false' ) {
+		// Don't set devtool, leaving it undefined to disable source maps
+	} else {
+		baseConfig.devtool = process.env.WP_DEVTOOL;
+	}
 }
 
-if ( ! isProduction ) {
+if (
+	! isProduction &&
+	baseConfig.devtool === undefined &&
+	process.env.WP_DEVTOOL !== 'false'
+) {
 	// Set default sourcemap mode if it wasn't set by WP_DEVTOOL.
-	baseConfig.devtool = baseConfig.devtool || 'source-map';
+	baseConfig.devtool = 'source-map';
 }
 
 // Add source-map-loader if devtool is set, whether in dev mode or not.
 if ( baseConfig.devtool ) {
 	baseConfig.module.rules.unshift( {
 		test: /\.(j|t)sx?$/,
-		exclude: [ /node_modules/ ],
+		exclude: [ /node_modules/, /wasm-vips/ ],
 		use: require.resolve( 'source-map-loader' ),
 		enforce: 'pre',
 	} );
@@ -470,6 +478,8 @@ if ( hasExperimentalModulesFlag ) {
 	/** @type {webpack.Configuration} */
 	const moduleConfig = {
 		...baseConfig,
+		// Ensure devtool is properly handled for module config
+		devtool: baseConfig.devtool,
 
 		entry: getWebpackEntryPoints( 'module' ),
 

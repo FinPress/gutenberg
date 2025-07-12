@@ -11,8 +11,19 @@ const postcss = require( 'postcss' );
  */
 const ReadableJsAssetsWebpackPlugin = require( '@wordpress/readable-js-assets-webpack-plugin' );
 
-const { NODE_ENV: mode = 'development', WP_DEVTOOL: devtool = 'source-map' } =
-	process.env;
+const { NODE_ENV: mode = 'development', WP_DEVTOOL } = process.env;
+
+// Handle devtool configuration
+let devtool;
+if ( WP_DEVTOOL ) {
+	if ( WP_DEVTOOL === 'false' ) {
+		devtool = undefined; // Disable source maps
+	} else {
+		devtool = WP_DEVTOOL;
+	}
+} else {
+	devtool = mode === 'development' ? 'source-map' : undefined;
+}
 
 const baseConfig = {
 	target: 'browserslist',
@@ -43,6 +54,7 @@ const baseConfig = {
 		rules: [
 			{
 				test: /\.js$/,
+				exclude: /wasm-vips/,
 				use: require.resolve( 'source-map-loader' ),
 				enforce: 'pre',
 			},
