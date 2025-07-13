@@ -103,7 +103,12 @@ export default function QueryPaginationEdit( {
 					</ToolsPanel>
 				</InspectorControls>
 			) }
-			<div { ...innerBlocksProps } />
+			<nav { ...innerBlocksProps } aria-label={ __( 'Comments' ) }>
+				<span className="screen-reader-text">
+					{ __( 'Comments navigation' ) }
+				</span>
+				{ innerBlocksProps.children }
+			</nav>
 		</>
 	);
 }
