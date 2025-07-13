@@ -12,14 +12,13 @@ import { safeDecodeURI } from '@wordpress/url';
  *
  * @typedef {Object} WPNavigationLinkBlockAttributes
  *
- * @property {string}               [label]         Link text.
- * @property {WPNavigationLinkKind} [kind]          Kind is used to differentiate between term and post ids to check post draft status.
- * @property {string}               [type]          The type such as post, page, tag, category and other custom types.
- * @property {string}               [rel]           The relationship of the linked URL.
- * @property {number}               [id]            A post or term id.
- * @property {boolean}              [opensInNewTab] Sets link target to _blank when true.
- * @property {string}               [url]           Link href.
- * @property {string}               [title]         Link title attribute.
+ * @property {string}               [label] Link text.
+ * @property {WPNavigationLinkKind} [kind]  Kind is used to differentiate between term and post ids to check post draft status.
+ * @property {string}               [type]  The type such as post, page, tag, category and other custom types.
+ * @property {string}               [rel]   The relationship of the linked URL.
+ * @property {number}               [id]    A post or term id.
+ * @property {string}               [url]   Link href.
+ * @property {string}               [title] Link title attribute.
  */
 /**
  * Link Control onChange handler that updates block attributes when a setting is changed.
@@ -43,10 +42,10 @@ export const updateAttributes = (
 	const {
 		title: newLabel = '', // the title of any provided Post.
 		url: newUrl = '',
-		opensInNewTab,
 		id,
 		kind: newKind = originalKind,
 		type: newType = originalType,
+		rel,
 	} = updatedValue;
 
 	const newLabelWithoutHttp = newLabel.replace( /http(s?):\/\//gi, '' );
@@ -90,7 +89,7 @@ export const updateAttributes = (
 		// Passed `url` may already be encoded. To prevent double encoding, decodeURI is executed to revert to the original string.
 		...( newUrl && { url: encodeURI( safeDecodeURI( newUrl ) ) } ),
 		...( label && { label } ),
-		...( undefined !== opensInNewTab && { opensInNewTab } ),
+		...{ rel },
 		...( id && Number.isInteger( id ) && { id } ),
 		...( kind && { kind } ),
 		...( type && type !== 'URL' && { type } ),

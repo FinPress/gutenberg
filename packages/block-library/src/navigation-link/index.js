@@ -3,7 +3,6 @@
  */
 import { _x } from '@wordpress/i18n';
 import { customLink as linkIcon } from '@wordpress/icons';
-import { InnerBlocks } from '@wordpress/block-editor';
 import { addFilter } from '@wordpress/hooks';
 
 /**
@@ -15,6 +14,7 @@ import edit from './edit';
 import save from './save';
 import { enhanceNavigationLinkVariations } from './hooks';
 import transforms from './transforms';
+import deprecated from './deprecated';
 
 const { name } = metadata;
 
@@ -43,49 +43,7 @@ export const settings = {
 		},
 	},
 
-	deprecated: [
-		{
-			isEligible( attributes ) {
-				return attributes.nofollow;
-			},
-
-			attributes: {
-				label: {
-					type: 'string',
-				},
-				type: {
-					type: 'string',
-				},
-				nofollow: {
-					type: 'boolean',
-				},
-				description: {
-					type: 'string',
-				},
-				id: {
-					type: 'number',
-				},
-				opensInNewTab: {
-					type: 'boolean',
-					default: false,
-				},
-				url: {
-					type: 'string',
-				},
-			},
-
-			migrate( { nofollow, ...rest } ) {
-				return {
-					rel: nofollow ? 'nofollow' : '',
-					...rest,
-				};
-			},
-
-			save() {
-				return <InnerBlocks.Content />;
-			},
-		},
-	],
+	deprecated,
 	transforms,
 };
 

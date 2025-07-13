@@ -35,10 +35,23 @@ import { useInstanceId, useFocusOnMount } from '@wordpress/compose';
  * Internal dependencies
  */
 import { unlock } from '../lock-unlock';
+import { NOFOLLOW_REL, NEW_TAB_REL } from './constants';
+import { getUpdatedLinkAttributes } from './get-updated-link-attributes';
 
 const { PrivateQuickInserter: QuickInserter } = unlock(
 	blockEditorPrivateApis
 );
+
+const LINK_SETTINGS = [
+	...LinkControl.DEFAULT_LINK_SETTINGS,
+	{
+		id: 'nofollow',
+		title: createInterpolateElement(
+			__( 'Mark as <code>nofollow</code>' ),
+			{ code: <code /> }
+		),
+	},
+];
 
 /**
  * Given the Link block's type attribute, return the query params to give to
@@ -146,8 +159,12 @@ function LinkUIBlockInserter( { clientId, onBack } ) {
 }
 
 function UnforwardedLinkUI( props, ref ) {
-	const { label, url, opensInNewTab, type, kind } = props.link;
+	const { label, url, type, kind, rel } = props.link;
 	const postType = type || 'page';
+
+	// Derive opensInNewTab and nofollow from rel attribute
+	const opensInNewTab = rel?.includes( NEW_TAB_REL );
+	const nofollow = rel?.includes( NOFOLLOW_REL );
 
 	const [ addingBlock, setAddingBlock ] = useState( false );
 	const [ focusAddBlockButton, setFocusAddBlockButton ] = useState( false );
@@ -189,8 +206,9 @@ function UnforwardedLinkUI( props, ref ) {
 			url,
 			opensInNewTab,
 			title: label && stripHTML( label ),
+			nofollow,
 		} ),
-		[ label, opensInNewTab, url ]
+		[ label, opensInNewTab, url, nofollow ]
 	);
 
 	const dialogTitleId = useInstanceId(
@@ -230,6 +248,7 @@ function UnforwardedLinkUI( props, ref ) {
 						hasRichPreviews
 						value={ link }
 						showInitialSuggestions
+						settings={ LINK_SETTINGS }
 						withCreateSuggestion={ permissions.canCreate }
 						createSuggestion={ handleCreate }
 						createSuggestionButtonText={ ( searchTerm ) => {
@@ -257,7 +276,25 @@ function UnforwardedLinkUI( props, ref ) {
 						noDirectEntry={ !! type }
 						noURLSuggestion={ !! type }
 						suggestionsQuery={ getSuggestionsQuery( type, kind ) }
-						onChange={ props.onChange }
+						onChange={ ( {
+							url: newURL,
+							opensInNewTab: newOpensInNewTab,
+							nofollow: newNofollow,
+							...otherValues
+						} ) => {
+							const updatedAttributes = getUpdatedLinkAttributes(
+								{
+									rel: props.link.rel,
+									url: newURL,
+									opensInNewTab: newOpensInNewTab,
+									nofollow: newNofollow,
+								}
+							);
+							props.onChange( {
+								...otherValues,
+								...updatedAttributes,
+							} );
+						} }
 						onRemove={ props.onRemove }
 						onCancel={ props.onCancel }
 						renderControlBottom={ () =>

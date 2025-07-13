@@ -239,14 +239,16 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 		$html .= ' aria-current="page"';
 	}
 
-	if ( isset( $attributes['opensInNewTab'] ) && true === $attributes['opensInNewTab'] ) {
-		$html .= ' target="_blank"  ';
+	// Check if link should open in new tab based on rel attribute.
+	$rel              = isset( $attributes['rel'] ) ? $attributes['rel'] : '';
+	$opens_in_new_tab = strpos( $rel, 'noreferrer noopener' ) !== false;
+
+	if ( $opens_in_new_tab ) {
+		$html .= ' target="_blank"';
 	}
 
 	if ( isset( $attributes['rel'] ) ) {
 		$html .= ' rel="' . esc_attr( $attributes['rel'] ) . '"';
-	} elseif ( isset( $attributes['nofollow'] ) && $attributes['nofollow'] ) {
-		$html .= ' rel="nofollow"';
 	}
 
 	if ( isset( $attributes['title'] ) ) {
