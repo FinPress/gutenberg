@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Button Block Alignment
+
+- [Button Block Alignment fix] ([#67796](https://github.com/WordPress/gutenberg/pull/67796))
+
 ### Bug Fixes
 
 -   `FormTokenField`: Fix focus lost on tab when `__experimentalExpandOnFocus` is set ([#70591](https://github.com/WordPress/gutenberg/pull/70591)).
