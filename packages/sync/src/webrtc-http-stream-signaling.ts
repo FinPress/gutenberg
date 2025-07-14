@@ -75,6 +75,7 @@ function setupSignalEventHandlers( signalCon: HttpSignalingConn, url: string ) {
 						const emitPeerChange = webrtcConns.has( data.from )
 							? () => {}
 							: () =>
+									// @ts-ignore - string events should be allowed, so this should be fixed
 									room.provider.emit( 'peers', [
 										{
 											removed: [],
