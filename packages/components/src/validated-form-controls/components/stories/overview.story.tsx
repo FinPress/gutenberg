@@ -16,7 +16,8 @@ import { formDecorator } from './story-utils';
 import type { ControlWithError } from '../../control-with-error';
 
 const meta: Meta< typeof ControlWithError > = {
-	title: 'Components (Private)/Validated Form Controls/Overview',
+	title: 'Components (Experimental)/Validated Form Controls/Overview',
+	tags: [ 'status-private' ],
 	decorators: formDecorator,
 };
 export default meta;

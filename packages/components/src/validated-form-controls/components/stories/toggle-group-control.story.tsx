@@ -16,8 +16,9 @@ import { ValidatedToggleGroupControl } from '../toggle-group-control';
 import { ToggleGroupControlOption } from '../../../toggle-group-control';
 
 const meta: Meta< typeof ValidatedToggleGroupControl > = {
-	title: 'Components (Private)/Validated Form Controls/ValidatedToggleGroupControl',
+	title: 'Components (Experimental)/Validated Form Controls/ValidatedToggleGroupControl',
 	component: ValidatedToggleGroupControl,
+	tags: [ 'status-private' ],
 	decorators: formDecorator,
 	args: { onChange: () => {} },
 	argTypes: {

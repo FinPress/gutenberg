@@ -15,8 +15,9 @@ import { ValidatedNumberControl } from '../number-control';
 import { formDecorator } from './story-utils';
 
 const meta: Meta< typeof ValidatedNumberControl > = {
-	title: 'Components (Private)/Validated Form Controls/ValidatedNumberControl',
+	title: 'Components (Experimental)/Validated Form Controls/ValidatedNumberControl',
 	component: ValidatedNumberControl,
+	tags: [ 'status-private' ],
 	decorators: formDecorator,
 	args: { onChange: () => {} },
 	argTypes: {

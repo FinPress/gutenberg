@@ -22,8 +22,9 @@ import InputControlSuffixWrapper from '../../../input-control/input-suffix-wrapp
 import { Button } from '../../../button';
 
 const meta: Meta< typeof ValidatedInputControl > = {
-	title: 'Components (Private)/Validated Form Controls/ValidatedInputControl',
+	title: 'Components (Experimental)/Validated Form Controls/ValidatedInputControl',
 	component: ValidatedInputControl,
+	tags: [ 'status-private' ],
 	decorators: formDecorator,
 	args: { onChange: () => {} },
 	argTypes: {

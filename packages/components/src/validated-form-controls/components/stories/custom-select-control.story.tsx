@@ -15,8 +15,9 @@ import { ValidatedCustomSelectControl } from '../custom-select-control';
 import { formDecorator } from './story-utils';
 
 const meta: Meta< typeof ValidatedCustomSelectControl > = {
-	title: 'Components (Private)/Validated Form Controls/ValidatedCustomSelectControl',
+	title: 'Components (Experimental)/Validated Form Controls/ValidatedCustomSelectControl',
 	component: ValidatedCustomSelectControl,
+	tags: [ 'status-private' ],
 	decorators: formDecorator,
 	args: { onChange: () => {} },
 	argTypes: {
