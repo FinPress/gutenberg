@@ -21,7 +21,8 @@ const UnforwardedValidatedRadioControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: RadioControlProps & ValidatedControlProps< Value >,
+	}: React.ComponentProps< typeof RadioControl > &
+		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLDivElement >
 ) => {
 	const validityTargetRef = useRef< HTMLDivElement >( null );

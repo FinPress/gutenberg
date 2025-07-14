@@ -22,7 +22,7 @@ const UnforwardedValidatedTextControl = (
 		markWhenOptional,
 		...restProps
 	}: Omit<
-		TextControlProps,
+		React.ComponentProps< typeof TextControl >,
 		'__next40pxDefaultSize' | '__nextHasNoMarginBottom'
 	> &
 		ValidatedControlProps< Value >,

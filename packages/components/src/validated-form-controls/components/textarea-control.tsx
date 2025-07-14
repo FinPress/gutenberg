@@ -21,7 +21,10 @@ const UnforwardedValidatedTextareaControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< TextareaControlProps, '__nextHasNoMarginBottom' > &
+	}: Omit<
+		React.ComponentProps< typeof TextareaControl >,
+		'__nextHasNoMarginBottom'
+	> &
 		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLTextAreaElement >
 ) => {

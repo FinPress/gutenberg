@@ -31,10 +31,16 @@ const UnforwardedValidatedSelectControl = (
 		markWhenOptional,
 		...restProps
 	}: Omit<
-		SelectControlProps,
-		'__next40pxDefaultSize' | '__nextHasNoMarginBottom'
-	> &
-		ValidatedControlProps< Value >,
+		React.ComponentProps< typeof SelectControl >,
+		| '__next40pxDefaultSize'
+		| '__nextHasNoMarginBottom'
+		| 'multiple'
+		| 'onChange'
+		| 'value'
+	> & {
+		value?: string;
+		onChange: ( value: string ) => void;
+	} & ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLSelectElement >
 ) => {
 	const validityTargetRef = useRef< HTMLSelectElement >( null );

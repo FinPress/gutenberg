@@ -22,7 +22,7 @@ const UnforwardedValidatedRangeControl = (
 		markWhenOptional,
 		...restProps
 	}: Omit<
-		RangeControlProps,
+		React.ComponentProps< typeof RangeControl >,
 		'__next40pxDefaultSize' | '__nextHasNoMarginBottom'
 	> &
 		ValidatedControlProps< Value >,

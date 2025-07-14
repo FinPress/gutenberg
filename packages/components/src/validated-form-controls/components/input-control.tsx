@@ -21,8 +21,11 @@ const UnforwardedValidatedInputControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< InputControlProps, '__next40pxDefaultSize' > &
-		ValidatedControlProps< Value >,
+	}: Omit<
+		React.ComponentProps< typeof InputControl >,
+		'__next40pxDefaultSize'
+	> &
+		ValidatedControlProps< InputControlProps[ 'value' ] >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {
 	const validityTargetRef = useRef< HTMLInputElement >( null );

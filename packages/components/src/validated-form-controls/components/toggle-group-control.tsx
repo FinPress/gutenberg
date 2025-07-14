@@ -21,7 +21,7 @@ const UnforwardedValidatedToggleGroupControl = (
 		markWhenOptional,
 		...restProps
 	}: Omit<
-		ToggleGroupControlProps,
+		React.ComponentProps< typeof ToggleGroupControl >,
 		'__next40pxDefaultSize' | '__nextHasNoMarginBottom'
 	> &
 		ValidatedControlProps< Value >,

@@ -21,7 +21,10 @@ const UnforwardedValidatedCheckboxControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< CheckboxControlProps, '__nextHasNoMarginBottom' > &
+	}: Omit<
+		React.ComponentProps< typeof CheckboxControl >,
+		'__nextHasNoMarginBottom'
+	> &
 		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {

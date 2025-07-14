@@ -23,7 +23,10 @@ const UnforwardedValidatedToggleControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< ToggleControlProps, '__nextHasNoMarginBottom' > &
+	}: Omit<
+		React.ComponentProps< typeof ToggleControl >,
+		'__nextHasNoMarginBottom'
+	> &
 		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {

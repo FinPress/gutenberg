@@ -25,7 +25,10 @@ const UnforwardedValidatedCustomSelectControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< CustomSelectControlProps, '__next40pxDefaultSize' > &
+	}: Omit<
+		React.ComponentProps< typeof CustomSelectControl >,
+		'__next40pxDefaultSize'
+	> &
 		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLDivElement >
 ) => {

@@ -22,7 +22,7 @@ const UnforwardedValidatedComboboxControl = (
 		markWhenOptional,
 		...restProps
 	}: Omit<
-		ComboboxControlProps,
+		React.ComponentProps< typeof ComboboxControl >,
 		'__next40pxDefaultSize' | '__nextHasNoMarginBottom'
 	> &
 		ValidatedControlProps< Value >,

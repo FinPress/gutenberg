@@ -21,7 +21,10 @@ const UnforwardedValidatedNumberControl = (
 		onChange,
 		markWhenOptional,
 		...restProps
-	}: Omit< NumberControlProps, '__next40pxDefaultSize' > &
+	}: Omit<
+		React.ComponentProps< typeof NumberControl >,
+		'__next40pxDefaultSize'
+	> &
 		ValidatedControlProps< Value >,
 	forwardedRef: React.ForwardedRef< HTMLInputElement >
 ) => {
