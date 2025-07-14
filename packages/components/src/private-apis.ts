@@ -10,21 +10,7 @@ import { kebabCase, normalizeTextString } from './utils/strings';
 import { withIgnoreIMEEvents } from './utils/with-ignore-ime-events';
 import { lock } from './lock-unlock';
 import Badge from './badge';
-import {
-	ValidatedCheckboxControl,
-	ValidatedInputControl,
-	ValidatedNumberControl,
-	ValidatedRadioControl,
-	ValidatedRangeControl,
-	ValidatedSelectControl,
-	ValidatedTextControl,
-	ValidatedTextareaControl,
-	ValidatedToggleControl,
-	ValidatedCustomSelectControl,
-	ValidatedComboboxControl,
-	ValidatedToggleGroupControl,
-	ControlWithError,
-} from './validated-form-controls';
+
 import { DateCalendar, DateRangeCalendar, TZDate } from './calendar';
 
 export const privateApis = {};
@@ -38,19 +24,6 @@ lock( privateApis, {
 	withIgnoreIMEEvents,
 	Badge,
 	normalizeTextString,
-	ValidatedCheckboxControl,
-	ValidatedInputControl,
-	ValidatedNumberControl,
-	ValidatedRadioControl,
-	ValidatedRangeControl,
-	ValidatedSelectControl,
-	ValidatedTextControl,
-	ValidatedTextareaControl,
-	ValidatedToggleControl,
-	ValidatedCustomSelectControl,
-	ValidatedComboboxControl,
-	ValidatedToggleGroupControl,
-	ControlWithError,
 	DateCalendar,
 	DateRangeCalendar,
 	TZDate,
