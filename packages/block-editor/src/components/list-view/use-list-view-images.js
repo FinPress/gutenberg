@@ -3,7 +3,6 @@
  */
 import { useMemo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { __experimentalGetBlockImage as getBlockImage } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -12,19 +11,40 @@ import { store as blockEditorStore } from '../../store';
 
 // Maximum number of images to display in a list view row.
 const MAX_IMAGES = 3;
+const IMAGE_GETTERS = {
+	'core/image': ( { clientId, attributes } ) => {
+		if ( attributes.url ) {
+			return {
+				url: attributes.url,
+				alt: attributes.alt || '',
+				clientId,
+			};
+		}
+	},
+	'core/cover': ( { clientId, attributes } ) => {
+		if ( attributes.backgroundType === 'image' && attributes.url ) {
+			return {
+				url: attributes.url,
+				alt: attributes.alt || '',
+				clientId,
+			};
+		}
+	},
+	'core/media-text': ( { clientId, attributes } ) => {
+		if ( attributes.mediaType === 'image' && attributes.mediaUrl ) {
+			return {
+				url: attributes.mediaUrl,
+				alt: attributes.mediaAlt || '',
+				clientId,
+			};
+		}
+	},
+};
 
 function getImage( block ) {
-	if ( block.name !== 'core/image' ) {
-		return;
-	}
+	const getValues = IMAGE_GETTERS[ block.name ];
 
-	if ( block.attributes?.url ) {
-		return {
-			url: block.attributes.url,
-			alt: block.attributes.alt,
-			clientId: block.clientId,
-		};
-	}
+	return getValues ? getValues( block ) : undefined;
 }
 
 function getImagesFromGallery( block ) {
@@ -70,31 +90,11 @@ function getImagesFromBlock( block, isExpanded ) {
 export default function useListViewImages( { clientId, isExpanded } ) {
 	const { block } = useSelect(
 		( select ) => {
-			const _block = select( blockEditorStore ).getBlock( clientId );
-			return { block: _block };
+			return { block: select( blockEditorStore ).getBlock( clientId ) };
 		},
 		[ clientId ]
 	);
 	const images = useMemo( () => {
-		const blockImageURL = getBlockImage(
-			block.name,
-			block.attributes,
-			'list-view'
-		);
-		if ( blockImageURL ) {
-			return [
-				{
-					url: blockImageURL,
-					alt:
-						block.attributes?.alt ||
-						block.attributes?.mediaAlt ||
-						'',
-					clientId: block.clientId,
-				},
-			];
-		}
-
-		// Fallback to custom logic for core/image or core/gallery.
 		return getImagesFromBlock( block, isExpanded );
 	}, [ block, isExpanded ] );
 
