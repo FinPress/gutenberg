@@ -52,6 +52,8 @@ describe( 'isEmail', () => {
 		'wordpress-indeed@strange-wordpress.org',
 		'wordpress@s.wordpress',
 		'1234567890123456789012345678901234567890123456789012345678901234+x@wordpress.org',
+		'email@1.1.1.2',
+		'email@123.23.1.2',
 	] )(
 		'returns true when given things that look like an email: %s',
 		( email ) => {
@@ -66,6 +68,10 @@ describe( 'isEmail', () => {
 		'just"not"right@wordpress.org',
 		'this is"notallowed@wordpress.org',
 		'this still"not\\allowed@wordpress.org',
+		'email@900.1.1.1',
+		'email@1111.1.1.1',
+		'email@1.1.1',
+		'email@1.1.1.1.1',
 	] )(
 		"returns false when given things that don't look like an email: %s",
 		( email ) => {
