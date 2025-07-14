@@ -139,31 +139,33 @@ function gutenberg_process_image_caption_binding( $block_content, $parsed_block,
 			$processor->maybe_remove_figcaption();
 			return $processor->get_updated_html();
 		}
-	}
+	} else {
+		$caption_binding = $parsed_block['attrs']['metadata']['bindings']['caption'];
 
-	$caption_binding = $parsed_block['attrs']['metadata']['bindings']['caption'];
+		$caption_binding_source = get_block_bindings_source( $caption_binding['source'] );
+		$source_args            = ! empty( $caption_binding['args'] ) && is_array( $caption_binding['args'] ) ? $caption_binding['args'] : array();
+		$source_value           = $caption_binding_source->get_value( $source_args, $block_instance, 'caption' );
 
-	$caption_binding_source = get_block_bindings_source( $caption_binding['source'] );
-	$source_args            = ! empty( $caption_binding['args'] ) && is_array( $caption_binding['args'] ) ? $caption_binding['args'] : array();
-	$source_value           = $caption_binding_source->get_value( $source_args, $block_instance, 'caption' );
-
-	if ( is_null( $source_value ) ) {
-		return $block_content;
-	}
-
-	$processor = new $block_reader( $block_content );
-
-	if ( $processor->next_tag( 'FIGCAPTION' ) ) {
-		$maybe_remove = $processor->get_attribute( 'data-wp-maybe-remove' );
-
-		if ( 'true' === $maybe_remove ) {
-			$processor->maybe_remove_figcaption();
-		} else {
-			$processor->set_figcaption_content( wp_kses_post( $source_value ) );
+		if ( is_null( $source_value ) ) {
+			return $block_content;
 		}
+
+		$processor = new $block_reader( $block_content );
+
+		if ( $processor->next_tag( 'FIGCAPTION' ) ) {
+			$maybe_remove = $processor->get_attribute( 'data-wp-maybe-remove' );
+
+			if ( 'true' === $maybe_remove ) {
+				$processor->maybe_remove_figcaption();
+			} else {
+				$processor->set_figcaption_content( wp_kses_post( $source_value ) );
+			}
+		}
+
+		return $processor->get_updated_html();
 	}
 
-	return $processor->get_updated_html();
+
 }
 
 add_filter( 'render_block_core/image', 'gutenberg_process_image_caption_binding', 20, 3 );
