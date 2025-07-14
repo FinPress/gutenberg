@@ -1,31 +1,31 @@
 // File copied as is from the y-webrtc package with only exports
 // added to the following vars/functions: signalingConns,rooms, publishSignalingMessage, log.
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable eslint-comments/no-unlimited-disable */
+/* eslint-disable */
+// @ts-nocheck
 
-/**
- * External dependencies
- */
 import * as ws from 'lib0/websocket';
 import * as map from 'lib0/map';
 import * as error from 'lib0/error';
 import * as random from 'lib0/random';
 import * as encoding from 'lib0/encoding';
 import * as decoding from 'lib0/decoding';
-import { ObservableV2 } from 'lib0/observable';
+import { Observable } from 'lib0/observable';
 import * as logging from 'lib0/logging';
 import * as promise from 'lib0/promise';
 import * as bc from 'lib0/broadcastchannel';
 import * as buffer from 'lib0/buffer';
 import * as math from 'lib0/math';
 import { createMutex } from 'lib0/mutex';
-import type * as Y from 'yjs';
+
+import * as Y from 'yjs'; // eslint-disable-line
+import Peer from 'simple-peer/simplepeer.min.js';
+
 import * as syncProtocol from 'y-protocols/sync';
 import * as awarenessProtocol from 'y-protocols/awareness';
-import SimplePeer from 'simple-peer';
 
-/**
- * Internal dependencies
- */
-import * as cryptoutils from './crypto';
+import * as cryptoutils from './crypto.js';
 
 export const log = logging.createModuleLogger( 'y-webrtc' );
 
@@ -34,14 +34,20 @@ const messageQueryAwareness = 3;
 const messageAwareness = 1;
 const messageBcPeerId = 4;
 
-export const signalingConns: Map< string, SignalingConn > = new Map();
+/**
+ * @type {Map<string, SignalingConn>}
+ */
+export const signalingConns = new Map();
 
-export const rooms: Map< string, Room > = new Map();
+/**
+ * @type {Map<string,Room>}
+ */
+export const rooms = new Map();
 
 /**
  * @param {Room} room
  */
-const checkIsSynced = ( room: Room ) => {
+const checkIsSynced = ( room ) => {
 	let synced = true;
 	room.webrtcConns.forEach( ( peer ) => {
 		if ( ! peer.synced ) {
@@ -50,7 +56,6 @@ const checkIsSynced = ( room: Room ) => {
 	} );
 	if ( ( ! synced && room.synced ) || ( synced && ! room.synced ) ) {
 		room.synced = synced;
-		// @ts-ignore - this should be a valid type so needs to be fixed
 		room.provider.emit( 'synced', [ { synced } ] );
 		log(
 			'synced ',
@@ -63,24 +68,18 @@ const checkIsSynced = ( room: Room ) => {
 };
 
 /**
- * @param {Room}       room
+ * @param {Room} room
  * @param {Uint8Array} buf
- * @param {Function}   syncedCallback
- *
- * @return {encoding.Encoder?} Returns an encoder with the reply message, or null if no reply should be sent
+ * @param {function} syncedCallback
+ * @return {encoding.Encoder?}
  */
-const readMessage = (
-	room: Room,
-	buf: Uint8Array,
-	syncedCallback: Function
-): encoding.Encoder | null => {
-	if ( room === undefined ) {
-		return null;
-	}
-
+const readMessage = ( room, buf, syncedCallback ) => {
 	const decoder = decoding.createDecoder( buf );
 	const encoder = encoding.createEncoder();
 	const messageType = decoding.readVarUint( decoder );
+	if ( room === undefined ) {
+		return null;
+	}
 	const awareness = room.awareness;
 	const doc = room.doc;
 	let sendReply = false;
@@ -139,7 +138,6 @@ const readMessage = (
 					room.bcConns.delete( peerName );
 					removed.push( peerName );
 				}
-				// @ts-ignore - this should be a valid type so needs to be fixed
 				room.provider.emit( 'peers', [
 					{
 						added,
@@ -153,7 +151,6 @@ const readMessage = (
 			break;
 		}
 		default:
-			// eslint-disable-next-line no-console
 			console.error( 'Unable to compute message' );
 			return encoder;
 	}
@@ -167,12 +164,9 @@ const readMessage = (
 /**
  * @param {WebrtcConn} peerConn
  * @param {Uint8Array} buf
- * @return {encoding.Encoder?}  Returns an encoder with the reply message, or null if no reply should be sent
+ * @return {encoding.Encoder?}
  */
-const readPeerMessage = (
-	peerConn: WebrtcConn,
-	buf: Uint8Array
-): encoding.Encoder | null => {
+const readPeerMessage = ( peerConn, buf ) => {
 	const room = peerConn.room;
 	log(
 		'received message from ',
@@ -201,13 +195,10 @@ const readPeerMessage = (
 };
 
 /**
- * @param {WebrtcConn}       webrtcConn
+ * @param {WebrtcConn} webrtcConn
  * @param {encoding.Encoder} encoder
  */
-const sendWebrtcConn = (
-	webrtcConn: WebrtcConn,
-	encoder: encoding.Encoder
-) => {
+const sendWebrtcConn = ( webrtcConn, encoder ) => {
 	log(
 		'send message to ',
 		logging.BOLD,
@@ -225,10 +216,10 @@ const sendWebrtcConn = (
 };
 
 /**
- * @param {Room}       room
+ * @param {Room} room
  * @param {Uint8Array} m
  */
-const broadcastWebrtcConn = ( room: Room, m: Uint8Array ) => {
+const broadcastWebrtcConn = ( room, m ) => {
 	log( 'broadcast message in ', logging.BOLD, room.name, logging.UNBOLD );
 	room.webrtcConns.forEach( ( conn ) => {
 		try {
@@ -238,26 +229,13 @@ const broadcastWebrtcConn = ( room: Room, m: Uint8Array ) => {
 };
 
 export class WebrtcConn {
-	remotePeerId: string;
-	room: Room;
-	glareToken: number | undefined;
-	closed: boolean;
-	connected: boolean;
-	peer: SimplePeer.Instance;
-	synced: boolean;
-
 	/**
 	 * @param {SignalingConn} signalingConn
-	 * @param {boolean}       initiator
-	 * @param {string}        remotePeerId
-	 * @param {Room}          room
+	 * @param {boolean} initiator
+	 * @param {string} remotePeerId
+	 * @param {Room} room
 	 */
-	constructor(
-		signalingConn: SignalingConn,
-		initiator: boolean,
-		remotePeerId: string,
-		room: Room
-	) {
+	constructor( signalingConn, initiator, remotePeerId, room ) {
 		log( 'establishing connection to ', logging.BOLD, remotePeerId );
 		this.room = room;
 		this.remotePeerId = remotePeerId;
@@ -265,12 +243,13 @@ export class WebrtcConn {
 		this.closed = false;
 		this.connected = false;
 		this.synced = false;
-		this.peer = new SimplePeer( { initiator, ...room.provider.peerOpts } );
-		// @ts-ignore - this should be a valid type so needs to be fixed
+		/**
+		 * @type {any}
+		 */
+		this.peer = new Peer( { initiator, ...room.provider.peerOpts } );
 		this.peer.on( 'signal', ( signal ) => {
 			if ( this.glareToken === undefined ) {
 				// add some randomness to the timestamp of the offer
-				// eslint-disable-next-line no-restricted-syntax
 				this.glareToken = Date.now() + Math.random();
 			}
 			publishSignalingMessage( signalingConn, room, {
@@ -294,16 +273,16 @@ export class WebrtcConn {
 			sendWebrtcConn( this, encoder );
 			const awarenessStates = awareness.getStates();
 			if ( awarenessStates.size > 0 ) {
-				const awarenessEncoder = encoding.createEncoder();
-				encoding.writeVarUint( awarenessEncoder, messageAwareness );
+				const encoder = encoding.createEncoder();
+				encoding.writeVarUint( encoder, messageAwareness );
 				encoding.writeVarUint8Array(
-					awarenessEncoder,
+					encoder,
 					awarenessProtocol.encodeAwarenessUpdate(
 						awareness,
 						Array.from( awarenessStates.keys() )
 					)
 				);
-				sendWebrtcConn( this, awarenessEncoder );
+				sendWebrtcConn( this, encoder );
 			}
 		} );
 		this.peer.on( 'close', () => {
@@ -311,7 +290,6 @@ export class WebrtcConn {
 			this.closed = true;
 			if ( room.webrtcConns.has( this.remotePeerId ) ) {
 				room.webrtcConns.delete( this.remotePeerId );
-				// @ts-ignore - this should be a valid type so needs to be fixed
 				room.provider.emit( 'peers', [
 					{
 						removed: [ this.remotePeerId ],
@@ -350,19 +328,19 @@ export class WebrtcConn {
 }
 
 /**
- * @param {Room}       room
+ * @param {Room} room
  * @param {Uint8Array} m
  */
-const broadcastBcMessage = ( room: Room, m: Uint8Array ) =>
+const broadcastBcMessage = ( room, m ) =>
 	cryptoutils
 		.encrypt( m, room.key )
 		.then( ( data ) => room.mux( () => bc.publish( room.name, data ) ) );
 
 /**
- * @param {Room}       room
+ * @param {Room} room
  * @param {Uint8Array} m
  */
-const broadcastRoomMessage = ( room: Room, m: Uint8Array ) => {
+const broadcastRoomMessage = ( room, m ) => {
 	if ( room.bcconnected ) {
 		broadcastBcMessage( room, m );
 	}
@@ -372,7 +350,7 @@ const broadcastRoomMessage = ( room: Room, m: Uint8Array ) => {
 /**
  * @param {Room} room
  */
-const announceSignalingInfo = ( room: Room ) => {
+const announceSignalingInfo = ( room ) => {
 	signalingConns.forEach( ( conn ) => {
 		// only subscribe if connection is established, otherwise the conn automatically subscribes to all rooms
 		if ( conn.connected ) {
@@ -390,7 +368,7 @@ const announceSignalingInfo = ( room: Room ) => {
 /**
  * @param {Room} room
  */
-const broadcastBcPeerId = ( room: Room ) => {
+const broadcastBcPeerId = ( room ) => {
 	if ( room.provider.filterBcConns ) {
 		// broadcast peerId via broadcastchannel
 		const encoderPeerIdBc = encoding.createEncoder();
@@ -402,60 +380,45 @@ const broadcastBcPeerId = ( room: Room ) => {
 };
 
 export class Room {
-	peerId: string;
-	doc: Y.Doc;
-	awareness: awarenessProtocol.Awareness;
-	provider: WebrtcProvider;
-	synced: boolean;
-	name: string;
-	// @todo make key secret by scoping
-	key: CryptoKey | null;
-	webrtcConns: Map< string, WebrtcConn >;
-	bcConns: Set< string >;
-	mux: ( fn: () => void ) => Promise< void >;
-	bcconnected: boolean;
-	_bcSubscriber: ( data: ArrayBuffer ) => void;
-	_docUpdateHandler: ( update: Uint8Array, origin: any ) => void;
-	_awarenessUpdateHandler: (
-		{ added, updated, removed }: any,
-		origin: any
-	) => void;
-	_beforeUnloadHandler: () => void;
-
 	/**
-	 * @param {Y.Doc}          doc
+	 * @param {Y.Doc} doc
 	 * @param {WebrtcProvider} provider
-	 * @param {string}         name
+	 * @param {string} name
 	 * @param {CryptoKey|null} key
 	 */
-	constructor(
-		doc: Y.Doc,
-		provider: WebrtcProvider,
-		name: string,
-		key: CryptoKey | null
-	) {
+	constructor( doc, provider, name, key ) {
 		/**
 		 * Do not assume that peerId is unique. This is only meant for sending signaling messages.
+		 *
+		 * @type {string}
 		 */
 		this.peerId = random.uuidv4();
 		this.doc = doc;
+		/**
+		 * @type {awarenessProtocol.Awareness}
+		 */
 		this.awareness = provider.awareness;
 		this.provider = provider;
 		this.synced = false;
 		this.name = name;
-
+		// @todo make key secret by scoping
 		this.key = key;
+		/**
+		 * @type {Map<string, WebrtcConn>}
+		 */
 		this.webrtcConns = new Map();
+		/**
+		 * @type {Set<string>}
+		 */
 		this.bcConns = new Set();
 		this.mux = createMutex();
 		this.bcconnected = false;
 		/**
 		 * @param {ArrayBuffer} data
 		 */
-		this._bcSubscriber = ( data: ArrayBuffer ) =>
+		this._bcSubscriber = ( data ) =>
 			cryptoutils.decrypt( new Uint8Array( data ), key ).then( ( m ) =>
 				this.mux( () => {
-					// @ts-ignore - the void type coming back from decrypt is the problem.
 					const reply = readMessage( this, m, () => {} );
 					if ( reply ) {
 						broadcastBcMessage(
@@ -469,10 +432,9 @@ export class Room {
 		 * Listens to Yjs updates and sends them to remote peers
 		 *
 		 * @param {Uint8Array} update
-		 * @param {any}        origin
+		 * @param {any} origin
 		 */
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		this._docUpdateHandler = ( update: Uint8Array, origin: any ) => {
+		this._docUpdateHandler = ( update, origin ) => {
 			const encoder = encoding.createEncoder();
 			encoding.writeVarUint( encoder, messageSync );
 			syncProtocol.writeUpdate( encoder, update );
@@ -485,9 +447,8 @@ export class Room {
 		 * @param {any} origin
 		 */
 		this._awarenessUpdateHandler = (
-			{ added, updated, removed }: any,
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			origin: any
+			{ added, updated, removed },
+			origin
 		) => {
 			const changedClients = added.concat( updated ).concat( removed );
 			const encoderAwareness = encoding.createEncoder();
@@ -608,18 +569,13 @@ export class Room {
 }
 
 /**
- * @param {Y.Doc}          doc
+ * @param {Y.Doc} doc
  * @param {WebrtcProvider} provider
- * @param {string}         name
+ * @param {string} name
  * @param {CryptoKey|null} key
- * @return {Room} - The room that was opened
+ * @return {Room}
  */
-const openRoom = (
-	doc: Y.Doc,
-	provider: WebrtcProvider,
-	name: string,
-	key: CryptoKey | null
-): Room => {
+const openRoom = ( doc, provider, name, key ) => {
 	// there must only be one room
 	if ( rooms.has( name ) ) {
 		throw error.create(
@@ -627,27 +583,22 @@ const openRoom = (
 		);
 	}
 	const room = new Room( doc, provider, name, key );
-	rooms.set( name, room );
+	rooms.set( name, /** @type {Room} */ ( room ) );
 	return room;
 };
 
 /**
  * @param {SignalingConn} conn
- * @param {Room}          room
- * @param {any}           data
+ * @param {Room} room
+ * @param {any} data
  */
-export const publishSignalingMessage = (
-	conn: SignalingConn,
-	room: Room,
-	data: any
-) => {
+export const publishSignalingMessage = ( conn, room, data ) => {
 	if ( room.key ) {
-		cryptoutils.encryptJson( data, room.key ).then( ( encryptedData ) => {
+		cryptoutils.encryptJson( data, room.key ).then( ( data ) => {
 			conn.send( {
 				type: 'publish',
 				topic: room.name,
-				// @ts-ignore - the void type coming back from encryptJson is the problem.
-				data: buffer.toBase64( encryptedData ),
+				data: buffer.toBase64( data ),
 			} );
 		} );
 	} else {
@@ -656,10 +607,11 @@ export const publishSignalingMessage = (
 };
 
 export class SignalingConn extends ws.WebsocketClient {
-	providers: Set< WebrtcProvider >;
-
-	constructor( url: string ) {
+	constructor( url ) {
 		super( url );
+		/**
+		 * @type {Set<WebrtcProvider>}
+		 */
 		this.providers = new Set();
 		this.on( 'connect', () => {
 			log( `connected (${ url })` );
@@ -672,21 +624,19 @@ export class SignalingConn extends ws.WebsocketClient {
 				} )
 			);
 		} );
-		// @ts-ignore - need to define a type for the data
 		this.on( 'message', ( m ) => {
 			switch ( m.type ) {
 				case 'publish': {
 					const roomName = m.topic;
 					const room = rooms.get( roomName );
-					if ( ! room || typeof roomName !== 'string' ) {
+					if ( room == null || typeof roomName !== 'string' ) {
 						return;
 					}
-					// @ts-ignore - need to define a type for the data
 					const execMessage = ( data ) => {
 						const webrtcConns = room.webrtcConns;
 						const peerId = room.peerId;
 						if (
-							data === null ||
+							data == null ||
 							data.from === peerId ||
 							( data.to !== undefined && data.to !== peerId ) ||
 							room.bcConns.has( data.from )
@@ -697,7 +647,6 @@ export class SignalingConn extends ws.WebsocketClient {
 						const emitPeerChange = webrtcConns.has( data.from )
 							? () => {}
 							: () =>
-									// @ts-ignore - the event name should be valid as its a string
 									room.provider.emit( 'peers', [
 										{
 											removed: [],
@@ -755,15 +704,7 @@ export class SignalingConn extends ws.WebsocketClient {
 									const existingConn = webrtcConns.get(
 										data.from
 									);
-									if ( existingConn ) {
-										// if we answer an offer, we will not be sending an offer again
-										existingConn.glareToken = undefined;
-									} else {
-										log(
-											'answer received without offer: ',
-											data.from
-										);
-									}
+									existingConn.glareToken = undefined;
 								}
 								if ( data.to === peerId ) {
 									map.setIfUndefined(
@@ -801,58 +742,61 @@ export class SignalingConn extends ws.WebsocketClient {
 	}
 }
 
-interface ProviderOptions {
-	signaling?: Array< string >;
-	password?: string;
-	awareness?: awarenessProtocol.Awareness;
-	maxConns?: number;
-	filterBcConns?: boolean;
-	peerOpts?: any;
-}
+/**
+ * @typedef {Object} ProviderOptions
+ * @property {Array<string>} [signaling]
+ * @property {string} [password]
+ * @property {awarenessProtocol.Awareness} [awareness]
+ * @property {number} [maxConns]
+ * @property {boolean} [filterBcConns]
+ * @property {any} [peerOpts]
+ */
 
-export class WebrtcProvider extends ObservableV2< string > {
-	roomName: string;
-	doc: Y.Doc;
-	filterBcConns: boolean;
-	awareness: awarenessProtocol.Awareness;
-	shouldConnect: boolean;
-	signalingUrls: Array< string >;
-	signalingConns: Array< SignalingConn >;
-	maxConns: number;
-	peerOpts: any;
-	key: PromiseLike< CryptoKey > | Promise< void | null >;
-	room: Room | null;
-
+/**
+ * @extends Observable<string>
+ */
+export class WebrtcProvider extends Observable {
 	/**
-	 * @param {string}           roomName
-	 * @param {Y.Doc}            doc
+	 * @param {string} roomName
+	 * @param {Y.Doc} doc
 	 * @param {ProviderOptions?} opts
 	 */
-	constructor( roomName: string, doc: Y.Doc, opts: ProviderOptions = {} ) {
-		const {
+	constructor(
+		roomName,
+		doc,
+		{
 			signaling = [ 'wss://y-webrtc-eu.fly.dev' ],
 			password = null,
 			awareness = new awarenessProtocol.Awareness( doc ),
 			maxConns = 20 + math.floor( random.rand() * 15 ), // the random factor reduces the chance that n clients form a cluster
 			filterBcConns = true,
 			peerOpts = {}, // simple-peer options. See https://github.com/feross/simple-peer#peer--new-peeropts
-		} = opts;
+		} = {}
+	) {
 		super();
 		this.roomName = roomName;
 		this.doc = doc;
 		this.filterBcConns = filterBcConns;
+		/**
+		 * @type {awarenessProtocol.Awareness}
+		 */
 		this.awareness = awareness;
 		this.shouldConnect = false;
 		this.signalingUrls = signaling;
 		this.signalingConns = [];
 		this.maxConns = maxConns;
 		this.peerOpts = peerOpts;
+		/**
+		 * @type {PromiseLike<CryptoKey | null>}
+		 */
 		this.key = password
 			? cryptoutils.deriveKey( password, roomName )
-			: promise.resolve( null );
+			: /** @type {PromiseLike<null>} */ ( promise.resolve( null ) );
+		/**
+		 * @type {Room|null}
+		 */
 		this.room = null;
 		this.key.then( ( key ) => {
-			// @ts-ignore - the void type coming back is the problem.
 			this.room = openRoom( doc, this, roomName, key );
 			if ( this.shouldConnect ) {
 				this.room.connect();
@@ -865,7 +809,10 @@ export class WebrtcProvider extends ObservableV2< string > {
 		doc.on( 'destroy', this.destroy );
 	}
 
-	get connected(): boolean {
+	/**
+	 * @type {boolean}
+	 */
+	get connected() {
 		return this.room !== null && this.shouldConnect;
 	}
 
@@ -903,7 +850,7 @@ export class WebrtcProvider extends ObservableV2< string > {
 		this.doc.off( 'destroy', this.destroy );
 		// need to wait for key before deleting room
 		this.key.then( () => {
-			this.room?.destroy();
+			/** @type {Room} */ ( this.room ).destroy();
 			rooms.delete( this.roomName );
 		} );
 		super.destroy();
