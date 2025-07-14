@@ -12,10 +12,16 @@ import {
 import {
 	SelectControl,
 	TextControl,
+	Button,
+	BaseControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
+import { plus, trash } from '@wordpress/icons';
+import { Fragment } from '@wordpress/element';
+import { useInstanceId } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -65,10 +71,17 @@ const Edit = ( { attributes, setAttributes, clientId } ) => {
 			email: undefined,
 			action: undefined,
 			method: 'post',
+			hiddenFields: [],
 		} );
 	};
 
-	const { action, method, email, submissionMethod } = attributes;
+	const {
+		action,
+		method,
+		email,
+		submissionMethod,
+		hiddenFields = [],
+	} = attributes;
 	const blockProps = useBlockProps();
 
 	const { hasInnerBlocks } = useSelect(
@@ -88,6 +101,35 @@ const Edit = ( { attributes, setAttributes, clientId } ) => {
 			? undefined
 			: InnerBlocks.ButtonBlockAppender,
 	} );
+
+	const instanceId = useInstanceId( Edit );
+	const id = `inspector-controls-${ instanceId }`;
+
+	const addHiddenField = () => {
+		const newHiddenField = [
+			...hiddenFields,
+			{
+				id: `hidden_field_${ Date.now() }`,
+				name: '',
+				value: '',
+			},
+		];
+		setAttributes( { hiddenFields: newHiddenField } );
+	};
+
+	const removeHiddenField = ( index ) => {
+		const newHiddenFields = hiddenFields.filter( ( _, i ) => i !== index );
+		setAttributes( { hiddenFields: newHiddenFields } );
+	};
+
+	const updateHiddenField = ( index, field, value ) => {
+		const newHiddenFields = [ ...hiddenFields ];
+		newHiddenFields[ index ] = {
+			...newHiddenFields[ index ],
+			[ field ]: value,
+		};
+		setAttributes( { hiddenFields: newHiddenFields } );
+	};
 
 	return (
 		<>
@@ -171,6 +213,78 @@ const Edit = ( { attributes, setAttributes, clientId } ) => {
 							/>
 						</ToolsPanelItem>
 					) }
+					<ToolsPanelItem
+						hasValue={ () => hiddenFields.length > 0 }
+						label={ __( 'Hidden fields' ) }
+						onDeselect={ () =>
+							setAttributes( { hiddenFields: [] } )
+						}
+						isShownByDefault
+					>
+						<BaseControl
+							__nextHasNoMarginBottom
+							id={ id }
+							label={ __( 'Hidden fields' ) }
+							help={ __(
+								'Add hidden fields to the form. These fields will not be visible to users but will be included in the form submission.'
+							) }
+						>
+							<VStack spacing={ 2 }>
+								{ hiddenFields.map( ( field, index ) => (
+									<Fragment key={ field.id }>
+										<TextControl
+											__nextHasNoMarginBottom
+											__next40pxDefaultSize
+											label={ __( 'Field Name' ) }
+											value={ field.name }
+											onChange={ ( value ) =>
+												updateHiddenField(
+													index,
+													'name',
+													value
+												)
+											}
+										/>
+										<TextControl
+											__nextHasNoMarginBottom
+											__next40pxDefaultSize
+											label={ __( 'Field Value' ) }
+											value={ field.value }
+											onChange={ ( value ) =>
+												updateHiddenField(
+													index,
+													'value',
+													value
+												)
+											}
+										/>
+										<Button
+											__nextHasNoMarginBottom
+											__next40pxDefaultSize
+											isDestructive
+											variant="secondary"
+											icon={ trash }
+											onClick={ () =>
+												removeHiddenField( index )
+											}
+										>
+											{ __( 'Remove field' ) }
+										</Button>
+									</Fragment>
+								) ) }
+
+								<Button
+									__nextHasNoMarginBottom
+									__next40pxDefaultSize
+									variant="secondary"
+									onClick={ addHiddenField }
+									icon={ plus }
+								>
+									{ __( 'Add hidden field' ) }
+								</Button>
+							</VStack>
+						</BaseControl>
+					</ToolsPanelItem>
 				</ToolsPanel>
 			</InspectorControls>
 			{ submissionMethod !== 'email' && (
