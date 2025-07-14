@@ -1,7 +1,7 @@
 /**
  * Possible ways of counting text.
  */
-export type WPWordCountStrategy =
+export type Strategy =
 	| 'words'
 	| 'characters_excluding_spaces'
 	| 'characters_including_spaces';
@@ -9,11 +9,11 @@ export type WPWordCountStrategy =
 /**
  * L10n settings for word counting.
  */
-export interface WPWordCountL10n {
+export interface L10n {
 	/**
 	 * The type of count to perform.
 	 */
-	type?: WPWordCountStrategy;
+	type?: Strategy;
 
 	/**
 	 * Array of shortcode names to be removed during counting.
@@ -24,36 +24,17 @@ export interface WPWordCountL10n {
 /**
  * Base settings fields that can be configured by users.
  */
-export interface WPWordCountUserSettings {
-	/**
-	 * Regular expressions for various text processing operations.
-	 */
-	HTMLRegExp?: RegExp;
-	HTMLcommentRegExp?: RegExp;
-	spaceRegExp?: RegExp;
-	HTMLEntityRegExp?: RegExp;
-	connectorRegExp?: RegExp;
-	removeRegExp?: RegExp;
-	astralRegExp?: RegExp;
-	wordsRegExp?: RegExp;
-	characters_excluding_spacesRegExp?: RegExp;
-	characters_including_spacesRegExp?: RegExp;
-
-	/**
-	 * Localization settings.
-	 */
-	l10n?: WPWordCountL10n;
-}
+export type UserSettings = Partial< Omit< Settings, 'type' | 'shortcodes' > >;
 
 /**
  * Complete settings object with all required properties.
  * This includes both static defaults and dynamic runtime properties.
  */
-export interface WPWordCountSettings {
+export interface Settings {
 	/**
 	 * The type of count being performed (set at runtime).
 	 */
-	type: WPWordCountStrategy;
+	type: Strategy;
 
 	/**
 	 * Regular expression that matches HTML tags.
@@ -108,7 +89,7 @@ export interface WPWordCountSettings {
 	/**
 	 * Localization settings.
 	 */
-	l10n: WPWordCountL10n;
+	l10n: L10n;
 
 	/**
 	 * Array of shortcode names (set at runtime from l10n.shortcodes).
@@ -119,21 +100,4 @@ export interface WPWordCountSettings {
 	 * Regular expression for matching shortcodes (generated at runtime).
 	 */
 	shortcodesRegExp?: RegExp;
-}
-
-/**
- * Default settings object type (without runtime-added properties).
- */
-export interface WPWordCountDefaultSettings {
-	HTMLRegExp: RegExp;
-	HTMLcommentRegExp: RegExp;
-	spaceRegExp: RegExp;
-	HTMLEntityRegExp: RegExp;
-	connectorRegExp: RegExp;
-	removeRegExp: RegExp;
-	astralRegExp: RegExp;
-	wordsRegExp: RegExp;
-	characters_excluding_spacesRegExp: RegExp;
-	characters_including_spacesRegExp: RegExp;
-	l10n: WPWordCountL10n;
 }

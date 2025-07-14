@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import type { WPWordCountSettings } from './types';
+import type { Settings } from './types';
 
 /**
  * Replaces items matched in the regex with a single character.
@@ -11,7 +11,7 @@ import type { WPWordCountSettings } from './types';
  * @return The manipulated text.
  */
 export default function transposeHTMLEntitiesToCountableChars(
-	settings: WPWordCountSettings,
+	settings: Settings,
 	text: string
 ): string {
 	return text.replace( settings.HTMLEntityRegExp, 'a' );

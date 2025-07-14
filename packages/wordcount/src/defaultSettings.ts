@@ -1,12 +1,12 @@
 /**
  * Internal dependencies
  */
-import type { WPWordCountDefaultSettings } from './types';
+import type { UserSettings } from './types';
 
 /**
  * Default settings for word counting operations.
  */
-export const defaultSettings: WPWordCountDefaultSettings = {
+export const defaultSettings = {
 	HTMLRegExp: /<\/?[a-z][^>]*?>/gi,
 	HTMLcommentRegExp: /<!--[\s\S]*?-->/g,
 	spaceRegExp: /&nbsp;|&#160;/gi,
@@ -82,4 +82,4 @@ export const defaultSettings: WPWordCountDefaultSettings = {
 	l10n: {
 		type: 'words',
 	},
-};
+} satisfies UserSettings;

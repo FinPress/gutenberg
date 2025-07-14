@@ -3,9 +3,9 @@
  */
 
 import { count } from '../';
-import type { WPWordCountUserSettings, WPWordCountStrategy } from '../types';
+import type { UserSettings, Strategy } from '../types';
 
-const mockData: WPWordCountUserSettings = {
+const mockData: UserSettings = {
 	l10n: {
 		shortcodes: [ 'shortcode' ],
 	},
@@ -114,7 +114,7 @@ describe( 'WordCounter', () => {
 		},
 	];
 
-	const types: WPWordCountStrategy[] = [
+	const types: Strategy[] = [
 		'words',
 		'characters_excluding_spaces',
 		'characters_including_spaces',

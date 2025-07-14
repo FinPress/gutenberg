@@ -12,11 +12,7 @@ import stripShortcodes from './stripShortcodes';
 import stripSpaces from './stripSpaces';
 import transposeHTMLEntitiesToCountableChars from './transposeHTMLEntitiesToCountableChars';
 
-import type {
-	WPWordCountSettings,
-	WPWordCountUserSettings,
-	WPWordCountStrategy,
-} from './types';
+import type { Settings, UserSettings, Strategy } from './types';
 
 /**
  * Private function to manage the settings.
@@ -26,12 +22,12 @@ import type {
  * @return The combined settings object to be used.
  */
 function loadSettings(
-	type: WPWordCountStrategy = 'words',
-	userSettings: WPWordCountUserSettings = {}
-): WPWordCountSettings {
+	type: Strategy = 'words',
+	userSettings: UserSettings = {}
+): Settings {
 	const mergedSettings = { ...defaultSettings, ...userSettings };
 
-	const settings: WPWordCountSettings = {
+	const settings: Settings = {
 		...mergedSettings,
 		type,
 		shortcodes: [],
@@ -64,11 +60,7 @@ function loadSettings(
  * @param settings Settings object containing regular expressions for each strip function
  * @return Count of words.
  */
-function countWords(
-	text: string,
-	regex: RegExp,
-	settings: WPWordCountSettings
-): number {
+function countWords( text: string, regex: RegExp, settings: Settings ): number {
 	text = [
 		stripTags.bind( null, settings ),
 		stripHTMLComments.bind( null, settings ),
@@ -93,7 +85,7 @@ function countWords(
 function countCharacters(
 	text: string,
 	regex: RegExp,
-	settings: WPWordCountSettings
+	settings: Settings
 ): number {
 	text = [
 		stripTags.bind( null, settings ),
@@ -124,8 +116,8 @@ function countCharacters(
  */
 export function count(
 	text: string,
-	type: WPWordCountStrategy,
-	userSettings: WPWordCountUserSettings
+	type: Strategy,
+	userSettings: UserSettings
 ): number {
 	const settings = loadSettings( type, userSettings );
 	let matchRegExp: RegExp;
@@ -145,8 +137,4 @@ export function count(
 }
 
 // Export types for external usage
-export type {
-	WPWordCountStrategy,
-	WPWordCountSettings,
-	WPWordCountUserSettings,
-} from './types';
+export type { Strategy, Settings, UserSettings } from './types';

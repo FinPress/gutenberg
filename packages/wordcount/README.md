@@ -30,22 +30,22 @@ const numberOfWords = count( 'Words to count', 'words', {} );
 _Parameters_
 
 -   _text_ `string`: The text being processed
--   _type_ `WPWordCountStrategy`: The type of count. Accepts 'words', 'characters_excluding_spaces', or 'characters_including_spaces'.
--   _userSettings_ `WPWordCountUserSettings`: Custom settings object.
+-   _type_ `Strategy`: The type of count. Accepts 'words', 'characters_excluding_spaces', or 'characters_including_spaces'.
+-   _userSettings_ `UserSettings`: Custom settings object.
 
 _Returns_
 
 -   `number`: The word or character count.
 
-### WPWordCountSettings
+### Settings
 
 Undocumented declaration.
 
-### WPWordCountStrategy
+### Strategy
 
 Undocumented declaration.
 
-### WPWordCountUserSettings
+### UserSettings
 
 Undocumented declaration.
 

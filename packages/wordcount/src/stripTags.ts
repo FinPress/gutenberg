@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import type { WPWordCountSettings } from './types';
+import type { Settings } from './types';
 
 /**
  * Replaces items matched in the regex with new line
@@ -10,9 +10,6 @@ import type { WPWordCountSettings } from './types';
  * @param text     The string being counted.
  * @return The manipulated text.
  */
-export default function stripTags(
-	settings: WPWordCountSettings,
-	text: string
-): string {
+export default function stripTags( settings: Settings, text: string ): string {
 	return text.replace( settings.HTMLRegExp, '\n' );
 }

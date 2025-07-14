@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import type { WPWordCountSettings } from './types';
+import type { Settings } from './types';
 
 /**
  * Replaces items matched in the regex with a new line.
@@ -11,7 +11,7 @@ import type { WPWordCountSettings } from './types';
  * @return The manipulated text.
  */
 export default function stripShortcodes(
-	settings: WPWordCountSettings,
+	settings: Settings,
 	text: string
 ): string {
 	if ( settings.shortcodesRegExp ) {
