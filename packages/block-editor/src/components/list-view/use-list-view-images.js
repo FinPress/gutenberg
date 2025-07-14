@@ -39,40 +39,42 @@ const IMAGE_GETTERS = {
 			};
 		}
 	},
+	'core/gallery': ( { innerBlocks } ) => {
+		const images = [];
+		const getValues = !! innerBlocks?.length
+			? IMAGE_GETTERS[ innerBlocks[ 0 ].name ]
+			: undefined;
+		if ( ! getValues ) {
+			return images;
+		}
+
+		for ( const innerBlock of innerBlocks ) {
+			const img = getValues( innerBlock );
+			if ( img ) {
+				images.push( img );
+			}
+			if ( images.length >= MAX_IMAGES ) {
+				return images;
+			}
+		}
+
+		return images;
+	},
 };
 
-function getImage( block ) {
-	const getValues = IMAGE_GETTERS[ block.name ];
+function getImagesFromBlock( block, isExpanded ) {
+	const getImages = IMAGE_GETTERS[ block.name ];
+	const images = !! getImages ? getImages( block ) : undefined;
 
-	return getValues ? getValues( block ) : undefined;
-}
-
-function getImagesFromGallery( block ) {
-	if ( block.name !== 'core/gallery' || ! block.innerBlocks ) {
+	if ( ! images ) {
 		return [];
 	}
 
-	const images = [];
-
-	for ( const innerBlock of block.innerBlocks ) {
-		const img = getImage( innerBlock );
-		if ( img ) {
-			images.push( img );
-		}
-		if ( images.length >= MAX_IMAGES ) {
-			return images;
-		}
+	if ( ! Array.isArray( images ) ) {
+		return [ images ];
 	}
 
-	return images;
-}
-
-function getImagesFromBlock( block, isExpanded ) {
-	const img = getImage( block );
-	if ( img ) {
-		return [ img ];
-	}
-	return isExpanded ? [] : getImagesFromGallery( block );
+	return isExpanded ? [] : images;
 }
 
 /**
