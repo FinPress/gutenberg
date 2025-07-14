@@ -28,11 +28,7 @@ function gutenberg_replace_pattern_override_default_binding( $parsed_block ) {
 	) {
 		$updated_bindings = array();
 
-		// Build an binding array of all supported attributes.
-		// Note that this also omits the `__default` attribute from the
-		// resulting array.
 		foreach ( $supported_block_attrs[ $parsed_block['blockName'] ] as $attribute_name ) {
-			// Retain any non-pattern override bindings that might be present.
 			$updated_bindings[ $attribute_name ] = isset( $bindings[ $attribute_name ] )
 				? $bindings[ $attribute_name ]
 				: array( 'source' => 'core/pattern-overrides' );
@@ -54,22 +50,6 @@ add_filter( 'render_block_data', 'gutenberg_replace_pattern_override_default_bin
  * @return string  Block content with the bind applied.
  */
 function gutenberg_process_image_caption_binding( $block_content, $parsed_block, $block_instance ) {
-	if ( ! isset( $parsed_block['attrs']['metadata']['bindings']['caption'] ) ) {
-		return $block_content;
-	}
-
-	$caption_binding = $parsed_block['attrs']['metadata']['bindings']['caption'];
-
-	$caption_binding_source = get_block_bindings_source( $caption_binding['source'] );
-	$source_args            = ! empty( $caption_binding['args'] ) && is_array( $caption_binding['args'] ) ? $caption_binding['args'] : array();
-	$source_value           = $caption_binding_source->get_value( $source_args, $block_instance, 'caption' );
-
-	// If the value is not null, process the HTML based on the block and the attribute.
-	if ( is_null( $source_value ) ) {
-		return $block_content;
-	}
-
-	// Creating an internal class to process the HTML until we have set_inner_html() available in the block API.
 	$block_reader = new class($block_content) extends WP_HTML_Tag_Processor {
 		/**
 		 * Replace the inner content of a figcaption element with the passed content.
@@ -78,15 +58,12 @@ function gutenberg_process_image_caption_binding( $block_content, $parsed_block,
 		 * @return bool Whether the inner content was properly replaced.
 		 */
 		public function set_figcaption_content( $new_content ) {
-			// Check that the processor is paused on a figcaption opener tag
 			if ( $this->is_tag_closer() || 'FIGCAPTION' !== $this->get_tag() ) {
 				return false;
 			}
 
-			// Set position of the opener tag
 			$this->set_bookmark( 'opener_tag' );
 
-			// Find the closing figcaption tag
 			if ( ! $this->next_tag(
 				array(
 					'tag_name'    => 'FIGCAPTION',
@@ -96,25 +73,19 @@ function gutenberg_process_image_caption_binding( $block_content, $parsed_block,
 				return false;
 			}
 
-			// Set position of the closer tag
 			$this->set_bookmark( 'closer_tag' );
 
-			// Get opener and closer tag bookmarks
 			$opener_tag_bookmark = $this->bookmarks['opener_tag'];
 			$closer_tag_bookmark = $this->bookmarks['closer_tag'];
 
-			// Calculate the position after the opening tag
 			$after_opener_tag = $opener_tag_bookmark->start + $opener_tag_bookmark->length;
 
-			// Handle the '>' character after the tag
 			if ( '>' === $this->html[ $after_opener_tag ] ) {
 				++$after_opener_tag;
 			}
 
-			// Calculate the length of content between tags
 			$inner_content_length = $closer_tag_bookmark->start - $after_opener_tag;
 
-			// Replace the content between the tags
 			$this->lexical_updates[] = new WP_HTML_Text_Replacement(
 				$after_opener_tag,
 				$inner_content_length,
@@ -123,13 +94,73 @@ function gutenberg_process_image_caption_binding( $block_content, $parsed_block,
 
 			return true;
 		}
+
+		/**
+		 * Remove the entire figcaption element if it has data-wp-maybe-remove="true".
+		 *
+		 * @return bool Whether the figcaption element was properly removed.
+		 */
+		public function maybe_remove_figcaption() {
+			if ( $this->is_tag_closer() || 'FIGCAPTION' !== $this->get_tag() ) {
+				return false;
+			}
+
+			$this->set_bookmark( 'opener_tag' );
+
+			if ( ! $this->next_tag(
+				array(
+					'tag_name'    => 'FIGCAPTION',
+					'tag_closers' => 'visit',
+				)
+			) || ! $this->is_tag_closer() ) {
+				return false;
+			}
+
+			$this->set_bookmark( 'closer_tag' );
+
+			$opener_tag_bookmark = $this->bookmarks['opener_tag'];
+			$closer_tag_bookmark = $this->bookmarks['closer_tag'];
+
+			$total_element_length = $closer_tag_bookmark->start + $closer_tag_bookmark->length - $opener_tag_bookmark->start;
+
+			$this->lexical_updates[] = new WP_HTML_Text_Replacement(
+				$opener_tag_bookmark->start,
+				$total_element_length,
+				''
+			);
+
+			return true;
+		}
 	};
+	if ( ! isset( $parsed_block['attrs']['metadata']['bindings']['caption'] ) ) {
+		if ( strpos( $block_content, '<figcaption' ) !== false ) {
+			$processor = new $block_reader( $block_content );
+			$processor->next_tag( 'FIGCAPTION' );
+			$processor->maybe_remove_figcaption();
+			return $processor->get_updated_html();
+		}
+	}
+
+	$caption_binding = $parsed_block['attrs']['metadata']['bindings']['caption'];
+
+	$caption_binding_source = get_block_bindings_source( $caption_binding['source'] );
+	$source_args            = ! empty( $caption_binding['args'] ) && is_array( $caption_binding['args'] ) ? $caption_binding['args'] : array();
+	$source_value           = $caption_binding_source->get_value( $source_args, $block_instance, 'caption' );
+
+	if ( is_null( $source_value ) ) {
+		return $block_content;
+	}
 
 	$processor = new $block_reader( $block_content );
 
-	// Find and update the figcaption
 	if ( $processor->next_tag( 'FIGCAPTION' ) ) {
-		$processor->set_figcaption_content( wp_kses_post( $source_value ) );
+		$maybe_remove = $processor->get_attribute( 'data-wp-maybe-remove' );
+
+		if ( 'true' === $maybe_remove ) {
+			$processor->maybe_remove_figcaption();
+		} else {
+			$processor->set_figcaption_content( wp_kses_post( $source_value ) );
+		}
 	}
 
 	return $processor->get_updated_html();

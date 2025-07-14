@@ -88,7 +88,7 @@ export default function save( { attributes } ) {
 				className={ __experimentalGetElementClassName( 'caption' ) }
 				tagName="figcaption"
 				value={ caption }
-				data-wp-maybe-remove={ ! RichText.isEmpty( caption ) }
+				data-wp-maybe-remove={ RichText.isEmpty( caption ) }
 			/>
 		</>
 	);
