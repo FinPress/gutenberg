@@ -137,4 +137,4 @@ export function count(
 }
 
 // Export types for external usage
-export type { Strategy, Settings, UserSettings } from './types';
+export * from './types';
