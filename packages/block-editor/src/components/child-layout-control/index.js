@@ -209,7 +209,7 @@ function GridControls( {
 	panelId,
 } ) {
 	const { columnStart, rowStart, columnSpan, rowSpan } = childLayout;
-	const { columnCount = 3, rowCount } = parentLayout ?? {};
+	const { columnCount, rowCount } = parentLayout ?? {};
 	const rootClientId = useSelect( ( select ) =>
 		select( blockEditorStore ).getBlockRootClientId( panelId )
 	);
@@ -217,7 +217,7 @@ function GridControls( {
 		useDispatch( blockEditorStore );
 	const getNumberOfBlocksBeforeCell = useGetNumberOfBlocksBeforeCell(
 		rootClientId,
-		columnCount
+		columnCount || 3
 	);
 	const hasStartValue = () => !! columnStart || !! rowStart;
 	const hasSpanValue = () => !! columnSpan || !! rowSpan;
@@ -306,7 +306,7 @@ function GridControls( {
 				</FlexItem>
 			</Flex>
 
-			{ window.__experimentalEnableGridInteractivity && columnCount && (
+			{ window.__experimentalEnableGridInteractivity && (
 				// Use Flex with an explicit width on the FlexItem instead of HStack to
 				// work around an issue in webkit where inputs with a max attribute are
 				// sized incorrectly.
