@@ -238,13 +238,21 @@ function CoverEdit( {
 			}
 		}
 
+		const preserveParallax =
+			backgroundType === VIDEO_BACKGROUND_TYPE &&
+			isImage &&
+			hasParallax !== undefined;
+
+		const { hasParallax: _, ...filteredMediaAttributes } = mediaAttributes;
+
 		setAttributes( {
-			...mediaAttributes,
+			...filteredMediaAttributes,
 			focalPoint: undefined,
 			useFeaturedImage: undefined,
 			dimRatio: newDimRatio,
 			isDark: newIsDark,
 			isUserOverlayColor: isUserOverlayColor || false,
+			...( preserveParallax ? { hasParallax } : {} ),
 		} );
 	};
 
