@@ -70,12 +70,6 @@ function ListBox( {
 						}
 					) }
 					variant={ index === selectedIndex ? 'primary' : undefined }
-					onMouseDown={ (
-						event: React.MouseEvent< HTMLButtonElement >
-					) => {
-						// Prevents button from stealing focus and losing the text cursor position.
-						event.preventDefault();
-					} }
 					onClick={ () => onSelect( option ) }
 				>
 					{ option.label }
