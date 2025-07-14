@@ -25,7 +25,7 @@ export function next( tag, text, index = 0 ) {
 		return;
 	}
 
-	// If we matched an escaped shortcode, try again.
+	// If we matched an escaped shortcode,try again.
 	if ( '[' === match[ 1 ] && ']' === match[ 7 ] ) {
 		return next( tag, text, re.lastIndex );
 	}
