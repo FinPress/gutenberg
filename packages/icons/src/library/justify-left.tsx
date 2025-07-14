@@ -3,12 +3,7 @@
  */
 import { SVG, Path } from '@wordpress/primitives';
 
-/**
- * External dependencies
- */
-import type { ReactElement } from 'react';
-
-const justifyLeft: ReactElement = (
+const justifyLeft = (
 	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 		<Path d="M9 9v6h11V9H9zM4 20h1.5V4H4v16z" />
 	</SVG>

@@ -3,12 +3,7 @@
  */
 import { SVG, Path } from '@wordpress/primitives';
 
-/**
- * External dependencies
- */
-import type { ReactElement } from 'react';
-
-const lockSmall: ReactElement = (
+const lockSmall = (
 	<SVG viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 		<Path
 			fillRule="evenodd"

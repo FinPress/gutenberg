@@ -3,12 +3,7 @@
  */
 import { Path, SVG } from '@wordpress/primitives';
 
-/**
- * External dependencies
- */
-import type { ReactElement } from 'react';
-
-const lineDashed: ReactElement = (
+const lineDashed = (
 	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 		<Path
 			fillRule="evenodd"

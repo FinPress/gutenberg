@@ -3,12 +3,7 @@
  */
 import { Path, SVG } from '@wordpress/primitives';
 
-/**
- * External dependencies
- */
-import type { ReactElement } from 'react';
-
-const handle: ReactElement = (
+const handle = (
 	<SVG viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 		<Path d="M7 16.5h10V15H7v1.5zm0-9V9h10V7.5H7z" />
 	</SVG>

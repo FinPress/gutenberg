@@ -3,12 +3,7 @@
  */
 import { Path, SVG } from '@wordpress/primitives';
 
-/**
- * External dependencies
- */
-import type { ReactElement } from 'react';
-
-const columns: ReactElement = (
+const columns = (
 	<SVG viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 		<Path
 			fillRule="evenodd"
