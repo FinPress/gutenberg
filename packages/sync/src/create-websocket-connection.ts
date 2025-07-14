@@ -29,9 +29,10 @@ export function createWebSocketConnection(
 ): ConnectDoc {
 	return async function ( objectId: string, objectType: string, doc: Y.Doc ) {
 		const roomName = `${ objectType }-${ objectId }`;
+		let provider = null;
 
 		try {
-			new WebsocketProvider(
+			provider = new WebsocketProvider(
 				config.serverUrl,
 				roomName,
 				doc,
@@ -39,9 +40,12 @@ export function createWebSocketConnection(
 			);
 		} catch {}
 
-		return () => {
-			// The WebsocketProvider handles its own cleanup. If needed, we could
-			// implement a way to disconnect or clean up resources here.
+		return {
+			awareness: provider?.awareness || null,
+			destroy: () => {
+				// The WebsocketProvider handles its own cleanup. If needed, we could
+				// implement a way to disconnect or clean up resources here.
+			},
 		};
 	};
 }

@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import type { Awareness } from 'y-protocols/awareness';
 import type * as Y from 'yjs';
 
 export type * as Y from 'yjs';
@@ -28,11 +29,27 @@ export type ObjectConfig = {
 	fromCRDTDoc: ( ydoc: Y.Doc ) => any;
 };
 
+export type ConnectDocResult = {
+	destroy: () => void;
+	awareness: Awareness | null;
+};
+
 export type ConnectDoc = (
 	id: ObjectID,
 	type: ObjectType,
 	ydoc: Y.Doc
-) => Promise< () => void >;
+) => Promise< ConnectDocResult >;
+
+export type AwarenessEventListener = ( params: {
+	added: number[];
+	updated: number[];
+	removed: number[];
+} ) => void;
+
+export interface PendingAwarenessSetup {
+	pendingListeners: Record< string, AwarenessEventListener[] >;
+	pendingStateFields: Record< string, any >;
+}
 
 export type SyncProvider = {
 	addRecord: ( record: HistoryRecord, isStaged: boolean ) => void;
@@ -50,4 +67,14 @@ export type SyncProvider = {
 	update: ( type: ObjectType, id: ObjectID, data: any, origin: any ) => void;
 	discard: ( type: ObjectType, id: ObjectID ) => Promise< void >;
 	postTypeConfigs: { [ postType: string ]: ObjectConfig };
+
+	awareness: {
+		addListener: (
+			eventType: 'update' | 'change',
+			listener: AwarenessEventListener
+		) => void;
+		getStates: () => Map< number, Record< string, any > > | null;
+		setLocalStateField: ( field: string, value: any ) => void;
+		removeAwarenessStates: () => void;
+	};
 };

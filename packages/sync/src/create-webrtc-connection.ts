@@ -34,13 +34,22 @@ export function createWebRTCConnection(
 			...config.options,
 		};
 
+		let provider = null;
+
 		try {
-			new WebrtcProviderWithHttpSignaling( roomName, doc, options );
+			provider = new WebrtcProviderWithHttpSignaling(
+				roomName,
+				doc,
+				options
+			);
 		} catch {}
 
-		return () => {
-			// The WebrtcProvider handles its own cleanup. If needed, we could
-			// implement a way to disconnect or clean up resources here.
+		return {
+			awareness: provider?.awareness || null,
+			destroy: () => {
+				// The WebsocketProvider handles its own cleanup. If needed, we could
+				// implement a way to disconnect or clean up resources here.
+			},
 		};
 	};
 }
