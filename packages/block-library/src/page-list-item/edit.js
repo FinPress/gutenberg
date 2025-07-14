@@ -13,7 +13,7 @@ import { decodeEntities } from '@wordpress/html-entities';
 /**
  * Internal dependencies
  */
-import { ItemSubmenuIcon } from '../navigation-link/icons';
+import { ItemSubmenuIcon } from '../navigation-link/shared/icons';
 import {
 	getColors,
 	getNavigationChildBlockProps,

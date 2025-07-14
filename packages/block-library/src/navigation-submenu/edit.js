@@ -37,7 +37,7 @@ import { useMergeRefs, usePrevious } from '@wordpress/compose';
 /**
  * Internal dependencies
  */
-import { ItemSubmenuIcon } from './icons';
+import { ItemSubmenuIcon } from '../navigation-link/shared/icons';
 import { LinkUI } from '../navigation-link/link-ui';
 import { updateAttributes } from '../navigation-link/update-attributes';
 import {
