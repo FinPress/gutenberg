@@ -22,6 +22,7 @@ export const settings = {
 	save,
 	deprecated,
 	variations,
+	example: {},
 };
 
 export const init = () => {

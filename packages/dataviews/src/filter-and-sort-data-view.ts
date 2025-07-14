@@ -2,6 +2,12 @@
  * External dependencies
  */
 import removeAccents from 'remove-accents';
+import { subDays, subWeeks, subMonths, subYears } from 'date-fns';
+
+/**
+ * WordPress dependencies
+ */
+import { getDate } from '@wordpress/date';
 
 /**
  * Internal dependencies
@@ -13,15 +19,53 @@ import {
 	OPERATOR_IS_ANY,
 	OPERATOR_IS_ALL,
 	OPERATOR_IS_NOT_ALL,
+	OPERATOR_LESS_THAN,
+	OPERATOR_GREATER_THAN,
+	OPERATOR_LESS_THAN_OR_EQUAL,
+	OPERATOR_GREATER_THAN_OR_EQUAL,
+	OPERATOR_BEFORE,
+	OPERATOR_AFTER,
+	OPERATOR_BEFORE_INC,
+	OPERATOR_AFTER_INC,
+	OPERATOR_CONTAINS,
+	OPERATOR_NOT_CONTAINS,
+	OPERATOR_STARTS_WITH,
+	OPERATOR_BETWEEN,
+	OPERATOR_ON,
+	OPERATOR_NOT_ON,
+	OPERATOR_IN_THE_PAST,
+	OPERATOR_OVER,
 } from './constants';
 import { normalizeFields } from './normalize-fields';
-import type { Field, AnyItem, View } from './types';
+import type { Field, View } from './types';
 
 function normalizeSearchInput( input = '' ) {
 	return removeAccents( input.trim().toLowerCase() );
 }
 
 const EMPTY_ARRAY: [] = [];
+
+/**
+ * Calculates a date offset from now.
+ *
+ * @param value Number of units to offset.
+ * @param unit  Unit of time to offset.
+ * @return      Date offset from now.
+ */
+function getRelativeDate( value: number, unit: string ): Date {
+	switch ( unit ) {
+		case 'days':
+			return subDays( new Date(), value );
+		case 'weeks':
+			return subWeeks( new Date(), value );
+		case 'months':
+			return subMonths( new Date(), value );
+		case 'years':
+			return subYears( new Date(), value );
+		default:
+			return new Date();
+	}
+}
 
 /**
  * Applies the filtering, sorting and pagination to the raw data based on the view configuration.
@@ -32,7 +76,7 @@ const EMPTY_ARRAY: [] = [];
  *
  * @return Filtered, sorted and paginated data.
  */
-export function filterSortAndPaginate< Item extends AnyItem >(
+export function filterSortAndPaginate< Item >(
 	data: Item[],
 	view: View,
 	fields: Field< Item >[]
@@ -61,7 +105,7 @@ export function filterSortAndPaginate< Item extends AnyItem >(
 		} );
 	}
 
-	if ( view.filters.length > 0 ) {
+	if ( view.filters && view.filters?.length > 0 ) {
 		view.filters.forEach( ( filter ) => {
 			const field = _fields.find(
 				( _field ) => _field.id === filter.field
@@ -121,11 +165,209 @@ export function filterSortAndPaginate< Item extends AnyItem >(
 					} );
 				} else if ( filter.operator === OPERATOR_IS ) {
 					filteredData = filteredData.filter( ( item ) => {
-						return filter.value === field.getValue( { item } );
+						return (
+							filter.value === field.getValue( { item } ) ||
+							filter.value === undefined
+						);
 					} );
 				} else if ( filter.operator === OPERATOR_IS_NOT ) {
 					filteredData = filteredData.filter( ( item ) => {
 						return filter.value !== field.getValue( { item } );
+					} );
+				} else if (
+					filter.operator === OPERATOR_ON &&
+					filter.value !== undefined
+				) {
+					const filterDate = getDate( filter.value );
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldDate = getDate( field.getValue( { item } ) );
+						return filterDate.getTime() === fieldDate.getTime();
+					} );
+				} else if (
+					filter.operator === OPERATOR_NOT_ON &&
+					filter.value !== undefined
+				) {
+					const filterDate = getDate( filter.value );
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldDate = getDate( field.getValue( { item } ) );
+						return filterDate.getTime() !== fieldDate.getTime();
+					} );
+				} else if (
+					filter.operator === OPERATOR_LESS_THAN &&
+					filter.value !== undefined
+				) {
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = field.getValue( { item } );
+						return fieldValue < filter.value;
+					} );
+				} else if (
+					filter.operator === OPERATOR_GREATER_THAN &&
+					filter.value !== undefined
+				) {
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = field.getValue( { item } );
+						return fieldValue > filter.value;
+					} );
+				} else if (
+					filter.operator === OPERATOR_LESS_THAN_OR_EQUAL &&
+					filter.value !== undefined
+				) {
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = field.getValue( { item } );
+						return fieldValue <= filter.value;
+					} );
+				} else if (
+					filter.operator === OPERATOR_GREATER_THAN_OR_EQUAL &&
+					filter.value !== undefined
+				) {
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = field.getValue( { item } );
+						return fieldValue >= filter.value;
+					} );
+				} else if (
+					filter.operator === OPERATOR_CONTAINS &&
+					filter?.value !== undefined
+				) {
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = field.getValue( { item } );
+						return (
+							typeof fieldValue === 'string' &&
+							filter.value &&
+							fieldValue
+								.toLowerCase()
+								.includes(
+									String( filter.value ).toLowerCase()
+								)
+						);
+					} );
+				} else if (
+					filter.operator === OPERATOR_NOT_CONTAINS &&
+					filter?.value !== undefined
+				) {
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = field.getValue( { item } );
+						return (
+							typeof fieldValue === 'string' &&
+							filter.value &&
+							! fieldValue
+								.toLowerCase()
+								.includes(
+									String( filter.value ).toLowerCase()
+								)
+						);
+					} );
+				} else if (
+					filter.operator === OPERATOR_STARTS_WITH &&
+					filter?.value !== undefined
+				) {
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = field.getValue( { item } );
+						return (
+							typeof fieldValue === 'string' &&
+							filter.value &&
+							fieldValue
+								.toLowerCase()
+								.startsWith(
+									String( filter.value ).toLowerCase()
+								)
+						);
+					} );
+				} else if (
+					filter.operator === OPERATOR_BEFORE &&
+					filter.value !== undefined
+				) {
+					const filterValue = getDate( filter.value );
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = getDate(
+							field.getValue( { item } )
+						);
+						return fieldValue < filterValue;
+					} );
+				} else if (
+					filter.operator === OPERATOR_AFTER &&
+					filter.value !== undefined
+				) {
+					const filterValue = getDate( filter.value );
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = getDate(
+							field.getValue( { item } )
+						);
+						return fieldValue > filterValue;
+					} );
+				} else if (
+					filter.operator === OPERATOR_BEFORE_INC &&
+					filter.value !== undefined
+				) {
+					const filterValue = getDate( filter.value );
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = getDate(
+							field.getValue( { item } )
+						);
+						return fieldValue <= filterValue;
+					} );
+				} else if (
+					filter.operator === OPERATOR_AFTER_INC &&
+					filter.value !== undefined
+				) {
+					const filterValue = getDate( filter.value );
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = getDate(
+							field.getValue( { item } )
+						);
+						return fieldValue >= filterValue;
+					} );
+				} else if (
+					filter.operator === OPERATOR_BETWEEN &&
+					Array.isArray( filter.value ) &&
+					filter.value.length === 2 &&
+					filter.value[ 0 ] !== undefined &&
+					filter.value[ 1 ] !== undefined
+				) {
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = field.getValue( { item } );
+						if (
+							typeof fieldValue === 'number' ||
+							fieldValue instanceof Date ||
+							typeof fieldValue === 'string'
+						) {
+							return (
+								fieldValue >= filter.value[ 0 ] &&
+								fieldValue <= filter.value[ 1 ]
+							);
+						}
+						return false;
+					} );
+				} else if (
+					filter.operator === OPERATOR_IN_THE_PAST &&
+					filter.value?.value !== undefined &&
+					filter.value?.unit !== undefined
+				) {
+					const targetDate = getRelativeDate(
+						filter.value.value,
+						filter.value.unit
+					);
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = getDate(
+							field.getValue( { item } )
+						);
+						return (
+							fieldValue >= targetDate && fieldValue <= new Date()
+						);
+					} );
+				} else if (
+					filter.operator === OPERATOR_OVER &&
+					filter.value?.value !== undefined &&
+					filter.value?.unit !== undefined
+				) {
+					const targetDate = getRelativeDate(
+						filter.value.value,
+						filter.value.unit
+					);
+					filteredData = filteredData.filter( ( item ) => {
+						const fieldValue = getDate(
+							field.getValue( { item } )
+						);
+						return fieldValue < targetDate;
 					} );
 				}
 			}
@@ -140,11 +382,7 @@ export function filterSortAndPaginate< Item extends AnyItem >(
 		} );
 		if ( fieldToSort ) {
 			filteredData.sort( ( a, b ) => {
-				const valueA = fieldToSort.getValue( { item: a } ) ?? '';
-				const valueB = fieldToSort.getValue( { item: b } ) ?? '';
-				return view.sort?.direction === 'asc'
-					? valueA.localeCompare( valueB )
-					: valueB.localeCompare( valueA );
+				return fieldToSort.sort( a, b, view.sort?.direction ?? 'desc' );
 			} );
 		}
 	}

@@ -2,6 +2,68 @@
 
 ## Unreleased
 
+### Breaking Changes
+
+-   Improve type declarations for `sprintf` by replacing the `sprintf-js` dependency with `@tannin/sprintf` ([#70434](https://github.com/WordPress/gutenberg/pull/70434))
+
+## 5.26.0 (2025-06-25)
+
+## 5.25.0 (2025-06-04)
+
+## 5.24.0 (2025-05-22)
+
+## 5.23.0 (2025-05-07)
+
+## 5.22.0 (2025-04-11)
+
+## 5.21.0 (2025-03-27)
+
+## 5.20.0 (2025-03-13)
+
+## 5.19.0 (2025-02-28)
+
+## 5.18.0 (2025-02-12)
+
+## 5.17.0 (2025-01-29)
+
+## 5.16.0 (2025-01-15)
+
+## 5.15.0 (2025-01-02)
+
+## 5.14.0 (2024-12-11)
+
+## 5.13.0 (2024-11-27)
+
+## 5.12.0 (2024-11-16)
+
+## 5.11.0 (2024-10-30)
+
+## 5.10.0 (2024-10-16)
+
+## 5.9.0 (2024-10-03)
+
+## 5.8.0 (2024-09-19)
+
+## 5.7.0 (2024-09-05)
+
+## 5.6.0 (2024-08-21)
+
+## 5.5.0 (2024-08-07)
+
+## 5.4.0 (2024-07-24)
+
+## 5.3.0 (2024-07-10)
+
+## 5.2.0 (2024-06-26)
+
+## 5.1.0 (2024-06-15)
+
+## 5.0.0 (2024-05-31)
+
+### Breaking Changes
+
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+
 ## 4.58.0 (2024-05-16)
 
 ## 4.57.0 (2024-05-02)
@@ -114,7 +176,7 @@
 
 ## 4.3.0 (2022-01-27)
 
-- Add new `addLocaleData` method to merge locale data into the Tannin instance by domain.
+-   Add new `addLocaleData` method to merge locale data into the Tannin instance by domain.
 
 ## 4.2.0 (2021-07-21)
 
@@ -150,7 +212,7 @@
 
 ## 3.12.0 (2020-04-30)
 
-### Bug Fix
+### Bug Fixes
 
 -   Relax type of `sprintf` arguments type ([#21919](https://github.com/WordPress/gutenberg/pull/21919))
 
@@ -163,7 +225,7 @@
 
 ## 3.10.0 (2020-04-01)
 
-### New Feature
+### New Features
 
 -   Add `isRTL` function ([#20298](https://github.com/WordPress/gutenberg/pull/20298))
 
@@ -186,13 +248,13 @@
 
 ## 2.0.0 (2018-09-05)
 
-### Breaking Change
+### Breaking Changes
 
 -   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
 
 ## 1.2.0 (2018-07-12)
 
-### New Feature
+### New Features
 
 -   Updated build to work with Babel 7 ([#7832](https://github.com/WordPress/gutenberg/pull/7832))
 
@@ -202,6 +264,6 @@
 
 ## 1.1.1 (2018-05-18)
 
-### Polish
+### Internal
 
 -   Fix: Standardized `package.json` format ([#119](https://github.com/WordPress/packages/pull/119))

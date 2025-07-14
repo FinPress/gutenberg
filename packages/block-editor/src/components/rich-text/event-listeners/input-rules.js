@@ -14,7 +14,7 @@ import {
 	START_OF_SELECTED_AREA,
 } from '../../../utils/selection';
 
-function findSelection( blocks ) {
+export function findSelection( blocks ) {
 	let i = blocks.length;
 
 	while ( i-- ) {
@@ -112,12 +112,12 @@ export default ( props ) => ( element ) => {
 
 		const value = getValue();
 		const transformed = formatTypes.reduce(
-			( accumlator, { __unstableInputRule } ) => {
+			( accumulator, { __unstableInputRule } ) => {
 				if ( __unstableInputRule ) {
-					accumlator = __unstableInputRule( accumlator );
+					accumulator = __unstableInputRule( accumulator );
 				}
 
-				return accumlator;
+				return accumulator;
 			},
 			preventEventDiscovery( value )
 		);

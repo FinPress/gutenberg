@@ -2,12 +2,11 @@
  * WordPress dependencies
  */
 import {
-	__experimentalBorderBoxControl as BorderBoxControl,
+	BorderBoxControl,
 	__experimentalHasSplitBorders as hasSplitBorders,
 	__experimentalIsDefinedBorder as isDefinedBorder,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-	__experimentalItemGroup as ItemGroup,
 	BaseControl,
 } from '@wordpress/components';
 import { useCallback, useMemo } from '@wordpress/element';
@@ -18,7 +17,7 @@ import { __ } from '@wordpress/i18n';
  */
 import BorderRadiusControl from '../border-radius-control';
 import { useColorsPerOrigin } from './hooks';
-import { getValueFromVariable, TOOLSPANEL_DROPDOWNMENU_PROPS } from './utils';
+import { getValueFromVariable, useToolsPanelDropdownMenuProps } from './utils';
 import { setImmutably } from '../../utils/object';
 import { useBorderPanelLabel } from '../../hooks/border';
 import { ShadowPopover, useShadowPresets } from './shadow-panel-components';
@@ -69,6 +68,7 @@ function BorderToolsPanel( {
 	children,
 	label,
 } ) {
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 	const resetAll = () => {
 		const updatedValue = resetAllFilter( value );
 		onChange( updatedValue );
@@ -79,7 +79,7 @@ function BorderToolsPanel( {
 			label={ label }
 			resetAll={ resetAll }
 			panelId={ panelId }
-			dropdownMenuProps={ TOOLSPANEL_DROPDOWNMENU_PROPS }
+			dropdownMenuProps={ dropdownMenuProps }
 		>
 			{ children }
 		</ToolsPanel>
@@ -90,7 +90,7 @@ const DEFAULT_CONTROLS = {
 	radius: true,
 	color: true,
 	width: true,
-	shadow: false,
+	shadow: true,
 };
 
 export default function BorderPanel( {
@@ -261,7 +261,7 @@ export default function BorderPanel( {
 						popoverPlacement="left-start"
 						value={ border }
 						__experimentalIsRenderedInSidebar
-						size={ '__unstable-large' }
+						size="__unstable-large"
 						hideLabelFromVision={ ! hasShadowControl }
 						label={ __( 'Border' ) }
 					/>
@@ -297,13 +297,11 @@ export default function BorderPanel( {
 						</BaseControl.VisualLabel>
 					) : null }
 
-					<ItemGroup isBordered isSeparated>
-						<ShadowPopover
-							shadow={ shadow }
-							onShadowChange={ setShadow }
-							settings={ settings }
-						/>
-					</ItemGroup>
+					<ShadowPopover
+						shadow={ shadow }
+						onShadowChange={ setShadow }
+						settings={ settings }
+					/>
 				</ToolsPanelItem>
 			) }
 		</Wrapper>

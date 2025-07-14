@@ -2,7 +2,6 @@
  * Internal dependencies
  */
 import SidebarNavigationItem from '../sidebar-navigation-item';
-import { useLink } from '../routes/link';
 
 export default function CategoryItem( {
 	count,
@@ -11,24 +10,21 @@ export default function CategoryItem( {
 	isActive,
 	label,
 	type,
-	path = '/patterns',
 } ) {
-	const linkInfo = useLink( {
-		path,
-		categoryType: type,
-		categoryId: id,
-	} );
-
 	if ( ! count ) {
 		return;
+	}
+	const queryArgs = [ `postType=${ type }` ];
+	if ( id ) {
+		queryArgs.push( `categoryId=${ id }` );
 	}
 
 	return (
 		<SidebarNavigationItem
-			{ ...linkInfo }
 			icon={ icon }
 			suffix={ <span>{ count }</span> }
 			aria-current={ isActive ? 'true' : undefined }
+			to={ `/pattern?${ queryArgs.join( '&' ) }` }
 		>
 			{ label }
 		</SidebarNavigationItem>

@@ -6,7 +6,7 @@ import { hydrate, type ContainerNode, type ComponentChild } from 'preact';
  * Internal dependencies
  */
 import { toVdom, hydratedIslands } from './vdom';
-import { createRootFragment } from './utils';
+import { createRootFragment, splitTask } from './utils';
 import { directivePrefix } from './constants';
 
 // Keep the same root fragment for each interactive region node.
@@ -24,15 +24,8 @@ export const getRegionRootFragment = ( region: Element ): ContainerNode => {
 	return regionRootFragments.get( region );
 };
 
-function yieldToMain() {
-	return new Promise( ( resolve ) => {
-		// TODO: Use scheduler.yield() when available.
-		setTimeout( resolve, 0 );
-	} );
-}
-
 // Initial vDOM regions associated with its DOM element.
-export const initialVdom = new WeakMap< Element, ComponentChild[] >();
+export const initialVdom = new WeakMap< Element, ComponentChild >();
 
 // Initialize the router with the initial DOM.
 export const init = async () => {
@@ -40,13 +33,24 @@ export const init = async () => {
 		`[data-${ directivePrefix }-interactive]`
 	);
 
+	/*
+	 * This `await` with setTimeout is required to apparently ensure that the interactive blocks have their stores
+	 * fully initialized prior to hydrating the blocks. If this is not present, then an error occurs, for example:
+	 * > view.js:46 Uncaught (in promise) ReferenceError: Cannot access 'state' before initialization
+	 * This occurs when splitTask() is implemented with scheduler.yield() as opposed to setTimeout(), as with the former
+	 * split tasks are added to the front of the task queue whereas with the latter they are added to the end of the queue.
+	 */
+	await new Promise( ( resolve ) => {
+		setTimeout( resolve, 0 );
+	} );
+
 	for ( const node of nodes ) {
 		if ( ! hydratedIslands.has( node ) ) {
-			await yieldToMain();
+			await splitTask();
 			const fragment = getRegionRootFragment( node );
 			const vdom = toVdom( node );
 			initialVdom.set( node, vdom );
-			await yieldToMain();
+			await splitTask();
 			hydrate( vdom, fragment );
 		}
 	}

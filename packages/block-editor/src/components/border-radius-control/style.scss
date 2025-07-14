@@ -1,4 +1,9 @@
 .components-border-radius-control {
+	// Reset `fieldset` browser defaults.
+	border: 0;
+	padding: 0;
+	margin: 0;
+
 	margin-bottom: $grid-unit-15;
 
 	legend {
@@ -20,16 +25,6 @@
 		.components-border-radius-control__range-control {
 			flex: 1;
 			margin-right: $grid-unit-15;
-
-			> div {
-				height: 40px;
-				display: flex;
-				align-items: center;
-			}
-		}
-
-		> span {
-			flex: 0 0 auto;
 		}
 	}
 

@@ -102,9 +102,9 @@ export const convertSyncedPatternToStatic =
 					metadata = { ...metadata };
 					delete metadata.id;
 					delete metadata.bindings;
-					// Use overriden values of the pattern block if they exist.
-					if ( existingOverrides[ metadata.name ] ) {
-						// Iterate over each overriden attribute.
+					// Use overridden values of the pattern block if they exist.
+					if ( existingOverrides?.[ metadata.name ] ) {
+						// Iterate over each overridden attribute.
 						for ( const [ attributeName, value ] of Object.entries(
 							existingOverrides[ metadata.name ]
 						) ) {

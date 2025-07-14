@@ -63,7 +63,7 @@ const getOpenverseCaption = ( item ) => {
 	if ( _creator ) {
 		_caption = title
 			? sprintf(
-					// translators: %1s: Title of a media work from Openverse; %2s: Name of the work's creator; %3s: Work's licence e.g: "CC0 1.0".
+					// translators: %1s: Title of a media work from Openverse; %2$s: Name of the work's creator; %3s: Work's licence e.g: "CC0 1.0".
 					_x( '"%1$s" by %2$s/ %3$s', 'caption' ),
 					getExternalLink(
 						foreignLandingUrl,
@@ -191,9 +191,7 @@ const inserterMediaCategories = [
 				per_page: 'page_size',
 				search: 'q',
 			};
-			const url = new URL(
-				'https://api.openverse.engineering/v1/images/'
-			);
+			const url = new URL( 'https://api.openverse.org/v1/images/' );
 			Object.entries( finalQuery ).forEach( ( [ key, value ] ) => {
 				const queryKey = mapFromInserterMediaRequest[ key ] || key;
 				url.searchParams.set( queryKey, value );

@@ -31,7 +31,7 @@ const DESIGN_POST_TYPES = [
 /**
  * Renders the Post Schedule Panel component.
  *
- * @return {Component} The component to be rendered.
+ * @return {React.ReactNode} The rendered component.
  */
 export default function PostSchedulePanel() {
 	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
@@ -72,6 +72,7 @@ export default function PostSchedulePanel() {
 							size="compact"
 							className="editor-post-schedule__dialog-toggle"
 							variant="tertiary"
+							tooltipPosition="middle left"
 							onClick={ onToggle }
 							aria-label={ sprintf(
 								// translators: %s: Current post date.
