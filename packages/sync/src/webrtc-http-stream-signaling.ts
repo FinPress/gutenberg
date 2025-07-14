@@ -16,7 +16,7 @@ import {
 import * as cryptoutils from './y-webrtc/crypto';
 
 import * as map from 'lib0/map';
-import { Observable } from 'lib0/observable';
+import { ObservableV2 } from 'lib0/observable';
 import * as buffer from 'lib0/buffer';
 
 /**
@@ -31,12 +31,14 @@ import { addQueryArgs } from '@wordpress/url';
  * @param {HttpSignalingConn} signalCon The signaling connection.
  * @param {string}            url       The url.
  */
-function setupSignalEventHandlers( signalCon, url ) {
+function setupSignalEventHandlers( signalCon: HttpSignalingConn, url: string ) {
+	// @ts-ignore - this should be okay as the event is a string, so needs to be fixed
 	signalCon.on( 'connect', () => {
 		log( `connected (${ url })` );
 		const topics = Array.from( rooms.keys() );
 		signalCon.send( { type: 'subscribe', topics } );
 		rooms.forEach( ( room ) =>
+			// @ts-ignore - tech it's one or the other, so this is correct but the underlying ts error hasn't been fixed
 			publishSignalingMessage( signalCon, room, {
 				type: 'announce',
 				from: room.peerId,
@@ -44,8 +46,9 @@ function setupSignalEventHandlers( signalCon, url ) {
 		);
 	} );
 	signalCon.on(
+		// @ts-ignore - this should be okay as the event is a string, so needs to be fixed
 		'message',
-		( /** @type {{ type: any; topic: any; data: string; }} */ m ) => {
+		( m: { type: any; topic: any; data: string } ) => {
 			switch ( m.type ) {
 				case 'publish': {
 					const roomName = m.topic;
@@ -57,7 +60,7 @@ function setupSignalEventHandlers( signalCon, url ) {
 					) {
 						return;
 					}
-					const execMessage = ( /** @type {any} */ data ) => {
+					const execMessage = ( data: any ) => {
 						const webrtcConns = room.webrtcConns;
 						const peerId = room.peerId;
 						if (
@@ -92,6 +95,7 @@ function setupSignalEventHandlers( signalCon, url ) {
 										data.from,
 										() =>
 											new WebrtcConn(
+												// @ts-ignore - tech it's one or the other, so this is correct but the underlying ts error hasn't been fixed
 												signalCon,
 												true,
 												data.from,
@@ -139,6 +143,7 @@ function setupSignalEventHandlers( signalCon, url ) {
 										data.from,
 										() =>
 											new WebrtcConn(
+												// @ts-ignore - tech it's one or the other, so this is correct but the underlying ts error hasn't been fixed
 												signalCon,
 												false,
 												data.from,
@@ -166,6 +171,7 @@ function setupSignalEventHandlers( signalCon, url ) {
 			}
 		}
 	);
+	// @ts-ignore - this should be okay as the event is a string, so needs to be fixed
 	signalCon.on( 'disconnect', () => log( `disconnect (${ url })` ) );
 }
 
@@ -176,7 +182,7 @@ function setupSignalEventHandlers( signalCon, url ) {
  *
  * @param {HttpSignalingConn} httpClient The signaling connection.
  */
-function setupHttpSignal( httpClient ) {
+function setupHttpSignal( httpClient: HttpSignalingConn ) {
 	if ( httpClient.shouldConnect && httpClient.ws === null ) {
 		// eslint-disable-next-line no-restricted-syntax
 		const subscriberId = Math.floor( 100000 + Math.random() * 900000 );
@@ -187,10 +193,7 @@ function setupHttpSignal( httpClient ) {
 				action: 'gutenberg_signaling_server',
 			} )
 		);
-		/**
-		 * @type {any}
-		 */
-		let pingTimeout = null;
+		let pingTimeout: any = null;
 		eventSource.onmessage = ( event ) => {
 			httpClient.lastMessageReceived = Date.now();
 			const data = event.data;
@@ -205,7 +208,7 @@ function setupHttpSignal( httpClient ) {
 		httpClient.ws = eventSource;
 		httpClient.connecting = true;
 		httpClient.connected = false;
-		const onSingleMessage = ( /** @type {any} */ message ) => {
+		const onSingleMessage = ( message: any ) => {
 			if ( message && message.type === 'pong' ) {
 				clearTimeout( pingTimeout );
 				pingTimeout = setTimeout(
@@ -213,19 +216,21 @@ function setupHttpSignal( httpClient ) {
 					messageReconnectTimeout / 2
 				);
 			}
+			// @ts-ignore - this should be okay as the event is a string, so needs to be fixed
 			httpClient.emit( 'message', [ message, httpClient ] );
 		};
 
 		/**
 		 * @param {any} error
 		 */
-		const onclose = ( error ) => {
+		const onclose = ( error: any ) => {
 			if ( httpClient.ws !== null ) {
 				httpClient.ws.close();
 				httpClient.ws = null;
 				httpClient.connecting = false;
 				if ( httpClient.connected ) {
 					httpClient.connected = false;
+					// @ts-ignore - this should be okay as the event is a string, so needs to be fixed
 					httpClient.emit( 'disconnect', [
 						{ type: 'disconnect', error },
 						httpClient,
@@ -250,9 +255,7 @@ function setupHttpSignal( httpClient ) {
 			httpClient.ws.onclose = () => {
 				onclose( null );
 			};
-			httpClient.ws.send = function send(
-				/** @type {string} */ message
-			) {
+			httpClient.ws.send = function send( message: string ) {
 				window
 					.fetch( url, {
 						body: new URLSearchParams( {
@@ -281,6 +284,7 @@ function setupHttpSignal( httpClient ) {
 				httpClient.connecting = false;
 				httpClient.connected = true;
 				httpClient.unsuccessfulReconnects = 0;
+				// @ts-ignore - this should be okay as the event is a string, so needs to be fixed
 				httpClient.emit( 'connect', [
 					{ type: 'connect' },
 					httpClient,
@@ -296,32 +300,37 @@ function setupHttpSignal( httpClient ) {
 }
 const messageReconnectTimeout = 30000;
 
-/**
- * @augments Observable<string>
- */ export class HttpSignalingConn extends Observable {
+export class HttpSignalingConn extends ObservableV2< string > {
+	url: string;
+	ws: WebSocket | null;
+	connected: boolean;
+	connecting: boolean;
+	unsuccessfulReconnects: number;
+	lastMessageReceived: number;
+	/**
+	 * Whether to connect to other peers or not
+	 */
+	shouldConnect: boolean;
+	_checkInterval: NodeJS.Timeout;
+	/**
+	 * From SignalingConn
+	 */
+	providers: Set< WebrtcProvider >;
+	binaryType: null;
+
 	/**
 	 * @param {string} url
 	 */
-	constructor( url ) {
+	constructor( url: string ) {
 		super();
 
-		//WebsocketClient from lib0/websocket.js
 		this.url = url;
-		/**
-		 * @type {WebSocket?}
-		 */
 		this.ws = null;
-		// @ts-ignore
 		this.binaryType = null; // this.binaryType = binaryType
 		this.connected = false;
 		this.connecting = false;
 		this.unsuccessfulReconnects = 0;
 		this.lastMessageReceived = 0;
-		/**
-		 * Whether to connect to other peers or not
-		 *
-		 * @type {boolean}
-		 */
 		this.shouldConnect = true;
 		this._checkInterval = setInterval( () => {
 			if (
@@ -338,10 +347,6 @@ const messageReconnectTimeout = 30000;
 		//setupWS( this );
 		setupHttpSignal( this );
 
-		// From SignalingConn
-		/**
-		 * @type {Set<WebrtcProvider>}
-		 */
 		this.providers = new Set();
 
 		setupSignalEventHandlers( this, url );
@@ -350,7 +355,7 @@ const messageReconnectTimeout = 30000;
 	/**
 	 * @param {any} message
 	 */
-	send( message ) {
+	send( message: any ) {
 		if ( this.ws ) {
 			this.ws.send( JSON.stringify( message ) );
 		}
@@ -380,13 +385,14 @@ const messageReconnectTimeout = 30000;
 export class WebrtcProviderWithHttpSignaling extends WebrtcProvider {
 	connect() {
 		this.shouldConnect = true;
-		this.signalingUrls.forEach( ( /** @type {string} */ url ) => {
+		this.signalingUrls.forEach( ( url: string ) => {
 			const signalingConn = map.setIfUndefined(
 				signalingConns,
 				url,
 				// Only this conditional logic to create a normal websocket connection or
 				// an http signaling connection was added to the constructor when compared
 				// with the base class.
+				// @ts-ignore - This should be fixed and not ignored.
 				url.startsWith( 'ws://' ) || url.startsWith( 'wss://' )
 					? () => new SignalingConn( url )
 					: () => new HttpSignalingConn( url )
