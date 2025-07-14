@@ -193,9 +193,9 @@ export function regexp( tag: string ): RegExp {
  * or `name=value`. Numeric attributes can be formatted as `"value"` or just
  * `value`.
  *
- * @param text Serialised shortcode attributes.
+ * @param {string} text Serialised shortcode attributes.
  *
- * @return Parsed shortcode attributes.
+ * @return {import('./types').ShortcodeAttrs} Parsed shortcode attributes.
  */
 export const attrs = memize( ( text: string ): ShortcodeAttrs => {
 	const named: Record< string, string > = {};
