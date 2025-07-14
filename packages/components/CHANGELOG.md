@@ -3,7 +3,7 @@
 ## Unreleased
 
 
-### Enhancement
+### Internal
 
 -   Add new validated form controls: `ValidatedCheckboxControl`, `ValidatedInputControl`, `ValidatedNumberControl`, `ValidatedRadioControl`, `ValidatedRangeControl`, `ValidatedSelectControl`, `ValidatedTextControl`, `ValidatedTextareaControl`, `ValidatedToggleControl`, `ValidatedCustomSelectControl`, `ValidatedComboboxControl`, `ValidatedToggleGroupControl`, and `ControlWithError` for enhanced form validation capabilities ([#70620](https://github.com/WordPress/gutenberg/pull/70620)).
 
