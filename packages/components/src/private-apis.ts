@@ -25,6 +25,7 @@ import {
 	ValidatedToggleGroupControl,
 	ControlWithError,
 } from './validated-form-controls';
+import { DateCalendar, DateRangeCalendar, TZDate } from './calendar';
 
 export const privateApis = {};
 lock( privateApis, {
@@ -50,4 +51,7 @@ lock( privateApis, {
 	ValidatedComboboxControl,
 	ValidatedToggleGroupControl,
 	ControlWithError,
+	DateCalendar,
+	DateRangeCalendar,
+	TZDate,
 } );
