@@ -865,10 +865,7 @@ export class WebrtcProvider extends ObservableV2< string > {
 		doc.on( 'destroy', this.destroy );
 	}
 
-	/**
-	 * @type {boolean}
-	 */
-	get connected() {
+	get connected(): boolean {
 		return this.room !== null && this.shouldConnect;
 	}
 
