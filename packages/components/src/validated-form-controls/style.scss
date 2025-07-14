@@ -50,7 +50,7 @@
 	align-items: flex-start;
 	gap: 4px;
 	margin: 8px 0 0;
-	// font-family: typography.$sans;
+	font-family: $font-family-body;
 	font-size: 0.75rem;
 	line-height: 16px; // matches the icon size
 	color: $alert-red;
