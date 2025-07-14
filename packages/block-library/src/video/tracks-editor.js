@@ -60,7 +60,7 @@ function TrackList( { tracks, onEditPress } ) {
 	const content = tracks.map( ( track, index ) => {
 		return (
 			<HStack
-				key={ track.id }
+				key={ track.id ?? track.src }
 				className="block-library-video-tracks-editor__track-list-track"
 			>
 				<span>{ track.label }</span>
@@ -237,10 +237,18 @@ export default function TracksEditor( { tracks = [], onChange } ) {
 			allowedTypes: ALLOWED_TYPES,
 			filesList: files,
 			onFileChange: ( selectedTracks ) => {
+				if ( ! Array.isArray( selectedTracks ) ) {
+					return;
+				}
+
 				// Wait until the track has been uploaded.
-				const uploadedTracks = selectedTracks?.filter(
+				const uploadedTracks = selectedTracks.filter(
 					( track ) => !! track?.id
 				);
+
+				if ( ! uploadedTracks.length ) {
+					return;
+				}
 				handleTrackSelect( uploadedTracks, true );
 			},
 		} );
