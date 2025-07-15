@@ -81,10 +81,7 @@ export type AddOperationsAction = Action<
 	Type.AddOperations,
 	{ id: QueueItemId; operations: Operation[] }
 >;
-export type ApproveUploadAction = Action<
-	Type.ApproveUpload,
-	{ id: QueueItemId }
->;
+
 export type CancelAction = Action<
 	Type.Cancel,
 	{ id: QueueItemId; error: Error }

@@ -76,14 +76,6 @@ _Parameters_
 -   _id_ `QueueItemId`: Item ID.
 -   _error_ `Error`: Error instance.
 
-#### grantApproval
-
-Approves a proposed optimized/converted version of a file so it can continue being processed and uploaded.
-
-_Parameters_
-
--   _id_ `number`: Item ID.
-
 #### optimizeExistingItem
 
 Adds a new item to the upload queue for optimizing (compressing) an existing item.

@@ -18,7 +18,6 @@ import { StubFile } from '../stubFile';
 import type {
 	AddAction,
 	AdditionalData,
-	ApproveUploadAction,
 	BatchId,
 	CancelAction,
 	OnBatchSuccessHandler,
@@ -51,7 +50,6 @@ type ActionCreators = {
 	processItem: typeof processItem;
 	cancelItem: typeof cancelItem;
 	rejectApproval: typeof rejectApproval;
-	grantApproval: typeof grantApproval;
 	optimizeExistingItem: typeof optimizeExistingItem;
 	revokeBlobUrls: typeof revokeBlobUrls;
 	< T = Record< string, unknown > >( args: T ): void;
@@ -326,28 +324,6 @@ export function rejectApproval( id: number ) {
 				file: item.file,
 			} )
 		);
-	};
-}
-
-/**
- * Approves a proposed optimized/converted version of a file
- * so it can continue being processed and uploaded.
- *
- * @param id Item ID.
- */
-export function grantApproval( id: number ) {
-	return async ( { select, dispatch }: ThunkArgs ) => {
-		const item = select.getItemByAttachmentId( id );
-		if ( ! item ) {
-			return;
-		}
-
-		dispatch< ApproveUploadAction >( {
-			type: Type.ApproveUpload,
-			id: item.id,
-		} );
-
-		dispatch.processItem( item.id );
 	};
 }
 
