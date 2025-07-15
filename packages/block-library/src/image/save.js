@@ -31,6 +31,7 @@ export default function save( { attributes } ) {
 		linkTarget,
 		sizeSlug,
 		title,
+		metadata: { bindings = {} } = {},
 	} = attributes;
 
 	const newRel = ! rel ? undefined : rel;
@@ -70,6 +71,9 @@ export default function save( { attributes } ) {
 		/>
 	);
 
+	const shouldRemoveCaption =
+		! bindings.caption && RichText.isEmpty( caption );
+
 	const figure = (
 		<>
 			{ href ? (
@@ -88,7 +92,7 @@ export default function save( { attributes } ) {
 				className={ __experimentalGetElementClassName( 'caption' ) }
 				tagName="figcaption"
 				value={ caption }
-				data-wp-maybe-remove={ RichText.isEmpty( caption ) }
+				data-wp-maybe-remove={ shouldRemoveCaption }
 			/>
 		</>
 	);
