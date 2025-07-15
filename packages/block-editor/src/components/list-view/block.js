@@ -129,6 +129,10 @@ function ListViewBlock( {
 		},
 		[ clientId ]
 	);
+	const isContentOnly = useSelect(
+		( select ) => select( blockEditorStore ).getBlockEditingMode( clientId ) === 'contentOnly',
+		[ clientId ]
+	);
 
 	const showBlockActions =
 		// When a block hides its toolbar it also hides the block settings menu,
@@ -616,7 +620,7 @@ function ListViewBlock( {
 				</>
 			) }
 
-			{ showBlockActions && BlockSettingsMenu && (
+			{ showBlockActions && BlockSettingsMenu && ! isContentOnly && (
 				<TreeGridCell
 					className={ listViewBlockSettingsClassName }
 					aria-selected={ !! isSelected }
