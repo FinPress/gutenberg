@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import clsx from 'clsx';
+
+/**
  * Internal dependencies
  */
 import migrateFontFamily from '../utils/migrate-font-family';
@@ -68,10 +73,18 @@ const v2 = {
 	save() {
 		return null;
 	},
-	migrate( { displayType, metadata, ...otherAttributes } ) {
+	migrate( { className, displayType, metadata, ...otherAttributes } ) {
 		if ( displayType === 'date' || displayType === 'modified' ) {
+			if ( displayType === 'modified' ) {
+				className = clsx(
+					className,
+					'wp-block-post-date__modified-date'
+				);
+			}
+
 			return {
 				...otherAttributes,
+				className,
 				metadata: {
 					...metadata,
 					bindings: {
