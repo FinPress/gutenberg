@@ -16,8 +16,26 @@
  * @return string Returns the filtered post date for the current post wrapped inside "time" tags.
  */
 function render_block_core_post_date( $attributes, $content, $block ) {
+	$classes = array();
+
 	if ( ! isset( $attributes['date'] ) ) {
-		return '';
+		// This must be the legacy version of the block.
+		// In this case, we manually run block bindings for the
+		// `core/post-data` source to set the `date` attribute.
+
+		$source = get_block_bindings_source( 'core/post-data' );
+
+		if ( isset( $attributes['displayType'] ) && 'modified' === $attributes['displayType'] ) {
+			$source_args = array(
+				'key' => 'modified',
+			);
+			$classes[] = 'wp-block-post-date__modified-date';
+		} else {
+			$source_args = array(
+				'key' => 'date',
+			);
+		}
+		$attributes['date'] = $source->get_value( $source_args, $block, 'date' );
 	}
 
 	$unformatted_date = $attributes['date'];
@@ -34,8 +52,6 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 	} else {
 		$formatted_date = date( empty( $attributes['format'] ) ? get_option( 'date_format' ) : $attributes['format'], $post_timestamp );
 	}
-
-	$classes = array();
 
 	if ( isset( $attributes['textAlign'] ) ) {
 		$classes[] = 'has-text-align-' . $attributes['textAlign'];
