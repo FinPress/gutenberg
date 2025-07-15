@@ -133,6 +133,11 @@ export default function PostDateEdit( {
 							popoverProps={ popoverProps }
 							renderContent={ ( { onClose } ) => (
 								<PublishDateTimePicker
+									title={
+										displayType === 'date'
+											? __( 'Publish Date' )
+											: __( 'Date' )
+									}
 									currentDate={ date }
 									onChange={ ( newDate ) =>
 										setAttributes( { date: newDate } )
