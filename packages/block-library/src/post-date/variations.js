@@ -39,6 +39,7 @@ const variations = [
 					},
 				},
 			},
+			className: 'wp-block-post-date__modified-date',
 		},
 		scope: [ 'block', 'inserter' ],
 		isActive: ( blockAttributes ) =>
