@@ -20,7 +20,7 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 
 	if ( ! isset( $attributes['date'] ) ) {
 		// This must be the legacy version of the block.
-		// In this case, we manually run block bindings for the
+		// In this case, we manually apply block bindings for the
 		// `core/post-data` source to set the `date` attribute.
 
 		$source = get_block_bindings_source( 'core/post-data' );
