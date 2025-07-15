@@ -5,6 +5,8 @@ import '@wordpress/core-data';
 import '@wordpress/format-library';
 import { dispatch } from '@wordpress/data';
 import { store as preferencesStore } from '@wordpress/preferences';
+import { init as initFreeformBlock } from '@wordpress/block-freeform';
+import { setFreeformContentHandlerName } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -36,6 +38,9 @@ export function initializeEditor( id, postType, postId ) {
 		isPublishSidebarEnabled: true,
 		fixedToolbar: false,
 	} );
+
+	initFreeformBlock();
+	setFreeformContentHandlerName( 'core/freeform' );
 
 	return <Editor postId={ postId } postType={ postType } />;
 }

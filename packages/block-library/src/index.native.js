@@ -149,12 +149,12 @@ const devOnly = ( block ) => ( !! __DEV__ ? block : null );
 const iOSOnly = ( block ) =>
 	Platform.OS === 'ios' ? block : devOnly( block );
 
-// Hide the SocialLink block
+// Hide blocks from the inserter
 addFilter(
 	'blocks.registerBlockType',
 	'core/react-native-editor',
 	( settings, name ) => {
-		const hiddenBlocks = [ 'core/social-link' ];
+		const hiddenBlocks = [ 'core/freeform', 'core/social-link' ];
 		if (
 			hiddenBlocks.includes( name ) &&
 			hasBlockSupport( settings, 'inserter', true )
