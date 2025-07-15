@@ -7,7 +7,7 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useMemo, useState } from '@wordpress/element';
+import { useEffect, useMemo, useState } from '@wordpress/element';
 import {
 	dateI18n,
 	humanTimeDiff,
@@ -17,6 +17,7 @@ import {
 	AlignmentControl,
 	BlockControls,
 	InspectorControls,
+	store as blockEditorStore,
 	useBlockProps,
 	__experimentalDateFormatPicker as DateFormatPicker,
 	__experimentalPublishDateTimePicker as PublishDateTimePicker,
@@ -32,7 +33,7 @@ import {
 import { __, _x, sprintf } from '@wordpress/i18n';
 import { edit } from '@wordpress/icons';
 import { DOWN } from '@wordpress/keycodes';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -63,6 +64,19 @@ export default function PostDateEdit( {
 		() => ( { anchor: popoverAnchor } ),
 		[ popoverAnchor ]
 	);
+
+	const { __unstableMarkNextChangeAsNotPersistent } =
+		useDispatch( blockEditorStore );
+
+	// We need to set the date to a default value upon first loading
+	// to discern the block from its legacy version (which would default
+	// to the containing post's publish date).
+	useEffect( () => {
+		if ( date === undefined ) {
+			__unstableMarkNextChangeAsNotPersistent();
+			setAttributes( { date: new Date() } );
+		}
+	}, [ date ] );
 
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const dateSettings = getDateSettings();
