@@ -12,7 +12,6 @@ import type { WPDataRegistry } from '@wordpress/data/build-types/registry';
 /**
  * Internal dependencies
  */
-import { MediaError } from '../mediaError';
 import { getFileBasename, getFileNameFromUrl } from '../utils';
 import { StubFile } from '../stubFile';
 import type {
@@ -49,7 +48,6 @@ type ActionCreators = {
 	removeItem: typeof removeItem;
 	processItem: typeof processItem;
 	cancelItem: typeof cancelItem;
-	rejectApproval: typeof rejectApproval;
 	optimizeExistingItem: typeof optimizeExistingItem;
 	revokeBlobUrls: typeof revokeBlobUrls;
 	< T = Record< string, unknown > >( args: T ): void;
@@ -300,30 +298,6 @@ export function optimizeExistingItem( {
 		} );
 
 		dispatch.processItem( itemId );
-	};
-}
-
-/**
- * Rejects a proposed optimized/converted version of a file
- * by essentially cancelling its further processing.
- *
- * @param id Item ID.
- */
-export function rejectApproval( id: number ) {
-	return async ( { select, dispatch }: ThunkArgs ) => {
-		const item = select.getItemByAttachmentId( id );
-		if ( ! item ) {
-			return;
-		}
-
-		dispatch.cancelItem(
-			item.id,
-			new MediaError( {
-				code: 'UPLOAD_CANCELLED',
-				message: 'File upload was cancelled',
-				file: item.file,
-			} )
-		);
 	};
 }
 

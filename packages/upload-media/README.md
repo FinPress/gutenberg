@@ -95,14 +95,6 @@ _Parameters_
 -   _$0.additionalData_ `[OptimizeExistingItemArgs[ 'additionalData' ]]`: Additional data to include in the request.
 -   _$0.generatedPosterId_ `[OptimizeExistingItemArgs[ 'generatedPosterId' ]]`: Attachment ID of the generated poster image, if it exists.
 
-#### rejectApproval
-
-Rejects a proposed optimized/converted version of a file by essentially cancelling its further processing.
-
-_Parameters_
-
--   _id_ `number`: Item ID.
-
 #### updateSettings
 
 Returns an action object that pauses all processing in the queue.
