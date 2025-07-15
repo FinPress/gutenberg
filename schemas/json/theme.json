@@ -1788,7 +1788,7 @@
 						}
 					]
 				},
-				"p": {
+				"paragraph": {
 					"$ref": "#/definitions/stylesPropertiesComplete"
 				},
 				"heading": {
