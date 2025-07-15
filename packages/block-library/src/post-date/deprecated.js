@@ -68,11 +68,12 @@ const v2 = {
 	save() {
 		return null;
 	},
-	migrate( { displayType, ...otherAttributes } ) {
+	migrate( { displayType, metadata, ...otherAttributes } ) {
 		if ( displayType === 'date' || displayType === 'modified' ) {
 			return {
 				...otherAttributes,
 				metadata: {
+					...metadata,
 					bindings: {
 						date: {
 							source: 'core/post-data',
