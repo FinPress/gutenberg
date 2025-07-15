@@ -51,7 +51,6 @@ export default function PostDateEdit( {
 	const blockProps = useBlockProps( {
 		className: clsx( {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
-			[ `wp-block-post-date__modified-date` ]: displayType === 'modified',
 		} ),
 	} );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
