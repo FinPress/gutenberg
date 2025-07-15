@@ -18,7 +18,7 @@
  * @param WP_Block $block_instance The block instance.
  * @return mixed The value computed for the source.
  */
-function _block_bindings_post_data_get_value( array $source_args, $block_instance ) {
+function gutenberg_block_bindings_post_data_get_value( array $source_args, $block_instance ) {
 	if ( empty( $source_args['key'] ) ) {
 		return null;
 	}
@@ -56,15 +56,15 @@ function _block_bindings_post_data_get_value( array $source_args, $block_instanc
  * @since 6.9.0
  * @access private
  */
-function _register_block_bindings_post_data_source() {
+function gutenberg_register_block_bindings_post_data_source() {
 	register_block_bindings_source(
 		'core/post-data',
 		array(
 			'label'              => _x( 'Post Data', 'block bindings source' ),
-			'get_value_callback' => '_block_bindings_post_data_get_value',
+			'get_value_callback' => 'gutenberg_block_bindings_post_data_get_value',
 			'uses_context'       => array( 'postId', 'postType' ),
 		)
 	);
 }
 
-add_action( 'init', '_register_block_bindings_post_data_source' );
+add_action( 'init', 'gutenberg_register_block_bindings_post_data_source' );
