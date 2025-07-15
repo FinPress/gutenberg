@@ -1788,6 +1788,9 @@
 						}
 					]
 				},
+				"p": {
+					"$ref": "#/definitions/stylesPropertiesComplete"
+				},
 				"heading": {
 					"$ref": "#/definitions/stylesPropertiesComplete"
 				},
