@@ -5,9 +5,22 @@
 /**
  * External dependencies
  */
-// @ts-ignore
+import type { Awareness } from 'y-protocols/awareness';
 import { removeAwarenessStates as removeAwarenessStatesFromProtocol } from 'y-protocols/awareness';
 import * as Y from 'yjs';
+/**
+ * Internal dependencies
+ */
+import type {
+	AwarenessEventListener,
+	ConnectDoc,
+	HistoryRecord,
+	ObjectConfig,
+	ObjectID,
+	ObjectType,
+	PendingAwarenessSetup,
+	SyncProvider,
+} from './types';
 
 /** @typedef {import('./types').ObjectType} ObjectType */
 /** @typedef {import('./types').ObjectID} ObjectID */
@@ -19,7 +32,6 @@ import * as Y from 'yjs';
 /** @typedef {import('y-protocols/awareness').Awareness} Awareness */
 /** @typedef {import('./types').UndoManager} UndoManager */
 /** @typedef {import('./types').HistoryRecord} HistoryRecord */
-
 const AWARENESS_DOC_TYPE = 'postType/Posts';
 
 /**
@@ -29,22 +41,35 @@ const AWARENESS_DOC_TYPE = 'postType/Posts';
  * @param {ConnectDoc | null} connectRemote Connect the document to a remote sync connection.
  * @return {SyncProvider} Sync provider.
  */
-export const createSyncProvider = ( connectLocal, connectRemote ) => {
-	/**
-	 * @type {Record<string,ObjectConfig>}
-	 */
-	const postTypeConfigs = {};
+export const createSyncProvider = (
+	connectLocal: ConnectDoc | null,
+	connectRemote: ConnectDoc | null
+): SyncProvider => {
+	const postTypeConfigs: Record< string, ObjectConfig > = {};
 
 	/**
 	 * @todo make sure that this used everwhere correctly and that we remove crdtdoc
 	 * @type {Record<string,Record<string,{ ydoc: Y.Doc, prevContentClientId: number, destroy: ()=>void, awareness: Awareness | null }>>}
 	 */
-	const docs = {};
+	const docs: Record<
+		string,
+		Record<
+			string,
+			{
+				ydoc: Y.Doc;
+				prevContentClientId: number;
+				destroy: () => void;
+				awareness: Awareness | null;
+			}
+		>
+	> = {};
 
-	/**
-	 * @type { { yMap: Y.Map<any> | null, ydoc: Y.Doc | null, instance: UndoManager | null, destroy: ()=>void } }
-	 */
-	const undoManager = {
+	const undoManager: {
+		yMap: Y.Map< any > | null;
+		ydoc: Y.Doc | null;
+		instance: Y.UndoManager | null;
+		destroy: () => void;
+	} = {
 		ydoc: null,
 		yMap: null,
 		instance: null,
@@ -61,7 +86,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	/**
 	 * @type {PendingAwarenessSetup}
 	 */
-	const pendingAwarenessSetup = {
+	const pendingAwarenessSetup: PendingAwarenessSetup = {
 		pendingListeners: {
 			update: [],
 			change: [],
@@ -75,7 +100,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {ObjectType}   objectType   Object type to register.
 	 * @param {ObjectConfig} objectConfig Object config.
 	 */
-	function register( objectType, objectConfig ) {
+	function register( objectType: ObjectType, objectConfig: ObjectConfig ) {
 		postTypeConfigs[ objectType ] = objectConfig;
 	}
 
@@ -86,13 +111,17 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {ObjectID}   objectId      Object ID to load.
 	 * @param {Function}   handleChanges Callback to call when data changes.
 	 */
-	async function bootstrap( objectType, objectId, handleChanges ) {
+	async function bootstrap(
+		objectType: ObjectType,
+		objectId: ObjectID,
+		handleChanges: Function
+	) {
 		const doc = new Y.Doc( { meta: new Map() } );
 
-		/**
-		 * @type {(_update: Uint8Array, origin: any)=>void}
-		 */
-		const updateHandler = ( _update, origin ) => {
+		const updateHandler: ( _update: Uint8Array, origin: any ) => void = (
+			_update,
+			origin
+		): void => {
 			if ( origin !== 'gutenberg' ) {
 				const data = postTypeConfigs[ objectType ].fromCRDTDoc( doc );
 				handleChanges( data );
@@ -166,10 +195,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 		}
 
 		// @todo do proper typings for fetch api
-		/**
-		 * @type {any}
-		 */
-		const loadRemotely = postTypeConfigs[ objectType ].fetch;
+		const loadRemotely: any = postTypeConfigs[ objectType ].fetch;
 		if ( loadRemotely ) {
 			const data = await loadRemotely( objectId, true );
 			doc.transact( () => {
@@ -186,7 +212,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 *
 	 * @return {boolean} Whether the undo manager can undo.
 	 */
-	function canUndo() {
+	function canUndo(): boolean {
 		return undoManager?.instance?.canUndo() || false;
 	}
 
@@ -195,7 +221,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 *
 	 * @return {boolean} Whether the undo manager can redo.
 	 */
-	function canRedo() {
+	function canRedo(): boolean {
 		return undoManager?.instance?.canRedo() || false;
 	}
 
@@ -204,7 +230,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 *
 	 * @return {HistoryRecord} The changes made by the undo operation.
 	 */
-	function undo() {
+	function undo(): HistoryRecord {
 		undoManager?.instance?.undo();
 
 		// ToDo: This isn't 100% correct, but can't really find a way to return the changes from Yjs that could be transformed to Gutenberg format.
@@ -216,7 +242,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 *
 	 * @return {HistoryRecord} The changes made by the redo operation.
 	 */
-	function redo() {
+	function redo(): HistoryRecord {
 		undoManager?.instance?.redo();
 
 		// ToDo: This isn't 100% correct, but can't really find a way to return the changes from Yjs that could be transformed to Gutenberg format.
@@ -229,8 +255,8 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {HistoryRecord} record   The record to add to the undo stack.
 	 * @param {boolean}       isStaged Whether the record is staged.
 	 */
-	// eslint-disable-next-line no-unused-vars
-	function addRecord( record, isStaged = false ) {
+	// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+	function addRecord( record: HistoryRecord, isStaged: boolean = false ) {
 		// ToDo: This is a no-op in the sync provider context at the moment, as Yjs UndoManager handles it automatically.
 	}
 
@@ -242,7 +268,12 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {any}        data       Updates to make.
 	 * @param {any}        origin     The source of change.
 	 */
-	function update( objectType, objectId, data, origin ) {
+	function update(
+		objectType: ObjectType,
+		objectId: ObjectID,
+		data: any,
+		origin: any
+	) {
 		const docDef = docs[ objectType ]?.[ objectId ];
 		if ( ! docDef ) {
 			throw 'Error doc ' + objectType + ' ' + objectId + ' not found';
@@ -261,7 +292,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {ObjectType} objectType Object type to load.
 	 * @param {ObjectID}   objectId   Object ID to load.
 	 */
-	async function discard( objectType, objectId ) {
+	async function discard( objectType: ObjectType, objectId: ObjectID ) {
 		if ( objectType.startsWith( 'postType/' ) && undoManager.instance ) {
 			undoManager.instance.destroy();
 		}
@@ -275,7 +306,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {ObjectType} objectType Object type to load.
 	 * @param {ObjectID}   objectId   Object ID to load.
 	 */
-	function encodeState( objectType, objectId ) {
+	function encodeState( objectType: ObjectType, objectId: ObjectID ) {
 		const docDef = docs[ objectType ]?.[ objectId ];
 		if ( ! docDef ) {
 			return null;
@@ -291,7 +322,10 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {'update'|'change'}      eventType              Event type.
 	 * @param {AwarenessEventListener} awarenessEventListener Awareness event listener.
 	 */
-	function addListener( eventType, awarenessEventListener ) {
+	function addListener(
+		eventType: 'update' | 'change',
+		awarenessEventListener: AwarenessEventListener
+	) {
 		if ( docs[ AWARENESS_DOC_TYPE ] ) {
 			for ( const objectId in docs[ AWARENESS_DOC_TYPE ] ) {
 				const docDef = docs[ AWARENESS_DOC_TYPE ][ objectId ];
@@ -313,7 +347,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 * @param {string} field Field name.
 	 * @param {any}    value State value.
 	 */
-	function setLocalStateField( field, value ) {
+	function setLocalStateField( field: string, value: any ) {
 		if ( docs[ AWARENESS_DOC_TYPE ] ) {
 			for ( const objectId in docs[ AWARENESS_DOC_TYPE ] ) {
 				const docDef = docs[ AWARENESS_DOC_TYPE ][ objectId ];
@@ -333,7 +367,7 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	 *
 	 * @return {Map<number,Record<string,any>>|null} States.
 	 */
-	function getStates() {
+	function getStates(): Map< number, Record< string, any > > | null {
 		if ( docs[ AWARENESS_DOC_TYPE ] ) {
 			for ( const objectId in docs[ AWARENESS_DOC_TYPE ] ) {
 				const docDef = docs[ AWARENESS_DOC_TYPE ][ objectId ];
@@ -392,16 +426,17 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
  * @param {Awareness}             awareness             Awareness.
  * @param {PendingAwarenessSetup} pendingAwarenessSetup Pending listeners.
  */
-async function bootstrapAwareness( awareness, pendingAwarenessSetup ) {
+async function bootstrapAwareness(
+	awareness: Awareness,
+	pendingAwarenessSetup: PendingAwarenessSetup
+) {
 	if ( awareness === null ) {
 		return;
 	}
 
 	for ( const eventType in pendingAwarenessSetup.pendingListeners ) {
 		pendingAwarenessSetup.pendingListeners[ eventType ].forEach(
-			/** @type {(listener: AwarenessEventListener) => void} */ (
-				listener
-			) => {
+			( listener: AwarenessEventListener ) => {
 				awareness.on( eventType, listener );
 			}
 		);
