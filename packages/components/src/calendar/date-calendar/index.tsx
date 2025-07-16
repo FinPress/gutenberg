@@ -4,13 +4,17 @@
 import { DayPicker } from 'react-day-picker';
 import { enUS } from 'react-day-picker/locale';
 /**
+ * WordPress dependencies
+ */
+import { useCallback } from '@wordpress/element';
+/**
  * Internal dependencies
  */
 import { COMMON_PROPS } from '../utils/constants';
 import { clampNumberOfMonths } from '../utils/misc';
 import { useControlledValue } from '../../utils/hooks';
 import { useLocalizationProps } from '../utils/use-localization-props';
-import type { DateCalendarProps } from '../types';
+import type { DateCalendarProps, OnSelectHandler } from '../types';
 
 /**
  * `DateCalendar` is a React component that provides a customizable calendar
@@ -35,14 +39,21 @@ export const DateCalendar = ( {
 		mode: 'single',
 	} );
 
-	const [ selected, setSelected ] = useControlledValue<
-		Date | undefined | null
-	>( {
-		defaultValue: defaultSelected,
-		value: selectedProp,
-		// @ts-ignore: The useControlledValue expects onChange value parameter type is the same as the value parameter, but in our case, onSelect always receives DateRange | undefined.
-		onChange: onSelect,
-	} );
+	const onChange: OnSelectHandler< typeof selectedProp > = useCallback(
+		( selected, triggerDate, modifiers, e ) => {
+			// Convert internal `null` to `undefined` for the public event handler.
+			onSelect?.( selected ?? undefined, triggerDate, modifiers, e );
+		},
+		[ onSelect ]
+	);
+
+	const [ selected, setSelected ] = useControlledValue< typeof selectedProp >(
+		{
+			defaultValue: defaultSelected,
+			value: selectedProp,
+			onChange,
+		}
+	);
 
 	return (
 		<DayPicker

@@ -48,5 +48,5 @@ export function useControlledValue< T >( {
 		setValue = setState;
 	}
 
-	return [ value, setValue as typeof setState ] as const;
+	return [ value, setValue ] as const;
 }
