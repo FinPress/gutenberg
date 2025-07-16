@@ -368,11 +368,16 @@ export const getEntityRecords =
 				// See https://github.com/WordPress/gutenberg/pull/70738
 				if ( ! query.context ) {
 					const targetHints = records
-						.filter( ( record ) => record?.[ key ] )
+						.filter(
+							( record ) =>
+								!! record?.[ key ] &&
+								!! record?._links?.self?.[ 0 ]?.targetHints
+									?.allow
+						)
 						.map( ( record ) => ( {
 							id: record[ key ],
 							permissions: getUserPermissionsFromAllowHeader(
-								record?._links?.self?.[ 0 ]?.targetHints?.allow
+								record._links.self[ 0 ].targetHints.allow
 							),
 						} ) );
 
