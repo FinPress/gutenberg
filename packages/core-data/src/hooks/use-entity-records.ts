@@ -168,7 +168,15 @@ export function useEntityRecordsWithPermissions< RecordType >(
 	const { records: data, ...ret } = useEntityRecords(
 		kind,
 		name,
-		queryArgs,
+		{
+			...queryArgs,
+			// If _fields is provided, we need to include _links in the request for permission caching to work.
+			...( queryArgs._fields
+				? {
+						_fields: `${ queryArgs._fields },_links`,
+				  }
+				: {} ),
+		},
 		options
 	);
 	const ids = useMemo(
