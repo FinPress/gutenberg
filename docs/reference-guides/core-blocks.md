@@ -946,6 +946,7 @@ Display the description of categories, tags and custom taxonomies when viewing a
 Contains the block elements used to render a taxonomy term, like the name, description, and more. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/term-template))
 
 -	**Name:** core/term-template
+-	**Experimental:** true
 -	**Category:** theme
 -	**Ancestor:** core/terms-query
 -	**Allowed Blocks:** core/paragraph
