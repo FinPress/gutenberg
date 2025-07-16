@@ -30,6 +30,7 @@ export default function save( { attributes, className } ) {
 		title,
 		url,
 		width,
+		download,
 	} = attributes;
 
 	const TagName = tagName || 'a';
@@ -83,6 +84,7 @@ export default function save( { attributes, className } ) {
 				value={ text }
 				target={ isButtonTag ? null : linkTarget }
 				rel={ isButtonTag ? null : rel }
+				download={ isButtonTag ? null : download }
 			/>
 		</div>
 	);

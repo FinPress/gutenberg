@@ -55,6 +55,13 @@
 			"attribute": "rel",
 			"role": "content"
 		},
+		"download": {
+			"type": "boolean",
+			"source": "attribute",
+			"selector": "a",
+			"attribute": "download",
+			"role": "content"
+		},
 		"placeholder": {
 			"type": "string"
 		},

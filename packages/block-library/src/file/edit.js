@@ -21,11 +21,11 @@ import {
 	RichText,
 	useBlockProps,
 	store as blockEditorStore,
-	__experimentalGetElementClassName,
+	useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { useEffect, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { useCopyToClipboard } from '@wordpress/compose';
-import { __, _x } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import { file as icon } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
 import { store as noticesStore } from '@wordpress/notices';
@@ -69,7 +69,6 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 		textLinkHref,
 		textLinkTarget,
 		showDownloadButton,
-		downloadButtonText,
 		displayPreview,
 		previewHeight,
 	} = attributes;
@@ -85,26 +84,13 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 	);
 
 	const { createErrorNotice } = useDispatch( noticesStore );
-	const { toggleSelection, __unstableMarkNextChangeAsNotPersistent } =
-		useDispatch( blockEditorStore );
+	const { toggleSelection } = useDispatch( blockEditorStore );
 
 	useUploadMediaFromBlobURL( {
 		url: temporaryURL,
 		onChange: onSelectFile,
 		onError: onUploadError,
 	} );
-
-	// Note: Handle setting a default value for `downloadButtonText` via HTML API
-	// when it supports replacing text content for HTML tags.
-	useEffect( () => {
-		if ( RichText.isEmpty( downloadButtonText ) ) {
-			__unstableMarkNextChangeAsNotPersistent();
-			setAttributes( {
-				downloadButtonText: _x( 'Download', 'button label' ),
-			} );
-		}
-		// This effect should only run on mount.
-	}, [] );
 
 	function onSelectFile( newMedia ) {
 		if ( ! newMedia || ! newMedia.url ) {
@@ -198,6 +184,36 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 	} );
 
 	const displayPreviewInEditor = browserSupportsPdfs() && displayPreview;
+
+	const innerBlocksProps = useInnerBlocksProps(
+		{ className: 'wp-block-file__button-wrapper' },
+		{
+			allowedBlocks: [ 'core/buttons' ],
+			template: [
+				[
+					'core/buttons',
+					{},
+					[
+						[
+							'core/button',
+							{
+								text: __( 'Download' ),
+								lock: {
+									remove: true,
+									move: true,
+								},
+								url: href || temporaryURL,
+								download: true,
+								ariaLabel: __( 'Download button text' ),
+							},
+						],
+					],
+				],
+			],
+			templateLock: 'all',
+			renderAppender: false,
+		}
+	);
 
 	if ( ! href && ! temporaryURL ) {
 		return (
@@ -302,31 +318,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 						}
 						href={ textLinkHref }
 					/>
-					{ showDownloadButton && (
-						<div className="wp-block-file__button-richtext-wrapper">
-							{ /* Using RichText here instead of PlainText so that it can be styled like a button. */ }
-							<RichText
-								identifier="downloadButtonText"
-								tagName="div" // Must be block-level or else cursor disappears.
-								aria-label={ __( 'Download button text' ) }
-								className={ clsx(
-									'wp-block-file__button',
-									__experimentalGetElementClassName(
-										'button'
-									)
-								) }
-								value={ downloadButtonText }
-								withoutInteractiveFormatting
-								placeholder={ __( 'Add text…' ) }
-								onChange={ ( text ) =>
-									setAttributes( {
-										downloadButtonText:
-											removeAnchorTag( text ),
-									} )
-								}
-							/>
-						</div>
-					) }
+					{ showDownloadButton && <div { ...innerBlocksProps } /> }
 				</div>
 			</div>
 		</>

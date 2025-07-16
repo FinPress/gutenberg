@@ -52,7 +52,7 @@ Prompt visitors to take action with a button-style link. ([Source](https://githu
 -	**Category:** design
 -	**Parent:** core/buttons
 -	**Supports:** anchor, color (background, gradients, text), interactivity (clientNavigation), shadow (), spacing (padding), splitting, typography (fontSize, lineHeight), ~~alignWide~~, ~~align~~, ~~reusable~~
--	**Attributes:** backgroundColor, gradient, linkTarget, placeholder, rel, tagName, text, textAlign, textColor, title, type, url, width
+-	**Attributes:** backgroundColor, download, gradient, linkTarget, placeholder, rel, tagName, text, textAlign, textColor, title, type, url, width
 
 ## Buttons
 
@@ -273,7 +273,7 @@ Add a link to a downloadable file. ([Source](https://github.com/WordPress/gutenb
 -	**Name:** core/file
 -	**Category:** media
 -	**Supports:** align, anchor, color (background, gradients, link, ~~text~~), interactivity, spacing (margin, padding)
--	**Attributes:** blob, displayPreview, downloadButtonText, fileId, fileName, href, id, previewHeight, showDownloadButton, textLinkHref, textLinkTarget
+-	**Attributes:** blob, displayPreview, fileId, fileName, href, id, previewHeight, showDownloadButton, textLinkHref, textLinkTarget
 
 ## Footnotes
 

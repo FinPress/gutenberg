@@ -1,15 +1,10 @@
 /**
- * External dependencies
- */
-import clsx from 'clsx';
-
-/**
  * WordPress dependencies
  */
 import {
 	RichText,
 	useBlockProps,
-	__experimentalGetElementClassName,
+	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
@@ -20,7 +15,6 @@ export default function save( { attributes } ) {
 		textLinkHref,
 		textLinkTarget,
 		showDownloadButton,
-		downloadButtonText,
 		displayPreview,
 		previewHeight,
 	} = attributes;
@@ -37,9 +31,18 @@ export default function save( { attributes } ) {
 	// actually rendered.
 	const describedById = hasFilename ? fileId : undefined;
 
+	const blockProps = useBlockProps.save( {
+		className: 'wp-block-file',
+	} );
+
+	// Use the `useInnerBlocksProps` hook to get the props for the inner blocks
+	const innerBlocksProps = useInnerBlocksProps.save( {
+		className: 'wp-block-file__button-wrapper',
+	} );
+
 	return (
 		href && (
-			<div { ...useBlockProps.save() }>
+			<div { ...blockProps }>
 				{ displayPreview && (
 					<>
 						<object
@@ -66,19 +69,7 @@ export default function save( { attributes } ) {
 						<RichText.Content value={ fileName } />
 					</a>
 				) }
-				{ showDownloadButton && (
-					<a
-						href={ href }
-						className={ clsx(
-							'wp-block-file__button',
-							__experimentalGetElementClassName( 'button' )
-						) }
-						download
-						aria-describedby={ describedById }
-					>
-						<RichText.Content value={ downloadButtonText } />
-					</a>
-				) }
+				{ showDownloadButton && <div { ...innerBlocksProps } /> }
 			</div>
 		)
 	);

@@ -69,6 +69,10 @@ const LINK_SETTINGS = [
 		id: 'nofollow',
 		title: __( 'Mark as nofollow' ),
 	},
+	{
+		id: 'download',
+		title: __( 'Download file' ),
+	},
 ];
 
 function useEnter( props ) {
@@ -429,6 +433,7 @@ function ButtonEdit( props ) {
 								url: newURL,
 								opensInNewTab: newOpensInNewTab,
 								nofollow: newNofollow,
+								download: newDownload,
 							} ) =>
 								setAttributes(
 									getUpdatedLinkAttributes( {
@@ -436,6 +441,7 @@ function ButtonEdit( props ) {
 										url: newURL,
 										opensInNewTab: newOpensInNewTab,
 										nofollow: newNofollow,
+										download: newDownload,
 									} )
 								)
 							}
