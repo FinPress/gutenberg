@@ -34,7 +34,6 @@ function render_block_core_term_template( $attributes, $content, $block ) {
 		'hide_empty'   => $query['hideEmpty'] ?? true,
 		'include'      => $query['include'] ?? [],
 		'exclude'      => $query['exclude'] ?? [],
-		'parent'       => $query['parent'] ?? 0,
 	);
 
 	$terms_query = new WP_Term_Query( $query_args );
@@ -61,6 +60,10 @@ function render_block_core_term_template( $attributes, $content, $block ) {
 
 	// Handle hierarchical list.
 	$is_hierarchical = ! empty( $query['hierarchical'] );
+
+	if ( ! $is_hierarchical && isset( $query['parent'] ) ) {
+		$query_args['parent'] = $query['parent'];
+	}
 
 	if ( $is_hierarchical ) {
 		$content = render_block_core_term_template_hierarchical( $terms, $block );
@@ -157,7 +160,9 @@ function render_block_core_term_template_single( $term, $block ) {
 
 	$term_classes = implode( ' ', array( 'wp-block-term', 'term-' . $term->term_id ) );
 
-	return '<li class="' . esc_attr( $term_classes ) . '">' . $block_content . '</li>';
+	$term_name = esc_html( $term->name );
+
+	return '<li class="' . esc_attr( $term_classes ) . '">' . $term_name . $block_content . '</li>';
 }
 
 /**
