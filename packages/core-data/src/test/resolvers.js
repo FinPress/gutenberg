@@ -234,6 +234,53 @@ describe( 'getEntityRecords', () => {
 			[ ENTITIES[ 1 ].kind, ENTITIES[ 1 ].name, 2 ],
 		] );
 	} );
+
+	it( 'caches permissions but does not mark entity records as resolved when using _fields', async () => {
+		const finishResolutions = jest.fn();
+		const dispatch = Object.assign( jest.fn(), {
+			receiveEntityRecords: jest.fn(),
+			receiveUserPermissions: jest.fn(),
+			__unstableAcquireStoreLock: jest.fn(),
+			__unstableReleaseStoreLock: jest.fn(),
+			finishResolutions,
+		} );
+
+		// Provide response with _links structure
+		const postTypesWithLinks = {
+			post: {
+				slug: 'post',
+				_links: {
+					self: [
+						{
+							targetHints: {
+								allow: [ 'GET', 'POST', 'PUT', 'DELETE' ],
+							},
+						},
+					],
+				},
+			},
+		};
+		triggerFetch.mockImplementation( () => postTypesWithLinks );
+
+		await getEntityRecords( 'root', 'postType', { _fields: 'slug' } )( {
+			dispatch,
+			registry,
+			resolveSelect,
+		} );
+
+		// Permissions should have been cached
+		expect( dispatch.receiveUserPermissions ).toHaveBeenCalled();
+		expect( finishResolutions ).toHaveBeenCalledWith(
+			'canUser',
+			expect.any( Array )
+		);
+
+		// But individual entity records should NOT be marked as resolved
+		expect( finishResolutions ).not.toHaveBeenCalledWith(
+			'getEntityRecord',
+			expect.any( Array )
+		);
+	} );
 } );
 
 describe( 'getEmbedPreview', () => {

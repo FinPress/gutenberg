@@ -365,13 +365,13 @@ export const getEntityRecords =
 				// the `getEntityRecord` and `canUser` selectors in addition to `getEntityRecords`.
 				// See https://github.com/WordPress/gutenberg/pull/26575
 				// See https://github.com/WordPress/gutenberg/pull/64504
-				if ( ! query?._fields && ! query.context ) {
+				if ( ! query.context ) {
 					const targetHints = records
 						.filter( ( record ) => record?.[ key ] )
 						.map( ( record ) => ( {
 							id: record[ key ],
 							permissions: getUserPermissionsFromAllowHeader(
-								record?._links?.self?.[ 0 ].targetHints.allow
+								record?._links?.self?.[ 0 ]?.targetHints?.allow
 							),
 						} ) );
 
@@ -398,13 +398,16 @@ export const getEntityRecords =
 						receiveUserPermissionArgs
 					);
 					dispatch.finishResolutions(
-						'getEntityRecord',
-						getResolutionsArgs( records )
-					);
-					dispatch.finishResolutions(
 						'canUser',
 						canUserResolutionsArgs
 					);
+
+					if ( ! query?._fields ) {
+						dispatch.finishResolutions(
+							'getEntityRecord',
+							getResolutionsArgs( records )
+						);
+					}
 				}
 
 				dispatch.__unstableReleaseStoreLock( lock );
