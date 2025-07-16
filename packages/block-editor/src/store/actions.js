@@ -1262,16 +1262,18 @@ export const mergeBlocks =
 				blockB.attributes &&
 				( ! blockB.attributes.content ||
 					blockB.attributes.content.length === 0 );
-			if (
-				( blockB.attributes && isUnmodifiedBlock( blockB ) ) ||
-				isEmptyHeading
-			) {
-				dispatch.removeBlock(
-					clientIdB,
-					select.isBlockSelected( clientIdB )
-				);
+			
+			if ( isEmptyHeading ) {
+				registry.batch( () => {
+					dispatch.removeBlock(
+						clientIdB,
+						select.isBlockSelected( clientIdB )
+					);
+					dispatch.selectBlock( blockA.clientId );
+				} );
+			} else {
+				dispatch.selectBlock( blockA.clientId );
 			}
-			dispatch.selectBlock( blockA.clientId );
 			return;
 		}
 
