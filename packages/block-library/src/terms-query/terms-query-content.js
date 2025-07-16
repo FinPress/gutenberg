@@ -21,6 +21,8 @@ import TermsQueryInspectorControls from './inspector-controls';
 
 const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
+const TEMPLATE = [ [ 'core/term-template' ] ];
+
 export default function TermsQueryContent( {
 	attributes,
 	setAttributes,
@@ -33,7 +35,9 @@ export default function TermsQueryContent( {
 		useDispatch( blockEditorStore );
 	const instanceId = useInstanceId( TermsQueryContent );
 	const blockProps = useBlockProps();
-	const innerBlocksProps = useInnerBlocksProps( blockProps );
+	const innerBlocksProps = useInnerBlocksProps( blockProps, {
+		template: TEMPLATE,
+	} );
 
 	const setQuery = ( newQuery ) => {
 		setAttributes( {
