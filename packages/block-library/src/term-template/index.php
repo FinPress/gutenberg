@@ -17,6 +17,10 @@
  * @return string Returns the output of the term template.
  */
 function render_block_core_term_template( $attributes, $content, $block ) {
+	if ( ! isset( $block->context ) || ! isset( $attributes ) ) {
+		return '';
+	}
+
 	$query_block_context = $block->context;
 
 	if ( empty( $query_block_context['query'] ) ) {
