@@ -297,17 +297,32 @@ export default function PostList( { postType } ) {
 			filters.status = DEFAULT_STATUSES;
 		}
 
+		// We will only request the fields that are needed for the current view.
+		const fieldIds = fields?.map( ( field ) => field.id ) || [];
+		const essentialFields = [
+			'id', // Required by getItemId() and navigation
+			'status', // Required by isItemClickable()
+			'_links', // Required for permission caching (targetHints.allow)
+		];
+
+		if ( view.showLevels ) {
+			essentialFields.push( 'level' );
+		}
+
+		const allFields = [ ...new Set( [ ...essentialFields, ...fieldIds ] ) ];
+
 		return {
 			per_page: view.perPage,
 			page: view.page,
 			_embed: 'author',
+			_fields: allFields.join( ',' ),
 			order: view.sort?.direction,
 			orderby: view.sort?.field,
 			orderby_hierarchy: !! view.showLevels,
 			search: view.search,
 			...filters,
 		};
-	}, [ view, activeView, defaultViews ] );
+	}, [ view, activeView, defaultViews, fields ] );
 	const {
 		records,
 		isResolving: isLoadingData,
