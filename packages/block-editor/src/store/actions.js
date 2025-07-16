@@ -1262,7 +1262,7 @@ export const mergeBlocks =
 				blockB.attributes &&
 				( ! blockB.attributes.content ||
 					blockB.attributes.content.length === 0 );
-			
+
 			if ( isEmptyHeading ) {
 				registry.batch( () => {
 					dispatch.removeBlock(
