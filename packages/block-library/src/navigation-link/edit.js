@@ -11,6 +11,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	CheckboxControl,
 	TextControl,
 	TextareaControl,
 	ToolbarButton,
@@ -42,6 +43,7 @@ import { useMergeRefs, usePrevious } from '@wordpress/compose';
 import { LinkUI } from './link-ui';
 import { updateAttributes } from './update-attributes';
 import { getColors } from '../navigation/edit/utils';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 const DEFAULT_BLOCK = { name: 'core/navigation-link' };
 const NESTING_BLOCK_NAMES = [
@@ -174,9 +176,22 @@ function getMissingText( type ) {
  * Consider reusing this components for both blocks.
  */
 function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
-	const { label, url, description, rel } = attributes;
+	const { label, url, description, rel, opensInNewTab } = attributes;
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 	return (
-		<ToolsPanel label={ __( 'Settings' ) }>
+		<ToolsPanel
+			label={ __( 'Settings' ) }
+			resetAll={ () => {
+				setAttributes( {
+					label: '',
+					url: '',
+					description: '',
+					rel: '',
+					opensInNewTab: false,
+				} );
+			} }
+			dropdownMenuProps={ dropdownMenuProps }
+		>
 			<ToolsPanelItem
 				hasValue={ () => !! label }
 				label={ __( 'Text' ) }
@@ -217,6 +232,22 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 					} }
 					autoComplete="off"
 					type="url"
+				/>
+			</ToolsPanelItem>
+
+			<ToolsPanelItem
+				hasValue={ () => !! opensInNewTab }
+				label={ __( 'Open in new tab' ) }
+				onDeselect={ () => setAttributes( { opensInNewTab: false } ) }
+				isShownByDefault
+			>
+				<CheckboxControl
+					__nextHasNoMarginBottom
+					label={ __( 'Open in new tab' ) }
+					checked={ opensInNewTab }
+					onChange={ ( value ) =>
+						setAttributes( { opensInNewTab: value } )
+					}
 				/>
 			</ToolsPanelItem>
 
