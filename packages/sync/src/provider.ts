@@ -400,6 +400,34 @@ export const createSyncProvider = (
 		return null;
 	}
 
+	function getLocalState(): Record< string, any > | null {
+		if ( docs[ AWARENESS_DOC_TYPE ] ) {
+			for ( const objectId in docs[ AWARENESS_DOC_TYPE ] ) {
+				const docDef = docs[ AWARENESS_DOC_TYPE ][ objectId ];
+
+				if ( docDef?.awareness?.getLocalState ) {
+					return docDef?.awareness?.getLocalState();
+				}
+			}
+		}
+
+		return null;
+	}
+
+	function getClientId(): number | null {
+		if ( docs[ AWARENESS_DOC_TYPE ] ) {
+			for ( const objectId in docs[ AWARENESS_DOC_TYPE ] ) {
+				const docDef = docs[ AWARENESS_DOC_TYPE ][ objectId ];
+
+				if ( docDef?.awareness?.clientID ) {
+					return docDef?.awareness?.clientID;
+				}
+			}
+		}
+
+		return null;
+	}
+
 	return {
 		register,
 		bootstrap,
@@ -418,6 +446,8 @@ export const createSyncProvider = (
 			getStates,
 			setLocalStateField,
 			removeAwarenessStates,
+			getLocalState,
+			getClientId,
 		},
 	};
 };
