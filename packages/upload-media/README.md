@@ -63,25 +63,6 @@ _Parameters_
 -   _id_ `QueueItemId`: Item ID.
 -   _error_ `Error`: Error instance.
 
-#### optimizeExistingItem
-
-Adds a new item to the upload queue for optimizing (compressing) an existing item.
-
-_Parameters_
-
--   _$0_ `OptimizeExistingItemArgs`:
--   _$0.id_ `OptimizeExistingItemArgs[ 'id' ]`: Attachment ID.
--   _$0.url_ `OptimizeExistingItemArgs[ 'url' ]`: URL.
--   _$0.fileName_ `[OptimizeExistingItemArgs[ 'fileName' ]]`: File name.
--   _$0.poster_ `[OptimizeExistingItemArgs[ 'poster' ]]`: Poster URL.
--   _$0.batchId_ `[OptimizeExistingItemArgs[ 'batchId' ]]`: Batch ID.
--   _$0.onChange_ `[OptimizeExistingItemArgs[ 'onChange' ]]`: Function called each time a file or a temporary representation of the file is available.
--   _$0.onSuccess_ `[OptimizeExistingItemArgs[ 'onSuccess' ]]`: Function called after the file is uploaded.
--   _$0.onBatchSuccess_ `[OptimizeExistingItemArgs[ 'onBatchSuccess' ]]`: Function called after a batch of files is uploaded.
--   _$0.onError_ `[OptimizeExistingItemArgs[ 'onError' ]]`: Function called when an error happens.
--   _$0.additionalData_ `[OptimizeExistingItemArgs[ 'additionalData' ]]`: Additional data to include in the request.
--   _$0.generatedPosterId_ `[OptimizeExistingItemArgs[ 'generatedPosterId' ]]`: Attachment ID of the generated poster image, if it exists.
-
 #### updateSettings
 
 Returns an action object that pauses all processing in the queue.

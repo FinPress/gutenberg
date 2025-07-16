@@ -12,12 +12,8 @@ import type { WPDataRegistry } from '@wordpress/data/build-types/registry';
 /**
  * Internal dependencies
  */
-import { getFileBasename, getFileNameFromUrl } from '../utils';
-import { StubFile } from '../stubFile';
 import type {
-	AddAction,
 	AdditionalData,
-	BatchId,
 	CancelAction,
 	OnBatchSuccessHandler,
 	OnChangeHandler,
@@ -29,7 +25,7 @@ import type {
 	State,
 	UpdateSettingsAction,
 } from './types';
-import { ItemStatus, OperationType, Type } from './types';
+import { Type } from './types';
 import type {
 	addItem,
 	processItem,
@@ -47,7 +43,6 @@ type ActionCreators = {
 	removeItem: typeof removeItem;
 	processItem: typeof processItem;
 	cancelItem: typeof cancelItem;
-	optimizeExistingItem: typeof optimizeExistingItem;
 	revokeBlobUrls: typeof revokeBlobUrls;
 	< T = Record< string, unknown > >( args: T ): void;
 };
@@ -154,105 +149,6 @@ export function addItems( {
 				additionalData,
 			} );
 		}
-	};
-}
-
-interface OptimizeExistingItemArgs {
-	id: number;
-	url: string;
-	fileName?: string;
-	poster?: string;
-	batchId?: BatchId;
-	onChange?: OnChangeHandler;
-	onSuccess?: OnSuccessHandler;
-	onBatchSuccess?: OnBatchSuccessHandler;
-	onError?: OnErrorHandler;
-	additionalData?: AdditionalData;
-	generatedPosterId?: number;
-}
-
-/**
- * Adds a new item to the upload queue for optimizing (compressing) an existing item.
- *
- * @todo Rename id to sourceAttachmentId for consistency
- *
- * @param $0
- * @param $0.id                  Attachment ID.
- * @param $0.url                 URL.
- * @param [$0.fileName]          File name.
- * @param [$0.poster]            Poster URL.
- * @param [$0.batchId]           Batch ID.
- * @param [$0.onChange]          Function called each time a file or a temporary representation of the file is available.
- * @param [$0.onSuccess]         Function called after the file is uploaded.
- * @param [$0.onBatchSuccess]    Function called after a batch of files is uploaded.
- * @param [$0.onError]           Function called when an error happens.
- * @param [$0.additionalData]    Additional data to include in the request.
- * @param [$0.generatedPosterId] Attachment ID of the generated poster image, if it exists.
- */
-export function optimizeExistingItem( {
-	id,
-	url,
-	fileName,
-	poster,
-	batchId,
-	onChange,
-	onSuccess,
-	onBatchSuccess,
-	onError,
-	additionalData = {} as AdditionalData,
-	generatedPosterId,
-}: OptimizeExistingItemArgs ) {
-	return async ( { dispatch }: ThunkArgs ) => {
-		fileName = fileName || getFileNameFromUrl( url );
-		const baseName = getFileBasename( fileName );
-		const newFileName = fileName.replace(
-			baseName,
-			`${ baseName }-optimized`
-		);
-
-		// TODO: Same considerations apply as for muteExistingVideo.
-
-		const abortController = new AbortController();
-
-		const itemId = uuidv4();
-
-		dispatch< AddAction >( {
-			type: Type.Add,
-			item: {
-				id: itemId,
-				batchId,
-				status: ItemStatus.Processing,
-				sourceFile: new StubFile(),
-				file: new StubFile(),
-				attachment: {
-					url,
-					poster,
-				},
-				additionalData: {
-					generate_sub_sizes: false,
-					...additionalData,
-				},
-				onChange,
-				onSuccess,
-				onBatchSuccess,
-				onError,
-				sourceUrl: url,
-				sourceAttachmentId: id,
-				operations: [
-					[
-						OperationType.FetchRemoteFile,
-						{ url, fileName, newFileName },
-					],
-					OperationType.Compress,
-					OperationType.Upload,
-					OperationType.ThumbnailGeneration,
-				],
-				generatedPosterId,
-				abortController,
-			},
-		} );
-
-		dispatch.processItem( itemId );
 	};
 }
 
