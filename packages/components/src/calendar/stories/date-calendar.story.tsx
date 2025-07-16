@@ -112,12 +112,7 @@ export default meta;
 
 type Story = StoryObj< typeof DateCalendar >;
 
-export const Default: Story = {
-	args: {
-		defaultSelected: new Date( 1751472000000 ),
-		selected: new Date( 1751558400000 ),
-	},
-};
+export const Default: Story = {};
 
 export const DisabledDates: Story = {
 	args: {
