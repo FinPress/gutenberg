@@ -29,7 +29,7 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 			$source_args = array(
 				'key' => 'modified',
 			);
-			$classes[] = 'wp-block-post-date__modified-date';
+			$classes[]   = 'wp-block-post-date__modified-date';
 		} else {
 			$source_args = array(
 				'key' => 'date',
