@@ -44,7 +44,6 @@ import { vipsCancelOperations } from './utils/vips';
 type ActionCreators = {
 	addItem: typeof addItem;
 	addItems: typeof addItems;
-	addItemFromUrl: typeof addItemFromUrl;
 	removeItem: typeof removeItem;
 	processItem: typeof processItem;
 	cancelItem: typeof cancelItem;
@@ -155,50 +154,6 @@ export function addItems( {
 				additionalData,
 			} );
 		}
-	};
-}
-
-interface AddItemFromUrlArgs {
-	url: string;
-	onChange?: OnChangeHandler;
-	onSuccess?: OnSuccessHandler;
-	onError?: OnErrorHandler;
-	additionalData?: AdditionalData;
-}
-
-/**
- * Adds a new item to the upload queue.
- *
- * @param $0
- * @param $0.url              URL
- * @param [$0.onChange]       Function called each time a file or a temporary representation of the file is available.
- * @param [$0.onSuccess]      Function called after the file is uploaded.
- * @param [$0.onError]        Function called when an error happens.
- * @param [$0.additionalData] Additional data to include in the request.
- */
-export function addItemFromUrl( {
-	url,
-	onChange,
-	onSuccess,
-	onError,
-	additionalData,
-}: AddItemFromUrlArgs ) {
-	return async ( { dispatch }: { dispatch: ActionCreators } ) => {
-		const fileName = getFileNameFromUrl( url );
-
-		dispatch.addItem( {
-			file: new StubFile(),
-			onChange,
-			onSuccess,
-			onError,
-			additionalData,
-			sourceUrl: url,
-			operations: [
-				[ OperationType.FetchRemoteFile, { url, fileName } ],
-				// This will add the next steps, such as compression, poster generation, and upload.
-				OperationType.Prepare,
-			],
-		} );
 	};
 }
 
