@@ -395,6 +395,9 @@ test.describe( 'Block deletion', () => {
 		// Add an image block first
 		await editor.insertBlock( {
 			name: 'core/image',
+			attributes: {
+				url: 'https://cldup.com/cXyG__fTLN.jpg',
+			},
 		} );
 
 		// Add an empty heading block
@@ -424,8 +427,11 @@ test.describe( 'Block deletion', () => {
 			.poll( editor.getBlocks )
 			.toMatchObject( [ { name: 'core/image' } ] );
 
-		// The main fix is complete - empty heading block is removed
-		// Focus behavior may vary but the core functionality works
+		// Image block should now be focused
+		const imageBlock = editor.canvas.getByRole( 'document', {
+			name: 'Block: Image',
+		} );
+		await expect( imageBlock ).toBeFocused();
 	} );
 
 	test( 'heading block with content should merge with paragraph above', async ( {
