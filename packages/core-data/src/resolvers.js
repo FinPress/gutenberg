@@ -365,6 +365,7 @@ export const getEntityRecords =
 				// the `getEntityRecord` and `canUser` selectors in addition to `getEntityRecords`.
 				// See https://github.com/WordPress/gutenberg/pull/26575
 				// See https://github.com/WordPress/gutenberg/pull/64504
+				// See https://github.com/WordPress/gutenberg/pull/70738
 				if ( ! query.context ) {
 					const targetHints = records
 						.filter( ( record ) => record?.[ key ] )
