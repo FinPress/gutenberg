@@ -36,6 +36,10 @@ document.querySelectorAll( 'form.wp-block-form' ).forEach( function ( form ) {
 		formData._wp_http_referer = window.location.href;
 		formData.formAction = form.action;
 
+		// Add redirect URL to form data
+		const redirectUrl = form.getAttribute( 'data-redirect-url' ) || '';
+		formData.redirectUrl = redirectUrl;
+
 		try {
 			const response = await fetch( formSettings.ajaxUrl, {
 				method: 'POST',
@@ -45,7 +49,11 @@ document.querySelectorAll( 'form.wp-block-form' ).forEach( function ( form ) {
 				body: new URLSearchParams( formData ).toString(),
 			} );
 			if ( response.ok ) {
-				redirectNotification( 'success' );
+				if ( redirectUrl ) {
+					window.location.href = redirectUrl;
+				} else {
+					redirectNotification( 'success' );
+				}
 			} else {
 				redirectNotification( 'error' );
 			}
