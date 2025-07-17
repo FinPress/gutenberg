@@ -29,7 +29,7 @@ const newURL = addQueryArgs( 'https://google.com', { q: 'test' } ); // https://g
 _Parameters_
 
 -   _url_ `string`: URL to which arguments should be appended. If omitted, only the resulting querystring is returned.
--   _args_ `Object`: Query arguments to apply to URL.
+-   _args_ `Record< string, unknown >`: Query arguments to apply to URL.
 
 _Returns_
 
@@ -58,7 +58,7 @@ const queryString = buildQueryString( {
 
 _Parameters_
 
--   _data_ `Record< string, any >`: Data to encode.
+-   _data_ `Record< string, unknown >`: Data to encode.
 
 _Returns_
 
@@ -244,7 +244,7 @@ _Parameters_
 
 _Returns_
 
--   `QueryArgParsed|void`: Query arg value.
+-   `QueryArgParsed | undefined`: Query arg value.
 
 ### getQueryArgs
 

@@ -22,10 +22,10 @@
  *
  * @return Query string.
  */
-export function buildQueryString( data: Record< string, any > ): string {
+export function buildQueryString( data: Record< string, unknown > ): string {
 	let string = '';
 
-	const stack = Object.entries( data );
+	const stack: Array< [ string, unknown ] > = Object.entries( data );
 
 	let pair;
 	while ( ( pair = stack.shift() ) ) {
@@ -39,7 +39,7 @@ export function buildQueryString( data: Record< string, any > ): string {
 			// Push array or object values onto the stack as composed of their
 			// original key and nested index or key, retaining order by a
 			// combination of Array#reverse and Array#unshift onto the stack.
-			const valuePairs = Object.entries( value ).reverse();
+			const valuePairs = Object.entries( value as object ).reverse();
 			for ( const [ member, memberValue ] of valuePairs ) {
 				stack.unshift( [ `${ key }[${ member }]`, memberValue ] );
 			}
@@ -50,7 +50,8 @@ export function buildQueryString( data: Record< string, any > ): string {
 			}
 
 			string +=
-				'&' + [ key, value ].map( encodeURIComponent ).join( '=' );
+				'&' +
+				[ key, String( value ) ].map( encodeURIComponent ).join( '=' );
 		}
 	}
 
