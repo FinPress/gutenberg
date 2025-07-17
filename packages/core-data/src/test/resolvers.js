@@ -262,7 +262,7 @@ describe( 'getEntityRecords', () => {
 		};
 		triggerFetch.mockImplementation( () => postTypesWithLinks );
 
-		await getEntityRecords( 'root', 'postType', { _fields: 'slug' } )( {
+		await getEntityRecords( 'postType', 'post', { _fields: 'slug,_links' } )( {
 			dispatch,
 			registry,
 			resolveSelect,
