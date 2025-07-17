@@ -35,6 +35,13 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 			);
 		}
 		$attributes['date'] = $source->get_value( $source_args, $block, 'date' );
+	} elseif ( empty( $attributes['date'] ) ) {
+		// If the `date` attribute is set but empty, it's because the block is bound to the
+		// post's last modified date, and the latter lies before the publish date.
+		// In this case, we return an empty string.
+		// See https://github.com/WordPress/gutenberg/pull/46839 where this logic was originally
+		// implemented.
+		return '';
 	}
 
 	$unformatted_date = $attributes['date'];
