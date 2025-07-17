@@ -129,6 +129,83 @@ describe( 'ColorPicker', () => {
 			expect( onChange ).toHaveBeenCalledTimes( 3 );
 			expect( onChange ).toHaveBeenLastCalledWith( '#11aabb' );
 		} );
+
+		it( 'should allow typing incomplete hex values without throwing errors', async () => {
+			const user = userEvent.setup();
+			const onChange = jest.fn();
+			const color = '#000000';
+
+			render(
+				<ColorPicker
+					onChange={ onChange }
+					color={ color }
+					enableAlpha={ false }
+				/>
+			);
+
+			const formatSelector = screen.getByRole( 'combobox' );
+			await user.selectOptions( formatSelector, 'hex' );
+
+			const hexInput = screen.getByRole( 'textbox' );
+
+			// Clear existing value
+			await user.clear( hexInput );
+
+			// Type incomplete hex values character by character
+			await user.type( hexInput, 'f' );
+			expect( hexInput ).toHaveValue( 'F' );
+
+			await user.type( hexInput, 'f' );
+			expect( hexInput ).toHaveValue( 'FF' );
+
+			await user.type( hexInput, '0' );
+			expect( hexInput ).toHaveValue( 'FF0' );
+			// At this point we have a complete 3-char hex, should trigger onChange
+			expect( onChange ).toHaveBeenLastCalledWith( '#ff0000' );
+
+			await user.type( hexInput, '0' );
+			expect( hexInput ).toHaveValue( 'FF00' );
+
+			await user.type( hexInput, '0' );
+			expect( hexInput ).toHaveValue( 'FF000' );
+
+			await user.type( hexInput, '0' );
+			expect( hexInput ).toHaveValue( 'FF0000' );
+			// Complete 6-char hex should trigger onChange
+			expect( onChange ).toHaveBeenLastCalledWith( '#ff0000' );
+		} );
+
+		it( 'should reject invalid hex characters', async () => {
+			const user = userEvent.setup();
+			const onChange = jest.fn();
+			const color = '#000000';
+
+			render(
+				<ColorPicker
+					onChange={ onChange }
+					color={ color }
+					enableAlpha={ false }
+				/>
+			);
+
+			const formatSelector = screen.getByRole( 'combobox' );
+			await user.selectOptions( formatSelector, 'hex' );
+
+			const hexInput = screen.getByRole( 'textbox' );
+
+			await user.clear( hexInput );
+
+			// Try to type invalid characters - these should not appear in the input
+			await user.type( hexInput, 'ggzz' );
+
+			// Input should remain empty or unchanged since 'g' and 'z' are invalid hex chars
+			expect( hexInput ).toHaveValue( '' );
+
+			// Type valid hex characters
+			await user.type( hexInput, 'abc123' );
+			expect( hexInput ).toHaveValue( 'ABC123' );
+			expect( onChange ).toHaveBeenLastCalledWith( '#abc123' );
+		} );
 	} );
 
 	describe.each( [
