@@ -14,15 +14,27 @@ import ServerSideRender from './server-side-render';
  */
 const EMPTY_OBJECT = {};
 
+/**
+ * ServerSideRender component props
+ */
+interface ExportedServerSideRenderProps {
+	urlQueryArgs?: Record< string, unknown >;
+	block: string; // Required property from ServerSideRenderProps
+	[ key: string ]: unknown;
+}
+
 export default function ExportedServerSideRender( {
 	urlQueryArgs = EMPTY_OBJECT,
 	...props
-} ) {
+}: ExportedServerSideRenderProps ): JSX.Element {
 	const currentPostId = useSelect( ( select ) => {
 		// FIXME: @wordpress/server-side-render should not depend on @wordpress/editor.
 		// It is used by blocks that can be loaded into a *non-post* block editor.
 		// eslint-disable-next-line @wordpress/data-no-store-string-literals
-		const postId = select( 'core/editor' )?.getCurrentPostId();
+		const editorSelect = select( 'core/editor' ) as unknown;
+		const postId = (
+			editorSelect as { getCurrentPostId?: () => unknown }
+		 )?.getCurrentPostId?.();
 
 		// For templates and template parts we use a custom ID format.
 		// Since they aren't real posts, we don't want to use their ID

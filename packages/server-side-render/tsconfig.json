@@ -1,0 +1,20 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"rootDir": "src",
+		"declarationDir": "build-types",
+		"jsx": "react-jsx",
+		"types": [ "react", "react-dom" ]
+	},
+	"references": [
+		{ "path": "../element" },
+		{ "path": "../data" },
+		{ "path": "../compose" },
+		{ "path": "../i18n" },
+		{ "path": "../api-fetch" },
+		{ "path": "../url" },
+		{ "path": "../components" },
+		{ "path": "../deprecated" }
+	],
+	"include": [ "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx" ]
+}

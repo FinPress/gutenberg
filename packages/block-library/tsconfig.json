@@ -32,7 +32,8 @@
 		{ "path": "../primitives" },
 		{ "path": "../rich-text" },
 		{ "path": "../url" },
-		{ "path": "../wordcount" }
+		{ "path": "../wordcount" },
+		{ "path": "../server-side-render" }
 	],
 	"include": [ "src/**/*.ts", "src/**/*.tsx" ]
 }

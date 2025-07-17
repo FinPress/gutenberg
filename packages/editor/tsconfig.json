@@ -31,6 +31,7 @@
 		{ "path": "../rich-text" },
 		{ "path": "../url" },
 		{ "path": "../warning" },
-		{ "path": "../wordcount" }
+		{ "path": "../wordcount" },
+		{ "path": "../server-side-render" }
 	]
 }
