@@ -13,14 +13,16 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 	protected static $post_id;
 
 	public static function wpSetUpBeforeClass( $factory ) {
-		self::$post_id = $factory->post->create( array(
-			'post_type'     => 'post',
-			'post_status'   => 'publish',
-			'post_name'     => 'tabby',
-			'post_title'    => 'Tabby cats',
-			'post_content'  => 'Tabby cat content',
-			'post_date'     => '2025-07-05 00:00:00',
-		 ) );
+		self::$post_id = $factory->post->create(
+			array(
+				'post_type'    => 'post',
+				'post_status'  => 'publish',
+				'post_name'    => 'tabby',
+				'post_title'   => 'Tabby cats',
+				'post_content' => 'Tabby cat content',
+				'post_date'    => '2025-07-05 00:00:00',
+			)
+		);
 	}
 
 	public function set_up() {
@@ -29,7 +31,7 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 		$this->update_post_modified( self::$post_id, '2025-07-10 00:00:00' );
 	}
 
-	function data_render_with_date_attribute_binding() {
+	public function data_render_with_date_attribute_binding() {
 		return array(
 			'Publish date'  => array( 'date', 'get_the_date' ),
 			'Modified date' => array( 'modified', 'get_the_modified_date' ),
@@ -59,7 +61,7 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 				'attrs'     => $attributes,
 			),
 			array(
-				'postId' => self::$post_id
+				'postId' => self::$post_id,
 			)
 		);
 
@@ -85,7 +87,7 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 				'attrs'     => $attributes,
 			),
 			array(
-				'postId' => self::$post_id
+				'postId' => self::$post_id,
 			)
 		);
 
@@ -113,7 +115,7 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 				'attrs'     => $attributes,
 			),
 			array(
-				'postId' => self::$post_id
+				'postId' => self::$post_id,
 			)
 		);
 
