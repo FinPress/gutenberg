@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Breaking Changes
+
+-   `Icon`: Pass `size` prop value as `width`/`height` attributes when `icon` is a component that doesn't exactly match `SVG` ([#70756](https://github.com/WordPress/gutenberg/pull/70756)).
+
 ### Internal
 
 -   Add new validated form controls (work in progress, not exported): `ValidatedCheckboxControl`, `ValidatedInputControl`, `ValidatedNumberControl`, `ValidatedRadioControl`, `ValidatedRangeControl`, `ValidatedSelectControl`, `ValidatedTextControl`, `ValidatedTextareaControl`, `ValidatedToggleControl`, `ValidatedCustomSelectControl`, `ValidatedComboboxControl`, `ValidatedToggleGroupControl`, and `ControlWithError` for enhanced form validation capabilities ([#70620](https://github.com/WordPress/gutenberg/pull/70620)).
@@ -12,7 +16,6 @@
 -   `SelectControl`: Fix font-size for medium screens to ensure consistency with other inputs ([#70619](https://github.com/WordPress/gutenberg/pull/70619)).
 -   `SelectControl`: Move classnames to the root ([#70643](https://github.com/WordPress/gutenberg/pull/70643)).
 -   `Autocomplete`: Prevent text cursor position loss when clicking to insert an item ([#70660](https://github.com/WordPress/gutenberg/pull/70660)).
--   `Icon`: Pass `size` prop value as `width`/`height` attributes when `icon` is a JSX element that doesn't exactly match type `svg` or `SVG` ([#70756](https://github.com/WordPress/gutenberg/pull/70756)).
 
 
 ### Internal
