@@ -10,114 +10,114 @@
  */
 class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 
-    protected static $post_id;
+	protected static $post_id;
 
-    public static function wpSetUpBeforeClass( $factory ) {
-        self::$post_id = $factory->post->create( array(
-            'post_type'     => 'post',
-            'post_status'   => 'publish',
-            'post_name'     => 'tabby',
-            'post_title'    => 'Tabby cats',
-            'post_content'  => 'Tabby cat content',
-            'post_date'     => '2025-07-05 00:00:00',
-         ) );
-    }
+	public static function wpSetUpBeforeClass( $factory ) {
+		self::$post_id = $factory->post->create( array(
+			'post_type'     => 'post',
+			'post_status'   => 'publish',
+			'post_name'     => 'tabby',
+			'post_title'    => 'Tabby cats',
+			'post_content'  => 'Tabby cat content',
+			'post_date'     => '2025-07-05 00:00:00',
+		 ) );
+	}
 
-    public function set_up() {
-        parent::set_up();
+	public function set_up() {
+		parent::set_up();
 
-        $this->update_post_modified( self::$post_id, '2025-07-10 00:00:00' );
-    }
+		$this->update_post_modified( self::$post_id, '2025-07-10 00:00:00' );
+	}
 
-    function data_render_with_date_attribute_binding() {
-        return array(
-            'Publish date'  => array( 'date', 'get_the_date' ),
-            'Modified date' => array( 'modified', 'get_the_modified_date' ),
-        );
-    }
+	function data_render_with_date_attribute_binding() {
+		return array(
+			'Publish date'  => array( 'date', 'get_the_date' ),
+			'Modified date' => array( 'modified', 'get_the_modified_date' ),
+		);
+	}
 
-    /**
-     * @dataProvider data_render_with_date_attribute_binding
-     */
-    public function test_render_with_date_attribute_binding( $field, $expected_date_function ) {
-        $expected_date = call_user_func( $expected_date_function, 'c', self::$post_id );
+	/**
+	 * @dataProvider data_render_with_date_attribute_binding
+	 */
+	public function test_render_with_date_attribute_binding( $field, $expected_date_function ) {
+		$expected_date = call_user_func( $expected_date_function, 'c', self::$post_id );
 
-        $attributes = array(
-            'metadata' => array(
-                'bindings' => array(
-                    'date' => array(
-                        'source' => 'core/post-data',
-                        'args'   => array( 'key' => $field ),
-                    ),
-                ),
-            ),
-        );
+		$attributes = array(
+			'metadata' => array(
+				'bindings' => array(
+					'date' => array(
+						'source' => 'core/post-data',
+						'args'   => array( 'key' => $field ),
+					),
+				),
+			),
+		);
 
-        $block = new WP_Block(
-            array(
-                'blockName' => 'core/post-date',
-                'attrs'     => $attributes,
-            ),
-            array(
-                'postId' => self::$post_id
-            )
-        );
+		$block = new WP_Block(
+			array(
+				'blockName' => 'core/post-date',
+				'attrs'     => $attributes,
+			),
+			array(
+				'postId' => self::$post_id
+			)
+		);
 
-        $output = $block->render();
-        $this->assertStringContainsString( $expected_date, $output );
-    }
+		$output = $block->render();
+		$this->assertStringContainsString( $expected_date, $output );
+	}
 
-    /**
-     * @dataProvider data_render_with_date_attribute_binding
-     */
-    public function test_render_legacy_block( $field, $expected_date_function ) {
-        $expected_date = call_user_func( $expected_date_function, 'c', self::$post_id );
+	/**
+	 * @dataProvider data_render_with_date_attribute_binding
+	 */
+	public function test_render_legacy_block( $field, $expected_date_function ) {
+		$expected_date = call_user_func( $expected_date_function, 'c', self::$post_id );
 
-        $attributes = array();
+		$attributes = array();
 
-        if ( 'modified' === $field ) {
-            $attributes['displayType'] = 'modified';
-        }
+		if ( 'modified' === $field ) {
+			$attributes['displayType'] = 'modified';
+		}
 
-        $block = new WP_Block(
-            array(
-                'blockName' => 'core/post-date',
-                'attrs'     => $attributes,
-            ),
-            array(
-                'postId' => self::$post_id
-            )
-        );
+		$block = new WP_Block(
+			array(
+				'blockName' => 'core/post-date',
+				'attrs'     => $attributes,
+			),
+			array(
+				'postId' => self::$post_id
+			)
+		);
 
-        $output = $block->render();
-        $this->assertStringContainsString( $expected_date, $output );
-    }
+		$output = $block->render();
+		$this->assertStringContainsString( $expected_date, $output );
+	}
 
-    public function test_render_modified_date_before_publish_date() {
-        $this->update_post_modified( self::$post_id, '2025-07-01 00:00:00' );
+	public function test_render_modified_date_before_publish_date() {
+		$this->update_post_modified( self::$post_id, '2025-07-01 00:00:00' );
 
-        $attributes = array(
-            'metadata' => array(
-                'bindings' => array(
-                    'date' => array(
-                        'source' => 'core/post-data',
-                        'args'   => array( 'key' => 'modified' ),
-                    ),
-                ),
-            ),
-        );
+		$attributes = array(
+			'metadata' => array(
+				'bindings' => array(
+					'date' => array(
+						'source' => 'core/post-data',
+						'args'   => array( 'key' => 'modified' ),
+					),
+				),
+			),
+		);
 
-        $block = new WP_Block(
-            array(
-                'blockName' => 'core/post-date',
-                'attrs'     => $attributes,
-            ),
-            array(
-                'postId' => self::$post_id
-            )
-        );
+		$block = new WP_Block(
+			array(
+				'blockName' => 'core/post-date',
+				'attrs'     => $attributes,
+			),
+			array(
+				'postId' => self::$post_id
+			)
+		);
 
-        $output = $block->render();
-        $this->assertSame( '', $output );
-    }
+		$output = $block->render();
+		$this->assertSame( '', $output );
+	}
 }
