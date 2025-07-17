@@ -12,7 +12,7 @@
 -   `SelectControl`: Fix font-size for medium screens to ensure consistency with other inputs ([#70619](https://github.com/WordPress/gutenberg/pull/70619)).
 -   `SelectControl`: Move classnames to the root ([#70643](https://github.com/WordPress/gutenberg/pull/70643)).
 -   `Autocomplete`: Prevent text cursor position loss when clicking to insert an item ([#70660](https://github.com/WordPress/gutenberg/pull/70660)).
--   Fix the rendering of icons from bundled `DataViews` packages ([#70756](https://github.com/WordPress/gutenberg/pull/70756)).
+-   `Icon`: Pass `size` prop value as `width`/`height` attributes when `icon` is a JSX element that doesn't exactly match type `svg` or `SVG` ([#70756](https://github.com/WordPress/gutenberg/pull/70756)).
 
 
 ### Internal
