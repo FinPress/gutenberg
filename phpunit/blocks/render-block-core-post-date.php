@@ -92,4 +92,32 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
         $output = $block->render();
         $this->assertStringContainsString( $expected_date, $output );
     }
+
+    public function test_render_modified_date_before_publish_date() {
+        $this->update_post_modified( self::$post_id, '2025-07-01 00:00:00' );
+
+        $attributes = array(
+            'metadata' => array(
+                'bindings' => array(
+                    'date' => array(
+                        'source' => 'core/post-data',
+                        'args'   => array( 'key' => 'modified' ),
+                    ),
+                ),
+            ),
+        );
+
+        $block = new WP_Block(
+            array(
+                'blockName' => 'core/post-date',
+                'attrs'     => $attributes,
+            ),
+            array(
+                'postId' => self::$post_id
+            )
+        );
+
+        $output = $block->render();
+        $this->assertSame( '', $output );
+    }
 }
