@@ -229,7 +229,7 @@ describe( 'Synced patterns', () => {
 			// with an URL that includes the width query parameter:
 			// https://cldup.com/cXyG__fTLN.jpg => https://cldup.com/cXyG__fTLN.jpg?w=500
 			response.content.raw = `<!-- wp:image {"id":1,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/></figure>
+<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->`;
 			return Promise.resolve( {
 				json: () => Promise.resolve( response ),

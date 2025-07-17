@@ -416,7 +416,7 @@ test.describe( 'Image', () => {
 		// Expect an empty image block (placeholder) rather than one with a
 		// broken temporary URL.
 		expect( await editor.getEditedPostContent() ).toBe( `<!-- wp:image -->
-<figure class="wp-block-image"><img alt=""/></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->` );
 	} );
 

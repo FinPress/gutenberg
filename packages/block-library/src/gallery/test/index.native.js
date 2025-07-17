@@ -601,11 +601,11 @@ describe( 'Gallery block', () => {
 		const screen = await initializeWithGalleryBlock( {
 			html: `<!-- wp:gallery {"linkTo":"none"} -->
 		<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":${ media[ 0 ].localId }} -->
-		<figure class="wp-block-image"><img src="${ media[ 0 ].localUrl }" alt="" class="wp-image-${ media[ 0 ].localId }"/></figure>
+		<figure class="wp-block-image"><img src="${ media[ 0 ].localUrl }" alt="" class="wp-image-${ media[ 0 ].localId }"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 		<!-- /wp:image -->
 
 		<!-- wp:image {"id":${ media[ 1 ].localId },"linkDestination":"attachment"} -->
-		<figure class="wp-block-image"><img src="${ media[ 1 ].localUrl }" alt="" class="wp-image-${ media[ 1 ].localId }"/></figure>
+		<figure class="wp-block-image"><img src="${ media[ 1 ].localUrl }" alt="" class="wp-image-${ media[ 1 ].localId }"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 		<!-- /wp:image --></figure>
 		<!-- /wp:gallery -->`,
 			numberOfItems: 2,

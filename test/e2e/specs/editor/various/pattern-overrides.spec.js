@@ -955,7 +955,7 @@ test.describe( 'Pattern Overrides', () => {
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
 			content: `<!-- wp:image {"metadata":{"name":"${ imageName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-<figure class="wp-block-image"><img alt=""/></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->`,
 			status: 'publish',
 		} );
@@ -1015,7 +1015,7 @@ test.describe( 'Pattern Overrides', () => {
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
 			content: `<!-- wp:image {"metadata":{"name":"${ imageName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-<figure class="wp-block-image"><img alt=""/></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->`,
 			status: 'publish',
 		} );
@@ -1344,7 +1344,7 @@ test.describe( 'Pattern Overrides', () => {
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
 			content: `<!-- wp:image {"metadata":{"name":"${ imageName }","bindings":{"id":{"source":"core/pattern-overrides"},"url":{"source":"core/pattern-overrides"},"title":{"source":"core/pattern-overrides"},"alt":{"source":"core/pattern-overrides"}}}} -->
-<figure class="wp-block-image"><img alt=""/></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->`,
 			status: 'publish',
 		} );

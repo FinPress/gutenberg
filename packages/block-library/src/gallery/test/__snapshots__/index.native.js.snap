@@ -3,15 +3,15 @@
 exports[`Gallery block Columns setting decrements columns 1`] = `
 "<!-- wp:gallery {"columns":2,"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-2 is-cropped"><!-- wp:image {"id":2000} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2001} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2002} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-3.jpeg" alt="" class="wp-image-2002"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-3.jpeg" alt="" class="wp-image-2002"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -19,15 +19,15 @@ exports[`Gallery block Columns setting decrements columns 1`] = `
 exports[`Gallery block Columns setting does not increment due to maximum value 1`] = `
 "<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":2000} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2001} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2002} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-3.jpeg" alt="" class="wp-image-2002"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-3.jpeg" alt="" class="wp-image-2002"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -35,11 +35,11 @@ exports[`Gallery block Columns setting does not increment due to maximum value 1
 exports[`Gallery block cancels uploads 1`] = `
 "<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":null} -->
-<figure class="wp-block-image"><img alt=""/></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":null} -->
-<figure class="wp-block-image"><img alt=""/></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -47,7 +47,7 @@ exports[`Gallery block cancels uploads 1`] = `
 exports[`Gallery block disables crop images setting 1`] = `
 "<!-- wp:gallery {"imageCrop":false,"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default"><!-- wp:image {"id":2000} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -55,11 +55,11 @@ exports[`Gallery block disables crop images setting 1`] = `
 exports[`Gallery block finishes pending uploads upon opening the editor 1`] = `
 "<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":2000} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2001} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -67,11 +67,11 @@ exports[`Gallery block finishes pending uploads upon opening the editor 1`] = `
 exports[`Gallery block handles failed uploads 1`] = `
 "<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":1} -->
-<figure class="wp-block-image"><img src="file:///local-image-1.jpeg" alt="" class="wp-image-1"/></figure>
+<figure class="wp-block-image"><img src="file:///local-image-1.jpeg" alt="" class="wp-image-1"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2} -->
-<figure class="wp-block-image"><img src="file:///local-image-2.jpeg" alt="" class="wp-image-2"/></figure>
+<figure class="wp-block-image"><img src="file:///local-image-2.jpeg" alt="" class="wp-image-2"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -85,11 +85,11 @@ exports[`Gallery block inserts block 1`] = `
 exports[`Gallery block overrides "Link" setting of gallery items 1`] = `
 "<!-- wp:gallery {"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":1,"linkDestination":"media"} -->
-<figure class="wp-block-image"><img src="file:///local-image-1.jpeg" alt="" class="wp-image-1"/></figure>
+<figure class="wp-block-image"><img src="file:///local-image-1.jpeg" alt="" class="wp-image-1"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2,"linkDestination":"media"} -->
-<figure class="wp-block-image"><img src="file:///local-image-2.jpeg" alt="" class="wp-image-2"/></figure>
+<figure class="wp-block-image"><img src="file:///local-image-2.jpeg" alt="" class="wp-image-2"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -97,15 +97,15 @@ exports[`Gallery block overrides "Link" setting of gallery items 1`] = `
 exports[`Gallery block rearranges gallery items 1`] = `
 "<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":2002} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-3.jpeg" alt="" class="wp-image-2002"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-3.jpeg" alt="" class="wp-image-2002"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2000} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2001} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -119,7 +119,7 @@ exports[`Gallery block renders gallery block placeholder correctly if the block 
 exports[`Gallery block sets caption to gallery 1`] = `
 "<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":2000} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --><figcaption class="blocks-gallery-caption wp-element-caption"><strong>Bold</strong> <em>italic</em> <s>strikethrough</s> gallery caption</figcaption></figure>
 <!-- /wp:gallery -->"
 `;
@@ -127,7 +127,7 @@ exports[`Gallery block sets caption to gallery 1`] = `
 exports[`Gallery block sets caption to gallery items 1`] = `
 "<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":2000} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption"><strong>Bold</strong> <em>italic</em> <s>strikethrough</s> image caption</figcaption></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption" data-wp-maybe-remove="false"><strong>Bold</strong> <em>italic</em> <s>strikethrough</s> image caption</figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -135,11 +135,11 @@ exports[`Gallery block sets caption to gallery items 1`] = `
 exports[`Gallery block successfully uploads items 1`] = `
 "<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":2000} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2001} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -147,7 +147,7 @@ exports[`Gallery block successfully uploads items 1`] = `
 exports[`Gallery block takes a photo 1`] = `
 "<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":2000} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -155,11 +155,11 @@ exports[`Gallery block takes a photo 1`] = `
 exports[`Gallery block uploads from free photo library 1`] = `
 "<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":2000} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2001} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -167,11 +167,11 @@ exports[`Gallery block uploads from free photo library 1`] = `
 exports[`Gallery block uploads from other apps 1`] = `
 "<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":2000} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt="" class="wp-image-2000"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":2001} -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-2.jpeg" alt="" class="wp-image-2001"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
