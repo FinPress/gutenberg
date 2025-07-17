@@ -56,7 +56,7 @@ function gutenberg_process_image_caption_binding( $block_content, $parsed_block,
 	}
 
 	$block_reader = new class($block_content) extends WP_HTML_Tag_Processor {
-		public function set_figcaption_content( $new_content ) {
+		public function gutenberg_do_not_copy_set_figcaption_content( $new_content ) {
 			if ( $this->is_tag_closer() || 'FIGCAPTION' !== $this->get_tag() ) {
 				return false;
 			}
@@ -72,11 +72,11 @@ function gutenberg_process_image_caption_binding( $block_content, $parsed_block,
 			$this->set_bookmark( 'closer_tag' );
 			$opener_tag_bookmark = $this->bookmarks['opener_tag'];
 			$closer_tag_bookmark = $this->bookmarks['closer_tag'];
-			$after_opener_tag = $opener_tag_bookmark->start + $opener_tag_bookmark->length;
+			$after_opener_tag    = $opener_tag_bookmark->start + $opener_tag_bookmark->length;
 			if ( '>' === $this->html[ $after_opener_tag ] ) {
 				++$after_opener_tag;
 			}
-			$inner_content_length = $closer_tag_bookmark->start - $after_opener_tag;
+			$inner_content_length    = $closer_tag_bookmark->start - $after_opener_tag;
 			$this->lexical_updates[] = new WP_HTML_Text_Replacement(
 				$after_opener_tag,
 				$inner_content_length,
@@ -84,7 +84,7 @@ function gutenberg_process_image_caption_binding( $block_content, $parsed_block,
 			);
 			return true;
 		}
-		public function maybe_remove_figcaption() {
+		public function gutenberg_do_not_copy_maybe_remove_figcaption() {
 			if ( $this->is_tag_closer() || 'FIGCAPTION' !== $this->get_tag() ) {
 				return false;
 			}
@@ -98,9 +98,9 @@ function gutenberg_process_image_caption_binding( $block_content, $parsed_block,
 				return false;
 			}
 			$this->set_bookmark( 'closer_tag' );
-			$opener_tag_bookmark = $this->bookmarks['opener_tag'];
-			$closer_tag_bookmark = $this->bookmarks['closer_tag'];
-			$total_element_length = $closer_tag_bookmark->start + $closer_tag_bookmark->length - $opener_tag_bookmark->start;
+			$opener_tag_bookmark     = $this->bookmarks['opener_tag'];
+			$closer_tag_bookmark     = $this->bookmarks['closer_tag'];
+			$total_element_length    = $closer_tag_bookmark->start + $closer_tag_bookmark->length - $opener_tag_bookmark->start;
 			$this->lexical_updates[] = new WP_HTML_Text_Replacement(
 				$opener_tag_bookmark->start,
 				$total_element_length,
@@ -109,28 +109,28 @@ function gutenberg_process_image_caption_binding( $block_content, $parsed_block,
 			return true;
 		}
 	};
-	$processor = new $block_reader( $block_content );
+	$processor    = new $block_reader( $block_content );
 	$processor->next_tag( 'FIGCAPTION' );
 	$maybe_remove = $processor->get_attribute( 'data-wp-maybe-remove' );
 
 	if ( $has_binding ) {
-		$caption_binding = $parsed_block['attrs']['metadata']['bindings']['caption'];
+		$caption_binding        = $parsed_block['attrs']['metadata']['bindings']['caption'];
 		$caption_binding_source = get_block_bindings_source( $caption_binding['source'] );
-		$source_args = ! empty( $caption_binding['args'] ) && is_array( $caption_binding['args'] ) ? $caption_binding['args'] : array();
-		$source_value = $caption_binding_source->get_value( $source_args, $block_instance, 'caption' );
+		$source_args            = ! empty( $caption_binding['args'] ) && is_array( $caption_binding['args'] ) ? $caption_binding['args'] : array();
+		$source_value           = $caption_binding_source->get_value( $source_args, $block_instance, 'caption' );
 
 		if ( is_null( $source_value ) ) {
 			return $block_content;
 		}
 
 		if ( 'true' === $maybe_remove ) {
-			$processor->maybe_remove_figcaption();
+			$processor->gutenberg_do_not_copy_maybe_remove_figcaption();
 		} else {
-			$processor->set_figcaption_content( wp_kses_post( $source_value ) );
+			$processor->gutenberg_do_not_copy_set_figcaption_content( wp_kses_post( $source_value ) );
 		}
 	} else {
 		if ( 'true' === $maybe_remove ) {
-			$processor->maybe_remove_figcaption();
+			$processor->gutenberg_do_not_copy_maybe_remove_figcaption();
 		}
 	}
 
