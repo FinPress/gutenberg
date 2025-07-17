@@ -65,10 +65,17 @@ const Edit = ( { attributes, setAttributes, clientId } ) => {
 			email: undefined,
 			action: undefined,
 			method: 'post',
+			redirectUrl: '',
 		} );
 	};
 
-	const { action, method, email, submissionMethod } = attributes;
+	const {
+		action,
+		method,
+		email,
+		submissionMethod,
+		redirectUrl = '',
+	} = attributes;
 	const blockProps = useBlockProps();
 
 	const { hasInnerBlocks } = useSelect(
@@ -171,6 +178,32 @@ const Edit = ( { attributes, setAttributes, clientId } ) => {
 							/>
 						</ToolsPanelItem>
 					) }
+					<ToolsPanelItem
+						hasValue={ () => !! redirectUrl }
+						label={ __( 'Redirect URL' ) }
+						onDeselect={ () =>
+							setAttributes( {
+								redirectUrl: '',
+							} )
+						}
+						isShownByDefault
+					>
+						<TextControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+							autoComplete="off"
+							label={ __( 'Redirect URL' ) }
+							value={ redirectUrl || '' }
+							required
+							onChange={ ( value ) =>
+								setAttributes( { redirectUrl: value } )
+							}
+							help={ __(
+								'The URL to redirect to after form submission.'
+							) }
+							type="url"
+						/>
+					</ToolsPanelItem>
 				</ToolsPanel>
 			</InspectorControls>
 			{ submissionMethod !== 'email' && (
