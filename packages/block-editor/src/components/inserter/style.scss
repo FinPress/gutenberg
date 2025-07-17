@@ -309,6 +309,13 @@ $block-inserter-tabs-height: 44px;
 	// see https://github.com/WordPress/gutenberg/issues/24529.
 	max-width: 100%;
 
+	// Avoids large icons for custom block icons.
+	// Needs this rule for fixing size on block widget editor.
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
 	@include break-medium {
 		width: $block-quick-inserter-width;
 	}
