@@ -32,7 +32,7 @@ exports[`Media & Text block transformations with Image to Group block 1`] = `
 
 exports[`Media & Text block transformations with Image to Image block 1`] = `
 "<!-- wp:image {"id":4674} -->
-<figure class="wp-block-image"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-4674"/></figure>
+<figure class="wp-block-image"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-4674"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
 <!-- /wp:image -->"
 `;
 
