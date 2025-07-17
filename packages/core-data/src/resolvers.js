@@ -400,13 +400,15 @@ export const getEntityRecords =
 						}
 					}
 
-					dispatch.receiveUserPermissions(
-						receiveUserPermissionArgs
-					);
-					dispatch.finishResolutions(
-						'canUser',
-						canUserResolutionsArgs
-					);
+					if ( targetHints.length > 0 ) {
+						dispatch.receiveUserPermissions(
+							receiveUserPermissionArgs
+						);
+						dispatch.finishResolutions(
+							'canUser',
+							canUserResolutionsArgs
+						);
+					}
 
 					if ( ! query?._fields ) {
 						dispatch.finishResolutions(

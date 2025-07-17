@@ -135,6 +135,12 @@ describe( 'getEntityRecords', () => {
 			baseURL: '/wp/v2/types',
 			baseURLParams: { context: 'edit' },
 		},
+		{
+			name: 'post',
+			kind: 'postType',
+			baseURL: '/wp/v2/posts',
+			baseURLParams: { context: 'edit' },
+		},
 	];
 	const registry = { batch: ( callback ) => callback() };
 	const resolveSelect = { getEntitiesConfig: jest.fn( () => ENTITIES ) };
@@ -246,9 +252,11 @@ describe( 'getEntityRecords', () => {
 		} );
 
 		// Provide response with _links structure
-		const postTypesWithLinks = {
-			post: {
-				slug: 'post',
+		const postsWithLinks = [
+			{
+				id: 1,
+				title: 'Hello World',
+				slug: 'hello-world',
 				_links: {
 					self: [
 						{
@@ -259,10 +267,13 @@ describe( 'getEntityRecords', () => {
 					],
 				},
 			},
-		};
-		triggerFetch.mockImplementation( () => postTypesWithLinks );
+		];
 
-		await getEntityRecords( 'postType', 'post', { _fields: 'slug,_links' } )( {
+		triggerFetch.mockImplementation( () => postsWithLinks );
+
+		await getEntityRecords( 'postType', 'post', {
+			_fields: Object.keys( postsWithLinks[ 0 ] ).join( ',' ),
+		} )( {
 			dispatch,
 			registry,
 			resolveSelect,
@@ -276,6 +287,49 @@ describe( 'getEntityRecords', () => {
 		);
 
 		// But individual entity records should NOT be marked as resolved
+		expect( finishResolutions ).not.toHaveBeenCalledWith(
+			'getEntityRecord',
+			expect.any( Array )
+		);
+	} );
+
+	it( 'does not cache permissions when _links field is missing from response', async () => {
+		const finishResolutions = jest.fn();
+		const dispatch = Object.assign( jest.fn(), {
+			receiveEntityRecords: jest.fn(),
+			receiveUserPermissions: jest.fn(),
+			__unstableAcquireStoreLock: jest.fn(),
+			__unstableReleaseStoreLock: jest.fn(),
+			finishResolutions,
+		} );
+
+		// Provide response without _links structure
+		const postsWithoutLinks = [
+			{
+				id: 1,
+				title: 'Hello World',
+				slug: 'hello-world',
+			},
+		];
+
+		triggerFetch.mockImplementation( () => postsWithoutLinks );
+
+		await getEntityRecords( 'postType', 'post', {
+			_fields: Object.keys( postsWithoutLinks[ 0 ] ).join( ',' ),
+		} )( {
+			dispatch,
+			registry,
+			resolveSelect,
+		} );
+
+		// Permissions should NOT have been cached
+		expect( dispatch.receiveUserPermissions ).not.toHaveBeenCalled();
+		expect( finishResolutions ).not.toHaveBeenCalledWith(
+			'canUser',
+			expect.any( Array )
+		);
+
+		// Individual entity records should NOT be marked as resolved
 		expect( finishResolutions ).not.toHaveBeenCalledWith(
 			'getEntityRecord',
 			expect.any( Array )
