@@ -99,7 +99,7 @@ function ListViewBlock( {
 	} = unlock( useDispatch( blockEditorStore ) );
 	const debouncedToggleBlockHighlight = useDebounce(
 		toggleBlockHighlight,
-		250
+		100
 	);
 
 	const {
