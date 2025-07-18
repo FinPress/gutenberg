@@ -258,10 +258,10 @@ export default function PostFeaturedImageEdit( {
 								postType?.labels.singular_name
 									? sprintf(
 											// translators: %s: Name of the post type e.g: "post".
-											__( 'Link to %s' ),
+											__( 'link to %s' ),
 											postType.labels.singular_name
 									  )
-									: __( 'Link to post' )
+									: __( 'link to post' )
 							}
 							isShownByDefault
 							hasValue={ () => !! isLink }
@@ -277,10 +277,10 @@ export default function PostFeaturedImageEdit( {
 									postType?.labels.singular_name
 										? sprintf(
 												// translators: %s: Name of the post type e.g: "post".
-												__( 'Link to %s' ),
+												__( 'link to %s' ),
 												postType.labels.singular_name
 										  )
-										: __( 'Link to post' )
+										: __( 'link to post' )
 								}
 								onChange={ () =>
 									setAttributes( { isLink: ! isLink } )
