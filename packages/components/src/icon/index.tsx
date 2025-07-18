@@ -92,7 +92,7 @@ function Icon( {
 		} );
 	}
 
-	if ( icon && ( icon.type === 'svg' || icon.type === SVG ) ) {
+	if ( icon && ( icon.type === 'svg' || icon.type?.displayName === 'SVG' ) ) {
 		const appliedProps = {
 			...icon.props,
 			width: size,
@@ -107,8 +107,6 @@ function Icon( {
 		return cloneElement( icon, {
 			// @ts-ignore Just forwarding the size prop along
 			size,
-			width: size,
-			height: size,
 			...additionalProps,
 		} );
 	}
