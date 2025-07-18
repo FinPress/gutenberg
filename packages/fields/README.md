@@ -69,7 +69,7 @@ Featured Image field for BasePost.
 
 ### getParentFieldElements
 
-Transforms posts into filter elements for the parent field.
+Transforms posts into filter elements for the parent field. Filters out posts that have no children.
 
 _Parameters_
 

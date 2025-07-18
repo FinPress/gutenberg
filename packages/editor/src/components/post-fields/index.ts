@@ -52,7 +52,7 @@ function usePostFields( {
 			per_page: -1,
 			orderby: 'menu_order',
 			order: 'asc',
-			_fields: 'id,title',
+			_fields: 'id,title,parent',
 		} );
 
 	const fields = useMemo(
