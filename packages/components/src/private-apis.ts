@@ -7,8 +7,11 @@ import { ComponentsContext } from './context/context-system-provider';
 import Theme from './theme';
 import { Tabs } from './tabs';
 import { kebabCase, normalizeTextString } from './utils/strings';
+import { withIgnoreIMEEvents } from './utils/with-ignore-ime-events';
 import { lock } from './lock-unlock';
 import Badge from './badge';
+
+import { DateCalendar, DateRangeCalendar, TZDate } from './calendar';
 
 export const privateApis = {};
 lock( privateApis, {
@@ -18,6 +21,10 @@ lock( privateApis, {
 	Theme,
 	Menu,
 	kebabCase,
+	withIgnoreIMEEvents,
 	Badge,
 	normalizeTextString,
+	DateCalendar,
+	DateRangeCalendar,
+	TZDate,
 } );
