@@ -71,8 +71,13 @@ export default function save( { attributes } ) {
 		/>
 	);
 
+	const arePatternOverridesEnabled =
+		bindings?.__default?.source === 'core/pattern-overrides';
+
 	const shouldRemoveCaption =
-		! bindings.caption && RichText.isEmpty( caption );
+		! bindings.caption &&
+		RichText.isEmpty( caption ) &&
+		! arePatternOverridesEnabled;
 
 	const figure = (
 		<>
