@@ -827,6 +827,7 @@ describe( 'actions', () => {
 			};
 			const dispatch = Object.assign( jest.fn(), {
 				selectBlock: jest.fn(),
+				removeBlock: jest.fn(),
 			} );
 
 			mergeBlocks(
