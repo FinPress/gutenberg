@@ -10,7 +10,7 @@ import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { moreVertical } from '@wordpress/icons';
 import { Children, cloneElement } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
 import { pipe, useCopyToClipboard } from '@wordpress/compose';
 
@@ -88,6 +88,8 @@ export function BlockSettingsDropdown( {
 		selectedBlockClientIds,
 		openedBlockSettingsMenu,
 		isContentOnly,
+		blockType,
+		variation,
 	} = useSelect(
 		( select ) => {
 			const {
@@ -107,6 +109,9 @@ export function BlockSettingsDropdown( {
 			const parentBlockName =
 				_firstParentClientId && getBlockName( _firstParentClientId );
 
+			const blockName = getBlockName( firstBlockClientId );
+			const blockAttributes = getBlockAttributes( firstBlockClientId );
+
 			return {
 				firstParentClientId: _firstParentClientId,
 				parentBlockType:
@@ -122,6 +127,11 @@ export function BlockSettingsDropdown( {
 				openedBlockSettingsMenu: getOpenedBlockSettingsMenu(),
 				isContentOnly:
 					getBlockEditingMode( firstBlockClientId ) === 'contentOnly',
+				blockType: getBlockType( blockName ),
+				variation: getActiveBlockVariation(
+					blockName,
+					blockAttributes
+				),
 			};
 		},
 		[ firstBlockClientId ]
@@ -213,6 +223,19 @@ export function BlockSettingsDropdown( {
 
 	const shouldShowBlockParentMenuItem =
 		! parentBlockIsSelected && !! firstParentClientId;
+
+	// Generate specific delete label for inner blocks
+	let deleteLabel = __( 'Delete' );
+	if ( count > 1 ) {
+		/* translators: %d: number of blocks */
+		deleteLabel = sprintf( __( 'Delete %d blocks' ), count );
+	} else if ( firstParentClientId ) {
+		deleteLabel = sprintf(
+			/* translators: %s: block name */
+			__( 'Delete %s' ),
+			variation?.title || blockType?.title || __( 'block' )
+		);
+	}
 
 	return (
 		<BlockActions
@@ -369,7 +392,7 @@ export function BlockSettingsDropdown( {
 											) }
 											shortcut={ shortcuts.remove }
 										>
-											{ __( 'Delete' ) }
+											{ deleteLabel }
 										</MenuItem>
 									</MenuGroup>
 								) }
