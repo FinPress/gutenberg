@@ -38,7 +38,7 @@ This issue is to provide visibility on the progress of the release process of Gu
 -   [ ] Post a reminder in #core-editor for backporting PRs to RC (~Label Backport to Gutenberg RC)
 -   [ ] If there are any PRs marked as [Backport to RC](https://github.com/WordPress/gutenberg/pulls?q=is%3Apr+label%3A%22Backport+to+Gutenberg+RC%22+is%3Aclosed), run the [cherry-pick command to apply them](https://developer.wordpress.org/block-editor/contributors/code/release/auto-cherry-picking/#how-can-i-use-it-for-a-gutenberg-plugin-release) to the release branch. **This needs to be run locally**
 -   [ ] [Draft Release Post Highlights and Change Log](https://docs.google.com/document/d/1D-MTOCmL9eMlP9TDTXqlzuKVOg_ghCPm9_whHFViqMk/edit)
--   [ ] Get assets from [Design Team](https://make.wordpress.org/design/) for the post
+-   [ ] Get assets from [Design Team](https://make.wordpress.org/design/) for the post if required
 -   [ ] Reach out to Highlight Authors to draft sections (if necessary)
 
 ### Release Day - {Weekday, Month, Date}
@@ -51,3 +51,4 @@ This issue is to provide visibility on the progress of the release process of Gu
 -   [ ] Announce in `#core-editor` channel that the plugin has been released
 -   [ ] Reach out to other contributors to help get the post reviewed
 -   [ ] Publish Release post on Make Core blog
+-   [ ] Post in the `#core-editor` channel [requesting a volunteer for the next Gutenberg release](https://developer.wordpress.org/block-editor/contributors/code/release/#call-for-volunteer-for-the-next-release).
