@@ -7,7 +7,7 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { store as coreStore } from '@wordpress/core-data';
-import { useCallback, useMemo } from '@wordpress/element';
+import { useMemo } from '@wordpress/element';
 import {
 	AlignmentToolbar,
 	BlockControls,
@@ -24,6 +24,7 @@ import {
 } from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
+import { debounce } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -45,13 +46,28 @@ export default function PostExcerptEditor( {
 	const userCanEdit = useCanEditEntity( 'postType', postType, postId );
 
 	const { editEntityRecord } = useDispatch( coreStore );
-	const setExcerpt = useCallback(
-		( newValue ) => {
-			void editEntityRecord( 'postType', postType, postId, {
-				excerpt: newValue,
-			} );
-		},
+	const setExcerpt = useMemo(
+		() =>
+			debounce(
+				( newValue ) => {
+					void editEntityRecord( 'postType', postType, postId, {
+						excerpt: newValue,
+					} );
+				},
+				500 // debounce delay in ms
+			),
 		[ editEntityRecord, postType, postId ]
+	);
+
+	const setExcerptLength = useMemo(
+		() =>
+			debounce(
+				( value ) => {
+					setAttributes( { excerptLength: value } );
+				},
+				300 // debounce delay in ms
+			),
+		[ setAttributes ]
 	);
 	const { rawExcerpt, renderedExcerpt, isProtected } = useSelect(
 		( select ) => {
@@ -299,9 +315,7 @@ export default function PostExcerptEditor( {
 							__nextHasNoMarginBottom
 							label={ __( 'Max number of words' ) }
 							value={ excerptLength }
-							onChange={ ( value ) => {
-								setAttributes( { excerptLength: value } );
-							} }
+							onChange={ setExcerptLength }
 							min="10"
 							max="100"
 						/>
