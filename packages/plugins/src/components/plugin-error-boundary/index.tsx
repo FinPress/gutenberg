@@ -10,7 +10,7 @@ import { Component } from '@wordpress/element';
 
 interface PluginErrorBoundaryProps {
 	/**
-	 * The name of the plugin that may encounter an error.
+	 * The name of the plugin that may encounter an errors.
 	 */
 	name: string;
 	/**
