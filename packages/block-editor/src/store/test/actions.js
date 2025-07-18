@@ -809,7 +809,15 @@ describe( 'actions', () => {
 		} );
 
 		it( 'should only focus the blockA if the blockA has no merge function', () => {
-			registerBlockType( 'core/test-block', defaultBlockSettings );
+			registerBlockType( 'core/test-block', {
+				...defaultBlockSettings,
+				attributes: {
+					content: {
+						type: 'string',
+						role: 'content',
+					},
+				},
+			} );
 			const blockA = deepFreeze( {
 				clientId: 'chicken',
 				name: 'core/test-block',
@@ -817,6 +825,9 @@ describe( 'actions', () => {
 			const blockB = deepFreeze( {
 				clientId: 'ribs',
 				name: 'core/test-block',
+				attributes: {
+					content: 'Updated content',
+				},
 			} );
 
 			const select = {
