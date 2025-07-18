@@ -6,53 +6,53 @@ import isShallowEqual from '@wordpress/is-shallow-equal';
 /**
  * Represents a single change in history.
  */
-export interface HistoryChange {
+export interface HistoryChange< T = unknown > {
 	/** The previous value */
-	from: unknown;
+	from: T;
 	/** The new value */
-	to: unknown;
+	to: T;
 }
 
 /**
  * Represents changes for a single item.
  */
-export interface HistoryChanges {
+export interface HistoryChanges< T = unknown > {
 	/** The identifier for the item being changed */
 	id: string | Record< string, unknown >;
 	/** The changes made to the item */
-	changes: Record< string, HistoryChange >;
+	changes: Record< string, HistoryChange< T > >;
 }
 
 /**
  * Represents a record of history changes.
  */
-export type HistoryRecord = HistoryChanges[];
+export type HistoryRecord< T = unknown > = HistoryChanges< T >[];
 
 /**
  * The undo manager interface.
  */
-export interface UndoManager {
+export interface UndoManager< T = unknown > {
 	/**
 	 * Record changes into the history.
 	 *
 	 * @param record   A record of changes to record.
 	 * @param isStaged Whether to immediately create an undo point or not.
 	 */
-	addRecord: ( record?: HistoryRecord, isStaged?: boolean ) => void;
+	addRecord: ( record?: HistoryRecord< T >, isStaged?: boolean ) => void;
 
 	/**
 	 * Undo the last recorded changes.
 	 *
 	 * @return The undone record or undefined if nothing to undo.
 	 */
-	undo: () => HistoryRecord | undefined;
+	undo: () => HistoryRecord< T > | undefined;
 
 	/**
 	 * Redo the last undone changes.
 	 *
 	 * @return The redone record or undefined if nothing to redo.
 	 */
-	redo: () => HistoryRecord | undefined;
+	redo: () => HistoryRecord< T > | undefined;
 
 	/**
 	 * Check if there are changes that can be undone.
@@ -77,11 +77,11 @@ export interface UndoManager {
  *
  * @return Merged changes
  */
-function mergeHistoryChanges(
-	changes1: Record< string, HistoryChange >,
-	changes2: Record< string, HistoryChange >
-): Record< string, HistoryChange > {
-	const newChanges: Record< string, HistoryChange > = { ...changes1 };
+function mergeHistoryChanges< T >(
+	changes1: Record< string, HistoryChange< T > >,
+	changes2: Record< string, HistoryChange< T > >
+): Record< string, HistoryChange< T > > {
+	const newChanges: Record< string, HistoryChange< T > > = { ...changes1 };
 	Object.entries( changes2 ).forEach( ( [ key, value ] ) => {
 		if ( newChanges[ key ] ) {
 			newChanges[ key ] = { ...newChanges[ key ], to: value.to };
@@ -99,10 +99,10 @@ function mergeHistoryChanges(
  * @param record  The record to merge into.
  * @param changes The changes to merge.
  */
-const addHistoryChangesIntoRecord = (
-	record: HistoryRecord,
-	changes: HistoryChanges
-): HistoryRecord => {
+const addHistoryChangesIntoRecord = < T >(
+	record: HistoryRecord< T >,
+	changes: HistoryChanges< T >
+): HistoryRecord< T > => {
 	const existingChangesIndex = record?.findIndex(
 		( { id: recordIdentifier } ) => {
 			return typeof recordIdentifier === 'string'
@@ -132,9 +132,9 @@ const addHistoryChangesIntoRecord = (
  *
  * @return Undo manager.
  */
-export function createUndoManager(): UndoManager {
-	let history: HistoryRecord[] = [];
-	let stagedRecord: HistoryRecord = [];
+export function createUndoManager< T = unknown >(): UndoManager< T > {
+	let history: HistoryRecord< T >[] = [];
+	let stagedRecord: HistoryRecord< T > = [];
 	let offset = 0;
 
 	const dropPendingRedos = (): void => {
@@ -160,7 +160,7 @@ export function createUndoManager(): UndoManager {
 	 * @param record The record to check.
 	 * @return Whether the record is empty.
 	 */
-	const isRecordEmpty = ( record: HistoryRecord ): boolean => {
+	const isRecordEmpty = ( record: HistoryRecord< T > ): boolean => {
 		const filteredRecord = record.filter( ( { changes } ) => {
 			return Object.values( changes ).some(
 				( { from, to } ) =>
@@ -173,7 +173,7 @@ export function createUndoManager(): UndoManager {
 	};
 
 	return {
-		addRecord( record?: HistoryRecord, isStaged = false ): void {
+		addRecord( record?: HistoryRecord< T >, isStaged = false ): void {
 			const isEmpty = ! record || isRecordEmpty( record );
 			if ( isStaged ) {
 				if ( isEmpty ) {
@@ -197,7 +197,7 @@ export function createUndoManager(): UndoManager {
 			}
 		},
 
-		undo(): HistoryRecord | undefined {
+		undo(): HistoryRecord< T > | undefined {
 			if ( stagedRecord.length ) {
 				dropPendingRedos();
 				appendStagedRecordToLatestHistoryRecord();
@@ -210,7 +210,7 @@ export function createUndoManager(): UndoManager {
 			return undoRecord;
 		},
 
-		redo(): HistoryRecord | undefined {
+		redo(): HistoryRecord< T > | undefined {
 			const redoRecord = history[ history.length + offset ];
 			if ( ! redoRecord ) {
 				return;
