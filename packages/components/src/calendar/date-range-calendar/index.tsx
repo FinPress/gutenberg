@@ -163,13 +163,13 @@ export const DateRangeCalendar = ( {
 		[ onSelect ]
 	);
 
-	const [ selected, setSelected ] = useControlledValue<
-		DateRange | undefined | null
-	>( {
-		defaultValue: defaultSelected,
-		value: selectedProp,
-		onChange,
-	} );
+	const [ selected, setSelected ] = useControlledValue< typeof selectedProp >(
+		{
+			defaultValue: defaultSelected,
+			value: selectedProp,
+			onChange,
+		}
+	);
 
 	const [ hoveredDate, setHoveredDate ] = useState< Date | undefined >(
 		undefined
