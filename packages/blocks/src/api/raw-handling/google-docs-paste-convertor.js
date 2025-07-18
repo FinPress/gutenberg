@@ -81,5 +81,55 @@ export default function googleDocsHtmlMarkdownProcessor( htmlString ) {
 		}
 	} );
 
+	// For Multiline code blocks (```) we need to look for back-ticks at the beginning/end of paragraph nodes.
+	const paragraphs = Array.from( body.querySelectorAll( 'p' ) );
+	let inCodeBlock = false;
+	let codeBlockLines = [];
+	let nodesToRemove = [];
+	let firstCodeBlockNode = null;
+
+	paragraphs.forEach( ( p ) => {
+		const pText = p.textContent.trim();
+
+		if ( pText === '```' ) {
+			nodesToRemove.push( p );
+
+			if ( ! inCodeBlock ) {
+				inCodeBlock = true;
+				firstCodeBlockNode = p;
+			} else {
+				inCodeBlock = false;
+
+				// Replace the collected nodes with a single <pre><code> block
+				if ( firstCodeBlockNode && codeBlockLines.length > 0 ) {
+					const pre = doc.createElement( 'pre' );
+					const code = doc.createElement( 'code' );
+					code.textContent = codeBlockLines.join( '\n' );
+					pre.appendChild( code );
+
+					// Replace the first node of the block with the <pre> tag.
+					// Then remove all subsequent nodes in the block.
+					firstCodeBlockNode.parentNode.replaceChild(
+						pre,
+						firstCodeBlockNode
+					);
+
+					nodesToRemove.forEach( ( node ) => {
+						if ( node !== firstCodeBlockNode && node.parentNode ) {
+							node.parentNode.removeChild( node );
+						}
+					} );
+				}
+
+				codeBlockLines = [];
+				nodesToRemove = [];
+				firstCodeBlockNode = null;
+			}
+		} else if ( inCodeBlock ) {
+			codeBlockLines.push( pText );
+			nodesToRemove.push( p );
+		}
+	} );
+
 	return body.innerHTML;
 }
