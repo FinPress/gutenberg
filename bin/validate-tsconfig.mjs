@@ -14,7 +14,7 @@ let hasErrors = false;
 const rootTsconfigJson = JSON.parse( readFileSync( 'tsconfig.json', 'utf8' ) );
 
 const packagesWithTypes = glob
-	.sync( 'packages/*/tsconfig.json' )
+	.sync( 'packages/*/tsconfig.json')
 	.map( ( tsconfigPath ) => basename( dirname( tsconfigPath ) ) );
 
 for ( const packageName of packagesWithTypes ) {
@@ -32,7 +32,7 @@ for ( const packageName of packagesWithTypes ) {
 	let packageJson;
 	try {
 		packageJson = JSON.parse(
-			readFileSync( `packages/${ packageName }/package.json`, 'utf8' )
+			readFileSync( `packages/${ packageName }/package.json`, 'utf8')
 		);
 	} catch ( e ) {
 		console.error(

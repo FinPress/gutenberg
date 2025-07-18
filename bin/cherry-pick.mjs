@@ -298,7 +298,7 @@ function prToString(
 function indent( text, width = 3 ) {
 	const _indent = ' '.repeat( width );
 	return text
-		.split( '\n' )
+		.split( '\n')
 		.map( ( line ) => _indent + line )
 		.join( '\n' );
 }

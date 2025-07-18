@@ -122,7 +122,7 @@ jobs:
             - name: Create and switch to release branch
               if: |
                   github.event.inputs.version == 'rc' &&
-                  ! contains( steps.get_version.outputs.old_version, 'rc' )
+                  ! contains( steps.get_version.outputs.old_version, 'rc')
               env:
                   TARGET_BRANCH: ${{ steps.get_version.outputs.release_branch }}
               run: git checkout -b "$TARGET_BRANCH"
@@ -130,7 +130,7 @@ jobs:
             - name: Switch to release branch
               if: |
                   github.event.inputs.version == 'stable' ||
-                  contains( steps.get_version.outputs.old_version, 'rc' )
+                  contains( steps.get_version.outputs.old_version, 'rc')
               env:
                   TARGET_BRANCH: ${{ steps.get_version.outputs.release_branch }}
               run: |
@@ -270,7 +270,7 @@ jobs:
             - name: Revert version bump commit on release branch
               if: |
                   github.event.inputs.version == 'stable' ||
-                  contains( needs.bump-version.outputs.old_version, 'rc' )
+                  contains( needs.bump-version.outputs.old_version, 'rc')
               env:
                   RELEAD_BRANCH_COMMIT: ${{ needs.bump-version.outputs.release_branch_commit }}
                   RELEASE_BRANCH: ${{ needs.bump-version.outputs.release_branch }}
@@ -281,7 +281,7 @@ jobs:
             - name: Delete release branch if it was only just created for the RC
               if: |
                   github.event.inputs.version == 'rc' &&
-                  ! contains( needs.bump-version.outputs.old_version, 'rc' )
+                  ! contains( needs.bump-version.outputs.old_version, 'rc')
               env:
                   RELEASE_BRANCH: ${{ needs.bump-version.outputs.release_branch }}
               run: |
