@@ -23,10 +23,19 @@ import {
 } from '@wordpress/block-editor';
 import { getBlockSupport } from '@wordpress/blocks';
 import { formatLtr } from '@wordpress/icons';
+
 /**
  * Internal dependencies
  */
 import { useOnEnter } from './use-enter';
+
+// 🔼 Added: Helper to count words
+const getWordCount = ( text ) => {
+	if ( ! text ) {
+		return 0;
+	}
+	return text.trim().split( /\s+/ ).length;
+};
 
 function ParagraphRTLControl( { direction, setDirection } ) {
 	return (
@@ -109,6 +118,10 @@ function ParagraphBlock( {
 	name,
 } ) {
 	const { align, content, direction, dropCap, placeholder } = attributes;
+
+	const MAX_WORDS = 100; // 🔼 Added
+	const wordCount = getWordCount( content ); // 🔼 Added
+
 	const blockProps = useBlockProps( {
 		ref: useOnEnter( { clientId, content } ),
 		className: clsx( {
@@ -169,11 +182,33 @@ function ParagraphBlock( {
 						: __( 'Block: Paragraph' )
 				}
 				data-empty={ RichText.isEmpty( content ) }
-				placeholder={ placeholder || __( 'Type / to choose a block' ) }
+				placeholder={ placeholder || __( 'Write your content here' ) }
 				data-custom-placeholder={ placeholder ? true : undefined }
 				__unstableEmbedURLOnPaste
 				__unstableAllowPrefixTransformations
 			/>
+
+			{ isSingleSelected && (
+				// 🔼 Added: Word count display
+				<div
+					style={ {
+						marginTop: '8px',
+						fontSize: '13px',
+						color: wordCount > MAX_WORDS ? 'red' : '#555',
+					} }
+				>
+					{ __( 'Word count:' ) } { wordCount }
+					{ wordCount > MAX_WORDS && (
+						<span>
+							{ ' ' }
+							—{ ' ' }
+							{ __(
+								'Consider starting new paragraph for better readabilty'
+							) }
+						</span>
+					) }
+				</div>
+			) }
 		</>
 	);
 }
