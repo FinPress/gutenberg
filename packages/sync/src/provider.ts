@@ -22,16 +22,6 @@ import type {
 	SyncProvider,
 } from './types';
 
-/** @typedef {import('./types').ObjectType} ObjectType */
-/** @typedef {import('./types').ObjectID} ObjectID */
-/** @typedef {import('./types').ObjectConfig} ObjectConfig */
-/** @typedef {import('./types').ConnectDoc} ConnectDoc */
-/** @typedef {import('./types').SyncProvider} SyncProvider */
-/** @typedef {import('./types').AwarenessEventListener} AwarenessEventListener */
-/** @typedef {import('./types').PendingAwarenessSetup} PendingAwarenessSetup */
-/** @typedef {import('y-protocols/awareness').Awareness} Awareness */
-/** @typedef {import('./types').UndoManager} UndoManager */
-/** @typedef {import('./types').HistoryRecord} HistoryRecord */
 const AWARENESS_DOC_TYPE = 'postType/Posts';
 
 /**
@@ -49,7 +39,6 @@ export const createSyncProvider = (
 
 	/**
 	 * @todo make sure that this used everwhere correctly and that we remove crdtdoc
-	 * @type {Record<string,Record<string,{ ydoc: Y.Doc, prevContentClientId: number, destroy: ()=>void, awareness: Awareness | null }>>}
 	 */
 	const docs: Record<
 		string,
@@ -83,11 +72,9 @@ export const createSyncProvider = (
 		},
 	};
 
-	/**
-	 * @type {PendingAwarenessSetup}
-	 */
 	const pendingAwarenessSetup: PendingAwarenessSetup = {
 		pendingListeners: {
+			ready: [],
 			update: [],
 			change: [],
 		},
@@ -466,7 +453,7 @@ async function bootstrapAwareness(
 
 	for ( const eventType in pendingAwarenessSetup.pendingListeners ) {
 		pendingAwarenessSetup.pendingListeners[ eventType ].forEach(
-			( listener: AwarenessEventListener ) => {
+			( listener ): void => {
 				awareness.on( eventType, listener );
 			}
 		);
@@ -476,4 +463,6 @@ async function bootstrapAwareness(
 		const value = pendingAwarenessSetup.pendingStateFields[ field ];
 		awareness.setLocalStateField( field, value );
 	}
+
+	awareness.emit( 'ready', [ awareness ] );
 }
