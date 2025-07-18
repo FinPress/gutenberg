@@ -13,15 +13,23 @@ import { ParentView } from './parent-view';
 
 const parentField: Field< BasePost > = {
 	id: 'parent',
-	type: 'text',
+	type: 'integer',
 	label: __( 'Parent' ),
 	Edit: ParentEdit,
 	render: ParentView,
 	enableSorting: true,
-	filterBy: false,
+	elements: [],
+	filterBy: {
+		operators: [ 'is', 'isNot' ],
+	},
+	getValue: ( { item } ) => {
+		return item.parent || 0;
+	},
 };
 
 /**
  * Parent field for BasePost.
  */
 export default parentField;
+
+export { getParentFieldElements } from './utils';

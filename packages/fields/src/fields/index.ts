@@ -6,7 +6,7 @@ export { default as patternTitleField } from './pattern-title';
 export { default as orderField } from './order';
 export { default as featuredImageField } from './featured-image';
 export { default as templateField } from './template';
-export { default as parentField } from './parent';
+export { default as parentField, getParentFieldElements } from './parent';
 export { default as passwordField } from './password';
 export { default as statusField } from './status';
 export { default as commentStatusField } from './comment-status';

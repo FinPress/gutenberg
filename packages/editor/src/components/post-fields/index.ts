@@ -4,8 +4,9 @@
 import { useEffect, useMemo } from '@wordpress/element';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
+import { getParentFieldElements } from '@wordpress/fields';
 import type { Field } from '@wordpress/dataviews';
-import type { BasePostWithEmbeddedAuthor } from '@wordpress/fields';
+import type { BasePostWithEmbeddedAuthor, BasePost } from '@wordpress/fields';
 
 /**
  * Internal dependencies
@@ -46,6 +47,14 @@ function usePostFields( {
 	const { records: authors, isResolving: isLoadingAuthors } =
 		useEntityRecords< Author >( 'root', 'user', { per_page: -1 } );
 
+	const { records: parentPosts, isResolving: isLoadingParents } =
+		useEntityRecords< BasePost >( 'postType', postType, {
+			per_page: -1,
+			orderby: 'menu_order',
+			order: 'asc',
+			_fields: 'id,title',
+		} );
+
 	const fields = useMemo(
 		() =>
 			defaultFields.map(
@@ -60,14 +69,21 @@ function usePostFields( {
 						};
 					}
 
+					if ( field.id === 'parent' ) {
+						return {
+							...field,
+							elements: getParentFieldElements( parentPosts ),
+						};
+					}
+
 					return field;
 				}
 			) as Field< BasePostWithEmbeddedAuthor >[],
-		[ authors, defaultFields ]
+		[ authors, parentPosts, defaultFields ]
 	);
 
 	return {
-		isLoading: isLoadingAuthors,
+		isLoading: isLoadingAuthors || isLoadingParents,
 		fields,
 	};
 }

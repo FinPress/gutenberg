@@ -27,6 +27,8 @@ import {
 import {
 	OPERATOR_IS_ANY,
 	OPERATOR_IS_NONE,
+	OPERATOR_IS,
+	OPERATOR_IS_NOT,
 	LAYOUT_LIST,
 } from '../../utils/constants';
 
@@ -263,6 +265,17 @@ export default function PostList( { postType } ) {
 				filter.operator === OPERATOR_IS_NONE
 			) {
 				filters.author_exclude = filter.value;
+			}
+			if (
+				filter.field === 'parent' &&
+				filter.operator === OPERATOR_IS
+			) {
+				filters.parent = filter.value;
+			} else if (
+				filter.field === 'parent' &&
+				filter.operator === OPERATOR_IS_NOT
+			) {
+				filters.parent_exclude = filter.value;
 			}
 		} );
 

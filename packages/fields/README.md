@@ -67,6 +67,18 @@ Export action as JSON for Pattern.
 
 Featured Image field for BasePost.
 
+### getParentFieldElements
+
+Transforms posts into filter elements for the parent field.
+
+_Parameters_
+
+-   _posts_ `BasePost[] | undefined | null`: - Array of posts to transform.
+
+_Returns_
+
+-   Array of filter elements.
+
 ### orderField
 
 Order field for BasePost.
