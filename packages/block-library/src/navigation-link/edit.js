@@ -225,11 +225,9 @@ function Controls( { attributes, setAttributes, setIsEditingControl } ) {
 					label={ __( 'Link' ) }
 					value={ url ? safeDecodeURI( url ) : '' }
 					onChange={ ( urlValue ) => {
-						updateAttributes(
-							{ url: urlValue },
-							setAttributes,
-							attributes
-						);
+						setAttributes( {
+							url: encodeURI( safeDecodeURI( urlValue ) ),
+						} );
 					} }
 					autoComplete="off"
 					type="url"
@@ -238,13 +236,12 @@ function Controls( { attributes, setAttributes, setIsEditingControl } ) {
 						setIsEditingControl( true );
 					} }
 					onBlur={ () => {
-						if ( ! url && lastURLRef.current ) {
-							updateAttributes(
-								{ url: lastURLRef.current },
-								setAttributes,
-								attributes
-							);
-						}
+						// Defer the updateAttributes call to ensure entity connection isn't severed by accident.
+						updateAttributes(
+							{ url: ! url ? lastURLRef.current : url },
+							setAttributes,
+							{ ...attributes, url: lastURLRef.current }
+						);
 						setIsEditingControl( false );
 					} }
 				/>
