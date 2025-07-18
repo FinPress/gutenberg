@@ -823,6 +823,7 @@ describe( 'actions', () => {
 				getBlock: ( clientId ) =>
 					[ blockA, blockB ].find( ( b ) => b.clientId === clientId ),
 				getBlockEditingMode: () => 'default',
+				isBlockSelected: () => false,
 			};
 			const dispatch = Object.assign( jest.fn(), {
 				selectBlock: jest.fn(),
