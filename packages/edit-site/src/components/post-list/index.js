@@ -27,6 +27,8 @@ import {
 import {
 	OPERATOR_IS_ANY,
 	OPERATOR_IS_NONE,
+	OPERATOR_IS,
+	OPERATOR_IS_NOT,
 	LAYOUT_LIST,
 } from '../../utils/constants';
 
@@ -106,11 +108,12 @@ function useView( postType ) {
 		}
 
 		const type = layout ?? initialView.type;
-		return {
+		const result = {
 			...initialView,
 			type,
 			...defaultLayouts[ type ],
 		};
+		return result;
 	} );
 
 	const setViewWithUrlUpdate = useEvent( ( newView ) => {
@@ -264,6 +267,17 @@ export default function PostList( { postType } ) {
 			) {
 				filters.author_exclude = filter.value;
 			}
+			if (
+				filter.field === 'parent' &&
+				filter.operator === OPERATOR_IS
+			) {
+				filters.parent = filter.value;
+			} else if (
+				filter.field === 'parent' &&
+				filter.operator === OPERATOR_IS_NOT
+			) {
+				filters.parent_exclude = filter.value;
+			}
 		} );
 
 		// The bundled views want data filtered without displaying the filter.
@@ -302,7 +316,25 @@ export default function PostList( { postType } ) {
 		const essentialFields = [
 			'id', // Required by getItemId() and navigation
 			'status', // Required by isItemClickable()
-			'_links', // Required for permission caching (targetHints.allow)
+			'type', // Required by post actions and navigation
+			// '_links' is automatically added by useEntityRecordsWithPermissions
+			// 'permissions' is automatically added by useEntityRecordsWithPermissions
+			// Action-specific fields (could be fetched on-demand instead):
+			'link', // Required by post actions (view-post)
+			'is_custom', // Required by post actions (rename-post, delete-post)
+			'has_theme_file', // Required by post actions (delete-post)
+			'content', // Required by post actions (duplicate-post)
+			'excerpt', // Required by post actions (duplicate-post)
+			'title', // Required by post actions (duplicate-post)
+			'comment_status', // Required by post actions (duplicate-post)
+			'meta', // Required by post actions (duplicate-post)
+			'parent', // Required by post actions (duplicate-post)
+			'password', // Required by post actions (duplicate-post)
+			'template', // Required by post actions (duplicate-post)
+			'format', // Required by post actions (duplicate-post)
+			'featured_media', // Required by post actions (duplicate-post)
+			'menu_order', // Required by post actions (duplicate-post)
+			'ping_status', // Required by post actions (duplicate-post)
 		];
 
 		if ( view.showLevels ) {
