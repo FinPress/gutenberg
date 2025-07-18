@@ -1807,9 +1807,9 @@ export const canInsertBlockType = createRegistrySelector( ( select ) =>
  * Determines if the given blocks are allowed to be inserted into the block
  * list.
  *
- * @param {Object}  state        Editor state.
- * @param {string}  clientIds    The block client IDs to be inserted.
- * @param {?string} rootClientId Optional root client ID of block list.
+ * @param {Object}   state        Editor state.
+ * @param {string[]} clientIds    The block client IDs to be inserted.
+ * @param {?string}  rootClientId Optional root client ID of block list.
  *
  * @return {boolean} Whether the given blocks are allowed to be inserted.
  */
@@ -2318,26 +2318,21 @@ export const getBlockTransformItems = createRegistrySelector( ( select ) =>
  *
  * @return {boolean} Items that appear in inserter.
  */
-export const hasInserterItems = createRegistrySelector(
-	( select ) =>
-		( state, rootClientId = null ) => {
-			const hasBlockType = getBlockTypes().some( ( blockType ) =>
-				canIncludeBlockTypeInInserter( state, blockType, rootClientId )
-			);
-			if ( hasBlockType ) {
-				return true;
-			}
-			const hasReusableBlock =
-				canInsertBlockTypeUnmemoized(
-					state,
-					'core/block',
-					rootClientId
-				) &&
-				unlock( select( STORE_NAME ) ).getReusableBlocks().length > 0;
+export const hasInserterItems = ( state, rootClientId = null ) => {
+	const hasBlockType = getBlockTypes().some( ( blockType ) =>
+		canIncludeBlockTypeInInserter( state, blockType, rootClientId )
+	);
+	if ( hasBlockType ) {
+		return true;
+	}
+	const hasReusableBlock = canInsertBlockTypeUnmemoized(
+		state,
+		'core/block',
+		rootClientId
+	);
 
-			return hasReusableBlock;
-		}
-);
+	return hasReusableBlock;
+};
 
 /**
  * Returns the list of allowed inserter blocks for inner blocks children.
@@ -2358,13 +2353,11 @@ export const getAllowedBlocks = createRegistrySelector( ( select ) =>
 				canIncludeBlockTypeInInserter( state, blockType, rootClientId )
 			);
 
-			const hasReusableBlock =
-				canInsertBlockTypeUnmemoized(
-					state,
-					'core/block',
-					rootClientId
-				) &&
-				unlock( select( STORE_NAME ) ).getReusableBlocks().length > 0;
+			const hasReusableBlock = canInsertBlockTypeUnmemoized(
+				state,
+				'core/block',
+				rootClientId
+			);
 
 			if ( hasReusableBlock ) {
 				blockTypes.push( 'core/block' );
@@ -2374,7 +2367,6 @@ export const getAllowedBlocks = createRegistrySelector( ( select ) =>
 		},
 		( state, rootClientId ) => [
 			getBlockTypes(),
-			unlock( select( STORE_NAME ) ).getReusableBlocks(),
 			...getInsertBlockTypeDependants( select )( state, rootClientId ),
 		]
 	)
@@ -2920,11 +2912,17 @@ export function isBlockVisible( state, clientId ) {
 /**
  * Returns the currently hovered block.
  *
- * @param {Object} state Global application state.
- * @return {Object} Client Id of the hovered block.
+ * @deprecated
  */
-export function getHoveredBlockClientId( state ) {
-	return state.hoveredBlockClientId;
+export function getHoveredBlockClientId() {
+	deprecated(
+		"wp.data.select( 'core/block-editor' ).getHoveredBlockClientId",
+		{
+			since: '6.9',
+			version: '7.1',
+		}
+	);
+	return undefined;
 }
 
 /**
