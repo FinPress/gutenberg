@@ -368,11 +368,6 @@ interface ViewBase {
 		 * The direction to sort by.
 		 */
 		direction: SortDirection;
-
-		/**
-		 * Whether to group the data by this field.
-		 */
-		grouped?: boolean;
 	};
 
 	/**
@@ -424,6 +419,11 @@ interface ViewBase {
 	 * Whether to show the hierarchical levels.
 	 */
 	showLevels?: boolean;
+
+	/**
+	 * The field to group by.
+	 */
+	groupByField?: string;
 }
 
 export interface ColumnStyle {
