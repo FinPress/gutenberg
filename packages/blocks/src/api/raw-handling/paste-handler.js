@@ -32,6 +32,7 @@ import brRemover from './br-remover';
 import { deepFilterHTML, isPlain, getBlockContentSchema } from './utils';
 import emptyParagraphRemover from './empty-paragraph-remover';
 import slackParagraphCorrector from './slack-paragraph-corrector';
+import headingTransformer from './heading-transformer';
 
 const log = ( ...args ) => window?.console?.log?.( ...args );
 
@@ -198,6 +199,7 @@ export function pasteHandler( {
 				figureContentReducer,
 				blockquoteNormaliser(),
 				divNormaliser,
+				headingTransformer,
 			];
 
 			const schema = {
