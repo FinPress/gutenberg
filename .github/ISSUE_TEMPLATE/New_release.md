@@ -51,3 +51,4 @@ This issue is to provide visibility on the progress of the release process of Gu
 -   [ ] Announce in `#core-editor` channel that the plugin has been released
 -   [ ] Reach out to other contributors to help get the post reviewed
 -   [ ] Publish Release post on Make Core blog
+-   [ ] Post in the `#core-editor` channel [requesting a volunteer for the next Gutenberg release](https://developer.wordpress.org/block-editor/contributors/code/release/#call-for-volunteer-for-the-next-release).

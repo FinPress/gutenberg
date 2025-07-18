@@ -306,6 +306,12 @@ The author should then enable public preview on the post and ask for a final pee
 
 Finally, the post should be published after the stable version is released and is available on WordPress.org. This will help external media to echo and amplify the release.
 
+### Call for volunteer for the next release
+
+After you've completed the release, post in #core-editor slack channel asking for volunteers to handle the next Gutenberg release.
+
+See an example of that here - https://wordpress.slack.com/archives/C02QB2JS7/p1751595983193709.
+
 ### Creating minor releases
 
 Occasionally it's necessary to create a minor release (i.e. X.Y.**Z**) of the Plugin. This is usually done to expedite fixes for bad regressions or bugs. The `Backport to Gutenberg Minor Release` is usually used to identify PRs that need to be included in a minor release, but as release coordinator you may also be notified more informally through slack. Even so, it's good to ensure all relevant PRs have the correct label.
