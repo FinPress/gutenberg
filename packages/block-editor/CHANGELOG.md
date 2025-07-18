@@ -4,7 +4,7 @@
 
 ### Breaking Changes
 
--   Store: Remove the block hovered global state and related action/selector ([#70731](https://github.com/WordPress/gutenberg/pull/70731))
+-   Store: Deprecate the block hovered global state and related action/selector ([#70731](https://github.com/WordPress/gutenberg/pull/70731))
 
 ## 14.21.0 (2025-06-25)
 

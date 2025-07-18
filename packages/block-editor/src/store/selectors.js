@@ -2910,6 +2910,22 @@ export function isBlockVisible( state, clientId ) {
 }
 
 /**
+ * Returns the currently hovered block.
+ *
+ * @deprecated
+ */
+export function getHoveredBlockClientId() {
+	deprecated(
+		"wp.data.select( 'core/block-editor' ).getHoveredBlockClientId",
+		{
+			since: '6.9',
+			version: '7.1',
+		}
+	);
+	return undefined;
+}
+
+/**
  * Returns the list of all hidden blocks.
  *
  * @param {Object} state Global application state.

@@ -213,6 +213,22 @@ export function selectBlock( clientId, initialPosition = 0 ) {
 }
 
 /**
+ * Returns an action object used in signalling that the block with the
+ * specified client ID has been hovered.
+ *
+ * @deprecated
+ */
+export function hoverBlock() {
+	deprecated( 'wp.data.dispatch( "core/block-editor" ).hoverBlock', {
+		since: '6.9',
+		version: '7.1',
+	} );
+	return {
+		type: 'DO_NOTHING',
+	};
+}
+
+/**
  * Yields action objects used in signalling that the block preceding the given
  * clientId (or optionally, its first parent from bottom to top)
  * should be selected.
