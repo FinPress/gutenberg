@@ -176,7 +176,8 @@ function getMissingText( type ) {
  * Consider reusing this components for both blocks.
  */
 function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
-	const { label, url, description, rel, opensInNewTab } = attributes;
+	const { label, url, description, rel, opensInNewTab, showForLoggedInOnly } =
+		attributes;
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 	return (
 		<ToolsPanel
@@ -247,6 +248,25 @@ function Controls( { attributes, setAttributes, setIsLabelFieldFocused } ) {
 					checked={ opensInNewTab }
 					onChange={ ( value ) =>
 						setAttributes( { opensInNewTab: value } )
+					}
+				/>
+			</ToolsPanelItem>
+
+			<ToolsPanelItem
+				hasValue={ () => !! showForLoggedInOnly }
+				label={ __( 'Visibility' ) }
+				onDeselect={ () =>
+					setAttributes( { showForLoggedInOnly: false } )
+				}
+				isShownByDefault
+			>
+				<CheckboxControl
+					__nextHasNoMarginBottom
+					label="Only show for logged-in users"
+					help="Show navigation link only to logged-in users."
+					checked={ showForLoggedInOnly }
+					onChange={ ( value ) =>
+						setAttributes( { showForLoggedInOnly: value } )
 					}
 				/>
 			</ToolsPanelItem>
