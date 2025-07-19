@@ -161,6 +161,9 @@ function ParagraphBlock( {
 				onMerge={ mergeBlocks }
 				onReplace={ onReplace }
 				onRemove={ onRemove }
+				// Dynamically sets the ARIA label for accessibility,
+               // based on whether the paragraph block is empty or has content.
+
 				aria-label={
 					RichText.isEmpty( content )
 						? __(
