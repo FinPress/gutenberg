@@ -484,7 +484,7 @@ Add a page, link, or another item to your navigation. ([Source](https://github.c
 -	**Parent:** core/navigation
 -	**Allowed Blocks:** core/navigation-link, core/navigation-submenu, core/page-list
 -	**Supports:** interactivity (clientNavigation), typography (fontSize, lineHeight), ~~html~~, ~~renaming~~, ~~reusable~~
--	**Attributes:** description, id, isTopLevelLink, kind, label, opensInNewTab, rel, type, url
+-	**Attributes:** description, id, isTopLevelLink, kind, label, opensInNewTab, rel, title, type, url
 
 ## Submenu
 
@@ -494,7 +494,7 @@ Add a submenu to your navigation. ([Source](https://github.com/WordPress/gutenbe
 -	**Category:** design
 -	**Parent:** core/navigation
 -	**Supports:** interactivity (clientNavigation), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
--	**Attributes:** description, id, isTopLevelItem, kind, label, opensInNewTab, rel, type, url
+-	**Attributes:** description, id, isTopLevelItem, kind, label, opensInNewTab, rel, title, type, url
 
 ## Page Break
 
@@ -615,6 +615,7 @@ Displays the contents of a post or page. ([Source](https://github.com/WordPress/
 -	**Name:** core/post-content
 -	**Category:** theme
 -	**Supports:** align (full, wide), background (backgroundImage, backgroundSize), color (background, gradients, heading, link, text), dimensions (minHeight), layout, spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** tagName
 
 ## Date
 
@@ -859,7 +860,7 @@ Display an image to represent this site. Update this block and the changes apply
 
 ## Site Tagline
 
-Describe in a few words what the site is about. The tagline can be used in search results or when sharing on social networks even if it’s not displayed in the theme design. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/site-tagline))
+Describe in a few words what this site is about. This is important for search results, sharing on social media, and gives overall clarity to visitors. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/site-tagline))
 
 -	**Name:** core/site-tagline
 -	**Category:** theme
