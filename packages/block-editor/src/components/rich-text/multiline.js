@@ -31,12 +31,14 @@ function RichTextMultiline(
 		since: '6.1',
 		version: '6.3',
 		alternative: 'nested blocks (InnerBlocks)',
-		link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/',
+		link:
+			'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/',
 	} );
 
 	const { clientId } = useBlockEditContext();
-	const { getSelectionStart, getSelectionEnd } =
-		useSelect( blockEditorStore );
+	const { getSelectionStart, getSelectionEnd } = useSelect(
+		blockEditorStore
+	);
 	const { selectionChange } = useDispatch( blockEditorStore );
 
 	const multilineTagName = getMultilineTag( multiline );
@@ -82,7 +84,6 @@ function RichTextMultiline(
 							const { offset: start } = getSelectionStart();
 							const { offset: end } = getSelectionEnd();
 
-							// Cannot split if there is no selection.
 							if (
 								typeof start !== 'number' ||
 								typeof end !== 'number'
@@ -90,12 +91,12 @@ function RichTextMultiline(
 								return;
 							}
 
-							const richTextValue = create( { html: _value } );
+							const richTextValue = create({ html: _value });
 							richTextValue.start = start;
 							richTextValue.end = end;
 
 							const array = split( richTextValue ).map( ( v ) =>
-								toHTMLString( { value: v } )
+								toHTMLString({ value: v })
 							);
 
 							const newValues = values.slice();
@@ -111,32 +112,50 @@ function RichTextMultiline(
 						onMerge={ ( forward ) => {
 							const newValues = values.slice();
 							let offset = 0;
+							const currentValue = newValues[ index ] || '';
+							const adjacentIndex = forward
+								? index + 1
+								: index - 1;
+							const adjacentValue = newValues[ adjacentIndex ];
+
+							// Remove empty block if there's no valid merge target
+							if (
+								currentValue.trim() === '' &&
+								! adjacentValue
+							) {
+								newValues.splice( index, 1 );
+								_onChange( newValues );
+								return;
+							}
+
+							// If merge target exists, merge forward or backward
 							if ( forward ) {
-								if ( ! newValues[ index + 1 ] ) {
+								if ( ! adjacentValue ) {
 									return;
 								}
 								newValues.splice(
 									index,
 									2,
-									newValues[ index ] + newValues[ index + 1 ]
+									currentValue + adjacentValue
 								);
-								offset = newValues[ index ].length - 1;
+								offset = currentValue.length;
 							} else {
-								if ( ! newValues[ index - 1 ] ) {
+								if ( ! adjacentValue ) {
 									return;
 								}
 								newValues.splice(
-									index - 1,
+									adjacentIndex,
 									2,
-									newValues[ index - 1 ] + newValues[ index ]
+									adjacentValue + currentValue
 								);
-								offset = newValues[ index - 1 ].length - 1;
+								offset = adjacentValue.length;
 							}
+
 							_onChange( newValues );
 							selectionChange(
 								clientId,
 								`${ identifier }-${
-									index - ( forward ? 0 : 1 )
+									forward ? index : index - 1
 								}`,
 								offset,
 								offset
