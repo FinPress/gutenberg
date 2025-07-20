@@ -1,6 +1,8 @@
 /**
  * 📌 This file defines the Paragraph Block in WordPress.
  * It includes metadata, icon, edit and save logic, and transform behavior for the block.
+ * 
+ * ✅ Contributed by Preety Sinha for learning open-source contribution.
  */
 
 /**
