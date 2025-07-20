@@ -1,4 +1,9 @@
 /**
+ * 📌 This file defines the Paragraph Block in WordPress.
+ * It includes metadata, icon, edit and save logic, and transform behavior for the block.
+ */
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
