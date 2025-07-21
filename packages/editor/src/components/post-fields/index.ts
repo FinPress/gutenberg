@@ -4,9 +4,10 @@
 import { useEffect, useMemo } from '@wordpress/element';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { getParentFieldElements } from '@wordpress/fields';
 import type { Field } from '@wordpress/dataviews';
 import type { BasePostWithEmbeddedAuthor, BasePost } from '@wordpress/fields';
+import { decodeEntities } from '@wordpress/html-entities';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -22,6 +23,39 @@ interface UsePostFieldsReturn {
 interface Author {
 	id: number;
 	name: string;
+}
+
+function getTitleWithFallbackName( post: BasePost ) {
+	return typeof post.title === 'object' &&
+		'rendered' in post.title &&
+		post.title.rendered
+		? decodeEntities( post.title.rendered )
+		: `#${ post?.id } (${ __( 'no title' ) })`;
+}
+
+/**
+ * Transforms posts into filter elements for the parent field.
+ * Filters out posts that have no children.
+ *
+ * @param posts - Array of posts to transform.
+ * @return Array of filter elements.
+ */
+function getParentFieldElements( posts: BasePost[] | undefined | null ) {
+	if ( ! posts ) {
+		return [];
+	}
+
+	const postsWithChildren = posts.filter( ( post ) => {
+		return posts.some( ( otherPost ) => otherPost.parent === post.id );
+	} );
+
+	return [
+		{ value: 0, label: __( 'None' ) },
+		...postsWithChildren.map( ( post ) => ( {
+			value: Number( post.id ),
+			label: getTitleWithFallbackName( post ),
+		} ) ),
+	];
 }
 
 function usePostFields( {
@@ -47,7 +81,7 @@ function usePostFields( {
 	const { records: authors, isResolving: isLoadingAuthors } =
 		useEntityRecords< Author >( 'root', 'user', { per_page: -1 } );
 
-	const { records: parentPosts, isResolving: isLoadingParents } =
+	const { records: posts, isResolving: isLoadingPosts } =
 		useEntityRecords< BasePost >( 'postType', postType, {
 			per_page: -1,
 			orderby: 'menu_order',
@@ -72,18 +106,18 @@ function usePostFields( {
 					if ( field.id === 'parent' ) {
 						return {
 							...field,
-							elements: getParentFieldElements( parentPosts ),
+							elements: getParentFieldElements( posts ),
 						};
 					}
 
 					return field;
 				}
 			) as Field< BasePostWithEmbeddedAuthor >[],
-		[ authors, parentPosts, defaultFields ]
+		[ authors, posts, defaultFields ]
 	);
 
 	return {
-		isLoading: isLoadingAuthors || isLoadingParents,
+		isLoading: isLoadingAuthors || isLoadingPosts,
 		fields,
 	};
 }

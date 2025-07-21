@@ -16,28 +16,3 @@ export function getTitleWithFallbackName( post: BasePost ) {
 		? decodeEntities( post.title.rendered )
 		: `#${ post?.id } (${ __( 'no title' ) })`;
 }
-
-/**
- * Transforms posts into filter elements for the parent field.
- * Filters out posts that have no children.
- *
- * @param posts - Array of posts to transform.
- * @return Array of filter elements.
- */
-export function getParentFieldElements( posts: BasePost[] | undefined | null ) {
-	if ( ! posts ) {
-		return [];
-	}
-
-	const postsWithChildren = posts.filter( ( post ) => {
-		return posts.some( ( otherPost ) => otherPost.parent === post.id );
-	} );
-
-	return [
-		{ value: 0, label: __( 'None' ) },
-		...postsWithChildren.map( ( post ) => ( {
-			value: Number( post.id ),
-			label: getTitleWithFallbackName( post ),
-		} ) ),
-	];
-}

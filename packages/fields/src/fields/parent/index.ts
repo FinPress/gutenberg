@@ -31,5 +31,3 @@ const parentField: Field< BasePost > = {
  * Parent field for BasePost.
  */
 export default parentField;
-
-export { getParentFieldElements } from './utils';
