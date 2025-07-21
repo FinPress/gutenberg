@@ -5,6 +5,11 @@ import momentLib from 'moment';
 import 'moment-timezone/moment-timezone';
 import 'moment-timezone/moment-timezone-utils';
 
+/**
+ * WordPress dependencies
+ */
+import deprecated from '@wordpress/deprecated';
+
 /** @typedef {import('moment').Moment} Moment */
 /** @typedef {import('moment').LocaleSpecification} MomentLocaleSpecification */
 
@@ -26,9 +31,10 @@ import 'moment-timezone/moment-timezone-utils';
 
 /**
  * @typedef TimezoneConfig
- * @property {string} offset Offset setting.
- * @property {string} string The timezone as a string (e.g., `'America/Los_Angeles'`).
- * @property {string} abbr   Abbreviation for the timezone.
+ * @property {string} offset          Offset setting.
+ * @property {string} offsetFormatted Offset setting with decimals formatted to minutes.
+ * @property {string} string          The timezone as a string (e.g., `'America/Los_Angeles'`).
+ * @property {string} abbr            Abbreviation for the timezone.
  */
 
 /* eslint-disable jsdoc/valid-types */
@@ -41,6 +47,7 @@ import 'moment-timezone/moment-timezone-utils';
  * @property {MomentLocaleSpecification['weekdaysShort']} weekdaysShort Locale weekdays short.
  * @property {MeridiemConfig}                             meridiem      Meridiem config.
  * @property {MomentLocaleSpecification['relativeTime']}  relative      Relative time config.
+ * @property {0|1|2|3|4|5|6}                              startOfWeek   Day that the week starts on.
  */
 /* eslint-enable jsdoc/valid-types */
 
@@ -57,8 +64,8 @@ const WP_ZONE = 'WP';
 // See: https://en.wikipedia.org/wiki/ISO_8601#Time_offsets_from_UTC
 const VALID_UTC_OFFSET = /^[+-][0-1][0-9](:?[0-9][0-9])?$/;
 
-// Changes made here will likely need to be made in `lib/client-assets.php` as
-// well because it uses the `setSettings()` function to change these settings.
+// Changes made here will likely need to be synced with Core in the file
+// src/wp-includes/script-loader.php in `wp_default_packages_inline_scripts()`.
 /** @type {DateSettings} */
 let settings = {
 	l10n: {
@@ -118,6 +125,7 @@ let settings = {
 			y: 'a year',
 			yy: '%d years',
 		},
+		startOfWeek: 0,
 	},
 	formats: {
 		time: 'g: i a',
@@ -125,7 +133,7 @@ let settings = {
 		datetime: 'F j, Y g: i a',
 		datetimeAbbreviated: 'M j, Y g: i a',
 	},
-	timezone: { offset: '0', string: '', abbr: '' },
+	timezone: { offset: '0', offsetFormatted: '0', string: '', abbr: '' },
 };
 
 /**
@@ -200,20 +208,52 @@ export function setSettings( dateSettings ) {
  *
  * @return {DateSettings} Settings, including locale data.
  */
-export function __experimentalGetSettings() {
+export function getSettings() {
 	return settings;
 }
 
+/**
+ * Returns the currently defined date settings.
+ *
+ * @deprecated
+ * @return {DateSettings} Settings, including locale data.
+ */
+export function __experimentalGetSettings() {
+	deprecated( 'wp.date.__experimentalGetSettings', {
+		since: '6.1',
+		alternative: 'wp.date.getSettings',
+	} );
+	return getSettings();
+}
+
 function setupWPTimezone() {
-	// Create WP timezone based off dateSettings.
-	momentLib.tz.add(
-		momentLib.tz.pack( {
-			name: WP_ZONE,
-			abbrs: [ WP_ZONE ],
-			untils: [ null ],
-			offsets: [ -settings.timezone.offset * 60 || 0 ],
-		} )
-	);
+	// Get the current timezone settings from the WP timezone string.
+	const currentTimezone = momentLib.tz.zone( settings.timezone.string );
+
+	// Check to see if we have a valid TZ data, if so, use it for the custom WP_ZONE timezone, otherwise just use the offset.
+	if ( currentTimezone ) {
+		// Create WP timezone based off settings.timezone.string.  We need to include the additional data so that we
+		// don't lose information about daylight savings time and other items.
+		// See https://github.com/WordPress/gutenberg/pull/48083
+		momentLib.tz.add(
+			momentLib.tz.pack( {
+				name: WP_ZONE,
+				abbrs: currentTimezone.abbrs,
+				untils: currentTimezone.untils,
+				offsets: currentTimezone.offsets,
+			} )
+		);
+	} else {
+		// Create WP timezone based off dateSettings.
+		momentLib.tz.add(
+			momentLib.tz.pack( {
+				name: WP_ZONE,
+				abbrs: [ WP_ZONE ],
+				untils: [ null ],
+				offsets: [ -settings.timezone.offset * 60 || 0 ],
+			} )
+		);
+	}
 }
 
 // Date constants.
@@ -405,7 +445,7 @@ const formatMap = {
  * Formats a date. Does not alter the date's timezone.
  *
  * @param {string}                             dateFormat PHP-style formatting string.
- *                                                        See php.net/date.
+ *                                                        See [php.net/date](https://www.php.net/manual/en/function.date.php).
  * @param {Moment | Date | string | undefined} dateValue  Date object or string,
  *                                                        parsable by moment.js.
  *
@@ -447,10 +487,10 @@ export function format( dateFormat, dateValue = new Date() ) {
  * Formats a date (like `date()` in PHP).
  *
  * @param {string}                             dateFormat PHP-style formatting string.
- *                                                        See php.net/date.
+ *                                                        See [php.net/date](https://www.php.net/manual/en/function.date.php).
  * @param {Moment | Date | string | undefined} dateValue  Date object or string, parsable
  *                                                        by moment.js.
- * @param {string | undefined}                 timezone   Timezone to output result in or a
+ * @param {string | number | undefined}        timezone   Timezone to output result in or a
  *                                                        UTC offset. Defaults to timezone from
  *                                                        site.
  *
@@ -468,7 +508,7 @@ export function date( dateFormat, dateValue = new Date(), timezone ) {
  * Formats a date (like `date()` in PHP), in the UTC timezone.
  *
  * @param {string}                             dateFormat PHP-style formatting string.
- *                                                        See php.net/date.
+ *                                                        See [php.net/date](https://www.php.net/manual/en/function.date.php).
  * @param {Moment | Date | string | undefined} dateValue  Date object or string,
  *                                                        parsable by moment.js.
  *
@@ -485,15 +525,15 @@ export function gmdate( dateFormat, dateValue = new Date() ) {
  * Backward Compatibility Notice: if `timezone` is set to `true`, the function
  * behaves like `gmdateI18n`.
  *
- * @param {string}                             dateFormat PHP-style formatting string.
- *                                                        See php.net/date.
- * @param {Moment | Date | string | undefined} dateValue  Date object or string, parsable by
- *                                                        moment.js.
- * @param {string | boolean | undefined}       timezone   Timezone to output result in or a
- *                                                        UTC offset. Defaults to timezone from
- *                                                        site. Notice: `boolean` is effectively
- *                                                        deprecated, but still supported for
- *                                                        backward compatibility reasons.
+ * @param {string}                                 dateFormat PHP-style formatting string.
+ *                                                            See [php.net/date](https://www.php.net/manual/en/function.date.php).
+ * @param {Moment | Date | string | undefined}     dateValue  Date object or string, parsable by
+ *                                                            moment.js.
+ * @param {string | number | boolean | undefined=} timezone   Timezone to output result in or a
+ *                                                            UTC offset. Defaults to timezone from
+ *                                                            site. Notice: `boolean` is effectively
+ *                                                            deprecated, but still supported for
+ *                                                            backward compatibility reasons.
  *
  * @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
  * @see https://en.wikipedia.org/wiki/ISO_8601#Time_offsets_from_UTC
@@ -519,7 +559,7 @@ export function dateI18n( dateFormat, dateValue = new Date(), timezone ) {
  * and using the UTC timezone.
  *
  * @param {string}                             dateFormat PHP-style formatting string.
- *                                                        See php.net/date.
+ *                                                        See [php.net/date](https://www.php.net/manual/en/function.date.php).
  * @param {Moment | Date | string | undefined} dateValue  Date object or string,
  *                                                        parsable by moment.js.
  *
@@ -548,7 +588,7 @@ export function isInTheFuture( dateValue ) {
 /**
  * Create and return a JavaScript Date Object from a date string in the WP timezone.
  *
- * @param {string?} dateString Date formatted in the WP timezone.
+ * @param {?string} dateString Date formatted in the WP timezone.
  *
  * @return {Date} Date
  */
@@ -561,11 +601,25 @@ export function getDate( dateString ) {
 }
 
 /**
+ * Returns a human-readable time difference between two dates, like human_time_diff() in PHP.
+ *
+ * @param {Moment | Date | string}             from From date, in the WP timezone.
+ * @param {Moment | Date | string | undefined} to   To date, formatted in the WP timezone.
+ *
+ * @return {string} Human-readable time difference.
+ */
+export function humanTimeDiff( from, to ) {
+	const fromMoment = momentLib.tz( from, WP_ZONE );
+	const toMoment = to ? momentLib.tz( to, WP_ZONE ) : momentLib.tz( WP_ZONE );
+	return fromMoment.from( toMoment );
+}
+
+/**
  * Creates a moment instance using the given timezone or, if none is provided, using global settings.
  *
  * @param {Moment | Date | string | undefined} dateValue Date object or string, parsable
  *                                                       by moment.js.
- * @param {string | undefined}                 timezone  Timezone to output result in or a
+ * @param {string | number | undefined}        timezone  Timezone to output result in or a
  *                                                       UTC offset. Defaults to timezone from
  *                                                       site.
  *
@@ -578,7 +632,8 @@ function buildMoment( dateValue, timezone = '' ) {
 	const dateMoment = momentLib( dateValue );
 
 	if ( timezone && ! isUTCOffset( timezone ) ) {
-		return dateMoment.tz( timezone );
+		// The ! isUTCOffset() check guarantees that timezone is a string.
+		return dateMoment.tz( /** @type {string} */ ( timezone ) );
 	}
 
 	if ( timezone && isUTCOffset( timezone ) ) {

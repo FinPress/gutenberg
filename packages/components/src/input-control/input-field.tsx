@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { noop } from 'lodash';
 import { useDrag } from '@use-gesture/react';
 import type {
 	SyntheticEvent,
@@ -10,7 +9,6 @@ import type {
 	PointerEvent,
 	FocusEvent,
 	ForwardedRef,
-	MouseEvent,
 } from 'react';
 
 /**
@@ -20,12 +18,14 @@ import { forwardRef, useRef } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../ui/context';
+import type { WordPressComponentProps } from '../context';
 import { useDragCursor } from './utils';
 import { Input } from './styles/input-control-styles';
 import { useInputControlStateReducer } from './reducer/reducer';
-import { useUpdateEffect } from '../utils';
 import type { InputFieldProps } from './types';
+import { withIgnoreIMEEvents } from '../utils/with-ignore-ime-events';
+
+const noop = () => {};
 
 function InputField(
 	{
@@ -34,18 +34,15 @@ function InputField(
 		dragThreshold = 10,
 		id,
 		isDragEnabled = false,
-		isFocused,
 		isPressEnterToChange = false,
 		onBlur = noop,
 		onChange = noop,
 		onDrag = noop,
 		onDragEnd = noop,
 		onDragStart = noop,
-		onFocus = noop,
 		onKeyDown = noop,
 		onValidate = noop,
 		size = 'default',
-		setIsFocused,
 		stateReducer = ( state: any ) => state,
 		value: valueProp,
 		type,
@@ -67,43 +64,23 @@ function InputField(
 		pressEnter,
 		pressUp,
 		reset,
-	} = useInputControlStateReducer( stateReducer, {
-		isDragEnabled,
-		value: valueProp,
-		isPressEnterToChange,
-	} );
+	} = useInputControlStateReducer(
+		stateReducer,
+		{
+			isDragEnabled,
+			value: valueProp,
+			isPressEnterToChange,
+		},
+		onChange
+	);
 
-	const { _event, value, isDragging, isDirty } = state;
+	const { value, isDragging, isDirty } = state;
 	const wasDirtyOnBlur = useRef( false );
 
 	const dragCursor = useDragCursor( isDragging, dragDirection );
 
-	/*
-	 * Handles synchronization of external and internal value state.
-	 * If not focused and did not hold a dirty value[1] on blur
-	 * updates the value from the props. Otherwise if not holding
-	 * a dirty value[1] propagates the value and event through onChange.
-	 * [1] value is only made dirty if isPressEnterToChange is true
-	 */
-	useUpdateEffect( () => {
-		if ( valueProp === value ) {
-			return;
-		}
-		if ( ! isFocused && ! wasDirtyOnBlur.current ) {
-			commit( valueProp, _event as SyntheticEvent );
-		} else if ( ! isDirty ) {
-			onChange( value, {
-				event: _event as
-					| ChangeEvent< HTMLInputElement >
-					| PointerEvent< HTMLInputElement >,
-			} );
-			wasDirtyOnBlur.current = false;
-		}
-	}, [ value, isDirty, isFocused, valueProp ] );
-
 	const handleOnBlur = ( event: FocusEvent< HTMLInputElement > ) => {
 		onBlur( event );
-		setIsFocused?.( false );
 
 		/**
 		 * If isPressEnterToChange is set, this commits the value to
@@ -113,11 +90,6 @@ function InputField(
 			wasDirtyOnBlur.current = true;
 			handleOnCommit( event );
 		}
-	};
-
-	const handleOnFocus = ( event: FocusEvent< HTMLInputElement > ) => {
-		onFocus( event );
-		setIsFocused?.( true );
 	};
 
 	const handleOnChange = ( event: ChangeEvent< HTMLInputElement > ) => {
@@ -182,7 +154,9 @@ function InputField(
 				target,
 			};
 
-			if ( ! distance ) return;
+			if ( ! distance ) {
+				return;
+			}
 			event.stopPropagation();
 
 			/**
@@ -212,22 +186,6 @@ function InputField(
 	);
 
 	const dragProps = isDragEnabled ? dragGestureProps() : {};
-	/*
-	 * Works around the odd UA (e.g. Firefox) that does not focus inputs of
-	 * type=number when their spinner arrows are pressed.
-	 */
-	let handleOnMouseDown;
-	if ( type === 'number' ) {
-		handleOnMouseDown = ( event: MouseEvent< HTMLInputElement > ) => {
-			props.onMouseDown?.( event );
-			if (
-				event.currentTarget !==
-				event.currentTarget.ownerDocument.activeElement
-			) {
-				event.currentTarget.focus();
-			}
-		};
-	}
 
 	return (
 		<Input
@@ -240,12 +198,12 @@ function InputField(
 			id={ id }
 			onBlur={ handleOnBlur }
 			onChange={ handleOnChange }
-			onFocus={ handleOnFocus }
-			onKeyDown={ handleOnKeyDown }
-			onMouseDown={ handleOnMouseDown }
+			onKeyDown={ withIgnoreIMEEvents( handleOnKeyDown ) }
 			ref={ ref }
 			inputSize={ size }
-			value={ value }
+			// Fallback to `''` to avoid "uncontrolled to controlled" warning.
+			// See https://github.com/WordPress/gutenberg/pull/47250 for details.
+			value={ value ?? '' }
 			type={ type }
 		/>
 	);

@@ -8,21 +8,18 @@ import { useCallback, useMemo, useState } from '@wordpress/element';
  */
 import * as styles from '../styles';
 import { parseQuantityAndUnitFromRawValue } from '../../unit-control/utils';
-import { useContextSystem, WordPressComponentProps } from '../../ui/context';
+import type { WordPressComponentProps } from '../../context';
+import { useContextSystem } from '../../context';
 import { useCx } from '../../utils/hooks/use-cx';
-
 import type { Border, BorderControlProps } from '../types';
+import { maybeWarnDeprecated36pxSize } from '../../utils/deprecated-36px-size';
 
-const sanitizeBorder = ( border?: Border ) => {
-	const hasNoWidth = border?.width === undefined || border.width === '';
-	const hasNoColor = border?.color === undefined;
-
-	// If width and color are undefined, unset any style selection as well.
-	if ( hasNoWidth && hasNoColor ) {
-		return undefined;
-	}
-
-	return border;
+// If either width or color are defined, the border is considered valid
+// and a border style can be set as well.
+const isValidBorder = ( border?: Border ) => {
+	const hasWidth = border?.width !== undefined && border.width !== '';
+	const hasColor = border?.color !== undefined;
+	return hasWidth || hasColor;
 };
 
 export function useBorderControl(
@@ -30,14 +27,30 @@ export function useBorderControl(
 ) {
 	const {
 		className,
+		colors = [],
 		isCompact,
 		onChange,
+		enableAlpha = true,
+		enableStyle = true,
 		shouldSanitizeBorder = true,
+		size = 'default',
 		value: border,
 		width,
-		__next36pxDefaultSize = false,
+		__experimentalIsRenderedInSidebar = false,
+		__next40pxDefaultSize,
+		__shouldNotWarnDeprecated36pxSize,
 		...otherProps
 	} = useContextSystem( props, 'BorderControl' );
+
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'BorderControl',
+		__next40pxDefaultSize,
+		size,
+		__shouldNotWarnDeprecated36pxSize,
+	} );
+
+	const computedSize =
+		size === 'default' && __next40pxDefaultSize ? '__unstable-large' : size;
 
 	const [ widthValue, originalWidthUnit ] = parseQuantityAndUnitFromRawValue(
 		border?.width
@@ -48,12 +61,16 @@ export function useBorderControl(
 	const [ colorSelection, setColorSelection ] = useState< string >();
 	const [ styleSelection, setStyleSelection ] = useState< string >();
 
+	const isStyleSettable = shouldSanitizeBorder
+		? isValidBorder( border )
+		: true;
+
 	const onBorderChange = useCallback(
 		( newBorder?: Border ) => {
-			if ( shouldSanitizeBorder ) {
-				return onChange( sanitizeBorder( newBorder ) );
+			if ( shouldSanitizeBorder && ! isValidBorder( newBorder ) ) {
+				onChange( undefined );
+				return;
 			}
-
 			onChange( newBorder );
 		},
 		[ onChange, shouldSanitizeBorder ]
@@ -62,11 +79,9 @@ export function useBorderControl(
 	const onWidthChange = useCallback(
 		( newWidth?: string ) => {
 			const newWidthValue = newWidth === '' ? undefined : newWidth;
-			const [ parsedValue ] = parseQuantityAndUnitFromRawValue(
-				newWidth
-			);
+			const [ parsedValue ] =
+				parseQuantityAndUnitFromRawValue( newWidth );
 			const hasZeroWidth = parsedValue === 0;
-
 			const updatedBorder = { ...border, width: newWidthValue };
 
 			// Setting the border width explicitly to zero will also set the
@@ -107,7 +122,7 @@ export function useBorderControl(
 	);
 
 	const onSliderChange = useCallback(
-		( value: string ) => {
+		( value?: number ) => {
 			onWidthChange( `${ value }${ widthUnit }` );
 		},
 		[ onWidthChange, widthUnit ]
@@ -119,18 +134,18 @@ export function useBorderControl(
 		return cx( styles.borderControl, className );
 	}, [ className, cx ] );
 
+	let wrapperWidth = width;
+	if ( isCompact ) {
+		// Widths below represent the minimum usable width for compact controls.
+		// Taller controls contain greater internal padding, thus greater width.
+		wrapperWidth = size === '__unstable-large' ? '116px' : '90px';
+	}
 	const innerWrapperClassName = useMemo( () => {
-		const wrapperWidth = isCompact ? '90px' : width;
-		const widthStyle =
-			!! wrapperWidth && styles.wrapperWidth( wrapperWidth );
-		const heightStyle = styles.wrapperHeight( __next36pxDefaultSize );
+		const widthStyle = !! wrapperWidth && styles.wrapperWidth;
+		const heightStyle = styles.wrapperHeight( computedSize );
 
 		return cx( styles.innerWrapper(), widthStyle, heightStyle );
-	}, [ isCompact, width, cx, __next36pxDefaultSize ] );
-
-	const widthControlClassName = useMemo( () => {
-		return cx( styles.borderWidthControl() );
-	}, [ cx ] );
+	}, [ wrapperWidth, cx, computedSize ] );
 
 	const sliderClassName = useMemo( () => {
 		return cx( styles.borderSlider() );
@@ -139,16 +154,22 @@ export function useBorderControl(
 	return {
 		...otherProps,
 		className: classes,
+		colors,
+		enableAlpha,
+		enableStyle,
 		innerWrapperClassName,
+		inputWidth: wrapperWidth,
+		isStyleSettable,
 		onBorderChange,
 		onSliderChange,
 		onWidthChange,
 		previousStyleSelection: styleSelection,
 		sliderClassName,
 		value: border,
-		widthControlClassName,
 		widthUnit,
 		widthValue,
-		__next36pxDefaultSize,
+		size: computedSize,
+		__experimentalIsRenderedInSidebar,
+		__next40pxDefaultSize,
 	};
 }

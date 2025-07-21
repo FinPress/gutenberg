@@ -4,15 +4,25 @@
 import { useEntityProp } from '@wordpress/core-data';
 import {
 	dateI18n,
-	__experimentalGetSettings as getDateSettings,
+	humanTimeDiff,
+	getSettings as getDateSettings,
 } from '@wordpress/date';
 import {
 	InspectorControls,
 	useBlockProps,
 	__experimentalDateFormatPicker as DateFormatPicker,
 } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl } from '@wordpress/components';
+import {
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+	ToggleControl,
+} from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
+
+/**
+ * Internal dependencies
+ */
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 /**
  * Renders the `core/comment-date` block on the editor.
@@ -33,7 +43,9 @@ export default function Edit( {
 	setAttributes,
 } ) {
 	const blockProps = useBlockProps();
-	const [ date ] = useEntityProp( 'root', 'comment', 'date', commentId );
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+
+	let [ date ] = useEntityProp( 'root', 'comment', 'date', commentId );
 	const [ siteFormat = getDateSettings().formats.date ] = useEntityProp(
 		'root',
 		'site',
@@ -42,39 +54,62 @@ export default function Edit( {
 
 	const inspectorControls = (
 		<InspectorControls>
-			<PanelBody title={ __( 'Settings' ) }>
-				<DateFormatPicker
-					format={ format }
-					defaultFormat={ siteFormat }
-					onChange={ ( nextFormat ) =>
-						setAttributes( { format: nextFormat } )
-					}
-				/>
-				<ToggleControl
+			<ToolsPanel
+				label={ __( 'Settings' ) }
+				resetAll={ () => {
+					setAttributes( {
+						format: undefined,
+						isLink: true,
+					} );
+				} }
+				dropdownMenuProps={ dropdownMenuProps }
+			>
+				<ToolsPanelItem
+					label={ __( 'Date format' ) }
+					hasValue={ () => format !== undefined }
+					onDeselect={ () => setAttributes( { format: undefined } ) }
+					isShownByDefault
+				>
+					<DateFormatPicker
+						format={ format }
+						defaultFormat={ siteFormat }
+						onChange={ ( nextFormat ) =>
+							setAttributes( { format: nextFormat } )
+						}
+					/>
+				</ToolsPanelItem>
+
+				<ToolsPanelItem
 					label={ __( 'Link to comment' ) }
-					onChange={ () => setAttributes( { isLink: ! isLink } ) }
-					checked={ isLink }
-				/>
-			</PanelBody>
+					hasValue={ () => ! isLink }
+					onDeselect={ () => setAttributes( { isLink: true } ) }
+					isShownByDefault
+				>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Link to comment' ) }
+						onChange={ () => setAttributes( { isLink: ! isLink } ) }
+						checked={ isLink }
+					/>
+				</ToolsPanelItem>
+			</ToolsPanel>
 		</InspectorControls>
 	);
 
 	if ( ! commentId || ! date ) {
-		return (
-			<>
-				{ inspectorControls }
-				<div { ...blockProps }>
-					<p>{ _x( 'Comment Date', 'block title' ) }</p>
-				</div>
-			</>
-		);
+		date = _x( 'Comment Date', 'block title' );
 	}
 
-	let commentDate = (
-		<time dateTime={ dateI18n( 'c', date ) }>
-			{ dateI18n( format || siteFormat, date ) }
-		</time>
-	);
+	let commentDate =
+		date instanceof Date ? (
+			<time dateTime={ dateI18n( 'c', date ) }>
+				{ format === 'human-diff'
+					? humanTimeDiff( date )
+					: dateI18n( format || siteFormat, date ) }
+			</time>
+		) : (
+			<time>{ date }</time>
+		);
 
 	if ( isLink ) {
 		commentDate = (

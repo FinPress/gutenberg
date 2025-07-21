@@ -1,30 +1,26 @@
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
-import { Separator } from 'reakit';
+import * as Ariakit from '@ariakit/react';
 import type { ForwardedRef } from 'react';
 
 /**
  * Internal dependencies
  */
-import {
-	contextConnect,
-	useContextSystem,
-	WordPressComponentProps,
-} from '../ui/context';
+import type { WordPressComponentProps } from '../context';
+import { contextConnect, useContextSystem } from '../context';
 import { DividerView } from './styles';
-import type { Props } from './types';
+import type { DividerProps } from './types';
 
 function UnconnectedDivider(
-	props: WordPressComponentProps< Props, 'hr', false >,
+	props: WordPressComponentProps< DividerProps, 'hr', false >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const contextProps = useContextSystem( props, 'Divider' );
 
 	return (
-		<Separator
-			as={ DividerView }
+		<Ariakit.Separator
+			render={ <DividerView /> }
 			{ ...contextProps }
 			ref={ forwardedRef }
 		/>
@@ -34,7 +30,6 @@ function UnconnectedDivider(
 /**
  * `Divider` is a layout component that separates groups of related content.
  *
- * @example
  * ```js
  * import {
  * 		__experimentalDivider as Divider,

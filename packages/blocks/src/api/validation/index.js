@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Tokenizer } from 'simple-html-tokenizer';
-import { identity, xor, fromPairs, isEqual, includes, stubTrue } from 'lodash';
+import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
  * WordPress dependencies
@@ -24,6 +24,8 @@ import { normalizeBlockType } from '../utils';
 /** @typedef {import('../parser').WPBlock} WPBlock */
 /** @typedef {import('../registration').WPBlockType} WPBlockType */
 /** @typedef {import('./logger').LoggerItem} LoggerItem */
+
+const identity = ( x ) => x;
 
 /**
  * Globally matches any consecutive whitespace
@@ -161,7 +163,7 @@ const TEXT_NORMALIZATIONS = [ identity, getTextWithCollapsedWhitespace ];
  * "The ampersand must be followed by one of the names given in the named
  * character references section, using the same case."
  *
- * Tested aginst "12.5 Named character references":
+ * Tested against "12.5 Named character references":
  *
  * ```
  * const references = Array.from( document.querySelectorAll(
@@ -220,7 +222,7 @@ export function isValidCharacterReference( text ) {
 }
 
 /**
- * Subsitute EntityParser class for `simple-html-tokenizer` which uses the
+ * Substitute EntityParser class for `simple-html-tokenizer` which uses the
  * implementation of `decodeEntities` from `html-entities`, in order to avoid
  * bundling a massive named character reference.
  *
@@ -233,7 +235,7 @@ export class DecodeEntityParser {
 	 *
 	 * @param {string} entity Entity fragment discovered in HTML.
 	 *
-	 * @return {?string} Entity substitute value.
+	 * @return {string | undefined} Entity substitute value.
 	 */
 	parse( entity ) {
 		if ( isValidCharacterReference( entity ) ) {
@@ -287,7 +289,7 @@ export function getMeaningfulAttributePairs( token ) {
 		return (
 			value ||
 			key.indexOf( 'data-' ) === 0 ||
-			includes( MEANINGFUL_ATTRIBUTES, key )
+			MEANINGFUL_ATTRIBUTES.includes( key )
 		);
 	} );
 }
@@ -396,7 +398,7 @@ export function getStyleProperties( text ) {
 			return [ key.trim(), getNormalizedStyleValue( value.trim() ) ];
 		} );
 
-	return fromPairs( pairs );
+	return Object.fromEntries( pairs );
 }
 
 /**
@@ -408,17 +410,27 @@ export const isEqualAttributesOfName = {
 	class: ( actual, expected ) => {
 		// Class matches if members are the same, even if out of order or
 		// superfluous whitespace between.
-		return ! xor(
-			...[ actual, expected ].map( getTextPiecesSplitOnWhitespace )
-		).length;
+		const [ actualPieces, expectedPieces ] = [ actual, expected ].map(
+			getTextPiecesSplitOnWhitespace
+		);
+		const actualDiff = actualPieces.filter(
+			( c ) => ! expectedPieces.includes( c )
+		);
+		const expectedDiff = expectedPieces.filter(
+			( c ) => ! actualPieces.includes( c )
+		);
+
+		return actualDiff.length === 0 && expectedDiff.length === 0;
 	},
 	style: ( actual, expected ) => {
-		return isEqual( ...[ actual, expected ].map( getStyleProperties ) );
+		return fastDeepEqual(
+			...[ actual, expected ].map( getStyleProperties )
+		);
 	},
 	// For each boolean attribute, mere presence of attribute in both is enough
 	// to assume equivalence.
-	...fromPairs(
-		BOOLEAN_ATTRIBUTES.map( ( attribute ) => [ attribute, stubTrue ] )
+	...Object.fromEntries(
+		BOOLEAN_ATTRIBUTES.map( ( attribute ) => [ attribute, () => true ] )
 	),
 };
 
@@ -536,7 +548,7 @@ export const isEqualTokensOfType = {
  *
  * @param {Object[]} tokens Set of tokens to search.
  *
- * @return {Object} Next non-whitespace token.
+ * @return {Object | undefined} Next non-whitespace token.
  */
 export function getNextNonWhitespaceToken( tokens ) {
 	let token;
@@ -614,10 +626,9 @@ export function isEquivalentHTML( actual, expected, logger = createLogger() ) {
 	}
 
 	// Tokenize input content and reserialized save content.
-	const [ actualTokens, expectedTokens ] = [
-		actual,
-		expected,
-	].map( ( html ) => getHTMLTokens( html, logger ) );
+	const [ actualTokens, expectedTokens ] = [ actual, expected ].map(
+		( html ) => getHTMLTokens( html, logger )
+	);
 
 	// If either is malformed then stop comparing - the strings are not equivalent.
 	if ( ! actualTokens || ! expectedTokens ) {

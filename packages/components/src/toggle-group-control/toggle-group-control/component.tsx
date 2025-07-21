@@ -2,124 +2,118 @@
  * External dependencies
  */
 import type { ForwardedRef } from 'react';
-// eslint-disable-next-line no-restricted-imports
-import { RadioGroup, useRadioState } from 'reakit';
 
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useRef, useMemo } from '@wordpress/element';
-import {
-	useMergeRefs,
-	useInstanceId,
-	usePrevious,
-	useResizeObserver,
-} from '@wordpress/compose';
+import { useMemo, useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import {
-	contextConnect,
-	useContextSystem,
-	WordPressComponentProps,
-} from '../../ui/context';
-import { useUpdateEffect, useCx } from '../../utils/hooks';
-import { View } from '../../view';
+import type { WordPressComponentProps } from '../../context';
+import { contextConnect, useContextSystem } from '../../context';
+import { useCx } from '../../utils/hooks';
 import BaseControl from '../../base-control';
 import type { ToggleGroupControlProps } from '../types';
-import ToggleGroupControlBackdrop from './toggle-group-control-backdrop';
-import ToggleGroupControlContext from '../context';
+import { VisualLabelWrapper } from './styles';
 import * as styles from './styles';
+import { ToggleGroupControlAsRadioGroup } from './as-radio-group';
+import { ToggleGroupControlAsButtonGroup } from './as-button-group';
+import { useTrackElementOffsetRect } from '../../utils/element-rect';
+import { useMergeRefs } from '@wordpress/compose';
+import { useAnimatedOffsetRect } from '../../utils/hooks/use-animated-offset-rect';
+import { maybeWarnDeprecated36pxSize } from '../../utils/deprecated-36px-size';
 
-const noop = () => {};
-
-function ToggleGroupControl(
-	props: WordPressComponentProps< ToggleGroupControlProps, 'input' >,
+function UnconnectedToggleGroupControl(
+	props: WordPressComponentProps< ToggleGroupControlProps, 'div', false >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const {
+		__nextHasNoMarginBottom = false,
+		__next40pxDefaultSize = false,
+		__shouldNotWarnDeprecated36pxSize,
 		className,
 		isAdaptiveWidth = false,
 		isBlock = false,
+		isDeselectable = false,
 		label,
 		hideLabelFromVision = false,
 		help,
-		onChange = noop,
+		onChange,
+		size = 'default',
 		value,
 		children,
 		...otherProps
 	} = useContextSystem( props, 'ToggleGroupControl' );
-	const cx = useCx();
-	const containerRef = useRef();
-	const [ resizeListener, sizes ] = useResizeObserver();
-	const baseId = useInstanceId(
-		ToggleGroupControl,
-		'toggle-group-control'
-	).toString();
-	const radio = useRadioState( {
-		baseId,
-		state: value,
+
+	const normalizedSize =
+		__next40pxDefaultSize && size === 'default' ? '__unstable-large' : size;
+
+	const [ selectedElement, setSelectedElement ] = useState< HTMLElement >();
+	const [ controlElement, setControlElement ] = useState< HTMLElement >();
+	const refs = useMergeRefs( [ setControlElement, forwardedRef ] );
+	const selectedRect = useTrackElementOffsetRect(
+		value !== null && value !== undefined ? selectedElement : undefined
+	);
+	useAnimatedOffsetRect( controlElement, selectedRect, {
+		prefix: 'selected',
+		dataAttribute: 'indicator-animated',
+		transitionEndFilter: ( event ) => event.pseudoElement === '::before',
+		roundRect: true,
 	} );
-	const previousValue = usePrevious( value );
 
-	// Propagate radio.state change.
-	useUpdateEffect( () => {
-		// Avoid calling onChange if radio state changed
-		// from incoming value.
-		if ( previousValue !== radio.state ) {
-			onChange( radio.state );
-		}
-	}, [ radio.state ] );
-
-	// Sync incoming value with radio.state.
-	useUpdateEffect( () => {
-		if ( value !== radio.state ) {
-			radio.setState( value );
-		}
-	}, [ value ] );
+	const cx = useCx();
 
 	const classes = useMemo(
 		() =>
 			cx(
-				styles.ToggleGroupControl,
+				styles.toggleGroupControl( {
+					isBlock,
+					isDeselectable,
+					size: normalizedSize,
+				} ),
 				isBlock && styles.block,
-				'medium',
 				className
 			),
-		[ className, cx, isBlock ]
+		[ className, cx, isBlock, isDeselectable, normalizedSize ]
 	);
+
+	const MainControl = isDeselectable
+		? ToggleGroupControlAsButtonGroup
+		: ToggleGroupControlAsRadioGroup;
+
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'ToggleGroupControl',
+		size,
+		__next40pxDefaultSize,
+		__shouldNotWarnDeprecated36pxSize,
+	} );
+
 	return (
-		<BaseControl help={ help }>
-			<ToggleGroupControlContext.Provider
-				value={ { ...radio, isBlock: ! isAdaptiveWidth } }
+		<BaseControl
+			help={ help }
+			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
+			__associatedWPComponentName="ToggleGroupControl"
+		>
+			{ ! hideLabelFromVision && (
+				<VisualLabelWrapper>
+					<BaseControl.VisualLabel>{ label }</BaseControl.VisualLabel>
+				</VisualLabelWrapper>
+			) }
+			<MainControl
+				{ ...otherProps }
+				setSelectedElement={ setSelectedElement }
+				className={ classes }
+				isAdaptiveWidth={ isAdaptiveWidth }
+				label={ label }
+				onChange={ onChange }
+				ref={ refs }
+				size={ normalizedSize }
+				value={ value }
 			>
-				{ ! hideLabelFromVision && (
-					<div>
-						<BaseControl.VisualLabel>
-							{ label }
-						</BaseControl.VisualLabel>
-					</div>
-				) }
-				<RadioGroup
-					{ ...radio }
-					aria-label={ label }
-					as={ View }
-					className={ classes }
-					{ ...otherProps }
-					ref={ useMergeRefs( [ containerRef, forwardedRef ] ) }
-				>
-					{ resizeListener }
-					<ToggleGroupControlBackdrop
-						{ ...radio }
-						containerRef={ containerRef }
-						containerWidth={ sizes.width }
-						isAdaptiveWidth={ isAdaptiveWidth }
-					/>
-					{ children }
-				</RadioGroup>
-			</ToggleGroupControlContext.Provider>
+				{ children }
+			</MainControl>
 		</BaseControl>
 	);
 }
@@ -129,11 +123,14 @@ function ToggleGroupControl(
  * represented in horizontal segments. To render options for this control use
  * `ToggleGroupControlOption` component.
  *
+ * This component is intended for selecting a single persistent value from a set of options,
+ * similar to a how a radio button group would work. If you simply want a toggle to switch between views,
+ * use a `TabPanel` instead.
+ *
  * Only use this control when you know for sure the labels of items inside won't
  * wrap. For items with longer labels, you can consider a `SelectControl` or a
  * `CustomSelectControl` component instead.
  *
- * @example
  * ```jsx
  * import {
  *   __experimentalToggleGroupControl as ToggleGroupControl,
@@ -142,7 +139,13 @@ function ToggleGroupControl(
  *
  * function Example() {
  *   return (
- *     <ToggleGroupControl label="my label" value="vertical" isBlock>
+ *     <ToggleGroupControl
+ *       label="my label"
+ *       value="vertical"
+ *       isBlock
+ *       __nextHasNoMarginBottom
+ *       __next40pxDefaultSize
+ *     >
  *       <ToggleGroupControlOption value="horizontal" label="Horizontal" />
  *       <ToggleGroupControlOption value="vertical" label="Vertical" />
  *     </ToggleGroupControl>
@@ -150,9 +153,9 @@ function ToggleGroupControl(
  * }
  * ```
  */
-const ConnectedToggleGroupControl = contextConnect(
-	ToggleGroupControl,
+export const ToggleGroupControl = contextConnect(
+	UnconnectedToggleGroupControl,
 	'ToggleGroupControl'
 );
 
-export default ConnectedToggleGroupControl;
+export default ToggleGroupControl;

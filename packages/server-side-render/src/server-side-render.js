@@ -1,18 +1,27 @@
 /**
  * External dependencies
  */
-import { isEqual } from 'lodash';
+import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
  * WordPress dependencies
  */
 import { useDebounce, usePrevious } from '@wordpress/compose';
-import { RawHTML, useEffect, useRef, useState } from '@wordpress/element';
+import {
+	RawHTML,
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { Placeholder, Spinner } from '@wordpress/components';
 import { __experimentalSanitizeBlockAttributes } from '@wordpress/blocks';
+
+const EMPTY_OBJECT = {};
 
 export function rendererPath( block, attributes = null, urlQueryArgs = {} ) {
 	return addQueryArgs( `/wp/v2/block-renderer/${ block }`, {
@@ -20,6 +29,27 @@ export function rendererPath( block, attributes = null, urlQueryArgs = {} ) {
 		...( null !== attributes ? { attributes } : {} ),
 		...urlQueryArgs,
 	} );
+}
+
+export function removeBlockSupportAttributes( attributes ) {
+	const {
+		backgroundColor,
+		borderColor,
+		fontFamily,
+		fontSize,
+		gradient,
+		textColor,
+		className,
+		...restAttributes
+	} = attributes;
+
+	const { border, color, elements, spacing, typography, ...restStyles } =
+		attributes?.style || EMPTY_OBJECT;
+
+	return {
+		...restAttributes,
+		style: restStyles,
+	};
 }
 
 function DefaultEmptyResponsePlaceholder( { className } ) {
@@ -39,7 +69,17 @@ function DefaultErrorResponsePlaceholder( { response, className } ) {
 	return <Placeholder className={ className }>{ errorMessage }</Placeholder>;
 }
 
-function DefaultLoadingResponsePlaceholder( { children, showLoader } ) {
+function DefaultLoadingResponsePlaceholder( { children } ) {
+	const [ showLoader, setShowLoader ] = useState( false );
+
+	useEffect( () => {
+		// Schedule showing the Spinner after 1 second.
+		const timeout = setTimeout( () => {
+			setShowLoader( true );
+		}, 1000 );
+		return () => clearTimeout( timeout );
+	}, [] );
+
 	return (
 		<div style={ { position: 'relative' } }>
 			{ showLoader && (
@@ -64,33 +104,46 @@ function DefaultLoadingResponsePlaceholder( { children, showLoader } ) {
 
 export default function ServerSideRender( props ) {
 	const {
-		attributes,
-		block,
 		className,
-		httpMethod = 'GET',
-		urlQueryArgs,
 		EmptyResponsePlaceholder = DefaultEmptyResponsePlaceholder,
 		ErrorResponsePlaceholder = DefaultErrorResponsePlaceholder,
 		LoadingResponsePlaceholder = DefaultLoadingResponsePlaceholder,
 	} = props;
 
-	const isMountedRef = useRef( true );
-	const [ showLoader, setShowLoader ] = useState( false );
+	const isMountedRef = useRef( false );
 	const fetchRequestRef = useRef();
 	const [ response, setResponse ] = useState( null );
 	const prevProps = usePrevious( props );
 	const [ isLoading, setIsLoading ] = useState( false );
+	const latestPropsRef = useRef( props );
 
-	function fetchData() {
+	useLayoutEffect( () => {
+		latestPropsRef.current = props;
+	}, [ props ] );
+
+	const fetchData = useCallback( () => {
 		if ( ! isMountedRef.current ) {
 			return;
 		}
 
+		const {
+			attributes,
+			block,
+			skipBlockSupportAttributes = false,
+			httpMethod = 'GET',
+			urlQueryArgs,
+		} = latestPropsRef.current;
+
 		setIsLoading( true );
 
-		const sanitizedAttributes =
+		let sanitizedAttributes =
 			attributes &&
 			__experimentalSanitizeBlockAttributes( block, attributes );
+
+		if ( skipBlockSupportAttributes ) {
+			sanitizedAttributes =
+				removeBlockSupportAttributes( sanitizedAttributes );
+		}
 
 		// If httpMethod is 'POST', send the attributes in the request body instead of the URL.
 		// This allows sending a larger attributes object than in a GET request, where the attributes are in the URL.
@@ -140,52 +193,37 @@ export default function ServerSideRender( props ) {
 			} ) );
 
 		return fetchRequest;
-	}
+	}, [] );
 
 	const debouncedFetchData = useDebounce( fetchData, 500 );
 
 	// When the component unmounts, set isMountedRef to false. This will
 	// let the async fetch callbacks know when to stop.
-	useEffect(
-		() => () => {
+	useEffect( () => {
+		isMountedRef.current = true;
+		return () => {
 			isMountedRef.current = false;
-		},
-		[]
-	);
+		};
+	}, [] );
 
 	useEffect( () => {
 		// Don't debounce the first fetch. This ensures that the first render
 		// shows data as soon as possible.
 		if ( prevProps === undefined ) {
 			fetchData();
-		} else if ( ! isEqual( prevProps, props ) ) {
+		} else if ( ! fastDeepEqual( prevProps, props ) ) {
 			debouncedFetchData();
 		}
 	} );
 
-	/**
-	 * Effect to handle showing the loading placeholder.
-	 * Show it only if there is no previous response or
-	 * the request takes more than one second.
-	 */
-	useEffect( () => {
-		if ( ! isLoading ) {
-			return;
-		}
-		const timeout = setTimeout( () => {
-			setShowLoader( true );
-		}, 1000 );
-		return () => clearTimeout( timeout );
-	}, [ isLoading ] );
-
 	const hasResponse = !! response;
 	const hasEmptyResponse = response === '';
-	const hasError = response?.error;
+	const hasError = !! response?.error;
 
 	if ( isLoading ) {
 		return (
-			<LoadingResponsePlaceholder { ...props } showLoader={ showLoader }>
-				{ hasResponse && (
+			<LoadingResponsePlaceholder { ...props }>
+				{ hasResponse && ! hasError && (
 					<RawHTML className={ className }>{ response }</RawHTML>
 				) }
 			</LoadingResponsePlaceholder>

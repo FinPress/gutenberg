@@ -24,19 +24,19 @@ export default function useBlockLock( clientId ) {
 				canRemoveBlock,
 				canLockBlockType,
 				getBlockName,
-				getBlockRootClientId,
+				getTemplateLock,
 			} = select( blockEditorStore );
-			const rootClientId = getBlockRootClientId( clientId );
 
 			const canEdit = canEditBlock( clientId );
-			const canMove = canMoveBlock( clientId, rootClientId );
-			const canRemove = canRemoveBlock( clientId, rootClientId );
+			const canMove = canMoveBlock( clientId );
+			const canRemove = canRemoveBlock( clientId );
 
 			return {
 				canEdit,
 				canMove,
 				canRemove,
 				canLock: canLockBlockType( getBlockName( clientId ) ),
+				isContentLocked: getTemplateLock( clientId ) === 'contentOnly',
 				isLocked: ! canEdit || ! canMove || ! canRemove,
 			};
 		},

@@ -2,9 +2,7 @@
  * External dependencies
  */
 const { command } = require( 'execa' );
-const { isEmpty, omitBy, size } = require( 'lodash' );
 const npmPackageArg = require( 'npm-package-arg' );
-const { join } = require( 'path' );
 const writePkg = require( 'write-pkg' );
 
 /**
@@ -24,16 +22,17 @@ module.exports = async ( {
 	npmDependencies,
 	npmDevDependencies,
 	customScripts,
+	isDynamicVariant,
+	customPackageJSON,
+	rootDirectory,
 } ) => {
-	const cwd = join( process.cwd(), slug );
-
 	info( '' );
 	info( 'Creating a "package.json" file.' );
 
 	await writePkg(
-		cwd,
-		omitBy(
-			{
+		rootDirectory,
+		Object.fromEntries(
+			Object.entries( {
 				name: slug,
 				version,
 				description,
@@ -43,19 +42,25 @@ module.exports = async ( {
 				main: wpScripts && 'build/index.js',
 				scripts: {
 					...( wpScripts && {
-						build: 'wp-scripts build',
+						build:
+							( isDynamicVariant
+								? 'wp-scripts build --webpack-copy-php'
+								: 'wp-scripts build' ) + ' --blocks-manifest',
 						format: 'wp-scripts format',
 						'lint:css': 'wp-scripts lint-style',
 						'lint:js': 'wp-scripts lint-js',
 						'packages-update': 'wp-scripts packages-update',
 						'plugin-zip': 'wp-scripts plugin-zip',
-						start: 'wp-scripts start',
+						start:
+							( isDynamicVariant
+								? 'wp-scripts start --webpack-copy-php'
+								: 'wp-scripts start' ) + ' --blocks-manifest',
 					} ),
 					...( wpEnv && { env: 'wp-env' } ),
 					...customScripts,
 				},
-			},
-			isEmpty
+				...customPackageJSON,
+			} ).filter( ( [ , value ] ) => !! value )
 		)
 	);
 
@@ -76,7 +81,7 @@ module.exports = async ( {
 	}
 
 	if ( wpScripts ) {
-		if ( size( npmDependencies ) ) {
+		if ( npmDependencies && npmDependencies.length ) {
 			info( '' );
 			info(
 				'Installing npm dependencies. It might take a couple of minutes...'
@@ -87,7 +92,7 @@ module.exports = async ( {
 					info( '' );
 					info( `Installing "${ packageArg }".` );
 					await command( `npm install ${ packageArg }`, {
-						cwd,
+						cwd: rootDirectory,
 					} );
 				} catch ( { message } ) {
 					info( '' );
@@ -99,7 +104,7 @@ module.exports = async ( {
 			}
 		}
 
-		if ( size( npmDevDependencies ) ) {
+		if ( npmDevDependencies && npmDevDependencies.length ) {
 			info( '' );
 			info(
 				'Installing npm devDependencies. It might take a couple of minutes...'
@@ -110,7 +115,7 @@ module.exports = async ( {
 					info( '' );
 					info( `Installing "${ packageArg }".` );
 					await command( `npm install ${ packageArg } --save-dev`, {
-						cwd,
+						cwd: rootDirectory,
 					} );
 				} catch ( { message } ) {
 					info( '' );

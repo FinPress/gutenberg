@@ -7,6 +7,7 @@ import type { BaseEntityRecords as _BaseEntityRecords } from './base-entity-reco
 
 declare module './base-entity-records' {
 	export namespace BaseEntityRecords {
+		/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 		export interface WidgetType< C extends Context > {
 			/**
 			 * Unique slug identifying the widget type.
@@ -32,6 +33,6 @@ declare module './base-entity-records' {
 	}
 }
 
-export type WidgetType< C extends Context > = OmitNevers<
+export type WidgetType< C extends Context = 'edit' > = OmitNevers<
 	_BaseEntityRecords.WidgetType< C >
 >;

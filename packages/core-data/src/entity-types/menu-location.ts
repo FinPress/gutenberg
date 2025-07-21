@@ -7,6 +7,7 @@ import type { BaseEntityRecords as _BaseEntityRecords } from './base-entity-reco
 
 declare module './base-entity-records' {
 	export namespace BaseEntityRecords {
+		/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 		export interface MenuLocation< C extends Context > {
 			/**
 			 * The name of the menu location.
@@ -24,6 +25,6 @@ declare module './base-entity-records' {
 	}
 }
 
-export type MenuLocation< C extends Context > = OmitNevers<
+export type MenuLocation< C extends Context = 'edit' > = OmitNevers<
 	_BaseEntityRecords.MenuLocation< C >
 >;

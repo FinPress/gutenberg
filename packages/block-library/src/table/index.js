@@ -7,6 +7,7 @@ import { blockTable as icon } from '@wordpress/icons';
 /**
  * Internal dependencies
  */
+import initBlock from '../utils/init-block';
 import deprecated from './deprecated';
 import edit from './edit';
 import metadata from './block.json';
@@ -47,7 +48,7 @@ export const settings = {
 							tag: 'td',
 						},
 						{
-							content: 'Jaco Pastorius',
+							content: __( 'Jaco Pastorius' ),
 							tag: 'td',
 						},
 						{
@@ -63,7 +64,7 @@ export const settings = {
 							tag: 'td',
 						},
 						{
-							content: 'Betty Carter',
+							content: __( 'Betty Carter' ),
 							tag: 'td',
 						},
 						{
@@ -79,7 +80,7 @@ export const settings = {
 							tag: 'td',
 						},
 						{
-							content: 'Bebo Valdés',
+							content: __( 'Bebo Valdés' ),
 							tag: 'td',
 						},
 						{
@@ -90,9 +91,12 @@ export const settings = {
 				},
 			],
 		},
+		viewportWidth: 450,
 	},
 	transforms,
 	edit,
 	save,
 	deprecated,
 };
+
+export const init = () => initBlock( { name, metadata, settings } );

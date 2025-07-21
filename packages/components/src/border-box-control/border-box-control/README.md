@@ -1,12 +1,7 @@
 # BorderBoxControl
 
-<div class="callout callout-alert">
-This feature is still experimental. “Experimental” means this is an early implementation subject to drastic and breaking changes.
-</div>
-<br />
-
-This component provides users with the ability to configure a single "flat"
-border or separate borders per side.
+An input control for the color, style, and width of the border of a box. The
+border can be customized as a whole, or individually for each side of the box.
 
 ## Development guidelines
 
@@ -27,7 +22,8 @@ show "Mixed" placeholder text.
 ## Usage
 
 ```jsx
-import { __experimentalBorderBoxControl as BorderBoxControl } from '@wordpress/components';
+import { useState } from 'react';
+import { BorderBoxControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 const colors = [
@@ -51,6 +47,7 @@ const MyBorderBoxControl = () => {
 
 	return (
 		<BorderBoxControl
+			__next40pxDefaultSize
 			colors={ colors }
 			label={ __( 'Borders' ) }
 			onChange={ onChange }
@@ -68,40 +65,42 @@ a `SlotFillProvider` overall.
 
 ## Props
 
-### `colors`: `Array`
+### `colors`: `( PaletteObject | ColorObject )[]`
 
 An array of color definitions. This may also be a multi-dimensional array where
 colors are organized by multiple origins.
 
 Each color may be an object containing a `name` and `color` value.
 
-- Required: No
+-   Required: No
+-   Default: `[]`
 
 ### `disableCustomColors`: `boolean`
 
 This toggles the ability to choose custom colors.
 
-- Required: No
+-   Required: No
 
 ### `enableAlpha`: `boolean`
 
 This controls whether the alpha channel will be offered when selecting
 custom colors.
 
-- Required: No
+-   Required: No
+-   Default: `false`
 
 ### `enableStyle`: `boolean`
 
 This controls whether to support border style selections.
 
-- Required: No
-- Default: `true`
+-   Required: No
+-   Default: `true`
 
 ### `hideLabelFromVision`: `boolean`
 
 Provides control over whether the label will only be visible to screen readers.
 
-- Required: No
+-   Required: No
 
 ### `label`: `string`
 
@@ -110,7 +109,7 @@ If provided, a label will be generated using this as the content.
 _Whether it is visible only to screen readers is controlled via
 `hideLabelFromVision`._
 
-- Required: No
+-   Required: No
 
 ### `onChange`: `( value?: Object ) => void`
 
@@ -120,23 +119,31 @@ borders, or `undefined`.
 
 _Note: The will be `undefined` if a user clears all borders._
 
-- Required: Yes
+-   Required: Yes
 
 ### `popoverPlacement`: `string`
 
-The position of the color popover relative to the control wrapper.
+The position of the color popovers relative to the control wrapper.
 
 By default, popovers are displayed relative to the button that initiated the popover. By supplying a popover placement, you force the popover to display in a specific location.
 
 The available base placements are 'top', 'right', 'bottom', 'left'. Each of these base placements has an alignment in the form -start and -end. For example, 'right-start', or 'bottom-end'. These allow you to align the tooltip to the edges of the button, rather than centering it.
 
-- Required: No
+-   Required: No
 
 ### `popoverOffset`: `number`
 
-Works in conjunctions with `popoverPlacement` and allows leaving a space between the color popover and the control wrapper.
+The space between the popover and the control wrapper.
 
-- Required: No
+-   Required: No
+
+### `size`: `string`
+
+Size of the control.
+
+-   Required: No
+-   Default: `default`
+-   Allowed values: `default`, `__unstable-large`
 
 ### `value`: `Object`
 
@@ -147,6 +154,7 @@ properties or a "split" border which defines the previous properties but for
 each side; `top`, `right`, `bottom`, and `left`.
 
 Examples:
+
 ```js
 const flatBorder = { color: '#72aee6', style: 'solid', width: '1px' };
 const splitBorders = {
@@ -157,18 +165,11 @@ const splitBorders = {
 };
 ```
 
-- Required: No
+-   Required: No
 
-### `__experimentalHasMultipleOrigins`: `boolean`
+### `__next40pxDefaultSize`: `boolean`
 
-This is passed on to the color related sub-components which need to be made
-aware of whether the colors prop contains multiple origins.
+Start opting into the larger default height that will become the default size in a future version.
 
-- Required: No
-
-### `__experimentalIsRenderedInSidebar`: `boolean`
-
-This is passed on to the color related sub-components so they may render more
-effectively when used within a sidebar.
-
-- Required: No
+-   Required: No
+-   Default: `false`

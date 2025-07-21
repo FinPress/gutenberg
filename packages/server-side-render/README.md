@@ -52,29 +52,19 @@ Examples: "my-custom-server-side-rendered".
 
 ### httpMethod
 
-The HTTP request method to use, either 'GET' or 'POST'. It's 'GET' by default. The 'POST' value will cause an error on WP earlier than 5.5, unless 'rest_endpoints' is filtered in PHP to allow this. If 'POST', this sends the attributes in the request body, not in the URL. This can allow a bigger attributes object.
+The HTTP request method to use is either `GET` or `POST`, with `GET` as the default. When using `POST`, attributes are sent in the request body rather than the URL, allowing for a larger attributes object.
 
 -   Type: `String`
 -   Required: No
+-   Default: 'GET'
 
-#### Example:
+### skipBlockSupportAttributes
 
-```php
-function add_rest_method( $endpoints ) {
-    if ( is_wp_version_compatible( '5.5' ) ) {
-        return $endpoints;
-    }
+Remove attributes and style properties applied by the block supports. This prevents duplication of styles in the block wrapper and the `ServerSideRender` components. Even if certain features skip serialization to HTML markup by `__experimentalSkipSerialization`, all attributes and style properties are removed.
 
-    foreach ( $endpoints as $route => $handler ) {
-        if ( isset( $endpoints[ $route ][0] ) ) {
-            $endpoints[ $route ][0]['methods'] = [ WP_REST_Server::READABLE, WP_REST_Server::CREATABLE ];
-        }
-    }
-
-    return $endpoints;
-}
-add_filter( 'rest_endpoints', 'add_rest_method');
-```
+-   Type: `Boolean`
+-   Required: No
+-   Default: false
 
 ### urlQueryArgs
 
@@ -161,7 +151,7 @@ If you pass `attributes` to `ServerSideRender`, the block must also be registere
 register_block_type(
 	'core/archives',
 	array(
-		'api_version' => 2,
+		'api_version' => 3,
 		'attributes'      => array(
 			'showPostCounts'    => array(
 				'type'      => 'boolean',

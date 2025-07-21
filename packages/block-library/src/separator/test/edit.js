@@ -23,6 +23,7 @@ const defaultAttributes = {
 	opacity: 'alpha-channel',
 	style: {},
 	className: '',
+	tagName: 'hr',
 };
 const defaultProps = {
 	attributes: defaultAttributes,
@@ -66,7 +67,8 @@ describe( 'Separator block edit method', () => {
 		expect( useBlockProps ).toHaveBeenCalledWith( {
 			// For backwards compatibility the has-text-color class is also added even though it is only needed for
 			// is-style-dots as this class was always added to v1 blocks, so may be expected by themes and plugins.
-			className: 'has-text-color has-alpha-channel-opacity',
+			className:
+				'has-text-color has-alpha-channel-opacity has-background',
 			style: {
 				backgroundColor: '#ff0000',
 				color: '#ff0000',
@@ -85,7 +87,8 @@ describe( 'Separator block edit method', () => {
 		};
 		render( <SeparatorEdit { ...props } /> );
 		expect( useBlockProps ).toHaveBeenCalledWith( {
-			className: 'has-text-color has-alpha-channel-opacity',
+			className:
+				'has-text-color has-alpha-channel-opacity has-background',
 			style: {
 				backgroundColor: '#ff0000',
 				color: '#ff0000',
@@ -106,7 +109,7 @@ describe( 'Separator block edit method', () => {
 		// background color classes are added by useBlockProps which has to be mocked.
 		expect( useBlockProps ).toHaveBeenCalledWith( {
 			className:
-				'has-text-color has-banana-color has-alpha-channel-opacity',
+				'has-text-color has-banana-color has-alpha-channel-opacity has-banana-background-color has-background',
 			style: undefined,
 		} );
 	} );

@@ -3,30 +3,23 @@
  */
 import type { CSSProperties } from 'react';
 
+/**
+ * Internal dependencies
+ */
+import type { ColorPaletteProps } from '../color-palette/types';
+import type { PopoverProps } from '../popover/types';
+import type { ToggleGroupControlProps } from '../toggle-group-control/types';
+
 export type Border = {
 	color?: CSSProperties[ 'borderColor' ];
 	style?: CSSProperties[ 'borderStyle' ];
 	width?: CSSProperties[ 'borderWidth' ];
 };
 
-export type Color = {
-	name: string;
-	color: CSSProperties[ 'color' ];
-};
-
-export type ColorOrigin = {
-	name: string;
-	colors: Color[];
-};
-
-export type Colors = ColorOrigin[] | Color[];
-
-export type ColorProps = {
-	/**
-	 * An array of color definitions. This may also be a multi-dimensional array
-	 * where colors are organized by multiple origins.
-	 */
-	colors?: Colors;
+export type ColorProps = Pick<
+	ColorPaletteProps,
+	'colors' | '__experimentalIsRenderedInSidebar'
+> & {
 	/**
 	 * This toggles the ability to choose custom colors.
 	 */
@@ -34,18 +27,10 @@ export type ColorProps = {
 	/**
 	 * This controls whether the alpha channel will be offered when selecting
 	 * custom colors.
+	 *
+	 * @default true
 	 */
 	enableAlpha?: boolean;
-	/**
-	 * This is passed on to the color related sub-components which need to be
-	 * made aware of whether the colors prop contains multiple origins.
-	 */
-	__experimentalHasMultipleOrigins?: boolean;
-	/**
-	 * This is passed on to the color related sub-components so they may render
-	 * more effectively when used within a sidebar.
-	 */
-	__experimentalIsRenderedInSidebar?: boolean;
 };
 
 export type LabelProps = {
@@ -63,8 +48,11 @@ export type LabelProps = {
 export type BorderControlProps = ColorProps &
 	LabelProps & {
 		/**
-		 * This controls whether to include border style options within the
-		 * `BorderDropdown` sub-component.
+		 * This controls whether unit selection should be disabled.
+		 */
+		disableUnits?: boolean;
+		/**
+		 * This controls whether to support border style selection.
 		 *
 		 * @default true
 		 */
@@ -81,9 +69,13 @@ export type BorderControlProps = ColorProps &
 		 */
 		onChange: ( value?: Border ) => void;
 		/**
+		 * Placeholder text for the number input.
+		 */
+		placeholder?: HTMLInputElement[ 'placeholder' ];
+		/**
 		 * An internal prop used to control the visibility of the dropdown.
 		 */
-		__unstablePopoverProps?: Record< string, unknown >;
+		__unstablePopoverProps?: Omit< PopoverProps, 'children' >;
 		/**
 		 * If opted into, sanitizing the border means that if no width or color
 		 * have been selected, the border style is also cleared and `undefined`
@@ -93,11 +85,16 @@ export type BorderControlProps = ColorProps &
 		 */
 		shouldSanitizeBorder?: boolean;
 		/**
-		 * Whether or not to show the header for the border color and style
-		 * picker dropdown. The header includes a label for the color picker
-		 * and a close button.
+		 * @deprecated This prop no longer has any effect.
+		 * @ignore
 		 */
 		showDropdownHeader?: boolean;
+		/**
+		 * Size of the control.
+		 *
+		 * @default 'default'
+		 */
+		size?: 'default' | '__unstable-large';
 		/**
 		 * An object representing a border or `undefined`. Used to set the
 		 * current border configuration for this component.
@@ -114,57 +111,57 @@ export type BorderControlProps = ColorProps &
 		 */
 		withSlider?: boolean;
 		/**
-		 * Start opting into the larger default height that will become the
-		 * default size in a future version.
+		 * Start opting into the larger default height that will become the default size in a future version.
 		 *
 		 * @default false
 		 */
-		__next36pxDefaultSize?: boolean;
+		__next40pxDefaultSize?: boolean;
+		/**
+		 * Do not throw a warning for the deprecated 36px default size.
+		 * For internal components of other components that already throw the warning.
+		 *
+		 * @ignore
+		 */
+		__shouldNotWarnDeprecated36pxSize?: boolean;
 	};
 
-export type DropdownProps = ColorProps & {
-	/**
-	 * An object representing a border or `undefined`. This component will
-	 * extract the border color and style selections from this object to use as
-	 * values for its popover controls.
-	 */
-	border?: Border;
-	/**
-	 * An internal prop used to control the visibility of the dropdown.
-	 */
-	__unstablePopoverProps?: Record< string, unknown >;
-	/**
-	 * This controls whether to render border style options.
-	 *
-	 * @default true
-	 */
-	enableStyle?: boolean;
-	/**
-	 * A callback invoked when the border color or style selections change.
-	 */
-	onChange: ( newBorder?: Border ) => void;
-	/**
-	 * Any previous style selection made by the user. This can be used to
-	 * reapply that previous selection when, for example, a zero border width is
-	 * to a non-zero value.
-	 */
-	previousStyleSelection?: string;
-	/**
-	 * Whether or not to render a header for the border color and style picker
-	 * dropdown. The header includes a label for the color picker and a
-	 * close button.
-	 */
-	showDropdownHeader?: boolean;
-	/**
-	 * Start opting into the larger default height that will become the
-	 * default size in a future version.
-	 *
-	 * @default false
-	 */
-	__next36pxDefaultSize?: boolean;
-};
+export type DropdownProps = ColorProps &
+	Pick< BorderControlProps, 'enableStyle' | 'size' > & {
+		/**
+		 * An object representing a border or `undefined`. This component will
+		 * extract the border color and style selections from this object to use as
+		 * values for its popover controls.
+		 */
+		border?: Border;
+		/**
+		 * Whether a border style can be set, based on the border sanitization settings.
+		 */
+		isStyleSettable: boolean;
+		/**
+		 * An internal prop used to control the visibility of the dropdown.
+		 */
+		__unstablePopoverProps?: Omit< PopoverProps, 'children' >;
+		/**
+		 * A callback invoked when the border color or style selections change.
+		 */
+		onChange: ( newBorder?: Border ) => void;
+		/**
+		 * Any previous style selection made by the user. This can be used to
+		 * reapply that previous selection when, for example, a zero border width is
+		 * to a non-zero value.
+		 */
+		previousStyleSelection?: string;
+		/**
+		 * @deprecated This prop no longer has any effect.
+		 * @ignore
+		 */
+		showDropdownHeader?: boolean;
+	};
 
-export type StylePickerProps = LabelProps & {
+export type StylePickerProps = Omit<
+	ToggleGroupControlProps,
+	'value' | 'onChange' | 'children'
+> & {
 	/**
 	 * A callback function invoked when a border style is selected or cleared.
 	 */
@@ -175,11 +172,4 @@ export type StylePickerProps = LabelProps & {
 	 * to store other valid CSS values is maintained e.g. `none`, `inherit` etc.
 	 */
 	value?: string;
-};
-
-export type PopoverProps = {
-	/**
-	 * Callback function to invoke when closing the border dropdown's popover.
-	 */
-	onClose: () => void;
 };

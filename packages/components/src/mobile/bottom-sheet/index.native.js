@@ -15,12 +15,14 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import SafeArea from 'react-native-safe-area';
-import { omit } from 'lodash';
 
 /**
  * WordPress dependencies
  */
-import { subscribeAndroidModalClosed } from '@wordpress/react-native-bridge';
+import {
+	subscribeAndroidModalClosed,
+	showAndroidSoftKeyboard,
+} from '@wordpress/react-native-bridge';
 import { Component } from '@wordpress/element';
 import { withPreferredColorScheme } from '@wordpress/compose';
 
@@ -55,22 +57,19 @@ class BottomSheet extends Component {
 		this.isScrolling = this.isScrolling.bind( this );
 		this.onShouldEnableScroll = this.onShouldEnableScroll.bind( this );
 		this.onDismiss = this.onDismiss.bind( this );
-		this.onShouldSetBottomSheetMaxHeight = this.onShouldSetBottomSheetMaxHeight.bind(
-			this
-		);
+		this.onShouldSetBottomSheetMaxHeight =
+			this.onShouldSetBottomSheetMaxHeight.bind( this );
 
 		this.setIsFullScreen = this.setIsFullScreen.bind( this );
 
 		this.onDimensionsChange = this.onDimensionsChange.bind( this );
 		this.onHeaderLayout = this.onHeaderLayout.bind( this );
 		this.onCloseBottomSheet = this.onCloseBottomSheet.bind( this );
-		this.onHandleClosingBottomSheet = this.onHandleClosingBottomSheet.bind(
-			this
-		);
+		this.onHandleClosingBottomSheet =
+			this.onHandleClosingBottomSheet.bind( this );
 		this.onHardwareButtonPress = this.onHardwareButtonPress.bind( this );
-		this.onHandleHardwareButtonPress = this.onHandleHardwareButtonPress.bind(
-			this
-		);
+		this.onHandleHardwareButtonPress =
+			this.onHandleHardwareButtonPress.bind( this );
 		this.keyboardShow = this.keyboardShow.bind( this );
 		this.keyboardHide = this.keyboardHide.bind( this );
 
@@ -219,6 +218,11 @@ class BottomSheet extends Component {
 		if ( this.androidModalClosedSubscription ) {
 			this.androidModalClosedSubscription.remove();
 		}
+
+		if ( this.props.isVisible ) {
+			showAndroidSoftKeyboard();
+		}
+
 		if ( this.safeAreaEventSubscription === null ) {
 			return;
 		}
@@ -319,6 +323,9 @@ class BottomSheet extends Component {
 	onDismiss() {
 		const { onDismiss } = this.props;
 
+		// Restore Keyboard Visibility
+		showAndroidSoftKeyboard();
+
 		if ( onDismiss ) {
 			onDismiss();
 		}
@@ -372,6 +379,7 @@ class BottomSheet extends Component {
 	onHardwareButtonPress() {
 		const { onClose } = this.props;
 		const { handleHardwareButtonPress } = this.state;
+
 		if ( handleHardwareButtonPress && handleHardwareButtonPress() ) {
 			return;
 		}
@@ -403,6 +411,7 @@ class BottomSheet extends Component {
 			children,
 			withHeaderSeparator = false,
 			hasNavigation,
+			onDismiss,
 			...rest
 		} = this.props;
 		const {
@@ -530,9 +539,10 @@ class BottomSheet extends Component {
 					panResponder.panHandlers.onMoveShouldSetResponderCapture
 				}
 				onAccessibilityEscape={ this.onCloseBottomSheet }
-				// We need to prevent overwriting the onDismiss prop,
-				// for this reason it is excluded from the rest object.
-				{ ...omit( rest, 'onDismiss' ) }
+				testID="bottom-sheet"
+				hardwareAccelerated
+				useNativeDriverForBackdrop
+				{ ...rest }
 			>
 				<KeyboardAvoidingView
 					behavior={ Platform.OS === 'ios' && 'padding' }
@@ -568,18 +578,20 @@ class BottomSheet extends Component {
 					>
 						<BottomSheetProvider
 							value={ {
-								shouldEnableBottomSheetScroll: this
-									.onShouldEnableScroll,
-								shouldEnableBottomSheetMaxHeight: this
-									.onShouldSetBottomSheetMaxHeight,
+								shouldEnableBottomSheetScroll:
+									this.onShouldEnableScroll,
+								shouldEnableBottomSheetMaxHeight:
+									this.onShouldSetBottomSheetMaxHeight,
 								isBottomSheetContentScrolling: isScrolling,
-								onHandleClosingBottomSheet: this
-									.onHandleClosingBottomSheet,
-								onHandleHardwareButtonPress: this
-									.onHandleHardwareButtonPress,
+								onHandleClosingBottomSheet:
+									this.onHandleClosingBottomSheet,
+								onHandleHardwareButtonPress:
+									this.onHandleHardwareButtonPress,
 								listProps,
 								setIsFullScreen: this.setIsFullScreen,
 								safeAreaBottomInset,
+								maxHeight,
+								isMaxHeightSet,
 							} }
 						>
 							{ hasNavigation ? (

@@ -3,14 +3,24 @@
  */
 import * as fs from 'fs/promises';
 import { dirname } from 'path';
+import { expect } from '@playwright/test';
 import type { APIRequestContext } from '@playwright/test';
-import { chunk } from 'lodash';
 
 /**
  * Internal dependencies
  */
 import { WP_BASE_URL } from '../config';
 import type { RequestUtils, StorageState } from './index';
+
+function splitRequestsToChunks( requests: BatchRequest[], chunkSize: number ) {
+	const arr = [ ...requests ];
+	const cache = [];
+	while ( arr.length ) {
+		cache.push( arr.splice( 0, chunkSize ) );
+	}
+
+	return cache;
+}
 
 async function getAPIRootURL( request: APIRequestContext ) {
 	// Discover the API root url using link header.
@@ -30,10 +40,32 @@ async function getAPIRootURL( request: APIRequestContext ) {
 }
 
 async function setupRest( this: RequestUtils ): Promise< StorageState > {
-	const [ nonce, rootURL ] = await Promise.all( [
-		this.login(),
-		getAPIRootURL( this.request ),
-	] );
+	let nonce = '';
+	let rootURL = '';
+
+	// Poll until the REST API is discovered.
+	// See https://github.com/WordPress/gutenberg/issues/61627
+	await expect
+		.poll(
+			async () => {
+				try {
+					[ nonce, rootURL ] = await Promise.all( [
+						this.login(),
+						getAPIRootURL( this.request ),
+					] );
+				} catch ( error ) {
+					// Prints the error if the timeout is reached.
+					return error;
+				}
+
+				return !! ( nonce && rootURL );
+			},
+			{
+				message: 'Failed to setup REST API.',
+				timeout: 60_000, // 1 minute.
+			}
+		)
+		.toBe( true );
 
 	const { cookies } = await this.request.storageState();
 
@@ -61,7 +93,7 @@ type RequestFetchOptions = Exclude<
 	Parameters< APIRequestContext[ 'fetch' ] >[ 1 ],
 	undefined
 >;
-interface RestOptions extends RequestFetchOptions {
+export interface RestOptions extends RequestFetchOptions {
 	path: string;
 }
 
@@ -119,8 +151,8 @@ async function rest< RestResponse = any >(
 /**
  * Get the maximum batch size for the REST API.
  *
- * @param {} this         RequestUtils.
- * @param {} forceRefetch Force revalidate the cached max batch size.
+ * @param this
+ * @param forceRefetch Force revalidate the cached max batch size.
  */
 async function getMaxBatchSize( this: RequestUtils, forceRefetch = false ) {
 	if ( ! forceRefetch && this.maxBatchSize ) {
@@ -143,7 +175,7 @@ async function getMaxBatchSize( this: RequestUtils, forceRefetch = false ) {
 	return this.maxBatchSize;
 }
 
-interface BatchRequest {
+export interface BatchRequest {
 	method?: string;
 	path: string;
 	headers?: Record< string, string | string[] >;
@@ -157,7 +189,7 @@ async function batchRest< BatchResponse >(
 	const maxBatchSize = await this.getMaxBatchSize();
 
 	if ( requests.length > maxBatchSize ) {
-		const chunks = chunk( requests, maxBatchSize );
+		const chunks = splitRequestsToChunks( requests, maxBatchSize );
 
 		const chunkResponses = await Promise.all(
 			chunks.map( ( chunkRequests ) =>

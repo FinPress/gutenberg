@@ -2,43 +2,43 @@
  * WordPress dependencies
  */
 import { useState } from '@wordpress/element';
-import { ToolbarButton } from '@wordpress/components';
 
 import {
 	BlockControls,
 	MediaReplaceFlow,
 	__experimentalBlockAlignmentMatrixControl as BlockAlignmentMatrixControl,
 	__experimentalBlockFullHeightAligmentControl as FullHeightAlignmentControl,
+	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { postFeaturedImage } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
-import { ALLOWED_MEDIA_TYPES, IMAGE_BACKGROUND_TYPE } from '../shared';
+import { ALLOWED_MEDIA_TYPES } from '../shared';
+import { unlock } from '../../lock-unlock';
+
+const { cleanEmptyObject } = unlock( blockEditorPrivateApis );
 
 export default function CoverBlockControls( {
 	attributes,
 	setAttributes,
 	onSelectMedia,
 	currentSettings,
+	toggleUseFeaturedImage,
+	onClearMedia,
 } ) {
-	const {
-		contentPosition,
-		id,
-		useFeaturedImage,
-		dimRatio,
-		minHeight,
-		minHeightUnit,
-	} = attributes;
+	const { contentPosition, id, useFeaturedImage, minHeight, minHeightUnit } =
+		attributes;
 	const { hasInnerBlocks, url } = currentSettings;
 
 	const [ prevMinHeightValue, setPrevMinHeightValue ] = useState( minHeight );
-	const [ prevMinHeightUnit, setPrevMinHeightUnit ] = useState(
-		minHeightUnit
-	);
-	const isMinFullHeight = minHeightUnit === 'vh' && minHeight === 100;
+	const [ prevMinHeightUnit, setPrevMinHeightUnit ] =
+		useState( minHeightUnit );
+	const isMinFullHeight =
+		minHeightUnit === 'vh' &&
+		minHeight === 100 &&
+		! attributes?.style?.dimensions?.aspectRatio;
 	const toggleMinFullHeight = () => {
 		if ( isMinFullHeight ) {
 			// If there aren't previous values, take the default ones.
@@ -59,24 +59,20 @@ export default function CoverBlockControls( {
 		setPrevMinHeightValue( minHeight );
 		setPrevMinHeightUnit( minHeightUnit );
 
-		// Set full height.
+		// Set full height, and clear any aspect ratio value.
 		return setAttributes( {
 			minHeight: 100,
 			minHeightUnit: 'vh',
+			style: cleanEmptyObject( {
+				...attributes?.style,
+				dimensions: {
+					...attributes?.style?.dimensions,
+					aspectRatio: undefined, // Reset aspect ratio when minHeight is set.
+				},
+			} ),
 		} );
 	};
 
-	const toggleUseFeaturedImage = () => {
-		setAttributes( {
-			id: undefined,
-			url: undefined,
-			useFeaturedImage: ! useFeaturedImage,
-			dimRatio: dimRatio === 100 ? 50 : dimRatio,
-			backgroundType: useFeaturedImage
-				? IMAGE_BACKGROUND_TYPE
-				: undefined,
-		} );
-	};
 	return (
 		<>
 			<BlockControls group="block">
@@ -97,22 +93,17 @@ export default function CoverBlockControls( {
 				/>
 			</BlockControls>
 			<BlockControls group="other">
-				<ToolbarButton
-					icon={ postFeaturedImage }
-					label={ __( 'Use featured image' ) }
-					isPressed={ useFeaturedImage }
-					onClick={ toggleUseFeaturedImage }
+				<MediaReplaceFlow
+					mediaId={ id }
+					mediaURL={ url }
+					allowedTypes={ ALLOWED_MEDIA_TYPES }
+					accept="image/*,video/*"
+					onSelect={ onSelectMedia }
+					onToggleFeaturedImage={ toggleUseFeaturedImage }
+					useFeaturedImage={ useFeaturedImage }
+					name={ ! url ? __( 'Add media' ) : __( 'Replace' ) }
+					onReset={ onClearMedia }
 				/>
-				{ ! useFeaturedImage && (
-					<MediaReplaceFlow
-						mediaId={ id }
-						mediaURL={ url }
-						allowedTypes={ ALLOWED_MEDIA_TYPES }
-						accept="image/*,video/*"
-						onSelect={ onSelectMedia }
-						name={ ! url ? __( 'Add Media' ) : __( 'Replace' ) }
-					/>
-				) }
 			</BlockControls>
 		</>
 	);

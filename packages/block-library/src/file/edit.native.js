@@ -72,28 +72,22 @@ export class FileEdit extends Component {
 		this.onLayout = this.onLayout.bind( this );
 		this.onSelectFile = this.onSelectFile.bind( this );
 		this.onChangeFileName = this.onChangeFileName.bind( this );
-		this.onChangeDownloadButtonText = this.onChangeDownloadButtonText.bind(
-			this
-		);
+		this.onChangeDownloadButtonText =
+			this.onChangeDownloadButtonText.bind( this );
 		this.updateMediaProgress = this.updateMediaProgress.bind( this );
-		this.finishMediaUploadWithSuccess = this.finishMediaUploadWithSuccess.bind(
-			this
-		);
-		this.finishMediaUploadWithFailure = this.finishMediaUploadWithFailure.bind(
-			this
-		);
+		this.finishMediaUploadWithSuccess =
+			this.finishMediaUploadWithSuccess.bind( this );
+		this.finishMediaUploadWithFailure =
+			this.finishMediaUploadWithFailure.bind( this );
 		this.getFileComponent = this.getFileComponent.bind( this );
-		this.onChangeDownloadButtonVisibility = this.onChangeDownloadButtonVisibility.bind(
-			this
-		);
+		this.onChangeDownloadButtonVisibility =
+			this.onChangeDownloadButtonVisibility.bind( this );
 		this.onCopyURL = this.onCopyURL.bind( this );
-		this.onChangeOpenInNewWindow = this.onChangeOpenInNewWindow.bind(
-			this
-		);
+		this.onChangeOpenInNewWindow =
+			this.onChangeOpenInNewWindow.bind( this );
 
-		this.onChangeLinkDestinationOption = this.onChangeLinkDestinationOption.bind(
-			this
-		);
+		this.onChangeLinkDestinationOption =
+			this.onChangeLinkDestinationOption.bind( this );
 		this.onShowLinkSettings = this.onShowLinkSettings.bind( this );
 		this.onFilePressed = this.onFilePressed.bind( this );
 		this.mediaUploadStateReset = this.mediaUploadStateReset.bind( this );
@@ -103,7 +97,7 @@ export class FileEdit extends Component {
 		const { attributes, setAttributes } = this.props;
 		const { downloadButtonText } = attributes;
 
-		if ( downloadButtonText === undefined || downloadButtonText === '' ) {
+		if ( RichText.isEmpty( downloadButtonText ) ) {
 			setAttributes( {
 				downloadButtonText: _x( 'Download', 'button label' ),
 			} );
@@ -288,7 +282,7 @@ export class FileEdit extends Component {
 						value={ textLinkHref }
 						onChange={ this.onChangeLinkDestinationOption }
 						options={ linkDestinationOptions }
-						hideCancelButton={ true }
+						hideCancelButton
 					/>
 					<ToggleControl
 						icon={ external }
@@ -398,13 +392,8 @@ export class FileEdit extends Component {
 		const { attributes, media, isSelected } = this.props;
 		const { isButtonFocused, placeholderTextWidth } = this.state;
 
-		const {
-			fileName,
-			downloadButtonText,
-			id,
-			showDownloadButton,
-			align,
-		} = attributes;
+		const { fileName, downloadButtonText, id, showDownloadButton, align } =
+			attributes;
 
 		const minWidth =
 			isButtonFocused ||
@@ -477,11 +466,10 @@ export class FileEdit extends Component {
 										__unstableMobileNoFocusOnMount
 										onChange={ this.onChangeFileName }
 										placeholder={ __( 'File name' ) }
-										rootTagsToEliminate={ [ 'p' ] }
 										tagName="p"
 										underlineColorAndroid="transparent"
 										value={ fileName }
-										deleteEnter={ true }
+										deleteEnter
 										textAlign={ this.getTextAlignmentForAlignment(
 											align
 										) }
@@ -513,12 +501,11 @@ export class FileEdit extends Component {
 											<RichText
 												withoutInteractiveFormatting
 												__unstableMobileNoFocusOnMount
-												rootTagsToEliminate={ [ 'p' ] }
 												tagName="p"
 												textAlign="center"
 												minWidth={ minWidth }
 												maxWidth={ this.state.maxWidth }
-												deleteEnter={ true }
+												deleteEnter
 												style={ styles.buttonText }
 												value={ downloadButtonText }
 												placeholder={ placeholderText }
@@ -565,7 +552,7 @@ export class FileEdit extends Component {
 					icon={ <BlockIcon icon={ icon } /> }
 					labels={ {
 						title: __( 'File' ),
-						instructions: __( 'CHOOSE A FILE' ),
+						instructions: __( 'Choose a file' ),
 					} }
 					onSelect={ this.onSelectFile }
 					onFocus={ this.props.onFocus }
@@ -578,7 +565,7 @@ export class FileEdit extends Component {
 		return (
 			<MediaUpload
 				allowedTypes={ [ MEDIA_TYPE_ANY ] }
-				isReplacingMedia={ true }
+				isReplacingMedia
 				onSelect={ this.onSelectFile }
 				render={ ( { open, getMediaOptions } ) => {
 					return this.getFileComponent( open, getMediaOptions );

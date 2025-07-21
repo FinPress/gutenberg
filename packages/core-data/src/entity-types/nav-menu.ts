@@ -28,7 +28,7 @@ declare module './base-entity-records' {
 			 * Meta fields.
 			 */
 			meta: ContextualField<
-				Record< string, string >,
+				Record< string, unknown >,
 				'view' | 'edit',
 				C
 			>;
@@ -48,6 +48,6 @@ declare module './base-entity-records' {
 	}
 }
 
-export type NavMenu< C extends Context > = OmitNevers<
+export type NavMenu< C extends Context = 'edit' > = OmitNevers<
 	_BaseEntityRecords.NavMenu< C >
 >;

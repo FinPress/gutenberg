@@ -6,6 +6,7 @@ import {
 	useCustomUnits,
 	getValidParsedQuantityAndUnit,
 	getUnitsWithCurrentUnit,
+	parseQuantityAndUnitFromRawValue,
 } from '../utils';
 import type { WPUnitControlUnit } from '../types';
 
@@ -39,6 +40,42 @@ describe( 'UnitControl utils', () => {
 				{ value: 'px', label: 'pixel', default: 10 },
 				{ value: '%', label: 'percent', default: 10 },
 			] );
+		} );
+
+		it( 'should not mutate default units argument definiton', () => {
+			const unitsA = useCustomUnits( {
+				availableUnits: [ 'px', 'em', 'rem' ],
+				defaultValues: { px: 8, em: 0.5, rem: 0.5 },
+			} );
+
+			const unitsB = useCustomUnits( {
+				availableUnits: [ 'px', 'em', 'rem' ],
+				defaultValues: { px: 16, em: 1, rem: 1 },
+			} );
+
+			expect( unitsA ).not.toEqual( unitsB );
+		} );
+
+		it( 'should not mutate custon units argument definitons', () => {
+			const units = [
+				{ value: 'px', label: 'pixel' },
+				{ value: 'em', label: 'em' },
+				{ value: 'rem', label: 'rem' },
+			];
+
+			const unitsA = useCustomUnits( {
+				availableUnits: [ 'px', 'em', 'rem' ],
+				defaultValues: { px: 8, em: 0.5, rem: 0.5 },
+				units,
+			} );
+
+			const unitsB = useCustomUnits( {
+				availableUnits: [ 'px', 'em', 'rem' ],
+				defaultValues: { px: 16, em: 1, rem: 1 },
+				units,
+			} );
+
+			expect( unitsA ).not.toEqual( unitsB );
 		} );
 
 		it( 'should add default values to available units even if the default values are strings', () => {
@@ -241,5 +278,47 @@ describe( 'UnitControl utils', () => {
 			expect( result ).toHaveLength( 2 );
 			expect( result ).toEqual( limitedUnits );
 		} );
+	} );
+
+	describe( 'parseQuantityAndUnitFromRawValue', () => {
+		const cases: [
+			number | string | undefined,
+			number | undefined,
+			string | undefined,
+		][] = [
+			// Test undefined.
+			[ undefined, undefined, undefined ],
+			// Test integers and non-integers.
+			[ 1, 1, undefined ],
+			[ 1.25, 1.25, undefined ],
+			[ '123', 123, undefined ],
+			[ '1.5', 1.5, undefined ],
+			[ '0.75', 0.75, undefined ],
+			// Valid simple CSS values.
+			[ '20px', 20, 'px' ],
+			[ '0.8em', 0.8, 'em' ],
+			[ '2rem', 2, 'rem' ],
+			[ '1.4vw', 1.4, 'vw' ],
+			[ '0.4vh', 0.4, 'vh' ],
+			[ '-5px', -5, 'px' ],
+			// Complex CSS values that shouldn't parse.
+			[ 'abs(-15px)', undefined, undefined ],
+			[ 'calc(10px + 1)', undefined, undefined ],
+			[ 'clamp(2.5rem, 4vw, 3rem)', undefined, undefined ],
+			[ 'max(4.5em, 3vh)', undefined, undefined ],
+			[ 'min(10px, 1rem)', undefined, undefined ],
+			[ 'minmax(30px, auto)', undefined, undefined ],
+			[ 'var(--wp--font-size)', undefined, undefined ],
+		];
+
+		test.each( cases )(
+			'given %p as argument, returns value = %p and unit = %p',
+			( rawValue, expectedQuantity, expectedUnit ) => {
+				const [ quantity, unit ] =
+					parseQuantityAndUnitFromRawValue( rawValue );
+				expect( quantity ).toBe( expectedQuantity );
+				expect( unit ).toBe( expectedUnit );
+			}
+		);
 	} );
 } );

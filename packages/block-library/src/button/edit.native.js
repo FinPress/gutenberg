@@ -17,6 +17,7 @@ import {
 	getColorObjectByAttributeValues,
 	getGradientValueBySlug,
 	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles,
+	useMobileGlobalStylesColors,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
@@ -28,9 +29,9 @@ import {
 	BottomSheetSelectControl,
 	CSS_UNITS,
 	filterUnitsWithSettings,
-	useMobileGlobalStylesColors,
 } from '@wordpress/components';
 import { link } from '@wordpress/icons';
+// eslint-disable-next-line no-restricted-imports
 import { store as editPostStore } from '@wordpress/edit-post';
 
 /**
@@ -95,9 +96,8 @@ function ButtonEdit( props ) {
 	const { editorSidebarOpened, numOfButtons } = useSelect(
 		( select ) => {
 			const { isEditorSidebarOpened } = select( editPostStore );
-			const { getBlockCount, getBlockRootClientId } = select(
-				blockEditorStore
-			);
+			const { getBlockCount, getBlockRootClientId } =
+				select( blockEditorStore );
 			const parentId = getBlockRootClientId( clientId );
 			const blockCount = getBlockCount( parentId );
 			const currentIsEditorSidebarOpened = isEditorSidebarOpened();
@@ -494,7 +494,7 @@ function ButtonEdit( props ) {
 					<View pointerEvents="none" style={ outLineStyles } />
 				) }
 				<RichText
-					setRef={ onSetRef }
+					ref={ onSetRef }
 					placeholder={ placeholderText }
 					value={ text }
 					onChange={ onChangeText }

@@ -14,8 +14,8 @@
  */
 function gutenberg_menu() {
 	add_menu_page(
-		'Gutenberg',
-		'Gutenberg',
+		__( 'Gutenberg', 'gutenberg' ),
+		__( 'Gutenberg', 'gutenberg' ),
 		'edit_posts',
 		'gutenberg',
 		'',
@@ -51,41 +51,9 @@ function gutenberg_menu() {
 		'gutenberg',
 		__( 'Experiments Settings', 'gutenberg' ),
 		__( 'Experiments', 'gutenberg' ),
-		'edit_posts',
+		'manage_options',
 		'gutenberg-experiments',
 		'the_gutenberg_experiments'
 	);
 }
 add_action( 'admin_menu', 'gutenberg_menu', 9 );
-
-/**
- * Site editor's Menu.
- *
- * Adds a new wp-admin menu item for the Site editor.
- *
- * @since 9.4.0
- */
-function gutenberg_site_editor_menu() {
-	if ( wp_is_block_theme() ) {
-		add_theme_page(
-			__( 'Editor (beta)', 'gutenberg' ),
-			sprintf(
-			/* translators: %s: "beta" label. */
-				__( 'Editor %s', 'gutenberg' ),
-				'<span class="awaiting-mod">' . __( 'beta', 'gutenberg' ) . '</span>'
-			),
-			'edit_theme_options',
-			'gutenberg-edit-site',
-			'gutenberg_edit_site_page'
-		);
-	}
-}
-add_action( 'admin_menu', 'gutenberg_site_editor_menu', 9 );
-
-/**
- * Outputs a WP REST API nonce.
- */
-function gutenberg_rest_nonce() {
-	exit( wp_create_nonce( 'wp_rest' ) );
-}
-add_action( 'wp_ajax_gutenberg_rest_nonce', 'gutenberg_rest_nonce' );

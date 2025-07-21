@@ -1,9 +1,8 @@
 /**
  * External dependencies
  */
-import { Animated, PanResponder, View } from 'react-native';
+import { Animated, PanResponder, StyleSheet, View } from 'react-native';
 import Video from 'react-native-video';
-import { clamp } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -13,7 +12,6 @@ import {
 	setFocalPointPickerTooltipShown,
 } from '@wordpress/react-native-bridge';
 import { __ } from '@wordpress/i18n';
-import { Image, UnitControl } from '@wordpress/components';
 import { useRef, useState, useMemo, useEffect } from '@wordpress/element';
 import { usePreferredColorSchemeStyle } from '@wordpress/compose';
 
@@ -24,6 +22,9 @@ import FocalPoint from './focal-point';
 import Tooltip from './tooltip';
 import styles from './style.scss';
 import { isVideoType } from './utils';
+import { clamp } from '../utils/math';
+import Image from '../mobile/image';
+import UnitControl from '../unit-control';
 
 const MIN_POSITION_VALUE = 0;
 const MAX_POSITION_VALUE = 100;
@@ -40,8 +41,8 @@ function FocalPointPicker( props ) {
 	const [ videoNaturalSize, setVideoNaturalSize ] = useState( null );
 	const [ tooltipVisible, setTooltipVisible ] = useState( false );
 
-	let locationPageOffsetX = useRef().current;
-	let locationPageOffsetY = useRef().current;
+	const locationPageOffsetX = useRef();
+	const locationPageOffsetY = useRef();
 	const videoRef = useRef( null );
 
 	useEffect( () => {
@@ -67,7 +68,7 @@ function FocalPointPicker( props ) {
 				y: focalPoint.y * containerSize.height,
 			} );
 		}
-	}, [ focalPoint, containerSize ] );
+	}, [ focalPoint, containerSize, pan ] );
 
 	// Pan responder to manage drag handle interactivity.
 	const panResponder = useMemo(
@@ -86,8 +87,8 @@ function FocalPointPicker( props ) {
 						pageX,
 						pageY,
 					} = event.nativeEvent;
-					locationPageOffsetX = pageX - x;
-					locationPageOffsetY = pageY - y;
+					locationPageOffsetX.current = pageX - x;
+					locationPageOffsetY.current = pageY - y;
 					pan.setValue( { x, y } ); // Set cursor to tap location.
 					pan.extractOffset(); // Set offset to current value.
 				},
@@ -106,8 +107,8 @@ function FocalPointPicker( props ) {
 					// Specifically, dragging the handle outside the bounds of the image
 					// results in inaccurate locationX and locationY coordinates to be
 					// reported. https://github.com/facebook/react-native/issues/15290#issuecomment-435494944
-					const x = pageX - locationPageOffsetX;
-					const y = pageY - locationPageOffsetY;
+					const x = pageX - locationPageOffsetX.current;
+					const y = pageY - locationPageOffsetY.current;
 					onChange( {
 						x: clamp( x / containerSize?.width, 0, 1 ).toFixed( 2 ),
 						y: clamp( y / containerSize?.height, 0, 1 ).toFixed(
@@ -120,7 +121,7 @@ function FocalPointPicker( props ) {
 					setSliderKey( ( prevState ) => prevState + 1 );
 				},
 			} ),
-		[ containerSize ]
+		[ containerSize, pan, onChange, shouldEnableBottomSheetScroll ]
 	);
 
 	const mediaBackground = usePreferredColorSchemeStyle(
@@ -164,7 +165,7 @@ function FocalPointPicker( props ) {
 		},
 	];
 	const FOCAL_POINT_SIZE = 50;
-	const focalPointStyles = [
+	const focalPointStyles = StyleSheet.flatten( [
 		styles.focalPoint,
 		{
 			height: FOCAL_POINT_SIZE,
@@ -172,7 +173,7 @@ function FocalPointPicker( props ) {
 			marginTop: -( FOCAL_POINT_SIZE / 2 ),
 			width: FOCAL_POINT_SIZE,
 		},
-	];
+	] );
 
 	const onTooltipPress = () => setTooltipVisible( false );
 	const onMediaLayout = ( event ) => {
@@ -243,9 +244,10 @@ function FocalPointPicker( props ) {
 									yOffset={ -( FOCAL_POINT_SIZE / 2 ) }
 								/>
 								<FocalPoint
-									height={ styles.focalPoint?.height }
+									height={ focalPointStyles.height }
 									style={ focalPointStyles }
-									width={ styles.focalPoint?.width }
+									testID="focal-point-picker-handle"
+									width={ focalPointStyles.width }
 								/>
 							</Animated.View>
 						) }

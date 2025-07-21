@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { debounce } from 'lodash';
 import { View } from 'react-native';
 
 /**
@@ -14,7 +13,7 @@ import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { createBlock, getBlockSupport } from '@wordpress/blocks';
-import { useResizeObserver } from '@wordpress/compose';
+import { debounce, useResizeObserver } from '@wordpress/compose';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useState, useEffect, useRef, useCallback } from '@wordpress/element';
 import { alignmentHelpers } from '@wordpress/components';
@@ -22,12 +21,13 @@ import { alignmentHelpers } from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import { name as buttonBlockName } from '../button/';
 import styles from './editor.scss';
 
-const ALLOWED_BLOCKS = [ buttonBlockName ];
-
 const layoutProp = { type: 'default', alignments: [] };
+
+const POPOVER_PROPS = {
+	placement: 'bottom-start',
+};
 
 export default function ButtonsEdit( {
 	attributes: { layout, align },
@@ -42,18 +42,15 @@ export default function ButtonsEdit( {
 	const { marginLeft: spacing } = styles.spacing;
 
 	// Extract attributes from block layout
-	const layoutBlockSupport = getBlockSupport( name, '__experimentalLayout' );
+	const layoutBlockSupport = getBlockSupport( name, 'layout' );
 	const defaultBlockLayout = layoutBlockSupport?.default;
 	const usedLayout = layout || defaultBlockLayout || {};
 	const { justifyContent } = usedLayout;
 
 	const { isInnerButtonSelected, shouldDelete } = useSelect(
 		( select ) => {
-			const {
-				getBlockCount,
-				getBlockParents,
-				getSelectedBlockClientId,
-			} = select( blockEditorStore );
+			const { getBlockCount, getBlockParents, getSelectedBlockClientId } =
+				select( blockEditorStore );
 			const selectedBlockClientId = getSelectedBlockClientId();
 			const selectedBlockParents = getBlockParents(
 				selectedBlockClientId,
@@ -72,17 +69,9 @@ export default function ButtonsEdit( {
 		[ clientId ]
 	);
 
-	const preferredStyle = useSelect( ( select ) => {
-		const preferredStyleVariations = select(
-			blockEditorStore
-		).getSettings().__experimentalPreferredStyleVariations;
-		return preferredStyleVariations?.value?.[ buttonBlockName ];
-	}, [] );
-
 	const { getBlockOrder } = useSelect( blockEditorStore );
-	const { insertBlock, removeBlock, selectBlock } = useDispatch(
-		blockEditorStore
-	);
+	const { insertBlock, removeBlock, selectBlock } =
+		useDispatch( blockEditorStore );
 
 	useEffect( () => {
 		const { width } = sizes || {};
@@ -108,7 +97,7 @@ export default function ButtonsEdit( {
 
 			const insertedBlock = createBlock( 'core/button' );
 
-			insertBlock( insertedBlock, index, clientId );
+			insertBlock( insertedBlock, index, clientId, false );
 			selectBlock( insertedBlock.clientId );
 		}, 200 ),
 		[]
@@ -117,7 +106,7 @@ export default function ButtonsEdit( {
 	const renderFooterAppender = useRef( () => (
 		<View style={ styles.appenderContainer }>
 			<InnerBlocks.ButtonBlockAppender
-				isFloating={ true }
+				isFloating
 				onAddBlock={ onAddNextButton }
 			/>
 		</View>
@@ -142,26 +131,13 @@ export default function ButtonsEdit( {
 								},
 							} )
 						}
-						popoverProps={ {
-							position: 'bottom right',
-							isAlternate: true,
-						} }
+						popoverProps={ POPOVER_PROPS }
 					/>
 				</BlockControls>
 			) }
 			{ resizeObserver }
 			<InnerBlocks
-				allowedBlocks={ ALLOWED_BLOCKS }
-				template={ [
-					[
-						buttonBlockName,
-						{
-							className:
-								preferredStyle &&
-								`is-style-${ preferredStyle }`,
-						},
-					],
-				] }
+				template={ [ [ 'core/button' ] ] }
 				renderFooterAppender={
 					shouldRenderFooterAppender && renderFooterAppender.current
 				}
@@ -172,7 +148,7 @@ export default function ButtonsEdit( {
 				parentWidth={ maxWidth } // This value controls the width of that the buttons are able to expand to.
 				marginHorizontal={ spacing }
 				marginVertical={ spacing }
-				__experimentalLayout={ layoutProp }
+				layout={ layoutProp }
 				templateInsertUpdatesSelection
 				blockWidth={ blockWidth }
 			/>

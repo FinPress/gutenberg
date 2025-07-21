@@ -6,15 +6,19 @@ import { css } from '@emotion/react';
 /**
  * Internal dependencies
  */
-import { useContextSystem, WordPressComponentProps } from '../ui/context';
-import { space } from '../ui/utils/space';
+import type { WordPressComponentProps } from '../context';
+import { useContextSystem } from '../context';
+import { space } from '../utils/space';
 import { rtl, useCx } from '../utils';
-import type { Props } from './types';
+import type { SpacerProps } from './types';
 
-const isDefined = < T >( o: T ): o is Exclude< T, null | undefined > =>
-	typeof o !== 'undefined' && o !== null;
+function isDefined< T >( o: T ): o is Exclude< T, null | undefined > {
+	return typeof o !== 'undefined' && o !== null;
+}
 
-export function useSpacer( props: WordPressComponentProps< Props, 'div' > ) {
+export function useSpacer(
+	props: WordPressComponentProps< SpacerProps, 'div' >
+) {
 	const {
 		className,
 		margin,

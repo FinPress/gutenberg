@@ -1,7 +1,8 @@
 /**
  * External dependencies
  */
-const { snakeCase, camelCase, upperFirst } = require( 'lodash' );
+const { pascalCase, snakeCase } = require( 'change-case' );
+const { join } = require( 'path' );
 
 /**
  * Internal dependencies
@@ -10,7 +11,7 @@ const initBlock = require( './init-block' );
 const initPackageJSON = require( './init-package-json' );
 const initWPScripts = require( './init-wp-scripts' );
 const initWPEnv = require( './init-wp-env' );
-const { code, info, success } = require( './log' );
+const { code, info, success, error } = require( './log' );
 const { writeOutputAsset, writeOutputTemplate } = require( './output' );
 
 module.exports = async (
@@ -18,12 +19,14 @@ module.exports = async (
 	{
 		$schema,
 		apiVersion,
+		plugin,
 		namespace,
 		slug,
 		title,
 		description,
 		dashicon,
 		category,
+		textdomain,
 		attributes,
 		supports,
 		author,
@@ -33,66 +36,114 @@ module.exports = async (
 		domainPath,
 		updateURI,
 		version,
+		requiresAtLeast,
+		requiresPHP,
+		testedUpTo,
 		wpScripts,
 		wpEnv,
 		npmDependencies,
 		npmDevDependencies,
 		customScripts,
 		folderName,
+		targetDir,
 		editorScript,
 		editorStyle,
 		style,
+		viewStyle,
+		render,
+		viewScriptModule,
+		viewScript,
+		variantVars,
+		customPackageJSON,
+		customBlockJSON,
+		example,
+		transformer,
 	}
 ) => {
 	slug = slug.toLowerCase();
-	namespace = namespace.toLowerCase();
-
-	info( '' );
-	info( `Creating a new WordPress plugin in the "${ slug }" directory.` );
-
-	const view = {
+	const rootDirectory = join( process.cwd(), targetDir || slug );
+	const transformedValues = transformer( {
 		$schema,
 		apiVersion,
-		namespace,
-		namespaceSnakeCase: snakeCase( namespace ),
+		plugin,
+		namespace: namespace.toLowerCase(),
 		slug,
-		slugSnakeCase: snakeCase( slug ),
-		slugPascalCase: upperFirst( camelCase( slug ) ),
 		title,
 		description,
 		dashicon,
 		category,
 		attributes,
 		supports,
-		version,
 		author,
 		pluginURI,
 		license,
 		licenseURI,
-		textdomain: slug,
 		domainPath,
 		updateURI,
+		version,
+		requiresAtLeast,
+		requiresPHP,
+		testedUpTo,
 		wpScripts,
 		wpEnv,
 		npmDependencies,
 		npmDevDependencies,
 		customScripts,
-		folderName,
+		folderName: folderName.replace( /\$slug/g, slug ),
 		editorScript,
 		editorStyle,
 		style,
+		viewStyle,
+		render,
+		viewScriptModule,
+		viewScript,
+		variantVars,
+		customPackageJSON,
+		customBlockJSON,
+		example,
+		textdomain: textdomain || slug,
+		rootDirectory,
+	} );
+
+	const view = {
+		...transformedValues,
+		namespaceSnakeCase: snakeCase( transformedValues.namespace ),
+		namespacePascalCase: pascalCase( transformedValues.namespace ),
+		slugSnakeCase: snakeCase( transformedValues.slug ),
+		slugPascalCase: pascalCase( transformedValues.slug ),
+		...variantVars,
 	};
 
-	await Promise.all(
-		Object.keys( pluginOutputTemplates ).map(
-			async ( outputFile ) =>
-				await writeOutputTemplate(
-					pluginOutputTemplates[ outputFile ],
-					outputFile,
-					view
-				)
-		)
+	/**
+	 * --no-plugin relies on the used template supporting the [blockTemplatesPath property](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/#blocktemplatespath).
+	 * If the blockOutputTemplates object has no properties, we can assume that there was a custom --template passed that
+	 * doesn't support it.
+	 */
+	if ( ! plugin && Object.keys( blockOutputTemplates ) < 1 ) {
+		error(
+			'No block files found in the template. Please ensure that the template supports the blockTemplatesPath property.'
+		);
+		return;
+	}
+
+	const projectType = plugin ? 'plugin' : 'block';
+	info( '' );
+	info(
+		`Creating a new WordPress ${ projectType } in the ${ rootDirectory } directory.`
 	);
+
+	if ( plugin ) {
+		await Promise.all(
+			Object.keys( pluginOutputTemplates ).map(
+				async ( outputFile ) =>
+					await writeOutputTemplate(
+						pluginOutputTemplates[ outputFile ],
+						outputFile,
+						view
+					)
+			)
+		);
+	}
 
 	await Promise.all(
 		Object.keys( outputAssets ).map(
@@ -107,21 +158,24 @@ module.exports = async (
 
 	await initBlock( blockOutputTemplates, view );
 
-	await initPackageJSON( view );
+	if ( plugin ) {
+		await initPackageJSON( view );
+		if ( wpScripts ) {
+			await initWPScripts( view );
+		}
 
-	if ( wpScripts ) {
-		await initWPScripts( view );
-	}
-
-	if ( wpEnv ) {
-		await initWPEnv( view );
+		if ( wpEnv ) {
+			await initWPEnv( view );
+		}
 	}
 
 	info( '' );
+
 	success(
-		`Done: WordPress plugin "${ title }" bootstrapped in the "${ slug }" directory.`
+		`Done: WordPress ${ projectType } ${ title } bootstrapped in the ${ rootDirectory } directory.`
 	);
-	if ( wpScripts ) {
+
+	if ( plugin && wpScripts ) {
 		info( '' );
 		info( 'You can run several commands inside:' );
 		info( '' );
@@ -145,18 +199,18 @@ module.exports = async (
 		info( '' );
 		code( '  $ npm run packages-update' );
 		info( '    Updates WordPress packages to the latest version.' );
+		info( '' );
+		info( 'To enter the directory type:' );
+		info( '' );
+		code( `  $ cd ${ slug }` );
 	}
-	info( '' );
-	info( 'To enter the directory type:' );
-	info( '' );
-	code( `  $ cd ${ slug }` );
-	if ( wpScripts ) {
+	if ( plugin && wpScripts ) {
 		info( '' );
 		info( 'You can start development with:' );
 		info( '' );
 		code( '  $ npm start' );
 	}
-	if ( wpEnv ) {
+	if ( plugin && wpEnv ) {
 		info( '' );
 		info( 'You can start WordPress with:' );
 		info( '' );

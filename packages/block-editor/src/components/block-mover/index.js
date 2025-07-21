@@ -1,8 +1,7 @@
 /**
  * External dependencies
  */
-import { first, last, castArray } from 'lodash';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -20,8 +19,20 @@ import BlockDraggable from '../block-draggable';
 import { BlockMoverUpButton, BlockMoverDownButton } from './button';
 import { store as blockEditorStore } from '../../store';
 
-function BlockMover( { clientIds, hideDragHandle } ) {
-	const { canMove, rootClientId, isFirst, isLast, orientation } = useSelect(
+function BlockMover( {
+	clientIds,
+	hideDragHandle,
+	isBlockMoverUpButtonDisabled,
+	isBlockMoverDownButtonDisabled,
+} ) {
+	const {
+		canMove,
+		rootClientId,
+		isFirst,
+		isLast,
+		orientation,
+		isManualGrid,
+	} = useSelect(
 		( select ) => {
 			const {
 				getBlockIndex,
@@ -29,47 +40,57 @@ function BlockMover( { clientIds, hideDragHandle } ) {
 				canMoveBlocks,
 				getBlockOrder,
 				getBlockRootClientId,
+				getBlockAttributes,
 			} = select( blockEditorStore );
-			const normalizedClientIds = castArray( clientIds );
-			const firstClientId = first( normalizedClientIds );
-			const _rootClientId = getBlockRootClientId(
-				first( normalizedClientIds )
-			);
+			const normalizedClientIds = Array.isArray( clientIds )
+				? clientIds
+				: [ clientIds ];
+			const firstClientId = normalizedClientIds[ 0 ];
+			const _rootClientId = getBlockRootClientId( firstClientId );
 			const firstIndex = getBlockIndex( firstClientId );
-			const lastIndex = getBlockIndex( last( normalizedClientIds ) );
+			const lastIndex = getBlockIndex(
+				normalizedClientIds[ normalizedClientIds.length - 1 ]
+			);
 			const blockOrder = getBlockOrder( _rootClientId );
+			const { layout = {} } = getBlockAttributes( _rootClientId ) ?? {};
 
 			return {
-				canMove: canMoveBlocks( clientIds, _rootClientId ),
+				canMove: canMoveBlocks( clientIds ),
 				rootClientId: _rootClientId,
 				isFirst: firstIndex === 0,
 				isLast: lastIndex === blockOrder.length - 1,
 				orientation: getBlockListSettings( _rootClientId )?.orientation,
+				isManualGrid:
+					layout.type === 'grid' &&
+					layout.isManualPlacement &&
+					window.__experimentalEnableGridInteractivity,
 			};
 		},
 		[ clientIds ]
 	);
 
-	if ( ! canMove || ( isFirst && isLast && ! rootClientId ) ) {
+	if (
+		! canMove ||
+		( isFirst && isLast && ! rootClientId ) ||
+		( hideDragHandle && isManualGrid )
+	) {
 		return null;
 	}
 
-	const dragHandleLabel = __( 'Drag' );
-
 	return (
 		<ToolbarGroup
-			className={ classnames( 'block-editor-block-mover', {
+			className={ clsx( 'block-editor-block-mover', {
 				'is-horizontal': orientation === 'horizontal',
 			} ) }
 		>
 			{ ! hideDragHandle && (
-				<BlockDraggable clientIds={ clientIds }>
+				<BlockDraggable clientIds={ clientIds } fadeWhenDisabled>
 					{ ( draggableProps ) => (
 						<Button
+							__next40pxDefaultSize
 							icon={ dragHandle }
 							className="block-editor-block-mover__drag-handle"
-							aria-hidden="true"
-							label={ dragHandleLabel }
+							label={ __( 'Drag' ) }
 							// Should not be able to tab to drag handle as this
 							// button can only be used with a pointer device.
 							tabIndex="-1"
@@ -78,24 +99,28 @@ function BlockMover( { clientIds, hideDragHandle } ) {
 					) }
 				</BlockDraggable>
 			) }
-			<div className="block-editor-block-mover__move-button-container">
-				<ToolbarItem>
-					{ ( itemProps ) => (
-						<BlockMoverUpButton
-							clientIds={ clientIds }
-							{ ...itemProps }
-						/>
-					) }
-				</ToolbarItem>
-				<ToolbarItem>
-					{ ( itemProps ) => (
-						<BlockMoverDownButton
-							clientIds={ clientIds }
-							{ ...itemProps }
-						/>
-					) }
-				</ToolbarItem>
-			</div>
+			{ ! isManualGrid && (
+				<div className="block-editor-block-mover__move-button-container">
+					<ToolbarItem>
+						{ ( itemProps ) => (
+							<BlockMoverUpButton
+								disabled={ isBlockMoverUpButtonDisabled }
+								clientIds={ clientIds }
+								{ ...itemProps }
+							/>
+						) }
+					</ToolbarItem>
+					<ToolbarItem>
+						{ ( itemProps ) => (
+							<BlockMoverDownButton
+								disabled={ isBlockMoverDownButtonDisabled }
+								clientIds={ clientIds }
+								{ ...itemProps }
+							/>
+						) }
+					</ToolbarItem>
+				</div>
+			) }
 		</ToolbarGroup>
 	);
 }

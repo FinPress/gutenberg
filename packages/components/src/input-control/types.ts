@@ -4,9 +4,7 @@
 import type {
 	CSSProperties,
 	ReactNode,
-	ChangeEvent,
 	SyntheticEvent,
-	PointerEvent,
 	HTMLInputTypeAttribute,
 } from 'react';
 import type { useDrag } from '@use-gesture/react';
@@ -15,8 +13,9 @@ import type { useDrag } from '@use-gesture/react';
  * Internal dependencies
  */
 import type { StateReducer } from './reducer/state';
-import type { WordPressComponentProps } from '../ui/context';
+import type { WordPressComponentProps } from '../context';
 import type { FlexProps } from '../flex/types';
+import type { BaseControlProps } from '../base-control/types';
 
 export type LabelPosition = 'top' | 'bottom' | 'side' | 'edge';
 
@@ -24,15 +23,30 @@ export type DragDirection = 'n' | 's' | 'e' | 'w';
 
 export type DragProps = Parameters< Parameters< typeof useDrag >[ 0 ] >[ 0 ];
 
-export type Size = 'default' | 'small' | '__unstable-large';
+export type Size = 'default' | 'small' | 'compact' | '__unstable-large';
 
 interface BaseProps {
+	/**
+	 * Deprecated. Use `__next40pxDefaultSize` instead.
+	 *
+	 * @default false
+	 * @deprecated
+	 * @ignore
+	 */
+	__next36pxDefaultSize?: boolean;
 	/**
 	 * Start opting into the larger default height that will become the default size in a future version.
 	 *
 	 * @default false
 	 */
-	__next36pxDefaultSize?: boolean;
+	__next40pxDefaultSize?: boolean;
+	/**
+	 * Do not throw a warning for the deprecated 36px default size.
+	 * For internal components of other components that already throw the warning.
+	 *
+	 * @ignore
+	 */
+	__shouldNotWarnDeprecated36pxSize?: boolean;
 	__unstableInputWidth?: CSSProperties[ 'width' ];
 	/**
 	 * If true, the label will only be visible to screen readers.
@@ -40,14 +54,6 @@ interface BaseProps {
 	 * @default false
 	 */
 	hideLabelFromVision?: boolean;
-	/**
-	 * Whether the component should be in a focused state.
-	 * Used to coordinate focus states when the actual focused element and the component handling
-	 * visual focus are separate.
-	 *
-	 * @default false
-	 */
-	isFocused: boolean;
 	/**
 	 * The position of the label.
 	 *
@@ -62,12 +68,13 @@ interface BaseProps {
 	size?: Size;
 }
 
-export type InputChangeCallback<
-	E = ChangeEvent< HTMLInputElement > | PointerEvent< HTMLInputElement >,
-	P = {}
-> = ( nextValue: string | undefined, extra: { event: E } & P ) => void;
+export type InputChangeCallback< P = {} > = (
+	nextValue: string | undefined,
+	extra: { event: SyntheticEvent } & P
+) => void;
 
-export interface InputFieldProps extends BaseProps {
+export interface InputFieldProps
+	extends Omit< BaseProps, '__next36pxDefaultSize' > {
 	/**
 	 * Determines the drag axis.
 	 *
@@ -102,7 +109,8 @@ export interface InputFieldProps extends BaseProps {
 		nextValue: string,
 		event?: SyntheticEvent< HTMLInputElement >
 	) => void;
-	setIsFocused: ( isFocused: boolean ) => void;
+	paddingInlineStart?: CSSProperties[ 'paddingInlineStart' ];
+	paddingInlineEnd?: CSSProperties[ 'paddingInlineEnd' ];
 	stateReducer?: StateReducer;
 	/**
 	 * The current value of the input.
@@ -123,10 +131,40 @@ export interface InputBaseProps extends BaseProps, FlexProps {
 	children: ReactNode;
 	/**
 	 * Renders an element on the left side of the input.
+	 *
+	 * By default, the prefix is aligned with the edge of the input border, with no padding.
+	 * If you want to apply standard padding in accordance with the size variant, wrap the element in
+	 * the provided `<InputControlPrefixWrapper>` component.
+	 *
+	 * ```jsx
+	 * import {
+	 *   __experimentalInputControl as InputControl,
+	 *   __experimentalInputControlPrefixWrapper as InputControlPrefixWrapper,
+	 * } from '@wordpress/components';
+	 *
+	 * <InputControl
+	 *   prefix={<InputControlPrefixWrapper>@</InputControlPrefixWrapper>}
+	 * />
+	 * ```
 	 */
 	prefix?: ReactNode;
 	/**
 	 * Renders an element on the right side of the input.
+	 *
+	 * By default, the suffix is aligned with the edge of the input border, with no padding.
+	 * If you want to apply standard padding in accordance with the size variant, wrap the element in
+	 * the provided `<InputControlSuffixWrapper>` component.
+	 *
+	 * ```jsx
+	 * import {
+	 *   __experimentalInputControl as InputControl,
+	 *   __experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
+	 * } from '@wordpress/components';
+	 *
+	 * <InputControl
+	 *   suffix={<InputControlSuffixWrapper>%</InputControlSuffixWrapper>}
+	 * />
+	 * ```
 	 */
 	suffix?: ReactNode;
 	/**
@@ -135,16 +173,24 @@ export interface InputBaseProps extends BaseProps, FlexProps {
 	 * @default false
 	 */
 	disabled?: boolean;
-	className?: string;
-	id?: string;
 	/**
 	 * If this property is added, a label will be generated using label property as the content.
 	 */
 	label?: ReactNode;
+	/**
+	 * Whether to hide the border when not focused.
+	 *
+	 * @default false
+	 */
+	isBorderless?: boolean;
 }
 
 export interface InputControlProps
-	extends Omit< InputBaseProps, 'children' | 'isFocused' | keyof FlexProps >,
+	extends Omit<
+			InputBaseProps,
+			'children' | 'isBorderless' | keyof FlexProps
+		>,
+		Pick< BaseControlProps, 'help' >,
 		/**
 		 * The `prefix` prop in `WordPressComponentProps< InputFieldProps, 'input', false >` comes from the
 		 * `HTMLInputAttributes` and clashes with the one from `InputBaseProps`. So we have to omit it from
@@ -152,12 +198,15 @@ export interface InputControlProps
 		 * be the only prefix prop. Otherwise it tries to do a union of the two prefix properties and you end up
 		 * with an unresolvable type.
 		 *
-		 * `isFocused` and `setIsFocused` are managed internally by the InputControl, but the rest of the props
-		 * for InputField are passed through.
+		 * `paddingInlineStart`, and `paddingInlineEnd` are managed internally by
+		 * the InputControl, but the rest of the props for InputField are passed through.
 		 */
 		Omit<
 			WordPressComponentProps< InputFieldProps, 'input', false >,
-			'stateReducer' | 'prefix' | 'isFocused' | 'setIsFocused'
+			| 'stateReducer'
+			| 'prefix'
+			| 'paddingInlineStart'
+			| 'paddingInlineEnd'
 		> {
 	__unstableStateReducer?: InputFieldProps[ 'stateReducer' ];
 }
@@ -168,3 +217,32 @@ export interface InputControlLabelProps {
 	labelPosition?: BaseProps[ 'labelPosition' ];
 	size?: BaseProps[ 'size' ];
 }
+
+export type PrefixSuffixWrapperProps = {
+	/**
+	 * The content to be inserted.
+	 */
+	children: ReactNode;
+	/**
+	 * Internal prop used to control the padding size of the wrapper.
+	 *
+	 * @ignore
+	 */
+	size?: BaseProps[ 'size' ];
+	/**
+	 * Internal prop used to control the padding size of the wrapper.
+	 *
+	 * @ignore
+	 */
+	__next40pxDefaultSize?: BaseProps[ '__next40pxDefaultSize' ];
+	/**
+	 * Adjust the wrapper based on the prefix or suffix content.
+	 *
+	 * - `'default'`: Standard padding for text content.
+	 * - `'icon'`: For icons.
+	 * - `'control'`: For controls, like buttons or selects.
+	 *
+	 * @default 'default'
+	 */
+	variant?: 'default' | 'icon' | 'control';
+};

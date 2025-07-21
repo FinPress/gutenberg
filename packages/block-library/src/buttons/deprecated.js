@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
@@ -15,11 +15,8 @@ const migrateWithLayout = ( attributes ) => {
 		return attributes;
 	}
 
-	const {
-		contentJustification,
-		orientation,
-		...updatedAttributes
-	} = attributes;
+	const { contentJustification, orientation, ...updatedAttributes } =
+		attributes;
 
 	if ( contentJustification || orientation ) {
 		Object.assign( updatedAttributes, {
@@ -66,8 +63,9 @@ const deprecated = [
 			return (
 				<div
 					{ ...useBlockProps.save( {
-						className: classnames( {
-							[ `is-content-justification-${ contentJustification }` ]: contentJustification,
+						className: clsx( {
+							[ `is-content-justification-${ contentJustification }` ]:
+								contentJustification,
 							'is-vertical': orientation === 'vertical',
 						} ),
 					} ) }

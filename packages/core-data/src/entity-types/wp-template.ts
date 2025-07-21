@@ -74,6 +74,10 @@ declare module './base-entity-records' {
 			 */
 			wp_id: number;
 			/**
+			 * Plugin that registered the template.
+			 */
+			plugin?: string;
+			/**
 			 * Theme file exists.
 			 */
 			has_theme_file: Record< string, string >;
@@ -85,10 +89,14 @@ declare module './base-entity-records' {
 			 * Whether a template is a custom template.
 			 */
 			is_custom: Record< string, string >;
+			/**
+			 * The date the template was last modified, in the site's timezone.
+			 */
+			modified: ContextualField< string, 'view' | 'edit', C >;
 		}
 	}
 }
 
-export type WpTemplate< C extends Context > = OmitNevers<
+export type WpTemplate< C extends Context = 'edit' > = OmitNevers<
 	_BaseEntityRecords.WpTemplate< C >
 >;

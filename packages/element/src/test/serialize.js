@@ -1,7 +1,4 @@
-/**
- * External dependencies
- */
-import { noop } from 'lodash';
+/* eslint-disable testing-library/render-result-naming-convention */
 
 /**
  * Internal dependencies
@@ -23,6 +20,8 @@ import serialize, {
 	renderAttributes,
 	renderStyle,
 } from '../serialize';
+
+const noop = () => {};
 
 describe( 'serialize()', () => {
 	it( 'should allow only valid attribute names', () => {
@@ -323,12 +322,11 @@ describe( 'renderElement()', () => {
 				<Provider value={ { value: '1st provided' } }>
 					<Consumer>{ ( context ) => context.value }</Consumer>
 				</Provider>
-				{ '|' }
+				|
 				<Provider value={ { value: '2nd provided' } }>
 					<Consumer>{ ( context ) => context.value }</Consumer>
 				</Provider>
-				{ '|' }
-				<Consumer>{ ( context ) => context.value }</Consumer>
+				|<Consumer>{ ( context ) => context.value }</Consumer>
 			</Fragment>
 		);
 
@@ -345,8 +343,7 @@ describe( 'renderElement()', () => {
 				<Provider value={ { value: 'inner provided' } }>
 					<Consumer>{ ( context ) => context.value }</Consumer>
 				</Provider>
-				{ '|' }
-				<Consumer>{ ( context ) => context.value }</Consumer>
+				|<Consumer>{ ( context ) => context.value }</Consumer>
 			</Provider>
 		);
 
@@ -720,3 +717,5 @@ describe( 'renderStyle()', () => {
 		} );
 	} );
 } );
+
+/* eslint-enable testing-library/render-result-naming-convention */

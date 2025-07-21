@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
+const inquirer = require( '@inquirer/prompts' );
 const { command } = require( 'execa' );
 const glob = require( 'fast-glob' );
 const { resolve } = require( 'path' );
 const { existsSync } = require( 'fs' );
 const { mkdtemp, readFile } = require( 'fs' ).promises;
-const { fromPairs, isObject } = require( 'lodash' );
 const npmPackageArg = require( 'npm-package-arg' );
 const { tmpdir } = require( 'os' );
 const { join } = require( 'path' );
@@ -25,24 +25,48 @@ const predefinedPluginTemplates = {
 			slug: 'example-static-es5',
 			title: 'Example Static (ES5)',
 			description:
-				'Example static block scaffolded with Create Block tool – no build step required.',
-			dashicon: 'smiley',
-			wpScripts: false,
-			editorScript: 'file:./index.js',
-			editorStyle: 'file:./editor.css',
-			style: 'file:./style.css',
-		},
-		templatesPath: join( __dirname, 'templates', 'es5' ),
-	},
-	static: {
-		defaultValues: {
-			slug: 'example-static',
-			title: 'Example Static',
-			description:
-				'Example static block scaffolded with Create Block tool.',
+				'Example block scaffolded with Create Block tool – no build step required.',
 			dashicon: 'smiley',
 			supports: {
 				html: false,
+			},
+			wpScripts: false,
+			editorScript: null,
+			editorStyle: null,
+			style: null,
+			viewStyle: null,
+			viewScript: 'file:./view.js',
+			example: {},
+		},
+		templatesPath: join( __dirname, 'templates', 'es5' ),
+		variants: {
+			static: {},
+			dynamic: {
+				slug: 'example-dynamic-es5',
+				title: 'Example Dynamic (ES5)',
+				render: 'file:./render.php',
+			},
+		},
+	},
+	standard: {
+		defaultValues: {
+			slug: 'example-static',
+			title: 'Example Static',
+			description: 'Example block scaffolded with Create Block tool.',
+			dashicon: 'smiley',
+			supports: {
+				html: false,
+			},
+			viewScript: 'file:./view.js',
+			example: {},
+			folderName: './src/$slug',
+		},
+		variants: {
+			static: {},
+			dynamic: {
+				slug: 'example-dynamic',
+				title: 'Example Dynamic',
+				render: 'file:./render.php',
 			},
 		},
 	},
@@ -53,7 +77,7 @@ const getOutputTemplates = async ( outputTemplatesPath ) => {
 		cwd: outputTemplatesPath,
 		dot: true,
 	} );
-	return fromPairs(
+	return Object.fromEntries(
 		await Promise.all(
 			outputTemplatesFiles.map( async ( outputTemplateFile ) => {
 				const outputFile = outputTemplateFile.replace(
@@ -75,7 +99,7 @@ const getOutputAssets = async ( outputAssetsPath ) => {
 		cwd: outputAssetsPath,
 		dot: true,
 	} );
-	return fromPairs(
+	return Object.fromEntries(
 		await Promise.all(
 			outputAssetFiles.map( async ( outputAssetFile ) => {
 				const outputAsset = await readFile(
@@ -99,11 +123,12 @@ const externalTemplateExists = async ( templateName ) => {
 const configToTemplate = async ( {
 	pluginTemplatesPath,
 	blockTemplatesPath,
-	defaultValues = {},
 	assetsPath,
+	defaultValues = {},
+	variants = {},
 	...deprecated
 } ) => {
-	if ( ! isObject( defaultValues ) ) {
+	if ( defaultValues === null || typeof defaultValues !== 'object' ) {
 		throw new CLIError( 'Template found but invalid definition provided.' );
 	}
 
@@ -127,13 +152,14 @@ const configToTemplate = async ( {
 		blockOutputTemplates: blockTemplatesPath
 			? await getOutputTemplates( blockTemplatesPath )
 			: {},
-		defaultValues,
-		outputAssets: assetsPath ? await getOutputAssets( assetsPath ) : {},
 		pluginOutputTemplates: await getOutputTemplates( pluginTemplatesPath ),
+		outputAssets: assetsPath ? await getOutputAssets( assetsPath ) : {},
+		defaultValues,
+		variants,
 	};
 };
 
-const getPluginTemplate = async ( templateName ) => {
+const getProjectTemplate = async ( templateName ) => {
 	if ( predefinedPluginTemplates[ templateName ] ) {
 		return await configToTemplate(
 			predefinedPluginTemplates[ templateName ]
@@ -179,9 +205,11 @@ const getPluginTemplate = async ( templateName ) => {
 
 		const { name } = npmPackageArg( templateName );
 		return await configToTemplate(
-			require( require.resolve( name, {
-				paths: [ tempCwd ],
-			} ) )
+			require(
+				require.resolve( name, {
+					paths: [ tempCwd ],
+				} )
+			)
 		);
 	} catch ( error ) {
 		if ( error instanceof CLIError ) {
@@ -198,16 +226,20 @@ const getPluginTemplate = async ( templateName ) => {
 	}
 };
 
-const getDefaultValues = ( pluginTemplate ) => {
+const getDefaultValues = ( projectTemplate, variant ) => {
 	return {
 		$schema: 'https://schemas.wp.org/trunk/block.json',
-		apiVersion: 2,
+		apiVersion: 3,
 		namespace: 'create-block',
 		category: 'widgets',
+		textdomain: '',
 		author: 'The WordPress Contributors',
 		license: 'GPL-2.0-or-later',
 		licenseURI: 'https://www.gnu.org/licenses/gpl-2.0.html',
 		version: '0.1.0',
+		requiresAtLeast: '6.7',
+		requiresPHP: '7.4',
+		testedUpTo: '6.7',
 		wpScripts: true,
 		customScripts: {},
 		wpEnv: false,
@@ -216,22 +248,55 @@ const getDefaultValues = ( pluginTemplate ) => {
 		editorScript: 'file:./index.js',
 		editorStyle: 'file:./index.css',
 		style: 'file:./style-index.css',
-		...pluginTemplate.defaultValues,
+		transformer: ( view ) => view,
+		...projectTemplate.defaultValues,
+		...projectTemplate.variants?.[ variant ],
+		variantVars: getVariantVars( projectTemplate.variants, variant ),
 	};
 };
 
-const getPrompts = ( pluginTemplate, keys ) => {
-	const defaultValues = getDefaultValues( pluginTemplate );
-	return keys.map( ( promptName ) => {
-		return {
-			...prompts[ promptName ],
+const runPrompts = async (
+	projectTemplate,
+	promptNames,
+	variant,
+	optionsValues
+) => {
+	const defaultValues = getDefaultValues( projectTemplate, variant );
+	const result = {};
+	for ( const promptName of promptNames ) {
+		if ( Object.keys( optionsValues ).includes( promptName ) ) {
+			continue;
+		}
+
+		const { type, ...config } = prompts[ promptName ];
+		result[ promptName ] = await inquirer[ type ]( {
+			...config,
 			default: defaultValues[ promptName ],
-		};
-	} );
+		} );
+	}
+
+	return result;
+};
+
+const getVariantVars = ( variants, variant ) => {
+	const variantVars = {};
+	const variantNames = Object.keys( variants );
+	if ( variantNames.length === 0 ) {
+		return variantVars;
+	}
+
+	const currentVariant = variant ?? variantNames[ 0 ];
+	for ( const variantName of variantNames ) {
+		const key =
+			variantName.charAt( 0 ).toUpperCase() + variantName.slice( 1 );
+		variantVars[ `is${ key }Variant` ] = currentVariant === variantName;
+	}
+
+	return variantVars;
 };
 
 module.exports = {
-	getPluginTemplate,
 	getDefaultValues,
-	getPrompts,
+	getProjectTemplate,
+	runPrompts,
 };

@@ -16,9 +16,8 @@ describe( 'Preloading Middleware', () => {
 							body,
 						},
 					};
-					const preloadingMiddleware = createPreloadingMiddleware(
-						preloadedData
-					);
+					const preloadingMiddleware =
+						createPreloadingMiddleware( preloadedData );
 					const requestOptions = {
 						method: 'GET',
 						path: 'wp/v2/posts',
@@ -41,9 +40,8 @@ describe( 'Preloading Middleware', () => {
 							body,
 						},
 					};
-					const preloadingMiddleware = createPreloadingMiddleware(
-						preloadedData
-					);
+					const preloadingMiddleware =
+						createPreloadingMiddleware( preloadedData );
 					const requestOptions = {
 						method: 'GET',
 						path: 'wp/v2/posts',
@@ -85,9 +83,8 @@ describe( 'Preloading Middleware', () => {
 						},
 					};
 
-					const preloadingMiddleware = createPreloadingMiddleware(
-						preloadedData
-					);
+					const preloadingMiddleware =
+						createPreloadingMiddleware( preloadedData );
 
 					const requestOptions = {
 						method: 'OPTIONS',
@@ -120,9 +117,8 @@ describe( 'Preloading Middleware', () => {
 						},
 					};
 
-					const preloadingMiddleware = createPreloadingMiddleware(
-						preloadedData
-					);
+					const preloadingMiddleware =
+						createPreloadingMiddleware( preloadedData );
 
 					const requestOptions = {
 						method: 'OPTIONS',
@@ -148,9 +144,8 @@ describe( 'Preloading Middleware', () => {
 						body,
 					},
 				};
-				const preloadingMiddleware = createPreloadingMiddleware(
-					preloadedData
-				);
+				const preloadingMiddleware =
+					createPreloadingMiddleware( preloadedData );
 				const requestOptions = {
 					method: 'GET',
 					path: 'wp/v2/fake_resource',
@@ -169,9 +164,8 @@ describe( 'Preloading Middleware', () => {
 			'wp/v2/demo-reverse-alphabetical?foo=bar&baz=quux': { body },
 			'wp/v2/demo-alphabetical?baz=quux&foo=bar': { body },
 		};
-		const preloadingMiddleware = createPreloadingMiddleware(
-			preloadedData
-		);
+		const preloadingMiddleware =
+			createPreloadingMiddleware( preloadedData );
 
 		let requestOptions = {
 			method: 'GET',
@@ -252,9 +246,8 @@ describe( 'Preloading Middleware', () => {
 			},
 		};
 
-		const preloadingMiddleware = createPreloadingMiddleware(
-			preloadedData
-		);
+		const preloadingMiddleware =
+			createPreloadingMiddleware( preloadedData );
 
 		const requestOptions = {
 			method: 'OPTIONS',
@@ -272,15 +265,65 @@ describe( 'Preloading Middleware', () => {
 		expect( secondMiddleware ).toHaveBeenCalledTimes( 1 );
 	} );
 
+	it( 'should not throw an error when non-ASCII headers are present', async () => {
+		const noResponseMock = 'undefined' === typeof window.Response;
+		if ( noResponseMock ) {
+			window.Response = class {
+				constructor( body, options ) {
+					this.body = JSON.parse( body );
+					this.headers = options.headers;
+
+					// Check for non-ASCII characters in headers
+					for ( const [ key, value ] of Object.entries(
+						this.headers || {}
+					) ) {
+						if ( /[^\x00-\x7F]/.test( value ) ) {
+							throw new Error(
+								`Invalid non-ASCII character found in header: ${ key }`
+							);
+						}
+					}
+				}
+			};
+		}
+
+		const data = {
+			body: 'Hello',
+			headers: {
+				Link: '<http://example.com/ویدیو/example>; rel="alternate"; type=text/html',
+			},
+		};
+
+		const preloadedData = {
+			'wp/v2/example': data,
+		};
+
+		const preloadingMiddleware =
+			createPreloadingMiddleware( preloadedData );
+
+		const requestOptions = {
+			method: 'GET',
+			path: 'wp/v2/example',
+			parse: false,
+		};
+
+		await expect(
+			preloadingMiddleware( requestOptions, () => {} )
+		).resolves.not.toThrow();
+
+		if ( noResponseMock ) {
+			delete window.Response;
+		}
+	} );
+
 	describe.each( [ [ 'GET' ], [ 'OPTIONS' ] ] )( '%s', ( method ) => {
 		describe.each( [
 			[ 'all empty', {} ],
 			[ 'method empty', { [ method ]: {} } ],
 		] )( '%s', ( label, preloadedData ) => {
 			it( 'should move to the next middleware if no preloaded data', () => {
-				const preloadingMiddleware = createPreloadingMiddleware(
-					preloadedData
-				);
+				const preloadingMiddleware =
+					createPreloadingMiddleware( preloadedData );
 				const requestOptions = {
 					method,
 					path: 'wp/v2/posts',

@@ -4,11 +4,15 @@
 const { BundleAnalyzerPlugin } = require( 'webpack-bundle-analyzer' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
+const webpack = require( 'webpack' );
 const browserslist = require( 'browserslist' );
 const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
-const { basename, dirname, resolve } = require( 'path' );
+const { basename, dirname, relative, resolve, sep } = require( 'path' );
 const ReactRefreshWebpackPlugin = require( '@pmmmwh/react-refresh-webpack-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
+const { realpathSync } = require( 'fs' );
+const { sync: glob } = require( 'fast-glob' );
+const { exec } = require( 'child_process' );
 
 /**
  * WordPress dependencies
@@ -19,13 +23,21 @@ const postcssPlugins = require( '@wordpress/postcss-plugins-preset' );
 /**
  * Internal dependencies
  */
+const PhpFilePathsPlugin = require( '../plugins/php-file-paths-plugin' );
+const RtlCssPlugin = require( '../plugins/rtlcss-webpack-plugin' );
 const {
 	fromConfigRoot,
 	hasBabelConfig,
 	hasArgInCLI,
 	hasCssnanoConfig,
 	hasPostCSSConfig,
+	getProjectSourcePath,
 	getWebpackEntryPoints,
+	getAsBooleanFromENV,
+	getBlockJsonModuleFields,
+	getBlockJsonScriptFields,
+	fromProjectRoot,
+	fromScriptsRoot,
 } = require( '../utils' );
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -35,10 +47,10 @@ if ( ! browserslist.findConfig( '.' ) ) {
 	target += ':' + fromConfigRoot( '.browserslistrc' );
 }
 const hasReactFastRefresh = hasArgInCLI( '--hot' ) && ! isProduction;
-
-const copyWebpackPatterns = process.env.WP_COPY_PHP_FILES_TO_DIST
-	? '**/{block.json,*.php}'
-	: '**/block.json';
+const hasBlocksManifest = getAsBooleanFromENV( 'WP_BLOCKS_MANIFEST' );
+const hasExperimentalModulesFlag = getAsBooleanFromENV(
+	'WP_EXPERIMENTAL_MODULES'
+);
 
 const cssLoaders = [
 	{
@@ -47,6 +59,7 @@ const cssLoaders = [
 	{
 		loader: require.resolve( 'css-loader' ),
 		options: {
+			importLoaders: 1,
 			sourceMap: ! isProduction,
 			modules: {
 				auto: true,
@@ -87,12 +100,13 @@ const cssLoaders = [
 	},
 ];
 
-const config = {
+/** @type {webpack.Configuration} */
+const baseConfig = {
 	mode,
 	target,
-	entry: getWebpackEntryPoints,
 	output: {
 		filename: '[name].js',
+		chunkFilename: '[name].js?ver=[chunkhash]',
 		path: resolve( process.cwd(), 'build' ),
 	},
 	resolve: {
@@ -104,11 +118,12 @@ const config = {
 	optimization: {
 		// Only concatenate modules in production, when not analyzing bundles.
 		concatenateModules: isProduction && ! process.env.WP_BUNDLE_ANALYZER,
+		runtimeChunk: hasReactFastRefresh && 'single',
 		splitChunks: {
 			cacheGroups: {
 				style: {
 					type: 'css/mini-extract',
-					test: /[\\/]style(\.module)?\.(sc|sa|c)ss$/,
+					test: /[\\/]style(\.module)?\.(pc|sc|sa|c)ss$/,
 					chunks: 'all',
 					enforce: true,
 					name( _, chunks, cacheGroupKey ) {
@@ -142,7 +157,7 @@ const config = {
 	module: {
 		rules: [
 			{
-				test: /\.(j|t)sx?$/,
+				test: /\.m?(j|t)sx?$/,
 				exclude: /node_modules/,
 				use: [
 					{
@@ -180,6 +195,10 @@ const config = {
 				use: cssLoaders,
 			},
 			{
+				test: /\.pcss$/,
+				use: cssLoaders,
+			},
+			{
 				test: /\.(sc|sa)ss$/,
 				use: [
 					...cssLoaders,
@@ -199,11 +218,11 @@ const config = {
 			},
 			{
 				test: /\.svg$/,
-				issuer: /\.(sc|sa|c)ss$/,
+				issuer: /\.(pc|sc|sa|c)ss$/,
 				type: 'asset/inline',
 			},
 			{
-				test: /\.(bmp|png|jpe?g|gif)$/i,
+				test: /\.(bmp|png|jpe?g|gif|webp)$/i,
 				type: 'asset/resource',
 				generator: {
 					filename: 'images/[name].[hash:8][ext]',
@@ -218,50 +237,176 @@ const config = {
 			},
 		],
 	},
+	stats: {
+		children: false,
+	},
+};
+
+// WP_DEVTOOL global variable controls how source maps are generated.
+// See: https://webpack.js.org/configuration/devtool/#devtool.
+if ( process.env.WP_DEVTOOL ) {
+	baseConfig.devtool = process.env.WP_DEVTOOL;
+}
+
+if ( ! isProduction ) {
+	// Set default sourcemap mode if it wasn't set by WP_DEVTOOL.
+	baseConfig.devtool = baseConfig.devtool || 'source-map';
+}
+
+// Add source-map-loader if devtool is set, whether in dev mode or not.
+if ( baseConfig.devtool ) {
+	baseConfig.module.rules.unshift( {
+		test: /\.(j|t)sx?$/,
+		exclude: [ /node_modules/ ],
+		use: require.resolve( 'source-map-loader' ),
+		enforce: 'pre',
+	} );
+}
+
+/**
+ * Build blocks manifest.
+ */
+class BlocksManifestPlugin {
+	/**
+	 * Apply the plugin.
+	 *
+	 * @param {webpack.Compiler} compiler The compiler instance.
+	 */
+	apply( compiler ) {
+		compiler.hooks.afterEmit.tap( 'BlocksManifest', () => {
+			exec(
+				`node "${ fromScriptsRoot(
+					'build-blocks-manifest'
+				) }" --input="${ compiler.options.output.path }"`
+			);
+		} );
+	}
+}
+
+/** @type {webpack.Configuration} */
+const scriptConfig = {
+	...baseConfig,
+
+	entry: getWebpackEntryPoints( 'script' ),
+
+	devServer: isProduction
+		? undefined
+		: {
+				devMiddleware: {
+					writeToDisk: true,
+				},
+				allowedHosts: 'auto',
+				host: 'localhost',
+				port: 8887,
+				proxy: {
+					'/build': {
+						pathRewrite: {
+							'^/build': '',
+						},
+					},
+				},
+		  },
+
 	plugins: [
-		// During rebuilds, all webpack assets that are not used anymore will be
-		// removed automatically. There is an exception added in watch mode for
-		// fonts and images. It is a known limitations:
-		// https://github.com/johnagan/clean-webpack-plugin/issues/159
-		new CleanWebpackPlugin( {
-			cleanAfterEveryBuildPatterns: [ '!fonts/**', '!images/**' ],
-			// Prevent it from deleting webpack assets during builds that have
-			// multiple configurations returned in the webpack config.
-			cleanStaleWebpackAssets: false,
+		new webpack.DefinePlugin( {
+			// Inject the `SCRIPT_DEBUG` global, used for development features flagging.
+			'globalThis.SCRIPT_DEBUG': JSON.stringify( ! isProduction ),
+			SCRIPT_DEBUG: JSON.stringify( ! isProduction ),
+		} ),
+
+		// If we run a modules build, the 2 compilations can "clean" each other's output
+		// Prevent the cleaning from happening
+		! hasExperimentalModulesFlag &&
+			new CleanWebpackPlugin( {
+				cleanAfterEveryBuildPatterns: [ '!fonts/**', '!images/**' ],
+				// Prevent it from deleting webpack assets during builds that have
+				// multiple configurations returned in the webpack config.
+				cleanStaleWebpackAssets: false,
+			} ),
+
+		new PhpFilePathsPlugin( {
+			context: getProjectSourcePath(),
+			props: [ 'render', 'variations' ],
 		} ),
 		new CopyWebpackPlugin( {
 			patterns: [
 				{
-					from: copyWebpackPatterns,
-					context: process.env.WP_SRC_DIRECTORY,
+					from: '**/block.json',
+					context: getProjectSourcePath(),
 					noErrorOnMissing: true,
 					transform( content, absoluteFrom ) {
 						const convertExtension = ( path ) => {
-							return path.replace( /\.(j|t)sx?$/, '.js' );
+							return path.replace( /\.m?(j|t)sx?$/, '.js' );
 						};
 
 						if ( basename( absoluteFrom ) === 'block.json' ) {
 							const blockJson = JSON.parse( content.toString() );
-							[ 'viewScript', 'script', 'editorScript' ].forEach(
-								( key ) => {
-									if ( Array.isArray( blockJson[ key ] ) ) {
-										blockJson[ key ] = blockJson[ key ].map(
-											convertExtension
-										);
-									} else if (
-										typeof blockJson[ key ] === 'string'
-									) {
-										blockJson[ key ] = convertExtension(
-											blockJson[ key ]
-										);
+
+							[
+								getBlockJsonScriptFields( blockJson ),
+								getBlockJsonModuleFields( blockJson ),
+							].forEach( ( fields ) => {
+								if ( fields ) {
+									for ( const [
+										key,
+										value,
+									] of Object.entries( fields ) ) {
+										if ( Array.isArray( value ) ) {
+											blockJson[ key ] =
+												value.map( convertExtension );
+										} else if (
+											typeof value === 'string'
+										) {
+											blockJson[ key ] =
+												convertExtension( value );
+										}
 									}
 								}
-							);
+							} );
+
+							if ( hasReactFastRefresh ) {
+								// Prepends the file reference to the shared runtime chunk to every script type defined for the block.
+								const runtimePath = relative(
+									dirname( absoluteFrom ),
+									fromProjectRoot(
+										getProjectSourcePath() +
+											sep +
+											'runtime.js'
+									)
+								);
+								const fields =
+									getBlockJsonScriptFields( blockJson );
+								for ( const [ fieldName ] of Object.entries(
+									fields
+								) ) {
+									blockJson[ fieldName ] = [
+										`file:${ runtimePath }`,
+										...( Array.isArray(
+											blockJson[ fieldName ]
+										)
+											? blockJson[ fieldName ]
+											: [ blockJson[ fieldName ] ] ),
+									];
+								}
+							}
 
 							return JSON.stringify( blockJson, null, 2 );
 						}
 
 						return content;
+					},
+				},
+				{
+					from: '**/*.php',
+					context: getProjectSourcePath(),
+					noErrorOnMissing: true,
+					filter: ( filepath ) => {
+						return (
+							process.env.WP_COPY_PHP_FILES_TO_DIST ||
+							PhpFilePathsPlugin.paths.includes(
+								realpathSync( filepath ).replace( /\\/g, '/' )
+							)
+						);
 					},
 				},
 			],
@@ -270,7 +415,13 @@ const config = {
 		// bundle content as a convenient interactive zoomable treemap.
 		process.env.WP_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
-		new MiniCSSExtractPlugin( { filename: '[name].css' } ),
+		new MiniCSSExtractPlugin( {
+			filename: '[name].css',
+		} ),
+		// RtlCssPlugin to generate RTL CSS files.
+		new RtlCssPlugin(),
+		// Generate blocks manifest after changes.
+		hasBlocksManifest && new BlocksManifestPlugin(),
 		// React Fast Refresh.
 		hasReactFastRefresh && new ReactRefreshWebpackPlugin(),
 		// WP_NO_EXTERNALS global variable controls whether scripts' assets get
@@ -278,36 +429,85 @@ const config = {
 		! process.env.WP_NO_EXTERNALS &&
 			new DependencyExtractionWebpackPlugin(),
 	].filter( Boolean ),
-	stats: {
-		children: false,
-	},
 };
 
-if ( ! isProduction ) {
-	// WP_DEVTOOL global variable controls how source maps are generated.
-	// See: https://webpack.js.org/configuration/devtool/#devtool.
-	config.devtool = process.env.WP_DEVTOOL || 'source-map';
-	config.module.rules.unshift( {
-		test: /\.(j|t)sx?$/,
-		exclude: [ /node_modules/ ],
-		use: require.resolve( 'source-map-loader' ),
-		enforce: 'pre',
-	} );
-	config.devServer = {
-		devMiddleware: {
-			writeToDisk: true,
+if ( hasExperimentalModulesFlag ) {
+	/**
+	 * Add block.json files to compilation to ensure changes trigger rebuilds when watching
+	 */
+	class BlockJsonDependenciesPlugin {
+		constructor() {
+			/** @type {ReadonlyArray<string>} */
+			this.blockJsonFiles = glob( '**/block.json', {
+				absolute: true,
+				cwd: fromProjectRoot( getProjectSourcePath() ),
+			} );
+		}
+
+		/**
+		 * Apply the plugin
+		 * @param {webpack.Compiler} compiler the compiler instance
+		 * @return {void}
+		 */
+		apply( compiler ) {
+			if ( this.blockJsonFiles.length ) {
+				compiler.hooks.compilation.tap(
+					'BlockJsonDependenciesPlugin',
+					( compilation ) => {
+						compilation.fileDependencies.addAll(
+							this.blockJsonFiles
+						);
+					}
+				);
+			}
+		}
+	}
+
+	/** @type {webpack.Configuration} */
+	const moduleConfig = {
+		...baseConfig,
+
+		entry: getWebpackEntryPoints( 'module' ),
+
+		experiments: {
+			...baseConfig.experiments,
+			outputModule: true,
 		},
-		allowedHosts: 'auto',
-		host: 'localhost',
-		port: 8887,
-		proxy: {
-			'/build': {
-				pathRewrite: {
-					'^/build': '',
-				},
+
+		output: {
+			...baseConfig.output,
+			module: true,
+			chunkFormat: 'module',
+			environment: {
+				...baseConfig.output.environment,
+				module: true,
+			},
+			library: {
+				...baseConfig.output.library,
+				type: 'module',
 			},
 		},
-	};
-}
 
-module.exports = config;
+		plugins: [
+			new webpack.DefinePlugin( {
+				// Inject the `SCRIPT_DEBUG` global, used for development features flagging.
+				'globalThis.SCRIPT_DEBUG': JSON.stringify( ! isProduction ),
+				SCRIPT_DEBUG: JSON.stringify( ! isProduction ),
+			} ),
+			// The WP_BUNDLE_ANALYZER global variable enables a utility that represents
+			// bundle content as a convenient interactive zoomable treemap.
+			process.env.WP_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
+			// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
+			new MiniCSSExtractPlugin( { filename: '[name].css' } ),
+			// WP_NO_EXTERNALS global variable controls whether scripts' assets get
+			// generated, and the default externals set.
+			! process.env.WP_NO_EXTERNALS &&
+				new DependencyExtractionWebpackPlugin(),
+			new BlockJsonDependenciesPlugin(),
+		].filter( Boolean ),
+	};
+
+	module.exports = [ scriptConfig, moduleConfig ];
+} else {
+	module.exports = scriptConfig;
+}

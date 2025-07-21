@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
 /**
  * WordPress dependencies
@@ -19,34 +19,32 @@ jest.mock( '@wordpress/data/src/components/use-select', () => {
 	return mock;
 } );
 
-describe( 'PostAuthorCheck', () => {
-	it( 'should not render anything if has no authors', () => {
-		useSelect.mockImplementation( () => ( {
-			hasAuthors: false,
-			hasAssignAuthorAction: true,
+function setupUseSelectMock( hasAssignAuthorAction ) {
+	useSelect.mockImplementation( ( cb ) => {
+		return cb( () => ( {
+			getPostType: () => ( { supports: { author: true } } ),
+			getEditedPostAttribute: () => {},
+			getCurrentPost: () => ( {
+				_links: {
+					'wp:action-assign-author': hasAssignAuthorAction,
+				},
+			} ),
 		} ) );
-
-		const wrapper = shallow( <PostAuthorCheck>authors</PostAuthorCheck> );
-		expect( wrapper.type() ).toBe( null );
 	} );
+}
 
+describe( 'PostAuthorCheck', () => {
 	it( "should not render anything if doesn't have author action", () => {
-		useSelect.mockImplementation( () => ( {
-			hasAuthors: true,
-			hasAssignAuthorAction: false,
-		} ) );
+		setupUseSelectMock( false );
 
-		const wrapper = shallow( <PostAuthorCheck>authors</PostAuthorCheck> );
-		expect( wrapper.type() ).toBe( null );
+		render( <PostAuthorCheck>authors</PostAuthorCheck> );
+		expect( screen.queryByText( 'authors' ) ).not.toBeInTheDocument();
 	} );
 
 	it( 'should render control', () => {
-		useSelect.mockImplementation( () => ( {
-			hasAuthors: true,
-			hasAssignAuthorAction: true,
-		} ) );
+		setupUseSelectMock( true );
 
-		const wrapper = shallow( <PostAuthorCheck>authors</PostAuthorCheck> );
-		expect( wrapper.type() ).not.toBe( null );
+		render( <PostAuthorCheck>authors</PostAuthorCheck> );
+		expect( screen.getByText( 'authors' ) ).toBeVisible();
 	} );
 } );

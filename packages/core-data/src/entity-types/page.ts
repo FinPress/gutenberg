@@ -127,7 +127,7 @@ declare module './base-entity-records' {
 			 * Meta fields.
 			 */
 			meta: ContextualField<
-				Record< string, string >,
+				Record< string, unknown >,
 				'view' | 'edit',
 				C
 			>;
@@ -139,6 +139,6 @@ declare module './base-entity-records' {
 	}
 }
 
-export type Page< C extends Context > = OmitNevers<
+export type Page< C extends Context = 'edit' > = OmitNevers<
 	_BaseEntityRecords.Page< C >
 >;

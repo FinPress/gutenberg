@@ -1,60 +1,24 @@
 /**
  * Internal dependencies
  */
-import { useContextSystem, WordPressComponentProps } from '../ui/context';
-import type { Props as TextProps } from '../text/types';
+import type { WordPressComponentProps } from '../context';
+import { useContextSystem } from '../context';
 import { useText } from '../text';
-import { getHeadingFontSize } from '../ui/utils/font-size';
+import { getHeadingFontSize } from '../utils/font-size';
 import { CONFIG, COLORS } from '../utils';
-
-export type HeadingSize =
-	| 1
-	| 2
-	| 3
-	| 4
-	| 5
-	| 6
-	| '1'
-	| '2'
-	| '3'
-	| '4'
-	| '5'
-	| '6';
-
-export interface HeadingProps extends Omit< TextProps, 'size' > {
-	/**
-	 * `Heading` will typically render the sizes `1`, `2`, `3`, `4`, `5`, or `6`, which map to `h1`-`h6`.
-	 *
-	 * @default 2
-	 *
-	 * @example
-	 * ```jsx
-	 * import { __experimentalHeading as Heading } from `@wordpress/components`
-	 *
-	 * function Example() {
-	 *   return (
-	 *     <div>
-	 *       <Heading level="1">Code is Poetry</Heading>
-	 *       <Heading level="2">Code is Poetry</Heading>
-	 *       <Heading level="3">Code is Poetry</Heading>
-	 *       <Heading level="4">Code is Poetry</Heading>
-	 *       <Heading level="5">Code is Poetry</Heading>
-	 *       <Heading level="6">Code is Poetry</Heading>
-	 *     </div>
-	 *   );
-	 * }
-	 * ```
-	 */
-	level: HeadingSize;
-}
+import type { HeadingProps } from './types';
 
 export function useHeading(
 	props: WordPressComponentProps< HeadingProps, 'h1' >
 ) {
-	const { as: asProp, level = 2, ...otherProps } = useContextSystem(
-		props,
-		'Heading'
-	);
+	const {
+		as: asProp,
+		level = 2,
+		color = COLORS.theme.foreground,
+		isBlock = true,
+		weight = CONFIG.fontWeightHeading as import('react').CSSProperties[ 'fontWeight' ],
+		...otherProps
+	} = useContextSystem( props, 'Heading' );
 
 	const as = ( asProp || `h${ level }` ) as keyof JSX.IntrinsicElements;
 
@@ -70,10 +34,10 @@ export function useHeading(
 	}
 
 	const textProps = useText( {
-		color: COLORS.gray[ 900 ],
+		color,
+		isBlock,
+		weight,
 		size: getHeadingFontSize( level ),
-		isBlock: true,
-		weight: CONFIG.fontWeightHeading as import('react').CSSProperties[ 'fontWeight' ],
 		...otherProps,
 	} );
 

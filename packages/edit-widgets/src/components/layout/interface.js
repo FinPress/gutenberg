@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { useViewportMatch } from '@wordpress/compose';
-import { BlockBreadcrumb, BlockStyles } from '@wordpress/block-editor';
+import { BlockBreadcrumb } from '@wordpress/block-editor';
 import { useEffect } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
@@ -11,7 +11,6 @@ import {
 	store as interfaceStore,
 } from '@wordpress/interface';
 import { __ } from '@wordpress/i18n';
-import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
 import { store as preferencesStore } from '@wordpress/preferences';
 
 /**
@@ -36,18 +35,13 @@ const interfaceLabels = {
 function Interface( { blockEditorSettings } ) {
 	const isMobileViewport = useViewportMatch( 'medium', '<' );
 	const isHugeViewport = useViewportMatch( 'huge', '>=' );
-	const {
-		setIsInserterOpened,
-		setIsListViewOpened,
-		closeGeneralSidebar,
-	} = useDispatch( editWidgetsStore );
+	const { setIsInserterOpened, setIsListViewOpened, closeGeneralSidebar } =
+		useDispatch( editWidgetsStore );
 	const {
 		hasBlockBreadCrumbsEnabled,
 		hasSidebarEnabled,
 		isInserterOpened,
 		isListViewOpened,
-		previousShortcut,
-		nextShortcut,
 	} = useSelect(
 		( select ) => ( {
 			hasSidebarEnabled: !! select(
@@ -59,14 +53,6 @@ function Interface( { blockEditorSettings } ) {
 				'core/edit-widgets',
 				'showBlockBreadcrumbs'
 			),
-			previousShortcut: select(
-				keyboardShortcutsStore
-			).getAllShortcutKeyCombinations(
-				'core/edit-widgets/previous-region'
-			),
-			nextShortcut: select(
-				keyboardShortcutsStore
-			).getAllShortcutKeyCombinations( 'core/edit-widgets/next-region' ),
 		} ),
 		[]
 	);
@@ -99,17 +85,12 @@ function Interface( { blockEditorSettings } ) {
 			} }
 			header={ <Header /> }
 			secondarySidebar={ hasSecondarySidebar && <SecondarySidebar /> }
-			sidebar={
-				hasSidebarEnabled && (
-					<ComplementaryArea.Slot scope="core/edit-widgets" />
-				)
-			}
+			sidebar={ <ComplementaryArea.Slot scope="core/edit-widgets" /> }
 			content={
 				<>
 					<WidgetAreasBlockEditorContent
 						blockEditorSettings={ blockEditorSettings }
 					/>
-					<BlockStyles.Slot scope="core/block-inspector" />
 				</>
 			}
 			footer={
@@ -120,10 +101,6 @@ function Interface( { blockEditorSettings } ) {
 					</div>
 				)
 			}
-			shortcuts={ {
-				previous: previousShortcut,
-				next: nextShortcut,
-			} }
 		/>
 	);
 }

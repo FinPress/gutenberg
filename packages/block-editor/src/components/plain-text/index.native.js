@@ -7,7 +7,12 @@ import { TextInput, Platform, Dimensions } from 'react-native';
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
-import { RichText, getPxFromCssUnit } from '@wordpress/block-editor';
+import { getPxFromCssUnit } from '@wordpress/components';
+
+/**
+ * Internal dependencies
+ */
+import RichText from '../rich-text';
 
 /**
  * Internal dependencies
@@ -99,12 +104,8 @@ export default class PlainText extends Component {
 	}
 
 	render() {
-		const {
-			style,
-			__experimentalVersion,
-			onFocus,
-			...otherProps
-		} = this.props;
+		const { style, __experimentalVersion, onFocus, ...otherProps } =
+			this.props;
 		const textStyles = [
 			style || styles[ 'block-editor-plain-text' ],
 			this.getFontSize(),

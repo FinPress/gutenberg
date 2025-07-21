@@ -7,6 +7,7 @@ import type { BaseEntityRecords as _BaseEntityRecords } from './base-entity-reco
 
 declare module './base-entity-records' {
 	export namespace BaseEntityRecords {
+		/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 		export interface Theme< C extends Context > {
 			/**
 			 * The theme's stylesheet. This uniquely identifies the theme.
@@ -78,9 +79,17 @@ declare module './base-entity-records' {
 			 */
 			'align-wide': boolean;
 			/**
+			 * Whether appearanceTools are enabled in Global Styles.
+			 */
+			'appearance-tools': boolean;
+			/**
 			 * Whether posts and comments RSS feed links are added to head.
 			 */
 			'automatic-feed-links': boolean;
+			/**
+			 * Whether border settings are enabled.
+			 */
+			border: boolean;
 			/**
 			 * Custom background if defined by the theme.
 			 */
@@ -122,6 +131,10 @@ declare module './base-entity-records' {
 			 */
 			'editor-font-sizes': boolean | FontSize[];
 			/**
+			 * Custom spacing sizes if defined by the theme.
+			 */
+			'editor-spacing-sizes': boolean | SpacingSize[];
+			/**
 			 * Custom gradient presets if defined by the theme.
 			 */
 			'editor-gradient-presets': boolean | GradientPreset[];
@@ -137,6 +150,10 @@ declare module './base-entity-records' {
 			 * Post formats supported.
 			 */
 			formats: PostFormat[];
+			/**
+			 * Whether link colors are enabled.
+			 */
+			'link-color': boolean;
 			/**
 			 * The post types that support thumbnails or true if all post types are supported.
 			 */
@@ -200,6 +217,12 @@ declare module './base-entity-records' {
 			slug: string;
 		}
 
+		export interface SpacingSize {
+			name: string;
+			size: number;
+			slug: string;
+		}
+
 		export interface GradientPreset {
 			name: string;
 			gradient: string;
@@ -217,6 +240,6 @@ declare module './base-entity-records' {
 	}
 }
 
-export type Theme< C extends Context > = OmitNevers<
+export type Theme< C extends Context = 'edit' > = OmitNevers<
 	_BaseEntityRecords.Theme< C >
 >;

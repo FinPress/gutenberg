@@ -81,7 +81,10 @@ export class HTMLTextInput extends Component {
 			title,
 		} = this.props;
 		const titleStyle = [
-			styles.htmlViewTitle,
+			getStylesFromColorScheme(
+				styles.htmlViewTitle,
+				styles.htmlViewTitleDark
+			),
 			style?.text && { color: style.text },
 		];
 		const htmlStyle = [
@@ -138,9 +141,8 @@ export class HTMLTextInput extends Component {
 
 export default compose( [
 	withSelect( ( select ) => {
-		const { getEditedPostAttribute, getEditedPostContent } = select(
-			'core/editor'
-		);
+		const { getEditedPostAttribute, getEditedPostContent } =
+			select( 'core/editor' );
 
 		return {
 			title: getEditedPostAttribute( 'title' ),

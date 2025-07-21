@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useRef } from '@wordpress/element';
+import { useMemo, useState } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
 
 /**
@@ -11,15 +11,18 @@ import { useMergeRefs } from '@wordpress/compose';
 import BorderBoxControlLinkedButton from '../border-box-control-linked-button';
 import BorderBoxControlSplitControls from '../border-box-control-split-controls';
 import { BorderControl } from '../../border-control';
-import { HStack } from '../../h-stack';
 import { StyledLabel } from '../../base-control/styles/base-control-styles';
 import { View } from '../../view';
 import { VisuallyHidden } from '../../visually-hidden';
-import { contextConnect, WordPressComponentProps } from '../../ui/context';
+import type { WordPressComponentProps } from '../../context';
+import { contextConnect } from '../../context';
 import { useBorderBoxControl } from './hook';
 
 import type { BorderBoxControlProps } from '../types';
-import type { LabelProps } from '../../border-control/types';
+import type {
+	LabelProps,
+	BorderControlProps,
+} from '../../border-control/types';
 
 const BorderLabel = ( props: LabelProps ) => {
 	const { label, hideLabelFromVision } = props;
@@ -35,14 +38,15 @@ const BorderLabel = ( props: LabelProps ) => {
 	);
 };
 
-const BorderBoxControl = (
-	props: WordPressComponentProps< BorderBoxControlProps, 'div' >,
+const UnconnectedBorderBoxControl = (
+	props: WordPressComponentProps< BorderBoxControlProps, 'div', false >,
 	forwardedRef: React.ForwardedRef< any >
 ) => {
 	const {
 		className,
 		colors,
 		disableCustomColors,
+		disableUnits,
 		enableAlpha,
 		enableStyle,
 		hasMixedBorders,
@@ -55,34 +59,48 @@ const BorderBoxControl = (
 		onSplitChange,
 		popoverPlacement,
 		popoverOffset,
+		size,
 		splitValue,
 		toggleLinked,
-		__experimentalHasMultipleOrigins,
+		wrapperClassName,
 		__experimentalIsRenderedInSidebar,
-		__next36pxDefaultSize = false,
 		...otherProps
 	} = useBorderBoxControl( props );
-	const containerRef = useRef();
-	const mergedRef = useMergeRefs( [ containerRef, forwardedRef ] );
-	const popoverProps = popoverPlacement
-		? {
-				placement: popoverPlacement,
-				offset: popoverOffset,
-				anchorRef: containerRef,
-		  }
-		: undefined;
 
+	// Use internal state instead of a ref to make sure that the component
+	// re-renders when the popover's anchor updates.
+	const [ popoverAnchor, setPopoverAnchor ] = useState< Element | null >(
+		null
+	);
+
+	// Memoize popoverProps to avoid returning a new object every time.
+	const popoverProps: BorderControlProps[ '__unstablePopoverProps' ] =
+		useMemo(
+			() =>
+				popoverPlacement
+					? {
+							placement: popoverPlacement,
+							offset: popoverOffset,
+							anchor: popoverAnchor,
+							shift: true,
+					  }
+					: undefined,
+			[ popoverPlacement, popoverOffset, popoverAnchor ]
+		);
+
+	const mergedRef = useMergeRefs( [ setPopoverAnchor, forwardedRef ] );
 	return (
 		<View className={ className } { ...otherProps } ref={ mergedRef }>
 			<BorderLabel
 				label={ label }
 				hideLabelFromVision={ hideLabelFromVision }
 			/>
-			<HStack alignment={ 'start' } expanded={ true } spacing={ 0 }>
+			<View className={ wrapperClassName }>
 				{ isLinked ? (
 					<BorderControl
 						className={ linkedControlClassName }
 						colors={ colors }
+						disableUnits={ disableUnits }
 						disableCustomColors={ disableCustomColors }
 						enableAlpha={ enableAlpha }
 						enableStyle={ enableStyle }
@@ -93,15 +111,15 @@ const BorderBoxControl = (
 						__unstablePopoverProps={ popoverProps }
 						shouldSanitizeBorder={ false } // This component will handle that.
 						value={ linkedValue }
-						withSlider={ true }
-						width={ '110px' }
-						__experimentalHasMultipleOrigins={
-							__experimentalHasMultipleOrigins
+						withSlider
+						width={
+							size === '__unstable-large' ? '116px' : '110px'
 						}
 						__experimentalIsRenderedInSidebar={
 							__experimentalIsRenderedInSidebar
 						}
-						__next36pxDefaultSize={ __next36pxDefaultSize }
+						__shouldNotWarnDeprecated36pxSize
+						size={ size }
 					/>
 				) : (
 					<BorderBoxControlSplitControls
@@ -113,28 +131,64 @@ const BorderBoxControl = (
 						popoverPlacement={ popoverPlacement }
 						popoverOffset={ popoverOffset }
 						value={ splitValue }
-						__experimentalHasMultipleOrigins={
-							__experimentalHasMultipleOrigins
-						}
 						__experimentalIsRenderedInSidebar={
 							__experimentalIsRenderedInSidebar
 						}
-						__next36pxDefaultSize={ __next36pxDefaultSize }
+						size={ size }
 					/>
 				) }
 				<BorderBoxControlLinkedButton
 					onClick={ toggleLinked }
 					isLinked={ isLinked }
-					__next36pxDefaultSize={ __next36pxDefaultSize }
+					size={ size }
 				/>
-			</HStack>
+			</View>
 		</View>
 	);
 };
 
-const ConnectedBorderBoxControl = contextConnect(
-	BorderBoxControl,
+/**
+ * An input control for the color, style, and width of the border of a box. The
+ * border can be customized as a whole, or individually for each side of the box.
+ *
+ * ```jsx
+ * import { BorderBoxControl } from '@wordpress/components';
+ * import { __ } from '@wordpress/i18n';
+ *
+ * const colors = [
+ * 	{ name: 'Blue 20', color: '#72aee6' },
+ * 	// ...
+ * ];
+ *
+ * const MyBorderBoxControl = () => {
+ * 	const defaultBorder = {
+ * 		color: '#72aee6',
+ * 		style: 'dashed',
+ * 		width: '1px',
+ * 	};
+ * 	const [ borders, setBorders ] = useState( {
+ * 		top: defaultBorder,
+ * 		right: defaultBorder,
+ * 		bottom: defaultBorder,
+ * 		left: defaultBorder,
+ * 	} );
+ * 	const onChange = ( newBorders ) => setBorders( newBorders );
+ *
+ * 	return (
+ * 		<BorderBoxControl
+ * 			__next40pxDefaultSize
+ * 			colors={ colors }
+ * 			label={ __( 'Borders' ) }
+ * 			onChange={ onChange }
+ * 			value={ borders }
+ * 		/>
+ * 	);
+ * };
+ * ```
+ */
+export const BorderBoxControl = contextConnect(
+	UnconnectedBorderBoxControl,
 	'BorderBoxControl'
 );
 
-export default ConnectedBorderBoxControl;
+export default BorderBoxControl;

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -96,15 +96,17 @@ const deprecated = [
 				},
 			} = props;
 
-			const className = classNames( size, {
+			const className = clsx( size, {
 				'has-icon-color': iconColorValue,
 				'has-icon-background-color': iconBackgroundColorValue,
-				[ `items-justified-${ itemsJustification }` ]: itemsJustification,
+				[ `items-justified-${ itemsJustification }` ]:
+					itemsJustification,
 			} );
 
 			const style = {
 				'--wp--social-links--icon-color': iconColorValue,
-				'--wp--social-links--icon-background-color': iconBackgroundColorValue,
+				'--wp--social-links--icon-background-color':
+					iconBackgroundColorValue,
 			};
 
 			return (

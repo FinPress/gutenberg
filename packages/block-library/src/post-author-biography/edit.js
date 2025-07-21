@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -37,7 +37,7 @@ function PostAuthorBiographyEdit( {
 	);
 
 	const blockProps = useBlockProps( {
-		className: classnames( {
+		className: clsx( {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
 		} ),
 	} );
@@ -55,7 +55,10 @@ function PostAuthorBiographyEdit( {
 					} }
 				/>
 			</BlockControls>
-			<div { ...blockProps }> { displayAuthorBiography } </div>
+			<div
+				{ ...blockProps }
+				dangerouslySetInnerHTML={ { __html: displayAuthorBiography } }
+			/>
 		</>
 	);
 }

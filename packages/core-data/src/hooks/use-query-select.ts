@@ -21,7 +21,7 @@ interface QuerySelectResponse< Data > {
 	/** the requested selector return value */
 	data: Data;
 
-	/** is the record still being resolved? Via the `getIsResolving` meta-selector */
+	/** is the record still being resolved? Via the `isResolving` meta-selector */
 	isResolving: boolean;
 
 	/** was the resolution started? Via the `hasStartedResolution` meta-selector */
@@ -34,6 +34,9 @@ interface QuerySelectResponse< Data > {
 /**
  * Like useSelect, but the selectors return objects containing
  * both the original data AND the resolution info.
+ *
+ * @since 6.1.0 Introduced in WordPress core.
+ * @private
  *
  * @param {Function} mapQuerySelect see useSelect
  * @param {Array}    deps           see useSelect
@@ -71,7 +74,7 @@ interface QuerySelectResponse< Data > {
  *
  * @return {QuerySelectResponse} Queried data.
  */
-export default function __experimentalUseQuerySelect( mapQuerySelect, deps ) {
+export default function useQuerySelect( mapQuerySelect, deps ) {
 	return useSelect( ( select, registry ) => {
 		const resolve = ( store ) => enrichSelectors( select( store ) );
 		return mapQuerySelect( resolve, registry );
@@ -102,34 +105,41 @@ const enrichSelectors = memoize( ( ( selectors ) => {
 			continue;
 		}
 		Object.defineProperty( resolvers, selectorName, {
-			get: () => ( ...args: unknown[] ) => {
-				const { getIsResolving, hasFinishedResolution } = selectors;
-				const isResolving = !! getIsResolving( selectorName, args );
-				const hasResolved =
-					! isResolving &&
-					hasFinishedResolution( selectorName, args );
-				const data = selectors[ selectorName ]( ...args );
+			get:
+				() =>
+				( ...args: unknown[] ) => {
+					const data = selectors[ selectorName ]( ...args );
+					const resolutionStatus = selectors.getResolutionState(
+						selectorName,
+						args
+					)?.status;
 
-				let status;
-				if ( isResolving ) {
-					status = Status.Resolving;
-				} else if ( hasResolved ) {
-					if ( data ) {
-						status = Status.Success;
-					} else {
-						status = Status.Error;
+					let status;
+					switch ( resolutionStatus ) {
+						case 'resolving':
+							status = Status.Resolving;
+							break;
+						case 'finished':
+							status = Status.Success;
+							break;
+						case 'error':
+							status = Status.Error;
+							break;
+						case undefined:
+							status = Status.Idle;
+							break;
 					}
-				} else {
-					status = Status.Idle;
-				}
 
-				return {
-					data,
-					status,
-					isResolving,
-					hasResolved,
-				};
-			},
+					return {
+						data,
+						status,
+						isResolving: status === Status.Resolving,
+						hasStarted: status !== Status.Idle,
+						hasResolved:
+							status === Status.Success ||
+							status === Status.Error,
+					};
+				},
 		} );
 	}
 	return resolvers;

@@ -1,16 +1,17 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
  */
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useRef } from '@wordpress/element';
+import { useMemo, useState } from '@wordpress/element';
 import {
 	dateI18n,
-	__experimentalGetSettings as getDateSettings,
+	humanTimeDiff,
+	getSettings as getDateSettings,
 } from '@wordpress/date';
 import {
 	AlignmentControl,
@@ -18,31 +19,48 @@ import {
 	InspectorControls,
 	useBlockProps,
 	__experimentalDateFormatPicker as DateFormatPicker,
+	__experimentalPublishDateTimePicker as PublishDateTimePicker,
 } from '@wordpress/block-editor';
 import {
 	Dropdown,
 	ToolbarGroup,
 	ToolbarButton,
 	ToggleControl,
-	DateTimePicker,
-	PanelBody,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
+import { __, _x, sprintf } from '@wordpress/i18n';
 import { edit } from '@wordpress/icons';
 import { DOWN } from '@wordpress/keycodes';
 import { useSelect } from '@wordpress/data';
 
+/**
+ * Internal dependencies
+ */
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+
 export default function PostDateEdit( {
-	attributes: { textAlign, format, isLink },
+	attributes: { textAlign, format, isLink, displayType },
 	context: { postId, postType: postTypeSlug, queryId },
 	setAttributes,
 } ) {
 	const blockProps = useBlockProps( {
-		className: classnames( {
+		className: clsx( {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
+			[ `wp-block-post-date__modified-date` ]: displayType === 'modified',
 		} ),
 	} );
-	const timeRef = useRef();
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+
+	// Use internal state instead of a ref to make sure that the component
+	// re-renders when the popover's anchor updates.
+	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
+	// Memoize popoverProps to avoid returning a new object every time.
+	const popoverProps = useMemo(
+		() => ( { anchor: popoverAnchor } ),
+		[ popoverAnchor ]
+	);
+
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const dateSettings = getDateSettings();
 	const [ siteFormat = dateSettings.formats.date ] = useEntityProp(
@@ -58,9 +76,10 @@ export default function PostDateEdit( {
 	const [ date, setDate ] = useEntityProp(
 		'postType',
 		postTypeSlug,
-		'date',
+		displayType,
 		postId
 	);
+
 	const postType = useSelect(
 		( select ) =>
 			postTypeSlug
@@ -69,12 +88,17 @@ export default function PostDateEdit( {
 		[ postTypeSlug ]
 	);
 
+	const dateLabel =
+		displayType === 'date' ? __( 'Post Date' ) : __( 'Post Modified Date' );
+
 	let postDate = date ? (
-		<time dateTime={ dateI18n( 'c', date ) } ref={ timeRef }>
-			{ dateI18n( format || siteFormat, date ) }
+		<time dateTime={ dateI18n( 'c', date ) } ref={ setPopoverAnchor }>
+			{ format === 'human-diff'
+				? humanTimeDiff( date )
+				: dateI18n( format || siteFormat, date ) }
 		</time>
 	) : (
-		__( 'Post Date' )
+		dateLabel
 	);
 
 	if ( isLink && date ) {
@@ -97,51 +121,81 @@ export default function PostDateEdit( {
 						setAttributes( { textAlign: nextAlign } );
 					} }
 				/>
-				{ date && ! isDescendentOfQueryLoop && (
-					<ToolbarGroup>
-						<Dropdown
-							popoverProps={ { anchorRef: timeRef.current } }
-							renderContent={ () => (
-								<DateTimePicker
-									currentDate={ date }
-									onChange={ setDate }
-									is12Hour={ is12HourFormat(
-										siteTimeFormat
-									) }
-								/>
-							) }
-							renderToggle={ ( { isOpen, onToggle } ) => {
-								const openOnArrowDown = ( event ) => {
-									if ( ! isOpen && event.keyCode === DOWN ) {
-										event.preventDefault();
-										onToggle();
-									}
-								};
-								return (
-									<ToolbarButton
-										aria-expanded={ isOpen }
-										icon={ edit }
-										title={ __( 'Change Date' ) }
-										onClick={ onToggle }
-										onKeyDown={ openOnArrowDown }
+				{ date &&
+					displayType === 'date' &&
+					! isDescendentOfQueryLoop && (
+						<ToolbarGroup>
+							<Dropdown
+								popoverProps={ popoverProps }
+								renderContent={ ( { onClose } ) => (
+									<PublishDateTimePicker
+										currentDate={ date }
+										onChange={ setDate }
+										is12Hour={ is12HourFormat(
+											siteTimeFormat
+										) }
+										onClose={ onClose }
+										dateOrder={
+											/* translators: Order of day, month, and year. Available formats are 'dmy', 'mdy', and 'ymd'. */
+											_x( 'dmy', 'date order' )
+										}
 									/>
-								);
-							} }
-						/>
-					</ToolbarGroup>
-				) }
+								) }
+								renderToggle={ ( { isOpen, onToggle } ) => {
+									const openOnArrowDown = ( event ) => {
+										if (
+											! isOpen &&
+											event.keyCode === DOWN
+										) {
+											event.preventDefault();
+											onToggle();
+										}
+									};
+									return (
+										<ToolbarButton
+											aria-expanded={ isOpen }
+											icon={ edit }
+											title={ __( 'Change Date' ) }
+											onClick={ onToggle }
+											onKeyDown={ openOnArrowDown }
+										/>
+									);
+								} }
+							/>
+						</ToolbarGroup>
+					) }
 			</BlockControls>
 
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings' ) }>
-					<DateFormatPicker
-						format={ format }
-						defaultFormat={ siteFormat }
-						onChange={ ( nextFormat ) =>
-							setAttributes( { format: nextFormat } )
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ () => {
+						setAttributes( {
+							format: undefined,
+							isLink: false,
+							displayType: 'date',
+						} );
+					} }
+					dropdownMenuProps={ dropdownMenuProps }
+				>
+					<ToolsPanelItem
+						hasValue={ () => !! format }
+						label={ __( 'Date Format' ) }
+						onDeselect={ () =>
+							setAttributes( { format: undefined } )
 						}
-					/>
-					<ToggleControl
+						isShownByDefault
+					>
+						<DateFormatPicker
+							format={ format }
+							defaultFormat={ siteFormat }
+							onChange={ ( nextFormat ) =>
+								setAttributes( { format: nextFormat } )
+							}
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						hasValue={ () => isLink !== false }
 						label={
 							postType?.labels.singular_name
 								? sprintf(
@@ -151,10 +205,49 @@ export default function PostDateEdit( {
 								  )
 								: __( 'Link to post' )
 						}
-						onChange={ () => setAttributes( { isLink: ! isLink } ) }
-						checked={ isLink }
-					/>
-				</PanelBody>
+						onDeselect={ () => setAttributes( { isLink: false } ) }
+						isShownByDefault
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={
+								postType?.labels.singular_name
+									? sprintf(
+											// translators: %s: Name of the post type e.g: "post".
+											__( 'Link to %s' ),
+											postType.labels.singular_name.toLowerCase()
+									  )
+									: __( 'Link to post' )
+							}
+							onChange={ () =>
+								setAttributes( { isLink: ! isLink } )
+							}
+							checked={ isLink }
+						/>
+					</ToolsPanelItem>
+					<ToolsPanelItem
+						hasValue={ () => displayType !== 'date' }
+						label={ __( 'Display last modified date' ) }
+						onDeselect={ () =>
+							setAttributes( { displayType: 'date' } )
+						}
+						isShownByDefault
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={ __( 'Display last modified date' ) }
+							onChange={ ( value ) =>
+								setAttributes( {
+									displayType: value ? 'modified' : 'date',
+								} )
+							}
+							checked={ displayType === 'modified' }
+							help={ __(
+								'Only shows if the post has been modified'
+							) }
+						/>
+					</ToolsPanelItem>
+				</ToolsPanel>
 			</InspectorControls>
 
 			<div { ...blockProps }>{ postDate }</div>

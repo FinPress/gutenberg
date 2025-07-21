@@ -7,7 +7,6 @@ import { useRoute } from '@react-navigation/native';
  * WordPress dependencies
  */
 import { memo, useEffect, useContext } from '@wordpress/element';
-import { BottomSheetContext, BottomSheet } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -15,6 +14,8 @@ import { BottomSheetContext, BottomSheet } from '@wordpress/components';
 import PickerScreen from './picker-screen';
 import GradientPickerScreen from './gradient-picker-screen';
 import PaletteScreen from './palette.screen';
+import BottomSheet from '../bottom-sheet';
+import { BottomSheetContext } from '../bottom-sheet/bottom-sheet-context';
 
 import { colorsUtils } from './utils';
 
@@ -34,6 +35,7 @@ const ColorSettingsMemo = memo(
 		useEffect( () => {
 			shouldEnableBottomSheetMaxHeight( true );
 			onHandleClosingBottomSheet( null );
+			// See https://github.com/WordPress/gutenberg/pull/41166
 		}, [] );
 		return (
 			<BottomSheet.NavigationContainer>
@@ -68,10 +70,8 @@ const ColorSettingsMemo = memo(
 );
 function ColorSettings( props ) {
 	const route = useRoute();
-	const {
-		onHandleClosingBottomSheet,
-		shouldEnableBottomSheetMaxHeight,
-	} = useContext( BottomSheetContext );
+	const { onHandleClosingBottomSheet, shouldEnableBottomSheetMaxHeight } =
+		useContext( BottomSheetContext );
 
 	return (
 		<ColorSettingsMemo

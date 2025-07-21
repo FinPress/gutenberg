@@ -28,14 +28,8 @@
 /**
  * External dependencies
  */
-import {
-	isEmpty,
-	castArray,
-	omit,
-	startsWith,
-	kebabCase,
-	isPlainObject,
-} from 'lodash';
+import { isPlainObject } from 'is-plain-object';
+import { paramCase as kebabCase } from 'change-case';
 
 /**
  * WordPress dependencies
@@ -52,7 +46,7 @@ import {
 import { createContext, Fragment, StrictMode, forwardRef } from './react';
 import RawHTML from './raw-html';
 
-/** @typedef {import('./react').WPElement} WPElement */
+/** @typedef {import('react').ReactElement} ReactElement */
 
 const { Provider, Consumer } = createContext( undefined );
 const ForwardRef = forwardRef( () => {
@@ -508,7 +502,7 @@ function getNormalAttributeName( attribute ) {
  * @return {string} Normalized property name.
  */
 function getNormalStylePropertyName( property ) {
-	if ( startsWith( property, '--' ) ) {
+	if ( property.startsWith( '--' ) ) {
 		return property;
 	}
 
@@ -566,10 +560,9 @@ export function renderElement( element, context, legacyContext = {} ) {
 			return element.toString();
 	}
 
-	const {
-		type,
-		props,
-	} = /** @type {{type?: any, props?: any}} */ ( element );
+	const { type, props } = /** @type {{type?: any, props?: any}} */ (
+		element
+	);
 
 	switch ( type ) {
 		case StrictMode:
@@ -580,7 +573,7 @@ export function renderElement( element, context, legacyContext = {} ) {
 			const { children, ...wrapperProps } = props;
 
 			return renderNativeComponent(
-				isEmpty( wrapperProps ) ? null : 'div',
+				! Object.keys( wrapperProps ).length ? null : 'div',
 				{
 					...wrapperProps,
 					dangerouslySetInnerHTML: { __html: children },
@@ -654,7 +647,8 @@ export function renderNativeComponent(
 		// place of children. Ensure to omit so it is not assigned as attribute
 		// as well.
 		content = renderChildren( props.value, context, legacyContext );
-		props = omit( props, 'value' );
+		const { value, ...restProps } = props;
+		props = restProps;
 	} else if (
 		props.dangerouslySetInnerHTML &&
 		typeof props.dangerouslySetInnerHTML.__html === 'string'
@@ -678,15 +672,15 @@ export function renderNativeComponent(
 	return '<' + type + attributes + '>' + content + '</' + type + '>';
 }
 
-/** @typedef {import('./react').WPComponent} WPComponent */
+/** @typedef {import('react').ComponentType} ComponentType */
 
 /**
  * Serializes a non-native component type to string.
  *
- * @param {WPComponent} Component       Component type to serialize.
- * @param {Object}      props           Props object.
- * @param {Object}      [context]       Context object.
- * @param {Object}      [legacyContext] Legacy context object.
+ * @param {ComponentType} Component       Component type to serialize.
+ * @param {Object}        props           Props object.
+ * @param {Object}        [context]       Context object.
+ * @param {Object}        [legacyContext] Legacy context object.
  *
  * @return {string} Serialized element
  */
@@ -696,10 +690,9 @@ export function renderComponent(
 	context,
 	legacyContext = {}
 ) {
-	const instance = new /** @type {import('react').ComponentClass} */ ( Component )(
-		props,
-		legacyContext
-	);
+	const instance = new /** @type {import('react').ComponentClass} */ (
+		Component
+	)( props, legacyContext );
 
 	if (
 		typeof (
@@ -710,7 +703,9 @@ export function renderComponent(
 	) {
 		Object.assign(
 			legacyContext,
-			/** @type {{getChildContext?: () => unknown}} */ ( instance ).getChildContext()
+			/** @type {{getChildContext?: () => unknown}} */ (
+				instance
+			).getChildContext()
 		);
 	}
 
@@ -731,7 +726,7 @@ export function renderComponent(
 function renderChildren( children, context, legacyContext = {} ) {
 	let result = '';
 
-	children = castArray( children );
+	children = Array.isArray( children ) ? children : [ children ];
 
 	for ( let i = 0; i < children.length; i++ ) {
 		const child = children[ i ];
@@ -760,7 +755,7 @@ export function renderAttributes( props ) {
 
 		let value = getNormalAttributeValue( key, props[ key ] );
 
-		// If value is not of serializeable type, skip.
+		// If value is not of serializable type, skip.
 		if ( ! ATTRIBUTES_TYPES.has( typeof value ) ) {
 			continue;
 		}

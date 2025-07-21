@@ -31,12 +31,12 @@ describe( 'Type annotations', () => {
 		expect( result ).toBeFalsy();
 	} );
 
-	const paramTag = {
+	const paramTag = /** @type {const} */ ( {
 		tag: 'param',
 		type: '',
 		name: 'foo',
 		description: 'A foo parameter',
-	};
+	} );
 
 	describe( 'simple types', () => {
 		const keywordTypes = [
@@ -97,6 +97,26 @@ describe( 'Type annotations', () => {
 			expect( getTypeAnnotation( { tag: 'return' }, node ) ).toBe(
 				'MyType< string & number >[]'
 			);
+		} );
+	} );
+
+	describe( 'qualified types', () => {
+		const node = parse( `
+			function fn( foo: My.Foo< string >, bar: My.Bar ) {
+				return 0;
+			}
+		` );
+
+		it( 'should get the qualified param type with type parameters', () => {
+			expect(
+				getTypeAnnotation( { tag: 'param', name: 'foo' }, node, 0 )
+			).toBe( 'My.Foo< string >' );
+		} );
+
+		it( 'should get the qualified param type without type parameters', () => {
+			expect(
+				getTypeAnnotation( { tag: 'param', name: 'bar' }, node, 1 )
+			).toBe( 'My.Bar' );
 		} );
 	} );
 
@@ -394,46 +414,71 @@ describe( 'Type annotations', () => {
 	} );
 
 	describe( 'statically-wrapped function exceptions', () => {
-		it( 'should find types for inner function with `createSelector`', () => {
-			const { tokens } = engine(
-				'test.ts',
-				`/**
-					 * Returns the number of things
-					 *
-					 * @param state - stores all the things
-					 */
-					export const getCount = createSelector( ( state: string[] ) => state.length );
-					`
+		const getStateArgType = ( code ) => {
+			const { tokens } = engine( 'test.ts', code );
+			return getTypeAnnotation(
+				{ tag: 'param', name: 'state' },
+				tokens[ 0 ],
+				0
 			);
+		};
 
-			expect(
-				getTypeAnnotation(
-					{ tag: 'param', name: 'state' },
-					tokens[ 0 ],
-					0
-				)
-			).toBe( 'string[]' );
+		const docString = `/**
+			 * Returns the number of things
+			 *
+			 * @param state - stores all the things
+			 */`;
+		it( 'should find types for a typecasted function', () => {
+			const code = `${ docString }
+			 export const getCount = ( state: string[] ) => state.length;
+			 `;
+			expect( getStateArgType( code ) ).toBe( 'string[]' );
+		} );
+
+		it( 'should find types for a doubly typecasted function', () => {
+			const code = `${ docString }
+				 export const getCount = ( ( state: string[] ) => state.length ) as any as any;
+			 `;
+			expect( getStateArgType( code ) ).toBe( 'string[]' );
+		} );
+
+		it( 'should find types for inner function with `createSelector`', () => {
+			const code = `${ docString }
+				 export const getCount = createSelector( ( state: string[] ) => state.length );
+			 `;
+			expect( getStateArgType( code ) ).toBe( 'string[]' );
+		} );
+
+		it( 'should find types for inner typecasted function with `createSelector`', () => {
+			const code = `${ docString }
+				 export const getCount = createSelector( (( state: string[] ) => state.length) as any );
+			 `;
+			expect( getStateArgType( code ) ).toBe( 'string[]' );
 		} );
 
 		it( 'should find types for inner function with `createRegistrySelector`', () => {
-			const { tokens } = engine(
-				'test.ts',
-				`/**
-					 * Returns the number of things
-					 *
-					 * @param state - stores all the things
-					 */
-					export const getCount = createRegistrySelector( ( select ) => ( state: number ) => state );
-					`
-			);
-
-			expect(
-				getTypeAnnotation(
-					{ tag: 'param', name: 'state' },
-					tokens[ 0 ],
-					0
-				)
-			).toBe( 'number' );
+			const code = `${ docString }
+				 export const getCount = createRegistrySelector( ( select ) => ( state: number ) => state );
+			 `;
+			expect( getStateArgType( code ) ).toBe( 'number' );
 		} );
+	} );
+
+	it( 'should find types in a constant function expression assignment', () => {
+		const node = parse( `
+				export const __unstableAwaitPromise = function < T >( promise: Promise< T > ): {
+					type: 'AWAIT_PROMISE';
+					promise: Promise< T >;
+				} {
+					return {
+						type: 'AWAIT_PROMISE',
+						promise,
+					};
+				};
+			 ` );
+
+		expect(
+			getTypeAnnotation( { tag: 'param', name: 'promise' }, node, 0 )
+		).toBe( 'Promise< T >' );
 	} );
 } );

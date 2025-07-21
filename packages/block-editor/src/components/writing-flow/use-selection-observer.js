@@ -3,6 +3,8 @@
  */
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useRefEffect } from '@wordpress/compose';
+import { create } from '@wordpress/rich-text';
+import { isSelectionForward } from '@wordpress/dom';
 
 /**
  * Internal dependencies
@@ -25,7 +27,11 @@ function extractSelectionStartNode( selection ) {
 		return anchorNode;
 	}
 
-	return anchorNode.childNodes[ anchorOffset ];
+	if ( anchorOffset === 0 ) {
+		return anchorNode;
+	}
+
+	return anchorNode.childNodes[ anchorOffset - 1 ];
 }
 
 /**
@@ -44,7 +50,19 @@ function extractSelectionEndNode( selection ) {
 		return focusNode;
 	}
 
-	return focusNode.childNodes[ focusOffset - 1 ];
+	if ( focusOffset === focusNode.childNodes.length ) {
+		return focusNode;
+	}
+
+	// When the selection is forward (the selection ends with the focus node),
+	// the selection may extend into the next element with an offset of 0. This
+	// may trigger multi selection even though the selection does not visually
+	// end in the next block.
+	if ( focusOffset === 0 && isSelectionForward( selection ) ) {
+		return focusNode.previousSibling ?? focusNode.parentElement;
+	}
+
+	return focusNode.childNodes[ focusOffset ];
 }
 
 function findDepth( a, b ) {
@@ -64,21 +82,33 @@ function findDepth( a, b ) {
  * @param {boolean}     value `contentEditable` value (true or false)
  */
 function setContentEditableWrapper( node, value ) {
-	node.contentEditable = value;
-	// Firefox doesn't automatically move focus.
-	if ( value ) node.focus();
+	// Since we are calling this on every selection change, check if the value
+	// needs to be updated first because it trigger the browser to recalculate
+	// style.
+	if ( node.contentEditable !== String( value ) ) {
+		node.contentEditable = value;
+
+		// Firefox doesn't automatically move focus.
+		if ( value ) {
+			node.focus();
+		}
+	}
+}
+
+function getRichTextElement( node ) {
+	const element =
+		node.nodeType === node.ELEMENT_NODE ? node : node.parentElement;
+	return element?.closest( '[data-wp-block-attribute-key]' );
 }
 
 /**
  * Sets a multi-selection based on the native selection across blocks.
  */
 export default function useSelectionObserver() {
-	const { multiSelect, selectBlock, selectionChange } = useDispatch(
-		blockEditorStore
-	);
-	const { getBlockParents, getBlockSelectionStart } = useSelect(
-		blockEditorStore
-	);
+	const { multiSelect, selectBlock, selectionChange } =
+		useDispatch( blockEditorStore );
+	const { getBlockParents, getBlockSelectionStart, isMultiSelecting } =
+		useSelect( blockEditorStore );
 	return useRefEffect(
 		( node ) => {
 			const { ownerDocument } = node;
@@ -86,12 +116,21 @@ export default function useSelectionObserver() {
 
 			function onSelectionChange( event ) {
 				const selection = defaultView.getSelection();
-				// If no selection is found, end multi selection and disable the
-				// contentEditable wrapper.
+
 				if ( ! selection.rangeCount ) {
-					setContentEditableWrapper( node, false );
 					return;
 				}
+
+				const startNode = extractSelectionStartNode( selection );
+				const endNode = extractSelectionEndNode( selection );
+
+				if (
+					! node.contains( startNode ) ||
+					! node.contains( endNode )
+				) {
+					return;
+				}
+
 				// If selection is collapsed and we haven't used `shift+click`,
 				// end multi selection and disable the contentEditable wrapper.
 				// We have to check about `shift+click` case because elements
@@ -100,16 +139,24 @@ export default function useSelectionObserver() {
 				// For now we check if the event is a `mouse` event.
 				const isClickShift = event.shiftKey && event.type === 'mouseup';
 				if ( selection.isCollapsed && ! isClickShift ) {
-					setContentEditableWrapper( node, false );
+					if (
+						node.contentEditable === 'true' &&
+						! isMultiSelecting()
+					) {
+						setContentEditableWrapper( node, false );
+						let element =
+							startNode.nodeType === startNode.ELEMENT_NODE
+								? startNode
+								: startNode.parentElement;
+						element = element?.closest( '[contenteditable]' );
+						element?.focus();
+					}
 					return;
 				}
 
-				let startClientId = getBlockClientId(
-					extractSelectionStartNode( selection )
-				);
-				let endClientId = getBlockClientId(
-					extractSelectionEndNode( selection )
-				);
+				let startClientId = getBlockClientId( startNode );
+				let endClientId = getBlockClientId( endNode );
+
 				// If the selection has changed and we had pressed `shift+click`,
 				// we need to check if in an element that doesn't support
 				// text selection has been clicked.
@@ -146,7 +193,11 @@ export default function useSelectionObserver() {
 
 				const isSingularSelection = startClientId === endClientId;
 				if ( isSingularSelection ) {
-					selectBlock( startClientId );
+					if ( ! isMultiSelecting() ) {
+						selectBlock( startClientId );
+					} else {
+						multiSelect( startClientId, startClientId );
+					}
 				} else {
 					const startPath = [
 						...getBlockParents( startClientId ),
@@ -158,39 +209,68 @@ export default function useSelectionObserver() {
 					];
 					const depth = findDepth( startPath, endPath );
 
-					multiSelect( startPath[ depth ], endPath[ depth ] );
+					if (
+						startPath[ depth ] !== startClientId ||
+						endPath[ depth ] !== endClientId
+					) {
+						multiSelect( startPath[ depth ], endPath[ depth ] );
+						return;
+					}
+
+					const richTextElementStart =
+						getRichTextElement( startNode );
+					const richTextElementEnd = getRichTextElement( endNode );
+
+					if ( richTextElementStart && richTextElementEnd ) {
+						const range = selection.getRangeAt( 0 );
+						const richTextDataStart = create( {
+							element: richTextElementStart,
+							range,
+							__unstableIsEditableTree: true,
+						} );
+						const richTextDataEnd = create( {
+							element: richTextElementEnd,
+							range,
+							__unstableIsEditableTree: true,
+						} );
+
+						const startOffset =
+							richTextDataStart.start ?? richTextDataStart.end;
+						const endOffset =
+							richTextDataEnd.start ?? richTextDataEnd.end;
+						selectionChange( {
+							start: {
+								clientId: startClientId,
+								attributeKey:
+									richTextElementStart.dataset
+										.wpBlockAttributeKey,
+								offset: startOffset,
+							},
+							end: {
+								clientId: endClientId,
+								attributeKey:
+									richTextElementEnd.dataset
+										.wpBlockAttributeKey,
+								offset: endOffset,
+							},
+						} );
+					} else {
+						multiSelect( startClientId, endClientId );
+					}
 				}
 			}
 
-			function addListeners() {
-				ownerDocument.addEventListener(
-					'selectionchange',
-					onSelectionChange
-				);
-				defaultView.addEventListener( 'mouseup', onSelectionChange );
-			}
-
-			function removeListeners() {
+			ownerDocument.addEventListener(
+				'selectionchange',
+				onSelectionChange
+			);
+			defaultView.addEventListener( 'mouseup', onSelectionChange );
+			return () => {
 				ownerDocument.removeEventListener(
 					'selectionchange',
 					onSelectionChange
 				);
 				defaultView.removeEventListener( 'mouseup', onSelectionChange );
-			}
-
-			function resetListeners() {
-				removeListeners();
-				addListeners();
-			}
-
-			addListeners();
-			// We must allow rich text to set selection first. This ensures that
-			// our `selectionchange` listener is always reset to be called after
-			// the rich text one.
-			node.addEventListener( 'focusin', resetListeners );
-			return () => {
-				removeListeners();
-				node.removeEventListener( 'focusin', resetListeners );
 			};
 		},
 		[ multiSelect, selectBlock, selectionChange, getBlockParents ]
