@@ -59,13 +59,16 @@ export default function getFieldTypeDefinition< Item >(
 	// It can be removed when the field.type is mandatory.
 	return {
 		sort: ( a: any, b: any, direction: SortDirection ) => {
+			if (a === null) return 1;
+			if (b === null) return -1;
+
 			if ( typeof a === 'number' && typeof b === 'number' ) {
 				return direction === 'asc' ? a - b : b - a;
 			}
 
 			return direction === 'asc'
-				? a.localeCompare( b )
-				: b.localeCompare( a );
+				? a.localeCompare(b)
+				: b.localeCompare(a);
 		},
 		isValid: ( value: any, context?: ValidationContext ) => {
 			if ( context?.elements ) {

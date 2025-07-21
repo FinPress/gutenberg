@@ -23,6 +23,9 @@ import {
 } from '../constants';
 
 function sort( a: any, b: any, direction: SortDirection ) {
+	if (a === null) return 1;
+	if (b === null) return -1;
+
 	return direction === 'asc' ? a - b : b - a;
 }
 
