@@ -33,6 +33,7 @@ export type SpaceObject = {
 	categories: string[];
 	satellites: number;
 	date: string;
+	datetime: string;
 	email: string;
 };
 
@@ -46,7 +47,8 @@ export const data: SpaceObject[] = [
 		isPlanet: false,
 		categories: [ 'Space', 'NASA' ],
 		satellites: 0,
-		date: '2021-01-01T00:00:00Z',
+		date: '2021-01-01',
+		datetime: '2021-01-01T14:30:00Z',
 		email: 'apollo@example.com',
 	},
 	{
@@ -58,7 +60,8 @@ export const data: SpaceObject[] = [
 		isPlanet: false,
 		categories: [ 'Space' ],
 		satellites: 0,
-		date: '2019-01-02T00:00:00Z',
+		date: '2019-01-02',
+		datetime: '2019-01-02T09:15:00Z',
 		email: 'space@example.com',
 	},
 	{
@@ -70,7 +73,8 @@ export const data: SpaceObject[] = [
 		isPlanet: false,
 		categories: [ 'NASA' ],
 		satellites: 0,
-		date: '2025-01-03T00:00:00Z',
+		date: '2025-01-03',
+		datetime: '2025-01-03T16:45:30Z',
 		email: 'nasa@example.com',
 	},
 	{
@@ -82,7 +86,8 @@ export const data: SpaceObject[] = [
 		isPlanet: true,
 		categories: [ 'Space', 'Planet', 'Solar system' ],
 		satellites: 14,
-		date: '2020-01-01T00:00:00Z',
+		date: '2020-01-01',
+		datetime: '2020-01-01T11:22:15Z',
 		email: 'neptune@example.com',
 	},
 	{
@@ -94,7 +99,8 @@ export const data: SpaceObject[] = [
 		isPlanet: true,
 		categories: [ 'Space', 'Planet', 'Solar system' ],
 		satellites: 0,
-		date: '2020-01-02T01:00:00Z',
+		date: '2020-01-02',
+		datetime: '2020-01-02T13:05:45Z',
 		email: 'mercury@example.com',
 	},
 	{
@@ -106,7 +112,8 @@ export const data: SpaceObject[] = [
 		isPlanet: true,
 		categories: [ 'Space', 'Planet', 'Solar system' ],
 		satellites: 0,
-		date: '2020-01-02T00:00:00Z',
+		date: '2020-01-02',
+		datetime: '2020-01-02T08:30:12Z',
 		email: 'venus@example.com',
 	},
 	{
@@ -118,7 +125,8 @@ export const data: SpaceObject[] = [
 		isPlanet: true,
 		categories: [ 'Space', 'Planet', 'Solar system' ],
 		satellites: 1,
-		date: '2023-01-03T00:00:00Z',
+		date: '2023-01-03',
+		datetime: '2023-01-03T18:15:30Z',
 		email: 'earth@example.com',
 	},
 	{
@@ -130,7 +138,8 @@ export const data: SpaceObject[] = [
 		isPlanet: true,
 		categories: [ 'Space', 'Planet', 'Solar system' ],
 		satellites: 2,
-		date: '2020-01-01T00:00:00Z',
+		date: '2020-01-01',
+		datetime: '2020-01-01T20:45:00Z',
 		email: 'mars@example.com',
 	},
 	{
@@ -142,7 +151,8 @@ export const data: SpaceObject[] = [
 		isPlanet: true,
 		categories: [ 'Space', 'Planet', 'Solar system' ],
 		satellites: 95,
-		date: '2017-01-01T00:01:00Z',
+		date: '2017-01-01',
+		datetime: '2017-01-01T12:01:30Z',
 		email: 'jupiter@example.com',
 	},
 	{
@@ -154,7 +164,8 @@ export const data: SpaceObject[] = [
 		isPlanet: true,
 		categories: [ 'Space', 'Planet', 'Solar system' ],
 		satellites: 146,
-		date: '2020-02-01T00:02:00Z',
+		date: '2020-02-01',
+		datetime: '2020-02-01T15:32:45Z',
 		email: 'saturn@example.com',
 	},
 	{
@@ -166,7 +177,8 @@ export const data: SpaceObject[] = [
 		isPlanet: true,
 		categories: [ 'Space', 'Ice giant', 'Solar system' ],
 		satellites: 28,
-		date: '2020-03-01T00:00:00Z',
+		date: '2020-03-01',
+		datetime: '2020-03-01T10:15:20Z',
 		email: 'uranus@example.com',
 	},
 ];
@@ -677,6 +689,11 @@ export const fields: Field< SpaceObject >[] = [
 	{
 		id: 'date',
 		label: 'Date',
+		type: 'date',
+	},
+	{
+		id: 'datetime',
+		label: 'Datetime',
 		type: 'datetime',
 	},
 	{
