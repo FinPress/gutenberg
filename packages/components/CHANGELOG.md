@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Bug Fix
+
+-   `Modal`: Update the Modal Heading and Label text color value so that it matches with the text color used for other areas of the editor. ([#50448](https://github.com/WordPress/gutenberg/pull/50916)).
+
 ### Breaking Changes
 
 -   `Icon`: Pass `size` prop value as `width`/`height` attributes when `icon` is a component that doesn't exactly match `SVG` ([#70756](https://github.com/WordPress/gutenberg/pull/70756)).
