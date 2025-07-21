@@ -291,75 +291,88 @@ async function loadPostTypeEntities() {
 	const postTypes = await apiFetch( {
 		path: '/wp/v2/types?context=view',
 	} );
-	return Object.entries( postTypes ?? {} ).map( ( [ name, postType ] ) => {
-		const isTemplate = [ 'wp_template', 'wp_template_part' ].includes(
-			name
-		);
-		const namespace = postType?.rest_namespace ?? 'wp/v2';
-		return {
-			kind: 'postType',
-			baseURL: `/${ namespace }/${ postType.rest_base }`,
-			baseURLParams: { context: 'edit' },
-			name,
-			label: postType.name,
-			transientEdits: {
-				blocks: true,
-				selection: true,
-			},
-			mergedEdits: { meta: true },
-			rawAttributes: POST_RAW_ATTRIBUTES,
-			getTitle: ( record ) =>
-				record?.title?.rendered ||
-				record?.title ||
-				( isTemplate
-					? capitalCase( record.slug ?? '' )
-					: String( record.id ) ),
-			__unstablePrePersist: isTemplate ? undefined : prePersistPostType,
-			__unstable_rest_base: postType.rest_base,
-			syncConfig: {
-				fetch: async ( id ) => {
-					return apiFetch( {
-						path: `/${ namespace }/${ postType.rest_base }/${ id }?context=edit`,
-					} );
+	return Object.entries( postTypes ?? {} )
+		.filter( ( [ name ] ) => name !== 'attachment' )
+		.map( ( [ name, postType ] ) => {
+			const isTemplate = [ 'wp_template', 'wp_template_part' ].includes(
+				name
+			);
+			const namespace = postType?.rest_namespace ?? 'wp/v2';
+			return {
+				kind: 'postType',
+				baseURL: `/${ namespace }/${ postType.rest_base }`,
+				baseURLParams: { context: 'edit' },
+				name,
+				label: postType.name,
+				transientEdits: {
+					blocks: true,
+					selection: true,
 				},
-				applyChangesToDoc: ( doc, changes ) => {
-					const document = doc.getMap( 'document' );
+				mergedEdits: { meta: true },
+				rawAttributes: POST_RAW_ATTRIBUTES,
+				getTitle: ( record ) =>
+					record?.title?.rendered ||
+					record?.title ||
+					( isTemplate
+						? capitalCase( record.slug ?? '' )
+						: String( record.id ) ),
+				__unstablePrePersist: isTemplate
+					? undefined
+					: prePersistPostType,
+				__unstable_rest_base: postType.rest_base,
+				syncConfig: {
+					fetch: async ( id ) => {
+						return apiFetch( {
+							path: `/${ namespace }/${ postType.rest_base }/${ id }?context=edit`,
+						} );
+					},
+					applyChangesToDoc: ( doc, changes ) => {
+						const document = doc.getMap( 'document' );
 
-					Object.entries( changes ).forEach( ( [ key, value ] ) => {
-						if ( typeof value !== 'function' ) {
-							if ( key === 'blocks' ) {
-								if ( ! serialisableBlocksCache.has( value ) ) {
-									serialisableBlocksCache.set(
-										value,
-										makeBlocksSerializable( value )
-									);
+						Object.entries( changes ).forEach(
+							( [ key, value ] ) => {
+								if ( typeof value !== 'function' ) {
+									if ( key === 'blocks' ) {
+										if (
+											! serialisableBlocksCache.has(
+												value
+											)
+										) {
+											serialisableBlocksCache.set(
+												value,
+												makeBlocksSerializable( value )
+											);
+										}
+
+										value =
+											serialisableBlocksCache.get(
+												value
+											);
+									}
+
+									if ( document.get( key ) !== value ) {
+										document.set( key, value );
+									}
 								}
-
-								value = serialisableBlocksCache.get( value );
 							}
-
-							if ( document.get( key ) !== value ) {
-								document.set( key, value );
-							}
-						}
-					} );
+						);
+					},
+					fromCRDTDoc: ( doc ) => {
+						return doc.getMap( 'document' ).toJSON();
+					},
 				},
-				fromCRDTDoc: ( doc ) => {
-					return doc.getMap( 'document' ).toJSON();
-				},
-			},
-			syncObjectType: 'postType/' + postType.name,
-			getSyncObjectId: ( id ) => id,
-			supportsPagination: true,
-			getRevisionsUrl: ( parentId, revisionId ) =>
-				`/${ namespace }/${
-					postType.rest_base
-				}/${ parentId }/revisions${
-					revisionId ? '/' + revisionId : ''
-				}`,
-			revisionKey: isTemplate ? 'wp_id' : DEFAULT_ENTITY_KEY,
-		};
-	} );
+				syncObjectType: 'postType/' + postType.name,
+				getSyncObjectId: ( id ) => id,
+				supportsPagination: true,
+				getRevisionsUrl: ( parentId, revisionId ) =>
+					`/${ namespace }/${
+						postType.rest_base
+					}/${ parentId }/revisions${
+						revisionId ? '/' + revisionId : ''
+					}`,
+				revisionKey: isTemplate ? 'wp_id' : DEFAULT_ENTITY_KEY,
+			};
+		} );
 }
 
 /**
