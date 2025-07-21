@@ -94,6 +94,41 @@ export function pasteHandler( {
 		''
 	);
 
+	// Fix nested tags before HTML parsing to prevent malformed DOM
+	// 1. Fix nested <strong> tags - combine into single tags
+	// Handle simple nesting first
+	HTML = HTML.replace(
+		/<strong([^>]*)>([^<]*)<strong[^>]*>([^<]*)<\/strong>([^<]*)<\/strong>/gi,
+		'<strong$1>$2$3$4</strong>'
+	);
+
+	// Handle deeper nesting for strong tags
+	let previousHTML;
+	do {
+		previousHTML = HTML;
+		HTML = HTML.replace(
+			/<strong([^>]*)>([^<]*(?:<(?!\/strong>|strong)[^<]*)*)<strong[^>]*>([^<]*(?:<(?!\/strong>)[^<]*)*)<\/strong>([^<]*(?:<(?!strong)[^<]*)*)<\/strong>/gi,
+			'<strong$1>$2$3$4</strong>'
+		);
+	} while ( previousHTML !== HTML );
+
+	// 2. Fix nested <a> tags - remove inner anchor tags but keep content
+	// This handles cases like: <a href="...">text <a href="...">nested</a> more</a>
+	// Handle simple nesting first
+	HTML = HTML.replace(
+		/<a([^>]*)>([^<]*)<a[^>]*>([^<]*)<\/a>([^<]*)<\/a>/gi,
+		'<a$1>$2$3$4</a>'
+	);
+
+	// Handle deeper anchor nesting
+	do {
+		previousHTML = HTML;
+		HTML = HTML.replace(
+			/<a([^>]*)>([^<]*(?:<(?!\/a>|a\s)[^<]*)*)<a[^>]*>([^<]*(?:<(?!\/a>)[^<]*)*)<\/a>([^<]*(?:<(?!a\s)[^<]*)*)<\/a>/gi,
+			'<a$1>$2$3$4</a>'
+		);
+	} while ( previousHTML !== HTML );
+
 	// If we detect block delimiters in HTML, parse entirely as blocks.
 	if ( mode !== 'INLINE' ) {
 		// Check plain text if there is no HTML.
