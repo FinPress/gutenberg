@@ -300,14 +300,14 @@ function ViewGrid< Item >( {
 
 	// Group data by groupByField if specified
 	const dataByGroup = groupField
-		? data.reduce( ( groups: { [ key: string ]: typeof data }, item ) => {
+		? data.reduce( ( groups: Map< string, typeof data >, item ) => {
 				const groupName = groupField.getValue( { item } );
-				if ( ! groups[ groupName ] ) {
-					groups[ groupName ] = [];
+				if ( ! groups.has( groupName ) ) {
+					groups.set( groupName, [] );
 				}
-				groups[ groupName ].push( item );
+				groups.get( groupName )?.push( item );
 				return groups;
-		  }, {} )
+		  }, new Map< string, typeof data >() )
 		: null;
 
 	return (
@@ -316,7 +316,7 @@ function ViewGrid< Item >( {
 				// Render multiple groups.
 				hasData && groupField && dataByGroup && (
 					<VStack spacing={ 4 }>
-						{ Object.entries( dataByGroup ).map(
+						{ Array.from( dataByGroup.entries() ).map(
 							( [ groupName, groupItems ] ) => (
 								<VStack key={ groupName } spacing={ 2 }>
 									<h3 className="dataviews-view-grid__group-header">
