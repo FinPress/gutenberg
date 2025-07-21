@@ -27,6 +27,8 @@ export default function ResponsiveWrapper( {
 	overlayTextColor,
 	hasIcon,
 	icon,
+	menuOpenLabel,
+	menuCloseLabel,
 } ) {
 	if ( ! isResponsive ) {
 		return children;
@@ -86,7 +88,7 @@ export default function ResponsiveWrapper( {
 					onClick={ () => onToggle( true ) }
 				>
 					{ hasIcon && <OverlayMenuIcon icon={ icon } /> }
-					{ ! hasIcon && __( 'Menu' ) }
+					{ ! hasIcon && menuOpenLabel }
 				</Button>
 			) }
 
@@ -107,7 +109,7 @@ export default function ResponsiveWrapper( {
 							onClick={ () => onToggle( false ) }
 						>
 							{ hasIcon && <Icon icon={ close } /> }
-							{ ! hasIcon && __( 'Close' ) }
+							{ ! hasIcon && menuCloseLabel }
 						</Button>
 						<div
 							className="wp-block-navigation__responsive-container-content"
