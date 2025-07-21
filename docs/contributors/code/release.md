@@ -279,9 +279,13 @@ Once the changelog is cleaned up, the next step is to choose a few changes to hi
 
 Given the big scope of Gutenberg and the high number of PRs merged in each milestone, it is not uncommon to overlook impactful changes worth highlighting; because of this, this step is a collaborative effort between the release manager and other Gutenberg development team members. If you don’t know what to pick, reach out to others on the team for assistance.
 
-#### Requesting release assets
+#### Release assets
 
-After identifying the highlights of a new WordPress release, the release manager requests visual assets from the Design team. The request is made in the [#design](https://wordpress.slack.com/archives/C02S78ZAL) Slack channel, and an example post for 15.8 can be found [here](https://wordpress.slack.com/archives/C02S78ZAL/p1684161811926279). The assets will be provided in a [Google Drive folder](https://drive.google.com/drive/folders/1U8bVbjOc0MekWjpMjNaVFVhHFEzQkYLB) assigned to the specific release.
+The release post has a few visual assets that need to be organized. For the post's featured image, use the same image as the previous release used. It should already be in the media library called 'gb-featured'.
+
+There's also a banner in the post body, which can be added via a synced pattern called 'Gutenberg What's New Banner'. Insert this pattern and update the text to the correct version number.
+
+The highlighted features also require visual assets. For a high profile feature you can request visual assets from the Design team. For other features you can create the assets yourself if you're comfortable. To request assets from design, reach out in the [#design](https://wordpress.slack.com/archives/C02S78ZAL) Slack channel, and an example post for 15.8 can be found [here](https://wordpress.slack.com/archives/C02S78ZAL/p1684161811926279). The assets will be provided in a [Google Drive folder](https://drive.google.com/drive/folders/1U8bVbjOc0MekWjpMjNaVFVhHFEzQkYLB) assigned to the specific release.
 
 When creating visual assets for a WordPress release, use animations (video or GIF) or static images to showcase the highlights. Use [previous release posts](https://make.wordpress.org/core/tag/gutenberg-new/) as a guide, and keep in mind that animations are better for demonstrating workflows, while more direct highlights can be shown with an image. When creating assets, avoid using copyrighted material and disable browser plugins that can be seen in the browser canvas.
 
@@ -301,6 +305,12 @@ Once the post content is ready, an author with permission to post on [make.wordp
 The author should then enable public preview on the post and ask for a final peer review. This is encouraged by the [make/core posting guidelines](https://make.wordpress.org/core/handbook/best-practices/post-comment-guidelines/#peer-review).
 
 Finally, the post should be published after the stable version is released and is available on WordPress.org. This will help external media to echo and amplify the release.
+
+### Call for volunteer for the next release
+
+After you've completed the release, post in #core-editor slack channel asking for volunteers to handle the next Gutenberg release.
+
+See an example of that here - https://wordpress.slack.com/archives/C02QB2JS7/p1751595983193709.
 
 ### Creating minor releases
 
