@@ -19,23 +19,46 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 	$classes = array();
 
 	if ( ! isset( $attributes['date'] ) ) {
-		// This is the legacy version of the block.
-		// In this case, we manually apply block bindings for the
-		// `core/post-data` source to set the `date` attribute.
-		$source = get_block_bindings_source( 'core/post-data' );
-
-		if ( isset( $attributes['displayType'] ) && 'modified' === $attributes['displayType'] ) {
-			$source_args = array(
-				'key' => 'modified',
-			);
-			$classes[]   = 'wp-block-post-date__modified-date';
+		/*
+		 * This can mean two things:
+		 *
+		 * 1. We're dealing with the legacy version of the block that didn't have the `date` attribute.
+		 * 2. The `date` attribute is bound to a Block Bindings source, but we're on a version of WordPress
+		 *    that doesn't support the `core/post-data` source.
+		 *
+		 * In both cases, we set the `date` attribute to its correct value by applying Block Bindings manually.
+		 */
+		if (
+			isset( $attributes['metadata']['bindings']['date']['source'] ) &&
+			'core/post-data' === $attributes['metadata']['bindings']['date']['source'] &&
+			isset( $attributes['metadata']['bindings']['date']['args'] )
+		) {
+			// We're using a version of WordPress that doesn't support the `core/post-data` source for block bindings.
+			// This branch can be removed once the minimum required WordPress version supports the `core/post-data` source.
+			$source_args = $attributes['metadata']['bindings']['date']['args'];
 		} else {
-			$source_args = array(
-				'key' => 'date',
-			);
+			// This is the legacy version of the block that didn't have the `date` attribute.
+			// This branch needs to be kept for backward compatibility.
+			if ( isset( $attributes['displayType'] ) && 'modified' === $attributes['displayType'] ) {
+				$source_args = array(
+					'key' => 'modified',
+				);
+			} else {
+				$source_args = array(
+					'key' => 'date',
+				);
+			}
 		}
+
+		$source             = get_block_bindings_source( 'core/post-data' );
 		$attributes['date'] = $source->get_value( $source_args, $block, 'date' );
-	} elseif ( empty( $attributes['date'] ) ) {
+
+		if ( isset( $source_args['key'] ) && 'modified' === $source_args['key'] ) {
+			$classes[] = 'wp-block-post-date__modified-date';
+		}
+	}
+
+	if ( empty( $attributes['date'] ) ) {
 		// If the `date` attribute is set but empty, it's because the block is bound to the
 		// post's last modified date, and the latter lies before the publish date.
 		// In this case, we return an empty string.
