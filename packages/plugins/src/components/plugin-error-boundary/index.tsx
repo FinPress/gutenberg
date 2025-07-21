@@ -1,44 +1,25 @@
 /**
- * External dependencies
- */
-import type { ReactNode } from 'react';
-
-/**
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
 
-interface PluginErrorBoundaryProps {
-	/**
-	 * The name of the plugin that may encounter an errors.
-	 */
-	name: string;
-	/**
-	 * The child components to render.
-	 */
-	children: ReactNode;
-	/**
-	 * Callback function called when an error occurs.
-	 */
-	onError?: ( name: string, error: Error ) => void;
-}
+/**
+ * Internal dependencies
+ */
+import type {
+	PluginErrorBoundaryProps as Props,
+	PluginErrorBoundaryState as State,
+} from '../../types';
 
-interface PluginErrorBoundaryState {
-	hasError: boolean;
-}
-
-export class PluginErrorBoundary extends Component<
-	PluginErrorBoundaryProps,
-	PluginErrorBoundaryState
-> {
-	constructor( props: PluginErrorBoundaryProps ) {
+export class PluginErrorBoundary extends Component< Props, State > {
+	constructor( props: Props ) {
 		super( props );
 		this.state = {
 			hasError: false,
 		};
 	}
 
-	static getDerivedStateFromError(): PluginErrorBoundaryState {
+	static getDerivedStateFromError(): State {
 		return { hasError: true };
 	}
 
@@ -49,7 +30,7 @@ export class PluginErrorBoundary extends Component<
 		}
 	}
 
-	render(): ReactNode {
+	render(): React.ReactNode {
 		if ( ! this.state.hasError ) {
 			return this.props.children;
 		}
