@@ -678,6 +678,7 @@ export const saveEntityRecord =
 						method: recordId ? 'PUT' : 'POST',
 						data: edits,
 					} );
+
 					dispatch.receiveEntityRecords(
 						kind,
 						name,
