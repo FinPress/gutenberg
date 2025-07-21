@@ -96,12 +96,6 @@
 	}
 }
 
-.edit-post-meta-boxes-main__liner {
-	overflow: auto;
-	// Keep the contents behind the resize handle or details summary.
-	isolation: isolate;
-}
-
 // In case the canvas is not iframe’d.
 .edit-post-layout__metaboxes {
 	clear: both;

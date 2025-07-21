@@ -138,6 +138,7 @@ function getAnimationKeyframes( transitionFrom, transitionTo ) {
  * @property {number}  scaleContainerWidth     The width of the container used to calculate the scale.
  * @property {Object}  contentResizeListener   A resize observer for the content.
  * @property {Object}  containerResizeListener A resize observer for the container.
+ * @property {number}  contentHeight           The height of the content being observed.
  */
 
 /**
@@ -486,5 +487,6 @@ export function useScaleCanvas( {
 		scaleContainerWidth,
 		contentResizeListener,
 		containerResizeListener,
+		contentHeight,
 	};
 }

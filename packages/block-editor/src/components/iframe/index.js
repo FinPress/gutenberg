@@ -105,6 +105,7 @@ function Iframe( {
 	readonly,
 	forwardedRef: ref,
 	title = __( 'Editor canvas' ),
+	autoHeight = false,
 	...props
 } ) {
 	const { resolvedAssets, isPreviewMode } = useSelect( ( select ) => {
@@ -224,6 +225,7 @@ function Iframe( {
 		containerResizeListener,
 		isZoomedOut,
 		scaleContainerWidth,
+		contentHeight,
 	} = useScaleCanvas( {
 		scale,
 		frameSize: parseInt( frameSize ),
@@ -239,6 +241,20 @@ function Iframe( {
 		disabledRef,
 	] );
 
+	// Calculate iframe style with dynamic height
+	const iframeStyle = useMemo( () => {
+		return {
+			...props.style,
+			height:
+				autoHeight && ! isZoomedOut && contentHeight
+					? contentHeight
+					: props.style?.height,
+			border: 0,
+		};
+	}, [ props.style, autoHeight, isZoomedOut, contentHeight ] );
+
+	const htmlOverflow = autoHeight && ! isZoomedOut ? 'overflow: hidden;' : '';
+
 	// Correct doctype is required to enable rendering in standards
 	// mode. Also preload the styles to avoid a flash of unstyled
 	// content.
@@ -252,6 +268,7 @@ function Iframe( {
 			html{
 				height: auto !important;
 				min-height: 100%;
+				${ htmlOverflow }
 			}
 			/* Lowest specificity to not override global styles */
 			:where(body) {
@@ -288,11 +305,7 @@ function Iframe( {
 			{ /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */ }
 			<iframe
 				{ ...props }
-				style={ {
-					...props.style,
-					height: props.style?.height,
-					border: 0,
-				} }
+				style={ iframeStyle }
 				ref={ useMergeRefs( [ ref, setRef ] ) }
 				tabIndex={ tabIndex }
 				// Correct doctype is required to enable rendering in standards
