@@ -1,7 +1,16 @@
 /**
  * WordPress dependencies
  */
-import { lineDashed, lineDotted, lineSolid } from '@wordpress/icons';
+import {
+	lineDashed,
+	lineDotted,
+	lineSolid,
+	lineDouble,
+	lineGroove,
+	lineRidge,
+	lineInset,
+	lineOutset,
+} from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -13,27 +22,44 @@ import {
 	ToggleGroupControl,
 	ToggleGroupControlOptionIcon,
 } from '../../toggle-group-control';
+import SelectControl from '../../select-control';
 
 const BORDER_STYLES = [
 	{ label: __( 'Solid' ), icon: lineSolid, value: 'solid' },
 	{ label: __( 'Dashed' ), icon: lineDashed, value: 'dashed' },
 	{ label: __( 'Dotted' ), icon: lineDotted, value: 'dotted' },
+	{ label: __( 'Double' ), icon: lineDouble, value: 'double' },
+	{ label: __( 'Groove' ), icon: lineGroove, value: 'groove' },
+	{ label: __( 'Ridge' ), icon: lineRidge, value: 'ridge' },
+	{ label: __( 'Inset' ), icon: lineInset, value: 'inset' },
+	{ label: __( 'Outset' ), icon: lineOutset, value: 'outset' },
 ];
 
 function UnconnectedBorderControlStylePicker(
 	{ onChange, ...restProps }: StylePickerProps,
 	forwardedRef: React.ForwardedRef< any >
 ) {
-	return (
+	const shouldUseSelect = BORDER_STYLES.length > 5; // Use Select when too many options
+
+	return shouldUseSelect ? (
+		<SelectControl
+			label={ __( 'Border Style' ) }
+			value={ restProps.value }
+			onChange={ ( value ) => onChange?.( value ) }
+			options={ BORDER_STYLES.map( ( { label, value } ) => ( {
+				label,
+				value,
+			} ) ) }
+		/>
+	) : (
 		<ToggleGroupControl
 			__nextHasNoMarginBottom
 			__next40pxDefaultSize
 			ref={ forwardedRef }
 			isDeselectable
-			onChange={ ( value ) => {
-				onChange?.( value as string | undefined );
-			} }
+			onChange={ ( value ) => onChange?.( value as string | undefined ) }
 			{ ...restProps }
+			style={ { display: 'flex' } }
 		>
 			{ BORDER_STYLES.map( ( borderStyle ) => (
 				<ToggleGroupControlOptionIcon
