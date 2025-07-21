@@ -35,6 +35,7 @@ import { COVER_MIN_HEIGHT, mediaPosition } from '../shared';
 import { unlock } from '../../lock-unlock';
 import { useToolsPanelDropdownMenuProps } from '../../utils/hooks';
 import { DEFAULT_MEDIA_SIZE_SLUG } from '../constants';
+import PosterImage from '../../video/poster-image';
 
 const { cleanEmptyObject, ResolutionTool, HTMLElementControl } = unlock(
 	blockEditorPrivateApis
@@ -110,6 +111,7 @@ export default function CoverInspectorControls( {
 		minHeightUnit,
 		alt,
 		tagName,
+		poster,
 	} = attributes;
 	const {
 		isVideoBackground,
@@ -119,6 +121,7 @@ export default function CoverInspectorControls( {
 		overlayColor,
 	} = currentSettings;
 
+	const instanceId = useInstanceId( CoverInspectorControls );
 	const sizeSlug = attributes.sizeSlug || DEFAULT_MEDIA_SIZE_SLUG;
 
 	const { gradientValue, setGradient } = __experimentalUseGradient();
@@ -198,6 +201,7 @@ export default function CoverInspectorControls( {
 								focalPoint: undefined,
 								isRepeated: false,
 								alt: '',
+								poster: '',
 							} );
 							updateImage( DEFAULT_MEDIA_SIZE_SLUG );
 						} }
@@ -242,6 +246,13 @@ export default function CoverInspectorControls( {
 									/>
 								</ToolsPanelItem>
 							</>
+						) }
+						{ isVideoBackground && (
+							<PosterImage
+								poster={ poster }
+								setAttributes={ setAttributes }
+								instanceId={ instanceId }
+							/>
 						) }
 						{ showFocalPointPicker && (
 							<ToolsPanelItem
