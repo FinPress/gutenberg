@@ -148,14 +148,12 @@ function MetaBoxesMain() {
 		return;
 	}
 
-	const contents = (
+	return (
 		<div className="edit-post-layout__metaboxes">
 			<MetaBoxes location="normal" />
 			<MetaBoxes location="advanced" />
 		</div>
 	);
-
-	return contents;
 }
 
 function Layout( {
