@@ -369,6 +369,9 @@ function Layout( {
 			<BackButton initialPost={ initialPost } />
 		) : null;
 
+	const shouldIframeAutoHeight =
+		shouldIframe && showMetaBoxes && ! isDevicePreview;
+
 	return (
 		<SlotFillProvider>
 			<ErrorBoundary canCopyContent>
@@ -395,20 +398,15 @@ function Layout( {
 						autoFocus={ ! isWelcomeGuideVisible }
 						onActionPerformed={ onActionPerformed }
 						iframeProps={ {
-							autoHeight: ! isDevicePreview,
+							autoHeight: shouldIframeAutoHeight,
+							style: { minHeight: '50vh' },
 						} }
 						extraSidebarPanels={
 							showMetaBoxes && <MetaBoxes location="side" />
 						}
 						extraContent={
 							! isDistractionFree &&
-							showMetaBoxes && (
-								<MetaBoxesMain
-									isLegacy={
-										! shouldIframe || isDevicePreview
-									}
-								/>
-							)
+							showMetaBoxes && <MetaBoxesMain />
 						}
 					>
 						<PostLockedModal />
