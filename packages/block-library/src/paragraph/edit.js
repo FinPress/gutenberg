@@ -20,6 +20,7 @@ import {
 	useBlockProps,
 	useSettings,
 	useBlockEditingMode,
+	TextIndentControl,
 } from '@wordpress/block-editor';
 import { getBlockSupport } from '@wordpress/blocks';
 import { formatLtr } from '@wordpress/icons';
@@ -108,14 +109,18 @@ function ParagraphBlock( {
 	isSelected: isSingleSelected,
 	name,
 } ) {
-	const { align, content, direction, dropCap, placeholder } = attributes;
+	const { align, content, direction, dropCap, placeholder, textIndent } =
+		attributes;
 	const blockProps = useBlockProps( {
 		ref: useOnEnter( { clientId, content } ),
 		className: clsx( {
 			'has-drop-cap': hasDropCapDisabled( align ) ? false : dropCap,
 			[ `has-text-align-${ align }` ]: align,
 		} ),
-		style: { direction },
+		style: {
+			direction,
+			textIndent: textIndent || undefined,
+		},
 	} );
 	const blockEditingMode = useBlockEditingMode();
 
@@ -143,12 +148,20 @@ function ParagraphBlock( {
 				</BlockControls>
 			) }
 			{ isSingleSelected && (
-				<DropCapControl
-					name={ name }
-					clientId={ clientId }
-					attributes={ attributes }
-					setAttributes={ setAttributes }
-				/>
+				<>
+					<DropCapControl
+						name={ name }
+						clientId={ clientId }
+						attributes={ attributes }
+						setAttributes={ setAttributes }
+					/>
+					<TextIndentControl
+						name={ name }
+						clientId={ clientId }
+						attributes={ attributes }
+						setAttributes={ setAttributes }
+					/>
+				</>
 			) }
 			<RichText
 				identifier="content"
