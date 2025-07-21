@@ -35,6 +35,7 @@ import {
 	MeetupIcon,
 	MediumIcon,
 	PatreonIcon,
+	PhoneIcon,
 	PinterestIcon,
 	PocketIcon,
 	RedditIcon,
@@ -234,6 +235,13 @@ const variations = [
 		attributes: { service: 'patreon' },
 		title: __( 'Patreon' ),
 		icon: PatreonIcon,
+	},
+	{
+		name: 'phone',
+		attributes: { service: 'phone' },
+		title: 'Phone',
+		icon: PhoneIcon,
+		description: __( 'Display an icon linking to a phone number.' ),
 	},
 	{
 		name: 'pinterest',

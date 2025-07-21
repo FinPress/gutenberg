@@ -26,6 +26,7 @@ export * from './mastodon';
 export * from './meetup';
 export * from './medium';
 export * from './patreon';
+export * from './phone';
 export * from './pinterest';
 export * from './pocket';
 export * from './reddit';
