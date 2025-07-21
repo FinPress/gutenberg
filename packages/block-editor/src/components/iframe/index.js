@@ -253,6 +253,8 @@ function Iframe( {
 		};
 	}, [ props.style, autoHeight, isZoomedOut, contentHeight ] );
 
+	const htmlOverflow = autoHeight && ! isZoomedOut ? 'overflow: hidden;' : '';
+
 	// Correct doctype is required to enable rendering in standards
 	// mode. Also preload the styles to avoid a flash of unstyled
 	// content.
@@ -266,7 +268,7 @@ function Iframe( {
 			html{
 				height: auto !important;
 				min-height: 100%;
-				overflow: hidden;
+				${ htmlOverflow }
 			}
 			/* Lowest specificity to not override global styles */
 			:where(body) {

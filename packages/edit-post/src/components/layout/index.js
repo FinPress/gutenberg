@@ -370,7 +370,17 @@ function Layout( {
 		) : null;
 
 	const shouldIframeAutoHeight =
-		shouldIframe && showMetaBoxes && ! isDevicePreview;
+		shouldIframe &&
+		hasActiveMetaboxes &&
+		showMetaBoxes &&
+		! isDevicePreview;
+
+	const iframeProps = shouldIframeAutoHeight
+		? {
+				autoHeight: shouldIframeAutoHeight,
+				style: { minHeight: '50vh' },
+		  }
+		: {};
 
 	return (
 		<SlotFillProvider>
@@ -397,10 +407,7 @@ function Layout( {
 						// eslint-disable-next-line jsx-a11y/no-autofocus
 						autoFocus={ ! isWelcomeGuideVisible }
 						onActionPerformed={ onActionPerformed }
-						iframeProps={ {
-							autoHeight: shouldIframeAutoHeight,
-							style: { minHeight: '50vh' },
-						} }
+						iframeProps={ iframeProps }
 						extraSidebarPanels={
 							showMetaBoxes && <MetaBoxes location="side" />
 						}
