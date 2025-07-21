@@ -15,6 +15,7 @@ import { keyboard } from './keyboard';
 import { unknown } from './unknown';
 import { language } from './language';
 import { nonBreakingSpace } from './non-breaking-space';
+import { inlineTypographyButton } from './inline-typography';
 
 export default [
 	bold,
@@ -31,4 +32,5 @@ export default [
 	unknown,
 	language,
 	nonBreakingSpace,
+	inlineTypographyButton,
 ];
