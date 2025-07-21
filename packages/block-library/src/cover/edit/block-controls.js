@@ -27,6 +27,7 @@ export default function CoverBlockControls( {
 	currentSettings,
 	toggleUseFeaturedImage,
 	onClearMedia,
+	blockEditingMode,
 } ) {
 	const { contentPosition, id, useFeaturedImage, minHeight, minHeightUnit } =
 		attributes;
@@ -73,25 +74,32 @@ export default function CoverBlockControls( {
 		} );
 	};
 
+	const hasNonContentControls = blockEditingMode === 'default';
+	const isContentOnlyMode = blockEditingMode === 'contentOnly';
+
 	return (
 		<>
-			<BlockControls group="block">
-				<BlockAlignmentMatrixControl
-					label={ __( 'Change content position' ) }
-					value={ contentPosition }
-					onChange={ ( nextPosition ) =>
-						setAttributes( {
-							contentPosition: nextPosition,
-						} )
-					}
-					isDisabled={ ! hasInnerBlocks }
-				/>
-				<FullHeightAlignmentControl
-					isActive={ isMinFullHeight }
-					onToggle={ toggleMinFullHeight }
-					isDisabled={ ! hasInnerBlocks }
-				/>
-			</BlockControls>
+			{ ! isContentOnlyMode && hasNonContentControls && (
+				<BlockControls group="block">
+					<>
+						<BlockAlignmentMatrixControl
+							label={ __( 'Change content position' ) }
+							value={ contentPosition }
+							onChange={ ( nextPosition ) =>
+								setAttributes( {
+									contentPosition: nextPosition,
+								} )
+							}
+							isDisabled={ ! hasInnerBlocks }
+						/>
+						<FullHeightAlignmentControl
+							isActive={ isMinFullHeight }
+							onToggle={ toggleMinFullHeight }
+							isDisabled={ ! hasInnerBlocks }
+						/>
+					</>
+				</BlockControls>
+			) }
 			<BlockControls group="other">
 				<MediaReplaceFlow
 					mediaId={ id }

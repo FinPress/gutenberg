@@ -446,6 +446,7 @@ function CoverEdit( {
 			currentSettings={ currentSettings }
 			toggleUseFeaturedImage={ toggleUseFeaturedImage }
 			onClearMedia={ onClearMedia }
+			blockEditingMode={ blockEditingMode }
 		/>
 	);
 
