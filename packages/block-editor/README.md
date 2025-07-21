@@ -847,6 +847,28 @@ _Related_
 
 -   <https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#registerStore>
 
+### TextIndentControl
+
+Text indent control component for the block editor.
+
+_Parameters_
+
+-   _props_ `Object`: Component props.
+-   _props.clientId_ `string`: The block's client ID.
+-   _props.attributes_ `Object`: Block attributes.
+-   _props.setAttributes_ `Function`: Function to update block attributes.
+-   _props.name_ `string`: Block name.
+-   _props.units_ `Array`: Available units for the control.
+-   _props.min_ `number`: Minimum value.
+-   _props.max_ `number`: Maximum value.
+-   _props.step_ `number`: Step increment.
+-   _props.help_ `string`: Help text for the control.
+-   _props.label_ `string`: Label for the control.
+
+_Returns_
+
+-   `Element|null`: Text indent control component or null.
+
 ### ToolSelector
 
 Undocumented declaration.

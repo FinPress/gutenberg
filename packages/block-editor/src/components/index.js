@@ -75,6 +75,7 @@ export { __experimentalLinkControlSearchInput } from './link-control/search-inpu
 export { __experimentalLinkControlSearchResults } from './link-control/search-results';
 export { __experimentalLinkControlSearchItem } from './link-control/search-item';
 export { default as LineHeightControl } from './line-height-control';
+export { default as TextIndentControl } from './text-indent-control';
 export { default as __experimentalListView } from './list-view';
 export { default as MediaReplaceFlow } from './media-replace-flow';
 export { default as MediaPlaceholder } from './media-placeholder';
