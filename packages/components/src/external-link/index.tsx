@@ -8,7 +8,7 @@ import type { ForwardedRef } from 'react';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { forwardRef, useEffect } from '@wordpress/element';
+import { forwardRef } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -24,16 +24,14 @@ function UnforwardedExternalLink(
 	ref: ForwardedRef< HTMLAnchorElement >
 ) {
 	const { href, children, className, rel = '', ...additionalProps } = props;
-	const optimizedDefaultRels = [ 'noreferrer', 'noopener' ];
-	useEffect( () => {
-		// Check href and add external default refs only if the link is pointing to an external URL.
-		if ( ! href.startsWith( window.location.origin ) ) {
-			optimizedDefaultRels.push( 'external' );
-		}
-	} );
 	const optimizedRel = [
 		...new Set(
-			[ ...rel.split( ' ' ), ...optimizedDefaultRels ].filter( Boolean )
+			[
+				...rel.split( ' ' ),
+				'external',
+				'noreferrer',
+				'noopener',
+			].filter( Boolean )
 		),
 	].join( ' ' );
 	const classes = clsx( 'components-external-link', className );
