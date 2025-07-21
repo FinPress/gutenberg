@@ -168,9 +168,7 @@ function DataViews< Item >( {
 	}, [ selection, data, getItemId ] );
 
 	const filters = useFilters( _fields, view );
-	const [ isShowingFilter, setIsShowingFilter ] = useState< boolean >( () =>
-		( filters || [] ).some( ( filter ) => filter.isPrimary )
-	);
+	const [ isShowingFilter, setIsShowingFilter ] = useState< boolean >( true );
 
 	return (
 		<DataViewsContext.Provider
