@@ -292,7 +292,7 @@ async function loadPostTypeEntities() {
 		path: '/wp/v2/types?context=view',
 	} );
 	return Object.entries( postTypes ?? {} )
-		.filter( ( [ name ] ) => name !== 'attachment' )
+		.filter( ( [ name ] ) => name !== 'attachment' ) // Prevent attachment post type from registering as it is handled by root/media.
 		.map( ( [ name, postType ] ) => {
 			const isTemplate = [ 'wp_template', 'wp_template_part' ].includes(
 				name
