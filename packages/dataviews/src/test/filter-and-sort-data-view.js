@@ -770,12 +770,12 @@ describe( 'sorting', () => {
 		expect( result[ 3 ].type ).toBe( 'Ice giant' );
 		expect( result[ 3 ].title ).toBe( 'Neptune' );
 
-		expect( result[ 4 ].type ).toBe( 'Not a planet' );
-		expect( result[ 4 ].title ).toBe( 'Space' );
-		expect( result[ 5 ].type ).toBe( 'Not a planet' );
-		expect( result[ 5 ].title ).toBe( 'NASA' );
-		expect( result[ 6 ].type ).toBe( 'Not a planet' );
-		expect( result[ 6 ].title ).toBe( 'Apollo' );
+		expect( result[ 4 ].type ).toBe( 'Satellite' );
+		expect( result[ 4 ].title ).toBe( 'Moon' );
+		expect( result[ 5 ].type ).toBe( 'Satellite' );
+		expect( result[ 5 ].title ).toBe( 'Io' );
+		expect( result[ 6 ].type ).toBe( 'Satellite' );
+		expect( result[ 6 ].title ).toBe( 'Europa' );
 
 		expect( result[ 7 ].type ).toBe( 'Terrestrial' );
 		expect( result[ 7 ].title ).toBe( 'Venus' );
