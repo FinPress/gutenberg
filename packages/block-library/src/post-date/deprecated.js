@@ -98,7 +98,7 @@ const v2 = {
 		}
 	},
 	isEligible( attributes ) {
-		// If there's neither an explicit `date` attribute nor a block binding for that attriubte,
+		// If there's neither an explicit `date` attribute nor a block binding for that attribute,
 		// then we're dealing with an old version of the block.
 		return ! attributes.date && ! attributes?.metadata?.bindings?.date;
 	},
