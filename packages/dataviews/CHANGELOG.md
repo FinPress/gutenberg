@@ -28,6 +28,7 @@
 - Allow readonly fields in DataForm when `readOnly` is set to `true`.
 - Adjust the padding when the component is placed inside a `Card`.
 - Introduce `perPageSizes` to control the available sizes of the items per page
+- Add support for the `Edit` control on the date field type.
 
 ### Breaking Changes
 
