@@ -14,6 +14,7 @@ import {
 } from '@wordpress/block-editor';
 import { Button, Placeholder } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useResizeObserver } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -28,7 +29,20 @@ export default function QueryPlaceholder( {
 	openPatternSelectionModal,
 } ) {
 	const [ isStartingBlank, setIsStartingBlank ] = useState( false );
+	const [ containerWidth, setContainerWidth ] = useState( 0 );
+
 	const blockProps = useBlockProps();
+
+	// Use ResizeObserver to monitor container width.
+	const resizeObserverRef = useResizeObserver( ( [ entry ] ) => {
+		setContainerWidth( entry.contentRect.width );
+	} );
+
+	const SMALL_CONTAINER_BREAKPOINT = 160;
+
+	const isSmallContainer =
+		containerWidth > 0 && containerWidth < SMALL_CONTAINER_BREAKPOINT;
+
 	const { blockType, activeBlockVariation } = useSelect(
 		( select ) => {
 			const { getActiveBlockVariation, getBlockType } =
@@ -49,6 +63,7 @@ export default function QueryPlaceholder( {
 		activeBlockVariation?.icon ||
 		blockType?.icon?.src;
 	const label = activeBlockVariation?.title || blockType?.title;
+
 	if ( isStartingBlank ) {
 		return (
 			<QueryVariationPicker
@@ -60,15 +75,17 @@ export default function QueryPlaceholder( {
 		);
 	}
 	return (
-		<div { ...blockProps }>
+		<div { ...blockProps } ref={ resizeObserverRef }>
 			<Placeholder
-				icon={ icon }
-				label={ label }
-				instructions={ __(
-					'Choose a pattern for the query loop or start blank.'
-				) }
+				icon={ ! isSmallContainer && icon }
+				label={ ! isSmallContainer && label }
+				instructions={
+					! isSmallContainer &&
+					__( 'Choose a pattern for the query loop or start blank.' )
+				}
+				withIllustration={ isSmallContainer }
 			>
-				{ !! hasPatterns && (
+				{ !! hasPatterns && ! isSmallContainer && (
 					<Button
 						__next40pxDefaultSize
 						variant="primary"
@@ -78,15 +95,17 @@ export default function QueryPlaceholder( {
 					</Button>
 				) }
 
-				<Button
-					__next40pxDefaultSize
-					variant="secondary"
-					onClick={ () => {
-						setIsStartingBlank( true );
-					} }
-				>
-					{ __( 'Start blank' ) }
-				</Button>
+				{ ! isSmallContainer && (
+					<Button
+						__next40pxDefaultSize
+						variant="secondary"
+						onClick={ () => {
+							setIsStartingBlank( true );
+						} }
+					>
+						{ __( 'Start blank' ) }
+					</Button>
+				) }
 			</Placeholder>
 		</div>
 	);
