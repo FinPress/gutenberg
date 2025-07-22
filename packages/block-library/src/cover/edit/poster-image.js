@@ -33,15 +33,15 @@ function PosterImage( { poster, setAttributes } ) {
 	}
 
 	return (
-		<ToolsPanelItem
-			label={ __( 'Poster image' ) }
-			isShownByDefault
-			hasValue={ () => !! poster }
-			onDeselect={ () => {
-				setAttributes( { poster: undefined } );
-			} }
-		>
-			<MediaUploadCheck>
+		<MediaUploadCheck>
+			<ToolsPanelItem
+				label={ __( 'Poster image' ) }
+				isShownByDefault
+				hasValue={ () => !! poster }
+				onDeselect={ () => {
+					setAttributes( { poster: undefined } );
+				} }
+			>
 				<BaseControl.VisualLabel>
 					{ __( 'Poster image' ) }
 				</BaseControl.VisualLabel>
@@ -83,8 +83,8 @@ function PosterImage( { poster, setAttributes } ) {
 						</Button>
 					) }
 				</HStack>
-			</MediaUploadCheck>
-		</ToolsPanelItem>
+			</ToolsPanelItem>
+		</MediaUploadCheck>
 	);
 }
 
