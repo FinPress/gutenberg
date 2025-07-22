@@ -81,17 +81,18 @@ describe( 'filters', () => {
 		const { data: result } = filterSortAndPaginate(
 			data,
 			{
-				search: 'NASA',
+				search: 'Moon',
 				filters: [],
 			},
 			fieldsWithArraySearch
 		);
 
-		// Should find both items: one with title "NASA" and one with "NASA" in categories
-		expect( result ).toHaveLength( 2 );
+		// Should find items with "Moon" in categories plus the item with title "Moon"
+		expect( result ).toHaveLength( 3 );
 		expect( result.map( ( r ) => r.title ).sort() ).toEqual( [
-			'Apollo',
-			'NASA',
+			'Europa',
+			'Io',
+			'Moon',
 		] );
 	} );
 
@@ -105,18 +106,17 @@ describe( 'filters', () => {
 		const { data: result } = filterSortAndPaginate(
 			data,
 			{
-				search: 'space',
+				search: 'planet',
 				filters: [],
 			},
 			fieldsWithArraySearch
 		);
 
-		// Should find items with "Space" in categories (case-insensitive)
-		// Plus the item with title "Space" (from title search which is already enabled)
-		expect( result ).toHaveLength( 10 );
-		expect( result.map( ( r ) => r.title ) ).toContain( 'Apollo' );
+		// Should find items with "Planet" in categories (case-insensitive)
+		expect( result ).toHaveLength( 8 );
 		expect( result.map( ( r ) => r.title ) ).toContain( 'Neptune' );
-		expect( result.map( ( r ) => r.title ) ).toContain( 'Space' );
+		expect( result.map( ( r ) => r.title ) ).toContain( 'Mercury' );
+		expect( result.map( ( r ) => r.title ) ).toContain( 'Earth' );
 	} );
 
 	it( 'should search using IS filter', () => {
