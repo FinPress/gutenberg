@@ -13,12 +13,12 @@ jest.mock( '@wordpress/warning', () => {
 	return {
 		__esModule: true,
 		default: jest.fn( ( message ) => {
-			const suppressedWarningPatterns = [
-				'Block API version is less than 2.', // apiVersion warnings
+			const suppressedWarningRegexes = [
+				/The block ".*" is registered with API version 2 or lower/, // apiVersion warnings
 			];
 			if ( typeof message === 'string' ) {
-				const shouldSuppress = suppressedWarningPatterns.some(
-					( pattern ) => message.includes( pattern )
+				const shouldSuppress = suppressedWarningRegexes.some(
+					( regex ) => regex.test( message )
 				);
 				if ( shouldSuppress ) {
 					return;
