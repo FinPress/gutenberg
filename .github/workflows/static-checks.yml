@@ -40,6 +40,9 @@ jobs:
                   check-latest: true
                   cache: npm
 
+            - name: Install latest npm
+              run: npm install -g npm@latest
+
             - name: Npm install
               # A "full" install is executed, since `npm ci` does not always exit
               # with an error status code if the lock file is inaccurate. This also
