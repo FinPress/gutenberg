@@ -38,7 +38,7 @@ function PosterImage( { poster, setAttributes } ) {
 				isShownByDefault
 				hasValue={ () => !! poster }
 				onDeselect={ () => {
-					setAttributes( { poster: '' } );
+					setAttributes( { poster: undefined } );
 				} }
 			>
 				<div className="editor-video-poster-control">
