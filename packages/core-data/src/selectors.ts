@@ -426,12 +426,11 @@ getEntityRecord.__unstableNormalizeArgs = (
 	// If recordKey looks to be a numeric ID then coerce to number.
 	newArgs[ 2 ] = isNumericID( recordKey ) ? Number( recordKey ) : recordKey;
 
-	const argsWithDeprecations =
-		normalizeDeprecatedEntityArgs< GetEntityRecordArgs >(
-			newArgs,
-			'getEntityRecord',
-			{ kindArg: 0, nameArg: 1 }
-		);
+	const argsWithDeprecations = normalizeDeprecatedEntityArgs(
+		newArgs,
+		'getEntityRecord',
+		{ kindArg: 0, nameArg: 1 }
+	);
 
 	return argsWithDeprecations;
 };
