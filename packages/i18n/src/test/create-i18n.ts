@@ -9,16 +9,17 @@ import { createHooks } from '@wordpress/hooks';
  * Internal dependencies
  */
 import { createI18n } from '..';
+import type { I18nDomainMetadata, LocaleData } from '../types';
 
-const strayaLocale = {
-	hello: [ 'gday' ],
+const strayaLocale: LocaleData = {
+	hello: [ 'gday', '' ],
 };
 
-const frenchLocale = {
-	hello: [ 'bonjour' ],
+const frenchLocale: LocaleData = {
+	hello: [ 'bonjour', '' ],
 };
 
-const localeData = {
+const localeData: LocaleData = {
 	'': {
 		// Domain name.
 		domain: 'test_domain',
@@ -27,23 +28,24 @@ const localeData = {
 		plural_forms: 'nplurals=2; plural=(n != 1);',
 	},
 
-	hello: [ 'bonjour' ],
+	hello: [ 'bonjour', '' ],
 
-	'verb\u0004feed': [ 'nourrir' ],
+	'verb\u0004feed': [ 'nourrir', '' ],
 
-	'hello %s': [ 'bonjour %s' ],
+	'hello %s': [ 'bonjour %s', '' ],
 
 	'%d banana': [ '%d banane', '%d bananes' ],
 
 	'fruit\u0004%d apple': [ '%d pomme', '%d pommes' ],
 };
 
-const additionalLocaleData = {
-	cheeseburger: [ 'hamburger au fromage' ],
+const additionalLocaleData: LocaleData = {
+	cheeseburger: [ 'hamburger au fromage', '' ],
 	'%d cat': [ '%d chat', '%d chats' ],
 };
 
-const createTestLocale = () => createI18n( localeData, 'test_domain' );
+const createTestLocale = () =>
+	createI18n< 'test_domain' | 'test_domain2' >( localeData, 'test_domain' );
 
 describe( 'createI18n', () => {
 	test( 'instantiated with locale data', () => {
@@ -111,15 +113,14 @@ describe( 'createI18n', () => {
 	} );
 
 	describe( 'isRTL', () => {
-		const ARLocaleData = {
+		const ARLocaleData: LocaleData = {
 			'': {
 				plural_forms:
 					'nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;',
-				language: 'ar',
-				localeSlug: 'ar',
+				lang: 'ar',
 			},
-			'text direction\u0004ltr': [ 'rtl' ],
-			Back: [ 'رجوع' ],
+			'text direction\u0004ltr': [ 'rtl', '' ],
+			Back: [ 'رجوع', '' ],
 		};
 
 		it( 'is false for non-rtl', () => {
@@ -135,7 +136,10 @@ describe( 'createI18n', () => {
 
 	describe( 'setLocaleData', () => {
 		const createTestLocaleWithAdditionalData = () => {
-			const locale = createI18n( localeData, 'test_domain' );
+			const locale = createI18n< 'test_domain' | 'test_domain2' >(
+				localeData,
+				'test_domain'
+			);
 			locale.setLocaleData( additionalLocaleData, 'test_domain' );
 			return locale;
 		};
@@ -153,6 +157,7 @@ describe( 'createI18n', () => {
 				},
 				'test_domain2'
 			);
+
 			expect(
 				locale._n( '%d banana', '%d bananes', 2, 'test_domain2' )
 			).toBe( '%d bananes' );
@@ -171,13 +176,22 @@ describe( 'createI18n', () => {
 				domain
 			);
 
+			const domainMeta = locale.getLocaleData( domain )[ '' ];
 			expect(
-				locale.getLocaleData( domain )[ '' ].domain
+				typeof domainMeta === 'object' && ! Array.isArray( domainMeta )
+					? domainMeta.domain
+					: undefined
 			).toBeUndefined();
-			expect( locale.getLocaleData( domain )[ '' ].lang ).toBeUndefined();
-			expect( locale.getLocaleData( domain )[ '' ].additionalData ).toBe(
-				domainConfiguration.additionalData
-			);
+			expect(
+				typeof domainMeta === 'object' && ! Array.isArray( domainMeta )
+					? domainMeta.lang
+					: undefined
+			).toBeUndefined();
+			expect(
+				typeof domainMeta === 'object' && ! Array.isArray( domainMeta )
+					? domainMeta.additionalData
+					: undefined
+			).toBe( domainConfiguration.additionalData );
 		} );
 
 		describe( '__', () => {
@@ -220,7 +234,10 @@ describe( 'createI18n', () => {
 
 	describe( 'addLocaleData', () => {
 		const createTestLocaleWithAdditionalData = () => {
-			const locale = createI18n( localeData, 'test_domain' );
+			const locale = createI18n< 'test_domain' | 'test_domain2' >(
+				localeData,
+				'test_domain'
+			);
 			locale.addLocaleData( additionalLocaleData, 'test_domain' );
 			return locale;
 		};
@@ -256,13 +273,18 @@ describe( 'createI18n', () => {
 				domain
 			);
 
-			expect( locale.getLocaleData( domain )[ '' ].domain ).toBe(
-				domain
-			);
-			expect( locale.getLocaleData( domain )[ '' ].lang ).toBe( 'fr' );
-			expect( locale.getLocaleData( domain )[ '' ].additionalData ).toBe(
-				domainConfiguration.additionalData
-			);
+			expect(
+				( locale.getLocaleData( domain )[ '' ] as I18nDomainMetadata )
+					.domain
+			).toBe( domain );
+			expect(
+				( locale.getLocaleData( domain )[ '' ] as I18nDomainMetadata )
+					.lang
+			).toBe( 'fr' );
+			expect(
+				( locale.getLocaleData( domain )[ '' ] as I18nDomainMetadata )
+					.additionalData
+			).toBe( domainConfiguration.additionalData );
 		} );
 
 		describe( '__', () => {
