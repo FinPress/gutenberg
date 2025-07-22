@@ -92,7 +92,7 @@ class WPRESTThemesControllerGutenbergTest extends WP_Test_REST_Controller_Testca
 	 * @param WP_UnitTest_Factory $factory WordPress unit test factory.
 	 */
 	public static function wpSetUpBeforeClass( WP_UnitTest_Factory $factory ) {
-		self::$admin_id = $factory->user->create(
+		self::$admin_id       = $factory->user->create(
 			array(
 				'role' => 'administrator',
 			)
@@ -140,7 +140,7 @@ class WPRESTThemesControllerGutenbergTest extends WP_Test_REST_Controller_Testca
 
 		$request = new WP_REST_Request(
 			'POST',
-			self::$themes_route . '/activate',
+			self::$themes_route . '/activate'
 		);
 		$request->set_param( 'stylesheet', 'twentytwentyfive' );
 		$response = rest_get_server()->dispatch( $request );
@@ -157,7 +157,7 @@ class WPRESTThemesControllerGutenbergTest extends WP_Test_REST_Controller_Testca
 	public function test_activate_theme_validate_theme_returns_error_on_non_existent_theme() {
 		$request = new WP_REST_Request(
 			'POST',
-			self::$themes_route . '/activate',
+			self::$themes_route . '/activate'
 		);
 		$request->set_param( 'stylesheet', 'non-existent-theme' );
 		$response = rest_get_server()->dispatch( $request );
@@ -174,7 +174,7 @@ class WPRESTThemesControllerGutenbergTest extends WP_Test_REST_Controller_Testca
 	public function test_activate_theme() {
 		$request = new WP_REST_Request(
 			'POST',
-			self::$themes_route . '/activate',
+			self::$themes_route . '/activate'
 		);
 		$request->set_param( 'stylesheet', 'twentytwentyfive' );
 		$response = rest_get_server()->dispatch( $request );
