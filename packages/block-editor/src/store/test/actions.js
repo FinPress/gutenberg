@@ -808,7 +808,7 @@ describe( 'actions', () => {
 			} );
 		} );
 
-		it( 'should only focus the blockA if the blockA has no merge function', () => {
+		it( 'should only focus the blockA if the blockA has no merge function and the content of blockB is modified', () => {
 			registerBlockType( 'core/test-block', {
 				...defaultBlockSettings,
 				attributes: {
