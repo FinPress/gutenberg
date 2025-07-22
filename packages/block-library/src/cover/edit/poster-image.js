@@ -15,9 +15,11 @@ import { useInstanceId } from '@wordpress/compose';
 const COVER_POSTER_ALLOWED_MEDIA_TYPES = [ 'image' ];
 
 function PosterImage( { poster, setAttributes } ) {
-	const posterImageButton = useRef();
-	const instanceId = useInstanceId( PosterImage );
-	const videoPosterDescription = `cover-block__poster-image-description-${ instanceId }`;
+	const posterButtonRef = useRef();
+	const descriptionId = useInstanceId(
+		PosterImage,
+		'cover-block__poster-image-description'
+	);
 
 	function onSelectPoster( image ) {
 		setAttributes( { poster: image.url } );
@@ -27,7 +29,7 @@ function PosterImage( { poster, setAttributes } ) {
 		setAttributes( { poster: undefined } );
 
 		// Move focus back to the Media Upload button.
-		posterImageButton.current.focus();
+		posterButtonRef.current.focus();
 	}
 
 	return (
@@ -53,14 +55,14 @@ function PosterImage( { poster, setAttributes } ) {
 								__next40pxDefaultSize
 								variant="primary"
 								onClick={ open }
-								ref={ posterImageButton }
-								aria-describedby={ videoPosterDescription }
+								ref={ posterButtonRef }
+								aria-describedby={ descriptionId }
 							>
 								{ ! poster ? __( 'Select' ) : __( 'Replace' ) }
 							</Button>
 						) }
 					/>
-					<p id={ videoPosterDescription } hidden>
+					<p id={ descriptionId } hidden>
 						{ poster
 							? sprintf(
 									/* translators: %s: poster image URL. */
