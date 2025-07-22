@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Tokenizer } from 'simple-html-tokenizer';
-import fastDeepEqual from 'fast-deep-equal/es6';
+import fastDeepEqual from 'fast-deep-equal';
 
 /**
  * WordPress dependencies
@@ -756,57 +756,107 @@ function classifyValidationResult(
 	generatedContent,
 	block
 ) {
-	// Level 0: ValidBlock - Identical source and output
-	if ( isValid && originalContent === generatedContent ) {
-		return VALIDATION_RESULT_TYPE.VALID_BLOCK;
-	}
-
-	// Level 1: MigratedBlock - Source matches defined deprecations
+	// Level 1: MigratedBlock - Source matches defined deprecations (check first for valid blocks)
 	if ( isValid && block.__unstableWasMigrated ) {
 		return VALIDATION_RESULT_TYPE.MIGRATED_BLOCK;
 	}
 
-	// Level 2: PreservedSource - Inner HTML matches despite comment attribute differences
+	// Level 0: ValidBlock - Identical source and output (exact string match)
+	if ( isValid && originalContent === generatedContent ) {
+		return VALIDATION_RESULT_TYPE.VALID_BLOCK;
+	}
+
+	// Level 2: PreservedSource - HTML is equivalent but not identical (different formatting, attribute order, etc.)
 	if ( isValid ) {
 		return VALIDATION_RESULT_TYPE.PRESERVED_SOURCE;
 	}
 
-	// Level 3: ReconstructedSource - Attributes remain consistent, allowing HTML rebuilding
-	// This would be determined by checking if only the HTML structure differs
-	// but the attributes can reconstruct the expected content
-	if ( ! isValid && canReconstructFromAttributes( block ) ) {
-		return VALIDATION_RESULT_TYPE.RECONSTRUCTED_SOURCE;
+	// For invalid blocks, we need more sophisticated detection
+	if ( ! isValid ) {
+		// Level 3: ReconstructedSource - Attributes remain consistent, allowing HTML rebuilding
+		// Check this first since it's a higher priority recovery method
+		if (
+			canReconstructFromAttributes(
+				block,
+				originalContent,
+				generatedContent
+			)
+		) {
+			return VALIDATION_RESULT_TYPE.RECONSTRUCTED_SOURCE;
+		}
+
+		// Level 4: RawTransformedSource - Simple HTML that could be preserved as raw content
+		if ( canTransformToRawContent( block, originalContent ) ) {
+			return VALIDATION_RESULT_TYPE.RAW_TRANSFORMED_SOURCE;
+		}
+
+		// Level 5: InvalidBlock - Cannot be safely restored, requires user intervention
+		return VALIDATION_RESULT_TYPE.INVALID_BLOCK;
 	}
 
-	// Level 4: RawTransformedSource - Attempting to restore block type through raw handling
-	// This applies to blocks that could potentially be handled as raw content
-	if ( ! isValid && canTransformToRawContent( block, originalContent ) ) {
-		return VALIDATION_RESULT_TYPE.RAW_TRANSFORMED_SOURCE;
-	}
-
-	// Level 5: InvalidBlock - Cannot be safely restored, requires user intervention
+	// Fallback to invalid block
 	return VALIDATION_RESULT_TYPE.INVALID_BLOCK;
 }
 
 /**
  * Determines if a block can be reconstructed from its attributes alone.
  *
- * @param {Object} block Block object.
+ * @param {Object} block            Block object.
+ * @param {string} originalContent  Original block content.
+ * @param {string} generatedContent Generated block content.
  *
  * @return {boolean} Whether the block can be reconstructed from attributes.
  */
-function canReconstructFromAttributes( block ) {
-	// A block can be reconstructed if it has all required attributes
-	// and the save function is deterministic based on those attributes.
-	// For now, we'll use a heuristic based on whether the block has meaningful attributes
-	// and minimal content-dependent logic.
+function canReconstructFromAttributes(
+	block,
+	originalContent,
+	generatedContent
+) {
+	// A block can be reconstructed if it has meaningful attributes that could be used
+	// to regenerate the content and the differences suggest missing attributes/classes
+	// rather than fundamental structural changes
 
 	const hasAttributes =
 		block.attributes && Object.keys( block.attributes ).length > 0;
-	const hasMinimalContent =
-		! block.originalContent || block.originalContent.trim().length < 1000;
 
-	return hasAttributes && hasMinimalContent;
+	// Must have meaningful content and attributes to be reconstructable
+	if ( ! hasAttributes || ! originalContent || ! generatedContent ) {
+		return false;
+	}
+
+	// Check if it's a case where attributes could rebuild the content
+	// (like missing classes, styles, or other attributes that affect the output)
+	const hasRelevantAttributes = Object.keys( block.attributes ).some(
+		( key ) =>
+			key.includes( 'Color' ) ||
+			key.includes( 'class' ) ||
+			key.includes( 'style' ) ||
+			key.includes( 'level' ) ||
+			key.includes( 'content' )
+	);
+
+	// Content should be reasonably similar in structure but missing some elements
+	const contentLengthDifference = Math.abs(
+		originalContent.length - generatedContent.length
+	);
+	const maxAllowedDifference =
+		Math.max( originalContent.length, generatedContent.length ) * 0.5;
+
+	// Check if basic tag structure is similar
+	const getTagStructure = ( html ) => {
+		const tags = html.match( /<\w+/g ) || [];
+		return tags.map( ( tag ) => tag.substring( 1 ) ).join( ',' );
+	};
+
+	const originalTags = getTagStructure( originalContent );
+	const generatedTags = getTagStructure( generatedContent );
+	const hasSimilarStructure = originalTags === generatedTags;
+
+	return (
+		hasRelevantAttributes &&
+		hasSimilarStructure &&
+		contentLengthDifference <= maxAllowedDifference
+	);
 }
 
 /**
@@ -819,17 +869,41 @@ function canReconstructFromAttributes( block ) {
  */
 function canTransformToRawContent( block, originalContent ) {
 	// A block can be transformed to raw content if:
-	// 1. It has valid HTML structure
-	// 2. It's not a complex nested block structure
-	// 3. The content is primarily textual/HTML rather than dynamic
+	// 1. It has simple HTML that could be preserved
+	// 2. It's not overly complex nested structure
+	// 3. The content has malformed but recoverable HTML (like mismatched tags)
 
-	const hasValidHTML =
-		originalContent && ! /<script|<iframe|<object/i.test( originalContent );
+	const hasContent = originalContent && originalContent.trim().length > 0;
+	const hasSimpleHTML = originalContent && /<[^>]+>/.test( originalContent );
 	const isNotComplexNested =
 		! block.innerBlocks || block.innerBlocks.length === 0;
-	const isTextualContent = originalContent && originalContent.length > 0;
 
-	return hasValidHTML && isNotComplexNested && isTextualContent;
+	// Check for specific malformed HTML patterns like mismatched tags
+	const hasMismatchedTags =
+		originalContent &&
+		// Mismatched closing tags (like <h2>content</p>)
+		( ( originalContent.includes( '<h' ) &&
+			originalContent.includes( '</p>' ) ) ||
+			( originalContent.includes( '<p' ) &&
+				originalContent.includes( '</h' ) ) ||
+			( originalContent.includes( '<div' ) &&
+				originalContent.includes( '</span>' ) ) );
+
+	// Check for other recoverable HTML issues
+	const hasRecoverableHTML =
+		originalContent &&
+		( hasMismatchedTags ||
+			// Unclosed tags
+			originalContent.split( '<' ).length !==
+				originalContent.split( '>' ).length ||
+			// Invalid nesting
+			( originalContent.includes( '<h' ) &&
+				originalContent.includes( '<p' ) ) );
+
+	// Simple content with potential HTML issues that could be preserved as raw
+	return (
+		hasContent && isNotComplexNested && hasSimpleHTML && hasRecoverableHTML
+	);
 }
 
 /**

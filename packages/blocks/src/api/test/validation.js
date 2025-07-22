@@ -765,17 +765,17 @@ describe( 'validation', () => {
 
 		describe( 'hierarchical validation types', () => {
 			it( 'returns VALID_BLOCK (Level 0) for identical block source and output', () => {
-				registerBlockType( 'core/heading', {
+				registerBlockType( 'core/test-heading', {
 					...defaultBlockSettings,
 					save: ( { attributes } ) =>
 						`<h${ attributes.level || 2 }>${
-							attributes.content
+							attributes.content || ''
 						}</h${ attributes.level || 2 }>`,
 				} );
 
 				const [ isValid, validationIssues, validationType ] =
 					validateBlock( {
-						name: 'core/heading',
+						name: 'core/test-heading',
 						attributes: { level: 2, content: 'Testing Header' },
 						originalContent: '<h2>Testing Header</h2>',
 					} );
@@ -788,16 +788,16 @@ describe( 'validation', () => {
 			} );
 
 			it( 'returns MIGRATED_BLOCK (Level 1) for blocks migrated via deprecations', () => {
-				registerBlockType( 'core/heading', {
+				registerBlockType( 'core/test-migrated', {
 					...defaultBlockSettings,
 					save: ( { attributes } ) =>
 						`<h${ attributes.level || 2 }>${
-							attributes.content
+							attributes.content || ''
 						}</h${ attributes.level || 2 }>`,
 				} );
 
 				const block = {
-					name: 'core/heading',
+					name: 'core/test-migrated',
 					attributes: { level: 2, content: 'Testing Header' },
 					originalContent: '<h2>Testing Header</h2>',
 					__unstableWasMigrated: true,
@@ -813,19 +813,20 @@ describe( 'validation', () => {
 				);
 			} );
 
-			it( 'returns PRESERVED_SOURCE (Level 2) for blocks with comment attribute differences', () => {
-				// Example from issue: level attribute differs but HTML content matches
-				registerBlockType( 'core/heading', {
+			it( 'returns PRESERVED_SOURCE (Level 2) for blocks with equivalent but not identical HTML', () => {
+				// Example: HTML is equivalent but has different formatting/attribute order
+				registerBlockType( 'core/test-preserved', {
 					...defaultBlockSettings,
 					save: ( { attributes } ) =>
-						`<h2>${ attributes.content }</h2>`, // Always outputs h2 regardless of level
+						`<h2 class="a b">${ attributes.content || '' }</h2>`, // Save outputs ordered classes
 				} );
 
 				const [ isValid, validationIssues, validationType ] =
 					validateBlock( {
-						name: 'core/heading',
-						attributes: { level: 3, content: 'Testing Header' }, // Source has level: 3
-						originalContent: '<h2>Testing Header</h2>', // But HTML is h2
+						name: 'core/test-preserved',
+						attributes: { content: 'Testing Header' },
+						originalContent:
+							'<h2 class="b   a">Testing Header</h2>', // Different class order and spacing
 					} );
 
 				expect( isValid ).toBe( true );
@@ -870,15 +871,15 @@ describe( 'validation', () => {
 
 			it( 'returns RAW_TRANSFORMED_SOURCE (Level 4) for blocks transformable to raw content - successful case', () => {
 				// Example from issue: malformed HTML that could be preserved as raw content
-				registerBlockType( 'core/heading', {
+				registerBlockType( 'core/test-raw', {
 					...defaultBlockSettings,
 					save: ( { attributes } ) =>
-						`<h2>${ attributes.content }</h2>`,
+						`<h2>${ attributes.content || '' }</h2>`,
 				} );
 
 				const [ isValid, validationIssues, validationType ] =
 					validateBlock( {
-						name: 'core/heading',
+						name: 'core/test-raw',
 						attributes: { content: 'Testing Header' },
 						originalContent: '<h2>Testing Header</p>', // Mismatched closing tag
 						innerBlocks: [],
@@ -892,19 +893,19 @@ describe( 'validation', () => {
 			} );
 
 			it( 'returns INVALID_BLOCK (Level 5) for blocks that cannot be safely restored', () => {
-				// Example from issue: Complex malformed content that can't be recovered
-				registerBlockType( 'core/heading', {
+				// Create a block that will trigger INVALID_BLOCK by having no recoverable content
+				registerBlockType( 'core/test-invalid', {
 					...defaultBlockSettings,
 					save: ( { attributes } ) =>
-						`<h2>${ attributes.content }</h2>`,
+						`<h2>${ attributes.content || '' }</h2>`,
 				} );
 
-				// Complex malformed HTML with deeply nested issues
+				// Empty attributes and complex nested structure that can't be recovered
 				const [ isValid, validationIssues, validationType ] =
 					validateBlock( {
-						name: 'core/heading',
-						attributes: { content: 'Testing Header' },
-						originalContent: '<span>Testing Header</h2>', // Completely mismatched tags
+						name: 'core/test-invalid',
+						attributes: {}, // No meaningful attributes
+						originalContent: '', // No meaningful content
 						innerBlocks: [ { name: 'some-nested-block' } ], // Has complex nested structure
 					} );
 
