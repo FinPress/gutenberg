@@ -1,5 +1,4 @@
 .block-library-query-pattern__selection-modal {
-
 	.block-editor-block-patterns-list {
 		column-count: 2;
 		column-gap: $grid-unit-30;
@@ -51,5 +50,11 @@
 	}
 	.block-editor-block-patterns-list__list-item {
 		margin-bottom: 0;
+	}
+}
+
+.wp-block-query {
+	.components-placeholder.is-small {
+		min-height: 60px;
 	}
 }
