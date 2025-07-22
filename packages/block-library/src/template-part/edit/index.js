@@ -12,15 +12,8 @@ import {
 	useHasRecursion,
 	InspectorControls,
 	__experimentalBlockPatternsList as BlockPatternsList,
-	BlockControls,
 } from '@wordpress/block-editor';
-import {
-	PanelBody,
-	Spinner,
-	Modal,
-	MenuItem,
-	ToolbarButton,
-} from '@wordpress/components';
+import { PanelBody, Spinner, Modal, MenuItem } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 import { useState } from '@wordpress/element';
@@ -118,60 +111,51 @@ export default function TemplatePartEdit( {
 	const [ isTemplatePartSelectionOpen, setIsTemplatePartSelectionOpen ] =
 		useState( false );
 
-	const {
-		isResolved,
-		hasInnerBlocks,
-		isMissing,
-		area,
-		onNavigateToEntityRecord,
-		title,
-		canUserEdit,
-	} = useSelect(
-		( select ) => {
-			const { getEditedEntityRecord, hasFinishedResolution } =
-				select( coreStore );
-			const { getBlockCount, getSettings } = select( blockEditorStore );
+	const { isResolved, hasInnerBlocks, isMissing, area, title, canUserEdit } =
+		useSelect(
+			( select ) => {
+				const { getEditedEntityRecord, hasFinishedResolution } =
+					select( coreStore );
+				const { getBlockCount } = select( blockEditorStore );
 
-			const getEntityArgs = [
-				'postType',
-				'wp_template_part',
-				templatePartId,
-			];
-			const entityRecord = templatePartId
-				? getEditedEntityRecord( ...getEntityArgs )
-				: null;
-			const _area = entityRecord?.area || attributes.area;
-			const hasResolvedEntity = templatePartId
-				? hasFinishedResolution(
-						'getEditedEntityRecord',
-						getEntityArgs
-				  )
-				: false;
+				const getEntityArgs = [
+					'postType',
+					'wp_template_part',
+					templatePartId,
+				];
+				const entityRecord = templatePartId
+					? getEditedEntityRecord( ...getEntityArgs )
+					: null;
+				const _area = entityRecord?.area || attributes.area;
+				const hasResolvedEntity = templatePartId
+					? hasFinishedResolution(
+							'getEditedEntityRecord',
+							getEntityArgs
+					  )
+					: false;
 
-			const _canUserEdit = hasResolvedEntity
-				? select( coreStore ).canUser( 'update', {
-						kind: 'postType',
-						name: 'wp_template_part',
-						id: templatePartId,
-				  } )
-				: false;
+				const _canUserEdit = hasResolvedEntity
+					? select( coreStore ).canUser( 'update', {
+							kind: 'postType',
+							name: 'wp_template_part',
+							id: templatePartId,
+					  } )
+					: false;
 
-			return {
-				hasInnerBlocks: getBlockCount( clientId ) > 0,
-				isResolved: hasResolvedEntity,
-				isMissing:
-					hasResolvedEntity &&
-					( ! entityRecord ||
-						Object.keys( entityRecord ).length === 0 ),
-				area: _area,
-				onNavigateToEntityRecord:
-					getSettings().onNavigateToEntityRecord,
-				title: entityRecord?.title,
-				canUserEdit: !! _canUserEdit,
-			};
-		},
-		[ templatePartId, attributes.area, clientId ]
-	);
+				return {
+					hasInnerBlocks: getBlockCount( clientId ) > 0,
+					isResolved: hasResolvedEntity,
+					isMissing:
+						hasResolvedEntity &&
+						( ! entityRecord ||
+							Object.keys( entityRecord ).length === 0 ),
+					area: _area,
+					title: entityRecord?.title,
+					canUserEdit: !! _canUserEdit,
+				};
+			},
+			[ templatePartId, attributes.area, clientId ]
+		);
 
 	const areaObject = useTemplatePartArea( area );
 	const blockProps = useBlockProps();
@@ -235,22 +219,6 @@ export default function TemplatePartEdit( {
 	return (
 		<>
 			<RecursionProvider uniqueId={ templatePartId }>
-				{ isEntityAvailable &&
-					onNavigateToEntityRecord &&
-					canUserEdit && (
-						<BlockControls group="other">
-							<ToolbarButton
-								onClick={ () =>
-									onNavigateToEntityRecord( {
-										postId: templatePartId,
-										postType: 'wp_template_part',
-									} )
-								}
-							>
-								{ __( 'Edit' ) }
-							</ToolbarButton>
-						</BlockControls>
-					) }
 				{ canUserEdit && (
 					<InspectorControls group="advanced">
 						<TemplatePartAdvancedControls
