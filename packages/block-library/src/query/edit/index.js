@@ -3,7 +3,11 @@
  */
 import { useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import {
+	store as blockEditorStore,
+	BlockControls,
+	useBlockProps,
+} from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
@@ -11,6 +15,7 @@ import { store as blockEditorStore } from '@wordpress/block-editor';
 import QueryContent from './query-content';
 import QueryPlaceholder from './query-placeholder';
 import { PatternSelectionModal } from './pattern-selection';
+import QueryToolbar from './query-toolbar';
 
 const QueryEdit = ( props ) => {
 	const { clientId, attributes } = props;
@@ -22,8 +27,18 @@ const QueryEdit = ( props ) => {
 		[ clientId ]
 	);
 	const Component = hasInnerBlocks ? QueryContent : QueryPlaceholder;
+
+	const blockProps = useBlockProps();
+
 	return (
-		<>
+		<div { ...blockProps }>
+			<BlockControls>
+				<QueryToolbar
+					clientId={ clientId }
+					attributes={ attributes }
+					hasInnerBlocks={ hasInnerBlocks }
+				/>
+			</BlockControls>
 			<Component
 				{ ...props }
 				openPatternSelectionModal={ () =>
@@ -39,7 +54,7 @@ const QueryEdit = ( props ) => {
 					}
 				/>
 			) }
-		</>
+		</div>
 	);
 };
 
