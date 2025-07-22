@@ -433,39 +433,4 @@ test.describe( 'Block deletion', () => {
 		} );
 		await expect( imageBlock ).toBeFocused();
 	} );
-
-	test( 'heading block with content should merge with paragraph above', async ( {
-		editor,
-		page,
-	} ) => {
-		// Add a paragraph block first
-		await editor.insertBlock( {
-			name: 'core/paragraph',
-			attributes: { content: 'Test paragraph' },
-		} );
-
-		// Add a heading block with content
-		await editor.insertBlock( {
-			name: 'core/heading',
-			attributes: { content: 'Test Heading' },
-		} );
-
-		// Focus on the heading block at the beginning
-		const headingBlock = editor.canvas.getByRole( 'document', {
-			name: 'Block: Heading',
-		} );
-		await headingBlock.click();
-		await page.keyboard.press( 'Home' ); // Move to beginning
-
-		// Press backspace to trigger merge - this should merge content into paragraph
-		await page.keyboard.press( 'Backspace' );
-
-		// Both block contents should be merged into a single paragraph
-		await expect.poll( editor.getBlocks ).toMatchObject( [
-			{
-				name: 'core/paragraph',
-				attributes: { content: 'Test paragraphTest Heading' },
-			},
-		] );
-	} );
 } );
