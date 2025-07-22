@@ -30,15 +30,16 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 		 */
 		if (
 			isset( $attributes['metadata']['bindings']['date']['source'] ) &&
-			'core/post-data' === $attributes['metadata']['bindings']['date']['source'] &&
 			isset( $attributes['metadata']['bindings']['date']['args'] )
 		) {
 			// We're using a version of WordPress that doesn't support the `core/post-data` source for block bindings.
 			// This branch can be removed once the minimum required WordPress version supports the `core/post-data` source.
+			$source      = get_block_bindings_source( $attributes['metadata']['bindings']['date']['source'] );
 			$source_args = $attributes['metadata']['bindings']['date']['args'];
 		} else {
 			// This is the legacy version of the block that didn't have the `date` attribute.
 			// This branch needs to be kept for backward compatibility.
+			$source = get_block_bindings_source( 'core/post-data' );
 			if ( isset( $attributes['displayType'] ) && 'modified' === $attributes['displayType'] ) {
 				$source_args = array(
 					'key' => 'modified',
@@ -50,7 +51,6 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 			}
 		}
 
-		$source             = get_block_bindings_source( 'core/post-data' );
 		$attributes['date'] = $source->get_value( $source_args, $block, 'date' );
 
 		if ( isset( $source_args['key'] ) && 'modified' === $source_args['key'] ) {
