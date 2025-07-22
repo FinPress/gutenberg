@@ -22,7 +22,17 @@ import type {
 	SyncProvider,
 } from './types';
 
-const AWARENESS_DOC_TYPE = 'postType/Posts';
+const AWARENESS_DOC_PREFIX = 'postType/';
+
+/**
+ * Document data structure containing the Yjs document and related metadata.
+ */
+interface DocumentData {
+	ydoc: Y.Doc;
+	prevContentClientId: number;
+	destroy: () => void;
+	awareness: Awareness | null;
+}
 
 /**
  * Create a sync provider.
@@ -40,18 +50,7 @@ export const createSyncProvider = (
 	/**
 	 * @todo make sure that this used everwhere correctly and that we remove crdtdoc
 	 */
-	const docs: Record<
-		string,
-		Record<
-			string,
-			{
-				ydoc: Y.Doc;
-				prevContentClientId: number;
-				destroy: () => void;
-				awareness: Awareness | null;
-			}
-		>
-	> = {};
+	const docs: Record< string, Record< string, DocumentData > > = {};
 
 	const undoManager: {
 		yMap: Y.Map< any > | null;
@@ -153,7 +152,7 @@ export const createSyncProvider = (
 			},
 		};
 
-		if ( objectType.startsWith( 'postType/' ) ) {
+		if ( objectType.startsWith( AWARENESS_DOC_PREFIX ) ) {
 			// Create an undo manager for the document.
 			const undoManagerMap = doc.getMap( 'document' );
 			const yUndoManager = new Y.UndoManager( undoManagerMap, {
@@ -172,7 +171,7 @@ export const createSyncProvider = (
 		}
 
 		if (
-			objectType === AWARENESS_DOC_TYPE &&
+			objectType.startsWith( AWARENESS_DOC_PREFIX ) &&
 			docs[ objectType ][ objectId ].awareness
 		) {
 			await bootstrapAwareness(
@@ -280,7 +279,10 @@ export const createSyncProvider = (
 	 * @param {ObjectID}   objectId   Object ID to load.
 	 */
 	async function discard( objectType: ObjectType, objectId: ObjectID ) {
-		if ( objectType.startsWith( 'postType/' ) && undoManager.instance ) {
+		if (
+			objectType.startsWith( AWARENESS_DOC_PREFIX ) &&
+			undoManager.instance
+		) {
 			undoManager.instance.destroy();
 		}
 
@@ -313,14 +315,10 @@ export const createSyncProvider = (
 		eventType: 'update' | 'change',
 		awarenessEventListener: AwarenessEventListener
 	) {
-		if ( docs[ AWARENESS_DOC_TYPE ] ) {
-			for ( const objectId in docs[ AWARENESS_DOC_TYPE ] ) {
-				const docDef = docs[ AWARENESS_DOC_TYPE ][ objectId ];
-				if ( docDef?.awareness ) {
-					docDef.awareness.on( eventType, awarenessEventListener );
-					return;
-				}
-			}
+		const docDef = getDocFromPrefix( AWARENESS_DOC_PREFIX, docs );
+
+		if ( docDef && docDef.awareness ) {
+			docDef.awareness.on( eventType, awarenessEventListener );
 		} else {
 			pendingAwarenessSetup.pendingListeners[ eventType ].push(
 				awarenessEventListener
@@ -335,15 +333,10 @@ export const createSyncProvider = (
 	 * @param {any}    value State value.
 	 */
 	function setLocalStateField( field: string, value: any ) {
-		if ( docs[ AWARENESS_DOC_TYPE ] ) {
-			for ( const objectId in docs[ AWARENESS_DOC_TYPE ] ) {
-				const docDef = docs[ AWARENESS_DOC_TYPE ][ objectId ];
+		const docDef = getDocFromPrefix( AWARENESS_DOC_PREFIX, docs );
 
-				if ( docDef?.awareness ) {
-					docDef.awareness.setLocalStateField( field, value );
-					return;
-				}
-			}
+		if ( docDef && docDef.awareness ) {
+			docDef.awareness.setLocalStateField( field, value );
 		} else {
 			pendingAwarenessSetup.pendingStateFields[ field ] = value;
 		}
@@ -355,14 +348,13 @@ export const createSyncProvider = (
 	 * @return {Map<number,Record<string,any>>|null} States.
 	 */
 	function getStates(): Map< number, Record< string, any > > | null {
-		if ( docs[ AWARENESS_DOC_TYPE ] ) {
-			for ( const objectId in docs[ AWARENESS_DOC_TYPE ] ) {
-				const docDef = docs[ AWARENESS_DOC_TYPE ][ objectId ];
+		const docDef = getDocFromPrefix( AWARENESS_DOC_PREFIX, docs );
 
-				const states = docDef?.awareness?.getStates();
-				if ( states ) {
-					return states;
-				}
+		if ( docDef ) {
+			const states = docDef?.awareness?.getStates();
+
+			if ( states ) {
+				return states;
 			}
 		}
 
@@ -370,46 +362,34 @@ export const createSyncProvider = (
 	}
 
 	function removeAwarenessStates() {
-		if ( docs[ AWARENESS_DOC_TYPE ] ) {
-			for ( const objectId in docs[ AWARENESS_DOC_TYPE ] ) {
-				const docDef = docs[ AWARENESS_DOC_TYPE ][ objectId ];
+		const docDef = getDocFromPrefix( AWARENESS_DOC_PREFIX, docs );
 
-				if ( docDef?.awareness ) {
-					removeAwarenessStatesFromProtocol(
-						docDef.awareness,
-						[ docDef.awareness.clientID ],
-						'removeAwarenessStates'
-					);
-				}
-			}
+		if ( docDef && docDef.awareness ) {
+			removeAwarenessStatesFromProtocol(
+				docDef.awareness,
+				[ docDef.awareness.clientID ],
+				'removeAwarenessStates'
+			);
 		}
 
 		return null;
 	}
 
 	function getLocalState(): Record< string, any > | null {
-		if ( docs[ AWARENESS_DOC_TYPE ] ) {
-			for ( const objectId in docs[ AWARENESS_DOC_TYPE ] ) {
-				const docDef = docs[ AWARENESS_DOC_TYPE ][ objectId ];
+		const docDef = getDocFromPrefix( AWARENESS_DOC_PREFIX, docs );
 
-				if ( docDef?.awareness?.getLocalState ) {
-					return docDef?.awareness?.getLocalState();
-				}
-			}
+		if ( docDef && docDef.awareness?.getLocalState ) {
+			return docDef?.awareness?.getLocalState();
 		}
 
 		return null;
 	}
 
 	function getClientId(): number | null {
-		if ( docs[ AWARENESS_DOC_TYPE ] ) {
-			for ( const objectId in docs[ AWARENESS_DOC_TYPE ] ) {
-				const docDef = docs[ AWARENESS_DOC_TYPE ][ objectId ];
+		const docDef = getDocFromPrefix( AWARENESS_DOC_PREFIX, docs );
 
-				if ( docDef?.awareness?.clientID ) {
-					return docDef?.awareness?.clientID;
-				}
-			}
+		if ( docDef && docDef.awareness?.clientID ) {
+			return docDef?.awareness?.clientID;
 		}
 
 		return null;
@@ -466,3 +446,28 @@ async function bootstrapAwareness(
 
 	awareness.emit( 'ready', [ awareness ] );
 }
+
+/**
+ * Get the first document from a docs map that matches the given prefix, or null if none was found.
+ *
+ * @param {string}                                           objectTypePrefix Object type prefix.
+ * @param {Record< string, Record< string, DocumentData > >} docs             The docs object.
+ * @return {DocumentData | null} The first document from the docs object that matches the objectTypePrefix.
+ */
+const getDocFromPrefix = (
+	objectTypePrefix: string,
+	docs: Record< string, Record< string, DocumentData > >
+): DocumentData | null => {
+	for ( const objectType in docs ) {
+		if ( objectType.startsWith( objectTypePrefix ) ) {
+			const objectIds = Object.keys( docs[ objectType ] );
+
+			if ( objectIds.length > 0 ) {
+				const firstObjectId = objectIds[ 0 ];
+				return docs[ objectType ][ firstObjectId ];
+			}
+		}
+	}
+
+	return null;
+};
