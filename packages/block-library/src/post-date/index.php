@@ -59,12 +59,13 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 	}
 
 	if ( empty( $attributes['date'] ) ) {
-		// If the `date` attribute is set but empty, it's because the block is bound to the
+		// If the `date` attribute is set but empty, it could be because Block Bindings
+		// set it that way. This can happen e.g. if the block is bound to the
 		// post's last modified date, and the latter lies before the publish date.
-		// In this case, we return an empty string.
-		// See https://github.com/WordPress/gutenberg/pull/46839 where this logic was originally
-		// implemented.
-		return '';
+		// (See https://github.com/WordPress/gutenberg/pull/46839 where this logic was originally
+		// implemented.)
+		// In this case, we have to respect and return the empty value.
+		return $attributes['date'];
 	}
 
 	$unformatted_date = $attributes['date'];
