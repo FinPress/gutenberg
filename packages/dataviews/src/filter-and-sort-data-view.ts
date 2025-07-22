@@ -375,13 +375,19 @@ export function filterSortAndPaginate< Item >(
 	}
 
 	// Handle sorting.
-	if ( view.sort || view.groupByField ) {
-		filteredData.sort( ( a, b ) => {
-			// Sort by the group by field.
-			const groupByField = _fields.find( ( field ) => {
+	const sortByField = view.sort?.field
+		? _fields.find( ( field ) => {
+				return field.id === view.sort?.field;
+		  } )
+		: null;
+	const groupByField = view.groupByField
+		? _fields.find( ( field ) => {
 				return field.id === view.groupByField;
-			} );
-			if ( view.groupByField && groupByField ) {
+		  } )
+		: null;
+	if ( sortByField || groupByField ) {
+		filteredData.sort( ( a, b ) => {
+			if ( groupByField ) {
 				const groupCompare = groupByField.sort( a, b, 'asc' );
 
 				// If items are in different groups, return the group comparison result.
@@ -391,11 +397,7 @@ export function filterSortAndPaginate< Item >(
 				}
 			}
 
-			// Sort by the sort field.
-			const sortByField = _fields.find( ( field ) => {
-				return field.id === view?.sort?.field;
-			} );
-			if ( view.sort && sortByField ) {
+			if ( sortByField ) {
 				return sortByField.sort( a, b, view.sort?.direction ?? 'desc' );
 			}
 
