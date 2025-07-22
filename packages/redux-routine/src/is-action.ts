@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { isPlainObject } from 'is-plain-object';
-import type { AnyAction } from 'redux';
+import type { Action } from 'redux';
 
 /**
  * Returns true if the given object quacks like an action.
@@ -11,7 +11,7 @@ import type { AnyAction } from 'redux';
  *
  * @return Whether object is an action.
  */
-export function isAction( object: any ): object is AnyAction {
+export function isAction( object: unknown ): object is Action {
 	return isPlainObject( object ) && typeof object.type === 'string';
 }
 
@@ -27,6 +27,6 @@ export function isAction( object: any ): object is AnyAction {
 export function isActionOfType(
 	object: unknown,
 	expectedType: string
-): object is AnyAction {
+): object is Action {
 	return isAction( object ) && object.type === expectedType;
 }
