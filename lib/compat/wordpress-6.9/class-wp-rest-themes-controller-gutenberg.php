@@ -68,15 +68,23 @@ if ( ! class_exists( 'WP_REST_Themes_Controller_Gutenberg' ) ) {
 		public function validate_theme( $stylesheet ) {
 			$theme = wp_get_theme( $stylesheet );
 
-			if ( $theme->exists() && $theme->is_allowed() ) {
-				return true;
+			if ( ! $theme->exists() ) {
+				return new WP_Error(
+					'rest_theme_not_found',
+					__( 'The requested theme does not exist.' ),
+					array( 'status' => 404 )
+				);
 			}
 
-			return new WP_Error(
-				'rest_theme_not_found',
-				__( 'The requested theme does not exist.' ),
-				array( 'status' => 404 )
-			);
+			if ( ! $theme->is_allowed() ) {
+				return new WP_Error(
+					'rest_theme_not_allowed',
+					__( 'The requested theme is not network enabled.' ),
+					array( 'status' => 400 )
+				);
+			}
+
+			return true;
 		}
 
 		/**
