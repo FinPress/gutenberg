@@ -4,8 +4,7 @@
 import {
 	BaseControl,
 	Button,
-	DateCalendar,
-	DateRangeCalendar,
+	privateApis as componentsPrivateApis,
 	__experimentalInputControl as InputControl,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
@@ -18,6 +17,13 @@ import { getDate, getSettings } from '@wordpress/date';
  * External dependencies
  */
 import { format, isValid } from 'date-fns';
+
+/**
+ * Internal dependencies
+ */
+import { unlock } from '../lock-unlock';
+
+const { DateCalendar, DateRangeCalendar } = unlock( componentsPrivateApis );
 
 const parseDate = ( dateString?: string ): Date | null => {
 	if ( ! dateString ) {
