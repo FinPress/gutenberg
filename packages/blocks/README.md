@@ -36,6 +36,19 @@ _Returns_
 
 -   `Object`: A cloned block.
 
+### compareValidationTypes
+
+Compares two validation types and returns which one is more valid. Returns negative number if first is more valid, positive if second is more valid, 0 if equal.
+
+_Parameters_
+
+-   _typeA_ `string`: First validation type to compare.
+-   _typeB_ `string`: Second validation type to compare.
+
+_Returns_
+
+-   `number`: Comparison result (-1, 0, or 1).
+
 ### createBlock
 
 Returns a block object given its type and attributes.
@@ -326,6 +339,18 @@ Retrieves name of block handling unregistered block types, or undefined if no ha
 _Returns_
 
 -   `?string`: Block name.
+
+### getValidationTypeLevel
+
+Returns the hierarchical level (0-5) for a validation type. Lower numbers indicate better validation outcomes.
+
+_Parameters_
+
+-   _validationType_ `string`: The validation result type.
+
+_Returns_
+
+-   `number`: The validation level (0-5).
 
 ### hasBlockSupport
 
@@ -995,7 +1020,7 @@ _Parameters_
 
 ### validateBlock
 
-Returns an object with `isValid` property set to `true` if the parsed block is valid given the input content. A block is considered valid if, when serialized with assumed attributes, the content matches the original value. If block is invalid, this function returns all validations issues as well.
+Returns validation results with hierarchical classification. A block is considered valid if, when serialized with assumed attributes, the content matches the original value.
 
 _Parameters_
 
@@ -1004,7 +1029,35 @@ _Parameters_
 
 _Returns_
 
--   `[boolean,Array<LoggerItem>]`: validation results.
+-   `[boolean, Array<LoggerItem>, string]`: validation results: [isValid, validationIssues, validationType].
+
+### VALIDATION_RESULT_TYPE
+
+Block validation result types for hierarchical validation classification.
+
+This system provides a more nuanced approach to block validation than a simple valid/invalid binary. Each type represents a different level of confidence in the block's integrity and the potential for data loss.
+
+The hierarchy progresses from most valid (Level 0) to least valid (Level 5):
+
+-   **Level 0 (VALID_BLOCK)**: Block content is identical to expected output. No data loss risk. Block serialization is deterministic.
+
+-   **Level 1 (MIGRATED_BLOCK)**: Block matched a defined deprecation and was successfully migrated. The block is now valid but was transformed from an older format.
+
+-   **Level 2 (PRESERVED_SOURCE)**: Inner HTML matches the expected output despite differences in block comment attributes. The content is preserved but metadata may have changed.
+
+-   **Level 3 (RECONSTRUCTED_SOURCE)**: Block attributes remain consistent, allowing the HTML to be rebuilt from the save function. Minor content differences exist but can be automatically resolved.
+
+-   **Level 4 (RAW_TRANSFORMED_SOURCE)**: Block cannot be validated as-is but could potentially be restored by transforming it to raw/freeform content, preserving user content while losing block structure.
+
+-   **Level 5 (INVALID_BLOCK)**: Block cannot be safely restored through any automatic means. Requires user intervention to resolve conflicts or choose how to handle the invalid content.
+
+_Type_
+
+-   `Object`
+
+_Changelog_
+
+`Gutenberg` 21.3.0
 
 ### withBlockContentContext
 

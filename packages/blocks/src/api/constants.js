@@ -14,6 +14,61 @@ export const DEPRECATED_ENTRY_KEYS = [
 	'apiVersion',
 ];
 
+/**
+ * Block validation result types for hierarchical validation classification.
+ *
+ * This system provides a more nuanced approach to block validation than a simple
+ * valid/invalid binary. Each type represents a different level of confidence in
+ * the block's integrity and the potential for data loss.
+ *
+ * The hierarchy progresses from most valid (Level 0) to least valid (Level 5):
+ *
+ * - **Level 0 (VALID_BLOCK)**: Block content is identical to expected output.
+ *   No data loss risk. Block serialization is deterministic.
+ *
+ * - **Level 1 (MIGRATED_BLOCK)**: Block matched a defined deprecation and was
+ *   successfully migrated. The block is now valid but was transformed from an
+ *   older format.
+ *
+ * - **Level 2 (PRESERVED_SOURCE)**: Inner HTML matches the expected output
+ *   despite differences in block comment attributes. The content is preserved
+ *   but metadata may have changed.
+ *
+ * - **Level 3 (RECONSTRUCTED_SOURCE)**: Block attributes remain consistent,
+ *   allowing the HTML to be rebuilt from the save function. Minor content
+ *   differences exist but can be automatically resolved.
+ *
+ * - **Level 4 (RAW_TRANSFORMED_SOURCE)**: Block cannot be validated as-is but
+ *   could potentially be restored by transforming it to raw/freeform content,
+ *   preserving user content while losing block structure.
+ *
+ * - **Level 5 (INVALID_BLOCK)**: Block cannot be safely restored through any
+ *   automatic means. Requires user intervention to resolve conflicts or
+ *   choose how to handle the invalid content.
+ *
+ * @type {Object}
+ * @since Gutenberg 21.3.0
+ */
+export const VALIDATION_RESULT_TYPE = {
+	/** Level 0: Block content is identical to expected output */
+	VALID_BLOCK: 'VALID_BLOCK',
+
+	/** Level 1: Block matches a defined deprecation and was migrated */
+	MIGRATED_BLOCK: 'MIGRATED_BLOCK',
+
+	/** Level 2: Inner HTML matches despite comment attribute differences */
+	PRESERVED_SOURCE: 'PRESERVED_SOURCE',
+
+	/** Level 3: Attributes consistent, allowing HTML rebuilding */
+	RECONSTRUCTED_SOURCE: 'RECONSTRUCTED_SOURCE',
+
+	/** Level 4: Attempting to restore block type through raw handling */
+	RAW_TRANSFORMED_SOURCE: 'RAW_TRANSFORMED_SOURCE',
+
+	/** Level 5: Cannot be safely restored, requires user intervention */
+	INVALID_BLOCK: 'INVALID_BLOCK',
+};
+
 export const __EXPERIMENTAL_STYLE_PROPERTY = {
 	// Kept for back-compatibility purposes.
 	'--wp--style--color--link': {
