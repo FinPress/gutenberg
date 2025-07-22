@@ -208,7 +208,7 @@ function VideoEdit( {
 							muted: false,
 							playsInline: false,
 							preload: 'metadata',
-							poster: '',
+							poster: undefined,
 						} );
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
