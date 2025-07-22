@@ -31,6 +31,27 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 		$this->update_post_modified( self::$post_id, '2025-07-10 00:00:00' );
 	}
 
+	public function test_render_with_explicit_date_attribute() {
+		$expected_date = '2025-03-02 00:00:00';
+
+		$attributes = array(
+			'date' => $expected_date,
+		);
+
+		$block = new WP_Block(
+			array(
+				'blockName' => 'core/post-date',
+				'attrs'     => $attributes,
+			),
+			array(
+				'postId' => self::$post_id,
+			)
+		);
+
+		$output = $block->render();
+		$this->assertStringContainsString( $expected_date, $output );
+	}
+
 	public function data_render_with_date_attribute_binding() {
 		return array(
 			'Publish date'  => array( 'date', 'get_the_date' ),
