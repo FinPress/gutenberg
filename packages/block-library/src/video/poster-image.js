@@ -5,6 +5,7 @@ import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import {
 	Button,
 	BaseControl,
+	__experimentalHStack as HStack,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
@@ -41,10 +42,10 @@ function PosterImage( { poster, setAttributes } ) {
 					setAttributes( { poster: undefined } );
 				} }
 			>
-				<div className="editor-video-poster-control">
-					<BaseControl.VisualLabel>
-						{ __( 'Poster image' ) }
-					</BaseControl.VisualLabel>
+				<BaseControl.VisualLabel>
+					{ __( 'Poster image' ) }
+				</BaseControl.VisualLabel>
+				<HStack justify="flex-start">
 					<MediaUpload
 						title={ __( 'Select poster image' ) }
 						onSelect={ onSelectPoster }
@@ -81,7 +82,7 @@ function PosterImage( { poster, setAttributes } ) {
 							{ __( 'Remove' ) }
 						</Button>
 					) }
-				</div>
+				</HStack>
 			</ToolsPanelItem>
 		</MediaUploadCheck>
 	);
