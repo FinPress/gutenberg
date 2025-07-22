@@ -41,13 +41,13 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 export default function PostDateEdit( {
-	attributes: { date, textAlign, format, isLink, metadata },
+	attributes: { datetime, textAlign, format, isLink, metadata },
 	context: { postType: postTypeSlug, queryId },
 	setAttributes,
 } ) {
 	const displayType =
-		metadata?.bindings?.date?.source === 'core/post-data' &&
-		metadata?.bindings?.date?.args?.key;
+		metadata?.bindings?.datetime?.source === 'core/post-data' &&
+		metadata?.bindings?.datetime?.args?.key;
 
 	const blockProps = useBlockProps( {
 		className: clsx( {
@@ -68,15 +68,15 @@ export default function PostDateEdit( {
 	const { __unstableMarkNextChangeAsNotPersistent } =
 		useDispatch( blockEditorStore );
 
-	// We need to set the date to a default value upon first loading
+	// We need to set the datetime to a default value upon first loading
 	// to discern the block from its legacy version (which would default
 	// to the containing post's publish date).
 	useEffect( () => {
-		if ( date === undefined ) {
+		if ( datetime === undefined ) {
 			__unstableMarkNextChangeAsNotPersistent();
-			setAttributes( { date: new Date() } );
+			setAttributes( { datetime: new Date() } );
 		}
-	}, [ date ] );
+	}, [ datetime ] );
 
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const dateSettings = getDateSettings();
@@ -100,14 +100,14 @@ export default function PostDateEdit( {
 	);
 
 	let postDate = (
-		<time dateTime={ dateI18n( 'c', date ) } ref={ setPopoverAnchor }>
+		<time dateTime={ dateI18n( 'c', datetime ) } ref={ setPopoverAnchor }>
 			{ format === 'human-diff'
-				? humanTimeDiff( date )
-				: dateI18n( format || siteFormat, date ) }
+				? humanTimeDiff( datetime )
+				: dateI18n( format || siteFormat, datetime ) }
 		</time>
 	);
 
-	if ( isLink && date ) {
+	if ( isLink && datetime ) {
 		postDate = (
 			<a
 				href="#post-date-pseudo-link"
@@ -138,9 +138,11 @@ export default function PostDateEdit( {
 											? __( 'Publish Date' )
 											: __( 'Date' )
 									}
-									currentDate={ date }
-									onChange={ ( newDate ) =>
-										setAttributes( { date: newDate } )
+									currentDate={ datetime }
+									onChange={ ( newDatetime ) =>
+										setAttributes( {
+											datetime: newDatetime,
+										} )
 									}
 									is12Hour={ is12HourFormat(
 										siteTimeFormat
@@ -179,7 +181,7 @@ export default function PostDateEdit( {
 					label={ __( 'Settings' ) }
 					resetAll={ () => {
 						setAttributes( {
-							date: undefined,
+							datetime: undefined,
 							format: undefined,
 							isLink: false,
 						} );

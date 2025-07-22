@@ -12,7 +12,7 @@ const variations = [
 		attributes: {
 			metadata: {
 				bindings: {
-					date: {
+					datetime: {
 						source: 'core/post-data',
 						args: { key: 'date' },
 					},
@@ -21,9 +21,9 @@ const variations = [
 		},
 		scope: [ 'block', 'inserter' ],
 		isActive: ( blockAttributes ) =>
-			blockAttributes?.metadata?.bindings?.date?.source ===
+			blockAttributes?.metadata?.bindings?.datetime?.source ===
 				'core/post-data' &&
-			blockAttributes?.metadata?.bindings?.date?.args?.key === 'date',
+			blockAttributes?.metadata?.bindings?.datetime?.args?.key === 'date',
 		icon: postDate,
 	},
 	{
@@ -33,7 +33,7 @@ const variations = [
 		attributes: {
 			metadata: {
 				bindings: {
-					date: {
+					datetime: {
 						source: 'core/post-data',
 						args: { key: 'modified' },
 					},
@@ -43,9 +43,10 @@ const variations = [
 		},
 		scope: [ 'block', 'inserter' ],
 		isActive: ( blockAttributes ) =>
-			blockAttributes?.metadata?.bindings?.date?.source ===
+			blockAttributes?.metadata?.bindings?.datetime?.source ===
 				'core/post-data' &&
-			blockAttributes?.metadata?.bindings?.date?.args?.key === 'modified',
+			blockAttributes?.metadata?.bindings?.datetime?.args?.key ===
+				'modified',
 		icon: postDate,
 	},
 ];

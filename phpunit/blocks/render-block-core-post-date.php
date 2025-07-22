@@ -35,7 +35,7 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 		$expected_date = '2025-03-02 00:00:00';
 
 		$attributes = array(
-			'date' => $expected_date,
+			'datetime' => $expected_date,
 		);
 
 		$block = new WP_Block(
@@ -68,7 +68,7 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 		$attributes = array(
 			'metadata' => array(
 				'bindings' => array(
-					'date' => array(
+					'datetime' => array(
 						'source' => 'core/post-data',
 						'args'   => array( 'key' => $field ),
 					),
@@ -122,7 +122,7 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 		$attributes = array(
 			'metadata' => array(
 				'bindings' => array(
-					'date' => array(
+					'datetime' => array(
 						'source' => 'core/post-data',
 						'args'   => array( 'key' => 'modified' ),
 					),

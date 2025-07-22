@@ -7,7 +7,7 @@
 			"className": "wp-block-post-date__modified-date",
 			"metadata": {
 				"bindings": {
-					"date": {
+					"datetime": {
 						"source": "core/post-data",
 						"args": {
 							"key": "modified"

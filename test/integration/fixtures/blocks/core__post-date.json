@@ -6,7 +6,7 @@
 			"isLink": false,
 			"metadata": {
 				"bindings": {
-					"date": {
+					"datetime": {
 						"source": "core/post-data",
 						"args": {
 							"key": "date"

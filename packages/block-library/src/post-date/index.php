@@ -18,26 +18,26 @@
 function render_block_core_post_date( $attributes, $content, $block ) {
 	$classes = array();
 
-	if ( ! isset( $attributes['date'] ) ) {
+	if ( ! isset( $attributes['datetime'] ) ) {
 		/*
 		 * This can mean two things:
 		 *
-		 * 1. We're dealing with the legacy version of the block that didn't have the `date` attribute.
-		 * 2. The `date` attribute is bound to a Block Bindings source, but we're on a version of WordPress
-		 *    that doesn't support the `core/post-data` source.
+		 * 1. We're dealing with the legacy version of the block that didn't have the `datetime` attribute.
+		 * 2. The `datetime` attribute is bound to a Block Bindings source, but we're on a version of WordPress
+		 *    that doesn't support binding that attribute to a Block Bindings source.
 		 *
-		 * In both cases, we set the `date` attribute to its correct value by applying Block Bindings manually.
+		 * In both cases, we set the `datetime` attribute to its correct value by applying Block Bindings manually.
 		 */
 		if (
-			isset( $attributes['metadata']['bindings']['date']['source'] ) &&
-			isset( $attributes['metadata']['bindings']['date']['args'] )
+			isset( $attributes['metadata']['bindings']['datetime']['source'] ) &&
+			isset( $attributes['metadata']['bindings']['datetime']['args'] )
 		) {
 			// We're using a version of WordPress that doesn't support the `core/post-data` source for block bindings.
 			// This branch can be removed once the minimum required WordPress version supports the `core/post-data` source.
-			$source      = get_block_bindings_source( $attributes['metadata']['bindings']['date']['source'] );
-			$source_args = $attributes['metadata']['bindings']['date']['args'];
+			$source      = get_block_bindings_source( $attributes['metadata']['bindings']['datetime']['source'] );
+			$source_args = $attributes['metadata']['bindings']['datetime']['args'];
 		} else {
-			// This is the legacy version of the block that didn't have the `date` attribute.
+			// This is the legacy version of the block that didn't have the `datetime` attribute.
 			// This branch needs to be kept for backward compatibility.
 			$source = get_block_bindings_source( 'core/post-data' );
 			if ( isset( $attributes['displayType'] ) && 'modified' === $attributes['displayType'] ) {
@@ -51,24 +51,24 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 			}
 		}
 
-		$attributes['date'] = $source->get_value( $source_args, $block, 'date' );
+		$attributes['datetime'] = $source->get_value( $source_args, $block, 'datetime' );
 
 		if ( isset( $source_args['key'] ) && 'modified' === $source_args['key'] ) {
 			$classes[] = 'wp-block-post-date__modified-date';
 		}
 	}
 
-	if ( empty( $attributes['date'] ) ) {
-		// If the `date` attribute is set but empty, it could be because Block Bindings
+	if ( empty( $attributes['datetime'] ) ) {
+		// If the `datetime` attribute is set but empty, it could be because Block Bindings
 		// set it that way. This can happen e.g. if the block is bound to the
 		// post's last modified date, and the latter lies before the publish date.
 		// (See https://github.com/WordPress/gutenberg/pull/46839 where this logic was originally
 		// implemented.)
 		// In this case, we have to respect and return the empty value.
-		return $attributes['date'];
+		return $attributes['datetime'];
 	}
 
-	$unformatted_date = $attributes['date'];
+	$unformatted_date = $attributes['datetime'];
 	$post_timestamp   = strtotime( $unformatted_date );
 
 	if ( isset( $attributes['format'] ) && 'human-diff' === $attributes['format'] ) {

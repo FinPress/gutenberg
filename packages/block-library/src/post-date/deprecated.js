@@ -88,7 +88,7 @@ const v2 = {
 				metadata: {
 					...metadata,
 					bindings: {
-						date: {
+						datetime: {
 							source: 'core/post-data',
 							args: { key: displayType },
 						},
@@ -98,9 +98,11 @@ const v2 = {
 		}
 	},
 	isEligible( attributes ) {
-		// If there's neither an explicit `date` attribute nor a block binding for that attribute,
+		// If there's neither an explicit `datetime` attribute nor a block binding for that attribute,
 		// then we're dealing with an old version of the block.
-		return ! attributes.date && ! attributes?.metadata?.bindings?.date;
+		return (
+			! attributes.datetime && ! attributes?.metadata?.bindings?.datetime
+		);
 	},
 };
 
