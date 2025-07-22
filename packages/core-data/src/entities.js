@@ -218,6 +218,17 @@ export const rootEntitiesConfig = [
 	},
 ];
 
+export const deprecatedEntities = {
+	postType: {
+		attachment: {
+			alternative: {
+				kind: 'root',
+				name: 'media',
+			},
+		},
+	},
+};
+
 export const additionalEntityConfigLoaders = [
 	{ kind: 'postType', loadEntities: loadPostTypeEntities },
 	{ kind: 'taxonomy', loadEntities: loadTaxonomyEntities },
