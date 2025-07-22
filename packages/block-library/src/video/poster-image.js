@@ -28,15 +28,15 @@ function PosterImage( { poster, setAttributes, instanceId } ) {
 	}
 
 	return (
-		<ToolsPanelItem
-			label={ __( 'Poster image' ) }
-			isShownByDefault
-			hasValue={ () => !! poster }
-			onDeselect={ () => {
-				setAttributes( { poster: '' } );
-			} }
-		>
-			<MediaUploadCheck>
+		<MediaUploadCheck>
+			<ToolsPanelItem
+				label={ __( 'Poster image' ) }
+				isShownByDefault
+				hasValue={ () => !! poster }
+				onDeselect={ () => {
+					setAttributes( { poster: '' } );
+				} }
+			>
 				<div className="editor-video-poster-control">
 					<BaseControl.VisualLabel>
 						{ __( 'Poster image' ) }
@@ -78,8 +78,8 @@ function PosterImage( { poster, setAttributes, instanceId } ) {
 						</Button>
 					) }
 				</div>
-			</MediaUploadCheck>
-		</ToolsPanelItem>
+			</ToolsPanelItem>
+		</MediaUploadCheck>
 	);
 }
 
