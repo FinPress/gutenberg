@@ -48,10 +48,13 @@ export function normalizeDeprecatedEntityArgs< ArgsType extends any[] >(
 			return value;
 		} ) as ArgsType;
 
-		deprecated( `${ functionName }( ${ args.join( ', ' ) } )`, {
-			since: '11.3',
-			alternative: `${ functionName }( ${ newArgs.join( ', ' ) } )`,
-		} );
+		deprecated(
+			`Using '${ functionName }' with the '${ entityKind }', '${ entityName }' entity`,
+			{
+				since: alternative.version,
+				alternative: `'${ functionName }' with the '${ alternative.kind }', '${ alternative.name }' entity`,
+			}
+		);
 
 		return newArgs;
 	}
