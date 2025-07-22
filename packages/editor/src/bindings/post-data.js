@@ -4,11 +4,6 @@
 import { store as coreDataStore } from '@wordpress/core-data';
 
 /**
- * Internal dependencies
- */
-import { store as editorStore } from '../store';
-
-/**
  * Gets a list of post data fields with their values and labels
  * to be consumed in the needed callbacks.
  * If the value is not available based on context, like in templates,
@@ -110,14 +105,8 @@ export default {
 		if ( fieldValue === undefined ) {
 			return false;
 		}
-		// Check that custom fields metabox is not enabled.
-		const areCustomFieldsEnabled =
-			select( editorStore ).getEditorSettings().enableCustomFields;
-		if ( areCustomFieldsEnabled ) {
-			return false;
-		}
 
-		// Check that the user has the capability to edit post meta.
+		// Check that the user has the capability to edit post data.
 		const canUserEdit = select( coreDataStore ).canUser( 'update', {
 			kind: 'postType',
 			name: context?.postType,
