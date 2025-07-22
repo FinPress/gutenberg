@@ -69,10 +69,6 @@ jobs:
               with:
                   name: build-assets
 
-            - name: Build e2e packages # todo: move to cache
-              run: |
-                  node ./bin/packages/build.js packages/e2e-test-utils-playwright/src/**/*.{js,ts}
-
             - name: Install Playwright dependencies
               run: |
                   npx playwright install chromium firefox webkit --with-deps
