@@ -3,29 +3,15 @@
  */
 import { BaseControl, TimePicker, VisuallyHidden } from '@wordpress/components';
 import { useCallback } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import type { DataFormControlProps } from '../types';
 import { OPERATOR_IN_THE_PAST, OPERATOR_OVER } from '../constants';
-import RelativeDateControl from './relative-date-control';
-
-const TIME_UNITS_OPTIONS = {
-	[ OPERATOR_IN_THE_PAST ]: [
-		{ value: 'days', label: __( 'Days' ) },
-		{ value: 'weeks', label: __( 'Weeks' ) },
-		{ value: 'months', label: __( 'Months' ) },
-		{ value: 'years', label: __( 'Years' ) },
-	],
-	[ OPERATOR_OVER ]: [
-		{ value: 'days', label: __( 'Days ago' ) },
-		{ value: 'weeks', label: __( 'Weeks ago' ) },
-		{ value: 'months', label: __( 'Months ago' ) },
-		{ value: 'years', label: __( 'Years ago' ) },
-	],
-};
+import RelativeDateControl, {
+	TIME_UNITS_OPTIONS,
+} from './relative-date-control';
 
 export default function DateTime< Item >( {
 	data,

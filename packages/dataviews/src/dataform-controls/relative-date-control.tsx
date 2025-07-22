@@ -15,6 +15,11 @@ import {
 import { useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
+/**
+ * Internal dependencies
+ */
+import { OPERATOR_IN_THE_PAST, OPERATOR_OVER } from '../constants';
+
 interface RelativeDateControlProps {
 	id: string;
 	value: { value?: string | number; unit?: string };
@@ -24,6 +29,21 @@ interface RelativeDateControlProps {
 	options: { value: string; label: string }[];
 	className?: string;
 }
+
+export const TIME_UNITS_OPTIONS = {
+	[ OPERATOR_IN_THE_PAST ]: [
+		{ value: 'days', label: __( 'Days' ) },
+		{ value: 'weeks', label: __( 'Weeks' ) },
+		{ value: 'months', label: __( 'Months' ) },
+		{ value: 'years', label: __( 'Years' ) },
+	],
+	[ OPERATOR_OVER ]: [
+		{ value: 'days', label: __( 'Days ago' ) },
+		{ value: 'weeks', label: __( 'Weeks ago' ) },
+		{ value: 'months', label: __( 'Months ago' ) },
+		{ value: 'years', label: __( 'Years ago' ) },
+	],
+};
 
 export default function RelativeDateControl( {
 	id,

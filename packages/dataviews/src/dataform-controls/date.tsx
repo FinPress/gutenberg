@@ -16,14 +16,94 @@ import { getDate, getSettings } from '@wordpress/date';
 /**
  * External dependencies
  */
-import { format, isValid } from 'date-fns';
+import { format, isValid, subMonths, subDays } from 'date-fns';
 
 /**
  * Internal dependencies
  */
+import RelativeDateControl, {
+	TIME_UNITS_OPTIONS,
+} from './relative-date-control';
+import {
+	OPERATOR_IN_THE_PAST,
+	OPERATOR_OVER,
+	OPERATOR_BETWEEN,
+} from '../constants';
 import { unlock } from '../lock-unlock';
+import type { DataFormControlProps } from '../types';
 
 const { DateCalendar, DateRangeCalendar } = unlock( componentsPrivateApis );
+
+const DATE_PRESETS: {
+	id: string;
+	label: string;
+	getValue: () => Date;
+}[] = [
+	{
+		id: 'today',
+		label: __( 'Today' ),
+		getValue: () => getDate( null ),
+	},
+	{
+		id: 'yesterday',
+		label: __( 'Yesterday' ),
+		getValue: () => {
+			const today = getDate( null );
+			return subDays( today, 1 );
+		},
+	},
+	{
+		id: 'past-week',
+		label: __( 'Past week' ),
+		getValue: () => {
+			const today = getDate( null );
+			return subDays( today, 7 );
+		},
+	},
+	{
+		id: 'past-month',
+		label: __( 'Past month' ),
+		getValue: () => {
+			const today = getDate( null );
+			return subMonths( today, 1 );
+		},
+	},
+];
+
+const DATE_RANGE_PRESETS = [
+	{
+		id: 'today',
+		label: __( 'Today' ),
+		getValue: () => {
+			const today = getDate( null );
+			return [ today, today ];
+		},
+	},
+	{
+		id: 'yesterday',
+		label: __( 'Yesterday' ),
+		getValue: () => {
+			const today = getDate( null );
+			return [ subDays( today, 1 ), today ];
+		},
+	},
+	{
+		id: 'last-7-days',
+		label: __( 'Last 7 days' ),
+		getValue: () => {
+			const today = getDate( null );
+			return [ subDays( today, 7 ), today ];
+		},
+	},
+	{
+		id: 'last-30-days',
+		label: __( 'Last 30 days' ),
+		getValue: () => {
+			const today = getDate( null );
+			return [ subDays( today, 30 ), today ];
+		},
+	},
+];
 
 const parseDate = ( dateString?: string ): Date | null => {
 	if ( ! dateString ) {
@@ -39,108 +119,6 @@ const formatDate = ( date?: Date | string ): string => {
 	}
 	return typeof date === 'string' ? date : format( date, 'yyyy-MM-dd' );
 };
-
-/**
- * Internal dependencies
- */
-import type { DataFormControlProps } from '../types';
-import RelativeDateControl from './relative-date-control';
-import {
-	OPERATOR_IN_THE_PAST,
-	OPERATOR_OVER,
-	OPERATOR_BETWEEN,
-} from '../constants';
-
-const TIME_UNITS_OPTIONS = {
-	[ OPERATOR_IN_THE_PAST ]: [
-		{ value: 'days', label: __( 'Days' ) },
-		{ value: 'weeks', label: __( 'Weeks' ) },
-		{ value: 'months', label: __( 'Months' ) },
-		{ value: 'years', label: __( 'Years' ) },
-	],
-	[ OPERATOR_OVER ]: [
-		{ value: 'days', label: __( 'Days ago' ) },
-		{ value: 'weeks', label: __( 'Weeks ago' ) },
-		{ value: 'months', label: __( 'Months ago' ) },
-		{ value: 'years', label: __( 'Years ago' ) },
-	],
-};
-
-const DATE_PRESETS = [
-	{
-		id: 'today',
-		label: __( 'Today' ),
-		getValue: () => new Date(),
-	},
-	{
-		id: 'yesterday',
-		label: __( 'Yesterday' ),
-		getValue: () => {
-			const date = new Date();
-			date.setDate( date.getDate() - 1 );
-			return date;
-		},
-	},
-	{
-		id: 'past-week',
-		label: __( 'Past week' ),
-		getValue: () => {
-			const date = new Date();
-			date.setDate( date.getDate() - 7 );
-			return date;
-		},
-	},
-	{
-		id: 'past-month',
-		label: __( 'Past month' ),
-		getValue: () => {
-			const date = new Date();
-			date.setMonth( date.getMonth() - 1 );
-			return date;
-		},
-	},
-];
-
-// Date range preset options
-const DATE_RANGE_PRESETS = [
-	{
-		id: 'today',
-		label: __( 'Today' ),
-		getValue: () => {
-			const today = new Date();
-			return [ today, today ];
-		},
-	},
-	{
-		id: 'yesterday',
-		label: __( 'Yesterday' ),
-		getValue: () => {
-			const yesterday = new Date();
-			yesterday.setDate( yesterday.getDate() - 1 );
-			return [ yesterday, yesterday ];
-		},
-	},
-	{
-		id: 'last-7-days',
-		label: __( 'Last 7 days' ),
-		getValue: () => {
-			const today = new Date();
-			const sevenDaysAgo = new Date();
-			sevenDaysAgo.setDate( sevenDaysAgo.getDate() - 7 );
-			return [ sevenDaysAgo, today ];
-		},
-	},
-	{
-		id: 'last-30-days',
-		label: __( 'Last 30 days' ),
-		getValue: () => {
-			const today = new Date();
-			const thirtyDaysAgo = new Date();
-			thirtyDaysAgo.setDate( thirtyDaysAgo.getDate() - 30 );
-			return [ thirtyDaysAgo, today ];
-		},
-	},
-];
 
 function CalendarDateControl( {
 	id,
@@ -180,9 +158,8 @@ function CalendarDateControl( {
 	const handlePresetClick = useCallback(
 		( preset: ( typeof DATE_PRESETS )[ 0 ] ) => {
 			const presetDate = preset.getValue();
-			const dateValue = format( presetDate, 'yyyy-MM-dd' );
+			const dateValue = formatDate( presetDate );
 
-			// Auto-navigate calendar to preset date
 			setCalendarMonth( presetDate );
 			onChange( { [ id ]: dateValue } );
 			setSelectedPresetId( preset.id );
@@ -323,7 +300,7 @@ function CalendarDateRangeControl( {
 		[ id, onChange ]
 	);
 
-	const onSelectRange = useCallback(
+	const onSelectCalendarRange = useCallback(
 		(
 			newRange:
 				| { from: Date | undefined; to?: Date | undefined }
@@ -338,7 +315,6 @@ function CalendarDateRangeControl( {
 	const handlePresetClick = useCallback(
 		( preset: ( typeof DATE_RANGE_PRESETS )[ 0 ] ) => {
 			const [ startDate, endDate ] = preset.getValue();
-			// Auto-navigate calendar to start date of range
 			setCalendarMonth( startDate );
 			updateDateRange( startDate, endDate );
 			setSelectedPresetId( preset.id );
@@ -436,7 +412,7 @@ function CalendarDateRangeControl( {
 				<DateRangeCalendar
 					style={ { width: '100%' } }
 					selected={ selectedRange }
-					onSelect={ onSelectRange }
+					onSelect={ onSelectCalendarRange }
 					month={ calendarMonth }
 					onMonthChange={ setCalendarMonth }
 					timeZone={ timezone.string || undefined }
@@ -478,6 +454,7 @@ export default function DateControl< Item >( {
 			value.length === 2 &&
 			value.every( ( date ) => typeof date === 'string' )
 		) {
+			// Ensure the value is expected format
 			dateRangeValue = value as unknown as [ string, string ];
 		}
 
