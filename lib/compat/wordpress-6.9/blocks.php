@@ -123,7 +123,8 @@ function gutenberg_process_image_caption_binding( $block_content, $parsed_block,
 			return $block_content;
 		}
 
-		if ( 'true' === $maybe_remove ) {
+		$should_remove = ( 'true' === $maybe_remove ) || empty( trim( (string) $source_value ) );
+		if ( $should_remove ) {
 			$processor->gutenberg_do_not_copy_maybe_remove_figcaption();
 		} else {
 			$processor->gutenberg_do_not_copy_set_figcaption_content( wp_kses_post( $source_value ) );
