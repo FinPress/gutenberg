@@ -18,6 +18,9 @@ import {
 	isEquivalentHTML,
 	validateBlock,
 	isClosedByToken,
+	VALIDATION_RESULT_TYPE,
+	getValidationTypeLevel,
+	compareValidationTypes,
 } from '../validation';
 import { createLogger } from '../validation/logger';
 import {
@@ -758,6 +761,273 @@ describe( 'validation', () => {
 			} );
 
 			expect( isValid ).toBe( true );
+		} );
+
+		describe( 'hierarchical validation types', () => {
+			it( 'returns VALID_BLOCK (Level 0) for identical block source and output', () => {
+				registerBlockType( 'core/heading', {
+					...defaultBlockSettings,
+					save: ( { attributes } ) =>
+						`<h${ attributes.level || 2 }>${
+							attributes.content
+						}</h${ attributes.level || 2 }>`,
+				} );
+
+				const [ isValid, validationIssues, validationType ] =
+					validateBlock( {
+						name: 'core/heading',
+						attributes: { level: 2, content: 'Testing Header' },
+						originalContent: '<h2>Testing Header</h2>',
+					} );
+
+				expect( isValid ).toBe( true );
+				expect( validationIssues ).toEqual( [] );
+				expect( validationType ).toBe(
+					VALIDATION_RESULT_TYPE.VALID_BLOCK
+				);
+			} );
+
+			it( 'returns MIGRATED_BLOCK (Level 1) for blocks migrated via deprecations', () => {
+				registerBlockType( 'core/heading', {
+					...defaultBlockSettings,
+					save: ( { attributes } ) =>
+						`<h${ attributes.level || 2 }>${
+							attributes.content
+						}</h${ attributes.level || 2 }>`,
+				} );
+
+				const block = {
+					name: 'core/heading',
+					attributes: { level: 2, content: 'Testing Header' },
+					originalContent: '<h2>Testing Header</h2>',
+					__unstableWasMigrated: true,
+				};
+
+				const [ isValid, validationIssues, validationType ] =
+					validateBlock( block );
+
+				expect( isValid ).toBe( true );
+				expect( validationIssues ).toEqual( [] );
+				expect( validationType ).toBe(
+					VALIDATION_RESULT_TYPE.MIGRATED_BLOCK
+				);
+			} );
+
+			it( 'returns PRESERVED_SOURCE (Level 2) for blocks with comment attribute differences', () => {
+				// Example from issue: level attribute differs but HTML content matches
+				registerBlockType( 'core/heading', {
+					...defaultBlockSettings,
+					save: ( { attributes } ) =>
+						`<h2>${ attributes.content }</h2>`, // Always outputs h2 regardless of level
+				} );
+
+				const [ isValid, validationIssues, validationType ] =
+					validateBlock( {
+						name: 'core/heading',
+						attributes: { level: 3, content: 'Testing Header' }, // Source has level: 3
+						originalContent: '<h2>Testing Header</h2>', // But HTML is h2
+					} );
+
+				expect( isValid ).toBe( true );
+				expect( validationIssues ).toEqual( [] );
+				expect( validationType ).toBe(
+					VALIDATION_RESULT_TYPE.PRESERVED_SOURCE
+				);
+			} );
+
+			it( 'returns RECONSTRUCTED_SOURCE (Level 3) for blocks rebuildable from attributes', () => {
+				// Example from issue: attributes allow rebuilding despite HTML differences
+				registerBlockType( 'core/heading', {
+					...defaultBlockSettings,
+					save: ( { attributes } ) => {
+						const { level = 6, textColor, content } = attributes;
+						const className = textColor
+							? `has-${ textColor }-color has-text-color`
+							: '';
+						return `<h${ level }${
+							className ? ` class="${ className }"` : ''
+						}>${ content }</h${ level }>`;
+					},
+				} );
+
+				const [ isValid, validationIssues, validationType ] =
+					validateBlock( {
+						name: 'core/heading',
+						attributes: {
+							level: 6,
+							textColor: 'pale-pink',
+							content: 'Testing Header',
+						},
+						originalContent: '<h6>Testing Header</h6>', // Missing the color classes
+					} );
+
+				expect( isValid ).toBe( false );
+				expect( validationIssues.length ).toBeGreaterThan( 0 );
+				expect( validationType ).toBe(
+					VALIDATION_RESULT_TYPE.RECONSTRUCTED_SOURCE
+				);
+			} );
+
+			it( 'returns RAW_TRANSFORMED_SOURCE (Level 4) for blocks transformable to raw content - successful case', () => {
+				// Example from issue: malformed HTML that could be preserved as raw content
+				registerBlockType( 'core/heading', {
+					...defaultBlockSettings,
+					save: ( { attributes } ) =>
+						`<h2>${ attributes.content }</h2>`,
+				} );
+
+				const [ isValid, validationIssues, validationType ] =
+					validateBlock( {
+						name: 'core/heading',
+						attributes: { content: 'Testing Header' },
+						originalContent: '<h2>Testing Header</p>', // Mismatched closing tag
+						innerBlocks: [],
+					} );
+
+				expect( isValid ).toBe( false );
+				expect( validationIssues.length ).toBeGreaterThan( 0 );
+				expect( validationType ).toBe(
+					VALIDATION_RESULT_TYPE.RAW_TRANSFORMED_SOURCE
+				);
+			} );
+
+			it( 'returns INVALID_BLOCK (Level 5) for blocks that cannot be safely restored', () => {
+				// Example from issue: Complex malformed content that can't be recovered
+				registerBlockType( 'core/heading', {
+					...defaultBlockSettings,
+					save: ( { attributes } ) =>
+						`<h2>${ attributes.content }</h2>`,
+				} );
+
+				// Complex malformed HTML with deeply nested issues
+				const [ isValid, validationIssues, validationType ] =
+					validateBlock( {
+						name: 'core/heading',
+						attributes: { content: 'Testing Header' },
+						originalContent: '<span>Testing Header</h2>', // Completely mismatched tags
+						innerBlocks: [ { name: 'some-nested-block' } ], // Has complex nested structure
+					} );
+
+				expect( isValid ).toBe( false );
+				expect( validationIssues.length ).toBeGreaterThan( 0 );
+				expect( validationType ).toBe(
+					VALIDATION_RESULT_TYPE.INVALID_BLOCK
+				);
+			} );
+
+			it( 'returns INVALID_BLOCK for blocks with save function errors', () => {
+				registerBlockType( 'core/test-block', {
+					...defaultBlockSettings,
+					save() {
+						throw new Error( 'Save function error' );
+					},
+				} );
+
+				const [ isValid, validationIssues, validationType ] =
+					validateBlock( {
+						name: 'core/test-block',
+						attributes: { fruit: 'Bananas' },
+						originalContent: 'Bananas',
+					} );
+
+				expect( isValid ).toBe( false );
+				expect( validationIssues.length ).toBeGreaterThan( 0 );
+				expect( validationType ).toBe(
+					VALIDATION_RESULT_TYPE.INVALID_BLOCK
+				);
+			} );
+		} );
+	} );
+
+	describe( 'VALIDATION_RESULT_TYPE', () => {
+		it( 'contains all expected validation types', () => {
+			expect( VALIDATION_RESULT_TYPE ).toEqual( {
+				VALID_BLOCK: 'VALID_BLOCK',
+				MIGRATED_BLOCK: 'MIGRATED_BLOCK',
+				PRESERVED_SOURCE: 'PRESERVED_SOURCE',
+				RECONSTRUCTED_SOURCE: 'RECONSTRUCTED_SOURCE',
+				RAW_TRANSFORMED_SOURCE: 'RAW_TRANSFORMED_SOURCE',
+				INVALID_BLOCK: 'INVALID_BLOCK',
+			} );
+		} );
+	} );
+
+	describe( 'getValidationTypeLevel()', () => {
+		it( 'returns correct level for each validation type', () => {
+			expect(
+				getValidationTypeLevel( VALIDATION_RESULT_TYPE.VALID_BLOCK )
+			).toBe( 0 );
+			expect(
+				getValidationTypeLevel( VALIDATION_RESULT_TYPE.MIGRATED_BLOCK )
+			).toBe( 1 );
+			expect(
+				getValidationTypeLevel(
+					VALIDATION_RESULT_TYPE.PRESERVED_SOURCE
+				)
+			).toBe( 2 );
+			expect(
+				getValidationTypeLevel(
+					VALIDATION_RESULT_TYPE.RECONSTRUCTED_SOURCE
+				)
+			).toBe( 3 );
+			expect(
+				getValidationTypeLevel(
+					VALIDATION_RESULT_TYPE.RAW_TRANSFORMED_SOURCE
+				)
+			).toBe( 4 );
+			expect(
+				getValidationTypeLevel( VALIDATION_RESULT_TYPE.INVALID_BLOCK )
+			).toBe( 5 );
+		} );
+
+		it( 'returns 5 (worst) for unknown validation types', () => {
+			expect( getValidationTypeLevel( 'UNKNOWN_TYPE' ) ).toBe( 5 );
+		} );
+	} );
+
+	describe( 'compareValidationTypes()', () => {
+		it( 'returns negative when first type is more valid', () => {
+			const result = compareValidationTypes(
+				VALIDATION_RESULT_TYPE.VALID_BLOCK,
+				VALIDATION_RESULT_TYPE.INVALID_BLOCK
+			);
+			expect( result ).toBeLessThan( 0 );
+		} );
+
+		it( 'returns positive when second type is more valid', () => {
+			const result = compareValidationTypes(
+				VALIDATION_RESULT_TYPE.INVALID_BLOCK,
+				VALIDATION_RESULT_TYPE.VALID_BLOCK
+			);
+			expect( result ).toBeGreaterThan( 0 );
+		} );
+
+		it( 'returns zero when both types are equal', () => {
+			const result = compareValidationTypes(
+				VALIDATION_RESULT_TYPE.VALID_BLOCK,
+				VALIDATION_RESULT_TYPE.VALID_BLOCK
+			);
+			expect( result ).toBe( 0 );
+		} );
+
+		it( 'works correctly across all hierarchy levels', () => {
+			const types = [
+				VALIDATION_RESULT_TYPE.VALID_BLOCK,
+				VALIDATION_RESULT_TYPE.MIGRATED_BLOCK,
+				VALIDATION_RESULT_TYPE.PRESERVED_SOURCE,
+				VALIDATION_RESULT_TYPE.RECONSTRUCTED_SOURCE,
+				VALIDATION_RESULT_TYPE.RAW_TRANSFORMED_SOURCE,
+				VALIDATION_RESULT_TYPE.INVALID_BLOCK,
+			];
+
+			// Test that each type is "less valid" than the previous one
+			for ( let i = 0; i < types.length - 1; i++ ) {
+				const result = compareValidationTypes(
+					types[ i ],
+					types[ i + 1 ]
+				);
+				expect( result ).toBeLessThan( 0 );
+			}
 		} );
 	} );
 
