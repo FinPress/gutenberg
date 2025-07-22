@@ -2,27 +2,27 @@
 
 class WPRESTThemesControllerGutenbergTest extends WP_Test_REST_Controller_Testcase {
 	/**
-	 * Contributor user ID.
-	 *
-	 * @since 5.0.0
-	 *
-	 * @var int $contributor_id
-	 */
-	protected static $contributor_id;
-
-	/**
 	 * Admin user ID.
 	 *
-	 * @since 5.7.0
+	 * @since 6.9.0
 	 *
 	 * @var int $admin_id
 	 */
 	protected static $admin_id;
 
 	/**
+	 * Contributor user ID.
+	 *
+	 * @since 6.9.0
+	 *
+	 * @var int $contributor_id
+	 */
+	protected static $contributor_id;
+
+	/**
 	 * The REST API route for themes.
 	 *
-	 * @since 5.0.0
+	 * @since 6.9.0
 	 *
 	 * @var string $themes_route
 	 */
@@ -84,15 +84,15 @@ class WPRESTThemesControllerGutenbergTest extends WP_Test_REST_Controller_Testca
 		// Controller does not implement update_item().
 	}
 
-		/**
+	/**
 	 * Set up class test fixtures.
 	 *
-	 * @since 5.0.0
+	 * @since 6.9.0
 	 *
 	 * @param WP_UnitTest_Factory $factory WordPress unit test factory.
 	 */
 	public static function wpSetUpBeforeClass( WP_UnitTest_Factory $factory ) {
-		self::$admin_id       = $factory->user->create(
+		self::$admin_id = $factory->user->create(
 			array(
 				'role' => 'administrator',
 			)
@@ -104,25 +104,39 @@ class WPRESTThemesControllerGutenbergTest extends WP_Test_REST_Controller_Testca
 		);
 	}
 
-	public function test_register_routes() {
+	/**
+	 * Set up each test method.
+	 *
+	 * @since 6.9.0
+	 */
+	public function set_up() {
+		parent::set_up();
+
 		$themes_controller = new WP_REST_Themes_Controller_Gutenberg();
 		$themes_controller->register_routes();
 
+		wp_set_current_user( self::$admin_id );
+	}
+
+	/**
+	 * Test that the routes are registered correctly.
+	 *
+	 * @covers WP_REST_Themes_Controller_Gutenberg::register_routes
+	 */
+	public function test_register_routes() {
 		$routes = rest_get_server()->get_routes();
+
 		$this->assertArrayHasKey( self::$themes_route, $routes );
 		$this->assertArrayHasKey( self::$themes_route . '/activate', $routes );
 	}
 
 	/**
 	 * Test that the activate_theme_permissions_check method returns an error for users without switch_themes capability.
+	 *
+	 * @covers WP_REST_Themes_Controller_Gutenberg::activate_theme_permissions_check
 	 */
-	public function test_activate_theme_permissions_check_returns_error_on_users_without_capability() {
-		// TODO: move to setup
-		$themes_controller = new WP_REST_Themes_Controller_Gutenberg();
-		$themes_controller->register_routes();
-
+	public function test_activate_theme_permissions_check() {
 		wp_set_current_user( self::$contributor_id );
-
 
 		$request = new WP_REST_Request(
 			'POST',
@@ -132,5 +146,41 @@ class WPRESTThemesControllerGutenbergTest extends WP_Test_REST_Controller_Testca
 		$response = rest_get_server()->dispatch( $request );
 
 		$this->assertSame( 403, $response->get_status() );
+		$this->assertSame( 'rest_cannot_activate_themes', $response->get_data()['code'] );
+	}
+
+	/**
+	 * Test that the validate_theme method returns an error for non-existent themes.
+	 *
+	 * @covers WP_REST_Themes_Controller_Gutenberg::validate_theme
+	 */
+	public function test_activate_theme_validate_theme_returns_error_on_non_existent_theme() {
+		$request = new WP_REST_Request(
+			'POST',
+			self::$themes_route . '/activate',
+		);
+		$request->set_param( 'stylesheet', 'non-existent-theme' );
+		$response = rest_get_server()->dispatch( $request );
+
+		$this->assertSame( 400, $response->get_status() );
+		$this->assertSame( 'rest_invalid_param', $response->get_data()['code'] );
+	}
+
+	/**
+	 * Test that the activate_theme method activates a valid theme.
+	 *
+	 * @covers WP_REST_Themes_Controller_Gutenberg::activate_theme
+	 */
+	public function test_activate_theme() {
+		$request = new WP_REST_Request(
+			'POST',
+			self::$themes_route . '/activate',
+		);
+		$request->set_param( 'stylesheet', 'twentytwentyfive' );
+		$response = rest_get_server()->dispatch( $request );
+
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertSame( 'Theme activated successfully.', $response->get_data()['message'] );
+		$this->assertSame( 'twentytwentyfive', $response->get_data()['theme'] );
 	}
 }
