@@ -5,7 +5,6 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { useInstanceId } from '@wordpress/compose';
 import { useEffect, useCallback } from '@wordpress/element';
 import {
-	BlockControls,
 	InspectorControls,
 	useBlockProps,
 	store as blockEditorStore,
@@ -23,7 +22,6 @@ import { unlock } from '../../lock-unlock';
 import QueryInspectorControls from './inspector-controls';
 import EnhancedPaginationModal from './enhanced-pagination-modal';
 import { getQueryContextFromTemplate } from '../utils';
-import QueryToolbar from './query-toolbar';
 
 const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
@@ -145,9 +143,6 @@ export default function QueryContent( {
 					isSingular={ isSingular }
 				/>
 			</InspectorControls>
-			<BlockControls>
-				<QueryToolbar attributes={ attributes } clientId={ clientId } />
-			</BlockControls>
 			<InspectorControls group="advanced">
 				<HTMLElementControl
 					tagName={ TagName }

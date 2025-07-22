@@ -8,7 +8,6 @@ import {
 } from '@wordpress/blocks';
 import { useState } from '@wordpress/element';
 import {
-	useBlockProps,
 	store as blockEditorStore,
 	__experimentalBlockVariationPicker,
 } from '@wordpress/block-editor';
@@ -30,8 +29,6 @@ export default function QueryPlaceholder( {
 } ) {
 	const [ isStartingBlank, setIsStartingBlank ] = useState( false );
 	const [ containerWidth, setContainerWidth ] = useState( 0 );
-
-	const blockProps = useBlockProps();
 
 	// Use ResizeObserver to monitor container width.
 	const resizeObserverRef = useResizeObserver( ( [ entry ] ) => {
@@ -75,7 +72,7 @@ export default function QueryPlaceholder( {
 		);
 	}
 	return (
-		<div { ...blockProps } ref={ resizeObserverRef }>
+		<div ref={ resizeObserverRef }>
 			<Placeholder
 				icon={ ! isSmallContainer && icon }
 				label={ ! isSmallContainer && label }
@@ -114,9 +111,8 @@ export default function QueryPlaceholder( {
 function QueryVariationPicker( { clientId, attributes, icon, label } ) {
 	const scopeVariations = useScopedBlockVariations( attributes );
 	const { replaceInnerBlocks } = useDispatch( blockEditorStore );
-	const blockProps = useBlockProps();
 	return (
-		<div { ...blockProps }>
+		<div>
 			<__experimentalBlockVariationPicker
 				icon={ icon }
 				label={ label }
