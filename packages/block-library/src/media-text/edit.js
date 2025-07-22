@@ -19,6 +19,9 @@ import {
 	store as blockEditorStore,
 	useBlockEditingMode,
 	privateApis as blockEditorPrivateApis,
+	MediaReplaceFlow,
+	MediaUpload,
+	MediaUploadCheck,
 } from '@wordpress/block-editor';
 import {
 	RangeControl,
@@ -29,6 +32,12 @@ import {
 	FocalPointPicker,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
+	PanelBody,
+	Button,
+	FlexItem,
+	__experimentalItemGroup as ItemGroup,
+	__experimentalHStack as HStack,
+	__experimentalTruncate as Truncate,
 } from '@wordpress/components';
 import { isBlobURL, getBlobTypeByURL } from '@wordpress/blob';
 import { pullLeft, pullRight } from '@wordpress/icons';
@@ -44,6 +53,7 @@ import {
 	LINK_DESTINATION_MEDIA,
 	LINK_DESTINATION_ATTACHMENT,
 	TEMPLATE,
+	ALLOWED_MEDIA_TYPES,
 } from './constants';
 import { unlock } from '../lock-unlock';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
@@ -159,6 +169,33 @@ function MediaTextResolutionTool( { image, value, onChange } ) {
 		/>
 	);
 }
+
+const InspectorImagePreview = ( { mediaItemData = {}, itemGroupProps } ) => {
+	const {
+		alt_text: alt,
+		source_url: imageUrl,
+		slug: imageSlug,
+		media_details: imageMediaDetails,
+	} = mediaItemData;
+
+	const imageLabel = imageMediaDetails?.sizes?.full?.file || imageSlug;
+
+	return (
+		<ItemGroup { ...itemGroupProps } as="span">
+			<HStack justify="flex-start" as="span">
+				<img src={ imageUrl } alt={ alt } />
+				<FlexItem as="span">
+					<Truncate
+						numberOfLines={ 1 }
+						className="block-library-image__inspector-media-replace-title"
+					>
+						{ imageLabel }
+					</Truncate>
+				</FlexItem>
+			</HStack>
+		</ItemGroup>
+	);
+};
 
 function MediaTextEdit( {
 	attributes,
@@ -459,9 +496,73 @@ function MediaTextEdit( {
 
 	const blockEditingMode = useBlockEditingMode();
 
+	// This is a light wrapper around MediaReplaceFlow because the block has two
+	// different MediaReplaceFlows, one for the inspector and one for the toolbar.
+	function ImageReplaceFlow( { mediaURL, ...mediaReplaceProps } ) {
+		return (
+			<MediaReplaceFlow
+				{ ...mediaReplaceProps }
+				mediaURL={ mediaURL }
+				allowedTypes={ ALLOWED_MEDIA_TYPES }
+				accept="image/*"
+			/>
+		);
+	}
+
+	const mediaReplaceFlowProps = {
+		mediaURL: mediaUrl,
+		name: ! mediaUrl ? __( 'Choose image' ) : __( 'Replace' ),
+		onSelect: onSelectMedia,
+		onError: toggleUseFeaturedImage,
+	};
+
+	const mediaInspectorPanel = (
+		<InspectorControls>
+			<PanelBody title={ __( 'Media' ) }>
+				<div className="block-library-image__inspector-media-replace-container">
+					{ !! mediaUrl && (
+						<ImageReplaceFlow
+							{ ...mediaReplaceFlowProps }
+							name={
+								<InspectorImagePreview
+									mediaItemData={ {
+										alt_text: mediaAlt,
+										source_url: mediaUrl,
+									} }
+								/>
+							}
+							popoverProps={ {} }
+						/>
+					) }
+					{ ! mediaUrl && (
+						<MediaUploadCheck>
+							<MediaUpload
+								onSelect={ onSelectMedia }
+								allowedTypes={ ALLOWED_MEDIA_TYPES }
+								render={ ( { open } ) => (
+									<div>
+										<Button
+											__next40pxDefaultSize
+											onClick={ open }
+											variant="secondary"
+										>
+											{ __( 'Choose image' ) }
+										</Button>
+									</div>
+								) }
+							/>
+						</MediaUploadCheck>
+					) }
+				</div>
+			</PanelBody>
+		</InspectorControls>
+	);
 	return (
 		<>
-			<InspectorControls>{ mediaTextGeneralSettings }</InspectorControls>
+			<InspectorControls>
+				{ mediaTextGeneralSettings }
+				{ mediaInspectorPanel }
+			</InspectorControls>
 			<BlockControls group="block">
 				{ blockEditingMode === 'default' && (
 					<>

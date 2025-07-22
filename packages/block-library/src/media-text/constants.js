@@ -15,3 +15,4 @@ export const TEMPLATE = [
 		},
 	],
 ];
+export const ALLOWED_MEDIA_TYPES = [ 'image' ];

@@ -13,6 +13,12 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalUnitControl as UnitControl,
 	__experimentalParseQuantityAndUnitFromRawValue as parseQuantityAndUnitFromRawValue,
+	PanelBody,
+	FlexItem,
+	__experimentalItemGroup as ItemGroup,
+	__experimentalHStack as HStack,
+	__experimentalTruncate as Truncate,
+	Button,
 } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
 import {
@@ -23,6 +29,9 @@ import {
 	__experimentalUseGradient,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 	privateApis as blockEditorPrivateApis,
+	MediaReplaceFlow,
+	MediaUpload,
+	MediaUploadCheck,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
@@ -34,7 +43,7 @@ import { store as coreStore } from '@wordpress/core-data';
 import { COVER_MIN_HEIGHT, mediaPosition } from '../shared';
 import { unlock } from '../../lock-unlock';
 import { useToolsPanelDropdownMenuProps } from '../../utils/hooks';
-import { DEFAULT_MEDIA_SIZE_SLUG } from '../constants';
+import { DEFAULT_MEDIA_SIZE_SLUG, ALLOWED_MEDIA_TYPES } from '../constants';
 
 const { cleanEmptyObject, ResolutionTool, HTMLElementControl } = unlock(
 	blockEditorPrivateApis
@@ -98,6 +107,8 @@ export default function CoverInspectorControls( {
 	currentSettings,
 	updateDimRatio,
 	featuredImage,
+	onSelectMedia,
+	onUploadError,
 } ) {
 	const {
 		useFeaturedImage,
@@ -186,6 +197,97 @@ export default function CoverInspectorControls( {
 
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
+	const InspectorImagePreview = ( {
+		mediaItemData = {},
+		itemGroupProps,
+	} ) => {
+		const {
+			alt_text: altText,
+			source_url: imageUrl,
+			slug: imageSlug,
+			media_details: imageMediaDetails,
+		} = mediaItemData;
+
+		const imageLabel = imageMediaDetails?.sizes?.full?.file || imageSlug;
+
+		return (
+			<ItemGroup { ...itemGroupProps } as="span">
+				<HStack justify="flex-start" as="span">
+					<img src={ imageUrl } alt={ altText } />
+					<FlexItem as="span">
+						<Truncate
+							numberOfLines={ 1 }
+							className="block-library-image__inspector-media-replace-title"
+						>
+							{ imageLabel }
+						</Truncate>
+					</FlexItem>
+				</HStack>
+			</ItemGroup>
+		);
+	};
+
+	// This is a light wrapper around MediaReplaceFlow because the block has two
+	// different MediaReplaceFlows, one for the inspector and one for the toolbar.
+	function ImageReplaceFlow( { mediaURL, ...mediaReplaceProps } ) {
+		return (
+			<MediaReplaceFlow
+				{ ...mediaReplaceProps }
+				mediaURL={ mediaURL }
+				allowedTypes={ ALLOWED_MEDIA_TYPES }
+				accept="image/*"
+			/>
+		);
+	}
+
+	const mediaReplaceFlowProps = {
+		mediaURL: url,
+		name: ! url ? __( 'Choose image' ) : __( 'Replace' ),
+		onSelect: onSelectMedia,
+		onError: onUploadError,
+	};
+
+	const mediaInspectorPanel = (
+		<InspectorControls>
+			<PanelBody title={ __( 'Media' ) }>
+				<div className="block-library-image__inspector-media-replace-container">
+					{ !! url && (
+						<ImageReplaceFlow
+							{ ...mediaReplaceFlowProps }
+							name={
+								<InspectorImagePreview
+									mediaItemData={ {
+										alt_text: alt,
+										source_url: url,
+									} }
+								/>
+							}
+							popoverProps={ {} }
+						/>
+					) }
+					{ ! url && (
+						<MediaUploadCheck>
+							<MediaUpload
+								onSelect={ onSelectMedia }
+								allowedTypes={ ALLOWED_MEDIA_TYPES }
+								render={ ( { open } ) => (
+									<div>
+										<Button
+											__next40pxDefaultSize
+											onClick={ open }
+											variant="secondary"
+										>
+											{ __( 'Choose image' ) }
+										</Button>
+									</div>
+								) }
+							/>
+						</MediaUploadCheck>
+					) }
+				</div>
+			</PanelBody>
+		</InspectorControls>
+	);
 	return (
 		<>
 			<InspectorControls>
@@ -318,6 +420,7 @@ export default function CoverInspectorControls( {
 						) }
 					</ToolsPanel>
 				) }
+				{ mediaInspectorPanel }
 			</InspectorControls>
 			{ colorGradientSettings.hasColorsOrGradients && (
 				<InspectorControls group="color">

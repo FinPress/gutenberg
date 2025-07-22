@@ -8,7 +8,15 @@ import clsx from 'clsx';
  */
 import { isBlobURL, createBlobURL } from '@wordpress/blob';
 import { createBlock, getBlockBindingsSource } from '@wordpress/blocks';
-import { Placeholder } from '@wordpress/components';
+import {
+	Placeholder,
+	PanelBody,
+	FlexItem,
+	__experimentalItemGroup as ItemGroup,
+	__experimentalHStack as HStack,
+	__experimentalTruncate as Truncate,
+	Button,
+} from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	BlockIcon,
@@ -18,12 +26,17 @@ import {
 	__experimentalUseBorderProps as useBorderProps,
 	__experimentalGetShadowClassesAndStyles as getShadowClassesAndStyles,
 	useBlockEditingMode,
+	InspectorControls,
+	MediaReplaceFlow,
+	MediaUpload,
+	MediaUploadCheck,
 } from '@wordpress/block-editor';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { image as icon, plugins as pluginsIcon } from '@wordpress/icons';
 import { store as noticesStore } from '@wordpress/notices';
 import { useResizeObserver } from '@wordpress/compose';
+import { store as coreStore } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
@@ -86,6 +99,46 @@ function hasSize( image, size ) {
 	);
 }
 
+// This is a light wrapper around MediaReplaceFlow because the block has two
+// different MediaReplaceFlows, one for the inspector and one for the toolbar.
+function ImageReplaceFlow( { mediaURL, ...mediaReplaceProps } ) {
+	return (
+		<MediaReplaceFlow
+			{ ...mediaReplaceProps }
+			mediaURL={ mediaURL }
+			allowedTypes={ ALLOWED_MEDIA_TYPES }
+			accept="image/*"
+		/>
+	);
+}
+
+const InspectorImagePreview = ( { mediaItemData = {}, itemGroupProps } ) => {
+	const {
+		alt_text: alt,
+		source_url: imageUrl,
+		slug: imageSlug,
+		media_details: imageMediaDetails,
+	} = mediaItemData;
+
+	const imageLabel = imageMediaDetails?.sizes?.full?.file || imageSlug;
+
+	return (
+		<ItemGroup { ...itemGroupProps } as="span">
+			<HStack justify="flex-start" as="span">
+				<img src={ imageUrl } alt={ alt } />
+				<FlexItem as="span">
+					<Truncate
+						numberOfLines={ 1 }
+						className="block-library-image__inspector-media-replace-title"
+					>
+						{ imageLabel }
+					</Truncate>
+				</FlexItem>
+			</HStack>
+		</ItemGroup>
+	);
+};
+
 export function ImageEdit( {
 	attributes,
 	setAttributes,
@@ -110,6 +163,28 @@ export function ImageEdit( {
 		align,
 		metadata,
 	} = attributes;
+
+	const { mediaItemData } = useSelect(
+		( select ) => {
+			const mediaItem =
+				id &&
+				select( coreStore ).getMedia( id, {
+					context: 'view',
+				} );
+			const _isRequestingMediaItem =
+				!! id &&
+				! select( coreStore ).hasFinishedResolution( 'getMedia', [
+					id,
+					{ context: 'view' },
+				] );
+
+			return {
+				mediaItemData: mediaItem,
+				isRequestingMediaItem: _isRequestingMediaItem,
+			};
+		},
+		[ id ]
+	);
 
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
 
@@ -445,8 +520,53 @@ export function ImageEdit( {
 		);
 	};
 
+	const mediaReplaceFlowProps = {
+		mediaURL: url,
+		name: ! url ? __( 'Choose image' ) : __( 'Replace' ),
+		onSelect: onSelectImage,
+		onError: onUploadError,
+	};
+
+	const mediaInspectorPanel = (
+		<InspectorControls>
+			<PanelBody title={ __( 'Media' ) }>
+				<div className="block-library-image__inspector-media-replace-container">
+					{ !! url && (
+						<ImageReplaceFlow
+							{ ...mediaReplaceFlowProps }
+							name={
+								<InspectorImagePreview
+									mediaItemData={ mediaItemData }
+								/>
+							}
+							popoverProps={ {} }
+						/>
+					) }
+					{ ! url && (
+						<MediaUploadCheck>
+							<MediaUpload
+								onSelect={ onSelectImage }
+								allowedTypes={ ALLOWED_MEDIA_TYPES }
+								render={ ( { open } ) => (
+									<div>
+										<Button
+											__next40pxDefaultSize
+											onClick={ open }
+											variant="secondary"
+										></Button>
+									</div>
+								) }
+							/>
+						</MediaUploadCheck>
+					) }
+				</div>
+			</PanelBody>
+		</InspectorControls>
+	);
+
 	return (
 		<>
+			{ mediaInspectorPanel }
 			<figure { ...blockProps }>
 				<Image
 					temporaryURL={ temporaryURL }

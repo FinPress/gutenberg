@@ -461,6 +461,8 @@ function CoverEdit( {
 			updateDimRatio={ onUpdateDimRatio }
 			onClearMedia={ onClearMedia }
 			featuredImage={ media }
+			onSelectMedia={ onSelectMedia }
+			onError={ onUploadError }
 		/>
 	);
 
