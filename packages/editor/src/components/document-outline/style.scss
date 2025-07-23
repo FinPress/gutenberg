@@ -94,4 +94,9 @@
 	}
 	text-align: center;
 	color: $gray-700;
+
+	// Reset alignment for notices.
+	:not(.components-notice) {
+		text-align: initial;
+	}
 }
