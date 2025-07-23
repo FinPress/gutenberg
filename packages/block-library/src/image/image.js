@@ -62,7 +62,11 @@ import {
 } from './constants';
 import { evalAspectRatio } from './utils';
 
-const { DimensionsTool, ResolutionTool } = unlock( blockEditorPrivateApis );
+const {
+	DimensionsTool,
+	ResolutionTool,
+	ImageEditor: ImageEditorV2,
+} = unlock( blockEditorPrivateApis );
 
 const scaleOptions = [
 	{
@@ -942,20 +946,41 @@ export default function Image( {
 	if ( canEditImage && isEditingImage ) {
 		img = (
 			<ImageWrapper href={ href }>
-				<ImageEditor
-					id={ id }
-					url={ url }
-					{ ...pixelSize }
-					naturalHeight={ naturalHeight }
-					naturalWidth={ naturalWidth }
-					onSaveImage={ ( imageAttributes ) =>
-						setAttributes( imageAttributes )
-					}
-					onFinishEditing={ () => {
-						setIsEditingImage( false );
-					} }
-					borderProps={ isRounded ? undefined : borderProps }
-				/>
+				{ window.__experimentalImageCropper ? (
+					<ImageEditorV2
+						src={ url }
+						{ ...pixelSize }
+						onCrop={ ( imageBlob ) => {
+							getSettings().mediaUpload( {
+								filesList: [ imageBlob ],
+								onFileChange: ( [ media ] ) => {
+									onSelectImage( media );
+								},
+								allowedTypes: ALLOWED_MEDIA_TYPES,
+								onError: onUploadError,
+							} );
+							setIsEditingImage( false );
+						} }
+						onCancel={ () => {
+							setIsEditingImage( false );
+						} }
+					/>
+				) : (
+					<ImageEditor
+						id={ id }
+						url={ url }
+						{ ...pixelSize }
+						naturalHeight={ naturalHeight }
+						naturalWidth={ naturalWidth }
+						onSaveImage={ ( imageAttributes ) =>
+							setAttributes( imageAttributes )
+						}
+						onFinishEditing={ () => {
+							setIsEditingImage( false );
+						} }
+						borderProps={ isRounded ? undefined : borderProps }
+					/>
+				) }
 			</ImageWrapper>
 		);
 	} else {

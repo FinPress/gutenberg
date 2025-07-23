@@ -10,6 +10,7 @@ import { kebabCase, normalizeTextString } from './utils/strings';
 import { withIgnoreIMEEvents } from './utils/with-ignore-ime-events';
 import { lock } from './lock-unlock';
 import Badge from './badge';
+import { ImageCropper, ImageCropperContext } from './image-cropper';
 
 import { DateCalendar, DateRangeCalendar, TZDate } from './calendar';
 
@@ -23,6 +24,8 @@ lock( privateApis, {
 	kebabCase,
 	withIgnoreIMEEvents,
 	Badge,
+	ImageCropper,
+	ImageCropperContext,
 	normalizeTextString,
 	DateCalendar,
 	DateRangeCalendar,

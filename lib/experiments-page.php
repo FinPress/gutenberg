@@ -188,6 +188,18 @@ function gutenberg_initialize_experiments_settings() {
 	);
 
 	add_settings_field(
+		'gutenberg-image-cropper',
+		__( 'Redesigned image cropper', 'gutenberg' ),
+		'gutenberg_display_experiment_field',
+		'gutenberg-experiments',
+		'gutenberg_experiments_section',
+		array(
+			'label' => __( 'Enable a redesigned version of the image cropper in the block editor.', 'gutenberg' ),
+			'id'    => 'gutenberg-image-cropper',
+		)
+	);
+
+	add_settings_field(
 		'gutenberg-full-page-client-side-navigation',
 		__( 'Interactivity API: Full-page client-side navigation', 'gutenberg' ),
 		'gutenberg_display_experiment_field',
