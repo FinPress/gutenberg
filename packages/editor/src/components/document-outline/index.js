@@ -54,6 +54,13 @@ const multipleH1Headings = [
 		{ __( '(Multiple H1 headings are not recommended)' ) }
 	</em>,
 ];
+const incorrectMainTag = (
+	<em>
+		{ __(
+			'(Your template should have exactly one main element. Adjust the HTML element in the Advanced panel of the block.)'
+		) }
+	</em>
+);
 function EmptyOutlineIllustration() {
 	return (
 		<SVG
@@ -91,15 +98,6 @@ function EmptyOutlineIllustration() {
 		</SVG>
 	);
 }
-
-const incorrectMainTag = [
-	<br key="incorrect-break-main" />,
-	<em key="incorrect-message-main">
-		{ __(
-			'(Your template should have exactly one main element. Adjust the HTML element in the Advanced panel of the block.)'
-		) }
-	</em>,
-];
 
 /**
  * Returns an array of heading blocks and blocks with the main tagName.
