@@ -14,32 +14,50 @@ const QUOTED_CHARACTERS_REGEX =
 	/^([\x20-\x21\x23-\x5B\x5D-\x7E]|\\[\x20-\x7E])*$/;
 
 /**
- * Regular expression to validate email local part (before @ symbol).
+ * Regular expression to validate email local part (before @ symbol),
+ * using a safe subset of RFC 5322 dot-atom syntax with support for Unicode characters.
  *
- * ^[^\s\\@]+(\.[^\s\\@]+)*$
- * ▲        ▲            ▲
- * │         │             └─ End of string
- * │         └─ Optional: dot followed by more valid characters
- * └─ Start: one or more characters (excluding spaces, backslashes, \@)
+ * ^[^\s"(),:;<>@\[\\\]]+(\.[^\s"(),:;<>@\[\\\]]+)*$
+ * ▲                    ▲                       ▲
+ * │                     │                        └─ End of string
+ * │                     └─ Optional dot-separated segments
+ * └─ Starts with one or more valid characters excluding unsafe symbols
  *
- * Local part: allows Unicode characters including emojis, excludes whitespace,
- * backslashes, and @ symbols. Supports dot-separated atoms per RFC 5322.
+ * Local part:
+ * - Allows Unicode characters (letters, numbers, emojis, etc.)
+ * - Supports dot-separated atoms
+ * - Disallows: whitespace, quotes, parentheses, angle brackets, colons, semicolons, @, brackets, backslashes
+ * - Prevents leading/trailing dot and consecutive dots
+ * - Safe for real-world use while covering international names
  */
-const ATOM_PATTERN_REGEX = /^[^\s\\@]+(\.[^\s\\@]+)*$/u;
+const ATOM_PATTERN_REGEX = /^[^\s"(),:;<>@\[\\\]]+(\.[^\s"(),:;<>@\[\\\]]+)*$/u;
 
 /**
- * Regular expression to validate domain labels (parts between dots).
+ * Regular expression to validate domain labels (individual parts between dots),
+ * supporting internationalized domain names (IDNs) using Unicode letters, digits, and combining marks.
  *
- * ^[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?$
- *  ▲           ▲                    ▲
- *  │           │                    └─ Must end with alphanumeric if middle part exists.
- *  │           └─ Middle: 0-61 chars of alphanumeric or hyphens.
- *  └─ Must start with alphanumeric character.
+ * ^[\p{L}\p{N}](?:[\p{L}\p{N}\p{M}-]{0,61}[\p{L}\p{N}\p{M}])?$
+ * ▲         ▲                         ▲
+ * │          │                          └─ Ends with letter/digit/mark if >1 char
+ * │          └─ Optional: middle part of 0–61 allowed characters
+ * └─ Starts with a Unicode letter or digit
  *
- * Each label: 1-63 chars, letters/digits/hyphens, no leading/trailing hyphens.
- * Conforms to RFC 1035 hostname requirements.
+ * Each label:
+ * - Length: 1–63 characters
+ * - Allowed:
+ *   - Unicode letters (`\p{L}`)
+ *   - Unicode digits (`\p{N}`)
+ *   - Combining marks (`\p{M}`) – e.g. diacritics in scripts like Devanagari
+ *   - Hyphens (`-`) only in the middle (not start or end)
+ * - Disallowed:
+ *   - Leading/trailing hyphens
+ *   - Whitespace, symbols, punctuation, emojis, or `@`
+ * - Fully supports non-Latin IDNs (e.g., डाटा, пример, δοκιμή)
+ * - Emoji or symbol-based domain labels are not matched
+ * - Does not validate punycode-encoded labels (e.g., `xn--...`)
  */
-const DOMAIN_LABEL_REGEX = /^[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?$/u;
+const DOMAIN_LABEL_REGEX =
+	/^[\p{L}\p{N}](?:[\p{L}\p{N}\p{M}-]{0,61}[\p{L}\p{N}\p{M}])?$/u;
 
 /**
  * Regular expression to detect IPv4-like strings (digits and dots only).
