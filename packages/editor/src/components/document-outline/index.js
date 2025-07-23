@@ -8,13 +8,7 @@ import clsx from 'clsx';
  */
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
-import {
-	useRef,
-	useMemo,
-	useEffect,
-	useState,
-	createInterpolateElement,
-} from '@wordpress/element';
+import { useRef, useMemo, createInterpolateElement } from '@wordpress/element';
 import { create, getTextContent } from '@wordpress/rich-text';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
@@ -26,7 +20,6 @@ import {
 	Notice,
 	ExternalLink,
 } from '@wordpress/components';
-import { store as noticesStore } from '@wordpress/notices';
 
 /**
  * Internal dependencies
@@ -151,8 +144,6 @@ export default function DocumentOutline( {
 	hasOutlineItemsDisabled,
 } ) {
 	const { selectBlock } = useDispatch( blockEditorStore );
-	const { createNotice, removeNotice } = useDispatch( noticesStore );
-	const [ isNoticeDismissed, setIsNoticeDismissed ] = useState( false );
 
 	const { title, isTitleSupported, isShowingTemplate } = useSelect(
 		( select ) => {
@@ -210,50 +201,6 @@ export default function DocumentOutline( {
 	const mainElements = outlineElements.filter(
 		( item ) => item.type === 'main'
 	);
-
-	const isShowingNotice = useSelect(
-		( select ) =>
-			!! select( noticesStore )
-				.getNotices()
-				.find(
-					( notice ) => notice.id === 'missing-main-html-element'
-				),
-		[]
-	);
-
-	useEffect( () => {
-		if (
-			! isNoticeDismissed &&
-			! isShowingNotice &&
-			isShowingTemplate &&
-			mainElements.length === 0
-		) {
-			createNotice(
-				'warning',
-				__(
-					'The main HTML element is missing. Select the block that contains your most important content and add the main HTML element in the Advanced panel.'
-				),
-				{
-					id: 'missing-main-html-element',
-					isDismissible: true,
-					onDismiss: () => {
-						setIsNoticeDismissed( true );
-						removeNotice( 'missing-main-html-element' );
-					},
-				}
-			);
-		} else if ( mainElements.length > 0 && isShowingNotice ) {
-			// Remove the notice if a main element is added.
-			removeNotice( 'missing-main-html-element' );
-		}
-	}, [
-		isNoticeDismissed,
-		isShowingNotice,
-		isShowingTemplate,
-		mainElements.length,
-		createNotice,
-		removeNotice,
-	] );
 
 	const headingsByLevel = headings.reduce( ( acc, heading ) => {
 		acc[ heading.level ] = ( acc[ heading.level ] || 0 ) + 1;
