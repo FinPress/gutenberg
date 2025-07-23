@@ -11,6 +11,8 @@ import { createHooks } from '@wordpress/hooks';
 import { createI18n } from '..';
 import type { I18nDomainMetadata, LocaleData } from '../types';
 
+type AllowedTextDomain = 'test_domain' | 'test_domain2';
+
 const strayaLocale: LocaleData = {
 	hello: [ 'gday', '' ],
 };
@@ -19,7 +21,7 @@ const frenchLocale: LocaleData = {
 	hello: [ 'bonjour', '' ],
 };
 
-const localeData: LocaleData = {
+const localeData: LocaleData< AllowedTextDomain > = {
 	'': {
 		// Domain name.
 		domain: 'test_domain',
@@ -39,13 +41,13 @@ const localeData: LocaleData = {
 	'fruit\u0004%d apple': [ '%d pomme', '%d pommes' ],
 };
 
-const additionalLocaleData: LocaleData = {
+const additionalLocaleData: LocaleData< AllowedTextDomain > = {
 	cheeseburger: [ 'hamburger au fromage', '' ],
 	'%d cat': [ '%d chat', '%d chats' ],
 };
 
 const createTestLocale = () =>
-	createI18n< 'test_domain' | 'test_domain2' >( localeData, 'test_domain' );
+	createI18n< AllowedTextDomain >( localeData, 'test_domain' );
 
 describe( 'createI18n', () => {
 	test( 'instantiated with locale data', () => {
@@ -274,16 +276,25 @@ describe( 'createI18n', () => {
 			);
 
 			expect(
-				( locale.getLocaleData( domain )[ '' ] as I18nDomainMetadata )
-					.domain
+				(
+					locale.getLocaleData( domain )[
+						''
+					] as I18nDomainMetadata< 'test_domain' >
+				 ).domain
 			).toBe( domain );
 			expect(
-				( locale.getLocaleData( domain )[ '' ] as I18nDomainMetadata )
-					.lang
+				(
+					locale.getLocaleData( domain )[
+						''
+					] as I18nDomainMetadata< 'test_domain' >
+				 ).lang
 			).toBe( 'fr' );
 			expect(
-				( locale.getLocaleData( domain )[ '' ] as I18nDomainMetadata )
-					.additionalData
+				(
+					locale.getLocaleData( domain )[
+						''
+					] as I18nDomainMetadata< 'test_domain' >
+				 ).additionalData
 			).toBe( domainConfiguration.additionalData );
 		} );
 

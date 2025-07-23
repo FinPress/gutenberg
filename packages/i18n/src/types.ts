@@ -20,14 +20,19 @@ export type TranslatableText< T extends string > = string & {
 /**
  * Type to extends TanninDomainMetadata to support additional properties.
  */
-export type I18nDomainMetadata = TanninDomainMetadata & {
-	[ key: string ]: unknown;
-};
+export type I18nDomainMetadata< TextDomain extends string > =
+	TanninDomainMetadata & {
+		domain?: TextDomain;
+		[ key: string ]: unknown;
+	};
 
 /**
  * Locale data is a record of domain names to their metadata or translations.
  */
-export type LocaleData = Record< string, I18nDomainMetadata | string[] >;
+export type LocaleData< TextDomain extends string = string > = Record<
+	string,
+	I18nDomainMetadata< TextDomain > | string[]
+>;
 
 export type SubscribeCallback = () => void;
 export type UnsubscribeCallback = () => void;
@@ -40,14 +45,14 @@ export type getFilterDomain = ( domain?: string ) => string;
 /**
  * An i18n instance
  */
-export interface I18n< TextDomains extends string = string > {
+export interface I18n< TextDomain extends string = string > {
 	/**
 	 * Returns locale data by domain in a
 	 * Jed-formatted JSON object shape.
 	 *
 	 * @see http://messageformat.github.io/Jed/
 	 */
-	getLocaleData: ( domain?: TextDomains ) => LocaleData;
+	getLocaleData: ( domain?: TextDomain ) => LocaleData< TextDomain >;
 
 	/**
 	 * Merges locale data into the Tannin instance by domain. Note that this
@@ -56,7 +61,10 @@ export interface I18n< TextDomains extends string = string > {
 	 *
 	 * @see http://messageformat.github.io/Jed/
 	 */
-	setLocaleData: ( data?: LocaleData, domain?: TextDomains ) => void;
+	setLocaleData: (
+		data?: LocaleData< TextDomain >,
+		domain?: TextDomain
+	) => void;
 
 	/**
 	 * Merges locale data into the Tannin instance by domain. Note that this
@@ -65,7 +73,10 @@ export interface I18n< TextDomains extends string = string > {
 	 *
 	 * @see http://messageformat.github.io/Jed/
 	 */
-	addLocaleData: ( data?: LocaleData, domain?: TextDomains ) => void;
+	addLocaleData: (
+		data?: LocaleData< TextDomain >,
+		domain?: TextDomain
+	) => void;
 
 	/**
 	 * Resets all current Tannin instance locale data and sets the specified
@@ -73,7 +84,10 @@ export interface I18n< TextDomains extends string = string > {
 	 *
 	 * @see http://messageformat.github.io/Jed/
 	 */
-	resetLocaleData: ( data?: LocaleData, domain?: TextDomains ) => void;
+	resetLocaleData: (
+		data?: LocaleData< TextDomain >,
+		domain?: TextDomain
+	) => void;
 
 	/**
 	 * Subscribes to changes of locale data
@@ -87,7 +101,7 @@ export interface I18n< TextDomains extends string = string > {
 	 */
 	__: < Text extends string >(
 		text: Text,
-		domain?: TextDomains
+		domain?: TextDomain
 	) => TranslatableText< Text >;
 
 	/**
@@ -98,7 +112,7 @@ export interface I18n< TextDomains extends string = string > {
 	_x: < Text extends string >(
 		text: Text,
 		context: string,
-		domain?: TextDomains
+		domain?: TextDomain
 	) => TranslatableText< Text >;
 
 	/**
@@ -111,7 +125,7 @@ export interface I18n< TextDomains extends string = string > {
 		single: Single,
 		plural: Plural,
 		number: number,
-		domain?: TextDomains
+		domain?: TextDomain
 	) => TranslatableText< Single | Plural >;
 
 	/**
@@ -125,7 +139,7 @@ export interface I18n< TextDomains extends string = string > {
 		plural: Plural,
 		number: number,
 		context: string,
-		domain?: TextDomains
+		domain?: TextDomain
 	) => TranslatableText< Single | Plural >;
 
 	/**
@@ -144,7 +158,7 @@ export interface I18n< TextDomains extends string = string > {
 	hasTranslation: (
 		single: string,
 		context?: string,
-		domain?: TextDomains
+		domain?: TextDomain
 	) => boolean;
 }
 

@@ -45,11 +45,11 @@ const I18N_HOOK_REGEXP = /^i18n\.(n?gettext|has_translation)(_|$)/;
  *
  * @return I18n instance.
  */
-export const createI18n = < TextDomains extends string >(
-	initialData?: LocaleData,
-	initialDomain?: TextDomains,
+export const createI18n = < TextDomain extends string >(
+	initialData?: LocaleData< TextDomain >,
+	initialDomain?: TextDomain,
 	hooks?: Hooks
-): I18n< TextDomains > => {
+): I18n< TextDomain > => {
 	/**
 	 * The underlying instance of Tannin to which exported functions interface.
 	 */
@@ -72,9 +72,9 @@ export const createI18n = < TextDomains extends string >(
 		return () => listeners.delete( callback );
 	};
 
-	const getLocaleData: I18n< TextDomains >[ 'getLocaleData' ] = (
-		domain = 'default' as TextDomains
-	) => tannin.data[ domain ] as LocaleData;
+	const getLocaleData: I18n< TextDomain >[ 'getLocaleData' ] = (
+		domain = 'default' as TextDomain
+	) => tannin.data[ domain ] as LocaleData< TextDomain >;
 
 	/**
 	 * @param [data]
@@ -82,7 +82,7 @@ export const createI18n = < TextDomains extends string >(
 	 */
 	const doSetLocaleData = (
 		data?: LocaleData,
-		domain: TextDomains = 'default' as TextDomains
+		domain: TextDomain = 'default' as TextDomain
 	) => {
 		tannin.data[ domain ] = {
 			...tannin.data[ domain ],
@@ -100,7 +100,7 @@ export const createI18n = < TextDomains extends string >(
 		delete tannin.pluralForms[ domain ];
 	};
 
-	const setLocaleData: I18n< TextDomains >[ 'setLocaleData' ] = (
+	const setLocaleData: I18n< TextDomain >[ 'setLocaleData' ] = (
 		data,
 		domain
 	) => {
@@ -108,9 +108,9 @@ export const createI18n = < TextDomains extends string >(
 		notifyListeners();
 	};
 
-	const addLocaleData: I18n< TextDomains >[ 'addLocaleData' ] = (
+	const addLocaleData: I18n< TextDomain >[ 'addLocaleData' ] = (
 		data,
-		domain = 'default' as TextDomains
+		domain = 'default' as TextDomain
 	) => {
 		tannin.data[ domain ] = {
 			...tannin.data[ domain ],
@@ -130,7 +130,7 @@ export const createI18n = < TextDomains extends string >(
 		notifyListeners();
 	};
 
-	const resetLocaleData: I18n< TextDomains >[ 'resetLocaleData' ] = (
+	const resetLocaleData: I18n< TextDomain >[ 'resetLocaleData' ] = (
 		data,
 		domain
 	) => {
@@ -159,7 +159,7 @@ export const createI18n = < TextDomains extends string >(
 	 * @return The translated string.
 	 */
 	const dcnpgettext = (
-		domain = 'default' as TextDomains,
+		domain = 'default' as TextDomain,
 		context: string | void,
 		single: string,
 		plural?: string,
@@ -175,7 +175,7 @@ export const createI18n = < TextDomains extends string >(
 
 	const getFilterDomain: getFilterDomain = ( domain ) => domain || 'default';
 
-	const __: I18n< TextDomains >[ '__' ] = ( text, domain ) => {
+	const __: I18n< TextDomain >[ '__' ] = ( text, domain ) => {
 		let translation = dcnpgettext( domain, undefined, text );
 		if ( ! hooks ) {
 			return translation as TranslatableText< typeof text >;
@@ -203,7 +203,7 @@ export const createI18n = < TextDomains extends string >(
 		) as TranslatableText< typeof text >;
 	};
 
-	const _x: I18n< TextDomains >[ '_x' ] = ( text, context, domain ) => {
+	const _x: I18n< TextDomain >[ '_x' ] = ( text, context, domain ) => {
 		let translation = dcnpgettext( domain, context, text );
 		if ( ! hooks ) {
 			return translation as TranslatableText< typeof text >;
@@ -234,7 +234,7 @@ export const createI18n = < TextDomains extends string >(
 		) as TranslatableText< typeof text >;
 	};
 
-	const _n: I18n< TextDomains >[ '_n' ] = (
+	const _n: I18n< TextDomain >[ '_n' ] = (
 		single,
 		plural,
 		number,
@@ -281,7 +281,7 @@ export const createI18n = < TextDomains extends string >(
 		) as TranslatableText< typeof single | typeof plural >;
 	};
 
-	const _nx: I18n< TextDomains >[ '_nx' ] = (
+	const _nx: I18n< TextDomain >[ '_nx' ] = (
 		single,
 		plural,
 		number,
@@ -332,11 +332,11 @@ export const createI18n = < TextDomains extends string >(
 		) as TranslatableText< typeof single | typeof plural >;
 	};
 
-	const isRTL: I18n< TextDomains >[ 'isRTL' ] = () => {
+	const isRTL: I18n< TextDomain >[ 'isRTL' ] = () => {
 		return 'rtl' === _x( 'ltr', 'text direction' );
 	};
 
-	const hasTranslation: I18n< TextDomains >[ 'hasTranslation' ] = (
+	const hasTranslation: I18n< TextDomain >[ 'hasTranslation' ] = (
 		single,
 		context,
 		domain

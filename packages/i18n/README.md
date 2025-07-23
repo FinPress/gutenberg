@@ -33,13 +33,13 @@ Create an i18n instance
 
 _Parameters_
 
--   _initialData_ `[LocaleData]`: Locale data configuration.
--   _initialDomain_ `[TextDomains]`: Domain for which configuration applies.
+-   _initialData_ `[LocaleData< TextDomain >]`: Locale data configuration.
+-   _initialDomain_ `[TextDomain]`: Domain for which configuration applies.
 -   _hooks_ `[Hooks]`: Hooks implementation.
 
 _Returns_
 
--   `I18n< TextDomains >`: I18n instance.
+-   `I18n< TextDomain >`: I18n instance.
 
 ### defaultI18n
 
@@ -121,8 +121,8 @@ _Related_
 
 _Parameters_
 
--   _format_ `T | TranslatableText<T>`: The format of the string to generate.
--   _args_ `DistributeSprintfArgs<T>`: Arguments to apply to the format.
+-   _format_ `T | TranslatableText< T >`: The format of the string to generate.
+-   _args_ `DistributeSprintfArgs< T >`: Arguments to apply to the format.
 
 _Returns_
 

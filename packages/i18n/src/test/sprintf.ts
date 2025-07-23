@@ -26,5 +26,3 @@ describe( 'i18n', () => {
 		} );
 	} );
 } );
-
-sprintf( '%s oki', 'docki' );
