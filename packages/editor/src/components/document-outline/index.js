@@ -285,16 +285,6 @@ export default function DocumentOutline( {
 				isShowingTemplate && mainElements.length === 0 && 'has-no-main'
 			) }
 		>
-			{ headings.length < 1 && (
-				<>
-					<EmptyOutlineIllustration />
-					<p>
-						{ __(
-							'Navigate the structure of your document and address issues like empty or incorrect heading levels.'
-						) }
-					</p>
-				</>
-			) }
 			{ isShowingTemplate && mainElements.length === 0 && (
 				<Notice
 					spokenMessage={ null }
@@ -317,6 +307,16 @@ export default function DocumentOutline( {
 						}
 					) }
 				</Notice>
+			) }
+			{ headings.length < 1 && (
+				<>
+					<EmptyOutlineIllustration />
+					<p>
+						{ __(
+							'Navigate the structure of your document and address issues like empty or incorrect heading levels.'
+						) }
+					</p>
+				</>
 			) }
 			<ul>
 				{ hasTitle && (
