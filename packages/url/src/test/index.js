@@ -51,7 +51,6 @@ describe( 'isEmail', () => {
 		'x@wordpress.org',
 		'wordpress-indeed@strange-wordpress.org',
 		'wordpress@s.wordpress',
-		'1234567890123456789012345678901234567890123456789012345678901234+x@wordpress.org',
 		'email@1.1.1.2',
 		'email@123.23.1.2',
 	] )(
@@ -72,6 +71,11 @@ describe( 'isEmail', () => {
 		'email@1111.1.1.1',
 		'email@1.1.1',
 		'email@1.1.1.1.1',
+		'user@example',
+		'test@123456789',
+		'admin@localhost',
+		'person@domain',
+		'1234567890123456789012345678901234567890123456789012345678901234+x@wordpress.org',
 	] )(
 		"returns false when given things that don't look like an email: %s",
 		( email ) => {

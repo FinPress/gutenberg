@@ -48,9 +48,6 @@ const DOMAIN_LABEL_REGEX = /^[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?$/u;
  */
 const IPV4_LIKE_REGEX = /^\d+(?:\.\d+)+$/;
 
-// matches something like [dead::beef]
-const IPV6_SHORTHAND_LIKE_REGEX = /^(?:[0-9A-Fa-f]*:){1,}[0-9A-Fa-f]*$/;
-
 /**
  * Regular expression to match IPv4 addresses (strict octets 0–255).
  *
@@ -161,12 +158,6 @@ function isValidLocal( local: string ): boolean {
 		return QUOTED_CHARACTERS_REGEX.test( local.slice( 1, -1 ) );
 	}
 
-	if ( ! hasBalancedComments( local ) ) {
-		return false;
-	}
-
-	local = stripComments( local );
-
 	if ( local.includes( '@' ) || local.includes( '"' ) ) {
 		return false;
 	}
@@ -180,67 +171,6 @@ function isValidLocal( local: string ): boolean {
 }
 
 /**
- * Checks if the comments in the email are balanced.
- *
- * @param str - The string to check for balanced comments.
- *
- * @return True if balanced, false otherwise.
- */
-function hasBalancedComments( str: string ): boolean {
-	let parenCount = 0;
-	for ( let i = 0; i < str.length; i++ ) {
-		if ( str[ i ] === '\\' ) {
-			i++; // Skip the next character (it's escaped)
-			continue;
-		}
-		if ( str[ i ] === '(' ) {
-			parenCount++;
-		} else if ( str[ i ] === ')' ) {
-			parenCount--;
-			if ( parenCount < 0 ) {
-				return false;
-			}
-		}
-	}
-	return parenCount === 0;
-}
-
-/**
- * Strips comments from the email string.
- *
- * @param str - The string to strip comments from.
- *
- * @return The string without comments.
- */
-function stripComments( str: string ): string {
-	let result = '';
-	let inComment = false;
-	for ( let i = 0; i < str.length; i++ ) {
-		if ( str[ i ] === '\\' ) {
-			result += str[ i ];
-			i++; // Skip the next character (it's escaped)
-			if ( i < str.length ) {
-				result += str[ i ];
-			}
-			continue;
-		}
-		if ( str[ i ] === '(' ) {
-			inComment = true;
-			continue;
-		}
-		if ( str[ i ] === ')' ) {
-			inComment = false;
-			continue;
-		}
-		if ( ! inComment ) {
-			result += str[ i ];
-		}
-	}
-
-	return result;
-}
-
-/**
  * Validates the domain part of an email address.
  *
  * @param domain - The domain part of the email address.
@@ -251,12 +181,6 @@ function isValidDomain( domain: string ): boolean {
 	if ( ! domain.length || domain.length > 253 ) {
 		return false;
 	}
-
-	if ( ! hasBalancedComments( domain ) ) {
-		return false;
-	}
-
-	domain = stripComments( domain );
 
 	// If it is an IP literal, check if it is valid.
 	if ( domain.startsWith( '[' ) && domain.endsWith( ']' ) ) {
@@ -280,6 +204,11 @@ function isValidDomain( domain: string ): boolean {
 
 	// Split by dots and validate each label
 	const labels = domain.split( '.' );
+
+	// Require at least two labels (reject short domains like @example, @123456789)
+	if ( labels.length < 2 ) {
+		return false;
+	}
 
 	return labels.every( ( label ) => {
 		if ( label.length === 0 || label.length > 63 ) {
@@ -305,18 +234,8 @@ function isValidIPLiteral( ipAddress: string ): boolean {
 	}
 
 	// Check for IPv6 prefix in domain literal
-	if (
-		/^IPv6:/.test( content ) ||
-		IPV6_SHORTHAND_LIKE_REGEX.test( content )
-	) {
-		return isValidIPv6(
-			content.startsWith( 'IPv6:' ) ? content.slice( 6 ) : content
-		);
-	}
-
-	// Check if it is a numeric domain literal
-	if ( /^\d+$/.test( content ) ) {
-		return true;
+	if ( /^IPv6:/.test( content ) ) {
+		return isValidIPv6( content.slice( 6 ) );
 	}
 
 	return false;
