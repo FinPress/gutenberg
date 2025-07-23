@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { useCallback } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useRegistry, useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -31,6 +31,8 @@ export default function useEntityProp( kind, name, prop, _id ) {
 	const providerId = useEntityId( kind, name );
 	const id = _id ?? providerId;
 
+	const registry = useRegistry();
+
 	const { value, fullValue } = useSelect(
 		( select ) => {
 			const { getEntityRecord, getEditedEntityRecord } =
@@ -46,14 +48,21 @@ export default function useEntityProp( kind, name, prop, _id ) {
 		},
 		[ kind, name, id, prop ]
 	);
-	const { editEntityRecord } = useDispatch( STORE_NAME );
+
 	const setValue = useCallback(
 		( newValue ) => {
-			editEntityRecord( kind, name, id, {
-				[ prop ]: newValue,
+			let updatedValue = newValue;
+			if ( typeof newValue === 'function' ) {
+				const currentValue = registry
+					.select( STORE_NAME )
+					.getEditedEntityRecord( kind, name, id )?.[ prop ];
+				updatedValue = newValue( currentValue );
+			}
+			registry.dispatch( STORE_NAME ).editEntityRecord( kind, name, id, {
+				[ prop ]: updatedValue,
 			} );
 		},
-		[ editEntityRecord, kind, name, id, prop ]
+		[ registry, kind, name, id, prop ]
 	);
 
 	return [ value, setValue, fullValue ];
