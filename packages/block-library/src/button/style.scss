@@ -5,11 +5,12 @@ $blocks-block__margin: 0.5em;
 // to support the previous markup in addition to the new one.
 .wp-block-button__link {
 	cursor: pointer;
-	display: inline-block;
+	display: inline-flex;
 	text-align: center;
 	word-break: break-word; // overflow-wrap doesn't work well if a link is wrapped in the div, so use word-break here.
 	box-sizing: border-box;
 	height: 100%;
+	align-items: center;
 	align-content: center;
 
 	&.aligncenter {
