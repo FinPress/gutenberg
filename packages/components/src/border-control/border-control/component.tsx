@@ -77,23 +77,22 @@ const UnconnectedBorderControl = (
 			/>
 			<HStack spacing={ 4 } className={ innerWrapperClassName }>
 				{ showColorControl && ! showWidthControl && (
-					<Spacer marginRight={ 1 } marginBottom={ 0 }>
-						<BorderControlDropdown
-							border={ border }
-							colors={ colors }
-							__unstablePopoverProps={ __unstablePopoverProps }
-							disableCustomColors={ disableCustomColors }
-							enableAlpha={ enableAlpha }
-							enableStyle={ enableStyle }
-							isStyleSettable={ isStyleSettable }
-							onChange={ onBorderChange }
-							previousStyleSelection={ previousStyleSelection }
-							__experimentalIsRenderedInSidebar={
-								__experimentalIsRenderedInSidebar
-							}
-							size={ size }
-						/>
-					</Spacer>
+					<BorderControlDropdown
+						border={ border }
+						colors={ colors }
+						__unstablePopoverProps={ __unstablePopoverProps }
+						disableCustomColors={ disableCustomColors }
+						enableAlpha={ enableAlpha }
+						enableStyle={ enableStyle }
+						isStyleSettable={ isStyleSettable }
+						onChange={ onBorderChange }
+						previousStyleSelection={ previousStyleSelection }
+						__experimentalIsRenderedInSidebar={
+							__experimentalIsRenderedInSidebar
+						}
+						size={ size }
+						className={ withSlider ? 'full-width' : '' }
+					/>
 				) }
 				{ showWidthControl && (
 					<UnitControl
