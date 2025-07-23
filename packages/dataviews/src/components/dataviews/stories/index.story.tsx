@@ -20,6 +20,7 @@ import {
 	__experimentalText as Text,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
+	Button,
 } from '@wordpress/components';
 import { __, _n } from '@wordpress/i18n';
 
@@ -118,6 +119,52 @@ export const Empty = () => {
 			onChangeView={ setView }
 			actions={ actions }
 			defaultLayouts={ defaultLayouts }
+		/>
+	);
+};
+
+export const CustomEmpty = () => {
+	const [ view, setView ] = useState< View >( {
+		...DEFAULT_VIEW,
+		fields: [ 'title', 'description', 'categories' ],
+	} );
+
+	return (
+		<DataViews
+			getItemId={ ( item ) => item.id.toString() }
+			paginationInfo={ { totalItems: 0, totalPages: 0 } }
+			data={ [] }
+			view={ view }
+			fields={ fields }
+			onChangeView={ setView }
+			actions={ actions }
+			defaultLayouts={ defaultLayouts }
+			empty={ {
+				heading: view.search ? 'No sites found' : 'No sites',
+				description: view.search
+					? `Your search for “${ view.search }” did not match any sites. Try searching by the site title or domain name.`
+					: 'Get started by creating a new site.',
+				illustration:
+					'https://pd.w.org/2025/05/9376819135a616da1.38400720-768x432.jpeg',
+				actions: (
+					<>
+						{ view.search && (
+							<Button
+								variant="secondary"
+								onClick={ () => {
+									setView( ( oldView ) => ( {
+										...oldView,
+										search: '',
+									} ) );
+								} }
+							>
+								Clear search
+							</Button>
+						) }
+						<Button variant="primary">Add new site</Button>
+					</>
+				),
+			} }
 		/>
 	);
 };
@@ -223,7 +270,16 @@ function PlanetOverview( { planets }: { planets: SpaceObject[] } ) {
 				</VStack>
 			</Grid>
 
-			<DataViews.Layout className="free-composition-dataviews-layout" />
+			{ planets.length > 0 ? (
+				<DataViews.Layout className="free-composition-dataviews-layout" />
+			) : (
+				<HStack
+					justify="space-around"
+					className="free-composition-dataviews-empty"
+				>
+					<DataViews.Empty />
+				</HStack>
+			) }
 		</>
 	);
 }
@@ -272,6 +328,13 @@ export const FreeComposition = () => {
 				defaultLayouts={ {
 					table: {},
 					grid: {},
+				} }
+				empty={ {
+					heading: 'No plants',
+					description: `Try a different search because “${ view.search }” returned no results.`,
+					actions: (
+						<Button variant="secondary">Create new planet</Button>
+					),
 				} }
 			>
 				<PlanetOverview planets={ planets } />

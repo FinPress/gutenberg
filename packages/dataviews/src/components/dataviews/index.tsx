@@ -13,7 +13,7 @@ import { useResizeObserver } from '@wordpress/compose';
 /**
  * Internal dependencies
  */
-import DataViewsContext from '../dataviews-context';
+import DataViewsContext, { DEFAULT_VIEW_EMPTY } from '../dataviews-context';
 import {
 	default as DataViewsFilters,
 	useFilters,
@@ -23,13 +23,20 @@ import DataViewsLayout from '../dataviews-layout';
 import DataViewsFooter from '../dataviews-footer';
 import DataViewsSearch from '../dataviews-search';
 import { BulkActionsFooter } from '../dataviews-bulk-actions';
+import { DataViewsEmpty } from '../dataviews-empty';
 import { DataViewsPagination } from '../dataviews-pagination';
 import DataViewsViewConfig, {
 	DataviewsViewConfigDropdown,
 	ViewTypeMenu,
 } from '../dataviews-view-config';
 import { normalizeFields } from '../../normalize-fields';
-import type { Action, Field, View, SupportedLayouts } from '../../types';
+import type {
+	Action,
+	Field,
+	View,
+	SupportedLayouts,
+	EmptyViewProps,
+} from '../../types';
 import type { SelectionOrUpdater } from '../../private-types';
 type ItemWithId = { id: string };
 
@@ -60,6 +67,7 @@ type DataViewsProps< Item > = {
 	getItemLevel?: ( item: Item ) => number;
 	children?: ReactNode;
 	perPageSizes?: number[];
+	empty?: EmptyViewProps;
 } & ( Item extends ItemWithId
 	? { getItemId?: ( item: Item ) => string }
 	: { getItemId: ( item: Item ) => string } );
@@ -134,6 +142,7 @@ function DataViews< Item >( {
 	header,
 	children,
 	perPageSizes = [ 10, 20, 50, 100 ],
+	empty,
 }: DataViewsProps< Item > ) {
 	const containerRef = useRef< HTMLDivElement | null >( null );
 	const [ containerWidth, setContainerWidth ] = useState( 0 );
@@ -199,6 +208,7 @@ function DataViews< Item >( {
 				isShowingFilter,
 				setIsShowingFilter,
 				perPageSizes,
+				empty: empty ?? DEFAULT_VIEW_EMPTY,
 			} }
 		>
 			<div className="dataviews-wrapper" ref={ containerRef }>
@@ -224,6 +234,7 @@ const DataViewsSubComponents = DataViews as typeof DataViews & {
 	Pagination: typeof DataViewsPagination;
 	Search: typeof DataViewsSearch;
 	ViewConfig: typeof DataviewsViewConfigDropdown;
+	Empty: typeof DataViewsEmpty;
 };
 
 DataViewsSubComponents.BulkActionToolbar = BulkActionsFooter;
@@ -234,5 +245,6 @@ DataViewsSubComponents.LayoutSwitcher = ViewTypeMenu;
 DataViewsSubComponents.Pagination = DataViewsPagination;
 DataViewsSubComponents.Search = DataViewsSearch;
 DataViewsSubComponents.ViewConfig = DataviewsViewConfigDropdown;
+DataViewsSubComponents.Empty = DataViewsEmpty;
 
 export default DataViewsSubComponents;

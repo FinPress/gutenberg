@@ -12,6 +12,7 @@ import type { SetSelection } from './private-types';
  * WordPress dependencies
  */
 import type { useFocusOnMount } from '@wordpress/compose';
+import type { Button } from '@wordpress/components';
 
 export type SortDirection = 'asc' | 'desc';
 
@@ -600,6 +601,29 @@ export interface ActionButton< Item > extends ActionBase< Item > {
 
 export type Action< Item > = ActionModal< Item > | ActionButton< Item >;
 
+export interface EmptyViewProps {
+	/**
+	 * The message to display when the view is empty.
+	 */
+	heading: string;
+
+	/**
+	 * The message to display when the view is empty.
+	 */
+	description?: string;
+
+	/**
+	 * The illustration to display when the view is empty.
+	 * It can be a string (URL) or a React element.
+	 */
+	illustration?: string | ReactElement;
+
+	/**
+	 * The actions to display when the view is empty.
+	 */
+	actions?: ReactElement< ComponentProps< typeof Button > >;
+}
+
 export interface ViewBaseProps< Item > {
 	className?: string;
 	actions: Action< Item >[];
@@ -620,6 +644,7 @@ export interface ViewBaseProps< Item > {
 	) => ReactElement;
 	isItemClickable: ( item: Item ) => boolean;
 	view: View;
+	empty?: EmptyViewProps;
 }
 
 export interface ViewTableProps< Item > extends ViewBaseProps< Item > {
