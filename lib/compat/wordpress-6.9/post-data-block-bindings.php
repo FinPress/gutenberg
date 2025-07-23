@@ -57,6 +57,11 @@ function gutenberg_block_bindings_post_data_get_value( array $source_args, $bloc
  * @access private
  */
 function gutenberg_register_block_bindings_post_data_source() {
+	if ( get_block_bindings_source( 'core/post-data' ) ) {
+		// The source is already registered.
+		return;
+	}
+
 	register_block_bindings_source(
 		'core/post-data',
 		array(
