@@ -12,13 +12,13 @@ import { __, sprintf } from '@wordpress/i18n';
 import { useRef } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 
-const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = [ 'image' ];
+const COVER_POSTER_ALLOWED_MEDIA_TYPES = [ 'image' ];
 
 function PosterImage( { poster, setAttributes } ) {
 	const posterButtonRef = useRef();
 	const descriptionId = useInstanceId(
 		PosterImage,
-		'video-block__poster-image-description'
+		'cover-block__poster-image-description'
 	);
 
 	function onSelectPoster( image ) {
@@ -49,7 +49,7 @@ function PosterImage( { poster, setAttributes } ) {
 					<MediaUpload
 						title={ __( 'Select poster image' ) }
 						onSelect={ onSelectPoster }
-						allowedTypes={ VIDEO_POSTER_ALLOWED_MEDIA_TYPES }
+						allowedTypes={ COVER_POSTER_ALLOWED_MEDIA_TYPES }
 						render={ ( { open } ) => (
 							<Button
 								__next40pxDefaultSize
