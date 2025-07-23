@@ -22,6 +22,7 @@ import { useRegistry } from '@wordpress/data';
  */
 import { unlock } from '../../lock-unlock';
 import type { Action, ActionModal as ActionModalType } from '../../types';
+import ActionsToolbar from '../actions-toolbar';
 
 const { Menu, kebabCase } = unlock( componentsPrivateApis );
 
@@ -56,32 +57,6 @@ interface CompactItemActionsProps< Item > {
 	actions: Action< Item >[];
 	isSmall?: boolean;
 	registry: ReturnType< typeof useRegistry >;
-}
-
-interface PrimaryActionsProps< Item > {
-	item: Item;
-	actions: Action< Item >[];
-	registry: ReturnType< typeof useRegistry >;
-}
-
-function ButtonTrigger< Item >( {
-	action,
-	onClick,
-	items,
-}: ActionTriggerProps< Item > ) {
-	const label =
-		typeof action.label === 'string' ? action.label : action.label( items );
-	return (
-		<Button
-			label={ label }
-			icon={ action.icon }
-			disabled={ !! action.disabled }
-			accessibleWhenDisabled
-			isDestructive={ action.isDestructive }
-			size="compact"
-			onClick={ onClick }
-		/>
-	);
 }
 
 function MenuItemTrigger< Item >( {
@@ -181,13 +156,7 @@ export default function ItemActions< Item >( {
 
 	// If all actions are primary, there is no need to render the dropdown.
 	if ( primaryActions.length === eligibleActions.length ) {
-		return (
-			<PrimaryActions
-				item={ item }
-				actions={ primaryActions }
-				registry={ registry }
-			/>
-		);
+		return <ActionsToolbar actions={ primaryActions } item={ item } />;
 	}
 
 	return (
@@ -200,11 +169,7 @@ export default function ItemActions< Item >( {
 				width: 'auto',
 			} }
 		>
-			<PrimaryActions
-				item={ item }
-				actions={ primaryActions }
-				registry={ registry }
-			/>
+			<ActionsToolbar actions={ primaryActions } item={ item } />
 			<CompactItemActions
 				item={ item }
 				actions={ eligibleActions }
@@ -247,42 +212,6 @@ function CompactItemActions< Item >( {
 					/>
 				</Menu.Popover>
 			</Menu>
-			{ !! activeModalAction && (
-				<ActionModal
-					action={ activeModalAction }
-					items={ [ item ] }
-					closeModal={ () => setActiveModalAction( null ) }
-				/>
-			) }
-		</>
-	);
-}
-
-function PrimaryActions< Item >( {
-	item,
-	actions,
-	registry,
-}: PrimaryActionsProps< Item > ) {
-	const [ activeModalAction, setActiveModalAction ] = useState( null as any );
-	if ( ! Array.isArray( actions ) || actions.length === 0 ) {
-		return null;
-	}
-	return (
-		<>
-			{ actions.map( ( action ) => (
-				<ButtonTrigger
-					key={ action.id }
-					action={ action }
-					onClick={ () => {
-						if ( 'RenderModal' in action ) {
-							setActiveModalAction( action );
-							return;
-						}
-						action.callback( [ item ], { registry } );
-					} }
-					items={ [ item ] }
-				/>
-			) ) }
 			{ !! activeModalAction && (
 				<ActionModal
 					action={ activeModalAction }
