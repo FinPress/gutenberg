@@ -32,7 +32,7 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 			isset( $attributes['metadata']['bindings']['datetime']['source'] ) &&
 			isset( $attributes['metadata']['bindings']['datetime']['args'] )
 		) {
-			// We're using a version of WordPress that doesn't support the `core/post-data` source for block bindings.
+			// We're using a version of WordPress that doesn't support binding the block's `datetime` attribute to a Block Bindings source.
 			// This branch can be removed once the minimum required WordPress version supports the `core/post-data` source.
 			$source      = get_block_bindings_source( $attributes['metadata']['bindings']['datetime']['source'] );
 			$source_args = $attributes['metadata']['bindings']['datetime']['args'];
