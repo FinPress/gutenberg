@@ -27,6 +27,13 @@ function MyComponent() {
 				item={ selectedPost }
 				className="my-custom-toolbar"
 			/>
+
+			{/* Or with text labels instead of icons */}
+			<ActionsToolbar
+				actions={ actions }
+				item={ selectedPost }
+				showLabels={ true }
+			/>
 		</div>
 	);
 }
@@ -37,6 +44,7 @@ function MyComponent() {
 - `actions` (Action[]): Array of actions to render as buttons
 - `item` (Item): Item the actions will operate on
 - `className` (string, optional): Additional CSS class name
+- `showLabels` (boolean, optional): Whether to show text labels instead of icons (default: false)
 
 ## Features
 

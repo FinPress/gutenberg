@@ -46,6 +46,10 @@ It allows you to reuse DataViews actions outside of the DataViews component itse
 			control: 'text',
 			description: 'Additional CSS class name',
 		},
+		showLabels: {
+			control: 'boolean',
+			description: 'Whether to show text labels instead of icons',
+		},
 	},
 } as Meta< typeof ActionsToolbar >;
 
@@ -121,7 +125,7 @@ const postActions: Action< Post >[] = [
 		icon: seen,
 		callback: ( items ) => {
 			// eslint-disable-next-line no-alert
-			alert( `Viewing: ${ items.map( p => p.title ).join( ', ' ) }` );
+			alert( `Viewing: ${ items.map( ( p ) => p.title ).join( ', ' ) }` );
 		},
 		isEligible: ( item ) => item.status === 'published',
 	},
@@ -132,7 +136,7 @@ const postActions: Action< Post >[] = [
 		isPrimary: true,
 		callback: ( items ) => {
 			// eslint-disable-next-line no-alert
-			alert( `Editing: ${ items.map( p => p.title ).join( ', ' ) }` );
+			alert( `Editing: ${ items.map( ( p ) => p.title ).join( ', ' ) }` );
 		},
 		isEligible: ( item ) => item.canEdit,
 	},
@@ -142,7 +146,9 @@ const postActions: Action< Post >[] = [
 		icon: copy,
 		callback: ( items ) => {
 			// eslint-disable-next-line no-alert
-			alert( `Duplicating: ${ items.map( p => p.title ).join( ', ' ) }` );
+			alert(
+				`Duplicating: ${ items.map( ( p ) => p.title ).join( ', ' ) }`
+			);
 		},
 		isEligible: ( item ) => item.status !== 'trash',
 	},
@@ -158,19 +164,22 @@ const postActions: Action< Post >[] = [
 					<Text>
 						{ items.length === 1
 							? `Are you sure you want to delete "${ items[ 0 ].title }"?`
-							: `Are you sure you want to delete ${ items.length } posts?`
-						}
+							: `Are you sure you want to delete ${ items.length } posts?` }
 					</Text>
 					<HStack justify="right">
 						<Button variant="tertiary" onClick={ closeModal }>
 							Cancel
 						</Button>
-						<Button 
-							variant="primary" 
+						<Button
+							variant="primary"
 							isDestructive
 							onClick={ () => {
 								// eslint-disable-next-line no-alert
-								alert( `Deleted: ${ items.map( p => p.title ).join( ', ' ) }` );
+								alert(
+									`Deleted: ${ items
+										.map( ( p ) => p.title )
+										.join( ', ' ) }`
+								);
 								closeModal?.();
 							} }
 						>
@@ -188,7 +197,9 @@ const postActions: Action< Post >[] = [
 		icon: backup,
 		callback: ( items ) => {
 			// eslint-disable-next-line no-alert
-			alert( `Restoring: ${ items.map( p => p.title ).join( ', ' ) }` );
+			alert(
+				`Restoring: ${ items.map( ( p ) => p.title ).join( ', ' ) }`
+			);
 		},
 		isEligible: ( item ) => item.status === 'trash',
 	},
@@ -269,6 +280,22 @@ NoEligibleActions.parameters = {
 	docs: {
 		description: {
 			story: 'When no actions are eligible for the given items, the component renders nothing.',
+		},
+	},
+};
+
+// Story: With text labels instead of icons
+export const WithLabels: StoryFn< typeof ActionsToolbar > = () => (
+	<ActionsToolbar
+		actions={ postActions.slice( 0, 3 ) }
+		item={ samplePosts[ 0 ] }
+		showLabels
+	/>
+);
+WithLabels.parameters = {
+	docs: {
+		description: {
+			story: 'Shows text labels instead of icons. Useful when you want more descriptive buttons.',
 		},
 	},
 };

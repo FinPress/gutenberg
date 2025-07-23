@@ -21,30 +21,36 @@ interface SingleItemActionTriggerProps< Item > {
 	onClick: MouseEventHandler;
 	isBusy?: boolean;
 	item: Item;
+	showLabels?: boolean;
 }
 
 function ButtonTrigger< Item >( {
 	action,
 	onClick,
 	item,
+	showLabels = false,
 }: SingleItemActionTriggerProps< Item > ) {
 	const label =
 		typeof action.label === 'string'
 			? action.label
 			: action.label( [ item ] );
 	const getVariant = () => {
+		if ( ! showLabels ) {
 			return undefined; // Default minimal style for icons
+		}
+		return action.isPrimary ? 'primary' : 'secondary';
 	};
 
 	return (
 		<Button
 			label={ label }
-			icon={ action.icon }
-			text={ undefined }
+			icon={ showLabels ? undefined : action.icon }
+			text={ showLabels ? label : undefined }
 			disabled={ !! action.disabled }
 			accessibleWhenDisabled
 			isDestructive={ action.isDestructive }
-			size="compact"
+			variant={ getVariant() }
+			size={ showLabels ? 'default' : 'compact' }
 			onClick={ onClick }
 		/>
 	);
@@ -54,6 +60,7 @@ interface ActionsToolbarProps< Item > {
 	actions: Action< Item >[];
 	item: Item;
 	className?: string;
+	showLabels?: boolean;
 }
 
 /**
@@ -62,15 +69,17 @@ interface ActionsToolbarProps< Item > {
  * This component allows you to render DataViews actions inside and outside of the main DataViews component.
  * It handles action eligibility, modal rendering, and maintains consistency with DataViews action patterns while being independently usable.
  *
- * @param props           - Component props
- * @param props.actions   - Array of actions to render
- * @param props.item      - Item the actions will operate on
- * @param props.className - Optional CSS class name
+ * @param props            - Component props
+ * @param props.actions    - Array of actions to render
+ * @param props.item       - Item the actions will operate on
+ * @param props.className  - Optional CSS class name
+ * @param props.showLabels - Whether to show text labels instead of icons (default: false)
  */
 export default function ActionsToolbar< Item >( {
 	actions,
 	item,
 	className = '',
+	showLabels = false,
 }: ActionsToolbarProps< Item > ): ReactElement | null {
 	const registry = useRegistry();
 	const [ activeModalAction, setActiveModalAction ] =
@@ -103,6 +112,7 @@ export default function ActionsToolbar< Item >( {
 							action.callback( [ item ], { registry } );
 						} }
 						item={ item }
+						showLabels={ showLabels }
 					/>
 				) ) }
 			</HStack>
