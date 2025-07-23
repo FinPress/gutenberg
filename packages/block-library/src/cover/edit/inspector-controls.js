@@ -246,12 +246,6 @@ export default function CoverInspectorControls( {
 								</ToolsPanelItem>
 							</>
 						) }
-						{ isVideoBackground && (
-							<PosterImage
-								poster={ poster }
-								setAttributes={ setAttributes }
-							/>
-						) }
 						{ showFocalPointPicker && (
 							<ToolsPanelItem
 								label={ __( 'Focal point' ) }
@@ -277,6 +271,12 @@ export default function CoverInspectorControls( {
 									}
 								/>
 							</ToolsPanelItem>
+						) }
+						{ isVideoBackground && (
+							<PosterImage
+								poster={ poster }
+								setAttributes={ setAttributes }
+							/>
 						) }
 						{ ! useFeaturedImage && url && ! isVideoBackground && (
 							<ToolsPanelItem
