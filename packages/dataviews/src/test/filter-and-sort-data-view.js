@@ -87,7 +87,7 @@ describe( 'filters', () => {
 			fieldsWithArraySearch
 		);
 
-		// Should find items with "Moon" in categories plus the item with title "Moon"
+		// Should find items with "satellite" in categories
 		expect( result ).toHaveLength( 3 );
 		expect( result.map( ( r ) => r.title ).sort() ).toEqual( [
 			'Europa',
