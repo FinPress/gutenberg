@@ -15,4 +15,4 @@ export {
 	ALLOWED_RESOURCE_ACTIONS,
 } from './user-permissions';
 export { RECEIVE_INTERMEDIATE_RESULTS } from './receive-intermediate-results';
-export { normalizeDeprecatedEntityArgs } from './normalize-deprecated-entity-args';
+export { normalizeForDeprecatedEntities } from './normalize-deprecated-entity-args';

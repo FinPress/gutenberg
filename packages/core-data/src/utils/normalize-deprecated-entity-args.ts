@@ -21,7 +21,7 @@ import { deprecatedEntities } from '../entities';
  *
  * @return The normalized arguments.
  */
-export function normalizeDeprecatedEntityArgs< ArgsType extends any[] >(
+function normalizeDeprecatedEntityArgs< ArgsType extends any[] >(
 	args: ArgsType,
 	functionName: string,
 	position: { kindArg: number; nameArg: number }
@@ -60,4 +60,30 @@ export function normalizeDeprecatedEntityArgs< ArgsType extends any[] >(
 	}
 
 	return args;
+}
+
+/**
+ * Normalize deprecated entity arguments.
+ *
+ * This is a curried version of `normalizeDeprecatedEntityArgs` that
+ * returns a function that takes the arguments and returns the normalized
+ * arguments.
+ *
+ * @param functionName     The name of the function to normalize.
+ * @param position         The position of the kind and name in the arguments.
+ * @param position.kindArg The position of the kind in the arguments.
+ * @param position.nameArg The position of the name in the arguments.
+ *
+ * @return The normalized arguments.
+ */
+export function normalizeForDeprecatedEntities< ArgsType extends any[] >(
+	functionName: string,
+	position: { kindArg: number; nameArg: number } = {
+		kindArg: 0,
+		nameArg: 1,
+	}
+): ( args: ArgsType ) => ArgsType {
+	return ( args: ArgsType ) => {
+		return normalizeDeprecatedEntityArgs( args, functionName, position );
+	};
 }

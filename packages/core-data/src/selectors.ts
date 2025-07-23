@@ -21,7 +21,7 @@ import {
 	setNestedValue,
 	isNumericID,
 	getUserPermissionCacheKey,
-	normalizeDeprecatedEntityArgs,
+	normalizeForDeprecatedEntities,
 } from './utils';
 import type * as ET from './entity-types';
 import type { UndoManager } from '@wordpress/undo-manager';
@@ -119,7 +119,7 @@ export type GetRecordsHttpQuery = Record< string, any >;
 /**
  * Arguments for EntityRecord selectors.
  */
-type GetEntityRecordArgs =
+type EntityRecordArgs =
 	| [ string, string, EntityRecordKey ]
 	| [ string, string, EntityRecordKey, GetRecordsHttpQuery ];
 
@@ -258,13 +258,8 @@ export function getEntity( state: State, kind: string, name: string ): any {
 	} );
 	return getEntityConfig( state, kind, name );
 }
-
-type GetEntityArgs = [ string, string ];
-getEntity.__unstableNormalizeArgs = ( args: GetEntityArgs ): GetEntityArgs =>
-	normalizeDeprecatedEntityArgs( args, 'getEntity', {
-		kindArg: 0,
-		nameArg: 1,
-	} );
+getEntity.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'getEntity' );
 
 /**
  * Returns the entity config given its kind and name.
@@ -284,15 +279,8 @@ export function getEntityConfig(
 		( config ) => config.kind === kind && config.name === name
 	);
 }
-
-type GetEntityConfigArgs = [ string, string ];
-getEntityConfig.__unstableNormalizeArgs = (
-	args: GetEntityConfigArgs
-): GetEntityConfigArgs =>
-	normalizeDeprecatedEntityArgs( args, 'getEntityConfig', {
-		kindArg: 0,
-		nameArg: 1,
-	} );
+getEntityConfig.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'getEntityConfig' );
 
 /**
  * GetEntityRecord is declared as a *callable interface* with
@@ -341,9 +329,7 @@ export interface GetEntityRecord {
 		key?: EntityRecordKey,
 		query?: GetRecordsHttpQuery
 	) => EntityRecord | undefined;
-	__unstableNormalizeArgs?: (
-		args: GetEntityRecordArgs
-	) => GetEntityRecordArgs;
+	__unstableNormalizeArgs?: ( args: EntityRecordArgs ) => EntityRecordArgs;
 }
 
 /**
@@ -418,19 +404,17 @@ export const getEntityRecord = createSelector(
 ) as GetEntityRecord;
 
 getEntityRecord.__unstableNormalizeArgs = (
-	args: GetEntityRecordArgs
-): GetEntityRecordArgs => {
-	const newArgs = [ ...args ] as GetEntityRecordArgs;
+	args: EntityRecordArgs
+): EntityRecordArgs => {
+	const newArgs = [ ...args ] as EntityRecordArgs;
 	const recordKey = newArgs?.[ 2 ];
 
 	// If recordKey looks to be a numeric ID then coerce to number.
 	newArgs[ 2 ] = isNumericID( recordKey ) ? Number( recordKey ) : recordKey;
 
-	const argsWithDeprecations = normalizeDeprecatedEntityArgs(
-		newArgs,
-		'getEntityRecord',
-		{ kindArg: 0, nameArg: 1 }
-	);
+	const argsWithDeprecations = normalizeForDeprecatedEntities(
+		'getEntityRecord'
+	)( newArgs ) as EntityRecordArgs;
 
 	return argsWithDeprecations;
 };
@@ -450,15 +434,28 @@ export function __experimentalGetEntityRecordNoResolver<
 >( state: State, kind: string, name: string, key: EntityRecordKey ) {
 	return getEntityRecord< EntityRecord >( state, kind, name, key );
 }
+__experimentalGetEntityRecordNoResolver.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( '__experimentalGetEntityRecordNoResolver' );
 
-__experimentalGetEntityRecordNoResolver.__unstableNormalizeArgs = (
-	args: GetEntityRecordArgs
-): GetEntityRecordArgs =>
-	normalizeDeprecatedEntityArgs(
-		args,
-		'__experimentalGetEntityRecordNoResolver',
-		{ kindArg: 0, nameArg: 1 }
-	);
+/**
+ * Interface for getRawEntityRecord function with __unstableNormalizeArgs property.
+ */
+export interface GetRawEntityRecord {
+	< EntityRecord extends ET.EntityRecord< any > >(
+		state: State,
+		kind: string,
+		name: string,
+		key: EntityRecordKey
+	): EntityRecord | undefined;
+
+	CurriedSignature: < EntityRecord extends ET.EntityRecord< any > >(
+		kind: string,
+		name: string,
+		key: EntityRecordKey
+	) => EntityRecord | undefined;
+
+	__unstableNormalizeArgs?: ( args: EntityRecordArgs ) => EntityRecordArgs;
+}
 
 /**
  * Returns the entity's record object by key,
@@ -472,7 +469,7 @@ __experimentalGetEntityRecordNoResolver.__unstableNormalizeArgs = (
  * @return Object with the entity's raw attributes.
  */
 export const getRawEntityRecord = createSelector(
-	< EntityRecord extends ET.EntityRecord< any > >(
+	( < EntityRecord extends ET.EntityRecord< any > >(
 		state: State,
 		kind: string,
 		name: string,
@@ -503,7 +500,7 @@ export const getRawEntityRecord = createSelector(
 				return accumulator;
 			}, {} as any )
 		);
-	},
+	} ) as GetRawEntityRecord,
 	(
 		state: State,
 		kind: string,
@@ -521,26 +518,10 @@ export const getRawEntityRecord = createSelector(
 				?.itemIsComplete[ context ]?.[ recordId ],
 		];
 	}
-) as typeof getRawEntityRecord & {
-	__unstableNormalizeArgs?: (
-		args: GetRawEntityRecordArgs
-	) => GetRawEntityRecordArgs;
-};
+) as GetRawEntityRecord;
 
-type GetRawEntityRecordArgs = [ string, string, EntityRecordKey ];
-(
-	getRawEntityRecord as typeof getRawEntityRecord & {
-		__unstableNormalizeArgs?: (
-			args: GetRawEntityRecordArgs
-		) => GetRawEntityRecordArgs;
-	}
- ).__unstableNormalizeArgs = (
-	args: GetRawEntityRecordArgs
-): GetRawEntityRecordArgs =>
-	normalizeDeprecatedEntityArgs( args, 'getRawEntityRecord', {
-		kindArg: 0,
-		nameArg: 1,
-	} );
+getRawEntityRecord.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'getRawEntityRecord' );
 
 /**
  * Returns true if records have been received for the given set of parameters,
@@ -593,8 +574,8 @@ export interface GetEntityRecords {
 	) => EntityRecord[] | null;
 
 	__unstableNormalizeArgs?: (
-		args: GetEntityRecordsArgs
-	) => GetEntityRecordsArgs;
+		args: [ string, string, GetRecordsHttpQuery ]
+	) => [ string, string, GetRecordsHttpQuery ];
 }
 
 /**
@@ -627,15 +608,8 @@ export const getEntityRecords = ( <
 	}
 	return getQueriedItems( queriedState, query );
 } ) as GetEntityRecords;
-
-type GetEntityRecordsArgs = [ string, string, GetRecordsHttpQuery ];
-getEntityRecords.__unstableNormalizeArgs = (
-	args: GetEntityRecordsArgs
-): GetEntityRecordsArgs =>
-	normalizeDeprecatedEntityArgs( args, 'getEntityRecords', {
-		kindArg: 0,
-		nameArg: 1,
-	} );
+getEntityRecords.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'getEntityRecords' );
 
 /**
  * Returns the Entity's total available records for a given query (ignoring pagination).
@@ -663,14 +637,8 @@ export const getEntityRecordsTotalItems = (
 	}
 	return getQueriedTotalItems( queriedState, query );
 };
-
-getEntityRecordsTotalItems.__unstableNormalizeArgs = (
-	args: GetEntityRecordsArgs
-): GetEntityRecordsArgs =>
-	normalizeDeprecatedEntityArgs( args, 'getEntityRecordsTotalItems', {
-		kindArg: 0,
-		nameArg: 1,
-	} );
+getEntityRecordsTotalItems.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'getEntityRecordsTotalItems' );
 
 /**
  * Returns the number of available pages for the given query.
@@ -710,14 +678,8 @@ export const getEntityRecordsTotalPages = (
 	}
 	return Math.ceil( totalItems / query.per_page );
 };
-
-getEntityRecordsTotalPages.__unstableNormalizeArgs = (
-	args: GetEntityRecordsArgs
-): GetEntityRecordsArgs =>
-	normalizeDeprecatedEntityArgs( args, 'getEntityRecordsTotalPages', {
-		kindArg: 0,
-		nameArg: 1,
-	} );
+getEntityRecordsTotalPages.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'getEntityRecordsTotalPages' );
 
 type DirtyEntityRecord = {
 	title: string;
@@ -854,15 +816,29 @@ export function getEntityRecordEdits(
 		recordId as string | number
 	];
 }
+getEntityRecordEdits.__unstableNormalizeArgs = normalizeForDeprecatedEntities(
+	'getEntityRecordEdits'
+);
 
-type GetEntityRecordEditsArgs = [ string, string, EntityRecordKey ];
-getEntityRecordEdits.__unstableNormalizeArgs = (
-	args: GetEntityRecordEditsArgs
-): GetEntityRecordEditsArgs =>
-	normalizeDeprecatedEntityArgs( args, 'getEntityRecordEdits', {
-		kindArg: 0,
-		nameArg: 1,
-	} );
+/**
+ * Interface for getEntityRecordNonTransientEdits function with __unstableNormalizeArgs property.
+ */
+export interface GetEntityRecordNonTransientEdits {
+	(
+		state: State,
+		kind: string,
+		name: string,
+		recordId: EntityRecordKey
+	): Optional< any >;
+
+	CurriedSignature: (
+		kind: string,
+		name: string,
+		recordId: EntityRecordKey
+	) => Optional< any >;
+
+	__unstableNormalizeArgs?: ( args: EntityRecordArgs ) => EntityRecordArgs;
+}
 
 /**
  * Returns the specified entity record's non transient edits.
@@ -879,7 +855,7 @@ getEntityRecordEdits.__unstableNormalizeArgs = (
  * @return The entity record's non transient edits.
  */
 export const getEntityRecordNonTransientEdits = createSelector(
-	(
+	( (
 		state: State,
 		kind: string,
 		name: string,
@@ -896,31 +872,14 @@ export const getEntityRecordNonTransientEdits = createSelector(
 			}
 			return acc;
 		}, {} );
-	},
+	} ) as GetEntityRecordNonTransientEdits,
 	( state: State, kind: string, name: string, recordId: EntityRecordKey ) => [
 		state.entities.config,
 		state.entities.records?.[ kind ]?.[ name ]?.edits?.[ recordId ],
 	]
-) as typeof getEntityRecordNonTransientEdits & {
-	__unstableNormalizeArgs?: (
-		args: GetEntityRecordNonTransientEditsArgs
-	) => GetEntityRecordNonTransientEditsArgs;
-};
-
-type GetEntityRecordNonTransientEditsArgs = [ string, string, EntityRecordKey ];
-(
-	getEntityRecordNonTransientEdits as typeof getEntityRecordNonTransientEdits & {
-		__unstableNormalizeArgs?: (
-			args: GetEntityRecordNonTransientEditsArgs
-		) => GetEntityRecordNonTransientEditsArgs;
-	}
- ).__unstableNormalizeArgs = (
-	args: GetEntityRecordNonTransientEditsArgs
-): GetEntityRecordNonTransientEditsArgs =>
-	normalizeDeprecatedEntityArgs( args, 'getEntityRecordNonTransientEdits', {
-		kindArg: 0,
-		nameArg: 1,
-	} );
+) as GetEntityRecordNonTransientEdits;
+getEntityRecordNonTransientEdits.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'getEntityRecordNonTransientEdits' );
 
 /**
  * Returns true if the specified entity record has edits,
@@ -948,6 +907,26 @@ export function hasEditsForEntityRecord(
 }
 
 /**
+ * Interface for getEditedEntityRecord function with __unstableNormalizeArgs property.
+ */
+export interface GetEditedEntityRecord {
+	< EntityRecord extends ET.EntityRecord< any > >(
+		state: State,
+		kind: string,
+		name: string,
+		recordId: EntityRecordKey
+	): ET.Updatable< EntityRecord > | false;
+
+	CurriedSignature: < EntityRecord extends ET.EntityRecord< any > >(
+		kind: string,
+		name: string,
+		recordId: EntityRecordKey
+	) => ET.Updatable< EntityRecord > | false;
+
+	__unstableNormalizeArgs?: ( args: EntityRecordArgs ) => EntityRecordArgs;
+}
+
+/**
  * Returns the specified entity record, merged with its edits.
  *
  * @param state    State tree.
@@ -958,7 +937,7 @@ export function hasEditsForEntityRecord(
  * @return The entity record, merged with its edits.
  */
 export const getEditedEntityRecord = createSelector(
-	< EntityRecord extends ET.EntityRecord< any > >(
+	( < EntityRecord extends ET.EntityRecord< any > >(
 		state: State,
 		kind: string,
 		name: string,
@@ -977,7 +956,7 @@ export const getEditedEntityRecord = createSelector(
 			...raw,
 			...edited,
 		};
-	},
+	} ) as GetEditedEntityRecord,
 	(
 		state: State,
 		kind: string,
@@ -992,30 +971,14 @@ export const getEditedEntityRecord = createSelector(
 				context
 			]?.[ recordId ],
 			state.entities.records?.[ kind ]?.[ name ]?.queriedData
-				.itemIsComplete[ context ]?.[ recordId ],
+				?.itemIsComplete[ context ]?.[ recordId ],
 			state.entities.records?.[ kind ]?.[ name ]?.edits?.[ recordId ],
 		];
 	}
-) as typeof getEditedEntityRecord & {
-	__unstableNormalizeArgs?: (
-		args: GetEditedEntityRecordArgs
-	) => GetEditedEntityRecordArgs;
-};
-
-type GetEditedEntityRecordArgs = [ string, string, EntityRecordKey ];
-(
-	getEditedEntityRecord as typeof getEditedEntityRecord & {
-		__unstableNormalizeArgs?: (
-			args: GetEditedEntityRecordArgs
-		) => GetEditedEntityRecordArgs;
-	}
- ).__unstableNormalizeArgs = (
-	args: GetEditedEntityRecordArgs
-): GetEditedEntityRecordArgs =>
-	normalizeDeprecatedEntityArgs( args, 'getEditedEntityRecord', {
-		kindArg: 0,
-		nameArg: 1,
-	} );
+) as GetEditedEntityRecord;
+getEditedEntityRecord.__unstableNormalizeArgs = normalizeForDeprecatedEntities(
+	'getEditedEntityRecord'
+);
 
 /**
  * Returns true if the specified entity record is autosaving, and false otherwise.
@@ -1550,19 +1513,34 @@ export const getRevisions = (
 	return getQueriedItems( queriedStateRevisions, query );
 };
 
-type GetRevisionsArgs = [
-	string,
-	string,
-	EntityRecordKey,
-	GetRecordsHttpQuery?,
-];
-getRevisions.__unstableNormalizeArgs = (
-	args: GetRevisionsArgs
-): GetRevisionsArgs =>
-	normalizeDeprecatedEntityArgs( args, 'getRevisions', {
-		kindArg: 0,
-		nameArg: 1,
-	} );
+getRevisions.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'getRevisions' );
+
+/**
+ * Interface for getRevision function with __unstableNormalizeArgs property.
+ */
+export interface GetRevision {
+	< RevisionType extends ET.PostRevision | ET.GlobalStylesRevision >(
+		state: State,
+		kind: string,
+		name: string,
+		recordKey: EntityRecordKey,
+		revisionKey: EntityRecordKey,
+		query?: GetRecordsHttpQuery
+	): RevisionType | undefined;
+
+	CurriedSignature: <
+		RevisionType extends ET.PostRevision | ET.GlobalStylesRevision,
+	>(
+		kind: string,
+		name: string,
+		recordKey: EntityRecordKey,
+		revisionKey: EntityRecordKey,
+		query?: GetRecordsHttpQuery
+	) => RevisionType | undefined;
+
+	__unstableNormalizeArgs?: ( args: EntityRecordArgs ) => EntityRecordArgs;
+}
 
 /**
  * Returns a single, specific revision of a parent entity.
@@ -1578,14 +1556,14 @@ getRevisions.__unstableNormalizeArgs = (
  * @return Record.
  */
 export const getRevision = createSelector(
-	(
+	( < RevisionType extends ET.PostRevision | ET.GlobalStylesRevision >(
 		state: State,
 		kind: string,
 		name: string,
 		recordKey: EntityRecordKey,
 		revisionKey: EntityRecordKey,
 		query?: GetRecordsHttpQuery
-	): RevisionRecord | Record< PropertyKey, never > | undefined => {
+	): RevisionType | undefined => {
 		const queriedState =
 			state.entities.records?.[ kind ]?.[ name ]?.revisions?.[
 				recordKey
@@ -1608,7 +1586,7 @@ export const getRevision = createSelector(
 
 		const item = queriedState.items[ context ]?.[ revisionKey ];
 		if ( item && query._fields ) {
-			const filteredItem = {};
+			const filteredItem = {} as RevisionType;
 			const fields = getNormalizedCommaSeparable( query._fields ) ?? [];
 
 			for ( let f = 0; f < fields.length; f++ ) {
@@ -1623,8 +1601,8 @@ export const getRevision = createSelector(
 			return filteredItem;
 		}
 
-		return item;
-	},
+		return item as RevisionType | undefined;
+	} ) as GetRevision,
 	( state: State, kind, name, recordKey, revisionKey, query ) => {
 		const context = query?.context ?? 'default';
 		return [
@@ -1634,23 +1612,6 @@ export const getRevision = createSelector(
 				?.itemIsComplete?.[ context ]?.[ revisionKey ],
 		];
 	}
-) as typeof getRevision & {
-	__unstableNormalizeArgs?: ( args: GetRevisionArgs ) => GetRevisionArgs;
-};
-
-type GetRevisionArgs = [
-	string,
-	string,
-	EntityRecordKey,
-	EntityRecordKey,
-	GetRecordsHttpQuery?,
-];
-(
-	getRevision as typeof getRevision & {
-		__unstableNormalizeArgs?: ( args: GetRevisionArgs ) => GetRevisionArgs;
-	}
- ).__unstableNormalizeArgs = ( args: GetRevisionArgs ): GetRevisionArgs =>
-	normalizeDeprecatedEntityArgs( args, 'getRevision', {
-		kindArg: 0,
-		nameArg: 1,
-	} );
+) as GetRevision;
+getRevision.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'getRevision' );

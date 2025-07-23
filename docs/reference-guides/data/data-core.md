@@ -536,7 +536,7 @@ _Parameters_
 
 _Returns_
 
--   `RevisionRecord | Record< PropertyKey, never > | undefined`: Record.
+-   `RevisionType | undefined`: Record.
 
 ### getRevisions
 
