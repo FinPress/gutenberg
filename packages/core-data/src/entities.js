@@ -225,7 +225,7 @@ export const deprecatedEntities = {
 				kind: 'root',
 				name: 'media',
 			},
-			version: '6.9',
+			since: '6.9',
 		},
 	},
 };

@@ -43,7 +43,7 @@ export default function normalizeForDeprecatedEntities<
 		const deprecation = deprecatedEntities[ entityKind ]?.[ entityName ];
 
 		if ( deprecation ) {
-			const { alternative, version } = deprecation;
+			const { alternative, ...deprecationOptions } = deprecation;
 
 			// Create a new tuple with the same type as Args.
 			const newArgs = args.map( ( value, index ) => {
@@ -59,7 +59,7 @@ export default function normalizeForDeprecatedEntities<
 			deprecated(
 				`Using '${ functionName }' with the '${ entityKind }', '${ entityName }' entity`,
 				{
-					since: version,
+					...deprecationOptions,
 					alternative: `'${ functionName }' with the '${ alternative.kind }', '${ alternative.name }' entity`,
 				}
 			);
