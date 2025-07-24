@@ -358,4 +358,43 @@ describe( 'normalizing args', () => {
 			'bar',
 		] );
 	} );
+
+	it( 'should call the __unstableNormalizeArgs method on actions', async () => {
+		const registry = createRegistry();
+		const action = () => ( { type: 'SET_ITEMS' } );
+
+		action.__unstableNormalizeArgs = jest.fn( ( ...args ) => args );
+
+		registry.registerStore( 'store', {
+			reducer: () => {},
+			actions: {
+				setItems: action,
+			},
+		} );
+
+		registry.dispatch( 'store' ).setItems( 'foo', 'bar' );
+
+		expect( action.__unstableNormalizeArgs ).toHaveBeenCalledWith( [
+			'foo',
+			'bar',
+		] );
+	} );
+
+	it( 'should not call the __unstableNormalizeArgs method on actions if there are no arguments', async () => {
+		const registry = createRegistry();
+		const action = () => ( { type: 'SET_ITEMS' } );
+
+		action.__unstableNormalizeArgs = jest.fn( ( ...args ) => args );
+
+		registry.registerStore( 'store', {
+			reducer: () => {},
+			actions: {
+				setItems: action,
+			},
+		} );
+
+		registry.dispatch( 'store' ).setItems();
+
+		expect( action.__unstableNormalizeArgs ).not.toHaveBeenCalled();
+	} );
 } );
