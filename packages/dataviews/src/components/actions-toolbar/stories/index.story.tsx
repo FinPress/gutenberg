@@ -30,13 +30,14 @@ const meta = {
 		docs: {
 			description: {
 				component: `
-ActionsToolbar is a standalone component that renders a row of action buttons.
+ActionsToolbar is a standalone component that renders DataViews actions as either a horizontal toolbar or dropdown menu.
 It allows you to reuse DataViews actions outside of the DataViews component itself.
 
 **Key Features:**
 - Handles both callback and modal-based actions
 - Filters actions based on item eligibility
 - Works with any DataViews Action objects
+- Supports toolbar and menu display variants
 				`,
 			},
 		},
@@ -48,7 +49,20 @@ It allows you to reuse DataViews actions outside of the DataViews component itse
 		},
 		showLabels: {
 			control: 'boolean',
-			description: 'Whether to show text labels instead of icons',
+			description:
+				'Whether to show text labels instead of icons (toolbar variant only)',
+		},
+		variant: {
+			control: 'select',
+			options: [ 'toolbar', 'menu' ],
+			description:
+				'Rendering style: toolbar for horizontal buttons, menu for dropdown',
+		},
+		size: {
+			control: 'select',
+			options: [ undefined, 'compact', 'small' ],
+			description:
+				'Button size: undefined for default, "compact", or "small" (menu variant only)',
 		},
 	},
 } as Meta< typeof ActionsToolbar >;
@@ -296,6 +310,67 @@ WithLabels.parameters = {
 	docs: {
 		description: {
 			story: 'Shows text labels instead of icons. Useful when you want more descriptive buttons.',
+		},
+	},
+};
+
+// Story: Menu variant
+export const MenuVariant: StoryFn< typeof ActionsToolbar > = () => (
+	<ActionsToolbar
+		actions={ postActions }
+		item={ samplePosts[ 0 ] }
+		variant="menu"
+	/>
+);
+MenuVariant.parameters = {
+	docs: {
+		description: {
+			story: 'Menu variant renders all actions in a dropdown with a 3-dot trigger button. This is useful when space is limited.',
+		},
+	},
+};
+
+// Story: Menu variant with different sizes
+export const MenuSizes: StoryFn< typeof ActionsToolbar > = () => (
+	<VStack spacing={ 4 }>
+		<div>
+			<Text as="p">
+				<strong>Default size:</strong>
+			</Text>
+			<ActionsToolbar
+				actions={ postActions.slice( 0, 3 ) }
+				item={ samplePosts[ 0 ] }
+				variant="menu"
+			/>
+		</div>
+		<div>
+			<Text as="p">
+				<strong>Compact size:</strong>
+			</Text>
+			<ActionsToolbar
+				actions={ postActions.slice( 0, 3 ) }
+				item={ samplePosts[ 0 ] }
+				variant="menu"
+				size="compact"
+			/>
+		</div>
+		<div>
+			<Text as="p">
+				<strong>Small size:</strong>
+			</Text>
+			<ActionsToolbar
+				actions={ postActions.slice( 0, 3 ) }
+				item={ samplePosts[ 0 ] }
+				variant="menu"
+				size="small"
+			/>
+		</div>
+	</VStack>
+);
+MenuSizes.parameters = {
+	docs: {
+		description: {
+			story: 'Menu variant supports different button sizes for the dropdown trigger.',
 		},
 	},
 };

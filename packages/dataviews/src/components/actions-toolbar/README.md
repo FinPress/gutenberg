@@ -34,6 +34,13 @@ function MyComponent() {
 				item={ selectedPost }
 				showLabels={ true }
 			/>
+
+			{/* Or as a dropdown menu */}
+			<ActionsToolbar
+				actions={ actions }
+				item={ selectedPost }
+				variant="menu"
+			/>
 		</div>
 	);
 }
@@ -44,7 +51,9 @@ function MyComponent() {
 - `actions` (Action[]): Array of actions to render as buttons
 - `item` (Item): Item the actions will operate on
 - `className` (string, optional): Additional CSS class name
-- `showLabels` (boolean, optional): Whether to show text labels instead of icons (default: false)
+- `showLabels` (boolean, optional): Whether to show text labels instead of icons (default: false, only applies to toolbar variant)
+- `variant` (string, optional): Rendering style - 'toolbar' for horizontal buttons, 'menu' for dropdown (default: 'toolbar')
+- `size` (string, optional): Button size for menu variant - 'small', 'compact', or undefined for default
 
 ## Features
 
