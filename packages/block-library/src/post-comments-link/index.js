@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { postCommentsCount as icon } from '@wordpress/icons';
+import { postCommentsLink as icon } from '@wordpress/icons';
 
 /**
  * Internal dependencies
