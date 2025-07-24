@@ -7,15 +7,12 @@ import type { MouseEventHandler } from 'react';
  * WordPress dependencies
  */
 import {
-	Button,
 	Modal,
 	__experimentalHStack as HStack,
 	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useMemo, useState } from '@wordpress/element';
-import { moreVertical } from '@wordpress/icons';
-import { useRegistry } from '@wordpress/data';
+import { useMemo } from '@wordpress/element';
+import type { useRegistry } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -50,13 +47,6 @@ interface ItemActionsProps< Item > {
 	item: Item;
 	actions: Action< Item >[];
 	isCompact?: boolean;
-}
-
-interface CompactItemActionsProps< Item > {
-	item: Item;
-	actions: Action< Item >[];
-	isSmall?: boolean;
-	registry: ReturnType< typeof useRegistry >;
 }
 
 function MenuItemTrigger< Item >( {
@@ -127,7 +117,6 @@ export default function ItemActions< Item >( {
 	actions,
 	isCompact,
 }: ItemActionsProps< Item > ) {
-	const registry = useRegistry();
 	const { primaryActions, eligibleActions } = useMemo( () => {
 		// If an action is eligible for all items, doesn't need
 		// to provide the `isEligible` function.
@@ -145,11 +134,11 @@ export default function ItemActions< Item >( {
 
 	if ( isCompact ) {
 		return (
-			<CompactItemActions
-				item={ item }
+			<ActionsToolbar
 				actions={ eligibleActions }
-				isSmall
-				registry={ registry }
+				item={ item }
+				variant="menu"
+				size="small"
 			/>
 		);
 	}
@@ -170,55 +159,11 @@ export default function ItemActions< Item >( {
 			} }
 		>
 			<ActionsToolbar actions={ primaryActions } item={ item } />
-			<CompactItemActions
-				item={ item }
+			<ActionsToolbar
 				actions={ eligibleActions }
-				registry={ registry }
+				item={ item }
+				variant="menu"
 			/>
 		</HStack>
-	);
-}
-
-function CompactItemActions< Item >( {
-	item,
-	actions,
-	isSmall,
-	registry,
-}: CompactItemActionsProps< Item > ) {
-	const [ activeModalAction, setActiveModalAction ] = useState(
-		null as ActionModalType< Item > | null
-	);
-	return (
-		<>
-			<Menu placement="bottom-end">
-				<Menu.TriggerButton
-					render={
-						<Button
-							size={ isSmall ? 'small' : 'compact' }
-							icon={ moreVertical }
-							label={ __( 'Actions' ) }
-							accessibleWhenDisabled
-							disabled={ ! actions.length }
-							className="dataviews-all-actions-button"
-						/>
-					}
-				/>
-				<Menu.Popover>
-					<ActionsMenuGroup
-						actions={ actions }
-						item={ item }
-						registry={ registry }
-						setActiveModalAction={ setActiveModalAction }
-					/>
-				</Menu.Popover>
-			</Menu>
-			{ !! activeModalAction && (
-				<ActionModal
-					action={ activeModalAction }
-					items={ [ item ] }
-					closeModal={ () => setActiveModalAction( null ) }
-				/>
-			) }
-		</>
 	);
 }
