@@ -4,11 +4,9 @@
 import 'requestidlecallback';
 
 /**
- * @param timeOrDeadline - IdleDeadline object or a timestamp number.
+ * Internal dependencies
  */
-export type RequestIdleCallbackCallback = (
-	timeOrDeadline: IdleDeadline | number
-) => void;
+import type { RequestIdleCallbackCallback } from './types';
 
 /**
  * @return A function that schedules a callback when the browser is idle or via setTimeout on the server.

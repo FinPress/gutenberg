@@ -2,7 +2,12 @@
  * Internal dependencies
  */
 import { createQueue } from '../';
-import requestIdleCallback from '../request-idle-callback';
+import _requestIdleCallback from '../request-idle-callback';
+
+const requestIdleCallback =
+	_requestIdleCallback as typeof _requestIdleCallback & {
+		tick: ( deadline?: Partial< IdleDeadline > | number ) => void;
+	};
 
 jest.mock( '../request-idle-callback', () => {
 	const emitter = new ( jest.requireActual( 'events' ).EventEmitter )();
@@ -29,7 +34,7 @@ describe( 'createQueue', () => {
 			queue.add( {}, callback );
 
 			expect( callback ).not.toHaveBeenCalled();
-			( requestIdleCallback as any ).tick();
+			requestIdleCallback.tick();
 			expect( callback ).toHaveBeenCalled();
 		} );
 
@@ -45,12 +50,12 @@ describe( 'createQueue', () => {
 			expect( callbackElementB ).not.toHaveBeenCalled();
 
 			// ElementA was added first, and should be called first after tick.
-			( requestIdleCallback as any ).tick();
+			requestIdleCallback.tick();
 			expect( callbackElementA ).toHaveBeenCalledTimes( 1 );
 			expect( callbackElementB ).not.toHaveBeenCalled();
 
 			// ElementB will be processed after second tick.
-			( requestIdleCallback as any ).tick();
+			requestIdleCallback.tick();
 			expect( callbackElementA ).toHaveBeenCalledTimes( 1 );
 			expect( callbackElementB ).toHaveBeenCalledTimes( 1 );
 		} );
@@ -65,7 +70,7 @@ describe( 'createQueue', () => {
 			expect( callbackOne ).not.toHaveBeenCalled();
 			expect( callbackTwo ).not.toHaveBeenCalled();
 
-			( requestIdleCallback as any ).tick();
+			requestIdleCallback.tick();
 			expect( callbackOne ).not.toHaveBeenCalled();
 			expect( callbackTwo ).toHaveBeenCalledTimes( 1 );
 		} );
@@ -92,7 +97,7 @@ describe( 'createQueue', () => {
 				.mockImplementationOnce( () => 100 )
 				.mockImplementationOnce( () => 0 );
 
-			( requestIdleCallback as any ).tick( { timeRemaining } );
+			requestIdleCallback.tick( { timeRemaining } );
 
 			// Given the above mock, expect that the initial callback would
 			// process A, then time remaining would allow for B to be processed,
@@ -123,7 +128,7 @@ describe( 'createQueue', () => {
 
 			// Verify that callback still called only once after tick (verify
 			// removal).
-			( requestIdleCallback as any ).tick();
+			requestIdleCallback.tick();
 			expect( callbackElementA ).toHaveBeenCalledTimes( 1 );
 			expect( callbackElementB ).toHaveBeenCalledTimes( 1 );
 		} );

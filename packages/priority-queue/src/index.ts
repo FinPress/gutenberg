@@ -6,7 +6,7 @@ import requestIdleCallback from './request-idle-callback';
 /**
  * Enqueued callback to invoke once idle time permits.
  */
-export type WPPriorityQueueCallback = () => void;
+export type WPPriorityQueueCallback = VoidFunction;
 
 /**
  * An object used to associate callbacks in a particular context grouping.
@@ -40,7 +40,7 @@ export interface WPPriorityQueue {
 	/**
 	 * Reset the entire queue, clearing pending callbacks.
 	 */
-	reset: () => void;
+	reset: VoidFunction;
 }
 
 /**
