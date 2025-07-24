@@ -155,36 +155,32 @@ function InlineUI( { value, onChange, activeObjectAttributes, contentRef } ) {
 							setEditedWidth( newWidth );
 						} }
 					/>
-					<div>
-						<div className="components-base-control__label">
-							{ __( 'Vertical Alignment' ) }
-						</div>
-						<ToggleGroupControl
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
-							isBlock
-							value={ editedAlignment }
-							onChange={ ( newAlignment ) => {
-								setEditedAlignment( newAlignment );
-							} }
-						>
-							<ToggleGroupControlOptionIcon
-								icon={ justifyTop }
-								label={ __( 'Align top' ) }
-								value="top"
-							/>
-							<ToggleGroupControlOptionIcon
-								icon={ justifyCenterVertical }
-								label={ __( 'Align center' ) }
-								value="center"
-							/>
-							<ToggleGroupControlOptionIcon
-								icon={ justifyBottom }
-								label={ __( 'Align bottom' ) }
-								value="bottom"
-							/>
-						</ToggleGroupControl>
-					</div>
+					<ToggleGroupControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						isBlock
+						label="Vertical Alignment"
+						value={ editedAlignment }
+						onChange={ ( newAlignment ) => {
+							setEditedAlignment( newAlignment );
+						} }
+					>
+						<ToggleGroupControlOptionIcon
+							icon={ justifyTop }
+							label={ __( 'Align top' ) }
+							value="top"
+						/>
+						<ToggleGroupControlOptionIcon
+							icon={ justifyCenterVertical }
+							label={ __( 'Align center' ) }
+							value="center"
+						/>
+						<ToggleGroupControlOptionIcon
+							icon={ justifyBottom }
+							label={ __( 'Align bottom' ) }
+							value="bottom"
+						/>
+					</ToggleGroupControl>
 					<TextareaControl
 						label={ __( 'Alternative text' ) }
 						__nextHasNoMarginBottom

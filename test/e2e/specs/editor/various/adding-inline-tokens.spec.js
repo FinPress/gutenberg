@@ -52,7 +52,7 @@ test.describe( 'adding inline tokens', () => {
 
 		// Check the content.
 		const contentRegex = new RegExp(
-			`a <img class="wp-image-\\d+" style="width:\\s*10px;?" src="[^"]+\\/${ fileName }\\.png" alt=""\\/?>`
+			`a <img class="wp-image-\\d+" style="width:\\s*10px;\\s*vertical-align:\\s*middle;" src="[^"]+\\/${ fileName }\\.png" alt=""\\/?>`
 		);
 		await expect.poll( editor.getBlocks ).toMatchObject( [
 			{
