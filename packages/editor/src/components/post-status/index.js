@@ -137,6 +137,8 @@ export default function PostStatus() {
 			status: newStatus,
 			date: newDate,
 			password: newPassword,
+			// A pasword protected post cannot be sticky.
+			...( newPassword ? { sticky: false } : {} ),
 		} );
 	};
 
@@ -267,7 +269,7 @@ export default function PostStatus() {
 											) }
 										</VStack>
 									) }
-									<PostSticky />
+									{ ! showPassword && <PostSticky /> }
 								</VStack>
 							</form>
 						</>
