@@ -14,7 +14,11 @@ import deprecated from '@wordpress/deprecated';
 /**
  * Internal dependencies
  */
-import { getNestedValue, setNestedValue } from './utils';
+import {
+	getNestedValue,
+	setNestedValue,
+	normalizeForDeprecatedEntities,
+} from './utils';
 import { receiveItems, removeItems, receiveQueriedItems } from './queried-data';
 import { DEFAULT_ENTITY_KEY } from './entities';
 import { createBatch } from './batch';
@@ -116,6 +120,9 @@ export function receiveEntityRecords(
 		invalidateCache,
 	};
 }
+receiveEntityRecords.__unstableNormalizeArgs = normalizeForDeprecatedEntities(
+	'receiveEntityRecords'
+);
 
 /**
  * Returns an action object used in signalling that the current theme has been received.
@@ -346,6 +353,8 @@ export const deleteEntityRecord =
 			dispatch.__unstableReleaseStoreLock( lock );
 		}
 	};
+deleteEntityRecord.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'deleteEntityRecord' );
 
 /**
  * Returns an action object that triggers an
@@ -431,6 +440,8 @@ export const editEntityRecord =
 			} );
 		}
 	};
+editEntityRecord.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'editEntityRecord' );
 
 /**
  * Action triggered to undo the last edit to
@@ -709,6 +720,8 @@ export const saveEntityRecord =
 			dispatch.__unstableReleaseStoreLock( lock );
 		}
 	};
+saveEntityRecord.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'saveEntityRecord' );
 
 /**
  * Runs multiple core-data actions at the same time using one API request.
@@ -801,6 +814,9 @@ export const saveEditedEntityRecord =
 		const record = { [ entityIdKey ]: recordId, ...edits };
 		return await dispatch.saveEntityRecord( kind, name, record, options );
 	};
+saveEditedEntityRecord.__unstableNormalizeArgs = normalizeForDeprecatedEntities(
+	'saveEditedEntityRecord'
+);
 
 /**
  * Action triggered to save only specified properties for the entity.
@@ -849,6 +865,8 @@ export const __experimentalSaveSpecifiedEntityEdits =
 			options
 		);
 	};
+__experimentalSaveSpecifiedEntityEdits.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'saveSpecifiedEntityEdits' );
 
 /**
  * Returns an action object used in signalling that Upload permissions have been received.
@@ -995,3 +1013,5 @@ export const receiveRevisions =
 			invalidateCache,
 		} );
 	};
+receiveRevisions.__unstableNormalizeArgs =
+	normalizeForDeprecatedEntities( 'receiveRevisions' );

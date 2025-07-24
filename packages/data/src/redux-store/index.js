@@ -224,8 +224,12 @@ export default function createReduxStore( key, options ) {
 			// It always returns a `Promise`, although actions are not always async. That's an
 			// unfortunate backward compatibility measure.
 			function bindAction( action ) {
-				return ( ...args ) =>
-					Promise.resolve( store.dispatch( action( ...args ) ) );
+				return ( ...args ) => {
+					args = normalize( action, args );
+					return Promise.resolve(
+						store.dispatch( action( ...args ) )
+					);
+				};
 			}
 
 			/*
@@ -749,20 +753,20 @@ function mapSelectorWithResolver(
 }
 
 /**
- * Applies selector's normalization function to the given arguments
+ * Applies selector or action's normalization function to the given arguments
  * if it exists.
  *
- * @param {Object} selector The selector potentially with a normalization method property.
- * @param {Array}  args     selector arguments to normalize.
+ * @param {Object} func The selector or action potentially with a normalization method property.
+ * @param {Array}  args Selector or action arguments to normalize.
  * @return {Array} Potentially normalized arguments.
  */
-function normalize( selector, args ) {
+function normalize( func, args ) {
 	if (
-		selector.__unstableNormalizeArgs &&
-		typeof selector.__unstableNormalizeArgs === 'function' &&
+		func.__unstableNormalizeArgs &&
+		typeof func.__unstableNormalizeArgs === 'function' &&
 		args?.length
 	) {
-		return selector.__unstableNormalizeArgs( args );
+		return func.__unstableNormalizeArgs( args );
 	}
 	return args;
 }
