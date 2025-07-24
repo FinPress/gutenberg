@@ -35,38 +35,33 @@ export default function normalizeForDeprecatedEntities<
 	return ( args: ArgsType ) => {
 		const entityKind = args[ position.kindArg ];
 		const entityName = args[ position.nameArg ];
+		const deprecation = deprecatedEntities[ entityKind ]?.[ entityName ];
 
-		if ( ! entityKind || ! entityName ) {
+		if ( ! deprecation ) {
 			return args;
 		}
 
-		const deprecation = deprecatedEntities[ entityKind ]?.[ entityName ];
+		const { alternative, ...deprecationOptions } = deprecation;
 
-		if ( deprecation ) {
-			const { alternative, ...deprecationOptions } = deprecation;
+		// Create a new tuple with the same type as Args.
+		const newArgs = args.map( ( value, index ) => {
+			if ( index === position.kindArg ) {
+				return alternative.kind;
+			}
+			if ( index === position.nameArg ) {
+				return alternative.name;
+			}
+			return value;
+		} ) as ArgsType;
 
-			// Create a new tuple with the same type as Args.
-			const newArgs = args.map( ( value, index ) => {
-				if ( index === position.kindArg ) {
-					return alternative.kind;
-				}
-				if ( index === position.nameArg ) {
-					return alternative.name;
-				}
-				return value;
-			} ) as ArgsType;
+		deprecated(
+			`Using '${ functionName }' with the '${ entityKind }', '${ entityName }' entity`,
+			{
+				...deprecationOptions,
+				alternative: `'${ functionName }' with the '${ alternative.kind }', '${ alternative.name }' entity`,
+			}
+		);
 
-			deprecated(
-				`Using '${ functionName }' with the '${ entityKind }', '${ entityName }' entity`,
-				{
-					...deprecationOptions,
-					alternative: `'${ functionName }' with the '${ alternative.kind }', '${ alternative.name }' entity`,
-				}
-			);
-
-			return newArgs;
-		}
-
-		return args;
+		return newArgs;
 	};
 }
