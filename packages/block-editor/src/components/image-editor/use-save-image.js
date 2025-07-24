@@ -1,17 +1,11 @@
 /**
  * WordPress dependencies
  */
-// Disable Reason: Needs to be refactored.
-// eslint-disable-next-line no-restricted-imports
-//import apiFetch from '@wordpress/api-fetch';
 import { useDispatch } from '@wordpress/data';
 import { useCallback, useMemo, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
 import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
-// Disable Reason: Needs to be refactored.
-// eslint-disable-next-line no-restricted-imports
-//import { store as coreStore } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
@@ -42,7 +36,7 @@ export default function useSaveImage( {
 	}, [ onFinishEditing ] );
 	// Disable Reason: Needs to be refactored.
 	// eslint-disable-next-line no-restricted-imports, @wordpress/data-no-store-string-literals
-	const { duplicateAndModifyEntityRecord } = unlock( useDispatch( 'core' ) );
+	const { duplicateEntityRecord } = unlock( useDispatch( 'core' ) );
 
 	const apply = useCallback( async () => {
 		setIsInProgress( true );
@@ -83,7 +77,7 @@ export default function useSaveImage( {
 			modifiers.length === 1 ? modifiers[ 0 ].type : 'cropAndRotate';
 
 		try {
-			const savedImage = await duplicateAndModifyEntityRecord(
+			const savedImage = await duplicateEntityRecord(
 				'root',
 				'media',
 				id,
@@ -139,7 +133,7 @@ export default function useSaveImage( {
 		createErrorNotice,
 		createSuccessNotice,
 		onFinishEditing,
-		duplicateAndModifyEntityRecord,
+		duplicateEntityRecord,
 	] );
 
 	return useMemo(

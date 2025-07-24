@@ -13,6 +13,21 @@ import { RichTextData } from '@wordpress/rich-text';
 export const DEFAULT_ENTITY_KEY = 'id';
 const POST_RAW_ATTRIBUTES = [ 'title', 'excerpt', 'content' ];
 
+/*
+ * Entities that support duplication.
+ *
+ * @see duplicateEntityRecord (private-actions.js)
+ *
+ * WP_REST_Attachments_Controller is a unique case in that it provides a route `/media/{id}/edit`
+ * that duplicates a media item with edits.
+ * See: https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php
+ *
+ * This is the only entity that supports duplication, however leave open the possibility
+ * for other entities to support duplication in the future.
+ */
+
+const ENTITY_NAMES_THAT_SUPPORT_DUPLICATION = [ 'media', 'attachment' ];
+
 export const rootEntitiesConfig = [
 	{
 		label: __( 'Base' ),
@@ -97,6 +112,13 @@ export const rootEntitiesConfig = [
 		label: __( 'Media' ),
 		rawAttributes: [ 'caption', 'title', 'description' ],
 		supportsPagination: true,
+		getDuplicateUrl: ENTITY_NAMES_THAT_SUPPORT_DUPLICATION.includes(
+			'media'
+		)
+			? ( { id } ) => {
+					return `/wp/v2/media/${ id }/edit`;
+			  }
+			: undefined,
 	},
 	{
 		name: 'taxonomy',
@@ -359,6 +381,13 @@ async function loadPostTypeEntities() {
 					revisionId ? '/' + revisionId : ''
 				}`,
 			revisionKey: isTemplate ? 'wp_id' : DEFAULT_ENTITY_KEY,
+			getDuplicateUrl: ENTITY_NAMES_THAT_SUPPORT_DUPLICATION.includes(
+				name
+			)
+				? ( { id } ) => {
+						return `/${ namespace }/${ postType.rest_base }/${ id }/edit`;
+				  }
+				: undefined,
 		};
 	} );
 }

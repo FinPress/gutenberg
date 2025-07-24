@@ -25,43 +25,49 @@ export function receiveRegisteredPostMeta( postType, registeredPostMeta ) {
 	};
 }
 
-export const duplicateAndModifyEntityRecord =
+/**
+ * Duplicates an entity record and, optionally, modifies it.
+ *
+ * @param {string}   kind                    Entity kind.
+ * @param {string}   name                    Entity name.
+ * @param {string}   recordId                Entity record ID.
+ * @param {Object}   edits                   Edits to apply to the record.
+ * @param {Object}   options                 Options object.
+ * @param {Function} options.__unstableFetch Custom fetch function.
+ * @param {boolean}  options.throwOnError    Whether to throw an error if the request fails.
+ *
+ * @return {Promise} Promise resolving to the updated record.
+ */
+export const duplicateEntityRecord =
 	(
 		kind,
 		name,
 		recordId,
-		edits,
+		edits = {},
 		{ __unstableFetch = apiFetch, throwOnError = false } = {}
 	) =>
 	async ( { dispatch, resolveSelect } ) => {
-
-		const record = await resolveSelect.getEntityRecord(
-			kind,
-			name,
-			recordId
-		);
 		const configs = await resolveSelect.getEntitiesConfig( kind );
 		const entityConfig = configs.find(
 			( config ) => config.kind === kind && config.name === name
 		);
 
-
-		if ( ! entityConfig || ! record ) {
+		if ( ! entityConfig ) {
 			return;
 		}
 
-		const duplicateLink =
-			record._links?.[ 'wp:duplicate-modified' ]?.[ 0 ]?.href;
+		const path = entityConfig.getDuplicateUrl( { id: recordId } );
 
-		if ( ! duplicateLink ) {
+		// Entity does not support duplication.
+		if ( ! path ) {
 			return;
 		}
 
-		// const lock = await dispatch.__unstableAcquireStoreLock(
-		// 	STORE_NAME,
-		// 	[ 'entities', 'records', kind, name, recordId ],
-		// 	{ exclusive: true }
-		// );
+		const lock = await dispatch.__unstableAcquireStoreLock(
+			STORE_NAME,
+			[ 'entities', 'records', kind, name, recordId ],
+			{ exclusive: true }
+		);
 
 		let updatedRecord;
 		let error;
@@ -76,22 +82,26 @@ export const duplicateAndModifyEntityRecord =
 			} );
 
 			try {
-				const response = await __unstableFetch( {
-					path: duplicateLink,
+				const newRecord = await __unstableFetch( {
+					path,
 					method: 'POST',
 					data: {
 						...edits,
 					},
 				} );
-				// Use the response.id to fetch the record from the API.
-				const newRecord = await resolveSelect.getEntityRecord(
-					kind,
-					name,
-					response.id
-				);
-				updatedRecord = newRecord;
 
-				console.log( 'newRecord', newRecord );
+				if ( newRecord ) {
+					dispatch.receiveEntityRecords(
+						kind,
+						name,
+						[ newRecord ],
+						undefined,
+						true,
+						undefined,
+						undefined
+					);
+					updatedRecord = newRecord;
+				}
 			} catch ( e ) {
 				error = e;
 				hasError = true;
@@ -110,6 +120,6 @@ export const duplicateAndModifyEntityRecord =
 			}
 			return updatedRecord;
 		} finally {
-			//dispatch.__unstableReleaseStoreLock( lock );
+			dispatch.__unstableReleaseStoreLock( lock );
 		}
 	};
