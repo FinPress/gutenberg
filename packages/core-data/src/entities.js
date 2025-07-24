@@ -112,13 +112,7 @@ export const rootEntitiesConfig = [
 		label: __( 'Media' ),
 		rawAttributes: [ 'caption', 'title', 'description' ],
 		supportsPagination: true,
-		getDuplicateUrl: ENTITY_NAMES_THAT_SUPPORT_DUPLICATION.includes(
-			'media'
-		)
-			? ( { id } ) => {
-					return `/wp/v2/media/${ id }/edit`;
-			  }
-			: undefined,
+		getDuplicateUrl: ( { id } ) => `/wp/v2/media/${ id }/edit`,
 	},
 	{
 		name: 'taxonomy',
