@@ -6,6 +6,10 @@
 
 - Field API: `isValid` is now an object that contains `required` and `custom` validation rules. Additionally, fields should now opt-in into being a "required" field by setting `isValid.required` to `true` (all fields of type `email` and `integer` were required by default). [#70901](https://github.com/WordPress/gutenberg/pull/70901)
 
+### Features
+
+- Add `empty` prop to `DataViews` to customize the empty state message.
+
 ### Bug Fixes
 
 - Do not render an empty `&nbsp;` when the title field has level 0. [#71021](https://github.com/WordPress/gutenberg/pull/71021)
