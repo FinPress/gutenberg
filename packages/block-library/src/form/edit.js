@@ -182,6 +182,7 @@ const Edit = ( { attributes, setAttributes, clientId } ) => {
 						options={ [
 							{ label: 'Get', value: 'get' },
 							{ label: 'Post', value: 'post' },
+							{ label: 'Dialog', value: 'dialog' },
 						] }
 						value={ method }
 						onChange={ ( value ) =>
