@@ -52,7 +52,7 @@ _Parameters_
 
 _Returns_
 
--   `ShortcodeInstance`: Shortcode instance.
+-   `InstanceType<  >`: Shortcode instance.
 
 ### next
 
@@ -62,7 +62,7 @@ _Parameters_
 
 -   _tag_ `string`: Shortcode tag.
 -   _text_ `string`: Text to search.
--   _index_ Index to start search from.
+-   _index_ `number`: Index to start search from.
 
 _Returns_
 
