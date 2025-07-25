@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { useCallback } from '@wordpress/element';
-import { useRegistry, useSelect } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -22,7 +22,8 @@ import useEntityId from './use-entity-id';
  *
  * @return {[*, Function, *]} An array where the first item is the
  *                            property value, the second is the
- *                            setter and the third is the full value
+ *                            setter (which accepts either a value or an updater function)
+ *                            and the third is the full value
  * 							  object from REST API containing more
  * 							  information like `raw`, `rendered` and
  * 							  `protected` props.
@@ -30,8 +31,6 @@ import useEntityId from './use-entity-id';
 export default function useEntityProp( kind, name, prop, _id ) {
 	const providerId = useEntityId( kind, name );
 	const id = _id ?? providerId;
-
-	const registry = useRegistry();
 
 	const { value, fullValue } = useSelect(
 		( select ) => {
@@ -48,21 +47,26 @@ export default function useEntityProp( kind, name, prop, _id ) {
 		},
 		[ kind, name, id, prop ]
 	);
+	const { editEntityRecord } = useDispatch( STORE_NAME );
+	const { getEditedEntityRecord } = useSelect(
+		( select ) => select( STORE_NAME ),
+		[]
+	);
 
 	const setValue = useCallback(
 		( newValue ) => {
-			let updatedValue = newValue;
 			if ( typeof newValue === 'function' ) {
-				const currentValue = registry
-					.select( STORE_NAME )
-					.getEditedEntityRecord( kind, name, id )?.[ prop ];
-				updatedValue = newValue( currentValue );
+				const currentRecord = getEditedEntityRecord( kind, name, id );
+				const currentValue = currentRecord
+					? currentRecord[ prop ]
+					: undefined;
+				newValue = newValue( currentValue );
 			}
-			registry.dispatch( STORE_NAME ).editEntityRecord( kind, name, id, {
-				[ prop ]: updatedValue,
+			editEntityRecord( kind, name, id, {
+				[ prop ]: newValue,
 			} );
 		},
-		[ registry, kind, name, id, prop ]
+		[ editEntityRecord, getEditedEntityRecord, kind, name, id, prop ]
 	);
 
 	return [ value, setValue, fullValue ];

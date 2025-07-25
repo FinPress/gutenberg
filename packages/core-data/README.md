@@ -1015,7 +1015,7 @@ _Parameters_
 
 _Returns_
 
--   `[*, Function, *]`: An array where the first item is the property value, the second is the setter and the third is the full value object from REST API containing more information like `raw`, `rendered` and `protected` props.
+-   `[*, Function, *]`: An array where the first item is the property value, the second is the setter (which accepts either a value or an updater function) and the third is the full value object from REST API containing more information like `raw`, `rendered` and `protected` props.
 
 ### useEntityRecord
 
