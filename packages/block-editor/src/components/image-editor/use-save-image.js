@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useDispatch } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
 import { useCallback, useMemo, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
@@ -10,7 +10,7 @@ import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 /**
  * Internal dependencies
  */
-import { unlock } from '../../lock-unlock';
+import { store as blockEditorStore } from '../../store';
 
 const messages = {
 	crop: __( 'Image cropped.' ),
@@ -29,14 +29,17 @@ export default function useSaveImage( {
 	const { createErrorNotice, createSuccessNotice } =
 		useDispatch( noticesStore );
 	const [ isInProgress, setIsInProgress ] = useState( false );
+	const { editMediaEntity } = useSelect( ( select ) => {
+		const settings = select( blockEditorStore ).getSettings();
+		return {
+			editMediaEntity: settings?.__experimentalEditMediaEntity,
+		};
+	}, [] );
 
 	const cancel = useCallback( () => {
 		setIsInProgress( false );
 		onFinishEditing();
 	}, [ onFinishEditing ] );
-	// Disable Reason: Needs to be refactored.
-	// eslint-disable-next-line no-restricted-imports, @wordpress/data-no-store-string-literals
-	const { duplicateEntityRecord } = unlock( useDispatch( 'core' ) );
 
 	const apply = useCallback( async () => {
 		setIsInProgress( true );
@@ -77,15 +80,10 @@ export default function useSaveImage( {
 			modifiers.length === 1 ? modifiers[ 0 ].type : 'cropAndRotate';
 
 		try {
-			const savedImage = await duplicateEntityRecord(
-				'root',
-				'media',
-				id,
-				{
-					src: url,
-					modifiers,
-				}
-			);
+			const savedImage = await editMediaEntity( 'root', 'media', id, {
+				src: url,
+				modifiers,
+			} );
 
 			if ( savedImage ) {
 				onSaveImage( {
@@ -133,7 +131,7 @@ export default function useSaveImage( {
 		createErrorNotice,
 		createSuccessNotice,
 		onFinishEditing,
-		duplicateEntityRecord,
+		editMediaEntity,
 	] );
 
 	return useMemo(

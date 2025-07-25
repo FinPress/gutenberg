@@ -26,19 +26,31 @@ export function receiveRegisteredPostMeta( postType, registeredPostMeta ) {
 }
 
 /**
- * Duplicates an entity record and, optionally, modifies it.
+ * @typedef {Object} Modifier
+ * @property {string} [type] - The type of modifier.
+ * @property {Object} [args] - The arguments of the modifier.
+ */
+
+/**
+ * @typedef {Object} Edits
+ * @property {string}     [src]       - The URL of the media item.
+ * @property {Modifier[]} [modifiers] - The modifiers to apply to the media item.
+ */
+
+/**
+ * Duplicates a attachment / media entity record and, optionally, modifies it.
  *
  * @param {string}   kind                    Entity kind.
  * @param {string}   name                    Entity name.
  * @param {string}   recordId                Entity record ID.
- * @param {Object}   edits                   Edits to apply to the record.
+ * @param {Edits}    edits                   Edits to apply to the record.
  * @param {Object}   options                 Options object.
  * @param {Function} options.__unstableFetch Custom fetch function.
  * @param {boolean}  options.throwOnError    Whether to throw an error if the request fails.
  *
  * @return {Promise} Promise resolving to the updated record.
  */
-export const duplicateEntityRecord =
+export const editMediaEntity =
 	(
 		kind,
 		name,
@@ -52,11 +64,11 @@ export const duplicateEntityRecord =
 			( config ) => config.kind === kind && config.name === name
 		);
 
-		if ( ! entityConfig ) {
+		if ( ! entityConfig && entityConfig.baseURL !== '/wp/v2/media' ) {
 			return;
 		}
 
-		const path = entityConfig.getDuplicateUrl( { id: recordId } );
+		const path = `${ entityConfig.baseURL }/${ recordId }/edit`;
 
 		// Entity does not support duplication.
 		if ( ! path ) {
