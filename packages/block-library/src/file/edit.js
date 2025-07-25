@@ -127,7 +127,8 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 			return;
 		}
 
-		const isPdf = newMedia.url.endsWith( '.pdf' );
+		const parsedUrl = new URL( newMedia.url, window.location.origin );
+		const isPdf = parsedUrl.pathname.toLowerCase().endsWith( '.pdf' );
 		const pdfAttributes = {
 			displayPreview: isPdf
 				? attributes.displayPreview ?? true
