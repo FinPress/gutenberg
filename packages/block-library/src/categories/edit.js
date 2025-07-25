@@ -111,11 +111,7 @@ export default function CategoriesEdit( {
 		const { id, link, count, name } = category;
 		return (
 			<li key={ id } className={ `cat-item cat-item-${ id }` }>
-				<a
-					href={ link }
-					rel="noreferrer noopener"
-					onClick={ showRedirectionPreventedNotice }
-				>
+				<a href={ link } onClick={ showRedirectionPreventedNotice }>
 					{ renderCategoryName( name ) }
 				</a>
 				{ showPostCounts && ` (${ count })` }
