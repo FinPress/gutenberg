@@ -153,7 +153,7 @@ type DayOfWeek = {
  * @param {Modifiers}                              modifiers   - The modifiers associated with the event.
  * @param {React.MouseEvent | React.KeyboardEvent} e           - The event object.
  */
-type OnSelectHandler< T > = (
+export type OnSelectHandler< T > = (
 	selected: T,
 	triggerDate: Date,
 	modifiers: Modifiers,
@@ -284,7 +284,7 @@ export interface BaseProps
 	 * When working with time zones, use the `TZDate` object exported by this
 	 * package instead of the native `Date` object.
 	 * @example
-	 *   import { DateCalendar, TZDate } from "@automattic/components";
+	 *   import { DateCalendar, TZDate } from "@wordpress/components";
 	 *
 	 *   export function WithTimeZone() {
 	 *     const timeZone = "America/New_York";

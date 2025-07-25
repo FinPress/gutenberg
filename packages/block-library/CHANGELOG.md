@@ -6,6 +6,8 @@
 
 -   Video Block: Fix blank first frame on iOS. ([#70298](https://github.com/WordPress/gutenberg/pull/70298))
 
+## 9.27.0 (2025-07-23)
+
 ## 9.26.0 (2025-06-25)
 
 ## 9.25.0 (2025-06-04)
