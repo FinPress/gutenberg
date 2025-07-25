@@ -1,11 +1,11 @@
 /**
  * Represents a single change in history.
  */
-export interface HistoryChange< T = unknown > {
+export interface HistoryChange< From = unknown, To = From > {
 	/** The previous value */
-	from: T;
+	from: From;
 	/** The new value */
-	to: T;
+	to: To;
 }
 
 /**
