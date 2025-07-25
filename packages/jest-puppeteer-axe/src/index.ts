@@ -51,18 +51,28 @@ function formatViolations( violations: Array< Result > ): string {
 }
 
 interface AxeTestParams {
+	/**
+	 * CSS selector(s) to include in analysis.
+	 */
 	include?: string | string[];
+	/**
+	 * CSS selector(s) to exclude from analysis.
+	 */
 	exclude?: string | string[];
+	/**
+	 * List of Axe rules to skip from verification.
+	 */
 	disabledRules?: string[];
+	/**
+	 * Options to configure how Axe run operates.
+	 * @see https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter
+	 */
 	options?: RunOptions;
+	/**
+	 * Axe configuration object.
+	 * @see https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#api-name-axeconfigure
+	 */
 	config?: Spec;
-}
-
-interface MatcherContext {
-	utils: {
-		matcherHint: ( matcherName: string ) => string;
-		RECEIVED_COLOR: ( text: string ) => string;
-	};
 }
 
 /**
@@ -72,20 +82,13 @@ interface MatcherContext {
  * It is possible to pass optional Axe API options to perform customized check.
  * @see https://github.com/dequelabs/axe-core-npm/tree/develop/packages/puppeteer
  *
- * @param {MatcherContext}  this                   Matcher context from Jest.
- * @param {Page}            page                   Puppeteer's page instance.
- * @param {Object}          [params]               Optional params that allow better control over Axe API.
- * @param {string|string[]} [params.include]       CSS selector(s) to include in analysis.
- * @param {string|string[]} [params.exclude]       CSS selector(s) to exclude from analysis.
- * @param {string[]}        [params.disabledRules] List of Axe rules to skip from verification.
- * @param {RunOptions}      [params.options]       Options to configure how Axe run operates,
- *                                                 see https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter.
- * @param {Spec}            [params.config]        Axe configuration object,
- *                                                 see https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#api-name-axeconfigure.
- * @return {Object} A matcher object with two keys `pass` and `message`.
+ * @param {import('@jest/expect').MatcherContext} this   Matcher context from Jest.
+ * @param {Page}                                  page   Puppeteer's page instance.
+ * @param {AxeTestParams}                         params Optional params that allow better control over Axe API.
+ * @return A matcher object with two keys `pass` and `message`.
  */
 async function toPassAxeTests(
-	this: MatcherContext,
+	this: jest.MatcherContext,
 	page: Page,
 	{ include, exclude, disabledRules, options, config }: AxeTestParams = {}
 ) {
