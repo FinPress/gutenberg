@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Enhancement
+
+-   `TextControl`: Improve theming support ([#70910](https://github.com/WordPress/gutenberg/pull/70910)).
+
 ## 30.0.0 (2025-07-23)
 
 ### Breaking Changes
