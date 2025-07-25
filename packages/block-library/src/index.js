@@ -119,6 +119,7 @@ import * as tagCloud from './tag-cloud';
 import * as templatePart from './template-part';
 import * as termDescription from './term-description';
 import * as textColumns from './text-columns';
+import * as todo from './todo';
 import * as verse from './verse';
 import * as video from './video';
 import * as footnotes from './footnotes';
@@ -179,6 +180,7 @@ const getAllBlocks = () => {
 		table,
 		tagCloud,
 		textColumns,
+		todo,
 		verse,
 		video,
 		footnotes,

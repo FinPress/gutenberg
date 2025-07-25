@@ -1,0 +1,14 @@
+[
+	{
+		"name": "core/todo",
+		"isValid": true,
+		"attributes": {
+			"todos": [],
+			"allowedRoles": [],
+			"isGlobal": true,
+			"checkboxColor": "#000000",
+			"checkboxSize": "16px"
+		},
+		"innerBlocks": []
+	}
+]
