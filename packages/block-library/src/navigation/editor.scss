@@ -20,7 +20,7 @@
 	.wp-block-page-list {
 		flex-grow: 0;
 		flex-shrink: 1;
-		min-width: 0;
+		min-width: fit-content;
 	}
 
 	// Allow it to grow when layout is space-between.
