@@ -29,6 +29,7 @@ import { __, _x } from '@wordpress/i18n';
 import { file as icon } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
 import { store as noticesStore } from '@wordpress/notices';
+import { getFilename } from '@wordpress/url';
 
 /**
  * Internal dependencies
@@ -127,8 +128,9 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 			return;
 		}
 
-		const parsedUrl = new URL( newMedia.url, window.location.origin );
-		const isPdf = parsedUrl.pathname.toLowerCase().endsWith( '.pdf' );
+		const isPdf = getFilename( newMedia.url )
+			.toLowerCase()
+			.endsWith( '.pdf' );
 		const pdfAttributes = {
 			displayPreview: isPdf
 				? attributes.displayPreview ?? true
