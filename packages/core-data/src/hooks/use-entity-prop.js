@@ -15,6 +15,29 @@ import useEntityId from './use-entity-id';
  * specified property of the nearest provided
  * entity of the specified type.
  *
+ * @example
+ * ```js
+ * import { useEntityProp } from '@wordpress/core-data';
+ *
+ * function MetaUpdater( { postType, postId } ) {
+ * 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta', postId );
+ *
+ * 	const handleSyncUpdate = () => {
+ * 		const result = syncTask();
+ *
+ * 		// Use setter with a static value:
+ * 		setMeta( { ...meta, taskKey: result } );
+ * 	};
+ *
+ * 	const handleAsyncUpdate = async () => {
+ * 		const result = await asyncTask();
+ *
+ * 		// Use setter with an updater function:
+ * 		setMeta( ( currentMeta ) => ( { ...currentMeta, taskKey: result } ) );
+ * 	};
+ * }
+ * ```
+ *
  * @param {string}        kind  The entity kind.
  * @param {string}        name  The entity name.
  * @param {string}        prop  The property name.
