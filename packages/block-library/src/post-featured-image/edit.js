@@ -259,7 +259,7 @@ export default function PostFeaturedImageEdit( {
 									? sprintf(
 											// translators: %s: Name of the post type e.g: "post".
 											__( 'Link to %s' ),
-											postType.labels.singular_name
+											postType.labels.singular_name.toLowerCase()
 									  )
 									: __( 'Link to post' )
 							}
@@ -278,7 +278,7 @@ export default function PostFeaturedImageEdit( {
 										? sprintf(
 												// translators: %s: Name of the post type e.g: "post".
 												__( 'Link to %s' ),
-												postType.labels.singular_name
+												postType.labels.singular_name.toLowerCase()
 										  )
 										: __( 'Link to post' )
 								}
