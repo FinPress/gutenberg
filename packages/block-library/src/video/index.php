@@ -78,7 +78,7 @@ function render_block_core_video( array $attributes, string $content ): string {
 /**
  * Registers the `core/video` block on server.
  *
- * @since 0.0.1
+ * @since 6.9.0
  */
 function register_block_core_video(): void {
 	register_block_type_from_metadata(
