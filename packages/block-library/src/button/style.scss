@@ -22,6 +22,12 @@ $blocks-block__margin: 0.5em;
 	}
 }
 
+// START: Add this new rule to fix image alignment.
+.wp-block-button__link img {
+	vertical-align: middle;
+}
+// END: Add this new rule.
+
 // These rules are set to zero specificity to keep the default styles for buttons.
 // They are needed for backwards compatibility.
 :where(.wp-block-button__link) {
