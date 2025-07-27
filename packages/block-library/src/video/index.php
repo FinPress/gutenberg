@@ -8,7 +8,7 @@
 /**
  * Renders the `core/video` block on the server to supply the width and height attributes from the attachment metadata.
  *
- * @since 0.0.1
+ * @since 6.9.0
  *
  * @phpstan-param  array{ "id"?: positive-int } $attributes
  *
