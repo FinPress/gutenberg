@@ -31,11 +31,15 @@ export function useBoundaryStyle( { record } ) {
 		const { ownerDocument } = element;
 		const { defaultView } = ownerDocument;
 		const computedStyle = defaultView.getComputedStyle( element );
-		const newColor = computedStyle.color
-			.replace( ')', ', 0.2)' )
-			.replace( 'rgb', 'rgba' );
+
+		// START --- THIS IS THE FIX ---
+		// The old .replace() logic is removed and replaced with color-mix(),
+		// which works correctly with all CSS color formats.
+		const newBackgroundColor = `color-mix(in oklab, ${ computedStyle.color } 20%, transparent)`;
 		const selector = `.rich-text:focus ${ boundarySelector }`;
-		const rule = `background-color: ${ newColor }`;
+		const rule = `background-color: ${ newBackgroundColor }`;
+		// END --- THIS IS THE FIX ---
+
 		const style = `${ selector } {${ rule }}`;
 		const globalStyleId = 'rich-text-boundary-style';
 
