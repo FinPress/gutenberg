@@ -65,7 +65,7 @@ function UnconnectedToggleGroupControl(
 
 	const cx = useCx();
 
-	const classes = useMemo(
+	const mainControlClasses = useMemo(
 		() =>
 			cx(
 				styles.toggleGroupControl( {
@@ -73,10 +73,9 @@ function UnconnectedToggleGroupControl(
 					isDeselectable,
 					size: normalizedSize,
 				} ),
-				isBlock && styles.block,
-				className
+				isBlock && styles.block
 			),
-		[ className, cx, isBlock, isDeselectable, normalizedSize ]
+		[ cx, isBlock, isDeselectable, normalizedSize ]
 	);
 
 	const MainControl = isDeselectable
@@ -95,6 +94,7 @@ function UnconnectedToggleGroupControl(
 			help={ help }
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
 			__associatedWPComponentName="ToggleGroupControl"
+			className={ className }
 		>
 			{ ! hideLabelFromVision && (
 				<VisualLabelWrapper>
@@ -104,7 +104,7 @@ function UnconnectedToggleGroupControl(
 			<MainControl
 				{ ...otherProps }
 				setSelectedElement={ setSelectedElement }
-				className={ classes }
+				className={ mainControlClasses }
 				isAdaptiveWidth={ isAdaptiveWidth }
 				label={ label }
 				onChange={ onChange }

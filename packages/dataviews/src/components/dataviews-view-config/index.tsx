@@ -172,7 +172,6 @@ function SortDirectionControl() {
 	}
 	return (
 		<ToggleGroupControl
-			className="dataviews-view-config__sort-direction"
 			__nextHasNoMarginBottom
 			__next40pxDefaultSize
 			isBlock
