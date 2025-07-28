@@ -35,7 +35,7 @@ import { COVER_MIN_HEIGHT, mediaPosition } from '../shared';
 import { unlock } from '../../lock-unlock';
 import { useToolsPanelDropdownMenuProps } from '../../utils/hooks';
 import { DEFAULT_MEDIA_SIZE_SLUG } from '../constants';
-import PosterImage from './poster-image';
+import PosterImage from '../../utils/poster-image';
 
 const { cleanEmptyObject, ResolutionTool, HTMLElementControl } = unlock(
 	blockEditorPrivateApis
@@ -275,7 +275,17 @@ export default function CoverInspectorControls( {
 						{ isVideoBackground && (
 							<PosterImage
 								poster={ poster }
-								setAttributes={ setAttributes }
+								onSelectPoster={ ( posterImage ) => {
+									if ( ! posterImage || ! posterImage?.url ) {
+										return;
+									}
+									setAttributes( {
+										poster: posterImage.url,
+									} );
+								} }
+								onRemovePoster={ () =>
+									setAttributes( { poster: undefined } )
+								}
 							/>
 						) }
 						{ ! useFeaturedImage && url && ! isVideoBackground && (
