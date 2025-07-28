@@ -122,7 +122,11 @@ export default function ActionsToolbar< Item >( {
 	} );
 
 	if ( eligibleActions.length === 0 ) {
-		return null;
+		// For toolbar variant, return null when no actions
+		// For menu variant, render disabled button to maintain consistent UI
+		if ( variant === 'toolbar' ) {
+			return null;
+		}
 	}
 
 	const handleActionClick = ( action: Action< Item > ) => {
@@ -144,7 +148,7 @@ export default function ActionsToolbar< Item >( {
 								icon={ moreVertical }
 								label={ __( 'Actions' ) }
 								accessibleWhenDisabled
-								disabled={ ! eligibleActions.length }
+								disabled={ eligibleActions.length === 0 }
 								className={ `dataviews-all-actions-button ${ className }` }
 							/>
 						}
