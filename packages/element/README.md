@@ -54,11 +54,11 @@ Concatenate two or more React children objects.
 
 _Parameters_
 
--   _childrenArguments_ `...?Object`: Array of children arguments (array of arrays/strings/objects) to concatenate.
+-   _childrenArguments_ `ReactNode[][]`: - Array of children arguments (array of arrays/strings/objects) to concatenate.
 
 _Returns_
 
--   `Array`: The concatenated value.
+-   `ReactNode[]`: The concatenated value.
 
 ### createContext
 
@@ -88,25 +88,33 @@ _Returns_
 
 ### createInterpolateElement
 
-This function creates an interpolated element from a passed-in string with specific tags matching how the string should be converted to an element via the conversion map.
+This function creates an interpolated element from a passed in string with specific tags matching how the string should be converted to an element via the conversion map value.
 
 _Usage_
 
-```ts
-const result = createInterpolateElement(
-  'This is a <strong>bold</strong> word.',
-  { strong: <strong /> }
-);
+For example, for the given string:
+
+"This is a <span>string</span> with <a>a link</a> and a self-closing
+<CustomComponentB/> tag"
+
+You would have something like this as the conversionMap value:
+
+```js
+{
+    span: <span />,
+    a: <a href={ 'https://github.com' } />,
+    CustomComponentB: <CustomComponent />,
+}
 ```
 
 _Parameters_
 
--   _interpolatedString_ `string`: The string to be parsed.
--   _conversionMap_ `Record< string, ReactElement >`: A map where tag names map to React elements.
+-   _interpolatedString_ `string`: The interpolation string to be parsed.
+-   _conversionMap_ `Record<string, ReactElement>`: The map used to convert the string to a react element.
 
 _Returns_
 
--   `ReactElement`: A React element.
+-   `ReactElement`: A wp element.
 
 ### createPortal
 
@@ -255,11 +263,13 @@ Undocumented declaration.
 
 ### renderToString
 
-Recursively renders a ReactNode to HTML.
+Serializes a React element to string.
 
 _Parameters_
 
--   _element_ `ReactNode`:
+-   _element_ `React.ReactNode`:
+-   _context_ `any`:
+-   _legacyContext_ `Record< string, any >`:
 
 ### startTransition
 
@@ -283,12 +293,12 @@ Switches the nodeName of all the elements in the children object.
 
 _Parameters_
 
--   _children_ `?Object`: Children object.
+-   _children_ `ReactNode`: Children object.
 -   _nodeName_ `string`: Node name.
 
 _Returns_
 
--   `?Object`: The updated children object.
+-   `ReactNode`: The updated children object.
 
 ### unmountComponentAtNode
 

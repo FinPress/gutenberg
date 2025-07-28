@@ -1,11 +1,41 @@
 /**
  * Internal dependencies
  */
-import { createElement, cloneElement, Fragment, isValidElement } from './react';
+import {
+	createElement,
+	cloneElement,
+	Fragment,
+	isValidElement,
+	type Element as ReactElement,
+} from './react';
+
 /**
- * External dependencies
+ * Object containing a React element.
+ *
+ * @typedef {import('react').ReactElement} Element
  */
-import type { ReactElement } from 'react';
+
+let indoc: string;
+let offset: number;
+let output: ( string | ReactElement )[];
+let stack: Frame[];
+
+/**
+ * Matches tags in the localized string
+ *
+ * This is used for extracting the tag pattern groups for parsing the localized
+ * string and along with the map converting it to a react element.
+ *
+ * There are four references extracted using this tokenizer:
+ *
+ * match: Full match of the tag (i.e. <strong>, </strong>, <br/>)
+ * isClosing: The closing slash, if it exists.
+ * name: The name portion of the tag (strong, br) (if )
+ * isSelfClosed: The slash on a self closing tag, if it exists.
+ *
+ * @type {RegExp}
+ */
+const tokenizer: RegExp = /<(\/)?(\w+)\s*(\/)?>/g;
 
 /**
  * The stack frame tracking parse progress.
@@ -13,13 +43,16 @@ import type { ReactElement } from 'react';
  * @typedef Frame
  *
  * @property {ReactElement}              element            A parent element which may still have
- *                                                          nested children not yet parsed.
- * @property {number}                    tokenStart         Offset at which parent element first appears.
- * @property {number}                    tokenLength        Length of string marking start of parent element.
- * @property {number}                    [prevOffset]       Running offset at which parsing should continue.
- * @property {number}                    [leadingTextStart] Offset at which last closing element finished,
- *                                                          used for finding text between elements.
- * @property {(ReactElement | string)[]} children           Children of this element.
+ * @property {number}                    tokenStart         Offset at which parent element first
+ *                                                          appears.
+ * @property {number}                    tokenLength        Length of string marking start of parent
+ *                                                          element.
+ * @property {number}                    [prevOffset]       Running offset at which parsing should
+ *                                                          continue.
+ * @property {number}                    [leadingTextStart] Offset at which last closing element
+ *                                                          finished, used for finding text between
+ *                                                          elements.
+ * @property {(string | ReactElement)[]} children           Children.
  */
 interface Frame {
 	element: ReactElement;
@@ -27,36 +60,27 @@ interface Frame {
 	tokenLength: number;
 	prevOffset?: number;
 	leadingTextStart?: number | null;
-	children: Array< ReactElement | string >;
+	children: ( string | ReactElement )[];
 }
-
-// Global parse state
-let indoc: string;
-let offset: number;
-let output: Array< ReactElement | string >;
-let stack: Frame[];
-
-/**
- * Matches tags in the localized string.
- */
-const tokenizer = /<(\/)?(\w+)\s*(\/)?>/g;
-
-type TokenMatch =
-	| [ 'no-more-tokens' ]
-	| [ 'self-closed', string, number, number ]
-	| [ 'closer', string, number, number ]
-	| [ 'opener', string, number, number ];
 
 /**
  * Tracks recursive-descent parse state.
  *
- * @private
+ * This is a Stack frame holding parent elements until all children have been
+ * parsed.
  *
- * @param  element          A parent element which may still have nested children.
- * @param  tokenStart       Offset at which parent element first appears.
- * @param  tokenLength      Length of string marking start of parent element.
- * @param  prevOffset       Running offset for nested children.
- * @param  leadingTextStart Offset at which last closing element finished.
+ * @private
+ * @param {ReactElement}  element            A parent element which may still have
+ *                                           nested children not yet parsed.
+ * @param {number}        tokenStart         Offset at which parent element first
+ *                                           appears.
+ * @param {number}        tokenLength        Length of string marking start of parent
+ *                                           element.
+ * @param {number}        [prevOffset]       Running offset at which parsing should
+ *                                           continue.
+ * @param {number | null} [leadingTextStart] Offset at which last closing element
+ *                                           finished, used for finding text between
+ *                                           elements.
  *
  * @return {Frame} The stack frame tracking parse progress.
  */
@@ -78,23 +102,31 @@ function createFrame(
 }
 
 /**
- * This function creates an interpolated element from a passed-in string with
+ * This function creates an interpolated element from a passed in string with
  * specific tags matching how the string should be converted to an element via
- * the conversion map.
+ * the conversion map value.
  *
  * @example
- * ```ts
- * const result = createInterpolateElement(
- *   'This is a <strong>bold</strong> word.',
- *   { strong: <strong /> }
- * );
+ * For example, for the given string:
+ *
+ * "This is a <span>string</span> with <a>a link</a> and a self-closing
+ * <CustomComponentB/> tag"
+ *
+ * You would have something like this as the conversionMap value:
+ *
+ * ```js
+ * {
+ *     span: <span />,
+ *     a: <a href={ 'https://github.com' } />,
+ *     CustomComponentB: <CustomComponent />,
+ * }
  * ```
  *
- * @param  interpolatedString The string to be parsed.
- * @param  conversionMap      A map where tag names map to React elements.
- * @throws {TypeError}       If conversionMap is not valid.
- *
- * @return A React element.
+ * @param {string}                       interpolatedString The interpolation string to be parsed.
+ * @param {Record<string, ReactElement>} conversionMap      The map used to convert the string to
+ *                                                          a react element.
+ * @throws {TypeError}
+ * @return {ReactElement}  A wp element.
  */
 const createInterpolateElement = (
 	interpolatedString: string,
@@ -112,10 +144,9 @@ const createInterpolateElement = (
 		);
 	}
 
-	while ( proceed( conversionMap ) ) {
-		// parsing happens in `proceed`
-	}
-
+	do {
+		// twiddle our thumbs
+	} while ( proceed( conversionMap ) );
 	return createElement( Fragment, null, ...output );
 };
 
@@ -123,67 +154,70 @@ const createInterpolateElement = (
  * Validate conversion map.
  *
  * A map is considered valid if it's an object and every value in the object
- * is a valid React Element.
+ * is a React Element
  *
  * @private
  *
- * @param conversionMap The map being validated.
+ * @param {Record<string, ReactElement>} conversionMap The map being validated.
  *
- * @return True if valid.
+ * @return {boolean}  True means the map is valid.
  */
-function isValidConversionMap(
-	conversionMap: unknown
-): conversionMap is Record< string, ReactElement > {
-	if ( typeof conversionMap !== 'object' || conversionMap === null ) {
-		return false;
-	}
-	const values = Object.values( conversionMap );
-	return values.length > 0 && values.every( ( el ) => isValidElement( el ) );
-}
+const isValidConversionMap = (
+	conversionMap: Record< string, ReactElement >
+): boolean => {
+	const isObject =
+		typeof conversionMap === 'object' && conversionMap !== null;
+	const values = isObject && Object.values( conversionMap );
+	return (
+		isObject &&
+		values.length > 0 &&
+		values.every( ( element ) => isValidElement( element ) )
+	);
+};
+
+type TokenType = 'no-more-tokens' | 'self-closed' | 'opener' | 'closer';
+type TokenResult =
+	| [ TokenType & 'no-more-tokens' ]
+	| [
+			TokenType & ( 'self-closed' | 'opener' | 'closer' ),
+			string,
+			number,
+			number,
+	  ];
 
 /**
  * This is the iterator over the matches in the string.
  *
  * @private
  *
- * @param conversionMap The conversion map for the string.
+ * @param {Record<string, ReactElement>} conversionMap The conversion map for the string.
  *
- * @return True to continue iterating, false if finished.
+ * @return {boolean} true for continuing to iterate, false for finished.
  */
 function proceed( conversionMap: Record< string, ReactElement > ): boolean {
 	const next = nextToken();
 	const [ tokenType, name, startOffset, tokenLength ] = next;
 	const stackDepth = stack.length;
-	const leadingTextStart =
-		startOffset !== undefined && startOffset > offset ? offset : null;
-
-	if ( tokenType !== 'no-more-tokens' && name && ! conversionMap[ name ] ) {
+	const leadingTextStart = startOffset > offset ? offset : null;
+	if ( name && ! conversionMap[ name ] ) {
 		addText();
 		return false;
 	}
-
 	switch ( tokenType ) {
 		case 'no-more-tokens':
 			if ( stackDepth !== 0 ) {
 				const { leadingTextStart: stackLeadingText, tokenStart } =
 					stack.pop()!;
-				if (
-					stackLeadingText !== null &&
-					stackLeadingText !== undefined
-				) {
-					output.push(
-						indoc.substring( stackLeadingText, tokenStart )
-					);
-				}
+				output.push( indoc.substr( stackLeadingText!, tokenStart ) );
 			}
 			addText();
 			return false;
 
 		case 'self-closed':
-			if ( stackDepth === 0 ) {
-				if ( leadingTextStart !== null ) {
+			if ( 0 === stackDepth ) {
+				if ( null !== leadingTextStart ) {
 					output.push(
-						indoc.substring(
+						indoc.substr(
 							leadingTextStart,
 							startOffset! - leadingTextStart
 						)
@@ -193,6 +227,8 @@ function proceed( conversionMap: Record< string, ReactElement > ): boolean {
 				offset = startOffset! + tokenLength!;
 				return true;
 			}
+
+			// Otherwise we found an inner element.
 			addChild(
 				createFrame(
 					conversionMap[ name! ],
@@ -216,14 +252,18 @@ function proceed( conversionMap: Record< string, ReactElement > ): boolean {
 			offset = startOffset! + tokenLength!;
 			return true;
 
-		case 'closer': {
-			if ( stackDepth === 1 ) {
+		case 'closer':
+			// If we're not nesting then this is easy - close the block.
+			if ( 1 === stackDepth ) {
 				closeOuterElement( startOffset! );
 				offset = startOffset! + tokenLength!;
 				return true;
 			}
+
+			// Otherwise we're nested and we have to close out the current
+			// block and add it as a innerBlock to the parent.
 			const stackTop = stack.pop()!;
-			const text = indoc.substring(
+			const text = indoc.substr(
 				stackTop.prevOffset!,
 				startOffset! - stackTop.prevOffset!
 			);
@@ -239,7 +279,6 @@ function proceed( conversionMap: Record< string, ReactElement > ): boolean {
 			addChild( frame );
 			offset = startOffset! + tokenLength!;
 			return true;
-		}
 
 		default:
 			addText();
@@ -248,21 +287,21 @@ function proceed( conversionMap: Record< string, ReactElement > ): boolean {
 }
 
 /**
- * Grabs the next token match in the string and returns its details.
+ * Grabs the next token match in the string and returns it's details.
  *
  * @private
  *
- * @return An array containing token type and metadata.
+ * @return {TokenResult}  An array of details for the token matched.
  */
-function nextToken(): TokenMatch {
+function nextToken(): TokenResult {
 	const matches = tokenizer.exec( indoc );
-	if ( matches === null ) {
+	// We have no more tokens.
+	if ( null === matches ) {
 		return [ 'no-more-tokens' ];
 	}
 	const startedAt = matches.index;
 	const [ match, isClosing, name, isSelfClosed ] = matches;
 	const length = match.length;
-
 	if ( isSelfClosed ) {
 		return [ 'self-closed', name, startedAt, length ];
 	}
@@ -273,29 +312,33 @@ function nextToken(): TokenMatch {
 }
 
 /**
- * Pushes text extracted from the string into the output array.
+ * Pushes text extracted from the indoc string to the output stack given the
+ * current rawLength value and offset (if rawLength is provided ) or the
+ * indoc.length and offset.
  *
  * @private
  */
 function addText(): void {
 	const length = indoc.length - offset;
-	if ( length === 0 ) {
+	if ( 0 === length ) {
 		return;
 	}
-	output.push( indoc.substring( offset, offset + length ) );
+	output.push( indoc.substr( offset, length ) );
 }
 
 /**
- * Pushes a child element into the active parent in the stack.
+ * Pushes a child element to the associated parent element's children for the
+ * parent currently active in the stack.
  *
  * @private
  *
- * @param frame The child frame to attach.
+ * @param {Frame} frame The Frame containing the child element and it's
+ *                      token information.
  */
 function addChild( frame: Frame ): void {
 	const { element, tokenStart, tokenLength, prevOffset, children } = frame;
 	const parent = stack[ stack.length - 1 ];
-	const text = indoc.substring(
+	const text = indoc.substr(
 		parent.prevOffset!,
 		tokenStart - parent.prevOffset!
 	);
@@ -303,32 +346,38 @@ function addChild( frame: Frame ): void {
 	if ( text ) {
 		parent.children.push( text );
 	}
+
 	parent.children.push( cloneElement( element, null, ...children ) );
-	parent.prevOffset = prevOffset ?? tokenStart + tokenLength;
+	parent.prevOffset = prevOffset ? prevOffset : tokenStart + tokenLength;
 }
 
 /**
- * Called when closing an outermost element. Finalizes the element and appends to output.
+ * This is called for closing tags. It creates the element currently active in
+ * the stack.
  *
  * @private
  *
- * @param endOffset The location of the closing tag in the string.
+ * @param {number} endOffset Offset at which the closing tag for the element
+ *                           begins in the string. If this is greater than the
+ *                           prevOffset attached to the element, then this
+ *                           helps capture any remaining nested text nodes in
+ *                           the element.
  */
 function closeOuterElement( endOffset: number ): void {
 	const { element, leadingTextStart, prevOffset, tokenStart, children } =
 		stack.pop()!;
 
 	const text = endOffset
-		? indoc.substring( prevOffset!, endOffset - prevOffset! )
-		: indoc.substring( prevOffset! );
+		? indoc.substr( prevOffset!, endOffset - prevOffset! )
+		: indoc.substr( prevOffset! );
 
 	if ( text ) {
 		children.push( text );
 	}
 
-	if ( leadingTextStart !== null && leadingTextStart !== undefined ) {
+	if ( null !== leadingTextStart ) {
 		output.push(
-			indoc.substring( leadingTextStart, tokenStart - leadingTextStart )
+			indoc.substr( leadingTextStart, tokenStart - leadingTextStart )
 		);
 	}
 
