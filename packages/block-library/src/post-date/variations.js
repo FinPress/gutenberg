@@ -19,7 +19,7 @@ const variations = [
 				},
 			},
 		},
-		scope: [ 'block', 'inserter' ],
+		scope: [ 'block', 'inserter', 'transform' ],
 		isActive: ( blockAttributes ) =>
 			blockAttributes?.metadata?.bindings?.datetime?.source ===
 				'core/post-data' &&
@@ -41,7 +41,7 @@ const variations = [
 			},
 			className: 'wp-block-post-date__modified-date',
 		},
-		scope: [ 'block', 'inserter' ],
+		scope: [ 'block', 'inserter', 'transform' ],
 		isActive: ( blockAttributes ) =>
 			blockAttributes?.metadata?.bindings?.datetime?.source ===
 				'core/post-data' &&
