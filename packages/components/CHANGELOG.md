@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 -   `TextareaControl`: Add missing component CSS classname ([#70930](https://github.com/WordPress/gutenberg/pull/70930)).
+-   `PaletteEdit`: Fill available space with input field ([#70935](https://github.com/WordPress/gutenberg/pull/70935)).
 
 ## 30.0.0 (2025-07-23)
 
