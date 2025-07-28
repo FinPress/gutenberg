@@ -100,6 +100,7 @@ export function PrivateBlockToolbar( {
 		const parentBlockName = getBlockName( parentClientId );
 		const parentBlockType = getBlockType( parentBlockName );
 		const editingMode = getBlockEditingMode( selectedBlockClientId );
+		const isContentOnly = editingMode === 'contentOnly';
 		const _isDefaultEditingMode = editingMode === 'default';
 		const _blockName = getBlockName( selectedBlockClientId );
 		const isValid = selectedBlockClientIds.every( ( id ) =>
@@ -151,7 +152,7 @@ export function PrivateBlockToolbar( {
 			showSlots: ! _isZoomOut,
 			showGroupButtons: ! _isZoomOut,
 			showLockButtons: ! _isZoomOut,
-			showSwitchSectionStyleButton: _isZoomOut,
+			showSwitchSectionStyleButton: _isZoomOut || isContentOnly,
 			hasFixedToolbar: getSettings().hasFixedToolbar,
 			isNavigationMode: _isNavigationMode(),
 		};
