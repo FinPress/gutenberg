@@ -88,46 +88,29 @@ _Returns_
 
 ### createInterpolateElement
 
-This function creates an interpolated element from a passed in string with specific tags matching how the string should be converted to an element via the conversion map value.
+This function creates an interpolated element from a passed-in string with specific tags matching how the string should be converted to an element via the conversion map.
 
 _Usage_
 
-For example, for the given string:
-
-"This is a <span>string</span> with <a>a link</a> and a self-closing
-<CustomComponentB/> tag"
-
-You would have something like this as the conversionMap value:
-
-```js
-{
-    span: <span />,
-    a: <a href={ 'https://github.com' } />,
-    CustomComponentB: <CustomComponent />,
-}
+```ts
+const result = createInterpolateElement(
+  'This is a <strong>bold</strong> word.',
+  { strong: <strong /> }
+);
 ```
 
 _Parameters_
 
--   _interpolatedString_ `string`: The interpolation string to be parsed.
--   _conversionMap_ `Record<string, Element>`: The map used to convert the string to a react element.
+-   _interpolatedString_ `string`: The string to be parsed.
+-   _conversionMap_ `Record< string, ReactElement >`: A map where tag names map to React elements.
 
 _Returns_
 
--   `Element`: A wp element.
+-   `ReactElement`: A React element.
 
 ### createPortal
 
-Creates a portal into which a component can be rendered.
-
-_Related_
-
--   <https://github.com/facebook/react/issues/10309#issuecomment-318433235>
-
-_Parameters_
-
--   _child_ `import('react').ReactElement`: Any renderable child, such as an element, string, or fragment.
--   _container_ `HTMLElement`: DOM node into which element should be rendered.
+Undocumented declaration.
 
 ### createRef
 
@@ -139,31 +122,15 @@ _Returns_
 
 ### createRoot
 
-Creates a new React root for the target DOM node.
-
-_Related_
-
--   <https://react.dev/reference/react-dom/client/createRoot>
-
-_Changelog_
-
-`6.2.0` Introduced in WordPress core.
+Undocumented declaration.
 
 ### findDOMNode
 
-Finds the dom node of a React component.
-
-_Parameters_
-
--   _component_ `import('react').ComponentType`: Component's instance.
+Undocumented declaration.
 
 ### flushSync
 
-Forces React to flush any updates inside the provided callback synchronously.
-
-_Parameters_
-
--   _callback_ `Function`: Callback to run synchronously.
+Undocumented declaration.
 
 ### forwardRef
 
@@ -183,25 +150,11 @@ A component which renders its children without any wrapping element.
 
 ### hydrate
 
-> **Deprecated** since WordPress 6.2.0. Use `hydrateRoot` instead.
-
-Hydrates a given element into the target DOM node.
-
-_Related_
-
--   <https://react.dev/reference/react-dom/hydrate>
+Undocumented declaration.
 
 ### hydrateRoot
 
-Creates a new React root for the target DOM node and hydrates it with a pre-generated markup.
-
-_Related_
-
--   <https://react.dev/reference/react-dom/client/hydrateRoot>
-
-_Changelog_
-
-`6.2.0` Introduced in WordPress core.
+Undocumented declaration.
 
 ### isEmptyElement
 
@@ -298,27 +251,15 @@ _Returns_
 
 ### render
 
-> **Deprecated** since WordPress 6.2.0. Use `createRoot` instead.
-
-Renders a given element into the target DOM node.
-
-_Related_
-
--   <https://react.dev/reference/react-dom/render>
+Undocumented declaration.
 
 ### renderToString
 
-Serializes a React element to string.
+Recursively renders a ReactNode to HTML.
 
 _Parameters_
 
--   _element_ `import('react').ReactNode`: Element to serialize.
--   _context_ `[Object]`: Context object.
--   _legacyContext_ `[Object]`: Legacy context object.
-
-_Returns_
-
--   `string`: Serialized element.
+-   _element_ `ReactNode`:
 
 ### startTransition
 
@@ -351,13 +292,7 @@ _Returns_
 
 ### unmountComponentAtNode
 
-> **Deprecated** since WordPress 6.2.0. Use `root.unmount()` instead.
-
-Removes any mounted element from the target DOM node.
-
-_Related_
-
--   <https://react.dev/reference/react-dom/unmountComponentAtNode>
+Undocumented declaration.
 
 ### useCallback
 
