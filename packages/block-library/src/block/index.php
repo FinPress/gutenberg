@@ -16,7 +16,7 @@
  *
  * @return string Rendered HTML of the referenced block.
  */
-function render_block_core_block( $attributes ) {
+function render_block_core_block( $attributes, $content, $block_instance ) {
 	static $seen_refs = array();
 
 	if ( empty( $attributes['ref'] ) ) {
@@ -90,7 +90,10 @@ function render_block_core_block( $attributes ) {
 	// Apply Block Hooks.
 	$content = apply_block_hooks_to_content_from_post_object( $content, $reusable_block );
 
-	$content = do_blocks( $content );
+	$block_instance->parsed_block['innerBlocks'] = parse_blocks( $content );
+	$block_instance->parsed_block['innerContent'] = array_fill( 0, count( $block_instance->parsed_block['innerBlocks'] ), null );
+	$block_instance->refresh_context_dependents();
+	$content = $block_instance->render( array( 'dynamic' => false ) );
 	unset( $seen_refs[ $attributes['ref'] ] );
 
 	if ( $has_pattern_overrides ) {
