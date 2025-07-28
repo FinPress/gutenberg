@@ -42,14 +42,9 @@ try {
 	// First, try to load the package installed from among the optional peerDependencies.
 	loadConfig = require( '@wordpress/env/lib/config/load-config' );
 } catch ( error ) {
-	try {
-		// If the above fails, then we're likely in the Gutenberg monorepo and can reference the file directly.
-		loadConfig = require( '../../env/lib/config/load-config' );
-	} catch ( monorepoError ) {
-		window.console.log(
-			'Notice: Could not find @wordpress/env package. Using WP_BASE_URL environment variable or else the default http://localhost:8889 URL for tests.'
-		);
-	}
+	window.console.log(
+		'Notice: Could not find @wordpress/env package. Using WP_BASE_URL environment variable or else the default http://localhost:8889 URL for tests.'
+	);
 }
 
 if ( ! getAsBooleanFromENV( 'PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD' ) ) {
