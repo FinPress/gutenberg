@@ -60,6 +60,9 @@ function getPostDataFields( select, context ) {
 	return dataFields;
 }
 
+/**
+ * @type {WPBlockBindingsSource}
+ */
 export default {
 	name: 'core/post-data',
 	getValues( { select, context, bindings } ) {
