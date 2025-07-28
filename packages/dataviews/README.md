@@ -1055,41 +1055,55 @@ Example:
 
 ### `isValid`
 
-Function to validate a field's value.
+Object that contains the validation rules for the field. If a rule is not met, the control will be marked as invalid and a message will be displayed.
 
--   Type: function.
--   Optional.
--   Args
-    -   `item`: the data to validate
-    -   `context`: an object containing the following props:
-        -   `elements`: the elements defined by the field
--   Returns a boolean, indicating if the field is valid or not.
+- `required`: boolean indicating whether the field is required or not.
+- `custom`: a function that validates a field's value. If the value is invalid, the function should return a string explaining why the value is invalid. Otherwise, the function must return null.
 
 Example:
 
 ```js
-// Custom isValid function.
 {
-	isValid: ( item, context ) => {
-		return !! item;
-	};
+	isValid: {
+		custom: ( item: Item, field: NormalizedField<Item> ) => {
+			if ( /* item value is invalid */) {
+				return 'Reason why item value is invalid';
+			}
+
+			return null;
+		}
+	}
 }
 ```
 
+Note that fields that define a type (e.g., `integer`) come with default validation for the type. For example, the `integer` type if the value is a valid integer:
+
 ```js
-// If the field defines a type,
-// it'll get a default isValid function for the type.
 {
-	type: 'number',
+	type: 'integer',
 }
 ```
 
+However, this can be overriden by the field author:
+
 ```js
-// Even if the field provides a type,
-// the field can override the default isValid function.
 {
-	type: 'number',
-	isValid: ( item, context ) => { /* Custom function. */ }
+	type: 'integer',
+	isValid: {
+		custom: ( item: Item, field: NormalizedField<Item> ) => {
+			/* Your custom validation logic. */
+		}
+	}
+}
+```
+
+Fields that define their own Edit component have access to the validation rules via the `field.isValid` object:
+
+```js
+{
+  Edit: ( { field }) => {
+	  return <input required={ !! field.isValid.required } />
+  }
 }
 ```
 
