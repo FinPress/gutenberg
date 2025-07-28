@@ -66,11 +66,11 @@ function PosterImage( { poster, setAttributes } ) {
 						{ poster
 							? sprintf(
 									/* translators: %s: poster image URL. */
-									__( 'The current poster image url is %s' ),
+									__( 'The current poster image url is %s.' ),
 									poster
 							  )
 							: __(
-									'There is no poster image currently selected'
+									'There is no poster image currently selected.'
 							  ) }
 					</p>
 					{ !! poster && (
