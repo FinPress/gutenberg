@@ -82,10 +82,6 @@ function render_block_core_block( $attributes, $content, $block_instance ) {
 		?? array();
 
 	$filter_block_context = static function ( $context ) use ( $attributes, $synced_context ) {
-		$has_pattern_overrides = isset( $attributes['content'] ) && null !== get_block_bindings_source( 'core/pattern-overrides' );
-		if ( $has_pattern_overrides ) {
-			$context['pattern/overrides'] = $attributes['content'];
-		}
 		foreach ( $synced_context as $key => $value ) {
 			$context[ $key ] = $attributes[ $value ];
 		}
