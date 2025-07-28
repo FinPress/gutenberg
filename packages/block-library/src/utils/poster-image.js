@@ -52,7 +52,7 @@ function PosterImage( { poster, onSelectPoster, onRemovePoster } ) {
 										! poster
 											? null
 											: __(
-													'Edit or replace the featured image'
+													'Edit or replace the poster image.'
 											  )
 									}
 									className={ clsx(
