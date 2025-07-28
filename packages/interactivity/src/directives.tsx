@@ -600,7 +600,12 @@ export default () => {
 		}: {
 			element: any;
 		} ) => {
-			// Preserve the initial inner HTML.
+			// Shown deprecation warning
+			warn(
+				'The "data-wp-ignore" directive is deprecated and will be removed in a future WordPress release.'
+			);
+
+			// Preserve the initial inner HTML
 			const cached = useMemo( () => innerHTML, [] );
 			return createElement( Type, {
 				dangerouslySetInnerHTML: { __html: cached },
