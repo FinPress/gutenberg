@@ -149,7 +149,7 @@ export default function ActionsToolbar< Item >( {
 								label={ __( 'Actions' ) }
 								accessibleWhenDisabled
 								disabled={ eligibleActions.length === 0 }
-								className={ `dataviews-all-actions-button ${ className }` }
+								className={ `actions-toolbar-menu-trigger ${ className }` }
 							/>
 						}
 					/>
@@ -183,7 +183,7 @@ export default function ActionsToolbar< Item >( {
 		<>
 			<HStack
 				justify="center"
-				className={ `dataviews-actions-toolbar ${ className }` }
+				className={ `actions-toolbar ${ className }` }
 			>
 				{ eligibleActions.map( ( action ) => (
 					<ButtonTrigger
