@@ -74,17 +74,34 @@ function render_block_core_block( $attributes, $content, $block_instance ) {
 	}
 
 	/**
-	 * We set the `pattern/overrides` context through the `render_block_context`
-	 * filter so that it is available when a pattern's inner blocks are
-	 * rendering via do_blocks given it only receives the inner content.
+	 * We make the available_context property available so we can add and filter all the context
+	 * that comes from the block parent, including pattern overrides and custom context.
 	 */
-	$synced_context = $block_instance->block_type->provides_context
-		?? array();
 
-	$filter_block_context = static function ( $context ) use ( $attributes, $synced_context ) {
-		foreach ( $synced_context as $key => $value ) {
-			$context[ $key ] = $attributes[ $value ];
+	try {
+		$reflection                 = new ReflectionClass( $block_instance );
+		$available_context_property = $reflection->getProperty( 'available_context' );
+		$available_context_property->setAccessible( true );
+		$available_context = $available_context_property->getValue( $block_instance ) ?? array();
+	} catch ( Exception $e ) {
+		// Fallback to empty array if reflection fails
+		$available_context = array();
+	}
+
+	// Get the pattern overrides context
+	$provides_context = $block_instance->block_type->provides_context ?? array();
+
+	$filter_block_context = static function ( $context ) use ( $attributes, $available_context, $provides_context ) {
+		// First, merge in all the available context from the parent
+		$context = array_merge( $context, $available_context );
+
+		// Then, add pattern overrides context (only for keys that are actually attributes)
+		foreach ( $provides_context as $context_key => $attribute_name ) {
+			if ( isset( $attributes[ $attribute_name ] ) ) {
+				$context[ $context_key ] = $attributes[ $attribute_name ];
+			}
 		}
+
 		return $context;
 	};
 	add_filter( 'render_block_context', $filter_block_context, 1 );
