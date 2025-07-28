@@ -181,8 +181,8 @@ function capitaliseFirstCharacter( string: string ): string {
  * @template T The object type
  * @template R The return type of the mapping function
  *
- * @param    object - Object to map values of.
- * @param    mapFn  - Mapping function to apply to each value.
+ * @param    object Object to map values of.
+ * @param    mapFn  Mapping function to apply to each value.
  * @return Object with the same keys and transformed values.
  */
 function mapValues< T extends Record< string, any >, R >(
@@ -365,7 +365,7 @@ export const shortcutAriaLabel: WPModifierHandler< WPKeyHandler< string > > =
 function getEventModifiers(
 	event: ReactKeyboardEvent< HTMLElement > | KeyboardEvent
 ): WPModifierPart[] {
-	return ( [ ALT, CTRL, COMMAND, SHIFT ] as WPModifierPart[] ).filter(
+	return ( [ ALT, CTRL, COMMAND, SHIFT ] as const ).filter(
 		( key ) =>
 			( event as KeyboardEvent )[
 				`${ key }Key` as 'altKey' | 'ctrlKey' | 'metaKey' | 'shiftKey'
