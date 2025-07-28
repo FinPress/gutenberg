@@ -51,21 +51,16 @@ function gutenberg_enqueue_global_styles() {
 		 */
 		remove_action( 'wp_head', 'wp_custom_css_cb', 101 );
 
+		/*
+		 * Get the custom CSS from the Customizer and add it to the global stylesheet.
+		 * When in the Customizer preview, add milestone comments to allow customize-preview.js inject the CSS updates.
+		 */
 		if ( is_customize_preview() ) {
-			/*
-			 * In the Customizer preview, re-add the Customizer's Custom CSS so it is printed in a separate stylesheet
-			 * and before the global styles. A separate stylesheet needs to be printed for the sake of the Customizer's
-			 * live preview which updates the text contents of the STYLE tag. A priority of 7 is used because other
-			 * styles (including global styles) are printed at priority 8 via wp_print_styles(). This better preserves
-			 * the order in the CSS cascade at least for global styles, although it may not have the expected cascade
-			 * for other stylesheets enqueued by themes and plugins. Originally Custom CSS was printed at wp_head with
-			 * a priority of 101 so that it could all other styles. In this way, the Custom CSS in the Customizer is
-			 * de-prioritized when using a block theme, both inside and outside the Customizer.
-			 */
-			add_action( 'wp_head', 'wp_custom_css_cb', 7 );
-		} else {
-			// Get the custom CSS from the Customizer and add it to the global stylesheet.
-			$stylesheet .= wp_get_custom_css();
+			$stylesheet .= "\n/*BEGIN_CUSTOMIZER_CUSTOM_CSS*/\n";
+		}
+		$stylesheet .= wp_get_custom_css();
+		if ( is_customize_preview() ) {
+			$stylesheet .= "\n/*END_CUSTOMIZER_CUSTOM_CSS*/\n";
 		}
 
 		// Add the global styles custom CSS at the end.
@@ -85,6 +80,41 @@ function gutenberg_enqueue_global_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'gutenberg_enqueue_global_styles' );
 add_action( 'wp_footer', 'gutenberg_enqueue_global_styles', 1 );
+
+/**
+ * Adds JS logic to the Customizer preview for live previewing Custom CSS for Block Themes.
+ *
+ * Note: The logic in this function would be back-ported into customize-preview.js.
+ */
+function gutenberg_add_customizer_block_theme_custom_css_preview_js() {
+	if ( ! ( is_customize_preview() && wp_is_block_theme() ) ) {
+		return;
+	}
+
+	$setting_id = 'custom_css[' . get_stylesheet() . ']';
+
+	$js_function = <<<JS
+		( settingId ) => {
+			wp.customize( settingId, function ( setting ) {
+				setting.bind( function ( newValue ) {
+					const style = document.querySelector( 'style#global-styles-inline-css' );
+					if ( ! style ) {
+						return;
+					}
+					newValue = newValue.replace( /\/\*(BEGIN|END)_CUSTOMIZER_CUSTOM_CSS\*\//g, '' ); // Forbid milestone comments from appearing in Custom CSS which would break live preview.
+					style.textContent = style.textContent.replace( /(\/\*BEGIN_CUSTOMIZER_CUSTOM_CSS\*\/)((?:.|\s)*?)(\/\*END_CUSTOMIZER_CUSTOM_CSS\*\/)/, function ( match, beforeComment, oldValue, afterComment ) {
+						return beforeComment + newValue + afterComment;
+					} );
+				} );
+			} )
+		}
+JS;
+	wp_add_inline_script(
+		'customize-preview',
+		sprintf( '( %s )( %s )', $js_function, wp_json_encode( $setting_id ) )
+	);
+}
+add_action( 'wp_enqueue_scripts', 'gutenberg_add_customizer_block_theme_custom_css_preview_js' );
 
 /**
  * Enqueues the global styles custom css.
