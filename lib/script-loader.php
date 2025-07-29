@@ -74,9 +74,6 @@ function gutenberg_enqueue_global_styles() {
 		$stylesheet .= $custom_css;
 
 		// Add the global styles custom CSS at the end.
-		$stylesheet .= wp_get_global_stylesheet( array( 'custom-css' ) );
-
-		// Add the global styles custom CSS at the end.
 		$stylesheet .= gutenberg_get_global_stylesheet( array( 'custom-css' ) );
 	}
 
