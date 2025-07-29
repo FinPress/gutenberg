@@ -4,12 +4,13 @@
 		"isValid": true,
 		"attributes": {
 			"isLink": false,
+			"className": "wp-block-post-date__modified-date",
 			"metadata": {
 				"bindings": {
 					"datetime": {
 						"source": "core/post-data",
 						"args": {
-							"key": "date"
+							"key": "modified"
 						}
 					}
 				}
