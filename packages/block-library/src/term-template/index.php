@@ -146,7 +146,7 @@ function render_block_core_term_template_single( $term, $block ) {
 	$block_content = '';
 
 	if ( ! empty( $inner_blocks ) ) {
-		$term_id = $term->term_id;
+		$term_id  = $term->term_id;
 		$taxonomy = $term->taxonomy;
 
 		foreach ( $inner_blocks as $inner_block ) {
