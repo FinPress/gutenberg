@@ -258,6 +258,7 @@ const variations = [
 		attributes: { service: 'skype' },
 		title: __( 'Skype' ),
 		icon: SkypeIcon,
+		// Deprecated: Skype service is no longer available.
 		scope: [],
 	},
 	{
