@@ -94,7 +94,7 @@ const LINK_OPTIONS = [
 		noticeText: __( 'None' ),
 	},
 ];
-const ALLOWED_MEDIA_TYPES = [ 'image' ];
+const ALLOWED_MEDIA_TYPES = [ 'image', 'video' ];
 
 const PLACEHOLDER_TEXT = Platform.isNative
 	? __( 'Add media' )
@@ -104,7 +104,6 @@ const MOBILE_CONTROL_PROPS_RANGE_CONTROL = Platform.isNative
 	? { type: 'stepper' }
 	: {};
 
-const DEFAULT_BLOCK = { name: 'core/image' };
 const EMPTY_ARRAY = [];
 
 export default function GalleryEdit( props ) {
@@ -336,20 +335,24 @@ export default function GalleryEdit( props ) {
 			  )
 			: innerBlockImages;
 
-		const newImageList = processedImages.filter(
+		const newMediaList = processedImages.filter(
 			( img ) =>
 				! existingImageBlocks.find(
 					( existingImg ) => img.id === existingImg.attributes.id
 				)
 		);
 
-		const newBlocks = newImageList.map( ( image ) => {
-			return createBlock( 'core/image', {
-				id: image.id,
-				blob: image.blob,
-				url: image.url,
-				caption: image.caption,
-				alt: image.alt,
+		const newBlocks = newMediaList.map( ( media ) => {
+			const isVideo =
+				media.mime_type?.startsWith( 'video/' ) ||
+				media.type?.startsWith( 'video' );
+			const blockName = isVideo ? 'core/video' : 'core/image';
+			return createBlock( blockName, {
+				id: media.id,
+				url: media.url,
+				src: media.url,
+				caption: media.caption,
+				...( isVideo ? {} : { alt: media.alt } ),
 			} );
 		} );
 
@@ -541,7 +544,7 @@ export default function GalleryEdit( props ) {
 	};
 
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
-		defaultBlock: DEFAULT_BLOCK,
+		allowedBlocks: [ 'core/image', 'core/video' ],
 		directInsert: true,
 		orientation: 'horizontal',
 		renderAppender: false,
