@@ -91,6 +91,7 @@ export function PrivateBlockToolbar( {
 			getParentSectionBlock,
 			isZoomOut,
 			isNavigationMode: _isNavigationMode,
+			isSectionBlock,
 		} = unlock( select( blockEditorStore ) );
 		const selectedBlockClientIds = getSelectedBlockClientIds();
 		const selectedBlockClientId = selectedBlockClientIds[ 0 ];
@@ -154,7 +155,9 @@ export function PrivateBlockToolbar( {
 			showLockButtons: ! _isZoomOut,
 			showSwitchSectionStyleButton:
 				_isZoomOut ||
-				( isNavigationModeEnabled && editingMode === 'contentOnly' ), // Zoom out or Write Mode
+				( isNavigationModeEnabled &&
+					editingMode === 'contentOnly' &&
+					isSectionBlock( selectedBlockClientId ) ), // Zoom out or Write Mode Section Blocks
 			hasFixedToolbar: getSettings().hasFixedToolbar,
 			isNavigationMode: isNavigationModeEnabled,
 		};
