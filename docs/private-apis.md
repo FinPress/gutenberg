@@ -207,7 +207,7 @@ Private exports:
 
 Private actions:
 - `receiveRegisteredPostMeta`
-- `__unstableEditMediaEntity`
+- `editMediaEntity`
 
 Private selectors:
 - `getBlockPatternsForPostType`

@@ -59,19 +59,16 @@ export const editMediaEntity =
 		{ __unstableFetch = apiFetch, throwOnError = false } = {}
 	) =>
 	async ( { dispatch, resolveSelect } ) => {
+		if ( ! recordId ) {
+			return;
+		}
+
 		const configs = await resolveSelect.getEntitiesConfig( kind );
 		const entityConfig = configs.find(
 			( config ) => config.kind === kind && config.name === name
 		);
 
-		if ( ! entityConfig && entityConfig.baseURL !== '/wp/v2/media' ) {
-			return;
-		}
-
-		const path = `${ entityConfig.baseURL }/${ recordId }/edit`;
-
-		// Entity does not support duplication.
-		if ( ! path ) {
+		if ( ! entityConfig || entityConfig.baseURL !== '/wp/v2/media' ) {
 			return;
 		}
 
@@ -94,6 +91,7 @@ export const editMediaEntity =
 			} );
 
 			try {
+				const path = `${ entityConfig.baseURL }/${ recordId }/edit`;
 				const newRecord = await __unstableFetch( {
 					path,
 					method: 'POST',
