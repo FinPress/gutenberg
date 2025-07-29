@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 - Fix `filterSortAndPaginate` to handle searching fields that have a type of `array` ([#70785](https://github.com/WordPress/gutenberg/pull/70785)).
+- Fix user-input filters: empty value for text and integer filters means there's no value to search for (so it returns all items). It also fixes a type conversion where empty strings for integer were converted to 0 [#70956](https://github.com/WordPress/gutenberg/pull/70956/).
 
 ### Features
 
