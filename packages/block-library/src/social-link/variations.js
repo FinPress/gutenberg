@@ -258,6 +258,7 @@ const variations = [
 		attributes: { service: 'skype' },
 		title: __( 'Skype' ),
 		icon: SkypeIcon,
+		scope: [],
 	},
 	{
 		name: 'snapchat',
