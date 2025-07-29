@@ -33,7 +33,7 @@ export default function useSaveImage( {
 	const { editMediaEntity } = useSelect( ( select ) => {
 		const settings = select( blockEditorStore ).getSettings();
 		return {
-			editMediaEntity: settings[ mediaEditKey ],
+			editMediaEntity: settings?.[ mediaEditKey ],
 		};
 	}, [] );
 
@@ -43,6 +43,20 @@ export default function useSaveImage( {
 	}, [ onFinishEditing ] );
 
 	const apply = useCallback( async () => {
+		if ( ! editMediaEntity ) {
+			onFinishEditing();
+			createErrorNotice(
+				__(
+					'Could not edit image. No edit media entity action found.'
+				),
+				{
+					id: 'image-editing-error',
+					type: 'snackbar',
+				}
+			);
+			return;
+		}
+
 		setIsInProgress( true );
 
 		const modifiers = [];
