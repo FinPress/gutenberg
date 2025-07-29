@@ -3,4 +3,4 @@ export const globalStylesLinksDataKey = Symbol( 'globalStylesLinks' );
 export const selectBlockPatternsKey = Symbol( 'selectBlockPatternsKey' );
 export const reusableBlocksSelectKey = Symbol( 'reusableBlocksSelect' );
 export const sectionRootClientIdKey = Symbol( 'sectionRootClientIdKey' );
-export const editMediaEntityActionKey = Symbol( 'editMediaEntityActionKey' );
+export const mediaEditKey = Symbol( 'mediaEditKey' );

@@ -39,7 +39,7 @@ import {
 	globalStylesDataKey,
 	globalStylesLinksDataKey,
 	sectionRootClientIdKey,
-	editMediaEntityActionKey,
+	mediaEditKey,
 } from './store/private-keys';
 import { requiresWrapperOnCopy } from './components/writing-flow/utils';
 import { PrivateRichText } from './components/rich-text/';
@@ -100,5 +100,5 @@ lock( privateApis, {
 	sectionRootClientIdKey,
 	CommentIconSlotFill,
 	CommentIconToolbarSlotFill,
-	editMediaEntityActionKey,
+	mediaEditKey,
 } );

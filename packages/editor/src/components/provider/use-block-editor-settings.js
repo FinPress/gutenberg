@@ -94,7 +94,7 @@ const {
 	selectBlockPatternsKey,
 	reusableBlocksSelectKey,
 	sectionRootClientIdKey,
-	editMediaEntityActionKey,
+	mediaEditKey,
 } = unlock( privateApis );
 
 /**
@@ -292,6 +292,9 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			hasFixedToolbar,
 			isDistractionFree,
 			keepCaretInsideBlock,
+			[ mediaEditKey ]: hasUploadPermissions
+				? editMediaEntity
+				: undefined,
 			mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
 			mediaSideload: hasUploadPermissions ? mediaSideload : undefined,
 			__experimentalBlockPatterns: blockPatterns,
@@ -336,7 +339,6 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 				renderingMode === 'post-only' && postType !== 'wp_template'
 					? 'edit'
 					: undefined,
-			[ editMediaEntityActionKey ]: editMediaEntity,
 		};
 
 		return blockEditorSettings;
