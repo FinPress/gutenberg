@@ -100,7 +100,7 @@ export function PrivateBlockToolbar( {
 		const parentBlockName = getBlockName( parentClientId );
 		const parentBlockType = getBlockType( parentBlockName );
 		const editingMode = getBlockEditingMode( selectedBlockClientId );
-		const isContentOnly = editingMode === 'contentOnly';
+		const isNavigationModeEnabled = _isNavigationMode();
 		const _isDefaultEditingMode = editingMode === 'default';
 		const _blockName = getBlockName( selectedBlockClientId );
 		const isValid = selectedBlockClientIds.every( ( id ) =>
@@ -152,9 +152,11 @@ export function PrivateBlockToolbar( {
 			showSlots: ! _isZoomOut,
 			showGroupButtons: ! _isZoomOut,
 			showLockButtons: ! _isZoomOut,
-			showSwitchSectionStyleButton: _isZoomOut || isContentOnly,
+			showSwitchSectionStyleButton:
+				_isZoomOut ||
+				( isNavigationModeEnabled && editingMode === 'contentOnly' ), // Zoom out or Write Mode
 			hasFixedToolbar: getSettings().hasFixedToolbar,
-			isNavigationMode: _isNavigationMode(),
+			isNavigationMode: isNavigationModeEnabled,
 		};
 	}, [] );
 
