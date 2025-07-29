@@ -1451,14 +1451,14 @@ class WP_Theme_JSON_Gutenberg {
 		}
 
 		// Split CSS nested rules.
-		$parts = explode( '&', $css );
-		$unprocessed_nested_selectors = [];
+		$parts                        = explode( '&', $css );
+		$unprocessed_nested_selectors = array();
 		foreach ( $parts as $part ) {
 			if ( empty( $part ) ) {
 				continue;
 			}
 
-			if ( trim($part)[-1] === ',' ) {
+			if ( ',' === trim( $part )[-1] ) {
 				// If the part ends with a comma, it is a selector list.
 				$unprocessed_nested_selectors[] = rtrim( $part, "\n\r\t\v\0\," );
 				continue;
@@ -1474,9 +1474,10 @@ class WP_Theme_JSON_Gutenberg {
 				if ( count( $part ) !== 2 ) {
 					continue;
 				}
-				$nested_selectors = array_merge( $unprocessed_nested_selectors, array($part[0]) );
-				$css_value       = $part[1];
+				$nested_selectors = array_merge( $unprocessed_nested_selectors, array( $part[0] ) );
+				$css_value        = $part[1];
 
+				$final_selectors = array();
 				foreach ( $nested_selectors as $nested_selector ) {
 					/*
 					 * Handle pseudo elements such as ::before, ::after etc. Regex will also
@@ -1489,16 +1490,16 @@ class WP_Theme_JSON_Gutenberg {
 					$nested_selector    = $has_pseudo_element ? str_replace( $pseudo_part, '', $nested_selector ) : $nested_selector;
 
 					// Finalize selector and re-append pseudo element if required.
-					$part_selector  = str_starts_with( $nested_selector, ' ' )
+					$part_selector     = str_starts_with( $nested_selector, ' ' )
 						? static::scope_selector( $selector, $nested_selector )
 						: static::append_to_selector( $selector, $nested_selector );
-					$final_selector = ":root :where($part_selector)$pseudo_part";
+					$final_selectors[] = ":root :where($part_selector)$pseudo_part";
 
-					$processed_css .= $final_selector . '{' . trim( $css_value ) . '}';
 				}
 
-				$unprocessed_nested_selectors = array(); // Reset nested selectors for the next iteration.
+				$processed_css .= join( ',', $final_selectors ) . '{' . trim( $css_value ) . '}';
 
+				$unprocessed_nested_selectors = array(); // Reset nested selectors for the next iteration.
 
 			}
 		}
