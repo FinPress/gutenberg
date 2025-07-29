@@ -6,7 +6,7 @@
  * @subpackage Blocks
  *
  * @todo This should be eventually merged into Core's renderReusable.php test file.
- * 
+ *
  * @covers ::gutenberg_render_block_core_block
  * @group blocks
  */
@@ -23,12 +23,12 @@ class Test_Blocks_RenderReusable extends WP_UnitTestCase {
 		register_block_bindings_source(
 			'test/block-binding',
 			array(
-				'label' => 'My Block Binding',
+				'label'              => 'My Block Binding',
 				'get_value_callback' => function ( $source_args, $block ) {
-					return $block->context[ 'my-custom/context' ] ?? 'Fallback value provided by block bindings source';
+					return $block->context['my-custom/context'] ?? 'Fallback value provided by block bindings source';
 				},
-				'uses_context' => array( 'my-custom/context' ),
-			),
+				'uses_context'       => array( 'my-custom/context' ),
+			)
 		);
 
 		self::$block_id = $factory->post->create(
