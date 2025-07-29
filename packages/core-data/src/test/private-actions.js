@@ -3,12 +3,12 @@
  */
 import apiFetch from '@wordpress/api-fetch';
 
-jest.mock( '@wordpress/api-fetch' );
-
 /**
  * Internal dependencies
  */
 import { editMediaEntity } from '../private-actions';
+
+jest.mock( '@wordpress/api-fetch' );
 
 describe( 'editMediaEntity', () => {
 	let dispatch;
