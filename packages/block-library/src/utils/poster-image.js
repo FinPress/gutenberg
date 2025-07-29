@@ -55,11 +55,11 @@ function PosterImage( { poster, onChange } ) {
 													'Edit or replace the poster image.'
 											  )
 									}
-									className={ clsx(
+									className={
 										poster
 											? 'block-library-poster-image__preview'
 											: 'block-library-poster-image__toggle'
-									) }
+									}
 								>
 									<img
 										src={ poster }
