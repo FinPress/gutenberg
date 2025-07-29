@@ -23,11 +23,11 @@ function render_block_core_term_template( $attributes, $content, $block ) {
 
 	$query_block_context = $block->context;
 
-	if ( empty( $query_block_context['query'] ) ) {
+	if ( empty( $query_block_context['termQuery'] ) ) {
 		return '';
 	}
 
-	$query = $query_block_context['query'];
+	$query = $query_block_context['termQuery'];
 
 	$query_args = array(
 		'per_page'     => $query['perPage'] ?? 100,

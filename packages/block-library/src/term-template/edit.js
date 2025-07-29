@@ -126,13 +126,13 @@ function renderTermNode( termNode, renderTerm ) {
 export default function TermTemplateEdit( {
 	clientId,
 	context: {
-		query: {
+		termQuery: {
 			taxonomy: taxonomySlug,
 			order,
 			orderBy,
 			hideEmpty,
 			hierarchical,
-			showOnlyTopLevel,
+			parent,
 		} = {},
 	},
 } ) {
@@ -152,11 +152,11 @@ export default function TermTemplateEdit( {
 
 	// Filter to show only top-level terms if showOnlyTopLevel is enabled.
 	const filteredTerms = useMemo( () => {
-		if ( ! terms || ! showOnlyTopLevel ) {
+		if ( ! terms || parent !== 0 ) {
 			return terms;
 		}
 		return terms.filter( ( term ) => ! term.parent );
-	}, [ terms, showOnlyTopLevel ] );
+	}, [ terms, parent ] );
 
 	const { blocks } = useSelect(
 		( select ) => ( {
