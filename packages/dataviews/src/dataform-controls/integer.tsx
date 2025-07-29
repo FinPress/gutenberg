@@ -83,7 +83,9 @@ export default function Integer< Item >( {
 	const onChangeControl = useCallback(
 		( newValue: string | undefined ) =>
 			onChange( {
-				[ id ]: Number( newValue ),
+				[ id ]: [ '', undefined, null ].includes( newValue )
+					? undefined
+					: Number( newValue ),
 			} ),
 		[ id, onChange ]
 	);
