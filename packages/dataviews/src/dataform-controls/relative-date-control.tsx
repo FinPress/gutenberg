@@ -83,7 +83,7 @@ export default function RelativeDateControl( {
 			<HStack spacing={ 2.5 }>
 				<NumberControl
 					__next40pxDefaultSize
-					className={ `${ className }-number` }
+					className="dataviews-controls__relative-date-number"
 					spinControls="none"
 					min={ 1 }
 					step={ 1 }
@@ -91,7 +91,7 @@ export default function RelativeDateControl( {
 					onChange={ onChangeValue }
 				/>
 				<SelectControl
-					className={ `${ className }-unit` }
+					className="dataviews-controls__relative-date-unit"
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
 					label={ __( 'Unit' ) }
