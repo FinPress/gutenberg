@@ -1130,7 +1130,9 @@ describe( 'global styles renderer', () => {
 		it( 'should return processed CSS with multiple nesetd selectors', () => {
 			expect(
 				processCSSNesting( '&.one, & .two {color: red;}', '.foo' )
-			).toEqual( ':root :where(.foo.one, .foo .two){color: red;}' );
+			).toEqual(
+				':root :where(.foo.one),:root :where(.foo .two){color: red;}'
+			);
 		} );
 	} );
 } );

@@ -5515,7 +5515,7 @@ class WP_Theme_JSON_Gutenberg_Test extends WP_UnitTestCase {
 					'selector' => '.foo',
 					'css'      => '&.one, & .two {color: red;}',
 				),
-				'expected' => ':root :where(.foo.one, .foo .two){color: red;}',
+				'expected' => ':root :where(.foo.one),:root :where(.foo .two){color: red;}',
 			)
 		);
 	}
