@@ -311,7 +311,7 @@ const FilterText = ( {
 			sprintf(
 				/* translators: 1: Filter name. 2: Min value. 3: Max value. e.g.: "Item count between (inc): 10-180". */
 				__(
-					'<Name>%1$s between (inc): </Name><Value>%2$s-%3$s</Value>'
+					'<Name>%1$s between (inc): </Name><Value>%2$s, %3$s</Value>'
 				),
 				filter.name,
 				label[ 0 ],
