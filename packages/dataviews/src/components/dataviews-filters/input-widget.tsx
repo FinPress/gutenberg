@@ -62,7 +62,9 @@ export default function InputWidget( {
 							..._filter,
 							operator:
 								currentFilter.operator || filter.operators[ 0 ],
-							value: nextValue,
+							value: [ '', undefined, null ].includes( nextValue )
+								? undefined
+								: nextValue,
 					  }
 					: _filter
 			),
