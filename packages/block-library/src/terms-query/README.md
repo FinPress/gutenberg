@@ -33,15 +33,14 @@ The Terms Query block supports the following query parameters:
 - `orderBy` - Order by field ('name', 'slug', 'term_id', 'count')
 - `hideEmpty` - Whether to hide terms with no posts
 - `hierarchical` - Whether to show hierarchical structure
-- `parent` - Parent term ID for hierarchical queries
+- `parent` - Parent term ID for hierarchical queries, set to 0 to show only top-level terms
 - `exclude` - Array of term IDs to exclude
 - `include` - Array of term IDs to include
-- `showOnlyTopLevel` - Whether to show only top-level terms
 
 ## Usage Example
 
 ```html
-<!-- wp:terms-query {"query":{"taxonomy":"category","order":"asc","orderBy":"name","showOnlyTopLevel":true}} -->
+<!-- wp:terms-query {"termQuery":{"taxonomy":"category","order":"asc","orderBy":"name"}} -->
 <ul class="wp-block-terms-query">
   <!-- wp:term-template -->
   <li class="wp-block-term">
@@ -60,10 +59,10 @@ The Terms Query block supports the following query parameters:
 
 The Terms Query block provides the following context to its inner blocks:
 
-- `queryId` - Unique identifier for the query
-- `query` - Query parameters
-- `termType` - The taxonomy type
+- `termQueryId` - Unique identifier for the query
+- `termQuery` - Query parameters
 - `termId` - The current term ID
+- `taxonomy` - The taxonomy slug
 
 ## Styling
 
