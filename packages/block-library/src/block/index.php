@@ -83,7 +83,26 @@ function render_block_core_block( $attributes, $content, $block_instance ) {
 	 */
 	$block_instance->parsed_block['innerBlocks']  = parse_blocks( $content );
 	$block_instance->parsed_block['innerContent'] = array_fill( 0, count( $block_instance->parsed_block['innerBlocks'] ), null );
-	$block_instance->refresh_context_dependents();
+	if ( method_exists( $block_instance, 'refresh_context_dependents' ) ) {
+		// WP_Block::refresh_context_dependents() was introduced in WordPress 6.8.
+		$block_instance->refresh_context_dependents();
+	} else {
+		// This branch can be removed once Gutenberg requires WordPress 6.8 or later.
+		class WP_Block_Cloner extends WP_Block {
+			// Static methods of subclasses have access to protected properties
+			// of instances of the parent class.
+			// In this case, this gives us access to `available_context` and `registry`.
+			public static function clone_instance( $instance ) {
+				return new WP_Block(
+					$instance->parsed_block,
+					$instance->available_context,
+					$instance->registry
+				);
+			}
+		}
+	}
+	$block_instance = WP_Block_Cloner::clone_instance( $block_instance);
+
 	$content = $block_instance->render( array( 'dynamic' => false ) );
 	unset( $seen_refs[ $attributes['ref'] ] );
 
