@@ -11,6 +11,10 @@
 
 -   `TextControl`: Improve theming support ([#70910](https://github.com/WordPress/gutenberg/pull/70910)).
 
+### Internal
+
+-	`RangeControl`: Add placement prop to replace position ([#70326](https://github.com/WordPress/gutenberg/pull/70326)).
+
 ## 30.0.0 (2025-07-23)
 
 ### Breaking Changes
