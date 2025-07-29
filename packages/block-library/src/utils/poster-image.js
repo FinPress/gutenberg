@@ -19,7 +19,7 @@ import { useInstanceId } from '@wordpress/compose';
 
 const POSTER_IMAGE_ALLOWED_MEDIA_TYPES = [ 'image' ];
 
-function PosterImage( { poster, onSelectPoster, onRemovePoster } ) {
+function PosterImage( { poster, onChange } ) {
 	const posterButtonRef = useRef();
 	const descriptionId = useInstanceId(
 		PosterImage,
@@ -32,14 +32,14 @@ function PosterImage( { poster, onSelectPoster, onRemovePoster } ) {
 				label={ __( 'Poster image' ) }
 				isShownByDefault
 				hasValue={ () => !! poster }
-				onDeselect={ onRemovePoster }
+				onDeselect={ () => onChange( undefined ) }
 			>
 				<BaseControl.VisualLabel>
 					{ __( 'Poster image' ) }
 				</BaseControl.VisualLabel>
 				<MediaUpload
 					title={ __( 'Select poster image' ) }
-					onSelect={ onSelectPoster }
+					onSelect={ onChange }
 					allowedTypes={ POSTER_IMAGE_ALLOWED_MEDIA_TYPES }
 					render={ ( { open } ) => (
 						<div className="block-library-poster-image__container">
@@ -109,7 +109,7 @@ function PosterImage( { poster, onSelectPoster, onRemovePoster } ) {
 									<Button
 										__next40pxDefaultSize
 										onClick={ () => {
-											onRemovePoster();
+											onChange( undefined );
 
 											// Move focus back to the Media Upload button.
 											posterButtonRef.current.focus();

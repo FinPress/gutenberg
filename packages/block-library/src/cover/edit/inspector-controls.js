@@ -275,16 +275,10 @@ export default function CoverInspectorControls( {
 						{ isVideoBackground && (
 							<PosterImage
 								poster={ poster }
-								onSelectPoster={ ( posterImage ) => {
-									if ( ! posterImage || ! posterImage?.url ) {
-										return;
-									}
+								onChange={ ( posterImage ) =>
 									setAttributes( {
-										poster: posterImage.url,
-									} );
-								} }
-								onRemovePoster={ () =>
-									setAttributes( { poster: undefined } )
+										poster: posterImage?.url,
+									} )
 								}
 							/>
 						) }

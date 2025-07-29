@@ -219,14 +219,10 @@ function VideoEdit( {
 					/>
 					<PosterImage
 						poster={ poster }
-						onSelectPoster={ ( posterImage ) => {
-							if ( ! posterImage || ! posterImage?.url ) {
-								return;
-							}
-							setAttributes( { poster: posterImage.url } );
-						} }
-						onRemovePoster={ () =>
-							setAttributes( { poster: undefined } )
+						onChange={ ( posterImage ) =>
+							setAttributes( {
+								poster: posterImage?.url,
+							} )
 						}
 					/>
 				</ToolsPanel>
