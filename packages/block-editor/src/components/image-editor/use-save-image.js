@@ -81,10 +81,14 @@ export default function useSaveImage( {
 			modifiers.length === 1 ? modifiers[ 0 ].type : 'cropAndRotate';
 
 		try {
-			const savedImage = await editMediaEntity( id, {
-				src: url,
-				modifiers,
-			} );
+			const savedImage = await editMediaEntity(
+				id,
+				{
+					src: url,
+					modifiers,
+				},
+				{ throwOnError: true }
+			);
 
 			if ( savedImage ) {
 				onSaveImage( {
