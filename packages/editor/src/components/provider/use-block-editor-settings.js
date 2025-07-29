@@ -44,7 +44,6 @@ const BLOCK_EDITOR_SETTINGS = [
 	'__experimentalDiscussionSettings',
 	'__experimentalFeatures',
 	'__experimentalGlobalStylesBaseStyles',
-	'__experimentalEditMediaEntity',
 	'alignWide',
 	'blockInspectorTabs',
 	'maxUploadFileSize',
@@ -95,6 +94,7 @@ const {
 	selectBlockPatternsKey,
 	reusableBlocksSelectKey,
 	sectionRootClientIdKey,
+	editMediaEntityActionKey,
 } = unlock( privateApis );
 
 /**
@@ -336,7 +336,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 				renderingMode === 'post-only' && postType !== 'wp_template'
 					? 'edit'
 					: undefined,
-			__experimentalEditMediaEntity: editMediaEntity,
+			[ editMediaEntityActionKey ]: editMediaEntity,
 		};
 
 		return blockEditorSettings;
