@@ -76,6 +76,11 @@ function render_block_core_block( $attributes, $content, $block_instance ) {
 	// Apply Block Hooks.
 	$content = apply_block_hooks_to_content_from_post_object( $content, $reusable_block );
 
+	/**
+	 * We attach the blocks from $content as inner blocks to the Synced Pattern block instance.
+	 * This ensures that block context available to the Synced Pattern block instance is provided to
+	 * those blocks.
+	 */
 	$block_instance->parsed_block['innerBlocks']  = parse_blocks( $content );
 	$block_instance->parsed_block['innerContent'] = array_fill( 0, count( $block_instance->parsed_block['innerBlocks'] ), null );
 	$block_instance->refresh_context_dependents();
