@@ -150,7 +150,7 @@ export default function TermTemplateEdit( {
 		queryArgs
 	);
 
-	// Filter to show only top-level terms if showOnlyTopLevel is enabled.
+	// Filter to show only top-level terms if "Show only top-level terms" is enabled.
 	const filteredTerms = useMemo( () => {
 		if ( ! terms || parent !== 0 ) {
 			return terms;

@@ -36,8 +36,8 @@ function render_block_core_term_template( $attributes, $content, $block ) {
 		'order'      => $query['order'] ?? 'asc',
 		'orderby'    => $query['orderBy'] ?? 'name',
 		'hide_empty' => $query['hideEmpty'] ?? true,
-		'include'    => $query['include'] ?? [],
-		'exclude'    => $query['exclude'] ?? [],
+		'include'    => $query['include'] ?? array(),
+		'exclude'    => $query['exclude'] ?? array(),
 	);
 
 	$terms_query = new WP_Term_Query( $query_args );
@@ -47,19 +47,14 @@ function render_block_core_term_template( $attributes, $content, $block ) {
 		return '';
 	}
 
-	// Handle showOnlyTopLevel.
-	if ( ! empty( $query['showOnlyTopLevel'] ) ) {
+	// Handle parent.
+	if ( isset( $query['parent'] ) ) {
 		$terms = array_filter(
 			$terms,
-			function ( $term ) {
-				return empty( $term->parent );
+			function ( $term ) use ( $query ) {
+				return $term->parent === $query['parent'];
 			}
 		);
-	}
-
-	// Check if we have terms after filtering.
-	if ( empty( $terms ) ) {
-		return '';
 	}
 
 	// Handle hierarchical list.
@@ -151,8 +146,8 @@ function render_block_core_term_template_single( $term, $block ) {
 	$block_content = '';
 
 	if ( ! empty( $inner_blocks ) ) {
-		$term_id   = $term->term_id;
-		$taxonomy  = $term->taxonomy;
+		$term_id = $term->term_id;
+		$taxonomy = $term->taxonomy;
 
 		foreach ( $inner_blocks as $inner_block ) {
 			$inner_block->context['termId']   = $term_id;
