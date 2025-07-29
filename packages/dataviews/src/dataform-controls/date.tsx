@@ -16,7 +16,15 @@ import { getDate, getSettings } from '@wordpress/date';
 /**
  * External dependencies
  */
-import { format, isValid, subMonths, subDays } from 'date-fns';
+import {
+	format,
+	isValid,
+	subMonths,
+	subDays,
+	subYears,
+	startOfMonth,
+	startOfYear,
+} from 'date-fns';
 
 /**
  * Internal dependencies
@@ -72,22 +80,6 @@ const DATE_PRESETS: {
 
 const DATE_RANGE_PRESETS = [
 	{
-		id: 'today',
-		label: __( 'Today' ),
-		getValue: () => {
-			const today = getDate( null );
-			return [ today, today ];
-		},
-	},
-	{
-		id: 'yesterday',
-		label: __( 'Yesterday' ),
-		getValue: () => {
-			const today = getDate( null );
-			return [ subDays( today, 1 ), today ];
-		},
-	},
-	{
 		id: 'last-7-days',
 		label: __( 'Last 7 days' ),
 		getValue: () => {
@@ -101,6 +93,30 @@ const DATE_RANGE_PRESETS = [
 		getValue: () => {
 			const today = getDate( null );
 			return [ subDays( today, 30 ), today ];
+		},
+	},
+	{
+		id: 'month-to-date',
+		label: __( 'Month to date' ),
+		getValue: () => {
+			const today = getDate( null );
+			return [ startOfMonth( today ), today ];
+		},
+	},
+	{
+		id: 'last-year',
+		label: __( 'Last year' ),
+		getValue: () => {
+			const today = getDate( null );
+			return [ subYears( today, 1 ), today ];
+		},
+	},
+	{
+		id: 'year-to-date',
+		label: __( 'Year to date' ),
+		getValue: () => {
+			const today = getDate( null );
+			return [ startOfYear( today ), today ];
 		},
 	},
 ];
