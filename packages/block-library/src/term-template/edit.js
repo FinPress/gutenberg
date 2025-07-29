@@ -127,7 +127,7 @@ export default function TermTemplateEdit( {
 	clientId,
 	context: {
 		termQuery: {
-			taxonomy: taxonomySlug,
+			taxonomy,
 			order,
 			orderBy,
 			hideEmpty,
@@ -146,7 +146,7 @@ export default function TermTemplateEdit( {
 
 	const { records: terms, isResolving } = useEntityRecords(
 		'taxonomy',
-		taxonomySlug,
+		taxonomy,
 		queryArgs
 	);
 
@@ -168,11 +168,11 @@ export default function TermTemplateEdit( {
 	const blockContexts = useMemo(
 		() =>
 			filteredTerms?.map( ( term ) => ( {
-				termType: taxonomySlug,
+				taxonomy,
 				termId: term.id,
 				classList: `term-${ term.id }`,
 			} ) ),
-		[ filteredTerms, taxonomySlug ]
+		[ filteredTerms, taxonomy ]
 	);
 
 	const blockProps = useBlockProps( {
@@ -193,7 +193,7 @@ export default function TermTemplateEdit( {
 
 	const renderTerm = ( term ) => {
 		const blockContext = {
-			termType: taxonomySlug,
+			taxonomy,
 			termId: term.id,
 			classList: `term-${ term.id }`,
 		};

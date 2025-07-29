@@ -152,11 +152,11 @@ function render_block_core_term_template_single( $term, $block ) {
 
 	if ( ! empty( $inner_blocks ) ) {
 		$term_id   = $term->term_id;
-		$term_type = $term->taxonomy;
+		$taxonomy  = $term->taxonomy;
 
 		foreach ( $inner_blocks as $inner_block ) {
 			$inner_block->context['termId']   = $term_id;
-			$inner_block->context['termType'] = $term_type;
+			$inner_block->context['taxonomy'] = $taxonomy;
 
 			$block_content .= $inner_block->render( array( 'dynamic' => true ) );
 		}
