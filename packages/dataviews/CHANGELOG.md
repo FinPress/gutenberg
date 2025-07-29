@@ -4,6 +4,17 @@
 
 ### Bug Fixes
 
+- Fix `filterSortAndPaginate` to handle searching fields that have a type of `array` ([#70785](https://github.com/WordPress/gutenberg/pull/70785)).
+
+### Features
+
+- Add support for the `Edit` control on the date field type ([#70836](https://github.com/WordPress/gutenberg/pull/70836)).
+
+
+## 5.0.0 (2025-07-23)
+
+### Bug Fixes
+
 - Fix `filterSortAndPaginate` to handle undefined values for the `is` filter.
 - Fix the background color of the action column if the row is selected
 
@@ -27,8 +38,8 @@
 - Add `label-position-side` classes to labels in the form field layouts. Ensure that labels in the panel view do not align center, and that all side labels are center aligned.
 - Allow readonly fields in DataForm when `readOnly` is set to `true`.
 - Adjust the padding when the component is placed inside a `Card`.
-- Introduce `perPageSizes` to control the available sizes of the items per page
-- Add support for the `Edit` control on the date field type.
+- Introduce `perPageSizes` to control the available sizes of the items per page.
+- Align media styles in table view with list view for consistency.
 
 ### Breaking Changes
 
