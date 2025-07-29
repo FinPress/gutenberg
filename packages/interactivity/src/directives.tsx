@@ -602,7 +602,7 @@ export default () => {
 		} ) => {
 			// Shown deprecation warning
 			warn(
-				'The "data-wp-ignore" directive is deprecated and will be removed in a future WordPress release.'
+				'The "data-wp-ignore" directive of the Interactivity API is deprecated since version 6.9 and will be removed in version 7.0.'
 			);
 
 			// Preserve the initial inner HTML
