@@ -174,11 +174,13 @@ const ToolsPanelHeader = (
 	const defaultItems = Object.entries( menuItems?.default || {} );
 	const optionalItems = Object.entries( menuItems?.optional || {} );
 	const dropDownMenuIcon = areAllOptionalControlsHidden ? plus : moreVertical;
-	const dropDownMenuLabelText = sprintf(
-		// translators: %s: The name of the tool e.g. "Color" or "Typography".
-		_x( '%s options', 'Button label to reveal tool panel options' ),
-		labelText
-	);
+	const dropDownMenuLabelText =
+		dropdownMenuProps?.label ||
+		sprintf(
+			// translators: %s: The name of the tool e.g. "Color" or "Typography".
+			_x( '%s options', 'Button label to reveal tool panel options' ),
+			labelText || ''
+		);
 	const dropdownMenuDescriptionText = areAllOptionalControlsHidden
 		? __( 'All options are currently hidden' )
 		: undefined;
