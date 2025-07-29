@@ -49,8 +49,8 @@ function gutenberg_apply_dimensions_support( $block_type, $block_attributes ) { 
 	}
 
 	$attributes = array();
+// Width support may be added in a future release.
 
-	// Width support to be added in near future.
 
 	$has_min_height_support = block_has_support( $block_type, array( 'dimensions', 'minHeight' ), false );
 	$block_styles           = isset( $block_attributes['style'] ) ? $block_attributes['style'] : null;
