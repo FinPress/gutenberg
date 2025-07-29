@@ -38,10 +38,8 @@ export function receiveRegisteredPostMeta( postType, registeredPostMeta ) {
  */
 
 /**
- * Duplicates a attachment / media entity record and, optionally, modifies it.
+ * Duplicates a media (attachment) entity record and, optionally, modifies it.
  *
- * @param {string}   kind                    Entity kind.
- * @param {string}   name                    Entity name.
  * @param {string}   recordId                Entity record ID.
  * @param {Edits}    edits                   Edits to apply to the record.
  * @param {Object}   options                 Options object.
@@ -52,8 +50,6 @@ export function receiveRegisteredPostMeta( postType, registeredPostMeta ) {
  */
 export const editMediaEntity =
 	(
-		kind,
-		name,
 		recordId,
 		edits = {},
 		{ __unstableFetch = apiFetch, throwOnError = false } = {}
@@ -63,12 +59,15 @@ export const editMediaEntity =
 			return;
 		}
 
+		const kind = 'root';
+		const name = 'media';
+
 		const configs = await resolveSelect.getEntitiesConfig( kind );
 		const entityConfig = configs.find(
 			( config ) => config.kind === kind && config.name === name
 		);
 
-		if ( ! entityConfig || entityConfig.baseURL !== '/wp/v2/media' ) {
+		if ( ! entityConfig ) {
 			return;
 		}
 
