@@ -1333,7 +1333,7 @@ export function processCSSNesting( css, blockSelector ) {
 		}
 
 		if ( part.trim().endsWith( ',' ) ) {
-			unprocessedNestedSelectors.push( part.trimEnd() );
+			unprocessedNestedSelectors.push( part.trimEnd().slice( 0, -1 ) );
 			return;
 		}
 
