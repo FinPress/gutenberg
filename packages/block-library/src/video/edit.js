@@ -30,7 +30,6 @@ import { store as noticesStore } from '@wordpress/notices';
 /**
  * Internal dependencies
  */
-import PosterImage from './poster-image';
 import { createUpgradedEmbedBlock } from '../embed/util';
 import {
 	useUploadMediaFromBlobURL,
@@ -40,6 +39,7 @@ import VideoCommonSettings from './edit-common-settings';
 import TracksEditor from './tracks-editor';
 import Tracks from './tracks';
 import { Caption } from '../utils/caption';
+import PosterImage from '../utils/poster-image';
 
 const ALLOWED_MEDIA_TYPES = [ 'video' ];
 
@@ -220,7 +220,11 @@ function VideoEdit( {
 					/>
 					<PosterImage
 						poster={ poster }
-						setAttributes={ setAttributes }
+						onChange={ ( posterImage ) =>
+							setAttributes( {
+								poster: posterImage?.url,
+							} )
+						}
 					/>
 				</ToolsPanel>
 			</InspectorControls>
