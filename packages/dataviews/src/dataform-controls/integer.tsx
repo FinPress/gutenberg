@@ -83,7 +83,10 @@ export default function Integer< Item >( {
 	const onChangeControl = useCallback(
 		( newValue: string | undefined ) =>
 			onChange( {
-				[ id ]: [ '', undefined, null ].includes( newValue )
+				// Do not convert an empty string or undefined to a number,
+				// otherwise there's a mismatch between the UI control (empty)
+				// and the data relied by onChange (0).
+				[ id ]: [ '', undefined ].includes( newValue )
 					? undefined
 					: Number( newValue ),
 			} ),
