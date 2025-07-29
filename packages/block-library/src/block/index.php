@@ -100,8 +100,8 @@ function render_block_core_block( $attributes, $content, $block_instance ) {
 				);
 			}
 		}
+		$block_instance = WP_Block_Cloner::clone_instance( $block_instance);
 	}
-	$block_instance = WP_Block_Cloner::clone_instance( $block_instance);
 
 	$content = $block_instance->render( array( 'dynamic' => false ) );
 	unset( $seen_refs[ $attributes['ref'] ] );
