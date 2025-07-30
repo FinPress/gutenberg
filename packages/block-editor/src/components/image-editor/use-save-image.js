@@ -47,7 +47,7 @@ export default function useSaveImage( {
 			onFinishEditing();
 			createErrorNotice(
 				__(
-					'Could not edit image. Sorry, you are not allowed to edit media on this site.'
+					'Sorry, you are not allowed to edit images on this site.'
 				),
 				{
 					id: 'image-editing-error',
