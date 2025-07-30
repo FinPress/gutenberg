@@ -196,10 +196,10 @@ function DataViews< Item >( {
 	}, [ hasPrimaryOrLockedFilters, isShowingFilter ] );
 
 	const isInfiniteScroll = useMemo( () => {
-		if ( view.type !== 'grid' || ! infiniteScrollHandler ) {
+		if ( ! infiniteScrollHandler ) {
 			return false;
 		}
-		return !! ( view.layout as any )?.infiniteScroll;
+		return !! view.layout?.infiniteScroll;
 	}, [ view, infiniteScrollHandler ] );
 
 	// Attach scroll event listener for infinite scroll
