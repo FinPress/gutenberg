@@ -146,14 +146,10 @@ export function normalizeFields< Item >(
 				);
 			};
 
-		const isValid =
-			field.isValid ??
-			function isValid( item, context ) {
-				return fieldTypeDefinition.isValid(
-					getValue( { item } ),
-					context
-				);
-			};
+		const isValid = {
+			...fieldTypeDefinition.isValid,
+			...field.isValid,
+		};
 
 		const Edit = getControl( field, fieldTypeDefinition );
 
