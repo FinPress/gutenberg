@@ -47,7 +47,7 @@ export default function useSaveImage( {
 			onFinishEditing();
 			createErrorNotice(
 				__(
-					'Could not edit image. No edit media entity action found.'
+					'Could not edit image. Sorry, you are not allowed to edit media on this site.'
 				),
 				{
 					id: 'image-editing-error',
