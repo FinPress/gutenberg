@@ -35,39 +35,52 @@ export default function InputWidget( {
 
 	const field = fields.find( ( f ) => f.id === filter.field );
 	const currentValue = getCurrentValue( filter, currentFilter );
-	const data = useMemo( () => {
-		return ( view.filters ?? [] ).reduce(
-			( acc, f ) => {
-				acc[ f.field ] = f.value;
-				return acc;
-			},
-			{} as Record< string, any >
-		);
-	}, [ view.filters ] );
 
-	const handleChange = useEvent( ( updatedData: Record< string, any > ) => {
-		if ( ! field || ! currentFilter ) {
-			return;
+// Build a fake item using setValue if available, otherwise fallback to {[field.id]: value}
+const data = useMemo( () => {
+	let item = {};
+	for ( const f of view.filters ?? [] ) {
+		const fieldDef = fields.find( fld => fld.id === f.field );
+		if (fieldDef && typeof fieldDef.setValue === 'function') {
+			item = fieldDef.setValue({ item, value: f.value });
+		} else {
+			item = { ...item, [f.field]: f.value };
 		}
-		const nextValue = updatedData[ field.id ];
-		if ( fastDeepEqual( nextValue, currentValue ) ) {
-			return;
-		}
+	}
+	return item;
+}, [ view.filters, fields ] );
 
-		onChangeView( {
-			...view,
-			filters: ( view.filters ?? [] ).map( ( _filter ) =>
-				_filter.field === filter.field
-					? {
-							..._filter,
-							operator:
-								currentFilter.operator || filter.operators[ 0 ],
-							value: nextValue,
-					  }
-					: _filter
-			),
-		} );
+
+const handleChange = useEvent( ( updatedData: Record< string, any > ) => {
+	if ( !field || !currentFilter ) {
+		return;
+	}
+	// Use setValue to extract the new value for this field
+	let nextValue;
+	if (typeof field.setValue === 'function') {
+		// Simulate updating only this field in the item
+		const fakeItem = field.setValue({ item: data, value: updatedData[field.id] });
+		nextValue = field.getValue({ item: fakeItem });
+	} else {
+		nextValue = updatedData[field.id];
+	}
+	if ( fastDeepEqual( nextValue, currentValue ) ) {
+		return;
+	}
+	onChangeView( {
+		...view,
+		filters: ( view.filters ?? [] ).map( ( _filter ) =>
+			_filter.field === filter.field
+				? {
+					  ..._filter,
+					  operator:
+						  currentFilter.operator || filter.operators[ 0 ],
+					  value: nextValue,
+				  }
+				: _filter
+		),
 	} );
+});
 
 	if ( ! field || ! field.Edit || ! currentFilter ) {
 		return null;

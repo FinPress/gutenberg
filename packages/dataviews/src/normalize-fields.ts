@@ -129,6 +129,13 @@ export function normalizeFields< Item >(
 		);
 		const getValue = field.getValue || getValueFromId( field.id );
 
+		// Default setValue: shallow merge { ...item, [field.id]: value }
+		const defaultSetValue = ({ item, value }: { item: Item; value: any }) => ({
+			...item,
+			[field.id]: value,
+		});
+		const setValue = field.setValue || defaultSetValue;
+
 		const sort =
 			field.sort ??
 			function sort( a, b, direction ) {
@@ -170,6 +177,7 @@ export function normalizeFields< Item >(
 			label: field.label || field.id,
 			header: field.header || field.label || field.id,
 			getValue,
+			setValue,
 			render,
 			sort,
 			isValid,

@@ -219,6 +219,10 @@ export default function FormPanelField< Item >( {
 		: fieldDefinition?.label;
 
 	if ( labelPosition === 'top' ) {
+		const handleFieldChange = (value: Record<string, any>) => {
+			const updatedData = fieldDefinition.setValue({ item: data, value: value[fieldDefinition.id] });
+			onChange(updatedData);
+		};
 		return (
 			<VStack className="dataforms-layouts-panel__field" spacing={ 0 }>
 				<div
@@ -233,7 +237,7 @@ export default function FormPanelField< Item >( {
 						popoverAnchor={ popoverAnchor }
 						fieldDefinition={ fieldDefinition }
 						data={ data }
-						onChange={ onChange }
+						onChange={ handleFieldChange }
 						labelPosition={ labelPosition }
 					/>
 				</div>
@@ -242,6 +246,10 @@ export default function FormPanelField< Item >( {
 	}
 
 	if ( labelPosition === 'none' ) {
+		const handleFieldChange = (value: Record<string, any>) => {
+			const updatedData = fieldDefinition.setValue({ item: data, value: value[fieldDefinition.id] });
+			onChange(updatedData);
+		};
 		return (
 			<div className="dataforms-layouts-panel__field">
 				<PanelDropdown
@@ -249,7 +257,7 @@ export default function FormPanelField< Item >( {
 					popoverAnchor={ popoverAnchor }
 					fieldDefinition={ fieldDefinition }
 					data={ data }
-					onChange={ onChange }
+					onChange={ handleFieldChange }
 					labelPosition={ labelPosition }
 				/>
 			</div>
@@ -257,6 +265,10 @@ export default function FormPanelField< Item >( {
 	}
 
 	// Defaults to label position side.
+	const handleFieldChange = (value: Record<string, any>) => {
+		const updatedData = fieldDefinition.setValue({ item: data, value: value[fieldDefinition.id] });
+		onChange(updatedData);
+	};
 	return (
 		<HStack
 			ref={ setPopoverAnchor }
@@ -269,7 +281,7 @@ export default function FormPanelField< Item >( {
 					popoverAnchor={ popoverAnchor }
 					fieldDefinition={ fieldDefinition }
 					data={ data }
-					onChange={ onChange }
+					onChange={ handleFieldChange }
 					labelPosition={ labelPosition }
 				/>
 			</div>

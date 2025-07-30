@@ -88,6 +88,11 @@ export default function FormRegularField< Item >( {
 		return null;
 	}
 	if ( labelPosition === 'side' ) {
+		const handleFieldChange = (value: Record<string, any>) => {
+			// Use setValue to update the item for this field
+			const updatedData = fieldDefinition.setValue({ item: data, value: value[fieldDefinition.id] });
+			onChange(updatedData);
+		};
 		return (
 			<HStack className="dataforms-layouts-regular__field">
 				<div
@@ -109,7 +114,7 @@ export default function FormRegularField< Item >( {
 							key={ fieldDefinition.id }
 							data={ data }
 							field={ fieldDefinition }
-							onChange={ onChange }
+							onChange={ handleFieldChange }
 							hideLabelFromVision
 						/>
 					) }
@@ -118,6 +123,10 @@ export default function FormRegularField< Item >( {
 		);
 	}
 
+	const handleFieldChange = (value: Record<string, any>) => {
+		const updatedData = fieldDefinition.setValue({ item: data, value: value[fieldDefinition.id] });
+		onChange(updatedData);
+	};
 	return (
 		<div className="dataforms-layouts-regular__field">
 			{ fieldDefinition.readOnly === true ? (
@@ -138,7 +147,7 @@ export default function FormRegularField< Item >( {
 				<fieldDefinition.Edit
 					data={ data }
 					field={ fieldDefinition }
-					onChange={ onChange }
+					onChange={ handleFieldChange }
 					hideLabelFromVision={
 						labelPosition === 'none' ? true : hideLabelFromVision
 					}
