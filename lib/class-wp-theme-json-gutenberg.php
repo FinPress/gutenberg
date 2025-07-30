@@ -1460,7 +1460,7 @@ class WP_Theme_JSON_Gutenberg {
 
 			if ( ',' === trim( $part )[-1] ) {
 				// If the part ends with a comma, it is a selector list.
-				$unprocessed_nested_selectors[] = rtrim( $part, "\n\r\t\v\0\," );
+				$unprocessed_nested_selectors[] = rtrim(rtrim( $part ), ',');
 				continue;
 			}
 
