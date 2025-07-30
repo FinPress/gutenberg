@@ -49,9 +49,9 @@ function render_block_core_post_terms( $attributes, $content, $block ) {
 	$post_terms = get_the_term_list(
 		$block->context['postId'],
 		$attributes['term'],
-		wp_kses_post( $prefix ),
+		$prefix,
 		'<span class="wp-block-post-terms__separator">' . esc_html( $separator ) . '</span>',
-		wp_kses_post( $suffix )
+		$suffix
 	);
 
 	if ( is_wp_error( $post_terms ) || empty( $post_terms ) ) {
