@@ -43,9 +43,16 @@ function ColumnPrimary< Item >( {
 	return (
 		<HStack spacing={ 3 } justify="flex-start">
 			{ mediaField && (
-				<div className="dataviews-view-table__cell-content-wrapper dataviews-column-primary__media">
-					<mediaField.render item={ item } field={ mediaField } />
-				</div>
+				<ItemClickWrapper
+					item={ item }
+					isItemClickable={ isItemClickable }
+					onClickItem={ onClickItem }
+					renderItemLink={ renderItemLink }
+				>
+					<div className="dataviews-view-table__cell-content-wrapper dataviews-column-primary__media">
+						<mediaField.render item={ item } field={ mediaField } />
+					</div>
+				</ItemClickWrapper>
 			) }
 			<VStack spacing={ 0 }>
 				{ titleField && (
