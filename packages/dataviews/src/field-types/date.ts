@@ -14,6 +14,17 @@ import type {
 	FieldTypeDefinition,
 } from '../types';
 import { renderFromElements } from '../utils';
+import {
+	OPERATOR_ON,
+	OPERATOR_NOT_ON,
+	OPERATOR_BEFORE,
+	OPERATOR_AFTER,
+	OPERATOR_BEFORE_INC,
+	OPERATOR_AFTER_INC,
+	OPERATOR_IN_THE_PAST,
+	OPERATOR_OVER,
+	OPERATOR_BETWEEN,
+} from '../constants';
 
 const getFormattedDate = ( dateToDisplay: string | null ) =>
 	dateI18n( getSettings().formats.date, getDate( dateToDisplay ) );
@@ -27,6 +38,7 @@ function sort( a: any, b: any, direction: SortDirection ) {
 
 export default {
 	sort,
+	Edit: 'date',
 	isValid: {
 		custom: ( item: any, field: NormalizedField< any > ) => {
 			const value = field.getValue( { item } );
@@ -40,7 +52,6 @@ export default {
 			return null;
 		},
 	},
-	Edit: null,
 	render: ( { item, field }: DataViewRenderFieldProps< any > ) => {
 		if ( field.elements ) {
 			return renderFromElements( { item, field } );
@@ -54,5 +65,28 @@ export default {
 		return getFormattedDate( value );
 	},
 	enableSorting: true,
-	filterBy: false,
+	filterBy: {
+		defaultOperators: [
+			OPERATOR_ON,
+			OPERATOR_NOT_ON,
+			OPERATOR_BEFORE,
+			OPERATOR_AFTER,
+			OPERATOR_BEFORE_INC,
+			OPERATOR_AFTER_INC,
+			OPERATOR_IN_THE_PAST,
+			OPERATOR_OVER,
+			OPERATOR_BETWEEN,
+		],
+		validOperators: [
+			OPERATOR_ON,
+			OPERATOR_NOT_ON,
+			OPERATOR_BEFORE,
+			OPERATOR_AFTER,
+			OPERATOR_BEFORE_INC,
+			OPERATOR_AFTER_INC,
+			OPERATOR_IN_THE_PAST,
+			OPERATOR_OVER,
+			OPERATOR_BETWEEN,
+		],
+	},
 } satisfies FieldTypeDefinition< any >;
