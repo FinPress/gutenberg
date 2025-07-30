@@ -46,9 +46,7 @@ export default function useSaveImage( {
 		if ( ! editMediaEntity ) {
 			onFinishEditing();
 			createErrorNotice(
-				__(
-					'Sorry, you are not allowed to edit images on this site.'
-				),
+				__( 'Sorry, you are not allowed to edit images on this site.' ),
 				{
 					id: 'image-editing-error',
 					type: 'snackbar',
