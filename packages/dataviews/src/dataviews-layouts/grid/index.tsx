@@ -297,7 +297,12 @@ function ViewGrid< Item >( {
 	const hasData = !! data?.length;
 	const hasBulkActions = useSomeItemHasAPossibleBulkAction( actions, data );
 	const usedPreviewSize = view.layout?.previewSize;
-	// This is the maximum width that an image can achieve in the grid.
+	/*
+	 * This is the maximum width that an image can achieve in the grid. The reasoning is:
+	 * The biggest min image width available is 430px (see /dataviews-layouts/grid/preview-size-picker.tsx).
+	 * Because the grid is responsive, once there is room for another column, the images shrink to accommodate it.
+	 * So each image will never grow past 2*430px plus a little more to account for the gaps.
+	 */
 	const size = '900px';
 
 	const groupField = view.groupByField
