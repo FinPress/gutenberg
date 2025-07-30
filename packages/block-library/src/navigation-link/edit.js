@@ -28,6 +28,7 @@ import {
 	getColorClassName,
 	useInnerBlocksProps,
 	useBlockEditingMode,
+	__unstableBlockToolbarLastItem as BlockToolbarLastItem,
 } from '@wordpress/block-editor';
 import { isURL, prependHTTP, safeDecodeURI } from '@wordpress/url';
 import { useState, useEffect, useRef, useCallback } from '@wordpress/element';
@@ -430,11 +431,7 @@ export default function NavigationLinkEdit( {
 			__unstableMarkNextChangeAsNotPersistent();
 			transformToSubmenu();
 		}
-	}, [
-		hasChildren,
-		__unstableMarkNextChangeAsNotPersistent,
-		transformToSubmenu,
-	] );
+	}, [ hasChildren ] );
 
 	// If the LinkControl popover is open and the URL has changed, close the LinkControl and focus the label text.
 	useEffect( () => {
@@ -600,15 +597,17 @@ export default function NavigationLinkEdit( {
 				</ToolbarGroup>
 				{ /* View button for page-type links */ }
 				{ kind === 'post-type' && id && type && (
-					<ToolbarGroup>
-						<ToolbarButton
-							name="view"
-							title={ __( 'View' ) }
-							onClick={ onViewPage }
-						>
-							{ __( 'View' ) }
-						</ToolbarButton>
-					</ToolbarGroup>
+					<BlockToolbarLastItem>
+						<ToolbarGroup>
+							<ToolbarButton
+								name="view"
+								title={ __( 'View' ) }
+								onClick={ onViewPage }
+							>
+								{ __( 'View' ) }
+							</ToolbarButton>
+						</ToolbarGroup>
+					</BlockToolbarLastItem>
 				) }
 			</BlockControls>
 			{ /* Warning, this duplicated in packages/block-library/src/navigation-submenu/edit.js */ }
