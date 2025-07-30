@@ -79,6 +79,18 @@ function getMounts(
 	];
 }
 
+function getDatabaseContainerHealthcheck() {
+	return {
+		test: [
+			'CMD-SHELL',
+			'if [ "$LOCAL_DB_TYPE" = "mariadb" ]; then case "$LOCAL_DB_VERSION" in 5.5|10.0|10.1|10.2|10.3) mysqladmin ping -h localhost || exit $?;; *) mariadb-admin ping -h localhost || exit $?;; esac; fi',
+		],
+		timeout: '5s',
+		interval: '5s',
+		retries: 10,
+	};
+}
+
 /**
  * Creates a docker-compose config object which, when serialized into a
  * docker-compose.yml file, tells docker-compose how to run the environment.
@@ -193,6 +205,7 @@ module.exports = function buildDockerComposeConfig( config ) {
 					MYSQL_DATABASE: dbEnv.development.WORDPRESS_DB_NAME,
 				},
 				volumes: [ 'mysql:/var/lib/mysql' ],
+				healthcheck: getDatabaseContainerHealthcheck(),
 			},
 			'tests-mysql': {
 				image: 'mariadb:lts',
@@ -204,9 +217,14 @@ module.exports = function buildDockerComposeConfig( config ) {
 					MYSQL_DATABASE: dbEnv.tests.WORDPRESS_DB_NAME,
 				},
 				volumes: [ 'mysql-test:/var/lib/mysql' ],
+				healthcheck: getDatabaseContainerHealthcheck(),
 			},
 			wordpress: {
-				depends_on: [ 'mysql' ],
+				depends_on: {
+					mysql: {
+						condition: 'service_healthy',
+					},
+				},
 				build: {
 					context: '.',
 					dockerfile: 'WordPress.Dockerfile',
@@ -224,7 +242,11 @@ module.exports = function buildDockerComposeConfig( config ) {
 				extra_hosts: [ 'host.docker.internal:host-gateway' ],
 			},
 			'tests-wordpress': {
-				depends_on: [ 'tests-mysql' ],
+				depends_on: {
+					'tests-mysql': {
+						condition: 'service_healthy',
+					},
+				},
 				build: {
 					context: '.',
 					dockerfile: 'Tests-WordPress.Dockerfile',
