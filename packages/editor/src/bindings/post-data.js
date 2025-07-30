@@ -4,20 +4,14 @@
 import { store as coreDataStore } from '@wordpress/core-data';
 
 /**
- * Internal dependencies
- */
-import { store as editorStore } from '../store';
-import { unlock } from '../lock-unlock';
-
-/**
- * Gets a list of post meta fields with their values and labels
+ * Gets a list of post data fields with their values and labels
  * to be consumed in the needed callbacks.
  * If the value is not available based on context, like in templates,
  * it falls back to the default value, label, or key.
  *
  * @param {Object} select  The select function from the data store.
  * @param {Object} context The context provided.
- * @return {Object} List of post meta fields with their value and label.
+ * @return {Object} List of post data fields with their value and label.
  *
  * @example
  * ```js
@@ -34,75 +28,67 @@ import { unlock } from '../lock-unlock';
  * }
  * ```
  */
-function getPostMetaFields( select, context ) {
+function getPostDataFields( select, context ) {
 	const { getEditedEntityRecord } = select( coreDataStore );
-	const { getRegisteredPostMeta } = unlock( select( coreDataStore ) );
 
-	let entityMetaValues;
-	// Try to get the current entity meta values.
+	let entityDataValues, dataFields;
+	// Try to get the current entity data values.
 	if ( context?.postType && context?.postId ) {
-		entityMetaValues = getEditedEntityRecord(
+		entityDataValues = getEditedEntityRecord(
 			'postType',
 			context?.postType,
 			context?.postId
-		).meta;
+		);
+		dataFields = {
+			date: {
+				label: 'Post Date',
+				value: entityDataValues?.date,
+				type: 'string',
+			},
+			modified: {
+				label: 'Post Modified Date',
+				value: entityDataValues?.modified,
+				type: 'string',
+			},
+		};
 	}
 
-	const registeredFields = getRegisteredPostMeta( context?.postType );
-	const metaFields = {};
-	Object.entries( registeredFields || {} ).forEach( ( [ key, props ] ) => {
-		// Don't include footnotes or private fields.
-		if ( key !== 'footnotes' && key.charAt( 0 ) !== '_' ) {
-			metaFields[ key ] = {
-				label: props.title || key,
-				value:
-					// When using the entity value, an empty string IS a valid value.
-					entityMetaValues?.[ key ] ??
-					// When using the default, an empty string IS NOT a valid value.
-					( props.default || undefined ),
-				type: props.type,
-			};
-		}
-	} );
-
-	if ( ! Object.keys( metaFields || {} ).length ) {
+	if ( ! Object.keys( dataFields || {} ).length ) {
 		return null;
 	}
 
-	return metaFields;
+	return dataFields;
 }
 
 /**
  * @type {WPBlockBindingsSource}
  */
 export default {
-	name: 'core/post-meta',
+	name: 'core/post-data',
 	getValues( { select, context, bindings } ) {
-		const metaFields = getPostMetaFields( select, context );
+		const dataFields = getPostDataFields( select, context );
 
 		const newValues = {};
 		for ( const [ attributeName, source ] of Object.entries( bindings ) ) {
 			// Use the value, the field label, or the field key.
 			const fieldKey = source.args.key;
 			const { value: fieldValue, label: fieldLabel } =
-				metaFields?.[ fieldKey ] || {};
+				dataFields?.[ fieldKey ] || {};
 			newValues[ attributeName ] = fieldValue ?? fieldLabel ?? fieldKey;
 		}
 		return newValues;
 	},
 	setValues( { dispatch, context, bindings } ) {
-		const newMeta = {};
+		const newData = {};
 		Object.values( bindings ).forEach( ( { args, newValue } ) => {
-			newMeta[ args.key ] = newValue;
+			newData[ args.key ] = newValue;
 		} );
 
 		dispatch( coreDataStore ).editEntityRecord(
 			'postType',
 			context?.postType,
 			context?.postId,
-			{
-				meta: newMeta,
-			}
+			newData
 		);
 	},
 	canUserEditValue( { select, context, args } ) {
@@ -116,20 +102,14 @@ export default {
 			return false;
 		}
 
-		const fieldValue = getPostMetaFields( select, context )?.[ args.key ]
+		const fieldValue = getPostDataFields( select, context )?.[ args.key ]
 			?.value;
 		// Empty string or `false` could be a valid value, so we need to check if the field value is undefined.
 		if ( fieldValue === undefined ) {
 			return false;
 		}
-		// Check that custom fields metabox is not enabled.
-		const areCustomFieldsEnabled =
-			select( editorStore ).getEditorSettings().enableCustomFields;
-		if ( areCustomFieldsEnabled ) {
-			return false;
-		}
 
-		// Check that the user has the capability to edit post meta.
+		// Check that the user has the capability to edit post data.
 		const canUserEdit = select( coreDataStore ).canUser( 'update', {
 			kind: 'postType',
 			name: context?.postType,
@@ -142,6 +122,6 @@ export default {
 		return true;
 	},
 	getFieldsList( { select, context } ) {
-		return getPostMetaFields( select, context );
+		return getPostDataFields( select, context );
 	},
 };
