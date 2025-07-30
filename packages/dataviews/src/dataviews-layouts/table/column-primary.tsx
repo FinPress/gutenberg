@@ -47,7 +47,7 @@ function ColumnPrimary< Item >( {
 					<mediaField.render
 						item={ item }
 						field={ mediaField }
-						config={ { size: '32px' } }
+						config={ { sizes: '32px' } }
 					/>
 				</div>
 			) }

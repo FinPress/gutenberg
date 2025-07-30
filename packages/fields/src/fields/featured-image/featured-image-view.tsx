@@ -23,7 +23,6 @@ export const FeaturedImageView = ( {
 		},
 		[ mediaId ]
 	);
-
 	const url = media?.source_url;
 
 	if ( url ) {
@@ -42,7 +41,7 @@ export const FeaturedImageView = ( {
 								.join( ', ' )
 						: undefined
 				}
-				sizes={ config?.size || '100vw' }
+				sizes={ config?.sizes || '100vw' }
 			/>
 		);
 	}

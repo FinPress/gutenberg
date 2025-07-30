@@ -202,7 +202,7 @@ function ListItem< Item >( {
 				<mediaField.render
 					item={ item }
 					field={ mediaField }
-					config={ { size: '52px' } }
+					config={ { sizes: '52px' } }
 				/>
 			</div>
 		) : null;

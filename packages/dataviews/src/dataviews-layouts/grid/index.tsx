@@ -62,7 +62,7 @@ interface GridItemProps< Item > {
 	badgeFields: NormalizedField< Item >[];
 	hasBulkActions: boolean;
 	config: {
-		size: string;
+		sizes: string;
 	};
 }
 
@@ -378,7 +378,7 @@ function ViewGrid< Item >( {
 														hasBulkActions
 													}
 													config={ {
-														size,
+														sizes: size,
 													} }
 												/>
 											);
@@ -424,7 +424,7 @@ function ViewGrid< Item >( {
 									badgeFields={ badgeFields }
 									hasBulkActions={ hasBulkActions }
 									config={ {
-										size,
+										sizes: size,
 									} }
 								/>
 							);
