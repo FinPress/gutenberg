@@ -47,12 +47,7 @@ import { unlock } from '../lock-unlock';
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
 const { ResolutionTool } = unlock( blockEditorPrivateApis );
 
-function FeaturedImageResolutionTool( {
-	image,
-	value,
-	onChange,
-	supportsPostThumbnails,
-} ) {
+function FeaturedImageResolutionTool( { image, value, onChange } ) {
 	const { imageSizes } = useSelect( ( select ) => {
 		const { getSettings } = select( blockEditorStore );
 		return {
@@ -70,17 +65,22 @@ function FeaturedImageResolutionTool( {
 		)
 		.map( ( { name, slug } ) => ( { value: slug, label: name } ) );
 
-	// Modify the available resolution options based on theme support.
+	// Check if post-thumbnail size exists (either in imageSizes or image media_details)
+	const hasPostThumbnailSize =
+		imageSizes.some( ( { slug } ) => slug === 'post-thumbnail' ) ||
+		!! image?.media_details?.sizes?.[ 'post-thumbnail' ];
+
+	// Modify the available resolution options based on whether post-thumbnail size is available.
 	// See: https://github.com/WordPress/gutenberg/issues/70526
-	if ( supportsPostThumbnails ) {
-		// If theme supports post-thumbnail size:
+	if ( hasPostThumbnailSize ) {
+		// If theme has post-thumbnail size:
 		// Default -> '', Thumbnail -> thumbnail, Medium -> medium, Full Size -> full
 		imageSizeOptions = [
 			{ value: '', label: __( 'Default' ) },
 			...imageSizeOptions,
 		];
 	} else {
-		// If theme does not support post-thumbnail size:
+		// If theme does not have post-thumbnail size:
 		// Thumbnail -> thumbnail, Medium -> medium, Full Size -> ''
 		imageSizeOptions = imageSizeOptions.map( ( option ) => {
 			if ( option.value === 'full' ) {
@@ -119,20 +119,6 @@ export default function PostFeaturedImageEdit( {
 		useFirstImageFromPost,
 	} = attributes;
 	const [ temporaryURL, setTemporaryURL ] = useState();
-
-	// Check if theme supports post-thumbnails to determine the correct default value.
-	const { themeSupports } = useSelect( ( select ) => {
-		const { getThemeSupports } = select( coreStore );
-		return {
-			themeSupports: getThemeSupports(),
-		};
-	}, [] );
-
-	const postThumbnailSupport = themeSupports?.[ 'post-thumbnails' ];
-	const supportsPostThumbnails =
-		postThumbnailSupport === true ||
-		( Array.isArray( postThumbnailSupport ) &&
-			postThumbnailSupport.includes( postTypeSlug ) );
 
 	const [ storedFeaturedImage, setFeaturedImage ] = useEntityProp(
 		'postType',
@@ -385,9 +371,6 @@ export default function PostFeaturedImageEdit( {
 												? undefined
 												: nextSizeSlug,
 									} )
-								}
-								supportsPostThumbnails={
-									supportsPostThumbnails
 								}
 							/>
 						) }
