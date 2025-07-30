@@ -97,7 +97,7 @@ add_action( 'wp_footer', 'gutenberg_enqueue_global_styles', 1 );
  * Note: The logic in this function would be back-ported into customize-preview.js.
  */
 function gutenberg_add_customizer_block_theme_custom_css_preview_js() {
-	if ( ! ( is_customize_preview() && wp_is_block_theme() ) ) {
+	if ( ! wp_is_block_theme() ) {
 		return;
 	}
 
@@ -124,7 +124,7 @@ JS;
 		sprintf( '( %s )( %s )', $js_function, wp_json_encode( $setting_id ) )
 	);
 }
-add_action( 'wp_enqueue_scripts', 'gutenberg_add_customizer_block_theme_custom_css_preview_js' );
+add_action( 'customize_preview_init', 'gutenberg_add_customizer_block_theme_custom_css_preview_js' );
 
 /**
  * Enqueues the global styles custom css.
