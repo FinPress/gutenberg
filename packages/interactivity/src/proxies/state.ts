@@ -49,6 +49,43 @@ export const hasPropSignal = ( proxy: object, key: string ) =>
 const readOnlyProxies = new WeakSet();
 
 /**
+ * Map of those PropSignal instances that have a pending getter update.
+ *
+ * Getter updates are made asyncronously inside {@link deepMergeRecursive} to
+ * avoid issues with getters referencing `state`. These getters can run
+ * synchronously during `store()` execution and fail silently if `state` is
+ * being destructured from the `store()` returned value.
+ */
+const pendingGetterUpdates = new WeakMap< WeakKey, () => void >();
+
+/**
+ * Updates the internal signal getter of the given PropSignal asynchronously.
+ *
+ * The update is made asynchronously in a microtask, which prevents issues with
+ * getters accessing the state, and ensures the update occurs before any render.
+ *
+ * @param propSignal The PropSignal instance to update.
+ * @param getter     The getter function to assign.
+ */
+const setGetterAsync = ( propSignal: PropSignal, getter: () => any ) => {
+	const updater = () => {
+		/*
+		 * The pending update could have changed or have been processed already.
+		 * Do nothing in this case.
+		 */
+		if ( pendingGetterUpdates.get( propSignal ) === updater ) {
+			pendingGetterUpdates.delete( propSignal );
+			propSignal.setGetter( getter );
+		}
+	};
+
+	pendingGetterUpdates.set( propSignal, updater );
+
+	// Delay the updater execution to a microtask.
+	Promise.resolve().then( () => updater() );
+};
+
+/**
  * Returns the {@link PropSignal | `PropSignal`} instance associated with the
  * specified prop in the passed proxy.
  *
@@ -88,7 +125,12 @@ const getPropSignal = (
 			}
 		}
 	}
-	return props.get( key )!;
+	const propSignal = props.get( key )!;
+
+	// If there is a pending getter update, resolve it synchronously.
+	pendingGetterUpdates.get( propSignal )?.();
+
+	return propSignal;
 };
 
 /**
@@ -334,7 +376,8 @@ const deepMergeRecursive = (
 				} );
 				// Update the getter in the property signal if it exists
 				if ( desc.get && propSignal ) {
-					propSignal.setGetter( desc.get );
+					// This update is made asynchronously!
+					setGetterAsync( propSignal, desc.get );
 				}
 			}
 
