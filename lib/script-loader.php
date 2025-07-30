@@ -111,10 +111,16 @@ function gutenberg_add_customizer_block_theme_custom_css_preview_js() {
 					if ( ! style ) {
 						return;
 					}
-					newValue = newValue.replace( /\/\*(BEGIN|END)_CUSTOMIZER_CUSTOM_CSS\*\//g, '' ); // Forbid milestone comments from appearing in Custom CSS which would break live preview.
-					style.textContent = style.textContent.replace( /(\/\*BEGIN_CUSTOMIZER_CUSTOM_CSS\*\/)((?:.|\s)*?)(\/\*END_CUSTOMIZER_CUSTOM_CSS\*\/)/, function ( match, beforeComment, oldValue, afterComment ) {
-						return beforeComment + newValue + afterComment;
-					} );
+
+					// Forbid milestone comments from appearing in Custom CSS which would break live preview.
+					newValue = newValue.replace( /\/\*(BEGIN|END)_CUSTOMIZER_CUSTOM_CSS\*\//g, '' );
+
+					style.textContent = style.textContent.replace(
+						/(\/\*BEGIN_CUSTOMIZER_CUSTOM_CSS\*\/)((?:.|\s)*?)(\/\*END_CUSTOMIZER_CUSTOM_CSS\*\/)/,
+						function ( match, beforeComment, oldValue, afterComment ) {
+							return beforeComment + newValue + afterComment;
+						}
+					);
 				} );
 			} )
 		}
