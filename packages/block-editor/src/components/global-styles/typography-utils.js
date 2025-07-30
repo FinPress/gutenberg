@@ -37,6 +37,26 @@ import { getFontStylesAndWeights } from '../../utils/get-font-styles-and-weights
  */
 
 /**
+ * Font weight mapping from the theme.json font weight values to numeric values.
+ */
+const fontWeightMapping = {
+	thin: 100,
+	'extra light': 200,
+	'extra-light': 200,
+	light: 300,
+	regular: 400,
+	medium: 500,
+	'semi bold': 600,
+	'semi-bold': 600,
+	bold: 700,
+	'extra bold': 800,
+	'extra-bold': 800,
+	black: 900,
+	'extra black': 1000,
+	'extra-black': 1000,
+};
+
+/**
  * Returns a font-size value based on a given font-size preset.
  * Takes into account fluid typography parameters and attempts to return a css formula depending on available, valid values.
  *
@@ -180,6 +200,13 @@ export function findNearestFontWeight(
 			: newFontWeightValue;
 	if ( ! newFontWeightValue || typeof newFontWeightValue !== 'string' ) {
 		return '';
+	}
+
+	newFontWeightValue = newFontWeightValue.toLowerCase().trim();
+
+	// Check if newFontWeightValue is not a numeric number, but it is a valid string.
+	if ( isNaN( parseInt( newFontWeightValue ) ) ) {
+		newFontWeightValue = fontWeightMapping[ newFontWeightValue ] ?? '100';
 	}
 
 	if ( ! availableFontWeights || availableFontWeights.length === 0 ) {
