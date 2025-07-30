@@ -51,11 +51,6 @@ export class PropSignal {
 	private getterSignal?: Signal< ( () => any ) | undefined >;
 
 	/**
-	 * Pending getter to be consolidated.
-	 */
-	private pendingGetter?: () => any;
-
-	/**
 	 * Structure that manages reactivity for a property in a state object, using
 	 * signals to keep track of property value or getter modifications.
 	 *
@@ -81,26 +76,10 @@ export class PropSignal {
 	 * Changes the internal getter. If a value was set before, it is set to
 	 * `undefined`.
 	 *
-	 * The update is made asynchronously in a microtask, which prevents issues
-	 * with getters accessing the state, and ensures the update occurs before
-	 * any render.
-	 *
 	 * @param getter New getter.
 	 */
 	public setGetter( getter: () => any ) {
-		this.pendingGetter = getter;
-		Promise.resolve().then( () => this.consolidateGetter() );
-	}
-
-	/**
-	 * Consolidate the pending value of the getter.
-	 */
-	private consolidateGetter() {
-		const getter = this.pendingGetter;
-		if ( getter ) {
-			this.pendingGetter = undefined;
-			this.update( { get: getter } );
-		}
+		this.update( { get: getter } );
 	}
 
 	/**
@@ -122,15 +101,6 @@ export class PropSignal {
 
 		if ( ! this.computedsByScope.has( scope ) ) {
 			const callback = () => {
-				/*
-				 * If there is any pending getter, consolidate it first. This
-				 * could happen if a getter is accessed synchronously after
-				 * being set with `store()`.
-				 */
-				if ( this.pendingGetter ) {
-					this.consolidateGetter();
-				}
-
 				const getter = this.getterSignal?.value;
 				return getter
 					? getter.call( this.owner )
