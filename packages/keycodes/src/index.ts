@@ -230,7 +230,6 @@ export const modifiers: WPModifierHandler< WPModifier > = {
  * // "meta+m""
  * ```
  *
- * Keyed map of functions to raw shortcuts.
  */
 export const rawShortcut: WPModifierHandler< WPKeyHandler< string > > =
 	/* @__PURE__ */
