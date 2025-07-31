@@ -27,6 +27,7 @@
 	"supports": {
 		"html": false,
 		"align": true,
+		"anchor": true,
 		"alignWide": false,
 		"spacing": {
 			"margin": true,

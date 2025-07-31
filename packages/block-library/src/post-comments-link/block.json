@@ -13,6 +13,7 @@
 		}
 	},
 	"supports": {
+		"anchor": true,
 		"html": false,
 		"color": {
 			"link": true,

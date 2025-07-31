@@ -24,6 +24,7 @@
 		"commentId": "commentId"
 	},
 	"supports": {
+		"anchor": true,
 		"html": false,
 		"inserter": false,
 		"interactivity": {
