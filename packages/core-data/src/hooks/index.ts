@@ -5,6 +5,7 @@ export {
 export {
 	default as useEntityRecords,
 	__experimentalUseEntityRecords,
+	type UseEntityRecordsWithPermissionsType,
 } from './use-entity-records';
 export {
 	default as useResourcePermissions,

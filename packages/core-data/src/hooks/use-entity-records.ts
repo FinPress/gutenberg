@@ -17,7 +17,7 @@ import { unlock } from '../lock-unlock';
 import { getNormalizedCommaSeparable } from '../utils';
 
 interface EntityRecordsResolution< RecordType > {
-	/** The requested entity record */
+	/** The requested entity records */
 	records: RecordType[] | null;
 
 	/**
@@ -42,6 +42,16 @@ interface EntityRecordsResolution< RecordType > {
 	 * The total number of pages.
 	 */
 	totalPages: number | null;
+}
+
+interface EntityRecordsWithPermissionsResolution< RecordType >
+	extends Omit< EntityRecordsResolution< RecordType >, 'records' > {
+	/** The requested entity records with permissions */
+	records:
+		| ( RecordType & {
+				permissions: { delete: boolean; update: boolean };
+		  } )[]
+		| null;
 }
 
 const EMPTY_ARRAY = [];
@@ -161,7 +171,7 @@ export function useEntityRecordsWithPermissions< RecordType >(
 	name: string,
 	queryArgs: Record< string, unknown > = {},
 	options: Options = { enabled: true }
-): EntityRecordsResolution< RecordType > {
+): EntityRecordsWithPermissionsResolution< RecordType > {
 	const entityConfig = useSelect(
 		( select ) => select( coreStore ).getEntityConfig( kind, name ),
 		[ kind, name ]
@@ -218,3 +228,19 @@ export function useEntityRecordsWithPermissions< RecordType >(
 
 	return { records: dataWithPermissions, ...ret };
 }
+
+/**
+ * Type for the `useEntityRecordsWithPermissions` private API function.
+ *
+ * @example
+ * ```ts
+ * import { privateApis as coreDataPrivateApis } from '@wordpress/core-data';
+ * import type { UseEntityRecordsWithPermissionsType } from '@wordpress/core-data';
+ *
+ * const { useEntityRecordsWithPermissions } = unlock< {
+ *   useEntityRecordsWithPermissions: UseEntityRecordsWithPermissionsType;
+ * } >( coreDataPrivateApis );
+ * ```
+ */
+export type UseEntityRecordsWithPermissionsType =
+	typeof useEntityRecordsWithPermissions;

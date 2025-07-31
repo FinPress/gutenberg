@@ -1165,6 +1165,10 @@ _Changelog_
 
 `6.1.0` Introduced in WordPress core.
 
+### UseEntityRecordsWithPermissionsType
+
+Undocumented declaration.
+
 ### useResourcePermissions
 
 Resolves resource permissions.
