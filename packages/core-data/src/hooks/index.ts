@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import type { EntityRecordsWithPermissionsResolution } from './use-entity-records';
+import type { UseEntityRecordsWithPermissionsType } from './use-entity-records';
 
 /**
  * Type for the `useEntityRecordsWithPermissions` private API function.
@@ -20,13 +20,7 @@ import type { EntityRecordsWithPermissionsResolution } from './use-entity-record
  * } >( coreDataPrivateApis );
  * ```
  */
-export type UseEntityRecordsWithPermissionsType = < RecordType >(
-	kind: string,
-	name: string,
-	queryArgs?: Record< string, unknown >,
-	options?: { enabled?: boolean }
-) => EntityRecordsWithPermissionsResolution< RecordType >;
-
+export type { UseEntityRecordsWithPermissionsType };
 export {
 	default as useEntityRecord,
 	__experimentalUseEntityRecord,
