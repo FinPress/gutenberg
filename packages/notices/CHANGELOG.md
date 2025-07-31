@@ -6,6 +6,8 @@
 
 -   Improved TypeScript definitions ([#67565](https://github.com/WordPress/gutenberg/pull/67565)).
 
+## 5.27.0 (2025-07-23)
+
 ## 5.26.0 (2025-06-25)
 
 ## 5.25.0 (2025-06-04)
