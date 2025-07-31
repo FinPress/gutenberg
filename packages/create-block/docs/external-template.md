@@ -172,3 +172,27 @@ This content is only rendered if `--variant secondary` is passed.
 {{/isSecondaryVariant}}
 
 ```
+
+Variants can also define their own files by defining `pluginTemplatesPath`, `blockTemplatesPath`, or `assetsPath`. If these are defined, they will override the paths defined by the project template.
+
+```js
+module.exports = {
+	defaultValues: {
+		slug: 'my-fantastic-block',
+		title: 'My fantastic block',
+		dashicon: 'palmtree',
+		version: '1.2.3',
+	},
+	variants: {
+		primary: {},
+		secondary: {
+			title: 'My fantastic block - secondary variant',
+			blockTemplatesPath: join(
+				__dirname,
+				'custom-path',
+				'block-templates'
+			),
+		},
+	},
+};
+```
