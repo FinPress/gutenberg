@@ -40,7 +40,6 @@ import type { SetSelection } from '../../private-types';
 import ColumnHeaderMenu from './column-header-menu';
 import ColumnPrimary from './column-primary';
 import { useIsHorizontalScrollEnd } from './use-is-horizontal-scroll-end';
-import { DataViewsEmpty } from '../../components/dataviews-empty';
 
 interface TableColumnFieldProps< Item > {
 	fields: NormalizedField< Item >[];
@@ -273,6 +272,7 @@ function ViewTable< Item >( {
 	renderItemLink,
 	view,
 	className,
+	empty,
 }: ViewTableProps< Item > ) {
 	const { containerRef } = useContext( DataViewsContext );
 	const headerMenuRefs = useRef<
@@ -480,9 +480,7 @@ function ViewTable< Item >( {
 				} ) }
 				id={ tableNoticeId }
 			>
-				{ ! hasData && (
-					<p>{ isLoading ? <Spinner /> : <DataViewsEmpty /> }</p>
-				) }
+				{ ! hasData && <p>{ isLoading ? <Spinner /> : empty }</p> }
 			</div>
 		</>
 	);

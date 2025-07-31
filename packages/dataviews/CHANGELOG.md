@@ -8,7 +8,7 @@
 
 ### Features
 
-- Add `empty` prop to `DataViews` to customize the empty state message.
+- `DataViews` empty state can be customized using the new `empty` prop.
 
 ### Bug Fixes
 

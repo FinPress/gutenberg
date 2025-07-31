@@ -139,32 +139,7 @@ export const CustomEmpty = () => {
 			onChangeView={ setView }
 			actions={ actions }
 			defaultLayouts={ defaultLayouts }
-			empty={ {
-				heading: view.search ? 'No sites found' : 'No sites',
-				description: view.search
-					? `Your search for “${ view.search }” did not match any sites. Try searching by the site title or domain name.`
-					: 'Get started by creating a new site.',
-				illustration:
-					'https://pd.w.org/2025/05/9376819135a616da1.38400720-768x432.jpeg',
-				actions: (
-					<>
-						{ view.search && (
-							<Button
-								variant="secondary"
-								onClick={ () => {
-									setView( ( oldView ) => ( {
-										...oldView,
-										search: '',
-									} ) );
-								} }
-							>
-								Clear search
-							</Button>
-						) }
-						<Button variant="primary">Add new site</Button>
-					</>
-				),
-			} }
+			empty={ view.search ? 'No sites found' : 'No sites' }
 		/>
 	);
 };
@@ -270,16 +245,7 @@ function PlanetOverview( { planets }: { planets: SpaceObject[] } ) {
 				</VStack>
 			</Grid>
 
-			{ planets.length > 0 ? (
-				<DataViews.Layout className="free-composition-dataviews-layout" />
-			) : (
-				<HStack
-					justify="space-around"
-					className="free-composition-dataviews-empty"
-				>
-					<DataViews.Empty />
-				</HStack>
-			) }
+			<DataViews.Layout className="free-composition-dataviews-layout" />
 		</>
 	);
 }
@@ -329,13 +295,19 @@ export const FreeComposition = () => {
 					table: {},
 					grid: {},
 				} }
-				empty={ {
-					heading: 'No plants',
-					description: `Try a different search because “${ view.search }” returned no results.`,
-					actions: (
+				empty={
+					<VStack
+						justify="space-around"
+						alignment="center"
+						className="free-composition-dataviews-empty"
+					>
+						<Text size={ 18 } as="p">
+							No planets
+						</Text>
+						<Text variant="muted">{ `Try a different search because “${ view.search }” returned no results.` }</Text>
 						<Button variant="secondary">Create new planet</Button>
-					),
-				} }
+					</VStack>
+				}
 			>
 				<PlanetOverview planets={ planets } />
 			</DataViews>

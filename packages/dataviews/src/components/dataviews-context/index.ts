@@ -1,13 +1,12 @@
 /**
  * External dependencies
  */
-import type { ComponentProps, ReactElement } from 'react';
+import type { ComponentProps, ReactElement, ReactNode } from 'react';
 
 /**
  * WordPress dependencies
  */
 import { createContext, createRef } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -18,7 +17,6 @@ import type {
 	NormalizedField,
 	SupportedLayouts,
 	NormalizedFilter,
-	EmptyViewProps,
 } from '../../types';
 import type { SetSelection } from '../../private-types';
 import { LAYOUT_TABLE } from '../../constants';
@@ -57,11 +55,7 @@ type DataViewsContextType< Item > = {
 	isShowingFilter: boolean;
 	setIsShowingFilter: ( value: boolean ) => void;
 	perPageSizes: number[];
-	empty: EmptyViewProps;
-};
-
-export const DEFAULT_VIEW_EMPTY = {
-	heading: __( 'No results' ),
+	empty?: ReactNode;
 };
 
 const DataViewsContext = createContext< DataViewsContextType< any > >( {
@@ -88,7 +82,6 @@ const DataViewsContext = createContext< DataViewsContextType< any > >( {
 	isShowingFilter: false,
 	setIsShowingFilter: () => {},
 	perPageSizes: [],
-	empty: DEFAULT_VIEW_EMPTY,
 } );
 
 export default DataViewsContext;

@@ -39,7 +39,6 @@ import type {
 } from '../../types';
 import type { SetSelection } from '../../private-types';
 import { ItemClickWrapper } from '../utils/item-click-wrapper';
-import { DataViewsEmpty } from '../../components/dataviews-empty';
 const { Badge } = unlock( componentsPrivateApis );
 
 interface GridItemProps< Item > {
@@ -264,6 +263,7 @@ function ViewGrid< Item >( {
 	selection,
 	view,
 	className,
+	empty,
 }: ViewGridProps< Item > ) {
 	const { resizeObserverRef } = useContext( DataViewsContext );
 	const titleField = fields.find(
@@ -447,7 +447,7 @@ function ViewGrid< Item >( {
 							'dataviews-no-results': ! isLoading,
 						} ) }
 					>
-						<p>{ isLoading ? <Spinner /> : <DataViewsEmpty /> }</p>
+						<p>{ isLoading ? <Spinner /> : empty }</p>
 					</div>
 				)
 			}
