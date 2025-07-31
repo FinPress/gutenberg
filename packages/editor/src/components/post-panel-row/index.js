@@ -14,6 +14,7 @@ const PostPanelRow = forwardRef( ( { className, label, children }, ref ) => {
 		<HStack
 			className={ clsx( 'editor-post-panel__row', className ) }
 			ref={ ref }
+			align="flex-start"
 		>
 			{ label && (
 				<div className="editor-post-panel__row-label">{ label }</div>
