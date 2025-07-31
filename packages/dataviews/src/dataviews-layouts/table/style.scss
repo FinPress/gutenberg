@@ -55,6 +55,7 @@
 
 		td:first-child,
 		th:first-child {
+			min-width: 45ch;
 			padding-left: $grid-unit-60;
 
 			.dataviews-view-table-header-button {
