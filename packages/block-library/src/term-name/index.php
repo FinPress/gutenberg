@@ -21,7 +21,7 @@ function render_block_core_term_name( $attributes, $block ) {
 	}
 
 	$term_id   = $block->context['termId'];
-	$term_type = $block->context['termType'] ?? 'category';
+	$term_type = $block->context['taxonomy'] ?? 'category';
 
 	if ( empty( $term_id ) || empty( $term_type ) ) {
 		return '';

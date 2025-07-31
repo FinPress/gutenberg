@@ -30,14 +30,14 @@ import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 export default function TermNameEdit( {
 	attributes: { textAlign, isLink, rel, linkTarget },
 	setAttributes,
-	context: { termType, termId },
+	context: { taxonomy, termId },
 } ) {
 	const TagName = 'span';
 	const blockEditingMode = useBlockEditingMode();
 	const showControls = blockEditingMode === 'default';
 
-	const [ fullName ] = useEntityProp( 'taxonomy', termType, 'name', termId );
-	const [ link ] = useEntityProp( 'taxonomy', termType, 'link', termId );
+	const [ fullName ] = useEntityProp( 'taxonomy', taxonomy, 'name', termId );
+	const [ link ] = useEntityProp( 'taxonomy', taxonomy, 'link', termId );
 
 	const blockProps = useBlockProps( {
 		className: clsx( {
@@ -51,7 +51,7 @@ export default function TermNameEdit( {
 		<TagName { ...blockProps }>{ __( 'Term Name' ) }</TagName>
 	);
 
-	if ( termType && termId ) {
+	if ( taxonomy && termId ) {
 		nameElement = (
 			<TagName
 				{ ...blockProps }
@@ -60,7 +60,7 @@ export default function TermNameEdit( {
 		);
 	}
 
-	if ( isLink && termType && termId ) {
+	if ( isLink && taxonomy && termId ) {
 		nameElement = (
 			<TagName { ...blockProps }>
 				<a

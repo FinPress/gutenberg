@@ -959,25 +959,27 @@ Displays the name of a taxonomy term. ([Source](https://github.com/WordPress/gut
 -	**Supports:** align (full, wide), color (background, gradients, link, text), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** isLink, linkTarget, rel, textAlign
 
+## Term Template
+
+Contains the block elements used to render a taxonomy term, like the name, description, and more. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/term-template))
+
+-	**Name:** core/term-template
+-	**Experimental:** true
+-	**Category:** theme
+-	**Ancestor:** core/terms-query
+-	**Allowed Blocks:** core/term-name, core/term-count, core/term-description, core/paragraph
+-	**Supports:** align (full, wide), color (background, gradients, link, text), interactivity (clientNavigation), layout, spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+
 ## Terms Query
 
 An advanced block that allows displaying taxonomy terms based on different query parameters and visual configurations. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/terms-query))
 
 -	**Name:** core/terms-query
+-	**Experimental:** true
 -	**Category:** theme
--	**Allowed Blocks:** core/terms-template
+-	**Allowed Blocks:** core/term-template
 -	**Supports:** align (full, wide), interactivity, layout, ~~html~~
--	**Attributes:** namespace, query, queryId, tagName
-
-## Terms Template
-
-Contains the block elements used to render a taxonomy term, like the title, count, description, and more. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/terms-template))
-
--	**Name:** core/terms-template
--	**Category:** theme
--	**Ancestor:** core/terms-query
--	**Allowed Blocks:** core/term-name, core/term-count, core/term-description, core/paragraph
--	**Supports:** align (full, wide), color (background, gradients, link, text), interactivity (clientNavigation), layout, spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Attributes:** namespace, tagName, termQuery, termQueryId
 
 ## Text Columns (deprecated)
 

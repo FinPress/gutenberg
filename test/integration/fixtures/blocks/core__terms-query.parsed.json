@@ -11,7 +11,7 @@
 		},
 		"innerBlocks": [
 			{
-				"blockName": "core/terms-template",
+				"blockName": "core/term-template",
 				"attrs": {},
 				"innerBlocks": [
 					{

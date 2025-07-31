@@ -121,7 +121,7 @@ function gutenberg_reregister_core_block_types() {
 				'template-part.php'                => 'core/template-part',
 				'term-description.php'             => 'core/term-description',
 				'terms-query.php'                  => 'core/terms-query',
-				'terms-template.php'               => 'core/terms-template',
+				'term-template.php'                => 'core/term-template',
 				'term-name.php'                    => 'core/term-name',
 				'term-count.php'                   => 'core/term-count',
 			),

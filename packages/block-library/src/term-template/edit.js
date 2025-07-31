@@ -22,7 +22,7 @@ import { useEntityRecords } from '@wordpress/core-data';
 
 const TEMPLATE = [ [ 'core/term-name' ], [ 'core/term-count' ] ];
 
-function TermsTemplateInnerBlocks( { classList } ) {
+function TermTemplateInnerBlocks( { classList } ) {
 	const innerBlocksProps = useInnerBlocksProps(
 		{ className: clsx( 'wp-block-term', classList ) },
 		{ template: TEMPLATE, __unstableDisableLayoutClassNames: true }
@@ -30,12 +30,14 @@ function TermsTemplateInnerBlocks( { classList } ) {
 	return <li { ...innerBlocksProps } />;
 }
 
-function TermsTemplateBlockPreview( {
+function TermTemplateBlockPreview( {
 	blocks,
 	blockContextId,
 	classList,
 	isHidden,
 	setActiveBlockContextId,
+	termName,
+	termCount,
 } ) {
 	const blockPreviewProps = useBlockPreview( {
 		blocks,
@@ -61,11 +63,13 @@ function TermsTemplateBlockPreview( {
 			onClick={ handleOnClick }
 			onKeyPress={ handleOnClick }
 			style={ style }
-		/>
+		>
+			{ termName } { termCount }
+		</li>
 	);
 }
 
-const MemoizedTermsTemplateBlockPreview = memo( TermsTemplateBlockPreview );
+const MemoizedTermTemplateBlockPreview = memo( TermTemplateBlockPreview );
 
 /**
  * Builds a hierarchical tree structure from flat terms array.
@@ -120,16 +124,16 @@ function renderTermNode( termNode, renderTerm ) {
 	);
 }
 
-export default function TermsTemplateEdit( {
+export default function TermTemplateEdit( {
 	clientId,
 	context: {
-		query: {
-			taxonomy: taxonomySlug,
+		termQuery: {
+			taxonomy,
 			order,
 			orderBy,
 			hideEmpty,
 			hierarchical,
-			showOnlyTopLevel,
+			parent,
 		} = {},
 	},
 } ) {
@@ -143,17 +147,17 @@ export default function TermsTemplateEdit( {
 
 	const { records: terms, isResolving } = useEntityRecords(
 		'taxonomy',
-		taxonomySlug,
+		taxonomy,
 		queryArgs
 	);
 
-	// Filter to show only top-level terms if showOnlyTopLevel is enabled.
+	// Filter to show only top-level terms if "Show only top-level terms" is enabled.
 	const filteredTerms = useMemo( () => {
-		if ( ! terms || ! showOnlyTopLevel ) {
+		if ( ! terms || parent !== 0 ) {
 			return terms;
 		}
 		return terms.filter( ( term ) => ! term.parent );
-	}, [ terms, showOnlyTopLevel ] );
+	}, [ terms, parent ] );
 
 	const { blocks } = useSelect(
 		( select ) => ( {
@@ -165,15 +169,15 @@ export default function TermsTemplateEdit( {
 	const blockContexts = useMemo(
 		() =>
 			filteredTerms?.map( ( term ) => ( {
-				termType: taxonomySlug,
+				taxonomy,
 				termId: term.id,
 				classList: `term-${ term.id }`,
 			} ) ),
-		[ filteredTerms, taxonomySlug ]
+		[ filteredTerms, taxonomy ]
 	);
 
 	const blockProps = useBlockProps( {
-		className: clsx( 'wp-block-terms-template' ),
+		className: clsx( 'wp-block-term-template' ),
 	} );
 
 	if ( isResolving ) {
@@ -190,20 +194,24 @@ export default function TermsTemplateEdit( {
 
 	const renderTerm = ( term ) => {
 		const blockContext = {
-			termType: taxonomySlug,
+			taxonomy,
 			termId: term.id,
 			classList: `term-${ term.id }`,
 		};
+
+		// Get the term count for display in preview
+		const termCount = term.count || 0;
 
 		return (
 			<BlockContextProvider key={ term.id } value={ blockContext }>
 				{ term.id ===
 				( activeBlockContextId || blockContexts[ 0 ]?.termId ) ? (
-					<TermsTemplateInnerBlocks
+					<TermTemplateInnerBlocks
 						classList={ blockContext.classList }
+						term={ term }
 					/>
 				) : null }
-				<MemoizedTermsTemplateBlockPreview
+				<MemoizedTermTemplateBlockPreview
 					blocks={ blocks }
 					blockContextId={ term.id }
 					classList={ blockContext.classList }
@@ -212,6 +220,8 @@ export default function TermsTemplateEdit( {
 						term.id ===
 						( activeBlockContextId || blockContexts[ 0 ]?.termId )
 					}
+					termName={ term.name }
+					termCount={ `(${ termCount })` }
 				/>
 			</BlockContextProvider>
 		);
@@ -225,29 +235,40 @@ export default function TermsTemplateEdit( {
 			);
 		}
 
-		return blockContexts.map( ( blockContext ) => (
-			<BlockContextProvider
-				key={ blockContext.termId }
-				value={ blockContext }
-			>
-				{ blockContext.termId ===
-				( activeBlockContextId || blockContexts[ 0 ]?.termId ) ? (
-					<TermsTemplateInnerBlocks
+		return blockContexts.map( ( blockContext ) => {
+			const term = filteredTerms.find(
+				( t ) => t.id === blockContext.termId
+			);
+			const termCount = term?.count || 0;
+
+			return (
+				<BlockContextProvider
+					key={ blockContext.termId }
+					value={ blockContext }
+				>
+					{ blockContext.termId ===
+					( activeBlockContextId || blockContexts[ 0 ]?.termId ) ? (
+						<TermTemplateInnerBlocks
+							classList={ blockContext.classList }
+							term={ term }
+						/>
+					) : null }
+					<MemoizedTermTemplateBlockPreview
+						blocks={ blocks }
+						blockContextId={ blockContext.termId }
 						classList={ blockContext.classList }
+						setActiveBlockContextId={ setActiveBlockContextId }
+						isHidden={
+							blockContext.termId ===
+							( activeBlockContextId ||
+								blockContexts[ 0 ]?.termId )
+						}
+						termName={ term?.name }
+						termCount={ `(${ termCount })` }
 					/>
-				) : null }
-				<MemoizedTermsTemplateBlockPreview
-					blocks={ blocks }
-					blockContextId={ blockContext.termId }
-					classList={ blockContext.classList }
-					setActiveBlockContextId={ setActiveBlockContextId }
-					isHidden={
-						blockContext.termId ===
-						( activeBlockContextId || blockContexts[ 0 ]?.termId )
-					}
-				/>
-			</BlockContextProvider>
-		) );
+				</BlockContextProvider>
+			);
+		} );
 	};
 
 	return (

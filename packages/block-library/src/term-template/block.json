@@ -1,19 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "core/terms-template",
-	"title": "Terms Template",
+	"__experimental": true,
+	"name": "core/term-template",
+	"title": "Term Template",
 	"category": "theme",
 	"ancestor": [ "core/terms-query" ],
-	"description": "Contains the block elements used to render a taxonomy term, like the title, count, description, and more.",
+	"description": "Contains the block elements used to render a taxonomy term, like the name, description, and more.",
 	"textdomain": "default",
-	"usesContext": [
-		"queryId",
-		"query",
-		"templateSlug",
-		"previewTaxonomy",
-		"termType"
-	],
+	"usesContext": [ "termQueryId", "termQuery", "templateSlug", "termName" ],
 	"supports": {
 		"reusable": false,
 		"html": false,
@@ -68,6 +63,6 @@
 		"core/term-description",
 		"core/paragraph"
 	],
-	"style": "wp-block-terms-template",
-	"editorStyle": "wp-block-terms-template-editor"
+	"style": "wp-block-term-template",
+	"editorStyle": "wp-block-term-template-editor"
 }

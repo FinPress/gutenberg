@@ -119,7 +119,7 @@ import * as tagCloud from './tag-cloud';
 import * as templatePart from './template-part';
 import * as termDescription from './term-description';
 import * as termsQuery from './terms-query';
-import * as termsTemplate from './terms-template';
+import * as termTemplate from './term-template';
 import * as termName from './term-name';
 import * as termCount from './term-count';
 import * as textColumns from './text-columns';
@@ -236,7 +236,7 @@ const getAllBlocks = () => {
 		logInOut,
 		termDescription,
 		termsQuery,
-		termsTemplate,
+		termTemplate,
 		termName,
 		termCount,
 		queryTitle,

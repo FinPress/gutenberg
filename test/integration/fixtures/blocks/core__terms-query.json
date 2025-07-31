@@ -13,7 +13,7 @@
 		},
 		"innerBlocks": [
 			{
-				"name": "core/terms-template",
+				"name": "core/term-template",
 				"isValid": false,
 				"attributes": {
 					"className": "wp-block-term"

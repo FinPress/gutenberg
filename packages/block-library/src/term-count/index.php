@@ -22,7 +22,7 @@ function render_block_core_term_count( $attributes, $content, $block ) {
 	}
 
 	$term_id   = $block->context['termId'];
-	$term_type = $block->context['termType'] ?? 'category';
+	$term_type = $block->context['taxonomy'] ?? 'category';
 
 	$term = get_term( $term_id, $term_type );
 	if ( ! $term || is_wp_error( $term ) ) {

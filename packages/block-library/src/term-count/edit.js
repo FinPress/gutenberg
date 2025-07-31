@@ -29,12 +29,12 @@ import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 export default function TermCountEdit( {
 	attributes: { textAlign, format },
 	setAttributes,
-	context: { termType, termId },
+	context: { taxonomy, termId },
 } ) {
 	const blockEditingMode = useBlockEditingMode();
 	const showControls = blockEditingMode === 'default';
 
-	const [ count ] = useEntityProp( 'taxonomy', termType, 'count', termId );
+	const [ count ] = useEntityProp( 'taxonomy', taxonomy, 'count', termId );
 
 	const blockProps = useBlockProps( {
 		className: clsx( {
@@ -94,7 +94,7 @@ export default function TermCountEdit( {
 				</ToolsPanel>
 			</InspectorControls>
 			<span { ...blockProps }>
-				{ termType && termId ? formattedCount : __( 'Term Count' ) }
+				{ taxonomy && termId ? formattedCount : __( 'Term Count' ) }
 			</span>
 		</>
 	);

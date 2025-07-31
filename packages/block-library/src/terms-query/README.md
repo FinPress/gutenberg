@@ -15,17 +15,12 @@ The Terms Query block is an advanced block that allows displaying taxonomy terms
 The Terms Query block consists of:
 
 1. **Terms Query** (`core/terms-query`) - The main container block
-2. **Terms Template** (`core/terms-template`) - Template for individual terms
-3. **Term Name** (`core/term-name`) - Displays the term name
-4. **Term Count** (`core/term-count`) - Displays the number of posts in the term
-5. **Term Description** (`core/term-description`) - Displays the term description (existing block)
+2. **Term Template** (`core/term-template`) - Template for individual terms
 
 ## Default Template
 
-By default, the Terms Template includes:
+By default, the Term Template includes:
 - Term Name
-- Term Count
-- Term Description
 
 ## Query Parameters
 
@@ -33,47 +28,41 @@ The Terms Query block supports the following query parameters:
 
 - `taxonomy` - The taxonomy to query (default: 'category')
 - `perPage` - Number of terms per page
+- `pages` - Number of pages to query
 - `order` - Order direction ('asc' or 'desc')
 - `orderBy` - Order by field ('name', 'slug', 'term_id', 'count')
 - `hideEmpty` - Whether to hide terms with no posts
 - `hierarchical` - Whether to show hierarchical structure
-- `parent` - Parent term ID for hierarchical queries
+- `parent` - Parent term ID for hierarchical queries, set to 0 to show only top-level terms
 - `exclude` - Array of term IDs to exclude
 - `include` - Array of term IDs to include
-- `showOnlyTopLevel` - Whether to show only top-level terms
 
 ## Usage Example
 
 ```html
-<!-- wp:terms-query {"query":{"taxonomy":"category","order":"asc","orderBy":"name","showOnlyTopLevel":true}} -->
+<!-- wp:terms-query {"termQueryId":0,"termQuery":{"taxonomy":"category","order":"asc","orderBy":"name"}} -->
 <ul class="wp-block-terms-query">
-  <!-- wp:terms-template -->
+  <!-- wp:term-template -->
   <li class="wp-block-term">
-    <!-- wp:term-name {"level":2} /-->
-    <!-- wp:term-count {"format":"%d posts"} /-->
-    <!-- wp:term-description /-->
+    <!-- term content -->
   </li>
-  <!-- /wp:terms-template -->
+  <!-- /wp:term-template -->
 </ul>
 <!-- /wp:terms-query -->
 ```
 
 ## Block Variations
 
-The Terms Query block includes several variations:
 
-1. **Name & Count** - Shows term name and post count
-2. **Name & Description** - Shows term name and description
-3. **Name, Count, & Description** - Shows all three elements
 
 ## Context
 
 The Terms Query block provides the following context to its inner blocks:
 
-- `queryId` - Unique identifier for the query
-- `query` - Query parameters
-- `termType` - The taxonomy type
+- `termQueryId` - Unique identifier for the query
+- `termQuery` - Query parameters
 - `termId` - The current term ID
+- `taxonomy` - The current taxonomy slug
 
 ## Styling
 

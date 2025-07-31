@@ -6,7 +6,7 @@
 	"category": "theme",
 	"description": "Displays the name of a taxonomy term.",
 	"textdomain": "default",
-	"usesContext": [ "termId", "termType", "queryId" ],
+	"usesContext": [ "termId", "taxonomy", "termQueryId" ],
 	"attributes": {
 		"textAlign": {
 			"type": "string"
