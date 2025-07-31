@@ -44,9 +44,6 @@ interface EntityRecordsResolution< RecordType > {
 	totalPages: number | null;
 }
 
-/**
- * Utility type that adds permissions to any record type.
- */
 export type WithPermissions< RecordType > = RecordType & {
 	permissions: { delete: boolean; update: boolean };
 };
