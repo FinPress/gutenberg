@@ -86,7 +86,7 @@ function BlockEditAnchorControlPure( { anchor, setAttributes } ) {
 				onChange={ ( nextValue ) => {
 					nextValue = nextValue.replace( ANCHOR_REGEX, '-' );
 					setAttributes( {
-						anchor: nextValue,
+						anchor: nextValue !== '' ? nextValue : undefined,
 					} );
 				} }
 				autoCapitalize="none"
