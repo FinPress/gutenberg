@@ -48,10 +48,13 @@ function ColumnPrimary< Item >( {
 					isItemClickable={ isItemClickable }
 					onClickItem={ onClickItem }
 					renderItemLink={ renderItemLink }
+					className="dataviews-view-table__cell-content-wrapper dataviews-column-primary__media"
 				>
-					<div className="dataviews-view-table__cell-content-wrapper dataviews-column-primary__media">
-						<mediaField.render item={ item } field={ mediaField } />
-					</div>
+					<mediaField.render
+						item={ item }
+						field={ mediaField }
+						config={ { sizes: '32px' } }
+					/>
 				</ItemClickWrapper>
 			) }
 			<VStack spacing={ 0 }>
