@@ -199,7 +199,7 @@ describe( 'getBlockContentSchema', () => {
 				type: 'raw',
 				schema: {
 					pre: {
-						attributes: [ 'data-chicken' ],
+						attributes: [ 'data-one' ],
 						children: myContentSchema,
 					},
 				},
@@ -209,7 +209,7 @@ describe( 'getBlockContentSchema', () => {
 				type: 'raw',
 				schema: {
 					pre: {
-						attributes: [ 'data-ribs', 'class' ],
+						attributes: [ 'data-two', 'class' ],
 						children: myContentSchema,
 						classes: [ 'my-class', 'another-class' ],
 					},
@@ -219,7 +219,7 @@ describe( 'getBlockContentSchema', () => {
 		const output = {
 			pre: {
 				children: myContentSchema,
-				attributes: [ 'data-chicken', 'data-ribs', 'class' ],
+				attributes: [ 'data-one', 'data-two', 'class' ],
 				classes: [ 'my-class', 'another-class' ],
 			},
 		};
