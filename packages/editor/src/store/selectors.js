@@ -610,9 +610,14 @@ export const isEditedPostAutosaveable = createRegistrySelector(
 		}
 
 		const postType = getCurrentPostType( state );
+		const postTypeObject = select( coreStore ).getPostType( postType );
 
 		// Currently template autosaving is not supported.
-		if ( postType === 'wp_template' ) {
+		// @todo: Remove hardcode check for template after bumping required WP version to 6.8.
+		if (
+			postType === 'wp_template' ||
+			! postTypeObject?.supports?.autosave
+		) {
 			return false;
 		}
 
@@ -1083,6 +1088,26 @@ export function isPostSavingLocked( state ) {
  * Returns whether post autosaving is locked.
  *
  * @param {Object} state Global application state.
+ *
+ * @example
+ * ```jsx
+ * import { __ } from '@wordpress/i18n';
+ * import { store as editorStore } from '@wordpress/editor';
+ * import { useSelect } from '@wordpress/data';
+ *
+ * const ExampleComponent = () => {
+ * 	const isAutoSavingLocked = useSelect(
+ * 		( select ) => select( editorStore ).isPostAutosavingLocked(),
+ * 		[]
+ * 	);
+ *
+ * 	return isAutoSavingLocked ? (
+ * 		<p>{ __( 'Post auto saving is locked' ) }</p>
+ * 	) : (
+ * 		<p>{ __( 'Post auto saving is not locked' ) }</p>
+ * 	);
+ * };
+ * ```
  *
  * @return {boolean} Is locked.
  */
