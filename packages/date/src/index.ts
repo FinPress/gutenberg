@@ -546,7 +546,7 @@ export function gmdateI18n(
  *
  * @return Is in the future.
  */
-export function isInTheFuture( dateValue: Date | string ) {
+export function isInTheFuture( dateValue: Date | string | number ) {
 	const now = momentLib.tz( WP_ZONE );
 	const momentObject = momentLib.tz( dateValue, WP_ZONE );
 
