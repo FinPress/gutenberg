@@ -41,6 +41,4 @@ $wrapper_attributes = get_block_wrapper_attributes(
 			font-weight: bold !important;
 		}
 	</style>
-	<!-- Adding a nonexistent stylesheet to test that it's ignored and no errors are thrown -->
-	<link rel="stylesheet" href="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'nonexistent-noscript.css' ); ?>">
 </noscript>
