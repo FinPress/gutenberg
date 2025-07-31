@@ -194,7 +194,7 @@ function TableRow< Item >( {
 				</td>
 			) }
 			{ hasPrimaryColumn && (
-				<td>
+				<td className="dataviews-view-table__primary-column">
 					<ColumnPrimary
 						item={ item }
 						level={ level }
@@ -369,7 +369,10 @@ function ViewTable< Item >( {
 							</th>
 						) }
 						{ hasPrimaryColumn && (
-							<th scope="col">
+							<th
+								scope="col"
+								className="dataviews-view-table__primary-column"
+							>
 								{ titleField && (
 									<ColumnHeaderMenu
 										ref={ headerMenuRef(
