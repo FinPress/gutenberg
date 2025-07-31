@@ -58,6 +58,5 @@
 		}
 	},
 	"allowedBlocks": [ "core/paragraph" ],
-	"style": "wp-block-term-template",
-	"editorStyle": "wp-block-term-template-editor"
+	"style": "wp-block-term-template"
 }
