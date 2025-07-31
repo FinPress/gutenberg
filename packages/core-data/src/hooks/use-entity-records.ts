@@ -44,14 +44,17 @@ interface EntityRecordsResolution< RecordType > {
 	totalPages: number | null;
 }
 
+/**
+ * Utility type that adds permissions to any record type.
+ */
+export type WithPermissions< RecordType > = RecordType & {
+	permissions: { delete: boolean; update: boolean };
+};
+
 interface EntityRecordsWithPermissionsResolution< RecordType >
 	extends Omit< EntityRecordsResolution< RecordType >, 'records' > {
 	/** The requested entity records with permissions */
-	records:
-		| ( RecordType & {
-				permissions: { delete: boolean; update: boolean };
-		  } )[]
-		| null;
+	records: WithPermissions< RecordType >[] | null;
 }
 
 const EMPTY_ARRAY = [];

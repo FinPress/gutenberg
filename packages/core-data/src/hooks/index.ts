@@ -1,7 +1,10 @@
 /**
  * Internal dependencies
  */
-import type { UseEntityRecordsWithPermissionsType } from './use-entity-records';
+import type {
+	UseEntityRecordsWithPermissionsType,
+	WithPermissions,
+} from './use-entity-records';
 
 /**
  * Type for the `useEntityRecordsWithPermissions` private API function.
@@ -27,6 +30,10 @@ import type { UseEntityRecordsWithPermissionsType } from './use-entity-records';
  * ```
  */
 export type { UseEntityRecordsWithPermissionsType };
+/**
+ * Utility type that adds permissions to any record type.
+ */
+export type { WithPermissions };
 export {
 	default as useEntityRecord,
 	__experimentalUseEntityRecord,
