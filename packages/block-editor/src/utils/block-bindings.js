@@ -91,22 +91,25 @@ export function hasPatternOverridesDefaultBinding( bindings ) {
  * @return {Object} The bindings with default replaced for pattern overrides.
  */
 export function replacePatternOverridesDefaultBinding( blockName, bindings ) {
-	// The `__default` binding currently only works for pattern overrides.
-	if ( hasPatternOverridesDefaultBinding( bindings ) ) {
-		const supportedAttributes = BLOCK_BINDINGS_ALLOWED_BLOCKS[ blockName ];
-		const bindingsWithDefaults = {};
-		for ( const attributeName of supportedAttributes ) {
-			// If the block has mixed binding sources, retain any non pattern override bindings.
-			const bindingSource = bindings[ attributeName ]
-				? bindings[ attributeName ]
-				: { source: PATTERN_OVERRIDES_SOURCE };
-			bindingsWithDefaults[ attributeName ] = bindingSource;
-		}
+	const supportedAttributes = BLOCK_BINDINGS_ALLOWED_BLOCKS[ blockName ];
 
-		return bindingsWithDefaults;
+	if ( ! bindings ) {
+		return bindings;
 	}
 
-	return bindings;
+	const { __default: defaultBindings, ...otherBindings } = bindings;
+
+	if ( ! defaultBindings ) {
+		return bindings;
+	}
+
+	for ( const attributeName of supportedAttributes ) {
+		if ( ! otherBindings?.[ attributeName ] ) {
+			otherBindings[ attributeName ] = defaultBindings;
+		}
+	}
+
+	return otherBindings;
 }
 
 /**
