@@ -44,7 +44,7 @@ interface EntityRecordsResolution< RecordType > {
 	totalPages: number | null;
 }
 
-export interface EntityRecordsWithPermissionsResolution< RecordType >
+interface EntityRecordsWithPermissionsResolution< RecordType >
 	extends Omit< EntityRecordsResolution< RecordType >, 'records' > {
 	/** The requested entity records with permissions */
 	records:
