@@ -41,7 +41,6 @@ function gutenberg_reregister_core_block_types() {
 				'table-of-contents',
 				'text-columns',
 				'verse',
-				'video',
 				'embed',
 			),
 			'block_names'   => array(
@@ -124,6 +123,7 @@ function gutenberg_reregister_core_block_types() {
 				'term-template.php'                => 'core/term-template',
 				'term-name.php'                    => 'core/term-name',
 				'term-count.php'                   => 'core/term-count',
+				'video.php'                        => 'core/video',
 			),
 		),
 		__DIR__ . '/../build/edit-widgets/blocks/'  => array(
