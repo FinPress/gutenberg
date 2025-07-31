@@ -24,10 +24,16 @@ function render_block_core_loginout( $attributes ) {
 	$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 	$classes  = is_user_logged_in() ? 'logged-in' : 'logged-out';
-	$contents = wp_loginout(
-		isset( $attributes['redirectToCurrent'] ) && $attributes['redirectToCurrent'] ? $current_url : '',
-		false
-	);
+
+	$redirect = isset( $attributes['redirectToCurrent'] ) && $attributes['redirectToCurrent'] ? $current_url : '';
+
+	if ( ! is_user_logged_in() ) {
+		$link = '<a href="' . esc_url( wp_login_url( $redirect ) ) . '">' . $attributes['loginText'] . '</a>';
+	} else {
+		$link = '<a href="' . esc_url( wp_logout_url( $redirect ) ) . '">' . $attributes['logoutText'] . '</a>';
+	}
+
+	$contents = apply_filters( 'loginout', $link );
 
 	// If logged-out and displayLoginAsForm is true, show the login form.
 	if ( ! is_user_logged_in() && ! empty( $attributes['displayLoginAsForm'] ) ) {
@@ -35,7 +41,7 @@ function render_block_core_loginout( $attributes ) {
 		$classes .= ' has-login-form';
 
 		// Get the form.
-		$contents = wp_login_form( array( 'echo' => false ) );
+		$contents = wp_login_form( array( 'echo' => false, 'label_log_in' => $attributes['loginText'] ) );
 	}
 
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $classes ) );
