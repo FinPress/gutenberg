@@ -119,21 +119,27 @@ module.exports = async (
 	};
 
 	// Check for the pluginTemplates path in the variant
-	if ( variantPluginTemplatesPath ) {
-		blockOutputTemplates = await getOutputTemplates(
+	if ( variantPluginTemplatesPath === null ) {
+		pluginOutputTemplates = {};
+	} else if ( variantPluginTemplatesPath ) {
+		pluginOutputTemplates = await getOutputTemplates(
 			variantPluginTemplatesPath
 		);
 	}
 
 	// Check for the blockTemplatesPath path in the variant
-	if ( variantBlockTemplatesPath ) {
-		pluginOutputTemplates = await getOutputTemplates(
+	if ( variantBlockTemplatesPath === null ) {
+		blockOutputTemplates = {};
+	} else if ( variantBlockTemplatesPath ) {
+		blockOutputTemplates = await getOutputTemplates(
 			variantBlockTemplatesPath
 		);
 	}
 
 	// Check for the assetsPath
-	if ( variantAssetsPath ) {
+	if ( variantAssetsPath === null ) {
+		outputAssets = {};
+	} else if ( variantAssetsPath ) {
 		outputAssets = await getOutputAssets( variantAssetsPath );
 	}
 
