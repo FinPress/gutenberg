@@ -49,6 +49,7 @@ function ColumnPrimary< Item >( {
 					onClickItem={ onClickItem }
 					renderItemLink={ renderItemLink }
 					className="dataviews-view-table__cell-content-wrapper dataviews-column-primary__media"
+					title={ mediaField.label }
 				>
 					<mediaField.render
 						item={ item }
