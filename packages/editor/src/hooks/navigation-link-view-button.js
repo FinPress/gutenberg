@@ -5,8 +5,12 @@ import { addFilter } from '@wordpress/hooks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { __unstableBlockToolbarLastItem as BlockToolbarLastItem } from '@wordpress/block-editor';
+import {
+	__unstableBlockToolbarLastItem as BlockToolbarLastItem,
+	store as blockEditorStore,
+} from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
 
 // Target blocks that should have the View button
 const SUPPORTED_BLOCKS = [ 'core/navigation-link', 'core/navigation-submenu' ];
@@ -20,13 +24,21 @@ const SUPPORTED_BLOCKS = [ 'core/navigation-link', 'core/navigation-submenu' ];
 function NavigationViewButton( { attributes } ) {
 	const { kind, id, type } = attributes;
 
+	const onNavigateToEntityRecord = useSelect(
+		( select ) =>
+			select( blockEditorStore ).getSettings().onNavigateToEntityRecord,
+		[]
+	);
+
 	const onViewPage = useCallback( () => {
 		if ( kind === 'post-type' && id && type ) {
-			// Navigate to the post in edit mode
-			const url = `/wp-admin/post.php?post=${ id }&action=edit`;
-			window.open( url, '_blank' );
+			onNavigateToEntityRecord( {
+				postId: id,
+				postType: type,
+				focusMode: false,
+			} );
 		}
-	}, [ kind, id, type ] );
+	}, [ kind, id, type, onNavigateToEntityRecord ] );
 
 	// Only show for page-type links
 	if ( kind !== 'post-type' || ! id || ! type ) {
@@ -58,7 +70,9 @@ const withNavigationViewButton = createHigherOrderComponent(
 		return (
 			<>
 				<BlockEdit key="edit" { ...props } />
-				{ isSupportedBlock && <NavigationViewButton { ...props } /> }
+				{ props.isSelected && isSupportedBlock && (
+					<NavigationViewButton { ...props } />
+				) }
 			</>
 		);
 	},
