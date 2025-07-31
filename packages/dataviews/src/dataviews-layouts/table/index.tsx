@@ -133,9 +133,9 @@ function TableRow< Item >( {
 	const columns = view.fields ?? [];
 	const primaryColumnHasDescription = descriptionField && showDescription;
 	const hasPrimaryColumn =
+		primaryColumnHasDescription ||
 		( titleField && showTitle ) ||
-		( mediaField && showMedia ) ||
-		primaryColumnHasDescription;
+		( mediaField && showMedia );
 
 	return (
 		<tr
