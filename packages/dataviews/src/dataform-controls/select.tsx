@@ -55,6 +55,7 @@ export default function Select< Item >( {
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
 			hideLabelFromVision={ hideLabelFromVision }
+			multiple={ field.type === 'array' }
 		/>
 	);
 }
