@@ -9,19 +9,52 @@ function generateLibData() {
 	const libDir = path.join( __dirname, 'lib' );
 	const outputFile = path.join( __dirname, 'src', 'lib-data.ts' );
 
-	// Check if lib directory exists
+	// Ensure lib directory exists
 	if ( ! fs.existsSync( libDir ) ) {
-		console.error( 'lib directory not found. Run download script first.' );
+		fs.mkdirSync( libDir, { recursive: true } );
+	}
+
+	// Find wasm-vips module in node_modules (check both local and root)
+	const possiblePaths = [
+		path.join( __dirname, 'node_modules', 'wasm-vips', 'lib' ),
+		path.join( __dirname, '..', '..', 'node_modules', 'wasm-vips', 'lib' ),
+	];
+
+	let wasmVipsLibPath = null;
+	for ( const possiblePath of possiblePaths ) {
+		if ( fs.existsSync( possiblePath ) ) {
+			wasmVipsLibPath = possiblePath;
+			break;
+		}
+	}
+
+	if ( ! wasmVipsLibPath ) {
+		console.error(
+			'wasm-vips module not found in node_modules. Please run npm install.'
+		);
 		process.exit( 1 );
 	}
 
-	const vipsWasmPath = path.join( libDir, 'vips.wasm' );
-	const vipsJsPath = path.join( libDir, 'vips.js' );
+	const sourceVipsWasmPath = path.join( wasmVipsLibPath, 'vips.wasm' );
+	const sourceVipsJsPath = path.join( wasmVipsLibPath, 'vips.js' );
+	const targetVipsWasmPath = path.join( libDir, 'vips.wasm' );
+	const targetVipsJsPath = path.join( libDir, 'vips.js' );
 
-	if ( ! fs.existsSync( vipsWasmPath ) || ! fs.existsSync( vipsJsPath ) ) {
-		console.error( 'VIPS files not found in lib directory.' );
+	// Copy files from node_modules to lib directory
+	if (
+		! fs.existsSync( sourceVipsWasmPath ) ||
+		! fs.existsSync( sourceVipsJsPath )
+	) {
+		console.error( 'VIPS files not found in wasm-vips module.' );
 		process.exit( 1 );
 	}
+
+	console.log( `Copying VIPS files from ${ wasmVipsLibPath }...` );
+	fs.copyFileSync( sourceVipsWasmPath, targetVipsWasmPath );
+	fs.copyFileSync( sourceVipsJsPath, targetVipsJsPath );
+
+	const vipsWasmPath = targetVipsWasmPath;
+	const vipsJsPath = targetVipsJsPath;
 
 	// Read files and convert to Base64
 	const vipsWasmBuffer = fs.readFileSync( vipsWasmPath );
