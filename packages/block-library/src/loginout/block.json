@@ -22,6 +22,7 @@
 	},
 	"supports": {
 		"className": true,
+		"anchor": true,
 		"color": {
 			"background": true,
 			"text": false,

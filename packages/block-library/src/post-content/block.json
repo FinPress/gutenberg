@@ -18,6 +18,7 @@
 	},
 	"supports": {
 		"align": [ "wide", "full" ],
+		"anchor": true,
 		"html": false,
 		"layout": true,
 		"background": {

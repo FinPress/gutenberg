@@ -16,6 +16,7 @@
 	"usesContext": [ "queryId", "query" ],
 	"supports": {
 		"align": [ "wide", "full" ],
+		"anchor": true,
 		"html": false,
 		"spacing": {
 			"margin": true,

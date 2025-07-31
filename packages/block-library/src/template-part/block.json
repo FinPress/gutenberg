@@ -22,6 +22,7 @@
 	},
 	"supports": {
 		"align": true,
+		"anchor": true,
 		"html": false,
 		"reusable": false,
 		"renaming": false,

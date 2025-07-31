@@ -66,6 +66,7 @@
 	},
 	"supports": {
 		"align": [ "left", "right", "center", "wide", "full" ],
+		"anchor": true,
 		"color": {
 			"text": false,
 			"background": false
