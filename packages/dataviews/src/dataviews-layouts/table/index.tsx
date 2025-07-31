@@ -131,10 +131,11 @@ function TableRow< Item >( {
 	// behaviours.
 	const isTouchDeviceRef = useRef( false );
 	const columns = view.fields ?? [];
+	const primaryColumnHasDescription = descriptionField && showDescription;
 	const hasPrimaryColumn =
 		( titleField && showTitle ) ||
 		( mediaField && showMedia ) ||
-		( descriptionField && showDescription );
+		primaryColumnHasDescription;
 
 	return (
 		<tr
@@ -194,7 +195,12 @@ function TableRow< Item >( {
 				</td>
 			) }
 			{ hasPrimaryColumn && (
-				<td className="dataviews-view-table__primary-column">
+				<td
+					className={ clsx( {
+						'dataviews-view-table__primary-column--large':
+							primaryColumnHasDescription,
+					} ) }
+				>
 					<ColumnPrimary
 						item={ item }
 						level={ level }
