@@ -28,16 +28,14 @@ import {
 	getColorClassName,
 	useInnerBlocksProps,
 	useBlockEditingMode,
-	__unstableBlockToolbarLastItem as BlockToolbarLastItem,
 } from '@wordpress/block-editor';
 import { isURL, prependHTTP, safeDecodeURI } from '@wordpress/url';
-import { useState, useEffect, useRef, useCallback } from '@wordpress/element';
+import { useState, useEffect, useRef } from '@wordpress/element';
 import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 import { decodeEntities } from '@wordpress/html-entities';
 import { link as linkIcon, addSubmenu } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
 import { useMergeRefs, usePrevious } from '@wordpress/compose';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
 
 /**
  * Internal dependencies
@@ -46,10 +44,6 @@ import { LinkUI } from './link-ui';
 import { updateAttributes } from './update-attributes';
 import { getColors } from '../navigation/edit/utils';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
-import { unlock } from '../lock-unlock';
-
-// Safely access useHistory - it may not be available in all contexts
-const { useHistory } = routerPrivateApis ? unlock( routerPrivateApis ) : {};
 
 const DEFAULT_BLOCK = { name: 'core/navigation-link' };
 const NESTING_BLOCK_NAMES = [
@@ -492,24 +486,6 @@ export default function NavigationLinkEdit( {
 		customBackgroundColor,
 	} = getColors( context, ! isTopLevelLink );
 
-	const history = useHistory();
-
-	const onViewPage = useCallback( () => {
-		if ( kind === 'post-type' && id && type ) {
-			if ( history ) {
-				// Site editor context
-				history.navigate( `/${ type }/${ id }?canvas=edit` );
-			} else {
-				// Post editor context - navigate to the post
-
-				window.open(
-					`/wp-admin/post.php?post=${ id }&action=edit`,
-					'_blank'
-				);
-			}
-		}
-	}, [ kind, id, type, history ] );
-
 	function onKeyDown( event ) {
 		if ( isKeyboardEvent.primary( event, 'k' ) ) {
 			// Required to prevent the command center from opening,
@@ -595,20 +571,6 @@ export default function NavigationLinkEdit( {
 						/>
 					) }
 				</ToolbarGroup>
-				{ /* View button for page-type links */ }
-				{ kind === 'post-type' && id && type && (
-					<BlockToolbarLastItem>
-						<ToolbarGroup>
-							<ToolbarButton
-								name="view"
-								title={ __( 'View' ) }
-								onClick={ onViewPage }
-							>
-								{ __( 'View' ) }
-							</ToolbarButton>
-						</ToolbarGroup>
-					</BlockToolbarLastItem>
-				) }
 			</BlockControls>
 			{ /* Warning, this duplicated in packages/block-library/src/navigation-submenu/edit.js */ }
 			<InspectorControls>
