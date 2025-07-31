@@ -5,6 +5,11 @@ import Vips from 'wasm-vips';
 import type VipsInstance from 'wasm-vips';
 
 /**
+ * Local VIPS library files as Base64 data URLs
+ */
+import { vipsWasmDataUrl, vipsJsDataUrl } from './lib-data';
+
+/**
  * Internal dependencies
  */
 import type {
@@ -35,27 +40,61 @@ async function getVips(): Promise< typeof Vips > {
 		return vipsInstance;
 	}
 
-	const VIPS_CDN_URL = 'https://cdn.jsdelivr.net/npm/wasm-vips@latest/lib';
-
 	if ( 'undefined' === typeof fetch ) {
 		return Vips;
 	}
 
-	const mainBlobUrl = URL.createObjectURL(
-		await ( await window.fetch( `${ VIPS_CDN_URL }/vips.js` ) ).blob()
-	);
+	try {
+		// Use local VIPS files processed by webpack as Base64 data URLs
+		// Convert Base64 data URL to blob URL for the main script
+		const vipsJsResponse = await fetch( vipsJsDataUrl );
+		const vipsJsBlob = await vipsJsResponse.blob();
+		const mainBlobUrl = URL.createObjectURL( vipsJsBlob );
 
-	vipsInstance = await Vips( {
-		locateFile: ( fileName: string ) => `${ VIPS_CDN_URL }/${ fileName }`,
-		mainScriptUrlOrBlob: mainBlobUrl,
-		preRun: ( module: EmscriptenModule ) => {
-			// https://github.com/kleisauke/wasm-vips/issues/13#issuecomment-1073246828
-			module.setAutoDeleteLater( true );
-			module.setDelayFunction( ( fn: () => void ) => {
-				cleanup = fn;
-			} );
-		},
-	} );
+		vipsInstance = await Vips( {
+			locateFile: ( fileName: string ) => {
+				// Return the appropriate data URL based on the file name
+				if ( fileName === 'vips.wasm' ) {
+					return vipsWasmDataUrl;
+				}
+				// Fallback for any other files (though we shouldn't need them)
+				return fileName;
+			},
+			mainScriptUrlOrBlob: mainBlobUrl,
+			preRun: ( module: EmscriptenModule ) => {
+				// https://github.com/kleisauke/wasm-vips/issues/13#issuecomment-1073246828
+				module.setAutoDeleteLater( true );
+				module.setDelayFunction( ( fn: () => void ) => {
+					cleanup = fn;
+				} );
+			},
+		} );
+	} catch ( error ) {
+		// Fallback to CDN if local files are not available
+		console.warn(
+			'Failed to load local VIPS files, falling back to CDN:',
+			error
+		);
+
+		const VIPS_CDN_URL =
+			'https://cdn.jsdelivr.net/npm/wasm-vips@0.0.14/lib';
+		const mainBlobUrl = URL.createObjectURL(
+			await ( await window.fetch( `${ VIPS_CDN_URL }/vips.js` ) ).blob()
+		);
+
+		vipsInstance = await Vips( {
+			locateFile: ( fileName: string ) =>
+				`${ VIPS_CDN_URL }/${ fileName }`,
+			mainScriptUrlOrBlob: mainBlobUrl,
+			preRun: ( module: EmscriptenModule ) => {
+				// https://github.com/kleisauke/wasm-vips/issues/13#issuecomment-1073246828
+				module.setAutoDeleteLater( true );
+				module.setDelayFunction( ( fn: () => void ) => {
+					cleanup = fn;
+				} );
+			},
+		} );
+	}
 
 	return vipsInstance;
 }
