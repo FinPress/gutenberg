@@ -54,7 +54,7 @@ type DataViewsContextType< Item > = {
 	filters: NormalizedFilter[];
 	isShowingFilter: boolean;
 	setIsShowingFilter: ( value: boolean ) => void;
-	perPageSizes?: [ number, number, number, number ];
+	perPageSizes: number[];
 };
 
 const DataViewsContext = createContext< DataViewsContextType< any > >( {
@@ -80,6 +80,7 @@ const DataViewsContext = createContext< DataViewsContextType< any > >( {
 	filters: [],
 	isShowingFilter: false,
 	setIsShowingFilter: () => {},
+	perPageSizes: [],
 } );
 
 export default DataViewsContext;
