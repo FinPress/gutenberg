@@ -41,14 +41,6 @@ export const DayOfWeek = styled.div`
 	color: ${ COLORS.theme.gray[ 700 ] };
 	font-size: ${ CONFIG.fontSize };
 	line-height: ${ CONFIG.fontLineHeightBase };
-
-	&:nth-of-type( 1 ) {
-		justify-self: start;
-	}
-
-	&:nth-of-type( 7 ) {
-		justify-self: end;
-	}
 `;
 
 export const DayButton = styled( Button, {
