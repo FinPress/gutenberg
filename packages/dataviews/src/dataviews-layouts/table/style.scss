@@ -206,6 +206,8 @@
 
 	.dataviews-view-table__actions-column {
 		width: 1%;
+		max-width: inherit;
+		min-width: inherit;
 	}
 
 	&:has(tr.is-selected) {
