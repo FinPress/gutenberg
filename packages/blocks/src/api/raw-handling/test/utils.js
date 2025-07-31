@@ -191,4 +191,40 @@ describe( 'getBlockContentSchema', () => {
 			output
 		);
 	} );
+
+	it( 'should handle properly merging of classes and attributes', () => {
+		const transforms = deepFreeze( [
+			{
+				blockName: 'my/preformatted',
+				type: 'raw',
+				schema: {
+					pre: {
+						attributes: [ 'data-chicken' ],
+						children: myContentSchema,
+					},
+				},
+			},
+			{
+				blockName: 'core/preformatted',
+				type: 'raw',
+				schema: {
+					pre: {
+						attributes: [ 'data-ribs', 'class' ],
+						children: myContentSchema,
+						classes: [ 'my-class', 'another-class' ],
+					},
+				},
+			},
+		] );
+		const output = {
+			pre: {
+				children: myContentSchema,
+				attributes: [ 'data-chicken', 'data-ribs', 'class' ],
+				classes: [ 'my-class', 'another-class' ],
+			},
+		};
+		expect( getBlockContentSchemaFromTransforms( transforms ) ).toEqual(
+			output
+		);
+	} );
 } );
