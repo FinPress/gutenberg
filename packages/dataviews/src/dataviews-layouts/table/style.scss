@@ -16,7 +16,7 @@
 	td,
 	th {
 		padding: $grid-unit-15;
-		max-width: 60ch;
+		white-space: nowrap;
 
 		&.dataviews-view-table__actions-column {
 			text-align: right;
