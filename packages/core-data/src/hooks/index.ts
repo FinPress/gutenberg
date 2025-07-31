@@ -1,3 +1,32 @@
+/**
+ * Internal dependencies
+ */
+import type { EntityRecordsWithPermissionsResolution } from './use-entity-records';
+
+/**
+ * Type for the `useEntityRecordsWithPermissions` private API function.
+ *
+ * This type represents the function signature for `useEntityRecordsWithPermissions`,
+ * which resolves entity records with their associated permissions included.
+ * It can be used to properly type the function when accessing it through the unlock mechanism.
+ *
+ * @example
+ * ```ts
+ * import { privateApis as coreDataPrivateApis } from '@wordpress/core-data';
+ * import type { UseEntityRecordsWithPermissionsType } from '@wordpress/core-data';
+ *
+ * const { useEntityRecordsWithPermissions } = unlock< {
+ *   useEntityRecordsWithPermissions: UseEntityRecordsWithPermissionsType;
+ * } >( coreDataPrivateApis );
+ * ```
+ */
+export type UseEntityRecordsWithPermissionsType = < RecordType >(
+	kind: string,
+	name: string,
+	queryArgs?: Record< string, unknown >,
+	options?: { enabled?: boolean }
+) => EntityRecordsWithPermissionsResolution< RecordType >;
+
 export {
 	default as useEntityRecord,
 	__experimentalUseEntityRecord,
@@ -5,7 +34,6 @@ export {
 export {
 	default as useEntityRecords,
 	__experimentalUseEntityRecords,
-	type UseEntityRecordsWithPermissionsType,
 } from './use-entity-records';
 export {
 	default as useResourcePermissions,

@@ -44,7 +44,7 @@ interface EntityRecordsResolution< RecordType > {
 	totalPages: number | null;
 }
 
-interface EntityRecordsWithPermissionsResolution< RecordType >
+export interface EntityRecordsWithPermissionsResolution< RecordType >
 	extends Omit< EntityRecordsResolution< RecordType >, 'records' > {
 	/** The requested entity records with permissions */
 	records:
@@ -228,19 +228,3 @@ export function useEntityRecordsWithPermissions< RecordType >(
 
 	return { records: dataWithPermissions, ...ret };
 }
-
-/**
- * Type for the `useEntityRecordsWithPermissions` private API function.
- *
- * @example
- * ```ts
- * import { privateApis as coreDataPrivateApis } from '@wordpress/core-data';
- * import type { UseEntityRecordsWithPermissionsType } from '@wordpress/core-data';
- *
- * const { useEntityRecordsWithPermissions } = unlock< {
- *   useEntityRecordsWithPermissions: UseEntityRecordsWithPermissionsType;
- * } >( coreDataPrivateApis );
- * ```
- */
-export type UseEntityRecordsWithPermissionsType =
-	typeof useEntityRecordsWithPermissions;
