@@ -71,9 +71,7 @@ export const descriptionField = {
 	render: ( { item } ) => {
 		return (
 			item.description && (
-				<span className="page-templates-description">
-					{ decodeEntities( item.description ) }
-				</span>
+				<span>{ decodeEntities( item.description ) }</span>
 			)
 		);
 	},
