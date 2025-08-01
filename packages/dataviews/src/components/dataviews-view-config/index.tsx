@@ -215,7 +215,7 @@ function SortDirectionControl() {
 
 function ItemsPerPageControl() {
 	const { view, perPageSizes, onChangeView } = useContext( DataViewsContext );
-	if ( perPageSizes.length === 0 ) {
+	if ( perPageSizes.length < 2 ) {
 		return null;
 	}
 
