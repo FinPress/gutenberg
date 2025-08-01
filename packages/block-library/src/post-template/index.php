@@ -74,7 +74,7 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 
 	if ( ! $query->have_posts() ) {
 		// When there are no posts, render a no-results message
-		$no_results_content = '<div class="wp-block-query-no-results"><p>No posts were found.</p></div>';
+		$no_results_content = '<div class="wp-block-query-no-results"><p>' . __( 'No posts were found.' ) . '</p></div>';
 		return $no_results_content;
 	}
 
