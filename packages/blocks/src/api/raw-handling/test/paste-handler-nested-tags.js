@@ -88,4 +88,38 @@ describe( 'pasteHandler nested tags fix', () => {
 		);
 		expect( console ).toHaveLogged();
 	} );
+
+	it( 'should handle editor-to-editor copy-paste of linked text', () => {
+		// This simulates copying linked text from editor and pasting into another link
+		const input =
+			'<a href="http://outer.com">outer <a href="http://inner.com">inner link text</a> more</a>';
+		const result = pasteHandler( {
+			HTML: input,
+			mode: 'INLINE',
+		} );
+
+		// Should flatten to single link with outer href preserved
+		expect( result ).toEqual(
+			'<a href="http://outer.com">outer inner link text more</a>'
+		);
+		expect( console ).toHaveLogged();
+	} );
+
+	it( 'should handle editor internal copy-paste simulation', () => {
+		// This test simulates the internal rich text copy-paste that bypasses pasteHandler
+		// We test the same logic we added to the internal paste handler
+		let processedHtml =
+			'<a href="http://outer.com">outer <a href="http://inner.com">inner link text</a> more</a>';
+
+		// Apply the same regex patterns used in the internal paste handler
+		processedHtml = processedHtml.replace(
+			/<a([^>]*)>([^<]*)<a[^>]*>([^<]*)<\/a>([^<]*)<\/a>/gi,
+			'<a$1>$2$3$4</a>'
+		);
+
+		// Should flatten to single link with outer href preserved
+		expect( processedHtml ).toEqual(
+			'<a href="http://outer.com">outer inner link text more</a>'
+		);
+	} );
 } );

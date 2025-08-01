@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { pasteHandler } from '@wordpress/blocks';
+import { pasteHandler, flattenNestedTags } from '@wordpress/blocks';
 import { isEmpty, insert, create } from '@wordpress/rich-text';
 import { isURL } from '@wordpress/url';
 
@@ -81,7 +81,11 @@ export default ( props ) => ( element ) => {
 		// without filtering the data. The filters are only meant for externally
 		// pasted content and remove inline styles.
 		if ( isInternal ) {
-			pasteInline( html );
+			// Apply nested tag flattening even for internal paste operations
+			// to prevent nested anchor tags which are invalid HTML
+			const processedHtml = flattenNestedTags( html );
+			
+			pasteInline( processedHtml );
 			return;
 		}
 
