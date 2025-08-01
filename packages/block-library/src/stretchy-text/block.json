@@ -20,8 +20,12 @@
 		}
 	},
 	"supports": {
-		"reusable": false,
-		"html": false,
+		"splitting": true,
+		"anchor": true,
+		"className": false,
+		"__experimentalBorder": {
+			"radius": true
+		},
 		"color": {
 			"gradients": true,
 			"link": true,
@@ -30,19 +34,28 @@
 				"text": true
 			}
 		},
-		"typography": {
-			"__experimentalFontFamily": true,
-			"__experimentalFontWeight": true,
-			"__experimentalFontStyle": true,
-			"__experimentalTextTransform": true,
-			"__experimentalTextDecoration": true,
-			"__experimentalLetterSpacing": true,
+		"spacing": {
+			"margin": true,
+			"padding": true,
 			"__experimentalDefaultControls": {
-				"fontSize": true
+				"margin": false,
+				"padding": false
 			}
 		},
-		"__experimentalBorder": {
-			"radius": true
+		"typography": {
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalFontStyle": true,
+			"__experimentalFontWeight": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalTextTransform": true,
+			"__experimentalWritingMode": true
+		},
+		"__experimentalSelector": "p",
+		"__unstablePasteTextInline": true,
+		"interactivity": {
+			"clientNavigation": true
 		}
 	},
 	"style": "wp-block-stretchy-text"

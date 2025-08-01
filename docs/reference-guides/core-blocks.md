@@ -902,7 +902,7 @@ Text that expands to fill the width of its container. ([Source](https://github.c
 
 -	**Name:** core/stretchy-text
 -	**Category:** text
--	**Supports:** color (background, gradients, link, text), typography (), ~~html~~, ~~reusable~~
+-	**Supports:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), interactivity (clientNavigation), spacing (margin, padding), splitting, typography (lineHeight), ~~className~~
 -	**Attributes:** content, viewBox
 
 ## Table
