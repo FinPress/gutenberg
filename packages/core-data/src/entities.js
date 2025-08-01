@@ -97,17 +97,6 @@ export const rootEntitiesConfig = [
 		label: __( 'Media' ),
 		rawAttributes: [ 'caption', 'title', 'description' ],
 		supportsPagination: true,
-		deprecation: {
-			since: '6.9',
-			alternative: {
-				kind: 'postType',
-				name: 'attachment',
-			},
-			hint: __(
-				'When working with attachment, caption and description are returned as objects with raw and rendered properties.' +
-					'Some code may need to be updated to handle this.'
-			),
-		},
 	},
 	{
 		name: 'taxonomy',
@@ -229,6 +218,18 @@ export const rootEntitiesConfig = [
 		key: 'slug',
 	},
 ];
+
+export const deprecatedEntities = {
+	root: {
+		media: {
+			since: '6.9',
+			alternative: {
+				kind: 'postType',
+				name: 'attachment',
+			},
+		},
+	},
+};
 
 export const additionalEntityConfigLoaders = [
 	{ kind: 'postType', loadEntities: loadPostTypeEntities },
