@@ -732,7 +732,7 @@ describe( 'canUser', () => {
 		} );
 		expect( canUser( state, 'create', 'media' ) ).toBe( undefined );
 		expect(
-			canUser( state, 'create', { kind: 'root', name: 'media' } )
+			canUser( state, 'create', { kind: 'postType', name: 'attachment' } )
 		).toBe( undefined );
 	} );
 
@@ -740,8 +740,12 @@ describe( 'canUser', () => {
 		const state = deepFreeze( {
 			userPermissions: {},
 		} );
-		expect( canUser( state, 'create', { name: 'media' } ) ).toBe( false );
-		expect( canUser( state, 'create', { kind: 'root' } ) ).toBe( false );
+		expect( canUser( state, 'create', { name: 'attachment' } ) ).toBe(
+			false
+		);
+		expect( canUser( state, 'create', { kind: 'postType' } ) ).toBe(
+			false
+		);
 	} );
 
 	it( 'returns whether an action can be performed', () => {
@@ -753,7 +757,7 @@ describe( 'canUser', () => {
 		} );
 		expect( canUser( state, 'create', 'media' ) ).toBe( false );
 		expect(
-			canUser( state, 'create', { kind: 'root', name: 'media' } )
+			canUser( state, 'create', { kind: 'postType', name: 'attachment' } )
 		).toBe( false );
 	} );
 
@@ -766,7 +770,11 @@ describe( 'canUser', () => {
 		} );
 		expect( canUser( state, 'create', 'media', 123 ) ).toBe( false );
 		expect(
-			canUser( state, 'create', { kind: 'root', name: 'media', id: 123 } )
+			canUser( state, 'create', {
+				kind: 'postType',
+				name: 'attachment',
+				id: 123,
+			} )
 		).toBe( false );
 	} );
 } );

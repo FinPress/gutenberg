@@ -1166,7 +1166,7 @@ export function isPreviewEmbedFallback( state: State, url: string ): boolean {
  *
  * @param state    Data state.
  * @param action   Action to check. One of: 'create', 'read', 'update', 'delete'.
- * @param resource Entity resource to check. Accepts entity object `{ kind: 'root', name: 'media', id: 1 }`
+ * @param resource Entity resource to check. Accepts entity object `{ kind: 'postType', name: 'attachment', id: 1 }`
  *                 or REST base as a string - `media`.
  * @param id       Optional ID of the rest resource to check.
  *
