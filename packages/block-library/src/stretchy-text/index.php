@@ -16,7 +16,7 @@
  **/
 function register_block_core_stretchy_text() {
 	// TODO - only enqueue the script if the block is used.
-	wp_enqueue_script_module('@wordpress/block-library/stretchy-text/view');
+	wp_enqueue_script_module( '@wordpress/block-library/stretchy-text/view' );
 	register_block_type_from_metadata(
 		__DIR__ . '/stretchy-text',
 		array(
