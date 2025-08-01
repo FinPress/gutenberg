@@ -42,7 +42,9 @@ sendMediaUpload.mockImplementation( ( payload ) => {
 } );
 
 function mockGetMedia( media ) {
-	jest.spyOn( select( coreStore ), 'getMedia' ).mockReturnValue( media );
+	jest.spyOn( select( coreStore ), 'getEntityRecord' ).mockReturnValue(
+		media
+	);
 }
 
 const FETCH_MEDIA = {
@@ -71,8 +73,11 @@ beforeEach( () => {
 	// Mock media fetch requests
 	setupApiFetch( [ FETCH_MEDIA ] );
 
-	// Invalidate `getMedia` resolutions to allow requesting to the API the same media id
-	dispatch( coreStore ).invalidateResolutionForStoreSelector( 'getMedia' );
+	// Invalidate `getEntityRecord` resolutions to allow requesting to the API the same media id
+	dispatch( coreStore ).invalidateResolution( 'getEntityRecord', [
+		'postType',
+		'attachment',
+	] );
 } );
 
 afterEach( () => {
@@ -99,7 +104,7 @@ describe( 'Image Block', () => {
 		<figcaption class="wp-element-caption">Mountain</figcaption></figure>
 		<!-- /wp:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
-		// Check that image is fetched via `getMedia`
+		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
 
 		const [ imageBlock ] = screen.getAllByLabelText( /Image Block/ );
@@ -126,7 +131,7 @@ describe( 'Image Block', () => {
 		<figcaption class="wp-element-caption">Mountain</figcaption></figure>
 		<!-- /wp:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
-		// Check that image is fetched via `getMedia`
+		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
 
 		const [ imageBlock ] = screen.getAllByLabelText( /Image Block/ );
@@ -153,7 +158,7 @@ describe( 'Image Block', () => {
 		<figcaption class="wp-element-caption">Mountain</figcaption></figure>
 		<!-- /wp:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
-		// Check that image is fetched via `getMedia`
+		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
 
 		const [ imageBlock ] = screen.getAllByLabelText( /Image Block/ );
@@ -190,7 +195,7 @@ describe( 'Image Block', () => {
 		<figcaption class="wp-element-caption">Mountain</figcaption></figure>
 		<!-- /wp:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
-		// Check that image is fetched via `getMedia`
+		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
 
 		const [ imageBlock ] = screen.getAllByLabelText( /Image Block/ );
@@ -223,7 +228,7 @@ describe( 'Image Block', () => {
 		<figcaption class="wp-element-caption">Mountain</figcaption></figure>
 		<!-- /wp:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
-		// Check that image is not fetched via `getMedia` due to the presence of query parameters in the URL.
+		// Check that image is not fetched via `getEntityRecord` due to the presence of query parameters in the URL.
 		expect( apiFetch ).not.toHaveBeenCalledWith( FETCH_MEDIA.request );
 
 		const [ imageBlock ] = screen.getAllByLabelText( /Image Block/ );
@@ -248,7 +253,7 @@ describe( 'Image Block', () => {
 		<figcaption class="wp-element-caption">Mountain</figcaption></figure>
 		<!-- /wp:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
-		// Check that image is fetched via `getMedia`
+		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
 
 		const [ imageBlock ] = screen.getAllByLabelText( /Image Block/ );
@@ -279,7 +284,7 @@ describe( 'Image Block', () => {
 		</figure>
 		<!-- /wp:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
-		// Check that image is fetched via `getMedia`
+		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
 
 		const [ imageBlock ] = screen.getAllByLabelText( /Image Block/ );
