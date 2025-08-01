@@ -189,10 +189,10 @@ function gutenberg_add_rest_index_roles( WP_REST_Response $response ) {
 	if ( ! current_user_can( 'list_users' ) ) {
 		return $response;
 	}
-	
-	$wp_roles = wp_roles();
+
+	$wp_roles    = wp_roles();
 	$roles_array = array();
-	
+
 	foreach ( $wp_roles->get_names() as $role_id => $role_name ) {
 		$roles_array[] = array(
 			'id'   => $role_id,
