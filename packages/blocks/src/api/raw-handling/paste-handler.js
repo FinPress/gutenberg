@@ -6,7 +6,6 @@ import { getPhrasingContentSchema, removeInvalidHTML } from '@wordpress/dom';
 /**
  * Internal dependencies
  */
-import { flattenNestedTags } from './flatten-nested-tags';
 import { htmlToBlocks } from './html-to-blocks';
 import { hasBlockSupport } from '../registration';
 import { getBlockInnerHTML } from '../serializer';
@@ -94,9 +93,6 @@ export function pasteHandler( {
 		/(?:<!--\s*EndFragment\s*-->\s*)?<\/body>\s*<\/html>\s*$/i,
 		''
 	);
-
-	// Fix nested tags before HTML parsing to prevent malformed DOM
-	HTML = flattenNestedTags( HTML );
 
 	// If we detect block delimiters in HTML, parse entirely as blocks.
 	if ( mode !== 'INLINE' ) {
