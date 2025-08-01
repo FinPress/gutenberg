@@ -270,11 +270,6 @@ export default function PostTemplateEdit( {
 		);
 	}
 
-	// REMOVED THE PROBLEMATIC EARLY RETURN!
-	// if ( ! posts.length ) {
-	//     return <p { ...blockProps }> { __( 'No results found.' ) }</p>;
-	// }
-
 	const setDisplayLayout = ( newDisplayLayout ) =>
 		setAttributes( {
 			layout: { ...layout, ...newDisplayLayout },
@@ -299,7 +294,7 @@ export default function PostTemplateEdit( {
 		},
 	];
 
-	// Create fallback context when no posts exist
+	// Create fallback context when no posts exist.
 	const effectiveBlockContexts =
 		blockContexts && blockContexts.length > 0
 			? blockContexts
@@ -313,7 +308,7 @@ export default function PostTemplateEdit( {
 
 	return (
 		<>
-			{ /* Show message when no posts exist */ }
+			{ /* Show message when no posts exist. */ }
 			{ posts.length === 0 && (
 				<p>
 					{ __(
@@ -339,7 +334,7 @@ export default function PostTemplateEdit( {
 								classList={ blockContext.classList }
 							/>
 						) : null }
-						{ /* Only show preview for real posts, not placeholder */ }
+						{ /* Only show preview for real posts, not placeholder. */ }
 						{ blockContext.postId !== 'template-placeholder' && (
 							<MemoizedPostTemplateBlockPreview
 								blocks={ blocks }
