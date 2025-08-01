@@ -12,7 +12,7 @@ import {
 	useInnerBlocksProps,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { Spinner, ToolbarGroup } from '@wordpress/components';
+import { ToolbarGroup } from '@wordpress/components';
 import { useEntityRecords } from '@wordpress/core-data';
 
 const TEMPLATE = [ [ 'core/paragraph' ] ];
@@ -177,9 +177,19 @@ export default function TermTemplateEdit( {
 
 	if ( isResolving ) {
 		return (
-			<p { ...blockProps }>
-				<Spinner />
-			</p>
+			<div { ...blockProps }>
+				<ul>
+					<li className="wp-block-term term-loading">
+						<div className="term-loading-placeholder" />
+					</li>
+					<li className="wp-block-term term-loading">
+						<div className="term-loading-placeholder" />
+					</li>
+					<li className="wp-block-term term-loading">
+						<div className="term-loading-placeholder" />
+					</li>
+				</ul>
+			</div>
 		);
 	}
 
