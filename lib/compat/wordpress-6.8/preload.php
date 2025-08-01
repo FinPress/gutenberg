@@ -89,6 +89,7 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 				'page_for_posts',
 				'page_on_front',
 				'show_on_front',
+				'roles',
 			)
 		);
 	}
