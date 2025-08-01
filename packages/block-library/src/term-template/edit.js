@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import clsx from 'clsx';
-
-/**
  * WordPress dependencies
  */
 import { memo, useMemo, useState } from '@wordpress/element';
@@ -24,7 +19,7 @@ const TEMPLATE = [ [ 'core/paragraph' ] ];
 
 function TermTemplateInnerBlocks( { classList, term } ) {
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: clsx( 'wp-block-term', classList ) },
+		{ className: `wp-block-term ${ classList }` },
 		{ template: TEMPLATE, __unstableDisableLayoutClassNames: true }
 	);
 	return <li { ...innerBlocksProps }>{ term?.name }</li>;
@@ -41,7 +36,7 @@ function TermTemplateBlockPreview( {
 	const blockPreviewProps = useBlockPreview( {
 		blocks,
 		props: {
-			className: clsx( 'wp-block-term', classList ),
+			className: `wp-block-term ${ classList }`,
 		},
 	} );
 
@@ -176,7 +171,7 @@ export default function TermTemplateEdit( {
 	);
 
 	const blockProps = useBlockProps( {
-		className: clsx( 'wp-block-term-template' ),
+		className: 'wp-block-term-template',
 	} );
 
 	if ( isResolving ) {
