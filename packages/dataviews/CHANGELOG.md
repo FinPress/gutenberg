@@ -2,6 +2,66 @@
 
 ## Unreleased
 
+### Breaking changes
+
+- Field API: `isValid` is now an object that contains `required` and `custom` validation rules. Additionally, fields should now opt-in into being a "required" field by setting `isValid.required` to `true` (all fields of type `email` and `integer` were required by default). [#70901](https://github.com/WordPress/gutenberg/pull/70901)
+
+### Bug Fixes
+
+- Fix `filterSortAndPaginate` to handle searching fields that have a type of `array` ([#70785](https://github.com/WordPress/gutenberg/pull/70785)).
+- Fix user-input filters: empty value for text and integer filters means there's no value to search for (so it returns all items). It also fixes a type conversion where empty strings for integer were converted to 0 [#70956](https://github.com/WordPress/gutenberg/pull/70956/).
+
+### Features
+
+- Support Ctrl + Click / Cmd + Click for multiselecting rows in the Table layout ([#70891](https://github.com/WordPress/gutenberg/pull/70891)).
+- Add support for the `Edit` control on the date field type ([#70836](https://github.com/WordPress/gutenberg/pull/70836)).
+
+## 5.0.0 (2025-07-23)
+
+### Bug Fixes
+
+- Fix `filterSortAndPaginate` to handle undefined values for the `is` filter.
+- Fix the background color of the action column if the row is selected
+
+### Features
+
+- Add support for grouping items by a field in the `grid` layout by introducing a `groupByField` prop in the View object.
+- Add support for free composition in the `DataViews` component by exporting subcomponents: `<DataViews.ViewConfig />`, `<DataViews.Search />`, `<DataViews.Pagination />`, `<DataViews.LayoutSwitcher />`, `<DataViews.Layout />`, `<DataViews.FiltersToggle />`, `<DataViews.Filters />`, `<DataViews.BulkActionToolbar />`.
+- `select`, `text`, `email` controls: add `help` support from the field `description` prop.
+- `text`, `email` Edit control: add `help` support from the field `description` prop.
+- Add new Edit controls: `checkbox`, `toggleGroup`. In the `toggleGroup`, if the field elements (options) have a `description`, then the selected option's description will be also rendered.
+- Add new `media`, `boolean`, `email`, `array` and `date` field type definitions.
+- Field type definitions are now able to define a default `enableSorting` and `render` function.
+- Pin the actions column on the table view when the width is insufficient.
+- Enhance filter component styles.
+- Add user input filter support based on the `Edit` property of the field type definitions.
+- Add new filter operators: `lessThan`, `greaterThan`, `lessThanOrEqual`, `greaterThanOrEqual`, `contains`, `notContains`, `startsWith`, `between`, `on`, `notOn`, `before`, `after`, `inThePast`, `over`, `beforeInc`, and `afterInc`.
+- Add `align` to the `layout.styles` properties, for use in the DataViews table layout. Options are: `start`, `center`, and `end`.
+- Allow fields to opt-out of filtering via `field.filterBy: false`.
+- Update the field type definitions to declare the default and valid operators they support. Fields with no `type` property can use all operators; if none is provided in the field's config, they'll use `is` and `isNot` by default.
+- Adjust the spacing of the `DataForm` based on the type.
+- Add `label-position-side` classes to labels in the form field layouts. Ensure that labels in the panel view do not align center, and that all side labels are center aligned.
+- Allow readonly fields in DataForm when `readOnly` is set to `true`.
+- Adjust the padding when the component is placed inside a `Card`.
+- Introduce `perPageSizes` to control the available sizes of the items per page.
+- Align media styles in table view with list view for consistency.
+
+### Breaking Changes
+
+- Fields with `Edit` defined or `type` will automatically be considered as filters unless `filterBy` is set to `false`.
+- Add `renderItemLink` prop support in the `DataViews` component. It replaces `onClickItem`prop and allows integration with router libraries.
+
+### Internal
+
+- Adds new story that combines DataViews and DataForm.
+- Add a story for each FieldTypeDefinition.
+
+## 4.22.0 (2025-06-25)
+
+## 4.21.0 (2025-06-04)
+
+## 4.20.0 (2025-05-22)
+
 ## 4.19.0 (2025-05-07)
 
 ## 4.18.0 (2025-04-11)

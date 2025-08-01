@@ -2,6 +2,86 @@
 
 ## Unreleased
 
+### Enhancement
+
+-   `ColorPicker`: Improve color picker slider focus styles for better keyboard navigation accessibility ([#70146](https://github.com/WordPress/gutenberg/pull/70146)).
+
+### Bug Fixes
+
+-   `TextareaControl`: Add missing component CSS classname ([#70930](https://github.com/WordPress/gutenberg/pull/70930)).
+-   `PaletteEdit`: Fill available space with input field ([#70935](https://github.com/WordPress/gutenberg/pull/70935)).
+
+### Enhancement
+
+-   `TextControl`: Improve theming support ([#70910](https://github.com/WordPress/gutenberg/pull/70910)).
+
+### Internal
+
+-	`RangeControl`: Add placement prop to replace position ([#70326](https://github.com/WordPress/gutenberg/pull/70326)).
+- Expose `ValidatedNumberControl`, `ValidatedTextControl`, and `ValidatedToggleControl` via privateAPIs. ([#70901](https://github.com/WordPress/gutenberg/pull/70901)).
+
+## 30.0.0 (2025-07-23)
+
+### Breaking Changes
+
+-   `Icon`: Pass `size` prop value as `width`/`height` attributes when `icon` is a component that doesn't exactly match `SVG` ([#70756](https://github.com/WordPress/gutenberg/pull/70756)).
+
+### Internal
+
+-   Add new validated form controls (work in progress, not exported): `ValidatedCheckboxControl`, `ValidatedInputControl`, `ValidatedNumberControl`, `ValidatedRadioControl`, `ValidatedRangeControl`, `ValidatedSelectControl`, `ValidatedTextControl`, `ValidatedTextareaControl`, `ValidatedToggleControl`, `ValidatedCustomSelectControl`, `ValidatedComboboxControl`, `ValidatedToggleGroupControl`, and `ControlWithError` for enhanced form validation capabilities ([#70620](https://github.com/WordPress/gutenberg/pull/70620)).
+
+### Bug Fixes
+
+-   `FormTokenField`: Fix focus lost on tab when `__experimentalExpandOnFocus` is set ([#70591](https://github.com/WordPress/gutenberg/pull/70591)).
+-   `SelectControl`: Fix font-size for medium screens to ensure consistency with other inputs ([#70619](https://github.com/WordPress/gutenberg/pull/70619)).
+-   `SelectControl`: Move classnames to the root ([#70643](https://github.com/WordPress/gutenberg/pull/70643)).
+-   `Autocomplete`: Prevent text cursor position loss when clicking to insert an item ([#70660](https://github.com/WordPress/gutenberg/pull/70660)).
+
+
+### Internal
+
+-   Add new private `DateCalendar` and `DateRangeCalendar` components ([#70578](https://github.com/WordPress/gutenberg/pull/70578), [#70681](https://github.com/WordPress/gutenberg/pull/70681)).
+-   `useControlledValue`: Enhanced hook to support additional arguments in onChange callbacks and improved performance with useCallback optimization ([#70655](https://github.com/WordPress/gutenberg/pull/70655)).
+
+## 29.12.0 (2025-06-25)
+
+### Bug Fixes
+
+-   `FormFileUpload`: Extend audio accept MIME types for iOS compatibility ([#70354](https://github.com/WordPress/gutenberg/pull/70354)).
+
+### Internal
+
+-   `FormFileUpload`: Remove temporary fix for selecting .heic file in Chromium browsers ([#70383](https://github.com/WordPress/gutenberg/pull/70383)).
+
+## 29.11.0 (2025-06-04)
+
+### Enhancement
+
+-   `ComboboxControl`: Handle Unicode characters when matching values ([#70180](https://github.com/WordPress/gutenberg/pull/70180)).
+-   `Toolbar`: Adjust colors for dark mode support ([#69278](https://github.com/WordPress/gutenberg/pull/69278)).
+-   `DropZone`: Allow overriding the default icon ([#70236](https://github.com/WordPress/gutenberg/pull/70236)).
+
+### Bug Fixes
+
+-   `FormTokenField`: Fix filtering with full-width string ([#70232](https://github.com/WordPress/gutenberg/pull/70232)).
+
+### Internal
+
+-   Expose `normalizeTextString` method as private API ([#70178](https://github.com/WordPress/gutenberg/pull/70178)).
+-   Mark `withIgnoreIMEEvents()` function as private API ([#70056](https://github.com/WordPress/gutenberg/pull/70056)).
+-   `InputControl`: remove unnecessary forced focus on `mousedown` ([#41118](https://github.com/WordPress/gutenberg/pull/41118)).
+
+## 29.10.0 (2025-05-22)
+
+### Enhancement
+
+-   `Snackbar`: Add support to open links in a new tab ([#69905](https://github.com/WordPress/gutenberg/pull/69905)).
+-   `ColorPicker`: Add a visual cue when the value is copied ([#70083](https://github.com/WordPress/gutenberg/pull/70083)).
+
+### Internal
+
+-   Clarify `withIgnoreIMEEvents` documentation to reflect support for all keyboard event handlers ([#70098](https://github.com/WordPress/gutenberg/pull/70098)).
+
 ## 29.9.0 (2025-05-07)
 
 ### Enhancement
@@ -16,6 +96,7 @@
 -   `ToggleGroupControl`: Fix active background for empty string value ([#69969](https://github.com/WordPress/gutenberg/pull/69969)).
 -   `ItemGroup`: Fix double border in `ItemGroup` when last item is focused ([#70021](https://github.com/WordPress/gutenberg/pull/70021)).
 -   `__experimentalUseCustomUnits `: Don't mutate 'ALL_CSS_UNITS' default value ([#70037](https://github.com/WordPress/gutenberg/pull/70037)).
+-   `FocalPointPicker`: Fix SVG display when it doesn't provide a width attribute ([#70061](https://github.com/WordPress/gutenberg/pull/70061))..
 
 ### Internal
 
