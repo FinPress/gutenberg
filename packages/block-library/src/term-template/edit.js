@@ -98,25 +98,34 @@ function buildTermsTree( terms ) {
  * Renders a single term node and its children recursively.
  *
  * @param {Object}   termNode   Term node with term object and children.
- * @param {Function} renderTerm Function to render a single term.
- * @return {JSX.Element} Rendered term node.
+ * @param {Function} renderTerm Function to render individual terms.
+ * @return {JSX.Element} Rendered term node with children.
  */
 function renderTermNode( termNode, renderTerm ) {
-	const children =
-		termNode.children.length > 0 ? (
-			<ul>
-				{ termNode.children.map( ( childNode ) =>
-					renderTermNode( childNode, renderTerm )
-				) }
-			</ul>
-		) : null;
-
 	return (
 		<>
 			{ renderTerm( termNode.term ) }
-			{ children }
+			{ termNode.children.length > 0 && (
+				<ul>
+					{ termNode.children.map( ( child ) =>
+						renderTermNode( child, renderTerm )
+					) }
+				</ul>
+			) }
 		</>
 	);
+}
+
+/**
+ * Checks if a term is the currently active term.
+ *
+ * @param {number} termId               The term ID to check.
+ * @param {number} activeBlockContextId The currently active block context ID.
+ * @param {Array}  blockContexts        Array of block contexts.
+ * @return {boolean} True if the term is active, false otherwise.
+ */
+function isActiveTerm( termId, activeBlockContextId, blockContexts ) {
+	return termId === ( activeBlockContextId || blockContexts[ 0 ]?.termId );
 }
 
 export default function TermTemplateEdit( {
@@ -206,8 +215,11 @@ export default function TermTemplateEdit( {
 
 		return (
 			<BlockContextProvider key={ term.id } value={ blockContext }>
-				{ term.id ===
-				( activeBlockContextId || blockContexts[ 0 ]?.termId ) ? (
+				{ isActiveTerm(
+					term.id,
+					activeBlockContextId,
+					blockContexts
+				) ? (
 					<TermTemplateInnerBlocks
 						classList={ blockContext.classList }
 						term={ term }
@@ -218,10 +230,11 @@ export default function TermTemplateEdit( {
 					blockContextId={ term.id }
 					classList={ blockContext.classList }
 					setActiveBlockContextId={ setActiveBlockContextId }
-					isHidden={
-						term.id ===
-						( activeBlockContextId || blockContexts[ 0 ]?.termId )
-					}
+					isHidden={ isActiveTerm(
+						term.id,
+						activeBlockContextId,
+						blockContexts
+					) }
 					termName={ term.name }
 				/>
 			</BlockContextProvider>
@@ -241,8 +254,11 @@ export default function TermTemplateEdit( {
 				key={ blockContext.termId }
 				value={ blockContext }
 			>
-				{ blockContext.termId ===
-				( activeBlockContextId || blockContexts[ 0 ]?.termId ) ? (
+				{ isActiveTerm(
+					blockContext.termId,
+					activeBlockContextId,
+					blockContexts
+				) ? (
 					<TermTemplateInnerBlocks
 						classList={ blockContext.classList }
 						term={ filteredTerms.find(
@@ -255,10 +271,11 @@ export default function TermTemplateEdit( {
 					blockContextId={ blockContext.termId }
 					classList={ blockContext.classList }
 					setActiveBlockContextId={ setActiveBlockContextId }
-					isHidden={
-						blockContext.termId ===
-						( activeBlockContextId || blockContexts[ 0 ]?.termId )
-					}
+					isHidden={ isActiveTerm(
+						blockContext.termId,
+						activeBlockContextId,
+						blockContexts
+					) }
 					termName={
 						filteredTerms.find(
 							( t ) => t.id === blockContext.termId
