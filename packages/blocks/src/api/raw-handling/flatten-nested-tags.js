@@ -7,6 +7,11 @@
  * @return {string} The processed HTML with flattened nested tags
  */
 export function flattenNestedTags( html ) {
+	// Return early if html is not a string or is empty
+	if ( typeof html !== 'string' || ! html ) {
+		return html || '';
+	}
+
 	let processedHtml = html;
 
 	// Fix nested <strong> tags - combine into single tags

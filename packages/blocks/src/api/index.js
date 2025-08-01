@@ -53,6 +53,7 @@ export {
 export {
 	pasteHandler,
 	rawHandler,
+	flattenNestedTags,
 	deprecatedGetPhrasingContentSchema as getPhrasingContentSchema,
 } from './raw-handling';
 

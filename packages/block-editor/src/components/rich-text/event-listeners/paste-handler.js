@@ -41,9 +41,10 @@ export default ( props ) => ( element ) => {
 
 		event.preventDefault();
 
-		// Allows us to ask for this information when we get a report.
-		window.console.log( 'Received HTML:\n\n', html );
-		window.console.log( 'Received plain text:\n\n', plainText );
+		// If we have no content to paste, do nothing
+		if ( ! html && ! plainText ) {
+			return;
+		}
 
 		if ( disableFormats ) {
 			onChange( insert( value, plainText ) );
@@ -72,7 +73,20 @@ export default ( props ) => ( element ) => {
 				onChange( transformed );
 			} else {
 				const valueToInsert = create( { html: content } );
-				addActiveFormats( valueToInsert, value.activeFormats );
+
+				// Check if the content being pasted contains links
+				const contentHasLinks = content && content.includes( '<a ' );
+
+				// If content has links, don't apply active link formats to avoid nesting
+				let activeFormatsToApply = value.activeFormats;
+				if ( contentHasLinks && activeFormatsToApply ) {
+					// Filter out link formats from active formats
+					activeFormatsToApply = activeFormatsToApply.filter(
+						( format ) => format && format.type !== 'core/link'
+					);
+				}
+
+				addActiveFormats( valueToInsert, activeFormatsToApply );
 				onChange( insert( value, valueToInsert ) );
 			}
 		}
@@ -83,8 +97,11 @@ export default ( props ) => ( element ) => {
 		if ( isInternal ) {
 			// Apply nested tag flattening even for internal paste operations
 			// to prevent nested anchor tags which are invalid HTML
-			const processedHtml = flattenNestedTags( html );
-			
+			const processedHtml =
+				typeof flattenNestedTags === 'function'
+					? flattenNestedTags( html )
+					: html;
+
 			pasteInline( processedHtml );
 			return;
 		}
