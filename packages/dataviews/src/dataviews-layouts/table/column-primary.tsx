@@ -76,7 +76,7 @@ function ColumnPrimary< Item >( {
 						renderItemLink={ renderItemLink }
 						className="dataviews-view-table__cell-content-wrapper dataviews-title-field"
 					>
-						{ level !== undefined && (
+						{ level !== undefined && level > 0 && (
 							<span className="dataviews-view-table__level">
 								{ '—'.repeat( level ) }&nbsp;
 							</span>
