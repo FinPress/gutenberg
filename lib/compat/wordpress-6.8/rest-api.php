@@ -178,3 +178,30 @@ function gutenberg_register_rest_theme_fields() {
 	);
 }
 add_action( 'rest_api_init', 'gutenberg_register_rest_theme_fields' );
+
+/**
+ * Adds the site roles to the REST API index.
+ *
+ * @param WP_REST_Response $response REST API response.
+ * @return WP_REST_Response Modified REST API response.
+ */
+function gutenberg_add_rest_index_roles( WP_REST_Response $response ) {
+	if ( ! current_user_can( 'list_users' ) ) {
+		return $response;
+	}
+	
+	$wp_roles = wp_roles();
+	$roles_array = array();
+	
+	foreach ( $wp_roles->get_names() as $role_id => $role_name ) {
+		$roles_array[] = array(
+			'id'   => $role_id,
+			'name' => $role_name,
+		);
+	}
+
+	$response->data['roles'] = $roles_array;
+
+	return $response;
+}
+add_filter( 'rest_index', 'gutenberg_add_rest_index_roles' );
