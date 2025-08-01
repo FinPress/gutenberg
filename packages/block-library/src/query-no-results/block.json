@@ -8,14 +8,6 @@
 	"ancestor": [ "core/query" ],
 	"textdomain": "default",
 	"usesContext": [ "queryId", "query" ],
-	"template": [
-		[
-			"core/paragraph",
-			{
-				"placeholder": "Add text or blocks that will display when a query returns no results."
-			}
-		]
-	],
 	"supports": {
 		"align": true,
 		"reusable": false,
