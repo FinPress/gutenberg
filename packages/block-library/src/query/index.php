@@ -41,24 +41,26 @@ function block_core_query_has_results( $attributes, $block ) {
 }
 
 /**
- * Checks if the block has a no results block
+ * Checks if the block has a no results block.
+ *
+ * @since 6.9.0
  *
  * @param WP_Block $block The block instance.
  * @return bool Returns true if the block has a no results block, false otherwise.
  */
-function has_no_results_block( $block ) {
+function block_core_query_has_no_results_block( $block ) {
 	if ( empty( $block['innerBlocks'] ) ) {
 		return false;
 	}
 
 	foreach ( $block['innerBlocks'] as $inner_block ) {
 		// Check if this inner block is the no-results block
-		if ( $inner_block['blockName'] === 'core/query-no-results' ) {
+		if ( 'core/query-no-results' === $inner_block['blockName'] ) {
 			return true;
 		}
 
 		// Recursively check this inner block's children
-		if ( has_no_results_block( $inner_block ) ) {
+		if ( block_core_query_has_no_results_block( $inner_block ) ) {
 			return true;
 		}
 	}
@@ -221,12 +223,12 @@ add_filter( 'render_block_data', 'block_core_query_disable_enhanced_pagination',
  * @return array The modified block.
  */
 function block_core_query_add_no_results_block( $parsed_block ) {
-	if ( $parsed_block['blockName'] !== 'core/query' ) {
+	if ( 'core/query' !== $parsed_block['blockName']) {
 		return $parsed_block;
 	}
 
 	// Check if we already have a no results block
-	if ( has_no_results_block( $parsed_block ) ) {
+	if ( block_core_query_has_no_results_block( $parsed_block ) ) {
 		return $parsed_block;
 	}
 
