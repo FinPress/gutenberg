@@ -37,14 +37,24 @@ const entitySelectors = entitiesConfig.reduce( ( result, entity ) => {
 
 	const getEntityRecordMethodName = getMethodName( kind, name );
 	result[ getEntityRecordMethodName ] = ( state, key, query ) => {
-		logEntityDeprecation( kind, name, getEntityRecordMethodName );
+		logEntityDeprecation(
+			kind,
+			name,
+			getEntityRecordMethodName,
+			'getEntityRecord'
+		);
 		return selectors.getEntityRecord( state, kind, name, key, query );
 	};
 
 	if ( plural ) {
 		const getEntityRecordsMethodName = getMethodName( kind, plural, 'get' );
 		result[ getEntityRecordsMethodName ] = ( state, query ) => {
-			logEntityDeprecation( kind, plural, getEntityRecordsMethodName );
+			logEntityDeprecation(
+				kind,
+				plural,
+				getEntityRecordsMethodName,
+				'getEntityRecords'
+			);
 			return selectors.getEntityRecords( state, kind, name, query );
 		};
 	}
@@ -55,14 +65,24 @@ const entityResolvers = entitiesConfig.reduce( ( result, entity ) => {
 	const { kind, name, plural } = entity;
 	const getEntityRecordMethodName = getMethodName( kind, name );
 	result[ getEntityRecordMethodName ] = ( key, query ) => {
-		logEntityDeprecation( kind, name, getEntityRecordMethodName );
+		logEntityDeprecation(
+			kind,
+			name,
+			getEntityRecordMethodName,
+			'getEntityRecord'
+		);
 		return resolvers.getEntityRecord( kind, name, key, query );
 	};
 
 	if ( plural ) {
 		const getEntityRecordsMethodName = getMethodName( kind, plural, 'get' );
 		result[ getEntityRecordsMethodName ] = ( ...args ) => {
-			logEntityDeprecation( kind, plural, getEntityRecordsMethodName );
+			logEntityDeprecation(
+				kind,
+				plural,
+				getEntityRecordsMethodName,
+				'getEntityRecords'
+			);
 			return resolvers.getEntityRecords( kind, name, ...args );
 		};
 		result[ getEntityRecordsMethodName ].shouldInvalidate = ( action ) =>
@@ -76,13 +96,23 @@ const entityActions = entitiesConfig.reduce( ( result, entity ) => {
 
 	const saveEntityRecordMethodName = getMethodName( kind, name, 'save' );
 	result[ saveEntityRecordMethodName ] = ( record, options ) => {
-		logEntityDeprecation( kind, name, saveEntityRecordMethodName );
+		logEntityDeprecation(
+			kind,
+			name,
+			saveEntityRecordMethodName,
+			'saveEntityRecord'
+		);
 		return actions.saveEntityRecord( kind, name, record, options );
 	};
 
 	const deleteEntityRecordMethodName = getMethodName( kind, name, 'delete' );
 	result[ deleteEntityRecordMethodName ] = ( key, query, options ) => {
-		logEntityDeprecation( kind, name, deleteEntityRecordMethodName );
+		logEntityDeprecation(
+			kind,
+			name,
+			deleteEntityRecordMethodName,
+			'deleteEntityRecord'
+		);
 		return actions.deleteEntityRecord( kind, name, key, query, options );
 	};
 
