@@ -238,7 +238,7 @@ echo 'RewriteRule . index.php [L]'
 				'sh',
 				'-c',
 				`grep -q "define('DOCKER_REQUEST_URL'" /var/www/html/wp-config.php || sed -i "/\\/\\/ a helper function to lookup \\"env_FILE\\", \\"env\\", then fallback/i \\
-if (isset(\\$_SERVER['HTTP_X_FORWARDED_PROTO']) \\&\\& \\$_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {\\n\\
+if (isset(\\$_SERVER['HTTP_X_FORWARDED_PROTO']) \\&\\& strpos(\\$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {\\n\\
 \\t\\$_SERVER['HTTPS'] = 'on';\\n\\
 \\tdefine('DOCKER_REQUEST_URL', 'https://' . (!empty(\\$_SERVER['HTTP_HOST']) ? \\$_SERVER['HTTP_HOST'] : 'localhost'));\\n\\
 \\tdefine('WP_HOME', DOCKER_REQUEST_URL);\\n\\
@@ -256,7 +256,7 @@ if (isset(\\$_SERVER['HTTP_X_FORWARDED_PROTO']) \\&\\& \\$_SERVER['HTTP_X_FORWAR
 			[
 				'sh',
 				'-c',
-				`sed -i '/if (isset(\\$_SERVER\\['HTTP_X_FORWARDED_PROTO'\\]) \\&\\& \\$_SERVER\\['HTTP_X_FORWARDED_PROTO'\\'] === '\\''https'\\'') {/,/define('WP_SITEURL', DOCKER_REQUEST_URL);/d' /var/www/html/wp-config.php`,
+				`sed -i '/if (isset(\\$_SERVER\\['HTTP_X_FORWARDED_PROTO'\\]) \\&\\& strpos(\\$_SERVER\\['HTTP_X_FORWARDED_PROTO'\\], '\\''https'\\'') !== false) {/,/define('WP_SITEURL', DOCKER_REQUEST_URL);/d' /var/www/html/wp-config.php`,
 			],
 			{
 				config: config.dockerComposeConfigPath,
