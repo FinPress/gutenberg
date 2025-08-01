@@ -131,11 +131,10 @@ function TableRow< Item >( {
 	// behaviours.
 	const isTouchDeviceRef = useRef( false );
 	const columns = view.fields ?? [];
-	const primaryColumnHasDescription = descriptionField && showDescription;
 	const hasPrimaryColumn =
-		primaryColumnHasDescription ||
 		( titleField && showTitle ) ||
-		( mediaField && showMedia );
+		( mediaField && showMedia ) ||
+		( descriptionField && showDescription );
 
 	return (
 		<tr

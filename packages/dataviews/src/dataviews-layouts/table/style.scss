@@ -292,6 +292,8 @@
 
 .dataviews-view-table__cell-content-wrapper,
 .dataviews-view-table__primary-column-content {
-	min-width: 15ch;
-	max-width: 60ch;
+	&:not(.dataviews-column-primary__media) {
+		min-width: 15ch;
+		max-width: 60ch;
+	}
 }
