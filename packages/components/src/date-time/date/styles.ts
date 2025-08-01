@@ -57,18 +57,6 @@ export const DayButton = styled( Button, {
 	justify-content: center;
 
 	${ ( props ) =>
-		props.column === 1 &&
-		`
-		justify-self: start;
-		` }
-
-	${ ( props ) =>
-		props.column === 7 &&
-		`
-		justify-self: end;
-		` }
-
-	${ ( props ) =>
 		props.disabled &&
 		`
 		pointer-events: none;
