@@ -63,6 +63,7 @@ function TermTemplateBlockPreview( {
 	);
 }
 
+// Prevent re-rendering of the block preview when the terms data changes.
 const MemoizedTermTemplateBlockPreview = memo( TermTemplateBlockPreview );
 
 /**
