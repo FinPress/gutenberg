@@ -23,10 +23,10 @@ export default function logEntityDeprecation( kind, name, functionName ) {
 
 	const { alternative } = deprecation;
 	deprecated(
-		`${ kind }, ${ name } entity (used in a call to ${ functionName })`,
+		`The '${ kind }', '${ name }' entity (used in a call to ${ functionName })`,
 		{
 			...deprecation,
-			alternative: `the ${ alternative.kind }, ${ alternative.name } entity`,
+			alternative: `The '${ alternative.kind }', '${ alternative.name }' entity`,
 		}
 	);
 }
