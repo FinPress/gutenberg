@@ -50,7 +50,7 @@ function ColumnPrimary< Item >( {
 					onClickItem={ onClickItem }
 					renderItemLink={ renderItemLink }
 					className="dataviews-view-table__cell-content-wrapper dataviews-column-primary__media"
-					title={
+					aria-label={
 						titleField
 							? sprintf(
 									// translators: %s is the item title.

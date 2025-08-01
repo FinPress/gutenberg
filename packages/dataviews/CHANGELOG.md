@@ -16,6 +16,10 @@
 - Support Ctrl + Click / Cmd + Click for multiselecting rows in the Table layout ([#70891](https://github.com/WordPress/gutenberg/pull/70891)).
 - Add support for the `Edit` control on the date field type ([#70836](https://github.com/WordPress/gutenberg/pull/70836)).
 
+### Enhancements
+
+- Make the media item clickable along the title.
+
 ## 5.0.0 (2025-07-23)
 
 ### Bug Fixes
