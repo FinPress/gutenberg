@@ -938,6 +938,7 @@ React component that renders the field. This is used by the layouts.
 -   Defaults to `getValue`.
 -   Props
     -   `item` value to be processed.
+    -   `config` object containing configuration options for the field. It's optional. So far, the only object property available is `sizes`: in fields that are set to be the media field, layouts can pass down the expected size reserved for them so that the field can react accordingly.
 -   Returns a React element that represents the field's value.
 
 Example:
