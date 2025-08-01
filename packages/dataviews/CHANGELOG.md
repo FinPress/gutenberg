@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-Modify the changelog entry.
+Modify the changelog entry. [#71025](https://github.com/WordPress/gutenberg/pull/71025)
 
 ### Breaking changes
 
