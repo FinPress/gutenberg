@@ -62,7 +62,6 @@ export function ItemClickWrapper< Item >( {
 	) => ReactElement;
 	className?: string;
 	children: ReactNode;
-	title?: string;
 } ) {
 	if ( ! isItemClickable( item ) ) {
 		return children;
