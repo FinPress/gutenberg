@@ -16,33 +16,43 @@
  * @return string Returns the block content.
  */
 function render_block_core_file( $attributes, $content ) {
-	// If it's interactive, enqueue the script module and add the directives.
-	if ( ! empty( $attributes['displayPreview'] ) ) {
-		wp_enqueue_script_module( '@wordpress/block-library/file/view' );
-
-		$processor = new WP_HTML_Tag_Processor( $content );
-		$processor->next_tag();
-		$processor->set_attribute( 'data-wp-interactive', 'core/file' );
-		$processor->next_tag( 'object' );
-		$processor->set_attribute( 'data-wp-bind--hidden', '!state.hasPdfPreview' );
-		$processor->set_attribute( 'hidden', true );
-
-		$filename     = $processor->get_attribute( 'aria-label' );
-		$has_filename = ! empty( $filename ) && 'PDF embed' !== $filename;
-		$label        = $has_filename ? sprintf(
-			/* translators: %s: filename. */
-			__( 'Embed of %s.' ),
-			$filename
-		) : __( 'PDF embed' );
-
-		// Update object's aria-label attribute if present in block HTML.
-		// Match an aria-label attribute from an object tag.
-		$processor->set_attribute( 'aria-label', $label );
-
-		return $processor->get_updated_html();
+	if ( empty( $attributes['displayPreview'] ) ) {
+		return $content;
 	}
 
-	return $content;
+	// If it's interactive, enqueue the script module and add the directives.
+	wp_enqueue_script_module( '@wordpress/block-library/file/view' );
+
+	$processor = new WP_HTML_Tag_Processor( $content );
+	if ( $processor->next_tag() ) {
+		$processor->set_attribute( 'data-wp-interactive', 'core/file' );
+	}
+
+	while ( 'OBJECT' !== $processor->get_tag() && $processor->next_tag( 'object' ) ) {
+		continue;
+	}
+
+	// If this occurs, there is likely no block content or a plugin has modified the block.
+	if ( 'OBJECT' !== $processor->get_tag() ) {
+		return $content;
+	}
+
+	$processor->set_attribute( 'data-wp-bind--hidden', '!state.hasPdfPreview' );
+	$processor->set_attribute( 'hidden', true );
+
+	$filename     = $processor->get_attribute( 'aria-label' );
+	$has_filename = ! empty( $filename ) && 'PDF embed' !== $filename;
+	$label        = $has_filename ? sprintf(
+		/* translators: %s: filename. */
+		__( 'Embed of %s.' ),
+		$filename
+	) : __( 'PDF embed' );
+
+	// Update object's aria-label attribute if present in block HTML.
+	// Match an aria-label attribute from an object tag.
+	$processor->set_attribute( 'aria-label', $label );
+
+	return $processor->get_updated_html();
 }
 
 /**
