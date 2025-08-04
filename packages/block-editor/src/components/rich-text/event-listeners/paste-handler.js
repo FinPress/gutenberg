@@ -41,10 +41,9 @@ export default ( props ) => ( element ) => {
 
 		event.preventDefault();
 
-		// If we have no content to paste, do nothing
-		if ( ! html && ! plainText ) {
-			return;
-		}
+		// Allows us to ask for this information when we get a report.
+		window.console.log( 'Received HTML:\n\n', html );
+		window.console.log( 'Received plain text:\n\n', plainText );
 
 		if ( disableFormats ) {
 			onChange( insert( value, plainText ) );
