@@ -32,7 +32,12 @@ function NavigationViewButton( { attributes } ) {
 	);
 
 	const onViewPage = useCallback( () => {
-		if ( kind === 'post-type' && type === 'page' && id ) {
+		if (
+			kind === 'post-type' &&
+			type === 'page' &&
+			id &&
+			onNavigateToEntityRecord
+		) {
 			onNavigateToEntityRecord( {
 				postId: id,
 				postType: type,
@@ -41,8 +46,13 @@ function NavigationViewButton( { attributes } ) {
 		}
 	}, [ kind, id, type, onNavigateToEntityRecord ] );
 
-	// Only show for page-type links.
-	if ( kind !== 'post-type' || type !== 'page' || ! id ) {
+	// Only show for page-type links and when navigation is available.
+	if (
+		kind !== 'post-type' ||
+		type !== 'page' ||
+		! id ||
+		! onNavigateToEntityRecord
+	) {
 		return null;
 	}
 
