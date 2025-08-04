@@ -752,7 +752,7 @@ describe( 'canUser', () => {
 		const state = deepFreeze( {
 			userPermissions: {
 				'create/media': false,
-				'create/root/media': false,
+				'create/postType/attachment': false,
 			},
 		} );
 		expect( canUser( state, 'create', 'media' ) ).toBe( false );
@@ -765,7 +765,7 @@ describe( 'canUser', () => {
 		const state = deepFreeze( {
 			userPermissions: {
 				'create/media/123': false,
-				'create/root/media/123': false,
+				'create/postType/attachment/123': false,
 			},
 		} );
 		expect( canUser( state, 'create', 'media', 123 ) ).toBe( false );

@@ -98,8 +98,8 @@ describe( 'useResourcePermissions', () => {
 		let data;
 		const TestComponent = () => {
 			data = useResourcePermissions( {
-				kind: 'postType',
-				name: 'attachment',
+				kind: 'root',
+				name: 'user',
 			} );
 			return <div />;
 		};
@@ -131,8 +131,8 @@ describe( 'useResourcePermissions', () => {
 		let data;
 		const TestComponent = () => {
 			data = useResourcePermissions( {
-				kind: 'postType',
-				name: 'attachment',
+				kind: 'root',
+				name: 'user',
 				id: 1,
 			} );
 			return <div />;
@@ -169,8 +169,8 @@ describe( 'useResourcePermissions', () => {
 		const TestComponent = () => {
 			useResourcePermissions(
 				{
-					kind: 'postType',
-					name: 'attachment',
+					kind: 'root',
+					name: 'user',
 				},
 				1
 			);

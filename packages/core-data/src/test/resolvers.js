@@ -379,8 +379,8 @@ describe( 'getEmbedPreview', () => {
 describe( 'canUser', () => {
 	const ENTITIES = [
 		{
-			name: 'postType',
-			kind: 'attachment',
+			name: 'attachment',
+			kind: 'postType',
 			baseURL: '/wp/v2/media',
 			baseURLParams: { context: 'edit' },
 		},
@@ -482,7 +482,7 @@ describe( 'canUser', () => {
 		} );
 
 		expect( dispatch.receiveUserPermission ).toHaveBeenCalledWith(
-			'create/root/media',
+			'create/postType/attachment',
 			false
 		);
 	} );
@@ -527,7 +527,7 @@ describe( 'canUser', () => {
 		} );
 
 		expect( dispatch.receiveUserPermission ).toHaveBeenCalledWith(
-			'create/root/media',
+			'create/postType/attachment',
 			true
 		);
 	} );
