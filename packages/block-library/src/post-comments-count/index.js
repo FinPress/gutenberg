@@ -18,6 +18,7 @@ export const settings = {
 	icon,
 	edit,
 	transforms,
+	example: {},
 };
 
 export const init = () => initBlock( { name, metadata, settings } );
