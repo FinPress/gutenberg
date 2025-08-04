@@ -1,7 +1,12 @@
 /**
  * External dependencies
  */
-import type { ReactElement, ComponentType, ComponentProps } from 'react';
+import type {
+	ReactElement,
+	ReactNode,
+	ComponentType,
+	ComponentProps,
+} from 'react';
 
 /**
  * Internal dependencies
@@ -620,6 +625,7 @@ export interface ViewBaseProps< Item > {
 	) => ReactElement;
 	isItemClickable: ( item: Item ) => boolean;
 	view: View;
+	empty: ReactNode;
 }
 
 export interface ViewTableProps< Item > extends ViewBaseProps< Item > {

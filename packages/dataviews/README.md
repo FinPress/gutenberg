@@ -415,11 +415,13 @@ The component receives the following props:
 
 React component to be rendered next to the view config button.
 
-#### `perPageSizes`: `[ number, number, number, number ]`
+#### `perPageSizes`: `number[]`
 
-A list of numbers used to control the available item counts per page.
+A list of numbers used to control the available item counts per page. It's optional. Defaults to `[10, 20, 50, 100]`. The list needs to have a minimum of 2 items and a maximum of 6, otherwise the UI component won't be displayed.
 
-It's optional. Defaults to `[10, 20, 50, 100]`.
+#### `empty`: React node
+
+A message or element to be displayed instead of the dataview's default empty message.
 
 ### Composition modes
 
@@ -938,6 +940,7 @@ React component that renders the field. This is used by the layouts.
 -   Defaults to `getValue`.
 -   Props
     -   `item` value to be processed.
+    -   `config` object containing configuration options for the field. It's optional. So far, the only object property available is `sizes`: in fields that are set to be the media field, layouts can pass down the expected size reserved for them so that the field can react accordingly.
 -   Returns a React element that represents the field's value.
 
 Example:
@@ -1199,6 +1202,8 @@ Example:
 	];
 }
 ```
+
+By default, we add an empty value (label: "Select item"). The label can be overriden by providing an empty element (`{ value: '', label: 'Custom label for empty value'}`).
 
 ### `filterBy`
 
