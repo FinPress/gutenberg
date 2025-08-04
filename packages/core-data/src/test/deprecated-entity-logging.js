@@ -19,6 +19,12 @@ jest.useFakeTimers();
 /**
  * Creates a test registry with the core-data store and sets up the deprecated media entity.
  *
+ * This approach enables testing generated selections/actions (like `getMedia`), and simplifies
+ * the tests by avoiding an endless amount of mocks.
+ *
+ * It means the tests in this file are integration rather than unit tests, so they're kept
+ * separate from the selector.js/reducer.js tests.
+ *
  * @return {Object} Registry with core-data store registered.
  */
 function createTestRegistry() {
