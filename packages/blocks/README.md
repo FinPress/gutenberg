@@ -88,18 +88,6 @@ _Returns_
 
 -   `?Object`: Highest-priority transform candidate.
 
-### flattenNestedTags
-
-Utility function to flatten nested HTML tags that should not be nested. This handles nested <strong> and <a> tags which can cause rendering issues or create invalid HTML.
-
-_Parameters_
-
--   _html_ `string`: The HTML string to process
-
-_Returns_
-
--   `string`: The processed HTML with flattened nested tags
-
 ### getBlockAttributes
 
 Returns the block attributes of a registered block node given its type.
