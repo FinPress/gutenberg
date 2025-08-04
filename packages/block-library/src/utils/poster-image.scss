@@ -13,6 +13,29 @@
 		opacity: 1;
 		margin-top: $grid-unit-20;
 	}
+
+	.components-drop-zone__content {
+		border-radius: $radius-small;
+	}
+
+	// Align text and icons horizontally to avoid clipping when the poster image is not set.
+	.components-drop-zone .components-drop-zone__content-inner {
+		display: flex;
+		align-items: center;
+		gap: $grid-unit-10;
+
+		.components-drop-zone__content-icon {
+			margin: 0;
+		}
+	}
+
+	.components-spinner {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -9px;
+		margin-left: -9px;
+	}
 }
 
 .block-library-poster-image__toggle,
@@ -30,6 +53,10 @@
 .block-library-poster-image__preview {
 	height: auto !important;
 	outline: $border-width solid rgba($black, 0.1);
+
+	.tools-panel-poster-image:has(.components-notice) & {
+		margin-top: $grid-unit-10;
+	}
 
 	.block-library-poster-image__preview-image {
 		object-fit: cover;

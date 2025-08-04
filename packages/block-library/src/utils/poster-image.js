@@ -6,25 +6,59 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
+import {
+	MediaUpload,
+	MediaUploadCheck,
+	store as blockEditorStore,
+} from '@wordpress/block-editor';
 import {
 	Button,
 	BaseControl,
+	DropZone,
+	Spinner,
+	withNotices,
 	__experimentalHStack as HStack,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
+import { isBlobURL } from '@wordpress/blob';
 import { __, sprintf } from '@wordpress/i18n';
-import { useRef } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
+import { useSelect } from '@wordpress/data';
 
 const POSTER_IMAGE_ALLOWED_MEDIA_TYPES = [ 'image' ];
 
-function PosterImage( { poster, onChange } ) {
+function PosterImage( { poster, onChange, noticeUI, noticeOperations } ) {
 	const posterButtonRef = useRef();
+	const [ isLoading, setIsLoading ] = useState( false );
 	const descriptionId = useInstanceId(
 		PosterImage,
 		'block-library-poster-image-description'
 	);
+
+	const { getSettings } = useSelect( blockEditorStore );
+	const onDropFiles = ( filesList ) => {
+		getSettings().mediaUpload( {
+			allowedTypes: POSTER_IMAGE_ALLOWED_MEDIA_TYPES,
+			filesList,
+			onFileChange: ( [ image ] ) => {
+				if ( isBlobURL( image?.url ) ) {
+					setIsLoading( true );
+					return;
+				}
+
+				if ( image ) {
+					onChange( image );
+				}
+				setIsLoading( false );
+			},
+			onError: ( message ) => {
+				noticeOperations.removeAllNotices();
+				noticeOperations.createErrorNotice( message );
+			},
+			multiple: false,
+		} );
+	};
 
 	return (
 		<MediaUploadCheck>
@@ -33,10 +67,12 @@ function PosterImage( { poster, onChange } ) {
 				isShownByDefault
 				hasValue={ () => !! poster }
 				onDeselect={ () => onChange( undefined ) }
+				className="tools-panel-poster-image"
 			>
 				<BaseControl.VisualLabel>
 					{ __( 'Poster image' ) }
 				</BaseControl.VisualLabel>
+				{ noticeUI }
 				<MediaUpload
 					title={ __( 'Select poster image' ) }
 					onSelect={ onChange }
@@ -48,24 +84,19 @@ function PosterImage( { poster, onChange } ) {
 									__next40pxDefaultSize
 									onClick={ open }
 									aria-haspopup="dialog"
-									aria-label={
-										! poster
-											? null
-											: __(
-													'Edit or replace the poster image.'
-											  )
-									}
-									className={
-										poster
-											? 'block-library-poster-image__preview'
-											: 'block-library-poster-image__toggle'
-									}
+									aria-label={ __(
+										'Edit or replace the poster image.'
+									) }
+									className="block-library-poster-image__preview"
+									disabled={ isLoading }
+									accessibleWhenDisabled
 								>
 									<img
 										src={ poster }
 										alt={ __( 'Poster image preview' ) }
 										className="block-library-poster-image__preview-image"
 									/>
+									{ isLoading && <Spinner /> }
 								</Button>
 							) }
 							<HStack
@@ -120,6 +151,7 @@ function PosterImage( { poster, onChange } ) {
 									</Button>
 								) }
 							</HStack>
+							<DropZone onFilesDrop={ onDropFiles } />
 						</div>
 					) }
 				/>
@@ -128,4 +160,4 @@ function PosterImage( { poster, onChange } ) {
 	);
 }
 
-export default PosterImage;
+export default withNotices( PosterImage );
