@@ -4,6 +4,8 @@
  * This file mocks the @wordpress/warning module to suppress specific
  * warnings that are expected or not relevant in the test environment,
  * while allowing other warnings to pass through normally.
+ *
+ * Note: This mock can be removed once the apiVersion:3 becomes the default.
  */
 
 jest.mock( '@wordpress/warning', () => {
