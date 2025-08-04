@@ -469,6 +469,13 @@ export interface ViewTable extends ViewBase {
 
 export interface ViewList extends ViewBase {
 	type: 'list';
+
+	layout?: {
+		/**
+		 * The density of the view.
+		 */
+		density?: Density;
+	};
 }
 
 export interface ViewGrid extends ViewBase {
