@@ -712,26 +712,22 @@ test.describe( 'Image', () => {
 			imageBlock.locator( 'data-testid=form-file-upload-input' )
 		);
 
-		await page.getByLabel( 'Block tools' ).getByLabel( 'Link' ).click();
+		await editor.clickBlockToolbarButton( 'Link' );
 
-		// This form lacks distinguishing qualities other than the
-		// class name, so we use page.locator() instead of page.getByRole()
-		const form = page.locator( '.block-editor-url-popover__link-editor' );
+		const urlPopover = page.locator(
+			'.block-editor-url-popover__link-editor'
+		);
+		const urlInput = urlPopover.getByRole( 'combobox', { name: 'URL' } );
 
-		const url = 'example.com';
-
-		await expect( form.getByLabel( 'URL' ) ).toBeFocused();
-		await form.getByLabel( 'URL' ).fill( url );
-		await form.getByRole( 'button', { name: 'Apply' } ).click();
+		await urlInput.fill( 'example.com' );
+		await urlPopover.getByRole( 'button', { name: 'Apply' } ).click();
 
 		// Move to "Edit" and switch UI back to edit mode
 		await page.keyboard.press( 'Tab' );
 		await page.keyboard.press( 'Enter' );
 
 		// Check the value of the URL input has had http:// prepended.
-		await expect( form.getByLabel( 'URL' ) ).toHaveValue(
-			'http://example.com'
-		);
+		await expect( urlInput ).toHaveValue( 'http://example.com' );
 	} );
 
 	test( 'should upload external image to media library', async ( {
