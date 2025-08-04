@@ -12,14 +12,15 @@ import {
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 
-// Target blocks that should have the View button
+// Target blocks that should have the View button.
 const SUPPORTED_BLOCKS = [ 'core/navigation-link', 'core/navigation-submenu' ];
 
 /**
- * Component that renders the View button for navigation blocks
+ * Component that renders the View button for navigation blocks.
  *
  * @param {Object} props            Component props.
  * @param {Object} props.attributes Block attributes.
+ * @return {JSX.Element|null} The View button component or null if not applicable.
  */
 function NavigationViewButton( { attributes } ) {
 	const { kind, id, type } = attributes;
@@ -40,7 +41,7 @@ function NavigationViewButton( { attributes } ) {
 		}
 	}, [ kind, id, type, onNavigateToEntityRecord ] );
 
-	// Only show for page-type links
+	// Only show for page-type links.
 	if ( kind !== 'post-type' || type !== 'page' || ! id ) {
 		return null;
 	}
@@ -61,7 +62,7 @@ function NavigationViewButton( { attributes } ) {
 }
 
 /**
- * Higher-order component that adds the View button to navigation blocks
+ * Higher-order component that adds the View button to navigation blocks.
  */
 const withNavigationViewButton = createHigherOrderComponent(
 	( BlockEdit ) => ( props ) => {
@@ -79,7 +80,7 @@ const withNavigationViewButton = createHigherOrderComponent(
 	'withNavigationViewButton'
 );
 
-// Register the filter
+// Register the filter.
 addFilter(
 	'editor.BlockEdit',
 	'core/editor/with-navigation-view-button',
