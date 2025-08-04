@@ -347,7 +347,7 @@ export const WithCard = () => {
 	);
 };
 
-export const GroupedGridLayout = () => {
+export const GroupByLayout = () => {
 	const [ view, setView ] = useState< View >( {
 		type: LAYOUT_GRID,
 		search: '',
