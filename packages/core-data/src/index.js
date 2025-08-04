@@ -51,7 +51,7 @@ const entitySelectors = entitiesConfig.reduce( ( result, entity ) => {
 		result[ getEntityRecordsMethodName ] = ( state, query ) => {
 			logEntityDeprecation(
 				kind,
-				plural,
+				name,
 				getEntityRecordsMethodName,
 				'getEntityRecords'
 			);
