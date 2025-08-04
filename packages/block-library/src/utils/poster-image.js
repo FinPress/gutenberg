@@ -65,6 +65,14 @@ function PosterImage( { poster, onChange, noticeUI, noticeOperations } ) {
 		} );
 	};
 
+	const getPosterButtonContent = () => {
+		if ( ! poster && isLoading ) {
+			return <Spinner />;
+		}
+
+		return ! poster ? __( 'Set poster image' ) : __( 'Replace' );
+	};
+
 	return (
 		<MediaUploadCheck>
 			<ToolsPanelItem
@@ -123,10 +131,10 @@ function PosterImage( { poster, onChange, noticeUI, noticeOperations } ) {
 									variant={
 										! poster ? 'secondary' : undefined
 									}
+									disabled={ isLoading }
+									accessibleWhenDisabled
 								>
-									{ ! poster
-										? __( 'Set poster image' )
-										: __( 'Replace' ) }
+									{ getPosterButtonContent() }
 								</Button>
 								<p id={ descriptionId } hidden>
 									{ poster
@@ -151,6 +159,8 @@ function PosterImage( { poster, onChange, noticeUI, noticeOperations } ) {
 											posterButtonRef.current.focus();
 										} }
 										className="block-library-poster-image__action"
+										disabled={ isLoading }
+										accessibleWhenDisabled
 									>
 										{ __( 'Remove' ) }
 									</Button>
