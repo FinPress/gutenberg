@@ -87,6 +87,52 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 		);
 
 		$output = $block->render();
+		$this->assertStringContainsString(
+			$expected_date,
+			$output,
+			'The datetime attribute was not set correctly from the Block Bindings source.'
+		);
+
+		// Now verify that a fallback value is overridden by Block Bindings.
+		$block->attributes['datetime'] = '2025-01-01 00:00:00'; // This should be overridden by Block Bindings.
+
+		$output = $block->render();
+		$this->assertStringContainsString(
+			$expected_date,
+			$output,
+			'The datetime attribute fallback value was not overridden by the Block Bindings source.'
+		);
+	}
+
+	/**
+	 * @dataProvider data_render_with_date_attribute_binding
+	 */
+	public function test_render_with_date_attribute_binding_overrides_fallback_value( $field, $expected_date_function ) {
+		$expected_date = call_user_func( $expected_date_function, 'c', self::$post_id );
+
+		$attributes = array(
+			'datetime' => '2025-01-01 00:00:00', // This should be overridden by Block Bindings.
+			'metadata' => array(
+				'bindings' => array(
+					'datetime' => array(
+						'source' => 'core/post-data',
+						'args'   => array( 'key' => $field ),
+					),
+				),
+			),
+		);
+
+		$block = new WP_Block(
+			array(
+				'blockName' => 'core/post-date',
+				'attrs'     => $attributes,
+			),
+			array(
+				'postId' => self::$post_id,
+			)
+		);
+
+		$output = $block->render();
 		$this->assertStringContainsString( $expected_date, $output );
 	}
 
