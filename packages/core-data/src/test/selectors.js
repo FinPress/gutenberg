@@ -4,35 +4,19 @@
 import deepFreeze from 'deep-freeze';
 
 /**
- * WordPress dependencies
- */
-import deprecated from '@wordpress/deprecated';
-
-/**
  * Internal dependencies
  */
 import {
-	getEntityConfig,
 	getEntityRecord,
 	__experimentalGetEntityRecordNoResolver,
 	hasEntityRecords,
 	getEntityRecords,
-	getEntityRecordsTotalItems,
-	getEntityRecordsTotalPages,
 	getRawEntityRecord,
-	getEntityRecordEdits,
-	hasEditsForEntityRecord,
-	getEditedEntityRecord,
-	isAutosavingEntityRecord,
 	__experimentalGetDirtyEntityRecords,
 	__experimentalGetEntitiesBeingSaved,
 	getEntityRecordNonTransientEdits,
 	getEmbedPreview,
 	isPreviewEmbedFallback,
-	isSavingEntityRecord,
-	isDeletingEntityRecord,
-	getLastEntitySaveError,
-	getLastEntityDeleteError,
 	canUser,
 	getAutosave,
 	getAutosaves,
@@ -40,8 +24,6 @@ import {
 	getRevisions,
 	getRevision,
 } from '../selectors';
-
-jest.mock( '@wordpress/deprecated' );
 
 // getEntityRecord and __experimentalGetEntityRecordNoResolver selectors share the same tests.
 describe.each( [
@@ -1023,135 +1005,6 @@ describe( 'getRevision', () => {
 			content: 'chicken',
 			author: 'bob',
 			parent: 1,
-		} );
-	} );
-} );
-
-describe( 'Deprecated entity logging', () => {
-	describe.each( [
-		{
-			selector: getEntityConfig,
-			name: 'getEntityConfig',
-			args: [ 'root', 'media' ],
-		},
-		{
-			selector: getEntityRecord,
-			name: 'getEntityRecord',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: getRawEntityRecord,
-			name: 'getRawEntityRecord',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: hasEntityRecords,
-			name: 'hasEntityRecords',
-			args: [ 'root', 'media' ],
-		},
-		{
-			selector: getEntityRecords,
-			name: 'getEntityRecords',
-			args: [ 'root', 'media' ],
-		},
-		{
-			selector: getEntityRecordsTotalItems,
-			name: 'getEntityRecordsTotalItems',
-			args: [ 'root', 'media', { _fields: 'title' } ],
-		},
-		{
-			selector: getEntityRecordsTotalPages,
-			name: 'getEntityRecordsTotalPages',
-			args: [ 'root', 'media', { _fields: 'title' } ],
-		},
-		{
-			selector: getEntityRecordEdits,
-			name: 'getEntityRecordEdits',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: getEntityRecordNonTransientEdits,
-			name: 'getEntityRecordNonTransientEdits',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: hasEditsForEntityRecord,
-			name: 'hasEditsForEntityRecord',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: getEditedEntityRecord,
-			name: 'getEditedEntityRecord',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: isAutosavingEntityRecord,
-			name: 'isAutosavingEntityRecord',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: isSavingEntityRecord,
-			name: 'isSavingEntityRecord',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: isDeletingEntityRecord,
-			name: 'isDeletingEntityRecord',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: getLastEntitySaveError,
-			name: 'getLastEntitySaveError',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: getLastEntityDeleteError,
-			name: 'getLastEntityDeleteError',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: canUser,
-			name: 'canUser',
-			args: [ 'create', { kind: 'root', name: 'media' }, '123' ],
-		},
-		{
-			selector: getRevisions,
-			name: 'getRevisions',
-			args: [ 'root', 'media', '123' ],
-		},
-		{
-			selector: getRevision,
-			name: 'getRevision',
-			args: [ 'root', 'media', '123', '10' ],
-		},
-	] )( '$name', ( { selector, name, args } ) => {
-		it( 'logs a deprecation warning when used with deprecated entities', () => {
-			const state = deepFreeze( {
-				entities: {
-					records: {
-						root: {
-							media: {
-								queriedData: {
-									items: {},
-									itemIsComplete: {},
-									queries: {},
-								},
-							},
-						},
-					},
-				},
-				userPermissions: {},
-			} );
-
-			selector( state, ...args );
-
-			expect( deprecated ).toHaveBeenCalledWith(
-				`The 'root', 'media' entity (used via '${ name }')`,
-				{
-					alternative: "The 'postType', 'attachment' entity",
-					since: '6.9',
-				}
-			);
 		} );
 	} );
 } );
