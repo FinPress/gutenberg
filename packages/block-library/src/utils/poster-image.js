@@ -36,9 +36,13 @@ function PosterImage( { poster, onChange, noticeUI, noticeOperations } ) {
 		'block-library-poster-image-description'
 	);
 
-	const { getSettings } = useSelect( blockEditorStore );
+	const { mediaUpload } = useSelect(
+		( select ) => select( blockEditorStore ).getSettings(),
+		[]
+	);
+
 	const onDropFiles = ( filesList ) => {
-		getSettings().mediaUpload( {
+		mediaUpload( {
 			allowedTypes: POSTER_IMAGE_ALLOWED_MEDIA_TYPES,
 			filesList,
 			onFileChange: ( [ image ] ) => {
@@ -55,6 +59,7 @@ function PosterImage( { poster, onChange, noticeUI, noticeOperations } ) {
 			onError: ( message ) => {
 				noticeOperations.removeAllNotices();
 				noticeOperations.createErrorNotice( message );
+				setIsLoading( false );
 			},
 			multiple: false,
 		} );
