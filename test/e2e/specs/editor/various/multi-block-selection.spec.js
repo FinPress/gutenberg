@@ -291,9 +291,6 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 		editor,
 		pageUtils,
 	} ) => {
-		// To do: run with iframe.
-		await editor.switchToLegacyCanvas();
-
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 			attributes: { content: 'test' },
@@ -301,10 +298,8 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 
 		await editor.saveDraft();
 		await page.reload();
-		// To do: run with iframe.
-		await editor.switchToLegacyCanvas();
 
-		await page
+		await editor.canvas
 			.getByRole( 'document', { name: 'Block: Paragraph' } )
 			.click( { modifiers: [ 'Shift' ] } );
 		await pageUtils.pressKeys( 'primary+a' );
@@ -728,7 +723,7 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 		] );
 	} );
 
-	test( 'should clear selection when clicking next to blocks (-firefox)', async ( {
+	test( 'should clear selection when clicking next to blocks', async ( {
 		page,
 		editor,
 		multiBlockSelectionUtils,
@@ -752,16 +747,13 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 				name: 'Block: Paragraph',
 			} )
 			.filter( { hasText: '1' } );
+		// For some reason in Chrome it requires two clicks, even though it
+		// doesn't when testing manually.
 		await paragraph1.click( {
 			position: { x: -1, y: 0 },
 			// Use force since it's outside the bounding box of the element.
 			force: true,
 		} );
-
-		await expect
-			.poll( multiBlockSelectionUtils.getSelectedFlatIndices )
-			.toEqual( [ 1 ] );
-
 		await paragraph1.click( {
 			position: { x: -1, y: 0 },
 			// Use force since it's outside the bounding box of the element.

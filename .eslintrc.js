@@ -5,21 +5,6 @@ const glob = require( 'glob' ).sync;
 const { join } = require( 'path' );
 
 /**
- * Internal dependencies
- */
-const { version } = require( './package' );
-
-/**
- * Regular expression string matching a SemVer string with equal major/minor to
- * the current package version. Used in identifying deprecations.
- *
- * @type {string}
- */
-const majorMinorRegExp =
-	version.replace( /\.\d+$/, '' ).replace( /[\\^$.*+?()[\]{}|]/g, '\\$&' ) +
-	'(\\.\\d+)?';
-
-/**
  * The list of patterns matching files used only for development purposes.
  *
  * @type {string[]}
@@ -94,14 +79,6 @@ const restrictedSyntax = [
 	},
 	{
 		selector:
-			'CallExpression[callee.name="deprecated"] Property[key.name="version"][value.value=/' +
-			majorMinorRegExp +
-			'/]',
-		message:
-			'Deprecated functions must be removed before releasing this version.',
-	},
-	{
-		selector:
 			'CallExpression[callee.object.name="page"][callee.property.name="waitFor"]',
 		message:
 			'This method is deprecated. You should use the more explicit API methods available.',
@@ -137,6 +114,17 @@ const restrictedSyntax = [
 		message:
 			'Avoid truthy checks on length property rendering, as zero length is rendered verbatim.',
 	},
+	{
+		selector:
+			'CallExpression[callee.name=/^(__|_x|_n|_nx)$/] > Literal[value=/toggle\\b/i]',
+		message: "Avoid using the verb 'Toggle' in translatable strings",
+	},
+	{
+		selector:
+			'CallExpression[callee.name=/^(__|_x|_n|_nx)$/] > Literal[value=/(?<![-\\w])sidebar(?![-\\w])/i]',
+		message:
+			"Avoid using the word 'sidebar' in translatable strings. Consider using 'panel' instead.",
+	},
 ];
 
 /** `no-restricted-syntax` rules for components. */
@@ -156,6 +144,7 @@ module.exports = {
 		'plugin:eslint-comments/recommended',
 		'plugin:storybook/recommended',
 	],
+	plugins: [ 'react-compiler' ],
 	globals: {
 		wp: 'off',
 		globalThis: 'readonly',
@@ -222,6 +211,15 @@ module.exports = {
 				definedTags: [ 'jest-environment' ],
 			},
 		],
+		'react-compiler/react-compiler': [
+			'error',
+			{
+				environment: {
+					enableTreatRefLikeIdentifiersAsRefs: true,
+					validateRefAccessDuringRender: false,
+				},
+			},
+		],
 	},
 	overrides: [
 		{
@@ -236,6 +234,7 @@ module.exports = {
 				'import/no-unresolved': 'off',
 				'import/named': 'off',
 				'@wordpress/data-no-store-string-literals': 'off',
+				'react-compiler/react-compiler': 'off',
 			},
 		},
 		{
@@ -321,6 +320,8 @@ module.exports = {
 					...[
 						'BorderBoxControl',
 						'BorderControl',
+						'BoxControl',
+						'Button',
 						'ComboboxControl',
 						'CustomSelectControl',
 						'DimensionControl',
@@ -342,7 +343,7 @@ module.exports = {
 						selector: `JSXOpeningElement[name.name="${ componentName }"]:not(:has(JSXAttribute[name.name="__next40pxDefaultSize"][value.expression.value!=false])):not(:has(JSXAttribute[name.name="size"][value.value!="default"]))`,
 						message:
 							componentName +
-							' should have the `__next40pxDefaultSize` prop to opt-in to the new default size.',
+							' should have the `__next40pxDefaultSize` prop when using the default size.',
 					} ) ),
 					{
 						// Falsy `__next40pxDefaultSize` without a `render` prop.
@@ -351,27 +352,7 @@ module.exports = {
 						message:
 							'FormFileUpload should have the `__next40pxDefaultSize` prop to opt-in to the new default size.',
 					},
-					// Temporary rules until all existing components have the `__next40pxDefaultSize` prop.
-					...[ 'Button' ].map( ( componentName ) => ( {
-						// Not strict. Allows pre-existing __next40pxDefaultSize={ false } usage until they are all manually updated.
-						selector: `JSXOpeningElement[name.name="${ componentName }"]:not(:has(JSXAttribute[name.name="__next40pxDefaultSize"])):not(:has(JSXAttribute[name.name="size"]))`,
-						message:
-							componentName +
-							' should have the `__next40pxDefaultSize` prop to opt-in to the new default size.',
-					} ) ),
 				],
-			},
-		},
-		{
-			files: [
-				// Components package.
-				'packages/components/src/**/*.[tj]s?(x)',
-				// Navigation block.
-				'packages/block-library/src/navigation/**/*.[tj]s?(x)',
-			],
-			excludedFiles: [ ...developmentFiles ],
-			rules: {
-				'react-hooks/exhaustive-deps': 'error',
 			},
 		},
 		{
@@ -569,6 +550,7 @@ module.exports = {
 		{
 			files: [ 'packages/interactivity*/src/**' ],
 			rules: {
+				'react-compiler/react-compiler': 'off',
 				'react/react-in-jsx-scope': 'error',
 			},
 		},

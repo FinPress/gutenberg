@@ -2,12 +2,11 @@
  * WordPress dependencies
  */
 import {
-	__experimentalBorderBoxControl as BorderBoxControl,
+	BorderBoxControl,
 	__experimentalHasSplitBorders as hasSplitBorders,
 	__experimentalIsDefinedBorder as isDefinedBorder,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-	__experimentalItemGroup as ItemGroup,
 	BaseControl,
 } from '@wordpress/components';
 import { useCallback, useMemo } from '@wordpress/element';
@@ -298,13 +297,11 @@ export default function BorderPanel( {
 						</BaseControl.VisualLabel>
 					) : null }
 
-					<ItemGroup isBordered isSeparated>
-						<ShadowPopover
-							shadow={ shadow }
-							onShadowChange={ setShadow }
-							settings={ settings }
-						/>
-					</ItemGroup>
+					<ShadowPopover
+						shadow={ shadow }
+						onShadowChange={ setShadow }
+						settings={ settings }
+					/>
 				</ToolsPanelItem>
 			) }
 		</Wrapper>

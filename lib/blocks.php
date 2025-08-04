@@ -43,7 +43,6 @@ function gutenberg_reregister_core_block_types() {
 				'table-of-contents',
 				'text-columns',
 				'verse',
-				'video',
 				'embed',
 			),
 			'block_names'   => array(
@@ -112,6 +111,7 @@ function gutenberg_reregister_core_block_types() {
 				'query-pagination-numbers.php'     => 'core/query-pagination-numbers',
 				'query-pagination-previous.php'    => 'core/query-pagination-previous',
 				'query-title.php'                  => 'core/query-title',
+				'query-total.php'                  => 'core/query-total',
 				'read-more.php'                    => 'core/read-more',
 				'rss.php'                          => 'core/rss',
 				'search.php'                       => 'core/search',
@@ -123,6 +123,7 @@ function gutenberg_reregister_core_block_types() {
 				'tag-cloud.php'                    => 'core/tag-cloud',
 				'template-part.php'                => 'core/template-part',
 				'term-description.php'             => 'core/term-description',
+				'video.php'                        => 'core/video',
 			),
 		),
 		__DIR__ . '/../build/edit-widgets/blocks/'  => array(

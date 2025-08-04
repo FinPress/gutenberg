@@ -125,6 +125,7 @@ export function DatePicker( {
 							)
 						);
 					} }
+					size="compact"
 				/>
 				<NavigatorHeading level={ 3 }>
 					<strong>
@@ -150,6 +151,7 @@ export function DatePicker( {
 							)
 						);
 					} }
+					size="compact"
 				/>
 			</Navigator>
 			<Calendar
@@ -300,11 +302,11 @@ function Day( {
 		}
 		// isFocusAllowed is not a dep as there is no point calling focus() on
 		// an already focused element.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ isFocusable ] );
 
 	return (
 		<DayButton
+			__next40pxDefaultSize
 			ref={ ref }
 			className="components-datetime__date__day" // Unused, for backwards compatibility.
 			disabled={ isInvalid }
@@ -342,7 +344,7 @@ function getDayLabel( date: Date, isSelected: boolean, numEvents: number ) {
 		);
 	} else if ( isSelected ) {
 		return sprintf(
-			// translators: %s: The calendar date.
+			// translators: 1: The calendar date.
 			__( '%1$s. Selected' ),
 			localizedDate
 		);

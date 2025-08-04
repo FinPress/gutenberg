@@ -4,11 +4,13 @@
 import { __ } from '@wordpress/i18n';
 import { ExternalLink } from '@wordpress/components';
 import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+import { useDispatch } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
 import { unlock } from '../../lock-unlock';
+import { store as editSiteStore } from '../../store';
 import ScreenHeader from './header';
 
 const { useGlobalStyle, AdvancedPanel: StylesAdvancedPanel } = unlock(
@@ -26,6 +28,10 @@ function ScreenCSS() {
 		shouldDecodeEncode: false,
 	} );
 
+	const { setEditorCanvasContainerView } = unlock(
+		useDispatch( editSiteStore )
+	);
+
 	return (
 		<>
 			<ScreenHeader
@@ -33,6 +39,7 @@ function ScreenCSS() {
 				description={
 					<>
 						{ description }
+						<br />
 						<ExternalLink
 							href={ __(
 								'https://developer.wordpress.org/advanced-administration/wordpress/css/'
@@ -43,6 +50,9 @@ function ScreenCSS() {
 						</ExternalLink>
 					</>
 				}
+				onBack={ () => {
+					setEditorCanvasContainerView( undefined );
+				} }
 			/>
 			<div className="edit-site-global-styles-screen-css">
 				<StylesAdvancedPanel

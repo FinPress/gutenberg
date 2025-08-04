@@ -21,6 +21,7 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
 import { create, insert, remove, toHTMLString } from '@wordpress/rich-text';
 import deprecated from '@wordpress/deprecated';
+import { store as preferencesStore } from '@wordpress/preferences';
 
 /**
  * Internal dependencies
@@ -215,14 +216,15 @@ export function selectBlock( clientId, initialPosition = 0 ) {
  * Returns an action object used in signalling that the block with the
  * specified client ID has been hovered.
  *
- * @param {string} clientId Block client ID.
- *
- * @return {Object} Action object.
+ * @deprecated
  */
-export function hoverBlock( clientId ) {
+export function hoverBlock() {
+	deprecated( 'wp.data.dispatch( "core/block-editor" ).hoverBlock', {
+		since: '6.9',
+		version: '7.1',
+	} );
 	return {
-		type: 'HOVER_BLOCK',
-		clientId,
+		type: 'DO_NOTHING',
 	};
 }
 
@@ -1156,7 +1158,11 @@ export const mergeBlocks =
 		const blockA = select.getBlock( clientIdA );
 		const blockAType = getBlockType( blockA.name );
 
-		if ( ! blockAType ) {
+		if (
+			! blockAType ||
+			select.getBlockEditingMode( clientIdA ) === 'disabled' ||
+			select.getBlockEditingMode( clientIdB ) === 'disabled'
+		) {
 			return;
 		}
 
@@ -1249,7 +1255,14 @@ export const mergeBlocks =
 		}
 
 		if ( ! blockAType.merge ) {
-			dispatch.selectBlock( blockA.clientId );
+			if ( isUnmodifiedBlock( blockB, 'content' ) ) {
+				dispatch.removeBlock(
+					clientIdB,
+					select.isBlockSelected( clientIdB )
+				);
+			} else {
+				dispatch.selectBlock( blockA.clientId );
+			}
 			return;
 		}
 
@@ -1265,7 +1278,7 @@ export const mergeBlocks =
 			offset !== undefined &&
 			// We cannot restore text selection if the RichText identifier
 			// is not a defined block attribute key. This can be the case if the
-			// fallback intance ID is used to store selection (and no RichText
+			// fallback instance ID is used to store selection (and no RichText
 			// identifier is set), or when the identifier is wrong.
 			!! attributeDefinition;
 
@@ -1668,83 +1681,35 @@ export const setNavigationMode =
  */
 export const __unstableSetEditorMode =
 	( mode ) =>
-	( { dispatch, select } ) => {
-		// When switching to zoom-out mode, we need to select the parent section
-		if ( mode === 'zoom-out' ) {
-			const firstSelectedClientId = select.getBlockSelectionStart();
-
-			const sectionRootClientId = select.getSectionRootClientId();
-
-			if ( firstSelectedClientId ) {
-				let sectionClientId;
-
-				if ( sectionRootClientId ) {
-					const sectionClientIds =
-						select.getBlockOrder( sectionRootClientId );
-
-					// If the selected block is a section block, use it.
-					if ( sectionClientIds?.includes( firstSelectedClientId ) ) {
-						sectionClientId = firstSelectedClientId;
-					} else {
-						// If the selected block is not a section block, find
-						// the parent section that contains the selected block.
-						sectionClientId = select
-							.getBlockParents( firstSelectedClientId )
-							.find( ( parent ) =>
-								sectionClientIds.includes( parent )
-							);
-					}
-				} else {
-					sectionClientId = select.getBlockHierarchyRootClientId(
-						firstSelectedClientId
-					);
-				}
-
-				if ( sectionClientId ) {
-					dispatch.selectBlock( sectionClientId );
-				} else {
-					dispatch.clearSelectedBlock();
-				}
-			}
-		}
-
-		dispatch( { type: 'SET_EDITOR_MODE', mode } );
+	( { registry } ) => {
+		registry.dispatch( preferencesStore ).set( 'core', 'editorTool', mode );
 
 		if ( mode === 'navigation' ) {
-			speak(
-				__(
-					'You are currently in navigation mode. Navigate blocks using the Tab key and Arrow keys. Use Left and Right Arrow keys to move between nesting levels. To exit navigation mode and edit the selected block, press Enter.'
-				)
-			);
+			speak( __( 'You are currently in Write mode.' ) );
 		} else if ( mode === 'edit' ) {
-			speak(
-				__(
-					'You are currently in edit mode. To return to the navigation mode, press Escape.'
-				)
-			);
-		} else if ( mode === 'zoom-out' ) {
-			speak( __( 'You are currently in zoom-out mode.' ) );
+			speak( __( 'You are currently in Design mode.' ) );
 		}
 	};
 
 /**
- * Action that enables or disables the block moving mode.
+ * Set the block moving client ID.
  *
- * @param {string|null} hasBlockMovingClientId Enable/Disable block moving mode.
+ * @deprecated
+ *
+ * @return {Object} Action object.
  */
-export const setBlockMovingClientId =
-	( hasBlockMovingClientId = null ) =>
-	( { dispatch } ) => {
-		dispatch( { type: 'SET_BLOCK_MOVING_MODE', hasBlockMovingClientId } );
-
-		if ( hasBlockMovingClientId ) {
-			speak(
-				__(
-					'Use the Tab key and Arrow keys to choose new block location. Use Left and Right Arrow keys to move between nesting levels. Once location is selected press Enter or Space to move the block.'
-				)
-			);
+export function setBlockMovingClientId() {
+	deprecated(
+		'wp.data.dispatch( "core/block-editor" ).setBlockMovingClientId',
+		{
+			since: '6.7',
+			hint: 'Block moving mode feature has been removed',
 		}
+	);
+	return {
+		type: 'DO_NOTHING',
 	};
+}
 
 /**
  * Action that duplicates a list of blocks.

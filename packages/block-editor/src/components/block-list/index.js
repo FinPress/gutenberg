@@ -12,17 +12,14 @@ import {
 	useDispatch,
 	useRegistry,
 } from '@wordpress/data';
-import {
-	useViewportMatch,
-	useMergeRefs,
-	useDebounce,
-} from '@wordpress/compose';
+import { useMergeRefs, useDebounce } from '@wordpress/compose';
 import {
 	createContext,
 	useMemo,
 	useCallback,
 	useEffect,
 } from '@wordpress/element';
+import { getDefaultBlockName } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -46,27 +43,17 @@ export const IntersectionObserver = createContext();
 const pendingBlockVisibilityUpdatesPerRegistry = new WeakMap();
 
 function Root( { className, ...settings } ) {
-	const isLargeViewport = useViewportMatch( 'medium' );
-	const {
-		isOutlineMode,
-		isFocusMode,
-		editorMode,
-		temporarilyEditingAsBlocks,
-	} = useSelect( ( select ) => {
-		const {
-			getSettings,
-			__unstableGetEditorMode,
-			getTemporarilyEditingAsBlocks,
-			isTyping,
-		} = unlock( select( blockEditorStore ) );
-		const { outlineMode, focusMode } = getSettings();
-		return {
-			isOutlineMode: outlineMode && ! isTyping(),
-			isFocusMode: focusMode,
-			editorMode: __unstableGetEditorMode(),
-			temporarilyEditingAsBlocks: getTemporarilyEditingAsBlocks(),
-		};
-	}, [] );
+	const { isOutlineMode, isFocusMode, temporarilyEditingAsBlocks } =
+		useSelect( ( select ) => {
+			const { getSettings, getTemporarilyEditingAsBlocks, isTyping } =
+				unlock( select( blockEditorStore ) );
+			const { outlineMode, focusMode } = getSettings();
+			return {
+				isOutlineMode: outlineMode && ! isTyping(),
+				isFocusMode: focusMode,
+				temporarilyEditingAsBlocks: getTemporarilyEditingAsBlocks(),
+			};
+		}, [] );
 	const registry = useRegistry();
 	const { setBlockVisibility } = useDispatch( blockEditorStore );
 
@@ -114,8 +101,7 @@ function Root( { className, ...settings } ) {
 			] ),
 			className: clsx( 'is-root-container', className, {
 				'is-outline-mode': isOutlineMode,
-				'is-focus-mode': isFocusMode && isLargeViewport,
-				'is-navigate-mode': editorMode === 'navigation',
+				'is-focus-mode': isFocusMode,
 			} ),
 		},
 		settings
@@ -186,17 +172,18 @@ function Items( {
 			const {
 				getSettings,
 				getBlockOrder,
-				getSelectedBlockClientId,
 				getSelectedBlockClientIds,
 				__unstableGetVisibleBlocks,
 				getTemplateLock,
 				getBlockEditingMode,
-				__unstableGetEditorMode,
-			} = select( blockEditorStore );
+				isSectionBlock,
+				isZoomOut: _isZoomOut,
+				canInsertBlockType,
+			} = unlock( select( blockEditorStore ) );
 
 			const _order = getBlockOrder( rootClientId );
 
-			if ( getSettings().__unstableIsPreviewMode ) {
+			if ( getSettings().isPreviewMode ) {
 				return {
 					order: _order,
 					selectedBlocks: EMPTY_ARRAY,
@@ -204,22 +191,36 @@ function Items( {
 				};
 			}
 
-			const selectedBlockClientId = getSelectedBlockClientId();
+			const selectedBlockClientIds = getSelectedBlockClientIds();
+			const selectedBlockClientId = selectedBlockClientIds[ 0 ];
+			const showRootAppender =
+				! rootClientId &&
+				! selectedBlockClientId &&
+				( ! _order.length ||
+					! canInsertBlockType(
+						getDefaultBlockName(),
+						rootClientId
+					) );
+			const hasSelectedRoot = !! (
+				rootClientId &&
+				selectedBlockClientId &&
+				rootClientId === selectedBlockClientId
+			);
+
 			return {
 				order: _order,
-				selectedBlocks: getSelectedBlockClientIds(),
+				selectedBlocks: selectedBlockClientIds,
 				visibleBlocks: __unstableGetVisibleBlocks(),
-				isZoomOut: __unstableGetEditorMode() === 'zoom-out',
+				isZoomOut: _isZoomOut(),
 				shouldRenderAppender:
+					! isSectionBlock( rootClientId ) &&
+					getBlockEditingMode( rootClientId ) !== 'disabled' &&
+					! getTemplateLock( rootClientId ) &&
 					hasAppender &&
-					__unstableGetEditorMode() !== 'zoom-out' &&
-					( hasCustomAppender
-						? ! getTemplateLock( rootClientId ) &&
-						  getBlockEditingMode( rootClientId ) !== 'disabled'
-						: rootClientId === selectedBlockClientId ||
-						  ( ! rootClientId &&
-								! selectedBlockClientId &&
-								! _order.length ) ),
+					! _isZoomOut() &&
+					( hasCustomAppender ||
+						hasSelectedRoot ||
+						showRootAppender ),
 			};
 		},
 		[ rootClientId, hasAppender, hasCustomAppender ]

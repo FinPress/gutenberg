@@ -55,7 +55,7 @@ add_filter( 'block_type_metadata_settings', 'gutenberg_filter_block_type_metadat
  * @param string $field_name Field name to pick from metadata.
  * @param int    $index      Optional. Index of the script to register when multiple items passed.
  *                           Default 0.
- * @return string Module ID.
+ * @return string|false Module ID.
  */
 function gutenberg_register_block_module_id( $metadata, $field_name, $index = 0 ) {
 	if ( empty( $metadata[ $field_name ] ) ) {
@@ -200,30 +200,3 @@ function gutenberg_dequeue_module( $module_identifier ) {
 	_deprecated_function( __FUNCTION__, 'Gutenberg 17.6.0', 'wp_dequeue_script_module' );
 	wp_script_modules()->dequeue( $module_identifier );
 }
-
-/**
- * Registers Gutenberg Script Modules.
- *
- * @since 19.3
- */
-function gutenberg_register_script_modules() {
-	// When in production, use the plugin's version as the default asset version;
-	// else (for development or test) default to use the current time.
-	$default_version = defined( 'GUTENBERG_VERSION' ) && ! SCRIPT_DEBUG ? GUTENBERG_VERSION : time();
-
-	wp_deregister_script_module( '@wordpress/a11y' );
-	wp_register_script_module(
-		'@wordpress/a11y',
-		gutenberg_url( 'build-module/a11y/index.min.js' ),
-		array(),
-		$default_version
-	);
-	add_filter(
-		'script_module_data_@wordpress/a11y',
-		function ( $data ) {
-			$data['i18n'] = array( 'Notifications' => __( 'Notifications', 'default' ) );
-			return $data;
-		}
-	);
-}
-add_action( 'init', 'gutenberg_register_script_modules' );

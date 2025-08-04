@@ -104,6 +104,17 @@ describe( 'blocks', () => {
 			expect( block ).toBeUndefined();
 		} );
 
+		it( 'Should reject blocks with the block name itself as the only parent attribute value', () => {
+			const block = registerBlockType( 'core/test-block', {
+				...defaultBlockSettings,
+				parent: [ 'core/test-block' ],
+			} );
+			expect( console ).toHaveWarnedWith(
+				'Block "core/test-block" cannot be a parent of itself. Please remove the block name from the parent list.'
+			);
+			expect( block ).toBeUndefined();
+		} );
+
 		it( 'should reject blocks with uppercase characters', () => {
 			const block = registerBlockType( 'Core/Paragraph' );
 			expect( console ).toHaveWarnedWith(
@@ -130,6 +141,7 @@ describe( 'blocks', () => {
 			);
 			expect( console ).not.toHaveWarned();
 			expect( block ).toEqual( {
+				apiVersion: 1,
 				name: 'my-plugin/fancy-block-4',
 				icon: { src: BLOCK_ICON_DEFAULT },
 				attributes: {},
@@ -276,6 +288,7 @@ describe( 'blocks', () => {
 			} );
 
 			expect( getBlockType( 'core/test-block-with-defaults' ) ).toEqual( {
+				apiVersion: 1,
 				name: 'core/test-block-with-defaults',
 				title: 'block title',
 				category: 'text',
@@ -308,6 +321,7 @@ describe( 'blocks', () => {
 			registerBlockType( 'core/test-block-with-attributes', blockType );
 			expect( getBlockType( 'core/test-block-with-attributes' ) ).toEqual(
 				{
+					apiVersion: 1,
 					name: 'core/test-block-with-attributes',
 					settingName: 'settingValue',
 					save: noop,
@@ -348,6 +362,7 @@ describe( 'blocks', () => {
 			};
 			registerBlockType( blockName, blockType );
 			expect( getBlockType( blockName ) ).toEqual( {
+				apiVersion: 1,
 				name: blockName,
 				save: expect.any( Function ),
 				title: 'block title',
@@ -425,6 +440,7 @@ describe( 'blocks', () => {
 			};
 			registerBlockType( blockName, blockType );
 			expect( getBlockType( blockName ) ).toEqual( {
+				apiVersion: 1,
 				name: blockName,
 				save: expect.any( Function ),
 				title: 'block settings merge',
@@ -473,6 +489,7 @@ describe( 'blocks', () => {
 				blockType
 			);
 			expect( getBlockType( blockName ) ).toEqual( {
+				apiVersion: 1,
 				name: blockName,
 				save: expect.any( Function ),
 				title: 'block title',
@@ -532,6 +549,7 @@ describe( 'blocks', () => {
 			expect(
 				getBlockType( 'core/test-block-icon-normalize-element' )
 			).toEqual( {
+				apiVersion: 1,
 				name: 'core/test-block-icon-normalize-element',
 				save: noop,
 				category: 'text',
@@ -576,6 +594,7 @@ describe( 'blocks', () => {
 			expect(
 				getBlockType( 'core/test-block-icon-normalize-string' )
 			).toEqual( {
+				apiVersion: 1,
 				name: 'core/test-block-icon-normalize-string',
 				save: noop,
 				category: 'text',
@@ -623,6 +642,7 @@ describe( 'blocks', () => {
 			expect(
 				getBlockType( 'core/test-block-icon-normalize-function' )
 			).toEqual( {
+				apiVersion: 1,
 				name: 'core/test-block-icon-normalize-function',
 				save: noop,
 				category: 'text',
@@ -670,6 +690,7 @@ describe( 'blocks', () => {
 			expect(
 				getBlockType( 'core/test-block-icon-normalize-background' )
 			).toEqual( {
+				apiVersion: 1,
 				name: 'core/test-block-icon-normalize-background',
 				save: noop,
 				category: 'text',
@@ -713,6 +734,7 @@ describe( 'blocks', () => {
 			registerBlockType( 'core/test-block-with-settings', blockType );
 			blockType.mutated = true;
 			expect( getBlockType( 'core/test-block-with-settings' ) ).toEqual( {
+				apiVersion: 1,
 				name: 'core/test-block-with-settings',
 				settingName: 'settingValue',
 				save: noop,
@@ -728,6 +750,40 @@ describe( 'blocks', () => {
 				styles: [],
 				variations: [],
 				blockHooks: {},
+			} );
+		} );
+
+		it( 'should transform parent string to array', () => {
+			const blockType = {
+				save: noop,
+				category: 'text',
+				title: 'block title',
+				parent: 'core/paragraph',
+			};
+			const block = registerBlockType(
+				'core/test-block-parent-string',
+				blockType
+			);
+			expect( console ).toHaveWarnedWith(
+				'Parent must be undefined or an array of strings (block types), but it is a string.'
+			);
+			expect( block ).toEqual( {
+				apiVersion: 1,
+				name: 'core/test-block-parent-string',
+				save: noop,
+				category: 'text',
+				title: 'block title',
+				icon: { src: BLOCK_ICON_DEFAULT },
+				attributes: {},
+				providesContext: {},
+				usesContext: [],
+				keywords: [],
+				selectors: {},
+				supports: {},
+				styles: [],
+				variations: [],
+				blockHooks: {},
+				parent: [ 'core/paragraph' ],
 			} );
 		} );
 
@@ -969,6 +1025,7 @@ describe( 'blocks', () => {
 				}
 			);
 			expect( block ).toEqual( {
+				apiVersion: 1,
 				name: 'test/block-from-metadata',
 				title: 'Block from metadata',
 				category: 'text',
@@ -1037,6 +1094,7 @@ describe( 'blocks', () => {
 			);
 
 			expect( block ).toEqual( {
+				apiVersion: 1,
 				name: 'test/block-from-metadata-i18n',
 				title: 'I18n title from metadata (translated)',
 				description: 'I18n description from metadata (translated)',
@@ -1105,6 +1163,7 @@ describe( 'blocks', () => {
 			registerBlockType( 'core/test-block', defaultBlockSettings );
 			expect( getBlockTypes() ).toEqual( [
 				{
+					apiVersion: 1,
 					name: 'core/test-block',
 					save: noop,
 					category: 'text',
@@ -1124,6 +1183,7 @@ describe( 'blocks', () => {
 			const oldBlock = unregisterBlockType( 'core/test-block' );
 			expect( console ).not.toHaveWarned();
 			expect( oldBlock ).toEqual( {
+				apiVersion: 1,
 				name: 'core/test-block',
 				save: noop,
 				category: 'text',
@@ -1205,6 +1265,7 @@ describe( 'blocks', () => {
 		it( 'should return { name, save } for blocks with minimum settings', () => {
 			registerBlockType( 'core/test-block', defaultBlockSettings );
 			expect( getBlockType( 'core/test-block' ) ).toEqual( {
+				apiVersion: 1,
 				name: 'core/test-block',
 				save: noop,
 				category: 'text',
@@ -1231,6 +1292,7 @@ describe( 'blocks', () => {
 			};
 			registerBlockType( 'core/test-block-with-settings', blockType );
 			expect( getBlockType( 'core/test-block-with-settings' ) ).toEqual( {
+				apiVersion: 1,
 				name: 'core/test-block-with-settings',
 				settingName: 'settingValue',
 				save: noop,
@@ -1266,6 +1328,7 @@ describe( 'blocks', () => {
 			registerBlockType( 'core/test-block-with-settings', blockType );
 			expect( getBlockTypes() ).toEqual( [
 				{
+					apiVersion: 1,
 					name: 'core/test-block',
 					save: noop,
 					category: 'text',
@@ -1282,6 +1345,7 @@ describe( 'blocks', () => {
 					blockHooks: {},
 				},
 				{
+					apiVersion: 1,
 					name: 'core/test-block-with-settings',
 					settingName: 'settingValue',
 					save: noop,
@@ -1512,22 +1576,38 @@ describe( 'blocks', () => {
 			expect( getBlockBindingsSource( 'core/testing' ) ).toBeUndefined();
 		} );
 
-		it( 'should not override label from the server', () => {
-			// Bootstrap source from the server.
-			unlock(
-				dispatch( blocksStore )
-			).addBootstrappedBlockBindingsSource( {
-				name: 'core/server',
+		it( 'should override label from the server', () => {
+			// Simulate bootstrap source from the server.
+			registerBlockBindingsSource( {
+				name: 'core/testing',
 				label: 'Server label',
 			} );
 			// Override the source with a different label in the client.
 			registerBlockBindingsSource( {
-				name: 'core/server',
+				name: 'core/testing',
 				label: 'Client label',
 			} );
 			expect( console ).toHaveWarnedWith(
-				'Block bindings "core/server" source label is already defined in the server.'
+				'Block bindings "core/testing" source label was overridden.'
 			);
+			const source = getBlockBindingsSource( 'core/testing' );
+			unregisterBlockBindingsSource( 'core/testing' );
+			expect( source.label ).toEqual( 'Client label' );
+		} );
+
+		it( 'should keep label from the server when not defined in the client', () => {
+			// Simulate bootstrap source from the server.
+			registerBlockBindingsSource( {
+				name: 'core/testing',
+				label: 'Server label',
+			} );
+			// Override the source with a different label in the client.
+			registerBlockBindingsSource( {
+				name: 'core/testing',
+			} );
+			const source = getBlockBindingsSource( 'core/testing' );
+			unregisterBlockBindingsSource( 'core/testing' );
+			expect( source.label ).toEqual( 'Server label' );
 		} );
 
 		// Check the `usesContext` array is correct.
@@ -1543,10 +1623,8 @@ describe( 'blocks', () => {
 		} );
 
 		it( 'should add usesContext when only defined in the server', () => {
-			// Bootstrap source from the server.
-			unlock(
-				dispatch( blocksStore )
-			).addBootstrappedBlockBindingsSource( {
+			// Simulate bootstrap source from the server.
+			registerBlockBindingsSource( {
 				name: 'core/testing',
 				label: 'testing',
 				usesContext: [ 'postId', 'postType' ],
@@ -1562,10 +1640,8 @@ describe( 'blocks', () => {
 		} );
 
 		it( 'should add usesContext when only defined in the client', () => {
-			// Bootstrap source from the server.
-			unlock(
-				dispatch( blocksStore )
-			).addBootstrappedBlockBindingsSource( {
+			// Simulate bootstrap source from the server.
+			registerBlockBindingsSource( {
 				name: 'core/testing',
 				label: 'testing',
 			} );
@@ -1581,10 +1657,8 @@ describe( 'blocks', () => {
 		} );
 
 		it( 'should merge usesContext from server and client without duplicates', () => {
-			// Bootstrap source from the server.
-			unlock(
-				dispatch( blocksStore )
-			).addBootstrappedBlockBindingsSource( {
+			// Simulate bootstrap source from the server.
+			registerBlockBindingsSource( {
 				name: 'core/testing',
 				label: 'testing',
 				usesContext: [ 'postId', 'postType' ],
@@ -1704,42 +1778,6 @@ describe( 'blocks', () => {
 			expect( console ).toHaveWarnedWith(
 				'Block bindings source "core/test-source" is already registered.'
 			);
-		} );
-
-		it( 'should correctly merge properties when bootstrap happens after registration', () => {
-			// Register source in the client.
-			const clientOnlyProperties = {
-				getValues: () => 'values',
-				setValues: () => 'new values',
-				canUserEditValue: () => true,
-			};
-			registerBlockBindingsSource( {
-				name: 'core/custom-source',
-				label: 'Client Label',
-				usesContext: [ 'postId', 'postType' ],
-				...clientOnlyProperties,
-			} );
-
-			// Bootstrap source from the server.
-			unlock(
-				dispatch( blocksStore )
-			).addBootstrappedBlockBindingsSource( {
-				name: 'core/custom-source',
-				label: 'Server Label',
-				usesContext: [ 'postId', 'serverContext' ],
-			} );
-
-			// Check that the bootstrap values prevail and the client properties are still there.
-			expect( getBlockBindingsSource( 'core/custom-source' ) ).toEqual( {
-				// Should use the server label.
-				label: 'Server Label',
-				// Should merge usesContext from server and client.
-				usesContext: [ 'postId', 'postType', 'serverContext' ],
-				// Should keep client properties.
-				...clientOnlyProperties,
-			} );
-
-			unregisterBlockBindingsSource( 'core/custom-source' );
 		} );
 	} );
 

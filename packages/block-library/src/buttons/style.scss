@@ -2,6 +2,8 @@
 $blocks-block__margin: 0.5em;
 
 .wp-block-buttons {
+	// This block has customizable padding, border-box makes that more predictable.
+	box-sizing: border-box;
 
 	&.is-vertical {
 		flex-direction: column;
@@ -79,6 +81,11 @@ $blocks-block__margin: 0.5em;
 		.wp-block-button__link {
 			font-size: inherit;
 		}
+	}
+
+	// Needed to make the buttons stretch correctly in a vertical layout.
+	.wp-block-button__link {
+		width: 100%;
 	}
 }
 
