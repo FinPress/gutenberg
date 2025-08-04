@@ -8,6 +8,8 @@ import deprecated from '@wordpress/deprecated';
  */
 import { deprecatedEntities } from '../entities';
 
+let loggedAlready = false;
+
 /**
  * Logs a deprecation warning for an entity, if it's deprecated.
  *
@@ -34,11 +36,21 @@ export default function logEntityDeprecation(
 		alternativeMessage += ` via the '${ alternativeFunctionName }' function`;
 	}
 
-	deprecated(
-		`The '${ kind }', '${ name }' entity (used via '${ functionName }')`,
-		{
-			...deprecation,
-			alternative: alternativeMessage,
-		}
-	);
+	if ( ! loggedAlready ) {
+		deprecated(
+			`The '${ kind }', '${ name }' entity (used via '${ functionName }')`,
+			{
+				...deprecation,
+				alternative: alternativeMessage,
+			}
+		);
+	}
+
+	// Only log an entity deprecation once per call stack,
+	// else there's spurious logging when selections or actions call through to other selectors or actions.
+	loggedAlready = true;
+	// At the end of the call stack, reset the flag.
+	setTimeout( () => {
+		loggedAlready = false;
+	}, 0 );
 }

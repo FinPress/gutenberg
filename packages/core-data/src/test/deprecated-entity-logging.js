@@ -11,6 +11,11 @@ import { store as coreDataStore } from '../index';
 
 jest.mock( '@wordpress/deprecated' );
 
+// Use fake timers within this file.
+// logEntityDeprecation() uses setTimeout() to avoid spurious logging, so fake timers are used to
+// ensure that the deprecation warning is logged correctly.
+jest.useFakeTimers();
+
 /**
  * Creates a test registry with the core-data store and sets up the deprecated media entity.
  *
@@ -48,6 +53,10 @@ function createTestRegistry() {
 	registry
 		.dispatch( coreDataStore )
 		.receiveEntityRecords( 'root', 'media', mediaRecord );
+
+	// The call to receiveEntityRecords will log a deprecation warning,
+	// run all timers to flush timeouts and ensure that the warnings from the tests are logged.
+	jest.runAllTimers();
 
 	return registry;
 }
