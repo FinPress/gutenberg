@@ -1,0 +1,237 @@
+/**
+ * WordPress dependencies
+ */
+import deprecated from '@wordpress/deprecated';
+import { createRegistry } from '@wordpress/data';
+
+/**
+ * Internal dependencies
+ */
+import { store as coreDataStore } from '../index';
+
+jest.mock( '@wordpress/deprecated' );
+
+/**
+ * Creates a test registry with the core-data store and sets up the deprecated media entity.
+ *
+ * @return {Object} Registry with core-data store registered.
+ */
+function createTestRegistry() {
+	const registry = createRegistry();
+
+	// Register the core-data store
+	registry.register( coreDataStore );
+
+	// Set up the deprecated media entity configuration
+	const mediaEntityConfig = {
+		name: 'media',
+		kind: 'root',
+		baseURL: '/wp/v2/media',
+		baseURLParams: { context: 'edit' },
+		plural: 'mediaItems',
+		label: 'Media',
+		rawAttributes: [ 'caption', 'title', 'description' ],
+		supportsPagination: true,
+	};
+
+	// Add the media entity to the store
+	registry.dispatch( coreDataStore ).addEntities( [ mediaEntityConfig ] );
+
+	// Add a sample media record to the store for testing
+	const mediaRecord = {
+		id: '123',
+		title: 'Test Media',
+		content: 'Test content',
+		excerpt: 'Test excerpt',
+	};
+
+	registry
+		.dispatch( coreDataStore )
+		.receiveEntityRecords( 'root', 'media', mediaRecord );
+
+	return registry;
+}
+
+describe( 'Deprecated entity logging - selectors', () => {
+	describe.each( [
+		{
+			name: 'getEntityConfig',
+			args: [ 'root', 'media' ],
+		},
+		{
+			name: 'getEntityRecord',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'getRawEntityRecord',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'hasEntityRecords',
+			args: [ 'root', 'media' ],
+		},
+		{
+			name: 'getEntityRecords',
+			args: [ 'root', 'media' ],
+		},
+		{
+			name: 'getEntityRecordsTotalItems',
+			args: [ 'root', 'media', { _fields: 'title' } ],
+		},
+		{
+			name: 'getEntityRecordsTotalPages',
+			args: [ 'root', 'media', { _fields: 'title' } ],
+		},
+		{
+			name: 'getEntityRecordEdits',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'getEntityRecordNonTransientEdits',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'hasEditsForEntityRecord',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'getEditedEntityRecord',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'isAutosavingEntityRecord',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'isSavingEntityRecord',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'isDeletingEntityRecord',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'getLastEntitySaveError',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'getLastEntityDeleteError',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'canUser',
+			args: [ 'create', { kind: 'root', name: 'media' }, '123' ],
+		},
+		{
+			name: 'getRevisions',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'getRevision',
+			args: [ 'root', 'media', '123', '10' ],
+		},
+		{
+			name: 'getMedia',
+			args: [ '123' ],
+			alternativeFunction: 'getEntityRecord',
+		},
+		{
+			name: 'getMediaItems',
+			args: [],
+			alternativeFunction: 'getEntityRecords',
+		},
+	] )( '$name', ( { name, args, alternativeFunction } ) => {
+		beforeEach( () => {
+			deprecated.mockReset();
+		} );
+
+		it( 'logs a deprecation warning when used with deprecated entities', () => {
+			// Create a test registry with the actual store
+			const registry = createTestRegistry();
+
+			// Dispatch the action.
+			registry.select( coreDataStore )[ name ]( ...args );
+
+			let expectedAlternative = "The 'postType', 'attachment' entity";
+			if ( alternativeFunction ) {
+				expectedAlternative += ` via the '${ alternativeFunction }' function`;
+			}
+
+			expect( deprecated ).toHaveBeenCalledWith(
+				`The 'root', 'media' entity (used via '${ name }')`,
+				{
+					alternative: expectedAlternative,
+					since: '6.9',
+				}
+			);
+		} );
+	} );
+} );
+
+describe( 'Deprecated entity logging - actions', () => {
+	describe.each( [
+		{
+			name: 'receiveEntityRecords',
+			args: [ 'root', 'media', { title: 'Media' } ],
+		},
+		{
+			name: 'deleteEntityRecord',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: 'editEntityRecord',
+			args: [ 'root', 'media', '123', { title: 'Media' } ],
+		},
+		{
+			name: 'saveEntityRecord',
+			args: [ 'root', 'media', { title: 'Media' } ],
+		},
+		{
+			name: 'saveEditedEntityRecord',
+			args: [ 'root', 'media', '123' ],
+		},
+		{
+			name: '__experimentalSaveSpecifiedEntityEdits',
+			args: [ 'root', 'media', '123', [ 'title' ] ],
+		},
+		{
+			name: 'receiveRevisions',
+			args: [ 'root', 'media', '123', [ 'title' ] ],
+		},
+		{
+			name: 'saveMedia',
+			args: [ { title: 'Media' } ],
+			alternativeFunction: 'saveEntityRecord',
+		},
+		{
+			name: 'deleteMedia',
+			args: [ '123' ],
+			alternativeFunction: 'deleteEntityRecord',
+		},
+	] )( '$name', ( { name, args, alternativeFunction } ) => {
+		beforeEach( () => {
+			deprecated.mockReset();
+		} );
+
+		it( 'logs a deprecation warning when used with deprecated entities', () => {
+			// Create a test registry with the actual store
+			const registry = createTestRegistry();
+
+			// Dispatch the action.
+			registry.dispatch( coreDataStore )[ name ]( ...args );
+
+			let expectedAlternative = "The 'postType', 'attachment' entity";
+			if ( alternativeFunction ) {
+				expectedAlternative += ` via the '${ alternativeFunction }' function`;
+			}
+
+			expect( deprecated ).toHaveBeenCalledWith(
+				`The 'root', 'media' entity (used via '${ name }')`,
+				{
+					alternative: expectedAlternative,
+					since: '6.9',
+				}
+			);
+		} );
+	} );
+} );
