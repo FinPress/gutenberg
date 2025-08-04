@@ -1203,6 +1203,8 @@ Example:
 }
 ```
 
+By default, we add an empty value (label: "Select item"). The label can be overriden by providing an empty element (`{ value: '', label: 'Custom label for empty value'}`).
+
 ### `filterBy`
 
 Configuration of the filters. By default, fields have filtering enabled using the field's `Edit` function for user input. When `elements` are provided, the filter will use those as predefined options instead. Set to `false` to opt the field out of filtering entirely.
