@@ -77,6 +77,7 @@ beforeEach( () => {
 	dispatch( coreStore ).invalidateResolution( 'getEntityRecord', [
 		'postType',
 		'attachment',
+		1,
 	] );
 } );
 
