@@ -8,6 +8,8 @@ import deprecated from '@wordpress/deprecated';
  */
 import logEntityDeprecation from '../log-entity-deprecation';
 
+jest.useFakeTimers();
+
 // Mock the deprecatedEntities import
 jest.mock( '../../entities', () => ( {
 	deprecatedEntities: {
@@ -29,6 +31,9 @@ jest.mock( '@wordpress/deprecated' );
 describe( 'logEntityDeprecation', () => {
 	beforeEach( () => {
 		jest.clearAllMocks();
+
+		// Ensure the timeout that prevents spurious logging is cleared.
+		jest.runAllTimers();
 	} );
 
 	it( 'should call deprecated when entity is deprecated', () => {
