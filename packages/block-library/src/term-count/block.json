@@ -13,7 +13,7 @@
 		},
 		"format": {
 			"type": "string",
-			"default": "(%d)"
+			"default": " (%d)"
 		}
 	},
 	"example": {

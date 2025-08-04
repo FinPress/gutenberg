@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import clsx from 'clsx';
-
-/**
  * WordPress dependencies
  */
 import { memo, useMemo, useState } from '@wordpress/element';
@@ -17,14 +12,14 @@ import {
 	useInnerBlocksProps,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { Spinner, ToolbarGroup } from '@wordpress/components';
+import { ToolbarGroup } from '@wordpress/components';
 import { useEntityRecords } from '@wordpress/core-data';
 
 const TEMPLATE = [ [ 'core/term-name' ], [ 'core/term-count' ] ];
 
 function TermTemplateInnerBlocks( { classList } ) {
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: clsx( 'wp-block-term', classList ) },
+		{ className: `wp-block-term ${ classList }` },
 		{ template: TEMPLATE, __unstableDisableLayoutClassNames: true }
 	);
 	return <li { ...innerBlocksProps } />;
@@ -42,7 +37,7 @@ function TermTemplateBlockPreview( {
 	const blockPreviewProps = useBlockPreview( {
 		blocks,
 		props: {
-			className: clsx( 'wp-block-term', classList ),
+			className: `wp-block-term ${ classList }`,
 		},
 	} );
 
@@ -69,6 +64,7 @@ function TermTemplateBlockPreview( {
 	);
 }
 
+// Prevent re-rendering of the block preview when the terms data changes.
 const MemoizedTermTemplateBlockPreview = memo( TermTemplateBlockPreview );
 
 /**
@@ -103,25 +99,34 @@ function buildTermsTree( terms ) {
  * Renders a single term node and its children recursively.
  *
  * @param {Object}   termNode   Term node with term object and children.
- * @param {Function} renderTerm Function to render a single term.
- * @return {JSX.Element} Rendered term node.
+ * @param {Function} renderTerm Function to render individual terms.
+ * @return {JSX.Element} Rendered term node with children.
  */
 function renderTermNode( termNode, renderTerm ) {
-	const children =
-		termNode.children.length > 0 ? (
-			<ul>
-				{ termNode.children.map( ( childNode ) =>
-					renderTermNode( childNode, renderTerm )
-				) }
-			</ul>
-		) : null;
-
 	return (
 		<>
 			{ renderTerm( termNode.term ) }
-			{ children }
+			{ termNode.children.length > 0 && (
+				<ul>
+					{ termNode.children.map( ( child ) =>
+						renderTermNode( child, renderTerm )
+					) }
+				</ul>
+			) }
 		</>
 	);
+}
+
+/**
+ * Checks if a term is the currently active term.
+ *
+ * @param {number} termId               The term ID to check.
+ * @param {number} activeBlockContextId The currently active block context ID.
+ * @param {Array}  blockContexts        Array of block contexts.
+ * @return {boolean} True if the term is active, false otherwise.
+ */
+function isActiveTerm( termId, activeBlockContextId, blockContexts ) {
+	return termId === ( activeBlockContextId || blockContexts[ 0 ]?.termId );
 }
 
 export default function TermTemplateEdit( {
@@ -177,14 +182,24 @@ export default function TermTemplateEdit( {
 	);
 
 	const blockProps = useBlockProps( {
-		className: clsx( 'wp-block-term-template' ),
+		className: 'wp-block-term-template',
 	} );
 
 	if ( isResolving ) {
 		return (
-			<p { ...blockProps }>
-				<Spinner />
-			</p>
+			<div { ...blockProps }>
+				<ul>
+					<li className="wp-block-term term-loading">
+						<div className="term-loading-placeholder" />
+					</li>
+					<li className="wp-block-term term-loading">
+						<div className="term-loading-placeholder" />
+					</li>
+					<li className="wp-block-term term-loading">
+						<div className="term-loading-placeholder" />
+					</li>
+				</ul>
+			</div>
 		);
 	}
 
@@ -204,8 +219,11 @@ export default function TermTemplateEdit( {
 
 		return (
 			<BlockContextProvider key={ term.id } value={ blockContext }>
-				{ term.id ===
-				( activeBlockContextId || blockContexts[ 0 ]?.termId ) ? (
+				{ isActiveTerm(
+					term.id,
+					activeBlockContextId,
+					blockContexts
+				) ? (
 					<TermTemplateInnerBlocks
 						classList={ blockContext.classList }
 						term={ term }
@@ -216,10 +234,11 @@ export default function TermTemplateEdit( {
 					blockContextId={ term.id }
 					classList={ blockContext.classList }
 					setActiveBlockContextId={ setActiveBlockContextId }
-					isHidden={
-						term.id ===
-						( activeBlockContextId || blockContexts[ 0 ]?.termId )
-					}
+					isHidden={ isActiveTerm(
+						term.id,
+						activeBlockContextId,
+						blockContexts
+					) }
 					termName={ term.name }
 					termCount={ `(${ termCount })` }
 				/>
@@ -235,40 +254,56 @@ export default function TermTemplateEdit( {
 			);
 		}
 
-		return blockContexts.map( ( blockContext ) => {
-			const term = filteredTerms.find(
-				( t ) => t.id === blockContext.termId
-			);
-			const termCount = term?.count || 0;
-
-			return (
-				<BlockContextProvider
-					key={ blockContext.termId }
-					value={ blockContext }
-				>
-					{ blockContext.termId ===
-					( activeBlockContextId || blockContexts[ 0 ]?.termId ) ? (
-						<TermTemplateInnerBlocks
-							classList={ blockContext.classList }
-							term={ term }
-						/>
-					) : null }
-					<MemoizedTermTemplateBlockPreview
-						blocks={ blocks }
-						blockContextId={ blockContext.termId }
+		return blockContexts.map( ( blockContext ) => (
+			<BlockContextProvider
+				key={ blockContext.termId }
+				value={ blockContext }
+			>
+				{ isActiveTerm(
+					blockContext.termId,
+					activeBlockContextId,
+					blockContexts
+				) ? (
+					<TermTemplateInnerBlocks
 						classList={ blockContext.classList }
-						setActiveBlockContextId={ setActiveBlockContextId }
-						isHidden={
-							blockContext.termId ===
-							( activeBlockContextId ||
-								blockContexts[ 0 ]?.termId )
+						term={ filteredTerms.find(
+							( t ) => t.id === blockContext.termId
+						) }
+						termName={
+							filteredTerms.find(
+								( t ) => t.id === blockContext.termId
+							)?.name
 						}
-						termName={ term?.name }
-						termCount={ `(${ termCount })` }
+						termCount={
+							filteredTerms.find(
+								( t ) => t.id === blockContext.termId
+							)?.count
+						}
 					/>
-				</BlockContextProvider>
-			);
-		} );
+				) : null }
+				<MemoizedTermTemplateBlockPreview
+					blocks={ blocks }
+					blockContextId={ blockContext.termId }
+					classList={ blockContext.classList }
+					setActiveBlockContextId={ setActiveBlockContextId }
+					isHidden={ isActiveTerm(
+						blockContext.termId,
+						activeBlockContextId,
+						blockContexts
+					) }
+					termName={
+						filteredTerms.find(
+							( t ) => t.id === blockContext.termId
+						)?.name
+					}
+					termCount={
+						filteredTerms.find(
+							( t ) => t.id === blockContext.termId
+						)?.count
+					}
+				/>
+			</BlockContextProvider>
+		) );
 	};
 
 	return (

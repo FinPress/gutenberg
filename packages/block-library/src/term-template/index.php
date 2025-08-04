@@ -40,6 +40,15 @@ function render_block_core_term_template( $attributes, $content, $block ) {
 		'exclude'    => $query['exclude'] ?? array(),
 	);
 
+	// Handle parent.
+	if ( ! empty( $query['hierarchical'] ) && isset( $query['parent'] ) ) {
+		$query_args['parent'] = $query['parent'];
+	} elseif ( ! empty( $query['hierarchical'] ) ) {
+		$query_args['parent'] = 0;
+	} elseif ( isset( $query['parent'] ) ) {
+		$query_args['parent'] = $query['parent'];
+	}
+
 	$terms_query = new WP_Term_Query( $query_args );
 	$terms       = $terms_query->get_terms();
 
@@ -47,25 +56,11 @@ function render_block_core_term_template( $attributes, $content, $block ) {
 		return '';
 	}
 
-	// Handle parent.
-	if ( isset( $query['parent'] ) ) {
-		$terms = array_filter(
-			$terms,
-			function ( $term ) use ( $query ) {
-				return $term->parent === $query['parent'];
-			}
-		);
-	}
-
 	// Handle hierarchical list.
 	$is_hierarchical = ! empty( $query['hierarchical'] );
 
-	if ( ! $is_hierarchical && isset( $query['parent'] ) ) {
-		$query_args['parent'] = $query['parent'];
-	}
-
 	if ( $is_hierarchical ) {
-		$content = render_block_core_term_template_hierarchical( $terms, $block );
+		$content = render_block_core_term_template_hierarchical( $terms, $block, $query_args );
 	} else {
 		$content = render_block_core_term_template_flat( $terms, $block );
 	}
@@ -101,25 +96,54 @@ function render_block_core_term_template_flat( $terms, $block ) {
  *
  * @param array    $terms Array of WP_Term objects.
  * @param WP_Block $block Block instance.
- * @param int      $parent_id Parent term ID (0 for top-level).
+ * @param array    $base_query_args Base query arguments.
  *
  * @return string HTML content for hierarchical terms list.
  */
-function render_block_core_term_template_hierarchical( $terms, $block, $parent_id = 0 ) {
+function render_block_core_term_template_hierarchical( $terms, $block, $base_query_args ) {
 	$content = '';
 
-	// Filter terms for current parent.
-	$child_terms = array_filter(
-		$terms,
-		function ( $term ) use ( $parent_id ) {
-			return $term->parent === $parent_id;
+	foreach ( $terms as $term ) {
+		$term_content     = render_block_core_term_template_single( $term, $block );
+		$children_content = render_block_core_term_template_get_children( $term->term_id, $block, $base_query_args );
+
+		if ( ! empty( $children_content ) ) {
+			$term_content = str_replace( '</li>', '<ul>' . $children_content . '</ul></li>', $term_content );
 		}
-	);
 
-	foreach ( $child_terms as $term ) {
-		$term_content = render_block_core_term_template_single( $term, $block );
+		$content .= $term_content;
+	}
 
-		$children_content = render_block_core_term_template_hierarchical( $terms, $block, $term->term_id );
+	return $content;
+}
+
+/**
+ * Gets and renders children of a specific term.
+ *
+ * @since 6.x.x
+ *
+ * @param int      $parent_term_id Parent term ID.
+ * @param WP_Block $block          Block instance.
+ * @param array    $base_query_args Base query arguments.
+ *
+ * @return string HTML content for children terms.
+ */
+function render_block_core_term_template_get_children( $parent_term_id, $block, $base_query_args ) {
+	$child_query_args           = $base_query_args;
+	$child_query_args['parent'] = $parent_term_id;
+
+	$child_terms_query = new WP_Term_Query( $child_query_args );
+	$child_terms       = $child_terms_query->get_terms();
+
+	if ( ! $child_terms || is_wp_error( $child_terms ) ) {
+		return '';
+	}
+
+	$content = '';
+
+	foreach ( $child_terms as $child_term ) {
+		$term_content     = render_block_core_term_template_single( $child_term, $block );
+		$children_content = render_block_core_term_template_get_children( $child_term->term_id, $block, $base_query_args );
 
 		if ( ! empty( $children_content ) ) {
 			$term_content = str_replace( '</li>', '<ul>' . $children_content . '</ul></li>', $term_content );
