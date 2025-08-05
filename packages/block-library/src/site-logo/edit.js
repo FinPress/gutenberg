@@ -264,7 +264,8 @@ const SiteLogo = ( {
 			</ResizableBox>
 		);
 	} else {
-		imgEdit = imgWrapper;
+		// When not showing ResizableBox, still apply size constraints
+		imgEdit = <div style={ { width, height } }>{ imgWrapper }</div>;
 	}
 
 	// Support the previous location for the Site Icon settings. To be removed
