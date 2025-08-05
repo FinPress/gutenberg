@@ -303,7 +303,7 @@
 	background-color: $gray-100;
 
 	.dataviews-view-table__group-header-cell {
-		font-weight: 600;
+		font-weight: $font-weight-medium;
 		padding: $grid-unit-15 $grid-unit-60;
 		color: $gray-900;
 	}
