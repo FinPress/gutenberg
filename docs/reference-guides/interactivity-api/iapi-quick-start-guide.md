@@ -32,7 +32,7 @@ When you are finished making changes, run the `npm run build` command. This opti
 
 ## View the block in action
 
-If you have a local WordPress installation already running, you can launch the commands above inside the `plugins` folder of that installation. If not, you can use [`@wp-playground/cli`](https://www.npmjs.com/package/@wp-playground/cli) to launch a WordPress site with the plugin installed by executing the following command from the plugin's folder (`my-first-interactive-block`).
+If you have a local WordPress installation already running, you can launch the commands above inside the `plugins` folder of that installation. If not, you can use [`@wp-playground/cli`](https://github.com/WordPress/wordpress-playground/tree/trunk/packages/playground/cli) to launch a WordPress site with the plugin installed by executing the following command from the plugin's folder (`my-first-interactive-block`).
 
 ```
 npx @wp-playground/cli server --auto-mount
