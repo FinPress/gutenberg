@@ -69,7 +69,7 @@ add_filter( 'block_type_metadata_settings', array( 'WP_Duotone_Gutenberg', 'migr
  * Direct port of tinycolor's bound01 function, lightly simplified to maintain
  * consistency with tinycolor.
  *
- * @link https://github.com/bgrins/TinyColor 
+ * @link https://github.com/bgrins/TinyColor
  *
  * @deprecated 6.3.0
  *
@@ -104,7 +104,7 @@ function gutenberg_tinycolor_bound01( $n, $max ) {
  * Direct port of tinycolor's boundAlpha function to maintain consistency with
  * how tinycolor works.
  *
- * @link https://github.com/bgrins/TinyColor 
+ * @link https://github.com/bgrins/TinyColor
  *
  * @deprecated 6.3.0
  *
@@ -126,7 +126,7 @@ function gutenberg_tinycolor_bound_alpha( $n ) {
 /**
  * Round and convert values of an RGB object.
  *
- * @link https://github.com/bgrins/TinyColor 
+ * @link https://github.com/bgrins/TinyColor
  *
  * @deprecated 6.3.0
  *
@@ -146,7 +146,7 @@ function gutenberg_tinycolor_rgb_to_rgb( $rgb_color ) {
 /**
  * Helper function for hsl to rgb conversion.
  *
- * @link https://github.com/bgrins/TinyColor 
+ * @link https://github.com/bgrins/TinyColor
  *
  * @deprecated 6.3.0
  *
@@ -179,7 +179,7 @@ function gutenberg_tinycolor_hue_to_rgb( $p, $q, $t ) {
 /**
  * Convert an HSL object to an RGB object with converted and rounded values.
  *
- * @link https://github.com/bgrins/TinyColor 
+ * @link https://github.com/bgrins/TinyColor
  *
  * @deprecated 6.3.0
  *
