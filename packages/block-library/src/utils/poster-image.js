@@ -80,7 +80,6 @@ function PosterImage( { poster, onChange } ) {
 				isShownByDefault
 				hasValue={ () => !! poster }
 				onDeselect={ () => onChange( undefined ) }
-				className="tools-panel-poster-image"
 			>
 				<BaseControl.VisualLabel>
 					{ __( 'Poster image' ) }
