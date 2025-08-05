@@ -88,6 +88,7 @@ export function BlockSettingsDropdown( {
 		selectedBlockClientIds,
 		openedBlockSettingsMenu,
 		isContentOnly,
+		isNavigationMode,
 		isZoomOut,
 	} = useSelect(
 		( select ) => {
@@ -99,6 +100,7 @@ export function BlockSettingsDropdown( {
 				getBlockAttributes,
 				getOpenedBlockSettingsMenu,
 				getBlockEditingMode,
+				isNavigationMode: _isNavigationMode,
 				isZoomOut: _isZoomOut,
 			} = unlock( select( blockEditorStore ) );
 
@@ -124,6 +126,7 @@ export function BlockSettingsDropdown( {
 				openedBlockSettingsMenu: getOpenedBlockSettingsMenu(),
 				isContentOnly:
 					getBlockEditingMode( firstBlockClientId ) === 'contentOnly',
+				isNavigationMode: _isNavigationMode(),
 				isZoomOut: _isZoomOut(),
 			};
 		},
@@ -155,6 +158,7 @@ export function BlockSettingsDropdown( {
 		};
 	}, [] );
 	const hasSelectedBlocks = selectedBlockClientIds.length > 0;
+	const isWriteMode = isNavigationMode && isContentOnly;
 
 	async function updateSelectionAfterDuplicate( clientIdsPromise ) {
 		if ( ! __experimentalSelectBlock ) {
@@ -242,7 +246,7 @@ export function BlockSettingsDropdown( {
 					! canRemove &&
 					! canDuplicate &&
 					! canInsertBlock &&
-					isContentOnly;
+					isWriteMode;
 
 				if ( isEmpty ) {
 					return null;
@@ -278,14 +282,14 @@ export function BlockSettingsDropdown( {
 											clientId={ firstBlockClientId }
 										/>
 									) }
-									{ ! isContentOnly && (
+									{ ! isWriteMode && (
 										<CopyMenuItem
 											clientIds={ clientIds }
 											onCopy={ onCopy }
 											shortcut={ shortcuts.copy }
 										/>
 									) }
-									{ ! isContentOnly && (
+									{ ! isWriteMode && (
 										<CopyMenuItem
 											clientIds={ clientIds }
 											label={ __( 'Cut' ) }
