@@ -38,6 +38,7 @@ import {
 	useBlockProps,
 	store as blockEditorStore,
 	__experimentalImageEditor as ImageEditor,
+	useBlockEditingMode,
 } from '@wordpress/block-editor';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
@@ -73,6 +74,11 @@ const SiteLogo = ( {
 	const [ isEditingImage, setIsEditingImage ] = useState( false );
 	const { toggleSelection } = useDispatch( blockEditorStore );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+
+	// Check if we're in contentOnly mode
+	const blockEditingMode = useBlockEditingMode();
+	const isContentOnlyMode = blockEditingMode === 'contentOnly';
+
 	const { imageEditing, maxWidth, title } = useSelect( ( select ) => {
 		const settings = select( blockEditorStore ).getSettings();
 		const siteEntities = select( coreStore ).getEntityRecord(
@@ -205,8 +211,12 @@ const SiteLogo = ( {
 	const canEditImage =
 		logoId && naturalWidth && naturalHeight && imageEditing;
 
-	const imgEdit =
-		canEditImage && isEditingImage ? (
+	// Hide crop and dimensions editing in contentOnly mode
+	const shouldShowCropAndDimensions = ! isContentOnlyMode;
+
+	let imgEdit;
+	if ( canEditImage && isEditingImage ) {
+		imgEdit = (
 			<ImageEditor
 				id={ logoId }
 				url={ logoUrl }
@@ -221,7 +231,9 @@ const SiteLogo = ( {
 					setIsEditingImage( false );
 				} }
 			/>
-		) : (
+		);
+	} else if ( shouldShowCropAndDimensions ) {
+		imgEdit = (
 			<ResizableBox
 				size={ {
 					width: currentWidth,
@@ -251,6 +263,9 @@ const SiteLogo = ( {
 				{ imgWrapper }
 			</ResizableBox>
 		);
+	} else {
+		imgEdit = imgWrapper;
+	}
 
 	// Support the previous location for the Site Icon settings. To be removed
 	// when the required WP core version for Gutenberg is >= 6.5.0.
@@ -371,15 +386,17 @@ const SiteLogo = ( {
 					) }
 				</ToolsPanel>
 			</InspectorControls>
-			<BlockControls group="block">
-				{ canEditImage && ! isEditingImage && (
-					<ToolbarButton
-						onClick={ () => setIsEditingImage( true ) }
-						icon={ crop }
-						label={ __( 'Crop' ) }
-					/>
+			{ canEditImage &&
+				! isEditingImage &&
+				shouldShowCropAndDimensions && (
+					<BlockControls group="block">
+						<ToolbarButton
+							onClick={ () => setIsEditingImage( true ) }
+							icon={ crop }
+							label={ __( 'Crop' ) }
+						/>
+					</BlockControls>
 				) }
-			</BlockControls>
 			{ imgEdit }
 		</>
 	);
