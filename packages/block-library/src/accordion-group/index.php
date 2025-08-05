@@ -29,9 +29,9 @@ function render_block_core_accordion_group( $attributes, $content ) {
 
 	wp_enqueue_script_module( '@wordpress/block-library/accordion-group' );
 
-	$p         = new WP_HTML_Tag_Processor( $content );
-	$autoclose = $attributes['autoclose'] ? 'true' : 'false';
-	$icon = $attributes['icon'] ?? 'plus';
+	$p             = new WP_HTML_Tag_Processor( $content );
+	$autoclose     = $attributes['autoclose'] ? 'true' : 'false';
+	$icon          = $attributes['icon'] ?? 'plus';
 	$icon_position = $attributes['iconPosition'] ?? 'right';
 
 	if ( $p->next_tag( array( 'class_name' => 'wp-block-accordion-group' ) ) ) {
