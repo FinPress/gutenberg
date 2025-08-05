@@ -229,7 +229,6 @@ export const modifiers: WPModifierHandler< WPModifier > = {
  * rawShortcut.primary( 'm' )
  * // "meta+m""
  * ```
- *
  */
 export const rawShortcut: WPModifierHandler< WPKeyHandler< string > > =
 	/* @__PURE__ */

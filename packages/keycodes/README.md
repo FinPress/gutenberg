@@ -170,8 +170,6 @@ rawShortcut.primary( 'm' );
 // "meta+m""
 ```
 
-Keyed map of functions to raw shortcuts.
-
 ### RIGHT
 
 Keycode for RIGHT key.
