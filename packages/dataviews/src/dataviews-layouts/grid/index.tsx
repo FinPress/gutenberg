@@ -65,6 +65,7 @@ interface GridItemProps< Item > {
 	config: {
 		sizes: string;
 	};
+	posinset?: number;
 }
 
 function GridItem< Item >( {
@@ -84,6 +85,7 @@ function GridItem< Item >( {
 	badgeFields,
 	hasBulkActions,
 	config,
+	posinset,
 }: GridItemProps< Item > ) {
 	const { showTitle = true, showMedia = true, showDescription = true } = view;
 	const hasBulkAction = useHasAPossibleBulkAction( actions, item );
@@ -118,6 +120,8 @@ function GridItem< Item >( {
 			};
 		}
 	}
+	const isInfiniteScroll = view.layout?.infiniteScroll;
+	const { paginationInfo } = useContext( DataViewsContext );
 
 	return (
 		<VStack
@@ -140,6 +144,11 @@ function GridItem< Item >( {
 					);
 				}
 			} }
+			role={ isInfiniteScroll ? 'article' : undefined }
+			aria-setsize={
+				isInfiniteScroll ? paginationInfo.totalItems : undefined
+			}
+			aria-posinset={ isInfiniteScroll ? posinset : undefined }
 		>
 			{ showMedia && renderedMediaField && (
 				<ItemClickWrapper
@@ -325,6 +334,8 @@ function ViewGrid< Item >( {
 		  }, new Map< string, typeof data >() )
 		: null;
 
+	const isInfiniteScroll = view.layout?.infiniteScroll;
+
 	return (
 		<>
 			{
@@ -354,8 +365,13 @@ function ViewGrid< Item >( {
 										} }
 										aria-busy={ isLoading }
 										ref={ resizeObserverRef }
+										role={
+											isInfiniteScroll
+												? 'feed'
+												: undefined
+										}
 									>
-										{ groupItems.map( ( item ) => {
+										{ groupItems.map( ( item, index ) => {
 											return (
 												<GridItem
 													key={ getItemId( item ) }
@@ -389,6 +405,7 @@ function ViewGrid< Item >( {
 													config={ {
 														sizes: size,
 													} }
+													posinset={ index + 1 }
 												/>
 											);
 										} ) }
@@ -412,8 +429,9 @@ function ViewGrid< Item >( {
 						} }
 						aria-busy={ isLoading }
 						ref={ resizeObserverRef }
+						role={ isInfiniteScroll ? 'feed' : undefined }
 					>
-						{ data.map( ( item ) => {
+						{ data.map( ( item, index ) => {
 							return (
 								<GridItem
 									key={ getItemId( item ) }
@@ -435,6 +453,7 @@ function ViewGrid< Item >( {
 									config={ {
 										sizes: size,
 									} }
+									posinset={ index + 1 }
 								/>
 							);
 						} ) }
