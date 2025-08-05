@@ -50,10 +50,6 @@
 	height: auto !important;
 	outline: $border-width solid rgba($black, 0.1);
 
-	.tools-panel-poster-image:has(.components-notice) & {
-		margin-top: $grid-unit-10;
-	}
-
 	.block-library-poster-image__preview-image {
 		object-fit: cover;
 		width: 100%;

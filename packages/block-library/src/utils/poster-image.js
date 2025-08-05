@@ -11,12 +11,12 @@ import {
 	MediaUploadCheck,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
+import { store as noticesStore } from '@wordpress/notices';
 import {
 	Button,
 	BaseControl,
 	DropZone,
 	Spinner,
-	withNotices,
 	__experimentalHStack as HStack,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
@@ -24,11 +24,11 @@ import { isBlobURL } from '@wordpress/blob';
 import { __, sprintf } from '@wordpress/i18n';
 import { useRef, useState } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 const POSTER_IMAGE_ALLOWED_MEDIA_TYPES = [ 'image' ];
 
-function PosterImage( { poster, onChange, noticeUI, noticeOperations } ) {
+function PosterImage( { poster, onChange } ) {
 	const posterButtonRef = useRef();
 	const [ isLoading, setIsLoading ] = useState( false );
 	const descriptionId = useInstanceId(
@@ -36,13 +36,11 @@ function PosterImage( { poster, onChange, noticeUI, noticeOperations } ) {
 		'block-library-poster-image-description'
 	);
 
-	const { mediaUpload } = useSelect(
-		( select ) => select( blockEditorStore ).getSettings(),
-		[]
-	);
+	const { getSettings } = useSelect( blockEditorStore );
+	const { createErrorNotice } = useDispatch( noticesStore );
 
 	const onDropFiles = ( filesList ) => {
-		mediaUpload( {
+		getSettings().mediaUpload( {
 			allowedTypes: POSTER_IMAGE_ALLOWED_MEDIA_TYPES,
 			filesList,
 			onFileChange: ( [ image ] ) => {
@@ -57,8 +55,10 @@ function PosterImage( { poster, onChange, noticeUI, noticeOperations } ) {
 				setIsLoading( false );
 			},
 			onError: ( message ) => {
-				noticeOperations.removeAllNotices();
-				noticeOperations.createErrorNotice( message );
+				createErrorNotice( message, {
+					id: 'poster-image-upload-notice',
+					type: 'snackbar',
+				} );
 				setIsLoading( false );
 			},
 			multiple: false,
@@ -85,7 +85,6 @@ function PosterImage( { poster, onChange, noticeUI, noticeOperations } ) {
 				<BaseControl.VisualLabel>
 					{ __( 'Poster image' ) }
 				</BaseControl.VisualLabel>
-				{ noticeUI }
 				<MediaUpload
 					title={ __( 'Select poster image' ) }
 					onSelect={ onChange }
@@ -175,4 +174,4 @@ function PosterImage( { poster, onChange, noticeUI, noticeOperations } ) {
 	);
 }
 
-export default withNotices( PosterImage );
+export default PosterImage;
