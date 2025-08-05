@@ -240,10 +240,10 @@ function proceed( conversionMap: Record< string, ReactElement > ): boolean {
 		case 'opener':
 			stack.push(
 				createFrame(
-					conversionMap[ name! ],
-					startOffset!,
-					tokenLength!,
-					startOffset! + tokenLength!,
+					conversionMap[ name ],
+					startOffset,
+					tokenLength,
+					startOffset + tokenLength,
 					leadingTextStart
 				)
 			);

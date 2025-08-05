@@ -170,7 +170,7 @@ Checks if the provided WP element is empty.
 
 _Parameters_
 
--   _element_ `*`: WP element to check.
+-   _element_ `unknown`: WP element to check.
 
 _Returns_
 
