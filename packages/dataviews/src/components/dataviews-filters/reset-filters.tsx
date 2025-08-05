@@ -42,7 +42,8 @@ export default function ResetFilter( {
 					...view,
 					page: 1,
 					search: '',
-					filters: [],
+					filters:
+						view.filters?.filter( ( f ) => !! f.isLocked ) || [],
 				} );
 			} }
 		>
