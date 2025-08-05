@@ -52,6 +52,10 @@ export function useFilters( fields: NormalizedField< any >[], view: View ) {
 							ALL_OPERATORS.includes( f.operator )
 					),
 				isPrimary,
+				isLocked:
+					view.filters?.some(
+						( f ) => f.field === field.id && !! f.isLocked
+					) ?? false,
 			} );
 		} );
 		// Sort filters by primary property. We need the primary filters to be first.
