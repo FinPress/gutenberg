@@ -20,8 +20,31 @@ concurrency:
 permissions: {}
 
 jobs:
+    build-assets:
+        name: Build JavaScript assets for e2e tests tests
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+              with:
+                  show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
+
+            - name: Setup Node.js and install dependencies
+              uses: ./.github/setup-node
+
+            - name: Run build scripts
+              run: npm run build
+
+            - name: Upload built JavaScript assets
+              uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+              with:
+                  name: build-assets
+                  path: |
+                      ./build/
+                      ./build-module/
+
     e2e-playwright:
         name: Playwright - ${{ matrix.part }}
+        needs: [build-assets]
         runs-on: ubuntu-latest
         permissions:
             contents: read
@@ -41,8 +64,10 @@ jobs:
             - name: Setup Node.js and install dependencies
               uses: ./.github/setup-node
 
-            - name: Npm build
-              run: npm run build
+            - name: Download built JavaScript assets
+              uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+              with:
+                  name: build-assets
 
             - name: Install Playwright dependencies
               run: |
@@ -86,7 +111,7 @@ jobs:
             has-flaky-test-report: ${{ !!steps.merge-flaky-tests-reports.outputs.artifact-id }}
         steps:
             - name: Merge failures artifacts
-              uses: actions/upload-artifact/merge@v4
+              uses: actions/upload-artifact/merge@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
               # Don't fail the job if there aren't any artifacts to merge.
               continue-on-error: true
               with:
@@ -97,7 +122,7 @@ jobs:
 
             - name: Merge flaky tests reports
               id: merge-flaky-tests-reports
-              uses: actions/upload-artifact/merge@v4
+              uses: actions/upload-artifact/merge@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
               continue-on-error: true
               with:
                   name: flaky-tests-report
@@ -122,7 +147,7 @@ jobs:
                   show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
                   persist-credentials: false
 
-            - uses: actions/download-artifact@v4.3.0
+            - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
               # Don't fail the job if there isn't any flaky tests report.
               continue-on-error: true
               with:
