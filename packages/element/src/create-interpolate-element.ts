@@ -9,12 +9,6 @@ import {
 	type Element as ReactElement,
 } from './react';
 
-/**
- * Object containing a React element.
- *
- * @typedef {import('react').ReactElement} Element
- */
-
 let indoc: string;
 let offset: number;
 let output: ( string | ReactElement )[];
@@ -32,34 +26,38 @@ let stack: Frame[];
  * isClosing: The closing slash, if it exists.
  * name: The name portion of the tag (strong, br) (if )
  * isSelfClosed: The slash on a self closing tag, if it exists.
- *
- * @type {RegExp}
  */
-const tokenizer: RegExp = /<(\/)?(\w+)\s*(\/)?>/g;
+const tokenizer = /<(\/)?(\w+)\s*(\/)?>/g;
 
-/**
- * The stack frame tracking parse progress.
- *
- * @typedef Frame
- *
- * @property {ReactElement}              element            A parent element which may still have
- * @property {number}                    tokenStart         Offset at which parent element first
- *                                                          appears.
- * @property {number}                    tokenLength        Length of string marking start of parent
- *                                                          element.
- * @property {number}                    [prevOffset]       Running offset at which parsing should
- *                                                          continue.
- * @property {number}                    [leadingTextStart] Offset at which last closing element
- *                                                          finished, used for finding text between
- *                                                          elements.
- * @property {(string | ReactElement)[]} children           Children.
- */
 interface Frame {
+	/**
+	 * A parent element which may still have nested children not yet parsed.
+	 */
 	element: ReactElement;
+
+	/**
+	 * Offset at which parent element first appears.
+	 */
 	tokenStart: number;
+
+	/**
+	 * Length of string marking start of parent element.
+	 */
 	tokenLength: number;
+
+	/**
+	 * Running offset at which parsing should continue.
+	 */
 	prevOffset?: number;
+
+	/**
+	 * Offset at which last closing element finished, used for finding text between elements.
+	 */
 	leadingTextStart?: number | null;
+
+	/**
+	 * Children.
+	 */
 	children: ( string | ReactElement )[];
 }
 
@@ -70,19 +68,19 @@ interface Frame {
  * parsed.
  *
  * @private
- * @param {ReactElement}  element            A parent element which may still have
- *                                           nested children not yet parsed.
- * @param {number}        tokenStart         Offset at which parent element first
- *                                           appears.
- * @param {number}        tokenLength        Length of string marking start of parent
- *                                           element.
- * @param {number}        [prevOffset]       Running offset at which parsing should
- *                                           continue.
- * @param {number | null} [leadingTextStart] Offset at which last closing element
- *                                           finished, used for finding text between
- *                                           elements.
+ * @param element          A parent element which may still have
+ *                         nested children not yet parsed.
+ * @param tokenStart       Offset at which parent element first
+ *                         appears.
+ * @param tokenLength      Length of string marking start of parent
+ *                         element.
+ * @param prevOffset       Running offset at which parsing should
+ *                         continue.
+ * @param leadingTextStart Offset at which last closing element
+ *                         finished, used for finding text between
+ *                         elements.
  *
- * @return {Frame} The stack frame tracking parse progress.
+ * @return The stack frame tracking parse progress.
  */
 function createFrame(
 	element: ReactElement,
@@ -122,11 +120,11 @@ function createFrame(
  * }
  * ```
  *
- * @param {string}                       interpolatedString The interpolation string to be parsed.
- * @param {Record<string, ReactElement>} conversionMap      The map used to convert the string to
- *                                                          a react element.
+ * @param  interpolatedString The interpolation string to be parsed.
+ * @param  conversionMap      The map used to convert the string to
+ *                            a react element.
  * @throws {TypeError}
- * @return {ReactElement}  A wp element.
+ * @return A wp element.
  */
 const createInterpolateElement = (
 	interpolatedString: string,
@@ -158,9 +156,9 @@ const createInterpolateElement = (
  *
  * @private
  *
- * @param {Record<string, ReactElement>} conversionMap The map being validated.
+ * @param conversionMap The map being validated.
  *
- * @return {boolean}  True means the map is valid.
+ * @return True means the map is valid.
  */
 const isValidConversionMap = (
 	conversionMap: Record< string, ReactElement >
@@ -190,9 +188,9 @@ type TokenResult =
  *
  * @private
  *
- * @param {Record<string, ReactElement>} conversionMap The conversion map for the string.
+ * @param conversionMap The conversion map for the string.
  *
- * @return {boolean} true for continuing to iterate, false for finished.
+ * @return true for continuing to iterate, false for finished.
  */
 function proceed( conversionMap: Record< string, ReactElement > ): boolean {
 	const next = nextToken();
@@ -291,7 +289,7 @@ function proceed( conversionMap: Record< string, ReactElement > ): boolean {
  *
  * @private
  *
- * @return {TokenResult}  An array of details for the token matched.
+ * @return An array of details for the token matched.
  */
 function nextToken(): TokenResult {
 	const matches = tokenizer.exec( indoc );
