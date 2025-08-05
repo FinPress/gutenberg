@@ -351,6 +351,11 @@ export interface NormalizedFilter {
 	 * Whether it is a primary filter.
 	 */
 	isPrimary: boolean;
+
+	/**
+	 * Whether the filter can be edited by the user.
+	 */
+	isLocked: boolean;
 }
 
 interface ViewBase {
