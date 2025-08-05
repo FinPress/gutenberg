@@ -17,6 +17,39 @@ jest.mock( '@wordpress/deprecated' );
 jest.useFakeTimers();
 
 /**
+ * Returns the expected arguments for the deprecated function call.
+ *
+ * @param {string}  name                - The name of the function.
+ * @param {Array}   args                - The arguments for the function.
+ * @param {boolean} isShorthandSelector - Whether the function is a shorthand selector.
+ * @param {string}  alternativeFunction - The name of the alternative function.
+ * @return {Array} The expected arguments for the deprecated function call.
+ */
+function getExpectedDeprecationArgs(
+	name,
+	args,
+	isShorthandSelector,
+	alternativeFunction
+) {
+	const expectedMessage = isShorthandSelector
+		? name
+		: `The 'root', 'media' entity (used via '${ name }')`;
+
+	let expectedAlternative = "the 'postType', 'attachment' entity";
+	if ( alternativeFunction ) {
+		expectedAlternative += ` via the '${ alternativeFunction }' function`;
+	}
+
+	return [
+		expectedMessage,
+		{
+			alternative: expectedAlternative,
+			since: '6.9',
+		},
+	];
+}
+
+/**
  * Creates a test registry with the core-data store and sets up the deprecated media entity.
  *
  * This approach enables testing generated selections/actions (like `getMedia`), and simplifies
@@ -148,39 +181,44 @@ describe( 'Deprecated entity logging - selectors', () => {
 		{
 			name: 'getMedia',
 			args: [ '123' ],
+			isShorthandSelector: true,
 			alternativeFunction: 'getEntityRecord',
 		},
 		{
 			name: 'getMediaItems',
 			args: [],
+			isShorthandSelector: true,
 			alternativeFunction: 'getEntityRecords',
 		},
-	] )( '$name', ( { name, args, alternativeFunction } ) => {
-		beforeEach( () => {
-			deprecated.mockReset();
-		} );
+	] )(
+		'$name',
+		( { name, args, alternativeFunction, isShorthandSelector } ) => {
+			beforeEach( () => {
+				deprecated.mockReset();
+			} );
 
-		it( 'logs a deprecation warning when used with deprecated entities', () => {
-			// Create a test registry with the actual store
-			const registry = createTestRegistry();
+			it( 'logs a deprecation warning when used with deprecated entities', () => {
+				// Create a test registry with the actual store
+				const registry = createTestRegistry();
 
-			// Dispatch the action.
-			registry.select( coreDataStore )[ name ]( ...args );
+				// Dispatch the action.
+				registry.select( coreDataStore )[ name ]( ...args );
 
-			let expectedAlternative = "the 'postType', 'attachment' entity";
-			if ( alternativeFunction ) {
-				expectedAlternative += ` via the '${ alternativeFunction }' function`;
-			}
+				const [ expectedMessage, expectedOptions ] =
+					getExpectedDeprecationArgs(
+						name,
+						args,
+						isShorthandSelector,
+						alternativeFunction
+					);
 
-			expect( deprecated ).toHaveBeenCalledWith(
-				`The 'root', 'media' entity (used via '${ name }')`,
-				{
-					alternative: expectedAlternative,
-					since: '6.9',
-				}
-			);
-		} );
-	} );
+				expect( deprecated ).toHaveBeenCalledWith(
+					expectedMessage,
+					expectedOptions
+				);
+			} );
+		}
+	);
 } );
 
 describe( 'Deprecated entity logging - actions', () => {
@@ -217,36 +255,41 @@ describe( 'Deprecated entity logging - actions', () => {
 			name: 'saveMedia',
 			args: [ { title: 'Media' } ],
 			alternativeFunction: 'saveEntityRecord',
+			isShorthandSelector: true,
 		},
 		{
 			name: 'deleteMedia',
 			args: [ '123' ],
 			alternativeFunction: 'deleteEntityRecord',
+			isShorthandSelector: true,
 		},
-	] )( '$name', ( { name, args, alternativeFunction } ) => {
-		beforeEach( () => {
-			deprecated.mockReset();
-		} );
+	] )(
+		'$name',
+		( { name, args, alternativeFunction, isShorthandSelector } ) => {
+			beforeEach( () => {
+				deprecated.mockReset();
+			} );
 
-		it( 'logs a deprecation warning when used with deprecated entities', () => {
-			// Create a test registry with the actual store
-			const registry = createTestRegistry();
+			it( 'logs a deprecation warning when used with deprecated entities', () => {
+				// Create a test registry with the actual store
+				const registry = createTestRegistry();
 
-			// Dispatch the action.
-			registry.dispatch( coreDataStore )[ name ]( ...args );
+				// Dispatch the action.
+				registry.dispatch( coreDataStore )[ name ]( ...args );
 
-			let expectedAlternative = "the 'postType', 'attachment' entity";
-			if ( alternativeFunction ) {
-				expectedAlternative += ` via the '${ alternativeFunction }' function`;
-			}
+				const [ expectedMessage, expectedOptions ] =
+					getExpectedDeprecationArgs(
+						name,
+						args,
+						isShorthandSelector,
+						alternativeFunction
+					);
 
-			expect( deprecated ).toHaveBeenCalledWith(
-				`The 'root', 'media' entity (used via '${ name }')`,
-				{
-					alternative: expectedAlternative,
-					since: '6.9',
-				}
-			);
-		} );
-	} );
+				expect( deprecated ).toHaveBeenCalledWith(
+					expectedMessage,
+					expectedOptions
+				);
+			} );
+		}
+	);
 } );

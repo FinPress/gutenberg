@@ -13,37 +13,46 @@ let loggedAlready = false;
 /**
  * Logs a deprecation warning for an entity, if it's deprecated.
  *
- * @param kind                    - The kind of the entity.
- * @param name                    - The name of the entity.
- * @param functionName            - The name of the function that was called with a deprecated entity.
- * @param alternativeFunctionName - The name of the alternative function that should be used instead.
+ * @param kind                            The kind of the entity.
+ * @param name                            The name of the entity.
+ * @param functionName                    The name of the function that was called with a deprecated entity.
+ * @param options                         The options for the deprecation warning.
+ * @param options.alternativeFunctionName The name of the alternative function that should be used instead.
+ * @param options.isShorthandSelector     Whether the function is a shorthand selector.
  */
 export default function logEntityDeprecation(
 	kind: string,
 	name: string,
 	functionName: string,
-	alternativeFunctionName?: string
+	{
+		alternativeFunctionName,
+		isShorthandSelector = false,
+	}: {
+		alternativeFunctionName?: string;
+		isShorthandSelector?: boolean;
+	} = {}
 ) {
 	const deprecation = deprecatedEntities[ kind ]?.[ name ];
 	if ( ! deprecation ) {
 		return;
 	}
 
-	const { alternative } = deprecation;
-	let alternativeMessage = `the '${ alternative.kind }', '${ alternative.name }' entity`;
-
-	if ( alternativeFunctionName ) {
-		alternativeMessage += ` via the '${ alternativeFunctionName }' function`;
-	}
-
 	if ( ! loggedAlready ) {
-		deprecated(
-			`The '${ kind }', '${ name }' entity (used via '${ functionName }')`,
-			{
-				...deprecation,
-				alternative: alternativeMessage,
-			}
-		);
+		const { alternative } = deprecation;
+
+		const message = isShorthandSelector
+			? functionName
+			: `The '${ kind }', '${ name }' entity (used via '${ functionName }')`;
+
+		let alternativeMessage = `the '${ alternative.kind }', '${ alternative.name }' entity`;
+		if ( alternativeFunctionName ) {
+			alternativeMessage += ` via the '${ alternativeFunctionName }' function`;
+		}
+
+		deprecated( message, {
+			...deprecation,
+			alternative: alternativeMessage,
+		} );
 	}
 
 	// Only log an entity deprecation once per call stack,

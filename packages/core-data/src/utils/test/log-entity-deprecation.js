@@ -73,12 +73,9 @@ describe( 'logEntityDeprecation', () => {
 	} );
 
 	it( 'should include alternative function name when provided', () => {
-		logEntityDeprecation(
-			'root',
-			'media',
-			'getEntityRecord',
-			'getPostTypeEntity'
-		);
+		logEntityDeprecation( 'root', 'media', 'getEntityRecord', {
+			alternativeFunctionName: 'getPostTypeEntity',
+		} );
 
 		expect( deprecated ).toHaveBeenCalledWith(
 			"The 'root', 'media' entity (used via 'getEntityRecord')",
@@ -88,6 +85,17 @@ describe( 'logEntityDeprecation', () => {
 					"the 'postType', 'attachment' entity via the 'getPostTypeEntity' function",
 			}
 		);
+	} );
+
+	it( 'should handle isShorthandSelector', () => {
+		logEntityDeprecation( 'root', 'media', 'getMedia', {
+			isShorthandSelector: true,
+		} );
+
+		expect( deprecated ).toHaveBeenCalledWith( 'getMedia', {
+			since: '6.9',
+			alternative: "the 'postType', 'attachment' entity",
+		} );
 	} );
 
 	it( 'should handle empty string parameters', () => {
@@ -108,7 +116,7 @@ describe( 'logEntityDeprecation', () => {
 		expect( deprecated ).not.toHaveBeenCalled();
 	} );
 
-	it( 'should handle undefined alternativeFunctionName', () => {
+	it( 'should handle undefined options', () => {
 		logEntityDeprecation( 'root', 'media', 'getEntityRecord', undefined );
 
 		expect( deprecated ).toHaveBeenCalledWith(
