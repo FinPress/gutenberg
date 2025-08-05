@@ -109,26 +109,23 @@ export default function SiteTitleEdit( {
 	);
 	return (
 		<>
-			{ blockEditingMode === 'default' &&
-				! (
-					isNavigationMode && blockEditingMode === 'contentOnly'
-				) && (
-					<BlockControls group="block">
-						<HeadingLevelDropdown
-							value={ level }
-							options={ levelOptions }
-							onChange={ ( newLevel ) =>
-								setAttributes( { level: newLevel } )
-							}
-						/>
-						<AlignmentControl
-							value={ textAlign }
-							onChange={ ( nextAlign ) => {
-								setAttributes( { textAlign: nextAlign } );
-							} }
-						/>
-					</BlockControls>
-				) }
+			{ ! isNavigationMode && blockEditingMode === 'default' && (
+				<BlockControls group="block">
+					<HeadingLevelDropdown
+						value={ level }
+						options={ levelOptions }
+						onChange={ ( newLevel ) =>
+							setAttributes( { level: newLevel } )
+						}
+					/>
+					<AlignmentControl
+						value={ textAlign }
+						onChange={ ( nextAlign ) => {
+							setAttributes( { textAlign: nextAlign } );
+						} }
+					/>
+				</BlockControls>
+			) }
 			<InspectorControls>
 				<ToolsPanel
 					label={ __( 'Settings' ) }
