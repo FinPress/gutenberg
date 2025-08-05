@@ -28,7 +28,8 @@ export default function ResetFilter( {
 		! view.search &&
 		! view.filters?.some(
 			( _filter ) =>
-				_filter.value !== undefined || ! isPrimary( _filter.field )
+				! _filter.isLocked &&
+				( _filter.value !== undefined || ! isPrimary( _filter.field ) )
 		);
 	return (
 		<Button
