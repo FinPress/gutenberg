@@ -246,7 +246,7 @@ export function BlockSettingsDropdown( {
 					! canRemove &&
 					! canDuplicate &&
 					! canInsertBlock &&
-					isWriteMode;
+					isContentOnly;
 
 				if ( isEmpty ) {
 					return null;
