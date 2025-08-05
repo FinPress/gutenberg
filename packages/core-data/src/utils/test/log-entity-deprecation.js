@@ -43,7 +43,7 @@ describe( 'logEntityDeprecation', () => {
 			"The 'root', 'media' entity (used via 'getEntityRecord')",
 			{
 				since: '6.9',
-				alternative: "The 'postType', 'attachment' entity",
+				alternative: "the 'postType', 'attachment' entity",
 			}
 		);
 	} );
@@ -67,7 +67,7 @@ describe( 'logEntityDeprecation', () => {
 			"The 'root', 'media' entity (used via 'saveEntityRecord')",
 			{
 				since: '6.9',
-				alternative: "The 'postType', 'attachment' entity",
+				alternative: "the 'postType', 'attachment' entity",
 			}
 		);
 	} );
@@ -85,7 +85,7 @@ describe( 'logEntityDeprecation', () => {
 			{
 				since: '6.9',
 				alternative:
-					"The 'postType', 'attachment' entity via the 'getPostTypeEntity' function",
+					"the 'postType', 'attachment' entity via the 'getPostTypeEntity' function",
 			}
 		);
 	} );
@@ -115,7 +115,7 @@ describe( 'logEntityDeprecation', () => {
 			"The 'root', 'media' entity (used via 'getEntityRecord')",
 			{
 				since: '6.9',
-				alternative: "The 'postType', 'attachment' entity",
+				alternative: "the 'postType', 'attachment' entity",
 			}
 		);
 	} );

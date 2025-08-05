@@ -30,7 +30,7 @@ export default function logEntityDeprecation(
 	}
 
 	const { alternative } = deprecation;
-	let alternativeMessage = `The '${ alternative.kind }', '${ alternative.name }' entity`;
+	let alternativeMessage = `the '${ alternative.kind }', '${ alternative.name }' entity`;
 
 	if ( alternativeFunctionName ) {
 		alternativeMessage += ` via the '${ alternativeFunctionName }' function`;

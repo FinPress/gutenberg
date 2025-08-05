@@ -167,7 +167,7 @@ describe( 'Deprecated entity logging - selectors', () => {
 			// Dispatch the action.
 			registry.select( coreDataStore )[ name ]( ...args );
 
-			let expectedAlternative = "The 'postType', 'attachment' entity";
+			let expectedAlternative = "the 'postType', 'attachment' entity";
 			if ( alternativeFunction ) {
 				expectedAlternative += ` via the '${ alternativeFunction }' function`;
 			}
@@ -235,7 +235,7 @@ describe( 'Deprecated entity logging - actions', () => {
 			// Dispatch the action.
 			registry.dispatch( coreDataStore )[ name ]( ...args );
 
-			let expectedAlternative = "The 'postType', 'attachment' entity";
+			let expectedAlternative = "the 'postType', 'attachment' entity";
 			if ( alternativeFunction ) {
 				expectedAlternative += ` via the '${ alternativeFunction }' function`;
 			}
