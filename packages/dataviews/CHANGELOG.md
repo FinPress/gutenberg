@@ -17,6 +17,7 @@
 
 ### Features
 
+- Add "groupBy" support to the table layout. [#71055](https://github.com/WordPress/gutenberg/pull/71055)
 - Elements in the Field API can now provide an empty value that will be used instead of the default. [#70894](https://github.com/WordPress/gutenberg/pull/70894)
 - Support Ctrl + Click / Cmd + Click for multiselecting rows in the Table layout ([#70891](https://github.com/WordPress/gutenberg/pull/70891)).
 - Add support for the `Edit` control on the date field type ([#70836](https://github.com/WordPress/gutenberg/pull/70836)).
