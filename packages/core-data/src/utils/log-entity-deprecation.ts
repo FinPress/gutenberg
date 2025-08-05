@@ -41,7 +41,7 @@ export default function logEntityDeprecation(
 		const { alternative } = deprecation;
 
 		const message = isShorthandSelector
-			? functionName
+			? `'${ functionName }'`
 			: `The '${ kind }', '${ name }' entity (used via '${ functionName }')`;
 
 		let alternativeMessage = `the '${ alternative.kind }', '${ alternative.name }' entity`;

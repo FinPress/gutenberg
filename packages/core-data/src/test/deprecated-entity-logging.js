@@ -32,7 +32,7 @@ function getExpectedDeprecationArgs(
 	alternativeFunction
 ) {
 	const expectedMessage = isShorthandSelector
-		? name
+		? `'${ name }'`
 		: `The 'root', 'media' entity (used via '${ name }')`;
 
 	let expectedAlternative = "the 'postType', 'attachment' entity";

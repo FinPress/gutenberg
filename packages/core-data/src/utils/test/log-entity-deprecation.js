@@ -92,7 +92,7 @@ describe( 'logEntityDeprecation', () => {
 			isShorthandSelector: true,
 		} );
 
-		expect( deprecated ).toHaveBeenCalledWith( 'getMedia', {
+		expect( deprecated ).toHaveBeenCalledWith( "'getMedia'", {
 			since: '6.9',
 			alternative: "the 'postType', 'attachment' entity",
 		} );
