@@ -85,6 +85,7 @@ function CoverEdit( {
 } ) {
 	const {
 		contentPosition,
+		customGradient,
 		id,
 		url: originalUrl,
 		backgroundType: originalBackgroundType,
@@ -345,7 +346,10 @@ function CoverEdit( {
 
 	const backgroundPosition = mediaPosition( focalPoint );
 
-	const bgStyle = { backgroundColor: overlayColor.color };
+	const bgStyle = {
+		backgroundColor: overlayColor.color,
+		background: customGradient ? customGradient : undefined,
+	};
 	const mediaStyle = {
 		objectPosition:
 			focalPoint && isImgElement
@@ -614,7 +618,7 @@ function CoverEdit( {
 								[ gradientClass ]: gradientClass,
 							}
 						) }
-						style={ { backgroundImage: gradientValue, ...bgStyle } }
+						style={ bgStyle }
 					/>
 				) }
 
