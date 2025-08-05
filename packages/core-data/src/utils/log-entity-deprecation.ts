@@ -48,6 +48,8 @@ export default function logEntityDeprecation(
 
 	// Only log an entity deprecation once per call stack,
 	// else there's spurious logging when selections or actions call through to other selectors or actions.
+	// Note: this won't prevent the deprecation warning being logged if a selector or action makes an async call
+	// to another selector or action, but this is probably the best we can do.
 	loggedAlready = true;
 	// At the end of the call stack, reset the flag.
 	setTimeout( () => {
