@@ -205,8 +205,8 @@ function proceed( conversionMap: Record< string, ReactElement > ): boolean {
 		case 'no-more-tokens':
 			if ( stackDepth !== 0 ) {
 				const { leadingTextStart: stackLeadingText, tokenStart } =
-					stack.pop()!;
-				output.push( indoc.substr( stackLeadingText!, tokenStart ) );
+					stack.pop();
+				output.push( indoc.substr( stackLeadingText, tokenStart ) );
 			}
 			addText();
 			return false;
@@ -217,24 +217,20 @@ function proceed( conversionMap: Record< string, ReactElement > ): boolean {
 					output.push(
 						indoc.substr(
 							leadingTextStart,
-							startOffset! - leadingTextStart
+							startOffset - leadingTextStart
 						)
 					);
 				}
-				output.push( conversionMap[ name! ] );
-				offset = startOffset! + tokenLength!;
+				output.push( conversionMap[ name ] );
+				offset = startOffset + tokenLength;
 				return true;
 			}
 
 			// Otherwise we found an inner element.
 			addChild(
-				createFrame(
-					conversionMap[ name! ],
-					startOffset!,
-					tokenLength!
-				)
+				createFrame( conversionMap[ name ], startOffset, tokenLength )
 			);
-			offset = startOffset! + tokenLength!;
+			offset = startOffset + tokenLength;
 			return true;
 
 		case 'opener':
@@ -247,35 +243,35 @@ function proceed( conversionMap: Record< string, ReactElement > ): boolean {
 					leadingTextStart
 				)
 			);
-			offset = startOffset! + tokenLength!;
+			offset = startOffset + tokenLength;
 			return true;
 
 		case 'closer':
 			// If we're not nesting then this is easy - close the block.
 			if ( 1 === stackDepth ) {
-				closeOuterElement( startOffset! );
-				offset = startOffset! + tokenLength!;
+				closeOuterElement( startOffset );
+				offset = startOffset + tokenLength;
 				return true;
 			}
 
 			// Otherwise we're nested and we have to close out the current
 			// block and add it as a innerBlock to the parent.
-			const stackTop = stack.pop()!;
+			const stackTop = stack.pop();
 			const text = indoc.substr(
-				stackTop.prevOffset!,
-				startOffset! - stackTop.prevOffset!
+				stackTop.prevOffset,
+				startOffset - stackTop.prevOffset
 			);
 			stackTop.children.push( text );
-			stackTop.prevOffset = startOffset! + tokenLength!;
+			stackTop.prevOffset = startOffset + tokenLength;
 			const frame = createFrame(
 				stackTop.element,
 				stackTop.tokenStart,
 				stackTop.tokenLength,
-				startOffset! + tokenLength!
+				startOffset + tokenLength
 			);
 			frame.children = stackTop.children;
 			addChild( frame );
-			offset = startOffset! + tokenLength!;
+			offset = startOffset + tokenLength;
 			return true;
 
 		default:
@@ -337,8 +333,8 @@ function addChild( frame: Frame ): void {
 	const { element, tokenStart, tokenLength, prevOffset, children } = frame;
 	const parent = stack[ stack.length - 1 ];
 	const text = indoc.substr(
-		parent.prevOffset!,
-		tokenStart - parent.prevOffset!
+		parent.prevOffset,
+		tokenStart - parent.prevOffset
 	);
 
 	if ( text ) {
@@ -363,11 +359,11 @@ function addChild( frame: Frame ): void {
  */
 function closeOuterElement( endOffset: number ): void {
 	const { element, leadingTextStart, prevOffset, tokenStart, children } =
-		stack.pop()!;
+		stack.pop();
 
 	const text = endOffset
-		? indoc.substr( prevOffset!, endOffset - prevOffset! )
-		: indoc.substr( prevOffset! );
+		? indoc.substr( prevOffset, endOffset - prevOffset )
+		: indoc.substr( prevOffset );
 
 	if ( text ) {
 		children.push( text );
