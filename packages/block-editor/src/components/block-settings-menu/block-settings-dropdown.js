@@ -278,20 +278,24 @@ export function BlockSettingsDropdown( {
 											clientId={ firstBlockClientId }
 										/>
 									) }
-									<CopyMenuItem
-										clientIds={ clientIds }
-										onCopy={ onCopy }
-										shortcut={ shortcuts.copy }
-									/>
-									<CopyMenuItem
-										clientIds={ clientIds }
-										label={ __( 'Cut' ) }
-										eventType="cut"
-										shortcut={ shortcuts.cut }
-										__experimentalUpdateSelection={
-											! __experimentalSelectBlock
-										}
-									/>
+									{ ! isContentOnly && (
+										<CopyMenuItem
+											clientIds={ clientIds }
+											onCopy={ onCopy }
+											shortcut={ shortcuts.copy }
+										/>
+									) }
+									{ ! isContentOnly && (
+										<CopyMenuItem
+											clientIds={ clientIds }
+											label={ __( 'Cut' ) }
+											eventType="cut"
+											shortcut={ shortcuts.cut }
+											__experimentalUpdateSelection={
+												! __experimentalSelectBlock
+											}
+										/>
+									) }
 									{ canDuplicate && (
 										<MenuItem
 											onClick={ pipe(
