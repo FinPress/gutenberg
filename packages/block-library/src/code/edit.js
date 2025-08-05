@@ -33,14 +33,10 @@ export default function CodeEdit( {
 					selection.removeAllRanges();
 					selection.addRange( range );
 				}
-
-				const inputEvent = new Event( 'input', { bubbles: true } );
-				element.dispatchEvent( inputEvent );
 			}
 		}
 
 		element.addEventListener( 'keydown', handleKeyDown, true );
-
 		return () => {
 			element.removeEventListener( 'keydown', handleKeyDown, true );
 		};
