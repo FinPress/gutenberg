@@ -2,6 +2,8 @@
  * External dependencies
  */
 const { command } = require( 'execa' );
+const fs = require( 'fs' );
+const path = require( 'path' );
 
 /**
  * Internal dependencies
@@ -16,6 +18,34 @@ module.exports = async ( { rootDirectory } ) => {
 	await command( 'npm install @wordpress/scripts --save-dev', {
 		cwd: rootDirectory,
 	} );
+
+	// Execute postinstall script if present
+	const packageJsonPath = path.join( rootDirectory, 'package.json' );
+	if ( fs.existsSync( packageJsonPath ) ) {
+		try {
+			const packageJson = JSON.parse(
+				fs.readFileSync( packageJsonPath, 'utf8' )
+			);
+			const scripts = packageJson.scripts || {};
+
+			if ( scripts.postinstall ) {
+				info( '' );
+				info( 'Executing postinstall script...' );
+				try {
+					await command( 'npm run postinstall', {
+						cwd: rootDirectory,
+					} );
+					info( 'Successfully executed postinstall script' );
+				} catch ( error ) {
+					info(
+						`Warning: Failed to execute postinstall script: ${ error.message }`
+					);
+				}
+			}
+		} catch ( error ) {
+			info( `Warning: Could not parse package.json: ${ error.message }` );
+		}
+	}
 
 	info( '' );
 	info( 'Formatting JavaScript files.' );
