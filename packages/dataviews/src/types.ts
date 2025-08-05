@@ -103,7 +103,8 @@ export type FieldType =
 	| 'media'
 	| 'boolean'
 	| 'email'
-	| 'array';
+	| 'array'
+	| 'select';
 
 /**
  * An abstract interface for Field based on the field type.
@@ -668,14 +669,14 @@ export interface SupportedLayouts {
 
 export type SimpleFormField = {
 	id: string;
-	layout?: 'regular' | 'panel';
+	layout?: 'regular' | 'panel' | 'card';
 	labelPosition?: 'side' | 'top' | 'none';
 };
 
 export type CombinedFormField = {
 	id: string;
 	label?: string;
-	layout?: 'regular' | 'panel';
+	layout?: 'regular' | 'panel' | 'card';
 	labelPosition?: 'side' | 'top' | 'none';
 	children: Array< FormField | string >;
 };
@@ -686,7 +687,7 @@ export type FormField = SimpleFormField | CombinedFormField;
  * The form configuration.
  */
 export type Form = {
-	type?: 'regular' | 'panel';
+	type?: 'regular' | 'panel' | 'card';
 	fields?: Array< FormField | string >;
 	labelPosition?: 'side' | 'top' | 'none';
 };

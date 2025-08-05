@@ -5,16 +5,16 @@ import type { Form } from './types';
 
 interface NormalizedFormField {
 	id: string;
-	layout: 'regular' | 'panel';
+	layout: 'regular' | 'panel' | 'card';
 	labelPosition: 'side' | 'top' | 'none';
 }
 
 export default function normalizeFormFields(
 	form: Form
 ): NormalizedFormField[] {
-	let layout: 'regular' | 'panel' = 'regular';
-	if ( [ 'regular', 'panel' ].includes( form.type ?? '' ) ) {
-		layout = form.type as 'regular' | 'panel';
+	let layout: 'regular' | 'panel' | 'card' = 'regular';
+	if ( [ 'regular', 'panel', 'card' ].includes( form.type ?? '' ) ) {
+		layout = form.type as 'regular' | 'panel' | 'card';
 	}
 
 	const labelPosition =

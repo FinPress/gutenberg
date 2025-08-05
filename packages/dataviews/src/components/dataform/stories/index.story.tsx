@@ -40,7 +40,7 @@ const meta = {
 			control: { type: 'select' },
 			description:
 				'Chooses the default layout of each field. "regular" is the default layout.',
-			options: [ 'default', 'regular', 'panel' ],
+			options: [ 'default', 'regular', 'panel', 'card' ],
 		},
 		labelPosition: {
 			control: { type: 'select' },
@@ -164,7 +164,7 @@ export const Default = ( {
 	type,
 	labelPosition,
 }: {
-	type: 'default' | 'regular' | 'panel';
+	type: 'default' | 'regular' | 'panel' | 'card';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
 } ) => {
 	const [ post, setPost ] = useState( {
@@ -226,7 +226,7 @@ const CombinedFieldsComponent = ( {
 	type,
 	labelPosition,
 }: {
-	type: 'default' | 'regular' | 'panel';
+	type: 'default' | 'regular' | 'panel' | 'card';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
 } ) => {
 	const [ post, setPost ] = useState< SamplePost >( {
@@ -504,4 +504,83 @@ const DataFormVisibilityComponent = () => {
 export const Visibility = {
 	title: 'DataForm/Visibility',
 	render: DataFormVisibilityComponent,
+};
+
+const CardLayoutComponent = ( {
+	labelPosition,
+}: {
+	labelPosition: 'default' | 'top' | 'side' | 'none';
+} ) => {
+	const [ post, setPost ] = useState< SamplePost >( {
+		title: 'Hello, World!',
+		order: 2,
+		author: 1,
+		status: 'draft',
+		reviewer: 'fulano',
+		date: '2021-01-01T12:00:00',
+		birthdate: '1950-02-23T12:00:00',
+		filesize: 1024,
+		dimensions: '1920x1080',
+	} );
+
+	const form = useMemo(
+		() => ( {
+			labelPosition,
+			type: 'card',
+			fields: [
+				{ id: 'title' },
+				'order',
+				{
+					id: 'publishing',
+					label: 'Publishing Settings',
+					children: [ 'status', 'password' ],
+				},
+				{
+					id: 'author-info',
+					label: 'Author Information',
+					children: [ 'author', 'reviewer', 'email' ],
+				},
+				{
+					id: 'dates',
+					label: 'Date Settings',
+					children: [ 'date', 'birthdate' ],
+				},
+				{
+					id: 'metadata',
+					label: 'File Metadata',
+					children: [ 'filesize', 'dimensions' ],
+				},
+			],
+		} ),
+		[ labelPosition ]
+	) as Form;
+
+	return (
+		<DataForm< SamplePost >
+			data={ post }
+			fields={ fields }
+			form={ form }
+			onChange={ ( edits ) =>
+				setPost( ( prev ) => ( {
+					...prev,
+					...edits,
+				} ) )
+			}
+		/>
+	);
+};
+
+export const CardLayout = {
+	title: 'DataForm/Card Layout',
+	render: CardLayoutComponent,
+	argTypes: {
+		labelPosition: {
+			control: { type: 'select' },
+			description: 'Chooses the label position of the layout.',
+			options: [ 'default', 'top', 'side', 'none' ],
+		},
+	},
+	args: {
+		labelPosition: 'default',
+	},
 };
