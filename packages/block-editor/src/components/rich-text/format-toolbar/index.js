@@ -15,6 +15,8 @@ import { chevronDown } from '@wordpress/icons';
  */
 import { orderBy } from '../../../utils/sorting';
 import { useBlockEditingMode } from '../../block-editing-mode';
+import { useSelect } from '@wordpress/data';
+import { store as blockEditorStore } from '../../../store';
 
 const POPOVER_PROPS = {
 	placement: 'bottom-start',
@@ -22,10 +24,15 @@ const POPOVER_PROPS = {
 
 const FormatToolbar = () => {
 	const blockEditingMode = useBlockEditingMode();
+	const isNavigationMode = useSelect(
+		( select ) => select( blockEditorStore ).isNavigationMode(),
+		[]
+	);
 	const isContentOnlyMode = blockEditingMode === 'contentOnly';
+	const isWriteMode = isNavigationMode && isContentOnlyMode;
 
-	// In contentOnly mode, only show essential formatting controls
-	const primaryFormats = isContentOnlyMode
+	// In write mode, only show essential formatting controls
+	const primaryFormats = isWriteMode
 		? [ 'bold', 'italic', 'link' ]
 		: [ 'bold', 'italic', 'link', 'unknown' ];
 
@@ -37,7 +44,7 @@ const FormatToolbar = () => {
 					key={ format }
 				/>
 			) ) }
-			{ ! isContentOnlyMode && (
+			{ ! isWriteMode && (
 				<Slot name="RichText.ToolbarControls">
 					{ ( fills ) => {
 						if ( ! fills.length ) {
