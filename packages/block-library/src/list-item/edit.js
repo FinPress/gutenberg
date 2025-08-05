@@ -53,6 +53,7 @@ export function IndentUI( { clientId } ) {
 			<ToolbarButton
 				icon={ isRTL() ? formatOutdentRTL : formatOutdent }
 				title={ __( 'Outdent' ) }
+				shortcut="Shift+Tab"
 				description={ __( 'Outdent list item' ) }
 				disabled={ ! canOutdent }
 				onClick={ () => outdentListItem() }
@@ -60,6 +61,7 @@ export function IndentUI( { clientId } ) {
 			<ToolbarButton
 				icon={ isRTL() ? formatIndentRTL : formatIndent }
 				title={ __( 'Indent' ) }
+				shortcut="Tab"
 				description={ __( 'Indent list item' ) }
 				disabled={ ! canIndent }
 				onClick={ () => indentListItem() }
