@@ -540,9 +540,9 @@
 		"parent": "interactivity-api"
 	},
 	{
-		"title": "API Reference",
-		"slug": "api-reference",
-		"markdown_source": "../docs/reference-guides/interactivity-api/api-reference.md",
+		"title": "Directives and Store API Reference",
+		"slug": "directives-store-api-reference",
+		"markdown_source": "../docs/reference-guides/interactivity-api/directives-store-api-reference.md",
 		"parent": "interactivity-api"
 	},
 	{
