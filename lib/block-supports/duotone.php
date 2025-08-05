@@ -69,9 +69,9 @@ add_filter( 'block_type_metadata_settings', array( 'WP_Duotone_Gutenberg', 'migr
  * Direct port of tinycolor's bound01 function, lightly simplified to maintain
  * consistency with tinycolor.
  *
- * @deprecated 6.3.0
+ * @link https://github.com/bgrins/TinyColor 
  *
- * @see https://github.com/bgrins/TinyColor
+ * @deprecated 6.3.0
  *
  * @param  mixed $n   Number of unknown type.
  * @param  int   $max Upper value of the range to bound to.
@@ -104,9 +104,9 @@ function gutenberg_tinycolor_bound01( $n, $max ) {
  * Direct port of tinycolor's boundAlpha function to maintain consistency with
  * how tinycolor works.
  *
- * @deprecated 6.3.0
+ * @link https://github.com/bgrins/TinyColor 
  *
- * @see https://github.com/bgrins/TinyColor
+ * @deprecated 6.3.0
  *
  * @param  mixed $n   Number of unknown type.
  * @return float      Value in the range [0,1].
@@ -126,9 +126,9 @@ function gutenberg_tinycolor_bound_alpha( $n ) {
 /**
  * Round and convert values of an RGB object.
  *
- * @deprecated 6.3.0
+ * @link https://github.com/bgrins/TinyColor 
  *
- * @see https://github.com/bgrins/TinyColor
+ * @deprecated 6.3.0
  *
  * @param  array $rgb_color RGB object.
  * @return array            Rounded and converted RGB object.
@@ -146,9 +146,9 @@ function gutenberg_tinycolor_rgb_to_rgb( $rgb_color ) {
 /**
  * Helper function for hsl to rgb conversion.
  *
- * @deprecated 6.3.0
+ * @link https://github.com/bgrins/TinyColor 
  *
- * @see https://github.com/bgrins/TinyColor
+ * @deprecated 6.3.0
  *
  * @param  float $p first component.
  * @param  float $q second component.
@@ -179,9 +179,9 @@ function gutenberg_tinycolor_hue_to_rgb( $p, $q, $t ) {
 /**
  * Convert an HSL object to an RGB object with converted and rounded values.
  *
- * @deprecated 6.3.0
+ * @link https://github.com/bgrins/TinyColor 
  *
- * @see https://github.com/bgrins/TinyColor
+ * @deprecated 6.3.0
  *
  * @param  array $hsl_color HSL object.
  * @return array            Rounded and converted RGB object.
@@ -217,10 +217,10 @@ function gutenberg_tinycolor_hsl_to_rgb( $hsl_color ) {
  * Parses hex, hsl, and rgb CSS strings using the same regex as tinycolor v1.4.2
  * used in the JavaScript. Only colors output from react-color are implemented.
  *
- * @deprecated 6.3.0
+ * @link https://github.com/bgrins/TinyColor
+ * @link https://github.com/casesandberg/react-color/
  *
- * @see https://github.com/bgrins/TinyColor
- * @see https://github.com/casesandberg/react-color/
+ * @deprecated 6.3.0
  *
  * @param  string $color_str CSS color string.
  * @return array             RGB object.
