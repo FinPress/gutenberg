@@ -232,14 +232,15 @@ const SiteLogo = ( {
 				} }
 			/>
 		);
-	} else if ( shouldShowCropAndDimensions ) {
+	} else {
+		// Always render ResizableBox but disable resize functionality in contentOnly mode
 		imgEdit = (
 			<ResizableBox
 				size={ {
 					width: currentWidth,
 					height: currentHeight,
 				} }
-				showHandle={ isSelected }
+				showHandle={ isSelected && shouldShowCropAndDimensions }
 				minWidth={ minWidth }
 				maxWidth={ maxWidthBuffer }
 				minHeight={ minHeight }
@@ -263,9 +264,6 @@ const SiteLogo = ( {
 				{ imgWrapper }
 			</ResizableBox>
 		);
-	} else {
-		// When not showing ResizableBox, still apply size constraints
-		imgEdit = <div style={ { width, height } }>{ imgWrapper }</div>;
 	}
 
 	// Support the previous location for the Site Icon settings. To be removed
