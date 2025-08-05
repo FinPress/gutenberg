@@ -49,6 +49,15 @@ export default function TermCountEdit( {
 		? format.replace( '%d', displayCount )
 		: displayCount;
 
+	let displayContent;
+	if ( taxonomy && termId ) {
+		displayContent = formattedCount;
+	} else if ( format ) {
+		displayContent = formattedCount;
+	} else {
+		displayContent = __( 'Term Count' );
+	}
+
 	return (
 		<>
 			{ showControls && (
@@ -93,9 +102,7 @@ export default function TermCountEdit( {
 					</ToolsPanelItem>
 				</ToolsPanel>
 			</InspectorControls>
-			<span { ...blockProps }>
-				{ taxonomy && termId ? formattedCount : __( 'Term Count' ) }
-			</span>
+			<span { ...blockProps }>{ displayContent }</span>
 		</>
 	);
 }
