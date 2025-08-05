@@ -13,7 +13,6 @@
 		"reusable": false,
 		"html": false,
 		"align": [ "wide", "full" ],
-		"layout": true,
 		"color": {
 			"gradients": true,
 			"link": true,
