@@ -309,6 +309,11 @@ export interface Filter {
 	 * The value to filter by.
 	 */
 	value: any;
+
+	/**
+	 * Whether the filter can be edited by the user.
+	 */
+	isLocked?: boolean;
 }
 
 export interface NormalizedFilter {
