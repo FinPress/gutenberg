@@ -100,9 +100,9 @@ async function configureWordPress( environment, config, spinner ) {
 		process.env.WP_ENV_DYNAMIC_URLS_ENABLED !== 'false';
 
 	const hasCustomEnvUrls = !! (
-		process.env.WP_ENV_HOME ||
+		process.env.WP_ENV_HOMEURL ||
 		process.env.WP_ENV_SITEURL ||
-		process.env.WP_ENV_TESTS_HOME ||
+		process.env.WP_ENV_TESTS_HOMEURL ||
 		process.env.WP_ENV_TESTS_SITEURL
 	);
 
@@ -172,8 +172,7 @@ echo 'RewriteRule . index.php [L]'
 		if (
 			isDynamicUrlsEnabled &&
 			! hasCustomEnvUrls &&
-			key === 'WP_HOME' &&
-			key === 'WP_SITEURL'
+			( key === 'WP_HOME' || key === 'WP_SITEURL' )
 		) {
 			continue;
 		}
@@ -181,8 +180,8 @@ echo 'RewriteRule . index.php [L]'
 		if ( key === 'WP_HOME' ) {
 			const envVar =
 				environment === 'development'
-					? 'WP_ENV_HOME'
-					: 'WP_ENV_TESTS_HOME';
+					? 'WP_ENV_HOMEURL'
+					: 'WP_ENV_TESTS_HOMEURL';
 			if ( process.env[ envVar ] ) {
 				value = process.env[ envVar ];
 			}
@@ -195,6 +194,18 @@ echo 'RewriteRule . index.php [L]'
 					: 'WP_ENV_TESTS_SITEURL';
 			if ( process.env[ envVar ] ) {
 				value = process.env[ envVar ];
+			}
+		}
+
+		if ( key === 'WP_TESTS_DOMAIN' ) {
+			const envVar =
+				environment === 'development'
+					? 'WP_ENV_SITEURL'
+					: 'WP_ENV_TESTS_SITEURL';
+			if ( process.env[ envVar ] ) {
+				value = process.env[ envVar ]
+					.replace( 'https://', '' )
+					.replace( 'http://', '' );
 			}
 		}
 
