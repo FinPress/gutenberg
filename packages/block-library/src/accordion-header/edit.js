@@ -6,6 +6,7 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { useEffect } from '@wordpress/element';
 import {
 	useBlockProps,
 	__experimentalUseBorderProps as useBorderProps,
@@ -15,15 +16,8 @@ import {
 	BlockControls,
 	HeadingLevelDropdown,
 	RichText,
-	InspectorControls,
 } from '@wordpress/block-editor';
-import {
-	PanelBody,
-	ToolbarGroup,
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
-} from '@wordpress/components';
+import { ToolbarGroup } from '@wordpress/components';
 /**
  * Internal dependencies
  */
@@ -43,10 +37,23 @@ const ICONS = {
 	caret,
 };
 
-export default function Edit( { attributes, setAttributes } ) {
-	const { level, title, textAlign, icon, iconPosition, levelOptions } =
-		attributes;
+export default function Edit( { attributes, setAttributes, context } ) {
+	const { level, title, textAlign, levelOptions } = attributes;
+	const {
+		'core/accordion-icon': icon,
+		'core/accordion-icon-position': iconPosition,
+	} = context;
 	const TagName = 'h' + level;
+
+	// Set icon attributes.
+	useEffect( () => {
+		if ( icon !== undefined && iconPosition !== undefined ) {
+			setAttributes( {
+				icon,
+				iconPosition,
+			} );
+		}
+	}, [ icon, iconPosition, setAttributes ] );
 
 	const blockProps = useBlockProps();
 	const borderProps = useBorderProps( attributes );
@@ -69,63 +76,6 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 				</ToolbarGroup>
 			</BlockControls>
-			<InspectorControls key="setting">
-				<PanelBody title={ __( 'Settings' ) }>
-					<ToggleGroupControl
-						__nextHasNoMarginBottom
-						__next40pxDefaultSize
-						isBlock
-						label={ __( 'Icon' ) }
-						value={ icon }
-						onChange={ ( value ) =>
-							setAttributes( { icon: value } )
-						}
-					>
-						<ToggleGroupControlOptionIcon
-							label="Plus"
-							icon={ plus }
-							value="plus"
-						/>
-						<ToggleGroupControlOptionIcon
-							label="Chevron"
-							icon={ chevron }
-							value="chevron"
-						/>
-						<ToggleGroupControlOptionIcon
-							label="Circle Plus"
-							icon={ circlePlus }
-							value="circlePlus"
-						/>
-						<ToggleGroupControlOptionIcon
-							label="Caret"
-							icon={ caret }
-							value="caret"
-						/>
-						<ToggleGroupControlOptionIcon
-							label="Chevron Right"
-							icon={ chevronRight }
-							value="chevronRight"
-						/>
-						<ToggleGroupControlOption
-							label="None"
-							value={ false }
-						/>
-					</ToggleGroupControl>
-					<ToggleGroupControl
-						__nextHasNoMarginBottom
-						__next40pxDefaultSize
-						isBlock
-						label={ __( 'Icon Position' ) }
-						value={ iconPosition }
-						onChange={ ( value ) => {
-							setAttributes( { iconPosition: value } );
-						} }
-					>
-						<ToggleGroupControlOption label="Left" value="left" />
-						<ToggleGroupControlOption label="Right" value="right" />
-					</ToggleGroupControl>
-				</PanelBody>
-			</InspectorControls>
 			<TagName
 				{ ...blockProps }
 				className={ clsx(

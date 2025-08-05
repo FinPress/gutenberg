@@ -9,6 +9,7 @@
 	"example": {},
 	"__experimental": true,
 	"parent": [ "core/accordion-item" ],
+	"usesContext": [ "core/accordion-icon", "core/accordion-icon-position" ],
 	"supports": {
 		"anchor": true,
 		"color": {
