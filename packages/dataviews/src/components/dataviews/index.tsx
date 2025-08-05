@@ -7,7 +7,13 @@ import type { ReactNode, ComponentProps, ReactElement } from 'react';
  * WordPress dependencies
  */
 import { __experimentalHStack as HStack } from '@wordpress/components';
-import { useContext, useMemo, useRef, useState } from '@wordpress/element';
+import {
+	useContext,
+	useMemo,
+	useRef,
+	useState,
+	useEffect,
+} from '@wordpress/element';
 import { useResizeObserver } from '@wordpress/compose';
 
 /**
@@ -171,8 +177,22 @@ function DataViews< Item >( {
 
 	const filters = useFilters( _fields, view );
 	const [ isShowingFilter, setIsShowingFilter ] = useState< boolean >( () =>
-		( filters || [] ).some( ( filter ) => filter.isPrimary )
+		( filters || [] ).some(
+			( filter ) => filter.isPrimary || filter.isLocked
+		)
 	);
+	useEffect( () => {
+		// The fields may be empty when DataViews is mounted,
+		// so any time the filters are recalculated, check if filter visibility has changed.
+		if (
+			( filters || [] ).some(
+				( filter ) => filter.isPrimary || filter.isLocked
+			) &&
+			! isShowingFilter
+		) {
+			setIsShowingFilter( true );
+		}
+	}, [ filters ] );
 
 	return (
 		<DataViewsContext.Provider
