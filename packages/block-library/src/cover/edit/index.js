@@ -85,7 +85,6 @@ function CoverEdit( {
 } ) {
 	const {
 		contentPosition,
-		customGradient,
 		id,
 		url: originalUrl,
 		backgroundType: originalBackgroundType,
@@ -348,7 +347,7 @@ function CoverEdit( {
 
 	const bgStyle = {
 		backgroundColor: overlayColor.color,
-		background: customGradient ? customGradient : undefined,
+		background: gradientValue ? gradientValue : undefined,
 	};
 	const mediaStyle = {
 		objectPosition:
