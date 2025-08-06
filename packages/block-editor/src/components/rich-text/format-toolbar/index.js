@@ -20,12 +20,9 @@ const POPOVER_PROPS = {
 };
 
 const FormatToolbar = () => {
-	// In write mode, only show essential formatting controls
-	const primaryFormats = [ 'bold', 'italic', 'link', 'unknown' ];
-
 	return (
 		<>
-			{ primaryFormats.map( ( format ) => (
+			{ [ 'bold', 'italic', 'link', 'unknown' ].map( ( format ) => (
 				<Slot
 					name={ `RichText.ToolbarControls.${ format }` }
 					key={ format }
