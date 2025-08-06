@@ -23,6 +23,11 @@ const withWriteModeFilter = ( WrappedComponent, formatSettings ) => {
 		return WrappedComponent;
 	}
 
+	// Early return if Write Mode experiment is not enabled
+	if ( ! window?.__experimentalEditorWriteMode ) {
+		return WrappedComponent;
+	}
+
 	// Memoize the wrapped component to prevent unnecessary re-renders
 	const FilteredComponent = memo( ( props ) => {
 		const blockEditingMode = useBlockEditingMode();
