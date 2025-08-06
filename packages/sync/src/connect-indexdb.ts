@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-// @ts-ignore
 import { IndexeddbPersistence } from 'y-indexeddb';
 
 /**

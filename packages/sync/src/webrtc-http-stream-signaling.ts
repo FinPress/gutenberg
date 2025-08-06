@@ -212,7 +212,6 @@ function setupHttpSignal( httpClient: HttpSignalingConn ) {
 				}
 			}
 		};
-		// @ts-ignore
 		httpClient.ws = eventSource;
 		httpClient.connecting = true;
 		httpClient.connected = false;
@@ -331,7 +330,6 @@ export class HttpSignalingConn extends Observable< string > {
 		 * @type {WebSocket?}
 		 */
 		this.ws = null;
-		// @ts-ignore
 		this.binaryType = null; // this.binaryType = binaryType
 		this.connected = false;
 		this.connecting = false;
