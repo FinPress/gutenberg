@@ -26,6 +26,7 @@ export const language = {
 	name,
 	tagName: 'bdo',
 	className: null,
+
 	edit: Edit,
 	title,
 };

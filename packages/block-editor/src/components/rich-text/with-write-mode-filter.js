@@ -14,12 +14,12 @@ import { useBlockEditingMode } from '../block-editing-mode';
  * Higher-Order Component that filters format edit components based on write mode.
  *
  * @param {Function} WrappedComponent The format edit component to wrap
- * @param {Object}   formatSettings   The format settings including essential flag
+ * @param {Object}   formatSettings   The format settings including __unstableEssential flag
  * @return {Function} The wrapped component
  */
 const withWriteModeFilter = ( WrappedComponent, formatSettings ) => {
-	// Early return if format is essential - no filtering needed
-	if ( formatSettings?.essential ) {
+	// Early return if format is __unstableEssential - no filtering needed
+	if ( formatSettings?.__unstableEssential ) {
 		return WrappedComponent;
 	}
 

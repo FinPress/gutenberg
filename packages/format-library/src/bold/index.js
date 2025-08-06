@@ -18,7 +18,7 @@ export const bold = {
 	title,
 	tagName: 'strong',
 	className: null,
-	essential: true,
+	__unstableEssential: true,
 	edit( { isActive, value, onChange, onFocus } ) {
 		function onToggle() {
 			onChange( toggleFormat( value, { type: name, title } ) );

@@ -228,7 +228,7 @@ export const link = {
 		target: 'target',
 		rel: 'rel',
 	},
-	essential: true,
+	__unstableEssential: true,
 	__unstablePasteRule( value, { html, plainText } ) {
 		const pastedText = ( html || plainText )
 			.replace( /<[^>]+>/g, '' )

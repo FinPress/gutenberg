@@ -13,6 +13,7 @@ export const nonBreakingSpace = {
 	title,
 	tagName: 'nbsp',
 	className: null,
+
 	edit( { value, onChange } ) {
 		function addNonBreakingSpace() {
 			onChange( insert( value, '\u00a0' ) );
