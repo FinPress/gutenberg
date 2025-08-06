@@ -69,8 +69,14 @@ export function DataFormLayout< Item >( {
 					return null;
 				}
 
+				const customStyle = formField.customStyle ?? form.customStyle;
+
 				if ( children ) {
-					return children( FieldLayout, formField );
+					// @ts-expect-error
+					return children( FieldLayout, {
+						...formField,
+						customStyle,
+					} );
 				}
 
 				return (

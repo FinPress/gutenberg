@@ -82,6 +82,7 @@ export default function FormCardField< Item >( {
 					if ( typeof child === 'string' ) {
 						return {
 							id: child,
+							customStyle: customStyleProp,
 						};
 					}
 					return child;
@@ -91,9 +92,11 @@ export default function FormCardField< Item >( {
 		}
 
 		return {
+			customStyle: customStyleProp,
+			type: 'regular' as const,
 			fields: [],
 		};
-	}, [ field ] );
+	}, [ customStyleProp, field ] );
 
 	const customStyle =
 		( field.customStyle as CardFieldConfig ) ??
@@ -104,6 +107,14 @@ export default function FormCardField< Item >( {
 	);
 
 	if ( isCombinedField( field ) ) {
+		const Layout = getFormFieldLayout(
+			customStyle?.innerLayout ?? 'regular'
+		)?.component;
+
+		if ( ! Layout ) {
+			return null;
+		}
+
 		return (
 			<Card className="dataforms-layouts-card__field">
 				<CollapsibleCardHeader className="dataforms-layouts-card__field-label">
@@ -117,10 +128,16 @@ export default function FormCardField< Item >( {
 							onChange={ onChange }
 						>
 							{ ( FieldLayout, nestedField ) => (
-								<FieldLayout
+								<Layout
 									key={ nestedField.id }
 									data={ data }
-									field={ nestedField }
+									field={ {
+										...nestedField,
+										// Apply inner label position for nested fields
+										labelPosition:
+											customStyle?.innerLabelPosition ??
+											customStyle?.labelPosition,
+									} }
 									onChange={ onChange }
 									hideLabelFromVision={ hideLabelFromVision }
 								/>

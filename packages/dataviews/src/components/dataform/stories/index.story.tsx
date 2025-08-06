@@ -528,9 +528,8 @@ const CardLayoutComponent = ( {
 			labelPosition: labelPosition as 'top' | 'side' | 'none',
 			type: 'card' as const,
 			customStyle: {
-				opened: false,
+				opened: true,
 				innerLayout: 'regular' as const,
-				labelPosition: 'none' as const,
 			},
 			fields: [
 				'title',
@@ -549,9 +548,8 @@ const CardLayoutComponent = ( {
 					children: [ 'status', 'password' ],
 					layout: 'card' as const,
 					customStyle: {
-						opened: true,
+						opened: false,
 						innerLayout: 'panel' as const,
-						labelPosition: 'none' as const,
 					},
 				},
 				{
@@ -578,6 +576,7 @@ const CardLayoutComponent = ( {
 		<DataForm< SamplePost >
 			data={ post }
 			fields={ fields }
+			// @ts-expect-error
 			form={ form }
 			onChange={ ( edits ) =>
 				setPost( ( prev ) => ( {
