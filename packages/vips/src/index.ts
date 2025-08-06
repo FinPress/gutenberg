@@ -2,18 +2,12 @@
  * External dependencies
  */
 import Vips from 'wasm-vips';
+import type VipsInstance from 'wasm-vips';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-unresolved
-import VipsModule from 'wasm-vips/vips.wasm';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-unresolved
-import VipsHeifModule from 'wasm-vips/vips-heif.wasm';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-unresolved
-import VipsJxlModule from 'wasm-vips/vips-jxl.wasm';
+/**
+ * Local VIPS library files as Base64 data URLs
+ */
+import { vipsWasmDataUrl, vipsJsDataUrl } from './lib-data';
 
 /**
  * Internal dependencies
@@ -32,23 +26,9 @@ interface EmscriptenModule {
 	setDelayFunction: ( fn: ( fn: () => void ) => void ) => void;
 }
 
-let location = '';
-
-/**
- * Dynamically sets the location / public path to use for loading the WASM files.
- *
- * This is required when loading this module in an inline worker,
- * where globals such as __webpack_public_path__ are not available.
- *
- * @param newLocation Location, typically a base URL such as "https://example.com/path/to/js/...".
- */
-export function setLocation( newLocation: string ) {
-	location = newLocation;
-}
-
 let cleanup: () => void;
 
-let vipsInstance: typeof Vips;
+let vipsInstance: typeof VipsInstance;
 
 /**
  * Instantiates and returns a new vips instance.
@@ -60,26 +40,61 @@ async function getVips(): Promise< typeof Vips > {
 		return vipsInstance;
 	}
 
-	vipsInstance = await Vips( {
-		locateFile: ( fileName: string ) => {
-			if ( fileName.endsWith( 'vips.wasm' ) ) {
-				fileName = VipsModule;
-			} else if ( fileName.endsWith( 'vips-heif.wasm' ) ) {
-				fileName = VipsHeifModule;
-			} else if ( fileName.endsWith( 'vips-jxl.wasm' ) ) {
-				fileName = VipsJxlModule;
-			}
+	if ( 'undefined' === typeof fetch ) {
+		return Vips;
+	}
 
-			return location + fileName;
-		},
-		preRun: ( module: EmscriptenModule ) => {
-			// https://github.com/kleisauke/wasm-vips/issues/13#issuecomment-1073246828
-			module.setAutoDeleteLater( true );
-			module.setDelayFunction( ( fn: () => void ) => {
-				cleanup = fn;
-			} );
-		},
-	} );
+	try {
+		// Use local VIPS files processed by webpack as Base64 data URLs
+		// Convert Base64 data URL to blob URL for the main script
+		const vipsJsResponse = await fetch( vipsJsDataUrl );
+		const vipsJsBlob = await vipsJsResponse.blob();
+		const mainBlobUrl = URL.createObjectURL( vipsJsBlob );
+
+		vipsInstance = await Vips( {
+			locateFile: ( fileName: string ) => {
+				// Return the appropriate data URL based on the file name
+				if ( fileName === 'vips.wasm' ) {
+					return vipsWasmDataUrl;
+				}
+				// Fallback for any other files (though we shouldn't need them)
+				return fileName;
+			},
+			mainScriptUrlOrBlob: mainBlobUrl,
+			preRun: ( module: EmscriptenModule ) => {
+				// https://github.com/kleisauke/wasm-vips/issues/13#issuecomment-1073246828
+				module.setAutoDeleteLater( true );
+				module.setDelayFunction( ( fn: () => void ) => {
+					cleanup = fn;
+				} );
+			},
+		} );
+	} catch ( error ) {
+		// Fallback to CDN if local files are not available
+		console.warn(
+			'Failed to load local VIPS files, falling back to CDN:',
+			error
+		);
+
+		const VIPS_CDN_URL =
+			'https://cdn.jsdelivr.net/npm/wasm-vips@0.0.14/lib';
+		const mainBlobUrl = URL.createObjectURL(
+			await ( await window.fetch( `${ VIPS_CDN_URL }/vips.js` ) ).blob()
+		);
+
+		vipsInstance = await Vips( {
+			locateFile: ( fileName: string ) =>
+				`${ VIPS_CDN_URL }/${ fileName }`,
+			mainScriptUrlOrBlob: mainBlobUrl,
+			preRun: ( module: EmscriptenModule ) => {
+				// https://github.com/kleisauke/wasm-vips/issues/13#issuecomment-1073246828
+				module.setAutoDeleteLater( true );
+				module.setDelayFunction( ( fn: () => void ) => {
+					cleanup = fn;
+				} );
+			},
+		} );
+	}
 
 	return vipsInstance;
 }
@@ -240,7 +255,7 @@ export async function resizeImage(
 		}
 	};
 
-	let image = vips.Image.newFromBuffer( buffer, strOptions, loadOptions );
+	let image = vips.Image.newFromBuffer( buffer ); //  buffer, strOptions, loadOptions );
 
 	image.onProgress = onProgress;
 

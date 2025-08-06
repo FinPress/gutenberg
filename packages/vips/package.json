@@ -28,9 +28,12 @@
 	"wpScript": true,
 	"types": "build-types",
 	"dependencies": {
-		"wasm-vips": "^0.0.10"
+		"wasm-vips": "0.0.14"
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"scripts": {
+		"build": "node generate-lib-data.js"
 	}
 }

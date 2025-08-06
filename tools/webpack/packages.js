@@ -161,13 +161,16 @@ module.exports = {
 		rules: [
 			...baseConfig.module.rules,
 			{
-				test: /\.wasm$/,
-				type: 'asset/resource',
-				generator: {
-					// FIXME: Do not hardcode path.
-					filename: './build/vips/[name].wasm',
-					publicPath: '',
-				},
+				test: [ /\.wasm$/, /vips\.js$/, /vips-es6\.js$/ ],
+				use: join(
+					__dirname,
+					'..',
+					'..',
+					'packages',
+					'vips',
+					'wasm-loader.js'
+				),
+				type: 'javascript/auto',
 			},
 		],
 	},

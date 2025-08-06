@@ -158,7 +158,7 @@ const baseConfig = {
 		rules: [
 			{
 				test: /\.m?(j|t)sx?$/,
-				exclude: /node_modules/,
+				exclude: [ /node_modules/ ],
 				use: [
 					{
 						loader: require.resolve( 'babel-loader' ),
@@ -234,6 +234,10 @@ const baseConfig = {
 				generator: {
 					filename: 'fonts/[name].[hash:8][ext]',
 				},
+			},
+			{
+				test: /vips-es6\.js$/,
+				type: 'asset/source',
 			},
 		],
 	},
@@ -471,6 +475,7 @@ if ( hasExperimentalModulesFlag ) {
 
 		experiments: {
 			...baseConfig.experiments,
+			asyncWebAssembly: true,
 			outputModule: true,
 		},
 
