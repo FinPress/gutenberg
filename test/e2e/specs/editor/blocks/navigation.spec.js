@@ -9,7 +9,7 @@ test.describe( 'Navigation block', () => {
 	} );
 
 	test.beforeAll( async ( { requestUtils } ) => {
-		// We need pages to be published so the Link Control can return pages.
+		// We need pages to be published so the Link Control can return pages
 		await requestUtils.createPage( {
 			title: 'Cat',
 			status: 'publish',
