@@ -336,7 +336,7 @@ export default function PostTemplateEdit( {
 						<ToolsPanelItem
 							label={ __( 'Stack on mobile' ) }
 							isShownByDefault
-							hasValue={ () => isStackedOnMobile !== true }
+							hasValue={ () => ! isStackedOnMobile }
 							onDeselect={ () =>
 								setAttributes( {
 									isStackedOnMobile: true,
