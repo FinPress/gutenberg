@@ -45,6 +45,7 @@
 						"name": "core/post-template",
 						"isValid": true,
 						"attributes": {
+							"isStackedOnMobile": true,
 							"fontSize": "large",
 							"layout": {
 								"type": "grid",

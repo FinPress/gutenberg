@@ -28,6 +28,7 @@
 				"name": "core/post-template",
 				"isValid": true,
 				"attributes": {
+					"isStackedOnMobile": true,
 					"layout": {
 						"type": "default"
 					}
