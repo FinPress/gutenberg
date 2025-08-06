@@ -14,7 +14,6 @@ export const subscript = {
 	title,
 	tagName: 'sub',
 	className: null,
-
 	edit( { isActive, value, onChange, onFocus } ) {
 		function onToggle() {
 			onChange( toggleFormat( value, { type: name, title } ) );

@@ -56,7 +56,6 @@ export const image = {
 		url: 'src',
 		alt: 'alt',
 	},
-
 	edit: Edit,
 };
 

@@ -128,6 +128,5 @@ export const textColor = {
 		style: 'style',
 		class: 'class',
 	},
-
 	edit: TextColorEdit,
 };

@@ -19,7 +19,6 @@ export const underline = {
 	attributes: {
 		style: 'style',
 	},
-
 	edit( { value, onChange } ) {
 		const onToggle = () => {
 			onChange(

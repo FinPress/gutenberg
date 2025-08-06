@@ -25,7 +25,6 @@ export const unknown = {
 	title,
 	tagName: '*',
 	className: null,
-
 	edit( { isActive, value, onChange, onFocus } ) {
 		if ( ! isActive && ! selectionContainsUnknownFormats( value ) ) {
 			return null;
