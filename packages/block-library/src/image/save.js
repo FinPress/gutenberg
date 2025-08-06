@@ -19,6 +19,7 @@ export default function save( { attributes } ) {
 		url,
 		alt,
 		caption,
+		displayCaption,
 		align,
 		href,
 		rel,
@@ -89,6 +90,7 @@ export default function save( { attributes } ) {
 					className={ __experimentalGetElementClassName( 'caption' ) }
 					tagName="figcaption"
 					value={ caption }
+					style={ ! displayCaption ? { display: 'none' } : undefined }
 				/>
 			) }
 		</>

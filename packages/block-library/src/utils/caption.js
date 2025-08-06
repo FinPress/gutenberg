@@ -39,6 +39,7 @@ export function Caption( {
 	addLabel = __( 'Add caption' ),
 	removeLabel = __( 'Remove caption' ),
 	icon = captionIcon,
+	preserveCaptionOnToggle = false,
 	...props
 } ) {
 	const caption = attributes[ attributeKey ];
@@ -46,7 +47,11 @@ export function Caption( {
 	const { PrivateRichText: RichText } = unlock( blockEditorPrivateApis );
 	const isCaptionEmpty = RichText.isEmpty( caption );
 	const isPrevCaptionEmpty = RichText.isEmpty( prevCaption );
-	const [ showCaption, setShowCaption ] = useState( ! isCaptionEmpty );
+	const [ showCaption, setShowCaption ] = useState(
+		preserveCaptionOnToggle
+			? attributes.displayCaption ?? ! isCaptionEmpty
+			: ! isCaptionEmpty
+	);
 
 	// We need to show the caption when changes come from
 	// history navigation(undo/redo).
@@ -61,6 +66,15 @@ export function Caption( {
 			setShowCaption( false );
 		}
 	}, [ isSelected, isCaptionEmpty ] );
+
+	useEffect( () => {
+		if (
+			preserveCaptionOnToggle &&
+			attributes.displayCaption !== showCaption
+		) {
+			setShowCaption( attributes.displayCaption );
+		}
+	}, [ attributes.displayCaption, preserveCaptionOnToggle, showCaption ] );
 
 	// Focus the caption when we click to add one.
 	const ref = useCallback(
@@ -78,11 +92,17 @@ export function Caption( {
 				<BlockControls group="block">
 					<ToolbarButton
 						onClick={ () => {
-							setShowCaption( ! showCaption );
-							if ( showCaption && caption ) {
-								setAttributes( {
-									[ attributeKey ]: undefined,
-								} );
+							if ( preserveCaptionOnToggle ) {
+								const nextValue = ! showCaption;
+								setShowCaption( nextValue );
+								setAttributes( { displayCaption: nextValue } );
+							} else {
+								setShowCaption( ! showCaption );
+								if ( showCaption && caption ) {
+									setAttributes( {
+										[ attributeKey ]: undefined,
+									} );
+								}
 							}
 						} }
 						icon={ icon }

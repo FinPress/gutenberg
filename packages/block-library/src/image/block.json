@@ -41,6 +41,10 @@
 			"selector": "figcaption",
 			"role": "content"
 		},
+		"displayCaption": {
+			"type": "boolean",
+			"default": true
+		},
 		"lightbox": {
 			"type": "object",
 			"enabled": {

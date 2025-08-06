@@ -1138,6 +1138,7 @@ export default function Image( {
 				setAttributes={ setAttributes }
 				isSelected={ isSingleSelected }
 				insertBlocksAfter={ insertBlocksAfter }
+				preserveCaptionOnToggle
 				label={ __( 'Image caption text' ) }
 				showToolbarButton={
 					isSingleSelected &&
