@@ -90,9 +90,15 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 		$classnames .= ' has-link-color';
 	}
 
-	// Ensure backwards compatibility by flagging the number of columns via classname when using grid layout.
-	if ( isset( $attributes['layout']['type'] ) && 'grid' === $attributes['layout']['type'] && ! empty( $attributes['layout']['columnCount'] ) ) {
-		$classnames .= ' ' . sanitize_title( 'columns-' . $attributes['layout']['columnCount'] );
+	if ( isset( $attributes['layout']['type'] ) && 'grid' === $attributes['layout']['type'] ) {
+		// Ensure backwards compatibility by flagging the number of columns via classname when using grid layout.
+		if ( ! empty( $attributes['layout']['columnCount'] ) ) {
+			$classnames .= ' ' . sanitize_title( 'columns-' . $attributes['layout']['columnCount'] );
+		}
+
+		if ( isset( $attributes['isStackedOnMobile'] ) && ! $attributes['isStackedOnMobile'] ) {
+			$classnames .= ' is-not-stacked-on-mobile';
+		}
 	}
 
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => trim( $classnames ) ) );

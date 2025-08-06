@@ -16,6 +16,12 @@
 		"enhancedPagination",
 		"postType"
 	],
+	"attributes": {
+		"isStackedOnMobile": {
+			"type": "boolean",
+			"default": true
+		}
+	},
 	"supports": {
 		"reusable": false,
 		"html": false,

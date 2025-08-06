@@ -16,10 +16,22 @@ import {
 	useBlockProps,
 	useInnerBlocksProps,
 	store as blockEditorStore,
+	InspectorControls,
 } from '@wordpress/block-editor';
-import { Spinner, ToolbarGroup } from '@wordpress/components';
+import {
+	Spinner,
+	ToolbarGroup,
+	ToggleControl,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+} from '@wordpress/components';
 import { store as coreStore } from '@wordpress/core-data';
 import { list, grid } from '@wordpress/icons';
+
+/**
+ * Internal dependencies
+ */
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 const TEMPLATE = [
 	[ 'core/post-title' ],
@@ -101,7 +113,7 @@ export default function PostTemplateEdit( {
 		templateSlug,
 		previewPostType,
 	},
-	attributes: { layout },
+	attributes: { layout, isStackedOnMobile },
 	__unstableLayoutClassNames,
 } ) {
 	const { type: layoutType, columnCount = 3 } = layout || {};
@@ -258,8 +270,11 @@ export default function PostTemplateEdit( {
 		className: clsx( __unstableLayoutClassNames, {
 			[ `columns-${ columnCount }` ]:
 				layoutType === 'grid' && columnCount, // Ensure column count is flagged via classname for backwards compatibility.
+			'is-not-stacked-on-mobile': ! isStackedOnMobile,
 		} ),
 	} );
+
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	if ( ! posts ) {
 		return (
@@ -306,6 +321,42 @@ export default function PostTemplateEdit( {
 			<BlockControls>
 				<ToolbarGroup controls={ displayLayoutControls } />
 			</BlockControls>
+
+			{ layoutType === 'grid' && (
+				<InspectorControls>
+					<ToolsPanel
+						label={ __( 'Settings' ) }
+						resetAll={ () => {
+							setAttributes( {
+								isStackedOnMobile: true,
+							} );
+						} }
+						dropdownMenuProps={ dropdownMenuProps }
+					>
+						<ToolsPanelItem
+							label={ __( 'Stack on mobile' ) }
+							isShownByDefault
+							hasValue={ () => isStackedOnMobile !== true }
+							onDeselect={ () =>
+								setAttributes( {
+									isStackedOnMobile: true,
+								} )
+							}
+						>
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ __( 'Stack on mobile' ) }
+								checked={ isStackedOnMobile }
+								onChange={ () =>
+									setAttributes( {
+										isStackedOnMobile: ! isStackedOnMobile,
+									} )
+								}
+							/>
+						</ToolsPanelItem>
+					</ToolsPanel>
+				</InspectorControls>
+			) }
 
 			<ul { ...blockProps }>
 				{ blockContexts &&
