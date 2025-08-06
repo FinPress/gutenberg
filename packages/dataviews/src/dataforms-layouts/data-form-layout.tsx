@@ -7,11 +7,11 @@ import { useContext, useMemo } from '@wordpress/element';
 /**
  * Internal dependencies
  */
+import DataFormContext from '../components/dataform-context';
+import normalizeFormFields from '../normalize-form-fields';
 import type { Form, FormField, SimpleFormField } from '../types';
 import { getFormFieldLayout } from './index';
-import DataFormContext from '../components/dataform-context';
 import { isCombinedField } from './is-combined-field';
-import normalizeFormFields from '../normalize-form-fields';
 
 export function DataFormLayout< Item >( {
 	data,
@@ -75,6 +75,7 @@ export function DataFormLayout< Item >( {
 
 				return (
 					<FieldLayout
+						customStyle={ formField.customStyle }
 						key={ formField.id }
 						data={ data }
 						field={ formField }

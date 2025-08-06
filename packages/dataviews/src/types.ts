@@ -662,30 +662,101 @@ export interface SupportedLayouts {
 	table?: Omit< ViewTable, 'type' >;
 }
 
-export type SimpleFormField = {
-	id: string;
-	layout?: 'regular' | 'panel' | 'card';
-	labelPosition?: 'side' | 'top' | 'none';
+// Core types
+export type LabelPosition = 'side' | 'top' | 'none';
+export type FormLayoutType = 'regular' | 'panel' | 'card';
+
+// Field configuration types with discriminated unions
+export type RegularFieldConfig = {
+	labelPosition?: LabelPosition;
 };
 
-export type CombinedFormField = {
-	id: string;
-	label?: string;
-	layout?: 'regular' | 'panel' | 'card';
-	labelPosition?: 'side' | 'top' | 'none';
-	children: Array< FormField | string >;
+export type PanelFieldConfig = {
+	labelPosition?: LabelPosition;
 };
+
+export type CardFieldConfig = {
+	opened?: boolean;
+	innerLayout?: 'regular' | 'panel';
+	innerLabelPosition?: LabelPosition;
+	labelPosition?: 'top' | 'none'; // Restricted for cards
+};
+
+// Base form field
+interface BaseFormField {
+	id: string;
+	labelPosition?: LabelPosition;
+}
+
+// Discriminated union for simple form fields
+export type SimpleFormField = BaseFormField &
+	(
+		| {
+				layout: 'regular';
+				customStyle?: RegularFieldConfig;
+		  }
+		| {
+				layout: 'panel';
+				customStyle?: PanelFieldConfig;
+		  }
+		| {
+				layout: 'card';
+				customStyle?: CardFieldConfig;
+		  }
+	);
+
+// Discriminated union for combined form fields
+export type CombinedFormField = BaseFormField & {
+	label?: string;
+	children: Array< FormField | string >;
+} & (
+		| {
+				layout: 'regular';
+				customStyle?: RegularFieldConfig;
+		  }
+		| {
+				layout: 'panel';
+				customStyle?: PanelFieldConfig;
+		  }
+		| {
+				layout: 'card';
+				customStyle?: CardFieldConfig;
+		  }
+		| {
+				// Default/no layout specified
+				layout?: never;
+				customStyle?: never;
+		  }
+	);
 
 export type FormField = SimpleFormField | CombinedFormField;
 
-/**
- * The form configuration.
- */
-export type Form = {
-	type?: 'regular' | 'panel' | 'card';
+// Form configuration with discriminated unions
+interface BaseFormConfig {
+	labelPosition?: LabelPosition;
 	fields?: Array< FormField | string >;
-	labelPosition?: 'side' | 'top' | 'none';
-};
+}
+
+export type Form = BaseFormConfig &
+	(
+		| {
+				type: 'regular';
+				customStyle?: RegularFieldConfig;
+		  }
+		| {
+				type: 'panel';
+				customStyle?: PanelFieldConfig;
+		  }
+		| {
+				type: 'card';
+				customStyle?: CardFieldConfig;
+		  }
+		| {
+				// Default form type
+				type?: never;
+				customStyle?: never;
+		  }
+	);
 
 export interface DataFormProps< Item > {
 	data: Item;
@@ -699,4 +770,5 @@ export interface FieldLayoutProps< Item > {
 	field: FormField;
 	onChange: ( value: any ) => void;
 	hideLabelFromVision?: boolean;
+	customStyle?: RegularFieldConfig | PanelFieldConfig | CardFieldConfig;
 }
