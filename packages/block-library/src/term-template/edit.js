@@ -15,7 +15,7 @@ import {
 import { ToolbarGroup } from '@wordpress/components';
 import { useEntityRecords } from '@wordpress/core-data';
 
-const TEMPLATE = [ [ 'core/paragraph' ] ];
+const TEMPLATE = [];
 
 function TermTemplateInnerBlocks( { classList, term } ) {
 	const innerBlocksProps = useInnerBlocksProps(

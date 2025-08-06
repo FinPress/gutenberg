@@ -36,15 +36,7 @@
 		},
 		"spacing": {
 			"margin": true,
-			"padding": true,
-			"blockGap": {
-				"__experimentalDefault": "1.25em"
-			},
-			"__experimentalDefaultControls": {
-				"blockGap": true,
-				"padding": false,
-				"margin": false
-			}
+			"padding": true
 		},
 		"interactivity": {
 			"clientNavigation": true
@@ -56,6 +48,6 @@
 			"style": true
 		}
 	},
-	"allowedBlocks": [ "core/paragraph" ],
+	"allowedBlocks": [],
 	"style": "wp-block-term-template"
 }
