@@ -18,6 +18,7 @@ export const italic = {
 	title,
 	tagName: 'em',
 	className: null,
+	essential: true,
 	edit( { isActive, value, onChange, onFocus } ) {
 		function onToggle() {
 			onChange( toggleFormat( value, { type: name, title } ) );

@@ -17,6 +17,7 @@ export const code = {
 	title,
 	tagName: 'code',
 	className: null,
+	essential: false,
 	__unstableInputRule( value ) {
 		const BACKTICK = '`';
 		const { start, text } = value;

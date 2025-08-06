@@ -44,51 +44,45 @@ const FormatToolbar = () => {
 					key={ format }
 				/>
 			) ) }
-			{ ! isWriteMode && (
-				<Slot name="RichText.ToolbarControls">
-					{ ( fills ) => {
-						if ( ! fills.length ) {
-							return null;
-						}
+			<Slot name="RichText.ToolbarControls">
+				{ ( fills ) => {
+					if ( ! fills.length ) {
+						return null;
+					}
 
-						const allProps = fills.map(
-							( [ { props } ] ) => props
-						);
-						const hasActive = allProps.some(
-							( { isActive } ) => isActive
-						);
+					const allProps = fills.map( ( [ { props } ] ) => props );
+					const hasActive = allProps.some(
+						( { isActive } ) => isActive
+					);
 
-						return (
-							<ToolbarItem>
-								{ ( toggleProps ) => (
-									<DropdownMenu
-										icon={ chevronDown }
-										/* translators: button label text should, if possible, be under 16 characters. */
-										label={ __( 'More' ) }
-										toggleProps={ {
-											...toggleProps,
-											className: clsx(
-												toggleProps.className,
-												{ 'is-pressed': hasActive }
-											),
-											description: __(
-												'Displays more block tools'
-											),
-										} }
-										controls={ orderBy(
-											fills.map(
-												( [ { props } ] ) => props
-											),
-											'title'
-										) }
-										popoverProps={ POPOVER_PROPS }
-									/>
-								) }
-							</ToolbarItem>
-						);
-					} }
-				</Slot>
-			) }
+					return (
+						<ToolbarItem>
+							{ ( toggleProps ) => (
+								<DropdownMenu
+									icon={ chevronDown }
+									/* translators: button label text should, if possible, be under 16 characters. */
+									label={ __( 'More' ) }
+									toggleProps={ {
+										...toggleProps,
+										className: clsx(
+											toggleProps.className,
+											{ 'is-pressed': hasActive }
+										),
+										description: __(
+											'Displays more block tools'
+										),
+									} }
+									controls={ orderBy(
+										fills.map( ( [ { props } ] ) => props ),
+										'title'
+									) }
+									popoverProps={ POPOVER_PROPS }
+								/>
+							) }
+						</ToolbarItem>
+					);
+				} }
+			</Slot>
 		</>
 	);
 };

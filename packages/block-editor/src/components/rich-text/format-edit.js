@@ -8,8 +8,8 @@ import { useContext, useMemo } from '@wordpress/element';
  * Internal dependencies
  */
 import BlockContext from '../block-context';
-
-const DEFAULT_BLOCK_CONTEXT = {};
+import { blockEditingModeKey } from '../block-edit/context';
+import withWriteModeFilter from './with-write-mode-filter';
 
 export const usesContextKey = Symbol( 'usesContext' );
 
@@ -24,18 +24,31 @@ function Edit( { onChange, onFocus, value, forwardedRef, settings } ) {
 
 	// Assign context values using the block type's declared context needs.
 	const context = useMemo( () => {
-		return usesContext
-			? Object.fromEntries(
+		// Always include blockEditingMode in context for write mode filtering
+		const baseContext = {
+			blockEditingMode: blockContext[ blockEditingModeKey ],
+		};
+
+		if ( usesContext ) {
+			return {
+				...baseContext,
+				...Object.fromEntries(
 					Object.entries( blockContext ).filter( ( [ key ] ) =>
 						usesContext.includes( key )
 					)
-			  )
-			: DEFAULT_BLOCK_CONTEXT;
+				),
+			};
+		}
+
+		return baseContext;
 	}, [ usesContext, blockContext ] );
 
 	if ( ! EditFunction ) {
 		return null;
 	}
+
+	// Apply the write mode filter HOC
+	const FilteredEditFunction = withWriteModeFilter( EditFunction, settings );
 
 	const activeFormat = getActiveFormat( value, name );
 	const isActive = activeFormat !== undefined;
@@ -44,7 +57,7 @@ function Edit( { onChange, onFocus, value, forwardedRef, settings } ) {
 		activeObject !== undefined && activeObject.type === name;
 
 	return (
-		<EditFunction
+		<FilteredEditFunction
 			key={ name }
 			isActive={ isActive }
 			activeAttributes={ isActive ? activeFormat.attributes || {} : {} }
