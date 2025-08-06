@@ -8,8 +8,9 @@ import { useContext, useMemo } from '@wordpress/element';
  * Internal dependencies
  */
 import BlockContext from '../block-context';
-import { blockEditingModeKey } from '../block-edit/context';
 import withWriteModeFilter from './with-write-mode-filter';
+
+const DEFAULT_BLOCK_CONTEXT = {};
 
 export const usesContextKey = Symbol( 'usesContext' );
 
@@ -24,23 +25,13 @@ function Edit( { onChange, onFocus, value, forwardedRef, settings } ) {
 
 	// Assign context values using the block type's declared context needs.
 	const context = useMemo( () => {
-		// Always include blockEditingMode in context for write mode filtering
-		const baseContext = {
-			blockEditingMode: blockContext[ blockEditingModeKey ],
-		};
-
-		if ( usesContext ) {
-			return {
-				...baseContext,
-				...Object.fromEntries(
+		return usesContext
+			? Object.fromEntries(
 					Object.entries( blockContext ).filter( ( [ key ] ) =>
 						usesContext.includes( key )
 					)
-				),
-			};
-		}
-
-		return baseContext;
+			  )
+			: DEFAULT_BLOCK_CONTEXT;
 	}, [ usesContext, blockContext ] );
 
 	if ( ! EditFunction ) {
