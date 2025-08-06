@@ -28,12 +28,8 @@ function render_block_core_file( $attributes, $content ) {
 		$processor->set_attribute( 'data-wp-interactive', 'core/file' );
 	}
 
-	while ( 'OBJECT' !== $processor->get_tag() && $processor->next_tag( 'object' ) ) {
-		continue;
-	}
-
-	// If this occurs, there is likely no block content or a plugin has modified the block.
-	if ( 'OBJECT' !== $processor->get_tag() ) {
+	// If there are no OBJECT elements, something might have already modified the block.
+	if ( ! $processor->next_tag( 'OBJECT' ) ) {
 		return $content;
 	}
 
@@ -41,7 +37,7 @@ function render_block_core_file( $attributes, $content ) {
 	$processor->set_attribute( 'hidden', true );
 
 	$filename     = $processor->get_attribute( 'aria-label' );
-	$has_filename = ! empty( $filename ) && 'PDF embed' !== $filename;
+	$has_filename = is_string( $filename ) && ! empty( $filename ) && 'PDF embed' !== $filename;
 	$label        = $has_filename ? sprintf(
 		/* translators: %s: filename. */
 		__( 'Embed of %s.' ),
