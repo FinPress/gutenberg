@@ -25,3 +25,14 @@ export type SyncProvider = {
 	update: ( type: ObjectType, id: ObjectID, data: any ) => void;
 	discard: ( type: ObjectType, id: ObjectID ) => Promise< CRDTDoc >;
 };
+
+export type CreateWebRTCConnectionFn = (
+	objectId: ObjectID,
+	objectType: ObjectType,
+	doc: CRDTDoc
+) => Promise< () => true >;
+
+export type WebRTCConnectionConfig = {
+	signaling: string[];
+	password: string;
+};
