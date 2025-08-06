@@ -17,7 +17,7 @@ export const strikethrough = {
 	title,
 	tagName: 's',
 	className: null,
-	essential: true,
+	essential: false,
 	edit( { isActive, value, onChange, onFocus } ) {
 		function onClick() {
 			onChange( toggleFormat( value, { type: name, title } ) );
