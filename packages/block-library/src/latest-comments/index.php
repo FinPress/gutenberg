@@ -113,7 +113,9 @@ function render_block_core_latest_comments( $attributes ) {
 			}
 			$list_items_markup .= '</footer>';
 			if ( $attributes['displayExcerpt'] ) {
-				$list_items_markup .= '<div class="wp-block-latest-comments__comment-excerpt">' . wpautop( get_comment_excerpt( $comment ) ) . '</div>';
+				$comment_excerpt = get_comment_excerpt( $comment );
+				$comment_excerpt = strip_shortcodes( $comment_excerpt );
+				$list_items_markup .= '<div class="wp-block-latest-comments__comment-excerpt">' . wpautop( $comment_excerpt ) . '</div>';
 			}
 			$list_items_markup .= '</article></li>';
 		}
