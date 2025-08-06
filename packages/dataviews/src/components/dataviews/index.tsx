@@ -176,23 +176,22 @@ function DataViews< Item >( {
 	}, [ selection, data, getItemId ] );
 
 	const filters = useFilters( _fields, view );
-	const [ isShowingFilter, setIsShowingFilter ] = useState< boolean >( () =>
-		( filters || [] ).some(
-			( filter ) => filter.isPrimary || filter.isLocked
-		)
-	);
-	useEffect( () => {
-		// The fields may be empty when DataViews is mounted,
-		// so any time the filters are recalculated, check if filter visibility has changed.
-		if (
+	const hasPrimaryOrLockedFilters = useMemo(
+		() =>
 			( filters || [] ).some(
 				( filter ) => filter.isPrimary || filter.isLocked
-			) &&
-			! isShowingFilter
-		) {
+			),
+		[ filters ]
+	);
+	const [ isShowingFilter, setIsShowingFilter ] = useState< boolean >(
+		hasPrimaryOrLockedFilters
+	);
+
+	useEffect( () => {
+		if ( hasPrimaryOrLockedFilters && ! isShowingFilter ) {
 			setIsShowingFilter( true );
 		}
-	}, [ filters ] );
+	}, [ hasPrimaryOrLockedFilters, isShowingFilter ] );
 
 	return (
 		<DataViewsContext.Provider
