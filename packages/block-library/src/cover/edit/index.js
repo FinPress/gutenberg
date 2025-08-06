@@ -346,8 +346,8 @@ function CoverEdit( {
 	const backgroundPosition = mediaPosition( focalPoint );
 
 	const bgStyle = {
+		background: gradientValue,
 		backgroundColor: overlayColor.color,
-		background: gradientValue ? gradientValue : undefined,
 	};
 	const mediaStyle = {
 		objectPosition:
