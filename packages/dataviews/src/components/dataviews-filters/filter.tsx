@@ -524,10 +524,11 @@ export default function Filter( {
 								{
 									'has-reset': canResetOrRemove,
 									'has-values': hasValues,
+									'is-not-clickable': isLocked,
 								}
 							) }
 							role="button"
-							tabIndex={ 0 }
+							tabIndex={ isLocked ? -1 : 0 }
 							onClick={ () => {
 								if ( ! isLocked ) {
 									onToggle();
