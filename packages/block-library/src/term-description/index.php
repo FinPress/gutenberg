@@ -11,18 +11,41 @@
  * @since 5.9.0
  *
  * @param array $attributes Block attributes.
+ * @param WP_Block $block      Block instance.
  *
  * @return string Returns the description of the current taxonomy term, if available
  */
-function render_block_core_term_description( $attributes ) {
+function render_block_core_term_description( $attributes, $content, $block ) {
 	$term_description = '';
 
-	if ( is_category() || is_tag() || is_tax() ) {
-		$term_description = term_description();
-	}
+	if ( isset( $block->context['termId'] ) ) {
+		$term_id   = $block->context['termId'];
+		$term_type = $block->context['taxonomy'] ?? 'category';
 
-	if ( empty( $term_description ) ) {
-		return '';
+		if ( empty( $term_id ) || empty( $term_type ) ) {
+			return '';
+		}
+		if ( ! taxonomy_exists( $term_type ) || ! is_taxonomy_viewable( $term_type ) ) {
+			return '';
+		}
+
+		$term = get_term( $term_id, $term_type );
+		if ( ! $term || is_wp_error( $term ) ) {
+			return '';
+		}
+
+		$term_description = $term->description;
+		if ( ! $term_description ) {
+			return '';
+		}
+	} else {
+		if ( is_category() || is_tag() || is_tax() ) {
+			$term_description = term_description();
+		}
+	
+		if ( empty( $term_description ) ) {
+			return '';
+		}
 	}
 
 	$classes = array();
