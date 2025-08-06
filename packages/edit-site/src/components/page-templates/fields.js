@@ -6,8 +6,12 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { Icon, __experimentalHStack as HStack } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import {
+	Icon,
+	__experimentalHStack as HStack,
+	privateApis as componentsPrivateApis,
+} from '@wordpress/components';
+import { __, sprintf } from '@wordpress/i18n';
 import { useState, useMemo } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 import { parse } from '@wordpress/blocks';
@@ -21,10 +25,12 @@ import { EditorProvider } from '@wordpress/editor';
  * Internal dependencies
  */
 import { useAddedBy } from './hooks';
+import { useDefaultTemplateTypes } from '../add-new-template/utils';
 import usePatternSettings from '../page-patterns/use-pattern-settings';
 import { unlock } from '../../lock-unlock';
 
 const { useGlobalStyle } = unlock( blockEditorPrivateApis );
+const { Badge } = unlock( componentsPrivateApis );
 
 function PreviewField( { item } ) {
 	const settings = usePatternSettings();
@@ -107,6 +113,38 @@ function AuthorField( { item } ) {
 export const authorField = {
 	label: __( 'Author' ),
 	id: 'author',
-	getValue: ( { item } ) => item.author_text,
+	getValue: ( { item } ) => item.author_text ?? item.author,
 	render: AuthorField,
+};
+
+export const activeField = {
+	label: __( 'Active' ),
+	id: 'active',
+	getValue: ( { item } ) => item._isActive,
+	__returnsBadge: true,
+	render: function Render( { item } ) {
+		const isActive = item._isActive;
+		return (
+			<Badge intent={ isActive ? 'success' : 'default' }>
+				{ isActive ? __( 'Active' ) : __( 'Inactive' ) }
+			</Badge>
+		);
+	},
+};
+
+export const slugField = {
+	label: __( 'Template Type' ),
+	id: 'slug',
+	getValue: ( { item } ) => item.slug,
+	render: function Render( { item } ) {
+		const defaultTemplateTypes = useDefaultTemplateTypes();
+		const defaultTemplateType = defaultTemplateTypes.find(
+			( type ) => type.slug === item.slug
+		);
+		return (
+			defaultTemplateType?.title ||
+			// translators: %s is the slug of a custom template.
+			sprintf( __( 'Custom: %s' ), item.slug )
+		);
+	},
 };
