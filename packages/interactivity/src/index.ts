@@ -8,13 +8,18 @@ import { batch } from '@preact/signals';
  * Internal dependencies
  */
 import registerDirectives from './directives';
-import { init, getRegionRootFragment, initialVdom } from './init';
+import {
+	initialVdom,
+	hydrateRegions,
+	getRegionRootFragment,
+} from './hydration';
 import { directivePrefix } from './constants';
 import { toVdom } from './vdom';
 import { directive } from './hooks';
 import { getNamespace } from './namespaces';
 import { parseServerData, populateServerData } from './store';
 import { proxifyState } from './proxies';
+import { postTask } from './utils';
 
 export {
 	store,
@@ -63,5 +68,10 @@ export const privateApis = ( lock ): any => {
 	throw new Error( 'Forbidden access.' );
 };
 
+// Parse and populate the initial state and config.
+// All the core directives are registered at this point as well.
+populateServerData( parseServerData() );
 registerDirectives();
-init();
+
+// Defer hydration to the end of the task queue.
+postTask( hydrateRegions );
