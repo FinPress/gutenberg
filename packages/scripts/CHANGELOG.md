@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Breaking Changes
+
+-   Remove deprecated `clean-webpack-plugin` dependency in favor of webpack's native cleaning functionality.
+
 ## 30.20.0 (2025-07-23)
 
 ## 30.19.0 (2025-06-25)
