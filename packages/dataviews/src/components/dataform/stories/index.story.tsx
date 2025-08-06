@@ -525,15 +525,34 @@ const CardLayoutComponent = ( {
 
 	const form = useMemo(
 		() => ( {
-			labelPosition,
-			type: 'card',
+			labelPosition: labelPosition as 'top' | 'side' | 'none',
+			type: 'card' as const,
+			customStyle: {
+				opened: false,
+				innerLayout: 'regular' as const,
+				labelPosition: 'none' as const,
+			},
 			fields: [
-				{ id: 'title' },
-				'order',
+				'title',
+				{
+					id: 'order',
+					label: 'Order',
+					customStyle: {
+						innerLayout: 'panel' as const,
+						innerLabelPosition: 'side' as const,
+						labelPosition: 'none' as const,
+					},
+				},
 				{
 					id: 'publishing',
 					label: 'Publishing Settings',
 					children: [ 'status', 'password' ],
+					layout: 'card' as const,
+					customStyle: {
+						opened: true,
+						innerLayout: 'panel' as const,
+						labelPosition: 'none' as const,
+					},
 				},
 				{
 					id: 'author-info',
@@ -553,7 +572,7 @@ const CardLayoutComponent = ( {
 			],
 		} ),
 		[ labelPosition ]
-	) as Form;
+	);
 
 	return (
 		<DataForm< SamplePost >

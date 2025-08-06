@@ -3,8 +3,6 @@
  */
 import type { FormField, CombinedFormField } from '../types';
 
-export function isCombinedField(
-	field: FormField
-): field is CombinedFormField {
+export function isCombinedField( field: any ): field is CombinedFormField {
 	return ( field as CombinedFormField ).children !== undefined;
 }
