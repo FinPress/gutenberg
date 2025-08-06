@@ -4,9 +4,9 @@
 import type {
 	CardFieldConfig,
 	Form,
+	FormField,
 	PanelFieldConfig,
 	RegularFieldConfig,
-	FormField,
 } from './types';
 
 // Update NormalizedFormField to match the discriminated union structure
