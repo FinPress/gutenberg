@@ -168,7 +168,7 @@ function render_block_core_term_template_get_children( $parent_term_id, $block, 
  *
  * @return WP_Block Modified inner block with processed bindings.
  */
-function process_block_bindings_for_term_template( $inner_block, $term ) {
+function block_core_term_template_process_block_bindings( $inner_block, $term ) {
 	if ( isset( $inner_block->attributes['metadata']['bindings'] ) ) {
 		$bindings = $inner_block->attributes['metadata']['bindings'];
 		$modified_attributes = $inner_block->attributes;
@@ -199,7 +199,7 @@ function process_block_bindings_for_term_template( $inner_block, $term ) {
 		foreach ( $inner_block->inner_blocks as $nested_block ) {
 			$nested_block->context['termId']   = $term->term_id;
 			$nested_block->context['taxonomy'] = $term->taxonomy;
-			process_block_bindings_for_term_template( $nested_block, $term );
+			block_core_term_template_process_block_bindings( $nested_block, $term );
 		}
 	}
 
@@ -229,7 +229,7 @@ function render_block_core_term_template_single( $term, $block ) {
 			$inner_block->context['taxonomy'] = $taxonomy;
 
 			// Process block bindings for the inner block.
-			$inner_block = process_block_bindings_for_term_template( $inner_block, $term );
+			$inner_block = block_core_term_template_process_block_bindings( $inner_block, $term );
 
 			$block_content .= $inner_block->render( array( 'dynamic' => true ) );
 		}
