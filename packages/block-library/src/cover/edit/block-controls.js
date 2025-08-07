@@ -9,7 +9,6 @@ import {
 	__experimentalBlockAlignmentMatrixControl as BlockAlignmentMatrixControl,
 	__experimentalBlockFullHeightAligmentControl as FullHeightAlignmentControl,
 	privateApis as blockEditorPrivateApis,
-	useBlockEditingMode,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
@@ -30,7 +29,6 @@ export default function CoverBlockControls( {
 	onClearMedia,
 	blockEditingMode,
 } ) {
-	const blockEditingMode = useBlockEditingMode();
 	const { contentPosition, id, useFeaturedImage, minHeight, minHeightUnit } =
 		attributes;
 	const { hasInnerBlocks, url } = currentSettings;
