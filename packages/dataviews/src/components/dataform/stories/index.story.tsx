@@ -660,7 +660,7 @@ const MixedLayoutComponent = () => {
 					id: 'status',
 					label: 'Status',
 					layout: {
-						type: 'card',
+						type: 'regular',
 						labelPosition: 'top',
 						opened: true,
 					} as const,
