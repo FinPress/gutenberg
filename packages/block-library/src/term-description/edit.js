@@ -12,13 +12,21 @@ import {
 	BlockControls,
 	AlignmentControl,
 } from '@wordpress/block-editor';
+import { useEntityProp } from '@wordpress/core-data';
 
 export default function TermDescriptionEdit( {
 	attributes,
 	setAttributes,
 	mergedStyle,
+	context: { taxonomy, termId },
 } ) {
 	const { textAlign } = attributes;
+	const [ termDescription ] = useEntityProp(
+		'taxonomy',
+		taxonomy,
+		'description',
+		termId
+	);
 	const blockProps = useBlockProps( {
 		className: clsx( {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
@@ -36,9 +44,7 @@ export default function TermDescriptionEdit( {
 				/>
 			</BlockControls>
 			<div { ...blockProps }>
-				<div className="wp-block-term-description__placeholder">
-					<span>{ __( 'Term Description' ) }</span>
-				</div>
+				{ termDescription ? termDescription : __( 'Term Description' ) }
 			</div>
 		</>
 	);

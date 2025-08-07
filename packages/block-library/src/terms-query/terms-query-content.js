@@ -15,7 +15,17 @@ import {
  */
 import TermsQueryInspectorControls from './inspector-controls';
 
-const TEMPLATE = [ [ 'core/term-template' ] ];
+const TEMPLATE = [
+	[
+		'core/term-template',
+		{},
+		[
+			[ 'core/term-name' ],
+			[ 'core/term-count' ],
+			[ 'core/term-description' ],
+		],
+	],
+];
 
 export default function TermsQueryContent( {
 	attributes,

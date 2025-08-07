@@ -15,7 +15,11 @@ import {
 import { ToolbarGroup } from '@wordpress/components';
 import { useEntityRecords } from '@wordpress/core-data';
 
-const TEMPLATE = [ [ 'core/term-name' ], [ 'core/term-count' ] ];
+const TEMPLATE = [
+	[ 'core/term-name' ],
+	[ 'core/term-count' ],
+	[ 'core/term-description' ],
+];
 
 function TermTemplateInnerBlocks( { classList } ) {
 	const innerBlocksProps = useInnerBlocksProps(
@@ -33,6 +37,7 @@ function TermTemplateBlockPreview( {
 	setActiveBlockContextId,
 	termName,
 	termCount,
+	termDescription,
 } ) {
 	const blockPreviewProps = useBlockPreview( {
 		blocks,
@@ -60,6 +65,7 @@ function TermTemplateBlockPreview( {
 			style={ style }
 		>
 			{ termName } { termCount }
+			<div>{ termDescription }</div>
 		</li>
 	);
 }
@@ -300,6 +306,11 @@ export default function TermTemplateEdit( {
 						filteredTerms.find(
 							( t ) => t.id === blockContext.termId
 						)?.count
+					}
+					termDescription={
+						filteredTerms.find(
+							( t ) => t.id === blockContext.termId
+						)?.description
 					}
 				/>
 			</BlockContextProvider>
