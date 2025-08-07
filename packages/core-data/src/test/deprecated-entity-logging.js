@@ -224,10 +224,6 @@ describe( 'Deprecated entity logging - selectors', () => {
 describe( 'Deprecated entity logging - actions', () => {
 	describe.each( [
 		{
-			name: 'receiveEntityRecords',
-			args: [ 'root', 'media', { title: 'Media' } ],
-		},
-		{
 			name: 'deleteEntityRecord',
 			args: [ 'root', 'media', '123' ],
 		},

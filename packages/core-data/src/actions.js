@@ -93,7 +93,6 @@ export function receiveEntityRecords(
 	edits,
 	meta
 ) {
-	logEntityDeprecation( kind, name, 'receiveEntityRecords' );
 	// Auto drafts should not have titles, but some plugins rely on them so we can't filter this
 	// on the server.
 	if ( kind === 'postType' ) {
