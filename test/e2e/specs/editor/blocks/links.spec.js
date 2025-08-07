@@ -465,7 +465,7 @@ test.describe( 'Links', () => {
 
 		await expect(
 			linkPopover.getByRole( 'combobox', {
-				name: 'Search or type URL',
+				name: 'Link',
 			} )
 		).toHaveValue( URL );
 

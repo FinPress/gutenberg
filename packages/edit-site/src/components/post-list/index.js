@@ -238,9 +238,9 @@ export default function PostList( { postType } ) {
 		).map( ( { field } ) => field );
 		return _fields.map( ( field ) => ( {
 			...field,
-			elements: activeViewFilters.includes( field.id )
-				? []
-				: field.elements,
+			...( activeViewFilters.includes( field.id )
+				? { filterBy: false }
+				: {} ),
 		} ) );
 	}, [ _fields, defaultViews, activeView ] );
 

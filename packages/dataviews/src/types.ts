@@ -1,12 +1,22 @@
 /**
  * External dependencies
  */
-import type { ReactElement, ComponentType } from 'react';
+import type {
+	ReactElement,
+	ReactNode,
+	ComponentType,
+	ComponentProps,
+} from 'react';
 
 /**
  * Internal dependencies
  */
 import type { SetSelection } from './private-types';
+
+/**
+ * WordPress dependencies
+ */
+import type { useFocusOnMount } from '@wordpress/compose';
 
 export type SortDirection = 'asc' | 'desc';
 
@@ -19,7 +29,7 @@ export interface Option< Value extends any = any > {
 	description?: string;
 }
 
-interface FilterByConfig {
+export interface FilterByConfig {
 	/**
 	 * The list of operators supported by the field.
 	 */
@@ -34,19 +44,66 @@ interface FilterByConfig {
 	isPrimary?: boolean;
 }
 
+export interface NormalizedFilterByConfig {
+	/**
+	 * The list of operators supported by the field.
+	 */
+	operators: Operator[];
+
+	/**
+	 * Whether it is a primary filter.
+	 *
+	 * A primary filter is always visible and is not listed in the "Add filter" component,
+	 * except for the list layout where it behaves like a secondary filter.
+	 */
+	isPrimary?: boolean;
+}
+
+interface FilterConfigForType {
+	/**
+	 * What operators are used by default.
+	 */
+	defaultOperators: Operator[];
+
+	/**
+	 * What operators are supported by the field.
+	 */
+	validOperators: Operator[];
+}
+
 export type Operator =
 	| 'is'
 	| 'isNot'
 	| 'isAny'
 	| 'isNone'
 	| 'isAll'
-	| 'isNotAll';
+	| 'isNotAll'
+	| 'lessThan'
+	| 'greaterThan'
+	| 'lessThanOrEqual'
+	| 'greaterThanOrEqual'
+	| 'before'
+	| 'after'
+	| 'beforeInc'
+	| 'afterInc'
+	| 'contains'
+	| 'notContains'
+	| 'startsWith'
+	| 'between'
+	| 'on'
+	| 'notOn'
+	| 'inThePast'
+	| 'over';
 
-export type FieldType = 'text' | 'integer' | 'datetime' | 'media';
-
-export type ValidationContext = {
-	elements?: Option[];
-};
+export type FieldType =
+	| 'text'
+	| 'integer'
+	| 'datetime'
+	| 'date'
+	| 'media'
+	| 'boolean'
+	| 'email'
+	| 'array';
 
 /**
  * An abstract interface for Field based on the field type.
@@ -60,12 +117,38 @@ export type FieldTypeDefinition< Item > = {
 	/**
 	 * Callback used to validate the field.
 	 */
-	isValid: ( item: Item, context?: ValidationContext ) => boolean;
+	isValid: Rules< Item >;
 
 	/**
 	 * Callback used to render an edit control for the field or control name.
 	 */
-	Edit: ComponentType< DataFormControlProps< Item > > | string;
+	Edit: ComponentType< DataFormControlProps< Item > > | string | null;
+
+	/**
+	 * Callback used to render the field.
+	 */
+	render: ComponentType< DataViewRenderFieldProps< Item > >;
+
+	/**
+	 * The filter config for the field.
+	 */
+	filterBy: FilterConfigForType | false;
+
+	/**
+	 * Whether the field is readOnly.
+	 * If `true`, the value will be rendered using the `render` callback.
+	 */
+	readOnly?: boolean;
+
+	/**
+	 * Whether the field is sortable.
+	 */
+	enableSorting: boolean;
+};
+
+export type Rules< Item > = {
+	required?: boolean;
+	custom?: ( item: Item, field: NormalizedField< Item > ) => null | string;
 };
 
 /**
@@ -121,7 +204,7 @@ export type Field< Item > = {
 	/**
 	 * Callback used to validate the field.
 	 */
-	isValid?: ( item: Item, context?: ValidationContext ) => boolean;
+	isValid?: Rules< Item >;
 
 	/**
 	 * Callback used to decide if a field should be displayed.
@@ -151,7 +234,13 @@ export type Field< Item > = {
 	/**
 	 * Filter config for the field.
 	 */
-	filterBy?: FilterByConfig | undefined;
+	filterBy?: FilterByConfig | false;
+
+	/**
+	 * Whether the field is readOnly.
+	 * If `true`, the value will be rendered using the `render` callback.
+	 */
+	readOnly?: boolean;
 
 	/**
 	 * Callback used to retrieve the value of the field from the item.
@@ -160,16 +249,18 @@ export type Field< Item > = {
 	getValue?: ( args: { item: Item } ) => any;
 };
 
-export type NormalizedField< Item > = Field< Item > & {
+export type NormalizedField< Item > = Omit< Field< Item >, 'Edit' > & {
 	label: string;
 	header: string | ReactElement;
 	getValue: ( args: { item: Item } ) => any;
 	render: ComponentType< DataViewRenderFieldProps< Item > >;
-	Edit: ComponentType< DataFormControlProps< Item > >;
+	Edit: ComponentType< DataFormControlProps< Item > > | null;
 	sort: ( a: Item, b: Item, direction: SortDirection ) => number;
-	isValid: ( item: Item, context?: ValidationContext ) => boolean;
+	isValid: Rules< Item >;
 	enableHiding: boolean;
 	enableSorting: boolean;
+	filterBy: NormalizedFilterByConfig | false;
+	readOnly: boolean;
 };
 
 /**
@@ -184,10 +275,20 @@ export type DataFormControlProps< Item > = {
 	field: NormalizedField< Item >;
 	onChange: ( value: Record< string, any > ) => void;
 	hideLabelFromVision?: boolean;
+	/**
+	 * The currently selected filter operator for this field.
+	 *
+	 * Used by DataViews filters to determine which control to render based on the operator type.
+	 */
+	operator?: Operator;
 };
 
 export type DataViewRenderFieldProps< Item > = {
 	item: Item;
+	field: NormalizedField< Item >;
+	config?: {
+		sizes: string;
+	};
 };
 
 /**
@@ -327,6 +428,11 @@ interface ViewBase {
 	 * Whether to show the hierarchical levels.
 	 */
 	showLevels?: boolean;
+
+	/**
+	 * The field to group by.
+	 */
+	groupByField?: string;
 }
 
 export interface ColumnStyle {
@@ -344,6 +450,11 @@ export interface ColumnStyle {
 	 * The maximum width of the field column.
 	 */
 	minWidth?: string | number;
+
+	/**
+	 * The alignment of the field column, defaults to left.
+	 */
+	align?: 'start' | 'center' | 'end';
 }
 
 export type Density = 'compact' | 'balanced' | 'comfortable';
@@ -463,6 +574,20 @@ export interface ActionModal< Item > extends ActionBase< Item > {
 	 * The header of the modal.
 	 */
 	modalHeader?: string;
+
+	/**
+	 * The size of the modal.
+	 *
+	 * @default 'medium'
+	 */
+	modalSize?: 'small' | 'medium' | 'large' | 'fill';
+
+	/**
+	 * The focus on mount property of the modal.
+	 */
+	modalFocusOnMount?:
+		| Parameters< typeof useFocusOnMount >[ 0 ]
+		| 'firstContentElement';
 }
 
 export interface ActionButton< Item > extends ActionBase< Item > {
@@ -481,6 +606,7 @@ export interface ActionButton< Item > extends ActionBase< Item > {
 export type Action< Item > = ActionModal< Item > | ActionButton< Item >;
 
 export interface ViewBaseProps< Item > {
+	className?: string;
 	actions: Action< Item >[];
 	data: Item[];
 	fields: NormalizedField< Item >[];
@@ -492,8 +618,14 @@ export interface ViewBaseProps< Item > {
 	selection: string[];
 	setOpenedFilter: ( fieldId: string ) => void;
 	onClickItem?: ( item: Item ) => void;
+	renderItemLink?: (
+		props: {
+			item: Item;
+		} & ComponentProps< 'a' >
+	) => ReactElement;
 	isItemClickable: ( item: Item ) => boolean;
 	view: View;
+	empty: ReactNode;
 }
 
 export interface ViewTableProps< Item > extends ViewBaseProps< Item > {
