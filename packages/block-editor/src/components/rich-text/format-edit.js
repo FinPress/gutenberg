@@ -8,7 +8,6 @@ import { useContext, useMemo } from '@wordpress/element';
  * Internal dependencies
  */
 import BlockContext from '../block-context';
-import withWriteModeFilter from './with-write-mode-filter';
 
 const DEFAULT_BLOCK_CONTEXT = {};
 
@@ -38,9 +37,6 @@ function Edit( { onChange, onFocus, value, forwardedRef, settings } ) {
 		return null;
 	}
 
-	// Apply the write mode filter HOC
-	const FilteredEditFunction = withWriteModeFilter( EditFunction, settings );
-
 	const activeFormat = getActiveFormat( value, name );
 	const isActive = activeFormat !== undefined;
 	const activeObject = getActiveObject( value );
@@ -48,7 +44,7 @@ function Edit( { onChange, onFocus, value, forwardedRef, settings } ) {
 		activeObject !== undefined && activeObject.type === name;
 
 	return (
-		<FilteredEditFunction
+		<EditFunction
 			key={ name }
 			isActive={ isActive }
 			activeAttributes={ isActive ? activeFormat.attributes || {} : {} }
