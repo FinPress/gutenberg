@@ -28,9 +28,9 @@ export default function CoverBlockControls( {
 	currentSettings,
 	toggleUseFeaturedImage,
 	onClearMedia,
+	blockEditingMode,
 } ) {
 	const blockEditingMode = useBlockEditingMode();
-	const isDefaultEditingMode = blockEditingMode === 'default';
 	const { contentPosition, id, useFeaturedImage, minHeight, minHeightUnit } =
 		attributes;
 	const { hasInnerBlocks, url } = currentSettings;
@@ -42,6 +42,8 @@ export default function CoverBlockControls( {
 		minHeightUnit === 'vh' &&
 		minHeight === 100 &&
 		! attributes?.style?.dimensions?.aspectRatio;
+	const isContentOnlyMode = blockEditingMode === 'contentOnly';
+
 	const toggleMinFullHeight = () => {
 		if ( isMinFullHeight ) {
 			// If there aren't previous values, take the default ones.
@@ -78,7 +80,7 @@ export default function CoverBlockControls( {
 
 	return (
 		<>
-			{ isDefaultEditingMode && (
+			{ ! isContentOnlyMode && (
 				<BlockControls group="block">
 					<BlockAlignmentMatrixControl
 						label={ __( 'Change content position' ) }

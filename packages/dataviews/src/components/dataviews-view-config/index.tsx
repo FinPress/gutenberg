@@ -45,15 +45,11 @@ import { useInstanceId } from '@wordpress/compose';
  */
 import { SORTING_DIRECTIONS, sortIcons, sortLabels } from '../../constants';
 import { VIEW_LAYOUTS } from '../../dataviews-layouts';
-import type { NormalizedField, SupportedLayouts, View } from '../../types';
+import type { NormalizedField, View } from '../../types';
 import DataViewsContext from '../dataviews-context';
 import { unlock } from '../../lock-unlock';
 
 const { Menu } = unlock( componentsPrivateApis );
-
-interface ViewTypeMenuProps {
-	defaultLayouts?: SupportedLayouts;
-}
 
 const DATAVIEWS_CONFIG_POPOVER_PROPS = {
 	className: 'dataviews-config__popover',
@@ -61,10 +57,9 @@ const DATAVIEWS_CONFIG_POPOVER_PROPS = {
 	offset: 9,
 };
 
-function ViewTypeMenu( {
-	defaultLayouts = { list: {}, grid: {}, table: {} },
-}: ViewTypeMenuProps ) {
-	const { view, onChangeView } = useContext( DataViewsContext );
+export function ViewTypeMenu() {
+	const { view, onChangeView, defaultLayouts } =
+		useContext( DataViewsContext );
 	const availableLayouts = Object.keys( defaultLayouts );
 	if ( availableLayouts.length <= 1 ) {
 		return null;
@@ -218,9 +213,12 @@ function SortDirectionControl() {
 	);
 }
 
-const PAGE_SIZE_VALUES = [ 10, 20, 50, 100 ];
 function ItemsPerPageControl() {
-	const { view, onChangeView } = useContext( DataViewsContext );
+	const { view, perPageSizes, onChangeView } = useContext( DataViewsContext );
+	if ( perPageSizes.length < 2 || perPageSizes.length > 6 ) {
+		return null;
+	}
+
 	return (
 		<ToggleGroupControl
 			__nextHasNoMarginBottom
@@ -242,7 +240,7 @@ function ItemsPerPageControl() {
 				} );
 			} }
 		>
-			{ PAGE_SIZE_VALUES.map( ( value ) => {
+			{ perPageSizes.map( ( value ) => {
 				return (
 					<ToggleGroupControlOption
 						key={ value }
@@ -761,7 +759,7 @@ function SettingsSection( {
 	);
 }
 
-function DataviewsViewConfigDropdown() {
+export function DataviewsViewConfigDropdown() {
 	const { view } = useContext( DataViewsContext );
 	const popoverId = useInstanceId(
 		_DataViewsViewConfig,
@@ -815,14 +813,10 @@ function DataviewsViewConfigDropdown() {
 	);
 }
 
-function _DataViewsViewConfig( {
-	defaultLayouts = { list: {}, grid: {}, table: {} },
-}: {
-	defaultLayouts?: SupportedLayouts;
-} ) {
+function _DataViewsViewConfig() {
 	return (
 		<>
-			<ViewTypeMenu defaultLayouts={ defaultLayouts } />
+			<ViewTypeMenu />
 			<DataviewsViewConfigDropdown />
 		</>
 	);
