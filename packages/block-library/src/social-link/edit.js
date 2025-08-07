@@ -13,7 +13,6 @@ import {
 	InspectorControls,
 	URLPopover,
 	URLInput,
-	useBlockEditingMode,
 	useBlockProps,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
@@ -138,16 +137,18 @@ const SocialLinkEdit = ( {
 	// Use internal state instead of a ref to make sure that the component
 	// re-renders when the popover's anchor updates.
 	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
-	const isContentOnlyMode = useBlockEditingMode() === 'contentOnly';
 
-	const { activeVariation } = useSelect(
+	const { activeVariation, isContentOnlyMode } = useSelect(
 		( select ) => {
-			const { getActiveBlockVariation } = select( blocksStore );
+			const { getActiveBlockVariation, getBlockEditingMode } =
+				select( blocksStore );
 			return {
 				activeVariation: getActiveBlockVariation( name, attributes ),
+				isContentOnlyMode:
+					getBlockEditingMode( clientId ) === 'contentOnly',
 			};
 		},
-		[ name, attributes ]
+		[ name, attributes, clientId ]
 	);
 
 	const { icon, label: socialLinkName } = getSocialService( activeVariation );
