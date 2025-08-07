@@ -159,7 +159,6 @@ export function RichTextWrapper(
 			selectionEnd: isSelected ? selectionEnd.offset : undefined,
 			isSelected,
 			isWriteMode:
-				window?.__experimentalEditorWriteMode &&
 				isNavigationMode() &&
 				getBlockEditingMode( clientId ) === 'contentOnly',
 		};
