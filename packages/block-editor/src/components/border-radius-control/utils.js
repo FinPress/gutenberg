@@ -74,7 +74,8 @@ export function getAllValue( values = {} ) {
 		: '';
 	const unit = mode( allUnits );
 
-	const allValue = value === 0 || value ? `${ value }${ unit }` : undefined;
+	const allValue =
+		value === 0 || value ? `${ value }${ unit || '' }` : undefined;
 
 	return allValue;
 }
@@ -86,11 +87,26 @@ export function getAllValue( values = {} ) {
  * @return {boolean}      Whether values are mixed.
  */
 export function hasMixedValues( values = {} ) {
-	const allValue = getAllValue( values );
-	const isMixed =
-		typeof values === 'string' ? false : isNaN( parseFloat( allValue ) );
+	if ( typeof values === 'string' ) {
+		return false;
+	}
 
-	return isMixed;
+	if ( ! values || typeof values !== 'object' ) {
+		return false;
+	}
+
+	const cornerValues = Object.values( values );
+
+	if ( cornerValues.length === 0 ) {
+		return false;
+	}
+
+	const firstValue = cornerValues[ 0 ];
+
+	// Check if all values are exactly the same (including undefined)
+	const allSame = cornerValues.every( ( value ) => value === firstValue );
+
+	return ! allSame;
 }
 
 /**
@@ -246,4 +262,31 @@ export function getPresetValueFromCustomValue( value, presets ) {
 	}
 
 	return value;
+}
+
+/**
+ * Converts all preset values in a values object to their custom equivalents.
+ *
+ * @param {Object} values  Values object to convert
+ * @param {Array}  presets Array of current border radius preset objects
+ *
+ * @return {Object} Values with presets converted to custom values
+ */
+export function convertPresetsToCustomValues( values, presets ) {
+	if ( ! values || typeof values !== 'object' ) {
+		return values;
+	}
+
+	const converted = {};
+	Object.keys( values ).forEach( ( key ) => {
+		const value = values[ key ];
+		if ( isValuePreset( value ) ) {
+			const customValue = getCustomValueFromPreset( value, presets );
+			converted[ key ] = customValue !== undefined ? customValue : value;
+		} else {
+			converted[ key ] = value;
+		}
+	} );
+
+	return converted;
 }

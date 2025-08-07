@@ -32,6 +32,7 @@ import {
 	getPresetValueFromCustomValue,
 	getSliderValueFromPreset,
 	isValuePreset,
+	convertPresetsToCustomValues,
 } from './utils';
 
 const CORNERS = {
@@ -116,10 +117,16 @@ export default function SingleInputControl( {
 					bottomRight: valuesProp,
 			  };
 
-	const value = getPresetValueFromCustomValue(
-		corner === 'all' ? getAllValue( values ) : values[ corner ],
-		presets
-	);
+	// For 'all' corner, convert presets to custom values before calling getAllValue
+	// For individual corners, check if the value should be converted to a preset
+	let value;
+	if ( corner === 'all' ) {
+		const convertedValues = convertPresetsToCustomValues( values, presets );
+		const customValue = getAllValue( convertedValues );
+		value = getPresetValueFromCustomValue( customValue, presets );
+	} else {
+		value = getPresetValueFromCustomValue( values[ corner ], presets );
+	}
 	const resolvedPresetValue = isValuePreset( value )
 		? getCustomValueFromPreset( value, presets )
 		: value;
@@ -216,8 +223,6 @@ export default function SingleInputControl( {
 			{ hasPresets && showRangeControl && ! showCustomValueControl && (
 				<RangeControl
 					__next40pxDefaultSize
-					//onMouseOver={ onMouseOver }
-					//onMouseOut={ onMouseOut }
 					className="components-border-radius-control__range-control"
 					value={ presetIndex }
 					onChange={ ( newSize ) => {
@@ -229,13 +234,6 @@ export default function SingleInputControl( {
 							)
 						);
 					} }
-					/**onMouseDown={ ( event ) => {
-						// If mouse down is near start of range set initial value to 0, which
-						// prevents the user have to drag right then left to get 0 setting.
-						if ( event?.nativeEvent?.offsetX < 35 ) {
-							setInitialValue();
-						}
-					} }**/
 					withInputField={ false }
 					aria-valuenow={ presetIndex }
 					aria-valuetext={ presets[ presetIndex ]?.name }
@@ -246,8 +244,6 @@ export default function SingleInputControl( {
 					label={ CORNERS[ corner ] }
 					hideLabelFromVision
 					__nextHasNoMarginBottom
-					/*onFocus={ onMouseOver }
-					onBlur={ onMouseOut }*/
 				/>
 			) }
 
@@ -279,10 +275,6 @@ export default function SingleInputControl( {
 					label={ CORNERS[ corner ] }
 					hideLabelFromVision
 					size="__unstable-large"
-					/*onMouseOver={ onMouseOver }
-					onMouseOut={ onMouseOut }
-					onFocus={ onMouseOver }
-					onBlur={ onMouseOut }*/
 				/>
 			) }
 			{ hasPresets && (
