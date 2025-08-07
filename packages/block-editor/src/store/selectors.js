@@ -3051,24 +3051,20 @@ export const getBlockEditingMode = createRegistrySelector(
 
 			const isNavMode = isNavigationMode( state );
 
+			if ( isNavMode ) {
+				// If the editor *is* in navigation mode, the block editing mode states
+				// are stored in the derivedNavModeBlockEditingModes map.
+				return state.derivedNavModeBlockEditingModes?.has( clientId )
+					? state.derivedNavModeBlockEditingModes.get( clientId )
+					: 'contentOnly';
+			}
+
 			// If the editor is currently not in navigation mode, check if the clientId
 			// has an editing mode set in the regular derived map.
 			// There may be an editing mode set here for synced patterns or in zoomed out
 			// mode.
-			if (
-				! isNavMode &&
-				state.derivedBlockEditingModes?.has( clientId )
-			) {
+			if ( state.derivedBlockEditingModes?.has( clientId ) ) {
 				return state.derivedBlockEditingModes.get( clientId );
-			}
-
-			// If the editor *is* in navigation mode, the block editing mode states
-			// are stored in the derivedNavModeBlockEditingModes map.
-			if (
-				isNavMode &&
-				state.derivedNavModeBlockEditingModes?.has( clientId )
-			) {
-				return state.derivedNavModeBlockEditingModes.get( clientId );
 			}
 
 			// In normal mode, consider that an explicitly set editing mode takes over.
