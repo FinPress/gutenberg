@@ -479,7 +479,13 @@ export const InfiniteScroll = () => {
 	};
 
 	return (
-		<div style={ { height: '800px', overflow: 'auto' } }>
+		<>
+			<style>{ `
+			.dataviews-wrapper {
+				height: 600px;
+				overflow: auto;
+			}
+		` }</style>
 			<Text
 				style={ {
 					marginBottom: '16px',
@@ -509,6 +515,6 @@ export const InfiniteScroll = () => {
 					[ LAYOUT_TABLE ]: {},
 				} }
 			/>
-		</div>
+		</>
 	);
 };
