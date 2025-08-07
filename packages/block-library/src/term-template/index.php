@@ -170,7 +170,7 @@ function render_block_core_term_template_get_children( $parent_term_id, $block, 
  */
 function block_core_term_template_process_block_bindings( $inner_block, $term ) {
 	if ( isset( $inner_block->attributes['metadata']['bindings'] ) ) {
-		$bindings = $inner_block->attributes['metadata']['bindings'];
+		$bindings            = $inner_block->attributes['metadata']['bindings'];
 		$modified_attributes = $inner_block->attributes;
 
 		foreach ( $bindings as $attribute_name => $binding ) {
