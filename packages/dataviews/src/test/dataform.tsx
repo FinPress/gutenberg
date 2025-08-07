@@ -194,7 +194,10 @@ describe( 'DataForm component', () => {
 	describe( 'in panel mode', () => {
 		const formPanelMode = {
 			...form,
-			type: 'panel' as const,
+			layout: {
+				type: 'panel',
+				labelPosition: 'side',
+			} as const,
 		};
 		it( 'should display fields', async () => {
 			render(
