@@ -1089,7 +1089,11 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 
 		await page.keyboard.press( 'ArrowLeft' );
 		// Select everything between [].
-		await pageUtils.pressKeys( 'Shift+ArrowLeft', { times: 5 } );
+		// Delay ensures selection can catch up.
+		await pageUtils.pressKeys( 'Shift+ArrowLeft', {
+			times: 5,
+			delay: 50,
+		} );
 
 		await page.keyboard.press( 'Delete' );
 
@@ -1119,7 +1123,7 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 		// Delay ensures selection can catch up.
 		await pageUtils.pressKeys( 'Shift+ArrowLeft', {
 			times: 3,
-			delay: 100,
+			delay: 50,
 		} );
 
 		// Ensure selection is in the correct place.
