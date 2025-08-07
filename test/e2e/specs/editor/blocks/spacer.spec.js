@@ -13,7 +13,9 @@ test.describe( 'Spacer', () => {
 		await editor.canvas
 			.locator( 'role=button[name="Add default block"i]' )
 			.click();
-		await page.keyboard.type( '/spacer' );
+		await editor.canvas
+			.getByRole( 'document', { name: 'Empty block' } )
+			.pressSequentially( '/spacer' );
 		await page.keyboard.press( 'Enter' );
 
 		expect( await editor.getEditedPostContent() ).toMatchSnapshot();
@@ -27,7 +29,9 @@ test.describe( 'Spacer', () => {
 		await editor.canvas
 			.locator( 'role=button[name="Add default block"i]' )
 			.click();
-		await page.keyboard.type( '/spacer' );
+		await editor.canvas
+			.getByRole( 'document', { name: 'Empty block' } )
+			.pressSequentially( '/spacer' );
 		await page.keyboard.press( 'Enter' );
 
 		const resizableHandle = editor.canvas.locator(
