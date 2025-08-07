@@ -161,6 +161,7 @@ function Edit( {
 	}
 
 	function onRemoveFormat() {
+		//Rerun.
 		const newValue = removeFormat( value, name );
 
 		const updatedValue = {
