@@ -18,22 +18,49 @@ export default function CodeEdit( {
 	const ref = useRefEffect( ( element ) => {
 		function handleKeyDown( event ) {
 			if ( event.key === 'Tab' ) {
-				event.preventDefault();
-				event.stopPropagation();
-
 				const ownerDocument = element.ownerDocument;
 				const selection = ownerDocument.defaultView.getSelection();
+
 				if ( selection.rangeCount > 0 ) {
 					const range = selection.getRangeAt( 0 );
-					range.deleteContents();
-					const tabNode = ownerDocument.createTextNode( '\t' );
-					range.insertNode( tabNode );
-					range.setStartAfter( tabNode );
-					range.setEndAfter( tabNode );
-					selection.removeAllRanges();
-					selection.addRange( range );
+
+					if ( ! range.collapsed ) {
+						event.preventDefault();
+						event.stopPropagation();
+
+						const selectedText = getTextWithLineBreaks( range );
+
+						const modifiedText = selectedText
+							.split( '\n' )
+							.map( ( line ) =>
+								line.length > 0 ? '\t' + line : line
+							)
+							.join( '\n' );
+
+						range.deleteContents();
+						const textNode =
+							ownerDocument.createTextNode( modifiedText );
+						range.insertNode( textNode );
+
+						const newRange = ownerDocument.createRange();
+						newRange.selectNode( textNode );
+						selection.removeAllRanges();
+						selection.addRange( newRange );
+					}
 				}
 			}
+		}
+
+		function getTextWithLineBreaks( range ) {
+			const fragment = range.cloneContents();
+			const tempDiv = document.createElement( 'div' );
+			tempDiv.appendChild( fragment );
+
+			tempDiv.querySelectorAll( 'br, div, p, li' ).forEach( ( el ) => {
+				el.insertAdjacentText( 'beforebegin', '\n' );
+			} );
+
+			return tempDiv.textContent.replace( /\n$/, '' );
 		}
 
 		element.addEventListener( 'keydown', handleKeyDown, true );
