@@ -9,6 +9,8 @@ const browserslist = require( 'browserslist' );
 const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
 const { basename, dirname, relative, resolve, sep } = require( 'path' );
 const ReactRefreshWebpackPlugin = require( '@pmmmwh/react-refresh-webpack-plugin' );
+const RtlCssPlugin = require( 'rtlcss-webpack-plugin' );
+const CssMinimizerPlugin = require( 'css-minimizer-webpack-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const { realpathSync } = require( 'fs' );
 const { sync: glob } = require( 'fast-glob' );
@@ -24,7 +26,6 @@ const postcssPlugins = require( '@wordpress/postcss-plugins-preset' );
  * Internal dependencies
  */
 const PhpFilePathsPlugin = require( '../plugins/php-file-paths-plugin' );
-const RtlCssPlugin = require( '../plugins/rtlcss-webpack-plugin' );
 const {
 	fromConfigRoot,
 	hasBabelConfig,
@@ -75,25 +76,7 @@ const cssLoaders = [
 				postcssOptions: {
 					ident: 'postcss',
 					sourceMap: ! isProduction,
-					plugins: isProduction
-						? [
-								...postcssPlugins,
-								require( 'cssnano' )( {
-									// Provide a fallback configuration if there's not
-									// one explicitly available in the project.
-									...( ! hasCssnanoConfig() && {
-										preset: [
-											'default',
-											{
-												discardComments: {
-													removeAll: true,
-												},
-											},
-										],
-									} ),
-								} ),
-						  ]
-						: postcssPlugins,
+					plugins: postcssPlugins,
 				},
 			} ),
 		},
@@ -152,12 +135,30 @@ const baseConfig = {
 				},
 				extractComments: false,
 			} ),
+			...( isProduction
+				? [
+						new CssMinimizerPlugin( {
+							minimizerOptions: {
+								preset: hasCssnanoConfig()
+									? undefined
+									: [
+											'default',
+											{
+												discardComments: {
+													removeAll: true,
+												},
+											},
+									  ],
+							},
+						} ),
+				  ]
+				: [] ),
 		],
 	},
 	module: {
 		rules: [
 			{
-				test: /\.m?(j|t)sx?$/,
+				test: /\.m?([jt])sx?$/,
 				exclude: /node_modules/,
 				use: [
 					{
@@ -212,7 +213,7 @@ const baseConfig = {
 			},
 			{
 				test: /\.svg$/,
-				issuer: /\.(j|t)sx?$/,
+				issuer: /\.([jt])sx?$/,
 				use: [ '@svgr/webpack', 'url-loader' ],
 				type: 'javascript/auto',
 			},
@@ -256,7 +257,7 @@ if ( ! isProduction ) {
 // Add source-map-loader if devtool is set, whether in dev mode or not.
 if ( baseConfig.devtool ) {
 	baseConfig.module.rules.unshift( {
-		test: /\.(j|t)sx?$/,
+		test: /\.([jt])sx?$/,
 		exclude: [ /node_modules/ ],
 		use: require.resolve( 'source-map-loader' ),
 		enforce: 'pre',
@@ -336,7 +337,7 @@ const scriptConfig = {
 					noErrorOnMissing: true,
 					transform( content, absoluteFrom ) {
 						const convertExtension = ( path ) => {
-							return path.replace( /\.m?(j|t)sx?$/, '.js' );
+							return path.replace( /\.m?([jt])sx?$/, '.js' );
 						};
 
 						if ( basename( absoluteFrom ) === 'block.json' ) {
@@ -419,7 +420,12 @@ const scriptConfig = {
 			filename: '[name].css',
 		} ),
 		// RtlCssPlugin to generate RTL CSS files.
-		new RtlCssPlugin(),
+		new RtlCssPlugin( {
+			fileNameMap: {
+				'.css': '[name]-rtl.css',
+			},
+			sourceMap: ! isProduction,
+		} ),
 		// Generate blocks manifest after changes.
 		hasBlocksManifest && new BlocksManifestPlugin(),
 		// React Fast Refresh.
