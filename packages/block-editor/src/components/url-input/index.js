@@ -443,7 +443,7 @@ class URLInput extends Component {
 			label,
 			className: clsx( 'block-editor-url-input', className, {
 				'is-full-width': isFullWidth,
-				'has-spinner': showInitialSuggestions && handleURLSuggestions,
+				'has-spinner': showInitialSuggestions || handleURLSuggestions,
 			} ),
 			hideLabelFromVision,
 		};
