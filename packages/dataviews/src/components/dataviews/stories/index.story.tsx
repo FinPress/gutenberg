@@ -174,6 +174,39 @@ export const FieldsNoSortableNoHidable = () => {
 	);
 };
 
+export const FieldsNoSortableNoHidableNoMovable = () => {
+	const [ view, setView ] = useState< View >( {
+		...DEFAULT_VIEW,
+		fields: [ 'title', 'description', 'categories' ],
+		layout: {
+			enableMoving: false,
+		},
+	} );
+	const { data: shownData, paginationInfo } = useMemo( () => {
+		return filterSortAndPaginate( data, view, fields );
+	}, [ view ] );
+
+	const _fields = fields.map( ( field ) => ( {
+		...field,
+		enableSorting: false,
+		enableHiding: false,
+	} ) );
+
+	return (
+		<DataViews
+			getItemId={ ( item ) => item.id.toString() }
+			paginationInfo={ paginationInfo }
+			data={ shownData }
+			view={ view }
+			fields={ _fields }
+			onChangeView={ setView }
+			defaultLayouts={ {
+				table: {},
+			} }
+		/>
+	);
+};
+
 /**
  * Custom composition example
  */
