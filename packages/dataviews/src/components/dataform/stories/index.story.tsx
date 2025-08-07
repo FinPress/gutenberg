@@ -648,7 +648,7 @@ const CardLayoutComponent = () => {
 	);
 };
 
-export const CustomerProfile = {
+export const CardLayout = {
 	title: 'DataForm/Card Layout',
 	render: CardLayoutComponent,
 };
