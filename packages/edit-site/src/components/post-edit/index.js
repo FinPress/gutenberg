@@ -75,11 +75,15 @@ function PostEditForm( { postType, postId } ) {
 
 	const form = useMemo(
 		() => ( {
-			type: 'panel',
+			layout: {
+				type: 'panel',
+			},
 			fields: [
 				{
 					id: 'featured_media',
-					layout: 'regular',
+					layout: {
+						type: 'regular',
+					},
 				},
 				{
 					id: 'status',
@@ -95,7 +99,9 @@ function PostEditForm( { postType, postId } ) {
 					label: __( 'Template' ),
 					labelPosition: 'side',
 					id: 'template',
-					layout: 'regular',
+					layout: {
+						type: 'regular',
+					},
 				},
 			].filter(
 				( field ) =>
