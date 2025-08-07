@@ -20,17 +20,11 @@ import { isCombinedField } from '../is-combined-field';
 import type { CardLayout } from '../../layout-types';
 
 const getFormLayout = ( form: Form, field: FormField ) => {
-	if ( field.layout?.type ) {
-		// Never return card layout to avoid nesting
-		const layoutType =
-			field.layout.type === 'card' ? 'regular' : field.layout.type;
-		return getFormFieldLayout( layoutType )?.component;
-	}
+	const layout = field.layout ?? form.layout;
 
-	if ( form.layout?.type ) {
+	if ( layout?.type ) {
 		// Never return card layout to avoid nesting
-		const layoutType =
-			form.layout.type === 'card' ? 'regular' : form.layout.type;
+		const layoutType = layout.type === 'card' ? 'regular' : layout.type;
 		return getFormFieldLayout( layoutType )?.component;
 	}
 

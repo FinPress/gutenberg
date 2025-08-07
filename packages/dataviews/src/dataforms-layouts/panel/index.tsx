@@ -221,7 +221,7 @@ export default function FormPanelField< Item >( {
 		labelPosition: 'side',
 	};
 
-	const labelPosition = layout.labelPosition;
+	const labelPosition = layout.labelPosition ?? 'top';
 	const labelClassName = clsx(
 		'dataforms-layouts-panel__field-label',
 		`dataforms-layouts-panel__field-label--label-position-${ labelPosition }`
