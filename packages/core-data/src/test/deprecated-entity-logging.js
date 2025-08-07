@@ -10,6 +10,7 @@ import { createRegistry } from '@wordpress/data';
 import { store as coreDataStore } from '../index';
 
 jest.mock( '@wordpress/deprecated' );
+jest.mock( '@wordpress/api-fetch' );
 
 // Use fake timers within this file.
 // logEntityDeprecation() uses setTimeout() to avoid spurious logging, so fake timers are used to
