@@ -158,21 +158,19 @@ export function RichTextWrapper(
 			selectionStart: isSelected ? selectionStart.offset : undefined,
 			selectionEnd: isSelected ? selectionEnd.offset : undefined,
 			isSelected,
-			isWriteMode:
+			isContentOnlyWriteMode:
 				isNavigationMode() &&
 				getBlockEditingMode( clientId ) === 'contentOnly',
 		};
 	};
-	const { selectionStart, selectionEnd, isSelected, isWriteMode } = useSelect(
-		selector,
-		[
+	const { selectionStart, selectionEnd, isSelected, isContentOnlyWriteMode } =
+		useSelect( selector, [
 			clientId,
 			identifier,
 			instanceId,
 			originalIsSelected,
 			isBlockSelected,
-		]
-	);
+		] );
 
 	const { disableBoundBlock, bindingsPlaceholder, bindingsLabel } = useSelect(
 		( select ) => {
@@ -335,7 +333,7 @@ export function RichTextWrapper(
 		identifier,
 		allowedFormats: adjustedAllowedFormats,
 		withoutInteractiveFormatting,
-		disableNoneEssentialFormatting: isWriteMode,
+		disableNoneEssentialFormatting: isContentOnlyWriteMode,
 	} );
 
 	function addEditorOnlyFormats( value ) {
