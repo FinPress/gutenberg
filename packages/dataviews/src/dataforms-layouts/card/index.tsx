@@ -5,18 +5,19 @@
 /**
  * WordPress dependencies
  */
-import { useContext, useMemo, useState, useCallback } from '@wordpress/element';
-import { Card, CardHeader, CardBody, Button } from '@wordpress/components';
+import { Button, Card, CardBody, CardHeader } from '@wordpress/components';
+import { useCallback, useContext, useMemo, useState } from '@wordpress/element';
 import { chevronDown, chevronUp } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
-import type { Form, FieldLayoutProps, CardFieldConfig } from '../../types';
+import { getFormFieldLayout } from '..';
 import DataFormContext from '../../components/dataform-context';
+import type { FieldLayoutProps, Form } from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
-import { getFormFieldLayout } from '..';
+import type { CardLayout } from '../../layout-types';
 
 export function useCollapsibleCard( initialIsOpen: boolean = true ) {
 	const [ isOpen, setIsOpen ] = useState( initialIsOpen );
@@ -68,12 +69,17 @@ export function useCollapsibleCard( initialIsOpen: boolean = true ) {
 
 export default function FormCardField< Item >( {
 	data,
-	customStyle: customStyleProp,
 	field,
 	onChange,
 	hideLabelFromVision,
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
+
+	const layout: CardLayout = ( field.layout as CardLayout ) ?? {
+		type: 'card',
+		labelPosition: 'top',
+		opened: true,
+	};
 
 	const form = useMemo( () => {
 		if ( isCombinedField( field ) ) {
@@ -82,7 +88,10 @@ export default function FormCardField< Item >( {
 					if ( typeof child === 'string' ) {
 						return {
 							id: child,
-							customStyle: customStyleProp,
+							layout: {
+								type: 'regular',
+								labelPosition: 'top',
+							},
 						};
 					}
 					return child;
@@ -92,24 +101,21 @@ export default function FormCardField< Item >( {
 		}
 
 		return {
-			customStyle: customStyleProp,
-			type: 'regular' as const,
+			layout: {
+				type: 'regular',
+				labelPosition: 'top',
+			},
 			fields: [],
 		};
-	}, [ customStyleProp, field ] );
-
-	const customStyle =
-		( field.customStyle as CardFieldConfig ) ??
-		( customStyleProp as CardFieldConfig );
+	}, [ field ] );
 
 	const { isOpen, CollapsibleCardHeader } = useCollapsibleCard(
-		customStyle?.opened ?? true
+		layout.opened ?? true
 	);
 
 	if ( isCombinedField( field ) ) {
-		const Layout = getFormFieldLayout(
-			customStyle?.innerLayout ?? 'regular'
-		)?.component;
+		const Layout = getFormFieldLayout( field.layout?.type ?? 'regular' )
+			?.component;
 
 		if ( ! Layout ) {
 			return null;
@@ -134,9 +140,10 @@ export default function FormCardField< Item >( {
 									field={ {
 										...nestedField,
 										// Apply inner label position for nested fields
-										labelPosition:
-											customStyle?.innerLabelPosition ??
-											customStyle?.labelPosition,
+										layout: {
+											type: 'regular',
+											labelPosition: 'top',
+										},
 									} }
 									onChange={ onChange }
 									hideLabelFromVision={ hideLabelFromVision }
@@ -159,7 +166,7 @@ export default function FormCardField< Item >( {
 
 	const cardTitle = fieldDefinition.label;
 
-	const Layout = getFormFieldLayout( customStyle?.innerLayout ?? 'regular' )
+	const Layout = getFormFieldLayout( field.layout?.type ?? 'regular' )
 		?.component;
 
 	if ( ! Layout ) {
@@ -168,7 +175,7 @@ export default function FormCardField< Item >( {
 
 	return (
 		<Card className="dataforms-layouts-card__field">
-			{ cardTitle && customStyle?.labelPosition !== 'none' && (
+			{ cardTitle && layout.labelPosition !== 'none' && (
 				<CollapsibleCardHeader className="dataforms-layouts-card__field-label">
 					{ cardTitle }
 				</CollapsibleCardHeader>
@@ -186,9 +193,10 @@ export default function FormCardField< Item >( {
 							field={ {
 								...field,
 								// The label position for inner layouts is always none
-								labelPosition:
-									customStyle?.innerLabelPosition ??
-									customStyle?.labelPosition,
+								layout: {
+									type: 'regular',
+									labelPosition: 'top',
+								},
 							} }
 							onChange={ onChange }
 							hideLabelFromVision={ hideLabelFromVision }

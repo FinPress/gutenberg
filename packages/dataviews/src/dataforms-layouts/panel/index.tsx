@@ -31,6 +31,7 @@ import type {
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
+import type { PanelLayout } from '../../layout-types';
 
 function DropdownHeader( {
 	title,
@@ -85,7 +86,9 @@ function PanelDropdown< Item >( {
 	const form = useMemo( () => {
 		if ( isCombinedField( field ) ) {
 			return {
-				type: 'regular' as const,
+				layout: {
+					type: 'regular',
+				},
 				fields: field.children.map( ( child ) => {
 					if ( typeof child === 'string' ) {
 						return {
@@ -98,7 +101,9 @@ function PanelDropdown< Item >( {
 		}
 		// If not explicit children return the field id itself.
 		return {
-			type: 'regular' as const,
+			layout: {
+				type: 'regular',
+			},
 			fields: [ { id: field.id } ],
 		};
 	}, [ field ] );
@@ -209,7 +214,12 @@ export default function FormPanelField< Item >( {
 		return null;
 	}
 
-	const labelPosition = field.labelPosition ?? 'side';
+	const layout: PanelLayout = ( field.layout as PanelLayout ) ?? {
+		type: 'panel',
+		labelPosition: 'side',
+	};
+
+	const labelPosition = layout.labelPosition;
 	const labelClassName = clsx(
 		'dataforms-layouts-panel__field-label',
 		`dataforms-layouts-panel__field-label--label-position-${ labelPosition }`

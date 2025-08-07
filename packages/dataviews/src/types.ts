@@ -17,6 +17,7 @@ import type { SetSelection } from './private-types';
  * WordPress dependencies
  */
 import type { useFocusOnMount } from '@wordpress/compose';
+import type { Layout } from './layout-types';
 
 export type SortDirection = 'asc' | 'desc';
 
@@ -103,8 +104,7 @@ export type FieldType =
 	| 'media'
 	| 'boolean'
 	| 'email'
-	| 'array'
-	| 'select';
+	| 'array';
 
 /**
  * An abstract interface for Field based on the field type.
@@ -662,101 +662,27 @@ export interface SupportedLayouts {
 	table?: Omit< ViewTable, 'type' >;
 }
 
-// Core types
-export type LabelPosition = 'side' | 'top' | 'none';
-export type FormLayoutType = 'regular' | 'panel' | 'card';
-
-// Field configuration types with discriminated unions
-export type RegularFieldConfig = {
-	labelPosition?: LabelPosition;
-};
-
-export type PanelFieldConfig = {
-	labelPosition?: LabelPosition;
-};
-
-export type CardFieldConfig = {
-	opened?: boolean;
-	innerLayout?: 'regular' | 'panel';
-	innerLabelPosition?: LabelPosition;
-	labelPosition?: 'top' | 'none'; // Restricted for cards
-};
-
-// Base form field
-interface BaseFormField {
+export type SimpleFormField = {
 	id: string;
-	labelPosition?: LabelPosition;
-}
+	layout?: Layout;
+};
 
-// Discriminated union for simple form fields
-export type SimpleFormField = BaseFormField &
-	(
-		| {
-				layout: 'regular';
-				customStyle?: RegularFieldConfig;
-		  }
-		| {
-				layout: 'panel';
-				customStyle?: PanelFieldConfig;
-		  }
-		| {
-				layout: 'card';
-				customStyle?: CardFieldConfig;
-		  }
-	);
-
-// Discriminated union for combined form fields
-export type CombinedFormField = BaseFormField & {
+export type CombinedFormField = {
+	id: string;
 	label?: string;
+	layout?: Layout;
 	children: Array< FormField | string >;
-} & (
-		| {
-				layout: 'regular';
-				customStyle?: RegularFieldConfig;
-		  }
-		| {
-				layout: 'panel';
-				customStyle?: PanelFieldConfig;
-		  }
-		| {
-				layout: 'card';
-				customStyle?: CardFieldConfig;
-		  }
-		| {
-				// Default/no layout specified
-				layout?: never;
-				customStyle?: never;
-		  }
-	);
+};
 
 export type FormField = SimpleFormField | CombinedFormField;
 
-// Form configuration with discriminated unions
-interface BaseFormConfig {
-	labelPosition?: LabelPosition;
+/**
+ * The form configuration.
+ */
+export type Form = {
+	layout?: Layout;
 	fields?: Array< FormField | string >;
-}
-
-export type Form = BaseFormConfig &
-	(
-		| {
-				type: 'regular';
-				customStyle?: RegularFieldConfig;
-		  }
-		| {
-				type: 'panel';
-				customStyle?: PanelFieldConfig;
-		  }
-		| {
-				type: 'card';
-				customStyle?: CardFieldConfig;
-		  }
-		| {
-				// Default form type
-				type?: never;
-				customStyle?: never;
-		  }
-	);
+};
 
 export interface DataFormProps< Item > {
 	data: Item;
@@ -770,5 +696,4 @@ export interface FieldLayoutProps< Item > {
 	field: FormField;
 	onChange: ( value: any ) => void;
 	hideLabelFromVision?: boolean;
-	customStyle?: RegularFieldConfig | PanelFieldConfig | CardFieldConfig;
 }
