@@ -17,8 +17,8 @@ export default function normalizeFormFields(
 		type: 'regular',
 		labelPosition: 'top',
 	};
-	if ( [ 'regular', 'panel' ].includes( formLayout.type ?? '' ) ) {
-		layout = formLayout.type as 'regular' | 'panel';
+	if ( [ 'regular', 'panel', 'card' ].includes( formLayout.type ?? '' ) ) {
+		layout = formLayout.type as 'regular' | 'panel' | 'card';
 	}
 
 	const labelPosition =

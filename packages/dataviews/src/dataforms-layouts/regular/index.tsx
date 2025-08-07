@@ -51,6 +51,10 @@ export default function FormRegularField< Item >( {
 					if ( typeof child === 'string' ) {
 						return {
 							id: child,
+							layout: {
+								type: 'regular',
+								labelPosition: 'none',
+							},
 						};
 					}
 					return child;

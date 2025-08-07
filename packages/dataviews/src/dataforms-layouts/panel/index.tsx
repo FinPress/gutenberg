@@ -88,6 +88,7 @@ function PanelDropdown< Item >( {
 			return {
 				layout: {
 					type: 'regular',
+					labelPosition: 'none',
 				},
 				fields: field.children.map( ( child ) => {
 					if ( typeof child === 'string' ) {
@@ -103,6 +104,7 @@ function PanelDropdown< Item >( {
 		return {
 			layout: {
 				type: 'regular',
+				labelPosition: 'none',
 			},
 			fields: [ { id: field.id } ],
 		};
