@@ -5,6 +5,11 @@ import { useMemo } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as richTextStore } from '@wordpress/rich-text';
 
+/**
+ * Internal dependencies
+ */
+import { essentialFormatKey } from '../../store/private-keys';
+
 function formatTypesSelector( select ) {
 	return select( richTextStore ).getFormatTypes();
 }
@@ -73,12 +78,17 @@ export function useFormatTypes( {
 	const allFormatTypes = useSelect( formatTypesSelector, [] );
 	const formatTypes = useMemo( () => {
 		return allFormatTypes.filter(
-			( { name, interactive, tagName, __unstableEssential } ) => {
+			( {
+				name,
+				interactive,
+				tagName,
+				[ essentialFormatKey ]: isEssential,
+			} ) => {
 				if ( allowedFormats && ! allowedFormats.includes( name ) ) {
 					return false;
 				}
 
-				if ( disableNoneEssentialFormatting && ! __unstableEssential ) {
+				if ( disableNoneEssentialFormatting && ! isEssential ) {
 					return false;
 				}
 
