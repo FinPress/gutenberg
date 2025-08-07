@@ -7,11 +7,11 @@ import { useContext, useMemo } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import DataFormContext from '../components/dataform-context';
-import normalizeFormFields from '../normalize-form-fields';
 import type { Form, FormField, SimpleFormField } from '../types';
 import { getFormFieldLayout } from './index';
+import DataFormContext from '../components/dataform-context';
 import { isCombinedField } from './is-combined-field';
+import normalizeFormFields from '../normalize-form-fields';
 
 export function DataFormLayout< Item >( {
 	data,
@@ -48,9 +48,9 @@ export function DataFormLayout< Item >( {
 	);
 
 	return (
-		<VStack spacing={ form?.type === 'panel' ? 2 : 4 }>
+		<VStack spacing={ form.layout?.type === 'panel' ? 2 : 4 }>
 			{ normalizedFormFields.map( ( formField ) => {
-				const FieldLayout = getFormFieldLayout( formField.layout )
+				const FieldLayout = getFormFieldLayout( formField.layout.type )
 					?.component;
 
 				if ( ! FieldLayout ) {
@@ -69,19 +69,12 @@ export function DataFormLayout< Item >( {
 					return null;
 				}
 
-				const customStyle = formField.customStyle ?? form.customStyle;
-
 				if ( children ) {
-					// @ts-expect-error
-					return children( FieldLayout, {
-						...formField,
-						customStyle,
-					} );
+					return children( FieldLayout, formField );
 				}
 
 				return (
 					<FieldLayout
-						customStyle={ formField.customStyle }
 						key={ formField.id }
 						data={ data }
 						field={ formField }

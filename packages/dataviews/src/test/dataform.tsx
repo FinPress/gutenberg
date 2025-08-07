@@ -149,7 +149,10 @@ describe( 'DataForm component', () => {
 				<Dataform
 					onChange={ noop }
 					fields={ fields }
-					form={ { ...form, labelPosition: 'side' } }
+					form={ {
+						...form,
+						layout: { type: 'regular', labelPosition: 'side' },
+					} }
 					data={ data }
 				/>
 			);
@@ -243,7 +246,10 @@ describe( 'DataForm component', () => {
 				<Dataform
 					onChange={ noop }
 					fields={ fields }
-					form={ { ...formPanelMode, labelPosition: 'side' } }
+					form={ {
+						...formPanelMode,
+						layout: { type: 'panel', labelPosition: 'side' },
+					} }
 					data={ data }
 				/>
 			);

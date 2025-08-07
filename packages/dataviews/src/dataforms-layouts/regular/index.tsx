@@ -21,6 +21,7 @@ import type { Form, FieldLayoutProps } from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
+import type { RegularLayout } from '../../layout-types';
 
 function Header( { title }: { title: string } ) {
 	return (
@@ -54,12 +55,18 @@ export default function FormRegularField< Item >( {
 					}
 					return child;
 				} ),
-				type: 'regular' as const,
+				layout: {
+					type: 'regular',
+					labelPosition: 'top',
+				},
 			};
 		}
 
 		return {
-			type: 'regular' as const,
+			layout: {
+				type: 'regular',
+				labelPosition: 'top',
+			},
 			fields: [],
 		};
 	}, [ field ] );
@@ -79,7 +86,12 @@ export default function FormRegularField< Item >( {
 		);
 	}
 
-	const labelPosition = field.labelPosition ?? 'top';
+	const layout: RegularLayout = ( field.layout as RegularLayout ) ?? {
+		type: 'regular',
+		labelPosition: 'top',
+	};
+
+	const labelPosition = layout.labelPosition;
 	const fieldDefinition = fields.find(
 		( fieldDef ) => fieldDef.id === field.id
 	);

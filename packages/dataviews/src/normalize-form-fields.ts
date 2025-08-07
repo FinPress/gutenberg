@@ -1,78 +1,50 @@
 /**
  * Internal dependencies
  */
-import type {
-	CardFieldConfig,
-	Form,
-	FormField,
-	PanelFieldConfig,
-	RegularFieldConfig,
-} from './types';
+import type { Layout, LayoutType } from './layout-types';
+import type { Form } from './types';
 
-// Update NormalizedFormField to match the discriminated union structure
-export type NormalizedFormField = {
+interface NormalizedFormField {
 	id: string;
-	labelPosition?: 'side' | 'top' | 'none';
-} & (
-	| {
-			layout: 'regular';
-			customStyle?: RegularFieldConfig;
-	  }
-	| {
-			layout: 'panel';
-			customStyle?: PanelFieldConfig;
-	  }
-	| {
-			layout: 'card';
-			customStyle?: CardFieldConfig;
-	  }
-);
+	layout: Layout;
+}
 
-// For combined fields, we need to preserve the children
-export type NormalizedCombinedFormField = NormalizedFormField & {
-	label?: string;
-	children: Array< FormField | string >;
-};
-
-export type NormalizedField = NormalizedFormField | NormalizedCombinedFormField;
-
-export default function normalizeFormFields( form: Form ): NormalizedField[] {
-	let layout: 'regular' | 'panel' | 'card' = 'regular';
-	if ( [ 'regular', 'panel', 'card' ].includes( form.type ?? '' ) ) {
-		layout = form.type as 'regular' | 'panel' | 'card';
+export default function normalizeFormFields(
+	form: Form
+): NormalizedFormField[] {
+	let layout: LayoutType = 'regular';
+	const formLayout = ( form.layout as Layout ) ?? {
+		type: 'regular',
+		labelPosition: 'top',
+	};
+	if ( [ 'regular', 'panel' ].includes( formLayout.type ?? '' ) ) {
+		layout = formLayout.type as 'regular' | 'panel';
 	}
 
 	const labelPosition =
-		form.labelPosition ?? ( layout === 'regular' ? 'top' : 'side' );
+		formLayout.labelPosition ?? ( layout === 'regular' ? 'top' : 'side' );
 
-	return ( form.fields ?? [] ).map( ( field ): NormalizedField => {
+	return ( form.fields ?? [] ).map( ( field ) => {
 		if ( typeof field === 'string' ) {
 			return {
-				customStyle: form.customStyle,
 				id: field,
-				layout,
-				labelPosition,
-			} as NormalizedFormField;
+				layout: {
+					type: layout,
+					labelPosition,
+				} as Layout,
+			};
 		}
 
-		const fieldLayout = field.layout ?? layout;
+		const fieldLayout = ( field.layout as Layout ) ?? formLayout;
 		const fieldLabelPosition =
-			field.labelPosition ??
+			fieldLayout.labelPosition ??
 			( fieldLayout === 'regular' ? 'top' : 'side' );
-
-		// If it's a combined field, preserve the children
-		if ( 'children' in field ) {
-			return {
-				...field,
-				layout: fieldLayout,
-				labelPosition: fieldLabelPosition,
-			} as NormalizedCombinedFormField;
-		}
-
 		return {
 			...field,
-			layout: fieldLayout,
-			labelPosition: fieldLabelPosition,
-		} as NormalizedFormField;
+			layout: {
+				type: fieldLayout.type,
+				labelPosition: fieldLabelPosition,
+			} as Layout,
+		};
 	} );
 }

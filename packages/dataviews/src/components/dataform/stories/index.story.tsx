@@ -185,8 +185,10 @@ export const Default = ( {
 
 	const form = useMemo(
 		() => ( {
-			type,
-			labelPosition,
+			layout: {
+				type,
+				labelPosition,
+			},
 			fields: [
 				'title',
 				'order',
@@ -244,8 +246,10 @@ const CombinedFieldsComponent = ( {
 
 	const form = useMemo(
 		() => ( {
-			type,
-			labelPosition,
+			layout: {
+				type,
+				labelPosition,
+			},
 			fields: [
 				'title',
 				{
@@ -536,11 +540,7 @@ const CardLayoutComponent = ( {
 				{
 					id: 'order',
 					label: 'Order',
-					customStyle: {
-						innerLayout: 'panel' as const,
-						innerLabelPosition: 'side' as const,
-						labelPosition: 'none' as const,
-					},
+					layout: 'regular' as const,
 				},
 				{
 					id: 'publishing',
