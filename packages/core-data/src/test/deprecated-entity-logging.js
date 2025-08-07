@@ -93,175 +93,169 @@ function createTestRegistry() {
 		.dispatch( coreDataStore )
 		.receiveEntityRecords( 'root', 'media', mediaRecord );
 
-	// The call to receiveEntityRecords will log a deprecation warning,
-	// run all timers to flush timeouts and ensure that the warnings from the tests are logged.
 	jest.runAllTimers();
 
 	return registry;
 }
 
-describe( 'Deprecated entity logging - selectors', () => {
+describe( 'Deprecated entity logging', () => {
 	describe.each( [
 		{
+			type: 'selector',
 			name: 'getEntityConfig',
 			args: [ 'root', 'media' ],
 		},
 		{
+			type: 'selector',
 			name: 'getEntityRecord',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'getRawEntityRecord',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'hasEntityRecords',
 			args: [ 'root', 'media' ],
 		},
 		{
+			type: 'selector',
 			name: 'getEntityRecords',
 			args: [ 'root', 'media' ],
 		},
 		{
+			type: 'selector',
 			name: 'getEntityRecordsTotalItems',
 			args: [ 'root', 'media', { _fields: 'title' } ],
 		},
 		{
+			type: 'selector',
 			name: 'getEntityRecordsTotalPages',
 			args: [ 'root', 'media', { _fields: 'title' } ],
 		},
 		{
+			type: 'selector',
 			name: 'getEntityRecordEdits',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'getEntityRecordNonTransientEdits',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'hasEditsForEntityRecord',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'getEditedEntityRecord',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'isAutosavingEntityRecord',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'isSavingEntityRecord',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'isDeletingEntityRecord',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'getLastEntitySaveError',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'getLastEntityDeleteError',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'canUser',
 			args: [ 'create', { kind: 'root', name: 'media' }, '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'getRevisions',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'selector',
 			name: 'getRevision',
 			args: [ 'root', 'media', '123', '10' ],
 		},
 		{
+			type: 'selector',
 			name: 'getMedia',
 			args: [ '123' ],
 			isShorthandSelector: true,
 			alternativeFunction: 'getEntityRecord',
 		},
 		{
+			type: 'selector',
 			name: 'getMediaItems',
 			args: [],
 			isShorthandSelector: true,
 			alternativeFunction: 'getEntityRecords',
 		},
-	] )(
-		'$name',
-		( { name, args, alternativeFunction, isShorthandSelector } ) => {
-			beforeEach( () => {
-				deprecated.mockReset();
-			} );
-
-			it( 'logs a deprecation warning when used with deprecated entities', () => {
-				// Create a test registry with the actual store
-				const registry = createTestRegistry();
-
-				// Dispatch the action.
-				registry.select( coreDataStore )[ name ]( ...args );
-
-				const [ expectedMessage, expectedOptions ] =
-					getExpectedDeprecationArgs(
-						name,
-						args,
-						isShorthandSelector,
-						alternativeFunction
-					);
-
-				expect( deprecated ).toHaveBeenCalledWith(
-					expectedMessage,
-					expectedOptions
-				);
-			} );
-		}
-	);
-} );
-
-describe( 'Deprecated entity logging - actions', () => {
-	describe.each( [
 		{
+			type: 'action',
 			name: 'deleteEntityRecord',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'action',
 			name: 'editEntityRecord',
 			args: [ 'root', 'media', '123', { title: 'Media' } ],
 		},
 		{
+			type: 'action',
 			name: 'saveEntityRecord',
 			args: [ 'root', 'media', { title: 'Media' } ],
 		},
 		{
+			type: 'action',
 			name: 'saveEditedEntityRecord',
 			args: [ 'root', 'media', '123' ],
 		},
 		{
+			type: 'action',
 			name: '__experimentalSaveSpecifiedEntityEdits',
 			args: [ 'root', 'media', '123', [ 'title' ] ],
 		},
 		{
+			type: 'action',
 			name: 'receiveRevisions',
 			args: [ 'root', 'media', '123', [ 'title' ] ],
 		},
 		{
+			type: 'action',
 			name: 'saveMedia',
 			args: [ { title: 'Media' } ],
 			alternativeFunction: 'saveEntityRecord',
 			isShorthandSelector: true,
 		},
 		{
+			type: 'action',
 			name: 'deleteMedia',
 			args: [ '123' ],
 			alternativeFunction: 'deleteEntityRecord',
 			isShorthandSelector: true,
 		},
 	] )(
-		'$name',
-		( { name, args, alternativeFunction, isShorthandSelector } ) => {
+		'$name $type',
+		( { type, name, args, alternativeFunction, isShorthandSelector } ) => {
 			beforeEach( () => {
 				deprecated.mockReset();
 			} );
@@ -270,8 +264,13 @@ describe( 'Deprecated entity logging - actions', () => {
 				// Create a test registry with the actual store
 				const registry = createTestRegistry();
 
-				// Dispatch the action.
-				registry.dispatch( coreDataStore )[ name ]( ...args );
+				if ( type === 'selector' ) {
+					// Dispatch the action.
+					registry.select( coreDataStore )[ name ]( ...args );
+				} else {
+					// Dispatch the action.
+					registry.dispatch( coreDataStore )[ name ]( ...args );
+				}
 
 				const [ expectedMessage, expectedOptions ] =
 					getExpectedDeprecationArgs(
