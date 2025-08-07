@@ -13,7 +13,7 @@ export default function normalizeFormFields(
 	form: Form
 ): NormalizedFormField[] {
 	let layout: LayoutType = 'regular';
-	const formLayout = ( form.layout as Layout ) ?? {
+	const formLayout = form.layout ?? {
 		type: 'regular',
 		labelPosition: 'top',
 	};
@@ -35,7 +35,7 @@ export default function normalizeFormFields(
 			};
 		}
 
-		const fieldLayout = ( field.layout as Layout ) ?? formLayout;
+		const fieldLayout = field.layout ?? formLayout;
 		const fieldLabelPosition =
 			fieldLayout.labelPosition ??
 			( fieldLayout.type === 'regular' ? 'top' : 'side' );
