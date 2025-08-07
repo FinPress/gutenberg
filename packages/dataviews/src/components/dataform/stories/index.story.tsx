@@ -510,174 +510,66 @@ export const Visibility = {
 	render: DataFormVisibilityComponent,
 };
 
-const CardLayoutComponent = ( {
-	labelPosition,
-}: {
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
-	const [ post, setPost ] = useState< SamplePost >( {
-		title: 'Hello, World!',
-		order: 2,
-		author: 1,
-		status: 'draft',
-		reviewer: 'fulano',
-		date: '2021-01-01T12:00:00',
-		birthdate: '1950-02-23T12:00:00',
-		filesize: 1024,
-		dimensions: '1920x1080',
-	} );
-
-	const form = useMemo(
-		() => ( {
-			layout: {
-				type: 'card' as const,
-				labelPosition:
-					labelPosition === 'default'
-						? 'top'
-						: ( labelPosition as 'top' | 'none' ),
-				opened: true,
-			},
-			fields: [
-				'title',
-				{
-					id: 'order',
-					label: 'Order',
-					children: [ { id: 'order', layout: { type: 'panel' } } ], // Card -> Panel
-				},
-				// {
-				// 	id: 'publishing',
-				// 	label: 'Publishing Settings',
-				// 	children: [ 'status', 'password' ],
-				// 	layout: 'card' as const,
-				// 	customStyle: {
-				// 		opened: false,
-				// 		innerLayout: 'panel' as const,
-				// 	},
-				// },
-				// {
-				// 	id: 'author-info',
-				// 	label: 'Author Information',
-				// 	children: [ 'author', 'reviewer', 'email' ],
-				// },
-				// {
-				// 	id: 'dates',
-				// 	label: 'Date Settings',
-				// 	children: [ 'date', 'birthdate' ],
-				// },
-				// {
-				// 	id: 'metadata',
-				// 	label: 'File Metadata',
-				// 	children: [ 'filesize', 'dimensions' ],
-				// },
-			],
-		} ),
-		[ labelPosition ]
-	);
-
-	return (
-		<DataForm< SamplePost >
-			data={ post }
-			fields={ fields }
-			form={ form }
-			onChange={ ( edits ) =>
-				setPost( ( prev ) => ( {
-					...prev,
-					...edits,
-				} ) )
-			}
-		/>
-	);
-};
-
-export const CardLayout = {
-	title: 'DataForm/Customer Layout',
-	render: CardLayoutComponent,
-	argTypes: {
-		labelPosition: {
-			control: { type: 'select' },
-			description: 'Chooses the label position of the layout.',
-			options: [ 'default', 'top', 'side', 'none' ],
+const CardLayoutComponent = () => {
+	// Customer fields definition
+	const customerFields = [
+		{
+			id: 'name',
+			label: 'Customer Name',
+			type: 'text' as const,
 		},
-	},
-	args: {
-		labelPosition: 'default',
-	},
-};
+		{
+			id: 'customerType',
+			label: 'Type',
+			type: 'text' as const,
+			Edit: 'toggleGroup' as const,
+			elements: [
+				{ value: 'Customer', label: 'Customer' },
+				{ value: 'Business', label: 'Business' },
+				{ value: 'VIP', label: 'VIP' },
+			],
+		},
+		{
+			id: 'email',
+			label: 'Email',
+			type: 'email' as const,
+		},
+		{
+			id: 'phone',
+			label: 'Phone',
+			type: 'text' as const,
+		},
+		{
+			id: 'shippingAddress',
+			label: 'Shipping Address',
+			type: 'text' as const,
+		},
+		{
+			id: 'billingAddress',
+			label: 'Billing Address',
+			type: 'text' as const,
+		},
+		{
+			id: 'totalOrders',
+			label: 'Total Orders',
+			type: 'integer' as const,
+			readOnly: true,
+		},
+		{
+			id: 'totalRevenue',
+			label: 'Total Revenue',
+			type: 'integer' as const,
+			readOnly: true,
+		},
+		{
+			id: 'averageOrderValue',
+			label: 'Average Order Value',
+			type: 'integer' as const,
+			readOnly: true,
+		},
+	];
 
-// Customer data type
-type Customer = {
-	name: string;
-	customerType: string;
-	email: string;
-	phone: string;
-	shippingAddress: string;
-	billingAddress: string;
-	totalOrders: number;
-	totalRevenue: number;
-	averageOrderValue: number;
-	avatar?: string;
-};
-
-// Customer fields definition
-const customerFields = [
-	{
-		id: 'name',
-		label: 'Customer Name',
-		type: 'text' as const,
-	},
-	{
-		id: 'customerType',
-		label: 'Type',
-		type: 'text' as const,
-		Edit: 'toggleGroup' as const,
-		elements: [
-			{ value: 'Customer', label: 'Customer' },
-			{ value: 'Business', label: 'Business' },
-			{ value: 'VIP', label: 'VIP' },
-		],
-	},
-	{
-		id: 'email',
-		label: 'Email',
-		type: 'email' as const,
-	},
-	{
-		id: 'phone',
-		label: 'Phone',
-		type: 'text' as const,
-	},
-	{
-		id: 'shippingAddress',
-		label: 'Shipping Address',
-		type: 'text' as const,
-	},
-	{
-		id: 'billingAddress',
-		label: 'Billing Address',
-		type: 'text' as const,
-	},
-	{
-		id: 'totalOrders',
-		label: 'Total Orders',
-		type: 'integer' as const,
-		readOnly: true,
-	},
-	{
-		id: 'totalRevenue',
-		label: 'Total Revenue',
-		type: 'integer' as const,
-		readOnly: true,
-	},
-	{
-		id: 'averageOrderValue',
-		label: 'Average Order Value',
-		type: 'integer' as const,
-		readOnly: true,
-	},
-] as Field< Customer >[];
-
-const CustomerProfileComponent = () => {
-	const [ customer, setCustomer ] = useState< Customer >( {
+	const [ customer, setCustomer ] = useState( {
 		name: 'Danyka Romaguera',
 		customerType: 'Customer',
 		email: 'aromaguera@example.org',
@@ -698,7 +590,7 @@ const CustomerProfileComponent = () => {
 			},
 			fields: [
 				{
-					id: 'customer-header',
+					id: 'customer-container',
 					label: 'Customer',
 					children: [
 						{
@@ -742,7 +634,7 @@ const CustomerProfileComponent = () => {
 	);
 
 	return (
-		<DataForm< Customer >
+		<DataForm
 			data={ customer }
 			fields={ customerFields }
 			form={ form }
@@ -757,6 +649,58 @@ const CustomerProfileComponent = () => {
 };
 
 export const CustomerProfile = {
-	title: 'DataForm/Customer Profile',
-	render: CustomerProfileComponent,
+	title: 'DataForm/Card Layout',
+	render: CardLayoutComponent,
+};
+
+const MixedLayoutComponent = () => {
+	const [ post, setPost ] = useState< SamplePost >( {
+		title: 'Hello, World!',
+		order: 2,
+		author: 1,
+		status: 'draft',
+		reviewer: 'fulano',
+		date: '2021-01-01T12:00:00',
+		birthdate: '1950-02-23T12:00:00',
+		filesize: 1024,
+		dimensions: '1920x1080',
+	} );
+
+	const form = useMemo(
+		() => ( {
+			layout: {
+				type: 'card',
+				labelPosition: 'top',
+				opened: true,
+			} as const,
+			fields: [
+				'title',
+				{
+					id: 'status',
+					label: 'Status',
+					layout: { type: 'panel', labelPosition: 'top' } as const,
+				},
+			],
+		} ),
+		[]
+	);
+
+	return (
+		<DataForm< SamplePost >
+			data={ post }
+			fields={ fields }
+			form={ form }
+			onChange={ ( edits ) =>
+				setPost( ( prev ) => ( {
+					...prev,
+					...edits,
+				} ) )
+			}
+		/>
+	);
+};
+
+export const MixedLayout = {
+	title: 'DataForm/Mixed Layout',
+	render: MixedLayoutComponent,
 };
