@@ -14,7 +14,7 @@ export type PanelLayout = {
 export type CardLayout = {
 	type: 'card';
 	labelPosition?: Extract< LabelPosition, 'top' | 'none' >;
-	opened: boolean;
+	opened?: boolean;
 };
 
 export type Layout = RegularLayout | PanelLayout | CardLayout;

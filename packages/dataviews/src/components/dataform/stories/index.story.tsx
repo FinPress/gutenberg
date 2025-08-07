@@ -650,20 +650,18 @@ const MixedLayoutComponent = () => {
 	const form = useMemo(
 		() => ( {
 			layout: {
-				type: 'card',
-				labelPosition: 'top',
+				type: 'card' as const,
+				labelPosition: 'top' as const,
 				opened: true,
-			} as const,
+			},
 			fields: [
 				'title',
 				{
 					id: 'status',
 					label: 'Status',
 					layout: {
-						type: 'regular',
-						labelPosition: 'top',
-						opened: true,
-					} as const,
+						type: 'panel' as const,
+					},
 				},
 			],
 		} ),
