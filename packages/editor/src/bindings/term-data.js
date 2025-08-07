@@ -54,17 +54,8 @@ function getTermDataFields( select, context ) {
 				count: {
 					label: __( 'Term Count' ),
 					value: termDataValues?.count
-						? String( termDataValues.count )
-						: termDataValues?.count,
-					type: 'string',
-				},
-				'name-with-count': {
-					label: __( 'Term Name with Count' ),
-					value:
-						termDataValues?.name &&
-						termDataValues?.count !== undefined
-							? `${ termDataValues.name } (${ termDataValues.count })`
-							: termDataValues?.name || '',
+						? `(${ termDataValues.count })`
+						: `(${ termDataValues?.count })`,
 					type: 'string',
 				},
 				description: {
@@ -95,16 +86,8 @@ function getTermDataFields( select, context ) {
 			count: {
 				label: __( 'Term Count' ),
 				value: termDataValues?.count
-					? String( termDataValues.count )
-					: termDataValues?.count,
-				type: 'string',
-			},
-			'name-with-count': {
-				label: __( 'Term Name with Count' ),
-				value:
-					termDataValues?.name && termDataValues?.count !== undefined
-						? `${ termDataValues.name } (${ termDataValues.count })`
-						: termDataValues?.name || '',
+					? `(${ termDataValues.count })`
+					: `(${ termDataValues?.count })`,
 				type: 'string',
 			},
 			description: {

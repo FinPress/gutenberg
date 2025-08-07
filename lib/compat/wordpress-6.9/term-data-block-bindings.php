@@ -49,10 +49,7 @@ function gutenberg_block_bindings_term_data_get_value( array $source_args, $bloc
 			return esc_html( $term->name );
 
 		case 'count':
-			return esc_html( (string) $term->count );
-
-		case 'name-with-count':
-			return esc_html( sprintf( '%s (%d)', $term->name, $term->count ) );
+			return esc_html( (string) '(' . $term->count . ')' );
 
 		case 'description':
 			return wp_kses_post( $term->description );
