@@ -54,11 +54,11 @@ Concatenate two or more React children objects.
 
 _Parameters_
 
--   _childrenArguments_ `...?Object`: Array of children arguments (array of arrays/strings/objects) to concatenate.
+-   _childrenArguments_ `ReactNode[][]`: - Array of children arguments (array of arrays/strings/objects) to concatenate.
 
 _Returns_
 
--   `Array`: The concatenated value.
+-   `ReactNode[]`: The concatenated value.
 
 ### createContext
 
@@ -110,24 +110,15 @@ You would have something like this as the conversionMap value:
 _Parameters_
 
 -   _interpolatedString_ `string`: The interpolation string to be parsed.
--   _conversionMap_ `Record<string, Element>`: The map used to convert the string to a react element.
+-   _conversionMap_ `Record< string, ReactElement >`: The map used to convert the string to a react element.
 
 _Returns_
 
--   `Element`: A wp element.
+-   `ReactElement`: A wp element.
 
 ### createPortal
 
-Creates a portal into which a component can be rendered.
-
-_Related_
-
--   <https://github.com/facebook/react/issues/10309#issuecomment-318433235>
-
-_Parameters_
-
--   _child_ `import('react').ReactElement`: Any renderable child, such as an element, string, or fragment.
--   _container_ `HTMLElement`: DOM node into which element should be rendered.
+Undocumented declaration.
 
 ### createRef
 
@@ -139,31 +130,15 @@ _Returns_
 
 ### createRoot
 
-Creates a new React root for the target DOM node.
-
-_Related_
-
--   <https://react.dev/reference/react-dom/client/createRoot>
-
-_Changelog_
-
-`6.2.0` Introduced in WordPress core.
+Undocumented declaration.
 
 ### findDOMNode
 
-Finds the dom node of a React component.
-
-_Parameters_
-
--   _component_ `import('react').ComponentType`: Component's instance.
+Undocumented declaration.
 
 ### flushSync
 
-Forces React to flush any updates inside the provided callback synchronously.
-
-_Parameters_
-
--   _callback_ `Function`: Callback to run synchronously.
+Undocumented declaration.
 
 ### forwardRef
 
@@ -183,25 +158,11 @@ A component which renders its children without any wrapping element.
 
 ### hydrate
 
-> **Deprecated** since WordPress 6.2.0. Use `hydrateRoot` instead.
-
-Hydrates a given element into the target DOM node.
-
-_Related_
-
--   <https://react.dev/reference/react-dom/hydrate>
+Undocumented declaration.
 
 ### hydrateRoot
 
-Creates a new React root for the target DOM node and hydrates it with a pre-generated markup.
-
-_Related_
-
--   <https://react.dev/reference/react-dom/client/hydrateRoot>
-
-_Changelog_
-
-`6.2.0` Introduced in WordPress core.
+Undocumented declaration.
 
 ### isEmptyElement
 
@@ -209,7 +170,7 @@ Checks if the provided WP element is empty.
 
 _Parameters_
 
--   _element_ `*`: WP element to check.
+-   _element_ `unknown`: WP element to check.
 
 _Returns_
 
@@ -298,13 +259,7 @@ _Returns_
 
 ### render
 
-> **Deprecated** since WordPress 6.2.0. Use `createRoot` instead.
-
-Renders a given element into the target DOM node.
-
-_Related_
-
--   <https://react.dev/reference/react-dom/render>
+Undocumented declaration.
 
 ### renderToString
 
@@ -312,13 +267,9 @@ Serializes a React element to string.
 
 _Parameters_
 
--   _element_ `import('react').ReactNode`: Element to serialize.
--   _context_ `[Object]`: Context object.
--   _legacyContext_ `[Object]`: Legacy context object.
-
-_Returns_
-
--   `string`: Serialized element.
+-   _element_ `React.ReactNode`:
+-   _context_ `any`:
+-   _legacyContext_ `Record< string, any >`:
 
 ### startTransition
 
@@ -342,22 +293,16 @@ Switches the nodeName of all the elements in the children object.
 
 _Parameters_
 
--   _children_ `?Object`: Children object.
+-   _children_ `ReactNode`: Children object.
 -   _nodeName_ `string`: Node name.
 
 _Returns_
 
--   `?Object`: The updated children object.
+-   `ReactNode`: The updated children object.
 
 ### unmountComponentAtNode
 
-> **Deprecated** since WordPress 6.2.0. Use `root.unmount()` instead.
-
-Removes any mounted element from the target DOM node.
-
-_Related_
-
--   <https://react.dev/reference/react-dom/unmountComponentAtNode>
+Undocumented declaration.
 
 ### useCallback
 
