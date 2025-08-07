@@ -14,10 +14,28 @@ import { chevronDown, chevronUp } from '@wordpress/icons';
  */
 import { getFormFieldLayout } from '..';
 import DataFormContext from '../../components/dataform-context';
-import type { FieldLayoutProps, Form } from '../../types';
+import type { FieldLayoutProps, Form, FormField } from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
 import type { CardLayout } from '../../layout-types';
+
+const getFormLayout = ( form: Form, field: FormField ) => {
+	if ( field.layout?.type ) {
+		// Never return card layout to avoid nesting
+		const layoutType =
+			field.layout.type === 'card' ? 'regular' : field.layout.type;
+		return getFormFieldLayout( layoutType )?.component;
+	}
+
+	if ( form.layout?.type ) {
+		// Never return card layout to avoid nesting
+		const layoutType =
+			form.layout.type === 'card' ? 'regular' : form.layout.type;
+		return getFormFieldLayout( layoutType )?.component;
+	}
+
+	return getFormFieldLayout( 'regular' )?.component;
+};
 
 export function useCollapsibleCard( initialIsOpen: boolean = true ) {
 	const [ isOpen, setIsOpen ] = useState( initialIsOpen );
@@ -76,8 +94,8 @@ export default function FormCardField< Item >( {
 	const { fields } = useContext( DataFormContext );
 
 	const layout: CardLayout = ( field.layout as CardLayout ) ?? {
-		type: 'card',
-		labelPosition: 'top',
+		type: 'regular',
+		labelPosition: 'none',
 		opened: true,
 	};
 
@@ -90,7 +108,7 @@ export default function FormCardField< Item >( {
 							id: child,
 							layout: {
 								type: 'regular',
-								labelPosition: 'top',
+								labelPosition: 'none',
 							},
 						};
 					}
@@ -103,11 +121,11 @@ export default function FormCardField< Item >( {
 		return {
 			layout: {
 				type: 'regular',
-				labelPosition: 'top',
+				labelPosition: 'none',
 			},
 			fields: [],
 		};
-	}, [ field ] );
+	}, [ field ] ) as Form;
 
 	const { isOpen, CollapsibleCardHeader } = useCollapsibleCard(
 		layout.opened ?? true
@@ -124,7 +142,7 @@ export default function FormCardField< Item >( {
 		return (
 			<Card className="dataforms-layouts-card__field">
 				<CollapsibleCardHeader className="dataforms-layouts-card__field-label">
-					{ form.label }
+					{ field.label }
 				</CollapsibleCardHeader>
 				{ isOpen && (
 					<CardBody className="dataforms-layouts-card__field-control">
@@ -134,16 +152,11 @@ export default function FormCardField< Item >( {
 							onChange={ onChange }
 						>
 							{ ( FieldLayout, nestedField ) => (
-								<Layout
+								<FieldLayout
 									key={ nestedField.id }
 									data={ data }
 									field={ {
 										...nestedField,
-										// Apply inner label position for nested fields
-										layout: {
-											type: 'regular',
-											labelPosition: 'top',
-										},
 									} }
 									onChange={ onChange }
 									hideLabelFromVision={ hideLabelFromVision }
@@ -166,8 +179,7 @@ export default function FormCardField< Item >( {
 
 	const cardTitle = fieldDefinition.label;
 
-	const Layout = getFormFieldLayout( field.layout?.type ?? 'regular' )
-		?.component;
+	const Layout = getFormLayout( form, field );
 
 	if ( ! Layout ) {
 		return null;
@@ -190,14 +202,7 @@ export default function FormCardField< Item >( {
 					) : (
 						<Layout
 							data={ data }
-							field={ {
-								...field,
-								// The label position for inner layouts is always none
-								layout: {
-									type: 'regular',
-									labelPosition: 'top',
-								},
-							} }
+							field={ fieldDefinition }
 							onChange={ onChange }
 							hideLabelFromVision={ hideLabelFromVision }
 						/>

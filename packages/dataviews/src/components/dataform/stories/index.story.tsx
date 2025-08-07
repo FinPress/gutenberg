@@ -510,44 +510,46 @@ const CardLayoutComponent = ( {
 
 	const form = useMemo(
 		() => ( {
-			labelPosition: labelPosition as 'top' | 'side' | 'none',
-			type: 'card' as const,
-			customStyle: {
+			layout: {
+				type: 'card' as const,
+				labelPosition:
+					labelPosition === 'default'
+						? 'top'
+						: ( labelPosition as 'top' | 'none' ),
 				opened: true,
-				innerLayout: 'regular' as const,
 			},
 			fields: [
 				'title',
 				{
 					id: 'order',
 					label: 'Order',
-					layout: 'regular' as const,
+					children: [ { id: 'order', layout: { type: 'panel' } } ], // Card -> Panel
 				},
-				{
-					id: 'publishing',
-					label: 'Publishing Settings',
-					children: [ 'status', 'password' ],
-					layout: 'card' as const,
-					customStyle: {
-						opened: false,
-						innerLayout: 'panel' as const,
-					},
-				},
-				{
-					id: 'author-info',
-					label: 'Author Information',
-					children: [ 'author', 'reviewer', 'email' ],
-				},
-				{
-					id: 'dates',
-					label: 'Date Settings',
-					children: [ 'date', 'birthdate' ],
-				},
-				{
-					id: 'metadata',
-					label: 'File Metadata',
-					children: [ 'filesize', 'dimensions' ],
-				},
+				// {
+				// 	id: 'publishing',
+				// 	label: 'Publishing Settings',
+				// 	children: [ 'status', 'password' ],
+				// 	layout: 'card' as const,
+				// 	customStyle: {
+				// 		opened: false,
+				// 		innerLayout: 'panel' as const,
+				// 	},
+				// },
+				// {
+				// 	id: 'author-info',
+				// 	label: 'Author Information',
+				// 	children: [ 'author', 'reviewer', 'email' ],
+				// },
+				// {
+				// 	id: 'dates',
+				// 	label: 'Date Settings',
+				// 	children: [ 'date', 'birthdate' ],
+				// },
+				// {
+				// 	id: 'metadata',
+				// 	label: 'File Metadata',
+				// 	children: [ 'filesize', 'dimensions' ],
+				// },
 			],
 		} ),
 		[ labelPosition ]
@@ -557,7 +559,6 @@ const CardLayoutComponent = ( {
 		<DataForm< SamplePost >
 			data={ post }
 			fields={ fields }
-			// @ts-expect-error
 			form={ form }
 			onChange={ ( edits ) =>
 				setPost( ( prev ) => ( {
@@ -570,7 +571,7 @@ const CardLayoutComponent = ( {
 };
 
 export const CardLayout = {
-	title: 'DataForm/Card Layout',
+	title: 'DataForm/Customer Layout',
 	render: CardLayoutComponent,
 	argTypes: {
 		labelPosition: {
@@ -582,4 +583,161 @@ export const CardLayout = {
 	args: {
 		labelPosition: 'default',
 	},
+};
+
+// Customer data type
+type Customer = {
+	name: string;
+	customerType: string;
+	email: string;
+	phone: string;
+	shippingAddress: string;
+	billingAddress: string;
+	totalOrders: number;
+	totalRevenue: number;
+	averageOrderValue: number;
+	avatar?: string;
+};
+
+// Customer fields definition
+const customerFields = [
+	{
+		id: 'name',
+		label: 'Customer Name',
+		type: 'text' as const,
+	},
+	{
+		id: 'customerType',
+		label: 'Type',
+		type: 'text' as const,
+		Edit: 'toggleGroup' as const,
+		elements: [
+			{ value: 'Customer', label: 'Customer' },
+			{ value: 'Business', label: 'Business' },
+			{ value: 'VIP', label: 'VIP' },
+		],
+	},
+	{
+		id: 'email',
+		label: 'Email',
+		type: 'email' as const,
+	},
+	{
+		id: 'phone',
+		label: 'Phone',
+		type: 'text' as const,
+	},
+	{
+		id: 'shippingAddress',
+		label: 'Shipping Address',
+		type: 'text' as const,
+	},
+	{
+		id: 'billingAddress',
+		label: 'Billing Address',
+		type: 'text' as const,
+	},
+	{
+		id: 'totalOrders',
+		label: 'Total Orders',
+		type: 'integer' as const,
+		readOnly: true,
+	},
+	{
+		id: 'totalRevenue',
+		label: 'Total Revenue',
+		type: 'integer' as const,
+		readOnly: true,
+	},
+	{
+		id: 'averageOrderValue',
+		label: 'Average Order Value',
+		type: 'integer' as const,
+		readOnly: true,
+	},
+] as Field< Customer >[];
+
+const CustomerProfileComponent = () => {
+	const [ customer, setCustomer ] = useState< Customer >( {
+		name: 'Danyka Romaguera',
+		customerType: 'Customer',
+		email: 'aromaguera@example.org',
+		phone: '1-828-352-1250',
+		shippingAddress: 'N/A',
+		billingAddress: 'Danyka Romaguera, West Myrtiehaven, 80240-4282, BI',
+		totalOrders: 1,
+		totalRevenue: 720,
+		averageOrderValue: 720,
+	} );
+
+	const form = useMemo(
+		() => ( {
+			layout: {
+				type: 'card' as const,
+				labelPosition: 'top' as const,
+				opened: true,
+			},
+			fields: [
+				{
+					id: 'customer-header',
+					label: 'Customer',
+					children: [
+						{
+							id: 'name-phone',
+							layout: { type: 'panel', labelPosition: 'top' },
+							children: [
+								{
+									id: 'name',
+									layout: {
+										type: 'regular',
+										labelPosition: 'top',
+									},
+								},
+								{
+									id: 'phone',
+									layout: {
+										type: 'regular',
+										labelPosition: 'top',
+									},
+								},
+							],
+							label: 'Customer Information',
+						},
+						{
+							id: 'customerType',
+							layout: { type: 'panel', labelPosition: 'top' },
+						},
+						{
+							id: 'shippingAddress',
+							layout: { type: 'panel', labelPosition: 'top' },
+						},
+						{
+							id: 'billingAddress',
+							layout: { type: 'panel', labelPosition: 'top' },
+						},
+					],
+				},
+			],
+		} ),
+		[]
+	);
+
+	return (
+		<DataForm< Customer >
+			data={ customer }
+			fields={ customerFields }
+			form={ form }
+			onChange={ ( edits ) =>
+				setCustomer( ( prev ) => ( {
+					...prev,
+					...edits,
+				} ) )
+			}
+		/>
+	);
+};
+
+export const CustomerProfile = {
+	title: 'DataForm/Customer Profile',
+	render: CustomerProfileComponent,
 };
