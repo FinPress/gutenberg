@@ -158,7 +158,7 @@ export function BlockSettingsDropdown( {
 		};
 	}, [] );
 	const hasSelectedBlocks = selectedBlockClientIds.length > 0;
-	const isWriteMode = isNavigationMode && isContentOnly;
+	const isContentOnlyWriteMode = isNavigationMode && isContentOnly;
 
 	async function updateSelectionAfterDuplicate( clientIdsPromise ) {
 		if ( ! __experimentalSelectBlock ) {
@@ -282,14 +282,14 @@ export function BlockSettingsDropdown( {
 											clientId={ firstBlockClientId }
 										/>
 									) }
-									{ ! isWriteMode && (
+									{ ! isContentOnlyWriteMode && (
 										<CopyMenuItem
 											clientIds={ clientIds }
 											onCopy={ onCopy }
 											shortcut={ shortcuts.copy }
 										/>
 									) }
-									{ ! isWriteMode && (
+									{ ! isContentOnlyWriteMode && (
 										<CopyMenuItem
 											clientIds={ clientIds }
 											label={ __( 'Cut' ) }
