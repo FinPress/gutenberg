@@ -38,6 +38,12 @@ function gutenberg_block_bindings_post_data_get_value( array $source_args, $bloc
 		return esc_attr( get_the_date( 'c', $post_id ) );
 	}
 
+	if ( str_starts_with( $source_args['key'], 'featuredMedia' ) ) {
+		if ( $source_args['key'] === 'featuredMedia.source_url' ) {
+			return get_the_post_thumbnail_url( $post_id, $source_args['size'] ?? null );
+		}
+	}
+
 	if ( 'modified' === $source_args['key'] ) {
 		// Only return the modified date if it is later than the publishing date.
 		if ( get_the_modified_date( 'U', $post_id ) > get_the_date( 'U', $post_id ) ) {
