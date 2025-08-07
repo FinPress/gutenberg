@@ -44,6 +44,8 @@ function gutenberg_block_bindings_post_data_get_value( array $source_args, $bloc
 			} else {
 				return '';
 			}
+		case 'featuredMedia.id':
+			return get_post_thumbnail_id( $post_id );
 		case 'featuredMedia.source_url':
 			return get_the_post_thumbnail_url( $post_id, $source_args['size'] ?? null );
 	}
