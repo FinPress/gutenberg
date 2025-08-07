@@ -454,12 +454,19 @@ export default function LogoEdit( {
 		const _siteIconId = siteSettings?.site_icon;
 		const mediaItem =
 			_siteLogoId &&
-			select( coreStore ).getMedia( _siteLogoId, {
-				context: 'view',
-			} );
+			select( coreStore ).getEntityRecord(
+				'postType',
+				'attachment',
+				_siteLogoId,
+				{
+					context: 'view',
+				}
+			);
 		const _isRequestingMediaItem =
 			!! _siteLogoId &&
-			! select( coreStore ).hasFinishedResolution( 'getMedia', [
+			! select( coreStore ).hasFinishedResolution( 'getEntityRecord', [
+				'postType',
+				'attachment',
 				_siteLogoId,
 				{ context: 'view' },
 			] );

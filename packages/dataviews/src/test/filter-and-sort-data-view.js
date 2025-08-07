@@ -55,7 +55,9 @@ describe( 'filters', () => {
 			fields
 		);
 		expect( result ).toHaveLength( 2 );
-		expect( result[ 0 ].description ).toBe( "Earth's satellite" );
+		expect( result[ 0 ].description ).toBe(
+			'The Moon is Earth’s only natural satellite, orbiting at an average distance of 384,400 kilometers with a synchronous rotation that leads to fixed lunar phases as seen from Earth. Its cratered surface and subtle glow define night skies, inspiring exploration missions and influencing tides and biological rhythms worldwide.'
+		);
 	} );
 
 	it( 'should perform case-insensitive and accent-insensitive search', () => {
@@ -69,6 +71,54 @@ describe( 'filters', () => {
 		);
 		expect( result ).toHaveLength( 1 );
 		expect( result[ 0 ].description ).toBe( 'La planète Vénus' );
+	} );
+
+	it( 'should search over array fields when enableGlobalSearch is true', () => {
+		const fieldsWithArraySearch = fields.map( ( field ) =>
+			field.id === 'categories'
+				? { ...field, enableGlobalSearch: true }
+				: field
+		);
+
+		const { data: result } = filterSortAndPaginate(
+			data,
+			{
+				search: 'Moon',
+				filters: [],
+			},
+			fieldsWithArraySearch
+		);
+
+		// Should find items with "satellite" in categories
+		expect( result ).toHaveLength( 3 );
+		expect( result.map( ( r ) => r.title ).sort() ).toEqual( [
+			'Europa',
+			'Io',
+			'Moon',
+		] );
+	} );
+
+	it( 'should search over array fields case-insensitively', () => {
+		const fieldsWithArraySearch = fields.map( ( field ) =>
+			field.id === 'categories'
+				? { ...field, enableGlobalSearch: true }
+				: field
+		);
+
+		const { data: result } = filterSortAndPaginate(
+			data,
+			{
+				search: 'planet',
+				filters: [],
+			},
+			fieldsWithArraySearch
+		);
+
+		// Should find items with "Planet" in categories (case-insensitive)
+		expect( result ).toHaveLength( 8 );
+		expect( result.map( ( r ) => r.title ) ).toContain( 'Neptune' );
+		expect( result.map( ( r ) => r.title ) ).toContain( 'Mercury' );
+		expect( result.map( ( r ) => r.title ) ).toContain( 'Earth' );
 	} );
 
 	it( 'should search using IS filter', () => {
@@ -374,7 +424,7 @@ describe( 'filters', () => {
 			fields
 		);
 		expect( result.map( ( r ) => r.description ) ).toEqual( [
-			"Earth's satellite",
+			'The Moon is Earth’s only natural satellite, orbiting at an average distance of 384,400 kilometers with a synchronous rotation that leads to fixed lunar phases as seen from Earth. Its cratered surface and subtle glow define night skies, inspiring exploration missions and influencing tides and biological rhythms worldwide.',
 			'Moon of Jupiter',
 			'Moon of Jupiter',
 			'La planète Vénus',

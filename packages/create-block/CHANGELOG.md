@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+-   Add support for template variants to define their own template files ([#70855](https://github.com/WordPress/gutenberg/pull/70855))
+
 ## 4.70.0 (2025-07-23)
 
 ## 4.69.0 (2025-06-25)
