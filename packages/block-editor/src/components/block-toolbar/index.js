@@ -61,6 +61,7 @@ export function PrivateBlockToolbar( {
 	const {
 		blockClientId,
 		blockClientIds,
+		isContentOnlyMode,
 		isDefaultEditingMode,
 		blockType,
 		toolbarKey,
@@ -75,7 +76,6 @@ export function PrivateBlockToolbar( {
 		showLockButtons,
 		showSwitchSectionStyleButton,
 		hasFixedToolbar,
-		isNavigationMode,
 	} = useSelect( ( select ) => {
 		const {
 			getBlockName,
@@ -90,7 +90,6 @@ export function PrivateBlockToolbar( {
 			getSettings,
 			getParentSectionBlock,
 			isZoomOut,
-			isNavigationMode: _isNavigationMode,
 			isSectionBlock,
 		} = unlock( select( blockEditorStore ) );
 		const selectedBlockClientIds = getSelectedBlockClientIds();
@@ -101,8 +100,8 @@ export function PrivateBlockToolbar( {
 		const parentBlockName = getBlockName( parentClientId );
 		const parentBlockType = getBlockType( parentBlockName );
 		const editingMode = getBlockEditingMode( selectedBlockClientId );
-		const isNavigationModeEnabled = _isNavigationMode();
 		const _isDefaultEditingMode = editingMode === 'default';
+		const _isContentOnlyMode = editingMode === 'contentOnly';
 		const _blockName = getBlockName( selectedBlockClientId );
 		const isValid = selectedBlockClientIds.every( ( id ) =>
 			isBlockValid( id )
@@ -138,7 +137,7 @@ export function PrivateBlockToolbar( {
 			showParentSelector:
 				! _isZoomOut &&
 				parentBlockType &&
-				editingMode !== 'contentOnly' &&
+				! _isContentOnlyMode &&
 				getBlockEditingMode( parentClientId ) !== 'disabled' &&
 				hasBlockSupport(
 					parentBlockType,
@@ -153,13 +152,12 @@ export function PrivateBlockToolbar( {
 			showSlots: ! _isZoomOut,
 			showGroupButtons: ! _isZoomOut,
 			showLockButtons: ! _isZoomOut,
+			isContentOnlyMode: _isContentOnlyMode,
 			showSwitchSectionStyleButton:
 				_isZoomOut ||
-				( isNavigationModeEnabled &&
-					editingMode === 'contentOnly' &&
+				( _isContentOnlyMode &&
 					isSectionBlock( selectedBlockClientId ) ), // Zoom out or Write Mode Section Blocks
 			hasFixedToolbar: getSettings().hasFixedToolbar,
-			isNavigationMode: isNavigationModeEnabled,
 		};
 	}, [] );
 
@@ -186,7 +184,7 @@ export function PrivateBlockToolbar( {
 	// Shifts the toolbar to make room for the parent block selector.
 	const classes = clsx( 'block-editor-block-contextual-toolbar', {
 		'has-parent': showParentSelector,
-		'is-inverted-toolbar': isNavigationMode && ! hasFixedToolbar,
+		'is-inverted-toolbar': isContentOnlyMode && ! hasFixedToolbar,
 	} );
 
 	const innerClasses = clsx( 'block-editor-block-toolbar', {
