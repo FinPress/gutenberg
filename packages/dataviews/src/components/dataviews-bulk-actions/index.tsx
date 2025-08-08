@@ -189,37 +189,56 @@ function ActionButton< Item >( {
 	setActionInProgress,
 }: ActionButtonProps< Item > ) {
 	const registry = useRegistry();
-	const selectedEligibleItems = useMemo( () => {
-		return selectedItems.filter( ( item ) => {
-			return ! action.isEligible || action.isEligible( item );
-		} );
-	}, [ action, selectedItems ] );
-	if ( 'RenderModal' in action ) {
+
+	const selectedEligibleItems = useMemo(() => {
+		return selectedItems.filter((item) => {
+			return !action.isEligible || action.isEligible(item);
+		});
+	}, [action, selectedItems]);
+
+	// Handle 'link' type
+	if (action.type === 'link') {
+		return (
+			<a
+				key={action.id}
+				href={action.href}
+				target={action.target || '_self'}
+				rel={action.target === '_blank' ? 'noopener noreferrer' : undefined}
+				className="action-link"
+			>
+				{action.label}
+			</a>
+		);
+	}
+
+	// Handle 'RenderModal' type
+	if ('RenderModal' in action) {
 		return (
 			<ActionWithModal
-				key={ action.id }
-				action={ action }
-				items={ selectedEligibleItems }
-				ActionTriggerComponent={ ActionTrigger }
+				key={action.id}
+				action={action}
+				items={selectedEligibleItems}
+				ActionTriggerComponent={ActionTrigger}
 			/>
 		);
 	}
 	return (
 		<ActionTrigger
-			key={ action.id }
-			action={ action }
-			onClick={ async () => {
-				setActionInProgress( action.id );
-				await action.callback( selectedItems, {
+			key={action.id}
+			action={action}
+			onClick={async () => {
+				setActionInProgress(action.id);
+				await action.callback(selectedItems, {
 					registry,
-				} );
-				setActionInProgress( null );
-			} }
-			items={ selectedEligibleItems }
-			isBusy={ actionInProgress === action.id }
+				});
+				setActionInProgress(null);
+			}}
+			items={selectedEligibleItems}
+			isBusy={actionInProgress === action.id}
 		/>
 	);
 }
+
 
 function renderFooterContent< Item >(
 	data: Item[],

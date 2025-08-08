@@ -613,7 +613,28 @@ export interface ActionButton< Item > extends ActionBase< Item > {
 	) => void;
 }
 
-export type Action< Item > = ActionModal< Item > | ActionButton< Item >;
+export type Action<Item> = ActionModal<Item> | ActionButton<Item> | ActionLink<Item>;
+
+export interface ActionModal<Item> {
+  type: 'modal';
+  label: string;
+  onOpen: (item: Item) => void;
+}
+
+export interface ActionButton<Item> {
+  type: 'button';
+  label: string;
+  onClick: (item: Item) => void;
+}
+
+export interface ActionLink<Item> {
+  [x: string]: any;
+  type: 'link';
+  href: string;
+  label: string;
+  target?: '_self' | '_blank';
+}
+
 
 export interface ViewBaseProps< Item > {
 	className?: string;

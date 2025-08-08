@@ -258,38 +258,56 @@ function CompactItemActions< Item >( {
 	);
 }
 
-function PrimaryActions< Item >( {
-	item,
-	actions,
-	registry,
-}: PrimaryActionsProps< Item > ) {
-	const [ activeModalAction, setActiveModalAction ] = useState( null as any );
-	if ( ! Array.isArray( actions ) || actions.length === 0 ) {
-		return null;
-	}
-	return (
-		<>
-			{ actions.map( ( action ) => (
-				<ButtonTrigger
-					key={ action.id }
-					action={ action }
-					onClick={ () => {
-						if ( 'RenderModal' in action ) {
-							setActiveModalAction( action );
-							return;
-						}
-						action.callback( [ item ], { registry } );
-					} }
-					items={ [ item ] }
-				/>
-			) ) }
-			{ !! activeModalAction && (
-				<ActionModal
-					action={ activeModalAction }
-					items={ [ item ] }
-					closeModal={ () => setActiveModalAction( null ) }
-				/>
-			) }
-		</>
-	);
+function PrimaryActions<Item>({
+    item,
+    actions,
+    registry,
+}: PrimaryActionsProps<Item>) {
+    const [activeModalAction, setActiveModalAction] = useState(null as any);
+
+    if (!Array.isArray(actions) || actions.length === 0) {
+        return null;
+    }
+
+    return (
+        <>
+            {actions.map((action) => {
+                if (action.type === 'link') {
+                    return (
+                        <a
+                            href={action.href}
+                            target={action.target || '_self'}
+                            rel={action.target === '_blank' ? 'noopener noreferrer' : undefined}
+                            key={action.label}
+                            className="action-link"
+                        >
+                            {action.label}
+                        </a>
+                    );
+                }
+
+                return (
+                    <ButtonTrigger
+                        key={action.id}
+                        action={action}
+                        onClick={() => {
+                            if ('RenderModal' in action) {
+                                setActiveModalAction(action);
+                                return;
+                            }
+                            action.callback([item], { registry });
+                        }}
+                        items={[item]}
+                    />
+                );
+            })}
+            {!!activeModalAction && (
+                <ActionModal
+                    action={activeModalAction}
+                    items={[item]}
+                    closeModal={() => setActiveModalAction(null)}
+                />
+            )}
+        </>
+    );
 }
