@@ -17,6 +17,16 @@
 		},
 		"textAlign": {
 			"type": "string"
+		},
+		"dimRatio": {
+			"type": "number",
+			"default": 50
+		},
+		"overlayColor": {
+			"type": "string"
+		},
+		"customOverlayColor": {
+			"type": "string"
 		}
 	},
 	"supports": {

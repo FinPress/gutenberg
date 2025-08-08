@@ -1,6 +1,86 @@
 pre.wp-block-verse {
 	overflow: auto;
 	white-space: pre-wrap;
+	position: relative;
+
+	// When block has background image and overlay
+	&.has-background-dim {
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 0;
+			pointer-events: none;
+			background-color: var(--wp-verse-overlay-color, rgba(0, 0, 0, 0.5));
+		}
+
+		// Content should be above overlay
+		* {
+			position: relative;
+			z-index: 1;
+		}
+	}
+
+	// Opacity variations
+	&.has-background-dim-0::before {
+		opacity: 0;
+	}
+
+	&.has-background-dim-10::before {
+		opacity: 0.1;
+	}
+
+	&.has-background-dim-20::before {
+		opacity: 0.2;
+	}
+
+	&.has-background-dim-30::before {
+		opacity: 0.3;
+	}
+
+	&.has-background-dim-40::before {
+		opacity: 0.4;
+	}
+
+	&.has-background-dim-50::before {
+		opacity: 0.5;
+	}
+
+	&.has-background-dim-60::before {
+		opacity: 0.6;
+	}
+
+	&.has-background-dim-70::before {
+		opacity: 0.7;
+	}
+
+	&.has-background-dim-80::before {
+		opacity: 0.8;
+	}
+
+	&.has-background-dim-90::before {
+		opacity: 0.9;
+	}
+
+	&.has-background-dim-100::before {
+		opacity: 1;
+	}
+
+}
+
+.wp-block-verse__overlay-layer {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	pointer-events: none;
 }
 
 :where(pre.wp-block-verse) {

@@ -3,7 +3,8 @@
 		"name": "core/verse",
 		"isValid": true,
 		"attributes": {
-			"content": "A <em>verse</em>…<br>And more!"
+			"content": "A <em>verse</em>…<br>And more!",
+			"dimRatio": 50
 		},
 		"innerBlocks": []
 	}
