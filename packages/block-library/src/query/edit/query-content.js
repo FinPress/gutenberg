@@ -30,6 +30,18 @@ const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 const DEFAULTS_POSTS_PER_PAGE = 3;
 
 const TEMPLATE = [ [ 'core/post-template' ] ];
+
+/*
+ * QueryContent component for managing and rendering query-related block content.
+ *
+ * @param {Object}   props 							Component props.
+ * @param {Object}   props.attributes 				Block attributes.
+ * @param {Function} props.setAttributes 			Function to update block attributes.
+ * @param {string}   props.clientId 				The client ID of the block.
+ * @param {Object}   props.context 					Context data for the block.
+ * @param {string}   props.name 					The block name.
+ * @return {JSX.Element} 							The rendered QueryContent component.
+ */
 export default function QueryContent( {
 	attributes,
 	setAttributes,

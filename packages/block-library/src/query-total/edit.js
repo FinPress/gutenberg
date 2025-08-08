@@ -10,6 +10,16 @@ import { __ } from '@wordpress/i18n';
  */
 import { resultsFound, displayingResults } from './icons';
 
+/*
+ * QueryTotalEdit component provides the block editor interface for rendering and editing
+ * the total query results or a range display for query results.
+ *
+ * @param {Object} props                        	Component props.
+ * @param {Object} props.attributes             	Block attributes.
+ * @param {string} props.attributes.displayType 	The selected display type ('total-results' or 'range-display').
+ * @param {Function} props.setAttributes        	Function to update block attributes.
+ * @return {JSX.Element} 							The rendered block editor interface for the query total display.
+ */
 export default function QueryTotalEdit( { attributes, setAttributes } ) {
 	const { displayType } = attributes;
 

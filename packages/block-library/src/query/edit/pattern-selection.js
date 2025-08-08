@@ -21,6 +21,16 @@ import {
 } from '../utils';
 import { searchPatterns } from '../../utils/search-patterns';
 
+/*
+ * Renders a modal for selecting a block pattern.
+ *
+ * @param {Object} props                               		Component properties.
+ * @param {string} props.clientId                      		The client ID of the block.
+ * @param {Object} props.attributes                    		The attributes of the block.
+ * @param {Function} props.setIsPatternSelectionModalOpen 	Function to toggle the modal state.
+ *
+ * @returns {JSX.Element} 									The rendered Pattern Selection Modal.
+ */
 export function PatternSelectionModal( {
 	clientId,
 	attributes,
@@ -38,6 +48,14 @@ export function PatternSelectionModal( {
 	);
 }
 
+/*
+ * Hook to retrieve block patterns based on the block's client ID and attributes.
+ *
+ * @param {string} clientId     The client ID of the block.
+ * @param {Object} attributes   The attributes of the block.
+ *
+ * @returns {Array} 			An array of block patterns.
+ */
 export function useBlockPatterns( clientId, attributes ) {
 	const blockNameForPatterns = useBlockNameForPatterns(
 		clientId,
@@ -46,6 +64,17 @@ export function useBlockPatterns( clientId, attributes ) {
 	return usePatterns( clientId, blockNameForPatterns );
 }
 
+/*
+ * Component for displaying and selecting block patterns.
+ *
+ * @param {Object} props                          	Component properties.
+ * @param {string} props.clientId                 	The client ID of the block.
+ * @param {Object} props.attributes               	The attributes of the block.
+ * @param {boolean} [props.showTitlesAsTooltip]   	Whether to show titles as tooltips (default: false).
+ * @param {boolean} [props.showSearch]            	Whether to show the search bar (default: true).
+ *
+ * @returns {JSX.Element} 							The rendered pattern selection interface.
+ */
 export default function PatternSelection( {
 	clientId,
 	attributes,

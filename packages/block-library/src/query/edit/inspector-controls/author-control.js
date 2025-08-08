@@ -18,6 +18,14 @@ const AUTHORS_QUERY = {
 	context: 'view',
 };
 
+/*
+ * AuthorControl component for managing and selecting authors.
+ *
+ * @param {Object} props         		Component props.
+ * @param {string} props.value   		Comma-separated string of selected author IDs.
+ * @param {Function} props.onChange 	Callback function to handle changes in selected authors.
+ * @return {JSX.Element|null} 			The rendered AuthorControl component or null if no authors are available.
+ */
 function AuthorControl( { value, onChange } ) {
 	const authorsList = useSelect( ( select ) => {
 		const { getUsers } = select( coreStore );

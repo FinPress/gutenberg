@@ -21,6 +21,16 @@ import { __ } from '@wordpress/i18n';
 import { useScopedBlockVariations } from '../utils';
 import { useBlockPatterns } from './pattern-selection';
 
+/*
+ * QueryPlaceholder component for rendering a placeholder with options to choose a pattern or start blank.
+ *
+ * @param {Object}   props 								Component props.
+ * @param {Object}   props.attributes 					Block attributes.
+ * @param {string}   props.clientId 					The client ID of the block.
+ * @param {string}   props.name 						The block name.
+ * @param {Function} props.openPatternSelectionModal 	Function to open the pattern selection modal.
+ * @return {JSX.Element} 								The rendered QueryPlaceholder component.
+ */
 export default function QueryPlaceholder( {
 	attributes,
 	clientId,
@@ -92,6 +102,16 @@ export default function QueryPlaceholder( {
 	);
 }
 
+/*
+ * QueryVariationPicker component for selecting a block variation.
+ *
+ * @param {Object}   props 						Component props.
+ * @param {string}   props.clientId 			The client ID of the block.
+ * @param {Object}   props.attributes 			Block attributes.
+ * @param {string}   props.icon 				Icon for the variation picker.
+ * @param {string}   props.label 				Label for the variation picker.
+ * @return {JSX.Element} 						The rendered QueryVariationPicker component.
+ */
 function QueryVariationPicker( { clientId, attributes, icon, label } ) {
 	const scopeVariations = useScopedBlockVariations( attributes );
 	const { replaceInnerBlocks } = useDispatch( blockEditorStore );

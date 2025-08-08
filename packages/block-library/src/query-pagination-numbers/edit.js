@@ -20,6 +20,12 @@ const createPaginationItem = ( content, Tag = 'a', extraClass = '' ) => (
 	</Tag>
 );
 
+/*
+ * Generates a preview of pagination numbers based on the specified mid-size value.
+ *
+ * @param {number} midSize The number of links to display before and after the current page.
+ * @return {JSX.Element} A JSX fragment containing the pagination items.
+ */
 const previewPaginationNumbers = ( midSize ) => {
 	const paginationItems = [];
 
@@ -47,6 +53,16 @@ const previewPaginationNumbers = ( midSize ) => {
 	return <>{ paginationItems }</>;
 };
 
+/*
+ * QueryPaginationNumbersEdit component provides the block editor interface
+ * for editing the pagination numbers display.
+ *
+ * @param {Object} props                    		Component props.
+ * @param {Object} props.attributes         		Block attributes.
+ * @param {number} props.attributes.midSize 		The number of links before and after the current page.
+ * @param {Function} props.setAttributes    		Function to update block attributes.
+ * @return {JSX.Element} 							The rendered block editor interface for pagination numbers.
+ */
 export default function QueryPaginationNumbersEdit( {
 	attributes,
 	setAttributes,

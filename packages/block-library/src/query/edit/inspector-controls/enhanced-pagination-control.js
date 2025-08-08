@@ -9,6 +9,15 @@ import { __ } from '@wordpress/i18n';
  */
 import { useUnsupportedBlocks } from '../../utils';
 
+/*
+ * EnhancedPaginationControl component for managing the pagination behavior.
+ *
+ * @param {Object} props                          	Component props.
+ * @param {boolean} props.enhancedPagination      	Indicates whether enhanced pagination is enabled.
+ * @param {Function} props.setAttributes          	Callback function to update block attributes.
+ * @param {string} props.clientId                 	The client ID of the block.
+ * @return {JSX.Element} 							The rendered EnhancedPaginationControl component.
+ */
 export default function EnhancedPaginationControl( {
 	enhancedPagination,
 	setAttributes,

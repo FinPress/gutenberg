@@ -28,6 +28,17 @@ const TEMPLATE = [
 	[ 'core/query-pagination-next' ],
 ];
 
+/*
+ * QueryPaginationEdit component provides the block editor interface for editing pagination settings.
+ *
+ * @param {Object} props                              	Component props.
+ * @param {Object} props.attributes                  	Block attributes.
+ * @param {string} props.attributes.paginationArrow  	Defines the type of arrow to display for pagination (e.g., 'none', 'arrow').
+ * @param {boolean} props.attributes.showLabel       	Determines whether label text is shown with pagination.
+ * @param {Function} props.setAttributes             	Function to update block attributes.
+ * @param {string} props.clientId                    	The client ID of the block.
+ * @return {JSX.Element}                             	The rendered block editor interface.
+ */
 export default function QueryPaginationEdit( {
 	attributes: { paginationArrow, showLabel },
 	setAttributes,

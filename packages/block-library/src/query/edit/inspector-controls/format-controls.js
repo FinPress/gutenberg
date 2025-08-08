@@ -32,7 +32,13 @@ const POST_FORMATS = [
 	return 0;
 } );
 
-// A helper function to convert translatable post format names into their static values.
+/*
+ * A helper function to convert translatable post format names into their static values.
+ *
+ * @param {string[]} names   	Array of format names (translatable labels).
+ * @param {Object[]} formats 	Array of format objects with `label` and `value` properties.
+ * @return {string[]} 			Array of format values corresponding to the provided names.
+ */
 function formatNamesToValues( names, formats ) {
 	return names
 		.map( ( name ) => {
@@ -44,6 +50,15 @@ function formatNamesToValues( names, formats ) {
 		.filter( Boolean );
 }
 
+/*
+ * FormatControls component for managing and selecting post formats.
+ *
+ * @param {Object} props                    		Component props.
+ * @param {Function} props.onChange         		Callback function to handle changes in selected formats.
+ * @param {Object} props.query              		Query object containing format information.
+ * @param {string|string[]} props.query.format 		The current selected format(s), either as a string or an array.
+ * @return {JSX.Element} 							The rendered FormatControls component.
+ */
 export default function FormatControls( { onChange, query: { format } } ) {
 	// 'format' is expected to be an array. If it is not an array, for example
 	// if a user has manually entered an invalid value in the block markup,

@@ -10,6 +10,19 @@ const arrowMap = {
 	chevron: '«',
 };
 
+/*
+ * QueryPaginationPreviousEdit component provides the block editor interface
+ * for editing the "Previous Page" pagination link.
+ *
+ * @param {Object} props                        	Component props.
+ * @param {Object} props.attributes             	Block attributes.
+ * @param {string} props.attributes.label       	The label displayed for the "Previous Page" link.
+ * @param {Function} props.setAttributes        	Function to update block attributes.
+ * @param {Object} props.context                	Block context.
+ * @param {string} props.context.paginationArrow 	The type of arrow to display (e.g., left arrow).
+ * @param {boolean} props.context.showLabel     	Whether to display the label for the pagination link.
+ * @return {JSX.Element} 							The rendered block editor interface for the "Previous Page" link.
+ */
 export default function QueryPaginationPreviousEdit( {
 	attributes: { label },
 	setAttributes,

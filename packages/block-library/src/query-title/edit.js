@@ -29,6 +29,21 @@ import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 const SUPPORTED_TYPES = [ 'archive', 'search' ];
 
+/*
+ * QueryTitleEdit component provides the block editor interface for rendering and editing the title
+ * of a query-based block, such as archive titles or search result titles.
+ *
+ * @param {Object} props                        		Component props.
+ * @param {Object} props.attributes             		Block attributes.
+ * @param {string} props.attributes.type        		The type of query (e.g., 'archive' or 'search').
+ * @param {number} props.attributes.level       		The heading level for the title (e.g., 1 for `<h1>`).
+ * @param {Array}  props.attributes.levelOptions 		Available heading level options.
+ * @param {string} props.attributes.textAlign   		Text alignment for the title (e.g., 'left', 'center').
+ * @param {boolean} props.attributes.showPrefix 		Whether to show the archive type prefix (e.g., 'Category:').
+ * @param {boolean} props.attributes.showSearchTerm 	Whether to show the search term in the title.
+ * @param {Function} props.setAttributes        		Function to update block attributes.
+ * @return {JSX.Element} 								The rendered block editor interface for the query title.
+ */
 export default function QueryTitleEdit( {
 	attributes: {
 		type,

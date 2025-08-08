@@ -17,6 +17,17 @@ import { useUnsupportedBlocks } from '../utils';
 const modalDescriptionId =
 	'wp-block-query-enhanced-pagination-modal__description';
 
+/*
+ * EnhancedPaginationModal - Renders a modal for handling enhanced pagination settings in the Query block.
+ *
+ * @param {Object} props                          			The component properties.
+ * @param {string} props.clientId                 			The client ID of the Query block.
+ * @param {Object} props.attributes               			The attributes of the Query block.
+ * @param {boolean} props.attributes.enhancedPagination 	Whether enhanced pagination is enabled.
+ * @param {Function} props.setAttributes          			Function to update block attributes.
+ *
+ * @returns {JSX.Element|null} 								The rendered modal if conditions are met; otherwise, null.
+ */
 export default function EnhancedPaginationModal( {
 	clientId,
 	attributes: { enhancedPagination },
