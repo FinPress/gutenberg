@@ -53,8 +53,7 @@
 		"core/heading",
 		"core/image",
 		"core/button",
-		"core/group",
-		"core/term-description"
+		"core/group"
 	],
 	"style": "wp-block-term-template"
 }
