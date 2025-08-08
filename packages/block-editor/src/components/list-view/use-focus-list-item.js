@@ -7,12 +7,12 @@ import { useEffect } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import { focusListItem } from '../utils';
+import { focusListItem } from './utils';
 
 /**
  * Internal dependencies
  */
-import { store as blockEditorStore } from '../../../store';
+import { store as blockEditorStore } from '../../store';
 
 const useFocusListItem = ( listViewRef ) => {
 	const { selectedBlockClientIds, firstBlock } = useSelect( ( select ) => {
@@ -25,7 +25,7 @@ const useFocusListItem = ( listViewRef ) => {
 		};
 	} );
 
-	useEffect( () => {
+	return useEffect( () => {
 		if ( !! selectedBlockClientIds?.length ) {
 			focusListItem( selectedBlockClientIds[ 0 ], listViewRef );
 		} else if ( firstBlock ) {

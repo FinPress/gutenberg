@@ -13,7 +13,6 @@ import {
 	NavigableToolbar,
 	ToolSelector,
 	privateApis as blockEditorPrivateApis,
-	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarItem } from '@wordpress/components';
 import { listView, plus } from '@wordpress/icons';
@@ -29,7 +28,7 @@ import { store as editorStore } from '../../store';
 import EditorHistoryRedo from '../editor-history/redo';
 import EditorHistoryUndo from '../editor-history/undo';
 
-const { focusListItem } = unlock( blockEditorPrivateApis );
+const { useFocusListItem } = unlock( blockEditorPrivateApis );
 
 function DocumentTools( { className, disableBlockTools = false } ) {
 	const { setIsInserterOpened, setIsListViewOpened } =
@@ -94,15 +93,18 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 	/* translators: accessibility text for the editor toolbar */
 	const toolbarAriaLabel = __( 'Document tools' );
 
+	const focusListView = useFocusListItem( listViewRef?.current );
+
 	const toggleListView = useCallback( () => {
+		focusListView();
 		const newState = ! isListViewOpen;
 		setIsListViewOpened( newState );
 		if ( newState ) {
 			window.requestAnimationFrame( () => {
-				useFocusListItem( listViewRef?.current );
+				focusListView();
 			} );
 		}
-	}, [ setIsListViewOpened, isListViewOpen, listViewRef ] );
+	}, [ setIsListViewOpened, isListViewOpen, , focusListView ] );
 
 	const toggleInserter = useCallback(
 		() => setIsInserterOpened( ! isInserterOpened ),

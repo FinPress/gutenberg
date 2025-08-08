@@ -36,6 +36,8 @@ export default function useClipboardHandler( { selectBlock } ) {
 				selectBlock( undefined, focusClientId, null, null );
 			}
 
+			console.log( 1 );
+
 			focusListItem( focusClientId, node );
 		}
 

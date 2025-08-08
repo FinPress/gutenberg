@@ -177,15 +177,6 @@ function ListViewComponent(
 		ref,
 	] );
 
-	// useEffect( () => {
-	// 	// If a blocks are already selected when the list view is initially
-	// 	// mounted, shift focus to the first selected block.
-	// 	if ( selectedClientIds?.length ) {
-	// 		focusListItem( selectedClientIds[ 0 ], elementRef?.current );
-	// 	}
-	// 	// Only focus on the selected item when the list view is mounted.
-	// }, [] );
-
 	const expand = useCallback(
 		( clientId ) => {
 			if ( ! clientId ) {
