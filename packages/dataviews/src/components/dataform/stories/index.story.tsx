@@ -600,7 +600,6 @@ const LayoutCardComponent = () => {
 			( {
 				layout: {
 					type: 'card',
-					withHeader: false,
 				},
 				fields: [
 					{
