@@ -22,6 +22,7 @@ import {
 	MediaPlaceholder,
 	MediaReplaceFlow,
 	useBlockProps,
+	__experimentalUseBorderProps as useBorderProps,
 } from '@wordpress/block-editor';
 import { __, _x } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
@@ -51,6 +52,7 @@ function AudioEdit( {
 } ) {
 	const { id, autoplay, loop, preload, src } = attributes;
 	const [ temporaryURL, setTemporaryURL ] = useState( attributes.blob );
+	const borderProps = useBorderProps( attributes );
 
 	useUploadMediaFromBlobURL( {
 		url: temporaryURL,
@@ -255,7 +257,12 @@ function AudioEdit( {
 				file or change the position slider when the controls are enabled.
 				*/ }
 				<Disabled isDisabled={ ! isSingleSelected }>
-					<audio controls="controls" src={ src ?? temporaryURL } />
+					<audio
+						className={ borderProps.className }
+						controls="controls"
+						src={ src ?? temporaryURL }
+						style={ borderProps.style }
+					/>
 				</Disabled>
 				{ !! temporaryURL && <Spinner /> }
 				<Caption
