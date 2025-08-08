@@ -230,17 +230,17 @@ Most likely, the tag folder couldn't be created. This is a [known issue](https:/
 Either substitute `SVN_USERNAME`, `SVN_PASSWORD`, and `VERSION` for the proper values or set them as global environment variables first:
 
 ```sh
- CHECKOUT THE REPOSITORY
+# CHECKOUT THE REPOSITORY
 svn checkout https://plugins.svn.wordpress.org/gutenberg/trunk --username "$SVN_USERNAME" --password "$SVN_PASSWORD" gutenberg-svn
 
- MOVE TO THE LOCAL FOLDER
+# MOVE TO THE LOCAL FOLDER
 cd gutenberg-svn
 
- IF YOU HAPPEN TO HAVE ALREADY THE REPO LOCALLY
- AND DIDN'T CHECKOUT, MAKE SURE IT IS UPDATED
- svn up .
+# IF YOU HAPPEN TO HAVE ALREADY THE REPO LOCALLY
+# AND DIDN'T CHECKOUT, MAKE SURE IT IS UPDATED
+svn up .
 
- COPY CURRENT TRUNK INTO THE NEW TAGS FOLDER
+# COPY CURRENT TRUNK INTO THE NEW TAGS FOLDER
 svn copy https://plugins.svn.wordpress.org/gutenberg/trunk https://plugins.svn.wordpress.org/gutenberg/tags/$VERSION -m 'Tagging version $VERSION' --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 ```
 
