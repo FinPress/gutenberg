@@ -664,7 +664,7 @@ export interface SupportedLayouts {
 /**
  * DataForm layouts.
  */
-export type LayoutType = 'regular' | 'panel' | 'card';
+export type LayoutType = 'regular' | 'panel' | 'card' | 'row';
 export type LabelPosition = 'top' | 'side' | 'none';
 
 export type RegularLayout = {
@@ -683,7 +683,11 @@ export type CardLayout = {
 	isOpened?: boolean;
 };
 
-export type Layout = RegularLayout | PanelLayout | CardLayout;
+export type RowLayout = {
+	type: 'row';
+};
+
+export type Layout = RegularLayout | PanelLayout | CardLayout | RowLayout;
 
 export type SimpleFormField = {
 	id: string;

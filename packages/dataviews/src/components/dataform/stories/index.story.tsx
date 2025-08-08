@@ -39,7 +39,7 @@ const meta = {
 			control: { type: 'select' },
 			description:
 				'Chooses the default layout of each field. "regular" is the default layout.',
-			options: [ 'default', 'regular', 'panel', 'card' ],
+			options: [ 'default', 'regular', 'panel', 'card', 'row' ],
 		},
 		labelPosition: {
 			control: { type: 'select' },
@@ -149,7 +149,7 @@ export const Default = ( {
 	type,
 	labelPosition,
 }: {
-	type: 'default' | 'regular' | 'panel' | 'card';
+	type: 'default' | 'regular' | 'panel' | 'card' | 'row';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
 } ) => {
 	const [ post, setPost ] = useState( {
@@ -211,7 +211,7 @@ const CombinedFieldsComponent = ( {
 	type,
 	labelPosition,
 }: {
-	type: 'default' | 'regular' | 'panel' | 'card';
+	type: 'default' | 'regular' | 'panel' | 'card' | 'row';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
 } ) => {
 	const [ post, setPost ] = useState< SamplePost >( {
@@ -687,6 +687,72 @@ export const LayoutCard = {
 	render: LayoutCardComponent,
 };
 
+const LayoutRowComponent = () => {
+	type RowSample = {
+		firstName: string;
+		lastName: string;
+		email: string;
+		city: string;
+		country: string;
+	};
+
+	const rowFields: Field< RowSample >[] = [
+		{ id: 'firstName', label: 'First name', type: 'text' as const },
+		{ id: 'lastName', label: 'Last name', type: 'text' as const },
+		{ id: 'email', label: 'Email', type: 'email' as const },
+		{ id: 'city', label: 'City', type: 'text' as const },
+		{ id: 'country', label: 'Country', type: 'text' as const },
+	];
+
+	const [ data, setData ] = useState< RowSample >( {
+		firstName: 'Jane',
+		lastName: 'Doe',
+		email: 'jane@example.com',
+		city: 'Paris',
+		country: 'France',
+	} );
+
+	const form = useMemo(
+		() =>
+			( {
+				fields: [
+					{
+						id: 'personRow',
+						label: 'Person',
+						layout: { type: 'row' },
+						children: [ 'firstName', 'lastName', 'email' ],
+					},
+					{
+						id: 'locationRow',
+						label: 'Location',
+						layout: { type: 'row' },
+						children: [ 'city', 'country' ],
+					},
+				],
+			} ) satisfies Form,
+		[]
+	);
+
+	return (
+		<DataForm< RowSample >
+			data={ data }
+			fields={ rowFields }
+			form={ form }
+			onChange={ ( edits ) =>
+				setData( ( prev ) => ( {
+					...prev,
+					...edits,
+				} ) )
+			}
+		/>
+	);
+};
+
+export const LayoutRow = {
+	title: 'DataForm/LayoutRow',
+	render: LayoutRowComponent,
+};
+
 const LayoutMixedComponent = () => {
 	const [ post, setPost ] = useState< SamplePost >( {
 		title: 'Hello, World!',
@@ -711,12 +777,23 @@ const LayoutMixedComponent = () => {
 					'status',
 					{ id: 'order', layout: { type: 'card' } },
 					{
-						id: 'authorDateCard',
-						label: 'Author & Date',
+						id: 'authorReviewerFilesizeDimensionsCard',
+						label: 'Author & Reviewer & Filesize & Dimensions',
 						layout: {
 							type: 'card',
 						},
-						children: [ 'author', 'date' ],
+						children: [
+							{
+								id: 'authorDateRow',
+								layout: { type: 'row' },
+								children: [
+									'author',
+									'reviewer',
+									'filesize',
+									'dimensions',
+								],
+							},
+						],
 					},
 				],
 			} ) satisfies Form,

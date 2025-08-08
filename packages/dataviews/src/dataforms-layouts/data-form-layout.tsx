@@ -1,7 +1,10 @@
 /**
  * WordPress dependencies
  */
-import { __experimentalVStack as VStack } from '@wordpress/components';
+import {
+	__experimentalVStack as VStack,
+	__experimentalHStack as HStack,
+} from '@wordpress/components';
 import { useContext, useMemo } from '@wordpress/element';
 
 /**
@@ -47,8 +50,10 @@ export function DataFormLayout< Item >( {
 		[ form ]
 	);
 
+	const isRowContainer = form.layout?.type === 'row';
+	const Container = isRowContainer ? HStack : VStack;
 	return (
-		<VStack spacing={ form.layout?.type === 'panel' ? 2 : 4 }>
+		<Container spacing={ form.layout?.type === 'panel' ? 2 : 4 }>
 			{ normalizedFormFields.map( ( formField ) => {
 				const FieldLayout = getFormFieldLayout( formField.layout.type )
 					?.component;
@@ -82,6 +87,6 @@ export function DataFormLayout< Item >( {
 					/>
 				);
 			} ) }
-		</VStack>
+		</Container>
 	);
 }
