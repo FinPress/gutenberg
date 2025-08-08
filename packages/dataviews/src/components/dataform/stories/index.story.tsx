@@ -600,10 +600,7 @@ const LayoutCardComponent = () => {
 			( {
 				layout: {
 					type: 'card',
-					// labelPosition: 'none',
-					// TODO: fix labelPosition none.
-					// When this is set, the second card doesn't get the header (even if it doesn't have labelPosition set),
-					// but the 1st and 3rd do. I'd expect none of them get the header.
+					withHeader: false,
 				},
 				fields: [
 					{
@@ -655,33 +652,16 @@ const LayoutCardComponent = () => {
 					},
 					{
 						id: 'payments',
-						layout: { type: 'card', labelPosition: 'none' },
+						layout: { type: 'card', withHeader: false },
 					},
 					{
 						id: 'taxConfiguration',
 						label: 'Taxes',
 						layout: {
 							type: 'card',
-							opened: false, // TODO: it does not work.
+							isOpened: false,
 						},
-						children: [
-							// TODO: default values.
-							// [ 'vat', 'commission' ] should render the default (REGULAR with TOP label instead of regular with hidden label).
-							{
-								id: 'vat',
-								layout: {
-									type: 'regular',
-									labelPosition: 'top',
-								},
-							},
-							{
-								id: 'commission',
-								layout: {
-									type: 'regular',
-									labelPosition: 'top',
-								},
-							},
-						],
+						children: [ 'vat', 'commission' ],
 					},
 				],
 			} ) satisfies Form,

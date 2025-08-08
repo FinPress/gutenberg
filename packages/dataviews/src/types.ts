@@ -17,7 +17,6 @@ import type { SetSelection } from './private-types';
  * WordPress dependencies
  */
 import type { useFocusOnMount } from '@wordpress/compose';
-import type { Layout } from './layout-types';
 
 export type SortDirection = 'asc' | 'desc';
 
@@ -661,6 +660,30 @@ export interface SupportedLayouts {
 	grid?: Omit< ViewGrid, 'type' >;
 	table?: Omit< ViewTable, 'type' >;
 }
+
+/**
+ * DataForm layouts.
+ */
+export type LayoutType = 'regular' | 'panel' | 'card';
+export type LabelPosition = 'top' | 'side' | 'none';
+
+export type RegularLayout = {
+	type: 'regular';
+	labelPosition?: LabelPosition;
+};
+
+export type PanelLayout = {
+	type: 'panel';
+	labelPosition?: LabelPosition;
+};
+
+export type CardLayout = {
+	type: 'card';
+	withHeader?: boolean;
+	isOpened?: boolean;
+};
+
+export type Layout = RegularLayout | PanelLayout | CardLayout;
 
 export type SimpleFormField = {
 	id: string;

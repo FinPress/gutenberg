@@ -17,11 +17,10 @@ import {
 /**
  * Internal dependencies
  */
-import type { Form, FieldLayoutProps } from '../../types';
+import type { Form, FieldLayoutProps, RegularLayout } from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
-import type { RegularLayout } from '../../layout-types';
 
 function Header( { title }: { title: string } ) {
 	return (
