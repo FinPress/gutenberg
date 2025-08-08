@@ -1,7 +1,10 @@
 /**
  * WordPress dependencies
  */
-import { __experimentalVStack as VStack } from '@wordpress/components';
+import {
+	__experimentalVStack as VStack,
+	__experimentalHStack as HStack,
+} from '@wordpress/components';
 import { useContext, useMemo } from '@wordpress/element';
 
 /**
@@ -13,15 +16,13 @@ import DataFormContext from '../components/dataform-context';
 import { isCombinedField } from './is-combined-field';
 import normalizeFormFields from '../normalize-form-fields';
 
-export function DataFormLayout< Item >( {
-	data,
-	form,
-	onChange,
-	children,
-}: {
+type StackDirection = 'vertical' | 'horizontal';
+
+export interface DataFormLayoutProps< Item > {
 	data: Item;
 	form: Form;
 	onChange: ( value: any ) => void;
+	direction?: StackDirection;
 	children?: (
 		FieldLayout: ( props: {
 			data: Item;
@@ -31,7 +32,15 @@ export function DataFormLayout< Item >( {
 		} ) => React.JSX.Element | null,
 		field: FormField
 	) => React.JSX.Element;
-} ) {
+}
+
+export function DataFormLayout< Item >( {
+	data,
+	form,
+	onChange,
+	direction = 'vertical',
+	children,
+}: DataFormLayoutProps< Item > ) {
 	const { fields: fieldDefinitions } = useContext( DataFormContext );
 
 	function getFieldDefinition( field: SimpleFormField | string ) {
@@ -47,8 +56,10 @@ export function DataFormLayout< Item >( {
 		[ form ]
 	);
 
+	const Stack = direction === 'vertical' ? VStack : HStack;
+
 	return (
-		<VStack spacing={ form?.type === 'panel' ? 2 : 4 }>
+		<Stack spacing={ form?.type === 'panel' ? 2 : 4 }>
 			{ normalizedFormFields.map( ( formField ) => {
 				const FieldLayout = getFormFieldLayout( formField.layout )
 					?.component;
@@ -82,6 +93,6 @@ export function DataFormLayout< Item >( {
 					/>
 				);
 			} ) }
-		</VStack>
+		</Stack>
 	);
 }
