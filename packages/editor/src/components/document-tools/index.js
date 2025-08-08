@@ -55,6 +55,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 			getCurrentPostType,
 		} = unlock( select( editorStore ) );
 		const { getShortcutRepresentation } = select( keyboardShortcutsStore );
+
 		return {
 			isInserterOpened: select( editorStore ).isInserterOpened(),
 			isListViewOpen: isListViewOpened(),
