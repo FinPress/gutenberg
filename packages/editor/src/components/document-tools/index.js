@@ -97,7 +97,6 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 	const focusListView = useFocusListItem( listViewRef?.current );
 
 	const toggleListView = useCallback( () => {
-		focusListView();
 		const newState = ! isListViewOpen;
 		setIsListViewOpened( newState );
 		if ( newState ) {
