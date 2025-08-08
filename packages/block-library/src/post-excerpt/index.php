@@ -20,16 +20,33 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 		return '';
 	}
 
+	$post = get_post( $block->context['postId'] );
+
 	/*
 	* The purpose of the excerpt length setting is to limit the length of both
 	* automatically generated and user-created excerpts.
 	* Because the excerpt_length filter only applies to auto generated excerpts,
 	* wp_trim_words is used instead.
 	*/
-	$excerpt_length = $attributes['excerptLength'];
-	$excerpt        = get_the_excerpt( $block->context['postId'] );
-	if ( isset( $excerpt_length ) ) {
-		$excerpt = wp_trim_words( $excerpt, $excerpt_length );
+	if ( ! $post->post_excerpt ) {
+		$content = $post->post_content;
+
+		// Convert list items to text with proper spacing
+		$content = preg_replace( '/<li[^>]*>(.*?)<\/li>/i', "• $1\n", $content );
+
+		// Strip remaining HTML tags
+		$content = wp_strip_all_tags( $content );
+
+		// Clean up whitespace
+		$content = preg_replace( '/\s+/', ' ', trim( $content ) );
+
+		// Create excerpt
+		$excerpt = wp_trim_words( $content, $attributes['excerptLength'] );
+	} else {
+		$excerpt = get_the_excerpt( $block->context['postId'] );
+		if ( isset( $attributes['excerptLength'] ) ) {
+			$excerpt = wp_trim_words( $excerpt, $attributes['excerptLength'] );
+		}
 	}
 
 	$more_text           = ! empty( $attributes['moreText'] ) ? '<a class="wp-block-post-excerpt__more-link" href="' . esc_url( get_the_permalink( $block->context['postId'] ) ) . '">' . wp_kses_post( $attributes['moreText'] ) . '</a>' : '';
