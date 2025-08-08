@@ -730,6 +730,7 @@ const LayoutMixedComponent = () => {
 						layout: { type: 'panel', labelPosition: 'top' },
 					},
 					'status',
+					{ id: 'order', layout: { type: 'card' } },
 					{
 						id: 'authorDateCard',
 						label: 'Author & Date',
