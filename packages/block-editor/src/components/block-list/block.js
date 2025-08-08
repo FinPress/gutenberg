@@ -572,6 +572,7 @@ function BlockListBlockProvider( props ) {
 				getTemporarilyEditingAsBlocks,
 				getBlockEditingMode,
 				getBlockName,
+				getBlockParentsByBlockName,
 				isFirstMultiSelectedBlock,
 				getMultiSelectedBlockClientIds,
 				hasSelectedInnerBlock,
@@ -644,6 +645,17 @@ function BlockListBlockProvider( props ) {
 			);
 			const blockEditingMode = getBlockEditingMode( clientId );
 
+			// Force disable editing for any child blocks of Navigation blocks
+			const navigationParents = getBlockParentsByBlockName(
+				clientId,
+				'core/navigation',
+				true
+			);
+			const isChildOfNavigation = navigationParents.length > 0;
+			const finalBlockEditingMode = isChildOfNavigation
+				? 'disabled'
+				: blockEditingMode;
+
 			const multiple = hasBlockSupport( blockName, 'multiple', true );
 
 			// For block types with `multiple` support, there is no "original
@@ -666,7 +678,7 @@ function BlockListBlockProvider( props ) {
 				isSelected: _isSelected,
 				isTemporarilyEditingAsBlocks:
 					getTemporarilyEditingAsBlocks() === clientId,
-				blockEditingMode,
+				blockEditingMode: finalBlockEditingMode,
 				mayDisplayControls:
 					_isSelected ||
 					( isFirstMultiSelectedBlock( clientId ) &&
