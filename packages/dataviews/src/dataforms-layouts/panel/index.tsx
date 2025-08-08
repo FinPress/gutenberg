@@ -25,13 +25,13 @@ import type {
 	Form,
 	FormField,
 	FieldLayoutProps,
+	PanelLayout,
 	NormalizedField,
 	SimpleFormField,
 } from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
-import type { PanelLayout } from '../../layout-types';
 
 function DropdownHeader( {
 	title,
