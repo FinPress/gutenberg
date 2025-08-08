@@ -26,6 +26,7 @@ const buildDockerComposeConfig = require( './build-docker-compose-config' );
  * @param {Object}  options.spinner      A CLI spinner which indicates progress.
  * @param {boolean} options.debug        True if debug mode is enabled.
  * @param {string}  options.xdebug       The Xdebug mode to set. Defaults to "off".
+ * @param {boolean} options.xhprof       Whether XHProf is enabled. Defaults to false.
  * @param {boolean} options.writeChanges If true, writes the parsed config to the
  *                                       required docker files like docker-compose
  *                                       and Dockerfile. By default, this is false
@@ -37,15 +38,17 @@ module.exports = async function initConfig( {
 	spinner,
 	debug,
 	xdebug = 'off',
+	xhprof = false,
 	writeChanges = false,
 } ) {
 	const config = await loadConfig( path.resolve( '.' ) );
 	config.debug = debug;
 
-	// Adding this to the config allows the start command to understand that the
-	// config has changed when only the xdebug param has changed. This is needed
-	// so that Docker will rebuild the image whenever the xdebug flag changes.
+	// Adding these to the config allows the start command to understand that the
+	// config has changed when either the xdebug or xhprof params have changed.
+	// This is needed so that Docker will rebuild the image whenever either flag changes.
 	config.xdebug = xdebug;
+	config.xhprof = xhprof;
 
 	const dockerComposeConfig = buildDockerComposeConfig( config );
 
@@ -238,6 +241,8 @@ RUN echo "#$HOST_UID ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers`;
 		config.env[ env ].phpVersion
 	);
 
+	dockerFileContent += getXHProfConfig( config.xhprof );
+
 	// Add better PHP settings.
 	dockerFileContent += `
 RUN echo 'upload_max_filesize = 1G' >> /usr/local/etc/php/php.ini
@@ -308,4 +313,24 @@ RUN docker-php-ext-enable xdebug
 RUN echo 'xdebug.start_with_request=yes' >> /usr/local/etc/php/php.ini
 RUN echo 'xdebug.mode=${ xdebugMode }' >> /usr/local/etc/php/php.ini
 RUN echo 'xdebug.client_host="host.docker.internal"' >> /usr/local/etc/php/php.ini`;
+}
+
+/**
+ * Gets the XHProf config based on whether it is enabled.
+ *
+ * @param {boolean} xhprofEnabled Whether XHPRof is enabled. Default is false.
+ * @return {string} The XHProf config -- can be an empty string when it's not used.
+ */
+function getXHProfConfig( xhprofEnabled = false ) {
+	if ( xhprofEnabled === false ) {
+		return '';
+	}
+
+	return `
+# Install XHProf:
+RUN if [ -z "$(pecl list | grep xhprof)" ] ; then pecl install xhprof ; fi
+RUN docker-php-ext-enable xhprof
+RUN echo '[xhprof]' >> /usr/local/etc/php/php.ini
+RUN echo 'extension=xhprof.so' >> /usr/local/etc/php/php.ini
+RUN echo 'xhprof.output_dir="/tmp/xhprof"' >> /usr/local/etc/php/php.ini`;
 }

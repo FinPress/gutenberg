@@ -139,6 +139,11 @@ module.exports = function cli() {
 				coerce: parseXdebugMode,
 				type: 'string',
 			} );
+			args.option( 'xhprof', {
+				describe:
+					'Enables XHProf. If not passed, XHProf is turned off.',
+				type: 'string',
+			} );
 			args.option( 'scripts', {
 				type: 'boolean',
 				describe: 'Execute any configured lifecycle scripts.',
