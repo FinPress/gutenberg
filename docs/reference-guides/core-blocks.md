@@ -27,7 +27,7 @@ Accordion header. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/pa
 -	**Experimental:** true
 -	**Category:** design
 -	**Parent:** core/accordion-item
--	**Supports:** anchor, border, color (background, gradient, text), interactivity, layout, shadow, spacing (margin, padding), typography (fontSize, textAlign), ~~align~~
+-	**Supports:** anchor, border, color (background, gradient, text), interactivity, shadow, spacing (margin, padding), typography (fontSize, textAlign), ~~align~~
 -	**Attributes:** iconPosition, level, levelOptions, openByDefault, showIcon, textAlignment, title
 
 ## Accordion
@@ -50,7 +50,7 @@ Accordion Panel ([Source](https://github.com/WordPress/gutenberg/tree/trunk/pack
 -	**Experimental:** true
 -	**Category:** design
 -	**Parent:** core/accordion-item
--	**Supports:** border, color (background, gradient, text), interactivity, layout, shadow, spacing (blockGap, margin, padding), typography (fontSize, lineHeight)
+-	**Supports:** border, color (background, gradient, text), interactivity, shadow, spacing (blockGap, margin, padding), typography (fontSize, lineHeight)
 -	**Attributes:** allowedBlocks, isSelected, openByDefault, templateLock
 
 ## Archives
