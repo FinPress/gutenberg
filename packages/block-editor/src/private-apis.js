@@ -13,6 +13,7 @@ import {
 	normalizeString,
 } from './components/inserter/search-items';
 import { PrivateListView } from './components/list-view';
+import useFocusListItem from './components/list-view/use-focus-list-item';
 import { useHasBlockToolbar } from './components/block-toolbar/use-has-block-toolbar';
 import { cleanEmptyObject } from './hooks/utils';
 import BlockQuickNavigation from './components/block-quick-navigation';
@@ -94,6 +95,7 @@ lock( privateApis, {
 	reusableBlocksSelectKey,
 	PrivateBlockPopover,
 	PrivatePublishDateTimePicker,
+	useFocusListItem,
 	useSpacingSizes,
 	useBlockDisplayTitle,
 	__unstableBlockStyleVariationOverridesWithConfig,

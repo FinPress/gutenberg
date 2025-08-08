@@ -19,7 +19,6 @@ import { AsyncModeProvider, useSelect } from '@wordpress/data';
 import deprecated from '@wordpress/deprecated';
 import {
 	useCallback,
-	useEffect,
 	useMemo,
 	useRef,
 	useReducer,
@@ -42,7 +41,6 @@ import useListViewDropZone from './use-list-view-drop-zone';
 import useListViewExpandSelectedItem from './use-list-view-expand-selected-item';
 import { store as blockEditorStore } from '../../store';
 import { BlockSettingsDropdown } from '../block-settings-menu/block-settings-dropdown';
-import { focusListItem } from './utils';
 import useClipboardHandler from './use-clipboard-handler';
 
 const expanded = ( state, action ) => {
@@ -179,14 +177,14 @@ function ListViewComponent(
 		ref,
 	] );
 
-	useEffect( () => {
-		// If a blocks are already selected when the list view is initially
-		// mounted, shift focus to the first selected block.
-		if ( selectedClientIds?.length ) {
-			focusListItem( selectedClientIds[ 0 ], elementRef?.current );
-		}
-		// Only focus on the selected item when the list view is mounted.
-	}, [] );
+	// useEffect( () => {
+	// 	// If a blocks are already selected when the list view is initially
+	// 	// mounted, shift focus to the first selected block.
+	// 	if ( selectedClientIds?.length ) {
+	// 		focusListItem( selectedClientIds[ 0 ], elementRef?.current );
+	// 	}
+	// 	// Only focus on the selected item when the list view is mounted.
+	// }, [] );
 
 	const expand = useCallback(
 		( clientId ) => {

@@ -9,7 +9,12 @@ import clsx from 'clsx';
 import { useViewportMatch } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __, _x } from '@wordpress/i18n';
-import { NavigableToolbar, ToolSelector } from '@wordpress/block-editor';
+import {
+	NavigableToolbar,
+	ToolSelector,
+	privateApis as blockEditorPrivateApis,
+	store as blockEditorStore,
+} from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarItem } from '@wordpress/components';
 import { listView, plus } from '@wordpress/icons';
 import { useCallback } from '@wordpress/element';
@@ -24,6 +29,8 @@ import { store as editorStore } from '../../store';
 import EditorHistoryRedo from '../editor-history/redo';
 import EditorHistoryUndo from '../editor-history/undo';
 
+const { focusListItem } = unlock( blockEditorPrivateApis );
+
 function DocumentTools( { className, disableBlockTools = false } ) {
 	const { setIsInserterOpened, setIsListViewOpened } =
 		useDispatch( editorStore );
@@ -34,6 +41,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 		listViewShortcut,
 		inserterSidebarToggleRef,
 		listViewToggleRef,
+		listViewRef,
 		showIconLabels,
 		showTools,
 	} = useSelect( ( select ) => {
@@ -43,11 +51,11 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 			getEditorMode,
 			getInserterSidebarToggleRef,
 			getListViewToggleRef,
+			getListViewRef,
 			getRenderingMode,
 			getCurrentPostType,
 		} = unlock( select( editorStore ) );
 		const { getShortcutRepresentation } = select( keyboardShortcutsStore );
-
 		return {
 			isInserterOpened: select( editorStore ).isInserterOpened(),
 			isListViewOpen: isListViewOpened(),
@@ -56,6 +64,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 			),
 			inserterSidebarToggleRef: getInserterSidebarToggleRef(),
 			listViewToggleRef: getListViewToggleRef(),
+			listViewRef: getListViewRef(),
 			showIconLabels: get( 'core', 'showIconLabels' ),
 			isDistractionFree: get( 'core', 'distractionFree' ),
 			isVisualMode: getEditorMode() === 'visual',
@@ -85,10 +94,15 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 	/* translators: accessibility text for the editor toolbar */
 	const toolbarAriaLabel = __( 'Document tools' );
 
-	const toggleListView = useCallback(
-		() => setIsListViewOpened( ! isListViewOpen ),
-		[ setIsListViewOpened, isListViewOpen ]
-	);
+	const toggleListView = useCallback( () => {
+		const newState = ! isListViewOpen;
+		setIsListViewOpened( newState );
+		if ( newState ) {
+			window.requestAnimationFrame( () => {
+				useFocusListItem( listViewRef?.current );
+			} );
+		}
+	}, [ setIsListViewOpened, isListViewOpen, listViewRef ] );
 
 	const toggleInserter = useCallback(
 		() => setIsInserterOpened( ! isInserterOpened ),
