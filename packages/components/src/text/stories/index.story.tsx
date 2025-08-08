@@ -27,7 +27,6 @@ const meta: Meta< typeof Text > = {
 		weight: { control: { type: 'text' } },
 	},
 	parameters: {
-		actions: { argTypesRegex: '^on.*' },
 		controls: { expanded: true },
 		docs: { canvas: { sourceState: 'shown' } },
 	},

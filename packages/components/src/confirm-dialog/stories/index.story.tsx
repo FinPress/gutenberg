@@ -2,6 +2,7 @@
  * External dependencies
  */
 import type { Meta, StoryFn } from '@storybook/react';
+import { fn } from '@storybook/test';
 
 /**
  * WordPress dependencies
@@ -23,8 +24,11 @@ const meta: Meta< typeof ConfirmDialog > = {
 			control: false,
 		},
 	},
+	args: {
+		onCancel: fn(),
+		onConfirm: fn(),
+	},
 	parameters: {
-		actions: { argTypesRegex: '^on.*' },
 		controls: {
 			expanded: true,
 		},
