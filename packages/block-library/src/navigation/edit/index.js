@@ -250,6 +250,8 @@ function Navigation( {
 	// the Select Menu dropdown.
 	const { menus: classicMenus } = useNavigationEntities();
 
+	const { enableComplementaryArea } = useDispatch( interfaceStore );
+
 	const [ showNavigationMenuStatusNotice, hideNavigationMenuStatusNotice ] =
 		useNavigationNotice( {
 			name: 'block-library/core/navigation/status',
@@ -599,15 +601,6 @@ function Navigation( {
 
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
-	const { enableComplementaryArea } = useDispatch( interfaceStore );
-
-	const isInspectorOpen = useSelect(
-		( select ) =>
-			select( interfaceStore ).getActiveComplementaryArea( 'core' ) ===
-			'edit-post/block',
-		[]
-	);
-
 	const stylingInspectorControls = (
 		<>
 			<InspectorControls>
@@ -933,19 +926,21 @@ function Navigation( {
 	return (
 		<EntityProvider kind="postType" type="wp_navigation" id={ ref }>
 			<RecursionProvider uniqueId={ recursionId }>
-				<BlockControls>
-					<ToolbarButton
-						label={ __( 'Edit' ) }
-						onClick={ () => {
-							enableComplementaryArea(
-								'core',
-								'edit-post/block'
-							);
-						} }
-					>
-						{ __( 'Edit' ) }
-					</ToolbarButton>
-				</BlockControls>
+				{ blockEditingMode === 'contentOnly' && (
+					<BlockControls>
+						<ToolbarButton
+							label={ __( 'Edit' ) }
+							onClick={ () => {
+								enableComplementaryArea(
+									'core',
+									'edit-post/block'
+								);
+							} }
+						>
+							{ __( 'Edit' ) }
+						</ToolbarButton>
+					</BlockControls>
+				) }
 				<MenuInspectorControls
 					clientId={ clientId }
 					createNavigationMenuIsSuccess={
