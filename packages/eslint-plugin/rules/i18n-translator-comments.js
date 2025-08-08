@@ -155,7 +155,6 @@ module.exports = {
 							extractTranslatorKeys( commentText );
 						const placeholdersUsed =
 							candidates.flatMap( extractPlaceholders );
-						// console.log( { keysInComment, placeholdersUsed } );
 
 						const keysInCommentArr = [ ...keysInComment.keys() ];
 
@@ -213,8 +212,6 @@ module.exports = {
 									return isValidType && isUnused;
 							  } )
 							: [];
-
-						// console.log({extra, keysInComment, placeholdersUsed});
 
 						if ( extra.length > 0 ) {
 							context.report( {
