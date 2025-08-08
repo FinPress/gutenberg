@@ -57,6 +57,7 @@ export default function useMultipleOriginColorsAndGradients() {
 				),
 				slug: 'theme',
 				colors: themeColors,
+				slug: 'theme',
 			} );
 		}
 		if (
@@ -71,6 +72,7 @@ export default function useMultipleOriginColorsAndGradients() {
 				),
 				slug: 'default',
 				colors: defaultColors,
+				slug: 'default',
 			} );
 		}
 		if ( customColors && customColors.length ) {
@@ -81,6 +83,7 @@ export default function useMultipleOriginColorsAndGradients() {
 				),
 				slug: 'custom',
 				colors: customColors,
+				slug: 'custom',
 			} );
 		}
 		return result;
@@ -101,6 +104,7 @@ export default function useMultipleOriginColorsAndGradients() {
 				),
 				slug: 'theme',
 				gradients: themeGradients,
+				slug: 'theme',
 			} );
 		}
 		if (
@@ -115,6 +119,7 @@ export default function useMultipleOriginColorsAndGradients() {
 				),
 				slug: 'default',
 				gradients: defaultGradients,
+				slug: 'default',
 			} );
 		}
 		if ( customGradients && customGradients.length ) {
@@ -125,6 +130,7 @@ export default function useMultipleOriginColorsAndGradients() {
 				),
 				slug: 'custom',
 				gradients: customGradients,
+				slug: 'custom',
 			} );
 		}
 		return result;
