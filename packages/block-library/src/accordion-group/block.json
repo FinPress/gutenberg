@@ -47,17 +47,9 @@
 			"type": "string",
 			"default": "right"
 		},
-		"icon": {
-			"type": [ "string", "boolean" ],
-			"enum": [
-				"plus",
-				"chevron",
-				"chevronRight",
-				"caret",
-				"circlePlus",
-				false
-			],
-			"default": "plus"
+		"showIcon": {
+			"type": "boolean",
+			"default": true
 		},
 		"autoclose": {
 			"type": "boolean",
@@ -68,8 +60,8 @@
 		}
 	},
 	"providesContext": {
-		"core/accordion-icon": "icon",
-		"core/accordion-icon-position": "iconPosition"
+		"core/accordion-icon-position": "iconPosition",
+		"core/accordion-show-icon": "showIcon"
 	},
 	"allowedBlocks": [ "core/accordion-item" ],
 	"textdomain": "default",

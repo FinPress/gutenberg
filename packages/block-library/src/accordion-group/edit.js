@@ -12,18 +12,7 @@ import {
 	ToggleControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 } from '@wordpress/components';
-/**
- * Internal dependencies
- */
-import {
-	caret,
-	chevron,
-	chevronRight,
-	circlePlus,
-	plus,
-} from '../accordion-item/icons';
 
 const ACCORDION_BLOCK_NAME = 'core/accordion-item';
 const ACCORDION_BLOCK = {
@@ -31,7 +20,7 @@ const ACCORDION_BLOCK = {
 };
 
 export default function Edit( {
-	attributes: { autoclose, icon, iconPosition },
+	attributes: { autoclose, iconPosition, showIcon },
 	setAttributes,
 } ) {
 	const blockProps = useBlockProps();
@@ -60,46 +49,20 @@ export default function Edit( {
 							'Automatically close accordions when a new one is opened.'
 						) }
 					/>
-					<ToggleGroupControl
-						__nextHasNoMarginBottom
-						__next40pxDefaultSize
+					<ToggleControl
 						isBlock
-						label={ __( 'Icon' ) }
-						value={ icon }
-						onChange={ ( value ) =>
-							setAttributes( { icon: value } )
-						}
-					>
-						<ToggleGroupControlOptionIcon
-							label="Plus"
-							icon={ plus }
-							value="plus"
-						/>
-						<ToggleGroupControlOptionIcon
-							label="Chevron"
-							icon={ chevron }
-							value="chevron"
-						/>
-						<ToggleGroupControlOptionIcon
-							label="Circle Plus"
-							icon={ circlePlus }
-							value="circlePlus"
-						/>
-						<ToggleGroupControlOptionIcon
-							label="Caret"
-							icon={ caret }
-							value="caret"
-						/>
-						<ToggleGroupControlOptionIcon
-							label="Chevron Right"
-							icon={ chevronRight }
-							value="chevronRight"
-						/>
-						<ToggleGroupControlOption
-							label="None"
-							value={ false }
-						/>
-					</ToggleGroupControl>
+						__nextHasNoMarginBottom
+						label={ __( 'Show icon' ) }
+						onChange={ ( value ) => {
+							setAttributes( {
+								showIcon: value,
+							} );
+						} }
+						checked={ showIcon }
+						help={ __(
+							'Display a plus icon next to the accordion header.'
+						) }
+					/>
 					<ToggleGroupControl
 						__nextHasNoMarginBottom
 						__next40pxDefaultSize

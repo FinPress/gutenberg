@@ -9,7 +9,10 @@
 	"example": {},
 	"__experimental": true,
 	"parent": [ "core/accordion-item" ],
-	"usesContext": [ "core/accordion-icon", "core/accordion-icon-position" ],
+	"usesContext": [
+		"core/accordion-icon-position",
+		"core/accordion-show-icon"
+	],
 	"supports": {
 		"anchor": true,
 		"color": {
@@ -77,22 +80,14 @@
 			"type": "string",
 			"default": "left"
 		},
-		"icon": {
-			"type": [ "string", "boolean" ],
-			"enum": [
-				"plus",
-				"chevron",
-				"chevronRight",
-				"caret",
-				"circlePlus",
-				false
-			],
-			"default": "plus"
-		},
 		"iconPosition": {
 			"type": "string",
 			"enum": [ "left", "right" ],
 			"default": "right"
+		},
+		"showIcon": {
+			"type": "boolean",
+			"default": true
 		}
 	},
 	"textdomain": "default"

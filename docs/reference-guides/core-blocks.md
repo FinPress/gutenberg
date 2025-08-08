@@ -17,7 +17,7 @@ A group of headers and associated expandable content. ([Source](https://github.c
 -	**Category:** design
 -	**Allowed Blocks:** core/accordion-item
 -	**Supports:** align (full, wide), background (backgroundImage, backgroundSize), color (background, gradient, text), interactivity, layout, shadow, spacing (blockGap, margin, padding), ~~html~~
--	**Attributes:** allowedBlocks, autoclose, icon, iconPosition
+-	**Attributes:** allowedBlocks, autoclose, iconPosition, showIcon
 
 ## Accordion Header
 
@@ -28,7 +28,7 @@ Accordion header. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/pa
 -	**Category:** design
 -	**Parent:** core/accordion-item
 -	**Supports:** anchor, border, color (background, gradient, text), interactivity, layout, shadow, spacing (margin, padding), typography (fontSize, textAlign), ~~align~~
--	**Attributes:** icon, iconPosition, level, levelOptions, openByDefault, textAlignment, title
+-	**Attributes:** iconPosition, level, levelOptions, openByDefault, showIcon, textAlignment, title
 
 ## Accordion
 

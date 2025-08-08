@@ -16,20 +16,10 @@ import {
 /**
  * Internal dependencies
  */
-import {
-	caret,
-	chevron,
-	chevronRight,
-	circlePlus,
-	plus,
-} from '../accordion-item/icons';
+import { plus } from '../accordion-item/icons';
 
 const ICONS = {
 	plus,
-	circlePlus,
-	chevron,
-	chevronRight,
-	caret,
 };
 
 export default function save( { attributes } ) {

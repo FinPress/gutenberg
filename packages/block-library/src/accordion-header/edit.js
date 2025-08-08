@@ -21,39 +21,29 @@ import { ToolbarGroup } from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import {
-	caret,
-	chevron,
-	chevronRight,
-	circlePlus,
-	plus,
-} from '../accordion-item/icons';
+import { plus } from '../accordion-item/icons';
 
 const ICONS = {
 	plus,
-	circlePlus,
-	chevron,
-	chevronRight,
-	caret,
 };
 
 export default function Edit( { attributes, setAttributes, context } ) {
 	const { level, title, textAlign, levelOptions } = attributes;
 	const {
-		'core/accordion-icon': icon,
 		'core/accordion-icon-position': iconPosition,
+		'core/accordion-show-icon': showIcon,
 	} = context;
 	const TagName = 'h' + level;
 
 	// Set icon attributes.
 	useEffect( () => {
-		if ( icon !== undefined && iconPosition !== undefined ) {
+		if ( iconPosition !== undefined && showIcon !== undefined ) {
 			setAttributes( {
-				icon,
 				iconPosition,
+				showIcon,
 			} );
 		}
-	}, [ icon, iconPosition, setAttributes ] );
+	}, [ iconPosition, showIcon, setAttributes ] );
 
 	const blockProps = useBlockProps();
 	const borderProps = useBorderProps( attributes );
@@ -61,7 +51,8 @@ export default function Edit( { attributes, setAttributes, context } ) {
 	const spacingProps = useSpacingProps( attributes );
 	const shadowProps = useShadowProps( attributes );
 
-	const Icon = ICONS[ icon ];
+	const Icon = ICONS.plus;
+	const shouldShowIcon = showIcon && Icon;
 
 	return (
 		<>
@@ -116,18 +107,20 @@ export default function Edit( { attributes, setAttributes, context } ) {
 						}
 						placeholder={ __( 'Accordion title' ) }
 					/>
-					<span
-						className={ clsx( `accordion-item__toggle-icon`, {
-							[ `has-icon-${ icon }` ]: icon,
-						} ) }
-						style={ {
-							// TO-DO: make this configurable
-							width: `1.2em`,
-							height: `1.2em`,
-						} }
-					>
-						{ Icon && <Icon width="1.2em" height="1.2em" /> }
-					</span>
+					{ shouldShowIcon && (
+						<span
+							className={ clsx( `accordion-item__toggle-icon`, {
+								'has-icon-plus': true,
+							} ) }
+							style={ {
+								// TO-DO: make this configurable
+								width: `1.2em`,
+								height: `1.2em`,
+							} }
+						>
+							{ Icon && <Icon width="1.2em" height="1.2em" /> }
+						</span>
+					) }
 				</button>
 			</TagName>
 		</>
