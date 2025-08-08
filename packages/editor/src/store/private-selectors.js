@@ -90,6 +90,9 @@ export function getListViewToggleRef( state ) {
 export function getInserterSidebarToggleRef( state ) {
 	return state.inserterSidebarToggleRef;
 }
+export function getListViewRef( state ) {
+	return state.listViewRef;
+}
 const CARD_ICONS = {
 	wp_block: symbol,
 	wp_navigation: navigation,

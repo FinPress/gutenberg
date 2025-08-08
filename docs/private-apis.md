@@ -316,6 +316,7 @@ Private selectors:
 - `getInserter`
 - `getInserterSidebarToggleRef`
 - `getListViewToggleRef`
+- `getListViewRef`
 - `getPostBlocksByName`
 - `getPostIcon`
 - `hasPostMetaChanges`

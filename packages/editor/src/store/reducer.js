@@ -362,6 +362,17 @@ export function listViewToggleRef( state = { current: null } ) {
 }
 
 /**
+ * This reducer does nothing aside initializing a ref to the list view sidebar.
+ * We will have a unique ref per "editor" instance.
+ *
+ * @param {Object} state
+ * @return {Object} Reference to the list view sidebar element.
+ */
+export function listViewRef( state = { current: null } ) {
+	return state;
+}
+
+/**
  * This reducer does nothing aside initializing a ref to the inserter sidebar toggle.
  * We will have a unique ref per "editor" instance.
  *
@@ -401,6 +412,7 @@ export default combineReducers( {
 	blockInserterPanel,
 	inserterSidebarToggleRef,
 	listViewPanel,
+	listViewRef,
 	listViewToggleRef,
 	publishSidebarActive,
 	dataviews: dataviewsReducer,

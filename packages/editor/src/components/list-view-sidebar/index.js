@@ -24,7 +24,9 @@ const { TabbedSidebar } = unlock( blockEditorPrivateApis );
 
 export default function ListViewSidebar() {
 	const { setIsListViewOpened } = useDispatch( editorStore );
-	const { getListViewToggleRef } = unlock( useSelect( editorStore ) );
+	const { getListViewToggleRef, getListViewRef } = unlock(
+		useSelect( editorStore )
+	);
 
 	// This hook handles focus when the sidebar first renders.
 	const focusOnMountRef = useFocusOnMount( 'firstElement' );
@@ -111,12 +113,14 @@ export default function ListViewSidebar() {
 	// It is the same shortcut to open but that is defined as a global shortcut and only fires when the sidebar is closed.
 	useShortcut( 'core/editor/toggle-list-view', handleToggleListViewShortcut );
 
+	const mergedSidebarRef = useMergeRefs( [ sidebarRef, getListViewRef() ] );
+
 	return (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			className="editor-list-view-sidebar"
 			onKeyDown={ closeOnEscape }
-			ref={ sidebarRef }
+			ref={ mergedSidebarRef }
 		>
 			<TabbedSidebar
 				tabs={ [
