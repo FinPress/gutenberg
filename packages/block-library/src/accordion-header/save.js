@@ -23,7 +23,7 @@ const ICONS = {
 };
 
 export default function save( { attributes } ) {
-	const { level, title, iconPosition, textAlign, icon } = attributes;
+	const { level, title, iconPosition, textAlign, showIcon } = attributes;
 	const TagName = 'h' + level;
 
 	const blockProps = useBlockProps.save();
@@ -32,7 +32,7 @@ export default function save( { attributes } ) {
 	const spacingProps = getSpacingClassesAndStyles( attributes );
 	const shadowProps = getShadowClassesAndStyles( attributes );
 
-	const Icon = ICONS[ icon ];
+	const Icon = ICONS.plus;
 
 	return (
 		<TagName
@@ -63,7 +63,7 @@ export default function save( { attributes } ) {
 				<RichText.Content tagName="span" value={ title } />
 				<span
 					className={ clsx( `accordion-item__toggle-icon`, {
-						[ `has-icon-${ icon }` ]: icon,
+						'has-icon-plus': showIcon,
 					} ) }
 					style={ {
 						// TO-DO: make this configurable
@@ -71,7 +71,7 @@ export default function save( { attributes } ) {
 						height: `1.2em`,
 					} }
 				>
-					{ icon && <Icon width="1.2em" height="1.2em" /> }
+					{ showIcon && <Icon width="1.2em" height="1.2em" /> }
 				</span>
 			</button>
 		</TagName>
