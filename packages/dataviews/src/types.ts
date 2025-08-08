@@ -103,6 +103,7 @@ export type FieldType =
 	| 'media'
 	| 'boolean'
 	| 'email'
+	| 'select'
 	| 'array';
 
 /**
@@ -230,11 +231,6 @@ export type Field< Item > = {
 	 * The list of options to pick from when using the field as a filter.
 	 */
 	elements?: Option[];
-
-	/**
-	 * The list of options to pick from when using the field as an array.
-	 */
-	suggestions?: Option[];
 
 	/**
 	 * Filter config for the field.

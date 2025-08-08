@@ -30,6 +30,7 @@ type SamplePost = {
 	filesize?: number;
 	dimensions?: string;
 	tags?: string[];
+	select?: string;
 };
 
 const meta = {
@@ -145,17 +146,26 @@ const fields = [
 		readOnly: true,
 	},
 	{
+		id: 'select',
+		label: 'Select',
+		type: 'select' as const,
+		elements: [
+			{ value: 'wordpress', label: 'WordPress' },
+			{ value: 'javascript', label: 'JavaScript' },
+			{ value: 'react', label: 'React' },
+		],
+	},
+	{
 		id: 'tags',
 		label: 'Tags',
 		type: 'array' as const,
 		placeholder: 'Enter comma-separated tags',
 		description: 'Add tags separated by commas (e.g., "tag1, tag2, tag3")',
-		suggestions: [
+		elements: [
 			{ value: 'wordpress', label: 'WordPress' },
 			{ value: 'javascript', label: 'JavaScript' },
 			{ value: 'react', label: 'React' },
 		],
-		__experimentalExpandOnFocus: true,
 	},
 ] as Field< SamplePost >[];
 
@@ -200,6 +210,7 @@ export const Default = ( {
 				'can_comment',
 				'filesize',
 				'dimensions',
+				'select',
 				'tags',
 			],
 		} ),
@@ -239,6 +250,7 @@ const CombinedFieldsComponent = ( {
 		filesize: 1024,
 		dimensions: '1920x1080',
 		tags: [ 'wordpress' ],
+		select: 'wordpress',
 	} );
 
 	const form = useMemo(

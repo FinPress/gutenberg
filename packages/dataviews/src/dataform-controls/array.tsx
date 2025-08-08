@@ -15,24 +15,24 @@ export default function ArrayControl< Item >( {
 	onChange,
 	hideLabelFromVision,
 }: DataFormControlProps< Item > ) {
-	const { id, label, placeholder, suggestions, ...extraProps } = field;
+	const { id, label, placeholder, elements, ...extraProps } = field;
 	const value = field.getValue( { item: data } );
 	const findSuggestionByValue = useCallback(
 		( suggestionValue: string ) => {
-			return suggestions?.find(
+			return elements?.find(
 				( suggestion ) => suggestion.value === suggestionValue
 			);
 		},
-		[ suggestions ]
+		[ elements ]
 	);
 
 	const findSuggestionByLabel = useCallback(
 		( suggestionLabel: string ) => {
-			return suggestions?.find(
+			return elements?.find(
 				( suggestion ) => suggestion.label === suggestionLabel
 			);
 		},
-		[ suggestions ]
+		[ elements ]
 	);
 
 	// Ensure value is an array
@@ -89,7 +89,7 @@ export default function ArrayControl< Item >( {
 			onChange={ onChangeControl }
 			placeholder={ placeholder }
 			suggestions={
-				suggestions?.map( ( suggestion ) => suggestion.label ) ?? []
+				elements?.map( ( suggestion ) => suggestion.label ) ?? []
 			}
 			__experimentalValidateInput={ validateInput }
 			__next40pxDefaultSize
