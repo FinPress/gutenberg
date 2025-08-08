@@ -52,15 +52,23 @@ function BlockInspector() {
 			getSelectedBlockCount,
 			getBlockName,
 			getParentSectionBlock,
+			getBlockParentsByBlockName,
 			isSectionBlock: _isSectionBlock,
 		} = unlock( select( blockEditorStore ) );
 		const _selectedBlockClientId = getSelectedBlockClientId();
 		const currentBlockName =
 			_selectedBlockClientId && getBlockName( _selectedBlockClientId );
 
-		// For Navigation blocks, always show their inspector controls
+		// For Navigation blocks and their children, always show the Navigation block's inspector controls
+		const navigationParents = getBlockParentsByBlockName(
+			_selectedBlockClientId,
+			'core/navigation',
+			true
+		);
+		const isChildOfNavigation = navigationParents.length > 0;
+
 		const renderedBlockClientId =
-			currentBlockName === 'core/navigation'
+			currentBlockName === 'core/navigation' || isChildOfNavigation
 				? _selectedBlockClientId
 				: getParentSectionBlock( _selectedBlockClientId ) ||
 				  _selectedBlockClientId;
@@ -79,7 +87,10 @@ function BlockInspector() {
 	}, [] );
 
 	const availableTabs = useInspectorControlsTabs( blockType?.name );
-	const showTabs = availableTabs?.length > 1;
+	const showTabs =
+		availableTabs?.length > 1 ||
+		blockType?.name === 'core/navigation-link' ||
+		blockType?.name === 'core/navigation-submenu';
 
 	// The block inspector animation settings will be completely
 	// removed in the future to create an API which allows the block
