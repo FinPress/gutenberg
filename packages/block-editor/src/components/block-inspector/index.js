@@ -55,9 +55,15 @@ function BlockInspector() {
 			isSectionBlock: _isSectionBlock,
 		} = unlock( select( blockEditorStore ) );
 		const _selectedBlockClientId = getSelectedBlockClientId();
+		const currentBlockName =
+			_selectedBlockClientId && getBlockName( _selectedBlockClientId );
+
+		// For Navigation blocks, always show their inspector controls
 		const renderedBlockClientId =
-			getParentSectionBlock( _selectedBlockClientId ) ||
-			getSelectedBlockClientId();
+			currentBlockName === 'core/navigation'
+				? _selectedBlockClientId
+				: getParentSectionBlock( _selectedBlockClientId ) ||
+				  _selectedBlockClientId;
 		const _selectedBlockName =
 			renderedBlockClientId && getBlockName( renderedBlockClientId );
 		const _blockType =
@@ -209,7 +215,18 @@ const BlockInspectorSingleBlock = ( {
 	isSectionBlock,
 } ) => {
 	const availableTabs = useInspectorControlsTabs( blockName );
-	const showTabs = ! isSectionBlock && availableTabs?.length > 1;
+	const blockEditingMode = useSelect(
+		( select ) =>
+			select( blockEditorStore ).getBlockEditingMode( clientId ),
+		[ clientId ]
+	);
+	const showTabs =
+		! isSectionBlock &&
+		availableTabs?.length > 1 &&
+		! (
+			blockName === 'core/navigation' &&
+			blockEditingMode === 'contentOnly'
+		);
 
 	const hasBlockStyles = useSelect(
 		( select ) => {
@@ -276,12 +293,18 @@ const BlockInspectorSingleBlock = ( {
 						<BlockStylesPanel clientId={ clientId } />
 					) }
 
-					{ contentClientIds && contentClientIds?.length > 0 && (
-						<PanelBody title={ __( 'Content' ) }>
-							<BlockQuickNavigation
-								clientIds={ contentClientIds }
-							/>
-						</PanelBody>
+					{ blockName === 'core/navigation' &&
+					blockEditingMode === 'contentOnly' ? (
+						<InspectorControls.Slot group="list" />
+					) : (
+						contentClientIds &&
+						contentClientIds?.length > 0 && (
+							<PanelBody title={ __( 'Content' ) }>
+								<BlockQuickNavigation
+									clientIds={ contentClientIds }
+								/>
+							</PanelBody>
+						)
 					) }
 
 					{ ! isSectionBlock && (
