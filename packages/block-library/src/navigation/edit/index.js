@@ -15,6 +15,7 @@ import {
 } from '@wordpress/element';
 import {
 	InspectorControls,
+	BlockControls,
 	useBlockProps,
 	RecursionProvider,
 	useHasRecursion,
@@ -30,6 +31,7 @@ import {
 import { EntityProvider, store as coreStore } from '@wordpress/core-data';
 
 import { useDispatch, useSelect } from '@wordpress/data';
+import { store as interfaceStore } from '@wordpress/interface';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
@@ -38,6 +40,7 @@ import {
 	__experimentalVStack as VStack,
 	ToggleControl,
 	Button,
+	ToolbarButton,
 	Spinner,
 	Notice,
 } from '@wordpress/components';
@@ -596,6 +599,15 @@ function Navigation( {
 
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
+	const { enableComplementaryArea } = useDispatch( interfaceStore );
+
+	const isInspectorOpen = useSelect(
+		( select ) =>
+			select( interfaceStore ).getActiveComplementaryArea( 'core' ) ===
+			'edit-post/block',
+		[]
+	);
+
 	const stylingInspectorControls = (
 		<>
 			<InspectorControls>
@@ -921,6 +933,19 @@ function Navigation( {
 	return (
 		<EntityProvider kind="postType" type="wp_navigation" id={ ref }>
 			<RecursionProvider uniqueId={ recursionId }>
+				<BlockControls>
+					<ToolbarButton
+						label={ __( 'Edit' ) }
+						onClick={ () => {
+							enableComplementaryArea(
+								'core',
+								'edit-post/block'
+							);
+						} }
+					>
+						{ __( 'Edit' ) }
+					</ToolbarButton>
+				</BlockControls>
 				<MenuInspectorControls
 					clientId={ clientId }
 					createNavigationMenuIsSuccess={
