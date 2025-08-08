@@ -29,7 +29,7 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 	$excerpt_length = $attributes['excerptLength'];
 	$excerpt        = get_the_excerpt( $block->context['postId'] );
 	if ( isset( $excerpt_length ) ) {
-		$excerpt = wp_trim_words( $excerpt, $excerpt_length );
+		$excerpt = block_core_post_excerpt_trim_words( $excerpt, $excerpt_length );
 	}
 
 	$more_text           = ! empty( $attributes['moreText'] ) ? '<a class="wp-block-post-excerpt__more-link" href="' . esc_url( get_the_permalink( $block->context['postId'] ) ) . '">' . wp_kses_post( $attributes['moreText'] ) . '</a>' : '';
@@ -55,7 +55,7 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 	}
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classes ) ) );
 
-	$content               = '<p class="wp-block-post-excerpt__excerpt">' . $excerpt;
+	$content               = '<p class="wp-block-post-excerpt__excerpt">' . nl2br( wp_kses_post( $excerpt ) );
 	$show_more_on_new_line = ! isset( $attributes['showMoreOnNewLine'] ) || $attributes['showMoreOnNewLine'];
 	if ( $show_more_on_new_line && ! empty( $more_text ) ) {
 		$content .= '</p><p class="wp-block-post-excerpt__more-text">' . $more_text . '</p>';
@@ -64,6 +64,55 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 	}
 	remove_filter( 'excerpt_more', $filter_excerpt_more );
 	return sprintf( '<div %1$s>%2$s</div>', $wrapper_attributes, $content );
+}
+
+/**
+ * Trims text to a given number of words, preserving newlines.
+ *
+ * Similar to wp_trim_words(), but avoids stripping line breaks and HTML <br> tags.
+ *
+ * @since 21.0.0
+ *
+ * @param  string $text The text to trim.
+ * @param  int    $num_words The maximum number of words. Default 55.
+ * @param  string $more Optional. What to append if the text is trimmed. Default '…'.
+ * @return string The trimmed text with newlines preserved.
+ */
+function block_core_post_excerpt_trim_words( $text, $num_words = 55, $more = null ) {
+	if ( null === $more ) {
+		$more = __( '&hellip;' );
+	}
+
+	// Replace <br> tags with newlines temporarily,
+	// to retain manual breaks from editors.
+	$text      = str_replace( array( '<br>', '<br/>', '<br />' ), "\n", $text );
+	$text      = strip_tags( $text );
+	$num_words = (int) $num_words;
+
+	if (
+		str_starts_with( wp_get_word_count_type(), 'characters' ) &&
+		preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) )
+	) {
+		$text = trim( preg_replace( "/[^\S\n\r]+/", ' ', $text ), ' ' );
+		preg_match_all( '/./u', $text, $words_array );
+		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
+		$sep         = '';
+	} else {
+		// Match words and optionally include trailing line breaks.
+		// Ensures newlines are preserved as part of the trimmed output.
+		preg_match_all( '/[^\s]+(?:[ \t]*[\n\r])?/', $text, $words_array );
+		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
+		$sep         = ' ';
+	}
+
+	if ( count( $words_array ) > $num_words ) {
+		array_pop( $words_array );
+		$text = implode( $sep, $words_array ) . $more;
+	} else {
+		$text = implode( $sep, $words_array );
+	}
+
+	return $text;
 }
 
 /**
