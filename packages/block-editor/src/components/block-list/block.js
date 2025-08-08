@@ -680,11 +680,12 @@ function BlockListBlockProvider( props ) {
 					getTemporarilyEditingAsBlocks() === clientId,
 				blockEditingMode: finalBlockEditingMode,
 				mayDisplayControls:
-					_isSelected ||
-					( isFirstMultiSelectedBlock( clientId ) &&
-						getMultiSelectedBlockClientIds().every(
-							( id ) => getBlockName( id ) === blockName
-						) ),
+					finalBlockEditingMode !== 'disabled' &&
+					( _isSelected ||
+						( isFirstMultiSelectedBlock( clientId ) &&
+							getMultiSelectedBlockClientIds().every(
+								( id ) => getBlockName( id ) === blockName
+							) ) ),
 				mayDisplayParentControls:
 					_hasBlockSupport(
 						getBlockName( clientId ),
@@ -694,7 +695,7 @@ function BlockListBlockProvider( props ) {
 				blockApiVersion: blockType?.apiVersion || 1,
 				blockTitle: match?.title || blockType?.title,
 				isSubtreeDisabled:
-					blockEditingMode === 'disabled' &&
+					finalBlockEditingMode === 'disabled' &&
 					isBlockSubtreeDisabled( clientId ),
 				hasOverlay:
 					__unstableHasActiveBlockOverlayActive( clientId ) &&
@@ -710,9 +711,9 @@ function BlockListBlockProvider( props ) {
 					! __unstableSelectionHasUnmergeableBlock(),
 				isDragging: isBlockBeingDragged( clientId ),
 				hasChildSelected: isAncestorOfSelectedBlock,
-				isEditingDisabled: blockEditingMode === 'disabled',
+				isEditingDisabled: finalBlockEditingMode === 'disabled',
 				hasEditableOutline:
-					blockEditingMode !== 'disabled' &&
+					finalBlockEditingMode !== 'disabled' &&
 					getBlockEditingMode( rootClientId ) === 'disabled',
 				originalBlockClientId: isInvalid
 					? blocksWithSameName[ 0 ]
