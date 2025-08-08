@@ -53,6 +53,7 @@ import { useBlockLock } from '../block-lock';
 import AriaReferencedText from './aria-referenced-text';
 import { unlock } from '../../lock-unlock';
 import usePasteStyles from '../use-paste-styles';
+import { useBlockVisibility } from '../block-visibility';
 
 function ListViewBlock( {
 	block: { clientId },
@@ -80,6 +81,7 @@ function ListViewBlock( {
 	const [ settingsAnchorRect, setSettingsAnchorRect ] = useState();
 
 	const { isLocked, canEdit, canMove } = useBlockLock( clientId );
+	const { isBlockVisible } = useBlockVisibility( clientId );
 
 	const isFirstSelectedBlock =
 		isSelected && selectedClientIds[ 0 ] === clientId;
@@ -484,6 +486,10 @@ function ListViewBlock( {
 		isLocked
 	);
 
+	const blockVisibilityDescription = isBlockVisible
+		? null
+		: __( 'Block is hidden.' );
+
 	const hasSiblings = siblingBlockCount > 0;
 	const hasRenderedMovers = showBlockMovers && hasSiblings;
 	const moverCellClassName = clsx(
@@ -581,6 +587,7 @@ function ListViewBlock( {
 							{ [
 								blockPositionDescription,
 								blockPropertiesDescription,
+								blockVisibilityDescription,
 							]
 								.filter( Boolean )
 								.join( ' ' ) }

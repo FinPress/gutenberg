@@ -12,7 +12,7 @@ import {
 	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { forwardRef } from '@wordpress/element';
-import { Icon, lockSmall as lock, pinSmall } from '@wordpress/icons';
+import { Icon, lockSmall as lock, pinSmall, unseen } from '@wordpress/icons';
 import { SPACE, ENTER } from '@wordpress/keycodes';
 import { useSelect } from '@wordpress/data';
 
@@ -27,6 +27,8 @@ import { useBlockLock } from '../block-lock';
 import useListViewImages from './use-list-view-images';
 import { store as blockEditorStore } from '../../store';
 import { unlock } from '../../lock-unlock';
+import { useBlockVisibility } from '../block-visibility';
+
 const { Badge } = unlock( componentsPrivateApis );
 
 function ListViewBlockSelectButton(
@@ -62,6 +64,10 @@ function ListViewBlockSelectButton(
 		[ clientId ]
 	);
 	const shouldShowLockIcon = isLocked && ! isContentOnly;
+	const { canToggleBlockVisibility, isBlockVisible } =
+		useBlockVisibility( clientId );
+	const shouldShowBlockVisibilityIcon =
+		canToggleBlockVisibility && ! isBlockVisible;
 	const isSticky = blockInformation?.positionType === 'sticky';
 	const images = useListViewImages( { clientId, isExpanded } );
 
@@ -147,6 +153,11 @@ function ListViewBlockSelectButton(
 						) ) }
 					</span>
 				) : null }
+				{ shouldShowBlockVisibilityIcon && (
+					<span className="block-editor-list-view-block-select-button__block-visibility">
+						<Icon icon={ unseen } />
+					</span>
+				) }
 				{ shouldShowLockIcon && (
 					<span className="block-editor-list-view-block-select-button__lock">
 						<Icon icon={ lock } />

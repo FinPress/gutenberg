@@ -705,6 +705,12 @@ function BlockListBlockProvider( props ) {
 				originalBlockClientId: isInvalid
 					? blocksWithSameName[ 0 ]
 					: false,
+				isHidden:
+					hasBlockSupport(
+						getBlockName( clientId ),
+						'blockVisibility',
+						true
+					) && attributes?.metadata?.blockVisibility === false,
 			};
 		},
 		[ clientId, rootClientId ]
@@ -747,6 +753,7 @@ function BlockListBlockProvider( props ) {
 		className,
 		defaultClassName,
 		originalBlockClientId,
+		isHidden,
 	} = selectedProps;
 
 	// Users of the editor.BlockListBlock filter used to be able to
@@ -795,6 +802,7 @@ function BlockListBlockProvider( props ) {
 		originalBlockClientId,
 		themeSupportsLayout,
 		canMove,
+		isHidden,
 	};
 
 	// Here we separate between the props passed to BlockListBlock and any other

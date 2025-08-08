@@ -41,7 +41,7 @@ Reuse this design across your site. ([Source](https://github.com/WordPress/guten
 
 -	**Name:** core/block
 -	**Category:** reusable
--	**Supports:** interactivity (clientNavigation), ~~customClassName~~, ~~html~~, ~~inserter~~, ~~renaming~~
+-	**Supports:** interactivity (clientNavigation), ~~blockVisibility~~, ~~customClassName~~, ~~html~~, ~~inserter~~, ~~renaming~~
 -	**Attributes:** content, ref
 
 ## Button
@@ -540,7 +540,7 @@ Show a block pattern. ([Source](https://github.com/WordPress/gutenberg/tree/trun
 
 -	**Name:** core/pattern
 -	**Category:** theme
--	**Supports:** interactivity (clientNavigation), ~~html~~, ~~inserter~~, ~~renaming~~
+-	**Supports:** interactivity (clientNavigation), ~~blockVisibility~~, ~~html~~, ~~inserter~~, ~~renaming~~
 -	**Attributes:** slug
 
 ## Author
@@ -930,7 +930,7 @@ Edit the different global regions of your site, like the header, footer, sidebar
 
 -	**Name:** core/template-part
 -	**Category:** theme
--	**Supports:** align, interactivity (clientNavigation), ~~html~~, ~~renaming~~, ~~reusable~~
+-	**Supports:** align, interactivity (clientNavigation), ~~blockVisibility~~, ~~html~~, ~~renaming~~, ~~reusable~~
 -	**Attributes:** area, slug, tagName, theme
 
 ## Term Description

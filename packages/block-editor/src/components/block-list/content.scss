@@ -183,6 +183,18 @@ _::-webkit-full-page-media, _:future, :root [data-has-multi-selection="true"] .b
 		box-shadow: 0 0 0 1px var(--wp-admin-theme-color);
 	}
 
+	// Block visibility.
+	&.is-hidden:not(.is-selected):not(.has-child-selected)::after {
+		bottom: 0;
+		content: "";
+		left: 0;
+		pointer-events: none;
+		position: absolute;
+		right: 0;
+		top: 0;
+		background: repeating-linear-gradient(45deg, rgba($gray-300, 0.7) 0, rgba($gray-300, 0.7) 5px, transparent 5px, transparent 10px);
+	}
+
 	// Clear floats.
 	&[data-clear="true"] {
 		float: none;
