@@ -2309,6 +2309,8 @@ function getDerivedBlockEditingModesForTree(
 			}
 		}
 
+		// If the editor is zoomed out or in navigation mode, all blocks will be set to either contentOnly or disabled.
+		// The fallback is to set the block editing mode to disabled.
 		if ( isZoomedOut || isNavMode ) {
 			// If the root block is the section root set its editing mode to contentOnly.
 			if ( clientId === sectionRootClientId ) {
