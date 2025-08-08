@@ -39,7 +39,6 @@
 			"blockGap": true
 		},
 		"shadow": true,
-		"layout": true,
 		"interactivity": true
 	},
 	"attributes": {
