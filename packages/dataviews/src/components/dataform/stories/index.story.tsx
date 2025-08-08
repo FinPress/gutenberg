@@ -491,126 +491,200 @@ export const Visibility = {
 	render: DataFormVisibilityComponent,
 };
 
-const CardLayoutComponent = () => {
-	// Customer fields definition
-	const customerFields = [
+const LayoutCardComponent = () => {
+	type Customer = {
+		name: string;
+		email: string;
+		phone: string;
+		plan: string;
+		shippingAddress: string;
+		billingAddress: string;
+		displayPayments: boolean;
+		totalOrders: number;
+		totalRevenue: number;
+		averageOrderValue: number;
+		hasVat: boolean;
+		vat: number;
+		commission: number;
+	};
+
+	const customerFields: Field< Customer >[] = [
 		{
 			id: 'name',
 			label: 'Customer Name',
-			type: 'text' as const,
-		},
-		{
-			id: 'customerType',
-			label: 'Type',
-			type: 'text' as const,
-			Edit: 'toggleGroup' as const,
-			elements: [
-				{ value: 'Customer', label: 'Customer' },
-				{ value: 'Business', label: 'Business' },
-				{ value: 'VIP', label: 'VIP' },
-			],
-		},
-		{
-			id: 'email',
-			label: 'Email',
-			type: 'email' as const,
+			type: 'text',
 		},
 		{
 			id: 'phone',
 			label: 'Phone',
-			type: 'text' as const,
+			type: 'text',
+		},
+		{
+			id: 'email',
+			label: 'Email',
+			type: 'email',
+		},
+		{
+			id: 'plan',
+			label: 'Plan',
+			type: 'text',
+			Edit: 'toggleGroup',
+			elements: [
+				{ value: 'basic', label: 'Basic' },
+				{ value: 'business', label: 'Business' },
+				{ value: 'vip', label: 'VIP' },
+			],
 		},
 		{
 			id: 'shippingAddress',
 			label: 'Shipping Address',
-			type: 'text' as const,
+			type: 'text',
 		},
 		{
 			id: 'billingAddress',
 			label: 'Billing Address',
-			type: 'text' as const,
+			type: 'text',
 		},
 		{
-			id: 'totalOrders',
-			label: 'Total Orders',
-			type: 'integer' as const,
-			readOnly: true,
+			id: 'displayPayments',
+			label: 'Display Payments?',
+			type: 'boolean',
 		},
 		{
-			id: 'totalRevenue',
-			label: 'Total Revenue',
-			type: 'integer' as const,
-			readOnly: true,
+			id: 'payments',
+			label: 'Payments',
+			type: 'text',
+			readOnly: true, // Triggers using the render method instead of Edit.
+			isVisible: ( item ) => item.displayPayments,
+			render: ( { item } ) => {
+				return (
+					<p>
+						The customer has made a total of { item.totalOrders }{ ' ' }
+						orders, amounting to { item.totalRevenue } dollars. The
+						average order value is { item.averageOrderValue }{ ' ' }
+						dollars.
+					</p>
+				);
+			},
 		},
 		{
-			id: 'averageOrderValue',
-			label: 'Average Order Value',
-			type: 'integer' as const,
-			readOnly: true,
+			id: 'vat',
+			label: 'VAT',
+			type: 'integer',
+		},
+		{
+			id: 'commission',
+			label: 'Commission',
+			type: 'integer',
 		},
 	];
 
-	const [ customer, setCustomer ] = useState( {
+	const [ customer, setCustomer ] = useState< Customer >( {
 		name: 'Danyka Romaguera',
-		customerType: 'Customer',
 		email: 'aromaguera@example.org',
 		phone: '1-828-352-1250',
+		plan: 'Business',
 		shippingAddress: 'N/A',
 		billingAddress: 'Danyka Romaguera, West Myrtiehaven, 80240-4282, BI',
-		totalOrders: 1,
-		totalRevenue: 720,
-		averageOrderValue: 720,
+		displayPayments: true,
+		totalOrders: 2,
+		totalRevenue: 1430,
+		averageOrderValue: 715,
+		hasVat: true,
+		vat: 10,
+		commission: 5,
 	} );
 
 	const form = useMemo(
-		() => ( {
-			layout: {
-				type: 'card' as const,
-				labelPosition: 'top' as const,
-				opened: true,
-			},
-			fields: [
-				{
-					id: 'customer-container',
-					label: 'Customer',
-					children: [
-						{
-							id: 'name-phone',
-							layout: { type: 'panel', labelPosition: 'top' },
-							children: [
-								{
-									id: 'name',
-									layout: {
-										type: 'regular',
-										labelPosition: 'top',
-									},
-								},
-								{
-									id: 'phone',
-									layout: {
-										type: 'regular',
-										labelPosition: 'top',
-									},
-								},
-							],
-							label: 'Customer Information',
-						},
-						{
-							id: 'customerType',
-							layout: { type: 'panel', labelPosition: 'top' },
-						},
-						{
-							id: 'shippingAddress',
-							layout: { type: 'panel', labelPosition: 'top' },
-						},
-						{
-							id: 'billingAddress',
-							layout: { type: 'panel', labelPosition: 'top' },
-						},
-					],
+		() =>
+			( {
+				layout: {
+					type: 'card',
+					// labelPosition: 'none',
+					// TODO: fix labelPosition none.
+					// When this is set, the second card doesn't get the header (even if it doesn't have labelPosition set),
+					// but the 1st and 3rd do. I'd expect none of them get the header.
 				},
-			],
-		} ),
+				fields: [
+					{
+						id: 'customerCard',
+						label: 'Customer',
+						children: [
+							{
+								id: 'customerContact',
+								label: 'Contact',
+								layout: { type: 'panel', labelPosition: 'top' },
+								children: [
+									{
+										id: 'name',
+										layout: {
+											type: 'regular',
+											labelPosition: 'top',
+										},
+									},
+									{
+										id: 'phone',
+										layout: {
+											type: 'regular',
+											labelPosition: 'top',
+										},
+									},
+									{
+										id: 'email',
+										layout: {
+											type: 'regular',
+											labelPosition: 'top',
+										},
+									},
+								],
+							},
+							{
+								id: 'plan',
+								layout: { type: 'panel', labelPosition: 'top' },
+							},
+							{
+								id: 'shippingAddress',
+								layout: { type: 'panel', labelPosition: 'top' },
+							},
+							{
+								id: 'billingAddress',
+								layout: { type: 'panel', labelPosition: 'top' },
+							},
+							'displayPayments',
+						],
+					},
+					{
+						id: 'payments',
+						layout: { type: 'card', labelPosition: 'none' },
+					},
+					{
+						id: 'taxConfiguration',
+						label: 'Taxes',
+						layout: {
+							type: 'card',
+							opened: false, // TODO: it does not work.
+						},
+						children: [
+							// TODO: default values.
+							// [ 'vat', 'commission' ] should render the default (REGULAR with TOP label instead of regular with hidden label).
+							{
+								id: 'vat',
+								layout: {
+									type: 'regular',
+									labelPosition: 'top',
+								},
+							},
+							{
+								id: 'commission',
+								layout: {
+									type: 'regular',
+									labelPosition: 'top',
+								},
+							},
+						],
+					},
+				],
+			} ) satisfies Form,
 		[]
 	);
 
@@ -629,12 +703,12 @@ const CardLayoutComponent = () => {
 	);
 };
 
-export const CardLayout = {
-	title: 'DataForm/Card Layout',
-	render: CardLayoutComponent,
+export const LayoutCard = {
+	title: 'DataForm/LayoutCard',
+	render: LayoutCardComponent,
 };
 
-const MixedLayoutComponent = () => {
+const LayoutMixedComponent = () => {
 	const [ post, setPost ] = useState< SamplePost >( {
 		title: 'Hello, World!',
 		order: 2,
@@ -648,23 +722,24 @@ const MixedLayoutComponent = () => {
 	} );
 
 	const form = useMemo(
-		() => ( {
-			layout: {
-				type: 'card' as const,
-				labelPosition: 'top' as const,
-				opened: true,
-			},
-			fields: [
-				'title',
-				{
-					id: 'status',
-					label: 'Status',
-					layout: {
-						type: 'panel' as const,
+		() =>
+			( {
+				fields: [
+					{
+						id: 'title',
+						layout: { type: 'panel', labelPosition: 'top' },
 					},
-				},
-			],
-		} ),
+					'status',
+					{
+						id: 'authorDateCard',
+						label: 'Author & Date',
+						layout: {
+							type: 'card',
+						},
+						children: [ 'author', 'date' ],
+					},
+				],
+			} ) satisfies Form,
 		[]
 	);
 
@@ -683,7 +758,7 @@ const MixedLayoutComponent = () => {
 	);
 };
 
-export const MixedLayout = {
-	title: 'DataForm/Mixed Layout',
-	render: MixedLayoutComponent,
+export const LayoutMixed = {
+	title: 'DataForm/LayoutMixed',
+	render: LayoutMixedComponent,
 };
