@@ -138,6 +138,7 @@ export const rootEntitiesConfig = [
 		name: 'user',
 		kind: 'root',
 		baseURL: '/wp/v2/users',
+		getTitle: ( record ) => record?.name || record?.slug,
 		baseURLParams: { context: 'edit' },
 		plural: 'users',
 	},
@@ -217,6 +218,18 @@ export const rootEntitiesConfig = [
 		key: 'slug',
 	},
 ];
+
+export const deprecatedEntities = {
+	root: {
+		media: {
+			since: '6.9',
+			alternative: {
+				kind: 'postType',
+				name: 'attachment',
+			},
+		},
+	},
+};
 
 export const additionalEntityConfigLoaders = [
 	{ kind: 'postType', loadEntities: loadPostTypeEntities },

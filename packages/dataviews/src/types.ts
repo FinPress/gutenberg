@@ -1,7 +1,12 @@
 /**
  * External dependencies
  */
-import type { ReactElement, ComponentType, ComponentProps } from 'react';
+import type {
+	ReactElement,
+	ReactNode,
+	ComponentType,
+	ComponentProps,
+} from 'react';
 
 /**
  * Internal dependencies
@@ -100,10 +105,6 @@ export type FieldType =
 	| 'email'
 	| 'array';
 
-export type ValidationContext = {
-	elements?: Option[];
-};
-
 /**
  * An abstract interface for Field based on the field type.
  */
@@ -116,7 +117,7 @@ export type FieldTypeDefinition< Item > = {
 	/**
 	 * Callback used to validate the field.
 	 */
-	isValid: ( item: Item, context?: ValidationContext ) => boolean;
+	isValid: Rules< Item >;
 
 	/**
 	 * Callback used to render an edit control for the field or control name.
@@ -143,6 +144,11 @@ export type FieldTypeDefinition< Item > = {
 	 * Whether the field is sortable.
 	 */
 	enableSorting: boolean;
+};
+
+export type Rules< Item > = {
+	required?: boolean;
+	custom?: ( item: Item, field: NormalizedField< Item > ) => null | string;
 };
 
 /**
@@ -198,7 +204,7 @@ export type Field< Item > = {
 	/**
 	 * Callback used to validate the field.
 	 */
-	isValid?: ( item: Item, context?: ValidationContext ) => boolean;
+	isValid?: Rules< Item >;
 
 	/**
 	 * Callback used to decide if a field should be displayed.
@@ -250,7 +256,7 @@ export type NormalizedField< Item > = Omit< Field< Item >, 'Edit' > & {
 	render: ComponentType< DataViewRenderFieldProps< Item > >;
 	Edit: ComponentType< DataFormControlProps< Item > > | null;
 	sort: ( a: Item, b: Item, direction: SortDirection ) => number;
-	isValid: ( item: Item, context?: ValidationContext ) => boolean;
+	isValid: Rules< Item >;
 	enableHiding: boolean;
 	enableSorting: boolean;
 	filterBy: NormalizedFilterByConfig | false;
@@ -280,6 +286,9 @@ export type DataFormControlProps< Item > = {
 export type DataViewRenderFieldProps< Item > = {
 	item: Item;
 	field: NormalizedField< Item >;
+	config?: {
+		sizes: string;
+	};
 };
 
 /**
@@ -300,6 +309,11 @@ export interface Filter {
 	 * The value to filter by.
 	 */
 	value: any;
+
+	/**
+	 * Whether the filter can be edited by the user.
+	 */
+	isLocked?: boolean;
 }
 
 export interface NormalizedFilter {
@@ -337,6 +351,11 @@ export interface NormalizedFilter {
 	 * Whether it is a primary filter.
 	 */
 	isPrimary: boolean;
+
+	/**
+	 * Whether the filter can be edited by the user.
+	 */
+	isLocked: boolean;
 }
 
 interface ViewBase {
@@ -616,6 +635,7 @@ export interface ViewBaseProps< Item > {
 	) => ReactElement;
 	isItemClickable: ( item: Item ) => boolean;
 	view: View;
+	empty: ReactNode;
 }
 
 export interface ViewTableProps< Item > extends ViewBaseProps< Item > {

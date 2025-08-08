@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { ComponentProps, ReactElement } from 'react';
+import type { ComponentProps, ReactElement, ReactNode } from 'react';
 
 /**
  * WordPress dependencies
@@ -47,11 +47,15 @@ type DataViewsContextType< Item > = {
 	isItemClickable: ( item: Item ) => boolean;
 	containerWidth: number;
 	containerRef: React.MutableRefObject< HTMLDivElement | null >;
+	resizeObserverRef:
+		| ( ( element?: HTMLDivElement | null ) => void )
+		| React.RefObject< HTMLDivElement >;
 	defaultLayouts: SupportedLayouts;
 	filters: NormalizedFilter[];
 	isShowingFilter: boolean;
 	setIsShowingFilter: ( value: boolean ) => void;
-	perPageSizes?: [ number, number, number, number ];
+	perPageSizes: number[];
+	empty?: ReactNode;
 };
 
 const DataViewsContext = createContext< DataViewsContextType< any > >( {
@@ -72,10 +76,12 @@ const DataViewsContext = createContext< DataViewsContextType< any > >( {
 	renderItemLink: undefined,
 	containerWidth: 0,
 	containerRef: createRef(),
+	resizeObserverRef: () => {},
 	defaultLayouts: { list: {}, grid: {}, table: {} },
 	filters: [],
 	isShowingFilter: false,
 	setIsShowingFilter: () => {},
+	perPageSizes: [],
 } );
 
 export default DataViewsContext;
