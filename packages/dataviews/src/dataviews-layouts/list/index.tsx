@@ -179,20 +179,29 @@ function ListItem< Item >( {
 		}
 	}, [ isSelected ] );
 
-	const { primaryAction, eligibleActions } = useMemo( () => {
-		// If an action is eligible for all items, doesn't need
-		// to provide the `isEligible` function.
-		const _eligibleActions = actions.filter(
-			( action ) => ! action.isEligible || action.isEligible( item )
-		);
-		const _primaryActions = _eligibleActions.filter(
-			( action ) => action.isPrimary && !! action.icon
-		);
-		return {
-			primaryAction: _primaryActions[ 0 ],
-			eligibleActions: _eligibleActions,
-		};
-	}, [ actions, item ] );
+	const { primaryAction, eligibleActions, nonPrimaryActions } =
+		useMemo( () => {
+			// If an action is eligible for all items, doesn't need
+			// to provide the `isEligible` function.
+			const _eligibleActions = actions.filter(
+				( action ) => ! action.isEligible || action.isEligible( item )
+			);
+			const _primaryAction = _eligibleActions.filter(
+				( action ) => action.isPrimary && !! action.icon
+			)[ 0 ];
+			const _nonPrimaryActions = _eligibleActions.filter(
+				( action ) => action !== _primaryAction
+			);
+			return {
+				// Actually, primaryAction is the first primary action. There may
+				// be more. This variable should be renamed. Also nonPrimaryActions
+				// should be renamed because it's all the actions except the first
+				// primary one.
+				primaryAction: _primaryAction,
+				eligibleActions: _eligibleActions,
+				nonPrimaryActions: _nonPrimaryActions,
+			};
+		}, [ actions, item ] );
 
 	const hasOnlyOnePrimaryAction = primaryAction && actions.length === 1;
 
@@ -247,7 +256,7 @@ function ListItem< Item >( {
 						/>
 						<Menu.Popover>
 							<ActionsMenuGroup
-								actions={ eligibleActions }
+								actions={ nonPrimaryActions }
 								item={ item }
 								registry={ registry }
 								setActiveModalAction={ setActiveModalAction }

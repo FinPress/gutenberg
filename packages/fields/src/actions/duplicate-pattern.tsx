@@ -1,6 +1,7 @@
 /**
  * WordPress dependencies
  */
+import { copy } from '@wordpress/icons';
 import { _x } from '@wordpress/i18n';
 // @ts-ignore
 import { privateApis as patternsPrivateApis } from '@wordpress/patterns';
@@ -19,6 +20,7 @@ const { CreatePatternModalContents, useDuplicatePatternProps } =
 const duplicatePattern: Action< Pattern > = {
 	id: 'duplicate-pattern',
 	label: _x( 'Duplicate', 'action label' ),
+	icon: copy,
 	isEligible: ( item ) => item.type !== 'wp_template_part',
 	modalHeader: _x( 'Duplicate pattern', 'action label' ),
 	modalFocusOnMount: 'firstContentElement',

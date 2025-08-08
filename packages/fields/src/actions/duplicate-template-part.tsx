@@ -1,6 +1,7 @@
 /**
  * WordPress dependencies
  */
+import { copy } from '@wordpress/icons';
 import { useDispatch } from '@wordpress/data';
 import { _x, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
@@ -22,6 +23,7 @@ import { getItemTitle } from './utils';
 const duplicateTemplatePart: Action< TemplatePart > = {
 	id: 'duplicate-template-part',
 	label: _x( 'Duplicate', 'action label' ),
+	icon: copy,
 	isEligible: ( item ) => item.type === 'wp_template_part',
 	modalHeader: _x( 'Duplicate template part', 'action label' ),
 	modalFocusOnMount: 'firstContentElement',

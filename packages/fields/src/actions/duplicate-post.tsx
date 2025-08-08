@@ -1,6 +1,7 @@
 /**
  * WordPress dependencies
  */
+import { copy } from '@wordpress/icons';
 import { useDispatch } from '@wordpress/data';
 import { decodeEntities } from '@wordpress/html-entities';
 import { store as coreStore } from '@wordpress/core-data';
@@ -30,6 +31,7 @@ const formDuplicateAction = {
 const duplicatePost: Action< BasePost > = {
 	id: 'duplicate-post',
 	label: _x( 'Duplicate', 'action label' ),
+	icon: copy,
 	isEligible( { status } ) {
 		return status !== 'trash';
 	},

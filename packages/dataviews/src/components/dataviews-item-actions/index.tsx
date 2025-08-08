@@ -153,22 +153,28 @@ export default function ItemActions< Item >( {
 	isCompact,
 }: ItemActionsProps< Item > ) {
 	const registry = useRegistry();
-	const { primaryActions, eligibleActions } = useMemo( () => {
-		// If an action is eligible for all items, doesn't need
-		// to provide the `isEligible` function.
-		const _eligibleActions = actions.filter(
-			( action ) => ! action.isEligible || action.isEligible( item )
-		);
-		const _primaryActions = _eligibleActions.filter(
-			( action ) => action.isPrimary && !! action.icon
-		);
-		return {
-			primaryActions: _primaryActions,
-			eligibleActions: _eligibleActions,
-		};
-	}, [ actions, item ] );
+	const { primaryActions, eligibleActions, nonPrimaryActions } =
+		useMemo( () => {
+			// If an action is eligible for all items, doesn't need
+			// to provide the `isEligible` function.
+			const _eligibleActions = actions.filter(
+				( action ) => ! action.isEligible || action.isEligible( item )
+			);
+			const _primaryActions = _eligibleActions.filter(
+				( action ) => action.isPrimary && !! action.icon
+			);
+			const _nonPrimaryActions = _eligibleActions.filter(
+				( action ) => ! _primaryActions.includes( action )
+			);
 
-	if ( isCompact ) {
+			return {
+				primaryActions: _primaryActions,
+				eligibleActions: _eligibleActions,
+				nonPrimaryActions: _nonPrimaryActions,
+			};
+		}, [ actions, item ] );
+
+	if ( isCompact && eligibleActions.length > 1 ) {
 		return (
 			<CompactItemActions
 				item={ item }
@@ -179,12 +185,16 @@ export default function ItemActions< Item >( {
 		);
 	}
 
-	// If all actions are primary, there is no need to render the dropdown.
-	if ( primaryActions.length === eligibleActions.length ) {
+	// If there is only one action or all actions are primary,
+	// there is no need to render the dropdown.
+	if (
+		eligibleActions.length === 1 ||
+		primaryActions.length === eligibleActions.length
+	) {
 		return (
 			<PrimaryActions
 				item={ item }
-				actions={ primaryActions }
+				actions={ eligibleActions || primaryActions }
 				registry={ registry }
 			/>
 		);
@@ -207,7 +217,7 @@ export default function ItemActions< Item >( {
 			/>
 			<CompactItemActions
 				item={ item }
-				actions={ eligibleActions }
+				actions={ nonPrimaryActions }
 				registry={ registry }
 			/>
 		</HStack>
