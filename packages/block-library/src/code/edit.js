@@ -29,13 +29,28 @@ export default function CodeEdit( {
 						event.stopPropagation();
 
 						const selectedText = getTextWithLineBreaks( range );
+						let modifiedText = selectedText;
 
-						const modifiedText = selectedText
-							.split( '\n' )
-							.map( ( line ) =>
-								line.length > 0 ? '\t' + line : line
-							)
-							.join( '\n' );
+						if ( event.shiftKey ) {
+							// Shift+Tab: Remove tab indentation
+							modifiedText = selectedText
+								.split( '\n' )
+								.map( ( line ) => {
+									if ( line.startsWith( '\t' ) ) {
+										return line.substring( 1 );
+									}
+									return line;
+								} )
+								.join( '\n' );
+						} else {
+							// Tab: Add indentation
+							modifiedText = selectedText
+								.split( '\n' )
+								.map( ( line ) =>
+									line.length > 0 ? '\t' + line : line
+								)
+								.join( '\n' );
+						}
 
 						range.deleteContents();
 						const textNode =
