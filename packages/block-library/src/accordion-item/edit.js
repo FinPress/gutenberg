@@ -70,13 +70,13 @@ export default function Edit( {
 				[
 					'core/accordion-panel',
 					{
-						isSelected: true,
 						openByDefault,
 					},
 				],
 			],
 			templateLock: 'all',
 			directInsert: true,
+			templateInsertUpdatesSelection: true,
 		}
 	);
 

@@ -29,6 +29,7 @@ export default function Edit( {
 		template: [ [ ACCORDION_BLOCK_NAME ], [ ACCORDION_BLOCK_NAME ] ],
 		defaultBlock: ACCORDION_BLOCK,
 		directInsert: true,
+		templateInsertUpdatesSelection: true,
 	} );
 
 	return (
