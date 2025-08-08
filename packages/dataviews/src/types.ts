@@ -232,6 +232,11 @@ export type Field< Item > = {
 	elements?: Option[];
 
 	/**
+	 * The list of options to pick from when using the field as an array.
+	 */
+	suggestions?: Option[];
+
+	/**
 	 * Filter config for the field.
 	 */
 	filterBy?: FilterByConfig | false;
