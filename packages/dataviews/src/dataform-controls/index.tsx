@@ -53,7 +53,7 @@ export function getControl< Item >(
 		return getControlByType( field.Edit );
 	}
 
-	if ( field.elements ) {
+	if ( field.type === 'select' ) {
 		return getControlByType( 'select' );
 	}
 
