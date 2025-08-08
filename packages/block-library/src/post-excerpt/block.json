@@ -21,6 +21,10 @@
 		"excerptLength": {
 			"type": "number",
 			"default": 55
+		},
+		"countType": {
+			"type": "string",
+			"default": "words"
 		}
 	},
 	"usesContext": [ "postId", "postType", "queryId" ],

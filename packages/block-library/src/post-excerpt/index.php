@@ -27,9 +27,19 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 	* wp_trim_words is used instead.
 	*/
 	$excerpt_length = $attributes['excerptLength'];
-	$excerpt        = get_the_excerpt( $block->context['postId'] );
+	$count_type = isset( $attributes['countType'] ) ? $attributes['countType'] : 'words';
+	$excerpt = get_the_excerpt( $block->context['postId'] );
+
 	if ( isset( $excerpt_length ) ) {
-		$excerpt = wp_trim_words( $excerpt, $excerpt_length );
+		if ( $count_type === 'characters' ) {
+			// Trim by characters
+			if ( mb_strlen( $excerpt ) > $excerpt_length ) {
+				$excerpt = mb_substr( $excerpt, 0, $excerpt_length );
+			}
+		} else {
+			// Default: trim by words
+			$excerpt = wp_trim_words( $excerpt, $excerpt_length );
+		}
 	}
 
 	$more_text           = ! empty( $attributes['moreText'] ) ? '<a class="wp-block-post-excerpt__more-link" href="' . esc_url( get_the_permalink( $block->context['postId'] ) ) . '">' . wp_kses_post( $attributes['moreText'] ) . '</a>' : '';
