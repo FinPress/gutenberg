@@ -3054,9 +3054,7 @@ export const getBlockEditingMode = createRegistrySelector(
 			if ( isNavMode ) {
 				// If the editor *is* in navigation mode, the block editing mode states
 				// are stored in the derivedNavModeBlockEditingModes map.
-				return state.derivedNavModeBlockEditingModes?.has( clientId )
-					? state.derivedNavModeBlockEditingModes.get( clientId )
-					: 'contentOnly';
+				return state.derivedNavModeBlockEditingModes.get( clientId );
 			}
 
 			// If the editor is currently not in navigation mode, check if the clientId
