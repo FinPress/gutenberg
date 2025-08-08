@@ -645,16 +645,17 @@ function BlockListBlockProvider( props ) {
 			);
 			const blockEditingMode = getBlockEditingMode( clientId );
 
-			// Force disable editing for any child blocks of Navigation blocks
+			// Force disable editing for any child blocks of Navigation blocks when in contentOnly mode
 			const navigationParents = getBlockParentsByBlockName(
 				clientId,
 				'core/navigation',
 				true
 			);
 			const isChildOfNavigation = navigationParents.length > 0;
-			const finalBlockEditingMode = isChildOfNavigation
-				? 'disabled'
-				: blockEditingMode;
+			const finalBlockEditingMode =
+				isChildOfNavigation && blockEditingMode === 'contentOnly'
+					? 'disabled'
+					: blockEditingMode;
 
 			const multiple = hasBlockSupport( blockName, 'multiple', true );
 
