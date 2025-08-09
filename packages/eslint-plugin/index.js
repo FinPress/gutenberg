@@ -1,4 +1,3 @@
 module.exports = {
-	configs: require( './configs' ),
-	rules: require( './rules' ),
+'no-css-order-property': require('./rules/no-css-order-property'),
 };
