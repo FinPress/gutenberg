@@ -71,6 +71,10 @@ if ( isPackageInstalled( 'typescript' ) ) {
 			},
 		},
 	];
+	rules: {
+	// Existing rules...
+	'@wordpress/no-css-order-property': 'error',
+},
 }
 
 module.exports = config;
