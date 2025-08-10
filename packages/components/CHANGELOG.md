@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Enhancement
+
+-   `Snackbar`: Add duration prop to component ([#71154](https://github.com/WordPress/gutenberg/pull/71154)).
+
 ## 30.1.0 (2025-08-07)
 
 ### Enhancement
