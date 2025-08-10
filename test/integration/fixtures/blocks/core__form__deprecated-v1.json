@@ -1,0 +1,78 @@
+[
+	{
+		"name": "core/form",
+		"isValid": true,
+		"attributes": {
+			"submissionMethod": "email",
+			"method": "post",
+			"anchor": "anchor",
+			"style": {
+				"elements": {
+					"link": {
+						"color": {
+							"text": "#ff0000"
+						}
+					}
+				},
+				"color": {
+					"text": "#ff0000",
+					"background": "#00ffff"
+				},
+				"typography": {
+					"fontSize": "30px"
+				},
+				"spacing": {
+					"padding": {
+						"top": "1px",
+						"bottom": "1px",
+						"left": "2px",
+						"right": "2px"
+					},
+					"margin": {
+						"top": "3px",
+						"bottom": "3px",
+						"left": "4px",
+						"right": "4px"
+					}
+				}
+			}
+		},
+		"innerBlocks": []
+	},
+	{
+		"name": "core/form",
+		"isValid": true,
+		"attributes": {
+			"submissionMethod": "email",
+			"method": "post",
+			"anchor": "anchor",
+			"backgroundColor": "accent-1",
+			"textColor": "contrast",
+			"style": {
+				"elements": {
+					"link": {
+						"color": {
+							"text": "var:preset|color|contrast"
+						}
+					}
+				},
+				"spacing": {
+					"padding": {
+						"top": "var:preset|spacing|40",
+						"bottom": "var:preset|spacing|40",
+						"left": "var:preset|spacing|40",
+						"right": "var:preset|spacing|40"
+					},
+					"margin": {
+						"top": "var:preset|spacing|40",
+						"bottom": "var:preset|spacing|40",
+						"left": "var:preset|spacing|40",
+						"right": "var:preset|spacing|40"
+					}
+				}
+			},
+			"fontSize": "x-large"
+		},
+		"innerBlocks": []
+	}
+]

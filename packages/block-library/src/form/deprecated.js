@@ -1,7 +1,13 @@
 /**
  * WordPress dependencies
  */
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import {
+	InnerBlocks,
+	useBlockProps,
+	getTypographyClassesAndStyles,
+	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles,
+	__experimentalGetSpacingClassesAndStyles as getSpacingClassesAndStyles,
+} from '@wordpress/block-editor';
 
 const v1 = {
 	// The block supports here are deliberately empty despite this
@@ -35,6 +41,9 @@ const v1 = {
 		// supports at the time of the deprecation. See above for details.
 		anchor: {
 			type: 'string',
+			source: 'attribute',
+			attribute: 'id',
+			selector: '*',
 		},
 		backgroundColor: {
 			type: 'string',
@@ -56,8 +65,21 @@ const v1 = {
 		},
 	},
 	save( { attributes } ) {
-		const blockProps = useBlockProps.save();
 		const { submissionMethod } = attributes;
+		const colorProps = getColorClassesAndStyles( attributes );
+		const typographyProps = getTypographyClassesAndStyles( attributes );
+		const spacingProps = getSpacingClassesAndStyles( attributes );
+		const blockProps = useBlockProps.save( {
+			// In this deprecated version, the block support is deliberately empty.
+			// As a result, the useBlockProps.save() does not output style or id attributes,
+			// so we apply them explicitly here.
+			style: {
+				...colorProps.style,
+				...typographyProps.style,
+				...spacingProps.style,
+			},
+			id: attributes.anchor,
+		} );
 
 		return (
 			<form
