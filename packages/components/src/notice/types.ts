@@ -115,6 +115,12 @@ export type NoticeProps = {
 	 * instead of a string.
 	 */
 	__unstableHTML?: boolean;
+	/**
+	 * How long the notice should be presented to users
+	 *
+	 * @default true
+	 */
+	duration?: number;
 };
 
 export type NoticeListProps = {

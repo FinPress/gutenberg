@@ -40,6 +40,7 @@ export type SnackbarProps = Pick<
 	| 'onRemove'
 	| 'politeness'
 	| 'onDismiss'
+	| 'duration'
 > &
 	SnackbarOnlyProps & {
 		/**
