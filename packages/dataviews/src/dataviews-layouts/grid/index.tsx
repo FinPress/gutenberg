@@ -8,7 +8,6 @@ import type { ComponentProps, ReactElement } from 'react';
  * WordPress dependencies
  */
 import {
-	__experimentalGrid as Grid,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	Spinner,
@@ -16,8 +15,10 @@ import {
 	FlexItem,
 	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useInstanceId } from '@wordpress/compose';
+import { isAppleOS } from '@wordpress/keycodes';
+import { useContext } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -25,6 +26,7 @@ import { useInstanceId } from '@wordpress/compose';
 import { unlock } from '../../lock-unlock';
 import ItemActions from '../../components/dataviews-item-actions';
 import DataViewsSelectionCheckbox from '../../components/dataviews-selection-checkbox';
+import DataViewsContext from '../../components/dataviews-context';
 import {
 	useHasAPossibleBulkAction,
 	useSomeItemHasAPossibleBulkAction,
@@ -37,7 +39,6 @@ import type {
 } from '../../types';
 import type { SetSelection } from '../../private-types';
 import { ItemClickWrapper } from '../utils/item-click-wrapper';
-import { useUpdatedPreviewSizeOnViewportChange } from './preview-size-picker';
 const { Badge } = unlock( componentsPrivateApis );
 
 interface GridItemProps< Item > {
@@ -60,6 +61,9 @@ interface GridItemProps< Item > {
 	regularFields: NormalizedField< Item >[];
 	badgeFields: NormalizedField< Item >[];
 	hasBulkActions: boolean;
+	config: {
+		sizes: string;
+	};
 }
 
 function GridItem< Item >( {
@@ -78,6 +82,7 @@ function GridItem< Item >( {
 	regularFields,
 	badgeFields,
 	hasBulkActions,
+	config,
 }: GridItemProps< Item > ) {
 	const { showTitle = true, showMedia = true, showDescription = true } = view;
 	const hasBulkAction = useHasAPossibleBulkAction( actions, item );
@@ -85,7 +90,11 @@ function GridItem< Item >( {
 	const instanceId = useInstanceId( GridItem );
 	const isSelected = selection.includes( id );
 	const renderedMediaField = mediaField?.render ? (
-		<mediaField.render item={ item } field={ mediaField } />
+		<mediaField.render
+			item={ item }
+			field={ mediaField }
+			config={ config }
+		/>
 	) : null;
 	const renderedTitleField =
 		showTitle && titleField?.render ? (
@@ -117,7 +126,7 @@ function GridItem< Item >( {
 				'is-selected': hasBulkAction && isSelected,
 			} ) }
 			onClickCapture={ ( event ) => {
-				if ( event.ctrlKey || event.metaKey ) {
+				if ( isAppleOS() ? event.metaKey : event.ctrlKey ) {
 					event.stopPropagation();
 					event.preventDefault();
 					if ( ! hasBulkAction ) {
@@ -254,7 +263,9 @@ function ViewGrid< Item >( {
 	selection,
 	view,
 	className,
+	empty,
 }: ViewGridProps< Item > ) {
+	const { resizeObserverRef } = useContext( DataViewsContext );
 	const titleField = fields.find(
 		( field ) => field.id === view?.titleField
 	);
@@ -285,59 +296,161 @@ function ViewGrid< Item >( {
 		{ regularFields: [], badgeFields: [] }
 	);
 	const hasData = !! data?.length;
-	const updatedPreviewSize = useUpdatedPreviewSizeOnViewportChange();
 	const hasBulkActions = useSomeItemHasAPossibleBulkAction( actions, data );
-	const usedPreviewSize = updatedPreviewSize || view.layout?.previewSize;
-	const gridStyle = usedPreviewSize
-		? {
-				gridTemplateColumns: `repeat(${ usedPreviewSize }, minmax(0, 1fr))`,
-		  }
-		: {};
+	const usedPreviewSize = view.layout?.previewSize;
+	/*
+	 * This is the maximum width that an image can achieve in the grid. The reasoning is:
+	 * The biggest min image width available is 430px (see /dataviews-layouts/grid/preview-size-picker.tsx).
+	 * Because the grid is responsive, once there is room for another column, the images shrink to accommodate it.
+	 * So each image will never grow past 2*430px plus a little more to account for the gaps.
+	 */
+	const size = '900px';
+
+	const groupField = view.groupByField
+		? fields.find( ( f ) => f.id === view.groupByField )
+		: null;
+
+	// Group data by groupByField if specified
+	const dataByGroup = groupField
+		? data.reduce( ( groups: Map< string, typeof data >, item ) => {
+				const groupName = groupField.getValue( { item } );
+				if ( ! groups.has( groupName ) ) {
+					groups.set( groupName, [] );
+				}
+				groups.get( groupName )?.push( item );
+				return groups;
+		  }, new Map< string, typeof data >() )
+		: null;
+
 	return (
 		<>
-			{ hasData && (
-				<Grid
-					gap={ 8 }
-					columns={ 2 }
-					alignment="top"
-					className={ clsx( 'dataviews-view-grid', className ) }
-					style={ gridStyle }
-					aria-busy={ isLoading }
-				>
-					{ data.map( ( item ) => {
-						return (
-							<GridItem
-								key={ getItemId( item ) }
-								view={ view }
-								selection={ selection }
-								onChangeSelection={ onChangeSelection }
-								onClickItem={ onClickItem }
-								isItemClickable={ isItemClickable }
-								renderItemLink={ renderItemLink }
-								getItemId={ getItemId }
-								item={ item }
-								actions={ actions }
-								mediaField={ mediaField }
-								titleField={ titleField }
-								descriptionField={ descriptionField }
-								regularFields={ regularFields }
-								badgeFields={ badgeFields }
-								hasBulkActions={ hasBulkActions }
-							/>
-						);
-					} ) }
-				</Grid>
-			) }
-			{ ! hasData && (
-				<div
-					className={ clsx( {
-						'dataviews-loading': isLoading,
-						'dataviews-no-results': ! isLoading,
-					} ) }
-				>
-					<p>{ isLoading ? <Spinner /> : __( 'No results' ) }</p>
-				</div>
-			) }
+			{
+				// Render multiple groups.
+				hasData && groupField && dataByGroup && (
+					<VStack spacing={ 4 }>
+						{ Array.from( dataByGroup.entries() ).map(
+							( [ groupName, groupItems ] ) => (
+								<VStack key={ groupName } spacing={ 2 }>
+									<h3 className="dataviews-view-grid__group-header">
+										{ sprintf(
+											// translators: 1: The label of the field e.g. "Date". 2: The value of the field, e.g.: "May 2022".
+											__( '%1$s: %2$s' ),
+											groupField.label,
+											groupName
+										) }
+									</h3>
+									<div
+										className={ clsx(
+											'dataviews-view-grid',
+											className
+										) }
+										style={ {
+											gridTemplateColumns:
+												usedPreviewSize &&
+												`repeat(auto-fill, minmax(${ usedPreviewSize }px, 1fr))`,
+										} }
+										aria-busy={ isLoading }
+										ref={ resizeObserverRef }
+									>
+										{ groupItems.map( ( item ) => {
+											return (
+												<GridItem
+													key={ getItemId( item ) }
+													view={ view }
+													selection={ selection }
+													onChangeSelection={
+														onChangeSelection
+													}
+													onClickItem={ onClickItem }
+													isItemClickable={
+														isItemClickable
+													}
+													renderItemLink={
+														renderItemLink
+													}
+													getItemId={ getItemId }
+													item={ item }
+													actions={ actions }
+													mediaField={ mediaField }
+													titleField={ titleField }
+													descriptionField={
+														descriptionField
+													}
+													regularFields={
+														regularFields
+													}
+													badgeFields={ badgeFields }
+													hasBulkActions={
+														hasBulkActions
+													}
+													config={ {
+														sizes: size,
+													} }
+												/>
+											);
+										} ) }
+									</div>
+								</VStack>
+							)
+						) }
+					</VStack>
+				)
+			}
+
+			{
+				// Render a single grid with all data.
+				hasData && ! dataByGroup && (
+					<div
+						className={ clsx( 'dataviews-view-grid', className ) }
+						style={ {
+							gridTemplateColumns:
+								usedPreviewSize &&
+								`repeat(auto-fill, minmax(${ usedPreviewSize }px, 1fr))`,
+						} }
+						aria-busy={ isLoading }
+						ref={ resizeObserverRef }
+					>
+						{ data.map( ( item ) => {
+							return (
+								<GridItem
+									key={ getItemId( item ) }
+									view={ view }
+									selection={ selection }
+									onChangeSelection={ onChangeSelection }
+									onClickItem={ onClickItem }
+									isItemClickable={ isItemClickable }
+									renderItemLink={ renderItemLink }
+									getItemId={ getItemId }
+									item={ item }
+									actions={ actions }
+									mediaField={ mediaField }
+									titleField={ titleField }
+									descriptionField={ descriptionField }
+									regularFields={ regularFields }
+									badgeFields={ badgeFields }
+									hasBulkActions={ hasBulkActions }
+									config={ {
+										sizes: size,
+									} }
+								/>
+							);
+						} ) }
+					</div>
+				)
+			}
+			{
+				// Render empty state.
+				! hasData && (
+					<div
+						className={ clsx( {
+							'dataviews-loading': isLoading,
+							'dataviews-no-results': ! isLoading,
+						} ) }
+					>
+						<p>{ isLoading ? <Spinner /> : empty }</p>
+					</div>
+				)
+			}
 		</>
 	);
 }

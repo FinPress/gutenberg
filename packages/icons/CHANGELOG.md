@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 10.28.0 (2025-08-07)
+
+-   Add new `dashboard` icon ([#70300](https://github.com/WordPress/gutenberg/pull/70300)).
+
+## 10.27.0 (2025-07-23)
+
 -  Update `cancelCircleFilled`, `currencyDollar`, `currencyPound`, `currencyEuro`, `globe`, `helpFilled`, `siteLogo`, `swatch`, to have unified circular size footprints. ([https://github.com/WordPress/gutenberg/pull/70581](#70581)).
 -  Update `help`, `plusCircle`, and `typography` icons to have a unified circular footprint that matches other circle icons. ([#70299](https://github.com/WordPress/gutenberg/pull/70299)).
 -  Update `plusCircleFilled` to have unified circular size footprints. ([https://github.com/WordPress/gutenberg/pull/70650](#70650)).

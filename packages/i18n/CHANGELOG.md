@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 6.1.0 (2025-08-07)
+
+## 6.0.0 (2025-07-23)
+
 ### Breaking Changes
 
 -   Improve type declarations for `sprintf` by replacing the `sprintf-js` dependency with `@tannin/sprintf` ([#70434](https://github.com/WordPress/gutenberg/pull/70434))

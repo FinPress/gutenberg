@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 22.14.0 (2025-08-07)
+
+## 22.13.0 (2025-07-23)
+
 ### Enhancements
 
 - Added stricter ESLint checks for translator comments.

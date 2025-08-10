@@ -199,7 +199,11 @@ function ListItem< Item >( {
 	const renderedMediaField =
 		showMedia && mediaField?.render ? (
 			<div className="dataviews-view-list__media-wrapper">
-				<mediaField.render item={ item } field={ mediaField } />
+				<mediaField.render
+					item={ item }
+					field={ mediaField }
+					config={ { sizes: '52px' } }
+				/>
 			</div>
 		) : null;
 
@@ -354,6 +358,7 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 		selection,
 		view,
 		className,
+		empty,
 	} = props;
 	const baseId = useInstanceId( ViewList, 'view-list' );
 
@@ -487,9 +492,7 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 					'dataviews-no-results': ! hasData && ! isLoading,
 				} ) }
 			>
-				{ ! hasData && (
-					<p>{ isLoading ? <Spinner /> : __( 'No results' ) }</p>
-				) }
+				{ ! hasData && <p>{ isLoading ? <Spinner /> : empty }</p> }
 			</div>
 		);
 	}
