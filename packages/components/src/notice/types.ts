@@ -118,7 +118,7 @@ export type NoticeProps = {
 	/**
 	 * How long the notice should be presented to users
 	 *
-	 * @default true
+	 * @default 10000
 	 */
 	duration?: number;
 };
