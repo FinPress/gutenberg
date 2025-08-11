@@ -1,0 +1,33 @@
+/**
+ * External dependencies
+ */
+import { render } from '@testing-library/react';
+
+/**
+ * WordPress dependencies
+ */
+import { BlockEdit } from '@wordpress/block-editor';
+
+/**
+ * Internal dependencies
+ */
+import { name } from '../index';
+import BlockEditComponent from '../edit';
+
+describe( '<%= title %> block', () => {
+	const getTestComponent = ( attributes = {} ) =>
+		render(
+			<BlockEditComponent
+				name={ name }
+				attributes={ attributes }
+				setAttributes={ jest.fn() }
+			/>
+		);
+
+	it( 'renders without crashing', () => {
+		const { container } = getTestComponent();
+		expect( container ).toBeTruthy();
+	});
+
+	// Add more block-specific tests here as needed
+});

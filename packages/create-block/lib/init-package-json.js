@@ -25,9 +25,20 @@ module.exports = async ( {
 	isDynamicVariant,
 	customPackageJSON,
 	rootDirectory,
+	includeTests,
 } ) => {
 	info( '' );
 	info( 'Creating a "package.json" file.' );
+
+	const devDeps = [ ...( npmDevDependencies || [] ) ];
+	if ( includeTests ) {
+		if ( ! devDeps.includes( 'jest' ) ) {
+			devDeps.push( 'jest' );
+		}
+		if ( ! devDeps.includes( '@testing-library/react' ) ) {
+			devDeps.push( '@testing-library/react' );
+		}
+	}
 
 	await writePkg(
 		rootDirectory,

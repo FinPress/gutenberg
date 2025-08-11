@@ -1,3 +1,9 @@
+const includeTests = {
+	type: 'confirm',
+	message: 'Include automated test setup (Jest, sample test file)?',
+	default: true,
+};
+
 /**
  * Capitalizes the first letter in a string.
  *
@@ -151,4 +157,5 @@ module.exports = {
 	licenseURI,
 	domainPath,
 	updateURI,
+	includeTests,
 };

@@ -187,6 +187,23 @@ module.exports = async (
 
 	await initBlock( blockOutputTemplates, view );
 
+	// Add test file if requested and template exists
+	if ( view.includeTests ) {
+		const testTemplate = blockOutputTemplates[ 'test/edit.test.js' ];
+		if ( testTemplate ) {
+			const testFilePath = require( 'path' ).join(
+				view.plugin ? view.folderName : '',
+				'test',
+				'edit.test.js'
+			);
+			await require( './output' ).writeOutputTemplate(
+				testTemplate,
+				testFilePath,
+				view
+			);
+		}
+	}
+
 	if ( plugin ) {
 		await initPackageJSON( view );
 		if ( wpScripts ) {
