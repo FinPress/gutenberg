@@ -681,12 +681,11 @@ function BlockListBlockProvider( props ) {
 					getTemporarilyEditingAsBlocks() === clientId,
 				blockEditingMode: finalBlockEditingMode,
 				mayDisplayControls:
-					finalBlockEditingMode !== 'disabled' &&
-					( _isSelected ||
-						( isFirstMultiSelectedBlock( clientId ) &&
-							getMultiSelectedBlockClientIds().every(
-								( id ) => getBlockName( id ) === blockName
-							) ) ),
+					_isSelected ||
+					( isFirstMultiSelectedBlock( clientId ) &&
+						getMultiSelectedBlockClientIds().every(
+							( id ) => getBlockName( id ) === blockName
+						) ),
 				mayDisplayParentControls:
 					_hasBlockSupport(
 						getBlockName( clientId ),
@@ -695,9 +694,7 @@ function BlockListBlockProvider( props ) {
 					) && hasSelectedInnerBlock( clientId ),
 				blockApiVersion: blockType?.apiVersion || 1,
 				blockTitle: match?.title || blockType?.title,
-				isSubtreeDisabled:
-					finalBlockEditingMode === 'disabled' &&
-					isBlockSubtreeDisabled( clientId ),
+				isSubtreeDisabled: isBlockSubtreeDisabled( clientId ),
 				hasOverlay:
 					__unstableHasActiveBlockOverlayActive( clientId ) &&
 					! isDragging(),
