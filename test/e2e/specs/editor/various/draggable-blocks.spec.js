@@ -386,7 +386,7 @@ test.describe( 'Draggable block', () => {
 				name: 'Block: Row',
 			} );
 			const rowAppender = rowBlock.getByRole( 'button', {
-				name: 'Add block',
+				name: 'Add block to Row',
 			} );
 
 			await dragOver( rowAppender );
@@ -426,7 +426,7 @@ test.describe( 'Draggable block', () => {
 					name: 'Block: Column',
 				} )
 				.getByRole( 'button', {
-					name: 'Add block',
+					name: 'Add block to Column',
 					includeHidden: true,
 				} );
 
