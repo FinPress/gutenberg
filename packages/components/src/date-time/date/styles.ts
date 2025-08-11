@@ -17,12 +17,24 @@ export const Wrapper = styled.div`
 `;
 
 export const Navigator = styled( HStack )`
+	display: grid;
+	grid-template-columns: 0.5fr repeat( 5, 1fr ) 0.5fr;
+	justify-items: center;
 	margin-bottom: ${ space( 4 ) };
+`;
+
+export const ViewPreviousMonthButton = styled( Button )`
+	grid-column: 1 / 2;
+`;
+
+export const ViewNextMonthButton = styled( Button )`
+	grid-column: 7 / 8;
 `;
 
 export const NavigatorHeading = styled( Heading )`
 	font-size: ${ CONFIG.fontSize };
 	font-weight: ${ CONFIG.fontWeight };
+	grid-column: 2 / 7;
 
 	strong {
 		font-weight: ${ CONFIG.fontWeightHeading };
