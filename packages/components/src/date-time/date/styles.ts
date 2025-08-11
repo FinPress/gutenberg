@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Navigator = styled( HStack )`
+	column-gap: ${ space( 2 ) };
 	display: grid;
 	grid-template-columns: 0.5fr repeat( 5, 1fr ) 0.5fr;
 	justify-items: center;
