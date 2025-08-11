@@ -195,16 +195,9 @@ function DataViews< Item >( {
 		}
 	}, [ hasPrimaryOrLockedFilters, isShowingFilter ] );
 
-	const isInfiniteScroll = useMemo( () => {
-		if ( ! infiniteScrollHandler ) {
-			return false;
-		}
-		return !! view.layout?.infiniteScroll;
-	}, [ view, infiniteScrollHandler ] );
-
 	// Attach scroll event listener for infinite scroll
 	useEffect( () => {
-		if ( ! isInfiniteScroll || ! containerRef.current ) {
+		if ( ! view.layout?.infiniteScroll || ! containerRef.current ) {
 			return;
 		}
 
@@ -227,7 +220,7 @@ function DataViews< Item >( {
 			container.removeEventListener( 'scroll', handleScroll );
 			handleScroll.cancel(); // Cancel any pending throttled calls
 		};
-	}, [ isInfiniteScroll, infiniteScrollHandler ] );
+	}, [ infiniteScrollHandler, view.layout?.infiniteScroll ] );
 
 	return (
 		<DataViewsContext.Provider
