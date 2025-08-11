@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Enhancement
+
+-  `WordBreakControl`: Add support for word break styles in the block editor.
+
 ## 15.0.0 (2025-07-23)
 
 ### Breaking Changes

@@ -218,6 +218,7 @@ export function usePrivateStyleOverride( {
 		setStyleOverride,
 		deleteStyleOverride,
 		registry,
+		variation,
 	] );
 }
 
@@ -251,6 +252,7 @@ export function useBlockSettings( name, parentLayout ) {
 		textDecoration,
 		writingMode,
 		textTransform,
+		wordBreak,
 		letterSpacing,
 		padding,
 		margin,
@@ -308,6 +310,7 @@ export function useBlockSettings( name, parentLayout ) {
 		'typography.textDecoration',
 		'typography.writingMode',
 		'typography.textTransform',
+		'typography.wordBreak',
 		'typography.letterSpacing',
 		'spacing.padding',
 		'spacing.margin',
@@ -402,6 +405,7 @@ export function useBlockSettings( name, parentLayout ) {
 				textColumns,
 				textDecoration,
 				textTransform,
+				wordBreak,
 				letterSpacing,
 				writingMode,
 			},
@@ -450,6 +454,7 @@ export function useBlockSettings( name, parentLayout ) {
 		textColumns,
 		textDecoration,
 		textTransform,
+		wordBreak,
 		letterSpacing,
 		writingMode,
 		padding,
