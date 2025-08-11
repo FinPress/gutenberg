@@ -5,6 +5,7 @@
 ### Features
 
 - Add `enableMoving` option to the `table` layout to allow or disallow column moving left and right. [#71120](https://github.com/WordPress/gutenberg/pull/71120)
+- Add infinite scroll support across all layout types (grid, list, table). Enable infinite scroll by providing an `infiniteScrollHandler` function in the `paginationInfo` prop and toggling the feature in the view configuration. ([#70955](https://github.com/WordPress/gutenberg/pull/70955))
 
 ### Enhancements
 
@@ -34,7 +35,6 @@
 - Add support for the `Edit` control on the date field type ([#70836](https://github.com/WordPress/gutenberg/pull/70836)).
 - Add support for responsive image attributes in media fields by adding a `config` prop to `mediaField.render`, containing a `sizes` string. Also simplifies grid logic and fixes imprecisions in grid resizing by changing the observed container. ([#70493](https://github.com/WordPress/gutenberg/pull/70493)).
 - `DataViews` empty state can be customized using the new `empty` prop.
-- Add infinite scroll support across all layout types (grid, list, table). Enable infinite scroll by providing an `infiniteScrollHandler` function in the `paginationInfo` prop and toggling the feature in the view configuration. ([#70955](https://github.com/WordPress/gutenberg/pull/70955))
 
 ### Enhancements
 
