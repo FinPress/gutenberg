@@ -352,7 +352,8 @@ function getSpxConfig( spxMode = 'off', phpVersion, service ) {
 
 	return `
 # Install SPX profiler
-RUN apt-get update && apt-get install -y git zlib1g-dev
+RUN apt-get update -qy
+RUN apt-get install -qy git zlib1g-dev
 RUN cd /tmp && git clone https://github.com/NoiseByNorthwest/php-spx.git
 RUN cd /tmp/php-spx && git checkout release/latest
 RUN cd /tmp/php-spx && phpize && ./configure && make && make install
