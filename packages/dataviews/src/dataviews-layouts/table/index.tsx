@@ -580,6 +580,9 @@ function ViewTable< Item >( {
 				id={ tableNoticeId }
 			>
 				{ ! hasData && <p>{ isLoading ? <Spinner /> : empty }</p> }
+				{ hasData && isLoading && (
+					<p>{ __( 'Loading more results…' ) }</p>
+				) }
 			</div>
 		</>
 	);

@@ -515,34 +515,41 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 	const isInfiniteScroll = view.layout?.infiniteScroll;
 
 	return (
-		<Composite
-			id={ baseId }
-			render={ <div /> }
-			className={ clsx( 'dataviews-view-list', className ) }
-			role={ isInfiniteScroll ? 'feed' : 'grid' }
-			activeId={ activeCompositeId }
-			setActiveId={ setActiveCompositeId }
-		>
-			{ data.map( ( item, index ) => {
-				const id = generateCompositeItemIdPrefix( item );
-				return (
-					<ListItem
-						key={ id }
-						view={ view }
-						idPrefix={ id }
-						actions={ actions }
-						item={ item }
-						isSelected={ item === selectedItem }
-						onSelect={ onSelect }
-						mediaField={ mediaField }
-						titleField={ titleField }
-						descriptionField={ descriptionField }
-						otherFields={ otherFields }
-						onDropdownTriggerKeyDown={ onDropdownTriggerKeyDown }
-						posinset={ isInfiniteScroll ? index + 1 : undefined }
-					/>
-				);
-			} ) }
-		</Composite>
+		<>
+			<Composite
+				id={ baseId }
+				render={ <div /> }
+				className={ clsx( 'dataviews-view-list', className ) }
+				role={ isInfiniteScroll ? 'feed' : 'grid' }
+				activeId={ activeCompositeId }
+				setActiveId={ setActiveCompositeId }
+			>
+				{ data.map( ( item, index ) => {
+					const id = generateCompositeItemIdPrefix( item );
+					return (
+						<ListItem
+							key={ id }
+							view={ view }
+							idPrefix={ id }
+							actions={ actions }
+							item={ item }
+							isSelected={ item === selectedItem }
+							onSelect={ onSelect }
+							mediaField={ mediaField }
+							titleField={ titleField }
+							descriptionField={ descriptionField }
+							otherFields={ otherFields }
+							onDropdownTriggerKeyDown={
+								onDropdownTriggerKeyDown
+							}
+							posinset={
+								isInfiniteScroll ? index + 1 : undefined
+							}
+						/>
+					);
+				} ) }
+			</Composite>
+			{ hasData && isLoading && <p>{ __( 'Loading more results…' ) }</p> }
+		</>
 	);
 }

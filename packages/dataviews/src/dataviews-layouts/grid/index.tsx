@@ -479,6 +479,7 @@ function ViewGrid< Item >( {
 					</div>
 				)
 			}
+			{ hasData && isLoading && <p>{ __( 'Loading more results…' ) }</p> }
 		</>
 	);
 }
