@@ -325,7 +325,6 @@ function ViewTable< Item >( {
 	};
 
 	const hasData = !! data?.length;
-	const isInfiniteScroll = view.layout?.infiniteScroll;
 
 	const titleField = fields.find( ( field ) => field.id === view.titleField );
 	const mediaField = fields.find( ( field ) => field.id === view.mediaField );
@@ -366,6 +365,7 @@ function ViewTable< Item >( {
 				headerMenuRefs.current.delete( column );
 			}
 		};
+	const isInfiniteScroll = view.layout?.infiniteScroll && ! dataByGroup;
 
 	return (
 		<>
@@ -523,11 +523,6 @@ function ViewTable< Item >( {
 										isItemClickable={ isItemClickable }
 										isActionsColumnSticky={
 											! isHorizontalScrollEnd
-										}
-										posinset={
-											isInfiniteScroll
-												? index + 1
-												: undefined
 										}
 									/>
 								) ) }

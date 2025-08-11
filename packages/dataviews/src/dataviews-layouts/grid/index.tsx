@@ -334,7 +334,7 @@ function ViewGrid< Item >( {
 		  }, new Map< string, typeof data >() )
 		: null;
 
-	const isInfiniteScroll = view.layout?.infiniteScroll;
+	const isInfiniteScroll = view.layout?.infiniteScroll && ! dataByGroup;
 
 	return (
 		<>
@@ -365,13 +365,8 @@ function ViewGrid< Item >( {
 										} }
 										aria-busy={ isLoading }
 										ref={ resizeObserverRef }
-										role={
-											isInfiniteScroll
-												? 'feed'
-												: undefined
-										}
 									>
-										{ groupItems.map( ( item, index ) => {
+										{ groupItems.map( ( item ) => {
 											return (
 												<GridItem
 													key={ getItemId( item ) }
@@ -405,11 +400,6 @@ function ViewGrid< Item >( {
 													config={ {
 														sizes: size,
 													} }
-													posinset={
-														isInfiniteScroll
-															? index + 1
-															: undefined
-													}
 												/>
 											);
 										} ) }
