@@ -6,6 +6,10 @@
 
 - Add `enableMoving` option to the `table` layout to allow or disallow column moving left and right. [#71120](https://github.com/WordPress/gutenberg/pull/71120)
 
+### Enhancements
+
+- Add two smaller sizs to the grid layout ([#71077](https://github.com/WordPress/gutenberg/pull/71077)).
+
 ## 6.0.0 (2025-08-07)
 
 ### Breaking changes
@@ -33,7 +37,6 @@
 
 ### Enhancements
 
-- Add a smaller size to the grid layout ([#71077](https://github.com/WordPress/gutenberg/pull/71077)).
 - Make the media item clickable along the title ([#70985](https://github.com/WordPress/gutenberg/pull/70985)).
 
 ## 5.0.0 (2025-07-23)
