@@ -53,7 +53,7 @@ export function getControl< Item >(
 		return getControlByType( field.Edit );
 	}
 
-	if ( field.type === 'select' ) {
+	if ( field.elements && field.type !== 'array' ) {
 		return getControlByType( 'select' );
 	}
 
