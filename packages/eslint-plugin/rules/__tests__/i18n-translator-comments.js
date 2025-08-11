@@ -91,7 +91,6 @@ _x( '"%1$s"/ %2$s', 'caption' );
 			code: ` // translators: %s: Hello at 6:00 AM
 		i18n.sprintf( i18n.__( 'Hello at %s' ), '6:00 AM' );`,
 		},
-		// test for precisions now
 		{
 			code: `// translators: %.2f: Percentage
 		i18n.sprintf( i18n.__( 'Percentage: %.2f' ), 1.00 );`,
