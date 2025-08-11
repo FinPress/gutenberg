@@ -228,8 +228,7 @@ function GridItem< Item >( {
 									direction="row"
 								>
 									<>
-										{ /* @ts-ignore */ }
-										<Tooltip text={ field.header }>
+										<Tooltip text={ field.label }>
 											<FlexItem className="dataviews-view-grid__field-name">
 												{ field.header }
 											</FlexItem>
