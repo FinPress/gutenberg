@@ -16,7 +16,7 @@ A group of headers and associated expandable content. ([Source](https://github.c
 -	**Experimental:** true
 -	**Category:** design
 -	**Allowed Blocks:** core/accordion-item
--	**Supports:** align (full, wide), background (backgroundImage, backgroundSize), color (background, gradient, text), interactivity, shadow, spacing (blockGap, margin, padding), ~~html~~
+-	**Supports:** align (full, wide), background (backgroundImage, backgroundSize), color (background, gradient, text), interactivity, layout, shadow, spacing (blockGap, margin, padding), ~~html~~
 -	**Attributes:** allowedBlocks, autoclose, iconPosition, showIcon
 
 ## Accordion Header
