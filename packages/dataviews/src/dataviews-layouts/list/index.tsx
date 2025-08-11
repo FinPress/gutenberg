@@ -22,6 +22,7 @@ import {
 	useMemo,
 	useRef,
 	useState,
+	useContext,
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { moreVertical } from '@wordpress/icons';
@@ -35,6 +36,7 @@ import {
 	ActionsMenuGroup,
 	ActionModal,
 } from '../../components/dataviews-item-actions';
+import DataViewsContext from '../../components/dataviews-context';
 import type {
 	Action,
 	NormalizedField,
@@ -154,6 +156,7 @@ function ListItem< Item >( {
 	onSelect,
 	otherFields,
 	onDropdownTriggerKeyDown,
+	posinset,
 }: ListViewItemProps< Item > ) {
 	const { showTitle = true, showMedia = true, showDescription = true } = view;
 	const itemRef = useRef< HTMLDivElement >( null );
@@ -169,6 +172,9 @@ function ListItem< Item >( {
 		const isHover = type === 'mouseenter';
 		setIsHovered( isHover );
 	};
+
+	const isInfiniteScroll = view.layout?.infiniteScroll;
+	const { paginationInfo } = useContext( DataViewsContext );
 
 	useEffect( () => {
 		if ( isSelected ) {
@@ -270,8 +276,16 @@ function ListItem< Item >( {
 	return (
 		<Composite.Row
 			ref={ itemRef }
-			render={ <div /> }
-			role="row"
+			render={
+				/* aria-posinset breaks Composite.Row if passed to it directly. */
+				<div
+					aria-posinset={ posinset }
+					aria-setsize={
+						isInfiniteScroll ? paginationInfo.totalItems : undefined
+					}
+				/>
+			}
+			role={ isInfiniteScroll ? 'article' : 'row' }
 			className={ clsx( {
 				'is-selected': isSelected,
 				'is-hovered': isHovered,
@@ -498,16 +512,18 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 		);
 	}
 
+	const isInfiniteScroll = view.layout?.infiniteScroll;
+
 	return (
 		<Composite
 			id={ baseId }
 			render={ <div /> }
 			className={ clsx( 'dataviews-view-list', className ) }
-			role="grid"
+			role={ isInfiniteScroll ? 'feed' : 'grid' }
 			activeId={ activeCompositeId }
 			setActiveId={ setActiveCompositeId }
 		>
-			{ data.map( ( item ) => {
+			{ data.map( ( item, index ) => {
 				const id = generateCompositeItemIdPrefix( item );
 				return (
 					<ListItem
@@ -523,6 +539,7 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 						descriptionField={ descriptionField }
 						otherFields={ otherFields }
 						onDropdownTriggerKeyDown={ onDropdownTriggerKeyDown }
+						posinset={ isInfiniteScroll ? index + 1 : undefined }
 					/>
 				);
 			} ) }
