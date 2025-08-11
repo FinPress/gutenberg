@@ -55,7 +55,7 @@ const meta: Meta< typeof Menu > = {
 	argTypes: {
 		children: { control: false },
 	},
-	tags: [ 'status-experimental', 'status-private' ],
+	tags: [ 'status-private' ],
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },
 		controls: { expanded: true },
