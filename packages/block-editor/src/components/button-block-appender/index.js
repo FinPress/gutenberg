@@ -52,8 +52,8 @@ function ButtonBlockAppender(
 					: sprintf(
 							// translators: %s: the name of the block
 							_x(
-								'Add New %s Item',
-								'Generic label for block inserter button'
+								'Add block to %s',
+								'Label for block inserter button'
 							),
 							parentBlockTitle
 					  );
