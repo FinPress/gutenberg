@@ -66,20 +66,11 @@ export default function ArrayControl< Item >( {
 	// Custom validation function for FormTokenField
 	const validateInput = useCallback(
 		( token: string ) => {
-			if ( field.isValid?.custom ) {
-				const testValue = [ ...arrayValue, token ];
-				const validationResult = field.isValid.custom(
-					{
-						...data,
-						[ id ]: testValue,
-					},
-					field
-				);
-				return validationResult === null;
-			}
-			return true;
+			return !! elements?.some( ( element ) => {
+				return element.label === token;
+			} );
 		},
-		[ field, data, id, arrayValue ]
+		[ elements ]
 	);
 
 	return (
@@ -92,6 +83,7 @@ export default function ArrayControl< Item >( {
 				elements?.map( ( suggestion ) => suggestion.label ) ?? []
 			}
 			__experimentalValidateInput={ validateInput }
+			__experimentalExpandOnFocus
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
 			{ ...extraProps }
