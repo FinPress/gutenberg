@@ -155,7 +155,7 @@ function TableRow< Item >( {
 			aria-setsize={
 				isInfiniteScroll ? paginationInfo.totalItems : undefined
 			}
-			aria-posinset={ isInfiniteScroll ? posinset : undefined }
+			aria-posinset={ posinset }
 			role={ isInfiniteScroll ? 'article' : undefined }
 			onClick={ ( event ) => {
 				if ( ! hasPossibleBulkAction ) {
@@ -524,7 +524,11 @@ function ViewTable< Item >( {
 										isActionsColumnSticky={
 											! isHorizontalScrollEnd
 										}
-										posinset={ index + 1 }
+										posinset={
+											isInfiniteScroll
+												? index + 1
+												: undefined
+										}
 									/>
 								) ) }
 							</tbody>
@@ -560,7 +564,9 @@ function ViewTable< Item >( {
 									isActionsColumnSticky={
 										! isHorizontalScrollEnd
 									}
-									posinset={ index + 1 }
+									posinset={
+										isInfiniteScroll ? index + 1 : undefined
+									}
 								/>
 							) ) }
 					</tbody>

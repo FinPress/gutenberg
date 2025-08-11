@@ -148,7 +148,7 @@ function GridItem< Item >( {
 			aria-setsize={
 				isInfiniteScroll ? paginationInfo.totalItems : undefined
 			}
-			aria-posinset={ isInfiniteScroll ? posinset : undefined }
+			aria-posinset={ posinset }
 		>
 			{ showMedia && renderedMediaField && (
 				<ItemClickWrapper
@@ -405,7 +405,11 @@ function ViewGrid< Item >( {
 													config={ {
 														sizes: size,
 													} }
-													posinset={ index + 1 }
+													posinset={
+														isInfiniteScroll
+															? index + 1
+															: undefined
+													}
 												/>
 											);
 										} ) }
@@ -453,7 +457,9 @@ function ViewGrid< Item >( {
 									config={ {
 										sizes: size,
 									} }
-									posinset={ index + 1 }
+									posinset={
+										isInfiniteScroll ? index + 1 : undefined
+									}
 								/>
 							);
 						} ) }
