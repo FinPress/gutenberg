@@ -25,7 +25,7 @@ module.exports = function parseSpxMode( value ) {
 		return 'enabled';
 	}
 
-	if ( ! SPX_MODES.some( ( realMode ) => realMode === value ) ) {
+	if ( ! SPX_MODES.includes( value ) ) {
 		throwSpxModeError( value );
 	}
 
