@@ -83,6 +83,7 @@ export default function ArrayControl< Item >( {
 				elements?.map( ( suggestion ) => suggestion.label ) ?? []
 			}
 			__experimentalValidateInput={ validateInput }
+			__experimentalShowHowTo={ false }
 			__experimentalExpandOnFocus
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
