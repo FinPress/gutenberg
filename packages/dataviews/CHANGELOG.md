@@ -19,6 +19,7 @@
 
 ### Features
 
+- Introduce new `array` type in DataForm fields. [#71136](https://github.com/WordPress/gutenberg/pull/71136)
 - Introduce locked filters, as filters that cannot be edited by the user. [#71075](https://github.com/WordPress/gutenberg/pull/71075)
 - Add "groupBy" support to the table layout. [#71055](https://github.com/WordPress/gutenberg/pull/71055)
 - Elements in the Field API can now provide an empty value that will be used instead of the default. [#70894](https://github.com/WordPress/gutenberg/pull/70894)
