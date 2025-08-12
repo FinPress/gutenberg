@@ -41,7 +41,6 @@ function NavigationViewButton( { attributes } ) {
 			onNavigateToEntityRecord( {
 				postId: id,
 				postType: type,
-				focusMode: false,
 			} );
 		}
 	}, [ kind, id, type, onNavigateToEntityRecord ] );

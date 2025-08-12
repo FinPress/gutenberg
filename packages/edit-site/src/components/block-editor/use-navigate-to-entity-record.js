@@ -16,17 +16,8 @@ export default function useNavigateToEntityRecord() {
 
 	const onNavigateToEntityRecord = useCallback(
 		( params ) => {
-			const { focusMode = true, ...navigationParams } = params;
-			const queryParams = [ 'canvas=edit' ];
-
-			if ( focusMode ) {
-				queryParams.push( 'focusMode=true' );
-			}
-
 			history.navigate(
-				`/${ navigationParams.postType }/${
-					navigationParams.postId
-				}?${ queryParams.join( '&' ) }`
+				`/${ params.postType }/${ params.postId }?canvas=edit&focusMode=true`
 			);
 		},
 		[ history ]
