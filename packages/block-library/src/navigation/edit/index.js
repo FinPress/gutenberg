@@ -31,6 +31,7 @@ import {
 import { EntityProvider, store as coreStore } from '@wordpress/core-data';
 
 import { useDispatch, useSelect } from '@wordpress/data';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { store as interfaceStore } from '@wordpress/interface';
 import {
 	__experimentalToolsPanel as ToolsPanel,
@@ -929,7 +930,7 @@ function Navigation( {
 				{ blockEditingMode === 'contentOnly' && (
 					<BlockControls>
 						<ToolbarButton
-							label={ __( 'Edit' ) }
+							label={ __( 'Edit navigation' ) }
 							onClick={ () => {
 								enableComplementaryArea(
 									'core',
@@ -937,7 +938,7 @@ function Navigation( {
 								);
 							} }
 						>
-							{ __( 'Edit' ) }
+							{ __( 'Edit navigation' ) }
 						</ToolbarButton>
 					</BlockControls>
 				) }

@@ -285,14 +285,16 @@ export default function TemplatePartEdit( {
 									} )
 								}
 							>
-								{ __( 'Edit' ) }
+								{ hasNavigationBlocks
+									? __( 'Edit template part' )
+									: __( 'Edit' ) }
 							</ToolbarButton>
 						</BlockControls>
 					) }
 				{ hasNavigationBlocks && blockEditingMode === 'contentOnly' && (
 					<BlockControls group="other">
 						<ToolbarButton
-							label={ __( 'Edit Navigation' ) }
+							label={ __( 'Edit navigation' ) }
 							onClick={ () => {
 								// Select the first Navigation block
 								selectBlock( firstNavigationBlockId );
@@ -303,7 +305,7 @@ export default function TemplatePartEdit( {
 								);
 							} }
 						>
-							{ __( 'Edit Navigation' ) }
+							{ __( 'Edit navigation' ) }
 						</ToolbarButton>
 					</BlockControls>
 				) }
