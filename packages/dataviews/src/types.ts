@@ -103,7 +103,6 @@ export type FieldType =
 	| 'media'
 	| 'boolean'
 	| 'email'
-	| 'select'
 	| 'array';
 
 /**
