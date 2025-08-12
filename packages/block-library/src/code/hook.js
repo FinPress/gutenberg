@@ -82,10 +82,10 @@ export function useTabIndentation() {
 			selection.addRange( newRange );
 		}
 
-		element.addEventListener( 'keydown', handleKeyDown, true );
+		element.addEventListener( 'keydown', handleKeyDown );
 
 		return () => {
-			element.removeEventListener( 'keydown', handleKeyDown, true );
+			element.removeEventListener( 'keydown', handleKeyDown );
 		};
 	}, [] );
 
