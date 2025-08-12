@@ -178,6 +178,21 @@ export default function QueryTitleEdit( {
 	}
 
 	if ( type === 'post-type-label' ) {
+		let title;
+		if ( postTypeLabel ) {
+			if ( showPrefix ) {
+				title = sprintf(
+					/* translators: %s: Singular post type name of the queried object */
+					__( 'Post Type: "%s"' ),
+					postTypeLabel
+				);
+			} else {
+				title = postTypeLabel;
+			}
+		} else {
+			title = showPrefix ? __( 'Post Type: Name' ) : __( 'Name' );
+		}
+
 		titleElement = (
 			<>
 				<InspectorControls>
@@ -211,11 +226,7 @@ export default function QueryTitleEdit( {
 						</ToolsPanelItem>
 					</ToolsPanel>
 				</InspectorControls>
-				<TagName { ...blockProps }>
-					{ showPrefix
-						? `Post Type: “${ postTypeLabel ?? 'Name' }”`
-						: postTypeLabel ?? 'Name' }
-				</TagName>
+				<TagName { ...blockProps }>{ title }</TagName>
 			</>
 		);
 	}
