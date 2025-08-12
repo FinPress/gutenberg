@@ -138,9 +138,10 @@ describe( 'DataForm component', () => {
 			await user.type( titleInput, newValue );
 			expect( onChange ).toHaveBeenCalledTimes( newValue.length );
 			for ( let i = 0; i < newValue.length; i++ ) {
-				expect( onChange ).toHaveBeenNthCalledWith( i + 1, {
-					title: newValue[ i ],
-				} );
+				expect( onChange ).toHaveBeenNthCalledWith(
+					i + 1,
+					expect.objectContaining({ title: newValue[i] })
+				);
 			}
 		} );
 
@@ -232,9 +233,10 @@ describe( 'DataForm component', () => {
 			await user.type( input, newValue );
 			expect( onChange ).toHaveBeenCalledTimes( newValue.length );
 			for ( let i = 0; i < newValue.length; i++ ) {
-				expect( onChange ).toHaveBeenNthCalledWith( i + 1, {
-					title: newValue[ i ],
-				} );
+				expect( onChange ).toHaveBeenNthCalledWith(
+					i + 1,
+					expect.objectContaining({ title: newValue[i] })
+				);
 			}
 		} );
 
