@@ -150,9 +150,11 @@ const fields = [
 		label: 'Select',
 		type: 'select' as const,
 		elements: [
-			{ value: 'wordpress', label: 'WordPress' },
-			{ value: 'javascript', label: 'JavaScript' },
-			{ value: 'react', label: 'React' },
+			{ value: 'astronomy', label: 'Astronomy' },
+			{ value: 'book-review', label: 'Book review' },
+			{ value: 'event', label: 'Event' },
+			{ value: 'photography', label: 'Photography' },
+			{ value: 'travel', label: 'Travel' },
 		],
 	},
 	{
@@ -162,9 +164,11 @@ const fields = [
 		placeholder: 'Enter comma-separated tags',
 		description: 'Add tags separated by commas (e.g., "tag1, tag2, tag3")',
 		elements: [
-			{ value: 'wordpress', label: 'WordPress' },
-			{ value: 'javascript', label: 'JavaScript' },
-			{ value: 'react', label: 'React' },
+			{ value: 'astronomy', label: 'Astronomy' },
+			{ value: 'book-review', label: 'Book review' },
+			{ value: 'event', label: 'Event' },
+			{ value: 'photography', label: 'Photography' },
+			{ value: 'travel', label: 'Travel' },
 		],
 	},
 ] as Field< SamplePost >[];
@@ -189,7 +193,7 @@ export const Default = ( {
 		can_comment: false,
 		filesize: 1024,
 		dimensions: '1920x1080',
-		tags: [ 'wordpress' ],
+		tags: [ 'photography' ],
 	} );
 
 	const form = useMemo(
@@ -249,8 +253,8 @@ const CombinedFieldsComponent = ( {
 		birthdate: '1950-02-23T12:00:00',
 		filesize: 1024,
 		dimensions: '1920x1080',
-		tags: [ 'wordpress' ],
-		select: 'wordpress',
+		tags: [ 'photography' ],
+		select: 'event',
 	} );
 
 	const form = useMemo(
