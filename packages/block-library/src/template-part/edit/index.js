@@ -286,7 +286,11 @@ export default function TemplatePartEdit( {
 								}
 							>
 								{ hasNavigationBlocks
-									? __( 'Edit template part' )
+									? sprintf(
+											/* translators: %s: template part title or fallback text */
+											__( 'Edit %s' ),
+											title || __( 'template part' )
+									  )
 									: __( 'Edit' ) }
 							</ToolbarButton>
 						</BlockControls>
