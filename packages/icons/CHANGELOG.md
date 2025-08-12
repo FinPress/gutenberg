@@ -2,7 +2,7 @@
 
 ## Unreleased
 
--  Breaking change: deprecate "more-horizontal-mobile" icon. This was added in error, and "more-horizontal" should be used instead.
+-  Breaking change: deprecate "moreHorizontalMobile" icon. This was added in error, and "moreHorizontal" should be used instead. ([https://github.com/WordPress/gutenberg/pull/71172](#71172))
 
 ## 10.28.0 (2025-08-07)
 
