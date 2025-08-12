@@ -5,6 +5,50 @@ import { __ } from '@wordpress/i18n';
 import { store as coreDataStore } from '@wordpress/core-data';
 
 /**
+ * Creates the data fields object with the given term data values and ID value.
+ *
+ * @param {Object}        termDataValues The term data values.
+ * @param {string|number} idValue        The ID value to use.
+ * @return {Object} The data fields object.
+ */
+function createDataFields( termDataValues, idValue ) {
+	return {
+		id: {
+			label: __( 'Term ID' ),
+			value: idValue,
+			type: 'string',
+		},
+		name: {
+			label: __( 'Name' ),
+			value: termDataValues?.name,
+			type: 'string',
+		},
+		slug: {
+			label: __( 'Slug' ),
+			value: termDataValues?.slug,
+			type: 'string',
+		},
+		description: {
+			label: __( 'Description' ),
+			value: termDataValues?.description,
+			type: 'string',
+		},
+		parent: {
+			label: __( 'Parent ID' ),
+			value: termDataValues?.parent,
+			type: 'string',
+		},
+		count: {
+			label: __( 'Count' ),
+			value: termDataValues?.count
+				? `(${ termDataValues.count })`
+				: `(${ termDataValues?.count })`,
+			type: 'string',
+		},
+	};
+}
+
+/**
  * Gets a list of term data fields with their values and labels
  * to be consumed in the needed callbacks.
  * If the value is not available based on context, like in templates,
@@ -45,67 +89,14 @@ function getTermDataFields( select, context ) {
 		}
 
 		if ( termDataValues ) {
-			dataFields = {
-				name: {
-					label: __( 'Term Name' ),
-					value: termDataValues?.name,
-					type: 'string',
-				},
-				count: {
-					label: __( 'Term Count' ),
-					value: termDataValues?.count
-						? `(${ termDataValues.count })`
-						: `(${ termDataValues?.count })`,
-					type: 'string',
-				},
-				description: {
-					label: __( 'Term Description' ),
-					value: termDataValues?.description,
-					type: 'string',
-				},
-				slug: {
-					label: __( 'Term Slug' ),
-					value: termDataValues?.slug,
-					type: 'string',
-				},
-				id: {
-					label: __( 'Term ID' ),
-					value: context?.termId,
-					type: 'string',
-				},
-			};
+			dataFields = createDataFields( termDataValues, context?.termId );
 		}
 	} else if ( context?.termData ) {
 		termDataValues = context.termData;
-		dataFields = {
-			name: {
-				label: __( 'Term Name' ),
-				value: termDataValues?.name,
-				type: 'string',
-			},
-			count: {
-				label: __( 'Term Count' ),
-				value: termDataValues?.count
-					? `(${ termDataValues.count })`
-					: `(${ termDataValues?.count })`,
-				type: 'string',
-			},
-			description: {
-				label: __( 'Term Description' ),
-				value: termDataValues?.description,
-				type: 'string',
-			},
-			slug: {
-				label: __( 'Term Slug' ),
-				value: termDataValues?.slug,
-				type: 'string',
-			},
-			id: {
-				label: __( 'Term ID' ),
-				value: termDataValues?.term_id,
-				type: 'string',
-			},
-		};
+		dataFields = createDataFields(
+			termDataValues,
+			termDataValues?.term_id
+		);
 	}
 
 	if ( ! dataFields || ! Object.keys( dataFields ).length ) {

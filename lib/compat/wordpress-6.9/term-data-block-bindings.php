@@ -45,20 +45,23 @@ function gutenberg_block_bindings_term_data_get_value( array $source_args, $bloc
 	}
 
 	switch ( $source_args['key'] ) {
+		case 'id':
+			return esc_html( (string) $term_id );
+
 		case 'name':
 			return esc_html( $term->name );
-
-		case 'count':
-			return esc_html( (string) '(' . $term->count . ')' );
-
-		case 'description':
-			return wp_kses_post( $term->description );
 
 		case 'slug':
 			return esc_html( $term->slug );
 
-		case 'id':
-			return esc_html( (string) $term_id );
+		case 'description':
+			return wp_kses_post( $term->description );
+
+		case 'parent':
+			return esc_html( (string) $term->parent );
+
+		case 'count':
+			return esc_html( (string) '(' . $term->count . ')' );
 
 		default:
 			return null;
