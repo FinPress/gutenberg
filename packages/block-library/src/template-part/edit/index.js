@@ -20,7 +20,6 @@ import {
 	Modal,
 	MenuItem,
 	ToolbarButton,
-	ToolbarGroup,
 } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
@@ -271,51 +270,53 @@ export default function TemplatePartEdit( {
 		);
 	}
 
+	/*
+	 * PROTOTYPE HACK: Using different group props to create visual separation
+	 * between toolbar buttons. WordPress automatically adds separators between
+	 * different BlockControls groups. This avoids the need for custom CSS
+	 * while maintaining the standard toolbar appearance.
+	 */
 	return (
 		<>
 			<RecursionProvider uniqueId={ templatePartId }>
 				{ isEntityAvailable &&
 					onNavigateToEntityRecord &&
 					canUserEdit && (
-						<BlockControls group="other">
-							<ToolbarGroup>
-								<ToolbarButton
-									onClick={ () =>
-										onNavigateToEntityRecord( {
-											postId: templatePartId,
-											postType: 'wp_template_part',
-										} )
-									}
-								>
-									{ hasNavigationBlocks
-										? sprintf(
-												/* translators: %s: template part title or fallback text */
-												__( 'Edit %s' ),
-												title || __( 'template part' )
-										  )
-										: __( 'Edit' ) }
-								</ToolbarButton>
-							</ToolbarGroup>
+						<BlockControls group="block">
+							<ToolbarButton
+								onClick={ () =>
+									onNavigateToEntityRecord( {
+										postId: templatePartId,
+										postType: 'wp_template_part',
+									} )
+								}
+							>
+								{ hasNavigationBlocks
+									? sprintf(
+											/* translators: %s: template part title or fallback text */
+											__( 'Edit %s' ),
+											title || __( 'template part' )
+									  )
+									: __( 'Edit' ) }
+							</ToolbarButton>
 						</BlockControls>
 					) }
 				{ hasNavigationBlocks && blockEditingMode === 'contentOnly' && (
 					<BlockControls group="other">
-						<ToolbarGroup>
-							<ToolbarButton
-								label={ __( 'Edit navigation' ) }
-								onClick={ () => {
-									// Select the first Navigation block
-									selectBlock( firstNavigationBlockId );
-									// Enable the complementary area (inspector)
-									enableComplementaryArea(
-										'core',
-										'edit-post/block'
-									);
-								} }
-							>
-								{ __( 'Edit navigation' ) }
-							</ToolbarButton>
-						</ToolbarGroup>
+						<ToolbarButton
+							label={ __( 'Edit navigation' ) }
+							onClick={ () => {
+								// Select the first Navigation block
+								selectBlock( firstNavigationBlockId );
+								// Enable the complementary area (inspector)
+								enableComplementaryArea(
+									'core',
+									'edit-post/block'
+								);
+							} }
+						>
+							{ __( 'Edit navigation' ) }
+						</ToolbarButton>
 					</BlockControls>
 				) }
 				{ canUserEdit && (
