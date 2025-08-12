@@ -32,39 +32,39 @@ import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
 
-function DropdownHeader( {
+function DropdownHeader({
 	title,
 	onClose,
 }: {
 	title?: string;
 	onClose: () => void;
-} ) {
+}) {
 	return (
 		<VStack
 			className="dataforms-layouts-panel__dropdown-header"
-			spacing={ 4 }
+			spacing={4}
 		>
 			<HStack alignment="center">
-				{ title && (
-					<Heading level={ 2 } size={ 13 }>
-						{ title }
+				{title && (
+					<Heading level={2} size={13}>
+						{title}
 					</Heading>
-				) }
+				)}
 				<Spacer />
-				{ onClose && (
+				{onClose && (
 					<Button
-						label={ __( 'Close' ) }
-						icon={ closeSmall }
-						onClick={ onClose }
+						label={__('Close')}
+						icon={closeSmall}
+						onClick={onClose}
 						size="small"
 					/>
-				) }
+				)}
 			</HStack>
 		</VStack>
 	);
 }
 
-function PanelDropdown< Item >( {
+function PanelDropdown<Item>({
 	fieldDefinition,
 	popoverAnchor,
 	labelPosition = 'side',
@@ -72,193 +72,194 @@ function PanelDropdown< Item >( {
 	onChange,
 	field,
 }: {
-	fieldDefinition: NormalizedField< Item >;
+	fieldDefinition: NormalizedField<Item>;
 	popoverAnchor: HTMLElement | null;
 	labelPosition: 'side' | 'top' | 'none';
 	data: Item;
-	onChange: ( value: any ) => void;
+	onChange: (value: any) => void;
 	field: FormField;
-} ) {
-	const fieldLabel = isCombinedField( field )
+}) {
+	const fieldLabel = isCombinedField(field)
 		? field.label
 		: fieldDefinition?.label;
-	const form = useMemo( () => {
-		if ( isCombinedField( field ) ) {
+	const form = useMemo(() => {
+		if (isCombinedField(field)) {
 			return {
 				type: 'regular' as const,
-				fields: field.children.map( ( child ) => {
-					if ( typeof child === 'string' ) {
+				fields: field.children.map((child) => {
+					if (typeof child === 'string') {
 						return {
 							id: child,
 						};
 					}
 					return child;
-				} ),
+				}),
 			};
 		}
 		// If not explicit children return the field id itself.
 		return {
 			type: 'regular' as const,
-			fields: [ { id: field.id } ],
+			fields: [{ id: field.id }],
 		};
-	}, [ field ] );
+	}, [field]);
 
 	// Memoize popoverProps to avoid returning a new object every time.
 	const popoverProps = useMemo(
-		() => ( {
+		() => ({
 			// Anchor the popover to the middle of the entire row so that it doesn't
 			// move around when the label changes.
 			anchor: popoverAnchor,
 			placement: 'left-start',
 			offset: 36,
 			shift: true,
-		} ),
-		[ popoverAnchor ]
+		}),
+		[popoverAnchor]
 	);
 
 	return (
 		<Dropdown
 			contentClassName="dataforms-layouts-panel__field-dropdown"
-			popoverProps={ popoverProps }
+			popoverProps={popoverProps}
 			focusOnMount
-			toggleProps={ {
+			toggleProps={{
 				size: 'compact',
 				variant: 'tertiary',
 				tooltipPosition: 'middle left',
-			} }
-			renderToggle={ ( { isOpen, onToggle } ) => (
+			}}
+			renderToggle={({ isOpen, onToggle }) => (
 				<Button
 					className="dataforms-layouts-panel__field-control"
 					size="compact"
 					variant={
-						[ 'none', 'top' ].includes( labelPosition )
+						['none', 'top'].includes(labelPosition)
 							? 'link'
 							: 'tertiary'
 					}
-					aria-expanded={ isOpen }
-					aria-label={ sprintf(
+					aria-expanded={isOpen}
+					aria-label={sprintf(
 						// translators: %s: Field name.
-						_x( 'Edit %s', 'field' ),
+						_x('Edit %s', 'field'),
 						fieldLabel || ''
-					) }
-					onClick={ onToggle }
-					disabled={ fieldDefinition.readOnly === true }
+					)}
+					onClick={onToggle}
+					disabled={fieldDefinition.readOnly === true}
 					accessibleWhenDisabled
 				>
 					<fieldDefinition.render
-						item={ data }
-						field={ fieldDefinition }
+						item={data}
+						field={fieldDefinition}
 					/>
 				</Button>
-			) }
-			renderContent={ ( { onClose } ) => (
+			)}
+			renderContent={({ onClose }) => (
 				<>
-					<DropdownHeader title={ fieldLabel } onClose={ onClose } />
+					<DropdownHeader title={fieldLabel} onClose={onClose} />
 					<DataFormLayout
-						data={ data }
-						form={ form as Form }
-						onChange={ onChange }
+						data={data}
+						form={form as Form}
+						onChange={onChange}
 					>
-						{ ( FieldLayout, nestedField ) => (
+						{(FieldLayout, nestedField) => (
 							<FieldLayout
-								key={ nestedField.id }
-								data={ data }
-								field={ nestedField }
-								onChange={ onChange }
+								key={nestedField.id}
+								data={data}
+								field={nestedField}
+								onChange={onChange}
 								hideLabelFromVision={
-									( form?.fields ?? [] ).length < 2
+									(form?.fields ?? []).length < 2
 								}
 							/>
-						) }
+						)}
 					</DataFormLayout>
 				</>
-			) }
+			)}
 		/>
 	);
 }
 
-export default function FormPanelField< Item >( {
+export default function FormPanelField<Item>({
 	data,
 	field,
 	onChange,
-}: FieldLayoutProps< Item > ) {
-	const { fields } = useContext( DataFormContext );
-	const fieldDefinition = fields.find( ( fieldDef ) => {
+}: FieldLayoutProps<Item>) {
+	const { fields } = useContext(DataFormContext);
+	const fieldDefinition = fields.find((fieldDef) => {
 		// Default to the first child if it is a combined field.
-		if ( isCombinedField( field ) ) {
+		if (isCombinedField(field)) {
 			const children = field.children.filter(
-				( child ): child is string | SimpleFormField =>
-					typeof child === 'string' || ! isCombinedField( child )
+				(child): child is string | SimpleFormField =>
+					typeof child === 'string' || !isCombinedField(child)
 			);
 			const firstChildFieldId =
-				typeof children[ 0 ] === 'string'
-					? children[ 0 ]
-					: children[ 0 ].id;
+				typeof children[0] === 'string' ? children[0] : children[0].id;
 			return fieldDef.id === firstChildFieldId;
 		}
 		return fieldDef.id === field.id;
-	} );
+	});
 
 	// Use internal state instead of a ref to make sure that the component
 	// re-renders when the popover's anchor updates.
-	const [ popoverAnchor, setPopoverAnchor ] = useState< HTMLElement | null >(
+	const [popoverAnchor, setPopoverAnchor] = useState<HTMLElement | null>(
 		null
 	);
 
-	if ( ! fieldDefinition ) {
+	if (!fieldDefinition) {
 		return null;
 	}
 
 	const labelPosition = field.labelPosition ?? 'side';
 	const labelClassName = clsx(
 		'dataforms-layouts-panel__field-label',
-		`dataforms-layouts-panel__field-label--label-position-${ labelPosition }`
+		`dataforms-layouts-panel__field-label--label-position-${labelPosition}`
 	);
-	const fieldLabel = isCombinedField( field )
+	const fieldLabel = isCombinedField(field)
 		? field.label
 		: fieldDefinition?.label;
 
-	if ( labelPosition === 'top' ) {
+	if (labelPosition === 'top') {
 		const handleFieldChange = (value: Record<string, any>) => {
-			const updatedData = fieldDefinition.setValue({ item: data, value: value[fieldDefinition.id] });
+			const updatedData = fieldDefinition.setValue({
+				item: data,
+				value: value[fieldDefinition.id],
+			});
 			onChange(updatedData);
 		};
 		return (
-			<VStack className="dataforms-layouts-panel__field" spacing={ 0 }>
-				<div
-					className={ labelClassName }
-					style={ { paddingBottom: 0 } }
-				>
-					{ fieldLabel }
+			<VStack className="dataforms-layouts-panel__field" spacing={0}>
+				<div className={labelClassName} style={{ paddingBottom: 0 }}>
+					{fieldLabel}
 				</div>
 				<div className="dataforms-layouts-panel__field-control">
 					<PanelDropdown
-						field={ field }
-						popoverAnchor={ popoverAnchor }
-						fieldDefinition={ fieldDefinition }
-						data={ data }
-						onChange={ handleFieldChange }
-						labelPosition={ labelPosition }
+						field={field}
+						popoverAnchor={popoverAnchor}
+						fieldDefinition={fieldDefinition}
+						data={data}
+						onChange={handleFieldChange}
+						labelPosition={labelPosition}
 					/>
 				</div>
 			</VStack>
 		);
 	}
 
-	if ( labelPosition === 'none' ) {
+	if (labelPosition === 'none') {
 		const handleFieldChange = (value: Record<string, any>) => {
-			const updatedData = fieldDefinition.setValue({ item: data, value: value[fieldDefinition.id] });
+			const updatedData = fieldDefinition.setValue({
+				item: data,
+				value: value[fieldDefinition.id],
+			});
 			onChange(updatedData);
 		};
 		return (
 			<div className="dataforms-layouts-panel__field">
 				<PanelDropdown
-					field={ field }
-					popoverAnchor={ popoverAnchor }
-					fieldDefinition={ fieldDefinition }
-					data={ data }
-					onChange={ handleFieldChange }
-					labelPosition={ labelPosition }
+					field={field}
+					popoverAnchor={popoverAnchor}
+					fieldDefinition={fieldDefinition}
+					data={data}
+					onChange={handleFieldChange}
+					labelPosition={labelPosition}
 				/>
 			</div>
 		);
@@ -266,23 +267,26 @@ export default function FormPanelField< Item >( {
 
 	// Defaults to label position side.
 	const handleFieldChange = (value: Record<string, any>) => {
-		const updatedData = fieldDefinition.setValue({ item: data, value: value[fieldDefinition.id] });
+		const updatedData = fieldDefinition.setValue({
+			item: data,
+			value: value[fieldDefinition.id],
+		});
 		onChange(updatedData);
 	};
 	return (
 		<HStack
-			ref={ setPopoverAnchor }
+			ref={setPopoverAnchor}
 			className="dataforms-layouts-panel__field"
 		>
-			<div className={ labelClassName }>{ fieldLabel }</div>
+			<div className={labelClassName}>{fieldLabel}</div>
 			<div className="dataforms-layouts-panel__field-control">
 				<PanelDropdown
-					field={ field }
-					popoverAnchor={ popoverAnchor }
-					fieldDefinition={ fieldDefinition }
-					data={ data }
-					onChange={ handleFieldChange }
-					labelPosition={ labelPosition }
+					field={field}
+					popoverAnchor={popoverAnchor}
+					fieldDefinition={fieldDefinition}
+					data={data}
+					onChange={handleFieldChange}
+					labelPosition={labelPosition}
 				/>
 			</div>
 		</HStack>
