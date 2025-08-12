@@ -46,16 +46,13 @@ export default function PreviewSizePicker() {
 		return context.containerWidth >= size.breakpoint;
 	} );
 
+	const layoutPreviewSize = view.layout?.previewSize ?? 230; // Default to the third smallest size if no preview size is set.
 	// If the container has resized and the set preview size is no longer available,
 	// we reset it to the next smallest size.
-	const previewSizeToUse = view.layout?.previewSize
-		? breakValues
-				.map( ( size, index ) => ( { ...size, index } ) )
-				.filter(
-					( size ) => size.value <= ( view.layout?.previewSize ?? 2 ) // We know the view.layout?.previewSize exists at this point but the linter doesn't seem to.
-				)
-				.sort( ( a, b ) => b.value - a.value )[ 0 ].index
-		: 2; // Default to the third smallest size if no preview size is set.
+	const previewSizeToUse = breakValues
+		.map( ( size, index ) => ( { ...size, index } ) )
+		.filter( ( size ) => size.value <= layoutPreviewSize )
+		.sort( ( a, b ) => b.value - a.value )[ 0 ].index;
 
 	const marks = breakValues.map( ( size, index ) => {
 		return {
