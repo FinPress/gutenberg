@@ -32,6 +32,7 @@
 		"@wordpress/a11y": "file:../a11y",
 		"@wordpress/api-fetch": "file:../api-fetch",
 		"@wordpress/block-editor": "file:../block-editor",
+		"@wordpress/block-freeform": "file:../block-freeform",
 		"@wordpress/block-library": "file:../block-library",
 		"@wordpress/blocks": "file:../blocks",
 		"@wordpress/commands": "file:../commands",

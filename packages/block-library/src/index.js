@@ -3,7 +3,6 @@
  */
 import {
 	setDefaultBlockName,
-	setFreeformContentHandlerName,
 	setUnregisteredTypeHandlerName,
 	setGroupingBlockName,
 } from '@wordpress/blocks';
@@ -27,7 +26,6 @@ import * as button from './button';
 import * as buttons from './buttons';
 import * as calendar from './calendar';
 import * as categories from './categories';
-import * as classic from './freeform';
 import * as code from './code';
 import * as column from './column';
 import * as columns from './columns';
@@ -241,23 +239,6 @@ const getAllBlocks = () => {
 		blocks.push( formSubmissionNotification );
 	}
 
-	// When in a WordPress context, conditionally
-	// add the classic block and TinyMCE editor
-	// under any of the following conditions:
-	//   - the current post contains a classic block
-	//   - the experiment to disable TinyMCE isn't active.
-	//   - a query argument specifies that TinyMCE should be loaded
-	if (
-		window?.wp?.oldEditor &&
-		( window?.wp?.needsClassicBlock ||
-			! window?.__experimentalDisableTinymce ||
-			!! new URLSearchParams( window?.location?.search ).get(
-				'requiresTinymce'
-			) )
-	) {
-		blocks.push( classic );
-	}
-
 	return blocks.filter( Boolean );
 };
 
@@ -294,13 +275,6 @@ export const registerCoreBlocks = (
 	blocks.forEach( ( { init } ) => init() );
 
 	setDefaultBlockName( paragraph.name );
-	if (
-		window.wp &&
-		window.wp.oldEditor &&
-		blocks.some( ( { name } ) => name === classic.name )
-	) {
-		setFreeformContentHandlerName( classic.name );
-	}
 	setUnregisteredTypeHandlerName( missing.name );
 	setGroupingBlockName( group.name );
 };

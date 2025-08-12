@@ -1,11 +1,15 @@
 /**
  * WordPress dependencies
  */
-import { store as blocksStore } from '@wordpress/blocks';
+import {
+	store as blocksStore,
+	setFreeformContentHandlerName,
+} from '@wordpress/blocks';
 import {
 	registerCoreBlocks,
 	__experimentalRegisterExperimentalCoreBlocks,
 } from '@wordpress/block-library';
+import { init as initFreeformBlock } from '@wordpress/block-freeform';
 import deprecated from '@wordpress/deprecated';
 import { createRoot, StrictMode } from '@wordpress/element';
 import { dispatch, select } from '@wordpress/data';
@@ -95,6 +99,25 @@ export function initializeEditor(
 	}
 
 	registerCoreBlocks();
+
+	// When in a WordPress context, conditionally
+	// add the classic block and TinyMCE editor
+	// under any of the following conditions:
+	//   - the current post contains a classic block
+	//   - the experiment to disable TinyMCE isn't active.
+	//   - a query argument specifies that TinyMCE should be loaded
+	if (
+		window?.wp?.oldEditor &&
+		( window?.wp?.needsClassicBlock ||
+			! window?.__experimentalDisableTinymce ||
+			!! new URLSearchParams( window?.location?.search ).get(
+				'requiresTinymce'
+			) )
+	) {
+		initFreeformBlock();
+		setFreeformContentHandlerName( 'core/freeform' );
+	}
+
 	registerCoreBlockBindingsSources();
 	registerLegacyWidgetBlock( { inserter: false } );
 	registerWidgetGroupBlock( { inserter: false } );

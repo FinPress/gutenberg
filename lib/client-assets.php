@@ -282,11 +282,21 @@ function gutenberg_register_packages_styles( $styles ) {
 	);
 	$styles->add_data( 'wp-editor', 'rtl', 'replace' );
 
+	// Register the freeform block styles
+	gutenberg_override_style(
+		$styles,
+		'wp-block-freeform-editor',
+		gutenberg_url( 'packages/block-freeform/build-style/editor.css' ),
+		array(),
+		$version
+	);
+	$styles->add_data( 'wp-block-freeform-editor', 'rtl', 'replace' );
+
 	gutenberg_override_style(
 		$styles,
 		'wp-edit-post',
 		gutenberg_url( 'build/edit-post/style.css' ),
-		array( 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-edit-blocks', 'wp-block-library', 'wp-commands', 'wp-preferences' ),
+		array( 'wp-components', 'wp-block-editor', 'wp-editor', 'wp-edit-blocks', 'wp-block-library', 'wp-block-freeform-editor', 'wp-commands', 'wp-preferences' ),
 		$version
 	);
 	$styles->add_data( 'wp-edit-post', 'rtl', 'replace' );

@@ -14,8 +14,10 @@ import {
 	rawHandler,
 	registerBlockType,
 	serialize,
+	setFreeformContentHandlerName,
 } from '@wordpress/blocks';
 import { registerCoreBlocks } from '@wordpress/block-library';
+import { init as initFreeformBlock } from '@wordpress/block-freeform';
 
 function readFile( filePath ) {
 	return fs.existsSync( filePath )
@@ -28,6 +30,8 @@ describe( 'Blocks raw handling', () => {
 		// Load all hooks that modify blocks.
 		require( '../../packages/editor/src/hooks' );
 		registerCoreBlocks();
+		initFreeformBlock();
+		setFreeformContentHandlerName( 'core/freeform' );
 		registerBlockType( 'test/gallery', {
 			title: 'Test Gallery',
 			category: 'text',

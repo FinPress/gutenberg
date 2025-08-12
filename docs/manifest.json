@@ -1488,6 +1488,12 @@
 		"parent": "packages"
 	},
 	{
+		"title": "@wordpress/block-freeform",
+		"slug": "packages-block-freeform",
+		"markdown_source": "../packages/block-freeform/README.md",
+		"parent": "packages"
+	},
+	{
 		"title": "@wordpress/block-library",
 		"slug": "packages-block-library",
 		"markdown_source": "../packages/block-library/README.md",
