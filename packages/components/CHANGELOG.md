@@ -2,9 +2,12 @@
 
 ## Unreleased
 
+## 30.1.0 (2025-08-07)
+
 ### Enhancement
 
 -   `ColorPicker`: Improve color picker slider focus styles for better keyboard navigation accessibility ([#70146](https://github.com/WordPress/gutenberg/pull/70146)).
+-   `Button`: Update the disabled state for the Primary button to be less emphasized, to avoid confusing it for enabled. ([#70674](https://github.com/WordPress/gutenberg/pull/70674)).
 
 ### Bug Fixes
 
