@@ -20,7 +20,7 @@ import {
 // production build to make the final bundle smaller.
 //
 // See https://github.com/WordPress/gutenberg/pull/40655 for more context.
-import * as accordionGroup from './accordion-group';
+import * as accordions from './accordions';
 import * as accordionItem from './accordion-item';
 import * as accordionHeader from './accordion-header';
 import * as accordionPanel from './accordion-panel';
@@ -240,7 +240,7 @@ const getAllBlocks = () => {
 	];
 
 	if ( window?.__experimentalEnableBlockExperiments ) {
-		blocks.push( accordionGroup );
+		blocks.push( accordions );
 		blocks.push( accordionItem );
 		blocks.push( accordionHeader );
 		blocks.push( accordionPanel );

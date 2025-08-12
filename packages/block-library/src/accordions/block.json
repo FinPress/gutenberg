@@ -1,10 +1,10 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "core/accordion-group",
-	"title": "Accordion Group",
+	"name": "core/accordions",
+	"title": "Accordions",
 	"category": "design",
-	"description": "A group of headers and associated expandable content.",
+	"description": "A group of Accordion headers and associated expandable content.",
 	"example": {},
 	"__experimental": true,
 	"supports": {
@@ -65,5 +65,5 @@
 	},
 	"allowedBlocks": [ "core/accordion-item" ],
 	"textdomain": "default",
-	"style": "wp-block-accordion-group"
+	"style": "wp-block-accordions"
 }

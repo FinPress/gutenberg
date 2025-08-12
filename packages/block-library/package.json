@@ -27,7 +27,7 @@
 	"react-native": "src/index",
 	"wpScript": true,
 	"wpScriptModuleExports": {
-		"./accordion-group/view": "./build-module/accordion-group/view.js",
+		"./accordions/view": "./build-module/accordions/view.js",
 		"./file/view": "./build-module/file/view.js",
 		"./form/view": "./build-module/form/view.js",
 		"./image/view": "./build-module/image/view.js",

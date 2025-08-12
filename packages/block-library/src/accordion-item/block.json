@@ -8,7 +8,7 @@
 	"description": "A single accordion that displays a header and expandable content.",
 	"example": {},
 	"__experimental": true,
-	"parent": [ "core/accordion-group" ],
+	"parent": [ "core/accordions" ],
 	"allowedBlocks": [ "core/accordion-header", "core/accordion-panel" ],
 	"supports": {
 		"align": [ "wide", "full" ],
