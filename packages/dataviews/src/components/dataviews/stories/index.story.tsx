@@ -144,7 +144,7 @@ export const CustomEmpty = () => {
 	);
 };
 
-export const NonInteractive = () => {
+export const Locked = () => {
 	const [ view, setView ] = useState< View >( {
 		...DEFAULT_VIEW,
 		fields: [ 'title', 'description', 'categories' ],
