@@ -295,7 +295,9 @@ export default function TemplatePartEdit( {
 									? sprintf(
 											/* translators: %s: template part title or fallback text */
 											__( 'Edit %s' ),
-											title || __( 'template part' )
+											(
+												title || __( 'template part' )
+											).toLowerCase()
 									  )
 									: __( 'Edit' ) }
 							</ToolbarButton>
