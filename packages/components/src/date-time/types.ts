@@ -134,6 +134,20 @@ export type DatePickerProps = {
 	 * @default 0
 	 */
 	startOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
+	/**
+	 * The boolean value to show the date inputs.
+	 *
+	 * @default false
+	 */
+	showDateInputs?: boolean;
+
+	/**
+	 * The order of day, month, and year.
+	 *
+	 * @default 'dmy'
+	 */
+	dateOrder?: 'dmy' | 'mdy' | 'ymd';
 };
 
 export type DateTimePickerProps = Omit< DatePickerProps, 'onChange' > &
