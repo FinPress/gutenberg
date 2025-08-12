@@ -17,7 +17,8 @@ export default function ArrayControl< Item >( {
 }: DataFormControlProps< Item > ) {
 	const { id, label, placeholder, elements } = field;
 	const value = field.getValue( { item: data } );
-	const findSuggestionByValue = useCallback(
+
+	const findElementByValue = useCallback(
 		( suggestionValue: string ) => {
 			return elements?.find(
 				( suggestion ) => suggestion.value === suggestionValue
@@ -26,7 +27,7 @@ export default function ArrayControl< Item >( {
 		[ elements ]
 	);
 
-	const findSuggestionByLabel = useCallback(
+	const findElementByLabel = useCallback(
 		( suggestionLabel: string ) => {
 			return elements?.find(
 				( suggestion ) => suggestion.label === suggestionLabel
@@ -39,38 +40,32 @@ export default function ArrayControl< Item >( {
 	const arrayValue = useMemo(
 		() =>
 			Array.isArray( value )
-				? value
-						.map( ( v ) => findSuggestionByValue( v )?.label )
-						.filter(
-							( item ): item is string => item !== undefined
-						)
+				? value.map( ( token ) => {
+						const tokenLabel = findElementByValue( token )?.label;
+						return tokenLabel || token;
+				  } )
 				: [],
-		[ value, findSuggestionByValue ]
+		[ value, findElementByValue ]
 	);
 
 	const onChangeControl = useCallback(
 		( tokens: ( string | { value: string } )[] ) => {
 			// Convert TokenItem objects to strings
-			const stringTokens = tokens.map( ( token ) =>
-				typeof token === 'string'
-					? findSuggestionByLabel( token )?.value
-					: token.value
-			);
+			const stringTokens = tokens.map( ( token ) => {
+				if ( typeof token !== 'string' ) {
+					return token.value;
+				}
+
+				const tokenByLabel = findElementByLabel( token );
+
+				return tokenByLabel?.value || token;
+			} );
+
 			onChange( {
 				[ id ]: stringTokens,
 			} );
 		},
-		[ id, onChange, findSuggestionByLabel ]
-	);
-
-	// Custom validation function for FormTokenField
-	const validateInput = useCallback(
-		( token: string ) => {
-			return !! elements?.some( ( element ) => {
-				return element.label === token;
-			} );
-		},
-		[ elements ]
+		[ id, onChange, findElementByLabel ]
 	);
 
 	return (
@@ -82,9 +77,7 @@ export default function ArrayControl< Item >( {
 			suggestions={
 				elements?.map( ( suggestion ) => suggestion.label ) ?? []
 			}
-			__experimentalValidateInput={ validateInput }
-			__experimentalShowHowTo={ false }
-			__experimentalExpandOnFocus
+			__experimentalExpandOnFocus={ elements && elements.length > 0 }
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
 		/>
