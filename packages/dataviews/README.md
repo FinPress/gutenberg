@@ -193,6 +193,7 @@ Properties:
     -   `field`: which field this filter is bound to.
     -   `operator`: which type of filter it is. See "Operator types".
     -   `value`: the actual value selected by the user.
+    -   `isLocked`: whether the filter is locked (cannot be edited by the user).
 -   `perPage`: number of records to show per page.
 -   `page`: the page that is visible.
 -   `sort`:
