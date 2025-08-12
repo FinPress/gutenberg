@@ -20,6 +20,7 @@ import {
 	Modal,
 	MenuItem,
 	ToolbarButton,
+	ToolbarGroup,
 } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
@@ -277,40 +278,44 @@ export default function TemplatePartEdit( {
 					onNavigateToEntityRecord &&
 					canUserEdit && (
 						<BlockControls group="other">
-							<ToolbarButton
-								onClick={ () =>
-									onNavigateToEntityRecord( {
-										postId: templatePartId,
-										postType: 'wp_template_part',
-									} )
-								}
-							>
-								{ hasNavigationBlocks
-									? sprintf(
-											/* translators: %s: template part title or fallback text */
-											__( 'Edit %s' ),
-											title || __( 'template part' )
-									  )
-									: __( 'Edit' ) }
-							</ToolbarButton>
+							<ToolbarGroup>
+								<ToolbarButton
+									onClick={ () =>
+										onNavigateToEntityRecord( {
+											postId: templatePartId,
+											postType: 'wp_template_part',
+										} )
+									}
+								>
+									{ hasNavigationBlocks
+										? sprintf(
+												/* translators: %s: template part title or fallback text */
+												__( 'Edit %s' ),
+												title || __( 'template part' )
+										  )
+										: __( 'Edit' ) }
+								</ToolbarButton>
+							</ToolbarGroup>
 						</BlockControls>
 					) }
 				{ hasNavigationBlocks && blockEditingMode === 'contentOnly' && (
 					<BlockControls group="other">
-						<ToolbarButton
-							label={ __( 'Edit navigation' ) }
-							onClick={ () => {
-								// Select the first Navigation block
-								selectBlock( firstNavigationBlockId );
-								// Enable the complementary area (inspector)
-								enableComplementaryArea(
-									'core',
-									'edit-post/block'
-								);
-							} }
-						>
-							{ __( 'Edit navigation' ) }
-						</ToolbarButton>
+						<ToolbarGroup>
+							<ToolbarButton
+								label={ __( 'Edit navigation' ) }
+								onClick={ () => {
+									// Select the first Navigation block
+									selectBlock( firstNavigationBlockId );
+									// Enable the complementary area (inspector)
+									enableComplementaryArea(
+										'core',
+										'edit-post/block'
+									);
+								} }
+							>
+								{ __( 'Edit navigation' ) }
+							</ToolbarButton>
+						</ToolbarGroup>
 					</BlockControls>
 				) }
 				{ canUserEdit && (
