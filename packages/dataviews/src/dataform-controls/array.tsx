@@ -15,7 +15,7 @@ export default function ArrayControl< Item >( {
 	onChange,
 	hideLabelFromVision,
 }: DataFormControlProps< Item > ) {
-	const { id, label, placeholder, elements, ...extraProps } = field;
+	const { id, label, placeholder, elements } = field;
 	const value = field.getValue( { item: data } );
 	const findSuggestionByValue = useCallback(
 		( suggestionValue: string ) => {
@@ -87,7 +87,6 @@ export default function ArrayControl< Item >( {
 			__experimentalExpandOnFocus
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
-			{ ...extraProps }
 		/>
 	);
 }
