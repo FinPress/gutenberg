@@ -25,6 +25,8 @@ import { __, sprintf } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 import { useState } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { store as interfaceStore } from '@wordpress/interface';
 
 /**
  * Internal dependencies
@@ -108,6 +110,8 @@ export default function TemplatePartEdit( {
 } ) {
 	const { createSuccessNotice } = useDispatch( noticesStore );
 	const { editEntityRecord } = useDispatch( coreStore );
+	const { selectBlock } = useDispatch( blockEditorStore );
+	const { enableComplementaryArea } = useDispatch( interfaceStore );
 	const currentTheme = useSelect(
 		( select ) => select( coreStore ).getCurrentTheme()?.stylesheet,
 		[]
@@ -126,11 +130,19 @@ export default function TemplatePartEdit( {
 		onNavigateToEntityRecord,
 		title,
 		canUserEdit,
+		hasNavigationBlocks,
+		firstNavigationBlockId,
+		blockEditingMode,
 	} = useSelect(
 		( select ) => {
 			const { getEditedEntityRecord, hasFinishedResolution } =
 				select( coreStore );
-			const { getBlockCount, getSettings } = select( blockEditorStore );
+			const {
+				getBlockCount,
+				getSettings,
+				getBlocksByName,
+				getBlockParentsByBlockName,
+			} = select( blockEditorStore );
 
 			const getEntityArgs = [
 				'postType',
@@ -156,6 +168,29 @@ export default function TemplatePartEdit( {
 				  } )
 				: false;
 
+			// Check for Navigation blocks within this Template Part
+			const allNavigationBlocks = getBlocksByName( 'core/navigation' );
+			const navigationBlocksInTemplatePart = allNavigationBlocks.filter(
+				( blockId ) => {
+					// Check if this Navigation block is a descendant of the current Template Part
+					const templatePartParents = getBlockParentsByBlockName(
+						blockId,
+						'core/template-part',
+						true
+					);
+					return templatePartParents.includes( clientId );
+				}
+			);
+			const _hasNavigationBlocks =
+				navigationBlocksInTemplatePart.length > 0;
+			const _firstNavigationBlockId = _hasNavigationBlocks
+				? navigationBlocksInTemplatePart[ 0 ]
+				: null;
+
+			// Get block editing mode for the current block
+			const _blockEditingMode =
+				select( blockEditorStore ).getBlockEditingMode( clientId );
+
 			return {
 				hasInnerBlocks: getBlockCount( clientId ) > 0,
 				isResolved: hasResolvedEntity,
@@ -168,6 +203,9 @@ export default function TemplatePartEdit( {
 					getSettings().onNavigateToEntityRecord,
 				title: entityRecord?.title,
 				canUserEdit: !! _canUserEdit,
+				hasNavigationBlocks: _hasNavigationBlocks,
+				firstNavigationBlockId: _firstNavigationBlockId,
+				blockEditingMode: _blockEditingMode,
 			};
 		},
 		[ templatePartId, attributes.area, clientId ]
@@ -251,6 +289,24 @@ export default function TemplatePartEdit( {
 							</ToolbarButton>
 						</BlockControls>
 					) }
+				{ hasNavigationBlocks && blockEditingMode === 'contentOnly' && (
+					<BlockControls group="other">
+						<ToolbarButton
+							label={ __( 'Edit Navigation' ) }
+							onClick={ () => {
+								// Select the first Navigation block
+								selectBlock( firstNavigationBlockId );
+								// Enable the complementary area (inspector)
+								enableComplementaryArea(
+									'core',
+									'edit-post/block'
+								);
+							} }
+						>
+							{ __( 'Edit Navigation' ) }
+						</ToolbarButton>
+					</BlockControls>
+				) }
 				{ canUserEdit && (
 					<InspectorControls group="advanced">
 						<TemplatePartAdvancedControls
