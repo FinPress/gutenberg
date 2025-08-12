@@ -1,7 +1,7 @@
 {
 	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
 	"landingPage": "/wp-admin/post.php?post=1&action=edit",
-	"plugins": [ "gutenberg" ],
+	"plugins": ["gutenberg"],
 	"login": true,
 	"features": {
 		"networking": true

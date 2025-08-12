@@ -13,10 +13,10 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs' ).promises;
-const path = require( 'path' );
-const { exec } = require( 'child_process' );
-const chalk = require( 'chalk' );
+const fs = require('fs').promises;
+const path = require('path');
+const { exec } = require('child_process');
+const chalk = require('chalk');
 
 /**
  * Returns whether a package needs its compiled types to be double-checked. This
@@ -31,19 +31,19 @@ const chalk = require( 'chalk' );
  * @param {string} packagePath Path to the package.
  * @return {boolean} whether or not the package checksJs.
  */
-async function packageNeedsExtraCheck( packagePath ) {
-	const configPath = path.join( packagePath, 'tsconfig.json' );
+async function packageNeedsExtraCheck(packagePath) {
+	const configPath = path.join(packagePath, 'tsconfig.json');
 
 	try {
-		const tsconfigRaw = await fs.readFile( configPath, 'utf-8' );
+		const tsconfigRaw = await fs.readFile(configPath, 'utf-8');
 		// Removes comments from the JSON5 string to convert it to plain JSON.
-		const jsonString = tsconfigRaw.replace( /\s+\/\/.*$/gm, '' );
-		const config = JSON.parse( jsonString );
+		const jsonString = tsconfigRaw.replace(/\s+\/\/.*$/gm, '');
+		const config = JSON.parse(jsonString);
 
 		// If checkJs both exists and is false, then we need the extra check.
 		return config.compilerOptions?.checkJs === false;
-	} catch ( e ) {
-		if ( e.code !== 'ENOENT' ) {
+	} catch (e) {
+		if (e.code !== 'ENOENT') {
 			throw e;
 		}
 
@@ -54,71 +54,65 @@ async function packageNeedsExtraCheck( packagePath ) {
 
 // Returns the path to the build-types declaration file for a package if it exists.
 // Throws an error and exits the script otherwise.
-async function getDecFile( packagePath ) {
-	const decFile = path.join( packagePath, 'build-types', 'index.d.ts' );
+async function getDecFile(packagePath) {
+	const decFile = path.join(packagePath, 'build-types', 'index.d.ts');
 	try {
-		await fs.access( decFile );
+		await fs.access(decFile);
 		return decFile;
-	} catch ( err ) {
+	} catch (err) {
 		console.error(
-			`Cannot access this declaration file. You may need to run tsc again: ${ decFile }`
+			`Cannot access this declaration file. You may need to run tsc again: ${decFile}`
 		);
-		process.exit( 1 );
+		process.exit(1);
 	}
 }
 
-async function typecheckDeclarations( file ) {
-	return new Promise( ( resolve, reject ) => {
+async function typecheckDeclarations(file) {
+	return new Promise((resolve, reject) => {
 		exec(
-			`npx tsc --target esnext --moduleResolution node --noEmit --skipLibCheck "${ file }"`,
-			( error, stdout, stderr ) => {
-				if ( error ) {
-					reject( { file, error, stderr, stdout } );
+			`npx tsc --target esnext --moduleResolution node --noEmit --skipLibCheck "${file}"`,
+			(error, stdout, stderr) => {
+				if (error) {
+					reject({ file, error, stderr, stdout });
 				} else {
-					resolve( { file, stdout } );
+					resolve({ file, stdout });
 				}
 			}
 		);
-	} );
+	});
 }
 
 async function checkUnverifiedDeclarationFiles() {
-	const packageDir = path.resolve( 'packages' );
-	const packageDirs = (
-		await fs.readdir( packageDir, { withFileTypes: true } )
-	)
-		.filter( ( dirent ) => dirent.isDirectory() )
-		.map( ( dirent ) => path.join( packageDir, dirent.name ) );
+	const packageDir = path.resolve('packages');
+	const packageDirs = (await fs.readdir(packageDir, { withFileTypes: true }))
+		.filter((dirent) => dirent.isDirectory())
+		.map((dirent) => path.join(packageDir, dirent.name));
 
 	// Finds the compiled type declarations for each package which both checks
 	// types and has checkJs disabled.
 	const declarations = (
 		await Promise.all(
-			packageDirs.map( async ( pkg ) =>
-				( await packageNeedsExtraCheck( pkg ) )
-					? getDecFile( pkg )
-					: null
+			packageDirs.map(async (pkg) =>
+				(await packageNeedsExtraCheck(pkg)) ? getDecFile(pkg) : null
 			)
 		)
-	).filter( Boolean );
+	).filter(Boolean);
 
 	const tscResults = await Promise.allSettled(
-		declarations.map( typecheckDeclarations )
+		declarations.map(typecheckDeclarations)
 	);
 
-	tscResults.forEach( ( { status, reason } ) => {
-		if ( status !== 'fulfilled' ) {
+	tscResults.forEach(({ status, reason }) => {
+		if (status !== 'fulfilled') {
 			console.error(
-				chalk.red(
-					`Incorrect published types for ${ reason.file }:\n`
-				),
+				chalk.red(`Incorrect published types for ${reason.file}:\n`),
 				reason.stdout
 			);
 		}
-	} );
+	});
 
-	if ( tscResults.some( ( { status } ) => status !== 'fulfilled' ) ) {
-		process.exit( 1 );
+	if (tscResults.some(({ status }) => status !== 'fulfilled')) {
+		process.exit(1);
 	}
 }
 checkUnverifiedDeclarationFiles();

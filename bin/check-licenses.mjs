@@ -10,7 +10,7 @@ import { spawnSync } from 'node:child_process';
  */
 import { checkDepsInTree } from '../packages/scripts/utils/license.js';
 
-const ignored = [ '@ampproject/remapping', 'webpack' ];
+const ignored = ['@ampproject/remapping', 'webpack'];
 
 /*
  * `wp-scripts check-licenses` uses prod and dev dependencies of the package to scan for dependencies. With npm workspaces, workspace packages (the @wordpress/* packages) are not listed in the main package json and this approach does not work.
@@ -39,7 +39,7 @@ const workspacePackages = JSON.parse(
 	).stdout
 );
 
-const packageNames = workspacePackages.map( ( { name } ) => name );
+const packageNames = workspacePackages.map(({ name }) => name);
 
 const dependenciesToProcess = JSON.parse(
 	spawnSync(
@@ -51,9 +51,7 @@ const dependenciesToProcess = JSON.parse(
 			'--all',
 			'--lockfile-only',
 			'--omit=dev',
-			...packageNames.map(
-				( packageName ) => `--workspace=${ packageName }`
-			),
+			...packageNames.map((packageName) => `--workspace=${packageName}`),
 		],
 		/*
 		 * Set the max buffer to ~157MB, since the output size for
@@ -63,7 +61,7 @@ const dependenciesToProcess = JSON.parse(
 	).stdout
 ).dependencies;
 
-checkDepsInTree( dependenciesToProcess, {
+checkDepsInTree(dependenciesToProcess, {
 	ignored,
 	gpl2: true,
-} );
+});

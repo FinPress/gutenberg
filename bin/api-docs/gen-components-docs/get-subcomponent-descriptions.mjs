@@ -12,17 +12,17 @@ export async function getDescriptionsForSubcomponents(
 	filePath,
 	mainComponentName
 ) {
-	const fileContent = await fs.readFile( filePath, 'utf8' );
-	const parsedFile = babel.parse( fileContent, {
+	const fileContent = await fs.readFile(filePath, 'utf8');
+	const parsedFile = babel.parse(fileContent, {
 		filename: filePath,
-	} );
+	});
 	const mainComponent = parsedFile.program.body
-		.filter( ( node ) => node.type === 'ExportNamedDeclaration' )
-		.flatMap( ( node ) => node.declaration?.declarations )
-		.find( ( node ) => node?.id.name === mainComponentName );
+		.filter((node) => node.type === 'ExportNamedDeclaration')
+		.flatMap((node) => node.declaration?.declarations)
+		.find((node) => node?.id.name === mainComponentName);
 
 	if (
-		! (
+		!(
 			// If the main component export has `Object.assign( ... )`
 			(
 				mainComponent?.init?.type === 'CallExpression' &&
@@ -34,13 +34,13 @@ export async function getDescriptionsForSubcomponents(
 		return;
 	}
 
-	const properties = mainComponent?.init?.arguments[ 1 ]?.properties.map(
-		( node ) => [
+	const properties = mainComponent?.init?.arguments[1]?.properties.map(
+		(node) => [
 			node.key.name,
-			commentParser( `/*${ node.leadingComments?.[ 0 ].value }*/`, {
+			commentParser(`/*${node.leadingComments?.[0].value}*/`, {
 				spacing: 'preserve',
-			} )?.[ 0 ]?.description,
+			})?.[0]?.description,
 		]
 	);
-	return Object.fromEntries( properties );
+	return Object.fromEntries(properties);
 }

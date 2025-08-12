@@ -19,125 +19,122 @@ const MANIFEST_GLOB = 'packages/components/src/**/docs-manifest.json';
 const OPTIONS = {
 	shouldExtractLiteralValuesFromEnum: true,
 	shouldRemoveUndefinedFromOptional: true,
-	propFilter: ( prop ) =>
-		prop.parent ? ! /node_modules/.test( prop.parent.fileName ) : true,
+	propFilter: (prop) =>
+		prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
 	savePropValueAsString: true,
 };
 
-function getTypeDocsForComponent( {
+function getTypeDocsForComponent({
 	manifestPath,
 	componentFilePath,
 	displayName,
-} ) {
+}) {
 	const resolvedPath = path.resolve(
-		path.dirname( manifestPath ),
+		path.dirname(manifestPath),
 		componentFilePath
 	);
 
-	const typeDocs = docgen.parse( resolvedPath, OPTIONS );
+	const typeDocs = docgen.parse(resolvedPath, OPTIONS);
 
-	if ( typeDocs.length === 0 ) {
+	if (typeDocs.length === 0) {
 		throw new Error(
-			`react-docgen-typescript could not generate any type docs from ${ resolvedPath }`
+			`react-docgen-typescript could not generate any type docs from ${resolvedPath}`
 		);
 	}
 
 	const matchingTypeDoc = typeDocs.find(
-		( obj ) => obj.displayName === displayName
+		(obj) => obj.displayName === displayName
 	);
 
-	if ( typeof matchingTypeDoc === 'undefined' ) {
+	if (typeof matchingTypeDoc === 'undefined') {
 		const unmatchedTypeDocs = typeDocs
-			.map( ( obj ) => `\`${ obj.displayName }\`` )
-			.join( ', ' );
+			.map((obj) => `\`${obj.displayName}\``)
+			.join(', ');
 
 		throw new Error(
-			`react-docgen-typescript could not find type docs for ${ displayName } in ${ resolvedPath }. (Found ${ unmatchedTypeDocs })`
+			`react-docgen-typescript could not find type docs for ${displayName} in ${resolvedPath}. (Found ${unmatchedTypeDocs})`
 		);
 	}
 
 	return matchingTypeDoc;
 }
 
-async function parseManifest( manifestPath ) {
+async function parseManifest(manifestPath) {
 	try {
-		return JSON.parse( await fs.readFile( manifestPath, 'utf8' ) );
-	} catch ( e ) {
+		return JSON.parse(await fs.readFile(manifestPath, 'utf8'));
+	} catch (e) {
 		throw new Error(
-			`Error parsing docs manifest at ${ manifestPath }: ${ e.message }`
+			`Error parsing docs manifest at ${manifestPath}: ${e.message}`
 		);
 	}
 }
 
-const manifests = glob.sync( MANIFEST_GLOB );
+const manifests = glob.sync(MANIFEST_GLOB);
 
 await Promise.all(
-	manifests.map( async ( manifestPath ) => {
-		const manifest = await parseManifest( manifestPath );
+	manifests.map(async (manifestPath) => {
+		const manifest = await parseManifest(manifestPath);
 
-		const typeDocs = getTypeDocsForComponent( {
+		const typeDocs = getTypeDocsForComponent({
 			manifestPath,
 			componentFilePath: manifest.filePath,
 			displayName: manifest.displayName,
-		} );
+		});
 
 		let subcomponentDescriptions;
 
 		const subcomponentTypeDocs = await Promise.all(
-			manifest.subcomponents?.map( async ( subcomponent ) => {
-				const docs = getTypeDocsForComponent( {
+			manifest.subcomponents?.map(async (subcomponent) => {
+				const docs = getTypeDocsForComponent({
 					manifestPath,
 					componentFilePath: subcomponent.filePath,
 					displayName: subcomponent.displayName,
-				} );
+				});
 
-				if ( subcomponent.preferredDisplayName ) {
+				if (subcomponent.preferredDisplayName) {
 					docs.displayName = subcomponent.preferredDisplayName;
 				}
 
-				if ( ! subcomponent.description ) {
+				if (!subcomponent.description) {
 					subcomponentDescriptions ??=
 						getDescriptionsForSubcomponents(
 							path.resolve(
-								path.dirname( manifestPath ),
+								path.dirname(manifestPath),
 								manifest.filePath
 							),
 							manifest.displayName
 						);
 
-					docs.description = ( await subcomponentDescriptions )?.[
+					docs.description = (await subcomponentDescriptions)?.[
 						subcomponent.displayName
 					];
 				}
 
 				return docs;
-			} ) ?? []
+			}) ?? []
 		);
 
 		const tags = await getTagsFromStorybook(
-			path.resolve(
-				path.dirname( manifestPath ),
-				'stories/index.story.tsx'
-			)
+			path.resolve(path.dirname(manifestPath), 'stories/index.story.tsx')
 		);
 
-		const docs = generateMarkdownDocs( {
+		const docs = generateMarkdownDocs({
 			typeDocs,
 			subcomponentTypeDocs,
 			tags,
-		} );
+		});
 		const outputFile = path.resolve(
-			path.dirname( manifestPath ),
+			path.dirname(manifestPath),
 			'./README.md'
 		);
 
 		try {
-			console.log( `Writing docs to ${ outputFile }` );
-			return fs.writeFile( outputFile, docs );
-		} catch ( e ) {
+			console.log(`Writing docs to ${outputFile}`);
+			return fs.writeFile(outputFile, docs);
+		} catch (e) {
 			throw new Error(
-				`Error writing docs to ${ outputFile }: ${ e.message }`
+				`Error writing docs to ${outputFile}: ${e.message}`
 			);
 		}
-	} )
+	})
 );

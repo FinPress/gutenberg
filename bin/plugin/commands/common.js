@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-const semver = require( 'semver' );
-const SimpleGit = require( 'simple-git' );
+const semver = require('semver');
+const SimpleGit = require('simple-git');
 
 /**
  * Internal dependencies
  */
-const { readJSONFile } = require( '../lib/utils' );
+const { readJSONFile } = require('../lib/utils');
 
 /**
  * Finds the name of the current plugin release branch based on the version in
@@ -17,14 +17,14 @@ const { readJSONFile } = require( '../lib/utils' );
  *
  * @return {string} Name of the plugin release branch.
  */
-async function findPluginReleaseBranchName( gitWorkingDirectoryPath ) {
-	await SimpleGit( gitWorkingDirectoryPath )
-		.fetch( 'origin', 'trunk' )
-		.checkout( 'trunk' );
+async function findPluginReleaseBranchName(gitWorkingDirectoryPath) {
+	await SimpleGit(gitWorkingDirectoryPath)
+		.fetch('origin', 'trunk')
+		.checkout('trunk');
 
 	const packageJsonPath = gitWorkingDirectoryPath + '/package.json';
-	const mainPackageJson = readJSONFile( packageJsonPath );
-	const mainParsedVersion = semver.parse( mainPackageJson.version );
+	const mainPackageJson = readJSONFile(packageJsonPath);
+	const mainParsedVersion = semver.parse(mainPackageJson.version);
 
 	return 'release/' + mainParsedVersion.major + '.' + mainParsedVersion.minor;
 }
@@ -45,36 +45,36 @@ function calculateVersionBumpFromChangelog(
 ) {
 	let changesDetected = false;
 	let versionBump = null;
-	for ( const line of lines ) {
+	for (const line of lines) {
 		const lineNormalized = line.toLowerCase().trimStart();
 		// Detect unpublished changes first.
-		if ( lineNormalized.startsWith( '## unreleased' ) ) {
+		if (lineNormalized.startsWith('## unreleased')) {
 			changesDetected = true;
 			continue;
 		}
 
 		// Skip all lines until unpublished changes found.
-		if ( ! changesDetected ) {
+		if (!changesDetected) {
 			continue;
 		}
 
 		// A previous published version detected. Stop processing.
-		if ( lineNormalized.startsWith( '## ' ) ) {
+		if (lineNormalized.startsWith('## ')) {
 			break;
 		}
 
 		// A major version bump required. Stop processing.
-		if ( lineNormalized.startsWith( '### breaking change' ) ) {
+		if (lineNormalized.startsWith('### breaking change')) {
 			versionBump = 'major';
 			break;
 		}
 
 		// A minor version bump required. Proceed to the next line.
 		if (
-			lineNormalized.startsWith( '### deprecation' ) ||
-			lineNormalized.startsWith( '### enhancement' ) ||
-			lineNormalized.startsWith( '### new api' ) ||
-			lineNormalized.startsWith( '### new feature' )
+			lineNormalized.startsWith('### deprecation') ||
+			lineNormalized.startsWith('### enhancement') ||
+			lineNormalized.startsWith('### new api') ||
+			lineNormalized.startsWith('### new feature')
 		) {
 			versionBump = 'minor';
 			continue;
@@ -83,8 +83,7 @@ function calculateVersionBumpFromChangelog(
 		// A version bump required. Found new changelog section.
 		if (
 			versionBump !== 'minor' &&
-			( lineNormalized.startsWith( '### ' ) ||
-				lineNormalized.includes( '- ' ) )
+			(lineNormalized.startsWith('### ') || lineNormalized.includes('- '))
 		) {
 			versionBump = minimumVersionBump;
 		}
