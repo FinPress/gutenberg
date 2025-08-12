@@ -8,6 +8,7 @@ import { __ } from '@wordpress/i18n';
 import {
 	__unstableBlockToolbarLastItem as BlockToolbarLastItem,
 	store as blockEditorStore,
+	useBlockEditingMode,
 } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
@@ -24,6 +25,7 @@ const SUPPORTED_BLOCKS = [ 'core/navigation-link', 'core/navigation-submenu' ];
  */
 function NavigationViewButton( { attributes } ) {
 	const { kind, id, type } = attributes;
+	const blockEditingMode = useBlockEditingMode();
 
 	const onNavigateToEntityRecord = useSelect(
 		( select ) =>
@@ -45,12 +47,13 @@ function NavigationViewButton( { attributes } ) {
 		}
 	}, [ kind, id, type, onNavigateToEntityRecord ] );
 
-	// Only show for page-type links and when navigation is available.
+	// Only show for page-type links, when navigation is available, and when in contentOnly mode.
 	if (
 		kind !== 'post-type' ||
 		type !== 'page' ||
 		! id ||
-		! onNavigateToEntityRecord
+		! onNavigateToEntityRecord ||
+		blockEditingMode !== 'contentOnly'
 	) {
 		return null;
 	}
