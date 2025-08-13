@@ -144,7 +144,7 @@ export const CustomEmpty = () => {
 	);
 };
 
-export const Locked = () => {
+export const MinimalUI = () => {
 	const [ view, setView ] = useState< View >( {
 		...DEFAULT_VIEW,
 		fields: [ 'title', 'description', 'categories' ],
