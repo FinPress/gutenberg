@@ -44,6 +44,16 @@ export function isItemValid< Item >(
 			}
 		}
 
+		if ( field.isValid.elements ) {
+			if ( field.type === 'array' ) {
+				const elementValue = field.elements?.find(
+					( element ) => element.label === item
+				);
+
+				return !! elementValue;
+			}
+		}
+
 		if (
 			typeof field.isValid.custom === 'function' &&
 			field.isValid.custom( item, field ) !== null
