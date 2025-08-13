@@ -28,40 +28,53 @@
 	}
 
 	// Fixed layout toggle
-	@mixin fixed-layout($nth, $min-width) {
-		&:has(td:nth-of-type(#{$nth}):last-of-type) {
-			@container (min-width: #{$min-width}px) {
-				.has-fixed-layout {
-					table-layout: fixed;
-					width: 100%;
+	&:not(:has(td:nth-of-type(4))) {
+		.has-fixed-layout {
+			table-layout: fixed;
+			width: 100%;
 
-					td,
-					th {
-						word-break: break-word;
+			td,
+			th {
+				word-break: break-word;
+			}
+		}
+	}
+
+	@mixin fixed-layout($nth, $min-width) {
+		@if $nth == 7 {
+			&:has(td:nth-of-type(7)) {
+				@container (min-width: #{$min-width}px) {
+					.has-fixed-layout {
+						table-layout: fixed;
+						width: 100%;
+
+						td,
+						th {
+							word-break: break-word;
+						}
+					}
+				}
+			}
+		} @else {
+			&:has(td:nth-of-type(#{$nth}):last-of-type) {
+				@container (min-width: #{$min-width}px) {
+					.has-fixed-layout {
+						table-layout: fixed;
+						width: 100%;
+
+						td,
+						th {
+							word-break: break-word;
+						}
 					}
 				}
 			}
 		}
 	}
 
-	// Use a for loop for nth-of-type 4, 5, 6
-	@for $i from 4 through 6 {
+	// Use a for loop for nth-of-type 4, 5, 6, 7
+	@for $i from 4 through 7 {
 		@include fixed-layout($i, $i * 100 + 100);
-	}
-
-	// Special case for 7th column (no :last-of-type)
-	&:has(td:nth-of-type(7)) {
-		@container (min-width: 800px) {
-			.has-fixed-layout {
-				table-layout: fixed;
-				width: 100%;
-
-				td,
-				th {
-					word-break: break-word;
-				}
-			}
-		}
 	}
 
 	&.alignleft,
