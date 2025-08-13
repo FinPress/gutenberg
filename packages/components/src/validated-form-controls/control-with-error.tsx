@@ -269,13 +269,13 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 				required,
 			} ) }
 			<div aria-live="polite">
-				{ errorMessage && ! statusMessage && (
+				{ errorMessage && (
 					<ValidationIndicator
 						type="invalid"
 						message={ errorMessage }
 					/>
 				) }
-				{ statusMessage && (
+				{ ! errorMessage && statusMessage && (
 					<ValidationIndicator
 						type={ statusMessage.type }
 						message={ statusMessage.message }
