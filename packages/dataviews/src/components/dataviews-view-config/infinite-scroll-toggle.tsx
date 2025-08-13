@@ -1,10 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-} from '@wordpress/components';
+import { ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useContext } from '@wordpress/element';
 
@@ -24,30 +21,19 @@ export default function InfiniteScrollToggle() {
 	}
 
 	return (
-		<ToggleGroupControl
+		<ToggleControl
 			__nextHasNoMarginBottom
-			__next40pxDefaultSize
-			isBlock
-			label={ __( 'Infinite scroll' ) }
-			value={ infiniteScrollEnabled ? 'enabled' : 'disabled' }
-			onChange={ ( value ) => {
-				const newValue = value === 'enabled';
+			label={ __( 'Enable infinite scroll' ) }
+			help={ __(
+				'Automatically load more content as you scroll, instead of showing pagination links.'
+			) }
+			checked={ infiniteScrollEnabled }
+			onChange={ ( newValue ) => {
 				onChangeView( {
 					...view,
 					infiniteScroll: newValue,
 				} );
 			} }
-		>
-			<ToggleGroupControlOption
-				key="disabled"
-				value="disabled"
-				label={ __( 'Off' ) }
-			/>
-			<ToggleGroupControlOption
-				key="enabled"
-				value="enabled"
-				label={ __( 'On' ) }
-			/>
-		</ToggleGroupControl>
+		/>
 	);
 }
