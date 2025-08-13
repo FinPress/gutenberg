@@ -30,7 +30,6 @@ type SamplePost = {
 	filesize?: number;
 	dimensions?: string;
 	tags?: string[];
-	select?: string;
 };
 
 const meta = {
@@ -146,18 +145,6 @@ const fields = [
 		readOnly: true,
 	},
 	{
-		id: 'select',
-		label: 'Select',
-		type: 'select' as const,
-		elements: [
-			{ value: 'astronomy', label: 'Astronomy' },
-			{ value: 'book-review', label: 'Book review' },
-			{ value: 'event', label: 'Event' },
-			{ value: 'photography', label: 'Photography' },
-			{ value: 'travel', label: 'Travel' },
-		],
-	},
-	{
 		id: 'tags',
 		label: 'Tags',
 		type: 'array' as const,
@@ -214,7 +201,6 @@ export const Default = ( {
 				'can_comment',
 				'filesize',
 				'dimensions',
-				'select',
 				'tags',
 			],
 		} ),
@@ -254,7 +240,6 @@ const CombinedFieldsComponent = ( {
 		filesize: 1024,
 		dimensions: '1920x1080',
 		tags: [ 'photography' ],
-		select: 'event',
 	} );
 
 	const form = useMemo(
