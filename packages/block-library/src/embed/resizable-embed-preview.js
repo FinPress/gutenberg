@@ -122,7 +122,7 @@ export default function ResizableEmbedPreview( {
 		);
 	/* eslint-enable jsx-a11y/no-static-element-interactions */
 
-	const embedContent = (
+	const embedPreview = (
 		<>
 			{ previewable ? (
 				embedWrapper
@@ -156,8 +156,8 @@ export default function ResizableEmbedPreview( {
 		  }
 		: pixelSize;
 
-	// Apply width styling for real-time feedback during resize
-	const embedContentWithResize = (
+	// Wrap embed content with resize container
+	const embedContent = (
 		<div
 			style={ {
 				width: currentSize.width
@@ -166,7 +166,7 @@ export default function ResizableEmbedPreview( {
 				transition: resizeDelta ? 'none' : 'width 0.1s ease',
 			} }
 		>
-			{ embedContent }
+			{ embedPreview }
 		</div>
 	);
 
@@ -226,14 +226,11 @@ export default function ResizableEmbedPreview( {
 					} );
 				} }
 				showHandle
-			/>
+			>
+				{ embedContent }
+			</ResizableBox>
 		);
 	}
 
-	return (
-		<div style={ { position: 'relative' } }>
-			{ embedContentWithResize }
-			{ resizableBox }
-		</div>
-	);
+	return isSelected && previewable ? resizableBox : embedContent;
 }
