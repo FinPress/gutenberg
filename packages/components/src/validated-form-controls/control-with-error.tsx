@@ -7,7 +7,7 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { error, pending, published } from '@wordpress/icons';
+import { error, published } from '@wordpress/icons';
 
 /**
  * External dependencies
@@ -26,6 +26,7 @@ import { withIgnoreIMEEvents } from '../utils/with-ignore-ime-events';
 import type { ValidatedControlProps } from './components/types';
 
 import Icon from '../icon';
+import Spinner from '../spinner';
 
 function appendRequiredIndicator(
 	label: React.ReactNode,
@@ -57,7 +58,6 @@ function ValidationIndicator( {
 	message?: string;
 } ) {
 	const ICON = {
-		validating: pending,
 		valid: published,
 		invalid: error,
 	};
@@ -68,12 +68,16 @@ function ValidationIndicator( {
 				`is-${ type }`
 			) }
 		>
-			<Icon
-				className="components-validated-control__status-icon"
-				icon={ ICON[ type ] }
-				size={ 16 }
-				fill="currentColor"
-			/>
+			{ type === 'validating' ? (
+				<Spinner className="components-validated-control__status-spinner" />
+			) : (
+				<Icon
+					className="components-validated-control__status-icon"
+					icon={ ICON[ type ] }
+					size={ 16 }
+					fill="currentColor"
+				/>
+			) }
 			{ message }
 		</p>
 	);
