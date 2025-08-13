@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Enhancement
+
+-   Update `gradient-parser` to version `1.1.1` ([#71186](https://github.com/WordPress/gutenberg/pull/71186)).
+
 ## 30.1.0 (2025-08-07)
 
 ### Enhancement
