@@ -57,7 +57,9 @@ export function getBlockContentSchemaFromTransforms( transforms, context ) {
 			}
 			case 'attributes':
 			case 'require': {
-				return [ ...( objValue || [] ), ...( srcValue || [] ) ];
+				return Array.from(
+					new Set( [ ...( objValue || [] ), ...( srcValue || [] ) ] )
+				);
 			}
 			case 'isMatch': {
 				// If one of the values being merge is undefined (matches everything),
