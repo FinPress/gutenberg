@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Internal
+
+-   Validated form controls: Add support for async validation. This is a breaking API change that splits the `customValidator` prop into an `onValidate` callback and a `customValidityMessage` object. ([#71184](https://github.com/WordPress/gutenberg/pull/71184)).
+
 ## 30.1.0 (2025-08-07)
 
 ### Enhancement
