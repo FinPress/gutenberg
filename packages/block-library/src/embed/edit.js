@@ -59,7 +59,7 @@ const EmbedEdit = ( props ) => {
 	const [ url, setURL ] = useState( attributesUrl );
 	const [ isEditingURL, setIsEditingURL ] = useState( false );
 	const { invalidateResolution } = useDispatch( coreStore );
-	const [ maxWidthObserver, maxContentWidth ] = useMaxWidthObserver();
+	const [ maxWidthObserver ] = useMaxWidthObserver();
 
 	const {
 		preview,
@@ -295,7 +295,6 @@ const EmbedEdit = ( props ) => {
 					label={ label }
 					attributes={ attributes }
 					setAttributes={ setAttributes }
-					maxContentWidth={ maxContentWidth }
 				/>
 				<Caption
 					attributes={ attributes }

@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
 import { Placeholder, SandBox, ResizableBox } from '@wordpress/components';
 import { BlockIcon, store as blockEditorStore } from '@wordpress/block-editor';
-import { useState, useRef, useEffect } from '@wordpress/element';
+import { useState, useRef } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 import { getAuthority } from '@wordpress/url';
 import { useResizeObserver } from '@wordpress/compose';
@@ -19,8 +19,6 @@ import { useResizeObserver } from '@wordpress/compose';
  */
 import { getPhotoHtml } from './util';
 import WpEmbedPreview from './wp-embed-preview';
-
-const MIN_EMBED_WIDTH = 200;
 
 export default function ResizableEmbedPreview( {
 	preview,
@@ -33,7 +31,6 @@ export default function ResizableEmbedPreview( {
 	label,
 	attributes,
 	setAttributes,
-	maxContentWidth,
 } ) {
 	const [ interactive, setInteractive ] = useState( false );
 	const [ resizeDelta, setResizeDelta ] = useState( null );
@@ -48,28 +45,16 @@ export default function ResizableEmbedPreview( {
 			? preview.width / preview.height
 			: 16 / 9; // Default to 16:9 aspect ratio
 
-	const [ observedWidth, setObservedWidth ] = useState();
-	const [ observedHeight, setObservedHeight ] = useState();
-
-	const setResizeObserver = useResizeObserver( ( [ entry ] ) => {
-		setObservedWidth( entry.contentRect.width );
-		setObservedHeight( entry.contentRect.height );
+	// Use resize observer like image block - attach to embed container
+	const setResizeObserved = useResizeObserver( ( [ entry ] ) => {
+		if ( ! resizeDelta ) {
+			const [ box ] = entry.borderBoxSize || [ entry.contentRect ];
+			setPixelSize( {
+				width: box.inlineSize || box.width,
+				height: box.blockSize || box.height,
+			} );
+		}
 	} );
-
-	useEffect( () => {
-		// Set initial size when component mounts
-		if ( containerRef.current && ! pixelSize.width ) {
-			const rect = containerRef.current.getBoundingClientRect();
-			setPixelSize( { width: rect.width, height: rect.height } );
-		}
-	}, [ pixelSize.width ] );
-
-	useEffect( () => {
-		// Update pixel size when observed dimensions change
-		if ( observedWidth && observedHeight && ! resizeDelta ) {
-			setPixelSize( { width: observedWidth, height: observedHeight } );
-		}
-	}, [ observedWidth, observedHeight, resizeDelta ] );
 
 	if ( ! isSelected && interactive ) {
 		// We only want to change this when the block is not selected, because changing it when
@@ -114,7 +99,7 @@ export default function ResizableEmbedPreview( {
 				className="wp-block-embed__wrapper"
 				ref={ ( node ) => {
 					containerRef.current = node;
-					setResizeObserver( node );
+					setResizeObserved( node );
 				} }
 			>
 				<SandBox
@@ -124,10 +109,13 @@ export default function ResizableEmbedPreview( {
 					type={ sandboxClassnames }
 					onFocus={ hideOverlay }
 				/>
-				{ ! interactive && (
+				{ ! interactive && ! isSelected && (
 					<div
 						className="block-library-embed__interactive-overlay"
 						onMouseUp={ hideOverlay }
+						style={ {
+							pointerEvents: isSelected ? 'none' : 'auto',
+						} }
 					/>
 				) }
 			</div>
@@ -160,111 +148,92 @@ export default function ResizableEmbedPreview( {
 		</>
 	);
 
+	// Calculate current size with delta for real-time feedback
+	const currentSize = resizeDelta
+		? {
+				width: pixelSize.width + resizeDelta.width,
+				height: pixelSize.height + resizeDelta.height,
+		  }
+		: pixelSize;
+
+	// Apply width styling for real-time feedback during resize
+	const embedContentWithResize = (
+		<div
+			style={ {
+				width: currentSize.width
+					? `${ currentSize.width }px`
+					: undefined,
+				transition: resizeDelta ? 'none' : 'width 0.1s ease',
+			} }
+		>
+			{ embedContent }
+		</div>
+	);
+
 	// Show resizable box only when selected and previewable
-	if ( isSelected && previewable && pixelSize.width ) {
-		const currentWidth = attributes.width
+	let resizableBox;
+	if ( isSelected && previewable ) {
+		// Calculate current dimensions
+		const numericWidth = attributes.width
 			? parseInt( attributes.width, 10 )
-			: pixelSize.width;
+			: null;
+		const customRatio = pixelSize.width / pixelSize.height;
+		const naturalRatio =
+			preview.width && preview.height
+				? preview.width / preview.height
+				: aspectRatio;
+		const ratio = numericWidth
+			? customRatio || naturalRatio || aspectRatio
+			: naturalRatio || aspectRatio;
 
-		const currentHeight = currentWidth / aspectRatio;
-
-		// Calculate max resize width similar to image block
-		// Allow some wiggle room beyond the content width for better UX
-		const maxWidthBuffer = pixelSize.width * 2.5;
-		const maxResizeWidth = maxContentWidth || maxWidthBuffer;
-
-		return (
-			<div
+		resizableBox = (
+			<ResizableBox
 				style={ {
-					position: 'relative',
-					display: 'inline-block',
-					maxWidth: '100%',
+					position: 'absolute',
+					inset: '0 0 0 0',
 				} }
-			>
-				<ResizableBox
-					style={ {
-						position: 'relative',
-						display: 'block',
-						overflow: 'visible',
-					} }
-					size={ {
-						width: resizeDelta
-							? Math.max(
-									MIN_EMBED_WIDTH,
-									Math.min(
-										maxResizeWidth,
-										currentWidth + resizeDelta.width
-									)
-							  )
-							: currentWidth,
-						height: resizeDelta
-							? Math.max(
-									MIN_EMBED_WIDTH / aspectRatio,
-									Math.min(
-										maxResizeWidth / aspectRatio,
-										( currentWidth + resizeDelta.width ) /
-											aspectRatio
-									)
-							  )
-							: currentHeight,
-					} }
-					minWidth={ MIN_EMBED_WIDTH }
-					maxWidth={ maxResizeWidth }
-					minHeight={ MIN_EMBED_WIDTH / aspectRatio }
-					maxHeight={ maxResizeWidth / aspectRatio }
-					lockAspectRatio={ aspectRatio }
-					enable={ {
-						top: false,
-						right: true,
-						bottom: false,
-						left: false,
-						topRight: false,
-						bottomRight: false,
-						bottomLeft: false,
-						topLeft: false,
-					} }
-					onResizeStart={ () => {
-						toggleSelection( false );
-					} }
-					onResize={ ( event, direction, elt, delta ) => {
-						setResizeDelta( delta );
-					} }
-					onResizeStop={ ( event, direction, elt, delta ) => {
-						toggleSelection( true );
-						setResizeDelta( null );
+				size={ pixelSize }
+				minWidth={ 50 }
+				lockAspectRatio={ ratio }
+				enable={ {
+					top: false,
+					right: true,
+					bottom: false,
+					left: false,
+				} }
+				onResizeStart={ () => {
+					toggleSelection( false );
+				} }
+				onResize={ ( event, direction, elt, delta ) => {
+					setResizeDelta( delta );
+					// Don't update pixelSize here - let ResizableBox handle it
+				} }
+				onResizeStop={ ( event, direction, elt, delta ) => {
+					toggleSelection( true );
+					setResizeDelta( null );
 
-						const newWidth = Math.max(
-							MIN_EMBED_WIDTH,
-							Math.min(
-								maxResizeWidth,
-								currentWidth + delta.width
-							)
-						);
+					// Update pixelSize only after resize is complete
+					const newPixelSize = {
+						width: pixelSize.width + delta.width,
+						height: pixelSize.height + delta.height,
+					};
+					setPixelSize( newPixelSize );
 
-						// Clear hardcoded width if the resized width is close to the max-content width.
-						if (
-							maxContentWidth &&
-							Math.abs( newWidth - maxContentWidth ) < 10
-						) {
-							setAttributes( {
-								width: undefined,
-								height: undefined,
-							} );
-						} else {
-							setAttributes( {
-								width: `${ newWidth }px`,
-								// Remove height to let CSS maintain aspect ratio
-								height: undefined,
-							} );
-						}
-					} }
-					showHandle
-				>
-					{ embedContent }
-				</ResizableBox>
-			</div>
+					// Set the final width
+					setAttributes( {
+						width: `${ newPixelSize.width }px`,
+						height: undefined, // Let CSS maintain aspect ratio
+					} );
+				} }
+				showHandle
+			/>
 		);
 	}
 
-	return embedContent;
+	return (
+		<div style={ { position: 'relative' } }>
+			{ embedContentWithResize }
+			{ resizableBox }
+		</div>
+	);
 }
