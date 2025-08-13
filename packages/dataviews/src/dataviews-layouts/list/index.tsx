@@ -551,7 +551,7 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 			</Composite>
 			{ hasData && isLoading && (
 				<p className="dataviews-loading-more">
-					{ __( 'Loading more results…' ) }
+					<Spinner />
 				</p>
 			) }
 		</>

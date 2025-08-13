@@ -471,7 +471,7 @@ function ViewGrid< Item >( {
 			}
 			{ hasData && isLoading && (
 				<p className="dataviews-loading-more">
-					{ __( 'Loading more results…' ) }
+					<Spinner />
 				</p>
 			) }
 		</>

@@ -577,7 +577,7 @@ function ViewTable< Item >( {
 				{ ! hasData && <p>{ isLoading ? <Spinner /> : empty }</p> }
 				{ hasData && isLoading && (
 					<p className="dataviews-loading-more">
-						{ __( 'Loading more results…' ) }
+						<Spinner />
 					</p>
 				) }
 			</div>
