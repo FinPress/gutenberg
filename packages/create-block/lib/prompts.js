@@ -1,9 +1,3 @@
-const includeTests = {
-	type: 'confirm',
-	message: 'Include automated test setup (Jest, sample test file)?',
-	default: true,
-};
-
 /**
  * Capitalizes the first letter in a string.
  *
@@ -92,6 +86,12 @@ const textdomain = {
 
 		return true;
 	},
+};
+
+const includeTests = {
+	type: 'confirm',
+	message: 'Include automated test setup (Jest, sample test file)?',
+	default: false,
 };
 
 // Plugin header fields.

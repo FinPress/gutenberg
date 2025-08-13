@@ -24,6 +24,7 @@ module.exports = async (
 		namespace,
 		slug,
 		title,
+		includeTests,
 		description,
 		dashicon,
 		category,
@@ -74,6 +75,7 @@ module.exports = async (
 		slug,
 		title,
 		description,
+		includeTests,
 		dashicon,
 		category,
 		attributes,
@@ -187,7 +189,6 @@ module.exports = async (
 
 	await initBlock( blockOutputTemplates, view );
 
-	// Add test file if requested and template exists
 	if ( view.includeTests ) {
 		const testTemplate = blockOutputTemplates[ 'test/edit.test.js' ];
 		if ( testTemplate ) {

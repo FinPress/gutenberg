@@ -4,17 +4,12 @@
 import { render } from '@testing-library/react';
 
 /**
- * WordPress dependencies
- */
-import { BlockEdit } from '@wordpress/block-editor';
-
-/**
  * Internal dependencies
  */
 import { name } from '../index';
 import BlockEditComponent from '../edit';
 
-describe( '<%= title %> block', () => {
+describe( 'Render block', () => {
 	const getTestComponent = ( attributes = {} ) =>
 		render(
 			<BlockEditComponent
