@@ -83,11 +83,21 @@ export function useCollapsibleCard( initialIsOpen: boolean = true ) {
 	return { isOpen, CollapsibleCardHeader };
 }
 
-const parseCardLayout = ( layout: CardLayout ) => {
+const normalizeCardLayout = ( layout: CardLayout ): CardLayout => {
+	if ( layout.withHeader === false ) {
+		// Don't let isOpened be false if withHeader is false.
+		// Otherwise, the card will not be visible.
+		return {
+			type: layout.type,
+			withHeader: false,
+			isOpened: true,
+		};
+	}
+
 	return {
 		type: layout.type,
-		withHeader: layout.withHeader ?? true,
-		isOpened: layout.isOpened ?? true,
+		withHeader: true,
+		isOpened: typeof layout.isOpened === 'boolean' ? layout.isOpened : true,
 	};
 };
 
@@ -99,7 +109,9 @@ export default function FormCardField< Item >( {
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 
-	const layout: CardLayout = parseCardLayout( field.layout as CardLayout );
+	const layout: CardLayout = normalizeCardLayout(
+		field.layout as CardLayout
+	);
 
 	const form = useMemo( () => {
 		if ( isCombinedField( field ) ) {
@@ -132,7 +144,6 @@ export default function FormCardField< Item >( {
 	const { isOpen, CollapsibleCardHeader } = useCollapsibleCard(
 		layout.isOpened ?? true
 	);
-
 	if ( isCombinedField( field ) ) {
 		const Layout = getFormFieldLayout( field.layout?.type ?? 'regular' )
 			?.component;
@@ -148,7 +159,9 @@ export default function FormCardField< Item >( {
 						{ field.label }
 					</CollapsibleCardHeader>
 				) }
-				{ isOpen && (
+				{ ( isOpen || ! layout.withHeader ) && (
+					// If it doesn't have a header, keep it open.
+					// Otherwise, the card will not be visible.
 					<CardBody className="dataforms-layouts-card__field-control">
 						<DataFormLayout
 							data={ data }
@@ -196,7 +209,9 @@ export default function FormCardField< Item >( {
 					{ cardTitle }
 				</CollapsibleCardHeader>
 			) }
-			{ isOpen && (
+			{ ( isOpen || ! layout.withHeader ) && (
+				// If it doesn't have a header, keep it open.
+				// Otherwise, the card will not be visible.
 				<CardBody className="dataforms-layouts-card__field-control">
 					{ fieldDefinition.readOnly === true ? (
 						<fieldDefinition.render

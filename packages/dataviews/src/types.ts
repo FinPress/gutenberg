@@ -682,11 +682,19 @@ export type PanelLayout = {
 	labelPosition?: LabelPosition;
 };
 
-export type CardLayout = {
-	type: 'card';
-	withHeader?: boolean;
-	isOpened?: boolean;
-};
+export type CardLayout =
+	| {
+			type: 'card';
+			withHeader: false;
+			// isOpened cannot be false if withHeader is false as well.
+			// Otherwise, the card would not be visible.
+			isOpened?: true;
+	  }
+	| {
+			type: 'card';
+			withHeader?: true | undefined;
+			isOpened?: boolean;
+	  };
 
 export type Layout = RegularLayout | PanelLayout | CardLayout;
 
