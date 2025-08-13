@@ -69,7 +69,7 @@ type DataViewsProps< Item > = {
 	config?:
 		| false
 		| {
-				perPageSizes?: number[];
+				perPageSizes: number[];
 		  };
 	empty?: ReactNode;
 } & ( Item extends ItemWithId
@@ -147,7 +147,7 @@ function DataViews< Item >( {
 	isItemClickable = defaultIsItemClickable,
 	header,
 	children,
-	config,
+	config = { perPageSizes: [ 10, 20, 50, 100 ] },
 	empty,
 }: DataViewsProps< Item > ) {
 	const { infiniteScrollHandler } = paginationInfo;
