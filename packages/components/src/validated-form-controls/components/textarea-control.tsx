@@ -17,7 +17,8 @@ type Value = TextareaControlProps[ 'value' ];
 const UnforwardedValidatedTextareaControl = (
 	{
 		required,
-		customValidator,
+		onValidate,
+		customValidityMessage,
 		onChange,
 		markWhenOptional,
 		...restProps
@@ -37,8 +38,9 @@ const UnforwardedValidatedTextareaControl = (
 			required={ required }
 			markWhenOptional={ markWhenOptional }
 			customValidator={ () => {
-				return customValidator?.( valueRef.current );
+				return onValidate?.( valueRef.current );
 			} }
+			customValidityMessage={ customValidityMessage }
 			getValidityTarget={ () => validityTargetRef.current }
 		>
 			<TextareaControl

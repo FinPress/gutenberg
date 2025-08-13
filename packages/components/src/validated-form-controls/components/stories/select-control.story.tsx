@@ -29,6 +29,12 @@ export default meta;
 export const Default: StoryObj< typeof ValidatedSelectControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ value, setValue ] = useState( '' );
+		const [ customValidityMessage, setCustomValidityMessage ] =
+			useState<
+				React.ComponentProps<
+					typeof ValidatedSelectControl
+				>[ 'customValidityMessage' ]
+			>( undefined );
 
 		return (
 			<ValidatedSelectControl
@@ -38,6 +44,17 @@ export const Default: StoryObj< typeof ValidatedSelectControl > = {
 					setValue( newValue );
 					onChange?.( newValue );
 				} }
+				onValidate={ ( v ) => {
+					if ( v === '1' ) {
+						setCustomValidityMessage( {
+							type: 'invalid',
+							message: 'Option 1 is not allowed.',
+						} );
+					} else {
+						setCustomValidityMessage( undefined );
+					}
+				} }
+				customValidityMessage={ customValidityMessage }
 			/>
 		);
 	},
@@ -51,10 +68,4 @@ Default.args = {
 		{ value: '1', label: 'Option 1 (not allowed)' },
 		{ value: '2', label: 'Option 2' },
 	],
-	customValidator: ( value ) => {
-		if ( value === '1' ) {
-			return 'Option 1 is not allowed.';
-		}
-		return undefined;
-	},
 };

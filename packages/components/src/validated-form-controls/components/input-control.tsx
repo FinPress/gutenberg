@@ -17,7 +17,8 @@ type Value = InputControlProps[ 'value' ];
 const UnforwardedValidatedInputControl = (
 	{
 		required,
-		customValidator,
+		onValidate,
+		customValidityMessage,
 		onChange,
 		markWhenOptional,
 		...restProps
@@ -37,8 +38,9 @@ const UnforwardedValidatedInputControl = (
 			required={ required }
 			markWhenOptional={ markWhenOptional }
 			customValidator={ () => {
-				return customValidator?.( valueRef.current );
+				return onValidate?.( valueRef.current );
 			} }
+			customValidityMessage={ customValidityMessage }
 			getValidityTarget={ () => validityTargetRef.current }
 		>
 			<InputControl

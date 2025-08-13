@@ -45,7 +45,7 @@
 	pointer-events: none;
 }
 
-.components-validated-control__error {
+.components-validated-control__status {
 	display: flex;
 	align-items: flex-start;
 	gap: 4px;
@@ -53,17 +53,25 @@
 	font-family: $font-family-body;
 	font-size: 0.75rem;
 	line-height: 16px; // matches the icon size
-	color: $alert-red;
+	color: $components-color-gray-700;
 	animation:
-		components-validated-control__error-jump 0.2s
+		components-validated-control__status-jump 0.2s
 		cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+	&.is-invalid {
+		color: $alert-red;
+	}
+
+	&.is-valid {
+		color: color-mix(in srgb, $black 30%, $alert-green);
+	}
 }
 
-.components-validated-control__error-icon {
+.components-validated-control__status-icon {
 	flex-shrink: 0;
 }
 
-@keyframes components-validated-control__error-jump {
+@keyframes components-validated-control__status-jump {
 	0% {
 		transform: translateY(-4px);
 		opacity: 0;

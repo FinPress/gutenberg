@@ -45,6 +45,12 @@ export const Default: StoryObj< typeof ValidatedInputControl > = {
 			useState<
 				React.ComponentProps< typeof ValidatedInputControl >[ 'value' ]
 			>( '' );
+		const [ customValidityMessage, setCustomValidityMessage ] =
+			useState<
+				React.ComponentProps<
+					typeof ValidatedInputControl
+				>[ 'customValidityMessage' ]
+			>( undefined );
 
 		return (
 			<ValidatedInputControl
@@ -54,6 +60,17 @@ export const Default: StoryObj< typeof ValidatedInputControl > = {
 					setValue( newValue );
 					onChange?.( newValue, ...rest );
 				} }
+				onValidate={ ( v ) => {
+					if ( v?.toLowerCase() === 'error' ) {
+						setCustomValidityMessage( {
+							type: 'invalid',
+							message: 'The word "error" is not allowed.',
+						} );
+					} else {
+						setCustomValidityMessage( undefined );
+					}
+				} }
+				customValidityMessage={ customValidityMessage }
 			/>
 		);
 	},
@@ -62,12 +79,6 @@ Default.args = {
 	required: true,
 	label: 'Input',
 	help: 'The word "error" will trigger an error.',
-	customValidator: ( value ) => {
-		if ( value?.toLowerCase() === 'error' ) {
-			return 'The word "error" is not allowed.';
-		}
-		return undefined;
-	},
 };
 
 /**
@@ -113,18 +124,6 @@ Password.args = {
 	label: 'Password',
 	help: 'Minimum 8 characters, include a number, capital letter, and symbol (!@£$%^&*#).',
 	minLength: 8,
-	customValidator: ( value ) => {
-		if ( ! /\d/.test( value ?? '' ) ) {
-			return 'Password must include at least one number.';
-		}
-		if ( ! /[A-Z]/.test( value ?? '' ) ) {
-			return 'Password must include at least one capital letter.';
-		}
-		if ( ! /[!@£$%^&*#]/.test( value ?? '' ) ) {
-			return 'Password must include at least one symbol.';
-		}
-		return undefined;
-	},
 };
 Password.argTypes = {
 	suffix: { control: false },

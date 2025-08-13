@@ -19,7 +19,8 @@ type Value = ToggleControlProps[ 'checked' ];
 const UnforwardedValidatedToggleControl = (
 	{
 		required,
-		customValidator,
+		onValidate,
+		customValidityMessage,
 		onChange,
 		markWhenOptional,
 		...restProps
@@ -47,8 +48,9 @@ const UnforwardedValidatedToggleControl = (
 			required={ required }
 			markWhenOptional={ markWhenOptional }
 			customValidator={ () => {
-				return customValidator?.( valueRef.current );
+				return onValidate?.( valueRef.current );
 			} }
+			customValidityMessage={ customValidityMessage }
 			getValidityTarget={ () => validityTargetRef.current }
 		>
 			<ToggleControl

@@ -1,8 +1,13 @@
 /**
+ * External dependencies
+ */
+import clsx from 'clsx';
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { error } from '@wordpress/icons';
+import { error, pending, published } from '@wordpress/icons';
 
 /**
  * External dependencies
@@ -18,6 +23,7 @@ import {
  * Internal dependencies
  */
 import { withIgnoreIMEEvents } from '../utils/with-ignore-ime-events';
+import type { ValidatedControlProps } from './components/types';
 
 import Icon from '../icon';
 
@@ -43,6 +49,36 @@ function appendRequiredIndicator(
 	return label;
 }
 
+function ValidationIndicator( {
+	type,
+	message,
+}: {
+	type: 'validating' | 'valid' | 'invalid';
+	message?: string;
+} ) {
+	const ICON = {
+		validating: pending,
+		valid: published,
+		invalid: error,
+	};
+	return (
+		<p
+			className={ clsx(
+				'components-validated-control__status',
+				`is-${ type }`
+			) }
+		>
+			<Icon
+				className="components-validated-control__status-icon"
+				icon={ ICON[ type ] }
+				size={ 16 }
+				fill="currentColor"
+			/>
+			{ message }
+		</p>
+	);
+}
+
 /**
  * HTML elements that support the Constraint Validation API.
  *
@@ -62,6 +98,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		required,
 		markWhenOptional,
 		customValidator,
+		customValidityMessage,
 		getValidityTarget,
 		children,
 	}: {
@@ -74,12 +111,10 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		 */
 		markWhenOptional?: boolean;
 		/**
-		 * A function that returns a custom validity message when applicable.
-		 *
-		 * This message will be applied to the element returned by `getValidityTarget`.
-		 * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity
+		 * The callback to run when the input should be validated.
 		 */
-		customValidator?: () => string | void;
+		customValidator?: () => void;
+		customValidityMessage?: ValidatedControlProps< unknown >[ 'customValidityMessage' ];
 		/**
 		 * A function that returns the actual element on which the validity data should be applied.
 		 */
@@ -92,6 +127,13 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 	forwardedRef: React.ForwardedRef< HTMLDivElement >
 ) {
 	const [ errorMessage, setErrorMessage ] = useState< string | undefined >();
+	const [ statusMessage, setStatusMessage ] = useState<
+		| {
+				type: 'validating' | 'valid';
+				message?: string;
+		  }
+		| undefined
+	>();
 	const [ isTouched, setIsTouched ] = useState( false );
 
 	// Ensure that error messages are visible after user attemps to submit a form
@@ -111,12 +153,51 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		};
 	} );
 
-	const validate = () => {
-		const message = customValidator?.();
+	useEffect( () => {
 		const validityTarget = getValidityTarget();
 
-		validityTarget?.setCustomValidity( message ?? '' );
+		if ( ! customValidityMessage?.type ) {
+			validityTarget?.setCustomValidity( '' );
+			setErrorMessage( undefined );
+			setStatusMessage( undefined );
+			return;
+		}
+
+		switch ( customValidityMessage?.type ) {
+			case 'validating': {
+				validityTarget?.setCustomValidity( '' );
+				setStatusMessage( {
+					type: 'validating',
+					message: customValidityMessage.message,
+				} );
+				break;
+			}
+			case 'valid': {
+				validityTarget?.setCustomValidity( '' );
+				setStatusMessage( {
+					type: 'valid',
+					message: customValidityMessage.message,
+				} );
+				break;
+			}
+			case 'invalid': {
+				validityTarget?.setCustomValidity(
+					customValidityMessage.message ?? ''
+				);
+				setStatusMessage( undefined );
+				break;
+			}
+		}
+
 		setErrorMessage( validityTarget?.validationMessage );
+	}, [
+		customValidityMessage?.type,
+		customValidityMessage?.message,
+		getValidityTarget,
+	] );
+
+	const validate = () => {
+		customValidator?.();
 	};
 
 	const onBlur = ( event: React.FocusEvent< HTMLDivElement > ) => {
@@ -179,16 +260,17 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 				required,
 			} ) }
 			<div aria-live="polite">
-				{ errorMessage && (
-					<p className="components-validated-control__error">
-						<Icon
-							className="components-validated-control__error-icon"
-							icon={ error }
-							size={ 16 }
-							fill="currentColor"
-						/>
-						{ errorMessage }
-					</p>
+				{ errorMessage && ! statusMessage && (
+					<ValidationIndicator
+						type="invalid"
+						message={ errorMessage }
+					/>
+				) }
+				{ statusMessage && (
+					<ValidationIndicator
+						type={ statusMessage.type }
+						message={ statusMessage.message }
+					/>
 				) }
 			</div>
 		</div>

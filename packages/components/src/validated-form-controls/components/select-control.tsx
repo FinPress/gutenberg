@@ -26,7 +26,8 @@ type Value = SelectControlProps[ 'value' ];
 const UnforwardedValidatedSelectControl = (
 	{
 		required,
-		customValidator,
+		onValidate,
+		customValidityMessage,
 		onChange,
 		markWhenOptional,
 		...restProps
@@ -52,8 +53,9 @@ const UnforwardedValidatedSelectControl = (
 			required={ required }
 			markWhenOptional={ markWhenOptional }
 			customValidator={ () => {
-				return customValidator?.( valueRef.current );
+				return onValidate?.( valueRef.current );
 			} }
+			customValidityMessage={ customValidityMessage }
 			getValidityTarget={ () => validityTargetRef.current }
 		>
 			<SelectControl

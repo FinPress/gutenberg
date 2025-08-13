@@ -17,7 +17,8 @@ type Value = ComboboxControlProps[ 'value' ];
 const UnforwardedValidatedComboboxControl = (
 	{
 		required,
-		customValidator,
+		onValidate,
+		customValidityMessage,
 		onChange,
 		markWhenOptional,
 		...restProps
@@ -51,8 +52,9 @@ const UnforwardedValidatedComboboxControl = (
 			markWhenOptional={ markWhenOptional }
 			ref={ mergedRefs }
 			customValidator={ () => {
-				return customValidator?.( valueRef.current );
+				return onValidate?.( valueRef.current );
 			} }
+			customValidityMessage={ customValidityMessage }
 			getValidityTarget={ () =>
 				validityTargetRef.current?.querySelector< HTMLInputElement >(
 					'input[role="combobox"]'

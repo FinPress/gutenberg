@@ -10,19 +10,26 @@ export type ValidatedControlProps< V > = {
 	 */
 	markWhenOptional?: boolean;
 	/**
-	 * A function that returns a custom validity message when applicable. This error message will be applied to the
-	 * underlying element using the native [`setCustomValidity()` method](https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity).
-	 * This means the custom validator will be run _in addition_ to any other HTML attribute-based validation, and
-	 * will be prioritized over any existing validity messages dictated by the HTML attributes.
-	 * An empty string or `undefined` return value will clear any existing custom validity message.
+	 * Optional callback to run when the input should be validated. Use this to set
+	 * a `customValidityMessage` as necessary.
 	 *
-	 * Make sure you don't programatically pass a value (such as an initial value) to the control component
-	 * that fails this validator, because the validator will only run for user-initiated changes.
-	 *
-	 * Always prefer using standard HTML attributes like `required` and `min`/`max` over custom validators
-	 * when possible, as they are simpler and have localized error messages built in.
+	 * Always prefer using standard HTML attributes like `required` and `min`/`max` over
+	 * custom validators when possible, as they are simpler and have localized error messages built in.
 	 */
-	// TODO: Technically, we could add an optional `customValidity` string prop so the consumer can set
-	// an error message at any point in time. We should wait until we have a use case though.
-	customValidator?: ( currentValue: V ) => string | void;
+	onValidate?: ( currentValue: V ) => void;
+	/**
+	 * Show a custom message based on the validation status.
+	 *
+	 * - When `type` is `invalid`, the message will be applied to the underlying element using the
+	 * native [`setCustomValidity()` method](https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity).
+	 * This means the custom message will be prioritized over any existing validity messages
+	 * triggered by HTML attribute-based validation.
+	 * - When `type` is `validating` or `valid`, the custom validity message of the underlying element
+	 * will be cleared, and the optional message will be presented as a status indicator rather than an error.
+	 * Any existing validity messages triggered by HTML attribute-based validation will be prioritized.
+	 */
+	customValidityMessage?: {
+		type: 'validating' | 'valid' | 'invalid';
+		message?: string;
+	};
 };
