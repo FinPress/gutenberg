@@ -119,7 +119,7 @@ _Example_
 await requestUtils.deleteAllPosts();
 ```
 
-### createPage
+#### createPage
 
 Creates a new page in WordPress.
 
