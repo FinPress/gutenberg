@@ -188,18 +188,15 @@ function ClassicEdit( {
 				}
 			} );
 
-			editor.on( 'init', () => {
-				const rootNode = editor.getBody();
-
+			editor.on( 'paste', ( event ) => {
 				// TinyMCE selection isn’t synced with the block editor selection store.
 				// This event handler prevents paste from bubbling so the useClipboardHandler
 				// won’t replace the block.
-				const onPaste = ( event ) => event.stopPropagation();
-				rootNode.addEventListener( 'paste', onPaste );
+				event.stopPropagation();
+			} );
 
-				editor.on( 'remove', () => {
-					rootNode.removeEventListener( 'paste', onPaste );
-				} );
+			editor.on( 'init', () => {
+				const rootNode = editor.getBody();
 
 				// Create the toolbar by refocussing the editor.
 				if ( rootNode.ownerDocument.activeElement === rootNode ) {
