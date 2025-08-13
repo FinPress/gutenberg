@@ -21,21 +21,21 @@ export default function Edit( {
 	clientId,
 	setAttributes,
 } ) {
-	const isSelected = useSelect(
+	const { isSelected, getBlockOrder } = useSelect(
 		( select ) => {
-			const { isBlockSelected, hasSelectedInnerBlock } =
-				select( blockEditorStore );
-			return (
-				isBlockSelected( clientId ) ||
-				hasSelectedInnerBlock( clientId, true )
-			);
+			const {
+				isBlockSelected,
+				hasSelectedInnerBlock,
+				getBlockOrder: getBlockOrderSelector,
+			} = select( blockEditorStore );
+			return {
+				isSelected:
+					isBlockSelected( clientId ) ||
+					hasSelectedInnerBlock( clientId, true ),
+				getBlockOrder: getBlockOrderSelector,
+			};
 		},
 		[ clientId ]
-	);
-
-	const getBlockOrder = useSelect(
-		( select ) => select( blockEditorStore ).getBlockOrder,
-		[]
 	);
 
 	const contentBlockClientId = getBlockOrder( clientId )[ 1 ];
