@@ -8,9 +8,8 @@
 }
 
 .wp-block-accordion-item .accordion-item__heading {
-	color: inherit;
-	padding: 0;
-	margin: 0;
+	margin-block-start: 0;
+	margin-block-end: 0;
 }
 
 .accordion-item__toggle {
