@@ -177,6 +177,10 @@ function UnforwardedLinkUI( props, ref ) {
 		setAddingPage( false );
 	};
 
+	// Only allow page creation for page variations
+	const canCreatePageForThisBlock =
+		permissions.canCreate && type === 'page' && kind === 'post-type';
+
 	const dialogTitleId = useInstanceId(
 		LinkUI,
 		`link-ui-link-control__title`
@@ -231,10 +235,13 @@ function UnforwardedLinkUI( props, ref ) {
 										setFocusAddBlockButton( false );
 									} }
 									setAddingPage={ () => {
-										setAddingPage( true );
-										setFocusAddPageButton( false );
+										// Only allow setting page creation state for page variations
+										if ( canCreatePageForThisBlock ) {
+											setAddingPage( true );
+											setFocusAddPageButton( false );
+										}
 									} }
-									canCreatePage={ permissions.canCreate }
+									canCreatePage={ canCreatePageForThisBlock }
 								/>
 							)
 						}
@@ -252,7 +259,7 @@ function UnforwardedLinkUI( props, ref ) {
 				/>
 			) }
 
-			{ addingPage && (
+			{ addingPage && canCreatePageForThisBlock && (
 				<LinkUIPageCreator
 					postType={ postType }
 					onBack={ () => {
