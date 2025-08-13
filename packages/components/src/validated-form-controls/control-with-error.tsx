@@ -154,11 +154,15 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 	} );
 
 	useEffect( () => {
+		if ( ! isTouched ) {
+			return;
+		}
+
 		const validityTarget = getValidityTarget();
 
 		if ( ! customValidityMessage?.type ) {
 			validityTarget?.setCustomValidity( '' );
-			setErrorMessage( undefined );
+			setErrorMessage( validityTarget?.validationMessage );
 			setStatusMessage( undefined );
 			return;
 		}
@@ -191,6 +195,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 
 		setErrorMessage( validityTarget?.validationMessage );
 	}, [
+		isTouched,
 		customValidityMessage?.type,
 		customValidityMessage?.message,
 		getValidityTarget,

@@ -93,6 +93,12 @@ export const Password: StoryObj< typeof ValidatedInputControl > = {
 				React.ComponentProps< typeof ValidatedInputControl >[ 'value' ]
 			>( '' );
 		const [ visible, setVisible ] = useState( false );
+		const [ customValidityMessage, setCustomValidityMessage ] =
+			useState<
+				React.ComponentProps<
+					typeof ValidatedInputControl
+				>[ 'customValidityMessage' ]
+			>( undefined );
 
 		return (
 			<ValidatedInputControl
@@ -115,6 +121,34 @@ export const Password: StoryObj< typeof ValidatedInputControl > = {
 					setValue( newValue );
 					onChange?.( newValue, ...rest );
 				} }
+				onValidate={ ( v ) => {
+					if ( ! /\d/.test( v ?? '' ) ) {
+						setCustomValidityMessage( {
+							type: 'invalid',
+							message:
+								'Password must include at least one number.',
+						} );
+						return;
+					}
+					if ( ! /[A-Z]/.test( v ?? '' ) ) {
+						setCustomValidityMessage( {
+							type: 'invalid',
+							message:
+								'Password must include at least one capital letter.',
+						} );
+						return;
+					}
+					if ( ! /[!@£$%^&*#]/.test( v ?? '' ) ) {
+						setCustomValidityMessage( {
+							type: 'invalid',
+							message:
+								'Password must include at least one symbol.',
+						} );
+						return;
+					}
+					setCustomValidityMessage( undefined );
+				} }
+				customValidityMessage={ customValidityMessage }
 			/>
 		);
 	},
