@@ -10,6 +10,10 @@
 
 -   DataViews: Fix incorrect documentation for `defaultLayouts` prop. [#71334](https://github.com/WordPress/gutenberg/pull/71334)
 
+### Features
+
+-   DataViews: Add a new `picker` prop for DataViews that should be optimized for selection. This presently only works for the `grid` layout. [#70971](https://github.com/WordPress/gutenberg/pull/70971)
+
 ## 7.0.0 (2025-08-20)
 
 ### Breaking changes

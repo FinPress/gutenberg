@@ -6,6 +6,9 @@
 
 -   `Tabs`: Ensure font size inheritance for tab buttons in all contexts ([#71346](https://github.com/WordPress/gutenberg/pull/71346)).
 
+### Enhancement
+
+-   Add a `composite` prop to the `Composite` component for enabling or disabling the composite behavior. ([#70971](https://github.com/WordPress/gutenberg/pull/70971))
 
 ## 30.2.0 (2025-08-20)
 
