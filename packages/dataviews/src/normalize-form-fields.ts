@@ -8,25 +8,53 @@ interface NormalizedFormField {
 	layout: Layout;
 }
 
+/**
+ * Normalizes a layout configuration based on its type.
+ *
+ * @param layout The layout object to normalize.
+ * @return The normalized layout object.
+ */
+export function normalizeLayout( layout?: Layout ): Layout {
+	let normalizedLayout: Layout = { type: 'regular', labelPosition: 'top' };
+
+	if ( layout?.type === 'regular' ) {
+		normalizedLayout = {
+			type: 'regular',
+			labelPosition: layout?.labelPosition ?? 'top',
+		};
+	} else if ( layout?.type === 'panel' ) {
+		normalizedLayout = {
+			type: 'panel',
+			labelPosition: layout?.labelPosition ?? 'side',
+		};
+	} else if ( layout?.type === 'card' ) {
+		if ( layout.withHeader === false ) {
+			// Don't let isOpened be false if withHeader is false.
+			// Otherwise, the card will not be visible.
+			normalizedLayout = {
+				type: 'card',
+				withHeader: false,
+				isOpened: true,
+			};
+		} else {
+			normalizedLayout = {
+				type: 'card',
+				withHeader: true,
+				isOpened:
+					typeof layout.isOpened === 'boolean'
+						? layout.isOpened
+						: true,
+			};
+		}
+	}
+
+	return normalizedLayout;
+}
+
 export default function normalizeFormFields(
 	form: Form
 ): NormalizedFormField[] {
-	let formLayout: Layout = { type: 'regular', labelPosition: 'top' };
-	if ( form?.layout?.type === 'regular' ) {
-		formLayout = {
-			type: 'regular',
-			labelPosition: form?.layout?.labelPosition ?? 'top',
-		};
-	} else if ( form?.layout?.type === 'panel' ) {
-		formLayout = {
-			type: 'panel',
-			labelPosition: form?.layout?.labelPosition ?? 'side',
-		};
-	} else if ( form?.layout?.type === 'card' ) {
-		formLayout = {
-			type: 'card',
-		};
-	}
+	const formLayout = normalizeLayout( form?.layout );
 
 	return ( form.fields ?? [] ).map( ( field ) => {
 		if ( typeof field === 'string' ) {
@@ -36,7 +64,9 @@ export default function normalizeFormFields(
 			};
 		}
 
-		const fieldLayout = field.layout ?? formLayout;
+		const fieldLayout = field.layout
+			? normalizeLayout( field.layout )
+			: formLayout;
 		return {
 			...field,
 			layout: fieldLayout,
