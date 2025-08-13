@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { privateApis } from '@wordpress/components';
-import { useCallback } from '@wordpress/element';
+import { useCallback, useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -20,6 +20,12 @@ export default function Text< Item >( {
 }: DataFormControlProps< Item > ) {
 	const { id, label, placeholder, description } = field;
 	const value = field.getValue( { item: data } );
+	const [ customValidityMessage, setCustomValidityMessage ] =
+		useState<
+			React.ComponentProps<
+				typeof ValidatedTextControl
+			>[ 'customValidityMessage' ]
+		>( undefined );
 
 	const onChangeControl = useCallback(
 		( newValue: string ) =>
@@ -32,19 +38,26 @@ export default function Text< Item >( {
 	return (
 		<ValidatedTextControl
 			required={ !! field.isValid?.required }
-			customValidator={ ( newValue: any ) => {
-				if ( field.isValid?.custom ) {
-					return field.isValid.custom(
-						{
-							...data,
-							[ id ]: newValue,
-						},
-						field
-					);
+			onValidate={ ( newValue: any ) => {
+				const message = field.isValid?.custom?.(
+					{
+						...data,
+						[ id ]: newValue,
+					},
+					field
+				);
+
+				if ( message ) {
+					setCustomValidityMessage( {
+						type: 'invalid',
+						message,
+					} );
+					return;
 				}
 
-				return null;
+				setCustomValidityMessage( undefined );
 			} }
+			customValidityMessage={ customValidityMessage }
 			label={ label }
 			placeholder={ placeholder }
 			value={ value ?? '' }
