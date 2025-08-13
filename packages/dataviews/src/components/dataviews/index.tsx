@@ -197,7 +197,7 @@ function DataViews< Item >( {
 
 	// Attach scroll event listener for infinite scroll
 	useEffect( () => {
-		if ( ! view.layout?.infiniteScroll || ! containerRef.current ) {
+		if ( ! view.infiniteScroll || ! containerRef.current ) {
 			return;
 		}
 
@@ -220,7 +220,7 @@ function DataViews< Item >( {
 			container.removeEventListener( 'scroll', handleScroll );
 			handleScroll.cancel(); // Cancel any pending throttled calls
 		};
-	}, [ infiniteScrollHandler, view.layout?.infiniteScroll ] );
+	}, [ infiniteScrollHandler, view.infiniteScroll ] );
 
 	return (
 		<DataViewsContext.Provider

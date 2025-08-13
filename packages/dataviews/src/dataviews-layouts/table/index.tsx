@@ -118,7 +118,7 @@ function TableRow< Item >( {
 	posinset,
 }: TableRowProps< Item > ) {
 	const { paginationInfo } = useContext( DataViewsContext );
-	const isInfiniteScroll = view.layout?.infiniteScroll;
+	const isInfiniteScroll = view.infiniteScroll;
 	const hasPossibleBulkAction = useHasAPossibleBulkAction( actions, item );
 	const isSelected = hasPossibleBulkAction && selection.includes( id );
 	const [ isHovered, setIsHovered ] = useState( false );
@@ -365,7 +365,7 @@ function ViewTable< Item >( {
 				headerMenuRefs.current.delete( column );
 			}
 		};
-	const isInfiniteScroll = view.layout?.infiniteScroll && ! dataByGroup;
+	const isInfiniteScroll = view.infiniteScroll && ! dataByGroup;
 
 	return (
 		<>

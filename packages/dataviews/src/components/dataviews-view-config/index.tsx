@@ -107,7 +107,7 @@ export function ViewTypeMenu() {
 											...viewWithoutLayout,
 											type: e.target.value,
 											...defaultLayouts[ e.target.value ],
-										} );
+										} as View );
 								}
 								warning( 'Invalid dataview' );
 							} }

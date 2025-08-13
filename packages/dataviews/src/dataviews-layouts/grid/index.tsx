@@ -120,7 +120,7 @@ function GridItem< Item >( {
 			};
 		}
 	}
-	const isInfiniteScroll = view.layout?.infiniteScroll;
+	const isInfiniteScroll = view.infiniteScroll;
 	const { paginationInfo } = useContext( DataViewsContext );
 
 	return (
@@ -334,7 +334,7 @@ function ViewGrid< Item >( {
 		  }, new Map< string, typeof data >() )
 		: null;
 
-	const isInfiniteScroll = view.layout?.infiniteScroll && ! dataByGroup;
+	const isInfiniteScroll = view.infiniteScroll && ! dataByGroup;
 
 	return (
 		<>

@@ -22,7 +22,7 @@ export function DataViewsPagination() {
 		paginationInfo: { totalItems = 0, totalPages },
 	} = useContext( DataViewsContext );
 
-	const isInfiniteScrollEnabled = view.layout?.infiniteScroll ?? false;
+	const isInfiniteScrollEnabled = view.infiniteScroll ?? false;
 
 	if ( ! totalItems || ! totalPages || isInfiniteScrollEnabled ) {
 		return null;

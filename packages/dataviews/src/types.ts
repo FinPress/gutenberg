@@ -443,6 +443,11 @@ interface ViewBase {
 	 * The field to group by.
 	 */
 	groupByField?: string;
+
+	/**
+	 * Whether infinite scroll is enabled.
+	 */
+	infiniteScroll?: boolean;
 }
 
 export interface ColumnStyle {
@@ -487,23 +492,11 @@ export interface ViewTable extends ViewBase {
 		 * Whether the view allows column moving.
 		 */
 		enableMoving?: boolean;
-		
-		/**
-		 * Whether infinite scroll is enabled for the table.
-		 */
-		infiniteScroll?: boolean;
 	};
 }
 
 export interface ViewList extends ViewBase {
 	type: 'list';
-
-	layout?: {
-		/**
-		 * Whether infinite scroll is enabled for the list.
-		 */
-		infiniteScroll?: boolean;
-	};
 }
 
 export interface ViewGrid extends ViewBase {
@@ -519,11 +512,6 @@ export interface ViewGrid extends ViewBase {
 		 * The preview size of the grid.
 		 */
 		previewSize?: number;
-
-		/**
-		 * Whether infinite scroll is enabled for the grid.
-		 */
-		infiniteScroll?: boolean;
 	};
 }
 

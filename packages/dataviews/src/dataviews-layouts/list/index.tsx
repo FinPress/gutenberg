@@ -173,7 +173,7 @@ function ListItem< Item >( {
 		setIsHovered( isHover );
 	};
 
-	const isInfiniteScroll = view.layout?.infiniteScroll;
+	const isInfiniteScroll = view.infiniteScroll;
 	const { paginationInfo } = useContext( DataViewsContext );
 
 	useEffect( () => {
@@ -512,7 +512,7 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 		);
 	}
 
-	const isInfiniteScroll = view.layout?.infiniteScroll;
+	const isInfiniteScroll = view.infiniteScroll;
 
 	return (
 		<>
