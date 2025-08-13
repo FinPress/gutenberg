@@ -469,7 +469,11 @@ function ViewGrid< Item >( {
 					</div>
 				)
 			}
-			{ hasData && isLoading && <p>{ __( 'Loading more results…' ) }</p> }
+			{ hasData && isLoading && (
+				<p className="dataviews-loading-more">
+					{ __( 'Loading more results…' ) }
+				</p>
+			) }
 		</>
 	);
 }

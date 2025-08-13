@@ -549,7 +549,11 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 					);
 				} ) }
 			</Composite>
-			{ hasData && isLoading && <p>{ __( 'Loading more results…' ) }</p> }
+			{ hasData && isLoading && (
+				<p className="dataviews-loading-more">
+					{ __( 'Loading more results…' ) }
+				</p>
+			) }
 		</>
 	);
 }
