@@ -2,7 +2,7 @@
 /**
  * Bootstraps the Command Palette  in the admin dashboard.
  *
- * @package Gutenberg
+ * @package gutenberg
  */
 
 /**
