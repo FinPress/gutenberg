@@ -7,7 +7,8 @@ import { useCallback, useMemo } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import type { DataFormControlProps } from '../types';
+import type { DataFormControlProps, Field } from '../types';
+import { isItemValid } from '../validation';
 
 export default function ArrayControl< Item >( {
 	data,
@@ -77,9 +78,19 @@ export default function ArrayControl< Item >( {
 			suggestions={
 				elements?.map( ( suggestion ) => suggestion.label ) ?? []
 			}
+			__experimentalValidateInput={ ( token ) => {
+				if ( ! field.isValid.elements ) {
+					return true;
+				}
+
+				return isItemValid( token as Item, [ field as Field< Item > ], {
+					fields: [ id ],
+				} );
+			} }
 			__experimentalExpandOnFocus={ elements && elements.length > 0 }
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
+			__experimentalShowHowTo={ ! field.isValid.elements }
 		/>
 	);
 }
