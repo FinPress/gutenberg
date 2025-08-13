@@ -177,10 +177,6 @@ function UnforwardedLinkUI( props, ref ) {
 		setAddingPage( false );
 	};
 
-	// Only allow page creation for page variations
-	const canCreatePageForThisBlock =
-		permissions.canCreate && type === 'page' && kind === 'post-type';
-
 	const dialogTitleId = useInstanceId(
 		LinkUI,
 		`link-ui-link-control__title`
@@ -235,13 +231,10 @@ function UnforwardedLinkUI( props, ref ) {
 										setFocusAddBlockButton( false );
 									} }
 									setAddingPage={ () => {
-										// Only allow setting page creation state for page variations
-										if ( canCreatePageForThisBlock ) {
-											setAddingPage( true );
-											setFocusAddPageButton( false );
-										}
+										setAddingPage( true );
+										setFocusAddPageButton( false );
 									} }
-									canCreatePage={ canCreatePageForThisBlock }
+									canCreatePage={ permissions.canCreate }
 								/>
 							)
 						}
@@ -255,16 +248,18 @@ function UnforwardedLinkUI( props, ref ) {
 					onBack={ () => {
 						setAddingBlock( false );
 						setFocusAddBlockButton( true );
+						setFocusAddPageButton( false );
 					} }
 				/>
 			) }
 
-			{ addingPage && canCreatePageForThisBlock && (
+			{ addingPage && (
 				<LinkUIPageCreator
 					postType={ postType }
 					onBack={ () => {
 						setAddingPage( false );
 						setFocusAddPageButton( true );
+						setFocusAddBlockButton( false );
 					} }
 					onPageCreated={ handlePageCreated }
 					initialTitle={ link?.url || '' }
