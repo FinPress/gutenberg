@@ -13,14 +13,7 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import {
-	cornerAll,
-	cornerBottomLeft,
-	cornerBottomRight,
-	cornerTopLeft,
-	cornerTopRight,
-	settings,
-} from '@wordpress/icons';
+import { settings } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -34,28 +27,13 @@ import {
 	isValuePreset,
 	convertPresetsToCustomValues,
 } from './utils';
-
-const CORNERS = {
-	all: __( 'Border radius' ),
-	topLeft: __( 'Top left' ),
-	topRight: __( 'Top right' ),
-	bottomLeft: __( 'Bottom left' ),
-	bottomRight: __( 'Bottom right' ),
-};
-const ICONS = {
-	all: cornerAll,
-	topLeft: cornerTopLeft,
-	topRight: cornerTopRight,
-	bottomLeft: cornerBottomLeft,
-	bottomRight: cornerBottomRight,
-};
-const MIN_BORDER_RADIUS_VALUE = 0;
-const MAX_BORDER_RADIUS_VALUES = {
-	px: 100,
-	em: 20,
-	rem: 20,
-};
-const RANGE_CONTROL_MAX_SIZE = 8;
+import {
+	CORNERS,
+	ICONS,
+	MIN_BORDER_RADIUS_VALUE,
+	MAX_BORDER_RADIUS_VALUES,
+	RANGE_CONTROL_MAX_SIZE,
+} from './constants';
 
 export default function SingleInputControl( {
 	corner,

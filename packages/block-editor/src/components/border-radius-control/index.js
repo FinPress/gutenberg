@@ -18,15 +18,12 @@ import LinkedButton from './linked-button';
 import { useSettings } from '../use-settings';
 import { hasDefinedValues, hasMixedValues } from './utils';
 import SingleInputControl from './single-input-control';
+import {
+	DEFAULT_VALUES,
+	RANGE_CONTROL_MAX_SIZE,
+	EMPTY_ARRAY,
+} from './constants';
 
-const DEFAULT_VALUES = {
-	topLeft: undefined,
-	topRight: undefined,
-	bottomLeft: undefined,
-	bottomRight: undefined,
-};
-const RANGE_CONTROL_MAX_SIZE = 8;
-const EMPTY_ARRAY = [];
 function useBorderRadiusSizes( presets ) {
 	const defaultSizes = presets?.default ?? EMPTY_ARRAY;
 	const customSizes = presets?.custom ?? EMPTY_ARRAY;
