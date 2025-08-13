@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useRef, useCallback, useState } from '@wordpress/element';
 
 /**
  * External dependencies
@@ -14,6 +14,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ValidatedInputControl } from '..';
 import { formDecorator } from './story-utils';
 import type { ControlWithError } from '../../control-with-error';
+import { debounce } from '@wordpress/compose';
 
 const meta: Meta< typeof ControlWithError > = {
 	title: 'Components (Experimental)/Validated Form Controls/Overview',
@@ -97,4 +98,78 @@ export const WithHelpTextReplacement: Story = {
 			/>
 		);
 	},
+};
+
+/**
+ * To provide feedback from server-side validation, the `customValidityMessage` prop can be used
+ * to show additional status indicators while waiting for the server response,
+ * and after the response is received.
+ */
+export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
+	render: function Template( { ...args } ) {
+		const [ text, setText ] = useState( '' );
+		const [ customValidityMessage, setCustomValidityMessage ] =
+			useState<
+				React.ComponentProps<
+					typeof ValidatedInputControl
+				>[ 'customValidityMessage' ]
+			>( undefined );
+
+		const timeoutRef = useRef< ReturnType< typeof setTimeout > >();
+		const previousValidationValueRef = useRef< unknown >( '' );
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		const debouncedValidate = useCallback(
+			debounce( ( v ) => {
+				if ( v === previousValidationValueRef.current ) {
+					return;
+				}
+
+				previousValidationValueRef.current = v;
+
+				setCustomValidityMessage( {
+					type: 'validating',
+					message: 'Validating...',
+				} );
+
+				clearTimeout( timeoutRef.current );
+				timeoutRef.current = setTimeout( () => {
+					if ( v?.toString().toLowerCase() === 'error' ) {
+						setCustomValidityMessage( {
+							type: 'invalid',
+							message: 'The word "error" is not allowed.',
+						} );
+					} else {
+						setCustomValidityMessage( {
+							type: 'valid',
+							message: 'Validated',
+						} );
+					}
+				}, 2000 );
+			}, 500 ),
+			[]
+		);
+
+		return (
+			<ValidatedInputControl
+				{ ...args }
+				value={ text }
+				onChange={ ( newValue ) => {
+					setText( newValue ?? '' );
+				} }
+				onValidate={ ( v ) => {
+					if ( ! v ) {
+						return;
+					}
+
+					debouncedValidate( v );
+				} }
+				customValidityMessage={ customValidityMessage }
+			/>
+		);
+	},
+};
+AsyncValidation.args = {
+	label: 'Text',
+	help: 'The word "error" will trigger an error asynchronously.',
 };
