@@ -11,6 +11,7 @@ import { useSelect } from '@wordpress/data';
  */
 export function usePostTypeLabel( contextPostType ) {
 	const currentPostType = useSelect( ( select ) => {
+		// Access core/editor by string to avoid @wordpress/editor dependency.
 		// eslint-disable-next-line @wordpress/data-no-store-string-literals
 		const { getCurrentPostType } = select( 'core/editor' );
 		return getCurrentPostType();
