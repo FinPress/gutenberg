@@ -97,7 +97,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 	{
 		required,
 		markWhenOptional,
-		customValidator,
+		onValidate,
 		customValidityMessage,
 		getValidityTarget,
 		children,
@@ -113,7 +113,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		/**
 		 * The callback to run when the input should be validated.
 		 */
-		customValidator?: () => void;
+		onValidate?: () => void;
 		customValidityMessage?: ValidatedControlProps< unknown >[ 'customValidityMessage' ];
 		/**
 		 * A function that returns the actual element on which the validity data should be applied.
@@ -202,7 +202,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 	] );
 
 	const validate = () => {
-		customValidator?.();
+		onValidate?.();
 	};
 
 	const onBlur = ( event: React.FocusEvent< HTMLDivElement > ) => {

@@ -36,7 +36,7 @@ const UnforwardedValidatedRadioControl = (
 			markWhenOptional={ markWhenOptional }
 			// TODO: Upstream limitation - RadioControl does not accept a ref.
 			ref={ mergedRefs }
-			customValidator={ () => {
+			onValidate={ () => {
 				return onValidate?.( valueRef.current );
 			} }
 			customValidityMessage={ customValidityMessage }

@@ -51,7 +51,7 @@ const UnforwardedValidatedComboboxControl = (
 			required={ required }
 			markWhenOptional={ markWhenOptional }
 			ref={ mergedRefs }
-			customValidator={ () => {
+			onValidate={ () => {
 				return onValidate?.( valueRef.current );
 			} }
 			customValidityMessage={ customValidityMessage }

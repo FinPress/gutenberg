@@ -37,7 +37,7 @@ const UnforwardedValidatedRangeControl = (
 		<ControlWithError
 			required={ required }
 			markWhenOptional={ markWhenOptional }
-			customValidator={ () => {
+			onValidate={ () => {
 				return onValidate?.( valueRef.current );
 			} }
 			customValidityMessage={ customValidityMessage }
