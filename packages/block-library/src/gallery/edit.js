@@ -105,6 +105,7 @@ const MOBILE_CONTROL_PROPS_RANGE_CONTROL = Platform.isNative
 	: {};
 
 const DEFAULT_BLOCK = { name: 'core/image' };
+const DEFAULT_TEMPLATE = [ [ 'core/image' ], [ 'core/image' ] ];
 const EMPTY_ARRAY = [];
 
 export default function GalleryEdit( props ) {
@@ -543,6 +544,7 @@ export default function GalleryEdit( props ) {
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		defaultBlock: DEFAULT_BLOCK,
 		directInsert: true,
+		template: DEFAULT_TEMPLATE,
 		orientation: 'horizontal',
 		renderAppender: false,
 		...nativeInnerBlockProps,
