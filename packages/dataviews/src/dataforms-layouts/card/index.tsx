@@ -89,14 +89,15 @@ export default function FormCardField< Item >( {
 		layout.isOpened ?? true
 	);
 	if ( isCombinedField( field ) ) {
+		const withHeader = !! field.label && layout.withHeader;
 		return (
 			<Card className="dataforms-layouts-card__field">
-				{ field.label && layout.withHeader && (
+				{ withHeader && (
 					<CollapsibleCardHeader className="dataforms-layouts-card__field-label">
 						{ field.label }
 					</CollapsibleCardHeader>
 				) }
-				{ ( isOpen || ! layout.withHeader ) && (
+				{ ( isOpen || ! withHeader ) && (
 					// If it doesn't have a header, keep it open.
 					// Otherwise, the card will not be visible.
 					<CardBody className="dataforms-layouts-card__field-control">
@@ -123,15 +124,15 @@ export default function FormCardField< Item >( {
 	if ( ! RegularLayout ) {
 		return null;
 	}
-
+	const withHeader = !! fieldDefinition.label && layout.withHeader;
 	return (
 		<Card className="dataforms-layouts-card__field">
-			{ fieldDefinition.label && layout.withHeader && (
+			{ withHeader && (
 				<CollapsibleCardHeader className="dataforms-layouts-card__field-label">
 					{ fieldDefinition.label }
 				</CollapsibleCardHeader>
 			) }
-			{ ( isOpen || ! layout.withHeader ) && (
+			{ ( isOpen || ! withHeader ) && (
 				// If it doesn't have a header, keep it open.
 				// Otherwise, the card will not be visible.
 				<CardBody className="dataforms-layouts-card__field-control">
@@ -145,7 +146,9 @@ export default function FormCardField< Item >( {
 							data={ data }
 							field={ fieldDefinition }
 							onChange={ onChange }
-							hideLabelFromVision={ hideLabelFromVision }
+							hideLabelFromVision={
+								hideLabelFromVision || withHeader
+							}
 						/>
 					) }
 				</CardBody>
