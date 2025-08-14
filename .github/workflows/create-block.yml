@@ -18,7 +18,7 @@ permissions: {}
 
 jobs:
     checks:
-        name: Checks w/Node.js ${{ matrix.node }} on ${{ matrix.os }}
+        name: Checks w/Node.js ${{ matrix.node }} on ${{ contains( inputs.os, 'macos-' ) && 'MacOS' || contains( inputs.os, 'windows-' ) && 'Windows' || 'Linux' }}
         runs-on: ${{ matrix.os }}
         permissions:
             contents: read
