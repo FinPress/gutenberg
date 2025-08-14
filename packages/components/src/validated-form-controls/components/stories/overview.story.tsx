@@ -134,6 +134,9 @@ export const WithHelpTextReplacement: Story = {
  * To provide feedback from server-side validation, the `customValidityMessage` prop can be used
  * to show additional status indicators while waiting for the server response,
  * and after the response is received.
+ *
+ * These indicators are intended for asynchronous validation calls that may take more than 1 second to complete.
+ * They may be unnecessary when responses are generally quick.
  */
 export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
 	render: function Template( { ...args } ) {
