@@ -8,6 +8,11 @@ interface NormalizedFormField {
 	layout: Layout;
 }
 
+export const DEFAULT_LAYOUT: Layout = {
+	type: 'regular',
+	labelPosition: 'top',
+};
+
 /**
  * Normalizes a layout configuration based on its type.
  *
@@ -15,7 +20,7 @@ interface NormalizedFormField {
  * @return The normalized layout object.
  */
 export function normalizeLayout( layout?: Layout ): Layout {
-	let normalizedLayout: Layout = { type: 'regular', labelPosition: 'top' };
+	let normalizedLayout = DEFAULT_LAYOUT;
 
 	if ( layout?.type === 'regular' ) {
 		normalizedLayout = {

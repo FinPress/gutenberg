@@ -22,6 +22,7 @@ import type {
 } from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
+import { DEFAULT_LAYOUT } from '../../normalize-form-fields';
 
 const getFormLayout = ( form: Form, field: FormField ) => {
 	const layout = field.layout ?? form.layout;
@@ -120,10 +121,7 @@ export default function FormCardField< Item >( {
 					if ( typeof child === 'string' ) {
 						return {
 							id: child,
-							layout: {
-								type: 'regular',
-								withHeader: true,
-							},
+							layout: DEFAULT_LAYOUT,
 						};
 					}
 					return child;
@@ -133,10 +131,7 @@ export default function FormCardField< Item >( {
 		}
 
 		return {
-			layout: {
-				type: 'regular',
-				...field.layout,
-			},
+			layout: DEFAULT_LAYOUT,
 			fields: [],
 		};
 	}, [ field ] ) as Form;

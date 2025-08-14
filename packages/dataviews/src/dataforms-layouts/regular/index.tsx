@@ -21,6 +21,7 @@ import type { Form, FieldLayoutProps, RegularLayout } from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
+import { DEFAULT_LAYOUT } from '../../normalize-form-fields';
 
 function Header( { title }: { title: string } ) {
 	return (
@@ -50,26 +51,17 @@ export default function FormRegularField< Item >( {
 					if ( typeof child === 'string' ) {
 						return {
 							id: child,
-							layout: {
-								type: 'regular',
-								labelPosition: 'top',
-							},
+							layout: DEFAULT_LAYOUT,
 						};
 					}
 					return child;
 				} ),
-				layout: {
-					type: 'regular',
-					labelPosition: 'top',
-				},
+				layout: DEFAULT_LAYOUT,
 			};
 		}
 
 		return {
-			layout: {
-				type: 'regular',
-				labelPosition: 'top',
-			},
+			layout: DEFAULT_LAYOUT,
 			fields: [],
 		};
 	}, [ field ] );

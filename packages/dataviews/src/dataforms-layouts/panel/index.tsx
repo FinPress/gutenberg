@@ -32,6 +32,7 @@ import type {
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
+import { DEFAULT_LAYOUT } from '../../normalize-form-fields';
 
 function DropdownHeader( {
 	title,
@@ -86,10 +87,7 @@ function PanelDropdown< Item >( {
 	const form = useMemo( () => {
 		if ( isCombinedField( field ) ) {
 			return {
-				layout: {
-					type: 'regular',
-					labelPosition: 'top',
-				},
+				layout: DEFAULT_LAYOUT,
 				fields: field.children.map( ( child ) => {
 					if ( typeof child === 'string' ) {
 						return {
@@ -102,10 +100,7 @@ function PanelDropdown< Item >( {
 		}
 		// If not explicit children return the field id itself.
 		return {
-			layout: {
-				type: 'regular',
-				labelPosition: 'top',
-			},
+			layout: DEFAULT_LAYOUT,
 			fields: [ { id: field.id } ],
 		};
 	}, [ field ] );
