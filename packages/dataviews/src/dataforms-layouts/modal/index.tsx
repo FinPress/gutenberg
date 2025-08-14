@@ -26,12 +26,21 @@ import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
 
-function DataFormModalFooter( { onClose }: { onClose: () => void } ) {
+function DataFormModalFooter( {
+	onClose,
+	onCancel,
+}: {
+	onClose: () => void;
+	onCancel: () => void;
+} ) {
 	return (
 		<HStack className="dataforms-layouts-modal__modal-footer" spacing={ 3 }>
 			<Spacer />
+			<Button variant="link" onClick={ onCancel } __next40pxDefaultSize>
+				{ __( 'Cancel' ) }
+			</Button>
 			<Button variant="primary" onClick={ onClose } __next40pxDefaultSize>
-				{ __( 'Done' ) }
+				{ __( 'Apply' ) }
 			</Button>
 		</HStack>
 	);
@@ -73,12 +82,14 @@ function DataFormModal< Item >( {
 	form,
 	onChange,
 	fieldLabel,
+	onCancel,
 }: {
 	isOpen: boolean;
 	onClose: () => void;
 	data: Item;
 	form: Form;
 	onChange: ( data: Partial< Item > ) => void;
+	onCancel: () => void;
 	fieldLabel: string;
 } ) {
 	if ( ! isOpen ) {
@@ -107,7 +118,7 @@ function DataFormModal< Item >( {
 					/>
 				) }
 			</DataFormLayout>
-			<DataFormModalFooter onClose={ onClose } />
+			<DataFormModalFooter onClose={ onClose } onCancel={ onCancel } />
 		</Modal>
 	);
 }
@@ -179,6 +190,37 @@ export default function FormModalField< Item >( {
 		setIsOpen( false );
 	};
 
+	const handleCancelModal = () => {
+		setIsOpen( false );
+	};
+
+	const renderedControl = (
+		<>
+			<Button
+				className="dataforms-layouts-modal__field-button"
+				size="compact"
+				variant="link"
+				onClick={ handleOpenModal }
+				disabled={ fieldDefinition.readOnly === true }
+				accessibleWhenDisabled
+			>
+				<fieldDefinition.render
+					item={ data }
+					field={ fieldDefinition }
+				/>
+			</Button>
+			<DataFormModal
+				isOpen={ isOpen }
+				onClose={ handleCloseModal }
+				onCancel={ handleCancelModal }
+				data={ data }
+				form={ form as Form }
+				fieldLabel={ fieldLabel ?? '' }
+				onChange={ onChange }
+			/>
+		</>
+	);
+
 	if ( labelPosition === 'top' ) {
 		return (
 			<VStack className="dataforms-layouts-modal__field" spacing={ 0 }>
@@ -189,28 +231,8 @@ export default function FormModalField< Item >( {
 					{ fieldLabel }
 				</div>
 				<div className="dataforms-layouts-modal__field-control">
-					<Button
-						className="dataforms-layouts-modal__field-button"
-						size="compact"
-						variant="tertiary"
-						onClick={ handleOpenModal }
-						disabled={ fieldDefinition.readOnly === true }
-						accessibleWhenDisabled
-					>
-						<fieldDefinition.render
-							item={ data }
-							field={ fieldDefinition }
-						/>
-					</Button>
+					{ renderedControl }
 				</div>
-				<DataFormModal
-					isOpen={ isOpen }
-					onClose={ handleCloseModal }
-					data={ data }
-					form={ form as Form }
-					fieldLabel={ fieldLabel ?? '' }
-					onChange={ onChange }
-				/>
 			</VStack>
 		);
 	}
@@ -218,27 +240,7 @@ export default function FormModalField< Item >( {
 	if ( labelPosition === 'none' ) {
 		return (
 			<div className="dataforms-layouts-modal__field">
-				<Button
-					className="dataforms-layouts-modal__field-button"
-					size="compact"
-					variant="tertiary"
-					onClick={ handleOpenModal }
-					disabled={ fieldDefinition.readOnly === true }
-					accessibleWhenDisabled
-				>
-					<fieldDefinition.render
-						item={ data }
-						field={ fieldDefinition }
-					/>
-				</Button>
-				<DataFormModal
-					isOpen={ isOpen }
-					onClose={ handleCloseModal }
-					data={ data }
-					form={ form as Form }
-					fieldLabel={ fieldLabel ?? '' }
-					onChange={ onChange }
-				/>
+				{ renderedControl }
 			</div>
 		);
 	}
@@ -248,27 +250,7 @@ export default function FormModalField< Item >( {
 		<HStack className="dataforms-layouts-modal__field">
 			<div className={ labelClassName }>{ fieldLabel }</div>
 			<div className="dataforms-layouts-modal__field-control">
-				<Button
-					className="dataforms-layouts-modal__field-button"
-					size="compact"
-					variant="tertiary"
-					onClick={ handleOpenModal }
-					disabled={ fieldDefinition.readOnly === true }
-					accessibleWhenDisabled
-				>
-					<fieldDefinition.render
-						item={ data }
-						field={ fieldDefinition }
-					/>
-				</Button>
-				<DataFormModal
-					isOpen={ isOpen }
-					onClose={ handleCloseModal }
-					data={ data }
-					form={ form as Form }
-					fieldLabel={ fieldLabel ?? '' }
-					onChange={ onChange }
-				/>
+				{ renderedControl }
 			</div>
 		</HStack>
 	);
