@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Breaking changes
+
+- DataForm: introduce a new `card` layout. [#71100](https://github.com/WordPress/gutenberg/pull/71100)
+
 ### Features
 
 - Introduce a new `array` DataForm Edit control that supports multi-selection. [#71136](https://github.com/WordPress/gutenberg/pull/71136)
