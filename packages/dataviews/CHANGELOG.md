@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+### Breaking changes
+
+- DataForm: introduce a new `card` layout. The `form.type` has been moved under a new `layout` object and it is now `form.layout.type`, check the README for details. [#71100](https://github.com/WordPress/gutenberg/pull/71100)
+
+### Features
+
+- Introduce a new `array` DataForm Edit control that supports multi-selection. [#71136](https://github.com/WordPress/gutenberg/pull/71136)
+- Add `enableMoving` option to the `table` layout to allow or disallow column moving left and right. [#71120](https://github.com/WordPress/gutenberg/pull/71120)
+
+### Enhancements
+
+- Add two smaller sizs to the grid layout ([#71077](https://github.com/WordPress/gutenberg/pull/71077)).
+
 ## 6.0.0 (2025-08-07)
 
 ### Breaking changes

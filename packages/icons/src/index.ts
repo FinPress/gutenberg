@@ -1,5 +1,9 @@
 export { default as Icon } from './icon';
 
+export { default as accordion } from './library/accordion';
+export { default as accordionHeader } from './library/accordion-header';
+export { default as accordionItem } from './library/accordion-item';
+export { default as accordionPanel } from './library/accordion-panel';
 export { default as addCard } from './library/add-card';
 export { default as addSubmenu } from './library/add-submenu';
 export { default as addTemplate } from './library/add-template';
@@ -72,6 +76,11 @@ export { default as commentAuthorName } from './library/comment-author-name';
 export { default as commentContent } from './library/comment-content';
 export { default as commentReplyLink } from './library/comment-reply-link';
 export { default as commentEditLink } from './library/comment-edit-link';
+export { default as cornerAll } from './library/corner-all';
+export { default as cornerBottomLeft } from './library/corner-bottom-left';
+export { default as cornerBottomRight } from './library/corner-bottom-right';
+export { default as cornerTopLeft } from './library/corner-top-left';
+export { default as cornerTopRight } from './library/corner-top-right';
 export { default as connection } from './library/connection';
 export { default as cover } from './library/cover';
 export { default as create } from './library/create';
