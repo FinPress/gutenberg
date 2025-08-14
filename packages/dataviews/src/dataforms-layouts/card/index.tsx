@@ -121,19 +121,7 @@ export default function FormCardField< Item >( {
 							data={ data }
 							form={ form }
 							onChange={ onChange }
-						>
-							{ ( FieldLayout, nestedField ) => (
-								<FieldLayout
-									key={ nestedField.id }
-									data={ data }
-									field={ {
-										...nestedField,
-									} }
-									onChange={ onChange }
-									hideLabelFromVision={ hideLabelFromVision }
-								/>
-							) }
-						</DataFormLayout>
+						/>
 					</CardBody>
 				) }
 			</Card>
