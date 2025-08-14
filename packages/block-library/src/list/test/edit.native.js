@@ -374,7 +374,7 @@ describe( 'List block', () => {
 		<!-- /wp:list -->
 
 		<!-- wp:paragraph -->
-		<p></p>
+		<p class="wp-block-paragraph"></p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:list -->
@@ -393,7 +393,7 @@ describe( 'List block', () => {
 		<!-- /wp:list -->
 
 		<!-- wp:paragraph -->
-		<p>Two</p>
+		<p class="wp-block-paragraph">Two</p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:list -->
@@ -481,7 +481,7 @@ describe( 'List block', () => {
 
 	it( 'unwraps first item when attempting to merge with non-list block', async () => {
 		const initialHtml = `<!-- wp:paragraph -->
-		<p>A quick brown fox.</p>
+		<p class="wp-block-paragraph">A quick brown fox.</p>
 		<!-- /wp:paragraph -->
 		<!-- wp:list -->
 		<ul class="wp-block-list"><!-- wp:list-item -->
@@ -517,11 +517,11 @@ describe( 'List block', () => {
 
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
 		"<!-- wp:paragraph -->
-		<p>A quick brown fox.</p>
+		<p class="wp-block-paragraph">A quick brown fox.</p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:paragraph -->
-		<p>One</p>
+		<p class="wp-block-paragraph">One</p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:list -->
@@ -534,7 +534,7 @@ describe( 'List block', () => {
 
 	it( 'merges first item into its own paragraph block and keeps its nested items', async () => {
 		const initialHtml = `<!-- wp:paragraph -->
-		<p>A quick brown fox.</p>
+		<p class="wp-block-paragraph">A quick brown fox.</p>
 		<!-- /wp:paragraph -->
 		<!-- wp:list -->
 		<ul class="wp-block-list"><!-- wp:list-item -->
@@ -581,11 +581,11 @@ describe( 'List block', () => {
 
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
 		"<!-- wp:paragraph -->
-		<p>A quick brown fox.</p>
+		<p class="wp-block-paragraph">A quick brown fox.</p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:paragraph -->
-		<p>One</p>
+		<p class="wp-block-paragraph">One</p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:list -->
