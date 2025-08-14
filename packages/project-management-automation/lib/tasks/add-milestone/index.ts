@@ -25,6 +25,7 @@ const DAYS_PER_RELEASE = 14;
  * false otherwise.
  *
  * @param requestError Error to test.
+ *
  * @return Whether error is a duplicate validation request error.
  */
 const isDuplicateValidationError = ( requestError: unknown ): boolean => {
@@ -48,6 +49,7 @@ const isDuplicateValidationError = ( requestError: unknown ): boolean => {
  * @param owner   Repository owner.
  * @param repo    Repository name.
  * @param title   Milestone title.
+ *
  * @return Promise resolving to milestone, if exists.
  */
 async function getMilestoneByTitle(

@@ -18,6 +18,7 @@ const BASE_PROFILE_LOOKUP_API_BASE_PATH = '/wp-json/wporg-github/v1/lookup/';
  * username can be associated with a WordPress.org profile.
  *
  * @param githubUsername GitHub username.
+ *
  * @return Promise resolving to whether WordPress profile is known.
  */
 async function hasWordPressProfile(

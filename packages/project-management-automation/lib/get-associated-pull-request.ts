@@ -28,6 +28,7 @@ export interface WebhookPayloadPushCommit {
  * cannot be determined.
  *
  * @param commit Commit object.
+ *
  * @return Pull request number, or null if it cannot be determined.
  */
 function getAssociatedPullRequest(
