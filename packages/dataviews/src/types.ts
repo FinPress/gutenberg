@@ -676,10 +676,18 @@ export type RegularLayout = {
 	type: 'regular';
 	labelPosition?: LabelPosition;
 };
+export type NormalizedRegularLayout = {
+	type: 'regular';
+	labelPosition: LabelPosition;
+};
 
 export type PanelLayout = {
 	type: 'panel';
 	labelPosition?: LabelPosition;
+};
+export type NormalizedPanelLayout = {
+	type: 'panel';
+	labelPosition: LabelPosition;
 };
 
 export type CardLayout =
@@ -695,8 +703,25 @@ export type CardLayout =
 			withHeader?: true | undefined;
 			isOpened?: boolean;
 	  };
+export type NormalizedCardLayout =
+	| {
+			type: 'card';
+			withHeader: false;
+			// isOpened cannot be false if withHeader is false as well.
+			// Otherwise, the card would not be visible.
+			isOpened: true;
+	  }
+	| {
+			type: 'card';
+			withHeader: true;
+			isOpened: boolean;
+	  };
 
 export type Layout = RegularLayout | PanelLayout | CardLayout;
+export type NormalizedLayout =
+	| NormalizedRegularLayout
+	| NormalizedPanelLayout
+	| NormalizedCardLayout;
 
 export type SimpleFormField = {
 	id: string;

@@ -25,14 +25,14 @@ import type {
 	Form,
 	FormField,
 	FieldLayoutProps,
-	PanelLayout,
+	NormalizedPanelLayout,
 	NormalizedField,
 	SimpleFormField,
 } from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
-import { DEFAULT_LAYOUT } from '../../normalize-form-fields';
+import { DEFAULT_LAYOUT, normalizeLayout } from '../../normalize-form-fields';
 
 function DropdownHeader( {
 	title,
@@ -208,12 +208,12 @@ export default function FormPanelField< Item >( {
 		return null;
 	}
 
-	const layout: PanelLayout = ( field.layout as PanelLayout ) ?? {
+	const layout: NormalizedPanelLayout = normalizeLayout( {
+		...field.layout,
 		type: 'panel',
-		labelPosition: 'side',
-	};
+	} ) as NormalizedPanelLayout;
 
-	const labelPosition = layout.labelPosition ?? 'side';
+	const labelPosition = layout.labelPosition;
 	const labelClassName = clsx(
 		'dataforms-layouts-panel__field-label',
 		`dataforms-layouts-panel__field-label--label-position-${ labelPosition }`

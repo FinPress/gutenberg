@@ -14,7 +14,7 @@ import { chevronDown, chevronUp } from '@wordpress/icons';
  */
 import { getFormFieldLayout } from '..';
 import DataFormContext from '../../components/dataform-context';
-import type { CardLayout, FieldLayoutProps, Form } from '../../types';
+import type { NormalizedCardLayout, FieldLayoutProps, Form } from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
 import { DEFAULT_LAYOUT, normalizeLayout } from '../../normalize-form-fields';
@@ -75,7 +75,10 @@ export default function FormCardField< Item >( {
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 
-	const layout: CardLayout = normalizeLayout( field.layout ) as CardLayout;
+	const layout: NormalizedCardLayout = normalizeLayout( {
+		...field.layout,
+		type: 'card',
+	} ) as NormalizedCardLayout;
 
 	const form: Form = useMemo(
 		(): Form => ( {
@@ -86,7 +89,7 @@ export default function FormCardField< Item >( {
 	);
 
 	const { isOpen, CollapsibleCardHeader } = useCollapsibleCard(
-		layout.isOpened ?? true
+		layout.isOpened
 	);
 	if ( isCombinedField( field ) ) {
 		const withHeader = !! field.label && layout.withHeader;
