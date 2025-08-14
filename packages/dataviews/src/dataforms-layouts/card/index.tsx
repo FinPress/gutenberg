@@ -106,13 +106,6 @@ export default function FormCardField< Item >( {
 		layout.isOpened ?? true
 	);
 	if ( isCombinedField( field ) ) {
-		const Layout = getFormFieldLayout( field.layout?.type ?? 'regular' )
-			?.component;
-
-		if ( ! Layout ) {
-			return null;
-		}
-
 		return (
 			<Card className="dataforms-layouts-card__field">
 				{ field.label && layout.withHeader && (
