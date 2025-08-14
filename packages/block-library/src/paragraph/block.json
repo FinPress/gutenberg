@@ -32,7 +32,6 @@
 	"supports": {
 		"splitting": true,
 		"anchor": true,
-		"className": false,
 		"__experimentalBorder": {
 			"color": true,
 			"radius": true,
