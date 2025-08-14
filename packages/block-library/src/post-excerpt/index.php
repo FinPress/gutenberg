@@ -32,6 +32,9 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 	 * So if the block's attribute is not empty override the
 	 * `excerpt_more` filter and return nothing. This will
 	 * result in showing only one `read more` link at a time.
+	 *
+	 * This hook needs to be applied before the excerpt is retrieved with get_the_excerpt.
+	 * Otherwise, the read more link filter from the theme is not removed.
 	 */
 	add_filter( 'excerpt_more', $filter_excerpt_more );
 
