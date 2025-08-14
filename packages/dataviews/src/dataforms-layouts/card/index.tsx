@@ -139,21 +139,14 @@ export default function FormCardField< Item >( {
 				// If it doesn't have a header, keep it open.
 				// Otherwise, the card will not be visible.
 				<CardBody className="dataforms-layouts-card__field-control">
-					{ fieldDefinition.readOnly === true ? (
-						<fieldDefinition.render
-							item={ data }
-							field={ fieldDefinition }
-						/>
-					) : (
-						<RegularLayout
-							data={ data }
-							field={ field }
-							onChange={ onChange }
-							hideLabelFromVision={
-								hideLabelFromVision || withHeader
-							}
-						/>
-					) }
+					<RegularLayout
+						data={ data }
+						field={ field }
+						onChange={ onChange }
+						hideLabelFromVision={
+							hideLabelFromVision || withHeader
+						}
+					/>
 				</CardBody>
 			) }
 		</Card>
