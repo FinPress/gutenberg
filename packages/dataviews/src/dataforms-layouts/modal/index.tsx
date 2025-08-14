@@ -10,13 +10,11 @@ import {
 	__experimentalVStack as VStack,
 	__experimentalHStack as HStack,
 	__experimentalSpacer as Spacer,
-	__experimentalHeading as Heading,
 	Button,
 	Modal,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState, useMemo, useContext } from '@wordpress/element';
-import { closeSmall } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -37,42 +35,17 @@ function DataFormModalFooter( {
 	return (
 		<HStack className="dataforms-layouts-modal__modal-footer" spacing={ 3 }>
 			<Spacer />
-			<Button variant="link" onClick={ onCancel } __next40pxDefaultSize>
+			<Button
+				variant="tertiary"
+				onClick={ onCancel }
+				__next40pxDefaultSize
+			>
 				{ __( 'Cancel' ) }
 			</Button>
 			<Button variant="primary" onClick={ onApply } __next40pxDefaultSize>
 				{ __( 'Apply' ) }
 			</Button>
 		</HStack>
-	);
-}
-
-function DataFormModalHeader( {
-	title,
-	onClose,
-}: {
-	title?: string;
-	onClose: () => void;
-} ) {
-	return (
-		<VStack className="dataforms-layouts-modal__modal-header" spacing={ 4 }>
-			<HStack alignment="center">
-				{ title && (
-					<Heading level={ 2 } size={ 13 }>
-						{ title }
-					</Heading>
-				) }
-				<Spacer />
-				{ onClose && (
-					<Button
-						label={ __( 'Close' ) }
-						icon={ closeSmall }
-						onClick={ onClose }
-						size="small"
-					/>
-				) }
-			</HStack>
-		</VStack>
 	);
 }
 
@@ -105,10 +78,8 @@ function DataFormModal< Item >( {
 			onRequestClose={ onClose }
 			isFullScreen={ false }
 			title={ fieldLabel }
-			__experimentalHideHeader
 			shouldCloseOnClickOutside={ false }
 		>
-			<DataFormModalHeader title={ fieldLabel } onClose={ onClose } />
 			<DataFormLayout data={ data } form={ form } onChange={ onChange }>
 				{ ( FieldLayout, nestedField ) => (
 					<FieldLayout
