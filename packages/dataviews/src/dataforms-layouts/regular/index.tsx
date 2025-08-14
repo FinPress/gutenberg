@@ -52,7 +52,7 @@ export default function FormRegularField< Item >( {
 							id: child,
 							layout: {
 								type: 'regular',
-								labelPosition: 'none',
+								labelPosition: 'top',
 							},
 						};
 					}
