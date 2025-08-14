@@ -14,27 +14,10 @@ import { chevronDown, chevronUp } from '@wordpress/icons';
  */
 import { getFormFieldLayout } from '..';
 import DataFormContext from '../../components/dataform-context';
-import type {
-	CardLayout,
-	FieldLayoutProps,
-	Form,
-	FormField,
-} from '../../types';
+import type { CardLayout, FieldLayoutProps, Form } from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
 import { DEFAULT_LAYOUT, normalizeLayout } from '../../normalize-form-fields';
-
-const getFormLayout = ( form: Form, field: FormField ) => {
-	const layout = field.layout ?? form.layout;
-
-	if ( layout?.type ) {
-		// Never return card layout to avoid nesting
-		const layoutType = layout.type === 'card' ? 'regular' : layout.type;
-		return getFormFieldLayout( layoutType )?.component;
-	}
-
-	return getFormFieldLayout( 'regular' )?.component;
-};
 
 export function useCollapsibleCard( initialIsOpen: boolean = true ) {
 	const [ isOpen, setIsOpen ] = useState( initialIsOpen );
@@ -136,8 +119,8 @@ export default function FormCardField< Item >( {
 		return null;
 	}
 
-	const Layout = getFormLayout( form, field );
-	if ( ! Layout ) {
+	const RegularLayout = getFormFieldLayout( 'regular' )?.component;
+	if ( ! RegularLayout ) {
 		return null;
 	}
 
@@ -158,7 +141,7 @@ export default function FormCardField< Item >( {
 							field={ fieldDefinition }
 						/>
 					) : (
-						<Layout
+						<RegularLayout
 							data={ data }
 							field={ fieldDefinition }
 							onChange={ onChange }
