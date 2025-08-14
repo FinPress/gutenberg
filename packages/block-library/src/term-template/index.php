@@ -158,53 +158,7 @@ function render_block_core_term_template_get_children( $parent_term_id, $block, 
 	return $content;
 }
 
-/**
- * Processes block bindings for term template inner blocks.
- *
- * @since 6.x.x
- *
- * @param WP_Block $inner_block Inner block instance.
- * @param WP_Term  $term        Term object.
- *
- * @return WP_Block Modified inner block with processed bindings.
- */
-function block_core_term_template_process_block_bindings( $inner_block, $term ) {
-	if ( isset( $inner_block->attributes['metadata']['bindings'] ) ) {
-		$bindings            = $inner_block->attributes['metadata']['bindings'];
-		$modified_attributes = $inner_block->attributes;
 
-		foreach ( $bindings as $attribute_name => $binding ) {
-			if ( ! isset( $binding['source'] ) || ! isset( $binding['args'] ) ) {
-				continue;
-			}
-
-			$source = get_block_bindings_source( $binding['source'] );
-			if ( ! $source ) {
-				continue;
-			}
-
-			$inner_block->context['termId']   = $term->term_id;
-			$inner_block->context['taxonomy'] = $term->taxonomy;
-
-			$value = $source->get_value( $binding['args'], $inner_block, $attribute_name );
-			if ( null !== $value ) {
-				$modified_attributes[ $attribute_name ] = $value;
-			}
-		}
-
-		$inner_block->attributes = $modified_attributes;
-	}
-
-	if ( ! empty( $inner_block->inner_blocks ) ) {
-		foreach ( $inner_block->inner_blocks as $nested_block ) {
-			$nested_block->context['termId']   = $term->term_id;
-			$nested_block->context['taxonomy'] = $term->taxonomy;
-			block_core_term_template_process_block_bindings( $nested_block, $term );
-		}
-	}
-
-	return $inner_block;
-}
 
 /**
  * Renders a single term with its inner blocks.
@@ -224,15 +178,24 @@ function render_block_core_term_template_single( $term, $block ) {
 		$term_id  = $term->term_id;
 		$taxonomy = $term->taxonomy;
 
+		$filter_block_context = static function ( $context ) use ( $term_id, $taxonomy ) {
+			$context['termId']   = $term_id;
+			$context['taxonomy'] = $taxonomy;
+			return $context;
+		};
+
+		add_filter( 'render_block_context', $filter_block_context, 1 );
+
 		foreach ( $inner_blocks as $inner_block ) {
-			$inner_block->context['termId']   = $term_id;
-			$inner_block->context['taxonomy'] = $taxonomy;
-
-			// Process block bindings for the inner block.
-			$inner_block = block_core_term_template_process_block_bindings( $inner_block, $term );
-
-			$block_content .= $inner_block->render( array( 'dynamic' => true ) );
+			if ( method_exists( $inner_block, 'refresh_context_dependents' ) ) {
+				// WP_Block::refresh_context_dependents() was introduced in WordPress 6.8.
+				$inner_block->refresh_context_dependents();
+				$block_content .= $inner_block->render( array( 'dynamic' => true ) );
+			} else {
+				$block_content = ( new WP_Block( $inner_block->parsed_block ) )->render( array( 'dynamic' => false ) );
+			}
 		}
+		remove_filter( 'render_block_context', $filter_block_context, 1 );
 	}
 
 	$term_classes = implode( ' ', array( 'wp-block-term', 'term-' . $term->term_id ) );
