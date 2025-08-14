@@ -30,6 +30,9 @@ type SamplePost = {
 	filesize?: number;
 	dimensions?: string;
 	tags?: string[];
+	address1?: string;
+	address2?: string;
+	city?: string;
 };
 
 const meta = {
@@ -158,6 +161,21 @@ const fields = [
 			{ value: 'travel', label: 'Travel' },
 		],
 	},
+	{
+		id: 'address1',
+		label: 'Address 1',
+		type: 'text' as const,
+	},
+	{
+		id: 'address2',
+		label: 'Address 2',
+		type: 'text' as const,
+	},
+	{
+		id: 'city',
+		label: 'City',
+		type: 'text' as const,
+	},
 ] as Field< SamplePost >[];
 
 export const Default = ( {
@@ -242,6 +260,9 @@ const CombinedFieldsComponent = ( {
 		filesize: 1024,
 		dimensions: '1920x1080',
 		tags: [ 'photography' ],
+		address1: '123 Main St',
+		address2: 'Apt 4B',
+		city: 'New York',
 	} );
 
 	const form = useMemo(
@@ -262,9 +283,15 @@ const CombinedFieldsComponent = ( {
 				'filesize',
 				'dimensions',
 				'tags',
+				{
+					id: 'combined_address',
+					label: 'Combined Address',
+					content: `${ post.address1 }, ${ post.address2 }, ${ post.city }`,
+					children: [ 'address1', 'address2', 'city' ],
+				},
 			],
 		} ),
-		[ type, labelPosition ]
+		[ type, labelPosition, post ]
 	) as Form;
 
 	return (

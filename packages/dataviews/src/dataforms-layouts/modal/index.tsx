@@ -27,11 +27,12 @@ import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
 
 function DataFormModalFooter( {
-	onClose,
 	onCancel,
+	onApply,
 }: {
 	onClose: () => void;
 	onCancel: () => void;
+	onApply: () => void;
 } ) {
 	return (
 		<HStack className="dataforms-layouts-modal__modal-footer" spacing={ 3 }>
@@ -39,7 +40,7 @@ function DataFormModalFooter( {
 			<Button variant="link" onClick={ onCancel } __next40pxDefaultSize>
 				{ __( 'Cancel' ) }
 			</Button>
-			<Button variant="primary" onClick={ onClose } __next40pxDefaultSize>
+			<Button variant="primary" onClick={ onApply } __next40pxDefaultSize>
 				{ __( 'Apply' ) }
 			</Button>
 		</HStack>
@@ -83,6 +84,7 @@ function DataFormModal< Item >( {
 	onChange,
 	fieldLabel,
 	onCancel,
+	onApply,
 }: {
 	isOpen: boolean;
 	onClose: () => void;
@@ -90,6 +92,7 @@ function DataFormModal< Item >( {
 	form: Form;
 	onChange: ( data: Partial< Item > ) => void;
 	onCancel: () => void;
+	onApply: () => void;
 	fieldLabel: string;
 } ) {
 	if ( ! isOpen ) {
@@ -103,6 +106,7 @@ function DataFormModal< Item >( {
 			isFullScreen={ false }
 			title={ fieldLabel }
 			__experimentalHideHeader
+			shouldCloseOnClickOutside={ false }
 		>
 			<DataFormModalHeader title={ fieldLabel } onClose={ onClose } />
 			<DataFormLayout data={ data } form={ form } onChange={ onChange }>
@@ -118,7 +122,11 @@ function DataFormModal< Item >( {
 					/>
 				) }
 			</DataFormLayout>
-			<DataFormModalFooter onClose={ onClose } onCancel={ onCancel } />
+			<DataFormModalFooter
+				onClose={ onClose }
+				onCancel={ onCancel }
+				onApply={ onApply }
+			/>
 		</Modal>
 	);
 }
@@ -130,6 +138,7 @@ export default function FormModalField< Item >( {
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 	const [ isOpen, setIsOpen ] = useState( false );
+	const [ localData, setLocalData ] = useState< Item >( data );
 
 	const fieldDefinition = fields.find( ( fieldDef ) => {
 		// Default to the first child if it is a combined field.
@@ -142,7 +151,8 @@ export default function FormModalField< Item >( {
 				typeof children[ 0 ] === 'string'
 					? children[ 0 ]
 					: children[ 0 ].id;
-			return fieldDef.id === firstChildFieldId;
+			// Return first child regardless of field id.
+			return !! firstChildFieldId;
 		}
 		return fieldDef.id === field.id;
 	} );
@@ -184,14 +194,31 @@ export default function FormModalField< Item >( {
 
 	const handleOpenModal = () => {
 		setIsOpen( true );
+		// Reset local data to current data when opening modal
+		setLocalData( data );
 	};
 
 	const handleCloseModal = () => {
 		setIsOpen( false );
+		// Close button should also cancel changes
+		setLocalData( data );
 	};
 
 	const handleCancelModal = () => {
 		setIsOpen( false );
+		// Discard changes by resetting local data
+		setLocalData( data );
+	};
+
+	const handleApplyModal = () => {
+		setIsOpen( false );
+		// Apply changes when Apply button is clicked
+		onChange( localData );
+	};
+
+	const handleLocalChange = ( value: Partial< Item > ) => {
+		// Update local state without calling onChange
+		setLocalData( ( prev ) => ( { ...prev, ...value } ) );
 	};
 
 	const renderedControl = (
@@ -204,19 +231,24 @@ export default function FormModalField< Item >( {
 				disabled={ fieldDefinition.readOnly === true }
 				accessibleWhenDisabled
 			>
-				<fieldDefinition.render
-					item={ data }
-					field={ fieldDefinition }
-				/>
+				{ isCombinedField( field ) && field?.content ? (
+					field.content
+				) : (
+					<fieldDefinition.render
+						item={ data }
+						field={ fieldDefinition }
+					/>
+				) }
 			</Button>
 			<DataFormModal
 				isOpen={ isOpen }
 				onClose={ handleCloseModal }
 				onCancel={ handleCancelModal }
-				data={ data }
+				onApply={ handleApplyModal }
+				data={ localData }
 				form={ form as Form }
 				fieldLabel={ fieldLabel ?? '' }
-				onChange={ onChange }
+				onChange={ handleLocalChange }
 			/>
 		</>
 	);

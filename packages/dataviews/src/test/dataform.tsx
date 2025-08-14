@@ -426,7 +426,7 @@ describe( 'DataForm component', () => {
 			).toBeInTheDocument();
 		} );
 
-		it( 'should call onChange with the correct value for each typed character', async () => {
+		it( 'should call onChange with final value when Apply is clicked', async () => {
 			const onChange = jest.fn();
 			render(
 				<Dataform
@@ -442,14 +442,26 @@ describe( 'DataForm component', () => {
 			await user.click( titleButton );
 			const input = modalFieldsSelector.title.edit();
 			expect( input ).toHaveValue( '' );
+
+			// Type a new value
 			const newValue = 'Hello folks!';
 			await user.type( input, newValue );
-			expect( onChange ).toHaveBeenCalledTimes( newValue.length );
-			for ( let i = 0; i < newValue.length; i++ ) {
-				expect( onChange ).toHaveBeenNthCalledWith( i + 1, {
-					title: newValue[ i ],
-				} );
-			}
+
+			// onChange should not be called during typing (local state only)
+			expect( onChange ).not.toHaveBeenCalled();
+
+			// Click Apply to persist changes
+			const applyButton = screen.getByRole( 'button', {
+				name: /apply/i,
+			} );
+			await user.click( applyButton );
+
+			// onChange should be called once with the final data (all fields)
+			expect( onChange ).toHaveBeenCalledTimes( 1 );
+			expect( onChange ).toHaveBeenCalledWith( {
+				...data,
+				title: newValue,
+			} );
 		} );
 
 		it( 'should wrap fields in HStack when labelPosition is set to side', async () => {
@@ -581,18 +593,21 @@ describe( 'DataForm component', () => {
 			// Modal should be open - check for modal content
 			expect( screen.getByRole( 'dialog' ) ).toBeInTheDocument();
 
-			// Click Done button
-			const doneButton = screen.getByRole( 'button', { name: /done/i } );
-			await user.click( doneButton );
+			// Click Apply button
+			const applyButton = screen.getByRole( 'button', {
+				name: /apply/i,
+			} );
+			await user.click( applyButton );
 
 			// Modal should be closed - check that dialog is not in document
 			expect( screen.queryByRole( 'dialog' ) ).not.toBeInTheDocument();
 		} );
 
-		it( 'should close modal when Close button is clicked', async () => {
+		it( 'should close modal and cancel changes when Close button is clicked', async () => {
+			const onChange = jest.fn();
 			render(
 				<Dataform
-					onChange={ noop }
+					onChange={ onChange }
 					fields={ fieldsWithRender }
 					form={ formModalMode }
 					data={ data }
@@ -606,6 +621,13 @@ describe( 'DataForm component', () => {
 			// Modal should be open - check for modal content
 			expect( screen.getByRole( 'dialog' ) ).toBeInTheDocument();
 
+			// Make a change in the modal
+			const titleInput = screen.getByRole( 'textbox', {
+				name: /title/i,
+			} );
+			await user.clear( titleInput );
+			await user.type( titleInput, 'Modified Title' );
+
 			// Click Close button (use the one in the modal header)
 			const closeButtons = screen.getAllByRole( 'button', {
 				name: 'Close',
@@ -615,6 +637,47 @@ describe( 'DataForm component', () => {
 
 			// Modal should be closed - check that dialog is not in document
 			expect( screen.queryByRole( 'dialog' ) ).not.toBeInTheDocument();
+
+			// onChange should not have been called (changes were discarded)
+			expect( onChange ).not.toHaveBeenCalled();
+		} );
+
+		it( 'should discard changes when Cancel button is clicked', async () => {
+			const onChange = jest.fn();
+			render(
+				<Dataform
+					onChange={ onChange }
+					fields={ fieldsWithRender }
+					form={ formModalMode }
+					data={ data }
+				/>
+			);
+
+			const user = await userEvent.setup();
+			const titleButton = modalFieldsSelector.title.view();
+			await user.click( titleButton );
+
+			// Modal should be open
+			expect( screen.getByRole( 'dialog' ) ).toBeInTheDocument();
+
+			// Make a change in the modal
+			const titleInput = screen.getByRole( 'textbox', {
+				name: /title/i,
+			} );
+			await user.clear( titleInput );
+			await user.type( titleInput, 'Modified Title' );
+
+			// Click Cancel button
+			const cancelButton = screen.getByRole( 'button', {
+				name: /cancel/i,
+			} );
+			await user.click( cancelButton );
+
+			// Modal should be closed
+			expect( screen.queryByRole( 'dialog' ) ).not.toBeInTheDocument();
+
+			// onChange should not have been called (changes were discarded)
+			expect( onChange ).not.toHaveBeenCalled();
 		} );
 	} );
 } );
