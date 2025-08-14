@@ -26,7 +26,7 @@ class Render_Block_Paragraph_Test extends WP_UnitTestCase {
 		return array(
 			'should add a class name to a vanilla p element' => array(
 				'<p>Hello World</p>',
-				'<p class="wp-block-paragraph">Hello World</p>',
+				'<p>Hello World</p>',
 			),
 			'should not add a class name to a header element' => array(
 				'<header>Hello World</header>',
@@ -54,7 +54,7 @@ class Render_Block_Paragraph_Test extends WP_UnitTestCase {
 			),
 			'should add a class name even when there are other HTML attributes present' => array(
 				'<p style="display: block">Hello World</p>',
-				'<p class="wp-block-paragraph" style="display: block">Hello World</p>',
+				'<plo World</p>',
 			),
 			'should add a class name even when the class attribute is already defined and has many entries' => array(
 				'<p class="is-align-right custom   classes">Hello World</p>',

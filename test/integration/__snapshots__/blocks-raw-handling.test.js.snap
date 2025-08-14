@@ -46,11 +46,11 @@ exports[`Blocks raw handling pasteHandler shortcode-matching 1`] = `"[gallery id
 
 exports[`Blocks raw handling pasteHandler should remove extra blank lines 1`] = `
 "<!-- wp:paragraph -->
-<p class="wp-block-paragraph">1</p>
+<p>1</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">2</p>
+<p>2</p>
 <!-- /wp:paragraph -->"
 `;
 
@@ -58,7 +58,7 @@ exports[`Blocks raw handling pasteHandler should strip HTML formatting space fro
 
 exports[`Blocks raw handling pasteHandler should strip some text-level elements 1`] = `
 "<!-- wp:paragraph -->
-<p class="wp-block-paragraph">This is ncorect</p>
+<p>This is ncorect</p>
 <!-- /wp:paragraph -->"
 `;
 
@@ -68,7 +68,7 @@ exports[`Blocks raw handling pasteHandler should strip windows data 1`] = `
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Paragraph Win</p>
+<p>Paragraph Win</p>
 <!-- /wp:paragraph -->"
 `;
 
@@ -87,7 +87,7 @@ exports[`Blocks raw handling should correctly handle quotes with mixed content 1
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">ribs</p>
+<p>ribs</p>
 <!-- /wp:paragraph --></blockquote>
 <!-- /wp:quote -->"
 `;
@@ -102,11 +102,11 @@ exports[`rawHandler should convert HTML post to blocks with minimal content chan
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">This is a paragraph.</p>
+<p>This is a paragraph.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Preserve <span style="color:red">me</span>!</p>
+<p>Preserve <span style="color:red">me</span>!</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3} -->
@@ -144,7 +144,7 @@ exports[`rawHandler should convert HTML post to blocks with minimal content chan
 
 <!-- wp:quote -->
 <blockquote class="wp-block-quote"><!-- wp:paragraph -->
-<p class="wp-block-paragraph">Text.</p>
+<p>Text.</p>
 <!-- /wp:paragraph --></blockquote>
 <!-- /wp:quote -->
 
@@ -154,7 +154,7 @@ exports[`rawHandler should convert HTML post to blocks with minimal content chan
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Text.</p>
+<p>Text.</p>
 <!-- /wp:paragraph --></blockquote>
 <!-- /wp:quote -->"
 `;
@@ -191,30 +191,30 @@ exports[`rawHandler should convert a list with attributes 1`] = `
 
 exports[`rawHandler should not strip any text-level elements 1`] = `
 "<!-- wp:paragraph -->
-<p class="wp-block-paragraph">This is <u>ncorect</u></p>
+<p>This is <u>ncorect</u></p>
 <!-- /wp:paragraph -->"
 `;
 
 exports[`rawHandler should preserve alignment 1`] = `
 "<!-- wp:paragraph {"align":"center"} -->
-<p class="wp-block-paragraph has-text-align-center">center</p>
+<p class="has-text-align-center">center</p>
 <!-- /wp:paragraph -->"
 `;
 
 exports[`rawHandler should preserve all paragraphs 1`] = `
 "<!-- wp:paragraph -->
-<p class="wp-block-paragraph"></p>
+<p></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"p"} -->
-<p class="wp-block-paragraph p"></p>
+<p class="p"></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph"></p>
+<p></p>
 <!-- /wp:paragraph -->"
 `;

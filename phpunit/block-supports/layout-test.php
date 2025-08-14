@@ -484,7 +484,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 			),
 			'block with child layout'                      => array(
 				'args'            => array(
-					'block_content' => '<p class="wp-block-paragraph">Some text.</p>',
+					'block_content' => '<p>Some text.</p>',
 					'block'         => array(
 						'blockName'    => 'core/paragraph',
 						'attrs'        => array(
@@ -495,13 +495,13 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<p class="wp-block-paragraph">Some text.</p>',
+						'innerHTML'    => '<p>Some text.</p>',
 						'innerContent' => array(
-							'<p class="wp-block-paragraph">Some text.</p>',
+							'<p>Some text.</p>',
 						),
 					),
 				),
-				'expected_output' => '<p class="wp-block-paragraph wp-container-content-b7aa651c">Some text.</p>',
+				'expected_output' => '<p class="wp-container-content-b7aa651c">Some text.</p>',
 			),
 			'single wrapper block layout with flex type'   => array(
 				'args'            => array(

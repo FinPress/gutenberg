@@ -37,11 +37,11 @@ describe( 'Migrate quote block', () => {
 		} );
 		expect( serialize( innerBlocks ) ).toEqual(
 			`<!-- wp:paragraph -->
-<p class="wp-block-paragraph">First paragraph</p>
+<p>First paragraph</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Second paragraph</p>
+<p>Second paragraph</p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -56,7 +56,7 @@ describe( 'Migrate quote block', () => {
 		} );
 		expect( serialize( innerBlocks ) ).toEqual(
 			`<!-- wp:paragraph -->
-<p class="wp-block-paragraph"></p>
+<p></p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -71,15 +71,15 @@ describe( 'Migrate quote block', () => {
 		} );
 		expect( serialize( innerBlocks ) ).toEqual(
 			`<!-- wp:paragraph -->
-<p class="wp-block-paragraph"><strong>Bold</strong></p>
+<p><strong>Bold</strong></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph"> and </p>
+<p> and </p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph"><em>italic</em></p>
+<p><em>italic</em></p>
 <!-- /wp:paragraph -->`
 		);
 	} );

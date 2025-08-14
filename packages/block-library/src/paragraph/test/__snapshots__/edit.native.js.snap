@@ -17,7 +17,7 @@ exports[`Paragraph block should be able to use a prefix to create a List block 1
 exports[`Paragraph block should be able to use a prefix to create a Quote block 1`] = `
 "<!-- wp:quote -->
 <blockquote class="wp-block-quote"><!-- wp:paragraph -->
-<p class="wp-block-paragraph"></p>
+<p></p>
 <!-- /wp:paragraph --></blockquote>
 <!-- /wp:quote -->"
 `;
@@ -32,7 +32,7 @@ exports[`Paragraph block should be able to use a prefix to create a numbered Lis
 
 exports[`Paragraph block should prevent deleting the first Paragraph block when pressing backspace at the start 1`] = `
 "<!-- wp:paragraph -->
-<p class="wp-block-paragraph">A quick brown fox jumps over the lazy dog.</p>
+<p>A quick brown fox jumps over the lazy dog.</p>
 <!-- /wp:paragraph -->"
 `;
 
@@ -77,12 +77,12 @@ exports[`Paragraph block should render without crashing and match snapshot 1`] =
 
 exports[`Paragraph block should set a font size value 1`] = `
 "<!-- wp:paragraph {"style":{"typography":{"fontSize":"30px"}}} -->
-<p class="wp-block-paragraph" style="font-size:30px">A quick brown fox jumps over the lazy dog.</p>
+<p style="font-size:30px">A quick brown fox jumps over the lazy dog.</p>
 <!-- /wp:paragraph -->"
 `;
 
 exports[`Paragraph block should set a line height value 1`] = `
 "<!-- wp:paragraph {"style":{"typography":{"lineHeight":1.8}}} -->
-<p class="wp-block-paragraph" style="line-height:1.8">A quick brown fox jumps over the lazy dog.</p>
+<p style="line-height:1.8">A quick brown fox jumps over the lazy dog.</p>
 <!-- /wp:paragraph -->"
 `;

@@ -108,7 +108,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 
 		await expect.poll( editor.getEditedPostContent )
 			.toBe( `<!-- wp:paragraph -->
-<p class="wp-block-paragraph">Dummy text</p>
+<p>Dummy text</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->

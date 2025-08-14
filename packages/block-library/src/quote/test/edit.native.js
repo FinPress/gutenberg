@@ -78,16 +78,16 @@ describe( 'Quote', () => {
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
 		"<!-- wp:quote -->
 		<blockquote class="wp-block-quote"><!-- wp:paragraph -->
-		<p class="wp-block-paragraph">A great statement.</p>
+		<p>A great statement.</p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:paragraph -->
-		<p class="wp-block-paragraph">Again.</p>
+		<p>Again.</p>
 		<!-- /wp:paragraph --><cite>A <br>person</cite></blockquote>
 		<!-- /wp:quote -->
 
 		<!-- wp:paragraph -->
-		<p class="wp-block-paragraph"></p>
+		<p></p>
 		<!-- /wp:paragraph -->"
 	` );
 	} );

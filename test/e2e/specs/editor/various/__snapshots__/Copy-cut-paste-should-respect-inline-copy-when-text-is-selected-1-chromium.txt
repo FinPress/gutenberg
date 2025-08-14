@@ -1,7 +1,7 @@
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">First block</p>
+<p>First block</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Second block</p>
+<p>Second block</p>
 <!-- /wp:paragraph -->

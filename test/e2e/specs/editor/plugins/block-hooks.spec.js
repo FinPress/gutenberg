@@ -6,8 +6,8 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 const dummyBlocksContent = `<!-- wp:heading -->
 <h2 class="wp-block-heading">This is a dummy heading</h2>
 <!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p class="wp-block-paragraph">This is a dummy paragraph.</p>
+<!-- wp:paragraph {"className":"dummy-paragraph"} -->
+<p class="dummy-paragraph">This is a dummy paragraph.</p>
 <!-- /wp:paragraph -->`;
 const dummyClassicContent =
 	'<h2 class="dummy-heading">This is a dummy heading</h2><p class="dummy-paragraph">This is a dummy paragraph.</p>';
@@ -84,15 +84,9 @@ test.describe( 'Block Hooks API', () => {
 					page.locator( '.entry-content > *' )
 				).toHaveClass( [
 					'wp-block-heading',
-					`${ getHookedBlockClassName(
-						'after',
-						'core/heading'
-					) } wp-block-paragraph`,
-					'wp-block-paragraph',
-					`${ getHookedBlockClassName(
-						'last_child',
-						blockType
-					) } wp-block-paragraph`,
+					getHookedBlockClassName( 'after', 'core/heading' ),
+					'dummy-paragraph',
+					getHookedBlockClassName( 'last_child', blockType ),
 				] );
 			} );
 
@@ -164,15 +158,9 @@ test.describe( 'Block Hooks API', () => {
 					page.locator( '.entry-content > *' )
 				).toHaveClass( [
 					'wp-block-heading',
-					`wp-block-paragraph ${ getHookedBlockClassName(
-						'after',
-						'core/heading'
-					) }`,
-					`wp-block-paragraph ${ getHookedBlockClassName(
-						'last_child',
-						blockType
-					) }`,
-					'wp-block-paragraph',
+					getHookedBlockClassName( 'after', 'core/heading' ),
+					getHookedBlockClassName( 'last_child', blockType ),
+					'dummy-paragraph',
 				] );
 			} );
 		} );
@@ -226,10 +214,7 @@ test.describe( 'Block Hooks API', () => {
 				).toHaveClass( [
 					'dummy-heading',
 					'dummy-paragraph',
-					`${ getHookedBlockClassName(
-						'last_child',
-						blockType
-					) } wp-block-paragraph`,
+					getHookedBlockClassName( 'last_child', blockType ),
 				] );
 			} );
 
@@ -286,10 +271,7 @@ test.describe( 'Block Hooks API', () => {
 				await expect(
 					page.locator( '.entry-content > *' )
 				).toHaveClass( [
-					`wp-block-paragraph ${ getHookedBlockClassName(
-						'last_child',
-						blockType
-					) }`,
+					getHookedBlockClassName( 'last_child', blockType ),
 					'dummy-heading',
 					'dummy-paragraph',
 				] );

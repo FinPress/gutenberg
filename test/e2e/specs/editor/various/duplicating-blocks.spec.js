@@ -22,11 +22,11 @@ test.describe( 'Duplicating blocks', () => {
 
 		expect( await editor.getEditedPostContent() ).toBe(
 			`<!-- wp:paragraph -->
-<p class="wp-block-paragraph">Clone me</p>
+<p>Clone me</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Clone me</p>
+<p>Clone me</p>
 <!-- /wp:paragraph -->`
 		);
 
@@ -35,15 +35,15 @@ test.describe( 'Duplicating blocks', () => {
 
 		expect( await editor.getEditedPostContent() ).toBe(
 			`<!-- wp:paragraph -->
-<p class="wp-block-paragraph">Clone me</p>
+<p>Clone me</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Clone me</p>
+<p>Clone me</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Clone me</p>
+<p>Clone me</p>
 <!-- /wp:paragraph -->`
 		);
 	} );

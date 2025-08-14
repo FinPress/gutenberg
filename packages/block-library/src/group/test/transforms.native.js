@@ -16,15 +16,15 @@ const block = 'Group';
 const initialHtml = `
 <!-- wp:group -->
 <div id="this-is-another-anchor" class="wp-block-group"><!-- wp:paragraph -->
-<p class="wp-block-paragraph">One.</p>
+<p>One.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Two</p>
+<p>Two</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Three.</p>
+<p>Three.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->`;
 

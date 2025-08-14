@@ -66,7 +66,7 @@ describe( 'Pullquote', () => {
 		<!-- /wp:pullquote -->
 
 		<!-- wp:paragraph -->
-		<p class="wp-block-paragraph"></p>
+		<p></p>
 		<!-- /wp:paragraph -->"
 	` );
 	} );

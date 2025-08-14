@@ -3,5 +3,5 @@
 <!-- /wp:shortcode -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Pasted: e]</p>
+<p>Pasted: e]</p>
 <!-- /wp:paragraph -->

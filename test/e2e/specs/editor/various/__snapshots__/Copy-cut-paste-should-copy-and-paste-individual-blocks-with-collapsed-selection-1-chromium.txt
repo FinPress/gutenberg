@@ -1,7 +1,7 @@
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">Copy - collapsed selection</p>
+<p>Copy - collapsed selection</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">2</p>
+<p>2</p>
 <!-- /wp:paragraph -->

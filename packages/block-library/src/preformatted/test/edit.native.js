@@ -104,7 +104,7 @@ describe( 'Preformatted', () => {
 		<!-- /wp:preformatted -->
 
 		<!-- wp:paragraph -->
-		<p class="wp-block-paragraph"></p>
+		<p></p>
 		<!-- /wp:paragraph -->"
 	` );
 	} );

@@ -44,7 +44,7 @@ test.describe( 'RTL', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p class="wp-block-paragraph">٠١٢</p>
+<p>٠١٢</p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -61,11 +61,11 @@ test.describe( 'RTL', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p class="wp-block-paragraph">٠</p>
+<p>٠</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">١</p>
+<p>١</p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -83,7 +83,7 @@ test.describe( 'RTL', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p class="wp-block-paragraph">٠١</p>
+<p>٠١</p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -102,7 +102,7 @@ test.describe( 'RTL', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p class="wp-block-paragraph">٠١</p>
+<p>٠١</p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -136,11 +136,11 @@ test.describe( 'RTL', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p class="wp-block-paragraph">٠<br>١</p>
+<p>٠<br>١</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p class="wp-block-paragraph">٠<br>١<br>٢</p>
+<p>٠<br>١<br>٢</p>
 <!-- /wp:paragraph -->`
 		);
 	} );

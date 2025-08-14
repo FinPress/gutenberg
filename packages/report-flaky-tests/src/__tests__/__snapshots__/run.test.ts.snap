@@ -93,23 +93,23 @@ should copy only partial selection of text blocks
 Error: Snapshot comparison failed:
 
   <!-- wp:paragraph -->
-  <p class="wp-block-paragraph">block</p>
+  <p>block</p>
   <!-- /wp:paragraph -->
 
   <!-- wp:paragraph -->
-  <p class="wp-block-paragraph">B </p>
+  <p>B </p>
   <!-- /wp:paragraph -->
 
   <!-- wp:paragraph -->
-  <p class="wp-block-paragraph">A block</p>
+  <p>A block</p>
   <!-- /wp:paragraph -->
 
   <!-- wp:paragraph -->
-  <p class="wp-block-paragraph"></p>
+  <p></p>
   <!-- /wp:paragraph -->
 
   <!-- wp:paragraph -->
-  <p class="wp-block-paragraph">B block</p>
+  <p>B block</p>
   <!-- /wp:paragraph -->
 
 Expected: /home/runner/work/gutenberg/gutenberg/artifacts/test-results/editor-various-copy-cut-paste-Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-chromium/Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-2-expected.txt
@@ -276,23 +276,23 @@ should copy only partial selection of text blocks
 Error: Snapshot comparison failed:
 
   <!-- wp:paragraph -->
-  <p class="wp-block-paragraph">block</p>
+  <p>block</p>
   <!-- /wp:paragraph -->
 
   <!-- wp:paragraph -->
-  <p class="wp-block-paragraph">B </p>
+  <p>B </p>
   <!-- /wp:paragraph -->
 
   <!-- wp:paragraph -->
-  <p class="wp-block-paragraph">A block</p>
+  <p>A block</p>
   <!-- /wp:paragraph -->
 
   <!-- wp:paragraph -->
-  <p class="wp-block-paragraph"></p>
+  <p></p>
   <!-- /wp:paragraph -->
 
   <!-- wp:paragraph -->
-  <p class="wp-block-paragraph">B block</p>
+  <p>B block</p>
   <!-- /wp:paragraph -->
 
 Expected: /home/runner/work/gutenberg/gutenberg/artifacts/test-results/editor-various-copy-cut-paste-Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-chromium/Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-2-expected.txt
