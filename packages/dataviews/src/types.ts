@@ -694,7 +694,14 @@ export type NormalizedPanelLayout = {
 	type: 'panel';
 	labelPosition: LabelPosition;
 };
-
+export type ModalLayout = {
+	type: 'modal';
+	labelPosition?: LabelPosition;
+};
+export type NormalizedModalLayout = {
+	type: 'modal';
+	labelPosition: LabelPosition;
+};
 export type CardLayout =
 	| {
 			type: 'card';
@@ -722,11 +729,12 @@ export type NormalizedCardLayout =
 			isOpened: boolean;
 	  };
 
-export type Layout = RegularLayout | PanelLayout | CardLayout;
+export type Layout = RegularLayout | PanelLayout | CardLayout | ModalLayout;
 export type NormalizedLayout =
 	| NormalizedRegularLayout
 	| NormalizedPanelLayout
-	| NormalizedCardLayout;
+	| NormalizedCardLayout
+	| NormalizedModalLayout;
 
 export type SimpleFormField = {
 	id: string;

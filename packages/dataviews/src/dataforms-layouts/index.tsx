@@ -4,6 +4,7 @@
 import FormRegularField from './regular';
 import FormPanelField from './panel';
 import FormCardField from './card';
+import FormModalField from './modal';
 
 const FORM_FIELD_LAYOUTS = [
 	{
@@ -17,6 +18,10 @@ const FORM_FIELD_LAYOUTS = [
 	{
 		type: 'card',
 		component: FormCardField,
+	},
+	{
+		type: 'modal',
+		component: FormModalField,
 	},
 ];
 

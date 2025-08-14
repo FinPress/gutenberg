@@ -40,7 +40,7 @@ const meta = {
 			control: { type: 'select' },
 			description:
 				'Chooses the default layout of each field. "regular" is the default layout.',
-			options: [ 'default', 'regular', 'panel', 'card' ],
+			options: [ 'default', 'regular', 'panel', 'card', 'modal' ],
 		},
 		labelPosition: {
 			control: { type: 'select' },
