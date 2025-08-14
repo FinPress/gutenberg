@@ -4,9 +4,7 @@
 	"compilerOptions": {
 		"types": [
 			"gutenberg-env",
-			"gutenberg-test-env",
-			"jest",
-			"@testing-library/jest-dom"
+			"gutenberg-test-env"
 		]
 	},
 	"references": [

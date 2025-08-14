@@ -3,6 +3,6 @@
 	"extends": "../../tsconfig.base.json",
 	"files": [ "src/declarations.d.ts" ],
 	"compilerOptions": {
-		"types": [ "jest", "@testing-library/jest-dom" ]
+		"types": [ "gutenberg-test-env" ]
 	}
 }
