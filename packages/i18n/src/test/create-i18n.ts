@@ -415,6 +415,214 @@ describe( 'createI18n', () => {
 			);
 		} );
 	} );
+
+	describe( 'numberFormatI18n', () => {
+		test( 'formats numbers with default English locale', () => {
+			const locale = createI18n();
+			expect( locale.numberFormatI18n( 1000 ) ).toBe( '1,000' );
+			expect( locale.numberFormatI18n( 1234567 ) ).toBe( '1,234,567' );
+			expect( locale.numberFormatI18n( 42 ) ).toBe( '42' );
+			expect( locale.numberFormatI18n( 0 ) ).toBe( '0' );
+		} );
+
+		test( 'formats numbers with specified decimal places', () => {
+			const locale = createI18n();
+			expect( locale.numberFormatI18n( 1234.5678, 2 ) ).toBe(
+				'1,234.57'
+			);
+			expect( locale.numberFormatI18n( 42.1, 2 ) ).toBe( '42.10' );
+			expect( locale.numberFormatI18n( 1000, 3 ) ).toBe( '1,000.000' );
+			expect( locale.numberFormatI18n( 1234.9876, 0 ) ).toBe( '1,235' );
+		} );
+
+		test( 'handles negative numbers', () => {
+			const locale = createI18n();
+			expect( locale.numberFormatI18n( -1000 ) ).toBe( '-1,000' );
+			expect( locale.numberFormatI18n( -42.5, 1 ) ).toBe( '-42.5' );
+			expect( locale.numberFormatI18n( -1234.567, 2 ) ).toBe(
+				'-1,234.57'
+			);
+		} );
+
+		test( 'handles special number values', () => {
+			const locale = createI18n();
+			expect( locale.numberFormatI18n( Infinity ) ).toBe( '∞' );
+			expect( locale.numberFormatI18n( -Infinity ) ).toBe( '-∞' );
+			expect( locale.numberFormatI18n( NaN ) ).toBe( 'NaN' );
+		} );
+
+		test( 'clamps decimal places to valid range', () => {
+			const locale = createI18n();
+			// Negative decimals should be clamped to 0
+			expect( locale.numberFormatI18n( 1234.5678, -1 ) ).toBe( '1,235' );
+			// Very large decimals should be clamped to 20
+			expect( locale.numberFormatI18n( 1234.5, 25 ) ).toBe(
+				'1,234.50000000000000000000'
+			);
+		} );
+
+		test( 'uses locale from locale data when available', () => {
+			const localeWithFrench: LocaleData = {
+				'': {
+					lang: 'fr_FR',
+					plural_forms: 'nplurals=2; plural=(n != 1);',
+				},
+			};
+			const locale = createI18n( localeWithFrench );
+			const result = locale.numberFormatI18n( 1234.56, 2 );
+			// French uses space as thousands separator and comma as decimal
+			expect( result ).toBe( '1\u202f234,56' );
+		} );
+
+		test( 'uses locale from locale data with German formatting', () => {
+			const localeWithGerman: LocaleData = {
+				'': {
+					lang: 'de_DE',
+					plural_forms: 'nplurals=2; plural=(n != 1);',
+				},
+			};
+			const locale = createI18n( localeWithGerman );
+			const result = locale.numberFormatI18n( 1234.56, 2 );
+			// German uses period as thousands separator and comma as decimal
+			expect( result ).toBe( '1.234,56' );
+		} );
+
+		test( 'falls back to en-US for invalid locale', () => {
+			const localeWithInvalid: LocaleData = {
+				'': {
+					lang: 'invalid_locale',
+					plural_forms: 'nplurals=2; plural=(n != 1);',
+				},
+			};
+			const locale = createI18n( localeWithInvalid );
+			const result = locale.numberFormatI18n( 1234.56, 2 );
+			expect( result ).toBe( '1,234.56' );
+		} );
+
+		test( 'handles locale data without lang property', () => {
+			const localeWithoutLang: LocaleData = {
+				'': {
+					plural_forms: 'nplurals=2; plural=(n != 1);',
+				},
+			};
+			const locale = createI18n( localeWithoutLang );
+			const result = locale.numberFormatI18n( 1234.56, 2 );
+			// Should default to en_US formatting
+			expect( result ).toBe( '1,234.56' );
+		} );
+
+		test( 'handles very large numbers', () => {
+			const locale = createI18n();
+			expect( locale.numberFormatI18n( 1000000000 ) ).toBe(
+				'1,000,000,000'
+			);
+			expect( locale.numberFormatI18n( 123456789012345, 2 ) ).toBe(
+				'123,456,789,012,345.00'
+			);
+		} );
+
+		test( 'handles very small numbers', () => {
+			const locale = createI18n();
+			expect( locale.numberFormatI18n( 0.001, 3 ) ).toBe( '0.001' );
+			expect( locale.numberFormatI18n( 0.00000001, 8 ) ).toBe(
+				'0.00000001'
+			);
+		} );
+
+		test( 'works with different domain configurations', () => {
+			const testDomainData: LocaleData< 'test_domain' > = {
+				'': {
+					domain: 'test_domain',
+					lang: 'es_ES',
+					plural_forms: 'nplurals=2; plural=(n != 1);',
+				},
+			};
+			const locale = createI18n( testDomainData, 'test_domain' );
+			const result = locale.numberFormatI18n( 1234.56, 2, 'test_domain' );
+			expect( result ).toBe( '1234,56' );
+		} );
+
+		test( 'uses correct domain when specified', () => {
+			const locale = createI18n();
+			// Set German locale for custom domain
+			locale.setLocaleData(
+				{
+					'': {
+						lang: 'de_DE',
+						plural_forms: 'nplurals=2; plural=(n != 1);',
+					},
+				},
+				'german_domain'
+			);
+
+			// Set French locale for another domain
+			locale.setLocaleData(
+				{
+					'': {
+						lang: 'fr_FR',
+						plural_forms: 'nplurals=2; plural=(n != 1);',
+					},
+				},
+				'french_domain'
+			);
+
+			const germanResult = locale.numberFormatI18n(
+				1234.56,
+				2,
+				'german_domain'
+			);
+			const frenchResult = locale.numberFormatI18n(
+				1234.56,
+				2,
+				'french_domain'
+			);
+			const defaultResult = locale.numberFormatI18n( 1234.56, 2 );
+
+			expect( germanResult ).toBe( '1.234,56' );
+			expect( frenchResult ).toBe( '1\u202f234,56' );
+			expect( defaultResult ).toBe( '1,234.56' ); // Default en_US
+		} );
+
+		test( 'falls back to default domain when domain not found', () => {
+			const localeWithDefault: LocaleData = {
+				'': {
+					lang: 'fr_FR',
+					plural_forms: 'nplurals=2; plural=(n != 1);',
+				},
+			};
+			const locale = createI18n( localeWithDefault );
+			// Request a domain that doesn't exist
+			const result = locale.numberFormatI18n(
+				1234.56,
+				2,
+				'nonexistent_domain' as any
+			);
+			// Should fall back to en_US since the domain doesn't exist
+			expect( result ).toBe( '1,234.56' );
+		} );
+
+		test( 'domain parameter is optional and defaults to default domain', () => {
+			const localeWithFrench: LocaleData = {
+				'': {
+					lang: 'fr_FR',
+					plural_forms: 'nplurals=2; plural=(n != 1);',
+				},
+			};
+			const locale = createI18n( localeWithFrench );
+
+			// Both calls should produce the same result
+			const resultWithoutDomain = locale.numberFormatI18n( 1234.56, 2 );
+			const resultWithDefaultDomain = locale.numberFormatI18n(
+				1234.56,
+				2,
+				'default'
+			);
+
+			expect( resultWithoutDomain ).toBe( '1\u202f234,56' );
+			expect( resultWithDefaultDomain ).toBe( '1\u202f234,56' );
+			expect( resultWithoutDomain ).toBe( resultWithDefaultDomain );
+		} );
+	} );
 } );
 
 describe( 'i18n filters', () => {
