@@ -28,7 +28,7 @@ import { useArchiveLabel } from './use-archive-label';
 import { usePostTypeLabel } from './use-post-type-label';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
-const SUPPORTED_TYPES = [ 'archive', 'search', 'post-type-label' ];
+const SUPPORTED_TYPES = [ 'archive', 'search', 'post-type' ];
 
 export default function QueryTitleEdit( {
 	attributes: {
@@ -177,7 +177,7 @@ export default function QueryTitleEdit( {
 		);
 	}
 
-	if ( type === 'post-type-label' ) {
+	if ( type === 'post-type' ) {
 		let title;
 		if ( postTypeLabel ) {
 			if ( showPrefix ) {
@@ -215,7 +215,7 @@ export default function QueryTitleEdit( {
 						>
 							<ToggleControl
 								__nextHasNoMarginBottom
-								label={ __( 'Show post type label prefix' ) }
+								label={ __( 'Show post type label' ) }
 								onChange={ () =>
 									setAttributes( {
 										showPrefix: ! showPrefix,

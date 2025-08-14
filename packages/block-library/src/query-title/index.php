@@ -18,7 +18,7 @@
  *
  * @return string Returns the query title based on the queried object.
  */
-function render_block_core_query_title( $attributes, $_content, $block ) {
+function render_block_core_query_title( $attributes, $content, $block ) {
 	$type       = isset( $attributes['type'] ) ? $attributes['type'] : null;
 	$is_archive = is_archive();
 	$is_search  = is_search();
@@ -27,7 +27,7 @@ function render_block_core_query_title( $attributes, $_content, $block ) {
 	if ( ! $type ||
 		( 'archive' === $type && ! $is_archive ) ||
 		( 'search' === $type && ! $is_search ) ||
-		( 'post-type-label' === $type && ! $post_type )
+		( 'post-type' === $type && ! $post_type )
 	) {
 		return '';
 	}
@@ -53,7 +53,7 @@ function render_block_core_query_title( $attributes, $_content, $block ) {
 			);
 		}
 	}
-	if ( 'post-type-label' === $type ) {
+	if ( 'post-type' === $type ) {
 		$post_type_object = get_post_type_object( $post_type );
 
 		if ( ! $post_type_object ) {

@@ -39,7 +39,7 @@ const variations = [
 		),
 		icon: title,
 		attributes: {
-			type: 'post-type-label',
+			type: 'post-type',
 		},
 		scope: [ 'inserter' ],
 	},
