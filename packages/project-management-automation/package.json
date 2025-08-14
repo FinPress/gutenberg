@@ -23,7 +23,7 @@
 		"node": ">=18.12.0",
 		"npm": ">=8.19.2"
 	},
-	"main": "lib/index.ts",
+	"main": "build/index.js",
 	"types": "build-types",
 	"dependencies": {
 		"@actions/core": "1.9.1",
