@@ -169,10 +169,6 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		getValidityTarget,
 	] );
 
-	const validate = () => {
-		onValidate?.();
-	};
-
 	const onBlur = ( event: React.FocusEvent< HTMLDivElement > ) => {
 		// Only consider "blurred from the component" if focus has fully left the wrapping div.
 		// This prevents unnecessary blurs from components with multiple focusable elements.
@@ -192,7 +188,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 				return;
 			}
 
-			validate();
+			onValidate?.();
 		}
 	};
 
@@ -202,7 +198,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		// Only validate incrementally if the field has blurred at least once,
 		// or currently has an error message.
 		if ( isTouched || errorMessage ) {
-			validate();
+			onValidate?.();
 		}
 	};
 
@@ -210,7 +206,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		// Ensures that custom validators are triggered when the user submits by pressing Enter,
 		// without ever blurring the control.
 		if ( event.key === 'Enter' ) {
-			validate();
+			onValidate?.();
 		}
 	};
 
