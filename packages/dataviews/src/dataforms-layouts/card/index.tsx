@@ -147,7 +147,7 @@ export default function FormCardField< Item >( {
 					) : (
 						<RegularLayout
 							data={ data }
-							field={ fieldDefinition }
+							field={ field }
 							onChange={ onChange }
 							hideLabelFromVision={
 								hideLabelFromVision || withHeader
