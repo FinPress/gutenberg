@@ -176,20 +176,26 @@ export default function FormPanelField< Item >( {
 	onChange,
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
-	const fieldDefinition = fields.find( ( fieldDef ) => {
-		// Default to the first child if it is a combined field.
+	const fieldDefinition = fields.find( ( _field ) => {
+		// Default to the first simple child if it is a combined field.
 		if ( isCombinedField( field ) ) {
-			const children = field.children.filter(
+			const simpleChildren = field.children.filter(
 				( child ): child is string | SimpleFormField =>
 					typeof child === 'string' || ! isCombinedField( child )
 			);
+
+			if ( simpleChildren.length === 0 ) {
+				return false;
+			}
+
 			const firstChildFieldId =
-				typeof children[ 0 ] === 'string'
-					? children[ 0 ]
-					: children[ 0 ].id;
-			return fieldDef.id === firstChildFieldId;
+				typeof simpleChildren[ 0 ] === 'string'
+					? simpleChildren[ 0 ]
+					: simpleChildren[ 0 ].id;
+			return _field.id === firstChildFieldId;
 		}
-		return fieldDef.id === field.id;
+
+		return _field.id === field.id;
 	} );
 
 	// Use internal state instead of a ref to make sure that the component
