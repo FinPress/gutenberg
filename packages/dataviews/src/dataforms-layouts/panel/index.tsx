@@ -84,26 +84,17 @@ function PanelDropdown< Item >( {
 	const fieldLabel = isCombinedField( field )
 		? field.label
 		: fieldDefinition?.label;
-	const form = useMemo( () => {
-		if ( isCombinedField( field ) ) {
-			return {
-				layout: DEFAULT_LAYOUT,
-				fields: field.children.map( ( child ) => {
-					if ( typeof child === 'string' ) {
-						return {
-							id: child,
-						};
-					}
-					return child;
-				} ),
-			};
-		}
-		// If not explicit children return the field id itself.
-		return {
+
+	const form: Form = useMemo(
+		(): Form => ( {
 			layout: DEFAULT_LAYOUT,
-			fields: [ { id: field.id } ],
-		};
-	}, [ field ] );
+			fields: isCombinedField( field )
+				? field.children
+				: // If not explicit children return the field id itself.
+				  [ { id: field.id } ],
+		} ),
+		[ field ]
+	);
 
 	// Memoize popoverProps to avoid returning a new object every time.
 	const popoverProps = useMemo(
@@ -158,7 +149,7 @@ function PanelDropdown< Item >( {
 					<DropdownHeader title={ fieldLabel } onClose={ onClose } />
 					<DataFormLayout
 						data={ data }
-						form={ form as Form }
+						form={ form }
 						onChange={ onChange }
 					>
 						{ ( FieldLayout, nestedField ) => (

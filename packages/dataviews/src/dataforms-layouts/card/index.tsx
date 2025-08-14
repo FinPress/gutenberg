@@ -22,7 +22,7 @@ import type {
 } from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
-import { DEFAULT_LAYOUT } from '../../normalize-form-fields';
+import { DEFAULT_LAYOUT, normalizeLayout } from '../../normalize-form-fields';
 
 const getFormLayout = ( form: Form, field: FormField ) => {
 	const layout = field.layout ?? form.layout;
@@ -84,24 +84,6 @@ export function useCollapsibleCard( initialIsOpen: boolean = true ) {
 	return { isOpen, CollapsibleCardHeader };
 }
 
-const normalizeCardLayout = ( layout: CardLayout ): CardLayout => {
-	if ( layout.withHeader === false ) {
-		// Don't let isOpened be false if withHeader is false.
-		// Otherwise, the card will not be visible.
-		return {
-			type: layout.type,
-			withHeader: false,
-			isOpened: true,
-		};
-	}
-
-	return {
-		type: layout.type,
-		withHeader: true,
-		isOpened: typeof layout.isOpened === 'boolean' ? layout.isOpened : true,
-	};
-};
-
 export default function FormCardField< Item >( {
 	data,
 	field,
@@ -110,31 +92,15 @@ export default function FormCardField< Item >( {
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 
-	const layout: CardLayout = normalizeCardLayout(
-		field.layout as CardLayout
-	);
+	const layout: CardLayout = normalizeLayout( field.layout ) as CardLayout;
 
-	const form = useMemo( () => {
-		if ( isCombinedField( field ) ) {
-			return {
-				fields: field.children.map( ( child ) => {
-					if ( typeof child === 'string' ) {
-						return {
-							id: child,
-							layout: DEFAULT_LAYOUT,
-						};
-					}
-					return child;
-				} ),
-				label: field.label,
-			};
-		}
-
-		return {
+	const form: Form = useMemo(
+		(): Form => ( {
 			layout: DEFAULT_LAYOUT,
-			fields: [],
-		};
-	}, [ field ] ) as Form;
+			fields: isCombinedField( field ) ? field.children : [],
+		} ),
+		[ field ]
+	);
 
 	const { isOpen, CollapsibleCardHeader } = useCollapsibleCard(
 		layout.isOpened ?? true
@@ -160,7 +126,7 @@ export default function FormCardField< Item >( {
 					<CardBody className="dataforms-layouts-card__field-control">
 						<DataFormLayout
 							data={ data }
-							form={ form as Form }
+							form={ form }
 							onChange={ onChange }
 						>
 							{ ( FieldLayout, nestedField ) => (

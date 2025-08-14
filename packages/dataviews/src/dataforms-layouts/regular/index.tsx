@@ -44,27 +44,13 @@ export default function FormRegularField< Item >( {
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 
-	const form = useMemo( () => {
-		if ( isCombinedField( field ) ) {
-			return {
-				fields: field.children.map( ( child ) => {
-					if ( typeof child === 'string' ) {
-						return {
-							id: child,
-							layout: DEFAULT_LAYOUT,
-						};
-					}
-					return child;
-				} ),
-				layout: DEFAULT_LAYOUT,
-			};
-		}
-
-		return {
+	const form: Form = useMemo(
+		(): Form => ( {
 			layout: DEFAULT_LAYOUT,
-			fields: [],
-		};
-	}, [ field ] );
+			fields: isCombinedField( field ) ? field.children : [],
+		} ),
+		[ field ]
+	);
 
 	if ( isCombinedField( field ) ) {
 		return (
@@ -74,7 +60,7 @@ export default function FormRegularField< Item >( {
 				) }
 				<DataFormLayout
 					data={ data }
-					form={ form as Form }
+					form={ form }
 					onChange={ onChange }
 				/>
 			</>
