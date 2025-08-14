@@ -10,24 +10,24 @@ module.exports = {
 				'flex-direction': '/^(?!(row|column)-reverse).*$/',
 			},
 			{
-				message: ( property, value ) =>
-					`Avoid "${ value }" value for the "${ property }" property. For accessibility reasons, visual, reading, and DOM order must match. Only use the reverse values when they do not affect reading order, meaning, and interaction.`,
+				message: (property, value) =>
+					`Avoid "${value}" value for the "${property}" property. For accessibility reasons, visual, reading, and DOM order must match. Only use the reverse values when they do not affect reading order, meaning, and interaction.`,
 			},
 		],
 		'declaration-property-value-disallowed-list': [
 			{
-				'/.*/': [ '/--wp-components-color-/' ],
+				'/.*/': ['/--wp-components-color-/'],
 			},
 			{
-				message: ( property, value ) =>
-					`Avoid using "${ value }" in "${ property }". --wp-components-color-* variables are not ready to be used outside of the components package.`,
+				message: (property, value) =>
+					`Avoid using "${value}" in "${property}". --wp-components-color-* variables are not ready to be used outside of the components package.`,
 			},
 		],
 		'font-weight-notation': null,
 		'@stylistic/max-line-length': null,
 		'no-descending-specificity': null,
 		'property-disallowed-list': [
-			[ 'order' ],
+			['order'],
 			{
 				message:
 					'Avoid the order property. For accessibility reasons, visual, reading, and DOM order must match. Only use the order property when it does not affect reading order, meaning, and interaction.',

@@ -23,6 +23,10 @@ export type SortDirection = 'asc' | 'desc';
 /**
  * Generic option type.
  */
+
+/**
+ * Generic option type.
+ */
 export interface Option< Value extends any = any > {
 	value: Value;
 	label: string;
@@ -113,6 +117,11 @@ export type FieldTypeDefinition< Item > = {
 	 * Callback used to sort the field.
 	 */
 	sort: ( a: Item, b: Item, direction: SortDirection ) => number;
+	/**
+	 * Callback used to set the value of the field in the item.
+	 * Defaults to `{ ...item, [field.id]: value }`.
+	 */
+	setValue?: ( args: { item: Item; value: any } ) => Item;
 
 	/**
 	 * Callback used to validate the field.
@@ -247,12 +256,23 @@ export type Field< Item > = {
 	 * Defaults to `item[ field.id ]`.
 	 */
 	getValue?: ( args: { item: Item } ) => any;
+
+	/**
+	 * Callback used to set the value of the field in the item.
+	 * Defaults to `{ ...item, [field.id]: value }`.
+	 */
+	setValue?: ( args: { item: Item; value: any } ) => Item;
 };
 
 export type NormalizedField< Item > = Omit< Field< Item >, 'Edit' > & {
 	label: string;
 	header: string | ReactElement;
 	getValue: ( args: { item: Item } ) => any;
+	/**
+	 * Callback used to set the value of the field in the item.
+	 * Defaults to `{ ...item, [field.id]: value }`.
+	 */
+	setValue: ( args: { item: Item; value: any } ) => Item;
 	render: ComponentType< DataViewRenderFieldProps< Item > >;
 	Edit: ComponentType< DataFormControlProps< Item > > | null;
 	sort: ( a: Item, b: Item, direction: SortDirection ) => number;

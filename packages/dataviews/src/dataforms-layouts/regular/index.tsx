@@ -22,12 +22,12 @@ import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
 
-function Header( { title }: { title: string } ) {
+function Header({ title }: { title: string }) {
 	return (
-		<VStack className="dataforms-layouts-regular__header" spacing={ 4 }>
+		<VStack className="dataforms-layouts-regular__header" spacing={4}>
 			<HStack alignment="center">
-				<Heading level={ 2 } size={ 13 }>
-					{ title }
+				<Heading level={2} size={13}>
+					{title}
 				</Heading>
 				<Spacer />
 			</HStack>
@@ -35,25 +35,25 @@ function Header( { title }: { title: string } ) {
 	);
 }
 
-export default function FormRegularField< Item >( {
+export default function FormRegularField<Item>({
 	data,
 	field,
 	onChange,
 	hideLabelFromVision,
-}: FieldLayoutProps< Item > ) {
-	const { fields } = useContext( DataFormContext );
+}: FieldLayoutProps<Item>) {
+	const { fields } = useContext(DataFormContext);
 
-	const form = useMemo( () => {
-		if ( isCombinedField( field ) ) {
+	const form = useMemo(() => {
+		if (isCombinedField(field)) {
 			return {
-				fields: field.children.map( ( child ) => {
-					if ( typeof child === 'string' ) {
+				fields: field.children.map((child) => {
+					if (typeof child === 'string') {
 						return {
 							id: child,
 						};
 					}
 					return child;
-				} ),
+				}),
 				type: 'regular' as const,
 			};
 		}
@@ -62,88 +62,101 @@ export default function FormRegularField< Item >( {
 			type: 'regular' as const,
 			fields: [],
 		};
-	}, [ field ] );
+	}, [field]);
 
-	if ( isCombinedField( field ) ) {
+	if (isCombinedField(field)) {
 		return (
 			<>
-				{ ! hideLabelFromVision && field.label && (
-					<Header title={ field.label } />
-				) }
+				{!hideLabelFromVision && field.label && (
+					<Header title={field.label} />
+				)}
 				<DataFormLayout
-					data={ data }
-					form={ form as Form }
-					onChange={ onChange }
+					data={data}
+					form={form as Form}
+					onChange={onChange}
 				/>
 			</>
 		);
 	}
 
 	const labelPosition = field.labelPosition ?? 'top';
-	const fieldDefinition = fields.find(
-		( fieldDef ) => fieldDef.id === field.id
-	);
+	const fieldDefinition = fields.find((fieldDef) => fieldDef.id === field.id);
 
-	if ( ! fieldDefinition || ! fieldDefinition.Edit ) {
+	if (!fieldDefinition || !fieldDefinition.Edit) {
 		return null;
 	}
-	if ( labelPosition === 'side' ) {
+	if (labelPosition === 'side') {
+		const handleFieldChange = (value: Record<string, any>) => {
+			// Use setValue to update the item for this field
+			const updatedData = fieldDefinition.setValue({
+				item: data,
+				value: value[fieldDefinition.id],
+			});
+			onChange(updatedData);
+		};
 		return (
 			<HStack className="dataforms-layouts-regular__field">
 				<div
-					className={ clsx(
+					className={clsx(
 						'dataforms-layouts-regular__field-label',
-						`dataforms-layouts-regular__field-label--label-position-${ labelPosition }`
-					) }
+						`dataforms-layouts-regular__field-label--label-position-${labelPosition}`
+					)}
 				>
-					{ fieldDefinition.label }
+					{fieldDefinition.label}
 				</div>
 				<div className="dataforms-layouts-regular__field-control">
-					{ fieldDefinition.readOnly === true ? (
+					{fieldDefinition.readOnly === true ? (
 						<fieldDefinition.render
-							item={ data }
-							field={ fieldDefinition }
+							item={data}
+							field={fieldDefinition}
 						/>
 					) : (
 						<fieldDefinition.Edit
-							key={ fieldDefinition.id }
-							data={ data }
-							field={ fieldDefinition }
-							onChange={ onChange }
+							key={fieldDefinition.id}
+							data={data}
+							field={fieldDefinition}
+							onChange={handleFieldChange}
 							hideLabelFromVision
 						/>
-					) }
+					)}
 				</div>
 			</HStack>
 		);
 	}
 
+	const handleFieldChange = (value: Record<string, any>) => {
+		const updatedData = fieldDefinition.setValue({
+			item: data,
+			value: value[fieldDefinition.id],
+		});
+		onChange(updatedData);
+	};
 	return (
 		<div className="dataforms-layouts-regular__field">
-			{ fieldDefinition.readOnly === true ? (
+			{fieldDefinition.readOnly === true ? (
 				<>
-					{ ! hideLabelFromVision && labelPosition !== 'none' && (
+					{!hideLabelFromVision && labelPosition !== 'none' && (
 						<div className="dataforms-layouts-regular__field-label">
-							{ fieldDefinition.label }
+							{fieldDefinition.label}
 						</div>
-					) }
+					)}
 					<div className="dataforms-layouts-regular__field-control">
 						<fieldDefinition.render
-							item={ data }
-							field={ fieldDefinition }
+							item={data}
+							field={fieldDefinition}
 						/>
 					</div>
 				</>
 			) : (
 				<fieldDefinition.Edit
-					data={ data }
-					field={ fieldDefinition }
-					onChange={ onChange }
+					data={data}
+					field={fieldDefinition}
+					onChange={handleFieldChange}
 					hideLabelFromVision={
 						labelPosition === 'none' ? true : hideLabelFromVision
 					}
 				/>
-			) }
+			)}
 		</div>
 	);
 }

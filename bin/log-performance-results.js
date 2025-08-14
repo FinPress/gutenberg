@@ -3,10 +3,10 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs' );
-const path = require( 'path' );
-const https = require( 'https' );
-const [ token, branch, hash, baseHash, timestamp ] = process.argv.slice( 2 );
+const fs = require('fs');
+const path = require('path');
+const https = require('https');
+const [token, branch, hash, baseHash, timestamp] = process.argv.slice(2);
 
 const resultsFiles = [
 	{
@@ -27,51 +27,45 @@ const resultsFiles = [
 	},
 ];
 
-const performanceResults = resultsFiles.map( ( { file } ) =>
+const performanceResults = resultsFiles.map(({ file }) =>
 	JSON.parse(
-		fs.readFileSync(
-			path.join( process.env.WP_ARTIFACTS_PATH, file ),
-			'utf8'
-		)
+		fs.readFileSync(path.join(process.env.WP_ARTIFACTS_PATH, file), 'utf8')
 	)
 );
 
 const data = new TextEncoder().encode(
-	JSON.stringify( {
+	JSON.stringify({
 		branch,
 		hash,
 		baseHash,
 		timestamp,
-		metrics: resultsFiles.reduce( ( result, { metricsPrefix }, index ) => {
+		metrics: resultsFiles.reduce((result, { metricsPrefix }, index) => {
+			return {
+				...result,
+				...Object.fromEntries(
+					Object.entries(performanceResults[index][hash] ?? {}).map(
+						([key, value]) => [
+							metricsPrefix + key,
+							typeof value === 'object' ? value.q50 : value,
+						]
+					)
+				),
+			};
+		}, {}),
+		baseMetrics: resultsFiles.reduce((result, { metricsPrefix }, index) => {
 			return {
 				...result,
 				...Object.fromEntries(
 					Object.entries(
-						performanceResults[ index ][ hash ] ?? {}
-					).map( ( [ key, value ] ) => [
+						performanceResults[index][baseHash] ?? {}
+					).map(([key, value]) => [
 						metricsPrefix + key,
 						typeof value === 'object' ? value.q50 : value,
-					] )
+					])
 				),
 			};
-		}, {} ),
-		baseMetrics: resultsFiles.reduce(
-			( result, { metricsPrefix }, index ) => {
-				return {
-					...result,
-					...Object.fromEntries(
-						Object.entries(
-							performanceResults[ index ][ baseHash ] ?? {}
-						).map( ( [ key, value ] ) => [
-							metricsPrefix + key,
-							typeof value === 'object' ? value.q50 : value,
-						] )
-					),
-				};
-			},
-			{}
-		),
-	} )
+		}, {}),
+	})
 );
 
 const options = {
@@ -85,17 +79,17 @@ const options = {
 	},
 };
 
-const req = https.request( options, ( res ) => {
-	console.log( `statusCode: ${ res.statusCode }` );
+const req = https.request(options, (res) => {
+	console.log(`statusCode: ${res.statusCode}`);
 
-	res.on( 'data', ( d ) => {
-		process.stdout.write( d );
-	} );
-} );
+	res.on('data', (d) => {
+		process.stdout.write(d);
+	});
+});
 
-req.on( 'error', ( error ) => {
-	console.error( error );
-} );
+req.on('error', (error) => {
+	console.error(error);
+});
 
-req.write( data );
+req.write(data);
 req.end();

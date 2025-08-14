@@ -22,13 +22,13 @@ import {
 } from './constants';
 
 const getValueFromId =
-	( id: string ) =>
-	( { item }: { item: any } ) => {
-		const path = id.split( '.' );
+	(id: string) =>
+	({ item }: { item: any }) => {
+		const path = id.split('.');
 		let value = item;
-		for ( const segment of path ) {
-			if ( value.hasOwnProperty( segment ) ) {
-				value = value[ segment ];
+		for (const segment of path) {
+			if (value.hasOwnProperty(segment)) {
+				value = value[segment];
 			} else {
 				value = undefined;
 			}
@@ -37,49 +37,49 @@ const getValueFromId =
 		return value;
 	};
 
-function getFilterBy< Item >(
-	field: Field< Item >,
-	fieldTypeDefinition: FieldTypeDefinition< Item >
+function getFilterBy<Item>(
+	field: Field<Item>,
+	fieldTypeDefinition: FieldTypeDefinition<Item>
 ): NormalizedFilterByConfig | false {
-	if ( field.filterBy === false ) {
+	if (field.filterBy === false) {
 		return false;
 	}
 
-	if ( typeof field.filterBy === 'object' ) {
+	if (typeof field.filterBy === 'object') {
 		let operators = field.filterBy.operators;
 
 		// Assign default values if no operator was provided.
-		if ( ! operators || ! Array.isArray( operators ) ) {
-			operators = !! fieldTypeDefinition.filterBy
+		if (!operators || !Array.isArray(operators)) {
+			operators = !!fieldTypeDefinition.filterBy
 				? fieldTypeDefinition.filterBy.defaultOperators
 				: [];
 		}
 
 		// Make sure only valid operators are included.
 		let validOperators = ALL_OPERATORS;
-		if ( typeof fieldTypeDefinition.filterBy === 'object' ) {
+		if (typeof fieldTypeDefinition.filterBy === 'object') {
 			validOperators = fieldTypeDefinition.filterBy.validOperators;
 		}
-		operators = operators.filter( ( operator ) =>
-			validOperators.includes( operator )
+		operators = operators.filter((operator) =>
+			validOperators.includes(operator)
 		);
 
 		// The `between` operator is not supported when elements are provided.
-		if ( field.elements && operators.includes( OPERATOR_BETWEEN ) ) {
+		if (field.elements && operators.includes(OPERATOR_BETWEEN)) {
 			operators = operators.filter(
-				( operator ) => operator !== OPERATOR_BETWEEN
+				(operator) => operator !== OPERATOR_BETWEEN
 			);
 		}
 
 		// Do not allow mixing single & multiselection operators.
 		// Remove multiselection operators if any of the single selection ones is present.
-		const hasSingleSelectionOperator = operators.some( ( operator ) =>
-			SINGLE_SELECTION_OPERATORS.includes( operator )
+		const hasSingleSelectionOperator = operators.some((operator) =>
+			SINGLE_SELECTION_OPERATORS.includes(operator)
 		);
-		if ( hasSingleSelectionOperator ) {
-			operators = operators.filter( ( operator ) =>
+		if (hasSingleSelectionOperator) {
+			operators = operators.filter((operator) =>
 				// The 'Between' operator is unique as it can be combined with single selection operators.
-				[ ...SINGLE_SELECTION_OPERATORS, OPERATOR_BETWEEN ].includes(
+				[...SINGLE_SELECTION_OPERATORS, OPERATOR_BETWEEN].includes(
 					operator
 				)
 			);
@@ -87,25 +87,25 @@ function getFilterBy< Item >(
 
 		// If no operators are left at this point,
 		// the filters should be disabled.
-		if ( operators.length === 0 ) {
+		if (operators.length === 0) {
 			return false;
 		}
 
 		return {
-			isPrimary: !! field.filterBy.isPrimary,
+			isPrimary: !!field.filterBy.isPrimary,
 			operators,
 		};
 	}
 
-	if ( fieldTypeDefinition.filterBy === false ) {
+	if (fieldTypeDefinition.filterBy === false) {
 		return false;
 	}
 
 	let defaultOperators = fieldTypeDefinition.filterBy.defaultOperators;
 	// The `between` operator is not supported when elements are provided.
-	if ( field.elements && defaultOperators.includes( OPERATOR_BETWEEN ) ) {
+	if (field.elements && defaultOperators.includes(OPERATOR_BETWEEN)) {
 		defaultOperators = defaultOperators.filter(
-			( operator ) => operator !== OPERATOR_BETWEEN
+			(operator) => operator !== OPERATOR_BETWEEN
 		);
 	}
 
@@ -120,21 +120,32 @@ function getFilterBy< Item >(
  * @param fields Fields config.
  * @return Normalized fields config.
  */
-export function normalizeFields< Item >(
-	fields: Field< Item >[]
-): NormalizedField< Item >[] {
-	return fields.map( ( field ) => {
-		const fieldTypeDefinition = getFieldTypeDefinition< Item >(
-			field.type
-		);
-		const getValue = field.getValue || getValueFromId( field.id );
+export function normalizeFields<Item>(
+	fields: Field<Item>[]
+): NormalizedField<Item>[] {
+	return fields.map((field) => {
+		const fieldTypeDefinition = getFieldTypeDefinition<Item>(field.type);
+		const getValue = field.getValue || getValueFromId(field.id);
+
+		// Default setValue: shallow merge { ...item, [field.id]: value }
+		const defaultSetValue = ({
+			item,
+			value,
+		}: {
+			item: Item;
+			value: any;
+		}) => ({
+			...item,
+			[field.id]: value,
+		});
+		const setValue = field.setValue || defaultSetValue;
 
 		const sort =
 			field.sort ??
-			function sort( a, b, direction ) {
+			function sort(a, b, direction) {
 				return fieldTypeDefinition.sort(
-					getValue( { item: a } ),
-					getValue( { item: b } ),
+					getValue({ item: a }),
+					getValue({ item: b }),
 					direction
 				);
 			};
@@ -144,28 +155,29 @@ export function normalizeFields< Item >(
 			...field.isValid,
 		};
 
-		const Edit = getControl( field, fieldTypeDefinition );
+		const Edit = getControl(field, fieldTypeDefinition);
 
 		const render =
 			field.render ??
-			function render( {
+			function render({
 				item,
 				field: renderedField,
-			}: DataViewRenderFieldProps< Item > ) {
+			}: DataViewRenderFieldProps<Item>) {
 				return (
 					fieldTypeDefinition.render as FunctionComponent<
-						DataViewRenderFieldProps< Item >
+						DataViewRenderFieldProps<Item>
 					>
-				 )( { item, field: renderedField } );
+				)({ item, field: renderedField });
 			};
 
-		const filterBy = getFilterBy( field, fieldTypeDefinition );
+		const filterBy = getFilterBy(field, fieldTypeDefinition);
 
 		return {
 			...field,
 			label: field.label || field.id,
 			header: field.header || field.label || field.id,
 			getValue,
+			setValue,
 			render,
 			sort,
 			isValid,
@@ -178,5 +190,5 @@ export function normalizeFields< Item >(
 			filterBy,
 			readOnly: field.readOnly ?? fieldTypeDefinition.readOnly ?? false,
 		};
-	} );
+	});
 }

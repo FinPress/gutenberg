@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-const glob = require( 'glob' ).sync;
-const { join } = require( 'path' );
+const glob = require('glob').sync;
+const { join } = require('path');
 
 /**
  * The list of patterns matching files used only for development purposes.
@@ -17,9 +17,9 @@ const developmentFiles = [
 ];
 
 // All files from packages that have types provided with TypeScript.
-const typedFiles = glob( 'packages/*/package.json' )
-	.filter( ( fileName ) => require( join( __dirname, fileName ) ).types )
-	.map( ( fileName ) => fileName.replace( 'package.json', '**/*.js' ) );
+const typedFiles = glob('packages/*/package.json')
+	.filter((fileName) => require(join(__dirname, fileName)).types)
+	.map((fileName) => fileName.replace('package.json', '**/*.js'));
 
 const restrictedImports = [
 	{
@@ -38,7 +38,7 @@ const restrictedImports = [
 	},
 	{
 		name: 'redux',
-		importNames: [ 'combineReducers' ],
+		importNames: ['combineReducers'],
 		message: 'Please use `combineReducers` from `@wordpress/data` instead.',
 	},
 	{
@@ -144,7 +144,7 @@ module.exports = {
 		'plugin:eslint-comments/recommended',
 		'plugin:storybook/recommended',
 	],
-	plugins: [ 'react-compiler' ],
+	plugins: ['react-compiler'],
 	globals: {
 		wp: 'off',
 		globalThis: 'readonly',
@@ -154,7 +154,7 @@ module.exports = {
 			mode: 'typescript',
 		},
 		'import/internal-regex': null,
-		'import/resolver': require.resolve( './tools/eslint/import-resolver' ),
+		'import/resolver': require.resolve('./tools/eslint/import-resolver'),
 	},
 	rules: {
 		'jest/expect-expect': 'off',
@@ -204,11 +204,11 @@ module.exports = {
 				disallowTypeAnnotations: false,
 			},
 		],
-		'no-restricted-syntax': [ 'error', ...restrictedSyntax ],
+		'no-restricted-syntax': ['error', ...restrictedSyntax],
 		'jsdoc/check-tag-names': [
 			'error',
 			{
-				definedTags: [ 'jest-environment' ],
+				definedTags: ['jest-environment'],
 			},
 		],
 		'react-compiler/react-compiler': [
@@ -238,13 +238,13 @@ module.exports = {
 			},
 		},
 		{
-			files: [ 'packages/react-native-*/**/*.js' ],
+			files: ['packages/react-native-*/**/*.js'],
 			settings: {
-				'import/ignore': [ 'react-native' ], // Workaround for https://github.com/facebook/react-native/issues/28549.
+				'import/ignore': ['react-native'], // Workaround for https://github.com/facebook/react-native/issues/28549.
 			},
 		},
 		{
-			files: [ 'packages/**/*.js' ],
+			files: ['packages/**/*.js'],
 			excludedFiles: [
 				'packages/block-library/src/*/save.js',
 				...developmentFiles,
@@ -254,18 +254,18 @@ module.exports = {
 					'error',
 					{
 						forbid: [
-							[ 'circle', 'Circle' ],
-							[ 'g', 'G' ],
-							[ 'path', 'Path' ],
-							[ 'polygon', 'Polygon' ],
-							[ 'rect', 'Rect' ],
-							[ 'svg', 'SVG' ],
-						].map( ( [ element, componentName ] ) => {
+							['circle', 'Circle'],
+							['g', 'G'],
+							['path', 'Path'],
+							['polygon', 'Polygon'],
+							['rect', 'Rect'],
+							['svg', 'SVG'],
+						].map(([element, componentName]) => {
 							return {
 								element,
-								message: `use cross-platform <${ componentName } /> component instead.`,
+								message: `use cross-platform <${componentName} /> component instead.`,
 							};
-						} ),
+						}),
 					},
 				],
 			},
@@ -275,7 +275,7 @@ module.exports = {
 				'packages/*/src/**/*.[tj]s?(x)',
 				'storybook/stories/**/*.[tj]s?(x)',
 			],
-			excludedFiles: [ '**/*.native.js' ],
+			excludedFiles: ['**/*.native.js'],
 			rules: {
 				'no-restricted-syntax': [
 					'error',
@@ -285,7 +285,7 @@ module.exports = {
 			},
 		},
 		{
-			files: [ 'packages/*/src/**/*.[tj]s?(x)' ],
+			files: ['packages/*/src/**/*.[tj]s?(x)'],
 			excludedFiles: [
 				'packages/*/src/**/@(test|stories)/**',
 				'**/*.@(native|ios|android).js',
@@ -310,12 +310,12 @@ module.exports = {
 						'ToggleControl',
 						'ToggleGroupControl',
 						'TreeSelect',
-					].map( ( componentName ) => ( {
-						selector: `JSXOpeningElement[name.name="${ componentName }"]:not(:has(JSXAttribute[name.name="__nextHasNoMarginBottom"]))`,
+					].map((componentName) => ({
+						selector: `JSXOpeningElement[name.name="${componentName}"]:not(:has(JSXAttribute[name.name="__nextHasNoMarginBottom"]))`,
 						message:
 							componentName +
 							' should have the `__nextHasNoMarginBottom` prop to opt-in to the new margin-free styles.',
-					} ) ),
+					})),
 					// Temporary rules until we're ready to officially default to the new size.
 					...[
 						'BorderBoxControl',
@@ -338,13 +338,13 @@ module.exports = {
 						'TextControl',
 						'ToggleGroupControl',
 						'UnitControl',
-					].map( ( componentName ) => ( {
+					].map((componentName) => ({
 						// Falsy `__next40pxDefaultSize` without a non-default `size` prop.
-						selector: `JSXOpeningElement[name.name="${ componentName }"]:not(:has(JSXAttribute[name.name="__next40pxDefaultSize"][value.expression.value!=false])):not(:has(JSXAttribute[name.name="size"][value.value!="default"]))`,
+						selector: `JSXOpeningElement[name.name="${componentName}"]:not(:has(JSXAttribute[name.name="__next40pxDefaultSize"][value.expression.value!=false])):not(:has(JSXAttribute[name.name="size"][value.value!="default"]))`,
 						message:
 							componentName +
 							' should have the `__next40pxDefaultSize` prop when using the default size.',
-					} ) ),
+					})),
 					{
 						// Falsy `__next40pxDefaultSize` without a `render` prop.
 						selector:
@@ -356,12 +356,12 @@ module.exports = {
 			},
 		},
 		{
-			files: [ 'packages/jest*/**/*.js', '**/test/**/*.js' ],
-			excludedFiles: [ 'test/e2e/**/*.js', 'test/performance/**/*.js' ],
-			extends: [ 'plugin:@wordpress/eslint-plugin/test-unit' ],
+			files: ['packages/jest*/**/*.js', '**/test/**/*.js'],
+			excludedFiles: ['test/e2e/**/*.js', 'test/performance/**/*.js'],
+			extends: ['plugin:@wordpress/eslint-plugin/test-unit'],
 		},
 		{
-			files: [ '**/test/**/*.[tj]s?(x)' ],
+			files: ['**/test/**/*.[tj]s?(x)'],
 			excludedFiles: [
 				'**/*.@(android|ios|native).[tj]s?(x)',
 				'packages/react-native-*/**/*.[tj]s?(x)',
@@ -377,9 +377,9 @@ module.exports = {
 			],
 		},
 		{
-			files: [ 'packages/e2e-test*/**/*.js' ],
-			excludedFiles: [ 'packages/e2e-test-utils-playwright/**/*.js' ],
-			extends: [ 'plugin:@wordpress/eslint-plugin/test-e2e' ],
+			files: ['packages/e2e-test*/**/*.js'],
+			excludedFiles: ['packages/e2e-test-utils-playwright/**/*.js'],
+			extends: ['plugin:@wordpress/eslint-plugin/test-e2e'],
 			rules: {
 				'jest/expect-expect': 'off',
 			},
@@ -430,7 +430,7 @@ module.exports = {
 			},
 		},
 		{
-			files: [ 'bin/**/*.js', 'bin/**/*.mjs', 'packages/env/**' ],
+			files: ['bin/**/*.js', 'bin/**/*.mjs', 'packages/env/**'],
 			rules: {
 				'no-console': 'off',
 			},
@@ -454,7 +454,7 @@ module.exports = {
 			},
 		},
 		{
-			files: [ 'packages/components/src/**' ],
+			files: ['packages/components/src/**'],
 			excludedFiles: [
 				'packages/components/src/utils/colors-values.js',
 				'packages/components/src/theme/**',
@@ -481,13 +481,13 @@ module.exports = {
 			},
 		},
 		{
-			files: [ 'packages/components/src/**' ],
-			excludedFiles: [ 'packages/components/src/**/@(test|stories)/**' ],
-			plugins: [ 'ssr-friendly' ],
-			extends: [ 'plugin:ssr-friendly/recommended' ],
+			files: ['packages/components/src/**'],
+			excludedFiles: ['packages/components/src/**/@(test|stories)/**'],
+			plugins: ['ssr-friendly'],
+			extends: ['plugin:ssr-friendly/recommended'],
 		},
 		{
-			files: [ 'packages/components/src/**' ],
+			files: ['packages/components/src/**'],
 			rules: {
 				'no-restricted-imports': [
 					'error',
@@ -496,18 +496,17 @@ module.exports = {
 					// dependencies should be allowed in the components package.
 					{
 						paths: restrictedImports.filter(
-							( { name } ) =>
-								! [
-									'@ariakit/react',
-									'framer-motion',
-								].includes( name )
+							({ name }) =>
+								!['@ariakit/react', 'framer-motion'].includes(
+									name
+								)
 						),
 					},
 				],
 			},
 		},
 		{
-			files: [ 'packages/block-editor/**' ],
+			files: ['packages/block-editor/**'],
 			rules: {
 				'no-restricted-imports': [
 					'error',
@@ -530,7 +529,7 @@ module.exports = {
 			},
 		},
 		{
-			files: [ 'packages/edit-post/**', 'packages/edit-site/**' ],
+			files: ['packages/edit-post/**', 'packages/edit-site/**'],
 			rules: {
 				'no-restricted-imports': [
 					'error',
@@ -548,7 +547,7 @@ module.exports = {
 			},
 		},
 		{
-			files: [ 'packages/interactivity*/src/**' ],
+			files: ['packages/interactivity*/src/**'],
 			rules: {
 				'react-compiler/react-compiler': 'off',
 				'react/react-in-jsx-scope': 'error',

@@ -1,31 +1,31 @@
 /**
  * External dependencies
  */
-const { command } = require( 'execa' );
-const path = require( 'path' );
-const glob = require( 'fast-glob' );
-const fs = require( 'fs' );
-const { inc: semverInc } = require( 'semver' );
-const { rimraf } = require( 'rimraf' );
-const readline = require( 'readline' );
-const SimpleGit = require( 'simple-git' );
+const { command } = require('execa');
+const path = require('path');
+const glob = require('fast-glob');
+const fs = require('fs');
+const { inc: semverInc } = require('semver');
+const { rimraf } = require('rimraf');
+const readline = require('readline');
+const SimpleGit = require('simple-git');
 
 /**
  * Internal dependencies
  */
-const { log, formats } = require( '../lib/logger' );
+const { log, formats } = require('../lib/logger');
 const {
 	askForConfirmation,
 	runStep,
 	readJSONFile,
 	getRandomTemporaryPath,
-} = require( '../lib/utils' );
+} = require('../lib/utils');
 const {
 	calculateVersionBumpFromChangelog,
 	findPluginReleaseBranchName,
-} = require( './common' );
-const { join } = require( 'path' );
-const pluginConfig = require( '../config' );
+} = require('./common');
+const { join } = require('path');
+const pluginConfig = require('../config');
 
 /**
  * Release type names.
@@ -65,10 +65,10 @@ const pluginConfig = require( '../config' );
  *
  * @param {WPPackagesConfig} options The config object.
  */
-async function checkoutNpmReleaseBranch( {
+async function checkoutNpmReleaseBranch({
 	gitWorkingDirectoryPath,
 	npmReleaseBranch,
-} ) {
+}) {
 	/*
 	 * Create the release branch.
 	 *
@@ -78,12 +78,12 @@ async function checkoutNpmReleaseBranch( {
 	 * Lerna assumes that all packages need publishing if it can't access
 	 * the necessary information.
 	 */
-	await SimpleGit( gitWorkingDirectoryPath )
-		.fetch( 'origin', npmReleaseBranch, [ '--depth=999' ] )
-		.checkout( npmReleaseBranch );
+	await SimpleGit(gitWorkingDirectoryPath)
+		.fetch('origin', npmReleaseBranch, ['--depth=999'])
+		.checkout(npmReleaseBranch);
 	log(
 		'>> The local npm release branch ' +
-			formats.success( npmReleaseBranch ) +
+			formats.success(npmReleaseBranch) +
 			' has been successfully checked out.'
 	);
 }
@@ -97,29 +97,29 @@ async function checkoutNpmReleaseBranch( {
  *
  * @return {?string}   The optional commit's hash when branch synced.
  */
-async function runNpmReleaseBranchSyncStep( pluginReleaseBranch, config ) {
+async function runNpmReleaseBranchSyncStep(pluginReleaseBranch, config) {
 	const {
 		abortMessage,
 		interactive,
 		gitWorkingDirectoryPath,
 		npmReleaseBranch,
 	} = config;
-	await runStep( 'Syncing the npm release branch', abortMessage, async () => {
-		await checkoutNpmReleaseBranch( config );
+	await runStep('Syncing the npm release branch', abortMessage, async () => {
+		await checkoutNpmReleaseBranch(config);
 
-		if ( interactive ) {
+		if (interactive) {
 			await askForConfirmation(
-				`The branch is ready for sync with the latest plugin release changes applied to "${ pluginReleaseBranch }". Proceed?`,
+				`The branch is ready for sync with the latest plugin release changes applied to "${pluginReleaseBranch}". Proceed?`,
 				true,
 				abortMessage
 			);
 		}
 
 		log(
-			`>> Syncing the latest plugin release to "${ pluginReleaseBranch }".`
+			`>> Syncing the latest plugin release to "${pluginReleaseBranch}".`
 		);
 
-		const repo = SimpleGit( gitWorkingDirectoryPath );
+		const repo = SimpleGit(gitWorkingDirectoryPath);
 
 		/*
 		 * Replace content from remote branch.
@@ -128,24 +128,24 @@ async function runNpmReleaseBranchSyncStep( pluginReleaseBranch, config ) {
 		 *        Why are we manually removing and then adding files back in?
 		 */
 		await repo
-			.raw( 'rm', '-r', '.' )
-			.fetch( 'origin', pluginReleaseBranch, [ '--depth=1' ] )
-			.raw( 'checkout', `origin/${ pluginReleaseBranch }`, '--', '.' );
+			.raw('rm', '-r', '.')
+			.fetch('origin', pluginReleaseBranch, ['--depth=1'])
+			.raw('checkout', `origin/${pluginReleaseBranch}`, '--', '.');
 
 		const { commit: commitHash } = await repo.commit(
-			`Merge changes published in the Gutenberg plugin "${ pluginReleaseBranch }" branch`
+			`Merge changes published in the Gutenberg plugin "${pluginReleaseBranch}" branch`
 		);
 
-		if ( commitHash ) {
-			await runPushGitChangesStep( config );
+		if (commitHash) {
+			await runPushGitChangesStep(config);
 		}
 
 		log(
 			'>> The local npm release branch ' +
-				formats.success( npmReleaseBranch ) +
+				formats.success(npmReleaseBranch) +
 				' has been successfully synced.'
 		);
-	} );
+	});
 }
 
 /**
@@ -156,7 +156,7 @@ async function runNpmReleaseBranchSyncStep( pluginReleaseBranch, config ) {
  *
  * @return {?string}   The optional commit's hash when changelog files updated.
  */
-async function updatePackages( config ) {
+async function updatePackages(config) {
 	const {
 		abortMessage,
 		gitWorkingDirectoryPath,
@@ -165,7 +165,7 @@ async function updatePackages( config ) {
 		releaseType,
 	} = config;
 
-	if ( releaseType === 'wp' ) {
+	if (releaseType === 'wp') {
 		log(
 			'>> Skipping CHANGELOG files processing when targeting WordPress core.'
 		);
@@ -173,27 +173,27 @@ async function updatePackages( config ) {
 	}
 
 	const changelogFiles = await glob(
-		path.resolve( gitWorkingDirectoryPath, 'packages/*/CHANGELOG.md' )
+		path.resolve(gitWorkingDirectoryPath, 'packages/*/CHANGELOG.md')
 	);
 	const changelogFilesPublicPackages = changelogFiles.filter(
-		( changelogPath ) => {
+		(changelogPath) => {
 			const pkg = require(
-				path.join( path.dirname( changelogPath ), 'package.json' )
+				path.join(path.dirname(changelogPath), 'package.json')
 			);
 			return pkg.private !== true;
 		}
 	);
 
 	const processedPackages = await Promise.all(
-		changelogFilesPublicPackages.map( async ( changelogPath ) => {
-			const fileStream = fs.createReadStream( changelogPath );
+		changelogFilesPublicPackages.map(async (changelogPath) => {
+			const fileStream = fs.createReadStream(changelogPath);
 
-			const rl = readline.createInterface( {
+			const rl = readline.createInterface({
 				input: fileStream,
-			} );
+			});
 			const lines = [];
-			for await ( const line of rl ) {
-				lines.push( line );
+			for await (const line of rl) {
+				lines.push(line);
 			}
 
 			let versionBump = calculateVersionBumpFromChangelog(
@@ -201,12 +201,12 @@ async function updatePackages( config ) {
 				minimumVersionBump
 			);
 			const packageName = `@wordpress/${
-				changelogPath.split( '/' ).reverse()[ 1 ]
+				changelogPath.split('/').reverse()[1]
 			}`;
 			// Enforce version bump for all packages when
 			// the stable minor or major version bump requested.
 			if (
-				! versionBump &&
+				!versionBump &&
 				releaseType !== 'next' &&
 				minimumVersionBump !== 'patch'
 			) {
@@ -216,9 +216,9 @@ async function updatePackages( config ) {
 				'CHANGELOG.md',
 				'package.json'
 			);
-			const { version } = readJSONFile( packageJSONPath );
+			const { version } = readJSONFile(packageJSONPath);
 			const nextVersion =
-				versionBump !== null ? semverInc( version, versionBump ) : null;
+				versionBump !== null ? semverInc(version, versionBump) : null;
 
 			return {
 				changelogPath,
@@ -227,15 +227,15 @@ async function updatePackages( config ) {
 				nextVersion,
 				version,
 			};
-		} )
+		})
 	);
 
 	const packagesToUpdate = processedPackages.filter(
-		( { nextVersion } ) => nextVersion
+		({ nextVersion }) => nextVersion
 	);
 
-	if ( packagesToUpdate.length === 0 ) {
-		log( '>> No changes in CHANGELOG files detected.' );
+	if (packagesToUpdate.length === 0) {
+		log('>> No changes in CHANGELOG files detected.');
 		return;
 	}
 
@@ -244,18 +244,18 @@ async function updatePackages( config ) {
 	);
 
 	// e.g. "2022-11-01T00:13:26.102Z" -> "2022-11-01"
-	const publishDate = new Date().toISOString().split( 'T' )[ 0 ];
+	const publishDate = new Date().toISOString().split('T')[0];
 	await Promise.all(
 		packagesToUpdate.map(
-			async ( {
+			async ({
 				changelogPath,
 				packageJSONPath,
 				packageName,
 				nextVersion,
 				version,
-			} ) => {
+			}) => {
 				// Update changelog.
-				const content = fs.readFileSync( changelogPath, 'utf8' );
+				const content = fs.readFileSync(changelogPath, 'utf8');
 				fs.writeFileSync(
 					changelogPath,
 					content.replace(
@@ -264,23 +264,23 @@ async function updatePackages( config ) {
 							releaseType === 'next'
 								? nextVersion + '-next.0'
 								: nextVersion
-						} (${ publishDate })`
+						} (${publishDate})`
 					)
 				);
 
 				// Update package.json.
-				const packageJson = readJSONFile( packageJSONPath );
+				const packageJson = readJSONFile(packageJSONPath);
 				const newPackageJson = {
 					...packageJson,
 					version: nextVersion + '-prerelease',
 				};
 				fs.writeFileSync(
 					packageJSONPath,
-					JSON.stringify( newPackageJson, null, '\t' ) + '\n'
+					JSON.stringify(newPackageJson, null, '\t') + '\n'
 				);
 
 				log(
-					`   - ${ packageName }: ${ version } -> ${
+					`   - ${packageName}: ${version} -> ${
 						releaseType === 'next'
 							? nextVersion + '-next.0'
 							: nextVersion
@@ -290,7 +290,7 @@ async function updatePackages( config ) {
 		)
 	);
 
-	if ( interactive ) {
+	if (interactive) {
 		await askForConfirmation(
 			`All corresponding files were updated. Commit the changes?`,
 			true,
@@ -298,15 +298,15 @@ async function updatePackages( config ) {
 		);
 	}
 
-	const { commit: commitHash } = await SimpleGit( gitWorkingDirectoryPath )
-		.add( [ './*' ] )
-		.commit( 'Update changelog files' );
+	const { commit: commitHash } = await SimpleGit(gitWorkingDirectoryPath)
+		.add(['./*'])
+		.commit('Update changelog files');
 
-	if ( commitHash ) {
-		await runPushGitChangesStep( config );
+	if (commitHash) {
+		await runPushGitChangesStep(config);
 	}
 
-	log( '>> Changelog files have been updated successfully.' );
+	log('>> Changelog files have been updated successfully.');
 
 	return commitHash;
 }
@@ -316,25 +316,25 @@ async function updatePackages( config ) {
  *
  * @param {WPPackagesConfig} config Command config.
  */
-async function runPushGitChangesStep( {
+async function runPushGitChangesStep({
 	gitWorkingDirectoryPath,
 	interactive,
 	npmReleaseBranch,
-} ) {
-	const abortMessage = `Aborting! Make sure to push changes applied to npm release branch "${ npmReleaseBranch }" manually.`;
-	await runStep( 'Pushing the release branch', abortMessage, async () => {
-		if ( interactive ) {
+}) {
+	const abortMessage = `Aborting! Make sure to push changes applied to npm release branch "${npmReleaseBranch}" manually.`;
+	await runStep('Pushing the release branch', abortMessage, async () => {
+		if (interactive) {
 			await askForConfirmation(
 				'The release branch is going to be pushed to the remote repository. Continue?',
 				true,
 				abortMessage
 			);
 		}
-		await SimpleGit( gitWorkingDirectoryPath ).push(
+		await SimpleGit(gitWorkingDirectoryPath).push(
 			'origin',
 			npmReleaseBranch
 		);
-	} );
+	});
 }
 
 /**
@@ -344,56 +344,57 @@ async function runPushGitChangesStep( {
  *
  * @return {?string} The optional commit's hash when packages published to npm.
  */
-async function publishPackagesToNpm( {
+async function publishPackagesToNpm({
 	distTag,
 	gitWorkingDirectoryPath,
 	interactive,
 	minimumVersionBump,
 	releaseType,
-} ) {
-	log( '>> Installing npm packages.' );
-	await command( 'npm ci', {
+}) {
+	log('>> Installing npm packages.');
+	await command('npm ci', {
 		cwd: gitWorkingDirectoryPath,
-	} );
+	});
 
-	log( '>> Current npm user:' );
-	await command( 'npm whoami', {
+	log('>> Current npm user:');
+	await command('npm whoami', {
 		cwd: gitWorkingDirectoryPath,
 		stdio: 'inherit',
-	} );
+	});
 
-	const beforeCommitHash = await SimpleGit(
-		gitWorkingDirectoryPath
-	).revparse( [ '--short', 'HEAD' ] );
+	const beforeCommitHash = await SimpleGit(gitWorkingDirectoryPath).revparse([
+		'--short',
+		'HEAD',
+	]);
 
 	const yesFlag = interactive ? '' : '--yes';
 	const noVerifyAccessFlag = interactive ? '' : '--no-verify-access';
-	if ( releaseType === 'next' ) {
+	if (releaseType === 'next') {
 		log(
 			'>> Bumping version of public packages changed since the last release.'
 		);
 
 		await command(
-			`npx lerna version pre${ minimumVersionBump } --preid next.${ beforeCommitHash } --no-private ${ yesFlag }`,
+			`npx lerna version pre${minimumVersionBump} --preid next.${beforeCommitHash} --no-private ${yesFlag}`,
 			{
 				cwd: gitWorkingDirectoryPath,
 				stdio: 'inherit',
 			}
 		);
 
-		log( '>> Publishing modified packages to npm.' );
+		log('>> Publishing modified packages to npm.');
 		await command(
-			`npx lerna publish from-package --dist-tag ${ distTag } ${ yesFlag } ${ noVerifyAccessFlag }`,
+			`npx lerna publish from-package --dist-tag ${distTag} ${yesFlag} ${noVerifyAccessFlag}`,
 			{
 				cwd: gitWorkingDirectoryPath,
 				stdio: 'inherit',
 			}
 		);
-	} else if ( [ 'bugfix', 'wp' ].includes( releaseType ) ) {
-		log( '>> Publishing modified packages to npm.' );
+	} else if (['bugfix', 'wp'].includes(releaseType)) {
+		log('>> Publishing modified packages to npm.');
 		try {
 			await command(
-				`npx lerna publish ${ minimumVersionBump } --dist-tag ${ distTag } --no-private ${ yesFlag } ${ noVerifyAccessFlag }`,
+				`npx lerna publish ${minimumVersionBump} --dist-tag ${distTag} --no-private ${yesFlag} ${noVerifyAccessFlag}`,
 				{
 					cwd: gitWorkingDirectoryPath,
 					stdio: 'inherit',
@@ -403,9 +404,9 @@ async function publishPackagesToNpm( {
 			log(
 				'>> Trying to finish failed publishing of modified npm packages.'
 			);
-			await SimpleGit( gitWorkingDirectoryPath ).reset( 'hard' );
+			await SimpleGit(gitWorkingDirectoryPath).reset('hard');
 			await command(
-				`npx lerna publish from-package --dist-tag ${ distTag } ${ yesFlag } ${ noVerifyAccessFlag }`,
+				`npx lerna publish from-package --dist-tag ${distTag} ${yesFlag} ${noVerifyAccessFlag}`,
 				{
 					cwd: gitWorkingDirectoryPath,
 					stdio: 'inherit',
@@ -417,17 +418,17 @@ async function publishPackagesToNpm( {
 			'>> Bumping version of public packages changed since the last release.'
 		);
 		await command(
-			`npx lerna version ${ minimumVersionBump } --no-private ${ yesFlag }`,
+			`npx lerna version ${minimumVersionBump} --no-private ${yesFlag}`,
 			{
 				cwd: gitWorkingDirectoryPath,
 				stdio: 'inherit',
 			}
 		);
 
-		log( '>> Publishing modified packages to npm.' );
+		log('>> Publishing modified packages to npm.');
 		try {
 			await command(
-				`npx lerna publish from-package ${ yesFlag } ${ noVerifyAccessFlag }`,
+				`npx lerna publish from-package ${yesFlag} ${noVerifyAccessFlag}`,
 				{
 					cwd: gitWorkingDirectoryPath,
 					stdio: 'inherit',
@@ -437,9 +438,9 @@ async function publishPackagesToNpm( {
 			log(
 				'>> Trying to finish failed publishing of modified npm packages.'
 			);
-			await SimpleGit( gitWorkingDirectoryPath ).reset( 'hard' );
+			await SimpleGit(gitWorkingDirectoryPath).reset('hard');
 			await command(
-				`npx lerna publish from-package ${ yesFlag } ${ noVerifyAccessFlag }`,
+				`npx lerna publish from-package ${yesFlag} ${noVerifyAccessFlag}`,
 				{
 					cwd: gitWorkingDirectoryPath,
 					stdio: 'inherit',
@@ -448,10 +449,11 @@ async function publishPackagesToNpm( {
 		}
 	}
 
-	const afterCommitHash = await SimpleGit( gitWorkingDirectoryPath ).revparse(
-		[ '--short', 'HEAD' ]
-	);
-	if ( afterCommitHash === beforeCommitHash ) {
+	const afterCommitHash = await SimpleGit(gitWorkingDirectoryPath).revparse([
+		'--short',
+		'HEAD',
+	]);
+	if (afterCommitHash === beforeCommitHash) {
 		return;
 	}
 
@@ -470,21 +472,21 @@ async function backportCommitsToBranch(
 	commits,
 	{ abortMessage, gitWorkingDirectoryPath, interactive }
 ) {
-	if ( commits.length === 0 ) {
+	if (commits.length === 0) {
 		return;
 	}
 
-	if ( interactive ) {
+	if (interactive) {
 		await askForConfirmation(
-			`Commits are going to be backported to "${ branchName }". Continue?`,
+			`Commits are going to be backported to "${branchName}". Continue?`,
 			true,
 			abortMessage
 		);
 	}
 
-	log( `>> Backporting commits to "${ branchName }".` );
+	log(`>> Backporting commits to "${branchName}".`);
 
-	const repo = SimpleGit( gitWorkingDirectoryPath );
+	const repo = SimpleGit(gitWorkingDirectoryPath);
 
 	/*
 	 * Reset any local changes and replace them with the origin branch's copy.
@@ -494,15 +496,15 @@ async function backportCommitsToBranch(
 	 * HEAD between when we started running this script and now when we're
 	 * pushing our changes back upstream.
 	 */
-	await repo.fetch().checkout( branchName ).pull( 'origin', branchName );
+	await repo.fetch().checkout(branchName).pull('origin', branchName);
 
-	for ( const commitHash of commits ) {
-		await repo.raw( 'cherry-pick', commitHash );
+	for (const commitHash of commits) {
+		await repo.raw('cherry-pick', commitHash);
 	}
 
-	await repo.push( 'origin', branchName );
+	await repo.push('origin', branchName);
 
-	log( `>> Backporting successfully finished.` );
+	log(`>> Backporting successfully finished.`);
 }
 
 /**
@@ -513,71 +515,65 @@ async function backportCommitsToBranch(
  *
  * @return {Promise<Object>} GitHub release object.
  */
-async function runPackagesRelease( config, customMessages ) {
+async function runPackagesRelease(config, customMessages) {
 	log(
-		formats.title(
-			'\n💃 Time to publish WordPress packages to npm 🕺\n\n'
-		),
+		formats.title('\n💃 Time to publish WordPress packages to npm 🕺\n\n'),
 		"To perform a release you'll have to be a member of the WordPress Team on npm.\n",
 		...customMessages
 	);
 
-	if ( config.interactive ) {
-		await askForConfirmation( 'Ready to go?' );
+	if (config.interactive) {
+		await askForConfirmation('Ready to go?');
 	}
 
 	const temporaryFolders = [];
-	if ( ! config.gitWorkingDirectoryPath ) {
+	if (!config.gitWorkingDirectoryPath) {
 		const gitPath = getRandomTemporaryPath();
 		config.gitWorkingDirectoryPath = gitPath;
-		fs.mkdirSync( gitPath, { recursive: true } );
-		temporaryFolders.push( gitPath );
+		fs.mkdirSync(gitPath, { recursive: true });
+		temporaryFolders.push(gitPath);
 
 		await runStep(
 			'Cloning the Git repository',
 			config.abortMessage,
 			async () => {
-				log( '>> Cloning the Git repository' );
+				log('>> Cloning the Git repository');
 				await SimpleGit().clone(
 					pluginConfig.gitRepositoryURL,
 					gitPath,
-					[ '--depth=1', '--no-single-branch' ]
+					['--depth=1', '--no-single-branch']
 				);
-				log( `   >> successfully clone into: ${ gitPath }` );
+				log(`   >> successfully clone into: ${gitPath}`);
 			}
 		);
 	}
 
 	let pluginReleaseBranch;
-	if ( [ 'latest', 'next' ].includes( config.releaseType ) ) {
+	if (['latest', 'next'].includes(config.releaseType)) {
 		pluginReleaseBranch =
 			config.releaseType === 'next'
 				? 'trunk'
 				: await findPluginReleaseBranchName(
 						config.gitWorkingDirectoryPath
-				  );
-		await runNpmReleaseBranchSyncStep( pluginReleaseBranch, config );
+					);
+		await runNpmReleaseBranchSyncStep(pluginReleaseBranch, config);
 	} else {
-		await checkoutNpmReleaseBranch( config );
+		await checkoutNpmReleaseBranch(config);
 	}
 
-	const commitHashChangelogUpdates = await updatePackages( config );
+	const commitHashChangelogUpdates = await updatePackages(config);
 
-	const commitHashNpmPublish = await publishPackagesToNpm( config );
+	const commitHashNpmPublish = await publishPackagesToNpm(config);
 
-	if ( [ 'latest', 'bugfix' ].includes( config.releaseType ) ) {
+	if (['latest', 'bugfix'].includes(config.releaseType)) {
 		const commits = [
 			commitHashChangelogUpdates,
 			commitHashNpmPublish,
-		].filter( Boolean );
-		await backportCommitsToBranch( 'trunk', commits, config );
+		].filter(Boolean);
+		await backportCommitsToBranch('trunk', commits, config);
 
-		if ( config.releaseType === 'latest' && pluginReleaseBranch ) {
-			await backportCommitsToBranch(
-				pluginReleaseBranch,
-				commits,
-				config
-			);
+		if (config.releaseType === 'latest' && pluginReleaseBranch) {
+			await backportCommitsToBranch(pluginReleaseBranch, commits, config);
 		}
 	}
 
@@ -587,8 +583,8 @@ async function runPackagesRelease( config, customMessages ) {
 		async () =>
 			await Promise.all(
 				temporaryFolders
-					.filter( ( tempDir ) => fs.existsSync( tempDir ) )
-					.map( ( tempDir ) => rimraf( tempDir ) )
+					.filter((tempDir) => fs.existsSync(tempDir))
+					.map((tempDir) => rimraf(tempDir))
 			)
 	);
 
@@ -612,20 +608,20 @@ function getConfig(
 ) {
 	let distTag = 'latest';
 	let npmReleaseBranch = 'wp/latest';
-	if ( releaseType === 'next' ) {
+	if (releaseType === 'next') {
 		distTag = 'next';
 		npmReleaseBranch = 'wp/next';
-	} else if ( releaseType === 'wp' ) {
-		distTag = `wp-${ wpVersion }`;
-		npmReleaseBranch = `wp/${ wpVersion }`;
+	} else if (releaseType === 'wp') {
+		distTag = `wp-${wpVersion}`;
+		npmReleaseBranch = `wp/${wpVersion}`;
 	}
 
 	return {
 		abortMessage: 'Aborting!',
 		distTag,
 		gitWorkingDirectoryPath:
-			repositoryPath && join( process.cwd(), repositoryPath ),
-		interactive: ! ci,
+			repositoryPath && join(process.cwd(), repositoryPath),
+		interactive: !ci,
 		minimumVersionBump: semver,
 		npmReleaseBranch,
 		releaseType,
@@ -637,10 +633,10 @@ function getConfig(
  *
  * @param {WPPackagesCommandOptions} options Command options.
  */
-async function publishNpmGutenbergPlugin( options ) {
-	await runPackagesRelease( getConfig( 'latest', options ), [
+async function publishNpmGutenbergPlugin(options) {
+	await runPackagesRelease(getConfig('latest', options), [
 		'Welcome! This tool helps with npm publishing a new latest version of WordPress packages synced from the Gutenberg plugin.\n',
-	] );
+	]);
 }
 
 /**
@@ -648,11 +644,11 @@ async function publishNpmGutenbergPlugin( options ) {
  *
  * @param {WPPackagesCommandOptions} options Command options.
  */
-async function publishNpmBugfixLatest( options ) {
-	await runPackagesRelease( getConfig( 'bugfix', options ), [
+async function publishNpmBugfixLatest(options) {
+	await runPackagesRelease(getConfig('bugfix', options), [
 		'Welcome! This tool helps with npm publishing a new bugfix version of WordPress packages.\n',
 		'Make sure that all required changes have been already cherry-picked to the `wp/latest` release branch.\n',
-	] );
+	]);
 }
 
 /**
@@ -660,11 +656,11 @@ async function publishNpmBugfixLatest( options ) {
  *
  * @param {WPPackagesCommandOptions} options Command options.
  */
-async function publishNpmBugfixWordPressCore( options ) {
-	await runPackagesRelease( getConfig( 'wp', options ), [
+async function publishNpmBugfixWordPressCore(options) {
+	await runPackagesRelease(getConfig('wp', options), [
 		'Welcome! This tool helps with npm publishing a new bugfix version of WordPress packages targeting WordPress core.\n',
 		'Make sure that all required changes have been already cherry-picked to the `wp/X.Y` release branch.\n',
-	] );
+	]);
 }
 
 /**
@@ -672,10 +668,10 @@ async function publishNpmBugfixWordPressCore( options ) {
  *
  * @param {WPPackagesCommandOptions} options Command options.
  */
-async function publishNpmNext( options ) {
-	await runPackagesRelease( getConfig( 'next', options ), [
+async function publishNpmNext(options) {
+	await runPackagesRelease(getConfig('next', options), [
 		'Welcome! This tool helps with npm publishing a development version of WordPress packages.\n',
-	] );
+	]);
 }
 
 module.exports = {

@@ -24,7 +24,13 @@
 - Set minimum and maximum number of items in `pePageSizes`, so that the UI control is disabled when the list exceeds those limits. [#71004](https://github.com/WordPress/gutenberg/pull/71004)
 - Fix `filterSortAndPaginate` to handle searching fields that have a type of `array` ([#70785](https://github.com/WordPress/gutenberg/pull/70785)).
 - Fix user-input filters: empty value for text and integer filters means there's no value to search for (so it returns all items). It also fixes a type conversion where empty strings for integer were converted to 0 [#70956](https://github.com/WordPress/gutenberg/pull/70956/).
+
+- Added support for an optional `setValue` function in DataViews field definitions to handle nested data updates in filters and forms. [#70989](https://github.com/WordPress/gutenberg/pull/70989)
+- Updated filters and form logic to use `setValue` when provided, ensuring proper data shape for nested field values.
+- Improved test coverage for DataViews field logic.
+
 - Fix Table layout Title's column wrapping and min-width so that long descriptions can be visualized without scrolling. [#70983](https://github.com/WordPress/gutenberg/pull/70983)
+
 
 ### Features
 

@@ -1,15 +1,15 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs' );
-const path = require( 'path' );
+const fs = require('fs');
+const path = require('path');
 
 /**
  * Absolute path to packages directory.
  *
  * @type {string}
  */
-const PACKAGES_DIR = path.resolve( __dirname, '../../packages' );
+const PACKAGES_DIR = path.resolve(__dirname, '../../packages');
 
 /**
  * Returns true if the given base file name for a file within the packages
@@ -19,8 +19,8 @@ const PACKAGES_DIR = path.resolve( __dirname, '../../packages' );
  *
  * @return {boolean} Whether file is a directory.
  */
-function isDirectory( file ) {
-	return fs.lstatSync( path.resolve( PACKAGES_DIR, file ) ).isDirectory();
+function isDirectory(file) {
+	return fs.lstatSync(path.resolve(PACKAGES_DIR, file)).isDirectory();
 }
 
 /**
@@ -30,10 +30,10 @@ function isDirectory( file ) {
  *
  * @return {boolean} Whether file is a directory.
  */
-function hasModuleField( file ) {
+function hasModuleField(file) {
 	let pkg;
 	try {
-		pkg = require( path.resolve( PACKAGES_DIR, file, 'package.json' ) );
+		pkg = require(path.resolve(PACKAGES_DIR, file, 'package.json'));
 	} catch {
 		// If, for whatever reason, the package's `package.json` cannot be read,
 		// consider it as an invalid candidate. In most cases, this can happen
@@ -42,7 +42,7 @@ function hasModuleField( file ) {
 		return false;
 	}
 
-	return !! pkg.module;
+	return !!pkg.module;
 }
 
 /**
@@ -53,8 +53,8 @@ function hasModuleField( file ) {
  *
  * @return {boolean} Whether to include file in build.
  */
-function filterPackages( pkg ) {
-	return [ isDirectory, hasModuleField ].every( ( check ) => check( pkg ) );
+function filterPackages(pkg) {
+	return [isDirectory, hasModuleField].every((check) => check(pkg));
 }
 
 /**
@@ -64,9 +64,9 @@ function filterPackages( pkg ) {
  */
 function getPackages() {
 	return fs
-		.readdirSync( PACKAGES_DIR )
-		.filter( filterPackages )
-		.map( ( file ) => path.resolve( PACKAGES_DIR, file ) );
+		.readdirSync(PACKAGES_DIR)
+		.filter(filterPackages)
+		.map((file) => path.resolve(PACKAGES_DIR, file));
 }
 
 module.exports = getPackages;

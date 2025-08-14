@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-const SimpleGit = require( 'simple-git' );
+const SimpleGit = require('simple-git');
 
 SimpleGit()
-	.diff( [ '-U0' ] )
-	.then( ( diff ) => {
+	.diff(['-U0'])
+	.then((diff) => {
 		// npm will introduce changes to a `package-lock.json` file for optional
 		// dependencies varying on environment. If the only changes are the
 		// addition of an "optional" flag in `package-lock.json` file from
@@ -39,17 +39,17 @@ SimpleGit()
 				''
 			);
 
-		if ( !! nonOptionalDiff ) {
+		if (!!nonOptionalDiff) {
 			console.error(
 				"There are local uncommitted changes after one or both of 'npm install' or 'npm run docs:build'!\n"
 			);
-			console.log( nonOptionalDiff );
+			console.log(nonOptionalDiff);
 			process.exitCode = 1;
 		}
-	} )
-	.catch( ( error ) => {
+	})
+	.catch((error) => {
 		console.error(
 			'Checking local changes failed!\n\n' + error.toString() + '\n'
 		);
 		process.exitCode = 1;
-	} );
+	});
