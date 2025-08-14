@@ -28,15 +28,15 @@ export function ValidationIndicator( {
 	return (
 		<p
 			className={ clsx(
-				'components-validated-control__status',
+				'components-validated-control__indicator',
 				`is-${ type }`
 			) }
 		>
 			{ type === 'validating' ? (
-				<Spinner className="components-validated-control__status-spinner" />
+				<Spinner className="components-validated-control__indicator-spinner" />
 			) : (
 				<Icon
-					className="components-validated-control__status-icon"
+					className="components-validated-control__indicator-icon"
 					icon={ ICON[ type ] }
 					size={ 16 }
 					fill="currentColor"

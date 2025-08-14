@@ -45,7 +45,7 @@
 	pointer-events: none;
 }
 
-.components-validated-control__status {
+.components-validated-control__indicator {
 	display: flex;
 	align-items: flex-start;
 	gap: 4px;
@@ -55,7 +55,7 @@
 	line-height: 16px; // matches the icon size
 	color: $components-color-gray-700;
 	animation:
-		components-validated-control__status-jump 0.2s
+		components-validated-control__indicator-jump 0.2s
 		cubic-bezier(0.68, -0.55, 0.27, 1.55);
 
 	&.is-invalid {
@@ -67,17 +67,17 @@
 	}
 }
 
-.components-validated-control__status-icon {
+.components-validated-control__indicator-icon {
 	flex-shrink: 0;
 }
 
-.components-validated-control__status-spinner {
+.components-validated-control__indicator-spinner {
 	margin: 2px;
 	width: $grid-unit-15;
 	height: $grid-unit-15;
 }
 
-@keyframes components-validated-control__status-jump {
+@keyframes components-validated-control__indicator-jump {
 	0% {
 		transform: translateY(-4px);
 		opacity: 0;
