@@ -115,7 +115,7 @@ export default function FormCardField< Item >( {
 
 		return (
 			<Card className="dataforms-layouts-card__field">
-				{ layout.withHeader && (
+				{ field.label && layout.withHeader && (
 					<CollapsibleCardHeader className="dataforms-layouts-card__field-label">
 						{ field.label }
 					</CollapsibleCardHeader>
@@ -155,19 +155,16 @@ export default function FormCardField< Item >( {
 		return null;
 	}
 
-	const cardTitle = fieldDefinition.label;
-
 	const Layout = getFormLayout( form, field );
-
 	if ( ! Layout ) {
 		return null;
 	}
 
 	return (
 		<Card className="dataforms-layouts-card__field">
-			{ cardTitle && layout.withHeader && (
+			{ fieldDefinition.label && layout.withHeader && (
 				<CollapsibleCardHeader className="dataforms-layouts-card__field-label">
-					{ cardTitle }
+					{ fieldDefinition.label }
 				</CollapsibleCardHeader>
 			) }
 			{ ( isOpen || ! layout.withHeader ) && (
