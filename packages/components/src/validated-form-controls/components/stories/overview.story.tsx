@@ -163,19 +163,24 @@ export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
 				} );
 
 				clearTimeout( timeoutRef.current );
-				timeoutRef.current = setTimeout( () => {
-					if ( v?.toString().toLowerCase() === 'error' ) {
-						setCustomValidityMessage( {
-							type: 'invalid',
-							message: 'The word "error" is not allowed.',
-						} );
-					} else {
-						setCustomValidityMessage( {
-							type: 'valid',
-							message: 'Validated',
-						} );
-					}
-				}, 2000 );
+				timeoutRef.current = setTimeout(
+					() => {
+						if ( v?.toString().toLowerCase() === 'error' ) {
+							setCustomValidityMessage( {
+								type: 'invalid',
+								message: 'The word "error" is not allowed.',
+							} );
+						} else {
+							setCustomValidityMessage( {
+								type: 'valid',
+								message: 'Validated',
+							} );
+						}
+					},
+					// Mimics a random server response time.
+					// eslint-disable-next-line no-restricted-syntax
+					Math.random() < 0.5 ? 1500 : 300
+				);
 			}, 500 ),
 			[]
 		);
@@ -187,13 +192,7 @@ export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
 				onChange={ ( newValue ) => {
 					setText( newValue ?? '' );
 				} }
-				onValidate={ ( v ) => {
-					if ( ! v ) {
-						return;
-					}
-
-					debouncedValidate( v );
-				} }
+				onValidate={ debouncedValidate }
 				customValidityMessage={ customValidityMessage }
 			/>
 		);
@@ -202,4 +201,5 @@ export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
 AsyncValidation.args = {
 	label: 'Text',
 	help: 'The word "error" will trigger an error asynchronously.',
+	required: true,
 };

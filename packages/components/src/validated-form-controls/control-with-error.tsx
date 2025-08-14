@@ -173,31 +173,36 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 
 		switch ( customValidityMessage?.type ) {
 			case 'validating': {
-				validityTarget?.setCustomValidity( '' );
-				setStatusMessage( {
-					type: 'validating',
-					message: customValidityMessage.message,
-				} );
-				break;
+				// Wait before showing a validating state.
+				const timer = setTimeout( () => {
+					setStatusMessage( {
+						type: 'validating',
+						message: customValidityMessage.message,
+					} );
+				}, 1000 );
+
+				return () => clearTimeout( timer );
 			}
 			case 'valid': {
 				validityTarget?.setCustomValidity( '' );
+				setErrorMessage( validityTarget?.validationMessage );
+
 				setStatusMessage( {
 					type: 'valid',
 					message: customValidityMessage.message,
 				} );
-				break;
+				return;
 			}
 			case 'invalid': {
 				validityTarget?.setCustomValidity(
 					customValidityMessage.message ?? ''
 				);
+				setErrorMessage( validityTarget?.validationMessage );
+
 				setStatusMessage( undefined );
-				break;
+				return undefined;
 			}
 		}
-
-		setErrorMessage( validityTarget?.validationMessage );
 	}, [
 		isTouched,
 		customValidityMessage?.type,
