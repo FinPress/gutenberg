@@ -207,9 +207,12 @@ function UnforwardedLinkUI( props, ref ) {
 		<Popover
 			ref={ ref }
 			placement="bottom"
-			onClose={ props.onClose }
+			onClose={ () => {
+				props.onClose();
+			} }
 			anchor={ props.anchor }
 			shift
+			cancelFocusOutsideOnUnmount={ false }
 		>
 			{ ! addingBlock && (
 				<div

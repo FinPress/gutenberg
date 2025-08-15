@@ -143,6 +143,7 @@ const UnforwardedPopover = (
 		anchor,
 		expandOnMobile,
 		onFocusOutside,
+		cancelFocusOutsideOnUnmount = true,
 		__unstableSlotName = SLOT_NAME,
 		flip = true,
 		resize = true,
@@ -281,6 +282,7 @@ const UnforwardedPopover = (
 		__unstableOnClose: onDialogClose,
 		// @ts-expect-error The __unstableOnClose property needs to be deprecated first (see https://github.com/WordPress/gutenberg/pull/27675)
 		onClose: onDialogClose,
+		cancelFocusOutsideOnUnmount,
 	} );
 
 	const {

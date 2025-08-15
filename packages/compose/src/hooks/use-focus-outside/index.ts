@@ -62,14 +62,16 @@ type UseFocusOutsideReturn = {
  * A react hook that can be used to check whether focus has moved outside the
  * element the event handlers are bound to.
  *
- * @param onFocusOutside A callback triggered when focus moves outside
- *                       the element the event handlers are bound to.
- *
+ * @param onFocusOutside  A callback triggered when focus moves outside
+ *                        the element the event handlers are bound to.
+ * @param cancelOnUnmount Whether to cancel the focus outside timeout when
+ *                        the component unmounts. Defaults to true.
  * @return An object containing event handlers. Bind the event handlers to a
- * wrapping element element to capture when focus moves outside that element.
+ *         wrapping element element to capture when focus moves outside that element.
  */
 export default function useFocusOutside(
-	onFocusOutside: ( ( event: React.FocusEvent ) => void ) | undefined
+	onFocusOutside: ( ( event: React.FocusEvent ) => void ) | undefined,
+	cancelOnUnmount: boolean = true
 ): UseFocusOutsideReturn {
 	const currentOnFocusOutsideRef = useRef( onFocusOutside );
 	useEffect( () => {
@@ -87,10 +89,13 @@ export default function useFocusOutside(
 		clearTimeout( blurCheckTimeoutIdRef.current );
 	}, [] );
 
-	// Cancel blur checks on unmount.
+	// Cancel blur checks on unmount (only if cancelOnUnmount is true)
 	useEffect( () => {
+		if ( ! cancelOnUnmount ) {
+			return;
+		}
 		return () => cancelBlurCheck();
-	}, [] );
+	}, [ cancelOnUnmount ] );
 
 	// Cancel a blur check if the callback or ref is no longer provided.
 	useEffect( () => {

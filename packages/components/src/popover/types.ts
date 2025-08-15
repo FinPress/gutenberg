@@ -94,6 +94,15 @@ export type PopoverProps = {
 	 */
 	onFocusOutside?: ( event: SyntheticEvent ) => void;
 	/**
+	 * Whether to cancel the focus outside timeout when the popover unmounts.
+	 * Setting this to `false` can help when the consuming component unmounts
+	 * before the timeout can execute, which would otherwise prevent the onClose
+	 * callback from being triggered.
+	 *
+	 * @default true
+	 */
+	cancelFocusOutsideOnUnmount?: boolean;
+	/**
 	 * Used to customize the header text shown when the popover is toggled to
 	 * fullscreen on mobile viewports (see the `expandOnMobile` prop).
 	 */
