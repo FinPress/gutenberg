@@ -49,8 +49,7 @@ export default function FormPanelField< Item >( {
 					? simpleChildren[ 0 ]
 					: simpleChildren[ 0 ].id;
 
-			// Return first child regardless of field id.
-			return !! firstChildFieldId;
+			return _field.id === firstChildFieldId;
 		}
 
 		return _field.id === field.id;
@@ -87,6 +86,7 @@ export default function FormPanelField< Item >( {
 				fieldDefinition={ fieldDefinition }
 				data={ data }
 				onChange={ onChange }
+				labelPosition={ labelPosition }
 			/>
 		) : (
 			<PanelDropdown

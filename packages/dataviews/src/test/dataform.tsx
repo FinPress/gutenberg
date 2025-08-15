@@ -233,10 +233,18 @@ describe( 'DataForm component', () => {
 			await user.click( titleButton );
 
 			// Should show dropdown content (not modal)
-			expect( screen.getByText( 'Title' ) ).toBeInTheDocument();
 			expect(
 				screen.getByRole( 'textbox', { name: /title/i } )
 			).toBeInTheDocument();
+			// Should not have modal dialog
+			expect( screen.queryByRole( 'dialog' ) ).not.toBeInTheDocument();
+			// Should not have modal buttons (Cancel/Apply)
+			expect(
+				screen.queryByRole( 'button', { name: /cancel/i } )
+			).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole( 'button', { name: /apply/i } )
+			).not.toBeInTheDocument();
 		} );
 
 		it( 'should use dropdown panel type when explicitly set', async () => {
@@ -263,7 +271,6 @@ describe( 'DataForm component', () => {
 			await user.click( titleButton );
 
 			// Should show dropdown content
-			expect( screen.getByText( 'Title' ) ).toBeInTheDocument();
 			expect(
 				screen.getByRole( 'textbox', { name: /title/i } )
 			).toBeInTheDocument();
@@ -294,7 +301,6 @@ describe( 'DataForm component', () => {
 
 			// Should show modal content
 			expect( screen.getByRole( 'dialog' ) ).toBeInTheDocument();
-			expect( screen.getByText( 'Title' ) ).toBeInTheDocument();
 			expect(
 				screen.getByRole( 'textbox', { name: /title/i } )
 			).toBeInTheDocument();

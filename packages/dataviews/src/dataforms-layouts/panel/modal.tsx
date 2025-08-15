@@ -7,7 +7,7 @@ import {
 	Button,
 	Modal,
 } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf, _x } from '@wordpress/i18n';
 import { useState, useMemo } from '@wordpress/element';
 
 /**
@@ -31,34 +31,37 @@ function ModalContent< Item >( {
 	onChange: ( data: Partial< Item > ) => void;
 	onClose: () => void;
 } ) {
-	const [ localData, setLocalData ] = useState< Item >( data );
+	const [ changes, setChanges ] = useState< Partial< Item > >( {} );
 
 	const onApply = () => {
-		onChange( localData );
+		onChange( changes );
 		onClose();
 	};
 
 	const handleOnChange = ( value: Partial< Item > ) => {
-		setLocalData( ( prev ) => ( { ...prev, ...value } ) );
+		setChanges( ( prev ) => ( { ...prev, ...value } ) );
 	};
+
+	// Merge original data with local changes for display
+	const displayData = { ...data, ...changes };
 
 	return (
 		<Modal
-			className="dataforms-layouts-panel__dropdown"
+			className="dataforms-layouts-panel__modal"
 			onRequestClose={ onClose }
 			isFullScreen={ false }
 			title={ fieldLabel }
 			size="medium"
 		>
 			<DataFormLayout
-				data={ localData }
+				data={ displayData }
 				form={ form }
 				onChange={ handleOnChange }
 			>
 				{ ( FieldLayout, nestedField ) => (
 					<FieldLayout
 						key={ nestedField.id }
-						data={ localData }
+						data={ displayData }
 						field={ nestedField }
 						onChange={ handleOnChange }
 						hideLabelFromVision={
@@ -68,7 +71,7 @@ function ModalContent< Item >( {
 				) }
 			</DataFormLayout>
 			<HStack
-				className="dataforms-layouts-panel__dropdown-footer"
+				className="dataforms-layouts-panel__modal-footer"
 				spacing={ 3 }
 			>
 				<Spacer />
@@ -93,11 +96,13 @@ function ModalContent< Item >( {
 
 function PanelModal< Item >( {
 	fieldDefinition,
+	labelPosition,
 	data,
 	onChange,
 	field,
 }: {
 	fieldDefinition: NormalizedField< Item >;
+	labelPosition: 'side' | 'top' | 'none';
 	data: Item;
 	onChange: ( value: any ) => void;
 	field: FormField;
@@ -122,9 +127,19 @@ function PanelModal< Item >( {
 	return (
 		<>
 			<Button
-				className="dataforms-layouts-panel__dropdown-button"
+				className="dataforms-layouts-modal__field-control"
 				size="compact"
-				variant="link"
+				variant={
+					[ 'none', 'top' ].includes( labelPosition )
+						? 'link'
+						: 'tertiary'
+				}
+				aria-expanded={ isOpen }
+				aria-label={ sprintf(
+					// translators: %s: Field name.
+					_x( 'Edit %s', 'field' ),
+					fieldLabel || ''
+				) }
 				onClick={ () => setIsOpen( true ) }
 				disabled={ fieldDefinition.readOnly === true }
 				accessibleWhenDisabled
