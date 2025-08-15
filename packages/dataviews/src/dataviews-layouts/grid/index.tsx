@@ -87,7 +87,12 @@ function GridItem< Item >( {
 	config,
 	posinset,
 }: GridItemProps< Item > ) {
-	const { showTitle = true, showMedia = true, showDescription = true } = view;
+	const {
+		showTitle = true,
+		showMedia = true,
+		showDescription = true,
+		infiniteScrollEnabled,
+	} = view;
 	const hasBulkAction = useHasAPossibleBulkAction( actions, item );
 	const id = getItemId( item );
 	const instanceId = useInstanceId( GridItem );
@@ -120,7 +125,6 @@ function GridItem< Item >( {
 			};
 		}
 	}
-	const isInfiniteScroll = view.infiniteScroll;
 	const { paginationInfo } = useContext( DataViewsContext );
 
 	return (
@@ -144,9 +148,9 @@ function GridItem< Item >( {
 					);
 				}
 			} }
-			role={ isInfiniteScroll ? 'article' : undefined }
+			role={ infiniteScrollEnabled ? 'article' : undefined }
 			aria-setsize={
-				isInfiniteScroll ? paginationInfo.totalItems : undefined
+				infiniteScrollEnabled ? paginationInfo.totalItems : undefined
 			}
 			aria-posinset={ posinset }
 		>
@@ -334,7 +338,7 @@ function ViewGrid< Item >( {
 		  }, new Map< string, typeof data >() )
 		: null;
 
-	const isInfiniteScroll = view.infiniteScroll && ! dataByGroup;
+	const isInfiniteScroll = view.infiniteScrollEnabled && ! dataByGroup;
 
 	return (
 		<>

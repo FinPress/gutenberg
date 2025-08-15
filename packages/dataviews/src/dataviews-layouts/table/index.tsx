@@ -118,11 +118,15 @@ function TableRow< Item >( {
 	posinset,
 }: TableRowProps< Item > ) {
 	const { paginationInfo } = useContext( DataViewsContext );
-	const isInfiniteScroll = view.infiniteScroll;
 	const hasPossibleBulkAction = useHasAPossibleBulkAction( actions, item );
 	const isSelected = hasPossibleBulkAction && selection.includes( id );
 	const [ isHovered, setIsHovered ] = useState( false );
-	const { showTitle = true, showMedia = true, showDescription = true } = view;
+	const {
+		showTitle = true,
+		showMedia = true,
+		showDescription = true,
+		infiniteScrollEnabled,
+	} = view;
 	const handleMouseEnter = () => {
 		setIsHovered( true );
 	};
@@ -153,10 +157,10 @@ function TableRow< Item >( {
 				isTouchDeviceRef.current = true;
 			} }
 			aria-setsize={
-				isInfiniteScroll ? paginationInfo.totalItems : undefined
+				infiniteScrollEnabled ? paginationInfo.totalItems : undefined
 			}
 			aria-posinset={ posinset }
-			role={ isInfiniteScroll ? 'article' : undefined }
+			role={ infiniteScrollEnabled ? 'article' : undefined }
 			onClick={ ( event ) => {
 				if ( ! hasPossibleBulkAction ) {
 					return;
@@ -365,7 +369,7 @@ function ViewTable< Item >( {
 				headerMenuRefs.current.delete( column );
 			}
 		};
-	const isInfiniteScroll = view.infiniteScroll && ! dataByGroup;
+	const isInfiniteScroll = view.infiniteScrollEnabled && ! dataByGroup;
 
 	return (
 		<>

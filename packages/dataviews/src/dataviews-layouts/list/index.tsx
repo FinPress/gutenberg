@@ -158,7 +158,12 @@ function ListItem< Item >( {
 	onDropdownTriggerKeyDown,
 	posinset,
 }: ListViewItemProps< Item > ) {
-	const { showTitle = true, showMedia = true, showDescription = true } = view;
+	const {
+		showTitle = true,
+		showMedia = true,
+		showDescription = true,
+		infiniteScrollEnabled,
+	} = view;
 	const itemRef = useRef< HTMLDivElement >( null );
 	const labelId = `${ idPrefix }-label`;
 	const descriptionId = `${ idPrefix }-description`;
@@ -173,9 +178,7 @@ function ListItem< Item >( {
 		setIsHovered( isHover );
 	};
 
-	const isInfiniteScroll = view.infiniteScroll;
 	const { paginationInfo } = useContext( DataViewsContext );
-
 	useEffect( () => {
 		if ( isSelected ) {
 			itemRef.current?.scrollIntoView( {
@@ -281,11 +284,13 @@ function ListItem< Item >( {
 				<div
 					aria-posinset={ posinset }
 					aria-setsize={
-						isInfiniteScroll ? paginationInfo.totalItems : undefined
+						infiniteScrollEnabled
+							? paginationInfo.totalItems
+							: undefined
 					}
 				/>
 			}
-			role={ isInfiniteScroll ? 'article' : 'row' }
+			role={ infiniteScrollEnabled ? 'article' : 'row' }
 			className={ clsx( {
 				'is-selected': isSelected,
 				'is-hovered': isHovered,
@@ -512,15 +517,13 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 		);
 	}
 
-	const isInfiniteScroll = view.infiniteScroll;
-
 	return (
 		<>
 			<Composite
 				id={ baseId }
 				render={ <div /> }
 				className={ clsx( 'dataviews-view-list', className ) }
-				role={ isInfiniteScroll ? 'feed' : 'grid' }
+				role={ view.infiniteScrollEnabled ? 'feed' : 'grid' }
 				activeId={ activeCompositeId }
 				setActiveId={ setActiveCompositeId }
 			>
@@ -543,7 +546,9 @@ export default function ViewList< Item >( props: ViewListProps< Item > ) {
 								onDropdownTriggerKeyDown
 							}
 							posinset={
-								isInfiniteScroll ? index + 1 : undefined
+								view.infiniteScrollEnabled
+									? index + 1
+									: undefined
 							}
 						/>
 					);

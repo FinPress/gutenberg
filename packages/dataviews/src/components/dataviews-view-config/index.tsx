@@ -215,11 +215,11 @@ function SortDirectionControl() {
 
 function ItemsPerPageControl() {
 	const { view, perPageSizes, onChangeView } = useContext( DataViewsContext );
-	const { infiniteScroll } = view;
+	const { infiniteScrollEnabled } = view;
 	if (
 		perPageSizes.length < 2 ||
 		perPageSizes.length > 6 ||
-		infiniteScroll
+		infiniteScrollEnabled
 	) {
 		return null;
 	}

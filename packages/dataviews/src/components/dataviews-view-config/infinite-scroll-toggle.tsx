@@ -13,7 +13,7 @@ import DataViewsContext from '../dataviews-context';
 export default function InfiniteScrollToggle() {
 	const context = useContext( DataViewsContext );
 	const { view, onChangeView } = context;
-	const infiniteScrollEnabled = view.infiniteScroll ?? false;
+	const infiniteScrollEnabled = view.infiniteScrollEnabled ?? false;
 
 	// Only render the toggle if an infinite scroll handler is available
 	if ( ! context.hasInfiniteScrollHandler ) {
@@ -31,7 +31,7 @@ export default function InfiniteScrollToggle() {
 			onChange={ ( newValue ) => {
 				onChangeView( {
 					...view,
-					infiniteScroll: newValue,
+					infiniteScrollEnabled: newValue,
 				} );
 			} }
 		/>

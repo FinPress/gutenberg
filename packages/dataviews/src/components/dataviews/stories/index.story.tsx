@@ -403,7 +403,7 @@ export const InfiniteScroll = () => {
 		titleField: 'title',
 		descriptionField: 'description',
 		mediaField: 'image',
-		infiniteScroll: true, // Enable infinite scroll by default
+		infiniteScrollEnabled: true, // Enable infinite scroll by default
 	} );
 	const { data: shownData } = useMemo( () => {
 		return filterSortAndPaginate( data, view, fields );
@@ -448,7 +448,7 @@ export const InfiniteScroll = () => {
 
 	// Initialize data on first load or when view changes significantly
 	useEffect( () => {
-		if ( currentPage === 1 || ! view.infiniteScroll ) {
+		if ( currentPage === 1 || ! view.infiniteScrollEnabled ) {
 			// First page - replace all data
 			setAllLoadedRecords( shownData );
 		} else {
@@ -467,7 +467,7 @@ export const InfiniteScroll = () => {
 		view.filters,
 		view.perPage,
 		currentPage,
-		view.infiniteScroll,
+		view.infiniteScrollEnabled,
 	] );
 
 	const paginationInfo = {

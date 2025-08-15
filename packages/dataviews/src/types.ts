@@ -447,7 +447,7 @@ interface ViewBase {
 	/**
 	 * Whether infinite scroll is enabled.
 	 */
-	infiniteScroll?: boolean;
+	infiniteScrollEnabled?: boolean;
 }
 
 export interface ColumnStyle {
