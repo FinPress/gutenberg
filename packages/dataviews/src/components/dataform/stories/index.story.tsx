@@ -43,12 +43,17 @@ const meta = {
 			control: { type: 'select' },
 			description:
 				'Chooses the default layout of each field. "regular" is the default layout.',
-			options: [ 'default', 'regular', 'panel', 'card', 'modal' ],
+			options: [ 'default', 'regular', 'panel', 'card' ],
 		},
 		labelPosition: {
 			control: { type: 'select' },
 			description: 'Chooses the label position of the layout.',
 			options: [ 'default', 'top', 'side', 'none' ],
+		},
+		panelType: {
+			control: { type: 'select' },
+			description: 'Chooses the type of panel to use.',
+			options: [ 'default', 'dropdown', 'modal' ],
 		},
 	},
 };
@@ -181,9 +186,11 @@ const fields = [
 export const Default = ( {
 	type,
 	labelPosition,
+	panelType,
 }: {
 	type: 'default' | 'regular' | 'panel' | 'card';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
+	panelType: 'default' | 'dropdown' | 'modal';
 } ) => {
 	const [ post, setPost ] = useState( {
 		title: 'Hello, World!',
@@ -206,6 +213,7 @@ export const Default = ( {
 			layout: {
 				type,
 				labelPosition,
+				panelType,
 			},
 			fields: [
 				'title',
@@ -224,7 +232,7 @@ export const Default = ( {
 				'tags',
 			],
 		} ),
-		[ type, labelPosition ]
+		[ type, labelPosition, panelType ]
 	) as Form;
 
 	return (
@@ -245,9 +253,11 @@ export const Default = ( {
 const CombinedFieldsComponent = ( {
 	type,
 	labelPosition,
+	panelType,
 }: {
 	type: 'default' | 'regular' | 'panel' | 'card';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
+	panelType: 'default' | 'dropdown' | 'modal';
 } ) => {
 	const [ post, setPost ] = useState< SamplePost >( {
 		title: 'Hello, World!',
@@ -270,6 +280,7 @@ const CombinedFieldsComponent = ( {
 			layout: {
 				type,
 				labelPosition,
+				panelType,
 			},
 			fields: [
 				'title',
@@ -291,7 +302,7 @@ const CombinedFieldsComponent = ( {
 				},
 			],
 		} ),
-		[ type, labelPosition, post ]
+		[ type, labelPosition, panelType, post ]
 	) as Form;
 
 	return (
@@ -752,7 +763,11 @@ const LayoutMixedComponent = () => {
 				fields: [
 					{
 						id: 'title',
-						layout: { type: 'panel', labelPosition: 'top' },
+						layout: {
+							type: 'panel',
+							labelPosition: 'top',
+							panelType: 'dropdown',
+						},
 					},
 					'status',
 					{ id: 'order', layout: { type: 'card' } },
