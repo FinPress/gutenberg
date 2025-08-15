@@ -25,6 +25,14 @@ export function isItemValid< Item >(
 	const isEmptyNullOrUndefined = ( value: any ) =>
 		[ undefined, '', null ].includes( value );
 
+	const isNotArrayEmptyOrContainsInvalidElements = ( value: any ) => {
+		return (
+			! Array.isArray( value ) ||
+			value.length === 0 ||
+			value.every( ( element: any ) => isEmptyNullOrUndefined( element ) )
+		);
+	};
+
 	return _fields.every( ( field ) => {
 		const value = field.getValue( { item } );
 
@@ -34,6 +42,8 @@ export function isItemValid< Item >(
 				( field.type === 'email' && isEmptyNullOrUndefined( value ) ) ||
 				( field.type === 'integer' &&
 					isEmptyNullOrUndefined( value ) ) ||
+				( field.type === 'array' &&
+					isNotArrayEmptyOrContainsInvalidElements( value ) ) ||
 				( field.type === undefined && isEmptyNullOrUndefined( value ) )
 			) {
 				return false;
