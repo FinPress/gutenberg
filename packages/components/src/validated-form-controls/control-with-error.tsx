@@ -18,7 +18,7 @@ import {
  */
 import { withIgnoreIMEEvents } from '../utils/with-ignore-ime-events';
 import type { ValidatedControlProps } from './components/types';
-import { ValidationIndicator } from './validation-indicator';
+import { ValidityIndicator } from './validity-indicator';
 
 function appendRequiredIndicator(
 	label: React.ReactNode,
@@ -230,13 +230,13 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 			} ) }
 			<div aria-live="polite">
 				{ errorMessage && (
-					<ValidationIndicator
+					<ValidityIndicator
 						type="invalid"
 						message={ errorMessage }
 					/>
 				) }
 				{ ! errorMessage && statusMessage && (
-					<ValidationIndicator
+					<ValidityIndicator
 						type={ statusMessage.type }
 						message={ statusMessage.message }
 					/>

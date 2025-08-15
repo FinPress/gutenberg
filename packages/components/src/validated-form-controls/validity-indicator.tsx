@@ -14,7 +14,7 @@ import { error, published } from '@wordpress/icons';
 import Icon from '../icon';
 import Spinner from '../spinner';
 
-export function ValidationIndicator( {
+export function ValidityIndicator( {
 	type,
 	message,
 }: {
