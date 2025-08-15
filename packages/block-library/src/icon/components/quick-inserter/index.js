@@ -161,7 +161,7 @@ export default function QuickInserterPopover( props ) {
 				<div className="block-editor-inserter__quick-inserter-results">
 					{ [
 						shownIcons.length === 0 && noResults,
-						! shownIcons.length === 0 && searchResults,
+						shownIcons.length > 0 && searchResults,
 					] }
 				</div>
 				<Button

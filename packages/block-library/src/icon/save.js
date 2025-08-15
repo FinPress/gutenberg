@@ -151,8 +151,9 @@ export default function Save( props ) {
 		marginTop: blockStyles?.marginTop,
 	};
 
-	const rel = linkRel.length === 0 ? undefined : linkRel;
-	const target = linkTarget.length === 0 ? undefined : linkTarget;
+	const rel = linkRel && linkRel.length === 0 ? undefined : linkRel;
+	const target =
+		linkTarget && linkTarget.length === 0 ? undefined : linkTarget;
 
 	const iconMarkup = (
 		<>
