@@ -159,7 +159,6 @@ function render_block_core_term_template_get_children( $parent_term_id, $block, 
 }
 
 
-
 /**
  * Renders a single term with its inner blocks.
  *
