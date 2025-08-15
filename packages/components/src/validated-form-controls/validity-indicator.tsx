@@ -6,13 +6,12 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { error, published } from '@wordpress/icons';
+import { error, pending, published } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import Icon from '../icon';
-import Spinner from '../spinner';
 
 export function ValidityIndicator( {
 	type,
@@ -22,6 +21,7 @@ export function ValidityIndicator( {
 	message?: string;
 } ) {
 	const ICON = {
+		validating: pending,
 		valid: published,
 		invalid: error,
 	};
@@ -32,16 +32,15 @@ export function ValidityIndicator( {
 				`is-${ type }`
 			) }
 		>
-			{ type === 'validating' ? (
-				<Spinner className="components-validated-control__indicator-spinner" />
-			) : (
-				<Icon
-					className="components-validated-control__indicator-icon"
-					icon={ ICON[ type ] }
-					size={ 16 }
-					fill="currentColor"
-				/>
-			) }
+			<Icon
+				className={ clsx(
+					'components-validated-control__indicator-icon',
+					`is-${ type }`
+				) }
+				icon={ ICON[ type ] }
+				size={ 16 }
+				fill="currentColor"
+			/>
 			{ message }
 		</p>
 	);

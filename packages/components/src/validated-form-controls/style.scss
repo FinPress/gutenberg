@@ -69,12 +69,10 @@
 
 .components-validated-control__indicator-icon {
 	flex-shrink: 0;
-}
 
-.components-validated-control__indicator-spinner {
-	margin: 2px;
-	width: $grid-unit-15;
-	height: $grid-unit-15;
+	&.is-validating {
+		animation: 1s cubic-bezier(0.21, 0.62, 0.39, 0.28) infinite both components-validated-control__indicator-spin;
+	}
 }
 
 @keyframes components-validated-control__indicator-jump {
@@ -85,5 +83,14 @@
 	100% {
 		transform: translateY(0);
 		opacity: 1;
+	}
+}
+
+@keyframes components-validated-control__indicator-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }
