@@ -17,6 +17,7 @@ import {
 	getClientIdsWithDescendants,
 	isNavigationMode,
 	getBlockRootClientId,
+	isBlockSelected,
 } from './selectors';
 import {
 	checkAllowListRecursive,
@@ -667,4 +668,25 @@ export function getClosestAllowedInsertionPointForPattern(
  */
 export function getInsertionPoint( state ) {
 	return state.insertionPoint;
+}
+
+/**
+ * Returns true if any sibling block of the specified client ID is currently selected.
+ *
+ * @param {Object} state    Editor state.
+ * @param {string} clientId Block client ID.
+ *
+ * @return {boolean} Whether any sibling block is selected.
+ */
+export function isSiblingBlockSelected( state, clientId ) {
+	const rootClientId = getBlockRootClientId( state, clientId );
+	const siblingClientIds = getBlockOrder( state, rootClientId );
+
+	// Filter out the current block itself
+	const otherSiblings = siblingClientIds.filter( ( id ) => id !== clientId );
+
+	// Check if any sibling is selected
+	return otherSiblings.some( ( siblingId ) =>
+		isBlockSelected( state, siblingId )
+	);
 }
