@@ -32,6 +32,6 @@ export type ValidatedControlProps< V > = {
 	 */
 	customValidity?: {
 		type: 'validating' | 'valid' | 'invalid';
-		message?: string;
+		message: string;
 	};
 };
