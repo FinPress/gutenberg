@@ -65,7 +65,7 @@ function render_block_core_term_template( $attributes, $content, $block ) {
 		$content = render_block_core_term_template_flat( $terms, $block );
 	}
 
-	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'wp-block-term-template' ) );
+	$wrapper_attributes = get_block_wrapper_attributes();
 
 	return sprintf(
 		'<ul %s>%s</ul>',

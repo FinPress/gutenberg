@@ -226,9 +226,7 @@ export default function TermTemplateEdit( {
 		[ filteredTerms, taxonomy ]
 	);
 
-	const blockProps = useBlockProps( {
-		className: 'wp-block-term-template',
-	} );
+	const blockProps = useBlockProps();
 
 	if ( isResolving ) {
 		return (
