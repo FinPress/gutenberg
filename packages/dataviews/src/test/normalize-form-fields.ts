@@ -100,7 +100,11 @@ describe( 'normalizeFormFields', () => {
 			expect( result ).toEqual( [
 				{
 					id: 'field1',
-					layout: { type: 'panel', labelPosition: 'side' },
+					layout: {
+						type: 'panel',
+						labelPosition: 'side',
+						panelType: 'dropdown',
+					},
 				},
 			] );
 		} );
@@ -114,7 +118,11 @@ describe( 'normalizeFormFields', () => {
 			expect( result ).toEqual( [
 				{
 					id: 'field1',
-					layout: { type: 'panel', labelPosition: 'top' },
+					layout: {
+						type: 'panel',
+						labelPosition: 'top',
+						panelType: 'dropdown',
+					},
 				},
 			] );
 		} );
@@ -195,7 +203,11 @@ describe( 'normalizeFormFields', () => {
 				},
 				{
 					id: 'field2',
-					layout: { type: 'panel', labelPosition: 'side' },
+					layout: {
+						type: 'panel',
+						labelPosition: 'side',
+						panelType: 'dropdown',
+					},
 				},
 			] );
 		} );
