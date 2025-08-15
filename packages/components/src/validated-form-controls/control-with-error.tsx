@@ -130,7 +130,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 			return;
 		}
 
-		switch ( customValidity?.type ) {
+		switch ( customValidity.type ) {
 			case 'validating': {
 				// Wait before showing a validating state.
 				const timer = setTimeout( () => {
