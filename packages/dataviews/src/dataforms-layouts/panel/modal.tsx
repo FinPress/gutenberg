@@ -44,10 +44,11 @@ function ModalContent< Item >( {
 
 	return (
 		<Modal
-			className="dataforms-layouts-modal__modal"
+			className="dataforms-layouts-panel__dropdown"
 			onRequestClose={ onClose }
 			isFullScreen={ false }
 			title={ fieldLabel }
+			size="medium"
 		>
 			<DataFormLayout
 				data={ localData }
@@ -67,7 +68,7 @@ function ModalContent< Item >( {
 				) }
 			</DataFormLayout>
 			<HStack
-				className="dataforms-layouts-modal__modal-footer"
+				className="dataforms-layouts-panel__dropdown-footer"
 				spacing={ 3 }
 			>
 				<Spacer />
@@ -121,7 +122,7 @@ function PanelModal< Item >( {
 	return (
 		<>
 			<Button
-				className="dataforms-layouts-modal__field-button"
+				className="dataforms-layouts-panel__dropdown-button"
 				size="compact"
 				variant="link"
 				onClick={ () => setIsOpen( true ) }
