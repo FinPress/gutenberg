@@ -23,6 +23,11 @@ const TEMPLATE = [
 				type: 'flex',
 				orientation: 'horizontal',
 			},
+			style: {
+				spacing: {
+					blockGap: '0.5rem',
+				},
+			},
 			metadata: {
 				name: __( 'Term Name with Count' ),
 			},
