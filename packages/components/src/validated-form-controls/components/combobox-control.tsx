@@ -18,7 +18,7 @@ const UnforwardedValidatedComboboxControl = (
 	{
 		required,
 		onValidate,
-		customValidityMessage,
+		customValidity,
 		onChange,
 		markWhenOptional,
 		...restProps
@@ -54,7 +54,7 @@ const UnforwardedValidatedComboboxControl = (
 			onValidate={ () => {
 				return onValidate?.( valueRef.current );
 			} }
-			customValidityMessage={ customValidityMessage }
+			customValidity={ customValidity }
 			getValidityTarget={ () =>
 				validityTargetRef.current?.querySelector< HTMLInputElement >(
 					'input[role="combobox"]'

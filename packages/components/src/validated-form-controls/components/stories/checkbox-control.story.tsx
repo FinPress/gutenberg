@@ -31,11 +31,11 @@ export default meta;
 export const Default: StoryObj< typeof ValidatedCheckboxControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ checked, setChecked ] = useState( false );
-		const [ customValidityMessage, setCustomValidityMessage ] =
+		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedCheckboxControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
 
 		return (
@@ -48,15 +48,15 @@ export const Default: StoryObj< typeof ValidatedCheckboxControl > = {
 				} }
 				onValidate={ ( value ) => {
 					if ( value ) {
-						setCustomValidityMessage( {
+						setCustomValidity( {
 							type: 'invalid',
 							message: 'This checkbox may not be checked.',
 						} );
 					} else {
-						setCustomValidityMessage( undefined );
+						setCustomValidity( undefined );
 					}
 				} }
-				customValidityMessage={ customValidityMessage }
+				customValidity={ customValidity }
 			/>
 		);
 	},

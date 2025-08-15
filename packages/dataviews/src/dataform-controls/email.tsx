@@ -20,11 +20,11 @@ export default function Email< Item >( {
 }: DataFormControlProps< Item > ) {
 	const { id, label, placeholder, description } = field;
 	const value = field.getValue( { item: data } );
-	const [ customValidityMessage, setCustomValidityMessage ] =
+	const [ customValidity, setCustomValidity ] =
 		useState<
 			React.ComponentProps<
 				typeof ValidatedTextControl
-			>[ 'customValidityMessage' ]
+			>[ 'customValidity' ]
 		>( undefined );
 
 	const onChangeControl = useCallback(
@@ -48,16 +48,16 @@ export default function Email< Item >( {
 				);
 
 				if ( message ) {
-					setCustomValidityMessage( {
+					setCustomValidity( {
 						type: 'invalid',
 						message,
 					} );
 					return;
 				}
 
-				setCustomValidityMessage( undefined );
+				setCustomValidity( undefined );
 			} }
-			customValidityMessage={ customValidityMessage }
+			customValidity={ customValidity }
 			type="email"
 			label={ label }
 			placeholder={ placeholder }

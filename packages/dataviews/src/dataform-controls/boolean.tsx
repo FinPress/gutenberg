@@ -19,11 +19,11 @@ export default function Boolean< Item >( {
 	hideLabelFromVision,
 }: DataFormControlProps< Item > ) {
 	const { id, getValue, label } = field;
-	const [ customValidityMessage, setCustomValidityMessage ] =
+	const [ customValidity, setCustomValidity ] =
 		useState<
 			React.ComponentProps<
 				typeof ValidatedToggleControl
-			>[ 'customValidityMessage' ]
+			>[ 'customValidity' ]
 		>( undefined );
 
 	return (
@@ -39,16 +39,16 @@ export default function Boolean< Item >( {
 				);
 
 				if ( message ) {
-					setCustomValidityMessage( {
+					setCustomValidity( {
 						type: 'invalid',
 						message,
 					} );
 					return;
 				}
 
-				setCustomValidityMessage( undefined );
+				setCustomValidity( undefined );
 			} }
-			customValidityMessage={ customValidityMessage }
+			customValidity={ customValidity }
 			hidden={ hideLabelFromVision }
 			__nextHasNoMarginBottom
 			label={ label }

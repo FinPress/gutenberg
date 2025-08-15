@@ -45,11 +45,11 @@ export const Default: StoryObj< typeof ValidatedInputControl > = {
 			useState<
 				React.ComponentProps< typeof ValidatedInputControl >[ 'value' ]
 			>( '' );
-		const [ customValidityMessage, setCustomValidityMessage ] =
+		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedInputControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
 
 		return (
@@ -62,15 +62,15 @@ export const Default: StoryObj< typeof ValidatedInputControl > = {
 				} }
 				onValidate={ ( v ) => {
 					if ( v?.toLowerCase() === 'error' ) {
-						setCustomValidityMessage( {
+						setCustomValidity( {
 							type: 'invalid',
 							message: 'The word "error" is not allowed.',
 						} );
 					} else {
-						setCustomValidityMessage( undefined );
+						setCustomValidity( undefined );
 					}
 				} }
-				customValidityMessage={ customValidityMessage }
+				customValidity={ customValidity }
 			/>
 		);
 	},
@@ -93,11 +93,11 @@ export const Password: StoryObj< typeof ValidatedInputControl > = {
 				React.ComponentProps< typeof ValidatedInputControl >[ 'value' ]
 			>( '' );
 		const [ visible, setVisible ] = useState( false );
-		const [ customValidityMessage, setCustomValidityMessage ] =
+		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedInputControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
 
 		return (
@@ -123,7 +123,7 @@ export const Password: StoryObj< typeof ValidatedInputControl > = {
 				} }
 				onValidate={ ( v ) => {
 					if ( ! /\d/.test( v ?? '' ) ) {
-						setCustomValidityMessage( {
+						setCustomValidity( {
 							type: 'invalid',
 							message:
 								'Password must include at least one number.',
@@ -131,7 +131,7 @@ export const Password: StoryObj< typeof ValidatedInputControl > = {
 						return;
 					}
 					if ( ! /[A-Z]/.test( v ?? '' ) ) {
-						setCustomValidityMessage( {
+						setCustomValidity( {
 							type: 'invalid',
 							message:
 								'Password must include at least one capital letter.',
@@ -139,16 +139,16 @@ export const Password: StoryObj< typeof ValidatedInputControl > = {
 						return;
 					}
 					if ( ! /[!@£$%^&*#]/.test( v ?? '' ) ) {
-						setCustomValidityMessage( {
+						setCustomValidity( {
 							type: 'invalid',
 							message:
 								'Password must include at least one symbol.',
 						} );
 						return;
 					}
-					setCustomValidityMessage( undefined );
+					setCustomValidity( undefined );
 				} }
-				customValidityMessage={ customValidityMessage }
+				customValidity={ customValidity }
 			/>
 		);
 	},

@@ -26,11 +26,11 @@ export default meta;
 export const Default: StoryObj< typeof ValidatedTextareaControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ value, setValue ] = useState( '' );
-		const [ customValidityMessage, setCustomValidityMessage ] =
+		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedTextareaControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
 
 		return (
@@ -43,15 +43,15 @@ export const Default: StoryObj< typeof ValidatedTextareaControl > = {
 				value={ value }
 				onValidate={ ( v ) => {
 					if ( v?.toLowerCase() === 'error' ) {
-						setCustomValidityMessage( {
+						setCustomValidity( {
 							type: 'invalid',
 							message: 'The word "error" is not allowed.',
 						} );
 					} else {
-						setCustomValidityMessage( undefined );
+						setCustomValidity( undefined );
 					}
 				} }
-				customValidityMessage={ customValidityMessage }
+				customValidity={ customValidity }
 			/>
 		);
 	},

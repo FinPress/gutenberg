@@ -29,11 +29,11 @@ export default meta;
 export const Default: StoryObj< typeof ValidatedToggleControl > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ checked, setChecked ] = useState( false );
-		const [ customValidityMessage, setCustomValidityMessage ] =
+		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedToggleControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
 
 		return (
@@ -46,15 +46,15 @@ export const Default: StoryObj< typeof ValidatedToggleControl > = {
 				} }
 				onValidate={ ( v ) => {
 					if ( v ) {
-						setCustomValidityMessage( {
+						setCustomValidity( {
 							type: 'invalid',
 							message: 'This toggle may not be enabled.',
 						} );
 					} else {
-						setCustomValidityMessage( undefined );
+						setCustomValidity( undefined );
 					}
 				} }
-				customValidityMessage={ customValidityMessage }
+				customValidity={ customValidity }
 			/>
 		);
 	},

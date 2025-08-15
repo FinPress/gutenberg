@@ -18,7 +18,7 @@ const UnforwardedValidatedCheckboxControl = (
 	{
 		required,
 		onValidate,
-		customValidityMessage,
+		customValidity,
 		onChange,
 		markWhenOptional,
 		...restProps
@@ -41,7 +41,7 @@ const UnforwardedValidatedCheckboxControl = (
 			onValidate={ () => {
 				return onValidate?.( valueRef.current );
 			} }
-			customValidityMessage={ customValidityMessage }
+			customValidity={ customValidity }
 			getValidityTarget={ () =>
 				validityTargetRef.current?.querySelector< HTMLInputElement >(
 					'input[type="checkbox"]'

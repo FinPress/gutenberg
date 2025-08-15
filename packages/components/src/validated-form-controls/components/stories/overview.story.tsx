@@ -33,17 +33,17 @@ export const WithMultipleControls: Story = {
 	render: function Template() {
 		const [ text, setText ] = useState( '' );
 		const [ text2, setText2 ] = useState( '' );
-		const [ customValidityMessage, setCustomValidityMessage ] =
+		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedInputControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
-		const [ customValidityMessage2, setCustomValidityMessage2 ] =
+		const [ customValidity2, setCustomValidity2 ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedInputControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
 
 		return (
@@ -55,15 +55,15 @@ export const WithMultipleControls: Story = {
 					help="The word 'error' will trigger an error."
 					onValidate={ ( value ) => {
 						if ( value?.toLowerCase() === 'error' ) {
-							setCustomValidityMessage( {
+							setCustomValidity( {
 								type: 'invalid',
 								message: 'The word "error" is not allowed.',
 							} );
 						} else {
-							setCustomValidityMessage( undefined );
+							setCustomValidity( undefined );
 						}
 					} }
-					customValidityMessage={ customValidityMessage }
+					customValidity={ customValidity }
 					onChange={ ( value ) => setText( value ?? '' ) }
 				/>
 				<ValidatedInputControl
@@ -73,16 +73,16 @@ export const WithMultipleControls: Story = {
 					help="The word 'error' will trigger an error."
 					onValidate={ ( value ) => {
 						if ( value?.toLowerCase() === 'error' ) {
-							setCustomValidityMessage2( {
+							setCustomValidity2( {
 								type: 'invalid',
 								message: 'The word "error" is not allowed.',
 							} );
 						} else {
-							setCustomValidityMessage2( undefined );
+							setCustomValidity2( undefined );
 						}
 					} }
 					onChange={ ( value ) => setText2( value ?? '' ) }
-					customValidityMessage={ customValidityMessage2 }
+					customValidity={ customValidity2 }
 				/>
 			</>
 		);
@@ -96,11 +96,11 @@ export const WithMultipleControls: Story = {
 export const WithHelpTextReplacement: Story = {
 	render: function Template() {
 		const [ text, setText ] = useState( '' );
-		const [ customValidityMessage, setCustomValidityMessage ] =
+		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedInputControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
 
 		return (
@@ -109,29 +109,29 @@ export const WithHelpTextReplacement: Story = {
 				required
 				value={ text }
 				help={
-					customValidityMessage
+					customValidity
 						? undefined
 						: 'The word "error" is not allowed.'
 				}
 				onValidate={ ( value ) => {
 					if ( value?.toLowerCase() === 'error' ) {
-						setCustomValidityMessage( {
+						setCustomValidity( {
 							type: 'invalid',
 							message: 'The word "error" is not allowed.',
 						} );
 					} else {
-						setCustomValidityMessage( undefined );
+						setCustomValidity( undefined );
 					}
 				} }
 				onChange={ ( value ) => setText( value ?? '' ) }
-				customValidityMessage={ customValidityMessage }
+				customValidity={ customValidity }
 			/>
 		);
 	},
 };
 
 /**
- * To provide feedback from server-side validation, the `customValidityMessage` prop can be used
+ * To provide feedback from server-side validation, the `customValidity` prop can be used
  * to show additional status indicators while waiting for the server response,
  * and after the response is received.
  *
@@ -141,11 +141,11 @@ export const WithHelpTextReplacement: Story = {
 export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
 	render: function Template( { ...args } ) {
 		const [ text, setText ] = useState( '' );
-		const [ customValidityMessage, setCustomValidityMessage ] =
+		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedInputControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
 
 		const timeoutRef = useRef< ReturnType< typeof setTimeout > >();
@@ -160,7 +160,7 @@ export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
 
 				previousValidationValueRef.current = v;
 
-				setCustomValidityMessage( {
+				setCustomValidity( {
 					type: 'validating',
 					message: 'Validating...',
 				} );
@@ -169,12 +169,12 @@ export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
 				timeoutRef.current = setTimeout(
 					() => {
 						if ( v?.toString().toLowerCase() === 'error' ) {
-							setCustomValidityMessage( {
+							setCustomValidity( {
 								type: 'invalid',
 								message: 'The word "error" is not allowed.',
 							} );
 						} else {
-							setCustomValidityMessage( {
+							setCustomValidity( {
 								type: 'valid',
 								message: 'Validated',
 							} );
@@ -196,7 +196,7 @@ export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
 					setText( newValue ?? '' );
 				} }
 				onValidate={ debouncedValidate }
-				customValidityMessage={ customValidityMessage }
+				customValidity={ customValidity }
 			/>
 		);
 	},

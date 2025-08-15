@@ -11,7 +11,7 @@ export type ValidatedControlProps< V > = {
 	markWhenOptional?: boolean;
 	/**
 	 * Optional callback to run when the input should be validated. Use this to set
-	 * a `customValidityMessage` as necessary.
+	 * a `customValidity` as necessary.
 	 *
 	 * Always prefer using standard HTML attributes like `required` and `min`/`max` over
 	 * custom validators when possible, as they are simpler and have localized error messages built in.
@@ -28,9 +28,9 @@ export type ValidatedControlProps< V > = {
 	 * will be cleared. If there are no remaining validity messages triggered by HTML attribute-based validation,
 	 * the message will be presented as a status indicator rather than an error. These indicators are intended
 	 * for asynchronous validation calls that may take more than 1 second to complete.
-	 * Otherwise, custom errors can simply be cleared by setting the `customValidityMessage` prop to `undefined`.
+	 * Otherwise, custom errors can simply be cleared by setting the `customValidity` prop to `undefined`.
 	 */
-	customValidityMessage?: {
+	customValidity?: {
 		type: 'validating' | 'valid' | 'invalid';
 		message?: string;
 	};

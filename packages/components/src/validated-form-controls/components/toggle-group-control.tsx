@@ -17,7 +17,7 @@ const UnforwardedValidatedToggleGroupControl = (
 	{
 		required,
 		onValidate,
-		customValidityMessage,
+		customValidity,
 		onChange,
 		markWhenOptional,
 		...restProps
@@ -41,7 +41,7 @@ const UnforwardedValidatedToggleGroupControl = (
 				onValidate={ () => {
 					return onValidate?.( valueRef.current );
 				} }
-				customValidityMessage={ customValidityMessage }
+				customValidity={ customValidity }
 				getValidityTarget={ () => validityTargetRef.current }
 			>
 				<ToggleGroupControl

@@ -18,7 +18,7 @@ const UnforwardedValidatedTextControl = (
 	{
 		required,
 		onValidate,
-		customValidityMessage,
+		customValidity,
 		onChange,
 		markWhenOptional,
 		...restProps
@@ -40,7 +40,7 @@ const UnforwardedValidatedTextControl = (
 			onValidate={ () => {
 				return onValidate?.( valueRef.current );
 			} }
-			customValidityMessage={ customValidityMessage }
+			customValidity={ customValidity }
 			getValidityTarget={ () => validityTargetRef.current }
 		>
 			<TextControl

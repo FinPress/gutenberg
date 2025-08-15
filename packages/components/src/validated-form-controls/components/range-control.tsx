@@ -18,7 +18,7 @@ const UnforwardedValidatedRangeControl = (
 	{
 		required,
 		onValidate,
-		customValidityMessage,
+		customValidity,
 		onChange,
 		markWhenOptional,
 		...restProps
@@ -40,7 +40,7 @@ const UnforwardedValidatedRangeControl = (
 			onValidate={ () => {
 				return onValidate?.( valueRef.current );
 			} }
-			customValidityMessage={ customValidityMessage }
+			customValidity={ customValidity }
 			getValidityTarget={ () => validityTargetRef.current }
 		>
 			<RangeControl

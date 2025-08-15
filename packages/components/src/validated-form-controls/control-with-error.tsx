@@ -61,7 +61,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		required,
 		markWhenOptional,
 		onValidate,
-		customValidityMessage,
+		customValidity,
 		getValidityTarget,
 		children,
 	}: {
@@ -77,7 +77,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		 * The callback to run when the input should be validated.
 		 */
 		onValidate?: () => void;
-		customValidityMessage?: ValidatedControlProps< unknown >[ 'customValidityMessage' ];
+		customValidity?: ValidatedControlProps< unknown >[ 'customValidity' ];
 		/**
 		 * A function that returns the actual element on which the validity data should be applied.
 		 */
@@ -123,20 +123,20 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 
 		const validityTarget = getValidityTarget();
 
-		if ( ! customValidityMessage?.type ) {
+		if ( ! customValidity?.type ) {
 			validityTarget?.setCustomValidity( '' );
 			setErrorMessage( validityTarget?.validationMessage );
 			setStatusMessage( undefined );
 			return;
 		}
 
-		switch ( customValidityMessage?.type ) {
+		switch ( customValidity?.type ) {
 			case 'validating': {
 				// Wait before showing a validating state.
 				const timer = setTimeout( () => {
 					setStatusMessage( {
 						type: 'validating',
-						message: customValidityMessage.message,
+						message: customValidity.message,
 					} );
 				}, 1000 );
 
@@ -148,13 +148,13 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 
 				setStatusMessage( {
 					type: 'valid',
-					message: customValidityMessage.message,
+					message: customValidity.message,
 				} );
 				return;
 			}
 			case 'invalid': {
 				validityTarget?.setCustomValidity(
-					customValidityMessage.message ?? ''
+					customValidity.message ?? ''
 				);
 				setErrorMessage( validityTarget?.validationMessage );
 
@@ -164,8 +164,8 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		}
 	}, [
 		isTouched,
-		customValidityMessage?.type,
-		customValidityMessage?.message,
+		customValidity?.type,
+		customValidity?.message,
 		getValidityTarget,
 	] );
 

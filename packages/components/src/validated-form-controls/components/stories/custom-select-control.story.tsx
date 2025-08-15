@@ -34,11 +34,11 @@ export const Default: StoryObj< typeof ValidatedCustomSelectControl > = {
 					typeof ValidatedCustomSelectControl
 				>[ 'value' ]
 			>();
-		const [ customValidityMessage, setCustomValidityMessage ] =
+		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedCustomSelectControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
 
 		return (
@@ -51,15 +51,15 @@ export const Default: StoryObj< typeof ValidatedCustomSelectControl > = {
 				} }
 				onValidate={ ( v ) => {
 					if ( v?.key === 'a' ) {
-						setCustomValidityMessage( {
+						setCustomValidity( {
 							type: 'invalid',
 							message: 'Option A is not allowed.',
 						} );
 					} else {
-						setCustomValidityMessage( undefined );
+						setCustomValidity( undefined );
 					}
 				} }
-				customValidityMessage={ customValidityMessage }
+				customValidity={ customValidity }
 			/>
 		);
 	},

@@ -27,7 +27,7 @@ const UnforwardedValidatedSelectControl = (
 	{
 		required,
 		onValidate,
-		customValidityMessage,
+		customValidity,
 		onChange,
 		markWhenOptional,
 		...restProps
@@ -55,7 +55,7 @@ const UnforwardedValidatedSelectControl = (
 			onValidate={ () => {
 				return onValidate?.( valueRef.current );
 			} }
-			customValidityMessage={ customValidityMessage }
+			customValidity={ customValidity }
 			getValidityTarget={ () => validityTargetRef.current }
 		>
 			<SelectControl

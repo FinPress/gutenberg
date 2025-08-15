@@ -84,11 +84,11 @@ export default function Integer< Item >( {
 }: DataFormControlProps< Item > ) {
 	const { id, label, description } = field;
 	const value = field.getValue( { item: data } ) ?? '';
-	const [ customValidityMessage, setCustomValidityMessage ] =
+	const [ customValidity, setCustomValidity ] =
 		useState<
 			React.ComponentProps<
 				typeof ValidatedNumberControl
-			>[ 'customValidityMessage' ]
+			>[ 'customValidity' ]
 		>( undefined );
 
 	const onChangeControl = useCallback(
@@ -131,16 +131,16 @@ export default function Integer< Item >( {
 				);
 
 				if ( message ) {
-					setCustomValidityMessage( {
+					setCustomValidity( {
 						type: 'invalid',
 						message,
 					} );
 					return;
 				}
 
-				setCustomValidityMessage( undefined );
+				setCustomValidity( undefined );
 			} }
-			customValidityMessage={ customValidityMessage }
+			customValidity={ customValidity }
 			label={ label }
 			help={ description }
 			value={ value }

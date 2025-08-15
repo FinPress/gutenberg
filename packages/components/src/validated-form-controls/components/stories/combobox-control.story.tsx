@@ -34,11 +34,11 @@ export const Default: StoryObj< typeof ValidatedComboboxControl > = {
 					typeof ValidatedComboboxControl
 				>[ 'value' ]
 			>();
-		const [ customValidityMessage, setCustomValidityMessage ] =
+		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedComboboxControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
 
 		return (
@@ -51,15 +51,15 @@ export const Default: StoryObj< typeof ValidatedComboboxControl > = {
 				} }
 				onValidate={ ( v ) => {
 					if ( v === 'a' ) {
-						setCustomValidityMessage( {
+						setCustomValidity( {
 							type: 'invalid',
 							message: 'Option A is not allowed.',
 						} );
 					} else {
-						setCustomValidityMessage( undefined );
+						setCustomValidity( undefined );
 					}
 				} }
-				customValidityMessage={ customValidityMessage }
+				customValidity={ customValidity }
 			/>
 		);
 	},

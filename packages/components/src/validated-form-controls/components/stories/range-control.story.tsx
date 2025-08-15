@@ -32,11 +32,11 @@ export const Default: StoryObj< typeof ValidatedRangeControl > = {
 			useState<
 				React.ComponentProps< typeof ValidatedRangeControl >[ 'value' ]
 			>();
-		const [ customValidityMessage, setCustomValidityMessage ] =
+		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
 					typeof ValidatedRangeControl
-				>[ 'customValidityMessage' ]
+				>[ 'customValidity' ]
 			>( undefined );
 
 		return (
@@ -49,15 +49,15 @@ export const Default: StoryObj< typeof ValidatedRangeControl > = {
 				} }
 				onValidate={ ( v ) => {
 					if ( v && v % 2 !== 0 ) {
-						setCustomValidityMessage( {
+						setCustomValidity( {
 							type: 'invalid',
 							message: 'Choose an even number.',
 						} );
 					} else {
-						setCustomValidityMessage( undefined );
+						setCustomValidity( undefined );
 					}
 				} }
-				customValidityMessage={ customValidityMessage }
+				customValidity={ customValidity }
 			/>
 		);
 	},
