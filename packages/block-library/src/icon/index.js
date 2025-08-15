@@ -2,15 +2,10 @@
  * Internal dependencies
  */
 import initBlock from '../utils/init-block';
-// eslint-disable-next-line import/no-unresolved
-import deprecated from './deprecated/index.js';
-// eslint-disable-next-line import/no-unresolved
-import edit from './edit.js';
-// eslint-disable-next-line import/no-unresolved
-import save from './save.js';
+import edit from './edit';
 import metadata from './block.json';
-// eslint-disable-next-line import/no-unresolved
-import { bolt as icon } from './icons/bolt.js';
+import save from './save';
+import { bolt as icon } from './icons/bolt';
 
 const { name } = metadata;
 export { metadata, name };
@@ -40,7 +35,6 @@ export const settings = {
 	},
 	edit,
 	save,
-	deprecated,
 };
 
 export const init = () => initBlock( { name, metadata, settings } );
