@@ -55,12 +55,22 @@ export function isItemValid< Item >(
 		}
 
 		if ( field.isValid.elements ) {
-			if ( field.type === 'array' ) {
-				const elementValue = field.elements?.find(
-					( element ) => element.label === item
+			if ( field.elements ) {
+				const validValues = field.elements.map(
+					( element ) => element.value
 				);
 
-				return !! elementValue;
+				if ( field.type === 'array' ) {
+					// For arrays, check if all values are valid elements
+					if ( Array.isArray( value ) ) {
+						return value.every( ( arrayItem ) =>
+							validValues.includes( arrayItem )
+						);
+					}
+					return false;
+				}
+				// For single-value fields, check if the value is a valid element
+				return validValues.includes( value );
 			}
 		}
 
