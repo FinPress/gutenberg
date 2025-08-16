@@ -359,6 +359,7 @@ export default function DimensionsPanel( {
 	};
 	const resetGapValue = () => setGapValue( undefined );
 	const hasGapValue = () => !! value?.spacing?.blockGap;
+	const onMouseOverGap = () => onVisualize( 'gap' );
 
 	// Min Height
 	const showMinHeightControl = useHasMinHeight( settings );
@@ -634,6 +635,10 @@ export default function DimensionsPanel( {
 								values={ gapValues }
 								allowReset={ false }
 								splitOnAxis={ isAxialGap }
+								inputProps={ {
+									onMouseOver: onMouseOverGap,
+									onMouseOut: onMouseLeaveControls,
+								} }
 							/>
 						) : (
 							<UnitControl
@@ -654,6 +659,8 @@ export default function DimensionsPanel( {
 							sides={ isAxialGap ? gapSides : [ 'top' ] } // Use 'top' as the shorthand property in non-axial configurations.
 							values={ gapValues }
 							allowReset={ false }
+							onMouseOver={ onMouseOverGap }
+							onMouseOut={ onMouseLeaveControls }
 						/>
 					) }
 				</ToolsPanelItem>

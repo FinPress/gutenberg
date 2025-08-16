@@ -19,7 +19,11 @@ import {
 	DimensionsPanel as StylesDimensionsPanel,
 	useHasDimensionsPanel,
 } from '../components/global-styles';
-import { MarginVisualizer, PaddingVisualizer } from './spacing-visualizer';
+import {
+	MarginVisualizer,
+	PaddingVisualizer,
+	GapVisualizer,
+} from './spacing-visualizer';
 import { store as blockEditorStore } from '../store';
 import { unlock } from '../lock-unlock';
 import { cleanEmptyObject, shouldSkipSerialization } from './utils';
@@ -120,6 +124,13 @@ export function DimensionsPanel( { clientId, name, setAttributes, settings } ) {
 			{ !! settings?.spacing?.margin && (
 				<MarginVisualizer
 					forceShow={ visualizedProperty === 'margin' }
+					clientId={ clientId }
+					value={ value }
+				/>
+			) }
+			{ !! settings?.spacing?.blockGap && (
+				<GapVisualizer
+					forceShow={ visualizedProperty === 'gap' }
 					clientId={ clientId }
 					value={ value }
 				/>

@@ -10,3 +10,11 @@
 	pointer-events: none;
 	box-sizing: border-box;
 }
+
+.block-editor__gap-visualizer {
+	position: absolute;
+	pointer-events: none;
+	box-sizing: border-box;
+	opacity: 0.5;
+	background-color: var(--wp-admin-theme-color);
+}
