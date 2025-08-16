@@ -116,11 +116,11 @@ export default function Edit( {
 							} }
 						>
 							<ToggleGroupControlOption
-								label="Left"
+								label={ __( 'Left' ) }
 								value="left"
 							/>
 							<ToggleGroupControlOption
-								label="Right"
+								label={ __( 'Right' ) }
 								value="right"
 							/>
 						</ToggleGroupControl>
