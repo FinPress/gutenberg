@@ -29,8 +29,9 @@ jobs:
             - name: Setup Node.js and install dependencies
               uses: ./.github/setup-node
 
-            - name: Build project management automation
-              run: npx tsc --project packages/project-management-automation
+            - name: Npm build
+              # TODO: We don't have to build the entire project, just the action itself.
+              run: npm run build:packages
 
             - uses: ./packages/project-management-automation
               with:
