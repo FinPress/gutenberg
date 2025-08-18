@@ -200,8 +200,6 @@ attributes: {
 }
 ```
 
-This only affects visibility in the frontend.
-
 ## className
 
 -   Type: `boolean`
