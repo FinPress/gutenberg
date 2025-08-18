@@ -8,7 +8,7 @@
 	"description": "Accordion header.",
 	"example": {},
 	"__experimental": true,
-	"parent": [ "core/accordion-item" ],
+	"parent": [ "core/accordion-content" ],
 	"usesContext": [
 		"core/accordion-icon-position",
 		"core/accordion-show-icon"

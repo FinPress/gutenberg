@@ -15,9 +15,21 @@ A group of Accordion headers and associated expandable content. ([Source](https:
 -	**Name:** core/accordion
 -	**Experimental:** true
 -	**Category:** design
--	**Allowed Blocks:** core/accordion-item
+-	**Allowed Blocks:** core/accordion-content
 -	**Supports:** align (full, wide), background (backgroundImage, backgroundSize), color (background, gradient, text), interactivity, layout, shadow, spacing (blockGap, margin, padding), ~~html~~
 -	**Attributes:** allowedBlocks, autoclose, iconPosition, showIcon
+
+## Accordion Content
+
+A section of content within an Accordion that displays a header and expandable content. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/accordion-content))
+
+-	**Name:** core/accordion-content
+-	**Experimental:** true
+-	**Category:** design
+-	**Parent:** core/accordion
+-	**Allowed Blocks:** core/accordion-header, core/accordion-panel
+-	**Supports:** align (full, wide), color (background, gradient, text), interactivity, shadow, spacing (blockGap, margin)
+-	**Attributes:** openByDefault
 
 ## Accordion Header
 
@@ -26,21 +38,9 @@ Accordion header. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/pa
 -	**Name:** core/accordion-header
 -	**Experimental:** true
 -	**Category:** design
--	**Parent:** core/accordion-item
+-	**Parent:** core/accordion-content
 -	**Supports:** anchor, border, color (background, gradient, text), interactivity, shadow, spacing (margin, padding), typography (fontSize, textAlign), ~~align~~
 -	**Attributes:** iconPosition, level, levelOptions, openByDefault, showIcon, textAlignment, title
-
-## Accordion Item
-
-A single accordion that displays a header and expandable content. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/accordion-item))
-
--	**Name:** core/accordion-item
--	**Experimental:** true
--	**Category:** design
--	**Parent:** core/accordion
--	**Allowed Blocks:** core/accordion-header, core/accordion-panel
--	**Supports:** align (full, wide), color (background, gradient, text), interactivity, shadow, spacing (blockGap, margin)
--	**Attributes:** openByDefault
 
 ## Accordion Panel
 
@@ -49,7 +49,7 @@ Accordion Panel ([Source](https://github.com/WordPress/gutenberg/tree/trunk/pack
 -	**Name:** core/accordion-panel
 -	**Experimental:** true
 -	**Category:** design
--	**Parent:** core/accordion-item
+-	**Parent:** core/accordion-content
 -	**Supports:** border, color (background, gradient, text), interactivity, shadow, spacing (blockGap, margin, padding), typography (fontSize, lineHeight)
 -	**Attributes:** allowedBlocks, isSelected, openByDefault, templateLock
 

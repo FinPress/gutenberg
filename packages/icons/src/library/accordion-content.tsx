@@ -3,7 +3,7 @@
  */
 import { SVG, Path } from '@wordpress/primitives';
 
-const accordionItem = (
+const accordionContent = (
 	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 		<Path
 			fillRule="evenodd"
@@ -27,4 +27,4 @@ const accordionItem = (
 	</SVG>
 );
 
-export default accordionItem;
+export default accordionContent;

@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { accordionItem } from '@wordpress/icons';
+import { accordionContent } from '@wordpress/icons';
 /**
  * Internal dependencies
  */
@@ -15,7 +15,7 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: accordionItem,
+	icon: accordionContent,
 	example: {},
 	edit,
 	save,

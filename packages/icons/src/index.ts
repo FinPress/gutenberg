@@ -2,7 +2,7 @@ export { default as Icon } from './icon';
 
 export { default as accordion } from './library/accordion';
 export { default as accordionHeader } from './library/accordion-header';
-export { default as accordionItem } from './library/accordion-item';
+export { default as accordionContent } from './library/accordion-content';
 export { default as accordionPanel } from './library/accordion-panel';
 export { default as addCard } from './library/add-card';
 export { default as addSubmenu } from './library/add-submenu';

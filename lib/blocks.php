@@ -46,7 +46,7 @@ function gutenberg_reregister_core_block_types() {
 				'embed',
 			),
 			'block_names'   => array(
-				'accordion-item.php'               => 'core/accordion-item',
+				'accordion-content.php'            => 'core/accordion-content',
 				'accordion.php'                    => 'core/accordion',
 				'archives.php'                     => 'core/archives',
 				'avatar.php'                       => 'core/avatar',

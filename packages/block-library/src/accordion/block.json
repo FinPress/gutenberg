@@ -63,7 +63,7 @@
 		"core/accordion-icon-position": "iconPosition",
 		"core/accordion-show-icon": "showIcon"
 	},
-	"allowedBlocks": [ "core/accordion-item" ],
+	"allowedBlocks": [ "core/accordion-content" ],
 	"textdomain": "default",
 	"style": "wp-block-accordion"
 }

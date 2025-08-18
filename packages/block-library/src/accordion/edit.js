@@ -14,7 +14,7 @@ import {
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 
-const ACCORDION_BLOCK_NAME = 'core/accordion-item';
+const ACCORDION_BLOCK_NAME = 'core/accordion-content';
 const ACCORDION_BLOCK = {
 	name: ACCORDION_BLOCK_NAME,
 };

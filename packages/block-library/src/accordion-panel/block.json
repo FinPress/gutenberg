@@ -8,7 +8,7 @@
 	"description": "Accordion Panel",
 	"example": {},
 	"__experimental": true,
-	"parent": [ "core/accordion-item" ],
+	"parent": [ "core/accordion-content" ],
 	"supports": {
 		"color": {
 			"background": true,
