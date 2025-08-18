@@ -22,7 +22,7 @@ export default function DataForm< Item >( {
 		[ fields ]
 	);
 
-	if ( ! form.fields ) {
+	if ( ! form || form.length === 0 ) {
 		return null;
 	}
 

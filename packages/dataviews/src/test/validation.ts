@@ -17,7 +17,7 @@ describe( 'validation', () => {
 				type: 'integer',
 			},
 		];
-		const form = { fields: [ 'valid_order' ] };
+		const form = [ 'valid_order' ];
 		const result = isItemValid( item, fields, form );
 		expect( result ).toBe( true );
 	} );
@@ -30,7 +30,7 @@ describe( 'validation', () => {
 				id: 'order',
 			},
 		];
-		const form = { fields: [ 'order' ] };
+		const form = [ 'order' ];
 		const result = isItemValid( item, fields, form );
 		expect( result ).toBe( true );
 	} );
@@ -43,7 +43,7 @@ describe( 'validation', () => {
 				type: 'integer',
 			},
 		];
-		const form = { fields: [ 'order' ] };
+		const form = [ 'order' ];
 		const result = isItemValid( item, fields, form );
 		expect( result ).toBe( false );
 	} );
@@ -60,7 +60,7 @@ describe( 'validation', () => {
 				],
 			},
 		];
-		const form = { fields: [ 'author' ] };
+		const form = [ 'author' ];
 		const result = isItemValid( item, fields, form );
 		expect( result ).toBe( false );
 	} );
@@ -77,7 +77,7 @@ describe( 'validation', () => {
 				],
 			},
 		];
-		const form = { fields: [ 'author' ] };
+		const form = [ 'author' ];
 		const result = isItemValid( item, fields, form );
 		expect( result ).toBe( false );
 	} );
@@ -93,7 +93,7 @@ describe( 'validation', () => {
 				],
 			},
 		];
-		const form = { fields: [ 'author' ] };
+		const form = [ 'author' ];
 		const result = isItemValid( item, fields, form );
 		expect( result ).toBe( false );
 	} );
@@ -113,7 +113,7 @@ describe( 'validation', () => {
 				},
 			},
 		];
-		const form = { fields: [ 'order' ] };
+		const form = [ 'order' ];
 		const result = isItemValid( item, fields, form );
 		expect( result ).toBe( true );
 	} );

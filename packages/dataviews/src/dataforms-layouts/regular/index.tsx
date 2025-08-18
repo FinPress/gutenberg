@@ -25,7 +25,7 @@ import type {
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
-import { DEFAULT_LAYOUT, normalizeLayout } from '../../normalize-form-fields';
+import { normalizeLayout } from '../../normalize-form-fields';
 
 function Header( { title }: { title: string } ) {
 	return (
@@ -49,10 +49,7 @@ export default function FormRegularField< Item >( {
 	const { fields } = useContext( DataFormContext );
 
 	const form: Form = useMemo(
-		(): Form => ( {
-			layout: DEFAULT_LAYOUT,
-			fields: isCombinedField( field ) ? field.children : [],
-		} ),
+		(): Form => ( isCombinedField( field ) ? field.children : [] ),
 		[ field ]
 	);
 

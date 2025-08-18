@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useCallback, useMemo, useState } from '@wordpress/element';
+import { useCallback, useState } from '@wordpress/element';
 import {
 	Button,
 	__experimentalVStack as VStack,
@@ -35,19 +35,6 @@ type SamplePost = {
 const meta = {
 	title: 'DataViews/DataForm',
 	component: DataForm,
-	argTypes: {
-		type: {
-			control: { type: 'select' },
-			description:
-				'Chooses the default layout of each field. "regular" is the default layout.',
-			options: [ 'default', 'regular', 'panel', 'card' ],
-		},
-		labelPosition: {
-			control: { type: 'select' },
-			description: 'Chooses the label position of the layout.',
-			options: [ 'default', 'top', 'side', 'none' ],
-		},
-	},
 };
 export default meta;
 
@@ -160,13 +147,7 @@ const fields = [
 	},
 ] as Field< SamplePost >[];
 
-export const Default = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel' | 'card';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+export const Default = () => {
 	const [ post, setPost ] = useState( {
 		title: 'Hello, World!',
 		order: 2,
@@ -183,31 +164,22 @@ export const Default = ( {
 		tags: [ 'photography' ],
 	} );
 
-	const form = useMemo(
-		() => ( {
-			layout: {
-				type,
-				labelPosition,
-			},
-			fields: [
-				'title',
-				'order',
-				'sticky',
-				'author',
-				'status',
-				'reviewer',
-				'email',
-				'password',
-				'date',
-				'birthdate',
-				'can_comment',
-				'filesize',
-				'dimensions',
-				'tags',
-			],
-		} ),
-		[ type, labelPosition ]
-	) as Form;
+	const form: Form = [
+		'title',
+		'order',
+		'sticky',
+		'author',
+		'status',
+		'reviewer',
+		'email',
+		'password',
+		'date',
+		'birthdate',
+		'can_comment',
+		'filesize',
+		'dimensions',
+		'tags',
+	];
 
 	return (
 		<DataForm< SamplePost >
@@ -224,13 +196,7 @@ export const Default = ( {
 	);
 };
 
-const CombinedFieldsComponent = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel' | 'card';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+const CombinedFieldsComponent = () => {
 	const [ post, setPost ] = useState< SamplePost >( {
 		title: 'Hello, World!',
 		order: 2,
@@ -244,28 +210,19 @@ const CombinedFieldsComponent = ( {
 		tags: [ 'photography' ],
 	} );
 
-	const form = useMemo(
-		() => ( {
-			layout: {
-				type,
-				labelPosition,
-			},
-			fields: [
-				'title',
-				{
-					id: 'status',
-					label: 'Status & Visibility',
-					children: [ 'status', 'password' ],
-				},
-				'order',
-				'author',
-				'filesize',
-				'dimensions',
-				'tags',
-			],
-		} ),
-		[ type, labelPosition ]
-	) as Form;
+	const form: Form = [
+		'title',
+		{
+			id: 'status',
+			label: 'Status & Visibility',
+			children: [ 'status', 'password' ],
+		},
+		'order',
+		'author',
+		'filesize',
+		'dimensions',
+		'tags',
+	];
 
 	return (
 		<DataForm< SamplePost >
@@ -285,12 +242,6 @@ const CombinedFieldsComponent = ( {
 export const CombinedFields = {
 	title: 'DataViews/CombinedFields',
 	render: CombinedFieldsComponent,
-	argTypes: {
-		...meta.argTypes,
-	},
-	args: {
-		type: 'panel',
-	},
 };
 
 function CustomEditControl< Item >( {
@@ -406,16 +357,14 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 		},
 	];
 
-	const form = {
-		fields: [
-			'text',
-			'email',
-			'integer',
-			'boolean',
-			'customEdit',
-			'customValidation',
-		],
-	};
+	const form: Form = [
+		'text',
+		'email',
+		'integer',
+		'boolean',
+		'customEdit',
+		'customValidation',
+	];
 
 	const canSave = isItemValid( post, _fields, form );
 
@@ -487,9 +436,7 @@ const DataFormVisibilityComponent = () => {
 			isVisible: ( post ) => post.isActive === true,
 		},
 	] satisfies Field< Post >[];
-	const form = {
-		fields: [ 'isActive', 'name', 'email' ],
-	};
+	const form: Form = [ 'isActive', 'name', 'email' ];
 	return (
 		<DataForm< Post >
 			data={ data }
@@ -614,78 +561,68 @@ const LayoutCardComponent = () => {
 		commission: 5,
 	} );
 
-	const form = useMemo(
-		() =>
-			( {
-				layout: {
-					type: 'card',
-				},
-				fields: [
-					{
-						id: 'customerCard',
-						label: 'Customer',
-						children: [
-							{
-								id: 'customerContact',
-								label: 'Contact',
-								layout: { type: 'panel', labelPosition: 'top' },
-								children: [
-									{
-										id: 'name',
-										layout: {
-											type: 'regular',
-											labelPosition: 'top',
-										},
-									},
-									{
-										id: 'phone',
-										layout: {
-											type: 'regular',
-											labelPosition: 'top',
-										},
-									},
-									{
-										id: 'email',
-										layout: {
-											type: 'regular',
-											labelPosition: 'top',
-										},
-									},
-								],
+	const form: Form = [
+		{
+			id: 'customerCard',
+			label: 'Customer',
+			children: [
+				{
+					id: 'customerContact',
+					label: 'Contact',
+					layout: { type: 'panel', labelPosition: 'top' },
+					children: [
+						{
+							id: 'name',
+							layout: {
+								type: 'regular',
+								labelPosition: 'top',
 							},
-							{
-								id: 'plan',
-								layout: { type: 'panel', labelPosition: 'top' },
-							},
-							{
-								id: 'shippingAddress',
-								layout: { type: 'panel', labelPosition: 'top' },
-							},
-							{
-								id: 'billingAddress',
-								layout: { type: 'panel', labelPosition: 'top' },
-							},
-							'displayPayments',
-						],
-					},
-					{
-						id: 'payments',
-						layout: { type: 'card', withHeader: false },
-					},
-					{
-						id: 'taxConfiguration',
-						label: 'Taxes',
-						layout: {
-							type: 'card',
-							isOpened: false,
 						},
-						children: [ 'vat', 'commission' ],
-					},
-				],
-			} ) satisfies Form,
-		[]
-	);
-
+						{
+							id: 'phone',
+							layout: {
+								type: 'regular',
+								labelPosition: 'top',
+							},
+						},
+						{
+							id: 'email',
+							layout: {
+								type: 'regular',
+								labelPosition: 'top',
+							},
+						},
+					],
+				},
+				{
+					id: 'plan',
+					layout: { type: 'panel', labelPosition: 'top' },
+				},
+				{
+					id: 'shippingAddress',
+					layout: { type: 'panel', labelPosition: 'top' },
+				},
+				{
+					id: 'billingAddress',
+					layout: { type: 'panel', labelPosition: 'top' },
+				},
+				'displayPayments',
+			],
+		},
+		{
+			id: 'payments',
+			layout: { type: 'card', withHeader: false },
+		},
+		{
+			id: 'taxConfiguration',
+			label: 'Taxes',
+			layout: {
+				type: 'card',
+				isOpened: false,
+			},
+			children: [ 'vat', 'commission' ],
+		},
+	];
 	return (
 		<DataForm
 			data={ customer }
@@ -719,28 +656,22 @@ const LayoutMixedComponent = () => {
 		dimensions: '1920x1080',
 	} );
 
-	const form = useMemo(
-		() =>
-			( {
-				fields: [
-					{
-						id: 'title',
-						layout: { type: 'panel', labelPosition: 'top' },
-					},
-					'status',
-					{ id: 'order', layout: { type: 'card' } },
-					{
-						id: 'authorDateCard',
-						label: 'Author & Date',
-						layout: {
-							type: 'card',
-						},
-						children: [ 'author', 'date' ],
-					},
-				],
-			} ) satisfies Form,
-		[]
-	);
+	const form: Form = [
+		{
+			id: 'title',
+			layout: { type: 'panel', labelPosition: 'top' },
+		},
+		'status',
+		{ id: 'order', layout: { type: 'card' } },
+		{
+			id: 'authorDateCard',
+			label: 'Author & Date',
+			layout: {
+				type: 'card',
+			},
+			children: [ 'author', 'date' ],
+		},
+	];
 
 	return (
 		<DataForm< SamplePost >

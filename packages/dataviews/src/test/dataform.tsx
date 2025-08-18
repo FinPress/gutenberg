@@ -33,9 +33,7 @@ const fields = [
 	},
 ];
 
-const form = {
-	fields: [ 'title', 'order', 'author' ],
-};
+const form = [ 'title', 'order', 'author' ];
 
 const data = {
 	title: 'Hello World',
@@ -149,10 +147,20 @@ describe( 'DataForm component', () => {
 				<Dataform
 					onChange={ noop }
 					fields={ fields }
-					form={ {
-						...form,
-						layout: { type: 'regular', labelPosition: 'side' },
-					} }
+					form={ [
+						{
+							id: 'title',
+							layout: { type: 'regular', labelPosition: 'side' },
+						},
+						{
+							id: 'order',
+							layout: { type: 'regular', labelPosition: 'side' },
+						},
+						{
+							id: 'author',
+							layout: { type: 'regular', labelPosition: 'side' },
+						},
+					] }
 					data={ data }
 				/>
 			);
@@ -165,16 +173,14 @@ describe( 'DataForm component', () => {
 		} );
 
 		it( 'should render combined fields correctly', async () => {
-			const formWithCombinedFields = {
-				fields: [
-					'order',
-					{
-						id: 'title',
-						children: [ 'title', 'author' ],
-						label: "Title and author's name",
-					},
-				],
-			};
+			const formWithCombinedFields = [
+				'order',
+				{
+					id: 'title',
+					children: [ 'title', 'author' ],
+					label: "Title and author's name",
+				},
+			];
 
 			render(
 				<Dataform
@@ -249,10 +255,20 @@ describe( 'DataForm component', () => {
 				<Dataform
 					onChange={ noop }
 					fields={ fields }
-					form={ {
-						...formPanelMode,
-						layout: { type: 'panel', labelPosition: 'side' },
-					} }
+					form={ [
+						{
+							id: 'title',
+							layout: { type: 'panel', labelPosition: 'side' },
+						},
+						{
+							id: 'order',
+							layout: { type: 'panel', labelPosition: 'side' },
+						},
+						{
+							id: 'author',
+							layout: { type: 'panel', labelPosition: 'side' },
+						},
+					] }
 					data={ data }
 				/>
 			);

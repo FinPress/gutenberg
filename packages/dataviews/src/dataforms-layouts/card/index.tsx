@@ -17,7 +17,7 @@ import DataFormContext from '../../components/dataform-context';
 import type { NormalizedCardLayout, FieldLayoutProps, Form } from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
-import { DEFAULT_LAYOUT, normalizeLayout } from '../../normalize-form-fields';
+import { normalizeLayout } from '../../normalize-form-fields';
 
 export function useCollapsibleCard( initialIsOpen: boolean = true ) {
 	const [ isOpen, setIsOpen ] = useState( initialIsOpen );
@@ -81,10 +81,7 @@ export default function FormCardField< Item >( {
 	} ) as NormalizedCardLayout;
 
 	const form: Form = useMemo(
-		(): Form => ( {
-			layout: DEFAULT_LAYOUT,
-			fields: isCombinedField( field ) ? field.children : [],
-		} ),
+		(): Form => ( isCombinedField( field ) ? field.children : [] ),
 		[ field ]
 	);
 
