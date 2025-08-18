@@ -567,6 +567,7 @@ function BlockListBlockProvider( props ) {
 				getBlockAttributes,
 				canRemoveBlock,
 				canMoveBlock,
+				isBlockVisible,
 
 				getSettings,
 				getTemporarilyEditingAsBlocks,
@@ -705,12 +706,7 @@ function BlockListBlockProvider( props ) {
 				originalBlockClientId: isInvalid
 					? blocksWithSameName[ 0 ]
 					: false,
-				isHidden:
-					hasBlockSupport(
-						getBlockName( clientId ),
-						'blockVisibility',
-						true
-					) && attributes?.metadata?.blockVisibility === false,
+				isBlockVisible: isBlockVisible( clientId ),
 			};
 		},
 		[ clientId, rootClientId ]
@@ -753,7 +749,7 @@ function BlockListBlockProvider( props ) {
 		className,
 		defaultClassName,
 		originalBlockClientId,
-		isHidden,
+		isBlockVisible,
 	} = selectedProps;
 
 	// Users of the editor.BlockListBlock filter used to be able to
@@ -804,7 +800,12 @@ function BlockListBlockProvider( props ) {
 		canMove,
 	};
 
-	if ( isHidden && ! isSelected && ! isMultiSelected && ! hasChildSelected ) {
+	if (
+		! isBlockVisible &&
+		! isSelected &&
+		! isMultiSelected &&
+		! hasChildSelected
+	) {
 		return null;
 	}
 
