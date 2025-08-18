@@ -1,23 +1,15 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig.json",
+	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
 		"target": "es2020",
 		"module": "commonjs",
 		"lib": [ "es2020" ],
 		"outDir": "./build",
 		"rootDir": "./lib",
-		"declaration": true,
-		"declarationDir": "./build-types",
-		"declarationMap": true,
-		"strict": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"moduleResolution": "node",
-		"esModuleInterop": false,
-		"allowSyntheticDefaultImports": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"types": [ "node" ]
+		"types": [ "node" ],
+		"checkJs": false,
+		"emitDeclarationOnly": false
 	},
 	"include": [ "lib/**/*" ],
 	"exclude": [ "**/*.test.*", "**/test/**" ]
