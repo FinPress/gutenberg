@@ -98,30 +98,22 @@ export default function mediaUpload( {
 		}
 		onFileChange?.( files );
 
-		// Files are initially received by `onFileChange` as a blob.
-		// After that the function is called a second time with the file as an entity.
-		// For core-data, we only care about receiving/invalidating entities.
-		const entityFiles = files.filter( ( _file ) => _file?.id );
-		if ( entityFiles?.length ) {
-			const invalidateCache = true;
-			receiveEntityRecords(
-				'root',
-				'media',
-				entityFiles,
-				null,
-				invalidateCache,
-				null,
-				null
-			);
-			clearSaveLock();
-			onSuccess?.( entityFiles as Attachment[] );
-		}
-	};
-
-	uploadMedia( {
-		allowedTypes,
-		filesList,
-		onFileChange: onUpload,
+			// Files are initially received by `onFileChange` as a blob.
+			// After that the function is called a second time with the file as an entity.
+			// For core-data, we only care about receiving/invalidating entities.
+			const entityFiles = file.filter( ( _file ) => _file?.id );
+			if ( entityFiles?.length ) {
+				const invalidateCache = true;
+				receiveEntityRecords(
+					'postType',
+					'attachment',
+					entityFiles,
+					undefined,
+					invalidateCache
+				);
+			}
+		},
+		onSuccess,
 		additionalData: {
 			...postData,
 			...additionalData,
