@@ -288,4 +288,40 @@ describe( 'apiFetch', () => {
 
 		apiFetch( expectedOptions );
 	} );
+
+	it( 'should allow DELETE, PUT, and PATCH methods after removing httpV1Middleware', () => {
+		// Remove HTTP v1 middleware
+		apiFetch.removeHttpV1Middleware();
+
+		const methodTests = [
+			{ method: 'DELETE', path: '/wp/v2/posts/1' },
+			{
+				method: 'PUT',
+				path: '/wp/v2/posts/1',
+				data: { title: 'Updated Post' },
+			},
+			{
+				method: 'PATCH',
+				path: '/wp/v2/posts/1',
+				data: { status: 'draft' },
+			},
+		];
+
+		methodTests.forEach( ( { method, path, data } ) => {
+			// Clear previous calls
+			window.fetch.mockClear();
+
+			apiFetch( { path, method, ...( data ? { data } : {} ) } );
+
+			// Check if fetch was called with the correct method
+			expect( window.fetch ).toHaveBeenCalledWith(
+				`${ path }?_locale=user`,
+				expect.objectContaining( {
+					method,
+					path,
+					...( data ? { body: JSON.stringify( data ) } : {} ),
+				} )
+			);
+		} );
+	} );
 } );

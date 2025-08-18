@@ -186,6 +186,16 @@ function apiFetch( options ) {
 	} );
 }
 
+/**
+ * Removes the HTTP V1 middleware.
+ *
+ * @return {void}
+ */
+function removeHttpV1Middleware() {
+	const middlewareIdx = middlewares.indexOf( httpV1Middleware );
+	middlewares.splice( middlewareIdx, 1 );
+}
+
 apiFetch.use = registerMiddleware;
 apiFetch.setFetchHandler = setFetchHandler;
 
@@ -195,5 +205,6 @@ apiFetch.createRootURLMiddleware = createRootURLMiddleware;
 apiFetch.fetchAllMiddleware = fetchAllMiddleware;
 apiFetch.mediaUploadMiddleware = mediaUploadMiddleware;
 apiFetch.createThemePreviewMiddleware = createThemePreviewMiddleware;
+apiFetch.removeHttpV1Middleware = removeHttpV1Middleware;
 
 export default apiFetch;
