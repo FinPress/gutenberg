@@ -34,7 +34,6 @@ import BlockInvalidWarning from './block-invalid-warning';
 import BlockCrashWarning from './block-crash-warning';
 import BlockCrashBoundary from './block-crash-boundary';
 import BlockHtml from './block-html';
-import HiddenBlockPlaceholder from '../hidden-block-placeholder';
 import { useBlockProps } from './use-block-props';
 import { store as blockEditorStore } from '../../store';
 import { useLayout } from './layout';
@@ -588,7 +587,6 @@ function BlockListBlockProvider( props ) {
 				isDragging,
 				__unstableHasActiveBlockOverlayActive,
 				getSelectedBlocksInitialCaretPosition,
-				isSiblingBlockSelected,
 			} = unlock( select( blockEditorStore ) );
 			const blockWithoutAttributes =
 				getBlockWithoutAttributes( clientId );
@@ -634,7 +632,6 @@ function BlockListBlockProvider( props ) {
 				return previewContext;
 			}
 
-			const { isDraggingBlocks } = select( blockEditorStore );
 			const _isSelected = isBlockSelected( clientId );
 			const canRemove = canRemoveBlock( clientId );
 			const canMove = canMoveBlock( clientId );
@@ -714,8 +711,6 @@ function BlockListBlockProvider( props ) {
 						'blockVisibility',
 						true
 					) && attributes?.metadata?.blockVisibility === false,
-				isSiblingSelected: isSiblingBlockSelected( clientId ),
-				isDraggingBlocks: isDraggingBlocks(),
 			};
 		},
 		[ clientId, rootClientId ]
@@ -759,8 +754,6 @@ function BlockListBlockProvider( props ) {
 		defaultClassName,
 		originalBlockClientId,
 		isHidden,
-		isSiblingSelected,
-		isDraggingBlocks,
 	} = selectedProps;
 
 	// Users of the editor.BlockListBlock filter used to be able to
@@ -812,14 +805,6 @@ function BlockListBlockProvider( props ) {
 	};
 
 	if ( isHidden && ! isSelected && ! isMultiSelected && ! hasChildSelected ) {
-		// If a sibling block is selected, render a small placeholder.
-		if ( isSiblingSelected || isDraggingBlocks ) {
-			return (
-				<PrivateBlockContext.Provider value={ privateContext }>
-					<HiddenBlockPlaceholder clientId={ clientId } />
-				</PrivateBlockContext.Provider>
-			);
-		}
 		return null;
 	}
 
