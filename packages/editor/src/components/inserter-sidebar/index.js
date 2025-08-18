@@ -20,7 +20,7 @@ import { store as editorStore } from '../../store';
 
 const { PrivateInserterLibrary } = unlock( blockEditorPrivateApis );
 
-export default function InserterSidebar() {
+export default function InserterSidebar( { isEditorIframed } ) {
 	const {
 		blockSectionRootClientId,
 		inserterSidebarToggleRef,
@@ -97,6 +97,7 @@ export default function InserterSidebar() {
 				}
 				ref={ libraryRef }
 				onClose={ closeInserterSidebar }
+				isEditorIframed={ isEditorIframed }
 			/>
 		</div>
 	);

@@ -49,6 +49,7 @@ function InserterMenu(
 		shouldFocusBlock = true,
 		onPatternCategorySelection,
 		onClose,
+		isEditorIframed,
 		__experimentalInitialTab,
 		__experimentalInitialCategory,
 	},
@@ -93,7 +94,7 @@ function InserterMenu(
 		hasSectionRootClientId &&
 		( selectedTab === 'patterns' || selectedTab === 'media' );
 
-	useZoomOut( shouldUseZoomOut && isLargeViewport );
+	useZoomOut( shouldUseZoomOut && isLargeViewport && isEditorIframed );
 
 	const [ destinationRootClientId, onInsertBlocks, onToggleInsertionPoint ] =
 		useInsertionPoint( {

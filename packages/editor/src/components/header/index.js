@@ -57,6 +57,7 @@ function Header( {
 	forceDisableBlockTools,
 	setEntitiesSavedStatesCallback,
 	title,
+	isEditorIframed,
 } ) {
 	const isWideViewport = useViewportMatch( 'large' );
 	const isLargeViewport = useViewportMatch( 'medium' );
@@ -179,7 +180,7 @@ function Header( {
 					forceIsAutosaveable={ forceIsDirty }
 				/>
 
-				{ isWideViewport && canBeZoomedOut && (
+				{ isWideViewport && canBeZoomedOut && isEditorIframed && (
 					<ZoomOutToggle disabled={ forceDisableBlockTools } />
 				) }
 

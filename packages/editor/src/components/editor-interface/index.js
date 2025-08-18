@@ -128,6 +128,7 @@ export default function EditorInterface( {
 						customSaveButton={ customSaveButton }
 						forceDisableBlockTools={ forceDisableBlockTools }
 						title={ title }
+						isEditorIframed={ ! disableIframe }
 					/>
 				)
 			}
@@ -135,7 +136,9 @@ export default function EditorInterface( {
 			secondarySidebar={
 				! isPreviewMode &&
 				mode === 'visual' &&
-				( ( isInserterOpened && <InserterSidebar /> ) ||
+				( ( isInserterOpened && (
+					<InserterSidebar isEditorIframed={ ! disableIframe } />
+				) ) ||
 					( isListViewOpened && <ListViewSidebar /> ) )
 			}
 			sidebar={
