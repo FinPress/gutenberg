@@ -20,6 +20,7 @@
 ### Bug Fixes
 
 - Do not throw exception when `view.layout.previewSize` is smaller than the smallest available size. [#71218](https://github.com/WordPress/gutenberg/pull/71218)
+- Fix checkbox visibility in grid layout when media is hidden. [#71219](https://github.com/WordPress/gutenberg/pull/71219)
 
 ## 6.0.0 (2025-08-07)
 
