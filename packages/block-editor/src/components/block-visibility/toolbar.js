@@ -5,18 +5,33 @@ import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { useRef, useEffect } from '@wordpress/element';
 import { seen, unseen } from '@wordpress/icons';
-import { useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { hasBlockSupport } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
  */
-import useBlockVisibility from './use-block-visibility';
 import { store as blockEditorStore } from '../../store';
+import { unlock } from '../../lock-unlock';
 
 export default function BlockVisibilityToolbar( { clientId } ) {
-	const { canToggleBlockVisibility, isBlockHidden } =
-		useBlockVisibility( clientId );
-
+	const { canToggleBlockVisibility, isBlockHidden } = useSelect(
+		( select ) => {
+			const { getBlockName } = select( blockEditorStore );
+			const { isBlockHidden: _isBlockHidden } = unlock(
+				select( blockEditorStore )
+			);
+			return {
+				canToggleBlockVisibility: hasBlockSupport(
+					getBlockName( clientId ),
+					'blockVisibility',
+					true
+				),
+				isBlockHidden: _isBlockHidden( clientId ),
+			};
+		},
+		[ clientId ]
+	);
 	const hasBlockVisibilityButtonShownRef = useRef( false );
 	const { updateBlockAttributes } = useDispatch( blockEditorStore );
 
