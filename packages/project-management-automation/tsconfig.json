@@ -10,10 +10,10 @@
 		"types": [ "node" ],
 		"checkJs": false,
 		"emitDeclarationOnly": false,
-		"composite": false,
-		"declaration": false,
+		"composite": true,
+		"declaration": true,
 		"declarationMap": false,
-		"declarationDir": null
+		"declarationDir": "./build-types"
 	},
 	"include": [ "lib/**/*" ],
 	"exclude": [ "**/*.test.*", "**/test/**" ]
