@@ -47,6 +47,7 @@ import { SORTING_DIRECTIONS, sortIcons, sortLabels } from '../../constants';
 import { VIEW_LAYOUTS } from '../../dataviews-layouts';
 import type { NormalizedField, View } from '../../types';
 import DataViewsContext from '../dataviews-context';
+import InfiniteScrollToggle from './infinite-scroll-toggle';
 import { unlock } from '../../lock-unlock';
 
 const { Menu } = unlock( componentsPrivateApis );
@@ -102,12 +103,11 @@ export function ViewTypeMenu() {
 										if ( 'layout' in viewWithoutLayout ) {
 											delete viewWithoutLayout.layout;
 										}
-										// @ts-expect-error
 										return onChangeView( {
 											...viewWithoutLayout,
 											type: e.target.value,
 											...defaultLayouts[ e.target.value ],
-										} );
+										} as View );
 								}
 								warning( 'Invalid dataview' );
 							} }
@@ -213,10 +213,19 @@ function SortDirectionControl() {
 	);
 }
 
-const PAGE_SIZE_VALUES = [ 10, 20, 50, 100 ];
 function ItemsPerPageControl() {
-	const { view, perPageSizes, onChangeView } = useContext( DataViewsContext );
-	const pageSizeValues = perPageSizes ?? PAGE_SIZE_VALUES;
+	const { view, config, onChangeView } = useContext( DataViewsContext );
+	const { infiniteScrollEnabled } = view;
+	if (
+		! config ||
+		! config.perPageSizes ||
+		config.perPageSizes.length < 2 ||
+		config.perPageSizes.length > 6 ||
+		infiniteScrollEnabled
+	) {
+		return null;
+	}
+
 	return (
 		<ToggleGroupControl
 			__nextHasNoMarginBottom
@@ -238,7 +247,7 @@ function ItemsPerPageControl() {
 				} );
 			} }
 		>
-			{ pageSizeValues.map( ( value ) => {
+			{ config.perPageSizes.map( ( value ) => {
 				return (
 					<ToggleGroupControlOption
 						key={ value }
@@ -799,6 +808,7 @@ export function DataviewsViewConfigDropdown() {
 							{ !! activeLayout?.viewConfigOptions && (
 								<activeLayout.viewConfigOptions />
 							) }
+							<InfiniteScrollToggle />
 							<ItemsPerPageControl />
 						</SettingsSection>
 						<SettingsSection title={ __( 'Properties' ) }>
