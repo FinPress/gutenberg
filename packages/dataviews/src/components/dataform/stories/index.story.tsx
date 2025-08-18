@@ -329,6 +329,7 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 		boolean: boolean;
 		customEdit: string;
 		customValidation: string;
+		categories: string[];
 	};
 
 	const [ post, setPost ] = useState< ValidatedItem >( {
@@ -336,6 +337,7 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 		email: 'hi@example.com',
 		integer: 2,
 		boolean: true,
+		categories: [ 'astronomy' ],
 		customEdit: 'custom control',
 		customValidation: 'potato',
 	} );
@@ -374,6 +376,21 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 			},
 		},
 		{
+			id: 'categories',
+			type: 'array' as const,
+			label: 'Categories',
+			isValid: {
+				required,
+			},
+			elements: [
+				{ value: 'astronomy', label: 'Astronomy' },
+				{ value: 'book-review', label: 'Book review' },
+				{ value: 'event', label: 'Event' },
+				{ value: 'photography', label: 'Photography' },
+				{ value: 'travel', label: 'Travel' },
+			],
+		},
+		{
 			id: 'customEdit',
 			label: 'Custom Control',
 			Edit: CustomEditControl,
@@ -408,6 +425,7 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 			'email',
 			'integer',
 			'boolean',
+			'categories',
 			'customEdit',
 			'customValidation',
 		],
