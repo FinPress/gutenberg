@@ -21,9 +21,7 @@ import type { CoreDataError, BasePost } from '../types';
 import { orderField } from '../fields';
 
 const fields = [ orderField ];
-const formOrderAction = {
-	fields: [ 'menu_order' ],
-};
+const formOrderAction = [ 'menu_order' ];
 
 function ReorderModal( {
 	items,
