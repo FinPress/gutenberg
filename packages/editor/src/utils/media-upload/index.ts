@@ -25,7 +25,6 @@ interface MediaUploadArgs {
 	maxUploadFileSize?: number;
 	onError?: ( error: Error ) => void;
 	onFileChange?: ( files: Partial< Attachment >[] ) => void;
-	onSuccess?: ( files: Attachment[] ) => void;
 	multiple?: boolean;
 }
 
@@ -40,7 +39,6 @@ interface MediaUploadArgs {
  * @param {?number}  $0.maxUploadFileSize Maximum upload size in bytes allowed for the site.
  * @param {Function} $0.onError           Function called when an error happens.
  * @param {Function} $0.onFileChange      Function called each time a file or a temporary representation of the file is available.
- * @param {Function} $0.onSuccess         Function called after the final representation of the file is available.
  * @param {boolean}  $0.multiple          Whether to allow multiple files to be uploaded.
  */
 export default function mediaUpload( {
@@ -50,7 +48,6 @@ export default function mediaUpload( {
 	maxUploadFileSize,
 	onError = noop,
 	onFileChange,
-	onSuccess,
 	multiple = true,
 }: MediaUploadArgs ) {
 	const { receiveEntityRecords } = dispatch( coreDataStore );
@@ -98,31 +95,37 @@ export default function mediaUpload( {
 		}
 		onFileChange?.( files );
 
-			// Files are initially received by `onFileChange` as a blob.
-			// After that the function is called a second time with the file as an entity.
-			// For core-data, we only care about receiving/invalidating entities.
-			const entityFiles = file.filter( ( _file ) => _file?.id );
-			if ( entityFiles?.length ) {
-				const invalidateCache = true;
-				receiveEntityRecords(
-					'postType',
-					'attachment',
-					entityFiles,
-					undefined,
-					invalidateCache
-				);
-			}
+		// Files are initially received by `onFileChange` as a blob.
+		// After that the function is called a second time with the file as an entity.
+		// For core-data, we only care about receiving/invalidating entities.
+		const entityFiles = files.filter( ( _file ) => _file?.id );
+		if ( entityFiles?.length ) {
+			const invalidateCache = true;
+			receiveEntityRecords(
+				'postType',
+				'attachment',
+				entityFiles,
+				null,
+				invalidateCache,
+				null,
+				null
+			);
+		}
+	};
+
+	uploadMedia( {
+		filesList,
+		allowedTypes,
+		onFileChange: onUpload,
+		onError: ( error ) => {
+			clearSaveLock();
+			onError( error );
 		},
-		onSuccess,
 		additionalData: {
 			...postData,
 			...additionalData,
 		},
 		maxUploadFileSize,
-		onError: ( error ) => {
-			clearSaveLock();
-			onError( error );
-		},
 		wpAllowedMimeTypes,
 		multiple,
 	} );
