@@ -81,7 +81,7 @@ function ListViewBlock( {
 	const [ settingsAnchorRect, setSettingsAnchorRect ] = useState();
 
 	const { isLocked, canEdit, canMove } = useBlockLock( clientId );
-	const { isBlockVisible } = useBlockVisibility( clientId );
+	const { isBlockHidden } = useBlockVisibility( clientId );
 
 	const isFirstSelectedBlock =
 		isSelected && selectedClientIds[ 0 ] === clientId;
@@ -486,9 +486,9 @@ function ListViewBlock( {
 		isLocked
 	);
 
-	const blockVisibilityDescription = isBlockVisible
-		? null
-		: __( 'Block is hidden.' );
+	const blockVisibilityDescription = isBlockHidden
+		? __( 'Block is hidden.' )
+		: null;
 
 	const hasSiblings = siblingBlockCount > 0;
 	const hasRenderedMovers = showBlockMovers && hasSiblings;

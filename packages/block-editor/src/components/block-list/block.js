@@ -705,7 +705,7 @@ function BlockListBlockProvider( props ) {
 				originalBlockClientId: isInvalid
 					? blocksWithSameName[ 0 ]
 					: false,
-				isHidden:
+				isBlockHidden:
 					hasBlockSupport(
 						getBlockName( clientId ),
 						'blockVisibility',
@@ -753,7 +753,7 @@ function BlockListBlockProvider( props ) {
 		className,
 		defaultClassName,
 		originalBlockClientId,
-		isHidden,
+		isBlockHidden,
 	} = selectedProps;
 
 	// Users of the editor.BlockListBlock filter used to be able to
@@ -804,7 +804,12 @@ function BlockListBlockProvider( props ) {
 		canMove,
 	};
 
-	if ( isHidden && ! isSelected && ! isMultiSelected && ! hasChildSelected ) {
+	if (
+		isBlockHidden &&
+		! isSelected &&
+		! isMultiSelected &&
+		! hasChildSelected
+	) {
 		return null;
 	}
 

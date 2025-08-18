@@ -14,15 +14,17 @@ export default function useBlockVisibility( clientId ) {
 		( select ) => {
 			const { getBlockName, getBlockAttributes } =
 				select( blockEditorStore );
+			const hasSupport = hasBlockSupport(
+				getBlockName( clientId ),
+				'blockVisibility',
+				true
+			);
 			return {
-				canToggleBlockVisibility: hasBlockSupport(
-					getBlockName( clientId ),
-					'blockVisibility',
-					true
-				),
-				isBlockVisible:
+				canToggleBlockVisibility: hasSupport,
+				isBlockHidden:
+					hasSupport &&
 					getBlockAttributes( clientId )?.metadata
-						?.blockVisibility !== false,
+						?.blockVisibility === false,
 			};
 		},
 		[ clientId ]

@@ -14,7 +14,7 @@ import useBlockVisibility from './use-block-visibility';
 import { store as blockEditorStore } from '../../store';
 
 export default function BlockVisibilityToolbar( { clientId } ) {
-	const { canToggleBlockVisibility, isBlockVisible } =
+	const { canToggleBlockVisibility, isBlockHidden } =
 		useBlockVisibility( clientId );
 
 	const hasBlockVisibilityButtonShownRef = useRef( false );
@@ -26,31 +26,31 @@ export default function BlockVisibilityToolbar( { clientId } ) {
 	// It needs to return focus from whence it came, and to do that,
 	// we need to leave the button in the toolbar.
 	useEffect( () => {
-		if ( ! isBlockVisible ) {
+		if ( isBlockHidden ) {
 			hasBlockVisibilityButtonShownRef.current = true;
 		}
-	}, [ isBlockVisible ] );
+	}, [ isBlockHidden ] );
 
-	if ( isBlockVisible && ! hasBlockVisibilityButtonShownRef.current ) {
+	if ( ! isBlockHidden && ! hasBlockVisibilityButtonShownRef.current ) {
 		return null;
 	}
 
-	const label = isBlockVisible ? __( 'Hide' ) : __( 'Show' );
+	const label = isBlockHidden ? __( 'Show' ) : __( 'Hide' );
 
 	return (
 		<>
 			<ToolbarGroup className="block-editor-block-lock-toolbar">
 				<ToolbarButton
 					disabled={ ! canToggleBlockVisibility }
-					icon={ isBlockVisible ? seen : unseen }
+					icon={ isBlockHidden ? unseen : seen }
 					label={ label }
 					onClick={ () => {
-						const newBlockVisibility = ! isBlockVisible;
+						const newBlockHidden = ! isBlockHidden;
 						updateBlockAttributes( [ clientId ], {
 							metadata: {
-								blockVisibility: newBlockVisibility
-									? undefined
-									: false,
+								blockVisibility: newBlockHidden
+									? false
+									: undefined,
 							},
 						} );
 					} }
