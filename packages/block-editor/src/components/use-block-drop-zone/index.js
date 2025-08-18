@@ -416,7 +416,7 @@ export default function useBlockDropZone( {
 								'blockVisibility',
 								true
 							) &&
-							block.attributes?.metadata?.blockVisibility !==
+							block.attributes?.metadata?.blockVisibility ===
 								false
 						);
 					} );
