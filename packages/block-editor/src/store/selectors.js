@@ -2899,26 +2899,14 @@ export function wasBlockJustInserted( state, clientId, source ) {
 }
 
 /**
- * Returns true if the block is visible and false otherwise.
- * Considers both intersection visibility (scroll position) and
- * user-controlled visibility via blockVisibility metadata.
+ * Tells if the block is visible on the canvas or not.
  *
  * @param {Object} state    Global application state.
  * @param {Object} clientId Client Id of the block.
  * @return {boolean} True if the block is visible.
  */
 export function isBlockVisible( state, clientId ) {
-	if ( ! state.blockVisibility?.[ clientId ] ) {
-		return false;
-	}
-	const block = state.blocks.byClientId[ clientId ];
-	if ( block && hasBlockSupport( block.name, 'blockVisibility', true ) ) {
-		const attributes = getBlockAttributes( state, clientId );
-		if ( attributes?.metadata?.blockVisibility === false ) {
-			return false;
-		}
-	}
-	return true;
+	return state.blockVisibility?.[ clientId ] ?? true;
 }
 
 /**
@@ -2939,45 +2927,23 @@ export function getHoveredBlockClientId() {
 
 /**
  * Returns the list of all hidden blocks.
- * Blocks that are outside the currently visible canvas or
- * are hidden via the blockVisibility block support are excluded.
  *
  * @param {Object} state Global application state.
  * @return {[string]} List of hidden blocks.
  */
 export const __unstableGetVisibleBlocks = createSelector(
 	( state ) => {
-		const visibleBlocks = new Set();
-
-		const intersectionVisibleBlocks = Object.keys(
-			state.blockVisibility
-		).filter( ( key ) => state.blockVisibility[ key ] );
-
-		for ( const clientId of intersectionVisibleBlocks ) {
-			const block = state.blocks.byClientId[ clientId ];
-			if ( ! block ) {
-				continue;
-			}
-			const attributes = getBlockAttributes( state, clientId );
-			if (
-				hasBlockSupport( block.name, 'blockVisibility', true ) &&
-				attributes?.metadata?.blockVisibility === false
-			) {
-				continue;
-			}
-			visibleBlocks.add( clientId );
-		}
-
+		const visibleBlocks = new Set(
+			Object.keys( state.blockVisibility ).filter(
+				( key ) => state.blockVisibility[ key ]
+			)
+		);
 		if ( visibleBlocks.size === 0 ) {
 			return EMPTY_SET;
 		}
 		return visibleBlocks;
 	},
-	( state ) => [
-		state.blockVisibility,
-		state.blocks.byClientId,
-		state.blocks.attributes,
-	]
+	( state ) => [ state.blockVisibility ]
 );
 
 export function __unstableHasActiveBlockOverlayActive( state, clientId ) {

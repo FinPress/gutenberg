@@ -1060,7 +1060,7 @@ _Returns_
 
 ### isBlockVisible
 
-Returns true if the block is visible and false otherwise. Considers both intersection visibility (scroll position) and user-controlled visibility via blockVisibility metadata.
+Tells if the block is visible on the canvas or not.
 
 _Parameters_
 
