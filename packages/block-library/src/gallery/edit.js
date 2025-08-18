@@ -26,7 +26,6 @@ import {
 	BlockControls,
 	MediaReplaceFlow,
 	useSettings,
-	InnerBlocks,
 } from '@wordpress/block-editor';
 import { Platform, useEffect, useMemo } from '@wordpress/element';
 import { __, _x, sprintf } from '@wordpress/i18n';
@@ -547,7 +546,7 @@ export default function GalleryEdit( props ) {
 		directInsert: true,
 		template: DEFAULT_TEMPLATE,
 		orientation: 'horizontal',
-		renderAppender: InnerBlocks.defaultBlockAppender,
+		renderAppender: false,
 		...nativeInnerBlockProps,
 	} );
 
