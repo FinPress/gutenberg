@@ -38,11 +38,20 @@ const DEFAULT_LOCALE_DATA: LocaleData = {
 const I18N_HOOK_REGEXP = /^i18n\.(n?gettext|has_translation)(_|$)/;
 
 /**
- * Regular expression that matches i18n locale codes.
- * Matches two or three letter language codes, optionally followed by an underscore
- * and a two-letter country code (e.g., "en", "fr", "de_DE").
+ * Validates a locale string using Intl.getCanonicalLocales.
+ * Returns true if the locale is valid, false otherwise.
+ *
+ * @param locale The locale string to validate.
+ * @return Whether the locale is valid.
  */
-const I18N_WP_LOCALE_REGEXP = /^[a-z]{2,3}(_[A-Z]{2})?$/;
+const isValidLocale = ( locale: string ): boolean => {
+	try {
+		Intl.getCanonicalLocales( locale );
+		return true;
+	} catch {
+		return false;
+	}
+};
 
 /**
  * Create an i18n instance
@@ -411,12 +420,12 @@ export const createI18n = < TextDomain extends string >(
 		};
 
 		const wpLocale = localeData.lang || 'en_US';
-		let jsLocale;
-		if ( ! I18N_WP_LOCALE_REGEXP.test( wpLocale ) ) {
-			// If the locale is not in the expected format, default to 'en-US'.
+		// Convert WordPress locale format to JavaScript locale format by replacing underscores with hyphens
+		let jsLocale = wpLocale.replace( /_/g, '-' );
+
+		// Validate the locale using Intl.getCanonicalLocales and fallback to en-US if invalid
+		if ( ! isValidLocale( jsLocale ) ) {
 			jsLocale = 'en-US';
-		} else {
-			jsLocale = wpLocale.replace( '_', '-' );
 		}
 
 		/**
