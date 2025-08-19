@@ -30,6 +30,9 @@ type SamplePost = {
 	filesize?: number;
 	dimensions?: string;
 	tags?: string[];
+	address1?: string;
+	address2?: string;
+	city?: string;
 };
 
 const meta = {
@@ -46,6 +49,11 @@ const meta = {
 			control: { type: 'select' },
 			description: 'Chooses the label position of the layout.',
 			options: [ 'default', 'top', 'side', 'none' ],
+		},
+		openAs: {
+			control: { type: 'select' },
+			description: 'Chooses the type of panel to use.',
+			options: [ 'default', 'dropdown', 'modal' ],
 		},
 	},
 };
@@ -158,14 +166,31 @@ const fields = [
 			{ value: 'travel', label: 'Travel' },
 		],
 	},
+	{
+		id: 'address1',
+		label: 'Address 1',
+		type: 'text' as const,
+	},
+	{
+		id: 'address2',
+		label: 'Address 2',
+		type: 'text' as const,
+	},
+	{
+		id: 'city',
+		label: 'City',
+		type: 'text' as const,
+	},
 ] as Field< SamplePost >[];
 
 export const Default = ( {
 	type,
 	labelPosition,
+	openAs,
 }: {
 	type: 'default' | 'regular' | 'panel' | 'card';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
+	openAs: 'default' | 'dropdown' | 'modal';
 } ) => {
 	const [ post, setPost ] = useState( {
 		title: 'Hello, World!',
@@ -188,6 +213,7 @@ export const Default = ( {
 			layout: {
 				type,
 				labelPosition,
+				openAs,
 			},
 			fields: [
 				'title',
@@ -206,7 +232,7 @@ export const Default = ( {
 				'tags',
 			],
 		} ),
-		[ type, labelPosition ]
+		[ type, labelPosition, openAs ]
 	) as Form;
 
 	return (
@@ -227,9 +253,11 @@ export const Default = ( {
 const CombinedFieldsComponent = ( {
 	type,
 	labelPosition,
+	openAs,
 }: {
 	type: 'default' | 'regular' | 'panel' | 'card';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
+	openAs: 'default' | 'dropdown' | 'modal';
 } ) => {
 	const [ post, setPost ] = useState< SamplePost >( {
 		title: 'Hello, World!',
@@ -242,6 +270,9 @@ const CombinedFieldsComponent = ( {
 		filesize: 1024,
 		dimensions: '1920x1080',
 		tags: [ 'photography' ],
+		address1: '123 Main St',
+		address2: 'Apt 4B',
+		city: 'New York',
 	} );
 
 	const form = useMemo(
@@ -249,6 +280,7 @@ const CombinedFieldsComponent = ( {
 			layout: {
 				type,
 				labelPosition,
+				openAs,
 			},
 			fields: [
 				'title',
@@ -262,9 +294,14 @@ const CombinedFieldsComponent = ( {
 				'filesize',
 				'dimensions',
 				'tags',
+				{
+					id: 'address1',
+					label: 'Combined Address',
+					children: [ 'address1', 'address2', 'city' ],
+				},
 			],
 		} ),
-		[ type, labelPosition ]
+		[ type, labelPosition, openAs ]
 	) as Form;
 
 	return (
@@ -725,7 +762,11 @@ const LayoutMixedComponent = () => {
 				fields: [
 					{
 						id: 'title',
-						layout: { type: 'panel', labelPosition: 'top' },
+						layout: {
+							type: 'panel',
+							labelPosition: 'top',
+							openAs: 'dropdown',
+						},
 					},
 					'status',
 					{ id: 'order', layout: { type: 'card' } },
