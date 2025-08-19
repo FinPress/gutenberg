@@ -27,8 +27,7 @@ function CommandPalette() {
 }
 
 /**
- * Initializes the Command Palette. This function does nothing
- * unless the experimental setting is enabled.
+ * Initializes the Command Palette.
  */
 export function initializeCommandPalette() {
 	if ( ! globalThis.IS_GUTENBERG_PLUGIN ) {

@@ -18,7 +18,7 @@ _This package assumes that your code will run in an **ES2015+** environment. If 
 
 ### initializeCommandPalette
 
-Initializes the Command Palette. This function does nothing unless the experimental setting is enabled.
+Initializes the Command Palette.
 
 ### privateApis
 
