@@ -51,8 +51,6 @@ interface FieldTypeStoryProps {
 	titleField?: string;
 	descriptionField?: string;
 	mediaField?: string;
-	type?: 'default' | 'regular' | 'panel';
-	labelPosition?: 'default' | 'top' | 'side' | 'none';
 }
 
 const FieldTypeStory = ( {
@@ -60,17 +58,11 @@ const FieldTypeStory = ( {
 	titleField,
 	descriptionField,
 	mediaField,
-	type = 'default',
-	labelPosition = 'default',
 }: FieldTypeStoryProps ) => {
-	const form = useMemo(
-		() => ( {
-			type,
-			labelPosition,
-			fields: storyFields.map( ( field ) => field.id ),
-		} ),
-		[ type, labelPosition, storyFields ]
-	) as Form;
+	const form: Form = useMemo(
+		() => storyFields.map( ( field ) => field.id ),
+		[ storyFields ]
+	);
 
 	const [ view, setView ] = useState< View >( {
 		type: 'table' as const,
@@ -163,210 +155,94 @@ const FieldTypeStory = ( {
 	);
 };
 
-export const All = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+export const All = () => {
 	return (
 		<FieldTypeStory
 			fields={ fields }
 			titleField="title"
 			descriptionField="description"
 			mediaField="image"
-			type={ type }
-			labelPosition={ labelPosition }
 		/>
 	);
 };
 
-export const Text = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+export const Text = () => {
 	const textFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'text' ),
 		[]
 	);
 
-	return (
-		<FieldTypeStory
-			fields={ textFields }
-			type={ type }
-			labelPosition={ labelPosition }
-		/>
-	);
+	return <FieldTypeStory fields={ textFields } />;
 };
 
-export const Integer = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+export const Integer = () => {
 	const integerFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'integer' ),
 		[]
 	);
 
-	return (
-		<FieldTypeStory
-			fields={ integerFields }
-			type={ type }
-			labelPosition={ labelPosition }
-		/>
-	);
+	return <FieldTypeStory fields={ integerFields } />;
 };
 
-export const Boolean = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+export const Boolean = () => {
 	const booleanFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'boolean' ),
 		[]
 	);
 
-	return (
-		<FieldTypeStory
-			fields={ booleanFields }
-			type={ type }
-			labelPosition={ labelPosition }
-		/>
-	);
+	return <FieldTypeStory fields={ booleanFields } />;
 };
 
-export const DateTime = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+export const DateTime = () => {
 	const dateTimeFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'datetime' ),
 		[]
 	);
 
-	return (
-		<FieldTypeStory
-			fields={ dateTimeFields }
-			type={ type }
-			labelPosition={ labelPosition }
-		/>
-	);
+	return <FieldTypeStory fields={ dateTimeFields } />;
 };
 
-export const Date = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+export const Date = () => {
 	const dateFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'date' ),
 		[]
 	);
 
-	return (
-		<FieldTypeStory
-			fields={ dateFields }
-			type={ type }
-			labelPosition={ labelPosition }
-		/>
-	);
+	return <FieldTypeStory fields={ dateFields } />;
 };
 
-export const Email = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+export const Email = () => {
 	const emailFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'email' ),
 		[]
 	);
 
-	return (
-		<FieldTypeStory
-			fields={ emailFields }
-			type={ type }
-			labelPosition={ labelPosition }
-		/>
-	);
+	return <FieldTypeStory fields={ emailFields } />;
 };
 
-export const Media = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+export const Media = () => {
 	const mediaFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'media' ),
 		[]
 	);
 
-	return (
-		<FieldTypeStory
-			fields={ mediaFields }
-			type={ type }
-			labelPosition={ labelPosition }
-		/>
-	);
+	return <FieldTypeStory fields={ mediaFields } />;
 };
 
-export const Array = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+export const Array = () => {
 	const arrayTextFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'array' ),
 		[]
 	);
 
-	return (
-		<FieldTypeStory
-			fields={ arrayTextFields }
-			type={ type }
-			labelPosition={ labelPosition }
-		/>
-	);
+	return <FieldTypeStory fields={ arrayTextFields } />;
 };
 
-export const NoType = ( {
-	type,
-	labelPosition,
-}: {
-	type: 'default' | 'regular' | 'panel';
-	labelPosition: 'default' | 'top' | 'side' | 'none';
-} ) => {
+export const NoType = () => {
 	const noTypeFields = useMemo(
 		() => fields.filter( ( field ) => field.type === undefined ),
 		[]
 	);
 
-	return (
-		<FieldTypeStory
-			fields={ noTypeFields }
-			type={ type }
-			labelPosition={ labelPosition }
-		/>
-	);
+	return <FieldTypeStory fields={ noTypeFields } />;
 };

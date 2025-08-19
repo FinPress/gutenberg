@@ -19,7 +19,7 @@ export function isItemValid< Item >(
 	form: Form
 ): boolean {
 	const _fields = normalizeFields(
-		fields.filter( ( { id } ) => !! form.fields?.includes( id ) )
+		fields.filter( ( { id } ) => !! form.includes( id ) )
 	);
 
 	const isEmptyNullOrUndefined = ( value: any ) =>

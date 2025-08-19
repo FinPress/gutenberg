@@ -32,7 +32,7 @@ import type {
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
-import { DEFAULT_LAYOUT, normalizeLayout } from '../../normalize-form-fields';
+import { normalizeLayout } from '../../normalize-form-fields';
 
 function DropdownHeader( {
 	title,
@@ -86,13 +86,11 @@ function PanelDropdown< Item >( {
 		: fieldDefinition?.label;
 
 	const form: Form = useMemo(
-		(): Form => ( {
-			layout: DEFAULT_LAYOUT,
-			fields: isCombinedField( field )
+		(): Form =>
+			isCombinedField( field )
 				? field.children
 				: // If not explicit children return the field id itself.
 				  [ { id: field.id } ],
-		} ),
 		[ field ]
 	);
 
@@ -159,7 +157,7 @@ function PanelDropdown< Item >( {
 								field={ nestedField }
 								onChange={ onChange }
 								hideLabelFromVision={
-									( form?.fields ?? [] ).length < 2
+									( form ?? [] ).length < 2
 								}
 							/>
 						) }

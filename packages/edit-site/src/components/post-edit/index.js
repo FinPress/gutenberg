@@ -74,11 +74,8 @@ function PostEditForm( { postType, postId } ) {
 	);
 
 	const form = useMemo(
-		() => ( {
-			layout: {
-				type: 'panel',
-			},
-			fields: [
+		() =>
+			[
 				{
 					id: 'featured_media',
 					layout: {
@@ -87,14 +84,30 @@ function PostEditForm( { postType, postId } ) {
 				},
 				{
 					id: 'status',
+					layout: { type: 'panel' },
 					label: __( 'Status & Visibility' ),
 					children: [ 'status', 'password' ],
 				},
-				'author',
-				'date',
-				'slug',
-				'parent',
-				'comment_status',
+				{
+					id: 'author',
+					layout: { type: 'panel' },
+				},
+				{
+					id: 'date',
+					layout: { type: 'panel' },
+				},
+				{
+					id: 'slug',
+					layout: { type: 'panel' },
+				},
+				{
+					id: 'parent',
+					layout: { type: 'panel' },
+				},
+				{
+					id: 'comment_status',
+					layout: { type: 'panel' },
+				},
 				{
 					label: __( 'Template' ),
 					id: 'template',
@@ -108,7 +121,6 @@ function PostEditForm( { postType, postId } ) {
 					ids.length === 1 ||
 					fieldsWithBulkEditSupport.includes( field )
 			),
-		} ),
 		[ ids ]
 	);
 	const onChange = ( edits ) => {

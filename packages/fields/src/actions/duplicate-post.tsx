@@ -23,9 +23,7 @@ import type { BasePost, CoreDataError } from '../types';
 import { getItemTitle } from './utils';
 
 const fields = [ titleField ];
-const formDuplicateAction = {
-	fields: [ 'title' ],
-};
+const formDuplicateAction = [ 'title' ];
 
 const duplicatePost: Action< BasePost > = {
 	id: 'duplicate-post',

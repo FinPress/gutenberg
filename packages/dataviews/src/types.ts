@@ -745,10 +745,7 @@ export type FormField = SimpleFormField | CombinedFormField;
 /**
  * The form configuration.
  */
-export type Form = {
-	layout?: Layout;
-	fields?: Array< FormField | string >;
-};
+export type Form = Array< FormField | string >;
 
 export interface DataFormProps< Item > {
 	data: Item;

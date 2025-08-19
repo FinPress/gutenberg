@@ -7,13 +7,13 @@ import type { Form } from '../types';
 describe( 'normalizeFormFields', () => {
 	describe( 'empty form', () => {
 		it( 'returns empty array for undefined fields', () => {
-			const form: Form = {};
+			const form: Form = [];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [] );
 		} );
 
 		it( 'returns empty array for empty fields', () => {
-			const form: Form = { fields: [] };
+			const form: Form = [];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [] );
 		} );
@@ -21,9 +21,7 @@ describe( 'normalizeFormFields', () => {
 
 	describe( 'default layout', () => {
 		it( 'applies default layout when layout is not specified', () => {
-			const form: Form = {
-				fields: [ 'field1', 'field2' ],
-			};
+			const form: Form = [ 'field1', 'field2' ];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [
 				{
@@ -38,15 +36,13 @@ describe( 'normalizeFormFields', () => {
 		} );
 
 		it( 'handles mixed string and object field specifications', () => {
-			const form: Form = {
-				fields: [
-					'field1',
-					{
-						id: 'field2',
-						label: 'Field 2',
-					},
-				],
-			};
+			const form: Form = [
+				'field1',
+				{
+					id: 'field2',
+					label: 'Field 2',
+				},
+			];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [
 				{
@@ -64,10 +60,7 @@ describe( 'normalizeFormFields', () => {
 
 	describe( 'layout types', () => {
 		it( 'regular: with default layout options', () => {
-			const form: Form = {
-				layout: { type: 'regular' },
-				fields: [ 'field1' ],
-			};
+			const form: Form = [ 'field1' ];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [
 				{
@@ -78,10 +71,12 @@ describe( 'normalizeFormFields', () => {
 		} );
 
 		it( 'regular: with layout options', () => {
-			const form: Form = {
-				layout: { type: 'regular', labelPosition: 'side' },
-				fields: [ 'field1' ],
-			};
+			const form: Form = [
+				{
+					id: 'field1',
+					layout: { type: 'regular', labelPosition: 'side' },
+				},
+			];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [
 				{
@@ -92,10 +87,7 @@ describe( 'normalizeFormFields', () => {
 		} );
 
 		it( 'panel: with default layout options', () => {
-			const form: Form = {
-				layout: { type: 'panel' },
-				fields: [ 'field1' ],
-			};
+			const form: Form = [ { id: 'field1', layout: { type: 'panel' } } ];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [
 				{
@@ -106,10 +98,12 @@ describe( 'normalizeFormFields', () => {
 		} );
 
 		it( 'panel: with layout options', () => {
-			const form: Form = {
-				layout: { type: 'panel', labelPosition: 'top' },
-				fields: [ 'field1' ],
-			};
+			const form: Form = [
+				{
+					id: 'field1',
+					layout: { type: 'panel', labelPosition: 'top' },
+				},
+			];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [
 				{
@@ -120,10 +114,7 @@ describe( 'normalizeFormFields', () => {
 		} );
 
 		it( 'card: with default layout options', () => {
-			const form: Form = {
-				layout: { type: 'card' },
-				fields: [ 'field1' ],
-			};
+			const form: Form = [ { id: 'field1', layout: { type: 'card' } } ];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [
 				{
@@ -138,11 +129,17 @@ describe( 'normalizeFormFields', () => {
 		} );
 
 		it( 'card: enforces isOpened=true when withHeader=false', () => {
-			const form: Form = {
-				// @ts-ignore - Test intentionally uses invalid type to verify runtime behavior.
-				layout: { type: 'card', withHeader: false, isOpened: false },
-				fields: [ 'field1' ],
-			};
+			const form: Form = [
+				{
+					id: 'field1',
+					layout: {
+						type: 'card',
+						withHeader: false,
+						// @ts-ignore - Test intentionally uses invalid type to verify runtime behavior.
+						isOpened: false,
+					},
+				},
+			];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [
 				{
@@ -157,10 +154,12 @@ describe( 'normalizeFormFields', () => {
 		} );
 
 		it( 'card: respects isOpened when withHeader=true', () => {
-			const form: Form = {
-				layout: { type: 'card', withHeader: true, isOpened: false },
-				fields: [ 'field1' ],
-			};
+			const form: Form = [
+				{
+					id: 'field1',
+					layout: { type: 'card', withHeader: true, isOpened: false },
+				},
+			];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [
 				{
@@ -177,16 +176,16 @@ describe( 'normalizeFormFields', () => {
 
 	describe( 'layout overrides', () => {
 		it( 'fields can override form layout', () => {
-			const form: Form = {
-				layout: { type: 'regular', labelPosition: 'top' },
-				fields: [
-					'field1',
-					{
-						id: 'field2',
-						layout: { type: 'panel', labelPosition: 'side' },
-					},
-				],
-			};
+			const form: Form = [
+				{
+					id: 'field1',
+					layout: { type: 'regular', labelPosition: 'top' },
+				},
+				{
+					id: 'field2',
+					layout: { type: 'panel', labelPosition: 'side' },
+				},
+			];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [
 				{
@@ -201,16 +200,16 @@ describe( 'normalizeFormFields', () => {
 		} );
 
 		it( 'fields do not partially override form layout', () => {
-			const form: Form = {
-				layout: { type: 'card', withHeader: false, isOpened: true },
-				fields: [
-					'field1',
-					{
-						id: 'field2',
-						layout: { type: 'card', isOpened: false },
-					},
-				],
-			};
+			const form: Form = [
+				{
+					id: 'field1',
+					layout: { type: 'card', withHeader: false, isOpened: true },
+				},
+				{
+					id: 'field2',
+					layout: { type: 'card', isOpened: false },
+				},
+			];
 			const result = normalizeFormFields( form );
 			expect( result ).toEqual( [
 				{

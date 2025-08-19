@@ -66,19 +66,17 @@ export function normalizeLayout( layout?: Layout ): NormalizedLayout {
 export default function normalizeFormFields(
 	form: Form
 ): NormalizedFormField[] {
-	const formLayout = normalizeLayout( form?.layout );
-
-	return ( form.fields ?? [] ).map( ( field ) => {
+	return ( form ?? [] ).map( ( field ) => {
 		if ( typeof field === 'string' ) {
 			return {
 				id: field,
-				layout: formLayout,
+				layout: DEFAULT_LAYOUT,
 			};
 		}
 
 		const fieldLayout = field.layout
 			? normalizeLayout( field.layout )
-			: formLayout;
+			: DEFAULT_LAYOUT;
 		return {
 			...field,
 			layout: fieldLayout,
