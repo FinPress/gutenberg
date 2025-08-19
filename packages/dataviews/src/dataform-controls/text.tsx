@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { privateApis } from '@wordpress/components';
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback, useState, useRef } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -19,7 +19,7 @@ export default function Text< Item >( {
 	hideLabelFromVision,
 }: DataFormControlProps< Item > ) {
 	const { id, label, placeholder, description } = field;
-	const value = field.getValue( { item: data } );
+	const value = field.getValue( { item: data } ) ?? '';
 	const [ customValidity, setCustomValidity ] =
 		useState<
 			React.ComponentProps<
@@ -35,11 +35,24 @@ export default function Text< Item >( {
 		[ id, onChange ]
 	);
 
+	// onValidate needs access to the latest value that has been validated
+	// to bail early if it didn't change.
+	//
+	// We can't use the value directly because it is updated by onChange,
+	// and so there may be race conditions between onChange and onValidate.
+	const previousValidatedValueRef = useRef< unknown >( value );
+
 	return (
 		<ValidatedTextControl
 			required={ !! field.isValid?.required }
 			onValidate={ ( newValue: any ) => {
-				const message = field.isValid?.custom?.(
+				// Do not trigger validation if the value is the same as before.
+				if ( newValue === previousValidatedValueRef.current ) {
+					return;
+				}
+				previousValidatedValueRef.current = newValue;
+
+				const message = field?.isValid?.custom?.(
 					{
 						...data,
 						[ id ]: newValue,
@@ -47,6 +60,40 @@ export default function Text< Item >( {
 					field
 				);
 
+				// Async validation:
+				// validity can be validating, invalid, valid.
+				if ( message instanceof Promise ) {
+					setCustomValidity( {
+						type: 'validating',
+						message: 'Validating...',
+					} );
+
+					message
+						.then( ( result ) => {
+							if ( result ) {
+								setCustomValidity( {
+									type: 'invalid',
+									message: result,
+								} );
+							} else {
+								setCustomValidity( {
+									type: 'valid',
+									message: 'Validated',
+								} );
+							}
+						} )
+						.catch( ( error ) => {
+							setCustomValidity( {
+								type: 'invalid',
+								message: error.message,
+							} );
+						} );
+
+					return;
+				}
+
+				// Sync validation:
+				// validity is either invalid or undefined (nothing displayed).
 				if ( message ) {
 					setCustomValidity( {
 						type: 'invalid',
@@ -60,7 +107,7 @@ export default function Text< Item >( {
 			customValidity={ customValidity }
 			label={ label }
 			placeholder={ placeholder }
-			value={ value ?? '' }
+			value={ value }
 			help={ description }
 			onChange={ onChangeControl }
 			__next40pxDefaultSize
