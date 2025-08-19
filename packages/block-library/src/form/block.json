@@ -32,6 +32,24 @@
 		},
 		"email": {
 			"type": "string"
+		},
+		"hiddenFields": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			}
 		}
 	},
 	"supports": {
