@@ -21,10 +21,7 @@ import {
 	createBlock,
 	store as blocksStore,
 } from '@wordpress/blocks';
-import {
-	withFilters,
-	__unstableAnimatePresence as AnimatePresence,
-} from '@wordpress/components';
+import { withFilters } from '@wordpress/components';
 import { withDispatch, useSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { safeHTML } from '@wordpress/dom';
@@ -41,7 +38,6 @@ import { useBlockProps } from './use-block-props';
 import { store as blockEditorStore } from '../../store';
 import { useLayout } from './layout';
 import { PrivateBlockContext } from './private-block-context';
-import HiddenBlockPlaceholder from '../hidden-block-placeholder';
 
 import { unlock } from '../../lock-unlock';
 
@@ -639,7 +635,6 @@ function BlockListBlockProvider( props ) {
 			const { isBlockHidden: _isBlockHidden } = unlock(
 				select( blockEditorStore )
 			);
-			const { isDraggingBlocks } = select( blockEditorStore );
 			const _isSelected = isBlockSelected( clientId );
 			const canRemove = canRemoveBlock( clientId );
 			const canMove = canMoveBlock( clientId );
@@ -714,7 +709,6 @@ function BlockListBlockProvider( props ) {
 					? blocksWithSameName[ 0 ]
 					: false,
 				isBlockHidden: _isBlockHidden( clientId ),
-				isDraggingBlocks: isDraggingBlocks(),
 			};
 		},
 		[ clientId, rootClientId ]
@@ -758,7 +752,6 @@ function BlockListBlockProvider( props ) {
 		defaultClassName,
 		originalBlockClientId,
 		isBlockHidden,
-		isDraggingBlocks,
 	} = selectedProps;
 
 	// Users of the editor.BlockListBlock filter used to be able to
@@ -807,7 +800,6 @@ function BlockListBlockProvider( props ) {
 		originalBlockClientId,
 		themeSupportsLayout,
 		canMove,
-		isDraggingBlocks,
 	};
 
 	if (
@@ -816,18 +808,7 @@ function BlockListBlockProvider( props ) {
 		! isMultiSelected &&
 		! hasChildSelected
 	) {
-		return (
-			<PrivateBlockContext.Provider value={ privateContext }>
-				<AnimatePresence>
-					{ isDraggingBlocks && (
-						<HiddenBlockPlaceholder
-							key={ `hidden-placeholder-${ clientId }` }
-							clientId={ clientId }
-						/>
-					) }
-				</AnimatePresence>
-			</PrivateBlockContext.Provider>
-		);
+		return null;
 	}
 
 	// Here we separate between the props passed to BlockListBlock and any other
