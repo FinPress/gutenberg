@@ -225,6 +225,7 @@ export function PrivateBlockToolbar( {
 							<ToolbarGroup className="block-editor-block-toolbar__block-controls">
 								<BlockSwitcher clientIds={ blockClientIds } />
 								{ ! isMultiToolbar &&
+									isDefaultEditingMode &&
 									showBlockVisibilityButton && (
 										<BlockVisibilityToolbar
 											clientId={ blockClientId }
