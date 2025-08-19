@@ -71,18 +71,29 @@ function useDialog( options: DialogOptions ): useDialogReturn {
 	useEffect( () => {
 		currentOptions.current = options;
 	}, Object.values( options ) );
+
 	const constrainedTabbingRef = useConstrainedTabbing();
 	const focusOnMountRef = useFocusOnMount( options.focusOnMount );
 	const focusReturnRef = useFocusReturn();
-	const focusOutsideProps = useFocusOutside( ( event ) => {
-		// This unstable prop  is here only to manage backward compatibility
-		// for the Popover component otherwise, the onClose should be enough.
-		if ( currentOptions.current?.__unstableOnClose ) {
-			currentOptions.current.__unstableOnClose( 'focus-outside', event );
-		} else if ( currentOptions.current?.onClose ) {
-			currentOptions.current.onClose();
-		}
-	} );
+
+	// Create a ref for the dialog element that useFocusOutside will use
+	const dialogRef = useRef< HTMLElement >( null );
+
+	const focusOutsideProps = useFocusOutside(
+		( event ) => {
+			// This unstable prop  is here only to manage backward compatibility
+			// for the Popover component otherwise, the onClose should be enough.
+			if ( currentOptions.current?.__unstableOnClose ) {
+				currentOptions.current.__unstableOnClose(
+					'focus-outside',
+					event
+				);
+			} else if ( currentOptions.current?.onClose ) {
+				currentOptions.current.onClose();
+			}
+		},
+		dialogRef // Pass the ref to useFocusOutside
+	);
 	const closeOnEscapeRef = useCallback( ( node: HTMLElement ) => {
 		if ( ! node ) {
 			return;
@@ -107,6 +118,7 @@ function useDialog( options: DialogOptions ): useDialogReturn {
 			options.focusOnMount !== false ? focusReturnRef : null,
 			options.focusOnMount !== false ? focusOnMountRef : null,
 			closeOnEscapeRef,
+			dialogRef,
 		] ),
 		{
 			...focusOutsideProps,
