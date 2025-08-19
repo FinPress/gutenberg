@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import clsx from 'clsx';
+
+/**
  * WordPress dependencies
  */
 import {
@@ -20,12 +25,14 @@ import type {
 	Form,
 	FormField,
 	FieldLayoutProps,
+	NormalizedPanelLayout,
 	NormalizedField,
 	SimpleFormField,
 } from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
+import { DEFAULT_LAYOUT, normalizeLayout } from '../../normalize-form-fields';
 
 function DropdownHeader( {
 	title,
@@ -77,26 +84,17 @@ function PanelDropdown< Item >( {
 	const fieldLabel = isCombinedField( field )
 		? field.label
 		: fieldDefinition?.label;
-	const form = useMemo( () => {
-		if ( isCombinedField( field ) ) {
-			return {
-				type: 'regular' as const,
-				fields: field.children.map( ( child ) => {
-					if ( typeof child === 'string' ) {
-						return {
-							id: child,
-						};
-					}
-					return child;
-				} ),
-			};
-		}
-		// If not explicit children return the field id itself.
-		return {
-			type: 'regular' as const,
-			fields: [ { id: field.id } ],
-		};
-	}, [ field ] );
+
+	const form: Form = useMemo(
+		(): Form => ( {
+			layout: DEFAULT_LAYOUT,
+			fields: isCombinedField( field )
+				? field.children
+				: // If not explicit children return the field id itself.
+				  [ { id: field.id } ],
+		} ),
+		[ field ]
+	);
 
 	// Memoize popoverProps to avoid returning a new object every time.
 	const popoverProps = useMemo(
@@ -134,11 +132,16 @@ function PanelDropdown< Item >( {
 					aria-label={ sprintf(
 						// translators: %s: Field name.
 						_x( 'Edit %s', 'field' ),
-						fieldLabel
+						fieldLabel || ''
 					) }
 					onClick={ onToggle }
+					disabled={ fieldDefinition.readOnly === true }
+					accessibleWhenDisabled
 				>
-					<fieldDefinition.render item={ data } />
+					<fieldDefinition.render
+						item={ data }
+						field={ fieldDefinition }
+					/>
 				</Button>
 			) }
 			renderContent={ ( { onClose } ) => (
@@ -146,7 +149,7 @@ function PanelDropdown< Item >( {
 					<DropdownHeader title={ fieldLabel } onClose={ onClose } />
 					<DataFormLayout
 						data={ data }
-						form={ form as Form }
+						form={ form }
 						onChange={ onChange }
 					>
 						{ ( FieldLayout, nestedField ) => (
@@ -173,22 +176,27 @@ export default function FormPanelField< Item >( {
 	onChange,
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
-	const fieldDefinition = fields.find( ( fieldDef ) => {
-		// Default to the first child if it is a combined field.
+	const fieldDefinition = fields.find( ( _field ) => {
+		// Default to the first simple child if it is a combined field.
 		if ( isCombinedField( field ) ) {
-			const children = field.children.filter(
+			const simpleChildren = field.children.filter(
 				( child ): child is string | SimpleFormField =>
 					typeof child === 'string' || ! isCombinedField( child )
 			);
+
+			if ( simpleChildren.length === 0 ) {
+				return false;
+			}
+
 			const firstChildFieldId =
-				typeof children[ 0 ] === 'string'
-					? children[ 0 ]
-					: children[ 0 ].id;
-			return fieldDef.id === firstChildFieldId;
+				typeof simpleChildren[ 0 ] === 'string'
+					? simpleChildren[ 0 ]
+					: simpleChildren[ 0 ].id;
+			return _field.id === firstChildFieldId;
 		}
-		return fieldDef.id === field.id;
+
+		return _field.id === field.id;
 	} );
-	const labelPosition = field.labelPosition ?? 'side';
 
 	// Use internal state instead of a ref to make sure that the component
 	// re-renders when the popover's anchor updates.
@@ -200,6 +208,16 @@ export default function FormPanelField< Item >( {
 		return null;
 	}
 
+	const layout: NormalizedPanelLayout = normalizeLayout( {
+		...field.layout,
+		type: 'panel',
+	} ) as NormalizedPanelLayout;
+
+	const labelPosition = layout.labelPosition;
+	const labelClassName = clsx(
+		'dataforms-layouts-panel__field-label',
+		`dataforms-layouts-panel__field-label--label-position-${ labelPosition }`
+	);
 	const fieldLabel = isCombinedField( field )
 		? field.label
 		: fieldDefinition?.label;
@@ -208,7 +226,7 @@ export default function FormPanelField< Item >( {
 		return (
 			<VStack className="dataforms-layouts-panel__field" spacing={ 0 }>
 				<div
-					className="dataforms-layouts-panel__field-label"
+					className={ labelClassName }
 					style={ { paddingBottom: 0 } }
 				>
 					{ fieldLabel }
@@ -248,9 +266,7 @@ export default function FormPanelField< Item >( {
 			ref={ setPopoverAnchor }
 			className="dataforms-layouts-panel__field"
 		>
-			<div className="dataforms-layouts-panel__field-label">
-				{ fieldLabel }
-			</div>
+			<div className={ labelClassName }>{ fieldLabel }</div>
 			<div className="dataforms-layouts-panel__field-control">
 				<PanelDropdown
 					field={ field }
