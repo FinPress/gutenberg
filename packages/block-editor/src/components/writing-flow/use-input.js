@@ -33,6 +33,7 @@ export default function useInput() {
 		getSelectionStart,
 		getSelectionEnd,
 		getBlockAttributes,
+		getBlockEditingMode,
 	} = useSelect( blockEditorStore );
 	const {
 		replaceBlocks,
@@ -107,13 +108,15 @@ export default function useInput() {
 					) {
 						return;
 					}
-
+					const rootClientId = getBlockRootClientId( clientId );
+					// Content blocks not at root level should not split.
+					const isContentOnlyNonRootBlock =
+						getBlockEditingMode( clientId ) === 'contentOnly' &&
+						!! rootClientId;
 					// Ensure template is not locked.
 					if (
-						canInsertBlockType(
-							blockName,
-							getBlockRootClientId( clientId )
-						)
+						canInsertBlockType( blockName, rootClientId ) &&
+						! isContentOnlyNonRootBlock
 					) {
 						__unstableSplitSelection();
 						event.preventDefault();

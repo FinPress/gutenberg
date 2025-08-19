@@ -2399,11 +2399,7 @@ function getDerivedBlockEditingModesForTree(
 				}
 			}
 
-			if (
-				blockName &&
-				isContentBlock( blockName ) &&
-				block.innerBlocks?.length === 0
-			) {
+			if ( blockName && isContentBlock( blockName ) ) {
 				derivedBlockEditingModes.set( clientId, 'contentOnly' );
 				return;
 			}
