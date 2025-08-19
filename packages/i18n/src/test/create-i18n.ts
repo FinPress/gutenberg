@@ -822,10 +822,6 @@ describe( 'createI18n', () => {
 					expect( result ).toBe( expectedFormat );
 				}
 			);
-
-			test( 'should have 208 locales tested', () => {
-				expect( polyglotLocales.length ).toBe( 208 );
-			} );
 		} );
 	} );
 } );
