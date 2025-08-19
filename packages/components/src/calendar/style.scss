@@ -1,9 +1,9 @@
 /* Root of the component. */
 // Internal variables
 $wp-components-calendar-outline-focus: var(--wp-admin-border-width-focus) solid $components-color-accent;
-$wp-components-calendar-button-height: 2rem;
-$wp-components-calendar-button-width: 2rem;
-$wp-components-calendar-nav-height: 2rem;
+$wp-components-calendar-button-height: 32px;
+$wp-components-calendar-button-width: 32px;
+$wp-components-calendar-nav-height: 32px;
 $wp-components-calendar-range-middle-background-color: color-mix(in srgb, $components-color-accent 4%, transparent);
 $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-color-accent 16%, transparent);
 
@@ -175,7 +175,7 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	gap: 1rem;
+	gap: 16px;
 	max-width: fit-content;
 }
 
