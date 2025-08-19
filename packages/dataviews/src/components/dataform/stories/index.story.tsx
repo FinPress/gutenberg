@@ -50,7 +50,7 @@ const meta = {
 			description: 'Chooses the label position of the layout.',
 			options: [ 'default', 'top', 'side', 'none' ],
 		},
-		panelType: {
+		openAs: {
 			control: { type: 'select' },
 			description: 'Chooses the type of panel to use.',
 			options: [ 'default', 'dropdown', 'modal' ],
@@ -186,11 +186,11 @@ const fields = [
 export const Default = ( {
 	type,
 	labelPosition,
-	panelType,
+	openAs,
 }: {
 	type: 'default' | 'regular' | 'panel' | 'card';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
-	panelType: 'default' | 'dropdown' | 'modal';
+	openAs: 'default' | 'dropdown' | 'modal';
 } ) => {
 	const [ post, setPost ] = useState( {
 		title: 'Hello, World!',
@@ -213,7 +213,7 @@ export const Default = ( {
 			layout: {
 				type,
 				labelPosition,
-				panelType,
+				openAs,
 			},
 			fields: [
 				'title',
@@ -232,7 +232,7 @@ export const Default = ( {
 				'tags',
 			],
 		} ),
-		[ type, labelPosition, panelType ]
+		[ type, labelPosition, openAs ]
 	) as Form;
 
 	return (
@@ -253,11 +253,11 @@ export const Default = ( {
 const CombinedFieldsComponent = ( {
 	type,
 	labelPosition,
-	panelType,
+	openAs,
 }: {
 	type: 'default' | 'regular' | 'panel' | 'card';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
-	panelType: 'default' | 'dropdown' | 'modal';
+	openAs: 'default' | 'dropdown' | 'modal';
 } ) => {
 	const [ post, setPost ] = useState< SamplePost >( {
 		title: 'Hello, World!',
@@ -280,7 +280,7 @@ const CombinedFieldsComponent = ( {
 			layout: {
 				type,
 				labelPosition,
-				panelType,
+				openAs,
 			},
 			fields: [
 				'title',
@@ -302,7 +302,7 @@ const CombinedFieldsComponent = ( {
 				},
 			],
 		} ),
-		[ type, labelPosition, panelType, post ]
+		[ type, labelPosition, openAs, post ]
 	) as Form;
 
 	return (
@@ -766,7 +766,7 @@ const LayoutMixedComponent = () => {
 						layout: {
 							type: 'panel',
 							labelPosition: 'top',
-							panelType: 'dropdown',
+							openAs: 'dropdown',
 						},
 					},
 					'status',

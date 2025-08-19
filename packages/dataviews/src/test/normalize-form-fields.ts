@@ -103,7 +103,7 @@ describe( 'normalizeFormFields', () => {
 					layout: {
 						type: 'panel',
 						labelPosition: 'side',
-						panelType: 'dropdown',
+						openAs: 'dropdown',
 					},
 				},
 			] );
@@ -121,7 +121,7 @@ describe( 'normalizeFormFields', () => {
 					layout: {
 						type: 'panel',
 						labelPosition: 'top',
-						panelType: 'dropdown',
+						openAs: 'dropdown',
 					},
 				},
 			] );
@@ -206,7 +206,7 @@ describe( 'normalizeFormFields', () => {
 					layout: {
 						type: 'panel',
 						labelPosition: 'side',
-						panelType: 'dropdown',
+						openAs: 'dropdown',
 					},
 				},
 			] );

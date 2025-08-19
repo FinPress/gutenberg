@@ -38,7 +38,7 @@ export function normalizeLayout( layout?: Layout ): NormalizedLayout {
 		normalizedLayout = {
 			type: 'panel',
 			labelPosition: layout?.labelPosition ?? 'side',
-			panelType: layout?.panelType ?? 'dropdown',
+			openAs: layout?.openAs ?? 'dropdown',
 		} satisfies NormalizedPanelLayout;
 	} else if ( layout?.type === 'card' ) {
 		if ( layout.withHeader === false ) {

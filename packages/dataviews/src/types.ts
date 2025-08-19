@@ -689,12 +689,12 @@ export type NormalizedRegularLayout = {
 export type PanelLayout = {
 	type: 'panel';
 	labelPosition?: LabelPosition;
-	panelType?: 'dropdown' | 'modal';
+	openAs?: 'dropdown' | 'modal';
 };
 export type NormalizedPanelLayout = {
 	type: 'panel';
 	labelPosition: LabelPosition;
-	panelType: 'dropdown' | 'modal';
+	openAs: 'dropdown' | 'modal';
 };
 
 export type CardLayout =

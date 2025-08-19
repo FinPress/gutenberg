@@ -253,7 +253,7 @@ describe( 'DataForm component', () => {
 				layout: {
 					type: 'panel',
 					labelPosition: 'side',
-					panelType: 'dropdown',
+					openAs: 'dropdown',
 				} as const,
 			};
 
@@ -282,7 +282,7 @@ describe( 'DataForm component', () => {
 				layout: {
 					type: 'panel',
 					labelPosition: 'side',
-					panelType: 'modal',
+					openAs: 'modal',
 				} as const,
 			};
 
@@ -312,7 +312,7 @@ describe( 'DataForm component', () => {
 				layout: {
 					type: 'panel',
 					labelPosition: 'side',
-					panelType: 'modal',
+					openAs: 'modal',
 				} as const,
 			};
 
@@ -349,7 +349,7 @@ describe( 'DataForm component', () => {
 				layout: {
 					type: 'panel',
 					labelPosition: 'side',
-					panelType: 'modal',
+					openAs: 'modal',
 				} as const,
 			};
 

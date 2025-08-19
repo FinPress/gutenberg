@@ -80,7 +80,7 @@ export default function FormPanelField< Item >( {
 		: fieldDefinition?.label;
 
 	const renderedControl =
-		layout.panelType === 'modal' ? (
+		layout.openAs === 'modal' ? (
 			<PanelModal
 				field={ field }
 				fieldDefinition={ fieldDefinition }
