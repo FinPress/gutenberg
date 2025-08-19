@@ -11,6 +11,6 @@
 		"checkJs": false,
 		"emitDeclarationOnly": false
 	},
-	"include": [ "lib/**/*" ],
+	"include": [ "lib" ],
 	"exclude": [ "**/*.test.*", "**/test/**" ]
 }
