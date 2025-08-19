@@ -32,6 +32,10 @@
 		},
 		"email": {
 			"type": "string"
+		},
+		"redirectUrl": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
