@@ -134,6 +134,9 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 			case 'validating': {
 				// Wait before showing a validating state.
 				const timer = setTimeout( () => {
+					validityTarget?.setCustomValidity( '' );
+					setErrorMessage( validityTarget?.validationMessage );
+
 					setStatusMessage( {
 						type: 'validating',
 						message: customValidity.message,
