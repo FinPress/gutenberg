@@ -5,7 +5,7 @@
 	"version": "0.1.0",
 	"title": "Accordion Panel",
 	"category": "design",
-	"description": "Accordion Panel",
+	"description": "Displays an Accordion Panel",
 	"example": {},
 	"__experimental": true,
 	"parent": [ "core/accordion-content" ],

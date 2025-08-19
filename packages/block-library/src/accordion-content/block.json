@@ -5,7 +5,7 @@
 	"version": "0.1.0",
 	"title": "Accordion Content",
 	"category": "design",
-	"description": "A section of content within an Accordion that displays a header and expandable content.",
+	"description": "Displays a section of content in an Accordion, including a header and expandable content.",
 	"example": {},
 	"__experimental": true,
 	"parent": [ "core/accordion" ],

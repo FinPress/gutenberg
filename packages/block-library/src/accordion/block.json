@@ -4,7 +4,7 @@
 	"name": "core/accordion",
 	"title": "Accordion",
 	"category": "design",
-	"description": "A group of Accordion headers and associated expandable content.",
+	"description": "Displays a group of Accordion headers and associated expandable content.",
 	"example": {},
 	"__experimental": true,
 	"supports": {
