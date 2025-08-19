@@ -14,6 +14,9 @@ import getAssociatedPullRequest from '../../get-associated-pull-request';
  * Type definitions
  */
 type GitHub = ReturnType< typeof getOctokit >;
+type Milestone = Awaited<
+	ReturnType< GitHub[ 'rest' ][ 'issues' ][ 'listMilestones' ] >
+>[ 'data' ][ 0 ];
 
 /**
  * Number of expected days elapsed between releases.
@@ -58,7 +61,7 @@ async function getMilestoneByTitle(
 	owner: string,
 	repo: string,
 	title: string
-): Promise< any | void > {
+): Promise< Milestone | void > {
 	const responses = octokit.paginate.iterator(
 		octokit.rest.issues.listMilestones,
 		{
@@ -163,7 +166,8 @@ async function addMilestone(
 	}
 
 	// Using UTC for the calculation ensures it's not affected by daylight savings.
-	const dueDate = new Date( lastMilestone.due_on );
+	// If the milestone has no due date, use current date as fallback, reflects previous behavior before TypeScript conversion.
+	const dueDate = new Date( lastMilestone.due_on || new Date() );
 	dueDate.setUTCDate( dueDate.getUTCDate() + DAYS_PER_RELEASE );
 
 	debug(
