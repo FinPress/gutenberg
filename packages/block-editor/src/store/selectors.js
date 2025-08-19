@@ -9,6 +9,7 @@ import {
 	getPossibleBlockTransformations,
 	switchToBlockType,
 	store as blocksStore,
+	privateApis as blocksPrivateApis,
 } from '@wordpress/blocks';
 import { Platform } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
@@ -43,6 +44,8 @@ import {
 	getParentSectionBlock,
 	isZoomOut,
 } from './private-selectors';
+
+const { isContentBlock } = unlock( blocksPrivateApis );
 
 /**
  * A block selection object.
@@ -1683,8 +1686,11 @@ const canInsertBlockTypeUnmemoized = (
 		return false;
 	}
 
+	const isContentContainer =
+		isContentBlock( blockName ) && blockType?.allowedBlocks?.length > 0;
+
 	const _isSectionBlock = !! isSectionBlock( state, rootClientId );
-	if ( _isSectionBlock ) {
+	if ( _isSectionBlock && ! isContentContainer ) {
 		return false;
 	}
 
@@ -1695,7 +1701,7 @@ const canInsertBlockTypeUnmemoized = (
 	const isContentOnlyNonRootBlock =
 		getBlockEditingMode( state, rootClientId ?? '' ) === 'contentOnly' &&
 		!! rootClientId;
-	if ( isContentOnlyNonRootBlock ) {
+	if ( isContentOnlyNonRootBlock && ! isContentContainer ) {
 		return false;
 	}
 
