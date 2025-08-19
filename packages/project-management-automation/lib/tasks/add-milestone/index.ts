@@ -95,7 +95,7 @@ async function addMilestone(
 		return;
 	}
 
-	const prNumber = getAssociatedPullRequest( payload.commits[ 0 ] as any );
+	const prNumber = getAssociatedPullRequest( payload.commits[ 0 ] );
 	if ( ! prNumber ) {
 		debug( 'add-milestone: Commit is not a squashed PR. Aborting' );
 		return;
