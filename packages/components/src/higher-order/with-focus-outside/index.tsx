@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback, useState, useRef } from '@wordpress/element';
 import {
 	createHigherOrderComponent,
 	__experimentalUseFocusOutside as useFocusOutside,
@@ -25,8 +25,13 @@ export default createHigherOrderComponent(
 			[]
 		);
 
+		const containerRef = useRef< HTMLDivElement >( null );
+
 		return (
-			<div { ...useFocusOutside( handleFocusOutside ) }>
+			<div
+				ref={ containerRef }
+				{ ...useFocusOutside( handleFocusOutside, containerRef ) }
+			>
 				<WrappedComponent
 					ref={ bindFocusOutsideHandler }
 					{ ...props }
