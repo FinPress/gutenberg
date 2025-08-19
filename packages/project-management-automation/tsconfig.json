@@ -9,11 +9,7 @@
 		"rootDir": "./lib",
 		"types": [ "node" ],
 		"checkJs": false,
-		"emitDeclarationOnly": false,
-		"composite": true,
-		"declaration": true,
-		"declarationMap": false,
-		"declarationDir": "./build-types"
+		"emitDeclarationOnly": false
 	},
 	"include": [ "lib/**/*" ],
 	"exclude": [ "**/*.test.*", "**/test/**" ]
