@@ -57,7 +57,7 @@ async function firstTimeContributorAccountLink(
 	}
 
 	const commit = payload.commits[ 0 ];
-	const pullRequest = getAssociatedPullRequest( commit as any );
+	const pullRequest = getAssociatedPullRequest( commit );
 	if ( ! pullRequest ) {
 		debug(
 			'first-time-contributor-account-link: Cannot determine pull request associated with commit. Aborting'
