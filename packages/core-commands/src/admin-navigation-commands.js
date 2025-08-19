@@ -3,7 +3,7 @@
  */
 import { useCommand, useCommandLoader } from '@wordpress/commands';
 import { __ } from '@wordpress/i18n';
-import { plus } from '@wordpress/icons';
+import { plus, dashboard } from '@wordpress/icons';
 import { getPath } from '@wordpress/url';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -138,6 +138,15 @@ const getAdminBasicNavigationCommands = () =>
 	};
 
 export function useAdminNavigationCommands() {
+	useCommand( {
+		name: 'core/dashboard',
+		label: __( 'Dashboard' ),
+		icon: dashboard,
+		callback: () => {
+			document.location.assign( 'index.php' );
+		},
+	} );
+
 	useCommand( {
 		name: 'core/add-new-post',
 		label: __( 'Add Post' ),
