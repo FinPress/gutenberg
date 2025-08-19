@@ -13,8 +13,8 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	position: relative; /* Required to position the navigation toolbar. */
 	box-sizing: border-box;
 	display: inline flow-root;
-	color: $gray-900;
-	background-color: $white;
+	color: $components-color-foreground;
+	background-color: $components-color-background;
 	font-size: $font-size-medium;
 	font-weight: $font-weight-regular;
 	z-index: 0; // Create a stacking context and render on top of the background.
@@ -35,7 +35,7 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	// date follows the same color as the button's text, since the button
 	// inherits its text color.
 	&:has(.components-calendar__day-button:disabled) {
-		color: $gray-600;
+		color: $components-color-disabled;
 	}
 	&:has(.components-calendar__day-button:hover:not(:disabled)),
 	&:has(.components-calendar__day-button:focus-visible) {
@@ -139,7 +139,7 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	&[aria-disabled="true"] {
 		cursor: revert;
 
-		color: $gray-600;
+		color: $components-color-disabled;
 	}
 
 	&:focus-visible {
@@ -202,7 +202,7 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	height: $wp-components-calendar-button-height;
 	padding: 0;
 
-	color: $gray-700;
+	color: $components-color-gray-700;
 	text-align: center;
 	text-transform: uppercase;
 }
@@ -227,12 +227,12 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	.components-calendar__day-button,
 	.components-calendar__day-button:hover:not(:disabled)
 ) {
-		color: $white;
+		color: $components-color-foreground-inverted;
 	}
 
 	.components-calendar__day-button {
 		&::before {
-			background-color: $gray-900;
+			background-color: $components-color-foreground;
 			// Render a transparent border to highlight the selected day in
 			// forced-colors (high-contrast) mode, since the background is not
 			// visible.
@@ -240,11 +240,11 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 		}
 
 		&:disabled::before {
-			background-color: $gray-600;
+			background-color: $components-color-disabled;
 		}
 
 		&:hover:not(:disabled)::before {
-			background-color: $gray-800;
+			background-color: $components-color-gray-800;
 		}
 	}
 }
