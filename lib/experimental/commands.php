@@ -24,19 +24,11 @@ function gutenberg_enqueue_command_palette_assets() {
 		return;
 	}
 
-	$gutenberg_experiments = get_option( 'gutenberg-experiments' );
-	if ( empty( $gutenberg_experiments ) || ! array_key_exists( 'gutenberg-command-palette-everywhere', $gutenberg_experiments ) ) {
-		return;
-	}
-
 	wp_enqueue_script( 'wp-commands' );
 	wp_enqueue_style( 'wp-commands' );
 	wp_enqueue_script( 'wp-core-commands' );
 
-	$inline_script = <<<JS
-	window.__experimentalEnableCommandPaletteEverywhere = true;
-	wp.coreCommands.initializeCommandPalette();
-JS;
+	$inline_script = 'wp.coreCommands.initializeCommandPalette();';
 
 	wp_add_inline_script( 'wp-core-commands', $inline_script );
 }

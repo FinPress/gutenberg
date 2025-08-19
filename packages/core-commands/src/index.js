@@ -31,7 +31,7 @@ function CommandPalette() {
  * unless the experimental setting is enabled.
  */
 export function initializeCommandPalette() {
-	if ( ! window.__experimentalEnableCommandPaletteEverywhere ) {
+	if ( ! globalThis.IS_GUTENBERG_PLUGIN ) {
 		return;
 	}
 	const root = document.createElement( 'div' );
