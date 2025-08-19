@@ -13,6 +13,7 @@ import { __ } from '@wordpress/i18n';
 import { DOWN } from '@wordpress/keycodes';
 import { Icon, filter } from '@wordpress/icons';
 import { useInstanceId } from '@wordpress/compose';
+import { useEffect, useState } from '@wordpress/element';
 
 function DuotoneControl( {
 	id: idProp,
@@ -23,13 +24,20 @@ function DuotoneControl( {
 	value,
 	onChange,
 } ) {
+	const [ currentValue, setCurrentValue ] = useState( value );
+
+	// 🔥 Ensure local state syncs when style variation changes
+	useEffect( () => {
+		setCurrentValue( value );
+	}, [ value ] );
+
 	let toolbarIcon;
-	if ( value === 'unset' ) {
+	if ( currentValue === 'unset' ) {
 		toolbarIcon = (
 			<ColorIndicator className="block-editor-duotone-control__unset-indicator" />
 		);
-	} else if ( value ) {
-		toolbarIcon = <DuotoneSwatch values={ value } />;
+	} else if ( currentValue ) {
+		toolbarIcon = <DuotoneSwatch values={ currentValue } />;
 	} else {
 		toolbarIcon = <Icon icon={ filter } />;
 	}
@@ -77,13 +85,17 @@ function DuotoneControl( {
 						duotonePalette={ duotonePalette }
 						disableCustomColors={ disableCustomColors }
 						disableCustomDuotone={ disableCustomDuotone }
-						value={ value }
-						onChange={ onChange }
+						value={ currentValue }
+						onChange={ ( newValue ) => {
+							setCurrentValue( newValue );
+							onChange( newValue );
+						} }
 					/>
 				</MenuGroup>
 			) }
 		/>
 	);
 }
+
 
 export default DuotoneControl;

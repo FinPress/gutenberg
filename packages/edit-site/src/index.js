@@ -84,6 +84,23 @@ export function initializeEditor( id, settings ) {
 	}
 
 	dispatch( editSiteStore ).updateSettings( settings );
+	// 🔥 Re-apply settings when style variation changes
+	if ( globalThis.wp?.data ) {
+		const { subscribe, select } = globalThis.wp.data;
+		const previousVariation = { current: null };
+
+		subscribe( () => {
+			const newVariation =
+				select( 'core/edit-site' )?.getSettings()?.styleVariation;
+
+			if ( newVariation && newVariation !== previousVariation.current ) {
+				previousVariation.current = newVariation;
+
+				// Re-dispatch settings to refresh block controls (duotone, spacing, etc.)
+				dispatch( editSiteStore ).updateSettings( settings );
+			}
+		} );
+	}
 
 	// Prevent the default browser action for files dropped outside of dropzones.
 	window.addEventListener( 'dragover', ( e ) => e.preventDefault(), false );
