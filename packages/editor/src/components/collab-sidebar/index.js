@@ -117,15 +117,20 @@ function CollabSidebarContent( {
 		}
 	};
 
-	const onCommentResolve = async ( commentId ) => {
+	const onCommentResolve = async ( commentId, action = 'resolve' ) => {
+		const status = action === 'reopen' ? 'unapproved' : 'approved';
 		const savedRecord = await saveEntityRecord( 'root', 'comment', {
 			id: commentId,
-			status: 'approved',
+			status,
 		} );
 
 		if ( savedRecord ) {
-			// translators: Comment resolved successfully
-			createNotice( 'snackbar', __( 'Comment marked as resolved.' ), {
+			const message =
+				action === 'reopen'
+					? __( 'Comment reopened successfully.' )
+					: __( 'Comment marked as resolved.' );
+			// translators: Comment resolved/reopened successfully
+			createNotice( 'snackbar', message, {
 				type: 'snackbar',
 				isDismissible: true,
 			} );

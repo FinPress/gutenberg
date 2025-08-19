@@ -176,7 +176,7 @@ function Thread( {
 						) ) }
 				</>
 			) }
-			{ 'approved' !== thread.status && isFocused && (
+			{ isFocused && (
 				<VStack
 					className="editor-collab-sidebar-panel__child-thread"
 					spacing="2"
@@ -214,6 +214,12 @@ const CommentBoard = ( { thread, onResolve, onEdit, onDelete, status } ) => {
 
 	const handleConfirmDelete = () => {
 		onDelete( thread.id );
+		setActionState( false );
+		setShowConfirmDialog( false );
+	};
+
+	const handleConfirmReopen = () => {
+		onResolve( thread.id, 'reopen' );
 		setActionState( false );
 		setShowConfirmDialog( false );
 	};
@@ -291,10 +297,31 @@ const CommentBoard = ( { thread, onResolve, onEdit, onDelete, status } ) => {
 						</HStack>
 					) }
 					{ status === 'approved' && (
-						// translators: tooltip for resolved comment
-						<Tooltip text={ __( 'Resolved' ) }>
-							<Icon icon={ check } />
-						</Tooltip>
+						<HStack
+							alignment="right"
+							justify="flex-end"
+							spacing="0"
+						>
+							{ 0 === thread?.parent && onResolve && (
+								<Button
+									label={ _x(
+										'Reopen',
+										'Mark resolved comment as unresolved'
+									) }
+									__next40pxDefaultSize
+									icon={ check }
+									onClick={ () => {
+										setActionState( 'reopen' );
+										setShowConfirmDialog( true );
+									} }
+									showTooltip
+								/>
+							) }
+							{ /* translators: tooltip for resolved comment */ }
+							<Tooltip text={ __( 'Resolved' ) }>
+								<Icon icon={ check } />
+							</Tooltip>
+						</HStack>
 					) }
 				</span>
 			</HStack>
@@ -324,6 +351,22 @@ const CommentBoard = ( { thread, onResolve, onEdit, onDelete, status } ) => {
 					) }
 				</VStack>
 			</HStack>
+			{ 'reopen' === actionState && (
+				<ConfirmDialog
+					isOpen={ showConfirmDialog }
+					onConfirm={ handleConfirmReopen }
+					onCancel={ handleCancel }
+					confirmButtonText="Yes"
+					cancelButtonText="No"
+				>
+					{
+						// translators: message displayed when confirming an action
+						__(
+							'Are you sure you want to reopen this resolved comment?'
+						)
+					}
+				</ConfirmDialog>
+			) }
 			{ 'resolve' === actionState && (
 				<ConfirmDialog
 					isOpen={ showConfirmDialog }
