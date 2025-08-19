@@ -295,14 +295,13 @@ const CombinedFieldsComponent = ( {
 				'dimensions',
 				'tags',
 				{
-					id: 'combined_address',
+					id: 'address1',
 					label: 'Combined Address',
-					content: `${ post.address1 }, ${ post.address2 }, ${ post.city }`,
 					children: [ 'address1', 'address2', 'city' ],
 				},
 			],
 		} ),
-		[ type, labelPosition, openAs, post ]
+		[ type, labelPosition, openAs ]
 	) as Form;
 
 	return (

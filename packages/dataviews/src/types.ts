@@ -737,7 +737,6 @@ export type SimpleFormField = {
 
 export type CombinedFormField = {
 	id: string;
-	content?: string | ReactElement;
 	label?: string;
 	layout?: Layout;
 	children: Array< FormField | string >;

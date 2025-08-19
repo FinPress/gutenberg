@@ -144,14 +144,10 @@ function PanelModal< Item >( {
 				disabled={ fieldDefinition.readOnly === true }
 				accessibleWhenDisabled
 			>
-				{ isCombinedField( field ) && field?.content ? (
-					field.content
-				) : (
-					<fieldDefinition.render
-						item={ data }
-						field={ fieldDefinition }
-					/>
-				) }
+				<fieldDefinition.render
+					item={ data }
+					field={ fieldDefinition }
+				/>
 			</Button>
 			{ isOpen && (
 				<ModalContent
