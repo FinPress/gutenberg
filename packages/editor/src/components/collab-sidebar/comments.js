@@ -146,7 +146,7 @@ function Thread( {
 							{ sprintf(
 								// translators: %s: number of replies.
 								_x(
-									'%s more replies.',
+									'%s more replies',
 									'Show replies button'
 								),
 								thread?.reply?.length
