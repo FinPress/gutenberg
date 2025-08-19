@@ -35,7 +35,8 @@ const isDuplicateValidationError = ( requestError: unknown ): boolean => {
 	const errorMessage =
 		requestError &&
 		typeof requestError === 'object' &&
-		( requestError as { message?: string } ).message;
+		'message' in requestError &&
+		requestError.message;
 	return (
 		typeof errorMessage === 'string' &&
 		errorMessage.includes( 'already_exists' )
