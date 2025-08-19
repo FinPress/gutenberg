@@ -1692,6 +1692,13 @@ const canInsertBlockTypeUnmemoized = (
 		return false;
 	}
 
+	const isContentOnlyNonRootBlock =
+		getBlockEditingMode( state, rootClientId ?? '' ) === 'contentOnly' &&
+		!! rootClientId;
+	if ( isContentOnlyNonRootBlock ) {
+		return false;
+	}
+
 	const parentBlockListSettings = getBlockListSettings( state, rootClientId );
 
 	// The parent block doesn't have settings indicating it doesn't support
