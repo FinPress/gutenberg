@@ -1,9 +1,9 @@
 /* Root of the component. */
 // Internal variables
 $wp-components-calendar-outline-focus: var(--wp-admin-border-width-focus) solid $components-color-accent;
-$wp-components-calendar-button-height: 32px;
-$wp-components-calendar-button-width: 32px;
-$wp-components-calendar-nav-height: 32px;
+$wp-components-calendar-button-height: $grid-unit-40;
+$wp-components-calendar-button-width: $grid-unit-40;
+$wp-components-calendar-nav-height: $grid-unit-40;
 $wp-components-calendar-range-middle-background-color: color-mix(in srgb, $components-color-accent 4%, transparent);
 $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-color-accent 16%, transparent);
 
@@ -15,8 +15,8 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	display: inline flow-root;
 	color: $gray-900;
 	background-color: $white;
-	font-size: 13px;
-	font-weight: 400;
+	font-size: $font-size-medium;
+	font-weight: $font-weight-regular;
 	z-index: 0; // Create a stacking context and render on top of the background.
 
 	*,
@@ -57,7 +57,7 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	height: $wp-components-calendar-button-height;
 
 	border: none;
-	border-radius: 2px;
+	border-radius: $radius-small;
 
 	font: inherit;
 	font-variant-numeric: tabular-nums;
@@ -73,7 +73,7 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 		z-index: -1;
 		inset: 0;
 		border: none; // No default border to avoid polluting high-contrast mode.
-		border-radius: 2px;
+		border-radius: $radius-small;
 	}
 
 	// Use the button's ::after to show the selection preview.
@@ -117,7 +117,7 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 .components-calendar__button-next,
 .components-calendar__button-previous {
 	border: none;
-	border-radius: 2px;
+	border-radius: $radius-small;
 	background: none;
 	padding: 0;
 	margin: 0;
@@ -150,8 +150,8 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 .components-calendar__chevron {
 	display: inline-block;
 	fill: currentColor;
-	width: 16px;
-	height: 16px;
+	width: $grid-unit-20;
+	height: $grid-unit-20;
 }
 
 .components-calendar[dir="rtl"]
@@ -167,7 +167,7 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	align-content: center;
 
 	height: $wp-components-calendar-nav-height;
-	margin-bottom: 12px;
+	margin-bottom: $grid-unit-15;
 }
 
 .components-calendar__months {
@@ -175,13 +175,13 @@ $wp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	gap: 16px;
+	gap: $grid-unit-20;
 	max-width: fit-content;
 }
 
 .components-calendar__month-grid {
 	border-collapse: separate;
-	border-spacing: 0 4px;
+	border-spacing: 0 $grid-unit-05;
 }
 
 .components-calendar__nav {
