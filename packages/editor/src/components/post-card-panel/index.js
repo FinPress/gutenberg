@@ -11,6 +11,7 @@ import {
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { useMemo } from '@wordpress/element';
+import { ActionsToolbar } from '@wordpress/dataviews';
 import { __, sprintf } from '@wordpress/i18n';
 import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 
@@ -23,7 +24,7 @@ import {
 	TEMPLATE_PART_POST_TYPE,
 } from '../../store/constants';
 import { unlock } from '../../lock-unlock';
-import PostActions from '../post-actions';
+import { usePostActions } from '../post-actions/actions';
 import usePageTypeBadge from '../../utils/pageTypeBadge';
 import { getTemplateInfo } from '../../utils/get-template-info';
 const { Badge } = unlock( componentsPrivateApis );
@@ -46,17 +47,22 @@ export default function PostCardPanel( {
 		() => ( Array.isArray( postId ) ? postId : [ postId ] ),
 		[ postId ]
 	);
-	const { postTitle, icon, labels } = useSelect(
+	const { postTitle, icon, labels, item, permissions } = useSelect(
 		( select ) => {
 			const { getEditedEntityRecord, getCurrentTheme, getPostType } =
 				select( coreStore );
+			const { getEntityRecordPermissions } = unlock(
+				select( coreStore )
+			);
 			const { getPostIcon } = unlock( select( editorStore ) );
-			let _title = '';
+
 			const _record = getEditedEntityRecord(
 				'postType',
 				postType,
 				postIds[ 0 ]
 			);
+
+			let _title = '';
 			if ( postIds.length === 1 ) {
 				const { default_template_types: templateTypes = [] } =
 					getCurrentTheme() ?? {};
@@ -79,10 +85,23 @@ export default function PostCardPanel( {
 					area: _record?.area,
 				} ),
 				labels: getPostType( postType )?.labels,
+				item: _record,
+				permissions: getEntityRecordPermissions(
+					'postType',
+					postType,
+					postIds[ 0 ]
+				),
 			};
 		},
 		[ postIds, postType ]
 	);
+	const itemWithPermissions = useMemo( () => {
+		return {
+			...item,
+			permissions,
+		};
+	}, [ item, permissions ] );
+	const allActions = usePostActions( { postType, onActionPerformed } );
 
 	const pageTypeBadge = usePageTypeBadge( postId );
 	let title = __( 'No title' );
@@ -119,10 +138,11 @@ export default function PostCardPanel( {
 					) }
 				</Text>
 				{ postIds.length === 1 && (
-					<PostActions
-						postType={ postType }
-						postId={ postIds[ 0 ] }
-						onActionPerformed={ onActionPerformed }
+					<ActionsToolbar
+						actions={ allActions }
+						item={ itemWithPermissions }
+						variant="menu"
+						size="small"
 					/>
 				) }
 			</HStack>

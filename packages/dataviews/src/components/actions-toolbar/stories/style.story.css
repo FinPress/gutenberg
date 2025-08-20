@@ -1,0 +1,22 @@
+/**
+ * Storybook-specific styles for ActionsToolbar stories
+ */
+
+.custom-actions-toolbar {
+	background-color: #f0f0f0;
+	padding: 8px;
+	border-radius: 4px;
+}
+
+/* Make interactive controls more readable */
+.sb-story input[type="range"] {
+	margin-left: 8px;
+	width: 100px;
+}
+
+/* Improve spacing in story layouts */
+.sb-story strong {
+	display: block;
+	margin-bottom: 4px;
+	font-weight: 600;
+}

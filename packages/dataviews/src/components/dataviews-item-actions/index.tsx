@@ -7,21 +7,19 @@ import type { MouseEventHandler } from 'react';
  * WordPress dependencies
  */
 import {
-	Button,
 	Modal,
 	__experimentalHStack as HStack,
 	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useMemo, useState } from '@wordpress/element';
-import { moreVertical } from '@wordpress/icons';
-import { useRegistry } from '@wordpress/data';
+import { useMemo } from '@wordpress/element';
+import type { useRegistry } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
 import { unlock } from '../../lock-unlock';
 import type { Action, ActionModal as ActionModalType } from '../../types';
+import ActionsToolbar from '../actions-toolbar';
 
 const { Menu, kebabCase } = unlock( componentsPrivateApis );
 
@@ -49,39 +47,6 @@ interface ItemActionsProps< Item > {
 	item: Item;
 	actions: Action< Item >[];
 	isCompact?: boolean;
-}
-
-interface CompactItemActionsProps< Item > {
-	item: Item;
-	actions: Action< Item >[];
-	isSmall?: boolean;
-	registry: ReturnType< typeof useRegistry >;
-}
-
-interface PrimaryActionsProps< Item > {
-	item: Item;
-	actions: Action< Item >[];
-	registry: ReturnType< typeof useRegistry >;
-}
-
-function ButtonTrigger< Item >( {
-	action,
-	onClick,
-	items,
-}: ActionTriggerProps< Item > ) {
-	const label =
-		typeof action.label === 'string' ? action.label : action.label( items );
-	return (
-		<Button
-			label={ label }
-			icon={ action.icon }
-			disabled={ !! action.disabled }
-			accessibleWhenDisabled
-			isDestructive={ action.isDestructive }
-			size="compact"
-			onClick={ onClick }
-		/>
-	);
 }
 
 function MenuItemTrigger< Item >( {
@@ -152,7 +117,6 @@ export default function ItemActions< Item >( {
 	actions,
 	isCompact,
 }: ItemActionsProps< Item > ) {
-	const registry = useRegistry();
 	const { primaryActions, eligibleActions } = useMemo( () => {
 		// If an action is eligible for all items, doesn't need
 		// to provide the `isEligible` function.
@@ -170,24 +134,18 @@ export default function ItemActions< Item >( {
 
 	if ( isCompact ) {
 		return (
-			<CompactItemActions
-				item={ item }
+			<ActionsToolbar
 				actions={ eligibleActions }
-				isSmall
-				registry={ registry }
+				item={ item }
+				variant="menu"
+				size="small"
 			/>
 		);
 	}
 
 	// If all actions are primary, there is no need to render the dropdown.
 	if ( primaryActions.length === eligibleActions.length ) {
-		return (
-			<PrimaryActions
-				item={ item }
-				actions={ primaryActions }
-				registry={ registry }
-			/>
-		);
+		return <ActionsToolbar actions={ primaryActions } item={ item } />;
 	}
 
 	return (
@@ -200,96 +158,12 @@ export default function ItemActions< Item >( {
 				width: 'auto',
 			} }
 		>
-			<PrimaryActions
-				item={ item }
-				actions={ primaryActions }
-				registry={ registry }
-			/>
-			<CompactItemActions
-				item={ item }
+			<ActionsToolbar actions={ primaryActions } item={ item } />
+			<ActionsToolbar
 				actions={ eligibleActions }
-				registry={ registry }
+				item={ item }
+				variant="menu"
 			/>
 		</HStack>
-	);
-}
-
-function CompactItemActions< Item >( {
-	item,
-	actions,
-	isSmall,
-	registry,
-}: CompactItemActionsProps< Item > ) {
-	const [ activeModalAction, setActiveModalAction ] = useState(
-		null as ActionModalType< Item > | null
-	);
-	return (
-		<>
-			<Menu placement="bottom-end">
-				<Menu.TriggerButton
-					render={
-						<Button
-							size={ isSmall ? 'small' : 'compact' }
-							icon={ moreVertical }
-							label={ __( 'Actions' ) }
-							accessibleWhenDisabled
-							disabled={ ! actions.length }
-							className="dataviews-all-actions-button"
-						/>
-					}
-				/>
-				<Menu.Popover>
-					<ActionsMenuGroup
-						actions={ actions }
-						item={ item }
-						registry={ registry }
-						setActiveModalAction={ setActiveModalAction }
-					/>
-				</Menu.Popover>
-			</Menu>
-			{ !! activeModalAction && (
-				<ActionModal
-					action={ activeModalAction }
-					items={ [ item ] }
-					closeModal={ () => setActiveModalAction( null ) }
-				/>
-			) }
-		</>
-	);
-}
-
-function PrimaryActions< Item >( {
-	item,
-	actions,
-	registry,
-}: PrimaryActionsProps< Item > ) {
-	const [ activeModalAction, setActiveModalAction ] = useState( null as any );
-	if ( ! Array.isArray( actions ) || actions.length === 0 ) {
-		return null;
-	}
-	return (
-		<>
-			{ actions.map( ( action ) => (
-				<ButtonTrigger
-					key={ action.id }
-					action={ action }
-					onClick={ () => {
-						if ( 'RenderModal' in action ) {
-							setActiveModalAction( action );
-							return;
-						}
-						action.callback( [ item ], { registry } );
-					} }
-					items={ [ item ] }
-				/>
-			) ) }
-			{ !! activeModalAction && (
-				<ActionModal
-					action={ activeModalAction }
-					items={ [ item ] }
-					closeModal={ () => setActiveModalAction( null ) }
-				/>
-			) }
-		</>
 	);
 }
