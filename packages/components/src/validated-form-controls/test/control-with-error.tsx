@@ -102,7 +102,7 @@ describe( 'ControlWithError', () => {
 			act( () => jest.advanceTimersByTime( 1 ) );
 
 			await waitFor( () => {
-				expect( screen.getByText( 'Validated' ) ).toBeInTheDocument();
+				expect( screen.getByText( 'Validated' ) ).toBeVisible();
 			} );
 		} );
 
@@ -128,16 +128,14 @@ describe( 'ControlWithError', () => {
 			act( () => jest.advanceTimersByTime( 1000 ) );
 
 			await waitFor( () => {
-				expect(
-					screen.getByText( 'Validating...' )
-				).toBeInTheDocument();
+				expect( screen.getByText( 'Validating...' ) ).toBeVisible();
 			} );
 
 			// Fast-forward past the server delay to show validation result
 			act( () => jest.advanceTimersByTime( 200 ) );
 
 			await waitFor( () => {
-				expect( screen.getByText( 'Validated' ) ).toBeInTheDocument();
+				expect( screen.getByText( 'Validated' ) ).toBeVisible();
 			} );
 
 			// Test error case
@@ -150,9 +148,7 @@ describe( 'ControlWithError', () => {
 			act( () => jest.advanceTimersByTime( 1000 ) );
 
 			await waitFor( () => {
-				expect(
-					screen.getByText( 'Validating...' )
-				).toBeInTheDocument();
+				expect( screen.getByText( 'Validating...' ) ).toBeVisible();
 			} );
 
 			act( () => jest.advanceTimersByTime( 200 ) );
@@ -160,7 +156,7 @@ describe( 'ControlWithError', () => {
 			await waitFor( () => {
 				expect(
 					screen.getByText( 'The word "error" is not allowed.' )
-				).toBeInTheDocument();
+				).toBeVisible();
 			} );
 
 			// Test editing after error
@@ -169,15 +165,13 @@ describe( 'ControlWithError', () => {
 			act( () => jest.advanceTimersByTime( 1000 ) );
 
 			await waitFor( () => {
-				expect(
-					screen.getByText( 'Validating...' )
-				).toBeInTheDocument();
+				expect( screen.getByText( 'Validating...' ) ).toBeVisible();
 			} );
 
 			act( () => jest.advanceTimersByTime( 200 ) );
 
 			await waitFor( () => {
-				expect( screen.getByText( 'Validated' ) ).toBeInTheDocument();
+				expect( screen.getByText( 'Validated' ) ).toBeVisible();
 			} );
 		} );
 	} );
