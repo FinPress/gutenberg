@@ -10,7 +10,7 @@ This page lists the blocks included in the block-library package.
 
 ## Accordion
 
-Displays a group of Accordion headers and associated expandable content. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/accordion))
+Displays a group of accordion headers and associated expandable content. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/accordion))
 
 -	**Name:** core/accordion
 -	**Experimental:** true
@@ -21,7 +21,7 @@ Displays a group of Accordion headers and associated expandable content. ([Sourc
 
 ## Accordion Content
 
-Displays a section of content in an Accordion, including a header and expandable content. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/accordion-content))
+Displays a section of content in an accordion, including a header and expandable content. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/accordion-content))
 
 -	**Name:** core/accordion-content
 -	**Experimental:** true
@@ -33,7 +33,7 @@ Displays a section of content in an Accordion, including a header and expandable
 
 ## Accordion Header
 
-Displays an Accordion header. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/accordion-header))
+Displays an accordion header. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/accordion-header))
 
 -	**Name:** core/accordion-header
 -	**Experimental:** true
@@ -44,7 +44,7 @@ Displays an Accordion header. ([Source](https://github.com/WordPress/gutenberg/t
 
 ## Accordion Panel
 
-Displays an Accordion Panel ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/accordion-panel))
+Displays an accordion panel. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/accordion-panel))
 
 -	**Name:** core/accordion-panel
 -	**Experimental:** true
