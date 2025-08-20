@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 30.2.0 (2025-08-20)
+
 ### Bug fixes
 
 -   `MenuItem`: make accessible when disabled ([#71251](https://github.com/WordPress/gutenberg/pull/71251)).
