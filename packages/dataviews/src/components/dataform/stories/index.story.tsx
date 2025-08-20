@@ -13,7 +13,15 @@ import {
  */
 import DataForm from '../index';
 import { isItemValid } from '../../../validation';
-import type { Field, Form, DataFormControlProps } from '../../../types';
+import type {
+	Field,
+	Form,
+	DataFormControlProps,
+	Layout,
+	RegularLayout,
+	PanelLayout,
+	CardLayout,
+} from '../../../types';
 import { unlock } from '../../../lock-unlock';
 
 const { ValidatedTextControl } = unlock( privateApis );
@@ -59,26 +67,26 @@ const meta = {
 };
 export default meta;
 
-const fields = [
+const fields: Field< SamplePost >[] = [
 	{
 		id: 'title',
 		label: 'Title',
-		type: 'text' as const,
+		type: 'text',
 	},
 	{
 		id: 'order',
 		label: 'Order',
-		type: 'integer' as const,
+		type: 'integer',
 	},
 	{
 		id: 'date',
 		label: 'Date',
-		type: 'datetime' as const,
+		type: 'datetime',
 	},
 	{
 		id: 'birthdate',
 		label: 'Date as options',
-		type: 'datetime' as const,
+		type: 'datetime',
 		elements: [
 			{ value: '', label: 'Select a date' },
 			{ value: '1970-02-23T12:00:00', label: "Jane's birth date" },
@@ -88,7 +96,7 @@ const fields = [
 	{
 		id: 'author',
 		label: 'Author',
-		type: 'integer' as const,
+		type: 'integer',
 		elements: [
 			{ value: 1, label: 'Jane' },
 			{ value: 2, label: 'John' },
@@ -97,8 +105,8 @@ const fields = [
 	{
 		id: 'reviewer',
 		label: 'Reviewer',
-		type: 'text' as const,
-		Edit: 'radio' as const,
+		type: 'text',
+		Edit: 'radio',
 		elements: [
 			{ value: 'fulano', label: 'Fulano' },
 			{ value: 'mengano', label: 'Mengano' },
@@ -108,8 +116,8 @@ const fields = [
 	{
 		id: 'status',
 		label: 'Status',
-		type: 'text' as const,
-		Edit: 'toggleGroup' as const,
+		type: 'text',
+		Edit: 'toggleGroup',
 		elements: [
 			{ value: 'draft', label: 'Draft' },
 			{ value: 'published', label: 'Published' },
@@ -119,12 +127,12 @@ const fields = [
 	{
 		id: 'email',
 		label: 'Email',
-		type: 'email' as const,
+		type: 'email',
 	},
 	{
 		id: 'password',
 		label: 'Password',
-		type: 'text' as const,
+		type: 'text',
 		isVisible: ( item: SamplePost ) => {
 			return item.status !== 'private';
 		},
@@ -137,25 +145,25 @@ const fields = [
 	{
 		id: 'can_comment',
 		label: 'Allow people to leave a comment',
-		type: 'boolean' as const,
+		type: 'boolean',
 		Edit: 'checkbox',
 	},
 	{
 		id: 'filesize',
 		label: 'File Size',
-		type: 'integer' as const,
+		type: 'integer',
 		readOnly: true,
 	},
 	{
 		id: 'dimensions',
 		label: 'Dimensions',
-		type: 'text' as const,
+		type: 'text',
 		readOnly: true,
 	},
 	{
 		id: 'tags',
 		label: 'Tags',
-		type: 'array' as const,
+		type: 'array',
 		placeholder: 'Enter comma-separated tags',
 		description: 'Add tags separated by commas (e.g., "tag1, tag2, tag3")',
 		elements: [
@@ -169,19 +177,19 @@ const fields = [
 	{
 		id: 'address1',
 		label: 'Address 1',
-		type: 'text' as const,
+		type: 'text',
 	},
 	{
 		id: 'address2',
 		label: 'Address 2',
-		type: 'text' as const,
+		type: 'text',
 	},
 	{
 		id: 'city',
 		label: 'City',
-		type: 'text' as const,
+		type: 'text',
 	},
-] as Field< SamplePost >[];
+];
 
 export const Default = ( {
 	type,
@@ -208,13 +216,9 @@ export const Default = ( {
 		tags: [ 'photography' ],
 	} );
 
-	const form = useMemo(
+	const form: Form = useMemo(
 		() => ( {
-			layout: {
-				type,
-				labelPosition,
-				openAs,
-			},
+			layout: getLayoutFromStoryArgs( type, labelPosition, openAs ),
 			fields: [
 				'title',
 				'order',
@@ -233,7 +237,7 @@ export const Default = ( {
 			],
 		} ),
 		[ type, labelPosition, openAs ]
-	) as Form;
+	);
 
 	return (
 		<DataForm< SamplePost >
@@ -248,6 +252,42 @@ export const Default = ( {
 			}
 		/>
 	);
+};
+
+const getLayoutFromStoryArgs = (
+	type: 'default' | 'regular' | 'panel' | 'card',
+	labelPosition: 'default' | 'top' | 'side' | 'none',
+	openAs: 'default' | 'dropdown' | 'modal'
+) => {
+	let layout: Layout | undefined;
+
+	if ( type === 'default' || type === 'regular' ) {
+		const regularLayout: RegularLayout = {
+			type: 'regular',
+		};
+		if ( labelPosition !== 'default' ) {
+			regularLayout.labelPosition = labelPosition;
+		}
+		layout = regularLayout;
+	} else if ( type === 'panel' ) {
+		const panelLayout: PanelLayout = {
+			type: 'panel',
+		};
+		if ( labelPosition !== 'default' ) {
+			panelLayout.labelPosition = labelPosition;
+		}
+		if ( openAs !== 'default' ) {
+			panelLayout.openAs = openAs;
+		}
+		layout = panelLayout;
+	} else if ( type === 'card' ) {
+		const cardLayout: CardLayout = {
+			type: 'card',
+		};
+		layout = cardLayout;
+	}
+
+	return layout;
 };
 
 const CombinedFieldsComponent = ( {
@@ -275,13 +315,9 @@ const CombinedFieldsComponent = ( {
 		city: 'New York',
 	} );
 
-	const form = useMemo(
-		() => ( {
-			layout: {
-				type,
-				labelPosition,
-				openAs,
-			},
+	const form: Form = useMemo( () => {
+		return {
+			layout: getLayoutFromStoryArgs( type, labelPosition, openAs ),
 			fields: [
 				'title',
 				{
@@ -300,9 +336,8 @@ const CombinedFieldsComponent = ( {
 					children: [ 'address1', 'address2', 'city' ],
 				},
 			],
-		} ),
-		[ type, labelPosition, openAs ]
-	) as Form;
+		};
+	}, [ type, labelPosition, openAs ] );
 
 	return (
 		<DataForm< SamplePost >
@@ -384,7 +419,7 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 	const _fields: Field< ValidatedItem >[] = [
 		{
 			id: 'text',
-			type: 'text' as const,
+			type: 'text',
 			label: 'Text',
 			isValid: {
 				required,
@@ -392,7 +427,7 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 		},
 		{
 			id: 'email',
-			type: 'email' as const,
+			type: 'email',
 			label: 'e-mail',
 			isValid: {
 				required,
@@ -400,7 +435,7 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 		},
 		{
 			id: 'integer',
-			type: 'integer' as const,
+			type: 'integer',
 			label: 'Integer',
 			isValid: {
 				required,
@@ -408,7 +443,7 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 		},
 		{
 			id: 'boolean',
-			type: 'boolean' as const,
+			type: 'boolean',
 			label: 'Boolean',
 			isValid: {
 				required,
@@ -509,7 +544,7 @@ const DataFormVisibilityComponent = () => {
 		isActive: true,
 	} );
 
-	const _fields = [
+	const _fields: Field< Post >[] = [
 		{ id: 'isActive', label: 'Is module active?', type: 'boolean' },
 		{
 			id: 'name',
@@ -523,8 +558,8 @@ const DataFormVisibilityComponent = () => {
 			type: 'email',
 			isVisible: ( post ) => post.isActive === true,
 		},
-	] satisfies Field< Post >[];
-	const form = {
+	];
+	const form: Form = {
 		fields: [ 'isActive', 'name', 'email' ],
 	};
 	return (
@@ -651,77 +686,73 @@ const LayoutCardComponent = () => {
 		commission: 5,
 	} );
 
-	const form = useMemo(
-		() =>
-			( {
-				layout: {
-					type: 'card',
-				},
-				fields: [
+	const form: Form = {
+		layout: {
+			type: 'card',
+		},
+		fields: [
+			{
+				id: 'customerCard',
+				label: 'Customer',
+				children: [
 					{
-						id: 'customerCard',
-						label: 'Customer',
+						id: 'customerContact',
+						label: 'Contact',
+						layout: { type: 'panel', labelPosition: 'top' },
 						children: [
 							{
-								id: 'customerContact',
-								label: 'Contact',
-								layout: { type: 'panel', labelPosition: 'top' },
-								children: [
-									{
-										id: 'name',
-										layout: {
-											type: 'regular',
-											labelPosition: 'top',
-										},
-									},
-									{
-										id: 'phone',
-										layout: {
-											type: 'regular',
-											labelPosition: 'top',
-										},
-									},
-									{
-										id: 'email',
-										layout: {
-											type: 'regular',
-											labelPosition: 'top',
-										},
-									},
-								],
+								id: 'name',
+								layout: {
+									type: 'regular',
+									labelPosition: 'top',
+								},
 							},
 							{
-								id: 'plan',
-								layout: { type: 'panel', labelPosition: 'top' },
+								id: 'phone',
+								layout: {
+									type: 'regular',
+									labelPosition: 'top',
+								},
 							},
 							{
-								id: 'shippingAddress',
-								layout: { type: 'panel', labelPosition: 'top' },
+								id: 'email',
+								layout: {
+									type: 'regular',
+									labelPosition: 'top',
+								},
 							},
-							{
-								id: 'billingAddress',
-								layout: { type: 'panel', labelPosition: 'top' },
-							},
-							'displayPayments',
 						],
 					},
 					{
-						id: 'payments',
-						layout: { type: 'card', withHeader: false },
+						id: 'plan',
+						layout: { type: 'panel', labelPosition: 'top' },
 					},
 					{
-						id: 'taxConfiguration',
-						label: 'Taxes',
-						layout: {
-							type: 'card',
-							isOpened: false,
-						},
-						children: [ 'vat', 'commission' ],
+						id: 'shippingAddress',
+						layout: { type: 'panel', labelPosition: 'top' },
 					},
+					{
+						id: 'billingAddress',
+						layout: { type: 'panel', labelPosition: 'top' },
+					},
+					'displayPayments',
 				],
-			} ) satisfies Form,
-		[]
-	);
+			},
+			{
+				id: 'payments',
+				layout: { type: 'card', withHeader: false },
+			},
+			{
+				id: 'taxConfiguration',
+				label: 'Taxes',
+				layout: {
+					type: 'card',
+					isOpened: false,
+				},
+				children: [ 'vat', 'commission' ],
+			},
+		],
+	};
 
 	return (
 		<DataForm
@@ -756,32 +787,33 @@ const LayoutMixedComponent = () => {
 		dimensions: '1920x1080',
 	} );
 
-	const form = useMemo(
-		() =>
-			( {
-				fields: [
-					{
-						id: 'title',
-						layout: {
-							type: 'panel',
-							labelPosition: 'top',
-							openAs: 'dropdown',
-						},
-					},
-					'status',
-					{ id: 'order', layout: { type: 'card' } },
-					{
-						id: 'authorDateCard',
-						label: 'Author & Date',
-						layout: {
-							type: 'card',
-						},
-						children: [ 'author', 'date' ],
-					},
-				],
-			} ) satisfies Form,
-		[]
-	);
+	const form: Form = {
+		fields: [
+			{
+				id: 'title',
+				layout: {
+					type: 'panel',
+					labelPosition: 'top',
+					openAs: 'dropdown',
+				},
+			},
+			'status',
+			{
+				id: 'order',
+				layout: {
+					type: 'card',
+				},
+			},
+			{
+				id: 'authorDateCard',
+				label: 'Author & Date',
+				layout: {
+					type: 'card',
+				},
+				children: [ 'author', 'date' ],
+			},
+		],
+	};
 
 	return (
 		<DataForm< SamplePost >
