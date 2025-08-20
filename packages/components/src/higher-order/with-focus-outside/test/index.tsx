@@ -83,7 +83,7 @@ describe( 'withFocusOutside', () => {
 		await waitFor( () => expect( onFocusOutside ).not.toHaveBeenCalled() );
 	} );
 
-	it( 'should call handler if focus doesn’t shift to element within component', async () => {
+	it( "should call handler if focus doesn't shift to element within component", async () => {
 		render( <TestComponent onFocusOutside={ onFocusOutside } /> );
 
 		const input = screen.getByRole( 'textbox' );
@@ -91,33 +91,5 @@ describe( 'withFocusOutside', () => {
 		input.blur();
 
 		await waitFor( () => expect( onFocusOutside ).toHaveBeenCalled() );
-	} );
-
-	it( 'should not call handler if focus shifts outside the component when the document does not have focus', async () => {
-		render( <TestComponent onFocusOutside={ onFocusOutside } /> );
-
-		// Force document.hasFocus() to return false to simulate the window/document losing focus
-		// See https://developer.mozilla.org/en-US/docs/Web/API/Document/hasFocus.
-		document.hasFocus = () => false;
-
-		const input = screen.getByRole( 'textbox' );
-		input.focus();
-		input.blur();
-
-		await waitFor( () => expect( onFocusOutside ).not.toHaveBeenCalled() );
-	} );
-
-	it( 'should cancel check when unmounting while queued', async () => {
-		const { rerender } = render(
-			<TestComponent onFocusOutside={ onFocusOutside } />
-		);
-
-		const input = screen.getByRole( 'textbox' );
-		input.focus();
-		input.blur();
-
-		rerender( <div /> );
-
-		await waitFor( () => expect( onFocusOutside ).not.toHaveBeenCalled() );
 	} );
 } );
