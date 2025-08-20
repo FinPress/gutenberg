@@ -75,9 +75,6 @@ function useDialog( options: DialogOptions ): useDialogReturn {
 	const focusOnMountRef = useFocusOnMount( options.focusOnMount );
 	const focusReturnRef = useFocusReturn();
 
-	// Create a ref for the dialog element that useFocusOutside will use
-	const dialogRef = useRef< HTMLElement >( null );
-
 	const focusOutsideProps = useFocusOutside( ( event ) => {
 		// This unstable prop  is here only to manage backward compatibility
 		// for the Popover component otherwise, the onClose should be enough.
@@ -111,7 +108,6 @@ function useDialog( options: DialogOptions ): useDialogReturn {
 			options.focusOnMount !== false ? focusReturnRef : null,
 			options.focusOnMount !== false ? focusOnMountRef : null,
 			closeOnEscapeRef,
-			dialogRef,
 		] ),
 		{
 			...focusOutsideProps,
