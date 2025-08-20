@@ -4,6 +4,9 @@
 import { ENTER } from '@wordpress/keycodes';
 import { insert, remove } from '@wordpress/rich-text';
 
+// Track last Enter press timestamp
+let lastEnterTime = 0;
+
 export default ( props ) => ( element ) => {
 	function onKeyDownDeprecated( event ) {
 		if ( event.keyCode !== ENTER ) {
@@ -45,30 +48,39 @@ export default ( props ) => ( element ) => {
 
 		const { text, start, end } = value;
 
-		if ( event.shiftKey ) {
+		// 🔹 Check double Enter (Mastodon style)
+		const now = Date.now();
+		if ( now - lastEnterTime < 300 ) {
+			// Double Enter → new paragraph
+			if ( onSplitAtEnd && start === end && end === text.length ) {
+				onSplitAtEnd();
+			} else if (
+				onSplitAtDoubleLineEnd &&
+				start === end &&
+				end === text.length &&
+				text.slice( -2 ) === '\n\n'
+			) {
+				registry.batch( () => {
+					const _value = { ...value };
+					_value.start = _value.end - 2;
+					onChange( remove( _value ) );
+					onSplitAtDoubleLineEnd();
+				} );
+			} else if ( ! disableLineBreaks ) {
+				// fallback paragraph split
+				onChange( insert( value, '\n\n' ) );
+			}
+		} else if ( event.shiftKey ) {
+			// 🔹 Single Enter with Shift
 			if ( ! disableLineBreaks ) {
 				onChange( insert( value, '\n' ) );
 			}
-		} else if ( onSplitAtEnd && start === end && end === text.length ) {
-			onSplitAtEnd();
-		} else if (
-			// For some blocks it's desirable to split at the end of the
-			// block when there are two line breaks at the end of the
-			// block, so triple Enter exits the block.
-			onSplitAtDoubleLineEnd &&
-			start === end &&
-			end === text.length &&
-			text.slice( -2 ) === '\n\n'
-		) {
-			registry.batch( () => {
-				const _value = { ...value };
-				_value.start = _value.end - 2;
-				onChange( remove( _value ) );
-				onSplitAtDoubleLineEnd();
-			} );
 		} else if ( ! disableLineBreaks ) {
+			// 🔹 Single Enter = line break
 			onChange( insert( value, '\n' ) );
 		}
+
+		lastEnterTime = now;
 	}
 
 	const { defaultView } = element.ownerDocument;
