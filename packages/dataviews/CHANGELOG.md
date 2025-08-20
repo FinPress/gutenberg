@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 7.0.0 (2025-08-20)
+
 ### Breaking changes
 
 - DataForm: introduce a new `card` layout. The `form.type` has been moved under a new `layout` object and it is now `form.layout.type`, check the README for details. [#71100](https://github.com/WordPress/gutenberg/pull/71100)
