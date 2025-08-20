@@ -180,6 +180,16 @@ function GridItem< Item >( {
 				justify="space-between"
 				className="dataviews-view-grid__title-actions"
 			>
+				{ hasBulkActions && ! ( showMedia && renderedMediaField ) && (
+					<DataViewsSelectionCheckbox
+						item={ item }
+						selection={ selection }
+						onChangeSelection={ onChangeSelection }
+						getItemId={ getItemId }
+						titleField={ titleField }
+						disabled={ ! hasBulkAction }
+					/>
+				) }
 				<ItemClickWrapper
 					item={ item }
 					isItemClickable={ isItemClickable }

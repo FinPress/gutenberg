@@ -152,6 +152,49 @@
 	top: $grid-unit-10;
 }
 
+.dataviews-view-grid__card:not(:has(.dataviews-view-grid__media)) .dataviews-selection-checkbox {
+	position: static;
+	margin-right: 0;
+	width: 0;
+	overflow: hidden;
+	opacity: 0;
+	pointer-events: none;
+
+	@media (hover: none) {
+		width: auto;
+		margin-right: $grid-unit-05;
+		opacity: 1;
+		pointer-events: auto;
+	}
+}
+
+.dataviews-view-grid__card:not(:has(.dataviews-view-grid__media)):hover .dataviews-selection-checkbox,
+.dataviews-view-grid__card:not(:has(.dataviews-view-grid__media)):focus-within .dataviews-selection-checkbox,
+.dataviews-view-grid__card:not(:has(.dataviews-view-grid__media)).is-selected .dataviews-selection-checkbox {
+	position: static;
+	margin-right: $grid-unit-05;
+	width: auto;
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.dataviews-view-grid__card:not(:has(.dataviews-view-grid__media)) .dataviews-view-grid__title-actions {
+	align-items: center;
+	gap: 0;
+}
+
+.dataviews-view-grid__card:not(:has(.dataviews-view-grid__media)):hover .dataviews-view-grid__title-actions,
+.dataviews-view-grid__card:not(:has(.dataviews-view-grid__media)):focus-within .dataviews-view-grid__title-actions,
+.dataviews-view-grid__card:not(:has(.dataviews-view-grid__media)).is-selected .dataviews-view-grid__title-actions {
+	gap: $grid-unit-05;
+}
+
+@media (hover: none) {
+	.dataviews-view-grid__card:not(:has(.dataviews-view-grid__media)) .dataviews-view-grid__title-actions {
+		gap: $grid-unit-05;
+	}
+}
+
 .dataviews-view-grid__media--clickable {
 	cursor: pointer;
 }
