@@ -3,7 +3,7 @@
  */
 import { useCommand, useCommandLoader } from '@wordpress/commands';
 import { __ } from '@wordpress/i18n';
-import { plus } from '@wordpress/icons';
+import { plus, edit, layout } from '@wordpress/icons';
 import { getPath } from '@wordpress/url';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -87,6 +87,54 @@ const getAddNewPageCommand = () =>
 		};
 	};
 
+const getAdminBasicNavigationCommands = () =>
+	function useAdminBasicNavigationCommands() {
+		const { isBlockBasedTheme, canCreateTemplate } = useSelect(
+			( select ) => ( {
+				isBlockBasedTheme:
+					select( coreStore ).getCurrentTheme()?.is_block_theme,
+				canCreateTemplate: select( coreStore ).canUser( 'create', {
+					kind: 'postType',
+					name: 'wp_template',
+				} ),
+			} ),
+			[]
+		);
+
+		const commands = useMemo( () => {
+			const result = [];
+
+			if ( canCreateTemplate && isBlockBasedTheme ) {
+				result.push( {
+					name: 'core/admin/open-site-editor',
+					label: __( 'Site Editor' ),
+					icon: layout,
+					callback: ( { close } ) => {
+						document.location.assign( 'site-editor.php' );
+						close();
+					},
+				} );
+			}
+
+			result.push( {
+				name: 'core/admin/open-post-editor',
+				label: __( 'Editor' ),
+				icon: edit,
+				callback: ( { close } ) => {
+					document.location.assign( 'post-new.php' );
+					close();
+				},
+			} );
+
+			return result;
+		}, [ canCreateTemplate, isBlockBasedTheme ] );
+
+		return {
+			commands,
+			isLoading: false,
+		};
+	};
+
 export function useAdminNavigationCommands() {
 	useCommand( {
 		name: 'core/add-new-post',
@@ -100,5 +148,10 @@ export function useAdminNavigationCommands() {
 	useCommandLoader( {
 		name: 'core/add-new-page',
 		hook: getAddNewPageCommand(),
+	} );
+
+	useCommandLoader( {
+		name: 'core/admin-navigation',
+		hook: getAdminBasicNavigationCommands(),
 	} );
 }
