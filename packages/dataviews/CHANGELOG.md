@@ -22,6 +22,7 @@
 ### Bug Fixes
 
 - Do not throw exception when `view.layout.previewSize` is smaller than the smallest available size. [#71218](https://github.com/WordPress/gutenberg/pull/71218)
+- Fix actions horizontal layout consistency when all actions are primary. [#71274](https://github.com/WordPress/gutenberg/pull/71274)
 
 ## 6.0.0 (2025-08-07)
 
