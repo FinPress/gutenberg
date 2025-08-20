@@ -79,7 +79,11 @@ test.describe( 'Block Renaming', () => {
 
 			await expect( saveButton ).toBeEnabled();
 
-			await saveButton.click();
+			await page.keyboard.press( 'Tab' );
+			await page.keyboard.press( 'Tab' );
+
+			await expect( saveButton ).toBeFocused();
+			await page.keyboard.press( 'Enter' );
 
 			await expect( renameModal ).toBeHidden();
 
