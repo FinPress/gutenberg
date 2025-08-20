@@ -20,6 +20,14 @@ const { useHistory } = unlock( routerPrivateApis );
 
 const getAddNewPageCommand = () =>
 	function useAddNewPageCommand() {
+		const canCreatePage = useSelect(
+			( select ) =>
+				select( coreStore ).canUser( 'create', {
+					kind: 'postType',
+					name: 'page',
+				} ),
+			[]
+		);
 		const isSiteEditor = getPath( window.location.href )?.includes(
 			'site-editor.php'
 		);
@@ -65,6 +73,10 @@ const getAddNewPageCommand = () =>
 		);
 
 		const commands = useMemo( () => {
+			if ( ! canCreatePage ) {
+				return [];
+			}
+
 			const addNewPage =
 				isSiteEditor && isBlockBasedTheme
 					? createPageEntity
@@ -85,7 +97,12 @@ const getAddNewPageCommand = () =>
 					],
 				},
 			];
-		}, [ createPageEntity, isSiteEditor, isBlockBasedTheme ] );
+		}, [
+			createPageEntity,
+			isSiteEditor,
+			isBlockBasedTheme,
+			canCreatePage,
+		] );
 
 		return {
 			isLoading: false,
