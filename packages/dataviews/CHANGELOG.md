@@ -16,6 +16,7 @@
 
 ### Enhancements
 
+- Update DataForm stories to better highlight the library's capabilities ([#71268](https://github.com/WordPress/gutenberg/pull/71268)).
 - Add two smaller sizs to the grid layout ([#71077](https://github.com/WordPress/gutenberg/pull/71077)).
 
 ### Bug Fixes
