@@ -30,6 +30,10 @@
 	"wpScript": true,
 	"wpScriptModuleExports": "./build-module/module/index.js",
 	"types": "build-types",
+	"sideEffects": [
+		"./src/index.ts",
+		"./build-module/index.js"
+	],
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
 		"@wordpress/dom-ready": "file:../dom-ready",
