@@ -16,14 +16,6 @@ function gutenberg_enqueue_command_palette_assets() {
 		return;
 	}
 
-	global $pagenow, $current_screen;
-
-	// The Site Editor and Post Editor already implement the Command Palette
-	// within the app, so do nothing on those pages.
-	if ( in_array( $pagenow, array( 'site-editor.php', 'post.php', 'post-new.php' ), true ) && $current_screen->is_block_editor() ) {
-		return;
-	}
-
 	wp_enqueue_script( 'wp-commands' );
 	wp_enqueue_style( 'wp-commands' );
 	wp_enqueue_script( 'wp-core-commands' );
