@@ -180,7 +180,7 @@ function Thread( {
 						) ) }
 				</>
 			) }
-			{ isFocused && (
+			{ 'approved' !== thread.status && isFocused && (
 				<VStack
 					className="editor-collab-sidebar-panel__child-thread"
 					spacing="2"
