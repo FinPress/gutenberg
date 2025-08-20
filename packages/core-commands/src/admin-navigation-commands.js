@@ -155,6 +155,15 @@ const getAdminBasicNavigationCommands = () =>
 	};
 
 export function useAdminNavigationCommands() {
+	const canCreatePost = useSelect(
+		( select ) =>
+			select( coreStore ).canUser( 'create', {
+				kind: 'postType',
+				name: 'post',
+			} ),
+		[]
+	);
+
 	useCommand( {
 		name: 'core/add-new-post',
 		label: __( 'Add Post' ),
@@ -162,6 +171,7 @@ export function useAdminNavigationCommands() {
 		callback: () => {
 			document.location.assign( 'post-new.php' );
 		},
+		disabled: ! canCreatePost,
 		keywords: [ __( 'post' ), __( 'new' ), __( 'add' ), __( 'create' ) ],
 	} );
 
