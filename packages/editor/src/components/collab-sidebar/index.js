@@ -126,7 +126,7 @@ function CollabSidebarContent( {
 		if ( savedRecord ) {
 			createNotice(
 				'snackbar',
-				// translators: Comment marked as resolved
+				// translators: Comment resolved successfully
 				__( 'Comment marked as resolved.' ),
 				{
 					type: 'snackbar',
