@@ -204,6 +204,14 @@ describe( 'block serializer', () => {
 				'{"a":"\\u0022 and \\u0022"}'
 			);
 		} );
+
+		it( 'should handle backslash and quote combinations', () => {
+			const orig = { bs: '\\', bsQuote: '\\"', bsQuoteBs: '\\"\\' };
+			expect( JSON.parse( serializeAttributes( orig ) ) ).toEqual( orig );
+			expect( serializeAttributes( orig ) ).toBe(
+				'{"bs":"\\\\","bsQuote":"\\\\\\u0022","bsQuoteBs":"\\\\\\u0022\\\\"}'
+			);
+		} );
 	} );
 
 	describe( 'getCommentDelimitedContent()', () => {
