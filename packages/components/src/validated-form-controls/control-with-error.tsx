@@ -116,7 +116,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		};
 	} );
 
-	useEffect( () => {
+	useEffect( (): ReturnType< React.EffectCallback > => {
 		if ( ! isTouched ) {
 			return;
 		}
@@ -153,7 +153,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 					type: 'valid',
 					message: customValidity.message,
 				} );
-				return;
+				break;
 			}
 			case 'invalid': {
 				validityTarget?.setCustomValidity(
@@ -162,7 +162,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 				setErrorMessage( validityTarget?.validationMessage );
 
 				setStatusMessage( undefined );
-				return undefined;
+				break;
 			}
 		}
 	}, [
