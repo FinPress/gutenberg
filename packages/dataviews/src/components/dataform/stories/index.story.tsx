@@ -171,8 +171,10 @@ const fields: Field< SamplePost >[] = [
 ];
 
 const LayoutRegularComponent = ( {
+	type = 'default',
 	labelPosition,
 }: {
+	type?: 'default' | 'regular' | 'panel' | 'card';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
 } ) => {
 	const [ post, setPost ] = useState( {
@@ -194,7 +196,7 @@ const LayoutRegularComponent = ( {
 	const form: Form = useMemo(
 		() => ( {
 			layout: getLayoutFromStoryArgs( {
-				type: 'regular',
+				type,
 				labelPosition,
 			} ),
 			fields: [
@@ -214,7 +216,7 @@ const LayoutRegularComponent = ( {
 				'tags',
 			],
 		} ),
-		[ labelPosition ]
+		[ type, labelPosition ]
 	);
 
 	return (
@@ -279,7 +281,6 @@ const getLayoutFromStoryArgs = ( {
 };
 
 const LayoutPanelComponent = ( {
-	type,
 	labelPosition,
 	openAs,
 }: {
@@ -329,7 +330,7 @@ const LayoutPanelComponent = ( {
 				},
 			],
 		};
-	}, [ type, labelPosition, openAs ] );
+	}, [ labelPosition, openAs ] );
 
 	return (
 		<DataForm< SamplePost >
@@ -800,6 +801,17 @@ const meta = {
 	component: DataForm,
 };
 export default meta;
+
+export const Default = {
+	render: LayoutRegularComponent,
+	argTypes: {
+		type: {
+			control: { type: 'select' },
+			description: 'Chooses the layout type.',
+			options: [ 'default', 'card', 'panel', 'regular' ],
+		},
+	},
+};
 
 export const LayoutCard = {
 	render: LayoutCardComponent,
