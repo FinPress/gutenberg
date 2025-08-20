@@ -17,6 +17,8 @@
  * @return string The block content with the dimensions added.
  */
 function render_block_core_video( array $attributes, string $content ): string {
+	wp_enqueue_script_module( '@wordpress/block-library/video/view' );
+
 	// if the content lacks any video tag, abort.
 	if ( ! str_contains( $content, '<video' ) ) {
 		return $content;
