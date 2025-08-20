@@ -443,6 +443,11 @@ interface ViewBase {
 	 * The field to group by.
 	 */
 	groupByField?: string;
+
+	/**
+	 * Whether infinite scroll is enabled.
+	 */
+	infiniteScrollEnabled?: boolean;
 }
 
 export interface ColumnStyle {
@@ -482,6 +487,11 @@ export interface ViewTable extends ViewBase {
 		 * The density of the view.
 		 */
 		density?: Density;
+
+		/**
+		 * Whether the view allows column moving.
+		 */
+		enableMoving?: boolean;
 	};
 }
 
@@ -661,17 +671,74 @@ export interface SupportedLayouts {
 	table?: Omit< ViewTable, 'type' >;
 }
 
+/**
+ * DataForm layouts.
+ */
+export type LayoutType = 'regular' | 'panel' | 'card';
+export type LabelPosition = 'top' | 'side' | 'none';
+
+export type RegularLayout = {
+	type: 'regular';
+	labelPosition?: LabelPosition;
+};
+export type NormalizedRegularLayout = {
+	type: 'regular';
+	labelPosition: LabelPosition;
+};
+
+export type PanelLayout = {
+	type: 'panel';
+	labelPosition?: LabelPosition;
+	openAs?: 'dropdown' | 'modal';
+};
+export type NormalizedPanelLayout = {
+	type: 'panel';
+	labelPosition: LabelPosition;
+	openAs: 'dropdown' | 'modal';
+};
+
+export type CardLayout =
+	| {
+			type: 'card';
+			withHeader: false;
+			// isOpened cannot be false if withHeader is false as well.
+			// Otherwise, the card would not be visible.
+			isOpened?: true;
+	  }
+	| {
+			type: 'card';
+			withHeader?: true | undefined;
+			isOpened?: boolean;
+	  };
+export type NormalizedCardLayout =
+	| {
+			type: 'card';
+			withHeader: false;
+			// isOpened cannot be false if withHeader is false as well.
+			// Otherwise, the card would not be visible.
+			isOpened: true;
+	  }
+	| {
+			type: 'card';
+			withHeader: true;
+			isOpened: boolean;
+	  };
+
+export type Layout = RegularLayout | PanelLayout | CardLayout;
+export type NormalizedLayout =
+	| NormalizedRegularLayout
+	| NormalizedPanelLayout
+	| NormalizedCardLayout;
+
 export type SimpleFormField = {
 	id: string;
-	layout?: 'regular' | 'panel';
-	labelPosition?: 'side' | 'top' | 'none';
+	layout?: Layout;
 };
 
 export type CombinedFormField = {
 	id: string;
 	label?: string;
-	layout?: 'regular' | 'panel';
-	labelPosition?: 'side' | 'top' | 'none';
+	layout?: Layout;
 	children: Array< FormField | string >;
 };
 
@@ -681,9 +748,8 @@ export type FormField = SimpleFormField | CombinedFormField;
  * The form configuration.
  */
 export type Form = {
-	type?: 'regular' | 'panel';
+	layout?: Layout;
 	fields?: Array< FormField | string >;
-	labelPosition?: 'side' | 'top' | 'none';
 };
 
 export interface DataFormProps< Item > {
