@@ -43,30 +43,6 @@ type SamplePost = {
 	city?: string;
 };
 
-const meta = {
-	title: 'DataViews/DataForm',
-	component: DataForm,
-	argTypes: {
-		type: {
-			control: { type: 'select' },
-			description:
-				'Chooses the default layout of each field. "regular" is the default layout.',
-			options: [ 'default', 'regular', 'panel', 'card' ],
-		},
-		labelPosition: {
-			control: { type: 'select' },
-			description: 'Chooses the label position of the layout.',
-			options: [ 'default', 'top', 'side', 'none' ],
-		},
-		openAs: {
-			control: { type: 'select' },
-			description: 'Chooses the type of panel to use.',
-			options: [ 'default', 'dropdown', 'modal' ],
-		},
-	},
-};
-export default meta;
-
 const fields: Field< SamplePost >[] = [
 	{
 		id: 'title',
@@ -100,6 +76,8 @@ const fields: Field< SamplePost >[] = [
 		elements: [
 			{ value: 1, label: 'Jane' },
 			{ value: 2, label: 'John' },
+			{ value: 3, label: 'Alice' },
+			{ value: 4, label: 'Bob' },
 		],
 	},
 	{
@@ -108,9 +86,10 @@ const fields: Field< SamplePost >[] = [
 		type: 'text',
 		Edit: 'radio',
 		elements: [
-			{ value: 'fulano', label: 'Fulano' },
-			{ value: 'mengano', label: 'Mengano' },
-			{ value: 'zutano', label: 'Zutano' },
+			{ value: 'jane', label: 'Jane' },
+			{ value: 'john', label: 'John' },
+			{ value: 'alice', label: 'Alice' },
+			{ value: 'bob', label: 'Bob' },
 		],
 	},
 	{
@@ -191,14 +170,10 @@ const fields: Field< SamplePost >[] = [
 	},
 ];
 
-export const Default = ( {
-	type,
+const LayoutRegularComponent = ( {
 	labelPosition,
-	openAs,
 }: {
-	type: 'default' | 'regular' | 'panel' | 'card';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
-	openAs: 'default' | 'dropdown' | 'modal';
 } ) => {
 	const [ post, setPost ] = useState( {
 		title: 'Hello, World!',
@@ -218,7 +193,10 @@ export const Default = ( {
 
 	const form: Form = useMemo(
 		() => ( {
-			layout: getLayoutFromStoryArgs( type, labelPosition, openAs ),
+			layout: getLayoutFromStoryArgs( {
+				type: 'regular',
+				labelPosition,
+			} ),
 			fields: [
 				'title',
 				'order',
@@ -236,7 +214,7 @@ export const Default = ( {
 				'tags',
 			],
 		} ),
-		[ type, labelPosition, openAs ]
+		[ labelPosition ]
 	);
 
 	return (
@@ -254,11 +232,17 @@ export const Default = ( {
 	);
 };
 
-const getLayoutFromStoryArgs = (
-	type: 'default' | 'regular' | 'panel' | 'card',
-	labelPosition: 'default' | 'top' | 'side' | 'none',
-	openAs: 'default' | 'dropdown' | 'modal'
-) => {
+const getLayoutFromStoryArgs = ( {
+	type,
+	labelPosition,
+	openAs,
+	withHeader,
+}: {
+	type: 'default' | 'regular' | 'panel' | 'card';
+	labelPosition?: 'default' | 'top' | 'side' | 'none';
+	openAs?: 'default' | 'dropdown' | 'modal';
+	withHeader?: boolean;
+} ): Layout | undefined => {
 	let layout: Layout | undefined;
 
 	if ( type === 'default' || type === 'regular' ) {
@@ -284,13 +268,17 @@ const getLayoutFromStoryArgs = (
 		const cardLayout: CardLayout = {
 			type: 'card',
 		};
+		if ( withHeader !== undefined ) {
+			// @ts-ignore We want to demo the effects of configuring withHeader.
+			cardLayout.withHeader = withHeader;
+		}
 		layout = cardLayout;
 	}
 
 	return layout;
 };
 
-const CombinedFieldsComponent = ( {
+const LayoutPanelComponent = ( {
 	type,
 	labelPosition,
 	openAs,
@@ -317,7 +305,11 @@ const CombinedFieldsComponent = ( {
 
 	const form: Form = useMemo( () => {
 		return {
-			layout: getLayoutFromStoryArgs( type, labelPosition, openAs ),
+			layout: getLayoutFromStoryArgs( {
+				type: 'panel',
+				labelPosition,
+				openAs,
+			} ),
 			fields: [
 				'title',
 				{
@@ -354,17 +346,6 @@ const CombinedFieldsComponent = ( {
 	);
 };
 
-export const CombinedFields = {
-	title: 'DataViews/CombinedFields',
-	render: CombinedFieldsComponent,
-	argTypes: {
-		...meta.argTypes,
-	},
-	args: {
-		type: 'panel',
-	},
-};
-
 function CustomEditControl< Item >( {
 	data,
 	field,
@@ -397,7 +378,7 @@ function CustomEditControl< Item >( {
 	);
 }
 
-const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
+const ValidationComponent = ( { required }: { required: boolean } ) => {
 	type ValidatedItem = {
 		text: string;
 		email: string;
@@ -518,21 +499,7 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 	);
 };
 
-export const Validation = {
-	title: 'DataForm/Validation',
-	render: DataFormValidationComponent,
-	argTypes: {
-		required: {
-			control: { type: 'boolean' },
-			description: 'Whether or not the fields are required.',
-		},
-	},
-	args: {
-		required: true,
-	},
-};
-
-const DataFormVisibilityComponent = () => {
+const VisibilityComponent = () => {
 	type Post = {
 		name: string;
 		email: string;
@@ -577,12 +544,7 @@ const DataFormVisibilityComponent = () => {
 	);
 };
 
-export const Visibility = {
-	title: 'DataForm/Visibility',
-	render: DataFormVisibilityComponent,
-};
-
-const LayoutCardComponent = () => {
+const LayoutCardComponent = ( { withHeader }: { withHeader: boolean } ) => {
 	type Customer = {
 		name: string;
 		email: string;
@@ -686,73 +648,80 @@ const LayoutCardComponent = () => {
 		commission: 5,
 	} );
 
-	const form: Form = {
-		layout: {
-			type: 'card',
-		},
-		fields: [
-			{
-				id: 'customerCard',
-				label: 'Customer',
-				children: [
-					{
-						id: 'customerContact',
-						label: 'Contact',
-						layout: { type: 'panel', labelPosition: 'top' },
-						children: [
-							{
-								id: 'name',
-								layout: {
-									type: 'regular',
-									labelPosition: 'top',
+	const form: Form = useMemo(
+		() => ( {
+			layout: getLayoutFromStoryArgs( {
+				type: 'card',
+				withHeader,
+			} ),
+			fields: [
+				{
+					id: 'customerCard',
+					label: 'Customer',
+					children: [
+						{
+							id: 'customerContact',
+							label: 'Contact',
+							layout: { type: 'panel', labelPosition: 'top' },
+							children: [
+								{
+									id: 'name',
+									layout: {
+										type: 'regular',
+										labelPosition: 'top',
+									},
 								},
-							},
-							{
-								id: 'phone',
-								layout: {
-									type: 'regular',
-									labelPosition: 'top',
+								{
+									id: 'phone',
+									layout: {
+										type: 'regular',
+										labelPosition: 'top',
+									},
 								},
-							},
-							{
-								id: 'email',
-								layout: {
-									type: 'regular',
-									labelPosition: 'top',
+								{
+									id: 'email',
+									layout: {
+										type: 'regular',
+										labelPosition: 'top',
+									},
 								},
-							},
-						],
-					},
-					{
-						id: 'plan',
-						layout: { type: 'panel', labelPosition: 'top' },
-					},
-					{
-						id: 'shippingAddress',
-						layout: { type: 'panel', labelPosition: 'top' },
-					},
-					{
-						id: 'billingAddress',
-						layout: { type: 'panel', labelPosition: 'top' },
-					},
-					'displayPayments',
-				],
-			},
-			{
-				id: 'payments',
-				layout: { type: 'card', withHeader: false },
-			},
-			{
-				id: 'taxConfiguration',
-				label: 'Taxes',
-				layout: {
-					type: 'card',
-					isOpened: false,
+							],
+						},
+						{
+							id: 'plan',
+							layout: { type: 'panel', labelPosition: 'top' },
+						},
+						{
+							id: 'shippingAddress',
+							layout: { type: 'panel', labelPosition: 'top' },
+						},
+						{
+							id: 'billingAddress',
+							layout: { type: 'panel', labelPosition: 'top' },
+						},
+						'displayPayments',
+					],
 				},
-				children: [ 'vat', 'commission' ],
-			},
-		],
-	};
+				{
+					id: 'payments',
+					layout: {
+						type: 'card',
+						withHeader: false,
+					},
+				},
+				{
+					id: 'taxConfiguration',
+					label: 'Taxes',
+					layout: {
+						type: 'card',
+						isOpened: false,
+					},
+					children: [ 'vat', 'commission' ],
+				},
+			],
+		} ),
+		[ withHeader ]
+	);
 
 	return (
 		<DataForm
@@ -767,11 +736,6 @@ const LayoutCardComponent = () => {
 			}
 		/>
 	);
-};
-
-export const LayoutCard = {
-	title: 'DataForm/LayoutCard',
-	render: LayoutCardComponent,
 };
 
 const LayoutMixedComponent = () => {
@@ -830,7 +794,69 @@ const LayoutMixedComponent = () => {
 	);
 };
 
+const meta = {
+	title: 'DataViews/DataForm',
+	component: DataForm,
+};
+export default meta;
+
+export const LayoutCard = {
+	render: LayoutCardComponent,
+	argTypes: {
+		withHeader: {
+			control: { type: 'boolean' },
+			description: 'Whether the card has a header.',
+		},
+	},
+	args: {
+		withHeader: true,
+	},
+};
+
+export const LayoutPanel = {
+	render: LayoutPanelComponent,
+	argTypes: {
+		labelPosition: {
+			control: { type: 'select' },
+			description: 'Chooses the label position.',
+			options: [ 'default', 'top', 'side', 'none' ],
+		},
+		openAs: {
+			control: { type: 'select' },
+			description: 'Chooses how to open the panel.',
+			options: [ 'default', 'dropdown', 'modal' ],
+		},
+	},
+};
+
+export const LayoutRegular = {
+	render: LayoutRegularComponent,
+	argTypes: {
+		labelPosition: {
+			control: { type: 'select' },
+			description: 'Chooses the label position.',
+			options: [ 'default', 'top', 'side', 'none' ],
+		},
+	},
+};
+
 export const LayoutMixed = {
-	title: 'DataForm/LayoutMixed',
 	render: LayoutMixedComponent,
+};
+
+export const Validation = {
+	render: ValidationComponent,
+	argTypes: {
+		required: {
+			control: { type: 'boolean' },
+			description: 'Whether or not the fields are required.',
+		},
+	},
+	args: {
+		required: true,
+	},
+};
+
+export const Visibility = {
+	render: VisibilityComponent,
 };
