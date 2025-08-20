@@ -26,13 +26,24 @@ import ToolsMoreMenuGroup from './tools-more-menu-group';
 import ViewMoreMenuGroup from './view-more-menu-group';
 import { store as editorStore } from '../../store';
 
+const KEYBOARD_SHORTCUT_HELP_MODAL_NAME = 'editor/keyboard-shortcut-help';
+
 export default function MoreMenu() {
 	const { openModal } = useDispatch( interfaceStore );
 	const { set: setPreference } = useDispatch( preferencesStore );
 	const { toggleDistractionFree } = useDispatch( editorStore );
-	const showIconLabels = useSelect(
-		( select ) =>
-			select( preferencesStore ).get( 'core', 'showIconLabels' ),
+	const { isKeyboardShortcutsModalActive, showIconLabels } = useSelect(
+		( select ) => {
+			return {
+				isKeyboardShortcutsModalActive: select(
+					interfaceStore
+				).isModalActive( KEYBOARD_SHORTCUT_HELP_MODAL_NAME ),
+				showIconLabels: select( preferencesStore ).get(
+					'core',
+					'showIconLabels'
+				),
+			};
+		},
 		[]
 	);
 
@@ -118,8 +129,12 @@ export default function MoreMenu() {
 						<MenuGroup label={ __( 'Tools' ) }>
 							<MenuItem
 								onClick={ () =>
-									openModal( 'editor/keyboard-shortcut-help' )
+									openModal(
+										KEYBOARD_SHORTCUT_HELP_MODAL_NAME
+									)
 								}
+								aria-expanded={ isKeyboardShortcutsModalActive }
+								aria-haspopup="dialog"
 								shortcut={ displayShortcut.access( 'h' ) }
 							>
 								{ __( 'Keyboard shortcuts' ) }

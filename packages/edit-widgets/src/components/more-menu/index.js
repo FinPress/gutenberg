@@ -75,6 +75,8 @@ export default function MoreMenu() {
 								onClick={ () => {
 									setIsKeyboardShortcutsModalVisible( true );
 								} }
+								aria-expanded={ isKeyboardShortcutsModalActive }
+								aria-haspopup="dialog"
 								shortcut={ displayShortcut.access( 'h' ) }
 							>
 								{ __( 'Keyboard shortcuts' ) }

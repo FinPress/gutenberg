@@ -35,7 +35,7 @@ export default function useFocusOutside(
 		// and will need focus returned to it.
 		if (
 			containerElement?.querySelector(
-				'[aria-haspopup="true"][aria-expanded="true"]'
+				'[aria-haspopup][aria-expanded="true"]:not([aria-haspopup="false"])'
 			)
 		) {
 			return;
@@ -56,11 +56,9 @@ export default function useFocusOutside(
 			! containerElement.contains( relatedTarget )
 		) {
 			// Wrapping in setTimeout to run the check after focus and rendering resolves.
-			setTimeout( () => {
-				if ( 'function' === typeof currentOnFocusOutsideRef.current ) {
-					currentOnFocusOutsideRef.current( event );
-				}
-			}, 0 );
+			if ( 'function' === typeof currentOnFocusOutsideRef.current ) {
+				currentOnFocusOutsideRef.current( event );
+			}
 		}
 	}, [] );
 
