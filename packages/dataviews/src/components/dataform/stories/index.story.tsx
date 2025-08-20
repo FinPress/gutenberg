@@ -427,6 +427,13 @@ const ValidationComponent = ( {
 
 		return null;
 	};
+	const customBooleanRule = ( value: ValidatedItem ) => {
+		if ( value.boolean !== true ) {
+			return 'Boolean must be true.';
+		}
+
+		return null;
+	};
 
 	const makeAsync = ( rule: ( item: ValidatedItem ) => null | string ) => {
 		return async ( value: ValidatedItem ) => {
@@ -483,11 +490,12 @@ const ValidationComponent = ( {
 			label: 'Boolean',
 			isValid: {
 				required,
+				custom: maybeCustomRule( customBooleanRule ),
 			},
 		},
 		{
 			id: 'customEdit',
-			label: 'Custom Control',
+			label: 'Custom Edit',
 			Edit: CustomEditControl,
 			isValid: {
 				required,
