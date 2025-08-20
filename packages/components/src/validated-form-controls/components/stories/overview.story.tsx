@@ -166,24 +166,19 @@ export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
 				} );
 
 				clearTimeout( timeoutRef.current );
-				timeoutRef.current = setTimeout(
-					() => {
-						if ( v?.toString().toLowerCase() === 'error' ) {
-							setCustomValidity( {
-								type: 'invalid',
-								message: 'The word "error" is not allowed.',
-							} );
-						} else {
-							setCustomValidity( {
-								type: 'valid',
-								message: 'Validated',
-							} );
-						}
-					},
-					// Mimics a random server response time.
-					// eslint-disable-next-line no-restricted-syntax
-					Math.random() < 0.5 ? 1500 : 300
-				);
+				timeoutRef.current = setTimeout( () => {
+					if ( v?.toString().toLowerCase() === 'error' ) {
+						setCustomValidity( {
+							type: 'invalid',
+							message: 'The word "error" is not allowed.',
+						} );
+					} else {
+						setCustomValidity( {
+							type: 'valid',
+							message: 'Validated',
+						} );
+					}
+				}, 1500 );
 			}, 500 ),
 			[]
 		);
