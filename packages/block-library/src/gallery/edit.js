@@ -545,7 +545,7 @@ export default function GalleryEdit( props ) {
 		defaultBlock: DEFAULT_BLOCK,
 		directInsert: true,
 		orientation: 'horizontal',
-		renderAppender: InnerBlocks.defaultBlockAppender,
+		renderAppender: InnerBlocks.DefaultBlockAppender,
 		...nativeInnerBlockProps,
 	} );
 
