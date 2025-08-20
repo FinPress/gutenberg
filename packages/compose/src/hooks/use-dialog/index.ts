@@ -74,7 +74,6 @@ function useDialog( options: DialogOptions ): useDialogReturn {
 	const constrainedTabbingRef = useConstrainedTabbing();
 	const focusOnMountRef = useFocusOnMount( options.focusOnMount );
 	const focusReturnRef = useFocusReturn();
-
 	const focusOutsideProps = useFocusOutside( ( event ) => {
 		// This unstable prop  is here only to manage backward compatibility
 		// for the Popover component otherwise, the onClose should be enough.
