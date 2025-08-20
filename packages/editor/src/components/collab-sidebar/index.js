@@ -117,23 +117,43 @@ function CollabSidebarContent( {
 		}
 	};
 
-	const onCommentResolve = async ( commentId, action = 'resolve' ) => {
-		const status = action === 'reopen' ? 'hold' : 'approved';
+	const onCommentResolve = async ( commentId ) => {
 		const savedRecord = await saveEntityRecord( 'root', 'comment', {
 			id: commentId,
-			status,
+			status: 'approved',
 		} );
 
 		if ( savedRecord ) {
-			const message =
-				action === 'reopen'
-					? __( 'Comment reopened successfully.' )
-					: __( 'Comment marked as resolved.' );
-			// translators: Comment resolved/reopened successfully
-			createNotice( 'snackbar', message, {
-				type: 'snackbar',
-				isDismissible: true,
-			} );
+			createNotice(
+				'snackbar',
+				// translators: Comment marked as resolved
+				__( 'Comment marked as resolved.' ),
+				{
+					type: 'snackbar',
+					isDismissible: true,
+				}
+			);
+		} else {
+			onError();
+		}
+	};
+
+	const onCommentReopen = async ( commentId ) => {
+		const savedRecord = await saveEntityRecord( 'root', 'comment', {
+			id: commentId,
+			status: 'hold',
+		} );
+
+		if ( savedRecord ) {
+			createNotice(
+				'snackbar',
+				// translators: Comment reopened successfully
+				__( 'Comment reopened successfully.' ),
+				{
+					type: 'snackbar',
+					isDismissible: true,
+				}
+			);
 		} else {
 			onError();
 		}
@@ -212,6 +232,7 @@ function CollabSidebarContent( {
 				onAddReply={ addNewComment }
 				onCommentDelete={ onCommentDelete }
 				onCommentResolve={ onCommentResolve }
+				onCommentReopen={ onCommentReopen }
 				showCommentBoard={ showCommentBoard }
 				setShowCommentBoard={ setShowCommentBoard }
 			/>
