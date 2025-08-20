@@ -31,18 +31,32 @@ export default function useFocusOutside(
 	const onBlur: React.FocusEventHandler = useCallback(
 		( event ) => {
 			const containerElement = containerRef.current;
+
+			// Catch if a popover is spawning another popover.
+			// Does our container element contain an element with a popover, and that popover is expanded?
+			// If so, we don't want to run the onFocusOutside callback because it's spawning another popover
+			// and will need focus returned to it.
+			if (
+				containerElement?.querySelector(
+					'[aria-haspopup="true"][aria-expanded="true"]'
+				)
+			) {
+				return;
+			}
+
 			// Use event.relatedTarget instead of activeElement since activeElement and target
 			// might be body during the first blur event. Also, we're concerned with where focus
 			// is moving to (inside or outside the container), not where it came from.
-			const targetElement = event.relatedTarget as HTMLElement;
+			const relatedTarget = event.relatedTarget as HTMLElement;
+
 			// Focus is outside the container and we should run the onFocusOutside callback if:
 			// - No target element
 			// - No container element
 			// - Target element is not contained within the container
 			if (
-				! targetElement ||
+				! relatedTarget ||
 				! containerElement ||
-				! containerElement.contains( targetElement )
+				! containerElement.contains( relatedTarget )
 			) {
 				// Wrapping in setTimeout to run the check after focus and rendering resolves.
 				setTimeout( () => {
