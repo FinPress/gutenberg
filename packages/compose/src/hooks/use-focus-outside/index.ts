@@ -30,26 +30,29 @@ export default function useFocusOutside(
 
 	const onBlur: React.FocusEventHandler = useCallback(
 		( event ) => {
-			// Wrapping in setTimeout to run the check after focus and rendering resolves.
-			setTimeout( () => {
-				const containerElement = containerRef.current;
-				// Use event.relatedTarget instead of activeElement since activeElement and target
-				// might be body during the first blur event. Also, we're concerned with where focus
-				// is moving to (inside or outside the container), not where it came from.
-				const targetElement = event.relatedTarget as HTMLElement;
-				// Focus is outside the container and we should run the onFocusOutside callback if:
-				// - No target element
-				// - No container element
-				// - Target element is not contained within the container
-				if (
-					( ! targetElement ||
-						! containerElement ||
-						! containerElement.contains( targetElement ) ) &&
-					'function' === typeof currentOnFocusOutsideRef.current
-				) {
-					currentOnFocusOutsideRef.current( event );
-				}
-			}, 0 );
+			const containerElement = containerRef.current;
+			// Use event.relatedTarget instead of activeElement since activeElement and target
+			// might be body during the first blur event. Also, we're concerned with where focus
+			// is moving to (inside or outside the container), not where it came from.
+			const targetElement = event.relatedTarget as HTMLElement;
+			// Focus is outside the container and we should run the onFocusOutside callback if:
+			// - No target element
+			// - No container element
+			// - Target element is not contained within the container
+			if (
+				! targetElement ||
+				! containerElement ||
+				! containerElement.contains( targetElement )
+			) {
+				// Wrapping in setTimeout to run the check after focus and rendering resolves.
+				setTimeout( () => {
+					if (
+						'function' === typeof currentOnFocusOutsideRef.current
+					) {
+						currentOnFocusOutsideRef.current( event );
+					}
+				}, 0 );
+			}
 		},
 		[ containerRef ]
 	);
