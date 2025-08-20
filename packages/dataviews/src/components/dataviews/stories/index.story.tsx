@@ -187,13 +187,7 @@ const MinimalUIComponent = ( {
 			defaultLayouts={ { [ layout ]: {} } }
 		>
 			<DataViews.Layout />
-			<HStack
-				expanded={ false }
-				justify="end"
-				className="dataviews-footer"
-			>
-				<DataViews.Pagination />
-			</HStack>
+			<DataViews.Footer />
 		</DataViews>
 	);
 };
