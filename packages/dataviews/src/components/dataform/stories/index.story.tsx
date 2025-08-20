@@ -767,6 +767,7 @@ const LayoutMixedComponent = () => {
 				layout: {
 					type: 'card',
 				},
+				children: [ { id: 'order', layout: { type: 'panel' } } ],
 			},
 			{
 				id: 'authorDateCard',
