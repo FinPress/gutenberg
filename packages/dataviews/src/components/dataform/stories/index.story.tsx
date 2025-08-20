@@ -383,10 +383,12 @@ const ValidationComponent = ( {
 	required,
 	type,
 	custom,
+	isCustomAsync,
 }: {
 	required: boolean;
-	custom: boolean;
 	type: 'regular' | 'panel';
+	custom: boolean;
+	isCustomAsync: boolean;
 } ) => {
 	type ValidatedItem = {
 		text: string;
@@ -426,10 +428,25 @@ const ValidationComponent = ( {
 		return null;
 	};
 
+	const makeAsync = ( rule: ( item: ValidatedItem ) => null | string ) => {
+		return async ( value: ValidatedItem ) => {
+			return await new Promise< string | null >( ( resolve ) => {
+				setTimeout( () => {
+					const validationResult = rule( value );
+					resolve( validationResult );
+				}, 2000 );
+			} );
+		};
+	};
+
 	const maybeCustomRule = (
 		rule: ( item: ValidatedItem ) => null | string
 	) => {
-		return custom ? rule : undefined;
+		if ( custom ) {
+			return isCustomAsync ? makeAsync( rule ) : rule;
+		}
+
+		return undefined;
 	};
 
 	const _fields: Field< ValidatedItem >[] = [
@@ -885,11 +902,16 @@ export const Validation = {
 			control: { type: 'boolean' },
 			description: 'Whether or not the fields have custom validation.',
 		},
+		isCustomAsync: {
+			control: { type: 'boolean' },
+			description: 'Whether or not the custom validation is async.',
+		},
 	},
 	args: {
 		required: true,
 		type: 'regular',
 		custom: true,
+		isCustomAsync: false,
 	},
 };
 
