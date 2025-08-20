@@ -181,16 +181,15 @@
 
 	&:first-child {
 		margin-left: 0;
+		background: #de6e55;
 	}
 
-	// Distinguish original commenter with a subtle blue border
-	&.is-original-commenter {
-		border-color: #3858e9;
+	&:nth-child(2) {
+		background: #599637;
 	}
 
-	// Repliers keep white border
-	&.is-replier {
-		border-color: $white;
+	&:nth-child(3) {
+		background: #3858e9;
 	}
 }
 

@@ -127,17 +127,9 @@ const CommentAvatarIndicator = ( { onClick } ) => {
 							key={ participant.name + index }
 							src={ participant.avatar }
 							alt={ participant.name }
-							className={ `comment-avatar ${
-								participant.isOriginalCommenter
-									? 'is-original-commenter'
-									: 'is-replier'
-							}` }
+							className="comment-avatar"
 							style={ { zIndex: maxAvatars - index } }
-							title={
-								participant.isOriginalCommenter
-									? `${ participant.name } (started thread)`
-									: `${ participant.name } (replied)`
-							}
+							title={ participant.name }
 						/>
 					) ) }
 					{ overflowCount > 0 && (
