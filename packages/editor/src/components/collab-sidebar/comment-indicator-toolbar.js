@@ -52,8 +52,9 @@ const CommentAvatarIndicator = ( { onClick } ) => {
 				// Replies have parent === blockCommentIdValue
 				const threadComments = comments.filter(
 					( comment ) =>
-						comment.id === blockCommentIdValue ||
-						comment.parent === blockCommentIdValue
+						comment.status !== 'trash' &&
+						( comment.id === blockCommentIdValue ||
+							comment.parent === blockCommentIdValue )
 				);
 
 				// Sort by date to show participants in chronological order
