@@ -38,6 +38,16 @@ export default function useFocusOutside(
 				'[aria-haspopup][aria-expanded="true"]:not([aria-haspopup="false"])'
 			)
 		) {
+			// There is a bug here.
+			// - From the sidebar color selector
+			// - Click to change a color (Background, ex)
+			// - Color selector Popover opens
+			// - Click to select a custom color
+			// - Another popover opens
+			// - Click onto the canvas
+			// - Neweset popover closes
+			// - Old popover remains open
+			// Bug: How do we know to close all popovers when we are no longer able to track focus from this container?
 			return;
 		}
 
@@ -56,9 +66,20 @@ export default function useFocusOutside(
 			! containerElement.contains( relatedTarget )
 		) {
 			// Wrapping in setTimeout to run the check after focus and rendering resolves.
-			if ( 'function' === typeof currentOnFocusOutsideRef.current ) {
-				currentOnFocusOutsideRef.current( event );
-			}
+			// This is an issue when clicking the same button that opened the popover. Example:
+			// - Click button to open popover
+			// - Popover opens
+			// - Click button to close popover
+			//    - onMouseDown event is triggered on the button
+			//    - Blur event is triggered, which runs the onFocusOutside (onClose)
+			//    - Popover closes
+			//    - Button is now in a state of having a CLOSED popover
+			//    - onMouseUp event is triggered on the button, which opens the popover again
+			setTimeout( () => {
+				if ( 'function' === typeof currentOnFocusOutsideRef.current ) {
+					currentOnFocusOutsideRef.current( event );
+				}
+			}, 0 );
 		}
 	}, [] );
 
