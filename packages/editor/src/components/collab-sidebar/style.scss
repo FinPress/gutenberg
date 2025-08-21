@@ -176,20 +176,19 @@
 	border-radius: 50%;
 	border: 2px solid $white;
 	margin-left: -6px;
-	background: #f0f0f0;
 	flex-shrink: 0;
 
 	&:first-child {
 		margin-left: 0;
-		background: #de6e55;
+		border-color: #de6e55;
 	}
 
 	&:nth-child(2) {
-		background: #599637;
+		border-color: #599637;
 	}
 
 	&:nth-child(3) {
-		background: #3858e9;
+		border-color: #3858e9;
 	}
 }
 
