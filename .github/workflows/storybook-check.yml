@@ -35,7 +35,7 @@ jobs:
               run: npm run storybook:build
 
             - name: Install Playwright dependencies
-              run: npx --no playwright install --with-deps
+              run: npx playwright install chromium --with-deps
 
             - name: Serve Storybook and run tests
               run: |
