@@ -852,7 +852,7 @@ describe( 'Manual link entry', () => {
 			await toggleSettingsDrawer( user );
 
 			let searchInput = screen.getByRole( 'combobox', {
-				name: 'Search or type URL',
+				name: 'Link',
 			} );
 
 			let textInput = screen.getByRole( 'textbox', {
@@ -889,7 +889,7 @@ describe( 'Manual link entry', () => {
 
 			// Re-query the inputs as they have been replaced.
 			searchInput = screen.getByRole( 'combobox', {
-				name: 'Search or type URL',
+				name: 'Link',
 			} );
 
 			textInput = screen.getByRole( 'textbox', {

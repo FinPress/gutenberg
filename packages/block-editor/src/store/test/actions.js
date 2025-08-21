@@ -808,8 +808,16 @@ describe( 'actions', () => {
 			} );
 		} );
 
-		it( 'should only focus the blockA if the blockA has no merge function', () => {
-			registerBlockType( 'core/test-block', defaultBlockSettings );
+		it( 'should only focus the blockA if the blockA has no merge function and the content of blockB is modified', () => {
+			registerBlockType( 'core/test-block', {
+				...defaultBlockSettings,
+				attributes: {
+					content: {
+						type: 'string',
+						role: 'content',
+					},
+				},
+			} );
 			const blockA = deepFreeze( {
 				clientId: 'chicken',
 				name: 'core/test-block',
@@ -817,14 +825,20 @@ describe( 'actions', () => {
 			const blockB = deepFreeze( {
 				clientId: 'ribs',
 				name: 'core/test-block',
+				attributes: {
+					content: 'Updated content',
+				},
 			} );
 
 			const select = {
 				getBlock: ( clientId ) =>
 					[ blockA, blockB ].find( ( b ) => b.clientId === clientId ),
+				getBlockEditingMode: () => 'default',
+				isBlockSelected: () => false,
 			};
 			const dispatch = Object.assign( jest.fn(), {
 				selectBlock: jest.fn(),
+				removeBlock: jest.fn(),
 			} );
 
 			mergeBlocks(
@@ -873,6 +887,7 @@ describe( 'actions', () => {
 					attributeKey: 'content',
 					offset: 0,
 				} ),
+				getBlockEditingMode: () => 'default',
 			};
 			const dispatch = Object.assign( jest.fn(), {
 				replaceBlocks: jest.fn(),
@@ -943,6 +958,7 @@ describe( 'actions', () => {
 					attributeKey: 'content',
 					offset: 0,
 				} ),
+				getBlockEditingMode: () => 'default',
 			};
 			const dispatch = Object.assign( jest.fn(), {
 				replaceBlocks: jest.fn(),
@@ -1019,6 +1035,7 @@ describe( 'actions', () => {
 					attributeKey: 'content2',
 					offset: 0,
 				} ),
+				getBlockEditingMode: () => 'default',
 			};
 			const dispatch = Object.assign( jest.fn(), {
 				replaceBlocks: jest.fn(),
@@ -1048,6 +1065,124 @@ describe( 'actions', () => {
 				],
 				0
 			);
+		} );
+
+		it( 'should not merge the blocks if blockB editing mode is `disabled`', () => {
+			registerBlockType( 'core/test-block', {
+				attributes: {
+					content: {},
+				},
+				merge( attributes, attributesToMerge ) {
+					return {
+						content:
+							attributes.content +
+							' ' +
+							attributesToMerge.content,
+					};
+				},
+				save: noop,
+				category: 'text',
+				title: 'test block',
+			} );
+			const blockA = deepFreeze( {
+				clientId: 'chicken',
+				name: 'core/test-block',
+				attributes: { content: 'chicken' },
+				innerBlocks: [],
+			} );
+			const blockB = deepFreeze( {
+				clientId: 'ribs',
+				name: 'core/test-block',
+				attributes: { content: 'ribs' },
+				innerBlocks: [],
+			} );
+
+			const modes = {
+				chicken: 'default',
+				ribs: 'disabled',
+			};
+
+			const select = {
+				getBlock: ( clientId ) =>
+					[ blockA, blockB ].find( ( b ) => b.clientId === clientId ),
+				getSelectionStart: () => ( {
+					clientId: blockB.clientId,
+					attributeKey: 'content',
+					offset: 0,
+				} ),
+				getBlockEditingMode: ( clientId ) => modes[ clientId ],
+			};
+			const dispatch = Object.assign( jest.fn(), {
+				replaceBlocks: jest.fn(),
+				selectionChange: jest.fn(),
+			} );
+
+			mergeBlocks(
+				blockA.clientId,
+				blockB.clientId
+			)( { select, dispatch } );
+
+			expect( dispatch.selectionChange ).not.toHaveBeenCalled();
+			expect( dispatch.replaceBlocks ).not.toHaveBeenCalled();
+		} );
+
+		it( 'should not merge the blocks if blockA editing mode is `disabled`', () => {
+			registerBlockType( 'core/test-block', {
+				attributes: {
+					content: {},
+				},
+				merge( attributes, attributesToMerge ) {
+					return {
+						content:
+							attributes.content +
+							' ' +
+							attributesToMerge.content,
+					};
+				},
+				save: noop,
+				category: 'text',
+				title: 'test block',
+			} );
+			const blockA = deepFreeze( {
+				clientId: 'chicken',
+				name: 'core/test-block',
+				attributes: { content: 'chicken' },
+				innerBlocks: [],
+			} );
+			const blockB = deepFreeze( {
+				clientId: 'ribs',
+				name: 'core/test-block',
+				attributes: { content: 'ribs' },
+				innerBlocks: [],
+			} );
+
+			const modes = {
+				chicken: 'disabled',
+				ribs: 'default',
+			};
+
+			const select = {
+				getBlock: ( clientId ) =>
+					[ blockA, blockB ].find( ( b ) => b.clientId === clientId ),
+				getSelectionStart: () => ( {
+					clientId: blockB.clientId,
+					attributeKey: 'content',
+					offset: 0,
+				} ),
+				getBlockEditingMode: ( clientId ) => modes[ clientId ],
+			};
+			const dispatch = Object.assign( jest.fn(), {
+				replaceBlocks: jest.fn(),
+				selectionChange: jest.fn(),
+			} );
+
+			mergeBlocks(
+				blockA.clientId,
+				blockB.clientId
+			)( { select, dispatch } );
+
+			expect( dispatch.selectionChange ).not.toHaveBeenCalled();
+			expect( dispatch.replaceBlocks ).not.toHaveBeenCalled();
 		} );
 	} );
 

@@ -1,8 +1,19 @@
 .dataviews-view-grid {
 	margin-bottom: auto;
+	display: grid;
+	gap: $grid-unit-40;
 	grid-template-rows: max-content;
+	grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
 	padding: 0 $grid-unit-60 $grid-unit-30;
 	container-type: inline-size;
+	/**
+	 * Breakpoints were adjusted from media queries breakpoints to account for
+	 * the sidebar width. This was done to match the existing styles we had.
+	 */
+	@container (max-width: 480px) {
+		padding-left: $grid-unit-30;
+		padding-right: $grid-unit-30;
+	}
 
 	@media not (prefers-reduced-motion) {
 		transition: padding ease-out 0.1s;
@@ -47,10 +58,9 @@
 
 	.dataviews-view-grid__media {
 		width: 100%;
-		min-height: 200px;
 		aspect-ratio: 1/1;
-		background-color: $gray-100;
-		border-radius: $grid-unit-05;
+		background-color: $white;
+		border-radius: $radius-medium;
 		position: relative;
 
 		img {
@@ -94,6 +104,9 @@
 			.dataviews-view-grid__field-name {
 				width: 35%;
 				color: $gray-700;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
 			}
 
 			.dataviews-view-grid__field-value {
@@ -116,30 +129,6 @@
 	}
 }
 
-.dataviews-view-grid.dataviews-view-grid {
-	/**
-	 * Breakpoints were adjusted from media queries breakpoints to account for
-	 * the sidebar width. This was done to match the existing styles we had.
-	 */
-	@container (max-width: 480px) {
-		grid-template-columns: repeat(1, minmax(0, 1fr));
-		padding-left: $grid-unit-30;
-		padding-right: $grid-unit-30;
-	}
-	@container (min-width: 480px) {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-	@container (min-width: 780px) {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-	}
-	@container (min-width: 1140px) {
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-	}
-	@container (min-width: 1520px) {
-		grid-template-columns: repeat(5, minmax(0, 1fr));
-	}
-}
-
 .dataviews-view-grid__field-value:empty,
 .dataviews-view-grid__field:empty {
 	display: none;
@@ -150,6 +139,11 @@
 	top: -9999em;
 	left: $grid-unit-10;
 	z-index: z-index(".dataviews-view-grid__card .dataviews-selection-checkbox");
+
+	@media (hover: none) {
+		// Show checkboxes on devices that do not support hover.
+		top: $grid-unit-10;
+	}
 }
 
 .dataviews-view-grid__card:hover .dataviews-selection-checkbox,
@@ -160,4 +154,12 @@
 
 .dataviews-view-grid__media--clickable {
 	cursor: pointer;
+}
+
+.dataviews-view-grid__group-header {
+	font-size: $font-size-large;
+	font-weight: $font-weight-medium;
+	color: $gray-900;
+	margin: 0 0 $grid-unit-10 0;
+	padding: 0 $grid-unit-60;
 }
