@@ -300,25 +300,6 @@ const getSiteEditorBasicNavigationCommands = () =>
 
 			if ( canCreateTemplate && isBlockBasedTheme ) {
 				result.push( {
-					name: 'core/edit-site/open-navigation',
-					label: __( 'Navigation' ),
-					icon: navigation,
-					callback: ( { close } ) => {
-						if ( isSiteEditor ) {
-							history.navigate( '/navigation' );
-						} else {
-							document.location = addQueryArgs(
-								'site-editor.php',
-								{
-									p: '/navigation',
-								}
-							);
-						}
-						close();
-					},
-				} );
-
-				result.push( {
 					name: 'core/edit-site/open-styles',
 					label: __( 'Styles' ),
 					icon: styles,
@@ -330,6 +311,25 @@ const getSiteEditorBasicNavigationCommands = () =>
 								'site-editor.php',
 								{
 									p: '/styles',
+								}
+							);
+						}
+						close();
+					},
+				} );
+
+				result.push( {
+					name: 'core/edit-site/open-navigation',
+					label: __( 'Navigation' ),
+					icon: navigation,
+					callback: ( { close } ) => {
+						if ( isSiteEditor ) {
+							history.navigate( '/navigation' );
+						} else {
+							document.location = addQueryArgs(
+								'site-editor.php',
+								{
+									p: '/navigation',
 								}
 							);
 						}
