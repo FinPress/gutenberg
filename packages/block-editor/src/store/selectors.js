@@ -1694,14 +1694,23 @@ const canInsertBlockTypeUnmemoized = (
 		return false;
 	}
 
-	if ( getBlockEditingMode( state, rootClientId ?? '' ) === 'disabled' ) {
+	const blockEditingMode = getBlockEditingMode( state, rootClientId ?? '' );
+	if ( blockEditingMode === 'disabled' ) {
 		return false;
 	}
 
+	// If the block is content only and not root level, blocks can't be inserted.
 	const isContentOnlyNonRootBlock =
-		getBlockEditingMode( state, rootClientId ?? '' ) === 'contentOnly' &&
-		!! rootClientId;
-	if ( isContentOnlyNonRootBlock && ! isContentContainer ) {
+		blockEditingMode === 'contentOnly' && !! rootClientId;
+	// The "main" tag block is used by zoom out mode so it should be possible to insert
+	// blocks inside it.
+	const isRootBlockMain =
+		getBlock( state, rootClientId )?.attributes?.tagName === 'main';
+	if (
+		isContentOnlyNonRootBlock &&
+		! isContentContainer &&
+		! isRootBlockMain
+	) {
 		return false;
 	}
 
