@@ -4,7 +4,7 @@ export type QueueStatus = 'active' | 'paused';
 
 export type BatchId = string;
 
-export type QueueItem = {
+export interface QueueItem {
 	id: QueueItemId;
 	sourceFile: File;
 	file: File;
@@ -26,7 +26,7 @@ export type QueueItem = {
 	parentId?: QueueItemId;
 	abortController?: AbortController;
 	startTime?: number;
-};
+}
 
 export interface State {
 	queue: QueueItem[];
