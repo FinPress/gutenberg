@@ -25,8 +25,7 @@ test.describe( 'Site editor command palette', () => {
 	} ) => {
 		await page
 			.getByRole( 'button', { name: 'Open command palette' } )
-			.focus();
-		await page.keyboard.press( 'Meta+k' );
+			.click();
 		await page
 			.getByRole( 'combobox', { name: 'Search commands and settings' } )
 			.fill( 'new' );
@@ -46,8 +45,7 @@ test.describe( 'Site editor command palette', () => {
 	} ) => {
 		await page
 			.getByRole( 'button', { name: 'Open command palette' } )
-			.focus();
-		await page.keyboard.press( 'Meta+k' );
+			.click();
 		await page
 			.getByRole( 'combobox', { name: 'Search commands and settings' } )
 			.fill( 'create' );
@@ -67,8 +65,7 @@ test.describe( 'Site editor command palette', () => {
 	} ) => {
 		await page
 			.getByRole( 'button', { name: 'Open command palette' } )
-			.focus();
-		await page.keyboard.press( 'Meta+k' );
+			.click();
 		await page
 			.getByRole( 'combobox', { name: 'Search commands and settings' } )
 			.fill( 'create' );
