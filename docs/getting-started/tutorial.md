@@ -233,7 +233,9 @@ const calendarIcon = (
 );
 
 registerBlockType( metadata.name, {
-	icon: calendarIcon,
+	icon: {
+		src: calendarIcon
+	},
 	edit: Edit
 } );
 ```
