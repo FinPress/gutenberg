@@ -292,8 +292,15 @@ export function serializeAttributes( attributes ) {
 			// Bypass server stripslashes behavior which would unescape stringify's
 			// escaping of quotation mark.
 			//
+			// Replace the escaped quotes '\"' with hex escape '\u0022' to avoid.
+			// Do not replace quotes that are not escaped but are preceded by a backslash,
+			// for example:
+			//   - "\"" -> "\u0022"
+			//   - "\\" -> "\\"
+			//   - "\\\"" -> "\\\u0022"
+			//
 			// See: https://developer.wordpress.org/reference/functions/wp_kses_stripslashes/
-			.replace( /\\"/g, '\\u0022' )
+			.replace( /((?<!\\)(?:\\\\)*)\\"/g, '$1\\u0022' )
 	);
 }
 
