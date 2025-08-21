@@ -92,6 +92,7 @@ function GridItem< Item >( {
 		showMedia = true,
 		showDescription = true,
 		infiniteScrollEnabled,
+		previewOnlyEnabled,
 	} = view;
 	const hasBulkAction = useHasAPossibleBulkAction( actions, item );
 	const id = getItemId( item );
@@ -105,7 +106,7 @@ function GridItem< Item >( {
 		/>
 	) : null;
 	const renderedTitleField =
-		showTitle && titleField?.render ? (
+		! previewOnlyEnabled && showTitle && titleField?.render ? (
 			<titleField.render item={ item } field={ titleField } />
 		) : null;
 
@@ -176,92 +177,102 @@ function GridItem< Item >( {
 					disabled={ ! hasBulkAction }
 				/>
 			) }
-			<HStack
-				justify="space-between"
-				className="dataviews-view-grid__title-actions"
-			>
-				<ItemClickWrapper
-					item={ item }
-					isItemClickable={ isItemClickable }
-					onClickItem={ onClickItem }
-					renderItemLink={ renderItemLink }
-					className="dataviews-view-grid__title-field dataviews-title-field"
-					{ ...titleA11yProps }
-				>
-					{ renderedTitleField }
-				</ItemClickWrapper>
-				{ !! actions?.length && (
-					<ItemActions item={ item } actions={ actions } isCompact />
-				) }
-			</HStack>
-			<VStack spacing={ 1 }>
-				{ showDescription && descriptionField?.render && (
-					<descriptionField.render
-						item={ item }
-						field={ descriptionField }
-					/>
-				) }
-				{ !! badgeFields?.length && (
+			{ ! previewOnlyEnabled && (
+				<>
 					<HStack
-						className="dataviews-view-grid__badge-fields"
-						spacing={ 2 }
-						wrap
-						alignment="top"
-						justify="flex-start"
+						justify="space-between"
+						className="dataviews-view-grid__title-actions"
 					>
-						{ badgeFields.map( ( field ) => {
-							return (
-								<Badge
-									key={ field.id }
-									className="dataviews-view-grid__field-value"
-								>
-									<field.render
-										item={ item }
-										field={ field }
-									/>
-								</Badge>
-							);
-						} ) }
+						<ItemClickWrapper
+							item={ item }
+							isItemClickable={ isItemClickable }
+							onClickItem={ onClickItem }
+							renderItemLink={ renderItemLink }
+							className="dataviews-view-grid__title-field dataviews-title-field"
+							{ ...titleA11yProps }
+						>
+							{ renderedTitleField }
+						</ItemClickWrapper>
+						{ !! actions?.length && (
+							<ItemActions
+								item={ item }
+								actions={ actions }
+								isCompact
+							/>
+						) }
 					</HStack>
-				) }
-				{ !! regularFields?.length && (
-					<VStack
-						className="dataviews-view-grid__fields"
-						spacing={ 1 }
-					>
-						{ regularFields.map( ( field ) => {
-							return (
-								<Flex
-									className="dataviews-view-grid__field"
-									key={ field.id }
-									gap={ 1 }
-									justify="flex-start"
-									expanded
-									style={ { height: 'auto' } }
-									direction="row"
-								>
-									<>
-										<Tooltip text={ field.label }>
-											<FlexItem className="dataviews-view-grid__field-name">
-												{ field.header }
-											</FlexItem>
-										</Tooltip>
-										<FlexItem
+					<VStack spacing={ 1 }>
+						{ showDescription && descriptionField?.render && (
+							<descriptionField.render
+								item={ item }
+								field={ descriptionField }
+							/>
+						) }
+						{ !! badgeFields?.length && (
+							<HStack
+								className="dataviews-view-grid__badge-fields"
+								spacing={ 2 }
+								wrap
+								alignment="top"
+								justify="flex-start"
+							>
+								{ badgeFields.map( ( field ) => {
+									return (
+										<Badge
+											key={ field.id }
 											className="dataviews-view-grid__field-value"
-											style={ { maxHeight: 'none' } }
 										>
 											<field.render
 												item={ item }
 												field={ field }
 											/>
-										</FlexItem>
-									</>
-								</Flex>
-							);
-						} ) }
+										</Badge>
+									);
+								} ) }
+							</HStack>
+						) }
+						{ !! regularFields?.length && (
+							<VStack
+								className="dataviews-view-grid__fields"
+								spacing={ 1 }
+							>
+								{ regularFields.map( ( field ) => {
+									return (
+										<Flex
+											className="dataviews-view-grid__field"
+											key={ field.id }
+											gap={ 1 }
+											justify="flex-start"
+											expanded
+											style={ { height: 'auto' } }
+											direction="row"
+										>
+											<>
+												<Tooltip text={ field.label }>
+													<FlexItem className="dataviews-view-grid__field-name">
+														{ field.header }
+													</FlexItem>
+												</Tooltip>
+												<FlexItem
+													className="dataviews-view-grid__field-value"
+													style={ {
+														maxHeight: 'none',
+													} }
+												>
+													<field.render
+														item={ item }
+														field={ field }
+													/>
+												</FlexItem>
+											</>
+										</Flex>
+									);
+								} ) }
+							</VStack>
+						) }
 					</VStack>
-				) }
-			</VStack>
+				</>
+			) }
 		</VStack>
 	);
 }

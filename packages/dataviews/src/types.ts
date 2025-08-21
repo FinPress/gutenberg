@@ -448,6 +448,11 @@ interface ViewBase {
 	 * Whether infinite scroll is enabled.
 	 */
 	infiniteScrollEnabled?: boolean;
+
+	/**
+	 * Whether preview only mode is enabled.
+	 */
+	previewOnlyEnabled?: boolean;
 }
 
 export interface ColumnStyle {

@@ -48,6 +48,7 @@ import { VIEW_LAYOUTS } from '../../dataviews-layouts';
 import type { NormalizedField, View } from '../../types';
 import DataViewsContext from '../dataviews-context';
 import InfiniteScrollToggle from './infinite-scroll-toggle';
+import PreviewOnlyToggle from './preview-only-toggle';
 import { unlock } from '../../lock-unlock';
 
 const { Menu } = unlock( componentsPrivateApis );
@@ -810,6 +811,7 @@ export function DataviewsViewConfigDropdown() {
 							) }
 							<InfiniteScrollToggle />
 							<ItemsPerPageControl />
+							<PreviewOnlyToggle />
 						</SettingsSection>
 						<SettingsSection title={ __( 'Properties' ) }>
 							<FieldControl />
