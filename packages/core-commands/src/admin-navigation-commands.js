@@ -137,16 +137,38 @@ const getAdminBasicNavigationCommands = () =>
 		};
 	};
 
-export function useAdminNavigationCommands() {
-	useCommand( {
-		name: 'core/dashboard',
-		label: __( 'Dashboard' ),
-		icon: dashboard,
-		callback: () => {
-			document.location.assign( 'index.php' );
-		},
-	} );
+const getDashboardCommand = () =>
+	function useDashboardCommand() {
+		const isSiteEditor = getPath( window.location.href )?.includes(
+			'site-editor.php'
+		);
+		const isPostEditor =
+			getPath( window.location.href )?.includes( 'post.php' ) ||
+			getPath( window.location.href )?.includes( 'post-new.php' );
 
+		const commands = useMemo( () => {
+			if ( isSiteEditor || isPostEditor ) {
+				return [
+					{
+						name: 'core/dashboard',
+						label: __( 'Dashboard' ),
+						icon: dashboard,
+						callback: () => {
+							document.location.assign( 'index.php' );
+						},
+					},
+				];
+			}
+			return [];
+		}, [ isSiteEditor, isPostEditor ] );
+
+		return {
+			isLoading: false,
+			commands,
+		};
+	};
+
+export function useAdminNavigationCommands() {
 	useCommand( {
 		name: 'core/add-new-post',
 		label: __( 'Add Post' ),
@@ -155,6 +177,11 @@ export function useAdminNavigationCommands() {
 			document.location.assign( 'post-new.php' );
 		},
 		keywords: [ __( 'post' ), __( 'new' ), __( 'add' ), __( 'create' ) ],
+	} );
+
+	useCommandLoader( {
+		name: 'core/dashboard',
+		hook: getDashboardCommand(),
 	} );
 
 	useCommandLoader( {
