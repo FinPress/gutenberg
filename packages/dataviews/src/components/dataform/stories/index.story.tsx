@@ -379,7 +379,13 @@ function CustomEditControl< Item >( {
 	);
 }
 
-const ValidationComponent = ( { required }: { required: boolean } ) => {
+const ValidationComponent = ( {
+	required,
+	type,
+}: {
+	required: boolean;
+	type: 'regular' | 'panel';
+} ) => {
 	type ValidatedItem = {
 		text: string;
 		email: string;
@@ -461,6 +467,7 @@ const ValidationComponent = ( { required }: { required: boolean } ) => {
 	];
 
 	const form = {
+		layout: { type },
 		fields: [
 			'text',
 			'email',
@@ -864,9 +871,15 @@ export const Validation = {
 			control: { type: 'boolean' },
 			description: 'Whether or not the fields are required.',
 		},
+		type: {
+			control: { type: 'select' },
+			description: 'Chooses the validation type.',
+			options: [ 'regular', 'panel' ],
+		},
 	},
 	args: {
 		required: true,
+		type: 'regular',
 	},
 };
 
