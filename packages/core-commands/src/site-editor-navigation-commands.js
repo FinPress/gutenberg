@@ -280,9 +280,13 @@ const getSiteEditorBasicNavigationCommands = () =>
 		const isSiteEditor = getPath( window.location.href )?.includes(
 			'site-editor.php'
 		);
-		const { isBlockBasedTheme, canCreateTemplate } = useSelect(
-			( select ) => {
+		const { isSupportEditorStyles, isBlockBasedTheme, canCreateTemplate } =
+			useSelect( ( select ) => {
 				return {
+					isSupportEditorStyles:
+						select( coreStore ).getCurrentTheme().theme_supports[
+							'editor-styles'
+						],
 					isBlockBasedTheme:
 						select( coreStore ).getCurrentTheme()?.is_block_theme,
 					canCreateTemplate: select( coreStore ).canUser( 'create', {
@@ -290,13 +294,39 @@ const getSiteEditorBasicNavigationCommands = () =>
 						name: 'wp_template',
 					} ),
 				};
-			},
-			[]
-		);
+			}, [] );
 		const commands = useMemo( () => {
 			const result = [];
 
-			if ( canCreateTemplate && isBlockBasedTheme ) {
+			result.push( {
+				name: 'core/edit-site/open-patterns',
+				label: __( 'Patterns' ),
+				icon: symbol,
+				callback: ( { close } ) => {
+					if ( canCreateTemplate ) {
+						if ( isSiteEditor ) {
+							history.navigate( '/pattern' );
+						} else {
+							document.location = addQueryArgs(
+								'site-editor.php',
+								{
+									p: '/pattern',
+								}
+							);
+						}
+						close();
+					} else {
+						// If a user cannot access the site editor
+						document.location.href = 'edit.php?post_type=wp_block';
+					}
+				},
+			} );
+
+			if ( ! canCreateTemplate ) {
+				return result;
+			}
+
+			if ( isBlockBasedTheme ) {
 				result.push( {
 					name: 'core/edit-site/open-styles',
 					label: __( 'Styles' ),
@@ -372,31 +402,26 @@ const getSiteEditorBasicNavigationCommands = () =>
 						close();
 					},
 				} );
-			}
-
-			result.push( {
-				name: 'core/edit-site/open-patterns',
-				label: __( 'Patterns' ),
-				icon: symbol,
-				callback: ( { close } ) => {
-					if ( canCreateTemplate ) {
+			} else if ( isSupportEditorStyles ) {
+				result.push( {
+					name: 'core/edit-site/open-stylebook',
+					label: __( 'Stylebook' ),
+					icon: styles,
+					callback: ( { close } ) => {
 						if ( isSiteEditor ) {
-							history.navigate( '/pattern' );
+							history.navigate( '/stylebook' );
 						} else {
 							document.location = addQueryArgs(
 								'site-editor.php',
 								{
-									p: '/pattern',
+									p: '/stylebook',
 								}
 							);
 						}
 						close();
-					} else {
-						// If a user cannot access the site editor
-						document.location.href = 'edit.php?post_type=wp_block';
-					}
-				},
-			} );
+					},
+				} );
+			}
 
 			return result;
 		}, [ history, isSiteEditor, canCreateTemplate, isBlockBasedTheme ] );
