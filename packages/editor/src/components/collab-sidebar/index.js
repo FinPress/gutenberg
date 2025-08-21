@@ -327,10 +327,6 @@ export default function CollabSidebar() {
 		} );
 	}
 
-	if ( postStatus === 'publish' ) {
-		return null; // or maybe return some message indicating no threads are available.
-	}
-
 	const AddCommentComponent = blockCommentId
 		? AddCommentToolbarButton
 		: AddCommentButton;
