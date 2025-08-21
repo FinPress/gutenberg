@@ -34,8 +34,10 @@ jobs:
             - name: Build Storybook
               run: npm run storybook:build
 
-            - name: Install Playwright dependencies
-              run: npx playwright install chromium --with-deps
+            - name: Install test-runner and Playwright dependencies
+              run: |
+                  npm install --no-save @storybook/test-runner@0.22.1
+                  npx playwright install chromium --with-deps
 
             - name: Serve Storybook and run tests
               run: |
@@ -43,6 +45,4 @@ jobs:
                   "npx http-server ./storybook/build --port 50240 --silent" \
                   "npx wait-on tcp:127.0.0.1:50240 && \
                   NODE_PATH=./node_modules \
-                  PLAYWRIGHT_BROWSERS_PATH=0 \
-                  npx --package=@storybook/test-runner@0.22.1 -- \
-                  test-storybook --url http://localhost:50240 --config-dir ./storybook"
+                  npx test-storybook --url http://localhost:50240 --config-dir ./storybook"
