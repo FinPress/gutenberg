@@ -3,7 +3,7 @@
  */
 import { useCommand, useCommandLoader } from '@wordpress/commands';
 import { __ } from '@wordpress/i18n';
-import { plus, edit, layout } from '@wordpress/icons';
+import { plus, layout } from '@wordpress/icons';
 import { getPath } from '@wordpress/url';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -102,31 +102,21 @@ const getAdminBasicNavigationCommands = () =>
 		);
 
 		const commands = useMemo( () => {
-			const result = [];
-
 			if ( canCreateTemplate && isBlockBasedTheme ) {
-				result.push( {
-					name: 'core/admin/open-site-editor',
-					label: __( 'Site Editor' ),
-					icon: layout,
-					callback: ( { close } ) => {
-						document.location.assign( 'site-editor.php' );
-						close();
+				return [
+					{
+						name: 'core/admin/open-site-editor',
+						label: __( 'Site Editor' ),
+						icon: layout,
+						callback: ( { close } ) => {
+							document.location.assign( 'site-editor.php' );
+							close();
+						},
 					},
-				} );
+				];
 			}
 
-			result.push( {
-				name: 'core/admin/open-post-editor',
-				label: __( 'Editor' ),
-				icon: edit,
-				callback: ( { close } ) => {
-					document.location.assign( 'post-new.php' );
-					close();
-				},
-			} );
-
-			return result;
+			return [];
 		}, [ canCreateTemplate, isBlockBasedTheme ] );
 
 		return {
