@@ -22,6 +22,7 @@ import { pagesRoute } from './pages';
 import { pageItemRoute } from './page-item';
 import { stylebookRoute } from './stylebook';
 import { notFoundRoute } from './notfound';
+import { mediaRoute } from './media';
 
 const routes = [
 	pageItemRoute,
@@ -37,6 +38,7 @@ const routes = [
 	homeRoute,
 	stylebookRoute,
 	notFoundRoute,
+	mediaRoute,
 ];
 
 export function useRegisterSiteEditorRoutes() {
