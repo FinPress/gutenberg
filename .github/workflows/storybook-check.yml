@@ -36,6 +36,7 @@ jobs:
 
             - name: Install test-runner and Playwright dependencies
               run: |
+                  # test
                   npm install --no-save @storybook/test-runner@0.22.1
                   npx playwright install chromium --with-deps
 
