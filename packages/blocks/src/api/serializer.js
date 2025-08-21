@@ -300,7 +300,7 @@ export function serializeAttributes( attributes ) {
 			//   - "\\\"" -> "\\\u0022"
 			//
 			// See: https://developer.wordpress.org/reference/functions/wp_kses_stripslashes/
-			.replace( /((?<!\\)(?:\\\\)*)\\"/g, '$1\\u0022' )
+			.replace( /(?<!\\)(\\\\)*\\"/g, '$1\\u0022' )
 	);
 }
 
