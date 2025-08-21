@@ -3,7 +3,7 @@
  */
 import { useCommand, useCommandLoader } from '@wordpress/commands';
 import { __ } from '@wordpress/i18n';
-import { plus, layout } from '@wordpress/icons';
+import { plus } from '@wordpress/icons';
 import { getPath } from '@wordpress/url';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -90,30 +90,36 @@ const getAddNewPageCommand = () =>
 const getAdminBasicNavigationCommands = () =>
 	function useAdminBasicNavigationCommands() {
 		const { isBlockBasedTheme, canCreateTemplate } = useSelect(
-			( select ) => ( {
-				isBlockBasedTheme:
-					select( coreStore ).getCurrentTheme()?.is_block_theme,
-				canCreateTemplate: select( coreStore ).canUser( 'create', {
-					kind: 'postType',
-					name: 'wp_template',
-				} ),
-			} ),
+			( select ) => {
+				return {
+					isBlockBasedTheme:
+						select( coreStore ).getCurrentTheme()?.is_block_theme,
+					canCreateTemplate: select( coreStore ).canUser( 'create', {
+						kind: 'postType',
+						name: 'wp_template',
+					} ),
+				};
+			},
 			[]
 		);
 
 		const commands = useMemo( () => {
 			if ( canCreateTemplate && isBlockBasedTheme ) {
-				return [
-					{
-						name: 'core/admin/open-site-editor',
-						label: __( 'Site Editor' ),
-						icon: layout,
-						callback: ( { close } ) => {
-							document.location.assign( 'site-editor.php' );
-							close();
+				const isSiteEditor = getPath( window.location.href )?.includes(
+					'site-editor.php'
+				);
+				if ( ! isSiteEditor ) {
+					return [
+						{
+							name: 'core/go-to-site-editor',
+							label: __( 'Open Site Editor' ),
+							callback: ( { close } ) => {
+								close();
+								document.location = 'site-editor.php';
+							},
 						},
-					},
-				];
+					];
+				}
 			}
 
 			return [];
