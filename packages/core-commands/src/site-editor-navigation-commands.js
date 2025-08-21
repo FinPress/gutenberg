@@ -375,7 +375,7 @@ const getSiteEditorBasicNavigationCommands = () =>
 					},
 				} );
 			}
-			if ( canCreateTemplate || canCreatePatterns ) {
+			if ( canCreatePatterns ) {
 				result.push( {
 					name: 'core/edit-site/open-patterns',
 					label: __( 'Patterns' ),
