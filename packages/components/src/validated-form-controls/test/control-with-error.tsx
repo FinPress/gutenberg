@@ -26,9 +26,10 @@ describe( 'ControlWithError', () => {
 
 		const AsyncValidatedInputControl = ( {
 			serverDelayMs,
+			...restProps
 		}: {
 			serverDelayMs: number;
-		} ) => {
+		} & React.ComponentProps< typeof ValidatedInputControl > ) => {
 			const [ text, setText ] = useState( '' );
 			const [ customValidity, setCustomValidity ] =
 				useState<
@@ -71,6 +72,7 @@ describe( 'ControlWithError', () => {
 					} }
 					onValidate={ onValidate }
 					customValidity={ customValidity }
+					{ ...restProps }
 				/>
 			);
 		};
@@ -172,6 +174,50 @@ describe( 'ControlWithError', () => {
 
 			await waitFor( () => {
 				expect( screen.getByText( 'Validated' ) ).toBeVisible();
+			} );
+		} );
+
+		it( 'should not show a "valid" state until the server response is received, even if locally valid', async () => {
+			const user = userEvent.setup( {
+				advanceTimers: jest.advanceTimersByTime,
+			} );
+			render(
+				<AsyncValidatedInputControl serverDelayMs={ 1200 } required />
+			);
+
+			const input = screen.getByRole( 'textbox' );
+
+			await user.type( input, 'valid text' );
+
+			await user.tab();
+			act( () => jest.advanceTimersByTime( 1200 ) );
+
+			await waitFor( () => {
+				expect( screen.getByText( 'Validated' ) ).toBeVisible();
+			} );
+
+			await user.clear( input );
+
+			act( () => jest.advanceTimersByTime( 1000 ) );
+
+			await waitFor( () => {
+				expect(
+					screen.getByText( 'Constraints not satisfied' )
+				).toBeVisible();
+			} );
+
+			await user.type( input, 'error' );
+
+			act( () => jest.advanceTimersByTime( 200 ) );
+
+			expect( screen.queryByText( 'Validated' ) ).not.toBeInTheDocument();
+
+			act( () => jest.advanceTimersByTime( 1000 ) );
+
+			await waitFor( () => {
+				expect(
+					screen.getByText( 'The word "error" is not allowed.' )
+				).toBeVisible();
 			} );
 		} );
 	} );
