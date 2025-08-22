@@ -139,15 +139,17 @@ const getAdminBasicNavigationCommands = () =>
 
 const getDashboardCommand = () =>
 	function useDashboardCommand() {
-		const isSiteEditor = getPath( window.location.href )?.includes(
-			'site-editor.php'
-		);
-		const isPostEditor =
-			getPath( window.location.href )?.includes( 'post.php' ) ||
-			getPath( window.location.href )?.includes( 'post-new.php' );
+		const currentPath = getPath( window.location.href );
+
+		const isEditorScreen =
+			currentPath?.includes( 'site-editor.php' ) ||
+			currentPath?.includes( 'post.php' ) ||
+			currentPath?.includes( 'post-new.php' ) ||
+			currentPath?.includes( 'widgets.php' ) ||
+			currentPath?.includes( 'customize.php' );
 
 		const commands = useMemo( () => {
-			if ( isSiteEditor || isPostEditor ) {
+			if ( isEditorScreen ) {
 				return [
 					{
 						name: 'core/dashboard',
@@ -160,7 +162,7 @@ const getDashboardCommand = () =>
 				];
 			}
 			return [];
-		}, [ isSiteEditor, isPostEditor ] );
+		}, [ isEditorScreen ] );
 
 		return {
 			isLoading: false,
