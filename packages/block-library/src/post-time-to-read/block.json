@@ -1,7 +1,6 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"__experimental": true,
 	"name": "core/post-time-to-read",
 	"title": "Time to Read",
 	"category": "theme",
@@ -16,7 +15,7 @@
 	"supports": {
 		"color": {
 			"gradients": true,
-			"__experimentalDefaultControls": {
+			"DefaultControls": {
 				"background": true,
 				"text": true
 			}
@@ -25,7 +24,7 @@
 		"spacing": {
 			"margin": true,
 			"padding": true,
-			"__experimentalDefaultControls": {
+			"DefaultControls": {
 				"margin": false,
 				"padding": false
 			}
@@ -33,20 +32,20 @@
 		"typography": {
 			"fontSize": true,
 			"lineHeight": true,
-			"__experimentalFontFamily": true,
-			"__experimentalFontWeight": true,
-			"__experimentalFontStyle": true,
-			"__experimentalTextTransform": true,
-			"__experimentalTextDecoration": true,
-			"__experimentalLetterSpacing": true,
-			"__experimentalDefaultControls": {
+			"FontFamily": true,
+			"FontWeight": true,
+			"FontStyle": true,
+			"TextTransform": true,
+			"TextDecoration": true,
+			"LetterSpacing": true,
+			"DefaultControls": {
 				"fontSize": true
 			}
 		},
 		"interactivity": {
 			"clientNavigation": true
 		},
-		"__experimentalBorder": {
+		"Border": {
 			"radius": true,
 			"color": true,
 			"width": true,
