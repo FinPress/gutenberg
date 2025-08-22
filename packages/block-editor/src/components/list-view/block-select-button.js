@@ -7,9 +7,9 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import {
-	Button,
 	__experimentalHStack as HStack,
 	__experimentalTruncate as Truncate,
+	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { forwardRef } from '@wordpress/element';
 import { Icon, lockSmall as lock, pinSmall } from '@wordpress/icons';
@@ -26,6 +26,8 @@ import ListViewExpander from './expander';
 import { useBlockLock } from '../block-lock';
 import useListViewImages from './use-list-view-images';
 import { store as blockEditorStore } from '../../store';
+import { unlock } from '../../lock-unlock';
+const { Badge } = unlock( componentsPrivateApis );
 
 function ListViewBlockSelectButton(
 	{
@@ -82,9 +84,7 @@ function ListViewBlockSelectButton(
 	}
 
 	return (
-		<Button
-			// TODO: Switch to `true` (40px size) if possible
-			__next40pxDefaultSize={ false }
+		<a
 			className={ clsx(
 				'block-editor-list-view-block-select-button',
 				className
@@ -120,12 +120,9 @@ function ListViewBlockSelectButton(
 				</span>
 				{ blockInformation?.anchor && (
 					<span className="block-editor-list-view-block-select-button__anchor-wrapper">
-						<Truncate
-							className="block-editor-list-view-block-select-button__anchor"
-							ellipsizeMode="auto"
-						>
+						<Badge className="block-editor-list-view-block-select-button__anchor">
 							{ blockInformation.anchor }
-						</Truncate>
+						</Badge>
 					</span>
 				) }
 				{ isSticky && (
@@ -156,7 +153,7 @@ function ListViewBlockSelectButton(
 					</span>
 				) }
 			</HStack>
-		</Button>
+		</a>
 	);
 }
 

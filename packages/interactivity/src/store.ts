@@ -12,9 +12,10 @@ export const stores = new Map();
 const rawStores = new Map();
 const storeLocks = new Map();
 const storeConfigs = new Map();
+const serverStates = new Map();
 
 /**
- * Get the defined config for the store with the passed namespace.
+ * Gets the defined config for the store with the passed namespace.
  *
  * @param namespace Store's namespace from which to retrieve the config.
  * @return Defined config for the given namespace.
@@ -22,12 +23,45 @@ const storeConfigs = new Map();
 export const getConfig = ( namespace?: string ) =>
 	storeConfigs.get( namespace || getNamespace() ) || {};
 
+/**
+ * Gets the part of the state defined and updated from the server.
+ *
+ * The object returned is read-only, and includes the state defined in PHP with
+ * `wp_interactivity_state()`. When using `actions.navigate()`, this object is
+ * updated to reflect the changes in its properties, without affecting the state
+ * returned by `store()`. Directives can subscribe to those changes to update
+ * the state if needed.
+ *
+ * @example
+ * ```js
+ *  const { state } = store('myStore', {
+ *    callbacks: {
+ *      updateServerState() {
+ *        const serverState = getServerState();
+ *        // Override some property with the new value that came from the server.
+ *        state.overridableProp = serverState.overridableProp;
+ *      },
+ *    },
+ *  });
+ * ```
+ *
+ * @param namespace Store's namespace from which to retrieve the server state.
+ * @return The server state for the given namespace.
+ */
+export const getServerState = ( namespace?: string ) => {
+	const ns = namespace || getNamespace();
+	if ( ! serverStates.has( ns ) ) {
+		serverStates.set( ns, proxifyState( ns, {}, { readOnly: true } ) );
+	}
+	return serverStates.get( ns );
+};
+
 interface StoreOptions {
 	/**
 	 * Property to block/unblock private store namespaces.
 	 *
 	 * If the passed value is `true`, it blocks the given namespace, making it
-	 * accessible only trough the returned variables of the `store()` call. In
+	 * accessible only through the returned variables of the `store()` call. In
 	 * the case a lock string is passed, it also blocks the namespace, but can
 	 * be unblocked for other `store()` calls using the same lock string.
 	 *
@@ -49,6 +83,45 @@ interface StoreOptions {
 	 */
 	lock?: boolean | string;
 }
+
+export type AsyncAction< T > = Generator< any, T, unknown >;
+export type TypeYield< T extends ( ...args: any[] ) => Promise< any > > =
+	Awaited< ReturnType< T > >;
+type Prettify< T > = { [ K in keyof T ]: T[ K ] } & {};
+type DeepPartial< T > = T extends object
+	? { [ P in keyof T ]?: DeepPartial< T[ P ] > }
+	: T;
+type DeepPartialState< T extends { state: object } > = Omit< T, 'state' > & {
+	state?: DeepPartial< T[ 'state' ] >;
+};
+type ConvertGeneratorToPromise< T > = T extends (
+	...args: infer A
+) => Generator< any, infer R, any >
+	? ( ...args: A ) => Promise< R >
+	: never;
+type ConvertGeneratorsToPromises< T > = {
+	[ K in keyof T ]: T[ K ] extends ( ...args: any[] ) => any
+		? ConvertGeneratorToPromise< T[ K ] > extends never
+			? T[ K ]
+			: ConvertGeneratorToPromise< T[ K ] >
+		: T[ K ] extends object
+		? Prettify< ConvertGeneratorsToPromises< T[ K ] > >
+		: T[ K ];
+};
+type ConvertPromiseToGenerator< T > = T extends (
+	...args: infer A
+) => Promise< infer R >
+	? ( ...args: A ) => Generator< any, R, any >
+	: never;
+type ConvertPromisesToGenerators< T > = {
+	[ K in keyof T ]: T[ K ] extends ( ...args: any[] ) => any
+		? ConvertPromiseToGenerator< T[ K ] > extends never
+			? T[ K ]
+			: ConvertPromiseToGenerator< T[ K ] >
+		: T[ K ] extends object
+		? Prettify< ConvertPromisesToGenerators< T[ K ] > >
+		: T[ K ];
+};
 
 export const universalUnlock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
@@ -98,17 +171,34 @@ export const universalUnlock =
  *
  * @return A reference to the namespace content.
  */
-export function store< S extends object = {} >(
-	namespace: string,
-	storePart?: S,
-	options?: StoreOptions
-): S;
 
+// Overload for when the types are inferred.
 export function store< T extends object >(
 	namespace: string,
-	storePart?: T,
+	storePart: T,
 	options?: StoreOptions
-): T;
+): Prettify< ConvertGeneratorsToPromises< T > >;
+
+// Overload for when types are passed via generics and they contain state.
+export function store< T extends { state: object } >(
+	namespace: string,
+	storePart?: ConvertPromisesToGenerators< DeepPartialState< T > >,
+	options?: StoreOptions
+): Prettify< ConvertGeneratorsToPromises< T > >;
+
+// Overload for when types are passed via generics and they don't contain state.
+export function store< T extends object >(
+	namespace: string,
+	storePart?: ConvertPromisesToGenerators< T >,
+	options?: StoreOptions
+): Prettify< ConvertGeneratorsToPromises< T > >;
+
+// Overload for when types are divided into multiple parts.
+export function store< T extends object >(
+	namespace: string,
+	storePart: ConvertPromisesToGenerators< DeepPartial< T > >,
+	options?: StoreOptions
+): Prettify< ConvertGeneratorsToPromises< T > >;
 
 export function store(
 	namespace: string,
@@ -187,6 +277,7 @@ export const populateServerData = ( data?: {
 		Object.entries( data!.state ).forEach( ( [ namespace, state ] ) => {
 			const st = store< any >( namespace, {}, { lock: universalUnlock } );
 			deepMerge( st.state, state, false );
+			deepMerge( getServerState( namespace ), state );
 		} );
 	}
 	if ( isPlainObject( data?.config ) ) {

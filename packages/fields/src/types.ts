@@ -1,5 +1,5 @@
 type PostStatus =
-	| 'published'
+	| 'publish'
 	| 'draft'
 	| 'pending'
 	| 'private'
@@ -23,6 +23,18 @@ interface Links {
 	[ key: string ]: { href: string }[] | undefined;
 }
 
+interface Author {
+	name: string;
+	avatar_urls: Record< string, string >;
+}
+
+interface EmbeddedAuthor {
+	author: Author[];
+}
+
+/**
+ * BasePost interface used for all post types.
+ */
 export interface BasePost extends CommonPost {
 	comment_status?: 'open' | 'closed';
 	excerpt?: string | { raw: string; rendered: string };
@@ -35,6 +47,15 @@ export interface BasePost extends CommonPost {
 	menu_order?: number;
 	ping_status?: 'open' | 'closed';
 	link?: string;
+	slug?: string;
+	permalink_template?: string;
+	date?: string;
+	modified?: string;
+	author?: number;
+}
+
+export interface BasePostWithEmbeddedAuthor extends BasePost {
+	_embedded: EmbeddedAuthor;
 }
 
 export interface Template extends CommonPost {
@@ -54,6 +75,7 @@ export interface TemplatePart extends CommonPost {
 	has_theme_file: boolean;
 	id: string;
 	area: string;
+	plugin?: string;
 }
 
 export interface Pattern extends CommonPost {
@@ -78,6 +100,10 @@ export interface PostType {
 		'page-attributes'?: boolean;
 		title?: boolean;
 		revisions?: boolean;
+		author?: string;
+		thumbnail?: string;
+		comments?: string;
+		editor?: boolean;
 	};
 }
 

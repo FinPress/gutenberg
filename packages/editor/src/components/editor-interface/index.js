@@ -10,12 +10,7 @@ import { InterfaceSkeleton, ComplementaryArea } from '@wordpress/interface';
 import { useSelect } from '@wordpress/data';
 import { __, _x } from '@wordpress/i18n';
 import { store as preferencesStore } from '@wordpress/preferences';
-import {
-	store as blockEditorStore,
-	BlockBreadcrumb,
-	BlockToolbar,
-} from '@wordpress/block-editor';
-import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
+import { BlockBreadcrumb, BlockToolbar } from '@wordpress/block-editor';
 import { useViewportMatch } from '@wordpress/compose';
 import { useState, useCallback } from '@wordpress/element';
 
@@ -47,7 +42,6 @@ const interfaceLabels = {
 
 export default function EditorInterface( {
 	className,
-	enableRegionNavigation,
 	styles,
 	children,
 	forceIsDirty,
@@ -62,40 +56,36 @@ export default function EditorInterface( {
 } ) {
 	const {
 		mode,
-		isRichEditingEnabled,
 		isInserterOpened,
 		isListViewOpened,
 		isDistractionFree,
 		isPreviewMode,
-		previousShortcut,
-		nextShortcut,
 		showBlockBreadcrumbs,
 		documentLabel,
-		blockEditorMode,
 	} = useSelect( ( select ) => {
 		const { get } = select( preferencesStore );
 		const { getEditorSettings, getPostTypeLabel } = select( editorStore );
 		const editorSettings = getEditorSettings();
 		const postTypeLabel = getPostTypeLabel();
 
+		let _mode = select( editorStore ).getEditorMode();
+		if ( ! editorSettings.richEditingEnabled && _mode === 'visual' ) {
+			_mode = 'text';
+		}
+		if ( ! editorSettings.codeEditingEnabled && _mode === 'text' ) {
+			_mode = 'visual';
+		}
+
 		return {
-			mode: select( editorStore ).getEditorMode(),
-			isRichEditingEnabled: editorSettings.richEditingEnabled,
+			mode: _mode,
 			isInserterOpened: select( editorStore ).isInserterOpened(),
 			isListViewOpened: select( editorStore ).isListViewOpened(),
 			isDistractionFree: get( 'core', 'distractionFree' ),
-			isPreviewMode: editorSettings.__unstableIsPreviewMode,
-			previousShortcut: select(
-				keyboardShortcutsStore
-			).getAllShortcutKeyCombinations( 'core/editor/previous-region' ),
-			nextShortcut: select(
-				keyboardShortcutsStore
-			).getAllShortcutKeyCombinations( 'core/editor/next-region' ),
+			isPreviewMode: editorSettings.isPreviewMode,
 			showBlockBreadcrumbs: get( 'core', 'showBlockBreadcrumbs' ),
-			// translators: Default label for the Document in the Block Breadcrumb.
-			documentLabel: postTypeLabel || _x( 'Document', 'noun' ),
-			blockEditorMode:
-				select( blockEditorStore ).__unstableGetEditorMode(),
+			documentLabel:
+				// translators: Default label for the Document in the Block Breadcrumb.
+				postTypeLabel || _x( 'Document', 'noun, breadcrumb' ),
 		};
 	}, [] );
 	const isLargeViewport = useViewportMatch( 'medium' );
@@ -119,7 +109,6 @@ export default function EditorInterface( {
 
 	return (
 		<InterfaceSkeleton
-			enableRegionNavigation={ enableRegionNavigation }
 			isDistractionFree={ isDistractionFree }
 			className={ clsx( 'editor-editor-interface', className, {
 				'is-entity-save-view-open': !! entitiesSavedStatesCallback,
@@ -165,23 +154,20 @@ export default function EditorInterface( {
 								editorCanvasView
 							) : (
 								<>
-									{ ! isPreviewMode &&
-										( mode === 'text' ||
-											! isRichEditingEnabled ) && (
-											<TextEditor
-												// We should auto-focus the canvas (title) on load.
-												// eslint-disable-next-line jsx-a11y/no-autofocus
-												autoFocus={ autoFocus }
-											/>
-										) }
+									{ ! isPreviewMode && mode === 'text' && (
+										<TextEditor
+											// We should auto-focus the canvas (title) on load.
+											// eslint-disable-next-line jsx-a11y/no-autofocus
+											autoFocus={ autoFocus }
+										/>
+									) }
 									{ ! isPreviewMode &&
 										! isLargeViewport &&
 										mode === 'visual' && (
 											<BlockToolbar hideDragHandle />
 										) }
 									{ ( isPreviewMode ||
-										( isRichEditingEnabled &&
-											mode === 'visual' ) ) && (
+										mode === 'visual' ) && (
 										<VisualEditor
 											styles={ styles }
 											contentRef={ contentRef }
@@ -204,8 +190,6 @@ export default function EditorInterface( {
 				! isDistractionFree &&
 				isLargeViewport &&
 				showBlockBreadcrumbs &&
-				isRichEditingEnabled &&
-				blockEditorMode !== 'zoom-out' &&
 				mode === 'visual' && (
 					<BlockBreadcrumb rootLabelText={ documentLabel } />
 				)
@@ -228,10 +212,6 @@ export default function EditorInterface( {
 					  )
 					: undefined
 			}
-			shortcuts={ {
-				previous: previousShortcut,
-				next: nextShortcut,
-			} }
 		/>
 	);
 }

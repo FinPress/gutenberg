@@ -16,8 +16,14 @@ import { getNamespace } from './namespaces';
 import { parseServerData, populateServerData } from './store';
 import { proxifyState } from './proxies';
 
-export { store, getConfig } from './store';
-export { getContext, getElement } from './scopes';
+export {
+	store,
+	getConfig,
+	getServerState,
+	type AsyncAction,
+	type TypeYield,
+} from './store';
+export { getContext, getServerContext, getElement } from './scopes';
 export {
 	withScope,
 	useWatch,
@@ -27,6 +33,7 @@ export {
 	useCallback,
 	useMemo,
 	splitTask,
+	withSyncEvent,
 } from './utils';
 
 export { useState, useRef } from 'preact/hooks';
