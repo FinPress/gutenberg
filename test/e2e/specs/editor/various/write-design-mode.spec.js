@@ -187,4 +187,109 @@ test.describe( 'Write/Design mode', () => {
 
 		await expect( nonContentBlock ).toBeHidden();
 	} );
+	test( 'prevents adding blocks to nested containers', async ( {
+		editor,
+		page,
+	} ) => {
+		await editor.setContent( '' );
+
+		// Insert a section with a nested block and an editable block.
+		await editor.insertBlock( {
+			name: 'core/group',
+			attributes: {},
+			innerBlocks: [
+				{
+					name: 'core/quote',
+					attributes: {
+						metadata: {
+							name: 'Content block',
+						},
+					},
+					innerBlocks: [
+						{
+							name: 'core/paragraph',
+							attributes: {
+								content: 'Something',
+							},
+						},
+					],
+				},
+			],
+		} );
+
+		// Switch to write mode.
+		await editor.switchEditorTool( 'Write' );
+
+		// Select the inner paragraph block.
+		const paragraph = editor.canvas.getByRole( 'document', {
+			name: 'Block: Paragraph',
+		} );
+		const paragraphClientId = await paragraph.getAttribute( 'data-block' );
+
+		// Select paragraph
+		await paragraph.click();
+
+		// Press enter to check whether it adds a new block.
+		await page.keyboard.press( 'Enter' );
+
+		// Check client id of selected block and see whether it matches paragraphClientId
+		const getSelectedBlock = async () =>
+			await page.evaluate( () =>
+				window.wp.data
+					.select( 'core/block-editor' )
+					.getSelectedBlockClientId()
+			);
+
+		expect( await getSelectedBlock() ).toEqual( paragraphClientId );
+	} );
+	test( 'allows adding blocks to content role containers with allowed blocks', async ( {
+		editor,
+		page,
+	} ) => {
+		await editor.setContent( '' );
+
+		// Insert a section with a nested block and an editable block.
+		await editor.insertBlock( {
+			name: 'core/group',
+			attributes: {},
+			innerBlocks: [
+				{
+					name: 'core/list',
+					innerBlocks: [
+						{
+							name: 'core/list-item',
+							attributes: {
+								content: 'item 1',
+							},
+						},
+					],
+				},
+			],
+		} );
+
+		// Switch to write mode.
+		await editor.switchEditorTool( 'Write' );
+
+		// Select the inner list item block.
+		const listItem = editor.canvas.getByRole( 'document', {
+			name: 'Block: List item',
+		} );
+		const listItemClientId = await listItem.getAttribute( 'data-block' );
+
+		// Select list item
+		await listItem.click();
+
+		// Press enter to check whether it adds a new block.
+		await page.keyboard.press( 'Enter' );
+
+		// Check client id of selected block and see whether it matches listItemClientId
+		const getSelectedBlock = async () =>
+			await page.evaluate( () =>
+				window.wp.data
+					.select( 'core/block-editor' )
+					.getSelectedBlockClientId()
+			);
+		// If a new block has been inserted, clientIds should not match.
+		expect( await getSelectedBlock() ).not.toEqual( listItemClientId );
+	} );
 } );
