@@ -17,7 +17,7 @@ import { getFragment } from './get-fragment';
  *
  * @example
  * ```js
- * const newURL = addQueryArgs( 'https://google.com/site/{$id}/stats', { id: 123, q: 'test' } ); // https://google.com/site/123/stats?q=test
+ * const newURL = replaceUrlParams( 'https://google.com/site/{$id}/stats', { id: 123, q: 'test' } ); // https://google.com/site/123/stats?q=test
  * ```
  *
  * @return URL with placeholders replaced.

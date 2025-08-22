@@ -538,7 +538,7 @@ Replaces URL params from query params to the provided URL. If the URL includes U
 _Usage_
 
 ```js
-const newURL = addQueryArgs( 'https://google.com/site/{$id}/stats', {
+const newURL = replaceUrlParams( 'https://google.com/site/{$id}/stats', {
 	id: 123,
 	q: 'test',
 } ); // https://google.com/site/123/stats?q=test
