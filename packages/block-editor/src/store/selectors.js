@@ -1685,31 +1685,14 @@ const canInsertBlockTypeUnmemoized = (
 	if ( isLocked ) {
 		return false;
 	}
-
-	const isContentContainer =
-		isContentBlock( blockName ) && blockType?.allowedBlocks?.length > 0;
-
+	const isContentRoleBlock = isContentBlock( blockName );
 	const _isSectionBlock = !! isSectionBlock( state, rootClientId );
-	if ( _isSectionBlock && ! isContentContainer ) {
+	if ( _isSectionBlock && ! isContentRoleBlock ) {
 		return false;
 	}
 
 	const blockEditingMode = getBlockEditingMode( state, rootClientId ?? '' );
 	if ( blockEditingMode === 'disabled' ) {
-		return false;
-	}
-
-	// If the block is content only and not root level, blocks can't be inserted.
-	const isContentOnlyNonRootBlock =
-		blockEditingMode === 'contentOnly' && !! rootClientId;
-	// The section root block is used by zoom out mode so it should be possible to insert
-	// blocks inside it.
-	const isRootBlockMain = getSectionRootClientId( state ) === rootClientId;
-	if (
-		isContentOnlyNonRootBlock &&
-		! isContentContainer &&
-		! isRootBlockMain
-	) {
 		return false;
 	}
 
@@ -1725,7 +1708,23 @@ const canInsertBlockTypeUnmemoized = (
 	const parentBlockType = getBlockType( parentName );
 
 	// Look at the `blockType.allowedBlocks` field to determine whether this is an allowed child block.
+	// We also use this to check whether child blocks can be inserted in content only mode.
 	const parentAllowedChildBlocks = parentBlockType?.allowedBlocks;
+	const hasAllowedBlockList = parentAllowedChildBlocks?.length > 0;
+
+	const isParentContentBlock = isContentBlock( parentName );
+	const isRootBlockMain = getSectionRootClientId( state ) === rootClientId;
+
+	if (
+		blockEditingMode === 'contentOnly' &&
+		! isRootBlockMain &&
+		( ( isParentContentBlock && ! hasAllowedBlockList ) ||
+			! isParentContentBlock )
+	) {
+		// In content only mode, we can only insert blocks in containers with limited allowed blocks.
+		return false;
+	}
+
 	let hasParentAllowedBlock = checkAllowList(
 		parentAllowedChildBlocks,
 		blockName
