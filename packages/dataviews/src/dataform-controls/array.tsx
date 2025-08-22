@@ -3,6 +3,7 @@
  */
 import { useCallback, useMemo, useRef, useState } from '@wordpress/element';
 import { FormTokenField } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -31,7 +32,7 @@ const ValidatedFormTokenControl = ( {
 			required &&
 			( ! valueRef.current || valueRef.current.length === 0 )
 		) {
-			setErrorMessage( 'This field is required.' );
+			setErrorMessage( __( 'This field is required.' ) );
 			return;
 		}
 
@@ -60,10 +61,10 @@ const ValidatedFormTokenControl = ( {
 	// Append required indicator to label
 	const labelWithIndicator = useMemo( () => {
 		if ( required && ! markWhenOptional ) {
-			return `${ label } (Required)`;
+			return `${ label } (${ __( 'Required' ) })`;
 		}
 		if ( ! required && markWhenOptional ) {
-			return `${ label } (Optional)`;
+			return `${ label } (${ __( 'Optional' ) })`;
 		}
 		return label;
 	}, [ label, required, markWhenOptional ] );
@@ -115,8 +116,8 @@ export default function ArrayControl< Item >( {
 		[ elements ]
 	);
 
-	// Ensure value is an array
-	const arrayValue = useMemo(
+	// Convert values to labels for display purposes only
+	const arrayValueForDisplay = useMemo(
 		() =>
 			Array.isArray( value )
 				? value.map( ( token ) => {
@@ -129,19 +130,25 @@ export default function ArrayControl< Item >( {
 
 	const onChangeControl = useCallback(
 		( tokens: ( string | { value: string } )[] ) => {
-			// Convert TokenItem objects to strings
-			const stringTokens = tokens.map( ( token ) => {
+			// Convert display labels back to values for storage
+			const valueTokens = tokens.map( ( token ) => {
 				if ( typeof token !== 'string' ) {
 					return token.value;
 				}
 
-				const tokenByLabel = findElementByLabel( token );
+				// If user entered a label, convert it to its corresponding value
+				const elementByLabel = findElementByLabel( token );
+				if ( elementByLabel ) {
+					return elementByLabel.value;
+				}
 
-				return tokenByLabel?.value || token;
+				// If no matching element found, treat it as a direct value
+				// This handles cases where user types values directly or when elements aren't defined
+				return token;
 			} );
 
 			onChange( {
-				[ id ]: stringTokens,
+				[ id ]: valueTokens,
 			} );
 		},
 		[ id, onChange, findElementByLabel ]
@@ -150,12 +157,21 @@ export default function ArrayControl< Item >( {
 	return (
 		<ValidatedFormTokenControl
 			required={ !! field.isValid?.required }
-			customValidator={ ( newValue: any ) => {
+			customValidator={ ( displayLabels: any ) => {
 				if ( field.isValid?.custom ) {
+					// Convert display labels back to values for validation
+					const actualValues = Array.isArray( displayLabels )
+						? displayLabels.map( ( displayLabel ) => {
+								const elementByLabel =
+									findElementByLabel( displayLabel );
+								return elementByLabel?.value || displayLabel;
+						  } )
+						: displayLabels;
+
 					const result = field.isValid.custom(
 						{
 							...data,
-							[ id ]: newValue,
+							[ id ]: actualValues,
 						},
 						field
 					);
@@ -165,7 +181,7 @@ export default function ArrayControl< Item >( {
 				return undefined;
 			} }
 			label={ hideLabelFromVision ? undefined : label }
-			value={ arrayValue }
+			value={ arrayValueForDisplay }
 			onChange={ onChangeControl }
 			placeholder={ placeholder }
 			suggestions={
