@@ -330,6 +330,7 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 		customEdit: string;
 		customValidation: string;
 		categories: string[];
+		countries: string[];
 	};
 
 	const [ post, setPost ] = useState< ValidatedItem >( {
@@ -338,6 +339,7 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 		integer: 2,
 		boolean: true,
 		categories: [ 'astronomy' ],
+		countries: [ 'us' ],
 		customEdit: 'custom control',
 		customValidation: 'potato',
 	} );
@@ -391,6 +393,26 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 			],
 		},
 		{
+			id: 'countries',
+			label: 'Countries Visited',
+			type: 'array' as const,
+			placeholder: 'Select countries',
+			description: 'Countries you have visited',
+			isValid: {
+				required,
+				elements: true,
+			},
+			elements: [
+				{ value: 'us', label: 'United States' },
+				{ value: 'ca', label: 'Canada' },
+				{ value: 'uk', label: 'United Kingdom' },
+				{ value: 'fr', label: 'France' },
+				{ value: 'de', label: 'Germany' },
+				{ value: 'jp', label: 'Japan' },
+				{ value: 'au', label: 'Australia' },
+			],
+		},
+		{
 			id: 'customEdit',
 			label: 'Custom Control',
 			Edit: CustomEditControl,
@@ -426,6 +448,7 @@ const DataFormValidationComponent = ( { required }: { required: boolean } ) => {
 			'integer',
 			'boolean',
 			'categories',
+			'countries',
 			'customEdit',
 			'customValidation',
 		],
