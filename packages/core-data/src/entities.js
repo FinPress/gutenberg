@@ -141,6 +141,7 @@ export const rootEntitiesConfig = [
 		getTitle: ( record ) => record?.name || record?.slug,
 		baseURLParams: { context: 'edit' },
 		plural: 'users',
+		supportsPagination: true,
 	},
 	{
 		name: 'comment',
@@ -149,6 +150,7 @@ export const rootEntitiesConfig = [
 		baseURLParams: { context: 'edit' },
 		plural: 'comments',
 		label: __( 'Comment' ),
+		supportsPagination: true,
 	},
 	{
 		name: 'menu',
@@ -207,6 +209,7 @@ export const rootEntitiesConfig = [
 		baseURLParams: { context: 'edit' },
 		plural: 'plugins',
 		key: 'plugin',
+		supportsPagination: true,
 	},
 	{
 		label: __( 'Status' ),
