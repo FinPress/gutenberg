@@ -29,6 +29,7 @@
 -   `TextareaControl`: Add missing component CSS classname ([#70930](https://github.com/WordPress/gutenberg/pull/70930)).
 -   `PaletteEdit`: Fill available space with input field ([#70935](https://github.com/WordPress/gutenberg/pull/70935)).
 -   `DatePicker`: Fix day label alignment for start and end of week ([#71005](https://github.com/WordPress/gutenberg/pull/71005)).
+-   `Modal`: Update the Modal Heading and Label text color value so that it matches with the text color used for other areas of the editor. ([#50448](https://github.com/WordPress/gutenberg/pull/71311)).
 
 ### Enhancement
 
