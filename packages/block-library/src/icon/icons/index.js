@@ -72,12 +72,6 @@ import {
 	wordpress,
 } from '@wordpress/icons';
 
-/**
- * Internal dependencies
- */
-// Temporary icon specifications that are not yet in the NPM package.
-import { sparkles } from './wordpress/temp';
-
 const wordpressIcons = [
 	{
 		name: 'arrowDown',
@@ -386,11 +380,6 @@ const wordpressIcons = [
 		name: 'settings',
 		title: __( 'Settings' ),
 		icon: settings,
-	},
-	{
-		name: 'sparkles',
-		title: __( 'Sparkles' ),
-		icon: sparkles,
 	},
 	{
 		name: 'starEmpty',
