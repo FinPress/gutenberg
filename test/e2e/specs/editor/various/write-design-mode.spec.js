@@ -224,7 +224,6 @@ test.describe( 'Write/Design mode', () => {
 		const paragraph = editor.canvas.getByRole( 'document', {
 			name: 'Block: Paragraph',
 		} );
-		const paragraphClientId = await paragraph.getAttribute( 'data-block' );
 
 		// Select paragraph
 		await paragraph.click();
@@ -232,15 +231,11 @@ test.describe( 'Write/Design mode', () => {
 		// Press enter to check whether it adds a new block.
 		await page.keyboard.press( 'Enter' );
 
-		// Check client id of selected block and see whether it matches paragraphClientId
-		const getSelectedBlock = async () =>
-			await page.evaluate( () =>
-				window.wp.data
-					.select( 'core/block-editor' )
-					.getSelectedBlockClientId()
-			);
+		// If no block was added, focus should still be on the paragraph.
+		await expect( paragraph ).toBeFocused();
 
-		expect( await getSelectedBlock() ).toEqual( paragraphClientId );
+		// The paragraph should still have the same text.
+		await expect( paragraph ).toHaveText( 'Something' );
 	} );
 	test( 'allows adding blocks to content role containers with allowed blocks', async ( {
 		editor,
@@ -271,10 +266,7 @@ test.describe( 'Write/Design mode', () => {
 		await editor.switchEditorTool( 'Write' );
 
 		// Select the inner list item block.
-		const listItem = editor.canvas.getByRole( 'document', {
-			name: 'Block: List item',
-		} );
-		const listItemClientId = await listItem.getAttribute( 'data-block' );
+		const listItem = editor.canvas.getByText( 'item 1' );
 
 		// Select list item
 		await listItem.click();
@@ -282,14 +274,10 @@ test.describe( 'Write/Design mode', () => {
 		// Press enter to check whether it adds a new block.
 		await page.keyboard.press( 'Enter' );
 
-		// Check client id of selected block and see whether it matches listItemClientId
-		const getSelectedBlock = async () =>
-			await page.evaluate( () =>
-				window.wp.data
-					.select( 'core/block-editor' )
-					.getSelectedBlockClientId()
-			);
-		// If a new block has been inserted, clientIds should not match.
-		expect( await getSelectedBlock() ).not.toEqual( listItemClientId );
+		// Write something in the new list item
+		await page.keyboard.type( 'item 2' );
+
+		await expect( listItem ).not.toBeFocused();
+		await expect( listItem ).not.toHaveText( 'item 2' );
 	} );
 } );
