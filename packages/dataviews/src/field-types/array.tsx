@@ -59,7 +59,7 @@ const arrayFieldType: FieldTypeDefinition< any > = {
 				return __( 'Every value must be a string.' );
 			}
 
-			if ( field?.elements ) {
+			if ( field?.elements && field.isValid?.elements ) {
 				const validValues = field.elements.map( ( f ) => f.value );
 				if (
 					! value.every( ( v: any ) => validValues.includes( v ) )
