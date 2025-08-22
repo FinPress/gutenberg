@@ -77,9 +77,19 @@ export default function ArrayControl< Item >( {
 			suggestions={
 				elements?.map( ( suggestion ) => suggestion.label ) ?? []
 			}
+			__experimentalValidateInput={ ( token ) => {
+				if ( ! field.isValid.elements ) {
+					return true;
+				}
+
+				// Check if the token matches any of the available elements
+				const tokenByLabel = findElementByLabel( token );
+				return !! tokenByLabel;
+			} }
 			__experimentalExpandOnFocus={ elements && elements.length > 0 }
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
+			__experimentalShowHowTo={ ! field.isValid.elements }
 		/>
 	);
 }
