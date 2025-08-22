@@ -222,7 +222,7 @@ export default function CollabSidebar() {
 	const { enableComplementaryArea } = useDispatch( interfaceStore );
 	const { getActiveComplementaryArea } = useSelect( interfaceStore );
 
-	const { postId, postType, postStatus, threads } = useSelect( ( select ) => {
+	const { postId, postType, threads } = useSelect( ( select ) => {
 		const { getCurrentPostId, getCurrentPostType } = select( editorStore );
 		const _postId = getCurrentPostId();
 		const data =
@@ -237,8 +237,6 @@ export default function CollabSidebar() {
 		return {
 			postId: _postId,
 			postType: getCurrentPostType(),
-			postStatus:
-				select( editorStore ).getEditedPostAttribute( 'status' ),
 			threads: data,
 		};
 	}, [] );
