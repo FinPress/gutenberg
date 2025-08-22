@@ -28,6 +28,7 @@ import {
 	prependHTTPS,
 	removeQueryArgs,
 	safeDecodeURI,
+	replaceUrlParams,
 } from '../';
 import wptData from './fixtures/wpt-data';
 
@@ -903,6 +904,67 @@ describe( 'removeQueryArgs', () => {
 
 		expect( removeQueryArgs( url, 'foo' ) ).toEqual(
 			'https://andalouses.example/beach#fragment?foo=bar'
+		);
+	} );
+} );
+
+describe( 'replaceUrlParams', () => {
+	it( 'should replace params in the URL path', () => {
+		const url = '/users/{$userId}/posts/{$postId}';
+		const params = { userId: 5, postId: 42 };
+		expect( replaceUrlParams( url, params ) ).toBe( '/users/5/posts/42' );
+	} );
+	it( 'should not replace anything if params are not provided', () => {
+		const url = '/users/{$userId}/posts/{$postId}';
+		expect( replaceUrlParams( url ) ).toBe( url );
+	} );
+	it( 'should leave params that are not provided as-is', () => {
+		const url = '/users/{$userId}/posts/{$postId}';
+		const params = { userId: 5 };
+		expect( replaceUrlParams( url, params ) ).toBe(
+			'/users/5/posts/{$postId}'
+		);
+	} );
+	it( 'should work with URLs that are absolute', () => {
+		const url = 'https://example.com/users/{$userId}/posts/{$postId}';
+		const params = { userId: 5, postId: 42 };
+		expect( replaceUrlParams( url, params ) ).toBe(
+			'https://example.com/users/5/posts/42'
+		);
+	} );
+	it( 'should work with URLS that have query parameters', () => {
+		const url = '/users/{$userId}/posts/{$postId}?foo=bar&baz=quux';
+		const params = { userId: 5, postId: 42 };
+		expect( replaceUrlParams( url, params ) ).toBe(
+			'/users/5/posts/42?foo=bar&baz=quux'
+		);
+	} );
+	it( 'should work with URLS that have a fragment', () => {
+		const url = '/users/{$userId}/posts/{$postId}#fragment';
+		const params = { userId: 5, postId: 42 };
+		expect( replaceUrlParams( url, params ) ).toBe(
+			'/users/5/posts/42#fragment'
+		);
+	} );
+	it( 'should work with URLS that have both query parameters and a fragment', () => {
+		const url = '/users/{$userId}/posts/{$postId}?foo=bar#fragment';
+		const params = { userId: 5, postId: 42 };
+		expect( replaceUrlParams( url, params ) ).toBe(
+			'/users/5/posts/42?foo=bar#fragment'
+		);
+	} );
+	it( 'should add remaining params as query parameters if not present in the path', () => {
+		const url = '/users/{$userId}/posts/{$postId}';
+		const params = { userId: 5, postId: 42, foo: 'bar', baz: 'quux' };
+		expect( replaceUrlParams( url, params ) ).toBe(
+			'/users/5/posts/42?foo=bar&baz=quux'
+		);
+	} );
+	it( 'should add remaining params as query parameters even if the URL already has some', () => {
+		const url = '/users/{$userId}/posts/{$postId}?existing=param';
+		const params = { userId: 5, postId: 42, foo: 'bar' };
+		expect( replaceUrlParams( url, params ) ).toBe(
+			'/users/5/posts/42?existing=param&foo=bar'
 		);
 	} );
 } );

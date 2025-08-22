@@ -67,5 +67,12 @@ export function replaceUrlParams(
 			}
 		} );
 	}
+
+	// If no args remain after replacing URL params, return the base URL.
+	if ( ! Object.keys( args ).length ) {
+		return baseUrl + fragment;
+	}
+
+	// Append remaining args as a querystring.
 	return baseUrl + '?' + buildQueryString( args ) + fragment;
 }
