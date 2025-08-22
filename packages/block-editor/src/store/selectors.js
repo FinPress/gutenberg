@@ -1702,10 +1702,9 @@ const canInsertBlockTypeUnmemoized = (
 	// If the block is content only and not root level, blocks can't be inserted.
 	const isContentOnlyNonRootBlock =
 		blockEditingMode === 'contentOnly' && !! rootClientId;
-	// The "main" tag block is used by zoom out mode so it should be possible to insert
+	// The section root block is used by zoom out mode so it should be possible to insert
 	// blocks inside it.
-	const isRootBlockMain =
-		getBlock( state, rootClientId )?.attributes?.tagName === 'main';
+	const isRootBlockMain = getSectionRootClientId( state ) === rootClientId;
 	if (
 		isContentOnlyNonRootBlock &&
 		! isContentContainer &&
