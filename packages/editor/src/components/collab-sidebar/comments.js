@@ -17,7 +17,7 @@ import {
 } from '@wordpress/components';
 import { Icon, check, published, moreVertical } from '@wordpress/icons';
 import { __, _x, sprintf } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
 /**
@@ -48,8 +48,8 @@ export function Comments( {
 	showCommentBoard,
 	setShowCommentBoard,
 } ) {
-	const { blockCommentId } = useSelect( ( select ) => {
-		const { getBlockAttributes, getSelectedBlockClientId } =
+	const { blockCommentId, blocks } = useSelect( ( select ) => {
+		const { getBlockAttributes, getSelectedBlockClientId, getBlocks } =
 			select( blockEditorStore );
 		const _clientId = getSelectedBlockClientId();
 
@@ -57,16 +57,64 @@ export function Comments( {
 			blockCommentId: _clientId
 				? getBlockAttributes( _clientId )?.blockCommentId
 				: null,
+			blocks: getBlocks(),
 		};
 	}, [] );
+
+	const { selectBlock, clearSelectedBlock } = useDispatch( blockEditorStore );
 
 	const [ focusThread, setFocusThread ] = useState(
 		showCommentBoard && blockCommentId ? blockCommentId : null
 	);
 
-	const clearThreadFocus = () => {
-		setFocusThread( null );
-		setShowCommentBoard( false );
+	// Function to find and select blocks by comment ID
+	const selectBlocksByCommentId = ( commentId ) => {
+		if ( ! commentId || ! blocks ) return;
+
+		// Find blocks that have this comment ID
+		const relatedBlocks = [];
+		const findBlocks = ( blockList ) => {
+			blockList.forEach( ( block ) => {
+				if ( block.attributes?.blockCommentId === commentId ) {
+					relatedBlocks.push( block.clientId );
+				}
+				if ( block.innerBlocks ) {
+					findBlocks( block.innerBlocks );
+				}
+			} );
+		};
+
+		findBlocks( blocks );
+
+		// Select the first related block if found
+		if ( relatedBlocks.length > 0 ) {
+			selectBlock( relatedBlocks[ 0 ] );
+
+			const iframe = document.querySelector(
+				'iframe[name="editor-canvas"]'
+			);
+			if ( iframe ) {
+				const blockEl = iframe.contentDocument.querySelector(
+					`[data-block="${ relatedBlocks[ 0 ] }"]`
+				);
+
+				if ( blockEl ) {
+					// add highlight
+					blockEl.setAttribute( 'data-comment-highlight', 'true' );
+
+					// clear after 2s
+					setTimeout( () => {
+						blockEl.removeAttribute( 'data-comment-highlight' );
+					}, 500 );
+				}
+			}
+		}
+	};
+
+	// Handle comment selection
+	const handleCommentSelect = ( threadId ) => {
+		setFocusThread( threadId );
+		selectBlocksByCommentId( threadId );
 	};
 
 	return (
@@ -104,7 +152,7 @@ export function Comments( {
 						) }
 						id={ thread.id }
 						spacing="3"
-						onClick={ () => setFocusThread( thread.id ) }
+						onClick={ () => handleCommentSelect( thread.id ) }
 					>
 						<Thread
 							thread={ thread }
@@ -113,7 +161,10 @@ export function Comments( {
 							onCommentResolve={ onCommentResolve }
 							onEditComment={ onEditComment }
 							isFocused={ focusThread === thread.id }
-							clearThreadFocus={ clearThreadFocus }
+							clearThreadFocus={ () => {
+								setFocusThread( null );
+								setShowCommentBoard( false );
+							} }
 						/>
 					</VStack>
 				) ) }
