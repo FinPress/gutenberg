@@ -531,6 +531,28 @@ _Returns_
 
 -   `string`: Updated URL.
 
+### replaceUrlParams
+
+Replaces URL params from query params to the provided URL. If the URL includes URL argument placeholders, the placeholders are replaced with their query param counterparts, and any remaining query params are appended as a querystring.
+
+_Usage_
+
+```js
+const newURL = addQueryArgs( 'https://google.com/site/{$id}/stats', {
+	id: 123,
+	q: 'test',
+} ); // https://google.com/site/123/stats?q=test
+```
+
+_Parameters_
+
+-   _url_ `string`: URL to which placeholders should be replaced. If omitted, only the resulting querystring is returned.
+-   _args_ `Record< string, unknown >`: Query arguments to be used to replace the URL param placeholders.
+
+_Returns_
+
+-   `string`: URL with placeholders replaced.
+
 ### safeDecodeURI
 
 Safely decodes a URI with `decodeURI`. Returns the URI unmodified if `decodeURI` throws an error.

@@ -6,7 +6,7 @@ import { camelCase } from 'change-case';
 /**
  * WordPress dependencies
  */
-import { addQueryArgs } from '@wordpress/url';
+import { addQueryArgs, replaceUrlParams } from '@wordpress/url';
 import { decodeEntities } from '@wordpress/html-entities';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -148,7 +148,7 @@ export const getEntityRecord =
 				// for how the request is made to the REST API.
 
 				// eslint-disable-next-line @wordpress/no-unused-vars-before-return
-				const path = addQueryArgs(
+				const path = replaceUrlParams(
 					entityConfig.baseURL + ( key ? '/' + key : '' ),
 					{
 						...entityConfig.baseURLParams,
@@ -271,7 +271,7 @@ export const getEntityRecords =
 				};
 			}
 
-			const path = addQueryArgs( entityConfig.baseURL, {
+			const path = replaceUrlParams( entityConfig.baseURL, {
 				...entityConfig.baseURLParams,
 				...query,
 			} );
