@@ -2,6 +2,6 @@
 	margin: auto;
 	max-width: 780px;
 	padding: 20px;
-	margin-top: 60px;
-	box-shadow: $shadow-modal;
+	margin-top: $header-height;
+	box-shadow: $elevation-large;
 }

@@ -32,6 +32,7 @@ const VALID_SETTINGS = [
 	'border.radius',
 	'border.style',
 	'border.width',
+	'border.radiusSizes',
 	'shadow.presets',
 	'shadow.defaultPresets',
 	'color.background',
@@ -207,11 +208,6 @@ export function useGlobalStyle(
 	}
 
 	return [ result, setStyle ];
-}
-
-export function useGlobalStyleLinks() {
-	const { merged: mergedConfig } = useContext( GlobalStylesContext );
-	return mergedConfig?._links;
 }
 
 /**

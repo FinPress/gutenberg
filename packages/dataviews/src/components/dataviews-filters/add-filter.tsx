@@ -19,17 +19,56 @@ import { forwardRef } from '@wordpress/element';
 import { unlock } from '../../lock-unlock';
 import type { NormalizedFilter, View } from '../../types';
 
-const {
-	DropdownMenuV2: DropdownMenu,
-	DropdownMenuItemV2: DropdownMenuItem,
-	DropdownMenuItemLabelV2: DropdownMenuItemLabel,
-} = unlock( componentsPrivateApis );
+const { Menu } = unlock( componentsPrivateApis );
 
 interface AddFilterProps {
 	filters: NormalizedFilter[];
 	view: View;
 	onChangeView: ( view: View ) => void;
 	setOpenedFilter: ( filter: string | null ) => void;
+}
+
+export function AddFilterMenu( {
+	filters,
+	view,
+	onChangeView,
+	setOpenedFilter,
+	triggerProps,
+}: AddFilterProps & {
+	triggerProps: React.ComponentProps< typeof Menu.TriggerButton >;
+} ) {
+	const inactiveFilters = filters.filter( ( filter ) => ! filter.isVisible );
+	return (
+		<Menu>
+			<Menu.TriggerButton { ...triggerProps } />
+			<Menu.Popover>
+				{ inactiveFilters.map( ( filter ) => {
+					return (
+						<Menu.Item
+							key={ filter.field }
+							onClick={ () => {
+								setOpenedFilter( filter.field );
+								onChangeView( {
+									...view,
+									page: 1,
+									filters: [
+										...( view.filters || [] ),
+										{
+											field: filter.field,
+											value: undefined,
+											operator: filter.operators[ 0 ],
+										},
+									],
+								} );
+							} }
+						>
+							<Menu.ItemLabel>{ filter.name }</Menu.ItemLabel>
+						</Menu.Item>
+					);
+				} ) }
+			</Menu.Popover>
+		</Menu>
+	);
 }
 
 function AddFilter(
@@ -41,47 +80,22 @@ function AddFilter(
 	}
 	const inactiveFilters = filters.filter( ( filter ) => ! filter.isVisible );
 	return (
-		<DropdownMenu
-			trigger={
-				<Button
-					accessibleWhenDisabled
-					size="compact"
-					className="dataviews-filters__button"
-					variant="tertiary"
-					disabled={ ! inactiveFilters.length }
-					ref={ ref }
-				>
-					{ __( 'Add filter' ) }
-				</Button>
-			}
-		>
-			{ inactiveFilters.map( ( filter ) => {
-				return (
-					<DropdownMenuItem
-						key={ filter.field }
-						onClick={ () => {
-							setOpenedFilter( filter.field );
-							onChangeView( {
-								...view,
-								page: 1,
-								filters: [
-									...( view.filters || [] ),
-									{
-										field: filter.field,
-										value: undefined,
-										operator: filter.operators[ 0 ],
-									},
-								],
-							} );
-						} }
-					>
-						<DropdownMenuItemLabel>
-							{ filter.name }
-						</DropdownMenuItemLabel>
-					</DropdownMenuItem>
-				);
-			} ) }
-		</DropdownMenu>
+		<AddFilterMenu
+			triggerProps={ {
+				render: (
+					<Button
+						accessibleWhenDisabled
+						size="compact"
+						className="dataviews-filters-button"
+						variant="tertiary"
+						disabled={ ! inactiveFilters.length }
+						ref={ ref }
+					/>
+				),
+				children: __( 'Add filter' ),
+			} }
+			{ ...{ filters, view, onChangeView, setOpenedFilter } }
+		/>
 	);
 }
 

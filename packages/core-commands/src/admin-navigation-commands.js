@@ -1,25 +1,160 @@
 /**
  * WordPress dependencies
  */
-import { useCommand } from '@wordpress/commands';
+import { useCommand, useCommandLoader } from '@wordpress/commands';
 import { __ } from '@wordpress/i18n';
 import { plus } from '@wordpress/icons';
+import { getPath } from '@wordpress/url';
+import { store as coreStore } from '@wordpress/core-data';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { useCallback, useMemo } from '@wordpress/element';
+import { store as noticesStore } from '@wordpress/notices';
+import { privateApis as routerPrivateApis } from '@wordpress/router';
+
+/**
+ * Internal dependencies
+ */
+import { unlock } from './lock-unlock';
+
+const { useHistory } = unlock( routerPrivateApis );
+
+const getAddNewPageCommand = () =>
+	function useAddNewPageCommand() {
+		const isSiteEditor = getPath( window.location.href )?.includes(
+			'site-editor.php'
+		);
+		const history = useHistory();
+		const isBlockBasedTheme = useSelect( ( select ) => {
+			return select( coreStore ).getCurrentTheme()?.is_block_theme;
+		}, [] );
+		const { saveEntityRecord } = useDispatch( coreStore );
+		const { createErrorNotice } = useDispatch( noticesStore );
+
+		const createPageEntity = useCallback(
+			async ( { close } ) => {
+				try {
+					const page = await saveEntityRecord(
+						'postType',
+						'page',
+						{
+							status: 'draft',
+						},
+						{
+							throwOnError: true,
+						}
+					);
+					if ( page?.id ) {
+						history.navigate( `/page/${ page.id }?canvas=edit` );
+					}
+				} catch ( error ) {
+					const errorMessage =
+						error.message && error.code !== 'unknown_error'
+							? error.message
+							: __(
+									'An error occurred while creating the item.'
+							  );
+
+					createErrorNotice( errorMessage, {
+						type: 'snackbar',
+					} );
+				} finally {
+					close();
+				}
+			},
+			[ createErrorNotice, history, saveEntityRecord ]
+		);
+
+		const commands = useMemo( () => {
+			const addNewPage =
+				isSiteEditor && isBlockBasedTheme
+					? createPageEntity
+					: () =>
+							( document.location.href =
+								'post-new.php?post_type=page' );
+			return [
+				{
+					name: 'core/add-new-page',
+					label: __( 'Add Page' ),
+					icon: plus,
+					callback: addNewPage,
+					keywords: [
+						__( 'page' ),
+						__( 'new' ),
+						__( 'add' ),
+						__( 'create' ),
+					],
+				},
+			];
+		}, [ createPageEntity, isSiteEditor, isBlockBasedTheme ] );
+
+		return {
+			isLoading: false,
+			commands,
+		};
+	};
+
+const getAdminBasicNavigationCommands = () =>
+	function useAdminBasicNavigationCommands() {
+		const { isBlockBasedTheme, canCreateTemplate } = useSelect(
+			( select ) => {
+				return {
+					isBlockBasedTheme:
+						select( coreStore ).getCurrentTheme()?.is_block_theme,
+					canCreateTemplate: select( coreStore ).canUser( 'create', {
+						kind: 'postType',
+						name: 'wp_template',
+					} ),
+				};
+			},
+			[]
+		);
+
+		const commands = useMemo( () => {
+			if ( canCreateTemplate && isBlockBasedTheme ) {
+				const isSiteEditor = getPath( window.location.href )?.includes(
+					'site-editor.php'
+				);
+				if ( ! isSiteEditor ) {
+					return [
+						{
+							name: 'core/go-to-site-editor',
+							label: __( 'Open Site Editor' ),
+							callback: ( { close } ) => {
+								close();
+								document.location = 'site-editor.php';
+							},
+						},
+					];
+				}
+			}
+
+			return [];
+		}, [ canCreateTemplate, isBlockBasedTheme ] );
+
+		return {
+			commands,
+			isLoading: false,
+		};
+	};
 
 export function useAdminNavigationCommands() {
 	useCommand( {
 		name: 'core/add-new-post',
-		label: __( 'Add new post' ),
+		label: __( 'Add Post' ),
 		icon: plus,
 		callback: () => {
-			document.location.href = 'post-new.php';
+			document.location.assign( 'post-new.php' );
 		},
+		keywords: [ __( 'post' ), __( 'new' ), __( 'add' ), __( 'create' ) ],
 	} );
-	useCommand( {
+
+	useCommandLoader( {
 		name: 'core/add-new-page',
-		label: __( 'Add new page' ),
-		icon: plus,
-		callback: () => {
-			document.location.href = 'post-new.php?post_type=page';
-		},
+		hook: getAddNewPageCommand(),
+	} );
+
+	useCommandLoader( {
+		name: 'core/admin-navigation',
+		hook: getAdminBasicNavigationCommands(),
 	} );
 }

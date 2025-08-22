@@ -9,18 +9,22 @@ test.describe( 'Font Library', () => {
 			await requestUtils.activateTheme( 'emptytheme' );
 		} );
 
-		test.beforeEach( async ( { admin, editor } ) => {
-			await admin.visitSiteEditor();
-			await editor.canvas.locator( 'body' ).click();
+		test.beforeEach( async ( { admin } ) => {
+			await admin.visitSiteEditor( {
+				postId: 'emptytheme//index',
+				postType: 'wp_template',
+				canvas: 'edit',
+			} );
 		} );
 
 		test( 'should display the "no font installed." message', async ( {
 			page,
 		} ) => {
-			await page.getByRole( 'button', { name: 'Styles' } ).click();
 			await page
-				.getByRole( 'button', { name: 'Typography Styles' } )
+				.getByRole( 'region', { name: 'Editor top bar' } )
+				.getByRole( 'button', { name: 'Styles' } )
 				.click();
+			await page.getByRole( 'button', { name: 'Typography' } ).click();
 			await page
 				.getByRole( 'button', {
 					name: 'Add fonts',
@@ -32,15 +36,16 @@ test.describe( 'Font Library', () => {
 			).toBeVisible();
 		} );
 
-		test( 'should display the "Add fonts" button', async ( { page } ) => {
-			await page.getByRole( 'button', { name: 'Styles' } ).click();
+		test( 'should display the "Manage fonts" icon', async ( { page } ) => {
 			await page
-				.getByRole( 'button', { name: 'Typography Styles' } )
+				.getByRole( 'region', { name: 'Editor top bar' } )
+				.getByRole( 'button', { name: 'Styles' } )
 				.click();
-			const addFontsButton = page.getByRole( 'button', {
-				name: 'Add fonts',
+			await page.getByRole( 'button', { name: 'Typography' } ).click();
+			const manageFontsIcon = page.getByRole( 'button', {
+				name: 'Manage fonts',
 			} );
-			await expect( addFontsButton ).toBeVisible();
+			await expect( manageFontsIcon ).toBeVisible();
 		} );
 	} );
 
@@ -49,31 +54,34 @@ test.describe( 'Font Library', () => {
 			await requestUtils.activateTheme( 'twentytwentythree' );
 		} );
 
-		test.beforeEach( async ( { admin, editor } ) => {
-			await admin.visitSiteEditor();
-			await editor.canvas.locator( 'body' ).click();
+		test.beforeEach( async ( { admin } ) => {
+			await admin.visitSiteEditor( {
+				postId: 'twentytwentythree//index',
+				postType: 'wp_template',
+				canvas: 'edit',
+			} );
 		} );
 
-		test( 'should display the "Manage fonts" button', async ( {
-			page,
-		} ) => {
-			await page.getByRole( 'button', { name: 'Styles' } ).click();
+		test( 'should display the "Manage fonts" icon', async ( { page } ) => {
 			await page
-				.getByRole( 'button', { name: 'Typography Styles' } )
+				.getByRole( 'region', { name: 'Editor top bar' } )
+				.getByRole( 'button', { name: 'Styles' } )
 				.click();
-			const manageFontsButton = page.getByRole( 'button', {
+			await page.getByRole( 'button', { name: 'Typography' } ).click();
+			const manageFontsIcon = page.getByRole( 'button', {
 				name: 'Manage fonts',
 			} );
-			await expect( manageFontsButton ).toBeVisible();
+			await expect( manageFontsIcon ).toBeVisible();
 		} );
 
-		test( 'should open the "Manage fonts" modal when clicking the "Manage fonts" button', async ( {
+		test( 'should open the "Manage fonts" modal when clicking the "Manage fonts" icon', async ( {
 			page,
 		} ) => {
-			await page.getByRole( 'button', { name: 'Styles' } ).click();
 			await page
-				.getByRole( 'button', { name: 'Typography Styles' } )
+				.getByRole( 'region', { name: 'Editor top bar' } )
+				.getByRole( 'button', { name: 'Styles' } )
 				.click();
+			await page.getByRole( 'button', { name: 'Typography' } ).click();
 			await page
 				.getByRole( 'button', {
 					name: 'Manage fonts',
@@ -88,10 +96,11 @@ test.describe( 'Font Library', () => {
 		test( 'should show font variant panel when clicking on a font family', async ( {
 			page,
 		} ) => {
-			await page.getByRole( 'button', { name: 'Styles' } ).click();
 			await page
-				.getByRole( 'button', { name: 'Typography Styles' } )
+				.getByRole( 'region', { name: 'Editor top bar' } )
+				.getByRole( 'button', { name: 'Styles' } )
 				.click();
+			await page.getByRole( 'button', { name: 'Typography' } ).click();
 			await page
 				.getByRole( 'button', {
 					name: 'Manage fonts',
@@ -125,19 +134,23 @@ test.describe( 'Font Library', () => {
 			);
 		} );
 
-		test.beforeEach( async ( { admin, editor } ) => {
-			await admin.visitSiteEditor();
-			await editor.canvas.locator( 'body' ).click();
+		test.beforeEach( async ( { admin } ) => {
+			await admin.visitSiteEditor( {
+				postId: 'emptytheme//index',
+				postType: 'wp_template',
+				canvas: 'edit',
+			} );
 		} );
 
 		test( 'should allow user to add and remove multiple local font files', async ( {
 			page,
 			editor,
 		} ) => {
-			await page.getByRole( 'button', { name: 'Styles' } ).click();
 			await page
-				.getByRole( 'button', { name: 'Typography Styles' } )
+				.getByRole( 'region', { name: 'Editor top bar' } )
+				.getByRole( 'button', { name: 'Styles' } )
 				.click();
+			await page.getByRole( 'button', { name: 'Typography' } ).click();
 			await page
 				.getByRole( 'button', {
 					name: 'Add fonts',
@@ -171,9 +184,10 @@ test.describe( 'Font Library', () => {
 			// Check CSS preset was created.
 			await page.getByRole( 'button', { name: 'Close' } ).click();
 			await page
-				.getByRole( 'button', { name: 'Typography Headings styles' } )
+				.getByRole( 'button', { name: 'Headings', exact: true } )
 				.click();
-			await page.getByLabel( 'Font' ).selectOption( 'Exo 2' );
+			await page.getByRole( 'combobox', { name: 'Font' } ).click();
+			await page.getByRole( 'option', { name: 'Exo 2' } ).click();
 			await expect(
 				editor.canvas.locator( '.is-root-container h1' )
 			).toHaveCSS( 'font-family', '"Exo 2"' );
@@ -202,15 +216,21 @@ test.describe( 'Font Library', () => {
 			await requestUtils.activateTheme( 'twentytwentyfour' );
 		} );
 
-		test.beforeEach( async ( { admin, editor } ) => {
-			await admin.visitSiteEditor();
-			await editor.canvas.locator( 'body' ).click();
+		test.beforeEach( async ( { admin } ) => {
+			await admin.visitSiteEditor( {
+				postId: 'twentytwentyfour//home',
+				postType: 'wp_template',
+				canvas: 'edit',
+			} );
 		} );
 
 		test( 'clicking on a font in the global styles sidebar should activate the font in the overlay when switching Theme Style variation', async ( {
 			page,
 		} ) => {
-			await page.getByRole( 'button', { name: /styles/i } ).click();
+			await page
+				.getByRole( 'region', { name: 'Editor top bar' } )
+				.getByRole( 'button', { name: 'Styles' } )
+				.click();
 
 			// Click "Browse styles"
 			await page.getByRole( 'button', { name: 'Browse styles' } ).click();
@@ -221,9 +241,7 @@ test.describe( 'Font Library', () => {
 			// Click "Back" button
 			await page.getByRole( 'button', { name: 'Back' } ).click();
 
-			await page
-				.getByRole( 'button', { name: 'Typography styles' } )
-				.click();
+			await page.getByRole( 'button', { name: 'Typography' } ).click();
 
 			// Click "Jost 2 variants" button
 			await page
@@ -255,9 +273,7 @@ test.describe( 'Font Library', () => {
 			// Click "Back" button
 			await page.getByRole( 'button', { name: 'Back' } ).click();
 
-			await page
-				.getByRole( 'button', { name: 'Typography styles' } )
-				.click();
+			await page.getByRole( 'button', { name: 'Typography' } ).click();
 
 			// Click Cardo font-family.
 			await page

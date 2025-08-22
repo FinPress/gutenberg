@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import { paramCase as kebabCase } from 'change-case';
+
+/**
  * WordPress dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -12,7 +17,6 @@ import {
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { cleanForSlug } from '@wordpress/url';
 
 /**
  * Internal dependencies
@@ -92,7 +96,7 @@ export default function CreateNewTemplateModal( { onClose } ) {
 			] );
 
 		const newTemplate = await createTemplate( {
-			slug: cleanForSlug( title || DEFAULT_TITLE ),
+			slug: kebabCase( title || DEFAULT_TITLE ) || 'wp-custom-template',
 			content: newTemplateContent,
 			title: title || DEFAULT_TITLE,
 		} );
@@ -111,6 +115,7 @@ export default function CreateNewTemplateModal( { onClose } ) {
 			onRequestClose={ cancel }
 			focusOnMount="firstContentElement"
 			size="small"
+			overlayClassName="editor-post-template__create-template-modal"
 		>
 			<form
 				className="editor-post-template__create-form"
@@ -118,6 +123,7 @@ export default function CreateNewTemplateModal( { onClose } ) {
 			>
 				<VStack spacing="3">
 					<TextControl
+						__next40pxDefaultSize
 						__nextHasNoMarginBottom
 						label={ __( 'Name' ) }
 						value={ title }
@@ -125,15 +131,21 @@ export default function CreateNewTemplateModal( { onClose } ) {
 						placeholder={ DEFAULT_TITLE }
 						disabled={ isBusy }
 						help={ __(
+							// eslint-disable-next-line no-restricted-syntax -- 'sidebar' is a common web design term for layouts
 							'Describe the template, e.g. "Post with sidebar". A custom template can be manually applied to any post or page.'
 						) }
 					/>
 					<HStack justify="right">
-						<Button variant="tertiary" onClick={ cancel }>
+						<Button
+							__next40pxDefaultSize
+							variant="tertiary"
+							onClick={ cancel }
+						>
 							{ __( 'Cancel' ) }
 						</Button>
 
 						<Button
+							__next40pxDefaultSize
 							variant="primary"
 							type="submit"
 							isBusy={ isBusy }

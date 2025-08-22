@@ -45,7 +45,7 @@ export default function AddNewPostModal( { postType, onSave, onClose } ) {
 				{
 					status: 'draft',
 					title,
-					slug: title || __( 'No title' ),
+					slug: title ?? undefined,
 					content:
 						!! postTypeObject.template &&
 						postTypeObject.template.length
@@ -64,7 +64,7 @@ export default function AddNewPostModal( { postType, onSave, onClose } ) {
 
 			createSuccessNotice(
 				sprintf(
-					// translators: %s: Title of the created post e.g: "Hello world".
+					// translators: %s: Title of the created post or template, e.g: "Hello world".
 					__( '"%s" successfully created.' ),
 					decodeEntities( newPage.title?.rendered || title )
 				),
@@ -95,9 +95,10 @@ export default function AddNewPostModal( { postType, onSave, onClose } ) {
 			size="small"
 		>
 			<form onSubmit={ createPost }>
-				<VStack spacing={ 3 }>
+				<VStack spacing={ 4 }>
 					<TextControl
 						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 						label={ __( 'Title' ) }
 						onChange={ setTitle }
 						placeholder={ __( 'No title' ) }

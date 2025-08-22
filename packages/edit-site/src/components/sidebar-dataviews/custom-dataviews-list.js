@@ -27,7 +27,7 @@ import DataViewItem from './dataview-item';
 import AddNewItem from './add-new-view';
 import { unlock } from '../../lock-unlock';
 
-const { useHistory } = unlock( routerPrivateApis );
+const { useHistory, useLocation } = unlock( routerPrivateApis );
 
 const EMPTY_ARRAY = [];
 
@@ -51,6 +51,7 @@ function RenameItemModalContent( { dataviewId, currentTitle, setIsRenaming } ) {
 		>
 			<VStack spacing="5">
 				<TextControl
+					__next40pxDefaultSize
 					__nextHasNoMarginBottom
 					label={ __( 'Name' ) }
 					value={ title }
@@ -84,6 +85,7 @@ function RenameItemModalContent( { dataviewId, currentTitle, setIsRenaming } ) {
 
 function CustomDataViewItem( { dataviewId, isActive } ) {
 	const history = useHistory();
+	const location = useLocation();
 	const { dataview } = useSelect(
 		( select ) => {
 			const { getEditedEntityRecord } = select( coreStore );
@@ -144,10 +146,10 @@ function CustomDataViewItem( { dataviewId, isActive } ) {
 											}
 										);
 										if ( isActive ) {
-											const {
-												params: { postType },
-											} = history.getLocationWithParams();
-											history.replace( { postType } );
+											history.replace( {
+												postType:
+													location.query.postType,
+											} );
 										}
 										onClose();
 									} }
@@ -211,7 +213,7 @@ export default function CustomDataViewsList( { type, activeView, isCustom } ) {
 			<div className="edit-site-sidebar-navigation-screen-dataviews__group-header">
 				<Heading level={ 2 }>{ __( 'Custom Views' ) }</Heading>
 			</div>
-			<ItemGroup>
+			<ItemGroup className="edit-site-sidebar-navigation-screen-dataviews__custom-items">
 				{ customDataViews.map( ( customViewRecord ) => {
 					return (
 						<CustomDataViewItem

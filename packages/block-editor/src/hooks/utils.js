@@ -135,7 +135,20 @@ export function shouldSkipSerialization(
 
 const pendingStyleOverrides = new WeakMap();
 
-export function useStyleOverride( {
+/**
+ * Override a block editor settings style. Leave the ID blank to create a new
+ * style.
+ *
+ * @param {Object}  override     Override object.
+ * @param {?string} override.id  Id of the style override, leave blank to create
+ *                               a new style.
+ * @param {string}  override.css CSS to apply.
+ */
+export function useStyleOverride( { id, css } ) {
+	return usePrivateStyleOverride( { id, css } );
+}
+
+export function usePrivateStyleOverride( {
 	id,
 	css,
 	assets,
@@ -255,6 +268,7 @@ export function useBlockSettings( name, parentLayout ) {
 		borderRadius,
 		borderStyle,
 		borderWidth,
+		borderRadiusSizes,
 		customColorsEnabled,
 		customColors,
 		customDuotone,
@@ -312,6 +326,7 @@ export function useBlockSettings( name, parentLayout ) {
 		'border.radius',
 		'border.style',
 		'border.width',
+		'border.radiusSizes',
 		'color.custom',
 		'color.palette.custom',
 		'color.customDuotone',
@@ -410,6 +425,7 @@ export function useBlockSettings( name, parentLayout ) {
 				radius: borderRadius,
 				style: borderStyle,
 				width: borderWidth,
+				radiusSizes: borderRadiusSizes,
 			},
 			dimensions: {
 				aspectRatio,
@@ -456,6 +472,7 @@ export function useBlockSettings( name, parentLayout ) {
 		borderRadius,
 		borderStyle,
 		borderWidth,
+		borderRadiusSizes,
 		customColorsEnabled,
 		customColors,
 		customDuotone,
@@ -549,8 +566,13 @@ export function createBlockEditFilter( features ) {
 	addFilter( 'editor.BlockEdit', 'core/editor/hooks', withBlockEditHooks );
 }
 
-function BlockProps( { index, useBlockProps, setAllWrapperProps, ...props } ) {
-	const wrapperProps = useBlockProps( props );
+function BlockProps( {
+	index,
+	useBlockProps: hook,
+	setAllWrapperProps,
+	...props
+} ) {
+	const wrapperProps = hook( props );
 	const setWrapperProps = ( next ) =>
 		setAllWrapperProps( ( prev ) => {
 			const nextAll = [ ...prev ];

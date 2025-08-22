@@ -182,7 +182,7 @@ _Parameters_
 
 -   _kind_ `string`: Kind of the deleted entity.
 -   _name_ `string`: Name of the deleted entity.
--   _recordId_ `string`: Record ID of the deleted entity.
+-   _recordId_ `number|string`: Record ID of the deleted entity.
 -   _query_ `?Object`: Special query parameters for the DELETE API call.
 -   _options_ `[Object]`: Delete options.
 -   _options.\_\_unstableFetch_ `[Function]`: Internal use only. Function to call instead of `apiFetch()`. Must return a promise.
@@ -264,7 +264,7 @@ _Parameters_
 
 ### receiveThemeSupports
 
-> **Deprecated** since WP 5.9, this is not useful anymore, use the selector direclty.
+> **Deprecated** since WP 5.9, this is not useful anymore, use the selector directly.
 
 Returns an action object used in signalling that the index has been received.
 
@@ -288,7 +288,7 @@ _Returns_
 
 ### redo
 
-Action triggered to redo the last undoed edit to an entity record, if any.
+Action triggered to redo the last undone edit to an entity record, if any.
 
 ### saveEditedEntityRecord
 
@@ -339,7 +339,7 @@ _Parameters_
 
 -   _state_ `State`: Data state.
 -   _action_ `string`: Action to check. One of: 'create', 'read', 'update', 'delete'.
--   _resource_ `string | EntityResource`: Entity resource to check. Accepts entity object `{ kind: 'root', name: 'media', id: 1 }` or REST base as a string - `media`.
+-   _resource_ `string | EntityResource`: Entity resource to check. Accepts entity object `{ kind: 'postType', name: 'attachment', id: 1 }` or REST base as a string - `media`.
 -   _id_ `EntityRecordKey`: Optional ID of the rest resource to check.
 
 _Returns_
@@ -581,7 +581,7 @@ _Parameters_
 -   _state_ `State`: State tree
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
--   _key_ `EntityRecordKey`: Record's key
+-   _key_ `EntityRecordKey`: Optional record's key. If requesting a global record (e.g. site settings), the key can be omitted. If requesting a specific item, the key must always be included.
 -   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available "Retrieve a [Entity kind]".
 
 _Returns_
@@ -1011,7 +1011,7 @@ _Parameters_
 -   _kind_ `string`: The entity kind.
 -   _name_ `string`: The entity name.
 -   _prop_ `string`: The property name.
--   _\_id_ `[string]`: An entity ID to use instead of the context-provided one.
+-   _\_id_ `[number|string]`: An entity ID to use instead of the context-provided one.
 
 _Returns_
 
@@ -1083,6 +1083,8 @@ function PageRenameForm( { id } ) {
 	return (
 		<form onSubmit={ onRename }>
 			<TextControl
+				__nextHasNoMarginBottom
+				__next40pxDefaultSize
 				label={ __( 'Name' ) }
 				value={ page.editedRecord.title }
 				onChange={ setTitle }
@@ -1173,7 +1175,10 @@ _Usage_
 import { useResourcePermissions } from '@wordpress/core-data';
 
 function PagesList() {
-	const { canCreate, isResolving } = useResourcePermissions( 'pages' );
+	const { canCreate, isResolving } = useResourcePermissions( {
+		kind: 'postType',
+		name: 'page',
+	} );
 
 	if ( isResolving ) {
 		return 'Loading ...';
@@ -1196,7 +1201,11 @@ import { useResourcePermissions } from '@wordpress/core-data';
 
 function Page( { pageId } ) {
 	const { canCreate, canUpdate, canDelete, isResolving } =
-		useResourcePermissions( 'pages', pageId );
+		useResourcePermissions( {
+			kind: 'postType',
+			name: 'page',
+			id: pageId,
+		} );
 
 	if ( isResolving ) {
 		return 'Loading ...';
@@ -1222,8 +1231,8 @@ the store state using `canUser()`, or resolved if missing.
 
 _Parameters_
 
--   _resource_ `string`: The resource in question, e.g. media.
--   _id_ `IdType`: ID of a specific resource entry, if needed, e.g. 10.
+-   _resource_ `string | EntityResource`: Entity resource to check. Accepts entity object `{ kind: 'postType', name: 'attachment', id: 1 }` or REST base as a string - `media`.
+-   _id_ `IdType`: Optional ID of the resource to check, e.g. 10. Note: This argument is discouraged when using an entity object as a resource to check permissions and will be ignored.
 
 _Returns_
 

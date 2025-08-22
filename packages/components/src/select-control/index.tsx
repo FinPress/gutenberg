@@ -18,6 +18,7 @@ import type { WordPressComponentProps } from '../context';
 import type { SelectControlProps } from './types';
 import SelectControlChevronDown from './chevron-down';
 import { useDeprecated36pxDefaultSizeProp } from '../utils/use-deprecated-props';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 function useUniqueId( idProp?: string ) {
 	const instanceId = useInstanceId( SelectControl );
@@ -26,8 +27,24 @@ function useUniqueId( idProp?: string ) {
 	return idProp || id;
 }
 
-function UnforwardedSelectControl(
-	props: WordPressComponentProps< SelectControlProps, 'select', false >,
+function SelectOptions( {
+	options,
+}: {
+	options: NonNullable< SelectControlProps[ 'options' ] >;
+} ) {
+	return options.map( ( { id, label, value, ...optionProps }, index ) => {
+		const key = id || `${ label }-${ value }-${ index }`;
+
+		return (
+			<option key={ key } value={ value } { ...optionProps }>
+				{ label }
+			</option>
+		);
+	} );
+}
+
+function UnforwardedSelectControl< V extends string >(
+	props: WordPressComponentProps< SelectControlProps< V >, 'select', false >,
 	ref: React.ForwardedRef< HTMLSelectElement >
 ) {
 	const {
@@ -49,6 +66,7 @@ function UnforwardedSelectControl(
 		variant = 'default',
 		__next40pxDefaultSize = false,
 		__nextHasNoMarginBottom = false,
+		__shouldNotWarnDeprecated36pxSize,
 		...restProps
 	} = useDeprecated36pxDefaultSizeProp( props );
 	const id = useUniqueId( idProp );
@@ -66,24 +84,34 @@ function UnforwardedSelectControl(
 			const selectedOptions = Array.from( event.target.options ).filter(
 				( { selected } ) => selected
 			);
-			const newValues = selectedOptions.map( ( { value } ) => value );
+			const newValues = selectedOptions.map(
+				( { value } ) => value as V
+			);
 			props.onChange?.( newValues, { event } );
 			return;
 		}
 
-		props.onChange?.( event.target.value, { event } );
+		props.onChange?.( event.target.value as V, { event } );
 	};
 
 	const classes = clsx( 'components-select-control', className );
+
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'SelectControl',
+		__next40pxDefaultSize,
+		size,
+		__shouldNotWarnDeprecated36pxSize,
+	} );
 
 	return (
 		<BaseControl
 			help={ help }
 			id={ id }
+			className={ classes }
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
+			__associatedWPComponentName="SelectControl"
 		>
 			<StyledInputBase
-				className={ classes }
 				disabled={ disabled }
 				hideLabelFromVision={ hideLabelFromVision }
 				id={ id }
@@ -115,23 +143,7 @@ function UnforwardedSelectControl(
 					value={ valueProp }
 					variant={ variant }
 				>
-					{ children ||
-						options.map( ( option, index ) => {
-							const key =
-								option.id ||
-								`${ option.label }-${ option.value }-${ index }`;
-
-							return (
-								<option
-									key={ key }
-									value={ option.value }
-									disabled={ option.disabled }
-									hidden={ option.hidden }
-								>
-									{ option.label }
-								</option>
-							);
-						} ) }
+					{ children || <SelectOptions options={ options } /> }
 				</Select>
 			</StyledInputBase>
 		</BaseControl>
@@ -151,6 +163,8 @@ function UnforwardedSelectControl(
  *
  *   return (
  *     <SelectControl
+ *       __next40pxDefaultSize
+ *       __nextHasNoMarginBottom
  *       label="Size"
  *       value={ size }
  *       options={ [
@@ -164,6 +178,14 @@ function UnforwardedSelectControl(
  * };
  * ```
  */
-export const SelectControl = forwardRef( UnforwardedSelectControl );
+export const SelectControl = forwardRef( UnforwardedSelectControl ) as <
+	V extends string,
+>(
+	props: WordPressComponentProps<
+		SelectControlProps< V >,
+		'select',
+		false
+	> & { ref?: React.Ref< HTMLSelectElement > }
+) => React.JSX.Element | null;
 
 export default SelectControl;

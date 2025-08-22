@@ -7,6 +7,7 @@ import {
 	store as coreStore,
 	__experimentalFetchLinkSuggestions as fetchLinkSuggestions,
 	__experimentalFetchUrlData as fetchUrlData,
+	privateApis as coreDataPrivateApis,
 } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { store as preferencesStore } from '@wordpress/preferences';
@@ -22,19 +23,20 @@ import {
  */
 import inserterMediaCategories from '../media-categories';
 import { mediaUpload } from '../../utils';
+import { default as mediaSideload } from '../../utils/media-sideload';
 import { store as editorStore } from '../../store';
-import { lock, unlock } from '../../lock-unlock';
+import { unlock } from '../../lock-unlock';
 import { useGlobalStylesContext } from '../global-styles-provider';
 
-const EMPTY_BLOCKS_LIST = [];
 const EMPTY_OBJECT = {};
 
 function __experimentalReusableBlocksSelect( select ) {
-	return (
-		select( coreStore ).getEntityRecords( 'postType', 'wp_block', {
-			per_page: -1,
-		} ) ?? EMPTY_BLOCKS_LIST
-	);
+	const { RECEIVE_INTERMEDIATE_RESULTS } = unlock( coreDataPrivateApis );
+	const { getEntityRecords } = select( coreStore );
+	return getEntityRecords( 'postType', 'wp_block', {
+		per_page: -1,
+		[ RECEIVE_INTERMEDIATE_RESULTS ]: true,
+	} );
 }
 
 const BLOCK_EDITOR_SETTINGS = [
@@ -44,9 +46,11 @@ const BLOCK_EDITOR_SETTINGS = [
 	'__experimentalGlobalStylesBaseStyles',
 	'alignWide',
 	'blockInspectorTabs',
+	'maxUploadFileSize',
 	'allowedMimeTypes',
 	'bodyPlaceholder',
 	'canLockBlocks',
+	'canUpdateBlockBindings',
 	'capabilities',
 	'clearBlockSelection',
 	'codeEditingEnabled',
@@ -68,19 +72,18 @@ const BLOCK_EDITOR_SETTINGS = [
 	'imageDimensions',
 	'imageEditing',
 	'imageSizes',
+	'isPreviewMode',
 	'isRTL',
 	'locale',
 	'maxWidth',
 	'postContentAttributes',
 	'postsPerPage',
 	'readOnly',
-	'sectionRootClientId',
 	'styles',
 	'titlePlaceholder',
 	'supportsLayout',
 	'widgetTypesToHideFromLegacyWidgetBlock',
 	'__unstableHasCustomAppender',
-	'__unstableIsPreviewMode',
 	'__unstableResolvedAssets',
 	'__unstableIsBlockBasedTheme',
 ];
@@ -90,6 +93,8 @@ const {
 	globalStylesLinksDataKey,
 	selectBlockPatternsKey,
 	reusableBlocksSelectKey,
+	sectionRootClientIdKey,
+	mediaEditKey,
 } = unlock( privateApis );
 
 /**
@@ -172,8 +177,8 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 				keepCaretInsideBlock: get( 'core', 'keepCaretInsideBlock' ),
 				hasUploadPermissions:
 					canUser( 'create', {
-						kind: 'root',
-						name: 'media',
+						kind: 'postType',
+						name: 'attachment',
 					} ) ?? true,
 				userCanCreatePages: canUser( 'create', {
 					kind: 'postType',
@@ -227,7 +232,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 	);
 
 	const { undo, setIsInserterOpened } = useDispatch( editorStore );
-
+	const { editMediaEntity } = unlock( useDispatch( coreStore ) );
 	const { saveEntityRecord } = useDispatch( coreStore );
 
 	/**
@@ -287,7 +292,11 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			hasFixedToolbar,
 			isDistractionFree,
 			keepCaretInsideBlock,
+			[ mediaEditKey ]: hasUploadPermissions
+				? editMediaEntity
+				: undefined,
 			mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
+			mediaSideload: hasUploadPermissions ? mediaSideload : undefined,
 			__experimentalBlockPatterns: blockPatterns,
 			[ selectBlockPatternsKey ]: ( select ) => {
 				const { hasFinishedResolution, getBlockPatternsForPostType } =
@@ -325,10 +334,13 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 					? [ [ 'core/navigation', {}, [] ] ]
 					: settings.template,
 			__experimentalSetIsInserterOpened: setIsInserterOpened,
+			[ sectionRootClientIdKey ]: sectionRootClientId,
+			editorTool:
+				renderingMode === 'post-only' && postType !== 'wp_template'
+					? 'edit'
+					: undefined,
 		};
-		lock( blockEditorSettings, {
-			sectionRootClientId,
-		} );
+
 		return blockEditorSettings;
 	}, [
 		allowedBlockTypes,
@@ -354,6 +366,8 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 		sectionRootClientId,
 		globalStylesData,
 		globalStylesLinksData,
+		renderingMode,
+		editMediaEntity,
 	] );
 }
 

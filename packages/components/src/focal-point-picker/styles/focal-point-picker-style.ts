@@ -22,7 +22,7 @@ export const MediaWrapper = styled.div`
 
 export const MediaContainer = styled.div`
 	align-items: center;
-	border-radius: ${ CONFIG.radiusBlockUi };
+	border-radius: ${ CONFIG.radiusSmall };
 	cursor: pointer;
 	display: inline-flex;
 	justify-content: center;
@@ -53,7 +53,7 @@ export const MediaContainer = styled.div`
 		max-width: 100%;
 		pointer-events: none;
 		user-select: none;
-		width: auto;
+		width: 100%;
 	}
 `;
 

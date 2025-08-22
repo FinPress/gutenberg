@@ -8,74 +8,177 @@ import clsx from 'clsx';
  */
 import { __ } from '@wordpress/i18n';
 import { DataForm } from '@wordpress/dataviews';
-import { useDispatch, useSelect, useRegistry } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
 import { store as coreDataStore } from '@wordpress/core-data';
-import { Button } from '@wordpress/components';
-import { useState, useMemo } from '@wordpress/element';
+import { __experimentalVStack as VStack } from '@wordpress/components';
+import { useState, useMemo, useEffect } from '@wordpress/element';
+import { privateApis as editorPrivateApis } from '@wordpress/editor';
 
 /**
  * Internal dependencies
  */
 import Page from '../page';
-import usePostFields from '../post-fields';
+import { unlock } from '../../lock-unlock';
+import usePatternSettings from '../page-patterns/use-pattern-settings';
+import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+
+const { usePostFields, PostCardPanel } = unlock( editorPrivateApis );
+
+const fieldsWithBulkEditSupport = [
+	'title',
+	'status',
+	'date',
+	'author',
+	'comment_status',
+];
 
 function PostEditForm( { postType, postId } ) {
 	const ids = useMemo( () => postId.split( ',' ), [ postId ] );
-	const { initialEdits } = useSelect(
+	const { record, hasFinishedResolution } = useSelect(
 		( select ) => {
-			if ( ids.length !== 1 ) {
-			}
+			const args = [ 'postType', postType, ids[ 0 ] ];
+
+			const {
+				getEditedEntityRecord,
+				hasFinishedResolution: hasFinished,
+			} = select( coreDataStore );
+
 			return {
-				initialEdits:
-					ids.length === 1
-						? select( coreDataStore ).getEntityRecord(
-								'postType',
-								postType,
-								ids[ 0 ]
-						  )
-						: null,
+				record:
+					ids.length === 1 ? getEditedEntityRecord( ...args ) : null,
+				hasFinishedResolution: hasFinished(
+					'getEditedEntityRecord',
+					args
+				),
 			};
 		},
 		[ postType, ids ]
 	);
-	const registry = useRegistry();
-	const { saveEntityRecord } = useDispatch( coreDataStore );
-	const { fields } = usePostFields();
-	const form = {
-		visibleFields: [ 'title' ],
-	};
-	const [ edits, setEdits ] = useState( {} );
-	const itemWithEdits = useMemo( () => {
-		return {
-			...initialEdits,
-			...edits,
-		};
-	}, [ initialEdits, edits ] );
-	const onSubmit = async ( event ) => {
-		event.preventDefault();
-		const { getEntityRecord } = registry.resolveSelect( coreDataStore );
+	const [ multiEdits, setMultiEdits ] = useState( {} );
+	const { editEntityRecord } = useDispatch( coreDataStore );
+	const { fields: _fields } = usePostFields( { postType } );
+	const fields = useMemo(
+		() =>
+			_fields?.map( ( field ) => {
+				if ( field.id === 'status' ) {
+					return {
+						...field,
+						elements: field.elements.filter(
+							( element ) => element.value !== 'trash'
+						),
+					};
+				}
+				return field;
+			} ),
+		[ _fields ]
+	);
+
+	const form = useMemo(
+		() => ( {
+			layout: {
+				type: 'panel',
+			},
+			fields: [
+				{
+					id: 'featured_media',
+					layout: {
+						type: 'regular',
+					},
+				},
+				{
+					id: 'status',
+					label: __( 'Status & Visibility' ),
+					children: [ 'status', 'password' ],
+				},
+				'author',
+				'date',
+				'slug',
+				'parent',
+				'comment_status',
+				{
+					label: __( 'Template' ),
+					id: 'template',
+					layout: {
+						type: 'regular',
+						labelPosition: 'side',
+					},
+				},
+			].filter(
+				( field ) =>
+					ids.length === 1 ||
+					fieldsWithBulkEditSupport.includes( field )
+			),
+		} ),
+		[ ids ]
+	);
+	const onChange = ( edits ) => {
 		for ( const id of ids ) {
-			const item = await getEntityRecord( 'postType', postType, id );
-			saveEntityRecord( 'postType', postType, {
-				...item,
-				...edits,
-			} );
+			if (
+				edits.status &&
+				edits.status !== 'future' &&
+				record?.status === 'future' &&
+				new Date( record.date ) > new Date()
+			) {
+				edits.date = null;
+			}
+			if (
+				edits.status &&
+				edits.status === 'private' &&
+				record.password
+			) {
+				edits.password = '';
+			}
+			editEntityRecord( 'postType', postType, id, edits );
+			if ( ids.length > 1 ) {
+				setMultiEdits( ( prev ) => ( {
+					...prev,
+					...edits,
+				} ) );
+			}
 		}
-		setEdits( {} );
 	};
+	useEffect( () => {
+		setMultiEdits( {} );
+	}, [ ids ] );
+
+	const { ExperimentalBlockEditorProvider } = unlock(
+		blockEditorPrivateApis
+	);
+	const settings = usePatternSettings();
+
+	/**
+	 * The template field depends on the block editor settings.
+	 * This is a workaround to ensure that the block editor settings are available.
+	 * For more information, see: https://github.com/WordPress/gutenberg/issues/67521
+	 */
+	const fieldsWithDependency = useMemo( () => {
+		return fields.map( ( field ) => {
+			if ( field.id === 'template' ) {
+				return {
+					...field,
+					Edit: ( data ) => (
+						<ExperimentalBlockEditorProvider settings={ settings }>
+							<field.Edit { ...data } />
+						</ExperimentalBlockEditorProvider>
+					),
+				};
+			}
+			return field;
+		} );
+	}, [ fields, settings ] );
 
 	return (
-		<form onSubmit={ onSubmit }>
-			<DataForm
-				data={ itemWithEdits }
-				fields={ fields }
-				form={ form }
-				onChange={ setEdits }
-			/>
-			<Button variant="primary" type="submit">
-				{ __( 'Update' ) }
-			</Button>
-		</form>
+		<VStack spacing={ 4 }>
+			<PostCardPanel postType={ postType } postId={ ids } />
+			{ hasFinishedResolution && (
+				<DataForm
+					data={ ids.length === 1 ? record : multiEdits }
+					fields={ fieldsWithDependency }
+					form={ form }
+					onChange={ onChange }
+				/>
+			) }
+		</VStack>
 	);
 }
 
