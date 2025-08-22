@@ -1,11 +1,8 @@
 /**
  * WordPress dependencies
  */
+import { usePrevious } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-
-/**
- * External dependencies
- */
 import {
 	cloneElement,
 	forwardRef,
@@ -98,6 +95,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		| undefined
 	>();
 	const [ isTouched, setIsTouched ] = useState( false );
+	const previousCustomValidityType = usePrevious( customValidity?.type );
 
 	// Ensure that error messages are visible after user attemps to submit a form
 	// with multiple invalid fields.
@@ -135,7 +133,7 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 				// Wait before showing a validating state.
 				const timer = setTimeout( () => {
 					validityTarget?.setCustomValidity( '' );
-					setErrorMessage( validityTarget?.validationMessage );
+					setErrorMessage( undefined );
 
 					setStatusMessage( {
 						type: 'validating',
@@ -146,6 +144,12 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 				return () => clearTimeout( timer );
 			}
 			case 'valid': {
+				// Ensures that we wait for any async responses before showing
+				// a synchronously valid state.
+				if ( previousCustomValidityType === 'valid' ) {
+					break;
+				}
+
 				validityTarget?.setCustomValidity( '' );
 				setErrorMessage( validityTarget?.validationMessage );
 
@@ -170,9 +174,14 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 		customValidity?.type,
 		customValidity?.message,
 		getValidityTarget,
+		previousCustomValidityType,
 	] );
 
 	const onBlur = ( event: React.FocusEvent< HTMLDivElement > ) => {
+		if ( isTouched ) {
+			return;
+		}
+
 		// Only consider "blurred from the component" if focus has fully left the wrapping div.
 		// This prevents unnecessary blurs from components with multiple focusable elements.
 		if (
@@ -180,17 +189,6 @@ function UnforwardedControlWithError< C extends React.ReactElement >(
 			! event.currentTarget.contains( event.relatedTarget )
 		) {
 			setIsTouched( true );
-
-			const validityTarget = getValidityTarget();
-
-			// Prevents a double flash of the native error tooltip when the control is already showing one.
-			if ( ! validityTarget?.validity.valid ) {
-				if ( ! errorMessage ) {
-					setErrorMessage( validityTarget?.validationMessage );
-				}
-				return;
-			}
-
 			onValidate?.();
 		}
 	};
