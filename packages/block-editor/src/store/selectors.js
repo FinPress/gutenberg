@@ -1687,6 +1687,8 @@ const canInsertBlockTypeUnmemoized = (
 	}
 	const isContentRoleBlock = isContentBlock( blockName );
 	const _isSectionBlock = !! isSectionBlock( state, rootClientId );
+	// It shouldn't be possible to insert inside a section block unless in
+	// some cases when the block is a content block.
 	if ( _isSectionBlock && ! isContentRoleBlock ) {
 		return false;
 	}
@@ -1708,20 +1710,20 @@ const canInsertBlockTypeUnmemoized = (
 	const parentBlockType = getBlockType( parentName );
 
 	// Look at the `blockType.allowedBlocks` field to determine whether this is an allowed child block.
-	// We also use this to check whether child blocks can be inserted in content only mode.
 	const parentAllowedChildBlocks = parentBlockType?.allowedBlocks;
 	const hasAllowedBlockList = parentAllowedChildBlocks?.length > 0;
-
 	const isParentContentBlock = isContentBlock( parentName );
 	const isRootBlockMain = getSectionRootClientId( state ) === rootClientId;
 
+	// In contentOnly mode, containers shouldn't be inserted into unless:
+	// 1. they are a section root;
+	// 2. they are a content block with limited allowed blocks (e.g. list).
 	if (
 		blockEditingMode === 'contentOnly' &&
 		! isRootBlockMain &&
 		( ( isParentContentBlock && ! hasAllowedBlockList ) ||
 			! isParentContentBlock )
 	) {
-		// In content only mode, we can only insert blocks in containers with limited allowed blocks.
 		return false;
 	}
 
