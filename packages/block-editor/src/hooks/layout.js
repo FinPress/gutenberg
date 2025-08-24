@@ -101,6 +101,14 @@ export function useLayoutClasses( blockAttributes = {}, blockName = '' ) {
 		);
 	}
 
+	if ( usedLayout?.verticalAlignment ) {
+		layoutClassnames.push(
+			`is-vertical-alignment-${ kebabCase(
+				usedLayout.verticalAlignment
+			) }`
+		);
+	}
+
 	if ( usedLayout?.flexWrap && usedLayout.flexWrap === 'nowrap' ) {
 		layoutClassnames.push( 'is-nowrap' );
 	}
