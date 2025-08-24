@@ -17,6 +17,7 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { createTemplatePartId } from './create-template-part-id';
+import { getTemplatePartIcon } from './get-template-part-icon';
 
 /**
  * Retrieves the available template parts for the given area.
@@ -148,7 +149,9 @@ export function useTemplatePartArea( area ) {
 			);
 
 			return {
-				icon: selectedArea?.icon || defaultArea?.icon,
+				icon: getTemplatePartIcon(
+					selectedArea?.icon || defaultArea?.icon
+				),
 				label: selectedArea?.label || __( 'Template Part' ),
 				tagName: selectedArea?.area_tag ?? 'div',
 			};
