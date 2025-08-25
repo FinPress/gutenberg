@@ -149,6 +149,10 @@ export function getDropTargetPosition(
 		} ) => {
 			const rect = getBoundingClientRect();
 
+			if ( ! rect ) {
+				return;
+			}
+
 			let [ distance, edge ] = getDistanceToNearestEdge(
 				position,
 				rect,
@@ -441,10 +445,14 @@ export default function useBlockDropZone( {
 					return {
 						isUnmodifiedDefaultBlock:
 							getIsUnmodifiedDefaultBlock( block ),
-						getBoundingClientRect: () =>
-							ownerDocument
-								.getElementById( `block-${ clientId }` )
-								.getBoundingClientRect(),
+						getBoundingClientRect: () => {
+							const blockElement = ownerDocument.getElementById(
+								`block-${ clientId }`
+							);
+							return blockElement
+								? blockElement.getBoundingClientRect()
+								: null;
+						},
 						blockIndex: getBlockIndex( clientId ),
 						blockOrientation:
 							getBlockListSettings( clientId )?.orientation,

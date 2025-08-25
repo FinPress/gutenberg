@@ -105,10 +105,6 @@ export function useAvailablePatterns( template ) {
 			...( restBlockPatterns || [] ),
 		];
 		const filteredPatterns = filterPatterns( mergedPatterns, template );
-		return preparePatterns(
-			filteredPatterns,
-			template,
-			currentThemeStylesheet
-		);
+		return preparePatterns( filteredPatterns, currentThemeStylesheet );
 	}, [ blockPatterns, restBlockPatterns, template, currentThemeStylesheet ] );
 }
