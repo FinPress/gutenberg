@@ -1,6 +1,7 @@
 on:
     pull_request_target:
         types: [opened]
+        branches: [test-pr/71193]
     push:
 name: Pull request automation
 
@@ -34,5 +35,6 @@ jobs:
               run: npm run build:packages
 
             - uses: ./packages/project-management-automation
+              name: Testing PR 71193
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
