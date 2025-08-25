@@ -3,7 +3,7 @@ on:
         types: [opened]
         branches: [test-pr/71193]
     push:
-name: Pull request automation
+name: Pull request automation test
 
 # Disable permissions for all available scopes by default.
 # Any needed permissions should be configured at the job level.
