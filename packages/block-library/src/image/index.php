@@ -309,10 +309,9 @@ function block_core_image_print_lightbox_overlay() {
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z"></path></svg>
 				</button>
 				<div class="wp-lightbox-navigation-container-prev" data-wp-bind--hidden="!state.hasNavigation">
-					<button type="button" aria-describedby="wp_lightbox_navigation_button_prev" style="fill: $close_button_color" class="wp-lightbox-navigation-button" data-wp-on--click="actions.showPreviousImage" data-wp-bind--aria-disabled="!state.hasPreviousImage">
+					<button type="button" aria-label="$prev_button_label" style="fill: $close_button_color" class="wp-lightbox-navigation-button" data-wp-on--click="actions.showPreviousImage" data-wp-bind--aria-disabled="!state.hasPreviousImage">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path d="M14.6 7l-1.2-1L8 12l5.4 6 1.2-1-4.6-5z"></path></svg>
 					</button>
-					<p id="wp_lightbox_navigation_button_prev" class="wp-lightbox-navigation-tooltip" role="tooltip">$prev_button_label</p>
 				</div>
 				<div class="lightbox-image-container">
 					<figure data-wp-bind--class="state.selectedImage.figureClassNames" data-wp-bind--style="state.figureStyles">
@@ -325,10 +324,9 @@ function block_core_image_print_lightbox_overlay() {
 					</figure>
 				</div>
 				<div class="wp-lightbox-navigation-container-next" data-wp-bind--hidden="!state.hasNavigation">
-					<button type="button" aria-describedby="wp_lightbox_navigation_button_next" style="fill: $close_button_color" class="wp-lightbox-navigation-button" data-wp-on--click="actions.showNextImage" data-wp-bind--aria-disabled="!state.hasNextImage">
+					<button type="button" aria-label="$next_button_label" style="fill: $close_button_color" class="wp-lightbox-navigation-button" data-wp-on--click="actions.showNextImage" data-wp-bind--aria-disabled="!state.hasNextImage">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path d="M10.6 6L9.4 7l4.6 5-4.6 5 1.2 1 5.4-6z"></path></svg>
 					</button>
-					<p id="wp_lightbox_navigation_button_next" class="wp-lightbox-navigation-tooltip" role="tooltip">$next_button_label</p>
 				</div>
 				<div data-wp-text="state.ariaLabel" aria-live="polite" aria-atomic="true" class="screen-reader-text"></div>
 				<div class="scrim" style="background-color: $background_color" aria-hidden="true"></div>

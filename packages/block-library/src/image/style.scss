@@ -263,41 +263,15 @@
 		&:focus {
 			background: none;
 			border: none;
-
-			+ .wp-lightbox-navigation-tooltip {
-				display: block;
-			}
 		}
-	}
-
-	.wp-lightbox-navigation-tooltip {
-		display: none;
-		background: #000;
-		border-radius: 2px;
-		color: #fff;
-		text-align: center;
-		line-height: 1.4;
-		font-size: 12px;
-		padding: 4px 8px;
-		margin: 0;
-		position: absolute;
-		top: calc(100% + 8px);
 	}
 
 	.wp-lightbox-navigation-container-prev {
 		left: calc(env(safe-area-inset-left) + 16px);
-
-		.wp-lightbox-navigation-tooltip {
-			left: 0;
-		}
 	}
 
 	.wp-lightbox-navigation-container-next {
 		right: calc(env(safe-area-inset-right) + 16px);
-
-		.wp-lightbox-navigation-tooltip {
-			right: 0;
-		}
 	}
 
 	.lightbox-image-container {
