@@ -12,8 +12,7 @@
 			"fixedHeight": true,
 			"linkTo": "media",
 			"sizeSlug": "large",
-			"allowResize": false,
-			"lightBoxNavigation": true
+			"allowResize": false
 		},
 		"innerBlocks": [
 			{

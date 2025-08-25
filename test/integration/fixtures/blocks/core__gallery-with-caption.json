@@ -13,7 +13,6 @@
 			"linkTo": "none",
 			"sizeSlug": "large",
 			"allowResize": false,
-			"lightBoxNavigation": true,
 			"className": "columns-2"
 		},
 		"innerBlocks": [

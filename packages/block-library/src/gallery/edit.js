@@ -127,15 +127,8 @@ export default function GalleryEdit( props ) {
 		  )
 		: LINK_OPTIONS;
 
-	const {
-		columns,
-		imageCrop,
-		randomOrder,
-		linkTarget,
-		linkTo,
-		sizeSlug,
-		lightBoxNavigation,
-	} = attributes;
+	const { columns, imageCrop, randomOrder, linkTarget, linkTo, sizeSlug } =
+		attributes;
 
 	const {
 		__unstableMarkNextChangeAsNotPersistent,
@@ -455,12 +448,6 @@ export default function GalleryEdit( props ) {
 		} );
 	}
 
-	function toggleLightboxNavigation() {
-		setAttributes( {
-			lightBoxNavigation: ! attributes.lightBoxNavigation,
-		} );
-	}
-
 	function updateImagesSize( newSizeSlug ) {
 		setAttributes( { sizeSlug: newSizeSlug } );
 		const changedAttributes = {};
@@ -591,7 +578,6 @@ export default function GalleryEdit( props ) {
 								columns: undefined,
 								imageCrop: true,
 								randomOrder: false,
-								lightBoxNavigation: true,
 							} );
 
 							if ( sizeSlug !== DEFAULT_MEDIA_SIZE_SLUG ) {
@@ -706,26 +692,6 @@ export default function GalleryEdit( props ) {
 								/>
 							</ToolsPanelItem>
 						) }
-						{ lightboxSetting?.allowEditing && (
-							<ToolsPanelItem
-								isShownByDefault
-								label={ __( 'Lightbox navigation' ) }
-								hasValue={ () => !! linkTarget }
-								onDeselect={ () =>
-									toggleLightboxNavigation( true )
-								}
-							>
-								<ToggleControl
-									__nextHasNoMarginBottom
-									label={ __( 'Lightbox navigation' ) }
-									checked={ lightBoxNavigation }
-									onChange={ toggleLightboxNavigation }
-									help={ __(
-										'Enable navigation between images with "Expand on click" enabled.'
-									) }
-								/>
-							</ToolsPanelItem>
-						) }
 					</ToolsPanel>
 				) }
 				{ Platform.isNative && (
@@ -788,17 +754,6 @@ export default function GalleryEdit( props ) {
 								label={ __( 'Open images in new tab' ) }
 								checked={ linkTarget === '_blank' }
 								onChange={ toggleOpenInNewTab }
-							/>
-						) }
-						{ lightboxSetting?.allowEditing && (
-							<ToggleControl
-								__nextHasNoMarginBottom
-								label={ __( 'Lightbox navigation' ) }
-								checked={ lightBoxNavigation }
-								onChange={ toggleLightboxNavigation }
-								help={ __(
-									'Enable navigation between images with "Expand on click" enabled.'
-								) }
 							/>
 						) }
 					</PanelBody>

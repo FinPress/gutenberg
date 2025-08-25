@@ -13,8 +13,7 @@
 			"fixedHeight": true,
 			"linkTo": "none",
 			"sizeSlug": "large",
-			"allowResize": false,
-			"lightBoxNavigation": true
+			"allowResize": false
 		},
 		"innerBlocks": [
 			{
