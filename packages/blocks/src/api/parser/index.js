@@ -164,10 +164,18 @@ function createMissingBlockType( rawBlock ) {
  */
 function applyBlockValidation( unvalidatedBlock, blockType ) {
 	// Attempt to validate the block.
-	const [ isValid ] = validateBlock( unvalidatedBlock, blockType );
+	const [ isValid, validationIssues, validationType ] = validateBlock(
+		unvalidatedBlock,
+		blockType
+	);
 
 	if ( isValid ) {
-		return { ...unvalidatedBlock, isValid, validationIssues: [] };
+		return {
+			...unvalidatedBlock,
+			isValid,
+			validationIssues,
+			validationType,
+		};
 	}
 
 	// If the block is invalid, attempt some built-in fixes
@@ -177,12 +185,15 @@ function applyBlockValidation( unvalidatedBlock, blockType ) {
 		blockType
 	);
 	// Attempt to validate the block once again after the built-in fixes.
-	const [ isFixedValid, validationIssues ] = validateBlock(
-		fixedBlock,
-		blockType
-	);
+	const [ isFixedValid, fixedValidationIssues, fixedValidationType ] =
+		validateBlock( fixedBlock, blockType );
 
-	return { ...fixedBlock, isValid: isFixedValid, validationIssues };
+	return {
+		...fixedBlock,
+		isValid: isFixedValid,
+		validationIssues: fixedValidationIssues,
+		validationType: fixedValidationType,
+	};
 }
 
 /**

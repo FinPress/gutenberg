@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Tokenizer } from 'simple-html-tokenizer';
-import fastDeepEqual from 'fast-deep-equal/es6';
+import fastDeepEqual from 'fast-deep-equal';
 
 /**
  * WordPress dependencies
@@ -20,6 +20,50 @@ import {
 	getUnregisteredTypeHandlerName,
 } from '../registration';
 import { normalizeBlockType } from '../utils';
+import { VALIDATION_RESULT_TYPE } from '../constants';
+
+// Re-export validation types for external use
+export { VALIDATION_RESULT_TYPE };
+
+/**
+ * Validation type hierarchy levels for programmatic comparison
+ * Lower numbers indicate more valid/preferred states
+ */
+const VALIDATION_TYPE_LEVELS = {
+	[ VALIDATION_RESULT_TYPE.VALID_BLOCK ]: 0,
+	[ VALIDATION_RESULT_TYPE.MIGRATED_BLOCK ]: 1,
+	[ VALIDATION_RESULT_TYPE.PRESERVED_SOURCE ]: 2,
+	[ VALIDATION_RESULT_TYPE.RECONSTRUCTED_SOURCE ]: 3,
+	[ VALIDATION_RESULT_TYPE.RAW_TRANSFORMED_SOURCE ]: 4,
+	[ VALIDATION_RESULT_TYPE.INVALID_BLOCK ]: 5,
+};
+
+/**
+ * Returns the hierarchical level (0-5) for a validation type.
+ * Lower numbers indicate better validation outcomes.
+ *
+ * @param {string} validationType The validation result type.
+ *
+ * @return {number} The validation level (0-5).
+ */
+export function getValidationTypeLevel( validationType ) {
+	return VALIDATION_TYPE_LEVELS[ validationType ] ?? 5;
+}
+
+/**
+ * Compares two validation types and returns which one is more valid.
+ * Returns negative number if first is more valid, positive if second is more valid, 0 if equal.
+ *
+ * @param {string} typeA First validation type to compare.
+ * @param {string} typeB Second validation type to compare.
+ *
+ * @return {number} Comparison result (-1, 0, or 1).
+ */
+export function compareValidationTypes( typeA, typeB ) {
+	const levelA = getValidationTypeLevel( typeA );
+	const levelB = getValidationTypeLevel( typeB );
+	return levelA - levelB;
+}
 
 /** @typedef {import('../parser').WPBlock} WPBlock */
 /** @typedef {import('../registration').WPBlockType} WPBlockType */
@@ -697,6 +741,172 @@ export function isEquivalentHTML( actual, expected, logger = createLogger() ) {
 }
 
 /**
+ * Classifies a block validation result into one of the hierarchical validation types.
+ *
+ * @param {boolean} isValid          Whether the block is currently valid.
+ * @param {string}  originalContent  Original block content.
+ * @param {string}  generatedContent Generated block content.
+ * @param {Object}  block            Block object.
+ *
+ * @return {string} The validation result type.
+ */
+function classifyValidationResult(
+	isValid,
+	originalContent,
+	generatedContent,
+	block
+) {
+	// Level 1: MigratedBlock - Source matches defined deprecations (check first for valid blocks)
+	if ( isValid && block.__unstableWasMigrated ) {
+		return VALIDATION_RESULT_TYPE.MIGRATED_BLOCK;
+	}
+
+	// Level 0: ValidBlock - Identical source and output (exact string match)
+	if ( isValid && originalContent === generatedContent ) {
+		return VALIDATION_RESULT_TYPE.VALID_BLOCK;
+	}
+
+	// Level 2: PreservedSource - HTML is equivalent but not identical (different formatting, attribute order, etc.)
+	if ( isValid ) {
+		return VALIDATION_RESULT_TYPE.PRESERVED_SOURCE;
+	}
+
+	// For invalid blocks, we need more sophisticated detection
+	if ( ! isValid ) {
+		// Level 3: ReconstructedSource - Attributes remain consistent, allowing HTML rebuilding
+		// Check this first since it's a higher priority recovery method
+		if (
+			canReconstructFromAttributes(
+				block,
+				originalContent,
+				generatedContent
+			)
+		) {
+			return VALIDATION_RESULT_TYPE.RECONSTRUCTED_SOURCE;
+		}
+
+		// Level 4: RawTransformedSource - Simple HTML that could be preserved as raw content
+		if ( canTransformToRawContent( block, originalContent ) ) {
+			return VALIDATION_RESULT_TYPE.RAW_TRANSFORMED_SOURCE;
+		}
+
+		// Level 5: InvalidBlock - Cannot be safely restored, requires user intervention
+		return VALIDATION_RESULT_TYPE.INVALID_BLOCK;
+	}
+
+	// Fallback to invalid block
+	return VALIDATION_RESULT_TYPE.INVALID_BLOCK;
+}
+
+/**
+ * Determines if a block can be reconstructed from its attributes alone.
+ *
+ * @param {Object} block            Block object.
+ * @param {string} originalContent  Original block content.
+ * @param {string} generatedContent Generated block content.
+ *
+ * @return {boolean} Whether the block can be reconstructed from attributes.
+ */
+function canReconstructFromAttributes(
+	block,
+	originalContent,
+	generatedContent
+) {
+	// A block can be reconstructed if it has meaningful attributes that could be used
+	// to regenerate the content and the differences suggest missing attributes/classes
+	// rather than fundamental structural changes
+
+	const hasAttributes =
+		block.attributes && Object.keys( block.attributes ).length > 0;
+
+	// Must have meaningful content and attributes to be reconstructable
+	if ( ! hasAttributes || ! originalContent || ! generatedContent ) {
+		return false;
+	}
+
+	// Check if it's a case where attributes could rebuild the content
+	// (like missing classes, styles, or other attributes that affect the output)
+	const hasRelevantAttributes = Object.keys( block.attributes ).some(
+		( key ) =>
+			key.includes( 'Color' ) ||
+			key.includes( 'class' ) ||
+			key.includes( 'style' ) ||
+			key.includes( 'level' ) ||
+			key.includes( 'content' )
+	);
+
+	// Content should be reasonably similar in structure but missing some elements
+	const contentLengthDifference = Math.abs(
+		originalContent.length - generatedContent.length
+	);
+	const maxAllowedDifference =
+		Math.max( originalContent.length, generatedContent.length ) * 0.5;
+
+	// Check if basic tag structure is similar
+	const getTagStructure = ( html ) => {
+		const tags = html.match( /<\w+/g ) || [];
+		return tags.map( ( tag ) => tag.substring( 1 ) ).join( ',' );
+	};
+
+	const originalTags = getTagStructure( originalContent );
+	const generatedTags = getTagStructure( generatedContent );
+	const hasSimilarStructure = originalTags === generatedTags;
+
+	return (
+		hasRelevantAttributes &&
+		hasSimilarStructure &&
+		contentLengthDifference <= maxAllowedDifference
+	);
+}
+
+/**
+ * Determines if a block can be safely transformed to raw content.
+ *
+ * @param {Object} block           Block object.
+ * @param {string} originalContent Original block content.
+ *
+ * @return {boolean} Whether the block can be transformed to raw content.
+ */
+function canTransformToRawContent( block, originalContent ) {
+	// A block can be transformed to raw content if:
+	// 1. It has simple HTML that could be preserved
+	// 2. It's not overly complex nested structure
+	// 3. The content has malformed but recoverable HTML (like mismatched tags)
+
+	const hasContent = originalContent && originalContent.trim().length > 0;
+	const hasSimpleHTML = originalContent && /<[^>]+>/.test( originalContent );
+	const isNotComplexNested =
+		! block.innerBlocks || block.innerBlocks.length === 0;
+
+	// Check for specific malformed HTML patterns like mismatched tags
+	const hasMismatchedTags =
+		originalContent &&
+		// Mismatched closing tags (like <h2>content</p>)
+		( ( originalContent.includes( '<h' ) &&
+			originalContent.includes( '</p>' ) ) ||
+			( originalContent.includes( '<p' ) &&
+				originalContent.includes( '</h' ) ) ||
+			( originalContent.includes( '<div' ) &&
+				originalContent.includes( '</span>' ) ) );
+
+	// Check for other recoverable HTML issues
+	const hasRecoverableHTML =
+		originalContent &&
+		( hasMismatchedTags ||
+			// Unclosed tags
+			originalContent.split( '<' ).length !==
+				originalContent.split( '>' ).length ||
+			// Invalid nesting
+			( originalContent.includes( '<h' ) &&
+				originalContent.includes( '<p' ) ) );
+
+	// Simple content with potential HTML issues that could be preserved as raw
+	return (
+		hasContent && isNotComplexNested && hasSimpleHTML && hasRecoverableHTML
+	);
+}
+
+/**
  * Returns an object with `isValid` property set to `true` if the parsed block
  * is valid given the input content. A block is considered valid if, when serialized
  * with assumed attributes, the content matches the original value. If block is
@@ -711,15 +921,13 @@ export function isEquivalentHTML( actual, expected, logger = createLogger() ) {
  */
 
 /**
- * Returns an object with `isValid` property set to `true` if the parsed block
- * is valid given the input content. A block is considered valid if, when serialized
- * with assumed attributes, the content matches the original value. If block is
- * invalid, this function returns all validations issues as well.
+ * Returns validation results with hierarchical classification. A block is considered valid
+ * if, when serialized with assumed attributes, the content matches the original value.
  *
  * @param {WPBlock}            block                          block object.
  * @param {WPBlockType|string} [blockTypeOrName = block.name] Block type or name, inferred from block if not given.
  *
- * @return {[boolean,Array<LoggerItem>]} validation results.
+ * @return {[boolean, Array<LoggerItem>, string]} validation results: [isValid, validationIssues, validationType].
  */
 export function validateBlock( block, blockTypeOrName = block.name ) {
 	const isFallbackBlock =
@@ -728,7 +936,7 @@ export function validateBlock( block, blockTypeOrName = block.name ) {
 
 	// Shortcut to avoid costly validation.
 	if ( isFallbackBlock ) {
-		return [ true, [] ];
+		return [ true, [], VALIDATION_RESULT_TYPE.VALID_BLOCK ];
 	}
 
 	const logger = createQueuedLogger();
@@ -742,7 +950,14 @@ export function validateBlock( block, blockTypeOrName = block.name ) {
 			error.toString()
 		);
 
-		return [ false, logger.getItems() ];
+		const validationType = classifyValidationResult(
+			false,
+			block.originalContent,
+			'',
+			block
+		);
+
+		return [ false, logger.getItems(), validationType ];
 	}
 
 	const isValid = isEquivalentHTML(
@@ -761,7 +976,14 @@ export function validateBlock( block, blockTypeOrName = block.name ) {
 		);
 	}
 
-	return [ isValid, logger.getItems() ];
+	const validationType = classifyValidationResult(
+		isValid,
+		block.originalContent,
+		generatedBlockContent,
+		block
+	);
+
+	return [ isValid, logger.getItems(), validationType ];
 }
 
 /**
