@@ -60,6 +60,56 @@ const { state, actions } = store(
 			},
 		},
 		actions: {
+			/**
+			 * Delegated click handler for links inside the responsive container content.
+			 * If a same-page anchor (hash) link is clicked, close the overlay menu
+			 * since there is no full page navigation to implicitly close it.
+			 *
+			 * @param {MouseEvent} event Click event from the responsive container content.
+			 */
+			handleContentClick( event ) {
+				// Only relevant if the menu is currently open.
+				if ( ! state.isMenuOpen ) {
+					return;
+				}
+
+				const anchor = event.target?.closest?.( 'a[href]' );
+				if ( ! anchor ) {
+					return;
+				}
+
+				const href = anchor.getAttribute( 'href' )?.trim?.();
+				if ( ! href ) {
+					return;
+				}
+
+				// Only close for same-page anchor navigations.
+				// This includes hrefs like "#section" or "/path#section" that
+				// point to the current location with a hash.
+				try {
+					// Fast path: explicit hash-only links.
+					if ( href[ 0 ] === '#' ) {
+						actions.closeMenuOnClick();
+						actions.closeMenu( 'focus' );
+						return;
+					}
+
+					const url = new URL( href, window.location.href );
+					const isSameOrigin = url.origin === window.location.origin;
+					const isSamePath =
+						url.pathname === window.location.pathname;
+					const hasHash = !! url.hash;
+
+					if ( isSameOrigin && isSamePath && hasHash ) {
+						// Let the browser perform the default hash navigation while
+						// closing the overlay so content becomes visible immediately.
+						actions.closeMenuOnClick();
+						actions.closeMenu( 'focus' );
+					}
+				} catch ( e ) {
+					// Ignore URLs that cannot be parsed; do nothing.
+				}
+			},
 			openMenuOnHover() {
 				const { type, overlayOpenedBy } = getContext();
 				if (
