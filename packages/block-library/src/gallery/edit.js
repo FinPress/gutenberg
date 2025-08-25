@@ -706,24 +706,26 @@ export default function GalleryEdit( props ) {
 								/>
 							</ToolsPanelItem>
 						) }
-						<ToolsPanelItem
-							isShownByDefault
-							label={ __( 'Lightbox navigation' ) }
-							hasValue={ () => !! linkTarget }
-							onDeselect={ () =>
-								toggleLightboxNavigation( true )
-							}
-						>
-							<ToggleControl
-								__nextHasNoMarginBottom
+						{ lightboxSetting?.allowEditing && (
+							<ToolsPanelItem
+								isShownByDefault
 								label={ __( 'Lightbox navigation' ) }
-								checked={ lightBoxNavigation }
-								onChange={ toggleLightboxNavigation }
-								help={ __(
-									'Enable navigation between images with "Expand on click" enabled.'
-								) }
-							/>
-						</ToolsPanelItem>
+								hasValue={ () => !! linkTarget }
+								onDeselect={ () =>
+									toggleLightboxNavigation( true )
+								}
+							>
+								<ToggleControl
+									__nextHasNoMarginBottom
+									label={ __( 'Lightbox navigation' ) }
+									checked={ lightBoxNavigation }
+									onChange={ toggleLightboxNavigation }
+									help={ __(
+										'Enable navigation between images with "Expand on click" enabled.'
+									) }
+								/>
+							</ToolsPanelItem>
+						) }
 					</ToolsPanel>
 				) }
 				{ Platform.isNative && (
@@ -788,15 +790,17 @@ export default function GalleryEdit( props ) {
 								onChange={ toggleOpenInNewTab }
 							/>
 						) }
-						<ToggleControl
-							__nextHasNoMarginBottom
-							label={ __( 'Lightbox navigation' ) }
-							checked={ lightBoxNavigation }
-							onChange={ toggleLightboxNavigation }
-							help={ __(
-								'Enable navigation between images with "Expand on click" enabled.'
-							) }
-						/>
+						{ lightboxSetting?.allowEditing && (
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ __( 'Lightbox navigation' ) }
+								checked={ lightBoxNavigation }
+								onChange={ toggleLightboxNavigation }
+								help={ __(
+									'Enable navigation between images with "Expand on click" enabled.'
+								) }
+							/>
+						) }
 					</PanelBody>
 				) }
 			</InspectorControls>
