@@ -100,7 +100,7 @@ function render_block_core_image( $attributes, $content, $block ) {
  *
  * @param array $block Block data.
  *
- * @return array Filtered block data.
+ * @return array|null Filtered block data.
  */
 function block_core_image_get_lightbox_settings( $block ) {
 	// Gets the lightbox setting from the block attributes.
@@ -212,6 +212,7 @@ function block_core_image_render_lightbox( $block_content, $block, $block_instan
 			JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
 		)
 	);
+	$p->set_attribute( 'data-wp-key', $unique_image_id );
 
 	// Image.
 	$p->next_tag( 'img' );
@@ -284,14 +285,15 @@ function block_core_image_print_lightbox_overlay() {
 			class="wp-lightbox-overlay zoom"
 			aria-label="$dialog_label"
 			data-wp-interactive="core/image"
+			data-wp-router-region='{ "id": "core/image-overlay", "attachTo": "body" }'
+			data-wp-key="wp-lightbox-overlay"
 			data-wp-context='{}'
 			data-wp-bind--role="state.roleAttribute"
 			data-wp-bind--aria-label="state.ariaLabel"
 			data-wp-bind--aria-modal="state.ariaModal"
 			data-wp-class--active="state.overlayEnabled"
-			data-wp-class--show-closing-animation="state.showClosingAnimation"
-			data-wp-watch--focus="callbacks.setOverlayFocus"
-			data-wp-watch--inert="callbacks.setInertElements"
+			data-wp-class--show-closing-animation="state.overlayOpened"
+			data-wp-watch="callbacks.setOverlayFocus"
 			data-wp-on--keydown="actions.handleKeydown"
 			data-wp-on-async--touchstart="actions.handleTouchStart"
 			data-wp-on--touchmove="actions.handleTouchMove"

@@ -22,22 +22,55 @@ test.describe( 'Site editor command palette', () => {
 
 	test( 'Open the command palette and navigate to the page create page', async ( {
 		page,
-		editor,
 	} ) => {
 		await page
 			.getByRole( 'button', { name: 'Open command palette' } )
-			.focus();
-		await page.keyboard.press( 'Meta+k' );
-		await page.keyboard.type( 'new page' );
-		await page.getByRole( 'option', { name: 'Add new page' } ).click();
+			.click();
+		await page
+			.getByRole( 'combobox', { name: 'Search commands and settings' } )
+			.fill( 'new' );
+		await page.getByRole( 'option', { name: 'Add Page' } ).click();
 		await expect( page ).toHaveURL(
 			/\/wp-admin\/site-editor.php\?p=%2Fpage%2F(\d+)&canvas=edit/
 		);
 		await expect(
-			editor.canvas
-				.getByLabel( 'Block: Title' )
-				.locator( '[data-rich-text-placeholder="No title"]' )
+			page
+				.getByRole( 'region', { name: 'Editor top bar' } )
+				.getByRole( 'button', { name: 'No title · Page' } )
 		).toBeVisible();
+	} );
+
+	test( 'Open the command palette and create page using "create" keyword', async ( {
+		page,
+	} ) => {
+		await page
+			.getByRole( 'button', { name: 'Open command palette' } )
+			.click();
+		await page
+			.getByRole( 'combobox', { name: 'Search commands and settings' } )
+			.fill( 'create' );
+		await page.getByRole( 'option', { name: 'Add Page' } ).click();
+		await expect( page ).toHaveURL(
+			/\/wp-admin\/site-editor.php\?p=%2Fpage%2F(\d+)&canvas=edit/
+		);
+		await expect(
+			page
+				.getByRole( 'region', { name: 'Editor top bar' } )
+				.getByRole( 'button', { name: 'No title · Page' } )
+		).toBeVisible();
+	} );
+
+	test( 'Open the command palette and create post using "create" keyword', async ( {
+		page,
+	} ) => {
+		await page
+			.getByRole( 'button', { name: 'Open command palette' } )
+			.click();
+		await page
+			.getByRole( 'combobox', { name: 'Search commands and settings' } )
+			.fill( 'create' );
+		await page.getByRole( 'option', { name: 'Add Post' } ).click();
+		await expect( page ).toHaveURL( /\/wp-admin\/post-new\.php/ );
 	} );
 
 	test( 'Open the command palette and navigate to a template', async ( {
