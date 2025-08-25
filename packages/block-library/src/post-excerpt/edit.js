@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useEntityProp, store as coreStore } from '@wordpress/core-data';
+import { store as coreStore } from '@wordpress/core-data';
 import { useMemo } from '@wordpress/element';
 import {
 	AlignmentToolbar,
@@ -24,7 +24,8 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { debounce } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -46,11 +47,54 @@ export default function PostExcerptEditor( {
 	const showControls = blockEditingMode === 'default';
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const userCanEdit = useCanEditEntity( 'postType', postType, postId );
-	const [
-		rawExcerpt,
-		setExcerpt,
-		{ rendered: renderedExcerpt, protected: isProtected } = {},
-	] = useEntityProp( 'postType', postType, 'excerpt', postId );
+
+	const { editEntityRecord } = useDispatch( coreStore );
+	const setExcerpt = useMemo(
+		() =>
+			debounce(
+				( newValue ) => {
+					void editEntityRecord( 'postType', postType, postId, {
+						excerpt: newValue,
+					} );
+				},
+				500 // debounce delay in ms
+			),
+		[ editEntityRecord, postType, postId ]
+	);
+
+	const setExcerptLength = useMemo(
+		() =>
+			debounce(
+				( value ) => {
+					setAttributes( { excerptLength: value } );
+				},
+				300 // debounce delay in ms
+			),
+		[ setAttributes ]
+	);
+	const { rawExcerpt, renderedExcerpt, isProtected } = useSelect(
+		( select ) => {
+			const record = select( coreStore ).getEntityRecord(
+				'postType',
+				postType,
+				postId,
+				{ excerpt_length: excerptLength }
+			);
+			const editedRecord = select( coreStore ).getEditedEntityRecord(
+				'postType',
+				postType,
+				postId
+			);
+
+			return {
+				rawExcerpt:
+					record && editedRecord ? editedRecord.excerpt : null,
+				renderedExcerpt: record?.excerpt.rendered,
+				isProtected: record?.excerpt.protected,
+			};
+		},
+		[ postType, postId, excerptLength ]
+	);
 
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
@@ -276,9 +320,7 @@ export default function PostExcerptEditor( {
 							__nextHasNoMarginBottom
 							label={ __( 'Max number of words' ) }
 							value={ excerptLength }
-							onChange={ ( value ) => {
-								setAttributes( { excerptLength: value } );
-							} }
+							onChange={ setExcerptLength }
 							min="10"
 							max="100"
 						/>
