@@ -358,9 +358,9 @@ Whether the data is loading. `false` by default.
 
 #### `defaultLayouts`: `Record< string, view >`
 
-This property provides layout information about active view types. If empty, this enables all layout types (see "Layout Types") with empty layout data.
+This property limits the available layout and provides layout information about active view types. If empty, this enables all layout types (see "Layout Types") with empty layout data.
 
-For example, this is how you'd enable only the table view type:
+For example, this is how you'd enable only the table and grid layout type and set whether those layouts show media by default:
 
 ```js
 const defaultLayouts = {
@@ -373,7 +373,7 @@ const defaultLayouts = {
 };
 ```
 
-The `defaultLayouts` property should be an object that includes properties named `table`, `grid`, or `list`. These properties are applied to the view object each time the user switches to the corresponding layout.
+The `defaultLayouts` property should be an object that includes properties named `table`, `grid`, and/or `list`. These properties are applied to the view object each time the user switches to the corresponding layout.
 
 #### `selection`: `string[]`
 
