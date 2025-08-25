@@ -14,26 +14,10 @@ import { chevronDown, chevronUp } from '@wordpress/icons';
  */
 import { getFormFieldLayout } from '..';
 import DataFormContext from '../../components/dataform-context';
-import type {
-	CardLayout,
-	FieldLayoutProps,
-	Form,
-	FormField,
-} from '../../types';
+import type { NormalizedCardLayout, FieldLayoutProps, Form } from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
-
-const getFormLayout = ( form: Form, field: FormField ) => {
-	const layout = field.layout ?? form.layout;
-
-	if ( layout?.type ) {
-		// Never return card layout to avoid nesting
-		const layoutType = layout.type === 'card' ? 'regular' : layout.type;
-		return getFormFieldLayout( layoutType )?.component;
-	}
-
-	return getFormFieldLayout( 'regular' )?.component;
-};
+import { DEFAULT_LAYOUT, normalizeLayout } from '../../normalize-form-fields';
 
 export function useCollapsibleCard( initialIsOpen: boolean = true ) {
 	const [ isOpen, setIsOpen ] = useState( initialIsOpen );
@@ -83,14 +67,6 @@ export function useCollapsibleCard( initialIsOpen: boolean = true ) {
 	return { isOpen, CollapsibleCardHeader };
 }
 
-const parseCardLayout = ( layout: CardLayout ) => {
-	return {
-		type: layout.type,
-		withHeader: layout.withHeader ?? true,
-		isOpened: layout.isOpened ?? true,
-	};
-};
-
 export default function FormCardField< Item >( {
 	data,
 	field,
@@ -99,74 +75,40 @@ export default function FormCardField< Item >( {
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 
-	const layout: CardLayout = parseCardLayout( field.layout as CardLayout );
+	const layout: NormalizedCardLayout = normalizeLayout( {
+		...field.layout,
+		type: 'card',
+	} ) as NormalizedCardLayout;
 
-	const form = useMemo( () => {
-		if ( isCombinedField( field ) ) {
-			return {
-				fields: field.children.map( ( child ) => {
-					if ( typeof child === 'string' ) {
-						return {
-							id: child,
-							layout: {
-								type: 'regular',
-								withHeader: true,
-							},
-						};
-					}
-					return child;
-				} ),
-				label: field.label,
-			};
-		}
-
-		return {
-			layout: {
-				type: 'regular',
-				...field.layout,
-			},
-			fields: [],
-		};
-	}, [ field ] ) as Form;
-
-	const { isOpen, CollapsibleCardHeader } = useCollapsibleCard(
-		layout.isOpened ?? true
+	const form: Form = useMemo(
+		(): Form => ( {
+			layout: DEFAULT_LAYOUT,
+			fields: isCombinedField( field ) ? field.children : [],
+		} ),
+		[ field ]
 	);
 
+	const { isOpen, CollapsibleCardHeader } = useCollapsibleCard(
+		layout.isOpened
+	);
 	if ( isCombinedField( field ) ) {
-		const Layout = getFormFieldLayout( field.layout?.type ?? 'regular' )
-			?.component;
-
-		if ( ! Layout ) {
-			return null;
-		}
-
+		const withHeader = !! field.label && layout.withHeader;
 		return (
 			<Card className="dataforms-layouts-card__field">
-				{ layout.withHeader && (
+				{ withHeader && (
 					<CollapsibleCardHeader className="dataforms-layouts-card__field-label">
 						{ field.label }
 					</CollapsibleCardHeader>
 				) }
-				{ isOpen && (
+				{ ( isOpen || ! withHeader ) && (
+					// If it doesn't have a header, keep it open.
+					// Otherwise, the card will not be visible.
 					<CardBody className="dataforms-layouts-card__field-control">
 						<DataFormLayout
 							data={ data }
-							form={ form as Form }
+							form={ form }
 							onChange={ onChange }
-						>
-							{ ( FieldLayout, nestedField ) => (
-								<FieldLayout
-									key={ nestedField.id }
-									data={ data }
-									field={ {
-										...nestedField,
-									} }
-									onChange={ onChange }
-									hideLabelFromVision={ hideLabelFromVision }
-								/>
-							) }
-						</DataFormLayout>
+						/>
 					</CardBody>
 				) }
 			</Card>
@@ -181,36 +123,30 @@ export default function FormCardField< Item >( {
 		return null;
 	}
 
-	const cardTitle = fieldDefinition.label;
-
-	const Layout = getFormLayout( form, field );
-
-	if ( ! Layout ) {
+	const RegularLayout = getFormFieldLayout( 'regular' )?.component;
+	if ( ! RegularLayout ) {
 		return null;
 	}
-
+	const withHeader = !! fieldDefinition.label && layout.withHeader;
 	return (
 		<Card className="dataforms-layouts-card__field">
-			{ cardTitle && layout.withHeader && (
+			{ withHeader && (
 				<CollapsibleCardHeader className="dataforms-layouts-card__field-label">
-					{ cardTitle }
+					{ fieldDefinition.label }
 				</CollapsibleCardHeader>
 			) }
-			{ isOpen && (
+			{ ( isOpen || ! withHeader ) && (
+				// If it doesn't have a header, keep it open.
+				// Otherwise, the card will not be visible.
 				<CardBody className="dataforms-layouts-card__field-control">
-					{ fieldDefinition.readOnly === true ? (
-						<fieldDefinition.render
-							item={ data }
-							field={ fieldDefinition }
-						/>
-					) : (
-						<Layout
-							data={ data }
-							field={ fieldDefinition }
-							onChange={ onChange }
-							hideLabelFromVision={ hideLabelFromVision }
-						/>
-					) }
+					<RegularLayout
+						data={ data }
+						field={ field }
+						onChange={ onChange }
+						hideLabelFromVision={
+							hideLabelFromVision || withHeader
+						}
+					/>
 				</CardBody>
 			) }
 		</Card>

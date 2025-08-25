@@ -443,6 +443,11 @@ interface ViewBase {
 	 * The field to group by.
 	 */
 	groupByField?: string;
+
+	/**
+	 * Whether infinite scroll is enabled.
+	 */
+	infiniteScrollEnabled?: boolean;
 }
 
 export interface ColumnStyle {
@@ -482,6 +487,11 @@ export interface ViewTable extends ViewBase {
 		 * The density of the view.
 		 */
 		density?: Density;
+
+		/**
+		 * Whether the view allows column moving.
+		 */
+		enableMoving?: boolean;
 	};
 }
 
@@ -664,30 +674,71 @@ export interface SupportedLayouts {
 /**
  * DataForm layouts.
  */
-export type LayoutType = 'regular' | 'panel' | 'card' | 'row';
+export type LayoutType = 'regular' | 'panel' | 'card';
 export type LabelPosition = 'top' | 'side' | 'none';
 
 export type RegularLayout = {
 	type: 'regular';
 	labelPosition?: LabelPosition;
 };
+export type NormalizedRegularLayout = {
+	type: 'regular';
+	labelPosition: LabelPosition;
+};
 
 export type PanelLayout = {
 	type: 'panel';
 	labelPosition?: LabelPosition;
+	openAs?: 'dropdown' | 'modal';
+};
+export type NormalizedPanelLayout = {
+	type: 'panel';
+	labelPosition: LabelPosition;
+	openAs: 'dropdown' | 'modal';
 };
 
-export type CardLayout = {
-	type: 'card';
-	withHeader?: boolean;
-	isOpened?: boolean;
-};
+export type CardLayout =
+	| {
+			type: 'card';
+			withHeader: false;
+			// isOpened cannot be false if withHeader is false as well.
+			// Otherwise, the card would not be visible.
+			isOpened?: true;
+	  }
+	| {
+			type: 'card';
+			withHeader?: true | undefined;
+			isOpened?: boolean;
+	  };
+export type NormalizedCardLayout =
+	| {
+			type: 'card';
+			withHeader: false;
+			// isOpened cannot be false if withHeader is false as well.
+			// Otherwise, the card would not be visible.
+			isOpened: true;
+	  }
+	| {
+			type: 'card';
+			withHeader: true;
+			isOpened: boolean;
+	  };
 
 export type RowLayout = {
 	type: 'row';
+	gap?: number;
+};
+export type NormalizedRowLayout = {
+	type: 'row';
+	gap: number;
 };
 
 export type Layout = RegularLayout | PanelLayout | CardLayout | RowLayout;
+export type NormalizedLayout =
+	| NormalizedRegularLayout
+	| NormalizedPanelLayout
+	| NormalizedCardLayout
+	| NormalizedRowLayout;
 
 export type SimpleFormField = {
 	id: string;
