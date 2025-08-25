@@ -95,7 +95,7 @@ export class PropSignal {
 	 *
 	 * @param getter New getter.
 	 */
-	public setGetterAsync( getter: () => any ) {
+	public setPendingGetter( getter: () => any ) {
 		this.pendingGetter = getter;
 		Promise.resolve().then( () => this.consolidateGetter() );
 	}
