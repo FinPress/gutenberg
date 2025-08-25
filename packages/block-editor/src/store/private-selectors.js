@@ -2,6 +2,10 @@
  * WordPress dependencies
  */
 import { createSelector, createRegistrySelector } from '@wordpress/data';
+import {
+	getBlockType,
+	privateApis as blocksPrivateApis,
+} from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -32,6 +36,8 @@ import {
 	reusableBlocksSelectKey,
 	sectionRootClientIdKey,
 } from './private-keys';
+
+const { isContentBlock } = unlock( blocksPrivateApis );
 
 export { getBlockSettings } from './get-block-settings';
 
@@ -80,6 +86,37 @@ export const isBlockSubtreeDisabled = ( state, clientId ) => {
 	};
 	return getBlockOrder( state, clientId ).every( isChildSubtreeDisabled );
 };
+
+/**
+ * Determines if a container (clientId) allows insertion of blocks, considering contentOnly mode restrictions.
+ *
+ * @param {Object} state    Editor state.
+ * @param {string} clientId The client ID of the container block.
+ *
+ * @return {boolean} Whether the container allows insertion.
+ */
+export function isContainerInsertableToInContentOnlyMode( state, clientId ) {
+	const blockName = getBlockName( state, clientId );
+	const blockType = getBlockType( blockName );
+
+	// Look at the `blockType.allowedBlocks` field to determine whether this has limited allowed blocks.
+	const hasAllowedBlockList = blockType?.allowedBlocks?.length > 0;
+	const isContainerContentBlock = isContentBlock( blockName );
+	const isRootBlockMain = getSectionRootClientId( state ) === clientId;
+
+	// In contentOnly mode, containers shouldn't be inserted into unless:
+	// 1. they are a section root;
+	// 2. they are a content block with limited allowed blocks (e.g. list).
+	if (
+		! isRootBlockMain &&
+		( ( isContainerContentBlock && ! hasAllowedBlockList ) ||
+			! isContainerContentBlock )
+	) {
+		return false;
+	}
+
+	return true;
+}
 
 function getEnabledClientIdsTreeUnmemoized( state, rootClientId ) {
 	const blockOrder = getBlockOrder( state, rootClientId );
