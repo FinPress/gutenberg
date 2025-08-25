@@ -15,7 +15,7 @@ import {
 	DropdownMenu,
 	Tooltip,
 } from '@wordpress/components';
-import { published, moreVertical, Icon, check } from '@wordpress/icons';
+import { Icon, check, published, moreVertical } from '@wordpress/icons';
 import { __, _x, sprintf } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
