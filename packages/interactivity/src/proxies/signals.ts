@@ -97,7 +97,7 @@ export class PropSignal {
 	 */
 	public setPendingGetter( getter: () => any ) {
 		this.pendingGetter = getter;
-		Promise.resolve().then( () => this.consolidateGetter() );
+		queueMicrotask( () => this.consolidateGetter() );
 	}
 
 	/**
