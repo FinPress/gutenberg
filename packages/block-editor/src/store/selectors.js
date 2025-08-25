@@ -1652,6 +1652,37 @@ const isBlockVisibleInTheInserter = (
 };
 
 /**
+ * Determines if a container (clientId) allows insertion of blocks, considering contentOnly mode restrictions.
+ *
+ * @param {Object} state    Editor state.
+ * @param {string} clientId The client ID of the container block.
+ *
+ * @return {boolean} Whether the container allows insertion.
+ */
+export function isContainerInsertableToInContentOnlyMode( state, clientId ) {
+	const blockName = getBlockName( state, clientId );
+	const blockType = getBlockType( blockName );
+
+	// Look at the `blockType.allowedBlocks` field to determine whether this has limited allowed blocks.
+	const hasAllowedBlockList = blockType?.allowedBlocks?.length > 0;
+	const isContainerContentBlock = isContentBlock( blockName );
+	const isRootBlockMain = getSectionRootClientId( state ) === clientId;
+
+	// In contentOnly mode, containers shouldn't be inserted into unless:
+	// 1. they are a section root;
+	// 2. they are a content block with limited allowed blocks (e.g. list).
+	if (
+		! isRootBlockMain &&
+		( ( isContainerContentBlock && ! hasAllowedBlockList ) ||
+			! isContainerContentBlock )
+	) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
  * Determines if the given block type is allowed to be inserted into the block list.
  * This function is not exported and not memoized because using a memoized selector
  * inside another memoized selector is just a waste of time.
@@ -1706,26 +1737,20 @@ const canInsertBlockTypeUnmemoized = (
 		return false;
 	}
 
+	// In contentOnly mode, check if this container allows insertion.
+	if (
+		blockEditingMode === 'contentOnly' &&
+		! isContainerInsertableToInContentOnlyMode( state, rootClientId )
+	) {
+		return false;
+	}
+
 	const parentName = getBlockName( state, rootClientId );
+
 	const parentBlockType = getBlockType( parentName );
 
 	// Look at the `blockType.allowedBlocks` field to determine whether this is an allowed child block.
 	const parentAllowedChildBlocks = parentBlockType?.allowedBlocks;
-	const hasAllowedBlockList = parentAllowedChildBlocks?.length > 0;
-	const isParentContentBlock = isContentBlock( parentName );
-	const isRootBlockMain = getSectionRootClientId( state ) === rootClientId;
-
-	// In contentOnly mode, containers shouldn't be inserted into unless:
-	// 1. they are a section root;
-	// 2. they are a content block with limited allowed blocks (e.g. list).
-	if (
-		blockEditingMode === 'contentOnly' &&
-		! isRootBlockMain &&
-		( ( isParentContentBlock && ! hasAllowedBlockList ) ||
-			! isParentContentBlock )
-	) {
-		return false;
-	}
 
 	let hasParentAllowedBlock = checkAllowList(
 		parentAllowedChildBlocks,
@@ -1864,11 +1889,24 @@ export function canRemoveBlock( state, clientId ) {
 	}
 
 	const isBlockWithinSection = !! getParentSectionBlock( state, clientId );
-	if ( isBlockWithinSection ) {
+	const isContentRoleBlock = isContentBlock(
+		getBlockName( state, clientId )
+	);
+	if ( isBlockWithinSection && ! isContentRoleBlock ) {
 		return false;
 	}
 
-	return getBlockEditingMode( state, rootClientId ) !== 'disabled';
+	const blockEditingMode = getBlockEditingMode( state, rootClientId );
+
+	// Check if the parent container allows insertion/removal in contentOnly mode
+	if (
+		blockEditingMode === 'contentOnly' &&
+		! isContainerInsertableToInContentOnlyMode( state, rootClientId )
+	) {
+		return false;
+	}
+
+	return blockEditingMode !== 'disabled';
 }
 
 /**

@@ -1094,6 +1094,19 @@ _Returns_
 
 -   `boolean`: Whether the caret is within formatted text.
 
+### isContainerInsertableToInContentOnlyMode
+
+Determines if a container (clientId) allows insertion of blocks, considering contentOnly mode restrictions.
+
+_Parameters_
+
+-   _state_ `Object`: Editor state.
+-   _clientId_ `string`: The client ID of the container block.
+
+_Returns_
+
+-   `boolean`: Whether the container allows insertion.
+
 ### isDraggingBlocks
 
 Returns true if the user is dragging blocks, or false otherwise.
