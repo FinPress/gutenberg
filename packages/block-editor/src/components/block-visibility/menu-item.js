@@ -26,13 +26,19 @@ export default function BlockVisibilityMenuItem( { clientIds } ) {
 	);
 
 	const toggleBlockVisibility = () => {
-		blocks.forEach( ( block ) => {
-			updateBlockAttributes( block.clientId, {
-				metadata: cleanEmptyObject( {
-					...block.attributes?.metadata,
-					blockVisibility: hasHiddenBlock ? undefined : false,
-				} ),
-			} );
+		const attributesByClientId = Object.fromEntries(
+			blocks?.map( ( { clientId, attributes } ) => [
+				clientId,
+				{
+					metadata: cleanEmptyObject( {
+						...attributes?.metadata,
+						blockVisibility: hasHiddenBlock ? undefined : false,
+					} ),
+				},
+			] )
+		);
+		updateBlockAttributes( clientIds, attributesByClientId, {
+			uniqueByBlock: true,
 		} );
 	};
 
