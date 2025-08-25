@@ -230,18 +230,6 @@ const CommentBoard = ( {
 		setShowConfirmDialog( false );
 	};
 
-	const handleConfirmReopen = () => {
-		onReopen( thread.id );
-		setActionState( false );
-		setShowConfirmDialog( false );
-	};
-
-	const handleConfirmResolve = () => {
-		onResolve( thread.id );
-		setActionState( false );
-		setShowConfirmDialog( false );
-	};
-
 	const handleCancel = () => {
 		setActionState( false );
 		setShowConfirmDialog( false );
@@ -347,38 +335,6 @@ const CommentBoard = ( {
 					) }
 				</VStack>
 			</HStack>
-			{ 'reopen' === actionState && (
-				<ConfirmDialog
-					isOpen={ showConfirmDialog }
-					onConfirm={ handleConfirmReopen }
-					onCancel={ handleCancel }
-					confirmButtonText="Yes"
-					cancelButtonText="No"
-				>
-					{
-						// translators: message displayed when confirming an action
-						__(
-							'Are you sure you want to reopen this resolved comment?'
-						)
-					}
-				</ConfirmDialog>
-			) }
-			{ 'resolve' === actionState && (
-				<ConfirmDialog
-					isOpen={ showConfirmDialog }
-					onConfirm={ handleConfirmResolve }
-					onCancel={ handleCancel }
-					confirmButtonText="Yes"
-					cancelButtonText="No"
-				>
-					{
-						// translators: message displayed when confirming an action
-						__(
-							'Are you sure you want to mark this comment as resolved?'
-						)
-					}
-				</ConfirmDialog>
-			) }
 			{ 'delete' === actionState && (
 				<ConfirmDialog
 					isOpen={ showConfirmDialog }
