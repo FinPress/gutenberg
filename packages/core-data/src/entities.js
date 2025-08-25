@@ -159,6 +159,7 @@ export const rootEntitiesConfig = [
 		baseURLParams: { context: 'edit' },
 		plural: 'menus',
 		label: __( 'Menu' ),
+		supportsPagination: true,
 	},
 	{
 		name: 'menuItem',
@@ -168,6 +169,7 @@ export const rootEntitiesConfig = [
 		plural: 'menuItems',
 		label: __( 'Menu Item' ),
 		rawAttributes: [ 'title' ],
+		supportsPagination: true,
 	},
 	{
 		name: 'menuLocation',
@@ -209,7 +211,6 @@ export const rootEntitiesConfig = [
 		baseURLParams: { context: 'edit' },
 		plural: 'plugins',
 		key: 'plugin',
-		supportsPagination: true,
 	},
 	{
 		label: __( 'Status' ),
@@ -396,6 +397,7 @@ async function loadTaxonomyEntities() {
 			name,
 			label: taxonomy.name,
 			getTitle: ( record ) => record?.name,
+			supportsPagination: true,
 		};
 	} );
 }
