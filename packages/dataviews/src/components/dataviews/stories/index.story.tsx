@@ -39,7 +39,7 @@ import {
 } from './fixtures';
 import { LAYOUT_GRID, LAYOUT_LIST, LAYOUT_TABLE } from '../../../constants';
 import { filterSortAndPaginate } from '../../../filter-and-sort-data-view';
-import type { Field, View } from '../../../types';
+import type { Field, DataViewsView } from '../../../types';
 
 import './style.css';
 
@@ -57,7 +57,7 @@ const defaultLayouts = {
 };
 
 export const Default = ( { perPageSizes = [ 10, 25, 50, 100 ] } ) => {
-	const [ view, setView ] = useState< View >( {
+	const [ view, setView ] = useState< DataViewsView >( {
 		...DEFAULT_VIEW,
 		fields: [ 'categories' ],
 		titleField: 'title',
@@ -106,7 +106,7 @@ Default.argTypes = {
 };
 
 export const Empty = () => {
-	const [ view, setView ] = useState< View >( {
+	const [ view, setView ] = useState< DataViewsView >( {
 		...DEFAULT_VIEW,
 		fields: [ 'title', 'description', 'categories' ],
 	} );
@@ -126,7 +126,7 @@ export const Empty = () => {
 };
 
 export const CustomEmpty = () => {
-	const [ view, setView ] = useState< View >( {
+	const [ view, setView ] = useState< DataViewsView >( {
 		...DEFAULT_VIEW,
 		fields: [ 'title', 'description', 'categories' ],
 	} );
@@ -151,7 +151,7 @@ const MinimalUIComponent = ( {
 }: {
 	layout: 'table' | 'list' | 'grid';
 } ) => {
-	const [ view, setView ] = useState< View >( {
+	const [ view, setView ] = useState< DataViewsView >( {
 		...DEFAULT_VIEW,
 		fields: [ 'title', 'description', 'categories' ],
 		layout: {
@@ -293,7 +293,7 @@ function PlanetOverview( { planets }: { planets: SpaceObject[] } ) {
  * or pagination controls.
  */
 export const FreeComposition = () => {
-	const [ view, setView ] = useState< View >( {
+	const [ view, setView ] = useState< DataViewsView >( {
 		...DEFAULT_VIEW,
 		fields: [ 'categories' ],
 		titleField: 'title',
@@ -344,7 +344,7 @@ export const FreeComposition = () => {
 };
 
 export const WithCard = () => {
-	const [ view, setView ] = useState< View >( {
+	const [ view, setView ] = useState< DataViewsView >( {
 		...DEFAULT_VIEW,
 		fields: [ 'categories' ],
 		titleField: 'title',
@@ -376,7 +376,7 @@ export const WithCard = () => {
 };
 
 export const GroupByLayout = () => {
-	const [ view, setView ] = useState< View >( {
+	const [ view, setView ] = useState< DataViewsView >( {
 		type: LAYOUT_GRID,
 		search: '',
 		page: 1,
@@ -413,7 +413,7 @@ export const GroupByLayout = () => {
 };
 
 export const InfiniteScroll = () => {
-	const [ view, setView ] = useState< View >( {
+	const [ view, setView ] = useState< DataViewsView >( {
 		type: LAYOUT_GRID,
 		search: '',
 		page: 1,
