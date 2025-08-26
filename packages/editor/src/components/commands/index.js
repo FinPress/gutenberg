@@ -280,12 +280,28 @@ const getEditorCommandLoader = () =>
 
 const getEditedEntityContextualCommands = () =>
 	function useEditedEntityContextualCommands() {
-		const { postType } = useSelect( ( select ) => {
-			const { getCurrentPostType } = select( editorStore );
-			return {
-				postType: getCurrentPostType(),
-			};
-		}, [] );
+		const { postType, isViewable, status, link } = useSelect(
+			( select ) => {
+				const {
+					getCurrentPostType,
+					getEditedPostAttribute,
+					getEditedPostPreviewLink,
+				} = select( editorStore );
+				const { getPostType } = select( coreStore );
+				const isPublished =
+					getEditedPostAttribute( 'status' ) === 'publish';
+				const _postType = getCurrentPostType();
+				return {
+					postType: _postType,
+					isViewable: getPostType( _postType )?.viewable ?? false,
+					status: getEditedPostAttribute( 'status' ),
+					link: isPublished
+						? getEditedPostAttribute( 'link' )
+						: getEditedPostPreviewLink?.() ?? '',
+				};
+			},
+			[]
+		);
 		const { openModal } = useDispatch( interfaceStore );
 		const commands = [];
 
@@ -308,6 +324,32 @@ const getEditedEntityContextualCommands = () =>
 					close();
 				},
 			} );
+		}
+		if ( isViewable ) {
+			if ( postType === 'post' || postType === 'page' ) {
+				const isPage = postType === 'page';
+				let label;
+
+				if ( status === 'publish' ) {
+					label = isPage ? __( 'View page' ) : __( 'View post' );
+				} else {
+					label = isPage
+						? __( 'Preview page' )
+						: __( 'Preview post' );
+				}
+
+				commands.push( {
+					name: 'core/view-link',
+					label,
+					icon: external,
+					callback: ( { close } ) => {
+						close();
+						if ( link ) {
+							window.open( link, '_blank' );
+						}
+					},
+				} );
+			}
 		}
 
 		return { isLoading: false, commands };
