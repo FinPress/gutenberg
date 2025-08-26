@@ -95,6 +95,7 @@ const LINK_OPTIONS = [
 	},
 ];
 const ALLOWED_MEDIA_TYPES = [ 'image', 'video' ];
+const ALLOWED_BLOCKS = [ 'core/image', 'core/video' ];
 
 const PLACEHOLDER_TEXT = Platform.isNative
 	? __( 'Add media' )
@@ -544,8 +545,7 @@ export default function GalleryEdit( props ) {
 	};
 
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
-		allowedBlocks: [ 'core/image', 'core/video' ],
-		directInsert: true,
+		allowedBlocks: ALLOWED_BLOCKS,
 		orientation: 'horizontal',
 		renderAppender: false,
 		...nativeInnerBlockProps,
