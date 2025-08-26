@@ -1,8 +1,9 @@
 on:
     pull_request_target:
         types: [opened]
+        branches: [test-pr/71193]
     push:
-name: Pull request automation
+name: Pull request automation test
 
 # Disable permissions for all available scopes by default.
 # Any needed permissions should be configured at the job level.
@@ -29,9 +30,11 @@ jobs:
             - name: Setup Node.js and install dependencies
               uses: ./.github/setup-node
 
-            - name: Build project management automation package
-              run: node bin/packages/build.js packages/project-management-automation/src/**/*.ts
+            - name: Npm build
+              # TODO: We don't have to build the entire project, just the action itself.
+              run: npm run build:packages
 
             - uses: ./packages/project-management-automation
+              name: Testing PR 71193
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
