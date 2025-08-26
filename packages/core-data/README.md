@@ -397,7 +397,7 @@ _Returns_
 
 ### getAutosaves
 
-Returns the latest autosaves for the post.
+Returns the latest autosave(s) for the post.
 
 May return multiple autosaves since the backend stores one autosave per author for each post.
 
@@ -406,6 +406,7 @@ _Parameters_
 -   _state_ `State`: State tree.
 -   _postType_ `string`: The type of the parent post.
 -   _postId_ `EntityRecordKey`: The id of the parent post.
+-   _perPage_ `number`: The number of autosaves to retrieve. Optional, default is 1.
 
 _Returns_
 
