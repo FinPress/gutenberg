@@ -18,11 +18,13 @@ import { isAppleOS } from '@wordpress/keycodes';
  * Internal dependencies
  */
 import { unlock } from '../../lock-unlock';
+import { store as editorStore } from '../../store';
 
 const ZoomOutToggle = ( { disabled } ) => {
-	const { isZoomOut, showIconLabels, isDistractionFree } = useSelect(
-		( select ) => ( {
+	const { isZoomOut, renderingMode, showIconLabels, isDistractionFree } =
+		useSelect( ( select ) => ( {
 			isZoomOut: unlock( select( blockEditorStore ) ).isZoomOut(),
+			renderingMode: select( editorStore ).getRenderingMode(),
 			showIconLabels: select( preferencesStore ).get(
 				'core',
 				'showIconLabels'
@@ -31,8 +33,7 @@ const ZoomOutToggle = ( { disabled } ) => {
 				'core',
 				'distractionFree'
 			),
-		} )
-	);
+		} ) );
 
 	const { resetZoomLevel, setZoomLevel } = unlock(
 		useDispatch( blockEditorStore )
@@ -57,6 +58,12 @@ const ZoomOutToggle = ( { disabled } ) => {
 			unregisterShortcut( 'core/editor/zoom' );
 		};
 	}, [ registerShortcut, unregisterShortcut ] );
+
+	useEffect( () => {
+		if ( renderingMode === 'post-only' ) {
+			resetZoomLevel();
+		}
+	}, [ renderingMode, resetZoomLevel ] );
 
 	useShortcut(
 		'core/editor/zoom',
