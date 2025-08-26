@@ -586,7 +586,7 @@ const form = {
 
 #### `onChange`: `function`
 
-Callback function that receives an object with the edits done by the user.
+Callback function that receives an object with the edits done by the user. It also receives a second parameter that indicates whether the current item is valid or not according to the current fields and form configuration.
 
 Example:
 
@@ -598,7 +598,7 @@ const data = {
 	date: '2012-04-23T18:25:43.511Z',
 };
 
-const onChange = ( edits ) => {
+const onChange = ( edits, { isValid } ) => {
 	/*
 	 * edits will contain user edits.
 	 * For example, if the user edited the title
@@ -639,18 +639,6 @@ Returns an object containing:
 -   `paginationInfo`: object containing the following properties:
     -   `totalItems`: total number of items for the current view config.
     -   `totalPages`: total number of pages for the current view config.
-
-### `isItemValid`
-
-Utility is used to determine whether or not the given item's value is valid according to the current fields and form configuration.
-
-Parameters:
-
--   `item`: the item, as described in the "data" property of DataForm.
--   `fields`: the fields config, as described in the "fields" property of DataForm.
--   `form`: the form config, as described in the "form" property of DataForm.
-
-Returns a boolean indicating if the item is valid (true) or not (false).
 
 ## Actions API
 

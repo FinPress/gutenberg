@@ -12,7 +12,6 @@ import {
  * Internal dependencies
  */
 import DataForm from '../index';
-import { isItemValid } from '../../../validation';
 import type {
 	Field,
 	Form,
@@ -403,6 +402,7 @@ const ValidationComponent = ( {
 		boolean: true,
 		customEdit: 'custom control',
 	} );
+	const [ isPostValid, setIsValid ] = useState( true );
 
 	const customTextRule = ( value: ValidatedItem ) => {
 		if ( ! /^[a-zA-Z ]+$/.test( value.text ) ) {
@@ -483,8 +483,6 @@ const ValidationComponent = ( {
 		fields: [ 'text', 'email', 'integer', 'boolean', 'customEdit' ],
 	};
 
-	const canSave = isItemValid( post, _fields, form );
-
 	return (
 		<form>
 			<VStack alignment="left">
@@ -492,17 +490,19 @@ const ValidationComponent = ( {
 					data={ post }
 					fields={ _fields }
 					form={ form }
-					onChange={ ( edits ) =>
+					onChange={ ( edits, { isValid } ) => {
 						setPost( ( prev ) => ( {
 							...prev,
 							...edits,
-						} ) )
-					}
+						} ) );
+
+						setIsValid( isValid );
+					} }
 				/>
 				<Button
 					__next40pxDefaultSize
 					accessibleWhenDisabled
-					disabled={ ! canSave }
+					disabled={ ! isPostValid }
 					variant="primary"
 				>
 					Submit
