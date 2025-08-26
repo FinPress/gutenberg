@@ -150,6 +150,7 @@ export const PopoverInnerWrapper = styled.div`
 
 const baseItem = css`
 	all: unset;
+	cursor: pointer;
 
 	position: relative;
 	min-height: ${ space( 10 ) };
