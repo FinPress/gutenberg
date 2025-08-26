@@ -588,6 +588,28 @@ Show a block pattern. ([Source](https://github.com/WordPress/gutenberg/tree/trun
 -	**Supports:** interactivity (clientNavigation), ~~html~~, ~~inserter~~, ~~renaming~~
 -	**Attributes:** slug
 
+## Playlist
+
+Embed a simple playlist. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/playlist))
+
+-	**Name:** core/playlist
+-	**Experimental:** true
+-	**Category:** media
+-	**Allowed Blocks:** core/playlist-track
+-	**Supports:** align, anchor, color (background, gradients, link, text), interactivity, spacing (margin, padding)
+-	**Attributes:** caption, currentTrack, order, showArtists, showImages, showNumbers, showTracklist, type
+
+## Playlist track
+
+Playlist track. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/playlist-track))
+
+-	**Name:** core/playlist-track
+-	**Experimental:** true
+-	**Category:** media
+-	**Parent:** core/playlist
+-	**Supports:** interactivity (clientNavigation), ~~html~~, ~~reusable~~
+-	**Attributes:** album, artist, blob, id, image, length, src, title, type, uniqueId
+
 ## Author
 
 Display post author details such as name, avatar, and bio. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author))

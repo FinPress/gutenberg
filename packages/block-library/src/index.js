@@ -78,6 +78,8 @@ import * as pattern from './pattern';
 import * as pageList from './page-list';
 import * as pageListItem from './page-list-item';
 import * as paragraph from './paragraph';
+import * as playlist from './playlist';
+import * as playlistTrack from './playlist-track';
 import * as postAuthor from './post-author';
 import * as postAuthorName from './post-author-name';
 import * as postAuthorBiography from './post-author-biography';
@@ -251,6 +253,11 @@ const getAllBlocks = () => {
 		blocks.push( formInput );
 		blocks.push( formSubmitButton );
 		blocks.push( formSubmissionNotification );
+	}
+
+	if ( window?.__experimentalEnableBlockExperiments ) {
+		blocks.push( playlist );
+		blocks.push( playlistTrack );
 	}
 
 	// When in a WordPress context, conditionally
