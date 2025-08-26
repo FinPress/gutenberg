@@ -9,6 +9,7 @@ import {
 	Subtitle,
 	Title,
 } from '@storybook/blocks';
+import path from 'path';
 
 /**
  * Internal dependencies
@@ -164,7 +165,25 @@ export const parameters = {
 			],
 		},
 	},
-	sourceLinkPrefix: 'https://github.com/WordPress/gutenberg/blob/trunk/',
+	sourceLink: {
+		links: {
+			'story-github': ( props ) => {
+				const { importPath, rootPath } = props;
+				if ( ! rootPath || importPath.endsWith( '.mdx' ) ) {
+					return undefined;
+				}
+				const componentRoot = path.resolve( importPath, '../../' );
+				return {
+					label: 'View source on GitHub',
+					href: `https://github.com/WordPress/gutenberg/blob/trunk${ componentRoot }`,
+					icon: 'GithubIcon',
+				};
+			},
+			'addon-powered-by': () => undefined,
+			'story-vscode': () => undefined,
+			'component-vscode': () => undefined,
+		},
+	},
 };
 
 export const tags = [ 'autodocs' ];
