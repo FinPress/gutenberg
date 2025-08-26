@@ -170,6 +170,10 @@ export default function PreviewDropdown( { forceIsAutosaveable, disabled } ) {
 										: 'post-only';
 									setRenderingMode( newRenderingMode );
 									setDefaultRenderingMode( newRenderingMode );
+									// Reset zoom out if show template is being toggled off
+									if ( newRenderingMode === 'post-only' ) {
+										resetZoomLevel();
+									}
 								} }
 							>
 								{ __( 'Show template' ) }
