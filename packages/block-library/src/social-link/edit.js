@@ -173,7 +173,7 @@ const SocialLinkEdit = ( {
 
 	return (
 		<>
-			{ ( isContentOnlyMode || showLabels ) && (
+			{ isContentOnlyMode && (
 				// Add an extra control to modify the label attribute when content only mode is active.
 				// With content only mode active, the inspector is hidden, so users need another way
 				// to edit this attribute.
@@ -196,7 +196,7 @@ const SocialLinkEdit = ( {
 								className="wp-block-social-link__toolbar_content_text"
 								label={ __( 'Text' ) }
 								help={ __(
-									'Provide a text label or use the default.'
+									'The text is visible when enabled from the parent Social Icons block.'
 								) }
 								value={ label }
 								onChange={ ( value ) =>
