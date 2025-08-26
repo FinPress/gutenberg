@@ -29,7 +29,7 @@ jobs:
             - name: Setup Node.js and install dependencies
               uses: ./.github/setup-node
 
-            - name: Build project management automation package
+            - name: Build project management automation package - Testing 71193
               run: node bin/packages/build.js packages/project-management-automation/src/**/*.ts
 
             - uses: ./packages/project-management-automation
