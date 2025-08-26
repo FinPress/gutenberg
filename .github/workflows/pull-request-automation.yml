@@ -30,8 +30,7 @@ jobs:
               uses: ./.github/setup-node
 
             - name: Npm build
-              # TODO: We don't have to build the entire project, just the action itself.
-              run: npm run build:packages
+              run: node bin/packages/build.js packages/project-management-automation/src/**/*.ts
 
             - uses: ./packages/project-management-automation
               with:
