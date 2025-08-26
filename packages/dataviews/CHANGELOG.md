@@ -2,9 +2,17 @@
 
 ## Unreleased
 
+### Breaking changes
+
+- Revert the ability to hide the view config via `config` prop and export a `DataViews.Footer` component to support the "Minimal UI" story. [#71276](https://github.com/WordPress/gutenberg/pull/71276)
+
 ### Bug Fixes
 
 -   DataViews: Fix incorrect documentation for `defaultLayouts` prop. [#71334](https://github.com/WordPress/gutenberg/pull/71334)
+
+### Enhancements
+
+-   DataForm: Add second argument to the `onChange` callback that contains an `isValid` boolean property and remove `isItemValid` utility. [#71345](https://github.com/WordPress/gutenberg/pull/71345)
 
 ## 7.0.0 (2025-08-20)
 

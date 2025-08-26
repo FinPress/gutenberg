@@ -416,9 +416,9 @@ The component receives the following props:
 
 React component to be rendered next to the view config button.
 
-#### `config`: false | { perPageSizes: number[] }
+#### `config`: { perPageSizes: number[] }
 
-Optional. Set it to `false` to hide the view config control entirely. Pass an object with a list of `perPageSizes` to control the available item counts per page (defaults to `[10, 20, 50, 100]`). `perPageSizes` needs to have a minimum of 2 items and a maximum of 6, otherwise the UI component won't be displayed.
+Optional. Pass an object with a list of `perPageSizes` to control the available item counts per page (defaults to `[10, 20, 50, 100]`). `perPageSizes` needs to have a minimum of 2 items and a maximum of 6, otherwise the UI component won't be displayed.
 
 #### `empty`: React node
 
@@ -586,7 +586,7 @@ const form = {
 
 #### `onChange`: `function`
 
-Callback function that receives an object with the edits done by the user.
+Callback function that receives an object with the edits done by the user. It also receives a second parameter that indicates whether the current item is valid or not according to the current fields and form configuration.
 
 Example:
 
@@ -598,7 +598,7 @@ const data = {
 	date: '2012-04-23T18:25:43.511Z',
 };
 
-const onChange = ( edits ) => {
+const onChange = ( edits, { isValid } ) => {
 	/*
 	 * edits will contain user edits.
 	 * For example, if the user edited the title
