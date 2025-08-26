@@ -319,12 +319,11 @@ export function useScaleCanvas( {
 		const trigger =
 			iframeDocument && previousIsZoomedOut.current !== isZoomedOut;
 
-		previousIsZoomedOut.current = isZoomedOut;
-
 		if ( ! trigger ) {
 			return;
 		}
 
+		previousIsZoomedOut.current = isZoomedOut;
 		startAnimationRef.current = true;
 
 		if ( ! isZoomedOut ) {
