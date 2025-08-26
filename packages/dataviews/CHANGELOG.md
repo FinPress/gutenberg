@@ -6,6 +6,10 @@
 
 -   DataViews: Fix incorrect documentation for `defaultLayouts` prop. [#71334](https://github.com/WordPress/gutenberg/pull/71334)
 
+### Breaking changes
+
+-   DataForm: Add second argument to the `onChange` callback that contains an `isValid` boolean property and remove `isItemValid` utility. [#71345](https://github.com/WordPress/gutenberg/pull/71345)
+
 ## 7.0.0 (2025-08-20)
 
 ### Breaking changes
