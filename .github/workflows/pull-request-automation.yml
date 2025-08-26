@@ -29,7 +29,7 @@ jobs:
             - name: Setup Node.js and install dependencies
               uses: ./.github/setup-node
 
-            - name: Npm build
+            - name: Build project management automation package
               run: node bin/packages/build.js packages/project-management-automation/src/**/*.ts
 
             - uses: ./packages/project-management-automation
