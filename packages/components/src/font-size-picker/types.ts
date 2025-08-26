@@ -96,6 +96,14 @@ export type FontSize = {
 	 * size. Used for the class generation process.
 	 */
 	slug: string;
+	/**
+	 * The `fluid` property is an optional object specifying min and max values for
+	 * fluid font sizes.
+	 */
+	fluid?: {
+		min?: string | number;
+		max?: string | number;
+	};
 };
 
 export type FontSizePickerSelectProps = Pick<
