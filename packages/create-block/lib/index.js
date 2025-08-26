@@ -162,6 +162,7 @@ program
 							'dashicon',
 							'category',
 							! plugin && ! textdomain && 'textdomain',
+							'includeTests',
 						].filter( Boolean ),
 						variant,
 						optionsValues
