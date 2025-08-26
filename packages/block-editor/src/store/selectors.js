@@ -43,7 +43,7 @@ import {
 	isSectionBlock,
 	getParentSectionBlock,
 	isZoomOut,
-	isContainerInsertableToInContentOnlyMode,
+	isContainerInsertableToInWriteMode,
 } from './private-selectors';
 
 const { isContentBlock } = unlock( blocksPrivateApis );
@@ -1707,10 +1707,13 @@ const canInsertBlockTypeUnmemoized = (
 		return false;
 	}
 
-	// In contentOnly mode, check if this container allows insertion.
+	// In write mode, check if this container allows insertion.
+	// Otherwise only blocks with content role should be insertable.
 	if (
 		blockEditingMode === 'contentOnly' &&
-		! isContainerInsertableToInContentOnlyMode( state, rootClientId )
+		isNavigationMode( state ) &&
+		( ! isContainerInsertableToInWriteMode( state, rootClientId ) ||
+			! isContentRoleBlock )
 	) {
 		return false;
 	}
@@ -1868,10 +1871,11 @@ export function canRemoveBlock( state, clientId ) {
 
 	const blockEditingMode = getBlockEditingMode( state, rootClientId );
 
-	// Check if the parent container allows insertion/removal in contentOnly mode
+	// Check if the parent container allows insertion/removal in write mode
 	if (
 		blockEditingMode === 'contentOnly' &&
-		! isContainerInsertableToInContentOnlyMode( state, rootClientId )
+		isNavigationMode( state ) &&
+		! isContainerInsertableToInWriteMode( state, rootClientId )
 	) {
 		return false;
 	}

@@ -2,10 +2,7 @@
  * WordPress dependencies
  */
 import { createSelector, createRegistrySelector } from '@wordpress/data';
-import {
-	getBlockType,
-	privateApis as blocksPrivateApis,
-} from '@wordpress/blocks';
+import { privateApis as blocksPrivateApis } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -95,23 +92,15 @@ export const isBlockSubtreeDisabled = ( state, clientId ) => {
  *
  * @return {boolean} Whether the container allows insertion.
  */
-export function isContainerInsertableToInContentOnlyMode( state, clientId ) {
+export function isContainerInsertableToInWriteMode( state, clientId ) {
 	const blockName = getBlockName( state, clientId );
-	const blockType = getBlockType( blockName );
-
-	// Look at the `blockType.allowedBlocks` field to determine whether this has limited allowed blocks.
-	const hasAllowedBlockList = blockType?.allowedBlocks?.length > 0;
 	const isContainerContentBlock = isContentBlock( blockName );
 	const isRootBlockMain = getSectionRootClientId( state ) === clientId;
 
-	// In contentOnly mode, containers shouldn't be inserted into unless:
+	// In write mode, containers shouldn't be inserted into unless:
 	// 1. they are a section root;
-	// 2. they are a content block with limited allowed blocks (e.g. list).
-	if (
-		! isRootBlockMain &&
-		( ( isContainerContentBlock && ! hasAllowedBlockList ) ||
-			! isContainerContentBlock )
-	) {
+	// 2. they are a content block.
+	if ( ! isRootBlockMain && ! isContainerContentBlock ) {
 		return false;
 	}
 
