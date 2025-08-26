@@ -10,7 +10,6 @@ import type { DataFormProps } from '../../types';
 import { DataFormProvider } from '../dataform-context';
 import { normalizeFields } from '../../normalize-fields';
 import { DataFormLayout } from '../../dataforms-layouts/data-form-layout';
-import { isItemValid } from '../../validation';
 
 export default function DataForm< Item >( {
 	data,
@@ -23,33 +22,13 @@ export default function DataForm< Item >( {
 		[ fields ]
 	);
 
-	const onChangeWithValidation = ( updatedData: Partial< Item > ) => {
-		if ( ! onChange ) {
-			return;
-		}
-
-		const isValid = isItemValid(
-			{
-				...data,
-				...updatedData,
-			},
-			fields,
-			form
-		);
-		onChange( updatedData, { isValid } );
-	};
-
 	if ( ! form.fields ) {
 		return null;
 	}
 
 	return (
 		<DataFormProvider fields={ normalizedFields }>
-			<DataFormLayout
-				data={ data }
-				form={ form }
-				onChange={ onChangeWithValidation }
-			/>
+			<DataFormLayout data={ data } form={ form } onChange={ onChange } />
 		</DataFormProvider>
 	);
 }
