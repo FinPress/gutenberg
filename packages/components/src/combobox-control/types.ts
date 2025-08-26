@@ -93,4 +93,9 @@ export type ComboboxControlProps = Pick<
 	 * @default false
 	 */
 	isLoading?: boolean;
+	/**
+	 * Specifies which property of the options to use for search comparisons.
+	 * Defaults to searching the 'label' property if not specified.
+	 */
+	searchField?: string;
 };
