@@ -196,6 +196,17 @@ export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
 			/>
 		);
 	},
+	args: {
+		label: 'Text',
+		help: 'The word "error" will trigger an error asynchronously.',
+		required: true,
+	},
+};
+
+// Not exported - Only for testing purposes.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const AsyncValidationWithTest: StoryObj< typeof ValidatedInputControl > = {
+	...AsyncValidation,
 	play: async ( { canvasElement } ) => {
 		const canvas = within( canvasElement );
 		await userEvent.click( canvas.getByRole( 'textbox' ) );
@@ -276,9 +287,4 @@ export const AsyncValidation: StoryObj< typeof ValidatedInputControl > = {
 			{ timeout: 2500 }
 		);
 	},
-};
-AsyncValidation.args = {
-	label: 'Text',
-	help: 'The word "error" will trigger an error asynchronously.',
-	required: true,
 };
