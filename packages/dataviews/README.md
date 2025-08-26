@@ -275,13 +275,25 @@ function MyCustomPageTable() {
 		};
 	}, [ view ] );
 
-	const { records } = useEntityRecords( 'postType', 'page', queryArgs );
+	const { records, totalItems, totalPages } = useEntityRecords( 'postType', 'page', queryArgs );
+
+	// You can use filterSortAndPaginate to apply additional client-side filtering if needed
+	// Pass totalItems and totalPages from the API to ensure correct pagination info
+	const { data: filteredData, paginationInfo } = useMemo(() => {
+		return filterSortAndPaginate(
+			records || [],
+			view,
+			fields,
+			{ totalItems, totalPages } // If you skip this, then ensure that the data is not paginated and -1 is passed to the API
+		);
+	}, [records, view, fields, totalItems, totalPages]);
 
 	return (
 		<DataViews
-			data={ records }
+			data={ filteredData }
 			view={ view }
 			onChangeView={ setView }
+			paginationInfo={ paginationInfo }
 			// ...
 		/>
 	);
@@ -632,13 +644,31 @@ Parameters:
 -   `data`: the dataset, as described in the "data" property of DataViews.
 -   `view`: the view config, as described in the "view" property of DataViews.
 -   `fields`: the fields config, as described in the "fields" property of DataViews.
+-   `options`: (optional) additional configuration options:
+    -   `totalItems`: (optional) override the calculated total number of items. Useful when working with paginated data from an API.
+    -   `totalPages`: (optional) override the calculated total number of pages. Useful when working with paginated data from an API.
 
 Returns an object containing:
 
 -   `data`: the new dataset, with the view config applied.
 -   `paginationInfo`: object containing the following properties:
-    -   `totalItems`: total number of items for the current view config.
-    -   `totalPages`: total number of pages for the current view config.
+    -   `totalItems`: total number of items for the current view config. If provided in options, uses that value instead of calculating from the data.
+    -   `totalPages`: total number of pages for the current view config. If provided in options, uses that value instead of calculating from the data.
+
+Example with server-side pagination:
+
+```js
+// When using with data that's already paginated from an API
+const { records, totalItems, totalPages } = useEntityRecords('postType', 'page', queryArgs);
+
+// Pass the totalItems and totalPages from the API to filterSortAndPaginate
+const { data: filteredData, paginationInfo } = filterSortAndPaginate(
+  records,
+  view,
+  fields,
+  { totalItems, totalPages }
+);
+```
 
 ### `isItemValid`
 
