@@ -1,5 +1,6 @@
 {
 	"apiVersion": 3,
+	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"name": "core/icon",
 	"title": "Icon",
 	"category": "media",
