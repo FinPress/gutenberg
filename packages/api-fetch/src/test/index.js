@@ -288,4 +288,24 @@ describe( 'apiFetch', () => {
 
 		apiFetch( expectedOptions );
 	} );
+
+	it( 'should remove a registered middleware', async () => {
+		const testMiddleware = jest.fn( ( options, next ) => next( options ) );
+		apiFetch.use( testMiddleware );
+
+		expect( apiFetch.getMiddlewares() ).toContain( testMiddleware );
+
+		apiFetch.removeMiddleware( testMiddleware );
+
+		expect( apiFetch.getMiddlewares() ).not.toContain( testMiddleware );
+	} );
+
+	it( 'should do nothing if removing a middleware that is not registered', () => {
+		const testMiddleware = jest.fn();
+		const initialMiddlewares = [ ...apiFetch.getMiddlewares() ];
+
+		apiFetch.removeMiddleware( testMiddleware );
+
+		expect( apiFetch.getMiddlewares() ).toEqual( initialMiddlewares );
+	} );
 } );
