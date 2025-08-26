@@ -1,59 +1,52 @@
 /**
  * WordPress dependencies
  */
-import { Component } from '@wordpress/element';
+import {
+	useState,
+	useEffect,
+	useCallback,
+	useMemo,
+	useRef,
+} from '@wordpress/element';
 
-class Dropdown extends Component {
-	constructor() {
-		super( ...arguments );
+const Dropdown = ( { renderContent, renderToggle, onToggle } ) => {
+	const [ isOpen, setIsOpen ] = useState( false );
+	const prevIsOpenRef = useRef( isOpen );
 
-		this.toggle = this.toggle.bind( this );
-		this.close = this.close.bind( this );
+	const toggle = useCallback( () => {
+		setIsOpen( ( prev ) => ! prev );
+	}, [] );
 
-		this.state = {
-			isOpen: false,
-		};
-	}
+	const close = useCallback( () => {
+		setIsOpen( false );
+	}, [] );
 
-	componentWillUnmount() {
-		const { isOpen } = this.state;
-		const { onToggle } = this.props;
-		if ( isOpen && onToggle ) {
-			onToggle( false );
-		}
-	}
-
-	componentDidUpdate( prevProps, prevState ) {
-		const { isOpen } = this.state;
-		const { onToggle } = this.props;
-		if ( prevState.isOpen !== isOpen && onToggle ) {
+	useEffect( () => {
+		// Only call `onToggle` when `isOpen` changes,
+		// avoiding a call on initial mount.
+		if ( prevIsOpenRef.current !== isOpen && onToggle ) {
 			onToggle( isOpen );
 		}
-	}
 
-	toggle() {
-		this.setState( ( state ) => ( {
-			isOpen: ! state.isOpen,
-		} ) );
-	}
+		prevIsOpenRef.current = isOpen;
 
-	close() {
-		this.setState( { isOpen: false } );
-	}
+		return () => {
+			if ( isOpen && onToggle ) {
+				onToggle( false );
+			}
+		};
+	}, [ isOpen, onToggle ] );
 
-	render() {
-		const { isOpen } = this.state;
-		const { renderContent, renderToggle } = this.props;
+	const args = useMemo( () => {
+		return { isOpen, onToggle: toggle, onClose: close };
+	}, [ isOpen, toggle, close ] );
 
-		const args = { isOpen, onToggle: this.toggle, onClose: this.close };
-
-		return (
-			<>
-				{ renderToggle( args ) }
-				{ isOpen && renderContent( args ) }
-			</>
-		);
-	}
-}
+	return (
+		<>
+			{ renderToggle( args ) }
+			{ isOpen && renderContent( args ) }
+		</>
+	);
+};
 
 export default Dropdown;
