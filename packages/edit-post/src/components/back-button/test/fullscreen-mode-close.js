@@ -24,12 +24,21 @@ describe( 'FullscreenModeClose', () => {
 	describe( 'when in full screen mode', () => {
 		it( 'should display a user uploaded site icon if it exists', () => {
 			useSelect.mockImplementation( ( cb ) => {
+				const globalStylesDataKey = '__experimentalGlobalStylesBase';
 				return cb( () => ( {
 					isResolving: () => false,
 					isFeatureActive: () => true,
 					getPostType: () => true,
 					getEntityRecord: () => ( {
 						site_icon_url: 'https://fakeUrl.com',
+					} ),
+					getSettings: () => ( {
+						[ globalStylesDataKey ]: {
+							color: {
+								background: 'white',
+								text: 'black',
+							},
+						},
 					} ),
 					getCurrentPostType: () => 'post',
 				} ) );
@@ -43,12 +52,21 @@ describe( 'FullscreenModeClose', () => {
 
 		it( 'should display a default site icon if no user uploaded site icon exists', () => {
 			useSelect.mockImplementation( ( cb ) => {
+				const globalStylesDataKey = '__experimentalGlobalStylesBase';
 				return cb( () => ( {
 					isResolving: () => false,
 					isFeatureActive: () => true,
 					getPostType: () => true,
 					getEntityRecord: () => ( {
 						site_icon_url: '',
+					} ),
+					getSettings: () => ( {
+						[ globalStylesDataKey ]: {
+							color: {
+								background: 'white',
+								text: 'black',
+							},
+						},
 					} ),
 					getCurrentPostType: () => 'post',
 				} ) );
@@ -65,6 +83,7 @@ describe( 'FullscreenModeClose', () => {
 
 		it( 'should add correct href using post type from initialPost props', () => {
 			useSelect.mockImplementation( ( cb ) => {
+				const globalStylesDataKey = '__experimentalGlobalStylesBase';
 				return cb( () => ( {
 					isResolving: () => false,
 					isFeatureActive: () => true,
@@ -78,6 +97,14 @@ describe( 'FullscreenModeClose', () => {
 					},
 					getEntityRecord: () => ( {
 						site_icon_url: '',
+					} ),
+					getSettings: () => ( {
+						[ globalStylesDataKey ]: {
+							color: {
+								background: 'white',
+								text: 'black',
+							},
+						},
 					} ),
 					getCurrentPostType: () => 'post',
 				} ) );

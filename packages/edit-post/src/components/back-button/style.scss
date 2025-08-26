@@ -7,7 +7,6 @@
 		align-items: center;
 		align-self: stretch;
 		border: none;
-		background: $gray-900;
 		color: $white;
 		border-radius: 0;
 		height: $header-height;
@@ -34,7 +33,6 @@
 			bottom: 9px + $border-width; // Height of toolbar in edit-post (not edit-site) is 61px tall.
 			left: 9px;
 			border-radius: $radius-small + $border-width + $border-width;
-			box-shadow: inset 0 0 0 var(--wp-admin-border-width-focus) $gray-900;
 		}
 
 		// Hover color.
@@ -59,6 +57,9 @@
 		object-fit: cover;
 		// Compensate for the top-bar border.
 		margin-top: -($border-width);
+	}
+	.edit-post-fullscreen-mode-close_site-icon:hover {
+		box-shadow: inset 0 0 0 var(--wp-admin-border-width-focus);
 	}
 }
 

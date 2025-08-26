@@ -18,16 +18,32 @@ import { wordpress } from '@wordpress/icons';
 import { store as editorStore } from '@wordpress/editor';
 import { store as coreStore } from '@wordpress/core-data';
 import { useReducedMotion } from '@wordpress/compose';
+import {
+	privateApis as blockEditorPrivateApis,
+	store as blockEditorStore,
+} from '@wordpress/block-editor';
+/**
+ * Internal dependencies
+ */
+import { unlock } from '../../lock-unlock';
+const { globalStylesDataKey } = unlock( blockEditorPrivateApis );
 
 function FullscreenModeClose( { showTooltip, icon, href, initialPost } ) {
+	const globalStyles = useSelect( ( select ) => {
+		const settings = select( blockEditorStore ).getSettings();
+		return settings[ globalStylesDataKey ];
+	}, [] );
+
 	const { isRequestingSiteIcon, postType, siteIconUrl } = useSelect(
 		( select ) => {
 			const { getCurrentPostType } = select( editorStore );
 			const { getEntityRecord, getPostType, isResolving } =
 				select( coreStore );
+
 			const siteData =
 				getEntityRecord( 'root', '__unstableBase', undefined ) || {};
 			const _postType = initialPost?.type || getCurrentPostType();
+
 			return {
 				isRequestingSiteIcon: isResolving( 'getEntityRecord', [
 					'root',
@@ -96,6 +112,12 @@ function FullscreenModeClose( { showTooltip, icon, href, initialPost } ) {
 				href={ buttonHref }
 				label={ buttonLabel }
 				showTooltip={ showTooltip }
+				style={ {
+					background: globalStyles?.color?.gradient
+						? globalStyles?.color?.gradient
+						: globalStyles?.color?.background,
+					color: globalStyles?.color?.text,
+				} }
 			>
 				{ buttonIcon }
 			</Button>
