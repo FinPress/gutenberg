@@ -108,7 +108,7 @@ test.describe( 'Write/Design mode', () => {
 			.getByRole( 'menu', { name: 'Options' } )
 			.getByRole( 'menuitem' );
 
-		// we expect 4 items in the options menu
+		// we expect 4 items in the options menu (Cut and Copy are hidden in Write Mode)
 		await expect( optionsMenu ).toHaveCount( 4 );
 
 		// We should be able to select the paragraph block and write in it.
