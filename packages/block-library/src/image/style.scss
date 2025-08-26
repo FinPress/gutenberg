@@ -260,9 +260,11 @@
 		}
 
 		&:hover,
-		&:focus {
+		&:focus,
+		&:not(:hover):not(:active):not(.has-background) {
 			background: none;
 			border: none;
+			padding: 0;
 		}
 	}
 
