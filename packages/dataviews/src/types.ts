@@ -760,7 +760,6 @@ export interface DataFormProps< Item > {
 		value: Record< string, any >,
 		validation: { isValid: boolean }
 	) => void;
-	applyChanges?: ( item: Item, changes: Partial< Item > ) => Item;
 }
 
 export interface FieldLayoutProps< Item > {
