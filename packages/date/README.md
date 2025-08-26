@@ -134,7 +134,7 @@ Check whether a date is considered in the future according to the WordPress sett
 
 _Parameters_
 
--   _dateValue_ `Date | string`: Date String or Date object in the Defined WP Timezone.
+-   _dateValue_ `Date | string | number`: Date String or Date object in the Defined WP Timezone.
 
 _Returns_
 

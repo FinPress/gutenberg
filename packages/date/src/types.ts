@@ -77,16 +77,25 @@ export type L10nSettings = {
 
 	/**
 	 * Locale months.
+	 *
+	 * @example
+	 * ['January', 'February', ... ]
 	 */
 	months: MomentLocaleSpecification[ 'months' ];
 
 	/**
 	 * Locale months short.
+	 *
+	 * @example
+	 * ['Jan', 'Feb', ... ]
 	 */
 	monthsShort: MomentLocaleSpecification[ 'monthsShort' ];
 
 	/**
 	 * Locale weekdays.
+	 *
+	 * @example
+	 * ['Sunday', 'Monday', ... ]
 	 */
 	weekdays: MomentLocaleSpecification[ 'weekdays' ];
 
