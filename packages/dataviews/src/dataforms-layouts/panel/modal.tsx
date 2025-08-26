@@ -23,12 +23,14 @@ function ModalContent< Item >( {
 	form,
 	fieldLabel,
 	onChange,
+	onValidate,
 	onClose,
 }: {
 	data: Item;
 	form: Form;
 	fieldLabel: string;
 	onChange: ( data: Partial< Item > ) => void;
+	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
 	onClose: () => void;
 } ) {
 	const [ changes, setChanges ] = useState< Partial< Item > >( {} );
@@ -57,6 +59,7 @@ function ModalContent< Item >( {
 				data={ displayData }
 				form={ form }
 				onChange={ handleOnChange }
+				onValidate={ onValidate }
 			>
 				{ ( FieldLayout, nestedField ) => (
 					<FieldLayout
@@ -64,6 +67,7 @@ function ModalContent< Item >( {
 						data={ displayData }
 						field={ nestedField }
 						onChange={ handleOnChange }
+						onValidate={ onValidate }
 						hideLabelFromVision={
 							( form?.fields ?? [] ).length < 2
 						}
@@ -99,12 +103,14 @@ function PanelModal< Item >( {
 	labelPosition,
 	data,
 	onChange,
+	onValidate,
 	field,
 }: {
 	fieldDefinition: NormalizedField< Item >;
 	labelPosition: 'side' | 'top' | 'none';
 	data: Item;
 	onChange: ( value: any ) => void;
+	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
 	field: FormField;
 } ) {
 	const [ isOpen, setIsOpen ] = useState( false );
@@ -155,6 +161,7 @@ function PanelModal< Item >( {
 					form={ form as Form }
 					fieldLabel={ fieldLabel ?? '' }
 					onChange={ onChange }
+					onValidate={ onValidate }
 					onClose={ () => setIsOpen( false ) }
 				/>
 			) }

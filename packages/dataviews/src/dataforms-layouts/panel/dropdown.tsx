@@ -59,6 +59,7 @@ function PanelDropdown< Item >( {
 	labelPosition = 'side',
 	data,
 	onChange,
+	onValidate,
 	field,
 }: {
 	fieldDefinition: NormalizedField< Item >;
@@ -66,6 +67,7 @@ function PanelDropdown< Item >( {
 	labelPosition: 'side' | 'top' | 'none';
 	data: Item;
 	onChange: ( value: any ) => void;
+	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
 	field: FormField;
 } ) {
 	const fieldLabel = isCombinedField( field )
@@ -138,6 +140,7 @@ function PanelDropdown< Item >( {
 						data={ data }
 						form={ form }
 						onChange={ onChange }
+						onValidate={ onValidate }
 					>
 						{ ( FieldLayout, nestedField ) => (
 							<FieldLayout
@@ -145,6 +148,7 @@ function PanelDropdown< Item >( {
 								data={ data }
 								field={ nestedField }
 								onChange={ onChange }
+								onValidate={ onValidate }
 								hideLabelFromVision={
 									( form?.fields ?? [] ).length < 2
 								}

@@ -91,6 +91,7 @@ export default function InputWidget( {
 				field={ field }
 				operator={ currentFilter.operator }
 				onChange={ handleChange }
+				onValidate={ () => {} } // TODO: decide whether onValidate should be optional
 			/>
 		</Flex>
 	);

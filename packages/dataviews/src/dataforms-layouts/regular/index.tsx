@@ -44,6 +44,7 @@ export default function FormRegularField< Item >( {
 	data,
 	field,
 	onChange,
+	onValidate,
 	hideLabelFromVision,
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
@@ -66,6 +67,7 @@ export default function FormRegularField< Item >( {
 					data={ data }
 					form={ form }
 					onChange={ onChange }
+					onValidate={ onValidate }
 				/>
 			</>
 		);
@@ -107,6 +109,7 @@ export default function FormRegularField< Item >( {
 							data={ data }
 							field={ fieldDefinition }
 							onChange={ onChange }
+							onValidate={ onValidate }
 							hideLabelFromVision
 						/>
 					) }
@@ -136,6 +139,7 @@ export default function FormRegularField< Item >( {
 					data={ data }
 					field={ fieldDefinition }
 					onChange={ onChange }
+					onValidate={ onValidate }
 					hideLabelFromVision={
 						labelPosition === 'none' ? true : hideLabelFromVision
 					}

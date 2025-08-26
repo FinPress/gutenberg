@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo, useCallback } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -16,10 +16,22 @@ export default function DataForm< Item >( {
 	form,
 	fields,
 	onChange,
+	onValidate,
 }: DataFormProps< Item > ) {
 	const normalizedFields = useMemo(
 		() => normalizeFields( fields ),
 		[ fields ]
+	);
+
+	const onValidateCb = useCallback(
+		( isValid: boolean | undefined, isValidating: boolean ) => {
+			if ( ! onValidate ) {
+				return;
+			}
+
+			onValidate( isValid, isValidating );
+		},
+		[ onValidate ]
 	);
 
 	if ( ! form.fields ) {
@@ -28,7 +40,12 @@ export default function DataForm< Item >( {
 
 	return (
 		<DataFormProvider fields={ normalizedFields }>
-			<DataFormLayout data={ data } form={ form } onChange={ onChange } />
+			<DataFormLayout
+				data={ data }
+				form={ form }
+				onChange={ onChange }
+				onValidate={ onValidateCb }
+			/>
 		</DataFormProvider>
 	);
 }

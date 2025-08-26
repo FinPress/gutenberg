@@ -12,7 +12,6 @@ import {
  * Internal dependencies
  */
 import DataForm from '../index';
-import { isItemValid } from '../../../validation';
 import type {
 	Field,
 	Form,
@@ -398,6 +397,10 @@ const ValidationComponent = ( {
 		customEdit: string;
 	};
 
+	// TODO: what should be the initial state of the form validation?
+	// Do we still need isItemValid for this case?
+	const [ isFormValid, setIsFormValid ] = useState< boolean | undefined >();
+	const [ isFormBusy, setIsFormBusy ] = useState< boolean >( false );
 	const [ post, setPost ] = useState< ValidatedItem >( {
 		text: 'Can have letters and spaces',
 		email: 'hi@example.com',
@@ -508,8 +511,6 @@ const ValidationComponent = ( {
 		fields: [ 'text', 'email', 'integer', 'boolean', 'customEdit' ],
 	};
 
-	const canSave = isItemValid( post, _fields, form );
-
 	return (
 		<form>
 			<VStack alignment="left">
@@ -523,11 +524,16 @@ const ValidationComponent = ( {
 							...edits,
 						} ) )
 					}
+					onValidate={ ( isValid, isValidating ) => {
+						setIsFormValid( isValid );
+						setIsFormBusy( isValidating );
+					} }
 				/>
 				<Button
 					__next40pxDefaultSize
 					accessibleWhenDisabled
-					disabled={ ! canSave }
+					disabled={ isFormBusy || ! isFormValid }
+					isBusy={ isFormBusy }
 					variant="primary"
 				>
 					Submit

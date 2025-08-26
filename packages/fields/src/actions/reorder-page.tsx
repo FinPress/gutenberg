@@ -30,6 +30,9 @@ function ReorderModal( {
 	closeModal,
 	onActionPerformed,
 }: RenderModalProps< BasePost > ) {
+	const [ isFormValid, setIsFormValid ] = useState< boolean | undefined >(
+		false
+	);
 	const [ item, setItem ] = useState( items[ 0 ] );
 	const orderInput = item.menu_order;
 	const { editEntityRecord, saveEditedEntityRecord } =
@@ -40,7 +43,7 @@ function ReorderModal( {
 	async function onOrder( event: React.FormEvent ) {
 		event.preventDefault();
 
-		if ( ! isItemValid( item, fields, formOrderAction ) ) {
+		if ( ! isFormValid ) {
 			return;
 		}
 
@@ -81,12 +84,15 @@ function ReorderModal( {
 					data={ item }
 					fields={ fields }
 					form={ formOrderAction }
-					onChange={ ( changes ) =>
+					onValidate={ ( isValid ) => {
+						setIsFormValid( isValid );
+					} }
+					onChange={ ( changes ) => {
 						setItem( {
 							...item,
 							...changes,
-						} )
-					}
+						} );
+					} }
 				/>
 				<HStack justify="right">
 					<Button

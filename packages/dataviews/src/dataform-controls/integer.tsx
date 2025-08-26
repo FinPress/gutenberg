@@ -79,6 +79,7 @@ export default function Integer< Item >( {
 	data,
 	field,
 	onChange,
+	onValidate,
 	hideLabelFromVision,
 	operator,
 }: DataFormControlProps< Item > ) {
@@ -150,6 +151,7 @@ export default function Integer< Item >( {
 						type: 'validating',
 						message: 'Validating...',
 					} );
+					onValidate( undefined, true );
 
 					message
 						.then( ( result ) => {
@@ -158,11 +160,13 @@ export default function Integer< Item >( {
 									type: 'invalid',
 									message: result,
 								} );
+								onValidate( false, false );
 							} else {
 								setCustomValidity( {
 									type: 'valid',
 									message: 'Validated',
 								} );
+								onValidate( true, false );
 							}
 						} )
 						.catch( ( error ) => {
@@ -170,6 +174,7 @@ export default function Integer< Item >( {
 								type: 'invalid',
 								message: error.message,
 							} );
+							onValidate( false, false );
 						} );
 
 					return;
@@ -182,9 +187,11 @@ export default function Integer< Item >( {
 						type: 'invalid',
 						message,
 					} );
+					onValidate( false, false );
 					return;
 				}
 
+				onValidate( true, false );
 				setCustomValidity( undefined );
 			} }
 			customValidity={ customValidity }

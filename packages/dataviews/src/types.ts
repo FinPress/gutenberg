@@ -279,6 +279,7 @@ export type DataFormControlProps< Item > = {
 	data: Item;
 	field: NormalizedField< Item >;
 	onChange: ( value: Record< string, any > ) => void;
+	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
 	hideLabelFromVision?: boolean;
 	/**
 	 * The currently selected filter operator for this field.
@@ -762,11 +763,36 @@ export interface DataFormProps< Item > {
 	fields: Field< Item >[];
 	form: Form;
 	onChange: ( value: Record< string, any > ) => void;
+	onValidate?: (
+		isValid: boolean | undefined,
+		isValidating: boolean
+	) => void;
 }
 
 export interface FieldLayoutProps< Item > {
 	data: Item;
 	field: FormField;
 	onChange: ( value: any ) => void;
+	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
 	hideLabelFromVision?: boolean;
+}
+
+export interface DataFormLayoutProps< Item > {
+	data: Item;
+	form: Form;
+	onChange: ( value: any ) => void;
+	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
+	children?: (
+		FieldLayout: ( props: {
+			data: Item;
+			field: FormField;
+			onChange: ( value: any ) => void;
+			onValidate: (
+				isValid: boolean | undefined,
+				isValidating: boolean
+			) => void;
+			hideLabelFromVision?: boolean;
+		} ) => React.JSX.Element | null,
+		field: FormField
+	) => React.JSX.Element;
 }

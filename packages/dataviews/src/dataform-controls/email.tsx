@@ -16,6 +16,7 @@ export default function Email< Item >( {
 	data,
 	field,
 	onChange,
+	onValidate,
 	hideLabelFromVision,
 }: DataFormControlProps< Item > ) {
 	const { id, label, placeholder, description } = field;
@@ -67,6 +68,7 @@ export default function Email< Item >( {
 						type: 'validating',
 						message: 'Validating...',
 					} );
+					onValidate( undefined, true );
 
 					message
 						.then( ( result ) => {
@@ -75,11 +77,13 @@ export default function Email< Item >( {
 									type: 'invalid',
 									message: result,
 								} );
+								onValidate( false, false );
 							} else {
 								setCustomValidity( {
 									type: 'valid',
 									message: 'Validated',
 								} );
+								onValidate( true, false );
 							}
 						} )
 						.catch( ( error ) => {
@@ -87,6 +91,7 @@ export default function Email< Item >( {
 								type: 'invalid',
 								message: error.message,
 							} );
+							onValidate( false, false );
 						} );
 
 					return;
@@ -99,9 +104,11 @@ export default function Email< Item >( {
 						type: 'invalid',
 						message,
 					} );
+					onValidate( false, false );
 					return;
 				}
 
+				onValidate( true, false );
 				setCustomValidity( undefined );
 			} }
 			customValidity={ customValidity }

@@ -30,6 +30,7 @@ export default function FormPanelField< Item >( {
 	data,
 	field,
 	onChange,
+	onValidate,
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 	const fieldDefinition = fields.find( ( _field ) => {
@@ -86,6 +87,7 @@ export default function FormPanelField< Item >( {
 				fieldDefinition={ fieldDefinition }
 				data={ data }
 				onChange={ onChange }
+				onValidate={ onValidate }
 				labelPosition={ labelPosition }
 			/>
 		) : (
@@ -95,6 +97,7 @@ export default function FormPanelField< Item >( {
 				fieldDefinition={ fieldDefinition }
 				data={ data }
 				onChange={ onChange }
+				onValidate={ onValidate }
 				labelPosition={ labelPosition }
 			/>
 		);

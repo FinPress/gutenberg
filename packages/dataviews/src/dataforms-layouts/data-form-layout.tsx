@@ -7,7 +7,7 @@ import { useContext, useMemo } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import type { Form, FormField, SimpleFormField } from '../types';
+import type { SimpleFormField, DataFormLayoutProps } from '../types';
 import { getFormFieldLayout } from './index';
 import DataFormContext from '../components/dataform-context';
 import { isCombinedField } from './is-combined-field';
@@ -17,21 +17,9 @@ export function DataFormLayout< Item >( {
 	data,
 	form,
 	onChange,
+	onValidate,
 	children,
-}: {
-	data: Item;
-	form: Form;
-	onChange: ( value: any ) => void;
-	children?: (
-		FieldLayout: ( props: {
-			data: Item;
-			field: FormField;
-			onChange: ( value: any ) => void;
-			hideLabelFromVision?: boolean;
-		} ) => React.JSX.Element | null,
-		field: FormField
-	) => React.JSX.Element;
-} ) {
+}: DataFormLayoutProps< Item > ) {
 	const { fields: fieldDefinitions } = useContext( DataFormContext );
 
 	function getFieldDefinition( field: SimpleFormField | string ) {
@@ -79,6 +67,7 @@ export function DataFormLayout< Item >( {
 						data={ data }
 						field={ formField }
 						onChange={ onChange }
+						onValidate={ onValidate }
 					/>
 				);
 			} ) }
