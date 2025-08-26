@@ -6,7 +6,7 @@ import { store as coreStore } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
 import { useState } from '@wordpress/element';
-import { DataForm } from '@wordpress/dataviews';
+import { DataForm, isItemValid } from '@wordpress/dataviews';
 import {
 	Button,
 	__experimentalHStack as HStack,
@@ -31,7 +31,6 @@ function ReorderModal( {
 	onActionPerformed,
 }: RenderModalProps< BasePost > ) {
 	const [ item, setItem ] = useState( items[ 0 ] );
-	const [ isItemValid, setIsValid ] = useState( true );
 	const orderInput = item.menu_order;
 	const { editEntityRecord, saveEditedEntityRecord } =
 		useDispatch( coreStore );
@@ -41,7 +40,7 @@ function ReorderModal( {
 	async function onOrder( event: React.FormEvent ) {
 		event.preventDefault();
 
-		if ( ! isItemValid ) {
+		if ( ! isItemValid( item, fields, formOrderAction ) ) {
 			return;
 		}
 
@@ -69,6 +68,7 @@ function ReorderModal( {
 			} );
 		}
 	}
+	const isSaveDisabled = ! isItemValid( item, fields, formOrderAction );
 	return (
 		<form onSubmit={ onOrder }>
 			<VStack spacing="5">
@@ -81,13 +81,12 @@ function ReorderModal( {
 					data={ item }
 					fields={ fields }
 					form={ formOrderAction }
-					onChange={ ( changes, { isValid } ) => {
+					onChange={ ( changes ) =>
 						setItem( {
 							...item,
 							...changes,
-						} );
-						setIsValid( isValid );
-					} }
+						} )
+					}
 				/>
 				<HStack justify="right">
 					<Button
@@ -104,7 +103,7 @@ function ReorderModal( {
 						variant="primary"
 						type="submit"
 						accessibleWhenDisabled
-						disabled={ ! isItemValid }
+						disabled={ isSaveDisabled }
 					>
 						{ __( 'Save' ) }
 					</Button>

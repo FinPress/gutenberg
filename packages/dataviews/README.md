@@ -586,7 +586,7 @@ const form = {
 
 #### `onChange`: `function`
 
-Callback function that receives an object with the edits done by the user. It also receives a second parameter that indicates whether the current item is valid or not according to the current fields and form configuration.
+Callback function that receives an object with the edits done by the user.
 
 Example:
 
@@ -598,7 +598,7 @@ const data = {
 	date: '2012-04-23T18:25:43.511Z',
 };
 
-const onChange = ( edits, { isValid } ) => {
+const onChange = ( edits ) => {
 	/*
 	 * edits will contain user edits.
 	 * For example, if the user edited the title
