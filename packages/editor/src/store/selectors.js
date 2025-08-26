@@ -195,7 +195,7 @@ export function getCurrentPostType( state ) {
  *
  * @param {Object} state Global application state.
  *
- * @return {?number} ID of current post.
+ * @return {?(string|number)} Template slug or current post ID.
  */
 export function getCurrentPostId( state ) {
 	return state.postId;

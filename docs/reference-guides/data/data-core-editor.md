@@ -218,7 +218,7 @@ _Parameters_
 
 _Returns_
 
--   `?number`: ID of current post.
+-   `?(string|number)`: Template slug or current post ID.
 
 ### getCurrentPostLastRevisionId
 
