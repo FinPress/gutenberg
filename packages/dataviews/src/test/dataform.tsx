@@ -138,9 +138,13 @@ describe( 'DataForm component', () => {
 			await user.type( titleInput, newValue );
 			expect( onChange ).toHaveBeenCalledTimes( newValue.length );
 			for ( let i = 0; i < newValue.length; i++ ) {
-				expect( onChange ).toHaveBeenNthCalledWith( i + 1, {
-					title: newValue[ i ],
-				} );
+				expect( onChange ).toHaveBeenNthCalledWith(
+					i + 1,
+					{
+						title: newValue[ i ],
+					},
+					{ isValid: true }
+				);
 			}
 		} );
 
@@ -384,7 +388,10 @@ describe( 'DataForm component', () => {
 
 			// Modal should be closed and onChange should be called
 			expect( screen.queryByRole( 'dialog' ) ).not.toBeInTheDocument();
-			expect( onChange ).toHaveBeenCalledWith( { title: 'New Title' } );
+			expect( onChange ).toHaveBeenCalledWith(
+				{ title: 'New Title' },
+				{ isValid: true }
+			);
 		} );
 
 		it( 'should call onChange with the correct value for each typed character', async () => {
@@ -407,9 +414,13 @@ describe( 'DataForm component', () => {
 			await user.type( input, newValue );
 			expect( onChange ).toHaveBeenCalledTimes( newValue.length );
 			for ( let i = 0; i < newValue.length; i++ ) {
-				expect( onChange ).toHaveBeenNthCalledWith( i + 1, {
-					title: newValue[ i ],
-				} );
+				expect( onChange ).toHaveBeenNthCalledWith(
+					i + 1,
+					{
+						title: newValue[ i ],
+					},
+					{ isValid: true }
+				);
 			}
 		} );
 
