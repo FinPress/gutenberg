@@ -178,6 +178,12 @@
 		border: none;
 		box-shadow: none;
 	}
+
+	&.has-aspect-ratio {
+		@supports (-webkit-hyphens: none) {
+			min-height: fit-content !important;
+		}
+	}
 }
 
 .wp-block-cover-image,
