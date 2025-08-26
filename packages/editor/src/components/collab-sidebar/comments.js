@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useState, RawHTML } from '@wordpress/element';
+import { useState, RawHTML, useEffect, useRef } from '@wordpress/element';
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
@@ -48,28 +48,71 @@ export function Comments( {
 	showCommentBoard,
 	setShowCommentBoard,
 } ) {
-	const { blockCommentId, blocks } = useSelect( ( select ) => {
-		const { getBlockAttributes, getSelectedBlockClientId, getBlocks } =
-			select( blockEditorStore );
-		const _clientId = getSelectedBlockClientId();
+	// inside Comments()
+	const prevRef = useRef( null );
+	const retryRef = useRef( null );
 
-		return {
-			blockCommentId: _clientId
-				? getBlockAttributes( _clientId )?.blockCommentId
-				: null,
-			blocks: getBlocks(),
-		};
-	}, [] );
+	const { blockCommentId, blocks, selectedBlockClientId } = useSelect(
+		( select ) => {
+			const { getBlockAttributes, getSelectedBlockClientId, getBlocks } =
+				select( blockEditorStore );
+			const _clientId = getSelectedBlockClientId();
 
-	const { selectBlock, clearSelectedBlock } = useDispatch( blockEditorStore );
+			return {
+				blockCommentId: _clientId
+					? getBlockAttributes( _clientId )?.blockCommentId
+					: null,
+				blocks: getBlocks(),
+				selectedBlockClientId: _clientId,
+			};
+		},
+		[]
+	);
+
+	const { selectBlock } = useDispatch( blockEditorStore );
 
 	const [ focusThread, setFocusThread ] = useState(
 		showCommentBoard && blockCommentId ? blockCommentId : null
 	);
 
+	const { toggleBlockHighlight } = useDispatch( blockEditorStore );
+
+	useEffect( () => {
+		const reset = () => {
+			if ( retryRef.current ) {
+				clearTimeout( retryRef.current );
+				retryRef.current = null;
+			}
+			if ( prevRef.current ) {
+				toggleBlockHighlight( prevRef.current, false );
+				prevRef.current = null;
+			}
+		};
+
+		reset();
+		if ( ! selectedBlockClientId ) {
+			return;
+		}
+
+		try {
+			toggleBlockHighlight( selectedBlockClientId, true );
+			prevRef.current = selectedBlockClientId;
+		} catch {
+			retryRef.current = setTimeout( () => {
+				toggleBlockHighlight( selectedBlockClientId, true );
+				prevRef.current = selectedBlockClientId;
+				retryRef.current = null;
+			}, 50 );
+		}
+
+		return reset;
+	}, [ selectedBlockClientId, toggleBlockHighlight ] );
+
 	// Function to find and select blocks by comment ID
 	const selectBlocksByCommentId = ( commentId ) => {
-		if ( ! commentId || ! blocks ) return;
+		if ( ! commentId || ! blocks ) {
+			return;
+		}
 
 		// Find blocks that have this comment ID
 		const relatedBlocks = [];
@@ -89,25 +132,6 @@ export function Comments( {
 		// Select the first related block if found
 		if ( relatedBlocks.length > 0 ) {
 			selectBlock( relatedBlocks[ 0 ] );
-
-			const iframe = document.querySelector(
-				'iframe[name="editor-canvas"]'
-			);
-			if ( iframe ) {
-				const blockEl = iframe.contentDocument.querySelector(
-					`[data-block="${ relatedBlocks[ 0 ] }"]`
-				);
-
-				if ( blockEl ) {
-					// add highlight
-					blockEl.setAttribute( 'data-comment-highlight', 'true' );
-
-					// clear after 2s
-					setTimeout( () => {
-						blockEl.removeAttribute( 'data-comment-highlight' );
-					}, 500 );
-				}
-			}
 		}
 	};
 

@@ -70,22 +70,3 @@
 		}
 	}
 }
-
-[data-comment-highlight="true"]{
-    background-color: #F7F6E2;
-    border-radius: 4px;
-    position: relative;
-    
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(255, 107, 107, 0.1);
-        pointer-events: none;
-        z-index: 1;
-        border-radius: 4px;
-    }
-}
