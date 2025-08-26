@@ -7,7 +7,7 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useEffect, useMemo, useRef } from '@wordpress/element';
+import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
 import { Placeholder, Spinner } from '@wordpress/components';
 import { compose, useResizeObserver } from '@wordpress/compose';
 import {
@@ -112,6 +112,9 @@ function CoverEdit( {
 		postId
 	);
 	const { getSettings } = useSelect( blockEditorStore );
+	const [ hasFocus, setHasFocus ] = useState( false );
+	const [ isResizing, setIsResizing ] = useState( false );
+	const [ isHovered, setIsHovered ] = useState( false );
 
 	const { __unstableMarkNextChangeAsNotPersistent } =
 		useDispatch( blockEditorStore );
@@ -368,7 +371,13 @@ function CoverEdit( {
 	);
 
 	const ref = useRef();
-	const blockProps = useBlockProps( { ref } );
+	const blockProps = useBlockProps( {
+		ref,
+		onFocus: () => setHasFocus( true ),
+		onBlur: () => setHasFocus( false ),
+		onMouseEnter: () => setIsHovered( true ),
+		onMouseLeave: () => setIsHovered( false ),
+	} );
 
 	// Check for fontSize support before we pass a fontSize attribute to the innerBlocks.
 	const [ fontSizes ] = useSettings( 'typography.fontSizes' );
@@ -477,6 +486,7 @@ function CoverEdit( {
 		height,
 		minHeight: minHeightWithUnit,
 		onResizeStart: () => {
+			setIsResizing( true );
 			setAttributes( { minHeightUnit: 'px' } );
 			toggleSelection( false );
 		},
@@ -484,11 +494,14 @@ function CoverEdit( {
 			setAttributes( { minHeight: value } );
 		},
 		onResizeStop: ( newMinHeight ) => {
+			setIsResizing( false );
 			toggleSelection( true );
 			setAttributes( { minHeight: newMinHeight } );
 		},
 		// Hide the resize handle if an aspect ratio is set, as the aspect ratio takes precedence.
-		showHandle: ! attributes.style?.dimensions?.aspectRatio,
+		showHandle:
+			( hasFocus || isResizing || isHovered ) &&
+			! attributes.style?.dimensions?.aspectRatio,
 		size: resizableBoxDimensions,
 		width,
 	};
