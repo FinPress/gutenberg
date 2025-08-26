@@ -6,6 +6,10 @@
 
 -   `Tabs`: Ensure font size inheritance for tab buttons in all contexts ([#71346](https://github.com/WordPress/gutenberg/pull/71346)).
 
+### Internal
+
+- Display names for Context providers [#71208](https://github.com/WordPress/gutenberg/pull/71208)
+
 
 ## 30.2.0 (2025-08-20)
 

@@ -6,6 +6,10 @@
 
 - Revert the ability to hide the view config via `config` prop and export a `DataViews.Footer` component to support the "Minimal UI" story. [#71276](https://github.com/WordPress/gutenberg/pull/71276)
 
+### Internal
+
+- Display names for Context providers [#71208](https://github.com/WordPress/gutenberg/pull/71208)
+
 ### Bug Fixes
 
 -   DataViews: Fix incorrect documentation for `defaultLayouts` prop. [#71334](https://github.com/WordPress/gutenberg/pull/71334)
