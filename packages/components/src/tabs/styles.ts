@@ -163,6 +163,7 @@ export const Tab = styled( Ariakit.Tab )`
 		cursor: pointer;
 		line-height: 1.2; // Characters in some languages (e.g. Japanese) may have a native higher line-height.
 		font-weight: 400;
+		font-size: inherit;
 		color: ${ COLORS.theme.foreground };
 
 		&[aria-disabled='true'] {
