@@ -173,7 +173,7 @@ const SocialLinkEdit = ( {
 
 	return (
 		<>
-			{ isContentOnlyMode && showLabels && (
+			{ ( isContentOnlyMode || showLabels ) && (
 				// Add an extra control to modify the label attribute when content only mode is active.
 				// With content only mode active, the inspector is hidden, so users need another way
 				// to edit this attribute.
