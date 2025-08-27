@@ -94,6 +94,7 @@ import * as postTemplate from './post-template';
 import * as postTerms from './post-terms';
 import * as postTimeToRead from './post-time-to-read';
 import * as postTitle from './post-title';
+import * as postEditLink from './post-edit-link';
 import * as preformatted from './preformatted';
 import * as pullquote from './pullquote';
 import * as query from './query';
@@ -231,6 +232,7 @@ const getAllBlocks = () => {
 		commentsPaginationNumbers,
 		commentsPaginationPrevious,
 		postCommentsForm,
+		postEditLink,
 		tableOfContents,
 		homeLink,
 		logInOut,
