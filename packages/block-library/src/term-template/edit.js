@@ -199,8 +199,8 @@ export default function TermTemplateEdit( {
 		orderby: orderBy,
 		hide_empty: hideEmpty,
 		// To preview the data the closest to the frontend, we fetch the largest number of terms
-		// and limit the number during rendering. This is because WP_Term_Query fetches data in hierarchical manner.
-		// This also allow us to avoid re-fetching data when max terms changes.
+		// and limit them during rendering. This is because WP_Term_Query fetches data in hierarchical manner,
+		// while in editor we build the hierarchy manually. It also allows us to avoid re-fetching data when max terms changes.
 		per_page: 100,
 	};
 
