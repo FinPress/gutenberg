@@ -1872,10 +1872,12 @@ export function canRemoveBlock( state, clientId ) {
 	const blockEditingMode = getBlockEditingMode( state, rootClientId );
 
 	// Check if the parent container allows insertion/removal in write mode
+	// Also check if the block is a content role block.
 	if (
 		blockEditingMode === 'contentOnly' &&
 		isNavigationMode( state ) &&
-		! isContainerInsertableToInWriteMode( state, rootClientId )
+		( ! isContainerInsertableToInWriteMode( state, rootClientId ) ||
+			! isContentRoleBlock )
 	) {
 		return false;
 	}

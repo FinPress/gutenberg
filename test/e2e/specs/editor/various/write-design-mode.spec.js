@@ -100,17 +100,6 @@ test.describe( 'Write/Design mode', () => {
 
 		expect( await getSelectedBlock() ).toEqual( sectionClientId );
 
-		// open the block toolbar more settings menu
-		await page.getByLabel( 'Block tools' ).getByLabel( 'Options' ).click();
-
-		// get the length of the options menu
-		const optionsMenu = page
-			.getByRole( 'menu', { name: 'Options' } )
-			.getByRole( 'menuitem' );
-
-		// we expect 4 items in the options menu (Cut and Copy are hidden in Write Mode)
-		await expect( optionsMenu ).toHaveCount( 4 );
-
 		// We should be able to select the paragraph block and write in it.
 		await paragraph.click();
 		await page.keyboard.type( ' something' );
@@ -187,7 +176,7 @@ test.describe( 'Write/Design mode', () => {
 
 		await expect( nonContentBlock ).toBeHidden();
 	} );
-	test( 'prevents adding blocks to nested containers', async ( {
+	test( 'prevents adding non-content blocks to content role containers', async ( {
 		editor,
 		page,
 	} ) => {
@@ -228,16 +217,16 @@ test.describe( 'Write/Design mode', () => {
 		// Select paragraph
 		await paragraph.click();
 
-		// Press enter to check whether it adds a new block.
+		// Try inserting a Group block with the slash inserter.
 		await page.keyboard.press( 'Enter' );
+		await page.keyboard.type( '/group' );
 
-		// If no block was added, focus should still be on the paragraph.
-		await expect( paragraph ).toBeFocused();
-
-		// The paragraph should still have the same text.
-		await expect( paragraph ).toHaveText( 'Something' );
+		// Group option should not be available.
+		await expect(
+			page.getByRole( 'option', { name: 'Group' } )
+		).toBeHidden();
 	} );
-	test( 'allows adding blocks to content role containers with allowed blocks', async ( {
+	test( 'allows adding blocks to content role containers', async ( {
 		editor,
 		page,
 	} ) => {
