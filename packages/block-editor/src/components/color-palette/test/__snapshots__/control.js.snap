@@ -190,9 +190,12 @@ exports[`ColorPaletteControl matches the snapshot 1`] = `
                       red
                     </span>
                     <span
-                      class="components-truncate components-color-palette__custom-color-value components-color-palette__custom-color-value--is-hex emotion-14 emotion-5"
+                      aria-label="Click to edit hex value"
+                      class="components-truncate components-color-palette__custom-color-value components-color-palette__custom-color-value--is-hex components-color-palette__custom-color-value--is-editable emotion-14 emotion-5"
                       data-wp-c16t="true"
                       data-wp-component="Truncate"
+                      role="button"
+                      tabindex="0"
                     >
                       #f00
                     </span>
