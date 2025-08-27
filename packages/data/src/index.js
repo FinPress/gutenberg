@@ -28,6 +28,7 @@ export { controls } from './controls';
 export { default as createReduxStore } from './redux-store';
 export { dispatch } from './dispatch';
 export { select } from './select';
+export { waitForTransition } from './utils';
 
 /**
  * Object of available plugins to use with a registry.
