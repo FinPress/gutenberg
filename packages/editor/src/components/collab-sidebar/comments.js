@@ -97,16 +97,53 @@ export function Comments( {
 		try {
 			toggleBlockHighlight( selectedBlockClientId, true );
 			prevRef.current = selectedBlockClientId;
+
+			// Scroll block to center
+			const blockElement = document.querySelector(
+				`[data-block="${ selectedBlockClientId }"]`
+			);
+			blockElement?.scrollIntoView( {
+				behavior: 'smooth',
+				block: 'center',
+			} );
+
+			// Scroll related comment to center
+			const blockAttributes = blocks?.find(
+				( block ) => block.clientId === selectedBlockClientId
+			)?.attributes;
+			if ( blockAttributes?.blockCommentId ) {
+				setFocusThread( blockAttributes.blockCommentId );
+				const commentScrollTimeout = setTimeout( () => {
+					const commentElement = document.getElementById(
+						blockAttributes.blockCommentId
+					);
+					commentElement?.scrollIntoView( {
+						behavior: 'smooth',
+						block: 'center',
+					} );
+				}, 100 );
+				scrollTimeouts.current.push( commentScrollTimeout );
+			}
 		} catch {
-			retryRef.current = setTimeout( () => {
+			const retryTimeout = setTimeout( () => {
 				toggleBlockHighlight( selectedBlockClientId, true );
 				prevRef.current = selectedBlockClientId;
+
+				const blockElement = document.querySelector(
+					`[data-block="${ selectedBlockClientId }"]`
+				);
+				blockElement?.scrollIntoView( {
+					behavior: 'smooth',
+					block: 'center',
+				} );
+
 				retryRef.current = null;
 			}, 50 );
+			retryRef.current = retryTimeout;
 		}
 
 		return reset;
-	}, [ selectedBlockClientId, toggleBlockHighlight ] );
+	}, [ selectedBlockClientId, toggleBlockHighlight, blocks ] );
 
 	// Function to find and select blocks by comment ID
 	const selectBlocksByCommentId = ( commentId ) => {
@@ -132,8 +169,58 @@ export function Comments( {
 		// Select the first related block if found
 		if ( relatedBlocks.length > 0 ) {
 			selectBlock( relatedBlocks[ 0 ] );
+
+			const scrollBlockToCenter = () => {
+				const blockElement = document.querySelector(
+					`[data-block="${ relatedBlocks[ 0 ] }"]`
+				);
+				if ( ! blockElement ) {
+					const retryTimeout = setTimeout( scrollBlockToCenter, 50 );
+					scrollTimeouts.current.push( retryTimeout );
+					return;
+				}
+				const editor =
+					document.querySelector( '.editor-styles-wrapper' ) ||
+					document.querySelector( '.block-editor-writing-flow' );
+				if ( editor ) {
+					const blockRect = blockElement.getBoundingClientRect();
+					editor.scrollTo( {
+						top:
+							blockElement.offsetTop -
+							editor.clientHeight / 2 +
+							blockRect.height / 2,
+						behavior: 'smooth',
+					} );
+				} else {
+					blockElement.scrollIntoView( {
+						behavior: 'smooth',
+						block: 'center',
+						inline: 'nearest',
+					} );
+				}
+			};
+			const initialScrollTimeout = setTimeout( scrollBlockToCenter, 200 );
+			scrollTimeouts.current.push( initialScrollTimeout );
+
+			// Start scrolling with a delay to ensure block is rendered
+			const scrollTimeout = setTimeout( scrollBlockToCenter, 200 );
+			scrollTimeouts.current.push( scrollTimeout );
 		}
 	};
+
+	// Add this ref at the top with your other refs
+	const scrollTimeouts = useRef( [] );
+
+	// Add this cleanup effect
+	useEffect( () => {
+		return () => {
+			// Clear all scroll timeouts on unmount
+			scrollTimeouts.current.forEach( ( timeout ) =>
+				clearTimeout( timeout )
+			);
+			scrollTimeouts.current = [];
+		};
+	}, [] );
 
 	// Handle comment selection
 	const handleCommentSelect = ( threadId ) => {
