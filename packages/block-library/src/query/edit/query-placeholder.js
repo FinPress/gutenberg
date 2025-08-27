@@ -125,8 +125,9 @@ export default function QueryPlaceholder( {
 function QueryVariationPicker( { clientId, attributes, icon, label } ) {
 	const scopeVariations = useScopedBlockVariations( attributes );
 	const { replaceInnerBlocks } = useDispatch( blockEditorStore );
+	const blockProps = useBlockProps();
 	return (
-		<div>
+		<div { ...blockProps }>
 			<__experimentalBlockVariationPicker
 				icon={ icon }
 				label={ label }
