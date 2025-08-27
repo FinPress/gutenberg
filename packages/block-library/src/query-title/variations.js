@@ -15,7 +15,7 @@ const variations = [
 		attributes: {
 			type: 'archive',
 		},
-		scope: [ 'inserter' ],
+		scope: [ 'inserter', 'transform' ],
 	},
 	{
 		isDefault: false,
@@ -28,7 +28,7 @@ const variations = [
 		attributes: {
 			type: 'search',
 		},
-		scope: [ 'inserter' ],
+		scope: [ 'inserter', 'transform' ],
 	},
 	{
 		isDefault: false,
