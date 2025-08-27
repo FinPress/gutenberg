@@ -404,7 +404,12 @@ function CustomEditControl< Item >( {
 						type: 'validating',
 						message: 'Validating...',
 					} );
-					onValidate( undefined, true );
+					onValidate( {
+						id: field.id,
+						isValid: undefined,
+						isValidating: true,
+						errors: [],
+					} );
 
 					message
 						.then( ( result ) => {
@@ -413,13 +418,23 @@ function CustomEditControl< Item >( {
 									type: 'invalid',
 									message: result,
 								} );
-								onValidate( false, false );
+								onValidate( {
+									id: field.id,
+									isValid: false,
+									isValidating: false,
+									errors: [ result ],
+								} );
 							} else {
 								setCustomValidity( {
 									type: 'valid',
 									message: 'Validated',
 								} );
-								onValidate( true, false );
+								onValidate( {
+									id: field.id,
+									isValid: true,
+									isValidating: false,
+									errors: [],
+								} );
 							}
 						} )
 						.catch( ( error ) => {
@@ -427,7 +442,12 @@ function CustomEditControl< Item >( {
 								type: 'invalid',
 								message: error.message,
 							} );
-							onValidate( false, false );
+							onValidate( {
+								id: field.id,
+								isValid: false,
+								isValidating: false,
+								errors: [ error.message ],
+							} );
 						} );
 
 					return;
@@ -440,11 +460,21 @@ function CustomEditControl< Item >( {
 						type: 'invalid',
 						message,
 					} );
-					onValidate( false, false );
+					onValidate( {
+						id: field.id,
+						isValid: false,
+						isValidating: false,
+						errors: [ message ],
+					} );
 					return;
 				}
 
-				onValidate( true, false );
+				onValidate( {
+					id: field.id,
+					isValid: true,
+					isValidating: false,
+					errors: [],
+				} );
 				setCustomValidity( undefined );
 			} }
 			customValidity={ customValidity }
@@ -645,7 +675,7 @@ const ValidationComponent = ( {
 							...edits,
 						} ) )
 					}
-					onValidate={ ( isValid, isValidating ) => {
+					onValidate={ ( { isValid, isValidating } ) => {
 						setIsFormValid( isValid );
 						setIsFormBusy( isValidating );
 					} }

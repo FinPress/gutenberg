@@ -67,7 +67,12 @@ function PanelDropdown< Item >( {
 	labelPosition: 'side' | 'top' | 'none';
 	data: Item;
 	onChange: ( value: any ) => void;
-	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
+	onValidate: ( arg: {
+		id: string;
+		isValid: boolean | undefined;
+		isValidating: boolean;
+		errors: string[];
+	} ) => void;
 	field: FormField;
 } ) {
 	const fieldLabel = isCombinedField( field )

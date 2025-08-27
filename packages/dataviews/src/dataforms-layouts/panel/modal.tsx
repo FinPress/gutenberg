@@ -30,7 +30,12 @@ function ModalContent< Item >( {
 	form: Form;
 	fieldLabel: string;
 	onChange: ( data: Partial< Item > ) => void;
-	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
+	onValidate: ( arg: {
+		id: string;
+		isValid: boolean | undefined;
+		isValidating: boolean;
+		errors: string[];
+	} ) => void;
 	onClose: () => void;
 } ) {
 	const [ changes, setChanges ] = useState< Partial< Item > >( {} );
@@ -110,7 +115,12 @@ function PanelModal< Item >( {
 	labelPosition: 'side' | 'top' | 'none';
 	data: Item;
 	onChange: ( value: any ) => void;
-	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
+	onValidate: ( arg: {
+		id: string;
+		isValid: boolean | undefined;
+		isValidating: boolean;
+		errors: string[];
+	} ) => void;
 	field: FormField;
 } ) {
 	const [ isOpen, setIsOpen ] = useState( false );

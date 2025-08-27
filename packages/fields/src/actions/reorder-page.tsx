@@ -84,7 +84,7 @@ function ReorderModal( {
 					data={ item }
 					fields={ fields }
 					form={ formOrderAction }
-					onValidate={ ( isValid ) => {
+					onValidate={ ( { isValid } ) => {
 						setIsFormValid( isValid );
 					} }
 					onChange={ ( changes ) => {

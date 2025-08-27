@@ -151,7 +151,12 @@ export default function Integer< Item >( {
 						type: 'validating',
 						message: 'Validating...',
 					} );
-					onValidate( undefined, true );
+					onValidate( {
+						id: field.id,
+						isValid: undefined,
+						isValidating: true,
+						errors: [],
+					} );
 
 					message
 						.then( ( result ) => {
@@ -160,13 +165,23 @@ export default function Integer< Item >( {
 									type: 'invalid',
 									message: result,
 								} );
-								onValidate( false, false );
+								onValidate( {
+									id: field.id,
+									isValid: false,
+									isValidating: false,
+									errors: [ result ],
+								} );
 							} else {
 								setCustomValidity( {
 									type: 'valid',
 									message: 'Validated',
 								} );
-								onValidate( true, false );
+								onValidate( {
+									id: field.id,
+									isValid: true,
+									isValidating: false,
+									errors: [],
+								} );
 							}
 						} )
 						.catch( ( error ) => {
@@ -174,7 +189,12 @@ export default function Integer< Item >( {
 								type: 'invalid',
 								message: error.message,
 							} );
-							onValidate( false, false );
+							onValidate( {
+								id: field.id,
+								isValid: false,
+								isValidating: false,
+								errors: [ error.message ],
+							} );
 						} );
 
 					return;
@@ -187,11 +207,16 @@ export default function Integer< Item >( {
 						type: 'invalid',
 						message,
 					} );
-					onValidate( false, false );
+					onValidate( {
+						id: field.id,
+						isValid: false,
+						isValidating: false,
+						errors: [ message ],
+					} );
 					return;
 				}
 
-				onValidate( true, false );
+				// onValidate( true, false );
 				setCustomValidity( undefined );
 			} }
 			customValidity={ customValidity }

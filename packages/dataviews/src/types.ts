@@ -279,7 +279,12 @@ export type DataFormControlProps< Item > = {
 	data: Item;
 	field: NormalizedField< Item >;
 	onChange: ( value: Record< string, any > ) => void;
-	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
+	onValidate: ( arg: {
+		id: string;
+		isValid: boolean | undefined;
+		isValidating: boolean;
+		errors: string[];
+	} ) => void;
 	hideLabelFromVision?: boolean;
 	/**
 	 * The currently selected filter operator for this field.
@@ -758,22 +763,33 @@ export type Form = {
 	fields?: Array< FormField | string >;
 };
 
+export interface ValidationError {
+	id: string;
+	message: string;
+}
+
 export interface DataFormProps< Item > {
 	data: Item;
 	fields: Field< Item >[];
 	form: Form;
 	onChange: ( value: Record< string, any > ) => void;
-	onValidate?: (
-		isValid: boolean | undefined,
-		isValidating: boolean
-	) => void;
+	onValidate?: ( arg: {
+		isValid: boolean | undefined;
+		isValidating: boolean;
+		errors: ValidationError[];
+	} ) => void;
 }
 
 export interface FieldLayoutProps< Item > {
 	data: Item;
 	field: FormField;
 	onChange: ( value: any ) => void;
-	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
+	onValidate: ( arg: {
+		id: string;
+		isValid: boolean | undefined;
+		isValidating: boolean;
+		errors: string[];
+	} ) => void;
 	hideLabelFromVision?: boolean;
 }
 
@@ -781,16 +797,23 @@ export interface DataFormLayoutProps< Item > {
 	data: Item;
 	form: Form;
 	onChange: ( value: any ) => void;
-	onValidate: ( isValid: boolean | undefined, isValidating: boolean ) => void;
+	onValidate: ( arg: {
+		id: string;
+		isValid: boolean | undefined;
+		isValidating: boolean;
+		errors: string[];
+	} ) => void;
 	children?: (
 		FieldLayout: ( props: {
 			data: Item;
 			field: FormField;
 			onChange: ( value: any ) => void;
-			onValidate: (
-				isValid: boolean | undefined,
-				isValidating: boolean
-			) => void;
+			onValidate: ( arg: {
+				id: string;
+				isValid: boolean | undefined;
+				isValidating: boolean;
+				errors: string[];
+			} ) => void;
 			hideLabelFromVision?: boolean;
 		} ) => React.JSX.Element | null,
 		field: FormField
