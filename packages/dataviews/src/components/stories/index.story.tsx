@@ -19,7 +19,7 @@ import {
 	type SpaceObject,
 } from '../dataviews/stories/fixtures';
 import { filterSortAndPaginate } from '../../filter-and-sort-data-view';
-import type { DataViewsView, Form, Field } from '../../types';
+import type { View, Form, Field } from '../../types';
 
 const meta = {
 	title: 'DataViews/FieldTypes',
@@ -72,7 +72,7 @@ const FieldTypeStory = ( {
 		[ type, labelPosition, storyFields ]
 	) as Form;
 
-	const [ view, setView ] = useState< DataViewsView >( {
+	const [ view, setView ] = useState< View >( {
 		type: 'table' as const,
 		search: '',
 		page: 1,
