@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { forwardRef, useEffect } from '@wordpress/element';
+import { forwardRef, useEffect, useState } from '@wordpress/element';
 import {
 	__unstableMotion as motion,
 	__unstableAnimatePresence as AnimatePresence,
@@ -17,6 +17,8 @@ import {
 	useViewportMatch,
 	useResizeObserver,
 } from '@wordpress/compose';
+import { store as preferencesStore } from '@wordpress/preferences';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -90,12 +92,57 @@ function InterfaceSkeleton(
 		useResizeObserver();
 	const isMobileViewport = useViewportMatch( 'medium', '<' );
 	const disableMotion = useReducedMotion();
-	const defaultTransition = {
+	// Track whether this is the initial render or a subsequent interaction
+	const [ isInitialRender, setIsInitialRender ] = useState( true );
+	// Track if sidebar has been sized
+	const [ hasSidebarBeenSized, setHasSidebarBeenSized ] = useState( false );
+	// Get the preference for "Always open List View" preference.
+	const { get: getPreference } = useSelect( preferencesStore );
+	const showListViewByDefault = getPreference(
+		'core',
+		'showListViewByDefault'
+	);
+
+	// Create different transitions for initial vs subsequent renders
+	const initialTransition = { duration: 0 };
+	const animationTransition = {
 		type: 'tween',
 		duration: disableMotion ? 0 : ANIMATION_DURATION,
 		ease: [ 0.6, 0, 0.4, 1 ],
 	};
+
+	// Use the appropriate transition based on render state
+	const defaultTransition =
+		showListViewByDefault && isInitialRender
+			? initialTransition
+			: animationTransition;
+
 	useHTMLClass( 'interface-interface-skeleton__html-container' );
+
+	// When sidebar size changes and it has a width, mark initial rendering as complete
+	useEffect( () => {
+		if (
+			showListViewByDefault &&
+			isInitialRender &&
+			secondarySidebar &&
+			secondarySidebarSize.width > 0
+		) {
+			// Size has been detected, sidebar is ready
+			if ( ! hasSidebarBeenSized ) {
+				setHasSidebarBeenSized( true );
+				// Allow a single frame for the non-animated render to complete
+				window.requestAnimationFrame( () => {
+					setIsInitialRender( false );
+				} );
+			}
+		}
+	}, [
+		isInitialRender,
+		secondarySidebar,
+		secondarySidebarSize,
+		showListViewByDefault,
+		hasSidebarBeenSized,
+	] );
 
 	const defaultLabels = {
 		/* translators: accessibility text for the top bar landmark region. */
@@ -163,13 +210,19 @@ function InterfaceSkeleton(
 					</div>
 				) }
 				<div className="interface-interface-skeleton__body">
-					<AnimatePresence initial={ false }>
+					<AnimatePresence
+						initial={ showListViewByDefault && isInitialRender }
+					>
 						{ !! secondarySidebar && (
 							<NavigableRegion
 								className="interface-interface-skeleton__secondary-sidebar"
 								ariaLabel={ mergedLabels.secondarySidebar }
 								as={ motion.div }
-								initial="closed"
+								initial={
+									showListViewByDefault && isInitialRender
+										? 'open'
+										: 'closed'
+								}
 								animate="open"
 								exit="closed"
 								variants={ {
