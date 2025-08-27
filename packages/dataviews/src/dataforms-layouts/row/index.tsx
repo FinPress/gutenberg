@@ -86,7 +86,6 @@ export default function FormRowField< Item >( {
 		);
 	}
 
-	// Simple field: render directly without nesting another DataFormLayout.
 	const fieldDefinition = fields.find( ( f ) => f.id === field.id );
 
 	if ( ! fieldDefinition || ! fieldDefinition.Edit ) {
