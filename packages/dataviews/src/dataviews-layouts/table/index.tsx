@@ -207,7 +207,19 @@ function TableRow< Item >( {
 				</td>
 			) }
 			{ hasPrimaryColumn && (
-				<td>
+				<td
+					style={ {
+						width:
+							titleField?.id &&
+							view.layout?.styles?.[ titleField.id ]?.width,
+						maxWidth:
+							titleField?.id &&
+							view.layout?.styles?.[ titleField.id ]?.maxWidth,
+						minWidth:
+							titleField?.id &&
+							view.layout?.styles?.[ titleField.id ]?.minWidth,
+					} }
+				>
 					<ColumnPrimary
 						item={ item }
 						level={ level }
@@ -402,7 +414,23 @@ function ViewTable< Item >( {
 							</th>
 						) }
 						{ hasPrimaryColumn && (
-							<th scope="col">
+							<th
+								scope="col"
+								style={ {
+									width:
+										titleField?.id &&
+										view.layout?.styles?.[ titleField.id ]
+											?.width,
+									maxWidth:
+										titleField?.id &&
+										view.layout?.styles?.[ titleField.id ]
+											?.maxWidth,
+									minWidth:
+										titleField?.id &&
+										view.layout?.styles?.[ titleField.id ]
+											?.minWidth,
+								} }
+							>
 								{ titleField && (
 									<ColumnHeaderMenu
 										ref={ headerMenuRef(
