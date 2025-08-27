@@ -727,10 +727,12 @@ export type NormalizedCardLayout =
 export type RowLayout = {
 	type: 'row';
 	gap?: number;
+	alignment?: 'start' | 'center' | 'end';
 };
 export type NormalizedRowLayout = {
 	type: 'row';
 	gap: number;
+	alignment: 'start' | 'center' | 'end';
 };
 
 export type Layout = RegularLayout | PanelLayout | CardLayout | RowLayout;

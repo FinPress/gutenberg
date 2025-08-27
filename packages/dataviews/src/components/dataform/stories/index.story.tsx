@@ -751,7 +751,13 @@ const LayoutCardComponent = ( { withHeader }: { withHeader: boolean } ) => {
 	);
 };
 
-const LayoutRowComponent = ( { gap }: { gap: number } ) => {
+const LayoutRowComponent = ( {
+	gap,
+	alignment,
+}: {
+	gap: number;
+	alignment: 'start' | 'center' | 'end';
+} ) => {
 	type Customer = {
 		name: string;
 		email: string;
@@ -868,7 +874,7 @@ const LayoutRowComponent = ( { gap }: { gap: number } ) => {
 						{
 							id: 'customerContact',
 							label: 'Contact',
-							layout: { type: 'row', gap },
+							layout: { type: 'row', gap, alignment },
 							children: [
 								{
 									id: 'name',
@@ -896,7 +902,7 @@ const LayoutRowComponent = ( { gap }: { gap: number } ) => {
 						{
 							id: 'customerAddresses',
 							label: 'Address',
-							layout: { type: 'row', gap },
+							layout: { type: 'row', gap, alignment },
 							children: [
 								{
 									id: 'plan',
@@ -913,24 +919,22 @@ const LayoutRowComponent = ( { gap }: { gap: number } ) => {
 					],
 				},
 				{
-					id: 'payments',
-					layout: {
-						type: 'card',
-						withHeader: false,
-					},
-				},
-				{
-					id: 'taxConfiguration',
-					label: 'Taxes',
-					layout: {
-						type: 'card',
-						isOpened: false,
-					},
-					children: [ 'vat', 'commission' ],
+					id: 'payments-and-tax',
+					layout: { type: 'row', gap },
+					children: [
+						{
+							id: 'payments',
+						},
+						{
+							id: 'taxConfiguration',
+							layout: { type: 'row', isOpened: false },
+							children: [ 'vat', 'commission' ],
+						},
+					],
 				},
 			],
 		} ),
-		[ gap ]
+		[ gap, alignment ]
 	);
 
 	return (
@@ -1074,6 +1078,15 @@ export const LayoutRow = {
 			control: { type: 'number' },
 			description: 'The gap between the fields.',
 		},
+		alignment: {
+			control: { type: 'select' },
+			description: 'The alignment of the fields.',
+			options: [ 'start', 'center', 'end' ],
+		},
+	},
+	args: {
+		alignment: 'end',
+		gap: 2,
 	},
 };
 

@@ -64,6 +64,7 @@ export function normalizeLayout( layout?: Layout ): NormalizedLayout {
 		normalizedLayout = {
 			type: 'row',
 			gap: layout?.gap ?? 4,
+			alignment: layout?.alignment ?? 'center',
 		} satisfies NormalizedRowLayout;
 	}
 
