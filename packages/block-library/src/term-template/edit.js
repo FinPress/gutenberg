@@ -198,7 +198,10 @@ export default function TermTemplateEdit( {
 		order,
 		orderby: orderBy,
 		hide_empty: hideEmpty,
-		per_page: perPage,
+		// To preview the data the closest to the frontend, we fetch the largest number of terms
+		// and limit the number during rendering. This is because WP_Term_Query fetches data in hierarchical manner.
+		// This also allow us to avoid re-fetching data when max terms changes.
+		per_page: 100,
 	};
 
 	const { records: terms, isResolving } = useEntityRecords(
@@ -297,7 +300,8 @@ export default function TermTemplateEdit( {
 			);
 		}
 
-		return blockContexts.map( ( blockContext ) => (
+		// We only limit the number of terms if hierarchical is false.
+		return blockContexts.slice( 0, perPage ).map( ( blockContext ) => (
 			<BlockContextProvider
 				key={ blockContext.termId }
 				value={ blockContext }
