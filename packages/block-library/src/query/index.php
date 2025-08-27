@@ -31,8 +31,24 @@ function render_block_core_query( $attributes, $content, $block ) {
 			// Add the necessary directives.
 			$p->set_attribute( 'data-wp-interactive', 'core/query' );
 			$p->set_attribute( 'data-wp-router-region', 'query-' . $attributes['queryId'] );
-			$p->set_attribute( 'data-wp-context', '{}' );
+			$p->set_attribute(
+				'data-wp-context',
+				wp_json_encode(
+					array(
+						/**
+						 * Checks whether the current navigation was originated from this Query block.
+						 *
+						 * Usage:
+						 *   ```js
+						 *   const { isCurrentNavigationOrigin } = getContext( 'core/query' );
+						 *   ```
+						 */
+						'isCurrentNavigationOrigin' => false,
+					)
+				)
+			);
 			$p->set_attribute( 'data-wp-key', $attributes['queryId'] );
+			$p->set_attribute( 'data-wp-class--is-current-navigation-origin', 'context.isCurrentNavigationOrigin' );
 			$content = $p->get_updated_html();
 		}
 	}
