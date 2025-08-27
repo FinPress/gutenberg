@@ -402,7 +402,7 @@ const ValidationComponent = ( {
 	const [ isFormValid, setIsFormValid ] = useState< boolean | undefined >();
 	const [ isFormBusy, setIsFormBusy ] = useState< boolean >( false );
 	const [ post, setPost ] = useState< ValidatedItem >( {
-		text: 'Can have letters and spaces',
+		text: 'Some text',
 		email: 'hi@example.com',
 		integer: 2,
 		boolean: true,
@@ -464,6 +464,9 @@ const ValidationComponent = ( {
 			id: 'text',
 			type: 'text',
 			label: 'Text',
+			description: custom
+				? 'Custom validation: can only have letters and spaces.'
+				: undefined,
 			isValid: {
 				required,
 				custom: maybeCustomRule( customTextRule ),
@@ -473,6 +476,9 @@ const ValidationComponent = ( {
 			id: 'email',
 			type: 'email',
 			label: 'e-mail',
+			description: custom
+				? 'Custom validation: can only use @example.com emails.'
+				: undefined,
 			isValid: {
 				required,
 				custom: maybeCustomRule( customEmailRule ),
@@ -482,6 +488,9 @@ const ValidationComponent = ( {
 			id: 'integer',
 			type: 'integer',
 			label: 'Integer',
+			description: custom
+				? 'Custom validation: can only use even integers.'
+				: undefined,
 			isValid: {
 				required,
 				custom: maybeCustomRule( customIntegerRule ),
@@ -491,6 +500,9 @@ const ValidationComponent = ( {
 			id: 'boolean',
 			type: 'boolean',
 			label: 'Boolean',
+			description: custom
+				? 'Custom validation: can only be true.'
+				: undefined,
 			isValid: {
 				required,
 				custom: maybeCustomRule( customBooleanRule ),
