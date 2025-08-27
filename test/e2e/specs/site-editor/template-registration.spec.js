@@ -84,7 +84,10 @@ test.describe( 'Block template registration', () => {
 		const searchResults = page.getByLabel( 'Actions' );
 		await searchResults.first().click();
 		await page.getByRole( 'menuitem', { name: 'Reset' } ).click();
-		await page.getByRole( 'button', { name: 'Reset' } ).click();
+		await page
+			.getByRole( 'dialog' )
+			.getByRole( 'button', { name: 'Reset' } )
+			.click();
 
 		await expect( resetNotice ).toBeVisible();
 		await expect( savedButton ).toBeVisible();

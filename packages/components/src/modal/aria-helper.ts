@@ -30,7 +30,7 @@ export function modalize( modalElement?: HTMLDivElement ) {
 		}
 
 		if ( elementShouldBeHidden( element ) ) {
-			element.setAttribute( 'aria-hidden', 'true' );
+			element.setAttribute( 'inert', '' );
 			hiddenElements.push( element );
 		}
 	}
@@ -49,6 +49,7 @@ export function elementShouldBeHidden( element: Element ) {
 		element.tagName === 'SCRIPT' ||
 		element.hasAttribute( 'hidden' ) ||
 		element.hasAttribute( 'aria-hidden' ) ||
+		element.hasAttribute( 'inert' ) ||
 		element.hasAttribute( 'aria-live' ) ||
 		( role && LIVE_REGION_ARIA_ROLES.has( role ) )
 	);
@@ -64,6 +65,6 @@ export function unmodalize() {
 	}
 
 	for ( const element of hiddenElements ) {
-		element.removeAttribute( 'aria-hidden' );
+		element.removeAttribute( 'inert' );
 	}
 }

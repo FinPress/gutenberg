@@ -234,7 +234,7 @@ describe( 'Modal', () => {
 
 		// Opens outer modal > hides container.
 		await user.click( screen.getByRole( 'button', { name: 'Start' } ) );
-		expect( container ).toHaveAttribute( 'aria-hidden', 'true' );
+		expect( container ).toHaveAttribute( 'inert' );
 
 		// Disable reason: No semantic query can reach the overlay.
 		// eslint-disable-next-line testing-library/no-node-access
@@ -242,16 +242,16 @@ describe( 'Modal', () => {
 
 		// Opens inner modal > hides outer modal.
 		await user.click( screen.getByRole( 'button', { name: 'Nest' } ) );
-		expect( outer ).toHaveAttribute( 'aria-hidden', 'true' );
+		expect( outer ).toHaveAttribute( 'inert' );
 
 		// Closes inner modal > Unhides outer modal and container stays hidden.
 		await user.keyboard( '[Escape]' );
-		expect( outer ).not.toHaveAttribute( 'aria-hidden' );
-		expect( container ).toHaveAttribute( 'aria-hidden', 'true' );
+		expect( outer ).not.toHaveAttribute( 'inert' );
+		expect( container ).toHaveAttribute( 'inert' );
 
 		// Closes outer modal > Unhides container.
 		await user.keyboard( '[Escape]' );
-		expect( container ).not.toHaveAttribute( 'aria-hidden' );
+		expect( container ).not.toHaveAttribute( 'inert' );
 	} );
 
 	it( 'should render `headerActions` React nodes', async () => {

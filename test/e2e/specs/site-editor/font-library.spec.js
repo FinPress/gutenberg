@@ -87,9 +87,10 @@ test.describe( 'Font Library', () => {
 					name: 'Manage fonts',
 				} )
 				.click();
-			await expect( page.getByRole( 'dialog' ) ).toBeVisible();
 			await expect(
-				page.getByRole( 'heading', { name: 'Fonts', exact: true } )
+				page
+					.getByRole( 'dialog' )
+					.getByRole( 'heading', { name: 'Fonts', exact: true } )
 			).toBeVisible();
 		} );
 
@@ -106,12 +107,13 @@ test.describe( 'Font Library', () => {
 					name: 'Manage fonts',
 				} )
 				.click();
-			await page.getByRole( 'button', { name: 'System Font' } ).click();
+			const dialog = page.getByRole( 'dialog' );
+			await dialog.getByRole( 'button', { name: 'System Font' } ).click();
 			await expect(
-				page.getByRole( 'heading', { name: 'System Font' } )
+				dialog.getByRole( 'heading', { name: 'System Font' } )
 			).toBeVisible();
 			await expect(
-				page.getByRole( 'checkbox', { name: 'System Font Normal' } )
+				dialog.getByRole( 'checkbox', { name: 'System Font Normal' } )
 			).toBeVisible();
 		} );
 	} );
@@ -174,15 +176,16 @@ test.describe( 'Font Library', () => {
 					.getByText( 'Fonts were installed successfully.' )
 			).toBeVisible();
 			await page.getByRole( 'tab', { name: 'Library' } ).click();
+			const dialog = page.getByRole( 'dialog' );
 			// Provides coverage for https://github.com/WordPress/gutenberg/issues/60040.
-			await page.getByRole( 'button', { name: 'Exo 2' } ).click();
+			await dialog.getByRole( 'button', { name: 'Exo 2' } ).click();
 			await expect( page.getByLabel( 'Exo 2 Normal' ) ).toBeVisible();
 			await expect(
 				page.getByLabel( 'Exo 2 Semi-bold Italic' )
 			).toBeVisible();
 
 			// Check CSS preset was created.
-			await page.getByRole( 'button', { name: 'Close' } ).click();
+			await dialog.getByRole( 'button', { name: 'Close' } ).click();
 			await page
 				.getByRole( 'button', { name: 'Headings', exact: true } )
 				.click();
@@ -200,9 +203,13 @@ test.describe( 'Font Library', () => {
 				} )
 				.click();
 
-			await page.getByRole( 'button', { name: 'Exo 2' } ).click();
-			await page.getByRole( 'button', { name: 'Delete' } ).click();
-			await page.getByRole( 'button', { name: 'Delete' } ).click();
+			await dialog.getByRole( 'button', { name: 'Exo 2' } ).click();
+			await dialog.getByRole( 'button', { name: 'Delete' } ).click();
+			await page
+				.getByRole( 'dialog' )
+				.last()
+				.getByRole( 'button', { name: 'Delete' } )
+				.click();
 			await expect(
 				page
 					.getByLabel( 'Library' )
@@ -248,9 +255,9 @@ test.describe( 'Font Library', () => {
 				.getByRole( 'button', { name: 'Jost 2 variants' } )
 				.click();
 
-			await expect( page.getByRole( 'dialog' ) ).toBeVisible();
+			const dialog = page.getByRole( 'dialog' );
 			await expect(
-				page.getByRole( 'heading', { name: 'Fonts' } )
+				dialog.getByRole( 'heading', { name: 'Fonts' } )
 			).toBeVisible();
 
 			// Check correct font is displayed in Font Library
@@ -259,7 +266,7 @@ test.describe( 'Font Library', () => {
 			).toBeVisible();
 
 			// Close the Font Library dialog
-			await page.getByRole( 'button', { name: 'Close' } ).click();
+			await dialog.getByRole( 'button', { name: 'Close' } ).click();
 
 			// Click "Back"
 			await page.getByRole( 'button', { name: 'Back' } ).click();
@@ -280,9 +287,8 @@ test.describe( 'Font Library', () => {
 				.getByRole( 'button', { name: 'Cardo 3 variants' } )
 				.click();
 
-			await expect( page.getByRole( 'dialog' ) ).toBeVisible();
 			await expect(
-				page.getByRole( 'heading', { name: 'Fonts' } )
+				dialog.getByRole( 'heading', { name: 'Fonts' } )
 			).toBeVisible();
 
 			// Check correct font is displayed in Font Library
