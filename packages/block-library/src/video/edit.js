@@ -179,16 +179,14 @@ function VideoEdit( {
 		<>
 			{ isSingleSelected && (
 				<>
-					{ hasNonContentControls && (
-						<BlockControls>
-							<TracksEditor
-								tracks={ tracks }
-								onChange={ ( newTracks ) => {
-									setAttributes( { tracks: newTracks } );
-								} }
-							/>
-						</BlockControls>
-					) }
+					<BlockControls>
+						<TracksEditor
+							tracks={ tracks }
+							onChange={ ( newTracks ) => {
+								setAttributes( { tracks: newTracks } );
+							} }
+						/>
+					</BlockControls>
 					<BlockControls group="other">
 						<MediaReplaceFlow
 							mediaId={ id }
