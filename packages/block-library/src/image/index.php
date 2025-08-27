@@ -165,13 +165,16 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 		$img_height       = $img_metadata['height'] ?? 'none';
 	}
 
+	// Create unique id and set the image metadata in the state.
+	$unique_image_id = uniqid();
+
+	$img_styles = "anchor-name: --wp-image-$unique_image_id;" . $img_styles;
+	$p->set_attribute( 'style', $img_styles );
+
 	// Figure.
 	$p->seek( 'figure' );
 	$figure_class_names = $p->get_attribute( 'class' );
 	$figure_styles      = $p->get_attribute( 'style' );
-
-	// Create unique id and set the image metadata in the state.
-	$unique_image_id = uniqid();
 
 	wp_interactivity_state(
 		'core/image',
@@ -210,7 +213,6 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 	$p->next_tag( 'img' );
 	$p->set_attribute( 'data-wp-init', 'callbacks.setButtonStyles' );
 	$p->set_attribute( 'data-wp-on-async--load', 'callbacks.setButtonStyles' );
-	$p->set_attribute( 'data-wp-on-async-window--resize', 'callbacks.setButtonStyles' );
 	// Sets an event callback on the `img` because the `figure` element can also
 	// contain a caption, and we don't want to trigger the lightbox when the
 	// caption is clicked.
@@ -233,8 +235,8 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 			aria-label="' . esc_attr( $aria_label ) . '"
 			data-wp-init="callbacks.initTriggerButton"
 			data-wp-on-async--click="actions.showLightbox"
-			data-wp-style--right="state.imageButtonRight"
-			data-wp-style--top="state.imageButtonTop"
+			data-wp-style--bottom="state.imageButtonBottom"
+			data-wp-style--position-anchor="state.imageButtonAnchor"
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
 				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
