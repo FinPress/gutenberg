@@ -726,12 +726,12 @@ export type NormalizedCardLayout =
 
 export type RowLayout = {
 	type: 'row';
-	gap?: number;
+	spacing?: number;
 	alignment?: 'start' | 'center' | 'end';
 };
 export type NormalizedRowLayout = {
 	type: 'row';
-	gap: number;
+	spacing: number;
 	alignment: 'start' | 'center' | 'end';
 };
 

@@ -752,10 +752,10 @@ const LayoutCardComponent = ( { withHeader }: { withHeader: boolean } ) => {
 };
 
 const LayoutRowComponent = ( {
-	gap,
+	spacing,
 	alignment,
 }: {
-	gap: number;
+	spacing: number;
 	alignment: 'start' | 'center' | 'end';
 } ) => {
 	type Customer = {
@@ -874,7 +874,7 @@ const LayoutRowComponent = ( {
 						{
 							id: 'customerContact',
 							label: 'Contact',
-							layout: { type: 'row', gap, alignment },
+							layout: { type: 'row', spacing, alignment },
 							children: [
 								{
 									id: 'name',
@@ -902,7 +902,7 @@ const LayoutRowComponent = ( {
 						{
 							id: 'customerAddresses',
 							label: 'Address',
-							layout: { type: 'row', gap, alignment },
+							layout: { type: 'row', spacing, alignment },
 							children: [
 								{
 									id: 'plan',
@@ -920,7 +920,7 @@ const LayoutRowComponent = ( {
 				},
 				{
 					id: 'payments-and-tax',
-					layout: { type: 'row', gap },
+					layout: { type: 'row', spacing },
 					children: [
 						{
 							id: 'payments',
@@ -934,7 +934,7 @@ const LayoutRowComponent = ( {
 				},
 			],
 		} ),
-		[ gap, alignment ]
+		[ spacing, alignment ]
 	);
 
 	return (
@@ -978,7 +978,7 @@ const LayoutMixedComponent = () => {
 				],
 				layout: {
 					type: 'row',
-					gap: 2,
+					spacing: 2,
 				},
 			},
 			{
@@ -1074,7 +1074,7 @@ export const LayoutRegular = {
 export const LayoutRow = {
 	render: LayoutRowComponent,
 	argTypes: {
-		gap: {
+		spacing: {
 			control: { type: 'number' },
 			description: 'The gap between the fields.',
 		},
@@ -1086,7 +1086,7 @@ export const LayoutRow = {
 	},
 	args: {
 		alignment: 'end',
-		gap: 2,
+		spacing: 2,
 	},
 };
 

@@ -60,7 +60,10 @@ export default function FormRowField< Item >( {
 				{ ! hideLabelFromVision && field.label && (
 					<Header title={ field.label } />
 				) }
-				<HStack alignment={ layout.alignment } spacing={ layout.gap }>
+				<HStack
+					alignment={ layout.alignment }
+					spacing={ layout.spacing }
+				>
 					<DataFormLayout
 						data={ data }
 						form={ form }
