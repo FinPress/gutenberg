@@ -188,7 +188,7 @@ export default function TermTemplateEdit( {
 			hideEmpty,
 			hierarchical,
 			parent,
-			perPage = 100,
+			perPage = 10,
 		} = {},
 	},
 } ) {
