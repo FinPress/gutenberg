@@ -2,18 +2,31 @@
  * WordPress dependencies
  */
 import { memo, useMemo, useState } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import {
 	BlockControls,
 	BlockContextProvider,
 	__experimentalUseBlockPreview as useBlockPreview,
+	__experimentalBlockVariationPicker as BlockVariationPicker,
 	useBlockProps,
 	useInnerBlocksProps,
+	InspectorControls,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { ToolbarGroup } from '@wordpress/components';
+
+import {
+	ToolbarGroup,
+	PanelBody,
+	SelectControl,
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
+} from '@wordpress/components';
 import { useEntityRecords } from '@wordpress/core-data';
+import {
+	createBlocksFromInnerBlocksTemplate,
+	store as blocksStore,
+} from '@wordpress/blocks';
 
 const TEMPLATE = [
 	[
@@ -70,11 +83,17 @@ const TEMPLATE = [
 	],
 ];
 
-function TermTemplateInnerBlocks( { classList } ) {
+function TermTemplateInnerBlocks( { classList, blockLayout = 'list' } ) {
 	const innerBlocksProps = useInnerBlocksProps(
 		{ className: `wp-block-term ${ classList }` },
 		{ template: TEMPLATE, __unstableDisableLayoutClassNames: true }
 	);
+
+	// Use different HTML element based on layout
+	if ( blockLayout === 'grid' ) {
+		return <div { ...innerBlocksProps } />;
+	}
+
 	return <li { ...innerBlocksProps } />;
 }
 
@@ -84,6 +103,7 @@ function TermTemplateBlockPreview( {
 	classList,
 	isHidden,
 	setActiveBlockContextId,
+	blockLayout = 'list',
 } ) {
 	const blockPreviewProps = useBlockPreview( {
 		blocks,
@@ -99,6 +119,21 @@ function TermTemplateBlockPreview( {
 	const style = {
 		display: isHidden ? 'none' : undefined,
 	};
+
+	// Use different HTML element based on layout
+	if ( blockLayout === 'grid' ) {
+		return (
+			<div
+				{ ...blockPreviewProps }
+				tabIndex={ 0 }
+				// eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+				role="button"
+				onClick={ handleOnClick }
+				onKeyPress={ handleOnClick }
+				style={ style }
+			/>
+		);
+	}
 
 	return (
 		<li
@@ -147,20 +182,23 @@ function buildTermsTree( terms ) {
 /**
  * Renders a single term node and its children recursively.
  *
- * @param {Object}   termNode   Term node with term object and children.
- * @param {Function} renderTerm Function to render individual terms.
+ * @param {Object}   termNode    Term node with term object and children.
+ * @param {Function} renderTerm  Function to render individual terms.
+ * @param {string}   blockLayout Layout type ('list' or 'grid').
  * @return {JSX.Element} Rendered term node with children.
  */
-function renderTermNode( termNode, renderTerm ) {
+function renderTermNode( termNode, renderTerm, blockLayout = 'list' ) {
+	const ContainerElement = blockLayout === 'grid' ? 'div' : 'ul';
+
 	return (
 		<>
 			{ renderTerm( termNode.term ) }
 			{ termNode.children.length > 0 && (
-				<ul>
+				<ContainerElement>
 					{ termNode.children.map( ( child ) =>
-						renderTermNode( child, renderTerm )
+						renderTermNode( child, renderTerm, blockLayout )
 					) }
-				</ul>
+				</ContainerElement>
 			) }
 		</>
 	);
@@ -180,6 +218,8 @@ function isActiveTerm( termId, activeBlockContextId, blockContexts ) {
 
 export default function TermTemplateEdit( {
 	clientId,
+	attributes,
+	setAttributes,
 	context: {
 		termQuery: {
 			taxonomy,
@@ -193,6 +233,7 @@ export default function TermTemplateEdit( {
 	},
 } ) {
 	const [ activeBlockContextId, setActiveBlockContextId ] = useState();
+	const { replaceInnerBlocks } = useDispatch( blockEditorStore );
 
 	const queryArgs = {
 		order,
@@ -218,12 +259,29 @@ export default function TermTemplateEdit( {
 		return terms.filter( ( term ) => ! term.parent );
 	}, [ terms, parent ] );
 
-	const { blocks } = useSelect(
-		( select ) => ( {
-			blocks: select( blockEditorStore ).getBlocks( clientId ),
-		} ),
+	const { blocks, variations, defaultVariation } = useSelect(
+		( select ) => {
+			const { getBlocks } = select( blockEditorStore );
+			const { getBlockVariations, getDefaultBlockVariation } =
+				select( blocksStore );
+
+			return {
+				blocks: getBlocks( clientId ),
+				variations: getBlockVariations( 'core/term-template', 'block' ),
+				defaultVariation: getDefaultBlockVariation(
+					'core/term-template',
+					'block'
+				),
+			};
+		},
 		[ clientId ]
 	);
+
+	const blockLayout = attributes?.blockLayout || 'list';
+	const columnCount = attributes?.columnCount || 3;
+	const blockProps = useBlockProps( {
+		className: blockLayout === 'grid' ? `columns-${ columnCount }` : '',
+	} );
 
 	const blockContexts = useMemo(
 		() =>
@@ -236,7 +294,36 @@ export default function TermTemplateEdit( {
 		[ filteredTerms, taxonomy ]
 	);
 
-	const blockProps = useBlockProps();
+	// Show variation picker if no blocks exist
+	if ( ! blocks?.length ) {
+		return (
+			<div { ...blockProps }>
+				<BlockVariationPicker
+					icon="layout"
+					label={ __( 'Term Template' ) }
+					variations={ variations }
+					instructions={ __(
+						'Choose a layout for displaying terms:'
+					) }
+					onSelect={ ( nextVariation = defaultVariation ) => {
+						if ( nextVariation.attributes ) {
+							setAttributes( nextVariation.attributes );
+						}
+						if ( nextVariation.innerBlocks ) {
+							replaceInnerBlocks(
+								clientId,
+								createBlocksFromInnerBlocksTemplate(
+									nextVariation.innerBlocks
+								),
+								true
+							);
+						}
+					} }
+					allowSkip
+				/>
+			</div>
+		);
+	}
 
 	if ( isResolving ) {
 		return (
@@ -275,6 +362,7 @@ export default function TermTemplateEdit( {
 				) ? (
 					<TermTemplateInnerBlocks
 						classList={ blockContext.classList }
+						blockLayout={ attributes?.blockLayout || 'list' }
 					/>
 				) : null }
 				<MemoizedTermTemplateBlockPreview
@@ -287,47 +375,10 @@ export default function TermTemplateEdit( {
 						activeBlockContextId,
 						blockContexts
 					) }
+					blockLayout={ attributes?.blockLayout || 'list' }
 				/>
 			</BlockContextProvider>
 		);
-	};
-
-	const renderTerms = () => {
-		if ( hierarchical ) {
-			const termsTree = buildTermsTree( filteredTerms );
-			return termsTree.map( ( termNode ) =>
-				renderTermNode( termNode, renderTerm )
-			);
-		}
-
-		// We only limit the number of terms if hierarchical is false.
-		return blockContexts.slice( 0, perPage ).map( ( blockContext ) => (
-			<BlockContextProvider
-				key={ blockContext.termId }
-				value={ blockContext }
-			>
-				{ isActiveTerm(
-					blockContext.termId,
-					activeBlockContextId,
-					blockContexts
-				) ? (
-					<TermTemplateInnerBlocks
-						classList={ blockContext.classList }
-					/>
-				) : null }
-				<MemoizedTermTemplateBlockPreview
-					blocks={ blocks }
-					blockContextId={ blockContext.termId }
-					classList={ blockContext.classList }
-					setActiveBlockContextId={ setActiveBlockContextId }
-					isHidden={ isActiveTerm(
-						blockContext.termId,
-						activeBlockContextId,
-						blockContexts
-					) }
-				/>
-			</BlockContextProvider>
-		) );
 	};
 
 	return (
@@ -336,7 +387,116 @@ export default function TermTemplateEdit( {
 				<ToolbarGroup />
 			</BlockControls>
 
-			<ul { ...blockProps }>{ renderTerms() }</ul>
+			<InspectorControls>
+				<PanelBody title={ __( 'Style' ) }>
+					<ToggleGroupControl
+						label={ __( 'Layout' ) }
+						value={ attributes?.blockLayout || 'list' }
+						onChange={ ( value ) =>
+							setAttributes( { blockLayout: value } )
+						}
+						isBlock
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+					>
+						<ToggleGroupControlOption
+							value="list"
+							label={ __( 'List' ) }
+						/>
+						<ToggleGroupControlOption
+							value="grid"
+							label={ __( 'Grid' ) }
+						/>
+					</ToggleGroupControl>
+					<div
+						style={ {
+							height:
+								attributes?.blockLayout === 'grid'
+									? 'auto'
+									: '0',
+							overflow: 'hidden',
+							opacity: attributes?.blockLayout === 'grid' ? 1 : 0,
+							transition: 'height 0.2s ease, opacity 0.2s ease',
+						} }
+					>
+						<SelectControl
+							label={ __( 'Number of Columns' ) }
+							value={ attributes?.columnCount || 3 }
+							options={ [
+								{
+									label: __( '2 Columns' ),
+									value: 2,
+								},
+								{
+									label: __( '3 Columns' ),
+									value: 3,
+								},
+								{
+									label: __( '4 Columns' ),
+									value: 4,
+								},
+							] }
+							onChange={ ( value ) =>
+								setAttributes( {
+									columnCount: parseInt( value ),
+								} )
+							}
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+						/>
+					</div>
+				</PanelBody>
+			</InspectorControls>
+
+			<ul { ...blockProps }>
+				{ hierarchical
+					? // Hierarchical rendering
+					  buildTermsTree( filteredTerms ).map( ( termNode ) =>
+							renderTermNode(
+								termNode,
+								renderTerm,
+								attributes?.blockLayout || 'list'
+							)
+					  )
+					: // Flat rendering
+					  blockContexts &&
+					  blockContexts
+							.slice( 0, perPage )
+							.map( ( blockContext ) => (
+								<BlockContextProvider
+									key={ blockContext.termId }
+									value={ blockContext }
+								>
+									{ blockContext.termId ===
+									( activeBlockContextId ||
+										blockContexts[ 0 ]?.termId ) ? (
+										<TermTemplateInnerBlocks
+											classList={ blockContext.classList }
+											blockLayout={
+												attributes?.blockLayout ||
+												'list'
+											}
+										/>
+									) : null }
+									<MemoizedTermTemplateBlockPreview
+										blocks={ blocks }
+										blockContextId={ blockContext.termId }
+										classList={ blockContext.classList }
+										setActiveBlockContextId={
+											setActiveBlockContextId
+										}
+										isHidden={
+											blockContext.termId ===
+											( activeBlockContextId ||
+												blockContexts[ 0 ]?.termId )
+										}
+										blockLayout={
+											attributes?.blockLayout || 'list'
+										}
+									/>
+								</BlockContextProvider>
+							) ) }
+			</ul>
 		</>
 	);
 }
