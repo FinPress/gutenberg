@@ -730,7 +730,7 @@ export type RowLayout = {
 };
 export type NormalizedRowLayout = {
 	type: 'row';
-	gap?: number;
+	gap: number;
 };
 
 export type Layout = RegularLayout | PanelLayout | CardLayout | RowLayout;

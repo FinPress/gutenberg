@@ -751,7 +751,7 @@ const LayoutCardComponent = ( { withHeader }: { withHeader: boolean } ) => {
 	);
 };
 
-const LayoutRowComponent = () => {
+const LayoutRowComponent = ( { gap }: { gap: number } ) => {
 	type Customer = {
 		name: string;
 		email: string;
@@ -868,7 +868,7 @@ const LayoutRowComponent = () => {
 						{
 							id: 'customerContact',
 							label: 'Contact',
-							layout: { type: 'row', gap: 10 },
+							layout: { type: 'row', gap },
 							children: [
 								{
 									id: 'name',
@@ -896,7 +896,7 @@ const LayoutRowComponent = () => {
 						{
 							id: 'customerAddresses',
 							label: 'Address',
-							layout: { type: 'row', gap: 0 },
+							layout: { type: 'row', gap },
 							children: [
 								{
 									id: 'plan',
@@ -930,7 +930,7 @@ const LayoutRowComponent = () => {
 				},
 			],
 		} ),
-		[]
+		[ gap ]
 	);
 
 	return (
@@ -964,14 +964,19 @@ const LayoutMixedComponent = () => {
 	const form: Form = {
 		fields: [
 			{
-				id: 'title',
+				id: 'title-and-status',
+				children: [
+					{
+						id: 'title',
+						layout: { type: 'panel' },
+					},
+					'status',
+				],
 				layout: {
-					type: 'panel',
-					labelPosition: 'top',
-					openAs: 'dropdown',
+					type: 'row',
+					gap: 2,
 				},
 			},
-			'status',
 			{
 				id: 'order',
 				layout: {
@@ -1065,10 +1070,9 @@ export const LayoutRegular = {
 export const LayoutRow = {
 	render: LayoutRowComponent,
 	argTypes: {
-		labelPosition: {
-			control: { type: 'select' },
-			description: 'Chooses the label position.',
-			options: [ 'default', 'top', 'side', 'none' ],
+		gap: {
+			control: { type: 'number' },
+			description: 'The gap between the fields.',
 		},
 	},
 };

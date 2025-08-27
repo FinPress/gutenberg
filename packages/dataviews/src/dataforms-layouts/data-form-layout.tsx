@@ -1,21 +1,13 @@
 /**
  * WordPress dependencies
  */
-import {
-	__experimentalVStack as VStack,
-	__experimentalHStack as HStack,
-} from '@wordpress/components';
-import { useContext, useMemo } from '@wordpress/element';
+import { __experimentalVStack as VStack } from '@wordpress/components';
+import { Fragment, useContext, useMemo } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import type {
-	Form,
-	FormField,
-	NormalizedRowLayout,
-	SimpleFormField,
-} from '../types';
+import type { Form, FormField, SimpleFormField } from '../types';
 import { getFormFieldLayout } from './index';
 import DataFormContext from '../components/dataform-context';
 import { isCombinedField } from './is-combined-field';
@@ -26,6 +18,7 @@ export function DataFormLayout< Item >( {
 	form,
 	onChange,
 	children,
+	disableWrapper,
 }: {
 	data: Item;
 	form: Form;
@@ -39,6 +32,7 @@ export function DataFormLayout< Item >( {
 		} ) => React.JSX.Element | null,
 		field: FormField
 	) => React.JSX.Element;
+	disableWrapper?: boolean;
 } ) {
 	const { fields: fieldDefinitions } = useContext( DataFormContext );
 
@@ -55,13 +49,11 @@ export function DataFormLayout< Item >( {
 		[ form ]
 	);
 
-	const isRowContainer = form.layout?.type === 'row';
-	const spacing = isRowContainer
-		? ( form.layout as NormalizedRowLayout )?.gap ?? 4
-		: 4;
-	const Container = isRowContainer ? HStack : VStack;
+	const Container = disableWrapper ? Fragment : VStack;
+
 	return (
-		<Container spacing={ spacing }>
+		// We will remove the spacing logic with https://github.com/WordPress/gutenberg/pull/71237
+		<Container { ...( disableWrapper ? {} : { spacing: 2 } ) }>
 			{ normalizedFormFields.map( ( formField ) => {
 				const FieldLayout = getFormFieldLayout( formField.layout.type )
 					?.component;
