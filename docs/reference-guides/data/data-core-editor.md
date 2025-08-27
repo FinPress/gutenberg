@@ -212,6 +212,27 @@ _Returns_
 
 Returns the ID of the post currently being edited, or null if the post has not yet been saved.
 
+_Usage_
+
+```jsx
+import { __ } from '@wordpress/i18n';
+import { store as editorStore } from '@wordpress/editor';
+import { useSelect } from '@wordpress/data';
+
+const ExampleComponent = () => {
+	const postId = useSelect(
+		( select ) => select( editorStore ).getCurrentPostId(),
+		[]
+	);
+
+	return postId !== null ? (
+		<p>{ __( 'Current post ID: ' ) + postId }</p>
+	) : (
+		<p>{ __( 'No current post ID found.' ) }</p>
+	);
+};
+```
+
 _Parameters_
 
 -   _state_ `Object`: Global application state.
