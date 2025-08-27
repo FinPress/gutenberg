@@ -110,7 +110,10 @@ export function useAutocomplete( {
 				? completion
 				: ( {
 						action: 'insert-at-caret',
-						value: completion,
+						value:
+							autocompleter?.triggerPrefix === '@'
+								? completion + '\u00A0'
+								: completion,
 				  } as InsertOption );
 
 			if ( 'replace' === completionObject.action ) {
