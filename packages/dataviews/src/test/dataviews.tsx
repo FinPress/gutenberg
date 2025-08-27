@@ -147,6 +147,23 @@ function DataViewWrapper( {
 
 // jest.useFakeTimers();
 
+// Tests run against a DataView which is 500px wide.
+jest.mock( '@wordpress/compose', () => {
+	return {
+		...jest.requireActual( '@wordpress/compose' ),
+		useResizeObserver: jest.fn( ( callback ) => {
+			setTimeout( () => {
+				callback( [
+					{
+						borderBoxSize: [ { inlineSize: 500 } ],
+					},
+				] );
+			}, 0 );
+			return () => {};
+		} ),
+	};
+} );
+
 describe( 'DataViews component', () => {
 	it( 'should show "No results" if data is empty', () => {
 		render( <DataViewWrapper data={ [] } /> );
@@ -285,6 +302,71 @@ describe( 'DataViews component', () => {
 			await user.click( titleField );
 			expect( onClickItemCallback ).toHaveBeenCalledWith( data[ 0 ] );
 		} );
+
+		it( 'accepts click for single selection', async () => {
+			render(
+				<DataViewWrapper
+					view={ {
+						...DEFAULT_VIEW,
+						fields: [ 'author' ],
+						titleField: 'title',
+					} }
+					// A bulk action is required for the dataview to be multi-selectable.
+					actions={ actions }
+				/>
+			);
+			const firstItemElement = screen.getByText( data[ 0 ].title );
+			const thirdItemElement = screen.getByText( data[ 2 ].title );
+			const user = userEvent.setup();
+			await user.click( firstItemElement );
+
+			// First item should be selected.
+			expect(
+				screen.getByRole( 'checkbox', { name: data[ 0 ].title } )
+			).toBeChecked();
+			await user.click( thirdItemElement );
+
+			// Third item should be selected. First item was deselected.
+			expect(
+				screen.getByRole( 'checkbox', { name: data[ 2 ].title } )
+			).toBeChecked();
+		} );
+
+		it( 'accepts ctrl/cmd key and click for non-consecutive multi-selection', async () => {
+			render(
+				<DataViewWrapper
+					view={ {
+						...DEFAULT_VIEW,
+						fields: [ 'author' ],
+						titleField: 'title',
+					} }
+					// A bulk action is required for the dataview to be multi-selectable.
+					actions={ actions }
+				/>
+			);
+			const firstItemElement = screen.getByText( data[ 0 ].title );
+			const thirdItemElement = screen.getByText( data[ 2 ].title );
+			const user = userEvent.setup();
+			await user.click( firstItemElement );
+
+			// First item should be selected.
+			expect(
+				screen.getByRole( 'checkbox', { name: data[ 0 ].title } )
+			).toBeChecked();
+			await user.keyboard( '{Control>}' );
+			await user.click( thirdItemElement );
+
+			// Both items should be selected.
+			expect(
+				screen.getByRole( 'checkbox', { name: data[ 0 ].title } )
+			).toBeChecked();
+			expect(
+				screen.getByRole( 'checkbox', { name: data[ 2 ].title } )
+			).toBeChecked();
+
+			// Don't keep the modifier pressed down, that's just mean.
+			await user.keyboard( '{/Control}' );
+		} );
 	} );
 
 	describe( 'in grid view', () => {
@@ -362,6 +444,91 @@ describe( 'DataViews component', () => {
 			const user = userEvent.setup();
 			await user.click( imageField );
 			expect( mediaClickItemCallback ).toHaveBeenCalledWith( data[ 0 ] );
+		} );
+
+		it( 'accepts click for single selection', async () => {
+			render(
+				<DataViewWrapper
+					view={ {
+						...DEFAULT_VIEW,
+						fields: [ 'author' ],
+						titleField: 'title',
+					} }
+					// A bulk action is required for the dataview to be multi-selectable.
+					actions={ actions }
+				/>
+			);
+			const firstItemElement = screen.getByText( data[ 0 ].title );
+			const thirdItemElement = screen.getByText( data[ 2 ].title );
+			const user = userEvent.setup();
+			await user.click( firstItemElement );
+
+			// First item should be selected.
+			expect(
+				screen.getByRole( 'checkbox', { name: data[ 0 ].title } )
+			).toBeChecked();
+			await user.click( thirdItemElement );
+
+			// Third item should be selected. First item was deselected.
+			expect(
+				screen.getByRole( 'checkbox', { name: data[ 2 ].title } )
+			).toBeChecked();
+		} );
+
+		it( 'accepts ctrl/cmd key and click for non-consecutive multi-selection', async () => {
+			render(
+				<DataViewWrapper
+					view={ {
+						...DEFAULT_VIEW,
+						fields: [ 'author' ],
+						titleField: 'title',
+					} }
+					// A bulk action is required for the dataview to be multi-selectable.
+					actions={ actions }
+				/>
+			);
+			const firstItemElement = screen.getByText( data[ 0 ].title );
+			const thirdItemElement = screen.getByText( data[ 2 ].title );
+			const user = userEvent.setup();
+			await user.click( firstItemElement );
+
+			// First item should be selected.
+			expect(
+				screen.getByRole( 'checkbox', { name: data[ 0 ].title } )
+			).toBeChecked();
+			await user.keyboard( '{Control>}' );
+			await user.click( thirdItemElement );
+
+			// Both items should be selected.
+			expect(
+				screen.getByRole( 'checkbox', { name: data[ 0 ].title } )
+			).toBeChecked();
+			expect(
+				screen.getByRole( 'checkbox', { name: data[ 2 ].title } )
+			).toBeChecked();
+
+			await user.keyboard( '{/Control}' );
+		} );
+
+		it( 'accepts an invalid previewSize and the preview size picker falls back to another size', async () => {
+			render(
+				<DataViewWrapper
+					view={ {
+						type: 'grid',
+						mediaField: 'image',
+						layout: { previewSize: 13 },
+					} }
+				/>
+			);
+			const user = userEvent.setup();
+			await user.click(
+				screen.getByRole( 'button', { name: 'View options' } )
+			);
+			const previewSizeSlider = screen.getByRole( 'slider', {
+				name: 'Preview size',
+			} );
+			expect( previewSizeSlider ).toBeInTheDocument();
+			expect( previewSizeSlider ).toHaveValue( '0' ); // Falls back to the smallest size, which is the first one.
 		} );
 	} );
 

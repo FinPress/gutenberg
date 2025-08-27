@@ -35,6 +35,7 @@ import { COVER_MIN_HEIGHT, mediaPosition } from '../shared';
 import { unlock } from '../../lock-unlock';
 import { useToolsPanelDropdownMenuProps } from '../../utils/hooks';
 import { DEFAULT_MEDIA_SIZE_SLUG } from '../constants';
+import PosterImage from '../../utils/poster-image';
 
 const { cleanEmptyObject, ResolutionTool, HTMLElementControl } = unlock(
 	blockEditorPrivateApis
@@ -110,6 +111,7 @@ export default function CoverInspectorControls( {
 		minHeightUnit,
 		alt,
 		tagName,
+		poster,
 	} = attributes;
 	const {
 		isVideoBackground,
@@ -129,7 +131,12 @@ export default function CoverInspectorControls( {
 	const image = useSelect(
 		( select ) =>
 			id && isImageBackground
-				? select( coreStore ).getMedia( id, { context: 'view' } )
+				? select( coreStore ).getEntityRecord(
+						'postType',
+						'attachment',
+						id,
+						{ context: 'view' }
+				  )
 				: null,
 		[ id, isImageBackground ]
 	);
@@ -198,6 +205,7 @@ export default function CoverInspectorControls( {
 								focalPoint: undefined,
 								isRepeated: false,
 								alt: '',
+								poster: undefined,
 							} );
 							updateImage( DEFAULT_MEDIA_SIZE_SLUG );
 						} }
@@ -268,6 +276,16 @@ export default function CoverInspectorControls( {
 									}
 								/>
 							</ToolsPanelItem>
+						) }
+						{ isVideoBackground && (
+							<PosterImage
+								poster={ poster }
+								onChange={ ( posterImage ) =>
+									setAttributes( {
+										poster: posterImage?.url,
+									} )
+								}
+							/>
 						) }
 						{ ! useFeaturedImage && url && ! isVideoBackground && (
 							<ToolsPanelItem
