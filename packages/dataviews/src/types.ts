@@ -674,7 +674,7 @@ export interface SupportedLayouts {
 /**
  * DataForm layouts.
  */
-export type LayoutType = 'regular' | 'panel' | 'card';
+export type LayoutType = 'regular' | 'panel' | 'card' | 'row';
 export type LabelPosition = 'top' | 'side' | 'none';
 
 export type RegularLayout = {
@@ -730,7 +730,7 @@ export type RowLayout = {
 };
 export type NormalizedRowLayout = {
 	type: 'row';
-	gap: number;
+	gap?: number;
 };
 
 export type Layout = RegularLayout | PanelLayout | CardLayout | RowLayout;

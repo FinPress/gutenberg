@@ -10,7 +10,12 @@ import { useContext, useMemo } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import type { Form, FormField, SimpleFormField } from '../types';
+import type {
+	Form,
+	FormField,
+	NormalizedRowLayout,
+	SimpleFormField,
+} from '../types';
 import { getFormFieldLayout } from './index';
 import DataFormContext from '../components/dataform-context';
 import { isCombinedField } from './is-combined-field';
@@ -51,9 +56,12 @@ export function DataFormLayout< Item >( {
 	);
 
 	const isRowContainer = form.layout?.type === 'row';
+	const spacing = isRowContainer
+		? ( form.layout as NormalizedRowLayout )?.gap ?? 4
+		: 4;
 	const Container = isRowContainer ? HStack : VStack;
 	return (
-		<Container spacing={ form.layout?.type === 'panel' ? 2 : 4 }>
+		<Container spacing={ spacing }>
 			{ normalizedFormFields.map( ( formField ) => {
 				const FieldLayout = getFormFieldLayout( formField.layout.type )
 					?.component;

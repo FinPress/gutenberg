@@ -8,6 +8,7 @@ import type {
 	NormalizedRegularLayout,
 	NormalizedPanelLayout,
 	NormalizedCardLayout,
+	NormalizedRowLayout,
 } from './types';
 
 interface NormalizedFormField {
@@ -59,6 +60,11 @@ export function normalizeLayout( layout?: Layout ): NormalizedLayout {
 						: true,
 			} satisfies NormalizedCardLayout;
 		}
+	} else if ( layout?.type === 'row' ) {
+		normalizedLayout = {
+			type: 'row',
+			gap: layout?.gap ?? 4,
+		} satisfies NormalizedRowLayout;
 	}
 
 	return normalizedLayout;

@@ -1,16 +1,21 @@
 /**
  * WordPress dependencies
  */
-import { __experimentalVStack as VStack } from '@wordpress/components';
 import { useContext } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import type { FieldLayoutProps, Form, SimpleFormField } from '../../types';
+import type {
+	FieldLayoutProps,
+	Form,
+	NormalizedRowLayout,
+	SimpleFormField,
+} from '../../types';
 import DataFormContext from '../../components/dataform-context';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
+import { normalizeLayout } from '../../normalize-form-fields';
 
 export default function FormRowField< Item >( {
 	data,
@@ -19,6 +24,11 @@ export default function FormRowField< Item >( {
 	hideLabelFromVision,
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
+
+	const layout = normalizeLayout( {
+		...field.layout,
+		type: 'row',
+	} ) as NormalizedRowLayout;
 
 	// If it's a combined field, delegate to DataFormLayout with a row container.
 	if ( isCombinedField( field ) ) {
@@ -29,19 +39,15 @@ export default function FormRowField< Item >( {
 				}
 				return child;
 			} ),
-			layout: {
-				type: 'row',
-			},
+			layout,
 		} as Form;
 
 		return (
 			<DataFormLayout data={ data } form={ form } onChange={ onChange }>
 				{ ( FieldLayout, nestedField ) => (
-					<VStack
+					<div
 						key={ nestedField.id }
 						className="dataforms-layouts-row__field-item"
-						spacing={ 1 }
-						style={ { flex: 1, minWidth: 0 } }
 					>
 						<FieldLayout
 							data={ data }
@@ -49,7 +55,7 @@ export default function FormRowField< Item >( {
 							onChange={ onChange }
 							hideLabelFromVision={ hideLabelFromVision }
 						/>
-					</VStack>
+					</div>
 				) }
 			</DataFormLayout>
 		);
@@ -63,11 +69,7 @@ export default function FormRowField< Item >( {
 	}
 
 	return (
-		<VStack
-			className="dataforms-layouts-row__field-item"
-			spacing={ 1 }
-			style={ { flex: 1, minWidth: 0 } }
-		>
+		<div className="dataforms-layouts-row__field-item">
 			{ fieldDefinition.readOnly === true ? (
 				<fieldDefinition.render
 					item={ data }
@@ -81,6 +83,6 @@ export default function FormRowField< Item >( {
 					hideLabelFromVision={ hideLabelFromVision }
 				/>
 			) }
-		</VStack>
+		</div>
 	);
 }
