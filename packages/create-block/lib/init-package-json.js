@@ -53,7 +53,7 @@ module.exports = async ( {
 			try {
 				checkDependency( packageArg );
 				const parsed = npmPackageArg( packageArg );
-				dependencies[ parsed.name ] = parsed.fetchSpec || 'latest';
+				dependencies[ parsed.name ] = parsed.saveSpec || 'latest';
 			} catch ( { message } ) {
 				info( '' );
 				info( `Skipping "${ packageArg }" npm dependency. Reason:` );
@@ -67,7 +67,7 @@ module.exports = async ( {
 			try {
 				checkDependency( packageArg );
 				const parsed = npmPackageArg( packageArg );
-				devDependencies[ parsed.name ] = parsed.fetchSpec || 'latest';
+				devDependencies[ parsed.name ] = parsed.saveSpec || 'latest';
 			} catch ( { message } ) {
 				info( '' );
 				info(
