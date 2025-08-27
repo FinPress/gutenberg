@@ -316,14 +316,19 @@ export function useScaleCanvas( {
 	 * changes due to the container resizing.
 	 */
 	useEffect( () => {
-		const trigger =
-			iframeDocument && previousIsZoomedOut.current !== isZoomedOut;
-
-		if ( ! trigger ) {
+		// If we don't have an iframe document, we don't run or track the animation.
+		if ( ! iframeDocument ) {
 			return;
 		}
 
+		const triggerAnimation = isZoomedOut !== previousIsZoomedOut.current;
 		previousIsZoomedOut.current = isZoomedOut;
+
+		// Zoom state has not changed, so we don't need to run the animation.
+		if ( ! triggerAnimation ) {
+			return;
+		}
+
 		startAnimationRef.current = true;
 
 		if ( ! isZoomedOut ) {
