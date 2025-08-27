@@ -52,7 +52,6 @@ export function DataFormLayout< Item >( {
 	const Container = disableWrapper ? Fragment : VStack;
 
 	return (
-		// We will remove the spacing logic with https://github.com/WordPress/gutenberg/pull/71237
 		<Container { ...( disableWrapper ? {} : { spacing: 2 } ) }>
 			{ normalizedFormFields.map( ( formField ) => {
 				const FieldLayout = getFormFieldLayout( formField.layout.type )

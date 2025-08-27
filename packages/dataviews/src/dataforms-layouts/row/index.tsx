@@ -70,7 +70,7 @@ export default function FormRowField< Item >( {
 						{ ( FieldLayout, nestedField ) => (
 							<div
 								key={ nestedField.id }
-								className="dataforms-layouts-row__field-item"
+								className="dataforms-layouts-row__field-control"
 							>
 								<FieldLayout
 									data={ data }
@@ -102,12 +102,14 @@ export default function FormRowField< Item >( {
 			{ ! hideLabelFromVision && fieldDefinition.label && (
 				<Header title={ fieldDefinition.label } />
 			) }
-			<RegularLayout
-				data={ data }
-				field={ fieldDefinition }
-				onChange={ onChange }
-				hideLabelFromVision={ hideLabelFromVision }
-			/>
+			<div className="dataforms-layouts-row__field-control">
+				<RegularLayout
+					data={ data }
+					field={ fieldDefinition }
+					onChange={ onChange }
+					hideLabelFromVision={ hideLabelFromVision }
+				/>
+			</div>
 		</div>
 	);
 }
