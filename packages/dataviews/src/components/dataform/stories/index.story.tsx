@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useCallback, useMemo, useState } from '@wordpress/element';
+import { useCallback, useMemo, useRef, useState } from '@wordpress/element';
 import {
 	Button,
 	__experimentalVStack as VStack,
@@ -346,14 +346,23 @@ const LayoutPanelComponent = ( {
 	);
 };
 
+// This implements a custom Edit control.
+// It's a copy-over of the text's DataForm control.
 function CustomEditControl< Item >( {
 	data,
 	field,
 	onChange,
+	onValidate,
 	hideLabelFromVision,
 }: DataFormControlProps< Item > ) {
 	const { id, label, placeholder, description } = field;
-	const value = field.getValue( { item: data } );
+	const value = field.getValue( { item: data } ) ?? '';
+	const [ customValidity, setCustomValidity ] =
+		useState<
+			React.ComponentProps<
+				typeof ValidatedTextControl
+			>[ 'customValidity' ]
+		>( undefined );
 
 	const onChangeControl = useCallback(
 		( newValue: string ) =>
@@ -363,9 +372,82 @@ function CustomEditControl< Item >( {
 		[ id, onChange ]
 	);
 
+	// onValidate needs access to the latest value that has been validated
+	// to bail early if it didn't change.
+	//
+	// We can't use the value directly because it is updated by onChange,
+	// and so there may be race conditions between onChange and onValidate.
+	const previousValidatedValueRef = useRef< unknown >( value );
+
 	return (
 		<ValidatedTextControl
 			required={ !! field.isValid?.required }
+			onValidate={ ( newValue: any ) => {
+				// Do not trigger validation if the value is the same as before.
+				if ( newValue === previousValidatedValueRef.current ) {
+					return;
+				}
+				previousValidatedValueRef.current = newValue;
+
+				const message = field?.isValid?.custom?.(
+					{
+						...data,
+						[ id ]: newValue,
+					},
+					field
+				);
+
+				// Async validation:
+				// validity can be validating, invalid, valid.
+				if ( message instanceof Promise ) {
+					setCustomValidity( {
+						type: 'validating',
+						message: 'Validating...',
+					} );
+					onValidate( undefined, true );
+
+					message
+						.then( ( result ) => {
+							if ( result ) {
+								setCustomValidity( {
+									type: 'invalid',
+									message: result,
+								} );
+								onValidate( false, false );
+							} else {
+								setCustomValidity( {
+									type: 'valid',
+									message: 'Validated',
+								} );
+								onValidate( true, false );
+							}
+						} )
+						.catch( ( error ) => {
+							setCustomValidity( {
+								type: 'invalid',
+								message: error.message,
+							} );
+							onValidate( false, false );
+						} );
+
+					return;
+				}
+
+				// Sync validation:
+				// validity is either invalid or undefined (nothing displayed).
+				if ( message ) {
+					setCustomValidity( {
+						type: 'invalid',
+						message,
+					} );
+					onValidate( false, false );
+					return;
+				}
+
+				onValidate( true, false );
+				setCustomValidity( undefined );
+			} }
+			customValidity={ customValidity }
 			label={ label }
 			placeholder={ placeholder }
 			value={ value ?? '' }
@@ -382,12 +464,10 @@ const ValidationComponent = ( {
 	required,
 	type,
 	custom,
-	isCustomAsync,
 }: {
 	required: boolean;
 	type: 'regular' | 'panel';
-	custom: boolean;
-	isCustomAsync: boolean;
+	custom: 'sync' | 'async' | 'none';
 } ) => {
 	type ValidatedItem = {
 		text: string;
@@ -437,6 +517,13 @@ const ValidationComponent = ( {
 
 		return null;
 	};
+	const customEditRule = ( value: ValidatedItem ) => {
+		if ( ! /^[a-zA-Z ]+$/.test( value.customEdit ) ) {
+			return 'Value must only contain letters and spaces.';
+		}
+
+		return null;
+	};
 
 	const makeAsync = ( rule: ( item: ValidatedItem ) => null | string ) => {
 		return async ( value: ValidatedItem ) => {
@@ -452,11 +539,30 @@ const ValidationComponent = ( {
 	const maybeCustomRule = (
 		rule: ( item: ValidatedItem ) => null | string
 	) => {
-		if ( custom ) {
-			return isCustomAsync ? makeAsync( rule ) : rule;
+		if ( custom === 'sync' ) {
+			return rule;
+		}
+
+		if ( custom === 'async' ) {
+			return makeAsync( rule );
 		}
 
 		return undefined;
+	};
+
+	const getDescription = (
+		customStatus: 'sync' | 'async' | 'none',
+		message: string
+	) => {
+		if ( customStatus === 'sync' ) {
+			return 'Custom validation (sync): ' + message;
+		}
+
+		if ( customStatus === 'async' ) {
+			return 'Custom validation (async): ' + message;
+		}
+
+		return 'Custom validation: none';
 	};
 
 	const _fields: Field< ValidatedItem >[] = [
@@ -464,9 +570,10 @@ const ValidationComponent = ( {
 			id: 'text',
 			type: 'text',
 			label: 'Text',
-			description: custom
-				? 'Custom validation: can only have letters and spaces.'
-				: undefined,
+			description: getDescription(
+				custom,
+				'can only have letters and spaces.'
+			),
 			isValid: {
 				required,
 				custom: maybeCustomRule( customTextRule ),
@@ -476,9 +583,10 @@ const ValidationComponent = ( {
 			id: 'email',
 			type: 'email',
 			label: 'e-mail',
-			description: custom
-				? 'Custom validation: can only use @example.com emails.'
-				: undefined,
+			description: getDescription(
+				custom,
+				'can only use @example.com emails.'
+			),
 			isValid: {
 				required,
 				custom: maybeCustomRule( customEmailRule ),
@@ -488,9 +596,7 @@ const ValidationComponent = ( {
 			id: 'integer',
 			type: 'integer',
 			label: 'Integer',
-			description: custom
-				? 'Custom validation: can only use even integers.'
-				: undefined,
+			description: getDescription( custom, 'can only use even numbers.' ),
 			isValid: {
 				required,
 				custom: maybeCustomRule( customIntegerRule ),
@@ -500,9 +606,7 @@ const ValidationComponent = ( {
 			id: 'boolean',
 			type: 'boolean',
 			label: 'Boolean',
-			description: custom
-				? 'Custom validation: can only be true.'
-				: undefined,
+			description: getDescription( custom, 'can only be true.' ),
 			isValid: {
 				required,
 				custom: maybeCustomRule( customBooleanRule ),
@@ -511,9 +615,14 @@ const ValidationComponent = ( {
 		{
 			id: 'customEdit',
 			label: 'Custom Edit',
+			description: getDescription(
+				custom,
+				'can only have letters and spaces.'
+			),
 			Edit: CustomEditControl,
 			isValid: {
 				required,
+				custom: maybeCustomRule( customEditRule ),
 			},
 		},
 	];
@@ -925,19 +1034,15 @@ export const Validation = {
 			options: [ 'regular', 'panel' ],
 		},
 		custom: {
-			control: { type: 'boolean' },
+			control: { type: 'select' },
 			description: 'Whether or not the fields have custom validation.',
-		},
-		isCustomAsync: {
-			control: { type: 'boolean' },
-			description: 'Whether or not the custom validation is async.',
+			options: [ 'sync', 'async', 'none' ],
 		},
 	},
 	args: {
 		required: true,
 		type: 'regular',
-		custom: true,
-		isCustomAsync: false,
+		custom: 'sync',
 	},
 };
 
