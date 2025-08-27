@@ -10,6 +10,7 @@ import {
 	store as blockEditorStore,
 	useInnerBlocksProps,
 	privateApis as blockEditorPrivateApis,
+	BlockControls,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
@@ -22,6 +23,7 @@ import { unlock } from '../../lock-unlock';
 import QueryInspectorControls from './inspector-controls';
 import EnhancedPaginationModal from './enhanced-pagination-modal';
 import { getQueryContextFromTemplate } from '../utils';
+import QueryToolbar from './query-toolbar';
 
 const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
@@ -128,6 +130,13 @@ export default function QueryContent( {
 
 	return (
 		<>
+			<BlockControls>
+				<QueryToolbar
+					clientId={ clientId }
+					attributes={ attributes }
+					hasInnerBlocks
+				/>
+			</BlockControls>
 			<EnhancedPaginationModal
 				attributes={ attributes }
 				setAttributes={ setAttributes }

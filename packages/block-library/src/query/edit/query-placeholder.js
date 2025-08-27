@@ -10,6 +10,8 @@ import { useState } from '@wordpress/element';
 import {
 	store as blockEditorStore,
 	__experimentalBlockVariationPicker,
+	BlockControls,
+	useBlockProps,
 } from '@wordpress/block-editor';
 import { Button, Placeholder } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -20,6 +22,7 @@ import { useResizeObserver } from '@wordpress/compose';
  */
 import { useScopedBlockVariations } from '../utils';
 import { useBlockPatterns } from './pattern-selection';
+import QueryToolbar from './query-toolbar';
 
 export default function QueryPlaceholder( {
 	attributes,
@@ -60,6 +63,9 @@ export default function QueryPlaceholder( {
 		activeBlockVariation?.icon ||
 		blockType?.icon?.src;
 	const label = activeBlockVariation?.title || blockType?.title;
+	const blockProps = useBlockProps( {
+		ref: resizeObserverRef,
+	} );
 
 	if ( isStartingBlank ) {
 		return (
@@ -72,8 +78,16 @@ export default function QueryPlaceholder( {
 		);
 	}
 	return (
-		<div ref={ resizeObserverRef }>
+		<div { ...blockProps }>
+			<BlockControls>
+				<QueryToolbar
+					clientId={ clientId }
+					attributes={ attributes }
+					hasInnerBlocks={ false }
+				/>
+			</BlockControls>
 			<Placeholder
+				className="block-editor-media-placeholder"
 				icon={ ! isSmallContainer && icon }
 				label={ ! isSmallContainer && label }
 				instructions={
