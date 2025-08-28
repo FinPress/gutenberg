@@ -63,6 +63,13 @@ function isSourceFile( filename ) {
 		.relative( process.cwd(), filename )
 		.replace( /\\/g, '/' );
 
+	// Special case for base-styles package root .scss files located outside the src/ folder.
+	// For this case we need to manually add the file to the build list, to be able to watch changes.
+	if ( /packages\/base-styles\/.*\.scss$/.test( relativePath ) ) {
+		filesToBuild.set( 'packages/base-styles/src/admin-schemes.scss', true );
+		return true;
+	}
+
 	return (
 		/\/src\/.+\.(js|json|scss|ts|tsx)$/.test( relativePath ) &&
 		! [
