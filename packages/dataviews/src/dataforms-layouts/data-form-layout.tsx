@@ -1,17 +1,65 @@
 /**
  * WordPress dependencies
  */
-import { __experimentalVStack as VStack } from '@wordpress/components';
-import { Fragment, useContext, useMemo } from '@wordpress/element';
+import {
+	__experimentalVStack as VStack,
+	__experimentalHStack as HStack,
+} from '@wordpress/components';
+import { useContext, useMemo } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import type { Form, FormField, SimpleFormField } from '../types';
+import type {
+	Form,
+	FormField,
+	Layout,
+	NormalizedRowLayout,
+	SimpleFormField,
+} from '../types';
 import { getFormFieldLayout } from './index';
 import DataFormContext from '../components/dataform-context';
 import { isCombinedField } from './is-combined-field';
-import normalizeFormFields from '../normalize-form-fields';
+import normalizeFormFields, { normalizeLayout } from '../normalize-form-fields';
+
+const getContainer = ( disableWrapper = false, layout: Layout | undefined ) => {
+	if ( disableWrapper ) {
+		return {
+			Component: ( { children }: { children: React.ReactNode } ) => (
+				<>{ children }</>
+			),
+		};
+	}
+
+	if ( layout?.type === 'row' ) {
+		const normalizedLayout = normalizeLayout(
+			layout
+		) as NormalizedRowLayout;
+
+		return {
+			Component: ( { children }: { children: React.ReactNode } ) => (
+				<VStack spacing={ 4 }>
+					<div className="dataforms-layouts-row__field">
+						<HStack
+							spacing={ normalizedLayout.spacing }
+							alignment={ normalizedLayout.alignment }
+						>
+							{ children }
+						</HStack>
+					</div>
+				</VStack>
+			),
+		};
+	}
+
+	return {
+		Component: ( { children }: { children: React.ReactNode } ) => (
+			<VStack spacing={ layout?.type === 'panel' ? 2 : 4 }>
+				{ children }
+			</VStack>
+		),
+	};
+};
 
 export function DataFormLayout< Item >( {
 	data,
@@ -49,10 +97,10 @@ export function DataFormLayout< Item >( {
 		[ form ]
 	);
 
-	const Container = disableWrapper ? Fragment : VStack;
+	const { Component } = getContainer( disableWrapper, form.layout );
 
 	return (
-		<Container { ...( disableWrapper ? {} : { spacing: 2 } ) }>
+		<Component>
 			{ normalizedFormFields.map( ( formField ) => {
 				const FieldLayout = getFormFieldLayout( formField.layout.type )
 					?.component;
@@ -86,6 +134,6 @@ export function DataFormLayout< Item >( {
 					/>
 				);
 			} ) }
-		</Container>
+		</Component>
 	);
 }

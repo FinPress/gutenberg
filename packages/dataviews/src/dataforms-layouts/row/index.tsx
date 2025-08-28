@@ -101,18 +101,14 @@ export default function FormRowField< Item >( {
 	}
 
 	return (
-		<div className="dataforms-layouts-row__field">
-			{ ! hideLabelFromVision && fieldDefinition.label && (
-				<Header title={ fieldDefinition.label } />
-			) }
+		<>
 			<div className="dataforms-layouts-row__field-control">
 				<RegularLayout
 					data={ data }
 					field={ fieldDefinition }
 					onChange={ onChange }
-					hideLabelFromVision={ hideLabelFromVision }
 				/>
 			</div>
-		</div>
+		</>
 	);
 }
