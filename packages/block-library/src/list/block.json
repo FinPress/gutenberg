@@ -37,6 +37,8 @@
 	},
 	"supports": {
 		"anchor": true,
+		"align": [ "wide", "full" ],
+		"layout": true,
 		"html": false,
 		"__experimentalBorder": {
 			"color": true,
