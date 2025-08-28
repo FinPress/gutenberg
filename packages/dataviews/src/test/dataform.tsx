@@ -522,5 +522,172 @@ describe( 'DataForm component', () => {
 			);
 			expect( titleEditField ).toBeInTheDocument();
 		} );
+
+		it( 'should handle getValue functions correctly in modal mode', async () => {
+			const onChange = jest.fn();
+
+			render(
+				<Dataform
+					// Data with nested structure
+					data={ {
+						user: {
+							profile: {
+								email: 'user@example.com',
+							},
+						},
+						settings: {
+							status: 'active',
+						},
+					} }
+					// Fields with getValue functions - text and select types
+					fields={ [
+						{
+							id: 'user/email',
+							label: 'User Email',
+							type: 'text',
+							getValue: ( { item } ) => item.user.profile.email,
+						},
+						{
+							id: 'settings/status',
+							label: 'Status',
+							type: 'integer',
+							elements: [
+								{ value: 'active', label: 'Active' },
+								{ value: 'inactive', label: 'Inactive' },
+							],
+							getValue: ( { item } ) => item.settings.status,
+						},
+					] }
+					form={ {
+						fields: [
+							{
+								id: 'user-settings',
+								children: [ 'user/email', 'settings/status' ],
+								label: 'User Settings',
+							},
+						],
+						layout: {
+							type: 'panel',
+							openAs: 'modal',
+						},
+					} }
+					onChange={ onChange }
+				/>
+			);
+
+			const user = userEvent.setup();
+
+			// Open the modal
+			const settingsButton = screen.getByRole( 'button', {
+				name: /edit user settings/i,
+			} );
+			await user.click( settingsButton );
+
+			// Modal should be open
+			expect( screen.getByRole( 'dialog' ) ).toBeInTheDocument();
+
+			// Find the inputs in the modal
+			const emailInput = screen.getByRole( 'textbox', {
+				name: /user email/i,
+			} );
+			const statusSelect = screen.getByRole( 'combobox', {
+				name: /status/i,
+			} );
+
+			// Check if inputs show correct extracted values
+			expect( emailInput ).toHaveValue( 'user@example.com' );
+			expect( statusSelect ).toHaveValue( 'active' );
+
+			// Edit both inputs
+			await user.clear( emailInput );
+			await user.type( emailInput, 'new@example.com' );
+			await user.selectOptions( statusSelect, 'inactive' );
+
+			// Inputs should show the new values
+			expect( emailInput ).toHaveValue( 'new@example.com' );
+			expect( statusSelect ).toHaveValue( 'inactive' );
+
+			// Click apply button
+			const applyButton = screen.getByRole( 'button', {
+				name: /apply/i,
+			} );
+			await user.click( applyButton );
+
+			// Modal should be closed
+			expect( screen.queryByRole( 'dialog' ) ).not.toBeInTheDocument();
+
+			// onChange should be called with flat structure
+			expect( onChange ).toHaveBeenCalledWith(
+				{
+					'user/email': 'new@example.com',
+					'settings/status': 'inactive',
+				},
+				{ isValid: true }
+			);
+		} );
+
+		it( 'should handle cancel button correctly in modal with getValue functions', async () => {
+			const onChange = jest.fn();
+
+			render(
+				<Dataform
+					data={ {
+						billing: {
+							email: 'billing@example.com',
+						},
+					} }
+					fields={ [
+						{
+							id: 'billing/email',
+							label: 'Billing Email',
+							type: 'text',
+							getValue: ( { item } ) => item.billing.email,
+						},
+					] }
+					form={ {
+						fields: [ 'billing/email' ],
+						layout: {
+							type: 'panel',
+							openAs: 'modal',
+						},
+					} }
+					onChange={ onChange }
+				/>
+			);
+
+			const user = userEvent.setup();
+
+			const editButton = screen.getByRole( 'button', {
+				name: /edit billing email/i,
+			} );
+			await user.click( editButton );
+
+			// Modal should be open
+			expect( screen.getByRole( 'dialog' ) ).toBeInTheDocument();
+
+			const emailInput = screen.getByRole( 'textbox', {
+				name: /billing email/i,
+			} );
+
+			// Check initial value
+			expect( emailInput ).toHaveValue( 'billing@example.com' );
+
+			// Edit the input
+			await user.clear( emailInput );
+			await user.type( emailInput, 'changed@example.com' );
+			expect( emailInput ).toHaveValue( 'changed@example.com' );
+
+			// Click cancel button
+			const cancelButton = screen.getByRole( 'button', {
+				name: /cancel/i,
+			} );
+			await user.click( cancelButton );
+
+			// Modal should be closed
+			expect( screen.queryByRole( 'dialog' ) ).not.toBeInTheDocument();
+
+			// onChange should NOT have been called
+			expect( onChange ).not.toHaveBeenCalled();
+		} );
 	} );
 } );
