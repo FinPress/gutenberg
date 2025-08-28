@@ -170,10 +170,8 @@ const fields: Field< SamplePost >[] = [
 ];
 
 const LayoutRegularComponent = ( {
-	type = 'default',
 	labelPosition,
 }: {
-	type?: 'default' | 'regular' | 'panel' | 'card';
 	labelPosition: 'default' | 'top' | 'side' | 'none';
 } ) => {
 	const [ post, setPost ] = useState( {
@@ -195,7 +193,7 @@ const LayoutRegularComponent = ( {
 	const form: Form = useMemo(
 		() => ( {
 			layout: getLayoutFromStoryArgs( {
-				type,
+				type: 'regular',
 				labelPosition,
 			} ),
 			fields: [
@@ -215,7 +213,7 @@ const LayoutRegularComponent = ( {
 				'tags',
 			],
 		} ),
-		[ type, labelPosition ]
+		[ labelPosition ]
 	);
 
 	return (
@@ -756,7 +754,7 @@ const LayoutRowComponent = ( {
 	alignment,
 }: {
 	spacing: number;
-	alignment: 'start' | 'center' | 'end';
+	alignment: 'none' | 'start' | 'center' | 'end';
 } ) => {
 	type Customer = {
 		name: string;
@@ -764,12 +762,17 @@ const LayoutRowComponent = ( {
 		phone: string;
 		plan: string;
 		shippingAddress: string;
+		shippingCity: string;
+		shippingPostalCode: string;
+		shippingCountry: string;
 		billingAddress: string;
-		displayPayments: boolean;
+		billingCity: string;
+		billingPostalCode: string;
 		totalOrders: number;
 		totalRevenue: number;
 		averageOrderValue: number;
 		hasVat: boolean;
+		hasDiscount: boolean;
 		vat: number;
 		commission: number;
 	};
@@ -791,19 +794,23 @@ const LayoutRowComponent = ( {
 			type: 'email',
 		},
 		{
-			id: 'plan',
-			label: 'Plan',
-			type: 'text',
-			Edit: 'toggleGroup',
-			elements: [
-				{ value: 'basic', label: 'Basic' },
-				{ value: 'business', label: 'Business' },
-				{ value: 'vip', label: 'VIP' },
-			],
-		},
-		{
 			id: 'shippingAddress',
 			label: 'Shipping Address',
+			type: 'text',
+		},
+		{
+			id: 'shippingCity',
+			label: 'Shipping City',
+			type: 'text',
+		},
+		{
+			id: 'shippingPostalCode',
+			label: 'Shipping Postal Code',
+			type: 'text',
+		},
+		{
+			id: 'shippingCountry',
+			label: 'Shipping Country',
 			type: 'text',
 		},
 		{
@@ -812,26 +819,14 @@ const LayoutRowComponent = ( {
 			type: 'text',
 		},
 		{
-			id: 'displayPayments',
-			label: 'Display Payments?',
-			type: 'boolean',
+			id: 'billingCity',
+			label: 'Billing City',
+			type: 'text',
 		},
 		{
-			id: 'payments',
-			label: 'Payments',
+			id: 'billingPostalCode',
+			label: 'Billing Postal Code',
 			type: 'text',
-			readOnly: true, // Triggers using the render method instead of Edit.
-			isVisible: ( item ) => item.displayPayments,
-			render: ( { item } ) => {
-				return (
-					<p>
-						The customer has made a total of { item.totalOrders }{ ' ' }
-						orders, amounting to { item.totalRevenue } dollars. The
-						average order value is { item.averageOrderValue }{ ' ' }
-						dollars.
-					</p>
-				);
-			},
 		},
 		{
 			id: 'vat',
@@ -843,6 +838,33 @@ const LayoutRowComponent = ( {
 			label: 'Commission',
 			type: 'integer',
 		},
+		{
+			id: 'hasDiscount',
+			label: 'Has Discount?',
+			type: 'boolean',
+		},
+		{
+			id: 'plan',
+			label: 'Plan',
+			type: 'text',
+			Edit: 'toggleGroup',
+			elements: [
+				{ value: 'basic', label: 'Basic' },
+				{ value: 'business', label: 'Business' },
+				{ value: 'vip', label: 'VIP' },
+			],
+		},
+		{
+			id: 'renewal',
+			label: 'Renewal',
+			type: 'text',
+			Edit: 'radio',
+			elements: [
+				{ value: 'weekly', label: 'Weekly' },
+				{ value: 'monthly', label: 'Monthly' },
+				{ value: 'yearly', label: 'Yearly' },
+			],
+		},
 	];
 
 	const [ customer, setCustomer ] = useState< Customer >( {
@@ -851,104 +873,127 @@ const LayoutRowComponent = ( {
 		phone: '1-828-352-1250',
 		plan: 'Business',
 		shippingAddress: 'N/A',
+		shippingCity: 'N/A',
+		shippingPostalCode: 'N/A',
+		shippingCountry: 'N/A',
 		billingAddress: 'Danyka Romaguera, West Myrtiehaven, 80240-4282, BI',
-		displayPayments: true,
+		billingCity: 'City',
+		billingPostalCode: 'PC',
 		totalOrders: 2,
 		totalRevenue: 1430,
 		averageOrderValue: 715,
 		hasVat: true,
 		vat: 10,
 		commission: 5,
+		hasDiscount: true,
 	} );
 
 	const form: Form = useMemo(
 		() => ( {
-			layout: getLayoutFromStoryArgs( {
-				type: 'regular',
-			} ),
 			fields: [
 				{
-					id: 'customerCard',
+					id: 'customer',
 					label: 'Customer',
+					layout: {
+						type: 'row',
+						alignment: alignment !== 'none' ? alignment : 'center',
+						spacing,
+					},
+					children: [ 'name', 'phone', 'email' ],
+				},
+				{
+					id: 'addressRow',
+					label: 'Billing & Shipping Addresses',
+					layout: {
+						type: 'row',
+						alignment: alignment !== 'none' ? alignment : 'start',
+						spacing,
+					},
 					children: [
 						{
-							id: 'customerContact',
-							label: 'Contact',
-							layout: { type: 'row', spacing, alignment },
+							id: 'billingAddress',
 							children: [
-								{
-									id: 'name',
-									layout: {
-										type: 'regular',
-										labelPosition: 'top',
-									},
-								},
-								{
-									id: 'phone',
-									layout: {
-										type: 'regular',
-										labelPosition: 'top',
-									},
-								},
-								{
-									id: 'email',
-									layout: {
-										type: 'regular',
-										labelPosition: 'top',
-									},
-								},
+								'billingAddress',
+								'billingCity',
+								'billingPostalCode',
 							],
 						},
 						{
-							id: 'customerAddresses',
-							label: 'Address',
-							layout: { type: 'row', spacing, alignment },
+							id: 'shippingAddress',
 							children: [
-								{
-									id: 'plan',
-								},
-								{
-									id: 'shippingAddress',
-								},
-								{
-									id: 'billingAddress',
-								},
-								'displayPayments',
+								'shippingAddress',
+								'shippingCity',
+								'shippingPostalCode',
+								'shippingCountry',
 							],
 						},
 					],
 				},
 				{
 					id: 'payments-and-tax',
-					layout: { type: 'row', spacing },
-					children: [
-						{
-							id: 'payments',
-						},
-						{
-							id: 'taxConfiguration',
-							layout: { type: 'row', isOpened: false },
-							children: [ 'vat', 'commission' ],
-						},
-					],
+					label: 'Payments & Taxes',
+					layout: {
+						type: 'row',
+						alignment: alignment !== 'none' ? alignment : 'end',
+						spacing,
+					},
+					children: [ 'vat', 'commission', 'hasDiscount' ],
+				},
+				{
+					id: 'planRow',
+					label: 'Subscription',
+					layout: {
+						type: 'row',
+						alignment: alignment !== 'none' ? alignment : 'start',
+						spacing,
+					},
+					children: [ 'plan', 'renewal' ],
 				},
 			],
 		} ),
 		[ spacing, alignment ]
 	);
 
+	const topLevelLayout: Form = useMemo(
+		() => ( {
+			layout: {
+				type: 'row',
+				alignment: alignment !== 'none' ? alignment : 'start',
+				spacing,
+			},
+			fields: [ 'name', 'phone', 'email' ],
+		} ),
+		[ spacing, alignment ]
+	);
+
 	return (
-		<DataForm
-			data={ customer }
-			fields={ customerFields }
-			form={ form }
-			onChange={ ( edits ) =>
-				setCustomer( ( prev ) => ( {
-					...prev,
-					...edits,
-				} ) )
-			}
-		/>
+		<>
+			<h1>Row Layout</h1>
+			<h2>As top-level layout</h2>
+			<DataForm
+				data={ customer }
+				fields={ customerFields }
+				form={ topLevelLayout }
+				onChange={ ( edits ) =>
+					setCustomer( ( prev ) => ( {
+						...prev,
+						...edits,
+					} ) )
+				}
+			/>
+			<h2>Per field layout</h2>
+			<DataForm
+				data={ customer }
+				fields={ customerFields }
+				form={ form }
+				onChange={ ( edits ) =>
+					setCustomer( ( prev ) => ( {
+						...prev,
+						...edits,
+					} ) )
+				}
+			/>
+		</>
 	);
 };
 
@@ -1081,11 +1126,11 @@ export const LayoutRow = {
 		alignment: {
 			control: { type: 'select' },
 			description: 'The alignment of the fields.',
-			options: [ 'start', 'center', 'end' ],
+			options: [ 'none', 'start', 'center', 'end' ],
 		},
 	},
 	args: {
-		alignment: 'end',
+		alignment: 'none',
 		spacing: 2,
 	},
 };
