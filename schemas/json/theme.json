@@ -216,6 +216,7 @@
 									},
 									"color": {
 										"description": "CSS hex or rgb(a) string.",
+										"format": "color",
 										"type": "string"
 									}
 								},
