@@ -1687,10 +1687,10 @@ const canInsertBlockTypeUnmemoized = (
 		return false;
 	}
 	const isContentRoleBlock = isContentBlock( blockName );
-	const _isSectionBlock = !! isSectionBlock( state, rootClientId );
+	const isParentSectionBlock = !! isSectionBlock( state, rootClientId );
 	// It shouldn't be possible to insert inside a section block unless in
 	// some cases when the block is a content block.
-	if ( _isSectionBlock && ! isContentRoleBlock ) {
+	if ( isParentSectionBlock && ! isContentRoleBlock ) {
 		return false;
 	}
 
@@ -1708,12 +1708,10 @@ const canInsertBlockTypeUnmemoized = (
 	}
 
 	// In write mode, check if this container allows insertion.
-	// Otherwise only blocks with content role should be insertable.
 	if (
 		blockEditingMode === 'contentOnly' &&
 		isNavigationMode( state ) &&
-		( ! isContainerInsertableToInWriteMode( state, rootClientId ) ||
-			! isContentRoleBlock )
+		! isContainerInsertableToInWriteMode( state, rootClientId )
 	) {
 		return false;
 	}
@@ -1872,12 +1870,10 @@ export function canRemoveBlock( state, clientId ) {
 	const blockEditingMode = getBlockEditingMode( state, rootClientId );
 
 	// Check if the parent container allows insertion/removal in write mode
-	// Also check if the block is a content role block.
 	if (
 		blockEditingMode === 'contentOnly' &&
 		isNavigationMode( state ) &&
-		( ! isContainerInsertableToInWriteMode( state, rootClientId ) ||
-			! isContentRoleBlock )
+		! isContainerInsertableToInWriteMode( state, rootClientId )
 	) {
 		return false;
 	}
