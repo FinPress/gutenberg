@@ -100,11 +100,7 @@ export function isContainerInsertableToInWriteMode( state, clientId ) {
 	// In write mode, containers shouldn't be inserted into unless:
 	// 1. they are a section root;
 	// 2. they are a content block.
-	if ( ! isRootBlockMain && ! isContainerContentBlock ) {
-		return false;
-	}
-
-	return true;
+	return isRootBlockMain || isContainerContentBlock;
 }
 
 function getEnabledClientIdsTreeUnmemoized( state, rootClientId ) {
