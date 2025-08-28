@@ -8,12 +8,6 @@
 	"description": "Prompt visitors to take action with a group of button-style links.",
 	"keywords": [ "link" ],
 	"textdomain": "default",
-	"attributes": {
-		"contentContainer": {
-			"type": "null",
-			"role": "content"
-		}
-	},
 	"supports": {
 		"anchor": true,
 		"align": [ "wide", "full" ],
