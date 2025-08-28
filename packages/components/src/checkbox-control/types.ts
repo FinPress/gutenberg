@@ -36,4 +36,9 @@ export type CheckboxControlProps = Pick<
 	 * @deprecated
 	 */
 	heading?: ReactNode;
+	/**
+	 * If disabled is true the checkbox will be disabled and apply the appropriate
+	 * styles.
+	 */
+	disabled?: boolean;
 };

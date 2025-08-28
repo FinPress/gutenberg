@@ -27,6 +27,7 @@ const meta: Meta< typeof CheckboxControl > = {
 			control: false,
 		},
 		help: { control: { type: 'text' } },
+		disabled: { control: { type: 'boolean' } },
 	},
 	parameters: {
 		controls: {
