@@ -617,13 +617,10 @@ describe( 'DataForm component', () => {
 			expect( screen.queryByRole( 'dialog' ) ).not.toBeInTheDocument();
 
 			// onChange should be called with flat structure
-			expect( onChange ).toHaveBeenCalledWith(
-				{
-					'user/email': 'new@example.com',
-					'settings/status': 'inactive',
-				},
-				{ isValid: true }
-			);
+			expect( onChange ).toHaveBeenCalledWith( {
+				'user/email': 'new@example.com',
+				'settings/status': 'inactive',
+			} );
 		} );
 
 		it( 'should handle cancel button correctly in modal with getValue functions', async () => {
