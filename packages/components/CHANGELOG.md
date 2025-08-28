@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 30.2.1-next.0 (2025-08-28)
+
 ### Bug Fixes
 
 -   `Tabs`: Ensure font size inheritance for tab buttons in all contexts ([#71346](https://github.com/WordPress/gutenberg/pull/71346)).

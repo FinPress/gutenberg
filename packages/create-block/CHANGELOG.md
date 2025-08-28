@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 4.73.0-next.0 (2025-08-28)
+
 ### Enhancement
 
 -   Add lifecycle script execution support during npm packages installation ([#71072](https://github.com/WordPress/gutenberg/pull/71072)).
