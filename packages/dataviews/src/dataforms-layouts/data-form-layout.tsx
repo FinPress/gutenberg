@@ -97,7 +97,10 @@ export function DataFormLayout< Item >( {
 		[ form ]
 	);
 
-	const { Component } = getContainer( disableWrapper, form.layout );
+	const { Component } = useMemo(
+		() => getContainer( disableWrapper, form.layout ),
+		[ disableWrapper, form.layout ]
+	);
 
 	return (
 		<Component>
