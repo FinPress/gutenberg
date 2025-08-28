@@ -32,11 +32,48 @@ const getFontAppearanceLabel = ( hasFontStyles, hasFontWeights ) => {
 };
 
 /**
- * Control to display font style and weight options of the active font.
+ * The `FontAppearanceControl` component renders a dropdown menu that displays font style and weight options for the selected font family.
+ * This control dynamically adapts to show style/weight combinations supported by the active font.
  *
- * @param {Object} props Component props.
+ * @example
+ * ```jsx
+ * import { FontAppearanceControl } from '@wordpress/block-editor';
  *
- * @return {Element} Font appearance control.
+ * const MyFontAppearanceToolbar = () => {
+ *   const [ fontAppearance, setFontAppearance ] = useState( {
+ *     fontStyle: 'normal',
+ *     fontWeight: '400',
+ *   } );
+ *
+ *   return (
+ *     <FontAppearanceControl
+ *       value={ fontAppearance }
+ *       onChange={ ( newAppearance ) => {
+ *         setFontAppearance( newAppearance );
+ *       } }
+ *       fontFamilyFaces={ availableFontFaces }
+ *       hasFontStyles={ true }
+ *       hasFontWeights={ true }
+ *       __next40pxDefaultSize={ true }
+ *     />
+ *   );
+ * };
+ * ```
+ *
+ * @param {Object}   props                               Component properties.
+ * @param {Object}   props.value                         Current font appearance settings.
+ * @param {string}   [props.value.fontStyle]             The current font style value.
+ * @param {string}   [props.value.fontWeight]            The current font weight value.
+ * @param {Function} props.onChange                      Callback function invoked when selection changes. Receives an object with fontStyle and fontWeight properties.
+ * @param {boolean}  [props.hasFontStyles=true]          Whether to show font style options.
+ * @param {boolean}  [props.hasFontWeights=true]         Whether to show font weight options.
+ * @param {Array}    props.fontFamilyFaces               Array of font face objects containing available styles and weights.
+ * @param {Object}   props.fontFamilyFaces[].style       Font style for this face (e.g., 'normal', 'italic').
+ * @param {string}   props.fontFamilyFaces[].weight      Font weight for this face (e.g., '400', '700').
+ * @param {boolean}  [props.__next40pxDefaultSize=false] Whether to opt into the larger default height
+ *                                                       that will become the default size in a future version.
+ *                                                       Will be default in version 7.1.
+ * @return {JSX.Element|null} The font appearance control component if styles or weights are available, null otherwise.
  */
 export default function FontAppearanceControl( props ) {
 	const {
