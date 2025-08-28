@@ -10,6 +10,29 @@ const writePkg = require( 'write-pkg' );
  */
 const { info, error } = require( './log' );
 
+/**
+ * Resolves the latest version of a package from npm registry
+ *
+ * @param {string} packageName The package name to resolve
+ * @return {Promise<string>} The resolved version range (e.g., "^30.22.0")
+ */
+async function resolvePackageVersion( packageName ) {
+	try {
+		const { stdout } = await command( 'npm', [
+			'view',
+			packageName,
+			'version',
+		] );
+		return `^${ stdout.trim() }`;
+	} catch ( err ) {
+		info( '' );
+		info(
+			`Warning: Could not resolve version for ${ packageName }. Using 'latest'.`
+		);
+		return 'latest';
+	}
+}
+
 module.exports = async ( {
 	author,
 	description,
@@ -47,6 +70,16 @@ module.exports = async ( {
 
 	const dependencies = {};
 	const devDependencies = {};
+
+	if ( wpScripts ) {
+		devDependencies[ '@wordpress/scripts' ] =
+			await resolvePackageVersion( '@wordpress/scripts' );
+	}
+
+	if ( wpEnv ) {
+		devDependencies[ '@wordpress/env' ] =
+			await resolvePackageVersion( '@wordpress/env' );
+	}
 
 	if ( npmDependencies && npmDependencies.length ) {
 		for ( const packageArg of npmDependencies ) {
