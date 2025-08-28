@@ -774,7 +774,7 @@ test.describe( 'Registered sources', () => {
 			await page.getByLabel( 'Attributes options' ).click();
 			await page
 				.getByRole( 'menuitemcheckbox', {
-					name: 'Show content',
+					name: 'content',
 				} )
 				.click();
 			await page.getByRole( 'button', { name: 'content' } ).click();
@@ -796,7 +796,7 @@ test.describe( 'Registered sources', () => {
 			} );
 			await page.getByLabel( 'Attributes options' ).click();
 			const contentAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show content',
+				name: 'content',
 			} );
 			await expect( contentAttribute ).toBeVisible();
 		} );
@@ -809,7 +809,7 @@ test.describe( 'Registered sources', () => {
 			} );
 			await page.getByLabel( 'Attributes options' ).click();
 			const contentAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show content',
+				name: 'content',
 			} );
 			await expect( contentAttribute ).toBeVisible();
 		} );
@@ -839,24 +839,24 @@ test.describe( 'Registered sources', () => {
 				.getByLabel( 'Attributes options' )
 				.click();
 			const urlAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show url',
+				name: 'url',
 			} );
 			await expect( urlAttribute ).toBeVisible();
 			const textAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show text',
+				name: 'text',
 			} );
 			await expect( textAttribute ).toBeVisible();
 			const linkTargetAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show linkTarget',
+				name: 'linkTarget',
 			} );
 			await expect( linkTargetAttribute ).toBeVisible();
 			const relAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show rel',
+				name: 'rel',
 			} );
 			await expect( relAttribute ).toBeVisible();
 			// Check not supported attributes are not included.
 			const tagNameAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show tagName',
+				name: 'tagName',
 			} );
 			await expect( tagNameAttribute ).toBeHidden();
 		} );
@@ -874,24 +874,24 @@ test.describe( 'Registered sources', () => {
 				.getByLabel( 'Attributes options' )
 				.click();
 			const urlAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show url',
+				name: 'url',
 			} );
 			await expect( urlAttribute ).toBeVisible();
 			const idAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show id',
+				name: 'id',
 			} );
 			await expect( idAttribute ).toBeVisible();
 			const titleAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show title',
+				name: 'title',
 			} );
 			await expect( titleAttribute ).toBeVisible();
 			const altAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show alt',
+				name: 'alt',
 			} );
 			await expect( altAttribute ).toBeVisible();
 			// Check not supported attributes are not included.
 			const linkClassAttribute = page.getByRole( 'menuitemcheckbox', {
-				name: 'Show linkClass',
+				name: 'linkClass',
 			} );
 			await expect( linkClassAttribute ).toBeHidden();
 		} );
