@@ -233,6 +233,7 @@ export function BlockSettingsDropdown( {
 				canRemove,
 				onDuplicate,
 				onInsertAfter,
+				onAddAlongside,
 				onInsertBefore,
 				onRemove,
 				onCopy,
@@ -335,6 +336,14 @@ export function BlockSettingsDropdown( {
 												}
 											>
 												{ __( 'Add after' ) }
+											</MenuItem>
+											<MenuItem
+												onClick={ pipe(
+													onClose,
+													onAddAlongside
+												) }
+											>
+												{ __( 'Add alongside' ) }
 											</MenuItem>
 										</>
 									) }
