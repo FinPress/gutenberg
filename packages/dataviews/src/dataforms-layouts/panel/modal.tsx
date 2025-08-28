@@ -8,7 +8,7 @@ import {
 	Modal,
 } from '@wordpress/components';
 import { __, sprintf, _x } from '@wordpress/i18n';
-import { useState, useMemo } from '@wordpress/element';
+import { useState, useMemo, useContext } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -17,6 +17,9 @@ import type { Form, FormField, NormalizedField } from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
 import { DEFAULT_LAYOUT } from '../../normalize-form-fields';
+import DataFormContext, {
+	DataFormProvider,
+} from '../../components/dataform-context';
 
 function ModalContent< Item >( {
 	data,
@@ -31,6 +34,7 @@ function ModalContent< Item >( {
 	onChange: ( data: Partial< Item > ) => void;
 	onClose: () => void;
 } ) {
+	const { fields } = useContext( DataFormContext );
 	const [ changes, setChanges ] = useState< Partial< Item > >( {} );
 
 	const onApply = () => {
@@ -42,8 +46,40 @@ function ModalContent< Item >( {
 		setChanges( ( prev ) => ( { ...prev, ...value } ) );
 	};
 
-	// Merge original data with local changes for display
-	const displayData = { ...data, ...changes };
+	// Create flattened data and modified field definitions
+	const { flattenedData, modifiedFields } = useMemo( () => {
+		// It will be a mix of original structure for fields without getValue,
+		// and a flattened object in shape of { [fieldId]: fieldValue }
+		const newFlattenedData: { [ key: string ]: any } = {};
+
+		const newModifiedFields = fields.map( ( field ) => {
+			if ( field.getValue ) {
+				// Extract the value using the original getValue function
+				const extractedValue = field.getValue( { item: data } );
+				newFlattenedData[ field.id ] = extractedValue;
+
+				// Return a modified field that reads from the flat structure
+				return {
+					...field,
+					// Usage of any here is aligned with the type declaration for
+					// getValue (it returns any as well)
+					getValue: ( { item }: { item: Item } ) =>
+						( item as any )[ field.id ],
+				};
+			}
+			// For fields without getValue, just copy the value directly
+			newFlattenedData[ field.id ] = ( data as any )[ field.id ];
+			return field;
+		} );
+
+		return {
+			flattenedData: newFlattenedData,
+			modifiedFields: newModifiedFields,
+		};
+	}, [ fields, data ] );
+
+	// Merge flattened data with local changes
+	const displayData = { ...flattenedData, ...changes };
 
 	return (
 		<Modal
@@ -53,23 +89,25 @@ function ModalContent< Item >( {
 			title={ fieldLabel }
 			size="medium"
 		>
-			<DataFormLayout
-				data={ displayData }
-				form={ form }
-				onChange={ handleOnChange }
-			>
-				{ ( FieldLayout, nestedField ) => (
-					<FieldLayout
-						key={ nestedField.id }
-						data={ displayData }
-						field={ nestedField }
-						onChange={ handleOnChange }
-						hideLabelFromVision={
-							( form?.fields ?? [] ).length < 2
-						}
-					/>
-				) }
-			</DataFormLayout>
+			<DataFormProvider fields={ modifiedFields }>
+				<DataFormLayout
+					data={ displayData }
+					form={ form }
+					onChange={ handleOnChange }
+				>
+					{ ( FieldLayout, nestedField ) => (
+						<FieldLayout
+							key={ nestedField.id }
+							data={ displayData }
+							field={ nestedField }
+							onChange={ handleOnChange }
+							hideLabelFromVision={
+								( form?.fields ?? [] ).length < 2
+							}
+						/>
+					) }
+				</DataFormLayout>
+			</DataFormProvider>
 			<HStack
 				className="dataforms-layouts-panel__modal-footer"
 				spacing={ 3 }
