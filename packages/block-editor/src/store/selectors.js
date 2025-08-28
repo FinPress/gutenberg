@@ -1711,7 +1711,7 @@ const canInsertBlockTypeUnmemoized = (
 	if (
 		blockEditingMode === 'contentOnly' &&
 		isNavigationMode( state ) &&
-		! isContainerInsertableToInWriteMode( state, rootClientId )
+		! isContainerInsertableToInWriteMode( state, blockName, rootClientId )
 	) {
 		return false;
 	}
@@ -1873,7 +1873,11 @@ export function canRemoveBlock( state, clientId ) {
 	if (
 		blockEditingMode === 'contentOnly' &&
 		isNavigationMode( state ) &&
-		! isContainerInsertableToInWriteMode( state, rootClientId )
+		! isContainerInsertableToInWriteMode(
+			state,
+			getBlockName( state, rootClientId ),
+			rootClientId
+		)
 	) {
 		return false;
 	}

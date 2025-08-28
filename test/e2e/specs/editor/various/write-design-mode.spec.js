@@ -176,6 +176,56 @@ test.describe( 'Write/Design mode', () => {
 
 		await expect( nonContentBlock ).toBeHidden();
 	} );
+	test( 'prevents adding non-content blocks to content role containers', async ( {
+		editor,
+		page,
+	} ) => {
+		await editor.setContent( '' );
+
+		// Insert a section with a nested block and an editable block.
+		await editor.insertBlock( {
+			name: 'core/group',
+			attributes: {},
+			innerBlocks: [
+				{
+					name: 'core/quote',
+					attributes: {
+						metadata: {
+							name: 'Content block',
+						},
+					},
+					innerBlocks: [
+						{
+							name: 'core/paragraph',
+							attributes: {
+								content: 'Something',
+							},
+						},
+					],
+				},
+			],
+		} );
+
+		// Switch to write mode.
+		await editor.switchEditorTool( 'Write' );
+
+		// Select the inner paragraph block.
+		const paragraph = editor.canvas.getByRole( 'document', {
+			name: 'Block: Paragraph',
+		} );
+
+		// Select paragraph
+		await paragraph.click();
+
+		// Try inserting a Group block with the slash inserter.
+		await page.keyboard.press( 'Enter' );
+		await page.keyboard.type( '/group' );
+
+		// Group option should not be available.
+		await expect(
+			page.getByRole( 'option', { name: 'Group' } )
+		).toBeHidden();
+	} );
 	test( 'allows adding blocks to content role containers', async ( {
 		editor,
 		page,
