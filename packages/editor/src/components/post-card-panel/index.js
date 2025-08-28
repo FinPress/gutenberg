@@ -109,7 +109,7 @@ export default function PostCardPanel( {
 					numberOfLines={ 2 }
 					truncate
 					className="editor-post-card-panel__title"
-					as="h2"
+					as="h3"
 				>
 					<span className="editor-post-card-panel__title-name">
 						{ title }

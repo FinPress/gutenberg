@@ -1,10 +1,9 @@
 .edit-site-post-edit {
-	padding: $grid-unit-30;
+	padding: $grid-unit-20 $grid-unit-30 $grid-unit-30;
 
-	&.is-empty .edit-site-page-content {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	.edit-site-page-header {
+		padding: 0 0 10px 0;
+		border-bottom: none;
 	}
 }
 

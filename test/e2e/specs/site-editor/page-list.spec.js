@@ -295,7 +295,7 @@ test.describe( 'Page List', () => {
 
 			await privacyPolicyCheckbox.check();
 
-			await page.getByRole( 'button', { name: 'Details' } ).click();
+			await page.getByRole( 'button', { name: 'Quick Edit' } ).click();
 		} );
 
 		Object.entries( fields ).forEach(

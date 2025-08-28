@@ -188,7 +188,7 @@ export function PostEdit( { postType, postId } ) {
 			className={ clsx( 'edit-site-post-edit', {
 				'is-empty': ! postId,
 			} ) }
-			label={ __( 'Post Edit' ) }
+			title={ __( 'Quick Edit' ) }
 		>
 			{ postId && (
 				<PostEditForm postType={ postType } postId={ postId } />
