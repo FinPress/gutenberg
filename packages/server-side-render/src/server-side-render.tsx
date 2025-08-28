@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import type { ComponentType, ReactNode } from 'react';
+
+/**
  * WordPress dependencies
  */
 import {
@@ -16,10 +21,23 @@ import { useSelect } from '@wordpress/data';
  * Internal dependencies
  */
 import { useServerSideRender } from './hook';
+import type { UseServerSideRenderArgs } from './hook';
 
 const EMPTY_OBJECT = {};
 
-function DefaultEmptyResponsePlaceholder( { className } ) {
+interface PlaceholderProps {
+	className?: string;
+}
+
+interface ErrorPlaceholderProps extends PlaceholderProps {
+	message?: string;
+}
+
+interface LoadingPlaceholderProps {
+	children?: ReactNode;
+}
+
+function DefaultEmptyResponsePlaceholder( { className }: PlaceholderProps ) {
 	return (
 		<Placeholder className={ className }>
 			{ __( 'Block rendered as empty.' ) }
@@ -27,16 +45,21 @@ function DefaultEmptyResponsePlaceholder( { className } ) {
 	);
 }
 
-function DefaultErrorResponsePlaceholder( { message, className } ) {
+function DefaultErrorResponsePlaceholder( {
+	message,
+	className,
+}: ErrorPlaceholderProps ) {
 	const errorMessage = sprintf(
 		// translators: %s: error message describing the problem
 		__( 'Error loading block: %s' ),
-		message
+		message || 'Unknown error'
 	);
 	return <Placeholder className={ className }>{ errorMessage }</Placeholder>;
 }
 
-function DefaultLoadingResponsePlaceholder( { children } ) {
+function DefaultLoadingResponsePlaceholder( {
+	children,
+}: LoadingPlaceholderProps ) {
 	const [ showLoader, setShowLoader ] = useState( false );
 
 	useEffect( () => {
@@ -69,7 +92,14 @@ function DefaultLoadingResponsePlaceholder( { children } ) {
 	);
 }
 
-export function ServerSideRender( props ) {
+interface ServerSideRenderProps extends UseServerSideRenderArgs {
+	className?: string;
+	EmptyResponsePlaceholder?: ComponentType< PlaceholderProps >;
+	ErrorResponsePlaceholder?: ComponentType< ErrorPlaceholderProps >;
+	LoadingResponsePlaceholder?: ComponentType< LoadingPlaceholderProps >;
+}
+
+export function ServerSideRender( props: ServerSideRenderProps ) {
 	const prevContentRef = useRef( '' );
 	const {
 		className,
@@ -108,7 +138,12 @@ export function ServerSideRender( props ) {
 		return <ErrorResponsePlaceholder message={ error } { ...props } />;
 	}
 
-	return <RawHTML className={ className }>{ content }</RawHTML>;
+	return <RawHTML className={ className }>{ content || '' }</RawHTML>;
+}
+
+interface ServerSideRenderWithPostIdProps
+	extends Omit< ServerSideRenderProps, 'urlQueryArgs' > {
+	urlQueryArgs?: Record< string, unknown >;
 }
 
 /**
@@ -135,28 +170,25 @@ export function ServerSideRender( props ) {
  * }
  * ```
  *
- * @param {Object}   props                                    Component props.
- * @param {string}   props.block                              The identifier of the block to be serverside rendered.
- * @param {Object}   props.attributes                         The block attributes to be sent to the server for rendering.
- * @param {string}   [props.className]                        Additional classes to apply to the wrapper element.
- * @param {string}   [props.httpMethod='GET']                 The HTTP method to use ('GET' or 'POST'). Default is 'GET'
- * @param {Object}   [props.urlQueryArgs]                     Additional query arguments to append to the request URL.
- * @param {boolean}  [props.skipBlockSupportAttributes=false] Whether to remove block support attributes before sending.
- * @param {Function} [props.EmptyResponsePlaceholder]         Component rendered when the API response is empty.
- * @param {Function} [props.ErrorResponsePlaceholder]         Component rendered when the API response is an error.
- * @param {Function} [props.LoadingResponsePlaceholder]       Component rendered while the API request is loading.
+ * @param props              Component props.
+ * @param props.urlQueryArgs Additional query arguments to append to the request URL.
  *
- * @return {JSX.Element} The rendered server-side content.
+ * @return The rendered server-side content.
  */
 export function ServerSideRenderWithPostId( {
 	urlQueryArgs = EMPTY_OBJECT,
 	...props
-} ) {
+}: ServerSideRenderWithPostIdProps ) {
 	const currentPostId = useSelect( ( select ) => {
 		// FIXME: @wordpress/server-side-render should not depend on @wordpress/editor.
 		// It is used by blocks that can be loaded into a *non-post* block editor.
 		// eslint-disable-next-line @wordpress/data-no-store-string-literals
-		const postId = select( 'core/editor' )?.getCurrentPostId();
+		const editorStore = select( 'core/editor' ) as
+			| {
+					getCurrentPostId?: () => number | string | null;
+			  }
+			| undefined;
+		const postId = editorStore?.getCurrentPostId?.();
 
 		// For templates and template parts we use a custom ID format.
 		// Since they aren't real posts, we don't want to use their ID
