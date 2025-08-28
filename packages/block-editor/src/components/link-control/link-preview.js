@@ -14,7 +14,15 @@ import {
 } from '@wordpress/components';
 import { useCopyToClipboard } from '@wordpress/compose';
 import { filterURLForDisplay, safeDecodeURI } from '@wordpress/url';
-import { Icon, globe, info, linkOff, edit, copySmall } from '@wordpress/icons';
+import {
+	Icon,
+	globe,
+	info,
+	linkOff,
+	edit,
+	copySmall,
+	commentEditLink,
+} from '@wordpress/icons';
 import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { store as noticesStore } from '@wordpress/notices';
@@ -93,6 +101,25 @@ export default function LinkPreview( {
 			type: 'snackbar',
 		} );
 	} );
+
+	// Get the edit URL for the post.
+	const getEditUrl = () => {
+		const postId = value?.id;
+		if ( ! postId ) {
+			return;
+		}
+
+		const url = `/wp-admin/post.php?post=${ postId }&action=edit`;
+		return url;
+	};
+
+	// Handle the edit post button click.
+	const handleEditPost = () => {
+		const editUrl = getEditUrl();
+		if ( editUrl ) {
+			window.location.href = editUrl;
+		}
+	};
 
 	return (
 		<div
@@ -176,6 +203,13 @@ export default function LinkPreview( {
 					disabled={ isEmptyURL }
 					size="compact"
 					showTooltip={ ! showIconLabels }
+				/>
+				<Button
+					icon={ commentEditLink }
+					label={ __( 'Edit Post or Page' ) }
+					size="compact"
+					showTooltip={ ! showIconLabels }
+					onClick={ handleEditPost }
 				/>
 				<ViewerSlot fillProps={ value } />
 			</div>
