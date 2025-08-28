@@ -30,7 +30,10 @@ jobs:
               uses: ./.github/setup-node
 
             - name: Build project management automation package
-              run: node bin/packages/build.js packages/project-management-automation/src/**/*.ts
+              run: |
+                  shopt -s globstar
+                  files=(packages/project-management-automation/src/**/*.ts)
+                  node bin/packages/build.js "${files[@]}"
 
             - uses: ./packages/project-management-automation
               with:
