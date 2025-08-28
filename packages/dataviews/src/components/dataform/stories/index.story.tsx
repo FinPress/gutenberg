@@ -750,10 +750,8 @@ const LayoutCardComponent = ( { withHeader }: { withHeader: boolean } ) => {
 };
 
 const LayoutRowComponent = ( {
-	spacing,
 	alignment,
 }: {
-	spacing: number;
 	alignment: 'none' | 'start' | 'center' | 'end';
 } ) => {
 	type Customer = {
@@ -897,7 +895,6 @@ const LayoutRowComponent = ( {
 					layout: {
 						type: 'row',
 						alignment: alignment !== 'none' ? alignment : 'center',
-						spacing,
 					},
 					children: [ 'name', 'phone', 'email' ],
 				},
@@ -907,7 +904,6 @@ const LayoutRowComponent = ( {
 					layout: {
 						type: 'row',
 						alignment: alignment !== 'none' ? alignment : 'start',
-						spacing,
 					},
 					children: [
 						{
@@ -935,7 +931,6 @@ const LayoutRowComponent = ( {
 					layout: {
 						type: 'row',
 						alignment: alignment !== 'none' ? alignment : 'end',
-						spacing,
 					},
 					children: [ 'vat', 'commission', 'hasDiscount' ],
 				},
@@ -945,13 +940,12 @@ const LayoutRowComponent = ( {
 					layout: {
 						type: 'row',
 						alignment: alignment !== 'none' ? alignment : 'start',
-						spacing,
 					},
 					children: [ 'plan', 'renewal' ],
 				},
 			],
 		} ),
-		[ spacing, alignment ]
+		[ alignment ]
 	);
 
 	const topLevelLayout: Form = useMemo(
@@ -959,11 +953,10 @@ const LayoutRowComponent = ( {
 			layout: {
 				type: 'row',
 				alignment: alignment !== 'none' ? alignment : 'start',
-				spacing,
 			},
 			fields: [ 'name', 'phone', 'email' ],
 		} ),
-		[ spacing, alignment ]
+		[ alignment ]
 	);
 
 	return (
@@ -1023,7 +1016,6 @@ const LayoutMixedComponent = () => {
 				],
 				layout: {
 					type: 'row',
-					spacing: 2,
 				},
 			},
 			{
@@ -1119,10 +1111,6 @@ export const LayoutRegular = {
 export const LayoutRow = {
 	render: LayoutRowComponent,
 	argTypes: {
-		spacing: {
-			control: { type: 'number' },
-			description: 'The gap between the fields.',
-		},
 		alignment: {
 			control: { type: 'select' },
 			description: 'The alignment of the fields.',
@@ -1131,7 +1119,6 @@ export const LayoutRow = {
 	},
 	args: {
 		alignment: 'none',
-		spacing: 2,
 	},
 };
 

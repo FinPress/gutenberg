@@ -63,7 +63,7 @@ export function normalizeLayout( layout?: Layout ): NormalizedLayout {
 	} else if ( layout?.type === 'row' ) {
 		normalizedLayout = {
 			type: 'row',
-			spacing: layout?.spacing ?? 4,
+			spacing: 4,
 			alignment: layout?.alignment ?? 'center',
 		} satisfies NormalizedRowLayout;
 	}

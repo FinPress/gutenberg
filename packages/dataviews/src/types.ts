@@ -726,7 +726,6 @@ export type NormalizedCardLayout =
 
 export type RowLayout = {
 	type: 'row';
-	spacing?: number;
 	alignment?: 'start' | 'center' | 'end';
 };
 export type NormalizedRowLayout = {
