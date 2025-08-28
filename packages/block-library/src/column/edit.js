@@ -67,6 +67,19 @@ function ColumnInspectorControls( { width, setAttributes } ) {
 	);
 }
 
+/*
+ * Edit component for the Column block.
+ *
+ * @param {Object}   props             Component props.
+ * @param {Object}   props.attributes  Block attributes.
+ * @param {string}   [props.attributes.verticalAlignment]  Vertical alignment of column.
+ * @param {string|number} [props.attributes.width]  Column width.
+ * @param {string}   [props.attributes.templateLock]  Template locking mechanism.
+ * @param {Array}    [props.attributes.allowedBlocks]  Allowed inner blocks.
+ * @param {Function} props.setAttributes Function to update block attributes.
+ * @param {string}   props.clientId    Unique client ID for the block.
+ * @return {JSX.Element}               Rendered Column block edit component.
+ */
 function ColumnEdit( {
 	attributes: { verticalAlignment, width, templateLock, allowedBlocks },
 	setAttributes,
