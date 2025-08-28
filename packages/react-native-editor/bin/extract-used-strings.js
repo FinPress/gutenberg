@@ -131,12 +131,14 @@ const getUsedStrings = ( potFilesDir, domains ) => {
 
 const generatePotFiles = ( plugins, potFilesDir ) => {
 	const potFilesCommand = path.join( __dirname, 'generate-pot-files.sh' );
-	const potFilesArgs = plugins
-		.map( ( { name, sourcePath } ) => `${ name } ${ sourcePath }` )
-		.join( ' ' );
+	const potFilesArgs = [
+		'--path', potFilesDir,
+		...plugins.flatMap( ( { name, sourcePath } ) => [ name, sourcePath ] ),
+	];
 	try {
-		childProcess.execSync(
-			`${ potFilesCommand } --path ${ potFilesDir } ${ potFilesArgs } `,
+		childProcess.execFileSync(
+			potFilesCommand,
+			potFilesArgs,
 			{
 				stdio: 'inherit',
 				env: { ...process.env },
