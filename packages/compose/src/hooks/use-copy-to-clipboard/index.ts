@@ -2,6 +2,7 @@
  * External dependencies
  */
 import Clipboard from 'clipboard';
+import type { RefObject, Ref } from 'react';
 
 /**
  * WordPress dependencies
@@ -15,10 +16,10 @@ import useRefEffect from '../use-ref-effect';
 
 /**
  * @template T
- * @param {T} value
- * @return {import('react').RefObject<T>} The updated ref
+ * @param    value
+ * @return  The updated ref
  */
-function useUpdatedRef( value ) {
+function useUpdatedRef< T >( value: T ): RefObject< T > {
 	const ref = useRef( value );
 	useLayoutEffect( () => {
 		ref.current = value;
@@ -29,14 +30,17 @@ function useUpdatedRef( value ) {
 /**
  * Copies the given text to the clipboard when the element is clicked.
  *
- * @template {HTMLElement} TElementType
- * @param {string | (() => string)} text      The text to copy. Use a function if not
- *                                            already available and expensive to compute.
- * @param {Function}                onSuccess Called when to text is copied.
+ * @template  TElementType
+ * @param    text      The text to copy. Use a function if not
+ *                     already available and expensive to compute.
+ * @param    onSuccess Called when to text is copied.
  *
- * @return {import('react').Ref<TElementType>} A ref to assign to the target element.
+ * @return  A ref to assign to the target element.
  */
-export default function useCopyToClipboard( text, onSuccess ) {
+export default function useCopyToClipboard< TElementType extends HTMLElement >(
+	text: string | ( () => string ),
+	onSuccess: Function
+): Ref< TElementType > {
 	// Store the dependencies as refs and continuously update them so they're
 	// fresh when the callback is called.
 	const textRef = useUpdatedRef( text );

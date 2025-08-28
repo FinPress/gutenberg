@@ -208,10 +208,6 @@ const ConstrainedTabbingExample = () => {
 };
 ```
 
-_Returns_
-
--   `import('react').RefCallback<Element>`: Element Ref.
-
 ### useCopyOnClick
 
 > **Deprecated**
@@ -220,9 +216,9 @@ Copies the text to the clipboard when the element is clicked.
 
 _Parameters_
 
--   _ref_ `import('react').RefObject<string | Element | NodeListOf<Element>>`: Reference with the element.
--   _text_ `string|Function`: The text to copy.
--   _timeout_ `[number]`: Optional timeout to reset the returned state. 4 seconds by default.
+-   _ref_ `RefObject< string | Element | NodeListOf< Element > >`: Reference with the element.
+-   _text_ `string | Function`: The text to copy.
+-   _timeout_ Optional timeout to reset the returned state. 4 seconds by default.
 
 _Returns_
 
@@ -234,12 +230,12 @@ Copies the given text to the clipboard when the element is clicked.
 
 _Parameters_
 
--   _text_ `string | (() => string)`: The text to copy. Use a function if not already available and expensive to compute.
+-   _text_ `string | ( () => string )`: The text to copy. Use a function if not already available and expensive to compute.
 -   _onSuccess_ `Function`: Called when to text is copied.
 
 _Returns_
 
--   `import('react').Ref<TElementType>`: A ref to assign to the target element.
+-   `Ref< TElementType >`: A ref to assign to the target element.
 
 ### useDebounce
 
@@ -252,12 +248,12 @@ _Related_
 _Parameters_
 
 -   _fn_ `TFunc`: The function to debounce.
--   _wait_ `[number]`: The number of milliseconds to delay.
--   _options_ `[import('../../utils/debounce').DebounceOptions]`: The options object.
+-   _wait_ `number`: The number of milliseconds to delay.
+-   _options_ `DebounceOptions`: The options object.
 
 _Returns_
 
--   `import('../../utils/debounce').DebouncedFunc<TFunc>`: Debounced function.
+-   `DebouncedFunc< TFunc >`: Debounced function.
 
 ### useDebouncedInput
 
@@ -362,7 +358,7 @@ _Parameters_
 
 _Returns_
 
--   `import('react').RefCallback<HTMLElement>`: Ref callback.
+-   `RefCallback< HTMLElement >`: Ref callback.
 
 ### useFocusReturn
 
@@ -386,11 +382,11 @@ const WithFocusReturn = () => {
 
 _Parameters_
 
--   _onFocusReturn_ `[() => void]`: Overrides the default return behavior.
+-   _onFocusReturn_ `() => void`: Overrides the default return behavior.
 
 _Returns_
 
--   `import('react').RefCallback<HTMLElement>`: Element Ref.
+-   `RefCallback< HTMLElement >`: Element Ref.
 
 ### useInstanceId
 
@@ -420,9 +416,13 @@ _Related_
 
 _Parameters_
 
--   _shortcuts_ `string[]|string`: Keyboard Shortcuts.
--   _callback_ `(e: import('mousetrap').ExtendedKeyboardEvent, combo: string) => void`: Shortcut callback.
--   _options_ `WPKeyboardShortcutConfig`: Shortcut options.
+-   _shortcuts_ `string[] | string`: Keyboard Shortcuts.
+-   _callback_ `( e: ExtendedKeyboardEvent, combo: string ) => void`: Shortcut callback.
+-   _options_ `Partial< WPKeyboardShortcutConfig >`: Shortcut options.
+-   _options.bindGlobal_ `Partial< WPKeyboardShortcutConfig >[ 'bindGlobal' ]`:
+-   _options.eventName_ `Partial< WPKeyboardShortcutConfig >[ 'eventName' ]`:
+-   _options.isDisabled_ `Partial< WPKeyboardShortcutConfig >[ 'isDisabled' ]`:
+-   _options.target_ `Partial< WPKeyboardShortcutConfig >[ 'target' ]`:
 
 ### useMediaQuery
 

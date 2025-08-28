@@ -6,6 +6,9 @@ import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
 /**
  * Internal dependencies
  */
+/**
+ * Internal dependencies
+ */
 import useIsomorphicLayoutEffect from '../use-isomorphic-layout-effect';
 
 // Event handlers that are triggered from `document` listeners accept a MouseEvent,

@@ -5,19 +5,34 @@ import useRefEffect from '../use-ref-effect';
 import useEvent from '../use-event';
 
 /**
+ * External dependencies
+ */
+import type { RefCallback } from 'react';
+
+interface UseDropZoneProps {
+	dropZoneElement?: HTMLElement;
+	isDisabled?: boolean;
+	onDragStart?: ( e: DragEvent ) => void;
+	onDragEnter?: ( e: DragEvent ) => void;
+	onDragOver?: ( e: DragEvent ) => void;
+	onDragLeave?: ( e: DragEvent ) => void;
+	onDragEnd?: ( e: MouseEvent ) => void;
+	onDrop?: ( e: DragEvent ) => void;
+}
+
+/**
  * A hook to facilitate drag and drop handling.
  *
- * @param {Object}                  props                   Named parameters.
- * @param {?HTMLElement}            [props.dropZoneElement] Optional element to be used as the drop zone.
- * @param {boolean}                 [props.isDisabled]      Whether or not to disable the drop zone.
- * @param {(e: DragEvent) => void}  [props.onDragStart]     Called when dragging has started.
- * @param {(e: DragEvent) => void}  [props.onDragEnter]     Called when the zone is entered.
- * @param {(e: DragEvent) => void}  [props.onDragOver]      Called when the zone is moved within.
- * @param {(e: DragEvent) => void}  [props.onDragLeave]     Called when the zone is left.
- * @param {(e: MouseEvent) => void} [props.onDragEnd]       Called when dragging has ended.
- * @param {(e: DragEvent) => void}  [props.onDrop]          Called when dropping in the zone.
- *
- * @return {import('react').RefCallback<HTMLElement>} Ref callback to be passed to the drop zone element.
+ * @param props                 Named parameters.
+ * @param props.dropZoneElement Optional element to be used as the drop zone.
+ * @param props.isDisabled      Whether or not to disable the drop zone.
+ * @param props.onDragStart     Called when dragging has started.
+ * @param props.onDragEnter     Called when the zone is entered.
+ * @param props.onDragOver      Called when the zone is moved within.
+ * @param props.onDragLeave     Called when the zone is left.
+ * @param props.onDragEnd       Called when dragging has ended.
+ * @param props.onDrop          Called when dropping in the zone.
+ * @return  Ref callback to be passed to the drop zone element.
  */
 export default function useDropZone( {
 	dropZoneElement,
@@ -28,7 +43,7 @@ export default function useDropZone( {
 	onDragLeave: _onDragLeave,
 	onDragEnd: _onDragEnd,
 	onDragOver: _onDragOver,
-} ) {
+}: UseDropZoneProps ): RefCallback< HTMLElement > {
 	const onDropEvent = useEvent( _onDrop );
 	const onDragStartEvent = useEvent( _onDragStart );
 	const onDragEnterEvent = useEvent( _onDragEnter );
@@ -54,11 +69,13 @@ export default function useDropZone( {
 			/**
 			 * Checks if an element is in the drop zone.
 			 *
-			 * @param {EventTarget|null} targetToCheck
+			 * @param targetToCheck
 			 *
-			 * @return {boolean} True if in drop zone, false if not.
+			 * @return True if in drop zone, false if not.
 			 */
-			function isElementInZone( targetToCheck ) {
+			function isElementInZone(
+				targetToCheck: EventTarget | null
+			): boolean {
 				const { defaultView } = ownerDocument;
 
 				if (
@@ -70,8 +87,7 @@ export default function useDropZone( {
 					return false;
 				}
 
-				/** @type {HTMLElement|null} */
-				let elementToCheck = targetToCheck;
+				let elementToCheck: HTMLElement | null = targetToCheck;
 
 				do {
 					if ( elementToCheck.dataset.isDropZone ) {
@@ -82,7 +98,7 @@ export default function useDropZone( {
 				return false;
 			}
 
-			function maybeDragStart( /** @type {DragEvent} */ event ) {
+			function maybeDragStart( event: DragEvent ) {
 				if ( isDragging ) {
 					return;
 				}
@@ -101,18 +117,14 @@ export default function useDropZone( {
 				}
 			}
 
-			function onDragEnter( /** @type {DragEvent} */ event ) {
+			function onDragEnter( event: DragEvent ) {
 				event.preventDefault();
 
 				// The `dragenter` event will also fire when entering child
 				// elements, but we only want to call `onDragEnter` when
 				// entering the drop zone, which means the `relatedTarget`
 				// (element that has been left) should be outside the drop zone.
-				if (
-					element.contains(
-						/** @type {Node} */ ( event.relatedTarget )
-					)
-				) {
+				if ( element.contains( event.relatedTarget as Node ) ) {
 					return;
 				}
 
@@ -121,7 +133,7 @@ export default function useDropZone( {
 				}
 			}
 
-			function onDragOver( /** @type {DragEvent} */ event ) {
+			function onDragOver( event: DragEvent ) {
 				// Only call onDragOver for the innermost hovered drop zones.
 				if ( ! event.defaultPrevented && _onDragOver ) {
 					onDragOverEvent( event );
@@ -132,7 +144,7 @@ export default function useDropZone( {
 				event.preventDefault();
 			}
 
-			function onDragLeave( /** @type {DragEvent} */ event ) {
+			function onDragLeave( event: DragEvent ) {
 				// The `dragleave` event will also fire when leaving child
 				// elements, but we only want to call `onDragLeave` when
 				// leaving the drop zone, which means the `relatedTarget`
@@ -150,7 +162,7 @@ export default function useDropZone( {
 				}
 			}
 
-			function onDrop( /** @type {DragEvent} */ event ) {
+			function onDrop( event: DragEvent ) {
 				// Don't handle drop if an inner drop zone already handled it.
 				if ( event.defaultPrevented ) {
 					return;
@@ -173,7 +185,7 @@ export default function useDropZone( {
 				maybeDragEnd( event );
 			}
 
-			function maybeDragEnd( /** @type {MouseEvent} */ event ) {
+			function maybeDragEnd( event: MouseEvent ) {
 				if ( ! isDragging ) {
 					return;
 				}

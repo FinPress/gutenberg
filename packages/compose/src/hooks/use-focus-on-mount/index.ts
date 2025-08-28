@@ -10,10 +10,15 @@ import { focus } from '@wordpress/dom';
 import useRefEffect from '../use-ref-effect';
 
 /**
+ * External dependencies
+ */
+import type { RefCallback, MutableRefObject } from 'react';
+
+/**
  * Hook used to focus the first tabbable element on mount.
  *
- * @param {boolean | 'firstElement'} focusOnMount Focus on mount mode.
- * @return {import('react').RefCallback<HTMLElement>} Ref callback.
+ * @param focusOnMount Focus on mount mode.
+ * @return Ref callback.
  *
  * @example
  * ```js
@@ -30,16 +35,17 @@ import useRefEffect from '../use-ref-effect';
  * }
  * ```
  */
-export default function useFocusOnMount( focusOnMount = 'firstElement' ) {
+export default function useFocusOnMount(
+	focusOnMount: boolean | 'firstElement' = 'firstElement'
+): RefCallback< HTMLElement > {
 	const focusOnMountRef = useRef( focusOnMount );
 
 	/**
 	 * Sets focus on a DOM element.
 	 *
-	 * @param {HTMLElement} target The DOM element to set focus to.
-	 * @return {void}
+	 * @param target The DOM element to set focus to.
 	 */
-	const setFocus = ( target ) => {
+	const setFocus = ( target: HTMLElement ) => {
 		target.focus( {
 			// When focusing newly mounted dialogs,
 			// the position of the popover is often not right on the first render
@@ -48,8 +54,9 @@ export default function useFocusOnMount( focusOnMount = 'firstElement' ) {
 		} );
 	};
 
-	/** @type {import('react').MutableRefObject<ReturnType<setTimeout> | undefined>} */
-	const timerIdRef = useRef();
+	const timerIdRef: MutableRefObject<
+		ReturnType< typeof setTimeout > | undefined
+	> = useRef();
 
 	useEffect( () => {
 		focusOnMountRef.current = focusOnMount;
