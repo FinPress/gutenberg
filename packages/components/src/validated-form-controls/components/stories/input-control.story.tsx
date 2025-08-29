@@ -17,7 +17,7 @@ import { seen, unseen } from '@wordpress/icons';
  * Internal dependencies
  */
 import { ValidatedInputControl } from '../input-control';
-import { ValidatedFormTokenField } from '../array-control';
+import { ValidatedFormTokenField } from '../form-token-field';
 import { formDecorator } from './story-utils';
 import InputControlSuffixWrapper from '../../../input-control/input-suffix-wrapper';
 import { Button } from '../../../button';

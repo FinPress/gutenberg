@@ -1,4 +1,4 @@
-export * from './array-control';
+export * from './form-token-field';
 export * from './checkbox-control';
 export * from './combobox-control';
 export * from './custom-select-control';
