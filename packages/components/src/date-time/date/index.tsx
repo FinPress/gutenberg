@@ -304,7 +304,8 @@ function Day( {
 		// isFocusAllowed is not a dep as there is no point calling focus() on
 		// an already focused element.
 	}, [ isFocusable ] );
-
+	const shiftedDay = new Date( day );
+	shiftedDay.setHours( 15 );
 	return (
 		<DayButton
 			__next40pxDefaultSize
@@ -320,7 +321,7 @@ function Day( {
 			onClick={ onClick }
 			onKeyDown={ onKeyDown }
 		>
-			{ dateI18n( 'j', day, -day.getTimezoneOffset() ) }
+			{ dateI18n( 'j', shiftedDay, -shiftedDay.getTimezoneOffset() ) }
 		</DayButton>
 	);
 }
