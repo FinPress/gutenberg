@@ -43,6 +43,7 @@ junit.xml
 .wp-env.override.json
 playwright.config.override.ts
 phpcs.xml
+phpstan.neon
 phpunit.xml
 phpunit-watcher.yml
 .tool-versions
