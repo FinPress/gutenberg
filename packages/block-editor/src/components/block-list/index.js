@@ -259,6 +259,9 @@ function Items( {
 				</AsyncModeProvider>
 			) ) }
 			{ order.length < 1 && placeholder }
+			{ isZoomOut && order.length < 1 && (
+				<ZoomOutSeparator isEmptyBlockList position="bottom" />
+			) }
 			{ shouldRenderAppender && (
 				<BlockListAppender
 					tagName={ __experimentalAppenderTagName }
