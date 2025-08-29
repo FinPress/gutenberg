@@ -1,19 +1,13 @@
 /**
  * WordPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import { normalizeFields } from '../normalize-fields';
-import type {
-	Field,
-	Form,
-	NormalizedField,
-	FormValidity,
-	FieldValidity,
-} from '../types';
+import type { Field, Form, FormValidity } from '../types';
 
 /**
  * Type for the return value of useIsFormValid hook.
@@ -33,9 +27,14 @@ export function useIsFormValid< Item >(
 	fields: Field< Item >[],
 	form: Form
 ): FormValidity {
-	return useMemo( () => {
+	const [ formValidity, setFormValidity ] = useState< FormValidity >();
+
+	const previousValidatedValuesRef = useRef< Record< string, any > >( {} );
+
+	const validate = useCallback( () => {
 		if ( typeof form.fields === 'undefined' ) {
-			return [];
+			setFormValidity( undefined );
+			return;
 		}
 
 		const normalizedFields = normalizeFields(
@@ -44,78 +43,198 @@ export function useIsFormValid< Item >(
 					if ( typeof formField === 'string' ) {
 						return formField === field.id;
 					}
+
 					return formField.id === field.id;
 				} );
 			} )
 		);
 
-		return getFieldErrors( item, normalizedFields );
-	}, [ item, fields, form ] );
-}
+		normalizedFields.forEach( ( field ) => {
+			const value = field.getValue( { item } );
 
-/**
- * Helper function to get error messages for all fields.
- *
- * @param item   The item to validate.
- * @param fields Normalized fields.
- *
- * @return Array of field validity objects for fields with errors.
- */
-function getFieldErrors< Item >(
-	item: Item,
-	fields: NormalizedField< Item >[]
-): FormValidity {
-	const errors: FieldValidity[] = [];
+			if ( value === previousValidatedValuesRef.current[ field.id ] ) {
+				return;
+			}
+			previousValidatedValuesRef.current[ field.id ] = value;
 
-	fields.forEach( ( field ) => {
-		const value = field.getValue( { item } );
+			// Check required field validation
+			if ( field.isValid.required ) {
+				const isEmptyNullOrUndefined = [ undefined, '', null ].includes(
+					value
+				);
 
-		// Check required field validation
-		if ( field.isValid.required ) {
-			const isEmptyNullOrUndefined = [ undefined, '', null ].includes(
-				value
-			);
+				if (
+					( field.type === 'text' && isEmptyNullOrUndefined ) ||
+					( field.type === 'email' && isEmptyNullOrUndefined ) ||
+					( field.type === 'integer' && isEmptyNullOrUndefined ) ||
+					( field.type === undefined && isEmptyNullOrUndefined )
+				) {
+					setFormValidity( ( prev ) => [
+						...( prev
+							? prev.filter(
+									( fieldValidation ) =>
+										fieldValidation.id !== field.id
+							  )
+							: [] ),
+						{
+							id: field.id,
+							required: 'invalid',
+						},
+					] );
+					return;
+				}
 
+				if ( field.type === 'boolean' && value !== true ) {
+					setFormValidity( ( prev ) => [
+						...( prev
+							? prev.filter(
+									( fieldValidation ) =>
+										fieldValidation.id !== field.id
+							  )
+							: [] ),
+						{
+							id: field.id,
+							required: 'invalid',
+						},
+					] );
+					return;
+				}
+			}
+
+			// Check if the custom validation function is async
 			if (
-				( field.type === 'text' && isEmptyNullOrUndefined ) ||
-				( field.type === 'email' && isEmptyNullOrUndefined ) ||
-				( field.type === 'integer' && isEmptyNullOrUndefined ) ||
-				( field.type === undefined && isEmptyNullOrUndefined )
+				typeof field.isValid.custom === 'function' &&
+				field.isValid.custom.constructor.name === 'AsyncFunction'
 			) {
-				errors.push( {
-					id: field.id,
-					required: 'invalid',
-				} );
-				return;
-			}
+				const customAsyncError = field.isValid.custom( item, field );
+				if ( customAsyncError === null ) {
+					return;
+				}
 
-			if ( field.type === 'boolean' && value !== true ) {
-				errors.push( {
-					id: field.id,
-					required: 'invalid',
-				} );
-				return;
-			}
-		}
-
-		// Check custom validation
-		if ( typeof field.isValid.custom === 'function' ) {
-			const customError = field.isValid.custom( item, field );
-			if ( customError !== null ) {
-				errors.push( {
-					id: field.id,
-					custom: {
-						type: 'invalid',
-						message: customError,
+				setFormValidity( ( prev ) => [
+					...( prev
+						? prev.filter(
+								( fieldValidation ) =>
+									fieldValidation.id !== field.id
+						  )
+						: [] ),
+					{
+						id: field.id,
+						custom: {
+							type: 'validating',
+							message: 'Validating...',
+						},
 					},
-				} );
+				] );
+
+				if ( customAsyncError instanceof Promise ) {
+					customAsyncError
+						.then( ( result ) => {
+							if ( result === null ) {
+								setFormValidity( ( prev ) => [
+									...( prev
+										? prev.filter(
+												( fieldValidation ) =>
+													fieldValidation.id !==
+													field.id
+										  )
+										: [] ),
+									{
+										id: field.id,
+										custom: {
+											type: 'valid',
+											message: 'Valid',
+										},
+									},
+								] );
+							}
+
+							if ( typeof result === 'string' ) {
+								setFormValidity( ( prev ) => [
+									...( prev
+										? prev.filter(
+												( fieldValidation ) =>
+													fieldValidation.id !==
+													field.id
+										  )
+										: [] ),
+									{
+										id: field.id,
+										custom: {
+											type: 'invalid',
+											message: result,
+										},
+									},
+								] );
+							}
+						} )
+						.catch( ( error ) => {
+							setFormValidity( ( prev ) => [
+								...( prev
+									? prev.filter(
+											( fieldValidation ) =>
+												fieldValidation.id !== field.id
+									  )
+									: [] ),
+								{
+									id: field.id,
+									custom: {
+										type: 'invalid',
+										message: error.message,
+									},
+								},
+							] );
+						} );
+				}
+
+				return;
 			}
-		}
 
-		// No errors for this field - don't add to errors object
-	} );
+			// Check custom validation
+			if (
+				typeof field.isValid.custom === 'function' &&
+				! ( field.isValid.custom.constructor.name === 'AsyncFunction' )
+			) {
+				const customError = field.isValid.custom( item, field );
+				if ( typeof customError === 'string' ) {
+					setFormValidity( ( prev ) => [
+						...( prev
+							? prev.filter( ( error ) => error.id !== field.id )
+							: [] ),
+						{
+							id: field.id,
+							custom: {
+								type: 'invalid',
+								message: customError,
+							},
+						},
+					] );
+					return;
+				}
+			}
 
-	return errors.length > 0 ? errors : undefined;
+			// No errors for this field, remove from errors object
+			setFormValidity( ( prev ) => {
+				const errors = [
+					...( prev ? prev : [] ).filter(
+						( error ) => error.id !== field.id
+					),
+				];
+
+				if ( errors.length === 0 ) {
+					return undefined;
+				}
+
+				return errors;
+			} );
+		} );
+	}, [ item, fields, form ] );
+
+	useEffect( () => {
+		validate();
+	}, [ validate ] );
+
+	return formValidity;
 }
 
 export default useIsFormValid;

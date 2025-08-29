@@ -381,23 +381,113 @@ function CustomEditControl< Item >( {
 	);
 }
 
+const customTextRule = ( value: ValidatedItem ) => {
+	if ( [ '', undefined, null ].includes( value.text ) ) {
+		return null;
+	}
+
+	if ( ! /^[a-zA-Z ]+$/.test( value.text ) ) {
+		return 'Value must only contain letters and spaces.';
+	}
+
+	return null;
+};
+const customEmailRule = ( value: ValidatedItem ) => {
+	if ( [ '', undefined, null ].includes( value.email ) ) {
+		return null;
+	}
+
+	if ( ! /^[a-zA-Z0-9._%+-]+@example\.com$/.test( value.email ) ) {
+		return 'Email address must be from @example.com domain.';
+	}
+
+	return null;
+};
+const customIntegerRule = ( value: ValidatedItem ) => {
+	if ( [ '', undefined, null ].includes( value.email ) ) {
+		return null;
+	}
+
+	if ( value.integer % 2 !== 0 ) {
+		return 'Integer must be an even number.';
+	}
+
+	return null;
+};
+const customBooleanRule = ( value: ValidatedItem ) => {
+	if ( value.boolean !== true ) {
+		return 'Boolean must be true.';
+	}
+
+	return null;
+};
+const customEditRule = ( value: ValidatedItem ) => {
+	if ( [ '', undefined, null ].includes( value.email ) ) {
+		return null;
+	}
+
+	if ( ! /^[a-zA-Z ]+$/.test( value.customEdit ) ) {
+		return 'Value must only contain letters and spaces.';
+	}
+
+	return null;
+};
+
+const makeAsync = ( rule: ( item: ValidatedItem ) => null | string ) => {
+	return async ( value: ValidatedItem ) => {
+		return await new Promise< string | null >( ( resolve ) => {
+			setTimeout( () => {
+				const validationResult = rule( value );
+				resolve( validationResult );
+			}, 2000 );
+		} );
+	};
+};
+const maybeCustomRule = (
+	customStatus: 'sync' | 'async' | 'none',
+	rule: ( item: ValidatedItem ) => null | string
+) => {
+	if ( customStatus === 'sync' ) {
+		return rule;
+	}
+
+	if ( customStatus === 'async' ) {
+		return makeAsync( rule );
+	}
+
+	return undefined;
+};
+
+const getDescription = (
+	customStatus: 'sync' | 'async' | 'none',
+	message: string
+) => {
+	if ( customStatus === 'sync' ) {
+		return 'Custom validation (sync): ' + message;
+	}
+
+	if ( customStatus === 'async' ) {
+		return 'Custom validation (async): ' + message;
+	}
+
+	return 'Custom validation: none';
+};
+type ValidatedItem = {
+	text: string;
+	email: string;
+	integer: number;
+	boolean: boolean;
+	customEdit: string;
+};
 const ValidationComponent = ( {
 	required,
 	type,
 	custom,
 }: {
 	required: boolean;
-	custom: boolean;
+	custom: 'sync' | 'async' | 'none';
 	type: 'regular' | 'panel';
 } ) => {
-	type ValidatedItem = {
-		text: string;
-		email: string;
-		integer: number;
-		boolean: boolean;
-		customEdit: string;
-	};
-
 	const [ post, setPost ] = useState< ValidatedItem >( {
 		text: 'Can have letters and spaces',
 		email: 'hi@example.com',
@@ -406,138 +496,89 @@ const ValidationComponent = ( {
 		customEdit: 'custom control',
 	} );
 
-	const customTextRule = ( value: ValidatedItem ) => {
-		if ( [ '', undefined, null ].includes( value.text ) ) {
-			return null;
-		}
-
-		if ( ! /^[a-zA-Z ]+$/.test( value.text ) ) {
-			return 'Value must only contain letters and spaces.';
-		}
-
-		return null;
-	};
-	const customEmailRule = ( value: ValidatedItem ) => {
-		if ( [ '', undefined, null ].includes( value.email ) ) {
-			return null;
-		}
-
-		if ( ! /^[a-zA-Z0-9._%+-]+@example\.com$/.test( value.email ) ) {
-			return 'Email address must be from @example.com domain.';
-		}
-
-		return null;
-	};
-	const customIntegerRule = ( value: ValidatedItem ) => {
-		if ( [ '', undefined, null ].includes( value.email ) ) {
-			return null;
-		}
-
-		if ( value.integer % 2 !== 0 ) {
-			return 'Integer must be an even number.';
-		}
-
-		return null;
-	};
-	const customBooleanRule = ( value: ValidatedItem ) => {
-		if ( value.boolean !== true ) {
-			return 'Boolean must be true.';
-		}
-
-		return null;
-	};
-	const customEditRule = ( value: ValidatedItem ) => {
-		if ( [ '', undefined, null ].includes( value.email ) ) {
-			return null;
-		}
-
-		if ( ! /^[a-zA-Z ]+$/.test( value.customEdit ) ) {
-			return 'Value must only contain letters and spaces.';
-		}
-
-		return null;
-	};
-
-	const maybeCustomRule = (
-		rule: ( item: ValidatedItem ) => null | string
-	) => {
-		return custom ? rule : undefined;
-	};
-
-	const getDescription = ( customStatus: boolean, message: string ) => {
-		if ( customStatus ) {
-			return 'Custom validation: ' + message;
-		}
-
-		return 'Custom validation: none';
-	};
-
-	const _fields: Field< ValidatedItem >[] = [
-		{
-			id: 'text',
-			type: 'text',
-			label: 'Text',
-			description: getDescription(
-				custom,
-				'can only have letters and spaces.'
-			),
-			isValid: {
-				required,
-				custom: maybeCustomRule( customTextRule ),
+	const _fields: Field< ValidatedItem >[] = useMemo(
+		() => [
+			{
+				id: 'text',
+				type: 'text',
+				label: 'Text',
+				description: getDescription(
+					custom,
+					'can only have letters and spaces.'
+				),
+				isValid: {
+					required,
+					custom: maybeCustomRule( custom, customTextRule ),
+				},
 			},
-		},
-		{
-			id: 'email',
-			type: 'email',
-			label: 'e-mail',
-			description: getDescription(
-				custom,
-				'can only use @example.com emails.'
-			),
-			isValid: {
-				required,
-				custom: maybeCustomRule( customEmailRule ),
+			{
+				id: 'email',
+				type: 'email',
+				label: 'e-mail',
+				description: getDescription(
+					custom,
+					'can only use @example.com emails.'
+				),
+				isValid: {
+					required,
+					custom: maybeCustomRule( custom, customEmailRule ),
+				},
 			},
-		},
-		{
-			id: 'integer',
-			type: 'integer',
-			label: 'Integer',
-			description: getDescription( custom, 'can only use even numbers.' ),
-			isValid: {
-				required,
-				custom: maybeCustomRule( customIntegerRule ),
+			{
+				id: 'integer',
+				type: 'integer',
+				label: 'Integer',
+				description: getDescription(
+					custom,
+					'can only use even numbers.'
+				),
+				isValid: {
+					required,
+					custom: maybeCustomRule( custom, customIntegerRule ),
+				},
 			},
-		},
-		{
-			id: 'boolean',
-			type: 'boolean',
-			label: 'Boolean',
-			description: getDescription( custom, 'can only be true.' ),
-			isValid: {
-				required,
-				custom: maybeCustomRule( customBooleanRule ),
+			{
+				id: 'boolean',
+				type: 'boolean',
+				label: 'Boolean',
+				description: getDescription( custom, 'can only be true.' ),
+				isValid: {
+					required,
+					custom: maybeCustomRule( custom, customBooleanRule ),
+				},
 			},
-		},
-		{
-			id: 'customEdit',
-			label: 'Custom Control',
-			description: getDescription(
-				custom,
-				'can only have letters and spaces.'
-			),
-			Edit: CustomEditControl,
-			isValid: {
-				required,
-				custom: maybeCustomRule( customEditRule ),
+			{
+				id: 'customEdit',
+				label: 'Custom Control',
+				description: getDescription(
+					custom,
+					'can only have letters and spaces.'
+				),
+				Edit: CustomEditControl,
+				isValid: {
+					required,
+					custom: maybeCustomRule( custom, customEditRule ),
+				},
 			},
-		},
-	];
+		],
+		[
+			custom,
+			customTextRule,
+			customEmailRule,
+			customIntegerRule,
+			customBooleanRule,
+			customEditRule,
+			required,
+		]
+	);
 
-	const form = {
-		layout: { type },
-		fields: [ 'text', 'email', 'integer', 'boolean', 'customEdit' ],
-	};
+	const form = useMemo(
+		() => ( {
+			layout: { type },
+			fields: [ 'text', 'email', 'integer', 'boolean', 'customEdit' ],
+		} ),
+		[ type ]
+	);
 
 	const validity = useIsFormValid( post, _fields, form );
 
@@ -939,14 +980,15 @@ export const Validation = {
 			options: [ 'regular', 'panel' ],
 		},
 		custom: {
-			control: { type: 'boolean' },
+			control: { type: 'select' },
 			description: 'Whether or not the fields have custom validation.',
+			options: [ 'none', 'sync', 'async' ],
 		},
 	},
 	args: {
 		required: true,
 		type: 'regular',
-		custom: true,
+		custom: 'none',
 	},
 };
 

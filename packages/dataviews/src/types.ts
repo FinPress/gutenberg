@@ -148,7 +148,12 @@ export type FieldTypeDefinition< Item > = {
 
 export type Rules< Item > = {
 	required?: boolean;
-	custom?: ( item: Item, field: NormalizedField< Item > ) => null | string;
+	custom?:
+		| ( ( item: Item, field: NormalizedField< Item > ) => null | string )
+		| ( (
+				item: Item,
+				field: NormalizedField< Item >
+		  ) => Promise< null | string > );
 };
 
 /**
@@ -778,10 +783,16 @@ export interface FieldLayoutProps< Item > {
 export interface FieldValidity {
 	id: string;
 	required?: 'invalid';
-	custom?: {
-		type: 'invalid';
-		message: string;
-	};
+	custom?:
+		| {
+				type: 'invalid';
+				message: string;
+		  }
+		| {
+				type: 'validating';
+				message: 'Validating...';
+		  }
+		| { type: 'valid'; message: 'Valid' };
 }
 
 export type FormValidity = FieldValidity[] | undefined;
