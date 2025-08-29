@@ -1,57 +1,59 @@
 /**
  * External dependencies
  */
-// @ts-ignore
 import * as Y from 'yjs';
 
-/** @typedef {import('./types').ObjectType} ObjectType */
-/** @typedef {import('./types').ObjectID} ObjectID */
-/** @typedef {import('./types').ObjectConfig} ObjectConfig */
-/** @typedef {import('./types').CRDTDoc} CRDTDoc */
-/** @typedef {import('./types').ConnectDoc} ConnectDoc */
-/** @typedef {import('./types').SyncProvider} SyncProvider */
+/**
+ * Internal dependencies
+ */
+import type {
+	ObjectType,
+	ObjectID,
+	ObjectConfig,
+	CRDTDoc,
+	ConnectDoc,
+	SyncProvider,
+} from './types';
 
 /**
  * Create a sync provider.
  *
- * @param {ConnectDoc} connectLocal  Connect the document to a local database.
- * @param {ConnectDoc} connectRemote Connect the document to a remote sync connection.
- * @return {SyncProvider} Sync provider.
+ * @param connectLocal  Connect the document to a local database.
+ * @param connectRemote Connect the document to a remote sync connection.
+ * @return  Sync provider.
  */
-export const createSyncProvider = ( connectLocal, connectRemote ) => {
-	/**
-	 * @type {Record<string,ObjectConfig>}
-	 */
-	const config = {};
+export const createSyncProvider = (
+	connectLocal: ConnectDoc,
+	connectRemote: ConnectDoc
+): SyncProvider => {
+	const config: Record< string, ObjectConfig > = {};
 
-	/**
-	 * @type {Record<string,Record<string,()=>void>>}
-	 */
-	const listeners = {};
+	const listeners: Record< string, Record< string, () => void > > = {};
 
-	/**
-	 * @type {Record<string,Record<string,CRDTDoc>>}
-	 */
-	const docs = {};
+	const docs: Record< string, Record< string, CRDTDoc > > = {};
 
 	/**
 	 * Registers an object type.
 	 *
-	 * @param {ObjectType}   objectType   Object type to register.
-	 * @param {ObjectConfig} objectConfig Object config.
+	 * @param objectType   Object type to register.
+	 * @param objectConfig Object config.
 	 */
-	function register( objectType, objectConfig ) {
+	function register( objectType: ObjectType, objectConfig: ObjectConfig ) {
 		config[ objectType ] = objectConfig;
 	}
 
 	/**
 	 * Fetch data from local database or remote source.
 	 *
-	 * @param {ObjectType} objectType    Object type to load.
-	 * @param {ObjectID}   objectId      Object ID to load.
-	 * @param {Function}   handleChanges Callback to call when data changes.
+	 * @param objectType    Object type to load.
+	 * @param objectId      Object ID to load.
+	 * @param handleChanges Callback to call when data changes.
 	 */
-	async function bootstrap( objectType, objectId, handleChanges ) {
+	async function bootstrap(
+		objectType: ObjectType,
+		objectId: ObjectID,
+		handleChanges: Function
+	) {
 		const doc = new Y.Doc();
 		docs[ objectType ] = docs[ objectType ] || {};
 		docs[ objectType ][ objectId ] = doc;
@@ -93,11 +95,15 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	/**
 	 * Fetch data from local database or remote source.
 	 *
-	 * @param {ObjectType} objectType Object type to load.
-	 * @param {ObjectID}   objectId   Object ID to load.
-	 * @param {any}        data       Updates to make.
+	 * @param objectType Object type to load.
+	 * @param objectId   Object ID to load.
+	 * @param data       Updates to make.
 	 */
-	async function update( objectType, objectId, data ) {
+	async function update(
+		objectType: ObjectType,
+		objectId: ObjectID,
+		data: any
+	) {
 		const doc = docs[ objectType ][ objectId ];
 		if ( ! doc ) {
 			throw 'Error doc ' + objectType + ' ' + objectId + ' not found';
@@ -110,10 +116,10 @@ export const createSyncProvider = ( connectLocal, connectRemote ) => {
 	/**
 	 * Stop updating a document and discard it.
 	 *
-	 * @param {ObjectType} objectType Object type to load.
-	 * @param {ObjectID}   objectId   Object ID to load.
+	 * @param objectType Object type to load.
+	 * @param objectId   Object ID to load.
 	 */
-	async function discard( objectType, objectId ) {
+	async function discard( objectType: ObjectType, objectId: ObjectID ) {
 		if ( listeners?.[ objectType ]?.[ objectId ] ) {
 			listeners[ objectType ][ objectId ]();
 		}

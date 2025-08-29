@@ -1,7 +1,4 @@
 /**
- * External dependencies
- */
-/**
  * Internal dependencies
  */
 import {
@@ -15,6 +12,9 @@ import {
 } from './y-webrtc/y-webrtc';
 import * as cryptoutils from './y-webrtc/crypto';
 
+/**
+ * External dependencies
+ */
 import * as map from 'lib0/map';
 import { Observable } from 'lib0/observable';
 import * as buffer from 'lib0/buffer';
@@ -24,148 +24,161 @@ import * as buffer from 'lib0/buffer';
  */
 import { addQueryArgs } from '@wordpress/url';
 
+interface SignalData {
+	from: string;
+	to: string;
+	type: 'announce' | 'signal';
+	signal: { type: 'offer' | 'answer'; [ key: string ]: any };
+	token: number;
+}
+
+interface SignalMessage {
+	type: string;
+	topic: string;
+	data: SignalData;
+}
+
 /**
  * Method copied as is from the SignalingConn constructor.
  * Setups the needed event handlers for an http signaling connection.
  *
- * @param {HttpSignalingConn} signalCon The signaling connection.
- * @param {string}            url       The url.
+ * @param signalCon The signaling connection.
+ * @param url       The url.
  */
-function setupSignalEventHandlers( signalCon, url ) {
+function setupSignalEventHandlers(
+	signalCon: HttpSignalingConn,
+	url: string
+): void {
 	signalCon.on( 'connect', () => {
 		log( `connected (${ url })` );
 		const topics = Array.from( rooms.keys() );
 		signalCon.send( { type: 'subscribe', topics } );
 		rooms.forEach( ( room ) =>
-			publishSignalingMessage( signalCon, room, {
+			publishSignalingMessage( signalCon as SignalingConn, room, {
 				type: 'announce',
 				from: room.peerId,
 			} )
 		);
 	} );
-	signalCon.on(
-		'message',
-		( /** @type {{ type: any; topic: any; data: string; }} */ m ) => {
-			switch ( m.type ) {
-				case 'publish': {
-					const roomName = m.topic;
-					const room = rooms.get( roomName );
+	signalCon.on( 'message', ( m: SignalMessage ) => {
+		switch ( m.type ) {
+			case 'publish': {
+				const roomName = m.topic!;
+				const room = rooms.get( roomName );
+				if ( ! room || typeof roomName !== 'string' ) {
+					return;
+				}
+
+				if (
+					room === null ||
+					typeof roomName !== 'string' ||
+					room === undefined
+				) {
+					return;
+				}
+				const execMessage = ( data: SignalData ) => {
+					const webrtcConns = room.webrtcConns;
+					const peerId = room.peerId;
 					if (
-						room === null ||
-						typeof roomName !== 'string' ||
-						room === undefined
+						data === null ||
+						data.from === peerId ||
+						( data.to !== undefined && data.to !== peerId ) ||
+						room.bcConns.has( data.from )
 					) {
+						// ignore messages that are not addressed to this conn, or from clients that are connected via broadcastchannel
 						return;
 					}
-					const execMessage = ( /** @type {any} */ data ) => {
-						const webrtcConns = room.webrtcConns;
-						const peerId = room.peerId;
-						if (
-							data === null ||
-							data.from === peerId ||
-							( data.to !== undefined && data.to !== peerId ) ||
-							room.bcConns.has( data.from )
-						) {
-							// ignore messages that are not addressed to this conn, or from clients that are connected via broadcastchannel
-							return;
-						}
-						const emitPeerChange = webrtcConns.has( data.from )
-							? () => {}
-							: () =>
-									room.provider.emit( 'peers', [
-										{
-											removed: [],
-											added: [ data.from ],
-											webrtcPeers: Array.from(
-												room.webrtcConns.keys()
-											),
-											bcPeers: Array.from( room.bcConns ),
-										},
-									] );
-						switch ( data.type ) {
-							case 'announce':
-								if (
-									webrtcConns.size < room.provider.maxConns
-								) {
-									map.setIfUndefined(
-										webrtcConns,
-										data.from,
-										() =>
-											new WebrtcConn(
-												signalCon,
-												true,
-												data.from,
-												room
-											)
-									);
-									emitPeerChange();
-								}
-								break;
-							case 'signal':
-								if ( data.signal.type === 'offer' ) {
-									const existingConn = webrtcConns.get(
-										data.from
-									);
-									if ( existingConn ) {
-										const remoteToken = data.token;
-										const localToken =
-											existingConn.glareToken;
-										if (
-											localToken &&
-											localToken > remoteToken
-										) {
-											log(
-												'offer rejected: ',
-												data.from
-											);
-											return;
-										}
-										// if we don't reject the offer, we will be accepting it and answering it
-										existingConn.glareToken = undefined;
+					const emitPeerChange = webrtcConns.has( data.from )
+						? () => {}
+						: () =>
+								room.provider.emit( 'peers', [
+									{
+										removed: [],
+										added: [ data.from ],
+										webrtcPeers: Array.from(
+											room.webrtcConns.keys()
+										),
+										bcPeers: Array.from( room.bcConns ),
+									},
+								] );
+					switch ( data.type ) {
+						case 'announce':
+							if ( webrtcConns.size < room.provider.maxConns ) {
+								map.setIfUndefined(
+									webrtcConns,
+									data.from,
+									() =>
+										new WebrtcConn(
+											signalCon as SignalingConn,
+											true,
+											data.from,
+											room
+										)
+								);
+								emitPeerChange();
+							}
+							break;
+						case 'signal':
+							if ( data.signal.type === 'offer' ) {
+								const existingConn = webrtcConns.get(
+									data.from
+								);
+								if ( existingConn ) {
+									const remoteToken = data.token;
+									const localToken = existingConn.glareToken;
+									if (
+										localToken &&
+										localToken > remoteToken
+									) {
+										log( 'offer rejected: ', data.from );
+										return;
 									}
+									// if we don't reject the offer, we will be accepting it and answering it
+									existingConn.glareToken = undefined;
 								}
-								if ( data.signal.type === 'answer' ) {
-									log( 'offer answered by: ', data.from );
-									const existingConn = webrtcConns.get(
-										data.from
-									);
-									if ( existingConn ) {
-										existingConn.glareToken = undefined;
-									}
+							}
+							if ( data.signal.type === 'answer' ) {
+								log( 'offer answered by: ', data.from );
+								const existingConn = webrtcConns.get(
+									data.from
+								);
+								if ( existingConn ) {
+									existingConn.glareToken = undefined;
 								}
-								if ( data.to === peerId ) {
-									map.setIfUndefined(
-										webrtcConns,
-										data.from,
-										() =>
-											new WebrtcConn(
-												signalCon,
-												false,
-												data.from,
-												room
-											)
-									).peer.signal( data.signal );
-									emitPeerChange();
-								}
-								break;
-						}
-					};
-					if ( room.key ) {
-						if ( typeof m.data === 'string' ) {
-							cryptoutils
-								.decryptJson(
-									buffer.fromBase64( m.data ),
-									room.key
-								)
-								.then( execMessage );
-						}
-					} else {
-						execMessage( m.data );
+							}
+							if ( data.to === peerId ) {
+								map.setIfUndefined(
+									webrtcConns,
+									data.from,
+									() =>
+										new WebrtcConn(
+											signalCon as SignalingConn,
+											false,
+											data.from,
+											room
+										)
+								).peer.signal( data.signal );
+								emitPeerChange();
+							}
+							break;
 					}
+				};
+				if ( room.key ) {
+					if ( typeof m.data === 'string' ) {
+						cryptoutils
+							.decryptJson(
+								buffer.fromBase64( m.data ),
+								room.key
+							)
+							// @ts-ignore
+							.then( execMessage );
+					}
+				} else {
+					execMessage( m.data );
 				}
 			}
 		}
-	);
+	} );
 	signalCon.on( 'disconnect', () => log( `disconnect (${ url })` ) );
 }
 
@@ -174,9 +187,9 @@ function setupSignalEventHandlers( signalCon, url ) {
  * Tries to implement the same methods a websocket provides using ajax requests
  * to send messages and EventSource to retrieve messages.
  *
- * @param {HttpSignalingConn} httpClient The signaling connection.
+ * @param httpClient The signaling connection.
  */
-function setupHttpSignal( httpClient ) {
+function setupHttpSignal( httpClient: HttpSignalingConn ) {
 	if ( httpClient.shouldConnect && httpClient.ws === null ) {
 		// eslint-disable-next-line no-restricted-syntax
 		const subscriberId = Math.floor( 100000 + Math.random() * 900000 );
@@ -187,10 +200,8 @@ function setupHttpSignal( httpClient ) {
 				action: 'gutenberg_signaling_server',
 			} )
 		);
-		/**
-		 * @type {any}
-		 */
-		let pingTimeout = null;
+
+		let pingTimeout: any = null;
 		eventSource.onmessage = ( event ) => {
 			httpClient.lastMessageReceived = Date.now();
 			const data = event.data;
@@ -201,11 +212,10 @@ function setupHttpSignal( httpClient ) {
 				}
 			}
 		};
-		// @ts-ignore
 		httpClient.ws = eventSource;
 		httpClient.connecting = true;
 		httpClient.connected = false;
-		const onSingleMessage = ( /** @type {any} */ message ) => {
+		const onSingleMessage = ( message: any ) => {
 			if ( message && message.type === 'pong' ) {
 				clearTimeout( pingTimeout );
 				pingTimeout = setTimeout(
@@ -217,9 +227,9 @@ function setupHttpSignal( httpClient ) {
 		};
 
 		/**
-		 * @param {any} error
+		 * @param error
 		 */
-		const onclose = ( error ) => {
+		const onclose = ( error: any ) => {
 			if ( httpClient.ws !== null ) {
 				httpClient.ws.close();
 				httpClient.ws = null;
@@ -250,9 +260,7 @@ function setupHttpSignal( httpClient ) {
 			httpClient.ws.onclose = () => {
 				onclose( null );
 			};
-			httpClient.ws.send = function send(
-				/** @type {string} */ message
-			) {
+			httpClient.ws.send = function send( message: string ) {
 				window
 					.fetch( url, {
 						body: new URLSearchParams( {
@@ -296,13 +304,24 @@ function setupHttpSignal( httpClient ) {
 }
 const messageReconnectTimeout = 30000;
 
-/**
- * @augments Observable<string>
- */ export class HttpSignalingConn extends Observable {
-	/**
-	 * @param {string} url
-	 */
-	constructor( url ) {
+export class HttpSignalingConn extends Observable< string > {
+	url: string;
+	ws:
+		| ( EventSource & {
+				send?: ( msg: string ) => void;
+				onclose?: ( this: EventSource, ev: Event ) => any;
+		  } )
+		| null;
+	binaryType: null;
+	connected: boolean;
+	connecting: boolean;
+	unsuccessfulReconnects: number;
+	lastMessageReceived: number;
+	shouldConnect: boolean;
+	_checkInterval: NodeJS.Timeout;
+	providers: Set< WebrtcProvider >;
+
+	constructor( url: string ) {
 		super();
 
 		//WebsocketClient from lib0/websocket.js
@@ -311,7 +330,6 @@ const messageReconnectTimeout = 30000;
 		 * @type {WebSocket?}
 		 */
 		this.ws = null;
-		// @ts-ignore
 		this.binaryType = null; // this.binaryType = binaryType
 		this.connected = false;
 		this.connecting = false;
@@ -319,8 +337,6 @@ const messageReconnectTimeout = 30000;
 		this.lastMessageReceived = 0;
 		/**
 		 * Whether to connect to other peers or not
-		 *
-		 * @type {boolean}
 		 */
 		this.shouldConnect = true;
 		this._checkInterval = setInterval( () => {
@@ -347,11 +363,8 @@ const messageReconnectTimeout = 30000;
 		setupSignalEventHandlers( this, url );
 	}
 
-	/**
-	 * @param {any} message
-	 */
-	send( message ) {
-		if ( this.ws ) {
+	send( message: any ) {
+		if ( this.ws && this.ws?.send ) {
 			this.ws.send( JSON.stringify( message ) );
 		}
 	}
@@ -380,16 +393,19 @@ const messageReconnectTimeout = 30000;
 export class WebrtcProviderWithHttpSignaling extends WebrtcProvider {
 	connect() {
 		this.shouldConnect = true;
-		this.signalingUrls.forEach( ( /** @type {string} */ url ) => {
+		this.signalingUrls.forEach( ( url: string ) => {
 			const signalingConn = map.setIfUndefined(
 				signalingConns,
 				url,
 				// Only this conditional logic to create a normal websocket connection or
 				// an http signaling connection was added to the constructor when compared
 				// with the base class.
-				url.startsWith( 'ws://' ) || url.startsWith( 'wss://' )
+				( url.startsWith( 'ws://' ) || url.startsWith( 'wss://' )
 					? () => new SignalingConn( url )
-					: () => new HttpSignalingConn( url )
+					: () =>
+							new HttpSignalingConn(
+								url
+							) ) as () => SignalingConn
 			);
 			this.signalingConns.push( signalingConn );
 			signalingConn.providers.add( this );
