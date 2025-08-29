@@ -17,7 +17,7 @@ import { seen, unseen } from '@wordpress/icons';
  * Internal dependencies
  */
 import { ValidatedInputControl } from '../input-control';
-import { ValidatedArrayControl } from '../array-control';
+import { ValidatedFormTokenField } from '../array-control';
 import { formDecorator } from './story-utils';
 import InputControlSuffixWrapper from '../../../input-control/input-suffix-wrapper';
 import { Button } from '../../../button';
@@ -168,20 +168,20 @@ Password.argTypes = {
 };
 
 /**
- * This demonstrates how array validation would work with the ValidatedArrayControl component.
+ * This demonstrates how array validation would work with the ValidatedFormTokenField component.
  */
-export const ArrayControl: StoryObj< typeof ValidatedArrayControl > = {
+export const ArrayControl: StoryObj< typeof ValidatedFormTokenField > = {
 	render: function Template( { onChange, ...args } ) {
 		const [ value, setValue ] = useState< ( string | TokenItem )[] >( [] );
 		const [ customValidity, setCustomValidity ] =
 			useState<
 				React.ComponentProps<
-					typeof ValidatedArrayControl
+					typeof ValidatedFormTokenField
 				>[ 'customValidity' ]
 			>( undefined );
 
 		return (
-			<ValidatedArrayControl
+			<ValidatedFormTokenField
 				{ ...args }
 				value={ value }
 				onChange={ ( newValue, ...rest ) => {

@@ -13,7 +13,7 @@ import type { FormTokenFieldProps } from '../../form-token-field/types';
 
 type Value = FormTokenFieldProps[ 'value' ];
 
-const UnforwardedValidatedArrayControl = (
+const UnforwardedValidatedFormTokenField = (
 	{
 		required,
 		onValidate,
@@ -64,6 +64,6 @@ const UnforwardedValidatedArrayControl = (
 	);
 };
 
-export const ValidatedArrayControl = forwardRef(
-	UnforwardedValidatedArrayControl
+export const ValidatedFormTokenField = forwardRef(
+	UnforwardedValidatedFormTokenField
 );
