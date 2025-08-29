@@ -407,6 +407,10 @@ const ValidationComponent = ( {
 	} );
 
 	const customTextRule = ( value: ValidatedItem ) => {
+		if ( [ '', undefined, null ].includes( value.text ) ) {
+			return null;
+		}
+
 		if ( ! /^[a-zA-Z ]+$/.test( value.text ) ) {
 			return 'Value must only contain letters and spaces.';
 		}
@@ -414,6 +418,10 @@ const ValidationComponent = ( {
 		return null;
 	};
 	const customEmailRule = ( value: ValidatedItem ) => {
+		if ( [ '', undefined, null ].includes( value.email ) ) {
+			return null;
+		}
+
 		if ( ! /^[a-zA-Z0-9._%+-]+@example\.com$/.test( value.email ) ) {
 			return 'Email address must be from @example.com domain.';
 		}
@@ -421,8 +429,30 @@ const ValidationComponent = ( {
 		return null;
 	};
 	const customIntegerRule = ( value: ValidatedItem ) => {
+		if ( [ '', undefined, null ].includes( value.email ) ) {
+			return null;
+		}
+
 		if ( value.integer % 2 !== 0 ) {
 			return 'Integer must be an even number.';
+		}
+
+		return null;
+	};
+	const customBooleanRule = ( value: ValidatedItem ) => {
+		if ( value.boolean !== true ) {
+			return 'Boolean must be true.';
+		}
+
+		return null;
+	};
+	const customEditRule = ( value: ValidatedItem ) => {
+		if ( [ '', undefined, null ].includes( value.email ) ) {
+			return null;
+		}
+
+		if ( ! /^[a-zA-Z ]+$/.test( value.customEdit ) ) {
+			return 'Value must only contain letters and spaces.';
 		}
 
 		return null;
@@ -434,11 +464,23 @@ const ValidationComponent = ( {
 		return custom ? rule : undefined;
 	};
 
+	const getDescription = ( customStatus: boolean, message: string ) => {
+		if ( customStatus ) {
+			return 'Custom validation: ' + message;
+		}
+
+		return 'Custom validation: none';
+	};
+
 	const _fields: Field< ValidatedItem >[] = [
 		{
 			id: 'text',
 			type: 'text',
 			label: 'Text',
+			description: getDescription(
+				custom,
+				'can only have letters and spaces.'
+			),
 			isValid: {
 				required,
 				custom: maybeCustomRule( customTextRule ),
@@ -448,6 +490,10 @@ const ValidationComponent = ( {
 			id: 'email',
 			type: 'email',
 			label: 'e-mail',
+			description: getDescription(
+				custom,
+				'can only use @example.com emails.'
+			),
 			isValid: {
 				required,
 				custom: maybeCustomRule( customEmailRule ),
@@ -457,6 +503,7 @@ const ValidationComponent = ( {
 			id: 'integer',
 			type: 'integer',
 			label: 'Integer',
+			description: getDescription( custom, 'can only use even numbers.' ),
 			isValid: {
 				required,
 				custom: maybeCustomRule( customIntegerRule ),
@@ -466,16 +513,23 @@ const ValidationComponent = ( {
 			id: 'boolean',
 			type: 'boolean',
 			label: 'Boolean',
+			description: getDescription( custom, 'can only be true.' ),
 			isValid: {
 				required,
+				custom: maybeCustomRule( customBooleanRule ),
 			},
 		},
 		{
 			id: 'customEdit',
 			label: 'Custom Control',
+			description: getDescription(
+				custom,
+				'can only have letters and spaces.'
+			),
 			Edit: CustomEditControl,
 			isValid: {
 				required,
+				custom: maybeCustomRule( customEditRule ),
 			},
 		},
 	];
