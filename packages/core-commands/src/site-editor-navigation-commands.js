@@ -406,6 +406,54 @@ const getSiteEditorBasicNavigationCommands = () =>
 			isLoading: false,
 		};
 	};
+const useManageTemplateCommand = () => {
+	const history = useHistory();
+	const isSiteEditor = getPath( window.location.href )?.includes(
+		'site-editor.php'
+	);
+	const { isBlockBasedTheme, canCreateTemplate } = useSelect(
+		( select ) => ( {
+			isBlockBasedTheme:
+				select( coreStore ).getCurrentTheme()?.is_block_theme,
+			canCreateTemplate: select( coreStore ).canUser( 'create', {
+				kind: 'postType',
+				name: 'wp_template',
+			} ),
+		} ),
+		[]
+	);
+
+	const commands = useMemo( () => {
+		if ( ! canCreateTemplate || ! isBlockBasedTheme ) {
+			return [];
+		}
+
+		return [
+			{
+				name: 'core/edit-site/open-templates',
+				label: __( 'Manage Templates' ),
+				icon: layout,
+				callback: ( { close } ) => {
+					const args = {
+						postType: 'wp_template',
+					};
+					const targetUrl = addQueryArgs( 'site-editor.php', args );
+					if ( isSiteEditor ) {
+						history.navigate( '/template' );
+					} else {
+						document.location = targetUrl;
+					}
+					close();
+				},
+			},
+		];
+	}, [ canCreateTemplate, isBlockBasedTheme, history, isSiteEditor ] );
+
+	return {
+		commands,
+		isLoading: false,
+	};
+};
 
 export function useSiteEditorNavigationCommands() {
 	useCommandLoader( {
@@ -428,5 +476,11 @@ export function useSiteEditorNavigationCommands() {
 		name: 'core/edit-site/basic-navigation',
 		hook: getSiteEditorBasicNavigationCommands(),
 		context: 'site-editor',
+	} );
+	useCommandLoader( {
+		name: 'core/edit-site/open-templates',
+		/* eslint-disable-next-line react-compiler/react-compiler */
+		hook: useManageTemplateCommand,
+		context: 'entity-edit',
 	} );
 }
