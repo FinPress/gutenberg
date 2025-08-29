@@ -81,10 +81,17 @@ const CommentAvatarIndicator = ( { onClick } ) => {
 						( comment ) => comment.id === blockCommentIdValue
 					);
 
-					// Thread is resolved if the main comment is approved.
-					if ( mainComment ) {
-						isResolved = mainComment.status === 'approved';
+					// If no main comment is found, the thread doesn't exist.
+					if ( ! mainComment ) {
+						return {
+							threadParticipants: [],
+							hasUnresolved: false,
+							hasMoreComments: false,
+						};
 					}
+
+					// Thread is resolved if the main comment is approved.
+					isResolved = mainComment.status === 'approved';
 
 					threadComments.forEach( ( comment ) => {
 						// Track thread participants (original commenter + repliers)
