@@ -29,6 +29,14 @@
 	flex-shrink: 0;
 }
 
+.edit-site-patterns__pattern-lock-icon {
+	min-width: min-content;
+
+	.dataviews-view-grid & {
+		align-self: start;
+	}
+}
+
 .edit-site-patterns__section-header {
 	border-bottom: 1px solid #f0f0f0;
 	padding: $grid-unit-20 $grid-unit-60;
@@ -58,6 +66,50 @@
 
 	.screen-reader-shortcut:focus {
 		top: 0;
+	}
+}
+
+.edit-site-patterns__pattern-title {
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: inherit;
+
+	.is-link {
+		text-decoration: none;
+		color: $gray-200;
+
+		&:hover,
+		&:focus {
+			color: $white;
+		}
+	}
+
+	.edit-site-patterns__pattern-icon {
+		border-radius: $grid-unit-05;
+		background: var(--wp-block-synced-color);
+		fill: $white;
+	}
+
+	.edit-site-patterns__pattern-lock-icon {
+		fill: currentcolor;
+	}
+
+	.dataviews-view-grid & {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		white-space: normal;
+		padding-top: 3px;
+		align-self: start;
+
+		button.components-button.is-link {
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			display: -webkit-box;
+			white-space: normal;
+		}
 	}
 }
 
