@@ -1,11 +1,15 @@
 /**
+ * External dependencies
+ */
+import clsx from 'clsx';
+
+/**
  * WordPress dependencies
  */
-import { memo, useMemo, useState } from '@wordpress/element';
+import { memo, useMemo, useState, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import {
-	BlockControls,
 	BlockContextProvider,
 	__experimentalUseBlockPreview as useBlockPreview,
 	__experimentalBlockVariationPicker as BlockVariationPicker,
@@ -14,15 +18,12 @@ import {
 	InspectorControls,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-
+import { useEntityRecords } from '@wordpress/core-data';
 import {
-	ToolbarGroup,
 	PanelBody,
-	SelectControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
-import { useEntityRecords } from '@wordpress/core-data';
 import {
 	createBlocksFromInnerBlocksTemplate,
 	store as blocksStore,
@@ -83,17 +84,11 @@ const TEMPLATE = [
 	],
 ];
 
-function TermTemplateInnerBlocks( { classList, blockLayout = 'list' } ) {
+function TermTemplateInnerBlocks( { classList } ) {
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: `wp-block-term ${ classList }` },
+		{ className: clsx( 'wp-block-term', classList ) },
 		{ template: TEMPLATE, __unstableDisableLayoutClassNames: true }
 	);
-
-	// Use different HTML element based on layout
-	if ( blockLayout === 'grid' ) {
-		return <div { ...innerBlocksProps } />;
-	}
-
 	return <li { ...innerBlocksProps } />;
 }
 
@@ -103,12 +98,11 @@ function TermTemplateBlockPreview( {
 	classList,
 	isHidden,
 	setActiveBlockContextId,
-	blockLayout = 'list',
 } ) {
 	const blockPreviewProps = useBlockPreview( {
 		blocks,
 		props: {
-			className: `wp-block-term ${ classList }`,
+			className: clsx( 'wp-block-term', classList ),
 		},
 	} );
 
@@ -119,21 +113,6 @@ function TermTemplateBlockPreview( {
 	const style = {
 		display: isHidden ? 'none' : undefined,
 	};
-
-	// Use different HTML element based on layout
-	if ( blockLayout === 'grid' ) {
-		return (
-			<div
-				{ ...blockPreviewProps }
-				tabIndex={ 0 }
-				// eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
-				role="button"
-				onClick={ handleOnClick }
-				onKeyPress={ handleOnClick }
-				style={ style }
-			/>
-		);
-	}
 
 	return (
 		<li
@@ -182,25 +161,22 @@ function buildTermsTree( terms ) {
 /**
  * Renders a single term node and its children recursively.
  *
- * @param {Object}   termNode    Term node with term object and children.
- * @param {Function} renderTerm  Function to render individual terms.
- * @param {string}   blockLayout Layout type ('list' or 'grid').
+ * @param {Object}   termNode   Term node with term object and children.
+ * @param {Function} renderTerm Function to render individual terms.
  * @return {JSX.Element} Rendered term node with children.
  */
-function renderTermNode( termNode, renderTerm, blockLayout = 'list' ) {
-	const ContainerElement = blockLayout === 'grid' ? 'div' : 'ul';
-
+function renderTermNode( termNode, renderTerm ) {
 	return (
-		<>
+		<li>
 			{ renderTerm( termNode.term ) }
 			{ termNode.children.length > 0 && (
-				<ContainerElement>
+				<ul>
 					{ termNode.children.map( ( child ) =>
-						renderTermNode( child, renderTerm, blockLayout )
+						renderTermNode( child, renderTerm )
 					) }
-				</ContainerElement>
+				</ul>
 			) }
-		</>
+		</li>
 	);
 }
 
@@ -231,9 +207,20 @@ export default function TermTemplateEdit( {
 			perPage = 10,
 		} = {},
 	},
+	__unstableLayoutClassNames,
 } ) {
 	const [ activeBlockContextId, setActiveBlockContextId ] = useState();
 	const { replaceInnerBlocks } = useDispatch( blockEditorStore );
+	const { type: layoutType } = attributes?.layout || {};
+
+	// Switch to list if hierarchical is true and grid is selected.
+	useEffect( () => {
+		if ( hierarchical && layoutType === 'grid' ) {
+			setAttributes( {
+				layout: { type: 'default' },
+			} );
+		}
+	}, [ hierarchical, layoutType, setAttributes ] );
 
 	const queryArgs = {
 		order,
@@ -277,10 +264,8 @@ export default function TermTemplateEdit( {
 		[ clientId ]
 	);
 
-	const blockLayout = attributes?.blockLayout || 'list';
-	const columnCount = attributes?.columnCount || 3;
 	const blockProps = useBlockProps( {
-		className: blockLayout === 'grid' ? `columns-${ columnCount }` : '',
+		className: __unstableLayoutClassNames,
 	} );
 
 	const blockContexts = useMemo(
@@ -294,7 +279,7 @@ export default function TermTemplateEdit( {
 		[ filteredTerms, taxonomy ]
 	);
 
-	// Show variation picker if no blocks exist
+	// Show variation picker if no blocks exist.
 	if ( ! blocks?.length ) {
 		return (
 			<div { ...blockProps }>
@@ -362,7 +347,6 @@ export default function TermTemplateEdit( {
 				) ? (
 					<TermTemplateInnerBlocks
 						classList={ blockContext.classList }
-						blockLayout={ attributes?.blockLayout || 'list' }
 					/>
 				) : null }
 				<MemoizedTermTemplateBlockPreview
@@ -375,7 +359,6 @@ export default function TermTemplateEdit( {
 						activeBlockContextId,
 						blockContexts
 					) }
-					blockLayout={ attributes?.blockLayout || 'list' }
 				/>
 			</BlockContextProvider>
 		);
@@ -383,21 +366,26 @@ export default function TermTemplateEdit( {
 
 	return (
 		<>
-			<BlockControls>
-				<ToolbarGroup />
-			</BlockControls>
-
 			<InspectorControls>
 				<PanelBody title={ __( 'Style' ) }>
 					<ToggleGroupControl
-						label={ __( 'Layout' ) }
-						value={ attributes?.blockLayout || 'list' }
-						onChange={ ( value ) =>
-							setAttributes( { blockLayout: value } )
-						}
+						label={ __( 'Display Layout' ) }
+						value={ layoutType === 'grid' ? 'grid' : 'list' }
+						onChange={ ( value ) => {
+							if ( value === 'grid' ) {
+								setAttributes( {
+									layout: { type: 'grid' },
+								} );
+							} else {
+								setAttributes( {
+									layout: { type: 'default' },
+								} );
+							}
+						} }
 						isBlock
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
+						disabled={ hierarchical }
 					>
 						<ToggleGroupControlOption
 							value="list"
@@ -406,60 +394,18 @@ export default function TermTemplateEdit( {
 						<ToggleGroupControlOption
 							value="grid"
 							label={ __( 'Grid' ) }
+							disabled={ hierarchical }
 						/>
 					</ToggleGroupControl>
-					<div
-						style={ {
-							height:
-								attributes?.blockLayout === 'grid'
-									? 'auto'
-									: '0',
-							overflow: 'hidden',
-							opacity: attributes?.blockLayout === 'grid' ? 1 : 0,
-							transition: 'height 0.2s ease, opacity 0.2s ease',
-						} }
-					>
-						<SelectControl
-							label={ __( 'Number of Columns' ) }
-							value={ attributes?.columnCount || 3 }
-							options={ [
-								{
-									label: __( '2 Columns' ),
-									value: 2,
-								},
-								{
-									label: __( '3 Columns' ),
-									value: 3,
-								},
-								{
-									label: __( '4 Columns' ),
-									value: 4,
-								},
-							] }
-							onChange={ ( value ) =>
-								setAttributes( {
-									columnCount: parseInt( value ),
-								} )
-							}
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
-						/>
-					</div>
 				</PanelBody>
 			</InspectorControls>
 
 			<ul { ...blockProps }>
 				{ hierarchical
-					? // Hierarchical rendering
-					  buildTermsTree( filteredTerms ).map( ( termNode ) =>
-							renderTermNode(
-								termNode,
-								renderTerm,
-								attributes?.blockLayout || 'list'
-							)
+					? buildTermsTree( filteredTerms ).map( ( termNode ) =>
+							renderTermNode( termNode, renderTerm )
 					  )
-					: // Flat rendering
-					  blockContexts &&
+					: blockContexts &&
 					  blockContexts
 							.slice( 0, perPage )
 							.map( ( blockContext ) => (
@@ -472,10 +418,6 @@ export default function TermTemplateEdit( {
 										blockContexts[ 0 ]?.termId ) ? (
 										<TermTemplateInnerBlocks
 											classList={ blockContext.classList }
-											blockLayout={
-												attributes?.blockLayout ||
-												'list'
-											}
 										/>
 									) : null }
 									<MemoizedTermTemplateBlockPreview
@@ -489,9 +431,6 @@ export default function TermTemplateEdit( {
 											blockContext.termId ===
 											( activeBlockContextId ||
 												blockContexts[ 0 ]?.termId )
-										}
-										blockLayout={
-											attributes?.blockLayout || 'list'
 										}
 									/>
 								</BlockContextProvider>
