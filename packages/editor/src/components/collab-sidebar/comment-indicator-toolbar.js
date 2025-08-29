@@ -30,7 +30,7 @@ const CommentAvatarIndicator = ( { onClick } ) => {
 				: null;
 			const postId = getCurrentPostId();
 
-			// Get comment data for this block
+			// Get comment data for this block.
 			const blockCommentIdValue = selectedBlockAttributes?.blockCommentId;
 			const participantsMap = new Map();
 			let isResolved = false;
@@ -50,7 +50,7 @@ const CommentAvatarIndicator = ( { onClick } ) => {
 					queryArgs
 				);
 
-				// Check if there are more pages available
+				// Check if there are more pages available.
 				const totalPages = select(
 					coreStore
 				).getEntityRecordsTotalPages( 'root', 'comment', queryArgs );
@@ -61,7 +61,7 @@ const CommentAvatarIndicator = ( { onClick } ) => {
 				}
 
 				if ( comments ) {
-					// Get all comments in this thread
+					// Get all comments in this thread.
 					// Main comment has id === blockCommentIdValue
 					// Replies have parent === blockCommentIdValue
 					const threadComments = comments.filter(
@@ -71,17 +71,17 @@ const CommentAvatarIndicator = ( { onClick } ) => {
 								comment.parent === blockCommentIdValue )
 					);
 
-					// Sort by date to show participants in chronological order
+					// Sort by date to show participants in chronological order.
 					threadComments.sort(
 						( a, b ) => new Date( a.date ) - new Date( b.date )
 					);
 
-					// Find the main thread comment (first comment)
+					// Find the main thread comment (first comment).
 					const mainComment = threadComments.find(
 						( comment ) => comment.id === blockCommentIdValue
 					);
 
-					// Thread is resolved if the main comment is approved
+					// Thread is resolved if the main comment is approved.
 					if ( mainComment ) {
 						isResolved = mainComment.status === 'approved';
 					}
@@ -109,7 +109,7 @@ const CommentAvatarIndicator = ( { onClick } ) => {
 				}
 			}
 
-			// Convert to array and maintain chronological order
+			// Convert to array and maintain chronological order.
 			const participants = Array.from( participantsMap.values() );
 
 			return {
@@ -125,12 +125,12 @@ const CommentAvatarIndicator = ( { onClick } ) => {
 		return null;
 	}
 
-	// Show up to 3 avatars, with overflow indicator
+	// Show up to 3 avatars, with overflow indicator.
 	const maxAvatars = 3;
 	const visibleParticipants = threadParticipants.slice( 0, maxAvatars );
 	const overflowCount = Math.max( 0, threadParticipants.length - maxAvatars );
 
-	// If we hit the comment limit, show "100+" instead of exact overflow count
+	// If we hit the comment limit, show "100+" instead of exact overflow count.
 	const overflowText =
 		hasMoreComments && overflowCount > 0 ? '100+' : `+${ overflowCount }`;
 
