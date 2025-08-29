@@ -20,7 +20,7 @@ import { store as interfaceStore } from '@wordpress/interface';
  * Internal dependencies
  */
 import PluginSidebar from '../plugin-sidebar';
-import { collabSidebarName } from './constants';
+import { collabHistorySidebarName, collabSidebarName } from './constants';
 import { Comments } from './comments';
 import { AddComment } from './add-comment';
 import { store as editorStore } from '../../store';
@@ -257,7 +257,7 @@ export default function CollabSidebar() {
 
 	const openCollabBoard = () => {
 		setShowCommentBoard( true );
-		enableComplementaryArea( 'core', collabSidebarName );
+		enableComplementaryArea( 'core', collabHistorySidebarName );
 	};
 
 	const [ blocks ] = useEntityBlockEditor( 'postType', postType, {
@@ -339,18 +339,26 @@ export default function CollabSidebar() {
 		<>
 			<AddCommentComponent onClick={ openCollabBoard } />
 			<PluginSidebar
-				isPinnable
-				identifier={ collabSidebarName }
-				className="editor-collab-sidebar"
-				headerClassName="editor-collab-sidebar__header"
+				identifier={ collabHistorySidebarName }
 				// translators: Comments sidebar title
 				title={ __( 'Comments' ) }
 				icon={ commentIcon }
 			>
 				<CollabSidebarContent
-					comments={
-						showCommentBoard ? sortedThreads : resultComments
-					}
+					comments={ resultComments }
+					showCommentBoard={ showCommentBoard }
+					setShowCommentBoard={ setShowCommentBoard }
+				/>
+			</PluginSidebar>
+			<PluginSidebar
+				isPinnable={ false }
+				header={ false }
+				identifier={ collabSidebarName }
+				className="editor-collab-sidebar"
+				headerClassName="editor-collab-sidebar__header"
+			>
+				<CollabSidebarContent
+					comments={ sortedThreads }
 					showCommentBoard={ showCommentBoard }
 					setShowCommentBoard={ setShowCommentBoard }
 					styles={ {
