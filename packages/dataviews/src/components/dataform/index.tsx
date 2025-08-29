@@ -16,6 +16,7 @@ export default function DataForm< Item >( {
 	form,
 	fields,
 	onChange,
+	errorMessages,
 }: DataFormProps< Item > ) {
 	const normalizedFields = useMemo(
 		() => normalizeFields( fields ),
@@ -27,7 +28,10 @@ export default function DataForm< Item >( {
 	}
 
 	return (
-		<DataFormProvider fields={ normalizedFields }>
+		<DataFormProvider
+			fields={ normalizedFields }
+			errorMessages={ errorMessages }
+		>
 			<DataFormLayout data={ data } form={ form } onChange={ onChange } />
 		</DataFormProvider>
 	);

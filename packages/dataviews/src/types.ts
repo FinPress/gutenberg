@@ -281,6 +281,11 @@ export type DataFormControlProps< Item > = {
 	 * Used by DataViews filters to determine which control to render based on the operator type.
 	 */
 	operator?: Operator;
+	/**
+	 * Error message for this field, if any.
+	 * `null` means no error, string represents the error message.
+	 */
+	errorMessage?: string | null;
 };
 
 export type DataViewRenderFieldProps< Item > = {
@@ -757,6 +762,12 @@ export interface DataFormProps< Item > {
 	fields: Field< Item >[];
 	form: Form;
 	onChange: ( value: Record< string, any > ) => void;
+	/**
+	 * Error messages for form fields.
+	 * The keys are field ids and values are error messages.
+	 * `null` means no error, string represents the error message.
+	 */
+	errorMessages?: Record< string, string | null >;
 }
 
 export interface FieldLayoutProps< Item > {
@@ -764,4 +775,5 @@ export interface FieldLayoutProps< Item > {
 	field: FormField;
 	onChange: ( value: any ) => void;
 	hideLabelFromVision?: boolean;
+	errorMessage?: string | null;
 }

@@ -28,11 +28,13 @@ export function DataFormLayout< Item >( {
 			field: FormField;
 			onChange: ( value: any ) => void;
 			hideLabelFromVision?: boolean;
+			errorMessage?: string | null;
 		} ) => React.JSX.Element | null,
 		field: FormField
 	) => React.JSX.Element;
 } ) {
-	const { fields: fieldDefinitions } = useContext( DataFormContext );
+	const { fields: fieldDefinitions, errorMessages } =
+		useContext( DataFormContext );
 
 	function getFieldDefinition( field: SimpleFormField | string ) {
 		const fieldId = typeof field === 'string' ? field : field.id;
@@ -70,7 +72,15 @@ export function DataFormLayout< Item >( {
 				}
 
 				if ( children ) {
-					return children( FieldLayout, formField );
+					return children(
+						( props ) => (
+							<FieldLayout
+								{ ...props }
+								errorMessage={ errorMessages?.[ formField.id ] }
+							/>
+						),
+						formField
+					);
 				}
 
 				return (
@@ -79,6 +89,7 @@ export function DataFormLayout< Item >( {
 						data={ data }
 						field={ formField }
 						onChange={ onChange }
+						errorMessage={ errorMessages?.[ formField.id ] }
 					/>
 				);
 			} ) }

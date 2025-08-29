@@ -10,18 +10,24 @@ import type { NormalizedField } from '../../types';
 
 type DataFormContextType< Item > = {
 	fields: NormalizedField< Item >[];
+	errorMessages?: Record< string, string | null >;
 };
 
 const DataFormContext = createContext< DataFormContextType< any > >( {
 	fields: [],
+	errorMessages: {},
 } );
 
 export function DataFormProvider< Item >( {
 	fields,
+	errorMessages,
 	children,
-}: React.PropsWithChildren< { fields: NormalizedField< Item >[] } > ) {
+}: React.PropsWithChildren< {
+	fields: NormalizedField< Item >[];
+	errorMessages?: Record< string, string | null >;
+} > ) {
 	return (
-		<DataFormContext.Provider value={ { fields } }>
+		<DataFormContext.Provider value={ { fields, errorMessages } }>
 			{ children }
 		</DataFormContext.Provider>
 	);

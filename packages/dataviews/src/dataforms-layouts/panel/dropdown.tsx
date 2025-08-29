@@ -60,6 +60,7 @@ function PanelDropdown< Item >( {
 	data,
 	onChange,
 	field,
+	errorMessage,
 }: {
 	fieldDefinition: NormalizedField< Item >;
 	popoverAnchor: HTMLElement | null;
@@ -67,6 +68,7 @@ function PanelDropdown< Item >( {
 	data: Item;
 	onChange: ( value: any ) => void;
 	field: FormField;
+	errorMessage?: string | null;
 } ) {
 	const fieldLabel = isCombinedField( field )
 		? field.label
@@ -148,6 +150,7 @@ function PanelDropdown< Item >( {
 								hideLabelFromVision={
 									( form?.fields ?? [] ).length < 2
 								}
+								errorMessage={ errorMessage }
 							/>
 						) }
 					</DataFormLayout>

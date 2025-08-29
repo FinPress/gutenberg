@@ -24,12 +24,14 @@ function ModalContent< Item >( {
 	fieldLabel,
 	onChange,
 	onClose,
+	errorMessage,
 }: {
 	data: Item;
 	form: Form;
 	fieldLabel: string;
 	onChange: ( data: Partial< Item > ) => void;
 	onClose: () => void;
+	errorMessage?: string | null;
 } ) {
 	const [ changes, setChanges ] = useState< Partial< Item > >( {} );
 
@@ -67,6 +69,7 @@ function ModalContent< Item >( {
 						hideLabelFromVision={
 							( form?.fields ?? [] ).length < 2
 						}
+						errorMessage={ errorMessage }
 					/>
 				) }
 			</DataFormLayout>
@@ -100,12 +103,14 @@ function PanelModal< Item >( {
 	data,
 	onChange,
 	field,
+	errorMessage,
 }: {
 	fieldDefinition: NormalizedField< Item >;
 	labelPosition: 'side' | 'top' | 'none';
 	data: Item;
 	onChange: ( value: any ) => void;
 	field: FormField;
+	errorMessage?: string | null;
 } ) {
 	const [ isOpen, setIsOpen ] = useState( false );
 
@@ -156,6 +161,7 @@ function PanelModal< Item >( {
 					fieldLabel={ fieldLabel ?? '' }
 					onChange={ onChange }
 					onClose={ () => setIsOpen( false ) }
+					errorMessage={ errorMessage }
 				/>
 			) }
 		</>

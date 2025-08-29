@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { privateApis } from '@wordpress/components';
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -17,15 +17,10 @@ export default function Text< Item >( {
 	field,
 	onChange,
 	hideLabelFromVision,
+	errorMessage,
 }: DataFormControlProps< Item > ) {
 	const { id, label, placeholder, description } = field;
 	const value = field.getValue( { item: data } );
-	const [ customValidity, setCustomValidity ] =
-		useState<
-			React.ComponentProps<
-				typeof ValidatedTextControl
-			>[ 'customValidity' ]
-		>( undefined );
 
 	const onChangeControl = useCallback(
 		( newValue: string ) =>
@@ -37,27 +32,7 @@ export default function Text< Item >( {
 
 	return (
 		<ValidatedTextControl
-			required={ !! field.isValid?.required }
-			onValidate={ ( newValue: any ) => {
-				const message = field.isValid?.custom?.(
-					{
-						...data,
-						[ id ]: newValue,
-					},
-					field
-				);
-
-				if ( message ) {
-					setCustomValidity( {
-						type: 'invalid',
-						message,
-					} );
-					return;
-				}
-
-				setCustomValidity( undefined );
-			} }
-			customValidity={ customValidity }
+			required={ !! field.isValid.required }
 			label={ label }
 			placeholder={ placeholder }
 			value={ value ?? '' }
@@ -66,6 +41,11 @@ export default function Text< Item >( {
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
 			hideLabelFromVision={ hideLabelFromVision }
+			customValidity={
+				errorMessage
+					? { type: 'invalid', message: errorMessage }
+					: undefined
+			}
 		/>
 	);
 }
