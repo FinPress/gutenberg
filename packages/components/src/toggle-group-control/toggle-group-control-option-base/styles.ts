@@ -79,7 +79,7 @@ export const buttonView = ( {
 `;
 
 const pressed = css`
-	color: ${ COLORS.theme.foregroundInverted };
+	color: '#000';
 
 	&:active {
 		background: transparent;
