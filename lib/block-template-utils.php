@@ -12,6 +12,7 @@
  *
  * @since 5.9.0
  * @since 6.0.0 Adds the whole theme to the export archive.
+ * @since 6.8.0 Adds uploaded files to the export archive.
  *
  * @global string $wp_version The WordPress version string.
  *
@@ -95,9 +96,52 @@ function gutenberg_generate_block_templates_export_file() {
 		$theme_json_raw     = array_merge( $schema, $theme_json_raw );
 	}
 
+	// Find any uploaded files.
+	$uris_to_migrate = WP_Theme_JSON_Resolver_Gutenberg::get_migrated_relative_theme_uris(
+		$tree,
+		array(
+			'relative_path_prefix' => 'file:./assets/',
+		)
+	);
+	if ( ! empty( $uris_to_migrate ) ) {
+		$uploads = wp_upload_dir();
+		foreach ( $uris_to_migrate as $uri ) {
+			$href   = $uri['href'];
+			$target = $uri['target'];
+			if ( str_ends_with( $target, 'background.backgroundImage.url' ) ) {
+				/*
+				 * For background images, reset the backgroundImage object
+				 * to remove upload "id", "source", and "title".
+				 * Done by removing .url from the path to get the target, and setting
+				 * href to replace the `background.backgroundImage` object.
+				 */
+				$target = rtrim( $target, '.url' );
+				$href   = array(
+					'url' => $href,
+				);
+			}
+			$path         = explode( '.', $target );
+			$file         = str_replace( $uploads['baseurl'], $uploads['basedir'], $uri['name'] );
+			$file_content = file_get_contents( $file );
+			if ( ! $file_content ) {
+				continue;
+			}
+
+			_wp_array_set( $theme_json_raw, $path, $href );
+
+			if ( $zip->locateName( 'assets' ) === false ) {
+				// Directory doesn't exist, so add it
+				$zip->addEmptyDir( 'assets' );
+			}
+			$zip->addFromString(
+				'assets/' . basename( parse_url( $file, PHP_URL_PATH ) ),
+				$file_content
+			);
+		}
+	}
+
 	// Convert to a string.
 	$theme_json_encoded = wp_json_encode( $theme_json_raw, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
-
 	// Replace 4 spaces with a tab.
 	$theme_json_tabbed = preg_replace( '~(?:^|\G)\h{4}~m', "\t", $theme_json_encoded );
 
