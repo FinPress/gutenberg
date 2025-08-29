@@ -49,7 +49,7 @@ export default function useClipboardHandler() {
 	const notifyCopy = useNotifyCopy();
 
 	return useRefEffect( ( node ) => {
-		function handler( event ) {
+		async function handler( event ) {
 			if ( event.defaultPrevented ) {
 				// This was likely already handled in rich-text/use-paste-handler.js.
 				return;
@@ -143,11 +143,32 @@ export default function useClipboardHandler() {
 				if ( isInternal ) {
 					return;
 				}
-				const { plainText, html, files } = getPasteEventData( event );
+				let { plainText, html, files } = getPasteEventData( event );
 				const isFullySelected = __unstableIsFullySelected();
-				let blocks = [];
+				let blocks;
 
-				if ( files.length ) {
+				if (
+					files.every(
+						( file ) =>
+							file.type === 'text/plain' ||
+							file.type === 'text/markdown'
+					)
+				) {
+					event.preventDefault();
+					plainText = (
+						await Promise.all(
+							files.map(
+								( file ) =>
+									new Promise( ( resolve ) => {
+										const reader = new window.FileReader();
+										reader.onload = () =>
+											resolve( reader.result );
+										reader.readAsText( file );
+									} )
+							)
+						)
+					).join( '\n' );
+				} else if ( files.length ) {
 					const fromTransforms = getBlockTransforms( 'from' );
 					blocks = files
 						.reduce( ( accumulator, file ) => {
@@ -165,7 +186,9 @@ export default function useClipboardHandler() {
 							return accumulator;
 						}, [] )
 						.flat();
-				} else {
+				}
+
+				if ( ! blocks ) {
 					blocks = pasteHandler( {
 						HTML: html,
 						plainText,
