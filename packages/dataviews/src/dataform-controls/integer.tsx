@@ -81,7 +81,7 @@ export default function Integer< Item >( {
 	onChange,
 	hideLabelFromVision,
 	operator,
-	errorMessage,
+	validity,
 }: DataFormControlProps< Item > ) {
 	const { id, label, description } = field;
 	const value = field.getValue( { item: data } ) ?? '';
@@ -114,11 +114,7 @@ export default function Integer< Item >( {
 	return (
 		<ValidatedNumberControl
 			required={ !! field.isValid.required }
-			customValidity={
-				errorMessage
-					? { type: 'invalid', message: errorMessage }
-					: undefined
-			}
+			customValidity={ validity?.custom ? validity.custom : undefined }
 			label={ label }
 			help={ description }
 			value={ value }

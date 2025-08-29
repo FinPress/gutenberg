@@ -17,7 +17,7 @@ export default function Email< Item >( {
 	field,
 	onChange,
 	hideLabelFromVision,
-	errorMessage,
+	validity,
 }: DataFormControlProps< Item > ) {
 	const { id, label, placeholder, description } = field;
 	const value = field.getValue( { item: data } );
@@ -33,11 +33,7 @@ export default function Email< Item >( {
 	return (
 		<ValidatedTextControl
 			required={ !! field.isValid.required }
-			customValidity={
-				errorMessage
-					? { type: 'invalid', message: errorMessage }
-					: undefined
-			}
+			customValidity={ validity?.custom ? validity.custom : undefined }
 			type="email"
 			label={ label }
 			placeholder={ placeholder }

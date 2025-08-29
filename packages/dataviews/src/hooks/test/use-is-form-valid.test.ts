@@ -80,8 +80,9 @@ describe( 'useIsFormValid', () => {
 			useIsFormValid( mockItem, mockFields, mockForm )
 		);
 
-		expect( result.current ).toEqual( {
-			isActive: 'Active must be checked.',
+		expect( result.current?.[ 0 ] ).toEqual( {
+			id: 'isActive',
+			required: 'invalid',
 		} );
 	} );
 
@@ -91,7 +92,10 @@ describe( 'useIsFormValid', () => {
 			useIsFormValid( item, mockFields, mockForm )
 		);
 
-		expect( result.current?.name ).toBe( 'Name is required.' );
+		expect( result.current?.[ 0 ] ).toEqual( {
+			id: 'name',
+			required: 'invalid',
+		} );
 	} );
 
 	it( 'should handle required email fields', () => {
@@ -100,7 +104,10 @@ describe( 'useIsFormValid', () => {
 			useIsFormValid( item, mockFields, mockForm )
 		);
 
-		expect( result.current?.email ).toBe( 'Email is required.' );
+		expect( result.current?.[ 1 ] ).toEqual( {
+			id: 'email',
+			required: 'invalid',
+		} );
 	} );
 
 	it( 'should handle custom validation', () => {
@@ -109,7 +116,13 @@ describe( 'useIsFormValid', () => {
 			useIsFormValid( item, mockFields, mockForm )
 		);
 
-		expect( result.current?.count ).toBe( 'Count must be less than 10' );
+		expect( result.current?.[ 1 ] ).toEqual( {
+			id: 'count',
+			custom: {
+				type: 'invalid',
+				message: 'Count must be less than 10',
+			},
+		} );
 	} );
 
 	it( 'should handle custom validation for email format', () => {
@@ -118,7 +131,13 @@ describe( 'useIsFormValid', () => {
 			useIsFormValid( item, mockFields, mockForm )
 		);
 
-		expect( result.current?.email ).toBe( 'Invalid email format' );
+		expect( result.current?.[ 1 ] ).toEqual( {
+			id: 'email',
+			custom: {
+				type: 'invalid',
+				message: 'Invalid email format',
+			},
+		} );
 	} );
 
 	it( 'should handle form fields as objects', () => {
@@ -136,8 +155,11 @@ describe( 'useIsFormValid', () => {
 			useIsFormValid( mockItem, mockFields, formWithObjects )
 		);
 
-		expect( result.current ).not.toBeNull();
-		expect( result.current?.isActive ).toBe( 'Active must be checked.' );
+		expect( result.current ).not.toBeUndefined();
+		expect( result.current?.[ 0 ] ).toEqual( {
+			id: 'isActive',
+			required: 'invalid',
+		} );
 	} );
 
 	it( 'should handle empty form fields', () => {
@@ -149,10 +171,10 @@ describe( 'useIsFormValid', () => {
 			useIsFormValid( mockItem, mockFields, formWithEmptyFields )
 		);
 
-		expect( result.current ).toBeNull();
+		expect( result.current ).toBeUndefined();
 	} );
 
-	it( 'should return null when all fields are valid', () => {
+	it( 'should return undefined when all fields are valid', () => {
 		const validItem = {
 			...mockItem,
 			isActive: true,
@@ -162,7 +184,7 @@ describe( 'useIsFormValid', () => {
 			useIsFormValid( validItem, mockFields, mockForm )
 		);
 
-		expect( result.current ).toBeNull();
+		expect( result.current ).toBeUndefined();
 	} );
 
 	it( 'should handle undefined form fields', () => {
@@ -172,6 +194,6 @@ describe( 'useIsFormValid', () => {
 			useIsFormValid( mockItem, mockFields, formWithUndefinedFields )
 		);
 
-		expect( result.current ).toBeNull();
+		expect( result.current ).toBeUndefined();
 	} );
 } );

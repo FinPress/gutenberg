@@ -72,7 +72,7 @@ export default function FormCardField< Item >( {
 	field,
 	onChange,
 	hideLabelFromVision,
-	errorMessage,
+	validity,
 }: FieldLayoutProps< Item > ) {
 	const { fields } = useContext( DataFormContext );
 
@@ -147,7 +147,7 @@ export default function FormCardField< Item >( {
 						hideLabelFromVision={
 							hideLabelFromVision || withHeader
 						}
-						errorMessage={ errorMessage }
+						validity={ validity }
 					/>
 				</CardBody>
 			) }

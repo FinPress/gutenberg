@@ -7,12 +7,17 @@ import { useMemo } from '@wordpress/element';
  * Internal dependencies
  */
 import { normalizeFields } from '../normalize-fields';
-import type { Field, Form, NormalizedField } from '../types';
+import type {
+	Field,
+	Form,
+	NormalizedField,
+	FormValidity,
+	FieldValidity,
+} from '../types';
 
 /**
  * Type for the return value of useIsFormValid hook.
  */
-export type UseIsFormValidReturn = Record< string, string > | undefined;
 
 /**
  * Hook that validates a form item and returns an object with error messages for each field.
@@ -27,7 +32,7 @@ export function useIsFormValid< Item >(
 	item: Item,
 	fields: Field< Item >[],
 	form: Form
-): UseIsFormValidReturn {
+): FormValidity {
 	return useMemo( () => {
 		if ( typeof form.fields === 'undefined' ) {
 			return [];
@@ -54,13 +59,13 @@ export function useIsFormValid< Item >(
  * @param item   The item to validate.
  * @param fields Normalized fields.
  *
- * @return Record of field IDs to error messages.
+ * @return Array of field validity objects for fields with errors.
  */
 function getFieldErrors< Item >(
 	item: Item,
 	fields: NormalizedField< Item >[]
-): UseIsFormValidReturn {
-	const errors: Record< string, string > = {};
+): FormValidity {
+	const errors: FieldValidity[] = [];
 
 	fields.forEach( ( field ) => {
 		const value = field.getValue( { item } );
@@ -77,12 +82,18 @@ function getFieldErrors< Item >(
 				( field.type === 'integer' && isEmptyNullOrUndefined ) ||
 				( field.type === undefined && isEmptyNullOrUndefined )
 			) {
-				errors[ field.id ] = `${ field.label } is required.`;
+				errors.push( {
+					id: field.id,
+					required: 'invalid',
+				} );
 				return;
 			}
 
 			if ( field.type === 'boolean' && value !== true ) {
-				errors[ field.id ] = `${ field.label } must be checked.`;
+				errors.push( {
+					id: field.id,
+					required: 'invalid',
+				} );
 				return;
 			}
 		}
@@ -91,14 +102,20 @@ function getFieldErrors< Item >(
 		if ( typeof field.isValid.custom === 'function' ) {
 			const customError = field.isValid.custom( item, field );
 			if ( customError !== null ) {
-				errors[ field.id ] = customError;
+				errors.push( {
+					id: field.id,
+					custom: {
+						type: 'invalid',
+						message: customError,
+					},
+				} );
 			}
 		}
 
 		// No errors for this field - don't add to errors object
 	} );
 
-	return Object.keys( errors ).length > 0 ? errors : undefined;
+	return errors.length > 0 ? errors : undefined;
 }
 
 export default useIsFormValid;

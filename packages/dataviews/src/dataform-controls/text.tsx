@@ -17,7 +17,7 @@ export default function Text< Item >( {
 	field,
 	onChange,
 	hideLabelFromVision,
-	errorMessage,
+	validity,
 }: DataFormControlProps< Item > ) {
 	const { id, label, placeholder, description } = field;
 	const value = field.getValue( { item: data } );
@@ -33,6 +33,7 @@ export default function Text< Item >( {
 	return (
 		<ValidatedTextControl
 			required={ !! field.isValid.required }
+			customValidity={ validity?.custom ? validity.custom : undefined }
 			label={ label }
 			placeholder={ placeholder }
 			value={ value ?? '' }
@@ -41,11 +42,6 @@ export default function Text< Item >( {
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
 			hideLabelFromVision={ hideLabelFromVision }
-			customValidity={
-				errorMessage
-					? { type: 'invalid', message: errorMessage }
-					: undefined
-			}
 		/>
 	);
 }

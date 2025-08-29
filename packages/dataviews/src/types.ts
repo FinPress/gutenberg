@@ -270,7 +270,7 @@ export type Fields< Item > = Field< Item >[];
 
 export type Data< Item > = Item[];
 
-export type DataFormControlProps< Item > = {
+export interface DataFormControlProps< Item > {
 	data: Item;
 	field: NormalizedField< Item >;
 	onChange: ( value: Record< string, any > ) => void;
@@ -282,11 +282,10 @@ export type DataFormControlProps< Item > = {
 	 */
 	operator?: Operator;
 	/**
-	 * Error message for this field, if any.
-	 * `null` means no error, string represents the error message.
+	 * Validity information for this field, if any.
 	 */
-	errorMessage?: string | null;
-};
+	validity?: FieldValidity;
+}
 
 export type DataViewRenderFieldProps< Item > = {
 	item: Item;
@@ -763,11 +762,9 @@ export interface DataFormProps< Item > {
 	form: Form;
 	onChange: ( value: Record< string, any > ) => void;
 	/**
-	 * Error messages for form fields.
-	 * The keys are field ids and values are error messages.
-	 * `null` means no error, string represents the error message.
+	 * Validity information for form fields.
 	 */
-	errorMessages?: Record< string, string | null >;
+	validity?: FormValidity;
 }
 
 export interface FieldLayoutProps< Item > {
@@ -775,5 +772,16 @@ export interface FieldLayoutProps< Item > {
 	field: FormField;
 	onChange: ( value: any ) => void;
 	hideLabelFromVision?: boolean;
-	errorMessage?: string | null;
+	validity?: FieldValidity;
 }
+
+export interface FieldValidity {
+	id: string;
+	required?: 'invalid';
+	custom?: {
+		type: 'invalid';
+		message: string;
+	};
+}
+
+export type FormValidity = FieldValidity[] | undefined;

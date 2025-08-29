@@ -6,28 +6,28 @@ import { createContext } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import type { NormalizedField } from '../../types';
+import type { NormalizedField, FormValidity } from '../../types';
 
 type DataFormContextType< Item > = {
 	fields: NormalizedField< Item >[];
-	errorMessages?: Record< string, string | null >;
+	validity?: FormValidity;
 };
 
 const DataFormContext = createContext< DataFormContextType< any > >( {
 	fields: [],
-	errorMessages: {},
+	validity: undefined,
 } );
 
 export function DataFormProvider< Item >( {
 	fields,
-	errorMessages,
+	validity,
 	children,
 }: React.PropsWithChildren< {
 	fields: NormalizedField< Item >[];
-	errorMessages?: Record< string, string | null >;
+	validity?: FormValidity;
 } > ) {
 	return (
-		<DataFormContext.Provider value={ { fields, errorMessages } }>
+		<DataFormContext.Provider value={ { fields, validity } }>
 			{ children }
 		</DataFormContext.Provider>
 	);

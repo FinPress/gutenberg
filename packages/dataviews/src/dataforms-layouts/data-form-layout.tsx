@@ -7,7 +7,7 @@ import { useContext, useMemo } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import type { Form, FormField, SimpleFormField } from '../types';
+import type { Form, SimpleFormField, FormField, FieldValidity } from '../types';
 import { getFormFieldLayout } from './index';
 import DataFormContext from '../components/dataform-context';
 import { isCombinedField } from './is-combined-field';
@@ -28,12 +28,12 @@ export function DataFormLayout< Item >( {
 			field: FormField;
 			onChange: ( value: any ) => void;
 			hideLabelFromVision?: boolean;
-			errorMessage?: string | null;
+			validity?: FieldValidity;
 		} ) => React.JSX.Element | null,
 		field: FormField
 	) => React.JSX.Element;
 } ) {
-	const { fields: fieldDefinitions, errorMessages } =
+	const { fields: fieldDefinitions, validity } =
 		useContext( DataFormContext );
 
 	function getFieldDefinition( field: SimpleFormField | string ) {
@@ -76,20 +76,25 @@ export function DataFormLayout< Item >( {
 						( props ) => (
 							<FieldLayout
 								{ ...props }
-								errorMessage={ errorMessages?.[ formField.id ] }
+								validity={ validity?.find(
+									( item ) => item.id === formField.id
+								) }
 							/>
 						),
 						formField
 					);
 				}
 
+				const fieldValidity = validity?.find(
+					( item ) => item.id === formField.id
+				);
 				return (
 					<FieldLayout
 						key={ formField.id }
 						data={ data }
 						field={ formField }
 						onChange={ onChange }
-						errorMessage={ errorMessages?.[ formField.id ] }
+						validity={ fieldValidity }
 					/>
 				);
 			} ) }

@@ -352,7 +352,7 @@ function CustomEditControl< Item >( {
 	field,
 	onChange,
 	hideLabelFromVision,
-	errorMessage,
+	validity,
 }: DataFormControlProps< Item > ) {
 	const { id, label, placeholder, description } = field;
 	const value = field.getValue( { item: data } );
@@ -368,6 +368,7 @@ function CustomEditControl< Item >( {
 	return (
 		<ValidatedTextControl
 			required={ !! field.isValid.required }
+			customValidity={ validity?.custom ? validity.custom : undefined }
 			label={ label }
 			placeholder={ placeholder }
 			value={ value ?? '' }
@@ -376,11 +377,6 @@ function CustomEditControl< Item >( {
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
 			hideLabelFromVision={ hideLabelFromVision }
-			customValidity={
-				errorMessage
-					? { type: 'invalid', message: errorMessage }
-					: undefined
-			}
 		/>
 	);
 }
@@ -489,7 +485,7 @@ const ValidationComponent = ( {
 		fields: [ 'text', 'email', 'integer', 'boolean', 'customEdit' ],
 	};
 
-	const errorMessages = useIsFormValid( post, _fields, form );
+	const validity = useIsFormValid( post, _fields, form );
 
 	return (
 		<form>
@@ -504,12 +500,12 @@ const ValidationComponent = ( {
 							...edits,
 						} ) )
 					}
-					errorMessages={ errorMessages }
+					validity={ validity }
 				/>
 				<Button
 					__next40pxDefaultSize
 					accessibleWhenDisabled
-					disabled={ !! errorMessages }
+					disabled={ !! validity }
 					variant="primary"
 				>
 					Submit

@@ -13,7 +13,12 @@ import { useState, useMemo } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import type { Form, FormField, NormalizedField } from '../../types';
+import type {
+	Form,
+	FormField,
+	NormalizedField,
+	FieldValidity,
+} from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
 import { DEFAULT_LAYOUT } from '../../normalize-form-fields';
@@ -24,14 +29,14 @@ function ModalContent< Item >( {
 	fieldLabel,
 	onChange,
 	onClose,
-	errorMessage,
+	validity,
 }: {
 	data: Item;
 	form: Form;
 	fieldLabel: string;
 	onChange: ( data: Partial< Item > ) => void;
 	onClose: () => void;
-	errorMessage?: string | null;
+	validity?: FieldValidity;
 } ) {
 	const [ changes, setChanges ] = useState< Partial< Item > >( {} );
 
@@ -69,7 +74,7 @@ function ModalContent< Item >( {
 						hideLabelFromVision={
 							( form?.fields ?? [] ).length < 2
 						}
-						errorMessage={ errorMessage }
+						validity={ validity }
 					/>
 				) }
 			</DataFormLayout>
@@ -103,14 +108,14 @@ function PanelModal< Item >( {
 	data,
 	onChange,
 	field,
-	errorMessage,
+	validity,
 }: {
 	fieldDefinition: NormalizedField< Item >;
 	labelPosition: 'side' | 'top' | 'none';
 	data: Item;
 	onChange: ( value: any ) => void;
 	field: FormField;
-	errorMessage?: string | null;
+	validity?: FieldValidity;
 } ) {
 	const [ isOpen, setIsOpen ] = useState( false );
 
@@ -161,7 +166,7 @@ function PanelModal< Item >( {
 					fieldLabel={ fieldLabel ?? '' }
 					onChange={ onChange }
 					onClose={ () => setIsOpen( false ) }
-					errorMessage={ errorMessage }
+					validity={ validity }
 				/>
 			) }
 		</>

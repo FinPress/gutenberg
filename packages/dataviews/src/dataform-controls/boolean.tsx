@@ -16,18 +16,14 @@ export default function Boolean< Item >( {
 	onChange,
 	data,
 	hideLabelFromVision,
-	errorMessage,
+	validity,
 }: DataFormControlProps< Item > ) {
 	const { id, getValue, label } = field;
 
 	return (
 		<ValidatedToggleControl
 			required={ !! field.isValid.required }
-			customValidity={
-				errorMessage
-					? { type: 'invalid', message: errorMessage }
-					: undefined
-			}
+			customValidity={ validity?.custom ? validity.custom : undefined }
 			hidden={ hideLabelFromVision }
 			__nextHasNoMarginBottom
 			label={ label }
