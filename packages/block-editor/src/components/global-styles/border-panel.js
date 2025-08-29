@@ -79,6 +79,7 @@ function BorderToolsPanel( {
 			label={ label }
 			resetAll={ resetAll }
 			panelId={ panelId }
+			className="border-block-support-panel"
 			dropdownMenuProps={ dropdownMenuProps }
 		>
 			{ children }
