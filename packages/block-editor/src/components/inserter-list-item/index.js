@@ -23,6 +23,22 @@ import BlockIcon from '../block-icon';
 import { InserterListboxItem } from '../inserter-listbox';
 import InserterDraggableBlocks from '../inserter-draggable-blocks';
 
+/**
+ * InserterListItem Component
+ *
+ * A component that displays a block or pattern in the inserter list,
+ * providing selection, hover, and optional drag-and-drop functionality.
+ *
+ * @param {Object}   props             Component properties.
+ * @param {string}   props.className   Additional class name to add to the list item.
+ * @param {boolean}  props.isFirst     Whether this is the first item in its row.
+ * @param {Object}   props.item        Block or pattern item to display.
+ * @param {Function} props.onSelect    Callback invoked when the item is selected.
+ * @param {Function} props.onHover     Callback invoked when the item is hovered.
+ * @param {boolean}  props.isDraggable Whether dragging is enabled for the item.
+ * @param {Object}   props.props       Additional props passed to the `InserterListboxItem`.
+ * @return {JSX.Element} Draggable or selectable list item element.
+ */
 function InserterListItem( {
 	className,
 	isFirst,
