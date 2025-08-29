@@ -15,7 +15,6 @@
 - Add `enableMoving` option to the `table` layout to allow or disallow column moving left and right. [#71120](https://github.com/WordPress/gutenberg/pull/71120)
 - Add infinite scroll support across all layout types (grid, list, table). Enable infinite scroll by providing an `infiniteScrollHandler` function in the `paginationInfo` prop and toggling the feature in the view configuration. ([#70955](https://github.com/WordPress/gutenberg/pull/70955))
 - Add support for modal in DataForm panel layouts. [#71212](https://github.com/WordPress/gutenberg/pull/71212)
-- Add support for ValidatedFormTokenField [#71350](https://github.com/WordPress/gutenberg/pull/71350)
 
 ### Enhancements
 
