@@ -12,7 +12,7 @@ import {
  * Internal dependencies
  */
 import DataForm from '../index';
-import { isItemValid } from '../../../validation';
+import { useIsFormValid } from '../../../hooks';
 import type {
 	Field,
 	Form,
@@ -489,7 +489,7 @@ const ValidationComponent = ( {
 		fields: [ 'text', 'email', 'integer', 'boolean', 'customEdit' ],
 	};
 
-	const canSave = isItemValid( post, _fields, form );
+	const errorMessages = useIsFormValid( post, _fields, form );
 
 	return (
 		<form>
@@ -504,18 +504,12 @@ const ValidationComponent = ( {
 							...edits,
 						} ) )
 					}
-					errorMessages={ {
-						text: 'howdy text',
-						email: 'Email heya',
-						integer: 'Integer is required',
-						boolean: 'Boolean is required',
-						customEdit: 'Custom Edit is required',
-					} }
+					errorMessages={ errorMessages }
 				/>
 				<Button
 					__next40pxDefaultSize
 					accessibleWhenDisabled
-					disabled={ ! canSave }
+					disabled={ !! errorMessages }
 					variant="primary"
 				>
 					Submit
