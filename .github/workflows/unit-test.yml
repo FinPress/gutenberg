@@ -160,7 +160,7 @@ jobs:
                       ./build-module/
 
     test-php:
-        name: PHP ${{ matrix.php }}${{ matrix.multisite && ' multisite' || '' }}${{ matrix.wordpress != '' && format( ' (WP {0}) ', matrix.wordpress ) || '' }} on 'ubuntu-24.04'
+        name: PHP ${{ matrix.php }}${{ matrix.multisite && ' multisite' || '' }}${{ matrix.wordpress != '' && format( ' (WP {0}) ', matrix.wordpress ) || '' }} on Linux
         needs: [compute-previous-wordpress-version, build-assets]
         runs-on: 'ubuntu-24.04'
         permissions:
