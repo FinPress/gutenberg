@@ -94,12 +94,20 @@ export function DataViewsPagination() {
 				</HStack>
 				<HStack expanded={ false } spacing={ 1 }>
 					<Button
-						onClick={ () =>
+						onClick={ () => {
 							onChangeView( {
 								...view,
 								page: currentPage - 1,
-							} )
-						}
+							} );
+							const scrollContainer =
+								document.querySelector( '.dataviews-wrapper' );
+							if ( scrollContainer ) {
+								scrollContainer.scrollTo( {
+									top: 0,
+									behavior: 'smooth',
+								} );
+							}
+						} }
 						disabled={ currentPage === 1 }
 						accessibleWhenDisabled
 						label={ __( 'Previous page' ) }
@@ -109,9 +117,17 @@ export function DataViewsPagination() {
 						tooltipPosition="top"
 					/>
 					<Button
-						onClick={ () =>
-							onChangeView( { ...view, page: currentPage + 1 } )
-						}
+						onClick={ () => {
+							onChangeView( { ...view, page: currentPage + 1 } );
+							const scrollContainer =
+								document.querySelector( '.dataviews-wrapper' );
+							if ( scrollContainer ) {
+								scrollContainer.scrollTo( {
+									top: 0,
+									behavior: 'smooth',
+								} );
+							}
+						} }
 						disabled={ currentPage >= totalPages }
 						accessibleWhenDisabled
 						label={ __( 'Next page' ) }
