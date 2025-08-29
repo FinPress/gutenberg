@@ -3,7 +3,7 @@
  */
 import {
 	fireEvent,
-	render,
+	render as baseRender,
 	screen,
 	waitFor,
 	within,
@@ -13,6 +13,7 @@ import userEvent from '@testing-library/user-event';
 /**
  * WordPress dependencies
  */
+import { SlotFillProvider } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
@@ -66,6 +67,10 @@ afterEach( () => {
 	mockFetchSearchSuggestions.mockReset();
 	mockFetchRichUrlData?.mockReset(); // Conditionally reset as it may NOT be a mock.
 } );
+
+function render( ui, options ) {
+	return baseRender( ui, { wrapper: SlotFillProvider, ...options } );
+}
 
 /**
  * Workaround to trigger an arrow up keypress event.
