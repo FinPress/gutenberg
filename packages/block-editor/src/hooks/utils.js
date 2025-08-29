@@ -545,6 +545,7 @@ export function createBlockEditFilter( features ) {
 							// We can use the index because the array length
 							// is fixed per page load right now.
 							key={ i }
+							context={ props.context }
 							name={ props.name }
 							isSelected={ props.isSelected }
 							clientId={ props.clientId }

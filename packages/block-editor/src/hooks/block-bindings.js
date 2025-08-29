@@ -6,6 +6,7 @@ import {
 	getBlockBindingsSource,
 	getBlockBindingsSources,
 	getBlockType,
+	store as blocksStore,
 } from '@wordpress/blocks';
 import {
 	__experimentalItemGroup as ItemGroup,
@@ -17,7 +18,7 @@ import {
 	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { useContext, Fragment } from '@wordpress/element';
+import { Fragment } from '@wordpress/element';
 import { useViewportMatch } from '@wordpress/compose';
 
 /**
@@ -30,13 +31,10 @@ import {
 } from '../utils/block-bindings';
 import { unlock } from '../lock-unlock';
 import InspectorControls from '../components/inspector-controls';
-import BlockContext from '../components/block-context';
 import { useBlockEditContext } from '../components/block-edit';
 import { store as blockEditorStore } from '../store';
 
 const { Menu } = unlock( componentsPrivateApis );
-
-const EMPTY_OBJECT = {};
 
 const useToolsPanelDropdownMenuProps = () => {
 	const isMobile = useViewportMatch( 'medium', '<' );
@@ -202,8 +200,11 @@ function EditableBlockBindingsPanelItems( {
 	);
 }
 
-export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
-	const blockContext = useContext( BlockContext );
+export const BlockBindingsPanel = ( {
+	name: blockName,
+	metadata,
+	context,
+} ) => {
 	const { removeAllBlockBindings } = useBlockBindingsUtils();
 	const bindableAttributes = getBindableAttributes( blockName );
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
@@ -211,45 +212,50 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 	// `useSelect` is used purposely here to ensure `getFieldsList`
 	// is updated whenever there are updates in block context.
 	// `source.getFieldsList` may also call a selector via `select`.
-	const _fieldsList = {};
-	const { fieldsList, canUpdateBlockBindings } = useSelect(
+	const { canUpdateBlockBindings, registeredSources } = useSelect(
+		( select ) => {
+			return {
+				canUpdateBlockBindings:
+					select( blockEditorStore ).getSettings()
+						.canUpdateBlockBindings,
+				registeredSources: unlock(
+					select( blocksStore )
+				).getAllBlockBindingsSources(),
+			};
+		},
+		[]
+	);
+
+	/**
+	 * Create new selector for fieldsList to avoid unnecessary re-renders.
+	 * See: https://github.com/WordPress/gutenberg/pull/64072#discussion_r1764693730
+	 *
+	 * `useSelect` is used purposely here to ensure `getFieldsList` is updated
+	 * whenever there are updates in block context.
+	 * `source.getFieldsList` may also call a selector via `registry.select`.
+	 */
+	const fieldsList = useSelect(
 		( select ) => {
 			if ( ! bindableAttributes || bindableAttributes.length === 0 ) {
-				return EMPTY_OBJECT;
+				return;
 			}
-			const registeredSources = getBlockBindingsSources();
+			const _fieldsList = {};
 			Object.entries( registeredSources ).forEach(
-				( [ sourceName, { getFieldsList, usesContext } ] ) => {
+				( [ sourceName, { getFieldsList } ] ) => {
 					if ( getFieldsList ) {
-						// Populate context.
-						const context = {};
-						if ( usesContext?.length ) {
-							for ( const key of usesContext ) {
-								context[ key ] = blockContext[ key ];
-							}
-						}
 						const sourceList = getFieldsList( {
 							select,
 							context,
 						} );
-						// Only add source if the list is not empty.
-						if ( Object.keys( sourceList || {} ).length ) {
-							_fieldsList[ sourceName ] = { ...sourceList };
+						if ( Object.keys( sourceList ).length ) {
+							_fieldsList[ sourceName ] = sourceList;
 						}
 					}
 				}
 			);
-			return {
-				fieldsList:
-					Object.values( _fieldsList ).length > 0
-						? _fieldsList
-						: EMPTY_OBJECT,
-				canUpdateBlockBindings:
-					select( blockEditorStore ).getSettings()
-						.canUpdateBlockBindings,
-			};
+			return _fieldsList;
 		},
-		[ blockContext, bindableAttributes ]
+		[ bindableAttributes, context, registeredSources ]
 	);
 	// Return early if there are no bindable attributes.
 	if ( ! bindableAttributes || bindableAttributes.length === 0 ) {
@@ -269,7 +275,7 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 
 	// Lock the UI when the user can't update bindings or there are no fields to connect to.
 	const readOnly =
-		! canUpdateBlockBindings || ! Object.keys( fieldsList ).length;
+		! canUpdateBlockBindings || ! Object.keys( fieldsList || {} ).length;
 
 	if ( readOnly && Object.keys( filteredBindings ).length === 0 ) {
 		return null;
