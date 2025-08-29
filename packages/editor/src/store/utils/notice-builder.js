@@ -89,15 +89,31 @@ export function getNotificationArgumentsForSaveFail( data ) {
 
 	const publishStatus = [ 'publish', 'private', 'future' ];
 	const isPublished = publishStatus.indexOf( post.status ) !== -1;
-	// If the post was being published, we show the corresponding publish error message
-	// Unless we publish an "updating failed" message.
+
+	if ( error.code === 'offline_error' ) {
+		const messages = {
+			publish: __( 'Publishing failed because you were offline.' ),
+			private: __( 'Publishing failed because you were offline.' ),
+			future: __( 'Scheduling failed because you were offline.' ),
+			default: __( 'Updating failed because you were offline.' ),
+		};
+
+		const noticeMessage =
+			! isPublished && edits.status in messages
+				? messages[ edits.status ]
+				: messages.default;
+
+		return [ noticeMessage, { id: 'editor-save' } ];
+	}
+
 	const messages = {
 		publish: __( 'Publishing failed.' ),
 		private: __( 'Publishing failed.' ),
 		future: __( 'Scheduling failed.' ),
 	};
+
 	let noticeMessage =
-		! isPublished && publishStatus.indexOf( edits.status ) !== -1
+		! isPublished && edits.status in messages
 			? messages[ edits.status ]
 			: __( 'Updating failed.' );
 
