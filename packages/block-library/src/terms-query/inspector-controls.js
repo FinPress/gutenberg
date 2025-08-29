@@ -204,7 +204,7 @@ export default function TermsQueryInspectorControls( {
 									} );
 								} }
 								help={ __(
-									'Limit the terms you want to show. To show all terms, use 0 (zero).'
+									'Limit the number of terms you want to show. To show all terms, use 0 (zero).'
 								) }
 							/>
 						</ToolsPanelItem>
