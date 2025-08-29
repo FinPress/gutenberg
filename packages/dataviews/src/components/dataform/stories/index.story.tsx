@@ -752,7 +752,7 @@ const LayoutCardComponent = ( { withHeader }: { withHeader: boolean } ) => {
 const LayoutRowComponent = ( {
 	alignment,
 }: {
-	alignment: 'none' | 'start' | 'center' | 'end';
+	alignment: 'start' | 'center' | 'end';
 } ) => {
 	type Customer = {
 		name: string;
@@ -894,7 +894,7 @@ const LayoutRowComponent = ( {
 					label: 'Customer',
 					layout: {
 						type: 'row',
-						alignment: alignment !== 'none' ? alignment : 'center',
+						alignment,
 					},
 					children: [ 'name', 'phone', 'email' ],
 				},
@@ -903,7 +903,7 @@ const LayoutRowComponent = ( {
 					label: 'Billing & Shipping Addresses',
 					layout: {
 						type: 'row',
-						alignment: alignment !== 'none' ? alignment : 'start',
+						alignment,
 					},
 					children: [
 						{
@@ -930,7 +930,7 @@ const LayoutRowComponent = ( {
 					label: 'Payments & Taxes',
 					layout: {
 						type: 'row',
-						alignment: alignment !== 'none' ? alignment : 'end',
+						alignment,
 					},
 					children: [ 'vat', 'commission', 'hasDiscount' ],
 				},
@@ -939,7 +939,7 @@ const LayoutRowComponent = ( {
 					label: 'Subscription',
 					layout: {
 						type: 'row',
-						alignment: alignment !== 'none' ? alignment : 'start',
+						alignment,
 					},
 					children: [ 'plan', 'renewal' ],
 				},
@@ -952,7 +952,7 @@ const LayoutRowComponent = ( {
 		() => ( {
 			layout: {
 				type: 'row',
-				alignment: alignment !== 'none' ? alignment : 'start',
+				alignment,
 			},
 			fields: [ 'name', 'phone', 'email' ],
 		} ),
@@ -1114,11 +1114,11 @@ export const LayoutRow = {
 		alignment: {
 			control: { type: 'select' },
 			description: 'The alignment of the fields.',
-			options: [ 'none', 'start', 'center', 'end' ],
+			options: [ 'start', 'center', 'end' ],
 		},
 	},
 	args: {
-		alignment: 'none',
+		alignment: 'center',
 	},
 };
 
