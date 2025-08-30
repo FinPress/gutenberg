@@ -45,7 +45,7 @@ function VariationsButtons( {
 						selectedValue === variation.name
 							? variation.title
 							: sprintf(
-									/* translators: %s: Name of the block variation */
+									/* translators: %s: Block or block variation name. */
 									__( 'Transform to %s' ),
 									variation.title
 							  )
@@ -86,15 +86,13 @@ function VariationsDropdown( {
 			toggleProps={ { iconPosition: 'right' } }
 		>
 			{ () => (
-				<div className={ `${ className }__container` }>
-					<MenuGroup>
-						<MenuItemsChoice
-							choices={ selectOptions }
-							value={ selectedValue }
-							onSelect={ onSelectVariation }
-						/>
-					</MenuGroup>
-				</div>
+				<MenuGroup>
+					<MenuItemsChoice
+						choices={ selectOptions }
+						value={ selectedValue }
+						onSelect={ onSelectVariation }
+					/>
+				</MenuGroup>
 			) }
 		</DropdownMenu>
 	);
@@ -127,7 +125,7 @@ function VariationsToggleGroupControl( {
 							selectedValue === variation.name
 								? variation.title
 								: sprintf(
-										/* translators: %s: Name of the block variation */
+										/* translators: %s: Block or block variation name. */
 										__( 'Transform to %s' ),
 										variation.title
 								  )

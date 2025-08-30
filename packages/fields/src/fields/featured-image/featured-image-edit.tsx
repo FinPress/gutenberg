@@ -9,11 +9,12 @@ import { MediaUpload } from '@wordpress/media-utils';
 import { lineSolid } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
 import type { DataFormControlProps } from '@wordpress/dataviews';
+import { __ } from '@wordpress/i18n';
+
 /**
  * Internal dependencies
  */
 import type { BasePost } from '../../types';
-import { __ } from '@wordpress/i18n';
 
 export const FeaturedImageEdit = ( {
 	data,
@@ -27,7 +28,7 @@ export const FeaturedImageEdit = ( {
 	const media = useSelect(
 		( select ) => {
 			const { getEntityRecord } = select( coreStore );
-			return getEntityRecord( 'root', 'media', value );
+			return getEntityRecord( 'postType', 'attachment', value );
 		},
 		[ value ]
 	);

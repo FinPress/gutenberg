@@ -56,6 +56,11 @@ const verticalAlignmentMap = {
 	'space-between': 'space-between',
 };
 
+const defaultAlignments = {
+	horizontal: 'center',
+	vertical: 'top',
+};
+
 const flexWrapOptions = [ 'wrap', 'nowrap' ];
 
 export default {
@@ -66,24 +71,27 @@ export default {
 		onChange,
 		layoutBlockSupport = {},
 	} ) {
-		const { allowOrientation = true } = layoutBlockSupport;
+		const { allowOrientation = true, allowJustification = true } =
+			layoutBlockSupport;
 		return (
 			<>
 				<Flex>
-					<FlexItem>
-						<FlexLayoutJustifyContentControl
-							layout={ layout }
-							onChange={ onChange }
-						/>
-					</FlexItem>
-					<FlexItem>
-						{ allowOrientation && (
+					{ allowJustification && (
+						<FlexItem>
+							<FlexLayoutJustifyContentControl
+								layout={ layout }
+								onChange={ onChange }
+							/>
+						</FlexItem>
+					) }
+					{ allowOrientation && (
+						<FlexItem>
 							<OrientationControl
 								layout={ layout }
 								onChange={ onChange }
 							/>
-						) }
-					</FlexItem>
+						</FlexItem>
+					) }
 				</Flex>
 				<FlexWrapControl layout={ layout } onChange={ onChange } />
 			</>
@@ -94,17 +102,22 @@ export default {
 		onChange,
 		layoutBlockSupport,
 	} ) {
-		if ( layoutBlockSupport?.allowSwitching ) {
+		const { allowVerticalAlignment = true, allowJustification = true } =
+			layoutBlockSupport;
+
+		if ( ! allowJustification && ! allowVerticalAlignment ) {
 			return null;
 		}
-		const { allowVerticalAlignment = true } = layoutBlockSupport;
+
 		return (
 			<BlockControls group="block" __experimentalShareWithChildBlocks>
-				<FlexLayoutJustifyContentControl
-					layout={ layout }
-					onChange={ onChange }
-					isToolbar
-				/>
+				{ allowJustification && (
+					<FlexLayoutJustifyContentControl
+						layout={ layout }
+						onChange={ onChange }
+						isToolbar
+					/>
+				) }
 				{ allowVerticalAlignment && (
 					<FlexLayoutVerticalAlignmentControl
 						layout={ layout }
@@ -193,8 +206,8 @@ function FlexLayoutVerticalAlignmentControl( { layout, onChange } ) {
 
 	const defaultVerticalAlignment =
 		orientation === 'horizontal'
-			? verticalAlignmentMap.center
-			: verticalAlignmentMap.top;
+			? defaultAlignments.horizontal
+			: defaultAlignments.vertical;
 
 	const { verticalAlignment = defaultVerticalAlignment } = layout;
 

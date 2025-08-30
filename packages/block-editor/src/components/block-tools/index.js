@@ -8,7 +8,7 @@ import { __unstableUseShortcutEventMatch as useShortcutEventMatch } from '@wordp
 import { useRef } from '@wordpress/element';
 import { switchToBlockType, store as blocksStore } from '@wordpress/blocks';
 import { speak } from '@wordpress/a11y';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf, _n } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -24,6 +24,7 @@ import usePopoverScroll from '../block-popover/use-popover-scroll';
 import ZoomOutModeInserters from './zoom-out-mode-inserters';
 import { useShowBlockTools } from './use-show-block-tools';
 import { unlock } from '../../lock-unlock';
+import usePasteStyles from '../use-paste-styles';
 
 function selector( select ) {
 	const {
@@ -74,6 +75,7 @@ export default function BlockTools( {
 	const { getGroupingBlockName } = useSelect( blocksStore );
 	const { showEmptyBlockSideInserter, showBlockToolbarPopover } =
 		useShowBlockTools();
+	const pasteStyles = usePasteStyles();
 
 	const {
 		duplicateBlocks,
@@ -92,19 +94,35 @@ export default function BlockTools( {
 			return;
 		}
 
-		if ( isMatch( 'core/block-editor/move-up', event ) ) {
+		if (
+			isMatch( 'core/block-editor/move-up', event ) ||
+			isMatch( 'core/block-editor/move-down', event )
+		) {
 			const clientIds = getSelectedBlockClientIds();
 			if ( clientIds.length ) {
 				event.preventDefault();
 				const rootClientId = getBlockRootClientId( clientIds[ 0 ] );
-				moveBlocksUp( clientIds, rootClientId );
-			}
-		} else if ( isMatch( 'core/block-editor/move-down', event ) ) {
-			const clientIds = getSelectedBlockClientIds();
-			if ( clientIds.length ) {
-				event.preventDefault();
-				const rootClientId = getBlockRootClientId( clientIds[ 0 ] );
-				moveBlocksDown( clientIds, rootClientId );
+				const direction = isMatch( 'core/block-editor/move-up', event )
+					? 'up'
+					: 'down';
+				if ( direction === 'up' ) {
+					moveBlocksUp( clientIds, rootClientId );
+				} else {
+					moveBlocksDown( clientIds, rootClientId );
+				}
+				const blockLength = Array.isArray( clientIds )
+					? clientIds.length
+					: 1;
+				const message = sprintf(
+					// translators: %d: the name of the block that has been moved
+					_n(
+						'%d block moved.',
+						'%d blocks moved.',
+						clientIds.length
+					),
+					blockLength
+				);
+				speak( message );
 			}
 		} else if ( isMatch( 'core/block-editor/duplicate', event ) ) {
 			const clientIds = getSelectedBlockClientIds();
@@ -117,6 +135,13 @@ export default function BlockTools( {
 			if ( clientIds.length ) {
 				event.preventDefault();
 				removeBlocks( clientIds );
+			}
+		} else if ( isMatch( 'core/block-editor/paste-styles', event ) ) {
+			const clientIds = getSelectedBlockClientIds();
+			if ( clientIds.length ) {
+				event.preventDefault();
+				const blocks = getBlocksByClientId( clientIds );
+				pasteStyles( blocks );
 			}
 		} else if ( isMatch( 'core/block-editor/insert-after', event ) ) {
 			const clientIds = getSelectedBlockClientIds();

@@ -39,7 +39,7 @@ import FormatEdit from './format-edit';
 import { getAllowedFormats } from './utils';
 import { Content, valueToHTMLString } from './content';
 import { withDeprecations } from './with-deprecations';
-import { canBindBlock } from '../../hooks/use-bindings-attributes';
+import { canBindBlock } from '../../utils/block-bindings';
 import BlockContext from '../block-context';
 
 export const keyboardShortcutContext = createContext();
@@ -132,8 +132,12 @@ export function RichTextWrapper(
 			return { isSelected: false };
 		}
 
-		const { getSelectionStart, getSelectionEnd } =
-			select( blockEditorStore );
+		const {
+			getSelectionStart,
+			getSelectionEnd,
+			getBlockEditingMode,
+			isNavigationMode,
+		} = select( blockEditorStore );
 		const selectionStart = getSelectionStart();
 		const selectionEnd = getSelectionEnd();
 
@@ -154,15 +158,19 @@ export function RichTextWrapper(
 			selectionStart: isSelected ? selectionStart.offset : undefined,
 			selectionEnd: isSelected ? selectionEnd.offset : undefined,
 			isSelected,
+			isContentOnlyWriteMode:
+				isNavigationMode() &&
+				getBlockEditingMode( clientId ) === 'contentOnly',
 		};
 	};
-	const { selectionStart, selectionEnd, isSelected } = useSelect( selector, [
-		clientId,
-		identifier,
-		instanceId,
-		originalIsSelected,
-		isBlockSelected,
-	] );
+	const { selectionStart, selectionEnd, isSelected, isContentOnlyWriteMode } =
+		useSelect( selector, [
+			clientId,
+			identifier,
+			instanceId,
+			originalIsSelected,
+			isBlockSelected,
+		] );
 
 	const { disableBoundBlock, bindingsPlaceholder, bindingsLabel } = useSelect(
 		( select ) => {
@@ -233,7 +241,14 @@ export function RichTextWrapper(
 				bindingsLabel: _bindingsLabel,
 			};
 		},
-		[ blockBindings, identifier, blockName, blockContext, adjustedValue ]
+		[
+			blockBindings,
+			identifier,
+			blockName,
+			adjustedValue,
+			clientId,
+			blockContext,
+		]
 	);
 
 	const shouldDisableEditing = readOnly || disableBoundBlock;
@@ -316,8 +331,9 @@ export function RichTextWrapper(
 	} = useFormatTypes( {
 		clientId,
 		identifier,
-		withoutInteractiveFormatting,
 		allowedFormats: adjustedAllowedFormats,
+		withoutInteractiveFormatting,
+		disableNoneEssentialFormatting: isContentOnlyWriteMode,
 	} );
 
 	function addEditorOnlyFormats( value ) {
@@ -424,6 +440,11 @@ export function RichTextWrapper(
 				aria-multiline={ ! disableLineBreaks }
 				aria-readonly={ shouldDisableEditing }
 				{ ...props }
+				// Unset draggable (coming from block props) for contentEditable
+				// elements because it will interfere with multi block selection
+				// when the contentEditable and draggable elements are the same
+				// element.
+				draggable={ undefined }
 				aria-label={
 					bindingsLabel || props[ 'aria-label' ] || placeholder
 				}

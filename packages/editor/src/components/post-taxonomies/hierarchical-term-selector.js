@@ -13,6 +13,7 @@ import {
 	Flex,
 	FlexItem,
 	SearchControl,
+	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useDebounce } from '@wordpress/compose';
@@ -25,6 +26,7 @@ import { decodeEntities } from '@wordpress/html-entities';
  */
 import { buildTermsTree } from '../../utils/terms';
 import { store as editorStore } from '../../store';
+import { unlock } from '../../lock-unlock';
 
 /**
  * Module Constants
@@ -36,10 +38,10 @@ const DEFAULT_QUERY = {
 	_fields: 'id,name,parent',
 	context: 'view',
 };
-
 const MIN_TERMS_COUNT_FOR_FILTER = 8;
-
 const EMPTY_ARRAY = [];
+
+const { normalizeTextString } = unlock( componentsPrivateApis );
 
 /**
  * Sort Terms by Selected.
@@ -132,7 +134,9 @@ export function getFilterMatcher( filterValue ) {
 		// (i.e. some child matched at some point in the tree) then return it.
 		if (
 			-1 !==
-				term.name.toLowerCase().indexOf( filterValue.toLowerCase() ) ||
+				normalizeTextString( term.name ).indexOf(
+					normalizeTextString( filterValue )
+				) ||
 			term.children.length > 0
 		) {
 			return term;
@@ -175,9 +179,9 @@ export function HierarchicalTermSelector( { slug } ) {
 		( select ) => {
 			const { getCurrentPost, getEditedPostAttribute } =
 				select( editorStore );
-			const { getTaxonomy, getEntityRecords, isResolving } =
+			const { getEntityRecord, getEntityRecords, isResolving } =
 				select( coreStore );
-			const _taxonomy = getTaxonomy( slug );
+			const _taxonomy = getEntityRecord( 'root', 'taxonomy', slug );
 			const post = getCurrentPost();
 
 			return {
@@ -310,7 +314,7 @@ export function HierarchicalTermSelector( { slug } ) {
 		const defaultName =
 			slug === 'category' ? __( 'Category' ) : __( 'Term' );
 		const termAddedMessage = sprintf(
-			/* translators: %s: taxonomy name */
+			/* translators: %s: term name. */
 			_x( '%s added', 'term' ),
 			taxonomy?.labels?.singular_name ?? defaultName
 		);
@@ -341,7 +345,7 @@ export function HierarchicalTermSelector( { slug } ) {
 
 		const resultCount = getResultCount( newFilteredTermsTree );
 		const resultsFoundMessage = sprintf(
-			/* translators: %d: number of results */
+			/* translators: %d: number of results. */
 			_n( '%d result found.', '%d results found.', resultCount ),
 			resultCount
 		);
@@ -385,13 +389,13 @@ export function HierarchicalTermSelector( { slug } ) {
 
 	const newTermButtonLabel = labelWithFallback(
 		'add_new_item',
-		__( 'Add new category' ),
-		__( 'Add new term' )
+		__( 'Add Category' ),
+		__( 'Add Term' )
 	);
 	const newTermLabel = labelWithFallback(
 		'new_item_name',
-		__( 'Add new category' ),
-		__( 'Add new term' )
+		__( 'Add Category' ),
+		__( 'Add Term' )
 	);
 	const parentSelectLabel = labelWithFallback(
 		'parent_item',
