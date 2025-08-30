@@ -41,7 +41,7 @@ const SidebarHeader = ( _, ref ) => {
 				data-tab-id={ sidebars.block }
 			>
 				{ /* translators: Text label for the Block Settings Sidebar tab. */ }
-				{ __( 'Block' ) }
+				{ __( 'Selected Block' ) }
 			</Tabs.Tab>
 		</Tabs.TabList>
 	);
