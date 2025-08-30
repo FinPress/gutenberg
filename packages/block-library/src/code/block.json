@@ -16,7 +16,7 @@
 		}
 	},
 	"supports": {
-		"align": [ "wide" ],
+		"align": [ "left", "right", "wide", "full" ],
 		"anchor": true,
 		"typography": {
 			"fontSize": true,
