@@ -632,6 +632,9 @@ function BlockListBlockProvider( props ) {
 				return previewContext;
 			}
 
+			const { isBlockHidden: _isBlockHidden } = unlock(
+				select( blockEditorStore )
+			);
 			const _isSelected = isBlockSelected( clientId );
 			const canRemove = canRemoveBlock( clientId );
 			const canMove = canMoveBlock( clientId );
@@ -705,6 +708,7 @@ function BlockListBlockProvider( props ) {
 				originalBlockClientId: isInvalid
 					? blocksWithSameName[ 0 ]
 					: false,
+				isBlockHidden: _isBlockHidden( clientId ),
 			};
 		},
 		[ clientId, rootClientId ]
@@ -747,6 +751,7 @@ function BlockListBlockProvider( props ) {
 		className,
 		defaultClassName,
 		originalBlockClientId,
+		isBlockHidden,
 	} = selectedProps;
 
 	// Users of the editor.BlockListBlock filter used to be able to
@@ -796,6 +801,15 @@ function BlockListBlockProvider( props ) {
 		themeSupportsLayout,
 		canMove,
 	};
+
+	if (
+		isBlockHidden &&
+		! isSelected &&
+		! isMultiSelected &&
+		! hasChildSelected
+	) {
+		return null;
+	}
 
 	// Here we separate between the props passed to BlockListBlock and any other
 	// information we selected for internal use. BlockListBlock is a filtered
