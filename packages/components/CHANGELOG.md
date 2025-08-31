@@ -51,6 +51,10 @@
 
 -   `Icon`: Pass `size` prop value as `width`/`height` attributes when `icon` is a component that doesn't exactly match `SVG` ([#70756](https://github.com/WordPress/gutenberg/pull/70756)).
 
+### Enhancements
+
+-   `Button`: update font weight to `500` ([#70787](https://github.com/WordPress/gutenberg/pull/70787)).
+
 ### Internal
 
 -   Add new validated form controls (work in progress, not exported): `ValidatedCheckboxControl`, `ValidatedInputControl`, `ValidatedNumberControl`, `ValidatedRadioControl`, `ValidatedRangeControl`, `ValidatedSelectControl`, `ValidatedTextControl`, `ValidatedTextareaControl`, `ValidatedToggleControl`, `ValidatedCustomSelectControl`, `ValidatedComboboxControl`, `ValidatedToggleGroupControl`, and `ControlWithError` for enhanced form validation capabilities ([#70620](https://github.com/WordPress/gutenberg/pull/70620)).
