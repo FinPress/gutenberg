@@ -123,6 +123,7 @@ function ComboboxControl( props: ComboboxControlProps ) {
 		options,
 		onChange: onChangeProp,
 		onFilterValueChange = noop,
+		onBlur: onBlurProp = noop,
 		hideLabelFromVision,
 		help,
 		allowReset = true,
@@ -239,6 +240,7 @@ function ComboboxControl( props: ComboboxControlProps ) {
 
 	const onBlur = () => {
 		setInputHasFocus( false );
+		onBlurProp();
 	};
 
 	const onFocus = () => {
