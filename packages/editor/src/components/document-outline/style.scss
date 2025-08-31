@@ -1,8 +1,6 @@
 .document-outline {
-	margin: 20px 0;
-
 	ul {
-		margin: 0;
+		margin: 20px 0;
 		padding: 0;
 	}
 }
@@ -84,7 +82,7 @@
 	padding: 1px 0;
 }
 
-.editor-document-outline.has-no-headings {
+.document-outline.has-no-headings {
 	& > svg {
 		margin-top: $grid-unit-30 + $grid-unit-05;
 	}
@@ -94,4 +92,9 @@
 	}
 	text-align: center;
 	color: $gray-700;
+
+	// Reset alignment for notices.
+	:not(.components-notice) {
+		text-align: initial;
+	}
 }
