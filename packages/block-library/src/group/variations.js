@@ -9,7 +9,11 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				customTextColor: '#cf2e2e',
+				style: {
+					color: {
+						text: '#cf2e2e',
+					},
+				},
 				fontSize: 'large',
 				content: __( 'One.' ),
 			},
@@ -17,7 +21,11 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				customTextColor: '#ff6900',
+				style: {
+					color: {
+						text: '#ff6900',
+					},
+				},
 				fontSize: 'large',
 				content: __( 'Two.' ),
 			},
@@ -25,7 +33,11 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				customTextColor: '#fcb900',
+				style: {
+					color: {
+						text: '#fcb900',
+					},
+				},
 				fontSize: 'large',
 				content: __( 'Three.' ),
 			},
@@ -33,7 +45,11 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				customTextColor: '#00d084',
+				style: {
+					color: {
+						text: '#00d084',
+					},
+				},
 				fontSize: 'large',
 				content: __( 'Four.' ),
 			},
@@ -41,7 +57,11 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				customTextColor: '#0693e3',
+				style: {
+					color: {
+						text: '#0693e3',
+					},
+				},
 				fontSize: 'large',
 				content: __( 'Five.' ),
 			},
@@ -49,7 +69,11 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				customTextColor: '#9b51e0',
+				style: {
+					color: {
+						text: '#9b51e0',
+					},
+				},
 				fontSize: 'large',
 				content: __( 'Six.' ),
 			},
