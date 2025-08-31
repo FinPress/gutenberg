@@ -478,15 +478,17 @@ class WP_Navigation_Block_Renderer {
 		);
 
 		$should_display_icon_label = isset( $attributes['hasIcon'] ) && true === $attributes['hasIcon'];
+		$menu_open_label = isset( $attributes['menuOpenLabel'] ) ? $attributes['menuOpenLabel'] : __( 'Menu' );
+		$menu_close_label = isset( $attributes['menuCloseLabel'] ) ? $attributes['menuCloseLabel'] : __( 'Close' );
 		$toggle_button_icon        = '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="7.5" width="16" height="1.5" /><rect x="4" y="15" width="16" height="1.5" /></svg>';
 		if ( isset( $attributes['icon'] ) ) {
 			if ( 'menu' === $attributes['icon'] ) {
 				$toggle_button_icon = '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 5v1.5h14V5H5zm0 7.8h14v-1.5H5v1.5zM5 19h14v-1.5H5V19z" /></svg>';
 			}
 		}
-		$toggle_button_content       = $should_display_icon_label ? $toggle_button_icon : __( 'Menu' );
+		$toggle_button_content       = $should_display_icon_label ? $toggle_button_icon : $menu_open_label;
 		$toggle_close_button_icon    = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z"></path></svg>';
-		$toggle_close_button_content = $should_display_icon_label ? $toggle_close_button_icon : __( 'Close' );
+		$toggle_close_button_content = $should_display_icon_label ? $toggle_close_button_icon : $menu_close_label;
 		$toggle_aria_label_open      = $should_display_icon_label ? 'aria-label="' . __( 'Open menu' ) . '"' : ''; // Open button label.
 		$toggle_aria_label_close     = $should_display_icon_label ? 'aria-label="' . __( 'Close menu' ) . '"' : ''; // Close button label.
 

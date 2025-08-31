@@ -40,6 +40,7 @@ import {
 	Button,
 	Spinner,
 	Notice,
+	TextControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { speak } from '@wordpress/a11y';
@@ -227,6 +228,8 @@ function Navigation( {
 		} = {},
 		hasIcon,
 		icon = 'handle',
+		menuOpenLabel = __( 'Menu' ),
+		menuCloseLabel = __( 'Close' ),
 	} = attributes;
 
 	const ref = attributes.ref;
@@ -635,8 +638,8 @@ function Navigation( {
 									) }
 									{ ! hasIcon && (
 										<>
-											<span>{ __( 'Menu' ) }</span>
-											<span>{ __( 'Close' ) }</span>
+											<span>{ menuOpenLabel }</span>
+											<span>{ menuCloseLabel }</span>
 										</>
 									) }
 								</Button>
@@ -657,6 +660,38 @@ function Navigation( {
 									</VStack>
 								) }
 							</>
+						) }
+
+						{ ! hasIcon && (
+							<VStack
+								style={ {
+									gridColumn: 'span 2',
+									gap: 0,
+								} }
+							>
+								<TextControl
+									__nextHasNoMarginBottom
+									__next40pxDefaultSize
+									label={ __( 'Menu open label' ) }
+									value={ menuOpenLabel }
+									onChange={ ( value ) =>
+										setAttributes( {
+											menuOpenLabel: value,
+										} )
+									}
+								/>
+								<TextControl
+									__nextHasNoMarginBottom
+									__next40pxDefaultSize
+									label={ __( 'Menu close label' ) }
+									value={ menuCloseLabel }
+									onChange={ ( value ) =>
+										setAttributes( {
+											menuCloseLabel: value,
+										} )
+									}
+								/>
+							</VStack>
 						) }
 
 						<ToolsPanelItem
@@ -835,6 +870,8 @@ function Navigation( {
 					isHiddenByDefault={ isHiddenByDefault }
 					overlayBackgroundColor={ overlayBackgroundColor }
 					overlayTextColor={ overlayTextColor }
+					menuOpenLabel={ menuOpenLabel }
+					menuCloseLabel={ menuCloseLabel }
 				>
 					<UnsavedInnerBlocks
 						createNavigationMenu={ createNavigationMenu }
@@ -994,6 +1031,8 @@ function Navigation( {
 									overlayBackgroundColor
 								}
 								overlayTextColor={ overlayTextColor }
+								menuOpenLabel={ menuOpenLabel }
+								menuCloseLabel={ menuCloseLabel }
 							>
 								{ isEntityAvailable && (
 									<NavigationInnerBlocks
