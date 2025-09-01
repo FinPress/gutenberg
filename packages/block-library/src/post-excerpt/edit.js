@@ -6,8 +6,8 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useMemo } from '@wordpress/element';
+import { store as coreStore } from '@wordpress/core-data';
+import { useCallback, useMemo, useState, useEffect } from '@wordpress/element';
 import {
 	AlignmentToolbar,
 	BlockControls,
@@ -24,7 +24,8 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { debounce } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -46,11 +47,66 @@ export default function PostExcerptEditor( {
 	const showControls = blockEditingMode === 'default';
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const userCanEdit = useCanEditEntity( 'postType', postType, postId );
-	const [
-		rawExcerpt,
-		setExcerpt,
-		{ rendered: renderedExcerpt, protected: isProtected } = {},
-	] = useEntityProp( 'postType', postType, 'excerpt', postId );
+
+	const { editEntityRecord } = useDispatch( coreStore );
+	const setExcerpt = useCallback(
+		( newValue ) => {
+			void editEntityRecord( 'postType', postType, postId, {
+				excerpt: newValue,
+			} );
+		},
+		[ editEntityRecord, postType, postId ]
+	);
+
+	// Local state for slider value to provide immediate visual feedback.
+	const [ localExcerptLength, setLocalExcerptLength ] =
+		useState( excerptLength );
+
+	// Debounced function to update the actual attribute.
+	const debouncedSetExcerptLength = useMemo(
+		() =>
+			debounce( ( value ) => {
+				setAttributes( { excerptLength: value } );
+			}, 300 ),
+		[ setAttributes ]
+	);
+
+	// Handler that updates both local state (immediate) and debounced attribute (delayed).
+	const handleExcerptLengthChange = useCallback(
+		( value ) => {
+			setLocalExcerptLength( value );
+			debouncedSetExcerptLength( value );
+		},
+		[ debouncedSetExcerptLength ]
+	);
+
+	// Sync local state when attribute changes externally.
+	useEffect( () => {
+		setLocalExcerptLength( excerptLength );
+	}, [ excerptLength ] );
+	const { rawExcerpt, renderedExcerpt, isProtected } = useSelect(
+		( select ) => {
+			const record = select( coreStore ).getEntityRecord(
+				'postType',
+				postType,
+				postId,
+				{ excerpt_length: excerptLength }
+			);
+			const editedRecord = select( coreStore ).getEditedEntityRecord(
+				'postType',
+				postType,
+				postId
+			);
+
+			return {
+				rawExcerpt:
+					record && editedRecord ? editedRecord.excerpt : null,
+				renderedExcerpt: record?.excerpt.rendered,
+				isProtected: record?.excerpt.protected,
+			};
+		},
+		[ postType, postId, excerptLength ]
+	);
 
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
@@ -169,7 +225,7 @@ export default function PostExcerptEditor( {
 	let trimmedExcerpt = '';
 	if ( wordCountType === 'words' ) {
 		trimmedExcerpt = rawOrRenderedExcerpt
-			.split( ' ', excerptLength )
+			.split( ' ', localExcerptLength )
 			.join( ' ' );
 	} else if ( wordCountType === 'characters_excluding_spaces' ) {
 		/*
@@ -181,7 +237,7 @@ export default function PostExcerptEditor( {
 		 * so that the spaces are excluded from the word count.
 		 */
 		const excerptWithSpaces = rawOrRenderedExcerpt
-			.split( '', excerptLength )
+			.split( '', localExcerptLength )
 			.join( '' );
 
 		const numberOfSpaces =
@@ -189,11 +245,11 @@ export default function PostExcerptEditor( {
 			excerptWithSpaces.replaceAll( ' ', '' ).length;
 
 		trimmedExcerpt = rawOrRenderedExcerpt
-			.split( '', excerptLength + numberOfSpaces )
+			.split( '', localExcerptLength + numberOfSpaces )
 			.join( '' );
 	} else if ( wordCountType === 'characters_including_spaces' ) {
 		trimmedExcerpt = rawOrRenderedExcerpt
-			.split( '', excerptLength )
+			.split( '', localExcerptLength )
 			.join( '' );
 	}
 
@@ -275,10 +331,8 @@ export default function PostExcerptEditor( {
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
 							label={ __( 'Max number of words' ) }
-							value={ excerptLength }
-							onChange={ ( value ) => {
-								setAttributes( { excerptLength: value } );
-							} }
+							value={ localExcerptLength }
+							onChange={ handleExcerptLengthChange }
 							min="10"
 							max="100"
 						/>
