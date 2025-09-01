@@ -9,42 +9,36 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				fontSize: 'large',
 				content: __( 'One.' ),
 			},
 		},
 		{
 			name: 'core/paragraph',
 			attributes: {
-				fontSize: 'large',
 				content: __( 'Two.' ),
 			},
 		},
 		{
 			name: 'core/paragraph',
 			attributes: {
-				fontSize: 'large',
 				content: __( 'Three.' ),
 			},
 		},
 		{
 			name: 'core/paragraph',
 			attributes: {
-				fontSize: 'large',
 				content: __( 'Four.' ),
 			},
 		},
 		{
 			name: 'core/paragraph',
 			attributes: {
-				fontSize: 'large',
 				content: __( 'Five.' ),
 			},
 		},
 		{
 			name: 'core/paragraph',
 			attributes: {
-				fontSize: 'large',
 				content: __( 'Six.' ),
 			},
 		},
