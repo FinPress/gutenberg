@@ -246,7 +246,8 @@ export default function PostTemplateEdit( {
 	);
 	const blockContexts = useMemo(
 		() =>
-			posts?.map( ( post ) => ( {
+			posts?.map( ( post, queryIndex ) => ( {
+				queryIndex,
 				postType: post.type,
 				postId: post.id,
 				classList: post.class_list ?? '',
