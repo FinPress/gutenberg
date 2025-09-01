@@ -17,14 +17,24 @@ function usePopoverScroll( contentRef ) {
 	const effect = useRefEffect(
 		( node ) => {
 			function onWheel( event ) {
-				const { deltaX, deltaY } = event;
+				const { deltaX, deltaY, target } = event;
 				const contentEl = contentRef.current;
 				let scrollContainer = scrollContainerCache.get( contentEl );
 				if ( ! scrollContainer ) {
 					scrollContainer = getScrollContainer( contentEl );
 					scrollContainerCache.set( contentEl, scrollContainer );
 				}
-				scrollContainer.scrollBy( deltaX, deltaY );
+				let eventScrollContainer = scrollContainerCache.get( target );
+				if ( ! eventScrollContainer ) {
+					eventScrollContainer = getScrollContainer( target );
+					scrollContainerCache.set( target, eventScrollContainer );
+				}
+				const { scrollHeight, offsetHeight } = eventScrollContainer;
+				// Scrolls “through” the popover only if the event target wasn’t within
+				// a scrollable container and thereby avoids scrolling both containers.
+				if ( scrollHeight === offsetHeight ) {
+					scrollContainer.scrollBy( deltaX, deltaY );
+				}
 			}
 			// Tell the browser that we do not call event.preventDefault
 			// See https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scrolling_performance_with_passive_listeners
