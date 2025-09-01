@@ -53,23 +53,18 @@ function ModalContent< Item >( {
 		const newFlattenedData: { [ key: string ]: any } = {};
 
 		const newModifiedFields = fields.map( ( field ) => {
-			if ( field.getValue ) {
-				// Extract the value using the original getValue function
-				const extractedValue = field.getValue( { item: data } );
-				newFlattenedData[ field.id ] = extractedValue;
+			// Extract the value using getValue function
+			const extractedValue = field.getValue( { item: data } );
+			newFlattenedData[ field.id ] = extractedValue;
 
-				// Return a modified field that reads from the flat structure
-				return {
-					...field,
-					// Usage of any here is aligned with the type declaration for
-					// getValue (it returns any as well)
-					getValue: ( { item }: { item: Item } ) =>
-						( item as any )[ field.id ],
-				};
-			}
-			// For fields without getValue, just copy the value directly
-			newFlattenedData[ field.id ] = ( data as any )[ field.id ];
-			return field;
+			// Return a modified field that reads from the flat structure
+			return {
+				...field,
+				// Usage of any here is aligned with the type declaration for
+				// getValue (it returns any as well)
+				getValue: ( { item }: { item: Item } ) =>
+					( item as any )[ field.id ],
+			};
 		} );
 
 		return {
