@@ -168,7 +168,7 @@ describe( 'apiFetch', () => {
 
 		await expect( apiFetch( { path: '/random' } ) ).rejects.toEqual( {
 			code: 'fetch_error',
-			message: 'You are probably offline.',
+			message: 'Could not get a valid response from the server.',
 		} );
 	} );
 
