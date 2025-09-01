@@ -690,9 +690,6 @@ export default function NavigationLinkEdit( {
 								} else if ( ref.current ) {
 									// select the ref when adding a new link
 									ref.current.focus();
-								} else {
-									// Fallback
-									selectPreviousBlock( clientId, true );
 								}
 							} }
 							anchor={ popoverAnchor }
