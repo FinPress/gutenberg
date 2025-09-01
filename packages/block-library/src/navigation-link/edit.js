@@ -9,6 +9,10 @@ import clsx from 'clsx';
 import { createBlock } from '@wordpress/blocks';
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
+	store as coreStore,
+	useResourcePermissions,
+} from '@wordpress/core-data';
+import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	CheckboxControl,
@@ -16,6 +20,7 @@ import {
 	TextareaControl,
 	ToolbarButton,
 	ToolbarGroup,
+	Button,
 } from '@wordpress/components';
 import { displayShortcut, isKeyboardEvent } from '@wordpress/keycodes';
 import { __ } from '@wordpress/i18n';
@@ -28,13 +33,18 @@ import {
 	getColorClassName,
 	useInnerBlocksProps,
 	useBlockEditingMode,
+	__experimentalLinkControlSearchInput,
 } from '@wordpress/block-editor';
-import { isURL, prependHTTP, safeDecodeURI } from '@wordpress/url';
+import { isURL, prependHTTP } from '@wordpress/url';
 import { useState, useEffect, useRef } from '@wordpress/element';
 import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 import { decodeEntities } from '@wordpress/html-entities';
-import { link as linkIcon, addSubmenu } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
+import {
+	link as linkIcon,
+	addSubmenu,
+	keyboardReturn,
+	closeSmall,
+} from '@wordpress/icons';
 import { useMergeRefs, usePrevious } from '@wordpress/compose';
 
 /**
@@ -177,8 +187,20 @@ function getMissingText( type ) {
  */
 function Controls( { attributes, setAttributes, setIsEditingControl } ) {
 	const { label, url, description, rel, opensInNewTab } = attributes;
-	const lastURLRef = useRef( url );
+
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
+	const { saveEntityRecord } = useDispatch( coreStore );
+	const postType = attributes.type || 'page';
+	const permissions = useResourcePermissions( {
+		kind: 'postType',
+		name: postType,
+	} );
+
+	// Local state for URL input - only used for current input value
+	const [ localUrl, setLocalUrl ] = useState( '' );
+
+	// Use URL prop as the display value, local state only for current input
+	const displayUrl = localUrl || url || '';
 	return (
 		<ToolsPanel
 			label={ __( 'Settings' ) }
@@ -219,31 +241,103 @@ function Controls( { attributes, setAttributes, setIsEditingControl } ) {
 				onDeselect={ () => setAttributes( { url: '' } ) }
 				isShownByDefault
 			>
-				<TextControl
-					__nextHasNoMarginBottom
-					__next40pxDefaultSize
-					label={ __( 'Link' ) }
-					value={ url ? safeDecodeURI( url ) : '' }
-					onChange={ ( urlValue ) => {
-						setAttributes( {
-							url: encodeURI( safeDecodeURI( urlValue ) ),
-						} );
+				<__experimentalLinkControlSearchInput
+					value={ displayUrl }
+					onChange={ ( newUrl ) => {
+						setLocalUrl( newUrl );
 					} }
-					autoComplete="off"
-					type="url"
-					onFocus={ () => {
-						lastURLRef.current = url;
-						setIsEditingControl( true );
-					} }
-					onBlur={ () => {
-						// Defer the updateAttributes call to ensure entity connection isn't severed by accident.
+					onSelect={ ( suggestion ) => {
+						// Clear local state and commit to block attributes
+						setLocalUrl( '' );
 						updateAttributes(
-							{ url: ! url ? lastURLRef.current : url },
+							suggestion,
 							setAttributes,
-							{ ...attributes, url: lastURLRef.current }
+							attributes
 						);
-						setIsEditingControl( false );
 					} }
+					currentLink={ attributes }
+					showSuggestions
+					showInitialSuggestions
+					withCreateSuggestion={ permissions.canCreate }
+					onCreateSuggestion={ async ( pageTitle ) => {
+						const suggestionPostType = attributes.type || 'page';
+
+						const page = await saveEntityRecord(
+							'postType',
+							suggestionPostType,
+							{
+								title: pageTitle,
+								status: 'draft',
+							}
+						);
+
+						return {
+							id: page.id,
+							type: suggestionPostType,
+							title: page.title.rendered,
+							url: page.link,
+							kind: 'post-type',
+						};
+					} }
+					suggestionsQuery={ ( () => {
+						const { type, kind } = attributes;
+						switch ( type ) {
+							case 'post':
+							case 'page':
+								return { type: 'post', subtype: type };
+							case 'category':
+								return { type: 'term', subtype: 'category' };
+							case 'tag':
+								return { type: 'term', subtype: 'post_tag' };
+							case 'post_format':
+								return { type: 'post-format' };
+							default:
+								if ( kind === 'taxonomy' ) {
+									return { type: 'term', subtype: type };
+								}
+								if ( kind === 'post-type' ) {
+									return { type: 'post', subtype: type };
+								}
+								return {
+									initialSuggestionsSearchOptions: {
+										type: 'post',
+										subtype: 'page',
+										perPage: 20,
+									},
+								};
+						}
+					} )() }
+					suffix={
+						<Button
+							__next40pxDefaultSize
+							variant="secondary"
+							icon={ url ? closeSmall : keyboardReturn }
+							disabled={
+								url
+									? false
+									: ! localUrl.trim() || localUrl === url
+							}
+							accessibleWhenDisabled
+							onClick={ () => {
+								if ( url ) {
+									// Reset: clear both local state and block attribute
+									setLocalUrl( '' );
+									setAttributes( { url: '' } );
+								} else if ( localUrl.trim() ) {
+									// Submit the manually entered URL
+									updateAttributes(
+										{ url: localUrl },
+										setAttributes,
+										attributes
+									);
+									setLocalUrl( '' );
+								}
+							} }
+							aria-label={
+								url ? __( 'Clear URL' ) : __( 'Apply URL' )
+							}
+						/>
+					}
 				/>
 			</ToolsPanelItem>
 

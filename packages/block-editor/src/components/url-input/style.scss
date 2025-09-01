@@ -9,11 +9,6 @@ $input-size: 300px;
 	position: relative;
 	padding: 1px;
 
-	@include break-small() {
-		min-width: $input-size;
-		width: auto;
-	}
-
 	&.is-full-width {
 		width: 100%;
 
@@ -27,6 +22,15 @@ $input-size: 300px;
 		margin: 0;
 		top: calc(50% - #{$spinner-size} / 2);
 		right: $grid-unit;
+	}
+}
+
+// Only apply min-width to URL inputs within popovers or block list blocks
+.block-editor-block-list__block .block-editor-url-input,
+.components-popover .block-editor-url-input {
+	@include break-small() {
+		min-width: $input-size;
+		width: auto;
 	}
 }
 
