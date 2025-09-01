@@ -289,17 +289,21 @@ export function serializeAttributes( attributes ) {
 			.replace( />/g, '\\u003e' )
 			.replace( /&/g, '\\u0026' )
 
-			// Bypass server stripslashes behavior which would unescape stringify's
-			// escaping of quotation mark.
-			//
-			// Replace the escaped quotes '\"' with hex escape '\u0022' to avoid.
-			// Do not replace quotes that are not escaped but are preceded by a backslash,
-			// for example:
-			//   - "\"" -> "\u0022"
-			//   - "\\" -> "\\"
-			//   - "\\\"" -> "\\\u0022"
-			//
-			// See: https://developer.wordpress.org/reference/functions/wp_kses_stripslashes/
+			/*
+			 * Replace escaped quotes '\"' with hex escape '\u0022' to prevent
+			 * `wp_kses_stripslashes()` from potentially mangling the content.
+			 *
+			 * This replacement is applied to stringified JSON. `\"` replacement must
+			 * only happen inside string values, `"` may be part of the JSON syntax.
+			 * Notably, `"\\"` contains `\"` that must _not_ be replaced. It is a string
+			 * that contains single character `\`.
+			 *
+			 *   - "\"" -> "\u0022"
+			 *   - "\\" -> "\\"
+			 *   - "\\\"" -> "\\\u0022"
+			 *
+			 * See https://developer.wordpress.org/reference/functions/wp_kses_stripslashes/
+			 */
 			.replace( /(?<!\\)(\\\\)*\\"/g, '$1\\u0022' )
 	);
 }
