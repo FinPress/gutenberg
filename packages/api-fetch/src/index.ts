@@ -114,11 +114,23 @@ const defaultFetchHandler: FetchHandler = ( nextOptions ) => {
 				throw err;
 			}
 
-			// Otherwise, there is most likely no network connection.
-			// Unfortunately the message might depend on the browser.
+			// If the browser reports being offline, we'll just assume that
+			// this is why the request failed.
+			if ( ! window.navigator.onLine ) {
+				throw {
+					code: 'offline_error',
+					message: __(
+						'Unable to connect. Please check your Internet connection.'
+					),
+				};
+			}
+
+			// Hard to diagnose further due to how Window.fetch reports errors.
 			throw {
 				code: 'fetch_error',
-				message: __( 'You are probably offline.' ),
+				message: __(
+					'Could not get a valid response from the server.'
+				),
 			};
 		}
 	);
