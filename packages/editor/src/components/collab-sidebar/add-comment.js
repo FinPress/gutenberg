@@ -18,17 +18,11 @@ import CommentForm from './comment-form';
 /**
  * Renders the UI for adding a comment in the Gutenberg editor's collaboration sidebar.
  *
- * @param {Object}   props                     - The component props.
- * @param {Function} props.onSubmit            - A callback function to be called when the user submits a comment.
- * @param {boolean}  props.showCommentBoard    - The function to edit the comment.
- * @param {Function} props.setShowCommentBoard - The function to delete the comment.
- * @return {React.ReactNode} The rendered comment input UI.
+ * @param {Object}   props          - The component props.
+ * @param {Function} props.onSubmit - A callback function to be called when the user submits a comment.
+ * @return {JSX.Element} The rendered comment input UI.
  */
-export function AddComment( {
-	onSubmit,
-	showCommentBoard,
-	setShowCommentBoard,
-} ) {
+export function AddComment( { onSubmit } ) {
 	const { clientId, blockCommentId } = useSelect( ( select ) => {
 		const { getSelectedBlock } = select( blockEditorStore );
 		const selectedBlock = getSelectedBlock();
@@ -38,7 +32,7 @@ export function AddComment( {
 		};
 	} );
 
-	if ( ! showCommentBoard || ! clientId || undefined !== blockCommentId ) {
+	if ( ! clientId || undefined !== blockCommentId ) {
 		return null;
 	}
 
@@ -54,9 +48,7 @@ export function AddComment( {
 				onSubmit={ ( inputComment ) => {
 					onSubmit( inputComment );
 				} }
-				onCancel={ () => {
-					setShowCommentBoard( false );
-				} }
+				onCancel={ () => {} }
 				submitButtonText={ _x( 'Comment', 'Add comment button' ) }
 			/>
 		</VStack>

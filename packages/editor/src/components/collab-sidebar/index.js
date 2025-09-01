@@ -8,7 +8,7 @@ import {
 	resolveSelect,
 	subscribe,
 } from '@wordpress/data';
-import { useState, useMemo } from '@wordpress/element';
+import { useMemo } from '@wordpress/element';
 import { comment as commentIcon } from '@wordpress/icons';
 import { addFilter } from '@wordpress/hooks';
 import { store as noticesStore } from '@wordpress/notices';
@@ -49,12 +49,7 @@ addFilter(
 	modifyBlockCommentAttributes
 );
 
-function CollabSidebarContent( {
-	showCommentBoard,
-	setShowCommentBoard,
-	styles,
-	comments,
-} ) {
+function CollabSidebarContent( { styles, comments } ) {
 	const { createNotice } = useDispatch( noticesStore );
 	const { saveEntityRecord, deleteEntityRecord } = useDispatch( coreStore );
 	const { getEntityRecord } = resolveSelect( coreStore );
@@ -195,11 +190,7 @@ function CollabSidebarContent( {
 
 	return (
 		<div className="editor-collab-sidebar-panel" style={ styles }>
-			<AddComment
-				onSubmit={ addNewComment }
-				showCommentBoard={ showCommentBoard }
-				setShowCommentBoard={ setShowCommentBoard }
-			/>
+			<AddComment onSubmit={ addNewComment } />
 			<Comments
 				key={ getSelectedBlockClientId() }
 				threads={ comments }
@@ -218,7 +209,6 @@ function CollabSidebarContent( {
  * Renders the Collab sidebar.
  */
 export default function CollabSidebar() {
-	const [ showCommentBoard, setShowCommentBoard ] = useState( false );
 	const { enableComplementaryArea } = useDispatch( interfaceStore );
 	const { getActiveComplementaryArea } = useSelect( interfaceStore );
 
@@ -256,7 +246,6 @@ export default function CollabSidebar() {
 	}, [] );
 
 	const openCollabBoard = () => {
-		setShowCommentBoard( true );
 		enableComplementaryArea( 'core', 'edit-post/collab-sidebar' );
 	};
 
@@ -344,11 +333,7 @@ export default function CollabSidebar() {
 				title={ __( 'Comments' ) }
 				icon={ commentIcon }
 			>
-				<CollabSidebarContent
-					comments={ resultComments }
-					showCommentBoard={ showCommentBoard }
-					setShowCommentBoard={ setShowCommentBoard }
-				/>
+				<CollabSidebarContent comments={ resultComments } />
 			</PluginSidebar>
 			<PluginSidebar
 				isPinnable={ false }
@@ -359,8 +344,6 @@ export default function CollabSidebar() {
 			>
 				<CollabSidebarContent
 					comments={ sortedThreads }
-					showCommentBoard={ showCommentBoard }
-					setShowCommentBoard={ setShowCommentBoard }
 					styles={ {
 						backgroundColor,
 					} }
