@@ -85,7 +85,9 @@
 }
 
 .is-open {
-	.accordion-content__toggle-icon.has-icon-plus {
-		transform: rotate(45deg);
+	> .wp-block-accordion-header {
+		.accordion-content__toggle-icon.has-icon-plus {
+			transform: rotate(45deg);
+		}
 	}
 }
