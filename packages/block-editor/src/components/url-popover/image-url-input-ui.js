@@ -235,14 +235,14 @@ const ImageURLInputUI = ( {
 				value={ rel ?? '' }
 				onChange={ onSetLinkRel }
 				help={
-					<span>
+					<>
 						{ __(
 							'The Link Relation attribute defines the relationship between a linked resource and the current document.'
 						) }{ ' ' }
 						<ExternalLink href="https://developer.mozilla.org/docs/Web/HTML/Attributes/rel">
 							{ __( 'Learn more.' ) }
 						</ExternalLink>
-					</span>
+					</>
 				}
 			/>
 			<TextControl
