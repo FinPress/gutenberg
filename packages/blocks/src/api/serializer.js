@@ -282,29 +282,19 @@ export function serializeAttributes( attributes ) {
 	return (
 		JSON.stringify( attributes )
 			// Don't break HTML comments.
-			.replace( /--/g, '\\u002d\\u002d' )
+			.replaceAll( '--', '\\u002d\\u002d' )
 
 			// Don't break non-standard-compliant tools.
-			.replace( /</g, '\\u003c' )
-			.replace( />/g, '\\u003e' )
-			.replace( /&/g, '\\u0026' )
+			.replaceAll( '<', '\\u003c' )
+			.replaceAll( '>', '\\u003e' )
+			.replaceAll( '&', '\\u0026' )
 
-			/*
-			 * Replace escaped quotes '\"' with hex escape '\u0022' to prevent
-			 * `wp_kses_stripslashes()` from potentially mangling the content.
-			 *
-			 * This replacement is applied to stringified JSON. `\"` replacement must
-			 * only happen inside string values, `"` may be part of the JSON syntax.
-			 * Notably, `"\\"` contains `\"` that must _not_ be replaced. It is a string
-			 * that contains single character `\`.
-			 *
-			 *   - "\"" -> "\u0022"
-			 *   - "\\" -> "\\"
-			 *   - "\\\"" -> "\\\u0022"
-			 *
-			 * See https://developer.wordpress.org/reference/functions/wp_kses_stripslashes/
-			 */
-			.replace( /(?<!\\)(\\\\)*\\"/g, '$1\\u0022' )
+			// Replace escaped `\` characters with the unicode escape sequence.
+			.replaceAll( '\\\\', '\\u005c' )
+			// Replace escaped quotes (`\"`) to prevent problems with wp_kses_stripsplashes.
+			// This simple replacement is safe because `\\` has already been replaced.
+			// `\"` is not a JSON string quote like `"\\"`.
+			.replaceAll( '\\"', '\\u0022' )
 	);
 }
 

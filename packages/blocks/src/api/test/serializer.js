@@ -206,10 +206,14 @@ describe( 'block serializer', () => {
 		} );
 
 		it( 'should handle backslash and quote combinations', () => {
-			const orig = { bs: '\\', bsQuote: '\\"', bsQuoteBs: '\\"\\' };
+			const orig = {
+				bs: '\\',
+				bsQuote: '\\"',
+				bsQuoteBs: '\\"\\',
+			};
 			expect( JSON.parse( serializeAttributes( orig ) ) ).toEqual( orig );
 			expect( serializeAttributes( orig ) ).toBe(
-				'{"bs":"\\\\","bsQuote":"\\\\\\u0022","bsQuoteBs":"\\\\\\u0022\\\\"}'
+				'{"bs":"\\u005c","bsQuote":"\\u005c\\u0022","bsQuoteBs":"\\u005c\\u0022\\u005c"}'
 			);
 		} );
 	} );
