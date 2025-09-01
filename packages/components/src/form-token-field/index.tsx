@@ -7,9 +7,14 @@ import type { KeyboardEvent, MouseEvent, TouchEvent, FocusEvent } from 'react';
 /**
  * WordPress dependencies
  */
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState, forwardRef } from '@wordpress/element';
 import { __, _n, sprintf } from '@wordpress/i18n';
-import { useDebounce, useInstanceId, usePrevious } from '@wordpress/compose';
+import {
+	useDebounce,
+	useInstanceId,
+	usePrevious,
+	useMergeRefs,
+} from '@wordpress/compose';
 import { speak } from '@wordpress/a11y';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import deprecated from '@wordpress/deprecated';
@@ -34,17 +39,10 @@ import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const identity = ( value: string ) => value;
 
-/**
- * A `FormTokenField` is a field similar to the tags and categories fields in the interim editor chrome,
- * or the "to" field in Mail on OS X. Tokens can be entered by typing them or selecting them from a list of suggested tokens.
- *
- * Up to one hundred suggestions that match what the user has typed so far will be shown from which the user can pick from (auto-complete).
- * Tokens are separated by the "," character. Suggestions can be selected with the up or down arrows and added with the tab or enter key.
- *
- * The `value` property is handled in a manner similar to controlled form components.
- * See [Forms](https://react.dev/reference/react-dom/components#form-components) in the React Documentation for more information.
- */
-export function FormTokenField( props: FormTokenFieldProps ) {
+function UnforwardedFormTokenField(
+	props: FormTokenFieldProps,
+	forwardedRef: React.ForwardedRef< HTMLInputElement >
+) {
 	const {
 		autoCapitalize,
 		autoComplete,
@@ -62,6 +60,7 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 		onFocus = undefined,
 		isBorderless = false,
 		disabled = false,
+		required = false,
 		tokenizeOnSpace = false,
 		messages = {
 			added: __( 'Item added.' ),
@@ -110,6 +109,7 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 
 	const input = useRef< HTMLInputElement >( null );
 	const tokensAndInput = useRef< HTMLInputElement >( null );
+	const mergedInputRef = useMergeRefs( [ forwardedRef, input ] );
 
 	const debouncedSpeak = useDebounce( speak, 500 );
 
@@ -672,6 +672,7 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 			autoComplete,
 			placeholder: value.length === 0 ? placeholder : '',
 			disabled,
+			required,
 			value: incompleteTokenValue,
 			onBlur,
 			isExpanded,
@@ -687,7 +688,7 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 						? onInputChangeHandler
 						: undefined
 				}
-				ref={ input }
+				ref={ mergedInputRef }
 			/>
 		);
 	}
@@ -778,5 +779,17 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 	);
 	/* eslint-enable jsx-a11y/no-static-element-interactions */
 }
+
+/**
+ * A `FormTokenField` is a field similar to the tags and categories fields in the interim editor chrome,
+ * or the "to" field in Mail on OS X. Tokens can be entered by typing them or selecting them from a list of suggested tokens.
+ *
+ * Up to one hundred suggestions that match what the user has typed so far will be shown from which the user can pick from (auto-complete).
+ * Tokens are separated by the "," character. Suggestions can be selected with the up or down arrows and added with the tab or enter key.
+ *
+ * The `value` property is handled in a manner similar to controlled form components.
+ * See [Forms](https://react.dev/reference/react-dom/components#form-components) in the React Documentation for more information.
+ */
+export const FormTokenField = forwardRef( UnforwardedFormTokenField );
 
 export default FormTokenField;
