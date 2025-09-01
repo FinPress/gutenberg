@@ -51,7 +51,7 @@ Create Project supports three main project types:
 - Optional block integration with `--with-blocks`
 - Generates `plugin.php`, `readme.txt`, and all necessary files
 
-#### Theme (`--type=theme`)  
+#### Theme (`--type=theme`)
 - Creates a complete WordPress theme structure
 - Includes `style.css`, `functions.php`, `index.php` and theme templates
 - Modern build setup for JavaScript and CSS
@@ -61,6 +61,8 @@ Create Project supports three main project types:
 #### Block (`--type=block`)
 - Creates a standalone block for integration into existing plugins or themes
 - Generates `block.json`, JavaScript, and CSS files
+- **Attributes configuration** - define block props with name, type, and default value
+- **Interactive prompts** - easy setup for block data structure during creation
 - Ready to be registered in any WordPress project
 
 ### Options
@@ -89,7 +91,7 @@ Specify the type of WordPress project to create:
 
 ```bash
 $ npx @wordpress/create-project@latest my-plugin --type=plugin
-$ npx @wordpress/create-project@latest my-theme --type=theme  
+$ npx @wordpress/create-project@latest my-theme --type=theme
 $ npx @wordpress/create-project@latest my-block --type=block
 ```
 
@@ -246,12 +248,6 @@ Create Project is fully compatible with existing `@wordpress/create-block` usage
 # These commands are equivalent:
 $ npx @wordpress/create-block my-block
 $ npx @wordpress/create-project my-block --type=plugin --with-blocks
-
-# Legacy --no-plugin flag is supported:
-$ npx @wordpress/create-project my-block --no-plugin
-# Equivalent to:
-$ npx @wordpress/create-project my-block --type=block
-```
 
 ## Contributing to this package
 

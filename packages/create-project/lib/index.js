@@ -18,6 +18,7 @@ const {
 	getProjectTemplate,
 	runPrompts,
 } = require( './templates' );
+const { configureBlockAttributes } = require( './attributes-config' );
 
 const commandName = `wp-create-project`;
 program
@@ -320,6 +321,20 @@ program
 							variant,
 							optionsValues
 						);
+
+						// Step 3.5: Configure Block Attributes (Props)
+						const configureAttributes = await confirm( {
+							message:
+								'Do you want to add custom attributes to your block?',
+							default: false,
+						} );
+
+						if ( configureAttributes ) {
+							const attributes = await configureBlockAttributes(
+								{}
+							);
+							blockAnswers.attributes = attributes;
+						}
 					}
 
 					// Plugin/theme specific customization
