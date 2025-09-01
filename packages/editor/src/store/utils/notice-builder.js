@@ -110,12 +110,13 @@ export function getNotificationArgumentsForSaveFail( data ) {
 		publish: __( 'Publishing failed.' ),
 		private: __( 'Publishing failed.' ),
 		future: __( 'Scheduling failed.' ),
+		default: __( 'Updating failed.' ),
 	};
 
 	let noticeMessage =
 		! isPublished && edits.status in messages
 			? messages[ edits.status ]
-			: __( 'Updating failed.' );
+			: messages.default;
 
 	// Check if message string contains HTML. Notice text is currently only
 	// supported as plaintext, and stripping the tags may muddle the meaning.

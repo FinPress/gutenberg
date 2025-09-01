@@ -119,14 +119,18 @@ const defaultFetchHandler: FetchHandler = ( nextOptions ) => {
 			if ( ! window.navigator.onLine ) {
 				throw {
 					code: 'offline_error',
-					message: __( 'You are offline.' ),
+					message: __(
+						'Unable to connect. Please check your Internet connection.'
+					),
 				};
 			}
 
 			// Hard to diagnose further due to how Window.fetch reports errors.
 			throw {
 				code: 'fetch_error',
-				message: __( 'An unexpected error occurred.' ),
+				message: __(
+					'Could not get a valid response from the server.'
+				),
 			};
 		}
 	);
