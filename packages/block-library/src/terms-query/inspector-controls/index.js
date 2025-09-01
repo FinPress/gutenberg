@@ -18,8 +18,9 @@ import { store as coreStore } from '@wordpress/core-data';
 /**
  * Internal dependencies
  */
-import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
-import { unlock } from '../lock-unlock';
+import IncludeExclude from './include-exclude';
+import { useToolsPanelDropdownMenuProps } from '../../utils/hooks';
+import { unlock } from '../../lock-unlock';
 
 const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
@@ -181,6 +182,11 @@ export default function TermsQueryInspectorControls( {
 							disabled={ termQuery.parent === 0 }
 						/>
 					</ToolsPanelItem>
+
+					<IncludeExclude
+						termQuery={ termQuery }
+						setQuery={ setQuery }
+					/>
 				</ToolsPanel>
 			</InspectorControls>
 			<InspectorControls group="advanced">
