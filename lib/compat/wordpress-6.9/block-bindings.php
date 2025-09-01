@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName // Needed for WP_Block_Context_Extractor helper class.
 /**
  * Block Bindings: Support for generically setting rich-text block attributes.
  *
@@ -172,15 +172,28 @@ function gutenberg_process_block_bindings( $instance ) {
 			continue;
 		}
 
-		// Problem: No access to available_context. Can we use refresh_context_dependents()?
-		// That uses $this->block_type->uses_context rather than $instance->block_type->uses_context :/
+		if ( ! class_exists( 'WP_Block_Context_Extractor' ) ) {
+			// phpcs:ignore Gutenberg.Commenting.SinceTag.MissingClassSinceTag
+			class WP_Block_Context_Extractor extends WP_Block {
+				/**
+				 * Static methods of subclasses have access to protected properties
+				 * of instances of the parent class.
+				 * In this case, this gives us access to `available_context`.
+				 */
+				// phpcs:ignore Gutenberg.Commenting.SinceTag.MissingMethodSinceTag
+				public static function get_available_context( $instance ) {
+					return $instance->available_context;
+				}
+			}
+		}
+		$available_context = WP_Block_Context_Extractor::get_available_context( $instance );
 
 		// Adds the necessary context defined by the source.
 		if ( ! empty( $block_binding_source->uses_context ) ) {
 			foreach ( $block_binding_source->uses_context as $context_name ) {
-				// if ( array_key_exists( $context_name, $this->available_context ) ) {
-				//     $instance->context[ $context_name ] = $this->available_context[ $context_name ];
-				// }
+				if ( array_key_exists( $context_name, $available_context ) ) {
+					$instance->context[ $context_name ] = $available_context[ $context_name ];
+				}
 			}
 		}
 
