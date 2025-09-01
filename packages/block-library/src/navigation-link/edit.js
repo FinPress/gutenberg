@@ -33,7 +33,7 @@ import {
 	getColorClassName,
 	useInnerBlocksProps,
 	useBlockEditingMode,
-	__experimentalLinkControlSearchInput,
+	__experimentalLinkControlSearchInput as LinkControlSearchInput,
 } from '@wordpress/block-editor';
 import { isURL, prependHTTP } from '@wordpress/url';
 import { useState, useEffect, useRef } from '@wordpress/element';
@@ -241,7 +241,7 @@ function Controls( { attributes, setAttributes, setIsEditingControl } ) {
 				onDeselect={ () => setAttributes( { url: '' } ) }
 				isShownByDefault
 			>
-				<__experimentalLinkControlSearchInput
+				<LinkControlSearchInput
 					value={ displayUrl }
 					onChange={ ( newUrl ) => {
 						setLocalUrl( newUrl );
