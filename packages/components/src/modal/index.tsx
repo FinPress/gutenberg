@@ -358,6 +358,13 @@ function UnforwardedModal(
 						) }
 
 						<div
+							className={ clsx(
+								'components-modal__children-container',
+								{
+									'is-fill-size':
+										size === 'fill' || isFullScreen,
+								}
+							) }
 							ref={ useMergeRefs( [
 								childrenContainerRef,
 								focusOnMount === 'firstContentElement'
