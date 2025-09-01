@@ -6111,7 +6111,7 @@ class WP_Theme_JSON_Gutenberg_Test extends WP_UnitTestCase {
 				'styles'  => array(
 					'blocks' => array(
 						'core/button' => array(
-							'color' => array(
+							'color'  => array(
 								'text'       => 'white',
 								'background' => 'blue',
 							),
@@ -6147,11 +6147,11 @@ class WP_Theme_JSON_Gutenberg_Test extends WP_UnitTestCase {
 				'styles'  => array(
 					'blocks' => array(
 						'core/button' => array(
-							'color' => array(
+							'color'     => array(
 								'text'       => 'white',
 								'background' => 'blue',
 							),
-							':hover' => array(
+							':hover'    => array(
 								'color' => array(
 									'text'       => 'blue',
 									'background' => 'white',
@@ -6184,7 +6184,7 @@ class WP_Theme_JSON_Gutenberg_Test extends WP_UnitTestCase {
 				'styles'  => array(
 					'blocks' => array(
 						'core/paragraph' => array(
-							'color' => array(
+							'color'  => array(
 								'text' => 'black',
 							),
 							':hover' => array(
@@ -6213,11 +6213,11 @@ class WP_Theme_JSON_Gutenberg_Test extends WP_UnitTestCase {
 				'styles'  => array(
 					'blocks' => array(
 						'core/button' => array(
-							'color' => array(
+							'color'    => array(
 								'text'       => 'white',
 								'background' => 'blue',
 							),
-							':hover' => array(
+							':hover'   => array(
 								'color' => array(
 									'text'       => 'blue',
 									'background' => 'white',
@@ -6225,7 +6225,7 @@ class WP_Theme_JSON_Gutenberg_Test extends WP_UnitTestCase {
 							),
 							'elements' => array(
 								'button' => array(
-									'color' => array(
+									'color'  => array(
 										'text' => 'green',
 									),
 									':hover' => array(
