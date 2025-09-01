@@ -188,7 +188,7 @@ function useView( postType ) {
 	return [ view, setViewWithUrlUpdate ];
 }
 
-const DEFAULT_STATUSES = 'draft,future,pending,private,publish'; // All but 'trash'.
+export const DEFAULT_STATUSES = 'draft,future,pending,private,publish'; // All but 'trash'.
 
 function getItemId( item ) {
 	return item.id.toString();
@@ -253,7 +253,7 @@ export default function PostList( { postType } ) {
 		// We want to provide a different default item for the status filter
 		// than the REST API provides.
 		if ( ! filters.status || filters.status === '' ) {
-			filters.status = DEFAULT_STATUSES;
+			// filters.status = DEFAULT_STATUSES;
 		}
 
 		return {
