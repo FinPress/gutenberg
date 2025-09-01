@@ -208,6 +208,8 @@ export default function TermTemplateEdit( {
 			hierarchical,
 			parent,
 			perPage = 100,
+			include,
+			exclude,
 		} = {},
 	},
 	__unstableLayoutClassNames,
@@ -231,6 +233,13 @@ export default function TermTemplateEdit( {
 		hide_empty: hideEmpty,
 		per_page: perPage,
 	};
+
+	if ( include?.length ) {
+		queryArgs.include = include;
+	}
+	if ( exclude?.length ) {
+		queryArgs.exclude = exclude;
+	}
 
 	const { records: terms, isResolving } = useEntityRecords(
 		'taxonomy',
