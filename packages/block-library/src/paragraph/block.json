@@ -32,7 +32,6 @@
 	"supports": {
 		"splitting": true,
 		"anchor": true,
-		"className": false,
 		"__experimentalBorder": {
 			"color": true,
 			"radius": true,
@@ -69,7 +68,6 @@
 				"fontSize": true
 			}
 		},
-		"__experimentalSelector": "p",
 		"__unstablePasteTextInline": true,
 		"interactivity": {
 			"clientNavigation": true

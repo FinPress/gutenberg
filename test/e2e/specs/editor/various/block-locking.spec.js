@@ -63,7 +63,7 @@ test.describe( 'Block Locking', () => {
 
 		expect( await editor.getEditedPostContent() )
 			.toBe( `<!-- wp:paragraph {"lock":{"move":true,"remove":true}} -->
-<p>Some paragraph</p>
+<p class="wp-block-paragraph">Some paragraph</p>
 <!-- /wp:paragraph -->` );
 	} );
 
@@ -90,7 +90,7 @@ test.describe( 'Block Locking', () => {
 
 		expect( await editor.getEditedPostContent() )
 			.toBe( `<!-- wp:paragraph {"lock":{"move":false,"remove":false}} -->
-<p>Some paragraph</p>
+<p class="wp-block-paragraph">Some paragraph</p>
 <!-- /wp:paragraph -->` );
 	} );
 

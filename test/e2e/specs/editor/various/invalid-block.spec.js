@@ -25,7 +25,7 @@ test.describe( 'Invalid blocks', () => {
 		await editor.canvas
 			.getByRole( 'document', { name: 'Block: Paragraph' } )
 			.getByRole( 'textbox' )
-			.fill( '<p>invalid paragraph' );
+			.fill( '<p class="wp-block-paragraph">invalid paragraph' );
 
 		// Takes the focus away from the block so the invalid warning is triggered.
 		await editor.saveDraft();
@@ -46,7 +46,10 @@ test.describe( 'Invalid blocks', () => {
 			page
 				.getByRole( 'dialog', { name: 'Resolve Block' } )
 				.locator( '.block-editor-block-compare__html' )
-		).toHaveText( [ '<p>invalid paragraph', '<p>invalid paragraph</p>' ] );
+		).toHaveText( [
+			'<p class="wp-block-paragraph">invalid paragraph',
+			'<p class="wp-block-paragraph">invalid paragraph</p>',
+		] );
 	} );
 
 	test( 'should strip potentially malicious on* attributes', async ( {
@@ -73,7 +76,7 @@ test.describe( 'Invalid blocks', () => {
 
 		await editor.setContent( `
 			<!-- wp:paragraph -->
-			<p>aaaa <img src onerror=alert(1)></x dde></x>1
+			<p class="wp-block-paragraph">aaaa <img src onerror=alert(1)></x dde></x>1
 			<!-- /wp:paragraph -->
 		` );
 

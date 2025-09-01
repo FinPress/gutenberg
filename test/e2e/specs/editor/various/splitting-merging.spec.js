@@ -34,11 +34,11 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p>First</p>
+<p class="wp-block-paragraph">First</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Second</p>
+<p class="wp-block-paragraph">Second</p>
 <!-- /wp:paragraph -->`
 		);
 
@@ -50,11 +50,11 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Check the content.
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p>First</p>
+<p class="wp-block-paragraph">First</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Second</p>
+<p class="wp-block-paragraph">Second</p>
 <!-- /wp:paragraph -->`
 		);
 
@@ -76,11 +76,11 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Check the content.
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p>First</p>
+<p class="wp-block-paragraph">First</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Second</p>
+<p class="wp-block-paragraph">Second</p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -105,7 +105,7 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p>Bar</p>
+<p class="wp-block-paragraph">Bar</p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -139,11 +139,11 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p>First</p>
+<p class="wp-block-paragraph">First</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Still Second</p>
+<p class="wp-block-paragraph">Still Second</p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -173,11 +173,11 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p>Foo</p>
+<p class="wp-block-paragraph">Foo</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p></p>
+<p class="wp-block-paragraph"></p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -210,11 +210,11 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p><strong>Foo</strong></p>
+<p class="wp-block-paragraph"><strong>Foo</strong></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p></p>
+<p class="wp-block-paragraph"></p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -237,7 +237,7 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p>Second</p>
+<p class="wp-block-paragraph">Second</p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -280,15 +280,15 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p>First</p>
+<p class="wp-block-paragraph">First</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p></p>
+<p class="wp-block-paragraph"></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Second</p>
+<p class="wp-block-paragraph">Second</p>
 <!-- /wp:paragraph -->`
 		);
 	} );
@@ -364,11 +364,11 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:paragraph -->
-<p>1</p>
+<p class="wp-block-paragraph">1</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>2</p>
+<p class="wp-block-paragraph">2</p>
 <!-- /wp:paragraph -->`
 		);
 	} );
