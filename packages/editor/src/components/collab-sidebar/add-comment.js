@@ -58,6 +58,7 @@ export function AddComment( {
 					setShowCommentBoard( false );
 				} }
 				submitButtonText={ _x( 'Comment', 'Add comment button' ) }
+				shouldFocus
 			/>
 		</VStack>
 	);
