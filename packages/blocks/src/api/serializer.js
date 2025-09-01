@@ -281,6 +281,9 @@ export function getCommentAttributes( blockType, attributes ) {
 export function serializeAttributes( attributes ) {
 	return (
 		JSON.stringify( attributes )
+			// Replace escaped `\` characters with the unicode escape sequence.
+			.replaceAll( '\\\\', '\\u005c' )
+
 			// Don't break HTML comments.
 			.replaceAll( '--', '\\u002d\\u002d' )
 
@@ -289,8 +292,6 @@ export function serializeAttributes( attributes ) {
 			.replaceAll( '>', '\\u003e' )
 			.replaceAll( '&', '\\u0026' )
 
-			// Replace escaped `\` characters with the unicode escape sequence.
-			.replaceAll( '\\\\', '\\u005c' )
 			// Replace escaped quotes (`\"`) to prevent problems with wp_kses_stripsplashes.
 			// This simple replacement is safe because `\\` has already been replaced.
 			// `\"` is not a JSON string quote like `"\\"`.
