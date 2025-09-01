@@ -23,12 +23,7 @@ import {
 } from '@wordpress/element';
 import { useResourcePermissions } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
-import {
-	chevronLeftSmall,
-	chevronRightSmall,
-	plus,
-	addTemplate as page,
-} from '@wordpress/icons';
+import { chevronLeftSmall, chevronRightSmall, plus } from '@wordpress/icons';
 import { useInstanceId, useFocusOnMount } from '@wordpress/compose';
 
 /**
@@ -302,7 +297,7 @@ const LinkUITools = ( {
 				<Button
 					__next40pxDefaultSize
 					ref={ addPageButtonRef }
-					icon={ page }
+					icon={ plus }
 					onClick={ ( e ) => {
 						e.preventDefault();
 						setAddingPage( true );
