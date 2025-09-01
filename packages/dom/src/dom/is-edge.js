@@ -121,6 +121,20 @@ export default function isEdge( container, isReverse, onlyVertical = false ) {
 	const hasVerticalDiff = Math.abs( verticalDiff ) <= 1;
 	const hasHorizontalDiff = Math.abs( horizontalDiff ) <= 1;
 
+	/* global navigator */
+	const isFirefox = navigator.userAgent.includes( 'Firefox' );
+	if ( isFirefox && onlyVertical && isCollapsed ) {
+		// If horizontal position differs by more than 1px, we're on a wrapped line.
+		if (
+			Math.abs(
+				testRect[ horizontalSide ] -
+					collapsedRangeRect[ horizontalSide ]
+			) > 1
+		) {
+			return false;
+		}
+	}
+
 	return onlyVertical
 		? hasVerticalDiff
 		: hasVerticalDiff && hasHorizontalDiff;
