@@ -25,9 +25,29 @@ const meta = {
 				'Chooses the default layout of each field. "regular" is the default layout.',
 			options: [ 'regular', 'panel' ],
 		},
+		Edit: {
+			control: { type: 'select' },
+			description:
+				'Chooses the Edit function for the field. "Default" means use the default Edit function for the field type.',
+			options: [
+				'default',
+				'array',
+				'boolean',
+				'checkbox',
+				'date',
+				'datetime',
+				'email',
+				'integer',
+				'radio',
+				'select',
+				'text',
+				'toggleGroup',
+			],
+		},
 	},
 	args: {
 		type: 'regular',
+		Edit: 'default',
 	},
 };
 export default meta;
@@ -241,15 +261,42 @@ const fields: Field< DataType >[] = [
 	},
 ];
 
+type PanelTypes = 'regular' | 'panel';
+type ControlTypes =
+	| 'default'
+	| 'array'
+	| 'boolean'
+	| 'checkbox'
+	| 'date'
+	| 'datetime'
+	| 'email'
+	| 'integer'
+	| 'radio'
+	| 'select'
+	| 'text'
+	| 'toggleGroup';
+
 interface FieldTypeStoryProps {
 	fields: Field< DataType >[];
-	type: 'regular' | 'panel';
+	type: PanelTypes;
+	Edit: ControlTypes;
 }
 
 const FieldTypeStory = ( {
-	fields: storyFields,
+	fields: _fields,
 	type,
+	Edit,
 }: FieldTypeStoryProps ) => {
+	const storyFields = useMemo( () => {
+		if ( Edit === 'default' ) {
+			return _fields;
+		}
+
+		return _fields.map( ( field: Field< DataType > ) => ( {
+			...field,
+			Edit,
+		} ) );
+	}, [ _fields, Edit ] );
 	const form = useMemo(
 		() => ( {
 			layout: { type },
@@ -347,87 +394,165 @@ const FieldTypeStory = ( {
 	);
 };
 
-export const All = ( { type }: { type: 'regular' | 'panel' } ) => {
-	return <FieldTypeStory fields={ fields } type={ type } />;
+export const All = ( {
+	type,
+	Edit,
+}: {
+	type: PanelTypes;
+	Edit: ControlTypes;
+} ) => {
+	return <FieldTypeStory fields={ fields } type={ type } Edit={ Edit } />;
 };
 
-export const Text = ( { type }: { type: 'regular' | 'panel' } ) => {
+export const Text = ( {
+	type,
+	Edit,
+}: {
+	type: PanelTypes;
+	Edit: ControlTypes;
+} ) => {
 	const textFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'text' ),
 		[]
 	);
 
-	return <FieldTypeStory fields={ textFields } type={ type } />;
+	return <FieldTypeStory fields={ textFields } type={ type } Edit={ Edit } />;
 };
 
-export const Integer = ( { type }: { type: 'regular' | 'panel' } ) => {
+export const Integer = ( {
+	type,
+	Edit,
+}: {
+	type: PanelTypes;
+	Edit: ControlTypes;
+} ) => {
 	const integerFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'integer' ),
 		[]
 	);
 
-	return <FieldTypeStory fields={ integerFields } type={ type } />;
+	return (
+		<FieldTypeStory fields={ integerFields } type={ type } Edit={ Edit } />
+	);
 };
 
-export const Boolean = ( { type }: { type: 'regular' | 'panel' } ) => {
+export const Boolean = ( {
+	type,
+	Edit,
+}: {
+	type: PanelTypes;
+	Edit: ControlTypes;
+} ) => {
 	const booleanFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'boolean' ),
 		[]
 	);
 
-	return <FieldTypeStory fields={ booleanFields } type={ type } />;
+	return (
+		<FieldTypeStory fields={ booleanFields } type={ type } Edit={ Edit } />
+	);
 };
 
-export const DateTime = ( { type }: { type: 'regular' | 'panel' } ) => {
+export const DateTime = ( {
+	type,
+	Edit,
+}: {
+	type: PanelTypes;
+	Edit: ControlTypes;
+} ) => {
 	const dateTimeFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'datetime' ),
 		[]
 	);
 
-	return <FieldTypeStory fields={ dateTimeFields } type={ type } />;
+	return (
+		<FieldTypeStory fields={ dateTimeFields } type={ type } Edit={ Edit } />
+	);
 };
 
-export const Date = ( { type }: { type: 'regular' | 'panel' } ) => {
+export const Date = ( {
+	type,
+	Edit,
+}: {
+	type: PanelTypes;
+	Edit: ControlTypes;
+} ) => {
 	const dateFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'date' ),
 		[]
 	);
 
-	return <FieldTypeStory fields={ dateFields } type={ type } />;
+	return <FieldTypeStory fields={ dateFields } type={ type } Edit={ Edit } />;
 };
 
-export const Email = ( { type }: { type: 'regular' | 'panel' } ) => {
+export const Email = ( {
+	type,
+	Edit,
+}: {
+	type: PanelTypes;
+	Edit: ControlTypes;
+} ) => {
 	const emailFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'email' ),
 		[]
 	);
 
-	return <FieldTypeStory fields={ emailFields } type={ type } />;
+	return (
+		<FieldTypeStory fields={ emailFields } type={ type } Edit={ Edit } />
+	);
 };
 
-export const Media = ( { type }: { type: 'regular' | 'panel' } ) => {
+export const Media = ( {
+	type,
+	Edit,
+}: {
+	type: PanelTypes;
+	Edit: ControlTypes;
+} ) => {
 	const mediaFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'media' ),
 		[]
 	);
 
-	return <FieldTypeStory fields={ mediaFields } type={ type } />;
+	return (
+		<FieldTypeStory fields={ mediaFields } type={ type } Edit={ Edit } />
+	);
 };
 
-export const Array = ( { type }: { type: 'regular' | 'panel' } ) => {
+export const Array = ( {
+	type,
+	Edit,
+}: {
+	type: PanelTypes;
+	Edit: ControlTypes;
+} ) => {
 	const arrayTextFields = useMemo(
 		() => fields.filter( ( field ) => field.type === 'array' ),
 		[]
 	);
 
-	return <FieldTypeStory fields={ arrayTextFields } type={ type } />;
+	return (
+		<FieldTypeStory
+			fields={ arrayTextFields }
+			type={ type }
+			Edit={ Edit }
+		/>
+	);
 };
 
-export const NoType = ( { type }: { type: 'regular' | 'panel' } ) => {
+export const NoType = ( {
+	type,
+	Edit,
+}: {
+	type: PanelTypes;
+	Edit: ControlTypes;
+} ) => {
 	const noTypeFields = useMemo(
 		() => fields.filter( ( field ) => field.type === undefined ),
 		[]
 	);
 
-	return <FieldTypeStory fields={ noTypeFields } type={ type } />;
+	return (
+		<FieldTypeStory fields={ noTypeFields } type={ type } Edit={ Edit } />
+	);
 };
