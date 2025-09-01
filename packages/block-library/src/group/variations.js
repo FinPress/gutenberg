@@ -9,11 +9,6 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				style: {
-					color: {
-						text: '#cf2e2e',
-					},
-				},
 				fontSize: 'large',
 				content: __( 'One.' ),
 			},
@@ -21,11 +16,6 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				style: {
-					color: {
-						text: '#ff6900',
-					},
-				},
 				fontSize: 'large',
 				content: __( 'Two.' ),
 			},
@@ -33,11 +23,6 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				style: {
-					color: {
-						text: '#fcb900',
-					},
-				},
 				fontSize: 'large',
 				content: __( 'Three.' ),
 			},
@@ -45,11 +30,6 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				style: {
-					color: {
-						text: '#00d084',
-					},
-				},
 				fontSize: 'large',
 				content: __( 'Four.' ),
 			},
@@ -57,11 +37,6 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				style: {
-					color: {
-						text: '#0693e3',
-					},
-				},
 				fontSize: 'large',
 				content: __( 'Five.' ),
 			},
@@ -69,11 +44,6 @@ const example = {
 		{
 			name: 'core/paragraph',
 			attributes: {
-				style: {
-					color: {
-						text: '#9b51e0',
-					},
-				},
 				fontSize: 'large',
 				content: __( 'Six.' ),
 			},
