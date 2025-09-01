@@ -11,6 +11,13 @@ import { withIgnoreIMEEvents } from './utils/with-ignore-ime-events';
 import { lock } from './lock-unlock';
 import Badge from './badge';
 
+import { DateCalendar, DateRangeCalendar, TZDate } from './calendar';
+import {
+	ValidatedNumberControl,
+	ValidatedTextControl,
+	ValidatedToggleControl,
+} from './validated-form-controls';
+
 export const privateApis = {};
 lock( privateApis, {
 	__experimentalPopoverLegacyPositionToPlacement,
@@ -22,4 +29,10 @@ lock( privateApis, {
 	withIgnoreIMEEvents,
 	Badge,
 	normalizeTextString,
+	DateCalendar,
+	DateRangeCalendar,
+	TZDate,
+	ValidatedNumberControl,
+	ValidatedTextControl,
+	ValidatedToggleControl,
 } );

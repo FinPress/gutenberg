@@ -526,6 +526,7 @@ function getNormalStylePropertyValue( property, value ) {
 	if (
 		typeof value === 'number' &&
 		0 !== value &&
+		! hasPrefix( property, [ '--' ] ) &&
 		! CSS_PROPERTIES_SUPPORTS_UNITLESS.has( property )
 	) {
 		return value + 'px';
@@ -717,9 +718,9 @@ export function renderComponent(
 /**
  * Serializes an array of children to string.
  *
- * @param {import('react').ReactNodeArray} children        Children to serialize.
- * @param {Object}                         [context]       Context object.
- * @param {Object}                         [legacyContext] Legacy context object.
+ * @param {ReadonlyArray<import('react').ReactNode>} children        Children to serialize.
+ * @param {Object}                                   [context]       Context object.
+ * @param {Object}                                   [legacyContext] Legacy context object.
  *
  * @return {string} Serialized children.
  */
