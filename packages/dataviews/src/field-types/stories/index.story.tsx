@@ -10,14 +10,14 @@ import {
 /**
  * Internal dependencies
  */
-import DataViews from '../dataviews/index';
-import DataForm from '../dataform/index';
+import DataViews from '../../components/dataviews/index';
+import DataForm from '../../components/dataform/index';
 import {
 	actions,
 	data,
 	fields,
 	type SpaceObject,
-} from '../dataviews/stories/fixtures';
+} from '../../components/dataviews/stories/fixtures';
 import { filterSortAndPaginate } from '../../filter-and-sort-data-view';
 import type { View, Form, Field } from '../../types';
 
