@@ -215,17 +215,40 @@ const fields: Field< DataType >[] = [
 		type: 'media',
 		label: 'Media',
 		description: 'Help for media.',
+		render: ( { item } ) => {
+			return (
+				<img src={ item.media } alt="" style={ { width: '100%' } } />
+			);
+		},
 	},
 	{
-		id: 'media',
+		id: 'mediaWithElements',
 		type: 'media',
-		label: 'Media',
-		description: 'Help for media.',
+		label: 'Media (with elements)',
+		description: 'Help for media with elements.',
 		elements: [
-			{ value: 'image.jpg', label: 'Image' },
-			{ value: 'video.mp4', label: 'Video' },
-			{ value: 'audio.mp3', label: 'Audio' },
+			{
+				value: 'https://live.staticflickr.com/7398/9458193857_e1256123e3_z.jpg',
+				label: 'Moon',
+			},
+			{
+				value: 'https://live.staticflickr.com/8151/7651156426_e047f4d219_z.jpg',
+				label: 'Mars',
+			},
+			{
+				value: 'https://live.staticflickr.com/3762/9460163562_964fe6af07_z.jpg',
+				label: 'Earth',
+			},
 		],
+		render: ( { item } ) => {
+			return (
+				<img
+					src={ item.mediaWithElements }
+					alt=""
+					style={ { width: '100%' } }
+				/>
+			);
+		},
 	},
 	{
 		id: 'array',
