@@ -35,28 +35,47 @@ export default meta;
 type DataType = {
 	id: number;
 	text: string;
+	textWithElements: string;
 	integer: number;
+	integerWithElements: number;
 	boolean: boolean;
+	booleanWithElements: boolean;
 	datetime: string;
+	datetimeWithElements: string;
 	date: string;
+	dateWithElements: string;
 	email: string;
+	emailWithElements: string;
 	media: string;
+	mediaWithElements: string;
 	array: string[];
+	arrayWithElements: string[];
 	notype: string;
+	notypeWithElements: string;
 };
 
 const data: DataType[] = [
 	{
 		id: 1,
 		text: 'Text',
+		textWithElements: 'Item 1',
 		integer: 1,
+		integerWithElements: 1,
 		boolean: true,
+		booleanWithElements: true,
 		datetime: '2021-01-01T14:30:00Z',
+		datetimeWithElements: '2021-01-01T14:30:00Z',
 		date: '2021-01-01',
+		dateWithElements: '2021-01-01',
 		email: 'hi@example.com',
+		emailWithElements: 'hi@example.com',
 		media: 'https://live.staticflickr.com/7398/9458193857_e1256123e3_z.jpg',
+		mediaWithElements:
+			'https://live.staticflickr.com/7398/9458193857_e1256123e3_z.jpg',
 		array: [ 'item1', 'item2', 'item3' ],
+		arrayWithElements: [ 'item1', 'item2', 'item3' ],
 		notype: 'No type',
+		notypeWithElements: 'No type',
 	},
 ];
 
@@ -68,10 +87,32 @@ const fields: Field< DataType >[] = [
 		description: 'Help for text.',
 	},
 	{
+		id: 'textWithElements',
+		type: 'text',
+		label: 'Text (with elements)',
+		description: 'Help for text with elements.',
+		elements: [
+			{ value: 'item1', label: 'Item 1' },
+			{ value: 'item2', label: 'Item 2' },
+			{ value: 'item3', label: 'Item 3' },
+		],
+	},
+	{
 		id: 'integer',
 		type: 'integer',
 		label: 'Integer',
 		description: 'Help for integer.',
+	},
+	{
+		id: 'integerWithElements',
+		type: 'integer',
+		label: 'Integer (with elements)',
+		description: 'Help for integer with elements.',
+		elements: [
+			{ value: 1, label: 'One' },
+			{ value: 2, label: 'Two' },
+			{ value: 3, label: 'Three' },
+		],
 	},
 	{
 		id: 'boolean',
@@ -80,10 +121,40 @@ const fields: Field< DataType >[] = [
 		description: 'Help for boolean.',
 	},
 	{
+		id: 'booleanWithElements',
+		type: 'boolean',
+		label: 'Boolean (with elements)',
+		description: 'Help for boolean with elements.',
+		elements: [
+			{ value: true, label: 'It is true' },
+			{ value: false, label: 'It is false' },
+		],
+	},
+	{
 		id: 'datetime',
 		type: 'datetime',
 		label: 'Datetime',
 		description: 'Help for datetime.',
+	},
+	{
+		id: 'datetimeWithElements',
+		type: 'datetime',
+		label: 'Datetime (with elements)',
+		description: 'Help for datetime with elements.',
+		elements: [
+			{
+				value: '2021-01-01T14:30:00Z',
+				label: 'January 1st, 2021. 14:30UTC',
+			},
+			{
+				value: '2021-02-01T14:30:00Z',
+				label: 'February 1st, 2021. 14:30UTC',
+			},
+			{
+				value: '2021-03-01T14:30:00Z',
+				label: 'March 1st, 2021. 14:30UTC',
+			},
+		],
 	},
 	{
 		id: 'date',
@@ -92,10 +163,32 @@ const fields: Field< DataType >[] = [
 		description: 'Help for date.',
 	},
 	{
+		id: 'dateWithElements',
+		type: 'date',
+		label: 'Date (with elements)',
+		description: 'Help for date with elements.',
+		elements: [
+			{ value: '2021-01-01', label: 'January 1st, 2021' },
+			{ value: '2021-02-01', label: 'February 1st, 2021' },
+			{ value: '2021-03-01', label: 'March 1st, 2021' },
+		],
+	},
+	{
 		id: 'email',
 		type: 'email',
 		label: 'Email',
 		description: 'Help for email.',
+	},
+	{
+		id: 'emailWithElements',
+		type: 'email',
+		label: 'Email (with elements)',
+		description: 'Help for email with elements.',
+		elements: [
+			{ value: 'john@example.com', label: 'John Doe' },
+			{ value: 'jane@example.com', label: 'Jane Doe' },
+			{ value: 'bob@example.com', label: 'Bob Smith' },
+		],
 	},
 	{
 		id: 'media',
@@ -104,15 +197,47 @@ const fields: Field< DataType >[] = [
 		description: 'Help for media.',
 	},
 	{
+		id: 'media',
+		type: 'media',
+		label: 'Media',
+		description: 'Help for media.',
+		elements: [
+			{ value: 'image.jpg', label: 'Image' },
+			{ value: 'video.mp4', label: 'Video' },
+			{ value: 'audio.mp3', label: 'Audio' },
+		],
+	},
+	{
 		id: 'array',
 		type: 'array',
 		label: 'Array',
 		description: 'Help for array.',
 	},
 	{
+		id: 'arrayWithElements',
+		type: 'array',
+		label: 'Array (with elements)',
+		description: 'Help for array with elements.',
+		elements: [
+			{ value: 'item1', label: 'Item 1' },
+			{ value: 'item2', label: 'Item 2' },
+			{ value: 'item3', label: 'Item 3' },
+		],
+	},
+	{
 		id: 'notype',
 		label: 'Without type',
 		description: 'Help for notype.',
+	},
+	{
+		id: 'notypeWithElements',
+		label: 'Without type (with elements)',
+		description: 'Help for notype with elements.',
+		elements: [
+			{ value: 'item1', label: 'Item 1' },
+			{ value: 'item2', label: 'Item 2' },
+			{ value: 'item3', label: 'Item 3' },
+		],
 	},
 ];
 
