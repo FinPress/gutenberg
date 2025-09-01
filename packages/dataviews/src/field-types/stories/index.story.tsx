@@ -226,12 +226,12 @@ const fields: Field< DataType >[] = [
 	},
 	{
 		id: 'notype',
-		label: 'Without type',
+		label: 'No type',
 		description: 'Help for notype.',
 	},
 	{
 		id: 'notypeWithElements',
-		label: 'Without type (with elements)',
+		label: 'No type (with elements)',
 		description: 'Help for notype with elements.',
 		elements: [
 			{ value: 'item1', label: 'Item 1' },
