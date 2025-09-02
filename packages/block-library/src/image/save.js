@@ -31,6 +31,7 @@ export default function save( { attributes } ) {
 		linkTarget,
 		sizeSlug,
 		title,
+		metadata: { bindings = {} } = {},
 	} = attributes;
 
 	const newRel = ! rel ? undefined : rel;
@@ -70,6 +71,14 @@ export default function save( { attributes } ) {
 		/>
 	);
 
+	const arePatternOverridesEnabled =
+		bindings?.__default?.source === 'core/pattern-overrides';
+
+	const shouldRemoveCaption =
+		! bindings.caption &&
+		RichText.isEmpty( caption ) &&
+		! arePatternOverridesEnabled;
+
 	const figure = (
 		<>
 			{ href ? (
@@ -84,13 +93,12 @@ export default function save( { attributes } ) {
 			) : (
 				image
 			) }
-			{ ! RichText.isEmpty( caption ) && (
-				<RichText.Content
-					className={ __experimentalGetElementClassName( 'caption' ) }
-					tagName="figcaption"
-					value={ caption }
-				/>
-			) }
+			<RichText.Content
+				className={ __experimentalGetElementClassName( 'caption' ) }
+				tagName="figcaption"
+				value={ caption }
+				data-wp-maybe-remove={ shouldRemoveCaption }
+			/>
 		</>
 	);
 

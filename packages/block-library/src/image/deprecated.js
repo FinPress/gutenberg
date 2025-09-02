@@ -11,6 +11,7 @@ import {
 	useBlockProps,
 	__experimentalGetElementClassName,
 	__experimentalGetBorderClassesAndStyles as getBorderClassesAndStyles,
+	__experimentalGetShadowClassesAndStyles as getShadowClassesAndStyles,
 } from '@wordpress/block-editor';
 
 /**
@@ -1166,4 +1167,211 @@ const v8 = {
 	},
 };
 
-export default [ v8, v7, v6, v5, v4, v3, v2, v1 ];
+const v9 = {
+	attributes: {
+		blob: {
+			type: 'string',
+			role: 'local',
+		},
+		url: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'img',
+			attribute: 'src',
+			role: 'content',
+		},
+		alt: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'img',
+			attribute: 'alt',
+			default: '',
+			role: 'content',
+		},
+		caption: {
+			type: 'rich-text',
+			source: 'rich-text',
+			selector: 'figcaption',
+			role: 'content',
+		},
+		lightbox: {
+			type: 'object',
+			enabled: {
+				type: 'boolean',
+			},
+		},
+		title: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'img',
+			attribute: 'title',
+			role: 'content',
+		},
+		href: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'figure > a',
+			attribute: 'href',
+			role: 'content',
+		},
+		rel: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'figure > a',
+			attribute: 'rel',
+		},
+		linkClass: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'figure > a',
+			attribute: 'class',
+		},
+		id: {
+			type: 'number',
+			role: 'content',
+		},
+		width: {
+			type: 'string',
+		},
+		height: {
+			type: 'string',
+		},
+		aspectRatio: {
+			type: 'string',
+		},
+		scale: {
+			type: 'string',
+		},
+		sizeSlug: {
+			type: 'string',
+		},
+		linkDestination: {
+			type: 'string',
+		},
+		linkTarget: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'figure > a',
+			attribute: 'target',
+		},
+	},
+	supports: {
+		interactivity: true,
+		align: [ 'left', 'center', 'right', 'wide', 'full' ],
+		anchor: true,
+		color: {
+			text: false,
+			background: false,
+		},
+		filter: {
+			duotone: true,
+		},
+		spacing: {
+			margin: true,
+		},
+		__experimentalBorder: {
+			color: true,
+			radius: true,
+			width: true,
+			__experimentalSkipSerialization: true,
+			__experimentalDefaultControls: {
+				color: true,
+				radius: true,
+				width: true,
+			},
+		},
+		shadow: {
+			__experimentalSkipSerialization: true,
+		},
+	},
+	save( { attributes } ) {
+		const {
+			url,
+			alt,
+			caption,
+			align,
+			href,
+			rel,
+			linkClass,
+			width,
+			height,
+			aspectRatio,
+			scale,
+			id,
+			linkTarget,
+			sizeSlug,
+			title,
+		} = attributes;
+
+		const newRel = ! rel ? undefined : rel;
+		const borderProps = getBorderClassesAndStyles( attributes );
+		const shadowProps = getShadowClassesAndStyles( attributes );
+
+		const classes = clsx( {
+			// All other align classes are handled by block supports.
+			// `{ align: 'none' }` is unique to transforms for the image block.
+			alignnone: 'none' === align,
+			[ `size-${ sizeSlug }` ]: sizeSlug,
+			'is-resized': width || height,
+			'has-custom-border':
+				!! borderProps.className ||
+				( borderProps.style &&
+					Object.keys( borderProps.style ).length > 0 ),
+		} );
+
+		const imageClasses = clsx( borderProps.className, {
+			[ `wp-image-${ id }` ]: !! id,
+		} );
+
+		const image = (
+			<img
+				src={ url }
+				alt={ alt }
+				className={ imageClasses || undefined }
+				style={ {
+					...borderProps.style,
+					...shadowProps.style,
+					aspectRatio,
+					objectFit: scale,
+					width,
+					height,
+				} }
+				title={ title }
+			/>
+		);
+
+		const figure = (
+			<>
+				{ href ? (
+					<a
+						className={ linkClass }
+						href={ href }
+						target={ linkTarget }
+						rel={ newRel }
+					>
+						{ image }
+					</a>
+				) : (
+					image
+				) }
+				{ ! RichText.isEmpty( caption ) && (
+					<RichText.Content
+						className={ __experimentalGetElementClassName(
+							'caption'
+						) }
+						tagName="figcaption"
+						value={ caption }
+					/>
+				) }
+			</>
+		);
+
+		return (
+			<figure { ...useBlockProps.save( { className: classes } ) }>
+				{ figure }
+			</figure>
+		);
+	},
+};
+
+export default [ v9, v8, v7, v6, v5, v4, v3, v2, v1 ];

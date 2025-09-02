@@ -159,6 +159,10 @@ test.describe( 'Registered sources', () => {
 								source: 'testing/complete-source',
 								args: { key: 'text_field' },
 							},
+							caption: {
+								source: 'testing/complete-source',
+								args: { key: 'text_field' },
+							},
 						},
 					},
 				},
@@ -185,6 +189,11 @@ test.describe( 'Registered sources', () => {
 				.getByLabel( 'Alternative text' )
 				.inputValue();
 			expect( altValue ).toBe( 'Text Field Value' );
+
+			const captionValue = editor.canvas.getByRole( 'textbox', {
+				name: 'Image caption text',
+			} );
+			await expect( captionValue ).toHaveText( 'Text Field Value' );
 
 			// Title input should have the original value.
 			const advancedButton = page
@@ -894,6 +903,10 @@ test.describe( 'Registered sources', () => {
 				name: 'Show linkClass',
 			} );
 			await expect( linkClassAttribute ).toBeHidden();
+			const captionAttribute = page.getByRole( 'menuitemcheckbox', {
+				name: 'Show caption',
+			} );
+			await expect( captionAttribute ).toBeVisible();
 		} );
 		test( 'should show all the available fields in the dropdown UI', async ( {
 			editor,
