@@ -1,0 +1,87 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Contributing/Get Ready to Contribute" />
+
+Ready to start contributing to WPDS? There are a couple of steps you’ll need to take to get set up — here's how.
+
+We understand GitHub might seem complicated if you’ve never used it before. Don’t worry — we’re happy to help you out with any questions in #design-systems on Slack.
+
+[Step 1: Get GitHub access](#step-1:-get-github-access)  
+[Step 2: Link your GitHub and WP.org accounts](#step-2:-link-your-github-and-wp.org-accounts)  
+[Step 3: Learn about the contribution process](#step-3:-learn-about-the-contribution-process)  
+[Step 4: Create your first PR](#step-4:-create-your-first-pr)
+
+#### **Step 1: Get GitHub access** {#step-1:-get-github-access}
+
+The WordPress design system lives [on GitHub in the Gutenberg repository](https://github.com/WordPress/gutenberg) — it’s where everyone collaborates on the code and documentation, and where your contributions will be started, tracked, and finished.
+
+You’ll need a GitHub account to get started. If you don’t have one yet, [please sign up here](https://github.com/join).
+
+#### **Step 2: Link your GitHub and WP.org accounts** {#step-2:-link-your-github-and-wp.org-accounts}
+
+Then, you’ll need to connect your GitHub and WordPress.org accounts to make sure your contributions are correctly attributed. It’ll take just two minutes if you follow these steps:
+
+[Connect GitHub and WP.org accounts](https://make.wordpress.org/core/handbook/tutorials/linking-your-github-and-w-org-profiles/)
+
+#### **Step 3: Learn about the contribution process** {#step-3:-learn-about-the-contribution-process}
+
+In order to make effective contributions to WPDS, it’s important to know the basics of our contribution process. While we’ll take you through a step-by-step process depending on your contribution, we’ll explain the basics below.  
+   
+Depending on the contribution you’re making to the design system, you’ll either need to create an issue, or both an issue and a pull request (PR). 
+
+**What’s an issue?**
+
+Issues are the GitHub tool where you can keep track of changes to the WordPress design system. You can find [all open issues on the Gutenberg repository](https://github.com/WordPress/gutenberg/issues).
+
+Smaller changes, like fixing a typo, don’t require you to create a PR yourself, and the implementation can be handled by the community. In this case, you can just create a new issue and add a clear description of the work you’re doing.
+
+Make sure to add the [Design System ](https://github.com/WordPress/gutenberg/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Design%20System%22)label when creating an issue, and consider adding one of the following labels when needed:
+
+[Needs Design](https://github.com/WordPress/gutenberg/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Needs%20Design%22) — Needs design efforts  
+Needs Copy Review — Needs review of user-facing copy (language, phrasing)  
+[Needs Dev ](https://github.com/WordPress/gutenberg/issues?q=is%3Aissue%20state%3Aopen%20%22Needs%20Dev%22%20)— Ready for, and needs developer efforts  
+[Needs Accessibility Feedback](https://github.com/WordPress/gutenberg/labels/Needs%20Accessibility%20Feedback) — Needs input from accessibility
+
+Reviewers will chime in to discuss if your change is worth adding to the design system. When it’s accepted, someone will gladly help you with pushing the change.
+
+**What’s a pull request?**
+
+Pull requests are how you propose changes to the design system on GitHub. You can find [all open PRs on the Gutenberg repository](https://github.com/WordPress/gutenberg/pulls).
+
+If you’re making a bigger change to the design system, you’re expected to make the change to the design system yourself. Think of documenting a new pattern, adding a component, or overhauling an existing component.
+
+First, you create an issue to track all work related to your change, with a clear description and the right tags. Reviewers will chime in to decide if your change is worth pursuing, and once it’s been greenlit, you can start working on it.
+
+When you’re ready to share what you’ve been working on, you can add a PR to your issue to show your proposed changes.
+
+#### **Step 4: Create your first PR** {#step-4:-create-your-first-pr}
+
+Creating a PR takes a couple of steps that involve copying the Gutenberg repository to your device.
+
+You can find a step-by-step explanation [on this page](https://developer.wordpress.org/block-editor/contributors/code/git-workflow/#git-workflow-walkthrough). If you’re running into any issues, let us know in #design-systems on Slack.
+
+The full process is as follows:
+
+**Fork the Gutenberg repository**  
+Create your own online copy of the Gutenberg project by “forking” it. This makes sure you can safely experiment without affecting the main codebase.
+
+**Clone the forked repository**  
+Download your forked copy onto your computer. This allows you to work on the code locally.
+
+**Create a new branch**  
+Start a separate branch for your changes to keep your work organized and updates manageable.
+
+**Make code changes**  
+Implement your improvements or fixes directly in the code files.
+
+**Confirm tests pass**  
+Run the project’s automated tests to ensure your changes don’t break existing functionality.
+
+**Commit the code changes within the newly created branch**  
+Save your changes locally by creating a commit that describes what you’ve done.
+
+**Push the branch to the forked repository**  
+Upload your committed changes back to your fork on GitHub, getting them ready for review.
+
+**Submit a pull request to the Gutenberg repository**  
+Request that your changes be merged into the official project, so maintainers can review and approve your work.

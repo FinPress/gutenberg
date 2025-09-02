@@ -128,6 +128,13 @@ export const parameters = {
 		storySort: {
 			order: [
 				'Docs',
+				'Contributing', 
+        [
+	        'Overview',
+	        'Get Ready to Contribute',
+	        'Documentation',
+	        'Components'
+        ],
 				'Playground',
 				'BlockEditor',
 				'Components',

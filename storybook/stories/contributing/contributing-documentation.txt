@@ -1,0 +1,77 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Contributing/Documentation">
+
+This website is composed of articles with guidance on how we create products, which we call documentation.
+
+Our components and patterns need detailed documentation for usage, style, code, and accessibility — that way everyone can easily use them to do great work.
+
+We’d love for you to help us improve our documentation. It’s easy to get started.
+
+*Is this your first contribution? You’ll first need to follow <Link story="Contributing/Get Ready to Contribute">a couple of steps to get started</Link>.*
+
+### **Small copy changes**
+
+If you see a spelling, punctuation, or grammatical error anywhere in the documentation, you can help fix it. 
+
+You can suggest one or multiple small copy changes in a GitHub issue, which will then be approved and added by the community.
+
+[Click here to open a new issue](https://github.com/WordPress/gutenberg/issues/new?labels=Design+System&body=Then%2C+write+a+detailed+description%3A%0D%0A%0D%0A-+Explain+your+rationale+for+adding+this+component%0D%0A-+Detail+the+intended+behavior%0D%0A-+Clarify+if+it%E2%80%99s+a+new+component+of+a+variation+of+an+existing+one%0D%0A-+Include+a+basic+mockup+%28optional%29%0D%0A-+Include+inspiration+from+other+products+%28optional%29). Then, write a detailed description that explains the change(s) you’re making to the writing.
+
+After opening your issue, reviewers will start a discussion in the comments to see if it's an appropriate change. When it’s approved, the community will take care of making the change — unless you want to create a PR yourself.
+
+### **Adding new pages**
+
+If you’re adding a new component or pattern to the design system, or are adding other kinds of information, you’ll need to create a new page.
+
+Creating a new page takes more work and will need feedback from the community. That’s why you’ll need to open an issue on GitHub to track the progress of your new page.
+
+#### **Step 1: Open a GitHub issue**
+
+If you want to create a new page, you’ll need to open a GitHub issue on Project Gutenberg. This is where the discussion of the proposed changes and progress tracking will happen.
+
+It’s encouraged to open an issue even if you can’t complete every part yourself, as someone in the community might be able to pick up where you left off.
+
+[Click here to open a new issue](https://github.com/WordPress/gutenberg/issues/new?labels=Design+System&body=Then%2C+write+a+detailed+description%3A%0D%0A%0D%0A-+Explain+your+rationale+for+adding+this+component%0D%0A-+Detail+the+intended+behavior%0D%0A-+Clarify+if+it%E2%80%99s+a+new+component+of+a+variation+of+an+existing+one%0D%0A-+Include+a+basic+mockup+%28optional%29%0D%0A-+Include+inspiration+from+other+products+%28optional%29).
+
+Then, write a detailed description:
+
+* Explain your rationale for adding this page  
+* Describe why this content hasn’t been covered yet in the design system
+
+After opening your issue, reviewers will start a discussion in the comments to see if it's an appropriate addition, or if there's overlap with an existing page. They will also discuss what would be the best place for your place to live in the design system.
+
+#### **Step 2: Write, share, refine**
+
+Once the community approves your idea, it’s time to start writing. We recommend doing this in [Google Docs](http://docs.google.com), as it’s easy to leave suggestions or comments on your writing.
+
+Make sure to [use Markdown in your writing](https://www.markdownguide.org/cheat-sheet/) so it can easily be moved to the documentation website when it’s done. To enable Markdown in Google Docs, click Tools \> Preferences \> Enable Markdown.
+
+It’s important that your writing aligns with the [Copy Guidelines](https://developer.wordpress.org/block-editor/contributors/documentation/copy-guide/). You’ll find guidance on lots of topics related to how we write at WordPress — here are some that might be of particular interest:
+
+[Style, voice, and tone](https://make.wordpress.org/docs/style-guide/general-guidelines/style-voice-tone/)  
+[Language and grammar](https://make.wordpress.org/docs/style-guide/language-grammar/)  
+[Accessibility](https://make.wordpress.org/docs/style-guide/general-guidelines/accessibility/)  
+[Punctuation](https://make.wordpress.org/docs/style-guide/punctuation/)
+
+You can share your progress in an issue as early as a basic outline. 
+
+It’s helpful to share your draft early — that way you can collect feedback and catch errors at an earlier stage, which will increase the quality of your contribution. 
+
+Once you’ve received feedback, refine your writing, then keep sharing and refining. When you and the reviewers are happy with it, you can add it to the website with a pull request.
+
+**Step 3: Create a pull request**
+
+Follow the following steps to fork and clone the Gutenberg repository, and create a pull request. 
+
+[Create a pull request](https://developer.wordpress.org/block-editor/contributors/code/git-workflow/#git-workflow-walkthrough)
+
+When your PR is live, you can link it to your issue by selecting it in the sidebar under ‘development’. This makes it easy to keep track of both simultaneously.
+
+If you need help with this part, feel free to reach out to us in #design-systems on Slack, where we’ll be happy to help you get your PR live.
+
+**Step 4: Work towards merging your pull request**
+
+Collaborate with the community to integrate feedback you’ve received from reviewers, fix any issues that have been brought to your attention, and refine the writing for your page.
+
+Once your page is done, and you’ve got the green light from the reviewers of your issue, you’ll be able to merge your pull request to add your page to the design system.

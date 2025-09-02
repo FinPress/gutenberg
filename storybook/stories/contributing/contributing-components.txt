@@ -1,0 +1,345 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Contributing/Components" />
+
+# Contribute to components
+
+At WordPress, component contributions are major changes and [need to be backward compatible](https://developer.wordpress.org/block-editor/contributors/code/backward-compatibility/). They require at least one formal review from a designer.
+
+*Is this your first contribution? You’ll first need to follow <Link story="Contributing/Get Ready to Contribute">a couple of steps to get started</Link>.*
+
+## Quick Links
+- [Creating a New Component](#creating-a-new-component)
+- [Extending Existing Components](#extending-existing-components)
+- [Code Standards and Best Practices](#code-standards-and-best-practices)
+- [Testing and Storybook](#testing-and-storybook)
+- [Documentation Guidelines](#documentation-guidelines)
+
+### Creating a New Component
+
+There are 5 steps to add a new component to WPDS.
+
+Step 1: [Do we need this component?](#step-1)
+Step 2: [Open a GitHub issue](#step-2) 
+Step 3: [Implement your change](#step-3) 
+Step 4: [Refinement](#step-4) 
+Step 5: [Publish and Maintain](#step-5) 
+
+#### Step 1: Do we need this component? {#step-1}
+
+It’s important to ask yourself this question before starting your contribution. Our library should include components that are generic and flexible enough to work across various products. It should include what’s shared across products and leave out what’s not.
+
+A great first step is to share your idea with our community to see if there’s a need for your component. You can leave a comment in the [Design Systems Figma Library](https://www.figma.com/design/ficiK5ADsOuiCromUZam1E/WordPress-Design-System-(Community)?node-id=13482-72792&t=ofEJnkdwKdS5mhGX-1), or drop a question in #design-systems on Slack, where people will be happy to help.
+
+Some more questions you can ask yourself if you’re thinking of creating a new component:
+
+- Could it be used by other products or plugins?  
+- Does it overlap functionally or visually with any existing components? Can we use existing components to implement an alternative solution?  
+- How much effort will be required to create and maintain it?  
+- Is there a clear purpose for it?  
+- Can we introduce this change without causing breaking changes? Will we be able to keep this change and iterate on it in the future without causing future breaking changes?
+
+This flowchart can help determine if a new component is necessary:
+
+ADD IMAGE
+
+#### Step 2: Open a GitHub issue {#step-2}
+
+If you’ve decided you want to create a new component, you’ll need to open a GitHub issue on Project Gutenberg. This is where we’ll be able to discuss the proposed changes and track progress.
+
+[Click here to open a new issue](https://github.com/WordPress/gutenberg/issues/new?labels=Design+System&body=Then%2C+write+a+detailed+description%3A%0D%0A%0D%0A-+Explain+your+rationale+for+adding+this+component%0D%0A-+Detail+the+intended+behavior%0D%0A-+Clarify+if+it%E2%80%99s+a+new+component+or+a+variation+of+an+existing+one%0D%0A-+Include+a+basic+mockup+%28optional%29%0D%0A-+Include+inspiration+from+other+products+%28optional%29).
+
+Then, write a detailed description:
+
+- Explain your rationale for adding this component  
+- Detail the intended behavior  
+- Clarify if it’s a new component or a variation of an existing one  
+- Include a basic mockup (optional)  
+- Include inspiration from other products (optional)  
+- Tag the [@WordPress/gutenberg-components](https://github.com/orgs/WordPress/teams/gutenberg-components) and [@WordPress/gutenberg-design](https://github.com/orgs/WordPress/teams/gutenberg-design) GitHub groups
+
+Add the “Design System” label to correctly categorize your work. Also, consider adding other labels depending on your needs, like Needs Design, Needs Copy Review, Needs Dev, or Needs Accessibility Feedback.
+
+After opening your issue, reviewers will start a discussion in the comments to see if it's an appropriate addition, or if there's overlap with an existing component.
+
+It’s encouraged to open an issue even if you can’t complete every part yourself, as someone in the community might be able to pick up where you left off.
+
+#### Step 3: Implement your change {#step-3}
+
+Once the community has discussed and approved your change, it’s time to implement it.
+
+Remember, it’s unlikely that everything will be done by one person. Contribute where you can, and others will help.
+
+**Write a detailed rationale**  
+Explain how your component will add value to WPDS and the greater product ecosystem. Make sure to describe how it works and how someone can interact with it.
+
+**Draft documentation**  
+New components need development, design, and accessibility guidelines. If your change adds additional behavior or expands a component’s features, those changes will need to be documented as well.
+
+Read through existing component documentation for inspiration. Start with a rough draft, and the community will help polish documentation.
+
+**Provide working code**  
+The component or enhancement must be built in React. For more information, see our [developer contribution guidelines](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/code/README.md) and, specifically for the @wordpress/components package, [the package’s contributing guidelines](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/CONTRIBUTING.md).
+
+**Create a design spec**  
+You’ll need to share sizing and styling annotations for all aspects of the component, so a developer has everything they need to create the design in code. Figma’s [Dev Mode](https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode) can do this automatically for you.
+
+#### Step 4: Refinement {#step-4}
+
+You’re almost ready to publish your component, but you’ll still need to spend some time finetuning it. You can do the following:
+
+- First, clearly define and agree on which features will be included in the component.  
+- Then, reduce the scope by removing features that lack consensus.  
+- When that’s done, you’ll have to do quality assurance to ensure that your contribution adheres to the system standards.
+
+**Quality assurance**  
+Every component should be tested for quality during its development, rather than after it’s published.
+
+Make sure to test the following aspects of your component:
+
+- Accessibility  
+- Correct semantics  
+- Key user interactions
+
+**Accessibility**  
+Has your design and implementation accounted for the standards set by the [WordPress accessibility guidelines](https://make.wordpress.org/accessibility/handbook/which-questions-should-you-ask/)?
+
+#### Accessibility Standards
+
+Use the [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/) as your benchmark and ensure components meet ARIA standards, work with screen readers, and are keyboard-navigable.
+
+Important: Add the “Needs Accessibility Feedback” label to your GitHub issue early to get a review from the Accessibility team, as it can help you design inclusively from the start.
+
+**Visual quality**  
+Does it apply visual styles correctly? Color, typography, icons, space, borders need to use appropriate variables and follow the [WordPress Style Guide](https://make.wordpress.org/docs/style-guide/). If you can’t find the guidance you’re looking for, note that in your issue.
+
+Important: Add the “Needs Design Feedback” label to your issue to get a review from the Design team.
+
+**Documentation**  
+Does it have proper documentation for development, design, and accessibility?
+
+**States and variations**  
+Does it cover all necessary variations (primary, secondary, dense, etc) and states (default, hover, active, disabled, loading, etc.), within your intended scope?
+
+**Functionality**  
+Does it function as expected?
+
+**Mobile**  
+Is it designed mobile-first, does it responsively adapt to different screen sizes, and do all touch interactions work as expected?
+
+**Content resilience**  
+Is each dynamic word or image element resilient to too much, too little, and no content at all? How long can labels be, and what happens when you run out of space?
+
+**Composability**  
+Does it fit well when placed next to or layered with other components to form a larger composition?
+
+It’s recommended to break down your component into modular subcomponents that can be composed together as needed. On the other hand, monolithic components are less flexible and harder to customize.
+
+**Browser support**  
+Has its visual quality and accuracy been checked across Safari, Chrome, Firefox, Internet Explorer, and [other browsers we support](https://github.com/WordPress/gutenberg/blob/HEAD/packages/browserslist-config/index.js)?
+
+#### Step 5: Publish and Maintain {#step-5}
+
+Once your component has been fully refined, tested, and approved, it’s time to finalize its integration and ensure the broader community can benefit from it.
+
+**Merge and Release**  
+After all feedback is addressed and approvals are in place, merge your pull request. Your component is now part of the WordPress Design System.
+
+**Communicate Changes**  
+If you’ve introduced significant features, fixed critical issues, or made changes that might affect other contributors, consider posting in #design-systems on Slack or writing a dev note. This keeps the community informed and helps maintain ecosystem stability.
+
+**Ongoing Maintenance**  
+Components aren’t “set and forget.” Over time, standards, accessibility requirements, and design patterns may evolve. Stay open to feedback and consider revisiting your component periodically to ensure it still meets current needs without introducing breaking changes.
+
+**Backward Compatibility and Deprecation**  
+If your component needs updates in the future, plan changes carefully. Introduce new features in a backward-compatible way, and if you must remove or alter existing APIs, follow our guidelines for soft-deprecation and communicate timelines clearly.
+
+By completing these steps, you ensure your component remains robust, useful, and aligned with the WordPress Design System’s mission to deliver accessible, consistent, and forward-looking UI solutions.
+
+## Extending Existing Components
+
+### Compatibility
+
+The `@wordpress/components` package includes components that are relied upon by many developers across different projects. It is, therefore, very important to avoid introducing breaking changes.
+
+In these situations, one possible approach is to "soft-deprecate" a given legacy API. This is achieved by:
+
+1. Removing traces of the API from the docs, while still supporting it in code.  
+2. Updating all places in Gutenberg that use that API.  
+3. Adding deprecation warnings (only after the previous point is completed).
+
+When adding new components or new props to existing components, consider creating a private or experimental version until the changes are stable enough to expose publicly.
+
+Learn more:  
+- [How to preserve backward compatibility for a React Component](https://developer.wordpress.org/block-editor/contributors/code/backward-compatibility/#how-to-preserve-backward-compatibility-for-a-react-component)  
+- [Experimental and Unstable APIs](https://developer.wordpress.org/block-editor/contributors/code/coding-guidelines/#legacy-experimental-apis-plugin-only-apis-and-private-apis)
+
+## Code Standards and Best Practices
+
+### Compound Components
+
+When creating components that render a list of subcomponents, prefer the compound components pattern over passing arrays of items. 
+
+Compound Components: Do's and Don'ts
+
+Do:
+```jsx
+<List>
+  <List.Item value="Item 1" />
+  <List.Item value="Item 2" />
+</List>
+```
+
+Don’t:
+```jsx
+<List
+  items={[ { value: 'Item 1' }, { value: 'Item 2' } ]}
+/>
+```
+
+When creating components that render a list of subcomponents, always prefer the **compound components** pattern over passing arrays of items. This pattern ensures better flexibility and readability while keeping the API consistent.
+
+Do:
+- Use React Context to manage state for subcomponents.
+- Ensure subcomponents are composable and reusable.
+
+Don’t:
+- Use `React.Children.map` or `React.cloneElement` to pass props to children. This can lead to complex and error-prone code.
+
+### Performance Considerations
+
+- Optimize component rendering by memoizing expensive calculations or avoiding unnecessary re-renders.
+- Use React's `useMemo` or `React.memo` for performance-critical subcomponents.
+- Test components for responsiveness under varying content loads and browser environments.
+
+### Components & Hooks
+
+Extract the logic into a custom hook (`hook.ts`) and use it inside your component (`component.tsx`). This approach enables reusability and simpler composition of complex functionality.
+
+### Naming Conventions
+
+- Boolean props should be prefixed with `is*` or `has*` (e.g., `isChecked`, `hasBorder`).  
+- Event callback props should be prefixed with `on*` (e.g., `onChange`).  
+- Use `Component.SubComponent` naming for compound components.  
+- Set `displayName` for subcomponents to improve dev tooling support.
+
+### TypeScript
+
+We strongly encourage using TypeScript for all new components. Document your props using JSDoc comments and `@default` values. Avoid `any` and prefer explicit types or `unknown`. When forwarding props, consider `WordPressComponentProps`.
+
+```ts
+type NumberControlProps = Omit<
+	InputControlProps,
+	'isDragEnabled' | 'min' | 'max'
+> & {
+	/* Additional props specific to NumberControl */
+};
+```
+
+### Styling (with Emotion) and Deprecating Styles
+
+All new components should be styled using Emotion. Use the `useCx` hook instead of `cx`. When changing styles of a stable component, consider using a feature flag (`__next*` prop) and `deprecated()` warnings. After the grace period, remove the deprecated styles.
+
+#### Deprecating Styles or APIs
+
+When changing styles or APIs, avoid introducing breaking changes. Use feature flags to allow opt-in for new behavior while preserving the old.
+
+**Example**:
+
+```jsx
+// Deprecation in styles
+function MyComponent({ __nextHasNewStyle = false }) {
+  if (!__nextHasNewStyle) {
+    deprecated(
+      'Old styles for MyComponent',
+      {
+        since: '1.0',
+        version: '2.0',
+        hint: 'Set `__nextHasNewStyle` to true to opt into the new behavior.',
+      }
+    );
+  }
+
+  return <div className={__nextHasNewStyle ? 'new-style' : 'old-style'} />;
+}
+```
+
+* Use clear warnings to inform developers of upcoming changes.
+* Define a clear timeline for transitioning to new styles or APIs.
+* Update documentation and examples to encourage adoption of the new standard.
+
+### Context System
+
+Use the `ContextSystemProvider` to provide values to components and `useContextSystem` to read them. Connect components to the context system with `contextConnect` so that props can be adapted automatically depending on the rendering context.
+
+### Folder Structure
+
+A recommended folder structure for a component:
+
+component-name/ ├── stories │ └── index.js ├── test │ └── index.js ├── component.tsx ├── context.ts ├── hook.ts ├── index.ts ├── README.md ├── styles.ts └── types.ts\
+
+For component families, each subcomponent gets its own folder, with shared code at the root.
+
+### Component Versioning
+
+If you need to introduce a radically new version of a component:
+- Attempt to keep the same API surface and update the internal implementation.
+- If not possible, create a new component (e.g., `ComponentV2`) and maintain backward compatibility, deprecating the old component over time.
+
+#### Versioning Approaches
+
+- **Swap the Implementation**: Keep the API surface consistent while updating the internal implementation. Ideal for non-breaking changes.
+- **Create a New Version**: Use this when breaking changes are unavoidable. For example, name the new component `ComponentV2` and maintain backward compatibility for the old version.
+
+**Example**:
+
+```jsx
+// LegacyComponent.js
+function LegacyComponent(props) {
+  const newProps = mapLegacyProps(props);
+  return <NewComponent {...newProps} />;
+}
+
+// NewComponent.js
+function NewComponent(props) {
+  return <div>{props.children}</div>;
+}
+```
+
+* Use clear naming conventions (ComponentV2) for clarity.
+
+## Testing and Storybook
+
+### Unit Tests
+
+Follow the [JavaScript Testing Overview docs](https://developer.wordpress.org/block-editor/contributors/code/testing-overview/). Write tests for functionality and accessibility. Use snapshot tests sparingly. Ensure all tests pass before merging changes.
+
+### Storybook
+
+Use Storybook to visualize and test your component’s states and variations in isolation. Provide multiple stories and use Storybook Controls to interactively modify props. Start Storybook locally with `npm run storybook:dev` or view the latest components at [https://wordpress.github.io/gutenberg/](https://wordpress.github.io/gutenberg/).
+
+#### Storybook Controls
+
+Use Storybook Controls to make component props interactively adjustable in the Storybook interface.
+
+**Example**:
+
+```jsx
+export const Default = (args) => <Button {...args} />;
+Default.args = {
+  text: 'Click me',
+  isPrimary: true,
+};
+```
+
+## Documentation Guidelines
+
+Each component should have a `README.md` that includes:
+
+- A description and rationale
+- Usage examples
+- Prop documentation (with defaults and required flags)
+- Accessibility and responsive behavior guidance
+- Any known limitations
+
+Add JSDoc comments to your component code to align with the README. Avoid `@example` in JSDoc, as it may not be recognized by Storybook docgen. Keep documentation updated as your component evolves.

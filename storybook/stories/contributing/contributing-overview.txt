@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Contributing/Overview" />
+
+A design system is never finished. That’s why all designers, developers, and writers from across the world are invited to help improve the WordPress Design System. This documentation is designed to help you get started quickly and with confidence. 
+
+### **Get connected**
+
+In order to stay up to date on all things design systems at WordPress, join the #design-systems channel on Slack.
+It’s a great place to ask what could be your first contribution, and we’ll be happy to help you make it happen.
+
+Also feel free to ask questions, join discussions, or just read along.
+
+For anything specific to the code implementation of UI components (and the @wordpress/components package), join the #components channel.
+
+### **Get ready to contribute**
+
+There are a couple of steps before you can start contributing to the design system. You’ll need access to GitHub, for example, where all contributions to our design system are started, followed, and finished.
+
+<Link story="Contributing/Get Ready to Contribute">Follow our guide to get ready to contribute</Link>
+
+**How can you contribute?**
+
+You're encouraged to make all kinds of contributions, no matter how big or small. Below you’ll find some ideas.
+
+**Documentation**
+
+Creating a new page, adding an illustration, expanding existing content, or just fixing a typo.
+
+<Link story="Contributing/Documentation">Get Started</Link>
+
+**Components**
+
+Proposing a new component, updating an existing one, or adding new variants.
+
+<Link story="Contributing/Components">Get Started</Link>
+
+**Icons**
+
+Adding a new icon, updating an existing one, or adding new variants.
+
+Coming soon
+
+**Patterns**
+
+Proposing a new pattern for a specific use case or improving existing ones.
+
+Coming soon
