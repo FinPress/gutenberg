@@ -34,6 +34,19 @@
 		padding-left: $grid-unit-15;
 		padding-right: $grid-unit-15;
 	}
+
+	// Use opacity to work in various editor styles.
+	&::-webkit-input-placeholder {
+		color: $dark-gray-placeholder;
+	}
+
+	&::-moz-placeholder {
+		color: $dark-gray-placeholder;
+	}
+
+	&:-ms-input-placeholder {
+		color: $dark-gray-placeholder;
+	}
 }
 
 .components-text-control__input[type="email"],
