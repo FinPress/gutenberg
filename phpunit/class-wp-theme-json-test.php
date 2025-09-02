@@ -6138,6 +6138,55 @@ class WP_Theme_JSON_Gutenberg_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test that block pseudo selectors are processed correctly within variations.
+	 */
+	public function test_block_variation_pseudo_selectors_are_processed() {
+		$theme_json = new WP_Theme_JSON_Gutenberg(
+			array(
+				'version' => WP_Theme_JSON_Gutenberg::LATEST_SCHEMA,
+				'styles'  => array(
+					'blocks' => array(
+						'core/button' => array(
+							'color'  => array(
+								'text'       => 'white',
+								'background' => 'blue',
+							),
+							'variations' => array(
+								'outline' => array(
+									'color' => array(
+										'text'       => 'currentColor',
+										'background' => 'transparent',
+									),
+									'border' => array(
+										'color' => 'currentColor',
+										'width' => '1px',
+										'style' => 'solid',
+									),
+									':hover' => array(
+										'color' => array(
+											'text'       => 'white',
+											'background' => 'red',
+										),
+									),
+									':focus' => array(
+										'color' => array(
+											'text'       => 'black',
+											'background' => 'yellow',
+										),
+									),
+								),
+							),
+						),
+					),
+				),
+			)
+		);
+
+		$expected = ':root :where(.wp-block-button .wp-block-button__link){background-color: blue;color: white;}:root :where(.wp-block-button.is-style-outline .wp-block-button__link){background-color: transparent;border-color: currentColor;border-width: 1px;border-style: solid;color: currentColor;}:root :where(.wp-block-button.is-style-outline .wp-block-button__link:hover){background-color: red;color: white;}:root :where(.wp-block-button.is-style-outline .wp-block-button__link:focus){background-color: yellow;color: black;}';
+		$this->assertSameCSS( $expected, $theme_json->get_stylesheet( array( 'styles' ), null, array( 'skip_root_layout_styles' => true ) ) );
+	}
+
+	/**
 	 * Test that non-whitelisted pseudo selectors are ignored for blocks.
 	 */
 	public function test_block_pseudo_selectors_ignores_non_whitelisted() {
