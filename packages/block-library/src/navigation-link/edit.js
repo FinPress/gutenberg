@@ -200,7 +200,9 @@ function Controls( { attributes, setAttributes, setIsEditingControl } ) {
 	const [ localUrl, setLocalUrl ] = useState( '' );
 
 	// Use URL prop as the display value, local state only for current input
-	const displayUrl = localUrl || url || '';
+	// For initial suggestions to work properly, we need to distinguish between
+	// "no URL set" (undefined) and "empty URL input" (empty string)
+	const displayUrl = localUrl || url || undefined;
 	return (
 		<ToolsPanel
 			label={ __( 'Settings' ) }
