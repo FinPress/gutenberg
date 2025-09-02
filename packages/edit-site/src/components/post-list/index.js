@@ -13,7 +13,7 @@ import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';
 import { drawerRight } from '@wordpress/icons';
-import { useEvent, usePrevious } from '@wordpress/compose';
+import { useEvent } from '@wordpress/compose';
 import { addQueryArgs } from '@wordpress/url';
 
 /**
@@ -286,21 +286,6 @@ export default function PostList( { postType } ) {
 
 		return records;
 	}, [ records, fields, isLoadingFields, view?.sort ] );
-
-	const ids = data?.map( ( record ) => getItemId( record ) ) ?? [];
-	const prevIds = usePrevious( ids ) ?? [];
-	const deletedIds = prevIds.filter( ( id ) => ! ids.includes( id ) );
-	const postIdWasDeleted = deletedIds.includes( postId );
-
-	useEffect( () => {
-		if ( postIdWasDeleted ) {
-			history.navigate(
-				addQueryArgs( location.path, {
-					postId: undefined,
-				} )
-			);
-		}
-	}, [ history, postIdWasDeleted, location.path ] );
 
 	const paginationInfo = useMemo(
 		() => ( {
