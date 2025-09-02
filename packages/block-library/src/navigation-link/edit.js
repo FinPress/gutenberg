@@ -344,6 +344,9 @@ export default function NavigationLinkEdit( {
 	// See: https://github.com/WordPress/gutenberg/pull/61374.
 	const [ isEditingControl, setIsEditingControl ] = useState( false );
 
+	const blockEditingMode = useBlockEditingMode();
+	const isContentOnlyMode = blockEditingMode === 'contentOnly';
+
 	const {
 		isAtMaxNesting,
 		isTopLevelLink,
@@ -562,7 +565,7 @@ export default function NavigationLinkEdit( {
 							setOpenedBy( event.currentTarget );
 						} }
 					/>
-					{ ! isAtMaxNesting && (
+					{ ! isAtMaxNesting && ! isContentOnlyMode && (
 						<ToolbarButton
 							name="submenu"
 							icon={ addSubmenu }
