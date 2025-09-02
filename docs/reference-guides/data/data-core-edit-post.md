@@ -10,6 +10,15 @@ Namespace: `core/edit-post`.
 
 Returns true if meta boxes are initialized.
 
+_Usage_
+
+```js
+import { select } from '@wordpress/data';
+
+const initialized = select( 'core/edit-post' ).areMetaBoxesInitialized();
+console.log( initialized ); // true or false
+```
+
 _Parameters_
 
 -   _state_ `Object`: Global application state.
@@ -27,6 +36,28 @@ Examples:
 -   `edit-post/document`
 -   `my-plugin/insert-image-sidebar`
 
+_Usage_
+
+```js
+import { useSelect } from '@wordpress/data';
+import { store as editPostStore } from '@wordpress/edit-post';
+
+const ActiveSidebar = () => {
+	const sidebar = useSelect(
+		( select ) => select( editPostStore ).getActiveGeneralSidebarName(),
+		[]
+	);
+
+	return (
+		<p>
+			{ sidebar
+				? `Active sidebar: ${ sidebar }`
+				: 'No general sidebar is active.' }
+		</p>
+	);
+};
+```
+
 _Parameters_
 
 -   _state_ `Object`: Global application state.
@@ -38,6 +69,20 @@ _Returns_
 ### getActiveMetaBoxLocations
 
 Returns an array of active meta box locations.
+
+_Usage_
+
+```js
+import { select } from '@wordpress/data';
+
+const locations = select( 'core/edit-post' ).getActiveMetaBoxLocations();
+console.log( locations ); // e.g. [ 'side', 'normal' ]
+
+// Example usage: check if the "side" location has any meta boxes
+if ( locations.includes( 'side' ) ) {
+	console.log( 'There are meta boxes in the sidebar.' );
+}
+```
 
 _Parameters_
 
@@ -51,6 +96,26 @@ _Returns_
 
 Returns the list of all the available meta boxes.
 
+_Usage_
+
+```js
+import { select } from '@wordpress/data';
+
+const metaBoxes = select( 'core/edit-post' ).getAllMetaBoxes();
+console.log( metaBoxes );
+
+// Example shape of the result:
+// {
+//   side: [
+//     { id: 'submitdiv', title: 'Publish' },
+//     { id: 'tagsdiv-post_tag', title: 'Tags' }
+//   ],
+//   normal: [
+//     { id: 'postexcerpt', title: 'Excerpt' }
+//   ]
+// }
+```
+
 _Parameters_
 
 -   _state_ `Object`: Global application state.
@@ -63,6 +128,22 @@ _Returns_
 
 Retrieves the template of the currently edited post.
 
+_Usage_
+
+```js
+import { select } from '@wordpress/data';
+
+const template = select( 'core/edit-post' ).getEditedPostTemplate();
+console.log( template );
+// Example output:
+// {
+//   slug: "my-custom-template",
+//   theme: "my-theme",
+//   source: "theme",
+//   ...etc
+// }
+```
+
 _Returns_
 
 -   `?Object`: Post Template.
@@ -70,6 +151,28 @@ _Returns_
 ### getEditorMode
 
 Returns the current editing mode.
+
+_Usage_
+
+```js
+import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
+import { store as editPostStore } from '@wordpress/edit-post';
+
+const EditorModeNotice = () => {
+	const editorMode = useSelect(
+		( select ) => select( editPostStore ).getEditorMode(),
+		[]
+	);
+
+	return (
+		<p>
+			{ __( 'The current editor mode is: ' ) }
+			<strong>{ editorMode }</strong>
+		</p>
+	);
+};
+```
 
 _Parameters_
 
@@ -83,6 +186,21 @@ _Returns_
 
 Returns an array of blocks that are hidden.
 
+_Usage_
+
+```js
+import { select } from '@wordpress/data';
+
+// Get all hidden block types in the editor.
+const hiddenBlocks = select( 'core/edit-post' ).getHiddenBlockTypes();
+console.log( hiddenBlocks );
+// Example output:
+// [ "core/verse", "core/quote" ]
+
+// You can also check if a particular block type is hidden:
+console.log( hiddenBlocks.includes( 'core/verse' ) ); // true or false
+```
+
 _Returns_
 
 -   `Array`: A list of the hidden block types
@@ -90,6 +208,21 @@ _Returns_
 ### getMetaBoxesPerLocation
 
 Returns the list of all the available meta boxes for a given location.
+
+_Usage_
+
+```js
+import { select } from '@wordpress/data';
+
+const sideMetaBoxes =
+	select( 'core/edit-post' ).getMetaBoxesPerLocation( 'side' );
+console.log( sideMetaBoxes );
+
+// Example: iterate over meta boxes
+sideMetaBoxes.forEach( ( box ) => {
+	console.log( box.id, box.title );
+} );
+```
 
 _Parameters_
 
@@ -101,6 +234,8 @@ _Returns_
 -   `?Array`: List of meta boxes.
 
 ### getPreference
+
+> **Deprecated**
 
 _Parameters_
 
@@ -116,6 +251,23 @@ _Returns_
 
 Returns the preferences (these preferences are persisted locally).
 
+_Usage_
+
+```js
+import { select } from '@wordpress/data';
+
+// Get all preferences for the editor.
+const prefs = select( 'core/edit-post' ).getPreferences();
+console.log( prefs );
+// Example output:
+// {
+//   panels: { 'categories-panel': { opened: true }, ... },
+//   editorMode: 'visual',
+//   hiddenBlockTypes: [ 'core/verse' ],
+//   ...
+// }
+```
+
 _Parameters_
 
 -   _state_ `Object`: Global application state.
@@ -127,6 +279,27 @@ _Returns_
 ### hasMetaBoxes
 
 Returns true if the post is using Meta Boxes
+
+_Usage_
+
+```js
+import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
+import { store as editPostStore } from '@wordpress/edit-post';
+
+const ExampleComponent = () => {
+	const hasMetaBoxes = useSelect(
+		( select ) => select( editPostStore ).hasMetaBoxes(),
+		[]
+	);
+
+	return hasMetaBoxes ? (
+		<p>{ __( 'This post type uses meta boxes.' ) }</p>
+	) : (
+		<p>{ __( 'No meta boxes registered for this post type.' ) }</p>
+	);
+};
+```
 
 _Parameters_
 
@@ -191,6 +364,22 @@ _Returns_
 
 Returns true if the editor sidebar is opened.
 
+_Usage_
+
+```js
+import { useSelect } from '@wordpress/data';
+import { store as editPostStore } from '@wordpress/edit-post';
+
+const SidebarStatus = () => {
+	const isOpen = useSelect(
+		( select ) => select( editPostStore ).isEditorSidebarOpened(),
+		[]
+	);
+
+	return <p>Sidebar is { isOpen ? 'open' : 'closed' }.</p>;
+};
+```
+
 _Parameters_
 
 -   _state_ `Object`: Global application state
@@ -202,6 +391,23 @@ _Returns_
 ### isFeatureActive
 
 Returns whether the given feature is enabled or not.
+
+_Usage_
+
+```js
+import { select } from '@wordpress/data';
+
+// Check if the editor is currently in fullscreen mode.
+const isActive = select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' );
+console.log( isActive ); // true or false
+
+// Example usage: toggle UI depending on feature state.
+if ( isActive ) {
+	console.log( 'The editor is in fullscreen mode.' );
+} else {
+	console.log( 'Fullscreen mode is disabled.' );
+}
+```
 
 _Parameters_
 
@@ -230,6 +436,15 @@ _Returns_
 
 Returns true if the list view is opened.
 
+_Usage_
+
+```js
+import { select } from '@wordpress/data';
+
+const listViewOpen = select( 'core/edit-post' ).isListViewOpened();
+console.log( listViewOpen ); // true if List View is visible, false otherwise
+```
+
 _Parameters_
 
 -   _state_ `Object`: Global application state.
@@ -241,6 +456,27 @@ _Returns_
 ### isMetaBoxLocationActive
 
 Returns true if there is an active meta box in the given location, or false otherwise.
+
+_Usage_
+
+```js
+import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
+import { store as editPostStore } from '@wordpress/edit-post';
+
+const SideMetaBoxesIndicator = () => {
+	const isSideActive = useSelect(
+		( select ) => select( editPostStore ).isMetaBoxLocationActive( 'side' ),
+		[]
+	);
+
+	return isSideActive ? (
+		<p>{ __( 'Side meta boxes are active.' ) }</p>
+	) : (
+		<p>{ __( 'No side meta boxes.' ) }</p>
+	);
+};
+```
 
 _Parameters_
 
@@ -254,6 +490,28 @@ _Returns_
 ### isMetaBoxLocationVisible
 
 Returns true if a metabox location is active and visible
+
+_Usage_
+
+```js
+import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
+import { store as editPostStore } from '@wordpress/edit-post';
+
+const NormalMetaBoxesIndicator = () => {
+	const isNormalVisible = useSelect(
+		( select ) =>
+			select( editPostStore ).isMetaBoxLocationVisible( 'normal' ),
+		[]
+	);
+
+	return isNormalVisible ? (
+		<p>{ __( 'Normal meta boxes are visible.' ) }</p>
+	) : (
+		<p>{ __( 'No visible normal meta boxes.' ) }</p>
+	);
+};
+```
 
 _Parameters_
 
@@ -283,6 +541,23 @@ _Returns_
 
 Returns true if the plugin item is pinned to the header. When the value is not set it defaults to true.
 
+_Usage_
+
+```js
+import { select } from '@wordpress/data';
+
+// Check if a plugin toolbar item is pinned.
+const pinned = select( 'core/edit-post' ).isPluginItemPinned( 'my-plugin' );
+console.log( pinned ); // true or false
+
+// Example: use this to decide whether to render a "pin/unpin" button in your plugin UI.
+if ( pinned ) {
+	console.log( 'The plugin item is pinned in the toolbar.' );
+} else {
+	console.log( 'The plugin item is not pinned.' );
+}
+```
+
 _Parameters_
 
 -   _state_ `Object`: Global application state.
@@ -295,6 +570,22 @@ _Returns_
 ### isPluginSidebarOpened
 
 Returns true if the plugin sidebar is opened.
+
+_Usage_
+
+```js
+import { useSelect } from '@wordpress/data';
+import { store as editPostStore } from '@wordpress/edit-post';
+
+const PluginSidebarStatus = () => {
+	const isOpen = useSelect(
+		( select ) => select( editPostStore ).isPluginSidebarOpened(),
+		[]
+	);
+
+	return <p>Plugin sidebar is { isOpen ? 'open' : 'closed' }.</p>;
+};
+```
 
 _Parameters_
 
@@ -321,6 +612,15 @@ _Returns_
 ### isSavingMetaBoxes
 
 Returns true if the Meta Boxes are being saved.
+
+_Usage_
+
+```js
+import { select } from '@wordpress/data';
+
+const saving = select( 'core/edit-post' ).isSavingMetaBoxes();
+console.log( saving ); // true while meta boxes are saving, false otherwise
+```
 
 _Parameters_
 
