@@ -95,7 +95,7 @@ export const generateGalleryBlock = (
 				? media[ index ].localUrl
 				: media[ index ].serverUrl;
 			return `<!-- wp:image {"id":${ id }} -->
-            <figure class="wp-block-image"><img src="${ url }" alt="" class="wp-image-${ id }"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+            <figure class="wp-block-image"><img src="${ url }" alt="" class="wp-image-${ id }"/><figcaption class="wp-element-caption"></figcaption></figure>
             <!-- /wp:image -->`;
 		} )
 		.join( '\n\n' );

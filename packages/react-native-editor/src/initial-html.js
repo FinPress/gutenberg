@@ -55,11 +55,11 @@ else:
 <!-- /wp:verse -->`;
 
 export const mediaBlocks = `<!-- wp:image -->
-<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image -->
-<figure class="wp-block-image"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="false">Mountain</figcaption></figure>
+<figure class="wp-block-image"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption">Mountain</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:video {"id":683} -->

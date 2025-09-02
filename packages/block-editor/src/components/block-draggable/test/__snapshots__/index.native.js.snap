@@ -6,7 +6,7 @@ exports[`BlockDraggable moves blocks: Initial order 1`] = `
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"sizeSlug":"large"} -->
-<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:spacer -->
@@ -15,18 +15,18 @@ exports[`BlockDraggable moves blocks: Initial order 1`] = `
 
 <!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
 
 exports[`BlockDraggable moves blocks: Paragraph block moved from first to second position 1`] = `
 "<!-- wp:image {"sizeSlug":"large"} -->
-<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -39,11 +39,11 @@ exports[`BlockDraggable moves blocks: Paragraph block moved from first to second
 
 <!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;
@@ -54,7 +54,7 @@ exports[`BlockDraggable moves blocks: Spacer block moved from third to first pos
 <!-- /wp:spacer -->
 
 <!-- wp:image {"sizeSlug":"large"} -->
-<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -63,11 +63,11 @@ exports[`BlockDraggable moves blocks: Spacer block moved from third to first pos
 
 <!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->"
 `;

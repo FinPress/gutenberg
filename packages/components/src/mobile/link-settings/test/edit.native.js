@@ -63,7 +63,7 @@ describe.each( [
 			initialHtml: `
 				<!-- wp:image {"id":20,"sizeSlug":"large","linkDestination":"custom"} -->
 				<figure class="wp-block-image size-large">
-					<img class="wp-image-20" src="https://tonytahmouchtest.files.wordpress.com/2021/10/img_0111-2.jpg?w=1024" alt="" /><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption>
+					<img class="wp-image-20" src="https://tonytahmouchtest.files.wordpress.com/2021/10/img_0111-2.jpg?w=1024" alt="" /><figcaption class="wp-element-caption"></figcaption>
 				</figure>
 				<!-- /wp:image -->
 			`,

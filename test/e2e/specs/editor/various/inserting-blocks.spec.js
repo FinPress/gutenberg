@@ -737,7 +737,7 @@ test.describe( 'insert media from inserter', () => {
 		await page.getByLabel( uploadedMedia.title.raw ).click();
 		await expect.poll( editor.getEditedPostContent ).toBe(
 			`<!-- wp:image {"id":${ uploadedMedia.id }} -->
-<figure class="wp-block-image"><img src="${ uploadedMedia.source_url }" alt="${ uploadedMedia.alt_text }" class="wp-image-${ uploadedMedia.id }"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image"><img src="${ uploadedMedia.source_url }" alt="${ uploadedMedia.alt_text }" class="wp-image-${ uploadedMedia.id }"/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->`
 		);
 	} );

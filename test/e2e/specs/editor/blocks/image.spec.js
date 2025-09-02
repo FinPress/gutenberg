@@ -55,7 +55,7 @@ test.describe( 'Image', () => {
 
 		const regex = new RegExp(
 			`<!-- wp:image {"id":(\\d+),"sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image size-full"><img src="[^"]+\\/${ fileName }\\.png" alt="" class="wp-image-\\1"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image size-full"><img src="[^"]+\\/${ fileName }\\.png" alt="" class="wp-image-\\1"/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- \\/wp:image -->`
 		);
 		expect( await editor.getEditedPostContent() ).toMatch( regex );
@@ -416,7 +416,7 @@ test.describe( 'Image', () => {
 		// Expect an empty image block (placeholder) rather than one with a
 		// broken temporary URL.
 		expect( await editor.getEditedPostContent() ).toBe( `<!-- wp:image -->
-<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->` );
 	} );
 
@@ -951,7 +951,7 @@ test.describe( 'Image - lightbox', () => {
 				page,
 			} ) => {
 				await editor.setContent( `<!-- wp:image {"id":${ uploadedMedia.id },"sizeSlug":"full","linkDestination":"none"} -->
-				<figure class="wp-block-image size-full"><img src="${ uploadedMedia.source_url }" alt="" class="wp-image-${ uploadedMedia.id }"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+				<figure class="wp-block-image size-full"><img src="${ uploadedMedia.source_url }" alt="" class="wp-image-${ uploadedMedia.id }"/><figcaption class="wp-element-caption"></figcaption></figure>
 				<!-- /wp:image --> ` );
 
 				const imageBlock = editor.canvas.locator(
@@ -1082,7 +1082,7 @@ test.describe( 'Image - Site editor', () => {
 
 		const regex = new RegExp(
 			`<!-- wp:image {"id":(\\d+),"sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image size-full"><img src="[^"]+\\/${ fileName }\\.png" alt="" class="wp-image-\\1"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image size-full"><img src="[^"]+\\/${ fileName }\\.png" alt="" class="wp-image-\\1"/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- \\/wp:image -->`
 		);
 		expect( await editor.getEditedPostContent() ).toMatch( regex );

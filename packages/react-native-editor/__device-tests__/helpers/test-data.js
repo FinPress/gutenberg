@@ -153,7 +153,7 @@ exports.listBlockEmpty = `<!-- wp:list -->
 <!-- /wp:list -->`;
 
 exports.imageBlockEmpty = `<!-- wp:image -->
-<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->`;
 
 exports.moreBlockEmpty = `<!-- wp:more -->

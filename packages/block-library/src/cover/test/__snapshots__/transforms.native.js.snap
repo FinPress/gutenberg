@@ -24,7 +24,7 @@ exports[`Cover block transformations with Image to Group block 1`] = `
 
 exports[`Cover block transformations with Image to Image block 1`] = `
 "<!-- wp:image {"id":890,"style":{"color":{}}} -->
-<figure class="wp-block-image"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-890"/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-890"/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->"
 `;
 

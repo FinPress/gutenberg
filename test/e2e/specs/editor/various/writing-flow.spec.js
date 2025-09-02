@@ -860,7 +860,7 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"align":"wide"} -->
-<figure class="wp-block-image alignwide"><img alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image alignwide"><img alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->` );
 
 		const paragraphBlock = editor.canvas.locator(

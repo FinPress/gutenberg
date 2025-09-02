@@ -103,7 +103,7 @@ test.describe( 'Post type templates', () => {
 
 			await expect.poll( editor.getEditedPostContent )
 				.toBe( `<!-- wp:image -->
-<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption" data-wp-maybe-remove="true"></figcaption></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->` );
 		} );
 
