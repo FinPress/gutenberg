@@ -133,6 +133,7 @@ function ParagraphBlock( {
 									: dropCap,
 							} )
 						}
+						label={ __( 'Align text' ) }
 					/>
 					<ParagraphRTLControl
 						direction={ direction }
