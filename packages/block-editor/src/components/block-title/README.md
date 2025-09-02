@@ -10,7 +10,7 @@ The component will be empty if a title cannot be determined.
 ## Usage
 
 ```jsx
-<BlockTitle clientId="afd1cb17-2c08-4e7a-91be-007ba7ddc3a1" maximumLength={ 12 }/>
+<BlockTitle clientId="afd1cb17-2c08-4e7a-91be-007ba7ddc3a1" maximumLength={ 12 } context="list-view" />
 ```
 
 ### Props
@@ -27,4 +27,11 @@ The client ID of a block.
 The maximum length that the block title string may be before truncated. If `undefined` no truncation will take place.
 
 -   Type: `Number`
+-   Required: No
+
+#### context 
+
+The context to pass to `getBlockLabel`.
+
+-   Type: `String`
 -   Required: No
