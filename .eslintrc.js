@@ -143,8 +143,9 @@ module.exports = {
 		'plugin:@wordpress/eslint-plugin/recommended',
 		'plugin:eslint-comments/recommended',
 		'plugin:storybook/recommended',
+		'plugin:react-hooks/recommended-legacy',
 	],
-	plugins: [ 'react-compiler' ],
+	plugins: [ 'react-hooks' ],
 	globals: {
 		wp: 'off',
 		globalThis: 'readonly',
@@ -211,7 +212,7 @@ module.exports = {
 				definedTags: [ 'jest-environment' ],
 			},
 		],
-		'react-compiler/react-compiler': [
+		'react-hooks/react-compiler': [
 			'error',
 			{
 				environment: {
@@ -234,7 +235,7 @@ module.exports = {
 				'import/no-unresolved': 'off',
 				'import/named': 'off',
 				'@wordpress/data-no-store-string-literals': 'off',
-				'react-compiler/react-compiler': 'off',
+				'react-hooks/react-compiler': 'off',
 			},
 		},
 		{
@@ -427,6 +428,7 @@ module.exports = {
 				'@typescript-eslint/await-thenable': 'error',
 				'@typescript-eslint/no-floating-promises': 'error',
 				'@typescript-eslint/no-misused-promises': 'error',
+				'react-hooks/rules-of-hooks': 'off',
 			},
 		},
 		{
@@ -550,7 +552,6 @@ module.exports = {
 		{
 			files: [ 'packages/interactivity*/src/**' ],
 			rules: {
-				'react-compiler/react-compiler': 'off',
 				'react/react-in-jsx-scope': 'error',
 			},
 		},
