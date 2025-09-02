@@ -44,6 +44,7 @@ function gutenberg_reregister_core_block_types() {
 				'text-columns',
 				'verse',
 				'embed',
+				'progress-meter',
 			),
 			'block_names'   => array(
 				'accordion-content.php'            => 'core/accordion-content',
