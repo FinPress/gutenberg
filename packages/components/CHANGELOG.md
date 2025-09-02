@@ -64,6 +64,7 @@
 -   `SelectControl`: Fix font-size for medium screens to ensure consistency with other inputs ([#70619](https://github.com/WordPress/gutenberg/pull/70619)).
 -   `SelectControl`: Move classnames to the root ([#70643](https://github.com/WordPress/gutenberg/pull/70643)).
 -   `Autocomplete`: Prevent text cursor position loss when clicking to insert an item ([#70660](https://github.com/WordPress/gutenberg/pull/70660)).
+-   `Autocomplete`: Fix matching logic to prefer longest overlapping trigger ([#70400](https://github.com/WordPress/gutenberg/pull/70400)).
 
 ### Internal
 
