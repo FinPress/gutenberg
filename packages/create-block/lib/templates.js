@@ -68,6 +68,12 @@ const predefinedPluginTemplates = {
 				title: 'Example Dynamic',
 				render: 'file:./render.php',
 			},
+			css: {
+				slug: 'example-static-css',
+				title: 'Example Static (CSS)',
+				description:
+					'Example block scaffolded with Create Block tool using CSS instead of SCSS.',
+			},
 		},
 	},
 };
@@ -226,6 +232,18 @@ const getProjectTemplate = async ( templateName ) => {
 	}
 };
 
+const defaultTransformer = ( view ) => {
+	const isCssVariant = view.variantVars && view.variantVars.isCssVariant;
+
+	if ( isCssVariant ) {
+		view.editorStyle =
+			view.editorStyle && view.editorStyle.replace( /\.scss$/, '.css' );
+		view.style = view.style && view.style.replace( /\.scss$/, '.css' );
+	}
+
+	return view;
+};
+
 const getDefaultValues = ( projectTemplate, variant ) => {
 	return {
 		$schema: 'https://schemas.wp.org/trunk/block.json',
@@ -248,7 +266,7 @@ const getDefaultValues = ( projectTemplate, variant ) => {
 		editorScript: 'file:./index.js',
 		editorStyle: 'file:./index.css',
 		style: 'file:./style-index.css',
-		transformer: ( view ) => view,
+		transformer: projectTemplate.transformer || defaultTransformer,
 		...projectTemplate.defaultValues,
 		...projectTemplate.variants?.[ variant ],
 		variantVars: getVariantVars( projectTemplate.variants, variant ),
@@ -286,10 +304,16 @@ const getVariantVars = ( variants, variant ) => {
 	}
 
 	const currentVariant = variant ?? variantNames[ 0 ];
+
 	for ( const variantName of variantNames ) {
 		const key =
 			variantName.charAt( 0 ).toUpperCase() + variantName.slice( 1 );
 		variantVars[ `is${ key }Variant` ] = currentVariant === variantName;
+	}
+
+	if ( variantNames.includes( 'css' ) ) {
+		const isCssVariant = currentVariant === 'css';
+		variantVars.isCssVariant = isCssVariant;
 	}
 
 	return variantVars;
