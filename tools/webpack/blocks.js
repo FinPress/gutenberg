@@ -14,6 +14,9 @@ const PhpFilePathsPlugin = require( '@wordpress/scripts/plugins/php-file-paths-p
  * Internal dependencies
  */
 const { baseConfig, plugins, stylesTransform } = require( './shared' );
+const {
+	removeGutenbergPluginConditionals,
+} = require( './utils/remove-gutenberg-code-in-php' );
 
 /**
  * We need to automatically rename some functions when they are called inside block files,
@@ -156,6 +159,11 @@ module.exports = [
 									),
 									( match ) => `${ match }_${ classSuffix }`
 								);
+
+								content =
+									removeGutenbergPluginConditionals(
+										content
+									);
 
 								// Within content, search for any function definitions. For
 								// each, replace every other reference to it in the file.
