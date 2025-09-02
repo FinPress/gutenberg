@@ -59,7 +59,7 @@ const DATAVIEWS_CONFIG_POPOVER_PROPS = {
 };
 
 export function ViewTypeMenu() {
-	const { view, onChangeView, defaultLayouts } =
+	const { view, onChangeView, defaultLayouts, picker } =
 		useContext( DataViewsContext );
 	const availableLayouts = Object.keys( defaultLayouts );
 	if ( availableLayouts.length <= 1 ) {
@@ -80,7 +80,9 @@ export function ViewTypeMenu() {
 			<Menu.Popover>
 				{ availableLayouts.map( ( layout ) => {
 					const config = VIEW_LAYOUTS.find(
-						( v ) => v.type === layout
+						( v ) =>
+							v.type === layout &&
+							Boolean( v.isPicker ) === Boolean( picker )
 					);
 					if ( ! config ) {
 						return null;
@@ -99,6 +101,7 @@ export function ViewTypeMenu() {
 									case 'list':
 									case 'grid':
 									case 'table':
+									case 'pickerGrid':
 										const viewWithoutLayout = { ...view };
 										if ( 'layout' in viewWithoutLayout ) {
 											delete viewWithoutLayout.layout;
