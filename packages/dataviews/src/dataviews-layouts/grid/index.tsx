@@ -191,7 +191,7 @@ function GridItem< Item >( {
 					{ renderedTitleField }
 				</ItemClickWrapper>
 				{ !! actions?.length && (
-					<ItemActions item={ item } actions={ actions } isCompact />
+					<ItemActions item={ item } actions={ actions } />
 				) }
 			</HStack>
 			<VStack spacing={ 1 }>
