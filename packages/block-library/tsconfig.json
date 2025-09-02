@@ -32,6 +32,7 @@
 		{ "path": "../primitives" },
 		{ "path": "../rich-text" },
 		{ "path": "../url" },
+		{ "path": "../viewport" },
 		{ "path": "../wordcount" }
 	],
 	"include": [ "src/**/*.ts", "src/**/*.tsx" ]
