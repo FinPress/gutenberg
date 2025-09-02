@@ -17,9 +17,11 @@ export type RadioControlProps = Pick<
 	 */
 	options?: {
 		/**
-		 * The label to be shown to the user
+		 * The label to be shown to the user.
+		 *
+		 * When the label is not a string, make sure that the element is accessibly labeled.
 		 */
-		label: string;
+		label: string | React.ReactElement;
 		/**
 		 * The internal value compared against select and passed to onChange
 		 */

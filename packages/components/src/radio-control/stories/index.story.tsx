@@ -6,12 +6,14 @@ import type { Meta, StoryFn } from '@storybook/react';
 /**
  * WordPress dependencies
  */
+import { starFilled } from '@wordpress/icons';
 import { useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import RadioControl from '..';
+import Icon from '../../icon';
 
 const meta: Meta< typeof RadioControl > = {
 	component: RadioControl,
@@ -89,6 +91,44 @@ WithOptionDescriptions.args = {
 			label: 'Password Protected',
 			value: 'password',
 			description: 'Protected by a password',
+		},
+	],
+};
+
+/**
+ * When the label is not a string,
+ * make sure that the element is accessibly labeled.
+ */
+export const WithComponentLabels: StoryFn< typeof RadioControl > =
+	Template.bind( {} );
+
+function Rating( {
+	stars,
+	...restProps
+}: { stars: number } & JSX.IntrinsicElements[ 'div' ] ) {
+	return (
+		<div style={ { display: 'flex' } } { ...restProps }>
+			{ Array.from( { length: stars }, ( _, index ) => (
+				<Icon key={ index } icon={ starFilled } />
+			) ) }
+		</div>
+	);
+}
+
+WithComponentLabels.args = {
+	label: 'Rating',
+	options: [
+		{
+			label: <Rating stars={ 3 } aria-label="Three Stars" />,
+			value: '3',
+		},
+		{
+			label: <Rating stars={ 2 } aria-label="Two Stars" />,
+			value: '2',
+		},
+		{
+			label: <Rating stars={ 1 } aria-label="One Star" />,
+			value: '1',
 		},
 	],
 };
