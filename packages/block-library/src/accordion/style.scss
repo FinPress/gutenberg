@@ -10,7 +10,6 @@
 .accordion-content__heading {
 	margin-block-start: 0;
 	margin-block-end: 0;
-	overflow-x: hidden;
 }
 
 .accordion-content__toggle {
@@ -28,6 +27,7 @@
 	padding: var(--wp--preset--spacing--20, 1em) 0;
 	cursor: pointer;
 	outline: none;
+	overflow-x: hidden;
 	display: flex;
 	align-items: center;
 	text-align: inherit;
