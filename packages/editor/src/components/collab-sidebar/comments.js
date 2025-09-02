@@ -48,7 +48,6 @@ export function Comments( {
 	showCommentBoard,
 	setShowCommentBoard,
 } ) {
-	// inside Comments()
 	const prevRef = useRef( null );
 	const retryRef = useRef( null );
 
@@ -68,6 +67,11 @@ export function Comments( {
 		},
 		[]
 	);
+
+	const clearThreadFocus = () => {
+		setFocusThread( null );
+		setShowCommentBoard( false );
+	};
 
 	const { selectBlock } = useDispatch( blockEditorStore );
 
@@ -272,10 +276,7 @@ export function Comments( {
 							onCommentResolve={ onCommentResolve }
 							onEditComment={ onEditComment }
 							isFocused={ focusThread === thread.id }
-							clearThreadFocus={ () => {
-								setFocusThread( null );
-								setShowCommentBoard( false );
-							} }
+							clearThreadFocus={ clearThreadFocus }
 						/>
 					</VStack>
 				) ) }
