@@ -5,22 +5,26 @@ module.exports = {
 		'at-rule-empty-line-before': null,
 		'at-rule-no-unknown': null,
 		'comment-empty-line-before': null,
-		'declaration-property-value-allowed-list': [
-			{
-				'flex-direction': '/^(?!(row|column)-reverse).*$/',
-			},
-			{
-				message: ( property, value ) =>
-					`Avoid "${ value }" value for the "${ property }" property. For accessibility reasons, visual, reading, and DOM order must match. Only use the reverse values when they do not affect reading order, meaning, and interaction.`,
-			},
-		],
 		'declaration-property-value-disallowed-list': [
 			{
+				'flex-direction': [ '/-reverse$/' ],
 				'/.*/': [ '/--wp-components-color-/' ],
 			},
 			{
-				message: ( property, value ) =>
-					`Avoid using "${ value }" in "${ property }". --wp-components-color-* variables are not ready to be used outside of the components package.`,
+				message: ( property, value ) => {
+					// Don't allow reverse values for flex-direction.
+					if (
+						property === 'flex-direction' &&
+						/-reverse$/.test( value )
+					) {
+						return `Avoid "${ value }" value for the "${ property }" property. For accessibility reasons, visual, reading, and DOM order must match. Only use the reverse values when they do not affect reading order, meaning, and interaction.`;
+					}
+					// Don't allow --wp-components-color-* variables outside of the components package.
+					if ( /--wp-components-color-/.test( value ) ) {
+						return `Avoid using "${ value }" in "${ property }". --wp-components-color-* variables are not ready to be used outside of the components package.`;
+					}
+					return `Avoid "${ value }" for "${ property }".`;
+				},
 			},
 		],
 		'font-weight-notation': null,
