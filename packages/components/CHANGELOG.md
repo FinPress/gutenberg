@@ -159,6 +159,10 @@
 -   `Autocomplete`: Extracts `getNodeText` function into a separate file and adds unit tests ([#69135](https://github.com/WordPress/gutenberg/pull/69135)).
 -   `NumberControl`: update stepping to match HTML number input stepping ([#34566](https://github.com/WordPress/gutenberg/pull/34566)).
 
+### Enhancement
+
+-   `SandBox`: Add `sandbox` prop ([#69617](https://github.com/WordPress/gutenberg/pull/69617))
+
 ## 29.6.0 (2025-03-13)
 
 ### Enhancement

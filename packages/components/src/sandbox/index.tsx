@@ -133,6 +133,7 @@ function SandBox( {
 	scripts = [],
 	onFocus,
 	tabIndex,
+	sandbox = 'allow-scripts allow-same-origin allow-presentation',
 }: SandBoxProps ) {
 	const ref = useRef< HTMLIFrameElement >();
 	const [ width, setWidth ] = useState( 0 );
@@ -284,7 +285,7 @@ function SandBox( {
 			title={ title }
 			tabIndex={ tabIndex }
 			className="components-sandbox"
-			sandbox="allow-scripts allow-same-origin allow-presentation"
+			sandbox={ sandbox }
 			onFocus={ onFocus }
 			width={ Math.ceil( width ) }
 			height={ Math.ceil( height ) }

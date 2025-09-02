@@ -14,16 +14,27 @@ import { useState } from '@wordpress/element';
 import SandBox from '..';
 
 describe( 'SandBox', () => {
-	const TestWrapper = () => {
-		const [ html, setHtml ] = useState(
+	const TestWrapper = ( {
+		title,
+		sandbox,
+		html,
+	}: {
+		title: string;
+		sandbox?: string;
+		html?: string;
+	} ) => {
+		const initialHtml =
+			html ||
+			'<iframe title="Mock Iframe" src="https://super.embed"></iframe>';
+		const [ innerHtml, setInnerHtml ] = useState(
 			// MutationObserver implementation from JSDom does not work as intended
 			// with iframes so we need to ignore it for the time being.
 			'<script type="text/javascript">window.MutationObserver = null;</script>' +
-				'<iframe title="Mock Iframe" src="https://super.embed"></iframe>'
+				initialHtml
 		);
 
 		const updateHtml = () => {
-			setHtml(
+			setInnerHtml(
 				'<iframe title="Mock Iframe" src="https://another.super.embed"></iframe>'
 			);
 		};
@@ -33,13 +44,17 @@ describe( 'SandBox', () => {
 				<button onClick={ updateHtml } className="mock-button">
 					Mock Button
 				</button>
-				<SandBox html={ html } title="SandBox Title" />
+				<SandBox
+					html={ innerHtml }
+					title={ title }
+					sandbox={ sandbox }
+				/>
 			</div>
 		);
 	};
 
 	it( 'should rerender with new emdeded content if html prop changes', () => {
-		render( <TestWrapper /> );
+		render( <TestWrapper title="SandBox Title" /> );
 
 		const iframe =
 			screen.getByTitle< HTMLIFrameElement >( 'SandBox Title' );
@@ -66,6 +81,35 @@ describe( 'SandBox', () => {
 		expect( sandboxedIframe ).toHaveAttribute(
 			'src',
 			'https://another.super.embed'
+		);
+	} );
+
+	it( 'should render with the correct sandbox attribute when sandbox prop is not provided', () => {
+		render( <TestWrapper title="SandBox Title 2" /> );
+
+		const iframe =
+			screen.getByTitle< HTMLIFrameElement >( 'SandBox Title 2' );
+
+		expect( iframe ).toHaveAttribute(
+			'sandbox',
+			'allow-scripts allow-same-origin allow-presentation'
+		);
+	} );
+
+	it( 'should render with the correct sandbox attribute when sandbox prop is provided', () => {
+		render(
+			<TestWrapper
+				title="SandBox Title 3"
+				sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
+			/>
+		);
+
+		const iframe =
+			screen.getByTitle< HTMLIFrameElement >( 'SandBox Title 3' );
+
+		expect( iframe ).toHaveAttribute(
+			'sandbox',
+			'allow-scripts allow-same-origin allow-presentation allow-popups'
 		);
 	} );
 } );

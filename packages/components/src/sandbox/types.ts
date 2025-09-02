@@ -37,4 +37,10 @@ export type SandBoxProps = {
 	 * @default 0
 	 */
 	tabIndex?: HTMLElement[ 'tabIndex' ];
+	/**
+	 * The `sandbox` attribute for the iframe.
+	 *
+	 * @default 'allow-scripts allow-same-origin allow-presentation'
+	 */
+	sandbox?: string;
 };
