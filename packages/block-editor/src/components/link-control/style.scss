@@ -85,6 +85,7 @@ $block-editor-link-control-number-of-actions: 1;
 .block-editor-link-control__search-results-wrapper {
 	position: absolute;
 	z-index: 1;
+	width: 100%;
 	background: $white;
 	border: 1px solid $gray-300;
 	border-top: none;
