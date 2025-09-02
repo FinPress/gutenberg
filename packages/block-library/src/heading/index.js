@@ -35,8 +35,15 @@ export const settings = {
 
 		// In the list view, use the block's content as the label.
 		// If the content is empty, fall back to the default label.
-		if ( context === 'list-view' && ( customName || hasContent ) ) {
-			return customName || content;
+		if ( context === 'list-view' ) {
+			const listViewTitle =
+				customName || ( hasContent ? content : __( 'Heading' ) );
+			return sprintf(
+				/* translators: list view text. 1: heading level. 2: heading content. */
+				__( '%1$s: %2$s' ),
+				`H${ level }`,
+				listViewTitle
+			);
 		}
 
 		if ( context === 'accessibility' ) {
