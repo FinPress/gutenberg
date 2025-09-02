@@ -17,6 +17,7 @@ stdout.write( `Creating archive for \`${ name }\` plugin... 🎁\n\n` );
 const zip = new AdmZip();
 const zipRootFolderArg = getArgFromCLI( '--root-folder' );
 const noRootFolderArg = getArgFromCLI( '--no-root-folder' );
+const includeSrcFolder = getArgFromCLI( '--include-src' );
 let zipRootFolder = `${ name }/`;
 let files = [];
 
@@ -48,6 +49,12 @@ if ( hasPackageProp( 'files' ) ) {
 			caseSensitiveMatch: false,
 		}
 	);
+
+	if ( includeSrcFolder !== undefined ) {
+		files = files.concat(
+			glob( 'src/**', { caseSensitiveMatch: false } )
+		);
+	}
 }
 
 if ( noRootFolderArg !== undefined ) {
