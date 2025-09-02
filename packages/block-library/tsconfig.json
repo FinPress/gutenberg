@@ -29,6 +29,7 @@
 		{ "path": "../interactivity-router" },
 		{ "path": "../notices" },
 		{ "path": "../keycodes" },
+		{ "path": "../keyboard-shortcuts" },
 		{ "path": "../primitives" },
 		{ "path": "../rich-text" },
 		{ "path": "../url" },
