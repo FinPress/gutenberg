@@ -25,7 +25,7 @@ import { Comments } from './comments';
 import { AddComment } from './add-comment';
 import { store as editorStore } from '../../store';
 import AddCommentButton from './comment-button';
-import AddCommentToolbarButton from './comment-button-toolbar';
+import CommentAvatarIndicator from './comment-indicator-toolbar';
 import { useGlobalStylesContext } from '../global-styles-provider';
 import { getCommentIdsFromBlocks } from './utils';
 
@@ -80,7 +80,7 @@ function CollabSidebarContent( {
 			comment_approved: 0,
 		};
 
-		// Create a new object, conditionally including the parent property
+		// Create a new object, conditionally including the parent property.
 		const updatedArgs = {
 			...args,
 			...( parentCommentId ? { parent: parentCommentId } : {} ),
@@ -264,9 +264,9 @@ export default function CollabSidebar() {
 		id: postId,
 	} );
 
-	// Process comments to build the tree structure
+	// Process comments to build the tree structure.
 	const { resultComments, sortedThreads } = useMemo( () => {
-		// Create a compare to store the references to all objects by id
+		// Create a compare to store the references to all objects by id.
 		const compare = {};
 		const result = [];
 
@@ -274,18 +274,18 @@ export default function CollabSidebar() {
 			( comment ) => comment.status !== 'trash'
 		);
 
-		// Initialize each object with an empty `reply` array
+		// Initialize each object with an empty `reply` array.
 		filteredComments.forEach( ( item ) => {
 			compare[ item.id ] = { ...item, reply: [] };
 		} );
 
-		// Iterate over the data to build the tree structure
+		// Iterate over the data to build the tree structure.
 		filteredComments.forEach( ( item ) => {
 			if ( item.parent === 0 ) {
-				// If parent is 0, it's a root item, push it to the result array
+				// If parent is 0, it's a root item, push it to the result array.
 				result.push( compare[ item.id ] );
 			} else if ( compare[ item.parent ] ) {
-				// Otherwise, find its parent and push it to the parent's `reply` array
+				// Otherwise, find its parent and push it to the parent's `reply` array.
 				compare[ item.parent ].reply.push( compare[ item.id ] );
 			}
 		} );
@@ -332,7 +332,7 @@ export default function CollabSidebar() {
 	}
 
 	const AddCommentComponent = blockCommentId
-		? AddCommentToolbarButton
+		? CommentAvatarIndicator
 		: AddCommentButton;
 
 	return (
