@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useState, RawHTML } from '@wordpress/element';
+import { useState, RawHTML, useRef } from '@wordpress/element';
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
@@ -63,14 +63,61 @@ export function Comments( {
 	const [ focusThread, setFocusThread ] = useState(
 		showCommentBoard && blockCommentId ? blockCommentId : null
 	);
+	const threadsContainerRef = useRef( null );
 
 	const clearThreadFocus = () => {
 		setFocusThread( null );
 		setShowCommentBoard( false );
 	};
 
+	const handleCommentDelete = async ( commentId ) => {
+		// Find the comment to be deleted
+		const commentToDelete =
+			threads.find( ( thread ) => thread.id === commentId ) ||
+			threads
+				.flatMap( ( thread ) => thread.reply )
+				.find( ( reply ) => reply.id === commentId );
+
+		// Call the original delete function
+		await onCommentDelete( commentId );
+
+		// Focus management after deletion
+		if ( commentToDelete ) {
+			// If it's a reply, focus on the parent comment
+			if ( commentToDelete.parent !== 0 ) {
+				const parentComment = threads.find(
+					( thread ) => thread.id === commentToDelete.parent
+				);
+				if ( parentComment ) {
+					setFocusThread( parentComment.id );
+					return;
+				}
+			}
+
+			// If it's a main comment, find the next or previous comment
+			const commentIndex = threads.findIndex(
+				( thread ) => thread.id === commentId
+			);
+			if ( commentIndex !== -1 ) {
+				if ( threads.length > 1 ) {
+					// Focus next comment if exists, otherwise previous
+					const nextComment =
+						threads[ commentIndex + 1 ] ||
+						threads[ commentIndex - 1 ];
+					if ( nextComment ) {
+						setFocusThread( nextComment.id );
+						return;
+					}
+				}
+			}
+
+			// If no comments left, clear focus
+			setFocusThread( null );
+		}
+	};
+
 	return (
-		<>
+		<div ref={ threadsContainerRef }>
 			{
 				// If there are no comments, show a message indicating no comments are available.
 				( ! Array.isArray( threads ) || threads.length === 0 ) && (
@@ -102,14 +149,15 @@ export function Comments( {
 									focusThread && focusThread === thread.id,
 							}
 						) }
-						id={ thread.id }
+						id={ `comment-${ thread.id }` }
+						tabIndex={ focusThread === thread.id ? 0 : -1 }
 						spacing="3"
 						onClick={ () => setFocusThread( thread.id ) }
 					>
 						<Thread
 							thread={ thread }
 							onAddReply={ onAddReply }
-							onCommentDelete={ onCommentDelete }
+							onCommentDelete={ handleCommentDelete }
 							onCommentResolve={ onCommentResolve }
 							onEditComment={ onEditComment }
 							isFocused={ focusThread === thread.id }
@@ -117,7 +165,7 @@ export function Comments( {
 						/>
 					</VStack>
 				) ) }
-		</>
+		</div>
 	);
 }
 
@@ -130,6 +178,8 @@ function Thread( {
 	isFocused,
 	clearThreadFocus,
 } ) {
+	const replyContainerRef = useRef( null );
+
 	return (
 		<>
 			<CommentBoard
@@ -151,26 +201,30 @@ function Thread( {
 						</VStack>
 					) }
 
-					{ isFocused &&
-						thread.reply.map( ( reply ) => (
-							<VStack
-								key={ reply.id }
-								className="editor-collab-sidebar-panel__child-thread"
-								id={ reply.id }
-								spacing="2"
-							>
-								{ 'approved' !== thread.status && (
-									<CommentBoard
-										thread={ reply }
-										onEdit={ onEditComment }
-										onDelete={ onCommentDelete }
-									/>
-								) }
-								{ 'approved' === thread.status && (
-									<CommentBoard thread={ reply } />
-								) }
-							</VStack>
-						) ) }
+					{ isFocused && (
+						<div ref={ replyContainerRef }>
+							{ thread.reply.map( ( reply ) => (
+								<VStack
+									key={ reply.id }
+									id={ `reply-${ reply.id }` }
+									tabIndex={ -1 }
+									className="editor-collab-sidebar-panel__child-thread"
+									spacing="2"
+								>
+									{ 'approved' !== thread.status && (
+										<CommentBoard
+											thread={ reply }
+											onEdit={ onEditComment }
+											onDelete={ onCommentDelete }
+										/>
+									) }
+									{ 'approved' === thread.status && (
+										<CommentBoard thread={ reply } />
+									) }
+								</VStack>
+							) ) }
+						</div>
+					) }
 				</>
 			) }
 			{ 'approved' !== thread.status && isFocused && (
