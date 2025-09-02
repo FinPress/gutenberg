@@ -183,6 +183,7 @@ describe( 'ColorPalette', () => {
 		const dropdownColorInput = screen.getByLabelText( 'Hex color' );
 
 		await waitFor( () =>
+			// @ts-expect-error - FIXME: `toBePositionedPopover` should probably be in its own package.
 			expect( dropdownColorInput ).toBePositionedPopover()
 		);
 	} );

@@ -2,15 +2,20 @@
  * Internal dependencies
  */
 import './matchers';
+import './types';
 import supportedMatchers from './supported-matchers';
 import type { ExtendedMock } from './types';
+
+type ValueOf< T > = T[ keyof T ];
 
 /**
  * Sets spy on the console object's method to make it possible to fail test when method called without assertion.
  *
  * @param args
  */
-const setConsoleMethodSpy = ( args: [ string, string ] ) => {
+const setConsoleMethodSpy = (
+	args: [ string, ValueOf< typeof supportedMatchers > ]
+) => {
 	const [ methodName, matcherName ] = args;
 	const spy = jest
 		.spyOn( console, methodName as 'error' | 'info' | 'log' | 'warn' )

@@ -1,3 +1,9 @@
+import '@types/node';
+import '@types/jest';
+import '@testing-library/jest-dom';
+import 'snapshot-diff';
+import '@wordpress/jest-console';
+
 declare namespace jest {
 	interface Matchers< R > {
 		/**
