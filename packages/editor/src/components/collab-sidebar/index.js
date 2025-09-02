@@ -124,11 +124,36 @@ function CollabSidebarContent( {
 		} );
 
 		if ( savedRecord ) {
-			// translators: Comment resolved successfully
-			createNotice( 'snackbar', __( 'Comment marked as resolved.' ), {
-				type: 'snackbar',
-				isDismissible: true,
-			} );
+			createNotice(
+				'snackbar',
+				// translators: Comment resolved successfully
+				__( 'Comment marked as resolved.' ),
+				{
+					type: 'snackbar',
+					isDismissible: true,
+				}
+			);
+		} else {
+			onError();
+		}
+	};
+
+	const onCommentReopen = async ( commentId ) => {
+		const savedRecord = await saveEntityRecord( 'root', 'comment', {
+			id: commentId,
+			status: 'hold',
+		} );
+
+		if ( savedRecord ) {
+			createNotice(
+				'snackbar',
+				// translators: Comment reopened successfully
+				__( 'Comment reopened.' ),
+				{
+					type: 'snackbar',
+					isDismissible: true,
+				}
+			);
 		} else {
 			onError();
 		}
@@ -207,6 +232,7 @@ function CollabSidebarContent( {
 				onAddReply={ addNewComment }
 				onCommentDelete={ onCommentDelete }
 				onCommentResolve={ onCommentResolve }
+				onCommentReopen={ onCommentReopen }
 				showCommentBoard={ showCommentBoard }
 				setShowCommentBoard={ setShowCommentBoard }
 			/>
