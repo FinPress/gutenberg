@@ -4,6 +4,7 @@
 import * as parsel from 'parsel-js';
 import Processor from 'postcss/lib/processor';
 import CssSyntaxError from 'postcss/lib/css-syntax-error';
+import postcssNesting from 'postcss-nesting';
 import prefixSelector from 'postcss-prefix-selector';
 import rebaseUrl from 'postcss-urlrebase';
 
@@ -103,6 +104,7 @@ function transformStyle(
 
 		return new Processor(
 			[
+				postcssNesting,
 				wrapperSelector &&
 					prefixSelector( {
 						prefix: wrapperSelector,
