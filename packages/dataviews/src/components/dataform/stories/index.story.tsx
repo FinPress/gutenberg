@@ -9,6 +9,11 @@ import {
 } from '@wordpress/components';
 
 /**
+ * External dependencies
+ */
+import deepmerge from 'deepmerge';
+
+/**
  * Internal dependencies
  */
 import DataForm from '../index';
@@ -897,4 +902,132 @@ export const Validation = {
 
 export const Visibility = {
 	render: VisibilityComponent,
+};
+
+const NestedDataComponent = () => {
+	type NestedDataItem = {
+		user: {
+			profile: {
+				name: string;
+				email: string;
+			};
+			preferences: {
+				theme: string;
+				notifications: boolean;
+			};
+		};
+		metadata: {
+			createdAt: string;
+			tags: string[];
+		};
+	};
+
+	const [ data, setData ] = useState< NestedDataItem >( {
+		user: {
+			profile: {
+				name: 'John Doe',
+				email: 'john@example.com',
+			},
+			preferences: {
+				theme: 'dark',
+				notifications: true,
+			},
+		},
+		metadata: {
+			createdAt: '2023-01-01T12:00:00',
+			tags: [ 'admin', 'vip' ],
+		},
+	} );
+
+	const nestedFields: Field< NestedDataItem >[] = [
+		{
+			id: 'user.profile.name',
+			label: 'User Name',
+			type: 'text',
+			getValue: ( { item } ) => item.user.profile.name,
+		},
+		{
+			id: 'user.profile.email',
+			label: 'User Email',
+			type: 'email',
+			getValue: ( { item } ) => item.user.profile.email,
+		},
+		{
+			id: 'user.preferences.theme',
+			label: 'Theme Preference',
+			type: 'text',
+			Edit: 'toggleGroup',
+			elements: [
+				{ value: 'light', label: 'Light' },
+				{ value: 'dark', label: 'Dark' },
+				{ value: 'auto', label: 'Auto' },
+			],
+			getValue: ( { item } ) => item.user.preferences.theme,
+		},
+		{
+			id: 'user.preferences.notifications',
+			label: 'Enable Notifications',
+			type: 'boolean',
+			getValue: ( { item } ) => item.user.preferences.notifications,
+		},
+		{
+			id: 'metadata.createdAt',
+			label: 'Created At',
+			type: 'datetime',
+			getValue: ( { item } ) => item.metadata.createdAt,
+		},
+		{
+			id: 'metadata.tags',
+			label: 'Tags',
+			type: 'array',
+			elements: [
+				{ value: 'admin', label: 'Administrator' },
+				{ value: 'user', label: 'Regular User' },
+				{ value: 'vip', label: 'VIP' },
+				{ value: 'guest', label: 'Guest' },
+			],
+			getValue: ( { item } ) => item.metadata.tags,
+		},
+	];
+
+	const form: Form = {
+		layout: { type: 'panel', labelPosition: 'top', openAs: 'modal' },
+		fields: [
+			{
+				id: 'userProfile',
+				label: 'User Profile',
+				children: [ 'user.profile.name', 'user.profile.email' ],
+			},
+			{
+				id: 'userPreferences',
+				label: 'Preferences',
+				children: [
+					'user.preferences.theme',
+					'user.preferences.notifications',
+				],
+			},
+			{
+				id: 'metadata',
+				label: 'Metadata',
+				children: [ 'metadata.createdAt', 'metadata.tags' ],
+			},
+		],
+	};
+
+	const handleChange = useCallback( ( edits: Record< string, any > ) => {
+		setData( ( prev ) => deepmerge( prev, edits ) as NestedDataItem );
+	}, [] );
+
+	return (
+		<DataForm< NestedDataItem >
+			data={ data }
+			fields={ nestedFields }
+			form={ form }
+			onChange={ handleChange }
+		/>
+	);
+};
+
+export const NestedData = {
+	render: NestedDataComponent,
 };
