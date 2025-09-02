@@ -11,13 +11,11 @@
 		margin-left: 2em;
 	}
 	&.wp-block-latest-posts__list {
-		list-style: none;
-
-		li {
-			clear: both;
-			overflow-wrap: break-word;
-		}
-	}
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 1em; // 🔥 automatic spacing
+}
 
 	&.is-grid {
 		display: flex;
