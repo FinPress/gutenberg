@@ -142,6 +142,8 @@ function LinkControl( {
 	hasRichPreviews = false,
 	hasTextControl = false,
 	renderControlBottom = null,
+	tabs = [],
+	showTabs,
 } ) {
 	if ( withCreateSuggestion === undefined && createSuggestion ) {
 		withCreateSuggestion = true;
@@ -422,6 +424,9 @@ function LinkControl( {
 									</InputControlSuffixWrapper>
 								)
 							}
+							tabs={ tabs }
+							showTabs={ showTabs }
+							tabClassName="block-editor-tab-control__field"
 						/>
 					</div>
 					{ errorMessage && (

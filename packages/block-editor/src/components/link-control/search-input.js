@@ -27,6 +27,7 @@ const LinkControlSearchInput = forwardRef(
 			children,
 			currentLink = {},
 			className = null,
+			tabClassName = null,
 			placeholder = null,
 			withCreateSuggestion = false,
 			onCreateSuggestion = noop,
@@ -44,6 +45,8 @@ const LinkControlSearchInput = forwardRef(
 			createSuggestionButtonText,
 			hideLabelFromVision = false,
 			suffix,
+			tabs = [],
+			showTabs = false,
 		},
 		ref
 	) => {
@@ -154,6 +157,9 @@ const LinkControlSearchInput = forwardRef(
 					} }
 					ref={ ref }
 					suffix={ suffix }
+					showTabs={ showTabs }
+					tabClassName={ tabClassName }
+					tabs={ tabs }
 				/>
 				{ children }
 			</div>

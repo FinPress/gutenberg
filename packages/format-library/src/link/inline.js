@@ -249,6 +249,17 @@ function InlineLinkUI( {
 		);
 	}
 
+	const tabs = [
+		{
+			name: 'post',
+			title: 'Content',
+		},
+		{
+			name: 'attachment',
+			title: 'Media',
+		},
+	];
+
 	return (
 		<Popover
 			anchor={ popoverAnchor }
@@ -262,6 +273,8 @@ function InlineLinkUI( {
 			constrainTabbing
 		>
 			<LinkControl
+				tabs={ tabs }
+				showTabs
 				value={ linkValue }
 				onChange={ onChangeLink }
 				onRemove={ removeLink }
