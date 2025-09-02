@@ -7,10 +7,10 @@
 	padding: 0 $grid-unit-60 $grid-unit-30;
 	container-type: inline-size;
 	/**
-	 * Breakpoints were adjusted from media queries breakpoints to account for
-	 * the sidebar width. This was done to match the existing styles we had.
+	 * Match the padding applied to other DataViews components at the same
+	 * max-width.
 	 */
-	@container (max-width: 480px) {
+	@container (max-width: 430px) {
 		padding-left: $grid-unit-30;
 		padding-right: $grid-unit-30;
 	}
