@@ -518,6 +518,7 @@ class WP_Navigation_Block_Renderer {
 			';
 			$responsive_container_content_directives = '
 				data-wp-watch="callbacks.focusFirstElement"
+				data-wp-on-async--click="actions.handleContentClick"
 			';
 		}
 
