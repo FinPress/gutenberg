@@ -6,6 +6,7 @@
 		{ "path": "packages/api-fetch" },
 		{ "path": "packages/autop" },
 		{ "path": "packages/blob" },
+		{ "path": "packages/blocks" },
 		{ "path": "packages/block-editor" },
 		{ "path": "packages/block-library" },
 		{ "path": "packages/block-serialization-default-parser" },
