@@ -4,17 +4,33 @@
 import memize from 'memize';
 
 export * from './types';
+/**
+ * Internal dependencies
+ */
+import type {
+	ShortcodeAttrs,
+	ShortcodeMatch,
+	ShortcodeOptions,
+	Shortcode,
+	Match,
+	ReplaceCallback,
+	shortcode as ShortcodeInterface,
+} from './types';
 
 /**
  * Find the next matching shortcode.
  *
- * @param {string} tag   Shortcode tag.
- * @param {string} text  Text to search.
- * @param {number} index Index to start search from.
+ * @param tag   Shortcode tag.
+ * @param text  Text to search.
+ * @param index Index to start search from.
  *
- * @return {import('./types').ShortcodeMatch | undefined} Matched information.
+ * @return Matched information.
  */
-export function next( tag, text, index = 0 ) {
+export function next(
+	tag: string,
+	text: string,
+	index: number = 0
+): ShortcodeMatch | undefined {
 	const re = regexp( tag );
 
 	re.lastIndex = index;
@@ -30,8 +46,8 @@ export function next( tag, text, index = 0 ) {
 		return next( tag, text, re.lastIndex );
 	}
 
-	const result = {
-		index: match.index,
+	const result: ShortcodeMatch = {
+		index: match.index!,
 		content: match[ 0 ],
 		shortcode: fromMatch( match ),
 	};
@@ -54,25 +70,47 @@ export function next( tag, text, index = 0 ) {
 /**
  * Replace matching shortcodes in a block of text.
  *
- * @param {string}                            tag      Shortcode tag.
- * @param {string}                            text     Text to search.
- * @param {import('./types').ReplaceCallback} callback Function to process the match and return
- *                                                     replacement string.
+ * @param tag      Shortcode tag.
+ * @param text     Text to search.
+ * @param callback Function to process the match and return
+ *                 replacement string.
  *
- * @return {string} Text with shortcodes replaced.
+ * @return Text with shortcodes replaced.
  */
-export function replace( tag, text, callback ) {
+export function replace(
+	tag: string,
+	text: string,
+	callback: ReplaceCallback
+): string {
 	return text.replace(
 		regexp( tag ),
-		function ( match, left, $3, attrs, slash, content, closing, right ) {
+		function (
+			match: string,
+			left: string,
+			$3: string,
+			attrs: string,
+			slash: string,
+			content: string,
+			closing: string,
+			right: string
+		): string {
 			// If both extra brackets exist, the shortcode has been properly
 			// escaped.
 			if ( left === '[' && right === ']' ) {
 				return match;
 			}
 
-			// Create the match object and pass it through the callback.
-			const result = callback( fromMatch( arguments ) );
+			const matchArray = [
+				match,
+				left,
+				$3,
+				attrs,
+				slash,
+				content,
+				closing,
+				right,
+			];
+			const result = callback( fromMatch( matchArray ) );
 
 			// Make sure to return any of the extra brackets if they weren't used to
 			// escape the shortcode.
@@ -90,11 +128,11 @@ export function replace( tag, text, callback ) {
  * `tag` string, a string or object of `attrs`, a boolean indicating whether to
  * format the shortcode using a `single` tag, and a `content` string.
  *
- * @param {Object} options
+ * @param options Shortcode options.
  *
- * @return {string} String representation of the shortcode.
+ * @return String representation of the shortcode.
  */
-export function string( options ) {
+export function string( options: ShortcodeOptions ): string {
 	return new shortcode( options ).string();
 }
 
@@ -114,11 +152,11 @@ export function string( options ) {
  * 6. The closing tag.
  * 7. An extra `]` to allow for escaping shortcodes with double `[[]]`
  *
- * @param {string} tag Shortcode tag.
+ * @param tag Shortcode tag.
  *
- * @return {RegExp} Shortcode RegExp.
+ * @return Shortcode RegExp.
  */
-export function regexp( tag ) {
+export function regexp( tag: string ): RegExp {
 	return new RegExp(
 		'\\[(\\[?)(' +
 			tag +
@@ -144,9 +182,9 @@ export function regexp( tag ) {
  *
  * @return {import('./types').ShortcodeAttrs} Parsed shortcode attributes.
  */
-export const attrs = memize( ( text ) => {
-	const named = {};
-	const numeric = [];
+export const attrs = memize( ( text: string ): ShortcodeAttrs => {
+	const named: Record< string, string > = {};
+	const numeric: string[] = [];
 
 	// This regular expression is reused from `shortcode_parse_atts()` in
 	// `wp-includes/shortcodes.php`.
@@ -168,7 +206,7 @@ export const attrs = memize( ( text ) => {
 	// Map zero-width spaces to actual spaces.
 	text = text.replace( /[\u00a0\u200b]/g, ' ' );
 
-	let match;
+	let match: RegExpExecArray | null;
 
 	// Match and normalize attributes.
 	while ( ( match = pattern.exec( text ) ) ) {
@@ -197,12 +235,12 @@ export const attrs = memize( ( text ) => {
  * by `regexp()`. `match` can also be set to the `arguments` from a callback
  * passed to `regexp.replace()`.
  *
- * @param {import('./types').Match} match Match array.
+ * @param match Match array.
  *
- * @return {InstanceType<import('./types').shortcode>} Shortcode instance.
+ * @return Shortcode instance.
  */
-export function fromMatch( match ) {
-	let type;
+export function fromMatch( match: Match ): InstanceType< typeof shortcode > {
+	let type: 'self-closing' | 'closed' | 'single';
 
 	if ( match[ 4 ] ) {
 		type = 'self-closing';
@@ -220,6 +258,7 @@ export function fromMatch( match ) {
 	} );
 }
 
+// eslint-disable-next-line jsdoc/require-param
 /**
  * Creates a shortcode instance.
  *
@@ -227,11 +266,12 @@ export function fromMatch( match ) {
  * containing a `tag` string, a string or object of `attrs`, a string indicating
  * the `type` of the shortcode ('single', 'self-closing', or 'closed'), and a
  * `content` string.
- *
- * @type {import('./types').shortcode} Shortcode instance.
  */
 const shortcode = Object.assign(
-	function ( options ) {
+	function (
+		this: InstanceType< typeof shortcode >,
+		options?: Partial< ShortcodeOptions >
+	) {
 		const { tag, attrs: attributes, type, content } = options || {};
 		Object.assign( this, { tag, type, content } );
 
@@ -252,16 +292,26 @@ const shortcode = Object.assign(
 			this.attrs = attrs( attributes );
 			// Identify a correctly formatted `attrs` object.
 		} else if (
+			Array.isArray( attributes ) &&
 			attributes.length === attributeTypes.length &&
-			attributeTypes.every( ( t, key ) => t === attributes[ key ] )
+			attributeTypes.every(
+				( t, key ) => t === Object.keys( attributes )[ key ]
+			)
 		) {
-			this.attrs = attributes;
+			this.attrs = attributes as ShortcodeAttrs;
 			// Handle a flat object of attributes.
-		} else {
+		} else if ( typeof attributes === 'object' && attributes ) {
 			Object.entries( attributes ).forEach( ( [ key, value ] ) => {
-				this.set( key, value );
+				if ( value !== undefined && typeof value === 'string' ) {
+					this.set( key, value );
+				}
 			} );
 		}
+	} as {
+		new (
+			options?: Partial< ShortcodeOptions >
+		): InstanceType< typeof shortcode >;
+		( options?: Partial< ShortcodeOptions > ): void;
 	},
 	{
 		next,
@@ -271,7 +321,7 @@ const shortcode = Object.assign(
 		attrs,
 		fromMatch,
 	}
-);
+) as ShortcodeInterface;
 
 Object.assign( shortcode.prototype, {
 	/**
@@ -280,14 +330,15 @@ Object.assign( shortcode.prototype, {
 	 * Automatically detects whether `attr` is named or numeric and routes it
 	 * accordingly.
 	 *
-	 * @param {(number|string)} attr Attribute key.
+	 * @param attr Attribute key.
 	 *
-	 * @return {string} Attribute value.
+	 * @return Attribute value.
 	 */
-	get( attr ) {
-		return this.attrs[ typeof attr === 'number' ? 'numeric' : 'named' ][
-			attr
-		];
+	get( this: Shortcode, attr: string | number ): string | undefined {
+		if ( typeof attr === 'number' ) {
+			return this.attrs.numeric[ attr ];
+		}
+		return this.attrs.named[ attr ];
 	},
 
 	/**
@@ -296,23 +347,26 @@ Object.assign( shortcode.prototype, {
 	 * Automatically detects whether `attr` is named or numeric and routes it
 	 * accordingly.
 	 *
-	 * @param {(number|string)} attr  Attribute key.
-	 * @param {string}          value Attribute value.
+	 * @param attr  Attribute key.
+	 * @param value Attribute value.
 	 *
-	 * @return {InstanceType< import('./types').shortcode >} Shortcode instance.
+	 * @return Shortcode instance.
 	 */
-	set( attr, value ) {
-		this.attrs[ typeof attr === 'number' ? 'numeric' : 'named' ][ attr ] =
-			value;
+	set( this: Shortcode, attr: string | number, value: string ): Shortcode {
+		if ( typeof attr === 'number' ) {
+			this.attrs.numeric[ attr ] = value;
+		} else {
+			this.attrs.named[ attr ] = value;
+		}
 		return this;
 	},
 
 	/**
 	 * Transform the shortcode into a string.
 	 *
-	 * @return {string} String representation of the shortcode.
+	 * @return String representation of the shortcode.
 	 */
-	string() {
+	string( this: Shortcode ): string {
 		let text = '[' + this.tag;
 
 		this.attrs.numeric.forEach( ( value ) => {
