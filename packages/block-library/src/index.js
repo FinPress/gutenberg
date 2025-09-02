@@ -119,6 +119,8 @@ import * as socialLinks from './social-links';
 import * as spacer from './spacer';
 import * as table from './table';
 import * as tableOfContents from './table-of-contents';
+import * as tabs from './tabs';
+import * as tab from './tab';
 import * as tagCloud from './tag-cloud';
 import * as templatePart from './template-part';
 import * as termDescription from './term-description';
@@ -181,6 +183,8 @@ const getAllBlocks = () => {
 		socialLinks,
 		spacer,
 		table,
+		tabs,
+		tab,
 		tagCloud,
 		textColumns,
 		verse,
