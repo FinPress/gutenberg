@@ -229,7 +229,7 @@ function CompactItemActions< Item >( {
 						/>
 					}
 				/>
-				<Menu.Popover>
+				<Menu.Popover modal={ false }>
 					<ActionsMenuGroup
 						actions={ actions }
 						item={ item }
