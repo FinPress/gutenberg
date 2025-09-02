@@ -426,6 +426,15 @@ Add custom HTML code and preview it as you edit. ([Source](https://github.com/Wo
 -	**Supports:** interactivity (clientNavigation), ~~className~~, ~~customClassName~~, ~~html~~
 -	**Attributes:** content
 
+## Icon
+
+Insert an SVG icon or graphic. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/icon))
+
+-	**Name:** core/icon
+-	**Category:** media
+-	**Supports:** align, anchor, interactivity (clientNavigation), spacing (margin, padding), ~~html~~
+-	**Attributes:** customGradient, customIconBackgroundColor, customIconColor, flipHorizontal, flipVertical, gradient, hasNoIconFill, height, icon, iconBackgroundColor, iconBackgroundColorValue, iconColor, iconColorValue, iconName, itemsJustification, label, linkRel, linkTarget, linkUrl, percentWidth, rotate, title, width
+
 ## Image
 
 Insert an image to make a visual statement. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/image))
@@ -516,7 +525,7 @@ A collection of blocks that allow visitors to get around your site. ([Source](ht
 
 -	**Name:** core/navigation
 -	**Category:** theme
--	**Allowed Blocks:** core/navigation-link, core/search, core/social-links, core/page-list, core/spacer, core/home-link, core/site-title, core/site-logo, core/navigation-submenu, core/loginout, core/buttons
+-	**Allowed Blocks:** core/navigation-link, core/search, core/social-links, core/page-list, core/spacer, core/home-link, core/icon, core/site-title, core/site-logo, core/navigation-submenu, core/loginout, core/buttons
 -	**Supports:** align (full, wide), ariaLabel, inserter, interactivity, layout (allowSizingOnChildren, default, ~~allowInheriting~~, ~~allowSwitching~~, ~~allowVerticalAlignment~~), spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~, ~~renaming~~
 -	**Attributes:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, hasIcon, icon, maxNestingLevel, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, templateLock, textColor
 

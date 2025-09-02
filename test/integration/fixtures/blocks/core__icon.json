@@ -1,0 +1,10 @@
+[
+	{
+		"name": "core/icon",
+		"isValid": true,
+		"attributes": {
+			"icon": ""
+		},
+		"innerBlocks": []
+	}
+]
