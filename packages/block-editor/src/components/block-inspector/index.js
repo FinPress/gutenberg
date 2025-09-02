@@ -232,11 +232,24 @@ const BlockInspectorSingleBlock = ( {
 				getClientIdsOfDescendants,
 				getBlockName,
 				getBlockEditingMode,
+				getBlockParents,
 			} = select( blockEditorStore );
+
 			return getClientIdsOfDescendants( clientId ).filter(
-				( current ) =>
-					getBlockName( current ) !== 'core/list-item' &&
-					getBlockEditingMode( current ) === 'contentOnly'
+				( current ) => {
+					// Check if this block is within a navigation context
+					const parents = getBlockParents( current );
+					const isWithinNavigation = parents.some( ( parentId ) => {
+						const parentName = getBlockName( parentId );
+						return parentName === 'core/navigation';
+					} );
+
+					return (
+						! isWithinNavigation &&
+						getBlockName( current ) !== 'core/list-item' &&
+						getBlockEditingMode( current ) === 'contentOnly'
+					);
+				}
 			);
 		},
 		[ isSectionBlock, clientId ]
