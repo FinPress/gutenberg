@@ -10,6 +10,7 @@
 	"usesContext": [ "queryId", "query" ],
 	"supports": {
 		"align": true,
+		"layout": true,
 		"reusable": false,
 		"html": false,
 		"color": {
