@@ -94,12 +94,8 @@ test.describe( 'Site editor command palette', () => {
 		await page
 			.getByRole( 'button', { name: 'Open command palette' } )
 			.click();
-		await page.keyboard.type( 'Customize' );
-		await page.getByRole( 'option', { name: 'customize css' } ).click();
-		await expect(
-			page
-				.getByRole( 'region', { name: 'Editor settings' } )
-				.getByLabel( 'Additional CSS' )
-		).toBeVisible();
+		await page.keyboard.type( 'custom CSS' );
+		await page.getByRole( 'option', { name: 'Go to custom CSS' } ).click();
+		await expect( page.getByLabel( 'Additional CSS' ) ).toBeVisible();
 	} );
 } );
