@@ -3,7 +3,7 @@
  */
 import { useCommand, useCommandLoader } from '@wordpress/commands';
 import { __ } from '@wordpress/i18n';
-import { plus, dashboard } from '@wordpress/icons';
+import { plus } from '@wordpress/icons';
 import { getPath } from '@wordpress/url';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -137,39 +137,6 @@ const getAdminBasicNavigationCommands = () =>
 		};
 	};
 
-const getDashboardCommand = () =>
-	function useDashboardCommand() {
-		const currentPath = getPath( window.location.href );
-
-		const isEditorScreen =
-			currentPath?.includes( 'site-editor.php' ) ||
-			currentPath?.includes( 'post.php' ) ||
-			currentPath?.includes( 'post-new.php' ) ||
-			currentPath?.includes( 'widgets.php' ) ||
-			currentPath?.includes( 'customize.php' );
-
-		const commands = useMemo( () => {
-			if ( isEditorScreen ) {
-				return [
-					{
-						name: 'core/dashboard',
-						label: __( 'Dashboard' ),
-						icon: dashboard,
-						callback: () => {
-							document.location.assign( 'index.php' );
-						},
-					},
-				];
-			}
-			return [];
-		}, [ isEditorScreen ] );
-
-		return {
-			isLoading: false,
-			commands,
-		};
-	};
-
 export function useAdminNavigationCommands() {
 	useCommand( {
 		name: 'core/add-new-post',
@@ -179,11 +146,6 @@ export function useAdminNavigationCommands() {
 			document.location.assign( 'post-new.php' );
 		},
 		keywords: [ __( 'post' ), __( 'new' ), __( 'add' ), __( 'create' ) ],
-	} );
-
-	useCommandLoader( {
-		name: 'core/dashboard',
-		hook: getDashboardCommand(),
 	} );
 
 	useCommandLoader( {
