@@ -83,7 +83,13 @@ $block-editor-link-control-number-of-actions: 1;
 }
 
 .block-editor-link-control__search-results-wrapper {
-	position: relative;
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	background: $white;
+	border: 1px solid $gray-300;
+	border-top: none;
+	margin-top: -1px;
 
 	&::before,
 	&::after {
@@ -109,8 +115,16 @@ $block-editor-link-control-number-of-actions: 1;
 	}
 }
 
+// Use relative positioning within popovers
+.components-popover .block-editor-link-control__search-results-wrapper {
+	position: relative;
+	// undo the properties
+	background: transparent;
+	border: none;
+	margin-top: auto;
+}
+
 .block-editor-link-control__search-results {
-	margin-top: -$grid-unit-20;
 	padding: $grid-unit-10;
 	max-height: 200px;
 	overflow-y: auto; // allow results list to scroll
@@ -118,6 +132,11 @@ $block-editor-link-control-number-of-actions: 1;
 	&.is-loading {
 		opacity: 0.2;
 	}
+}
+
+// Only apply negative margin when within a popover
+.components-popover .block-editor-link-control__search-results {
+	margin-top: -$grid-unit-20;
 }
 
 .block-editor-link-control__search-item {

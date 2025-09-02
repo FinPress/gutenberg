@@ -16,6 +16,7 @@ import {
 	Spinner,
 	withSpokenMessages,
 	Popover,
+	withFocusOutside,
 } from '@wordpress/components';
 import {
 	compose,
@@ -69,6 +70,7 @@ class URLInput extends Component {
 			selectedSuggestion: null,
 			suggestionsListboxId: '',
 			suggestionOptionIdPrefix: '',
+			hasFocus: false,
 		};
 	}
 
@@ -123,8 +125,11 @@ class URLInput extends Component {
 	shouldShowInitialSuggestions() {
 		const { __experimentalShowInitialSuggestions = false, value } =
 			this.props;
+		const { hasFocus } = this.state;
 		return (
-			__experimentalShowInitialSuggestions && ! ( value && value.length )
+			__experimentalShowInitialSuggestions &&
+			hasFocus &&
+			! ( value && value.length )
 		);
 	}
 
@@ -240,6 +245,13 @@ class URLInput extends Component {
 	}
 
 	onFocus() {
+		this.setState( { hasFocus: true }, () => {
+			// Check if we should show initial suggestions after state has updated
+			if ( this.shouldShowInitialSuggestions() ) {
+				this.updateSuggestions();
+			}
+		} );
+
 		const { suggestions } = this.state;
 		const { disableSuggestions, value } = this.props;
 
@@ -375,6 +387,15 @@ class URLInput extends Component {
 		this.selectLink( suggestion );
 		// Move focus to the input field when a link suggestion is clicked.
 		this.inputRef.current.focus();
+	}
+
+	handleFocusOutside() {
+		// Focus has truly left the component - hide suggestions
+		this.setState( {
+			hasFocus: false,
+			showSuggestions: false,
+			selectedSuggestion: null,
+		} );
 	}
 
 	static getDerivedStateFromProps(
@@ -577,5 +598,6 @@ export default compose(
 			__experimentalFetchLinkSuggestions:
 				getSettings().__experimentalFetchLinkSuggestions,
 		};
-	} )
+	} ),
+	withFocusOutside
 )( URLInput );
