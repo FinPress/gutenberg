@@ -7,44 +7,68 @@ import type { Meta, StoryFn } from '@storybook/react';
  * WordPress dependencies
  */
 import { SVG, Path } from '@wordpress/primitives';
-import { wordpress } from '@wordpress/icons';
+import * as icons from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
-import Icon from '..';
+import Icon, { type Props, type IconType } from '..';
 import { VStack } from '../../v-stack';
 
-const meta: Meta< typeof Icon > = {
+type IconProps = Props & {
+	additionalProps: object;
+};
+
+const meta: Meta< IconProps > = {
 	title: 'Components/Icon',
 	component: Icon,
 	parameters: {
 		controls: { expanded: true },
 		docs: { canvas: { sourceState: 'shown' } },
 	},
+	args: {
+		additionalProps: {},
+		size: 24,
+	},
+	argTypes: {
+		size: {
+			control: {
+				type: 'range',
+				min: 1,
+				max: 200,
+			},
+		},
+		additionalProps: {
+			defaultValue: {},
+			table: {
+				type: { summary: 'object' },
+			},
+		},
+	},
 };
 export default meta;
 
-const Template: StoryFn< typeof Icon > = ( args ) => <Icon { ...args } />;
+const Template: StoryFn< IconProps > = function ( args ) {
+	const { additionalProps, ...rest } = args;
+	const props = {
+		...rest,
+		...additionalProps,
+	};
+	return <Icon { ...props } />;
+};
 
 export const Default = Template.bind( {} );
 Default.args = {
-	icon: wordpress,
+	icon: icons.wordpress,
 };
 
-export const FillColor: StoryFn< typeof Icon > = ( args ) => {
-	return (
-		<div
-			style={ {
-				fill: 'blue',
-			} }
-		>
-			<Icon { ...args } />
-		</div>
-	);
-};
+export const FillColor = Template.bind( {} );
+
 FillColor.args = {
 	...Default.args,
+	additionalProps: {
+		fill: 'blue',
+	},
 };
 
 /**
@@ -126,7 +150,7 @@ WithAnSVG.args = {
  * as long as you are in a context where the Dashicons stylesheet is loaded. To simulate that here,
  * use the Global CSS Injector in the Storybook toolbar at the top and select the "WordPress" preset.
  */
-export const WithADashicon: StoryFn< typeof Icon > = ( args ) => {
+export const WithADashicon: StoryFn< IconProps > = ( args ) => {
 	return (
 		<VStack>
 			<Icon { ...args } />
@@ -140,4 +164,29 @@ export const WithADashicon: StoryFn< typeof Icon > = ( args ) => {
 WithADashicon.args = {
 	...Default.args,
 	icon: 'wordpress',
+};
+
+export const WithAnIconFromTheLibrary: StoryFn< IconProps > = ( args ) => {
+	const { additionalProps, ...rest } = args;
+
+	const props = {
+		...rest,
+		...additionalProps,
+		icon: icons[ args.icon as keyof typeof icons ] as IconType,
+	};
+
+	return <Icon { ...props } />;
+};
+
+WithAnIconFromTheLibrary.args = {
+	...Default.args,
+	icon: 'wordpress',
+	size: 24,
+};
+
+WithAnIconFromTheLibrary.argTypes = {
+	icon: {
+		options: Object.keys( icons ),
+		control: 'select',
+	},
 };
