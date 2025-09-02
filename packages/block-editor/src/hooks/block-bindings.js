@@ -1,11 +1,10 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import {
 	getBlockBindingsSource,
 	getBlockBindingsSources,
-	getBlockType,
 } from '@wordpress/blocks';
 import {
 	__experimentalItemGroup as ItemGroup,
@@ -14,10 +13,10 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalVStack as VStack,
-	privateApis as componentsPrivateApis,
+	ComboboxControl,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { useContext, Fragment } from '@wordpress/element';
+import { useContext } from '@wordpress/element';
 import { useViewportMatch } from '@wordpress/compose';
 
 /**
@@ -28,15 +27,38 @@ import {
 	getBindableAttributes,
 	useBlockBindingsUtils,
 } from '../utils/block-bindings';
-import { unlock } from '../lock-unlock';
 import InspectorControls from '../components/inspector-controls';
 import BlockContext from '../components/block-context';
-import { useBlockEditContext } from '../components/block-edit';
 import { store as blockEditorStore } from '../store';
 
-const { Menu } = unlock( componentsPrivateApis );
-
 const EMPTY_OBJECT = {};
+
+/**
+ * Converts nested fieldsList format to options array format for ComboboxControl
+ * @param {Object} fieldsObject - Object with nested fields data from multiple sources
+ * @return {Array} Array of options with value and label properties
+ */
+const convertToOptions = ( fieldsObject ) => {
+	if ( ! fieldsObject || typeof fieldsObject !== 'object' ) {
+		return [];
+	}
+
+	const options = [];
+
+	// Iterate through each source (e.g., "bbe/smile-cry")
+	Object.entries( fieldsObject ).forEach( ( [ sourceName, fields ] ) => {
+		// Iterate through each field within the source
+		Object.entries( fields ).forEach( ( [ fieldKey, fieldData ] ) => {
+			options.push( {
+				value: fieldKey,
+				label: fieldData?.label || fieldKey,
+				sourceName,
+			} );
+		} );
+	} );
+
+	return options;
+};
 
 const useToolsPanelDropdownMenuProps = () => {
 	const isMobile = useViewportMatch( 'medium', '<' );
@@ -50,68 +72,6 @@ const useToolsPanelDropdownMenuProps = () => {
 		  }
 		: {};
 };
-
-function BlockBindingsPanelMenuContent( { fieldsList, attribute, binding } ) {
-	const { clientId } = useBlockEditContext();
-	const registeredSources = getBlockBindingsSources();
-	const { updateBlockBindings } = useBlockBindingsUtils();
-	const currentKey = binding?.args?.key;
-	const attributeType = useSelect(
-		( select ) => {
-			const { name: blockName } =
-				select( blockEditorStore ).getBlock( clientId );
-			const _attributeType =
-				getBlockType( blockName ).attributes?.[ attribute ]?.type;
-			return _attributeType === 'rich-text' ? 'string' : _attributeType;
-		},
-		[ clientId, attribute ]
-	);
-	return (
-		<>
-			{ Object.entries( fieldsList ).map( ( [ name, fields ], i ) => (
-				<Fragment key={ name }>
-					<Menu.Group>
-						{ Object.keys( fieldsList ).length > 1 && (
-							<Menu.GroupLabel>
-								{ registeredSources[ name ].label }
-							</Menu.GroupLabel>
-						) }
-						{ Object.entries( fields )
-							.filter(
-								( [ , args ] ) => args?.type === attributeType
-							)
-							.map( ( [ key, args ] ) => (
-								<Menu.RadioItem
-									key={ key }
-									onChange={ () =>
-										updateBlockBindings( {
-											[ attribute ]: {
-												source: name,
-												args: { key },
-											},
-										} )
-									}
-									name={ attribute + '-binding' }
-									value={ key }
-									checked={ key === currentKey }
-								>
-									<Menu.ItemLabel>
-										{ args?.label }
-									</Menu.ItemLabel>
-									<Menu.ItemHelpText>
-										{ args?.value }
-									</Menu.ItemHelpText>
-								</Menu.RadioItem>
-							) ) }
-					</Menu.Group>
-					{ i !== Object.keys( fieldsList ).length - 1 && (
-						<Menu.Separator />
-					) }
-				</Fragment>
-			) ) }
-		</>
-	);
-}
 
 function BlockBindingsAttribute( { attribute, binding, fieldsList } ) {
 	const { source: sourceName, args } = binding || {};
@@ -159,7 +119,6 @@ function EditableBlockBindingsPanelItems( {
 	fieldsList,
 } ) {
 	const { updateBlockBindings } = useBlockBindingsUtils();
-	const isMobile = useViewportMatch( 'medium', '<' );
 	return (
 		<>
 			{ attributes.map( ( attribute ) => {
@@ -174,27 +133,53 @@ function EditableBlockBindingsPanelItems( {
 								[ attribute ]: undefined,
 							} );
 						} }
+						isShownByDefault
 					>
-						<Menu
-							placement={
-								isMobile ? 'bottom-start' : 'left-start'
-							}
-						>
-							<Menu.TriggerButton render={ <Item /> }>
-								<BlockBindingsAttribute
-									attribute={ attribute }
-									binding={ binding }
-									fieldsList={ fieldsList }
-								/>
-							</Menu.TriggerButton>
-							<Menu.Popover gutter={ isMobile ? 8 : 36 }>
-								<BlockBindingsPanelMenuContent
-									fieldsList={ fieldsList }
-									attribute={ attribute }
-									binding={ binding }
-								/>
-							</Menu.Popover>
-						</Menu>
+						<ComboboxControl
+							label={ attribute }
+							placeholder={ __( 'Select a source' ) }
+							options={ convertToOptions( fieldsList ) }
+							value={ binding?.args?.key || '' }
+							onChange={ ( value ) => {
+								// Find the source name for the selected value
+								let selectedSourceName = '';
+								Object.entries( fieldsList ).forEach(
+									( [ sourceName, fields ] ) => {
+										if ( fields[ value ] ) {
+											selectedSourceName = sourceName;
+										}
+									}
+								);
+
+								updateBlockBindings( {
+									[ attribute ]: {
+										source: selectedSourceName,
+										args: { key: value },
+									},
+								} );
+							} }
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							__experimentalRenderItem={ ( { item } ) => {
+								const { label, sourceName } = item;
+								return (
+									<div>
+										<div
+											style={ { marginBottom: '0.2rem' } }
+										>
+											{ label }
+										</div>
+										<small>
+											{ sprintf(
+												/* translators: %s: Name of the data source */
+												__( 'Source: %s' ),
+												sourceName
+											) }
+										</small>
+									</div>
+								);
+							} }
+						/>
 					</ToolsPanelItem>
 				);
 			} ) }
@@ -285,7 +270,7 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 				dropdownMenuProps={ dropdownMenuProps }
 				className="block-editor-bindings__panel"
 			>
-				<ItemGroup isBordered isSeparated>
+				<ItemGroup isSeparated>
 					{ readOnly ? (
 						<ReadOnlyBlockBindingsPanelItems
 							bindings={ filteredBindings }
