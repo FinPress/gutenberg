@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useCommand, useCommandLoader } from '@wordpress/commands';
+import { useCommandLoader } from '@wordpress/commands';
 import { __ } from '@wordpress/i18n';
 import { plus } from '@wordpress/icons';
 import { getPath } from '@wordpress/url';
@@ -154,25 +154,50 @@ const getAdminBasicNavigationCommands = () =>
 		};
 	};
 
-export function useAdminNavigationCommands() {
-	const canCreatePost = useSelect(
-		( select ) =>
-			select( coreStore ).canUser( 'create', {
-				kind: 'postType',
-				name: 'post',
-			} ),
-		[]
-	);
+const getAddNewPostCommand = () =>
+	function useAddNewPostCommand() {
+		const canCreatePost = useSelect(
+			( select ) =>
+				select( coreStore ).canUser( 'create', {
+					kind: 'postType',
+					name: 'post',
+				} ),
+			[]
+		);
 
-	useCommand( {
+		const commands = useMemo( () => {
+			if ( ! canCreatePost ) {
+				return [];
+			}
+
+			return [
+				{
+					name: 'core/add-new-post',
+					label: __( 'Add Post' ),
+					icon: plus,
+					callback: () => {
+						document.location.assign( 'post-new.php' );
+					},
+					keywords: [
+						__( 'post' ),
+						__( 'new' ),
+						__( 'add' ),
+						__( 'create' ),
+					],
+				},
+			];
+		}, [ canCreatePost ] );
+
+		return {
+			isLoading: false,
+			commands,
+		};
+	};
+
+export function useAdminNavigationCommands() {
+	useCommandLoader( {
 		name: 'core/add-new-post',
-		label: __( 'Add Post' ),
-		icon: plus,
-		callback: () => {
-			document.location.assign( 'post-new.php' );
-		},
-		disabled: ! canCreatePost,
-		keywords: [ __( 'post' ), __( 'new' ), __( 'add' ), __( 'create' ) ],
+		hook: getAddNewPostCommand(),
 	} );
 
 	useCommandLoader( {
