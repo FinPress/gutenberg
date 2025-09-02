@@ -29,6 +29,7 @@
 		{ "path": "../plugins" },
 		{ "path": "../private-apis" },
 		{ "path": "../rich-text" },
+		{ "path": "../server-side-render" },
 		{ "path": "../url" },
 		{ "path": "../warning" },
 		{ "path": "../wordcount" }

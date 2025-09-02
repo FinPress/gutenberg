@@ -31,6 +31,7 @@
 		{ "path": "../keycodes" },
 		{ "path": "../primitives" },
 		{ "path": "../rich-text" },
+		{ "path": "../server-side-render" },
 		{ "path": "../url" },
 		{ "path": "../wordcount" }
 	],
