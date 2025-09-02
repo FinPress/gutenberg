@@ -934,7 +934,43 @@ export default function Image( {
 									height:
 										pixelSize.height + resizeDelta.height,
 							  }
-							: { width, height } ),
+							: ( () => {
+									// Only apply dimension styles when the user set width or height
+									if (
+										width === undefined &&
+										( height === undefined ||
+											height === null )
+									) {
+										return {};
+									}
+									const style = {};
+									// Only apply width when explicitly provided; preserve theme CSS otherwise
+									if ( width === 'auto' ) {
+										style.width = 'auto';
+									} else if (
+										width !== undefined &&
+										width !== null
+									) {
+										style.width =
+											typeof width === 'number'
+												? `${ width }px`
+												: width;
+									}
+									// Force height to auto when unspecified
+									if (
+										height === 'auto' ||
+										height === undefined ||
+										height === null
+									) {
+										style.height = 'auto';
+									} else {
+										style.height =
+											typeof height === 'number'
+												? `${ height }px`
+												: height;
+									}
+									return style;
+							  } )() ),
 						objectFit: scale,
 						...borderProps.style,
 						...shadowProps.style,
