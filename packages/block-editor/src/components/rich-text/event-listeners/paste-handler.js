@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { pasteHandler } from '@wordpress/blocks';
-import { isEmpty, insert, create } from '@wordpress/rich-text';
+import { isEmpty, insert, create, replace } from '@wordpress/rich-text';
 import { isURL } from '@wordpress/url';
 
 /**
@@ -25,6 +25,7 @@ export default ( props ) => ( element ) => {
 			__unstableEmbedURLOnPaste,
 			preserveWhiteSpace,
 			pastePlainText,
+			disableLineBreaks,
 		} = props.current;
 
 		// The event listener is attached to the window, so we need to check if
@@ -71,7 +72,12 @@ export default ( props ) => ( element ) => {
 			if ( transformed !== value ) {
 				onChange( transformed );
 			} else {
-				const valueToInsert = create( { html: content } );
+				let valueToInsert = create( { html: content } );
+
+				if ( disableLineBreaks ) {
+					valueToInsert = replace( valueToInsert, /\r?\n/g, ' ' );
+				}
+
 				addActiveFormats( valueToInsert, value.activeFormats );
 				onChange( insert( value, valueToInsert ) );
 			}
