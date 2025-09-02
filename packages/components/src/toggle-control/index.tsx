@@ -23,6 +23,7 @@ import type { ToggleControlProps } from './types';
 import { HStack } from '../h-stack';
 import { useCx } from '../utils';
 import { space } from '../utils/space';
+import { VisuallyHidden } from '../visually-hidden';
 
 function UnforwardedToggleControl(
 	{
@@ -33,6 +34,7 @@ function UnforwardedToggleControl(
 		className,
 		onChange,
 		disabled,
+		hideLabelFromVision = false,
 	}: WordPressComponentProps< ToggleControlProps, 'input', false >,
 	ref: ForwardedRef< HTMLInputElement >
 ) {
@@ -96,15 +98,25 @@ function UnforwardedToggleControl(
 					disabled={ disabled }
 					ref={ ref }
 				/>
-				<FlexBlock
-					as="label"
-					htmlFor={ id }
-					className={ clsx( 'components-toggle-control__label', {
-						'is-disabled': disabled,
-					} ) }
-				>
-					{ label }
-				</FlexBlock>
+				{ label &&
+					( hideLabelFromVision ? (
+						<VisuallyHidden as="label" htmlFor={ id }>
+							{ label }
+						</VisuallyHidden>
+					) : (
+						<FlexBlock
+							as="label"
+							htmlFor={ id }
+							className={ clsx(
+								'components-toggle-control__label',
+								{
+									'is-disabled': disabled,
+								}
+							) }
+						>
+							{ label }
+						</FlexBlock>
+					) ) }
 			</HStack>
 		</BaseControl>
 	);

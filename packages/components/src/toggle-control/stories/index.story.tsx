@@ -22,6 +22,9 @@ const meta: Meta< typeof ToggleControl > = {
 		help: { control: { type: 'text' } },
 		label: { control: { type: 'text' } },
 		onChange: { action: 'onChange' },
+		hideLabelFromVision: {
+			control: { type: 'boolean' },
+		},
 	},
 	parameters: {
 		controls: { expanded: true },

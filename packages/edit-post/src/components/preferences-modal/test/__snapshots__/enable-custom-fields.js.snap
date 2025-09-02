@@ -41,17 +41,6 @@ exports[`EnableCustomFieldsOption renders a checked checkbox and a confirmation 
   min-width: 0;
 }
 
-.emotion-6 {
-  display: block;
-  max-height: 100%;
-  max-width: 100%;
-  min-height: 0;
-  min-width: 0;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
 <div>
   <div
     class="preference-base-option"
@@ -82,12 +71,6 @@ exports[`EnableCustomFieldsOption renders a checked checkbox and a confirmation 
               class="components-form-toggle__thumb"
             />
           </span>
-          <label
-            class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-            data-wp-c16t="true"
-            data-wp-component="FlexBlock"
-            for="inspector-toggle-control-3"
-          />
         </div>
       </div>
     </div>
@@ -147,17 +130,6 @@ exports[`EnableCustomFieldsOption renders a checked checkbox when custom fields 
   min-width: 0;
 }
 
-.emotion-6 {
-  display: block;
-  max-height: 100%;
-  max-width: 100%;
-  min-height: 0;
-  min-width: 0;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
 <div>
   <div
     class="preference-base-option"
@@ -189,12 +161,6 @@ exports[`EnableCustomFieldsOption renders a checked checkbox when custom fields 
               class="components-form-toggle__thumb"
             />
           </span>
-          <label
-            class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-            data-wp-c16t="true"
-            data-wp-component="FlexBlock"
-            for="inspector-toggle-control-0"
-          />
         </div>
       </div>
     </div>
@@ -243,17 +209,6 @@ exports[`EnableCustomFieldsOption renders an unchecked checkbox and a confirmati
   min-width: 0;
 }
 
-.emotion-6 {
-  display: block;
-  max-height: 100%;
-  max-width: 100%;
-  min-height: 0;
-  min-width: 0;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
 <div>
   <div
     class="preference-base-option"
@@ -285,12 +240,6 @@ exports[`EnableCustomFieldsOption renders an unchecked checkbox and a confirmati
               class="components-form-toggle__thumb"
             />
           </span>
-          <label
-            class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-            data-wp-c16t="true"
-            data-wp-component="FlexBlock"
-            for="inspector-toggle-control-2"
-          />
         </div>
       </div>
     </div>
@@ -350,17 +299,6 @@ exports[`EnableCustomFieldsOption renders an unchecked checkbox when custom fiel
   min-width: 0;
 }
 
-.emotion-6 {
-  display: block;
-  max-height: 100%;
-  max-width: 100%;
-  min-height: 0;
-  min-width: 0;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
 <div>
   <div
     class="preference-base-option"
@@ -391,12 +329,6 @@ exports[`EnableCustomFieldsOption renders an unchecked checkbox when custom fiel
               class="components-form-toggle__thumb"
             />
           </span>
-          <label
-            class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-            data-wp-c16t="true"
-            data-wp-component="FlexBlock"
-            for="inspector-toggle-control-1"
-          />
         </div>
       </div>
     </div>
