@@ -17,6 +17,15 @@ export default function PostAuthorSelect() {
 
 	const setAuthorId = ( value ) => {
 		const author = Number( value );
+
+		const isValidAuthor = authorOptions.some(
+			( option ) => option.value === author
+		);
+
+		if ( ! isValidAuthor ) {
+			return;
+		}
+
 		editPost( { author } );
 	};
 

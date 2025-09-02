@@ -29,6 +29,15 @@ export default function PostAuthorCombobox() {
 		if ( ! postAuthorId ) {
 			return;
 		}
+
+		const isValidAuthor = authorOptions.some(
+			( option ) => option.value === postAuthorId
+		);
+
+		if ( ! isValidAuthor ) {
+			return;
+		}
+
 		editPost( { author: postAuthorId } );
 	};
 
