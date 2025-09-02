@@ -9,6 +9,7 @@
 ### Internal
 
 -   Upgrade `framer-motion` package to version `^11.15.0` ([#71442](https://github.com/WordPress/gutenberg/pull/71442)).
+-   Expose `ValidatedInputControl` via privateAPIs ([#71451](https://github.com/WordPress/gutenberg/pull/71451)).
 
 ## 30.2.0 (2025-08-20)
 
