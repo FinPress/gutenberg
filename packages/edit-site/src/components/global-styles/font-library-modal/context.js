@@ -92,8 +92,9 @@ function FontLibraryProvider( { children } ) {
 	 * It uses the font families from the param to avoid using the font families from an outdated state.
 	 *
 	 * @param {Array} fonts - The font families that will be saved to the database.
+	 * @param {boolean} persist - Whether to immediately persist changes to the database.
 	 */
-	const saveFontFamilies = async ( fonts ) => {
+	const saveFontFamilies = async ( fonts, persist = false ) => {
 		// Gets the global styles database post content.
 		const updatedGlobalStyles = globalStyles.record;
 
@@ -104,8 +105,14 @@ function FontLibraryProvider( { children } ) {
 			fonts
 		);
 
-		// Saves a new version of the global styles in the database.
-		await saveEntityRecord( 'root', 'globalStyles', updatedGlobalStyles );
+		if ( persist ) {
+			// Saves a new version of the global styles in the database.
+			await saveEntityRecord(
+				'root',
+				'globalStyles',
+				updatedGlobalStyles
+			);
+		}
 	};
 
 	// Library Fonts
@@ -309,8 +316,7 @@ function FontLibraryProvider( { children } ) {
 					fontFamiliesToActivate
 				);
 				// Save the global styles to the database.
-				await saveFontFamilies( activeFonts );
-
+				await saveFontFamilies( activeFonts, true );
 				refreshLibrary();
 			}
 
@@ -343,7 +349,7 @@ function FontLibraryProvider( { children } ) {
 					fontFamilyToUninstall
 				);
 				// Save the global styles to the database.
-				await saveFontFamilies( activeFonts );
+				await saveFontFamilies( activeFonts, true );
 			}
 
 			// Refresh the library (the library font families from database).
