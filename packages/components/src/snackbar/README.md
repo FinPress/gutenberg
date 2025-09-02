@@ -97,6 +97,13 @@ Used to provide a custom spoken message.
 -   Required: No
 -   Default: `children`
 
+#### `duration`: `number`
+
+How long the notice is displayed to users in milliseconds.
+
+-   Required: No
+-   Default: 10000
+
 ## Related components
 
 -   To create a prominent message that requires a higher-level of attention, use a Notice.

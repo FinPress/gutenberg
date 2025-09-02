@@ -30,6 +30,12 @@ type SnackbarOnlyProps = {
 	 * A ref to the list that contains the snackbar.
 	 */
 	listRef?: MutableRefObject< HTMLDivElement | null >;
+	/**
+	 * How long the notice should be presented to users.
+	 *
+	 * @default 10000
+	 */
+	duration?: number;
 };
 
 export type SnackbarProps = Pick<

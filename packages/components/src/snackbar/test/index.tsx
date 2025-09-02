@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { render, screen, within } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 import { click } from '@ariakit/test';
 
 /**
@@ -262,6 +262,66 @@ describe( 'Snackbar', () => {
 			);
 
 			expect( speak ).toHaveBeenCalledTimes( 1 );
+		} );
+	} );
+
+	describe( 'duration', () => {
+		it( 'should clear away after 10 seconds by default', () => {
+			jest.useFakeTimers();
+
+			const mockDismiss = jest.fn();
+			const mockRemove = jest.fn();
+
+			render(
+				<Snackbar onDismiss={ mockDismiss } onRemove={ mockRemove }>
+					Message
+				</Snackbar>
+			);
+
+			act( () => {
+				jest.advanceTimersByTime( 5000 );
+			} );
+
+			expect( mockDismiss ).not.toHaveBeenCalled();
+			expect( mockRemove ).not.toHaveBeenCalled();
+
+			act( () => {
+				jest.advanceTimersByTime( 5000 );
+			} );
+
+			expect( mockDismiss ).toHaveBeenCalledTimes( 1 );
+			expect( mockRemove ).toHaveBeenCalledTimes( 1 );
+		} );
+
+		it( 'should clear away after the number of milliseconds passed in the duration prop', () => {
+			jest.useFakeTimers();
+
+			const mockDismiss = jest.fn();
+			const mockRemove = jest.fn();
+
+			render(
+				<Snackbar
+					duration={ 15000 }
+					onDismiss={ mockDismiss }
+					onRemove={ mockRemove }
+				>
+					Message
+				</Snackbar>
+			);
+
+			act( () => {
+				jest.advanceTimersByTime( 10000 );
+			} );
+
+			expect( mockDismiss ).not.toHaveBeenCalled();
+			expect( mockRemove ).not.toHaveBeenCalled();
+
+			act( () => {
+				jest.advanceTimersByTime( 5000 );
+			} );
+
+			expect( mockDismiss ).toHaveBeenCalledTimes( 1 );
+			expect( mockRemove ).toHaveBeenCalledTimes( 1 );
 		} );
 	} );
 } );

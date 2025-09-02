@@ -19,6 +19,7 @@
 ### Enhancement
 
 -   Upgrade `gradient-parser` to version `1.1.1` to support HSL/HSLA color, CSS variables, and `calc()` expressions ([#71186](https://github.com/WordPress/gutenberg/pull/71186)).
+-   `Snackbar`: Add duration prop to component ([#71154](https://github.com/WordPress/gutenberg/pull/71154)).
 
 ### Internal
 

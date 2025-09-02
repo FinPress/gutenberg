@@ -27,8 +27,6 @@ import type { SnackbarProps } from './types';
 import type { NoticeAction } from '../notice/types';
 import type { WordPressComponentProps } from '../context';
 
-const NOTICE_TIMEOUT = 10000;
-
 /**
  * Custom hook which announces the message with the given politeness, if a
  * valid message is provided.
@@ -60,6 +58,7 @@ function UnforwardedSnackbar(
 		onRemove,
 		icon = null,
 		explicitDismiss = false,
+		duration = 10000,
 		// onDismiss is a callback executed when the snackbar is dismissed.
 		// It is distinct from onRemove, which _looks_ like a callback but is
 		// actually the function to call to remove the snackbar from the UI.
@@ -109,7 +108,7 @@ function UnforwardedSnackbar(
 				callbacksRef.current.onDismiss?.();
 				callbacksRef.current.onRemove?.();
 			}
-		}, NOTICE_TIMEOUT );
+		}, duration );
 
 		return () => clearTimeout( timeoutHandle );
 	}, [ explicitDismiss ] );
