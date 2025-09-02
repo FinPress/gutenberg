@@ -7,6 +7,7 @@ import {
 	FormTokenField,
 } from '@wordpress/components';
 import { useEntityRecords } from '@wordpress/core-data';
+import { decodeEntities } from '@wordpress/html-entities';
 
 const getNameById = ( records, id ) => {
 	return records.find( ( record ) => record.id === id )?.name;
@@ -17,7 +18,15 @@ const getIdByName = ( records, name ) => {
 };
 
 const IncludeExclude = ( { termQuery, setQuery } ) => {
-	const { taxonomy, order, orderBy, hideEmpty, perPage } = termQuery;
+	const {
+		taxonomy,
+		order,
+		orderBy,
+		hideEmpty,
+		perPage,
+		include = [],
+		exclude = [],
+	} = termQuery;
 	const queryArgs = {
 		order,
 		orderby: orderBy,
@@ -31,54 +40,63 @@ const IncludeExclude = ( { termQuery, setQuery } ) => {
 		queryArgs
 	);
 
-	const suggestions = records?.map( ( record ) => record.name );
+	const suggestions = records?.map( ( record ) => record.name ) || [];
 
 	return (
-		<ToolsPanelItem
-			hasValue={ () =>
-				termQuery.include.length > 0 || termQuery.exclude.length > 0
-			}
-			label={ __( 'Filters' ) }
-			onDeselect={ () => setQuery( { include: [], exclude: [] } ) }
-			isShownByDefault
-		>
-			<FormTokenField
-				__nextHasNoMarginBottom
-				__next40pxDefaultSize
-				disabled={ isResolving }
+		<>
+			<ToolsPanelItem
+				hasValue={ () => include.length > 0 }
 				label={ __( 'Include' ) }
-				suggestions={ suggestions }
-				value={ termQuery.include.map( ( id ) =>
-					getNameById( records, id )
-				) }
-				onChange={ ( newValue ) =>
-					setQuery( {
-						include: newValue.map( ( name ) =>
-							getIdByName( records, name )
-						),
-					} )
-				}
-				__experimentalShowHowTo={ false }
-			/>
-			<FormTokenField
-				__nextHasNoMarginBottom
-				__next40pxDefaultSize
-				disabled={ isResolving }
+				onDeselect={ () => setQuery( { include: [] } ) }
+				isShownByDefault
+			>
+				<FormTokenField
+					__nextHasNoMarginBottom
+					__next40pxDefaultSize
+					disabled={ isResolving }
+					label={ __( 'Include' ) }
+					suggestions={ suggestions }
+					displayTransform={ decodeEntities }
+					value={ include.map( ( id ) =>
+						getNameById( records, id )
+					) }
+					onChange={ ( newValue ) =>
+						setQuery( {
+							include: newValue.map( ( name ) =>
+								getIdByName( records, name )
+							),
+						} )
+					}
+					__experimentalShowHowTo={ false }
+				/>
+			</ToolsPanelItem>
+			<ToolsPanelItem
+				hasValue={ () => exclude.length > 0 }
 				label={ __( 'Exclude' ) }
-				suggestions={ suggestions }
-				value={ termQuery.exclude.map( ( id ) =>
-					getNameById( records, id )
-				) }
-				onChange={ ( newValue ) =>
-					setQuery( {
-						exclude: newValue.map( ( name ) =>
-							getIdByName( records, name )
-						),
-					} )
-				}
-				__experimentalShowHowTo={ false }
-			/>
-		</ToolsPanelItem>
+				onDeselect={ () => setQuery( { exclude: [] } ) }
+				isShownByDefault
+			>
+				<FormTokenField
+					__nextHasNoMarginBottom
+					__next40pxDefaultSize
+					disabled={ isResolving }
+					label={ __( 'Exclude' ) }
+					suggestions={ suggestions }
+					displayTransform={ decodeEntities }
+					value={ exclude.map( ( id ) =>
+						getNameById( records, id )
+					) }
+					onChange={ ( newValue ) =>
+						setQuery( {
+							exclude: newValue.map( ( name ) =>
+								getIdByName( records, name )
+							),
+						} )
+					}
+					__experimentalShowHowTo={ false }
+				/>
+			</ToolsPanelItem>
+		</>
 	);
 };
 
