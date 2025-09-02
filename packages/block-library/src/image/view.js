@@ -6,7 +6,13 @@ import {
 	getContext,
 	getElement,
 	withSyncEvent,
+	withScope,
 } from '@wordpress/interactivity';
+
+/**
+ * Internal dependencies
+ */
+import { IMAGE_PRELOAD_DELAY } from './constants';
 
 /**
  * Tracks whether user is touching screen; used to differentiate behavior for
@@ -24,11 +30,46 @@ let isTouching = false;
  */
 let lastTouchTime = 0;
 
+/**
+ * Returns the appropriate src URL for an image.
+ *
+ * @param {string} uploadedSrc - Full size image src.
+ * @return {string} The source URL.
+ */
+function getImageSrc( { uploadedSrc } ) {
+	return (
+		uploadedSrc ||
+		'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
+	);
+}
+
+/**
+ * Returns the appropriate srcset for an image.
+ *
+ * @param {string} lightboxSrcset - Image srcset.
+ * @return {string} The srcset value.
+ */
+function getImageSrcset( { lightboxSrcset } ) {
+	return lightboxSrcset || '';
+}
+
+/**
+ * Returns the appropriate sizes attribute for an image.
+ *
+ * @param {string} lightboxSizes - Image responsive sizes attribute.
+ * @return {string} The sizes value, defaulting to 100vw.
+ */
+function getImageSizes( { lightboxSizes } ) {
+	return lightboxSizes || '100vw';
+}
+
 const { state, actions, callbacks } = store(
 	'core/image',
 	{
 		state: {
 			currentImageId: null,
+			preloadTimers: new Map(),
+			preloadedImageIds: new Set(),
 			get currentImage() {
 				return state.metadata[ state.currentImageId ];
 			},
@@ -42,10 +83,13 @@ const { state, actions, callbacks } = store(
 				return state.overlayOpened ? 'true' : null;
 			},
 			get enlargedSrc() {
-				return (
-					state.currentImage.uploadedSrc ||
-					'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
-				);
+				return getImageSrc( state.currentImage );
+			},
+			get enlargedSrcset() {
+				return getImageSrcset( state.currentImage );
+			},
+			get enlargedSizes() {
+				return getImageSizes( state.currentImage );
 			},
 			get figureStyles() {
 				return (
@@ -185,6 +229,61 @@ const { state, actions, callbacks } = store(
 							state.scrollTopReset
 						);
 					}
+				}
+			},
+			preloadImage() {
+				const { imageId } = getContext();
+
+				// Bails if it has already been preloaded. This could help
+				// prevent unnecessary preloading of the same image multiple times,
+				// leading to duplicate link elements in the document head.
+				if ( state.preloadedImageIds.has( imageId ) ) {
+					return;
+				}
+
+				// Link element to preload the image.
+				const imageMetadata = state.metadata[ imageId ];
+				const imageLink = document.createElement( 'link' );
+				imageLink.rel = 'preload';
+				imageLink.as = 'image';
+				imageLink.href = getImageSrc( imageMetadata );
+
+				// Apply srcset if available for responsive preloading
+				const srcset = getImageSrcset( imageMetadata );
+				if ( srcset ) {
+					imageLink.setAttribute( 'imagesrcset', srcset );
+					imageLink.setAttribute(
+						'imagesizes',
+						getImageSizes( imageMetadata )
+					);
+				}
+
+				document.head.appendChild( imageLink );
+				state.preloadedImageIds.add( imageId );
+			},
+			preloadImageWithDelay() {
+				const { imageId } = getContext();
+
+				// Cancels any previous preload timer for the same image.
+				if ( state.preloadTimers.has( imageId ) ) {
+					clearTimeout( state.preloadTimers.get( imageId ) );
+				}
+
+				// Set a new timer to preload the image after a short delay.
+				const timerId = setTimeout(
+					withScope( () => {
+						actions.preloadImage();
+						state.preloadTimers.delete( imageId );
+					} ),
+					IMAGE_PRELOAD_DELAY
+				);
+				state.preloadTimers.set( imageId, timerId );
+			},
+			cancelPrefetch() {
+				const { imageId } = getContext();
+				if ( state.preloadTimers.has( imageId ) ) {
+					clearTimeout( state.preloadTimers.get( imageId ) );
+					state.preloadTimers.delete( imageId );
 				}
 			},
 		},

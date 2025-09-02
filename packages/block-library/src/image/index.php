@@ -155,12 +155,14 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 	$img_styles        = $p->get_attribute( 'style' );
 	$img_width         = 'none';
 	$img_height        = 'none';
+	$img_sizes         = '100vw';
 	$aria_label        = __( 'Enlarge' );
 	$dialog_aria_label = __( 'Enlarged image' );
 
 	if ( isset( $block['attrs']['id'] ) ) {
 		$img_uploaded_src = wp_get_attachment_url( $block['attrs']['id'] );
 		$img_metadata     = wp_get_attachment_metadata( $block['attrs']['id'] );
+		$img_srcset       = wp_get_attachment_image_srcset( $block['attrs']['id'] );
 		$img_width        = $img_metadata['width'] ?? 'none';
 		$img_height       = $img_metadata['height'] ?? 'none';
 	}
@@ -179,6 +181,8 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 			'metadata' => array(
 				$unique_image_id => array(
 					'uploadedSrc'      => $img_uploaded_src,
+					'lightboxSrcset'   => $img_srcset,
+					'lightboxSizes'    => $img_sizes,
 					'figureClassNames' => $figure_class_names,
 					'figureStyles'     => $figure_styles,
 					'imgClassNames'    => $img_class_names,
@@ -211,6 +215,12 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 	$p->set_attribute( 'data-wp-init', 'callbacks.setButtonStyles' );
 	$p->set_attribute( 'data-wp-on-async--load', 'callbacks.setButtonStyles' );
 	$p->set_attribute( 'data-wp-on-async-window--resize', 'callbacks.setButtonStyles' );
+	// Set an event to preload the image on pointerenter and pointerdown(mobile).
+	// Pointerleave is used to cancel the preload if the user hovers away from the image
+	// before the predefined delay.
+	$p->set_attribute( 'data-wp-on--pointerenter', 'actions.preloadImageWithDelay' );
+	$p->set_attribute( 'data-wp-on--pointerdown', 'actions.preloadImage' );
+	$p->set_attribute( 'data-wp-on--pointerleave', 'actions.cancelPrefetch' );
 	// Sets an event callback on the `img` because the `figure` element can also
 	// contain a caption, and we don't want to trigger the lightbox when the
 	// caption is clicked.
@@ -302,7 +312,14 @@ function block_core_image_print_lightbox_overlay() {
 				</div>
 				<div class="lightbox-image-container">
 					<figure data-wp-bind--class="state.currentImage.figureClassNames" data-wp-bind--style="state.figureStyles">
-						<img data-wp-bind--alt="state.currentImage.alt" data-wp-bind--class="state.currentImage.imgClassNames" data-wp-bind--style="state.imgStyles" data-wp-bind--src="state.enlargedSrc">
+						<img
+							data-wp-bind--alt="state.currentImage.alt"
+							data-wp-bind--class="state.currentImage.imgClassNames"
+							data-wp-bind--style="state.imgStyles"
+							data-wp-bind--src="state.enlargedSrc"
+							data-wp-bind--srcset="state.enlargedSrcset"
+							data-wp-bind--sizes="state.enlargedSizes"
+						>
 					</figure>
 				</div>
 				<div class="scrim" style="background-color: $background_color" aria-hidden="true"></div>
