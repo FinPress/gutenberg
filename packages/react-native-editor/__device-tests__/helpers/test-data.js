@@ -6,7 +6,7 @@ exports.mediumText = `The finer continuum interprets the polynomial rabbit. When
 
 exports.slashInserter = '/';
 
-exports.longText = `Beneath the busy continuum blinks the ineffective husband. Why a metric now outside the official subway? How can the prompt crop exhaust his tree 
+exports.longText = `Beneath the busy continuum blinks the ineffective husband. Why a metric now outside the official subway? How can the prompt crop exhaust his tree
 Does this chord crowd my emptied search? A theory bubbles under the cartoon. The discontinued speaker cracks every thick epic. extraordinary twin shifts behind
 The finer continuum interprets the polynomial rabbit. When can the geology runs? An astronomer runs. Should a communist consent?`;
 
@@ -153,7 +153,7 @@ exports.listBlockEmpty = `<!-- wp:list -->
 <!-- /wp:list -->`;
 
 exports.imageBlockEmpty = `<!-- wp:image -->
-<figure class="wp-block-image"><img alt=""/></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->`;
 
 exports.moreBlockEmpty = `<!-- wp:more -->

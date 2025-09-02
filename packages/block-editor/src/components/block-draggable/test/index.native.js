@@ -54,7 +54,7 @@ const BLOCKS = [
 		name: 'Image',
 		html: `
 		<!-- wp:image {"sizeSlug":"large"} -->
-		<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/></figure>
+		<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 		<!-- /wp:image -->`,
 		layout: { x: 0, y: 100, width: 100, height: 100 },
 	},
@@ -71,11 +71,11 @@ const BLOCKS = [
 		html: `
 		<!-- wp:gallery {"linkTo":"none"} -->
 		<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-		<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/></figure>
+		<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 		<!-- /wp:image -->
 
 		<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-		<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/></figure>
+		<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 		<!-- /wp:image --></figure>
 		<!-- /wp:gallery -->`,
 		layout: { x: 0, y: 300, width: 100, height: 100 },

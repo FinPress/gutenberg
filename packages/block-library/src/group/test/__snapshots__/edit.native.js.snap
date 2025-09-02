@@ -10,7 +10,7 @@ exports[`Group block inserts block and adds a Heading block as an inner block 1`
 
 exports[`Group block ungroups inner blocks 1`] = `
 "<!-- wp:image -->
-<figure class="wp-block-image"><img alt=""/></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:spacer -->

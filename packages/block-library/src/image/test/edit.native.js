@@ -443,7 +443,7 @@ describe( 'Image Block', () => {
 		const initialHtml = `
 		<!-- wp:image -->
 		<figure class="wp-block-image">
-				<img alt="" />
+				<img alt="" /><figcaption class="wp-element-caption"></figcaption>
 		</figure>
 		<!-- /wp:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
@@ -452,7 +452,7 @@ describe( 'Image Block', () => {
 		fireEvent.press( screen.getByText( 'WordPress Media Library' ) );
 
 		const expectedHtml = `<!-- wp:image {"id":${ IMAGE.id },"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="${ IMAGE.url }" alt="${ IMAGE.alt }" class="wp-image-${ IMAGE.id }"/></figure>
+<figure class="wp-block-image size-large"><img src="${ IMAGE.url }" alt="${ IMAGE.alt }" class="wp-image-${ IMAGE.id }"/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->`;
 		expect( getEditorHtml() ).toBe( expectedHtml );
 	} );

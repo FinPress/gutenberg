@@ -55,7 +55,7 @@ else:
 <!-- /wp:verse -->`;
 
 export const mediaBlocks = `<!-- wp:image -->
-<figure class="wp-block-image"><img alt=""/></figure>
+<figure class="wp-block-image"><img alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image -->

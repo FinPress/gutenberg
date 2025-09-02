@@ -98,7 +98,7 @@ exports[`rawHandler should convert HTML post to blocks with minimal content chan
 <!-- /wp:heading -->
 
 <!-- wp:image -->
-<figure class="wp-block-image"><img src="https://w.org" alt=""/></figure>
+<figure class="wp-block-image"><img src="https://w.org" alt=""/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -123,7 +123,7 @@ exports[`rawHandler should convert HTML post to blocks with minimal content chan
 
 <!-- wp:gallery {"columns":3,"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-3 is-cropped"><!-- wp:image {"id":1} -->
-<figure class="wp-block-image"><img alt="" class="wp-image-1"/></figure>
+<figure class="wp-block-image"><img alt="" class="wp-image-1"/><figcaption class="wp-element-caption"></figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
