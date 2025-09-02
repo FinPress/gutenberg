@@ -177,8 +177,8 @@ const LabeledColorIndicators = ( { indicators, label } ) => (
 function ColorPanelTab( {
 	isGradient,
 	inheritedValue,
-	userValue,
 	setValue,
+	userValue,
 	colorGradientControlSettings,
 } ) {
 	return (
@@ -187,11 +187,12 @@ function ColorPanelTab( {
 			showTitle={ false }
 			enableAlpha
 			__experimentalIsRenderedInSidebar
-			colorValue={ isGradient ? undefined : inheritedValue }
+			colorValue={
+				! userValue || isGradient ? undefined : inheritedValue
+			}
 			gradientValue={ isGradient ? inheritedValue : undefined }
 			onColorChange={ isGradient ? undefined : setValue }
 			onGradientChange={ isGradient ? setValue : undefined }
-			clearable={ inheritedValue === userValue }
 			headingLevel={ 3 }
 		/>
 	);
