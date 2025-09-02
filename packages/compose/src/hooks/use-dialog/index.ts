@@ -41,6 +41,15 @@ type DialogOptions = {
 	constrainTabbing?: boolean;
 	onClose?: () => void;
 	/**
+	 * Whether to cancel the focus outside timeout when the dialog unmounts.
+	 * Setting this to `false` can help when the consuming component unmounts
+	 * before the timeout can execute, which would otherwise prevent the onClose
+	 * callback from being triggered.
+	 *
+	 * @default true
+	 */
+	cancelFocusOutsideOnUnmount?: boolean;
+	/**
 	 * Use the `onClose` prop instead.
 	 *
 	 * @deprecated
@@ -82,7 +91,7 @@ function useDialog( options: DialogOptions ): useDialogReturn {
 		} else if ( currentOptions.current?.onClose ) {
 			currentOptions.current.onClose();
 		}
-	} );
+	}, options.cancelFocusOutsideOnUnmount );
 	const closeOnEscapeRef = useCallback( ( node: HTMLElement ) => {
 		if ( ! node ) {
 			return;

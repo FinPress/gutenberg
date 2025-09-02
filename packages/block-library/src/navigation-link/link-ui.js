@@ -78,7 +78,7 @@ export function getSuggestionsQuery( type, kind ) {
 	}
 }
 
-function LinkUIBlockInserter( { clientId, onBack } ) {
+function LinkUIBlockInserter( { clientId, onBack, onBlockInsert } ) {
 	const { rootBlockClientId } = useSelect(
 		( select ) => {
 			const { getBlockRootClientId } = select( blockEditorStore );
@@ -138,7 +138,8 @@ function LinkUIBlockInserter( { clientId, onBack } ) {
 				clientId={ clientId }
 				isAppender={ false }
 				prioritizePatterns={ false }
-				selectBlockOnInsert
+				selectBlockOnInsert={ ! onBlockInsert }
+				onSelect={ onBlockInsert ? onBlockInsert : undefined }
 				hasSearch={ false }
 			/>
 		</div>
@@ -206,9 +207,12 @@ function UnforwardedLinkUI( props, ref ) {
 		<Popover
 			ref={ ref }
 			placement="bottom"
-			onClose={ props.onClose }
+			onClose={ () => {
+				props.onClose();
+			} }
 			anchor={ props.anchor }
 			shift
+			cancelFocusOutsideOnUnmount={ false }
 		>
 			{ ! addingBlock && (
 				<div
@@ -282,6 +286,7 @@ function UnforwardedLinkUI( props, ref ) {
 						setAddingBlock( false );
 						setFocusAddBlockButton( true );
 					} }
+					onBlockInsert={ props?.onBlockInsert }
 				/>
 			) }
 		</Popover>
