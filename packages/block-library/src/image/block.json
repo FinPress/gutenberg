@@ -10,7 +10,8 @@
 		"fixedHeight",
 		"postId",
 		"postType",
-		"queryId"
+		"queryId",
+		"galleryId"
 	],
 	"description": "Insert an image to make a visual statement.",
 	"keywords": [ "img", "photo", "picture" ],

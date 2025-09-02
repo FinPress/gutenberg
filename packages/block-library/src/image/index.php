@@ -80,7 +80,7 @@ function render_block_core_image( $attributes, $content, $block ) {
 		 * if the way the blocks are rendered changes, or if a new kind of filter is
 		 * introduced.
 		 */
-		add_filter( 'render_block_core/image', 'block_core_image_render_lightbox', 15, 2 );
+		add_filter( 'render_block_core/image', 'block_core_image_render_lightbox', 15, 3 );
 	} else {
 		/*
 		 * Remove the filter if previously added by other Image blocks.
@@ -130,18 +130,20 @@ function block_core_image_get_lightbox_settings( $block ) {
  *
  * @since 6.4.0
  *
- * @param string $block_content Rendered block content.
- * @param array  $block         Block object.
+ * @param string $block_content  Rendered block content.
+ * @param array  $block          Block object.
+ * @param array  $block_instance Block instance.
  *
  * @return string Filtered block content.
  */
-function block_core_image_render_lightbox( $block_content, $block ) {
+function block_core_image_render_lightbox( $block_content, $block, $block_instance ) {
 	/*
 	 * If there's no IMG tag in the block then return the given block content
 	 * as-is. There's nothing that this code can knowingly modify to add the
 	 * lightbox behavior.
 	 */
 	$p = new WP_HTML_Tag_Processor( $block_content );
+
 	if ( $p->next_tag( 'figure' ) ) {
 		$p->set_bookmark( 'figure' );
 	}
@@ -149,14 +151,22 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 		return $block_content;
 	}
 
-	$alt               = $p->get_attribute( 'alt' );
-	$img_uploaded_src  = $p->get_attribute( 'src' );
-	$img_class_names   = $p->get_attribute( 'class' );
-	$img_styles        = $p->get_attribute( 'style' );
-	$img_width         = 'none';
-	$img_height        = 'none';
-	$aria_label        = __( 'Enlarge' );
-	$dialog_aria_label = __( 'Enlarged image' );
+	$alt              = $p->get_attribute( 'alt' );
+	$img_uploaded_src = $p->get_attribute( 'src' );
+	$img_class_names  = $p->get_attribute( 'class' );
+	$img_styles       = $p->get_attribute( 'style' );
+	$img_width        = 'none';
+	$img_height       = 'none';
+
+	wp_interactivity_config(
+		'core/image',
+		array( 'defaultAriaLabel' => __( 'Enlarged image' ) )
+	);
+
+	if ( $alt ) {
+		/* translators: %s: Image alt text. */
+		$custom_aria_label = sprintf( __( 'Enlarged image: %s' ), $alt );
+	}
 
 	if ( isset( $block['attrs']['id'] ) ) {
 		$img_uploaded_src = wp_get_attachment_url( $block['attrs']['id'] );
@@ -172,7 +182,6 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 
 	// Create unique id and set the image metadata in the state.
 	$unique_image_id = uniqid();
-
 	wp_interactivity_state(
 		'core/image',
 		array(
@@ -186,8 +195,9 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 					'targetWidth'      => $img_width,
 					'targetHeight'     => $img_height,
 					'scaleAttr'        => $block['attrs']['scale'] ?? false,
-					'ariaLabel'        => $dialog_aria_label,
 					'alt'              => $alt,
+					'galleryId'        => $block_instance->context['galleryId'] ?? null,
+					'customAriaLabel'  => $custom_aria_label ?? null,
 				),
 			),
 		)
@@ -198,9 +208,7 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 	$p->set_attribute(
 		'data-wp-context',
 		wp_json_encode(
-			array(
-				'imageId' => $unique_image_id,
-			),
+			array( 'imageId' => $unique_image_id ),
 			JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
 		)
 	);
@@ -230,11 +238,11 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 			class="lightbox-trigger"
 			type="button"
 			aria-haspopup="dialog"
-			aria-label="' . esc_attr( $aria_label ) . '"
+			aria-label="' . esc_attr( __( 'Enlarge' ) ) . '"
 			data-wp-init="callbacks.initTriggerButton"
 			data-wp-on-async--click="actions.showLightbox"
-			data-wp-style--right="state.imageButtonRight"
-			data-wp-style--top="state.imageButtonTop"
+			data-wp-style--right="state.thisImage.buttonRight"
+			data-wp-style--top="state.thisImage.buttonTop"
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
 				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
@@ -253,6 +261,9 @@ function block_core_image_render_lightbox( $block_content, $block ) {
  */
 function block_core_image_print_lightbox_overlay() {
 	$close_button_label = esc_attr__( 'Close' );
+	$dialog_label       = esc_attr__( 'Enlarged images' );
+	$prev_button_label  = esc_attr__( 'Previous' );
+	$next_button_label  = esc_attr__( 'Next' );
 
 	// If the current theme does NOT have a `theme.json`, or the colors are not
 	// defined, it needs to set the background color & close button color to some
@@ -272,16 +283,18 @@ function block_core_image_print_lightbox_overlay() {
 	echo <<<HTML
 		<div
 			class="wp-lightbox-overlay zoom"
+			aria-label="$dialog_label"
 			data-wp-interactive="core/image"
 			data-wp-router-region='{ "id": "core/image-overlay", "attachTo": "body" }'
 			data-wp-key="wp-lightbox-overlay"
 			data-wp-context='{}'
 			data-wp-bind--role="state.roleAttribute"
-			data-wp-bind--aria-label="state.currentImage.ariaLabel"
+			data-wp-bind--aria-label="state.ariaLabel"
 			data-wp-bind--aria-modal="state.ariaModal"
 			data-wp-class--active="state.overlayEnabled"
 			data-wp-class--show-closing-animation="state.overlayOpened"
-			data-wp-watch="callbacks.setOverlayFocus"
+			data-wp-watch--focus="callbacks.setOverlayFocus"
+			data-wp-watch--inert="callbacks.setInertElements"
 			data-wp-on--keydown="actions.handleKeydown"
 			data-wp-on-async--touchstart="actions.handleTouchStart"
 			data-wp-on--touchmove="actions.handleTouchMove"
@@ -292,19 +305,30 @@ function block_core_image_print_lightbox_overlay() {
 			data-wp-bind--style="state.overlayStyles"
 			tabindex="-1"
 			>
-				<button type="button" aria-label="$close_button_label" style="fill: $close_button_color" class="close-button">
+				<button type="button" aria-label="$close_button_label" style="fill: $close_button_color" class="wp-lightbox-close-button">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z"></path></svg>
 				</button>
+				<div class="wp-lightbox-navigation-container-prev" data-wp-bind--hidden="!state.hasNavigation">
+					<button type="button" aria-label="$prev_button_label" style="fill: $close_button_color" class="wp-lightbox-navigation-button" data-wp-on--click="actions.showPreviousImage" data-wp-bind--aria-disabled="!state.hasPreviousImage">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path d="M14.6 7l-1.2-1L8 12l5.4 6 1.2-1-4.6-5z"></path></svg>
+					</button>
+				</div>
 				<div class="lightbox-image-container">
-					<figure data-wp-bind--class="state.currentImage.figureClassNames" data-wp-bind--style="state.figureStyles">
-						<img data-wp-bind--alt="state.currentImage.alt" data-wp-bind--class="state.currentImage.imgClassNames" data-wp-bind--style="state.imgStyles" data-wp-bind--src="state.currentImage.currentSrc">
+					<figure data-wp-bind--class="state.selectedImage.figureClassNames" data-wp-bind--style="state.figureStyles">
+						<img data-wp-bind--alt="state.selectedImage.alt" data-wp-bind--class="state.selectedImage.imgClassNames" data-wp-bind--style="state.imgStyles" data-wp-bind--src="state.selectedImage.currentSrc">
 					</figure>
 				</div>
 				<div class="lightbox-image-container">
-					<figure data-wp-bind--class="state.currentImage.figureClassNames" data-wp-bind--style="state.figureStyles">
-						<img data-wp-bind--alt="state.currentImage.alt" data-wp-bind--class="state.currentImage.imgClassNames" data-wp-bind--style="state.imgStyles" data-wp-bind--src="state.enlargedSrc">
+					<figure data-wp-bind--class="state.selectedImage.figureClassNames" data-wp-bind--style="state.figureStyles">
+						<img data-wp-bind--alt="state.selectedImage.alt" data-wp-bind--class="state.selectedImage.imgClassNames" data-wp-bind--style="state.imgStyles" data-wp-bind--src="state.enlargedSrc">
 					</figure>
 				</div>
+				<div class="wp-lightbox-navigation-container-next" data-wp-bind--hidden="!state.hasNavigation">
+					<button type="button" aria-label="$next_button_label" style="fill: $close_button_color" class="wp-lightbox-navigation-button" data-wp-on--click="actions.showNextImage" data-wp-bind--aria-disabled="!state.hasNextImage">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path d="M10.6 6L9.4 7l4.6 5-4.6 5 1.2 1 5.4-6z"></path></svg>
+					</button>
+				</div>
+				<div data-wp-text="state.ariaLabel" aria-live="polite" aria-atomic="true" class="screen-reader-text"></div>
 				<div class="scrim" style="background-color: $background_color" aria-hidden="true"></div>
 		</div>
 HTML;

@@ -5,6 +5,7 @@ import {
 	store,
 	getContext,
 	getElement,
+	getConfig,
 	withSyncEvent,
 } from '@wordpress/interactivity';
 
@@ -24,16 +25,52 @@ let isTouching = false;
  */
 let lastTouchTime = 0;
 
+const focusableSelectors = [
+	'.wp-lightbox-close-button',
+	'.wp-lightbox-navigation-button',
+];
+
 const { state, actions, callbacks } = store(
 	'core/image',
 	{
 		state: {
-			currentImageId: null,
-			get currentImage() {
-				return state.metadata[ state.currentImageId ];
+			selectedImageId: null,
+			selectedGalleryId: null,
+			get galleryImages() {
+				return state.selectedGalleryId
+					? Object.entries( state.metadata )
+							.filter(
+								( [ , value ] ) =>
+									value.galleryId === state.selectedGalleryId
+							)
+							.map( ( [ key ] ) => key )
+					: [ state.selectedImageId ];
+			},
+			get selectedImageIndex() {
+				return state.galleryImages.findIndex(
+					( id ) => id === state.selectedImageId
+				);
+			},
+			get selectedImage() {
+				return state.metadata[ state.selectedImageId ];
+			},
+			get thisImage() {
+				const { imageId } = getContext();
+				return state.metadata[ imageId ];
+			},
+			get hasNavigation() {
+				return state.galleryImages.length > 1;
+			},
+			get hasNextImage() {
+				return (
+					state.selectedImageIndex + 1 < state.galleryImages.length
+				);
+			},
+			get hasPreviousImage() {
+				return state.selectedImageIndex - 1 >= 0;
 			},
 			get overlayOpened() {
-				return state.currentImageId !== null;
+				return state.selectedImageId !== null;
 			},
 			get roleAttribute() {
 				return state.overlayOpened ? 'dialog' : null;
@@ -41,16 +78,22 @@ const { state, actions, callbacks } = store(
 			get ariaModal() {
 				return state.overlayOpened ? 'true' : null;
 			},
+			get ariaLabel() {
+				return (
+					state.selectedImage.customAriaLabel ||
+					getConfig().defaultAriaLabel
+				);
+			},
 			get enlargedSrc() {
 				return (
-					state.currentImage.uploadedSrc ||
+					state.selectedImage.uploadedSrc ||
 					'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
 				);
 			},
 			get figureStyles() {
 				return (
 					state.overlayOpened &&
-					`${ state.currentImage.figureStyles?.replace(
+					`${ state.selectedImage.figureStyles?.replace(
 						/margin[^;]*;?/g,
 						''
 					) };`
@@ -59,31 +102,24 @@ const { state, actions, callbacks } = store(
 			get imgStyles() {
 				return (
 					state.overlayOpened &&
-					`${ state.currentImage.imgStyles?.replace(
+					`${ state.selectedImage.imgStyles?.replace(
 						/;$/,
 						''
 					) }; object-fit:cover;`
 				);
 			},
-			get imageButtonRight() {
-				const { imageId } = getContext();
-				return state.metadata[ imageId ].imageButtonRight;
-			},
-			get imageButtonTop() {
-				const { imageId } = getContext();
-				return state.metadata[ imageId ].imageButtonTop;
-			},
 			get isContentHidden() {
 				const ctx = getContext();
 				return (
-					state.overlayEnabled && state.currentImageId === ctx.imageId
+					state.overlayEnabled &&
+					state.selectedImageId === ctx.imageId
 				);
 			},
 			get isContentVisible() {
 				const ctx = getContext();
 				return (
 					! state.overlayEnabled &&
-					state.currentImageId === ctx.imageId
+					state.selectedImageId === ctx.imageId
 				);
 			},
 		},
@@ -101,9 +137,11 @@ const { state, actions, callbacks } = store(
 				state.scrollTopReset = document.documentElement.scrollTop;
 				state.scrollLeftReset = document.documentElement.scrollLeft;
 
-				// Sets the current expanded image in the state and enables the overlay.
+				// Sets the selected image and gallery and enables the overlay.
+				state.selectedImageId = imageId;
+				const { galleryId } = getContext( 'core/gallery' ) || {};
+				state.selectedGalleryId = galleryId || null;
 				state.overlayEnabled = true;
-				state.currentImageId = imageId;
 
 				// Computes the styles of the overlay for the animation.
 				callbacks.setOverlayStyles();
@@ -121,26 +159,61 @@ const { state, actions, callbacks } = store(
 						// Delays before changing the focus. Otherwise the focus ring will
 						// appear on Firefox before the image has finished animating, which
 						// looks broken.
-						state.currentImage.buttonRef.focus( {
+						state.selectedImage.buttonRef.focus( {
 							preventScroll: true,
 						} );
 
-						// Resets the current image id to mark the overlay as closed.
-						state.currentImageId = null;
+						// Resets the selected image and gallery ids.
+						state.selectedImageId = null;
+						state.selectedGalleryId = null;
 					}, 450 );
 				}
 			},
+			showPreviousImage: withSyncEvent( ( event ) => {
+				event.stopPropagation();
+				if ( state.hasPreviousImage ) {
+					state.selectedImageId =
+						state.galleryImages[ state.selectedImageIndex - 1 ];
+					callbacks.setOverlayStyles();
+				}
+			} ),
+			showNextImage: withSyncEvent( ( event ) => {
+				event.stopPropagation();
+				if ( state.hasNextImage ) {
+					state.selectedImageId =
+						state.galleryImages[ state.selectedImageIndex + 1 ];
+					callbacks.setOverlayStyles();
+				}
+			} ),
 			handleKeydown: withSyncEvent( ( event ) => {
 				if ( state.overlayEnabled ) {
-					// Focuses the close button when the user presses the tab key.
-					if ( event.key === 'Tab' ) {
-						event.preventDefault();
-						const { ref } = getElement();
-						ref.querySelector( 'button' ).focus();
-					}
-					// Closes the lightbox when the user presses the escape key.
 					if ( event.key === 'Escape' ) {
 						actions.hideLightbox();
+					} else if ( event.key === 'ArrowLeft' ) {
+						actions.showPreviousImage( event );
+					} else if ( event.key === 'ArrowRight' ) {
+						actions.showNextImage( event );
+					} else if ( event.key === 'Tab' ) {
+						// Traps focus within the overlay.
+						const focusableElements = Array.from(
+							document.querySelectorAll( focusableSelectors )
+						);
+						const firstFocusableElement = focusableElements[ 0 ];
+						const lastFocusableElement =
+							focusableElements[ focusableElements.length - 1 ];
+						if (
+							event.shiftKey &&
+							event.target === firstFocusableElement
+						) {
+							event.preventDefault();
+							lastFocusableElement.focus();
+						} else if (
+							! event.shiftKey &&
+							event.target === lastFocusableElement
+						) {
+							event.preventDefault();
+							firstFocusableElement.focus();
+						}
 					}
 				}
 			} ),
@@ -199,9 +272,9 @@ const { state, actions, callbacks } = store(
 					naturalHeight,
 					offsetWidth: originalWidth,
 					offsetHeight: originalHeight,
-				} = state.currentImage.imageRef;
+				} = state.selectedImage.imageRef;
 				let { x: screenPosX, y: screenPosY } =
-					state.currentImage.imageRef.getBoundingClientRect();
+					state.selectedImage.imageRef.getBoundingClientRect();
 
 				// Natural ratio of the image clicked to open the lightbox.
 				const naturalRatio = naturalWidth / naturalHeight;
@@ -210,7 +283,7 @@ const { state, actions, callbacks } = store(
 
 				// If it has object-fit: contain, recalculates the original sizes
 				// and the screen position without the blank spaces.
-				if ( state.currentImage.scaleAttr === 'contain' ) {
+				if ( state.selectedImage.scaleAttr === 'contain' ) {
 					if ( naturalRatio > originalRatio ) {
 						const heightWithoutSpace = originalWidth / naturalRatio;
 						// Recalculates screen position without the top space.
@@ -231,13 +304,15 @@ const { state, actions, callbacks } = store(
 				// size), the image's dimensions in the lightbox are the same
 				// as those of the image in the content.
 				let imgMaxWidth = parseFloat(
-					state.currentImage.targetWidth !== 'none'
-						? state.currentImage.targetWidth
+					state.selectedImage.targetWidth &&
+						state.selectedImage.targetWidth !== 'none'
+						? state.selectedImage.targetWidth
 						: naturalWidth
 				);
 				let imgMaxHeight = parseFloat(
-					state.currentImage.targetHeight !== 'none'
-						? state.currentImage.targetHeight
+					state.selectedImage.targetHeight &&
+						state.selectedImage.targetHeight !== 'none'
+						? state.selectedImage.targetHeight
 						: naturalHeight
 				);
 
@@ -304,7 +379,7 @@ const { state, actions, callbacks } = store(
 				// the image resolution.
 				let horizontalPadding = 0;
 				if ( window.innerWidth > 480 ) {
-					horizontalPadding = 80;
+					horizontalPadding = state.hasNavigation ? 140 : 80;
 				} else if ( window.innerWidth > 1920 ) {
 					horizontalPadding = 160;
 				}
@@ -403,8 +478,8 @@ const { state, actions, callbacks } = store(
 				const buttonOffsetTop = figureHeight - offsetHeight;
 				const buttonOffsetRight = figureWidth - offsetWidth;
 
-				let imageButtonTop = buttonOffsetTop + 16;
-				let imageButtonRight = buttonOffsetRight + 16;
+				let buttonTop = buttonOffsetTop + 16;
+				let buttonRight = buttonOffsetRight + 16;
 
 				// In the case of an image with object-fit: contain, the size of the
 				// <img> element can be larger than the image itself, so it needs to
@@ -419,25 +494,25 @@ const { state, actions, callbacks } = store(
 						// If it reaches the width first, it keeps the width and compute the
 						// height.
 						const referenceHeight = offsetWidth / naturalRatio;
-						imageButtonTop =
+						buttonTop =
 							( offsetHeight - referenceHeight ) / 2 +
 							buttonOffsetTop +
 							16;
-						imageButtonRight = buttonOffsetRight + 16;
+						buttonRight = buttonOffsetRight + 16;
 					} else {
 						// If it reaches the height first, it keeps the height and compute
 						// the width.
 						const referenceWidth = offsetHeight * naturalRatio;
-						imageButtonTop = buttonOffsetTop + 16;
-						imageButtonRight =
+						buttonTop = buttonOffsetTop + 16;
+						buttonRight =
 							( offsetWidth - referenceWidth ) / 2 +
 							buttonOffsetRight +
 							16;
 					}
 				}
 
-				state.metadata[ imageId ].imageButtonTop = imageButtonTop;
-				state.metadata[ imageId ].imageButtonRight = imageButtonRight;
+				state.metadata[ imageId ].buttonTop = buttonTop;
+				state.metadata[ imageId ].buttonRight = buttonRight;
 			},
 			setOverlayFocus() {
 				if ( state.overlayEnabled ) {
@@ -445,6 +520,18 @@ const { state, actions, callbacks } = store(
 					const { ref } = getElement();
 					ref.focus();
 				}
+			},
+			setInertElements() {
+				// Makes all children of the document inert exempt .wp-lightbox-overlay.
+				document
+					.querySelectorAll( 'body > :not(.wp-lightbox-overlay)' )
+					.forEach( ( el ) => {
+						if ( state.overlayEnabled ) {
+							el.setAttribute( 'inert', '' );
+						} else {
+							el.removeAttribute( 'inert' );
+						}
+					} );
 			},
 			initTriggerButton() {
 				const { imageId } = getContext();
