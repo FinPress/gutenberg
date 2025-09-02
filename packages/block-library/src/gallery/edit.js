@@ -565,7 +565,7 @@ export default function GalleryEdit( props ) {
 		);
 	}
 
-	const hasLinkTo = linkTo && linkTo !== 'none';
+	const hasLinkTo = linkTo && linkTo !== 'none' && linkTo !== 'lightbox';
 
 	return (
 		<>
