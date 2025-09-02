@@ -265,7 +265,7 @@ export default function CollabSidebar() {
 	} );
 
 	// Process comments to build the tree structure
-	const { resultComments, sortedThreads } = useMemo( () => {
+	const { resultComments, unresolvedSortedThreads } = useMemo( () => {
 		// Create a compare to store the references to all objects by id
 		const compare = {};
 		const result = [];
@@ -291,7 +291,7 @@ export default function CollabSidebar() {
 		} );
 
 		if ( 0 === result?.length ) {
-			return { resultComments: [], sortedThreads: [] };
+			return { resultComments: [], unresolvedSortedThreads: [] };
 		}
 
 		const updatedResult = result.map( ( item ) => ( {
@@ -305,11 +305,16 @@ export default function CollabSidebar() {
 			updatedResult.map( ( thread ) => [ thread.id, thread ] )
 		);
 
-		const sortedComments = blockCommentIds
+		// Get comments by block order, filter out undefined threads, and exclude resolved comments.
+		const unresolvedSortedComments = blockCommentIds
 			.map( ( id ) => threadIdMap.get( id ) )
-			.filter( ( thread ) => thread !== undefined );
+			.filter( ( thread ) => thread !== undefined )
+			.filter( ( thread ) => thread.status !== 'approved' );
 
-		return { resultComments: updatedResult, sortedThreads: sortedComments };
+		return {
+			resultComments: updatedResult,
+			unresolvedSortedThreads: unresolvedSortedComments,
+		};
 	}, [ threads, blocks ] );
 
 	// Get the global styles to set the background color of the sidebar.
@@ -358,7 +363,7 @@ export default function CollabSidebar() {
 				headerClassName="editor-collab-sidebar__header"
 			>
 				<CollabSidebarContent
-					comments={ sortedThreads }
+					comments={ unresolvedSortedThreads }
 					showCommentBoard={ showCommentBoard }
 					setShowCommentBoard={ setShowCommentBoard }
 					styles={ {
