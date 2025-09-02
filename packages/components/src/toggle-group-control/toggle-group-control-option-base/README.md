@@ -25,3 +25,7 @@ The value of the `ToggleGroupControlOptionBase`.
 Whether to show a tooltip when hovering over the option. The tooltip will only show if a label for it is provided using the `aria-label` prop.
 
 -   Required: No
+
+### `disabled` : `boolean`
+
+Whether the option should be disabled.

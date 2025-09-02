@@ -143,3 +143,24 @@ Deselectable.args = {
 	...WithIcons.args,
 	isDeselectable: true,
 };
+
+/**
+ * This story demonstrates how individual options can be disabled.
+ */
+export const WithSomeDisabledOptions: StoryFn< typeof ToggleGroupControl > =
+	Template.bind( {} );
+WithSomeDisabledOptions.args = {
+	...Default.args,
+	label: 'Sort order (Disabled)',
+	children: [
+		{
+			value: 'asc',
+			label: 'A→Z',
+		},
+		{
+			value: 'desc',
+			label: 'Z→A',
+			disabled: true,
+		},
+	].map( mapPropsToOptionComponent ),
+};
