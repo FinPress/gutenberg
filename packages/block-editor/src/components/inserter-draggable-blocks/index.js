@@ -5,6 +5,7 @@ import { Draggable } from '@wordpress/components';
 import { createBlock, store as blocksStore } from '@wordpress/blocks';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useMemo } from '@wordpress/element';
+import { useViewportMatch } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -30,6 +31,17 @@ const InserterDraggableBlocks = ( {
 		},
 		[ blocks ]
 	);
+
+	const { setInserterIsOpened } = useSelect( ( select ) => {
+		const { getSettings } = unlock( select( blockEditorStore ) );
+
+		return {
+			setInserterIsOpened:
+				getSettings().__experimentalSetIsInserterOpened,
+		};
+	}, [] );
+
+	const isMobileViewport = useViewportMatch( 'medium', '<' );
 
 	const { startDragging, stopDragging } = unlock(
 		useDispatch( blockEditorStore )
@@ -61,9 +73,12 @@ const InserterDraggableBlocks = ( {
 					const type = `wp-block:${ block.name }`;
 					// This will fill in the dataTransfer.types array so that
 					// the drop zone can check if the draggable is eligible.
-					// Unfortuantely, on drag start, we don't have access to the
+					// Unfortunately, on drag start, we don't have access to the
 					// actual data, only the data keys/types.
 					event.dataTransfer.items.add( '', type );
+				}
+				if ( isMobileViewport ) {
+					setInserterIsOpened( false );
 				}
 			} }
 			onDragEnd={ () => {

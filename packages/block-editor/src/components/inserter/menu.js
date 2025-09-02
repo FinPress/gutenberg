@@ -54,16 +54,19 @@ function InserterMenu(
 	},
 	ref
 ) {
-	const { isZoomOutMode, hasSectionRootClientId } = useSelect( ( select ) => {
-		const { isZoomOut, getSectionRootClientId } = unlock(
-			select( blockEditorStore )
-		);
+	const { isZoomOutMode, hasSectionRootClientId, setInserterIsOpened } =
+		useSelect( ( select ) => {
+			const { isZoomOut, getSectionRootClientId, getSettings } = unlock(
+				select( blockEditorStore )
+			);
 
-		return {
-			isZoomOutMode: isZoomOut(),
-			hasSectionRootClientId: !! getSectionRootClientId(),
-		};
-	}, [] );
+			return {
+				isZoomOutMode: isZoomOut(),
+				hasSectionRootClientId: !! getSectionRootClientId(),
+				setInserterIsOpened:
+					getSettings().__experimentalSetIsInserterOpened,
+			};
+		}, [] );
 
 	const [ filterValue, setFilterValue, delayedFilterValue ] =
 		useDebouncedInput( __experimentalFilterValue );
@@ -75,6 +78,7 @@ function InserterMenu(
 	const [ selectedMediaCategory, setSelectedMediaCategory ] =
 		useState( null );
 	const isLargeViewport = useViewportMatch( 'large' );
+	const isMobileViewport = useViewportMatch( 'medium', '<' );
 
 	function getInitialTab() {
 		if ( __experimentalInitialTab ) {
@@ -114,6 +118,11 @@ function InserterMenu(
 				_rootClientId
 			);
 			onSelect( blocks );
+
+			// Checks the mobile viewport and closes the inserter panel
+			if ( isMobileViewport ) {
+				setInserterIsOpened( false );
+			}
 
 			// Check for focus loss due to filtering blocks by selected block type
 			window.requestAnimationFrame( () => {

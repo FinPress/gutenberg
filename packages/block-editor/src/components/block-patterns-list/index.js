@@ -14,9 +14,10 @@ import {
 	Tooltip,
 	__experimentalHStack as HStack,
 } from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
+import { useInstanceId, useViewportMatch } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { Icon, symbol } from '@wordpress/icons';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -25,6 +26,8 @@ import BlockPreview from '../block-preview';
 import InserterDraggableBlocks from '../inserter-draggable-blocks';
 import BlockPatternsPaging from '../block-patterns-paging';
 import { INSERTER_PATTERN_TYPES } from '../inserter/block-patterns-tab/utils';
+import { store as blockEditorStore } from '../../store';
+import { unlock } from '../../lock-unlock';
 
 const WithToolTip = ( { showTooltip, title, children } ) => {
 	if ( showTooltip ) {
@@ -196,6 +199,17 @@ function BlockPatternsList(
 	const [ activeCompositeId, setActiveCompositeId ] = useState( undefined );
 	const [ activePattern, setActivePattern ] = useState( null ); // State to track active pattern
 
+	const { setInserterIsOpened } = useSelect( ( select ) => {
+		const { getSettings } = unlock( select( blockEditorStore ) );
+
+		return {
+			setInserterIsOpened:
+				getSettings().__experimentalSetIsInserterOpened,
+		};
+	}, [] );
+
+	const isMobileViewport = useViewportMatch( 'medium', '<' );
+
 	useEffect( () => {
 		// Reset the active composite item whenever the available patterns change,
 		// to make sure that Composite widget can receive focus correctly when its
@@ -207,6 +221,10 @@ function BlockPatternsList(
 	const handleClickPattern = ( pattern, blocks ) => {
 		setActivePattern( pattern.name );
 		onClickPattern( pattern, blocks );
+
+		if ( isMobileViewport ) {
+			setInserterIsOpened( false );
+		}
 	};
 
 	return (
