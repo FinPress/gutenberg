@@ -41,7 +41,7 @@ const getContainer = ( disableWrapper = false, layout: Layout | undefined ) => {
 				<VStack spacing={ 4 }>
 					<div className="dataforms-layouts-row__field">
 						<HStack
-							spacing={ normalizedLayout.spacing }
+							spacing={ 4 }
 							alignment={ normalizedLayout.alignment }
 						>
 							{ children }

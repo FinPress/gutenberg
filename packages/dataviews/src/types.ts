@@ -730,7 +730,6 @@ export type RowLayout = {
 };
 export type NormalizedRowLayout = {
 	type: 'row';
-	spacing: number;
 	alignment: 'start' | 'center' | 'end';
 };
 
