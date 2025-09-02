@@ -33,8 +33,9 @@ import {
 	getColorClassName,
 	useInnerBlocksProps,
 	useBlockEditingMode,
-	__experimentalLinkControlSearchInput as LinkControlSearchInput,
+	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
+
 import { isURL, prependHTTP } from '@wordpress/url';
 import { useState, useEffect, useRef } from '@wordpress/element';
 import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
@@ -54,6 +55,10 @@ import { LinkUI } from './link-ui';
 import { updateAttributes } from './update-attributes';
 import { getColors } from '../navigation/edit/utils';
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
+import { unlock } from '../lock-unlock';
+
+// Extract the private API component
+const { LinkControlSearchInput } = unlock( blockEditorPrivateApis );
 
 const DEFAULT_BLOCK = { name: 'core/navigation-link' };
 const NESTING_BLOCK_NAMES = [
