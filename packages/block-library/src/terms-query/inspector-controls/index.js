@@ -81,7 +81,11 @@ export default function TermsQueryInspectorControls( {
 							options={ taxonomyOptions }
 							value={ termQuery.taxonomy }
 							onChange={ ( selectedTaxonomy ) =>
-								setQuery( { taxonomy: selectedTaxonomy } )
+								setQuery( {
+									taxonomy: selectedTaxonomy,
+									include: [],
+									exclude: [],
+								} )
 							}
 						/>
 					</ToolsPanelItem>
