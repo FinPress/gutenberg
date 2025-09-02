@@ -6,8 +6,8 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useMemo } from '@wordpress/element';
+import { store as coreStore } from '@wordpress/core-data';
+import { useCallback, useMemo } from '@wordpress/element';
 import {
 	AlignmentToolbar,
 	BlockControls,
@@ -24,7 +24,7 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -46,11 +46,39 @@ export default function PostExcerptEditor( {
 	const showControls = blockEditingMode === 'default';
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 	const userCanEdit = useCanEditEntity( 'postType', postType, postId );
-	const [
-		rawExcerpt,
-		setExcerpt,
-		{ rendered: renderedExcerpt, protected: isProtected } = {},
-	] = useEntityProp( 'postType', postType, 'excerpt', postId );
+
+	const { editEntityRecord } = useDispatch( coreStore );
+	const setExcerpt = useCallback(
+		( newValue ) => {
+			void editEntityRecord( 'postType', postType, postId, {
+				excerpt: newValue,
+			} );
+		},
+		[ editEntityRecord, postType, postId ]
+	);
+	const { rawExcerpt, renderedExcerpt, isProtected } = useSelect(
+		( select ) => {
+			const record = select( coreStore ).getEntityRecord(
+				'postType',
+				postType,
+				postId,
+				{ excerpt_length: excerptLength }
+			);
+			const editedRecord = select( coreStore ).getEditedEntityRecord(
+				'postType',
+				postType,
+				postId
+			);
+
+			return {
+				rawExcerpt:
+					record && editedRecord ? editedRecord.excerpt : null,
+				renderedExcerpt: record?.excerpt.rendered,
+				isProtected: record?.excerpt.protected,
+			};
+		},
+		[ postType, postId, excerptLength ]
+	);
 
 	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
