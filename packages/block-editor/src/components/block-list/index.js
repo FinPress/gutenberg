@@ -43,17 +43,23 @@ export const IntersectionObserver = createContext();
 const pendingBlockVisibilityUpdatesPerRegistry = new WeakMap();
 
 function Root( { className, ...settings } ) {
-	const { isOutlineMode, isFocusMode, temporarilyEditingAsBlocks } =
-		useSelect( ( select ) => {
-			const { getSettings, getTemporarilyEditingAsBlocks, isTyping } =
-				unlock( select( blockEditorStore ) );
-			const { outlineMode, focusMode } = getSettings();
-			return {
-				isOutlineMode: outlineMode && ! isTyping(),
-				isFocusMode: focusMode,
-				temporarilyEditingAsBlocks: getTemporarilyEditingAsBlocks(),
-			};
-		}, [] );
+	const {
+		isOutlineMode,
+		isFocusMode,
+		isBoundaryMode,
+		temporarilyEditingAsBlocks,
+	} = useSelect( ( select ) => {
+		const { getSettings, getTemporarilyEditingAsBlocks, isTyping } = unlock(
+			select( blockEditorStore )
+		);
+		const { outlineMode, focusMode, boundaryMode } = getSettings();
+		return {
+			isOutlineMode: outlineMode && ! isTyping(),
+			isFocusMode: focusMode,
+			isBoundaryMode: boundaryMode,
+			temporarilyEditingAsBlocks: getTemporarilyEditingAsBlocks(),
+		};
+	}, [] );
 	const registry = useRegistry();
 	const { setBlockVisibility } = useDispatch( blockEditorStore );
 
@@ -102,6 +108,7 @@ function Root( { className, ...settings } ) {
 			className: clsx( 'is-root-container', className, {
 				'is-outline-mode': isOutlineMode,
 				'is-focus-mode': isFocusMode,
+				'is-boundary-mode': isBoundaryMode,
 			} ),
 		},
 		settings
