@@ -7,8 +7,16 @@ import { store as editorStore } from '@wordpress/editor';
 import { useLayoutEffect } from '@wordpress/element';
 import { store as preferencesStore } from '@wordpress/preferences';
 
+/**
+ * Internal dependencies
+ */
+import { unlock } from '../../lock-unlock';
+
 export function useAdaptEditorToCanvas( canvas ) {
-	const { clearSelectedBlock } = useDispatch( blockEditorStore );
+	const { clearSelectedBlock, resetZoomLevel } = unlock(
+		useDispatch( blockEditorStore )
+	);
+	const { isZoomOut } = unlock( useSelect( blockEditorStore ) );
 	const {
 		setDeviceType,
 		closePublishSidebar,
@@ -39,6 +47,10 @@ export function useAdaptEditorToCanvas( canvas ) {
 			} else {
 				setIsListViewOpened( false );
 			}
+
+			if ( isMediumOrBigger && isZoomOut() ) {
+				resetZoomLevel();
+			}
 		} );
 	}, [
 		canvas,
@@ -49,5 +61,7 @@ export function useAdaptEditorToCanvas( canvas ) {
 		setIsInserterOpened,
 		setIsListViewOpened,
 		getPreference,
+		resetZoomLevel,
+		isZoomOut,
 	] );
 }
