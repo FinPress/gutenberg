@@ -31,6 +31,7 @@ export default function save( { attributes } ) {
 		linkTarget,
 		sizeSlug,
 		title,
+		showCaption,
 	} = attributes;
 
 	const newRel = ! rel ? undefined : rel;
@@ -84,7 +85,7 @@ export default function save( { attributes } ) {
 			) : (
 				image
 			) }
-			{ ! RichText.isEmpty( caption ) && (
+			{ showCaption && ! RichText.isEmpty( caption ) && (
 				<RichText.Content
 					className={ __experimentalGetElementClassName( 'caption' ) }
 					tagName="figcaption"

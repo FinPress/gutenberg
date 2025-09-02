@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useState, useEffect, useCallback } from '@wordpress/element';
+import { useEffect, useCallback } from '@wordpress/element';
 import { usePrevious } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import {
@@ -46,21 +46,28 @@ export function Caption( {
 	const { PrivateRichText: RichText } = unlock( blockEditorPrivateApis );
 	const isCaptionEmpty = RichText.isEmpty( caption );
 	const isPrevCaptionEmpty = RichText.isEmpty( prevCaption );
-	const [ showCaption, setShowCaption ] = useState( ! isCaptionEmpty );
+	const { showCaption } = attributes;
+
+	const setShowCaption = useCallback(
+		( value ) => {
+			setAttributes( { showCaption: value } );
+		},
+		[ setAttributes ]
+	);
 
 	// We need to show the caption when changes come from
 	// history navigation(undo/redo).
 	useEffect( () => {
-		if ( ! isCaptionEmpty && isPrevCaptionEmpty ) {
+		if ( ! isCaptionEmpty && isPrevCaptionEmpty && showCaption ) {
 			setShowCaption( true );
 		}
-	}, [ isCaptionEmpty, isPrevCaptionEmpty ] );
+	}, [ isCaptionEmpty, isPrevCaptionEmpty, setShowCaption, showCaption ] );
 
 	useEffect( () => {
 		if ( ! isSelected && isCaptionEmpty ) {
 			setShowCaption( false );
 		}
-	}, [ isSelected, isCaptionEmpty ] );
+	}, [ isSelected, isCaptionEmpty, setShowCaption ] );
 
 	// Focus the caption when we click to add one.
 	const ref = useCallback(
