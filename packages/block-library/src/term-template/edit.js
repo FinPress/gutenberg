@@ -237,6 +237,7 @@ export default function TermTemplateEdit( {
 		per_page: 100,
 	};
 
+	// Include terms only if "Show only top-level terms" is enabled.
 	if ( include?.length ) {
 		queryArgs.include = include;
 	}
