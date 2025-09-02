@@ -57,7 +57,7 @@ function Layout() {
 	const { canvas = 'view' } = query;
 	const isMobileViewport = useViewportMatch( 'medium', '<' );
 	const toggleRef = useRef();
-	const navigateRegionsProps = useNavigateRegions();
+	const navigateRegionsRef = useNavigateRegions( { isGlobal: true } );
 	const disableMotion = useReducedMotion();
 	const [ canvasResizer, canvasSize ] = useResizeObserver();
 	const isEditorLoading = useIsSiteEditorLoading();
@@ -91,16 +91,11 @@ function Layout() {
 			<UnsavedChangesWarning />
 			{ canvas === 'view' && <SaveKeyboardShortcut /> }
 			<div
-				{ ...navigateRegionsProps }
-				ref={ navigateRegionsProps.ref }
-				className={ clsx(
-					'edit-site-layout',
-					navigateRegionsProps.className,
-					{
-						'is-full-canvas': canvas === 'edit',
-						'show-icon-labels': showIconLabels,
-					}
-				) }
+				ref={ navigateRegionsRef }
+				className={ clsx( 'edit-site-layout', {
+					'is-full-canvas': canvas === 'edit',
+					'show-icon-labels': showIconLabels,
+				} ) }
 			>
 				<div className="edit-site-layout__content">
 					{ /*
