@@ -33,6 +33,7 @@ test.describe( 'Unsynced pattern', () => {
 		await page
 			.getByRole( 'toolbar', { name: 'Block tools' } )
 			.getByRole( 'button', { name: 'Options' } )
+			.first()
 			.click();
 		await page.getByRole( 'menuitem', { name: 'Create pattern' } ).click();
 
@@ -132,6 +133,7 @@ test.describe( 'Synced pattern', () => {
 		await page
 			.getByRole( 'toolbar', { name: 'Block tools' } )
 			.getByRole( 'button', { name: 'Options' } )
+			.first()
 			.click();
 		await page.getByRole( 'menuitem', { name: 'Create pattern' } ).click();
 
@@ -233,6 +235,7 @@ test.describe( 'Synced pattern', () => {
 			.getByRole( 'button', {
 				name: 'Edit original',
 			} )
+			.first()
 			.click();
 
 		const editorTopBar = page.getByRole( 'region', {
@@ -294,6 +297,7 @@ test.describe( 'Synced pattern', () => {
 			.getByRole( 'button', {
 				name: 'Edit original',
 			} )
+			.first()
 			.click();
 
 		const editorTopBar = page.getByRole( 'region', {
@@ -559,6 +563,7 @@ test.describe( 'Synced pattern', () => {
 		await page
 			.getByRole( 'toolbar', { name: 'Block tools' } )
 			.getByRole( 'button', { name: 'Edit original' } )
+			.first()
 			.click();
 
 		await editor.canvas
