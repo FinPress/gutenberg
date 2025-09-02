@@ -7,7 +7,7 @@ import {
 	__experimentalNumberControl as NumberControl,
 	privateApis,
 } from '@wordpress/components';
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback, useState, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -79,6 +79,7 @@ export default function Integer< Item >( {
 	data,
 	field,
 	onChange,
+	onValidate,
 	hideLabelFromVision,
 	operator,
 }: DataFormControlProps< Item > ) {
@@ -105,6 +106,13 @@ export default function Integer< Item >( {
 		[ id, onChange ]
 	);
 
+	// onValidate needs access to the latest value that has been validated
+	// to bail early if it didn't change.
+	//
+	// We can't use the value directly because it is updated by onChange,
+	// and so there may be race conditions between onChange and onValidate.
+	const previousValidatedValueRef = useRef< unknown >( value );
+
 	if ( operator === OPERATOR_BETWEEN ) {
 		return (
 			<BetweenControls
@@ -120,6 +128,12 @@ export default function Integer< Item >( {
 		<ValidatedNumberControl
 			required={ !! field.isValid?.required }
 			onValidate={ ( newValue: any ) => {
+				// Do not trigger validation if the value is the same as before.
+				if ( newValue === previousValidatedValueRef.current ) {
+					return;
+				}
+				previousValidatedValueRef.current = newValue;
+
 				const message = field.isValid?.custom?.(
 					{
 						...data,
@@ -130,14 +144,79 @@ export default function Integer< Item >( {
 					field
 				);
 
+				// Async validation:
+				// validity can be validating, invalid, valid.
+				if ( message instanceof Promise ) {
+					setCustomValidity( {
+						type: 'validating',
+						message: 'Validating...',
+					} );
+					onValidate( {
+						id: field.id,
+						isValid: undefined,
+						isValidating: true,
+						errors: [],
+					} );
+
+					message
+						.then( ( result ) => {
+							if ( result ) {
+								setCustomValidity( {
+									type: 'invalid',
+									message: result,
+								} );
+								onValidate( {
+									id: field.id,
+									isValid: false,
+									isValidating: false,
+									errors: [ result ],
+								} );
+							} else {
+								setCustomValidity( {
+									type: 'valid',
+									message: 'Validated',
+								} );
+								onValidate( {
+									id: field.id,
+									isValid: true,
+									isValidating: false,
+									errors: [],
+								} );
+							}
+						} )
+						.catch( ( error ) => {
+							setCustomValidity( {
+								type: 'invalid',
+								message: error.message,
+							} );
+							onValidate( {
+								id: field.id,
+								isValid: false,
+								isValidating: false,
+								errors: [ error.message ],
+							} );
+						} );
+
+					return;
+				}
+
+				// Sync validation:
+				// validity is either invalid or undefined (nothing displayed).
 				if ( message ) {
 					setCustomValidity( {
 						type: 'invalid',
 						message,
 					} );
+					onValidate( {
+						id: field.id,
+						isValid: false,
+						isValidating: false,
+						errors: [ message ],
+					} );
 					return;
 				}
 
+				// onValidate( true, false );
 				setCustomValidity( undefined );
 			} }
 			customValidity={ customValidity }
