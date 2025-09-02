@@ -208,6 +208,8 @@ export default function TermTemplateEdit( {
 			hierarchical,
 			parent,
 			perPage = 10,
+			include = [],
+			exclude = [],
 		} = {},
 	},
 	__unstableLayoutClassNames,
@@ -234,6 +236,14 @@ export default function TermTemplateEdit( {
 		// while in editor we build the hierarchy manually. It also allows us to avoid re-fetching data when max terms changes.
 		per_page: 100,
 	};
+
+	// Include terms only if "Show only top-level terms" is enabled.
+	if ( include?.length ) {
+		queryArgs.include = include;
+	}
+	if ( exclude?.length ) {
+		queryArgs.exclude = exclude;
+	}
 
 	const { records: terms, isResolving } = useEntityRecords(
 		'taxonomy',

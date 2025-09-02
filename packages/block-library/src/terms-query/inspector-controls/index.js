@@ -19,8 +19,9 @@ import { store as coreStore } from '@wordpress/core-data';
 /**
  * Internal dependencies
  */
-import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
-import { unlock } from '../lock-unlock';
+import IncludeExclude from './include-exclude';
+import { useToolsPanelDropdownMenuProps } from '../../utils/hooks';
+import { unlock } from '../../lock-unlock';
 
 const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
@@ -81,7 +82,11 @@ export default function TermsQueryInspectorControls( {
 							options={ taxonomyOptions }
 							value={ termQuery.taxonomy }
 							onChange={ ( selectedTaxonomy ) =>
-								setQuery( { taxonomy: selectedTaxonomy } )
+								setQuery( {
+									taxonomy: selectedTaxonomy,
+									include: [],
+									exclude: [],
+								} )
 							}
 						/>
 					</ToolsPanelItem>
@@ -209,6 +214,11 @@ export default function TermsQueryInspectorControls( {
 							/>
 						</ToolsPanelItem>
 					) }
+
+					<IncludeExclude
+						termQuery={ termQuery }
+						setQuery={ setQuery }
+					/>
 				</ToolsPanel>
 			</InspectorControls>
 			<InspectorControls group="advanced">
