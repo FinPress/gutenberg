@@ -57,7 +57,9 @@ export function getBlockContentSchemaFromTransforms( transforms, context ) {
 			}
 			case 'attributes':
 			case 'require': {
-				return [ ...( objValue || [] ), ...( srcValue || [] ) ];
+				return Array.from(
+					new Set( [ ...( objValue || [] ), ...( srcValue || [] ) ] )
+				);
 			}
 			case 'isMatch': {
 				// If one of the values being merge is undefined (matches everything),
@@ -71,6 +73,11 @@ export function getBlockContentSchemaFromTransforms( transforms, context ) {
 					return objValue( ...args ) || srcValue( ...args );
 				};
 			}
+			case 'classes': {
+				return Array.from(
+					new Set( [ ...( objValue || [] ), ...( srcValue || [] ) ] )
+				);
+			}
 		}
 	}
 
@@ -78,20 +85,34 @@ export function getBlockContentSchemaFromTransforms( transforms, context ) {
 	// isMatch properties.
 	function mergeTagNameSchemas( a, b ) {
 		for ( const key in b ) {
-			a[ key ] = a[ key ]
-				? mergeTagNameSchemaProperties( a[ key ], b[ key ], key )
-				: { ...b[ key ] };
+			if ( a[ key ] ) {
+				a[ key ] = mergeTagNameSchemaProperties(
+					a[ key ],
+					b[ key ],
+					key
+				);
+			} else if ( Array.isArray( b[ key ] ) ) {
+				a[ key ] = b[ key ].slice();
+			} else {
+				a[ key ] = { ...b[ key ] };
+			}
 		}
+
 		return a;
 	}
 
 	// A schema is an object with tagName schemas by tag name.
 	function mergeSchemas( a, b ) {
 		for ( const key in b ) {
-			a[ key ] = a[ key ]
-				? mergeTagNameSchemas( a[ key ], b[ key ] )
-				: { ...b[ key ] };
+			if ( a[ key ] ) {
+				a[ key ] = mergeTagNameSchemas( a[ key ], b[ key ] );
+			} else if ( Array.isArray( b[ key ] ) ) {
+				a[ key ] = b[ key ].slice();
+			} else {
+				a[ key ] = { ...b[ key ] };
+			}
 		}
+
 		return a;
 	}
 

@@ -191,4 +191,150 @@ describe( 'getBlockContentSchema', () => {
 			output
 		);
 	} );
+
+	it( 'should handle proper merging of classes and attributes', () => {
+		const transforms = deepFreeze( [
+			{
+				blockName: 'my/preformatted',
+				type: 'raw',
+				schema: {
+					pre: {
+						attributes: [ 'data-one' ],
+						children: myContentSchema,
+						classes: [ 'class1' ],
+					},
+				},
+			},
+			{
+				blockName: 'core/preformatted',
+				type: 'raw',
+				schema: {
+					pre: {
+						attributes: [ 'data-two', 'class' ],
+						children: myContentSchema,
+						classes: [ 'my-class', 'another-class' ],
+					},
+				},
+			},
+		] );
+		const output = {
+			pre: {
+				children: myContentSchema,
+				attributes: [ 'data-one', 'data-two', 'class' ],
+				classes: [ 'class1', 'my-class', 'another-class' ],
+			},
+		};
+		expect( getBlockContentSchemaFromTransforms( transforms ) ).toEqual(
+			output
+		);
+	} );
+
+	it( 'should handle proper merging of classes when first transform has no classes', () => {
+		const transforms = deepFreeze( [
+			{
+				blockName: 'my/preformatted',
+				type: 'raw',
+				schema: {
+					pre: {
+						attributes: [ 'data-one' ],
+						children: myContentSchema,
+					},
+				},
+			},
+			{
+				blockName: 'core/preformatted',
+				type: 'raw',
+				schema: {
+					pre: {
+						attributes: [ 'data-two', 'class' ],
+						children: myContentSchema,
+						classes: [ 'my-class', 'another-class' ],
+					},
+				},
+			},
+		] );
+		const output = {
+			pre: {
+				children: myContentSchema,
+				attributes: [ 'data-one', 'data-two', 'class' ],
+				classes: [ 'my-class', 'another-class' ],
+			},
+		};
+		expect( getBlockContentSchemaFromTransforms( transforms ) ).toEqual(
+			output
+		);
+	} );
+
+	it( 'should handle proper merging of classes when second transform has no classes', () => {
+		const transforms = deepFreeze( [
+			{
+				blockName: 'my/preformatted',
+				type: 'raw',
+				schema: {
+					pre: {
+						attributes: [ 'data-one', 'class' ],
+						children: myContentSchema,
+						classes: [ 'my-class', 'another-class' ],
+					},
+				},
+			},
+			{
+				blockName: 'core/preformatted',
+				type: 'raw',
+				schema: {
+					pre: {
+						attributes: [ 'data-two' ],
+						children: myContentSchema,
+					},
+				},
+			},
+		] );
+		const output = {
+			pre: {
+				children: myContentSchema,
+				attributes: [ 'data-one', 'class', 'data-two' ],
+				classes: [ 'my-class', 'another-class' ],
+			},
+		};
+		expect( getBlockContentSchemaFromTransforms( transforms ) ).toEqual(
+			output
+		);
+	} );
+
+	it( 'should handle merging of classes when both transforms have same classes', () => {
+		const transforms = deepFreeze( [
+			{
+				blockName: 'my/preformatted',
+				type: 'raw',
+				schema: {
+					pre: {
+						attributes: [ 'data-one', 'class' ],
+						children: myContentSchema,
+						classes: [ 'class1', 'my-class', 'another-class' ],
+					},
+				},
+			},
+			{
+				blockName: 'core/preformatted',
+				type: 'raw',
+				schema: {
+					pre: {
+						attributes: [ 'data-two', 'class' ],
+						children: myContentSchema,
+						classes: [ 'class2', 'my-class', 'another-class' ],
+					},
+				},
+			},
+		] );
+		const output = {
+			pre: {
+				children: myContentSchema,
+				attributes: [ 'data-one', 'class', 'data-two' ],
+				classes: [ 'class1', 'my-class', 'another-class', 'class2' ],
+			},
+		};
+		expect( getBlockContentSchemaFromTransforms( transforms ) ).toEqual(
+			output
+		);
+	} );
 } );
