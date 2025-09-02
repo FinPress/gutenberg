@@ -7,7 +7,7 @@ import {
 	useInnerBlocksProps,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { ToolbarButton } from '@wordpress/components';
+import { ToolbarButton, Placeholder } from '@wordpress/components';
 import { useDispatch, useSelect, useRegistry } from '@wordpress/data';
 import { isRTL, __ } from '@wordpress/i18n';
 import {
@@ -120,6 +120,24 @@ function IndentUI( { clientId } ) {
 
 export default function Edit( { attributes, setAttributes, clientId, style } ) {
 	const { ordered, type, reversed, start } = attributes;
+
+	const { hasInnerBlocks, isSelected } = useSelect(
+		( select ) => {
+			const { getBlocks, isBlockSelected, hasSelectedInnerBlock } =
+				select( blockEditorStore );
+			const innerBlocks = getBlocks( clientId );
+			const selected =
+				isBlockSelected( clientId ) ||
+				hasSelectedInnerBlock( clientId, true );
+
+			return {
+				hasInnerBlocks: innerBlocks.length > 0,
+				isSelected: selected,
+			};
+		},
+		[ clientId ]
+	);
+
 	const blockProps = useBlockProps( {
 		style: {
 			...( Platform.isNative && style ),
@@ -127,19 +145,23 @@ export default function Edit( { attributes, setAttributes, clientId, style } ) {
 		},
 	} );
 
-	const innerBlocksProps = useInnerBlocksProps( blockProps, {
-		defaultBlock: DEFAULT_BLOCK,
-		directInsert: true,
-		template: TEMPLATE,
-		templateLock: false,
-		templateInsertUpdatesSelection: true,
-		...( Platform.isNative && {
-			marginVertical: NATIVE_MARGIN_SPACING,
-			marginHorizontal: NATIVE_MARGIN_SPACING,
-			renderAppender: false,
-		} ),
-		__experimentalCaptureToolbars: true,
-	} );
+	const innerBlocksProps = useInnerBlocksProps(
+		hasInnerBlocks ? blockProps : {},
+		{
+			defaultBlock: DEFAULT_BLOCK,
+			directInsert: true,
+			template: TEMPLATE,
+			templateLock: false,
+			templateInsertUpdatesSelection: true,
+			...( Platform.isNative && {
+				marginVertical: NATIVE_MARGIN_SPACING,
+				marginHorizontal: NATIVE_MARGIN_SPACING,
+				renderAppender: false,
+			} ),
+			__experimentalCaptureToolbars: true,
+		}
+	);
+
 	useMigrateOnLoad( attributes, clientId );
 
 	const controls = (
@@ -165,6 +187,35 @@ export default function Edit( { attributes, setAttributes, clientId, style } ) {
 			<IndentUI clientId={ clientId } />
 		</BlockControls>
 	);
+
+	// Show placeholder when block is empty and not selected.
+	if ( ! hasInnerBlocks && ! isSelected ) {
+		return (
+			<div { ...blockProps }>
+				<Placeholder
+					icon={
+						// eslint-disable-next-line no-nested-ternary
+						ordered
+							? isRTL()
+								? formatListNumberedRTL
+								: formatListNumbered
+							: isRTL()
+							? formatListBulletsRTL
+							: formatListBullets
+					}
+					label={
+						ordered ? __( 'Ordered List' ) : __( 'Unordered List' )
+					}
+					className="wp-block-list-placeholder"
+					isColumnLayout
+				>
+					<div className="wp-block-list-placeholder__help">
+						{ __( 'Click to add list item.' ) }
+					</div>
+				</Placeholder>
+			</div>
+		);
+	}
 
 	return (
 		<>
