@@ -654,8 +654,9 @@ function gutenberg_render_layout_support_flag( $block_content, $block ) {
 		$self_stretch = isset( $block['attrs']['style']['layout']['selfStretch'] ) ? $block['attrs']['style']['layout']['selfStretch'] : null;
 
 		if ( 'fixed' === $self_stretch && isset( $block['attrs']['style']['layout']['flexSize'] ) ) {
-			$child_layout_declarations['flex-basis'] = $block['attrs']['style']['layout']['flexSize'];
-			$child_layout_declarations['box-sizing'] = 'border-box';
+			$child_layout_declarations['flex-basis']  = $block['attrs']['style']['layout']['flexSize'];
+			$child_layout_declarations['flex-shrink'] = '0';
+			$child_layout_declarations['box-sizing']  = 'border-box';
 		} elseif ( 'fill' === $self_stretch ) {
 			$child_layout_declarations['flex-grow'] = '1';
 		}
