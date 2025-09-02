@@ -21,8 +21,11 @@ export interface QueueItem {
 	error?: Error;
 	batchId?: string;
 	sourceUrl?: string;
-	sourceAttachmentId?: number;
+	sourceAttachmentId?: number; // TODO: implement.
+	generatedPosterId?: number;
+	parentId?: QueueItemId;
 	abortController?: AbortController;
+	startTime?: number;
 }
 
 export interface State {
@@ -42,6 +45,7 @@ export enum Type {
 	ResumeItem = 'RESUME_ITEM',
 	PauseQueue = 'PAUSE_QUEUE',
 	ResumeQueue = 'RESUME_QUEUE',
+	ApproveUpload = 'APPROVE_UPLOAD',
 	OperationStart = 'OPERATION_START',
 	OperationFinish = 'OPERATION_FINISH',
 	AddOperations = 'ADD_OPERATIONS',
@@ -77,6 +81,7 @@ export type AddOperationsAction = Action<
 	Type.AddOperations,
 	{ id: QueueItemId; operations: Operation[] }
 >;
+
 export type CancelAction = Action<
 	Type.Cancel,
 	{ id: QueueItemId; error: Error }
@@ -120,17 +125,30 @@ interface UploadMediaArgs {
 	signal?: AbortSignal;
 }
 
-export interface Settings {
-	// Function for uploading files to the server.
-	mediaUpload: ( args: UploadMediaArgs ) => void;
-	// List of allowed mime types and file extensions.
-	allowedMimeTypes?: Record< string, string > | null;
-	// Maximum upload file size
-	maxUploadFileSize?: number;
+interface SideloadMediaArgs {
+	// Additional data to include in the request.
+	additionalData?: SideloadAdditionalData;
+	// File to sideload.
+	file: File;
+	// Attachment ID.
+	attachmentId: number;
+	// Function called when an error happens.
+	onError?: OnErrorHandler;
+	// Function called each time a file or a temporary representation of the file is available.
+	onFileChange?: OnChangeHandler;
+	// Abort signal.
+	signal?: AbortSignal;
 }
 
+export type Settings = {
+	mediaUpload: ( args: UploadMediaArgs ) => void;
+	mediaSideload: ( args: SideloadMediaArgs ) => void;
+	imageSizes: Record< string, ImageSizeCrop >;
+	imageSizeThreshold: number;
+};
+
 // Must match the Attachment type from the media-utils package.
-export interface Attachment {
+export type Attachment = {
 	id: number;
 	alt: string;
 	caption: string;
@@ -143,7 +161,7 @@ export interface Attachment {
 	featured_media?: number;
 	missing_image_sizes?: string[];
 	poster?: string;
-}
+};
 
 export type OnChangeHandler = ( attachments: Partial< Attachment >[] ) => void;
 export type OnSuccessHandler = ( attachments: Partial< Attachment >[] ) => void;
@@ -153,14 +171,39 @@ export type OnBatchSuccessHandler = () => void;
 export enum ItemStatus {
 	Processing = 'PROCESSING',
 	Paused = 'PAUSED',
+	PendingApproval = 'PENDING_APPROVAL',
 }
 
 export enum OperationType {
 	Prepare = 'PREPARE',
+	AddPoster = 'ADD_POSTER',
+	UploadOriginal = 'UPLOAD_ORIGINAL',
+	ThumbnailGeneration = 'THUMBNAIL_GENERATION',
+	ResizeCrop = 'RESIZE_CROP',
+	TranscodeVideo = 'TRANSCODE_VIDEO',
+	TranscodeImage = 'TRANSCODE_IMAGE',
+	MuteVideo = 'TRANSCODE_MUTE_VIDEO',
+	Compress = 'TRANSCODE_COMPRESS',
+	FetchRemoteFile = 'FETCH_REMOTE_FILE',
 	Upload = 'UPLOAD',
 }
 
-export interface OperationArgs {}
+export type OperationArgs = {
+	[ OperationType.Compress ]: {};
+	[ OperationType.FetchRemoteFile ]: {
+		url: string;
+		fileName: string;
+		newFileName?: string;
+		skipAttachment?: boolean;
+	};
+	[ OperationType.TranscodeImage ]: {
+		outputFormat?: ImageFormat;
+		outputQuality?: number;
+		interlaced?: boolean;
+	};
+	[ OperationType.ResizeCrop ]: { resize?: ImageSizeCrop };
+	[ OperationType.TranscodeVideo ]: { continueOnError?: true };
+};
 
 type OperationWithArgs< T extends keyof OperationArgs = keyof OperationArgs > =
 	[ T, OperationArgs[ T ] ];
@@ -168,5 +211,16 @@ type OperationWithArgs< T extends keyof OperationArgs = keyof OperationArgs > =
 export type Operation = OperationType | OperationWithArgs;
 
 export type AdditionalData = Record< string, unknown >;
+
+export type SideloadAdditionalData = Record< string, unknown >;
+
+export type ImageSizeCrop = {
+	name?: string; // Only set if dealing with sub-sizes, not for general cropping.
+	width: number;
+	height: number;
+	crop?:
+		| boolean
+		| [ 'left' | 'center' | 'right', 'top' | 'center' | 'bottom' ];
+};
 
 export type ImageFormat = 'jpeg' | 'webp' | 'avif' | 'png' | 'gif';

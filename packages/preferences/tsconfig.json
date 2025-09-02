@@ -4,19 +4,19 @@
 	"compilerOptions": {
 		"rootDir": "src",
 		"declarationDir": "build-types",
-		"types": [ "gutenberg-env" ]
+		"types": [ "gutenberg-env" ],
+		"checkJs": false
 	},
 	"include": [ "src/**/*" ],
 	"references": [
-		{ "path": "../api-fetch" },
-		{ "path": "../blob" },
-		{ "path": "../compose"},
+		{ "path": "../a11y" },
+		{ "path": "../components" },
+		{ "path": "../compose" },
 		{ "path": "../data" },
+		{ "path": "../deprecated" },
 		{ "path": "../element" },
 		{ "path": "../i18n" },
-		{ "path": "../preferences" },
-		{ "path": "../private-apis" },
-		{ "path": "../url" },
-		{ "path": "../vips" }
+		{ "path": "../icons" },
+		{ "path": "../private-apis" }
 	]
 }

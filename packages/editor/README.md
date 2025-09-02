@@ -1767,6 +1767,23 @@ _Type_
 
 -   `Object`
 
+### validateFileSize
+
+Verifies whether the file is within the file upload size limits for the site.
+
+_Parameters_
+
+-   _file_ `File`: File object.
+
+### validateMimeType
+
+Verifies if the caller (e.g. a block) supports this mime type.
+
+_Parameters_
+
+-   _file_ `File`: File object.
+-   _allowedTypes_ `string[]`: Array with the types of media that can be uploaded, if unset all types are allowed.
+
 ### VisualEditorGlobalKeyboardShortcuts
 
 Handles the keyboard shortcuts for the editor.

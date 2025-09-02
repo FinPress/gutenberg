@@ -17,13 +17,14 @@ import {
 	privateApis,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
+import { sideloadMedia } from '@wordpress/media-utils';
 
 /**
  * Internal dependencies
  */
 import inserterMediaCategories from '../media-categories';
-import { mediaUpload } from '../../utils';
 import { default as mediaSideload } from '../../utils/media-sideload';
+import { mediaUpload, validateFileSize, validateMimeType } from '../../utils';
 import { store as editorStore } from '../../store';
 import { unlock } from '../../lock-unlock';
 import { useGlobalStylesContext } from '../global-styles-provider';
@@ -46,7 +47,6 @@ const BLOCK_EDITOR_SETTINGS = [
 	'__experimentalGlobalStylesBaseStyles',
 	'alignWide',
 	'blockInspectorTabs',
-	'maxUploadFileSize',
 	'allowedMimeTypes',
 	'bodyPlaceholder',
 	'canLockBlocks',
@@ -276,7 +276,6 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 	}, [ settings.allowedBlockTypes, hiddenBlockTypes, blockTypes ] );
 
 	const forceDisableFocusMode = settings.focusMode === false;
-
 	return useMemo( () => {
 		const blockEditorSettings = {
 			...Object.fromEntries(
@@ -297,6 +296,11 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 				: undefined,
 			mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
 			mediaSideload: hasUploadPermissions ? mediaSideload : undefined,
+			__experimentalMediaSideload: hasUploadPermissions
+				? sideloadMedia
+				: undefined,
+			__experimentalValidateFileSize: validateFileSize,
+			__experimentalValidateMimeType: validateMimeType,
 			__experimentalBlockPatterns: blockPatterns,
 			[ selectBlockPatternsKey ]: ( select ) => {
 				const { hasFinishedResolution, getBlockPatternsForPostType } =

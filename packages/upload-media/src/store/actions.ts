@@ -6,9 +6,8 @@ import { v4 as uuidv4 } from 'uuid';
 /**
  * WordPress dependencies
  */
-import type { createRegistry } from '@wordpress/data';
-
-type WPDataRegistry = ReturnType< typeof createRegistry >;
+// eslint-disable-next-line no-restricted-syntax
+import type { WPDataRegistry } from '@wordpress/data/build-types/registry';
 
 /**
  * Internal dependencies
@@ -20,8 +19,11 @@ import type {
 	OnChangeHandler,
 	OnErrorHandler,
 	OnSuccessHandler,
+	QueueItem,
 	QueueItemId,
+	Settings,
 	State,
+	UpdateSettingsAction,
 } from './types';
 import { Type } from './types';
 import type {
@@ -33,6 +35,7 @@ import type {
 import { validateMimeType } from '../validate-mime-type';
 import { validateMimeTypeForUser } from '../validate-mime-type-for-user';
 import { validateFileSize } from '../validate-file-size';
+import { vipsCancelOperations } from './utils/vips';
 
 type ActionCreators = {
 	addItem: typeof addItem;
@@ -59,6 +62,23 @@ type ThunkArgs = {
 	registry: WPDataRegistry;
 };
 
+/**
+ * Returns an action object that pauses all processing in the queue.
+ *
+ * Useful for testing purposes.
+ *
+ * @param settings
+ * @return Action object.
+ */
+export function updateSettings(
+	settings: Partial< Settings >
+): UpdateSettingsAction {
+	return {
+		type: Type.UpdateSettings,
+		settings,
+	};
+}
+
 interface AddItemsArgs {
 	files: File[];
 	onChange?: OnChangeHandler;
@@ -67,19 +87,21 @@ interface AddItemsArgs {
 	onError?: OnErrorHandler;
 	additionalData?: AdditionalData;
 	allowedTypes?: string[];
+	maxUploadFileSize?: number;
 }
 
 /**
  * Adds a new item to the upload queue.
  *
  * @param $0
- * @param $0.files            Files
- * @param [$0.onChange]       Function called each time a file or a temporary representation of the file is available.
- * @param [$0.onSuccess]      Function called after the file is uploaded.
- * @param [$0.onBatchSuccess] Function called after a batch of files is uploaded.
- * @param [$0.onError]        Function called when an error happens.
- * @param [$0.additionalData] Additional data to include in the request.
- * @param [$0.allowedTypes]   Array with the types of media that can be uploaded, if unset all types are allowed.
+ * @param $0.files               Files
+ * @param [$0.onChange]          Function called each time a file or a temporary representation of the file is available.
+ * @param [$0.onSuccess]         Function called after the file is uploaded.
+ * @param [$0.onBatchSuccess]    Function called after a batch of files is uploaded.
+ * @param [$0.onError]           Function called when an error happens.
+ * @param [$0.additionalData]    Additional data to include in the request.
+ * @param [$0.allowedTypes]      Array with the types of media that can be uploaded, if unset all types are allowed.
+ * @param [$0.maxUploadFileSize] Maximum upload size in bytes allowed for the site.
  */
 export function addItems( {
 	files,
@@ -89,8 +111,9 @@ export function addItems( {
 	onBatchSuccess,
 	additionalData,
 	allowedTypes,
+	maxUploadFileSize,
 }: AddItemsArgs ) {
-	return async ( { select, dispatch }: ThunkArgs ) => {
+	return async ( { dispatch }: { dispatch: ActionCreators } ) => {
 		const batchId = uuidv4();
 		for ( const file of files ) {
 			/*
@@ -102,7 +125,7 @@ export function addItems( {
 				validateMimeType( file, allowedTypes );
 				validateMimeTypeForUser(
 					file,
-					select.getSettings().allowedMimeTypes
+					allowedTypes ? { [ file.type ]: file.type } : undefined
 				);
 			} catch ( error: unknown ) {
 				onError?.( error as Error );
@@ -110,10 +133,7 @@ export function addItems( {
 			}
 
 			try {
-				validateFileSize(
-					file,
-					select.getSettings().maxUploadFileSize
-				);
+				validateFileSize( file, maxUploadFileSize );
 			} catch ( error: unknown ) {
 				onError?.( error as Error );
 				continue;
@@ -135,12 +155,10 @@ export function addItems( {
 /**
  * Cancels an item in the queue based on an error.
  *
- * @param id     Item ID.
- * @param error  Error instance.
- * @param silent Whether to cancel the item silently,
- *               without invoking its `onError` callback.
+ * @param id    Item ID.
+ * @param error Error instance.
  */
-export function cancelItem( id: QueueItemId, error: Error, silent = false ) {
+export function cancelItem( id: QueueItemId, error: Error ) {
 	return async ( { select, dispatch }: ThunkArgs ) => {
 		const item = select.getItem( id );
 
@@ -155,16 +173,22 @@ export function cancelItem( id: QueueItemId, error: Error, silent = false ) {
 			return;
 		}
 
+		// When cancelling a parent item, cancel all the children too.
+		for ( const child of select.getChildItems( id ) ) {
+			dispatch.cancelItem( child.id, error );
+		}
+
+		await vipsCancelOperations( id );
+
 		item.abortController?.abort();
 
-		if ( ! silent ) {
-			const { onError } = item;
-			onError?.( error ?? new Error( 'Upload cancelled' ) );
-			if ( ! onError && error ) {
-				// TODO: Find better way to surface errors with sideloads etc.
-				// eslint-disable-next-line no-console -- Deliberately log errors here.
-				console.error( 'Upload cancelled', error );
-			}
+		// TODO: Do not log error for children if cancelling a parent and all its children.
+		const { onError } = item;
+		onError?.( error ?? new Error( 'Upload cancelled' ) );
+		if ( ! onError && error ) {
+			// TODO: Find better way to surface errors with sideloads etc.
+			// eslint-disable-next-line no-console -- Deliberately log errors here.
+			console.error( 'Upload cancelled', error );
 		}
 
 		dispatch< CancelAction >( {
@@ -175,9 +199,23 @@ export function cancelItem( id: QueueItemId, error: Error, silent = false ) {
 		dispatch.removeItem( id );
 		dispatch.revokeBlobUrls( id );
 
-		// All items of this batch were cancelled or finished.
-		if ( item.batchId && select.isBatchUploaded( item.batchId ) ) {
-			item.onBatchSuccess?.();
+		// All other side-loaded items have been removed, so remove the parent too.
+		if (
+			item.parentId &&
+			item.batchId &&
+			select.isBatchUploaded( item.batchId )
+		) {
+			const parentItem = select.getItem( item.parentId ) as QueueItem;
+
+			if (
+				parentItem.batchId &&
+				select.isBatchUploaded( parentItem.batchId )
+			) {
+				parentItem.onBatchSuccess?.();
+			}
+
+			dispatch.removeItem( item.parentId );
+			dispatch.revokeBlobUrls( item.parentId );
 		}
 	};
 }

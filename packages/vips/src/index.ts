@@ -2,18 +2,7 @@
  * External dependencies
  */
 import Vips from 'wasm-vips';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-unresolved
-import VipsModule from 'wasm-vips/vips.wasm';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-unresolved
-import VipsHeifModule from 'wasm-vips/vips-heif.wasm';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-unresolved
-import VipsJxlModule from 'wasm-vips/vips-jxl.wasm';
+import type VipsInstance from 'wasm-vips';
 
 /**
  * Internal dependencies
@@ -32,23 +21,9 @@ interface EmscriptenModule {
 	setDelayFunction: ( fn: ( fn: () => void ) => void ) => void;
 }
 
-let location = '';
-
-/**
- * Dynamically sets the location / public path to use for loading the WASM files.
- *
- * This is required when loading this module in an inline worker,
- * where globals such as __webpack_public_path__ are not available.
- *
- * @param newLocation Location, typically a base URL such as "https://example.com/path/to/js/...".
- */
-export function setLocation( newLocation: string ) {
-	location = newLocation;
-}
-
 let cleanup: () => void;
 
-let vipsInstance: typeof Vips;
+let vipsInstance: typeof VipsInstance;
 
 /**
  * Instantiates and returns a new vips instance.
@@ -60,18 +35,19 @@ async function getVips(): Promise< typeof Vips > {
 		return vipsInstance;
 	}
 
-	vipsInstance = await Vips( {
-		locateFile: ( fileName: string ) => {
-			if ( fileName.endsWith( 'vips.wasm' ) ) {
-				fileName = VipsModule;
-			} else if ( fileName.endsWith( 'vips-heif.wasm' ) ) {
-				fileName = VipsHeifModule;
-			} else if ( fileName.endsWith( 'vips-jxl.wasm' ) ) {
-				fileName = VipsJxlModule;
-			}
+	const VIPS_CDN_URL = 'https://cdn.jsdelivr.net/npm/wasm-vips@latest/lib';
 
-			return location + fileName;
-		},
+	if ( 'undefined' === typeof fetch ) {
+		return Vips;
+	}
+
+	const mainBlobUrl = URL.createObjectURL(
+		await ( await window.fetch( `${ VIPS_CDN_URL }/vips.js` ) ).blob()
+	);
+
+	vipsInstance = await Vips( {
+		locateFile: ( fileName: string ) => `${ VIPS_CDN_URL }/${ fileName }`,
+		mainScriptUrlOrBlob: mainBlobUrl,
 		preRun: ( module: EmscriptenModule ) => {
 			// https://github.com/kleisauke/wasm-vips/issues/13#issuecomment-1073246828
 			module.setAutoDeleteLater( true );
@@ -240,7 +216,7 @@ export async function resizeImage(
 		}
 	};
 
-	let image = vips.Image.newFromBuffer( buffer, strOptions, loadOptions );
+	let image = vips.Image.newFromBuffer( buffer ); //  buffer, strOptions, loadOptions );
 
 	image.onProgress = onProgress;
 

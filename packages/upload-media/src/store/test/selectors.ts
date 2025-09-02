@@ -18,6 +18,8 @@ describe( 'selectors', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
+					mediaSideload: jest.fn(),
+					imageSizes: {},
 				},
 			};
 
@@ -43,6 +45,8 @@ describe( 'selectors', () => {
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
+					mediaSideload: jest.fn(),
+					imageSizes: {},
 				},
 			};
 
@@ -62,17 +66,25 @@ describe( 'selectors', () => {
 					},
 					{
 						status: ItemStatus.Processing,
+						attachment: {
+							url: 'https://example.com/two.jpeg',
+						},
 					},
 				] as QueueItem[],
 				queueStatus: 'paused',
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
+					mediaSideload: jest.fn(),
+					imageSizes: {},
 				},
 			};
 
 			expect(
 				isUploadingByUrl( state, 'https://example.com/one.jpeg' )
+			).toBe( true );
+			expect(
+				isUploadingByUrl( state, 'https://example.com/two.jpeg' )
 			).toBe( true );
 			expect(
 				isUploadingByUrl( state, 'https://example.com/three.jpeg' )
@@ -90,15 +102,24 @@ describe( 'selectors', () => {
 							id: 123,
 						},
 					},
+					{
+						status: ItemStatus.Processing,
+						attachment: {
+							id: 456,
+						},
+					},
 				] as QueueItem[],
 				queueStatus: 'paused',
 				blobUrls: {},
 				settings: {
 					mediaUpload: jest.fn(),
+					mediaSideload: jest.fn(),
+					imageSizes: {},
 				},
 			};
 
 			expect( isUploadingById( state, 123 ) ).toBe( true );
+			expect( isUploadingById( state, 456 ) ).toBe( true );
 			expect( isUploadingById( state, 789 ) ).toBe( false );
 		} );
 	} );

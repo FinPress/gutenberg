@@ -17,6 +17,9 @@ import {
 	Type,
 	type UnknownAction,
 	type UpdateSettingsAction,
+	type PauseItemAction,
+	type ResumeItemAction,
+	ItemStatus,
 } from './types';
 
 const noop = () => {};
@@ -27,6 +30,9 @@ const DEFAULT_STATE: State = {
 	blobUrls: {},
 	settings: {
 		mediaUpload: noop,
+		mediaSideload: noop,
+		imageSizes: {},
+		imageSizeThreshold: 2560,
 	},
 };
 
@@ -42,6 +48,8 @@ type Action =
 	| CacheBlobUrlAction
 	| RevokeBlobUrlsAction
 	| UpdateSettingsAction
+	| PauseItemAction
+	| ResumeItemAction
 	| UnknownAction;
 
 function reducer(
@@ -82,7 +90,33 @@ function reducer(
 							: item
 				),
 			};
+		case Type.PauseItem:
+			return {
+				...state,
+				queue: state.queue.map(
+					( item ): QueueItem =>
+						item.id === action.id
+							? {
+									...item,
+									status: ItemStatus.Paused,
+							  }
+							: item
+				),
+			};
 
+		case Type.ResumeItem:
+			return {
+				...state,
+				queue: state.queue.map(
+					( item ): QueueItem =>
+						item.id === action.id
+							? {
+									...item,
+									status: ItemStatus.Processing,
+							  }
+							: item
+				),
+			};
 		case Type.Remove:
 			return {
 				...state,
