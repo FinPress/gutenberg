@@ -7,7 +7,7 @@ import {
 	__experimentalNumberControl as NumberControl,
 	privateApis,
 } from '@wordpress/components';
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -81,15 +81,10 @@ export default function Integer< Item >( {
 	onChange,
 	hideLabelFromVision,
 	operator,
+	validity,
 }: DataFormControlProps< Item > ) {
 	const { id, label, description } = field;
 	const value = field.getValue( { item: data } ) ?? '';
-	const [ customValidity, setCustomValidity ] =
-		useState<
-			React.ComponentProps<
-				typeof ValidatedNumberControl
-			>[ 'customValidity' ]
-		>( undefined );
 
 	const onChangeControl = useCallback(
 		( newValue: string | undefined ) => {
@@ -118,29 +113,8 @@ export default function Integer< Item >( {
 
 	return (
 		<ValidatedNumberControl
-			required={ !! field.isValid?.required }
-			onValidate={ ( newValue: any ) => {
-				const message = field.isValid?.custom?.(
-					{
-						...data,
-						[ id ]: [ undefined, '', null ].includes( newValue )
-							? undefined
-							: Number( newValue ),
-					},
-					field
-				);
-
-				if ( message ) {
-					setCustomValidity( {
-						type: 'invalid',
-						message,
-					} );
-					return;
-				}
-
-				setCustomValidity( undefined );
-			} }
-			customValidity={ customValidity }
+			required={ !! field.isValid.required }
+			customValidity={ validity?.custom ? validity.custom : undefined }
 			label={ label }
 			help={ description }
 			value={ value }

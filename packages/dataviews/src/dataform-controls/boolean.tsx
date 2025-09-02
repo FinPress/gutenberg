@@ -2,7 +2,6 @@
  * WordPress dependencies
  */
 import { privateApis } from '@wordpress/components';
-import { useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -17,38 +16,14 @@ export default function Boolean< Item >( {
 	onChange,
 	data,
 	hideLabelFromVision,
+	validity,
 }: DataFormControlProps< Item > ) {
 	const { id, getValue, label } = field;
-	const [ customValidity, setCustomValidity ] =
-		useState<
-			React.ComponentProps<
-				typeof ValidatedToggleControl
-			>[ 'customValidity' ]
-		>( undefined );
 
 	return (
 		<ValidatedToggleControl
 			required={ !! field.isValid.required }
-			onValidate={ ( newValue: any ) => {
-				const message = field.isValid?.custom?.(
-					{
-						...data,
-						[ id ]: newValue,
-					},
-					field
-				);
-
-				if ( message ) {
-					setCustomValidity( {
-						type: 'invalid',
-						message,
-					} );
-					return;
-				}
-
-				setCustomValidity( undefined );
-			} }
-			customValidity={ customValidity }
+			customValidity={ validity?.custom ? validity.custom : undefined }
 			hidden={ hideLabelFromVision }
 			__nextHasNoMarginBottom
 			label={ label }

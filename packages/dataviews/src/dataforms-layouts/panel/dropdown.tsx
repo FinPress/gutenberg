@@ -16,7 +16,12 @@ import { closeSmall } from '@wordpress/icons';
 /**
  * Internal dependencies
  */
-import type { Form, FormField, NormalizedField } from '../../types';
+import type {
+	Form,
+	FormField,
+	NormalizedField,
+	FieldValidity,
+} from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
 import { DEFAULT_LAYOUT } from '../../normalize-form-fields';
@@ -60,6 +65,7 @@ function PanelDropdown< Item >( {
 	data,
 	onChange,
 	field,
+	validity,
 }: {
 	fieldDefinition: NormalizedField< Item >;
 	popoverAnchor: HTMLElement | null;
@@ -67,6 +73,7 @@ function PanelDropdown< Item >( {
 	data: Item;
 	onChange: ( value: any ) => void;
 	field: FormField;
+	validity?: FieldValidity;
 } ) {
 	const fieldLabel = isCombinedField( field )
 		? field.label
@@ -148,6 +155,7 @@ function PanelDropdown< Item >( {
 								hideLabelFromVision={
 									( form?.fields ?? [] ).length < 2
 								}
+								validity={ validity }
 							/>
 						) }
 					</DataFormLayout>

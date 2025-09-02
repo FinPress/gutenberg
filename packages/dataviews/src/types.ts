@@ -148,7 +148,12 @@ export type FieldTypeDefinition< Item > = {
 
 export type Rules< Item > = {
 	required?: boolean;
-	custom?: ( item: Item, field: NormalizedField< Item > ) => null | string;
+	custom?:
+		| ( ( item: Item, field: NormalizedField< Item > ) => null | string )
+		| ( (
+				item: Item,
+				field: NormalizedField< Item >
+		  ) => Promise< null | string > );
 };
 
 /**
@@ -270,7 +275,7 @@ export type Fields< Item > = Field< Item >[];
 
 export type Data< Item > = Item[];
 
-export type DataFormControlProps< Item > = {
+export interface DataFormControlProps< Item > {
 	data: Item;
 	field: NormalizedField< Item >;
 	onChange: ( value: Record< string, any > ) => void;
@@ -281,7 +286,11 @@ export type DataFormControlProps< Item > = {
 	 * Used by DataViews filters to determine which control to render based on the operator type.
 	 */
 	operator?: Operator;
-};
+	/**
+	 * Validity information for this field, if any.
+	 */
+	validity?: FieldValidity;
+}
 
 export type DataViewRenderFieldProps< Item > = {
 	item: Item;
@@ -758,6 +767,10 @@ export interface DataFormProps< Item > {
 	fields: Field< Item >[];
 	form: Form;
 	onChange: ( value: Record< string, any > ) => void;
+	/**
+	 * Validity information for form fields.
+	 */
+	validity?: FormValidity;
 }
 
 export interface FieldLayoutProps< Item > {
@@ -765,4 +778,22 @@ export interface FieldLayoutProps< Item > {
 	field: FormField;
 	onChange: ( value: any ) => void;
 	hideLabelFromVision?: boolean;
+	validity?: FieldValidity;
 }
+
+export interface FieldValidity {
+	id: string;
+	required?: 'invalid';
+	custom?:
+		| {
+				type: 'invalid';
+				message: string;
+		  }
+		| {
+				type: 'validating';
+				message: 'Validating...';
+		  }
+		| { type: 'valid'; message: 'Valid' };
+}
+
+export type FormValidity = FieldValidity[] | undefined;
