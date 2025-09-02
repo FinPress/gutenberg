@@ -117,6 +117,7 @@ import * as siteTitle from './site-title';
 import * as socialLink from './social-link';
 import * as socialLinks from './social-links';
 import * as spacer from './spacer';
+import * as stretchyText from './stretchy-text';
 import * as table from './table';
 import * as tableOfContents from './table-of-contents';
 import * as tagCloud from './tag-cloud';
@@ -180,6 +181,7 @@ const getAllBlocks = () => {
 		socialLink,
 		socialLinks,
 		spacer,
+		stretchyText,
 		table,
 		tagCloud,
 		textColumns,

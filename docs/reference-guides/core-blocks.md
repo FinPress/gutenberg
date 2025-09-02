@@ -941,6 +941,15 @@ Add white space between blocks and customize its height. ([Source](https://githu
 -	**Supports:** anchor, interactivity (clientNavigation), spacing (margin)
 -	**Attributes:** height, width
 
+## Stretchy Text
+
+Text that expands to fill the width of its container. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/stretchy-text))
+
+-	**Name:** core/stretchy-text
+-	**Category:** text
+-	**Supports:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), interactivity (clientNavigation), spacing (margin, padding), splitting, typography (lineHeight), ~~className~~
+-	**Attributes:** content, viewBox
+
 ## Table
 
 Create structured content in rows and columns to display information. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/table))
