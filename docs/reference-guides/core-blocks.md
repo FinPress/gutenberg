@@ -284,6 +284,14 @@ Displays a title with the number of comments. ([Source](https://github.com/WordP
 -	**Supports:** align, color (background, gradients, text), interactivity (clientNavigation), spacing (margin, padding), typography (fontSize, lineHeight), ~~anchor~~, ~~html~~
 -	**Attributes:** level, levelOptions, showCommentsCount, showPostTitle, textAlign
 
+## Countdown
+
+A countdown timer block with customizable options. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/countdown))
+
+-	**Name:** core/countdown
+-	**Supports:** align (full, wide), color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** actionOnEnd, actionValue, bgColor, borderColor, endTime, showDays, showHours, showMinutes, showSeconds
+
 ## Cover
 
 Add an image or video with a text overlay. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/cover))
