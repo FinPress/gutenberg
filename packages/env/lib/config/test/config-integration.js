@@ -18,6 +18,7 @@ jest.mock( 'fs', () => ( {
 		mkdir: jest.fn(),
 		writeFile: jest.fn(),
 	},
+	existsSync: jest.fn().mockReturnValue( false ),
 } ) );
 
 // This mocks a small response with a format matching the stable-check API.

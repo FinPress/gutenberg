@@ -3,7 +3,7 @@
  * External dependencies
  */
 const path = require( 'path' );
-const fs = require( 'fs' ).promises;
+const { existsSync, promises: fsPromises } = require( 'fs' );
 
 /**
  * Internal dependencies
@@ -42,10 +42,23 @@ const postProcessConfig = require( './post-process-config' );
 module.exports = async function loadConfig( configDirectoryPath ) {
 	const configFilePath = getConfigFilePath( configDirectoryPath );
 
-	const cacheDirectoryPath = path.resolve(
+	// Traditional cache directory name
+	const md5CacheDirectoryPath = path.resolve(
 		await getCacheDirectory(),
 		md5( configFilePath )
 	);
+
+	// Descriptive cache directory name
+	const directory = path.dirname( configFilePath ).replace( /^.*[\\/]/, '' );
+	const descriptiveCacheDirectoryPath = path.resolve(
+		await getCacheDirectory(),
+		'wp-env-' + directory + '-' + md5( configFilePath )
+	);
+
+	// If cache doesn't exist, create with new name
+	const cacheDirectoryPath = existsSync( md5CacheDirectoryPath )
+		? md5CacheDirectoryPath
+		: descriptiveCacheDirectoryPath;
 
 	// Parse any configuration we found in the given directory.
 	// This comes merged and prepared for internal consumption.
@@ -83,7 +96,7 @@ module.exports = async function loadConfig( configDirectoryPath ) {
 async function hasLocalConfig( configFilePaths ) {
 	for ( const filePath of configFilePaths ) {
 		try {
-			await fs.stat( filePath );
+			await fsPromises.stat( filePath );
 			return true;
 		} catch {}
 	}
