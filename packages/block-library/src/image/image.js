@@ -301,19 +301,28 @@ export default function Image( {
 		setOffsetTop( imageElement?.offsetTop ?? 0 );
 	}, [ imageElement ] );
 	const setRefs = useMergeRefs( [ setImageElement, setResizeObserved ] );
-	const { allowResize = true } = context;
+	const { allowResize = true, postType, postId, queryId } = context;
 
 	const image = useSelect(
 		( select ) =>
 			id && isSingleSelected
-				? select( coreStore ).getEntityRecord(
+				? select( coreStore ).getEditedEntityRecord(
 						'postType',
 						'attachment',
-						id,
-						{ context: 'view' }
+						id
 				  )
 				: null,
 		[ id, isSingleSelected ]
+	);
+
+	const currentPost = useSelect(
+		( select ) =>
+			select( coreStore ).getEditedEntityRecord(
+				'postType',
+				postType,
+				postId
+			),
+		[ postId, postType ]
 	);
 
 	const { canInsertCover, imageEditing, imageSizes, maxWidth } = useSelect(
@@ -898,8 +907,6 @@ export default function Image( {
 	const borderProps = useBorderProps( attributes );
 	const shadowProps = getShadowClassesAndStyles( attributes );
 	const isRounded = attributes.className?.includes( 'is-style-rounded' );
-
-	const { postType, postId, queryId } = context;
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
 
 	let img =
@@ -1115,6 +1122,52 @@ export default function Image( {
 		} );
 	};
 
+	/**
+	 * Sets or removes the post's attached post with the current image.
+	 */
+	const setAttachedPost = () => {
+		if ( ! currentPost || ! image ) {
+			return;
+		}
+
+		const edits =
+			currentPost?.id === image?.post
+				? {
+						post: 0,
+						_links: {
+							...image?._links,
+							attachedTo: undefined,
+						},
+				  }
+				: {
+						post: currentPost?.id,
+						_links: {
+							...image?._links,
+							attachedTo: [
+								{
+									href: currentPost?._links?.self?.[ 0 ]
+										?.href,
+									embeddable: true,
+									title:
+										currentPost?.title ||
+										currentPost?.title?.raw,
+									id: currentPost?.id,
+									post_type: currentPost?.type,
+								},
+							],
+						},
+				  };
+		editEntityRecord( 'postType', image?.type, image?.id, edits );
+		createSuccessNotice(
+			currentPost?.id === image?.post
+				? __( 'Image removed from post.' )
+				: __( 'Image attached to post.' ),
+			{
+				type: 'snackbar',
+			}
+		);
+	};
+
 	const featuredImageControl = (
 		<BlockSettingsMenuControls>
 			{ ( { selectedClientIds } ) =>
@@ -1131,11 +1184,30 @@ export default function Image( {
 		</BlockSettingsMenuControls>
 	);
 
+	const attachedPostControl = (
+		<BlockSettingsMenuControls>
+			{ ( { selectedClientIds } ) =>
+				selectedClientIds.length === 1 &&
+				! isDescendentOfQueryLoop &&
+				postId &&
+				id &&
+				clientId === selectedClientIds[ 0 ] && (
+					<MenuItem onClick={ () => setAttachedPost() }>
+						{ currentPost?.id === image?.post
+							? __( 'Remove attached post' )
+							: __( 'Set as attached post' ) }
+					</MenuItem>
+				)
+			}
+		</BlockSettingsMenuControls>
+	);
+
 	return (
 		<>
 			{ mediaReplaceFlow }
 			{ controls }
 			{ featuredImageControl }
+			{ attachedPostControl }
 			{ img }
 			{ resizableBox }
 

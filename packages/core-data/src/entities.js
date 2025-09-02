@@ -313,16 +313,20 @@ async function loadPostTypeEntities() {
 			name
 		);
 		const namespace = postType?.rest_namespace ?? 'wp/v2';
+		const transientEdits = {
+			blocks: true,
+			selection: true,
+		};
+		if ( name === 'attachment' ) {
+			transientEdits._links = true;
+		}
 		return {
 			kind: 'postType',
 			baseURL: `/${ namespace }/${ postType.rest_base }`,
 			baseURLParams: { context: 'edit' },
 			name,
 			label: postType.name,
-			transientEdits: {
-				blocks: true,
-				selection: true,
-			},
+			transientEdits,
 			mergedEdits: { meta: true },
 			rawAttributes: POST_RAW_ATTRIBUTES,
 			getTitle: ( record ) =>
