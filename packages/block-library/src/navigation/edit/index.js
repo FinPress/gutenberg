@@ -15,6 +15,7 @@ import {
 } from '@wordpress/element';
 import {
 	InspectorControls,
+	BlockControls,
 	useBlockProps,
 	RecursionProvider,
 	useHasRecursion,
@@ -30,6 +31,8 @@ import {
 import { EntityProvider, store as coreStore } from '@wordpress/core-data';
 
 import { useDispatch, useSelect } from '@wordpress/data';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { store as interfaceStore } from '@wordpress/interface';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
@@ -38,6 +41,7 @@ import {
 	__experimentalVStack as VStack,
 	ToggleControl,
 	Button,
+	ToolbarButton,
 	Spinner,
 	Notice,
 } from '@wordpress/components';
@@ -246,6 +250,8 @@ function Navigation( {
 	// Preload classic menus, so that they don't suddenly pop-in when viewing
 	// the Select Menu dropdown.
 	const { menus: classicMenus } = useNavigationEntities();
+
+	const { enableComplementaryArea } = useDispatch( interfaceStore );
 
 	const [ showNavigationMenuStatusNotice, hideNavigationMenuStatusNotice ] =
 		useNavigationNotice( {
@@ -921,6 +927,21 @@ function Navigation( {
 	return (
 		<EntityProvider kind="postType" type="wp_navigation" id={ ref }>
 			<RecursionProvider uniqueId={ recursionId }>
+				{ blockEditingMode === 'contentOnly' && (
+					<BlockControls>
+						<ToolbarButton
+							label={ __( 'Edit navigation' ) }
+							onClick={ () => {
+								enableComplementaryArea(
+									'core',
+									'edit-post/block'
+								);
+							} }
+						>
+							{ __( 'Edit navigation' ) }
+						</ToolbarButton>
+					</BlockControls>
+				) }
 				<MenuInspectorControls
 					clientId={ clientId }
 					createNavigationMenuIsSuccess={

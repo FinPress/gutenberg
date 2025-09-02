@@ -572,6 +572,7 @@ function BlockListBlockProvider( props ) {
 				getTemporarilyEditingAsBlocks,
 				getBlockEditingMode,
 				getBlockName,
+				getBlockParentsByBlockName,
 				isFirstMultiSelectedBlock,
 				getMultiSelectedBlockClientIds,
 				hasSelectedInnerBlock,
@@ -644,6 +645,18 @@ function BlockListBlockProvider( props ) {
 			);
 			const blockEditingMode = getBlockEditingMode( clientId );
 
+			// Force disable editing for any child blocks of Navigation blocks when in contentOnly mode
+			const navigationParents = getBlockParentsByBlockName(
+				clientId,
+				'core/navigation',
+				true
+			);
+			const isChildOfNavigation = navigationParents.length > 0;
+			const finalBlockEditingMode =
+				isChildOfNavigation && blockEditingMode === 'contentOnly'
+					? 'disabled'
+					: blockEditingMode;
+
 			const multiple = hasBlockSupport( blockName, 'multiple', true );
 
 			// For block types with `multiple` support, there is no "original
@@ -666,7 +679,7 @@ function BlockListBlockProvider( props ) {
 				isSelected: _isSelected,
 				isTemporarilyEditingAsBlocks:
 					getTemporarilyEditingAsBlocks() === clientId,
-				blockEditingMode,
+				blockEditingMode: finalBlockEditingMode,
 				mayDisplayControls:
 					_isSelected ||
 					( isFirstMultiSelectedBlock( clientId ) &&
@@ -681,9 +694,7 @@ function BlockListBlockProvider( props ) {
 					) && hasSelectedInnerBlock( clientId ),
 				blockApiVersion: blockType?.apiVersion || 1,
 				blockTitle: match?.title || blockType?.title,
-				isSubtreeDisabled:
-					blockEditingMode === 'disabled' &&
-					isBlockSubtreeDisabled( clientId ),
+				isSubtreeDisabled: isBlockSubtreeDisabled( clientId ),
 				hasOverlay:
 					__unstableHasActiveBlockOverlayActive( clientId ) &&
 					! isDragging(),
@@ -698,9 +709,9 @@ function BlockListBlockProvider( props ) {
 					! __unstableSelectionHasUnmergeableBlock(),
 				isDragging: isBlockBeingDragged( clientId ),
 				hasChildSelected: isAncestorOfSelectedBlock,
-				isEditingDisabled: blockEditingMode === 'disabled',
+				isEditingDisabled: finalBlockEditingMode === 'disabled',
 				hasEditableOutline:
-					blockEditingMode !== 'disabled' &&
+					finalBlockEditingMode !== 'disabled' &&
 					getBlockEditingMode( rootClientId ) === 'disabled',
 				originalBlockClientId: isInvalid
 					? blocksWithSameName[ 0 ]

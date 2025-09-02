@@ -52,12 +52,26 @@ function BlockInspector() {
 			getSelectedBlockCount,
 			getBlockName,
 			getParentSectionBlock,
+			getBlockParentsByBlockName,
 			isSectionBlock: _isSectionBlock,
 		} = unlock( select( blockEditorStore ) );
 		const _selectedBlockClientId = getSelectedBlockClientId();
+		const currentBlockName =
+			_selectedBlockClientId && getBlockName( _selectedBlockClientId );
+
+		// For Navigation blocks and their children, always show the Navigation block's inspector controls
+		const navigationParents = getBlockParentsByBlockName(
+			_selectedBlockClientId,
+			'core/navigation',
+			true
+		);
+		const isChildOfNavigation = navigationParents.length > 0;
+
 		const renderedBlockClientId =
-			getParentSectionBlock( _selectedBlockClientId ) ||
-			getSelectedBlockClientId();
+			currentBlockName === 'core/navigation' || isChildOfNavigation
+				? _selectedBlockClientId
+				: getParentSectionBlock( _selectedBlockClientId ) ||
+				  _selectedBlockClientId;
 		const _selectedBlockName =
 			renderedBlockClientId && getBlockName( renderedBlockClientId );
 		const _blockType =
@@ -73,7 +87,10 @@ function BlockInspector() {
 	}, [] );
 
 	const availableTabs = useInspectorControlsTabs( blockType?.name );
-	const showTabs = availableTabs?.length > 1;
+	const showTabs =
+		availableTabs?.length > 1 ||
+		blockType?.name === 'core/navigation-link' ||
+		blockType?.name === 'core/navigation-submenu';
 
 	// The block inspector animation settings will be completely
 	// removed in the future to create an API which allows the block
@@ -209,7 +226,18 @@ const BlockInspectorSingleBlock = ( {
 	isSectionBlock,
 } ) => {
 	const availableTabs = useInspectorControlsTabs( blockName );
-	const showTabs = ! isSectionBlock && availableTabs?.length > 1;
+	const blockEditingMode = useSelect(
+		( select ) =>
+			select( blockEditorStore ).getBlockEditingMode( clientId ),
+		[ clientId ]
+	);
+	const showTabs =
+		! isSectionBlock &&
+		availableTabs?.length > 1 &&
+		! (
+			blockName === 'core/navigation' &&
+			blockEditingMode === 'contentOnly'
+		);
 
 	const hasBlockStyles = useSelect(
 		( select ) => {
@@ -232,11 +260,24 @@ const BlockInspectorSingleBlock = ( {
 				getClientIdsOfDescendants,
 				getBlockName,
 				getBlockEditingMode,
+				getBlockParents,
 			} = select( blockEditorStore );
+
 			return getClientIdsOfDescendants( clientId ).filter(
-				( current ) =>
-					getBlockName( current ) !== 'core/list-item' &&
-					getBlockEditingMode( current ) === 'contentOnly'
+				( current ) => {
+					// Check if this block is within a navigation context
+					const parents = getBlockParents( current );
+					const isWithinNavigation = parents.some( ( parentId ) => {
+						const parentName = getBlockName( parentId );
+						return parentName === 'core/navigation';
+					} );
+
+					return (
+						! isWithinNavigation &&
+						getBlockName( current ) !== 'core/list-item' &&
+						getBlockEditingMode( current ) === 'contentOnly'
+					);
+				}
 			);
 		},
 		[ isSectionBlock, clientId ]
@@ -263,12 +304,18 @@ const BlockInspectorSingleBlock = ( {
 						<BlockStylesPanel clientId={ clientId } />
 					) }
 
-					{ contentClientIds && contentClientIds?.length > 0 && (
-						<PanelBody title={ __( 'Content' ) }>
-							<BlockQuickNavigation
-								clientIds={ contentClientIds }
-							/>
-						</PanelBody>
+					{ blockName === 'core/navigation' &&
+					blockEditingMode === 'contentOnly' ? (
+						<InspectorControls.Slot group="list" />
+					) : (
+						contentClientIds &&
+						contentClientIds?.length > 0 && (
+							<PanelBody title={ __( 'Content' ) }>
+								<BlockQuickNavigation
+									clientIds={ contentClientIds }
+								/>
+							</PanelBody>
+						)
 					) }
 
 					{ ! isSectionBlock && (
