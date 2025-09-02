@@ -17,8 +17,13 @@ import type { VNode, Context } from 'preact';
 /**
  * Internal dependencies
  */
-import { store, stores, universalUnlock } from './store';
-import { warn } from './utils';
+import {
+	store,
+	stores,
+	universalUnlock,
+	derivedStatePropsAccessed,
+} from './store';
+import { warn, isPlainObject } from './utils';
 import { getScope, setScope, resetScope, type Scope } from './scopes';
 export interface DirectiveEntry {
 	value: string | object;
@@ -200,6 +205,13 @@ export const directive = (
 	directivePriorities[ name ] = priority;
 };
 
+export const PENDING_GETTER = Symbol( 'PENDING_GETTER' );
+
+const isAnInvokedGetter = ( namespace: string, path: string ) =>
+	( derivedStatePropsAccessed[ namespace ] as string[] )?.some(
+		( getterPath ) => path === getterPath
+	);
+
 // Resolve the path to some property of the store object.
 const resolve = ( path: string, namespace: string ) => {
 	if ( ! namespace ) {
@@ -222,10 +234,29 @@ const resolve = ( path: string, namespace: string ) => {
 		...resolvedStore,
 		context: getScope().context[ namespace ],
 	};
+
 	try {
-		// TODO: Support lazy/dynamically initialized stores
-		return path.split( '.' ).reduce( ( acc, key ) => acc[ key ], current );
-	} catch ( e ) {}
+		const pathParts = path.split( '.' );
+		return pathParts.reduce( ( acc, key, index ) => {
+			// Subscribe to the prop, even when it doesn't exist yet.
+			const value = acc[ key ];
+			if (
+				// Getters are serialized as plain objects from PHP.
+				isPlainObject( value ) &&
+				isAnInvokedGetter(
+					namespace,
+					pathParts.slice( 0, index + 1 ).join( '.' )
+				)
+			) {
+				throw PENDING_GETTER;
+			}
+			return value;
+		}, current );
+	} catch ( e ) {
+		if ( e === PENDING_GETTER ) {
+			return PENDING_GETTER;
+		}
+	}
 };
 
 // Generate the evaluate function.
@@ -266,7 +297,9 @@ export const getEvaluate: GetEvaluate =
 		}
 		const result = value;
 		resetScope();
-		return hasNegationOperator ? ! result : result;
+		return hasNegationOperator && value !== PENDING_GETTER
+			? ! result
+			: result;
 	};
 
 // Separate directives by priority. The resulting array contains objects

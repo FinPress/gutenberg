@@ -23,6 +23,7 @@ import {
 	getEvaluate,
 	isDefaultDirectiveSuffix,
 	isNonDefaultDirectiveSuffix,
+	PENDING_GETTER,
 	type DirectiveCallback,
 	type DirectiveEntry,
 } from './hooks';
@@ -152,6 +153,9 @@ const getGlobalEventDirective = (
 				useInit( () => {
 					const cb = ( event: Event ) => {
 						const result = evaluate( entry );
+						if ( result === PENDING_GETTER ) {
+							return;
+						}
 						if ( typeof result === 'function' ) {
 							if ( ! result?.sync ) {
 								event = wrapEventAsync( event );
@@ -185,6 +189,9 @@ const getGlobalAsyncEventDirective = (
 					const cb = async ( event: Event ) => {
 						await splitTask();
 						const result = evaluate( entry );
+						if ( result === PENDING_GETTER ) {
+							return;
+						}
 						if ( typeof result === 'function' ) {
 							result( event );
 						}
@@ -266,6 +273,9 @@ export default () => {
 					}
 				}
 				let result = evaluate( entry );
+				if ( result === PENDING_GETTER ) {
+					return;
+				}
 				if ( typeof result === 'function' ) {
 					result = result();
 				}
@@ -302,6 +312,9 @@ export default () => {
 					}
 				}
 				let result = evaluate( entry );
+				if ( result === PENDING_GETTER ) {
+					return;
+				}
 				if ( typeof result === 'function' ) {
 					result = result();
 				}
@@ -352,6 +365,9 @@ export default () => {
 						}
 					}
 					const result = evaluate( entry );
+					if ( result === PENDING_GETTER ) {
+						return;
+					}
 					if ( typeof result === 'function' ) {
 						if ( ! result?.sync ) {
 							event = wrapEventAsync( event );
@@ -404,6 +420,9 @@ export default () => {
 					entries.forEach( async ( entry ) => {
 						await splitTask();
 						const result = evaluate( entry );
+						if ( result === PENDING_GETTER ) {
+							return;
+						}
 						if ( typeof result === 'function' ) {
 							result( event );
 						}
@@ -435,6 +454,9 @@ export default () => {
 				.forEach( ( entry ) => {
 					const className = entry.suffix;
 					let result = evaluate( entry );
+					if ( result === PENDING_GETTER ) {
+						return;
+					}
 					if ( typeof result === 'function' ) {
 						result = result();
 					}
@@ -478,6 +500,9 @@ export default () => {
 		style.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
 			const styleProp = entry.suffix;
 			let result = evaluate( entry );
+			if ( result === PENDING_GETTER ) {
+				return;
+			}
 			if ( typeof result === 'function' ) {
 				result = result();
 			}
@@ -515,6 +540,9 @@ export default () => {
 		bind.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
 			const attribute = entry.suffix;
 			let result = evaluate( entry );
+			if ( result === PENDING_GETTER ) {
+				return;
+			}
 			if ( typeof result === 'function' ) {
 				result = result();
 			}
@@ -624,6 +652,9 @@ export default () => {
 
 		try {
 			let result = evaluate( entry );
+			if ( result === PENDING_GETTER ) {
+				return;
+			}
 			if ( typeof result === 'function' ) {
 				result = result();
 			}
@@ -638,6 +669,9 @@ export default () => {
 	directive( 'run', ( { directives: { run }, evaluate } ) => {
 		run.forEach( ( entry ) => {
 			let result = evaluate( entry );
+			if ( result === PENDING_GETTER ) {
+				return;
+			}
 			if ( typeof result === 'function' ) {
 				result = result();
 			}
@@ -665,6 +699,9 @@ export default () => {
 			const { namespace } = entry;
 
 			let iterable = evaluate( entry );
+			if ( iterable === PENDING_GETTER ) {
+				return;
+			}
 			if ( typeof iterable === 'function' ) {
 				iterable = iterable();
 			}
