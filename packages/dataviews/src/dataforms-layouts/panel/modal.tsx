@@ -11,12 +11,36 @@ import { __, sprintf, _x } from '@wordpress/i18n';
 import { useState, useMemo } from '@wordpress/element';
 
 /**
+ * External dependencies
+ */
+import deepmerge from 'deepmerge';
+
+/**
  * Internal dependencies
  */
 import type { Form, FormField, NormalizedField } from '../../types';
 import { DataFormLayout } from '../data-form-layout';
 import { isCombinedField } from '../is-combined-field';
 import { DEFAULT_LAYOUT } from '../../normalize-form-fields';
+
+const setValueFromId = ( id: string ) => ( changes: any, value: unknown ) => {
+	const path = id.split( '.' );
+	const result = { ...changes };
+	let current = result;
+
+	for ( const segment of path ) {
+		if ( ! current.hasOwnProperty( segment ) ) {
+			current[ segment ] = {};
+		}
+		if ( segment === path[ path.length - 1 ] ) {
+			current[ segment ] = value;
+		} else {
+			current = current[ segment ];
+		}
+	}
+
+	return result;
+};
 
 function ModalContent< Item >( {
 	data,
@@ -39,11 +63,20 @@ function ModalContent< Item >( {
 	};
 
 	const handleOnChange = ( value: Partial< Item > ) => {
-		setChanges( ( prev ) => ( { ...prev, ...value } ) );
+		setChanges( ( prev ) => {
+			const newChanges = { ...prev };
+
+			for ( const [ key, fieldValue ] of Object.entries( value ) ) {
+				const setValue = setValueFromId( key );
+				Object.assign( newChanges, setValue( newChanges, fieldValue ) );
+			}
+
+			return newChanges;
+		} );
 	};
 
 	// Merge original data with local changes for display
-	const displayData = { ...data, ...changes };
+	const displayData = deepmerge( data, changes );
 
 	return (
 		<Modal
