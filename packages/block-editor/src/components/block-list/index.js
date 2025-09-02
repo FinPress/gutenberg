@@ -38,6 +38,7 @@ import {
 import { useTypingObserver } from '../observe-typing';
 import { ZoomOutSeparator } from './zoom-out-separator';
 import { unlock } from '../../lock-unlock';
+import useAutoConvert from './auto-convert-freeform';
 
 export const IntersectionObserver = createContext();
 const pendingBlockVisibilityUpdatesPerRegistry = new WeakMap();
@@ -106,6 +107,7 @@ function Root( { className, ...settings } ) {
 		},
 		settings
 	);
+	useAutoConvert();
 	return (
 		<IntersectionObserver.Provider value={ intersectionObserver }>
 			<div { ...innerBlocksProps } />
