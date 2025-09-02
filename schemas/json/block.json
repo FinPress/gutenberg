@@ -736,6 +736,7 @@
 								"lineHeight": { "type": "string" },
 								"letterSpacing": { "type": "string" },
 								"textDecoration": { "type": "string" },
+								"textShadow": { "type": "string" },
 								"textTransform": { "type": "string" }
 							}
 						}

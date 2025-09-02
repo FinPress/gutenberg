@@ -81,6 +81,7 @@ const VALID_SETTINGS = [
 	'typography.textAlign',
 	'typography.textColumns',
 	'typography.textDecoration',
+	'typography.textShadow',
 	'typography.textTransform',
 	'typography.writingMode',
 ];

@@ -620,6 +620,11 @@
 							"type": "boolean",
 							"default": true
 						},
+						"textShadow": {
+							"description": "Allow users to set custom text shadows.",
+							"type": "boolean",
+							"default": true
+						},
 						"writingMode": {
 							"description": "Allow users to set the writing mode.",
 							"type": "boolean",
@@ -1672,6 +1677,13 @@
 						},
 						"textDecoration": {
 							"description": "Sets the `text-decoration` CSS property.",
+							"oneOf": [
+								{ "type": "string" },
+								{ "$ref": "#/definitions/refComplete" }
+							]
+						},
+						"textShadow": {
+							"description": "Sets the `text-shadow` CSS property.",
 							"oneOf": [
 								{ "type": "string" },
 								{ "$ref": "#/definitions/refComplete" }

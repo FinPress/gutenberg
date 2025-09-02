@@ -124,6 +124,18 @@ const writingMode = {
 	},
 };
 
+const textShadow = {
+	name: 'textShadow',
+	generate: ( style: Style, options: StyleOptions ) => {
+		return generateRule(
+			style,
+			options,
+			[ 'typography', 'textShadow' ],
+			'textShadow'
+		);
+	},
+};
+
 export default [
 	fontFamily,
 	fontSize,
@@ -133,6 +145,7 @@ export default [
 	lineHeight,
 	textColumns,
 	textDecoration,
+	textShadow,
 	textTransform,
 	writingMode,
 ];
