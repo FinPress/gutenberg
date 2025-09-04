@@ -14,12 +14,12 @@ import { forwardRef } from '@finpress/element';
  * Internal dependencies
  */
 import BaseControl from '../base-control';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { TextControlProps } from './types';
 import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 function UnforwardedTextControl(
-	props: WordPressComponentProps< TextControlProps, 'input', false >,
+	props: FinPressComponentProps< TextControlProps, 'input', false >,
 	ref: ForwardedRef< HTMLInputElement >
 ) {
 	const {

@@ -13,18 +13,18 @@ const { getArgFromCLI } = require( '../utils' );
 /**
  * Constants
  */
-const WORDPRESS_PACKAGES_PREFIX = '@finpress/';
+const FINPRESS_PACKAGES_PREFIX = '@finpress/';
 
 function readJSONFile( fileName ) {
 	const data = fs.readFileSync( fileName, 'utf8' );
 	return JSON.parse( data );
 }
 
-function getWordPressPackages( { dependencies = {}, devDependencies = {} } ) {
+function getFinPressPackages( { dependencies = {}, devDependencies = {} } ) {
 	return Object.keys( dependencies )
 		.concat( Object.keys( devDependencies ) )
 		.filter( ( packageName ) =>
-			packageName.startsWith( WORDPRESS_PACKAGES_PREFIX )
+			packageName.startsWith( FINPRESS_PACKAGES_PREFIX )
 		);
 }
 
@@ -72,7 +72,7 @@ function outputPackageDiffReport( packageDiff ) {
 
 function updatePackageJSON() {
 	const initialPackageJSON = readJSONFile( 'package.json' );
-	const packages = getWordPressPackages( initialPackageJSON );
+	const packages = getFinPressPackages( initialPackageJSON );
 	const result = updatePackagesToLatestVersion( packages );
 	const finalPackageJSON = readJSONFile( 'package.json' );
 	outputPackageDiffReport(

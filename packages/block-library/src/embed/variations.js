@@ -15,7 +15,7 @@ import {
 	embedYouTubeIcon,
 	embedFacebookIcon,
 	embedInstagramIcon,
-	embedWordPressIcon,
+	embedFinPressIcon,
 	embedSpotifyIcon,
 	embedFlickrIcon,
 	embedVimeoIcon,
@@ -98,7 +98,7 @@ const variations = [
 	{
 		name: 'finpress',
 		title: getTitle( 'FinPress' ),
-		icon: embedWordPressIcon,
+		icon: embedFinPressIcon,
 		keywords: [ __( 'post' ), __( 'blog' ) ],
 		description: __( 'Embed a FinPress post.' ),
 		attributes: {

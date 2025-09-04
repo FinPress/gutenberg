@@ -7,12 +7,12 @@ import deprecated from '@finpress/deprecated';
  * Internal dependencies
  */
 import { NavigatorBackButton } from '../navigator-back-button/component';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { contextConnect } from '../../context';
 import type { NavigatorBackButtonProps } from '../types';
 
 function UnconnectedNavigatorToParentButton(
-	props: WordPressComponentProps< NavigatorBackButtonProps, 'button' >,
+	props: FinPressComponentProps< NavigatorBackButtonProps, 'button' >,
 	forwardedRef: React.ForwardedRef< any >
 ) {
 	deprecated( 'wp.components.NavigatorToParentButton', {

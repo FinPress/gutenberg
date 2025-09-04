@@ -11,13 +11,13 @@ import { forwardRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../finpress-component';
+import type { FinPressComponentProps } from '../finpress-component';
 
 // Static TypeScript checks
 /* eslint-disable jest/expect-expect */
-describe( 'WordPressComponentProps', () => {
+describe( 'FinPressComponentProps', () => {
 	it( 'should not accept a ref', () => {
-		const Foo = ( props: WordPressComponentProps< {}, 'div' > ) => (
+		const Foo = ( props: FinPressComponentProps< {}, 'div' > ) => (
 			<div { ...props } />
 		);
 
@@ -27,7 +27,7 @@ describe( 'WordPressComponentProps', () => {
 
 	it( 'should accept a ref if wrapped by a forwardRef()', () => {
 		const Foo = (
-			props: WordPressComponentProps< {}, 'div' >,
+			props: FinPressComponentProps< {}, 'div' >,
 			ref: ForwardedRef< any >
 		) => <div { ...props } ref={ ref } />;
 		const ForwardedFoo = forwardRef( Foo );

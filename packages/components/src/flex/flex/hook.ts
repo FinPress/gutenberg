@@ -12,7 +12,7 @@ import deprecated from '@finpress/deprecated';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import { useResponsiveValue } from '../../utils/use-responsive-value';
 import { space } from '../../utils/space';
@@ -21,7 +21,7 @@ import { useCx } from '../../utils';
 import type { FlexProps } from '../types';
 
 function useDeprecatedProps(
-	props: WordPressComponentProps< FlexProps, 'div' >
+	props: FinPressComponentProps< FlexProps, 'div' >
 ): Omit< typeof props, 'isReversed' > {
 	const { isReversed, ...otherProps } = props;
 
@@ -39,7 +39,7 @@ function useDeprecatedProps(
 	return otherProps;
 }
 
-export function useFlex( props: WordPressComponentProps< FlexProps, 'div' > ) {
+export function useFlex( props: FinPressComponentProps< FlexProps, 'div' > ) {
 	const {
 		align,
 		className,

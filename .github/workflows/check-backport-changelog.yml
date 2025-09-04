@@ -56,7 +56,7 @@ jobs:
                   fi
 
                   core_pr_number="$(basename "${changelog_file}" .md)"
-                  core_pr_url="https://github\.com/FinPress/wordpress-develop/pull/${core_pr_number}"
+                  core_pr_url="https://github\.com/FinPress/finpress-develop/pull/${core_pr_number}"
 
                   # Confirm that the entry has the correct core backport PR URL.
                   if ! grep -q -e "${core_pr_url}" "${changelog_file}"; then

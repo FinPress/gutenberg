@@ -22,13 +22,13 @@ import {
 	StyledHelp,
 	StyledVisualLabel,
 } from './styles/base-control-styles';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { contextConnectWithoutRef, useContextSystem } from '../context';
 
 export { useBaseControlProps } from './hooks';
 
 const UnconnectedBaseControl = (
-	props: WordPressComponentProps< BaseControlProps, null >
+	props: FinPressComponentProps< BaseControlProps, null >
 ) => {
 	const {
 		__nextHasNoMarginBottom = false,
@@ -96,7 +96,7 @@ const UnconnectedBaseControl = (
 };
 
 const UnforwardedVisualLabel = (
-	props: WordPressComponentProps< BaseControlVisualLabelProps, 'span' >,
+	props: FinPressComponentProps< BaseControlVisualLabelProps, 'span' >,
 	ref: ForwardedRef< any >
 ) => {
 	const { className, children, ...restProps } = props;

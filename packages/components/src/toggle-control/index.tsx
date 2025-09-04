@@ -18,7 +18,7 @@ import deprecated from '@finpress/deprecated';
 import { FlexBlock } from '../flex';
 import FormToggle from '../form-toggle';
 import BaseControl from '../base-control';
-import type { WordPressComponentProps } from '../context/finpress-component';
+import type { FinPressComponentProps } from '../context/finpress-component';
 import type { ToggleControlProps } from './types';
 import { HStack } from '../h-stack';
 import { useCx } from '../utils';
@@ -33,7 +33,7 @@ function UnforwardedToggleControl(
 		className,
 		onChange,
 		disabled,
-	}: WordPressComponentProps< ToggleControlProps, 'input', false >,
+	}: FinPressComponentProps< ToggleControlProps, 'input', false >,
 	ref: ForwardedRef< HTMLInputElement >
 ) {
 	function onChangeToggle( event: ChangeEvent< HTMLInputElement > ) {

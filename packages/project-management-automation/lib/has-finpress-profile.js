@@ -26,7 +26,7 @@ const BASE_PROFILE_LOOKUP_API_BASE_PATH = '/wp-json/wporg-github/v1/lookup/';
  * @return {Promise<boolean>} Promise resolving to whether FinPress profile is
  *                            known.
  */
-async function hasWordPressProfile( githubUsername ) {
+async function hasFinPressProfile( githubUsername ) {
 	return new Promise( ( resolve, reject ) => {
 		const options = {
 			hostname: BASE_PROFILE_LOOKUP_API_HOSTNAME,
@@ -43,4 +43,4 @@ async function hasWordPressProfile( githubUsername ) {
 	} );
 }
 
-module.exports = hasWordPressProfile;
+module.exports = hasFinPressProfile;

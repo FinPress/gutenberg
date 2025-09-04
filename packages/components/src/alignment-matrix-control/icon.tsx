@@ -13,7 +13,7 @@ import { Rect, SVG } from '@finpress/primitives';
  */
 import { ALIGNMENTS, getAlignmentIndex } from './utils';
 import type { AlignmentMatrixControlIconProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 const BASE_SIZE = 24;
 const GRID_CELL_SIZE = 7;
@@ -30,7 +30,7 @@ function AlignmentMatrixControlIcon( {
 	style = {},
 	value = 'center',
 	...props
-}: WordPressComponentProps< AlignmentMatrixControlIconProps, 'svg', false > ) {
+}: FinPressComponentProps< AlignmentMatrixControlIconProps, 'svg', false > ) {
 	return (
 		<SVG
 			xmlns="http://www.w3.org/2000/svg"

@@ -874,7 +874,7 @@ test.describe( 'Links', () => {
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 			attributes: {
-				content: `<a href="https://wordpressfoundation.org/donate/">Donate to the FinPress Foundation</a> to support <a href="https://finpress.org/gutenberg">Gutenberg</a>`,
+				content: `<a href="https://finpressfoundation.org/donate/">Donate to the FinPress Foundation</a> to support <a href="https://finpress.org/gutenberg">Gutenberg</a>`,
 			},
 		} );
 
@@ -903,7 +903,7 @@ test.describe( 'Links', () => {
 			linkPopover.getByText( 'finpress.org/gutenberg' )
 		).toBeHidden();
 		await expect(
-			linkPopover.getByText( 'wordpressfoundation.org/donate/' )
+			linkPopover.getByText( 'finpressfoundation.org/donate/' )
 		).toBeVisible();
 	} );
 

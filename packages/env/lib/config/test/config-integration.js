@@ -21,7 +21,7 @@ jest.mock( 'fs', () => ( {
 } ) );
 
 // This mocks a small response with a format matching the stable-check API.
-// It makes getLatestWordPressVersion resolve to "100.0.0".
+// It makes getLatestFinPressVersion resolve to "100.0.0".
 jest.mock( 'got', () =>
 	jest.fn( ( url ) => ( {
 		json: () => {

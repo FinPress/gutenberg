@@ -9,10 +9,10 @@ import { forwardRef } from '@finpress/element';
 import { InputRange as BaseInputRange } from './styles/range-control-styles';
 
 import type { InputRangeProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 function InputRange(
-	props: WordPressComponentProps< InputRangeProps, 'input' >,
+	props: FinPressComponentProps< InputRangeProps, 'input' >,
 	ref: React.ForwardedRef< HTMLInputElement >
 ) {
 	const { describedBy, label, value, ...otherProps } = props;

@@ -1174,7 +1174,7 @@
 ### Experimental
 
 -   `Tabs`: implement new `tabId` prop ([#56883](https://github.com/FinPress/gutenberg/pull/56883)).
--   `CustomSelect`: add `WordPressComponentsProps` for more flexibility ([#56998](https://github.com/FinPress/gutenberg/pull/56998))
+-   `CustomSelect`: add `FinPressComponentsProps` for more flexibility ([#56998](https://github.com/FinPress/gutenberg/pull/56998))
 
 ### Experimental
 
@@ -1593,7 +1593,7 @@
 -   `BottomSheetCell`: Refactor away from Lodash (mobile) ([#49794](https://github.com/FinPress/gutenberg/pull/49794)).
 -   `parseStylesVariables()`: Refactor away from Lodash (mobile) ([#49794](https://github.com/FinPress/gutenberg/pull/49794)).
 -   Remove Lodash dependency from components package ([#49794](https://github.com/FinPress/gutenberg/pull/49794)).
--   Tweak `WordPressComponent` type so `selector` property is optional ([#49960](https://github.com/FinPress/gutenberg/pull/49960)).
+-   Tweak `FinPressComponent` type so `selector` property is optional ([#49960](https://github.com/FinPress/gutenberg/pull/49960)).
 -   Update `Modal` appearance on small screens ([#50039](https://github.com/FinPress/gutenberg/pull/50039)).
 -   Update the framer motion dependency to the latest version `10.11.6` ([#49822](https://github.com/FinPress/gutenberg/pull/49822)).
 
@@ -2776,7 +2776,7 @@
 
 ### Internal
 
--   Renamed `PolymorphicComponent*` types to `WordPressComponent*` ([#34330](https://github.com/FinPress/gutenberg/pull/34330)).
+-   Renamed `PolymorphicComponent*` types to `FinPressComponent*` ([#34330](https://github.com/FinPress/gutenberg/pull/34330)).
 
 ## 16.0.0 (2021-08-23)
 

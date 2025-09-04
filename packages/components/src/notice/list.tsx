@@ -7,7 +7,7 @@ import clsx from 'clsx';
  * Internal dependencies
  */
 import Notice from '.';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { NoticeListProps } from './types';
 
 const noop = () => {};
@@ -43,7 +43,7 @@ function NoticeList( {
 	onRemove = noop,
 	className,
 	children,
-}: WordPressComponentProps< NoticeListProps, 'div', false > ) {
+}: FinPressComponentProps< NoticeListProps, 'div', false > ) {
 	const removeNotice =
 		( id: NoticeListProps[ 'notices' ][ number ][ 'id' ] ) => () =>
 			onRemove( id );

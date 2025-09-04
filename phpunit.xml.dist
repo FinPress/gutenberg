@@ -8,7 +8,7 @@
 	convertDeprecationsToExceptions="true"
 	>
 	<php>
-		<env name="WORDPRESS_TABLE_PREFIX" value="wptests_" />
+		<env name="FINPRESS_TABLE_PREFIX" value="wptests_" />
 	</php>
 	<testsuites>
 		<testsuite name="default">

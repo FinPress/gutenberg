@@ -92,7 +92,7 @@ A callback invoked when the state of the dropdown changes from open to closed an
 
 -   Required: No
 
-### `popoverProps`: `WordPressComponentProps< Omit< PopoverProps, 'children' > 'div', false	>`
+### `popoverProps`: `FinPressComponentProps< Omit< PopoverProps, 'children' > 'div', false	>`
 
 Properties of popoverProps object will be passed as props to the `Popover` component.
 

@@ -28,7 +28,7 @@ jobs:
             - name: Fetch latest version in the WP core repo
               id: compute_latest_version_in_core_repo
               run: |
-                  latest_version_in_core_repo=$(curl -s 'https://api.wordpress.org/plugins/info/1.2/?action=plugin_information&request\[slug\]=gutenberg' | jq -r '.version')
+                  latest_version_in_core_repo=$(curl -s 'https://api.finpress.org/plugins/info/1.2/?action=plugin_information&request\[slug\]=gutenberg' | jq -r '.version')
                   echo "Latest Core Repo version: $latest_version_in_core_repo"
                   echo "version=$latest_version_in_core_repo" >> "$GITHUB_OUTPUT"
 
@@ -141,7 +141,7 @@ jobs:
             - name: Configure git user name and email
               run: |
                   git config user.name "Gutenberg Repository Automation"
-                  git config user.email gutenberg@wordpress.org
+                  git config user.email gutenberg@finpress.org
 
             - name: Commit the Changelog update
               env:
@@ -172,7 +172,7 @@ jobs:
         if: |
             needs.compute-should-update-trunk.outputs.should_update_trunk == 'true' && github.event.release.assets[0]
         env:
-            PLUGIN_REPO_URL: 'https://plugins.svn.wordpress.org/gutenberg'
+            PLUGIN_REPO_URL: 'https://plugins.svn.finpress.org/gutenberg'
             STABLE_VERSION_REGEX: '[0-9]\+\.[0-9]\+\.[0-9]\+\s*'
             SVN_USERNAME: ${{ secrets.svn_username }}
             SVN_PASSWORD: ${{ secrets.svn_password }}
@@ -232,7 +232,7 @@ jobs:
         if: |
             needs.compute-should-update-trunk.outputs.should_update_trunk == 'false' && github.event.release.assets[0]
         env:
-            PLUGIN_REPO_URL: 'https://plugins.svn.wordpress.org/gutenberg'
+            PLUGIN_REPO_URL: 'https://plugins.svn.finpress.org/gutenberg'
             STABLE_VERSION_REGEX: '[0-9]\+\.[0-9]\+\.[0-9]\+\s*'
             SVN_USERNAME: ${{ secrets.svn_username }}
             SVN_PASSWORD: ${{ secrets.svn_password }}

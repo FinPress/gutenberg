@@ -11,13 +11,13 @@ import { forwardRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { useCompositeContext } from './context';
 import type { CompositeTypeaheadProps } from './types';
 
 export const CompositeTypeahead = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< CompositeTypeaheadProps, 'div', false >
+	FinPressComponentProps< CompositeTypeaheadProps, 'div', false >
 >( function CompositeTypeahead( props, ref ) {
 	const context = useCompositeContext();
 

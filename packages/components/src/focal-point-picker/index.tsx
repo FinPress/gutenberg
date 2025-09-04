@@ -28,7 +28,7 @@ import {
 } from './styles/focal-point-picker-style';
 import { INITIAL_BOUNDS } from './utils';
 import { useUpdateEffect } from '../utils/hooks';
-import type { WordPressComponentProps } from '../context/finpress-component';
+import type { FinPressComponentProps } from '../context/finpress-component';
 import type {
 	FocalPoint as FocalPointType,
 	FocalPointPickerProps,
@@ -100,7 +100,7 @@ export function FocalPointPicker( {
 		y: 0.5,
 	},
 	...restProps
-}: WordPressComponentProps< FocalPointPickerProps, 'div', false > ) {
+}: FinPressComponentProps< FocalPointPickerProps, 'div', false > ) {
 	const [ point, setPoint ] = useState( valueProp );
 	const [ showGridOverlay, setShowGridOverlay ] = useState( false );
 

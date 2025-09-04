@@ -12,7 +12,7 @@ import { useMemo } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { contextConnect, ContextSystemProvider } from '../../context';
 import { Elevation } from '../../elevation';
 import { View } from '../../view';
@@ -23,7 +23,7 @@ import { useCx } from '../../utils/hooks/use-cx';
 import type { Props } from '../types';
 
 function UnconnectedCard(
-	props: WordPressComponentProps< Props, 'div' >,
+	props: FinPressComponentProps< Props, 'div' >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const {

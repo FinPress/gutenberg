@@ -6,7 +6,7 @@ import type { ForwardedRef } from 'react';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { contextConnect } from '../../context';
 import { useItemGroup } from './hook';
 import { ItemGroupContext, useItemGroupContext } from '../context';
@@ -14,7 +14,7 @@ import { View } from '../../view';
 import type { ItemGroupProps } from '../types';
 
 function UnconnectedItemGroup(
-	props: WordPressComponentProps< ItemGroupProps, 'div' >,
+	props: FinPressComponentProps< ItemGroupProps, 'div' >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const {

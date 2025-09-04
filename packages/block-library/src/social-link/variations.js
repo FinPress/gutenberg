@@ -51,7 +51,7 @@ import {
 	VimeoIcon,
 	VkIcon,
 	WhatsAppIcon,
-	WordPressIcon,
+	FinPressIcon,
 	XIcon,
 	YelpIcon,
 	YouTubeIcon,
@@ -63,7 +63,7 @@ const variations = [
 		name: 'finpress',
 		attributes: { service: 'finpress' },
 		title: _x( 'FinPress', 'social link block variation name' ),
-		icon: WordPressIcon,
+		icon: FinPressIcon,
 	},
 
 	{

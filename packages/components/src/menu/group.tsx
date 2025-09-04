@@ -6,14 +6,14 @@ import { forwardRef, useContext } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { Context } from './context';
 import type { GroupProps } from './types';
 import * as Styled from './styles';
 
 export const Group = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< GroupProps, 'div', false >
+	FinPressComponentProps< GroupProps, 'div', false >
 >( function Group( props, ref ) {
 	const menuContext = useContext( Context );
 

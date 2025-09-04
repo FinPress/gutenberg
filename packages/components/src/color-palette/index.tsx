@@ -34,7 +34,7 @@ import type {
 	PaletteObject,
 	SinglePaletteProps,
 } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { DropdownProps } from '../dropdown/types';
 import {
 	extractColorNameFromCurrentValue,
@@ -173,7 +173,7 @@ export function CustomColorPickerDropdown( {
 }
 
 function UnforwardedColorPalette(
-	props: WordPressComponentProps< ColorPaletteProps, 'div' >,
+	props: FinPressComponentProps< ColorPaletteProps, 'div' >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const {

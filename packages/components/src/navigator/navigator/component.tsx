@@ -13,7 +13,7 @@ import warning from '@finpress/warning';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { contextConnect, useContextSystem } from '../../context';
 import { useCx } from '../../utils/hooks/use-cx';
 import { patternMatch, findParent } from '../utils/router';
@@ -214,7 +214,7 @@ function routerReducer(
 }
 
 function UnconnectedNavigator(
-	props: WordPressComponentProps< NavigatorProps, 'div' >,
+	props: FinPressComponentProps< NavigatorProps, 'div' >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const {

@@ -12,7 +12,7 @@ import { forwardRef } from '@finpress/element';
  * Internal dependencies
  */
 import type { DisclosureContentProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 /**
  * Accessible Disclosure component that controls visibility of a section of
@@ -23,7 +23,7 @@ const UnforwardedDisclosureContent = (
 		visible,
 		children,
 		...props
-	}: WordPressComponentProps< DisclosureContentProps, 'div', false >,
+	}: FinPressComponentProps< DisclosureContentProps, 'div', false >,
 	ref: React.ForwardedRef< any >
 ) => {
 	const disclosure = Ariakit.useDisclosureStore( { open: visible } );

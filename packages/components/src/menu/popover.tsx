@@ -16,14 +16,14 @@ import {
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { PopoverProps } from './types';
 import * as Styled from './styles';
 import { Context } from './context';
 
 export const Popover = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< PopoverProps, 'div', false >
+	FinPressComponentProps< PopoverProps, 'div', false >
 >( function Popover(
 	{ gutter, children, shift, modal = true, ...otherProps },
 	ref

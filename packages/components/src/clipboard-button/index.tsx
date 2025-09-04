@@ -15,7 +15,7 @@ import deprecated from '@finpress/deprecated';
  */
 import Button from '../button';
 import type { ClipboardButtonProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 const TIMEOUT = 4000;
 
@@ -26,7 +26,7 @@ export default function ClipboardButton( {
 	onFinishCopy,
 	text,
 	...buttonProps
-}: WordPressComponentProps< ClipboardButtonProps, 'button', false > ) {
+}: FinPressComponentProps< ClipboardButtonProps, 'button', false > ) {
 	deprecated( 'wp.components.ClipboardButton', {
 		since: '5.8',
 		alternative: 'wp.compose.useCopyToClipboard',

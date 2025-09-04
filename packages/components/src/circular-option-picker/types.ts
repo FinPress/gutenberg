@@ -13,7 +13,7 @@ import type { Icon } from '@finpress/icons';
  */
 import type { ButtonAsButtonProps } from '../button/types';
 import type { DropdownProps } from '../dropdown/types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 type CommonCircularOptionPickerProps = {
 	/**
@@ -93,7 +93,7 @@ export type CircularOptionPickerProps =
 
 export type DropdownLinkActionProps = {
 	buttonProps?: Omit<
-		WordPressComponentProps< ButtonAsButtonProps, 'button', false >,
+		FinPressComponentProps< ButtonAsButtonProps, 'button', false >,
 		'children'
 	>;
 	linkText: string;
@@ -107,7 +107,7 @@ export type OptionGroupProps = {
 };
 
 export type OptionProps = Omit<
-	WordPressComponentProps< ButtonAsButtonProps, 'button', false >,
+	FinPressComponentProps< ButtonAsButtonProps, 'button', false >,
 	'isPressed' | 'className'
 > & {
 	className?: string;

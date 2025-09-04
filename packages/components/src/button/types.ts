@@ -8,11 +8,11 @@ import type { ReactNode } from 'react';
  */
 import type { Props as IconProps } from '../icon';
 import type { PopoverProps } from '../popover/types';
-import type { WordPressComponentProps } from '../context/finpress-component';
+import type { FinPressComponentProps } from '../context/finpress-component';
 
 export type ButtonProps =
-	| WordPressComponentProps< ButtonAsButtonProps, 'button', false >
-	| WordPressComponentProps< ButtonAsAnchorProps, 'a', false >;
+	| FinPressComponentProps< ButtonAsButtonProps, 'button', false >
+	| FinPressComponentProps< ButtonAsAnchorProps, 'a', false >;
 
 export type ButtonAsButtonProps = BaseButtonProps & _ButtonProps;
 export type ButtonAsAnchorProps = BaseButtonProps & AnchorProps;

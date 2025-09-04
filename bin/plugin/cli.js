@@ -22,7 +22,7 @@ const catchException = ( command ) => {
 const {
 	publishNpmGutenbergPlugin,
 	publishNpmBugfixLatest,
-	publishNpmBugfixWordPressCore,
+	publishNpmBugfixFinPressCore,
 	publishNpmNext,
 } = require( './commands/packages' );
 const { getReleaseChangelog } = require( './commands/changelog' );
@@ -65,7 +65,7 @@ program
 	.description(
 		'Publishes to npm bugfixes targeting FinPress core (wp-X.Y dist-tag, production version)'
 	)
-	.action( catchException( publishNpmBugfixWordPressCore ) );
+	.action( catchException( publishNpmBugfixFinPressCore ) );
 
 program
 	.command( 'publish-npm-packages-next' )

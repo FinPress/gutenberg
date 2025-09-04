@@ -7,7 +7,7 @@ import { forwardRef } from '@finpress/element';
  * Internal dependencies
  */
 import TreeGridItem from './item';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { TreeGridCellProps } from './types';
 
 function UnforwardedTreeGridCell(
@@ -15,7 +15,7 @@ function UnforwardedTreeGridCell(
 		children,
 		withoutGridItem = false,
 		...props
-	}: WordPressComponentProps< TreeGridCellProps, 'td', false >,
+	}: FinPressComponentProps< TreeGridCellProps, 'td', false >,
 	ref: React.ForwardedRef< any >
 ) {
 	return (

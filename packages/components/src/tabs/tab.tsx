@@ -15,12 +15,12 @@ import {
 	TabChildren as StyledTabChildren,
 	TabChevron as StyledTabChevron,
 } from './styles';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { chevronRight } from '@finpress/icons';
 
 export const Tab = forwardRef<
 	HTMLButtonElement,
-	Omit< WordPressComponentProps< TabProps, 'button', false >, 'id' >
+	Omit< FinPressComponentProps< TabProps, 'button', false >, 'id' >
 >( function Tab( { children, tabId, disabled, render, ...otherProps }, ref ) {
 	const { store, instanceId } = useTabsContext() ?? {};
 

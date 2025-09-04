@@ -56,7 +56,7 @@ export const embedInstagramIcon = (
 		</G>
 	</SVG>
 );
-export const embedWordPressIcon = {
+export const embedFinPressIcon = {
 	foreground: '#0073AA',
 	src: (
 		<SVG viewBox="0 0 24 24">

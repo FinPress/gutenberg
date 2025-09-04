@@ -14,7 +14,7 @@ import warn from '@finpress/warning';
  */
 import { CONNECT_STATIC_NAMESPACE } from './constants';
 import { getStyledClassNameFromKey } from './get-styled-class-name-from-key';
-import type { WordPressComponentFromProps } from '.';
+import type { FinPressComponentFromProps } from '.';
 
 type AcceptsTwoArgs<
 	F extends ( ...args: any ) => any,
@@ -31,7 +31,7 @@ type ContextConnectOptions = {
  *
  * @param Component The component to register into the Context system.
  * @param namespace The namespace to register the component under.
- * @return The connected WordPressComponent
+ * @return The connected FinPressComponent
  */
 export function contextConnect<
 	C extends ( props: any, ref: ForwardedRef< any > ) => JSX.Element | null,
@@ -52,7 +52,7 @@ export function contextConnect<
  *
  * @param Component The component to register into the Context system.
  * @param namespace The namespace to register the component under.
- * @return The connected WordPressComponent
+ * @return The connected FinPressComponent
  */
 export function contextConnectWithoutRef< P >(
 	Component: ( props: P ) => JSX.Element | null,
@@ -71,7 +71,7 @@ function _contextConnect<
 	Component: C,
 	namespace: string,
 	options?: O
-): WordPressComponentFromProps<
+): FinPressComponentFromProps<
 	Parameters< C >[ 0 ],
 	O[ 'forwardsRef' ] extends true ? true : false
 > {

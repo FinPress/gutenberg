@@ -6,13 +6,13 @@ import { forwardRef, useContext } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { Context } from './context';
 import * as Styled from './styles';
 
 export const ItemHelpText = forwardRef<
 	HTMLSpanElement,
-	WordPressComponentProps< { children: React.ReactNode }, 'span', true >
+	FinPressComponentProps< { children: React.ReactNode }, 'span', true >
 >( function ItemHelpText( props, ref ) {
 	const menuContext = useContext( Context );
 

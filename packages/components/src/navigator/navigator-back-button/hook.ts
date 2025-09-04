@@ -6,14 +6,14 @@ import { useCallback } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import Button from '../../button';
 import { useNavigator } from '../use-navigator';
 import type { NavigatorBackButtonProps } from '../types';
 
 export function useNavigatorBackButton(
-	props: WordPressComponentProps< NavigatorBackButtonProps, 'button' >
+	props: FinPressComponentProps< NavigatorBackButtonProps, 'button' >
 ) {
 	const {
 		onClick,

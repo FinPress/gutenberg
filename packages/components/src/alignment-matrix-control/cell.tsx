@@ -11,13 +11,13 @@ import { VisuallyHidden } from '../visually-hidden';
 import { ALIGNMENT_LABEL } from './utils';
 import { Cell as CellView, Point } from './styles';
 import type { AlignmentMatrixControlCellProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 export default function Cell( {
 	id,
 	value,
 	...props
-}: WordPressComponentProps< AlignmentMatrixControlCellProps, 'span', false > ) {
+}: FinPressComponentProps< AlignmentMatrixControlCellProps, 'span', false > ) {
 	return (
 		<Tooltip text={ ALIGNMENT_LABEL[ value ] }>
 			<Composite.Item

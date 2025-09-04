@@ -18,7 +18,7 @@ import { forwardRef, useRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { useDragCursor } from './utils';
 import { Input } from './styles/input-control-styles';
 import { useInputControlStateReducer } from './reducer/reducer';
@@ -47,7 +47,7 @@ function InputField(
 		value: valueProp,
 		type,
 		...props
-	}: WordPressComponentProps< InputFieldProps, 'input', false >,
+	}: FinPressComponentProps< InputFieldProps, 'input', false >,
 	ref: ForwardedRef< HTMLInputElement >
 ) {
 	const {

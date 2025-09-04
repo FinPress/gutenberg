@@ -7,14 +7,14 @@ import { useMemo } from '@finpress/element';
  * Internal dependencies
  */
 import * as styles from '../styles';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import { useCx } from '../../utils/';
 
 import type { SplitControlsProps } from '../types';
 
 export function useBorderBoxControlSplitControls(
-	props: WordPressComponentProps< SplitControlsProps, 'div' >
+	props: FinPressComponentProps< SplitControlsProps, 'div' >
 ) {
 	const {
 		className,

@@ -6,7 +6,7 @@ import type { ForwardedRef, ReactNode } from 'react';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 type BaseProps = {
 	/**
@@ -29,7 +29,7 @@ type BaseProps = {
 	onNavigate?: ( index: number, focusable: HTMLElement ) => void;
 };
 
-export type NavigableContainerProps = WordPressComponentProps<
+export type NavigableContainerProps = FinPressComponentProps<
 	BaseProps & {
 		/**
 		 * Gets an offset, given an event.
@@ -56,7 +56,7 @@ export type NavigableContainerProps = WordPressComponentProps<
 	false
 >;
 
-export type NavigableMenuProps = WordPressComponentProps<
+export type NavigableMenuProps = FinPressComponentProps<
 	BaseProps & {
 		/**
 		 * The orientation of the menu.
@@ -69,7 +69,7 @@ export type NavigableMenuProps = WordPressComponentProps<
 	false
 >;
 
-export type TabbableContainerProps = WordPressComponentProps<
+export type TabbableContainerProps = FinPressComponentProps<
 	BaseProps & Partial< Pick< NavigableContainerProps, 'eventToOffset' > >,
 	'div',
 	false

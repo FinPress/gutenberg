@@ -11,12 +11,12 @@ import { forwardRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import type { ToggleGroupControlOptionProps } from '../types';
 import { ToggleGroupControlOptionBase } from '../toggle-group-control-option-base';
 
 function UnforwardedToggleGroupControlOption(
-	props: WordPressComponentProps<
+	props: FinPressComponentProps<
 		ToggleGroupControlOptionProps,
 		'button',
 		false

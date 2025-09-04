@@ -14,7 +14,7 @@ import { BorderControl } from '../../border-control';
 import { StyledLabel } from '../../base-control/styles/base-control-styles';
 import { View } from '../../view';
 import { VisuallyHidden } from '../../visually-hidden';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { contextConnect } from '../../context';
 import { useBorderBoxControl } from './hook';
 
@@ -39,7 +39,7 @@ const BorderLabel = ( props: LabelProps ) => {
 };
 
 const UnconnectedBorderBoxControl = (
-	props: WordPressComponentProps< BorderBoxControlProps, 'div', false >,
+	props: FinPressComponentProps< BorderBoxControlProps, 'div', false >,
 	forwardedRef: React.ForwardedRef< any >
 ) => {
 	const {

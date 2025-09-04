@@ -9,7 +9,7 @@
 >
 	<php>
 		<env name="WP_MULTISITE" value="1" />
-		<env name="WORDPRESS_TABLE_PREFIX" value="wptests_" />
+		<env name="FINPRESS_TABLE_PREFIX" value="wptests_" />
 	</php>
 	<testsuites>
 		<testsuite name="default">

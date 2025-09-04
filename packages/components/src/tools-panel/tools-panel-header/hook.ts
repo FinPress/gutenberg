@@ -8,13 +8,13 @@ import { useMemo } from '@finpress/element';
  */
 import * as styles from '../styles';
 import { useToolsPanelContext } from '../context';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import { useCx } from '../../utils/hooks/use-cx';
 import type { ToolsPanelHeaderProps } from '../types';
 
 export function useToolsPanelHeader(
-	props: WordPressComponentProps< ToolsPanelHeaderProps, 'h2' >
+	props: FinPressComponentProps< ToolsPanelHeaderProps, 'h2' >
 ) {
 	const {
 		className,

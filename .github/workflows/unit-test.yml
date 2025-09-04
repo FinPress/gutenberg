@@ -107,21 +107,21 @@ jobs:
                   MAXWORKERS: ${{ steps.cpu-cores.outputs.count }}
               run: npm run test:unit:date -- --ci --maxWorkers="$MAXWORKERS" --cacheDirectory="$HOME/.jest-cache"
 
-    compute-previous-wordpress-version:
+    compute-previous-finpress-version:
         name: Compute previous FinPress version
         runs-on: 'ubuntu-24.04'
         permissions: {}
         outputs:
-            previous-wordpress-version: ${{ steps.get-previous-wordpress-version.outputs.previous-wordpress-version }}
+            previous-finpress-version: ${{ steps.get-previous-finpress-version.outputs.previous-finpress-version }}
 
         steps:
             - name: Get previous FinPress version
-              id: get-previous-wordpress-version
+              id: get-previous-finpress-version
               run: |
                   curl \
                     -H "Accept: application/json" \
                     -o versions.json \
-                    "http://api.wordpress.org/core/stable-check/1.0/"
+                    "http://api.finpress.org/core/stable-check/1.0/"
                   LATEST_WP_VERSION="$(jq --raw-output 'with_entries(select(.value=="latest"))|keys[]' versions.json)"
                   # shellcheck disable=SC2034
                   IFS='.' read -r LATEST_WP_MAJOR LATEST_WP_MINOR LATEST_WP_PATCH <<< "${LATEST_WP_VERSION}"
@@ -131,7 +131,7 @@ jobs:
                     PREVIOUS_WP_SERIES="${LATEST_WP_MAJOR}.$((LATEST_WP_MINOR - 1))"
                   fi
                   PREVIOUS_WP_VERSION="$(jq --raw-output --arg series "${PREVIOUS_WP_SERIES}" 'with_entries(select(.key|startswith($series)))|keys[-1]' versions.json)"
-                  echo "previous-wordpress-version=${PREVIOUS_WP_VERSION}" >> "$GITHUB_OUTPUT"
+                  echo "previous-finpress-version=${PREVIOUS_WP_VERSION}" >> "$GITHUB_OUTPUT"
                   rm versions.json
 
     build-assets:
@@ -160,8 +160,8 @@ jobs:
                       ./build-module/
 
     test-php:
-        name: PHP ${{ matrix.php }}${{ matrix.multisite && ' multisite' || '' }}${{ matrix.wordpress != '' && format( ' (WP {0}) ', matrix.wordpress ) || '' }} on Linux
-        needs: [compute-previous-wordpress-version, build-assets]
+        name: PHP ${{ matrix.php }}${{ matrix.multisite && ' multisite' || '' }}${{ matrix.finpress != '' && format( ' (WP {0}) ', matrix.finpress ) || '' }} on Linux
+        needs: [compute-previous-finpress-version, build-assets]
         runs-on: 'ubuntu-24.04'
         permissions:
             contents: read
@@ -179,19 +179,19 @@ jobs:
                     - '8.2'
                     - '8.3'
                 multisite: [false, true]
-                wordpress: [''] # Latest FinPress version.
+                finpress: [''] # Latest FinPress version.
                 include:
                     # Test with the previous WP version.
                     - php: '7.2'
-                      wordpress: 'previous major version'
+                      finpress: 'previous major version'
                     - php: '7.4'
-                      wordpress: 'previous major version'
+                      finpress: 'previous major version'
                     - php: '8.3'
-                      wordpress: 'previous major version'
+                      finpress: 'previous major version'
 
         env:
             WP_ENV_PHP_VERSION: ${{ matrix.php }}
-            WP_ENV_CORE: ${{ matrix.wordpress == '' && 'FinPress/FinPress' || format( 'https://wordpress.org/wordpress-{0}.zip', needs.compute-previous-wordpress-version.outputs.previous-wordpress-version ) }}
+            WP_ENV_CORE: ${{ matrix.finpress == '' && 'FinPress/FinPress' || format( 'https://finpress.org/finpress-{0}.zip', needs.compute-previous-finpress-version.outputs.previous-finpress-version ) }}
 
         steps:
             - name: Checkout repository
@@ -256,11 +256,11 @@ jobs:
             - name: Docker container debug information
               run: |
                   npm run wp-env run tests-mysql mysql -- --version
-                  npm run wp-env run tests-wordpress php -- --version
-                  npm run wp-env run tests-wordpress php -m
-                  npm run wp-env run tests-wordpress php -i
-                  npm run wp-env run tests-wordpress /var/www/html/wp-content/plugins/gutenberg/vendor/bin/phpunit -- --version
-                  npm run wp-env run tests-wordpress locale -a
+                  npm run wp-env run tests-finpress php -- --version
+                  npm run wp-env run tests-finpress php -m
+                  npm run wp-env run tests-finpress php -i
+                  npm run wp-env run tests-finpress /var/www/html/wp-content/plugins/gutenberg/vendor/bin/phpunit -- --version
+                  npm run wp-env run tests-finpress locale -a
                   npm run wp-env run tests-cli wp core version
 
             - name: Running single site unit tests

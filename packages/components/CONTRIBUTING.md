@@ -373,10 +373,10 @@ isElevated?: boolean;
 
 Prefer `unknown` to `any`, and in general avoid it when possible.
 
-If the component forwards its `...restProps` to an underlying element/component, you should use the `WordPressComponentProps` type for the component's props:
+If the component forwards its `...restProps` to an underlying element/component, you should use the `FinPressComponentProps` type for the component's props:
 
 ```ts
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { ComponentOwnProps } from './types';
 
 function UnconnectedMyComponent(
@@ -386,7 +386,7 @@ function UnconnectedMyComponent(
 	//   parameter (`div` in this example)
 	// - the special `as` prop (which marks the component as polymorphic),
 	//   unless the third parameter is `false`
-	props: WordPressComponentProps< ComponentOwnProps, 'div', true >
+	props: FinPressComponentProps< ComponentOwnProps, 'div', true >
 ) {
 	/* ... */
 }

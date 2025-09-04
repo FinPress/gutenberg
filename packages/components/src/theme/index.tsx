@@ -7,7 +7,7 @@ import { useMemo } from '@finpress/element';
  * Internal dependencies
  */
 import type { ThemeProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { colorVariables, Wrapper } from './styles';
 import { generateThemeVariables } from './color-algorithms';
 import { useCx } from '../utils';
@@ -36,7 +36,7 @@ function Theme( {
 	background,
 	className,
 	...props
-}: WordPressComponentProps< ThemeProps, 'div', true > ) {
+}: FinPressComponentProps< ThemeProps, 'div', true > ) {
 	const cx = useCx();
 	const classes = useMemo(
 		() =>

@@ -12,7 +12,7 @@ import { useMemo, Children, cloneElement } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { hasConnectNamespace, useContextSystem } from '../context';
 import { useTruncate } from '../truncate';
 import { getOptimalTextShade } from '../utils/colors';
@@ -26,10 +26,10 @@ import type { Props } from './types';
 import type React from 'react';
 
 /**
- * @param {import('../context').WordPressComponentProps<import('./types').Props, 'span'>} props
+ * @param {import('../context').FinPressComponentProps<import('./types').Props, 'span'>} props
  */
 export default function useText(
-	props: WordPressComponentProps< Props, 'span' >
+	props: FinPressComponentProps< Props, 'span' >
 ) {
 	const {
 		adjustLineHeightForInnerControls,

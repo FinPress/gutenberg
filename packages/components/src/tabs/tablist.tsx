@@ -15,7 +15,7 @@ import { useMergeRefs } from '@finpress/compose';
  * Internal dependencies
  */
 import type { TabListProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { ElementOffsetRect } from '../utils/element-rect';
 import { useTabsContext } from './context';
 import { StyledTabList } from './styles';
@@ -69,7 +69,7 @@ function useScrollRectIntoView(
 
 export const TabList = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< TabListProps, 'div', false >
+	FinPressComponentProps< TabListProps, 'div', false >
 >( function TabList( { children, ...otherProps }, ref ) {
 	const { store } = useTabsContext() ?? {};
 

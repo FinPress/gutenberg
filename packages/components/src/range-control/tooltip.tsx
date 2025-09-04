@@ -14,10 +14,10 @@ import { useCallback, useEffect, useState } from '@finpress/element';
 import { Tooltip } from './styles/range-control-styles';
 
 import type { TooltipProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 export default function SimpleTooltip(
-	props: WordPressComponentProps< TooltipProps, 'span' >
+	props: FinPressComponentProps< TooltipProps, 'span' >
 ) {
 	const {
 		className,

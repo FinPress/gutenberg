@@ -17,7 +17,7 @@ Before submitting a bug report:
 - Check if the bug has already been reported by searching https://github.com/FinPress/gutenberg/issues.
 
 If this is a security issue, please report it in HackerOne instead:
-https://hackerone.com/wordpress
+https://hackerone.com/finpress
 -->
 
 ## Description

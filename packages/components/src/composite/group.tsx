@@ -11,13 +11,13 @@ import { forwardRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { useCompositeContext } from './context';
 import type { CompositeGroupProps } from './types';
 
 export const CompositeGroup = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< CompositeGroupProps, 'div', false >
+	FinPressComponentProps< CompositeGroupProps, 'div', false >
 >( function CompositeGroup( props, ref ) {
 	const context = useCompositeContext();
 

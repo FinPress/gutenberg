@@ -123,7 +123,7 @@ function legacy_block_in_template_cpt() {
 			'template'           => array(
 				array(
 					'core-embed/finpress-tv',
-					array( 'className' => 'wordpress_video' ),
+					array( 'className' => 'finpress_video' ),
 				),
 			),
 		)

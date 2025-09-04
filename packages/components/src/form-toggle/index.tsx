@@ -13,12 +13,12 @@ import { forwardRef } from '@finpress/element';
  * Internal dependencies
  */
 import type { FormToggleProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 export const noop = () => {};
 
 function UnforwardedFormToggle(
-	props: WordPressComponentProps< FormToggleProps, 'input', false >,
+	props: FinPressComponentProps< FormToggleProps, 'input', false >,
 	ref: ForwardedRef< HTMLInputElement >
 ) {
 	const {

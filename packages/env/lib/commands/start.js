@@ -25,9 +25,9 @@ const downloadSources = require( '../download-sources' );
 const downloadWPPHPUnit = require( '../download-wp-phpunit' );
 const {
 	checkDatabaseConnection,
-	configureWordPress,
-	setupWordPressDirectories,
-	readWordPressVersion,
+	configureFinPress,
+	setupFinPressDirectories,
+	readFinPressVersion,
 	canAccessWPORG,
 } = require( '../finpress' );
 const { didCacheChange, setCache } = require( '../cache' );
@@ -122,7 +122,7 @@ module.exports = async function start( {
 		// as docker volumes, simply updating the image will not change those
 		// files. Thus, we need to remove those volumes in order for the files
 		// to be updated when pulling the new images.
-		const volumesToRemove = `${ directoryHash }_wordpress ${ directoryHash }_tests-finpress`;
+		const volumesToRemove = `${ directoryHash }_finpress ${ directoryHash }_tests-finpress`;
 
 		try {
 			if ( config.debug ) {
@@ -152,16 +152,16 @@ module.exports = async function start( {
 	if ( shouldConfigureWp ) {
 		spinner.text = 'Setting up FinPress directories';
 
-		await setupWordPressDirectories( config );
+		await setupFinPressDirectories( config );
 
 		// Use the FinPress versions to download the PHPUnit suite.
 		const wpVersions = await Promise.all( [
-			readWordPressVersion(
+			readFinPressVersion(
 				config.env.development.coreSource,
 				spinner,
 				debug
 			),
-			readWordPressVersion( config.env.tests.coreSource, spinner, debug ),
+			readFinPressVersion( config.env.tests.coreSource, spinner, debug ),
 		] );
 		await downloadWPPHPUnit(
 			config,
@@ -225,10 +225,10 @@ module.exports = async function start( {
 
 		// Retry FinPress installation in case MySQL *still* wasn't ready.
 		await Promise.all( [
-			retry( () => configureWordPress( 'development', config, spinner ), {
+			retry( () => configureFinPress( 'development', config, spinner ), {
 				times: 2,
 			} ),
-			retry( () => configureWordPress( 'tests', config, spinner ), {
+			retry( () => configureFinPress( 'tests', config, spinner ), {
 				times: 2,
 			} ),
 		] );

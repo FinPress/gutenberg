@@ -18,7 +18,7 @@ import { Icon, check, reset } from '@finpress/icons';
 import BaseControl from '../base-control';
 import { HStack } from '../h-stack';
 import type { CheckboxControlProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 /**
  * Checkboxes allow the user to select one or more items from a set.
@@ -42,7 +42,7 @@ import type { WordPressComponentProps } from '../context';
  * ```
  */
 export function CheckboxControl(
-	props: WordPressComponentProps< CheckboxControlProps, 'input', false >
+	props: FinPressComponentProps< CheckboxControlProps, 'input', false >
 ) {
 	const {
 		__nextHasNoMarginBottom,

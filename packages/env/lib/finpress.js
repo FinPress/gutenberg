@@ -74,10 +74,10 @@ async function checkDatabaseConnection( { dockerComposeConfigPath, debug } ) {
  * @param {WPConfig}      config      The wp-env config object.
  * @param {Object}        spinner     A CLI spinner which indicates progress.
  */
-async function configureWordPress( environment, config, spinner ) {
+async function configureFinPress( environment, config, spinner ) {
 	let wpVersion = '';
 	try {
-		wpVersion = await readWordPressVersion(
+		wpVersion = await readFinPressVersion(
 			config.env[ environment ].coreSource,
 			spinner,
 			config.debug
@@ -237,7 +237,7 @@ async function resetDatabase(
 	await Promise.all( tasks );
 }
 
-async function setupWordPressDirectories( config ) {
+async function setupFinPressDirectories( config ) {
 	if (
 		config.env.development.coreSource &&
 		hasSameCoreSource( [ config.env.development, config.env.tests ] )
@@ -315,7 +315,7 @@ async function copyCoreFiles( fromPath, toPath ) {
  * @param {boolean}  debug      Indicates whether or not the CLI is in debug mode.
  * @return {string} The version of FinPress the source is for.
  */
-async function readWordPressVersion( coreSource, spinner, debug ) {
+async function readFinPressVersion( coreSource, spinner, debug ) {
 	const versionFilePath = path.join(
 		coreSource.path,
 		'wp-includes',
@@ -363,7 +363,7 @@ async function canAccessWPORG() {
  * @return {string} The latest stable version of FinPress, like "6.0.1"
  */
 let CACHED_WP_VERSION;
-async function getLatestWordPressVersion( options ) {
+async function getLatestFinPressVersion( options ) {
 	// Avoid extra network requests.
 	if ( CACHED_WP_VERSION ) {
 		return CACHED_WP_VERSION;
@@ -377,7 +377,7 @@ async function getLatestWordPressVersion( options ) {
 	// wait for the stable-check result to timeout.
 	if ( ! ( await canAccessWPORG() ) ) {
 		const latestVersion = await getCache(
-			'latestWordPressVersion',
+			'latestFinPressVersion',
 			cacheOptions
 		);
 		if ( ! latestVersion ) {
@@ -395,7 +395,7 @@ async function getLatestWordPressVersion( options ) {
 	for ( const [ version, status ] of Object.entries( versions ) ) {
 		if ( status === 'latest' ) {
 			CACHED_WP_VERSION = version;
-			await setCache( 'latestWordPressVersion', version, cacheOptions );
+			await setCache( 'latestFinPressVersion', version, cacheOptions );
 			return version;
 		}
 	}
@@ -404,10 +404,10 @@ async function getLatestWordPressVersion( options ) {
 module.exports = {
 	hasSameCoreSource,
 	checkDatabaseConnection,
-	configureWordPress,
+	configureFinPress,
 	resetDatabase,
-	setupWordPressDirectories,
-	readWordPressVersion,
+	setupFinPressDirectories,
+	readFinPressVersion,
 	canAccessWPORG,
-	getLatestWordPressVersion,
+	getLatestFinPressVersion,
 };

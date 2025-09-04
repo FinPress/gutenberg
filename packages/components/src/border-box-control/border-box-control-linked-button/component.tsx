@@ -8,14 +8,14 @@ import { __ } from '@finpress/i18n';
  * Internal dependencies
  */
 import Button from '../../button';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { contextConnect } from '../../context';
 import { useBorderBoxControlLinkedButton } from './hook';
 
 import type { LinkedButtonProps } from '../types';
 
 const BorderBoxControlLinkedButton = (
-	props: WordPressComponentProps< LinkedButtonProps, 'button' >,
+	props: FinPressComponentProps< LinkedButtonProps, 'button' >,
 	forwardedRef: React.ForwardedRef< any >
 ) => {
 	const { className, isLinked, ...buttonProps } =

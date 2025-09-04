@@ -6,14 +6,14 @@ import { forwardRef, useContext } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { ItemProps } from './types';
 import * as Styled from './styles';
 import { Context } from './context';
 
 export const Item = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< ItemProps, 'div', false >
+	FinPressComponentProps< ItemProps, 'div', false >
 >( function Item(
 	{
 		prefix,

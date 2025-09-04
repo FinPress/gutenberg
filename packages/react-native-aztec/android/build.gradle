@@ -12,7 +12,7 @@ buildscript {
 
         // libs
         aztecVersion = 'v2.1.2'
-        wordpressUtilsVersion = '3.3.0'
+        finpressUtilsVersion = '3.3.0'
 
         // main
         androidxAppcompatVersion = '1.2.0'
@@ -98,7 +98,7 @@ dependencies {
     api "org.finpress.aztec:finpress-shortcodes:$aztecVersion"
     api "org.finpress.aztec:finpress-comments:$aztecVersion"
     api "org.finpress.aztec:glide-loader:$aztecVersion"
-    implementation "org.finpress:utils:$wordpressUtilsVersion"
+    implementation "org.finpress:utils:$finpressUtilsVersion"
 
     implementation "androidx.legacy:legacy-support-v4:$androidxLegacyVersion"
     implementation "androidx.gridlayout:gridlayout:$androidxGridlayoutVersion"

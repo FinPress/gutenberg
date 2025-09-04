@@ -56,7 +56,7 @@ import org.finpress.aztec.plugins.shortcodes.AudioShortcodePlugin;
 import org.finpress.aztec.plugins.shortcodes.CaptionShortcodePlugin;
 import org.finpress.aztec.plugins.shortcodes.VideoShortcodePlugin;
 import org.finpress.aztec.plugins.wpcomments.HiddenGutenbergPlugin;
-import org.finpress.aztec.plugins.wpcomments.WordPressCommentsPlugin;
+import org.finpress.aztec.plugins.wpcomments.FinPressCommentsPlugin;
 import org.finpress.aztec.plugins.wpcomments.toolbar.MoreToolbarButton;
 
 import java.util.Map;
@@ -563,7 +563,7 @@ public class ReactAztecManager extends BaseViewManager<ReactAztecText, LayoutSha
     @ReactProp(name = "disableGutenbergMode", defaultBoolean = false)
     public void disableGBMode(final ReactAztecText view, boolean disable) {
         if (disable) {
-            view.addPlugin(new WordPressCommentsPlugin(view));
+            view.addPlugin(new FinPressCommentsPlugin(view));
             view.addPlugin(new MoreToolbarButton(view));
             view.addPlugin(new CaptionShortcodePlugin(view));
             view.addPlugin(new VideoShortcodePlugin());

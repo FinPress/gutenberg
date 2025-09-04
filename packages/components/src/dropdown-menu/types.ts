@@ -6,7 +6,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
  * Internal dependencies
  */
 import type { ButtonAsButtonProps } from '../button/types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { DropdownProps } from '../dropdown/types';
 import type { Props as IconProps } from '../icon';
 import type { NavigableMenuProps } from '../navigable-container/types';
@@ -50,11 +50,11 @@ type DropdownCallbackProps = {
 	onClose: () => void;
 };
 
-// Manually including `as` prop because `WordPressComponentProps` polymorphism
+// Manually including `as` prop because `FinPressComponentProps` polymorphism
 // creates a union that is too large for TypeScript to handle.
 type ToggleProps = Partial<
 	Omit<
-		WordPressComponentProps< ButtonAsButtonProps, 'button', false >,
+		FinPressComponentProps< ButtonAsButtonProps, 'button', false >,
 		'label' | 'text'
 	>
 > & {

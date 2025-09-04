@@ -6,14 +6,14 @@ import { forwardRef, useContext } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { Context } from './context';
 import type { SeparatorProps } from './types';
 import * as Styled from './styles';
 
 export const Separator = forwardRef<
 	HTMLHRElement,
-	WordPressComponentProps< SeparatorProps, 'hr', false >
+	FinPressComponentProps< SeparatorProps, 'hr', false >
 >( function Separator( props, ref ) {
 	const menuContext = useContext( Context );
 

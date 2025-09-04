@@ -12,11 +12,11 @@ import { forwardRef, useState } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { TokenInputProps } from './types';
 
 export function UnForwardedTokenInput(
-	props: WordPressComponentProps< TokenInputProps, 'input', false >,
+	props: FinPressComponentProps< TokenInputProps, 'input', false >,
 	ref: ForwardedRef< HTMLInputElement >
 ) {
 	const {

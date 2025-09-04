@@ -2,14 +2,14 @@
  * Internal dependencies
  */
 import { View } from '../../view';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { contextConnect } from '../../context';
 import { useBorderBoxControlVisualizer } from './hook';
 
 import type { VisualizerProps } from '../types';
 
 const BorderBoxControlVisualizer = (
-	props: WordPressComponentProps< VisualizerProps, 'div' >,
+	props: FinPressComponentProps< VisualizerProps, 'div' >,
 	forwardedRef: React.ForwardedRef< any >
 ) => {
 	const { value, ...otherProps } = useBorderBoxControlVisualizer( props );

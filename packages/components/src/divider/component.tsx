@@ -7,13 +7,13 @@ import type { ForwardedRef } from 'react';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { contextConnect, useContextSystem } from '../context';
 import { DividerView } from './styles';
 import type { DividerProps } from './types';
 
 function UnconnectedDivider(
-	props: WordPressComponentProps< DividerProps, 'hr', false >,
+	props: FinPressComponentProps< DividerProps, 'hr', false >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const contextProps = useContextSystem( props, 'Divider' );

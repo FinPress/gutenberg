@@ -8,7 +8,7 @@ const { v2: dockerCompose } = require( 'docker-compose' );
  * Internal dependencies
  */
 const initConfig = require( '../init-config' );
-const { configureWordPress, resetDatabase } = require( '../finpress' );
+const { configureFinPress, resetDatabase } = require( '../finpress' );
 const { executeLifecycleScript } = require( '../execute-lifecycle-script' );
 
 /**
@@ -50,7 +50,7 @@ module.exports = async function clean( {
 	if ( environment === 'all' || environment === 'development' ) {
 		tasks.push(
 			resetDatabase( 'development', config )
-				.then( () => configureWordPress( 'development', config ) )
+				.then( () => configureFinPress( 'development', config ) )
 				.catch( () => {} )
 		);
 	}
@@ -58,7 +58,7 @@ module.exports = async function clean( {
 	if ( environment === 'all' || environment === 'tests' ) {
 		tasks.push(
 			resetDatabase( 'tests', config )
-				.then( () => configureWordPress( 'tests', config ) )
+				.then( () => configureFinPress( 'tests', config ) )
 				.catch( () => {} )
 		);
 	}

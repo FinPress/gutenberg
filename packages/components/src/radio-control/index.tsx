@@ -13,7 +13,7 @@ import { useInstanceId } from '@finpress/compose';
  * Internal dependencies
  */
 import BaseControl from '../base-control';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { RadioControlProps } from './types';
 import { VStack } from '../v-stack';
 import { StyledHelp } from '../base-control/styles/base-control-styles';
@@ -57,7 +57,7 @@ function generateHelpId( radioGroupId: string ) {
  * ```
  */
 export function RadioControl(
-	props: WordPressComponentProps< RadioControlProps, 'input', false >
+	props: FinPressComponentProps< RadioControlProps, 'input', false >
 ) {
 	const {
 		label,

@@ -6,14 +6,14 @@ import { useMemo } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { useContextSystem } from '../context';
 import * as styles from './styles';
 import { useCx } from '../utils/hooks/use-cx';
 import type { ScrollableProps } from './types';
 
 export function useScrollable(
-	props: WordPressComponentProps< ScrollableProps, 'div' >
+	props: FinPressComponentProps< ScrollableProps, 'div' >
 ) {
 	const {
 		className,

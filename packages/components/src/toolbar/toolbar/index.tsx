@@ -16,7 +16,7 @@ import deprecated from '@finpress/deprecated';
 import ToolbarGroup from '../toolbar-group';
 import ToolbarContainer from './toolbar-container';
 import type { ToolbarProps } from './types';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { ContextSystemProvider } from '../../context';
 
 function UnforwardedToolbar(
@@ -25,7 +25,7 @@ function UnforwardedToolbar(
 		label,
 		variant,
 		...props
-	}: WordPressComponentProps< ToolbarProps, 'div', false >,
+	}: FinPressComponentProps< ToolbarProps, 'div', false >,
 	ref: ForwardedRef< any >
 ) {
 	const isVariantDefined = variant !== undefined;

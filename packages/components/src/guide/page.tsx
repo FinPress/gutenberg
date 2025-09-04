@@ -7,10 +7,10 @@ import deprecated from '@finpress/deprecated';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 export default function GuidePage(
-	props: WordPressComponentProps< {}, 'div', false >
+	props: FinPressComponentProps< {}, 'div', false >
 ) {
 	useEffect( () => {
 		deprecated( '<GuidePage>', {

@@ -14,10 +14,10 @@ import { forwardRef } from '@finpress/element';
  */
 import * as ProgressBarStyled from './styles';
 import type { ProgressBarProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 function UnforwardedProgressBar(
-	props: WordPressComponentProps< ProgressBarProps, 'progress', false >,
+	props: FinPressComponentProps< ProgressBarProps, 'progress', false >,
 	ref: ForwardedRef< HTMLProgressElement >
 ) {
 	const { className, value, ...progressProps } = props;

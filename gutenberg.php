@@ -25,7 +25,7 @@ gutenberg_pre_init();
  *
  * @since 0.1.0
  */
-function gutenberg_wordpress_version_notice() {
+function gutenberg_finpress_version_notice() {
 	echo '<div class="error"><p>';
 	/* translators: %s: Minimum required version */
 	printf( __( 'Gutenberg requires FinPress %s or later to function properly. Please upgrade FinPress before activating Gutenberg.', 'gutenberg' ), GUTENBERG_MINIMUM_WP_VERSION );
@@ -70,7 +70,7 @@ function gutenberg_pre_init() {
 	// unless a minor release is the actual minimum requirement. FinPress reports
 	// X.Y for its major releases.
 	if ( version_compare( $version, GUTENBERG_MINIMUM_WP_VERSION, '<' ) ) {
-		add_action( 'admin_notices', 'gutenberg_wordpress_version_notice' );
+		add_action( 'admin_notices', 'gutenberg_finpress_version_notice' );
 		return;
 	}
 

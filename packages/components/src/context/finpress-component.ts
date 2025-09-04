@@ -4,7 +4,7 @@
 import type * as React from 'react';
 
 // Based on https://github.com/ariakit/ariakit/blob/reakit/packages/reakit-utils/src/types.ts
-export type WordPressComponentProps<
+export type FinPressComponentProps<
 	/** Prop types. */
 	P,
 	/** The HTML element to inherit props from. */
@@ -28,17 +28,17 @@ export type WordPressComponentProps<
 		  }
 		: {} );
 
-export type WordPressComponent<
+export type FinPressComponent<
 	T extends React.ElementType | null,
 	O,
 	IsPolymorphic extends boolean,
 > = {
 	< TT extends React.ElementType >(
-		props: WordPressComponentProps< O, TT, IsPolymorphic > &
+		props: FinPressComponentProps< O, TT, IsPolymorphic > &
 			( IsPolymorphic extends true ? { as: TT } : {} )
 	): JSX.Element | null;
 	(
-		props: WordPressComponentProps< O, T, IsPolymorphic >
+		props: FinPressComponentProps< O, T, IsPolymorphic >
 	): JSX.Element | null;
 	displayName?: string;
 	/**
@@ -52,11 +52,11 @@ export type WordPressComponent<
 	selector?: `.${ string }`;
 };
 
-export type WordPressComponentFromProps<
+export type FinPressComponentFromProps<
 	Props,
 	ForwardsRef extends boolean = true,
-> = Props extends WordPressComponentProps< infer P, infer T, infer I >
-	? WordPressComponent<
+> = Props extends FinPressComponentProps< infer P, infer T, infer I >
+	? FinPressComponent<
 			T,
 			P & ( ForwardsRef extends true ? React.RefAttributes< any > : {} ),
 			I

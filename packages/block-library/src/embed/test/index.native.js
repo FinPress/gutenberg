@@ -75,7 +75,7 @@ const MOCK_EMBED_PHOTO_SUCCESS_RESPONSE = {
 	provider_url: 'https://cloudup.com',
 	version: '1.0',
 };
-const MOCK_BAD_WORDPRESS_RESPONSE = {
+const MOCK_BAD_FINPRESS_RESPONSE = {
 	code: 'oembed_invalid_url',
 	message: 'Not Found',
 	data: {
@@ -705,7 +705,7 @@ describe( 'Embed block', () => {
 				if ( req.path.startsWith( '/oembed/1.0/proxy' ) ) {
 					if ( isFirstEmbedRequest ) {
 						isFirstEmbedRequest = false;
-						return MOCK_BAD_WORDPRESS_RESPONSE;
+						return MOCK_BAD_FINPRESS_RESPONSE;
 					}
 					return RICH_TEXT_EMBED_SUCCESS_RESPONSE;
 				}
@@ -741,7 +741,7 @@ describe( 'Embed block', () => {
 			// Return bad response for requests to oembed endpoint.
 			fetchRequest.mockImplementation( async ( req ) => {
 				if ( req.path.startsWith( '/oembed/1.0/proxy' ) ) {
-					return MOCK_BAD_WORDPRESS_RESPONSE;
+					return MOCK_BAD_FINPRESS_RESPONSE;
 				}
 
 				return mockOtherResponses( req );
@@ -774,7 +774,7 @@ describe( 'Embed block', () => {
 					`/oembed/1.0/proxy?url=${ encodeURIComponent( url ) }`;
 
 				if ( matchesPath( failURL ) ) {
-					return MOCK_BAD_WORDPRESS_RESPONSE;
+					return MOCK_BAD_FINPRESS_RESPONSE;
 				}
 
 				if ( matchesPath( successURL ) ) {

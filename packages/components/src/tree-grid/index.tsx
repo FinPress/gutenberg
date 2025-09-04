@@ -10,7 +10,7 @@ import { UP, DOWN, LEFT, RIGHT, HOME, END } from '@finpress/keycodes';
  */
 import RovingTabIndexContainer from './roving-tab-index';
 import type { TreeGridProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 /**
  * Return focusables in a row element, excluding those from other branches
@@ -42,7 +42,7 @@ function UnforwardedTreeGrid(
 		onFocusRow = () => {},
 		applicationAriaLabel,
 		...props
-	}: WordPressComponentProps< TreeGridProps, 'table', false >,
+	}: FinPressComponentProps< TreeGridProps, 'table', false >,
 	/** A ref to the underlying DOM table element. */
 	ref: React.ForwardedRef< HTMLTableElement >
 ) {

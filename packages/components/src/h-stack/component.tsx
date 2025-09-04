@@ -1,14 +1,14 @@
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { contextConnect } from '../context';
 import { View } from '../view';
 import { useHStack } from './hook';
 import type { Props } from './types';
 
 function UnconnectedHStack(
-	props: WordPressComponentProps< Props, 'div' >,
+	props: FinPressComponentProps< Props, 'div' >,
 	forwardedRef: React.ForwardedRef< any >
 ) {
 	const hStackProps = useHStack( props );

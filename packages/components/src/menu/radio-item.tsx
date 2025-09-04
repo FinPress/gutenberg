@@ -12,7 +12,7 @@ import { Icon } from '@finpress/icons';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { Context } from './context';
 import type { RadioItemProps } from './types';
 import * as Styled from './styles';
@@ -26,7 +26,7 @@ const radioCheck = (
 
 export const RadioItem = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< RadioItemProps, 'div', false >
+	FinPressComponentProps< RadioItemProps, 'div', false >
 >( function RadioItem(
 	{ suffix, children, disabled = false, hideOnClick = false, ...props },
 	ref

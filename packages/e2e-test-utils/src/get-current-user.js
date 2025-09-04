@@ -6,7 +6,7 @@
 export async function getCurrentUser() {
 	const cookies = await page.cookies();
 	const cookie = cookies.find(
-		( c ) => !! c?.name?.startsWith( 'wordpress_logged_in_' )
+		( c ) => !! c?.name?.startsWith( 'finpress_logged_in_' )
 	);
 
 	if ( ! cookie?.value ) {

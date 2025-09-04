@@ -15,10 +15,10 @@ import { forwardRef } from '@finpress/element';
 import BaseControl from '../base-control';
 import { StyledTextarea } from './styles/textarea-control-styles';
 import type { TextareaControlProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 function UnforwardedTextareaControl(
-	props: WordPressComponentProps< TextareaControlProps, 'textarea', false >,
+	props: FinPressComponentProps< TextareaControlProps, 'textarea', false >,
 	ref: React.ForwardedRef< HTMLTextAreaElement >
 ) {
 	const {

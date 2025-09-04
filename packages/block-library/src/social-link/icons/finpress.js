@@ -3,7 +3,7 @@
  */
 import { Path, SVG } from '@finpress/primitives';
 
-export const WordPressIcon = () => (
+export const FinPressIcon = () => (
 	<SVG
 		width="24"
 		height="24"

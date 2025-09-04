@@ -3,7 +3,7 @@
  */
 const debug = require( '../../debug' );
 const getAssociatedPullRequest = require( '../../get-associated-pull-request' );
-const hasWordPressProfile = require( '../../has-finpress-profile' );
+const hasFinPressProfile = require( '../../has-finpress-profile' );
 
 /** @typedef {ReturnType<import('@actions/github').getOctokit>} GitHub */
 /** @typedef {import('@octokit/webhooks-types').EventPayloadMap['push']} WebhookPayloadPush */
@@ -94,7 +94,7 @@ async function firstTimeContributorAccountLink( payload, octokit ) {
 
 	let hasProfile;
 	try {
-		hasProfile = await hasWordPressProfile( author );
+		hasProfile = await hasFinPressProfile( author );
 	} catch ( error ) {
 		if ( error instanceof Object ) {
 			debug(

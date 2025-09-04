@@ -13,7 +13,7 @@ import * as Ariakit from '@ariakit/react';
  */
 import Button from '../button';
 import { RadioGroupContext } from './context';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { RadioProps } from './types';
 import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
@@ -22,7 +22,7 @@ function UnforwardedRadio(
 		value,
 		children,
 		...props
-	}: WordPressComponentProps< RadioProps, 'button', false >,
+	}: FinPressComponentProps< RadioProps, 'button', false >,
 	ref: React.ForwardedRef< any >
 ) {
 	const { store, disabled } = useContext( RadioGroupContext );

@@ -16,7 +16,7 @@ import Backdrop from './backdrop';
 import Label from './label';
 import { Container, Root, Prefix, Suffix } from './styles/input-control-styles';
 import type { InputBaseProps, LabelPosition } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import {
 	ContextSystemProvider,
 	contextConnect,
@@ -59,7 +59,7 @@ function getUIFlexProps( labelPosition?: LabelPosition ) {
 }
 
 function InputBase(
-	props: WordPressComponentProps< InputBaseProps, 'div' >,
+	props: FinPressComponentProps< InputBaseProps, 'div' >,
 	ref: ForwardedRef< HTMLDivElement >
 ) {
 	const {

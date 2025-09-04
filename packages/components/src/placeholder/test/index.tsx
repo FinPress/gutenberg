@@ -14,7 +14,7 @@ import { speak } from '@finpress/a11y';
  * Internal dependencies
  */
 import BasePlaceholder from '../';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import type { PlaceholderProps } from '../types';
 
 jest.mock( '@finpress/compose', () => {
@@ -35,7 +35,7 @@ const testIcon = (
 
 const Placeholder = (
 	props: Omit<
-		WordPressComponentProps< PlaceholderProps, 'div', false >,
+		FinPressComponentProps< PlaceholderProps, 'div', false >,
 		'ref'
 	>
 ) => <BasePlaceholder data-testid="placeholder" { ...props } />;

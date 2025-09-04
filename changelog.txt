@@ -14484,7 +14484,7 @@ The following contributors merged PRs in this release:
 -   Replace `TabPanel` with `Tabs` in the editor Global Styles color palette. ([57126](https://github.com/FinPress/gutenberg/pull/57126))
 -   ToggleGroupControl: Update large button size to 32px. ([57338](https://github.com/FinPress/gutenberg/pull/57338))
 -   Update ariakit version. ([57325](https://github.com/FinPress/gutenberg/pull/57325))
--   `CustomSelect`: Add `WordPressComponentsProps`. ([56998](https://github.com/FinPress/gutenberg/pull/56998))
+-   `CustomSelect`: Add `FinPressComponentsProps`. ([56998](https://github.com/FinPress/gutenberg/pull/56998))
 -   `Modal`: Improve application of body class names. ([55430](https://github.com/FinPress/gutenberg/pull/55430))
 -   -   Components: Replace `TabPanel` with `Tabs` in the Block Inserter. ([56918](https://github.com/FinPress/gutenberg/pull/56918))
 
@@ -22211,7 +22211,7 @@ The following contributors merged PRs in this release:
 -   Equalize modal internal padding. ([49890](https://github.com/FinPress/gutenberg/pull/49890))
 -   Increase modal radius. ([49870](https://github.com/FinPress/gutenberg/pull/49870))
 -   Query: Fix add new post link position via private SlotFill. ([49819](https://github.com/FinPress/gutenberg/pull/49819))
--   Tweak `WordPressComponent` type. ([49960](https://github.com/FinPress/gutenberg/pull/49960))
+-   Tweak `FinPressComponent` type. ([49960](https://github.com/FinPress/gutenberg/pull/49960))
 -   Update the framer motion dependency to the latest version. ([49822](https://github.com/FinPress/gutenberg/pull/49822))
 -   Improve output of CHANGELOG CI check. ([49779](https://github.com/FinPress/gutenberg/pull/49779))
 -   Retain context when opening modals on small screens. ([50039](https://github.com/FinPress/gutenberg/pull/50039))
@@ -23407,7 +23407,7 @@ The following contributors merged PRs in this release:
 -   Lodash: Remove some `_.get()` from Gallery block. ([48488](https://github.com/FinPress/gutenberg/pull/48488))
 -   Lodash: Remove some `_.get()` from Image block. ([48489](https://github.com/FinPress/gutenberg/pull/48489))
 -   Playwright: Fix request utils for non Docker envs. ([48206](https://github.com/FinPress/gutenberg/pull/48206))
--   [Private APIs] Only prevent module re-registration if IS_WORDPRESS_CORE. ([48352](https://github.com/FinPress/gutenberg/pull/48352))
+-   [Private APIs] Only prevent module re-registration if IS_FINPRESS_CORE. ([48352](https://github.com/FinPress/gutenberg/pull/48352))
 -   Add a manual performance job that we can trigger from GitHub UI. ([48302](https://github.com/FinPress/gutenberg/pull/48302))
 -   Track new front-end metric: LCP-TTFB. ([48288](https://github.com/FinPress/gutenberg/pull/48288))
 
@@ -23646,7 +23646,7 @@ The following contributors merged PRs in this release:
 -   Lodash: Remove some `_.get()` from Gallery block. ([48488](https://github.com/FinPress/gutenberg/pull/48488))
 -   Lodash: Remove some `_.get()` from Image block. ([48489](https://github.com/FinPress/gutenberg/pull/48489))
 -   Playwright: Fix request utils for non Docker envs. ([48206](https://github.com/FinPress/gutenberg/pull/48206))
--   [Private APIs] Only prevent module re-registration if IS_WORDPRESS_CORE. ([48352](https://github.com/FinPress/gutenberg/pull/48352))
+-   [Private APIs] Only prevent module re-registration if IS_FINPRESS_CORE. ([48352](https://github.com/FinPress/gutenberg/pull/48352))
 -   Add a manual performance job that we can trigger from GitHub UI. ([48302](https://github.com/FinPress/gutenberg/pull/48302))
 -   Track new front-end metric: LCP-TTFB. ([48288](https://github.com/FinPress/gutenberg/pull/48288))
 
@@ -23769,7 +23769,7 @@ The following contributors merged PRs in this release:
 -   Playwright: Fix request utils for non Docker envs. ([48206](https://github.com/FinPress/gutenberg/pull/48206))
 -   Remove broken site editor redirect. ([48283](https://github.com/FinPress/gutenberg/pull/48283))
 -   Try to fix a11y test flakiness. ([48236](https://github.com/FinPress/gutenberg/pull/48236))
--   [Private APIs] Only prevent module re-registration if IS_WORDPRESS_CORE. ([48352](https://github.com/FinPress/gutenberg/pull/48352))
+-   [Private APIs] Only prevent module re-registration if IS_FINPRESS_CORE. ([48352](https://github.com/FinPress/gutenberg/pull/48352))
 -   fix: Enable access to block settings within UBE. ([48435](https://github.com/FinPress/gutenberg/pull/48435))
 
 #### Site Editor
@@ -28615,7 +28615,7 @@ The following contributors merged PRs in this release:
 -   Style engine: Refer to 'context' rather than 'store' in global function. ([43841](https://github.com/FinPress/gutenberg/pull/43841))
 -   TabPanel: Convert to TypeScript. ([43536](https://github.com/FinPress/gutenberg/pull/43536))
 -   ToggleControl: Convert to TypeScript. ([43717](https://github.com/FinPress/gutenberg/pull/43717))
--   WordPressComponentProps: Only add refs when they are actually added. ([43610](https://github.com/FinPress/gutenberg/pull/43610))
+-   FinPressComponentProps: Only add refs when they are actually added. ([43610](https://github.com/FinPress/gutenberg/pull/43610))
 -   Refactor `Icon` tests to `@testing-library/react`. ([44051](https://github.com/FinPress/gutenberg/pull/44051))
 -   Refactor `IsolatedEventContainer` tests to `@testing-library/react`. ([44073](https://github.com/FinPress/gutenberg/pull/44073))
 -   Refactor `KeyboardShortcuts` tests to `@testing-library/react`. ([44075](https://github.com/FinPress/gutenberg/pull/44075))
@@ -39802,7 +39802,7 @@ The following PRs were merged by first-time contributors:
 -   CustomGradientBar: Replace global shortcut event handlers with local ones. ([34505](https://github.com/FinPress/gutenberg/pull/34505))
 -   Guide: Replace global shortcut event handlers with local ones. ([34503](https://github.com/FinPress/gutenberg/pull/34503))
 -   Navigate regions: Use React events for shortcuts (portal bubbles & contextual). ([33633](https://github.com/FinPress/gutenberg/pull/33633))
--   Rename `PolymorphicComponent*` types to `WordPressComponent*`. ([34330](https://github.com/FinPress/gutenberg/pull/34330))
+-   Rename `PolymorphicComponent*` types to `FinPressComponent*`. ([34330](https://github.com/FinPress/gutenberg/pull/34330))
 -   Simplify Modal with hooks. ([34412](https://github.com/FinPress/gutenberg/pull/34412))
 -   Simplify & polish heading levels. ([34378](https://github.com/FinPress/gutenberg/pull/34378))
 
@@ -45008,7 +45008,7 @@ After:
 -   Template part: use cleaned slug to query. ([25030](https://github.com/FinPress/gutenberg/pull/25030))
 -   Classic block: optional chain on possibly null editor. ([25163](https://github.com/FinPress/gutenberg/pull/25163))
 -   Classic block: show contents on load. ([25162](https://github.com/FinPress/gutenberg/pull/25162))
--   Embed Block: Fix crash in isFromWordPress helper if preview.html is false. ([25140](https://github.com/FinPress/gutenberg/pull/25140))
+-   Embed Block: Fix crash in isFromFinPress helper if preview.html is false. ([25140](https://github.com/FinPress/gutenberg/pull/25140))
 -   Cover block: fix width regression. ([25103](https://github.com/FinPress/gutenberg/pull/25103))
 -   Navigation block: reduce subnavigation arrow padding. ([24200](https://github.com/FinPress/gutenberg/pull/24200))
 -   GlobalStyles: fix nested features algorithm. ([25215](https://github.com/FinPress/gutenberg/pull/25215))

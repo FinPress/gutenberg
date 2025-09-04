@@ -67,9 +67,9 @@ const plugins = [
 		'globalThis.IS_GUTENBERG_PLUGIN': JSON.stringify(
 			Boolean( process.env.npm_package_config_IS_GUTENBERG_PLUGIN )
 		),
-		// Inject the `IS_WORDPRESS_CORE` global, used for feature flagging.
-		'globalThis.IS_WORDPRESS_CORE': JSON.stringify(
-			Boolean( process.env.npm_package_config_IS_WORDPRESS_CORE )
+		// Inject the `IS_FINPRESS_CORE` global, used for feature flagging.
+		'globalThis.IS_FINPRESS_CORE': JSON.stringify(
+			Boolean( process.env.npm_package_config_IS_FINPRESS_CORE )
 		),
 		// Inject the `SCRIPT_DEBUG` global, used for dev versions of JavaScript.
 		'globalThis.SCRIPT_DEBUG': JSON.stringify( mode === 'development' ),

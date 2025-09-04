@@ -6,7 +6,7 @@ import { forwardRef, useContext } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { Context } from './context';
 import { Text } from '../text';
 import type { GroupLabelProps } from './types';
@@ -14,7 +14,7 @@ import * as Styled from './styles';
 
 export const GroupLabel = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< GroupLabelProps, 'div', false >
+	FinPressComponentProps< GroupLabelProps, 'div', false >
 >( function Group( props, ref ) {
 	const menuContext = useContext( Context );
 

@@ -16,7 +16,7 @@ import { __experimentalUseDropZone as useDropZone } from '@finpress/compose';
  * Internal dependencies
  */
 import type { DropZoneProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 /**
  * `DropZone` is a component creating a drop zone area taking the full size of its parent element. It supports dropping files, HTML content or any other HTML drop event.
@@ -50,7 +50,7 @@ export function DropZoneComponent( {
 	onDrop,
 	isEligible = () => true,
 	...restProps
-}: WordPressComponentProps< DropZoneProps, 'div', false > ) {
+}: FinPressComponentProps< DropZoneProps, 'div', false > ) {
 	const [ isDraggingOverDocument, setIsDraggingOverDocument ] =
 		useState< boolean >();
 	const [ isDraggingOverElement, setIsDraggingOverElement ] =

@@ -19,11 +19,11 @@ import NumberControl from '../number-control';
 import AngleCircle from './angle-circle';
 import { UnitText } from './styles/angle-picker-control-styles';
 
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { AnglePickerControlProps } from './types';
 
 function UnforwardedAnglePickerControl(
-	props: WordPressComponentProps< AnglePickerControlProps, 'div' >,
+	props: FinPressComponentProps< AnglePickerControlProps, 'div' >,
 	ref: ForwardedRef< any >
 ) {
 	const {

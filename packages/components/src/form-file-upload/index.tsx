@@ -7,7 +7,7 @@ import { useRef } from '@finpress/element';
  * Internal dependencies
  */
 import Button from '../button';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { FormFileUploadProps } from './types';
 import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
@@ -36,7 +36,7 @@ export function FormFileUpload( {
 	onClick,
 	render,
 	...props
-}: WordPressComponentProps< FormFileUploadProps, 'button', false > ) {
+}: FinPressComponentProps< FormFileUploadProps, 'button', false > ) {
 	const ref = useRef< HTMLInputElement >( null );
 	const openFileDialog = () => {
 		ref.current?.click();

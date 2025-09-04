@@ -9,7 +9,7 @@
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { DashiconProps } from './types';
 
 function Dashicon( {
@@ -18,7 +18,7 @@ function Dashicon( {
 	size = 20,
 	style = {},
 	...extraProps
-}: WordPressComponentProps< DashiconProps, 'span', false > ) {
+}: FinPressComponentProps< DashiconProps, 'span', false > ) {
 	const iconClass = [
 		'dashicon',
 		'dashicons',

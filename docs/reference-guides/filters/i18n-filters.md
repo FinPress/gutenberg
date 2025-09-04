@@ -75,12 +75,12 @@ wp.hooks.addFilter(
 
 Filters that are specific to the text domain you're operating on are generally preferred for performance reasons (since your callback will only be run for strings in the relevant text domain).
 
-To attach to a text domain-specific filter append an underscore and the text-domain to the standard filter name. For example, if filtering a string where the text domain is "woocommerce", you would use one of the following filters:
+To attach to a text domain-specific filter append an underscore and the text-domain to the standard filter name. For example, if filtering a string where the text domain is "fincommerce", you would use one of the following filters:
 
--   `i18n.gettext_woocommerce`
--   `i18n.gettext_with_context_woocommerce`
--   `i18n.ngettext_woocommerce`
--   `i18n.ngettext_with_context_woocommerce`
+-   `i18n.gettext_fincommerce`
+-   `i18n.gettext_with_context_fincommerce`
+-   `i18n.ngettext_fincommerce`
+-   `i18n.ngettext_with_context_fincommerce`
 
 For example:
 
@@ -95,7 +95,7 @@ function myPluginGettextFilter( translation, text, domain ) {
 
 // Adding the filter
 wp.hooks.addFilter(
-	'i18n.gettext_woocommerce',
+	'i18n.gettext_fincommerce',
 	'my-plugin/override-fulfilled-all-orders-text',
 	myPluginGettextFilter
 );

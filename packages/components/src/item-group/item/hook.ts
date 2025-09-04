@@ -6,14 +6,14 @@ import { useMemo } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import * as styles from '../styles';
 import { useItemGroupContext } from '../context';
 import { useCx } from '../../utils/hooks/use-cx';
 import type { ItemProps } from '../types';
 
-export function useItem( props: WordPressComponentProps< ItemProps, 'div' > ) {
+export function useItem( props: FinPressComponentProps< ItemProps, 'div' > ) {
 	const {
 		as: asProp,
 		className,

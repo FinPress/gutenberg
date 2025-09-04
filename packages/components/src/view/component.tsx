@@ -11,12 +11,12 @@ import { forwardRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 const PolymorphicDiv = styled.div``;
 
 function UnforwardedView< T extends React.ElementType = 'div' >(
-	{ as, ...restProps }: WordPressComponentProps< {}, T >,
+	{ as, ...restProps }: FinPressComponentProps< {}, T >,
 	ref: React.ForwardedRef< any >
 ) {
 	return <PolymorphicDiv as={ as } ref={ ref } { ...restProps } />;

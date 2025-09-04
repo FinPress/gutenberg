@@ -12,7 +12,7 @@ import { forwardRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { UnitSelect, UnitLabel } from './styles/unit-control-styles';
 import { CSS_UNITS, hasUnits } from './utils';
 import type { UnitSelectControlProps } from './types';
@@ -26,7 +26,7 @@ function UnitSelectControl(
 		unit = 'px',
 		units = CSS_UNITS,
 		...props
-	}: WordPressComponentProps< UnitSelectControlProps, 'select', false >,
+	}: FinPressComponentProps< UnitSelectControlProps, 'select', false >,
 	ref: ForwardedRef< any >
 ) {
 	if ( ! hasUnits( units ) || units?.length === 1 ) {

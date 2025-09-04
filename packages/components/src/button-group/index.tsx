@@ -14,10 +14,10 @@ import deprecated from '@finpress/deprecated';
  * Internal dependencies
  */
 import type { ButtonGroupProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 function UnforwardedButtonGroup(
-	props: WordPressComponentProps< ButtonGroupProps, 'div', false >,
+	props: FinPressComponentProps< ButtonGroupProps, 'div', false >,
 	ref: ForwardedRef< HTMLDivElement >
 ) {
 	const { className, __shouldNotWarnDeprecated, ...restProps } = props;

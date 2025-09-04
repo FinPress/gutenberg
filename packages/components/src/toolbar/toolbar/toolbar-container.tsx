@@ -15,10 +15,10 @@ import { isRTL } from '@finpress/i18n';
  */
 import ToolbarContext from '../toolbar-context';
 import type { ToolbarProps } from './types';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 
 function UnforwardedToolbarContainer(
-	{ label, ...props }: WordPressComponentProps< ToolbarProps, 'div', false >,
+	{ label, ...props }: FinPressComponentProps< ToolbarProps, 'div', false >,
 	ref: ForwardedRef< any >
 ) {
 	const toolbarStore = Ariakit.useToolbarStore( {

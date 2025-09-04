@@ -7,7 +7,7 @@ import { escapeAttribute } from '@finpress/escape-html';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import Button from '../../button';
 import { useNavigator } from '../use-navigator';
@@ -17,7 +17,7 @@ const cssSelectorForAttribute = ( attrName: string, attrValue: string ) =>
 	`[${ attrName }="${ attrValue }"]`;
 
 export function useNavigatorButton(
-	props: WordPressComponentProps< NavigatorButtonProps, 'button' >
+	props: FinPressComponentProps< NavigatorButtonProps, 'button' >
 ) {
 	const {
 		path,

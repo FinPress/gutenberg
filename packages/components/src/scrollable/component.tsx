@@ -6,14 +6,14 @@ import type { ForwardedRef } from 'react';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { contextConnect } from '../context';
 import { View } from '../view';
 import { useScrollable } from './hook';
 import type { ScrollableProps } from './types';
 
 function UnconnectedScrollable(
-	props: WordPressComponentProps< ScrollableProps, 'div' >,
+	props: FinPressComponentProps< ScrollableProps, 'div' >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const scrollableProps = useScrollable( props );

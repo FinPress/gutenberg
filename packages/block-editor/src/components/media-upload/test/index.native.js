@@ -22,7 +22,7 @@ import {
 	OPTION_TAKE_VIDEO,
 	OPTION_TAKE_PHOTO,
 	OPTION_INSERT_FROM_URL,
-	OPTION_WORDPRESS_MEDIA_LIBRARY,
+	OPTION_FINPRESS_MEDIA_LIBRARY,
 } from '../constants';
 
 const MEDIA_URL = 'http://host.media.type';
@@ -68,7 +68,7 @@ describe( 'MediaUpload component', () => {
 		it( 'shows the correct media capture options for the Image block', () => {
 			expectOptionForMediaType( MEDIA_TYPE_IMAGE, [
 				OPTION_TAKE_PHOTO,
-				OPTION_WORDPRESS_MEDIA_LIBRARY,
+				OPTION_FINPRESS_MEDIA_LIBRARY,
 				OPTION_INSERT_FROM_URL,
 			] );
 		} );
@@ -76,7 +76,7 @@ describe( 'MediaUpload component', () => {
 		it( 'shows the correct media capture options for the Video block', () => {
 			expectOptionForMediaType( MEDIA_TYPE_VIDEO, [
 				OPTION_TAKE_VIDEO,
-				OPTION_WORDPRESS_MEDIA_LIBRARY,
+				OPTION_FINPRESS_MEDIA_LIBRARY,
 			] );
 		} );
 

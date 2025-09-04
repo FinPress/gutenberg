@@ -15,11 +15,11 @@ import { cloneElement, forwardRef } from '@finpress/element';
 import Shortcut from '../shortcut';
 import Button from '../button';
 import Icon from '../icon';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { MenuItemProps } from './types';
 
 function UnforwardedMenuItem(
-	props: WordPressComponentProps< MenuItemProps, 'button', false >,
+	props: FinPressComponentProps< MenuItemProps, 'button', false >,
 	ref: ForwardedRef< HTMLButtonElement >
 ) {
 	let {

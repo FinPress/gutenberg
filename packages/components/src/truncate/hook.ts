@@ -11,7 +11,7 @@ import { useMemo } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { useContextSystem } from '../context';
 import * as styles from './styles';
 import { TRUNCATE_ELLIPSIS, TRUNCATE_TYPE, truncateContent } from './utils';
@@ -19,7 +19,7 @@ import { useCx } from '../utils/hooks/use-cx';
 import type { TruncateProps } from './types';
 
 export default function useTruncate(
-	props: WordPressComponentProps< TruncateProps, 'span' >
+	props: FinPressComponentProps< TruncateProps, 'span' >
 ) {
 	const {
 		className,

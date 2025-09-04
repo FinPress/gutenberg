@@ -9,7 +9,7 @@ import { useCallback, useEffect, useRef, useState } from '@finpress/element';
  */
 import Modal from '../modal';
 import type { ConfirmDialogProps, DialogInputEvent } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { useContextSystem, contextConnect } from '../context';
 import { Flex } from '../flex';
 import Button from '../button';
@@ -19,7 +19,7 @@ import * as styles from './styles';
 import { useCx } from '../utils/hooks/use-cx';
 
 const UnconnectedConfirmDialog = (
-	props: WordPressComponentProps< ConfirmDialogProps, 'div', false >,
+	props: FinPressComponentProps< ConfirmDialogProps, 'div', false >,
 	forwardedRef: React.ForwardedRef< any >
 ) => {
 	const {

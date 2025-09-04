@@ -19,11 +19,11 @@ import { useMergeRefs } from '@finpress/compose';
  */
 import { View } from '../../view';
 import SlotFillContext from './slot-fill-context';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import type { SlotComponentProps } from '../types';
 
 function Slot(
-	props: WordPressComponentProps<
+	props: FinPressComponentProps<
 		Omit< SlotComponentProps, 'bubblesVirtually' >,
 		'div'
 	>,

@@ -4,7 +4,7 @@
  */
 const { parseConfig } = require( '../parse-config' );
 const readRawConfigFile = require( '../read-raw-config-file' );
-const { getLatestWordPressVersion } = require( '../../finpress' );
+const { getLatestFinPressVersion } = require( '../../finpress' );
 const { ValidationError } = require( '../validate-config' );
 const detectDirectoryType = require( '../detect-directory-type' );
 
@@ -12,7 +12,7 @@ jest.mock( 'got', () => jest.fn() );
 jest.mock( '../read-raw-config-file', () => jest.fn() );
 jest.mock( '../detect-directory-type', () => jest.fn() );
 jest.mock( '../../finpress', () => ( {
-	getLatestWordPressVersion: jest.fn(),
+	getLatestFinPressVersion: jest.fn(),
 } ) );
 
 /**
@@ -69,7 +69,7 @@ describe( 'parseConfig', () => {
 	beforeEach( () => {
 		readRawConfigFile.mockResolvedValue( null );
 		detectDirectoryType.mockResolvedValue( null );
-		getLatestWordPressVersion.mockResolvedValue( '100.0.0' );
+		getLatestFinPressVersion.mockResolvedValue( '100.0.0' );
 	} );
 
 	afterEach( () => {
@@ -339,7 +339,7 @@ describe( 'parseConfig', () => {
 	} );
 
 	it( 'throws when latest FinPress version needed but not found', async () => {
-		getLatestWordPressVersion.mockResolvedValue( null );
+		getLatestFinPressVersion.mockResolvedValue( null );
 
 		await expect(
 			parseConfig( '/test/gutenberg', '/cache' )

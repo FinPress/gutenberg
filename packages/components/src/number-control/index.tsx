@@ -20,7 +20,7 @@ import { Input, SpinButton, styles } from './styles/number-control-styles';
 import * as inputControlActionTypes from '../input-control/reducer/actions';
 import { add, subtract, clamp, ensureValidStep } from '../utils/math';
 import { ensureNumber, isValueEmpty } from '../utils/values';
-import type { WordPressComponentProps } from '../context/finpress-component';
+import type { FinPressComponentProps } from '../context/finpress-component';
 import type { NumberControlProps } from './types';
 import { HStack } from '../h-stack';
 import { Spacer } from '../spacer';
@@ -31,7 +31,7 @@ import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 const noop = () => {};
 
 function UnforwardedNumberControl(
-	props: WordPressComponentProps< NumberControlProps, 'input', false >,
+	props: FinPressComponentProps< NumberControlProps, 'input', false >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const {

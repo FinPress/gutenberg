@@ -6,14 +6,14 @@ import type { ForwardedRef } from 'react';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { useContextSystem, contextConnect } from '../context';
 import { visuallyHidden } from './styles';
 import { View } from '../view';
 import type { VisuallyHiddenProps } from './types';
 
 function UnconnectedVisuallyHidden(
-	props: WordPressComponentProps< VisuallyHiddenProps, 'div' >,
+	props: FinPressComponentProps< VisuallyHiddenProps, 'div' >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const { style: styleProp, ...contextProps } = useContextSystem(

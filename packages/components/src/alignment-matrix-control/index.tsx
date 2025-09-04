@@ -18,7 +18,7 @@ import { Composite } from '../composite';
 import { GridContainer, GridRow } from './styles';
 import AlignmentMatrixControlIcon from './icon';
 import { GRID, getItemId, getItemValue } from './utils';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { AlignmentMatrixControlProps } from './types';
 
 function UnforwardedAlignmentMatrixControl( {
@@ -30,7 +30,7 @@ function UnforwardedAlignmentMatrixControl( {
 	onChange,
 	width = 92,
 	...props
-}: WordPressComponentProps< AlignmentMatrixControlProps, 'div', false > ) {
+}: FinPressComponentProps< AlignmentMatrixControlProps, 'div', false > ) {
 	const baseId = useInstanceId(
 		UnforwardedAlignmentMatrixControl,
 		'alignment-matrix-control',

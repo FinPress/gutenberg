@@ -11,13 +11,13 @@ import { forwardRef, useContext } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { TriggerButtonProps } from './types';
 import { Context } from './context';
 
 export const TriggerButton = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< TriggerButtonProps, 'button', false >
+	FinPressComponentProps< TriggerButtonProps, 'button', false >
 >( function TriggerButton( { children, disabled = false, ...props }, ref ) {
 	const menuContext = useContext( Context );
 

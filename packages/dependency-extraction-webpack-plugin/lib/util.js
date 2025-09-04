@@ -1,4 +1,4 @@
-const WORDPRESS_NAMESPACE = '@finpress/';
+const FINPRESS_NAMESPACE = '@finpress/';
 
 // !!
 // This list must be kept in sync with the same list in tools/webpack/packages.js
@@ -59,10 +59,10 @@ function defaultRequestToExternal( request ) {
 		return undefined;
 	}
 
-	if ( request.startsWith( WORDPRESS_NAMESPACE ) ) {
+	if ( request.startsWith( FINPRESS_NAMESPACE ) ) {
 		return [
 			'wp',
-			camelCaseDash( request.substring( WORDPRESS_NAMESPACE.length ) ),
+			camelCaseDash( request.substring( FINPRESS_NAMESPACE.length ) ),
 		];
 	}
 }
@@ -98,9 +98,9 @@ function defaultRequestToExternalModule( request ) {
 			return `import ${ request }`;
 	}
 
-	const isWordPressScript = Boolean( defaultRequestToExternal( request ) );
+	const isFinPressScript = Boolean( defaultRequestToExternal( request ) );
 
-	if ( isWordPressScript ) {
+	if ( isFinPressScript ) {
 		throw new Error(
 			`Attempted to use FinPress script in a module: ${ request }, which is not supported yet.`
 		);
@@ -134,8 +134,8 @@ function defaultRequestToHandle( request ) {
 		return 'wp-react-refresh-runtime';
 	}
 
-	if ( request.startsWith( WORDPRESS_NAMESPACE ) ) {
-		return 'wp-' + request.substring( WORDPRESS_NAMESPACE.length );
+	if ( request.startsWith( FINPRESS_NAMESPACE ) ) {
+		return 'wp-' + request.substring( FINPRESS_NAMESPACE.length );
 	}
 }
 

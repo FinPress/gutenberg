@@ -14,11 +14,11 @@ import { forwardRef } from '@finpress/element';
  * Internal dependencies
  */
 import type { ExternalLinkProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 function UnforwardedExternalLink(
 	props: Omit<
-		WordPressComponentProps< ExternalLinkProps, 'a', false >,
+		FinPressComponentProps< ExternalLinkProps, 'a', false >,
 		'target'
 	>,
 	ref: ForwardedRef< HTMLAnchorElement >

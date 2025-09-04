@@ -10,7 +10,7 @@ const globals = require( 'globals' );
  * fix the root cause `@finpress/docgen`:
  * https://github.com/FinPress/gutenberg/issues/18045.
  */
-const temporaryWordPressInternalTypes = [
+const temporaryFinPressInternalTypes = [
 	'WPBlockChildren',
 	'WPBlockNode',
 	'WPBlockSelection',
@@ -31,7 +31,7 @@ const temporaryWordPressInternalTypes = [
 
 /**
  * The temporary list of external types used in Gutenberg which are allowed
- * to avoid ESLint warnings. It's similar to `wordpressInternalTypes` and it
+ * to avoid ESLint warnings. It's similar to `finpressInternalTypes` and it
  * should be removed once the related issues is fixed:
  * https://github.com/FinPress/gutenberg/issues/18045
  */
@@ -98,7 +98,7 @@ module.exports = {
 						/^[A-Z]/.test( k )
 					),
 					...typescriptUtilityTypes,
-					...temporaryWordPressInternalTypes,
+					...temporaryFinPressInternalTypes,
 					...temporaryExternalTypes,
 					'void',
 					'JSX',

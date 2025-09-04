@@ -6,14 +6,14 @@ import type { ForwardedRef } from 'react';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { contextConnect } from '../../context';
 import { View } from '../../view';
 import type { FlexBlockProps } from '../types';
 import { useFlexBlock } from './hook';
 
 function UnconnectedFlexBlock(
-	props: WordPressComponentProps< FlexBlockProps, 'div' >,
+	props: FinPressComponentProps< FlexBlockProps, 'div' >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const flexBlockProps = useFlexBlock( props );

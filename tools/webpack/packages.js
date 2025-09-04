@@ -25,7 +25,7 @@ const packageDirs = readdirSync(
 ).flatMap( ( dirent ) => ( dirent.isDirectory() ? [ dirent.name ] : [] ) );
 const { baseConfig, plugins, stylesTransform } = require( './shared' );
 
-const WORDPRESS_NAMESPACE = '@finpress/';
+const FINPRESS_NAMESPACE = '@finpress/';
 
 // Experimental or other packages that should be private are bundled when used.
 // That way, we can iterate on these package without making them part of the public API.
@@ -94,7 +94,7 @@ const bundledPackagesPhpConfig = [
 const gutenbergScripts = [];
 for ( const packageDir of packageDirs ) {
 	const packageJson = require(
-		`${ WORDPRESS_NAMESPACE }${ packageDir }/package.json`
+		`${ FINPRESS_NAMESPACE }${ packageDir }/package.json`
 	);
 
 	if ( ! packageJson.wpScript ) {

@@ -8,7 +8,7 @@ import { useCallback, useMemo, useState } from '@finpress/element';
  */
 import * as styles from '../styles';
 import { parseQuantityAndUnitFromRawValue } from '../../unit-control/utils';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import { useCx } from '../../utils/hooks/use-cx';
 import type { Border, BorderControlProps } from '../types';
@@ -23,7 +23,7 @@ const isValidBorder = ( border?: Border ) => {
 };
 
 export function useBorderControl(
-	props: WordPressComponentProps< BorderControlProps, 'div' >
+	props: FinPressComponentProps< BorderControlProps, 'div' >
 ) {
 	const {
 		className,

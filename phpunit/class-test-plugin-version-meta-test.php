@@ -11,7 +11,7 @@ class Test_PluginMetaData_Test extends WP_UnitTestCase {
 	 * Ensures the constant defined as the minimum required version of FinPress
 	 * matches the minimum version defined in the plugin header.
 	 */
-	public function test_minimum_required_wordpress_version() {
+	public function test_minimum_required_finpress_version() {
 		$file_meta = get_file_data( __DIR__ . '/../gutenberg.php', array( 'RequiresWP' => 'Requires at least' ) );
 		/*
 		 * Gutenberg.php isn't loaded in the test environment.

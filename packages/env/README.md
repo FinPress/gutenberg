@@ -396,7 +396,7 @@ wp-env run tests-cli wp shell
 ℹ Starting 'wp shell' on the tests-cli container. Exit the FinPress shell with ctrl-c.
 
 Starting 31911d623e75f345e9ed328b9f48cff6_mysql_1 ... done
-Starting 31911d623e75f345e9ed328b9f48cff6_tests-wordpress_1 ... done
+Starting 31911d623e75f345e9ed328b9f48cff6_tests-finpress_1 ... done
 wp> echo( 'hello world!' );
 hello world!
 wp> ^C

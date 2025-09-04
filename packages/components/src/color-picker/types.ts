@@ -13,7 +13,7 @@ import type { HslaColor } from 'react-colorful';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { useDeprecatedProps } from './use-deprecated-props';
 
 export type ColorType = 'rgb' | 'hsl' | 'hex';
@@ -24,7 +24,7 @@ export type ColorCopyButtonProps = {
 
 export type LegacyAdapterProps = Parameters< typeof useDeprecatedProps >[ 0 ];
 
-export type ColorPickerProps = WordPressComponentProps<
+export type ColorPickerProps = FinPressComponentProps<
 	{
 		/**
 		 * When `true` the color picker will display the alpha channel both in

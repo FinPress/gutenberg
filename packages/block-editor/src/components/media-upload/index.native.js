@@ -42,7 +42,7 @@ import {
 	OPTION_TAKE_VIDEO,
 	OPTION_TAKE_PHOTO,
 	OPTION_INSERT_FROM_URL,
-	OPTION_WORDPRESS_MEDIA_LIBRARY,
+	OPTION_FINPRESS_MEDIA_LIBRARY,
 } from './constants';
 import styles from './style.scss';
 
@@ -124,7 +124,7 @@ export class MediaUpload extends Component {
 		const siteLibrarySource = {
 			id: mediaSources.siteMediaLibrary,
 			value: mediaSources.siteMediaLibrary,
-			label: OPTION_WORDPRESS_MEDIA_LIBRARY,
+			label: OPTION_FINPRESS_MEDIA_LIBRARY,
 			requiresModal: true,
 			types: [
 				MEDIA_TYPE_IMAGE,

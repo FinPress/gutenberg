@@ -7,14 +7,14 @@ import { useMemo } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import { useSurface } from '../../surface';
 import * as styles from '../styles';
 import { useCx } from '../../utils/hooks/use-cx';
 import type { Props } from '../types';
 
-type CardProps = WordPressComponentProps< Props, 'div' >;
+type CardProps = FinPressComponentProps< Props, 'div' >;
 
 function useDeprecatedProps( {
 	elevation,

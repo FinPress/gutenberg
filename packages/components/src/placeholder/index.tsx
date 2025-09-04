@@ -16,7 +16,7 @@ import { speak } from '@finpress/a11y';
  */
 import Icon from '../icon';
 import type { PlaceholderProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 const PlaceholderIllustration = (
 	<SVG
@@ -41,7 +41,7 @@ const PlaceholderIllustration = (
  * ```
  */
 export function Placeholder(
-	props: WordPressComponentProps< PlaceholderProps, 'div', false >
+	props: FinPressComponentProps< PlaceholderProps, 'div', false >
 ) {
 	const {
 		icon,

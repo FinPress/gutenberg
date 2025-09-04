@@ -9,7 +9,7 @@ import { forwardRef, useMemo } from '@finpress/element';
  */
 import { View } from '../../view';
 import { useControlledValue } from '../../utils';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import ToggleGroupControlContext from '../context';
 import { useComputeControlledOrUncontrolledValue } from './utils';
 import type {
@@ -28,7 +28,7 @@ function UnforwardedToggleGroupControlAsButtonGroup(
 		id: idProp,
 		setSelectedElement,
 		...otherProps
-	}: WordPressComponentProps<
+	}: FinPressComponentProps<
 		ToggleGroupControlMainControlProps,
 		'div',
 		false

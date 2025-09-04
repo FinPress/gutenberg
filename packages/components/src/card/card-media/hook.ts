@@ -6,14 +6,14 @@ import { useMemo } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import * as styles from '../styles';
 import { useCx } from '../../utils/hooks/use-cx';
 import type { MediaProps } from '../types';
 
 export function useCardMedia(
-	props: WordPressComponentProps< MediaProps, 'div' >
+	props: FinPressComponentProps< MediaProps, 'div' >
 ) {
 	const { className, ...otherProps } = useContextSystem( props, 'CardMedia' );
 

@@ -1,4 +1,4 @@
-name: OPTIONAL - Verify @wordpress/components CHANGELOG update
+name: OPTIONAL - Verify @finpress/components CHANGELOG update
 
 on:
     pull_request:

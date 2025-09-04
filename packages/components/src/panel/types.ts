@@ -2,7 +2,7 @@
  * Internal dependencies
  */
 import type { ButtonAsButtonProps } from '../button/types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 export type PanelProps = {
 	/**
@@ -50,7 +50,7 @@ export type PanelBodyProps = {
 	 *
 	 * @default {}
 	 */
-	buttonProps?: WordPressComponentProps<
+	buttonProps?: FinPressComponentProps<
 		Omit< ButtonAsButtonProps, 'icon' >,
 		'button',
 		false

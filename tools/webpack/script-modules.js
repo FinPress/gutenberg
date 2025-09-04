@@ -14,7 +14,7 @@ const DependencyExtractionWebpackPlugin = require( '@finpress/dependency-extract
  */
 const { baseConfig, plugins } = require( './shared' );
 
-const WORDPRESS_NAMESPACE = '@finpress/';
+const FINPRESS_NAMESPACE = '@finpress/';
 
 const packageDirs = readdirSync(
 	new URL( '../packages', `file://${ __dirname }` ),
@@ -32,7 +32,7 @@ for ( const packageDir of packageDirs ) {
 		continue;
 	}
 
-	const moduleName = packageJson.name.substring( WORDPRESS_NAMESPACE.length );
+	const moduleName = packageJson.name.substring( FINPRESS_NAMESPACE.length );
 	let { wpScriptModuleExports } = packageJson;
 
 	// Special handling for { "wpScriptModuleExports": "./build-module/index.js" }.

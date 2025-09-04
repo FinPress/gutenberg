@@ -14,7 +14,7 @@ import { __ } from '@finpress/i18n';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { ValueInput } from './styles/unit-control-styles';
 import UnitSelectControl from './unit-select-control';
 import {
@@ -30,7 +30,7 @@ import { useDeprecated36pxDefaultSizeProp } from '../utils/use-deprecated-props'
 import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 function UnforwardedUnitControl(
-	unitControlProps: WordPressComponentProps<
+	unitControlProps: FinPressComponentProps<
 		UnitControlProps,
 		'input',
 		false

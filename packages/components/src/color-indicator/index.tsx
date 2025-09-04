@@ -12,11 +12,11 @@ import { forwardRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { ColorIndicatorProps } from './types';
 
 function UnforwardedColorIndicator(
-	props: WordPressComponentProps< ColorIndicatorProps, 'span', false >,
+	props: FinPressComponentProps< ColorIndicatorProps, 'span', false >,
 	forwardedRef: ForwardedRef< HTMLSpanElement >
 ) {
 	const { className, colorValue, ...additionalProps } = props;

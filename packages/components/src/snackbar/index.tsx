@@ -25,7 +25,7 @@ import Button from '../button';
 import ExternalLink from '../external-link';
 import type { SnackbarProps } from './types';
 import type { NoticeAction } from '../notice/types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 const NOTICE_TIMEOUT = 10000;
 
@@ -65,7 +65,7 @@ function UnforwardedSnackbar(
 		// actually the function to call to remove the snackbar from the UI.
 		onDismiss,
 		listRef,
-	}: WordPressComponentProps< SnackbarProps, 'div' >,
+	}: FinPressComponentProps< SnackbarProps, 'div' >,
 	ref: ForwardedRef< any >
 ) {
 	function dismissMe( event: KeyboardEvent | MouseEvent ) {

@@ -6,13 +6,13 @@ import type { ForwardedRef } from 'react';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { contextConnect, useContextSystem } from '../context';
 import type { PrefixSuffixWrapperProps } from './types';
 import { PrefixSuffixWrapper } from './styles/input-control-styles';
 
 function UnconnectedInputControlPrefixWrapper(
-	props: WordPressComponentProps< PrefixSuffixWrapperProps, 'div' >,
+	props: FinPressComponentProps< PrefixSuffixWrapperProps, 'div' >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const derivedProps = useContextSystem( props, 'InputControlPrefixWrapper' );

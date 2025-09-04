@@ -73,7 +73,7 @@ jobs:
               run: |
                   cd publish
                   git config user.name "Gutenberg Repository Automation"
-                  git config user.email gutenberg@wordpress.org
+                  git config user.email gutenberg@finpress.org
 
             - name: Setup Node.js
               if: ${{ github.event.inputs.release_type != 'wp' }}

@@ -7,11 +7,11 @@ import * as Ariakit from '@ariakit/react';
  */
 import _CustomSelect from './custom-select';
 import type { CustomSelectProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import Item from './item';
 
 function CustomSelectControlV2(
-	props: WordPressComponentProps< CustomSelectProps, 'button', false >
+	props: FinPressComponentProps< CustomSelectProps, 'button', false >
 ) {
 	const { defaultValue, onChange, value, ...restProps } = props;
 	// Forward props + store from v2 implementation

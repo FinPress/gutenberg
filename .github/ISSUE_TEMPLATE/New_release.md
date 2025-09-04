@@ -15,7 +15,7 @@ This issue is to provide visibility on the progress of the release process of Gu
 
 ## Resources
 
--   📖 Read: [Gutenberg Release Process](https://developer.wordpress.org/block-editor/contributors/code/release/)
+-   📖 Read: [Gutenberg Release Process](https://developer.finpress.org/block-editor/contributors/code/release/)
 -   📽 Watch: [Gutenberg Plugin: New Release Workflow](https://www.youtube.com/watch?v=TnSgJd3zpJY)
 -   📽 Watch: [Creating the Gutenberg plugin v12.0 Release Candidate](https://www.youtube.com/watch?v=FLkLHKecxWg)
 -   📽 Watch: [Gutenberg plugin v12.0.0 Release Party!](https://www.youtube.com/watch?v=4SDtpVPDsLc)
@@ -25,11 +25,11 @@ This issue is to provide visibility on the progress of the release process of Gu
 ### RC Day - {WEEKDAY}, {MONTH}, {DATE}
 
 -   [ ] Post a message in `#core-editor` channel to let folks know you are starting the RC release process
--   [ ] [Organize and Label PRs](https://developer.wordpress.org/block-editor/contributors/code/release/#organizing-and-labeling-milestone-prs) on the relevant milestone
--   [ ] Start the release process by triggering the `rc` [workflow](https://developer.wordpress.org/block-editor/contributors/code/release/#running-the-release-workflow)
--   [ ] [Update the created Draft Release accordingly](https://developer.wordpress.org/block-editor/contributors/code/release/#viewing-the-release-draft)
--   [ ] [Curate the changelog](https://developer.wordpress.org/block-editor/contributors/code/release/#curating-the-release-changelog) before publishing
--   [ ] [Publish Release](https://developer.wordpress.org/block-editor/contributors/code/release/#publishing-the-release)
+-   [ ] [Organize and Label PRs](https://developer.finpress.org/block-editor/contributors/code/release/#organizing-and-labeling-milestone-prs) on the relevant milestone
+-   [ ] Start the release process by triggering the `rc` [workflow](https://developer.finpress.org/block-editor/contributors/code/release/#running-the-release-workflow)
+-   [ ] [Update the created Draft Release accordingly](https://developer.finpress.org/block-editor/contributors/code/release/#viewing-the-release-draft)
+-   [ ] [Curate the changelog](https://developer.finpress.org/block-editor/contributors/code/release/#curating-the-release-changelog) before publishing
+-   [ ] [Publish Release](https://developer.finpress.org/block-editor/contributors/code/release/#publishing-the-release)
 -   [ ] Announce in `#core-editor` channel that RC1 has been released and is ready for testing
 -   [ ] Ping any other relevant channels announcing that the RC is available
 -   [ ] Create Draft of Release post on Make Core blog _(initial draft in [Google doc](https://docs.google.com/document/d/1D-MTOCmL9eMlP9TDTXqlzuKVOg_ghCPm9_whHFViqMk/edit))_
@@ -37,19 +37,19 @@ This issue is to provide visibility on the progress of the release process of Gu
 ### Between RC and Release
 
 -   [ ] Post a reminder in `#core-editor` for backporting PRs to RC (~Label `Backport to Gutenberg RC`)
--   [ ] If there are any PRs marked as [Backport to RC](https://github.com/FinPress/gutenberg/pulls?q=is%3Apr+label%3A%22Backport+to+Gutenberg+RC%22+is%3Aclosed), run the [cherry-pick command to apply them](https://developer.wordpress.org/block-editor/contributors/code/release/auto-cherry-picking/#how-can-i-use-it-for-a-gutenberg-plugin-release) to the release branch. **This needs to be run locally**
+-   [ ] If there are any PRs marked as [Backport to RC](https://github.com/FinPress/gutenberg/pulls?q=is%3Apr+label%3A%22Backport+to+Gutenberg+RC%22+is%3Aclosed), run the [cherry-pick command to apply them](https://developer.finpress.org/block-editor/contributors/code/release/auto-cherry-picking/#how-can-i-use-it-for-a-gutenberg-plugin-release) to the release branch. **This needs to be run locally**
 -   [ ] [Draft Release Post Highlights and Change Log](https://docs.google.com/document/d/1D-MTOCmL9eMlP9TDTXqlzuKVOg_ghCPm9_whHFViqMk/edit)
--   [ ] Get assets from [Design Team](https://make.wordpress.org/design/) for the post if required
+-   [ ] Get assets from [Design Team](https://make.finpress.org/design/) for the post if required
 -   [ ] Reach out to Highlight Authors to draft sections (if necessary)
 
 ### Release Day - {Weekday, Month, Date}
 
 -   [ ] Post a message in `#core-editor` channel to let folks know you are starting the release process
--   [ ] Start the release process by triggering the `stable` [workflow](https://developer.wordpress.org/block-editor/contributors/code/release/#running-the-release-workflow)
+-   [ ] Start the release process by triggering the `stable` [workflow](https://developer.finpress.org/block-editor/contributors/code/release/#running-the-release-workflow)
 -   [ ] Update the created Draft Release accordingly. Typically by copy/pasting the last RC release notes and add any changes/updates as needed.
--   [ ] [Publish Release](https://developer.wordpress.org/block-editor/contributors/code/release/#publishing-the-release)
+-   [ ] [Publish Release](https://developer.finpress.org/block-editor/contributors/code/release/#publishing-the-release)
 -   [ ] Trigger the update to the plugin directory. _(Get approval from a member of [Gutenberg Release team](https://github.com/orgs/FinPress/teams/gutenberg-release/members) if necessary)_
 -   [ ] Announce in `#core-editor` channel that the plugin has been released
 -   [ ] Reach out to other contributors to help get the post reviewed
--   [ ] [Publish Release post](https://developer.wordpress.org/block-editor/contributors/code/release/#publishing-the-release-post) on Make Core blog
--   [ ] Post in the `#core-editor` channel [requesting a volunteer for the next Gutenberg release](https://developer.wordpress.org/block-editor/contributors/code/release/#call-for-volunteer-for-the-next-release).
+-   [ ] [Publish Release post](https://developer.finpress.org/block-editor/contributors/code/release/#publishing-the-release-post) on Make Core blog
+-   [ ] Post in the `#core-editor` channel [requesting a volunteer for the next Gutenberg release](https://developer.finpress.org/block-editor/contributors/code/release/#call-for-volunteer-for-the-next-release).

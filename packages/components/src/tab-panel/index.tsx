@@ -23,7 +23,7 @@ import { isRTL } from '@finpress/i18n';
 
 import Button from '../button';
 import type { TabPanelProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 // Separate the actual tab name from the instance ID. This is
 // necessary because Ariakit internally uses the element ID when
@@ -82,7 +82,7 @@ const UnforwardedTabPanel = (
 		orientation = 'horizontal',
 		activeClass = 'is-active',
 		onSelect,
-	}: WordPressComponentProps< TabPanelProps, 'div', false >,
+	}: FinPressComponentProps< TabPanelProps, 'div', false >,
 	ref: ForwardedRef< any >
 ) => {
 	const instanceId = useInstanceId( TabPanel, 'tab-panel' );

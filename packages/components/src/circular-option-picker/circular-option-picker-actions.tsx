@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import Button from '../button';
 import Dropdown from '../dropdown';
 import type { DropdownLinkActionProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { ButtonAsButtonProps } from '../button/types';
 
 export function DropdownLinkAction( {
@@ -44,7 +44,7 @@ export function ButtonAction( {
 	className,
 	children,
 	...additionalProps
-}: WordPressComponentProps< ButtonAsButtonProps, 'button', false > ) {
+}: FinPressComponentProps< ButtonAsButtonProps, 'button', false > ) {
 	return (
 		<Button
 			__next40pxDefaultSize

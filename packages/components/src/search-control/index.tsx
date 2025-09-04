@@ -16,7 +16,7 @@ import deprecated from '@finpress/deprecated';
  * Internal dependencies
  */
 import Button from '../button';
-import type { WordPressComponentProps } from '../context/finpress-component';
+import type { FinPressComponentProps } from '../context/finpress-component';
 import type { SearchControlProps, SuffixItemProps } from './types';
 import type { ForwardedRef } from 'react';
 import { ContextSystemProvider } from '../context';
@@ -66,7 +66,7 @@ function UnforwardedSearchControl(
 		size = 'default',
 		...restProps
 	}: Omit<
-		WordPressComponentProps< SearchControlProps, 'input', false >,
+		FinPressComponentProps< SearchControlProps, 'input', false >,
 		// TODO: Background styling currently doesn't support a disabled state. Needs design work.
 		'disabled'
 	>,

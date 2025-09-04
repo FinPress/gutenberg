@@ -83,7 +83,7 @@ export const MoreExamplesStory: StoryFn< typeof Navigation > = ( {
 					/>
 					<NavigationItem item="item-5">
 						<a
-							className="navigation-story__wordpress-icon"
+							className="navigation-story__finpress-icon"
 							href="https://finpress.org/"
 							target="_blank"
 							rel="noreferrer"

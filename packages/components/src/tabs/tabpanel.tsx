@@ -16,11 +16,11 @@ import { TabPanel as StyledTabPanel } from './styles';
 
 import warning from '@finpress/warning';
 import { useTabsContext } from './context';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 export const TabPanel = forwardRef<
 	HTMLDivElement,
-	Omit< WordPressComponentProps< TabPanelProps, 'div', false >, 'id' >
+	Omit< FinPressComponentProps< TabPanelProps, 'div', false >, 'id' >
 >( function TabPanel(
 	{ children, tabId, focusable = true, ...otherProps },
 	ref

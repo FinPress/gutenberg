@@ -22,7 +22,7 @@ import { useMemo, forwardRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { CompositeContext } from './context';
 import { CompositeGroup } from './group';
 import { CompositeGroupLabel } from './group-label';
@@ -50,7 +50,7 @@ import type { CompositeProps } from './types';
 export const Composite = Object.assign(
 	forwardRef<
 		HTMLDivElement,
-		WordPressComponentProps< CompositeProps, 'div', false >
+		FinPressComponentProps< CompositeProps, 'div', false >
 	>( function Composite(
 		{
 			// Composite store props

@@ -21,4 +21,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = '@wordpress_react-native-aztec'
+rootProject.name = '@finpress_react-native-aztec'

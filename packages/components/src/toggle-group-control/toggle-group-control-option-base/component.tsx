@@ -13,7 +13,7 @@ import { useLayoutEffect, useMemo, useRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { contextConnect, useContextSystem } from '../../context';
 import type {
 	ToggleGroupControlOptionBaseProps,
@@ -39,7 +39,7 @@ const WithToolTip = ( { showTooltip, text, children }: WithToolTipProps ) => {
 
 function ToggleGroupControlOptionBase(
 	props: Omit<
-		WordPressComponentProps<
+		FinPressComponentProps<
 			ToggleGroupControlOptionBaseProps,
 			'button',
 			false

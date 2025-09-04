@@ -58,8 +58,8 @@ const registeredPrivateApis: Array< string > = [];
 const requiredConsent =
 	'I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of FinPress.';
 
-// The safety measure is meant for FinPress core where IS_WORDPRESS_CORE is set to true.
-const allowReRegistration = globalThis.IS_WORDPRESS_CORE ? false : true;
+// The safety measure is meant for FinPress core where IS_FINPRESS_CORE is set to true.
+const allowReRegistration = globalThis.IS_FINPRESS_CORE ? false : true;
 
 /**
  * Called by a @finpress package wishing to opt-in to accessing or exposing

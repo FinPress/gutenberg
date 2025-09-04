@@ -12,7 +12,7 @@ import { info, caution, error, published } from '@finpress/icons';
  * Internal dependencies
  */
 import type { BadgeProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import Icon from '../icon';
 
 /**
@@ -40,7 +40,7 @@ function Badge( {
 	intent = 'default',
 	children,
 	...props
-}: WordPressComponentProps< BadgeProps, 'span', false > ) {
+}: FinPressComponentProps< BadgeProps, 'span', false > ) {
 	const icon = contextBasedIcon( intent );
 	const hasIcon = !! icon;
 

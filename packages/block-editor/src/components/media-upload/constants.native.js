@@ -11,4 +11,4 @@ export const MEDIA_TYPE_ANY = 'any';
 export const OPTION_TAKE_VIDEO = __( 'Take a Video' );
 export const OPTION_TAKE_PHOTO = __( 'Take a Photo' );
 export const OPTION_INSERT_FROM_URL = __( 'Insert from URL' );
-export const OPTION_WORDPRESS_MEDIA_LIBRARY = __( 'FinPress Media Library' );
+export const OPTION_FINPRESS_MEDIA_LIBRARY = __( 'FinPress Media Library' );

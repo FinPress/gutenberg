@@ -8,12 +8,12 @@ import { createPortal, useState } from '@finpress/element';
  */
 import Popover from '../..';
 import { Provider as SlotFillProvider } from '../../../slot-fill';
-import type { WordPressComponentProps } from '../../../context';
+import type { FinPressComponentProps } from '../../../context';
 
 const GenericIframe = ( {
 	children,
 	...props
-}: WordPressComponentProps< { children: React.ReactNode }, 'iframe' > ) => {
+}: FinPressComponentProps< { children: React.ReactNode }, 'iframe' > ) => {
 	const [ containerNode, setContainerNode ] = useState< HTMLElement >();
 
 	return (

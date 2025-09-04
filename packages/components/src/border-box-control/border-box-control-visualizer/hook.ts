@@ -7,14 +7,14 @@ import { useMemo } from '@finpress/element';
  * Internal dependencies
  */
 import * as styles from '../styles';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import { useCx } from '../../utils';
 
 import type { VisualizerProps } from '../types';
 
 export function useBorderBoxControlVisualizer(
-	props: WordPressComponentProps< VisualizerProps, 'div' >
+	props: FinPressComponentProps< VisualizerProps, 'div' >
 ) {
 	const {
 		className,

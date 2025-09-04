@@ -11,13 +11,13 @@ import { forwardRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { useCompositeContext } from './context';
 import type { CompositeGroupLabelProps } from './types';
 
 export const CompositeGroupLabel = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< CompositeGroupLabelProps, 'div', false >
+	FinPressComponentProps< CompositeGroupLabelProps, 'div', false >
 >( function CompositeGroupLabel( props, ref ) {
 	const context = useCompositeContext();
 

@@ -19,7 +19,7 @@ jobs:
             contents: read
         environment: wp.org plugin
         env:
-            PLUGIN_REPO_URL: 'https://plugins.svn.wordpress.org/gutenberg'
+            PLUGIN_REPO_URL: 'https://plugins.svn.finpress.org/gutenberg'
             SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
             SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
 

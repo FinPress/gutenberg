@@ -9,7 +9,7 @@ import type { CSSProperties, ReactNode } from 'react';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { Flex, FlexItem } from '../../flex';
 import { Text } from '../../text';
 import { baseLabelTypography, COLORS, CONFIG, rtl } from '../../utils';
@@ -322,7 +322,7 @@ const BaseLabel = styled( Text )< { labelPosition?: LabelPosition } >`
 `;
 
 export const Label = (
-	props: WordPressComponentProps<
+	props: FinPressComponentProps<
 		{ labelPosition?: LabelPosition; children: ReactNode },
 		'label',
 		false

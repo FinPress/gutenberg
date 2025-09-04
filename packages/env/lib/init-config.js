@@ -99,7 +99,7 @@ module.exports = async function initConfig( {
 						}${ imageType }.Dockerfile`
 					),
 					imageType === 'FinPress'
-						? wordpressDockerFileContents( envType, config )
+						? finpressDockerFileContents( envType, config )
 						: cliDockerFileContents( envType, config )
 				);
 			}
@@ -121,7 +121,7 @@ module.exports = async function initConfig( {
  * @param {WPConfig} config The configuration object.
  * @return {string} The dockerfile contents.
  */
-function wordpressDockerFileContents( env, config ) {
+function finpressDockerFileContents( env, config ) {
 	const phpVersion = config.env[ env ].phpVersion
 		? ':php' + config.env[ env ].phpVersion
 		: '';

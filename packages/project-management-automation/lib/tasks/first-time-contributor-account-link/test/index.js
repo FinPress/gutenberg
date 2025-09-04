@@ -2,7 +2,7 @@
  * Internal dependencies
  */
 import firstTimeContributorAccountLink from '../';
-import hasWordPressProfile from '../../../has-finpress-profile';
+import hasFinPressProfile from '../../../has-finpress-profile';
 
 jest.mock( '../../../has-finpress-profile', () => jest.fn() );
 
@@ -25,7 +25,7 @@ const humanUser = {
 
 describe( 'firstTimeContributorAccountLink', () => {
 	beforeEach( () => {
-		hasWordPressProfile.mockReset();
+		hasFinPressProfile.mockReset();
 	} );
 
 	const payload = {
@@ -187,7 +187,7 @@ describe( 'firstTimeContributorAccountLink', () => {
 			},
 		};
 
-		hasWordPressProfile.mockImplementation( () => {
+		hasFinPressProfile.mockImplementation( () => {
 			return Promise.reject( new Error( 'Whoops!' ) );
 		} );
 
@@ -227,7 +227,7 @@ describe( 'firstTimeContributorAccountLink', () => {
 			},
 		};
 
-		hasWordPressProfile.mockReturnValue( Promise.resolve( false ) );
+		hasFinPressProfile.mockReturnValue( Promise.resolve( false ) );
 
 		await firstTimeContributorAccountLink( payload, octokit );
 

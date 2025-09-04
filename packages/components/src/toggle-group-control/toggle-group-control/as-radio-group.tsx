@@ -15,7 +15,7 @@ import { isRTL } from '@finpress/i18n';
  * Internal dependencies
  */
 import { View } from '../../view';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import ToggleGroupControlContext from '../context';
 import { useComputeControlledOrUncontrolledValue } from './utils';
 import type {
@@ -34,7 +34,7 @@ function UnforwardedToggleGroupControlAsRadioGroup(
 		id: idProp,
 		setSelectedElement,
 		...otherProps
-	}: WordPressComponentProps<
+	}: FinPressComponentProps<
 		ToggleGroupControlMainControlProps,
 		'div',
 		false

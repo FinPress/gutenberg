@@ -13,7 +13,7 @@ import type { useDrag } from '@use-gesture/react';
  * Internal dependencies
  */
 import type { StateReducer } from './reducer/state';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { FlexProps } from '../flex/types';
 import type { BaseControlProps } from '../base-control/types';
 
@@ -192,9 +192,9 @@ export interface InputControlProps
 		>,
 		Pick< BaseControlProps, 'help' >,
 		/**
-		 * The `prefix` prop in `WordPressComponentProps< InputFieldProps, 'input', false >` comes from the
+		 * The `prefix` prop in `FinPressComponentProps< InputFieldProps, 'input', false >` comes from the
 		 * `HTMLInputAttributes` and clashes with the one from `InputBaseProps`. So we have to omit it from
-		 * `WordPressComponentProps< InputFieldProps, 'input', false >` in order that `InputBaseProps[ 'prefix' ]`
+		 * `FinPressComponentProps< InputFieldProps, 'input', false >` in order that `InputBaseProps[ 'prefix' ]`
 		 * be the only prefix prop. Otherwise it tries to do a union of the two prefix properties and you end up
 		 * with an unresolvable type.
 		 *
@@ -202,7 +202,7 @@ export interface InputControlProps
 		 * the InputControl, but the rest of the props for InputField are passed through.
 		 */
 		Omit<
-			WordPressComponentProps< InputFieldProps, 'input', false >,
+			FinPressComponentProps< InputFieldProps, 'input', false >,
 			| 'stateReducer'
 			| 'prefix'
 			| 'paddingInlineStart'

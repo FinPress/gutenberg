@@ -54,7 +54,7 @@ import {
 	getReferenceElement,
 } from './utils';
 import { contextConnect, useContextSystem } from '../context';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type {
 	PopoverProps,
 	PopoverAnchorRefReference,
@@ -119,7 +119,7 @@ const getPopoverFallbackContainer = () => {
 
 const UnforwardedPopover = (
 	props: Omit<
-		WordPressComponentProps< PopoverProps, 'div', false >,
+		FinPressComponentProps< PopoverProps, 'div', false >,
 		// To avoid overlaps between the standard HTML attributes and the props
 		// expected by `framer-motion`, omit all framer motion props from popover
 		// props (except for `animate` and `children` which are re-defined in

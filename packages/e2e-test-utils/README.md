@@ -761,13 +761,13 @@ _Usage_
 const MOCK_RESPONSES = [
 	{
 		match: isEmbedding( 'https://finpress.org/gutenberg/handbook/' ),
-		onRequestMatch: JSONResponse( MOCK_BAD_WORDPRESS_RESPONSE ),
+		onRequestMatch: JSONResponse( MOCK_BAD_FINPRESS_RESPONSE ),
 	},
 	{
 		match: isEmbedding(
 			'https://finpress.org/gutenberg/handbook/block-api/attributes/'
 		),
-		onRequestMatch: JSONResponse( MOCK_EMBED_WORDPRESS_SUCCESS_RESPONSE ),
+		onRequestMatch: JSONResponse( MOCK_EMBED_FINPRESS_SUCCESS_RESPONSE ),
 	},
 ];
 setUpResponseMocking( MOCK_RESPONSES );

@@ -16,7 +16,7 @@ import {
 	isCompleteBorder,
 	isEmptyBorder,
 } from '../utils';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import { useCx } from '../../utils/hooks/use-cx';
 import { maybeWarnDeprecated36pxSize } from '../../utils/deprecated-36px-size';
@@ -25,7 +25,7 @@ import type { Border } from '../../border-control/types';
 import type { Borders, BorderSide, BorderBoxControlProps } from '../types';
 
 export function useBorderBoxControl(
-	props: WordPressComponentProps< BorderBoxControlProps, 'div' >
+	props: FinPressComponentProps< BorderBoxControlProps, 'div' >
 ) {
 	const {
 		className,

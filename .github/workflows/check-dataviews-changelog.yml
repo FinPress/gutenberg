@@ -1,4 +1,4 @@
-name: OPTIONAL - Verify @wordpress/dataviews CHANGELOG update
+name: OPTIONAL - Verify @finpress/dataviews CHANGELOG update
 
 on:
     pull_request:

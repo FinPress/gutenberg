@@ -12,14 +12,14 @@ import { Icon, check } from '@finpress/icons';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { Context } from './context';
 import type { CheckboxItemProps } from './types';
 import * as Styled from './styles';
 
 export const CheckboxItem = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< CheckboxItemProps, 'div', false >
+	FinPressComponentProps< CheckboxItemProps, 'div', false >
 >( function CheckboxItem(
 	{ suffix, children, disabled = false, hideOnClick = false, ...props },
 	ref

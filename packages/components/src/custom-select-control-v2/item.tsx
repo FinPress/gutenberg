@@ -7,14 +7,14 @@ import { Icon, check } from '@finpress/icons';
  * Internal dependencies
  */
 import type { CustomSelectItemProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import * as Styled from './styles';
 import { CustomSelectContext } from './custom-select';
 
 export function CustomSelectItem( {
 	children,
 	...props
-}: WordPressComponentProps< CustomSelectItemProps, 'div', false > ) {
+}: FinPressComponentProps< CustomSelectItemProps, 'div', false > ) {
 	const customSelectContext = useContext( CustomSelectContext );
 	return (
 		<Styled.SelectItem

@@ -6,7 +6,7 @@ import { css } from '@emotion/react';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { useContextSystem } from '../context';
 import { space } from '../utils/space';
 import { rtl, useCx } from '../utils';
@@ -17,7 +17,7 @@ function isDefined< T >( o: T ): o is Exclude< T, null | undefined > {
 }
 
 export function useSpacer(
-	props: WordPressComponentProps< SpacerProps, 'div' >
+	props: FinPressComponentProps< SpacerProps, 'div' >
 ) {
 	const {
 		className,

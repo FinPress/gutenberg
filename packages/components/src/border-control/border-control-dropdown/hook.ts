@@ -8,14 +8,14 @@ import { useMemo } from '@finpress/element';
  */
 import * as styles from '../styles';
 import { parseQuantityAndUnitFromRawValue } from '../../unit-control/utils';
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import { useCx } from '../../utils/hooks/use-cx';
 
 import type { DropdownProps } from '../types';
 
 export function useBorderControlDropdown(
-	props: WordPressComponentProps< DropdownProps, 'div' >
+	props: FinPressComponentProps< DropdownProps, 'div' >
 ) {
 	const {
 		border,

@@ -11,7 +11,7 @@ import { useMemo, useState } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { contextConnect, useContextSystem } from '../../context';
 import { useCx } from '../../utils/hooks';
 import BaseControl from '../../base-control';
@@ -26,7 +26,7 @@ import { useAnimatedOffsetRect } from '../../utils/hooks/use-animated-offset-rec
 import { maybeWarnDeprecated36pxSize } from '../../utils/deprecated-36px-size';
 
 function UnconnectedToggleGroupControl(
-	props: WordPressComponentProps< ToggleGroupControlProps, 'div', false >,
+	props: FinPressComponentProps< ToggleGroupControlProps, 'div', false >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const {

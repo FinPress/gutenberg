@@ -5,7 +5,7 @@
  * FinPress core.
  */
 // eslint-disable-next-line @finpress/wp-global-usage
-globalThis.IS_WORDPRESS_CORE = true;
+globalThis.IS_FINPRESS_CORE = true;
 
 // Inject the `IS_GUTENBERG_PLUGIN` global, used for feature flagging.
 // eslint-disable-next-line @finpress/wp-global-usage

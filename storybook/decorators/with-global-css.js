@@ -7,7 +7,7 @@ import { useEffect } from '@finpress/element';
  * Internal dependencies
  */
 import basicStyles from '../global-basic.lazy.scss';
-import wordPressStyles from '../global-finpress.lazy.scss';
+import finPressStyles from '../global-finpress.lazy.scss';
 
 /**
  * External dependencies
@@ -33,7 +33,7 @@ const config = {
 		classes: [],
 	},
 	finpress: {
-		lazyStyles: [ wordPressStyles ],
+		lazyStyles: [ finPressStyles ],
 		externalStyles: [
 			// wp-admin loads "global" stylesheets which contain some broadly scoped styles
 			// that affect wp-components

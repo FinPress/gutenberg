@@ -60,7 +60,7 @@ export const findMoreSuitableBlock = ( url ) =>
 		matchesPatterns( url, patterns )
 	);
 
-export const isFromWordPress = ( html ) =>
+export const isFromFinPress = ( html ) =>
 	html && html.includes( 'class="wp-embedded-content"' );
 
 export const getPhotoHtml = ( photo ) => {
@@ -131,7 +131,7 @@ export const createUpgradedEmbedBlock = (
 	if (
 		! wpVariation ||
 		! preview ||
-		! isFromWordPress( preview.html ) ||
+		! isFromFinPress( preview.html ) ||
 		isCurrentBlockWP
 	) {
 		return;
@@ -293,7 +293,7 @@ export const getAttributesFromPreview = memoize(
 			( providerName || title ).toLowerCase()
 		);
 
-		if ( isFromWordPress( html ) ) {
+		if ( isFromFinPress( html ) ) {
 			type = WP_EMBED_TYPE;
 		}
 

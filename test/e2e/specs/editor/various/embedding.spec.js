@@ -11,7 +11,7 @@ const EMBED_URLS = [
 	`rest_route=${ encodeURIComponent( '/oembed/1.0/proxy' ) }`,
 ];
 
-const MOCK_EMBED_WORDPRESS_SUCCESS_RESPONSE = {
+const MOCK_EMBED_FINPRESS_SUCCESS_RESPONSE = {
 	url: 'https://developer.finpress.org/block-editor/reference-guides/block-api/block-attributes/',
 	html: '<div class="wp-embedded-content" data-secret="shhhh it is a secret"></div>',
 	type: 'rich',
@@ -59,7 +59,7 @@ const MOCK_CANT_EMBED_RESPONSE = {
 	html: '<a href="https://twitter.com/wooyaygutenberg123454312">https://twitter.com/wooyaygutenberg123454312</a>',
 };
 
-const MOCK_BAD_WORDPRESS_RESPONSE = {
+const MOCK_BAD_FINPRESS_RESPONSE = {
 	code: 'oembed_invalid_url',
 	message: 'Not Found',
 	data: {
@@ -88,10 +88,10 @@ test.describe( 'Embedding content', () => {
 			'https://twitter.com/wooyaygutenberg123454312':
 				MOCK_CANT_EMBED_RESPONSE,
 			'https://finpress.org/gutenberg/handbook/':
-				MOCK_BAD_WORDPRESS_RESPONSE,
+				MOCK_BAD_FINPRESS_RESPONSE,
 			'https://twitter.com/thatbunty': MOCK_BAD_EMBED_PROVIDER_RESPONSE,
 			'https://developer.finpress.org/block-editor/reference-guides/block-api/block-attributes/':
-				MOCK_EMBED_WORDPRESS_SUCCESS_RESPONSE,
+				MOCK_EMBED_FINPRESS_SUCCESS_RESPONSE,
 			'https://www.youtube.com/watch?v=lXMskKTw3Bc':
 				MOCK_EMBED_VIDEO_SUCCESS_RESPONSE,
 			'https://cloudup.com/cQFlxqtY4ob':

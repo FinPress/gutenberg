@@ -6,14 +6,14 @@ import { useMemo } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../../context';
+import type { FinPressComponentProps } from '../../context';
 import { useContextSystem } from '../../context';
 import * as styles from '../styles';
 import { useCx } from '../../utils/hooks/use-cx';
 import type { DividerProps } from '../../divider';
 
 export function useCardDivider(
-	props: WordPressComponentProps< DividerProps, 'hr', false >
+	props: FinPressComponentProps< DividerProps, 'hr', false >
 ) {
 	const { className, ...otherProps } = useContextSystem(
 		props,

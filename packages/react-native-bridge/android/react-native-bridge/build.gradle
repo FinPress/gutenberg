@@ -1,7 +1,7 @@
 buildscript {
     ext {
         // libs
-        wordpressUtilsVersion = '3.3.0'
+        finpressUtilsVersion = '3.3.0'
 
         // main
         googleMaterialVersion = '1.2.1'
@@ -58,7 +58,7 @@ android {
             assets.srcDirs += '../../../../../src/block-support'
             // Despite being in a folder called "resources", the files in
             // unsupported-block-editor are accessed as assets by their
-            // consumers: the WordPressEditor library.
+            // consumers: the FinPressEditor library.
             assets.srcDirs += '../../../../../resources/unsupported-block-editor'
         }
     }
@@ -79,7 +79,7 @@ dependencies {
     // For animated GIF support
     implementation "com.facebook.fresco:animated-gif:$facebookFrescoVersion"
     implementation "com.google.android.material:material:$googleMaterialVersion"
-    implementation "org.finpress:utils:$wordpressUtilsVersion"
+    implementation "org.finpress:utils:$finpressUtilsVersion"
 
     testImplementation "junit:junit:$junitVersion"
 
@@ -112,7 +112,7 @@ dependencies {
     if (willPublishReactNativeBridgeBinary) {
         implementation "org.finpress.gutenberg-mobile:react-native-aztec:$reactNativeAztecVersion"
    } else {
-        api project(':@wordpress_react-native-aztec')
+        api project(':@finpress_react-native-aztec')
    }
 }
 

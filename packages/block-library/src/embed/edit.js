@@ -88,9 +88,9 @@ const EmbedEdit = ( props ) => {
 			// Some FinPress URLs that can't be embedded will cause the API to return
 			// a valid JSON response with no HTML and `data.status` set to 404, rather
 			// than generating a fallback response as other embeds do.
-			const wordpressCantEmbed = embedPreview?.data?.status === 404;
+			const finpressCantEmbed = embedPreview?.data?.status === 404;
 			const validPreview =
-				!! embedPreview && ! badEmbedProvider && ! wordpressCantEmbed;
+				!! embedPreview && ! badEmbedProvider && ! finpressCantEmbed;
 			return {
 				preview: validPreview ? embedPreview : undefined,
 				fetching: isRequestingEmbedPreview( attributesUrl ),

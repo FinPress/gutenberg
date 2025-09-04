@@ -8,7 +8,7 @@ import { createContext } from '@finpress/element';
  */
 import { disabledStyles } from './styles/disabled-styles';
 import type { DisabledProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { useCx } from '../utils';
 
 const Context = createContext< boolean >( false );
@@ -63,7 +63,7 @@ function Disabled( {
 	children,
 	isDisabled = true,
 	...props
-}: WordPressComponentProps< DisabledProps, 'div' > ) {
+}: FinPressComponentProps< DisabledProps, 'div' > ) {
 	const cx = useCx();
 
 	return (

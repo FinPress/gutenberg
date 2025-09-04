@@ -6,7 +6,7 @@ import { forwardRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { TreeGridRowProps } from './types';
 
 function UnforwardedTreeGridRow(
@@ -17,7 +17,7 @@ function UnforwardedTreeGridRow(
 		setSize,
 		isExpanded,
 		...props
-	}: WordPressComponentProps< TreeGridRowProps, 'tr', false >,
+	}: FinPressComponentProps< TreeGridRowProps, 'tr', false >,
 	ref: React.ForwardedRef< HTMLTableRowElement >
 ) {
 	return (

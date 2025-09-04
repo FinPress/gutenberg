@@ -36,7 +36,7 @@ import {
 } from './styles/range-control-styles';
 
 import type { RangeControlProps } from './types';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { space } from '../utils/space';
 import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
@@ -62,7 +62,7 @@ function computeResetValue( {
 }
 
 function UnforwardedRangeControl(
-	props: WordPressComponentProps< RangeControlProps, 'input', false >,
+	props: FinPressComponentProps< RangeControlProps, 'input', false >,
 	forwardedRef: ForwardedRef< HTMLInputElement >
 ) {
 	const {

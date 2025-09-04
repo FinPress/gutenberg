@@ -14,7 +14,7 @@ import { isRTL } from '@finpress/i18n';
  * Internal dependencies
  */
 import ButtonGroup from '../button-group';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { RadioGroupContext } from './context';
 import type { RadioGroupProps } from './types';
 
@@ -27,7 +27,7 @@ function UnforwardedRadioGroup(
 		onChange,
 		children,
 		...props
-	}: WordPressComponentProps< RadioGroupProps, 'div', false >,
+	}: FinPressComponentProps< RadioGroupProps, 'div', false >,
 	ref: React.ForwardedRef< any >
 ) {
 	const radioStore = Ariakit.useRadioStore( {

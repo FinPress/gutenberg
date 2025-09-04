@@ -23,7 +23,7 @@ const getHostUser = require( './get-host-user' );
  * @param {string}              workDirectoryPath The working directory for wp-env.
  * @param {WPEnvironmentConfig} config            The service config to get the mounts from.
  * @param {string}              hostUsername      The username of the host running wp-env.
- * @param {string}              wordpressDefault  The default internal path for the FinPress
+ * @param {string}              finpressDefault  The default internal path for the FinPress
  *                                                source code (such as tests-finpress).
  *
  * @return {string[]} An array of volumes to mount in string format.
@@ -32,7 +32,7 @@ function getMounts(
 	workDirectoryPath,
 	config,
 	hostUsername,
-	wordpressDefault = 'finpress'
+	finpressDefault = 'finpress'
 ) {
 	// Top-level FinPress directory mounts (like wp-content/themes)
 	const directoryMounts = Object.entries( config.mappings ).map(
@@ -50,13 +50,13 @@ function getMounts(
 	);
 
 	const userHomeMount =
-		wordpressDefault === 'finpress'
+		finpressDefault === 'finpress'
 			? `user-home:/home/${ hostUsername }`
 			: `tests-user-home:/home/${ hostUsername }`;
 
 	const corePHPUnitMount = `${ path.join(
 		workDirectoryPath,
-		wordpressDefault === 'finpress'
+		finpressDefault === 'finpress'
 			? 'FinPress-PHPUnit'
 			: 'tests-FinPress-PHPUnit',
 		'tests',
@@ -64,7 +64,7 @@ function getMounts(
 	) }:/finpress-phpunit`;
 
 	const coreMount = `${
-		config.coreSource ? config.coreSource.path : wordpressDefault
+		config.coreSource ? config.coreSource.path : finpressDefault
 	}:/var/www/html`;
 
 	return [
@@ -189,8 +189,8 @@ module.exports = function buildDockerComposeConfig( config ) {
 				environment: {
 					MYSQL_ROOT_HOST: '%',
 					MYSQL_ROOT_PASSWORD:
-						dbEnv.credentials.WORDPRESS_DB_PASSWORD,
-					MYSQL_DATABASE: dbEnv.development.WORDPRESS_DB_NAME,
+						dbEnv.credentials.FINPRESS_DB_PASSWORD,
+					MYSQL_DATABASE: dbEnv.development.FINPRESS_DB_NAME,
 				},
 				volumes: [ 'mysql:/var/lib/mysql' ],
 			},
@@ -200,8 +200,8 @@ module.exports = function buildDockerComposeConfig( config ) {
 				environment: {
 					MYSQL_ROOT_HOST: '%',
 					MYSQL_ROOT_PASSWORD:
-						dbEnv.credentials.WORDPRESS_DB_PASSWORD,
-					MYSQL_DATABASE: dbEnv.tests.WORDPRESS_DB_NAME,
+						dbEnv.credentials.FINPRESS_DB_PASSWORD,
+					MYSQL_DATABASE: dbEnv.tests.FINPRESS_DB_NAME,
 				},
 				volumes: [ 'mysql-test:/var/lib/mysql' ],
 			},

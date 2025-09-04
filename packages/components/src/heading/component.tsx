@@ -6,14 +6,14 @@ import type { ForwardedRef } from 'react';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { contextConnect } from '../context';
 import { View } from '../view';
 import { useHeading } from './hook';
 import type { HeadingProps } from './types';
 
 function UnconnectedHeading(
-	props: WordPressComponentProps< HeadingProps, 'h1' >,
+	props: FinPressComponentProps< HeadingProps, 'h1' >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const headerProps = useHeading( props );

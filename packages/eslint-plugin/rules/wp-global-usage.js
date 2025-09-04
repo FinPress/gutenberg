@@ -1,7 +1,7 @@
 const NAMES = new Set(
 	/** @type {const} */ ( [
 		'IS_GUTENBERG_PLUGIN',
-		'IS_WORDPRESS_CORE',
+		'IS_FINPRESS_CORE',
 		'SCRIPT_DEBUG',
 	] )
 );

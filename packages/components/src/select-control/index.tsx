@@ -14,7 +14,7 @@ import { forwardRef } from '@finpress/element';
  */
 import BaseControl from '../base-control';
 import { Select, StyledInputBase } from './styles/select-control-styles';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { SelectControlProps } from './types';
 import SelectControlChevronDown from './chevron-down';
 import { useDeprecated36pxDefaultSizeProp } from '../utils/use-deprecated-props';
@@ -44,7 +44,7 @@ function SelectOptions( {
 }
 
 function UnforwardedSelectControl< V extends string >(
-	props: WordPressComponentProps< SelectControlProps< V >, 'select', false >,
+	props: FinPressComponentProps< SelectControlProps< V >, 'select', false >,
 	ref: React.ForwardedRef< HTMLSelectElement >
 ) {
 	const {
@@ -181,7 +181,7 @@ function UnforwardedSelectControl< V extends string >(
 export const SelectControl = forwardRef( UnforwardedSelectControl ) as <
 	V extends string,
 >(
-	props: WordPressComponentProps<
+	props: FinPressComponentProps<
 		SelectControlProps< V >,
 		'select',
 		false

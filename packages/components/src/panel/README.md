@@ -144,7 +144,7 @@ The content to display in the `PanelBody`. If a function is provided for this pr
 
 -   Required: No
 
-###### `buttonProps`: `WordPressComponentProps<Omit< ButtonAsButtonProps, 'icon' >, 'button', false>`
+###### `buttonProps`: `FinPressComponentProps<Omit< ButtonAsButtonProps, 'icon' >, 'button', false>`
 
 Props that are passed to the `Button` component in title within the `PanelBody`.
 

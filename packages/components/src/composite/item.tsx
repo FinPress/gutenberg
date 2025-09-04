@@ -11,13 +11,13 @@ import { forwardRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { useCompositeContext } from './context';
 import type { CompositeItemProps } from './types';
 
 export const CompositeItem = forwardRef<
 	HTMLButtonElement,
-	WordPressComponentProps< CompositeItemProps, 'button', false >
+	FinPressComponentProps< CompositeItemProps, 'button', false >
 >( function CompositeItem( props, ref ) {
 	const context = useCompositeContext();
 

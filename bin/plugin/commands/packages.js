@@ -660,7 +660,7 @@ async function publishNpmBugfixLatest( options ) {
  *
  * @param {WPPackagesCommandOptions} options Command options.
  */
-async function publishNpmBugfixWordPressCore( options ) {
+async function publishNpmBugfixFinPressCore( options ) {
 	await runPackagesRelease( getConfig( 'wp', options ), [
 		'Welcome! This tool helps with npm publishing a new bugfix version of FinPress packages targeting FinPress core.\n',
 		'Make sure that all required changes have been already cherry-picked to the `wp/X.Y` release branch.\n',
@@ -681,6 +681,6 @@ async function publishNpmNext( options ) {
 module.exports = {
 	publishNpmGutenbergPlugin,
 	publishNpmBugfixLatest,
-	publishNpmBugfixWordPressCore,
+	publishNpmBugfixFinPressCore,
 	publishNpmNext,
 };

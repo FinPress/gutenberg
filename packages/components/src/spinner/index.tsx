@@ -8,7 +8,7 @@ import type { ForwardedRef } from 'react';
  * Internal dependencies
  */
 import { StyledSpinner, SpinnerTrack, SpinnerIndicator } from './styles';
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 
 /**
  * FinPress dependencies
@@ -16,7 +16,7 @@ import type { WordPressComponentProps } from '../context';
 import { forwardRef } from '@finpress/element';
 
 export function UnforwardedSpinner(
-	{ className, ...props }: WordPressComponentProps< {}, 'svg', false >,
+	{ className, ...props }: FinPressComponentProps< {}, 'svg', false >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	return (

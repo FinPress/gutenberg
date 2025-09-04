@@ -12,7 +12,7 @@ import { chevronRightSmall } from '@finpress/icons';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import type { ItemProps } from './types';
 import { Context } from './context';
 import { Item } from './item';
@@ -20,7 +20,7 @@ import * as Styled from './styles';
 
 export const SubmenuTriggerItem = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< ItemProps, 'div', false >
+	FinPressComponentProps< ItemProps, 'div', false >
 >( function SubmenuTriggerItem( { suffix, ...otherProps }, ref ) {
 	const menuContext = useContext( Context );
 

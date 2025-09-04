@@ -6,13 +6,13 @@ import type { ForwardedRef } from 'react';
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../context';
+import type { FinPressComponentProps } from '../context';
 import { contextConnect, useContextSystem } from '../context';
 import { DropdownContentWrapperDiv } from './styles';
 import type { DropdownContentWrapperProps } from './types';
 
 function UnconnectedDropdownContentWrapper(
-	props: WordPressComponentProps< DropdownContentWrapperProps, 'div', false >,
+	props: FinPressComponentProps< DropdownContentWrapperProps, 'div', false >,
 	forwardedRef: ForwardedRef< any >
 ) {
 	const { paddingSize = 'small', ...derivedProps } = useContextSystem(

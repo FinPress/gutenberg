@@ -22,7 +22,7 @@ const {
 } = require( './validate-config' );
 const getConfigFromEnvironmentVars = require( './get-config-from-environment-vars' );
 const detectDirectoryType = require( './detect-directory-type' );
-const { getLatestWordPressVersion } = require( '../finpress' );
+const { getLatestFinPressVersion } = require( '../finpress' );
 const mergeConfigs = require( './merge-configs' );
 
 /**
@@ -570,7 +570,7 @@ async function parseEnvironmentConfig(
 async function parseCoreSource( coreSource, options ) {
 	// An empty source means we should use the latest version of FinPress.
 	if ( ! coreSource ) {
-		const wpVersion = await getLatestWordPressVersion( options );
+		const wpVersion = await getLatestFinPressVersion( options );
 		if ( ! wpVersion ) {
 			throw new ValidationError(
 				'Could not find the latest FinPress version. There may be a network issue.'
