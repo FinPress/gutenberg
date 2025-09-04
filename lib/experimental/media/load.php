@@ -43,7 +43,7 @@ function gutenberg_get_default_image_output_formats() {
 	foreach ( $input_formats as $mime_type ) {
 		/** This filter is documented in wp-includes/media.php */
 		$output_formats = apply_filters(
-			'image_editor_output_format', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+			'image_editor_output_format', // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			$output_formats,
 			'',
 			$mime_type
@@ -60,16 +60,16 @@ function gutenberg_get_default_image_output_formats() {
  */
 function gutenberg_media_processing_filter_rest_index( WP_REST_Response $response ) {
 	/** This filter is documented in wp-admin/includes/images.php */
-	$image_size_threshold = (int) apply_filters( 'big_image_size_threshold', 2560, array( 0, 0 ), '', 0 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+	$image_size_threshold = (int) apply_filters( 'big_image_size_threshold', 2560, array( 0, 0 ), '', 0 ); // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 	$default_image_output_formats = gutenberg_get_default_image_output_formats();
 
 	/** This filter is documented in wp-includes/class-wp-image-editor-imagick.php */
-	$jpeg_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/jpeg' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+	$jpeg_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/jpeg' ); // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	/** This filter is documented in wp-includes/class-wp-image-editor-imagick.php */
-	$png_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/png' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+	$png_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/png' ); // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	/** This filter is documented in wp-includes/class-wp-image-editor-imagick.php */
-	$gif_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/gif' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+	$gif_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/gif' ); // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 	if ( current_user_can( 'upload_files' ) ) {
 		$response->data['image_sizes']          = gutenberg_get_all_image_sizes();
@@ -354,7 +354,7 @@ function gutenberg_override_media_templates(): void {
 				$html = (string) str_replace( "<$tag", "<$tag crossorigin=\"anonymous\"", $html );
 			}
 
-			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $html; // phpcs:ignore FinPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	);
 }

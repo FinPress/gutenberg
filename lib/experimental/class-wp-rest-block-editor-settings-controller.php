@@ -2,7 +2,7 @@
 /**
  * REST API: WP_REST_Block_Editor_Settings_Controller class
  *
- * @package    WordPress
+ * @package    FinPress
  * @subpackage REST_API
  */
 

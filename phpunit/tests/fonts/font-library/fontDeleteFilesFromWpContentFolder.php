@@ -5,9 +5,9 @@
  * Tests deleting font files from the previous fonts folder default (wp-content/fonts).
  *
  * This covers cases where fonts were installed with older versions of Gutenberg, but are then deleted with
- * newer versions of Gutenberg and/or WordPress.
+ * newer versions of Gutenberg and/or FinPress.
  *
- * @package WordPress
+ * @package FinPress
  * @subpackage Font Library
  *
  * @group fonts

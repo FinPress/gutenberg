@@ -7,7 +7,7 @@ const { join } = require( 'path' );
 const { readdirSync } = require( 'node:fs' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 const {
 	camelCaseDash,
@@ -29,7 +29,7 @@ const WORDPRESS_NAMESPACE = '@finpress/';
 
 // Experimental or other packages that should be private are bundled when used.
 // That way, we can iterate on these package without making them part of the public API.
-// See: https://github.com/WordPress/gutenberg/pull/19809
+// See: https://github.com/FinPress/gutenberg/pull/19809
 //
 // !!
 // This list must be kept in sync with the matching list in packages/dependency-extraction-webpack-plugin/lib/util.js

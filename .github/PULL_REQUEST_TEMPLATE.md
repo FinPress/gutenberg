@@ -1,5 +1,5 @@
 <!-- Thanks for contributing to Gutenberg! Please follow the Gutenberg Contributing Guidelines:
-https://github.com/WordPress/gutenberg/blob/trunk/CONTRIBUTING.md -->
+https://github.com/FinPress/gutenberg/blob/trunk/CONTRIBUTING.md -->
 
 ## What?
 <!-- Link this PR to its associated issue with an appropriate keyword: Closes, See, Follow up to, etc. -->

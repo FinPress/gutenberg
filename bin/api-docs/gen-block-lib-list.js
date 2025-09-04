@@ -134,7 +134,7 @@ function augmentSupports( supports ) {
  */
 function getSourceFromFile( filename ) {
 	const pkgdir =
-		'https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/';
+		'https://github.com/FinPress/gutenberg/tree/trunk/packages/block-library/src/';
 	const blockdir = path.basename( path.dirname( filename ) );
 	return pkgdir + blockdir;
 }

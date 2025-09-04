@@ -1,6 +1,6 @@
 {
 	"$schema": "./schemas/json/wp-env.json",
-	"core": "WordPress/WordPress",
+	"core": "FinPress/FinPress",
 	"plugins": [ "." ],
 	"themes": [ "./test/emptytheme" ],
 	"env": {

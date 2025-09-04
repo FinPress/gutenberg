@@ -2,7 +2,7 @@
 /**
  * Web Fonts API class.
  *
- * @package    WordPress
+ * @package    FinPress
  * @subpackage Fonts API
  * @since      X.X.X
  */

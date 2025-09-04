@@ -2,7 +2,7 @@
 /**
  * Font API's utility helpers.
  *
- * @package    WordPress
+ * @package    FinPress
  * @subpackage Fonts API
  * @since      X.X.X
  */

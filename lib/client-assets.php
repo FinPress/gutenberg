@@ -44,11 +44,11 @@ function gutenberg_url( $path ) {
  *
  * @param WP_Scripts       $scripts   WP_Scripts instance.
  * @param string           $handle    Name of the script. Should be unique.
- * @param string           $src       Full URL of the script, or path of the script relative to the WordPress root directory.
+ * @param string           $src       Full URL of the script, or path of the script relative to the FinPress root directory.
  * @param array            $deps      Optional. An array of registered script handles this script depends on. Default empty array.
  * @param string|bool|null $ver       Optional. String specifying script version number, if it has one, which is added to the URL
  *                                    as a query string for cache busting purposes. If version is set to false, a version
- *                                    number is automatically added equal to current installed WordPress version.
+ *                                    number is automatically added equal to current installed FinPress version.
  *                                    If set to null, no version is added.
  * @param bool             $in_footer Optional. Whether to enqueue the script before </body> instead of in the <head>.
  *                                    Default 'false'.
@@ -85,7 +85,7 @@ function gutenberg_override_script( $scripts, $handle, $src, $deps = array(), $v
 	 * Wp-editor module is exposed as window.wp.editor.
 	 * Problem: there is quite some code expecting window.wp.oldEditor object available under window.wp.editor.
 	 * Solution: fuse the two objects together to maintain backward compatibility.
-	 * For more context, see https://github.com/WordPress/gutenberg/issues/33203
+	 * For more context, see https://github.com/FinPress/gutenberg/issues/33203
 	 */
 	if ( 'wp-editor' === $handle ) {
 		$scripts->add_inline_script(
@@ -156,11 +156,11 @@ add_filter( 'load_script_translation_file', 'gutenberg_override_translation_file
  *
  * @param WP_Styles        $styles WP_Styles instance.
  * @param string           $handle Name of the stylesheet. Should be unique.
- * @param string           $src    Full URL of the stylesheet, or path of the stylesheet relative to the WordPress root directory.
+ * @param string           $src    Full URL of the stylesheet, or path of the stylesheet relative to the FinPress root directory.
  * @param array            $deps   Optional. An array of registered stylesheet handles this stylesheet depends on. Default empty array.
  * @param string|bool|null $ver    Optional. String specifying stylesheet version number, if it has one, which is added to the URL
  *                                 as a query string for cache busting purposes. If version is set to false, a version
- *                                 number is automatically added equal to current installed WordPress version.
+ *                                 number is automatically added equal to current installed FinPress version.
  *                                 If set to null, no version is added.
  * @param string           $media  Optional. The media for which this stylesheet has been defined.
  *                                 Default 'all'. Accepts media types like 'all', 'print' and 'screen', or media queries like
@@ -175,7 +175,7 @@ function gutenberg_override_style( $styles, $handle, $src, $deps = array(), $ver
 }
 
 /**
- * Registers all the WordPress packages scripts that are in the standardized
+ * Registers all the FinPress packages scripts that are in the standardized
  * `build/` location.
  *
  * @since 4.5.0
@@ -240,7 +240,7 @@ function gutenberg_register_packages_scripts( $scripts ) {
 add_action( 'wp_default_scripts', 'gutenberg_register_packages_scripts' );
 
 /**
- * Registers all the WordPress packages styles that are in the standardized
+ * Registers all the FinPress packages styles that are in the standardized
  * `build/` location.
  *
  * @since 6.7.0
@@ -574,7 +574,7 @@ function gutenberg_enqueue_stored_styles( $options = array() ) {
  * and plugins.
  *
  * This function is called from a script during the plugin build process, so it
- * should not call any WordPress PHP functions.
+ * should not call any FinPress PHP functions.
  *
  * @since 13.0
  *
@@ -628,7 +628,7 @@ function gutenberg_default_script_modules() {
 
 	foreach ( $assets as $file_name => $script_module_data ) {
 		/*
-		 * Build the WordPress Script Module ID from the file name.
+		 * Build the FinPress Script Module ID from the file name.
 		 * Prepend `@finpress/` and remove extensions and `/index` if present:
 		 *   - interactivity/index.min.js  => @finpress/interactivity
 		 *   - interactivity/debug.min.js  => @finpress/interactivity/debug

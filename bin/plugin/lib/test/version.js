@@ -10,7 +10,7 @@ describe( 'getNextMajorVersion', () => {
 		expect( result ).toBe( '7.4.0' );
 	} );
 
-	it( 'follow the WordPress versioning scheme', () => {
+	it( 'follow the FinPress versioning scheme', () => {
 		const result = getNextMajorVersion( '7.9.0' );
 
 		expect( result ).toBe( '8.0.0' );

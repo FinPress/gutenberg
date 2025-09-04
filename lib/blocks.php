@@ -151,7 +151,7 @@ function gutenberg_reregister_core_block_types() {
 			$block_json_file = $blocks_dir . $folder_name . '/block.json';
 
 			// Ideally, all paths to block metadata files should be listed in
-			// WordPress core. In this place we should rather use filter
+			// FinPress core. In this place we should rather use filter
 			// to replace paths with overrides defined by the plugin.
 			$metadata = json_decode( file_get_contents( $block_json_file ), true );
 			if ( ! is_array( $metadata ) || ! $metadata['name'] ) {
@@ -317,7 +317,7 @@ function gutenberg_register_core_block_assets( $block_name ) {
 /**
  * Complements the implementation of block type `core/social-icon`, whether it
  * be provided by core or the plugin, with derived block types for each
- * "service" (WordPress, Twitter, etc.) supported by Social Links.
+ * "service" (FinPress, Twitter, etc.) supported by Social Links.
  *
  * This ensures backwards compatibility for any users running the Gutenberg
  * plugin who have used Social Links prior to their conversion to block
@@ -326,7 +326,7 @@ function gutenberg_register_core_block_assets( $block_name ) {
  * This shim is INTENTIONALLY left out of core, as Social Links have never
  * landed there.
  *
- * @see https://github.com/WordPress/gutenberg/pull/19887
+ * @see https://github.com/FinPress/gutenberg/pull/19887
  */
 function gutenberg_register_legacy_social_link_blocks() {
 	$services = array(
@@ -400,7 +400,7 @@ add_action( 'init', 'gutenberg_register_legacy_social_link_blocks' );
  * Migrate the legacy `sync_status` meta key (added 16.1) to the new `wp_pattern_sync_status` meta key (16.1.1).
  *
  * This filter is INTENTIONALLY left out of core as the meta key was fist introduced to core in 6.3 as `wp_pattern_sync_status`.
- * see https://github.com/WordPress/gutenberg/pull/52232
+ * see https://github.com/FinPress/gutenberg/pull/52232
  *
  * @param mixed  $value     The value to return, either a single metadata value or an array of values depending on the value of $single.
  * @param int    $object_id ID of the object metadata is for.

@@ -1,4 +1,4 @@
-name: Update Changelog and upload Gutenberg plugin to WordPress.org plugin repo
+name: Update Changelog and upload Gutenberg plugin to FinPress.org plugin repo
 
 on:
     release:

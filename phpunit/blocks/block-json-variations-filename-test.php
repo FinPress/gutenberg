@@ -2,7 +2,7 @@
 /**
  * Test for the block.json's variations field being a PHP file.
  *
- * @package WordPress
+ * @package FinPress
  * @subpackage Blocks
  */
 

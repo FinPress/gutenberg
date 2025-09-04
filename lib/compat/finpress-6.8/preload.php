@@ -26,7 +26,7 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 				if ( 'page' === $post->post_type ) {
 					$paths[] = add_query_arg(
 						'slug',
-						// @see https://github.com/WordPress/gutenberg/blob/e093fefd041eb6cc4a4e7f67b92ab54fd75c8858/packages/core-data/src/private-selectors.ts#L244-L254
+						// @see https://github.com/FinPress/gutenberg/blob/e093fefd041eb6cc4a4e7f67b92ab54fd75c8858/packages/core-data/src/private-selectors.ts#L244-L254
 						empty( $post->post_name ) ? 'page' : 'page-' . $post->post_name,
 						'/wp/v2/templates/lookup'
 					);
@@ -101,7 +101,7 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 
 		$paths[] = add_query_arg(
 			'slug',
-			// @see https://github.com/WordPress/gutenberg/blob/e093fefd041eb6cc4a4e7f67b92ab54fd75c8858/packages/core-data/src/private-selectors.ts#L244-L254
+			// @see https://github.com/FinPress/gutenberg/blob/e093fefd041eb6cc4a4e7f67b92ab54fd75c8858/packages/core-data/src/private-selectors.ts#L244-L254
 			$slug,
 			'/wp/v2/templates/lookup'
 		);

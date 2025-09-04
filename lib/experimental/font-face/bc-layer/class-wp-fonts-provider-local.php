@@ -2,7 +2,7 @@
 /**
  * Webfonts API: Provider for locally-hosted fonts.
  *
- * @package    WordPress
+ * @package    FinPress
  * @subpackage Fonts API
  * @since      X.X.X
  */

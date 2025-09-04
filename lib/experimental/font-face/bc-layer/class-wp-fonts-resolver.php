@@ -2,7 +2,7 @@
 /**
  * WP_Fonts_Resolver class.
  *
- * @package    WordPress
+ * @package    FinPress
  * @subpackage Fonts API
  * @since      X.X.X
  */

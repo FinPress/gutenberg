@@ -225,7 +225,7 @@ function gutenberg_typography_get_preset_inline_style_value( $style_value, $css_
 
 	/*
 	 * For backwards compatibility.
-	 * Presets were removed in WordPress/gutenberg#27555.
+	 * Presets were removed in FinPress/gutenberg#27555.
 	 * We have a preset CSS variable as the style.
 	 * Get the style value from the string and return CSS style.
 	 */

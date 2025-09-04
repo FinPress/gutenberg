@@ -1,9 +1,9 @@
 <?php
 /**
- * REST API: Bundle WP_Theme_JSON class instead of inheriting per WordPress version class
+ * REST API: Bundle WP_Theme_JSON class instead of inheriting per FinPress version class
  *
  * Changes to this class should be synced to the corresponding class
- * in WordPress core: src/wp-includes/rest-api/endpoints/class-wp-rest-global-styles-controller.php.
+ * in FinPress core: src/wp-includes/rest-api/endpoints/class-wp-rest-global-styles-controller.php.
  *
  * @package    gutenberg
  * @subpackage REST_API
@@ -64,7 +64,7 @@ class WP_REST_Global_Styles_Controller_Gutenberg extends WP_REST_Posts_Controlle
 			),
 			/*
 			 * $override is set to true to avoid conflicts with the core endpoint.
-			 * Do not sync to WordPress core.
+			 * Do not sync to FinPress core.
 			 */
 			true
 		);
@@ -99,7 +99,7 @@ class WP_REST_Global_Styles_Controller_Gutenberg extends WP_REST_Posts_Controlle
 			),
 			/*
 			 * $override is set to true to avoid conflicts with the core endpoint.
-			 * Do not sync to WordPress core.
+			 * Do not sync to FinPress core.
 			 */
 			true
 		);
@@ -132,7 +132,7 @@ class WP_REST_Global_Styles_Controller_Gutenberg extends WP_REST_Posts_Controlle
 			),
 			/*
 			 * $override is set to true to avoid conflicts with the core endpoint.
-			 * Do not sync to WordPress core.
+			 * Do not sync to FinPress core.
 			 */
 			true
 		);

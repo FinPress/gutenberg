@@ -25,7 +25,7 @@ jobs:
         runs-on: 'ubuntu-24.04'
         permissions:
             contents: read
-        if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
+        if: ${{ github.repository == 'FinPress/gutenberg' || github.event_name == 'pull_request' }}
         strategy:
             fail-fast: false
             matrix:
@@ -48,7 +48,7 @@ jobs:
               run: |
                   npx playwright install chromium firefox webkit --with-deps
 
-            - name: Install WordPress and start the server
+            - name: Install FinPress and start the server
               run: |
                   npm run wp-env start
 

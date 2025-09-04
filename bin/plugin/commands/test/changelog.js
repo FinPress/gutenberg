@@ -29,7 +29,7 @@ import botPullRequestFixture from './fixtures/bot-pull-requests.json';
  * We merge this with dummy fixture data for a "bot" pull request so as to
  * ensure future updates to the pull-requests.json doesn't reduce test coverage
  * of filtering out of bot PRs.
- * See: https://github.com/WordPress/gutenberg/pull/38777#discussion_r808992346.
+ * See: https://github.com/FinPress/gutenberg/pull/38777#discussion_r808992346.
  */
 const pullRequests = _pullRequests.concat( botPullRequestFixture );
 

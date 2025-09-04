@@ -4,7 +4,7 @@
 const { join } = require( 'path' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 const DependencyExtractionWebpackPlugin = require( '@finpress/dependency-extraction-webpack-plugin' );
 

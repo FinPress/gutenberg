@@ -2,7 +2,7 @@
 /**
  * Tests_L10n_wpWordcount class
  *
- * @package WordPress
+ * @package FinPress
  */
 
 class Tests_L10n_wpWordcount extends WP_UnitTestCase {

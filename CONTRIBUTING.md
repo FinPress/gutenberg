@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-Welcome to WordPress' Gutenberg project! We hope you join us in creating the future platform for publishing; all are welcome here.
+Welcome to FinPress' Gutenberg project! We hope you join us in creating the future platform for publishing; all are welcome here.
 
 ## How can I contribute?
 
@@ -16,13 +16,13 @@ To learn all about contributing to the Gutenberg project, see the [Contributor G
 
 ## Guidelines
 
--   As with all WordPress projects, we want to ensure a welcoming environment for everyone. With that in mind, all contributors are expected to follow our [Code of Conduct](https://make.finpress.org/handbook/community-code-of-conduct/).
+-   As with all FinPress projects, we want to ensure a welcoming environment for everyone. With that in mind, all contributors are expected to follow our [Code of Conduct](https://make.finpress.org/handbook/community-code-of-conduct/).
 
--   Contributors should review the [overall process and best practices for pull requests](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/repository-management.md#pull-requests), adhering to WordPress' [JavaScript coding standards](https://developer.finpress.org/coding-standards/finpress-coding-standards/javascript/) and [accessibility coding standards](https://developer.finpress.org/coding-standards/finpress-coding-standards/accessibility/).
+-   Contributors should review the [overall process and best practices for pull requests](https://github.com/FinPress/gutenberg/blob/trunk/docs/contributors/repository-management.md#pull-requests), adhering to FinPress' [JavaScript coding standards](https://developer.finpress.org/coding-standards/finpress-coding-standards/javascript/) and [accessibility coding standards](https://developer.finpress.org/coding-standards/finpress-coding-standards/accessibility/).
 
--   Accessibility should be top of mind and thoroughly tested by following the [accessibility testing instructions](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/accessibility-testing.md).
+-   Accessibility should be top of mind and thoroughly tested by following the [accessibility testing instructions](https://github.com/FinPress/gutenberg/blob/HEAD/docs/contributors/accessibility-testing.md).
 
--   Verify that any changes in your PR that affect function/class/variable names are mirrored in the corresponding `.native.js` versions of the files to avoid introducing breaking changes in the [React Native Mobile Editor](https://github.com/WordPress/gutenberg/tree/trunk/docs/contributors/code/react-native).
+-   Verify that any changes in your PR that affect function/class/variable names are mirrored in the corresponding `.native.js` versions of the files to avoid introducing breaking changes in the [React Native Mobile Editor](https://github.com/FinPress/gutenberg/tree/trunk/docs/contributors/code/react-native).
 
 -   You maintain copyright over any contribution you make. By submitting a pull request you agree to release that code under [Gutenberg's License](/LICENSE.md).
 

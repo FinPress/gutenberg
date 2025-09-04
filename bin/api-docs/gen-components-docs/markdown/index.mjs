@@ -32,7 +32,7 @@ export function generateMarkdownDocs( {
 			},
 		],
 		{
-			p: `<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-${ typeDocs.displayName.toLowerCase() }--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>`,
+			p: `<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-${ typeDocs.displayName.toLowerCase() }--docs">FinPress Storybook</a> for more detailed, interactive documentation.</p>`,
 		},
 		{ md: typeDocs.description },
 		...generateMarkdownPropsJson( typeDocs.props ),

@@ -2,7 +2,7 @@
 /**
  * Navigation block post type/taxonomies variations tests.
  *
- * @package WordPress
+ * @package FinPress
  * @subpackage Blocks
  */
 
@@ -14,8 +14,8 @@
 class Block_Navigation_Link_Variations_Test extends WP_UnitTestCase {
 
 	/**
-	 * Whether to use a shim/workaround for WordPress Core versions < 6.5.
-	 * See https://github.com/WordPress/gutenberg/pull/58389 for details.
+	 * Whether to use a shim/workaround for FinPress Core versions < 6.5.
+	 * See https://github.com/FinPress/gutenberg/pull/58389 for details.
 	 *
 	 * @var bool
 	 */

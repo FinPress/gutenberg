@@ -2,7 +2,7 @@
 /**
  * Tests for the gutenberg_render_block_core_post_date() function.
  *
- * @package WordPress
+ * @package FinPress
  * @subpackage Blocks
  *
  * @covers ::gutenberg_render_block_core_post_date

@@ -30,7 +30,7 @@ const IGNORED_PATHS = [
 
 // PRs containing the following labels will be ignored when generating the issue content.
 const LABELS_TO_IGNORE = [
-	'Backport from WordPress Core', // PRs made "upstream" in Core that were synced back into Gutenberg.
+	'Backport from FinPress Core', // PRs made "upstream" in Core that were synced back into Gutenberg.
 	'Backported to WP Core', // PRs that were synced into Core during a previous release.
 ];
 
@@ -52,7 +52,7 @@ async function main() {
 
 	if ( ! stableWPRelease ) {
 		console.error(
-			'Error. The --wpstable argument is required. It should be the current stable WordPress release (e.g. 6.4).'
+			'Error. The --wpstable argument is required. It should be the current stable FinPress release (e.g. 6.4).'
 		);
 		process.exit( 1 );
 	}
@@ -82,7 +82,7 @@ async function main() {
 	console.log( '• Running script...' );
 
 	// These should be paths where we expect to find PHP files that
-	// will require syncing to WordPress Core. This list should be
+	// will require syncing to FinPress Core. This list should be
 	// extremely selective.
 	const paths = [ '/lib', '/phpunit' ];
 
@@ -207,7 +207,7 @@ function buildPRURL( commit ) {
 	const prIdMatch = commit.commit.message.match( /\(#(\d+)\)/ );
 	const prId = prIdMatch ? prIdMatch[ 1 ] : null;
 	return prId
-		? `https://github.com/WordPress/gutenberg/pull/${ prId }`
+		? `https://github.com/FinPress/gutenberg/pull/${ prId }`
 		: `[Commit](${ commit.html_url })`;
 }
 
@@ -328,7 +328,7 @@ function processCommits( commits ) {
 	// This dir sholud be ignored, since whatever is in there is already in core.
 	// It exists to provide compatibility for older releases, because we have to
 	// support the current and the previous WP versions.
-	// See: https://github.com/WordPress/gutenberg/pull/57890#pullrequestreview-1828994247.
+	// See: https://github.com/FinPress/gutenberg/pull/57890#pullrequestreview-1828994247.
 	const prevReleaseCompatDirToIgnore = `lib/compat/finpress-${ stableWPRelease }`;
 
 	commits.forEach( ( commit ) => {

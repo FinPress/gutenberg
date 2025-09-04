@@ -29,11 +29,11 @@ environment, which causes `react-devtools-core` to believe it's running in a
 browser environment. We added a custom conditional to disable browser-specific
 features when running in a `jsdom-jscore-rn` environment.
 
-See https://github.com/WordPress/gutenberg/pull/47616.
+See https://github.com/FinPress/gutenberg/pull/47616.
 
 ### `patches/react-native+0.73.3.patch`
 
 Accessibility changes in React Native 0.73.0 resulted in a broken braille screen
 input on iOS. This patch is a workaround to restore the previous behavior.
 
-See https://github.com/WordPress/gutenberg/pull/53895.
+See https://github.com/FinPress/gutenberg/pull/53895.

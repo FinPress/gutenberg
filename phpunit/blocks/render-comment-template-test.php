@@ -2,7 +2,7 @@
 /**
  * Tests for the Comment Template block rendering.
  *
- * @package WordPress
+ * @package FinPress
  * @subpackage Blocks
  * @since 6.3.0
  *

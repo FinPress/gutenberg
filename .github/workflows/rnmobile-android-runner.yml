@@ -22,7 +22,7 @@ jobs:
         permissions:
             contents: read
         if: false
-        #if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
+        #if: ${{ github.repository == 'FinPress/gutenberg' || github.event_name == 'pull_request' }}
         strategy:
             matrix:
                 native-test-name: [gutenberg-editor-rendering]

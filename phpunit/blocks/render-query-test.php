@@ -2,7 +2,7 @@
 /**
  * Tests for the Query block rendering.
  *
- * @package WordPress
+ * @package FinPress
  * @subpackage Blocks
  * @since 6.0.0
  *

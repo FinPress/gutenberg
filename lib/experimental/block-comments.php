@@ -23,10 +23,10 @@ if ( ! function_exists( 'update_comment_type_in_rest_api_6_8' ) ) {
 }
 
 /**
- * Updates the comment type for avatars in the WordPress REST API.
+ * Updates the comment type for avatars in the FinPress REST API.
  *
  * This function adds the 'block_comment' type to the list of comment types
- * for which avatars should be retrieved in the WordPress REST API.
+ * for which avatars should be retrieved in the FinPress REST API.
  *
  * @param array $comment_type The array of comment types.
  * @return array The updated array of comment types.
@@ -43,9 +43,9 @@ if ( ! function_exists( 'update_get_avatar_comment_type' ) ) {
  * Excludes block comments from the admin comments query.
  *
  * This function modifies the comments query to exclude comments of type 'block_comment'
- * when the query is for comments in the WordPress admin.
+ * when the query is for comments in the FinPress admin.
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb FinPress database abstraction object.
  *
  * @param WP_Comment_Query $query The current comments query.
  *

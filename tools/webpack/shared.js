@@ -7,7 +7,7 @@ const TerserPlugin = require( 'terser-webpack-plugin' );
 const postcss = require( 'postcss' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 const ReadableJsAssetsWebpackPlugin = require( '@finpress/readable-js-assets-webpack-plugin' );
 

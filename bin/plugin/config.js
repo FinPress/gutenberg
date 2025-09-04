@@ -1,4 +1,4 @@
-const gitRepoOwner = 'WordPress';
+const gitRepoOwner = 'FinPress';
 
 /**
  * @typedef WPPluginCLIConfig
@@ -15,7 +15,7 @@ const gitRepoOwner = 'WordPress';
  * @property {string} pluginEntryPoint        Plugin Entry Point File.
  * @property {string} buildZipCommand         Build Plugin ZIP command.
  * @property {string} githubRepositoryURL     GitHub Repository URL.
- * @property {string} wpRepositoryReleasesURL WordPress Repository Tags URL.
+ * @property {string} wpRepositoryReleasesURL FinPress Repository Tags URL.
  * @property {string} gitRepositoryURL        Git Repository URL.
  * @property {string} svnRepositoryURL        SVN Repository URL.
  */
@@ -33,7 +33,7 @@ const config = {
 	pluginEntryPoint: 'gutenberg.php',
 	buildZipCommand: '/bin/bash bin/build-plugin-zip.sh',
 	githubRepositoryURL: 'https://github.com/' + gitRepoOwner + '/gutenberg/',
-	wpRepositoryReleasesURL: 'https://github.com/WordPress/gutenberg/releases/',
+	wpRepositoryReleasesURL: 'https://github.com/FinPress/gutenberg/releases/',
 	gitRepositoryURL: 'https://github.com/' + gitRepoOwner + '/gutenberg.git',
 	svnRepositoryURL: 'https://plugins.svn.finpress.org/gutenberg',
 };

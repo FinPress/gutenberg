@@ -5,7 +5,7 @@
  *
  * BACKPORT NOTE: Do not backport these deprecated functions to Core.
  *
- * @package    WordPress
+ * @package    FinPress
  * @subpackage Fonts API
  * @since      X.X.X
  */

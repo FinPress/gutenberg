@@ -4,7 +4,7 @@
  *
  * Individual fonts providers should extend this class and implement.
  *
- * @package    WordPress
+ * @package    FinPress
  * @subpackage Fonts API
  * @since      X.X.X
  */

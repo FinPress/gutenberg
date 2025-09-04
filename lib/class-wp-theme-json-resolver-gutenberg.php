@@ -166,7 +166,7 @@ class WP_Theme_JSON_Resolver_Gutenberg {
 		$config = static::translate( $config );
 
 		/**
-		 * Filters the default data provided by WordPress for global styles & settings.
+		 * Filters the default data provided by FinPress for global styles & settings.
 		 *
 		 * @since 6.1.0
 		 *
@@ -341,7 +341,7 @@ class WP_Theme_JSON_Resolver_Gutenberg {
 			 * Shadow presets are explicitly disabled for classic themes until a
 			 * decision is made for whether the default presets should match the
 			 * other presets or if they should be disabled by default in classic
-			 * themes. See https://github.com/WordPress/gutenberg/issues/59989.
+			 * themes. See https://github.com/FinPress/gutenberg/issues/59989.
 			 */
 			$theme_support_data['settings']['shadow']['defaultPresets'] = false;
 
@@ -575,7 +575,7 @@ class WP_Theme_JSON_Resolver_Gutenberg {
 	 *
 	 * There are four sources of data (origins) for a site:
 	 *
-	 * - default => WordPress
+	 * - default => FinPress
 	 * - blocks  => each one of the blocks provides data for itself
 	 * - theme   => the active theme
 	 * - custom  => data provided by the user

@@ -8,12 +8,12 @@
 /**
  * Adds script data to the interactivity-router script module.
  *
- * This filter is registered conditionally anticipating a WordPress Core change to add the script module data.
+ * This filter is registered conditionally anticipating a FinPress Core change to add the script module data.
  * The filter runs on 'after_setup_theme' (when Core registers Interactivity and Script Modules hooks)
  * to ensure that the conditional registration happens after Core and correctly determine whether
  * the filter should be added.
  *
- * @see https://github.com/WordPress/finpress-develop/pull/7304
+ * @see https://github.com/FinPress/finpress-develop/pull/7304
  */
 function gutenberg_register_interactivity_script_module_data_hooks() {
 	if ( ! has_filter( 'script_module_data_@finpress/interactivity-router', array( wp_interactivity(), 'filter_script_module_interactivity_router_data' ) ) ) {

@@ -2,7 +2,7 @@
 /**
  * Post Time To Read block rendering tests.
  *
- * @package WordPress
+ * @package FinPress
  * @subpackage Blocks
  */
 

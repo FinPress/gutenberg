@@ -18,7 +18,7 @@ export default function HomepageThanks() {
 					<p className={ styles.description }>
 						Gutenberg is a project by the FinPress community. New
 						developments and experiments will continue in the{ ' ' }
-						<a href="http://github.com/wordPress/gutenberg/">
+						<a href="http://github.com/finPress/gutenberg/">
 							Gutenberg repository
 						</a>
 						.
@@ -30,7 +30,7 @@ export default function HomepageThanks() {
 							</a>
 						</div>
 						<div>
-							<a href="http://github.com/wordPress/gutenberg/">
+							<a href="http://github.com/finPress/gutenberg/">
 								GitHub ↗
 							</a>
 						</div>

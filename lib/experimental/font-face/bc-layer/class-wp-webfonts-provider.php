@@ -9,7 +9,7 @@
  * using the previous API, it exists to prevent breakages, giving
  * developers time to upgrade their code.
  *
- * @package    WordPress
+ * @package    FinPress
  * @subpackage Fonts API
  * @since      X.X.X
  */

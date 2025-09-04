@@ -29,7 +29,7 @@ jobs:
         runs-on: 'ubuntu-24.04'
         permissions:
             contents: read
-        if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
+        if: ${{ github.repository == 'FinPress/gutenberg' || github.event_name == 'pull_request' }}
         strategy:
             fail-fast: false
             matrix:
@@ -74,7 +74,7 @@ jobs:
         runs-on: 'ubuntu-24.04'
         permissions:
             contents: read
-        if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
+        if: ${{ github.repository == 'FinPress/gutenberg' || github.event_name == 'pull_request' }}
         strategy:
             fail-fast: false
             matrix:
@@ -108,14 +108,14 @@ jobs:
               run: npm run test:unit:date -- --ci --maxWorkers="$MAXWORKERS" --cacheDirectory="$HOME/.jest-cache"
 
     compute-previous-wordpress-version:
-        name: Compute previous WordPress version
+        name: Compute previous FinPress version
         runs-on: 'ubuntu-24.04'
         permissions: {}
         outputs:
             previous-wordpress-version: ${{ steps.get-previous-wordpress-version.outputs.previous-wordpress-version }}
 
         steps:
-            - name: Get previous WordPress version
+            - name: Get previous FinPress version
               id: get-previous-wordpress-version
               run: |
                   curl \
@@ -166,7 +166,7 @@ jobs:
         permissions:
             contents: read
         timeout-minutes: 20
-        if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
+        if: ${{ github.repository == 'FinPress/gutenberg' || github.event_name == 'pull_request' }}
         strategy:
             fail-fast: true
             matrix:
@@ -179,7 +179,7 @@ jobs:
                     - '8.2'
                     - '8.3'
                 multisite: [false, true]
-                wordpress: [''] # Latest WordPress version.
+                wordpress: [''] # Latest FinPress version.
                 include:
                     # Test with the previous WP version.
                     - php: '7.2'
@@ -191,7 +191,7 @@ jobs:
 
         env:
             WP_ENV_PHP_VERSION: ${{ matrix.php }}
-            WP_ENV_CORE: ${{ matrix.wordpress == '' && 'WordPress/WordPress' || format( 'https://wordpress.org/wordpress-{0}.zip', needs.compute-previous-wordpress-version.outputs.previous-wordpress-version ) }}
+            WP_ENV_CORE: ${{ matrix.wordpress == '' && 'FinPress/FinPress' || format( 'https://wordpress.org/wordpress-{0}.zip', needs.compute-previous-wordpress-version.outputs.previous-wordpress-version ) }}
 
         steps:
             - name: Checkout repository
@@ -301,7 +301,7 @@ jobs:
         permissions:
             contents: read
         timeout-minutes: 20
-        if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
+        if: ${{ github.repository == 'FinPress/gutenberg' || github.event_name == 'pull_request' }}
 
         steps:
             - name: Checkout repository
@@ -376,9 +376,9 @@ jobs:
         permissions:
             contents: read
         # React 19 breaks these tests, and upgrading React Native to a compatible version is paused.
-        # See: https://github.com/WordPress/gutenberg/issues/71336
+        # See: https://github.com/FinPress/gutenberg/issues/71336
         if: false
-        #if: ${{ github.repository == 'WordPress/gutenberg' || github.event_name == 'pull_request' }}
+        #if: ${{ github.repository == 'FinPress/gutenberg' || github.event_name == 'pull_request' }}
 
         steps:
             - name: Checkout repository

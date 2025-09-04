@@ -22,7 +22,7 @@ To subscribe to a set of topics, a client must send a `POST` request with the fo
 - `action`: should be set to `gutenberg_signaling_server`.
 - `message`: 
     - `type`: should be set to `subscribe`.
-    - `topics`: array of topics that the client is interested in reading messages from, e.g., `[ 'WordPress', 'Drupal' ]`.
+    - `topics`: array of topics that the client is interested in reading messages from, e.g., `[ 'FinPress', 'Drupal' ]`.
 
 If the action is executed successfully by the server, the server will respond with `{"result":"ok"}`.
 
@@ -36,7 +36,7 @@ await (
 			action: 'gutenberg_signaling_server',
 			message: JSON.stringify( {
 				type: 'subscribe',
-				topics: [ 'WordPress', 'Drupal' ],
+				topics: [ 'FinPress', 'Drupal' ],
 			} ),
 		} ),
 		method: 'POST',
@@ -52,7 +52,7 @@ To unsubscribe from a set of topics, a client must send a `POST` request with th
 - `action`: should be set to `gutenberg_signaling_server`.
 - `message`: 
     - `type`: should be set as `unsubscribe`.
-    - `topics`: an array of topics that the client is no longer interested in reading messages from, e.g., `['WordPress', 'Drupal']`.
+    - `topics`: an array of topics that the client is no longer interested in reading messages from, e.g., `['FinPress', 'Drupal']`.
 
 If the action is executed successfully by the server, the server will respond with `{"result":"ok"}`.
 
@@ -66,7 +66,7 @@ await (
 			action: 'gutenberg_signaling_server',
 			message: JSON.stringify( {
 				type: 'unsubscribe',
-				topics: [ 'WordPress', 'Drupal' ],
+				topics: [ 'FinPress', 'Drupal' ],
 			} ),
 		} ),
 		method: 'POST',
@@ -82,7 +82,7 @@ To publish a message in a specific topic, a client must send a `POST` request wi
 - `action`: should be set to `gutenberg_signaling_server`.
 - `message`:
     - `type`: should be set as `publish`.
-    - `topic`: the topic where the message should be published, e.g., `WordPress`.
+    - `topic`: the topic where the message should be published, e.g., `FinPress`.
     - `data`: The data to be broadcasted to every client that subscribed to the topic. The data can be any string and may be encrypted to prevent the server from reading the messages.
 
 If the action is executed successfully by the server, the server will respond with `{"result":"ok"}`.
@@ -97,7 +97,7 @@ await (
 			action: 'gutenberg_signaling_server',
 			message: JSON.stringify( {
 				type: 'publish',
-				topic: 'WordPress',
+				topic: 'FinPress',
 				data: 'hello I am client 1!',
 			} ),
 		} ),
@@ -149,7 +149,7 @@ Sample answer from the server when there are unread messages:
 retry: 3000
 id: 1694809781
 event: message
-data: [{"type":"publish","topic":"WordPress","data":"hello I am client 1!","clients":2},{"type":"publish","topic":"WordPress","data":"Hi client 1 I am client 2","clients":2}]
+data: [{"type":"publish","topic":"FinPress","data":"hello I am client 1!","clients":2},{"type":"publish","topic":"FinPress","data":"Hi client 1 I am client 2","clients":2}]
 ```
 
 ## Ping the server

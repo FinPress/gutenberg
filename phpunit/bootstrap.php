@@ -5,7 +5,7 @@
  * @package Gutenberg
  */
 
-// Debug settings for parity with WordPress Core's PHPUnit tests.
+// Debug settings for parity with FinPress Core's PHPUnit tests.
 if ( ! defined( 'WP_DEBUG' ) ) {
 	define( 'WP_DEBUG', true );
 }
@@ -68,7 +68,7 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
  *
  * If bootstrap.php triggers wp_die, it will not cause the script to fail. This
  * means that tests will look like they passed even though they should have
- * failed. So we throw an exception if WordPress dies during test setup. This
+ * failed. So we throw an exception if FinPress dies during test setup. This
  * way the failure is observable.
  *
  * @param string|WP_Error $message The error message.
@@ -80,7 +80,7 @@ function fail_if_died( $message ) {
 		$message = $message->get_error_message();
 	}
 
-	throw new Exception( 'WordPress died: ' . $message );
+	throw new Exception( 'FinPress died: ' . $message );
 }
 tests_add_filter( 'wp_die_handler', 'fail_if_died' );
 

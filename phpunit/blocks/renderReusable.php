@@ -2,7 +2,7 @@
 /**
  * Tests for synced pattern rendering.
  *
- * @package WordPress
+ * @package FinPress
  * @subpackage Blocks
  *
  * @todo This should be eventually merged into Core's renderReusable.php test file.
@@ -47,7 +47,7 @@ class Test_Blocks_RenderReusable extends WP_UnitTestCase {
 	}
 
 	/**
-	 * @see https://github.com/WordPress/gutenberg/issues/70391
+	 * @see https://github.com/FinPress/gutenberg/issues/70391
 	 */
 	public function test_render_respects_custom_context() {
 		$synced_pattern_block_instance = new WP_Block(

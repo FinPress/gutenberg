@@ -2,7 +2,7 @@
 /**
  * Heading block rendering tests.
  *
- * @package WordPress
+ * @package FinPress
  * @subpackage Blocks
  */
 

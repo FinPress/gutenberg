@@ -29,7 +29,7 @@ const RESULTS_FILE_SUFFIX = '.performance-results.json';
  * @property {boolean=} ci          Run on CI.
  * @property {number=}  rounds      Run each test suite this many times for each branch.
  * @property {string=}  testsBranch The branch whose performance test files will be used for testing.
- * @property {string=}  wpVersion   The WordPress version to be used as the base install for testing.
+ * @property {string=}  wpVersion   The FinPress version to be used as the base install for testing.
  */
 
 /**
@@ -248,7 +248,7 @@ async function runPerformanceTests( branches, options ) {
 	if ( ! runningInCI ) {
 		log(
 			formats.warning(
-				'\nIn order to run the tests, the tool is going to load a WordPress environment on ports 8888 and 8889.' +
+				'\nIn order to run the tests, the tool is going to load a FinPress environment on ports 8888 and 8889.' +
 					'\nMake sure these ports are not used before continuing.\n'
 			)
 		);
@@ -404,7 +404,7 @@ async function runPerformanceTests( branches, options ) {
 						WP_DEBUG: false,
 						SCRIPT_DEBUG: false,
 					},
-					core: wpZipUrl || 'WordPress/WordPress',
+					core: wpZipUrl || 'FinPress/FinPress',
 					plugins: [ buildDir ],
 					themes: [ path.join( testRunnerDir, 'test/emptytheme' ) ],
 					env: {
@@ -454,10 +454,10 @@ async function runPerformanceTests( branches, options ) {
 		logAtIndent(
 			1,
 			'Using:',
-			formats.success( `WordPress v${ options.wpVersion }` )
+			formats.success( `FinPress v${ options.wpVersion }` )
 		);
 	} else {
-		logAtIndent( 1, 'Using:', formats.success( 'WordPress trunk' ) );
+		logAtIndent( 1, 'Using:', formats.success( 'FinPress trunk' ) );
 	}
 
 	const wpEnvPath = path.join( testRunnerDir, 'node_modules/.bin/wp-env' );

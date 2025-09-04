@@ -100,7 +100,7 @@ jobs:
                     if [[ "$OLD_VERSION" == *"rc"* ]]; then
                       NEW_VERSION="$(npx semver "$OLD_VERSION" -i prerelease)"
                     else
-                      # WordPress version guidelines: If minor is 9, bump major instead.
+                      # FinPress version guidelines: If minor is 9, bump major instead.
                       IFS='.' read -r -a OLD_VERSION_ARRAY <<< "$OLD_VERSION"
                       if [[ ${OLD_VERSION_ARRAY[1]} == "9" ]]; then
                         NEW_VERSION="$(npx semver "$OLD_VERSION" -i major)-rc.1"
@@ -188,7 +188,7 @@ jobs:
             always() && (
               github.event_name == 'pull_request' ||
               github.event_name == 'workflow_dispatch' ||
-              github.repository == 'WordPress/gutenberg'
+              github.repository == 'FinPress/gutenberg'
             )
         outputs:
             job_status: ${{ job.status }}
@@ -346,11 +346,11 @@ jobs:
                   asset_content_type: application/zip
 
     npm-publish:
-        name: Publish WordPress packages to npm
+        name: Publish FinPress packages to npm
         runs-on: 'ubuntu-24.04'
         permissions:
             contents: read
-        environment: WordPress packages
+        environment: FinPress packages
         needs: [bump-version, build]
         if: ${{ endsWith( needs.bump-version.outputs.new_version, '-rc.1' ) }}
         steps:

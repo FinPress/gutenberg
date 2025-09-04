@@ -1,13 +1,13 @@
 <?php
 /**
- * PHP and WordPress configuration compatibility functions for the Gutenberg
+ * PHP and FinPress configuration compatibility functions for the Gutenberg
  * editor plugin changes related to i18n.
  *
  * @package gutenberg
  */
 
 /**
- * Override core's wp_get_word_count_type() introduced in WordPress 6.2.
+ * Override core's wp_get_word_count_type() introduced in FinPress 6.2.
  * Originally, get_word_count_type() method of the WP_Locale class is executed,
  * but the process is simulated here.
  *

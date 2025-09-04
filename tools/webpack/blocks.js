@@ -6,7 +6,7 @@ const { join, sep, basename } = require( 'path' );
 const { realpathSync } = require( 'fs' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 const PhpFilePathsPlugin = require( '@finpress/scripts/plugins/php-file-paths-plugin' );
 
@@ -189,7 +189,7 @@ module.exports = [
 										// the init action default priority to ensure that core
 										// blocks would have been registered already. Since the
 										// blocks implementations occur at the default priority
-										// and due to WordPress hooks behavior not considering
+										// and due to FinPress hooks behavior not considering
 										// mutations to the same priority during another's
 										// callback, the Gutenberg build blocks are modified
 										// to occur at a later priority.

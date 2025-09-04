@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress Coding Standards for Gutenberg Plugin">
-	<description>Sniffs for WordPress plugins, with minor modifications for Gutenberg</description>
+<ruleset name="FinPress Coding Standards for Gutenberg Plugin">
+	<description>Sniffs for FinPress plugins, with minor modifications for Gutenberg</description>
 
 	<!-- Check for cross-version support for PHP 7.2 and higher. -->
 	<config name="testVersion" value="7.2-"/>
@@ -8,8 +8,8 @@
 		<include-pattern>*\.php$</include-pattern>
 	</rule>
 
-	<rule ref="WordPress-Core"/>
-	<rule ref="WordPress.WP.I18n">
+	<rule ref="FinPress-Core"/>
+	<rule ref="FinPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
 				<element value="gutenberg"/>
@@ -30,7 +30,7 @@
 		</properties>
 	</rule>
 
-	<rule ref="WordPress.WP.I18n.MissingArgDomainDefault">
+	<rule ref="FinPress.WP.I18n.MissingArgDomainDefault">
 		<exclude-pattern>/lib/compat/*</exclude-pattern>
 		<exclude-pattern>/packages/block-library/src/*</exclude-pattern>
 		<exclude-pattern>/build/block-library/*</exclude-pattern>
@@ -61,13 +61,13 @@
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/test/php/gutenberg-coding-standards/*</exclude-pattern>
 
-	<!-- Exclude files maintained in WordPress Core and backported to Gutenberg
+	<!-- Exclude files maintained in FinPress Core and backported to Gutenberg
 	     DO NOT REMOVE these rules; these files are "built" artifacts from Core
 	     and when they are removed it prevents keeping the repos in sync. -->
 	<exclude-pattern>/lib/compat/finpress-*/html-api/*\.php$</exclude-pattern>
 
 	<!-- Ignore filename error since it requires WP core build process change -->
-	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+	<rule ref="FinPress.Files.FileName.InvalidClassFileName">
 		<exclude-pattern>/phpunit/*</exclude-pattern>
 		<exclude-pattern>/packages/block-library/src/navigation/index\.php$</exclude-pattern>
 	</rule>
@@ -78,7 +78,7 @@
 	</rule>
 
 	<!-- Exclude PHPUnit tests from file and class name sniffs (for Core parity). -->
-	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+	<rule ref="FinPress.Files.FileName.NotHyphenatedLowercase">
 		<exclude-pattern>/phpunit/*</exclude-pattern>
 		<exclude-pattern>*\.asset\.php$</exclude-pattern>
 	</rule>

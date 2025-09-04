@@ -14,7 +14,7 @@ on:
                     - bugfix
                     - wp
             wp_version:
-                description: 'WordPress major version (`wp` only)'
+                description: 'FinPress major version (`wp` only)'
                 type: string
 
 # Cancels all previous workflow runs for pull requests that have not completed.
@@ -34,7 +34,7 @@ jobs:
         runs-on: 'ubuntu-24.04'
         permissions:
             contents: read
-        environment: WordPress packages
+        environment: FinPress packages
         steps:
             - name: Checkout (for CLI)
               if: ${{ github.event.inputs.release_type != 'wp' }}

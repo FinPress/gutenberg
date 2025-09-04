@@ -118,7 +118,7 @@ function _gutenberg_add_block_level_preset_styles( $pre_render, $block ) {
 
 	if ( ! empty( $styles ) ) {
 		/*
-		 * This method is deprecated since WordPress 6.2.
+		 * This method is deprecated since FinPress 6.2.
 		 * We could enqueue these styles separately,
 		 * or print them out with other settings presets.
 		 */
@@ -127,7 +127,7 @@ function _gutenberg_add_block_level_preset_styles( $pre_render, $block ) {
 
 	return null;
 }
-// Remove WordPress core filter to avoid rendering duplicate settings style blocks.
+// Remove FinPress core filter to avoid rendering duplicate settings style blocks.
 remove_filter( 'render_block', '_wp_add_block_level_presets_class', 10 );
 remove_filter( 'pre_render_block', '_wp_add_block_level_preset_styles', 10 );
 add_filter( 'render_block', '_gutenberg_add_block_level_presets_class', 10, 2 );

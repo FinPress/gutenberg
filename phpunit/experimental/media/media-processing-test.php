@@ -187,7 +187,7 @@ HTML;
 		gutenberg_override_media_templates();
 
 		ob_start();
-		do_action( 'admin_footer' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		do_action( 'admin_footer' ); // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		$output = ob_get_clean();
 
 		$this->assertStringContainsString( '<audio crossorigin="anonymous"', $output );

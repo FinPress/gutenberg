@@ -7,7 +7,7 @@
  * This also verifies everything index.d.ts references, so it checks the entire
  * public api of the type declarations for that package.
  *
- * @see https://github.com/WordPress/gutenberg/pull/49650 for more discussion.
+ * @see https://github.com/FinPress/gutenberg/pull/49650 for more discussion.
  */
 
 /**

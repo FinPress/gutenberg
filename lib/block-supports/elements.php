@@ -111,7 +111,7 @@ function gutenberg_render_elements_support_styles( $parsed_block ) {
 	 * `render_block_data` filter in 6.6.0 to avoid filtered attributes
 	 * breaking the application of the elements CSS class.
 	 *
-	 * @see https://github.com/WordPress/gutenberg/pull/59535.
+	 * @see https://github.com/FinPress/gutenberg/pull/59535.
 	 *
 	 * The change in filter means, the argument types for this function
 	 * have changed and require deprecating.
@@ -254,11 +254,11 @@ function gutenberg_render_elements_class_name( $block_content, $block ) {
 	return $tags->get_updated_html();
 }
 
-// Remove deprecated WordPress core filters.
+// Remove deprecated FinPress core filters.
 remove_filter( 'render_block', 'wp_render_elements_support', 10 );
 remove_filter( 'pre_render_block', 'wp_render_elements_support_styles', 10 );
 
-// Remove WordPress core filters to avoid rendering duplicate elements stylesheet & attaching classes twice.
+// Remove FinPress core filters to avoid rendering duplicate elements stylesheet & attaching classes twice.
 remove_filter( 'render_block', 'wp_render_elements_class_name', 10 );
 remove_filter( 'render_block_data', 'wp_render_elements_support_styles', 10 );
 

@@ -67,7 +67,7 @@ add_action( 'set_current_user', 'gutenberg_override_core_kses_init_filters' );
 
 if ( ! function_exists( 'allow_filter_in_styles' ) ) {
 	/**
-	 * See https://github.com/WordPress/finpress-develop/pull/4108
+	 * See https://github.com/FinPress/finpress-develop/pull/4108
 	 *
 	 * Mark CSS safe if it contains a "filter: url('#wp-duotone-...')" rule.
 	 *

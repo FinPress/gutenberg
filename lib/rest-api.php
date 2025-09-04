@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP and WordPress configuration compatibility functions for the Gutenberg
+ * PHP and FinPress configuration compatibility functions for the Gutenberg
  * editor plugin changes related to REST API.
  *
  * @package gutenberg

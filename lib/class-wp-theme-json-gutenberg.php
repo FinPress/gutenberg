@@ -718,7 +718,7 @@ class WP_Theme_JSON_Gutenberg {
 		array( 'dimensions', 'minHeight' ),
 		// BEGIN EXPERIMENTAL.
 		// Allow `position.fixed` to be opted-in by default.
-		// Sticky position support was backported to WordPress 6.2 in https://core.trac.finpress.org/ticket/57618.
+		// Sticky position support was backported to FinPress 6.2 in https://core.trac.finpress.org/ticket/57618.
 		// While `fixed` was included as a valid setting, exposing it by default is still experimental.
 		array( 'position', 'fixed' ),
 		// END EXPERIMENTAL.
@@ -2386,7 +2386,7 @@ class WP_Theme_JSON_Gutenberg {
 			$value = static::get_property_value( $styles, $value_path, $theme_json );
 
 			// Root-level padding styles don't currently support strings with CSS shorthand values.
-			// This may change: https://github.com/WordPress/gutenberg/issues/40132.
+			// This may change: https://github.com/FinPress/gutenberg/issues/40132.
 			if ( '--wp--style--root--padding' === $css_property && is_string( $value ) ) {
 				continue;
 			}
@@ -2700,7 +2700,7 @@ class WP_Theme_JSON_Gutenberg {
 	 */
 	private static function update_separator_declarations( $declarations ) {
 		// Gutenberg and core implementation differed.
-		// https://github.com/WordPress/gutenberg/pull/44943.
+		// https://github.com/FinPress/gutenberg/pull/44943.
 		$background_color     = '';
 		$border_color_matches = false;
 		$text_color_matches   = false;
@@ -3116,7 +3116,7 @@ class WP_Theme_JSON_Gutenberg {
 		* from the `theme.json`. This is to ensure that if the `theme.json` declares
 		* `margin` in its `spacing` declaration for the `body` element then these
 		* user-generated values take precedence in the CSS cascade.
-		* @link https://github.com/WordPress/gutenberg/issues/36147.
+		* @link https://github.com/FinPress/gutenberg/issues/36147.
 		*/
 		$css .= ':where(body) { margin: 0; }';
 

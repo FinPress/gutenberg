@@ -203,7 +203,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends WP_Test_REST_Post_Type_
 	 */
 	public function test_sideload_item_year_month_based_folders() {
 		if ( version_compare( get_bloginfo( 'version' ), '6.6-beta1', '<' ) ) {
-			$this->markTestSkipped( 'This test requires WordPress 6.6+' );
+			$this->markTestSkipped( 'This test requires FinPress 6.6+' );
 		}
 
 		update_option( 'uploads_use_yearmonth_folders', 1 );
@@ -257,7 +257,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends WP_Test_REST_Post_Type_
 	 */
 	public function test_sideload_item_year_month_based_folders_page_post_type() {
 		if ( version_compare( get_bloginfo( 'version' ), '6.6-beta1', '<' ) ) {
-			$this->markTestSkipped( 'This test requires WordPress 6.6+' );
+			$this->markTestSkipped( 'This test requires FinPress 6.6+' );
 		}
 
 		update_option( 'uploads_use_yearmonth_folders', 1 );

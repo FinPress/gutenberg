@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a bug with the WordPress block editor or Gutenberg plugin
+description: Report a bug with the FinPress block editor or Gutenberg plugin
 labels: ['[Type] Bug']
 body:
     - type: markdown
@@ -43,7 +43,7 @@ body:
           description: |
               Please list what Gutenberg version you are using. If you aren't using Gutenberg, please note that it's not installed.
           placeholder: |
-              - WordPress version, Gutenberg version, and active Theme you are using.
+              - FinPress version, Gutenberg version, and active Theme you are using.
               - Browser(s) are you seeing the problem on.
               - Device you are using and operating system (e.g. "Desktop with Windows 10", "iPhone with iOS 14", etc.).
       validations:
@@ -53,7 +53,7 @@ body:
       id: existing
       attributes:
           label: Please confirm that you have searched existing issues in the repo.
-          description: You can do this by searching https://github.com/WordPress/gutenberg/issues and making sure the bug is not related to another plugin.
+          description: You can do this by searching https://github.com/FinPress/gutenberg/issues and making sure the bug is not related to another plugin.
           options:
               - label: 'Yes'
                 required: true

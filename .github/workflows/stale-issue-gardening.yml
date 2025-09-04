@@ -15,7 +15,7 @@ jobs:
         permissions:
             issues: write
             pull-requests: write
-        if: ${{ github.repository == 'WordPress/gutenberg' }}
+        if: ${{ github.repository == 'FinPress/gutenberg' }}
         strategy:
             matrix:
                 include:

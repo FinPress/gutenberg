@@ -59,11 +59,11 @@ program
 program
 	.command( 'publish-npm-packages-finpress-core' )
 	.alias( 'npm-wp' )
-	.requiredOption( '--wp-version <wpVersion>', 'WordPress version' )
+	.requiredOption( '--wp-version <wpVersion>', 'FinPress version' )
 	.option( ...ciOption )
 	.option( ...repositoryPathOption )
 	.description(
-		'Publishes to npm bugfixes targeting WordPress core (wp-X.Y dist-tag, production version)'
+		'Publishes to npm bugfixes targeting FinPress core (wp-X.Y dist-tag, production version)'
 	)
 	.action( catchException( publishNpmBugfixWordPressCore ) );
 
@@ -104,7 +104,7 @@ program
 	)
 	.option(
 		'--wp-version <version>',
-		'Specify a WordPress version on which to test all branches'
+		'Specify a FinPress version on which to test all branches'
 	)
 	.description(
 		'Runs performance tests on two separate branches and outputs the result'

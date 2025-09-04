@@ -45,7 +45,7 @@ const pluginConfig = require( '../config' );
  * @property {boolean} [ci]             Disables interactive mode when executed in CI mode.
  * @property {string}  [repositoryPath] Relative path to the git repository.
  * @property {SemVer}  [semver]         The selected semantic versioning. Defaults to `patch`.
- * @property {string}  [wpVersion]      The major WordPress version number, example: `6.0`.
+ * @property {string}  [wpVersion]      The major FinPress version number, example: `6.0`.
  */
 
 /**
@@ -167,7 +167,7 @@ async function updatePackages( config ) {
 
 	if ( releaseType === 'wp' ) {
 		log(
-			'>> Skipping CHANGELOG files processing when targeting WordPress core.'
+			'>> Skipping CHANGELOG files processing when targeting FinPress core.'
 		);
 		return;
 	}
@@ -506,7 +506,7 @@ async function backportCommitsToBranch(
 }
 
 /**
- * Runs WordPress packages release.
+ * Runs FinPress packages release.
  *
  * @param {WPPackagesConfig} config         Command config.
  * @param {string[]}         customMessages Custom messages to print in the terminal.
@@ -516,9 +516,9 @@ async function backportCommitsToBranch(
 async function runPackagesRelease( config, customMessages ) {
 	log(
 		formats.title(
-			'\n💃 Time to publish WordPress packages to npm 🕺\n\n'
+			'\n💃 Time to publish FinPress packages to npm 🕺\n\n'
 		),
-		"To perform a release you'll have to be a member of the WordPress Team on npm.\n",
+		"To perform a release you'll have to be a member of the FinPress Team on npm.\n",
 		...customMessages
 	);
 
@@ -593,8 +593,8 @@ async function runPackagesRelease( config, customMessages ) {
 	);
 
 	log(
-		'\n>> 🎉 WordPress packages are now published!\n\n',
-		'Let also people know on WordPress Slack and celebrate together.'
+		'\n>> 🎉 FinPress packages are now published!\n\n',
+		'Let also people know on FinPress Slack and celebrate together.'
 	);
 }
 
@@ -639,7 +639,7 @@ function getConfig(
  */
 async function publishNpmGutenbergPlugin( options ) {
 	await runPackagesRelease( getConfig( 'latest', options ), [
-		'Welcome! This tool helps with npm publishing a new latest version of WordPress packages synced from the Gutenberg plugin.\n',
+		'Welcome! This tool helps with npm publishing a new latest version of FinPress packages synced from the Gutenberg plugin.\n',
 	] );
 }
 
@@ -650,19 +650,19 @@ async function publishNpmGutenbergPlugin( options ) {
  */
 async function publishNpmBugfixLatest( options ) {
 	await runPackagesRelease( getConfig( 'bugfix', options ), [
-		'Welcome! This tool helps with npm publishing a new bugfix version of WordPress packages.\n',
+		'Welcome! This tool helps with npm publishing a new bugfix version of FinPress packages.\n',
 		'Make sure that all required changes have been already cherry-picked to the `wp/latest` release branch.\n',
 	] );
 }
 
 /**
- * Publishes to npm bugfixes targeting WordPress core (wp-X.Y dist-tag, production version).
+ * Publishes to npm bugfixes targeting FinPress core (wp-X.Y dist-tag, production version).
  *
  * @param {WPPackagesCommandOptions} options Command options.
  */
 async function publishNpmBugfixWordPressCore( options ) {
 	await runPackagesRelease( getConfig( 'wp', options ), [
-		'Welcome! This tool helps with npm publishing a new bugfix version of WordPress packages targeting WordPress core.\n',
+		'Welcome! This tool helps with npm publishing a new bugfix version of FinPress packages targeting FinPress core.\n',
 		'Make sure that all required changes have been already cherry-picked to the `wp/X.Y` release branch.\n',
 	] );
 }
@@ -674,7 +674,7 @@ async function publishNpmBugfixWordPressCore( options ) {
  */
 async function publishNpmNext( options ) {
 	await runPackagesRelease( getConfig( 'next', options ), [
-		'Welcome! This tool helps with npm publishing a development version of WordPress packages.\n',
+		'Welcome! This tool helps with npm publishing a development version of FinPress packages.\n',
 	] );
 }
 

@@ -58,7 +58,7 @@ function filterPackages( pkg ) {
 }
 
 /**
- * Returns the absolute path of all WordPress packages
+ * Returns the absolute path of all FinPress packages
  *
  * @return {Array} Package paths
  */

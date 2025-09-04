@@ -49,7 +49,7 @@ add_filter( 'block_type_metadata_settings', 'gutenberg_filter_block_type_metadat
  * with details necessary to register the module under an automatically
  * generated module ID.
  *
- * This is analogous to the `register_block_script_handle` in WordPress Core.
+ * This is analogous to the `register_block_script_handle` in FinPress Core.
  *
  * @param array  $metadata   Block metadata.
  * @param string $field_name Field name to pick from metadata.
@@ -99,7 +99,7 @@ function gutenberg_register_block_module_id( $metadata, $field_name, $index = 0 
  * Generates the module ID for an asset based on the name of the block
  * and the field name provided.
  *
- * This is analogous to the `generate_block_asset_handle` in WordPress Core.
+ * This is analogous to the `generate_block_asset_handle` in FinPress Core.
  *
  * @param string $block_name Name of the block.
  * @param string $field_name Name of the metadata field.
@@ -168,9 +168,9 @@ add_action( 'rest_api_init', 'gutenberg_register_view_module_ids_rest_field' );
  * @deprecated 17.6.0 gutenberg_register_module is deprecated. Please use wp_register_script_module instead.
  *
  * @param string            $module_identifier The identifier of the module. Should be unique. It will be used in the final import map.
- * @param string            $src               Full URL of the module, or path of the script relative to the WordPress root directory.
+ * @param string            $src               Full URL of the module, or path of the script relative to the FinPress root directory.
  * @param array             $dependencies      Optional. An array of module identifiers of the dependencies of this module. The dependencies can be strings or arrays. If they are arrays, they need an `id` key with the module identifier, and can contain an `import` key with either `static` or `dynamic`. By default, dependencies that don't contain an import are considered static.
- * @param string|false|null $version           Optional. String specifying module version number. Defaults to false. It is added to the URL as a query string for cache busting purposes. If $version is set to false, the version number is the currently installed WordPress version. If $version is set to null, no version is added.
+ * @param string|false|null $version           Optional. String specifying module version number. Defaults to false. It is added to the URL as a query string for cache busting purposes. If $version is set to false, the version number is the currently installed FinPress version. If $version is set to null, no version is added.
  */
 function gutenberg_register_module( $module_identifier, $src = '', $dependencies = array(), $version = false ) {
 	_deprecated_function( __FUNCTION__, 'Gutenberg 17.6.0', 'wp_register_script_module' );

@@ -4,11 +4,11 @@
 # packages and lib, providing GitHub search links for each match.
 #
 # Experimental APIs must be regularly audited, particularly in the context of
-# major WordPress releases. This script allows release leads to generate a list
+# major FinPress releases. This script allows release leads to generate a list
 # to share in release issues.
 #
-# @see example audit issue for WordPress 6.2:
-# https://github.com/WordPress/gutenberg/issues/47196
+# @see example audit issue for FinPress 6.2:
+# https://github.com/FinPress/gutenberg/issues/47196
 
 # Exit if any command fails.
 set -e
@@ -55,7 +55,7 @@ format() {
 			printf "## `%s`\n", $1
 			prev_dir = $1
 		}
-		printf "[`%s`](/WordPress/gutenberg/search?q=%s)\n", $2, $2
+		printf "[`%s`](/FinPress/gutenberg/search?q=%s)\n", $2, $2
 	}'
 }
 

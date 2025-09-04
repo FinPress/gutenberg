@@ -716,7 +716,7 @@ class WP_Style_Engine_Test extends WP_UnitTestCase {
 	/**
 	 * Tests returning a generated stylesheet from a set of duotone rules.
 	 *
-	 * This is testing this fix: https://github.com/WordPress/gutenberg/pull/49004
+	 * This is testing this fix: https://github.com/FinPress/gutenberg/pull/49004
 	 *
 	 * @covers ::wp_style_engine_get_stylesheet_from_css_rules
 	 * @covers WP_Style_Engine_Gutenberg::compile_stylesheet_from_css_rules

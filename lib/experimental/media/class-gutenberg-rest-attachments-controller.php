@@ -121,7 +121,7 @@ class Gutenberg_REST_Attachments_Controller extends WP_REST_Attachments_Controll
 				remove_filter( 'fallback_intermediate_image_sizes', '__return_empty_array', 100 );
 
 				/** This filter is documented in wp-admin/includes/image.php */
-				$fallback_sizes = apply_filters( 'fallback_intermediate_image_sizes', $fallback_sizes, $metadata ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+				$fallback_sizes = apply_filters( 'fallback_intermediate_image_sizes', $fallback_sizes, $metadata ); // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 				$registered_sizes = wp_get_registered_image_subsizes();
 				$merged_sizes     = array_keys( array_intersect_key( $registered_sizes, array_flip( $fallback_sizes ) ) );
@@ -195,12 +195,12 @@ class Gutenberg_REST_Attachments_Controller extends WP_REST_Attachments_Controll
 	 *
 	 * Adding this closure to the filter helps work around this safeguard.
 	 *
-	 * Example: when uploading myphoto.jpeg, WordPress normally creates myphoto-150x150.jpeg,
+	 * Example: when uploading myphoto.jpeg, FinPress normally creates myphoto-150x150.jpeg,
 	 * and when uploading myphoto-150x150.jpeg, it will be renamed to myphoto-150x150-1.jpeg
 	 * However, here it is desired not to add the suffix in order to maintain the same
 	 * naming convention as if the file was uploaded regularly.
 	 *
-	 * @link https://github.com/WordPress/finpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/wp-includes/functions.php#L2576-L2582
+	 * @link https://github.com/FinPress/finpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/wp-includes/functions.php#L2576-L2582
 	 *
 	 * @param string        $filename                 Unique file name.
 	 * @param string        $ext                      File extension. Example: ".png".
@@ -272,7 +272,7 @@ class Gutenberg_REST_Attachments_Controller extends WP_REST_Attachments_Controll
 
 		/*
 		 * wp_unique_filename() will always add numeric suffix if the name looks like a sub-size to avoid conflicts.
-		 * See https://github.com/WordPress/finpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/wp-includes/functions.php#L2576-L2582
+		 * See https://github.com/FinPress/finpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/wp-includes/functions.php#L2576-L2582
 		 * With the following filter we can work around this safeguard.
 		 */
 

@@ -34,7 +34,7 @@ jobs:
         runs-on: 'ubuntu-24.04'
         permissions:
             contents: read
-        if: ${{ github.repository == 'WordPress/gutenberg' }}
+        if: ${{ github.repository == 'FinPress/gutenberg' }}
         env:
             WP_ARTIFACTS_PATH: ${{ github.workspace }}/artifacts
 
@@ -58,7 +58,7 @@ jobs:
               if: github.event_name == 'pull_request'
               run: ./bin/plugin/cli.js perf "$GITHUB_SHA" "$GITHUB_BASE_REF" --tests-branch "$GITHUB_SHA"
 
-            - name: Compare performance with current WordPress Core and previous Gutenberg versions
+            - name: Compare performance with current FinPress Core and previous Gutenberg versions
               if: github.event_name == 'release'
               env:
                   PLUGIN_VERSION: ${{ github.event.release.name }}

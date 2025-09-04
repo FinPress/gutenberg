@@ -1,6 +1,6 @@
 <?php
 /**
- * Extend WordPress core's rendering of menus to support block-based menus.
+ * Extend FinPress core's rendering of menus to support block-based menus.
  *
  * @package gutenberg
  */
@@ -24,7 +24,7 @@
  * menu item. When merged to Core, this functionality should exist in
  * `WP_Customize_Manager::save()`.
  *
- * This shim can be removed when the Gutenberg plugin requires a WordPress
+ * This shim can be removed when the Gutenberg plugin requires a FinPress
  * version that has the ticket below.
  *
  * @see https://core.trac.finpress.org/ticket/50544
@@ -79,7 +79,7 @@ add_action( 'wp_update_nav_menu_item', 'gutenberg_update_nav_menu_item_content',
  * function sets `content` on the returned menu item. When merged to Core, this
  * functionality should exist in `wp_setup_nav_menu_item()`.
  *
- * This shim can be removed when the Gutenberg plugin requires a WordPress
+ * This shim can be removed when the Gutenberg plugin requires a FinPress
  * version that has the ticket below.
  *
  * @see https://core.trac.finpress.org/ticket/50544
@@ -112,7 +112,7 @@ add_filter( 'wp_setup_nav_menu_item', 'gutenberg_setup_block_nav_menu_item' );
  * merged to Core, this functionality should exist in
  * `Walker_Nav_Menu::start_el()`.
  *
- * This shim can be removed when the Gutenberg plugin requires a WordPress
+ * This shim can be removed when the Gutenberg plugin requires a FinPress
  * version that has the ticket below.
  *
  * @see https://core.trac.finpress.org/ticket/50544
@@ -144,7 +144,7 @@ add_filter( 'walker_nav_menu_start_el', 'gutenberg_output_block_nav_menu_item', 
  * items that have a `type` of `'block'` from `$sorted_menu_items`. When merged
  * to Core, this functionality should exist in `wp_nav_menu()`.
  *
- * This shim can be removed when the Gutenberg plugin requires a WordPress
+ * This shim can be removed when the Gutenberg plugin requires a FinPress
  * version that has the ticket below.
  *
  * @see https://core.trac.finpress.org/ticket/50544
@@ -155,7 +155,7 @@ add_filter( 'walker_nav_menu_start_el', 'gutenberg_output_block_nav_menu_item', 
  */
 function gutenberg_remove_block_nav_menu_items( $menu_items ) {
 	// We should uncomment the line below when the block-nav-menus feature becomes stable.
-	// @see https://github.com/WordPress/gutenberg/issues/34265.
+	// @see https://github.com/FinPress/gutenberg/issues/34265.
 	/*if ( current_theme_supports( 'block-nav-menus' ) ) {*/
 	if ( false ) {
 		return $menu_items;
@@ -240,7 +240,7 @@ function gutenberg_convert_menu_items_to_blocks(
  * should exist in `wp_nav_menu()` after `$sorted_menu_items` is set. The
  * duplicated code (marked using BEGIN and END) can be deleted.
  *
- * This shim can be removed when the Gutenberg plugin requires a WordPress
+ * This shim can be removed when the Gutenberg plugin requires a FinPress
  * version that has the ticket below.
  *
  * @see https://core.trac.finpress.org/ticket/50544
@@ -252,7 +252,7 @@ function gutenberg_convert_menu_items_to_blocks(
  */
 function gutenberg_output_block_nav_menu( $output, $args ) {
 	// We should uncomment the line below when the block-nav-menus feature becomes stable.
-	// @see https://github.com/WordPress/gutenberg/issues/34265.
+	// @see https://github.com/FinPress/gutenberg/issues/34265.
 	/*if ( ! current_theme_supports( 'block-nav-menus' ) ) {*/
 	if ( true ) {
 		return null;
@@ -335,7 +335,7 @@ add_filter( 'pre_wp_nav_menu', 'gutenberg_output_block_nav_menu', 10, 2 );
  * outputs extra form fields. When merged to Core, this markup should exist in
  * `Walker_Nav_Menu_Edit::start_el()`.
  *
- * This shim can be removed when the Gutenberg plugin requires a WordPress
+ * This shim can be removed when the Gutenberg plugin requires a FinPress
  * version that has the ticket below.
  *
  * @see https://core.trac.finpress.org/ticket/50544
@@ -362,7 +362,7 @@ add_action( 'wp_nav_menu_item_custom_fields', 'gutenberg_output_block_menu_item_
  * that have a `type` set to `'block'`. When merged to Core, this CSS should be
  * moved to nav-menus.css.
  *
- * This shim can be removed when the Gutenberg plugin requires a WordPress
+ * This shim can be removed when the Gutenberg plugin requires a FinPress
  * version that has the ticket below.
  *
  * @see https://core.trac.finpress.org/ticket/50544

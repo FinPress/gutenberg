@@ -5,7 +5,7 @@ const { join } = require( 'path' );
 const { readdirSync } = require( 'node:fs' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 const DependencyExtractionWebpackPlugin = require( '@finpress/dependency-extraction-webpack-plugin' );
 
